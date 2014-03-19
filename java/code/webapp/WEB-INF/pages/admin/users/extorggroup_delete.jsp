@@ -9,18 +9,18 @@
     <bean:message key="extgroup.jsp.delete.name" arg0="${group.label}"/>
   </rhn:toolbar>
 
-  <rhn:dialogmenu mindepth="0" maxdepth="2" definition="/WEB-INF/nav/admin_user.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+  <rhn:dialogmenu mindepth="0" maxdepth="2" definition="/WEB-INF/nav/systemgroup_config.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
   <div class="page-summary">
     <p><bean:message key="extgroup.jsp.delete.summary"/></p>
   </div>
 
-  <html:form method="post" action="/admin/multiorg/ExtGroupDelete.do?gid=${gid}" styleClass="form-horizontal">
+  <html:form method="post" action="/users/ExtAuthSgDelete.do?gid=${gid}" styleClass="form-horizontal">
     <rhn:csrf />
     <rhn:submitted/>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h2><bean:message key="extgroup.jsp.header"/></h2>
+        <h2><bean:message key="extorggroup.jsp.header"/></h2>
       </div>
       <div class="panel-body">
         <div class="form-group">
@@ -33,10 +33,10 @@
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">
-            <bean:message key="userdetails.jsp.roles"/>
+            <bean:message key="System Groups"/>
           </label>
           <div class="col-lg-6">
-            <c:out value="${group.roleNames}" />
+            <c:out value="${group.serverGroupsName}" />
           </div>
         </div>
       </div>

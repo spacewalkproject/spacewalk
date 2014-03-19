@@ -24,11 +24,11 @@
         <rhn:dialogmenu mindepth="0" maxdepth="2" definition="/WEB-INF/nav/systemgroup_config.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
         <div class="page-summary">
-            <p><bean:message key="extgroups.jsp.summary"/></p>
-            <p><bean:message key="extgroup.jsp.summary"/></p>
+            <p><bean:message key="extorggroups.jsp.summary"/></p>
+            <p><bean:message key="extorggroup.jsp.summary"/></p>
         </div>
         <div class="panel-heading">
-            <h4><bean:message key="extgroup.jsp.header"/></h4>
+            <h4><bean:message key="extorggroup.jsp.header"/></h4>
         </div>
 
             <html:form method="post" action="/users/ExtAuthSgDetails.do?gid=${gid}" styleClass="form-horizontal">

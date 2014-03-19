@@ -21,7 +21,7 @@
     <h4><bean:message key="extorggroup.jsp.header"/></h4>
 </div>
 <div class="panel-body">
-    <p><bean:message key="extorggroup.jsp.summary"/></p>
+    <p><bean:message key="extorggroups.jsp.summary"/></p>
 </div>
 
 <rl:listset name="groupSystemGroupsSet">

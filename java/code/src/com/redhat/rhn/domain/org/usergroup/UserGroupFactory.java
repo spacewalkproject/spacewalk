@@ -155,7 +155,7 @@ public class UserGroupFactory extends HibernateFactory {
      * delete UserExtGroup object
      * @param extGroup external group
      */
-    public static void delete(UserExtGroup extGroup) {
+    public static void delete(ExtGroup extGroup) {
         singleton.removeObject(extGroup);
     }
 

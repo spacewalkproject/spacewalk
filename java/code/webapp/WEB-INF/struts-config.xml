@@ -5768,6 +5768,19 @@
                path="/users/ExtAuthSgMapping.do" redirect="true" />
     </action>
 
+    <action path="/users/ExtAuthSgDelete"
+        scope="request"
+        name="extOrgGroupForm"
+        input="/WEB-INF/pages/admin/users/extorggroup_delete.jsp"
+        type="com.redhat.rhn.frontend.action.user.ExtAuthSgDeleteAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <set-property property="acls" value="user_role(org_admin)"/>
+      <forward name="default" path="/WEB-INF/pages/admin/users/extorggroup_delete.jsp" />
+      <forward name="success"
+               path="/users/ExtAuthSgMapping.do" redirect="true" />
+    </action>
+
     <action path="/multiorg/channels/OrgList"
         scope="request"
         input="/WEB-INF/pages/multiorg/channels/orglist.jsp"

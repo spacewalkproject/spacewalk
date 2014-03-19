@@ -8438,6 +8438,9 @@ Please note that some manual configuration of these scripts may still be require
         <source>Update External Group - {0}</source>
       </trans-unit>
       <trans-unit id="extgroup.jsp.delete">
+        <source>Delete External Group</source>
+      </trans-unit>
+      <trans-unit id="extgroup.jsp.delete.name">
         <source>Delete External Group - {0}</source>
       </trans-unit>
       <trans-unit id="extgroup.jsp.delete.summary">
@@ -8446,8 +8449,11 @@ Please note that some manual configuration of these scripts may still be require
       <trans-unit id="extorggroup.jsp.header">
         <source>External Group to System Groups Mapping</source>
       </trans-unit>
-      <trans-unit id="extorggroup.jsp.summary">
+      <trans-unit id="extorggroups.jsp.summary">
         <source>Externally authenticated users may have set external groups. Newly created users become administrators of selected System Groups according to the external group membership.</source>
+      </trans-unit>
+      <trans-unit id="extorggroup.jsp.summary">
+        <source>Define what System Groups shall be associated with the specified external group.</source>
       </trans-unit>
       <trans-unit id="distchannelmap.jsp.create">
         <source>Create New Distribution Channel Map</source>
