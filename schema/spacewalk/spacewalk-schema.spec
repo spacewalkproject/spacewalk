@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.12
+Version:        2.2.13
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Mar 19 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.13-1
+- schema upgrade for web_contact_log
+
 * Tue Mar 18 2014 Tomas Lestach <tlestach@redhat.com> 2.2.12-1
 - add rhnUserExtGroup table dependency
 
