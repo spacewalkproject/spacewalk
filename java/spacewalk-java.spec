@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.21
+Version: 2.2.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 20 2014 Stephen Herr <sherr@redhat.com> 2.2.22-1
+- Updating ant task definitions to work better on new OS's:
+- fix finding of the right API method to call
+
 * Tue Mar 18 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.21-1
 - SHA-256 to be used for creating session key
 
