@@ -18,6 +18,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             insert="false" update="false" />
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false" />
-
     </class>
+
+    <query name="UserGroupMembers.deleteTemporary">
+        <![CDATA[DELETE FROM com.redhat.rhn.domain.org.usergroup.UserGroupMembers as ugs
+                  where ugs.temporary = 'Y']]>
+    </query>
 </hibernate-mapping>

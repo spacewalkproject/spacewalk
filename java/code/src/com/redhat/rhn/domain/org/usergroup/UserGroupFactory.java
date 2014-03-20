@@ -187,6 +187,17 @@ public class UserGroupFactory extends HibernateFactory {
     }
 
     /**
+     * deletes all temporary roles across the whole satellite
+     * (users across all the orgs)
+     * @return number of removed roles
+     */
+    public static int deleteTemporaryRoles() {
+        return HibernateFactory.getSession()
+        .getNamedQuery("UserGroupMembers.deleteTemporary")
+        .executeUpdate();
+    }
+
+    /**
      * save UserGroupMembers object
      * @param ugmIn user group member
      */
