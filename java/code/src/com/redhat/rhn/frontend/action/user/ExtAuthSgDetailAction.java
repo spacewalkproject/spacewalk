@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.user;
 
+import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.usergroup.OrgUserExtGroup;
 import com.redhat.rhn.domain.org.usergroup.UserGroupFactory;
@@ -24,6 +25,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -32,8 +34,10 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.util.LabelValueBean;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +49,9 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ExtAuthSgDetailAction extends RhnAction {
+
+    private static final String VALIDATION_XSD =
+            "/com/redhat/rhn/frontend/action/user/validation/extGroupForm.xsd";
 
     /** {@inheritDoc} */
     @Override
@@ -65,8 +72,16 @@ public class ExtAuthSgDetailAction extends RhnAction {
         }
 
         if (ctx.isSubmitted()) {
-            String label = (String) form.get("extGroupLabel");
+            ValidatorResult result = RhnValidationHelper.validate(this.getClass(),
+                    makeValidationMap(form), null,
+                    VALIDATION_XSD);
+            if (!result.isEmpty()) {
+                getStrutsDelegate().saveMessages(request, result);
+                setupSystemGroups(request, user, extGroup, form);
+                return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+            }
 
+            String label = (String) form.get("extGroupLabel");
             String[] selectedSgs = form.getStrings("selected_sgs");
 
             Set <ServerGroup>sgs = new HashSet<ServerGroup>();
@@ -102,6 +117,12 @@ public class ExtAuthSgDetailAction extends RhnAction {
         // not submitted
         setupSystemGroups(request, user, extGroup, form);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    private Map makeValidationMap(DynaActionForm form) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("label", (String) form.get("extGroupLabel"));
+        return map;
     }
 
     /**
