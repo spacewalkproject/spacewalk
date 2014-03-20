@@ -539,9 +539,9 @@ class UploadClass(uploadLib.UploadClass):
 
         try:
             h = uploadLib.get_header(package, source=self.options.source)
-        except uploadLib.InvalidPackageError, e:
+        except uploadLib.UploadError, e:
             # GS: MALFORMED PACKAGE
-            print "Unable to load package", package
+            print "Unable to load package", package, ":", e
             return None
 
         if hasattr(h, 'packaging'):
