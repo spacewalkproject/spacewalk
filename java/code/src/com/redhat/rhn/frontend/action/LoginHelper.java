@@ -19,9 +19,11 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.common.SatConfigFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.org.usergroup.OrgUserExtGroup;
 import com.redhat.rhn.domain.org.usergroup.UserExtGroup;
 import com.redhat.rhn.domain.org.usergroup.UserGroupFactory;
 import com.redhat.rhn.domain.role.Role;
+import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
@@ -36,6 +38,7 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -82,7 +85,8 @@ public class LoginHelper {
             String email = decodeFromIso88591(
                     (String) request.getAttribute("REMOTE_USER_EMAIL"), null);
 
-            Set<Role> roles = getRolesFromExtGroups(request);
+            Set<String> extGroups = getExtGroups(request);
+            Set<Role> roles = getRolesFromExtGroups(extGroups);
 
             log.warn("REMOTE_USER_GROUPS: " +
                     request.getAttribute("REMOTE_USER_GROUPS"));
@@ -136,6 +140,7 @@ public class LoginHelper {
                     }
                 }
                 if (newUserOrg != null) {
+                    Set<ServerGroup> sgs = getSgsFromExtGroups(extGroups, newUserOrg);
                     CreateUserCommand createCmd = new CreateUserCommand();
                     createCmd.setLogin(remoteUserString);
                     // set a password, that cannot really be used
@@ -145,6 +150,7 @@ public class LoginHelper {
                     createCmd.setEmail(email);
                     createCmd.setOrg(newUserOrg);
                     createCmd.setTemporaryRoles(roles);
+                    createCmd.setServerGroups(sgs);
                     createCmd.validate();
                     createCmd.storeNewUser();
                     remoteUser = createCmd.getUser();
@@ -175,8 +181,37 @@ public class LoginHelper {
         return defaultString;
     }
 
-    private static Set<Role> getRolesFromExtGroups(HttpServletRequest requestIn) {
+    private static Set<Role> getRolesFromExtGroups(Set<String> groupNames) {
         Set<Role> roles = new HashSet<Role>();
+        for (String extGroupName : groupNames) {
+            UserExtGroup extGroup = UserGroupFactory.lookupExtGroupByLabel(extGroupName);
+            if (extGroup == null) {
+                log.info("No role mapping defined for external group '" + extGroupName +
+                        "'.");
+                continue;
+            }
+            roles.addAll(extGroup.getRoles());
+        }
+        return roles;
+    }
+
+    private static Set<ServerGroup> getSgsFromExtGroups(Set<String> groupNames, Org org) {
+        Set<ServerGroup> sgs = new HashSet<ServerGroup>();
+        for (String extGroupName : groupNames) {
+            OrgUserExtGroup extGroup =
+                    UserGroupFactory.lookupOrgExtGroupByLabelAndOrg(extGroupName, org);
+            if (extGroup == null) {
+                log.info("No sg mapping defined for external group '" + extGroupName +
+                        "'.");
+                continue;
+            }
+            sgs.addAll(extGroup.getServerGroups());
+        }
+        return sgs;
+    }
+
+    private static Set<String> getExtGroups(HttpServletRequest requestIn) {
+        Set<String> extGroups = new HashSet<String>();
         Long nGroups = null;
         String nGroupsStr = (String) requestIn.getAttribute("REMOTE_USER_GROUP_N");
         if (nGroupsStr != null) {
@@ -189,7 +224,7 @@ public class LoginHelper {
         }
         if (nGroups == null) {
             log.warn("REMOTE_USER_GROUP_N not set!");
-            return roles;
+            return extGroups;
         }
         for (int i = 1; i <= nGroups; i++) {
             String extGroupName = (String) requestIn.getAttribute("REMOTE_USER_GROUP_" + i);
@@ -197,14 +232,10 @@ public class LoginHelper {
                 log.warn("REMOTE_USER_GROUP_" + i + " not set!");
                 continue;
             }
-            UserExtGroup extGroup = UserGroupFactory.lookupExtGroupByLabel(extGroupName);
-            if (extGroup == null) {
-                log.warn("No mapping defined for external group '" + extGroupName + "'.");
-                continue;
-            }
-            roles.addAll(extGroup.getRoles());
+            extGroups.add(extGroupName);
+
         }
-        return roles;
+        return extGroups;
     }
 
     /** static method shared by LoginAction and LoginSetupAction

@@ -24,11 +24,13 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
+import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.Address;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.events.NewUserEvent;
+
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -54,6 +56,7 @@ public class CreateUserCommand {
     private boolean makeOrgAdmin;
     private boolean makeSatAdmin;
     private Set<Role> temporaryRoles = new HashSet<Role>();
+    private Set<ServerGroup> serverGroups = new HashSet<ServerGroup>();
 
     private List<ValidatorError> errors;
     private List<ValidatorError> passwordErrors;
@@ -144,11 +147,19 @@ public class CreateUserCommand {
         user.setUsePamAuthentication(usePam); //set it back
         UserManager.resetTemporaryRoles(user, temporaryRoles);
         if (org.getOrgConfig().isCreateDefaultSg()) {
-            // create default system group for the user
-            ManagedServerGroup sg = ServerGroupFactory.create(user.getLogin(),
-                    user.getLogin() + " default system group", user.getOrg());
+            ManagedServerGroup sg = ServerGroupFactory.lookupByNameAndOrg(
+                    user.getLogin(), user.getOrg());
+            if (sg == null) {
+                // create default system group for the user
+                sg = ServerGroupFactory.create(user.getLogin(),
+                        user.getLogin() + " default system group", user.getOrg());
+            }
             UserManager.grantServerGroupPermission(user, sg.getId());
             user.setDefaultSystemGroupIds(new HashSet<Long>(Arrays.asList(sg.getId())));
+        }
+        // assign server groups permissions
+        for (ServerGroup sg : serverGroups) {
+            UserManager.grantServerGroupPermission(user, sg.getId());
         }
         UserManager.storeUser(user); //save the user via hibernate
     }
@@ -409,5 +420,19 @@ public class CreateUserCommand {
      */
     public void setTemporaryRoles(Set<Role> rolesIn) {
         temporaryRoles = rolesIn;
+    }
+
+    /**
+     * @return Returns the Server Groups.
+     */
+    public Set<ServerGroup> getServerGroups() {
+        return serverGroups;
+    }
+
+    /**
+     * @param sgsIn The Server Groups to set.
+     */
+    public void setServerGroups(Set<ServerGroup> sgsIn) {
+        serverGroups = sgsIn;
     }
 }
