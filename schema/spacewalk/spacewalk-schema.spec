@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.14
+Version:        2.2.15
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Mar 20 2014 Tomas Lestach <tlestach@redhat.com> 2.2.15-1
+- upgrade scripts shall end with semicolon
+
 * Wed Mar 19 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.14-1
 - fixing web_contact schema upgrade script
 
