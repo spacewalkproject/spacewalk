@@ -130,7 +130,7 @@ def validateSatCert(certFilename, verbosity=0):
     # nuke temp cert
     os.unlink(certTmpFile)
 
-    if err.find('verify err') != -1 or ret:
+    if err.find('Ohhhh jeeee: ... this is a bug') != -1 or err.find('verify err') != -1 or ret:
         msg = "%s Entitlement Certificate failed to validate.\n" % PRODUCT_NAME
         msg = msg + "MORE INFORMATION:\n"
         msg = msg + "  Return value: %s\n" % ret +\
