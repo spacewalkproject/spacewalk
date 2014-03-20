@@ -182,7 +182,7 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             Class[] types = currMethod.getParameterTypes();
             for (int i = 0; i < types.length; i++) {
                 //if we find a param that doesn't match, go to the next method
-                if (!types[i].equals(params.get(i).getClass())) {
+                if (!types[i].isAssignableFrom(params.get(i).getClass())) {
                     break;
                 }
                 //if we have gone through all of the params, and are here it is a
