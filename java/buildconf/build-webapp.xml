@@ -28,6 +28,12 @@
     </exec>
   </target>
 
+  <target name="symlink-file">
+    <!--echo message="symlinking ${symlink-resource} to ${symlink-link}"/-->
+    <symlink failonerror="${symlink-failonerror}" link="${symlink-link}"
+      resource="${symlink-resource}"/>
+  </target>
+
   <target name="create-webapp-dir" depends="init-taskdefs,clean-webapp-dir,apidoc-jsp"
           description="Creates a local webapp structure easily reloadable in Tomcat.">
 
@@ -40,33 +46,29 @@
 
      
     <!--
-      - The for task takes each item in the fileset placing
-      - it in the jspfiles parameter.  Then it calls the
-      - tasks within the sequential block.
+      - The foreach task takes each item in the fileset placing
+      - it in the param property.  Then it calls the
+      - specified targer.
       -->
-    <for param="jspfiles">
+    <foreach param="symlink-resource" target="symlink-file">
       <path>
         <fileset dir="${src.dir}/webapp" includes="*.jsp" />
       </path>
-      <sequential>
-        <symlink failonerror="false" link="${webapp.dir}"
-                 resource="@{jspfiles}"/>
-      </sequential>
-    </for>
+      <param name="symlink-failonerror" value="false"/>
+      <param name="symlink-link" value="${webapp.dir}"/>
+    </foreach>
 
-    <for param="xmlfiles">
+    <foreach param="symlink-resource" target="symlink-file">
       <path>
         <fileset dir="${src.dir}/webapp/WEB-INF">
           <include name="*.xml" />
         </fileset>
       </path>
-      <sequential>
-        <symlink failonerror="false" link="${webapp.dir}/WEB-INF"
-                 resource="@{xmlfiles}"/>
-      </sequential>
-    </for>
+      <param name="symlink-link" value="${webapp.dir}/WEB-INF"/>
+      <param name="symlink-failonerror" value="false"/>
+    </foreach>
 
-    <for param="externaljar">
+    <foreach param="symlink-resource" target="symlink-file">
       <path>
         <fileset dir="${run-external.lib.dir}">
           <!--
@@ -81,29 +83,23 @@
           <exclude name="**/servlet*" />
         </fileset>
       </path>
-      <sequential>
-        <symlink link="${webapp.dir}/WEB-INF/lib"
-                 resource="@{externaljar}"/>
-      </sequential>
-    </for>
+      <param name="symlink-failonerror" value="true"/>
+      <param name="symlink-link" value="${webapp.dir}/WEB-INF/lib"/>
+    </foreach>
 
-    <for param="apidoc">
+    <foreach param="symlink-resource" target="symlink-file">
       <path>
         <dirset dir="${report.dir}/apidocs/jsp/handlers/" />
       </path>
-      <sequential>
-        <symlink link="${webapp.dir}/apidoc/"
-                 resource="@{apidoc}"/>
-      </sequential>
-    </for>
+      <param name="symlink-link" value="${webapp.dir}/apidoc/"/>
+      <param name="symlink-failonerror" value="true"/>
+    </foreach>
 
-    <for param="apidoc">
+    <foreach param="symlink-resource" target="symlink-file">
       <fileset dir="${report.dir}/apidocs/jsp/" includes="*.jsp" />
-      <sequential>
-        <symlink link="${webapp.dir}/apidoc/"
-                 resource="@{apidoc}"/>
-      </sequential>
-    </for>
+      <param name="symlink-link" value="${webapp.dir}/apidoc/"/>
+      <param name="symlink-failonerror" value="true"/>
+    </foreach>
 
     <symlink overwrite="true" link="${webapp.dir}/newlogin"
              resource="${src.dir}/webapp/newlogin"/>

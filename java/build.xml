@@ -4,8 +4,9 @@
   Spacewalk build file, please indent 2 spaces. NO TABS!
 -->
 <project name="RHN" default="all" basedir=".">
+  <property name="ivy.14.compatible" value="true"/>
   <available file="/usr/share/java/tomcat6" type="dir" property="tomcat" value="tomcat6" />
-  <available file="/usr/share/java/tomcat" type="dir" property="tomcat" value="tomcat7" />
+  <available file="/usr/share/java/tomcat" type="dir" property="tomcat" value="tomcat" />
   <property name="tomcat" value="tomcat5" />
   <echo message="Importing buildconf/build-props-${tomcat}.xml" />
   <import file="buildconf/build-props-${tomcat}.xml" />
