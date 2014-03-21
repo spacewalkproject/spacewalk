@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.15
+Version:        2.2.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Mar 21 2014 Tomas Lestach <tlestach@redhat.com> 2.2.16-1
+- create rhnOrgExtGroupMapping triggers
+- change rhnUserExtGroup unique index
+
 * Thu Mar 20 2014 Tomas Lestach <tlestach@redhat.com> 2.2.15-1
 - upgrade scripts shall end with semicolon
 
