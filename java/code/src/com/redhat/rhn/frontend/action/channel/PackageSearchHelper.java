@@ -127,22 +127,20 @@ public class PackageSearchHelper {
         Map<Long, PackageOverview> pidToPackageMap =
                 new HashMap<Long, PackageOverview>();
 
-        List<String> namesList = new ArrayList<String>();
+        Set<String> namesSet = new HashSet<String>();
 
         // Get a list of package names from PackageOverview, to verify against the
         // names returned by the search server.
         for (PackageOverview po : unsorted) {
             pidToPackageMap.put(po.getId(), po);
-            if (!namesList.contains(po.getPackageName())) {
-                namesList.add(po.getPackageName());
-            }
+            namesSet.add(po.getPackageName());
         }
 
         // We got an error looking up a package name, it is most likely caused
         // by the search server giving us data which doesn't map into what is
         // in our database.  This could happen if the search indexes are formed
         // for a different database instance.
-        if (!names.containsAll(namesList)) {
+        if (!names.containsAll(namesSet)) {
             throw new SearchServerIndexException();
         }
 
