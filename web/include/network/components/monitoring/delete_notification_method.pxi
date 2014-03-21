@@ -28,17 +28,17 @@
 
 <rhn-if-method-dependencies value="false">
   <div class="page-summary">
-    <p>Delete Notification Method: <strong><rhn-contact-method-name /></strong></p>
-  </div>
-    <div align="right">
-      <hr />
-      <pxt-form method="post">
-        <pxt-hidden name="cmid" />
-        <input type="hidden" name="success_redirect" value="index.pxt?uid={formvar:uid}" />
+    <div class="alert alert-danger">Delete Notification Method: <strong><rhn-contact-method-name /></strong></div>
+</div>
+<div class="pull-right">
+    <hr />
+    <pxt-form method="post">
+	<pxt-hidden name="cmid" />
+	<input type="hidden" name="success_redirect" value="index.pxt?uid={formvar:uid}" />
         <input type="hidden" name="pxt:trap" value="rhn:contact-method-delete-cb" />
-        <input class="btn btn-success" type="submit" name="delete_cm_confirm" value="Confirm Deletion" />
-      </pxt-form>
-    </div>
+	<input class="btn btn-danger" type="submit" name="delete_cm_confirm" value="Confirm Deletion" />
+    </pxt-form>
+</div>
 </rhn-if-method-dependencies>
 
 </pxt-passthrough>

@@ -13,53 +13,53 @@
   ${requestScope.snippet.displayName}
 </rhn:toolbar>
 
-<h2><bean:message key="snippetdetails.jsp.header2"/></h2>
+<form role="form" class="form-horizontal">
+    <fieldset>
+	<legend><h2><bean:message key="snippetdetails.jsp.header2"/></h2></legend>
+	    <div class="form-group">
+	    <label class="col-sm-2 control-label">
+		<bean:message key="cobbler.snippet.path"/>:
+	    </label>
+	    <div class="col-sm-6">
+		<c:out value="${requestScope.snippet.displayPath}"/><br/>
+		<p class="help-block"><rhn:tooltip key="cobbler.snippet.path.tip"/></p>
+	    </div>
+	    </div>
+	    <div class="form-group">
+	    <label class="col-sm-2 control-label">
+		<bean:message key="cobbler.snippet.macro"/>:
+	    </label>
+	    <div class="col-sm-6">
+		<c:out value="${requestScope.snippet.fragment}"/><br/>
+		<p class="help-block"><rhn:tooltip key="cobbler.snippet.copy-paste-snippet-tip"/></p>
+	    </div>
+	    </div>
+	    <div class="form-group">
+	    <label class="col-sm-2 control-label">
+		<bean:message key="cobbler.snippet.type"/>:
+	    </label>
+	    <div class="col-sm-6">
+		<bean:message key="cobbler.snippet.default"/><br />
+		<p class="help-block"><rhn:tooltip key ="cobbler.snippet.default.tip"/></p>
+	    </div>
+	    </div>
+    </fieldset>
+</form>
+<form role="form" class="form-horizontal">
+    <fieldset>
+	<legend><h2><bean:message key="snippetcreate.jsp.contents.header"/></h2></legend>
+    
+	<div class="form-group">
+    	    <label class="col-sm-2 control-label">
+	    	<bean:message key="snippetcreate.jsp.contents"/>:
+    	    </label>
+	    <div class="col-sm-6">
+    	    	<textarea style="resize:none" class="form-control col-sm-6" rows="24" disabled><c:out value="${data}" escapeXml="true"/>""</textarea>
+	    </div>
+	</div>
 
-<div>
-    <table class="details">
-    <tr>
-        <th>
-            <bean:message key="cobbler.snippet.path"/>:
-        </th>
-        <td>
-        		<c:out value="${requestScope.snippet.displayPath}"/> <br/>
-    				<rhn:tooltip key="cobbler.snippet.path.tip"/>
-        </td>
-     </tr>
-     <tr>
-        <th>
-            <bean:message key="cobbler.snippet.macro"/>:
-        </th>
-        <td>
-        		<c:out value="${requestScope.snippet.fragment}"/> <br/>
-        		<rhn:tooltip key="cobbler.snippet.copy-paste-snippet-tip"/>
-        </td>
-     </tr>
-
-     <tr>
-        <th>
-            <bean:message key="cobbler.snippet.type"/>:
-        </th>
-        <td>
-				<bean:message key="cobbler.snippet.default"/><br/>
-            <rhn:tooltip key ="cobbler.snippet.default.tip"/>
-        </td>
-     </tr>
-     </table>
-    <h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>
-
-    <table  class="details">
-    <tr>
-        <th>
-            <bean:message key="snippetcreate.jsp.contents"/>
-        </th>
-        <td>
-                       <pre  class="file-display"><c:out value="${data}" escapeXml="true"/>""</pre>
-       </td>
-    </tr>
-    </table>
-</div>
-
+    </fieldset>
+</form>
 </body>
 </html:html>
 

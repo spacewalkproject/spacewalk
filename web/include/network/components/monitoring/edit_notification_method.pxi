@@ -9,25 +9,25 @@
 
 <pxt-formvar>
 
-<div class="toolbar"><rhn-deletion-link url="delete_confirm.pxt?cmid={formvar:cmid}" type="method" /></div>
+<div class="toolbar pull-right"><rhn-deletion-link url="delete_confirm.pxt?cmid={formvar:cmid}" type="method" /></div>
 <div class="page-summary">
   <p>Edit this notification method using the form provided.</p>
 </div>
 
 <pxt-include-late file="/network/components/message_queues/local.pxi" />
 
-    <pxt-form method="post">
+    <pxt-form method="post" class="form-horizontal">
 
 <rhn-contact-method-edit-form>
 
       <table class="details">
         <tr>
           <th>Method Name:</th>
-          <td><input type="text" size="30" name="method_name" value="{method_name}" maxlength="20" /></td>
+          <td><input type="text" size="30" name="method_name" value="{method_name}" maxlength="20" class="form-control" /></td>
         </tr>
         <tr>
           <th>Email:</th>
-          <td><input type="text" size="30" name="method_email" value="{method_email}" maxlength="50" /></td>
+          <td><input type="text" size="30" name="method_email" value="{method_email}" maxlength="50" class="form-control" /></td>
         </tr>
         <tr>
           <th>Message Format:</th>
