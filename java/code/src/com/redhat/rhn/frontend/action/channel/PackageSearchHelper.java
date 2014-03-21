@@ -121,22 +121,28 @@ public class PackageSearchHelper {
         List<PackageOverview> unsorted =
                 PackageFactory.packageSearch(pids, arList, relevantUserId, filterChannelId,
                         searchType);
+
         List<PackageOverview> ordered = new ArrayList<PackageOverview>();
 
-        Map<String, PackageOverview> nameToPackageMap =
-                new HashMap<String, PackageOverview>();
-        Set<String> alreadyAddedNames = new HashSet<String>();
+        Map<Long, PackageOverview> pidToPackageMap =
+                new HashMap<Long, PackageOverview>();
 
-        // we need to be able to look up the PackageOverview by its name
+        List<String> namesList = new ArrayList<String>();
+
+        // Get a list of package names from PackageOverview, to verify against the
+        // names returned by the search server.
         for (PackageOverview po : unsorted) {
-            nameToPackageMap.put(po.getPackageName(), po);
+            pidToPackageMap.put(po.getId(), po);
+            if (!namesList.contains(po.getPackageName())) {
+                namesList.add(po.getPackageName());
+            }
         }
 
         // We got an error looking up a package name, it is most likely caused
         // by the search server giving us data which doesn't map into what is
         // in our database.  This could happen if the search indexes are formed
         // for a different database instance.
-        if (!names.containsAll(nameToPackageMap.keySet())) {
+        if (!names.containsAll(namesList)) {
             throw new SearchServerIndexException();
         }
 
@@ -144,11 +150,9 @@ public class PackageSearchHelper {
         // to the return list in the order they appear in the search results.
         for (Object resultObject : results) {
             Map result = (Map) resultObject;
-            String name = (String) result.get("name");
-            if (!alreadyAddedNames.contains(name) &&
-                    nameToPackageMap.keySet().contains(name)) {
-                ordered.add(nameToPackageMap.get(name));
-                alreadyAddedNames.add(name);
+            Long pid = new Long((String)result.get("id"));
+            if (pidToPackageMap.get(pid) != null) {
+                ordered.add(pidToPackageMap.get(pid));
             }
         }
 
