@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.23
+Version: 2.2.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 21 2014 Stephen Herr <sherr@redhat.com> 2.2.24-1
+- Rewrite code for bootstrap usage
+- Rewrite code for bootstrap usage
+- 1074083 - small performance improvement
+- 1074083 - package.search API returns only one match per package name
+
 * Fri Mar 21 2014 Tomas Lestach <tlestach@redhat.com> 2.2.23-1
 - allow deleting temporary org admins
 - delete all the temporary roles across the whole satellite
