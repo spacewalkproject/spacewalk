@@ -76,7 +76,7 @@ public class DeleteUserAction extends RhnAction {
         }
         User user = UserManager.lookupUser(loggedInUser, uid);
 
-        if (user.getRoles().contains(RoleFactory.lookupByLabel("org_admin"))) {
+        if (user.getPermanentRoles().contains(RoleFactory.lookupByLabel("org_admin"))) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("user.deleteadmin"));
             Map params = new HashMap();
