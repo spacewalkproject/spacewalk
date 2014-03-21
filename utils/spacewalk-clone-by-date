@@ -58,7 +58,8 @@ SAMPLE_CONFIG = """
              {
                 "rhel-x86_64-server-5": "my-rhel5-x86_64-clone",
                 "rhn-tools-rhel-x86_64-server-5": ["my-tools-5-x86_64-clone",
-                        "My Clone's Name", "This is my channel's summary"]
+                        "My Clone's Name", "This is my channel's summary",
+                        "This is my channel's description"]
              },
             {
                 "rhel-i386-server-5": "my-rhel5-i386-clone"
@@ -124,12 +125,12 @@ def validate_list_dict(name, pkg_dict):
 #  hashes. ex:
 # [
 #   ["rhel-i386-servr-5", "my-rhel-clone"],
-#   ['rhel-child', 'clone-child', 'clone name', 'clone summary']
+#   ['rhel-child', 'clone-child', 'clone name', 'clone summary', 'clone description']
 # ]
 #    should become
 # [{
 #  "rhel-i386-servr-5" : ["my-rhel-clone"],
-#  'rhel-child': ['clone-child', 'clone name', 'clone summary']
+#  'rhel-child': ['clone-child', 'clone name', 'clone summary', 'clone description']
 #  }]
 def transform_arg_channels(chan_list):
     to_ret = {}
@@ -171,8 +172,8 @@ def parse_args():
             callback=vararg_callback, help="Original channel and clone "
             + "channel labels space separated, with optional channel name and "
             + "summary following (e.g. --channels=rhel-i386-server-5 "
-            + "myCloneLabel [myName [mySummary]]).  Can be specified multiple "
-            + "times.")
+            + "myCloneLabel [myName [mySummary [myDescription]]]).  Can be specified "
+            + "multiple times.")
     parser.add_option("-b", "--blacklist", dest="blacklist",
             help="Comma separated list of package names (or regular "
             + "expressions) to exclude from cloned errata (Only added "
@@ -247,9 +248,9 @@ def parse_args():
     # channels.
     if options.channels != None:
         for channel_group in options.channels:
-            if (len(channel_group) < 2 or len(channel_group) > 4):
+            if (len(channel_group) < 2 or len(channel_group) > 5):
                 raise UserError("The -l / --channels option requires two to "
-                        + "four arguments")
+                        + "five arguments")
 
     if options.sample:
         print SAMPLE_CONFIG

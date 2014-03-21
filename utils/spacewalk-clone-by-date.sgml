@@ -37,8 +37,8 @@ Utility for cloning errata by date.
         <arg>--password=<replaceable>PASSWORD</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-l <replaceable>SRC DEST</replaceable></arg>
-        <arg>--channels=<replaceable>SRC DEST</replaceable></arg>
+        <arg>-l <replaceable>SRC DEST <optional>DEST_NAME <optional>DEST_SUMMARY <optional>DEST_DESCRIPTION</optional></optional></optional></replaceable></arg>
+	<arg>--channels=<replaceable>SRC DEST <optional>DEST_NAME <optional>DEST_SUMMARY <optional>DEST_DESCRIPTION</optional></optional></optional></replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-d=<replaceable>YYYY-MM-DD</replaceable></arg>
@@ -78,7 +78,7 @@ Utility for cloning errata by date.
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-a <replaceable>SRC_PARENT DEST_PARENT</replaceable></arg>
-        <arg>--channels=<replaceable>SRC_PARENT DEST_PARENT</replaceable></arg>
+        <arg>--parents=<replaceable>SRC_PARENT DEST_PARENT</replaceable></arg>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -102,7 +102,8 @@ Utility for cloning errata by date.
         Please keep in mind that not all packages are associated with an erratum. This means that since spacewalk-clone-by-date will grab only packages associated with an erratum, not all packages available as of the specified date will get cloned.
     </para>
     <para>
-        Also note that spacewalk-clone-by-date will pull in any packages needed to resolve dependencies for any errata being cloned. Since dependency-resolution selects the "best" package to resolve dependencies, it is possible for the cloned channel(s) to end up with packages that are not directly associated with any errata, and which are newer than the specified date. This is expected behavior.   </para>
+        Also note that spacewalk-clone-by-date will pull in any packages needed to resolve dependencies for any errata being cloned. Since dependency-resolution selects the "best" package to resolve dependencies, it is possible for the cloned channel(s) to end up with packages that are not directly associated with any errata, and which are newer than the specified date. This is expected behavior.
+    </para>
 
 </RefSect1>
 
@@ -140,9 +141,9 @@ Utility for cloning errata by date.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-l <replaceable>SRC_LABEL DEST_LABEL</replaceable>, --channels=<replaceable>SRC_LABEL DEST_LABEL</replaceable></term>
+        <term>-l <replaceable>SRC_LABEL DEST_LABEL <optional>DEST_NAME <optional>DEST_SUMMARY <optional>DEST_DESCRIPTION</optional></optional></optional></replaceable>, --channels=<replaceable>SRC_LABEL DEST_LABEL <optional>DEST_NAME <optional>DEST_SUMMARY <optional>DEST_DESCRIPTION</optional></optional></optional></replaceable></term>
         <listitem>
-            <para>Space separated list of source channel and destination channel.  Can be specified multiple times to provide base channel and child channel pairs of a single channel tree.  To specify more than one channel tree, specify a config file.</para>
+            <para>Space separated list of source channel and destination channel.  Can be specified multiple times to provide base channel and child channel pairs of a single channel tree.  Can optionally include destination channel name, summary, and description, in that order.  To specify more than one channel tree, specify a config file.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -234,7 +235,7 @@ Utility for cloning errata by date.
 <RefSect1><Title>Examples</Title>
 <example>
     <title>Clone a base channel and child channel to 2008-12-20 with a blacklist excluding all versions of squid, and all versions of any package that starts with 'sendmail'.</title>
-    <para>spacewalk-clone-by-date  --channels=rhel-x86_64-server-5 clone-rhel --channels=rhn-tools-rhel-x86_64-server-5 clone-tools --username admin --password redhat --to_date=2008-12-20 --blacklist=sendmail.*,squid</para>
+    <para>spacewalk-clone-by-date  --channels=rhel-x86_64-server-5 clone-rhel --channels=rhn-tools-rhel-x86_64-server-5 clone-tools 'Clone Tools Name' 'Clone Tools Summary' 'Clone Tools Description'  --username admin --password redhat --to_date=2008-12-20 --blacklist=sendmail.*,squid</para>
 </example>
 <example>
     <title>Clone with options completely from a config file.</title>
@@ -251,5 +252,5 @@ Utility for cloning errata by date.
     <member>Justin Sherrill <email>jsherrill@redhat.com</email></member>
 </simplelist>
 </RefSect1>
-</RefEntry>
+</refentry>
 

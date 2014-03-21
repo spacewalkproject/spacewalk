@@ -774,6 +774,8 @@ class RemoteApi:
             details['name'] = channel[1]
         if len(channel) > 2:
             details['summary'] = channel[2]
+        if len(channel) > 3:
+            details['description'] = channel[3]
         if parent and parent != '':
             details['parent_label'] = parent
 
