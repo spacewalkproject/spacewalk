@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.22
+Version: 2.2.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 21 2014 Tomas Lestach <tlestach@redhat.com> 2.2.23-1
+- allow deleting temporary org admins
+- delete all the temporary roles across the whole satellite
+- assign the server group permissions acroding to the mappings
+- add form validation
+- rename UserExtGroup.hbm.xml to ExtGroup.hbm.xml
+-  introduce /rhn/users/ExtAuthSgDelete.do page
+- introduce /rhn/users/ExtAuthSgDetails.do page
+- introduce the External Group to Roles Mapping page
+
 * Thu Mar 20 2014 Stephen Herr <sherr@redhat.com> 2.2.22-1
 - Updating ant task definitions to work better on new OS's:
 - fix finding of the right API method to call
