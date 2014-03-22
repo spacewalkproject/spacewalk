@@ -136,7 +136,7 @@
              ${tomcat-jars} javamail jdom jpam dwr
              log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars}
              jcommon stringtree-json postgresql-jdbc
-             ${jfreechart} taglibs-core quartz
+             ${jfreechart} taglibs-core quartz ${other-jars}
              concurrent simple-core simple-xml susestudio-java-client" />
 
   <property name="dist.jar.dependencies"
