@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
                                                                               
 <project name="build-webapp">
-<!-- determine tomcat version -->
-  <property name="tomcat" value="tomcat5" />
-    <available file="/usr/share/java/tomcat6" type="dir" property="tomcat" value="tomcat6" />
-    <available file="/usr/share/java/tomcat" type="dir" property="tomcat" value="tomcat7" />
-
   <!-- ================ Local Deployment Tasks ==================== -->
   <!--
     - Creates a local web application structure easily reloadable in
