@@ -206,18 +206,18 @@ the Spacewalk or Satellite server.
 <RefSect1><Title>Examples</Title>
         <para>Creating a channel 'my-stable-channel' for RHEL 6 Server Gold x86_64: 
           <simplelist>
-            <member><command>spacewalk-create-channel</command>  --user=admin --server=myserver.example.com --version=6 --update=gold --release=Server --arch=x86_64   --destChannel=my-stable-channel</member>
+            <member><command>spacewalk-create-channel</command>  --user=admin --server=myserver.example.com --version=6 --update=gold --release=Server --arch=x86_64  --destChannel=my-stable-channel</member>
  	    <member><command>spacewalk-create-channel</command>  -l admin -s myserver.example.com  -D /usr/share/rhn/channel-data/6-gold-server-x86_64  -d my-stable-channel</member>
           </simplelist>
         </para>
-        <para>Upgrade previously created channel 'my-stable-channel' to RHEL 6 Server u1 i386:
+        <para>Upgrade previously created channel 'my-stable-channel' to RHEL 6 Server u1 x86_64:
           <simplelist>
-       	    <member><command>spacewalk-create-channel</command>  -l admin -s myserver.example.com -v 6 -u u1 -r server -a x86_64   -d my-stable-channel</member>
+            <member><command>spacewalk-create-channel</command>  -l admin -s myserver.example.com -v 6 -u u1 -r server -a x86_64 -d my-stable-channel</member>
           </simplelist>
         </para>
         <para>Add the Supplementary's channel as a child channel of 'my-stable-channel':
            <simplelist>
-	    <member><command>spacewalk-create-channel</command>  -l admin -s myserver.example.com -v 6 -u u1 -r Server -a x86_64 -e Supplementary  -P my-stable-channel -d my-stable-extras</member>
+	    <member><command>spacewalk-create-channel</command>  -l admin -s myserver.example.com -v 6 -u u1 -r Server -a x86_64 -e Supplementary -P my-stable-channel -d my-stable-extras</member>
            </simplelist>
         </para>
 </RefSect1>
