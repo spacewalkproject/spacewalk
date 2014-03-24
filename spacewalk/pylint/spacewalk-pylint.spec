@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.2.1
+Version:	2.2.2
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -63,6 +63,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Mar 24 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.2-1
+- pylint 1.1 landed in Fedora 20 updates
+
 * Wed Mar 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.1-1
 - disable pylint 1.1 checks we don't enforce
 
