@@ -936,6 +936,28 @@ public class PackageManager extends BaseManager {
     }
 
     /**
+     * Lookup which packages add/remove to make thisCid equal to otherCid channel.
+     * @param thisCid channel id we want to update
+     * @param otherCid channel id which we compare to
+     * @param cmpType compare type
+     * @return DataResult of PackageMergeDto objects
+     */
+    public static DataResult comparePackagesBetweenChannelsPreview(Long thisCid,
+                         Long otherCid, String cmpType) {
+        Map params = new HashMap();
+        params.put("this_cid", thisCid);
+        params.put("other_cid", otherCid);
+        params.put("cmp_type", cmpType);
+
+            SelectMode m = ModeFactory.getMode(
+                    "Package_queries", "managed_channel_merge_preview");
+
+            DataResult dr = m.execute(params);
+            dr.setElaborationParams(new HashMap());
+            return dr;
+    }
+
+    /**
      * Add packages to channel whos package_ids are in a set
      * @param user the user doing the pushing
      * @param cid the channel to push packages to

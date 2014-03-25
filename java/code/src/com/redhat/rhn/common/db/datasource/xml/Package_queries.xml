@@ -2053,4 +2053,34 @@ select  pn.name as package_name,
   </query>
 </mode>
 
+<mode name="managed_channel_merge_preview" class="com.redhat.rhn.frontend.dto.PackageMergeDto">
+  <query params="this_cid, other_cid, cmp_type">
+select p.id || '|' || pkg_list.action as id_combo,
+       p.id,
+       pn.name || '-' || evr_t_as_vre_simple(pe.evr) || '.' || pa.label as nvrea,
+       pkg_list.action
+  from rhnPackage p
+  join rhnPackageName pn
+    on p.name_id = pn.id
+  join rhnPackageEvr pe
+    on pe.id = p.evr_id
+  join rhnPackageArch pa
+    on pa.id = p.package_arch_id
+  join (select coalesce(tc.package_id, oc.package_id) as package_id,
+               case when tc.package_id is null then 1  -- add
+                    when oc.package_id is null then -1 -- remove
+                    else 0
+                end as action
+          from (select package_id from rhnChannelPackage
+                 where channel_id = :this_cid ) tc
+          full outer join (select package_id from rhnChannelPackage
+                            where channel_id = :other_cid) oc
+            on tc.package_id = oc.package_id
+       ) pkg_list
+    on pkg_list.package_id = p.id
+where (:cmp_type = 'add'    and pkg_list.action = 1)
+   or (:cmp_type = 'remove' and pkg_list.action = -1)
+   or (:cmp_type = 'full'   and pkg_list.action != 0)
+  </query>
+</mode>
 </datasource_modes>

@@ -8045,6 +8045,18 @@
                  redirect="true" />
    </action>
 
+   <action path="/channels/manage/ChannelPackagesCompareMerge"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.channel.manage.ChannelPackagesCompareMergeAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/manage/comparepackagesmerge.jsp" />
+        <forward name="confirm"
+                 path="/channels/manage/ChannelPackagesCompareMergeConfirm.do"
+                 redirect="true" />
+   </action>
+
    <action path="/channels/Managers"
         scope="request"
         input="/WEB-INF/pages/channels/manage/managers.jsp"
