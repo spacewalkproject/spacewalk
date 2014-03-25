@@ -154,7 +154,7 @@ public class KickstartBuilder {
             // Some possible values do not seem to be valid command names, (authconfig has
             // surfaced so far) what should be done with these?
             // Note: this may in fact never happen. See above, authconfig
-	    // is an alias to auth.
+            // is an alias to auth.
             if (!commandNames.containsKey(firstWord)) {
                 // TODO
                 log.warn("Unable to parse kickstart command: " + firstWord);
