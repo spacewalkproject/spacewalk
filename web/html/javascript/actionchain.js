@@ -35,7 +35,6 @@ $(function() {
   // handle click on "delete action chain"
   $("#delete-action-chain").click(function (event, target) {
     clearUnsavedData();
-    return false;
   });
 
   // handle click on "delete action" (that is: delete an action chain
