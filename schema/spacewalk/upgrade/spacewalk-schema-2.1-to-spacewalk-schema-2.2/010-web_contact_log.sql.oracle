@@ -3,6 +3,11 @@ alter table web_contact_log drop column old_password;
 alter table web_contact_log modify password varchar2(110);
 
 begin
+    dbms_session.reset_package;
+end;
+/
+
+begin
     logging.recreate_trigger('web_contact');
 end;
 /
