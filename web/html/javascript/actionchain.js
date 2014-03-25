@@ -33,7 +33,7 @@ $(function() {
   });
 
   // handle click on "delete action chain"
-  $("#delete-acthin-chain").click(function (event, target) {
+  $("#delete-action-chain").click(function (event, target) {
     clearUnsavedData();
     return false;
   });
