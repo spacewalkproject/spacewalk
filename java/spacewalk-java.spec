@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.25
+Version: 2.2.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 25 2014 Stephen Herr <sherr@redhat.com> 2.2.26-1
+- 1075127 - use sha256 for kickstart password instead of md5. Also for fips.
+- 1075161 - use default lvm partitioning for RHEL 7 kickstarts
+
 * Tue Mar 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.25-1
 - fixing broken tomcat detection in build-webapp.xml
 
