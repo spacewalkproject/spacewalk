@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.16
+Version:        2.2.17
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Mar 25 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.17-1
+- reset package to avoid ORA-0406* errors
+
 * Fri Mar 21 2014 Tomas Lestach <tlestach@redhat.com> 2.2.16-1
 - create rhnOrgExtGroupMapping triggers
 - change rhnUserExtGroup unique index
