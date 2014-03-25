@@ -71,11 +71,17 @@ class BrokerHandler(SharedHandler):
         if req.headers_in.has_key('Host'):
             # the client has provided a host header
             try:
-                if socket.gethostbyname(req.headers_in['Host']) == my_ip_addr:
+                # When a client with python 2.4 (RHEL 5) uses SSL
+                # the host header is in the 'hostname:port' form
+                # (In python 2.6 RFE #1472176 changed this and 'hostname'
+                # is used). We need to use the 'hostname' part in any case
+                # or we create bogus 'hostname:port' DNS queries
+                host_header = req.headers_in['Host'].split(':')[0]
+                if socket.gethostbyname(host_header) == my_ip_addr:
                     # if host header is valid (i.e. not just an /etc/hosts
                     # entry on the client or the hostname of some other
                     # machine (say a load balancer)) then use it
-                    hostname = req.headers_in['Host']
+                    hostname = host_header
             except (socket.gaierror, socket.error,
                     socket.herror, socket.timeout):
                 # hostname probably didn't exist, fine
