@@ -17,7 +17,7 @@ package com.redhat.rhn.domain.kickstart.builder;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.PermissionException;
-import com.redhat.rhn.common.util.MD5Crypt;
+import com.redhat.rhn.common.util.SHA256Crypt;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartCommandName;
@@ -146,8 +146,14 @@ public class KickstartBuilder {
                 firstWord = optionAliases.get(firstWord);
             }
 
+            // authconfig is an alias to the auth command
+            if (firstWord.equals("authconfig")) {
+                firstWord = "auth";
+            }
+
             // Some possible values do not seem to be valid command names, (authconfig has
             // surfaced so far) what should be done with these?
+            // Note: this may in fact never happen. See above, authconfig is an alias to auth.
             if (!commandNames.containsKey(firstWord)) {
                 // TODO
                 log.warn("Unable to parse kickstart command: " + firstWord);
@@ -178,6 +184,11 @@ public class KickstartBuilder {
                     // --iscrypted option to rootpw when generating the final kickstart
                     // file. When importing we need to check for this option, remove it
                     // if it's there, and encrypt the password if it isn't.
+                    // The way this works is that the system can determine from the crypted
+                    // password what algorithm it was crypted with. It does not have to
+                    // match with the algo specified on the auth command. So it's safe
+                    // to encrypt using whatever algorithm we want without fear of being
+                    // incompatible with the rest of the kickstart file.
                     String [] tokens = restOfLine.split(" ");
                     if (tokens.length > 2 || tokens.length == 0) {
                         throw new KickstartParsingException("Error parsing rootpw");
@@ -191,7 +202,7 @@ public class KickstartBuilder {
                     }
                     else {
                         // No --iscrypted present, encrypt the password:
-                        restOfLine = MD5Crypt.crypt(tokens[0]);
+                        restOfLine = "--iscrypted " + SHA256Crypt.crypt(tokens[0]);
                     }
                 }
 
@@ -576,7 +587,7 @@ public class KickstartBuilder {
 
     private void setRootPassword(KickstartWizardHelper cmd,
             KickstartData ksdata, String rootPassword) {
-        cmd.createCommand("rootpw", MD5Crypt.crypt(rootPassword), ksdata);
+        cmd.createCommand("rootpw", SHA256Crypt.crypt(rootPassword), ksdata);
     }
 
     private void setLanguage(KickstartWizardHelper cmd,
@@ -600,7 +611,7 @@ public class KickstartBuilder {
     }
 
     private void setAuth(KickstartWizardHelper cmd, KickstartData ksdata) {
-        cmd.createCommand("auth", "--enablemd5 --enableshadow", ksdata);
+        cmd.createCommand("auth", "--enableshadow --passalgo=sha256", ksdata);
     }
 
     private void setNetwork(KickstartWizardHelper cmd, KickstartData ksdata) {
