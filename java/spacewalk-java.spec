@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.24
+Version: 2.2.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.25-1
+- fixing broken tomcat detection in build-webapp.xml
+
 * Fri Mar 21 2014 Stephen Herr <sherr@redhat.com> 2.2.24-1
 - Rewrite code for bootstrap usage
 - Rewrite code for bootstrap usage
