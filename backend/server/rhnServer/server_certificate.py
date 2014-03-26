@@ -32,7 +32,7 @@ from server_lib import getServerSecret
 def gen_secret():
     """ Generate a secret """
     seed = repr(time.time())
-    sum = hashlib.new('md5', seed)
+    sum = hashlib.new('sha256', seed)
     # feed some random numbers
     for k in range(1, random.randint(5,15)):
         sum.update(repr(random.random()))
@@ -45,8 +45,11 @@ def gen_secret():
 
 class Checksum:
     """ Functions for handling system_id strings """
-    def __init__(self, secret, *args):
-        self.sum = hashlib.new('md5', secret)
+    def __init__(self, secret, *args, **kwargs):
+        algo = 'sha256'
+        if 'algo' in kwargs:
+            algo = kwargs['algo']
+        self.sum = hashlib.new(algo, secret)
         if len(args) > 0:
             apply(self.feed, args)
     def feed(self, arg):
@@ -118,10 +121,10 @@ class Certificate:
             raise
         return '<?xml version="1.0"?>\n%s' % x
 
-    def compute_checksum(self, secret):
+    def compute_checksum(self, secret, algo='sha256'):
         """ Update the checksum """
         log_debug(4, secret, self.attrs)
-        csum = Checksum(secret)
+        csum = Checksum(secret, algo=algo)
         for f in self.__fields:
             csum.feed(self.attrs[f])
         # feed the fields list last
@@ -178,7 +181,10 @@ class Certificate:
         """ compute the current checksum against a secret and check it against
             the current checksum
         """
-        csum = self.compute_checksum(secret)
+        if len(secret) == 64:
+            csum = self.compute_checksum(secret, algo='sha256')
+        elif len(secret) == 32:
+            csum = self.compute_checksum(secret, algo='md5')
         if not csum == self.__checksum:
             # fail, current checksum does not match
             log_error("Checksum check failed: %s != %s" % (csum, self.__checksum),

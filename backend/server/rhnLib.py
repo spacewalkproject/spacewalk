@@ -29,7 +29,7 @@ from rhnMapping import check_package_arch
 
 def computeSignature(*fields):
     # Init the hash
-    m = hashlib.new('md5')
+    m = hashlib.new('sha256')
     for i in fields:
         # use str(i) since some of the fields may be non-string
         m.update(str(i))
