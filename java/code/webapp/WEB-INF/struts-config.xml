@@ -3072,8 +3072,8 @@
             type="com.redhat.rhn.frontend.action.systems.sdc.SystemRebootAction"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true"/>
-        <forward name="confirm"
-                 path="/WEB-INF/pages/systems/sdc/overview.jsp" />
+        <forward name="confirm" redirect="true"
+                 path="/systems/details/Overview.do" />
         <forward name="default"
                  path="/WEB-INF/pages/systems/sdc/rebootsystem.jsp" />
     </action>
