@@ -21,7 +21,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="description" column="description" type="string"
             length="256"/>
         <property name="info" column="info" type="string" length="128"/>
-        <property name="secret" column="secret" type="string" length="32"/>
+        <property name="secret" column="secret" type="string" length="64"/>
         <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
