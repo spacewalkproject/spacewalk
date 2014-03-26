@@ -32,7 +32,7 @@ CREATE TABLE rhnServer
     name                VARCHAR2(128),
     description         VARCHAR2(256),
     info                VARCHAR2(128),
-    secret              VARCHAR2(32) NOT NULL,
+    secret              VARCHAR2(64) NOT NULL,
     creator_id          NUMBER
                             CONSTRAINT rhn_server_creator_fk
                                 REFERENCES web_contact (id)
