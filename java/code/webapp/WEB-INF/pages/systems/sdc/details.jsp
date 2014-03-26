@@ -15,17 +15,17 @@
                 <html:form method="post" action="/systems/details/Edit.do?sid=${system.id}" styleClass="form-horizontal">
                     <rhn:csrf />
                     <html:hidden property="submitted" value="true"/>
+                    <div class="form-group">
+                        <label for="system_name" class="col-lg-3 control-label">
+                            <bean:message key="sdc.details.edit.profilename"/>
+                        </label>
+                        <div class="col-lg-6">
+                            <html:text property="system_name" styleClass="form-control" styleId="system_name"/>
+                        </div>
+                    </div>
+
                     <c:choose>
                         <c:when test="${not system.bootstrap}">
-                            <div class="form-group">
-                                <label for="system_name" class="col-lg-3 control-label">
-                                    <bean:message key="sdc.details.edit.profilename"/>
-                                </label>
-                                <div class="col-lg-6">
-                                    <html:text property="system_name" styleClass="form-control" styleId="system_name"/>
-                                </div>
-                            </div>
-
                             <div class="form-group">
                                 <label for="baseentitlement" class="col-lg-3 control-label">
                                     <bean:message key="sdc.details.edit.baseentitlement"/>
