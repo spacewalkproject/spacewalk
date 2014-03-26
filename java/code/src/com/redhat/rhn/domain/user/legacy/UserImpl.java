@@ -390,8 +390,12 @@ public class UserImpl extends BaseDomainHelper implements User {
             boolean useEncrPasswds =
                 Config.get().getBoolean(ConfigDefaults.WEB_ENCRYPTED_PASSWORDS);
             if (useEncrPasswds) {
+                // user uses SHA-256 encrypted password
+                if (password.startsWith(CryptHelper.getSHA256Prefix())) {
+                    result = SHA256Crypt.crypt(thePassword, password).equals(password);
+                }
                 // user still uses MD5 encrypted password
-                if (password.startsWith(CryptHelper.getMD5Prefix())) {
+                else if (password.startsWith(CryptHelper.getMD5Prefix())) {
                     if (MD5Crypt.crypt(thePassword, password).equals(password)) {
                         // if authenticated with md5 pass, convert it to sha-256
                         setPassword(thePassword);
@@ -400,10 +404,6 @@ public class UserImpl extends BaseDomainHelper implements User {
                     else {
                         result = false;
                     }
-                }
-                // user uses SHA-256 encrypted password
-                else if (password.startsWith(CryptHelper.getSHA256Prefix())) {
-                    result = SHA256Crypt.crypt(thePassword, password).equals(password);
                 }
             }
             else {
