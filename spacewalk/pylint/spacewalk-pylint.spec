@@ -40,7 +40,7 @@ install -d -m 755 %{buildroot}/%{_sysconfdir}
 install -p -m 644 spacewalk-pylint.rc %{buildroot}/%{_sysconfdir}/
 %if 0%{?fedora} < 20
 # new checks in pylint 1.1
-sed -i '/disable=/ s/,bad-whitespace,unpacking-non-sequence//g;' \
+sed -i '/disable=/ s/,bad-whitespace,unpacking-non-sequence,superfluous-parens//g;' \
         %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
 %endif
 %if 0%{?fedora} < 19
