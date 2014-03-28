@@ -38,6 +38,7 @@ import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.channel.ContentSourceFilter;
 import com.redhat.rhn.domain.channel.SslContentSource;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey;
@@ -46,6 +47,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoLabelException;
 import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoUrlException;
 import com.redhat.rhn.manager.channel.repo.BaseRepoCommand;
@@ -67,6 +69,7 @@ public class RepoDetailsAction extends RhnAction {
     public static final String SSL_CLIENT_CERT = "sslclientcert";
     public static final String SSL_CLIENT_KEY = "sslclientkey";
     public static final String SOURCEID = "sourceid";
+    public static final String FILTERS = "filters";
 
     private static final String VALIDATION_XSD =
                 "/com/redhat/rhn/frontend/action/channel/" +
@@ -171,6 +174,27 @@ public class RepoDetailsAction extends RhnAction {
             form.set(SSL_CLIENT_CERT, getStringId(sslRepo.getClientCert()));
             form.set(SSL_CLIENT_KEY, getStringId(sslRepo.getClientKey()));
         }
+        // Filters
+        String sfilters = new String();
+        String sflagSave = new String();
+        String sflag = new String();
+        String temp = new String();
+
+        List<ContentSourceFilter> lfilters =
+                 ChannelFactory.lookupContentSourceFiltersById(repo.getId());
+        for (Iterator<ContentSourceFilter> iter = lfilters.iterator(); iter.hasNext();) {
+            ContentSourceFilter filter = iter.next();
+            sflag = filter.getFlag();
+            if (sflagSave.equals(sflag)) {
+                temp = "," + filter.getFilter();
+            }
+            else {
+                temp = " " + sflag + filter.getFilter();
+                sflagSave = sflag;
+            }
+            sfilters = sfilters.concat(temp);
+        }
+        form.set(FILTERS, sfilters);
         bindRepo(request, repo);
     }
 
@@ -183,11 +207,39 @@ public class RepoDetailsAction extends RhnAction {
         request.setAttribute(REPO, repo);
     }
 
+    private  void processFilters(String sfilters,
+                                      List<ContentSourceFilter> lresult)
+                                      throws  InvalidParameterException {
+
+        if (!sfilters.isEmpty()) {
+            String[] lfilters = sfilters.split("\\s+");
+            char cflag;
+            int iOrder = 0;
+            for (int i = 0; i < lfilters.length; i++) {
+                cflag = lfilters[i].charAt(0);
+                if (cflag != '+' && cflag != '-') {
+                    throw new InvalidParameterException(
+                            "repos.jsp.filters.error");
+                }
+                String[] lrpm = lfilters[i].substring(1).split(",");
+                for (int y = 0; y < lrpm.length; y++) {
+                    ContentSourceFilter f = new ContentSourceFilter();
+                    f.setFlag(Character.toString(cflag));
+                    f.setFilter(lrpm[y]);
+                    f.setSortOrder(iOrder);
+                    lresult.add(f);
+                    iOrder++;
+                }
+            }
+        }
+    }
+
     private ContentSource submit(HttpServletRequest request, ActionErrors errors,
             DynaActionForm form) {
         RequestContext context = new RequestContext(request);
         String url = form.getString(URL);
         String label = form.getString(LABEL);
+        String sfilters = form.getString(FILTERS);
         Org org = context.getCurrentUser().getOrg();
         BaseRepoCommand repoCmd = null;
         if (isCreateMode(request)) {
@@ -205,7 +257,22 @@ public class RepoDetailsAction extends RhnAction {
         repoCmd.setSslClientKeyId(parseIdFromForm(form, SSL_CLIENT_KEY));
 
         try {
+            List<ContentSourceFilter> lresult = new ArrayList<ContentSourceFilter>();
+
+            // Process filters
+            processFilters(sfilters, lresult);
+
+            // Store Repo
             repoCmd.store();
+
+            // Store Filters
+            Long repoid = repoCmd.getRepo().getId();
+            ChannelFactory.clearContentSourceFilters(repoid);
+
+            for (ContentSourceFilter filter : lresult) {
+                filter.setSourceId(repoid);
+                ChannelFactory.save(filter);
+            }
         }
         catch (InvalidRepoUrlException e) {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
@@ -218,6 +285,10 @@ public class RepoDetailsAction extends RhnAction {
         catch (InvalidCertificateException e) {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                     "edit.channel.repo.clientcertmissing"));
+        }
+        catch (InvalidParameterException e) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+            new ActionMessage(e.getMessage()));
         }
 
         return repoCmd.getRepo();

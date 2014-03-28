@@ -8590,6 +8590,15 @@ Please note that some manual configuration of these scripts may still be require
       <trans-unit id="repos.jsp.ssl.clientkey">
         <source>SSL Client Key</source>
       </trans-unit>
+      <trans-unit id="repos.jsp.filters">
+        <source>Filters</source>
+      </trans-unit>
+      <trans-unit id="repos.jsp.filters.tip">
+        <source>-zsh*,kernel +zsh-html</source>
+      </trans-unit>
+      <trans-unit id="repos.jsp.filters.error">
+        <source>Filter syntax is incorrect!</source>
+      </trans-unit>
       <trans-unit id="os">
         <source>Operating System</source>
       </trans-unit>
