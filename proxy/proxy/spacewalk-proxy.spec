@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.2.0
+Version: 2.2.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Fri Mar 28 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.1-1
+- Proxy should not make bogus fqdn:port DNS queries
+
 * Tue Jan 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.15-1
 - Updating the copyright years info
 
