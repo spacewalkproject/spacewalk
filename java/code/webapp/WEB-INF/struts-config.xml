@@ -904,6 +904,7 @@
             <form-property name="sslcacert" type="java.lang.String"/>
             <form-property name="sslclientcert" type="java.lang.String"/>
             <form-property name="sslclientkey" type="java.lang.String"/>
+            <form-property name="filters" type="java.lang.String"/>
         </form-bean>
 
         <form-bean name="cobblerSnippetsForm"
