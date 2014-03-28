@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.28
+Version: 2.2.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 28 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.29-1
+- Fail if rhnPackage.path is NULL
+- Use rhnPackage.path as rhnErrataFile.filename like Perl does
+- Base channel update: no-op if new channel equals old one
+- ChannelManager.findCompatibleChildren: propose cloned children as compatible
+- ChannelManager.findCompatibleChildren: propose children correctly if old and
+  new are equal
+- length of rhnServer.secret has been extended to 64
+- Check the SHA-256 password first, MD-5 second.
+
 * Tue Mar 25 2014 Stephen Herr <sherr@redhat.com> 2.2.28-1
 - 1075127 - another checkstyle fix
 
