@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.29
+Version: 2.2.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 28 2014 Stephen Herr <sherr@redhat.com> 2.2.30-1
+- 1082020 - taskomatic heap size of 1G is not sufficient for large channels
+- Redirect instead of forwarding to overview page after a reboot
+
 * Fri Mar 28 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.29-1
 - Fail if rhnPackage.path is NULL
 - Use rhnPackage.path as rhnErrataFile.filename like Perl does
