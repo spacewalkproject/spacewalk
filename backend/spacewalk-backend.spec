@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.10
+Version: 2.2.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -636,6 +636,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri Mar 28 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.11-1
+- server certificates to use a sha256 hash by default
+
 * Tue Mar 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.10-1
 - we need to be catching one more error message from gpg
 - delete non-existing directory on interrupted downloads
