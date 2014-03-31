@@ -14,8 +14,14 @@
 #
 
 import os
+
+hashlib_has_usedforsecurity = False
+
 try:
     import hashlib
+    import inspect
+    if 'usedforsecurity' in inspect.getargspec(hashlib.new)[0]:
+        hashlib_has_usedforsecurity = True
 except ImportError:
     import md5
     import sha
@@ -33,7 +39,7 @@ except ImportError:
                 raise ValueError, "Incompatible checksum type"
 
 
-def getFileChecksum(hashtype, filename=None, fd=None, file_obj=None, buffer_size=None):
+def getFileChecksum(hashtype, filename=None, fd=None, file_obj=None, buffer_size=None, used_for_security=False):
     """ Compute a file's checksum
         Used by rotateFile()
     """
@@ -53,7 +59,10 @@ def getFileChecksum(hashtype, filename=None, fd=None, file_obj=None, buffer_size
         f = open(filename, "r")
     # Rewind it
     f.seek(0, 0)
-    m = hashlib.new(hashtype)
+    if hashlib_has_usedforsecurity:
+        m = hashlib.new(hashtype, usedforsecurity=used_for_security)
+    else:
+        m = hashlib.new(hashtype)
     while 1:
         buf = f.read(buffer_size)
         if not buf:
