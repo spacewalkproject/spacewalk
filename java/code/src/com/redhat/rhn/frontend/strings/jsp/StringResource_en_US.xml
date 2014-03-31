@@ -19583,6 +19583,12 @@ given channel.</source>
       <trans-unit id="channel.jsp.package.action">
         <source>Action</source>
       </trans-unit>
+      <trans-unit id="channel.jsp.package.mergeconfirmbutton">
+        <source>Confirm</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.mergesuccess">
+        <source>{0} change(s) have been made to {1} channel.</source>
+      </trans-unit>
       <trans-unit id="channel.jsp.errata.listtitle">
         <source>This channel contains the following errata:</source>
       </trans-unit>

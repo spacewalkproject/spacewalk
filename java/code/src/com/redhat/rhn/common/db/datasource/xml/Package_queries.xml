@@ -2083,4 +2083,48 @@ where (:cmp_type = 'add'    and pkg_list.action = 1)
    or (:cmp_type = 'full'   and pkg_list.action != 0)
   </query>
 </mode>
+
+<mode name="managed_channel_merge_confirm" class="com.redhat.rhn.frontend.dto.PackageMergeDto">
+  <query params="set_label, user_id">
+select p.id,
+       pn.name || '-' || evr_t_as_vre_simple(pe.evr) || '.' || pa.label as nvrea,
+       s.element_two as action
+  from rhnPackage p
+  join rhnPackageName pn
+    on p.name_id = pn.id
+  join rhnPackageEvr pe
+    on pe.id = p.evr_id
+  join rhnPackageArch pa
+    on pa.id = p.package_arch_id
+  join rhnSet s
+    on s.element = p.id
+ where  s.label = :set_label
+   and  s.user_id = :user_id
+  </query>
+</mode>
+
+<write-mode name="merge_delete_packages_from_set">
+   <query params="uid, cid, set_label">
+      delete from rhnChannelPackage cp
+            where cp.package_id IN (
+                  select s.element
+                    from rhnSet s
+                   where s.label = :set_label
+                     and S.user_id = :uid
+                     and s.element_two = -1
+                  )
+              and cp.channel_id = :cid
+   </query>
+</write-mode>
+
+<write-mode name="merge_insert_channel_packages_in_set">
+  <query params="uid, cid, set_label">
+    insert into rhnChannelPackage(channel_id, package_id)
+         select :cid, element
+           from rhnSet s
+          where s.user_id = :uid
+            and s.label = :set_label
+            and s.element_two = 1
+  </query>
+</write-mode>
 </datasource_modes>

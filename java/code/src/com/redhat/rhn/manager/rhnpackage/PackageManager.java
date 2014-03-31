@@ -958,6 +958,48 @@ public class PackageManager extends BaseManager {
     }
 
     /**
+     * Returns a DataResult containing PackageMergeDtos
+     * @param user The User
+     * @param label The label of the set we want
+     * @return Returns the list of packages whose id's are in the given set
+     */
+    public static DataResult mergePackagesFromSet(User user, String label) {
+
+        SelectMode m = ModeFactory.getMode("Package_queries",
+                "managed_channel_merge_confirm");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("set_label", label);
+
+        Map<String, Long> elabs = new HashMap<String, Long>();
+        elabs.put("org_id", user.getOrg().getId());
+
+        DataResult dr;
+        dr = makeDataResult(params, elabs, null, m);
+        return dr;
+    }
+
+    /**
+     * Merge packages to channel whos package_ids are in a set
+     * @param user the user doing the pushing
+     * @param cid the channel to push packages to
+     * @param set the set of packages
+     */
+    public static void mergeChannelPackagesFromSet(User user, Long cid, RhnSet set) {
+        Map params = new HashMap();
+        params.put("uid", user.getId());
+        params.put("cid", cid);
+        params.put("set_label", set.getLabel());
+        WriteMode del = ModeFactory.getWriteMode("Package_queries",
+                                                 "merge_delete_packages_from_set");
+        del.executeUpdate(params);
+        WriteMode ins = ModeFactory.getWriteMode("Package_queries",
+                                                 "merge_insert_channel_packages_in_set");
+        ins.executeUpdate(params);
+        RhnSetManager.store(set);
+    }
+
+    /**
      * Add packages to channel whos package_ids are in a set
      * @param user the user doing the pushing
      * @param cid the channel to push packages to
