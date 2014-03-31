@@ -1466,9 +1466,9 @@ SELECT PN.name,
        coalesce(PE.epoch, ' ') as epoch,
        PA.name as arch,
        SP.installtime,
-       PE.id evrid,
-       PA.id archid,
-       PN.id nameid
+       PE.id evr_id,
+       PA.id arch_id,
+       PN.id name_id
   FROM rhnServerPackage SP inner join
        rhnPackageName PN on PN.id = SP.name_id inner join
        rhnPackageEVR PE on PE.id = SP.evr_id left join
