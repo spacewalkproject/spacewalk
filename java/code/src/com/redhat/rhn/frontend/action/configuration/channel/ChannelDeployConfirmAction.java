@@ -164,12 +164,25 @@ public class ChannelDeployConfirmAction extends RhnAction {
 
         ActionMessages msgs = new ActionMessages();
         if (successes.longValue() == 1) {
-            msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("deployconfirm.jsp.success", successes));
+            if (actionChain == null) {
+                msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                        "deployconfirm.jsp.success", successes));
+            }
+            else {
+                msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                        "deployconfirm.jsp.success.chain", actionChain.getLabel()));
+            }
         }
         else {
-            msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("deployconfirm.jsp.successes", successes));
+            if (actionChain == null) {
+                msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                        "deployconfirm.jsp.successes", successes));
+            }
+            else {
+                msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("deployconfirm.jsp.successes.chain", successes,
+                                actionChain.getLabel()));
+            }
         }
 
         if (overrides.longValue() == 1) {
