@@ -15,13 +15,11 @@
 package com.redhat.rhn.frontend.action.errata;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.dto.SystemOverview;

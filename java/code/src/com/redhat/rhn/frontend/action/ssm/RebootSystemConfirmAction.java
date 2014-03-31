@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.ssm;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

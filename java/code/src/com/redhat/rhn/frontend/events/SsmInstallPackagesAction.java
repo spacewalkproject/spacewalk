@@ -28,7 +28,6 @@ import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.dto.EssentialServerDto;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.manager.action.ActionChainManager;
-import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 /**

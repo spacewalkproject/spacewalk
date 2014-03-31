@@ -24,12 +24,8 @@ import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionChainFactory;
-import com.redhat.rhn.domain.action.script.ScriptActionDetails;
-import com.redhat.rhn.domain.action.script.ScriptRunAction;
-import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 

@@ -299,8 +299,8 @@ public class SystemRemoteCommandAction extends RhnAction {
                     if (actionChain == null) {
                         Action action = actions.iterator().next();
                         infoMessages.add(ActionMessages.GLOBAL_MESSAGE,
-                            new ActionMessage("ssm.overview.provisioning"
-                                + ".remotecommand.succeed", server.getId().toString(),
+                            new ActionMessage("ssm.overview.provisioning" +
+                                ".remotecommand.succeed", server.getId().toString(),
                                 action.getId().toString(), LocalizationService
                                     .getInstance().formatDate(action.getEarliestAction())));
                     }

@@ -47,9 +47,9 @@ public class RebootActionCleanup extends RhnJavaJob {
         for (Map<String, Long> fa : failedRebootActions) {
             Long sid = fa.get("server_id");
             Long aid = fa.get("action_id");
-            List<Long> f_aids = invalidateActionRecursive(sid, aid);
-            for (Long f_aid : f_aids) {
-                invalidateKickstartSession(sid, f_aid);
+            List<Long> fAids = invalidateActionRecursive(sid, aid);
+            for (Long fAid : fAids) {
+                invalidateKickstartSession(sid, fAid);
             }
         }
         if (failedRebootActions.size() > 0) {
@@ -58,12 +58,12 @@ public class RebootActionCleanup extends RhnJavaJob {
         }
     }
 
-    private void invalidateKickstartSession(Long server_id, Long action_id) {
+    private void invalidateKickstartSession(Long serverId, Long actionId) {
         SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_LOOKUP_KICKSTART_SESSION_ID);
         Map<String, Long> params = new HashMap<String, Long>();
-        params.put("server_id", server_id);
-        params.put("action_id", action_id);
+        params.put("server_id", serverId);
+        params.put("action_id", actionId);
 
         List<Map<String, Object>> ksids = m.execute(params);
         if (ksids == null || ksids.get(0) == null || ksids.get(0).get("id") == null) {
@@ -85,16 +85,16 @@ public class RebootActionCleanup extends RhnJavaJob {
         return (List<Map<String, Long>>)m.execute(params);
     }
 
-    private List<Long> invalidateActionRecursive(Long server_id, Long action_id) {
-        List<Long> child_ids = lookupChildAction(server_id, action_id);
-        List<Long> a_ids = new ArrayList<Long>();
-        for (Iterator<Long> itr = child_ids.iterator(); itr.hasNext();) {
+    private List<Long> invalidateActionRecursive(Long serverId, Long actionId) {
+        List<Long> childIds = lookupChildAction(serverId, actionId);
+        List<Long> aIds = new ArrayList<Long>();
+        for (Iterator<Long> itr = childIds.iterator(); itr.hasNext();) {
             Long childAction = (Long) itr.next();
-            List<Long> c_ids = invalidateActionRecursive(server_id, childAction);
-            a_ids.addAll(c_ids);
+            List<Long> cIds = invalidateActionRecursive(serverId, childAction);
+            aIds.addAll(cIds);
         }
-        Server s = ServerFactory.lookupById(server_id);
-        Action a = ActionFactory.lookupById(action_id);
+        Server s = ServerFactory.lookupById(serverId);
+        Action a = ActionFactory.lookupById(actionId);
         ServerAction sa = ActionFactory.getServerActionForServerAndAction(s, a);
         if (sa.getStatus().getName() != "Failed") {
             sa.setResultCode(-100L);
@@ -102,20 +102,20 @@ public class RebootActionCleanup extends RhnJavaJob {
             sa.setStatus(ActionFactory.STATUS_FAILED);
         }
 
-        return a_ids;
+        return aIds;
     }
 
-    private List<Long> lookupChildAction(Long server_id, Long action_id) {
+    private List<Long> lookupChildAction(Long serverId, Long actionId) {
         SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_LOOKUP_CHILD_ACTION);
         DataResult<?> retval = null;
         List<Long> childActions = new ArrayList<Long>();
 
         Map<String, Long> params = new HashMap<String, Long>();
-        params.put("server_id", server_id);
-        params.put("action_id", action_id);
+        params.put("server_id", serverId);
+        params.put("action_id", actionId);
         retval = m.execute(params);
-        if( retval != null) {
+        if (retval != null) {
             for (Iterator<?> itr = retval.iterator(); itr.hasNext();) {
                 String val = (String)itr.next();
                 childActions.add(new Long(val));
