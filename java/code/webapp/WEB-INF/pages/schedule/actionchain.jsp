@@ -113,12 +113,18 @@
                         </jsp:include>
                     </div>
                 </div>
-                <div class="col-md-offset-3 col-md-6">
-                    <input type="hidden" name="dispatch" value='<bean:message key="actionchain.jsp.saveandschedule"/>'/>
-                    <button type="button" class="btn btn-success" id="save-and-schedule">
-                        <bean:message key="actionchain.jsp.saveandschedule"/>
-                    </button>
-                </div>
+               <div class="form-group">
+                   <div class="col-md-offset-3 col-md-6">
+                       <input type="hidden" name="dispatch" value='<bean:message key="actionchain.jsp.saveandschedule"/>'/>
+                   </div>
+               </div>
+               <div class="form-group">
+                   <div class="col-md-offset-3 col-md-6">
+                       <button type="button" class="btn btn-success" id="save-and-schedule">
+                           <bean:message key="actionchain.jsp.saveandschedule"/>
+                       </button>
+                   </div>
+               </div>
             </form>
         </div>
     </div>
