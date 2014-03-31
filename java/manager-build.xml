@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ SUSE Manager build file for development use
+
+ Builds and deploys the webapp to a SSH host running Tomcat, runs tests
+ 
+ Requirements & configuration:
+ 
+ https://github.com/SUSE/spacewalk/wiki/Java-Development-Environment
+-->
+<project name="SUSE Manager" default="deploy" basedir=".">
+  <!-- User-defined properties -->
+  <property file="buildconf/manager-developer-build.properties" />
+
+  <!-- Upstream-defined properties -->
+  <import file="buildconf/build-props.xml" />
+
+  <!-- Other properties -->
+  <property name="deploy.host" value="deployhost" />
+  <property name="deploy.dir" value="/var/lib/tomcat6/webapps/rhn" />
+  <property name="deploy.user" value="root" />  
+  
+  <property name="tests.includes" value="buildconf/manager-test-includes" />
+  <property name="tests.excludes" value="buildconf/manager-test-excludes" />
+  <property name="tests.results.dir" value="test-results"/>
+  <property name="tests.configuration.path" value="${basedir}/buildconf/test" />
+  
+  <property name="branding.dir" value="${basedir}/../branding"/>
+  <property name="branding.src.dir" value="${branding.dir}/java/code/src"/>
+  <property name="branding.img.dir" value="${branding.dir}/img"/>
+  <property name="branding.css.dir" value="${branding.dir}/css"/>
+  <property name="branding.fonts.dir" value="${branding.dir}/fonts"/>
+  <property name="js.dir" value="${basedir}/../web/html/javascript"/>
+
+  <!-- Paths -->
+  <path id="libjars">
+    <fileset dir="${lib.dir}" includes="**/*.jar" />
+  </path>
+  <path id="managertestjars">
+    <fileset dir="${lib.dir}" includes="**/*.jar" />
+    <fileset file="${build.dir}/rhn.jar" />
+  </path>
+
+  <!-- Tasks -->
+  <target name="clean" description="Cleans up all generated files">
+    <delete dir="${build.dir}" quiet="true">
+      <exclude name="classes/**/*" if="precompiled" />
+    </delete>
+    <delete dir="${test.results.dir}" />
+  </target>
+	
+  <target name="refresh-branding-jar" depends="clean" description="Compiles and builds the SUSE branding jar">
+    <mkdir dir="${build.dir}/java-branding" />
+
+    <javac destdir="${build.dir}/java-branding"
+           source="1.6"
+           target="1.6"
+           includeantruntime="no"
+           nowarn="true"
+           srcdir="${branding.src.dir}" />
+
+    <copy toDir="${build.dir}/java-branding">
+      <fileset dir="${branding.src.dir}" excludes="**/*.java" />
+    </copy>
+
+    <jar destfile="${lib.dir}/java-branding.jar" includes="">
+      <fileset dir="${build.dir}/java-branding" />
+    </jar>
+  </target>
+
+  <target name="compile"
+          depends="clean,refresh-branding-jar"
+          unless="precompiled"
+          description="Compiles the main codebase"
+  >
+    <mkdir dir="${build.dir}/classes" />
+    <javac destdir="${build.dir}/classes"
+           optimize="off"
+           debug="on"
+           source="1.6"
+           target="1.6"
+           deprecation="${deprecation}"
+           nowarn="${nowarn}"
+           encoding="utf-8"
+           fork="yes"
+           memoryMaximumSize="256m"
+           includeAntRuntime="false"
+           classpathref="libjars"
+    >
+      <src>
+        <path location="code/src" />
+        <path location="code/scripts/src" />
+      </src>
+    </javac>
+
+    <copy toDir="${build.dir}/classes">
+      <fileset dir="${src.dir}/src">
+        <exclude name="**/*.java" />
+        <exclude name="**/package.html" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="jar" depends="compile" description="Packs the main application jar">
+    <jar destfile="${build.dir}/rhn.jar">
+      <fileset dir="${build.dir}/classes">
+        <!-- internal is not for publication; tlds go in META-INF;  html files go as javadoc -->
+        <exclude name="**/internal/**" />
+        <exclude name="**/*.tld" />
+        <exclude name="**/*.html" />
+      </fileset>
+      <fileset dir="${build.dir}/classes">
+        <include name="**/StringResource_en_US.xml" />
+      </fileset>
+      <fileset dir="${src.dir}/webapp">
+        <include name="**/web.xml" />
+        <include name="**/struts-config.xml" />
+      </fileset>
+      <!-- Can't be flattened like in <copy>, alas -->
+      <metainf dir="${build.dir}/classes/com/redhat/rhn/frontend/taglibs">
+        <include name="*.tld" />
+      </metainf>
+    </jar>
+  </target>
+
+  <target name="webapp" depends="jar" description="Creates the Web application directory">
+    <copy todir="${build.dir}/webapp">
+      <fileset dir="${src.dir}/webapp">
+        <exclude name="help/**" />
+      </fileset>
+    </copy>
+
+    <copy todir="${build.dir}/webapp/WEB-INF/lib">
+      <fileset file="${build.dir}/rhn.jar" />
+      <fileset dir="${lib.dir}">
+        <include name="**/*.jar" />
+        <exclude name="**/el-api*" />
+        <exclude name="**/jasper*" />
+        <exclude name="**/jspapi*" />
+      </fileset>
+      <fileset dir="${rhn-home}/buildconf/tempjars">
+        <include name="**/*.jar" />
+      </fileset>
+    </copy>
+
+    <replace file="${build.dir}/webapp/WEB-INF/web.xml">
+      <replacetoken><![CDATA[<!-- add precompiled jsp servlets -->]]></replacetoken>
+      <replacevalue><![CDATA[
+  <servlet-mapping>
+    <servlet-name>jsp</servlet-name>
+    <url-pattern>*.jsp</url-pattern>
+  </servlet-mapping>
+      ]]></replacevalue>
+    </replace>
+  </target>
+
+  <target name="deploy" depends="webapp" description="Deploy a new copy of SUSE Manager">
+    <echo message="Copying files to remote host..." />
+    <exec executable="rsync">
+      <arg line="-a --delete ${build.dir}/webapp/ ${deploy.user}@${deploy.host}:${deploy.dir}/" />
+    </exec>
+
+    <exec command="ssh ${deploy.user}@${deploy.host}" inputstring='
+        echo "Linking the branding jar...";
+        mv ${deploy.dir}/WEB-INF/lib/java-branding.jar /usr/share/rhn/lib;
+        ln -sf /usr/share/rhn/lib/java-branding.jar ${deploy.dir}/WEB-INF/lib/java-branding.jar;
+  
+        echo "Linking the main jar for Taskomatic...";
+        mv ${deploy.dir}/WEB-INF/lib/rhn.jar /usr/share/rhn/lib;
+        ln -sf /usr/share/rhn/lib/rhn.jar ${deploy.dir}/WEB-INF/lib;
+      '
+    />
+  </target>
+
+  <target name="deploy-static-resources" description="Deploy css/js/img/font files">
+    <condition property="spacewalk.upstream">
+      <not>
+        <available file="${basedir}/../susemanager" type="dir"/>
+      </not>
+    </condition>
+    <condition property="static.files.dir" value="/var/www/html" else="/srv/www/htdocs">
+      <isset property="spacewalk.upstream"/>
+    </condition>
+    <echo message="Copying css/js files to remote host...${static.files.dir}"/>
+    <exec executable="rsync">
+      <arg line="-a ${branding.css.dir}/ ${deploy.user}@${deploy.host}:${static.files.dir}/css/" />
+    </exec>
+    <exec executable="rsync">
+      <arg line="-a ${branding.img.dir}/ ${deploy.user}@${deploy.host}:${static.files.dir}/img/" />
+    </exec>
+    <exec executable="rsync">
+      <arg line="-a ${branding.fonts.dir}/ ${deploy.user}@${deploy.host}:${static.files.dir}/fonts/" />
+    </exec>
+    <exec executable="rsync">
+      <arg line="-a ${js.dir}/ ${deploy.user}@${deploy.host}:${static.files.dir}/javascript/" />
+    </exec>
+  </target>
+
+  <target name="restart-tomcat" description="Restart the tomcat process">
+    <exec command="ssh ${deploy.user}@${deploy.host}" inputstring='
+        echo "Launching Tomcat restart...";
+        nohup rctomcat6 restart > /dev/null 2>&amp;1 &amp;
+      '
+    />
+  </target>
+
+  <target name="restart-taskomatic" description="Restart the taskomatic process">
+    <exec command="ssh ${deploy.user}@${deploy.host}" inputstring='
+        echo "Launching Taskomatic restart...";
+        nohup rctaskomatic restart > /dev/null 2>&amp;1 &amp;
+      '
+    />
+  </target>
+
+  <target name="deploy-restart" depends="deploy, restart-tomcat" />
+
+  <target name="test" depends="jar" description="Run unit tests">    
+    <mkdir dir="${tests.results.dir}" />
+
+    <loadfile property="tests.includes.text" srcFile="${tests.includes}"/>
+    <loadfile property="tests.excludes.text" srcFile="${tests.excludes}"/>
+    <echo message="Running tests including:" />
+    <echo message="${tests.includes.text}" />
+    <echo message="and excluding:" />
+    <echo message="${tests.excludes.text}" />
+    
+    <junit fork="yes" forkmode="once" maxmemory="256m" dir="${basedir}/buildconf">
+      <sysproperty key="rhn-home" value="." />
+      <sysproperty key="java.awt.headless" value="true" />
+      <sysproperty key="log4j.threshold" value="warn" />
+      <sysproperty key="rhn.config.dir" value="${tests.configuration.path}" />
+
+      <jvmarg value="-ea" />
+      <classpath refid="managertestjars" />
+      <formatter type="xml" usefile="true" />
+      <formatter type="brief" usefile="false" />
+      <batchtest todir="${tests.results.dir}">
+        <zipfileset src="${build.dir}/rhn.jar" includesfile="${tests.includes}" excludesfile="${tests.excludes}" />
+      </batchtest>
+    </junit>
+  </target>
+
+  <target name="checkstyle" depends="compile" description="Runs the checkstyle tool on sources">
+    <taskdef resource="checkstyletask.properties" classpathref="libjars" />
+    <checkstyle config="buildconf/checkstyle.xml">
+      <classpath>
+        <path location="${build.dir}/classes" />
+        <path refid="libjars" />
+      </classpath>
+      <fileset dir="code">
+        <include name="**/src/**/*.java" />
+        <exclude name="**/test/*.java" />
+        <exclude name="**/playpen/*.java" />
+      </fileset>
+      <property key="checkstyle.cache.file" file="build/${checkstyle.cache.src}" />
+      <property key="checkstyle.header.file" file="buildconf/LICENSE.txt" />
+      <property key="javadoc.method.scope" value="public" />
+      <property key="javadoc.var.scope" value="package" />
+      <property key="javadoc.type.scope" value="package" />
+      <property key="javadoc.lazy" value="false" />
+    </checkstyle>
+  </target>
+</project>

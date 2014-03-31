@@ -15,15 +15,28 @@
 
 package com.redhat.rhn.frontend.xmlrpc.chain.test;
 
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
+import com.redhat.rhn.domain.server.Network;
+import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.chain.ActionChainHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.system.SystemManager;
+import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -33,6 +46,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     private final ActionChainHandler ach = new ActionChainHandler();
     private final String chainName = "Quick Brown Fox";
     private Server server;
+    private Package pkg;
 
     /**
      * Flushes all chains (even if any).
@@ -54,8 +68,37 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        this.server = ServerFactoryTest.createTestServer(this.admin);
-        assertTrue(this.flushAllChains());
+        this.server = ServerFactoryTest.createTestServer(this.admin, true);
+
+        // Network
+        Network net = new Network();
+        net.setHostname(InetAddress.getLocalHost().getHostName());
+        net.setIpaddr(InetAddress.getLocalHost().getHostAddress());
+        this.server.addNetwork(net);
+
+        // Channels
+        this.pkg = PackageTest.createTestPackage(this.admin.getOrg());
+        Channel channel = ChannelFactoryTest.createBaseChannel(this.admin);
+        channel.addPackage(this.pkg);
+        // Add package, available to the installation
+        channel.addPackage(PackageTest.createTestPackage(this.admin.getOrg()));
+        this.server.addChannel(channel);
+
+        // Install one package on the server
+        InstalledPackage ipkg = new InstalledPackage();
+        ipkg.setArch(this.pkg.getPackageArch());
+        ipkg.setEvr(this.pkg.getPackageEvr());
+        ipkg.setName(this.pkg.getPackageName());
+        ipkg.setServer(this.server);
+        Set<InstalledPackage> serverPkgs = new HashSet<InstalledPackage>();
+        serverPkgs.add(ipkg);
+        this.server.setPackages(serverPkgs);
+
+        ServerFactory.save(this.server);
+        this.server = (Server) ActionChainHandlerTest.reload(this.server);
+
+        // Clear all the chains
+        this.flushAllChains();
     }
 
 
@@ -63,6 +106,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
         ServerFactory.delete(this.server);
+        this.flushAllChains();
     }
 
 
@@ -83,7 +127,6 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         }
 
         assertFalse(this.ach.listChains().isEmpty());
-        assertTrue(this.flushAllChains());
     }
 
 
@@ -91,15 +134,56 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
      * Test package installation schedule.
      * @throws Exception
      */
+    public void testAcPackageInstallation() throws Exception {
+        List<Integer> packages = new ArrayList<Integer>();
+        List<PackageListItem> pkgs = PackageManager.systemAvailablePackages(
+                this.server.getId(), null);
+        for (PackageListItem pkgItem : pkgs) {
+            packages.add(pkgItem.getId().intValue());
+        }
+
+        packages.add(this.pkg.getId().intValue());
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addPackageInstall(this.adminKey,
+                                                this.server.getId().intValue(),
+                                                packages,
+                                                this.chainName));
+    }
+
+    /**
+     * Test package installation schedule.
+     *
+     * @throws Exception
+     */
     public void testAcPackageInstallationFailed() throws Exception {
         List<Integer> packages = new ArrayList<Integer>();
         packages.add(0);
-
         assertEquals(BaseHandler.INVALID,
                      this.ach.addPackageInstall(this.adminKey,
                                                 this.server.getId().intValue(),
                                                 packages,
                                                 this.chainName));
-        assertTrue(this.flushAllChains());
+    }
+
+    /**
+     * Test package removal.
+     *
+     * @throws Exception
+     */
+    public void testAcPackageRemoval() throws Exception {
+        List<Map<String, String>> rmPkgs = new ArrayList<Map<String, String>>();
+        List<Map> pkgs = SystemManager.installedPackages(this.server.getId(), true);
+        for (int i = 0; i < pkgs.size(); i++) {
+            Map<String, String> pkMap = new HashMap<String, String>();
+            pkMap.put("name", (String) pkgs.get(i).get("name"));
+            pkMap.put("version", (String) pkgs.get(i).get("version"));
+            rmPkgs.add(pkMap);
+        }
+
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addPackageRemoval(this.adminKey,
+                                                this.server.getId().intValue(),
+                                                rmPkgs,
+                                                this.chainName));
     }
 }
