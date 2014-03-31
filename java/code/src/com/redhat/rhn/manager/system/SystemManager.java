@@ -316,7 +316,7 @@ public class SystemManager extends BaseManager {
      */
     public static DataResult installedPackages(Long sid, boolean expanded) {
         String suffix = expanded ? "_expanded" : "";
-        SelectMode m = ModeFactory.getMode("System_queries", 
+        SelectMode m = ModeFactory.getMode("System_queries",
                                            "system_installed_packages" + suffix,
                                            Map.class);
         Map params = new HashMap();
