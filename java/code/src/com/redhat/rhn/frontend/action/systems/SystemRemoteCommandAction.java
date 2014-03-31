@@ -42,7 +42,9 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
+import org.apache.log4j.Logger;
 
 /**
  * Action for the single system remote command scheduling.
@@ -50,6 +52,8 @@ import com.redhat.rhn.manager.system.SystemManager;
  * @author Bo Maryniuk <bo@suse.de>
  */
 public class SystemRemoteCommandAction extends RhnAction {
+    private static final Logger LOG = Logger.getLogger(SystemRemoteCommandAction.class);
+
     /**
      * Class to retention form data.
      */
@@ -284,6 +288,16 @@ public class SystemRemoteCommandAction extends RhnAction {
         // Default form values
         request.setAttribute("formData", new SystemRemoteCommandAction.FormData());
 
+        // Can we run the remote script?
+        if (!SystemManager.clientCapable(server.getId(), "script.run")) {
+            request.setAttribute("cannotRunScript", "true");
+        }
+
+        if (!SystemManager.hasEntitlement(server.getId(),
+                                          EntitlementManager.PROVISIONING)) {
+            request.setAttribute("noProvisioningEntitlement", "true");
+        }
+
         // Process submit
         if (form.get(RhnAction.SUBMITTED) != null) {
             if (this.validate(form, errorMessages)) {
@@ -299,6 +313,7 @@ public class SystemRemoteCommandAction extends RhnAction {
                                      .formatDate(action.getEarliestAction())));
                 }
                 catch (Exception ex) {
+                    SystemRemoteCommandAction.LOG.error(ex);
                     errorMessages.add(ActionMessages.GLOBAL_MESSAGE,
                                   new ActionMessage("ssm.operations.actionchaindetails." +
                                                     "scheduleerror.general.param",

@@ -6231,6 +6231,18 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="remotecommand.jsp.script.disabled">
+        <source>This system cannot execute scripts remotely. The feature must be enabled on this system by adding a file to the local rhn configuration directory: &lt;code&gt;allowed-actions/script/run/&lt;/code&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="remotecommand.jsp.provisioning.disabled">
+          <source>This system has no provisioning entitlement, therefore cannot schedule remote scripts.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="scheduleremote.jsp.ssm.summary">
         <source>You can schedule a remote script to execute on the selected systems below.  The script will run as the user you specify.&lt;/p&gt; &lt;p&gt;You must enable Remote Command execution on the target system, by adding a file to the local rhn configuration directory: &lt;code&gt;allowed-actions/script/run/&lt;/code&gt;.</source>
         <context-group name="ctx">
