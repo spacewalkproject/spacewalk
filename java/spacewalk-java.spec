@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.30
+Version: 2.2.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,48 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 31 2014 Stephen Herr <sherr@redhat.com> 2.2.31-1
+- checkstyle fixes
+- checkstyle fixes
+- fixed typo in action chain jsp and js
+- Action Chaining: list page columns changed as suggested
+- ActionChainManager: refactorings and Javadoc cleanup
+- SSM remote command: use proper user messages
+- SSM remote command: allow queuing to Action Chains
+- SSM reboot: allow queuing to Action Chains
+- SSM configuration file deploy: allow queuing to Action Chains
+- SSM errata apply: use proper user message
+- SSM errata apply: allow queuing to Action Chains
+- SSM package verify: allow queuing to Action Chains
+- SSM package actions: allow queuing to Action Chains
+- Remove functionality to add remote command before a package action in SSM, it
+  is superseded by Action Chains
+- Action Chain Edit page tests
+- Action Chain Edit page added
+- Action Chain List page added
+- Reboot: use proper user messages
+- Reboot: allow queuing to Action Chains
+- Deploy Configuration: use proper user message
+- Deploy Configuration: allow queuing to Action Chains
+- Remote Command: use proper user message
+- Remote Command: allow queuing to Action Chains
+- Errata actions: use proper user message
+- Errata actions: allow queuing to Action Chains
+- Remove functionality to add remote command before a package action, it is
+  superseded by Action Chains
+- Single system package actions: use proper user message
+- Single system package actions: allow queuing to Action Chains
+- Controller helper tests added
+- Controller helper class added
+- ORM class tests added
+- ORM classes for new tables added
+- Front-end code for action chain creation/selection added
+- ActionFormatter: utility methods tests
+- ActionFormatter: add utility methods
+- Refactoring: use a fragment for scheduling options on supported operations
+- Implement task to invalidate reboot actions
+- SSM Configuration Deploy: missing strings added
+
 * Fri Mar 28 2014 Stephen Herr <sherr@redhat.com> 2.2.30-1
 - 1082020 - taskomatic heap size of 1G is not sufficient for large channels
 - Redirect instead of forwarding to overview page after a reboot
