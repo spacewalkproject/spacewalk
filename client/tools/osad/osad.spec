@@ -17,7 +17,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.33
+Version: 5.11.34
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -388,6 +388,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Mar 31 2014 Stephen Herr <sherr@redhat.com> 5.11.34-1
+- make reboot_in_progress a public function
+- do not notify osad of a server which reboot is in progress
+
 * Thu Feb 06 2014 Jan Dobes 5.11.33-1
 - 1056515 - adapting to different logrotate version in fedora and rhel
 
