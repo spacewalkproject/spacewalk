@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.configuration.sdc;
 
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
 import com.redhat.rhn.domain.action.config.ConfigAction;
@@ -25,9 +26,11 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListDispatchAction;
+import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -112,7 +115,7 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
         //Create a success message
         if (upload != null) {
             createSuccessMessage(upload, upload.getRhnActionConfigFileName().size(),
-                    "config.import.success", request);
+                    "config.import.success", request, null);
         }
 
         return getStrutsDelegate().forwardParam(
@@ -168,16 +171,19 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
         //create the action
         Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm)form,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
-        ConfigAction action = (ConfigAction)ActionManager.createConfigAction(user,
-                revisions, servers, type, earliest);
+        ActionChain actionChain = ActionChainHelper.readActionChain((DynaActionForm) form,
+            user);
+        Set<Action> actions = ActionChainManager.createConfigActions(user,
+                revisions, servers, type, earliest, actionChain);
 
         //clean-up the set we just worked with
         RhnSetManager.remove(set);
 
         //create a success message
-        if (action != null) {
+        if (!actions.isEmpty()) {
+            ConfigAction action = (ConfigAction)actions.iterator().next();
             createSuccessMessage(action, action.getConfigRevisionActions().size(),
-                    successKey, request);
+                    successKey, request, actionChain);
         }
 
         //success, go to the config file manage page
@@ -197,13 +203,20 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
     }
 
     private void createSuccessMessage(Action action, int successes,
-            String transKey, HttpServletRequest request) {
+            String transKey, HttpServletRequest request, ActionChain actionChain) {
         ActionMessages msgs = new ActionMessages();
-        Object[] params = new Object[2];
-        params[0] = new Long(successes);
-        params[1] = "/rhn/schedule/ActionDetails.do?aid=" + action.getId();
-        msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage(transKey, params));
+
+        if (actionChain == null) {
+            Object[] params = new Object[2];
+            params[0] = new Long(successes);
+            params[1] = "/rhn/schedule/ActionDetails.do?aid=" + action.getId();
+            msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage(transKey, params));
+        }
+        else {
+            msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                "message.addedtoactionchain", actionChain.getId(), actionChain.getLabel()));
+        }
         getStrutsDelegate().saveMessages(request, msgs);
     }
 

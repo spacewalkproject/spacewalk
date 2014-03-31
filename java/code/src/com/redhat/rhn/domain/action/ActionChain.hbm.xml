@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.redhat.rhn.domain.action.ActionChain" table="rhnActionChain">
+        <id name="id" type="long" column="id">
+            <generator class="sequence">
+                <param name="sequence">rhn_actionchain_id_seq</param>
+            </generator>
+        </id>
+
+        <property name="label" column="label" type="string"/>
+        <property name="created" column="created" type="timestamp" insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp" insert="false"/>
+
+        <many-to-one name="user" column="user_id" not-null="true" class="com.redhat.rhn.domain.user.legacy.UserImpl"/>
+        <set name="entries" inverse="true" lazy="true" cascade="all-delete-orphan">
+            <key column="actionchain_id"/>
+            <one-to-many class="com.redhat.rhn.domain.action.ActionChainEntry"/>
+        </set>
+    </class>
+
+    <query name="ActionChain.getNextSortOrderValue">
+        <![CDATA[
+            SELECT COALESCE(MAX(entry.sortOrder) + 1, 0)
+                FROM ActionChainEntry entry
+                WHERE entry.actionChain.id = :id
+        ]]>
+    </query>
+
+</hibernate-mapping>

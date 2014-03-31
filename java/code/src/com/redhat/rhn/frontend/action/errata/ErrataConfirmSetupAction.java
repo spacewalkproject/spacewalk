@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
@@ -58,6 +59,9 @@ public class ErrataConfirmSetupAction extends RhnListAction {
         //Setup the datepicker widget
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request,
                 (DynaActionForm)formIn, "date", DatePicker.YEAR_RANGE_POSITIVE);
+
+        //Setup the Action Chain widget
+        ActionChainHelper.prepopulateActionChains(request);
 
         request.setAttribute("date", picker);
         request.setAttribute(RequestContext.PAGE_LIST, dr);

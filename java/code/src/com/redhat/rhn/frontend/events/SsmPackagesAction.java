@@ -22,6 +22,8 @@ import org.apache.commons.logging.LogFactory;
 
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
+import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
 import com.redhat.rhn.domain.server.ServerFactory;
@@ -104,67 +106,16 @@ public abstract class SsmPackagesAction extends AbstractDatabaseAction {
 
         log.debug("Scheduling package actions.");
         Date earliest = event.getEarliest();
+        ActionChain actionChain = ActionChainFactory.getActionChain(event
+            .getActionChainId());
 
         List<Long> sids = getAffectedServers(event, user);
 
 
         log.debug("Scheduling actions.");
 
-        // If we have a remote-cmd, have to correctly order it and the package
-        // action(s)
-        if (event.getScriptDetails() != null) {
-            // It's possible to have non-linux servers in the list, and different Actions
-            // are created for them.  Get the separate lists
-            List<Long> rhelIds = ServerFactory.listLinuxSystems(sids);
-            List<Long> solarisIds = ServerFactory.listSolarisSystems(sids);
+        doSchedule(event, user, sids, earliest, actionChain);
 
-            ScriptActionDetails sad = event.getScriptDetails();
-            List<Action> pkgActions = doSchedule(event, user, sids, earliest);
-            for (Action a : pkgActions) {
-
-                if (event.isBefore()) {
-                    log.debug("Scheduling remote-action BEFORE.");
-
-                    if (!rhelIds.isEmpty()) {
-                        ScriptRunAction sra = ActionManager.scheduleScriptRun(user,
-                                        rhelIds, null, sad, earliest);
-                        ActionManager.storeAction(sra);
-                        a.setPrerequisite(sra);
-                        ActionManager.storeAction(a);
-                    }
-
-                    if (!solarisIds.isEmpty()) {
-                        ScriptRunAction sra = ActionManager.scheduleScriptRun(user,
-                                        solarisIds, null, sad, earliest);
-                        ActionManager.storeAction(sra);
-                        a.setPrerequisite(sra);
-                        ActionManager.storeAction(a);
-                    }
-                }
-                else {
-                    log.debug("Scheduling remote-action AFTER.");
-
-                    if (!rhelIds.isEmpty()) {
-                        ScriptRunAction sra = ActionManager.scheduleScriptRun(user,
-                                        rhelIds, null, sad, earliest);
-                        ActionManager.storeAction(a);
-                        sra.setPrerequisite(a);
-                        ActionManager.storeAction(sra);
-                    }
-
-                    if (!solarisIds.isEmpty()) {
-                        ScriptRunAction sra = ActionManager.scheduleScriptRun(user,
-                                        solarisIds, null, sad, earliest);
-                        ActionManager.storeAction(a);
-                        sra.setPrerequisite(a);
-                        ActionManager.storeAction(sra);
-                    }
-                }
-            }
-        }
-        else { // No remote-script to schedule
-            doSchedule(event, user, sids, earliest);
-        }
         log.debug("Done scheduling package actions.");
 
     }
@@ -174,9 +125,6 @@ public abstract class SsmPackagesAction extends AbstractDatabaseAction {
     protected abstract List<Long> getAffectedServers(SsmPackageEvent event, User u);
 
 
-    protected abstract List<Action> doSchedule(SsmPackageEvent event,
-                    User user,
-                    List<Long> sid,
-                    Date earliest);
-
+    protected abstract List<Action> doSchedule(SsmPackageEvent event, User user,
+        List<Long> sid, Date earliest, ActionChain actionChain);
 }

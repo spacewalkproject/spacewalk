@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import com.redhat.rhn.domain.action.ActionChain;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 
 /**
  * Event fired to carry the information necessary to upgrade packages on servers in the
@@ -35,44 +35,23 @@ public class SsmUpgradePackagesEvent extends SsmPackageEvent {
      *
      * @param userIdIn ID of user scheduling this action.
      * @param earliestIn Earliest data action can be picked up.
+     * @param actionChainIn the selected Action Chain or null
      * @param sysPackageSetIn Complex map of:
      *          system id-> List
      *                          Map
      *                              name_id -> long
      *                              evr_id -> long
      *                              arch_id -> long
-     * @param detailsIn   optional remote-command to execute before or after the install
-     * @param beforeIn    optional boolean - true if details should be executed BEFORE the
-     *                    install, false if AFTER
      */
     public SsmUpgradePackagesEvent(Long userIdIn,
                                    Date earliestIn,
-                                   Map<Long, List<Map<String, Long>>> sysPackageSetIn,
-                                   ScriptActionDetails detailsIn,
-                                   boolean beforeIn) {
-        super(userIdIn, earliestIn, detailsIn, beforeIn);
+                                   ActionChain actionChainIn,
+                                   Map<Long, List<Map<String, Long>>> sysPackageSetIn) {
+        super(userIdIn, earliestIn, actionChainIn);
         if (sysPackageSetIn == null) {
             throw new IllegalArgumentException("sysPackageSetIn cannot be null");
         }
         sysPackageSet = sysPackageSetIn;
-    }
-
-    /**
-     * Creates a new SSM upgrade packages event.
-     *
-     * @param userIdIn ID of user scheduling this action.
-     * @param earliestIn Earliest data action can be picked up.
-     * @param sysPackageSetIn Complex map of:
-     *          system id-> List
-     *                          Map
-     *                              name_id -> long
-     *                              evr_id -> long
-     *                              arch_id -> long
-     */
-    public SsmUpgradePackagesEvent(Long userIdIn,
-                                   Date earliestIn,
-                                   Map<Long, List<Map<String, Long>>> sysPackageSetIn) {
-        this(userIdIn, earliestIn, sysPackageSetIn, null, false);
     }
 
     /** {@inheritDoc} */

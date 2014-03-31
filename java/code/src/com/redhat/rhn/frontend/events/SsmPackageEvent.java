@@ -14,10 +14,10 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import java.util.Date;
-
 import com.redhat.rhn.common.messaging.EventMessage;
-import com.redhat.rhn.domain.action.script.ScriptActionDetails;
+import com.redhat.rhn.domain.action.ActionChain;
+
+import java.util.Date;
 
 /**
  * Base for SSM package install/update/remove actions. Holds the data shared between the
@@ -30,8 +30,7 @@ public abstract class SsmPackageEvent implements EventMessage {
 
     protected Long                userId;
     protected Date                earliest;
-    protected ScriptActionDetails scriptDetails;
-    protected boolean             before;
+    protected Long                actionChainId;
 
     /**
      * Creates a new event to install a set of packages on systems in the SSM.
@@ -39,14 +38,9 @@ public abstract class SsmPackageEvent implements EventMessage {
      * @param userIdIn user making the changes; cannot be <code>null</code>
      * @param earliestIn earliest time to perform the installation; can be
      *            <code>null</code>
-     * @param detailsIn optional remote-command to execute before or after the install
-     * @param beforeIn optional boolean - true if details should be executed BEFORE the
-     *            install, false if AFTER
+     * @param actionChainIn the selected Action Chain or null
      */
-    public SsmPackageEvent(Long userIdIn,
-                           Date earliestIn,
-                           ScriptActionDetails detailsIn,
-                           boolean beforeIn) {
+    public SsmPackageEvent(Long userIdIn, Date earliestIn, ActionChain actionChainIn) {
 
         if (userIdIn == null) {
             throw new IllegalArgumentException("userIdIn cannot be null");
@@ -54,8 +48,9 @@ public abstract class SsmPackageEvent implements EventMessage {
 
         this.userId = userIdIn;
         this.earliest = earliestIn;
-        this.scriptDetails = detailsIn;
-        this.before = beforeIn;
+        if (actionChainIn != null) {
+            this.actionChainId = actionChainIn.getId();
+        }
     }
 
     /**
@@ -73,26 +68,18 @@ public abstract class SsmPackageEvent implements EventMessage {
     }
 
     /**
-     * @return may be <code>null</code>
+     * Gets the Action Chain ID
+     * @return the Action Chain ID or null
      */
-    public ScriptActionDetails getScriptDetails() {
-        return scriptDetails;
-    }
-
-    /**
-     * @return true if getScriptDetails() should run BEFORE package-install, FALSE
-     *         otherwise
-     */
-    public boolean isBefore() {
-        return before;
+    public Long getActionChainId() {
+        return actionChainId;
     }
 
     /** {@inheritDoc} */
     public String toString() {
         return "SsmPackageEvent[userId=" + userId + ", " +
                 (earliest != null ? "earliest=" + earliest + ", " : "") +
-                (scriptDetails != null ? "scriptDetails=" + scriptDetails + ", " : "") +
-                "before=" + before + "]";
+                "]";
     }
 
     /** {@inheritDoc} */

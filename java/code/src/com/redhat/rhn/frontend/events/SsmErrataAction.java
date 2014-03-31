@@ -15,11 +15,14 @@
 package com.redhat.rhn.frontend.events;
 
 import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.domain.action.ActionChain;
+import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -37,11 +40,14 @@ public class SsmErrataAction extends AbstractDatabaseAction {
 
         SsmErrataEvent event = (SsmErrataEvent) msg;
         User user = UserFactory.lookupById(event.getUserId());
+        ActionChain actionChain = ActionChainFactory.getActionChain(event
+            .getActionChainId());
 
         try {
             ErrataManager.applyErrata(user,
                                       event.getErrataIds(),
                                       event.getEarliest(),
+                                      actionChain,
                                       event.getServerIds());
         }
         catch (Exception e) {

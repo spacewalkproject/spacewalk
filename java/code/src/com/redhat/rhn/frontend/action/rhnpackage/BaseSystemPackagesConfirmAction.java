@@ -18,10 +18,12 @@ package com.redhat.rhn.frontend.action.rhnpackage;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -31,7 +33,6 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -57,8 +58,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
     private static final String DATA_SET = RequestContext.PAGE_LIST;
-    private static final String ENABLE_REMOTE_COMMAND =
-                                            "enableRemoteCommand";
     private static final String WIDGET_SUMMARY = "widgetSummary";
     private static final String HEADER_KEY = "header";
 
@@ -74,24 +73,19 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
             if (requestContext.wasDispatched("installconfirm.jsp.confirm")) {
                 return executePackageAction(mapping, formIn, request, response);
             }
-            else if (!StringUtils.isBlank(getRemoteMode())) {
-                return runRemoteCommand(mapping, formIn, request, response);
-            }
         }
 
         List<PackageListItem> items = getDataResult(request);
 
         Server server = requestContext.lookupAndBindServer();
 
-        request.setAttribute("mode", getRemoteMode());
-
         /*
          * If we are removing a package that is not in a channel the server is
          *  subscribed to, then the rollback will not work, lets give the user
          *  a message telling them that.
          */
-        if (this.getRemoteMode().equals(RemoveConfirmSetupAction.PACKAGE_REMOVE) &&
-                                server.hasEntitlement(EntitlementManager.PROVISIONING)) {
+        if (this instanceof RemoveConfirmSetupAction &&
+            server.hasEntitlement(EntitlementManager.PROVISIONING)) {
             for (PackageListItem item : items) {
                 Map<String, Long> map = item.getKeyMap();
                 if (!SystemManager.hasPackageAvailable(server, map.get("name_id"),
@@ -102,22 +96,20 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
                      getStrutsDelegate().saveMessages(request, msgs);
                      break;
                 }
-
             }
         }
 
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
-
         request.setAttribute("date", picker);
+
+        ActionChainHelper.prepopulateActionChains(request);
+
         request.setAttribute("system", server);
         requestContext.copyParamToAttributes(RequestContext.SID);
         request.setAttribute(ListTagHelper.PARENT_URL,
                 request.getRequestURI() + "?sid=" + server.getId());
-        if (!StringUtils.isBlank(getRemoteMode())) {
-            request.setAttribute(ENABLE_REMOTE_COMMAND, Boolean.TRUE);
-        }
         request.setAttribute(WIDGET_SUMMARY, getWidgetSummary());
         request.setAttribute(HEADER_KEY, getHeaderKey());
         request.setAttribute(DATA_SET, items);
@@ -141,33 +133,6 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
             items.add(PackageListItem.parse(key));
         }
         return items;
-    }
-
-
-
-    /**
-     * Runs remote packages
-     * @param mapping ActionMapping
-     * @param formIn ActionForm
-     * @param request ServletRequest
-     * @param response ServletResponse
-     * @return The ActionForward to go to next.
-     */
-    public ActionForward runRemoteCommand(ActionMapping mapping,
-                                       ActionForm formIn,
-                                       HttpServletRequest request,
-                                       HttpServletResponse response) {
-
-        RequestContext requestContext = new RequestContext(request);
-        Long sid = requestContext.getRequiredParam("sid");
-        Map params = new HashMap();
-        params.put("session_set_label", getDecl(sid));
-        params.put("sid", sid.toString());
-        params.put("mode", getRemoteMode());
-
-        getStrutsDelegate().rememberDatePicker(params,
-                (DynaActionForm)formIn, "date", DatePicker.YEAR_RANGE_POSITIVE);
-        return getStrutsDelegate().forwardParams(mapping.findForward("remotecmd"), params);
     }
 
     /**
@@ -197,40 +162,51 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
         //The earliest time to perform the action.
-        Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm)formIn,
-                "date", DatePicker.YEAR_RANGE_POSITIVE);
+        DynaActionForm dynaActionForm = (DynaActionForm)formIn;
+        Date earliest = getStrutsDelegate().readDatePicker(dynaActionForm, "date",
+            DatePicker.YEAR_RANGE_POSITIVE);
 
-        PackageAction pa = schedulePackageAction(formIn, requestContext, data, earliest);
+        //The action chain to append this action to, if any
+        ActionChain actionChain = ActionChainHelper.readActionChain(dynaActionForm, user);
+
+        PackageAction pa = schedulePackageAction(formIn, requestContext, data, earliest,
+            actionChain);
 
         //Remove the actions from the users set
         SessionSetHelper.obliterate(request, getDecl(sid));
 
-
-
         ActionMessages msgs = new ActionMessages();
 
-        /**
-         * If there was only one action archived, display the "action" archived
-         * message, else display the "actions" archived message.
-         */
-        if (numPackages == 1) {
-            msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage(getMessageKeyForOne(),
-                             LocalizationService.getInstance()
+        if (actionChain == null) {
+            /**
+             * If there was only one action archived, display the "action" archived
+             * message, else display the "actions" archived message.
+             */
+            if (numPackages == 1) {
+                msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                         new ActionMessage(getMessageKeyForOne(),
+                                 LocalizationService.getInstance()
+                                     .formatNumber(numPackages),
+                                 pa.getId().toString(),
+                                 sid.toString(),
+                                 StringUtil.htmlifyText(server.getName())));
+            }
+            else {
+                msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                         new ActionMessage(getMessageKeyForMany(),
+                                 LocalizationService.getInstance()
                                  .formatNumber(numPackages),
                              pa.getId().toString(),
                              sid.toString(),
                              StringUtil.htmlifyText(server.getName())));
+            }
         }
         else {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage(getMessageKeyForMany(),
-                             LocalizationService.getInstance()
-                             .formatNumber(numPackages),
-                         pa.getId().toString(),
-                         sid.toString(),
-                         StringUtil.htmlifyText(server.getName())));
+                new ActionMessage("message.addedtoactionchain", actionChain.getId(),
+                    StringUtil.htmlifyText(actionChain.getLabel())));
         }
+
         strutsDelegate.saveMessages(request, msgs);
         Map params = new HashMap();
         processParamMap(formIn, request, params);
@@ -256,14 +232,6 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
      * @return the Session Set label.
      */
     protected abstract String getDecl(Long sid);
-
-    /**
-     * The remote command mode.. Blank if no remote command mode
-     * @return the remote command mode.
-     */
-    protected String getRemoteMode() {
-        return "";
-    }
 
     /**
      * hook point to return the notification message key for single package updates
@@ -303,11 +271,11 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
      * @param context the request context
      * @param pkgs the list of packages
      * @param earliest the earliest date to perform the action
+     * @param actionChain the action chain to add the action to or null
      * @return the schedule package action
      */
     protected abstract PackageAction schedulePackageAction(ActionForm formIn,
-                                                           RequestContext context,
-                                                           List<Map<String, Long>> pkgs,
-                                                           Date earliest);
+        RequestContext context, List<Map<String, Long>> pkgs, Date earliest,
+        ActionChain actionChain);
 
 }

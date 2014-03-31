@@ -16,7 +16,7 @@
             <c:when test="${affectedSystemsCount > 0}">
                 <html:form action="/systems/ssm/provisioning/RemoteCommand" method="post">
                     <rhn:csrf />
-                    <table class="details" align="center">
+                    <table class="details" align="center" style="width: 50%;">
                         <tbody>
                             <tr>
                                 <th><bean:message key="ssm.operations.provisioning.remotecommand.form.uid.label"/><span class="required-form-field">*</span>:</th>
@@ -49,20 +49,12 @@
 </textarea>
                                 </td>
                             </tr>
-                            <tr>
-                                <th><bean:message key="ssm.operations.provisioning.remotecommand.form.date.label"/>:</th>
-                                <td>
-                                    <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                                        <jsp:param name="widget" value="date"/>
-                                    </jsp:include>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
+                    <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>
                     <html:hidden property="submitted" value="true"/>
                     <div class="text-right"><hr />
                         <input type="submit" name="schedule_remote_command" value="<bean:message key='ssm.operations.provisioning.remotecommand.form.submit'/>">
-                        <input type="hidden" name="use_date" value="true" />
                     </div>
                 </html:form>
 

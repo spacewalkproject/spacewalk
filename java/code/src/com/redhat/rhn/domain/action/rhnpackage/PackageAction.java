@@ -15,6 +15,8 @@
 package com.redhat.rhn.domain.action.rhnpackage;
 
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionFormatter;
+import com.redhat.rhn.domain.action.PackageActionFormatter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -51,4 +53,14 @@ public class PackageAction extends Action {
         this.details = d;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ActionFormatter getFormatter() {
+        if (formatter == null) {
+            formatter = new PackageActionFormatter(this);
+        }
+        return formatter;
+    }
 }

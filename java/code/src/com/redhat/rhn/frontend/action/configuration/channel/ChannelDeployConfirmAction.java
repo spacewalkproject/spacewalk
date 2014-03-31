@@ -17,11 +17,13 @@ package com.redhat.rhn.frontend.action.configuration.channel;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -82,6 +84,7 @@ public class ChannelDeployConfirmAction extends RhnAction {
         DatePicker picker = getStrutsDelegate().
             prepopulateDatePicker(req, dForm, "date", DatePicker.YEAR_RANGE_POSITIVE);
         req.setAttribute("date", picker);
+        ActionChainHelper.prepopulateActionChains(req);
 
         ConfigActionHelper.setupRequestAttributes(new RequestContext(req), cc);
         Map m = makeParamMap(req);
@@ -151,9 +154,10 @@ public class ChannelDeployConfirmAction extends RhnAction {
         Set systemIds = buildIds(systems);
         Date datePicked = getStrutsDelegate().readDatePicker(form, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
+        ActionChain actionChain = ActionChainHelper.readActionChain(form, usr);
 
         Map m = ConfigurationManager.getInstance().
-            deployFiles(usr, fileIds, systemIds, datePicked);
+            deployFiles(usr, fileIds, systemIds, datePicked, actionChain);
 
         Long successes = m.get("success") == null ? new Long(0) : (Long)m.get("success");
         Long overrides = m.get("override") == null ? new Long(0) : (Long)m.get("override");

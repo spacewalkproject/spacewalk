@@ -14,9 +14,10 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage;
 
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.action.ActionChainManager;
 
 import org.apache.struts.action.ActionForm;
 
@@ -31,12 +32,6 @@ import java.util.Map;
 public class RemoveConfirmSetupAction extends BaseSystemPackagesConfirmAction {
 
     private static final PackageListSetupAction DECL_ACTION = new PackageListSetupAction();
-    protected static final String PACKAGE_REMOVE = "remove";
-
-    @Override
-    protected String getRemoteMode() {
-        return PACKAGE_REMOVE;
-    }
 
     @Override
     protected String getDecl(Long sid) {
@@ -53,11 +48,15 @@ public class RemoveConfirmSetupAction extends BaseSystemPackagesConfirmAction {
         return "message.packageremoval";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected PackageAction schedulePackageAction(ActionForm formIn,
-            RequestContext context, List<Map<String, Long>> pkgs, Date earliest) {
-        return ActionManager.schedulePackageRemoval(context.getCurrentUser(),
-                context.lookupAndBindServer(), pkgs, earliest);
+        RequestContext context, List<Map<String, Long>> pkgs, Date earliest,
+        ActionChain actionChain) {
+        return ActionChainManager.schedulePackageRemoval(context.getCurrentUser(),
+            context.lookupAndBindServer(), pkgs, earliest, actionChain);
     }
 
     @Override

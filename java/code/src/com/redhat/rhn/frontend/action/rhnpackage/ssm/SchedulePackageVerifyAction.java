@@ -17,8 +17,10 @@ package com.redhat.rhn.frontend.action.rhnpackage.ssm;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -30,11 +32,13 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.events.SsmVerifyPackagesEvent;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -73,8 +77,12 @@ public class SchedulePackageVerifyAction extends RhnAction implements Listable {
                 User user = context.getCurrentUser();
 
                 // Load the date selected by the user
-                Date earliest = getStrutsDelegate().readDatePicker(
-                    (DynaActionForm) actionForm, "date", DatePicker.YEAR_RANGE_POSITIVE);
+                DynaActionForm form = (DynaActionForm) actionForm;
+                Date earliest = getStrutsDelegate().readDatePicker(form, "date",
+                    DatePicker.YEAR_RANGE_POSITIVE);
+
+                // Load the action chain by the user
+                ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
 
                 // Parse through all of the results
                 DataResult result = (DataResult) getResult(context);
@@ -89,7 +97,7 @@ public class SchedulePackageVerifyAction extends RhnAction implements Listable {
                     RhnSetDecl.SSM_VERIFY_PACKAGES_LIST.getLabel());
 
                 SsmVerifyPackagesEvent event =
-                    new SsmVerifyPackagesEvent(user.getId(), earliest, result);
+                    new SsmVerifyPackagesEvent(user.getId(), earliest, actionChain, result);
                 MessageQueue.publish(event);
 
                 // Check to determine to display single or plural confirmation message
@@ -107,8 +115,10 @@ public class SchedulePackageVerifyAction extends RhnAction implements Listable {
         DynaActionForm dynaForm = (DynaActionForm) actionForm;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
-
         request.setAttribute("date", picker);
+
+        // Prepopulate the Action Chain selector
+        ActionChainHelper.prepopulateActionChains(request);
 
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
 

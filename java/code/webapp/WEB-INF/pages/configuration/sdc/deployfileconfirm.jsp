@@ -27,7 +27,25 @@
 		action="/systems/details/configuration/DeployFileConfirmSubmit.do?sid=${system.id}">
     <rhn:csrf />
     <c:set var="button" value="sdcdeployconfirm.jsp.schedule" />
-    <%@ include file="/WEB-INF/pages/common/fragments/configuration/sdc/configfile_confirm.jspf" %>
+
+    <rhn:list pageList="${requestScope.pageList}" noDataText="sdcconfigfiles.jsp.noFiles">
+        <rhn:listdisplay filterBy="sdcconfigfiles.jsp.filename">
+            <%@ include file="/WEB-INF/pages/common/fragments/configuration/sdc/configfile_rows.jspf" %>
+        </rhn:listdisplay>
+    </rhn:list>
+
+    <c:if test="${not empty requestScope.pageList}">
+        <p><bean:message key="sdcconfigconfirm.jsp.widgetsummary" /></p>
+
+        <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>
+
+        <div class="text-right">
+            <hr />
+            <html:submit property="dispatch">
+                <bean:message key="${button}" />
+            </html:submit>
+        </div>
+    </c:if>
 </html:form>
 
 </body>

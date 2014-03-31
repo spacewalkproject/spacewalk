@@ -29,6 +29,8 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
+import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.action.errata.ErrataAction;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -1511,9 +1513,24 @@ public class ErrataManager extends BaseManager {
      * @return list of action ids
      */
     public static List<Long> applyErrata(User user, List errataIds, Date earliest,
-            List<Long> serverIds) {
+        List<Long> serverIds) {
+        return applyErrata(user, errataIds, earliest, null, serverIds);
+    }
+
+    /**
+     * Apply a list of errata to a list of servers, with an optional Action
+     * Chain
+     * @param user user
+     * @param errataIds errata ids
+     * @param earliest schedule time
+     * @param actionChain the action chain to add the action to or null
+     * @param serverIds server ids
+     * @return list of action ids
+     */
+    public static List<Long> applyErrata(User user, List errataIds, Date earliest,
+        ActionChain actionChain, List<Long> serverIds) {
         // Schedule updates to the software update stack first
-        ErrataAction swStackUpdate = null;
+        List<ErrataAction> stackUpdates = null;
         List<Errata> errata = new ArrayList<Errata>();
         for (Iterator it = errataIds.iterator(); it.hasNext();) {
             Object next = it.next();
@@ -1522,47 +1539,81 @@ public class ErrataManager extends BaseManager {
 
             Errata erratum = ErrataManager.lookupErrata(currentId, user);
             if (erratum.hasKeyword("restart_suggested")) {
-                if (swStackUpdate == null) {
-                    swStackUpdate = createErrataAction(user, erratum, earliest, serverIds);
+                if (stackUpdates == null) {
+                    stackUpdates = createErrataActions(user, erratum, earliest, actionChain,
+                        serverIds);
                 }
                 else {
-                    swStackUpdate.addErrata(erratum);
+                    for (ErrataAction stackUpdate : stackUpdates) {
+                        stackUpdate.addErrata(erratum);
+                    }
                 }
             }
             else {
                 errata.add(erratum);
             }
         }
-        if (swStackUpdate != null) {
-            Object[] args = new Object[] {swStackUpdate.getErrata().size()};
-            swStackUpdate.setName(LocalizationService.getInstance().getMessage(
+        if (stackUpdates != null) {
+            for (ErrataAction stackUpdate : stackUpdates) {
+                Object[] args = new Object[] {stackUpdate.getErrata().size()};
+                stackUpdate.setName(LocalizationService.getInstance().getMessage(
                     "errata.swstack", args));
-            ActionManager.storeAction(swStackUpdate);
+                ActionManager.storeAction(stackUpdate);
+            }
         }
 
         List<Long> actionIds = new ArrayList<Long>();
         // Schedule remaining errata actions
         for (Errata e : errata) {
-            Action action = ActionManager.storeAction(createErrataAction(user, e, earliest,
-                    serverIds));
-            actionIds.add(action.getId());
+            List<ErrataAction> errataActions = createErrataActions(user, e, earliest,
+                actionChain, serverIds);
+            for (ErrataAction errataAction : errataActions) {
+                Action action = ActionManager.storeAction(errataAction);
+                actionIds.add(action.getId());
+            }
         }
 
         return actionIds;
     }
 
     /**
-     * Create a single {@link ErrataAction}.
+     * Creates errata actions for the specified servers.
+     * @param user the user
+     * @param erratum the erratum
+     * @param earliest the earliest
+     * @param actionChain the action chain to add the actions to or null
+     * @param serverIds the server ids
+     * @return the list
      */
-    private static ErrataAction createErrataAction(User user, Errata erratum, Date earliest,
-            List<Long> serverIds) {
-        Action update = ActionManager.createErrataAction(user, erratum);
-        if (earliest != null) {
-            update.setEarliestAction(earliest);
+    private static List<ErrataAction> createErrataActions(User user, Errata erratum,
+        Date earliest, ActionChain actionChain, List<Long> serverIds) {
+
+        List<ErrataAction> result = new LinkedList<ErrataAction>();
+        if (actionChain == null) {
+            ErrataAction errataAction = (ErrataAction) ActionManager.createErrataAction(
+                user, erratum);
+            if (earliest != null) {
+                errataAction.setEarliestAction(earliest);
+            }
+            for (Long serverId : serverIds) {
+                ActionManager.addServerToAction(serverId, errataAction);
+            }
+            result.add(errataAction);
         }
-        for (Long serverId : serverIds) {
-            ActionManager.addServerToAction(serverId, update);
+        else {
+            int sortOrder = ActionChainFactory.getNextSortOrderValue(actionChain);
+            for (Long serverId : serverIds) {
+                ErrataAction errataAction = (ErrataAction) ActionManager.createErrataAction(
+                    user, erratum);
+                if (earliest != null) {
+                    errataAction.setEarliestAction(earliest);
+                }
+                ActionChainFactory.queueActionChainEntry(errataAction, actionChain,
+                    serverId, sortOrder);
+
+                result.add(errataAction);
+            }
         }
-        return (ErrataAction) update;
+        return result;
     }
 }
