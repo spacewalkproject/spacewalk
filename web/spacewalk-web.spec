@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.9
+Version: 2.2.10
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -270,6 +270,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Mar 31 2014 Stephen Herr <sherr@redhat.com> 2.2.10-1
+- fixed bug unable to delete action chain
+- fixed typo in action chain jsp and js
+- Action Chain Edit page added
+- Front-end code for action chain creation/selection added
+- Javascript library jQuery UI added
+- Javascript library select2 added
+
 * Fri Mar 28 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.9-1
 - Fail if rhnPackage.path is NULL
 - Avoid trimming filename to 128 chars
