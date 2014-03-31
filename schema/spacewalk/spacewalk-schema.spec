@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.18
+Version:        2.2.19
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Mar 31 2014 Stephen Herr <sherr@redhat.com> 2.2.19-1
+- renaming upgrade scripts to put them in the proper place in the order
+- New tables and upgrade scripts added
+- add reboot action cleanup task
+
 * Fri Mar 28 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.18-1
 - rhnServer.secret extend length to 64: schema upgrade
 - extend rhnServer.secret to 64
