@@ -32,11 +32,11 @@ import java.util.Map;
 
 /**
  * Common mix-in for package resolving.
- * 
+ *
  * @author bo
  */
 public class ActionChainRPCCommon {
-    protected static final String[] COMBO_KEYS = new String[]{"evrid", "archid", "nameid"};
+    protected static final String[] COMBO_KEYS = new String[]{"evr_id", "arch_id", "name_id"};
 
     /**
      * Parameters collector.
@@ -168,9 +168,9 @@ public class ActionChainRPCCommon {
         pkgData.put("version", pi.getVersion());
         pkgData.put("release", pi.getRelease());
         pkgData.put("name", pi.getName());
-        pkgData.put("evrid", pi.getEvrId());
-        pkgData.put("archid", pi.getArchId());
-        pkgData.put("nameid", pi.getNameId());
+        pkgData.put("evr_id", pi.getEvrId());
+        pkgData.put("arch_id", pi.getArchId());
+        pkgData.put("name_id", pi.getNameId());
 
         return pkgData;
     }
@@ -221,9 +221,9 @@ public class ActionChainRPCCommon {
                     continue;
                 }
 
-                container.put("evr_id", (Long) pkgData.get("evrid"));
-                container.put("arch_id", (Long) pkgData.get("archid"));
-                container.put("name_id", (Long) pkgData.get("nameid"));
+                container.put("evr_id", (Long) pkgData.get("evr_id"));
+                container.put("arch_id", (Long) pkgData.get("arch_id"));
+                container.put("name_id", (Long) pkgData.get("name_id"));
 
                 if (pkgData.get("name").toString().toLowerCase().contains(
                     pkgName.toLowerCase())) {
@@ -262,5 +262,5 @@ public class ActionChainRPCCommon {
         }
 
         return selected;
-    }    
+    }
 }
