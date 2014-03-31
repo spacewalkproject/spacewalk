@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.server.Network;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.server.Capability;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
@@ -30,8 +31,11 @@ import com.redhat.rhn.frontend.xmlrpc.chain.ActionChainHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.testing.TestUtils;
 import java.net.InetAddress;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -75,6 +79,13 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         net.setHostname(InetAddress.getLocalHost().getHostName());
         net.setIpaddr(InetAddress.getLocalHost().getHostAddress());
         this.server.addNetwork(net);
+
+        // Run scripts capability
+        Set<Capability> caps = new HashSet<Capability>();
+        Capability c = new Capability();
+        c.setName("script.run");
+        caps.add(c);
+        this.server.setCapabilities(caps);
 
         // Channels
         this.pkg = PackageTest.createTestPackage(this.admin.getOrg());
@@ -185,5 +196,55 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 this.server.getId().intValue(),
                                                 rmPkgs,
                                                 this.chainName));
+    }
+
+    /**
+     * Test list chains.
+     */
+    public void testAcListChains() {
+        String[] names = new String[]{TestUtils.randomString(),
+                                      TestUtils.randomString(),
+                                      TestUtils.randomString()};
+        for (String cName : names) {
+            assertEquals(BaseHandler.VALID,
+                         this.ach.addSystemReboot(this.adminKey,
+                                                  this.server.getId().intValue(),
+                                                  cName));
+        }
+
+        List<Map<String, String>> chains = this.ach.listChains();
+        assertEquals(3, chains.size());
+
+        for (Map<String, String> chain : chains) {
+            assertEquals("1", chain.get("entrycount"));
+            boolean found = false;
+            for (String cName : names) {
+                if (cName.equals(chain.get("name"))) {
+                    found = true;
+                }
+            }
+            assertEquals(true, found);
+        }
+    }
+
+    /**
+     * Test chain actions content.
+     */
+    public void testAcChainActionsContent() {
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addSystemReboot(this.adminKey,
+                                              this.server.getId().intValue(),
+                                              this.chainName));
+
+        for (Map<String, Object> action : this.ach.chainActions(this.chainName)) {
+            assertEquals("System reboot", action.get("name"));
+            assertEquals("System reboot", action.get("type"));
+            assertEquals(DateFormat.getDateTimeInstance(DateFormat.SHORT,
+                                                        DateFormat.SHORT)
+                                 .format((Date) action.get("created")),
+                         DateFormat.getDateTimeInstance(DateFormat.SHORT,
+                                                        DateFormat.SHORT)
+                                 .format((Date) action.get("earliest")));
+        }
     }
 }
