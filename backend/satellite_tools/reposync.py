@@ -504,9 +504,6 @@ class RepoSync(object):
     def log_msg(self, message):
         rhnLog.log_clean(0, message)
 
-    def short_hash(self, str):
-        return hashlib.new(default_hash, str).hexdigest()[0:8]
-
     def _to_db_date(self, date):
         ret = ""
         if date.isdigit():
