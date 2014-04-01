@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.19
+Version:        2.2.20
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Apr 01 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.20-1
+- Drop rhn_actchainent_cid_sid_so_uq constraint from rhnActionChainEntry
+
 * Mon Mar 31 2014 Stephen Herr <sherr@redhat.com> 2.2.19-1
 - renaming upgrade scripts to put them in the proper place in the order
 - New tables and upgrade scripts added
