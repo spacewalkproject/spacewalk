@@ -24,7 +24,7 @@ import fileutils
 
 from types import ListType, TupleType
 
-import checksum
+from spacewalk.common import checksum
 from rhn_pkg import A_Package, InvalidPackageError
 
 MPM_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
@@ -262,7 +262,7 @@ class MPM_Package(A_Package):
 
     def save_payload(self, output_stream):
         self.payload_stream = self.input_stream
-        c_hash = checksum.hashlib.new(self.header.checksum_type())
+        c_hash = checksum.getHashlibInstance(self.header.checksum_type(), False)
         self._encode_payload(output_stream, c_hash)
         self.checksum = c_hash.hexdigest()
         if output_stream:

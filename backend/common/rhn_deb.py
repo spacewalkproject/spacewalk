@@ -22,7 +22,7 @@ import tempfile
 
 from debian import debfile
 
-import checksum
+from spacewalk.common import checksum
 from rhn_pkg import A_Package, InvalidPackageError
 
 DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
@@ -113,7 +113,7 @@ class DEB_Package(A_Package):
             raise InvalidPackageError, None, sys.exc_info()[2]
 
     def save_payload(self, output_stream):
-        c_hash = checksum.hashlib.new(self.checksum_type)
+        c_hash = checksum.getHashlibInstance(self.checksum_type, False)
         if output_stream:
             output_start = output_stream.tell()
         self._stream_copy(self.header_data, output_stream, c_hash)

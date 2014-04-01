@@ -14,7 +14,7 @@
 #
 
 import os
-import checksum
+from spacewalk.common import checksum
 
 def get_package_header(filename=None, file_obj=None, fd=None):
     # pylint: disable=E1103
@@ -86,7 +86,7 @@ class A_Package:
 
     def save_payload(self, output_stream):
         """saves payload to output_stream"""
-        c_hash = checksum.hashlib.new(self.checksum_type)
+        c_hash = checksum.getHashlibInstance(self.checksum_type, False)
         if output_stream:
             output_start = output_stream.tell()
         self._stream_copy(self.input_stream, output_stream, c_hash)
