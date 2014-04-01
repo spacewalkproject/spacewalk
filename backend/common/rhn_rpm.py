@@ -19,7 +19,7 @@ import rpm
 import struct
 import tempfile
 
-import checksum
+from spacewalk.common import checksum
 from rhn_pkg import A_Package, InvalidPackageError
 
 if not hasattr(tempfile, 'SpooledTemporaryFile'):
@@ -226,7 +226,7 @@ class RPM_Package(A_Package):
         return header_size
 
     def save_payload(self, output_stream):
-        c_hash = checksum.hashlib.new(self.checksum_type)
+        c_hash = checksum.getHashlibInstance(self.checksum_type, False)
         if output_stream:
             output_start = output_stream.tell()
         self.header_data.seek(0, 0)
