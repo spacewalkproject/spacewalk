@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
+import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.system.SystemManager;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +46,7 @@ public class ActionChainRPCCommon {
         private final User user;
         private final Server server;
         private final ActionChain chain;
+        private boolean freshChain;
 
         /**
          * Collector constructor.
@@ -55,6 +57,7 @@ public class ActionChainRPCCommon {
         public Collector(String sessionToken,
                          Integer serverId,
                          String chainName) {
+            this.freshChain = false;
             if (StringUtil.nullOrValue(sessionToken) == null) {
                 this.user = null;
             }
@@ -75,9 +78,24 @@ public class ActionChainRPCCommon {
                 this.chain = null;
             }
             else {
+                this.freshChain = ActionChainFactory.getActionChain(chainName) == null;
                 this.chain = ActionChainFactory.getOrCreateActionChain(
                     chainName, this.user);
             }
+        }
+
+        /**
+         * Flush the chain as long as it was freshly created and is empty in case when
+         * XML-RPC result is invalid.
+         */
+        public int cleanup(int rpcResult) {
+            if (rpcResult == BaseHandler.INVALID && this.chain != null) {
+                if (this.freshChain && this.chain.getEntries().isEmpty()) {
+                    ActionChainFactory.delete(this.chain);
+                }
+            }
+
+            return rpcResult;
         }
 
         private String str(String value) {
