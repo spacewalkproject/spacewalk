@@ -16,7 +16,6 @@
 #   Classes for generating repository metadata from RHN info.
 #
 
-import hashlib
 import time
 import StringIO
 import shutil
@@ -25,6 +24,7 @@ import os.path
 from gzip import GzipFile
 from gzip import write32u
 
+from spacewalk.common import checksum
 from spacewalk.common import rhnCache
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
@@ -370,7 +370,7 @@ class MetadataRepository:
         return ret
 
     def __get_file_checksum(self, xml_file):
-        hash_computer = hashlib.new(self.__get_checksumtype())
+        hash_computer = checksum.getHashlibInstance(self.__get_checksumtype(), False)
 
         chunk = xml_file.read(CHUNK_SIZE)
         while chunk:
