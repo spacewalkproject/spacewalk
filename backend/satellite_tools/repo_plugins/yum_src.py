@@ -158,6 +158,7 @@ class ContentSource(object):
         """ list packages"""
         self.sack.populate(self.repo, 'metadata', None, 0)
         pkglist = self.sack.returnPackages()
+        pkglist = yum.misc.unique(pkglist)
         self.num_packages = len(pkglist)
 
         if not filters:
