@@ -5,10 +5,10 @@ import sys
 import os
 import stat
 import re
-import hashlib
 from optparse import Option, OptionParser
 
 try:
+    from spacewalk.common import checksum
     from spacewalk.common.rhnLog import initLOG, log_debug
     from spacewalk.common.rhnConfig import CFG, initCFG
     from spacewalk.server import rhnSQL
@@ -214,7 +214,9 @@ def restore_file_path(file, row):
 def check_disk_checksum(abs_path, checksum_type, checksum):
     try:
         fp = file(abs_path ,'rb')
-        file_checksum = hashlib.new(checksum_type, fp.read()).hexdigest()
+        h = checksum.getHashlibInstance(checksum_type, False)
+        h.update(fp.read())
+        file_checksum = h.hexdigest()
         fp.close()
     except:
         file_checksum = None
