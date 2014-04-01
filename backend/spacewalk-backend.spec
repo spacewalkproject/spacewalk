@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.13
+Version: 2.2.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -636,6 +636,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Tue Apr 01 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.14-1
+- 1025781 - allow MD5 config file checksums in fips mode
+
 * Tue Apr 01 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.13-1
 - use getHashlibInstance() wrapper to access hashlib object instance
 - 1020895 - allow to compute md5 package checksum in fips mode
