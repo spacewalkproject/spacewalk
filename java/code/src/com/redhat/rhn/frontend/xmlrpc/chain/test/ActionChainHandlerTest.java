@@ -17,21 +17,26 @@ package com.redhat.rhn.frontend.xmlrpc.chain.test;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.server.Network;
 import com.redhat.rhn.domain.rhnpackage.Package;
-import com.redhat.rhn.domain.server.Capability;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.chain.ActionChainHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.manager.errata.cache.test.ErrataCacheManagerTest;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.system.test.SystemManagerTest;
 import com.redhat.rhn.testing.TestUtils;
+
 import java.net.InetAddress;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -72,7 +77,10 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        this.server = ServerFactoryTest.createTestServer(this.admin, true);
+
+        // Provisioning included
+        this.server = ServerFactoryTest.createTestServer(
+                this.admin, true, ServerConstants.getServerGroupTypeProvisioningEntitled());
 
         // Network
         Network net = new Network();
@@ -81,11 +89,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         this.server.addNetwork(net);
 
         // Run scripts capability
-        Set<Capability> caps = new HashSet<Capability>();
-        Capability c = new Capability();
-        c.setName("script.run");
-        caps.add(c);
-        this.server.setCapabilities(caps);
+        SystemManagerTest.giveCapability(this.server.getId(), "script.run", new Long(1));
 
         // Channels
         this.pkg = PackageTest.createTestPackage(this.admin.getOrg());
@@ -246,5 +250,131 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                         DateFormat.SHORT)
                                  .format((Date) action.get("earliest")));
         }
+    }
+
+    /**
+     * Test chains removal.
+     */
+    public void testAcRemoveChains() {
+        assertEquals(true, this.ach.listChains().isEmpty());
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addSystemReboot(this.adminKey,
+                                              this.server.getId().intValue(),
+                                              this.chainName));
+        assertEquals(false, this.ach.listChains().isEmpty());
+
+        List<String> chainsToRemove = new ArrayList<String>();
+        chainsToRemove.add(this.chainName);
+        this.ach.removeChains(chainsToRemove);
+        assertEquals(true, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Test empty list does not remove any chains, schedule does not happening.
+     */
+    public void testAcRemoveChainsEmpty() {
+        assertEquals(true, this.ach.listChains().isEmpty());
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addSystemReboot(this.adminKey,
+                                              this.server.getId().intValue(),
+                                              this.chainName));
+        assertEquals(false, this.ach.listChains().isEmpty());
+        List<String> chainsToRemove = new ArrayList<String>();
+        assertEquals(BaseHandler.INVALID, this.ach.removeChains(chainsToRemove));
+        assertEquals(false, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Test actions removal.
+     */
+    public void testAcRemoveActions() {
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addSystemReboot(this.adminKey,
+                                              this.server.getId().intValue(),
+                                              this.chainName));
+        assertEquals(false, this.ach.chainActions(this.chainName).isEmpty());
+        List<String> actionsToRemove = new ArrayList<String>();
+        actionsToRemove.add((String) ((Map)
+                this.ach.chainActions(this.chainName).get(0)).get("name"));
+        assertEquals(BaseHandler.VALID,
+                     this.ach.removeActions(this.chainName,
+                                            actionsToRemove));
+        assertEquals(true, this.ach.chainActions(this.chainName).isEmpty());
+    }
+
+    /**
+     * Test empty list does not remove any actions, schedule does not happening.
+     */
+    public void testAcRemoveActionsEmpty() {
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addSystemReboot(this.adminKey,
+                                              this.server.getId().intValue(),
+                                              this.chainName));
+        List<String> actionsToRemove = new ArrayList<String>();
+        assertEquals(BaseHandler.INVALID,
+                     this.ach.removeActions(this.chainName,
+                                            actionsToRemove));
+        assertEquals(false, this.ach.chainActions(this.chainName).isEmpty());
+    }
+
+    /**
+     * Test package upgrade.
+     */
+    public void testAcPackageUpgrade() throws Exception {
+        Map info = ErrataCacheManagerTest
+                .createServerNeededPackageCache(this.admin, ErrataFactory.ERRATA_TYPE_BUG);
+        List<Integer> upgradePackages = new ArrayList<Integer>();
+        Server system = (Server) info.get("server");
+        for (UpgradablePackageListItem item :
+                PackageManager.upgradable(system.getId(), null)) {
+            upgradePackages.add(item.getId().intValue());
+        }
+
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addPackageUpgrade(this.adminKey,
+                                                system.getId().intValue(),
+                                                upgradePackages,
+                                                this.chainName));
+        assertEquals(false, this.ach.listChains().isEmpty());
+        assertEquals(false, this.ach.chainActions(this.chainName).isEmpty());
+    }
+
+    /**
+     * Test package upgrade with an empty list.
+     */
+    public void testAcPackageUpgradeEmpty() {
+        List<Integer> upgradePackages = new ArrayList<Integer>();
+        assertEquals(BaseHandler.INVALID,
+                     this.ach.addPackageUpgrade(this.adminKey,
+                                                this.server.getId().intValue(),
+                                                upgradePackages,
+                                                "freaking fox"));
+        assertEquals(true, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Test schedule remote command.
+     */
+    public void testAcRemoteCommand() {
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addRemoteCommand(this.adminKey,
+                                               this.server.getId().intValue(),
+                                               this.chainName,
+                                               "root", "root", 300,
+                                               "#!/bin/bash\nexit 0;"));
+        assertEquals(false, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Test schedule empty script
+     */
+    public void testAcRemoteCommandEmpty() {
+        assertEquals(BaseHandler.INVALID,
+                     this.ach.addRemoteCommand(this.adminKey,
+                                               this.server.getId().intValue(),
+                                               this.chainName,
+                                               "root", "root", 300,
+                                               ""));
+        assertEquals(true, this.ach.listChains().isEmpty());
     }
 }
