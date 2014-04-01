@@ -82,5 +82,6 @@ def getFileChecksum(hashtype, filename=None, fd=None, file_obj=None, buffer_size
 
 def getStringChecksum(hashtype, s):
     """ compute checksum of an arbitrary string """
-    ctx = hashlib.new(hashtype, s)
-    return ctx.hexdigest()
+    h = getHashlibInstance(hashtype, False)
+    h.update(s)
+    return h.hexdigest()
