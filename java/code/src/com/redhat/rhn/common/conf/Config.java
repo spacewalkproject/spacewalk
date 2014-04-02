@@ -176,6 +176,13 @@ public class Config {
     }
 
     /**
+     * @return true if the config contains key
+     */
+    public boolean containsKey(String name) {
+        return configValues.containsKey(name);
+    }
+
+    /**
      * get the config entry for string s
      *
      * @param value string to get the value of
@@ -310,6 +317,14 @@ public class Config {
      */
     public String setString(String name, String value) {
         return (String) configValues.setProperty(name, value);
+    }
+
+    /**
+     * remove the config entry for key
+     * @param name key to remove
+     */
+    public void remove(String name) {
+        configValues.remove(name);
     }
 
     /**
