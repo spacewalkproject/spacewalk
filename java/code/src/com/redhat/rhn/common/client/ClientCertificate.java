@@ -153,8 +153,12 @@ public class ClientCertificate {
         }
 
         try {
-
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            MessageDigest md;
+            if (secret.length() == 32) {
+                md = MessageDigest.getInstance("MD5");
+            else if (secret.length() == 64) {
+                md = MessageDigest.getInstance("SHA-256");
+            }
 
             // I'm not one to loop through things more than once
             // but this seems to be the algorithm found in Server.pm
