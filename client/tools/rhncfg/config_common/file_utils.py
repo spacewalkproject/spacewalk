@@ -97,7 +97,7 @@ class FileProcessor:
                 modified = xmlrpc_time(file_struct['modified'].value)
                 epoch_time = time.mktime(modified)
                 os.utime(fullpath, (epoch_time, epoch_time))
-            except ValueError:
+            except (ValueError, AttributeError):
                 # we can't parse modified time
                 pass
 
