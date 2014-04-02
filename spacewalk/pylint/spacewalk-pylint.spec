@@ -11,7 +11,7 @@ BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:	noarch
 
 %if 0%{?fedora} >= 19
-Requires:	pylint > 1.0
+Requires:	pylint > 1.1
 %else
 Requires:	pylint < 1.0
 %endif
@@ -38,13 +38,11 @@ install -d -m 755 %{buildroot}/%{_bindir}
 install -p -m 755 spacewalk-pylint %{buildroot}/%{_bindir}/
 install -d -m 755 %{buildroot}/%{_sysconfdir}
 install -p -m 644 spacewalk-pylint.rc %{buildroot}/%{_sysconfdir}/
-%if 0%{?fedora} < 20
+%if 0%{?fedora} < 19
 # new checks in pylint 1.1
 sed -i '/disable=/ s/,bad-whitespace,unpacking-non-sequence,superfluous-parens//g;' \
         %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
-%endif
-%if 0%{?fedora} < 19
-# old pylint don't understand new checks
+# new checks in pylint 1.0
 sed -i '/disable=/ s/\(,C1001\|,W0121\)//g;' \
         %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
 %endif
