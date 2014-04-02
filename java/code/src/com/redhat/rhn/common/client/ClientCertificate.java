@@ -156,6 +156,7 @@ public class ClientCertificate {
             MessageDigest md;
             if (secret.length() == 32) {
                 md = MessageDigest.getInstance("MD5");
+            }
             else if (secret.length() == 64) {
                 md = MessageDigest.getInstance("SHA-256");
             }
