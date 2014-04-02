@@ -153,7 +153,7 @@ public class ClientCertificate {
         }
 
         try {
-            MessageDigest md;
+            MessageDigest md = null;
             if (secret.length() == 32) {
                 md = MessageDigest.getInstance("MD5");
             }
