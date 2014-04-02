@@ -27,16 +27,14 @@ import com.redhat.rhn.domain.monitoring.satcluster.SatNode;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.monitoring.ModifyMethodCommand;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * ConfigureSatelliteCommand
@@ -51,7 +49,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
     private static Logger logger = Logger.
         getLogger(ConfigureSatelliteCommand.class);
 
-    private List keysToBeUpdated;
+    private final List<String> keysToBeUpdated;
 
     /**
      * Create a new ConfigureSatelliteCommand class with the
@@ -60,7 +58,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
      */
     public ConfigureSatelliteCommand(User userIn) {
         super(userIn);
-        this.keysToBeUpdated = new LinkedList();
+        this.keysToBeUpdated = new LinkedList<String>();
     }
 
     /**
@@ -68,23 +66,24 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
      * when we call out to the system utility to store the config.
      * @param configFilePath path to config file to update
      * @param optionMap Map of key/value pairs to update local config with.
+     * @param removals List of keys that will be removed
+     *   Note that they have preference over the updated keys
      * @return String[] array of arguments.
      */
-    public String[] getCommandArguments(String configFilePath, Map optionMap) {
+    public String[] getCommandArguments(String configFilePath,
+            Map<String, String> optionMap, List<String> removals) {
         if (logger.isDebugEnabled()) {
             logger.debug("getCommandArguments(String configFilePath=" +
                     configFilePath + ", Iterator keyIterator=" + optionMap +
                     ") - start");
         }
 
-        List argList = new LinkedList();
+        List<String> argList = new LinkedList<String>();
         argList.add("/usr/bin/sudo");
         argList.add("/usr/bin/rhn-config-satellite.pl");
         argList.add("--target=" + configFilePath);
-        Iterator keyIterator = optionMap.keySet().iterator();
-        while (keyIterator.hasNext()) {
-            String key = (String) keyIterator.next();
-            StringBuffer sb = new StringBuffer();
+        for (String key : optionMap.keySet()) {
+            StringBuilder sb = new StringBuilder();
             sb.append("--option=");
             sb.append(key);
             sb.append("=");
@@ -98,6 +97,13 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
                 sb.append(val);
             }
 
+            argList.add(sb.toString());
+        }
+
+        for (String key : removals) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("--remove=");
+            sb.append(key);
             argList.add(sb.toString());
         }
 
@@ -161,15 +167,20 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             }
         }
 
-        Map optionMap = new HashMap();
-        Iterator i = getKeysToBeUpdated().iterator();
-        while (i.hasNext()) {
-            String key = (String) i.next();
-            optionMap.put(key, Config.get().getString(key));
+        Map<String, String> optionMap = new HashMap<String, String>();
+        List<String> removals = new LinkedList<String>();
+
+        for (String key : getKeysToBeUpdated()) {
+            if (Config.get().containsKey(key)) {
+                optionMap.put(key, Config.get().getString(key));
+            }
+            else {
+                removals.add(key);
+            }
         }
 
         int exitcode = e.execute(getCommandArguments(Config.getDefaultConfigFilePath(),
-                optionMap));
+                optionMap, removals));
         if (exitcode != 0) {
             ValidatorError[] retval = new ValidatorError[1];
             retval[0] = new ValidatorError("config.storeconfig.error",
@@ -247,7 +258,9 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         Executor e = getExecutor();
 
         // Write the scout shared key to cluster.ini
-        Map optionMap = new HashMap();
+        Map<String, String> optionMap = new HashMap<String, String>();
+        List<String> removals = Collections.<String>emptyList();
+
         optionMap.put("LocalConfig.0.dbd", "Oracle");
         optionMap.put("LocalConfig.0.dbname",
                 MonitoringConfigFactory.getDatabaseName());
@@ -265,7 +278,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
                 SatClusterFactory.lookupSatNodeByCluster(c).getScoutSharedKey());
 
 
-        int exitcode = e.execute(getCommandArguments("/etc/rhn/cluster.ini", optionMap));
+        int exitcode = e.execute(getCommandArguments("/etc/rhn/cluster.ini", optionMap, removals));
         if (exitcode != 0) {
             String message = "Not able to write to /etc/rhn/cluster.ini, " +
                 "got exit code: " + exitcode +
@@ -379,11 +392,30 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
     }
 
     /**
+     * Remove a configuration entry
+     * @param configKey to the value
+     */
+    public void remove(String configKey) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("remove(String configKey=" + configKey + ") - start");
+        }
+
+        if (Config.get().getString(configKey) != null) {
+            keysToBeUpdated.add(configKey);
+            Config.get().remove(configKey);
+        }
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("remove(String) - end");
+        }
+    }
+
+    /**
      * Get the list of configuration values that need to be written out
      * to the persistence mechanism.
      * @return List of String values of to the keys to be written.
      */
-    public List getKeysToBeUpdated() {
+    public List<String> getKeysToBeUpdated() {
         return keysToBeUpdated;
     }
 

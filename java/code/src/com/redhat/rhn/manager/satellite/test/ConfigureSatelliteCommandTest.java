@@ -27,7 +27,7 @@ import com.redhat.rhn.manager.satellite.ConfigureSatelliteCommand;
 import com.redhat.rhn.manager.satellite.Executor;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
-
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +80,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
             optionMap.put(key, Config.get().getString(key));
         }
         String[] cmdargs = cmd.getCommandArguments(Config.getDefaultConfigFilePath(),
-                optionMap);
+                optionMap, Collections.<String>emptyList());
 
         assertEquals("--option=test.null_config.config_sat_test=", cmdargs[4]);
         assertEquals(9, cmdargs.length);

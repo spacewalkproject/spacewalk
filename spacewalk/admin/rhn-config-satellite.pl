@@ -22,19 +22,20 @@ use Getopt::Long;
 use English;
 
 my $usage = "usage: $0 --target=<target_file> --option=<key,value> "
-  . "[ --option=<key,value> ] [ --help ]\n";
+  . "[ --option=<key,value> ] [ --remove=<key>] [ --help ]\n";
 
 my $target = '';
 my @options = ();
+my @removals = ();
 my $help = '';
 
-GetOptions("target=s" => \$target, "option=s" => \@options, "help" => \$help) or die $usage;
+GetOptions("target=s" => \$target, "option=s" => \@options, "remove=s" => \@removals, "help" => \$help) or die $usage;
 
 if ($help) {
   die $usage;
 }
 
-unless ($target and (@options)) {
+unless ($target and (@options || @removals)) {
   die $usage;
 }
 
@@ -51,6 +52,7 @@ if ($tmpfile =~ m!^/etc/rhn/!) {
 }
 
 while (my $line = <TARGET>) {
+  my $removed = 0;
   if ($line =~ /\[prompt\]/ or $line =~ /^#/) {
     print TMP $line;
     next;
@@ -67,7 +69,16 @@ while (my $line = <TARGET>) {
     }
   }
 
-  print TMP $line;
+  foreach (@removals) {
+    if ($line =~ /^(\S*)\Q$_\E( *)=( *)/) {
+      $removed = 1;
+      delete $options{$_};
+    }
+  }
+
+  if (!$removed) {
+    print TMP $line;
+  }
 }
 
 # For the options that didn't exist in the file
