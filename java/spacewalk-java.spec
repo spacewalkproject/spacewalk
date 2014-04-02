@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.32
+Version: 2.2.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 02 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.33-1
+- add missing bracket
+
 * Wed Apr 02 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.32-1
 - Ability to validate SHA-256 client certificate
 
