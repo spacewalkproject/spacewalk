@@ -24,7 +24,7 @@ Params::Validate::validation_options(strip_leading => "-");
 use Mail::RFC822::Address ();
 use File::Spec ();
 use DBI ();
-use Digest::MD5 qw/md5_hex/;
+use Digest::SHA qw/sha256_hex/;
 use DateTime ();
 use Sys::Hostname ();
 use Spacewalk::Setup ();
@@ -1190,7 +1190,7 @@ EOQ
 }
 
 sub generate_secret {
-  return md5_hex(random_bits(4096));
+  return sha256_hex(random_bits(4096));
 }
 
 sub random_bits {
