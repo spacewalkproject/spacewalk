@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,6 +55,7 @@ import java.util.Set;
 public class ActionChainHandlerTest extends BaseHandlerTestCase {
     private final ActionChainHandler ach = new ActionChainHandler();
     private final String chainName = "Quick Brown Fox";
+    private final String scriptSample = "#!/bin/bash\nexit 0;";
     private Server server;
     private Package pkg;
 
@@ -353,6 +355,35 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     }
 
     /**
+     * Test package verification.
+     */
+    public void testAcPackageVerify() {
+        List<Integer> packages = new ArrayList<Integer>();
+        for (Iterator it = PackageManager.systemPackageList(
+                this.server.getId(), null).iterator(); it.hasNext();) {
+            packages.add(((PackageListItem) it.next()).getId().intValue());
+        }
+
+        this.ach.addPackageVerify(this.adminKey,
+                                  this.server.getId().intValue(),
+                                  packages,
+                                  chainName);
+        assertEquals(false, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Test package verification failure.
+     */
+    public void testAcPackageVerifyFailure() {
+        assertEquals(BaseHandler.INVALID,
+                     this.ach.addPackageVerify(this.adminKey,
+                                               this.server.getId().intValue(),
+                                               new ArrayList<Integer>(),
+                                               chainName));
+        assertEquals(true, this.ach.listChains().isEmpty());
+    }
+
+    /**
      * Test schedule remote command.
      */
     public void testAcRemoteCommand() {
@@ -361,7 +392,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                this.server.getId().intValue(),
                                                this.chainName,
                                                "root", "root", 300,
-                                               "#!/bin/bash\nexit 0;"));
+                                               this.scriptSample));
         assertEquals(false, this.ach.listChains().isEmpty());
     }
 
@@ -372,6 +403,313 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(BaseHandler.INVALID,
                      this.ach.addRemoteCommand(this.adminKey,
                                                this.server.getId().intValue(),
+                                               this.chainName,
+                                               "root", "root", 300,
+                                               ""));
+        assertEquals(true, this.ach.listChains().isEmpty());
+    }
+
+
+    /**
+     * Section for the convenient methods, where the same as above,
+     * but done by package and host names, instead of the database IDs.
+     */
+
+
+    // Get named packages for the existing system
+    private List<Map<String, String>> getSystemAvailableNamedPackages() {
+        List<Map<String, String>> packages = new ArrayList<Map<String, String>>();
+        List<PackageListItem> pkgs = PackageManager.systemAvailablePackages(
+                this.server.getId(), null);
+        for (PackageListItem pkgItem : pkgs) {
+            Map<String, String> pmap = new HashMap<String, String>();
+            pmap.put("name", pkgItem.getName());
+            pmap.put("version", pkgItem.getVersion());
+            pmap.put("release", pkgItem.getRelease());
+            packages.add(pmap);
+        }
+
+        return packages;
+    }
+
+    // Get named packages that can be upgraded against particular system
+    private List<Map<String, String>> getUpgradableNamedPackages(Server server) {
+        List<Map<String, String>> upgradePackages = new ArrayList<Map<String, String>>();
+        for (UpgradablePackageListItem item :
+                PackageManager.upgradable(server.getId(), null)) {
+            Map<String, String> pmap = new HashMap<String, String>();
+            pmap.put("name", item.getName());
+            pmap.put("version", item.getVersion());
+            pmap.put("release", item.getRelease());
+            upgradePackages.add(pmap);
+        }
+
+        return upgradePackages;
+    }
+
+    // Get named packages that can be removed from the particular system
+    private List<Map<String, String>> getRemovableNamedPackages(Server system) {
+        List<Map<String, String>> rmPkgs = new ArrayList<Map<String, String>>();
+        List<Map> pkgs = SystemManager.installedPackages(system.getId(), true);
+        for (int i = 0; i < pkgs.size(); i++) {
+            Map<String, String> pkMap = new HashMap<String, String>();
+            pkMap.put("name", (String) pkgs.get(i).get("name"));
+            pkMap.put("version", (String) pkgs.get(i).get("version"));
+            rmPkgs.add(pkMap);
+        }
+
+        return rmPkgs;
+    }
+
+    // Make upgradable server with an IP (of current system)
+    private Server makeUpgradableServer() throws Exception {
+        Server system = (Server) ActionChainHandlerTest.reload(
+                (Server) ErrataCacheManagerTest.createServerNeededPackageCache(
+                        this.admin, ErrataFactory.ERRATA_TYPE_BUG).get("server"));
+
+        Network net = new Network();
+        net.setIpaddr(InetAddress.getLocalHost().getHostAddress());
+        system.addNetwork(net);
+        ServerFactory.save(system);
+
+        return (Server) ActionChainHandlerTest.reload(system);
+    }
+
+    /**
+     * Test package installation success.
+     */
+    public void testAcCvPackageInstallByNameAndIP() {
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addPackageInstall(this.adminKey,
+                                                this.server.getName(),
+                                                this.server.getIpAddress(),
+                                                this.getSystemAvailableNamedPackages(),
+                                                this.chainName));
+    }
+
+    public void testAcCvPackageInstallByName() {
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addPackageInstall(this.adminKey,
+                                                this.server.getName(),
+                                                "",
+                                                this.getSystemAvailableNamedPackages(),
+                                                this.chainName));
+    }
+
+    public void testAcCvPackageInstallByIP() {
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addPackageInstall(this.adminKey,
+                                                "",
+                                                this.server.getIpAddress(),
+                                                this.getSystemAvailableNamedPackages(),
+                                                this.chainName));
+    }
+
+    /**
+     * Test package installation failure.
+     */
+    public void testAcCvPackageInstallFailure() {
+        List<Map<String, String>> packages = new ArrayList<Map<String, String>>();
+        // No packages
+        assertEquals(BaseHandler.INVALID,
+                     this.ach.addPackageInstall(this.adminKey,
+                                                this.server.getName(),
+                                                this.server.getIpAddress(),
+                                                packages,
+                                                this.chainName));
+
+        Map<String, String> pmap = new HashMap<String, String>();
+        pmap.put("name", TestUtils.randomString());
+        pmap.put("version", TestUtils.randomString());
+        pmap.put("release", TestUtils.randomString());
+        packages.add(pmap);
+
+        // Unknown packages
+        assertEquals(BaseHandler.INVALID,
+                     this.ach.addPackageInstall(this.adminKey,
+                                                this.server.getName(),
+                                                this.server.getIpAddress(),
+                                                packages,
+                                                this.chainName));
+        System.err.println("Chain: " + this.ach.listChains());
+        assertEquals(true, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Test package removal success.
+     */
+    public void testAcCvPackageRemove() {
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addPackageRemoval(this.adminKey,
+                                                this.server.getName(),
+                                                this.server.getIpAddress(),
+                                                this.getRemovableNamedPackages(this.server),
+                                                this.chainName));
+        assertEquals(false, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Test package removal failure because of wrong hostname.
+     */
+    public void testAcCvPackageRemoveHostnameFailure() {
+        assertEquals(BaseHandler.INVALID,
+                     this.ach.addPackageRemoval(this.adminKey,
+                                                TestUtils.randomString(),
+                                                this.server.getIpAddress(),
+                                                this.getRemovableNamedPackages(this.server),
+                                                this.chainName));
+        assertEquals(true, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Test package removal failure because of wrong packages
+     */
+    public void testAcCvPackageRemovePkgNameFailure() {
+        List<Map<String, String>> packages = new ArrayList<Map<String, String>>();
+        Map<String, String> pmap = new HashMap<String, String>();
+        pmap.put("name", TestUtils.randomString());
+        pmap.put("version", TestUtils.randomString());
+        pmap.put("release", TestUtils.randomString());
+        packages.add(pmap);
+
+        assertEquals(BaseHandler.INVALID,
+                     this.ach.addPackageRemoval(this.adminKey,
+                                                TestUtils.randomString(),
+                                                this.server.getIpAddress(),
+                                                packages,
+                                                this.chainName));
+        assertEquals(true, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Test named package upgrade.
+     * @throws java.lang.Exception
+     */
+    public void testAcCvPackageUpgrade() throws Exception {
+        Server system = this.makeUpgradableServer();
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addPackageUpgrade(this.adminKey,
+                                                system.getName(),
+                                                system.getIpAddress(),
+                                                this.getUpgradableNamedPackages(system),
+                                                this.chainName));
+        assertEquals(false, this.ach.listChains().isEmpty());
+        assertEquals(false, this.ach.chainActions(this.chainName).isEmpty());
+    }
+
+    /**
+     * Test named package upgrade by hostname.
+     * @throws Exception
+     */
+    public void testAcCvPackageUpgradeByHost() throws Exception {
+        Server system = this.makeUpgradableServer();
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addPackageUpgrade(this.adminKey,
+                                                system.getName(),
+                                                "",
+                                                this.getUpgradableNamedPackages(system),
+                                                this.chainName));
+        assertEquals(false, this.ach.listChains().isEmpty());
+        assertEquals(false, this.ach.chainActions(this.chainName).isEmpty());
+    }
+
+    /**
+     * Test named package upgrade by the host IP address.
+     * @throws Exception
+     */
+    public void testAcCvPackageUpgradeByIP() throws Exception {
+        Server system = this.makeUpgradableServer();
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addPackageUpgrade(this.adminKey,
+                                                "",
+                                                system.getIpAddress(),
+                                                this.getUpgradableNamedPackages(system),
+                                                this.chainName));
+        assertEquals(false, this.ach.listChains().isEmpty());
+        assertEquals(false, this.ach.chainActions(this.chainName).isEmpty());
+    }
+
+    /**
+     * Test package upgrade failure.
+     * @throws java.lang.Exception
+     */
+    public void testAcCvPackageUpgradeFailure() throws Exception {
+        Map info = ErrataCacheManagerTest
+                .createServerNeededPackageCache(this.admin, ErrataFactory.ERRATA_TYPE_BUG);
+        List<Map<String, String>> upgradePackages = new ArrayList<Map<String, String>>();
+        Server system = (Server) info.get("server");
+
+        assertEquals(BaseHandler.INVALID,
+                     this.ach.addPackageUpgrade(this.adminKey,
+                                                system.getName(),
+                                                "",
+                                                upgradePackages,
+                                                this.chainName));
+        //assertEquals(true, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Test package verification.
+     */
+    public void testAcCvPackageVerify() {
+    }
+
+    /**
+     * Test package verification failure.
+     */
+    public void testAcCvPackageVerifyFailure() {
+    }
+
+    /**
+     * Test remote command by both, server name and IP address.
+     */
+    public void testAcCvRemoteCommand() {
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addRemoteCommand(this.adminKey,
+                                               this.server.getName(),
+                                               this.server.getIpAddress(),
+                                               this.chainName,
+                                               "root", "root", 300,
+                                               this.scriptSample));
+        assertEquals(false, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Scheduling the remote command by the hostname of the target server.
+     */
+    public void testAcCvRemoteCommandByName() {
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addRemoteCommand(this.adminKey,
+                                               this.server.getName(),
+                                               "",
+                                               this.chainName,
+                                               "root", "root", 300,
+                                               this.scriptSample));
+        assertEquals(false, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Scheduling the remote command by the IP address of the target server.
+     */
+    public void testAcCvRemoteCommandByIP() {
+        assertEquals(BaseHandler.VALID,
+                     this.ach.addRemoteCommand(this.adminKey,
+                                               "",
+                                               this.server.getIpAddress(),
+                                               this.chainName,
+                                               "root", "root", 300,
+                                               this.scriptSample));
+        assertEquals(false, this.ach.listChains().isEmpty());
+    }
+
+    /**
+     * Test remote command failure (no script).
+     */
+    public void testAcCvRemoteCommandFailure() {
+        assertEquals(BaseHandler.INVALID,
+                     this.ach.addRemoteCommand(this.adminKey,
+                                               this.server.getName(),
+                                               this.server.getIpAddress(),
                                                this.chainName,
                                                "root", "root", 300,
                                                ""));
