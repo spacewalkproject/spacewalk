@@ -106,6 +106,42 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
 
     }
 
+    public void testRemoveEntries() throws Exception {
+
+        cmd = new ConfigureSatelliteCommand(user) {
+            @Override
+            public ValidatorError[] storeConfiguration() {
+                this.clearUpdates();
+                return null;
+            }
+        };
+
+        cmd.updateString(TEST_CONFIG_STRING, "initialvalue");
+        cmd.updateBoolean(TEST_CONFIG_BOOLEAN, true);
+
+        assertEquals(2, cmd.getKeysToBeUpdated().size());
+        assertNull(cmd.storeConfiguration());
+        assertEquals(0, cmd.getKeysToBeUpdated().size());
+
+        // now remove them
+
+        cmd.updateString(TEST_CONFIG_STRING, "somevalue");
+        cmd.remove(TEST_CONFIG_BOOLEAN);
+        cmd.remove("nonexistantkey");
+
+        // nonexistantkey should not be part as it did not exist
+        assertEquals(2, cmd.getKeysToBeUpdated().size());
+
+        String[] cmdargs = cmd.getCommandArguments();
+        assertEquals("--target=" + Config.getDefaultConfigFilePath(), cmdargs[2]);
+        assertEquals("--option=" + TEST_CONFIG_STRING + "=somevalue", cmdargs[3]);
+        assertEquals("--remove=" + TEST_CONFIG_BOOLEAN, cmdargs[4]);
+
+        assertEquals(8, cmdargs.length);
+        assertNull(cmd.storeConfiguration());
+        assertEquals(0, cmd.getKeysToBeUpdated().size());
+    }
+
     public void testEnableMonitoring() throws Exception {
         Config.get().setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND,
                 Boolean.FALSE.toString());
