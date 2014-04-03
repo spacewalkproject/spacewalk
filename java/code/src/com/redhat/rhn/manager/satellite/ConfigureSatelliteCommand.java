@@ -192,7 +192,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         if (exitcode != 0) {
             ValidatorError[] retval = new ValidatorError[1];
             retval[0] = new ValidatorError("config.storeconfig.error",
-                    new Integer(exitcode).toString());
+                    Integer.toString(exitcode));
 
             if (logger.isDebugEnabled()) {
                 logger.debug("storeConfiguration() - end - return value="  + retval);
