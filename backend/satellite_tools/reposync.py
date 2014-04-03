@@ -376,10 +376,12 @@ class RepoSync(object):
         if plug.num_excluded:
             self.print_msg("Packages passed filter rules: %5d" % num_passed)
         channel_id = int(self.channel['id'])
+        if self.channel['org_id']:
+            self.channel['org_id'] = int(self.channel['org_id'])
         for pack in packages:
             db_pack = rhnPackage.get_info_for_package(
                    [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
-                   channel_id, int(self.channel['org_id']))
+                   channel_id, self.channel['org_id'])
 
             to_download = True
             to_link     = True

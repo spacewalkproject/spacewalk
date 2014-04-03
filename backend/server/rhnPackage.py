@@ -202,6 +202,11 @@ def get_info_for_package(pkg, channel_id, org_id):
         epochStatement = "(epoch is null or epoch = :epoch)"
     else:
         epochStatement = "epoch = :epoch"
+    if params['org_id']:
+        orgStatement = "org_id = :org_id"
+    else:
+        orgStatement = "org_id is null"
+
     statement = """
     select p.path, cp.channel_id,
            cv.checksum_type, cv.checksum
@@ -222,9 +227,10 @@ def get_info_for_package(pkg, channel_id, org_id):
        and pe.release = :rel
        and %s
        and pa.label = :arch
-       and p.org_id = :org_id
+       and %s
      order by cp.channel_id nulls last
-    """ % epochStatement
+    """ % (epochStatement, orgStatement)
+
     h = rhnSQL.prepare(statement)
     h.execute(**params)
 

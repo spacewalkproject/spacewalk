@@ -547,7 +547,7 @@ def list_channels(pattern=None):
 # makes sure there are no None values in dictionaries, etc.
 def __stringify(object):
     if object is None:
-        return ""
+        return None
     if type(object) == type([]):
         return map(__stringify, object)
     # We need to know __stringify converts immutable types into immutable
