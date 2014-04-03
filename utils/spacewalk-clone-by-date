@@ -138,6 +138,22 @@ def transform_arg_channels(chan_list):
         to_ret[channel[0]] = channel[1:]
     return [to_ret]
 
+# This hack is required because callback option types do not allow you
+# to have set an explicit value, like '--channels=src_label dest_label'.
+# This has always worked before, and in fact the man page says that's what
+# you should do, so we can't let it not work. Instead we'll have to transform
+# the option to be '--channels src_label dest_label' and then pass that on
+# back to optparse, which will process correctly. Life will be much easier
+# when we no longer support RHEL 5 and can migrate to argparse.
+class HackedOptionParser(OptionParser):
+    def _process_long_opt(self, rargs, values):
+        if '=' in rargs[0]:
+            arg = rargs.pop(0)
+            (opt, next_arg) = arg.split("=", 1)
+            rargs.insert(0, next_arg)
+            rargs.insert(0, opt)
+        OptionParser._process_long_opt(self, rargs, values)
+
 def vararg_callback(option, opt_str, value, parser):
     assert value is None
     value = []
@@ -159,7 +175,7 @@ def vararg_callback(option, opt_str, value, parser):
         curr_value.append(value)
 
 def parse_args():
-    parser = OptionParser()
+    parser = HackedOptionParser()
     parser.add_option("-c", "--config", dest="config",
             help="Config file specifying options")
     parser.add_option("-u", "--username", dest="username", help="Username")
