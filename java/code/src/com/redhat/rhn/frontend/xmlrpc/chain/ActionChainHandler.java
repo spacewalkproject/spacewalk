@@ -494,7 +494,7 @@ public class ActionChainHandler extends BaseHandler {
                                  List<Map<String, String>> packages,
                                  String chainName) {
         Collector c = new Collector(sk, serverName, serverIp, chainName);
-        if (c.isValid()) {
+        if (c.getServer() != null) {
             List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
                     PackageManager.systemAvailablePackages(
                             c.getServer().getId(), null), packages, c);
@@ -627,7 +627,12 @@ public class ActionChainHandler extends BaseHandler {
                                 String gid,
                                 Integer timeout,
                                 String scriptBody) {
+        if (StringUtil.nullOrValue(scriptBody) == null) {
+            return BaseHandler.INVALID;
+        }
+
         Collector c = new Collector(sk, serverName, serverIp, chainName);
+
         if (!c.isValid()) {
             return c.cleanup(BaseHandler.INVALID);
         }
