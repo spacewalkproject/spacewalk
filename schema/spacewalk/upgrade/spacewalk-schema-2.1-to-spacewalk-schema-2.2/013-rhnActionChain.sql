@@ -12,7 +12,8 @@
 
 CREATE TABLE rhnActionChain
 (
-    id          NUMBER        NOT NULL PRIMARY KEY,
+    id          NUMBER        NOT NULL
+                    CONSTRAINT rhn_aciton_chain_id_pk PRIMARY KEY,
     label       VARCHAR2(256) NOT NULL,
     user_id     NUMBER        NOT NULL
                     CONSTRAINT rhn_actionchain_uid_fk
