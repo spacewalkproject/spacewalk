@@ -119,6 +119,27 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
     }
 
     /**
+     * Get the formatted String array of command line arguments to execute
+     * when we call out to the system utility to store the config.
+     * @return String[] array of arguments.
+     */
+    public String[] getCommandArguments() {
+        Map<String, String> optionMap = new HashMap<String, String>();
+        List<String> removals = new LinkedList<String>();
+
+        for (String key : getKeysToBeUpdated()) {
+            if (Config.get().containsKey(key)) {
+                optionMap.put(key, Config.get().getString(key));
+            }
+            else {
+                removals.add(key);
+            }
+        }
+        return getCommandArguments(Config.getDefaultConfigFilePath(),
+                optionMap, removals);
+    }
+
+    /**
      * Store the Configuration to the filesystem
      * @return ValidatorError
      */
@@ -167,20 +188,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             }
         }
 
-        Map<String, String> optionMap = new HashMap<String, String>();
-        List<String> removals = new LinkedList<String>();
-
-        for (String key : getKeysToBeUpdated()) {
-            if (Config.get().containsKey(key)) {
-                optionMap.put(key, Config.get().getString(key));
-            }
-            else {
-                removals.add(key);
-            }
-        }
-
-        int exitcode = e.execute(getCommandArguments(Config.getDefaultConfigFilePath(),
-                optionMap, removals));
+        int exitcode = e.execute(getCommandArguments());
         if (exitcode != 0) {
             ValidatorError[] retval = new ValidatorError[1];
             retval[0] = new ValidatorError("config.storeconfig.error",
