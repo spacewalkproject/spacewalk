@@ -1,0 +1,123 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY THECOMMAND "spacewalk-data-fsck" >
+]>
+
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-data-fsck</RefEntryTitle><manvolnum>8</manvolnum>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-data-fsck</command></RefName>
+<RefPurpose>
+Helper utility to manage and compare packages on filesystem vs database.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spacewalk-data-fsck [ -v | -S | -C | -O | -d | -f | -r | F ] </command>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+
+<para>
+    The <emphasis>spacewalk-data-fsck</emphasis> is a helper utility that allows you to verify the packages stored on the filesystem and compare them against the packages referenced on the database.  You can verify if the packages from the database are present on the filesystem or vice-versa.
+</para>
+<para>
+    <emphasis>spacewalk-data-fsck</emphasis> also allows you to remove the packages from filesytem if that package is not being used by any channel.
+</para>
+<para>
+    By default, <emphasis>spacewalk-data-fsck</emphasis> will verify if the checksum of the RPM package matches with the checksum stored on the database.
+    You can fix the file path by adding the option <emphasis>--fix-file-path</emphasis>.
+</para>
+<para>
+    All the operations performed by <emphasis>spacewalk-data-fsck</emphasis>  will be logged
+    at <filename>/var/log/rhn/spacewalk-data-fsck.log</filename>.
+</para>
+<para>
+    Consider running <emphasis>spacewalk-data-fsck</emphasis> on a non-production period. The system/database activity
+    will increase considerabily.
+</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>show this help message and exit</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-v, --verbose</term>
+        <listitem>
+            <para>Increase verbosity.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-S, --no-size</term>
+        <listitem>
+            <para>Don't check package size</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-C, --no-checksum</term>
+        <listitem>
+            <para>Don't check package checksum</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-O, --no-nevrao</term>
+        <listitem>
+            <para>Don't check package name, epoch, version, release, arch, org</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-d, --db-only</term>
+        <listitem>
+            <para>Check only if packages from database are present on filesystem.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-f, --fs-only</term>
+        <listitem>
+            <para>Check only if packages from filesystem are in the database.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-r, --remove</term>
+        <listitem>
+            <para>Automaticaly remove packages from filesystem not present in database.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-F, --fix-file-path</term>
+        <listitem>
+            <para>
+            Restores file paths, try this when you have <emphasis>NEVRAO</emphasis> mismatches.
+            Do not run this command with another commands.
+            </para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Example</Title>
+<simplelist>
+    <member><command>&THECOMMAND; -f -r</command> Delete all the packages from filesystem are not in the database.</member>
+    <member><command>&THECOMMAND; -F</command> Restore the file paths when <emphasis>NEVRAO</emphasis> mismatches.</member>
+</simplelist>
+</RefSect1>
+
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Marcelo Moreira de Mello <email>mmello@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
