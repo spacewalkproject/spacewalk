@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.36
+Version: 2.2.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.37-1
+- 903068 - checkstyle fixes
+
 * Fri Apr 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.36-1
 - 903068 - fixed debian repo generation
 
