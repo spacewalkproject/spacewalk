@@ -24,7 +24,10 @@ import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.domain.rhnpackage.Package;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -84,10 +87,29 @@ public class ActionChainRPCCommon {
             }
         }
 
+        public int eval() {return BaseHandler.INVALID;}
+
         /**
          * Flush the chain as long as it was freshly created and is empty in case when
          * XML-RPC result is invalid.
          */
+        public int cleanup() {
+            Integer rpcResult = BaseHandler.INVALID;
+            try {
+                rpcResult = this.eval();
+            } catch (RuntimeException ex) {
+                throw ex;
+            } finally {
+                if (rpcResult == BaseHandler.INVALID && this.chain != null) {
+                    if (this.freshChain && this.chain.getEntries().isEmpty()) {
+                        ActionChainFactory.delete(this.chain);
+                    }
+                }
+            }
+
+            return rpcResult;
+        }
+
         public int cleanup(int rpcResult) {
             if (rpcResult == BaseHandler.INVALID && this.chain != null) {
                 if (this.freshChain && this.chain.getEntries().isEmpty()) {
@@ -181,8 +203,8 @@ public class ActionChainRPCCommon {
      * @return map
      */
     private Map<String, Object> getPkgData(PackageListItem pi) {
-        Map pkgData = new HashMap<String, String>();
-        pkgData.put("id", pi.getId());
+        Map pkgData = new HashMap<String, Object>();
+        pkgData.put("id", pi.getPackageId());
         pkgData.put("version", pi.getVersion());
         pkgData.put("release", pi.getRelease());
         pkgData.put("name", pi.getName());
@@ -268,7 +290,7 @@ public class ActionChainRPCCommon {
                 (pkgContainer instanceof UpgradablePackageListItem)) {
                 Map pkgData = this.getPkgData((PackageListItem) pkgContainer);
                 for (Integer pkgId : userPackages) {
-                    if (((Long) pkgData.get("id")) == (long) pkgId) {
+                    if (((Long) pkgData.get("id")).equals(Long.valueOf(pkgId))) {
                         Map<String, Long> pkgCombo = new HashMap<String, Long>();
                         for (String key : ActionChainRPCCommon.COMBO_KEYS) {
                             pkgCombo.put(key, (Long) pkgData.get(key));
@@ -277,6 +299,33 @@ public class ActionChainRPCCommon {
                     }
                 }
             }
+        }
+
+        return selected;
+    }
+
+    /**
+     * Resolve packages from IDs.
+     *
+     * @param userPackages
+     * @return selectedPackages
+     */
+    public List<Map<String, Long>> resolvePackages(List<Integer> userPackages, User user) {
+        List<Map<String, Long>> selected = new ArrayList<Map<String, Long>>();
+        for (Integer pkgId : userPackages) {
+            Map<String, Long> pkgMap = new HashMap<String, Long>();
+
+            Package pkg = PackageManager.lookupByIdAndUser(
+                    new Long(pkgId.longValue()), user);
+            if (pkg == null) {
+                throw new InvalidPackageException(pkgId.toString());
+            }
+
+            pkgMap.put("name_id", pkg.getPackageName().getId());
+            pkgMap.put("evr_id", pkg.getPackageEvr().getId());
+            pkgMap.put("arch_id", pkg.getPackageArch().getId());
+
+            selected.add(pkgMap);
         }
 
         return selected;
