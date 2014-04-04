@@ -93,8 +93,8 @@ public class DebPackageWriter {
             out.write(pkgDto.getVendor());
             out.newLine();
 
-	    Long packagePayloadSize = pkgDto.getPayloadSize();
-            if (packagePayloadSize > 0 ) {
+            Long packagePayloadSize = pkgDto.getPayloadSize();
+            if (packagePayloadSize > 0) {
                 out.write("Installed-Size: ");
                 out.write(pkgDto.getPayloadSize().toString());
                 out.newLine();
@@ -215,8 +215,10 @@ public class DebPackageWriter {
                 }
 
                 count++;
-		int iordernumber = Integer.parseInt(capability.getName().substring(capability.getName().indexOf("_") + 1));
-		names[iordernumber] = capability.getName().substring(0,capability.getName().indexOf("_"));
+		int iordernumber = Integer.parseInt(capability.getName().substring(
+                                                capability.getName().indexOf("_") + 1));
+		names[iordernumber] = capability.getName().substring(
+                                                0, capability.getName().indexOf("_"));
 		versions[iordernumber] = capability.getVersion();
 	    }
 
