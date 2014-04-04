@@ -117,19 +117,19 @@ public class DebPackageWriter {
                     out,
                     TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_OBSOLETES,
                     pkgDto.getId(), "Replaces");
-	    addPackageDepData(
+            addPackageDepData(
                     out,
                     TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_SUGGESTS,
                     pkgDto.getId(), "Suggests");
-	    addPackageDepData(
+            addPackageDepData(
                     out,
                     TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_RECOMMENDS,
                     pkgDto.getId(), "Recommends");
-	    addPackageDepData(
+            addPackageDepData(
                     out,
                     TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_PREDEPENDS,
                     pkgDto.getId(), "Pre-Depends");
-	    addPackageDepData(
+            addPackageDepData(
                     out,
                     TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_BREAKS,
                     pkgDto.getId(), "Breaks");
@@ -205,9 +205,9 @@ public class DebPackageWriter {
         int count = 0;
         Collection<PackageCapabilityDto> capabilities = TaskManager
                 .getPackageCapabilityDtos(pkgId, query);
-	int icapcount = capabilities.size();
-	String[] names = new String[icapcount];
-	String[] versions = new String[icapcount];
+        int icapcount = capabilities.size();
+        String[] names = new String[icapcount];
+        String[] versions = new String[icapcount];
         try {
             for (PackageCapabilityDto capability : capabilities) {
                 if (count == 0) {
@@ -215,22 +215,22 @@ public class DebPackageWriter {
                 }
 
                 count++;
-		int iordernumber = Integer.parseInt(capability.getName().substring(
+                int iordernumber = Integer.parseInt(capability.getName().substring(
                                                 capability.getName().indexOf("_") + 1));
-		names[iordernumber] = capability.getName().substring(
+                names[iordernumber] = capability.getName().substring(
                                                 0, capability.getName().indexOf("_"));
-		versions[iordernumber] = capability.getVersion();
-	    }
+                versions[iordernumber] = capability.getVersion();
+            }
 
-	    for (int iIndex = 0; iIndex < names.length; iIndex++) {
-		if (iIndex != 0) {
-		    out.write(", ");
-		}
-	        out.write(names[iIndex]);
+            for (int iIndex = 0; iIndex < names.length; iIndex++) {
+                if (iIndex != 0) {
+                    out.write(", ");
+                }
+                out.write(names[iIndex]);
                 if (versions[iIndex] != null && !versions[iIndex].isEmpty()) {
                     out.write(" (" + versions[iIndex] + ")");
                 }
-	     }
+            }
         }
         catch (Exception e) {
             log.debug("failed to write DEB dependency " + dep + " " + e.toString());
