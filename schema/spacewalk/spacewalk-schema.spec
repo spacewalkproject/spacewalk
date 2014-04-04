@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.22
+Version:        2.2.23
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Apr 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.23-1
+- 903068 - update scripts for schema
+- 903068 - fixed debian repo generation
+
 * Thu Apr 03 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.22-1
 - rhnActionChain.id: explicitly name the primary index constraint
 
