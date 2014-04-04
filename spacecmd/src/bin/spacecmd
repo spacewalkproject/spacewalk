@@ -21,7 +21,7 @@
 
 """ spacecmd - a command line interface to Spacewalk """
 
-import logging, os, re, sys, xmlrpclib
+import logging, os, re, sys, xmlrpclib, codecs, locale
 from ConfigParser import SafeConfigParser, NoOptionError
 from optparse import Option, OptionParser
     
@@ -35,6 +35,9 @@ Type: 'help' for a list of commands
 _SYSTEM_CONF_FILE = '/etc/spacecmd.conf'
 
 if __name__ == '__main__':
+    if not sys.stdout.isatty():
+        sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
+
     optionsTable = [
         Option('-u', '--username', action='store',
                help='use this username to connect to the server'),
