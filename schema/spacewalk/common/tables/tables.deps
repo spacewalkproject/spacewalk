@@ -128,6 +128,8 @@ rhnPackageSuggests             :: rhnPackage rhnPackageCapability
 rhnPackageSupplements          :: rhnPackage rhnPackageCapability
 rhnPackageEnhances             :: rhnPackage rhnPackageCapability
 rhnPackageRecommends           :: rhnPackage rhnPackageCapability
+rhnPackageBreaks               :: rhnPackage rhnPackageCapability
+rhnPackagePredepends           :: rhnPackage rhnPackageCapability
 rhnPackageSource               :: web_customer rhnSourceRPM rhnFile rhnPackageGroup \
                                   rhnChecksum
 rhnPackageSyncBlacklist        :: rhnPackageName web_customer

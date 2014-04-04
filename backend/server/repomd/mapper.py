@@ -343,6 +343,30 @@ class SqlPackageMapper:
         where
            po.package_id = :package_id
            and po.capability_id = pc.id
+	union all
+        select
+           'breaks',
+           brks.sense,
+           pc.name,
+           pc.version
+        from
+           rhnPackageCapability pc,
+           rhnPackageBreaks brks
+        where
+           brks.package_id = :package_id
+           and brks.capability_id = pc.id
+	union all
+        select
+           'predepends',
+           pdep.sense,
+           pc.name,
+           pc.version
+        from
+           rhnPackageCapability pc,
+           rhnPackagePredepends pdep
+        where
+           pdep.package_id = :package_id
+           and pdep.capability_id = pc.id
         """)
 
         self.last_modified_sql = rhnSQL.prepare("""
@@ -463,6 +487,10 @@ class SqlPackageMapper:
                 package.enhances.append(dep)
             elif item[0] == "suggests":
                 package.suggests.append(dep)
+            elif item[0] == "breaks":
+                package.breaks.append(dep)
+            elif item[0] == "predepends":
+                package.predepends.append(dep)
             else:
                 assert False, "Unknown PRCO type: %s" % item[0]
 

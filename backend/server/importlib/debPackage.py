@@ -122,6 +122,10 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
             'requires'  : headerSource.rpmRequires,
             'conflicts' : headerSource.rpmConflicts,
             'obsoletes' : headerSource.rpmObsoletes,
+	    'suggests'  : headerSource.rpmSuggests,
+            'recommends': headerSource.rpmRecommends,
+            'breaks'    : headerSource.rpmBreaks,
+            'predepends': headerSource.rpmPredepends,
         }
         for k, dclass in mapping.items():
             l = []
@@ -129,14 +133,15 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
             if values != None:
                 val = string.join(values.split(), "")  # remove whitespaces
                 val = val.split(',')  # split packages
+                i = 0
                 for v in val:
                     version = ''
                     if '|' in v:
                         # TODO: store alternative-package-names semantically someday
-                        name = v
+                        name = v + '_' + str(i)
                     else:
                         nv = v.split('(')
-                        name = nv[0]
+                        name = nv[0] + '_' + str(i)
                         # TODO FIX VERSION AND FLAGS
                         if (len(nv) > 1):
                             version = nv[1].rstrip(')')
@@ -144,6 +149,7 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
                     finst = dclass()
                     finst.populate(hash)
                     l.append(finst)
+                    i += 1
             self[k] = l
 
     def _populateChangeLog(self, header):

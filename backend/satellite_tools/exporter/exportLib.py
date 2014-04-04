@@ -841,6 +841,10 @@ class _PackageDumper(BaseRowDumper):
                 'rhn-package-supplements-entry'],
             ['rhnPackageEnhances',  'rhn-package-enhances',
                 'rhn-package-enhances-entry'],
+            ['rhnPackageBreaks',  'rhn-package-breaks',
+                'rhn-package-breaks-entry'],
+            ['rhnPackagePredepends',  'rhn-package-predepends',
+                'rhn-package-predepends-entry'],
        ]
         for table_name, container_name, entry_name in mappings:
             h = rhnSQL.prepare("""

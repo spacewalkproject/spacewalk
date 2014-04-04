@@ -160,6 +160,12 @@ public class TaskConstants {
     public static final String TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_ENHANCES =
         "repomdgenerator_capability_enhances";
 
+    public static final String TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_BREAKS =
+        "repomdgenerator_capability_breaks";
+
+    public static final String TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_PREDEPENDS =
+        "repomdgenerator_capability_predepends";
+
     public static final String TASK_QUERY_REPOMD_GENERATOR_PACKAGE_CHANGELOG =
         "repomdgenerator_package_changelog";
 

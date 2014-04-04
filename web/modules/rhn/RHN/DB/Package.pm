@@ -505,6 +505,60 @@ EOQ
   return @ret;
 }
 
+sub breaks {
+  my $self = shift;
+
+  my @ret;
+  my $dbh = RHN::DB->connect;
+  my $query;
+  my $sth;
+
+  $query = <<EOQ;
+SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
+  FROM  rhnPackageCapability C, rhnPackageBreaks P
+ WHERE  P.package_id = ?
+   AND  P.capability_id = C.id
+ORDER BY name_upper, C.version
+EOQ
+
+  $sth = $dbh->prepare($query);
+  $sth->execute($self->id);
+
+  my @columns;
+  while(@columns = $sth->fetchrow) {
+    push @ret, [ @columns ];
+  }
+
+  return @ret;
+}
+
+sub predepends {
+  my $self = shift;
+
+  my @ret;
+  my $dbh = RHN::DB->connect;
+  my $query;
+  my $sth;
+
+  $query = <<EOQ;
+SELECT  DISTINCT C.name, C.version, P.sense, UPPER(C.name) AS name_upper
+  FROM  rhnPackageCapability C, rhnPackagePredepends P
+ WHERE  P.package_id = ?
+   AND  P.capability_id = C.id
+ORDER BY name_upper, C.version
+EOQ
+
+  $sth = $dbh->prepare($query);
+  $sth->execute($self->id);
+
+  my @columns;
+  while(@columns = $sth->fetchrow) {
+    push @ret, [ @columns ];
+  }
+
+  return @ret;
+}
+
 # given varying data, try to figure what freakin' package to load.
 # NOTE:  Might I say, this sucketh much donkey wong.  Awaiting a better answer :(
 sub guestimate_package_id {

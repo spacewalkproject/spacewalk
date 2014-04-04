@@ -589,6 +589,26 @@ where snc.errata_id = :errata_id
    </query>
 </mode>
 
+<mode name="repomdgenerator_capability_breaks"
+    class="com.redhat.rhn.frontend.dto.PackageCapabilityDto">
+   <query params="package_id">
+  SELECT pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageBreaks pkgp, rhnPackageCapability pkgcap
+   WHERE pkgp.capability_id = pkgcap.id
+     AND pkgp.package_id = :package_id
+   </query>
+</mode>
+
+<mode name="repomdgenerator_capability_predepends"
+    class="com.redhat.rhn.frontend.dto.PackageCapabilityDto">
+   <query params="package_id">
+  SELECT pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackagePredepends pkgp, rhnPackageCapability pkgcap
+   WHERE pkgp.capability_id = pkgcap.id
+     AND pkgp.package_id = :package_id
+   </query>
+</mode>
+
 <mode name="repomdgenerator_package_changelog"
     class="com.redhat.rhn.frontend.dto.PackageChangelogDto">
    <query params="package_id">
