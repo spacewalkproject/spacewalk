@@ -276,9 +276,8 @@ public class ActionChainHandler extends BaseHandler {
                                  String chainName) {
         Collector c = new Collector(sk, serverId, chainName);
         if (c.isValid()) {
-            List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
-                PackageManager.systemAvailablePackages(
-                        c.getServer().getId(), null), packages);
+            List<Map<String, Long>> selectedPackages = this.acUtil.resolvePackages(
+                    packages, c.getUser());
             if (!selectedPackages.isEmpty()) {
                 return c.cleanup(this.bool(ActionChainManager.schedulePackageInstall(
                         c.getUser(), c.getServer(), selectedPackages,
@@ -345,8 +344,10 @@ public class ActionChainHandler extends BaseHandler {
                                  String chainName) {
         Collector c = new Collector(sk, serverId, chainName);
         if (c.isValid()) {
-            List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
-                    PackageManager.upgradable(c.getServer().getId(), null), packages);
+            //List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
+            //        PackageManager.upgradable(c.getServer().getId(), null), packages);
+            List<Map<String, Long>> selectedPackages = this.acUtil.resolvePackages(
+                    packages, c.getUser());
             if (!selectedPackages.isEmpty()) {
                 return c.cleanup(this.bool(ActionChainManager.schedulePackageUpgrade(
                         c.getUser(), c.getServer(), selectedPackages,
@@ -491,21 +492,27 @@ public class ActionChainHandler extends BaseHandler {
     public int addPackageInstall(String sk,
                                  String serverName,
                                  String serverIp,
-                                 List<Map<String, String>> packages,
+                                 final List<Map<String, String>> packages,
                                  String chainName) {
-        Collector c = new Collector(sk, serverName, serverIp, chainName);
-        if (c.getServer() != null) {
-            List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
-                    PackageManager.systemAvailablePackages(
-                            c.getServer().getId(), null), packages, c);
-            if (!selectedPackages.isEmpty()) {
-                return c.cleanup(this.bool(ActionChainManager.schedulePackageInstall(
-                        c.getUser(), c.getServer(), selectedPackages,
-                                                    new Date(), c.getChain()) != null));
-            }
-        }
+        Collector c = new Collector(sk, serverName, serverIp, chainName) {
+            @Override
+            public int eval() {
+                if (this.getServer() != null) {
+                    List<Map<String, Long>> selectedPackages = acUtil.selectPackages(
+                            PackageManager.systemAvailablePackages(
+                                    this.getServer().getId(), null), packages, this);
+                    if (!selectedPackages.isEmpty()) {
+                        return bool(ActionChainManager.schedulePackageInstall(
+                                this.getUser(), this.getServer(), selectedPackages,
+                                new Date(), this.getChain()) != null);
+                    }
+                }
 
-        return c.cleanup(BaseHandler.INVALID);
+                return BaseHandler.INVALID;
+            }
+        };
+
+        return c.cleanup();
     }
 
     /**
