@@ -60,7 +60,6 @@ import com.redhat.rhn.domain.server.CPU;
 import com.redhat.rhn.domain.server.CustomDataValue;
 import com.redhat.rhn.domain.server.Device;
 import com.redhat.rhn.domain.server.Dmi;
-import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Location;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.NetworkInterface;
@@ -3369,25 +3368,8 @@ public class SystemHandler extends BaseHandler {
                 loggedInUser);
         Channel channel = ChannelFactory.lookupByLabelAndUser(channelLabel,
                 loggedInUser);
-
-        Set<Package> chanPacks = channel.getPackages();
-        Set<InstalledPackage> sysPacks = server.getPackages();
-        Set<Package> intersection = new HashSet<Package>();
-
-        for (Iterator<InstalledPackage> it = sysPacks.iterator(); it.hasNext();) {
-            InstalledPackage insPack = it.next();
-
-            for (Iterator<Package> chanIt = chanPacks.iterator(); chanIt.hasNext();) {
-                Package chanPack = chanIt.next();
-
-                if (insPack.equals(chanPack)) {
-                    intersection.add(chanPack);
-                    break;
-                }
-            }
-        }
-
-        return intersection.toArray();
+        return SystemManager.packagesFromChannel(sid.longValue(),
+                channel.getId()).toArray();
     }
 
     /**

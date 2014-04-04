@@ -30,6 +30,31 @@ ORDER BY UPPER(PN.name), PEVR.evr
   </query>
 </mode>
 
+<mode name="system_packages_from_channel">
+  <query params="sid, cid">
+SELECT PKG.id AS id,
+       PN.name AS name,
+       NVL((PEVR.evr).version, ' ') AS version,
+       NVL((PEVR.evr).release, ' ') AS release,
+       NVL((PEVR.evr).epoch, ' ') AS epoch,
+       NVL(PA.label, ' ') AS arch_label,
+       PKG.vendor AS provider,
+       PKG.path AS path,
+       PKG.modified AS last_modified
+  FROM rhnChannelPackage CP
+       JOIN rhnPackage PKG ON CP.package_id = PKG.id
+       JOIN rhnPackageName PN on PKG.name_id = PN.id
+       JOIN rhnPackageEVR PEVR on PKG.evr_id = PEVR.id
+       JOIN rhnPackageArch PA on PKG.package_arch_id = PA.id,
+       rhnServerPackage SP
+ WHERE CP.channel_id = :cid
+   AND SP.server_id = :sid
+   AND SP.name_id = PKG.name_id
+   AND SP.evr_id = PKG.evr_id
+   AND SP.package_arch_id = PKG.package_arch_id;
+  </query>
+</mode>
+
 <mode name="system_latest_available_packages">
   <query params="sid">
 SELECT

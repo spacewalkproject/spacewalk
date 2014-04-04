@@ -332,6 +332,21 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Gets packages from a channel for a system
+     * @param sid server id
+     * @param cid channel id
+     * @return list of packages installed on a system from a channel
+     */
+    public static DataResult packagesFromChannel(Long sid, Long cid) {
+        SelectMode m = ModeFactory.getMode("Package_queries",
+                "system_packages_from_channel", Map.class);
+        Map params = new HashMap();
+        params.put("sid", sid);
+        params.put("cid", cid);
+        return m.execute(params);
+    }
+
+    /**
      * Deletes a server
      * @param user The user doing the deleting.
      * @param sid The id of the system to be deleted
