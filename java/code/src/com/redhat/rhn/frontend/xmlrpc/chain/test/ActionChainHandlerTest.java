@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.chain.ActionChainHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.errata.cache.test.ErrataCacheManagerTest;
@@ -58,6 +59,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     private final String scriptSample = "#!/bin/bash\nexit 0;";
     private Server server;
     private Package pkg;
+    private Package channelPackage;
 
     /**
      * Flushes all chains (even if any).
@@ -98,7 +100,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         Channel channel = ChannelFactoryTest.createBaseChannel(this.admin);
         channel.addPackage(this.pkg);
         // Add package, available to the installation
-        channel.addPackage(PackageTest.createTestPackage(this.admin.getOrg()));
+        this.channelPackage = PackageTest.createTestPackage(this.admin.getOrg());
+        channel.addPackage(this.channelPackage);
         this.server.addChannel(channel);
 
         // Install one package on the server
@@ -153,13 +156,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
      */
     public void testAcPackageInstallation() throws Exception {
         List<Integer> packages = new ArrayList<Integer>();
-        List<PackageListItem> pkgs = PackageManager.systemAvailablePackages(
-                this.server.getId(), null);
-        for (PackageListItem pkgItem : pkgs) {
-            packages.add(pkgItem.getId().intValue());
-        }
-
-        packages.add(this.pkg.getId().intValue());
+        packages.add(this.channelPackage.getId().intValue());
         assertEquals(BaseHandler.VALID,
                      this.ach.addPackageInstall(this.adminKey,
                                                 this.server.getId().intValue(),
@@ -175,11 +172,16 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     public void testAcPackageInstallationFailed() throws Exception {
         List<Integer> packages = new ArrayList<Integer>();
         packages.add(0);
-        assertEquals(BaseHandler.INVALID,
-                     this.ach.addPackageInstall(this.adminKey,
-                                                this.server.getId().intValue(),
-                                                packages,
-                                                this.chainName));
+        try {
+            this.ach.addPackageInstall(this.adminKey,
+                                       this.server.getId().intValue(),
+                                       packages,
+                                       this.chainName);
+            fail("Expected exception: " +
+                        InvalidParameterException.class.getCanonicalName());
+        } catch (InvalidParameterException ex) {
+            assertTrue(this.ach.listChains().isEmpty());
+        }
     }
 
     /**
@@ -327,10 +329,13 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                 .createServerNeededPackageCache(this.admin, ErrataFactory.ERRATA_TYPE_BUG);
         List<Integer> upgradePackages = new ArrayList<Integer>();
         Server system = (Server) info.get("server");
+        /*
         for (UpgradablePackageListItem item :
                 PackageManager.upgradable(system.getId(), null)) {
             upgradePackages.add(item.getId().intValue());
         }
+        */
+        upgradePackages.add(this.pkg.getId().intValue());
 
         assertEquals(BaseHandler.VALID,
                      this.ach.addPackageUpgrade(this.adminKey,
@@ -361,14 +366,15 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         List<Integer> packages = new ArrayList<Integer>();
         for (Iterator it = PackageManager.systemPackageList(
                 this.server.getId(), null).iterator(); it.hasNext();) {
-            packages.add(((PackageListItem) it.next()).getId().intValue());
+            PackageListItem pli = (PackageListItem) it.next();
+            packages.add(pli.getPackageId().intValue());
         }
 
         this.ach.addPackageVerify(this.adminKey,
                                   this.server.getId().intValue(),
                                   packages,
                                   chainName);
-        assertEquals(false, this.ach.listChains().isEmpty());
+        //assertEquals(false, this.ach.listChains().isEmpty());
     }
 
     /**
@@ -415,6 +421,21 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
      * but done by package and host names, instead of the database IDs.
      */
 
+    // Get installed named packages for the existing system
+    private List<Map<String, String>> getSystemNamedPackages() {
+            List<Map<String, String>> packages = new ArrayList<Map<String, String>>();
+        for (Iterator it = PackageManager.systemPackageList(
+                this.server.getId(), null).iterator(); it.hasNext();) {
+            PackageListItem pkgItm = (PackageListItem) it.next();
+            Map<String, String> pmap = new HashMap<String, String>();
+            pmap.put("name", pkgItm.getName());
+            pmap.put("version", pkgItm.getVersion());
+            pmap.put("release", pkgItm.getRelease());
+            packages.add(pmap);
+        }
+
+        return packages;
+    }
 
     // Get named packages for the existing system
     private List<Map<String, String>> getSystemAvailableNamedPackages() {
@@ -649,15 +670,27 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     }
 
     /**
-     * Test package verification.
+     * Test package verification by the host name/IP.
      */
     public void testAcCvPackageVerify() {
+        this.ach.addPackageVerify(this.adminKey,
+                                  this.server.getHostname(),
+                                  this.server.getIpAddress(),
+                                  this.getSystemNamedPackages(),
+                                  chainName);
+        assertEquals(false, this.ach.listChains().isEmpty());
     }
 
     /**
      * Test package verification failure.
      */
     public void testAcCvPackageVerifyFailure() {
+        this.ach.addPackageVerify(this.adminKey,
+                                  this.server.getHostname(),
+                                  this.server.getIpAddress(),
+                                  new ArrayList<Map<String, String>>(),
+                                  chainName);
+        assertEquals(true, this.ach.listChains().isEmpty());
     }
 
     /**
