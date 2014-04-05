@@ -2530,6 +2530,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     public Integer removeRepo(String sessionKey, String label) {
         User user = getLoggedInUser(sessionKey);
         ContentSource repo = lookupContentSourceByLabel(label, user.getOrg());
+        ChannelFactory.clearContentSourceFilters(repo.getId());
 
         ChannelFactory.remove(repo);
         return 1;
