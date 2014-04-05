@@ -49,6 +49,7 @@ public class RepoDeleteAction extends RhnAction {
 
         if (context.isSubmitted()) {
             try {
+                ChannelFactory.clearContentSourceFilters(src.getId());
                 ChannelFactory.remove(src);
                 createSuccessMessage(request,
                             "repos.delete.success", src.getLabel());
