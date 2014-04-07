@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.38
+Version: 2.2.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Apr 07 2014 Stephen Herr <sherr@redhat.com> 2.2.39-1
+- fixes 2 action chain strings for consistency
+- SSM Action Chain configuration Deploy: missing strings added
+- Action Chain: bootstrap form groups fixed
+
 * Fri Apr 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.38-1
 - converted tabs to spaces
 - rewrite listPackagesFromChannel logic into database select
