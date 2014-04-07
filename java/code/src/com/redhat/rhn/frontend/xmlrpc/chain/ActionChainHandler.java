@@ -65,13 +65,12 @@ public class ActionChainHandler extends BaseHandler {
      *       #struct_end()
      *    #array_end()
      */
-    public List<Map<String, String>> listChains() {
-        List<Map<String, String>> chains = new ArrayList<Map<String, String>>();
+    public List<Map<String, Object>> listChains() {
+        List<Map<String, Object>> chains = new ArrayList<Map<String, Object>>();
         for (ActionChain actionChain : ActionChainFactory.getActionChains()) {
-            Map<String, String> info = new HashMap<String, String>();
-            info.put("name", actionChain.getLabel());
-            info.put("entrycount", (actionChain.getEntries() != null ?
-                                    actionChain.getEntries().size() : 0) + "");
+            Map<String, Object> info = new HashMap<String, Object>();
+            info.put("name", actionChain.getLabel());//TODO: rename name with label
+            info.put("entrycount", actionChain.getEntries().size());
             chains.add(info);
         }
 
