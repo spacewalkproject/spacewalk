@@ -15,6 +15,11 @@
 
 package com.redhat.rhn.frontend.xmlrpc.chain.test;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.action.ActionChain;
+import com.redhat.rhn.domain.action.ActionChainFactory;
+import com.redhat.rhn.domain.action.ActionFactory;
+import com.redhat.rhn.domain.action.test.ActionChainFactoryTest;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.ErrataFactory;
@@ -26,9 +31,11 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.chain.ActionChainHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
@@ -54,29 +61,14 @@ import java.util.Set;
  * @author bo
  */
 public class ActionChainHandlerTest extends BaseHandlerTestCase {
-    private final ActionChainHandler ach = new ActionChainHandler();
-    private final String chainName = "Quick Brown Fox";
-    private final String scriptSample = "#!/bin/bash\nexit 0;";
+    private ActionChainHandler ach;
+    private static final String CHAIN_NAME = "Quick Brown Fox";
+    private static final String SCRIPT_SAMPLE = "#!/bin/bash\nexit 0;";
     private Server server;
     private Package pkg;
     private Package channelPackage;
-
-    /**
-     * Flushes all chains (even if any).
-     */
-    private Boolean flushAllChains() {
-        List<String> chains = new ArrayList<String>();
-        for (Map<String, String> chain : this.ach.listChains()) {
-            chains.add(chain.get("name"));
-        }
-
-        if (!chains.isEmpty()) {
-            this.ach.removeChains(chains);
-        }
-
-        return this.ach.listChains().isEmpty();
-    }
-
+    private User user;
+    private ActionChain actionChain;
 
     @Override
     public void setUp() throws Exception {
@@ -116,9 +108,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
 
         ServerFactory.save(this.server);
         this.server = (Server) ActionChainHandlerTest.reload(this.server);
-
-        // Clear all the chains
-        this.flushAllChains();
+        ach = new ActionChainHandler();
+        actionChain = ActionChainFactory.createActionChain(CHAIN_NAME, admin);
     }
 
 
@@ -126,7 +117,6 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
         ServerFactory.delete(this.server);
-        this.flushAllChains();
     }
 
 
@@ -139,14 +129,11 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(BaseHandler.VALID,
                      this.ach.addSystemReboot(this.adminKey,
                                               this.server.getId().intValue(),
-                                              this.chainName));
+                                              CHAIN_NAME));
 
-        for (Map<String, String> chain : this.ach.listChains()) {
-            assertEquals(this.chainName, chain.get("name"));
-            assertEquals("1", chain.get("entrycount"));
-        }
-
-        assertFalse(this.ach.listChains().isEmpty());
+        assertEquals(1, actionChain.getEntries().size());
+        assertEquals(ActionFactory.TYPE_REBOOT, actionChain.getEntries().iterator().next()
+                .getAction().getActionType());
     }
 
 
@@ -161,9 +148,13 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                      this.ach.addPackageInstall(this.adminKey,
                                                 this.server.getId().intValue(),
                                                 packages,
-                                                this.chainName));
+                                                CHAIN_NAME));
+        assertEquals(1, actionChain.getEntries().size());
+        assertEquals(ActionFactory.TYPE_PACKAGES_UPDATE, actionChain.getEntries()
+                .iterator().next().getAction().getActionType());
     }
 
+    //TODO: fix checkstyle issues
     /**
      * Test package installation schedule.
      *
@@ -176,11 +167,11 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
             this.ach.addPackageInstall(this.adminKey,
                                        this.server.getId().intValue(),
                                        packages,
-                                       this.chainName);
+                                       CHAIN_NAME);
             fail("Expected exception: " +
-                        InvalidParameterException.class.getCanonicalName());
-        } catch (InvalidParameterException ex) {
-            assertTrue(this.ach.listChains().isEmpty());
+                    InvalidPackageException.class.getCanonicalName());
+        } catch (InvalidPackageException ex) {
+            assertTrue(actionChain.getEntries().isEmpty());
         }
     }
 
@@ -203,35 +194,31 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                      this.ach.addPackageRemoval(this.adminKey,
                                                 this.server.getId().intValue(),
                                                 rmPkgs,
-                                                this.chainName));
+                                                CHAIN_NAME));
+        assertEquals(1, actionChain.getEntries().size());
+        assertEquals(ActionFactory.TYPE_PACKAGES_REMOVE, actionChain.getEntries()
+                .iterator().next().getAction().getActionType());
     }
 
     /**
      * Test list chains.
      */
     public void testAcListChains() {
-        String[] names = new String[]{TestUtils.randomString(),
+        String[] labels = new String[]{TestUtils.randomString(),
                                       TestUtils.randomString(),
                                       TestUtils.randomString()};
-        for (String cName : names) {
-            assertEquals(BaseHandler.VALID,
-                         this.ach.addSystemReboot(this.adminKey,
-                                                  this.server.getId().intValue(),
-                                                  cName));
+
+        int previousChains = ActionChainFactory.getActionChains().size();
+        for (String label : labels) {
+            ActionChainFactory.createActionChain(label, admin);
         }
 
-        List<Map<String, String>> chains = this.ach.listChains();
-        assertEquals(3, chains.size());
+        List<Map<String, Object>> chains = this.ach.listChains();
+        assertEquals(labels.length, chains.size() - previousChains);
 
-        for (Map<String, String> chain : chains) {
-            assertEquals("1", chain.get("entrycount"));
-            boolean found = false;
-            for (String cName : names) {
-                if (cName.equals(chain.get("name"))) {
-                    found = true;
-                }
-            }
-            assertEquals(true, found);
+        for (String label : labels) {
+            ActionChain chain = ActionChainFactory.getActionChain(label);
+            assertEquals(0, chain.getEntries().size());
         }
     }
 
@@ -242,9 +229,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(BaseHandler.VALID,
                      this.ach.addSystemReboot(this.adminKey,
                                               this.server.getId().intValue(),
-                                              this.chainName));
+                                              CHAIN_NAME));
 
-        for (Map<String, Object> action : this.ach.chainActions(this.chainName)) {
+        for (Map<String, Object> action : this.ach.chainActions(CHAIN_NAME)) {
             assertEquals("System reboot", action.get("name"));
             assertEquals("System reboot", action.get("type"));
             assertEquals(DateFormat.getDateTimeInstance(DateFormat.SHORT,
@@ -260,32 +247,23 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
      * Test chains removal.
      */
     public void testAcRemoveChains() {
-        assertEquals(true, this.ach.listChains().isEmpty());
-        assertEquals(BaseHandler.VALID,
-                     this.ach.addSystemReboot(this.adminKey,
-                                              this.server.getId().intValue(),
-                                              this.chainName));
-        assertEquals(false, this.ach.listChains().isEmpty());
+        int previousChainCount = this.ach.listChains().size();
 
         List<String> chainsToRemove = new ArrayList<String>();
-        chainsToRemove.add(this.chainName);
+        chainsToRemove.add(actionChain.getLabel());
         this.ach.removeChains(chainsToRemove);
-        assertEquals(true, this.ach.listChains().isEmpty());
+        assertEquals(1, previousChainCount - this.ach.listChains().size());
     }
 
     /**
      * Test empty list does not remove any chains, schedule does not happening.
      */
     public void testAcRemoveChainsEmpty() {
-        assertEquals(true, this.ach.listChains().isEmpty());
-        assertEquals(BaseHandler.VALID,
-                     this.ach.addSystemReboot(this.adminKey,
-                                              this.server.getId().intValue(),
-                                              this.chainName));
-        assertEquals(false, this.ach.listChains().isEmpty());
+        int previousChainCount = this.ach.listChains().size();
+
         List<String> chainsToRemove = new ArrayList<String>();
-        assertEquals(BaseHandler.INVALID, this.ach.removeChains(chainsToRemove));
-        assertEquals(false, this.ach.listChains().isEmpty());
+        this.ach.removeChains(chainsToRemove);
+        assertEquals(0, previousChainCount - this.ach.listChains().size());
     }
 
     /**
@@ -295,15 +273,15 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(BaseHandler.VALID,
                      this.ach.addSystemReboot(this.adminKey,
                                               this.server.getId().intValue(),
-                                              this.chainName));
-        assertEquals(false, this.ach.chainActions(this.chainName).isEmpty());
+                                              CHAIN_NAME));
+        assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
         List<String> actionsToRemove = new ArrayList<String>();
         actionsToRemove.add((String) ((Map)
-                this.ach.chainActions(this.chainName).get(0)).get("name"));
+                this.ach.chainActions(CHAIN_NAME).get(0)).get("name"));
         assertEquals(BaseHandler.VALID,
-                     this.ach.removeActions(this.chainName,
+                     this.ach.removeActions(CHAIN_NAME,
                                             actionsToRemove));
-        assertEquals(true, this.ach.chainActions(this.chainName).isEmpty());
+        assertEquals(true, this.ach.chainActions(CHAIN_NAME).isEmpty());
     }
 
     /**
@@ -313,12 +291,12 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(BaseHandler.VALID,
                      this.ach.addSystemReboot(this.adminKey,
                                               this.server.getId().intValue(),
-                                              this.chainName));
+                                              CHAIN_NAME));
         List<String> actionsToRemove = new ArrayList<String>();
         assertEquals(BaseHandler.INVALID,
-                     this.ach.removeActions(this.chainName,
+                     this.ach.removeActions(CHAIN_NAME,
                                             actionsToRemove));
-        assertEquals(false, this.ach.chainActions(this.chainName).isEmpty());
+        assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
     }
 
     /**
@@ -341,9 +319,13 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                      this.ach.addPackageUpgrade(this.adminKey,
                                                 system.getId().intValue(),
                                                 upgradePackages,
-                                                this.chainName));
+                                                CHAIN_NAME));
         assertEquals(false, this.ach.listChains().isEmpty());
-        assertEquals(false, this.ach.chainActions(this.chainName).isEmpty());
+        assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
+
+        assertEquals(1, actionChain.getEntries().size());
+        assertEquals(ActionFactory.TYPE_PACKAGES_UPDATE, actionChain.getEntries()
+                .iterator().next().getAction().getActionType());
     }
 
     /**
@@ -355,8 +337,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                      this.ach.addPackageUpgrade(this.adminKey,
                                                 this.server.getId().intValue(),
                                                 upgradePackages,
-                                                "freaking fox"));
-        assertEquals(true, this.ach.listChains().isEmpty());
+                                                CHAIN_NAME));
+        assertEquals(0, actionChain.getEntries().size());
     }
 
     /**
@@ -373,8 +355,10 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         this.ach.addPackageVerify(this.adminKey,
                                   this.server.getId().intValue(),
                                   packages,
-                                  chainName);
-        //assertEquals(false, this.ach.listChains().isEmpty());
+                                  CHAIN_NAME);
+        assertEquals(1, actionChain.getEntries().size());
+        assertEquals(ActionFactory.TYPE_PACKAGES_VERIFY, actionChain.getEntries()
+                .iterator().next().getAction().getActionType());
     }
 
     /**
@@ -385,8 +369,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                      this.ach.addPackageVerify(this.adminKey,
                                                this.server.getId().intValue(),
                                                new ArrayList<Integer>(),
-                                               chainName));
-        assertEquals(true, this.ach.listChains().isEmpty());
+                                               CHAIN_NAME));
+        assertEquals(0, actionChain.getEntries().size());
     }
 
     /**
@@ -396,10 +380,12 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(BaseHandler.VALID,
                      this.ach.addRemoteCommand(this.adminKey,
                                                this.server.getId().intValue(),
-                                               this.chainName,
+                                               CHAIN_NAME,
                                                "root", "root", 300,
-                                               this.scriptSample));
-        assertEquals(false, this.ach.listChains().isEmpty());
+                                               this.SCRIPT_SAMPLE));
+        assertEquals(1, actionChain.getEntries().size());
+        assertEquals(ActionFactory.TYPE_SCRIPT_RUN, actionChain.getEntries()
+                .iterator().next().getAction().getActionType());
     }
 
     /**
@@ -409,10 +395,10 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(BaseHandler.INVALID,
                      this.ach.addRemoteCommand(this.adminKey,
                                                this.server.getId().intValue(),
-                                               this.chainName,
+                                               CHAIN_NAME,
                                                "root", "root", 300,
                                                ""));
-        assertEquals(true, this.ach.listChains().isEmpty());
+        assertEquals(0, actionChain.getEntries().size());
     }
 
 
@@ -505,7 +491,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 this.server.getName(),
                                                 this.server.getIpAddress(),
                                                 this.getSystemAvailableNamedPackages(),
-                                                this.chainName));
+                                                CHAIN_NAME));
     }
 
     public void testAcCvPackageInstallByName() {
@@ -514,7 +500,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 this.server.getName(),
                                                 "",
                                                 this.getSystemAvailableNamedPackages(),
-                                                this.chainName));
+                                                CHAIN_NAME));
     }
 
     public void testAcCvPackageInstallByIP() {
@@ -523,7 +509,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 "",
                                                 this.server.getIpAddress(),
                                                 this.getSystemAvailableNamedPackages(),
-                                                this.chainName));
+                                                CHAIN_NAME));
     }
 
     /**
@@ -537,7 +523,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 this.server.getName(),
                                                 this.server.getIpAddress(),
                                                 packages,
-                                                this.chainName));
+                                                CHAIN_NAME));
 
         Map<String, String> pmap = new HashMap<String, String>();
         pmap.put("name", TestUtils.randomString());
@@ -551,9 +537,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 this.server.getName(),
                                                 this.server.getIpAddress(),
                                                 packages,
-                                                this.chainName));
+                                                CHAIN_NAME));
         System.err.println("Chain: " + this.ach.listChains());
-        assertEquals(true, this.ach.listChains().isEmpty());
+        assertEquals(0, actionChain.getEntries().size());
     }
 
     /**
@@ -565,7 +551,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 this.server.getName(),
                                                 this.server.getIpAddress(),
                                                 this.getRemovableNamedPackages(this.server),
-                                                this.chainName));
+                                                CHAIN_NAME));
         assertEquals(false, this.ach.listChains().isEmpty());
     }
 
@@ -578,8 +564,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 TestUtils.randomString(),
                                                 this.server.getIpAddress(),
                                                 this.getRemovableNamedPackages(this.server),
-                                                this.chainName));
-        assertEquals(true, this.ach.listChains().isEmpty());
+                                                CHAIN_NAME));
+        assertEquals(0, actionChain.getEntries().size());
     }
 
     /**
@@ -598,8 +584,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 TestUtils.randomString(),
                                                 this.server.getIpAddress(),
                                                 packages,
-                                                this.chainName));
-        assertEquals(true, this.ach.listChains().isEmpty());
+                                                CHAIN_NAME));
+        assertEquals(0, actionChain.getEntries().size());
     }
 
     /**
@@ -613,9 +599,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 system.getName(),
                                                 system.getIpAddress(),
                                                 this.getUpgradableNamedPackages(system),
-                                                this.chainName));
+                                                CHAIN_NAME));
         assertEquals(false, this.ach.listChains().isEmpty());
-        assertEquals(false, this.ach.chainActions(this.chainName).isEmpty());
+        assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
     }
 
     /**
@@ -629,9 +615,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 system.getName(),
                                                 "",
                                                 this.getUpgradableNamedPackages(system),
-                                                this.chainName));
+                                                CHAIN_NAME));
         assertEquals(false, this.ach.listChains().isEmpty());
-        assertEquals(false, this.ach.chainActions(this.chainName).isEmpty());
+        assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
     }
 
     /**
@@ -645,9 +631,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 "",
                                                 system.getIpAddress(),
                                                 this.getUpgradableNamedPackages(system),
-                                                this.chainName));
+                                                CHAIN_NAME));
         assertEquals(false, this.ach.listChains().isEmpty());
-        assertEquals(false, this.ach.chainActions(this.chainName).isEmpty());
+        assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
     }
 
     /**
@@ -665,7 +651,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                 system.getName(),
                                                 "",
                                                 upgradePackages,
-                                                this.chainName));
+                                                CHAIN_NAME));
         //assertEquals(true, this.ach.listChains().isEmpty());
     }
 
@@ -677,7 +663,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                   this.server.getHostname(),
                                   this.server.getIpAddress(),
                                   this.getSystemNamedPackages(),
-                                  chainName);
+                                  CHAIN_NAME);
         assertEquals(false, this.ach.listChains().isEmpty());
     }
 
@@ -689,8 +675,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                   this.server.getHostname(),
                                   this.server.getIpAddress(),
                                   new ArrayList<Map<String, String>>(),
-                                  chainName);
-        assertEquals(true, this.ach.listChains().isEmpty());
+                                  CHAIN_NAME);
+        assertEquals(0, actionChain.getEntries().size());
     }
 
     /**
@@ -701,9 +687,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                      this.ach.addRemoteCommand(this.adminKey,
                                                this.server.getName(),
                                                this.server.getIpAddress(),
-                                               this.chainName,
+                                               CHAIN_NAME,
                                                "root", "root", 300,
-                                               this.scriptSample));
+                                               this.SCRIPT_SAMPLE));
         assertEquals(false, this.ach.listChains().isEmpty());
     }
 
@@ -715,9 +701,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                      this.ach.addRemoteCommand(this.adminKey,
                                                this.server.getName(),
                                                "",
-                                               this.chainName,
+                                               CHAIN_NAME,
                                                "root", "root", 300,
-                                               this.scriptSample));
+                                               this.SCRIPT_SAMPLE));
         assertEquals(false, this.ach.listChains().isEmpty());
     }
 
@@ -729,9 +715,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                      this.ach.addRemoteCommand(this.adminKey,
                                                "",
                                                this.server.getIpAddress(),
-                                               this.chainName,
+                                               CHAIN_NAME,
                                                "root", "root", 300,
-                                               this.scriptSample));
+                                               this.SCRIPT_SAMPLE));
         assertEquals(false, this.ach.listChains().isEmpty());
     }
 
@@ -743,9 +729,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                      this.ach.addRemoteCommand(this.adminKey,
                                                this.server.getName(),
                                                this.server.getIpAddress(),
-                                               this.chainName,
+                                               CHAIN_NAME,
                                                "root", "root", 300,
                                                ""));
-        assertEquals(true, this.ach.listChains().isEmpty());
+        assertEquals(0, actionChain.getEntries().size());
     }
 }

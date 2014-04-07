@@ -28,6 +28,9 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.domain.rhnpackage.Package;
+
+import org.cobbler.XmlRpcException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -81,9 +84,10 @@ public class ActionChainRPCCommon {
                 this.chain = null;
             }
             else {
-                this.freshChain = ActionChainFactory.getActionChain(chainName) == null;
-                this.chain = ActionChainFactory.getOrCreateActionChain(
-                    chainName, this.user);
+                this.chain = ActionChainFactory.getActionChain(chainName);
+                if (chain == null) {
+                    throw new XmlRpcException("Action Chain " + chainName + " not found");
+                }
             }
         }
 
@@ -191,8 +195,7 @@ public class ActionChainRPCCommon {
          */
         boolean isValid() {
             return this.getServer() != null &&
-                   this.getUser() != null &&
-                   this.getChain() != null;
+                   this.getUser() != null;
         }
     }
 
