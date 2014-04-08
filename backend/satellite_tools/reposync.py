@@ -378,6 +378,8 @@ class RepoSync(object):
         channel_id = int(self.channel['id'])
         if self.channel['org_id']:
             self.channel['org_id'] = int(self.channel['org_id'])
+        else:
+            self.channel['org_id'] = None
         for pack in packages:
             db_pack = rhnPackage.get_info_for_package(
                    [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
