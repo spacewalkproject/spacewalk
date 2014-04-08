@@ -119,6 +119,17 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         ServerFactory.delete(this.server);
     }
 
+    /**
+     * Test action chain create.
+     *
+     * @throws java.lang.Exception
+     */
+    public void testAcCreateActionChain() throws Exception {
+        String chainName = TestUtils.randomString();
+        assertEquals(BaseHandler.VALID,
+                     this.ach.createActionChain(this.adminKey, chainName));
+        assertFalse(ActionChainFactory.getActionChain(chainName) == null);
+    }
 
     /**
      * Test system reboot command schedule.
