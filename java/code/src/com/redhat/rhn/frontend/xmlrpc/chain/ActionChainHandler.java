@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionChainEntry;
 import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.chain.ActionChainRPCCommon.Collector;
 import com.redhat.rhn.manager.action.ActionChainManager;
@@ -194,18 +193,16 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Create an Action Chain.
      *
-     * @param sk
-     * @param chainLabel
+     * @param sk Session key (token)
+     * @param chainLabel Label of the action chain
      * @return 1 on success
      *
      * @xmlrpc.doc Create an Action Chain.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login.")
-     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain.")
+     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #return_int_success()
      */
     public int createActionChain(String sk, String chainLabel) {
-        // TODO: Add logging
-        // TODO: Fix doc typos
         if (StringUtil.nullOrValue(sk) == null) {
             throw new XmlRpcException("Session key is empty.");
         }
