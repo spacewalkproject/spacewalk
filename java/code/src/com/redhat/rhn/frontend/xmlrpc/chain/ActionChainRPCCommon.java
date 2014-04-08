@@ -52,76 +52,31 @@ public class ActionChainRPCCommon {
         private final User user;
         private final Server server;
         private final ActionChain chain;
-        private boolean freshChain;
 
         /**
          * Collector constructor.
          * @param sessionToken
          * @param serverId
-         * @param chainName
+         * @param chainLabel
          */
         public Collector(String sessionToken,
                          Integer serverId,
-                         String chainName) {
-            this.freshChain = false;
+                         String chainLabel) {
             if (StringUtil.nullOrValue(sessionToken) == null) {
-                this.user = null;
-            }
-            else {
-                this.user = ActionChainHandler.getLoggedInUser(sessionToken);
+                throw new XmlRpcException("Invalid session token.");
             }
 
-            Server system;
-            try {
-                system = SystemManager.lookupByIdAndUser((long) serverId, user);
-            }
-            catch (Exception ex) {
-                system = null;
-            }
-            this.server = system;
+            this.user = ActionChainHandler.getLoggedInUser(sessionToken);
+            this.server = SystemManager.lookupByIdAndUser((long) serverId, user);
 
-            if (StringUtil.nullOrValue(chainName) == null) {
-                this.chain = null;
-            }
-            else {
-                this.chain = ActionChainFactory.getActionChain(chainName);
-                if (chain == null) {
-                    throw new XmlRpcException("Action Chain " + chainName + " not found");
-                }
-            }
-        }
-
-        public int eval() {return BaseHandler.INVALID;}
-
-        /**
-         * Flush the chain as long as it was freshly created and is empty in case when
-         * XML-RPC result is invalid.
-         */
-        public int cleanup() {
-            Integer rpcResult = BaseHandler.INVALID;
-            try {
-                rpcResult = this.eval();
-            } catch (RuntimeException ex) {
-                throw ex;
-            } finally {
-                if (rpcResult == BaseHandler.INVALID && this.chain != null) {
-                    if (this.freshChain && this.chain.getEntries().isEmpty()) {
-                        ActionChainFactory.delete(this.chain);
-                    }
-                }
+            if (StringUtil.nullOrValue(chainLabel) == null) {
+                throw new XmlRpcException("Invalid Action Chain label.");
             }
 
-            return rpcResult;
-        }
-
-        public int cleanup(int rpcResult) {
-            if (rpcResult == BaseHandler.INVALID && this.chain != null) {
-                if (this.freshChain && this.chain.getEntries().isEmpty()) {
-                    ActionChainFactory.delete(this.chain);
-                }
+            this.chain = ActionChainFactory.getActionChain(chainLabel);
+            if (chain == null) {
+                throw new XmlRpcException("Action Chain " + chainLabel + " not found.");
             }
-
-            return rpcResult;
         }
 
         private String str(String value) {
@@ -188,15 +143,6 @@ public class ActionChainRPCCommon {
          * @return user
          */
         User getUser() { return user; }
-
-        /**
-         * Verifies if the collector is valid.
-         * @return boolean
-         */
-        boolean isValid() {
-            return this.getServer() != null &&
-                   this.getUser() != null;
-        }
     }
 
     /**
