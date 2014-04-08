@@ -243,7 +243,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                               CHAIN_NAME));
 
         for (Map<String, Object> action : this.ach.chainActions(CHAIN_NAME)) {
-            assertEquals("System reboot", action.get("name"));
+            assertEquals("System reboot", action.get("label"));
             assertEquals("System reboot", action.get("type"));
             assertEquals(DateFormat.getDateTimeInstance(DateFormat.SHORT,
                                                         DateFormat.SHORT)
@@ -288,7 +288,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
         List<String> actionsToRemove = new ArrayList<String>();
         actionsToRemove.add((String) ((Map)
-                this.ach.chainActions(CHAIN_NAME).get(0)).get("name"));
+                this.ach.chainActions(CHAIN_NAME).get(0)).get("label"));
         assertEquals(BaseHandler.VALID,
                      this.ach.removeActions(CHAIN_NAME,
                                             actionsToRemove));
