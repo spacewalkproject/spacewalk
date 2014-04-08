@@ -60,7 +60,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype
      *    #array()
      *       #struct("chain")
-     *          #prop_desc("string", "name", "Name of an Action Chain")
+     *          #prop_desc("string", "label", "Label of an Action Chain")
      *          #prop_desc("string", "entrycount", "Number of entries in the Action Chain")
      *       #struct_end()
      *    #array_end()
@@ -69,7 +69,7 @@ public class ActionChainHandler extends BaseHandler {
         List<Map<String, Object>> chains = new ArrayList<Map<String, Object>>();
         for (ActionChain actionChain : ActionChainFactory.getActionChains()) {
             Map<String, Object> info = new HashMap<String, Object>();
-            info.put("name", actionChain.getLabel());//TODO: rename name with label
+            info.put("label", actionChain.getLabel());
             info.put("entrycount", actionChain.getEntries().size());
             chains.add(info);
         }
@@ -80,15 +80,15 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * List all actions in the particular Action Chain.
      *
-     * @param chainName The label of the Action Chain.
+     * @param chainLabel The label of the Action Chain.
      * @return List of entries in the particular action chain, if any.
      *
      * @xmlrpc.doc List all actions in the particular Action Chain.
-     * @xmlrpc.param #param_desc("string", "chainName", "Label of the chain")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype
      *    #array()
      *       #struct("entry")
-     *          #prop_desc("string", "name", "Name of an Action")
+     *          #prop_desc("string", "label", "Label of an Action")
      *          #prop_desc("string", "created", "Created date/time")
      *          #prop_desc("string", "earliest", "Earliest scheduled date/time")
      *          #prop_desc("string", "type", "Type of the action")
@@ -97,17 +97,17 @@ public class ActionChainHandler extends BaseHandler {
      *       #struct_end()
      *    #array_end()
      */
-    public List<Map<String, Object>> chainActions(String chainName) {
+    public List<Map<String, Object>> chainActions(String chainLabel) {
         List<Map<String, Object>> entries = new ArrayList<Map<String, Object>>();
-        if (StringUtil.nullOrValue(chainName) == null) {
+        if (StringUtil.nullOrValue(chainLabel) == null) {
             return entries;
         }
 
-        ActionChain chain = ActionChainFactory.getActionChain(chainName);
+        ActionChain chain = ActionChainFactory.getActionChain(chainLabel);
         if (chain != null && chain.getEntries() != null && !chain.getEntries().isEmpty()) {
             for (ActionChainEntry entry : chain.getEntries()) {
                 Map<String, Object> info = new HashMap<String, Object>();
-                info.put("name", entry.getAction().getName());
+                info.put("label", entry.getAction().getName());
                 info.put("created", entry.getAction().getCreated());
                 info.put("earliest", entry.getAction().getEarliestAction());
                 info.put("type", entry.getAction().getActionType().getName());
@@ -123,24 +123,24 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Remove actions from an Action Chain.
      *
-     * @param chainName The label of the Action Chain.
+     * @param chainLabel The label of the Action Chain.
      * @param actionNames List of action names.
      * @return State of the action result. Negative is false.
      *         Positive: number of successfully deleted entries.
      *
      * @xmlrpc.doc Remove actions from an Action Chain.
-     * @xmlrpc.param #param_desc("string", "chainName", "Label of the chain")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.param #array_single("string", "actionName")
      * @xmlrpc.returntype #int
      */
-    public int removeActions(String chainName,
+    public int removeActions(String chainLabel,
                              List<String> actionNames) {
-        if (StringUtil.nullOrValue(chainName) == null || actionNames.isEmpty()) {
+        if (StringUtil.nullOrValue(chainLabel) == null || actionNames.isEmpty()) {
             return BaseHandler.INVALID;
         }
 
         int d = 0;
-        ActionChain chain = ActionChainFactory.getActionChain(chainName);
+        ActionChain chain = ActionChainFactory.getActionChain(chainLabel);
         if (chain != null && !chain.getEntries().isEmpty()) {
             List<ActionChainEntry> entriesToDelete = new ArrayList<ActionChainEntry>();
             for (ActionChainEntry entry : chain.getEntries()) {
@@ -164,7 +164,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Remove Action Chains by label.
      *
-     * @param chainNames List of action names.
+     * @param chainLabels List of action labels.
      * @return State of the action result. Negative is false.
      *         Positive: number of successfully deleted entries.
      *
@@ -172,13 +172,13 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "chainLabels")
      * @xmlrpc.returntype #int
      */
-    public int removeChains(List<String> chainNames) {
-        if (chainNames.isEmpty()) {
+    public int removeChains(List<String> chainLabels) {
+        if (chainLabels.isEmpty()) {
             return BaseHandler.INVALID;
         }
 
         int d = 0;
-        for (String chainName : chainNames) {
+        for (String chainName : chainLabels) {
             ActionChain chain = ActionChainFactory.getActionChain(chainName);
             if (chain != null) {
                 ActionChainFactory.delete(chain);
@@ -194,17 +194,17 @@ public class ActionChainHandler extends BaseHandler {
      *
      * @param sk Session key (token)
      * @param serverId Server ID.
-     * @param chainName Name of the action chain
+     * @param chainLabel Label of the action chain
      * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Schedule system reboot.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.param #param_desc("string", "chainName", "Label of the chain")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #int
      */
-    public int addSystemReboot(String sk, Integer serverId, String chainName) {
-        Collector c = new Collector(sk, serverId, chainName);
+    public int addSystemReboot(String sk, Integer serverId, String chainLabel) {
+        Collector c = new Collector(sk, serverId, chainLabel);
         if (!c.isValid()) {
             return c.cleanup(BaseHandler.INVALID);
         }
@@ -219,7 +219,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param sk Session key (token)
      * @param serverId System ID
      * @param packages List of packages
-     * @param chainName Name of the action chain
+     * @param chainLabel Label of the action chain
      * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Adds an action to remove installed packages on the system.
@@ -228,18 +228,18 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param
      *    #array()
      *       #struct("packages")
-     *          #prop_desc("string", "name", "Package name")
+     *          #prop_desc("string", "label", "Package label")
      *          #prop_desc("string", "version", "Package version")
      *       #struct_end()
      *    #array_end()
-     * @xmlrpc.param #param_desc("string", "chainName", "Label of the chain")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #int
      */
     public int addPackageRemoval(String sk,
                                  Integer serverId,
                                  List<Map<String, String>> packages,
-                                 String chainName) {
-        Collector c = new Collector(sk, serverId, chainName);
+                                 String chainLabel) {
+        Collector c = new Collector(sk, serverId, chainLabel);
         if (c.isValid()) {
             List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
                 SystemManager.installedPackages(c.getServer().getId(), true), packages, c);
@@ -259,21 +259,21 @@ public class ActionChainHandler extends BaseHandler {
      * @param sk Session key (token)
      * @param serverId System ID.
      * @param packages List of packages.
-     * @param chainName Name (label) of the Action Chain.
+     * @param chainLabel Label of the Action Chain.
      * @return True or false in XML-RPC representation: 1 or 0 respectively.
      *
      * @xmlrpc.doc Schedule package installation to an Action Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
      * @xmlrpc.param #array_single("int", "Package ID")
-     * @xmlrpc.param #param("string", "chainName")
+     * @xmlrpc.param #param("string", "chainLabel")
      * @xmlrpc.returntype #int
      */
     public int addPackageInstall(String sk,
                                  Integer serverId,
                                  List<Integer> packages,
-                                 String chainName) {
-        Collector c = new Collector(sk, serverId, chainName);
+                                 String chainLabel) {
+        Collector c = new Collector(sk, serverId, chainLabel);
         if (c.isValid()) {
             List<Map<String, Long>> selectedPackages = this.acUtil.resolvePackages(
                     packages, c.getUser());
@@ -293,21 +293,21 @@ public class ActionChainHandler extends BaseHandler {
      * @param sk Session key (token)
      * @param serverId System ID
      * @param packages List of packages
-     * @param chainName Name of the action chain
+     * @param chainLabel Label of the action chain
      * @return True or false in XML-RPC representation (1 or 0 respectively)
      *
      * @xmlrpc.doc Adds an action to verify installed packages on the system.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
      * @xmlrpc.param #array_single("int", "packageId")
-     * @xmlrpc.param #param_desc("string", "chainName", "Label of the chain")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #int
      */
     public int addPackageVerify(String sk,
                                 Integer serverId,
                                 List<Integer> packages,
-                                String chainName) {
-        Collector c = new Collector(sk, serverId, chainName);
+                                String chainLabel) {
+        Collector c = new Collector(sk, serverId, chainLabel);
         if (c.isValid()) {
             List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
                 PackageManager.systemPackageList(c.getServer().getId(), null), packages);
@@ -327,24 +327,22 @@ public class ActionChainHandler extends BaseHandler {
      * @param sk Session key (token)
      * @param serverId System ID
      * @param packages List of packages
-     * @param chainName Name of the action chain
+     * @param chainLabel Label of the action chain
      * @return True or false in XML-RPC representation (1 or 0 respectively)
      *
      * @xmlrpc.doc Adds an action to upgrade installed packages on the system.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
      * @xmlrpc.param #array_single("int", "packageId")
-     * @xmlrpc.param #param_desc("string", "chainName", "Label of the chain")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #int
      */
     public int addPackageUpgrade(String sk,
                                  Integer serverId,
                                  List<Integer> packages,
-                                 String chainName) {
-        Collector c = new Collector(sk, serverId, chainName);
+                                 String chainLabel) {
+        Collector c = new Collector(sk, serverId, chainLabel);
         if (c.isValid()) {
-            //List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
-            //        PackageManager.upgradable(c.getServer().getId(), null), packages);
             List<Map<String, Long>> selectedPackages = this.acUtil.resolvePackages(
                     packages, c.getUser());
             if (!selectedPackages.isEmpty()) {
@@ -362,7 +360,7 @@ public class ActionChainHandler extends BaseHandler {
      *
      * @param sk Session key (token)
      * @param serverId System ID
-     * @param chainName Name of the action chain.
+     * @param chainLabel Label of the action chain.
      * @param uid User ID on the remote system.
      * @param scriptBody Base64 encoded script.
      * @param gid Group ID on the remote system.
@@ -374,7 +372,7 @@ public class ActionChainHandler extends BaseHandler {
      *
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
-     * @xmlrpc.param #param_desc("string", "chainName", "Label of the chain")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.param #param_desc("string", "uid", "User ID on the particular system")
      * @xmlrpc.param #param_desc("string", "gid", "Group ID on the particular system")
      * @xmlrpc.param #param_desc("int", "timeout", "Timeout cannot exceed 1200 seconds")
@@ -383,7 +381,7 @@ public class ActionChainHandler extends BaseHandler {
      */
     public int addRemoteCommand(String sk,
                                 Integer serverId,
-                                String chainName,
+                                String chainLabel,
                                 String uid,
                                 String gid,
                                 Integer timeout,
@@ -392,7 +390,7 @@ public class ActionChainHandler extends BaseHandler {
             return BaseHandler.INVALID;
         }
 
-        Collector c = new Collector(sk, serverId, chainName);
+        Collector c = new Collector(sk, serverId, chainLabel);
 
         List<Long> systems = new ArrayList<Long>();
         systems.add((long) serverId);
@@ -425,7 +423,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param serverName Name of the server (without the domain name)
      * @param serverIp IP address.
      * @param packages List of packages
-     * @param chainName Name of the action chain
+     * @param chainLabel Label of the action chain
      * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Adds an action to remove installed packages on the system.
@@ -441,16 +439,16 @@ public class ActionChainHandler extends BaseHandler {
      *          #prop_desc("string", "version", "Package version")
      *       #struct_end()
      *    #array_end()
-     * @xmlrpc.param #param_desc("string", "chainName", "Label of the chain")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #int
      */
     public int addPackageRemoval(String sk,
                                  String serverName,
                                  String serverIp,
                                  List<Map<String, String>> packages,
-                                 String chainName) {
+                                 String chainLabel) {
         ActionChainRPCCommon.Collector c = new ActionChainRPCCommon.Collector(
-                sk, serverName, serverIp, chainName);
+                sk, serverName, serverIp, chainLabel);
         if (c.isValid()) {
             List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
                 SystemManager.installedPackages(c.getServer().getId(), true), packages, c);
@@ -471,7 +469,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param serverName Name of the server (without the domain name)
      * @param serverIp IP address.
      * @param packages List of packages
-     * @param chainName Name of the action chain
+     * @param chainLabel Label of the action chain
      * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Schedule an action to install desired packages on the system.
@@ -485,15 +483,15 @@ public class ActionChainHandler extends BaseHandler {
      *          #prop_desc("string", "version", "Package version")
      *       #struct_end()
      *    #array_end()
-     * @xmlrpc.param #param_desc("string", "chainName", "Label of the chain")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #int
      */
     public int addPackageInstall(String sk,
                                  String serverName,
                                  String serverIp,
                                  final List<Map<String, String>> packages,
-                                 String chainName) {
-        Collector c = new Collector(sk, serverName, serverIp, chainName) {
+                                 String chainLabel) {
+        Collector c = new Collector(sk, serverName, serverIp, chainLabel) {
             @Override
             public int eval() {
                 if (this.getServer() != null) {
@@ -521,7 +519,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param serverName Name of the server (without the domain name)
      * @param serverIp IP address.
      * @param packages List of packages.
-     * @param chainName Name of the action chain.
+     * @param chainLabel Label of the action chain.
      * @return True or false in XML-RPC representation (1 or 0 respectively).
      *
      * @xmlrpc.doc Adds an action to verify installed packages on the system.
@@ -535,14 +533,14 @@ public class ActionChainHandler extends BaseHandler {
      *          #prop_desc("string", "version", "Package version")
      *       #struct_end()
      *    #array_end()
-     * @xmlrpc.param #param_desc("string", "chainName", "Label of the chain")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #int
      */
     public int addPackageVerify(String sk,
                                 String serverName, String serverIp,
                                 List<Map<String, String>> packages,
-                                String chainName) {
-        Collector c = new Collector(sk, serverName, serverIp, chainName);
+                                String chainLabel) {
+        Collector c = new Collector(sk, serverName, serverIp, chainLabel);
         if (c.isValid()) {
             List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
                 PackageManager.systemPackageList(c.getServer().getId(), null), packages, c);
@@ -563,7 +561,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param serverName Name of the server (without the domain name)
      * @param serverIp IP address.
      * @param packages List of packages
-     * @param chainName Name of the action chain
+     * @param chainLabel Label of the action chain
      * @return True or false in XML-RPC representation (1 or 0 respectively)
      *
      * @xmlrpc.doc Adds an action to upgrade installed packages on the system.
@@ -577,15 +575,15 @@ public class ActionChainHandler extends BaseHandler {
      *          #prop_desc("string", "version", "Package version")
      *       #struct_end()
      *    #array_end()
-     * @xmlrpc.param #param_desc("string", "chainName", "Label of the chain")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #int
      */
     public int addPackageUpgrade(String sk,
                                  String serverName,
                                  String serverIp,
                                  List<Map<String, String>> packages,
-                                 String chainName) {
-        Collector c = new Collector(sk, serverName, serverIp, chainName);
+                                 String chainLabel) {
+        Collector c = new Collector(sk, serverName, serverIp, chainLabel);
         if (c.getServer() != null) {
             List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
                     PackageManager.upgradable(c.getServer().getId(), null), packages, c);
@@ -605,7 +603,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param sk Session key (token)
      * @param serverName Name of the server (without the domain name)
      * @param serverIp IP address.
-     * @param chainName Name of the action chain.
+     * @param chainLabel Label of the action chain.
      * @param uid User ID on the remote system.
      * @param scriptBody Base64 encoded script.
      * @param gid Group ID on the remote system.
@@ -618,7 +616,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "serverName", "Hostname without domain name")
      * @xmlrpc.param #param_desc("string", "serverIp", "IP address of the machine")
-     * @xmlrpc.param #param_desc("string", "chainName", "Label of the chain")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.param #param_desc("string", "uid", "User ID on the particular system")
      * @xmlrpc.param #param_desc("string", "gid", "Group ID on the particular system")
      * @xmlrpc.param #param_desc("int", "timeout", "Timeout cannot exceed 1200 seconds")
@@ -628,7 +626,7 @@ public class ActionChainHandler extends BaseHandler {
     public int addRemoteCommand(String sk,
                                 String serverName,
                                 String serverIp,
-                                String chainName,
+                                String chainLabel,
                                 String uid,
                                 String gid,
                                 Integer timeout,
@@ -637,7 +635,7 @@ public class ActionChainHandler extends BaseHandler {
             return BaseHandler.INVALID;
         }
 
-        Collector c = new Collector(sk, serverName, serverIp, chainName);
+        Collector c = new Collector(sk, serverName, serverIp, chainLabel);
 
         if (!c.isValid()) {
             return c.cleanup(BaseHandler.INVALID);
