@@ -192,6 +192,33 @@ public class ActionChainHandler extends BaseHandler {
     }
 
     /**
+     * Create an Action Chain.
+     *
+     * @param sk
+     * @param chainLabel
+     * @return 1 on success
+     *
+     * @xmlrpc.doc Create an Action Chain.
+     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login.")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int createActionChain(String sk, String chainLabel) {
+        // TODO: Add logging
+        // TODO: Fix doc typos
+        if (StringUtil.nullOrValue(sk) == null) {
+            throw new XmlRpcException("Session key is empty.");
+        }
+        else if (StringUtil.nullOrValue(chainLabel) == null) {
+            throw new XmlRpcException("Action Chain label is empty.");
+        }
+
+        ActionChainFactory.createActionChain(chainLabel,
+                                             ActionChainHandler.getLoggedInUser(sk));
+        return BaseHandler.VALID;
+    }
+
+    /**
      * Schedule system reboot.
      *
      * @param sk Session key (token)
