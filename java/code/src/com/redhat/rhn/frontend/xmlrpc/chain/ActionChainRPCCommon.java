@@ -103,26 +103,31 @@ public class ActionChainRPCCommon {
             this.chain = ActionChainFactory.getOrCreateActionChain(chainName, this.user);
             Server system = null;
             if (servername.isEmpty() && ip.isEmpty()) {
-                this.server = system;
+                throw new XmlRpcException("Server name or an IP address should be given.");
             }
-            else {
-                for (Iterator it = SystemManager.systemList(
-                        this.user, null).iterator(); it.hasNext();) {
-                    system = SystemManager.lookupByIdAndUser(
-                            ((SystemOverview) it.next()).getId(), this.user);
 
-                    if ((!servername.isEmpty() &&
+            for (Iterator it = SystemManager.systemList(
+                    this.user, null).iterator(); it.hasNext();) {
+                system = SystemManager.lookupByIdAndUser(
+                        ((SystemOverview) it.next()).getId(), this.user);
+
+                if ((!servername.isEmpty() &&
                          !system.getName().toLowerCase().equals(servername)) ||
                         (!ip.isEmpty() && (!this.str(system.getIp6Address()).equals(ip) &&
                                            !this.str(system.getIpAddress()).equals(ip)))) {
-                        continue;
-                    }
-
-                    found = true;
-                    break;
+                    continue;
                 }
 
-                this.server = found ? system : null;
+                found = true;
+                break;
+            }
+
+            if (found) {
+                this.server = system;
+            }
+            else {
+                throw new XmlRpcException(String.format("Cannot find server %s.",
+                        (servername.isEmpty() ? (ip + " by IP address") : servername)));
             }
         }
 
