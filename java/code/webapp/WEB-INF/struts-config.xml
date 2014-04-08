@@ -1228,6 +1228,7 @@
         <form-property name="lbl" type="java.lang.String" />
         <form-property name="timeout" type="java.lang.Long" />
         <form-property name="submitted" type="java.lang.Boolean" />
+        <form-property name="no_scrub" type="java.lang.String" initial="script_body" />
         <!-- fields needed by datePicker -->
         <form-property name="use_date" type="java.lang.Boolean"/>
         <form-property name="date_year" type="java.lang.Integer"/>
