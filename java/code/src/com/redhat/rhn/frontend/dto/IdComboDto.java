@@ -23,17 +23,60 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
  */
 public abstract class IdComboDto extends BaseDto {
 
+    protected String idCombo;
+    protected Long idOne;
+    protected Long idTwo;
+    protected Long idThree;
+
+    /**
+     * @return Returns the idCombo.
+     */
+    public String getIdCombo() {
+        return idCombo;
+    }
+
+    /**
+     * @param idComboIn The idCombo to set.
+     */
+    public void setIdCombo(String idComboIn) {
+        idCombo = idComboIn;
+        if (idComboIn != null) {
+            String[] ids = idCombo.split("\\|");
+            if (ids.length > 0) {
+                idOne = Long.valueOf(ids[0]);
+            }
+            if (ids.length > 1) {
+                idTwo = Long.valueOf(ids[1]);
+            }
+            if (ids.length > 2) {
+                idThree = Long.valueOf(ids[2]);
+            }
+        }
+    }
+
     /**
      * Returns id to be stored in RhnSet.
      * @return id to be stored in RhnSet.
      */
-    public abstract Long getIdOne();
+    public Long getIdOne() {
+        return idOne;
+    }
 
     /**
      * Returns idTwo to be stored in RhnSet.
      * @return idTwo to be stored in RhnSet.
      */
-    public abstract Long getIdTwo();
+    public Long getIdTwo() {
+        return idTwo;
+    }
+
+    /**
+     * Returns idThree to be stored in RhnSet.
+     * @return idThree to be stored in RhnSet.
+     */
+    public Long getIdThree() {
+        return idThree;
+    }
 
     /**
      * Overrides method in AbstractDto.
@@ -41,7 +84,7 @@ public abstract class IdComboDto extends BaseDto {
      * @param set The set to which we are adding this object's ids
      */
     public void addToSet(RhnSet set) {
-        set.addElement(new Long(getIdOne().longValue()), new Long(getIdTwo().longValue()));
+        set.addElement(idOne, idTwo, idThree);
     }
 
 }
