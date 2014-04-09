@@ -129,19 +129,22 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Remove actions from an Action Chain.
      *
+     * @param sk Session key.
      * @param chainLabel The label of the Action Chain.
      * @param actionNames List of action names.
      * @return State of the action result. Negative is false.
      *         Positive: number of successfully deleted entries.
      *
      * @xmlrpc.doc Remove actions from an Action Chain.
+     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.param #array_single("string", "actionName")
      * @xmlrpc.returntype #return_int_success()
      */
-    // XXX: add user!!!
-    public Integer removeActions(String chainLabel,
+    public Integer removeActions(String sk,
+                                 String chainLabel,
                                  List<String> actionNames) {
+        ActionChainHandler.getLoggedInUser(sk);
         if (StringUtil.nullOrValue(chainLabel) == null) {
             throw new InvalidParameterException("Action Chain label is empty.");
         }
@@ -171,8 +174,8 @@ public class ActionChainHandler extends BaseHandler {
 
         if (entriesToDelete.isEmpty()) {
             throw new NoSuchActionException(
-                    String.format("Action Chain '%s' has no such "
-                            + "requested scheduled entries.", chainLabel));
+                    String.format("Action Chain '%s' has no such " +
+                                  "requested scheduled entries.", chainLabel));
         }
 
         for (ActionChainEntry entry : entriesToDelete) {
@@ -185,15 +188,19 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Remove Action Chains by label.
      *
+     * @param sk Session key.
      * @param chainLabels List of action labels.
      * @return State of the action result. Negative is false.
      *         Positive: number of successfully deleted entries.
      *
      * @xmlrpc.doc Remove action chains by label.
+     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #array_single("string", "chainLabels")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer removeChains(List<String> chainLabels) {
+    public Integer removeChains(String sk,
+                                List<String> chainLabels) {
+        ActionChainHandler.getLoggedInUser(sk);
         if (chainLabels.isEmpty()) {
             throw new InvalidParameterException("No chain labels has been passed!");
         }
@@ -224,7 +231,8 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Integer createActionChain(String sk, String chainLabel) {
+    public Integer createActionChain(String sk,
+                                     String chainLabel) {
         if (StringUtil.nullOrValue(sk) == null) {
             throw new InvalidParameterException("Session key is empty.");
         }
@@ -251,7 +259,9 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Integer addSystemReboot(String sk, Integer serverId, String chainLabel) {
+    public Integer addSystemReboot(String sk,
+                                   Integer serverId,
+                                   String chainLabel) {
         Collector c = new Collector(sk, serverId, chainLabel);
         return ActionChainManager.scheduleRebootAction(
                 c.getUser(), c.getServer(),
@@ -281,9 +291,9 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
     public Integer addPackageRemoval(String sk,
-                                 Integer serverId,
-                                 List<Map<String, String>> packages,
-                                 String chainLabel) {
+                                     Integer serverId,
+                                     List<Map<String, String>> packages,
+                                     String chainLabel) {
         Collector c = new Collector(sk, serverId, chainLabel);
         List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
                 SystemManager.installedPackages(c.getServer().getId(), true), packages, c);
@@ -316,9 +326,9 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public Integer addPackageInstall(String sk,
-                                 Integer serverId,
-                                 List<Integer> packages,
-                                 String chainLabel) {
+                                     Integer serverId,
+                                     List<Integer> packages,
+                                     String chainLabel) {
         Collector c = new Collector(sk, serverId, chainLabel);
         List<Map<String, Long>> selectedPackages = this.acUtil.resolvePackages(
                 packages, c.getUser());
@@ -348,9 +358,9 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public Integer addPackageVerify(String sk,
-                                Integer serverId,
-                                List<Integer> packages,
-                                String chainLabel) {
+                                    Integer serverId,
+                                    List<Integer> packages,
+                                    String chainLabel) {
         Collector c = new Collector(sk, serverId, chainLabel);
         List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
                 PackageManager.systemPackageList(c.getServer().getId(), null), packages);
@@ -420,12 +430,12 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype int actionId - The id of the action or throw an exception
      */
     public Integer addRemoteCommand(String sk,
-                                Integer serverId,
-                                String chainLabel,
-                                String uid,
-                                String gid,
-                                Integer timeout,
-                                String scriptBody) {
+                                    Integer serverId,
+                                    String chainLabel,
+                                    String uid,
+                                    String gid,
+                                    Integer timeout,
+                                    String scriptBody) {
         if (StringUtil.nullOrValue(scriptBody) == null) {
             throw new InvalidParameterException("Script body is empty.");
         }
