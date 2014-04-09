@@ -104,6 +104,16 @@ Helper utility to manage and compare packages on filesystem vs database.
             </para>
         </listitem>
     </varlistentry>
+    <varlistentry>
+        <term>-R, --remove-mismatch</term>
+        <listitem>
+            <para>
+            Remove packages from filesystem that does not match the checksum stored in the database.
+            This option is not valid when combined with options <emphasis>--db-only</emphasis> or <emphasis>--no-checksum</emphasis>.
+            After removing the packages from the filesystem, remember to run <emphasis>satellite-sync</emphasis> or <emphasis>spacewalk-repo-sync</emphasis> to download the RPM file.
+            </para>
+        </listitem>
+    </varlistentry>
 </variablelist>
 </RefSect1>
 
