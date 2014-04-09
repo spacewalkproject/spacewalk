@@ -15,6 +15,7 @@
 
 package com.redhat.rhn.frontend.xmlrpc.chain.test;
 
+import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.action.ActionFactory;
@@ -29,6 +30,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.domain.session.InvalidSessionIdException;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -328,8 +330,23 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
 
         List<String> chainsToRemove = new ArrayList<String>();
         chainsToRemove.add(actionChain.getLabel());
-        this.ach.removeChains(chainsToRemove);
+        this.ach.removeChains(this.adminKey, chainsToRemove);
         assertEquals(1, previousChainCount - this.ach.listChains().size());
+    }
+
+    /**
+     * Test chains removal failure on unauthorized access.
+     */
+    public void testAcRemoveChainsFailureOnWrongUser() {
+        int previousChainCount = this.ach.listChains().size();
+
+        try {
+            this.ach.removeChains("", new ArrayList<String>());
+            fail("Expected exception: " +
+                 InvalidSessionIdException.class.getCanonicalName());
+        } catch (InvalidSessionIdException ex) {
+            assertEquals(0, previousChainCount - this.ach.listChains().size());
+        }
     }
 
     /**
@@ -339,7 +356,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         int previousChainCount = this.ach.listChains().size();
 
         try {
-            this.ach.removeChains(new ArrayList<String>());
+            this.ach.removeChains(this.adminKey, new ArrayList<String>());
             fail("Expected exception: " +
                  InvalidParameterException.class.getCanonicalName());
         } catch (InvalidParameterException ex) {
@@ -356,7 +373,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         chainsToRemove.add(TestUtils.randomString());
 
         try {
-            this.ach.removeChains(chainsToRemove);
+            this.ach.removeChains(this.adminKey, chainsToRemove);
             fail("Expected exception: " + NoSuchActionException.class.getCanonicalName());
         } catch (NoSuchActionException ex) {
             assertEquals(0, previousChainCount - this.ach.listChains().size());
@@ -374,7 +391,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         List<String> actionsToRemove = new ArrayList<String>();
         actionsToRemove.add((String) ((Map)
             this.ach.chainActions(CHAIN_NAME).get(0)).get("label"));
-        assertEquals(true, this.ach.removeActions(CHAIN_NAME, actionsToRemove) > 0);
+        assertEquals(true, this.ach.removeActions(
+                this.adminKey, CHAIN_NAME, actionsToRemove) > 0);
         assertEquals(true, this.ach.chainActions(CHAIN_NAME).isEmpty());
     }
 
@@ -387,10 +405,44 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                     CHAIN_NAME) > 0);
         List<String> actionsToRemove = new ArrayList<String>();
         try {
-            this.ach.removeActions(CHAIN_NAME, actionsToRemove);
+            this.ach.removeActions(this.adminKey, CHAIN_NAME, actionsToRemove);
             fail("Expected exception: " +
                  InvalidParameterException.class.getCanonicalName());
         } catch (InvalidParameterException ex) {
+            assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
+        }
+    }
+
+    /**
+     * Test removing action with unauthorized access.
+     */
+    public void testAcRemoveActionsUnauthorizedEmptyToken() {
+        assertEquals(true, this.ach.addSystemReboot(this.adminKey,
+                                                    this.server.getId().intValue(),
+                                                    CHAIN_NAME) > 0);
+        List<String> actionsToRemove = new ArrayList<String>();
+        try {
+            this.ach.removeActions("", CHAIN_NAME, actionsToRemove);
+            fail("Expected exception: " +
+                 InvalidSessionIdException.class.getCanonicalName());
+        } catch (InvalidSessionIdException ex) {
+            assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
+        }
+    }
+
+    /**
+     * Test removing action with unauthorized access.
+     */
+    public void testAcRemoveActionsUnauthorizedUnknownToken() {
+        assertEquals(true, this.ach.addSystemReboot(this.adminKey,
+                                                    this.server.getId().intValue(),
+                                                    CHAIN_NAME) > 0);
+        List<String> actionsToRemove = new ArrayList<String>();
+        try {
+            this.ach.removeActions(TestUtils.randomString(), CHAIN_NAME, actionsToRemove);
+            fail("Expected exception: " +
+                 InvalidSessionIdException.class.getCanonicalName());
+        } catch (InvalidSessionIdException ex) {
             assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
         }
     }
@@ -405,7 +457,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         List<String> actionsToRemove = new ArrayList<String>();
         actionsToRemove.add(TestUtils.randomString());
         try {
-            this.ach.removeActions("", actionsToRemove);
+            this.ach.removeActions(this.adminKey, "", actionsToRemove);
             fail("Expected exception: " +
                  InvalidParameterException.class.getCanonicalName());
         } catch (InvalidParameterException ex) {
@@ -424,7 +476,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         List<String> actionsToRemove = new ArrayList<String>();
         actionsToRemove.add(TestUtils.randomString());
         try {
-            this.ach.removeActions(CHAIN_NAME, actionsToRemove);
+            this.ach.removeActions(this.adminKey, CHAIN_NAME, actionsToRemove);
             fail("Expected exception: " + NoSuchActionException.class.getCanonicalName());
         } catch (NoSuchActionException ex) {
             assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
