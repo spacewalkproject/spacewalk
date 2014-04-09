@@ -234,6 +234,8 @@ def check_disk_checksum(abs_path, checksum_type, db_checksum):
     if file_checksum != db_checksum:
         log(0, "File checksum mismatch: %s (%s: %s vs. %s)" %
             (abs_path, checksum_type, db_checksum, file_checksum))
+        if options.remove_mismatch:
+            remove_mismatch(abs_path, options)
         ret = 1
     return ret
 
@@ -283,6 +285,9 @@ def not_in_db(path, options):
     else:
         log(0, "File missing in db: %s" % (path))
 
+def remove_mismatch(path, options):
+    log(0, "Removed file because checksum does not match: %s" % (path))
+    unlink_package_file(path)
 
 def log(level, *args):
     log_debug(level, *args)
@@ -308,7 +313,9 @@ if __name__ == '__main__':
         Option("-f", "--fs-only",       action="store_true",
                help="Check only if packages from filesystem are in the database"),
         Option("-r", "--remove",        action="store_true",
-               help="Automaticaly remove packages from filesystem not present in database"),
+               help="Automatically remove packages from filesystem not present in database"),
+        Option("-R", "--remove-mismatch", action="store_true", dest="remove_mismatch", default=False,
+               help="Automatically remove packages from filesystem that does not match the checksum stored in database. (not valid with --db-only)"),
         Option("-F", "--fix-file-path", action="store_true", dest="restore", default=False,
                help="Restores file paths, try this when you have NEVRAO mismatches. Do not run this command with another commands"),
     ]
@@ -320,6 +327,10 @@ if __name__ == '__main__':
     db_init()
 
     exit_value = 0
+    if options.remove_mismatch:
+        if options.db_only or not options.checksum:
+            log(0, "Syntax error: The option --remove-mismatch cannot be used with --db-only or --no-checksum")
+            sys.exit(1)
     if not options.fs_only:
         log(1, "Checking if packages from database are present on filesystem")
         exit_value += check_db_vs_disk(options)
