@@ -15,9 +15,6 @@
 
 package com.redhat.rhn.frontend.action.renderers;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 
 /**
  * Interface for rendering fragments asynchronously
@@ -31,8 +28,7 @@ public interface FragmentRenderer {
     /**
      * Render content, please
      * @return generated content
-     * @throws ServletException sometimes things just don't work out
-     * @throws IOException      but we can still be friends, m'kay?
+     * @throws Exception sometimes things just don't work out
      */
-    String renderAsync() throws ServletException, IOException;
+    String renderAsync() throws Exception;
 }
