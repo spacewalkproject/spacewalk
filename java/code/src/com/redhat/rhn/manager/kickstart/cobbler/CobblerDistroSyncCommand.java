@@ -219,10 +219,12 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                         "] unusable.";
             }
 
-            Distro distro = Distro.create(
-                    CobblerXMLRPCHelper.getAutomatedConnection(),
-                    tree.getCobblerDistroName(), tree.getKernelPath(),
-                    tree.getInitrdPath(), ksmeta);
+            Distro distro =
+                    Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
+                            tree.getCobblerDistroName(), tree.getKernelPath(),
+                            tree.getInitrdPath(), ksmeta,
+                            tree.getInstallType().getCobblerBreed(),
+                            tree.getInstallType().getCobblerOsVersion());
             tree.setCobblerId(distro.getUid());
             invokeCobblerUpdate();
         }
@@ -237,10 +239,12 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                 return error;
             }
 
-            Distro distroXen = Distro.create(
-                    CobblerXMLRPCHelper.getAutomatedConnection(),
-                tree.getCobblerXenDistroName(), tree.getKernelXenPath(),
-                tree.getInitrdXenPath(), ksmeta);
+            Distro distroXen =
+                    Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
+                            tree.getCobblerXenDistroName(),
+                            tree.getKernelXenPath(), tree.getInitrdXenPath(),
+                            ksmeta, tree.getInstallType().getCobblerBreed(),
+                            tree.getInstallType().getCobblerOsVersion());
             tree.setCobblerXenId(distroXen.getUid());
         }
         tree.setModified(new Date());

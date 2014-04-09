@@ -78,9 +78,11 @@ public class CobblerDistroCommand extends CobblerCommand {
         if (tree.doesParaVirt()) {
             //IT does paravirt so we need to either update the xen distro or create one
             if (xen == null) {
-                xen = Distro.create(con, tree.getCobblerXenDistroName(),
-                        tree.getKernelXenPath(), tree.getInitrdXenPath(), ksmeta);
-                xen.setBreed(tree.getInstallType().getCobblerBreed());
+                xen =
+                        Distro.create(con, tree.getCobblerXenDistroName(), tree
+                                .getKernelXenPath(), tree.getInitrdXenPath(), ksmeta, tree
+                                .getInstallType().getCobblerBreed(), tree.getInstallType()
+                                .getCobblerOsVersion());
                 xen.save();
                 tree.setCobblerXenId(xen.getId());
             }
@@ -88,6 +90,7 @@ public class CobblerDistroCommand extends CobblerCommand {
                 xen.setKernel(tree.getKernelXenPath());
                 xen.setInitrd(tree.getInitrdXenPath());
                 xen.setBreed(tree.getInstallType().getCobblerBreed());
+                xen.setOsVersion(tree.getInstallType().getCobblerOsVersion());
                 xen.setKsMeta(ksmeta);
                 xen.save();
             }
@@ -105,6 +108,7 @@ public class CobblerDistroCommand extends CobblerCommand {
             nonXen.setInitrd(tree.getInitrdPath());
             nonXen.setKernel(tree.getKernelPath());
             nonXen.setBreed(tree.getInstallType().getCobblerBreed());
+            nonXen.setOsVersion(tree.getInstallType().getCobblerOsVersion());
             nonXen.setKsMeta(ksmeta);
             nonXen.save();
         }

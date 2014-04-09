@@ -43,11 +43,12 @@ public class Distro extends CobblerObject {
      * @param kernel the kernel path of the distro
      * @param initrd the initrd path of the distro
      * @param ksmeta inital ksmeta to set
+     * @param breed initial breed to set
+     * @param osVersion initial os_version to set
      * @return a new Distro
      */
-    public static Distro create(CobblerConnection client,
-                                String name, String kernel, String initrd,
-                                Map ksmeta) {
+    public static Distro create(CobblerConnection client, String name, String kernel,
+            String initrd, Map ksmeta, String breed, String osVersion) {
         Distro distro = new Distro(client);
         distro.handle = (String) client.invokeTokenMethod("new_distro");
         distro.modify(NAME, name);
@@ -55,6 +56,12 @@ public class Distro extends CobblerObject {
         distro.setInitrd(initrd);
         if (ksmeta.containsKey("autoyast")) {
             distro.setBreed("suse");
+        }
+        else if (breed != null) {
+            distro.setBreed(breed);
+        }
+        if (osVersion != null) {
+            distro.setOsVersion(osVersion);
         }
         distro.setKsMeta(ksmeta);
         distro.save();

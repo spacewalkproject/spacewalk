@@ -44,7 +44,10 @@ public class DistroTest extends TestCase {
             "/var/satellite/rhn/kickstart/ks-rhel-i386-as-4-u2//images/pxeboot/vmlinuz";
         String initrd =
             "/var/satellite/rhn/kickstart/ks-rhel-i386-as-4-u2//images/pxeboot/initrd.img";
-        Distro newDistro = Distro.create(client, name, kernel, initrd, new HashMap());
+        String breed = "redhat";
+        String osVersion = "rhel4";
+        Distro newDistro = Distro.create(client, name, kernel, initrd, new HashMap(),
+                breed, osVersion);
         assertEquals(name, newDistro.getName());
         assertEquals(kernel, newDistro.getKernel());
         assertEquals(initrd, newDistro.getInitrd());

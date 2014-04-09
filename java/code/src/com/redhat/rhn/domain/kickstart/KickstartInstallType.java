@@ -213,4 +213,17 @@ public class KickstartInstallType extends BaseDomainHelper {
         return breed;
     }
 
+    /**
+     * get the string cobbler understands as os_version
+     * @return cobbler os_version compatible string
+     */
+    public String getCobblerOsVersion() {
+        if (this.getCobblerBreed().equals(REDHAT)) {
+            return this.getLabel().replace("_", "");
+        }
+        else {
+            return "generic26";
+        }
+    }
+
 }
