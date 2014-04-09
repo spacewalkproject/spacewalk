@@ -258,7 +258,7 @@ def check_disk_vs_db(disk_content=None, db_content=None):
           if options.checksum and options.fs_only:
               if options.remove_mismatch:
                     report['checksum'] += check_disk_checksum(abs_path,
-                                               row['checksum_type'], row['checksum'], remove=False)
+                                               row['checksum_type'], row['checksum'], remove=True)
              else:
                     report['checksum'] += check_disk_checksum(abs_path,
                                                row['checksum_type'], row['checksum'])
