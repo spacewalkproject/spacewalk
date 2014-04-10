@@ -1,0 +1,27 @@
+# Makefile for spacewalk-client-cert
+
+ACTIONS		= clientcert
+PYFILES		= $(addsuffix .py, $(ACTIONS)) $(addsuffix .pyc, $(ACTIONS))
+CAPABILITY	= client-cert
+OBJECTS		= $(PYFILES)
+
+PREFIX		?=
+ACTIONDIR	= $(PREFIX)/usr/share/rhn/actions
+CAPSDIR		= $(PREFIX)/etc/sysconfig/rhn/clientCaps.d
+INSTALL		= /usr/bin/install -c
+FILE		= -m 644
+DIR		= -m 755 --verbose -d
+
+
+all: $(OBJECTS)
+
+%.pyc: %.py
+	python -c "import py_compile; py_compile.compile('$<')"
+
+install: all
+	$(INSTALL) $(DIR) $(ACTIONDIR) $(XSLTDIR) $(CAPSDIR)
+	$(INSTALL) $(FILE) $(PYFILES) $(ACTIONDIR)
+	$(INSTALL) $(FILE) $(CAPABILITY) $(CAPSDIR)
+
+clean:
+	@rm -rf *.pyc *~ .*~
