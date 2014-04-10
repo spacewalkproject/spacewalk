@@ -86,7 +86,7 @@ public class ChannelPackagesAddAction extends ChannelPackagesBaseAction {
         //Since if we are going to the confirm screen, we don't need to
         //actually do anything else, so lets go ahead and forward and save some time
         String button = LocalizationService.getInstance().getMessage(
-        "channel.jsp.package.addconfirmbutton");
+        "channel.jsp.package.addbutton");
         if (button.equals(request.getParameter(RhnHelper.CONFIRM_FORWARD)) &&
             set.size() > 0) {
             Map params = new HashMap();

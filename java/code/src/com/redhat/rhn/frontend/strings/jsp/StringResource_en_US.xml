@@ -19457,10 +19457,10 @@ given channel.</source>
         </source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.removebutton">
-        <source>Confirm Removal</source>
+        <source>Remove</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.confirmbutton">
-        <source>Remove</source>
+        <source>Confirm Removal</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.menu.list">
         <source>List / Remove Packages</source>
