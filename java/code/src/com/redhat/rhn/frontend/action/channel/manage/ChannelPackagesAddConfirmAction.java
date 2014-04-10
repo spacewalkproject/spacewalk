@@ -88,7 +88,7 @@ public class ChannelPackagesAddConfirmAction extends RhnAction {
         request.setAttribute(RequestContext.PAGE_LIST, result);
 
         String button = LocalizationService.getInstance().getMessage(
-        "channel.jsp.package.addbutton");
+        "channel.jsp.package.addconfirmbutton");
 
         if (button.equals(request.getParameter("confirm")) && set.size() > 0) {
             int setSize = set.size();
