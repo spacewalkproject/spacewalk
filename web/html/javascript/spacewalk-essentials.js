@@ -59,7 +59,7 @@ function columnHeight() {
 };
 
 // Render page fragments loaded via DWR
-function makeAjaxCallback(divId, debug) {
+function makeRendererHandler(divId, debug) {
   cb = function(text) {
     if (debug) {
       alert(text);

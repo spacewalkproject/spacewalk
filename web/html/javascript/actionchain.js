@@ -23,7 +23,7 @@ $(function() {
       ActionChainEntriesRenderer.renderAsync(
         actionChainId,
         sortOrder,
-        makeAjaxCallback(listId, false)
+        makeRendererHandler(listId, false)
       );
     }
     else {

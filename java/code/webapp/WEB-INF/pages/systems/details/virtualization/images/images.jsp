@@ -20,7 +20,7 @@
             <span style="padding-left: 0.3em;">Loading ...</span>
           </div>
           <script type="text/javascript">
-            ImagesRenderer.renderAsync(makeAjaxCallback("images-content", false));
+            ImagesRenderer.renderAsync(makeRendererHandler("images-content", false));
           </script>
         </div>
       </c:when>
