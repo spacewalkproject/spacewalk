@@ -1,0 +1,49 @@
+
+synopsis:
+
+  Pending/executed/archived/failed action on Spacewalk/Satellite server
+
+description:
+
+  List of all actions on Spacewalk/Satellite
+
+columns:
+
+  id  Action id
+  earliest Earliest date of the action execution
+  type_name Type of the action
+  action_name Name of the action
+  scheduler Id of the scheduler
+  scheduler_name Scheduler name
+  in_progress_systems In progress systems
+  completed_systems Completed systems
+  failed_systems  Failed systems
+  archived Archived action yes/no
+
+multival_columns:
+
+  id
+  in_progress_systems : in_progress_systems
+  completed_systems : completed_systems
+  failed_systems : failed_systems
+
+
+sql:
+
+  SELECT * FROM (
+  SELECT uao.id AS id,
+    uao.earliest_action AS earliest,
+    uao.type_name,
+    (CASE uao.action_name WHEN NULL THEN uao.type_name ELSE uao.action_name END) AS action_name,
+    uao.scheduler,
+    wc.login AS scheduler_name,
+    CASE WHEN SA.status IN (0,1) THEN S.name ELSE NULL END AS in_progress_systems,
+    CASE WHEN SA.status = 2 then S.name ELSE NULL END AS completed_systems,
+    CASE WHEN SA.status = 3 then S.name ELSE NULL END AS failed_systems,
+    CASE WHEN uao.archived = 0 THEN 'no' ELSE 'yes' END AS archived
+   FROM  rhnUserActionOverview uao JOIN rhnServerAction SA
+    ON uao.id = SA.action_id JOIN rhnServer S
+    ON S.id = SA.server_id LEFT JOIN web_contact wc
+    ON uao.scheduler = wc.id)
+  X
+  ORDER BY id;
