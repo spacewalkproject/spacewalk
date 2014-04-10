@@ -527,8 +527,8 @@ public class ActionChainHandler extends BaseHandler {
      *
      * @param sk Session key (token)
      * @param chainLabel Label of the action chain
-     * @param revisions
-     * @param serverIds
+     * @param revisions List of configuration revisions.
+     * @param serverIds List of applicable server IDs.
      * @return True in XML-RPC representation
      *
      * @xmlrpc.doc Deploy configuration across the servers.
