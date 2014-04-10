@@ -22,7 +22,7 @@ from up2date_client import up2dateAuth
 
 __rhnexport__ = [ 'update_client_cert' ]
 
-def update_client_cert(args, cache_only=None):
+def update_client_cert(cache_only=None):
     server = rhnserver.RhnServer()
 
     if not server.capabilities.hasCapability('registration.update_systemid'):
