@@ -388,9 +388,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                     this.server.getId().intValue(),
                                                     CHAIN_NAME) > 0);
         assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
-        List<String> actionsToRemove = new ArrayList<String>();
-        actionsToRemove.add((String) ((Map)
-            this.ach.chainActions(CHAIN_NAME).get(0)).get("label"));
+        List<Integer> actionsToRemove = new ArrayList<Integer>();
+        actionsToRemove.add((Integer) ((Map)
+            this.ach.chainActions(CHAIN_NAME).get(0)).get("id"));
         assertEquals(true, this.ach.removeActions(
                 this.adminKey, CHAIN_NAME, actionsToRemove) > 0);
         assertEquals(true, this.ach.chainActions(CHAIN_NAME).isEmpty());
@@ -403,7 +403,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(true, this.ach.addSystemReboot(this.adminKey,
                                                     this.server.getId().intValue(),
                                                     CHAIN_NAME) > 0);
-        List<String> actionsToRemove = new ArrayList<String>();
+        List<Integer> actionsToRemove = new ArrayList<Integer>();
         try {
             this.ach.removeActions(this.adminKey, CHAIN_NAME, actionsToRemove);
             fail("Expected exception: " +
@@ -420,7 +420,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(true, this.ach.addSystemReboot(this.adminKey,
                                                     this.server.getId().intValue(),
                                                     CHAIN_NAME) > 0);
-        List<String> actionsToRemove = new ArrayList<String>();
+        List<Integer> actionsToRemove = new ArrayList<Integer>();
         try {
             this.ach.removeActions("", CHAIN_NAME, actionsToRemove);
             fail("Expected exception: " +
@@ -437,7 +437,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(true, this.ach.addSystemReboot(this.adminKey,
                                                     this.server.getId().intValue(),
                                                     CHAIN_NAME) > 0);
-        List<String> actionsToRemove = new ArrayList<String>();
+        List<Integer> actionsToRemove = new ArrayList<Integer>();
         try {
             this.ach.removeActions(TestUtils.randomString(), CHAIN_NAME, actionsToRemove);
             fail("Expected exception: " +
@@ -454,8 +454,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(true, this.ach.addSystemReboot(this.adminKey,
                                                     this.server.getId().intValue(),
                                                     CHAIN_NAME) > 0);
-        List<String> actionsToRemove = new ArrayList<String>();
-        actionsToRemove.add(TestUtils.randomString());
+        List<Integer> actionsToRemove = new ArrayList<Integer>();
+        actionsToRemove.add(0);
         try {
             this.ach.removeActions(this.adminKey, "", actionsToRemove);
             fail("Expected exception: " +
@@ -473,8 +473,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(true, this.ach.addSystemReboot(this.adminKey,
                                                     this.server.getId().intValue(),
                                                     CHAIN_NAME) > 0);
-        List<String> actionsToRemove = new ArrayList<String>();
-        actionsToRemove.add(TestUtils.randomString());
+        List<Integer> actionsToRemove = new ArrayList<Integer>();
+        actionsToRemove.add(0);
         try {
             this.ach.removeActions(this.adminKey, CHAIN_NAME, actionsToRemove);
             fail("Expected exception: " + NoSuchActionException.class.getCanonicalName());
