@@ -5394,4 +5394,55 @@ public class SystemHandler extends BaseHandler {
         server.setPrimaryInterfaceWithName(interfaceName);
         return 1;
     }
+
+    /**
+     * Schedule update of client certificate
+     * @param sessionKey Session key
+     * @param serverId Server Id
+     * @return ID of the action if the action scheduling succeeded, exception otherwise
+     *
+     * @xmlrpc.doc Schedule update of client certificate
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
+     */
+    public int scheduleCertificateUpdate(String sessionKey, Integer serverId) {
+        return scheduleCertificateUpdate(sessionKey, serverId, new Date());
+    }
+
+    /**
+     * Schedule update of client certificate at given date and time
+     * @param sessionKey Session key
+     * @param serverId Server Id
+     * @param date The date of earliest occurence
+     * @return ID of the action if the action scheduling succeeded, exception otherwise
+     *
+     * @xmlrpc.doc Schedule update of client certificate
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("dateTime.iso860", "date")
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
+     */
+    public int scheduleCertificateUpdate(String sessionKey, Integer serverId, Date date) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+
+        if (server == null) {
+            throw new InvalidSystemException();
+        }
+
+        Action action = null;
+        try {
+            action = ActionManager.scheduleCertificateUpdate(loggedInUser,
+                     server,
+                     null);
+        }
+        catch (MissingCapabilityException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingCapabilityException();
+        }
+
+
+        return action.getId().intValue();
+    }
+
 }

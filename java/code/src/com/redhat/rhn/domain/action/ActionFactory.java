@@ -1011,6 +1011,9 @@ public class ActionFactory extends HibernateFactory {
     public static final ActionType TYPE_SCAP_XCCDF_EVAL =
             lookupActionTypeByLabel("scap.xccdf_eval");
 
+    public static final ActionType TYPE_CLIENTCERT_UPDATE_CLIENT_CERT =
+            lookupActionTypeByLabel("clientcert.update_client_cert");
+
     public static final String TXN_OPERATION_INSERT = "insert";
     public static final String TXN_OPERATION_DELETE = "delete";
 
