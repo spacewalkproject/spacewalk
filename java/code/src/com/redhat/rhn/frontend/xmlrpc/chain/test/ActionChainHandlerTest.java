@@ -674,12 +674,10 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         revisions.add(ConfigTestUtils.createConfigRevision(
                 this.admin.getOrg()).getId().intValue());
 
-        List<Integer> servers = new ArrayList<Integer>();
-        servers.add(this.server.getId().intValue());
-
         assertEquals(new Integer(BaseHandler.VALID),
                      this.ach.deployConfiguration(this.adminKey, CHAIN_LABEL,
-                                                  revisions, servers));
+                                                  this.server.getId().intValue(),
+                                                  revisions));
     }
 
     /**
@@ -690,12 +688,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         revisions.add(ConfigTestUtils.createConfigRevision(
                 this.admin.getOrg()).getId().intValue());
 
-        List<Integer> servers = new ArrayList<Integer>();
-        servers.add(this.server.getId().intValue());
-
         try {
             this.ach.deployConfiguration(TestUtils.randomString(), CHAIN_LABEL,
-                                         revisions, servers);
+                                         this.server.getId().intValue(), revisions);
             fail("Expected exception: " +
                  InvalidSessionIdException.class.getCanonicalName());
         } catch (InvalidSessionIdException ex) {
@@ -710,12 +705,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         revisions.add(ConfigTestUtils.createConfigRevision(
                 this.admin.getOrg()).getId().intValue());
 
-        List<Integer> servers = new ArrayList<Integer>();
-        servers.add(this.server.getId().intValue());
-
         try {
             this.ach.deployConfiguration(TestUtils.randomString(), "",
-                                         revisions, servers);
+                                         this.server.getId().intValue(), revisions);
             fail("Expected exception: " +
                  InvalidParameterException.class.getCanonicalName());
         } catch (InvalidParameterException ex) {
@@ -726,12 +718,10 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
      * Deploy configuration should fail if no revisions passed.
      */
     public void testAcDeployConfigurationFailureNoRevisions() {
-        List<Integer> servers = new ArrayList<Integer>();
-        servers.add(this.server.getId().intValue());
-
         try {
             this.ach.deployConfiguration(TestUtils.randomString(), CHAIN_LABEL,
-                                         new ArrayList<Integer>(), servers);
+                                         this.server.getId().intValue(),
+                                         new ArrayList<Integer>());
             fail("Expected exception: " +
                  InvalidParameterException.class.getCanonicalName());
         } catch (InvalidParameterException ex) {
@@ -747,11 +737,83 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                 this.admin.getOrg()).getId().intValue());
 
         try {
-            this.ach.deployConfiguration(TestUtils.randomString(), CHAIN_LABEL,
-                                         revisions, new ArrayList<Integer>());
+            this.ach.deployConfiguration(TestUtils.randomString(), CHAIN_LABEL, -1,
+                                         revisions);
+            fail("Expected exception: " +
+                 InvalidSessionIdException.class.getCanonicalName());
+        } catch (InvalidSessionIdException ex) {
+        }
+    }
+
+    /**
+     * Rename an action chain.
+     */
+    public void testAcRenameActionChain() {
+        assertEquals(true, actionChain.getLabel().equals(CHAIN_LABEL));
+        assertEquals(new Integer(1),
+                     this.ach.renameChain(
+                             this.adminKey, CHAIN_LABEL, TestUtils.randomString()));
+        assertEquals(false, actionChain.getLabel().equals(CHAIN_LABEL));
+    }
+
+    /**
+     * Rename an action chain should fail when unknown token is passed.
+     */
+    public void testAcRenameActionChainFailureOnUnauthorized() {
+        assertEquals(true, actionChain.getLabel().equals(CHAIN_LABEL));
+        try {
+            assertEquals(new Integer(1),
+                         this.ach.renameChain(TestUtils.randomString(),
+                                              CHAIN_LABEL, CHAIN_LABEL));
+            fail("Expected exception: " +
+                 InvalidSessionIdException.class.getCanonicalName());
+        } catch (InvalidSessionIdException ex) {
+            assertEquals(true, actionChain.getLabel().equals(CHAIN_LABEL));
+        }
+    }
+
+    /**
+     * Rename an action chain should fail when renaming to the same label.
+     */
+    public void testAcRenameActionChainFailureOnSameLabel() {
+        assertEquals(true, actionChain.getLabel().equals(CHAIN_LABEL));
+        try {
+            assertEquals(new Integer(1),
+                         this.ach.renameChain(this.adminKey, CHAIN_LABEL, CHAIN_LABEL));
             fail("Expected exception: " +
                  InvalidParameterException.class.getCanonicalName());
         } catch (InvalidParameterException ex) {
+            assertEquals(true, actionChain.getLabel().equals(CHAIN_LABEL));
+        }
+    }
+
+    /**
+     * Rename an action chain should fail when previous label is missing.
+     */
+    public void testAcRenameActionChainFailureOnEmptyPreviousLabel() {
+        assertEquals(true, actionChain.getLabel().equals(CHAIN_LABEL));
+        try {
+            assertEquals(new Integer(1),
+                         this.ach.renameChain(this.adminKey, "", CHAIN_LABEL));
+            fail("Expected exception: " +
+                 InvalidParameterException.class.getCanonicalName());
+        } catch (InvalidParameterException ex) {
+            assertEquals(true, actionChain.getLabel().equals(CHAIN_LABEL));
+        }
+    }
+
+    /**
+     * Rename an action chain should fail when new label is missing.
+     */
+    public void testAcRenameActionChainFailureOnEmptyNewLabel() {
+        assertEquals(true, actionChain.getLabel().equals(CHAIN_LABEL));
+        try {
+            assertEquals(new Integer(1),
+                         this.ach.renameChain(this.adminKey, CHAIN_LABEL, ""));
+            fail("Expected exception: " +
+                 InvalidParameterException.class.getCanonicalName());
+        } catch (InvalidParameterException ex) {
+            assertEquals(true, actionChain.getLabel().equals(CHAIN_LABEL));
         }
     }
 }
