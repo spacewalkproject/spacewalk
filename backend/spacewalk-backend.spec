@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.17
+Version: 2.2.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Thu Apr 10 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.18-1
+- add server side code for handling clientcert.update_client_cert
+- update_systemid: routine to update server secret and client certificate
+- Added spacewalk-data-fsck man page(8)
+
 * Tue Apr 08 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.17-1
 - fixed client registration
 
