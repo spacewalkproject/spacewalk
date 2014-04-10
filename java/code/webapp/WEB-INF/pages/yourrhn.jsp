@@ -50,14 +50,14 @@
         <c:if test="${requestScope.tasks == 'y'}">
             <div class="col-md-auto" id="tasks-pane" >
                 <script type="text/javascript">
-                  TasksRenderer.renderAsync(makeAjaxCallback('tasks-pane', false));
+                  TasksRenderer.renderAsync(makeRendererHandler('tasks-pane', false));
                 </script>
             </div>
         </c:if>
         <c:if test="${requestScope.inactiveSystems == 'y'}">
             <div class="col-md-auto" id="inactive-systems-pane" >
               <script type="text/javascript">
-                    InactiveSystemsRenderer.renderAsync(makeAjaxCallback("inactive-systems-pane", false));
+                    InactiveSystemsRenderer.renderAsync(makeRendererHandler("inactive-systems-pane", false));
                 </script>
             </div>
         </c:if>
@@ -65,7 +65,7 @@
   	    <c:if test="${requestScope.criticalSystems == 'y'}">
   		        <div id="critical-systems-pane" class="row">
   		            <script type="text/javascript">
-  		                CriticalSystemsRenderer.renderAsync(makeAjaxCallback("critical-systems-pane", false));
+  		                CriticalSystemsRenderer.renderAsync(makeRendererHandler("critical-systems-pane", false));
   		            </script>
   		        </div>
         </c:if>
@@ -73,7 +73,7 @@
         <c:if test="${requestScope.criticalProbes == 'y'}">
             <div id="critical-probes-pane" class="row">
                 <script type="text/javascript">
-                    CriticalProbesRenderer.renderAsync(makeAjaxCallback("critical-probes-pane", false));
+                    CriticalProbesRenderer.renderAsync(makeRendererHandler("critical-probes-pane", false));
                 </script>
             </div>
         </c:if>
@@ -81,35 +81,35 @@
         <c:if test="${requestScope.warningProbes == 'y'}">
             <div id="warning-probes-pane" class="row">
                 <script type="text/javascript">
-                    WarningProbesRenderer.renderAsync(makeAjaxCallback("warning-probes-pane", false));
+                    WarningProbesRenderer.renderAsync(makeRendererHandler("warning-probes-pane", false));
                 </script>
             </div>
         </c:if>
         <c:if test="${requestScope.pendingActions =='y'}">
             <div id="pending-actions-pane" class="row">
                 <script type="text/javascript">
-  	                PendingActionsRenderer.renderAsync(makeAjaxCallback("pending-actions-pane", false));
+  	                PendingActionsRenderer.renderAsync(makeRendererHandler("pending-actions-pane", false));
                 </script>
             </div>
         </c:if>
         <c:if test="${requestScope.latestErrata == 'y'}">
 	        <div id="latest-errata-pane" class="row">
 	            <script type="text/javascript">
-	  	            LatestErrataRenderer.renderAsync(makeAjaxCallback("latest-errata-pane", false));
+	  	            LatestErrataRenderer.renderAsync(makeRendererHandler("latest-errata-pane", false));
 	            </script>
 	        </div>
         </c:if>
         <c:if test="${requestScope.systemGroupsWidget == 'y'}">
             <div id="systems-groups-pane" class="row">
                 <script type="text/javascript">
-                    SystemGroupsRenderer.renderAsync(makeAjaxCallback("systems-groups-pane", false));
+                    SystemGroupsRenderer.renderAsync(makeRendererHandler("systems-groups-pane", false));
                 </script>
             </div>
         </c:if>
         <c:if test="${requestScope.recentlyRegisteredSystems == 'y'}">
             <div id="recently-registered-pane" class="row">
                 <script>
-                    RecentSystemsRenderer.renderAsync(makeAjaxCallback("recently-registered-pane", false));
+                    RecentSystemsRenderer.renderAsync(makeRendererHandler("recently-registered-pane", false));
                 </script>
             </div>
         </c:if>
