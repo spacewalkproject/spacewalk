@@ -42,4 +42,5 @@
   <template name="taskomatic.org" classname="com.redhat.rhn.frontend.xmlrpc.taskomatic.TaskomaticOrgHandler" />
   <template name="sync.master" classname="com.redhat.rhn.frontend.xmlrpc.sync.master.MasterHandler" />
   <template name="sync.slave" classname="com.redhat.rhn.frontend.xmlrpc.sync.slave.SlaveHandler" />
+  <template name="user.external" classname="com.redhat.rhn.frontend.xmlrpc.user.external.UserExternalHandler" />
 </factory>

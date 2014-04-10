@@ -229,7 +229,12 @@ public class OrgHandler extends BaseHandler {
         return 1;
     }
 
-    private Org verifyOrgExists(Number orgId) {
+    /**
+     * Ensure the org exists
+     * @param orgId the org id to check
+     * @return the org
+     */
+    public static Org verifyOrgExists(Number orgId) {
         if (orgId == null) {
             throw new NoSuchOrgException("null Id");
         }

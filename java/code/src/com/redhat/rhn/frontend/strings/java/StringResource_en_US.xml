@@ -7059,6 +7059,12 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="api.errata.invaliderrata">
         <source>Invalid errata: {0}</source>
       </trans-unit>
+      <trans-unit id="api.externalgroup.invalidrole">
+        <source>Invalid role: {0}</source>
+      </trans-unit>
+      <trans-unit id="api.externalgroup.nosuchgroup">
+        <source>No such external group: {0}</source>
+      </trans-unit>
       <trans-unit id="api.package.invalidpackage">
         <source>Invalid package: {0}</source>
       </trans-unit>
