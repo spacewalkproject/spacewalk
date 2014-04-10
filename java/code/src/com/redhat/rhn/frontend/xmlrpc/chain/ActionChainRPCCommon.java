@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.collections.Transformer;
 
 /**
  * Common mix-in for package resolving.
@@ -44,6 +45,16 @@ import java.util.Map;
  */
 public class ActionChainRPCCommon {
     protected static final String[] COMBO_KEYS = new String[]{"evr_id", "arch_id", "name_id"};
+
+    /**
+     * Transformer from Long to Integer for the XML-RPC compatibility.
+     */
+    public static class IntegerToLongTransformer implements Transformer {
+        @Override
+        public Long transform(Object value) {
+            return value == null ? null : ((Integer) value).longValue();
+        }
+    }
 
     /**
      * Parameters collector.

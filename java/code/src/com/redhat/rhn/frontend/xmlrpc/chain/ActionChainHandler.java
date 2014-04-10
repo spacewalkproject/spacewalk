@@ -19,6 +19,7 @@ import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionChainEntry;
 import com.redhat.rhn.domain.action.ActionChainFactory;
+import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
@@ -37,6 +38,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.xml.bind.DatatypeConverter;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 
 
 /**
@@ -515,6 +518,52 @@ public class ActionChainHandler extends BaseHandler {
         }
 
         ActionChainFactory.schedule(chain, date);
+
+        return BaseHandler.VALID;
+    }
+
+    /**
+     * Deploy configuration.
+     *
+     * @param sk Session key (token)
+     * @param chainLabel Label of the action chain
+     * @param revisions
+     * @param serverIds
+     * @return True in XML-RPC representation
+     *
+     * @xmlrpc.doc Deploy configuration across the servers.
+     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
+     * @xmlrpc.param #array_single("int", "Revision ID")
+     * @xmlrpc.param #array_single("int", "Server ID")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public Integer deployConfiguration(String sk,
+                                       String chainLabel,
+                                       List<Integer> revisions,
+                                       List<Integer> serverIds) {
+        if (StringUtil.nullOrValue(chainLabel) == null) {
+            throw new InvalidParameterException("Action Chain label is empty.");
+        }
+        else if (revisions.isEmpty()) {
+            throw new InvalidParameterException("At least one revision should be given.");
+        }
+        else if (serverIds.isEmpty()) {
+            throw new InvalidParameterException("At least one System ID should be given.");
+        }
+
+        ActionChain chain = ActionChainFactory.getActionChain(chainLabel);
+        if (chain == null) {
+            throw new NoSuchActionException(
+                    String.format("Action Chain '%s' was not found.", chainLabel));
+        }
+
+        Transformer int2lng = new ActionChainRPCCommon.IntegerToLongTransformer();
+        ActionChainManager.createConfigActions(ActionChainHandler.getLoggedInUser(sk),
+                                               CollectionUtils.collect(revisions, int2lng),
+                                               CollectionUtils.collect(serverIds, int2lng),
+                                               ActionFactory.TYPE_CONFIGFILES_DEPLOY,
+                                               new Date(), chain);
 
         return BaseHandler.VALID;
     }
