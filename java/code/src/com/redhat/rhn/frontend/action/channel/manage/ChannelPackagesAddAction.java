@@ -24,7 +24,6 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.AlphaBarHelper;
@@ -40,7 +39,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,9 +50,8 @@ import javax.servlet.http.HttpServletResponse;
  * ChannelPackagesAction
  * @version $Rev$
  */
-public class ChannelPackagesAddAction extends RhnAction {
+public class ChannelPackagesAddAction extends ChannelPackagesBaseAction {
 
-    private final String listName = "packageList";
     private final String SELECTED_CHANNEL = "selected_channel";
     private final String ALL_PACKAGES = "all_managed_packages";
     private final String ALL_PACKAGES_SELECTED = "all_selected";
@@ -183,42 +180,4 @@ public class ChannelPackagesAddAction extends RhnAction {
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
     }
-
-
-    private List<SelectableChannel> findChannels(User user, Long selectedChan) {
-        //Add Red Hat Base Channels, and custom base channels
-        List<SelectableChannel> chanList = new ArrayList<SelectableChannel>();
-        for (Channel chanTmp : ChannelFactory.listRedHatBaseChannels()) {
-            if (canAccessChannel(user, chanTmp)) {
-                chanList.add(setSelected(chanTmp, selectedChan));
-                for (Channel chanChild : chanTmp.getAccessibleChildrenFor(user)) {
-                    chanList.add(setSelected(chanChild, selectedChan));
-                }
-            }
-        }
-        for (Channel chanTmp : ChannelFactory.listCustomBaseChannels(user)) {
-            if (canAccessChannel(user, chanTmp)) {
-                chanList.add(setSelected(chanTmp, selectedChan));
-                for (Channel chanChild : chanTmp.getAccessibleChildrenFor(user)) {
-                    chanList.add(setSelected(chanChild, selectedChan));
-                }
-            }
-        }
-        return chanList;
-    }
-
-
-    private boolean canAccessChannel(User user, Channel channel) {
-        return UserManager.verifyChannelSubscribable(user, channel) ||
-            UserManager.verifyChannelAdmin(user, channel);
-    }
-
-    private SelectableChannel setSelected(Channel chan, Long selectedChan) {
-        SelectableChannel selChan = new SelectableChannel(chan);
-        if (selChan.getChannel().getId().equals(selectedChan)) {
-            selChan.setSelected(true);
-        }
-        return selChan;
-    }
-
 }
