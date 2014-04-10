@@ -94,6 +94,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype
      *    #array()
      *       #struct("entry")
+     *          #prop_desc("int", "id", "Action ID")
      *          #prop_desc("string", "label", "Label of an Action")
      *          #prop_desc("string", "created", "Created date/time")
      *          #prop_desc("string", "earliest", "Earliest scheduled date/time")
@@ -113,6 +114,7 @@ public class ActionChainHandler extends BaseHandler {
         if (chain != null && chain.getEntries() != null && !chain.getEntries().isEmpty()) {
             for (ActionChainEntry entry : chain.getEntries()) {
                 Map<String, Object> info = new HashMap<String, Object>();
+                info.put("id", entry.getAction().getId());
                 info.put("label", entry.getAction().getName());
                 info.put("created", entry.getAction().getCreated());
                 info.put("earliest", entry.getAction().getEarliestAction());
@@ -131,24 +133,24 @@ public class ActionChainHandler extends BaseHandler {
      *
      * @param sk Session key.
      * @param chainLabel The label of the Action Chain.
-     * @param actionNames List of action names.
+     * @param actionIds List of action IDs.
      * @return State of the action result. Negative is false.
      *         Positive: number of successfully deleted entries.
      *
      * @xmlrpc.doc Remove actions from an Action Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
-     * @xmlrpc.param #array_single("string", "actionName")
+     * @xmlrpc.param #array_single("string", "actionId")
      * @xmlrpc.returntype #return_int_success()
      */
     public Integer removeActions(String sk,
                                  String chainLabel,
-                                 List<String> actionNames) {
+                                 List<Integer> actionIds) {
         ActionChainHandler.getLoggedInUser(sk);
         if (StringUtil.nullOrValue(chainLabel) == null) {
             throw new InvalidParameterException("Action Chain label is empty.");
         }
-        else if (actionNames.isEmpty()) {
+        else if (actionIds.isEmpty()) {
             throw new InvalidParameterException("Session key is empty.");
         }
 
@@ -165,8 +167,8 @@ public class ActionChainHandler extends BaseHandler {
 
         List<ActionChainEntry> entriesToDelete = new ArrayList<ActionChainEntry>();
         for (ActionChainEntry entry : chain.getEntries()) {
-            for (String actionName : actionNames) {
-                if (entry.getAction().getName().equals(actionName)) {
+            for (Integer actionId : actionIds) {
+                if (entry.getAction().getId().equals(Long.valueOf(actionId))) {
                     entriesToDelete.add(entry);
                 }
             }
