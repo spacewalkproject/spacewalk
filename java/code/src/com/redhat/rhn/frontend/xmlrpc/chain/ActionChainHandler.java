@@ -527,8 +527,8 @@ public class ActionChainHandler extends BaseHandler {
      *
      * @param sk Session key (token)
      * @param chainLabel Label of the action chain
+     * @param serverId System ID
      * @param revisions List of configuration revisions.
-     * @param serverIds List of applicable server IDs.
      * @return True in XML-RPC representation
      *
      * @xmlrpc.doc Deploy configuration across the servers.
@@ -540,16 +540,13 @@ public class ActionChainHandler extends BaseHandler {
      */
     public Integer deployConfiguration(String sk,
                                        String chainLabel,
-                                       List<Integer> revisions,
-                                       List<Integer> serverIds) {
+                                       Integer serverId,
+                                       List<Integer> revisions) {
         if (StringUtil.nullOrValue(chainLabel) == null) {
             throw new InvalidParameterException("Action Chain label is empty.");
         }
         else if (revisions.isEmpty()) {
             throw new InvalidParameterException("At least one revision should be given.");
-        }
-        else if (serverIds.isEmpty()) {
-            throw new InvalidParameterException("At least one System ID should be given.");
         }
 
         ActionChain chain = ActionChainFactory.getActionChain(chainLabel);
@@ -558,12 +555,49 @@ public class ActionChainHandler extends BaseHandler {
                     String.format("Action Chain '%s' was not found.", chainLabel));
         }
 
-        Transformer int2lng = new ActionChainRPCCommon.IntegerToLongTransformer();
-        ActionChainManager.createConfigActions(ActionChainHandler.getLoggedInUser(sk),
-                                               CollectionUtils.collect(revisions, int2lng),
-                                               CollectionUtils.collect(serverIds, int2lng),
-                                               ActionFactory.TYPE_CONFIGFILES_DEPLOY,
-                                               new Date(), chain);
+        List<Long> server = new ArrayList<Long>();
+        server.add(serverId.longValue());
+
+        ActionChainManager.createConfigActions(
+               ActionChainHandler.getLoggedInUser(sk),
+               CollectionUtils.collect(revisions,
+                                       new ActionChainRPCCommon.IntegerToLongTransformer()),
+               server, ActionFactory.TYPE_CONFIGFILES_DEPLOY, new Date(), chain);
+
+        return BaseHandler.VALID;
+    }
+
+    /**
+     * Rename Action Chain.
+     *
+     * @param sk Session key (token)
+     * @param previousLabel Previous (existing) label of the Action Chain
+     * @param newLabel New (desired) label of the Action Chain
+     * @return list of action ids, exception thrown otherwise
+     *
+     * @xmlrpc.doc Schedule system reboot.
+     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "previousLabel", "Previous chain label")
+     * @xmlrpc.param #param_desc("string", "newLabel", "New chain label")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public Integer renameChain(String sk,
+                               String previousLabel,
+                               String newLabel) {
+        ActionChainHandler.getLoggedInUser(sk);
+        if (previousLabel.equals(newLabel)) {
+            throw new InvalidParameterException("New label of the Action Chain should " +
+                      "not be the same as previous!");
+        }
+        else if (previousLabel.isEmpty()) {
+            throw new InvalidParameterException("Previous label cannot be empty.");
+        }
+        else if (newLabel.isEmpty()) {
+            throw new InvalidParameterException("New label cannot be empty.");
+        }
+
+        ActionChain chain = ActionChainFactory.getActionChain(previousLabel);
+        chain.setLabel(newLabel);
 
         return BaseHandler.VALID;
     }
