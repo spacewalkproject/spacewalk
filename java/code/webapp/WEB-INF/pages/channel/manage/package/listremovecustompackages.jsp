@@ -75,7 +75,7 @@
 			  </rl:list>
 
 			<div class="text-right">
-			 <input type="submit" name="confirm" value="<bean:message key='channel.jsp.manage.package.confirmbutton'/>"
+			 <input type="submit" name="confirm" value="<bean:message key='channel.jsp.manage.package.delete'/>"
            <c:choose>
                <c:when test="${empty pageList}">
                    class="btn" disabled
