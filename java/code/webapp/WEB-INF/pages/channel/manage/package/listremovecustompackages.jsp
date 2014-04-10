@@ -81,7 +81,7 @@
 			  </rl:list>
 
 			<div class="text-right">
-			 <input type="submit" name="confirm" value="<bean:message key='channel.jsp.manage.package.confirmbutton'/>" ${empty pageList ? 'class="btn" disabled' : 'class="btn btn-default"'} >
+                            <input type="submit" name="confirm" value="<bean:message key='channel.jsp.manage.package.delete'/>" ${empty pageList ? 'class="btn" disabled' : 'class="btn btn-default"'} >
 			</div>
      <rhn:submitted/>
 </rl:listset>
