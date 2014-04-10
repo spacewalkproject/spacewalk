@@ -72,7 +72,7 @@ public class CustomPackagesDeleteConfirmAction extends RhnAction {
         request.setAttribute(RequestContext.PAGE_LIST, result);
 
         String button = LocalizationService.getInstance().getMessage(
-        "channel.jsp.manage.package.delete");
+        "channel.jsp.manage.package.confirmbutton");
 
 
         if (button.equals(request.getParameter("confirm")) && set.size() > 0) {
