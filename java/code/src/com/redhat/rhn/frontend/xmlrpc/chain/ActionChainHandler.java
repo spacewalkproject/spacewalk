@@ -466,4 +466,49 @@ public class ActionChainHandler extends BaseHandler {
                              script, date, c.getChain())
                 .iterator().next().getId().intValue();
     }
+
+    /**
+     * Schedule action chain immediately.
+     *
+     * @param sk Session key (token)
+     * @param chainLabel Label of the action chain
+     * @return True in XML-RPC representation
+     *
+     * @xmlrpc.doc Adds an action to verify installed packages on the system.
+     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public Integer scheduleNow(String sk,
+                               String chainLabel) {
+        ActionChainHandler.getLoggedInUser(sk);
+        ActionChainFactory.schedule(
+                ActionChainFactory.getActionChain(chainLabel), new Date());
+
+        return BaseHandler.VALID;
+    }
+
+    /**
+     * Schedule action chain immediately.
+     *
+     * @param sk Session key (token)
+     * @param chainLabel Label of the action chain
+     * @param date Earliest date
+     * @return True in XML-RPC representation
+     *
+     * @xmlrpc.doc Adds an action to verify installed packages on the system.
+     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
+     * @xmlrpc.param #param("dateTime.iso8601", "Earliest date")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public Integer schedule(String sk,
+                            String chainLabel,
+                            Date date) {
+        ActionChainHandler.getLoggedInUser(sk);
+        ActionChainFactory.schedule(
+                ActionChainFactory.getActionChain(chainLabel), date);
+
+        return BaseHandler.VALID;
+    }
 }
