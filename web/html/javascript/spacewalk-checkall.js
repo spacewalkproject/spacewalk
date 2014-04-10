@@ -187,7 +187,7 @@ function process_single_checkbox(cboxes, checkall) {
 }
 
 function update_server_set(variable, set_label, checked, values) {
-    DWRItemSelector.select(set_label, values, checked,pageResponse);
+    DWRItemSelector.select(set_label, values, checked, makeAjaxHandler(pageResponse));
 }
 
 function pageResponse(data) {

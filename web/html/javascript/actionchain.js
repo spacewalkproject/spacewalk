@@ -99,6 +99,13 @@ $(function() {
     update: renumberGroups
   });
 
+  // handle exit without save
+  $(window).on("beforeunload", function() {
+    if ($.unsaved == true) {
+      return $("#before-unload").text();
+    }
+  });
+
   // save changes on Action Chain via AJAX
   function save(onSuccess) {
     var newLabel = $("#label-input").val();
@@ -118,8 +125,7 @@ $(function() {
       deletedEntries,
       deletedSortOrders,
       reorderedSortOrders,
-      {
-        callback: function(resultString) {
+      makeAjaxHandler(function(resultString) {
           var result = $.parseJSON(resultString);
           if (result.success) {
             $(".entry.deleted").remove();
@@ -134,12 +140,10 @@ $(function() {
             $("#error-message").text(result.text).fadeIn();
           }
         },
-        errorHandler: function(message) {
-          alert("Unexpected error, changes reverted. Please check server logs.");
+        function(message) {
           clearUnsavedData();
-          location.reload();
         }
-      }
+      )
     );
   }
 
@@ -161,10 +165,10 @@ $(function() {
   }
 
   function setUnsavedData() {
-    window.onbeforeunload = function(){ return $("#before-unload").text(); };
+    $.unsaved = true;
   }
 
   function clearUnsavedData() {
-    window.onbeforeunload = null;
+    $.unsaved = false;
   }
 });
