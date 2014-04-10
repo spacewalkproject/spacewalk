@@ -215,7 +215,8 @@ public class ErrataSetupAction extends RhnAction implements Listable {
             params.put("sid", sid);
         }
 
-        return strutsDelegate.forwardParams(mapping.findForward("confirm"), params);
+        return strutsDelegate.forwardParams(
+                                mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
     }
 
     /**

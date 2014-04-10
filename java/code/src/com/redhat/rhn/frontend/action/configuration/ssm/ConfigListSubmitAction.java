@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.action.ActionType;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BaseSetOperateOnSelectedItemsAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
@@ -120,7 +121,7 @@ public class ConfigListSubmitAction extends BaseSetOperateOnSelectedItemsAction 
         }
         Map params = new HashMap();
         params.put("feature", feature.getLabel());
-        return getStrutsDelegate().forwardParams(mapping.findForward("confirm"),
-                params);
+        return getStrutsDelegate().forwardParams(
+                                mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
     }
 }

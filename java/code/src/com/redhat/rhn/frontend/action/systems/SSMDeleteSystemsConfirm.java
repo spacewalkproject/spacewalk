@@ -79,7 +79,7 @@ public class SSMDeleteSystemsConfirm extends RhnAction implements Listable {
 
         getStrutsDelegate().saveMessage("ssm.delete.systems.confirmmessage",
                                                     context.getRequest());
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
     /**

@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BaseSetOperateOnSelectedItemsAction;
 import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
@@ -80,6 +81,7 @@ public class GlobalRevisionDeploySubmit extends BaseSetOperateOnSelectedItemsAct
         updateSet(request);
         Map params = new HashMap();
         processParamMap(formIn, request, params);
-        return getStrutsDelegate().forwardParams(mapping.findForward("confirm"), params);
+        return getStrutsDelegate().forwardParams(
+                                mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
     }
 }

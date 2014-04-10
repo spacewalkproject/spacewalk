@@ -87,7 +87,7 @@ public class MigrateSystemsAction extends RhnAction implements Listable {
                 getStrutsDelegate().saveMessage("ssm.migrate.systems.confirmmessage",
                                                             context.getRequest());
             }
-            return mapping.findForward("confirm");
+            return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
         }
 
         request.setAttribute("trustedOrgs", user.getOrg().getTrustedOrgs().size());

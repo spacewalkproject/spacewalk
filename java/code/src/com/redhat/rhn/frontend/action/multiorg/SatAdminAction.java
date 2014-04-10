@@ -59,7 +59,7 @@ public class SatAdminAction extends RhnAction {
                                    u.getLogin());
             }
             else {
-              retval = mapping.findForward("confirm");
+              retval = mapping.findForward(RhnHelper.CONFIRM_FORWARD);
               retval = getStrutsDelegate().forwardParam(retval, "uid", uid.toString());
             }
             return retval;

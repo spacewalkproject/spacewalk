@@ -235,7 +235,7 @@ public class TrustAction extends FormDispatcher {
         request.setAttribute(
                 ListTagHelper.PARENT_URL,
                 request.getRequestURI() + "?oid=" + oid);
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
     @Override

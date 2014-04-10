@@ -107,7 +107,7 @@ public class SchedulePackageVerifyAction extends RhnAction implements Listable {
                     new ActionMessage("ssm.package.verify.message.packageverifications"));
                 strutsDelegate.saveMessages(request, msgs);
 
-                return actionMapping.findForward("confirm");
+                return actionMapping.findForward(RhnHelper.CONFIRM_FORWARD);
             }
         }
 

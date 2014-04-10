@@ -58,7 +58,7 @@ public class SelectUpgradePackagesAction extends RhnAction implements Listable {
 
         if (helper.isDispatched()) {
             request.setAttribute("packagesDecl", helper.getDecl());
-            return actionMapping.findForward("confirm");
+            return actionMapping.findForward(RhnHelper.CONFIRM_FORWARD);
         }
 
         // Determine number of packages for summary text to user

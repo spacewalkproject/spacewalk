@@ -74,7 +74,7 @@ public class DuplicateSystemsDeleteSetupAction extends RhnAction implements List
 
         getStrutsDelegate().saveMessage("duplicate.systems.delete.confirmmessage",
                                                     context.getRequest());
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
     /**

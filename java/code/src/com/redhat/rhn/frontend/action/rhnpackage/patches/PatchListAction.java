@@ -71,7 +71,8 @@ public class PatchListAction extends RhnSetAction {
 
         processParamMap(formIn, request, params);
 
-        return strutsDelegate.forwardParams(mapping.findForward("confirm"), params);
+        return strutsDelegate.forwardParams(
+                                mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
     }
 
     protected void processMethodKeys(Map map) {

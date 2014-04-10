@@ -70,7 +70,7 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
         helper.setWillClearSet(false);
         helper.execute();
         if (helper.isDispatched()) {
-            return mapping.findForward("confirm");
+            return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
         }
 
 

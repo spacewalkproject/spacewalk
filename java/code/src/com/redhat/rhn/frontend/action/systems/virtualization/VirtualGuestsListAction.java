@@ -213,7 +213,8 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
             return strutsDelegate.forwardParams(
                     mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
-        return strutsDelegate.forwardParams(mapping.findForward("confirm"), params);
+        return strutsDelegate.forwardParams(
+                                mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
     }
 
     protected DataResult getDataResult(User user, ActionForm form,

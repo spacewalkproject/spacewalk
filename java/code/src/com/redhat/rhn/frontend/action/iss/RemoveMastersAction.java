@@ -148,7 +148,7 @@ public class RemoveMastersAction extends RhnAction {
                             "message.iss_masters_removed"));
         }
         getStrutsDelegate().saveMessages(request, msg);
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
     protected RhnSetDecl getSetDecl() {

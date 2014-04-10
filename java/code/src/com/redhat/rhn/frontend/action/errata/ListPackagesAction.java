@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.RhnSetAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -60,7 +61,7 @@ public class ListPackagesAction extends RhnSetAction {
 
         //forward to the confirm mapping
         Long eid = requestContext.getRequiredParam("eid");
-        return strutsDelegate.forwardParam(mapping.findForward("confirm"),
+        return strutsDelegate.forwardParam(mapping.findForward(RhnHelper.CONFIRM_FORWARD),
                                       "eid", eid.toString());
     }
 
@@ -81,7 +82,7 @@ public class ListPackagesAction extends RhnSetAction {
      * {@inheritDoc}
      */
     protected void processMethodKeys(Map map) {
-        map.put("errata.edit.packages.list.removepackages", "confirm");
+        map.put("errata.edit.packages.list.removepackages", RhnHelper.CONFIRM_FORWARD);
     }
 
     /**

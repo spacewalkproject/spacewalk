@@ -100,7 +100,7 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                         "ssm.package.install.message.packageinstalls"));
                 strutsDelegate.saveMessages(request, msgs);
-                return actionMapping.findForward("confirm");
+                return actionMapping.findForward(RhnHelper.CONFIRM_FORWARD);
             }
         }
 

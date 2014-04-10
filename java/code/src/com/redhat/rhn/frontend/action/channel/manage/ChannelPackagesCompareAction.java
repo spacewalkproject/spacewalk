@@ -88,8 +88,8 @@ public class ChannelPackagesCompareAction extends RhnAction {
             params.put(RequestContext.CID, cid);
             params.put(OTHER_ID, selectedChan);
             params.put(SYNC_TYPE, syncType);
-            return getStrutsDelegate().forwardParams(mapping.findForward("confirm"),
-                                                     params);
+            return getStrutsDelegate().forwardParams(
+                                mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
         }
 
         //selected channel id

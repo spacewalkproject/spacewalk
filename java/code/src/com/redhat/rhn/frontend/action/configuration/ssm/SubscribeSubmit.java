@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BaseSetOperateOnSelectedItemsAction;
 import com.redhat.rhn.frontend.dto.ConfigChannelDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -111,7 +112,7 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
 
         RhnSetManager.store(set);
 
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
 

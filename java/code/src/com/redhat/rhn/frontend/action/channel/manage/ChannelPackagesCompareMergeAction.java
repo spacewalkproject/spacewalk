@@ -87,8 +87,8 @@ public class ChannelPackagesCompareMergeAction extends ChannelPackagesCompareAct
             set.size() > 0) {
             Map params = new HashMap();
             params.put(RequestContext.CID, cid);
-            return getStrutsDelegate().forwardParams(mapping.findForward("confirm"),
-                    params);
+            return getStrutsDelegate().forwardParams(
+                                 mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
         }
 
         DataResult result = PackageManager.comparePackagesBetweenChannelsPreview(

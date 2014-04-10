@@ -189,7 +189,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
             new ActionMessage("ssm.package.remove.message.packageremovals"));
         strutsDelegate.saveMessages(request, msgs);
 
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
 }

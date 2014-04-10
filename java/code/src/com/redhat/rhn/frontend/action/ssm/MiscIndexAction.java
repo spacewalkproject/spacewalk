@@ -67,7 +67,7 @@ public class MiscIndexAction extends RhnAction {
                 }
             }
 */
-            return mapping.findForward("confirm");
+            return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
         }
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);

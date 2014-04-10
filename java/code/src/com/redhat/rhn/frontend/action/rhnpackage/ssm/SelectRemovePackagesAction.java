@@ -58,7 +58,7 @@ public class SelectRemovePackagesAction extends RhnAction implements Listable {
 
         if (helper.isDispatched()) {
             request.setAttribute("packagesDecl", helper.getDecl());
-            return actionMapping.findForward("confirm");
+            return actionMapping.findForward(RhnHelper.CONFIRM_FORWARD);
         }
 
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);

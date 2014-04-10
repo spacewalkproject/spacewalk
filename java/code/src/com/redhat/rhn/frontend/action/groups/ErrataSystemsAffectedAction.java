@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -74,8 +75,9 @@ public final class ErrataSystemsAffectedAction extends BaseListAction {
         }
         RhnSetManager.store(set);
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("confirm"),
-            request.getParameterMap());
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.CONFIRM_FORWARD),
+                request.getParameterMap());
     }
 
     /** {@inheritDoc} */

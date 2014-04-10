@@ -245,7 +245,8 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         request.setAttribute(CURRENT_BASE_CHANNEL, s.getBaseChannel());
         request.setAttribute(NEW_BASE_CHANNEL_ID, newBaseChannelId);
         SdcHelper.ssmCheck(request, s.getId(), user);
-        return getStrutsDelegate().forwardParam(mapping.findForward("confirm"),
+        return getStrutsDelegate().forwardParam(
+                mapping.findForward(RhnHelper.CONFIRM_FORWARD),
                 RequestContext.SID, s.getId().toString());
     }
 

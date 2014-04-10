@@ -109,7 +109,7 @@ public class SlaveAction extends RhnAction {
     private ActionForward handleDispatchAction(ActionMapping mapping,
             RequestContext context) {
 
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
     protected RhnSetDecl getSetDecl() {

@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BaseSetOperateOnSelectedItemsAction;
 import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
@@ -60,7 +61,7 @@ public class ChannelSystemDeploySubmit extends BaseSetOperateOnSelectedItemsActi
     }
 
     /**
-     * User has pushed the "confirm" button
+     * User has pushed the RhnHelper.CONFIRM_FORWARD button
      * @param mapping Struts action-mapping
      * @param formIn associated form
      * @param request incoming request
@@ -78,6 +79,7 @@ public class ChannelSystemDeploySubmit extends BaseSetOperateOnSelectedItemsActi
             return handleEmptySelection(mapping, formIn, request);
         }
         Map params = makeParamMap(formIn, request);
-        return getStrutsDelegate().forwardParams(mapping.findForward("confirm"), params);
+        return getStrutsDelegate().forwardParams(
+                                mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
     }
 }

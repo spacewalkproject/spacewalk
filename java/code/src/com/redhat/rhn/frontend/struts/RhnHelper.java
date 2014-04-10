@@ -45,6 +45,9 @@ public class RhnHelper {
     /** The key for the default struts forward */
     public static final String DEFAULT_FORWARD = "default";
 
+    /** The key for the confirm struts forward */
+    public static final String CONFIRM_FORWARD = "confirm";
+
     /** The key for the default empty selection error */
     public static final String DEFAULT_EMPTY_SELECTION_KEY = "emptyselectionerror";
 

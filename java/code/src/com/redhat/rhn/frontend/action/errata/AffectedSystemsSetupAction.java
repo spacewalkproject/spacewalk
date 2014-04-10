@@ -74,8 +74,9 @@ public class AffectedSystemsSetupAction extends RhnListAction {
             helper.updateSet(set, LIST_NAME);
             if (!set.isEmpty()) {
                 // Send to AffectedSystemsAction to handle submit
-                return strutsDelegate.forwardParams(mapping.findForward("confirm"),
-                        request.getParameterMap());
+                return strutsDelegate.forwardParams(
+                        mapping.findForward(RhnHelper.CONFIRM_FORWARD),
+                                            request.getParameterMap());
             }
             RhnHelper.handleEmptySelection(request);
         }

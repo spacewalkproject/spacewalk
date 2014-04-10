@@ -114,7 +114,8 @@ public abstract class BaseSystemPackagesAction extends RhnAction {
         Map params = new HashMap();
         params.put(RequestContext.SID, server.getId().toString());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        return strutsDelegate.forwardParams(mapping.findForward("confirm"), params);
+        return strutsDelegate.forwardParams(
+                                mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
     }
 
     /**

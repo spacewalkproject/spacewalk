@@ -261,7 +261,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
         request.setAttribute(UNMATCHED_CHILD_CHANNELS, unmatched);
 
         log.debug("end confirmUpdateBaseChannels()");
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
     /**

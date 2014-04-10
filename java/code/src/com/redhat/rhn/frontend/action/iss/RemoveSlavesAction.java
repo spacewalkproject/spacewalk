@@ -146,7 +146,7 @@ public class RemoveSlavesAction extends RhnAction {
                             "message.iss_slaves_removed"));
         }
         getStrutsDelegate().saveMessages(request, msg);
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
     protected RhnSetDecl getSetDecl() {

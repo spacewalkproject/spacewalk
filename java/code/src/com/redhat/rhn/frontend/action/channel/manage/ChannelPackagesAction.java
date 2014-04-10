@@ -106,11 +106,12 @@ public class ChannelPackagesAction extends RhnAction {
                 "channel.jsp.package.removebutton");
 
 
-        if (button.equals(request.getParameter("confirm")) && set.size() > 0) {
+        if (button.equals(request.getParameter(RhnHelper.CONFIRM_FORWARD)) &&
+            set.size() > 0) {
             Map params = new HashMap();
             params.put("cid", cid);
-            return getStrutsDelegate().forwardParams(mapping.findForward("confirm"),
-                    params);
+            return getStrutsDelegate().forwardParams(
+                                mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
         }
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);

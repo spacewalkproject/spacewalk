@@ -80,10 +80,11 @@ public class CustomPackageListAction extends RhnAction {
         //actually do anything else, so lets go ahead and forward and save some time
         String button = LocalizationService.getInstance().getMessage(
         "channel.jsp.manage.package.confirmbutton");
-        if (button.equals(request.getParameter("confirm")) && set.size() > 0) {
+        if (button.equals(request.getParameter(RhnHelper.CONFIRM_FORWARD)) &&
+            set.size() > 0) {
             Map params = new HashMap();
-            return getStrutsDelegate().forwardParams(mapping.findForward("confirm"),
-                    params);
+            return getStrutsDelegate().forwardParams(
+                                mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
         }
 
 

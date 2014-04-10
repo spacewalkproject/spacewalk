@@ -229,7 +229,7 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
             new ActionMessage("ssm.package.upgrade.message.packageupgrade"));
         strutsDelegate.saveMessages(request, msgs);
 
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
 
 
     }

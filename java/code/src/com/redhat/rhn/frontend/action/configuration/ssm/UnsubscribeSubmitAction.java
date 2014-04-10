@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BaseSetOperateOnSelectedItemsAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
@@ -82,7 +83,7 @@ public class UnsubscribeSubmitAction extends BaseSetOperateOnSelectedItemsAction
         if (set.isEmpty()) {
             return handleEmptySelection(mapping, form, request);
         }
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
 }

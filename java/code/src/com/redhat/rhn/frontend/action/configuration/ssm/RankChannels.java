@@ -90,7 +90,8 @@ public class RankChannels extends BaseRankChannels {
 
         //update the set and go to confirm.
         updateSet(form, set);
-        return getStrutsDelegate().forwardParam(mapping.findForward("confirm"),
+        return getStrutsDelegate().forwardParam(
+                mapping.findForward(RhnHelper.CONFIRM_FORWARD),
                 "position", position);
     }
 

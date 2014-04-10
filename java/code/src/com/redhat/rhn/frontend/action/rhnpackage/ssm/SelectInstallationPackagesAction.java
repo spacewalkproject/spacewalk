@@ -59,8 +59,8 @@ public class SelectInstallationPackagesAction extends RhnAction implements Lista
 
         if (helper.isDispatched()) {
             request.setAttribute("packagesDecl", helper.getDecl());
-            return strutsDelegate.forwardParams(actionMapping.findForward("confirm"),
-                    params);
+            return strutsDelegate.forwardParams(
+                        actionMapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
         }
 
         return strutsDelegate.forwardParams(

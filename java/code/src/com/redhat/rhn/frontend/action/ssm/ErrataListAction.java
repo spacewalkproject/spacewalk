@@ -79,7 +79,7 @@ public class ErrataListAction extends ErrataSetupAction implements Listable {
             set.addElement(item);
         }
         RhnSetManager.store(set);
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
     /**

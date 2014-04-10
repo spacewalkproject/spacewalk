@@ -87,7 +87,8 @@ public class AddPackagesAction extends RhnAction implements Listable {
         if (helper.isDispatched()) {
             Long eid = context.getRequiredParam("eid");
             StrutsDelegate strutsDelegate = getStrutsDelegate();
-            return strutsDelegate.forwardParam(actionMapping.findForward("confirm"),
+            return strutsDelegate.forwardParam(
+                actionMapping.findForward(RhnHelper.CONFIRM_FORWARD),
                 "eid", eid.toString());
         }
 

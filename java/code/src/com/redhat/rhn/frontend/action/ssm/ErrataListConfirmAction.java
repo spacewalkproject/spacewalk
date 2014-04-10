@@ -122,7 +122,7 @@ public class ErrataListConfirmAction extends RhnAction implements
         set.clear();
         RhnSetManager.store(set);
 
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
     protected RhnSetDecl getSetDecl() {

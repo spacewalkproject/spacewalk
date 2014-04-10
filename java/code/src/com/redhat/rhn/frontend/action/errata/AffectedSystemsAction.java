@@ -75,7 +75,8 @@ public class AffectedSystemsAction extends RhnSetAction {
         if (eid != null) {
             params.put("eid", eid);
         }
-        return strutsDelegate.forwardParams(mapping.findForward("confirm"), params);
+        return strutsDelegate.forwardParams(
+                                mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
     }
 
     /**

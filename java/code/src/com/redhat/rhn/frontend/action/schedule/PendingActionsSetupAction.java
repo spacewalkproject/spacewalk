@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.schedule;
 
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
@@ -55,7 +56,7 @@ public class PendingActionsSetupAction extends BaseScheduledListAction {
     protected ActionForward handleSubmit(ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
-        return mapping.findForward("confirm");
+        return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
     }
 
 }
