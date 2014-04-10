@@ -625,4 +625,44 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
             assertEquals(0, actionChain.getEntries().size());
         }
     }
+
+    /**
+     * Test schedule on now.
+     */
+    public void testAcScheduleNow() {
+        assertEquals(new Integer(1),
+                     this.ach.scheduleNow(this.adminKey, CHAIN_NAME));
+    }
+
+    /**
+     * Test schedule on precise time.
+     */
+    public void testAcScheduleOnTime() {
+        assertEquals(new Integer(1),
+                     this.ach.schedule(this.adminKey, CHAIN_NAME, new Date()));
+    }
+
+    /**
+     * Test schedule on precise time.
+     */
+    public void testAcScheduleOnTimeFailureNoAuth() {
+        try {
+            this.ach.schedule("", CHAIN_NAME, new Date());
+            fail("Expected exception: " +
+                 InvalidSessionIdException.class.getCanonicalName());
+        } catch (InvalidSessionIdException ex) {
+        }
+    }
+
+    /**
+     * Test schedule on precise time.
+     */
+    public void testAcScheduleOnTimeFailureNoChain() {
+        try {
+            this.ach.schedule(this.adminKey, "", new Date());
+            fail("Expected exception: " +
+                 InvalidParameterException.class.getCanonicalName());
+        } catch (InvalidParameterException ex) {
+        }
+    }
 }
