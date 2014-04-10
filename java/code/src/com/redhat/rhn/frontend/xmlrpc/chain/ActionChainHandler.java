@@ -481,11 +481,7 @@ public class ActionChainHandler extends BaseHandler {
      */
     public Integer scheduleNow(String sk,
                                String chainLabel) {
-        ActionChainHandler.getLoggedInUser(sk);
-        ActionChainFactory.schedule(
-                ActionChainFactory.getActionChain(chainLabel), new Date());
-
-        return BaseHandler.VALID;
+        return this.schedule(sk, chainLabel, new Date());
     }
 
     /**
@@ -506,8 +502,17 @@ public class ActionChainHandler extends BaseHandler {
                             String chainLabel,
                             Date date) {
         ActionChainHandler.getLoggedInUser(sk);
-        ActionChainFactory.schedule(
-                ActionChainFactory.getActionChain(chainLabel), date);
+        if (StringUtil.nullOrValue(chainLabel) == null) {
+            throw new InvalidParameterException("Action Chain label is empty.");
+        }
+
+        ActionChain chain = ActionChainFactory.getActionChain(chainLabel);
+        if (chain == null) {
+            throw new NoSuchActionException(
+                    String.format("Action Chain '%s' was not found.", chainLabel));
+        }
+
+        ActionChainFactory.schedule(chain, date);
 
         return BaseHandler.VALID;
     }
