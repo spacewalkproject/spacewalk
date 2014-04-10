@@ -15,7 +15,6 @@
 
 package com.redhat.rhn.frontend.xmlrpc.chain.test;
 
-import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.action.ActionFactory;
@@ -31,7 +30,6 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.session.InvalidSessionIdException;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
@@ -43,6 +41,7 @@ import com.redhat.rhn.manager.errata.cache.test.ErrataCacheManagerTest;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.test.SystemManagerTest;
+import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 
 import java.net.InetAddress;
@@ -67,7 +66,6 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     private Server server;
     private Package pkg;
     private Package channelPackage;
-    private User user;
     private ActionChain actionChain;
 
     @Override
@@ -84,8 +82,10 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         net.setIpaddr(InetAddress.getLocalHost().getHostAddress());
         this.server.addNetwork(net);
 
-        // Run scripts capability
+        // Add capabilities
         SystemManagerTest.giveCapability(this.server.getId(), "script.run", new Long(1));
+        SystemManagerTest.giveCapability(this.server.getId(),
+                                         SystemManager.CAP_CONFIGFILES_DEPLOY, new Long(2));
 
         // Channels
         this.pkg = PackageTest.createTestPackage(this.admin.getOrg());
@@ -389,8 +389,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                                                     CHAIN_NAME) > 0);
         assertEquals(false, this.ach.chainActions(CHAIN_NAME).isEmpty());
         List<Integer> actionsToRemove = new ArrayList<Integer>();
-        actionsToRemove.add((Integer) ((Map)
-            this.ach.chainActions(CHAIN_NAME).get(0)).get("id"));
+        actionsToRemove.add(((Long) ((Map)
+                this.ach.chainActions(CHAIN_NAME).get(0)).get("id")).intValue());
         assertEquals(true, this.ach.removeActions(
                 this.adminKey, CHAIN_NAME, actionsToRemove) > 0);
         assertEquals(true, this.ach.chainActions(CHAIN_NAME).isEmpty());
@@ -660,6 +660,95 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     public void testAcScheduleOnTimeFailureNoChain() {
         try {
             this.ach.schedule(this.adminKey, "", new Date());
+            fail("Expected exception: " +
+                 InvalidParameterException.class.getCanonicalName());
+        } catch (InvalidParameterException ex) {
+        }
+    }
+
+    /**
+     * Deploy configuration.
+     */
+    public void testAcDeployConfiguration() {
+        List<Integer> revisions = new ArrayList<Integer>();
+        revisions.add(ConfigTestUtils.createConfigRevision(
+                this.admin.getOrg()).getId().intValue());
+
+        List<Integer> servers = new ArrayList<Integer>();
+        servers.add(this.server.getId().intValue());
+
+        assertEquals(new Integer(BaseHandler.VALID),
+                     this.ach.deployConfiguration(this.adminKey, CHAIN_NAME,
+                                                  revisions, servers));
+    }
+
+    /**
+     * Deploy configuration should fail if auth token is wrong.
+     */
+    public void testAcDeployConfigurationFailureUnauthorized() {
+        List<Integer> revisions = new ArrayList<Integer>();
+        revisions.add(ConfigTestUtils.createConfigRevision(
+                this.admin.getOrg()).getId().intValue());
+
+        List<Integer> servers = new ArrayList<Integer>();
+        servers.add(this.server.getId().intValue());
+
+        try {
+            this.ach.deployConfiguration(TestUtils.randomString(), CHAIN_NAME,
+                                         revisions, servers);
+            fail("Expected exception: " +
+                 InvalidSessionIdException.class.getCanonicalName());
+        } catch (InvalidSessionIdException ex) {
+        }
+    }
+
+    /**
+     * Deploy configuration should fail if no chain label has been passed.
+     */
+    public void testAcDeployConfigurationFailureNoChain() {
+        List<Integer> revisions = new ArrayList<Integer>();
+        revisions.add(ConfigTestUtils.createConfigRevision(
+                this.admin.getOrg()).getId().intValue());
+
+        List<Integer> servers = new ArrayList<Integer>();
+        servers.add(this.server.getId().intValue());
+
+        try {
+            this.ach.deployConfiguration(TestUtils.randomString(), "",
+                                         revisions, servers);
+            fail("Expected exception: " +
+                 InvalidParameterException.class.getCanonicalName());
+        } catch (InvalidParameterException ex) {
+        }
+    }
+
+    /**
+     * Deploy configuration should fail if no revisions passed.
+     */
+    public void testAcDeployConfigurationFailureNoRevisions() {
+        List<Integer> servers = new ArrayList<Integer>();
+        servers.add(this.server.getId().intValue());
+
+        try {
+            this.ach.deployConfiguration(TestUtils.randomString(), CHAIN_NAME,
+                                         new ArrayList<Integer>(), servers);
+            fail("Expected exception: " +
+                 InvalidParameterException.class.getCanonicalName());
+        } catch (InvalidParameterException ex) {
+        }
+    }
+
+    /**
+     * Deploy configuration should fail if no servers passed.
+     */
+    public void testAcDeployConfigurationFailureNoServers() {
+        List<Integer> revisions = new ArrayList<Integer>();
+        revisions.add(ConfigTestUtils.createConfigRevision(
+                this.admin.getOrg()).getId().intValue());
+
+        try {
+            this.ach.deployConfiguration(TestUtils.randomString(), CHAIN_NAME,
+                                         revisions, new ArrayList<Integer>());
             fail("Expected exception: " +
                  InvalidParameterException.class.getCanonicalName());
         } catch (InvalidParameterException ex) {
