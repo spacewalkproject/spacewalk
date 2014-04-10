@@ -39,8 +39,10 @@ options_table = [
            help="Increase verbosity"),
     Option("-l", "--list",          action="store_true",
            help="List defined channels and exit"),
-    Option("-c", "--channel",       action="append",
+    Option("-c", "--channel",       action="append", default=[],
            help="Delete this channel (can be present multiple times)"),
+    Option("-a", "--channel-with-childs",       action="append", default=[],
+           help="Delete this channel and its child channels (can be present multiple times)"),
     Option("-u", "--unsubscribe",   action="store_true",
            help="Unsubscribe systems registered to the specified channels"),
     Option(      "--justdb",        action="store_true",
@@ -75,7 +77,7 @@ def main():
             sys.stderr.write("Not a valid option ('%s'), try --help\n" % arg)
         sys.exit(-1)
 
-    if not (options.channel or options.list):
+    if not (options.channel or options.list or options.channel_with_childs):
         sys.stderr.write("Nothing to do\n")
         sys.exit(0)
 
@@ -111,6 +113,15 @@ def main():
     channels = {}
     for channel in options.channel:
         channels[channel] = None
+
+    for parent in options.channel_with_childs:
+        if dict_parents.has_key(parent):
+            channels[parent]= None
+            for ch in dict_parents[parent]:
+                channels[ch] = None
+        else:
+            print "Unknown parent channel %s" % parent
+            sys.exit(-1)
 
     child_test_fail = False
     for channel in channels.keys():
