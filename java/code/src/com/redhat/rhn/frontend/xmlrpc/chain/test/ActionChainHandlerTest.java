@@ -49,7 +49,6 @@ import java.net.InetAddress;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -316,7 +315,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     /**
      * Test chains removal.
      */
-    public void testAcRemoveChains() {
+    public void testAcRemoveChain() {
         int previousChainCount = this.ach.listChains(this.adminKey).size();
         this.ach.removeActionChain(this.adminKey, actionChain.getLabel());
         assertEquals(1, previousChainCount - this.ach.listChains(this.adminKey).size());
