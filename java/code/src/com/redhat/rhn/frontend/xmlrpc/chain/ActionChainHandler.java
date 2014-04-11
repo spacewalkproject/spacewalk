@@ -46,8 +46,6 @@ import org.apache.commons.collections.CollectionUtils;
  * @xmlrpc.doc Provides the namespace for the Action Chain methods.
  */
 public class ActionChainHandler extends BaseHandler {
-    public static final int MIN_TIMEOUT = 120;
-    public static final int MAX_TIMEOUT = 1200;
     private final ActionChainRPCCommon acUtil;
 
     /**
@@ -446,14 +444,6 @@ public class ActionChainHandler extends BaseHandler {
 
         List<Long> systems = new ArrayList<Long>();
         systems.add((long) serverId);
-
-        if (timeout > ActionChainHandler.MAX_TIMEOUT) {
-            timeout = ActionChainHandler.MAX_TIMEOUT;
-        }
-
-        if (timeout < ActionChainHandler.MIN_TIMEOUT) {
-            timeout = ActionChainHandler.MIN_TIMEOUT;
-        }
 
         ScriptActionDetails script = ActionManager.createScript(uid, gid, (long) timeout,
             new String(DatatypeConverter.parseBase64Binary(scriptBody)));
