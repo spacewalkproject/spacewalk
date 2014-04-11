@@ -201,11 +201,6 @@ sub _register_modes {
                            -provider => \&package_download_for_system_arch_select_provider,
 			   -action_callback => \&default_callback);
 
-  Sniglets::ListView::List->add_mode(-mode => "compare_managed_channel_packages",
-			   -datasource => RHN::DataSource::Package->new,
-                           -provider => \&compare_managed_channel_packages_provider,
-			   -action_callback => \&default_callback);
-
   Sniglets::ListView::List->add_mode(-mode => "managed_channel_merge_preview",
 			   -datasource => RHN::DataSource::Package->new,
                            -provider => \&managed_channel_merge_preview_provider,
@@ -1597,59 +1592,6 @@ sub packages_for_sync_provider {
   return (%results);
 }
 
-sub compare_managed_channel_packages_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $left_ds = new RHN::DataSource::Package(-mode => 'newest_packages_in_channel');
-  my $right_ds = new RHN::DataSource::Package(-mode => 'newest_packages_in_channel');
-
-  my $right_cid = $pxt->param('view_channel') || '';
-  $right_cid =~ s/^channel_//;
-
-  return (data => [ ],
-	  all_ids => [ ],
-	  alphabar => '') unless $right_cid;
-
-  my $left_data = $left_ds->execute_query(-cid => $pxt->param('cid'));
-  my $right_data = $right_ds->execute_query(-cid => $right_cid);
-
-  my $left_manifest = datasource_result_into_manifest($left_data,$pxt->user->org_id);
-  my $right_manifest = datasource_result_into_manifest($right_data,$pxt->user->org_id);
-
-  my $comparison = $left_manifest->compare_manifests($right_manifest);
-
-  @{$comparison} = grep { (exists $_->{COMPARISON}) ? $_->{COMPARISON} != 0 : 1 } @{$comparison};
-
-  my $comp_channel = RHN::Channel->lookup(-id => $right_cid);
-  my $other_name = $comp_channel->name;
-
-  my $data = [ sort { $a->{LC_NAME} cmp $b->{LC_NAME} }
-    map { { ID => ($_->{S1}->{name_id} || '') . '|' . ($_->{S1}->{evr_id} || ''),
-	    NAME => $_->{NAME},
-            LC_NAME => lc($_->{NAME}),
-	    ARCH => (ref $_->{S1} eq 'RHN::Manifest::Package') ? $_->{S1}->arch
-	            : (ref $_->{S2} eq 'RHN::Manifest::Package') ? $_->{S2}->arch : '',
-	    LEFT_NVREA => (ref $_->{S1} eq 'RHN::Manifest::Package') ? $_->{S1}->as_vre : "&#160;",
-	    LEFT_ID => (ref $_->{S1} eq 'RHN::Manifest::Package') ? $_->{S1}->id : 0,
-	    RIGHT_ID => (ref $_->{S2} eq 'RHN::Manifest::Package') ? $_->{S2}->id : 0,
-	    RIGHT_NVREA => (ref $_->{S2} eq 'RHN::Manifest::Package') ? $_->{S2}->as_vre : "&#160;",
-	    COMPARISON => comparison_string($_, $other_name),
-      	  } } @{$comparison} ];
-
-  $data = $self->filter_data($data);
-  my $alphabar = $self->init_alphabar($data);
-
-  my @all_ids = map { $_->{ID} } @{$data};
-  $self->all_ids(\@all_ids);
-
-  $data = RHN::DataSource->slice_data($data, $self->lower, $self->upper);
-
-  return (data => $data,
-	  all_ids => \@all_ids,
-	  alphabar => $alphabar);
-}
-
 sub comparison_string {
   my $row = shift;
   my $other_name = shift;
@@ -1983,23 +1925,6 @@ sub add_patchsets_to_channel_cb {
 					  $channel->name));
 
   return 1;
-}
-
-sub datasource_result_into_manifest {
-  my $data = shift;
-  my $org_id = shift;
-
-  my $manifest = new RHN::Manifest(-org_id => $org_id);
-  for my $row (@$data) {
-    my $pkg = new RHN::Manifest::Package(map { ("-$_" => $row->{+uc $_}) } qw/id name version release epoch name_id evr_id arch/);
-    $pkg->associate_data('errata' => $row->{ERRATA}) if exists $row->{ERRATA};
-
-    $manifest->add_package($pkg);
-  }
-
-  $manifest->filter_old_packages;
-
-  return $manifest;
 }
 
 sub is_row_selectable {
