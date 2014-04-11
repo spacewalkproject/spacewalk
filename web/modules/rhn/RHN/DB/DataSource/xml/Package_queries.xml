@@ -493,13 +493,6 @@ SELECT PN.id || '|' || PE.id AS ID,
   </query>
 </mode>
 
-<mode name="system_profile_comparison">
-  <query params="">
-SELECT 1 FROM dual
-  </query>
-</mode>
-
-
 <mode name="comparison_to_snapshot">
   <query params="">
 SELECT 1 FROM dual
