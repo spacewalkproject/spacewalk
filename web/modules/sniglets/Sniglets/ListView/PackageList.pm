@@ -277,9 +277,6 @@ sub default_callback {
   elsif ($label eq 'add_patchsets_to_channel') {
     return add_patchsets_to_channel_cb($pxt);
   }
-  elsif ($label eq 'sync_packages_to_channel') {
-    return sync_packages_to_channel_cb($pxt);
-  }
   return 1;
 }
 
@@ -1604,53 +1601,6 @@ sub comparison_string {
   die "Invalid comparison in '" . Data::Dumper->Dump([($row)]) . "'\n";
 }
 
-sub create_package_sync_map {
-  my $pxt = shift;
-
-  my $left_ds = new RHN::DataSource::Package(-mode => 'packages_in_channel');
-  my $right_ds = new RHN::DataSource::Package(-mode => 'packages_in_channel');
-
-  my $right_cid = $pxt->param('view_channel') || '';
-  $right_cid =~ s/^channel_//;
-
-  return (data => [ ],
-	  all_ids => [ ],
-	  alphabar => '') unless $right_cid;
-
-  my $left_data = $left_ds->execute_query(-cid => $pxt->param('cid'));
-  my $right_data = $right_ds->execute_query(-cid => $right_cid);
-
-  $left_data = [ sort { lc($a->{NVREA}) cmp lc($b->{NVREA}) } @{$left_data} ];
-  $right_data = [ sort { lc($a->{NVREA}) cmp lc($b->{NVREA}) } @{$right_data} ];
-
-  my %row_map;
-
-  foreach my $row (@{$left_data}) {
-      $row->{EXISTS_LEFT} = 1;
-      $row->{EXISTS_RIGHT} = 0;
-      $row->{ACTION} = 'remove';
-      $row->{ID} = $row->{ID};
-      $row_map{$row->{ID}} = $row;
-  }
-
-  foreach my $row (@{$right_data}) {
-    my $preexist_id = $row->{ID};
-    if (exists $row_map{$preexist_id}) {
-      $row_map{$preexist_id}->{EXISTS_RIGHT} = 1;
-      $row_map{$preexist_id}->{ACTION} = 'noop';
-    }
-    else {
-      $row->{EXISTS_RIGHT} = 1;
-      $row->{EXISTS_LEFT} = 0;
-      $row->{ACTION} = 'add';
-      $row->{ID} = $row->{ID};
-      $row_map{$row->{ID}} = $row;
-    }
-  }
-
-  return \%row_map;
-}
-
 sub patches_for_package_provider {
   my $self = shift;
   my $pxt = shift;
@@ -1672,49 +1622,6 @@ sub patches_for_package_provider {
   }
 
   return (%ret);
-}
-
-sub sync_packages_to_channel_cb {
-  my $pxt = shift;
-
-  my $set_label = $pxt->dirty_param('set_label');
-  throw "No package set label" unless $set_label;
-
-  my $cid = $pxt->param('cid');
-  my $channel = RHN::Channel->lookup(-id => $cid);
-
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  my @contents = $set->contents;
-
-  my $row_map = create_package_sync_map($pxt);
-  my (@add, @remove);
-
-  foreach my $id (@contents) {
-    push @add, $id if $row_map->{$id}->{ACTION} eq 'add';
-    push @remove, $id if $row_map->{$id}->{ACTION} eq 'remove';
-  }
-
-  RHN::ChannelEditor->add_channel_packages($cid, @add);
-  RHN::ChannelEditor->remove_channel_packages($cid, @remove);
-
-  $set->empty;
-  $set->commit;
-
-  RHN::Channel->refresh_newest_package_cache($channel->id, 'web.channel_manager');
-  RHN::ChannelEditor->schedule_errata_cache_update($pxt->user->org_id, $channel->id, 3600);
-
-  if (RHN::Channel->channel_type_capable($channel->id, 'errata')) {
-    my $package_list_edited = $pxt->session->get('package_list_edited') || { };
-    $package_list_edited->{$channel->id} = time;
-    $pxt->session->set(package_list_edited => $package_list_edited);
-  }
-
-  $pxt->param("message", "channel.manage.merge.finished");
-  $pxt->param("messagep1", scalar @add ? scalar @add : "0");
-  $pxt->param("messagep2", scalar @remove ? scalar @remove : "0");
-
-  return 1;
 }
 
 sub row_callback {
