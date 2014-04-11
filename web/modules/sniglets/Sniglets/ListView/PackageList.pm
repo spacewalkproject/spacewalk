@@ -177,11 +177,6 @@ sub _register_modes {
 			   -provider => \&profile_comparison_provider,
 			   -action_callback => \&default_callback);
 
-  Sniglets::ListView::List->add_mode(-mode => "packages_selected_for_sync",
-			   -datasource => RHN::DataSource::Package->new,
-			   -provider => \&packages_for_sync_provider,
-			   -action_callback => \&default_callback);
-
   Sniglets::ListView::List->add_mode(-mode => "packages_associated_with_action",
 			   -datasource => RHN::DataSource::Package->new,
 			   -action_callback => \&default_callback);
@@ -1531,51 +1526,6 @@ sub snapshot_comparison_provider {
 	  all_ids => \@all_ids,
 	  alphabar => $alphabar,
 	  full_data => $delta);
-}
-
-sub packages_for_sync_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  $self->datasource->mode('system_profile_comparison');
-
-  my %results = $self->profile_comparison_provider($pxt);
-
-  my $set_label = $pxt->dirty_param('set_label');
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-  my %name_ids = map { $_, 1 } $set->contents;
-
-  $results{full_data} = [ grep { $name_ids{$_->{NAME_ID}} } @{$results{full_data}} ];
-  $results{all_ids} = [ map { $_->{NAME_ID} } @{$results{full_data}} ];
-  $self->all_ids($results{all_ids});
-
-  $results{data} = $self->datasource->slice_data($results{full_data}, $self->lower, $self->upper);
-
-
-  foreach my $row (@{$results{data}}) {
-    if ($row->{S1}->{EVR_ID} and not $row->{S2}->{EVR_ID}) {
-      $row->{ACTION} = 'Install';
-    }
-    elsif ($row->{S2}->{EVR_ID} and not $row->{S1}->{EVR_ID}) {
-      $row->{ACTION} = 'Remove';
-    }
-    elsif ($row->{COMPARISON} < 0) {
-      $row->{ACTION} = 'Downgrade to ' . $row->{S1}->{EVR};
-    }
-    elsif ($row->{COMPARISON} > 0) {
-      $row->{ACTION} = 'Upgrade to ' . $row->{S1}->{EVR};
-    }
-
-    $row->{NVRE} = $row->{NAME};
-    if (defined $row->{S2}->{EVR}) {
-      $row->{NVRE} .= '-' . $row->{S2}->{EVR};
-    }
-    elsif (defined $row->{S1}->{EVR}) {
-      $row->{NVRE} .= '-' . $row->{S1}->{EVR};
-    }
-  }
-
-  return (%results);
 }
 
 sub comparison_string {
