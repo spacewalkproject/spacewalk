@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.45
+Version: 2.2.46
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.46-1
+- 1086161 - PM page incorrectly labelled buttons.
+
 * Fri Apr 11 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.45-1
 - dwr.xml file reformatted
 - Refactoring: utility method makeAjaxCallback renamed
