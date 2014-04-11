@@ -56,8 +56,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *
- * @author bo
+ * Test cases for the Action Chain XML-RPC API
  */
 public class ActionChainHandlerTest extends BaseHandlerTestCase {
     private ActionChainHandler ach;
@@ -681,7 +680,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     }
 
     /**
-     * Deploy configuration should fail if auth token is wrong.
+     * Deploy configuration should fail if authentication token is wrong.
      */
     public void testAcDeployConfigurationFailureUnauthorized() {
         List<Integer> revisions = new ArrayList<Integer>();

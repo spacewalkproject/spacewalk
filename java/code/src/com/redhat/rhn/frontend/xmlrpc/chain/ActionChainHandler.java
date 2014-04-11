@@ -39,18 +39,16 @@ import java.util.List;
 import java.util.Map;
 import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
 
 
 /**
  * @xmlrpc.namespace actionchain
  * @xmlrpc.doc Provides the namespace for the Action Chain methods.
- * @author bo
  */
 public class ActionChainHandler extends BaseHandler {
     public static final int MIN_TIMEOUT = 120;
     public static final int MAX_TIMEOUT = 1200;
-    private ActionChainRPCCommon acUtil;
+    private final ActionChainRPCCommon acUtil;
 
     /**
      * Parameters collector.
@@ -58,7 +56,6 @@ public class ActionChainHandler extends BaseHandler {
     public ActionChainHandler() {
         this.acUtil = new ActionChainRPCCommon();
     }
-
 
     /**
      * List currently available action chains.

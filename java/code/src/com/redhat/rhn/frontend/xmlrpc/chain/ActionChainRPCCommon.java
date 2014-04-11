@@ -23,7 +23,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
-import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -40,11 +39,11 @@ import org.apache.commons.collections.Transformer;
 
 /**
  * Common mix-in for package resolving.
- *
- * @author bo
  */
 public class ActionChainRPCCommon {
-    protected static final String[] COMBO_KEYS = new String[]{"evr_id", "arch_id", "name_id"};
+    protected static final String[] COMBO_KEYS = new String[]{
+        "evr_id", "arch_id", "name_id"
+    };
 
     /**
      * Transformer from Long to Integer for the XML-RPC compatibility.
@@ -66,9 +65,9 @@ public class ActionChainRPCCommon {
 
         /**
          * Collector constructor.
-         * @param sessionToken
-         * @param serverId
-         * @param chainLabel
+         * @param sessionToken Session token
+         * @param serverId System ID
+         * @param chainLabel Chain label
          */
         public Collector(String sessionToken,
                          Integer serverId,
@@ -98,10 +97,10 @@ public class ActionChainRPCCommon {
         /**
          * Collector constructor.
          *
-         * @param sessionToken
-         * @param servername
-         * @param ip
-         * @param chainName
+         * @param sessionToken Session token
+         * @param servername Server name
+         * @param ip IP Address
+         * @param chainName Chain label
          */
         public Collector(String sessionToken,
                          String servername,
@@ -164,8 +163,8 @@ public class ActionChainRPCCommon {
     /**
      * Set the package data into a map from the package list item for transformation.
      *
-     * @param pi
-     * @return map
+     * @param pi PackageListItem object
+     * @return map Carrier data
      */
     private Map<String, Object> getPkgData(PackageListItem pi) {
         Map pkgData = new HashMap<String, Object>();
@@ -183,10 +182,10 @@ public class ActionChainRPCCommon {
     /**
      * Selects the packages by the list of names.
      *
-     * @param allPackages
-     * @param userPackages
-     * @param c
-     * @return selectedPackages
+     * @param allPackages All available packages with data object.
+     * @param userPackages User packages
+     * @param c Collector object
+     * @return selectedPackages List of selected packages
      */
     public List<Map<String, Long>> selectPackages(List allPackages,
                                                    List<Map<String, String>> userPackages,
@@ -243,9 +242,9 @@ public class ActionChainRPCCommon {
     /**
      * Select wanted packages.
      *
-     * @param allPackages
-     * @param userPackages
-     * @return selectedPackages
+     * @param allPackages All available packages with data object.
+     * @param userPackages User packages
+     * @return selectedPackages List of selected packages
      */
     public List<Map<String, Long>> selectPackages(List allPackages,
                                      List<Integer> userPackages) {
@@ -272,8 +271,9 @@ public class ActionChainRPCCommon {
     /**
      * Resolve packages from IDs.
      *
-     * @param userPackages
-     * @return selectedPackages
+     * @param userPackages User packages
+     * @param user User of the system
+     * @return selectedPackages Map of the selected packages
      */
     public List<Map<String, Long>> resolvePackages(List<Integer> userPackages, User user) {
         List<Map<String, Long>> selected = new ArrayList<Map<String, Long>>();
