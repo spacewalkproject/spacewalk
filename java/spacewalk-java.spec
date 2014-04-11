@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.42
+Version: 2.2.43
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 11 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.43-1
+- rewrite channel compare pages to java
+
 * Thu Apr 10 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.42-1
 - New API: system.scheduleCertificateUpdate()
 
