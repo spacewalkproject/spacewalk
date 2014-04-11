@@ -37,15 +37,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.bind.DatatypeConverter;
-import org.apache.commons.collections.CollectionUtils;
 
+import javax.xml.bind.DatatypeConverter;
+
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  * @xmlrpc.namespace actionchain
  * @xmlrpc.doc Provides the namespace for the Action Chain methods.
  */
 public class ActionChainHandler extends BaseHandler {
+
     private final ActionChainRPCCommon acUtil;
 
     /**
@@ -61,14 +63,11 @@ public class ActionChainHandler extends BaseHandler {
      * @return list of action chains.
      *
      * @xmlrpc.doc List currently available action chains.
-     * @xmlrpc.returntype
-     *    #array()
-     *       #struct("chain")
-     *          #prop_desc("string", "label", "Label of an Action Chain")
-     *          #prop_desc("string", "entrycount", "Number of entries in the Action Chain")
-     *       #struct_end()
-     *    #array_end()
+     * @xmlrpc.returntype #array() #struct("chain") #prop_desc("string",
+     * "label", "Label of an Action Chain") #prop_desc("string", "entrycount",
+     * "Number of entries in the Action Chain") #struct_end() #array_end()
      */
+    // TODO: add session key
     public List<Map<String, Object>> listChains() {
         List<Map<String, Object>> chains = new ArrayList<Map<String, Object>>();
         for (ActionChain actionChain : ActionChainFactory.getActionChains()) {
@@ -89,27 +88,24 @@ public class ActionChainHandler extends BaseHandler {
      *
      * @xmlrpc.doc List all actions in the particular Action Chain.
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
-     * @xmlrpc.returntype
-     *    #array()
-     *       #struct("entry")
-     *          #prop_desc("int", "id", "Action ID")
-     *          #prop_desc("string", "label", "Label of an Action")
-     *          #prop_desc("string", "created", "Created date/time")
-     *          #prop_desc("string", "earliest", "Earliest scheduled date/time")
-     *          #prop_desc("string", "type", "Type of the action")
-     *          #prop_desc("string", "modified", "Modified date/time")
-     *          #prop_desc("string", "cuid", "Creator UID")
-     *       #struct_end()
-     *    #array_end()
+     * @xmlrpc.returntype #array() #struct("entry") #prop_desc("int", "id",
+     * "Action ID") #prop_desc("string", "label", "Label of an Action")
+     * #prop_desc("string", "created", "Created date/time") #prop_desc("string",
+     * "earliest", "Earliest scheduled date/time") #prop_desc("string", "type",
+     * "Type of the action") #prop_desc("string", "modified",
+     * "Modified date/time") #prop_desc("string", "cuid", "Creator UID")
+     * #struct_end() #array_end()
      */
-    public List<Map<String, Object>> chainActions(String chainLabel) {
+    // TODO: add session key (also to other methods where missing)
+    public List<Map<String, Object>> listChainActions(String chainLabel) {
         List<Map<String, Object>> entries = new ArrayList<Map<String, Object>>();
-        if (StringUtil.nullOrValue(chainLabel) == null) {
-            return entries;
-        }
 
         ActionChain chain = ActionChainFactory.getActionChain(chainLabel);
-        if (chain != null && chain.getEntries() != null && !chain.getEntries().isEmpty()) {
+        if (chain == null) {
+            // TODO: throw new InvalidParameterException(chainLabel); or
+            // something similar
+        }
+        if (chain.getEntries() != null && !chain.getEntries().isEmpty()) {
             for (ActionChainEntry entry : chain.getEntries()) {
                 Map<String, Object> info = new HashMap<String, Object>();
                 info.put("id", entry.getAction().getId());
@@ -129,38 +125,37 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Remove actions from an Action Chain.
      *
-     * @param sk Session key.
+     * @param sessionKey Session key.
      * @param chainLabel The label of the Action Chain.
      * @param actionIds List of action IDs.
-     * @return State of the action result. Negative is false.
-     *         Positive: number of successfully deleted entries.
+     * @return State of the action result. Negative is false. Positive: number
+     * of successfully deleted entries.
      *
      * @xmlrpc.doc Remove actions from an Action Chain.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.param #array_single("string", "actionId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer removeActions(String sk,
-                                 String chainLabel,
-                                 List<Integer> actionIds) {
-        ActionChainHandler.getLoggedInUser(sk);
-        if (StringUtil.nullOrValue(chainLabel) == null) {
+    public Integer removeActions(String sessionKey, String chainLabel,
+            List<Integer> actionIds) {
+        BaseHandler.getLoggedInUser(sessionKey);
+        if (StringUtil.nullOrValue(chainLabel) == null) {// TODO: see above
             throw new InvalidParameterException("Action Chain label is empty.");
         }
-        else if (actionIds.isEmpty()) {
+        else if (actionIds.isEmpty()) {// TODO: remove
             throw new InvalidParameterException("Session key is empty.");
         }
 
         ActionChain chain = ActionChainFactory.getActionChain(chainLabel);
         if (chain == null) {
-            throw new NoSuchActionException(
+            throw new NoSuchActionException(// TODO: no such action chain
                     String.format("Action Chain '%s' was not found.", chainLabel));
         }
-        else if (chain.getEntries().isEmpty()) {
-            throw new NoSuchActionException(
-                    String.format("Action Chain '%s' has no scheduled entries.",
-                                  chainLabel));
+        else if (chain.getEntries().isEmpty()) {// TODO: no-op
+            throw new NoSuchActionException(String.format(
+                    "Action Chain '%s' has no scheduled entries.", chainLabel));
         }
 
         List<ActionChainEntry> entriesToDelete = new ArrayList<ActionChainEntry>();
@@ -172,15 +167,16 @@ public class ActionChainHandler extends BaseHandler {
             }
         }
 
-        if (entriesToDelete.isEmpty()) {
-            throw new NoSuchActionException(
-                    String.format("Action Chain '%s' has no such " +
-                                  "requested scheduled entries.", chainLabel));
+        if (entriesToDelete.isEmpty()) {// TODO: no-op
+            throw new NoSuchActionException(String.format("Action Chain '%s' has no such "
+                    + "requested scheduled entries.", chainLabel));
         }
 
         for (ActionChainEntry entry : entriesToDelete) {
             chain.getEntries().remove(entry);
         }
+
+        //TODO: check sort order
 
         return BaseHandler.VALID;
     }
@@ -188,20 +184,22 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Remove Action Chains by label.
      *
-     * @param sk Session key.
+     * @param sessionKey Session key.
      * @param chainLabels List of action labels.
-     * @return State of the action result. Negative is false.
-     *         Positive: number of successfully deleted entries.
+     * @return State of the action result. Negative is false. Positive: number
+     * of successfully deleted entries.
      *
      * @xmlrpc.doc Remove action chains by label.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
      * @xmlrpc.param #array_single("string", "chainLabels")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer removeChains(String sk,
-                                List<String> chainLabels) {
-        ActionChainHandler.getLoggedInUser(sk);
-        if (chainLabels.isEmpty()) {
+    public Integer removeActionChains(String sessionKey, List<String> chainLabels) {// TODO:
+                                                                                    // make
+                                                                                    // singular
+        BaseHandler.getLoggedInUser(sessionKey);
+        if (chainLabels.isEmpty()) {// TODO: no-op
             throw new InvalidParameterException("No chain labels has been passed!");
         }
 
@@ -211,7 +209,7 @@ public class ActionChainHandler extends BaseHandler {
                 ActionChainFactory.delete(chain);
             }
             else {
-                throw new NoSuchActionException(
+                throw new NoSuchActionException(// TODO: actionchainexception
                         String.format("Action Chain '%s' was not found.", chainName));
             }
         }
@@ -227,21 +225,22 @@ public class ActionChainHandler extends BaseHandler {
      * @return 1 on success
      *
      * @xmlrpc.doc Create an Action Chain.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Integer createActionChain(String sk,
-                                     String chainLabel) {
-        if (StringUtil.nullOrValue(sk) == null) {
+    public Integer createActionChain(String sk,// TODO:rename
+            String chainLabel) {
+        if (StringUtil.nullOrValue(sk) == null) {// TODO: remove
             throw new InvalidParameterException("Session key is empty.");
         }
         else if (StringUtil.nullOrValue(chainLabel) == null) {
             throw new InvalidParameterException("Action Chain label is empty.");
         }
 
-        return ActionChainFactory.createActionChain(chainLabel,
-                                                    ActionChainHandler.getLoggedInUser(sk))
+        return ActionChainFactory
+                .createActionChain(chainLabel, BaseHandler.getLoggedInUser(sk))
                 .getId().intValue();
     }
 
@@ -254,18 +253,17 @@ public class ActionChainHandler extends BaseHandler {
      * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Schedule system reboot.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Integer addSystemReboot(String sk,
-                                   Integer serverId,
-                                   String chainLabel) {
+    public Integer addSystemReboot(String sk, Integer serverId, String chainLabel) {
         Collector c = new Collector(sk, serverId, chainLabel);
-        return ActionChainManager.scheduleRebootAction(
-                c.getUser(), c.getServer(),
-                new Date(), c.getChain()).getId().intValue();
+        return ActionChainManager
+                .scheduleRebootAction(c.getUser(), c.getServer(), new Date(), c.getChain())
+                .getId().intValue();
     }
 
     /**
@@ -278,35 +276,32 @@ public class ActionChainHandler extends BaseHandler {
      * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Adds an action to remove installed packages on the system.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
-     * @xmlrpc.param
-     *    #array()
-     *       #struct("packages")
-     *          #prop_desc("string", "label", "Package label")
-     *          #prop_desc("string", "version", "Package version")
-     *       #struct_end()
-     *    #array_end()
+     * @xmlrpc.param #array() #struct("packages") #prop_desc("string", "label",
+     * "Package label") #prop_desc("string", "version", "Package version")
+     * #struct_end() #array_end()
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Integer addPackageRemoval(String sk,
-                                     Integer serverId,
-                                     List<Map<String, String>> packages,
-                                     String chainLabel) {
+    @SuppressWarnings("unchecked")
+    // TODO: only accept IDs, remove guesswork
+    public Integer addPackageRemoval(String sk, Integer serverId,
+            List<Map<String, String>> packages, String chainLabel) {
         Collector c = new Collector(sk, serverId, chainLabel);
-        List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
-                SystemManager.installedPackages(c.getServer().getId(), true), packages, c);
+        List<Map<String, Long>> selectedPackages =
+                this.acUtil.selectPackages((List<Map<String, Object>>) SystemManager
+                        .installedPackages(c.getServer().getId(), true), packages, c);
         if (!selectedPackages.isEmpty()) {
-            return ActionChainManager.schedulePackageRemoval(
-                    c.getUser(), c.getServer(), selectedPackages,
-                    new Date(), c.getChain()).getId().intValue();
+            return ActionChainManager
+                    .schedulePackageRemoval(c.getUser(), c.getServer(), selectedPackages,
+                            new Date(), c.getChain()).getId().intValue();
         }
 
-        throw new InvalidPackageException(
-                String.format("No such packages has been found on the system %s.",
-                              serverId)
-        );
+        //TODO: correct exception description
+        throw new InvalidPackageException(String.format(
+                "No such packages has been found on the system %s.", serverId));
     }
 
     /**
@@ -319,23 +314,23 @@ public class ActionChainHandler extends BaseHandler {
      * @return True or false in XML-RPC representation: 1 or 0 respectively.
      *
      * @xmlrpc.doc Schedule package installation to an Action Chain.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
      * @xmlrpc.param #array_single("int", "Package ID")
      * @xmlrpc.param #param("string", "chainLabel")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer addPackageInstall(String sk,
-                                     Integer serverId,
-                                     List<Integer> packages,
-                                     String chainLabel) {
+    //TODO: see above
+    public Integer addPackageInstall(String sk, Integer serverId, List<Integer> packages,
+            String chainLabel) {
         Collector c = new Collector(sk, serverId, chainLabel);
-        List<Map<String, Long>> selectedPackages = this.acUtil.resolvePackages(
-                packages, c.getUser());
+        List<Map<String, Long>> selectedPackages =
+                this.acUtil.resolvePackages(packages, c.getUser());
         if (!selectedPackages.isEmpty()) {
-            return ActionChainManager.schedulePackageInstall(
-                    c.getUser(), c.getServer(), selectedPackages,
-                    new Date(), c.getChain()).getId().intValue();
+            return ActionChainManager
+                    .schedulePackageInstall(c.getUser(), c.getServer(), selectedPackages,
+                            new Date(), c.getChain()).getId().intValue();
         }
 
         throw new InvalidPackageException("Packages were not found");
@@ -351,23 +346,25 @@ public class ActionChainHandler extends BaseHandler {
      * @return True or false in XML-RPC representation (1 or 0 respectively)
      *
      * @xmlrpc.doc Adds an action to verify installed packages on the system.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
      * @xmlrpc.param #array_single("int", "packageId")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer addPackageVerify(String sk,
-                                    Integer serverId,
-                                    List<Integer> packages,
-                                    String chainLabel) {
+    //TODO: see above
+    public Integer addPackageVerify(String sk, Integer serverId, List<Integer> packages,
+            String chainLabel) {
         Collector c = new Collector(sk, serverId, chainLabel);
-        List<Map<String, Long>> selectedPackages = this.acUtil.selectPackages(
-                PackageManager.systemPackageList(c.getServer().getId(), null), packages);
+        List<Map<String, Long>> selectedPackages =
+                this.acUtil.selectPackages(
+                        PackageManager.systemPackageList(c.getServer().getId(), null),
+                        packages);
         if (!selectedPackages.isEmpty()) {
-            return ActionChainManager.schedulePackageVerify(
-                    c.getUser(), c.getServer(), selectedPackages,
-                    new Date(), c.getChain()).getId().intValue();
+            return ActionChainManager
+                    .schedulePackageVerify(c.getUser(), c.getServer(), selectedPackages,
+                            new Date(), c.getChain()).getId().intValue();
         }
 
         throw new InvalidPackageException("Packages were not found.");
@@ -383,23 +380,23 @@ public class ActionChainHandler extends BaseHandler {
      * @return True or false in XML-RPC representation (1 or 0 respectively)
      *
      * @xmlrpc.doc Adds an action to upgrade installed packages on the system.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
      * @xmlrpc.param #array_single("int", "packageId")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #int
      */
-    public int addPackageUpgrade(String sk,
-                                 Integer serverId,
-                                 List<Integer> packages,
-                                 String chainLabel) {
+    //TODO: see above
+    public int addPackageUpgrade(String sk, Integer serverId, List<Integer> packages,
+            String chainLabel) {
         Collector c = new Collector(sk, serverId, chainLabel);
-        List<Map<String, Long>> selectedPackages = this.acUtil.resolvePackages(
-                packages, c.getUser());
+        List<Map<String, Long>> selectedPackages =
+                this.acUtil.resolvePackages(packages, c.getUser());
         if (!selectedPackages.isEmpty()) {
-            return ActionChainManager.schedulePackageUpgrade(
-                    c.getUser(), c.getServer(), selectedPackages,
-                    new Date(), c.getChain()).getId().intValue();
+            return ActionChainManager
+                    .schedulePackageUpgrade(c.getUser(), c.getServer(), selectedPackages,
+                            new Date(), c.getChain()).getId().intValue();
         }
 
         throw new InvalidPackageException("Packages were not found.");
@@ -417,26 +414,27 @@ public class ActionChainHandler extends BaseHandler {
      * @param timeout Timeout
      * @return True or false in XML-RPC representation (1 or 0 respectively)
      *
-     * @xmlrpc.doc Add a remote command as a script.
-     *             NOTE: The script body must be Base64 encoded!
+     * @xmlrpc.doc Add a remote command as a script. NOTE: The script body must
+     * be Base64 encoded!
      *
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
-     * @xmlrpc.param #param_desc("string", "uid", "User ID on the particular system")
-     * @xmlrpc.param #param_desc("string", "gid", "Group ID on the particular system")
-     * @xmlrpc.param #param_desc("int", "timeout", "Timeout cannot exceed 1200 seconds")
-     * @xmlrpc.param #param_desc("string", "scriptBodyBase64", "Base64 encoded script body")
-     * @xmlrpc.returntype int actionId - The id of the action or throw an exception
+     * @xmlrpc.param #param_desc("string", "uid",
+     * "User ID on the particular system")
+     * @xmlrpc.param #param_desc("string", "gid",
+     * "Group ID on the particular system")
+     * @xmlrpc.param #param_desc("int", "timeout",
+     * "Timeout cannot exceed 1200 seconds")
+     * @xmlrpc.param #param_desc("string", "scriptBodyBase64",
+     * "Base64 encoded script body")
+     * @xmlrpc.returntype int actionId - The id of the action or throw an
+     * exception
      */
-    public Integer addRemoteCommand(String sk,
-                                    Integer serverId,
-                                    String chainLabel,
-                                    String uid,
-                                    String gid,
-                                    Integer timeout,
-                                    String scriptBody) {
-        if (StringUtil.nullOrValue(scriptBody) == null) {
+    public Integer addRemoteCommand(String sk, Integer serverId, String chainLabel,//TODO: consider renaming to scriptRun
+            String uid, String gid, Integer timeout, String scriptBody) {
+        if (StringUtil.nullOrValue(scriptBody) == null) {//TODO: remove
             throw new InvalidParameterException("Script body is empty.");
         }
 
@@ -445,39 +443,22 @@ public class ActionChainHandler extends BaseHandler {
         List<Long> systems = new ArrayList<Long>();
         systems.add((long) serverId);
 
-        ScriptActionDetails script = ActionManager.createScript(uid, gid, (long) timeout,
-            new String(DatatypeConverter.parseBase64Binary(scriptBody)));
+        ScriptActionDetails script =
+                ActionManager.createScript(uid, gid, (long) timeout, new String(
+                        DatatypeConverter.parseBase64Binary(scriptBody)));
 
         Date date = new Date();
 
-        return ActionChainManager.scheduleScriptRuns(
-                             c.getUser(), systems,
-                             String.format("Remote Script at %s",
-                                           SimpleDateFormat.getDateInstance(
-                                                   SimpleDateFormat.MEDIUM).format(date)),
-                             script, date, c.getChain())
-                .iterator().next().getId().intValue();
+        return ActionChainManager
+                .scheduleScriptRuns(
+                        c.getUser(),
+                        systems,
+                        null,
+                        script, date, c.getChain()).iterator().next().getId().intValue();
     }
 
     /**
-     * Schedule action chain immediately.
-     *
-     * @param sk Session key (token)
-     * @param chainLabel Label of the action chain
-     * @return True in XML-RPC representation
-     *
-     * @xmlrpc.doc Adds an action to verify installed packages on the system.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
-     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public Integer scheduleNow(String sk,
-                               String chainLabel) {
-        return this.schedule(sk, chainLabel, new Date());
-    }
-
-    /**
-     * Schedule action chain immediately.
+     * Schedule action chain immediately.//TODO: not immediately
      *
      * @param sk Session key (token)
      * @param chainLabel Label of the action chain
@@ -485,23 +466,22 @@ public class ActionChainHandler extends BaseHandler {
      * @return True in XML-RPC representation
      *
      * @xmlrpc.doc Adds an action to verify installed packages on the system.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.param #param("dateTime.iso8601", "Earliest date")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer schedule(String sk,
-                            String chainLabel,
-                            Date date) {
-        ActionChainHandler.getLoggedInUser(sk);
-        if (StringUtil.nullOrValue(chainLabel) == null) {
+    public Integer schedule(String sk, String chainLabel, Date date) {
+        BaseHandler.getLoggedInUser(sk);
+        if (StringUtil.nullOrValue(chainLabel) == null) {//TODO: see above
             throw new InvalidParameterException("Action Chain label is empty.");
         }
 
         ActionChain chain = ActionChainFactory.getActionChain(chainLabel);
         if (chain == null) {
-            throw new NoSuchActionException(
-                    String.format("Action Chain '%s' was not found.", chainLabel));
+            throw new NoSuchActionException(String.format(//TODO: +chain
+                    "Action Chain '%s' was not found.", chainLabel));
         }
 
         ActionChainFactory.schedule(chain, date);
@@ -519,16 +499,16 @@ public class ActionChainHandler extends BaseHandler {
      * @return True in XML-RPC representation
      *
      * @xmlrpc.doc Deploy configuration across the servers.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.param #array_single("int", "Revision ID")
      * @xmlrpc.param #array_single("int", "Server ID")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer deployConfiguration(String sk,
-                                       String chainLabel,
-                                       Integer serverId,
-                                       List<Integer> revisions) {
+    @SuppressWarnings("unchecked")
+    public Integer deployConfiguration(String sk, String chainLabel, Integer serverId,//TODO: rename to add...
+            List<Integer> revisions) {
         if (StringUtil.nullOrValue(chainLabel) == null) {
             throw new InvalidParameterException("Action Chain label is empty.");
         }
@@ -538,18 +518,17 @@ public class ActionChainHandler extends BaseHandler {
 
         ActionChain chain = ActionChainFactory.getActionChain(chainLabel);
         if (chain == null) {
-            throw new NoSuchActionException(
-                    String.format("Action Chain '%s' was not found.", chainLabel));
+            throw new NoSuchActionException(String.format(
+                    "Action Chain '%s' was not found.", chainLabel));
         }
 
         List<Long> server = new ArrayList<Long>();
         server.add(serverId.longValue());
 
-        ActionChainManager.createConfigActions(
-               ActionChainHandler.getLoggedInUser(sk),
-               CollectionUtils.collect(revisions,
-                                       new ActionChainRPCCommon.IntegerToLongTransformer()),
-               server, ActionFactory.TYPE_CONFIGFILES_DEPLOY, new Date(), chain);
+        ActionChainManager.createConfigActions(BaseHandler.getLoggedInUser(sk),
+                CollectionUtils.collect(revisions,
+                        new ActionChainRPCCommon.IntegerToLongTransformer()), server,
+                ActionFactory.TYPE_CONFIGFILES_DEPLOY, new Date(), chain);
 
         return BaseHandler.VALID;
     }
@@ -563,18 +542,18 @@ public class ActionChainHandler extends BaseHandler {
      * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Schedule system reboot.
-     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
-     * @xmlrpc.param #param_desc("string", "previousLabel", "Previous chain label")
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "previousLabel",
+     * "Previous chain label")
      * @xmlrpc.param #param_desc("string", "newLabel", "New chain label")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer renameChain(String sk,
-                               String previousLabel,
-                               String newLabel) {
-        ActionChainHandler.getLoggedInUser(sk);
+    public Integer renameChain(String sk, String previousLabel, String newLabel) {
+        BaseHandler.getLoggedInUser(sk);
         if (previousLabel.equals(newLabel)) {
-            throw new InvalidParameterException("New label of the Action Chain should " +
-                      "not be the same as previous!");
+            throw new InvalidParameterException("New label of the Action Chain should "
+                    + "not be the same as previous!");
         }
         else if (previousLabel.isEmpty()) {
             throw new InvalidParameterException("Previous label cannot be empty.");

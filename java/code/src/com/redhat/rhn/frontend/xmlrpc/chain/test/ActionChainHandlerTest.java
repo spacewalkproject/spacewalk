@@ -329,7 +329,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
 
         List<String> chainsToRemove = new ArrayList<String>();
         chainsToRemove.add(actionChain.getLabel());
-        this.ach.removeChains(this.adminKey, chainsToRemove);
+        this.ach.removeActionChains(this.adminKey, chainsToRemove);
         assertEquals(1, previousChainCount - this.ach.listChains().size());
     }
 
@@ -340,7 +340,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         int previousChainCount = this.ach.listChains().size();
 
         try {
-            this.ach.removeChains("", new ArrayList<String>());
+            this.ach.removeActionChains("", new ArrayList<String>());
             fail("Expected exception: " +
                  InvalidSessionIdException.class.getCanonicalName());
         } catch (InvalidSessionIdException ex) {
@@ -355,7 +355,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         int previousChainCount = this.ach.listChains().size();
 
         try {
-            this.ach.removeChains(this.adminKey, new ArrayList<String>());
+            this.ach.removeActionChains(this.adminKey, new ArrayList<String>());
             fail("Expected exception: " +
                  InvalidParameterException.class.getCanonicalName());
         } catch (InvalidParameterException ex) {
@@ -372,7 +372,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         chainsToRemove.add(TestUtils.randomString());
 
         try {
-            this.ach.removeChains(this.adminKey, chainsToRemove);
+            this.ach.removeActionChains(this.adminKey, chainsToRemove);
             fail("Expected exception: " + NoSuchActionException.class.getCanonicalName());
         } catch (NoSuchActionException ex) {
             assertEquals(0, previousChainCount - this.ach.listChains().size());
