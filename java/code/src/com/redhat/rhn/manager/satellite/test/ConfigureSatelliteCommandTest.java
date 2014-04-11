@@ -27,7 +27,7 @@ import com.redhat.rhn.manager.satellite.ConfigureSatelliteCommand;
 import com.redhat.rhn.manager.satellite.Executor;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
-
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +80,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
             optionMap.put(key, Config.get().getString(key));
         }
         String[] cmdargs = cmd.getCommandArguments(Config.getDefaultConfigFilePath(),
-                optionMap);
+                optionMap, Collections.<String>emptyList());
 
         assertEquals("--option=test.null_config.config_sat_test=", cmdargs[4]);
         assertEquals(9, cmdargs.length);
@@ -104,6 +104,42 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         cmd.updateString(TEST_CONFIG_STRING, testString);
         assertTrue(cmd.getKeysToBeUpdated().size() == 0);
 
+    }
+
+    public void testRemoveEntries() throws Exception {
+
+        cmd = new ConfigureSatelliteCommand(user) {
+            @Override
+            public ValidatorError[] storeConfiguration() {
+                this.clearUpdates();
+                return null;
+            }
+        };
+
+        cmd.updateString(TEST_CONFIG_STRING, "initialvalue");
+        cmd.updateBoolean(TEST_CONFIG_BOOLEAN, true);
+
+        assertEquals(2, cmd.getKeysToBeUpdated().size());
+        assertNull(cmd.storeConfiguration());
+        assertEquals(0, cmd.getKeysToBeUpdated().size());
+
+        // now remove them
+
+        cmd.updateString(TEST_CONFIG_STRING, "somevalue");
+        cmd.remove(TEST_CONFIG_BOOLEAN);
+        cmd.remove("nonexistantkey");
+
+        // nonexistantkey should not be part as it did not exist
+        assertEquals(2, cmd.getKeysToBeUpdated().size());
+
+        String[] cmdargs = cmd.getCommandArguments();
+        assertEquals("--target=" + Config.getDefaultConfigFilePath(), cmdargs[2]);
+        assertEquals("--option=" + TEST_CONFIG_STRING + "=somevalue", cmdargs[3]);
+        assertEquals("--remove=" + TEST_CONFIG_BOOLEAN, cmdargs[4]);
+
+        assertEquals(8, cmdargs.length);
+        assertNull(cmd.storeConfiguration());
+        assertEquals(0, cmd.getKeysToBeUpdated().size());
     }
 
     public void testEnableMonitoring() throws Exception {
