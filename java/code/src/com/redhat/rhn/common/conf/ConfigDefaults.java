@@ -101,6 +101,8 @@ public class ConfigDefaults {
 
     public static final String TAKE_SNAPSHOTS = "enable_snapshots";
 
+    public static final String ACTIONS_DISPLAY_LIMIT = "web.actions_display_limit";
+
     /**
      * The default maximum size for config revisions,  (128 K)
      */
@@ -615,5 +617,13 @@ public class ConfigDefaults {
      */
     public int getTaskoChannelRepodataWorkers() {
         return Config.get().getInt(TASKOMATIC_CHANNEL_REPODATA_WORKERS, 1);
+    }
+
+    /**
+     * Returns actions display limit
+     * @return actions display limit
+     */
+    public int getActionsDisplayLimit() {
+        return Config.get().getInt(ACTIONS_DISPLAY_LIMIT, 10000);
     }
 }
