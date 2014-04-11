@@ -33,6 +33,7 @@
        <packagereq type="default">spacewalk-backend-libs</packagereq>
        <packagereq type="default">spacewalk-oscap</packagereq>
        <packagereq type="default">spacewalk-abrt</packagereq>
+       <packagereq type="default">spacewalk-client-cert</packagereq>
     </packagelist>
   </group>
 </comps>
