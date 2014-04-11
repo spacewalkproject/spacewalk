@@ -282,13 +282,6 @@ SELECT 1 FROM DUAL
   </query>
 </mode>
 
-<mode name="sync_confirm_packages_in_set">
-  <query params="">
-SELECT 1 FROM DUAL
-<!-- dummy -->
-  </query>
-</mode>
-
 <mode name="managed_channel_merge_preview">
   <query params="">
 SELECT 1 FROM DUAL

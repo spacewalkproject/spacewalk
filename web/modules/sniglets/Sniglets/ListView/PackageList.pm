@@ -206,11 +206,6 @@ sub _register_modes {
                            -provider => \&managed_channel_merge_preview_provider,
 			   -action_callback => \&default_callback);
 
-  Sniglets::ListView::List->add_mode(-mode => "sync_confirm_packages_in_set",
-			   -datasource => RHN::DataSource::Package->new,
-                           -provider => \&sync_confirm_packages_in_set_provider,
-			   -action_callback => \&default_callback);
-
   Sniglets::ListView::List->add_mode(-mode => "missing_packages_for_session",
 				     -datasource => RHN::DataSource::Package->new,
 				     -provider => \&missing_packages_for_session_provider,
@@ -1699,25 +1694,6 @@ sub create_package_sync_map {
   }
 
   return \%row_map;
-}
-
-sub sync_confirm_packages_in_set_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $row_map = create_package_sync_map($pxt);
-
-  $self->datasource->mode('package_ids_in_set');
-  my %ret = $self->default_provider($pxt);
-
-  foreach my $row (@{$ret{data}}) {
-    throw "Package '" . $row->{ID} . "' in set, but not available for merge.\n"
-      unless exists $row_map->{$row->{ID}};
-
-    $row->{ACTION} = $row_map->{$row->{ID}}->{ACTION};
-  }
-
-  return %ret;
 }
 
 sub patches_for_package_provider {
