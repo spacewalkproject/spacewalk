@@ -21,7 +21,6 @@ import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
-import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -32,7 +31,6 @@ import org.cobbler.XmlRpcException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections.Transformer;
@@ -92,53 +90,6 @@ public class ActionChainRPCCommon {
         private String str(String value) {
             value = StringUtil.nullOrValue(value);
             return value == null ? "" : value;
-        }
-
-        /**
-         * Collector constructor.
-         *
-         * @param sessionToken Session token
-         * @param servername Server name
-         * @param ip IP Address
-         * @param chainName Chain label
-         */
-        public Collector(String sessionToken,
-                         String servername,
-                         String ip,
-                         String chainName) {
-            ip = this.str(ip);
-            servername = this.str(servername).toLowerCase();
-            boolean found = false;
-            this.user = ActionChainHandler.getLoggedInUser(sessionToken);
-            this.chain = ActionChainFactory.getOrCreateActionChain(chainName, this.user);
-            Server system = null;
-            if (servername.isEmpty() && ip.isEmpty()) {
-                throw new XmlRpcException("Server name or an IP address should be given.");
-            }
-
-            for (Iterator it = SystemManager.systemList(
-                    this.user, null).iterator(); it.hasNext();) {
-                system = SystemManager.lookupByIdAndUser(
-                        ((SystemOverview) it.next()).getId(), this.user);
-
-                if ((!servername.isEmpty() &&
-                         !system.getName().toLowerCase().equals(servername)) ||
-                        (!ip.isEmpty() && (!this.str(system.getIp6Address()).equals(ip) &&
-                                           !this.str(system.getIpAddress()).equals(ip)))) {
-                    continue;
-                }
-
-                found = true;
-                break;
-            }
-
-            if (found) {
-                this.server = system;
-            }
-            else {
-                throw new XmlRpcException(String.format("Cannot find server %s.",
-                        (servername.isEmpty() ? (ip + " by IP address") : servername)));
-            }
         }
 
         /**
