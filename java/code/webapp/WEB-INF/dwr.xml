@@ -1,58 +1,68 @@
 <!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "http://getahead.org/dwr//dwr30.dtd">
 
 <dwr>
-	<allow>
-	  <create creator="new" javascript="CriticalProbesRenderer">
-	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.CriticalProbesRenderer" />
-	  	<include method="renderAsync" />
-	  </create>
-	  <create creator="new" javascript="CriticalSystemsRenderer">
-	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.CriticalSystemsRenderer" />
-	  	<include method="renderAsync" />	  	
-	  </create>
-	  <create creator="new" javascript="InactiveSystemsRenderer">
-	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.InactiveSystemsRenderer" />
-	  	<include method="renderAsync" />	  	
-	  </create>
-	  <create creator="new" javascript="LatestErrataRenderer">
-	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.LatestErrataRenderer" />
-	  	<include method="renderAsync" />	  	
-	  </create>
-	  <create creator="new" javascript="PendingActionsRenderer">
-	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.PendingActionsRenderer" />
-	  	<include method="renderAsync" />	  	
-	  </create>
-	  <create creator="new" javascript="RecentSystemsRenderer">
-	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.RecentSystemsRenderer" />
-	  	<include method="renderAsync" />	  	
-	  </create>
-	  <create creator="new" javascript="SystemGroupsRenderer">
-	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.SystemGroupsRenderer" />
-	  	<include method="renderAsync" />	  	
-	  </create>
-	  <create creator="new" javascript="TasksRenderer">
-	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.TasksRenderer" />
-	  	<include method="renderAsync" />	  	
-	  </create>
-	  <create creator="new" javascript="WarningProbesRenderer">
-	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.WarningProbesRenderer" />
-	  	<include method="renderAsync" />	  	
-	  </create>
-	  <create creator="new" javascript="DWRItemSelector">
-	  	<param name="class" value="com.redhat.rhn.frontend.taglibs.DWRItemSelector" />
-	  	<include method="select" />	  	
-	  </create>	  
-          <create creator="new" javascript="ImagesRenderer">
-                <param name="class" value="com.redhat.rhn.frontend.action.renderers.ImagesRenderer" />
-                <include method="renderAsync" />
-          </create>
-          <create creator="new" javascript="ActionChainEntriesRenderer">
-                <param name="class" value="com.redhat.rhn.frontend.action.renderers.ActionChainEntryRenderer" />
-                <include method="renderAsync" />
-          </create>
-          <create creator="new" javascript="ActionChainSaveAction">
-                <param name="class" value="com.redhat.rhn.frontend.action.schedule.ActionChainSaveAction" />
-                <include method="save" />
-          </create>
-	</allow>
+    <allow>
+        <create creator="new" javascript="CriticalProbesRenderer">
+            <param name="class"
+                value="com.redhat.rhn.frontend.action.renderers.CriticalProbesRenderer" />
+            <include method="renderAsync" />
+        </create>
+        <create creator="new" javascript="CriticalSystemsRenderer">
+            <param name="class"
+                value="com.redhat.rhn.frontend.action.renderers.CriticalSystemsRenderer" />
+            <include method="renderAsync" />
+        </create>
+        <create creator="new" javascript="InactiveSystemsRenderer">
+            <param name="class"
+                value="com.redhat.rhn.frontend.action.renderers.InactiveSystemsRenderer" />
+            <include method="renderAsync" />
+        </create>
+        <create creator="new" javascript="LatestErrataRenderer">
+            <param name="class"
+                value="com.redhat.rhn.frontend.action.renderers.LatestErrataRenderer" />
+            <include method="renderAsync" />
+        </create>
+        <create creator="new" javascript="PendingActionsRenderer">
+            <param name="class"
+                value="com.redhat.rhn.frontend.action.renderers.PendingActionsRenderer" />
+            <include method="renderAsync" />
+        </create>
+        <create creator="new" javascript="RecentSystemsRenderer">
+            <param name="class"
+                value="com.redhat.rhn.frontend.action.renderers.RecentSystemsRenderer" />
+            <include method="renderAsync" />
+        </create>
+        <create creator="new" javascript="SystemGroupsRenderer">
+            <param name="class"
+                value="com.redhat.rhn.frontend.action.renderers.SystemGroupsRenderer" />
+            <include method="renderAsync" />
+        </create>
+        <create creator="new" javascript="TasksRenderer">
+            <param name="class" value="com.redhat.rhn.frontend.action.renderers.TasksRenderer" />
+            <include method="renderAsync" />
+        </create>
+        <create creator="new" javascript="WarningProbesRenderer">
+            <param name="class"
+                value="com.redhat.rhn.frontend.action.renderers.WarningProbesRenderer" />
+            <include method="renderAsync" />
+        </create>
+        <create creator="new" javascript="DWRItemSelector">
+            <param name="class" value="com.redhat.rhn.frontend.taglibs.DWRItemSelector" />
+            <include method="select" />
+        </create>
+        <create creator="new" javascript="ImagesRenderer">
+            <param name="class" value="com.redhat.rhn.frontend.action.renderers.ImagesRenderer" />
+            <include method="renderAsync" />
+        </create>
+        <create creator="new" javascript="ActionChainEntriesRenderer">
+            <param name="class"
+                value="com.redhat.rhn.frontend.action.renderers.ActionChainEntryRenderer" />
+            <include method="renderAsync" />
+        </create>
+        <create creator="new" javascript="ActionChainSaveAction">
+            <param name="class"
+                value="com.redhat.rhn.frontend.action.schedule.ActionChainSaveAction" />
+            <include method="save" />
+        </create>
+    </allow>
 </dwr>

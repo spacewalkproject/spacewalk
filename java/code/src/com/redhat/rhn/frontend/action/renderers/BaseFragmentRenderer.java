@@ -41,8 +41,9 @@ public abstract class BaseFragmentRenderer implements FragmentRenderer {
     private static final int PAGE_SIZE = 5;
     /**
      * {@inheritDoc}
+     * @throws Exception sometimes things just don't work out
      */
-    public String renderAsync() throws ServletException, IOException {
+    public String renderAsync() throws Exception {
         WebContext ctx = WebContextFactory.get();
         HttpServletRequest req = ctx.getHttpServletRequest();
         RequestContext rhnCtx = new RequestContext(req);
@@ -63,8 +64,10 @@ public abstract class BaseFragmentRenderer implements FragmentRenderer {
      * @param user logged in user
      * @param pc  controls list displays
      * @param req incoming request
+     * @throws Exception sometimes things just don't work out
      */
-    protected abstract void render(User user, PageControl pc, HttpServletRequest req);
+    protected abstract void render(User user, PageControl pc, HttpServletRequest req)
+        throws Exception;
 
     /**
      * Hook method for child classes to return a URL to the page

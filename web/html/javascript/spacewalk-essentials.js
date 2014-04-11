@@ -58,18 +58,57 @@ function columnHeight() {
   };
 };
 
-// Render page fragments loaded via DWR
-function makeAjaxCallback(divId, debug) {
-  cb = function(text) {
+// returns an object that can be passed to DWR renderer as a callback
+// puts rendered HTML in #divId, opens an alert with the same text if
+// debug is true
+function makeRendererHandler(divId, debug) {
+  return makeAjaxHandler(function(text) {
     if (debug) {
       alert(text);
     }
     $('#' + divId).html(text);
     $('#' + divId).fadeIn();
     columnHeight();
-  };
-  return cb;
+  });
 }
+
+// returns an object that can be passed to DWR as a callback
+// callbackFunction: function to call when AJAX requests succeeds
+// errorHandlerFunction: function to call when AJAX requests fail
+// (can be omitted for showFatalError)
+// works around a DWR bug calling errorHandler when navigating away
+// from a page during an AJAX request
+function makeAjaxHandler(callbackFunction, errorHandlerFunction) {
+    errorHandlerFunction = typeof errorHandlerFunction !== "undefined" ?
+      errorHandlerFunction : showFatalError;
+
+    // workaround to a DWR bug that calls errorHandler when user
+    // navigates away from page during an AJAX call
+    // first, we detect page unloading
+    $(window).on("beforeunload", function() {
+      $.unloading = true;
+    });
+    return {
+      callback: callbackFunction,
+      errorHandler: function(message, exception) {
+        // second, if we get an error during unloading we ignore it
+        if ($.unloading == true) {
+          console.log("Ignoring exception " + exception + " with message " + message + " because it is a DWR error during unload");
+        }
+        else {
+          errorHandlerFunction(message, exception);
+        }
+      }
+    }
+}
+
+// shows a fatal DWR/AJAX error
+function showFatalError(message, exception) {
+  console.log("DWR AJAX call failed with message: " + message);
+  console.log(exception);
+  alert("Unexpected error, please reload the page and check server logs.");
+}
+
 
 // Extension to Twitter Bootstrap.
 // Gives you a col-XX-auto class like Bootstrap
