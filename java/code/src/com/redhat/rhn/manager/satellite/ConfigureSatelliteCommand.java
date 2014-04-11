@@ -286,7 +286,8 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
                 SatClusterFactory.lookupSatNodeByCluster(c).getScoutSharedKey());
 
 
-        int exitcode = e.execute(getCommandArguments("/etc/rhn/cluster.ini", optionMap, removals));
+        int exitcode = e.execute(getCommandArguments("/etc/rhn/cluster.ini",
+                optionMap, removals));
         if (exitcode != 0) {
             String message = "Not able to write to /etc/rhn/cluster.ini, " +
                 "got exit code: " + exitcode +

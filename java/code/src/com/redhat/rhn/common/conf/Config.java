@@ -176,6 +176,7 @@ public class Config {
     }
 
     /**
+     * @param name Key to check for
      * @return true if the config contains key
      */
     public boolean containsKey(String name) {
