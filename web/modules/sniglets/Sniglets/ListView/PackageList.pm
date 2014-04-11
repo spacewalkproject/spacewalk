@@ -29,7 +29,6 @@ use RHN::DataSource::Simple;
 use PXT::HTML;
 use PXT::Utils;
 use RHN::Scheduler;
-use RHN::Manifest;
 
 use RHN::Exception qw/throw/;
 
@@ -199,11 +198,6 @@ sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "package_download_for_system_arch_select",
 			   -datasource => RHN::DataSource::Package->new,
                            -provider => \&package_download_for_system_arch_select_provider,
-			   -action_callback => \&default_callback);
-
-  Sniglets::ListView::List->add_mode(-mode => "managed_channel_merge_preview",
-			   -datasource => RHN::DataSource::Package->new,
-                           -provider => \&managed_channel_merge_preview_provider,
 			   -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "missing_packages_for_session",
@@ -1608,45 +1602,6 @@ sub comparison_string {
   }
 
   die "Invalid comparison in '" . Data::Dumper->Dump([($row)]) . "'\n";
-}
-
-sub managed_channel_merge_preview_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $row_map = create_package_sync_map($pxt);
-
-  my @data;
-  my $sync_type = $pxt->dirty_param('sync_type') || '';
-
-  if ($sync_type eq 'full_sync') {
-    @data = grep { not ($_->{EXISTS_RIGHT} and $_->{EXISTS_LEFT}) } values %{$row_map};
-  }
-  elsif ($sync_type eq 'add_only') {
-    @data = grep { $_->{EXISTS_RIGHT} and not $_->{EXISTS_LEFT} } values %{$row_map};
-  }
-  elsif ($sync_type eq 'remove_only') {
-    @data = grep { not $_->{EXISTS_RIGHT} and $_->{EXISTS_LEFT} } values %{$row_map};
-  }
-  else {
-    throw "Invalid sync type: '$sync_type'\n";
-  }
-
-  @data = sort { $a->{NAME} cmp $b->{NAME}
-		   || RHN::Manifest::Package->vercmp($a->{EPOCH}, $a->{VERSION}, $a->{RELEASE},
-						     $a->{EPOCH}, $a->{VERSION}, $a->{RELEASE}) } @data;
-
-  my $data = $self->filter_data(\@data);
-  my $alphabar = $self->init_alphabar($data);
-
-  my @all_ids = map { $_->{ID} } @{$data};
-  $self->all_ids(\@all_ids);
-
-  $data = RHN::DataSource->slice_data($data, $self->lower, $self->upper);
-
-  return (data => $data,
-	  all_ids => \@all_ids,
-	  alphabar => $alphabar);
 }
 
 sub create_package_sync_map {
