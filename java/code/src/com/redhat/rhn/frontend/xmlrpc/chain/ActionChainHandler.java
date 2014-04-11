@@ -136,7 +136,9 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "actionId", "Action ID")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer removeAction(String sessionKey, String chainLabel, Integer actionId) {
+    public Integer removeAction(String sessionKey,
+                                String chainLabel,
+                                Integer actionId) {
         BaseHandler.getLoggedInUser(sessionKey);
         ActionChain chain = this.acUtil.getActionChainByLabel(chainLabel);
 
@@ -161,10 +163,11 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.doc Remove action chains by label.
      * @xmlrpc.param #param_desc("string", "sessionKey",
      * "Session token, issued at login")
-     * @xmlrpc.param #array_single("string", "chainLabels")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer removeActionChain(String sessionKey, String chainLabel) {
+    public Integer removeActionChain(String sessionKey,
+                                     String chainLabel) {
         BaseHandler.getLoggedInUser(sessionKey);
         ActionChainFactory.delete(this.acUtil.getActionChainByLabel(chainLabel));
 
@@ -184,7 +187,8 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Integer createActionChain(String sessionKey, String chainLabel) {
+    public Integer createActionChain(String sessionKey,
+                                     String chainLabel) {
         if (StringUtil.nullOrValue(chainLabel) == null) {
             throw new InvalidParameterException("Chain label is missing");
         }
@@ -209,7 +213,9 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Integer addSystemReboot(String sessionKey, Integer serverId, String chainLabel) {
+    public Integer addSystemReboot(String sessionKey,
+                                   Integer serverId,
+                                   String chainLabel) {
         User user = BaseHandler.getLoggedInUser(sessionKey);
         return ActionChainManager.scheduleRebootAction(
                 user, this.acUtil.getServerById(serverId, user), new Date(),
@@ -375,10 +381,8 @@ public class ActionChainHandler extends BaseHandler {
      * "User ID on the particular system")
      * @xmlrpc.param #param_desc("string", "gid",
      * "Group ID on the particular system")
-     * @xmlrpc.param #param_desc("int", "timeout",
-     * "Timeout cannot exceed 1200 seconds")
-     * @xmlrpc.param #param_desc("string", "scriptBodyBase64",
-     * "Base64 encoded script body")
+     * @xmlrpc.param #param_desc("int", "timeout", "Timeout")
+     * @xmlrpc.param #param_desc("string", "scriptBodyBase64", "Base64 encoded script body")
      * @xmlrpc.returntype int actionId - The id of the action or throw an
      * exception
      */
@@ -397,7 +401,7 @@ public class ActionChainHandler extends BaseHandler {
     }
 
     /**
-     * Schedule action chain immediately.//TODO: not immediately
+     * Schedule action chain.
      *
      * @param sessionKey Session key (token)
      * @param chainLabel Label of the action chain
@@ -431,8 +435,8 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "sessionKey",
      * "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
+     * @xmlrpc.param #param_desc("int", "System ID", "System ID")
      * @xmlrpc.param #array_single("int", "Revision ID")
-     * @xmlrpc.param #array_single("int", "Server ID")
      * @xmlrpc.returntype #return_int_success()
      */
     @SuppressWarnings("unchecked")
@@ -459,21 +463,21 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Rename Action Chain.
      *
-     * @param sk Session key (token)
+     * @param sessionKey Session key (token)
      * @param previousLabel Previous (existing) label of the Action Chain
      * @param newLabel New (desired) label of the Action Chain
      * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Schedule system reboot.
-     * @xmlrpc.param #param_desc("string", "sessionKey",
-     * "Session token, issued at login")
-     * @xmlrpc.param #param_desc("string", "previousLabel",
-     * "Previous chain label")
+     * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
+     * @xmlrpc.param #param_desc("string", "previousLabel", "Previous chain label")
      * @xmlrpc.param #param_desc("string", "newLabel", "New chain label")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer renameChain(String sk, String previousLabel, String newLabel) {
-        BaseHandler.getLoggedInUser(sk);
+    public Integer renameChain(String sessionKey,
+                               String previousLabel,
+                               String newLabel) {
+        BaseHandler.getLoggedInUser(sessionKey);
         if (previousLabel.equals(newLabel)) {
             throw new InvalidParameterException("New label of the Action Chain should " +
                     "not be the same as previous!");
