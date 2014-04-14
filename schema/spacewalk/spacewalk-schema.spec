@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.23
+Version:        2.2.24
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Apr 14 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.24-1
+- schema: new action type, clientcert.update_client_cert
+
 * Fri Apr 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.23-1
 - 903068 - update scripts for schema
 - 903068 - fixed debian repo generation
