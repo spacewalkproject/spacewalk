@@ -28,15 +28,12 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
 import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.action.ActionManager;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.bind.DatatypeConverter;
-
 import org.apache.commons.collections.CollectionUtils;
 
 /**
@@ -144,7 +141,7 @@ public class ActionChainHandler extends BaseHandler {
 
         for (ActionChainEntry entry : chain.getEntries()) {
             if (entry.getAction().getId().equals(Long.valueOf(actionId))) {
-                chain.getEntries().remove(entry);
+                ActionChainFactory.removeActionChainEntry(chain, entry);
                 return BaseHandler.VALID;
             }
         }
