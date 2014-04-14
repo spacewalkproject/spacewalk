@@ -172,32 +172,6 @@ sub compare_manifests {
   return $ret;
 }
 
-sub datasource_into_manifest {
-  my $self = shift;
-  my %params = @_;
-
-  my $ds_class = $params{-ds_class};
-
-  my $ds;
-
-  if (ref $ds_class) {
-    # first param was actually a datasource object, just use it...
-    $ds = $ds_class;
-  }
-  else {
-    # nope, not a ds object; instantiate one, set the mode
-    my $ds_mode = $params{-ds_mode};
-
-    $ds = $ds_class->new;
-    $ds->mode($ds_mode);
-  }
-
-  my $result = $ds->execute_query(%params);
-
-  return $self -> datasource_result_into_manifest($result);
-
-}
-
 sub datasource_result_into_manifest {
   my $self = shift;
   my $result = shift;
