@@ -19,7 +19,6 @@ package Sniglets::Profiles;
 
 use RHN::Profile;
 use RHN::Channel;
-use RHN::Manifest;
 use RHN::Exception qw/throw/;
 
 use PXT::Utils;
