@@ -27,7 +27,6 @@ use RHN::DataSource::Errata;
 use RHN::DataSource::Package;
 use RHN::Package;
 use RHN::Entitlements;
-use RHN::Manifest;
 use RHN::Channel;
 use Data::Dumper;
 use Digest::MD5;
@@ -1666,16 +1665,6 @@ sub check_lock {
   $sth->finish;
 
   return $lock;
-}
-
-sub load_package_manifest {
-  my $self = shift;
-
-  my $mfst = new RHN::Manifest(-org_id => $self->org_id);
-  return $mfst->datasource_into_manifest(-ds_class => 'RHN::DataSource::Package',
-  						 -ds_mode => 'system_canonical_package_list',
-  						 -sid => $self->id,-org_id => $self->org_id);
-
 }
 
 sub systems_subscribed_to_channel {

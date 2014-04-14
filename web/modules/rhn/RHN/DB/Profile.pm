@@ -221,15 +221,6 @@ sub compatible_with_channel {
   return @{$ds->execute_query( map { ("-$_", $params{$_} ) } keys %params )};
 }
 
-sub load_package_manifest {
-  my $self = shift;
-  my $mfst = new RHN::Manifest(-org_id => $self->org_id);
-  return $mfst->datasource_into_manifest(-ds_class => 'RHN::DataSource::Package',
-						 -ds_mode => 'profile_canonical_package_list',
-						 -prid => $self->id,-org_id => $self->org_id);
-
-}
-
 sub profile_packages_missing_from_channels {
   my $self = shift;
   my %params = validate(@_, { channels => 1, transaction => 0 });
