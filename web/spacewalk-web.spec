@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.12
+Version: 2.2.13
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -270,6 +270,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Apr 14 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.13-1
+- removed unused perl code
+- limit actions displayed on schedule/*actions pages
+
 * Fri Apr 11 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.12-1
 - Safer DWR callback method introduced
 - Refactoring: utility method makeAjaxCallback renamed
