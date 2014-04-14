@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.18
+Version: 2.2.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Mon Apr 14 2014 Jan Dobes <jdobes@redhat.com> 2.2.19-1
+- fixing syntax error
+
 * Thu Apr 10 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.18-1
 - add server side code for handling clientcert.update_client_cert
 - update_systemid: routine to update server secret and client certificate
