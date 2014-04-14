@@ -196,12 +196,6 @@ sub _register_modes {
 				     -action_callback => \&missing_packages_for_session_cb,
 				     );
 
-  Sniglets::ListView::List->add_mode(-mode => "missing_packages_for_sync",
-				     -datasource => RHN::DataSource::Package->new,
-				     -provider => \&missing_packages_for_sync_provider,
-				     -action_callback => \&missing_packages_for_sync_cb
-				     );
-
   Sniglets::ListView::List->add_mode(-mode => "patches_for_package",
 				     -datasource => RHN::DataSource::Package->new,
 				     -provider => \&patches_for_package_provider,
@@ -368,28 +362,6 @@ sub missing_packages_for_session_cb {
   return 1;
 }
 
-sub missing_packages_for_sync_cb {
-  my $self = shift;
-  my $pxt = shift;
-  my %action = @_;
-
-  my $label = $action{label};
-
-  if ($label) {
-    if (grep { $label eq $_ } qw/remove_packages subscribe_to_channels/) {
-      Sniglets::Profiles::sync_server_cb($pxt, $label);
-    }
-    else { # going to select a different package profile, clear the set
-      my $set_label = $pxt->dirty_param('set_label');
-      my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-      $set->empty;
-      $set->commit;
-    }
-  }
-
-  return 1;
-}
-
 sub find_package_profile {
   my $pxt = shift;
   my $kickstart_options = shift;
@@ -419,95 +391,6 @@ sub find_package_profile {
   }
 
   return $profile;
-}
-
-sub missing_packages_for_sync_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $set_label = $pxt->dirty_param('set_label');
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  my %valid_name_id = map { $_, 1 } $set->contents;
-
-  my $source_profile_id = $pxt->param('prid');
-  my $source_system_id = $pxt->param('sid_1');
-
-  my $source;
-  my $victim = RHN::Server->lookup(-id => $pxt->param('sid'));
-
-  if ($source_profile_id) {
-    $source = RHN::Profile->lookup(-id => $source_profile_id);
-  }
-  elsif ($source_system_id) {
-    $source = RHN::Server->lookup(-id => $source_system_id);
-  }
-  else {
-    die 'no source for sync operation?';
-  }
-
-  my $source_manifest = $source->load_package_manifest;
-  my $victim_manifest = $victim->load_package_manifest;
-
-  my @channels = map { $_->{ID} } $victim->server_channels;
-  my @missing_packages = 
-    grep { $valid_name_id{$_->name_id} }
-      ($source_profile_id
-       ? $source->profile_packages_missing_from_channels(-channels => \@channels)
-       : $source->system_packages_missing_from_channels(-channels => \@channels));
-
-  my $data;
-
-  foreach my $package (sort { lc($a->name_arch) cmp lc($b->name_arch) } @missing_packages) {
-    my $row;
-
-    foreach my $field (qw/id name name_id epoch version release evr_id/) {
-      $row->{uc($field)} = $package->$field() || '';
-    }
-
-    $row->{NVRE} = join('-', ($row->{NAME}, $row->{VERSION}, $row->{RELEASE}));
-    $row->{NVRE} .= ($row->{EPOCH} ? ":" . $row->{EPOCH} : "");
-
-    push @{$data}, $row;
-  }
-
-  $data = $self->filter_data($data);
-  my $alphabar = $self->init_alphabar($data);
-
-  my $all_ids = [ map { $_->{ID} } @{$data} ];
-  $self->all_ids($all_ids);
-
-  $data = $self->datasource->slice_data($data, $self->lower, $self->upper);
-
-  my $base_channel_id = $source->base_channel_id;
-  my @valid_child_channels =
-    grep { $pxt->user->verify_channel_access($_) } RHN::Channel->children($base_channel_id);
-
-  my $channel_set = RHN::Set->lookup(-uid => $pxt->user->id, -label => 'child_channels');
-  $channel_set->empty;
-  $channel_set->add(@valid_child_channels);
-  $channel_set->commit;
-
-  my $package_set = RHN::Set->lookup(-uid => $pxt->user->id, -label => 'packages');
-  $package_set->empty;
-  $package_set->add(map { [ $_->{NAME_ID}, $_->{EVR_ID} ] } @{$data});
-  $package_set->commit;
-
-  my $channel_package_intersection =
-    RHN::Package->channel_package_intersection_from_set(-user_id => $pxt->user->id,
-							-package_set_label => $package_set->label,
-							-channel_set_label => $channel_set->label);
-
-  foreach my $row (@$data) {
-    my @child_channels = map { $_->{CHANNEL_NAME} } @{$channel_package_intersection->{$row->{ID}}};
-    $row->{CHANNELS} = join("\n", @child_channels) || '';
-
-    Sniglets::ListView::List::escape_row($row);
-  }
-
-  return (data => $data,
-	  all_ids => $all_ids,
-	  alphabar => $alphabar);
 }
 
 sub package_removal_failures_provider {
