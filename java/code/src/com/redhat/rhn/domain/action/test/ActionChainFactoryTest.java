@@ -28,10 +28,13 @@ import com.redhat.rhn.testing.TestUtils;
 
 import org.hibernate.ObjectNotFoundException;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Silvio Moioli <smoioli@suse.de>
@@ -195,6 +198,93 @@ public class ActionChainFactoryTest extends BaseTestCaseWithUser {
             firstGroup.getActionTypeLabel());
         assertEquals((Integer) 1, firstGroup.getSortOrder());
         assertEquals((Long) 5L, firstGroup.getSystemCount());
+    }
+
+    private List<Integer> getOrders(Set<ActionChainEntry> entries) {
+        List<Integer> orders = new ArrayList<Integer>();
+        for (ActionChainEntry entry : entries) {
+            orders.add(entry.getSortOrder());
+        }
+        Collections.sort(orders);
+        return orders;
+    }
+
+    public void testRemoveActionChainEntrySortGaps() throws Exception {
+
+        ActionChain actionChain = ActionChainFactory.createActionChain(TestUtils.randomString(), user);
+        Action action;
+        for (int i = 0; i < 2; i++) {
+            action = ActionFactory.createAction(ActionFactory.TYPE_ERRATA);
+            action.setOrg(user.getOrg());
+            ActionChainFactory.queueActionChainEntry(action, actionChain,
+                ServerFactoryTest.createTestServer(user), 0);
+            TestUtils.saveAndFlush(action);
+        }
+
+        for (int i = 0; i < 2; i++) {
+            action = ActionFactory.createAction(ActionFactory.TYPE_PACKAGES_UPDATE);
+            action.setOrg(user.getOrg());
+            ActionChainFactory.queueActionChainEntry(action, actionChain,
+                ServerFactoryTest.createTestServer(user), 2);
+            TestUtils.saveAndFlush(action);
+        }
+
+        TestUtils.saveAndFlush(actionChain);
+        ActionChainFactory.removeActionChainEntrySortGaps(actionChain, 1);
+        TestUtils.saveAndReload(actionChain);
+
+        List<Integer> result = new ArrayList<Integer>();
+        result.add(0);
+        result.add(0);
+        result.add(1);
+        result.add(1);
+        assertEquals(result, getOrders(actionChain.getEntries()));
+    }
+
+    public void testRemoveActionChainEntry() throws Exception {
+
+        ActionChain actionChain = ActionChainFactory.createActionChain(TestUtils.randomString(), user);
+        Action action;
+        for (int i = 0; i < 2; i++) {
+            action = ActionFactory.createAction(ActionFactory.TYPE_ERRATA);
+             action.setOrg(user.getOrg());
+            TestUtils.saveAndFlush(action);
+            ActionChainFactory.queueActionChainEntry(action, actionChain,
+                ServerFactoryTest.createTestServer(user), 0);
+        }
+
+        action = ActionFactory.createAction(ActionFactory.TYPE_ERRATA);
+        action.setOrg(user.getOrg());
+        TestUtils.saveAndFlush(action);
+        ActionChainEntry toRemove = ActionChainFactory.queueActionChainEntry(action, actionChain,
+                    ServerFactoryTest.createTestServer(user), 1);
+
+        for (int i = 0; i < 2; i++) {
+            action = ActionFactory.createAction(ActionFactory.TYPE_PACKAGES_UPDATE);
+            action.setOrg(user.getOrg());
+            TestUtils.saveAndFlush(action);
+            ActionChainFactory.queueActionChainEntry(action, actionChain,
+                ServerFactoryTest.createTestServer(user), 2);
+        }
+
+        for (ActionChainEntry entry : actionChain.getEntries()) {
+            System.out.println(entry + " " + entry.hashCode());
+        }
+
+        ActionChainFactory.removeActionChainEntry(actionChain, toRemove);
+
+        System.out.println(toRemove + " ** " + toRemove.hashCode());
+        for (ActionChainEntry entry : actionChain.getEntries()) {
+            System.out.println(entry + " " + entry.hashCode());
+        }
+
+        List<Integer> result = new ArrayList<Integer>();
+        result.add(0);
+        result.add(0);
+        result.add(1);
+        result.add(1);
+        assertEquals(4, actionChain.getEntries().size());
+        assertEquals(result, getOrders(actionChain.getEntries()));
     }
 
     /**
