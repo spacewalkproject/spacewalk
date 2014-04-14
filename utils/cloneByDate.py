@@ -66,7 +66,7 @@ def confirm(txt, options):
 def validate(channel_labels):
     tmp_dirs = {}
     for llabel in channel_labels:
-        label=llabel[0]
+        label = llabel[0]
         path = repodata(label)
         tmp = tempfile.mkdtemp()
         tmp_dirs[label] = tmp
