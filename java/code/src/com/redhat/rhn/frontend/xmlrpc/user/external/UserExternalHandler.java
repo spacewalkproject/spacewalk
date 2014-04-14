@@ -249,6 +249,7 @@ public class UserExternalHandler extends BaseHandler {
         group.setLabel(name);
         group.setRoles(myRoles);
         UserGroupFactory.save(group);
+        addImpliedRoles(group.getRoles());
         return group;
     }
 
@@ -272,6 +273,7 @@ public class UserExternalHandler extends BaseHandler {
         if (group == null) {
             throw new NoSuchExternalGroupException(name);
         }
+        addImpliedRoles(group.getRoles());
 
         return group;
     }
@@ -362,6 +364,10 @@ public class UserExternalHandler extends BaseHandler {
         User user = getLoggedInUser(sessionKey);
         ensureSatAdmin(user);
 
+        List<UserExtGroup> groups = UserGroupFactory.listExtAuthGroups(user);
+        for (UserExtGroup group : groups) {
+            addImpliedRoles(group.getRoles());
+        }
         return UserGroupFactory.listExtAuthGroups(user);
     }
 
@@ -376,7 +382,7 @@ public class UserExternalHandler extends BaseHandler {
      * add in the implied roles for org_admin (for displaying to user)
      * @param roles The roles the current group has
      */
-    public static void addImpliedRoles(Set<Role> roles) {
+    private void addImpliedRoles(Set<Role> roles) {
         if (roles.contains(RoleFactory.ORG_ADMIN)) {
             roles.addAll(UserFactory.IMPLIEDROLES);
         }

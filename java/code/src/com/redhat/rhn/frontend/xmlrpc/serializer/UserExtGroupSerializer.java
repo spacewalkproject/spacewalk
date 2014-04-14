@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
@@ -26,7 +25,6 @@ import redstone.xmlrpc.XmlRpcSerializer;
 import com.redhat.rhn.domain.org.usergroup.UserExtGroup;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-import com.redhat.rhn.frontend.xmlrpc.user.external.UserExternalHandler;
 
 /**
  *
@@ -60,9 +58,7 @@ public class UserExtGroupSerializer extends RhnXmlRpcCustomSerializer {
         helper.add("name", g.getLabel());
 
         List<String> roleList = new ArrayList<String>();
-        Set<Role> roles = g.getRoles();
-        UserExternalHandler.addImpliedRoles(roles);
-        for (Role role : roles) {
+        for (Role role : g.getRoles()) {
             roleList.add(role.getLabel());
         }
         helper.add("roles", roleList);

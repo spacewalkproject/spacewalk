@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.xmlrpc.user.external.test;
 import com.redhat.rhn.domain.org.usergroup.UserExtGroup;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.xmlrpc.ExternalGroupAlreadyExistsException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.frontend.xmlrpc.user.external.UserExternalHandler;
@@ -30,14 +31,14 @@ import java.util.Set;
 public class UserExternalHandlerTest extends BaseHandlerTestCase {
 
     private UserExternalHandler handler = new UserExternalHandler();
-    private static final String NAME = "My External Group Name" + TestUtils.randomString();
     private static List<String> roles = Arrays.asList(
             RoleFactory.SYSTEM_GROUP_ADMIN.getLabel(),
             RoleFactory.MONITORING_ADMIN.getLabel());
 
     public void testExternalGroup() {
+        String name = "My External Group Name" + TestUtils.randomString();
         //admin should be able to call list users, regular should not
-        UserExtGroup result = handler.createExternalGroup(adminKey, NAME, roles);
+        UserExtGroup result = handler.createExternalGroup(satAdminKey, name, roles);
         assertNotNull(result);
 
         //make sure we get a permission exception if a regular user tries to get the user
@@ -54,24 +55,24 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
 
         //can't add the same group twice
         try {
-            result = handler.createExternalGroup(adminKey, NAME, roles);
+            result = handler.createExternalGroup(satAdminKey, name, roles);
             fail();
         }
-        catch (PermissionCheckFailureException e) {
+        catch (ExternalGroupAlreadyExistsException e) {
             //success
         }
 
         //make sure at least this group is in the list
-        List<UserExtGroup> groups = handler.listExternalGroups(adminKey);
+        List<UserExtGroup> groups = handler.listExternalGroups(satAdminKey);
         Set<String> names = new HashSet<String>();
         for (UserExtGroup g : groups) {
             names.add(g.getLabel());
         }
-        assertTrue(names.contains(NAME));
+        assertTrue(names.contains(name));
 
         //regular user can't update
         try {
-            handler.setExternalGroupRoles(regularKey, NAME, roles);
+            handler.setExternalGroupRoles(regularKey, name, roles);
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -79,52 +80,52 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
         }
 
         //set org_admin, make sure we get all implied roles. implicitly testing get.
-        handler.setExternalGroupRoles(adminKey, NAME,
+        handler.setExternalGroupRoles(satAdminKey, name,
                 Arrays.asList(RoleFactory.ORG_ADMIN.getLabel()));
-        UserExtGroup group = handler.getExternalGroup(adminKey, NAME);
-        assertTrue(group.getRoles().size() == UserFactory.IMPLIEDROLES.size() + 1);
+        UserExtGroup group = handler.getExternalGroup(satAdminKey, name);
+        assertEquals(UserFactory.IMPLIEDROLES.size() + 1, group.getRoles().size());
 
         //if we set just two roles all others should be deleted
-        handler.setExternalGroupRoles(adminKey, NAME, roles);
-        group = handler.getExternalGroup(adminKey, NAME);
+        handler.setExternalGroupRoles(satAdminKey, name, roles);
+        group = handler.getExternalGroup(satAdminKey, name);
         assertTrue(group.getRoles().size() == 2);
 
         //regular user can't delete
         int success = -1;
         try {
-            success = handler.deleteExternalGroup(regularKey, NAME);
+            success = handler.deleteExternalGroup(regularKey, name);
             fail();
         }
         catch (PermissionCheckFailureException e) {
             //success
         }
 
-        success = handler.deleteExternalGroup(adminKey, NAME);
+        success = handler.deleteExternalGroup(satAdminKey, name);
         assertTrue(success == 1);
     }
 
     public void testDefaultOrg() {
-        int currentDefault = handler.getDefaultOrg(adminKey);
-        handler.setDefaultOrg(adminKey, 0);
-        assertTrue(0 == handler.getDefaultOrg(adminKey));
+        int currentDefault = handler.getDefaultOrg(satAdminKey);
+        handler.setDefaultOrg(satAdminKey, 0);
+        assertTrue(0 == handler.getDefaultOrg(satAdminKey));
 
-        handler.setDefaultOrg(adminKey, 1);
-        assertTrue(1 == handler.getDefaultOrg(adminKey));
+        handler.setDefaultOrg(satAdminKey, 1);
+        assertTrue(1 == handler.getDefaultOrg(satAdminKey));
 
-        handler.setDefaultOrg(adminKey, currentDefault);
+        handler.setDefaultOrg(satAdminKey, currentDefault);
     }
 
     public void testKeepRoles() {
-        boolean currentKeepRoles = handler.getKeepTemporaryRoles(adminKey);
-        handler.setKeepTemporaryRoles(adminKey, !currentKeepRoles);
-        assertTrue(!currentKeepRoles == handler.getKeepTemporaryRoles(adminKey));
-        handler.setKeepTemporaryRoles(adminKey, currentKeepRoles);
+        boolean currentKeepRoles = handler.getKeepTemporaryRoles(satAdminKey);
+        handler.setKeepTemporaryRoles(satAdminKey, !currentKeepRoles);
+        assertTrue(!currentKeepRoles == handler.getKeepTemporaryRoles(satAdminKey));
+        handler.setKeepTemporaryRoles(satAdminKey, currentKeepRoles);
     }
 
     public void testUseOrgUnit() {
-        boolean currentUseOrgUnit = handler.getUseOrgUnit(adminKey);
-        handler.setUseOrgUnit(adminKey, currentUseOrgUnit);
-        assertTrue(!currentUseOrgUnit == handler.getUseOrgUnit(adminKey));
-        handler.setUseOrgUnit(adminKey, currentUseOrgUnit);
+        boolean currentUseOrgUnit = handler.getUseOrgUnit(satAdminKey);
+        handler.setUseOrgUnit(satAdminKey, !currentUseOrgUnit);
+        assertTrue(!currentUseOrgUnit == handler.getUseOrgUnit(satAdminKey));
+        handler.setUseOrgUnit(satAdminKey, currentUseOrgUnit);
     }
 }
