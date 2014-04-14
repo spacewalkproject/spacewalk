@@ -1689,39 +1689,6 @@ sub systems_subscribed_to_channel {
 			      ) };
 }
 
-sub system_packages_missing_from_channels {
-  my $self = shift;
-  my %params = validate(@_, { channels => 1, transaction => 0 });
-
-  my %trans_args;
-
-  if ($params{transaction}) {
-    $trans_args{-transaction} = $params{transaction};
-  }
-
-  my %packages;
-
-  foreach my $cid (@{$params{channels}}) {
-    my $chan_ds = new RHN::DataSource::Package(-mode => 'packages_in_channel_by_id_combo');
-    my $results = $chan_ds->execute_query(-cid => $cid, %trans_args);
-
-    foreach my $package (@{$results}) { # ensure unique package ids
-      $packages{$package->{ID}} = $package;
-    }
-  }
-   
-  my $channel_manifest = new RHN::Manifest(-org_id => $self->org_id);
-  $channel_manifest = $channel_manifest -> datasource_result_into_manifest([ values %packages ]);
-
-  my $sys_ds = new RHN::DataSource::Package(-mode => 'system_canonical_package_list');
-  my $results = $sys_ds->execute_query(-sid => $self->id, -org_id => $self->org_id,%trans_args);
-
-  my $system_manifest = new RHN::Manifest(-org_id => $self->org_id);
-  $system_manifest = $system_manifest -> datasource_result_into_manifest($results);
-
-  return $system_manifest->packages_not_available_from($channel_manifest);
-}
-
 sub packaging_type {
   my $class_or_self = shift;
 
