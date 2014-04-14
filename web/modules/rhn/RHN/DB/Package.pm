@@ -1058,51 +1058,6 @@ EOQ
 
 }
 
-sub is_package_in_channel {
-  my $class = shift;
-  my %params = validate(@_, { evr_id => 0, name_id => 0, id => 0, cid => 1 });
-
-  throw "Need id or evr_id and name_id" unless ($params{id} or ($params{evr_id} and $params{name_id}));
-
-  my $query;
-  my %query_params;
-
-  if ($params{id}) {
-    $query =<<EOQ;
-SELECT 1
-  FROM rhnChannelPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.package_id = :pid
-EOQ
-
-    %query_params = ( cid => $params{cid},
-		      pid => $params{id} );
-  }
-  else {
-    $query =<<EOQ;
-SELECT 1
-  FROM rhnChannelPackage CP, rhnPackage P
- WHERE CP.channel_id = :cid
-   AND CP.package_id = P.id
-   AND P.evr_id = :evr_id
-   AND P.name_id = :name_id
-EOQ
-
-    %query_params = %params;
-  }
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute_h(%query_params);
-
-  my ($ret) = $sth->fetchrow;
-
-  $sth->finish;
-
-  return $ret;
-}
-
 sub packaging_type {
   my $class_or_self = shift;
 
