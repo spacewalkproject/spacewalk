@@ -28,7 +28,7 @@ class TestServer:
     #The actual implementation
     class TestServerImplementation:
 
-        def __init__(self)
+        def __init__(self):
             #start_init = time.time()
 
 
