@@ -101,16 +101,6 @@ sub packages_by_name_arch {
 	  : $self->{package_arch_map}->{$name_arch});
 }
 
-sub filter_old_packages {
-  my $self = shift;
-
-  $self->{packages} = [];
-  for my $name_arch (keys %{$self->{package_arch_map}}) {
-    $self->{package_arch_map}->{$name_arch} = (sort @{$self->{package_arch_map}->{$name_arch}})[-1];
-    push @{$self->{packages}}, $self->{package_arch_map}->{$name_arch};
-  }
-}
-
 # Packages in $self which are not available from $other
 sub packages_not_available_from {
   my ($self, $other) = validate_pos(@_, { isa => "RHN::Manifest" }, { isa => "RHN::Manifest" });
