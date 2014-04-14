@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.46
+Version: 2.2.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Apr 14 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.47-1
+- limit actions displayed on schedule/*actions pages
+- 1086256 - Submit buttons are incorrectly labelled.
+- 1084703 - Removing repo filters ISE.
+
 * Fri Apr 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.46-1
 - 1086161 - PM page incorrectly labelled buttons.
 
