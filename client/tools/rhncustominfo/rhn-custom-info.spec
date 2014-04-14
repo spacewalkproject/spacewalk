@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.23
+Version: 5.4.24
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Mon Apr 14 2014 Michael Mraka <michael.mraka@redhat.com> 5.4.24-1
+- 1066163 - rhn-custom-info man page is incomplete.
+
 * Fri Mar 14 2014 Michael Mraka <michael.mraka@redhat.com> 5.4.23-1
 - Don't print newline after 'Username:' prompt
 
