@@ -81,17 +81,6 @@ sub add_package {
   push @{$self->{package_arch_map}->{$pkg->name_arch}}, $pkg;
 }
 
-sub add_packages {
-  my $self = shift;
-  my @packages = @_;
-
-  foreach my $package (@packages) {
-    $self->add_package($package);
-  }
-
-  return;
-}
-
 sub packages_by_name_arch {
   my $self = shift;
   my $name_arch = shift;
