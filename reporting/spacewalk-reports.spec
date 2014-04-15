@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.2
+Version: 2.2.3
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Tue Apr 15 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.3-1
+- system-md5-certificate: list of systems with MD5 client certificate
+
 * Thu Apr 10 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.2-1
 - add report for schedule/actions
 
