@@ -1,0 +1,37 @@
+
+synopsis:
+
+	Systems with certificate containing MD5 checksum
+
+description:
+
+	List of registereted systems which use certificate (/etc/sysconfig/rhn/systemid)
+	with an MD5 checksum
+
+columns:
+
+	system_id	System ID
+	system_name	System name
+	organization_id	Organization ID
+	last_checkin	Last check of the system
+
+params:
+
+	tresh   web.system_checkin_threshold
+
+sql:
+
+	select * from (
+	select rhnServer.id as system_id,
+		rhnServer.name as system_name,
+		rhnServer.org_id as organization_id,
+		rhnServerInfo.checkin as last_checkin
+	from rhnServer
+		join rhnServerInfo on rhnServer.id=rhnServerInfo.server_id
+	where rhnServerInfo.checkin >= current_timestamp - numtodsinterval(
+	:tresh * 86400, 'second') and
+	length(rhnServer.secret) = 32
+	) X
+	-- where placeholder
+	order by system_id, organization_id
+
