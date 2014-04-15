@@ -11846,10 +11846,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>scheduled action</source>
         </trans-unit>
       </group>
-      <!-- System event hisotry -->
+      <!-- System event history -->
       <group>
         <context-group name="ctx">
-          <context context-type="sourcefile">System Eevents Pages</context>
+          <context context-type="sourcefile">System Events Pages</context>
         </context-group>
         <trans-unit id="system.event.history.header">
           <source>System History</source>
