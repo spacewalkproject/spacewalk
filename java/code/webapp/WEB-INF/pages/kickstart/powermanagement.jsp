@@ -13,10 +13,9 @@
   <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
   <br />
 
-  <h2>
-    <i class="fa fa-power-off" title="<bean:message key='system.common.kickstartAlt' />"></i>
+  <rhn:toolbar base="h2" icon="header-power" helpUrl="/rhn/help/user/en-US/s2-sm-system-list.jsp#s5-sdc-provisioning-powermgnt">
     <bean:message key="kickstart.powermanagement.jsp.heading" />
-  </h2>
+  </rhn:toolbar>
 
   <c:if test="${fn:length(types) >= 1}">
     <html:form styleClass="form-horizontal" action="/systems/details/kickstart/PowerManagement.do?sid=${sid}">

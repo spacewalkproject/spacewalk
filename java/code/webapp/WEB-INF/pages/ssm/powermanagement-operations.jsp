@@ -9,7 +9,9 @@
 <html>
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
-    <h2><bean:message key="ssm.provisioning.powermanagement.operations.header"/></h2>
+    <rhn:toolbar base="h2" icon="header-power" helpUrl="/rhn/help/user/en-US/s2-sm-system-list.jsp#s5-sdc-provisioning-powermgnt">
+      <bean:message key="ssm.provisioning.powermanagement.operations.header"/>
+    </rhn:toolbar>
     <div class="page-summary">
       <p><bean:message key="ssm.provisioning.powermanagement.operations.summary"/></p>
     </div>
