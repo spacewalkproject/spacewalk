@@ -51,6 +51,8 @@ options_table = [
            help="Do not remove package metadata or packages from the filesystem (Not Recommended)"),
     Option(      "--skip-kickstart-trees", action="store_true",
            help="Do not remove kickstart trees from the filesystem (Not Recommended)."),
+    Option(      "--just-kickstart-trees", action="store_true",
+           help="Remove only the kickstart trees for the channels specified."),
     Option(      "--skip-channels", action="store_true",
            help="Remove only packages from channel not the channel itself."),
 ]
@@ -117,7 +119,7 @@ def main():
         if not dict_label.has_key(channel):
             print "Unknown channel %s" % channel
             sys.exit(-1)
-        if not options.skip_channels:
+        if not options.skip_channels and not options.just_kickstart_trees:
             # Sanity check: verify subchannels are deleted as well if base
             # channels are selected
             if not dict_parents.has_key(channel):
@@ -137,7 +139,7 @@ def main():
     if child_test_fail:
         sys.exit(-1)
 
-    if not options.skip_channels:
+    if not options.skip_channels and not options.just_kickstart_trees:
        if __serverCheck(channels.keys(), options.unsubscribe):
            sys.exit(-1)
 
@@ -149,7 +151,8 @@ def main():
         delete_channels(channels.keys(), force=options.force,
                         justdb=options.justdb, skip_packages=options.skip_packages,
                         skip_channels=options.skip_channels,
-                        skip_kickstart_trees=options.skip_kickstart_trees)
+                        skip_kickstart_trees=options.skip_kickstart_trees,
+                        just_kickstart_trees=options.just_kickstart_trees)
     except:
         rhnSQL.rollback()
         raise
@@ -287,7 +290,7 @@ def __listChannels():
 
 
 def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_channels=0,
-                    skip_kickstart_trees=0):
+                    skip_kickstart_trees=0, just_kickstart_trees=0):
     # Get the package ids
     if not channelLabels:
         return
@@ -297,14 +300,14 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_chan
     srpms_ids = list_packages(channelLabels, force=force, sources=1)
     srpms_paths = _get_package_paths(srpms_ids, sources=1)
 
-    if not skip_packages:
+    if not skip_packages and not just_kickstart_trees:
         _delete_srpms(srpms_ids)
         _delete_rpms(rpms_ids)
 
     if not skip_kickstart_trees:
         _delete_ks_files(channelLabels)
 
-    if not justdb and not skip_packages:
+    if not justdb and not skip_packages and not just_kickstart_trees:
         _delete_files(rpms_paths + srpms_paths)
 
 
@@ -368,12 +371,16 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_chan
             ['rhnChannel', 'id'],
         ])
 
+    if just_kickstart_trees:
+        tables = [['rhnKickstartableTree', 'channel_id']]
+
     query = "delete from %s where %s = :channel_id"
     for table, field in tables:
         log_debug(3, "Processing table %s" % table)
         h = rhnSQL.prepare(query % (table, field))
         h.executemany(channel_id=channel_ids)
-    if not justdb:
+
+    if not justdb and not just_kickstart_trees:
         __deleteRepoData(channelLabels)
 
 
