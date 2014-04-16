@@ -1106,4 +1106,60 @@ public class UserHandler extends BaseHandler {
 
         return 1;
     }
+
+    /**
+     * Return the current value of the createDefaultSystemGroup settnig
+     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * Must be org_admin.
+     * @return Returns 1 if successful (exception otherwise)
+     *
+     * @xmlrpc.doc Returns the current value of the CreateDefaultSystemGroup setting.
+     * If True this will cause there to be a system group created (with the same name
+     * as the user) every time a new user is created, with the user automatically given
+     * permission to that system group and the system group being set as the default
+     * group for the user (so every time the user registers a system it will be
+     * placed in that system group by default). This can be useful if different
+     * users will administer different groups of servers in the same organization.
+     * Can only be called by an org_admin.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public boolean getCreateDefaultSystemGroup(String sessionKey) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        //Logged in user must be an org admin.
+        ensureOrgAdmin(loggedInUser);
+
+        return loggedInUser.getOrg().getOrgConfig().isCreateDefaultSg();
+    }
+
+    /**
+     * Return the current value of the createDefaultSystemGroup settnig
+     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * Must be org_admin.
+     * @param createDefaultSystemGroup The value to set
+     * @return Returns 1 if successful (exception otherwise)
+     *
+     * @xmlrpc.doc Sets the value of the CreateDefaultSystemGroup setting.
+     * If True this will cause there to be a system group created (with the same name
+     * as the user) every time a new user is created, with the user automatically given
+     * permission to that system group and the system group being set as the default
+     * group for the user (so every time the user registers a system it will be
+     * placed in that system group by default). This can be useful if different
+     * users will administer different groups of servers in the same organization.
+     * Can only be called by an org_admin.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("boolean", "createDefaultSystemGruop",
+     * "True if we should automatically create system groups, false otherwise.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setCreateDefaultSystemGroup(String sessionKey,
+            Boolean createDefaultSystemGroup) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        //Logged in user must be an org admin.
+        ensureOrgAdmin(loggedInUser);
+
+        loggedInUser.getOrg().getOrgConfig().setCreateDefaultSg(createDefaultSystemGroup);
+        return 1;
+
+    }
 }

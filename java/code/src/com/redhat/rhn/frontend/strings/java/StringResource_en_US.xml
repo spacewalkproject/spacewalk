@@ -7063,7 +7063,13 @@ Follow this url to see the full list of inactive systems:
         <source>Invalid role: {0}</source>
       </trans-unit>
       <trans-unit id="api.externalgroup.nosuchgroup">
-        <source>No such external group: {0}</source>
+        <source>No external group to role map exists for group: {0}</source>
+      </trans-unit>
+      <trans-unit id="api.externalgroup.nosuchservergroup">
+        <source>No such server group exists: {0}</source>
+      </trans-unit>
+      <trans-unit id="api.externalgroup.nosuchgrouptoservergroup">
+        <source>No external group to server group map exists for group: {0}</source>
       </trans-unit>
       <trans-unit id="api.package.invalidpackage">
         <source>Invalid package: {0}</source>

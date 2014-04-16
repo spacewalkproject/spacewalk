@@ -98,12 +98,12 @@ public class UserGroupFactory extends HibernateFactory {
      * @param user needs to be org admin
      * @return OrgUserExtGroup list
      */
-    public static List listExtAuthOrgGroups(User user) {
+    public static List<OrgUserExtGroup> listExtAuthOrgGroups(User user) {
         if (!user.getRoles().contains(RoleFactory.ORG_ADMIN)) {
             throw new PermissionException("Organization admin role required " +
                     "to access extauth organization groups");
         }
-        Map map = new HashMap();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("org_id", user.getOrg().getId());
         return singleton.listObjectsByNamedQuery(
                 "OrgUserExtGroup.listAll", map);

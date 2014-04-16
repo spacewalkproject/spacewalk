@@ -19,16 +19,22 @@ import java.util.List;
 import java.util.Set;
 
 import com.redhat.rhn.domain.common.SatConfigFactory;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.usergroup.OrgUserExtGroup;
 import com.redhat.rhn.domain.org.usergroup.UserExtGroup;
 import com.redhat.rhn.domain.org.usergroup.UserGroupFactory;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.ServerGroup;
+import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.ExternalGroupAlreadyExistsException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidRoleException;
-import com.redhat.rhn.frontend.xmlrpc.NoSuchExternalGroupException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidServerGroupException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchExternalGroupToRoleMapException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchExternalGroupToServerGroupMapException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.org.OrgHandler;
 
@@ -55,7 +61,8 @@ public class UserExternalHandler extends BaseHandler {
      * @throws PermissionCheckFailureException if the user is not a Sat admin
      *
      * @xmlrpc.doc Set whether we should keeps roles assigned to users because of
-     * their IPA groups even after they log in through a non-IPA method.
+     * their IPA groups even after they log in through a non-IPA method. Can only be
+     * called by a satellite_admin.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("boolean", "keepRoles", "True if we should keep roles
      * after users log in through non-IPA method, false otherwise.")
@@ -88,7 +95,8 @@ public class UserExternalHandler extends BaseHandler {
      * @throws PermissionCheckFailureException if the user is not a Sat admin
      *
      * @xmlrpc.doc Get whether we should keeps roles assigned to users because of
-     * their IPA groups even after they log in through a non-IPA method.
+     * their IPA groups even after they log in through a non-IPA method. Can only be
+     * called by a satellite_admin.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype boolean - True if we should keep roles
      * after users log in through non-IPA method, false otherwise.
@@ -112,7 +120,7 @@ public class UserExternalHandler extends BaseHandler {
      *
      * @xmlrpc.doc Set whether we place users into the organization that corresponds
      * to the "orgunit" set on the IPA server. The orgunit name must match exactly the
-     * Satellite organization name.
+     * Satellite organization name. Can only be called by a satellite_admin.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("boolean", "useOrgUnit", "True if we should use the IPA
      * orgunit to determine which organization to create the user in, false otherwise.")
@@ -138,7 +146,7 @@ public class UserExternalHandler extends BaseHandler {
      *
      * @xmlrpc.doc Get whether we place users into the organization that corresponds
      * to the "orgunit" set on the IPA server. The orgunit name must match exactly the
-     * Satellite organization name.
+     * Satellite organization name. Can only be called by a satellite_admin.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype boolean - True if we should use the IPA
      * orgunit to determine which organization to create the user in, false otherwise.
@@ -160,7 +168,7 @@ public class UserExternalHandler extends BaseHandler {
      * @throws PermissionCheckFailureException if the user is not a Sat admin
      *
      * @xmlrpc.doc Set the default org that users should be added in if orgunit from
-     * IPA server isn't found or is disabled.
+     * IPA server isn't found or is disabled. Can only be called by a satellite_admin.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "defaultOrg", "Id of the organization to set
      * as the default org. 0 if there should not be a default organization.")
@@ -190,7 +198,7 @@ public class UserExternalHandler extends BaseHandler {
      * @throws PermissionCheckFailureException if the user is not a Sat admin
      *
      * @xmlrpc.doc Get the default org that users should be added in if orgunit from
-     * IPA server isn't found or is disabled.
+     * IPA server isn't found or is disabled. Can only be called by a satellite_admin.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype int - Id of the default organization. 0 if there is no default.
      */
@@ -216,17 +224,18 @@ public class UserExternalHandler extends BaseHandler {
      * @throws PermissionCheckFailureException if the user is not a Sat admin
      *
      * @xmlrpc.doc Externally authenticated users may be members of external groups. You
-     * can use these groups to assign additional roles to the users when the log in.
+     * can use these groups to assign additional roles to the users when they log in.
+     * Can only be called by a satellite_admin.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("string", "name", "Name of the new group. Must be unique
-     * and match the name of the externally defined group.")
-     * @xmlrpc.param #prop_array("roles - Can be any of:
+     * @xmlrpc.param #param_desc("string", "name", "Name of the external group. Must be
+     * unique.")
+     * @xmlrpc.param #array_single("string", "role - Can be any of:
      * satellite_admin, org_admin (implies all other roles except for satellite_admin),
      * channel_admin, config_admin, system_group_admin,
-     * activation_key_admin, or monitoring_admin.", "string", "role")
+     * activation_key_admin, or monitoring_admin.")
      * @xmlrpc.returntype $UserExtGroupSerializer
      */
-    public UserExtGroup createExternalGroup(String sessionKey, String name,
+    public UserExtGroup createExternalGroupToRoleMap(String sessionKey, String name,
             List<String> roles) {
         // Make sure we're logged in and a Sat Admin
         ensureSatAdmin(getLoggedInUser(sessionKey));
@@ -261,17 +270,18 @@ public class UserExternalHandler extends BaseHandler {
      * @throws PermissionCheckFailureException if the user is not a Sat admin
      *
      * @xmlrpc.doc Get a representation of the role mapping for an external group.
+     * Can only be called by a satellite_admin.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("string", "name", "Name of the group.")
+     * @xmlrpc.param #param_desc("string", "name", "Name of the external group.")
      * @xmlrpc.returntype $UserExtGroupSerializer
      */
-    public UserExtGroup getExternalGroup(String sessionKey, String name) {
+    public UserExtGroup getExternalGroupToRoleMap(String sessionKey, String name) {
         // Make sure we're logged in and a Sat Admin
         ensureSatAdmin(getLoggedInUser(sessionKey));
 
         UserExtGroup group = UserGroupFactory.lookupExtGroupByLabel(name);
         if (group == null) {
-            throw new NoSuchExternalGroupException(name);
+            throw new NoSuchExternalGroupToRoleMapException(name);
         }
         addImpliedRoles(group.getRoles());
 
@@ -284,16 +294,15 @@ public class UserExternalHandler extends BaseHandler {
      * @param name The name of the group
      * @param roles the roles to set
      * @return 1 if successful, error otherwise
-     * @throws PermissionCheckFailureException if the user is not a Sat admin
      *
      * @xmlrpc.doc Update the roles for an external group. Replace previously set roles
-     * with the ones passed in here.
+     * with the ones passed in here. Can only be called by a satellite_admin.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("string", "name", "Name of the group.")
-     * @xmlrpc.param #prop_array("roles - Can be any of:
+     * @xmlrpc.param #param_desc("string", "name", "Name of the external group.")
+     * @xmlrpc.param #array_single("string", "role - Can be any of:
      * satellite_admin, org_admin (implies all other roles except for satellite_admin),
      * channel_admin, config_admin, system_group_admin,
-     * activation_key_admin, or monitoring_admin.", "string", "role")
+     * activation_key_admin, or monitoring_admin.")
      * @xmlrpc.returntype #return_int_success()
      */
     public int setExternalGroupRoles(String sessionKey, String name, List<String> roles) {
@@ -302,7 +311,7 @@ public class UserExternalHandler extends BaseHandler {
 
         UserExtGroup group = UserGroupFactory.lookupExtGroupByLabel(name);
         if (group == null) {
-            throw new NoSuchExternalGroupException(name);
+            throw new NoSuchExternalGroupToRoleMapException(name);
         }
 
         Set<Role> myRoles = new HashSet<Role>();
@@ -328,18 +337,19 @@ public class UserExternalHandler extends BaseHandler {
      * @return 1 if successful, error otherwise
      * @throws PermissionCheckFailureException if the user is not a Sat admin
      *
-     * @xmlrpc.doc Delete the entry for an external group.
+     * @xmlrpc.doc Delete the role map for an external group. Can only be called
+     * by a satellite_admin.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("string", "name", "Name of the group.")
+     * @xmlrpc.param #param_desc("string", "name", "Name of the external group.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteExternalGroup(String sessionKey, String name) {
+    public int deleteExternalGroupToRoleMap(String sessionKey, String name) {
         // Make sure we're logged in and a Sat Admin
         ensureSatAdmin(getLoggedInUser(sessionKey));
 
         UserExtGroup group = UserGroupFactory.lookupExtGroupByLabel(name);
         if (group == null) {
-            throw new NoSuchExternalGroupException(name);
+            throw new NoSuchExternalGroupToRoleMapException(name);
         }
 
         UserGroupFactory.delete(group);
@@ -352,14 +362,15 @@ public class UserExternalHandler extends BaseHandler {
      * @return the external groups
      * @throws PermissionCheckFailureException if the user is not a Sat admin
      *
-     * @xmlrpc.doc List all known external groups.
+     * @xmlrpc.doc List role mappings for all known external groups. Can only be called
+     * by a satellite_admin.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
      * #array()
      *     $UserExtGroupSerializer
      * #array_end()
      */
-    public List<UserExtGroup> listExternalGroups(String sessionKey) {
+    public List<UserExtGroup> listExternalGroupToRoleMaps(String sessionKey) {
         // Make sure we're logged in and a Sat Admin
         User user = getLoggedInUser(sessionKey);
         ensureSatAdmin(user);
@@ -387,4 +398,156 @@ public class UserExternalHandler extends BaseHandler {
             roles.addAll(UserFactory.IMPLIEDROLES);
         }
     }
+
+    /**
+     * Create a new external user group
+     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param name The name of the new group
+     * @param groupNames List of system groups to set for this group
+     * @return the newly created group
+     *
+     * @xmlrpc.doc Externally authenticated users may be members of external groups. You
+     * can use these groups to give access to server groups to the users when they log in.
+     * Can only be called by an org_admin.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "name", "Name of the external group. Must be
+     * unique.")
+     * @xmlrpc.param #array_single("string", "groupName - The names of the server
+     * groups to grant access to.")
+     * @xmlrpc.returntype $OrgUserExtGroupSerializer
+     */
+    public OrgUserExtGroup createExternalGroupToSystemGroupMap(String sessionKey,
+            String name, List<String> groupNames) {
+        User user = getLoggedInUser(sessionKey);
+        ensureOrgAdmin(user);
+        Org org = user.getOrg();
+
+        OrgUserExtGroup group = UserGroupFactory.lookupOrgExtGroupByLabelAndOrg(name, org);
+        if (group != null) {
+            throw new ExternalGroupAlreadyExistsException(name);
+        }
+
+        Set<ServerGroup> sgs = new HashSet<ServerGroup>();
+        for (String sg : groupNames) {
+            ServerGroup myGroup = ServerGroupFactory.lookupByNameAndOrg(sg, org);
+            if (myGroup == null) {
+                throw new InvalidServerGroupException(sg);
+            }
+            sgs.add(myGroup);
+        }
+
+        group = new OrgUserExtGroup(org);
+        group.setLabel(name);
+        group.setServerGroups(sgs);
+        UserGroupFactory.save(group);
+        return group;
+    }
+
+    /**
+     * Get a external user group
+     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param name The name of the group
+     * @return the  group
+     *
+     * @xmlrpc.doc Get a representation of the server group mapping for an external
+     * group. Can only be called by an org_admin.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "name", "Name of the external group.")
+     * @xmlrpc.returntype $OrgUserExtGroupSerializer
+     */
+    public OrgUserExtGroup getExternalGroupToSystemGroupMap(String sessionKey,
+            String name) {
+        User user = getLoggedInUser(sessionKey);
+        ensureOrgAdmin(user);
+
+        return UserGroupFactory.lookupOrgExtGroupByLabelAndOrg(name, user.getOrg());
+    }
+
+    /**
+     * update a external user group
+     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param name The name of the group
+     * @param groupNames the groups to set
+     * @return 1 if successful, error otherwise
+     *
+     * @xmlrpc.doc Update the server groups for an external group. Replace previously set
+     * server groups with the ones passed in here. Can only be called by an org_admin.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "name", "Name of the external group.")
+     * @xmlrpc.param #array_single("string", "groupName - The names of the
+     * server groups to grant access to.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setExternalGroupSystemGroups(String sessionKey, String name,
+            List<String> groupNames) {
+        User user = getLoggedInUser(sessionKey);
+        ensureOrgAdmin(user);
+        Org org = user.getOrg();
+
+        OrgUserExtGroup group = UserGroupFactory.lookupOrgExtGroupByLabelAndOrg(name, org);
+        if (group == null) {
+            throw new NoSuchExternalGroupToServerGroupMapException(name);
+        }
+
+        Set<ServerGroup> sgs = new HashSet<ServerGroup>();
+        for (String sg : groupNames) {
+            ServerGroup myGroup = ServerGroupFactory.lookupByNameAndOrg(sg, org);
+            if (myGroup == null) {
+                throw new InvalidServerGroupException(sg);
+            }
+            sgs.add(myGroup);
+        }
+
+        group.setServerGroups(sgs);
+        UserGroupFactory.save(group);
+        return 1;
+    }
+
+    /**
+     * delete an external user group
+     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param name The name of the group
+     * @return 1 if successful, error otherwise
+     *
+     * @xmlrpc.doc Delete the server group map for an external group. Can only be called
+     * by an org_admin.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "name", "Name of the external group.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deleteExternalGroupToSystemGroupMap(String sessionKey, String name) {
+        User user = getLoggedInUser(sessionKey);
+        ensureOrgAdmin(user);
+        Org org = user.getOrg();
+
+        OrgUserExtGroup group = UserGroupFactory.lookupOrgExtGroupByLabelAndOrg(name, org);
+        if (group == null) {
+            throw new NoSuchExternalGroupToServerGroupMapException(name);
+        }
+
+        UserGroupFactory.delete(group);
+        return 1;
+    }
+
+    /**
+     * delete an external user group
+     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @return the external groups
+     * @throws PermissionCheckFailureException if the user is not an Org admin
+     *
+     * @xmlrpc.doc List server group mappings for all known external groups. Can only be
+     * called by an org_admin.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype
+     * #array()
+     *     $OrgUserExtGroupSerializer
+     * #array_end()
+     */
+    public List<OrgUserExtGroup> listExternalGroupToSystemGroupMaps(String sessionKey) {
+        User user = getLoggedInUser(sessionKey);
+        ensureOrgAdmin(user);
+
+        return UserGroupFactory.listExtAuthOrgGroups(user);
+    }
+
 }

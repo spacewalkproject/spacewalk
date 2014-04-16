@@ -25,13 +25,14 @@ import com.redhat.rhn.common.localization.LocalizationService;
  *
  * @version definition($Rev: 76724 $)/template($Rev: 67725 $)
  */
-public class NoSuchExternalGroupException extends FaultException  {
+public class NoSuchExternalGroupToRoleMapException extends FaultException  {
     /**
      * Constructor
      * @param group missing group label
      */
-    public NoSuchExternalGroupException(String group) {
-        super(2856, "noSuchExternalGroup", LocalizationService.getInstance().getMessage(
+    public NoSuchExternalGroupToRoleMapException(String group) {
+        super(2856, "noSuchExternalGroupToRoleMap", LocalizationService.getInstance()
+                .getMessage(
                 "api.externalgroup.nosuchgroup", new Object[] { group }));
     }
 }

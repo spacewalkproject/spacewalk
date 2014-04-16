@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.user;
 
+import com.redhat.rhn.domain.org.usergroup.OrgUserExtGroup;
 import com.redhat.rhn.domain.org.usergroup.UserGroupFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -34,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
  * ExtAuthSgMappingAction
  * @version $Rev$
  */
-public class ExtAuthSgMappingAction extends RhnAction implements Listable {
+public class ExtAuthSgMappingAction extends RhnAction implements Listable<OrgUserExtGroup> {
 
     /** {@inheritDoc} */
     @Override
@@ -49,7 +50,7 @@ public class ExtAuthSgMappingAction extends RhnAction implements Listable {
     /**
      * ${@inheritDoc}
      */
-    public List getResult(RequestContext contextIn) {
+    public List<OrgUserExtGroup> getResult(RequestContext contextIn) {
         User user = contextIn.getCurrentUser();
         return UserGroupFactory.listExtAuthOrgGroups(user);
     }
