@@ -36,7 +36,7 @@
     </formvars>
 
     <column name="Tag Name" label="name" align="left" width="60%" sort_by="1">
-      <url>/network/systems/details/history/snapshots/rollback.pxt?sid={formvar:sid}&amp;ss_id={column:snapshot_id}</url>
+      <url>/rhn/systems/details/history/snapshots/Rollback.do?sid={formvar:sid}&amp;ss_id={column:snapshot_id}</url>
     </column>
     <column name="Created" label="created" width="40%" />
     <empty_list_message>No tags selected for removal</empty_list_message>

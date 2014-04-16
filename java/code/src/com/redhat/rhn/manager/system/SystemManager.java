@@ -448,6 +448,19 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Returns a list of server groups for a given server
+     * @param sid The server id in question
+     * @return Returns a list of system groups for this server
+     */
+    public static DataResult listSystemGroups(Long sid) {
+        SelectMode m = ModeFactory.getMode("SystemGroup_queries",
+                                           "groups_a_system_is_in_unsafe", Map.class);
+        Map params = new HashMap();
+        params.put("sid", sid);
+        return m.execute(params);
+    }
+
+    /**
      * Returns list of all notes for a system.
      * @param s The server in question
      * @return list of SystemNotes.
@@ -3044,7 +3057,7 @@ public class SystemManager extends BaseManager {
                                            "compare_packages_to_snapshot");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
-        params.put("ssid", ssid);
+        params.put("ss_id", ssid);
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }

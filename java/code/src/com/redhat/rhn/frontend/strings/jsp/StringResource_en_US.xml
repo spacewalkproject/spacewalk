@@ -12274,6 +12274,78 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.history.snapshot.tagAppliedToSnapshot">
           <source>Applied to this snapshot</source>
         </trans-unit>
+        <trans-unit id="system.history.snapshot.header-rollback">
+          <source>Rollback to {0} Snapshot</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.summary-rollback">
+          <source>To see what changes will occur during rollback, you may visit the {0} tabs.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.groups-link">
+          <source>Groups</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.channels-link">
+          <source>Channels</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.packages-link">
+          <source>Packages</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.config-channel-link">
+          <source>Config Channels</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.config-files-link">
+          <source>Config Files</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.summary-rollback2">
+          <source>Are you certain you wish to rollback to the selected system snapshot?
+          Doing so will cancel all pending scheduled actions for the system,
+          and the following items will be changed to match the pre-snapshot values:</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.sg_removed">
+          <source>One or more of the system groups from the snapshot has been deleted.{0}
+          This may have some effect upon who may manage the system upon rollback.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.channel_removed">
+          <source>One or more of the channels from the snapshot has been deleted.{0}
+          This might affect the ability of the system to rollback to the snapshot package set.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.channel_modified">
+          <source>One or more of the channels from the snapshot has been modified.{0}
+          This might affect the ability of the system to rollback to the snapshot package set.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.ns_removed">
+          <source>One or more of the namespaces from the snapshot has been deleted.{0}
+          This may have an effect upon the configuration files that will be deployed upon rollback.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.unservable_packages">
+          <source>The snapshot package list has {0}unservable packages{1}; do not attempt to rollback.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.group-membership">
+          <source>System Group Membership:</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.diff-count">
+          <source>{0} change(s)</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.channel-subscription">
+          <source>Channel Subscriptions:</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.package-manifest">
+          <source>Package Manifest:</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.config-channel-membership">
+          <source>Config Channel Membership:</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.config-files">
+          <source>Configuration Files:</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.config-files-msg">
+          <source>All snapshotted configuration files will be redeployed.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.rollback-return-to-list">
+          <source>Return to snapshot list</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.rollback-button">
+          <source>Rollback to Snapshot</source>
+        </trans-unit>
         <trans-unit id="system.history.snapshot.cfgChannelHeader">
           <source>Snapshot - Configuration Channels</source>
         </trans-unit>
@@ -12303,6 +12375,18 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="system.history.snapshot.cfgFilesChecksum">
           <source>Checksum</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.no_subscriptions">
+          <source>Insufficient channel subscriptions to complete rollback; aborted.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.groups_changed">
+          <source>Channels and groups changed.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.packages_changed">
+          <source>Package delta scheduled.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.configs_changed">
+          <source>Config files scheduled for deployment.</source>
         </trans-unit>
       </group>
       <!-- Configuration Common -->

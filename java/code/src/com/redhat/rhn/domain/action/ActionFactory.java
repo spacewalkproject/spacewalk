@@ -15,7 +15,9 @@
 package com.redhat.rhn.domain.action;
 
 import com.redhat.rhn.common.db.datasource.CallableMode;
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.domain.action.config.ConfigAction;
@@ -160,6 +162,23 @@ public class ActionFactory extends HibernateFactory {
             }
         }
         return failed;
+    }
+
+    /**
+     * Remove pending action for system
+     * @param serverId the server id
+     */
+    public static void cancelPendingForSystem(Long serverId) {
+
+        SelectMode pending =
+                ModeFactory.getMode("System_queries", "system_pending_actions");
+        Map<String, Long> params = new HashMap<String, Long>();
+        params.put("sid", serverId);
+        DataResult<Map> dr = pending.execute(params);
+
+        for (Map action : dr) {
+            removeActionForSystem((Long) action.get("id"), serverId);
+        }
     }
 
     /**

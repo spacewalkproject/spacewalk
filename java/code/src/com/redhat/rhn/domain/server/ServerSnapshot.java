@@ -14,19 +14,35 @@
  */
 package com.redhat.rhn.domain.server;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionFactory;
+import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageNevra;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.frontend.dto.PackageMetadata;
+import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -247,4 +263,218 @@ public class ServerSnapshot extends BaseDomainHelper {
         return DF.format(this.getCreated());
     }
 
+    /**
+     * counts number of group diffs between server and snapshot
+     * @param sid server id
+     * @return number of differences
+     */
+    public int groupDiffs(Long sid) {
+        return getDiffs(sid, "SystemGroup_queries", "snapshot_group_diff");
+    }
+
+    /**
+     * counts number of channel diffs between server and snapshot
+     * @param sid server id
+     * @return number of differences
+     */
+    public int channelDiffs(Long sid) {
+        return getDiffs(sid, "Channel_queries", "snapshot_channel_diff");
+    }
+
+    /**
+     * counts number of package diffs between server and snapshot
+     * @param sid server id
+     * @return number of differences
+     */
+    public int packageDiffs(Long sid) {
+        return getDiffs(sid, "Package_queries", "compare_packages_to_snapshot");
+    }
+
+    /**
+     * counts number of config channel diffs between server and snapshot
+     * @param sid server id
+     * @return number of differences
+     */
+    public int configChannelsDiffs(Long sid) {
+        return getDiffs(sid, "config_queries", "snapshot_configchannel_diff");
+    }
+
+    /**
+     * private function to retrieve number of diffs from database
+     * @param sid server id
+     * @param name filename for ModeFactory.getMode()
+     * @param mode query name for ModeFactory.getMode()
+     * @return number of differences
+     */
+    private int getDiffs(Long sid, String name, String mode) {
+        SelectMode m = ModeFactory.getMode(name, mode);
+        Map<String, Long> params = new HashMap<String, Long>();
+        params.put("ss_id", id);
+        params.put("sid", sid);
+        DataResult dr = m.execute(params);
+
+        return dr.size();
+    }
+
+    /**
+     * cancel pending action on system (needed fo rollback)
+     */
+    public void cancelPendingActions() {
+        ActionFactory.cancelPendingForSystem(this.server.getId());
+    }
+
+    /**
+     * rollback server channels to snapshot
+     */
+    public void rollbackChannels() {
+        // unsubscribe from all channels
+        DataResult<Map<String, Object>> chs = SystemManager.channelsForServer(
+                                                                        this.server);
+        for (Map<String, Object> ch : chs) {
+            SystemManager.unsubscribeServerFromChannel(this.server.getId(),
+                                                       (Long) ch.get("id"));
+        }
+        // subscribe to appropriate channels
+        chs = snapshotChannelList();
+        for (Map<String, Object> ch : chs) {
+            SystemManager.subscribeServerToChannel(null, this.server,
+                                ChannelFactory.lookupById((Long) ch.get("id")));
+        }
+    }
+
+    /**
+     * rollback server groups to snapshot
+     */
+    public void rollbackGroups() {
+        // remove from all groups
+        Long sid = this.server.getId();
+        DataResult<Map<String, Object>> grps = SystemManager.listSystemGroups(sid);
+        for (Map<String, Object> grp : grps) {
+            ServerFactory.removeServerFromGroup(sid, (Long) grp.get("id"));
+        }
+        // add to appropriate groups
+        for (ServerGroup grp : getGroups()) {
+            ServerFactory.addServerToGroup(this.server, grp);
+        }
+    }
+
+    /**
+     * rollback server packages to snapshot
+     * @param user who schedules file deployment
+     * @return true if package update has been scheduled
+     */
+    public boolean rollbackPackages(User user) {
+        // schedule package delta, if needed
+        if (packageDiffs(this.server.getId()) > 0) {
+            DataResult pkgs = preparePackagesForSync();
+            PackageAction action =
+                    ActionManager.schedulePackageRunTransaction(
+                                            user, this.server, pkgs, new Date());
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * rollback server chonfig files to snapshot
+     * @param user who schedules file deployment
+     * @return true if any config files has been deployed
+     */
+    public boolean rollbackConfigFiles(User user) {
+        boolean deployed = false;
+        // current config_channels
+        Set<ConfigChannel> ccs = new HashSet<ConfigChannel>(
+                                                this.server.getConfigChannels());
+        if (ccs != null) {
+            for (ConfigChannel cc : ccs) {
+                if (cc.isGlobalChannel()) {
+                    this.server.unsubscribe(cc);
+                }
+            }
+        }
+        // get the config_channels recorded from the snapshot
+        ccs = getConfigChannels();
+        // tie config_channel list to server
+        if (ccs != null) {
+            for (ConfigChannel cc : ccs) {
+                if (cc.isGlobalChannel()) {
+                    this.server.subscribe(cc);
+                }
+            }
+        }
+        // deploy the particular config files
+        Set<ConfigRevision> revs = getConfigRevisions();
+        if (revs != null) {
+            List<Long> revLongs = new ArrayList<Long>();
+            for (ConfigRevision rev : revs) {
+                revLongs.add(rev.getId());
+                deployed = true;
+            }
+            List<Long> serverIds = new ArrayList<Long>();
+            serverIds.add(this.server.getId());
+            Action action = ActionManager.createConfigAction(user, revLongs, serverIds,
+                                  ActionFactory.TYPE_CONFIGFILES_DEPLOY, new Date());
+        }
+        return deployed;
+    }
+
+    /**
+     * list of channel associated with snapshot
+     * @return Returns a DataResult of maps representing channels
+     */
+    public DataResult<Map<String, Object>> snapshotChannelList() {
+       Map<String, Long> params = new HashMap<String, Long>();
+       params.put("sid", server.getId());
+       params.put("ss_id", this.id);
+       SelectMode m = ModeFactory.getMode("Channel_queries",
+                                          "system_snapshot_channel_list", Map.class);
+       return m.execute(params);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private DataResult preparePackagesForSync() {
+        SelectMode m = ModeFactory.getMode("Package_queries",
+                "compare_packages_to_snapshot");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("sid", this.server.getId());
+        params.put("ss_id", this.id);
+        DataResult<Map<String, Object>> pkgsDiff = m.execute(params);
+
+        List<PackageMetadata> pkgsMeta =  new ArrayList<PackageMetadata>();
+
+        for (Map pkgDiff : pkgsDiff) {
+            PackageListItem systemPkg   = new PackageListItem();
+            systemPkg.setName((String) pkgDiff.get("package_name"));
+            systemPkg.setArch((String) pkgDiff.get("arch"));
+            systemPkg.setEpoch((String) pkgDiff.get("server_epoch"));
+            systemPkg.setVersion((String) pkgDiff.get("server_version"));
+            systemPkg.setRelease((String) pkgDiff.get("server_release"));
+
+            PackageListItem snapshotPkg = new PackageListItem();
+            snapshotPkg.setName((String) pkgDiff.get("package_name"));
+            snapshotPkg.setArch((String) pkgDiff.get("arch"));
+            snapshotPkg.setEpoch((String) pkgDiff.get("snapshot_epoch"));
+            snapshotPkg.setVersion((String) pkgDiff.get("snapshot_version"));
+            snapshotPkg.setRelease((String) pkgDiff.get("snapshot_release"));
+
+            PackageMetadata pm = new PackageMetadata(systemPkg, snapshotPkg);
+            int comparison;
+            switch ((Integer) pkgDiff.get("comparison")) {
+            case -2: comparison = PackageMetadata.KEY_OTHER_ONLY;
+                     break;
+            case -1: comparison = PackageMetadata.KEY_OTHER_NEWER;
+                     break;
+            case 1:  comparison = PackageMetadata.KEY_THIS_NEWER;
+                     break;
+            case 2:  comparison = PackageMetadata.KEY_THIS_ONLY;
+                     break;
+            default: comparison = PackageMetadata.KEY_NO_DIFF;
+            }
+            pm.setComparison(comparison);
+            pm.updateActionStatus();
+            pkgsMeta.add(pm);
+        }
+        DataResult ret = new DataResult(pkgsMeta);
+        return ret;
+    }
 }

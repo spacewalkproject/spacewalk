@@ -171,4 +171,16 @@ select snapshot_group.id as snapshot_group_id,
   </query>
 </mode>
 
+<mode name="groups_a_system_is_in_unsafe">
+  <query params="sid">
+select sgm.group_id as id,
+       sg.name as group_name
+  from rhnServerGroup sg,
+       rhnServerGroupMembership sgm
+ where sgm.server_id = :sid
+   and sgm.group_id = sg.id
+ order by upper(sg.name)
+  </query>
+</mode>
+
 </datasource_modes>

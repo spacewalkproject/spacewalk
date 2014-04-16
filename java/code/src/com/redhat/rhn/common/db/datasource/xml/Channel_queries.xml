@@ -161,7 +161,7 @@ SELECT DISTINCT P1.name_id
 
 <mode name="system_channels">
   <query params="sid">
-SELECT
+SELECT C.id,
        C.label as label,
        C.name as name
   FROM rhnChannel C,
@@ -1068,6 +1068,23 @@ select server_channel.id as current_channel_id,
     on server_channel.id = snapshot_channel.id
  where server_channel.id is null
     or snapshot_channel.id is null
+  </query>
+</mode>
+
+<mode name="system_snapshot_channel_list">
+  <query params="sid, ss_id">
+select c.id,
+       c.label,
+       c.name,
+       c.parent_channel
+  from rhnChannel c,
+       rhnSnapshotChannel snc,
+       rhnSnapshot sn
+ where sn.id = :ss_id
+   and sn.server_id = :sid
+   and sn.id = snc.snapshot_id
+   and snc.channel_id = c.id
+ order by c.parent_channel nulls first, upper(c.name)
   </query>
 </mode>
 

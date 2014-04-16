@@ -158,7 +158,7 @@
     </rhn-tab>
 
     <rhn-tab name="Snapshots" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/rhn/systems/details/history/snapshots/Index.do" showChildrenIfActive="0">
-      <rhn-tab name="Rollback" url="/network/systems/details/history/snapshots/rollback.pxt" />
+      <rhn-tab name="Rollback" url="/rhn/systems/details/history/snapshots/Rollback.do" />
       <rhn-tab name="Groups" url="/rhn/systems/details/history/snapshots/Groups.do" />
       <rhn-tab name="Channels" url="/rhn/systems/details/history/snapshots/Channels.do" />
       <rhn-tab name="Packages" url="/rhn/systems/details/history/snapshots/Packages.do">

@@ -2291,4 +2291,16 @@ ORDER BY UPPER(TN.name)
   </query>
 </mode>
 
+<mode name="system_pending_actions">
+  <query params="sid">
+select a.id
+  from rhnAction a
+  join rhnServerAction sa
+    on sa.action_id = a.id
+ where sa.server_id = :sid
+   and sa.status = 0
+   and a.prerequisite is null
+ order by a.id
+  </query>
+</mode>
 </datasource_modes>

@@ -1273,6 +1273,13 @@
         <form-property name="tagName" type="java.lang.String" />
     </form-bean>
 
+    <form-bean name="snapshotsRollback"
+                    type="org.apache.struts.action.DynaActionForm">
+        <form-property name="ss_id" type="java.lang.String" />
+        <form-property name="sid" type="java.lang.String" />
+        <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
+
   </form-beans>
 
   <global-exceptions>
@@ -3597,6 +3604,18 @@
                  path="/WEB-INF/pages/systems/sdc/history/snapshots/channels.jsp"/>
     </action>
 
+
+    <action path="/systems/details/history/snapshots/Rollback"
+        name="snapshotsRollback"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SnapshotRollbackAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/history/snapshots/rollback.jsp"/>
+        <forward name="history"
+                 path="/systems/details/history/Pending.do"
+                 redirect="true" />
+    </action>
 
     <action path="/systems/details/history/snapshots/Packages"
         scope="request"

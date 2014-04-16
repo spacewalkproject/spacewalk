@@ -995,6 +995,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype
      *          #array()
      *              #struct("channel")
+     *                  #prop("string", "id")
      *                  #prop("string", "label")
      *                  #prop("string", "name")
      *              #struct_end()
