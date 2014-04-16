@@ -103,7 +103,21 @@ public class RenderEngine {
         renderer.postNavLevel(result, depth);
 
         if (activeNode != null && !renderer.nodeRenderInline(depth)) {
-            renderLevel(renderer, activeNode.getNodes(), parameters, depth + 1);
+            boolean showKids = true;
+            List subnodes = activeNode.getNodes();
+            if (!activeNode.getShowChildrenIfActive()) {
+                showKids = false;
+                for (int j = 0; j < subnodes.size(); j++) {
+                    if (treeIndex.isNodeActive((NavNode) subnodes.get(j))) {
+                        showKids = true;
+                        break;
+                    }
+                }
+            }
+
+            if (showKids) {
+                renderLevel(renderer, subnodes, parameters, depth + 1);
+            }
         }
     }
 }
