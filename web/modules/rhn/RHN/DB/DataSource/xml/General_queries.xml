@@ -90,18 +90,6 @@ ORDER BY UPPER(TN.name)
   </query>
 </mode>
 
-<mode name="system_snapshots">
-  <query params="sid">
-SELECT SS.id,
-       TO_CHAR(SS.created, 'YYYY-MM-DD HH24:MI:SS') AS CREATED,
-       SS.reason,
-       (SELECT COUNT(*) FROM rhnSnapshotTag WHERE snapshot_id = SS.id) AS TAG_COUNT
-  FROM rhnSnapshot SS
- WHERE SS.server_id = :sid
-ORDER BY created DESC
-  </query>
-</mode>
-
 <mode name="package_files">
   <query params="pid">
 SELECT C.name,
