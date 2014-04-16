@@ -2127,4 +2127,51 @@ select p.id,
             and s.element_two = 1
   </query>
 </write-mode>
+
+<mode name="compare_packages_to_snapshot">
+  <query params="sid, ssid">
+select  pn.name as package_name,
+        pa.name as arch,
+        evr_t_as_vre_simple(server_pkgs.max_evr) as server_nvrea,
+        evr_t_as_vre_simple(snapshot_pkgs.max_evr) as snapshot_nvrea,
+        case when server_pkgs.max_evr is null then -2
+             when snapshot_pkgs.max_evr is null then 2
+             else rpm.vercmp(srvpe.epoch, srvpe.version, srvpe.release,
+                             snape.epoch, snape.version, snape.release)
+        end as comparison
+  from (select max(pem1.evr) as max_evr, sp.name_id, sp.package_arch_id
+          from rhnServerPackage sp
+          join rhnPackageEvr pem1
+            on pem1.id = sp.evr_id
+         where sp.server_id = :sid
+         group by sp.name_id, sp.package_arch_id
+        ) server_pkgs
+  full outer join (select max(spe.evr) as max_evr, pnevra.name_id, pnevra.package_arch_id
+                     from rhnSnapshot s
+                     join rhnSnapshotPackage spkg
+                       on spkg.snapshot_id = s.id
+                     join rhnPackageNEVRA pnevra
+                       on spkg.nevra_id = pnevra.id
+                     join rhnPackageEvr spe
+                       on pnevra.evr_id = spe.id
+                    where s.server_id = :sid
+                      and s.id = :ssid
+                    group by pnevra.name_id, pnevra.package_arch_id
+        ) snapshot_pkgs
+    on server_pkgs.name_id = snapshot_pkgs.name_id
+   and server_pkgs.package_arch_id = snapshot_pkgs.package_arch_id
+  join rhnPackageName pn
+    on pn.id = coalesce(server_pkgs.name_id, snapshot_pkgs.name_id)
+  join rhnPackageArch pa
+    on pa.id = coalesce(server_pkgs.package_arch_id, snapshot_pkgs.package_arch_id)
+  left join rhnPackageEvr srvpe
+    on server_pkgs.max_evr = srvpe.evr
+  left join rhnPackageEvr snape
+    on snapshot_pkgs.max_evr = snape.evr
+ where server_pkgs.max_evr is null
+    or snapshot_pkgs.max_evr is null
+    or srvpe.id != snape.id
+ order by pn.name
+  </query>
+</mode>
 </datasource_modes>

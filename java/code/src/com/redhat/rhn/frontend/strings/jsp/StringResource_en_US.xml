@@ -41,6 +41,24 @@
             <context context-type="sourcefile">/rhn/profiles/PackageList</context>
           </context-group>
         </trans-unit>
+        <trans-unit id="column.current-version">
+          <source>Current Version</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/history/snapshots/Packages.do</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="column.snapshot-version">
+          <source>Snapshot Version</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/history/snapshots/Packages.do</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="column.difference">
+          <source>Difference</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/history/snapshots/Packages.do</context>
+          </context-group>
+        </trans-unit>
       </group>
       <!-- Generic row labels. The intent is that these can be reused across multiple pages.-->
       <group>
@@ -12060,6 +12078,27 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="system.history.snapshot.tags">
           <source>Tags</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.header-packages">
+          <source>Snapshot - RPM Packages</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.summary-packages">
+          <source>Below is a comparison of the current package profile and the snapshot package profile.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.profileonly">
+          <source>Current profile only</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.profilenewer">
+          <source>Current profile newer</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.snapshotnewer">
+          <source>Snapshot newer</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.snapshotonly">
+          <source>Snapshot only</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.nopackagediff">
+          <source>No package profile differences.</source>
         </trans-unit>
       </group>
       <!-- Configuration Common -->
