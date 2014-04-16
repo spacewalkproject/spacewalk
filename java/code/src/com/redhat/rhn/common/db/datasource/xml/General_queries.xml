@@ -301,5 +301,17 @@ SELECT max_members, current_members FROM rhnServerGroup sg, rhnServerGroupType s
   </query>
 </mode>
 
+<mode name="system_snapshots">
+  <query params="sid">
+SELECT SS.id,
+       TO_CHAR(SS.created, 'YYYY-MM-DD HH24:MI:SS') AS CREATED,
+       SS.reason,
+       (SELECT COUNT(*) FROM rhnSnapshotTag WHERE snapshot_id = SS.id) AS TAG_COUNT
+  FROM rhnSnapshot SS
+ WHERE SS.server_id = :sid
+ORDER BY created DESC
+  </query>
+</mode>
+
 </datasource_modes>
 

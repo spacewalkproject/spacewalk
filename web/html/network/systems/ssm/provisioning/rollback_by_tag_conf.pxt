@@ -36,7 +36,7 @@ Rollback to Snapshot Tag:  {tag_name}</h2>
      <url>/rhn/systems/details/Overview.do?sid={column:id}</url>
    </column>
    <column name="Reason for Snapshot" label="snapshot_reason" align="left" width="40%">
-     <url>/network/systems/details/history/snapshots/index.pxt?sid={column:id}&amp;ss_id={column:snapshot_id}</url>
+     <url>/rhn/systems/details/history/snapshots/Index.do?sid={column:id}&amp;ss_id={column:snapshot_id}</url>
    </column>
    <column name="Date Tag Applied" label="date_tag_applied" align="left" width="20%" />
 

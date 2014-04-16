@@ -2963,6 +2963,19 @@ public class SystemManager extends BaseManager {
 
     /**
      * @param sid server id
+     * @param pc pageContext
+     * @return Returns system snapshot list
+     */
+    public static DataResult systemSnapshots(Long sid, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("General_queries", "system_snapshots");
+        Map params = new HashMap();
+        params.put("sid", sid);
+        Map elabParams = new HashMap();
+        return makeDataResult(params, elabParams, pc, m);
+    }
+
+    /**
+     * @param sid server id
      * @return Count of pending actions on system
      */
     public static Long countPendingActions(Long sid) {
