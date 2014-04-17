@@ -312,7 +312,7 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_chan
         _delete_srpms(srpms_ids)
         _delete_rpms(rpms_ids)
 
-    if not skip_kickstart_trees:
+    if not skip_kickstart_trees and not justdb:
         _delete_ks_files(channelLabels)
 
     if not justdb and not skip_packages:
