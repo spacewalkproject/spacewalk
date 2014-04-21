@@ -42,6 +42,11 @@ def store_client_route(server_id):
     oldRoute = h.fetchall_dict() or []
     newRoute = []
 
+    # construct oldRoute_ from oldRoute, to have the actual format described above
+    oldRouteTuples = []
+    for oldRouteDict in oldRoute:
+        oldRouteTuples.append((str(oldRouteDict['proxy_server_id']), oldRouteDict['hostname']))
+
 
     # code block if there *is* routing info in the headers
     # NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py
@@ -62,12 +67,12 @@ def store_client_route(server_id):
 
         log_debug(4, "newRoute", newRoute)
 
-    if oldRoute == newRoute:
+    if oldRouteTuples == newRoute:
         # Nothing to do here
         # This also catches the case of no routes at all
         return
 
-    if oldRoute:
+    if oldRouteTuples:
         # blow away table rhnServerPath entries for server_id
         log_debug(8, 'blow away route-info for %s' % server_id)
         h = rhnSQL.prepare("""
