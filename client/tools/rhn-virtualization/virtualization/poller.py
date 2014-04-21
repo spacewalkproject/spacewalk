@@ -13,6 +13,8 @@
 # in this software or its documentation.
 #
 
+import os
+import subprocess
 import sys
 sys.path.append("/usr/share/rhn/")
 
@@ -289,6 +291,20 @@ if __name__ == "__main__":
     if vdsm_enabled:
         domain_list = poll_through_vdsm(server)
     elif libvirt:
+        # If libvirt is present but not running, this program is useless.
+        # Libvirt currently writes to stderr if you attempt to connect
+        # and the daemon is not running. The libvirt python bindings provide
+        # no way to change this behavior. Anything written to stderr or stdout
+        # will cause cron to email root with the output. It is not our
+        # job to nag the user every two minutes if libvirt is not running.
+        # The only way to avoid this is to shell out to check if libvirt
+        # is running, and exit if it's not.
+        # See if the libvirtd service is running, discarding all output.
+        # Non-zero exit code means it's not running.
+        if (subprocess.call(['/usr/sbin/service','libvirtd','status'],
+                stdout=open(os.devnull, 'wb'),
+                stderr=subprocess.STDOUT) != 0):
+            sys.exit(0)
         domain_list = poll_hypervisor()
     else:
         # If no libvirt nor vdsm is present, this program is pretty much
