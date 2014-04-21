@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.50
+Version:        5.4.51
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -151,6 +151,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Mon Apr 21 2014 Stephen Herr <sherr@redhat.com> 5.4.51-1
+- 1089715 - rhn-virt-host should not spam root if libvirtd is stopped
+
 * Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 5.4.50-1
 - removed trailing whitespaces
 
