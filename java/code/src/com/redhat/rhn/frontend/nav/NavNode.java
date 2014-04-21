@@ -58,6 +58,7 @@ public class NavNode {
         children = new ArrayList();
         urls = new ArrayList();
         dirs = new ArrayList();
+        showChildrenIfActive = true;
     }
 
     /**
@@ -65,7 +66,8 @@ public class NavNode {
      * @return List the children of the node
      */
     public List getNodes() {
-        return Collections.unmodifiableList(children);
+             return Collections.unmodifiableList(
+                     (showChildrenIfActive ? children : new ArrayList()));
     }
 
     /**

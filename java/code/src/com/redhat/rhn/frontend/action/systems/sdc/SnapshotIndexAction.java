@@ -12,46 +12,53 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
-package com.redhat.rhn.frontend.action.user;
+package com.redhat.rhn.frontend.action.systems.sdc;
 
-import com.redhat.rhn.domain.org.usergroup.OrgUserExtGroup;
-import com.redhat.rhn.domain.org.usergroup.UserGroupFactory;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
- * ExtAuthSgMappingAction
- * @version $Rev$
+ * SnapshotIndexAction
  */
-public class ExtAuthSgMappingAction extends RhnAction implements Listable<OrgUserExtGroup> {
-
-    /** {@inheritDoc} */
-    @Override
-    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
-            HttpServletRequest request, HttpServletResponse response) {
-
-        ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
-        helper.execute();
-        return mapping.findForward("default");
-    }
+public class SnapshotIndexAction extends RhnAction implements Listable {
 
     /**
-     * ${@inheritDoc}
+     * {@inheritDoc}
      */
-    public List<OrgUserExtGroup> getResult(RequestContext contextIn) {
-        User user = contextIn.getCurrentUser();
-        return UserGroupFactory.listExtAuthOrgGroups(user);
+    @Override
+    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        RequestContext context = new RequestContext(request);
+        Long sid = context.getRequiredParam("sid");
+        context.lookupAndBindServer();
+
+        ListHelper helper = new ListHelper(this, request);
+        helper.execute();
+        Map params = makeParamMap(request);
+        params.put(RequestContext.SID, sid);
+
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
+    }
+
+    /** {@inheritDoc} */
+    public List getResult(RequestContext context) {
+        Long sid = context.getRequiredParam("sid");
+        return SystemManager.systemSnapshots(sid, null);
     }
 }

@@ -16,6 +16,7 @@
 package com.redhat.rhn.frontend.xmlrpc;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.localization.LocalizationService;
 
 /**
  * Invalid Server Group
@@ -29,6 +30,15 @@ public class InvalidServerGroupException extends FaultException  {
      */
     public InvalidServerGroupException() {
         super(2200, "invalidServerGroup" , "Invalid server group");
+    }
+
+    /**
+     * Constructor
+     * @param name the name of the server group that is invalid
+     */
+    public InvalidServerGroupException(String name) {
+        super(2200, "invalidServerGroup", LocalizationService.getInstance().getMessage(
+                "api.externalgroup.nosuchservergroup", new Object[] { name }));
     }
 
     /**

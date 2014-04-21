@@ -157,7 +157,7 @@
       <rhn-tab name="kickstart.variable.nav" url="/rhn/systems/details/kickstart/Variables.do"  acl="cobbler_system_record_exists()"/>
     </rhn-tab>
 
-    <rhn-tab name="Snapshots" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/network/systems/details/history/snapshots/index.pxt" hide_all_children_unless_active="1">
+    <rhn-tab name="Snapshots" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/rhn/systems/details/history/snapshots/Index.do" showChildrenIfActive="0">
       <rhn-tab name="Rollback" formvar="ss_id" url="/network/systems/details/history/snapshots/rollback.pxt" />
       <rhn-tab name="Groups" formvar="ss_id" url="/network/systems/details/history/snapshots/groups.pxt" />
       <rhn-tab name="Channels" formvar="ss_id" url="/network/systems/details/history/snapshots/channels.pxt" />

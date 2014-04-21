@@ -78,6 +78,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
+import java.net.IDN;
 import java.sql.Date;
 import java.sql.Types;
 import java.text.DateFormat;
@@ -89,12 +90,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
-import java.net.IDN;
 
 /**
  * SystemManager
@@ -2955,6 +2955,19 @@ public class SystemManager extends BaseManager {
      */
     public static DataResult systemEventHistory(Long sid, PageControl pc) {
         SelectMode m = ModeFactory.getMode("System_queries", "system_events_history");
+        Map params = new HashMap();
+        params.put("sid", sid);
+        Map elabParams = new HashMap();
+        return makeDataResult(params, elabParams, pc, m);
+    }
+
+    /**
+     * @param sid server id
+     * @param pc pageContext
+     * @return Returns system snapshot list
+     */
+    public static DataResult systemSnapshots(Long sid, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("General_queries", "system_snapshots");
         Map params = new HashMap();
         params.put("sid", sid);
         Map elabParams = new HashMap();

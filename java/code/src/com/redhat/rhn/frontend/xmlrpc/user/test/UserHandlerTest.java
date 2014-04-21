@@ -860,4 +860,11 @@ public class UserHandlerTest extends BaseHandlerTestCase {
         assertEquals(2, groups.length);
     }
 
+    public void testGetSetCreateDefaultSystemGroup() {
+        boolean currentValue = handler.getCreateDefaultSystemGroup(adminKey);
+        handler.setCreateDefaultSystemGroup(adminKey, !currentValue);
+        assertEquals(!currentValue, handler.getCreateDefaultSystemGroup(adminKey));
+        handler.setCreateDefaultSystemGroup(adminKey, currentValue);
+        assertEquals(currentValue, handler.getCreateDefaultSystemGroup(adminKey));
+    }
 }

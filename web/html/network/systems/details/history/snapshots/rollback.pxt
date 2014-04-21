@@ -80,7 +80,7 @@ and the following items will be changed to match the pre-snapshot values:
 <pxt-formvar>
 <span class="up-arrow">
 <rhn-icon type="nav-up" title="Go up"/>
-<a href="/network/systems/details/history/snapshots/index.pxt?sid={formvar:sid}">Return to snapshot list</a></span>
+<a href="/rhn/systems/details/history/snapshots/Index.do?sid={formvar:sid}">Return to snapshot list</a></span>
 </pxt-formvar>
 
 </pxt-form>

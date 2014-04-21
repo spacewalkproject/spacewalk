@@ -124,6 +124,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(IssMasterOrgSerializer.class);
         SERIALIZER_CLASSES.add(IssSlaveSerializer.class);
         SERIALIZER_CLASSES.add(UserExtGroupSerializer.class);
+        SERIALIZER_CLASSES.add(OrgUserExtGroupSerializer.class);
     }
 
     /**

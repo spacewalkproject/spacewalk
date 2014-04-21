@@ -11846,10 +11846,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>scheduled action</source>
         </trans-unit>
       </group>
-      <!-- System event hisotry -->
+      <!-- System event history -->
       <group>
         <context-group name="ctx">
-          <context context-type="sourcefile">System Eevents Pages</context>
+          <context context-type="sourcefile">System Events Pages</context>
         </context-group>
         <trans-unit id="system.event.history.header">
           <source>System History</source>
@@ -11913,6 +11913,33 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="system-history-legend.jsp.status.running">
           <source>Activity Occuring</source>
+        </trans-unit>
+      </group>
+      <!-- System snapshots -->
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Snapshot Pages</context>
+        </context-group>
+        <trans-unit id="system.history.snapshot.header">
+          <source>System Snapshots</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.summary1">
+          <source>System Snapshot Rollback functionality allows you to restore a system's package profile, configuration files, and Spacewalk configuration to previously recorded values.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.summary2">
+          <source>Below are a list of snapshots of your system.  To rollback to a previous configuration, or to view the changes that would have if you rolled back, click the desired snapshot below.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.nosnapshot">
+          <source>No system snapshots.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.reason">
+          <source>Reason</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.timetaken">
+          <source>Time Taken</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.tags">
+          <source>Tags</source>
         </trans-unit>
       </group>
       <!-- Configuration Common -->
