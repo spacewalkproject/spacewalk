@@ -196,6 +196,8 @@ def run(action_id, params, cache_only=None):
 
         # the child process gets the desired uid/gid
         os.setgid(run_as_gid)
+        groups=[g.gr_gid for g in grp.getgrall() if username in g.gr_mem or username in g.gr_name]
+        os.setgroups(groups)
         os.setuid(uid)
 
         # give this its own process group (which happens to be equal to its
