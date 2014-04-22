@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.14
+Version: 2.2.15
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -270,6 +270,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Apr 22 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.15-1
+- removed obsolered code
+- rewrite system snapshot to java: removed obsoleted perl page
+- rewrite system snapshot to java: Packages.do
+- rewrite system event page from perl to java
+
 * Wed Apr 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.14-1
 - rewrite system snapshot to java: removed old perl page
 - rewrite system snapshot to java: Index.do
