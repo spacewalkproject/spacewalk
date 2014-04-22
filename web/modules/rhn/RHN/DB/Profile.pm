@@ -220,25 +220,6 @@ sub compatible_with_channel {
   return @{$ds->execute_query( map { ("-$_", $params{$_} ) } keys %params )};
 }
 
-sub create_from_system {
-  my $class = shift;
-  my %params = validate(@_, { sid => 1, org_id => 1, name => 1, description => 1, type => 1, transaction => 0 });
-
-  my $profile = RHN::Profile->create;
-
-  $profile->org_id($params{org_id});
-
-  $profile->base_channel(RHN::Server->base_channel_id($params{sid}));
-  $profile->name($params{name});
-  $profile->description($params{description});
-  $profile->set_profile_type($params{type});
-
-  $profile->commit($params{transaction});
-  $profile->copy_from(-sid => $params{sid}, -transaction => $params{transaction});
-
-  return $profile;
-}
-
 # goofy, but useful
 sub base_channel_id {
   my $self = shift;
