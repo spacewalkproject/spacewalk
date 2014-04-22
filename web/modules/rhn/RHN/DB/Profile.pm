@@ -20,7 +20,6 @@ package RHN::DB::Profile;
 use RHN::DB;
 use RHN::DB::TableClass;
 
-use RHN::Manifest;
 use RHN::DataSource::Simple;
 use RHN::DataSource::Package;
 
@@ -219,39 +218,6 @@ sub compatible_with_channel {
 
   my $ds = new RHN::DataSource::Simple(-querybase => "profile_queries", -mode => "compatible_with_channel");
   return @{$ds->execute_query( map { ("-$_", $params{$_} ) } keys %params )};
-}
-
-sub profile_packages_missing_from_channels {
-  my $self = shift;
-  my %params = validate(@_, { channels => 1, transaction => 0 });
-
-  my %trans_args;
-
-  if ($params{transaction}) {
-    $trans_args{-transaction} = $params{transaction};
-  }
-
-  my %packages;
-
-  foreach my $cid (@{$params{channels}}) {
-    my $chan_ds = new RHN::DataSource::Package(-mode => 'packages_in_channel_by_id_combo');
-    my $results = $chan_ds->execute_query(-cid => $cid,%trans_args);
-
-    foreach my $package (@{$results}) { # ensure unique package ids
-      $packages{$package->{ID}} = $package;
-    }
-  }
-
-  my $channel_manifest = new RHN::Manifest(-org_id => $self->org_id);
-  $channel_manifest = $channel_manifest -> datasource_result_into_manifest([ values %packages ]);
-
-  my $prof_ds = new RHN::DataSource::Package(-mode => 'profile_canonical_package_list');
-  my $results = $prof_ds->execute_query(-prid => $self->id,-org_id => $self->org_id, %trans_args);
-
-  my $profile_manifest = new RHN::Manifest(-org_id => $self->org_id);
-  $profile_manifest = $profile_manifest -> datasource_result_into_manifest($results);
-
-  return $profile_manifest->packages_not_available_from($channel_manifest);
 }
 
 sub create_from_system {
