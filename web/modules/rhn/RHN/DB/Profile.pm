@@ -161,57 +161,6 @@ sub commit {
   delete $self->{":modified:"};
 }
 
-sub copy_from {
-  my $self = shift;
-  my %params = validate(@_, { sid => 0, prid => 0, transaction => 0 });
-
-  die "need sid or prid" unless ($params{sid} or $params{prid});
-
-  my $query;
-  my %query_params;
-
-  if ($params{sid}) {
-# BZ 145708 - need to add package_arch_id to rhnServerProfilePackage,
-# or switch to rhnServerProfilePackage.installed_package_id
-    $query =<<EOQ;
-INSERT INTO rhnServerProfilePackage
-    (server_profile_id, name_id, evr_id)
-SELECT :prid, SP.name_id, SP.evr_id
-  FROM rhnServerPackage SP
- WHERE SP.server_id = :sid
-EOQ
-
-    %query_params = (prid => $self->id,
-		     sid => $params{sid},
-		    );
-  }
-  else {
-# BZ 145708 - need to add package_arch_id to rhnServerProfilePackage,
-# or switch to rhnServerProfilePackage.installed_package_id
-    $query =<<EOQ;
-INSERT INTO rhnServerProfilePackage
-    (server_profile_id, name_id, evr_id)
-SELECT :prid, name_id, evr_id
-  FROM rhnServerProfilePackage SPP
- WHERE SPP.server_profile_id = :old_prid
-EOQ
-
-    %query_params = (prid => $self->id,
-		     old_prid => $params{prid},
-		    );
-  }
-
-  my $dbh = $params{transaction} || RHN::DB->connect;
-  my $sth = $dbh->prepare("DELETE FROM rhnServerProfilePackage WHERE server_profile_id = ?");
-  $sth->execute($self->id);
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute_h(%query_params);
-
-  $dbh->commit unless $params{transaction};
-}
-
 sub compatible_with_channel {
   my $class = shift;
   my %params = validate(@_, { cid => 1, org_id => 1 });
