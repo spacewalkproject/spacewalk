@@ -15,6 +15,8 @@
 package com.redhat.rhn.domain.action;
 
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.action.server.ServerAction;
+import com.redhat.rhn.domain.server.Server;
 
 /**
  * ActionFormatter - Class that is responsible for properly formatting the fields
@@ -158,4 +160,45 @@ public class ActionFormatter {
     public String getRelatedObjectDescription() {
         return null;
     }
+
+    /**
+     * @param server on which action has been executed
+     * @return returns localized formatted string to be used on system event details page
+     */
+    public String getDetails(Server server) {
+        LocalizationService ls = LocalizationService.getInstance();
+        StringBuilder retval = new StringBuilder();
+        retval.append(ls.getMessage("system.event.details.execute",
+                getEarliestDate()));
+        retval.append("</br>");
+        ServerAction sa = ActionFactory.getServerActionForServerAndAction(server, action);
+        retval.append(ls.getMessage("system.event.details.status",
+            ls.getMessage("system.event.details.status" + sa.getStatus().getName())));
+        retval.append("</br>");
+        if (sa.getPickupTime() != null) {
+            retval.append(ls.getMessage("system.event.details.pickup", sa.getPickupTime()));
+        }
+        else {
+            retval.append(ls.getMessage("system.event.details.notPickedUp"));
+            retval.append(action.getHistoryDetails(server));
+            return retval.toString();
+        }
+        retval.append("</br>");
+        if (sa.getCompletionTime() != null) {
+            retval.append(ls.getMessage("system.event.details.completed",
+                    sa.getCompletionTime()));
+        }
+        else {
+            retval.append(ls.getMessage("system.event.details.notCompleted"));
+            retval.append(action.getHistoryDetails(server));
+            return retval.toString();
+        }
+        retval.append("</br>");
+        retval.append(ls.getMessage("system.event.details.returned",
+                sa.getResultMsg(), sa.getResultCode()));
+        retval.append(action.getHistoryDetails(server));
+        return retval.toString();
+    }
+
 }
+

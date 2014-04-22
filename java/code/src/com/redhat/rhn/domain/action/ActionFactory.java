@@ -56,6 +56,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
+import com.redhat.rhn.domain.server.ServerHistoryEvent;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
@@ -692,6 +693,17 @@ public class ActionFactory extends HibernateFactory {
         .setParameter("action", action)
         .setParameter("tries", tries)
         .setParameter("queued", ActionFactory.STATUS_QUEUED).executeUpdate();
+    }
+
+    /**
+     * @param aid history event id to look up for
+     * @return history event
+     */
+    public static ServerHistoryEvent lookupHistoryEventById(Long aid) {
+        Map params = new HashMap();
+        params.put("id", aid);
+        return (ServerHistoryEvent) singleton.lookupObjectByNamedQuery(
+                "ServerHistory.lookupById", params);
     }
 
 

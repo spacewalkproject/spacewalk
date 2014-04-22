@@ -21,4 +21,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   insert="false" update="false"/>
 
     </class>
+
+    <query name="ServerHistory.lookupById">
+        <![CDATA[from com.redhat.rhn.domain.server.ServerHistoryEvent as s where s.id = :id]]>
+    </query>
+
 </hibernate-mapping>

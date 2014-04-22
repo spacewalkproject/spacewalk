@@ -3622,12 +3622,12 @@ user before attempting to deactivate their account.</source>
         <target>{0} {1}</target>
       </trans-unit>
       <trans-unit id="message.patchsetinstall">
-        <source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
+        <source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/rhn/systems/details/history/Event.do?sid={2}&amp;aid={3}"&gt;scheduled&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/patchsets/InstallPatchSet</context>
           <context context-type="paramnotes">Installation of patch cluster Sun Patch Cluster for Solaris 8 has been scheduled.</context>
         </context-group>
-        <target>પેચ ક્લસ્ટર &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; નું સ્થાપન &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;સુનિશ્ચિત&lt;/a&gt; થઈ ગયું છે.</target>
+        <target>પેચ ક્લસ્ટર &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; નું સ્થાપન &lt;a href="/rhn/systems/details/history/Event.do?sid={2}&amp;aid={3}"&gt;સુનિશ્ચિત&lt;/a&gt; થઈ ગયું છે.</target>
       </trans-unit>
       <trans-unit id="message.packagerefresh">
         <source>You have successfully scheduled a &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;package profile refresh&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;.</source>
@@ -3874,20 +3874,20 @@ user before attempting to deactivate their account.</source>
         <target>સમયમર્યાદા સમાપ્ત થયેલ ગાળકો</target>
       </trans-unit>
       <trans-unit id="message.syncpackages">
-        <source>You have successfully &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a package profile sync for &lt;strong&gt;{2}&lt;/strong&gt; from &lt;strong&gt;{3}&lt;/strong&gt;.</source>
+        <source>You have successfully &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a package profile sync for &lt;strong&gt;{2}&lt;/strong&gt; from &lt;strong&gt;{3}&lt;/strong&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/</context>
           <context context-type="paramnotes">sid, actionid, servername, profilename</context>
         </context-group>
-        <target>તમે સફળતાપૂર્વક &lt;strong&gt;{2}&lt;/strong&gt; માટે &lt;strong&gt;{3}&lt;/strong&gt; માંથી પેકેજ રૂપરેખા સુમેળ કરવા માટે &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;સુનિશ્ચિત&lt;/a&gt;&lt;/strong&gt; કરેલી છે.</target>
+        <target>તમે સફળતાપૂર્વક &lt;strong&gt;{2}&lt;/strong&gt; માટે &lt;strong&gt;{3}&lt;/strong&gt; માંથી પેકેજ રૂપરેખા સુમેળ કરવા માટે &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;સુનિશ્ચિત&lt;/a&gt;&lt;/strong&gt; કરેલી છે.</target>
       </trans-unit>
       <trans-unit id="message.hardwarerefresh">
-        <source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+        <source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/</context>
           <context context-type="paramnotes">sid, actionid, servername, profilename</context>
         </context-group>
-        <target>&lt;strong&gt;નોંધ:&lt;/strong&gt; @@PRODUCT_NAME@@ એ &lt;strong&gt;{2}&lt;/strong&gt; માટે પેકેજ રૂપરેખા સુમેળ પહેલાં ચલાવવા માટે હાર્ડવેર પુનઃતાજું કરવાનો દર &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;સુનિશ્ચિત&lt;/a&gt;&lt;/strong&gt; કરેલ છે.  આ એ ખાતરી કરવા માટે જરૂરી છે કે જે સિસ્ટમને પેકેજોની સરખામણી કરવાની ક્ષમતા છે.</target>
+        <target>&lt;strong&gt;નોંધ:&lt;/strong&gt; @@PRODUCT_NAME@@ એ &lt;strong&gt;{2}&lt;/strong&gt; માટે પેકેજ રૂપરેખા સુમેળ પહેલાં ચલાવવા માટે હાર્ડવેર પુનઃતાજું કરવાનો દર &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;સુનિશ્ચિત&lt;/a&gt;&lt;/strong&gt; કરેલ છે.  આ એ ખાતરી કરવા માટે જરૂરી છે કે જે સિસ્ટમને પેકેજોની સરખામણી કરવાની ક્ષમતા છે.</target>
       </trans-unit>
       <trans-unit id="filterCreate.success">
         <source>The filter {0} was successfully created</source>

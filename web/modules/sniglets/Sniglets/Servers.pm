@@ -696,7 +696,7 @@ sub remote_command_cb {
   my $system = RHN::Server->lookup(-id => $sid);
 
 #   $pxt->push_message(site_info => sprintf(<<EOQ, $sid, $action_id, $system->name));
-# Remote command <a href="/network/systems/details/history/event.pxt?sid=%d&amp;hid=%d">scheduled</a> for <strong>%s</strong>.
+# Remote command <a href="/rhn/systems/details/history/Event.do?sid=%d&amp;aid=%d">scheduled</a> for <strong>%s</strong>.
 # EOQ
 
   $pxt->redirect("/rhn/systems/details/Overview.do?sid=$sid&message=system.remotecommand.scheduled&messagep1=$sid&messagep2=$action_id&messagep3=" . $system->name);

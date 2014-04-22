@@ -254,9 +254,9 @@ public class SystemOverviewAction extends RhnAction {
             ActionManager.storeAction(a);
             createSuccessMessage(rctx.getRequest(),
                                  "sdc.details.overview.applet.scheduled",
-                                 "/network/systems/details/history/event.pxt?sid=" +
+                                 "/rhn/systems/details/history/Event.do?sid=" +
                                  s.getId() +
-                                 "&hid=" +
+                                 "&aid=" +
                                  a.getId());
         }
     }

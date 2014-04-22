@@ -11881,6 +11881,126 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.event.history.time">
           <source>Time</source>
         </trans-unit>
+        <trans-unit id="system.event.header">
+          <source>System History Event</source>
+        </trans-unit>
+        <trans-unit id="system.event.summary">
+          <source>Summary:</source>
+        </trans-unit>
+        <trans-unit id="system.event.summaryText">
+          <source>{0} scheduled by {1}</source>
+        </trans-unit>
+        <trans-unit id="system.event.details">
+          <source>Details:</source>
+        </trans-unit>
+        <trans-unit id="system.event.time">
+          <source>Time:</source>
+        </trans-unit>
+        <trans-unit id="system.event.reschedule">
+          <source>Reschedule:</source>
+        </trans-unit>
+        <trans-unit id="system.event.details.execute">
+          <source>This action will be executed after {0}</source>
+        </trans-unit>
+        <trans-unit id="system.event.details.status">
+          <source>This action's status is: {0}.</source>
+        </trans-unit>
+        <trans-unit id="system.event.details.statusCompleted">
+          <source>Completed</source>
+        </trans-unit>
+        <trans-unit id="system.event.details.statusQueued">
+          <source>Queued</source>
+        </trans-unit>
+        <trans-unit id="system.event.details.statusFailed">
+          <source>Failed</source>
+        </trans-unit>
+        <trans-unit id="system.event.details.pickup">
+          <source>The client picked up this action on {0}</source>
+        </trans-unit>
+        <trans-unit id="system.event.details.notPickedUp">
+          <source>This action has not yet been picked up.</source>
+        </trans-unit>
+        <trans-unit id="system.event.details.completed">
+          <source>The client completed this action on {0}</source>
+        </trans-unit>
+        <trans-unit id="system.event.details.notCompleted">
+          <source>The client has not yet completed this action.</source>
+        </trans-unit>
+        <trans-unit id="system.event.details.returned">
+          <source>Client execution returned "{0}" (code {1})</source>
+        </trans-unit>
+        <trans-unit id="system.event.rescheduleText">
+          <source>This history event was caused by a failed scheduled action.&lt;br /&gt;If you have corrected the problem, you may reschedule the action below.</source>
+        </trans-unit>
+        <trans-unit id="system.event.rescheduled">
+          <source>{0} successfully rescheduled.</source>
+        </trans-unit>
+        <trans-unit id="system.event.return">
+          <source>Return to history list for {0}</source>
+        </trans-unit>
+        <trans-unit id="system.event.returnIcon">
+          <source>Return to history list</source>
+        </trans-unit>
+        <trans-unit id="system.event.rescheduleButton">
+          <source>Reschedule</source>
+        </trans-unit>
+        <trans-unit id="system.event.configFiles">
+          <source>Config Files:</source>
+        </trans-unit>
+        <trans-unit id="system.event.configFiesDiffExist">
+          <source>Differnces exist</source>
+        </trans-unit>
+        <trans-unit id="system.event.configFiesMissing">
+          <source>Missing file</source>
+        </trans-unit>
+        <trans-unit id="system.event.packagesSchedule">
+          <source>Packages Scheduled:</source>
+        </trans-unit>
+        <trans-unit id="system.event.packagesVerify">
+          <source>Packages to be verified:</source>
+        </trans-unit>
+        <trans-unit id="system.event.packagesRemove">
+          <source>Packages to be removed:</source>
+        </trans-unit>
+        <trans-unit id="system.event.runAs">
+          <source>Run as: &lt;strong&gt;{0}:{1}&lt;/strong&gt;</source>
+        </trans-unit>
+        <trans-unit id="system.event.timeout">
+          <source>Timeout:  &lt;strong&gt;{0}&lt;/strong&gt; seconds</source>
+        </trans-unit>
+        <trans-unit id="system.event.scriptContents">
+          <source>Script contents:</source>
+        </trans-unit>
+        <trans-unit id="system.event.scriptStart">
+          <source>Start Date: {0}</source>
+        </trans-unit>
+        <trans-unit id="system.event.scriptEnd">
+          <source>End Date: {0}</source>
+        </trans-unit>
+        <trans-unit id="system.event.scriptReturnCode">
+          <source>Return Code: {0}</source>
+        </trans-unit>
+        <trans-unit id="system.event.scriptRawOutput">
+          <source>Raw Output: </source>
+        </trans-unit>
+        <trans-unit id="system.event.downloadRawOutput">
+          <source>view/download raw script output</source>
+        </trans-unit>
+        <trans-unit id="system.event.scriptFilteredOutput">
+          <source>Filtered Output: </source>
+        </trans-unit>
+        <trans-unit id="system.event.affectedErrata">
+          <source>Errata Affected:</source>
+        </trans-unit>
+        <trans-unit id="system.event.scapPath">
+          <source>&lt;strong&gt;Path to XCCDF document: &lt;/strong&gt; </source>
+        </trans-unit>
+        <trans-unit id="system.event.scapParams">
+          <source>&lt;strong&gt;Parameters: &lt;/strong&gt;</source>
+        </trans-unit>
+        <trans-unit id="system.event.scapDownload">
+          <source>View detailed results.</source>
+        </trans-unit>
       </group>
       <!-- System event history legend -->
       <group>
@@ -15265,7 +15385,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Remote Command on {0}.</source>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommand.succeed">
-          <source>Remote Command has been &lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled successfully&lt;/a&gt; at &lt;strong&gt;{2}&lt;/strong&gt;.</source>
+          <source>Remote Command has been &lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled successfully&lt;/a&gt; at &lt;strong&gt;{2}&lt;/strong&gt;.</source>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommand.header">
           <source>Remote Command on {0}</source>
@@ -18341,7 +18461,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       </trans-unit>
       <trans-unit id="system.remotecommand.scheduled">
-        <source>Remote command &lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;amp;hid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
+        <source>Remote command &lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>

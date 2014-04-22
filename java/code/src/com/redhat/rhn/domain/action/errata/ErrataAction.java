@@ -14,9 +14,11 @@
  */
 package com.redhat.rhn.domain.action.errata;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFormatter;
 import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.server.Server;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -66,4 +68,27 @@ public class ErrataAction extends Action {
         }
         return formatter;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getHistoryDetails(Server server) {
+        LocalizationService ls = LocalizationService.getInstance();
+        StringBuilder retval = new StringBuilder();
+        retval.append("</br>");
+        retval.append(ls.getMessage("system.event.affectedErrata"));
+        retval.append("</br>");
+        retval.append("<ul>");
+        for (Errata e : this.getErrata()) {
+            retval.append("<li>");
+            retval.append(e.getAdvisoryName());
+            retval.append(" - ");
+            retval.append(e.getSynopsis());
+            retval.append("</li>");
+        }
+        retval.append("</ul>");
+        return retval.toString();
+    }
+
 }

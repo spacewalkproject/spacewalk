@@ -73,7 +73,7 @@
     <th><bean:message key="configoverview.jsp.scheduledBy"/>:</th>
     <td>
       <rhn:icon type="header-user" title="yourrhn.jsp.user.alt" />
-      <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${testResult.scapActionDetails.parentAction.id}">
+      <a href="/rhn/systems/details/history/Event.do?sid={param.sid}&aid=${testResult.scapActionDetails.parentAction.id}">
         <c:out value="${testResult.scapActionDetails.parentAction.schedulerUser.login}"/>
       </a>
     </td>

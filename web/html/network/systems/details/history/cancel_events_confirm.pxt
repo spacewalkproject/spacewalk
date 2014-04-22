@@ -38,7 +38,7 @@
   <column name="Type" label="history_type" width="1%" align="center" />
 
   <column name="Summary" label="summary" width="65%">
-    <url>/network/systems/details/history/event.pxt?sid={formvar:sid}&amp;hid={column:id}</url>
+    <url>/rhn/systems/details/history/Event.do?sid={formvar:sid}&amp;aid={column:id}</url>
   </column>
 
   <column name="Earliest Occurrence" label="scheduled_for" align="center" width="20%" is_date="1"/>

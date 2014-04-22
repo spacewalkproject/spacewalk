@@ -108,11 +108,11 @@
 		              <bean:message key="affectedsystems.jsp.pending"/></a>
 		         </c:if>
 		         <c:if test="${current.currentStatusAndActionId[0] == 'Failed'}">
-		            <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${current.currentStatusAndActionId[1]}">
+		            <a href="/rhn/systems/details/history/Event.do?sid={param.sid}&aid=${current.currentStatusAndActionId[1]}">
 		              <bean:message key="actions.jsp.failed"/></a>
 		         </c:if>
 		         <c:if test="${current.currentStatusAndActionId[0] == 'Picked Up'}">
-		            <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${current.currentStatusAndActionId[1]}">
+		            <a href="/rhn/systems/details/history/Event.do?sid={param.sid}&aid=${current.currentStatusAndActionId[1]}">
 		              <bean:message key="actions.jsp.pickedup"/></a>
 		         </c:if>
 		      </c:if>

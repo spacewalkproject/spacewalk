@@ -22,7 +22,7 @@
                        buttonsAttr="canEdit:true">
         <rhn:set value="${current.id}" />
         <rhn:column header="actions.jsp.system"
-                    url="/network/systems/details/history/event.pxt?sid=${current.id}&amp;hid=${action.id}">
+                    url="/rhn/systems/details/history/Event.do?sid={current.id}&amp;aid=${action.id}">
             <c:out value="${current.serverName}" escapeXml="true" />
         </rhn:column>
 

@@ -3827,12 +3827,12 @@ user before attempting to deactivate their account.</source>
         <target>{0} {1}</target>
       </trans-unit>
       <trans-unit id="message.patchsetinstall">
-        <source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
+        <source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/rhn/systems/details/history/Event.do?sid={2}&amp;aid={3}"&gt;scheduled&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/patchsets/InstallPatchSet</context>
           <context context-type="paramnotes">Installation of patch cluster Sun Patch Cluster for Solaris 8 has been scheduled.</context>
         </context-group>
-        <target>安装补丁群集 &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; 已经被 &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;预定&lt;/a&gt;。</target>
+        <target>安装补丁群集 &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; 已经被 &lt;a href="/rhn/systems/details/history/Event.do?sid={2}&amp;aid={3}"&gt;预定&lt;/a&gt;。</target>
       </trans-unit>
       <trans-unit id="message.packagerefresh">
         <source>You have successfully scheduled a &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;package profile refresh&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;.</source>
@@ -4079,20 +4079,20 @@ user before attempting to deactivate their account.</source>
         <target>过期的过滤器</target>
       </trans-unit>
       <trans-unit id="message.syncpackages">
-        <source>You have successfully &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a package profile sync for &lt;strong&gt;{2}&lt;/strong&gt; from &lt;strong&gt;{3}&lt;/strong&gt;.</source>
+        <source>You have successfully &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a package profile sync for &lt;strong&gt;{2}&lt;/strong&gt; from &lt;strong&gt;{3}&lt;/strong&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/</context>
           <context context-type="paramnotes">sid, actionid, servername, profilename</context>
         </context-group>
-        <target>您已经成功地从 &lt;strong&gt;{3}&lt;/strong&gt; 为 &lt;strong&gt;{2}&lt;/strong&gt; 成功地 &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;调度&lt;/a&gt;&lt;/strong&gt; 了一个软件包侧写同步。</target>
+        <target>您已经成功地从 &lt;strong&gt;{3}&lt;/strong&gt; 为 &lt;strong&gt;{2}&lt;/strong&gt; 成功地 &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;调度&lt;/a&gt;&lt;/strong&gt; 了一个软件包侧写同步。</target>
       </trans-unit>
       <trans-unit id="message.hardwarerefresh">
-        <source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+        <source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/</context>
           <context context-type="paramnotes">sid, actionid, servername, profilename</context>
         </context-group>
-        <target>&lt;strong&gt;注：&lt;/strong&gt;@@PRODUCT_NAME@@ 已经为 &lt;strong&gt;{2}&lt;/strong&gt; &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;预定了&lt;/a&gt;&lt;/strong&gt; 了一个硬件刷新来在同步软件包侧写前运行。这需要检查系统有比较软件包的能力。</target>
+        <target>&lt;strong&gt;注：&lt;/strong&gt;@@PRODUCT_NAME@@ 已经为 &lt;strong&gt;{2}&lt;/strong&gt; &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;预定了&lt;/a&gt;&lt;/strong&gt; 了一个硬件刷新来在同步软件包侧写前运行。这需要检查系统有比较软件包的能力。</target>
       </trans-unit>
       <trans-unit id="filterCreate.success">
         <source>The filter {0} was successfully created</source>

@@ -188,34 +188,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				discriminator-value="22" lazy="true">
 			</subclass>
 		</subclass>
-		<subclass
-				name="com.redhat.rhn.domain.action.solaris.SolarisPackageInstallAction"
-				discriminator-value="24" lazy="true">
-		</subclass>
-		<subclass
-				name="com.redhat.rhn.domain.action.solaris.SolarisPackageRemoveAction"
-				discriminator-value="25" lazy="true">
-		</subclass>
-		<subclass
-				name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchInstallAction"
-				discriminator-value="26" lazy="true">
-		</subclass>
-		<subclass
-				name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchRemoveAction"
-				discriminator-value="27" lazy="true">
-		</subclass>
-		<subclass
-				name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchClusterInstallAction"
-				discriminator-value="28" lazy="true">
-		</subclass>
-		<subclass
-				name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchClusterRemoveAction"
-				discriminator-value="29" lazy="true">
-		</subclass>
-		<subclass
-				name="com.redhat.rhn.domain.action.solaris.SolarisPackageRefreshListAction"
-				discriminator-value="31" lazy="true">
-		</subclass>
 		<!-- DaemonConfigAction: 32 -->
 		<subclass name="com.redhat.rhn.domain.action.config.DaemonConfigAction"
 			discriminator-value="32" lazy="true">
@@ -376,6 +348,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <key column="action_id"/>
                 <one-to-many class="com.redhat.rhn.domain.action.rhnpackage.PackageActionDetails" />
             </set>
+            <set lazy="true" cascade="all" inverse="true" name="affectedPackages" >
+              <key column="action_id" />
+              <one-to-many class="com.redhat.rhn.domain.action.rhnpackage.PackageActionDetails" />
+            </set>
+
             <subclass
                 name="com.redhat.rhn.domain.action.rhnpackage.PackageRefreshListAction"
                 discriminator-value="1" lazy="true">
@@ -404,6 +381,36 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 name="com.redhat.rhn.domain.action.rhnpackage.PackageVerifyAction"
                 discriminator-value="33" lazy="true">
             </subclass>
+
+            <subclass
+                name="com.redhat.rhn.domain.action.solaris.SolarisPackageInstallAction"
+                discriminator-value="24" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.solaris.SolarisPackageRemoveAction"
+                discriminator-value="25" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchInstallAction"
+                discriminator-value="26" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchRemoveAction"
+                discriminator-value="27" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchClusterInstallAction"
+                discriminator-value="28" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchClusterRemoveAction"
+                discriminator-value="29" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.solaris.SolarisPackageRefreshListAction"
+                discriminator-value="31" lazy="true">
+            </subclass>
+
 
         </subclass>
 
@@ -483,6 +490,18 @@ select sa.server_id
         ]]>
     </sql-query>
 
+    <sql-query name="Action.pickupTime">
+        <return-scalar type="timestamp" column="pickup_time"/>
+        SELECT SA.PICKUP_TIME AS PICKUP_TIME
+          FROM rhnServerAction SA
+         WHERE SA.action_id = :aid
+    </sql-query>
 
+    <sql-query name="Action.completionTime">
+        <return-scalar type="timestamp" column="completion_time"/>
+        SELECT SA.completion_time AS completion_time
+          FROM rhnServerAction SA
+         WHERE SA.action_id = :aid
+    </sql-query>
 
 </hibernate-mapping>

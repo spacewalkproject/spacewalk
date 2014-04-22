@@ -26,6 +26,7 @@ import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 
 /**
@@ -382,6 +383,14 @@ public class Action extends BaseDomainHelper implements Serializable {
         result.append(" : ");
         result.append(name);
         return result.toString();
+    }
+
+    /**
+     * @param server server to which action is linked
+     * @return string which is used on system history details
+     */
+    public String getHistoryDetails(Server server) {
+        return "";
     }
 
 }

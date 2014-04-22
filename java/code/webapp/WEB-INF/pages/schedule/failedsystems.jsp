@@ -21,7 +21,7 @@
     	  <rhn:listdisplay button="failedsystems.jsp.rescheduleactions"
     	                   buttonsAttr="canEdit:true">
         <rhn:column header="actions.jsp.system"
-                    url="/network/systems/details/history/event.pxt?sid=${current.id}&hid=${action.id}">
+                    url="/rhn/systems/details/history/Event.do?sid={current.id}&aid=${action.id}">
             <c:out value="${current.serverName}" escapeXml="true" />
         </rhn:column>
 

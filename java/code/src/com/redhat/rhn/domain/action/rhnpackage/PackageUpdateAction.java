@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.domain.action.rhnpackage;
 
-
 /**
  * PackageUpdateAction
  * @version $Rev$

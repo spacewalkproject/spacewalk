@@ -14,13 +14,15 @@
  */
 package com.redhat.rhn.domain.action.solaris;
 
-import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 
 /**
  * SolarisPackageRefreshListAction -
  * Class representing TYPE_SOLARISPKGS_REFRESH_LIST
  * @version $Rev$
  */
-public class SolarisPackageRefreshListAction extends Action {
+public class SolarisPackageRefreshListAction extends PackageAction {
+
+    private static final long serialVersionUID = 1L;
 
 }

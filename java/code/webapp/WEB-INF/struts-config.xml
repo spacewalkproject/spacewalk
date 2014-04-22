@@ -1012,6 +1012,11 @@
                <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
+    <form-bean name="rescheduleEventForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+              <form-property name="submitted" type="java.lang.Boolean"/>
+    </form-bean>
+
     <form-bean name="systemHardwareForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
                <form-property name="sid" type="java.lang.Long"/>
@@ -3508,6 +3513,18 @@
                  path="/WEB-INF/pages/systems/sdc/delete_confirm.jsp"/>
         <forward name="success"
                  path="/systems/Overview.do" redirect="true"/>
+    </action>
+
+    <action path="/systems/details/history/Event"
+        scope="request"
+        name="rescheduleEventForm"
+        input="/WEB-INF/pages/systems/sdc/history_event.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SystemHistoryEventAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/history_event.jsp"/>
+        <forward name="continue"
+                 path="/systems/details/history/History.do"/>
     </action>
 
     <action path="/systems/details/history/History"

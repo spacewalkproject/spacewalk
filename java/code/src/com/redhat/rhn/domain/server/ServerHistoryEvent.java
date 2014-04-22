@@ -14,6 +14,11 @@
  */
 package com.redhat.rhn.domain.server;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.BaseDomainHelper;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -31,6 +36,7 @@ public class ServerHistoryEvent extends BaseDomainHelper {
     private Server server;
     private String summary;
     private String details;
+    private Date created;
 
     /**
      * Constructor for ServerHistoryEvent
@@ -103,6 +109,40 @@ public class ServerHistoryEvent extends BaseDomainHelper {
      */
     public void setSummary(String summaryIn) {
         this.summary = summaryIn;
+    }
+
+    /**
+     * @return Returns date of creating of the event
+     */
+    public Date getCreated() {
+        return created;
+    }
+
+    /**
+     * @param createdIn Date of creation of the event
+     */
+    public void setCreated(Date createdIn) {
+        this.created = createdIn;
+    }
+
+    /**
+     * @param createdIn Date of creation of the event
+     */
+    public void setCreated(String createdIn) {
+        if (createdIn == null) {
+            this.created = null;
+        }
+        else {
+            try {
+                this.created = new SimpleDateFormat(
+                        LocalizationService.RHN_DB_DATEFORMAT).parse(createdIn);
+            }
+            catch (ParseException e) {
+                throw new IllegalArgumentException("lastCheckin must be of the: [" +
+                        LocalizationService.RHN_DB_DATEFORMAT + "] it was: " +
+                        createdIn);
+            }
+        }
     }
 
     /**

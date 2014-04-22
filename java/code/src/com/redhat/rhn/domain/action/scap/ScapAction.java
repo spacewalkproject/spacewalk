@@ -14,7 +14,9 @@
  */
 package com.redhat.rhn.domain.action.scap;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.server.Server;
 /**
  * ScapAction - Class representing TYPE_SCAP_*.
  * @version $Rev$
@@ -37,4 +39,29 @@ public class ScapAction extends Action {
         scapActionDetailsIn.setParentAction(this);
         scapActionDetails = scapActionDetailsIn;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getHistoryDetails(Server server) {
+        LocalizationService ls = LocalizationService.getInstance();
+        StringBuilder retval = new StringBuilder();
+        retval.append("</br>");
+        retval.append(ls.getMessage("system.event.scapPath"));
+        retval.append(scapActionDetails.getPath());
+        retval.append("</br>");
+        retval.append(ls.getMessage("system.event.scapParams"));
+        retval.append(scapActionDetails.getParameters() == null ? "" :
+            scapActionDetails.getParametersContents());
+        if (this.getSuccessfulCount() > 0) {
+            retval.append("</br>");
+            retval.append("<a href=\"/rhn/systems/details/audit/XccdfDetails.do?sid=" +
+                    server.getId() + "&xid=" + scapActionDetails.getId() + "\">");
+            retval.append(ls.getMessage("system.event.scapDownload"));
+            retval.append("</a>");
+        }
+        return retval.toString();
+    }
+
 }

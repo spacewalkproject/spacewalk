@@ -124,7 +124,7 @@ sub reschedule_form_if_failed_action {
 
       unless ($prereq_action->get_server_status($sid) eq 'Completed') {
 	my $prior_action = PXT::HTML->link2(text => 'prior action',
-					    url => "/network/systems/details/history/event.pxt?sid=$sid&amp;hid=$prereq",
+					    url => "/rhn/systems/details/history/Event.do?sid=$sid&amp;aid=$prereq",
 					   );
 
 	$reschedule_text = "This action requires the successful completion of a $prior_action before it can be rescheduled."

@@ -14,12 +14,14 @@
  */
 package com.redhat.rhn.domain.action.solaris;
 
-import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 
 /**
  * SolarisPackagePatchRemoveAction - Class representing TYPE_SOLARISPKGS_PATCHREMOVE
  * @version $Rev$
  */
-public class SolarisPackagePatchRemoveAction extends Action {
+public class SolarisPackagePatchRemoveAction extends PackageAction {
+
+    private static final long serialVersionUID = 1L;
 
 }

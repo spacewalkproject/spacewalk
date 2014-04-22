@@ -14,9 +14,12 @@
  */
 package com.redhat.rhn.domain.action.rhnpackage;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFormatter;
 import com.redhat.rhn.domain.action.PackageActionFormatter;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +31,21 @@ import java.util.Set;
 public class PackageAction extends Action {
 
     private Set details = new HashSet();
+    private Set <PackageActionDetails> affectedPackages;
+
+    /**
+     * @return packages affected by this action
+     */
+    public Set <PackageActionDetails> getAffectedPackages() {
+        return affectedPackages;
+    }
+
+    /**
+     * @param affectedPackagesIn affected packages to be set
+     */
+    public void setAffectedPackages(Set <PackageActionDetails> affectedPackagesIn) {
+        this.affectedPackages = affectedPackagesIn;
+    }
 
     /**
      * Add a PackageActionDetails to the set of details
@@ -63,4 +81,33 @@ public class PackageAction extends Action {
         }
         return formatter;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getHistoryDetails(Server server) {
+        LocalizationService ls = LocalizationService.getInstance();
+        StringBuilder retval = new StringBuilder();
+        retval.append("</br>");
+        if (this.getClass().equals(PackageUpdateAction.class)) {
+            retval.append(ls.getMessage("system.event.packagesSchedule"));
+        }
+        else if (this.getClass().equals(PackageVerifyAction.class)) {
+            retval.append(ls.getMessage("system.event.packagesVerify"));
+        }
+        if (this.getClass().equals(PackageRemoveAction.class)) {
+            retval.append(ls.getMessage("system.event.packagesRemove"));
+        }
+        retval.append("</br><ul>");
+        for (PackageActionDetails pad : affectedPackages) {
+            retval.append("<li>");
+            retval.append(PackageManager.buildPackageNevra(pad.getPackageName().getId(),
+                    pad.getEvr().getId(), pad.getArch().getId()));
+            retval.append("</li>");
+        }
+        retval.append("</ul>");
+        return retval.toString();
+    }
+
 }

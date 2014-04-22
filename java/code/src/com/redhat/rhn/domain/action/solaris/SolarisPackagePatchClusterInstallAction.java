@@ -14,13 +14,15 @@
  */
 package com.redhat.rhn.domain.action.solaris;
 
-import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 
 /**
  * SolarisPackagePatchClusterInstallAction -
  * Class representing TYPE_SOLARISPKGS_PATCHCLUSTERREMOVE
  * @version $Rev$
  */
-public class SolarisPackagePatchClusterInstallAction extends Action {
+public class SolarisPackagePatchClusterInstallAction extends PackageAction {
+
+    private static final long serialVersionUID = 1L;
 
 }
