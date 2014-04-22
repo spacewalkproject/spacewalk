@@ -81,15 +81,6 @@ sub add_package {
   push @{$self->{package_arch_map}->{$pkg->name_arch}}, $pkg;
 }
 
-sub packages_by_name_arch {
-  my $self = shift;
-  my $name_arch = shift;
-
-  return (ref $self->{package_arch_map}->{$name_arch} eq 'ARRAY'
-	  ? @{$self->{package_arch_map}->{$name_arch}}
-	  : $self->{package_arch_map}->{$name_arch});
-}
-
 # multimethod!
 sub compare_manifests {
   my ($s1, $s2, $diff_only) = validate_pos(@_, { isa => "RHN::Manifest" }, { isa => "RHN::Manifest" }, { default => 0 });
