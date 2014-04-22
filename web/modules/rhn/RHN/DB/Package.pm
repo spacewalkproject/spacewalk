@@ -992,61 +992,6 @@ EOQ
   return $label;
 }
 
-sub channel_package_intersection_from_set {
-  my $self = shift;
-  my %params = validate(@_, { user_id => 1, channel_set_label => 1, package_set_label => 1 });
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT up.name_id || '|' || up.evr_id AS id,
-       C.name AS channel_name,
-       C.id AS channel_id
-  FROM
-       rhnChannel C,
-       rhnPackage p,
-       rhnChannelPackage cp,
-       ( select element name_id,
-                element_two evr_id
-           from rhnSet
-          where user_id = :user_id
-            and label = :package_set_label
-       ) up,
-       ( select element channel_id
-           from rhnSet
-          where user_id = :user_id
-            and label = :channel_set_label
-       ) uc
- WHERE 1 = 1
-   and uc.channel_id = cp.channel_id
-   and cp.package_id = p.id
-   and up.name_id = p.name_id
-   and up.evr_id = p.evr_id
-   and cp.channel_id = c.id
-ORDER BY up.name_id || '|' || up.evr_id, C.name
-EOQ
-
-  $sth->execute_h(user_id => $params{user_id},
-		  channel_set_label => $params{channel_set_label},
-		  package_set_label => $params{package_set_label});
-
-  my @data;
-
-  while (my $row = $sth->fetchrow_hashref) {
-    push @data, $row;
-  }
-
-  my %ret;
-
-  foreach my $row (@data) {
-    push @{$ret{$row->{ID}}}, { CHANNEL_ID => $row->{CHANNEL_ID},
-				CHANNEL_NAME => $row->{CHANNEL_NAME},
-			      };
-  }
-
-  return \%ret;
-}
-
 sub arch_type_label {
   my $self = shift;
 
