@@ -469,27 +469,6 @@ SELECT PN.id || '|' || PE.id AS ID,
   </query>
 </mode>
 
-<mode name="profile_canonical_package_list">
-  <query params="prid,org_id">
-SELECT PN.id || '|' || SPE.id AS ID,
-       SP.name_id,
-       PN.name,
-       SP.evr_id,
-       evr_t_as_vre_simple(PE.evr) AS EVR,
-       SPE.epoch,
-       SPE.version,
-       SPE.release
-  FROM rhnPackageName PN,
-       rhnPackageEVR SPE,
-       rhnServerProfilePackage SP
- WHERE PN.id = SP.name_id
-   AND SPE.id = SP.evr_id
-   AND SP.server_profile_id = :prid
-   AND NOT EXISTS (SELECT 1 FROM rhnPackageSyncBlacklist PSB WHERE
-                     PSB.package_name_id = PN.id AND org_id is NULL OR org_id = :org_id)
-  </query>
-</mode>
-
 <mode name="obsoleting_packages">
   <query params="pid, org_id">
 SELECT P2.id AS ID, PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '-' ||
