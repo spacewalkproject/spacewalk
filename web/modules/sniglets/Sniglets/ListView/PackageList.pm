@@ -254,37 +254,6 @@ sub default_callback {
   return 1;
 }
 
-sub find_package_profile {
-  my $pxt = shift;
-  my $kickstart_options = shift;
-
-  my $profile;
-
-  if ($kickstart_options->{package_profile} eq 'system_profile') {
-    $profile = RHN::Profile->create_from_system(-sid => $kickstart_options->{sid},
-						-org_id => $pxt->user->org_id,
-						-name => "Test Profile for " . $kickstart_options->{kssid},
-						-description => "Test Profile" . $kickstart_options->{kssid},
-						-type => 'sync_profile',
-					       );
-
-  }
-  elsif ($kickstart_options->{package_profile} eq 'other_system_profile') {
-    $profile = RHN::Profile->create_from_system(-sid => $kickstart_options->{sync_sid},
-						-org_id => $pxt->user->org_id,
-						-name => "Test Profile" . $kickstart_options->{kssid},
-						-description => "Test Profile" . $kickstart_options->{kssid},
-						-type => 'sync_profile',
-					       );
-
-  }
-  elsif ($kickstart_options->{package_profile} eq 'stored_profile') {
-    $profile = RHN::Profile->lookup(-id => $kickstart_options->{prid});
-  }
-
-  return $profile;
-}
-
 sub package_removal_failures_provider {
   my $self = shift;
   my $pxt = shift;
