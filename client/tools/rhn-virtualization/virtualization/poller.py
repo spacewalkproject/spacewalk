@@ -301,7 +301,7 @@ if __name__ == "__main__":
         # is running, and exit if it's not.
         # See if the libvirtd service is running, discarding all output.
         # Non-zero exit code means it's not running.
-        if (subprocess.call(['/usr/sbin/service','libvirtd','status'],
+        if (subprocess.call(['service','libvirtd','status'],
                 stdout=open(os.devnull, 'wb'),
                 stderr=subprocess.STDOUT) != 0):
             sys.exit(0)
