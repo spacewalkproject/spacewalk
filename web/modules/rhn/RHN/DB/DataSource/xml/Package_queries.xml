@@ -493,12 +493,6 @@ SELECT PN.id || '|' || PE.id AS ID,
   </query>
 </mode>
 
-<mode name="comparison_to_snapshot">
-  <query params="">
-SELECT 1 FROM dual
-  </query>
-</mode>
-
 <mode name="profile_canonical_package_list">
   <query params="prid,org_id">
 SELECT PN.id || '|' || SPE.id AS ID,

@@ -54,10 +54,6 @@ sub _register_modes {
 				    -datasource => RHN::DataSource::Package->new,
 				   );
 
-  Sniglets::ListView::List->add_mode(-mode => "comparison_to_snapshot",
-			   -datasource => RHN::DataSource::Package->new,
-			   -provider => \&snapshot_comparison_provider);
-
   Sniglets::ListView::List->add_mode(-mode => "package_search_results",
 			   -datasource => new RHN::DataSource::Simple(-querybase => "package_search_elaborators"),
 			   -provider => \&package_search_results_provider);
@@ -1250,73 +1246,6 @@ sub obsoleting_packages_provider {
   }
 
   return (%ret);
-}
-
-sub snapshot_comparison_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $ds = $self->datasource;
-
-  my %params;
-
-  my $snapshot_label = "Snapshot";
-
-  $ds->mode('snapshot_canonical_package_list');
-  %params = $self->lookup_params($pxt, $ds->required_params);
-
-  my $compare_data = $ds->execute_query(%params);
-  $compare_data = $ds->elaborate($compare_data, %params);
-
-  my $primary_ds = RHN::DataSource::Package->new;
-  $primary_ds->mode('system_canonical_package_list');
-  my %prim_params = $self->lookup_params($pxt, $primary_ds->required_params);
-
-  my $primary_data = $primary_ds->execute_query(%prim_params);
-
-  my $delta = RHN::Package->delta_canonical_lists_hashref($compare_data, $primary_data);
-
-  my @present;
-  my @missing;
-  my @newer;
-  my @older;
-
-  foreach my $row (@$delta) {
-    if ($row->{S1}->{EVR_ID} and not $row->{S2}->{EVR_ID}) {
-      $row->{RPM_COMPARISON} = "$snapshot_label only";
-      $row->{ARCH} = $row->{S1}->{ARCH};
-    }
-    elsif ($row->{S2}->{EVR_ID} and not $row->{S1}->{EVR_ID}) {
-      $row->{RPM_COMPARISON} = "Current profile only";
-      $row->{ARCH} = $row->{S2}->{ARCH};
-    }
-    elsif ($row->{COMPARISON} < 0) {
-      $row->{RPM_COMPARISON} = "Current profile newer";
-      $row->{ARCH} = $row->{S2}->{ARCH};
-    }
-    elsif ($row->{COMPARISON} > 0) {
-      $row->{RPM_COMPARISON} = "$snapshot_label newer";
-      $row->{ARCH} = $row->{S1}->{ARCH};
-    }
-    $row->{CURRENT_PACKAGE_EVR} = $row->{S2}->{EVR} || '&#160;';
-    $row->{SNAPSHOT_PACKAGE_EVR} = $row->{S1}->{EVR} || '&#160;';
-    $row->{SNAPSHOT_PACKAGE_EVR} = $row->{S1}->{EVR} || '&#160;';
-  }
-
-  $delta = [ sort { lc $a->{NAME} cmp lc $b->{NAME} } @{$delta} ];
-
-# done with munging - we have the actual list we want to work with.  slice it.
-  my $alphabar = $self->init_alphabar($delta);
-  my $on_page = $self->filter_data($delta);
-
-  my @all_ids = map { $_->{ID} } @{$on_page};
-  $self->all_ids(\@all_ids);
-  $on_page = $primary_ds->slice_data($on_page, $self->lower, $self->upper);
-
-  return (data => $on_page,
-	  all_ids => \@all_ids,
-	  alphabar => $alphabar,
-	  full_data => $delta);
 }
 
 sub comparison_string {
