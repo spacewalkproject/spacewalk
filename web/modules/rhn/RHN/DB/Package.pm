@@ -794,69 +794,6 @@ EOS
   return @ret;
 }
 
-sub delta_canonical_lists_hashref {
-  my $class = shift;
-  my $s1 = shift;
-  my $s2 = shift;
-
-  my %s1_names;
-  my %s2_names;
-
-  foreach my $pkg (@$s1) {
-    $s1_names{$pkg->{NAME_ID}."|".$pkg->{ARCH}} = $pkg;
-  }
-
-  foreach my $pkg (@$s2) {
-    $s2_names{$pkg->{NAME_ID}."|".$pkg->{ARCH}} = $pkg;
-  }
-
-  my @names;
-  @names = keys %s1_names;
-
-  foreach my $name (keys %s2_names) {
-    push @names, $name
-      unless exists $s1_names{$name};
-  }
-
-  my @data = map { 
-    ({ NAME_ID => $_,
-       NAME => $s1_names{$_}->{NAME} || $s2_names{$_}->{NAME},
-       S1 => { EVR_ID  => $s1_names{$_}->{EVR_ID},
-	       EVR     => $s1_names{$_}->{EVR},
-	       EPOCH   => $s1_names{$_}->{EPOCH},
-	       ERRATA  => $s1_names{$_}->{ERRATA},
-	       VERSION => $s1_names{$_}->{VERSION},
-	       RELEASE => $s1_names{$_}->{RELEASE},
-         ARCH    => $s1_names{$_}->{ARCH},
-	     },
-       S2 => { EVR_ID  => $s2_names{$_}->{EVR_ID},
-	       EVR     => $s2_names{$_}->{EVR},
-	       EPOCH   => $s2_names{$_}->{EPOCH},
-	       ERRATA  => $s2_names{$_}->{ERRATA},
-	       VERSION => $s2_names{$_}->{VERSION},
-	       RELEASE => $s2_names{$_}->{RELEASE},
-         ARCH    => $s2_names{$_}->{ARCH},
-	     },
-       COMPARISON => 0
-     }) } @names;
-
-  my @ret;
-  foreach my $row (@data) {
-    my $p1 = $s1_names{$row->{NAME_ID}};
-    my $p2 = $s2_names{$row->{NAME_ID}};
-
-    push @ret, $row
-      unless $p1->{EVR_ID} and $p2->{EVR_ID} and
-	$p1->{EVR_ID} == $p2->{EVR_ID};
-
-    $row->{COMPARISON} = $class->vercmp($row->{S1}->{EPOCH}, $row->{S1}->{VERSION}, $row->{S1}->{RELEASE},
-					$row->{S2}->{EPOCH}, $row->{S2}->{VERSION}, $row->{S2}->{RELEASE})
-      if $row->{S1}->{EVR_ID} and $row->{S2}->{EVR_ID};
-  }
-
-  return \@ret;
-}
-
 sub vercmp {
   my $class = shift;
   my ($e1, $v1, $r1, $e2, $v2, $r2) = @_;
