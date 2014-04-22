@@ -140,30 +140,6 @@ ORDER BY UPPER(X.package_nvre)
   <elaborator name="package_channels" />
 </mode>
 
-<mode name="packages_in_channel_by_id_combo">
-  <query params="cid">
-SELECT PN.id || '|' || PE.id AS ID,
-       PN.name,
-       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
-       P.summary,
-       PE.epoch,
-       PE.version,
-       PE.release,
-       PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
-       PN.id as name_id,
-       PE.id as evr_id
-  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
-       rhnChannelPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.package_id = P.id
-   AND P.name_id = PN.id
-   AND P.evr_id = PE.id
-   AND PA.id = P.package_arch_id
-ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
-  </query>
-</mode>
-
-
 <mode name="packages_in_channel">
   <query params="cid">
 SELECT P.id AS ID,
