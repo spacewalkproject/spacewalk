@@ -90,25 +90,6 @@ sub packages_by_name_arch {
 	  : $self->{package_arch_map}->{$name_arch});
 }
 
-# Packages in $self which are not available from $other
-sub packages_not_available_from {
-  my ($self, $other) = validate_pos(@_, { isa => "RHN::Manifest" }, { isa => "RHN::Manifest" });
-
-  my @missing;
-
- SEARCH:
-  foreach my $self_pkg ($self->packages) {
-    foreach my $maybe ($other->packages_by_name_arch($self_pkg->name_arch)) {
-      next unless $maybe;
-      next SEARCH if ($self_pkg == $maybe);
-    }
-
-    push @missing, $self_pkg;
-  }
-
-  return @missing;
-}
-
 # multimethod!
 sub compare_manifests {
   my ($s1, $s2, $diff_only) = validate_pos(@_, { isa => "RHN::Manifest" }, { isa => "RHN::Manifest" }, { default => 0 });
