@@ -20,7 +20,6 @@ use strict;
 use Carp;
 use RHN::DB;
 use RHN::DB::TableClass;
-use RPM2;
 use RHN::Exception qw/throw/;
 use Params::Validate;
 Params::Validate::validation_options(strip_leading => "-");
@@ -793,41 +792,6 @@ EOS
 
   return @ret;
 }
-
-sub vercmp {
-  my $class = shift;
-  my ($e1, $v1, $r1, $e2, $v2, $r2) = @_;
-
-  if (not $e1) {
-    $e1 = 0;
-  }
-
-  if (not $e2) {
-    $e2 = 0;
-  }
-
-  return 1 if $e1 and not $e2;
-  return -1 if not $e1 and $e2;
-
-  if ($e1 and $e2) {
-    $e1 = int $e1;
-    $e2 = int $e2;
-
-    return -1 if $e1 < $e2;
-    return 1 if $e1 > $e2;
-  }
-
-  unless (defined $v1 and defined $v2) {
-    throw "v1($v1) or v2($v2) undefined";
-  }
-
-  my $c = RPM2::rpmvercmp($v1, $v2);
-
-  return $c if $c;
-
-  return RPM2::rpmvercmp($r1, $r2);
-}
-
 
 sub org_permission_check {
   my $class = shift;
