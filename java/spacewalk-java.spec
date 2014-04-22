@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.50
+Version: 2.2.51
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Apr 22 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.51-1
+- rewrite system snapshot to java: fixed nav menu hiding
+- rewrite system snapshot to java: Packages.do
+- rewrite system event page from perl to java
+
 * Thu Apr 17 2014 Stephen Herr <sherr@redhat.com> 2.2.50-1
 - More API methods for IPA integration
 
