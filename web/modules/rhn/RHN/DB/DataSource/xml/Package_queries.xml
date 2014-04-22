@@ -1469,12 +1469,6 @@ ORDER BY PN.name, evr_t_as_vre_simple(PE2.evr) || '-' || PA.label
   </query>
 </mode>
 
-<mode name="missing_packages_for_session">
-  <query params="">
--- dummy
-  </query>
-</mode>
-
 <mode name="package_verification_results">
   <query params="sid, action_id">
 SELECT SAVR.mode_differs,
