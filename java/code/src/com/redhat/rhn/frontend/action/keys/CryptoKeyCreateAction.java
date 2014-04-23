@@ -27,13 +27,4 @@ public class CryptoKeyCreateAction extends BaseCryptoKeyEditAction {
     protected BaseCryptoKeyCommand getCommand(RequestContext ctx) {
         return new CreateCryptoKeyCommand(ctx.getCurrentUser().getOrg());
     }
-
-    /**
-     * 'Overrideable' method
-     * returns whether the contents field of cryptoKey has be set and non-empty
-     * @return overrriden boolean
-     */
-    protected boolean isContentsRequired() {
-        return true;
-    }
 }
