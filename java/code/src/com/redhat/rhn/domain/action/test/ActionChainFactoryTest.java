@@ -211,7 +211,8 @@ public class ActionChainFactoryTest extends BaseTestCaseWithUser {
 
     public void testRemoveActionChainEntrySortGaps() throws Exception {
 
-        ActionChain actionChain = ActionChainFactory.createActionChain(TestUtils.randomString(), user);
+        ActionChain actionChain =
+                ActionChainFactory.createActionChain(TestUtils.randomString(), user);
         Action action;
         for (int i = 0; i < 2; i++) {
             action = ActionFactory.createAction(ActionFactory.TYPE_ERRATA);
@@ -243,7 +244,8 @@ public class ActionChainFactoryTest extends BaseTestCaseWithUser {
 
     public void testRemoveActionChainEntry() throws Exception {
 
-        ActionChain actionChain = ActionChainFactory.createActionChain(TestUtils.randomString(), user);
+        ActionChain actionChain =
+                ActionChainFactory.createActionChain(TestUtils.randomString(), user);
         Action action;
         for (int i = 0; i < 2; i++) {
             action = ActionFactory.createAction(ActionFactory.TYPE_ERRATA);
@@ -256,8 +258,9 @@ public class ActionChainFactoryTest extends BaseTestCaseWithUser {
         action = ActionFactory.createAction(ActionFactory.TYPE_ERRATA);
         action.setOrg(user.getOrg());
         TestUtils.saveAndFlush(action);
-        ActionChainEntry toRemove = ActionChainFactory.queueActionChainEntry(action, actionChain,
-                    ServerFactoryTest.createTestServer(user), 1);
+        ActionChainEntry toRemove =
+                ActionChainFactory.queueActionChainEntry(action, actionChain,
+                        ServerFactoryTest.createTestServer(user), 1);
 
         for (int i = 0; i < 2; i++) {
             action = ActionFactory.createAction(ActionFactory.TYPE_PACKAGES_UPDATE);

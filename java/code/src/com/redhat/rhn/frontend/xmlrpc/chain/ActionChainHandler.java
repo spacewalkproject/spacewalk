@@ -135,7 +135,7 @@ public class ActionChainHandler extends BaseHandler {
      * @return State of the action result. Negative is false. Positive: number
      * of successfully deleted entries.
      *
-     * @xmlrpc.doc Remove actions from an Action Chain.
+     * @xmlrpc.doc Remove an action from an Action Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.param #param_desc("int", "actionId", "Action ID")
@@ -165,13 +165,12 @@ public class ActionChainHandler extends BaseHandler {
      * @return State of the action result. Negative is false. Positive: number
      * of successfully deleted entries.
      *
-     * @xmlrpc.doc Remove action chains by label.
+     * @xmlrpc.doc Delete action chain by label.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer removeActionChain(String sessionKey,
-                                     String chainLabel) {
+    public Integer deleteChain(String sessionKey, String chainLabel) {
         BaseHandler.getLoggedInUser(sessionKey);
         ActionChainFactory.delete(this.acUtil.getActionChainByLabel(chainLabel));
 
@@ -188,17 +187,17 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.doc Create an Action Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
-     * @xmlrpc.returntype int actionId - The action id of the scheduled action
+     * @xmlrpc.returntype #return_int_success()
      */
-    public Integer createActionChain(String sessionKey,
+    public Integer createChain(String sessionKey,
                                      String chainLabel) {
         if (StringUtil.nullOrValue(chainLabel) == null) {
             throw new InvalidParameterException("Chain label is missing");
         }
 
-        return ActionChainFactory.createActionChain(
-                chainLabel, BaseHandler.getLoggedInUser(sessionKey)
-        ).getId().intValue();
+        ActionChainFactory.createActionChain(chainLabel,
+                BaseHandler.getLoggedInUser(sessionKey));
+        return 1;
     }
 
     /**
@@ -209,7 +208,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param chainLabel Label of the action chain
      * @return list of action ids, exception thrown otherwise
      *
-     * @xmlrpc.doc Schedule system reboot.
+     * @xmlrpc.doc Add system reboot to an Action Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey",
      * "Session token, issued at login")
      * @xmlrpc.param #param("int", "serverId")
@@ -235,7 +234,8 @@ public class ActionChainHandler extends BaseHandler {
      * @param chainLabel Label of the action chain
      * @return list of action ids, exception thrown otherwise
      *
-     * @xmlrpc.doc Adds an action to remove installed packages on the system.
+     * @xmlrpc.doc Adds an action to remove installed packages on the system to an Action
+     * Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
      * @xmlrpc.param #array()
@@ -274,7 +274,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param chainLabel Label of the Action Chain.
      * @return True or false in XML-RPC representation: 1 or 0 respectively.
      *
-     * @xmlrpc.doc Schedule package installation to an Action Chain.
+     * @xmlrpc.doc Adds package installation action to an Action Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
      * @xmlrpc.param #array_single("int", "Package ID")
@@ -306,7 +306,8 @@ public class ActionChainHandler extends BaseHandler {
      * @param chainLabel Label of the action chain
      * @return True or false in XML-RPC representation (1 or 0 respectively)
      *
-     * @xmlrpc.doc Adds an action to verify installed packages on the system.
+     * @xmlrpc.doc Adds an action to verify installed packages on the system to an Action
+     * Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
      * @xmlrpc.param #array_single("int", "packageId")
@@ -338,7 +339,8 @@ public class ActionChainHandler extends BaseHandler {
      * @param chainLabel Label of the action chain
      * @return True or false in XML-RPC representation (1 or 0 respectively)
      *
-     * @xmlrpc.doc Adds an action to upgrade installed packages on the system.
+     * @xmlrpc.doc Adds an action to upgrade installed packages on the system to an Action
+     * Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
      * @xmlrpc.param #array_single("int", "packageId")
@@ -372,8 +374,8 @@ public class ActionChainHandler extends BaseHandler {
      * @param timeout Timeout
      * @return True or false in XML-RPC representation (1 or 0 respectively)
      *
-     * @xmlrpc.doc Add a remote command as a script. NOTE: The script body must
-     * be Base64 encoded!
+     * @xmlrpc.doc Add an action to run a script to an Action Chain.
+     * NOTE: The script body must be Base64 encoded!
      *
      * @xmlrpc.param #param_desc("string", "sessionKey",
      * "Session token, issued at login")
@@ -408,14 +410,14 @@ public class ActionChainHandler extends BaseHandler {
      * @param date Earliest date
      * @return True in XML-RPC representation
      *
-     * @xmlrpc.doc Adds an action to verify installed packages on the system.
+     * @xmlrpc.doc Schedule the Action Chain so that its actions will actually occur.
      * @xmlrpc.param #param_desc("string", "sessionKey",
      * "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.param #param("dateTime.iso8601", "Earliest date")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer schedule(String sessionKey, String chainLabel, Date date) {
+    public Integer scheduleChain(String sessionKey, String chainLabel, Date date) {
         BaseHandler.getLoggedInUser(sessionKey);
         ActionChainFactory.schedule(this.acUtil.getActionChainByLabel(chainLabel), date);
 
@@ -431,7 +433,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param revisions List of configuration revisions.
      * @return True in XML-RPC representation
      *
-     * @xmlrpc.doc Deploy configuration across the servers.
+     * @xmlrpc.doc Adds an action to deploy a configuration file to an Action Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.param #param_desc("int", "System ID", "System ID")
@@ -467,7 +469,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param newLabel New (desired) label of the Action Chain
      * @return list of action ids, exception thrown otherwise
      *
-     * @xmlrpc.doc Schedule system reboot.
+     * @xmlrpc.doc Rename an Action Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("string", "previousLabel", "Previous chain label")
      * @xmlrpc.param #param_desc("string", "newLabel", "New chain label")

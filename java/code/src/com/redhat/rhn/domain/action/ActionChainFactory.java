@@ -316,7 +316,8 @@ public class ActionChainFactory extends HibernateFactory {
      * @param actionChain An ActionChain from which to be removed.
      * @param removedOrder sort order of the (already) removed entry
      */
-    public static void removeActionChainEntrySortGaps(ActionChain actionChain, int removedOrder) {
+    public static void removeActionChainEntrySortGaps(ActionChain actionChain,
+            int removedOrder) {
         Set<ActionChainEntry> entries = actionChain.getEntries();
 
         for (ActionChainEntry entry : entries) {
@@ -338,7 +339,8 @@ public class ActionChainFactory extends HibernateFactory {
      * @param actionChain An ActionChain from which to be removed.
      * @param entry entry to remove
      */
-    public static void removeActionChainEntry(ActionChain actionChain, ActionChainEntry entry) {
+    public static void removeActionChainEntry(ActionChain actionChain,
+            ActionChainEntry entry) {
         actionChain.getEntries().remove(entry);
         removeActionChainEntrySortGaps(actionChain, entry.getSortOrder());
     }
