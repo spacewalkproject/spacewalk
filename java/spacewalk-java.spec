@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.51
+Version: 2.2.52
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,82 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 23 2014 Stephen Herr <sherr@redhat.com> 2.2.52-1
+- 1084522 - [RFE] filters per repository on WebUI
+- checkstyle fixes, documentation updates, making method names consistant
+- xmlrpc spec includes bool values, any library should be able to handle them
+- fix unclosed javadoc tags
+- Fixed typo
+- - split method that fix the order gaps - implement a helper method to remove
+  and fix the ordering of an entry   from a chain - use that method in the
+  handler - tests
+- Fixed Javadoc and XML-RPC doc
+- Adjusting tests for the refactoring of the XML-RPC API
+- Refactoring of XML-RPC API handler
+- Added translations for the Action Chain XML-RPC API exception
+- Added exception type for Action Chain XML-RPC API
+- Fixes during review
+- Removed timeout limitation for the script schedule
+- Removed unused code, made for 'convenience' methods
+- Checkstyle, missing javadoc tags, unused imports.
+- Added tests for Action Chain rename XML-RPC API, adjusted tests for config
+  deployment API call
+- Added Action Chain rename XML-RPC API, unified config deployment API call
+- Added missing javadoc
+- Renamed 'name' to 'label'
+- Added tests for configuration deployment XML-RPC API of the Action Chain
+- Added configuration deployment XML-RPC API for the Action Chain call
+- Change tests for referring to the Action Chain entries by ID
+- Referring to the Action Chain entries by ID
+- Added more tests for XML-RPC API calls
+- Added exceptions, minor refactoring
+- Added XML-RPC API for scheduling the Action Chain for exec
+- Added missing method javadoc
+- Added tests for chain removal XML-RPC API calls with the authorization
+- Added security for chain removal XML-RPC API calls
+- Adjusted tests for Action Chain handler throwin exceptions
+- Change Action Chain handler to throw exceptions on failures
+- Reviewed test assertions and added more tests to the XML-RPC API Action
+  Chains
+- Removed 'convenient' methods
+- Removed unused imports
+- Throw an exception if server is not found
+- Rename action chain 'name' to 'label' in tests
+- Added a test for creating Action Chain method XML-RPC API call.
+- Checkstyle fixes
+- Added XML-RPC API call to explicitly create an Action Chain
+- Removed previously introduced cleanup paradigm as Action Chain explicitly
+  created. Removed validation check in favor of exceptions.
+- Rename action chain 'name' to 'label'
+- Various unit test fixes
+- Added more tests for the Action Chain XML-RPC API
+- Refactored cleanup for Action Chain XML-RPC handler
+- Add resolve packages by ID to ActionChain XML-RPC handler
+- Added more tests
+- Minor bugfixes to the Action Chain XML-RPC handler
+- Added tests for the standard XML-RPC API for the Action Chaining.
+- Adding missing cleanup action on failed input
+- Added XML-RPC API unit tests: chain list, chain actions
+- Removed accidentally added external files
+- Added package installation and removal tests for the XML-RPC ActionChain API
+- Query should return same column names
+- Bugfix: pkg keys missing underscore
+- Added two tests of XML-RPC API for Action Chaining
+- Code refactoring, improved documentation
+- Changed namespace name for ActionChain RPC API
+- Added Remote command script API to Action Chaining XML-RPC API
+- Documentation fixes
+- Checkstyle fixes
+- Added more APIs taking IDs
+- Adapt to changed APIs in ActionChainManager
+- Added System reboot, added more API by ID
+- Added package install by ID
+- API is now accepts real server attributes - IP and name
+- XML-RPC API: Action Chain initial implementation
+- Added Action Chain listing and Action details API
+- Added single system update/install/remove/verify pkg by name
+- ActionChainHandler: XML-RPC API for Action Chaining
+
 * Tue Apr 22 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.51-1
 - rewrite system snapshot to java: fixed nav menu hiding
 - rewrite system snapshot to java: Packages.do
