@@ -208,6 +208,10 @@
        <param-name>org.directwebremoting.extend.ScriptSessionManager</param-name>
        <param-value>org.directwebremoting.impl.TransientScriptSessionManager</param-value>
      </init-param>
+    <init-param>
+        <param-name>accessLogLevel</param-name>
+        <param-value>EXCEPTION</param-value>
+    </init-param>
    </servlet>
 
   <!-- Simple Servlet to reload resources off disk -->
