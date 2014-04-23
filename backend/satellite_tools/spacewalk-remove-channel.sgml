@@ -26,7 +26,7 @@ Removes a channel from an Red Hat Satellite or Spacewalk server.
          <arg>-c</arg> <arg>--channel</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-         <arg>-a</arg> <arg>--channel-with-childs</arg>
+         <arg>-a</arg> <arg>--channel-with-children</arg>
     </cmdsynopsis>
     <cmdsynopsis>
          <arg>-u</arg> <arg>--unsubscribe</arg>
@@ -101,7 +101,7 @@ Removes a channel from an Red Hat Satellite or Spacewalk server.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-a<replaceable>PARENT</replaceable>, --channel-with-childs=<replaceable>PARENT</replaceable></term>
+        <term>-a<replaceable>PARENT</replaceable>, --channel-with-children=<replaceable>PARENT</replaceable></term>
         <listitem>
             <para>Delete the channel with the specified label and its child channels.  May be used multiple times to specify multiple parent channels.</para>
         </listitem>
@@ -137,7 +137,7 @@ Removes a channel from an Red Hat Satellite or Spacewalk server.
 <simplelist>
         <member><command>spacewalk-remove-channel --list</command></member>
         <member><command>spacewalk-remove-channel --channel=rhel-i386-as-3</command></member>
-        <member><command>spacewalk-remove-channel --channel-with-childs=rhel-i386-as-3</command></member>
+        <member><command>spacewalk-remove-channel --channel-with-children=rhel-i386-as-3</command></member>
 </simplelist>
 </RefSect1>
 
