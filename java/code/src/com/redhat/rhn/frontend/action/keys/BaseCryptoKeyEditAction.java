@@ -95,7 +95,8 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
             String contentFileName = strutsDelegate.getFormFileName(form, CONTENTS);
             if (isContentsRequired()) {
                 if (StringUtils.isEmpty(contentFileName)) {
-                    strutsDelegate.addError("configmanager.filedetails.path.empty", null);
+                    strutsDelegate.addError(
+                            "configmanager.filedetails.path.empty", errors);
                 }
                 else if (StringUtils.isEmpty(contents)) {
                         strutsDelegate.addError("crypto.key.nokey", errors);
