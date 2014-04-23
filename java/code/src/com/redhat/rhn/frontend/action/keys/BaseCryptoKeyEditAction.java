@@ -93,13 +93,14 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
                     this, form);
             String contents = strutsDelegate.getFormFileString(form, CONTENTS);
             String contentFileName = strutsDelegate.getFormFileName(form, CONTENTS);
-            if (isContentsRequired()) {
-                if (StringUtils.isEmpty(contentFileName)) {
-                    strutsDelegate.addError("configmanager.filedetails.path.empty", null);
+            if (StringUtils.isEmpty(contentFileName)) {
+                if (cmd.getCryptoKey().getKey() == null) {
+                        strutsDelegate.addError(
+                            "configmanager.filedetails.path.empty", null);
                 }
-                else if (StringUtils.isEmpty(contents)) {
+            }
+            else if (StringUtils.isEmpty(contents)) {
                         strutsDelegate.addError("crypto.key.nokey", errors);
-                }
             }
             if (!errors.isEmpty()) {
                 strutsDelegate.saveMessages(request, errors);
@@ -140,14 +141,5 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
      */
     protected String getSuccessKey() {
         return "crypto.key.success";
-    }
-
-    /**
-     * 'Overrideable' method for subclasses that require
-     * the contents field of cryptoKey to be set and non-empty
-     * @return boolean "false" that can be overridden
-     */
-    protected boolean isContentsRequired() {
-        return false;
     }
 }

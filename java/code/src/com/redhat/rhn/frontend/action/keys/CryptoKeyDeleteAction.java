@@ -38,11 +38,4 @@ public class CryptoKeyDeleteAction extends BaseCryptoKeyEditAction {
     protected String getSuccessKey() {
         return "cryptokey.delete.success";
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected boolean isContentsRequired() {
-        return false;
-    }
 }
