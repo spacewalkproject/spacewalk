@@ -250,7 +250,6 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action or exception
      */
-    @SuppressWarnings("unchecked")
     public Integer addPackageRemoval(String sessionKey,
                                      Integer serverId,
                                      List<Integer> packages,
