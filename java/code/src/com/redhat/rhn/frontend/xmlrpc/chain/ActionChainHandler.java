@@ -198,9 +198,14 @@ public class ActionChainHandler extends BaseHandler {
             throw new InvalidParameterException("Chain label is missing");
         }
 
-        ActionChainFactory.createActionChain(chainLabel,
-                BaseHandler.getLoggedInUser(sessionKey));
-        return 1;
+        if (ActionChainFactory.getActionChain(chainLabel) != null) {
+            throw new InvalidParameterException(
+                    "Another Action Chain with the same label already exists");
+        }
+
+        return ActionChainFactory.createActionChain(
+                chainLabel, BaseHandler.getLoggedInUser(sessionKey)
+        ).getId().intValue();
     }
 
     /**
