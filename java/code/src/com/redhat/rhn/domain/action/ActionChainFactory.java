@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Creates Action Chain related objects.
@@ -307,5 +308,38 @@ public class ActionChainFactory extends HibernateFactory {
     @Override
     protected Logger getLogger() {
         return log;
+    }
+
+    /**
+     * Remove gaps from entries in an action chain
+     *
+     * @param actionChain An ActionChain from which to be removed.
+     * @param removedOrder sort order of the (already) removed entry
+     */
+    public static void removeActionChainEntrySortGaps(ActionChain actionChain, int removedOrder) {
+        Set<ActionChainEntry> entries = actionChain.getEntries();
+
+        for (ActionChainEntry entry : entries) {
+            if (entry.getSortOrder() == removedOrder) {
+                return;
+            }
+        }
+
+        for (ActionChainEntry entry : entries) {
+            if (entry.getSortOrder() > removedOrder) {
+                entry.setSortOrder(entry.getSortOrder() - 1);
+            }
+        }
+    }
+
+    /**
+     * Remove an entry from the action chain
+     *
+     * @param actionChain An ActionChain from which to be removed.
+     * @param entry entry to remove
+     */
+    public static void removeActionChainEntry(ActionChain actionChain, ActionChainEntry entry) {
+        actionChain.getEntries().remove(entry);
+        removeActionChainEntrySortGaps(actionChain, entry.getSortOrder());
     }
 }

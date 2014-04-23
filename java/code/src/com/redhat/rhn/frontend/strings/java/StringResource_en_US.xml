@@ -7032,6 +7032,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="api.action.nosuchaction">
         <source>No such action: {0}</source>
       </trans-unit>
+      <trans-unit id="api.action.nosuchactionchain">
+        <source>No such action chain: {0}</source>
+      </trans-unit>
       <trans-unit id="api.action.invalidactiontype">
         <source>Invalid action type</source>
       </trans-unit>

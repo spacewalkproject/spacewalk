@@ -312,11 +312,14 @@ public class SystemManager extends BaseManager {
     /**
      * Gets the installed packages on a system
      * @param sid The system in question
+     * @param expanded If true, also adds EVR, Arch and package name to the result.
      * @return Returns a list of packages for a system
      */
-    public static DataResult installedPackages(Long sid) {
-        SelectMode m = ModeFactory.getMode("System_queries", "system_installed_packages",
-                Map.class);
+    public static DataResult installedPackages(Long sid, boolean expanded) {
+        String suffix = expanded ? "_expanded" : "";
+        SelectMode m = ModeFactory.getMode("System_queries",
+                                           "system_installed_packages" + suffix,
+                                           Map.class);
         Map params = new HashMap();
         params.put("sid", sid);
         DataResult<Map> pkgs =  m.execute(params);

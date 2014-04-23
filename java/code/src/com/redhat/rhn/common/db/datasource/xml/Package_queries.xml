@@ -30,6 +30,33 @@ ORDER BY UPPER(PN.name), PEVR.evr
   </query>
 </mode>
 
+<mode name="system_all_available_packages_expanded">
+  <query params="sid">
+SELECT PKG.id AS id,
+       PN.name AS name,
+       NVL((PEVR.evr).version, ' ') AS version,
+       NVL((PEVR.evr).release, ' ') AS release,
+       NVL((PEVR.evr).epoch, ' ') AS epoch,
+       NVL(PA.label, ' ') AS arch_label,
+       PN.id nameid,
+       PEVR.id evrid,
+       PA.id archid
+  FROM rhnPackage PKG
+       join rhnPackageName PN on PKG.name_id = PN.id
+       join rhnPackageEVR PEVR on PKG.evr_id = PEVR.id
+       join rhnPackageArch PA on PKG.package_arch_id = PA.id
+       join rhnChannelPackage CP on CP.package_id = PKG.id
+       join rhnServerChannel SC on SC.channel_id = CP.channel_id
+ WHERE SC.server_id = :sid
+   AND NOT EXISTS (SELECT 1
+                     FROM rhnServerPackage SP
+                    WHERE SP.server_id = :sid
+                      AND SP.name_id = PN.id
+                      AND (SP.package_arch_id = PA.id or SP.package_arch_id is null))
+ORDER BY UPPER(PN.name), PEVR.evr
+  </query>
+</mode>
+
 <mode name="system_packages_from_channel">
   <query params="sid, cid">
 SELECT PKG.id AS id,
@@ -746,7 +773,12 @@ SELECT  distinct pn.name AS NAME,
         pn.name || '-' || evr_t_as_vre_simple(full_list.evr) AS NVRE,
         pn.name || '-' || evr_t_as_vre_simple(full_list.evr) || '.' || full_list.arch_label AS NVREA,
         pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) || '|' || full_list.arch_id AS ID_COMBO,
-        full_list.arch_label as ARCH
+        full_list.arch_label as ARCH,
+        pn.id name_id,
+        full_list.arch_id,
+        lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) evr_id,
+        ep.release,
+        ep.version
   FROM  (
          SELECT  p.name_id name_id, max(pe.evr) evr,
                  pa.label as arch_label, pa.id as arch_id
@@ -762,6 +794,7 @@ SELECT  distinct pn.name AS NAME,
        ) full_list,
        rhnPackageName pn
      INNER JOIN rhnPackage PKG ON pkg.name_id = pn.id
+     INNER JOIN rhnpackageevr ep ON ep.id = evr_id
  WHERE  full_list.name_id = pn.id
    AND  NOT EXISTS (SELECT 1
                       FROM rhnServerPackage SP
