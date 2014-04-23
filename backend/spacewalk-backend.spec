@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.20
+Version: 2.2.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Wed Apr 23 2014 Stephen Herr <sherr@redhat.com> 2.2.21-1
+- 578835 - [RFE] Add --justks to sw-remove-channel
+- 1088813 - sw-remove-channel --justdb has no impact on ks trees.
+- 1086348 - rename channel-with-childs to channel-with-children
+- 1086348 - [RFE] Add option to spacewalk-remove-channel parent
+
 * Tue Apr 15 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.20-1
 - updated (conflicting) rpm package has been pushed to Fedora 19 updates
 
