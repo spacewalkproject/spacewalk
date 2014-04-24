@@ -175,6 +175,11 @@ public class MigrationManagerTest extends RhnBaseTestCase {
         assertEquals(5, MonitoringManager.getInstance().probesForSystem(origOrgAdmin,
                 server, null).size());
 
+        // reload the server object, since its type is changed from Server to
+        // MonitoredServer when we added the probes. MonitoringManager does not to that by
+        // default, and this can cause Hibernate problems later
+        server = (Server) HibernateFactory.reload(server);
+
         MigrationManager.removeOrgRelationships(origOrgAdmin, server);
 
         // verify that the probes were removed from the system
