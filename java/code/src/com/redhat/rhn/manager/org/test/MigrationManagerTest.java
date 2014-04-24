@@ -90,10 +90,6 @@ public class MigrationManagerTest extends RhnBaseTestCase {
                 origOrgAdmins.iterator().next(), 2);
         server2 = ServerFactoryTest.createTestServer(origOrgAdmins.iterator().next(), true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
-        for (User origOrgAdmin : origOrgAdmins) {
-            origOrgAdmin.addServer(server);
-            origOrgAdmin.addServer(server2);
-        }
 
         ServerFactory.save(server);
         ServerFactory.save(server2);
