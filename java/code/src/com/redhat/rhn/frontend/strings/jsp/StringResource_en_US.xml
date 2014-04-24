@@ -11975,7 +11975,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Config Files:</source>
         </trans-unit>
         <trans-unit id="system.event.configFiesDiffExist">
-          <source>Differnces exist</source>
+          <source>Differences exist</source>
         </trans-unit>
         <trans-unit id="system.event.configFiesMissing">
           <source>Missing file</source>
