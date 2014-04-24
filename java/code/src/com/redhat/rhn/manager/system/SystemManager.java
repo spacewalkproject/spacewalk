@@ -1384,13 +1384,7 @@ public class SystemManager extends BaseManager {
     public static void unsubscribeServerFromChannel(User user, Long sid,
             Long cid) {
         if (ChannelManager.verifyChannelSubscribe(user, cid)) {
-            CallableMode m = ModeFactory.getCallableMode("Channel_queries",
-                    "unsubscribe_server_from_channel");
-            Map in = new HashMap();
-            in.put("server_id", sid);
-            in.put("channel_id", cid);
-
-            m.execute(in, new HashMap());
+            unsubscribeServerFromChannel(sid, cid);
         }
     }
 
@@ -1460,12 +1454,7 @@ public class SystemManager extends BaseManager {
             return server;
         }
 
-        CallableMode m = ModeFactory.getCallableMode("Channel_queries",
-                "unsubscribe_server_from_channel");
-        Map in = new HashMap();
-        in.put("server_id", server.getId());
-        in.put("channel_id", channel.getId());
-        m.execute(in, new HashMap());
+        unsubscribeServerFromChannel(server.getId(), channel.getId());
 
         /*
          * This is f-ing hokey, but we need to be sure to refresh the
@@ -1477,7 +1466,21 @@ public class SystemManager extends BaseManager {
         }
         HibernateFactory.getSession().refresh(server);
         return server;
+    }
 
+    /**
+     * Unsubscribes a server from a channel without any check. Please use other
+     * overloaded versions of this method if unsure.
+     * @param sid the server id
+     * @param cid the channel id
+     */
+    public static void unsubscribeServerFromChannel(Long sid, Long cid) {
+        CallableMode m = ModeFactory.getCallableMode("Channel_queries",
+            "unsubscribe_server_from_channel");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("server_id", sid);
+        params.put("channel_id", cid);
+        m.execute(params, new HashMap<String, Integer>());
     }
 
     /**

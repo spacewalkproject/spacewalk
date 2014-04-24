@@ -184,7 +184,7 @@ public class SsmManager {
                 subscribeChannel(system.getId(), cid, user.getId());
             }
             for (Long cid : system.getUnsubscribeChannelIds()) {
-                unsubscribeChannel(system.getId(), cid);
+                SystemManager.unsubscribeServerFromChannel(system.getId(), cid);
             }
         }
     }
@@ -198,17 +198,6 @@ public class SsmManager {
         Map in = new HashMap();
         in.put("server_id", sid);
         in.put("user_id", uid);
-        in.put("channel_id", cid);
-        m.execute(in, new HashMap());
-    }
-
-
-    private static void unsubscribeChannel(Long sid, Long cid) {
-
-        CallableMode m = ModeFactory.getCallableMode("Channel_queries",
-                "unsubscribe_server_from_channel");
-        Map in = new HashMap();
-        in.put("server_id", sid);
         in.put("channel_id", cid);
         m.execute(in, new HashMap());
     }
