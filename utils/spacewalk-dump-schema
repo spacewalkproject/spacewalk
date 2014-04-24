@@ -12,7 +12,9 @@ my $config_file = Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
 my %options;
 Spacewalk::Setup::read_config($config_file, \%options);
 
-my ($db, $user, $password, $raw);
+my @supported_backends = qw( oracle postgresql );
+
+my ($db, $user, $password, $from_backend, $to_backend, $raw);
 
 sub usage {
 	print "$0: [--db=SID --user=USERNAME --password=PASSWORD] [ --help ]\n";
@@ -26,6 +28,8 @@ Getopt::Long::GetOptions (
 	'db=s' => \$db,
 	'user=s' => \$user,
 	'password=s' => \$password,
+        'from=s' => \$from_backend,
+        'to=s' => \$to_backend,
 	'raw' => \$raw,
 	'help' => \&usage,
 ) or exit 1;
@@ -33,10 +37,17 @@ Getopt::Long::GetOptions (
 if (grep { defined $_ } $db, $user, $password) {
 	# Some connect parameter was specified, let's use it as new connect info
 	@options{qw( db_name db_user db_password )} = ( $db, $user, $password );
-} else {
-	if ($options{db_backend} ne 'oracle') {
-		die "The $0 can only dump Oracle database schema.\n";
-	}
+}
+
+# Setting input and output backend type from optional parameters, use defaultly Oracle to PostgreSQL if not sufficient data provided
+$options{db_backend} = $from_backend if defined $from_backend;
+$options{db_backend} = "oracle" if not defined $options{db_backend};
+$options{db_backend_target} = defined $to_backend ? $to_backend : "postgresql";
+
+# Check if both backends are valid
+if ((not grep $_ eq $options{db_backend}, @supported_backends)
+  or (not grep $_ eq $options{db_backend_target}, @supported_backends)) {
+	die "The $0 can only work with Oracle or PostgreSQL database schema.\n";
 }
 
 $raw = 1 unless -d $DATA_DIR;
