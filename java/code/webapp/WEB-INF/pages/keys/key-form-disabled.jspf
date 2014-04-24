@@ -1,6 +1,6 @@
     <div class="form-group">
         <label class="col-md-2 control-label">
-            <rhn:required-field key="keycreate.jsp.description"/>
+            <bean:message key="keycreate.jsp.description"/>
         </label>
         <div class="col-md-6">
             <html:text styleClass="form-control" property="description" maxlength="40" size="20" disabled="true"/>
