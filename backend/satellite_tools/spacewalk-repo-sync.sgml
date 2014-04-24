@@ -25,6 +25,11 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </group>
         <sbr>
         <group>
+        <arg>-l</arg>
+        <arg>--list</arg>
+        </group>
+        <sbr>
+        <group>
         <arg>-u<replaceable>URL</replaceable></arg>
         <arg>--url=<replaceable>URL</replaceable></arg>
         </group>
@@ -103,6 +108,12 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         <term>-u<replaceable>URL</replaceable>, --url=<replaceable>URL</replaceable></term>
         <listitem>
             <para>The repository URL.  Any protocol supported by yum is supported including http://, nfs://, file://. (Optional)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-l, --list</term>
+        <listitem>
+            <para>List the custom channels with the assosiated repositories.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

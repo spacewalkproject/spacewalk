@@ -43,6 +43,65 @@ def set_filter_opt(option, opt_str, value, parser):
     else:                               f_type = '-'
     parser.values.filters.append((f_type, re.split('[,\s]+', value)))
 
+def getChannelRepo():
+
+    initCFG('server')
+    rhnSQL.initDB()
+    items={}
+    sql = """
+           select s.source_url, c.label
+                       from rhnContentSource s,
+                       rhnChannelContentSource cs,
+                       rhnChannel c
+                       where s.id = cs.source_id and cs.channel_id=c.id;
+           """
+    h = rhnSQL.prepare(sql)
+    h.execute()
+    while 1:
+        row = h.fetchone_dict()
+        if not row:
+            break
+        if not row['label'] in items:
+            items[row['label']] = []
+        items[row['label']] += [row['source_url']]
+
+    return items;
+
+def getParentsChilds():
+
+    initCFG('server')
+    rhnSQL.initDB()
+
+    sql = """
+        select c1.label, c2.label parent_channel, c1.id
+        from rhnChannel c1 left outer join rhnChannel c2 on c1.parent_channel = c2.id
+        order by c2.label desc, c1.label asc
+    """
+    h = rhnSQL.prepare(sql)
+    h.execute()
+    d_parents = {}
+    while 1:
+        row = h.fetchone_dict()
+        if not row:
+            break
+        if rhnChannel.isCustomChannel(row['id']):
+            parent_channel = row['parent_channel']
+	    if not parent_channel:
+	        d_parents[row['label']] = []
+	    else:
+                d_parents[parent_channel].append(row['label'])
+
+    return d_parents
+
+def getCustomChannels():
+
+    d_parents=getParentsChilds()
+    l_custom_ch=[]
+
+    for ch in d_parents:
+        l_custom_ch += [ch] + d_parents[ch]
+
+    return l_custom_ch
 
 class RepoSync(object):
     def __init__(self, channel_label, repo_type, url=None, fail=False,
