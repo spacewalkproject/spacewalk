@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.52
+Version: 2.2.53
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 24 2014 Stephen Herr <sherr@redhat.com> 2.2.53-1
+- 973848 - ISE in case no file specified when crating key.
+- 973848 - Check if the key is not empty file when editing.
+- 1090989 - Uneditable field is marked as required.
+- fix typo
+- MigrationManagerTest: fix Hibernate problem that prevented the test to run
+  correctly
+- MigrationManagerTest: remove unnecessary set up code
+- SystemManager refactoring: move query in it's own method and remove
+  duplication
+- Enable DWR exception stack trace logging by default
+
 * Wed Apr 23 2014 Stephen Herr <sherr@redhat.com> 2.2.52-1
 - 1084522 - [RFE] filters per repository on WebUI
 - checkstyle fixes, documentation updates, making method names consistant
