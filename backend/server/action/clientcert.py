@@ -17,5 +17,5 @@ from spacewalk.common.rhnLog import log_debug
 __rhnexport__ = ['update_client_cert']
 
 def update_client_cert(server_id, action_id, dry_run=0):
-    log_debug(3, actionId)
+    log_debug(3, action_id)
     return
