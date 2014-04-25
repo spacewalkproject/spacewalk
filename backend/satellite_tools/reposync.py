@@ -86,10 +86,10 @@ def getParentsChilds():
             break
         if rhnChannel.isCustomChannel(row['id']):
             parent_channel = row['parent_channel']
-        if not parent_channel:
-            d_parents[row['label']] = []
-        else:
-            d_parents[parent_channel].append(row['label'])
+            if not parent_channel:
+                d_parents[row['label']] = []
+            else:
+                d_parents[parent_channel].append(row['label'])
 
     return d_parents
 
