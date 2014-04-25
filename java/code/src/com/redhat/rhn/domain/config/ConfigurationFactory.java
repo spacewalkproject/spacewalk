@@ -846,10 +846,12 @@ public class ConfigurationFactory extends HibernateFactory {
 
             int offset = 0;
             int read = 0;
+            stream.mark(size.intValue()); // mark and reset stream, so that stream can be re-read later
             do {
                 read = stream.read(foo, offset, (foo.length - offset));
                 offset += read;
             } while (read > 0 && offset < foo.length);
+            stream.reset();
         }
         catch (IOException e) {
             log.error("IOException while reading config content from input stream!", e);
