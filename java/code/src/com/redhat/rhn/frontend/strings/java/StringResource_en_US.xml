@@ -1709,6 +1709,12 @@
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="clientcert.update_client_cert">
+        <source>Update of system certificate</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="rollback.config">
         <source>Enable or Disable RPM Transaction Rollback</source>
         <context-group name="ctx">
