@@ -146,9 +146,6 @@ Spacewalk::Setup::update_monitoring_ack_enqueuer(\%opts, \%answers);
 print Spacewalk::Setup::loc("* Configuring apache SSL virtual host.\n");
 setup_mod_ssl(\%opts, \%answers);
 
-print Spacewalk::Setup::loc("* Configuring editarea.\n");
-setup_editarea();
-
 print Spacewalk::Setup::loc("* Configuring tomcat.\n");
 setup_tomcat(\%opts, \%answers);
 
@@ -499,14 +496,6 @@ sub setup_mod_ssl {
 
   system('/usr/bin/spacewalk-setup-httpd');
 
-}
-
-sub setup_editarea {
-  my $conf_file = "/etc/httpd/conf.d/editarea.conf";
-  if( -e $conf_file) {
-    Spacewalk::Setup::backup_file("/etc/httpd/conf.d", "editarea.conf");
-  }
-  copy(Spacewalk::Setup::SHARED_DIR . "/editarea.conf.1", $conf_file);
 }
 
 sub setup_tomcat {
