@@ -1,5 +1,5 @@
 Name:		spacewalk-client-cert
-Version:	2.2.3
+Version:	2.2.4
 Release:	1%{?dist}
 Summary:	Package allowing manipulation with Spacewalk client certificates
 
@@ -39,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Apr 25 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.4-1
+- polish the error message
+
 * Fri Apr 25 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.3-1
 - add python-devel BuildRequires
 
