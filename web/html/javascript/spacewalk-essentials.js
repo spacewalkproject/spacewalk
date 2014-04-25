@@ -204,7 +204,8 @@ function setupTextareaEditor(textarea, mode) {
   var editor = ace.edit(editDiv[0]);
   editor.getSession().setValue(textarea.val());
 
-  editor.setTheme("ace/theme/monokai");
+  editor.setTheme("ace/theme/xcode");
+  editor.getSession().setMode("ace/mode/sh");
 
   // before submitting the code, the textarea
   // should be updated with the editor value
