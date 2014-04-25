@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.15
+Version: 2.2.16
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -270,6 +270,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Apr 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.16-1
+- Replace editarea with ACE (http://ace.c9.io/) editor.
+
 * Tue Apr 22 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.15-1
 - removed obsolered code
 - rewrite system snapshot to java: removed obsoleted perl page
