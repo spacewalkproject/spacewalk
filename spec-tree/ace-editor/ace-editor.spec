@@ -28,7 +28,7 @@ License:        BSD-3-Clause
 Summary:        High performance code editor for the web
 Url:            http://ace.c9.io/
 Group:          Development/Libraries/Other
-Source0:        https://github.com/ajaxorg/ace-builds/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/ajaxorg/ace-builds/archive/v%{version}.tar.gz#/ace-builds-%{version}.tar.gz
 Source1:        ace-editor.conf
 %if 0%{?suse_version}
 BuildRequires:  fdupes
@@ -45,7 +45,7 @@ Ace is maintained as the primary editor for Cloud9 IDE and is the successor of t
 Mozilla Skywriter (Bespin) project.
 
 %prep
-%setup -q
+%setup -q -n ace-builds-%{version}
 
 %build
 
