@@ -111,9 +111,12 @@ public class ActionChainHandler extends BaseHandler {
 
         if (chain.getEntries() != null && !chain.getEntries().isEmpty()) {
             for (ActionChainEntry entry : chain.getEntries()) {
+                String label = entry.getAction().getName();
                 Map<String, Object> info = new HashMap<String, Object>();
                 info.put("id", entry.getAction().getId());
-                info.put("label", entry.getAction().getName());
+                info.put("label", StringUtil.nullOrValue(label) == null ?
+                                  entry.getAction().getActionType().getName() :
+                                  label);
                 info.put("created", entry.getAction().getCreated());
                 info.put("earliest", entry.getAction().getEarliestAction());
                 info.put("type", entry.getAction().getActionType().getName());
