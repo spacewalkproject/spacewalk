@@ -19,6 +19,7 @@
        <packagereq type="default">rhn-client-tools</packagereq>
        <packagereq type="default">yum-rhn-plugin</packagereq>
 
+       <packagereq type="default">ace-editor</packagereq>
        <packagereq type="default">asm</packagereq>
        <packagereq type="default">bea-stax</packagereq>
        <packagereq type="default">bea-stax-api</packagereq>

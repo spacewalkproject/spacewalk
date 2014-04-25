@@ -19,6 +19,7 @@
        <packagereq type="default">rhn-client-tools</packagereq>
        <packagereq type="default">yum-rhn-plugin</packagereq>
 
+       <packagereq type="default">ace-editor</packagereq>
        <packagereq type="default">bootstrap</packagereq>
        <packagereq type="default">bootstrap-datepicker</packagereq>
        <packagereq type="optional">bootstrap-less</packagereq>
