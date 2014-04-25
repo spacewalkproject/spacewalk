@@ -5417,7 +5417,7 @@ public class SystemHandler extends BaseHandler {
      * @param date The date of earliest occurence
      * @return ID of the action if the action scheduling succeeded, exception otherwise
      *
-     * @xmlrpc.doc Schedule update of client certificate
+     * @xmlrpc.doc Schedule update of client certificate at given date and time
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("dateTime.iso860", "date")
