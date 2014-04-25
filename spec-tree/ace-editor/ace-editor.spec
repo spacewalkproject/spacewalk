@@ -22,13 +22,13 @@
 %endif
 
 Name:           ace-editor
-Version:        1.1.1+git.1389133671.b2f8bf1
+Version:        1.1.3
 Release:        0
 License:        BSD-3-Clause
 Summary:        High performance code editor for the web
 Url:            http://ace.c9.io/
 Group:          Development/Libraries/Other
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        https://github.com/ajaxorg/ace-builds/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        ace-editor.conf
 %if 0%{?suse_version}
 BuildRequires:  fdupes
