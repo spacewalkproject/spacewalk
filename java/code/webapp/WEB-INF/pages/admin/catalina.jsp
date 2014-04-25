@@ -7,16 +7,7 @@
 <html>
 
 <head>
-<script language="javascript" type="text/javascript" src="/editarea/edit_area_full.js"></script>
-<script language="javascript" type="text/javascript">
-editAreaLoader.init({
-        id : "contents"
-        ,allow_toggle: true
-        ,allow_resize: "both"
-        ,display: "later"
-        ,toolbar: "search, go_to_line, |, help"
-});
-</script>
+<%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
 </head>
 
 <body>
