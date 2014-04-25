@@ -23,7 +23,7 @@
 
 Name:           ace-editor
 Version:        1.1.3
-Release:        1
+Release:        1%{?dist}
 License:        BSD-3-Clause
 Summary:        High performance code editor for the web
 Url:            http://ace.c9.io/
