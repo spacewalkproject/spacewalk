@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.2.7
+Version:        2.2.8
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -108,6 +108,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Apr 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.8-1
+- editarea has been replaced with ace-editor
+
 * Wed Apr 02 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.7-1
 - use SHA-256 for session secrets
 
