@@ -241,12 +241,7 @@ public class ActionChainHandler extends BaseHandler {
      * Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
-     * @xmlrpc.param #array()
-     *                 #struct("packages")
-     *                   #prop_desc("string", "label", "Package label")
-     *                   #prop_desc("string", "version", "Package version")
-     *                 #struct_end()
-     *               #array_end()
+     * @xmlrpc.param #array_single("int", "Package ID")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action or exception
      */
