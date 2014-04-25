@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        2.2.1
+Version:        2.2.2
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -176,6 +176,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Fri Apr 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.2-1
+- editarea has been replaced with ace-editor
+
 * Thu Mar 20 2014 Matej Kollar <mkollar@redhat.com> 2.2.1-1
 - Remove unnecessary dependency
 - Bumping package versions for 2.2.
