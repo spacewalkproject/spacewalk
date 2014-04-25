@@ -9,6 +9,7 @@ URL:		https://fedorahosted.org/spacewalk
 Source0:	https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
+BuildRequires:  python-devel
 Requires:       rhnlib
 Requires:       rhn-check
 Requires:       rhn-setup
