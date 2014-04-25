@@ -84,7 +84,7 @@ Requires:       selinux-policy-base >= 3.7.19-93
 %endif
 
 
-Requires:       editarea >= 0.8.2-2
+Requires:       ace-editor >= 1.1.1
 
 Requires:       cobbler2
 
