@@ -32,7 +32,7 @@ def update_client_cert(cache_only=None):
     new_system_id = server.registration.update_systemid(old_system_id).strip()
 
     if old_system_id == new_system_id:
-        return (1, 'client certificate did not change', {})
+        return (1, 'not updating client certificate: old and new certificates match', {})
 
     # Write out the new client certificate
     if isinstance(systemid, unicode):
