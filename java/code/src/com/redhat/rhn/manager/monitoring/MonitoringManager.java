@@ -421,7 +421,7 @@ public class MonitoringManager extends BaseManager {
             Iterator j = tProbe.getServerProbes().iterator();
             while (j.hasNext()) {
                 ServerProbe sProbe = (ServerProbe) j.next();
-                if (sProbe.getServer().equals(serverIn)) {
+                if (sProbe.getServer().getId().equals(serverIn.getId())) {
                     j.remove();
                     tProbe.removeServerProbe(sProbe);
                     if (delete) {
