@@ -1,0 +1,47 @@
+
+synopsis:
+
+    Repositories defined in system
+
+description:
+
+    List of all repositories, their SSL info, and any filters
+
+columns:
+
+    org_id:i                Organization identifier
+    id:i                    Repository id
+    repo_label              Repository name
+    repo_type               Repository type (e.g., 'yum')
+    source_url              Repository URL
+    client_key_descr        Client SSL Cert Key Description
+    client_key_type         Client SSL Cert Key Type
+    client_key              Client SSL Cert Key
+    client_cert_descr       Client SSL Cert Description
+    client_cert_type        Client SSl Cert Type
+    client_cert             Client SSL Cert
+    ca_descr                SSL CA Cert Description
+    ca_type                 SSL CA Cert Type
+    ca_key                  SSL CA Cert
+
+multival_columns:
+
+    org_id
+    id
+
+sql:
+
+    select * from (
+       select cs.org_id, cs.id, cs.label as repo_label, cst.label as repo_type, cs.source_url,
+              ck_key.description as client_key_descr, ck_key.crypto_key_type_id as client_key_type, ck_key.key as client_key,
+              ck_cert.description as client_cert_descr, ck_cert.crypto_key_type_id as client_cert_type, ck_cert.key as client_cert,
+              ck_ca.description as ca_descr, ck_ca.crypto_key_type_id as ca_type, ck_ca.key as ca_key
+       from rhncontentsource cs
+            left outer join rhncontentsourcessl css on css.content_source_id = cs.id
+            left outer join rhncryptokey ck_key on ck_key.id = css.ssl_client_key_id
+            left outer join rhncryptokey ck_cert on ck_cert.id = css.ssl_client_cert_id
+            left outer join rhncryptokey ck_ca on ck_ca.id = css.ssl_ca_cert_id
+            join rhncontentsourcetype cst on cs.type_id = cst.id
+    ) X
+    -- where placeholder
+    order by org_id, id
