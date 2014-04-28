@@ -99,7 +99,7 @@ EOS
 my %ROWIDS = ();
 my $SEQ = 1;
 process_tables($dbh, \%options);
-process_sequences($dbh);
+process_sequences($dbh, \%options);
 if (not $raw) {
 	my $dist = `rpm -qf --qf '%{release}\n' /etc/sysconfig/rhn/schema-dump`;
 	chomp $dist;
@@ -164,6 +164,33 @@ sub get_tables {
         	!, 'table_name');
 	}
 	return $tables;
+}
+
+sub get_sequences {
+	my $dbh = shift;
+	my $db_backend = shift;
+
+	my $sequences;
+	if ($db_backend eq 'postgresql') {
+		$sequences = $dbh->selectall_hashref(q!
+			select lower(c.relname) sequence_name
+                	from pg_class c
+                	where c.relkind = 'S'
+                	order by sequence_name
+		!, 'sequence_name');
+		# Select last value of each sequence separately
+		foreach my $sequence (keys %{ $sequences }) {
+			my $last_value = $dbh->selectrow_array("select last_value from $sequence");
+			$sequences->{$sequence}{last_number} = $last_value;
+		}
+	} else {
+		$sequences = $dbh->selectall_hashref(q!
+                	select lower(sequence_name) sequence_name, last_number
+                	from user_sequences
+                	order by sequence_name
+        	!, 'sequence_name');
+	}
+	return $sequences;
 }
 
 sub get_table_scripts {
@@ -264,11 +291,10 @@ sub get_sequence_exception {
 
 sub process_sequences {
 	my $dbh = shift;
-	my $sequences = $dbh->selectall_hashref(q!
-		select lower(sequence_name) sequence_name, last_number
-		from user_sequences
-		order by sequence_name
-	!, 'sequence_name');
+	my $options = shift;
+
+	my $sequences = get_sequences($dbh, $options->{db_backend});
+
 	if (not $raw and -d "$DATA_DIR/sequences") {
 		local *DIR;
 		opendir DIR, "$DATA_DIR/sequences" or die "Error reading [$DATA_DIR/sequences]: $!\n";
