@@ -1,5 +1,5 @@
 Name:		spacewalk-client-cert
-Version:	2.2.4
+Version:	2.2.5
 Release:	1%{?dist}
 Summary:	Package allowing manipulation with Spacewalk client certificates
 
@@ -39,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 28 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.5-1
+- correct variable name
+
 * Fri Apr 25 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.4-1
 - polish the error message
 
