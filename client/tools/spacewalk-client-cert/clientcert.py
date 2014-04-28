@@ -35,9 +35,9 @@ def update_client_cert(cache_only=None):
         return (1, 'not updating client certificate: old and new certificates match', {})
 
     # Write out the new client certificate
-    if isinstance(systemid, unicode):
-        rhnreg.writeSystemId(unicode.encode(systemid, 'utf-8'))
+    if isinstance(new_system_id, unicode):
+        rhnreg.writeSystemId(unicode.encode(new_system_id, 'utf-8'))
     else:
-        rhnreg.writeSystemId(systemid)
+        rhnreg.writeSystemId(new_system_id)
 
     return (0, 'client certificate updated', {})
