@@ -182,6 +182,8 @@ public class MigrationManagerTest extends RhnBaseTestCase {
 
         MigrationManager.removeOrgRelationships(origOrgAdmin, server);
 
+        HibernateFactory.getSession().flush();
+
         // verify that the probes were removed from the system
         assertEquals(0, MonitoringManager.getInstance().probesForSystem(origOrgAdmin,
                 server, null).size());
