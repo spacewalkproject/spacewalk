@@ -77,7 +77,7 @@ $SIG{'PIPE'} = sub {
 	die "SIGPIPE received.\n";
 };
 
-process_scripts($dbh, 'pre');
+process_scripts($dbh, 'pre', \%options);
 
 print <<'EOS';
 \set ON_ERROR_STOP on
@@ -98,7 +98,7 @@ EOS
 
 my %ROWIDS = ();
 my $SEQ = 1;
-process_tables($dbh);
+process_tables($dbh, \%options);
 process_sequences($dbh);
 if (not $raw) {
 	my $dist = `rpm -qf --qf '%{release}\n' /etc/sysconfig/rhn/schema-dump`;
@@ -137,8 +137,33 @@ exit 0;
 END {
 	return if (not defined $dbh);
 
-	process_scripts($dbh, 'post');
+	process_scripts($dbh, 'post', \%options);
 	$dbh->disconnect();
+}
+
+sub get_tables {
+	my $dbh = shift;
+	my $db_backend = shift;
+	my $db_user = shift;
+
+	my $tables;
+	if ($db_backend eq 'postgresql') {
+		$tables = $dbh->selectall_hashref(q!
+                	select lower(tablename) table_name
+                	from pg_catalog.pg_tables
+                	where tableowner = ?
+			and tablename not in ('dual')
+                	order by table_name
+        	!, 'table_name', {}, $db_user);
+	} else {
+		$tables = $dbh->selectall_hashref(q!
+                	select lower(table_name) table_name
+                	from user_tables
+                	where table_name not in ('PLAN_TABLE', 'PLAN_TABLE_9I') -- plan_table is not part of our schema
+                	order by table_name
+        	!, 'table_name');
+	}
+	return $tables;
 }
 
 sub get_table_scripts {
@@ -172,15 +197,11 @@ sub get_table_scripts {
 sub process_scripts {
 	my $dbh = shift;
 	my $stage = shift;
+	my $options = shift;
 
 	return if ($raw or not -d "$DATA_DIR/$stage");
 
-	my $tables = $dbh->selectall_hashref(q!
-		select lower(table_name) table_name
-		from user_tables
-		where table_name not in ('PLAN_TABLE', 'PLAN_TABLE_9I') -- plan_table is not part of our schema
-		order by table_name
-	!, 'table_name');
+	my $tables = get_tables($dbh, $options->{db_backend}, $options->{db_user});
 
 	my %scripts;
 	{
@@ -309,12 +330,10 @@ sub get_table_exception {
 
 sub process_tables {
 	my $dbh = shift;
-	my $tables = $dbh->selectall_hashref(q!
-		select lower(table_name) table_name
-		from user_tables
-		where table_name not in ('PLAN_TABLE', 'PLAN_TABLE_9I') -- plan_table is not part of our schema
-		order by table_name
-	!, 'table_name');
+	my $options = shift;
+
+	my $tables = get_tables($dbh, $options->{db_backend}, $options->{db_user});
+
 	if (not $raw and -d "$DATA_DIR/tables") {
 		local *DIR;
 		opendir DIR, "$DATA_DIR/tables" or die "Error reading [$DATA_DIR/tables]: $!\n";
