@@ -1,0 +1,268 @@
+#!/usr/bin/python
+#
+# Copyright (c) 2014 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+import csv
+import getpass
+from optparse import OptionParser
+from spacewalk.common import rhn_rpm
+import sys
+import time
+import xmlrpclib
+
+
+def parse_args():
+    parser = OptionParser()
+    parser.set_usage("spacewalk-fips-tool -i|-c [options] systemid01 [systemid02 ...]")
+    parser.add_option("-i", action="store_true", dest="install_packages", default=False,
+                      help="schedule installation of packages required for certificate update")
+    parser.add_option("-c", action="store_true", dest="update_certificates", default=False,
+                      help="schedule update of client certificates for specified systems")
+    parser.add_option("-u", action="store", type="string", dest="username",
+                      help="username (organizational administrator)")
+    parser.add_option("-p", action="store", type="string", dest="password",
+                      help="password")
+    parser.add_option("-s", action="store", type="string", dest="hostname",
+                      help="server hostname to use, defaults to localhost",
+                      default="localhost")
+    parser.add_option("-d", action="store", type="string", dest="date",
+                      help="date to schedule the conversion for, defaults to now, " + \
+                           "format: %Y-%m-%d %H:%M:%S (e.g. 2014-10-30 19:30:00)")
+    parser.add_option("-o", action="store", type="string", dest="output",
+                      help="output file in csv format to store the details about all " + \
+                           "scheduled actions, use '-' for stdout")
+
+    return parser.parse_args()
+
+
+def read_username():
+    tty = open("/dev/tty", "r+")
+    tty.write('Username: ')
+    tty.close()
+
+    try:
+        username = sys.stdin.readline().rstrip('\n')
+    except KeyboardInterrupt:
+        print
+        sys.exit(0)
+    if username is None:
+        # EOF
+        print
+        sys.exit(0)
+    return username.strip()
+
+
+strftime_format = "%Y-%m-%d %H:%M:%S"
+
+description = """
+spacewalk-fips-tool is a helper script aiming to help in the process
+of converting certificates of registered systems from using MD5
+digest to certificates with a SHA-256 digest.
+
+SHA-256 client certificate on your registered systems is required for your
+Spacewalk / Red Hat Satellite to be able to operate in FIPS mode.
+
+The certificate conversion is a two-step process:
+1. installation of 'spacewalk-client-cert' package on given systems, which is
+   required for the certificate conversion
+2. after the package installation finishes successfully, a certificate update
+   for given systems can be scheduled
+
+You need to specify one or more system ids for which you want to schedule
+the package installation and certificate conversion. The list of system ids
+potentially requiring certificate update can be retrieved for example from
+system-md5-certificates report.
+
+Please use the --help option or consult the tool's manual page for full usage
+information.
+"""
+
+broken_systems_msg01 = """
+The following systems do not have 'spacewalk-client-cert' package installed,
+nor can the package be installed on those systems:
+
+"""
+
+broken_systems_msg02 = """
+The following systems do not have 'spacewalk-client-cert' package installed:
+
+"""
+
+broken_systems_msg03 = """
+The package installation process cannot continue.
+
+For these systems, you need to either:
+  1. Install the package manually
+  2. Subscribe the systems to correct channels and re-run this tool
+  3. Re-run this tool without the problematic system ids
+
+"""
+
+broken_systems_msg04 = """
+The certificate conversion process cannot continue. Please re-run this tool
+with -i (package installation) option.
+"""
+
+if __name__ == '__main__':
+    (options, args) = parse_args()
+
+    if len(args) == 0:
+        print description
+        sys.exit(1)
+
+    if not options.install_packages and not options.update_certificates:
+        sys.stderr.write("You need to specifiy either -i or -c switch.\n")
+        sys.exit(1)
+
+    if options.install_packages and options.update_certificates:
+        sys.stderr.write("-i and -c switches are mutually exclusive.\n")
+        sys.exit(1)
+
+    if not options.output:
+        sys.stderr.write("You need to specify CSV output file\n")
+        sys.exit(1)
+
+    if not options.username:
+        options.username = read_username()
+
+    if not options.password:
+        options.password = getpass.getpass()
+
+    if not options.date:
+        options.date = time.strftime(strftime_format)
+
+    scheduled_date = None
+    try:
+        scheduled_date = xmlrpclib.DateTime(time.strptime(options.date, strftime_format))
+    except ValueError, e:
+        sys.stderr.write("Error processing the specified date: %s\n" % e)
+        sys.exit(1)
+
+    if len(args) == 0:
+        sys.stderr.write("You need to specify at least one system id\n")
+        sys.exit(1)
+
+    (client, key) = (None, None)
+    client = xmlrpclib.Server("https://%s/rpc/api" % options.hostname, verbose=0)
+
+    try:
+        key = client.auth.login(options.username, options.password)
+    except xmlrpclib.Fault, e:
+        if hasattr(e, "faultCode") and e.faultCode == 2950:
+            sys.stderr.write("Incorrect user name or password\n")
+            sys.exit(1)
+        else:
+            raise
+
+    systems = [int(i) for i in args]
+    systems.sort()
+
+    scc_pkg = 'spacewalk-client-cert'
+    broken_systems = systems[:]
+
+    installed_packages = {}
+    try:
+        for system_id in systems:
+            for package in client.system.list_packages(key, system_id):
+                if package['name'] == scc_pkg:
+                    installed_packages[system_id] = package
+                    # Systems which already have spacewalk-client-cert installed are not broken
+                    broken_systems.remove(system_id)
+                    break
+    except xmlrpclib.Fault, e:
+        sys.stderr.write(e.faultString + '\n')
+        sys.exit(1)
+
+    latest_available_packages = client.system.list_latest_available_package(key, systems, scc_pkg)
+
+    for i in latest_available_packages:
+        # Systems which can install / update spacewalk-client-cert are not broken
+        if i['id'] in broken_systems:
+            broken_systems.remove(i['id'])
+
+        if installed_packages.has_key(i['id']):
+
+            if installed_packages[i['id']]['epoch'] == ' ':
+                installed_packages[i['id']]['epoch'] = ''
+
+            # What's installed matches or is more recent than what's available
+            if rhn_rpm.hdrLabelCompare(i['package'], installed_packages[i['id']]) <= 0:
+                latest_available_packages.remove(i)
+
+    if len(broken_systems) > 0:
+        if options.install_packages:
+            sys.stderr.write(broken_systems_msg01)
+        elif options.update_certificates:
+            sys.stderr.write(broken_systems_msg02)
+
+        for system_id in broken_systems:
+            sys.stderr.write("\t%s\n" % system_id)
+
+        if options.install_packages:
+            sys.stderr.write(broken_systems_msg03)
+        elif options.update_certificates:
+            sys.stderr.write(broken_systems_msg04)
+
+        sys.exit(1)
+
+    (csv_writer, csv_file) = (None, None)
+
+    if options.output == '-':
+        csv_file = sys.stdout
+    else:
+        csv_file = open(options.output, "w+")
+
+    csv_writer = csv.writer(csv_file, lineterminator = "\n")
+    csv_writer.writerow(['action_id', 'system_id', 'action_description', 'scheduled_date'])
+
+    # Install / update spacewalk-client-cert on the selected systems
+    if options.install_packages:
+        for i in latest_available_packages:
+            pkg = i['package']
+            action_id = client.system.schedule_package_install(key,
+                            i['id'],            # system id
+                            pkg['id'],          # package id
+                            scheduled_date)     # earliest date
+
+            pkg_string = None
+            if pkg['epoch']:
+                pkg_string = "%s-%s:%s-%s.%s" % (pkg['name'], pkg['epoch'], pkg['version'],
+                                                 pkg['release'], pkg['arch'])
+            else:
+                pkg_string = "%s-%s-%s.%s" % (pkg['name'], pkg['version'],
+                                              pkg['release'], pkg['arch'])
+
+            csv_writer.writerow([action_id,
+                i['id'],
+                "Installation of %s package on system %s" % (pkg_string, i['id']),
+                options.date])
+
+    # Schedule the certificate update
+    if options.update_certificates:
+        for system_id in systems:
+            try:
+                action_id = client.system.schedule_certificate_update(key, system_id, scheduled_date)
+            except xmlrpclib.Fault, e:
+                sys.stderr.write("Error scheduling certificate update on %s: %s\n" % \
+                                 (system_id, e.faultString))
+                sys.exit(1)
+            # write the actions to csv
+            csv_writer.writerow([action_id,
+                system_id,
+                "Certificate update on %s" % system_id,
+                options.date])
+
+    if options.output != "-":
+        csv_file.close()
