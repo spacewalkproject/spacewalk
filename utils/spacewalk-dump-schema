@@ -57,12 +57,20 @@ $ENV{NLS_DATE_FORMAT} = 'YYYY-MM-DD HH24:MI:SS';
 $ENV{NLS_TIMESTAMP_FORMAT} = 'YYYY-MM-DD HH24:MI:SS';
 $ENV{NLS_TIMESTAMP_TZ_FORMAT} = 'YYYY-MM-DD HH24:MI:SS TZH:TZM';
 
-my $dbh = DBI->connect("dbi:Oracle:$options{db_name}", $options{db_user}, $options{db_password}, {
+my $connection_string;
+if ($options{db_backend} eq 'postgresql') {
+	$connection_string = "dbi:Pg:dbname=";
+} else {
+	$connection_string = "dbi:Oracle:";
+}
+
+my $dbh = DBI->connect($connection_string.$options{db_name}, $options{db_user}, $options{db_password}, {
 	RaiseError => 1,
 	FetchHashKeyName => 'NAME_lc',
 	LongReadLen => 20_000_000,
 	LongTruncOk => 0,
 	AutoCommit => 0,
+	pg_enable_utf8 => 1,
 });
 
 $SIG{'PIPE'} = sub {
