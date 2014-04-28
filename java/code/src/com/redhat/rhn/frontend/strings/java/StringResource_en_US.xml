@@ -7510,6 +7510,10 @@ Follow this url to see the full list of inactive systems:
         <source>i386 Solaris</source>
         <target>i386 Solaris</target>
       </trans-unit>
+      <trans-unit id="AArch64">
+        <source>ARM aarch64</source>
+        <target>ARM aarch64</target>
+      </trans-unit>
       <trans-unit id="channel.manage.patchset.deleteconfirm">
         <source>{0} patch cluster(s) have been removed from this channel</source>
       </trans-unit>
