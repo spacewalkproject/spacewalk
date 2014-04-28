@@ -1,27 +1,29 @@
 
 synopsis:
 
-	Channel report
+    Channel report
 
 description:
 
-	List of channels in the server with number of packages
-	in each channel.
+    List of channels in the server with number of packages in each channel.
 
 columns:
 
-	channel_label		Channel label
-	channel_name		Channel name
-	number_of_packages:i	Number of packages in the channel
+    channel_label           Channel label
+    channel_name            Channel name
+    number_of_packages:i    Number of packages in the channel
+    org_id:i                Id of owning organization
 
 sql:
 
-	select * from (
-	select rhnchannel.label channel_label, rhnchannel.name channel_name, count(rhnchannelpackage.channel_id) number_of_packages
-	from rhnchannel left outer join rhnchannelpackage
-		on rhnchannel.id = rhnchannelpackage.channel_id
-	group by rhnchannel.id, rhnchannel.label, rhnchannel.name
-	) X
-	-- where placeholder
-	order by channel_label
+    select * from (
+        select rhnchannel.label channel_label, rhnchannel.name channel_name,
+               count(rhnchannelpackage.channel_id) number_of_packages,
+               rhnchannel.org_id
+          from rhnchannel
+               left outer join rhnchannelpackage on rhnchannel.id = rhnchannelpackage.channel_id
+        group by rhnchannel.org_id, rhnchannel.id, rhnchannel.label, rhnchannel.name
+    ) X
+    -- where placeholder
+    order by channel_label
 
