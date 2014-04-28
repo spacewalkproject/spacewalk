@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.54
+Version: 2.2.55
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Apr 28 2014 Tomas Lestach <tlestach@redhat.com> 2.2.55-1
+- MigrationManagerTest: add explicit flushing before assertions (needed by
+  Oracle, not needed in production code)
+- scheduleCertificateUpdate: update api doc
+
 * Fri Apr 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.54-1
 - correctly display certificate update action in webui
 - Replace editarea with ACE (http://ace.c9.io/) editor.
