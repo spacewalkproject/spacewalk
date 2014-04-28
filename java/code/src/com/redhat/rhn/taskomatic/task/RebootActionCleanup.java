@@ -36,14 +36,15 @@ import java.util.Map;
 
 
 /**
- * ChangeLogCleanUp
- * @version $Rev$
+ * Cleans up stale reboot action data if it is older than 6 hours. It is assumed
+ * that after this time, the reboot action has failed for some reason.
  */
 public class RebootActionCleanup extends RhnJavaJob {
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public void execute(JobExecutionContext arg0In)
         throws JobExecutionException {
         List<Map<String, Long>> failedRebootActions = lookupRebootActionCleanup();
