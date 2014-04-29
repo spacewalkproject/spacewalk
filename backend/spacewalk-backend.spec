@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.24
+Version: 2.2.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -639,6 +639,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Tue Apr 29 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.25-1
+- spacewalk-fips-tool: add manual page
+
 * Mon Apr 28 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.24-1
 - spacewalk-fips-tool: tool to help with client certificate conversion
 
