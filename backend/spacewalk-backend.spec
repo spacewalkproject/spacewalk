@@ -614,6 +614,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/spacewalk-debug.8*
 %{_mandir}/man8/satpasswd.8*
 %{_mandir}/man8/satwho.8*
+%{_mandir}/man8/spacewalk-fips-tool.8*
 %{_mandir}/man8/spacewalk-remove-channel.8*
 %{_mandir}/man8/spacewalk-repo-sync.8*
 %{_mandir}/man8/spacewalk-data-fsck.8*

@@ -1,0 +1,190 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "Spacewalk Server" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-fips-tool</RefEntryTitle><manvolnum>8</manvolnum>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-fips-tool</command></RefName>
+<RefPurpose>
+A tool to help in the process of converting certificates of registered
+ systems from using MD5 digest to certificates with SHA-256 digest.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spacewalk-fips-tool</command>
+        <arg choice="req">-i|-c</arg>
+        <arg choice="req">-o output.csv</arg>
+        <arg choice="opt">options</arg>
+        <arg choice="req">systemid01 systemid02 <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+    <para>
+        <emphasis>spacewalk-fips-tool</emphasis> is a helper script aiming to
+        help in the process of converting certificates of registered systems
+        from using MD5 digest to SHA-256 digest.
+    </para>
+    <para>
+	Ordinarily, conversion of client certificates of your registered systems
+        from MD5 digest to SHA-256 is not required.
+    </para>
+    <para>
+        Updating the digest of client certificates is needed if you plan to
+        run your &RHNSAT; in FIPS mode, which does not allow MD5 algorithm
+        for authentication.
+    </para>
+    <para>
+        Client certificate conversion is a two step process:
+        <simplelist>
+            <member>
+                1. Installation of <emphasis>spacewalk-client-cert</emphasis> package
+                on given client systems (<emphasis>-i</emphasis> command line option).
+                This package implements client side logic (action) allowing to download
+                and update client certificate.
+            </member>
+            <member>
+                2. Once <emphasis>spacewalk-client-cert</emphasis> packages are successfully
+                installed on client systems, certificate update for the given systems
+                can be scheduled (<emphasis>-c</emphasis> command line option).
+            </member>
+        </simplelist>
+    </para>
+    <para>
+        Both the package installation and certificate update are client side actions, which
+        will be picked up and executed by <emphasis>rhn_check</emphasis> utility on
+        the specified systems.
+    </para>
+    <para>
+        The tool uses &RHNSAT; XML-RPC API to schedule both the package installations and
+        certificate updates. Therefore, the tool requires user credentials able to
+        perform both types of actions, ideally an organization administrator.
+    </para>
+    <para>
+        For tracking purposes, all successfully scheduled client side actions are recorded
+        in a file in CSV format (-o command line option).
+    </para>
+    <para>
+        The tool requires several mandatory command line options to operate:
+        <simplelist>
+            <member>
+                * Action to schedule: installation (-i option) or certificate update (-c option).
+            </member>
+            <member>
+                * Output CSV (-o option).
+            </member>
+            <member>
+                * List of system identifiers to schedule the given action for.
+            </member>
+        </simplelist>
+    </para>
+    <para>
+        List of systems currently using MD5 certificate can be easily obtained with
+        <emphasis>spacewalk-report</emphasis> tool:
+    </para>
+    <para>
+        <code>
+            $ spacewalk-report system-md5-certificates > systems-md5.csv
+        </code>
+    </para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display usage message and exit.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-i</term>
+        <listitem>
+            <para>
+                Schedule installation of <emphasis>spacewalk-client-cert</emphasis> package.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-c</term>
+        <listitem>
+            <para>
+                Schedule update of client certificates.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-o <replaceable>output.csv</replaceable></term>
+        <listitem>
+            <para>
+                The output file in CSV format to record the details of scheduled actions in.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-u <replaceable>username</replaceable></term>
+        <listitem>
+            <para>
+                User name to use for scheduling the actions. If not specified, will be prompted for.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-p <replaceable>password</replaceable></term>
+        <listitem>
+            <para>
+                Password for the user name. If not specified, will be prompted for.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-s <replaceable>hostname</replaceable></term>
+        <listitem>
+            <para>
+                Hostname of your &RHNSAT;, localhost by default.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-d <replaceable>date</replaceable></term>
+        <listitem>
+            <para>
+                Date in %Y-%m-%d %H-%M-%S format (e.g. 2014-10-30 19:35:00) to schedule the given
+                actions for. Defaults to "now".
+            </para>
+        </listitem>
+    </varlistentry>
+
+
+</variablelist>
+</RefSect1>
+
+
+<RefSect1><Title>Files</Title>
+<simplelist>
+    <member><emphasis>/etc/sysconfig/rhn/systemid</emphasis> - client side certificate</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>spacewalk-report(8)</member>
+    <member>rhn_check(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Milan Zazrivec <email>mzazrivec@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
