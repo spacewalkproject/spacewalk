@@ -24,6 +24,7 @@
 from operator import itemgetter
 from optparse import Option
 from spacecmd.utils import *
+import urllib
 
 ARCH_LABELS = ['ia32', 'ia64', 'x86_64', 'ppc',
                'i386-sun-solaris', 'sparc-sun-solaris']
@@ -1708,5 +1709,33 @@ def do_softwarechannel_listrepos(self, args):
 
     if len(repos):
         print '\n'.join(sorted(repos))
+
+####################
+
+def help_softwarechannel_mirrorpackages(self):
+    print 'softwarechannel_mirrorpackages: Download all packages of a given channel'
+    print 'usage: softwarechannel_mirrorpackages CHANNEL'
+
+def complete_softwarechannel_mirrorpackages(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    return tab_completer(self.do_softwarechannel_list('', True), text)
+
+def do_softwarechannel_mirrorpackages(self, args):
+    (args, options) = parse_arguments(args)
+    if not len(args):
+        self.help_softwarechannel_mirrorpackages()
+        return
+
+    packages = \
+        self.client.channel.software.listAllPackages(self.session, args[0])
+    for package in packages:
+        package_url = self.client.packages.getPackageUrl(self.session, package['id'])
+        package_file = self.client.packages.getDetails(self.session, package['id']).get('file')
+        if not os.path.isfile(package_file):
+            print "Fetching package", package_file
+            urllib.urlretrieve(package_url, package_file)
+        else:
+            print "Skipping", package_file
 
 # vim:ts=4:expandtab:
