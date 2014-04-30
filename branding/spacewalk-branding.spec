@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.2.1
+Version:    2.2.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -89,6 +89,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Apr 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.2-1
+- Update default Spacewalk entitlement certificate
+
 * Wed Mar 05 2014 Jan Dobes 2.2.1-1
 - hide search form together with other UI changes
 - fix gap under menu
