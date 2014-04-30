@@ -22,12 +22,11 @@ spacewalk-export - a tool for preparing to move data from an existing Satellite-
 to a Satellite-6 instance
 """
 
-import csv, logging, os, re, sys, string
+import csv, logging, os, re, sys
 
-from string import lower, split
 from optparse import OptionParser, OptionGroup
-from os import path, access, R_OK
 from os.path import expanduser
+from string import lower, split
 from subprocess import Popen, call
 
 home = expanduser("~")
@@ -122,7 +121,7 @@ def setupEntities(options):
     if doAll:
         return entities
 
-    for e in string.split(options.entities,','):
+    for e in split(options.entities,','):
         if e in entities.keys():
             entities[e] = True
         else:
@@ -185,11 +184,12 @@ def repositoriesDump(options):
         handle = open(repo_file, 'r')
         repositories = csv.DictReader(handle)
         for entry in repositories:
-            # Look for file:://<repo-location>
-            if entry['source_url'].lower().startswith('file:/'):
+            # file: protocol is file:// host/ path
+            # Look for file::///<repo-location>
+            if entry['source_url'].lower().startswith('file://'):
                 logging.debug('Found file-repository : ' + entry['source_url'])
-                # Strip off 'file:/' to get absolute path
-                repo_loc = entry['source_url'][6:]
+                # Strip off 'file://' to get absolute path
+                repo_loc = entry['source_url'][7:]
                 # Get the leading directory
                 repo_dir = repo_loc.rsplit('/', 1)[0]
                 # Get the repository directoryname
