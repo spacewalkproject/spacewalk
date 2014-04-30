@@ -1,0 +1,285 @@
+#!/usr/bin/python
+#
+# Utility for exporting Sat5 entity-data
+#
+# Copyright (c) 2014 Red Hat, Inc.
+#
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+"""
+spacewalk-export - a tool for preparing to move data from an existing Satellite-5 instance
+to a Satellite-6 instance
+"""
+
+import csv, logging, os, re, sys, string
+
+from string import lower, split
+from optparse import OptionParser, OptionGroup
+from os import path, access, R_OK
+from os.path import expanduser
+from subprocess import Popen, call
+
+home = expanduser("~")
+DEFAULT_EXPORT_DIR = home + '/spacewalk-export-dir'
+DEFAULT_EXPORT_PACKAGE = 'spacewalk_export.tar.gz'
+REPORTS_DIR = 'exports'
+
+SUPPORTED_ENTITIES = {
+        'users' : 'Users and Organizations',
+        'systemgroups' : 'System-groups for all organizations',
+        'repositories' : 'Defined repositories',
+        'customchannels' : 'Custom channels for all organizations'
+        }
+
+#
+# Some sw-reports use org_id and some use organization-id
+# Map report-to-org-id so we can make generic decisions later
+#
+REPORT_TO_ORG = {
+        'users'           : 'organization_id',
+        'system-groups'   : 'org_id',
+        'repositories'    : 'org_id',
+        'custom-channels' : 'org_id'
+        }
+
+def setupOptions():
+    usage = 'usage: %prog [options]'
+    parser = OptionParser(usage=usage)
+
+    locGroup = OptionGroup(parser, "Locations", "Where do you want to export to?")
+    locGroup.add_option('--export-dir', action='store', dest='export_dir',
+            metavar='DIR', default=DEFAULT_EXPORT_DIR,
+            help='Specify directory to store exports in (will be created if not found) - defaults to '+ DEFAULT_EXPORT_DIR)
+    locGroup.add_option('--export-package', action='store', dest='export_package',
+            metavar='FILE', default=DEFAULT_EXPORT_PACKAGE,
+            help='Specify filename to use for final packaged-exports tarfile - defaults to ' + DEFAULT_EXPORT_PACKAGE)
+    parser.add_option_group(locGroup)
+
+    entGroup = OptionGroup(parser, "Entities", "What do you want to export?")
+    entGroup.add_option('--list-entities', action='store_true', dest='list',
+            default=False, help='List supported entities')
+    entGroup.add_option('--entities', action='store', dest='entities',
+            metavar='entity[,entity...]', default='all',
+            help='Specify comma-separated list of entities to export (default is all)')
+    entGroup.add_option('--dump-channels', action='store_true', dest='dump_channels',
+            default=False, help='Use rhn-satellite-exporter to export custom-channel-contents')
+    entGroup.add_option('--dump-repos', action='store_true', dest='dump_repos',
+            default=False, help='Dump contents of file: repositories')
+    entGroup.add_option('--select-orgs', action='store', dest='org_list',
+            metavar='org1[,org2...]', default='all',
+            help='Specify list of specific organizations whose data we will export')
+    parser.add_option_group(entGroup)
+
+    utilGroup = OptionGroup(parser, "Utility")
+
+    utilGroup.add_option('--clean', action='store_true', default=False, dest='clean',
+            help='How do I clean up from pervious runs?')
+    utilGroup.add_option('--debug', action='store_true', default=False, dest='debug',
+            help='Log debugging output')
+    utilGroup.add_option('--quiet', action='store_true', default=False, dest='quiet',
+            help='Log only errors')
+    parser.add_option_group(utilGroup)
+
+    return parser
+
+def setupLogging(opt):
+    # determine the logging level
+    if opt.debug:
+        level = logging.DEBUG
+    elif opt.quiet:
+        level = logging.ERROR
+    else:
+        level = logging.INFO
+    # configure logging
+    logging.basicConfig(level=level, format='%(levelname)s: %(message)s')
+    return
+
+def listSupported():
+    logging.info('Currently-supported entities include:')
+    for s in SUPPORTED_ENTITIES.keys():
+        logging.info('{0:20} : {1}'.format(s, SUPPORTED_ENTITIES[s]))
+
+    return
+
+def setupEntities(options):
+    entities = {}
+    doAll = options.entities == 'all'
+
+    for s in SUPPORTED_ENTITIES.keys():
+        entities[s] =  doAll
+
+    if doAll:
+        return entities
+
+    for e in string.split(options.entities,','):
+        if e in entities.keys():
+            entities[e] = True
+        else:
+            logging.error('ERROR: unsupported entity ' + e + ', skipping...')
+
+    return entities;
+
+def setupOrgClauses(options):
+    if options.org_list == 'all':
+        return ''
+
+    orgs = options.org_list.split(',')
+
+def setupOutputDir(options):
+    if not os.path.isdir(options.export_dir):
+        os.mkdir(options.export_dir, 0700)
+    if not os.path.isdir(options.export_dir + '/' + REPORTS_DIR):
+        os.mkdir(options.export_dir + '/' + REPORTS_DIR, 0700)
+
+# Did we get an orgs-list? If so, return an array of --where entries
+def _generateWhere(options, reportname):
+    where = []
+    if options.org_list == 'all':
+        return where
+
+    for org in options.org_list.split(','):
+        where.append('--where-{0}={1}'.format(REPORT_TO_ORG[reportname], org))
+
+    return where
+
+def _issueReport(options, reportname):
+    reps_dir_str = '{0}/' + REPORTS_DIR + '/{1}.csv'
+    report_file = reps_dir_str.format(options.export_dir, reportname)
+    where_clause = _generateWhere(options, reportname)
+    logging.debug('...WHERE = {0}'.format(where_clause))
+    if len(where_clause) == 0:
+        call(['/usr/bin/sudo', '/usr/bin/spacewalk-report', reportname] ,
+            stdout = open(report_file, 'w'))
+    else:
+        call(['/usr/bin/sudo', '/usr/bin/spacewalk-report'] + where_clause + [reportname] ,
+            stdout = open(report_file, 'w'))
+    return report_file
+
+def usersDump(options):
+    logging.info('Processing users...')
+    _issueReport(options, 'users')
+    return
+
+def systemgroupsDump(options):
+    logging.info('Processing systemgroups...')
+    _issueReport(options, 'system-groups')
+    return
+
+def repositoriesDump(options):
+    logging.info('Processing repositories...')
+    repo_file = _issueReport(options, 'repositories')
+    if (options.dump_repos):
+        logging.info('...repository dump requested')
+        # Go thru the CSV we just dumped and look for file: repos
+        handle = open(repo_file, 'r')
+        repositories = csv.DictReader(handle)
+        for entry in repositories:
+            # Look for file:://<repo-location>
+            if entry['source_url'].lower().startswith('file:/'):
+                logging.debug('Found file-repository : ' + entry['source_url'])
+                # Strip off 'file:/' to get absolute path
+                repo_loc = entry['source_url'][6:]
+                # Get the leading directory
+                repo_dir = repo_loc.rsplit('/', 1)[0]
+                # Get the repository directoryname
+                repo_basename = repo_loc.rsplit('/', 1)[-1]
+                # Tarfile name is 'repository_<repo-label>_contents.tar.gz'
+                repo_tarname = 'repository_' + entry['repo_label'] + '_contents.tar.gz'
+                logging.info('...storing file-repo {0} into {1}'.format(repo_loc, repo_tarname))
+                # Tar it up into the export-dir
+                if options.debug:
+                    call(['/usr/bin/sudo', '/bin/tar', '-c', '-v', '-z',
+                        '-C', repo_dir,
+                        '-f', '{0}/{1}/{2}'.format(options.export_dir, REPORTS_DIR, repo_tarname),
+                        repo_basename])
+                else:
+                    call(['/usr/bin/sudo', '/bin/tar', '-c', '-z',
+                        '-C', repo_dir,
+                        '-f', '{0}/{1}/{2}'.format(options.export_dir, REPORTS_DIR, repo_tarname),
+                        repo_basename])
+        handle.close()
+    return
+
+def customchannelsDump(options):
+    logging.info('Processing customchannels...')
+    repo_file = _issueReport(options, 'custom-channels')
+    if options.dump_channels:
+        logging.info('...channel export requested')
+        # Go thru the CSV we just dumped and dig out channel labels
+        handle = open(repo_file, 'r')
+        channels = csv.DictReader(handle)
+        for channel in channels:
+            channel_dumps_dir = options.export_dir + '/' + REPORTS_DIR + '/' + 'channel_dumps/'
+            if not os.path.isdir(channel_dumps_dir):
+                os.mkdir(channel_dumps_dir, 0700)
+
+            channel_dir = channel_dumps_dir + '/' + channel['channel_label']
+            if not os.path.isdir(channel_dir):
+                os.mkdir(channel_dir, 0700)
+
+            logging.info('...about to export ' + channel['channel_label'])
+            logging.debug('/usr/bin/sudo /usr/bin/rhn-satellite-exporter -c {0} -d {1}'.format(channel['channel_label'], channel_dir))
+            call(['/usr/bin/sudo', '/usr/bin/rhn-satellite-exporter',
+                '-c', channel['channel_label'],
+                '-d', channel_dir])
+        handle.close()
+    return
+
+def prepareExport(options):
+    if options.debug:
+        call(['/usr/bin/sudo', '/bin/tar', '-c', '-v', '-z',
+            '-C', options.export_dir,
+            '-f', '{0}/{1}'.format(options.export_dir, options.export_package),
+            REPORTS_DIR])
+    else:
+        call(['/usr/bin/sudo', '/bin/tar', '-c', '-z',
+            '-C', options.export_dir,
+            '-f', '{0}/{1}'.format(options.export_dir, options.export_package),
+            REPORTS_DIR])
+    logging.info('Export-file created at {0}/{1}'.format(options.export_dir,
+        options.export_package))
+
+def cleanup(options):
+    logging.info('To clean up, issue the following command:')
+    logging.info('sudo rm -rf {0}'.format(options.export_dir))
+    logging.info('NOTE:  No, I will not do it for you!')
+    return
+
+if __name__ == '__main__':
+    parser = setupOptions()
+    (options, args) = parser.parse_args()
+    setupLogging(options)
+    logging.debug('OPTIONS = %s' % options)
+
+    if (options.list):
+        listSupported()
+        sys.exit(0)
+
+    if (options.clean):
+        cleanup(options)
+        sys.exit(0)
+
+    entities = setupEntities(options)
+    setupOutputDir(options)
+
+    for entity in entities.keys():
+        if (entities[entity]):
+            logging.debug('DUMPING ' + entity)
+            globals()[entity.lower() + 'Dump'](options)
+        else:
+            logging.debug('SKIPPING ' + entity)
+
+    prepareExport(options)
+
+# vim:ts=4:expandtab:
