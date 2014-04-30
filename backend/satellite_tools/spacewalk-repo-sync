@@ -73,6 +73,9 @@ def main():
     parser.add_option('-c', '--channel', action='store',
                       dest='channel_label',
                       help='The label of the channel to sync packages to')
+    parser.add_option('-d', '--dry-run', action='store_true',
+                      dest='dry_run',
+                      help='Test run. No sync takes place.')
     parser.add_option('-t', '--type', action='store', dest='repo_type',
                       help='The type of repo, currently only "yum" is supported',
                       default='yum')
@@ -95,8 +98,10 @@ def main():
                       default=False, help="Sync kickstartable tree")
     (options, args) = parser.parse_args()
 
+    l_params=["no_errata", "sync_kickstart", "quiet", "fail"]
     d_chan_repo=reposync.getChannelRepo()
     l_ch_custom=reposync.getCustomChannels()
+    d_ch_repo_sync={}
 
     if options.list:
         print "======================================"
@@ -119,6 +124,33 @@ def main():
     # > Repo Sync Errors: (50, u'checksums did not match 326a904c2fbd7a0e20033c87fc84ebba6b24d937 vs
     # > afd8c60d7908b2b0e2d95ad0b333920aea9892eb', 'Invalid information uploaded to the server')
     clear_interrupted_downloads()
+
+    if options.channel_label:
+        d_ch_repo_sync[options.channel_label]=options.url
+
+    for ch in d_ch_repo_sync:
+        if ch not in l_ch_custom:
+            systemExit(1, "Channel %s is not custom or does not exist." % ch)
+        if not d_ch_repo_sync[ch] and not ch in d_chan_repo:
+            systemExit(1, "Channel %s Channel has no URL associated" % ch)
+
+    if options.dry_run:
+         print "======================================"
+         print "|   Channel Label   |   Repository   |"
+         print "======================================"
+
+         for ch  in d_ch_repo_sync:
+             if d_ch_repo_sync[ch]:
+                print " %s : %s" % (ch,d_ch_repo_sync[ch])
+             else:
+                print " %s : %s" % (ch,", ".join(d_chan_repo[ch]))
+
+         print "======================================"
+         print "|             Parameters             |"
+         print "======================================"
+         for key in  l_params:
+             print "| {0:<{c1}}: {1:<{c2}}".format(key,getattr(options, key),c1=15,c2=15)
+         return 0
 
     sync = reposync.RepoSync(channel_label=options.channel_label,
                       repo_type=options.repo_type,
