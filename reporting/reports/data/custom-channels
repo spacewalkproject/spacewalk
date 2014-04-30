@@ -11,28 +11,26 @@ columns:
 
     org_id:i                Organization id of owning organization
     id:i                    Channel id
-    channel_label:i         Channel label
+    channel_label           Channel label
     name                    Channel name
     summary                 Channel summary
     description             Channel description
     parent_channel_label    Label of parent-channel (if this is a child channel)
     channel_arch            Channel architecture label
     checksum_type           Checksum-type label
-    associated_repo_label:i Label of any repos associated with this channel
+    associated_repo_id_label Label of any repos associated with this channel
 
 multival_columns:
 
-    org_id
     id
-    channel_label
-    associated_repo_label : associated_repo_label
+    associated_repo_id_label : associated_repo_id_label
 
 sql:
 
     select * from (
         select c.org_id, c.id, c.label as channel_label, c.name, c.summary, c.description,
                pc.label as parent_channel_label, ca.label as channel_arch, cst.label as checksum_type,
-               cs.label as associated_repo_label
+               cs.id || '|' || cs.label as associated_repo_id_label
           from rhnchannel c
                left outer join rhnchannel pc on pc.id = c.parent_channel
                left outer join rhnchannelarch ca on ca.id = c.channel_arch_id
