@@ -10,7 +10,7 @@ Configuration of the plugin
 
 The plugin only requires very basic configuration via the /etc/rhn/spacewalk-repo-sync/uln.conf file. 
 
-[main
+[main]
 username = <ULN SSO username>
 password = <ULN SSO password>
 
