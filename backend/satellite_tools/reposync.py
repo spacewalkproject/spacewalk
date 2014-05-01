@@ -156,6 +156,11 @@ class RepoSync(object):
         for (repo_id, url, repo_label) in self.urls:
             self.print_msg("Repo URL: %s" % url)
             plugin = None
+
+            # If the repository uses a uln:// URL, switch to the ULN plugin, overriding the command-line
+            if url.startswith("uln://"):
+                self.repo_plugin = self.load_plugin("uln")
+
             try:
                 plugin = self.repo_plugin(url, self.channel_label)
                 if repo_id is not None:
