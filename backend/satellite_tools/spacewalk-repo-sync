@@ -74,7 +74,7 @@ def main():
                       dest='channel_label',
                       help='The label of the channel to sync packages to')
     parser.add_option('-t', '--type', action='store', dest='repo_type',
-                      help='The type of repo, currently only "yum" is supported',
+                      help='The type of repo, currently only "yum" and "uln" are supported',
                       default='yum')
     parser.add_option('-f', '--fail', action='store_true', dest='fail',
                       default=False,
