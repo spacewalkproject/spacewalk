@@ -10447,6 +10447,21 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="snippetcreate.jsp.submit">
           <source>Create Snippet</source>
         </trans-unit>
+        <trans-unit id="snippetcreate.jsp.autoinstallation_rules_pre">
+          <source>The autoinstallation template has syntax rules, using punctuation symbols. To avoid clashes, they need to be properly treated.</source>
+        </trans-unit>
+        <trans-unit id="snippetcreate.jsp.autoinstallation_rules_details">
+          <source>Details</source>
+        </trans-unit>
+        <trans-unit id="snippetcreate.jsp.autoinstallation_rules_1">
+          <source>&lt;p&gt;In case the autoinstallation scenario contains any shell script using variables like &lt;code&gt;$(example)&lt;/code&gt; its content should be escaped by using the backslash symbol:&lt;/p&gt; &lt;pre&gt;This is an \$(example) content.&lt;/pre&gt;  &lt;p&gt;If variable named &lt;em&gt;&quot;example&quot;&lt;/em&gt; is defined in the autoinstallation snippet, the templating engine will  evaluate &lt;code&gt;&quot;$example&quot;&lt;/code&gt; with its content. If there is no such variable, the  content  will be left unchanged. Escaping the &lt;code&gt;$&lt;/code&gt; symbol will prevent the templating engine to perform its evaluation as an internal variable.&lt;/p&gt;  &lt;p&gt;Long scripts or strings can be escaped by wrapping them with the &lt;code&gt;#raw&lt;/code&gt; and &lt;code&gt;#end raw&lt;/code&gt; directives. For example:&lt;/p&gt;</source>
+        </trans-unit>
+        <trans-unit id="snippetcreate.jsp.autoinstallation_rules_2">
+          <source>An additional attention needs to be paid to the similar scenarios:</source>
+        </trans-unit>
+        <trans-unit id="snippetcreate.jsp.autoinstallation_rules_3">
+          <source>Any line which has a &lt;code&gt;#&lt;/code&gt; symbol followed by a whitespace is treated as a comment and is not evaluated.</source>
+        </trans-unit>
         <trans-unit id="snippetupdate.jsp.submit">
           <source>Update Snippet</source>
         </trans-unit>

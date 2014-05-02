@@ -100,6 +100,7 @@
          <div class="col-lg-6">
              <html:textarea property="contents" rows="24" cols="80"
                             styleId="contents" styleClass="form-control"/>
+             <%@ include file="/WEB-INF/pages/common/fragments/kickstart/autoinstallation-rules.jspf" %>
          </div>
      </div>
 
