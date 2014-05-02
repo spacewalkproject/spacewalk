@@ -210,7 +210,7 @@ EOF
     fi
 
     if ! exists_db ; then
-            runuser - postgres -c "createdb '$PGNAME'"
+            runuser - postgres -c "createdb -E UTF8 '$PGNAME'"
     fi
     if ! exists_plpgsql ; then
             runuser - postgres -c "createlang plpgsql '$PGNAME'"
