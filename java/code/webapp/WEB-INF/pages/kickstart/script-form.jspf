@@ -32,7 +32,13 @@
                   <rhn:required-field key="kickstart.script.contents"/>
               </th>
               <td>
-                  <textarea name="contents" rows="24" cols="80" id="contents"><bean:write name="kickstartScriptForm" property="contents" /></textarea><br />
+                  <textarea name="contents" rows="24" cols="80" id="contents"><bean:write name="kickstartScriptForm" property="contents" /></textarea>
+              </td>
+          </tr>
+          <tr>
+              <th></th>
+              <td>
+                <%@ include file="/WEB-INF/pages/common/fragments/kickstart/autoinstallation-rules.jspf" %>
               </td>
           </tr>
           <tr>
