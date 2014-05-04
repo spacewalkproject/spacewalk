@@ -238,9 +238,10 @@ public class DateTimePickerTag extends TagSupport {
         tzAddon.setAttribute("id", data.getName() + "_tz_input_addon");
         tzAddon.setAttribute("data-picker-name", data.getName());
         tzAddon.setAttribute("class", "input-group-addon text tz_input_addon");
-        tzAddon.addBody(
-                data.getCalendar().getTimeZone().getDisplayName(
-                        false, TimeZone.SHORT, data.getLocale()));
+
+        DateFormat tzFmt = new SimpleDateFormat("z", data.getLocale());
+        tzFmt.setTimeZone(data.getCalendar().getTimeZone());
+        tzAddon.addBody(tzFmt.format(data.getDate()));
 
         group.addBody(tzAddon);
         out.append(group.render());
