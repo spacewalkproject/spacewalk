@@ -264,6 +264,11 @@ public class FormatDateTag extends TagSupport {
      */
     @Override
     public int doStartTag() throws JspException {
+
+        if (value == null) {
+            return EVAL_PAGE;
+        }
+
         try {
             JspWriter out = pageContext.getOut();
 
