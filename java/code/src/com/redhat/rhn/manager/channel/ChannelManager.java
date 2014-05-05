@@ -1429,19 +1429,53 @@ public class ChannelManager extends BaseManager {
      *
      * @param channelId to lookup package against
      * @param packageName to check
-     * @return List containing Maps of "CP.package_id, CP.name_id, CP.evr_id"
+     * @return package id of the newest package with a matching name
      */
     public static Long getLatestPackageEqualInTree(Long channelId,
             String packageName) {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                 "latest_package_equal_in_tree");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap();
         params.put("cid", channelId);
         params.put("name", packageName);
-        List results = m.execute(params);
+        // Maps of "package_id, evr_id, arch_label"
+        List<Map<String, Object>> results = m.execute(params);
+
+        // See bug 1094364. If we wanted to really really fix this we would have
+        // to add a channel-arch-to-default-package-arch mapping in the database
+        // for every possible architecture. However that would still be somewhat
+        // of a heuristic because we may want to install a non-default-arch package
+        // at some point in the future. Much easier and almost just as good to
+        // have a hueristic here that returns the package arch we probably want.
         if (results != null && results.size() > 0) {
-            Map row = (Map) results.get(0);
-            return (Long) row.get("package_id");
+            Map<String, Object> row = results.get(0);
+            if (results.size() == 1) {
+                return (Long) row.get("package_id");
+            }
+            else {
+                // "default arches". If a channel contains multiple arches (eg.
+                // "i386" and "x86_86") then these are probably the arches that we
+                // want to install by default.
+                List<String> defaultArches = new ArrayList<String>();
+                defaultArches.add("x86_64");
+                defaultArches.add("sparc64");
+                defaultArches.add("s390x");
+                defaultArches.add("armv7hnl");
+
+                // more than one result. they are ordered based on EVR, so let's
+                // examine the packages that have the same EVR as the first one and
+                // see if we can find one that is of the default arch. If we run out
+                // or go down to an older EVR, just return first result as a fallback.
+                for (Map<String, Object> result : results) {
+                    if (!((Long) result.get("evr_id")).equals((Long) row.get("evr_id"))) {
+                        break;
+                    }
+                    if (defaultArches.contains((String) result.get("arch_label"))) {
+                        return (Long) result.get("package_id");
+                    }
+                }
+                return (Long) row.get("package_id");
+            }
         }
         return null;
     }
