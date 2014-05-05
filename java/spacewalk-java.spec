@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.56
+Version: 2.2.57
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon May 05 2014 Stephen Herr <sherr@redhat.com> 2.2.57-1
+- 1094364 - add default arch heuristic for kickstart package installs
+
 * Mon May 05 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.56-1
 - use getInt instead of getInteger so we can read default value
 - Action Chain: for every action, create its own ScriptActionDetails
