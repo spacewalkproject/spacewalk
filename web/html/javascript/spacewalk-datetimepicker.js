@@ -57,9 +57,11 @@ function setupDatePicker() {
     // compatibility with the forms expected by struts
     input.on('changeTime', function() {
       var pickerTime = input.timepicker('getTime');
-      $('input#' + name + '_hour').val(pickerTime.getHours() % 12);
+      var am_pm = $('input#' + name + '_am_pm');
+      var isLatin = (am_pm.length != 0);
+      $('input#' + name + '_hour').val(isLatin ? (pickerTime.getHours() % 12) : pickerTime.getHours());
       $('input#' + name + '_minute').val(pickerTime.getMinutes());
-      $('input#' + name + '_am_pm').val(pickerTime.getHours() >= 12 ? 1 : 0);
+      am_pm.val(pickerTime.getHours() >= 12 ? 1 : 0);
     });
 
     // set initial time
