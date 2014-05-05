@@ -66,7 +66,7 @@ public class CryptoKeyCreateActionTest extends RhnPostMockStrutsTestCase {
         TestUtils.flushAndEvict(key);
         addRequestParameter(RequestContext.KEY_ID,
                 key.getId().toString());
-        addUploadedFile(CryptoKeyCreateAction.CONTENTS, "somekey", "");
+        addUploadedFile(CryptoKeyCreateAction.CONTENTS, "somekey", "test key content");
         actionPerform();
         verifyNoActionErrors();
     }
