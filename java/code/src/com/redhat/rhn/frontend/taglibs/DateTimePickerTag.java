@@ -259,8 +259,10 @@ public class DateTimePickerTag extends TagSupport {
 
         out.append(createHiddenInput("hour", String.valueOf(data.getHour())).render());
         out.append(createHiddenInput("minute", String.valueOf(data.getMinute())).render());
-        out.append(createHiddenInput("am_pm",
-                String.valueOf((data.getHour() > 12) ? 1 : 0)).render());
+        if (data.isLatin()) {
+            out.append(createHiddenInput("am_pm",
+                    String.valueOf((data.getHour() > 12) ? 1 : 0)).render());
+        }
     }
 
     private HtmlTag createHiddenInput(String type, String value) {
