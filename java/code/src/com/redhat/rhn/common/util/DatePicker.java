@@ -205,9 +205,9 @@ public class DatePicker {
     }
 
     /**
-     * Return the hour, a number between 1 and 11 if {@link #isLatin}
+     * Return the hour, a number between 1 and 12 if {@link #isLatin}
      * is <code>true</code>, and a number from 0 to 23 otherwise.
-     * @return the hour, a number between 1 and 11 if {@link #isLatin}
+     * @return the hour, a number between 1 and 12 if {@link #isLatin}
      * is <code>true</code>, and a number from 0 to 23 otherwise.
      */
     public Integer getHour() {
@@ -323,9 +323,9 @@ public class DatePicker {
     }
 
     /**
-     * Get the range of valid hour values, 1 to 11 if {@link #isLatin} is
+     * Get the range of valid hour values, 1 to 12 if {@link #isLatin} is
      * <code>true</code> and 0 to 23 otherwise.
-     * @return the range of valid hour values, 1 to 11 if {@link #isLatin} is
+     * @return the range of valid hour values, 1 to 12 if {@link #isLatin} is
      * <code>true</code> and 0 to 23 otherwise.
      */
     public int[] getHourRange() {
