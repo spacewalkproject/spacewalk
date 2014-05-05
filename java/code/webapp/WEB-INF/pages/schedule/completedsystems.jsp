@@ -19,7 +19,7 @@
 
   <rhn:listdisplay>
     <rhn:column header="actions.jsp.system"
-                url="/rhn/systems/details/history/Event.do?sid={current.id}&aid=${action.id}">
+                url="/rhn/systems/details/history/Event.do?sid=${current.id}&aid=${action.id}">
         <c:out value="${current.name}" escapeXml="true" />
     </rhn:column>
 
