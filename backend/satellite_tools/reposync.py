@@ -53,7 +53,7 @@ def getChannelRepo():
                        from rhnContentSource s,
                        rhnChannelContentSource cs,
                        rhnChannel c
-                       where s.id = cs.source_id and cs.channel_id=c.id;
+                       where s.id = cs.source_id and cs.channel_id=c.id
            """
     h = rhnSQL.prepare(sql)
     h.execute()
