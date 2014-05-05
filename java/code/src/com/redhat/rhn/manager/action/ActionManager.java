@@ -845,7 +845,7 @@ public class ActionManager extends BaseManager {
         if (pc != null) {
             return makeDataResult(params, params, pc, m);
         }
-        Integer limit = new Config().getInteger(ConfigDefaults.ACTIONS_DISPLAY_LIMIT);
+        Integer limit = new Config().getInt(ConfigDefaults.ACTIONS_DISPLAY_LIMIT);
         if (limit > 0) {
             m.setMaxRows(limit);
         }
