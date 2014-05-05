@@ -226,7 +226,10 @@ public class ActionChainManager {
         Set<Action> result = scheduleActions(user, ActionFactory.TYPE_SCRIPT_RUN, name,
             earliest, actionChain, null, sidSet);
         for (Action action : result) {
-            ((ScriptRunAction)action).setScriptActionDetails(script);
+            ScriptActionDetails actionScript = ActionFactory.createScriptActionDetails(
+                    script.getUsername(), script.getGroupname(), script.getTimeout(),
+                    script.getScriptContents());
+            ((ScriptRunAction)action).setScriptActionDetails(actionScript);
             ActionFactory.save(action);
         }
         return result;
