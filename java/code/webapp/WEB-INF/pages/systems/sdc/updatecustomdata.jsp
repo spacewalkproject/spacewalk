@@ -13,13 +13,15 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <div class="toolbar-h2">
-  <div class="toolbar">
-    <span class="toolbar">
-      <a href="/rhn/systems/details/DeleteCustomData.do?sid=${sid}&cikid=${cikid}">
-        <rhn:icon type="item-del" title="toolbar.delete.customdata" /><bean:message key="toolbar.delete.customdata" />
-      </a>
-    </span>
-  </div>
+  <c:if test="${value != null}">
+    <div class="toolbar">
+      <span class="toolbar">
+        <a href="/rhn/systems/details/DeleteCustomData.do?sid=${sid}&cikid=${cikid}">
+          <rhn:icon type="item-del" title="toolbar.delete.customdata" /><bean:message key="toolbar.delete.customdata" />
+        </a>
+      </span>
+    </div>
+  </c:if>
   <rhn:icon type="header-info" />
   <bean:message key="system.jsp.customkey.updatetitle"/>
 </div>
