@@ -2030,20 +2030,14 @@ select p.id, pn.name as package_name, p.summary
   <query>
     select p.id, pn.name as package_name, p.summary, p.description, pe.epoch,
            pe.version, pe.release, pa.label as package_arch, pp.name as provider
-      from rhnPackage p,
-           rhnPackageName pn,
-           rhnPackageArch pa,
-           rhnPackageEVR pe,
-           rhnPackageKeyAssociation pka,
-           rhnPackageKey pk,
-           rhnPackageProvider pp
-     where pn.id = p.name_id
-       and p.evr_id = pe.id
-       and p.package_arch_id = pa.id
-       and p.id = pka.package_id
-       and pk.id = pka.key_id
-       and pp.id = pk.provider_id
-       and p.id IN (%s)
+      from rhnPackage p
+           inner join rhnPackageName pn on p.name_id = pn.id
+           inner join rhnPackageArch pa on p.package_arch_id = pa.id
+           inner join rhnPackageEVR pe on p.evr_id = pe.id
+           left join rhnPackageKeyAssociation pka on p.id = pka.package_id
+           left join rhnPackageKey pk on pka.key_id = pk.id
+           left join rhnPackageProvider pp on pk.provider_id = pp.id
+     where p.id IN (%s)
   </query>
 </mode>
 
