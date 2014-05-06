@@ -1516,6 +1516,14 @@ def subscribe_sql(server_id, channel_id, commit=1):
             channel_id)
         raise rhnFault(70, "Subscription count for the target channel exceeded"), None, sys.exc_info()[2]
 
+_query_parent_channel_subscribed = rhnSQL.Statement("""
+select 1 from rhnServerChannel sc where exists (
+  select sc.channel_id
+    from rhnChannel c
+   where sc.server_id = :sid
+     and sc.channel_id = c.parent_channel
+     and c.label = :channel)
+""")
 
 _query_can_subscribe = rhnSQL.Statement("""
 select rhn_channel.user_role_check(:cid, wc.id, 'subscribe') as can_subscribe
@@ -1538,6 +1546,14 @@ def subscribe_channel(server_id, channel, username, password):
         raise rhnFault(40, "Channel %s does not exist?" % channel)
 
     channel_id = ret['id']
+
+    # check if server is subscribed to the parent of the given channel
+    h = rhnSQL.prepare(_query_parent_channel_subscribed)
+    h.execute(sid=server_id, channel=str(channel))
+    ret = h.fetchone_dict()
+    if not ret:
+        log_error("Parent of channel %s is not subscribed to server" % channel)
+        raise rhnFault(32, "Parent of channel %s is not subscribed to server" % channel)
 
     # check specific channel subscription permissions
     h = rhnSQL.prepare(_query_can_subscribe)
