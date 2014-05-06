@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.17
+Version: 2.2.18
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -270,6 +270,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue May 06 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.18-1
+- remove old perl pages
+- delete unused code in modules/rhn/RHN/Server.pm related to system events
+- delete unused code in modules/rhn/RHN/DB/Server.pm related to system events
+- rewrite pending events page from perl to java
+
 * Wed Apr 30 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.17-1
 - 1091365 - style alert messages on perl pages
 
