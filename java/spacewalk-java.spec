@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.58
+Version: 2.2.59
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 06 2014 Stephen Herr <sherr@redhat.com> 2.2.59-1
+- 1074083 - API package search should not require a provider
+
 * Tue May 06 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.58-1
 - rewrite pending events page from perl to java
 
