@@ -114,7 +114,8 @@
             <bean:message key="addfiles.create.jspf.content-name" />
         </label>
         <div class="col-lg-6">
-            <html:textarea property="contents" styleClass="form-control" rows="20" cols="80" styleId="contents" /><br/>
+            <html:textarea property="contents" styleClass="form-control" rows="20" cols="80" styleId="contents" />
+            <%@ include file="/WEB-INF/pages/common/fragments/kickstart/autoinstallation-rules.jspf" %>
             <span class="help-block">
                 <bean:message key="kickstart.advanced.filedetails.jsp.tip.edit"
                               arg0 = "${rhn:localize('kickstart.advanced.jsp.uploadtab')}"
