@@ -39,6 +39,8 @@ if (grep { defined $_ } $db, $user, $password) {
 	}
 }
 
+$raw = 1 unless -d $DATA_DIR;
+
 $ENV{NLS_LANG} = 'AMERICAN_AMERICA.UTF8';
 $ENV{NLS_DATE_FORMAT} = 'YYYY-MM-DD HH24:MI:SS';
 $ENV{NLS_TIMESTAMP_FORMAT} = 'YYYY-MM-DD HH24:MI:SS';
