@@ -3536,6 +3536,27 @@
                  path="/WEB-INF/pages/systems/sdc/history.jsp"/>
     </action>
 
+    <action path="/systems/details/history/Pending"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SystemPendingEventsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/pending_events.jsp"/>
+        <forward name="continue"
+                 path="/systems/details/history/PendingDelete.do"
+                 redirect="true"/>
+    </action>
+
+    <action path="/systems/details/history/PendingDelete"
+      scope="request"
+      type="com.redhat.rhn.frontend.action.systems.sdc.SystemPendingEventsCancelAction"
+      className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default"
+               path="/WEB-INF/pages/systems/sdc/pending_events_delete.jsp"/>
+      <forward name="confirm"
+               path="/systems/details/history/Pending.do" redirect="true"/>
+    </action>
+
     <action path="/systems/details/history/snapshots/Index"
         scope="request"
         type="com.redhat.rhn.frontend.action.systems.sdc.SnapshotIndexAction"

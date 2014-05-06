@@ -2133,4 +2133,61 @@ select count(action_id)
   </query>
 </mode>
 
+<mode name="system_events_pending"
+  class="com.redhat.rhn.frontend.dto.SystemPendingEventDto">
+  <query params="sid">
+select SA.action_id as ID,
+               AType.name || ' scheduled by ' || NVL(U.login, '(none)') as summary,
+               to_char(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') as scheduled_for,
+               AType.label as history_type,
+               AType.name as history_type_name,
+               A.prerequisite as prereq_aid,
+               A.name as action_name,
+               1 as selectable
+          from rhnActionType AType,
+               rhnActionStatus AStat,
+               rhnAction A left outer join
+               web_contact U
+            on U.id = A.scheduler,
+               rhnServerAction SA
+         where SA.server_id = :sid
+           and SA.action_id = A.id
+           and AType.id = A.action_type
+           and AStat.id = SA.status
+           and AStat.id = 0
+order by scheduled_for desc, id desc
+  </query>
+</mode>
+
+<mode name="pending_actions_to_delete_in_set"
+  class="com.redhat.rhn.frontend.dto.SystemPendingEventDto">
+  <query params="sid, user_id, set_label">
+<!--select ST.element as id
+  from rhnSet ST
+ where ST.user_id = :user_id
+   and ST.label = :set_label-->
+select SA.action_id as ID,
+               AType.name || ' scheduled by ' || NVL(U.login, '(none)') as summary,
+               to_char(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') as scheduled_for,
+               AType.label as history_type,
+               AType.name as history_type_name,
+               A.prerequisite as prereq_aid,
+               A.name as action_name,
+               1 as selectable
+          from rhnActionType AType,
+               rhnActionStatus AStat,
+               rhnAction A left outer join
+               web_contact U
+            on U.id = A.scheduler,
+               rhnServerAction SA
+         where SA.server_id = :sid
+           and SA.action_id = A.id
+           and AType.id = A.action_type
+           and AStat.id = SA.status
+           and AStat.id = 0
+           and exists (select 1 from rhnset where user_id = :user_id and label = :set_label and element = SA.action_id)
+order by scheduled_for desc, id desc
+  </query>
+</mode>
+
 </datasource_modes>

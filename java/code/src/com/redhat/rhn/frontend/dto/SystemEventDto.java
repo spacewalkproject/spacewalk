@@ -33,15 +33,15 @@ public class SystemEventDto extends BaseDto implements Serializable {
 
     private static final long serialVersionUID = -3582329112428837249L;
 
-    private long id;
+    protected long id;
     private Date created;
     private Date pickedUp;
     private Date completed;
-    private String summary;
-    private String historyType;
-    private String historyTypeName;
+    protected String summary;
+    protected String historyType;
+    protected String historyTypeName;
     private String historyStatus;
-    private static Map<String, String> actionTypes;
+    protected static Map<String, String> actionTypes;
 
     static {
         actionTypes = new HashMap<String, String>();

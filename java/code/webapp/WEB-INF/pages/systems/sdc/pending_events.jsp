@@ -3,40 +3,38 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
 <html>
-
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <rhn:toolbar base="h2" icon="header-event-history">
-  <bean:message key="system.event.history.header" />
+  <bean:message key="system.event.pending.header" />
 </rhn:toolbar>
 
 <div class="page-summary">
-  <bean:message key="system.event.history.headerSummary" />
-  <br/>
+  <bean:message key="system.event.pending.headerSummary" />
   <c:choose>
     <c:when test="${param.pendingActions != 0}">
-      <bean:message key="system.event.history.headerPending" arg0="/rhn/systems/details/history/Pending.do?sid=${param.sid}" arg1="${param.pendingActions}" />
+      <br/>
+      <bean:message key="system.event.pending.headerPending" />
       <c:if test="${param.isLocked == true}">
         <br/>
         <bean:message key="system.event.history.locked" arg0="/rhn/systems/details/Overview.do?sid=${param.sid}" />
       </c:if>
     </c:when>
-    <c:otherwise>
-      <bean:message key="system.event.history.headerNoPending" />
-    </c:otherwise>
   </c:choose>
 </div>
 
-<rl:listset name="eventSet" legend="system-history">
+<rl:listset name="eventSet" legend="system-history-type">
   <rhn:csrf />
   <input type="hidden" name="sid" value="${param.sid}" />
-  <rl:list emptykey="system.event.history.noevent">
+  <rl:list dataset="pageList" name="pageList" emptykey="system.event.pending.noevent">
     <rl:decorator name="PageSizeDecorator" />
-    <rl:decorator name="ElaborationDecorator" />
+    <rl:decorator name="SelectableDecorator" />
+    <rl:selectablecolumn value="${current.selectionKey}"
+      selected="${current.selected}"
+      disabled="${not current.selectable}"/>
     <rl:column headerkey="system.event.history.type">
       <c:choose>
         <c:when test="${current.historyType == 'event-type-package'}">
@@ -53,29 +51,21 @@
         </c:otherwise>
       </c:choose>
     </rl:column>
-    <rl:column headerkey="system.event.history.status">
-      <c:choose>
-        <c:when test="${current.historyStatus == 'Completed'}">
-          <rhn:icon type="action-ok" />
-        </c:when>
-        <c:when test="${current.historyStatus == 'Failed'}">
-          <rhn:icon type="action-failed" />
-        </c:when>
-        <c:when test="${current.historyStatus == 'Picked Up'}">
-          <rhn:icon type="action-running" />
-        </c:when>
-        <c:otherwise>
-          ${current.historyStatus}
-        </c:otherwise>
-      </c:choose>
-    </rl:column>
     <rl:column headerkey="system.event.history.summary">
       <a href="/rhn/systems/details/history/Event.do?sid=${param.sid}&amp;aid=${current.id}">${current.summary}</a>
     </rl:column>
-    <rl:column headerkey="system.event.history.time">
-      ${current.completed}
+    <rl:column headerkey="system.event.pending.earliest">
+      ${current.scheduledFor}
     </rl:column>
   </rl:list>
+
+  <div align="right">
+    <hr/>
+    <input type="hidden" name="sid" value="${param.sid}" />
+    <input type="submit" name="dispatch" class="btn btn-default"
+      value='<bean:message key="system.event.pending.cancel"/>'/>
+  </div>
+
 </rl:listset>
 
 </body>

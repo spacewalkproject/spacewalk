@@ -1,15 +1,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 
-<div class="sideleg">
-  <h4><bean:message key="system-history-legend.jsp.type.title"/></h4>
-  <ul>
-    <li><rhn:icon type="event-type-package" /><bean:message key="system-history-legend.jsp.type.package" /></li>
-    <li><rhn:icon type="event-type-errata" /><bean:message key="system-history-legend.jsp.type.errata" /></li>
-    <li><rhn:icon type="event-type-preferences" /><bean:message key="system-history-legend.jsp.type.preferences" /></li>
-    <li><rhn:icon type="event-type-system" /><bean:message key="system-history-legend.jsp.type.system" /></li>
-  </ul>
-</div>
+<%@ include file="/WEB-INF/includes/legends/system-history-type-legend.jsp" %>
 
 <div class="sideleg">
   <h4><bean:message key="system-hisotry-legend.jsp.status.title" /></h4>

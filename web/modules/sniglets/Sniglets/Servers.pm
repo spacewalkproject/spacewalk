@@ -193,14 +193,14 @@ sub system_status_info {
     $ret->{status_str} = 'All updates scheduled';
     $ret->{status_class} = 'system-status-updates-scheduled';
     $ret->{message} = 'view actions';
-    $ret->{link} = "/network/systems/details/history/pending.pxt?sid=${sid}";
+    $ret->{link} = "/rhn/systems/details/history/Pending.do?sid=${sid}";
   }
   elsif ($actions_count) {
     $ret->{icon} = 'action-pending';
     $ret->{status_class} = 'system-status-updates-scheduled';
     $ret->{status_str} = 'Actions scheduled';
     $ret->{message} = 'view actions';
-    $ret->{link} = "/network/systems/details/history/pending.pxt?sid=${sid}";
+    $ret->{link} = "/rhn/systems/details/history/Pending.do?sid=${sid}";
   }
   elsif ($data->{SECURITY_ERRATA}) {
     $ret->{icon} = 'system-crit';

@@ -7,7 +7,7 @@
 <pxt-formvar>
             <pxt-hidden name="sid" />
             <input type="hidden" name="aid" value="{formvar:hid}" />
-            <input type="hidden" name="success_redirect" value="/network/systems/details/history/pending.pxt" />
+            <input type="hidden" name="success_redirect" value="/rhn/systems/details/history/Pending.do" />
             <input type="hidden" name="pxt:trap" value="rhn:reschedule_action_cb" />
             <input class="btn btn-default" type="submit" value="Reschedule" />
 </pxt-formvar>

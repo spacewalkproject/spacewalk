@@ -165,7 +165,7 @@ sub events_in_set_cb {
     $set->commit;
 
     $pxt->push_message(site_info => 'Events canceled.');
-    $pxt->redirect("/network/systems/details/history/pending.pxt?sid=$sid");
+    $pxt->redirect("/rhn/systems/details/history/Pending.do?sid=$sid");
   }
 
   return 1;

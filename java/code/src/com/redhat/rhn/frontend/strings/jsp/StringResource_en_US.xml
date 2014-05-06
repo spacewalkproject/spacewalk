@@ -11873,7 +11873,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>scheduled action</source>
         </trans-unit>
       </group>
-      <!-- System event history -->
+      <!-- System events -->
       <group>
         <context-group name="ctx">
           <context context-type="sourcefile">System Events Pages</context>
@@ -12028,8 +12028,35 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.event.scapDownload">
           <source>View detailed results.</source>
         </trans-unit>
+        <trans-unit id="system.event.pending.header">
+          <source>Pending Events</source>
+        </trans-unit>
+        <trans-unit id="system.event.pending.headerSummary">
+          <source>The following events have been scheduled for this system.</source>
+        </trans-unit>
+        <trans-unit id="system.event.pending.headerPending">
+          <source>You may cancel events for this system by selecting them and hitting the &lt;strong&gt;Cancel Events&lt;/strong&gt; button at the bottom of the page.</source>
+        </trans-unit>
+        <trans-unit id="system.event.pending.noevent">
+          <source>No pending events</source>
+        </trans-unit>
+        <trans-unit id="system.event.pending.earliest">
+          <source>Earliest Occurrence</source>
+        </trans-unit>
+        <trans-unit id="system.event.pending.cancel">
+          <source>Cancel Selected Events</source>
+        </trans-unit>
+        <trans-unit id="system.event.pending.cancelSummary">
+          <source>The following pending events for this system will be canceled:</source>
+        </trans-unit>
+        <trans-unit id="system.event.pending.confirm">
+          <souce>Cancel Events</souce>
+        </trans-unit>
+        <trans-unit id="system.event.pending.canceled">
+          <source>{0} system event(s) canceled.</source>
+        </trans-unit>
       </group>
-      <!-- System event history legend -->
+      <!-- System events legend -->
       <group>
         <context-group name="ctx">
           <context context-type="sourcefile">System Eevents Pages Legend</context>

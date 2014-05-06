@@ -320,7 +320,7 @@ sub system_snapshot_rollback_cb {
     $pxt->push_message(site_info => "Channels and groups changed.");
     $pxt->push_message(site_info => "Package delta scheduled.") if $results{is_some_pkg_delta};
     $pxt->push_message(site_info => "Config files scheduled for deployment.") if $results{deployed_config_files};
-    $pxt->redirect("/network/systems/details/history/pending.pxt?sid=$sid");
+    $pxt->redirect("/rhn/systems/details/history/Pending.do?sid=$sid");
   }
 }
 

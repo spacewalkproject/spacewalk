@@ -796,6 +796,32 @@ public class ActionManager extends BaseManager {
     }
 
     /**
+     * Retrieve the list of pending actions for a particular user within the given set.
+     *
+     * @param user The user in question
+     * @param pc The details of which results to return
+     * @param setLabel Label of an RhnSet of actions IDs to limit the results to.
+     * @param sid Server id
+     * @return A list containing the pending actions for the user.
+     */
+    public static DataResult pendingActionsToDeleteInSet(User user, PageControl pc,
+            String setLabel, Long sid) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "pending_actions_to_delete_in_set");
+        Map params = new HashMap();
+        params.put("sid", sid);
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        if (pc != null) {
+            return makeDataResult(params, params, pc, m);
+        }
+        DataResult dr = m.execute(params);
+        dr.setTotalSize(dr.size());
+        dr.setElaborationParams(params);
+        return dr;
+    }
+
+    /**
      * Retrieve the list of failed actions for a particular user
      * @param user The user in question
      * @param pc The details of which results to return

@@ -410,6 +410,9 @@ public class RhnSetDecl {
     public static final RhnSetDecl SSM_SYSTEMS_REBOOT = make(
             "ssm_systems_reboot", SetCleanup.NOOP);
 
+    public static final RhnSetDecl PENDING_ACTIONS_TO_DELETE = make(
+            "pending_actions_delete", SetCleanup.NOOP);
+
     private SetCleanup cleanup;
     private String label;
 

@@ -94,7 +94,7 @@ public class SystemListHelper {
                              .longValue()))) {
             //status = "updates scheduled";
             url.setAttribute("href",
-                    "/network/systems/details/history/pending.pxt?sid=" +
+                    "/rhn/systems/details/history/Pending.do?sid=" +
                     next.getId());
             i.setType("action-pending");
             i.setTitle("systemlist.jsp.updatesscheduled");
@@ -102,7 +102,7 @@ public class SystemListHelper {
         else if (SystemManager.countActions(new Long(next.getId().longValue())) > 0) {
             //status = "actions scheduled";
             url.setAttribute("href",
-                    "/network/systems/details/history/pending.pxt?sid=" +
+                    "/rhn/systems/details/history/Pending.do?sid=" +
                     next.getId());
             i.setType("action-pending");
             i.setTitle("systemlist.jsp.actionsscheduled");
