@@ -78,7 +78,7 @@ SELECT PKG.id AS id,
    AND SP.server_id = :sid
    AND SP.name_id = PKG.name_id
    AND SP.evr_id = PKG.evr_id
-   AND SP.package_arch_id = PKG.package_arch_id;
+   AND SP.package_arch_id = PKG.package_arch_id
   </query>
 </mode>
 
