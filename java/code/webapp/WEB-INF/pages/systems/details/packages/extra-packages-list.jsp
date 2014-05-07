@@ -60,7 +60,10 @@
                sortattr="installTimeObj"
                sortable="true">
       <c:choose>
-        <c:when test ="${not empty current.installTime}">${current.installTime}</c:when>
+        <c:when test ="${not empty current.installTime}">
+            <rhn:formatDate humanStyle="calendar" value="${current.installTimeObj}"
+                              type="both" dateStyle="short" timeStyle="long"/>
+        </c:when>
         <c:otherwise><bean:message key="packagelist.jsp.notspecified"/></c:otherwise>
       </c:choose>
     </rl:column>
