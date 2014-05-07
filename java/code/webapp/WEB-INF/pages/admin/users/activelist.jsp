@@ -55,12 +55,14 @@
 	            />
 
 	<!-- Last logged in column -->
-	<rl:column attr="lastLoggedIn"
+    <rl:column attr="lastLoggedIn"
 			   sortattr="lastLoggedInDate"
-	           bound="true"
+	           bound="false"
 	           sortable="true"
-	           headerkey="userdetails.jsp.lastsign"
- />
+	           headerkey="userdetails.jsp.lastsign">
+        <rhn:formatDate humanStyle="from" value="${current.lastLoggedInDate}"
+                       type="both" dateStyle="short" timeStyle="long"/>
+    </rl:column>
 
 </rl:list>
 <rl:csv dataset="pageList"

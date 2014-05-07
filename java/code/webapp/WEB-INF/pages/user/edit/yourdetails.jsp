@@ -25,11 +25,17 @@
                     <%@ include file="/WEB-INF/pages/common/fragments/user/edit_user_table_rows.jspf"%>
                     <div class="form-group">
                         <label class="col-lg-3 control-label"><bean:message key="created.displayname"/></label>
-                        <div class="col-lg-6">${created}</div>
+                        <div class="col-lg-6">
+                            <rhn:formatDate humanStyle="calendar" value="${created}"
+                                        type="both" dateStyle="short" timeStyle="long"/>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label"><bean:message key="last_sign_in.displayname"/></label>
-                        <div class="col-lg-6">${lastLoggedIn}</div>
+                        <div class="col-lg-6">
+                            <rhn:formatDate humanStyle="from" value="${lastLoggedIn}"
+                                         type="both" dateStyle="short" timeStyle="long"/>
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-offset-3 col-lg-6">
