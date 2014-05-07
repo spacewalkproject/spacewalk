@@ -139,18 +139,22 @@
 
 		<c:if test = "${not empty showLastCheckin}">
 			<rl:column sortable="false"
-					attr="lastCheckin"
-					bound="true"
-				   headerkey="systemlist.jsp.last_checked_in"/>
-
+					    attr="lastCheckin"
+					    bound="false"
+				        headerkey="systemlist.jsp.last_checked_in">
+                <rhn:formatDate humanStyle="from" value="${current.lastCheckinDate}"
+                              type="both" dateStyle="short" timeStyle="long"/>
+            </rl:column>
 		</c:if>
 
     <c:if test = "${not empty showLastCheckinSort}">
-      <rl:column sortable="true"
-          attr="lastCheckin"
-          bound="true"
-           headerkey="systemlist.jsp.last_checked_in"/>
-
+        <rl:column sortable="true"
+                  attr="lastCheckin"
+                  bound="false"
+                  headerkey="systemlist.jsp.last_checked_in">
+            <rhn:formatDate humanStyle="from" value="${current.lastCheckinDate}"
+                           type="both" dateStyle="short" timeStyle="long"/>
+        </rl:column>
     </c:if>
 
 		<!-- Base Channel Column -->

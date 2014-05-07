@@ -80,7 +80,8 @@
 		           headerkey="registeredlist.jsp.date"
 		           sortattr="created"
 		           defaultsort="desc">
-			  <fmt:formatDate value="${current.created}" type="both" dateStyle="short" timeStyle="long"/>
+			  <rhn:formatDate humanStyle="calendar" value="${current.created}"
+                             type="both" dateStyle="short" timeStyle="long"/>
 		</rl:column>
 
 		<rl:column sortable="true"
