@@ -244,15 +244,15 @@
         <table class="table">
           <tr>
             <td><bean:message key="sdc.details.overview.checkedin"/></td>
-            <td><fmt:formatDate value="${system.lastCheckin}" type="both" dateStyle="short" timeStyle="long"/></td>
+            <td><rhn:formatDate humanStyle="calendar" value="${system.lastCheckin}" type="both" dateStyle="short" timeStyle="long"/></td>
           </tr>
           <tr>
             <td><bean:message key="sdc.details.overview.registered"/></td>
-            <td><fmt:formatDate value="${system.created}" type="both" dateStyle="short" timeStyle="long"/></td>
+            <td><rhn:formatDate humanStyle="calendar" value="${system.created}" type="both" dateStyle="short" timeStyle="long"/></td>
           </tr>
           <tr>
             <td><bean:message key="sdc.details.overview.lastbooted"/></td>
-            <td><fmt:formatDate value="${system.lastBootAsDate}" type="both" dateStyle="short" timeStyle="long"/><br/>
+            <td><rhn:formatDate humanStyle="from" value="${system.lastBootAsDate}" type="both" dateStyle="short" timeStyle="long"/><br/>
                   <rhn:require acl="system_feature(ftr_reboot)"
                        mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
                 <bean:message key="sdc.details.overview.schedulereboot" arg0="/rhn/systems/details/RebootSystem.do?sid=${system.id}"/>
