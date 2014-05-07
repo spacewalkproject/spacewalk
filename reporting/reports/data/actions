@@ -46,4 +46,4 @@ sql:
     ON S.id = SA.server_id LEFT JOIN web_contact wc
     ON uao.scheduler = wc.id)
   X
-  ORDER BY id;
+  ORDER BY id
