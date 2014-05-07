@@ -225,14 +225,14 @@ public class FormatDateTag extends TagSupport {
      * @throws IOException
      */
     protected void renderMomentInclude(Writer out) throws IOException {
-        if (pageContext.getAttribute("__spacewalk_momentjs_included") == null) {
+        if (pageContext.getRequest().getAttribute("__spacewalk_momentjs_included") == null) {
             out.append("<script type=\"text/javascript\" src=\"" +
                 "/javascript/momentjs/moment-with-langs.min.js\"></script>");
 
             out.append("<script type=\"text/javascript\">");
             out.append("  moment.lang(\"" + getBestLocale() + "\");");
             out.append("</script>");
-            pageContext.setAttribute("__spacewalk_momentjs_included", true);
+            pageContext.getRequest().setAttribute("__spacewalk_momentjs_included", true);
         }
     }
 
