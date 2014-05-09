@@ -225,7 +225,8 @@ public class FormatDateTag extends TagSupport {
      * @throws IOException
      */
     protected void renderMomentInclude(Writer out) throws IOException {
-        if (pageContext.getRequest().getAttribute("__spacewalk_momentjs_included") == null) {
+        if (pageContext.getRequest().getAttribute(
+                "__spacewalk_momentjs_included") == null) {
             out.append("<script type=\"text/javascript\" src=\"" +
                 "/javascript/momentjs/moment-with-langs.min.js\"></script>");
 
