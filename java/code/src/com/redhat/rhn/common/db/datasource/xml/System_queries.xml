@@ -120,78 +120,56 @@ SELECT CDK.id,
 
 
 <query name="ssm_package_upgrades_systems" params="user_id, set_label, package_set_label">
-select * from (
-SELECT  DISTINCT
-        S.id,
+SELECT  S.id AS ID,
         S.name AS SERVER_NAME
-  FROM  rhnChannelPackage CP,
-        rhnChannel C,
-        rhnServerChannel SC,
-        rhnServer S,
-        rhnPackageArch PA,
+  FROM  rhnServer S,
         rhnPackage P,
         rhnServerNeededPackageCache SNPC,
-        rhnSet ST
- WHERE  ST.user_id = :user_id
-   AND  ST.label = :set_label
-   AND  ST.element = S.id
-   AND  S.id = SNPC.server_id
+        rhnSet SET1,
+        rhnSet SET2
+ WHERE  SET1.user_id = :user_id
+   AND  SET1.label = :set_label
+   AND  SET1.element = S.id
+   AND  SET2.user_id = :user_id
+   AND  SET2.label = :package_set_label
+   AND  SET2.element = P.name_id
+   AND  SET2.element_two = P.evr_id
+   AND  SET2.element_three = P.package_arch_id
    AND  SNPC.package_id = P.id
-   AND  (P.name_id, P.evr_id, P.package_arch_id) IN (
-           SELECT element, element_two, element_three
-             FROM rhnSet
-            WHERE user_id = :user_id
-              AND label = :package_set_label
-        )
-   AND  S.id = SC.server_id
-   AND  SC.channel_id = C.id
-   AND  C.id = CP.channel_id
-   AND  CP.package_id = P.id
-   AND  P.package_arch_id = PA.id
-) X
-ORDER BY UPPER(X.server_name)
+   AND  SNPC.server_id = S.id
+GROUP BY s.id
+ORDER BY UPPER(S.name)
 </query>
 
 <mode name="ssm_package_upgrades_conf">
   <query name="ssm_package_upgrades_systems" />
   <elaborator params="user_id, package_set_label" multiple="t">
-select * from (
-SELECT  DISTINCT
-        S.id AS ID,
+SELECT  S.id AS ID,
         S.name AS SERVER_NAME,
-        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '-' || PA.label NVRE,
-        PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
-        P.name_id AS NAME_ID,
-        P.evr_id AS EVR_ID,
-        PA.id AS ARCH_ID,
-        C.name AS PROVIDING_CHANNEL_NAME
-  FROM  rhnChannelPackage CP,
-        rhnChannel C,
-        rhnServerChannel SC,
-        rhnServer S,
+        PN.name || '-' || evr_t_as_vre_simple(max(PE.evr)) || '-' || PA.label NVRE,
+        PN.id AS NAME_ID,
+        lookup_evr((max(PE.evr)).epoch, (max(PE.evr)).version, (max(PE.evr)).release) as EVR_ID,
+        PA.id AS ARCH_ID
+  FROM  rhnServer S,
         rhnPackageEVR PE,
         rhnPackageName PN,
         rhnPackage P,
         rhnPackageArch PA,
-        rhnServerNeededPackageCache SNPC
+        rhnServerNeededPackageCache SNPC,
+        rhnSet SET
  WHERE  SNPC.server_id IN (%s)
+   AND  SET.user_id = :user_id
+   AND  SET.label = :package_set_label
+   AND  SET.element = P.name_id
+   AND  SET.element_two = P.evr_id
+   AND  SET.element_three = P.package_arch_id
    AND  SNPC.package_id = P.id
-   AND  (P.name_id, P.evr_id, P.package_arch_id) IN (
-           SELECT element, element_two, element_three
-             FROM rhnSet
-            WHERE user_id = :user_id
-              AND label = :package_set_label
-        )
    AND  SNPC.server_id = S.id
-   AND  S.id = SC.server_id
-   AND  SC.channel_id = C.id
-   AND  C.id = CP.channel_id
-   AND  CP.package_id = P.id
    AND  P.name_id = PN.id
    AND  P.evr_id = PE.id
    AND  P.package_arch_id = PA.id
-) X
-ORDER BY UPPER(X.server_name), UPPER(X.NVRE)
+GROUP BY s.id, pn.id, pa.id
+ORDER BY UPPER(S.name), S.id, UPPER(PN.name), UPPER(PA.label)
   </elaborator>
 </mode>
 

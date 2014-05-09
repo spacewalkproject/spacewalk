@@ -113,41 +113,22 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
 
             // bz465892 - As the selected packages are parsed, remove duplicates
             // keeping the highest EVR
-            Map<String, PackageListItem> packageNameIdsToItems =
-                new HashMap<String, PackageListItem>(data.size());
-
-            for (String idCombo : data) {
-                PackageListItem item = PackageListItem.parse(idCombo);
-
-                PackageListItem existing =
-                    packageNameIdsToItems.get(item.getIdOne() + "|" + item.getIdThree());
-                if (existing != null) {
-                    String[] existingParts = splitEvr(existing.getNvre());
-                    String[] itemParts = splitEvr(item.getNvre());
-
-                    PackageEvr existingEvr = PackageEvrFactory
-                            .lookupOrCreatePackageEvr(existingParts[0],
-                                    existingParts[1], existingParts[2]);
-
-                    PackageEvr itemEvr = PackageEvrFactory
-                            .lookupOrCreatePackageEvr(itemParts[0],
-                                    itemParts[1], itemParts[2]);
-
-                    if (existingEvr.compareTo(itemEvr) < 0) {
-                        packageNameIdsToItems.put(item.getIdOne() + "|" +
-                                item.getIdThree(), item);
-                    }
-                }
-                else {
-                    packageNameIdsToItems.put(item.getIdOne() + "|" +
-                            item.getIdThree(), item);
-                }
-            }
+            // bz594455 - highest EVR per package name does not work. What if we have
+            // different base channels in same ssm, like maybe rhel 5 and rhel 6? What
+            // if the highest EVR package is only available in a child channel that
+            // one server is subscribed to but not another? We need to find the highest
+            // EVR for each combination of package_name:package_arch:system and keep
+            // all of those. The addition of system makes the combinatorics much more
+            // complicated, especially since that's not information we have (and it
+            // would be unreasonable to add) in the request attributes. We have to
+            // push the selected packages down to the database and then have a query
+            // that returns the system to package map.
 
             RhnSet packageSet = RhnSetManager.createSet(user.getId(),
                 RhnSetDecl.SSM_UPGRADE_PACKAGES_LIST.getLabel(), SetCleanup.NOOP);
 
-            for (PackageListItem item : packageNameIdsToItems.values()) {
+            for (String idCombo : data) {
+                PackageListItem item = PackageListItem.parse(idCombo);
                 packageSet.addElement(item.getIdOne(), item.getIdTwo(), item.getIdThree());
             }
 
