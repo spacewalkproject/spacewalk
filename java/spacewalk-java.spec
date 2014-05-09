@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.60
+Version: 2.2.61
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 09 2014 Stephen Herr <sherr@redhat.com> 2.2.61-1
+- Checkstyle Fix
+- 594455 - checkstyle fix
+
 * Fri May 09 2014 Stephen Herr <sherr@redhat.com> 2.2.60-1
 - 594455 - SSM package upgrades should apply correctly across diverse system
   sets
