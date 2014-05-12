@@ -743,6 +743,11 @@ class ContentPackage:
         else:
             return self.name + '-' + self.version + '-' + self.release + '.' + self.arch
 
+    def getNEVRA(self):
+        if self.epoch is None:
+            self.epoch = '0'
+        return self.name + '-' + self.epoch + ':' + self.version + '-' + self.release + '.' + self.arch
+
     def load_checksum_from_header(self):
         if self.path is None:
             raise rhnFault(50, "Unable to load package", explain=0)
