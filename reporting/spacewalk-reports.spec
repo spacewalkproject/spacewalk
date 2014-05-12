@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.3
+Version: 2.2.4
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Mon May 12 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.4-1
+- remove semicolon at the end of the query
+- Add ids to labels (handy)
+- Add report for custom-channels
+- Add report on repositories
+- Add org-id to channels
+
 * Tue Apr 15 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.3-1
 - system-md5-certificate: list of systems with MD5 client certificate
 
