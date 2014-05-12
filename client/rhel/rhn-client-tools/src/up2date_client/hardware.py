@@ -195,12 +195,11 @@ def __get_number_sockets():
     if os.access("/proc/cpuinfo", os.R_OK):
         try:
             lines = open("/proc/cpuinfo", 'r').readlines()
-            socket_ids = []
+            socket_ids = set()
             for line in lines:
                 if 'physical id' in line:
                     socket_index = int(line.split(':')[1].strip())
-                    if not socket_index in socket_ids:
-                        socket_ids += [socket_index]
+                    socket_ids.add(socket_index)
             if len(socket_ids) > 0:
                 return len(socket_ids)
         except:
