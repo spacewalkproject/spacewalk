@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.18
+Version: 2.2.19
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -270,6 +270,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon May 12 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.19-1
+- Extract function to humanize dates so that it can be used after DOM changes
+
 * Tue May 06 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.18-1
 - remove old perl pages
 - delete unused code in modules/rhn/RHN/Server.pm related to system events
