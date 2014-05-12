@@ -9144,6 +9144,12 @@ Please note that some manual configuration of these scripts may still be require
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDelete</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstartoptions.jsp.encrypt_rootpw">
+        <source>SHA-256 Encrypt</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartOptionsEdit</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstartoptions.jsp.header1">
         <source>Advanced Options</source>
         <context-group name="ctx">

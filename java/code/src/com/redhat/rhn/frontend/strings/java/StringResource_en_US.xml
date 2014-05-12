@@ -1893,7 +1893,7 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.options.rootpw.note">
-        <source>&lt;strong&gt;NOTE:&lt;/strong&gt; You may set any password hash into this field. Make sure the hash algorithm is correctly set in the &lt;strong&gt;auth&lt;/strong&gt; option. However you may enter a plaintext password, that will be md5 encrypted when selecting the &lt;strong&gt;MD5 Encrypt&lt;/strong&gt; checkbox.</source>
+        <source>&lt;strong&gt;NOTE:&lt;/strong&gt; You may set a password hashed with any algorythm in this field. The hash algorithm in the &lt;strong&gt;auth&lt;/strong&gt; option will affect future passwords created, you may want it to be the same as the agorithm used here. If you enter a plaintext password, you must select &lt;strong&gt;SHA-256 Encrypt&lt;/strong&gt; above to encrypt it.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartOptionsEdit</context>
         </context-group>

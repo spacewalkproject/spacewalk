@@ -44,9 +44,9 @@
                   <td>
                     <c:choose>
                       <c:when test="${option.name == 'rootpw'}">
-                        <input type="text" name="<c:out value="${option.name}" />_txt" value="${option.arg}" size="48"/>
-                        <input type="checkbox" name='md5_crypt_rootpw' value='md5_crypt_rootpw' id="md5_crypt_rootpw"/>
-                        <label for="md5_crypt_rootpw"><c:out value="MD5 Encrypt"/></label>
+                        <input type="text" name="<c:out value="${option.name}" />_txt" value="${option.arg}" size="40"/>
+                        <input type="checkbox" name='encrypt_rootpw' value='encrypt_rootpw' id="encrypt_rootpw"/>
+                        <label for="encrypt_rootpw"><bean:message key="kickstartoptions.jsp.encrypt_rootpw"/></label>
                         <br/>
                       </c:when>
                       <c:otherwise>
