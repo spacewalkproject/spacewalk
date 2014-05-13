@@ -748,8 +748,8 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         assertNotNull(chan);
         assertEquals(label, chan.getLabel());
         assertEquals(1, chan.getPackages().size());
-        // TODO - check number of errata, when cloning async
-        // assertEquals(1, chan.getErratas().size());
+
+        // errata cloning is tested in CloneErrataActionTest
 
         // Test that we're actually creating a cloned channel:
         ClonedChannel clone = (ClonedChannel)chan;
