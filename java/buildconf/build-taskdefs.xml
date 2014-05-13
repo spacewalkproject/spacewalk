@@ -55,7 +55,7 @@
     <taskdef resource="net/sf/antcontrib/antcontrib.properties"
              classpathref="buildjars"/>
    
-    <taskdef name="foreach" classpathref="buildjars" classname="net.sf.antcontrib.logic.Foreach" onerror="report"/>
+    <taskdef name="foreach" classpathref="buildjars" classname="net.sf.antcontrib.logic.ForEach" onerror="report"/>
 
     <property name="init-taskdefs.notrequired" value="true" />
 
