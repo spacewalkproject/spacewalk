@@ -666,7 +666,7 @@ public class KickstartBuilder {
             ksdata.setPartitionData(configData);
         }
         else if (ksdata.isRhel7OrGreater()) {
-            ksdata.setPartitionData("autopart=lvm");
+            ksdata.setPartitionData("autopart --type=lvm");
         }
         else if (ksdata.getChannel().getChannelArch().getName().equals(IA64)) {
             setItaniumParitionScheme(cmd, ksdata);
