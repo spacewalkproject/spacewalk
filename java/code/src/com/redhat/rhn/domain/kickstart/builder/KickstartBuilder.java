@@ -17,7 +17,6 @@ package com.redhat.rhn.domain.kickstart.builder;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.PermissionException;
-import com.redhat.rhn.common.util.SHA256Crypt;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartCommandName;
@@ -203,7 +202,7 @@ public class KickstartBuilder {
                     }
                     else {
                         // No --iscrypted present, encrypt the password:
-                        restOfLine = "--iscrypted " + SHA256Crypt.crypt(tokens[0]);
+                        restOfLine = "--iscrypted " + ksData.encryptPassword(tokens[0]);
                     }
                 }
 
@@ -588,7 +587,7 @@ public class KickstartBuilder {
 
     private void setRootPassword(KickstartWizardHelper cmd,
             KickstartData ksdata, String rootPassword) {
-        cmd.createCommand("rootpw", SHA256Crypt.crypt(rootPassword), ksdata);
+        cmd.createCommand("rootpw", ksdata.encryptPassword(rootPassword), ksdata);
     }
 
     private void setLanguage(KickstartWizardHelper cmd,
@@ -612,7 +611,7 @@ public class KickstartBuilder {
     }
 
     private void setAuth(KickstartWizardHelper cmd, KickstartData ksdata) {
-        cmd.createCommand("auth", "--enableshadow --passalgo=sha256", ksdata);
+        cmd.createCommand("auth", ksdata.defaultAuthArgs(), ksdata);
     }
 
     private void setNetwork(KickstartWizardHelper cmd, KickstartData ksdata) {

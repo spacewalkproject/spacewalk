@@ -9145,7 +9145,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="kickstartoptions.jsp.encrypt_rootpw">
-        <source>SHA-256 Encrypt</source>
+        <source>Encrypt</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartOptionsEdit</context>
         </context-group>

@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
@@ -233,6 +234,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
             BaseKickstartCommand cmdIn) {
 
         KickstartData ksdata = cmdIn.getKickstartData();
+        boolean wasRhel5OrLess = ksdata.isRHEL5OrLess();
         RequestContext ctx = new RequestContext(request);
         KickstartTreeUpdateType updateType = null;
         KickstartableTree tree = null;
@@ -275,6 +277,14 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         }
 
         ksdata.setRealUpdateType(updateType);
+
+        // need to reset auth field
+        if (wasRhel5OrLess != cmd.getKickstartData().isRHEL5OrLess()) {
+            KickstartCommand auth = cmd.getKickstartData().getCommand("auth");
+            if (auth != null) {
+                auth.setArguments(cmd.getKickstartData().defaultAuthArgs());
+            }
+        }
 
         CobblerProfileEditCommand cpec = new CobblerProfileEditCommand(ksdata,
                 ctx.getCurrentUser());

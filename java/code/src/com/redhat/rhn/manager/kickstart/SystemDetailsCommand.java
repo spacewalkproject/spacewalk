@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
-import com.redhat.rhn.common.util.SHA256Crypt;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
@@ -83,7 +82,7 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
                 cmd.setCreated(new Date());
                 cmd.setKickstartData(ksdata);
                 cmd.setCommandName(commandName);
-                cmd.setArguments(SHA256Crypt.crypt(rootPw));
+                cmd.setArguments(ksdata.encryptPassword(rootPw));
                 ksdata.getCommands().add(cmd);
             }
         }

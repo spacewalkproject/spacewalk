@@ -16,6 +16,8 @@ package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.util.MD5Crypt;
+import com.redhat.rhn.common.util.SHA256Crypt;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.common.FileList;
@@ -1616,5 +1618,32 @@ public class KickstartData {
      */
     public void setRealUpdateType(KickstartTreeUpdateType updateTypeIn) {
         this.updateType = updateTypeIn.getType();
+    }
+
+    /**
+     * Return the default args to the auth command for this ksdata
+     * @return default auth args
+     */
+    public String defaultAuthArgs() {
+        if (this.isRHEL5OrLess()) {
+            return "--enablemd5 --enableshadow";
+        }
+        else {
+            return "--enableshadow --passalgo=sha256";
+        }
+    }
+
+    /**
+     * Encrypt the password with whichever algorithm is appropriate for this ksdata
+     * @param password the password to encrypt
+     * @return the encrypted password
+     */
+    public String encryptPassword(String password) {
+        if (this.isRHEL5OrLess()) {
+            return MD5Crypt.crypt(password);
+        }
+        else {
+            return SHA256Crypt.crypt(password);
+        }
     }
 }

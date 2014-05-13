@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
-import com.redhat.rhn.common.util.SHA256Crypt;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -125,7 +124,8 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
                                 }
                                 // password changed, encrypt it
                                 else {
-                                    kc.setArguments(SHA256Crypt.crypt(pwarg));
+                                    kc.setArguments(kc.getKickstartData().encryptPassword(
+                                            pwarg));
                                 }
                             }
                             else {
