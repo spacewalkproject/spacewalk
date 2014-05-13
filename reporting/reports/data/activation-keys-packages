@@ -1,0 +1,35 @@
+
+synopsis:
+
+    Activation-keys and the packages they deploy
+
+description:
+
+    Lists all activation-keys and the packages they arrange to deploy
+
+columns:
+
+        org_id           The organization that owns the key
+        token            The actual token for this key
+        package_name     packages the key deploys to te system
+
+
+multival_columns:
+
+        token
+        package_name : package_name
+
+sql:
+
+    select * from (
+      select rt.org_id,
+             ak.token,
+             pn.name package_name
+      from rhnactivationkey ak
+           inner join rhnregtoken rt ON rt.id = ak.reg_token_id
+           left outer join rhnregtokenpackages rtp on rtp.token_id = rt.id
+           left outer join rhnpackagename pn on pn.id = rtp.name_id
+    ) X
+    -- where placeholder
+    order by org_id, token, package_name
+

@@ -1,0 +1,34 @@
+
+synopsis:
+
+    Activation-keys and their associated software channels
+
+description:
+
+    Lists all activation-keys and various entities associated with each key
+
+columns:
+
+        org_id       The organization that owns the key
+        token        The actual token for this key
+        channel      Channels the key subscribes a system to
+
+multival_columns:
+
+        token
+        channel : channel
+
+sql:
+
+    select * from (
+      select rt.org_id,
+             ak.token, 
+             rc.label channel
+      from rhnactivationkey ak
+           inner join rhnregtoken rt ON rt.id = ak.reg_token_id
+           left outer join rhnregtokenchannels rtc on rtc.token_id = rt.id
+           left outer join rhnchannel rc on rc.id = rtc.channel_id
+    ) X
+    -- where placeholder
+    order by org_id, token, channel
+

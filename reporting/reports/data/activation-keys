@@ -1,0 +1,42 @@
+
+synopsis:
+
+    Activation-keys defined on the system, and the entitlements the grant
+
+description:
+
+    Lists all activation-keys and the entitlements associated with each
+
+columns:
+
+        org_id           The organization that owns the key
+        token            The token for a key
+        note             Description of this key
+        usage_limit      What is the key's usage-limit?
+        is_disabled      Is the key disabled?
+        deploys_configs  Does this key require config-files be deployed?
+        entitlement      Entitlements the key assigns
+
+multival_columns:
+
+        token
+        entitlement : entitlement
+
+sql:
+
+    select * from (
+      select rt.org_id,
+             ak.token, 
+             rt.note note, 
+             rt.usage_limit usage_limit,
+             rt.disabled is_disabled, 
+             rt.deploy_configs deploys_configs,
+             sgt.label entitlement
+      from rhnactivationkey ak
+           inner join rhnregtoken rt ON rt.id = ak.reg_token_id
+           left outer join rhnregtokenentitlement rte on rte.reg_token_id = rt.id
+           left outer join rhnservergrouptype sgt on sgt.id = rte.server_group_type_id
+    ) X
+    -- where placeholder
+    order by org_id, token, entitlement
+
