@@ -12,12 +12,12 @@ function reloadForm(ctl) {
   submittedFlag.value = "false";
   var changedField = document.getElementById("fieldChanged");
   changedField.value = ctl.id;
-  var form = document.getElementById("kickstartSoftwareForm");
+  var form = document.getElementsByName("kickstartSoftwareForm")[0];
   form.submit();
 }
 
 function toggleKSTree(what) {
-   var form = document.getElementById("kickstartSoftwareForm");
+   var form = document.getElementsByName("kickstartSoftwareForm")[0];
    if(what.checked) {
        form.tree.disabled=1;
    } else {
@@ -26,14 +26,14 @@ function toggleKSTree(what) {
 }
 
 function clickNewestRHTree() {
-   var form = document.getElementById("kickstartSoftwareForm");
+   var form = document.getElementsByName("kickstartSoftwareForm")[0];
    if(form.useNewestRHTree.checked) {
        form.useNewestTree.checked = false;
    }
 }
 
 function clickNewestTree() {
-   var form = document.getElementById("kickstartSoftwareForm");
+   var form = document.getElementsByName("kickstartSoftwareForm")[0];
    if(form.useNewestTree.checked) {
        form.useNewestRHTree.checked = false;
    }

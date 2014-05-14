@@ -11,7 +11,7 @@
 
     <script language="javascript">
 function moveNext() {
-   var form = document.getElementById("kickstartScheduleWizardForm");
+   var form = document.getElementsByName("kickstartScheduleWizardForm")[0];
    form.submit();
 }
 
@@ -38,7 +38,7 @@ function getCheckedValue(radioObj) {
 }
 
 function enableBondStaticIpAddress() {
-    var staticBond = document.getElementById("kickstartScheduleWizardForm").bondStatic
+    var staticBond = document.getElementsByName("kickstartScheduleWizardForm")[0].bondStatic
     if (getCheckedValue(staticBond) == 'true') {
         document.getElementById("bondAddress").disabled = false
         document.getElementById("bondNetmask").disabled = false
