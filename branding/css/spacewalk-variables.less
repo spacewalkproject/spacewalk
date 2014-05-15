@@ -1,4 +1,4 @@
-/* Main font size */
+    /* Main font size */
 @font-size-base: 13px;
 
 /* Bootstrap color variables overwrited */
@@ -8,9 +8,14 @@
 @gray-light:             lighten(#000, 80%);   // #999
 @gray-lighter:           lighten(#000, 95%); // #eee
 
+@spacewalk-green:        #7ac142;
+@spacewalk-blue:         #4ea1ee;
+@spacewalk-blue-2:       #00aad4;
+@spacewalk-gold-yellow: #ffab47;
+@spacewalk-red:          #a81a1a;
 
 /* Colours (or img backgrounds) for Spacewalk */
-@spacewalk-blue:	     #00aad4;
+@spacewalk-main:   	   @spacewalk-blue-2;
 @spacewalk-header:       url('../../img/spacewalk-header-background.png') repeat-x @gray;
 @spacewalk-footer:       @gray-dark;
 @spacewalk-aside:        #eeeeee;
@@ -19,11 +24,6 @@
 @spacewalk-aside-border: darken(@spacewalk-aside, 10%);
 @spacewalk-aside-menu-hyperlink: #666;
 @spacewalk-aside-menu-hyperlink-hover: #555;
-
-@state-success-text:    #7ac142;
-@state-info-text:       #4ea1ee;
-@state-warning-text:    #ffab47;
-@state-danger-text:     #a81a1a;
 
 /* aside menu colors */
 @spacewalk-list-menu:    @gray-lighter;

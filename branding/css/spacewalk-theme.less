@@ -196,7 +196,7 @@ header {
 	}
 
 	.navbar-nav > li:hover {
-		background: @spacewalk-blue;
+		background: @spacewalk-main;
 		.border-rounded(4px; 4px; 0; 0);
 	}
 
@@ -232,7 +232,7 @@ header {
 	}
 	#bar .spacewalk-bar .badge {
 		margin-right: .5em;
-		background: @spacewalk-blue
+		background: @spacewalk-main
 	}
 }
 
@@ -327,7 +327,7 @@ aside .sideleg {
 }
 .spacewalk-main-nav:after {
 	height: 4px;
-	background: @spacewalk-blue	;
+	background: @spacewalk-main	;
 	width: 100%
 }
 
@@ -362,7 +362,7 @@ aside .nav > li > a {
 		border-bottom: 1px solid #d8d8d8;
 	}
 	li.active > a, #sidenav li.active > a:hover {
-		color: @spacewalk-blue;
+		color: @spacewalk-main;
 		background: @spacewalk-list-menu-active;
 	}
 	li > a {
@@ -751,4 +751,20 @@ ul.nav.nav-tabs:last-child {
 }
 .datepicker-dropdown:after {
                 display: none !important;
+}
+
+// make icons lighter than standard alert texts
+div:not([class~="alert"]) i.fa {
+    &.text-warning {
+        color: @spacewalk-gold-yellow;
+    }
+    &.text-success {
+        color: @spacewalk-green;
+    }
+    &.text-info {
+        color: @spacewalk-blue;
+    }
+    &.text-danger {
+        color: @spacewalk-red;
+    }
 }
