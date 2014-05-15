@@ -49,7 +49,7 @@ public class ElaborationDecorator extends BaseListDecorator {
         }
         if (elab == null) {
             String msg = "Elaborator NOT BOUND!.." +
-                        " This is needed if you are using the ElborationDecorator." +
+                        " This is needed if you are using the ElaborationDecorator." +
                             " Check out TagHelper.bindElaboratorTo.." +
                             " for List -> " + getCurrentList().getUniqueName();
             throw new RuntimeException(msg);
