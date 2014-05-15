@@ -29,9 +29,6 @@ public class TaskConstants {
     public static final String TASK_QUERY_KSCLEANUP_FIND_PREREQ_ACTION =
         "kickstartcleanup_find_parent_action";
 
-    public static final String TASK_QUERY_KSCLEANUP_REMOVE_ACTION =
-        "kickstartcleanup_remove_action";
-
     public static final String TASK_QUERY_KSCLEANUP_FIND_FAILED_STATE_ID =
         "kickstartcleanup_find_failed_state_id";
 

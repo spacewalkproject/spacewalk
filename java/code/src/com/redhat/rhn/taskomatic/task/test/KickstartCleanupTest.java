@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.taskomatic.task.test;
 
-import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -148,10 +147,6 @@ public class KickstartCleanupTest extends RhnBaseTestCase {
         WriteMode update = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_KSCLEANUP_MARK_SESSION_FAILED);
         assertNotNull(update);
-
-        CallableMode proc = ModeFactory.getCallableMode(TaskConstants.MODE_NAME,
-                TaskConstants.TASK_QUERY_KSCLEANUP_REMOVE_ACTION);
-        assertNotNull(proc);
     }
 
     /**

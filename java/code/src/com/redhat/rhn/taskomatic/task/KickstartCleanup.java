@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
-import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.domain.action.ActionFactory;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -93,10 +93,10 @@ public class KickstartCleanup extends RhnJavaJob {
         if (actionId != null) {
             actionId = findTopmostParentAction(actionId);
             if (oldServerId != null) {
-                unlinkAction(actionId, oldServerId);
+                ActionFactory.removeActionForSystem(actionId, oldServerId);
             }
             if (newServerId != null) {
-                unlinkAction(actionId, newServerId);
+                ActionFactory.removeActionForSystem(actionId, newServerId);
             }
         }
         markFailed(sessionId, failedStateId);
@@ -109,15 +109,6 @@ public class KickstartCleanup extends RhnJavaJob {
         params.put("session_id", sessionId);
         params.put("failed_state_id", failedStateId);
         update.executeUpdate(params);
-    }
-
-    private void unlinkAction(Long actionId, Long serverId) {
-        CallableMode proc = ModeFactory.getCallableMode(TaskConstants.MODE_NAME,
-                TaskConstants.TASK_QUERY_KSCLEANUP_REMOVE_ACTION);
-        Map params = new HashMap();
-        params.put("server_id", serverId);
-        params.put("action_id", actionId);
-        proc.execute(params, new HashMap());
     }
 
     private Long findTopmostParentAction(Long startingAction) {
