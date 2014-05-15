@@ -1429,7 +1429,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return true if the system is a virtual host
      */
     public boolean isVirtualHost() {
-        return (VirtualInstanceFactory.getInstance().listByHostId(org, id).size() > 0) ||
+        return (SystemManager.isVirtualHost(getOrg().getId(), getId())) ||
                 hasVirtualizationEntitlement();
     }
 

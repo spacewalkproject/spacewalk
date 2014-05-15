@@ -2154,6 +2154,21 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Checks if the System is a virtual host
+     * @param oid id of the Org that the server is in
+     * @param sid ID of the Server being checked
+     * @return true if the system is a virtual host, false otherwise
+     */
+    public static boolean isVirtualHost(Long oid, Long sid) {
+        SelectMode m = ModeFactory.getMode("System_queries", "is_virtual_host_in_org");
+        Map params = new HashMap();
+        params.put("oid", oid);
+        params.put("sid", sid);
+        DataResult result = m.execute(params);
+        return result != null;
+    }
+
+    /**
      * Checks if the user has permissions to see the Server
      * @param user User being checked
      * @param sid ID of the Server being checked
