@@ -1383,10 +1383,12 @@ ORDER BY  SERVER_ID
 <query name="in_set" params="user_id, set_label">
 select * from (
   SELECT  DISTINCT S.id, S.name
-    FROM  rhnServer S, rhnSet ST
+    FROM  rhnServer S, rhnSet ST, rhnUserServerPerms USP
    WHERE  ST.user_id = :user_id
      AND  ST.label = :set_label
      AND  ST.element = S.id
+     AND  S.id = USP.server_id
+     AND  USP.user_id = :user_id
 ) X
 ORDER BY  UPPER(COALESCE(name, '(none)')), id
 </query>
@@ -2171,6 +2173,21 @@ select SA.action_id as ID,
            and AStat.id = 0
            and exists (select 1 from rhnset where user_id = :user_id and label = :set_label and element = SA.action_id)
 order by scheduled_for desc, id desc
+  </query>
+</mode>
+
+<mode name="host_virtual_entitlement_for_guest">
+  <query params="sid">
+select sgt.label
+  from rhnVirtualInstance vi,
+       rhnServerGroupMembers sgm,
+       rhnServerGroupType sgt,
+       rhnServerGroup sg
+ where vi.virtual_system_id = :sid
+   and vi.host_system_id = sgm.server_id
+   and sgm.server_group_id = sg.id
+   and sgt.id = sg.group_type
+   and sgt.label in ('virtualization_host', 'virtualization_host_platform')
   </query>
 </mode>
 

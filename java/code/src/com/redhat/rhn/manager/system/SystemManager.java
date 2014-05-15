@@ -2094,9 +2094,18 @@ public class SystemManager extends BaseManager {
      * @return true if Server is FVE eligible, false otherwise
      */
     public static boolean isServerFveEligible(Server serverIn) {
+        return isServerIdFveEligible(serverIn.getId());
+    }
+
+    /**
+     * Check if a given ServerId is FVE eligible
+     * @param serverIdIn to check
+     * @return true if Server is FVE eligible, false otherwise
+     */
+    public static boolean isServerIdFveEligible(Long serverIdIn) {
         SelectMode m = ModeFactory.getMode("System_queries", "is_server_fve_eligible");
         Map params = new HashMap();
-        params.put("sid", serverIn.getId());
+        params.put("sid", serverIdIn);
 
         return (m.execute(params).size() >= 1);
     }

@@ -19,9 +19,9 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -74,13 +74,8 @@ public class SsmManager {
             idToChan.put(c.getId(), c);
         }
 
-        RhnSet ssm = RhnSetDecl.SYSTEMS.lookup(user);
-        List<Server> servers = new ArrayList<Server>();
-        if (ssm != null) {
-            for (RhnSetElement rse : ssm.getElements()) {
-                servers.add(SystemManager.lookupByIdAndUser(rse.getElement(), user));
-            }
-        }
+        List<SystemOverview> servers =
+                SystemManager.inSet(user, RhnSetDecl.SYSTEMS.getLabel());
 
         // Keeps a mapping of how many entitlements are left on each channel. This map
         // will be updated as the processing continues, however changes won't be written
@@ -92,7 +87,7 @@ public class SsmManager {
         Map<Channel, Long> channelToAvailableFteEntitlements =
                 new HashMap<Channel, Long>(allChannels.size());
 
-        for (Server server : servers) {
+        for (SystemOverview server : servers) {
             Long sysid = server.getId();
 
             Set<Long> chanIds = new HashSet<Long>();
@@ -131,12 +126,11 @@ public class SsmManager {
 
                 // First try to consume an FTE entitlement, then try regular,
                 // then remove the system
-                if (ChannelManager
-                        .isChannelFreeForSubscription(server, channel)) {
+                if (ChannelManager.isChannelFreeForSubscription(sysid, channel)) {
                     // do nothing, server gets this channel for free
                 }
                 else if (availableFteEntitlements > 0 &&
-                        SystemManager.isServerFveEligible(server)) {
+                        SystemManager.isServerIdFveEligible(sysid)) {
                     availableFteEntitlements -= 1;
                     channelToAvailableEntitlements.put(channel, availableFteEntitlements);
                 }
