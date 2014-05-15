@@ -16,7 +16,6 @@ package com.redhat.rhn.manager.action;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -1590,21 +1589,6 @@ public class ActionManager extends BaseManager {
         }
         List<Long> serverIds = Arrays.asList(srvr.getId());
         ErrataManager.applyErrata(scheduler, errataIds, earliest, serverIds);
-    }
-
-    /**
-     * Remove the system from the passed in Action.
-     * @param serverIn to remove from Action
-     * @param actionIn to process
-     */
-    public static void removeSystemFromAction(Server serverIn, Action actionIn) {
-        CallableMode m = ModeFactory.getCallableMode("System_queries",
-                "remove_from_action");
-        Map inParams = new HashMap();
-        inParams.put("server_id", serverIn.getId());
-        inParams.put("action_id", actionIn.getId());
-        m.execute(inParams, new HashMap());
-
     }
 
     /**

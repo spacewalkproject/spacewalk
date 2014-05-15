@@ -22,7 +22,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.domain.action.ActionFactory;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -450,8 +450,8 @@ public class KickstartSession {
                 parentAction = this.action.getPrerequisite();
             }
             if (this.currentServer() != null) {
-                ActionManager.
-                    removeSystemFromAction(this.currentServer(), parentAction);
+                ActionFactory.removeActionForSystem(
+                    this.currentServer().getId(), parentAction.getId());
             }
         }
         this.setState(KickstartFactory.SESSION_STATE_FAILED);

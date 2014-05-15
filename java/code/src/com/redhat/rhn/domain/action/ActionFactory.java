@@ -162,7 +162,12 @@ public class ActionFactory extends HibernateFactory {
         return failed;
     }
 
-    private  static void removeActionForSystem(Number actionId, Number sid) {
+    /**
+     * Remove the system from the passed in Action.
+     * @param actionId to process
+     * @param sid to remove from Action
+     */
+    public static void removeActionForSystem(Number actionId, Number sid) {
         CallableMode mode =
                 ModeFactory.getCallableMode("System_queries", "delete_action_for_system");
         Map params = new HashMap();
