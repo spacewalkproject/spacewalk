@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.4
+Version: 2.2.5
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Fri May 16 2014 Tomas Lestach <tlestach@redhat.com> 2.2.5-1
+- fix spacewalk-report multival issue
+- Add activation-keys-config report
+- Adding reports for activation-keys
+
 * Mon May 12 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.4-1
 - remove semicolon at the end of the query
 - Add ids to labels (handy)
