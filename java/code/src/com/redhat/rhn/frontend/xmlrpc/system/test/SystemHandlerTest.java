@@ -1803,12 +1803,21 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         instPackages.add(testInstPack);
         testServer.setPackages(instPackages);
-        Object[] returned = handler.listPackagesFromChannel(adminKey,
-                new Integer(testServer.getId().intValue()),
-                testChannel.getLabel());
+        Integer serverId = testServer.getId().intValue();
+        Map<String, Object> returned = (Map<String, Object>) handler
+            .listPackagesFromChannel(adminKey, serverId,
+            testChannel.getLabel())[0];
 
-        Package returnedPack = (Package) returned[0];
-        assertEquals(testPackage, returnedPack);
+        assertEquals(testPackage.getPackageName().getName(), returned.get("name"));
+        assertEquals(testPackage.getPackageEvr().getVersion(), returned.get("version"));
+        assertEquals(testPackage.getPackageEvr().getRelease(), returned.get("release"));
+        assertEquals(testPackage.getPackageEvr().getEpoch(), returned.get("epoch"));
+        assertEquals(testPackage.getId(), returned.get("id"));
+        assertEquals(testPackage.getPackageArch().getLabel(), returned.get("arch_label"));
+        // milliseconds may be different depending on DB
+        assertTrue(testPackage.getLastModified().getTime() -
+                ((Date) returned.get("last_modified")).getTime() < 1000);
+        assertEquals(testPackage.getPath(), returned.get("path"));
     }
 
     public void testScheduleSyncPackagesWithSystem() throws Exception {
