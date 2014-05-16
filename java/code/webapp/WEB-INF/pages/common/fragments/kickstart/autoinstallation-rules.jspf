@@ -1,0 +1,39 @@
+<div class="alert alert-warning alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert"
+    aria-hidden="true">&times;</button>
+
+  <p>
+    <bean:message key="snippetcreate.jsp.autoinstallation_rules_pre" />
+    <a data-toggle="collapse" data-target="#autoinstallation-rules">
+      <bean:message key="snippetcreate.jsp.autoinstallation_rules_details" />
+    </a>
+  </p>
+
+  <div id="autoinstallation-rules" class="collapse">
+    <bean:message key="snippetcreate.jsp.autoinstallation_rules_1" />
+    <pre>
+#raw
+#!/bin/bash
+
+for i in {0..2}; do
+  echo "$i - Hello World!"
+done
+#end raw
+    </pre>
+
+    <p>
+      <bean:message key="snippetcreate.jsp.autoinstallation_rules_2" />
+    </p>
+
+    <pre>
+#start some section (this is a comment)
+echo "Hello, world!"
+#end some section (this is a comment)
+    </pre>
+  
+    <p>
+      <bean:message key="snippetcreate.jsp.autoinstallation_rules_3" />
+    </p>
+  </div>
+
+</div>
