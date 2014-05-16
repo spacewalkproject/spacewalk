@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.27
+Version: 2.2.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -641,6 +641,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri May 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.28-1
+- rewrite uln_src plugin as yum_src plugin subclass
+- Added Oracle Unbreakable Linux Network integration to spacewalk-repo-sync
+- 1094526 - remove trailing semi-colon from SQL query as this breaks Oracle
+- Raise error if channel cannot be subscribed
+- python tests: made easier to toggle db backend
+
 * Tue May 13 2014 Tomas Lestach <tlestach@redhat.com> 2.2.27-1
 - let reposync ContentPackage return regular nevra
 
