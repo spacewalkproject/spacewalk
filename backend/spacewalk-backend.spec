@@ -555,6 +555,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files tools
 %doc LICENSE
+%doc README.ULN
 %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_satellite.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-tools
 %attr(755,root,root) %{_bindir}/rhn-charsets
@@ -602,6 +603,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,apache) %dir %{_var}/log/rhn/reposync
 %{pythonrhnroot}/satellite_tools/repo_plugins/__init__.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/yum_src.py*
+%{pythonrhnroot}/satellite_tools/repo_plugins/uln_src.py*
 %config %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*

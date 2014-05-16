@@ -119,7 +119,7 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
     <varlistentry>
         <term>-t<replaceable>TYPE</replaceable>, --type=<replaceable>TYPE</replaceable></term>
         <listitem>
-            <para>The type of repository to sync.  Currently only yum is supported and is the default. (Optional)</para>
+            <para>The type of repository to sync.  Currently only yum and uln are supported and yum is the default. The uln type is used to sync with the Oracle Unbreakable Linux Network. (Optional)</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -167,6 +167,7 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         <member><command>spacewalk-repo-sync -crepo1 --url=http://example.com/yum-repo/</command></member>
         <member><command>spacewalk-repo-sync -crepo2 --url=file:///var/share/localrepo/</command></member>
         <member><command>spacewalk-repo-sync -crepom --url=http://example.com/mirrorlist.xml/</command></member>
+        <member><command>spacewalk-repo-sync --type uln --channel=orcl-channel --url=uln:///ol6_x86_64_latest</command></member>
 </simplelist>
 </refsect1>
 

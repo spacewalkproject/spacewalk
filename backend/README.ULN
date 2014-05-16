@@ -1,0 +1,75 @@
+Unbreakable Linux Network integration for Spacewalk
+===================================================
+
+This package contains the ULN plugin for the existing spacewalk-repo-sync
+utility. The plugin allows you to synchronize ULN channels directly into Spacewalk 
+channels without requiring the Spacewalk server to be registered to ULN.
+
+Configuration of the plugin
+---------------------------
+
+The plugin only requires very basic configuration via the /etc/rhn/spacewalk-repo-sync/uln.conf file. 
+
+[main]
+username = <ULN SSO username>
+password = <ULN SSO password>
+
+As this file contains login credentials for the Unbreakable Linux Network, we strongly recommend ensuring
+read-only access to the user that will run spacewalk-repo-sync by setting file permissions to 0400.
+
+The plugin can also use any proxy configured via /etc/rhn/rhn.conf or the Spacewalk web interface.
+
+Configuration of Spacewalk
+--------------------------
+
+The plugin extends the functionality of spacewalk-repo-sync by allowing it to download packages and errata
+directly from ULN into an existing Spacewalk Software Channel. The configuration procedure is:
+
+1. Create a Spacewalk Software Channel and ULN-based Repository (using the uln:/// style URL)
+2. Run spacewalk-repo-sync to sync packages and errata (if available) from ULN into that channel.
+
+Web Interface Configuration
+---------------------------
+
+Configuration of ULN repositories within the Spacewalk web interface is identical to configuring
+standard yum repositories, except the URL is specially formatted to point directly to ULN.
+
+When configuring a ULN-based repository, use a URL in the format: uln:///<ULN channel label>.
+
+For example, the Oracle Linux 6 (x86_64) Latest channel on ULN has the label "ol6_x86_64_latest", so the
+URL would be uln:///ol6_x86_64_latest in Spacewalk.
+
+You can get a list of available ULN channel labels from the ULN web interface.
+
+Command-Line Usage instructions
+-------------------------------
+
+This example assumes you have created a Software Channel in Spacewalk with the Channel Label 
+of oraclelinux6_x86_64_latest and you want to sync the packages and errata from the ULN channel with the
+label of ol6_x86_64_latest into this Software Channel.
+
+You will need to know the channel label of the Spacewalk Software Channel as well as the channel label of the
+upstream ULN channel you want to synchronize from.
+
+The format of the spacewalk-repo-sync command is:
+
+# spacewalk-repo-sync --type uln --channel=<spacewalk channel label> --url=uln:///<ULN channel label>
+
+For example, to sync the Oracle Linux 6 (x86_64) Latest channel from ULN, you would run:
+
+# spacewalk-repo-sync --type uln --channel=oraclelinux6_x86_64_latest --url=uln:///ol6_x86_64_latest
+
+The command-line parameters are:
+
+-c CHANNEL_LABEL, --channel=CHANNEL_LABEL
+    The label of the Spacewalk channel to sync packages to
+
+-u URL, --url=URL
+    The url to sync. ULN channels are specified as uln:///<channel_label>. Note there are three / characters in the URL.
+
+-t REPO_TYPE, --type=REPO_TYPE
+     The type of repo. To use direct ULN integration, set this to "uln".
+
+You can also set the -q or --quiet parameter when running via a cronjob. It is recommended that a cronjob be manually 
+configured to run this script at least once a day to keep the Spacewalk channels up-to-date with ULN either by
+running the script via cron or scheduling a repository sync via the Spacewalk Taskomatic engine.
