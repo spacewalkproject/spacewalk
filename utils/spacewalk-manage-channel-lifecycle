@@ -19,7 +19,13 @@
 # Copyright 2012 Aron Parsons <aronparsons@gmail.com>
 #
 
-import getpass, logging, os, re, sys, time, xmlrpclib
+import getpass
+import logging
+import os
+import re
+import sys
+import time
+import xmlrpclib
 from optparse import Option, OptionParser
 
 SESSION_CACHE = os.path.expanduser("~/.spacewalk-manage-lifecycle-session")
