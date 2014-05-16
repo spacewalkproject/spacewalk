@@ -34,19 +34,18 @@ SESSION_CACHE = os.path.expanduser("~/.spacewalk-manage-lifecycle-session")
 
 # determine the name of the next phase
 def get_next_phase(current_name):
-    try:
-        current_num = phases.index(current_name)
-    except:
+    if current_name not in phases:
         logging.error('Invalid phase name: %s' % current_name)
         sys.exit(1)
+    else:
+        current_num = phases.index(current_name)
 
     # return the next phase name
-    try:
+    if current_num + 1 < len(phases):
         return phases[current_num + 1]
-    except IndexError:
-        logging.error("Maximum phase exceeded!  You can't move past '%s'." \
-                      % phases[-1])
-        return None
+    else:
+        logging.error("Maximum phase exceeded!  You can't move past '%s'." % phases[-1])
+        sys.exit(1)
 
 
 def print_channel_tree():
