@@ -89,12 +89,12 @@ class YumUpdateMetadata(UpdateMetadata):
                             no.add(un)
 
 class ContentSource(object):
-    def __init__(self, url, name):
+    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF):
         self.url = url
         self.name = name
         self.yumbase = yum.YumBase()
-        self.yumbase.preconf.fn = YUMSRC_CONF
-        if not os.path.exists(YUMSRC_CONF):
+        self.yumbase.preconf.fn = yumsrc_conf
+        if not os.path.exists(yumsrc_conf):
             self.yumbase.preconf.fn = '/dev/null'
         self.configparser = ConfigParser()
         self._clean_cache(CACHE_DIR + name)
@@ -104,7 +104,7 @@ class ContentSource(object):
         self.proxy_addr = CFG.http_proxy
         self.proxy_user = CFG.http_proxy_username
         self.proxy_pass = CFG.http_proxy_password
-
+        self._authenticate(url)
         if name in self.yumbase.repos.repos:
             repo = self.yumbase.repos.repos[name]
         else:
@@ -116,6 +116,9 @@ class ContentSource(object):
         self.setup_repo(repo)
         self.num_packages = 0
         self.num_excluded = 0
+
+    def _authenticate(self, url):
+        pass
 
     def setup_repo(self, repo):
         """Fetch repository metadata"""
