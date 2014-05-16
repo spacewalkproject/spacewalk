@@ -242,9 +242,14 @@ if __name__ == '__main__':
 						if prevrow[m] != row[m]:
 							if not m in multival_dupes:
 								multival_dupes[m] = {}
+								# store the dupe value from previous row
+								multival_dupes[m][prevrow[m]] = 1
 							if not row[m] in multival_dupes[m]:
 								outrow[m] = str(outrow[m]) + options.multivalseparator + str(row[m])
 								multival_dupes[m][row[m]] = 1
+							else:
+								# check another multival
+								continue
 							break
 
 				if outrow == None:
