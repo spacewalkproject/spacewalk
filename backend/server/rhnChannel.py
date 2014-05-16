@@ -1517,12 +1517,11 @@ def subscribe_sql(server_id, channel_id, commit=1):
         raise rhnFault(70, "Subscription count for the target channel exceeded"), None, sys.exc_info()[2]
 
 _query_parent_channel_subscribed = rhnSQL.Statement("""
-select 1 from rhnServerChannel sc where exists (
-  select sc.channel_id
-    from rhnChannel c
-   where sc.server_id = :sid
-     and sc.channel_id = c.parent_channel
-     and c.label = :channel)
+select 1
+  from rhnChannel c,
+       join rhnServerChannel sc on c.parent_channel = sc.channel_id
+  where sc.server_id = :sid
+    and c.label = :channel
 """)
 
 _query_can_subscribe = rhnSQL.Statement("""
