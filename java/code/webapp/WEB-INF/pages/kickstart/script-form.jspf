@@ -38,7 +38,7 @@
           <tr>
               <th></th>
               <td>
-                <%@ include file="/WEB-INF/pages/common/fragments/kickstart/autoinstallation-rules.jspf" %>
+                <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-rules.jspf" %>
               </td>
           </tr>
           <tr>
