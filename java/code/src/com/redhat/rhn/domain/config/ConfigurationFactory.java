@@ -846,7 +846,8 @@ public class ConfigurationFactory extends HibernateFactory {
 
             int offset = 0;
             int read = 0;
-            stream.mark(size.intValue()); // mark and reset stream, so that stream can be re-read later
+            // mark and reset stream, so that stream can be re-read later
+            stream.mark(size.intValue());
             do {
                 read = stream.read(foo, offset, (foo.length - offset));
                 offset += read;
