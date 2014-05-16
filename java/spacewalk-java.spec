@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.65
+Version: 2.2.66
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.66-1
+- Fix javadoc. 1-11 makes no sense, and the old picker did 1-12 for am/pm time.
+- Fix bug converting pm times to am when using locales in 24 hour format.
+- If value parameter expression is null, evaluate the page. Fixes a crash when
+  using the tag inside rhn:list and ${current} is not yet set.
+- Do not force the timezone name with daylight=false. (eg. showing EST for EDT)
+- Set milliseconds to 0 before comparing dates (bnc#814292)
+- Added a test for CloneErrataAction
+- Trigger repo metadata generation after cloning patches (bnc#814292)
+
 * Thu May 15 2014 Stephen Herr <sherr@redhat.com> 2.2.65-1
 - 1098316 - ssm child channel subscription page was slow
 - 1098313 - SDC was unnecessarily slow if the system had many guests
