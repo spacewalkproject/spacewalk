@@ -3063,6 +3063,23 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * @param sid server id
+     * @param ssId snapshot ID
+     * @param pc pageControl
+     * @return Returns snapshot tags for a system
+     */
+    public static DataResult <SnapshotTagDto> snapshotTagsForSystemAndSnapshot(Long sid,
+            Long ssId, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "tags_for_system_and_snapshot");
+        Map params = new HashMap();
+        params.put("sid", sid);
+        params.put("ss_id", ssId);
+        Map elabParams = new HashMap();
+        return makeDataResult(params, elabParams, pc, m);
+    }
+
+    /**
      * @param user user
      * @param pc PageControl
      * @param setLabel Set Label

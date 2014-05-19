@@ -3610,6 +3610,14 @@
                  path="/systems/details/history/snapshots/TagsDelete.do" redirect="true"/>
     </action>
 
+    <action path="/systems/details/history/snapshots/SnapshotTags"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SingleSnapshotTagsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/history/snapshots/snapshot_tags.jsp"/>
+    </action>
+
     <action path="/systems/details/history/snapshots/TagsDelete"
         scope="request"
         type="com.redhat.rhn.frontend.action.systems.sdc.SnapshotTagsDeleteAction"
