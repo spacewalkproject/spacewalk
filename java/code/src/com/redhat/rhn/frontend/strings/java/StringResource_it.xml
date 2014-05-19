@@ -302,15 +302,15 @@
         </context-group>
         <target>Indirizzo di consegna </target>
       </trans-unit>
-      <trans-unit id="address not filled out">
-        <source>Address not filled out</source>
+      <trans-unit id="address not filled in">
+        <source>Address not filled in</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/Addresses</context>
         </context-group>
         <target>Indirizzo incompleto</target>
       </trans-unit>
-      <trans-unit id="Add this address">
-        <source>Add this address</source>
+      <trans-unit id="Fill in this address">
+        <source>Fill in this address</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/Addresses</context>
         </context-group>
