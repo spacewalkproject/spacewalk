@@ -58,6 +58,7 @@ import com.redhat.rhn.frontend.dto.HardwareDeviceDto;
 import com.redhat.rhn.frontend.dto.NetworkDto;
 import com.redhat.rhn.frontend.dto.OrgProxyServer;
 import com.redhat.rhn.frontend.dto.ServerPath;
+import com.redhat.rhn.frontend.dto.SnapshotTagDto;
 import com.redhat.rhn.frontend.dto.SystemCurrency;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.VirtualSystemOverview;
@@ -3042,6 +3043,20 @@ public class SystemManager extends BaseManager {
     public static DataResult systemPendingEvents(Long sid, PageControl pc) {
         SelectMode m = ModeFactory.getMode("System_queries", "system_events_pending");
         Map<String, Object> params = new HashMap<String, Object>();
+        params.put("sid", sid);
+        Map elabParams = new HashMap();
+        return makeDataResult(params, elabParams, pc, m);
+    }
+
+    /**
+     * @param sid server id
+     * @param pc pageControl
+     * @return Returns snapshot tags for a system
+     */
+    public static DataResult <SnapshotTagDto> snapshotTagsForSystem(Long sid,
+            PageControl pc) {
+        SelectMode m = ModeFactory.getMode("System_queries", "tags_for_system");
+        Map params = new HashMap();
         params.put("sid", sid);
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);

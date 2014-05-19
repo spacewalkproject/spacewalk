@@ -413,6 +413,9 @@ public class RhnSetDecl {
     public static final RhnSetDecl PENDING_ACTIONS_TO_DELETE = make(
             "pending_actions_delete", SetCleanup.NOOP);
 
+    public static final RhnSetDecl SNAPSHOT_TAGS_TO_DELETE = make(
+            "snapshot_tags_delete", SetCleanup.NOOP);
+
     private SetCleanup cleanup;
     private String label;
 
