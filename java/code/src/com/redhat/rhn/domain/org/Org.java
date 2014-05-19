@@ -324,7 +324,7 @@ public class Org extends BaseDomainHelper {
      * Get the list of channels accessible for this org.
      * @return List of channels public or owned by this org.
      */
-    public List getAccessibleChannels() {
+    public List<Channel> getAccessibleChannels() {
         return ChannelManager.getChannelsAccessibleByOrg(this.id);
     }
 

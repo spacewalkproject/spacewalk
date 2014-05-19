@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.channel;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -50,9 +51,6 @@ public class PopularChannelTreeAction extends BaseChannelTreeAction {
             HttpServletRequest request,
             HttpServletResponse response) {
 
-        RequestContext requestContext = new RequestContext(request);
-
-        User user = requestContext.getCurrentUser();
         String countStr = request.getParameter(SERVER_COUNT);
         Long count;
         if (countStr == null) {
@@ -73,9 +71,9 @@ public class PopularChannelTreeAction extends BaseChannelTreeAction {
             count = Long.parseLong(countStr);
         }
 
-        List<Map> preSetList = new ArrayList<Map>();
+        List<Map<String, Object>> preSetList = new ArrayList<Map<String, Object>>();
         for (Long l : preSetCounts) {
-            Map countMap = new HashMap();
+            Map<String, Object> countMap = new HashMap<String, Object>();
             countMap.put("count", l);
             countMap.put("selected", l.equals(count));
             preSetList.add(countMap);
@@ -91,10 +89,10 @@ public class PopularChannelTreeAction extends BaseChannelTreeAction {
 
 
     /** {@inheritDoc} */
-    protected DataResult getDataResult(RequestContext requestContext, ListControl lc) {
+    protected DataResult<ChannelTreeNode> getDataResult(RequestContext requestContext,
+            ListControl lc) {
         User user = requestContext.getCurrentUser();
-        DataResult dr = ChannelManager.popularChannelTree(user,
+        return ChannelManager.popularChannelTree(user,
                 (Long) requestContext.getRequest().getAttribute("count"), lc);
-        return  dr;
     }
 }

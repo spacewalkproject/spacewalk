@@ -928,9 +928,9 @@ public class UserManager extends BaseManager {
     public static void addChannelPerm(User user, Long cid, String role) {
         //first figure out if this channel is visible by the user's org
         boolean permittedAction = false;
-        Iterator channels = user.getOrg().getAccessibleChannels().iterator();
+        Iterator<Channel> channels = user.getOrg().getAccessibleChannels().iterator();
         while (!permittedAction && channels.hasNext()) {
-            if (((Channel)channels.next()).getId().equals(cid)) {
+            if ((channels.next()).getId().equals(cid)) {
                 permittedAction = true;
             }
         }

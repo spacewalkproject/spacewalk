@@ -57,7 +57,7 @@ public class RenderKickstartFileAction extends Action {
         String fileContents = null;
         if (url != null) {
             KickstartHelper helper = new KickstartHelper(request);
-            Map params = helper.parseKickstartUrl(url);
+            Map<String, Object> params = helper.parseKickstartUrl(url);
             if (params != null) {
                 String host = (String) params.get("host");
                 KickstartData ksdata = (KickstartData) params.get("ksdata");

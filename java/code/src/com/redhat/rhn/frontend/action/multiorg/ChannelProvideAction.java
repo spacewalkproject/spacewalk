@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.BaseChannelTreeAction;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -34,7 +35,8 @@ public class ChannelProvideAction extends BaseChannelTreeAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(RequestContext requestContext, ListControl lc) {
+    protected DataResult<ChannelTreeNode> getDataResult(RequestContext requestContext,
+            ListControl lc) {
 
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         //grab the trusted org id passed in

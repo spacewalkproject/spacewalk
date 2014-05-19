@@ -34,6 +34,7 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.ChannelVersion;
+import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.DistChannelMap;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.ProductName;
@@ -51,12 +52,17 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ChannelPerms;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
+import com.redhat.rhn.frontend.dto.ChildChannelDto;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 import com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto;
 import com.redhat.rhn.frontend.dto.OrgChannelFamily;
 import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
 import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.dto.SystemsPerChannelDto;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
@@ -204,9 +210,9 @@ public class ChannelManager extends BaseManager {
     public static DataResult<ChannelOverview> entitlements(Long orgId, PageControl pc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "channel_entitlements");
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", orgId);
-        return makeDataResult(params, params, pc, m);
+        return makeDataResult(params, params, pc, m, ChannelOverview.class);
     }
 
     /**
@@ -224,7 +230,7 @@ public class ChannelManager extends BaseManager {
                 OrgFactory.getSatelliteOrg().getId(), null);
 
         // Reformat it into a map for easy lookup
-        Map <Long, ChannelOverview> orgMap = new HashMap();
+        Map<Long, ChannelOverview> orgMap = new HashMap<Long, ChannelOverview>();
         for (ChannelOverview orgEnt : orgEntitlements) {
             orgMap.put(orgEnt.getId(), orgEnt);
         }
@@ -267,8 +273,7 @@ public class ChannelManager extends BaseManager {
     public static DataList<MultiOrgEntitlementsDto> entitlementsForAllMOrgs() {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                 "channel_entitlements_for_all_m_orgs");
-        return DataList.getDataList(m, Collections.EMPTY_MAP,
-                Collections.EMPTY_MAP);
+        return DataList.getDataList(m, Collections.EMPTY_MAP, Collections.EMPTY_MAP);
     }
 
     /**
@@ -281,9 +286,9 @@ public class ChannelManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                 "channel_entitlement_for_all_orgs");
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("entitlement_id", entitlementId);
-        return makeDataResult(params, params, null, m);
+        return makeDataResult(params, params, null, m, ChannelOverview.class);
     }
 
     /**
@@ -428,13 +433,13 @@ public class ChannelManager extends BaseManager {
     public static ChannelOverview getEntitlement(Long orgId, Long entitlementId) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "channel_entitlement");
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", orgId);
         params.put("entitlement_id", entitlementId);
-        DataResult dr = m.execute(params);
+        DataResult<ChannelOverview> dr = m.execute(params);
 
         if (dr != null && !dr.isEmpty()) {
-            return (ChannelOverview) dr.get(0);
+            return dr.get(0);
         }
         return null;
     }
@@ -446,16 +451,17 @@ public class ChannelManager extends BaseManager {
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult vendorChannelTree(User user,
+    public static DataResult<ChannelTreeNode> vendorChannelTree(User user,
                                                  ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "vendor_channel_tree");
 
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
 
-        DataResult dr = makeDataResult(params, params, lc, m);
+        DataResult<ChannelTreeNode> dr =
+                makeDataResult(params, params, lc, m, ChannelTreeNode.class);
         Collections.sort(dr);
         return dr;
     }
@@ -470,16 +476,18 @@ public class ChannelManager extends BaseManager {
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult popularChannelTree(User user, Long serverCount,
+    public static DataResult<ChannelTreeNode> popularChannelTree(User user,
+            Long serverCount,
                                                  ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "popular_channel_tree");
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
         params.put("server_count", serverCount);
 
-        DataResult dr = makeDataResult(params, params, lc, m);
+        DataResult<ChannelTreeNode> dr =
+                makeDataResult(params, params, lc, m, ChannelTreeNode.class);
         Collections.sort(dr);
         return dr;
     }
@@ -492,17 +500,16 @@ public class ChannelManager extends BaseManager {
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult myChannelTree(User user,
+    public static DataResult<ChannelTreeNode> myChannelTree(User user,
                                                  ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "my_channel_tree");
 
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
 
-        DataResult dr = makeDataResult(params, params, lc, m);
-        return dr;
+        return makeDataResult(params, params, lc, m, ChannelTreeNode.class);
     }
 
     /**
@@ -514,16 +521,16 @@ public class ChannelManager extends BaseManager {
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult trustChannelConsume(Org org, Org trustOrg, User user,
+    public static DataResult<ChannelTreeNode> trustChannelConsume(Org org, Org trustOrg,
+            User user,
                                             ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consume");
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", trustOrg.getId());
         params.put("user_id", user.getId());
         params.put("org_id2", org.getId());
-        DataResult dr = makeDataResult(params, params, lc, m);
-        return dr;
+        return makeDataResult(params, params, lc, m, ChannelTreeNode.class);
     }
 
     /**
@@ -533,16 +540,15 @@ public class ChannelManager extends BaseManager {
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult allChannelTree(User user,
+    public static DataResult<ChannelTreeNode> allChannelTree(User user,
                                             ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "all_channel_tree");
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
 
-        DataResult dr = makeDataResult(params, params, lc, m);
-        return dr;
+        return makeDataResult(params, params, lc, m, ChannelTreeNode.class);
     }
 
     /**
@@ -551,14 +557,13 @@ public class ChannelManager extends BaseManager {
      * @param user cannot be <code>null</code>
      * @return list of maps containing the channel data
      */
-    public static DataResult ownedChannelsTree(User user) {
+    public static DataResult<ChannelTreeNode> ownedChannelsTree(User user) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "owned_channels_tree");
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("user_id", user.getId());
 
-        DataResult dr = makeDataResult(params, params, null, m);
-        return dr;
+        return makeDataResult(params, params, null, m, ChannelTreeNode.class);
     }
 
     /**
@@ -568,16 +573,15 @@ public class ChannelManager extends BaseManager {
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult sharedChannelTree(User user,
+    public static DataResult<ChannelTreeNode> sharedChannelTree(User user,
                                             ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "shared_channel_tree");
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
 
-        DataResult dr = makeDataResult(params, params, lc, m);
-        return dr;
+        return makeDataResult(params, params, lc, m, ChannelTreeNode.class);
     }
 
     /**
@@ -587,16 +591,15 @@ public class ChannelManager extends BaseManager {
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult retiredChannelTree(User user,
+    public static DataResult<ChannelTreeNode> retiredChannelTree(User user,
                                                 ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "retired_channel_tree");
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
 
-        DataResult dr = makeDataResult(params, params, lc, m);
-        return dr;
+        return makeDataResult(params, params, lc, m, ChannelTreeNode.class);
     }
 
     /**
@@ -607,18 +610,17 @@ public class ChannelManager extends BaseManager {
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's representing the channel family
      */
-    public static DataResult channelFamilyTree(User user,
+    public static DataResult<ChannelTreeNode> channelFamilyTree(User user,
                                                Long familyId,
                                                ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "channel_family_tree");
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("user_id", user.getId());
         params.put("family_id", familyId);
         params.put("org_id", user.getOrg().getId());
 
-        DataResult dr = makeDataResult(params, params, lc, m);
-        return dr;
+        return makeDataResult(params, params, lc, m, ChannelTreeNode.class);
     }
 
     /**
@@ -627,12 +629,13 @@ public class ChannelManager extends BaseManager {
      * @param pc page control for the user
      * @return Returns a data result containing ChannelOverview dtos
      */
-    public static DataResult channelsOwnedByOrg(Long orgId, PageControl pc) {
+    public static DataResult<ChannelOverview>
+            channelsOwnedByOrg(Long orgId, PageControl pc) {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                                            "channels_owned_by_org");
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", orgId);
-        return makeDataResult(params, null, pc, m);
+        return makeDataResult(params, null, pc, m, ChannelOverview.class);
     }
 
     /**
@@ -641,7 +644,7 @@ public class ChannelManager extends BaseManager {
      * @param e the errata in question
      * @return Returns the ids for relevant packages
      */
-    public static DataResult relevantPackages(Long channelId, Errata e) {
+    public static DataResult<Long> relevantPackages(Long channelId, Errata e) {
         SelectMode m;
 
         if (e.isPublished()) {
@@ -653,10 +656,10 @@ public class ChannelManager extends BaseManager {
                                     "relevant_packages_for_channel_unpublished");
         }
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("cid", channelId);
         params.put("eid", e.getId());
-        return makeDataResult(params, null, null, m);
+        return makeDataResult(params, null, null, m, Long.class);
     }
 
     /**
@@ -710,28 +713,28 @@ public class ChannelManager extends BaseManager {
      * @return Returns the list of names of channels this user has permission to,
      * an empty list otherwise.
      */
-    public static List channelsForUser(User user) {
+    public static List<String> channelsForUser(User user) {
         //subscribableChannels is the list we'll be returning
-        List subscribableChannels = new ArrayList();
+        List<String> subscribableChannels = new ArrayList<String>();
 
         //Setup items for the query
         SelectMode m = ModeFactory.getMode("Channel_queries",
                                            "user_subscribe_perms");
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
 
         //Execute the query
-        DataResult subscribable = m.execute(params);
+        DataResult<ChannelPerms> subscribable = m.execute(params);
 
         /*
          * We now need to go through the subscribable DataResult and
          * add the names of the channels this user has permissions to
          * to the subscribableChannels list.
          */
-        Iterator i = subscribable.iterator();
+        Iterator<ChannelPerms> i = subscribable.iterator();
         while (i.hasNext()) {
-            ChannelPerms perms = (ChannelPerms) i.next();
+            ChannelPerms perms = i.next();
             //if the user has permissions for this channel
             if (perms.isHasPerm()) {
                 //add the name to the list
@@ -757,7 +760,7 @@ public class ChannelManager extends BaseManager {
      * @param org org we want to search against
      * @return List of com.redhat.rhn.domain.Channel objects
      */
-    public static List getChannelsWithClonableErrata(Org org) {
+    public static List<ClonedChannel> getChannelsWithClonableErrata(Org org) {
         return ChannelFactory.getChannelsWithClonableErrata(org);
     }
 
@@ -766,7 +769,7 @@ public class ChannelManager extends BaseManager {
      * @param orgid The id of the org
      * @return List of accessible channels
      */
-    public static List getChannelsAccessibleByOrg(Long orgid) {
+    public static List<Channel> getChannelsAccessibleByOrg(Long orgid) {
         return ChannelFactory.getAccessibleChannelsByOrg(orgid);
     }
 
@@ -817,10 +820,10 @@ public class ChannelManager extends BaseManager {
      * @return the list of all channels the user can see as a DataResult
      *
      */
-    public static List<DataResult> allChannelsTree(User user) {
+    public static List<Map<String, Object>> allChannelsTree(User user) {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                                            "all_channels_tree");
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("user_id", user.getId());
 
         return m.execute(params);
@@ -924,7 +927,7 @@ public class ChannelManager extends BaseManager {
         //Insert row into rhnChannelPermission
         WriteMode m = ModeFactory.getWriteMode("Channel_queries",
                                                "grant_channel_permission");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("cid", channel.getId());
         params.put("role_label", QRY_ROLE_SUBSCRIBE);
@@ -943,7 +946,7 @@ public class ChannelManager extends BaseManager {
         //Delete row from rhnChannelPermission
         WriteMode m = ModeFactory.getWriteMode("Channel_queries",
                                                "revoke_channel_permission");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("cid", channel.getId());
         params.put("role_label", QRY_ROLE_SUBSCRIBE);
@@ -962,7 +965,7 @@ public class ChannelManager extends BaseManager {
         //Insert row into rhnChannelPermission
         WriteMode m = ModeFactory.getWriteMode("Channel_queries",
                                                "grant_channel_permission");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("cid", channel.getId());
         params.put("role_label", QRY_ROLE_MANAGE);
@@ -981,7 +984,7 @@ public class ChannelManager extends BaseManager {
         //Delete row from rhnChannelPermission
         WriteMode m = ModeFactory.getWriteMode("Channel_queries",
                                                "revoke_channel_permission");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("cid", channel.getId());
         params.put("role_label", QRY_ROLE_MANAGE);
@@ -1081,7 +1084,8 @@ public class ChannelManager extends BaseManager {
         }
         String hostVirtEntitlement = results.get(0).get("label");
 
-        Set levels = channelIn.getChannelFamily().getVirtSubscriptionLevels();
+        Set<VirtSubscriptionLevel> levels =
+                channelIn.getChannelFamily().getVirtSubscriptionLevels();
         if (levels == null || levels.size() == 0) {
             log.debug("Channel has no virtsublevel. returning false");
             return false;
@@ -1092,9 +1096,9 @@ public class ChannelManager extends BaseManager {
         }
         if (hostVirtEntitlement.equals(EntitlementManager.VIRTUALIZATION_ENTITLED)) {
             log.debug("host has virt");
-            Iterator i = levels.iterator();
+            Iterator<VirtSubscriptionLevel> i = levels.iterator();
             while (i.hasNext()) {
-                VirtSubscriptionLevel level = (VirtSubscriptionLevel) i.next();
+                VirtSubscriptionLevel level = i.next();
                 if (level.equals(CommonConstants.getVirtSubscriptionLevelFree())) {
                     log.debug("Channel has virt and host has virt, returning true");
                     return true;
@@ -1104,9 +1108,9 @@ public class ChannelManager extends BaseManager {
         if (hostVirtEntitlement.equals(
                     EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED)) {
             log.debug("host has virt-plat");
-            Iterator i = levels.iterator();
+            Iterator<VirtSubscriptionLevel> i = levels.iterator();
             while (i.hasNext()) {
-                VirtSubscriptionLevel level = (VirtSubscriptionLevel) i.next();
+                VirtSubscriptionLevel level = i.next();
                 if (level.equals(CommonConstants.getVirtSubscriptionLevelPlatformFree())) {
                     log.debug("Channel has virt-plat and host virt-plat, returning true");
                     return true;
@@ -1124,14 +1128,14 @@ public class ChannelManager extends BaseManager {
         CallableMode m = ModeFactory.getCallableMode(
                 "Channel_queries", "verify_channel_role");
 
-        Map inParams = new HashMap();
+        Map<String, Object> inParams = new HashMap<String, Object>();
         inParams.put("cid", cid);
         inParams.put("user_id", user.getId());
         inParams.put("role", role);
 
-        Map outParams = new HashMap();
+        Map<String, Integer> outParams = new HashMap<String, Integer>();
         outParams.put("result", new Integer(Types.VARCHAR));
-        Map result = m.execute(inParams, outParams);
+        Map<String, Object> result = m.execute(inParams, outParams);
 
         String reason = (String) result.get("result");
         if (reason != null) {
@@ -1204,11 +1208,11 @@ public class ChannelManager extends BaseManager {
      * @param channelId identifies the channel
      * @return list of packages in this channel
      */
-    public static DataResult latestPackagesInChannel(Long channelId) {
+    public static DataResult<PackageListItem> latestPackagesInChannel(Long channelId) {
         SelectMode m = ModeFactory.getMode(
                 "Package_queries", "latest_packages_in_channel");
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("cid", channelId);
 
         return m.execute(params);
@@ -1219,11 +1223,11 @@ public class ChannelManager extends BaseManager {
      * @param channel channel whose packages are sought
      * @return list of latest packages in channel
      */
-    public static List latestPackagesInChannel(Channel channel) {
+    public static List<Map<String, Object>> latestPackagesInChannel(Channel channel) {
         SelectMode m = ModeFactory.getMode(
                 "Package_queries", "latest_packages_in_channel_api");
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("cid", channel.getId());
 
         return m.execute(params);
@@ -1241,7 +1245,7 @@ public class ChannelManager extends BaseManager {
     public static DataResult<ErrataOverview> listErrata(Channel channel, Date start,
                                                                     Date end, User user) {
         String mode = "in_channel";
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", channel.getId());
 
         if (start != null) {
@@ -1256,8 +1260,8 @@ public class ChannelManager extends BaseManager {
         SelectMode m = ModeFactory.getMode(
                 "Errata_queries", mode);
 
-        DataResult dr = m.execute(params);
-        Map elabParams = new HashMap();
+        DataResult<ErrataOverview> dr = m.execute(params);
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
         dr.setElaborationParams(elabParams);
         return dr;
@@ -1273,9 +1277,10 @@ public class ChannelManager extends BaseManager {
      * @return the errata applicable to a channel
      */
     @Deprecated
-    public static DataResult listErrataForDates(Channel channel, String start, String end) {
+    public static DataResult<Map<String, Object>> listErrataForDates(Channel channel,
+            String start, String end) {
         String mode = "relevant_to_channel_deprecated";
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", channel.getId());
 
         if (!StringUtils.isEmpty(start)) {
@@ -1300,9 +1305,10 @@ public class ChannelManager extends BaseManager {
      * @param type type of errata
      * @return the errata applicable to a channel
      */
-    public static DataResult listErrataByType(Channel channel, String type) {
+    public static DataResult<Map<String, Object>> listErrataByType(Channel channel,
+            String type) {
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", channel.getId());
         params.put("type", type);
 
@@ -1322,7 +1328,7 @@ public class ChannelManager extends BaseManager {
     public static List<PackageDto> listAllPackages(Channel channel, String startDate,
             String endDate) {
         String mode = "all_packages_in_channel";
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", channel.getId());
 
         if (!StringUtils.isEmpty(startDate)) {
@@ -1347,7 +1353,7 @@ public class ChannelManager extends BaseManager {
      */
     public static List<PackageDto> listAllPackages(Channel channel) {
         String mode = "all_packages_in_channel";
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("cid", channel.getId());
 
         SelectMode m = ModeFactory.getMode("Package_queries", mode);
@@ -1362,7 +1368,7 @@ public class ChannelManager extends BaseManager {
      * @param endDate package end date
      * @return list of packages in channel
      */
-    public static List listAllPackages(Channel channel, Date startDate,
+    public static List<PackageDto> listAllPackages(Channel channel, Date startDate,
             Date endDate) {
 
         // convert the start and end dates to a string representation
@@ -1388,12 +1394,16 @@ public class ChannelManager extends BaseManager {
      * @param startDate package start date
      * @param endDate package end date
      * @return list of packages in channel
+     * @deprecated The only thing to use this is
+     * ChannelSoftwareHandler.listAllPackagesByDate which is itself depricated
      */
-    public static List listAllPackagesByDate(Channel channel, String startDate,
+    @Deprecated
+    public static List<Map<String, Object>> listAllPackagesByDate(Channel channel,
+            String startDate,
         String endDate) {
 
         String mode = "all_packages_in_channel_by_date";
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", channel.getId());
 
         if (!StringUtils.isEmpty(startDate)) {
@@ -1420,10 +1430,10 @@ public class ChannelManager extends BaseManager {
      * @return List containing Maps of "CP.package_id, CP.name_id, CP.evr_id"
      */
     public static Long getLatestPackageEqual(Long channelId, String packageName) {
-        List latestPkgs = listLatestPackagesEqual(channelId, packageName);
+        List<Map<String, Object>> latestPkgs =
+                listLatestPackagesEqual(channelId, packageName);
         if (latestPkgs != null && latestPkgs.size() > 0) {
-            Map row = (Map) latestPkgs.get(0);
-            return (Long) row.get("package_id");
+            return (Long) latestPkgs.get(0).get("package_id");
         }
         return null;
     }
@@ -1440,7 +1450,7 @@ public class ChannelManager extends BaseManager {
             String packageName) {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                 "latest_package_equal_in_tree");
-        Map<String, Object> params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", channelId);
         params.put("name", packageName);
         // Maps of "package_id, evr_id, arch_label"
@@ -1492,14 +1502,15 @@ public class ChannelManager extends BaseManager {
      * @param packageName to check
      * @return List containing Maps of "CP.package_id, CP.name_id, CP.evr_id"
      */
-    public static List listLatestPackagesEqual(Long channelId, String packageName) {
+    public static List<Map<String, Object>> listLatestPackagesEqual(Long channelId,
+            String packageName) {
         if (log.isDebugEnabled()) {
             log.debug("listLatestPackagesEqual: " +
                     channelId + " pn: " + packageName);
         }
         SelectMode m = ModeFactory.getMode("Channel_queries",
             "latest_package_equal");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", channelId);
         params.put("name", packageName);
         return m.execute(params);
@@ -1513,7 +1524,8 @@ public class ChannelManager extends BaseManager {
      * @param packageName to check
      * @return List containing Maps of "CP.package_id, CP.name_id, CP.evr_id"
      */
-    public static List listLatestPackagesLike(Long channelId, String packageName) {
+    public static List<Map<String, Object>> listLatestPackagesLike(Long channelId,
+            String packageName) {
         if (log.isDebugEnabled()) {
             log.debug("listLatestPackagesLike() cid: " +
                     channelId + " packageName : " + packageName);
@@ -1524,7 +1536,7 @@ public class ChannelManager extends BaseManager {
         pname.append("%");
         pname.append(packageName);
         pname.append("%");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", channelId);
         params.put("name", pname.toString());
         return m.execute(params);
@@ -1563,16 +1575,12 @@ public class ChannelManager extends BaseManager {
             packageName, boolean expectOne) {
 
         SelectMode m = ModeFactory.getMode("Channel_queries", "channel_with_package");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("parent", parent);
         params.put("package", packageName);
         params.put("org_id", org.getId());
 
-        DataResult dr = m.execute(params);
-        List<Long> channelIds = new LinkedList<Long>();
-        for (Iterator it = dr.iterator(); it.hasNext();) {
-            channelIds.add((Long)((Map)it.next()).get("id"));
-        }
+        List<Long> channelIds = m.execute(params);
         if (expectOne && channelIds.size() > 1) {
             // Multiple channels have this package, highly unlikely we can guess which
             // one is the right one so we'll raise an exception and let the caller
@@ -1593,17 +1601,10 @@ public class ChannelManager extends BaseManager {
     public static List<Long> findChildChannelsWithPackage(String packageName, Org org) {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                         "child_channels_with_package");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("package", packageName);
         params.put("org_id", org.getId());
-
-        //whittle down until we have the piece we want.
-        DataResult<Map<String, Long>> dr  = m.execute(params);
-        List <Long> cids = new LinkedList<Long>();
-        for (Map <String, Long> row : dr) {
-            cids.add(row.get("id"));
-        }
-        return cids;
+        return m.execute(params);
     }
     /**
      * Subscribe a Server to the first child channel of its base channel that contains
@@ -1717,16 +1718,17 @@ public class ChannelManager extends BaseManager {
         Channel baseChannel = current.getBaseChannel();
         Channel foundChannel = null;
 
-        Iterator i = ChannelManager.userAccessibleChildChannels(
+        Iterator<Channel> i =
+                ChannelManager.userAccessibleChildChannels(
                 user.getOrg().getId(), baseChannel.getId()).iterator();
         while (i.hasNext()) {
-            Channel child = (Channel) i.next();
-            Set distChannelMaps = child.getDistChannelMaps();
+            Channel child = i.next();
+            Set<DistChannelMap> distChannelMaps = child.getDistChannelMaps();
             log.debug("distChannelMaps null? " + (distChannelMaps == null));
             if (distChannelMaps != null) {
-                Iterator di = distChannelMaps.iterator();
+                Iterator<DistChannelMap> di = distChannelMaps.iterator();
                 while (di.hasNext()) {
-                    DistChannelMap dcm = (DistChannelMap) di.next();
+                    DistChannelMap dcm = di.next();
                     log.debug("got DistChannelMap: " + dcm);
                     if (dcm.getOs().equals(osProductName)) {
                         log.debug("found a possible channel: " + dcm.getChannel());
@@ -1769,11 +1771,11 @@ public class ChannelManager extends BaseManager {
         // Figure out what this server's base OUGHT to be
         CallableMode sbm = ModeFactory.getCallableMode(
                 "Channel_queries", "guess_server_base");
-        Map inParams = new HashMap();
+        Map<String, Object> inParams = new HashMap<String, Object>();
         inParams.put("server_id", s.getId());
-        Map outParams = new HashMap();
+        Map<String, Integer> outParams = new HashMap<String, Integer>();
         outParams.put("result", new Integer(Types.NUMERIC));
-        Map result = sbm.execute(inParams, outParams);
+        Map<String, Object> result = sbm.execute(inParams, outParams);
 
         Long guessedId = (Long) result.get(("result"));
 
@@ -1840,19 +1842,21 @@ public class ChannelManager extends BaseManager {
             log.debug("getToolsChannel, baseChannel: " + baseChannel.getLabel());
         }
 
-        Iterator i = ChannelManager.userAccessibleChildChannels(
+        Iterator<Channel> i =
+                ChannelManager.userAccessibleChildChannels(
                 user.getOrg().getId(), baseChannel.getId()).iterator();
 
         if (log.isDebugEnabled()) {
             log.debug("getToolsChannel, userAccessibleChildChannels: " + i.hasNext());
         }
         while (i.hasNext()) {
-            Channel child = (Channel) i.next();
+            Channel child = i.next();
             if (log.isDebugEnabled()) {
                 log.debug("getToolsChannel, trying: " + child.getLabel());
             }
             // First search for legacy kickstart package names:
-            List kspackages = ChannelManager.
+            List<Map<String, Object>> kspackages =
+                    ChannelManager.
                 listLatestPackagesLike(child.getId(),
                         KickstartData.LEGACY_KICKSTART_PACKAGE_NAME);
             if (kspackages.size() > 0) {
@@ -1875,11 +1879,11 @@ public class ChannelManager extends BaseManager {
      * @param channel Channel to return the versions for.
      * @return Set of all supported channel versions.
      */
-    public static Set getChannelVersions(Channel channel) {
-        Set returnSet = new HashSet();
-        Iterator iter = channel.getDistChannelMaps().iterator();
+    public static Set<ChannelVersion> getChannelVersions(Channel channel) {
+        Set<ChannelVersion> returnSet = new HashSet<ChannelVersion>();
+        Iterator<DistChannelMap> iter = channel.getDistChannelMaps().iterator();
         while (iter.hasNext()) {
-            DistChannelMap dcm = (DistChannelMap)iter.next();
+            DistChannelMap dcm = iter.next();
 
             returnSet.add(ChannelVersion.getChannelVersionForDistChannelMap(dcm));
         }
@@ -1894,10 +1898,10 @@ public class ChannelManager extends BaseManager {
      * @param lc   controller for the UI list
      * @return description of all channels applicable to the systems
      */
-    public static DataResult getChannelsForSsm(User user, ListControl lc) {
+    public static DataResult<ChannelTreeNode> getChannelsForSsm(User user, ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "channel_tree_ssm_install");
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
         params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
@@ -1911,9 +1915,9 @@ public class ChannelManager extends BaseManager {
      * @param user User whose channels are sought.
      * @return the list of all child-channels in that user's System Set
      */
-    public static DataResult childrenAvailableToSet(User user) {
+    public static DataResult<ChildChannelDto> childrenAvailableToSet(User user) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "children_in_set");
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("user_id", user.getId());
 
         return m.execute(params);
@@ -1924,9 +1928,9 @@ public class ChannelManager extends BaseManager {
      * @param user User whose System Set is being considered
      * @return the list of all base-channels in that set.
      */
-    public static DataResult baseChannelsInSet(User user) {
+    public static DataResult<SystemsPerChannelDto> baseChannelsInSet(User user) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "base_channels_in_set");
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("user_id", user.getId());
 
         return m.execute(params);
@@ -2030,7 +2034,7 @@ public class ChannelManager extends BaseManager {
     public static List<EssentialChannelDto> listCompatibleBaseChannelsForChannel(User u,
             Channel inChan) {
 
-        List<EssentialChannelDto> retval = new ArrayList();
+        List<EssentialChannelDto> retval = new ArrayList<EssentialChannelDto>();
 
         // Get all the custom-channels owned by this org and add them
         for (Channel c : ChannelFactory.listCustomBaseChannelsForSSM(u, inChan)) {
@@ -2072,13 +2076,6 @@ public class ChannelManager extends BaseManager {
         }
 
        return retval;
-    }
-
-    private static EssentialChannelDto channelToEssentialChannelDto(Channel channel,
-            boolean isCustom) {
-        EssentialChannelDto dto = new EssentialChannelDto(channel);
-        dto.setIsCustom(isCustom);
-        return dto;
     }
 
     /**
@@ -2132,14 +2129,15 @@ public class ChannelManager extends BaseManager {
         log.debug("   serverArch = " + serverArch);
         SelectMode m = ModeFactory.getMode("Channel_queries",
                     "base_eus_channels_by_version_release_server_arch");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("product_name_label", RHEL_PRODUCT_NAME);
         params.put("version", version);
         params.put("server_arch", serverArch);
-        DataResult<EssentialChannelDto> dr  = makeDataResult(params, new HashMap(),
-                null, m);
+        DataResult<EssentialChannelDto> dr =
+                makeDataResult(params, new HashMap<String, Object>(), null, m,
+                        EssentialChannelDto.class);
 
         List<EssentialChannelDto> result = new LinkedList<EssentialChannelDto>();
         EusReleaseComparator comparator = new EusReleaseComparator(version);
@@ -2174,7 +2172,7 @@ public class ChannelManager extends BaseManager {
         log.debug("listBaseEusChannelsByVersionReleaseAndChannelArch()");
         SelectMode m = ModeFactory.getMode("Channel_queries",
                     "base_eus_channels_by_version_channel_arch");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         log.debug("   version = " + version);
@@ -2183,8 +2181,9 @@ public class ChannelManager extends BaseManager {
         params.put("product_name_label", RHEL_PRODUCT_NAME);
         params.put("version", version);
         params.put("channel_arch_id", channelArchId);
-        DataResult<EssentialChannelDto> dr  = makeDataResult(params, new HashMap(),
-                null, m);
+        DataResult<EssentialChannelDto> dr =
+                makeDataResult(params, new HashMap<String, Object>(), null, m,
+                        EssentialChannelDto.class);
 
         List<EssentialChannelDto> result = new LinkedList<EssentialChannelDto>();
         EusReleaseComparator comparator = new EusReleaseComparator(version);
@@ -2214,7 +2213,7 @@ public class ChannelManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                     "base_eus_channels_by_version_channel_arch");
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         log.debug("   version = " + rhelVersion);
@@ -2222,8 +2221,9 @@ public class ChannelManager extends BaseManager {
         params.put("product_name_label", RHEL_PRODUCT_NAME);
         params.put("version", rhelVersion);
         params.put("channel_arch_id", channelArchId);
-        DataResult<EssentialChannelDto> dr  = makeDataResult(params, new HashMap(),
-                null, m);
+        DataResult<EssentialChannelDto> dr =
+                makeDataResult(params, new HashMap<String, Object>(), null, m,
+                        EssentialChannelDto.class);
         if (dr.size() == 0) {
             return null;
         }
@@ -2236,14 +2236,15 @@ public class ChannelManager extends BaseManager {
      * @param server server
      * @return List of channels.
      */
-    public static DataResult listCustomBaseChannelsForServer(Server server) {
+    public static DataResult<EssentialChannelDto> listCustomBaseChannelsForServer(
+            Server server) {
         SelectMode m =
             ModeFactory.getMode("Channel_queries", "custom_base_channels_for_server");
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", server.getOrg().getId());
         params.put("server_arch_id", server.getServerArch().getId());
-        DataResult dr  = makeDataResult(params, new HashMap(), null, m);
-        return dr;
+        return makeDataResult(params, new HashMap<String, Long>(), null, m,
+                EssentialChannelDto.class);
     }
 
     /**
@@ -2370,7 +2371,7 @@ public class ChannelManager extends BaseManager {
              mode = "for_target";
         }
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("custom_cid", targetChannel.getId());
 
         SelectMode m = ModeFactory.getMode(
@@ -2400,7 +2401,7 @@ public class ChannelManager extends BaseManager {
              mode =  "in_sources_for_target";
         }
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("custom_cid", targetChannel.getId());
         params.put("user_id", user.getId());
 
@@ -2430,7 +2431,7 @@ public class ChannelManager extends BaseManager {
              mode = "custom_for_target";
         }
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("custom_cid", targetChannel.getId());
 
         SelectMode m = ModeFactory.getMode(
@@ -2451,16 +2452,15 @@ public class ChannelManager extends BaseManager {
      */
     public static List<String> listCompatiblePackageArches(String[] channelArchLabels) {
         if (channelArchLabels == null || (channelArchLabels.length < 1)) {
-            return Collections.EMPTY_LIST;
+            return new ArrayList<String>();
         }
 
         SelectMode mode = ModeFactory.getMode(
                 "Package_queries", "compatible_package_arches");
-        DataResult dr = mode.execute(Arrays.asList(channelArchLabels));
+        List<Map<String, String>> dr = mode.execute(Arrays.asList(channelArchLabels));
         List<String> result = new ArrayList<String>();
-        for (Object o : dr) {
-            Map m = (Map) o;
-            result.add((String) m.get("label"));
+        for (Map<String, String> m : dr) {
+            result.add(m.get("label"));
         }
         return result;
     }
@@ -2492,7 +2492,7 @@ public class ChannelManager extends BaseManager {
         }
 
         WriteMode m = ModeFactory.getWriteMode("Channel_queries", "request_repo_regen");
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<String, String>();
         params.put("label", channelLabel);
         params.put("client", client);
         params.put("reason", reason);
@@ -2520,7 +2520,7 @@ public class ChannelManager extends BaseManager {
             throw pex;
         }
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("cid", chan.getId());
 
         WriteMode m = ModeFactory.getWriteMode("Channel_queries", "remove_packages");
@@ -2551,7 +2551,7 @@ public class ChannelManager extends BaseManager {
             throw pex;
         }
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("cid", chan.getId());
 
         WriteMode m = ModeFactory.getWriteMode("Channel_queries", "add_channel_packages");
@@ -2576,9 +2576,9 @@ public class ChannelManager extends BaseManager {
         List<Long> ids = new ArrayList<Long>();
         ids.addAll(errataIds);
 
-        List pids = ChannelFactory.getChannelPackageWithErrata(chan, ids);
+        List<Long> pids = ChannelFactory.getChannelPackageWithErrata(chan, ids);
 
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("cid", chan.getId());
 
         WriteMode m = ModeFactory.getWriteMode("Channel_queries", "remove_errata");
@@ -2600,7 +2600,7 @@ public class ChannelManager extends BaseManager {
      * @return A list of PackageDto that are in the channel and errata
      */
     public static List<PackageDto> listErrataPackages(Channel chan, Errata errata) {
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("cid", chan.getId());
         params.put("eid", errata.getId());
 
@@ -2615,15 +2615,14 @@ public class ChannelManager extends BaseManager {
      * @return A original channel id
      */
     public static Long lookupOriginalId(Channel channel) {
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("cid", channel.getId());
 
         SelectMode mode = ModeFactory.getMode(
                 "Channel_queries", "cloned_original_id");
-        List<Map> list = mode.execute(params);
+        List<Long> list = mode.execute(params);
         if (!list.isEmpty()) {
-            Map map = list.get(0);
-            return (Long) map.get("id");
+            return list.get(0);
         }
         return null;
     }
@@ -2636,20 +2635,20 @@ public class ChannelManager extends BaseManager {
      * @param user the user
      * @return list of errataOverview objects that need to be resynced
      */
-    public static List listErrataNeedingResync(Channel c, User user) {
+    public static List<ErrataOverview> listErrataNeedingResync(Channel c, User user) {
         if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
             throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
         }
 
         if (c.isCloned()) {
-            Map params = new HashMap();
+            Map<String, Long> params = new HashMap<String, Long>();
             params.put("cid", c.getId());
             params.put("ocid", c.getOriginal().getId());
             SelectMode m = ModeFactory.getMode("Errata_queries",
                                         "list_errata_needing_sync");
             return m.execute(params);
         }
-        return Collections.EMPTY_LIST;
+        return new ArrayList<ErrataOverview>();
     }
 
     /**
@@ -2658,20 +2657,20 @@ public class ChannelManager extends BaseManager {
      * @param user the user doing it
      * @return the list of PackageOverview objects
      */
-    public static List listErrataPackagesForResync(Channel c, User user) {
+    public static List<PackageOverview> listErrataPackagesForResync(Channel c, User user) {
         if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
             throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
         }
 
         if (c.isCloned()) {
-            Map params = new HashMap();
+            Map<String, Long> params = new HashMap<String, Long>();
             params.put("cid", c.getId());
             params.put("ocid", c.getOriginal().getId());
             SelectMode m = ModeFactory.getMode("Errata_queries",
                     "list_packages_needing_sync");
             return m.execute(params);
         }
-        return Collections.EMPTY_LIST;
+        return new ArrayList<PackageOverview>();
     }
 
     /**
@@ -2681,13 +2680,14 @@ public class ChannelManager extends BaseManager {
      * @param setLabel the set of errata to base the package off of
      * @return the list of PackageOverview objects
      */
-    public static List listErrataPackagesForResync(Channel c, User user, String setLabel) {
+    public static List<PackageOverview> listErrataPackagesForResync(Channel c, User user,
+            String setLabel) {
         if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
             throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
         }
 
         if (c.isCloned()) {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("cid", c.getId());
             params.put("set_label", setLabel);
             params.put("ocid", c.getOriginal().getId());
@@ -2695,7 +2695,7 @@ public class ChannelManager extends BaseManager {
                     "list_packages_needing_sync_from_set");
             return m.execute(params);
         }
-        return Collections.EMPTY_LIST;
+        return new ArrayList<PackageOverview>();
     }
 
     /**
@@ -2777,22 +2777,22 @@ public class ChannelManager extends BaseManager {
             String setLabel, List<Channel> subChans, List<Channel> unsubChans, User user) {
         Map<Long, ChannelActionDAO> toRet = new  HashMap<Long, ChannelActionDAO>();
 
-        List subCids = new ArrayList();
+        List<Long> subCids = new ArrayList<Long>();
         for (Channel c : subChans) {
             subCids.add(c.getId());
         }
-        List unsubCids = new ArrayList();
+        List<Long> unsubCids = new ArrayList<Long>();
         for (Channel c : unsubChans) {
             unsubCids.add(c.getId());
         }
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("uid", user.getId());
         params.put("set_label", setLabel);
 
         SelectMode m = null;
-        List<Map> subDr = Collections.EMPTY_LIST;
-        List<Map> unsubDr = Collections.EMPTY_LIST;
+        List<Map<String, Object>> subDr = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> unsubDr = new ArrayList<Map<String, Object>>();
         if (!subChans.isEmpty()) {
             m = ModeFactory.getMode("Channel_queries",
                     "ssm_systems_for_child_subscription");
@@ -2801,11 +2801,11 @@ public class ChannelManager extends BaseManager {
         if (!unsubChans.isEmpty()) {
             m = ModeFactory.getMode("Channel_queries",
                         "ssm_systems_for_child_unsubscription");
-           unsubDr =  m.execute(params, unsubCids);
+            unsubDr = m.execute(params, unsubCids);
         }
 
 
-        for (Map row : subDr) {
+        for (Map<String, Object> row : subDr) {
             Long id = (Long) row.get("id");
             ChannelActionDAO sys = toRet.get(id);
             if (sys == null) {
@@ -2818,7 +2818,7 @@ public class ChannelManager extends BaseManager {
             sys.addSubscribeName((String) row.get("channel_name"));
         }
 
-        for (Map row : unsubDr) {
+        for (Map<String, Object> row : unsubDr) {
             Long id = (Long) row.get("id");
             ChannelActionDAO sys = toRet.get(id);
             if (sys == null) {

@@ -1055,14 +1055,15 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             Long cid = (Long) id;
             log.debug("    Checking on:" + cid + " for: " +
                     getKickstartPackageName());
-            List result = ChannelManager.listLatestPackagesEqual(cid,
+            List<Map<String, Object>> result =
+                    ChannelManager.listLatestPackagesEqual(cid,
                     getKickstartPackageName());
             log.debug("    size: " + result.size());
 
             if (result.size() > 0) {
-                Map row = (Map) result.get(0);
+                Map<String, Object> row = result.get(0);
                 log.debug("    Found the package: " + row);
-                Map pkgToInstall = new HashMap();
+                Map<String, Object> pkgToInstall = new HashMap<String, Object>();
                 pkgToInstall.put("name_id", row.get("name_id"));
                 pkgToInstall.put("evr_id", row.get("evr_id"));
                 pkgToInstall.put("arch_id", row.get("package_arch_id"));

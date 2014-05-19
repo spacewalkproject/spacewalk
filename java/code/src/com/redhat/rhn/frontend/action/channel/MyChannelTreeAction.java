@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.channel;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -27,9 +28,9 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 public class MyChannelTreeAction extends BaseChannelTreeAction {
 
     /** {@inheritDoc} */
-    protected DataResult getDataResult(RequestContext requestContext, ListControl lc) {
+    protected DataResult<ChannelTreeNode> getDataResult(RequestContext requestContext,
+            ListControl lc) {
         User user = requestContext.getCurrentUser();
-        DataResult dr = ChannelManager.myChannelTree(user, lc);
-        return  dr;
+        return ChannelManager.myChannelTree(user, lc);
     }
 }

@@ -29,6 +29,7 @@ import com.redhat.rhn.testing.TestUtils;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -48,14 +49,13 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         ChannelFactory.save(channel);
         flushAndEvict(channel);
 
-        Object[] result = handler.listSoftwareChannels(adminKey);
+        List<Map<String, Object>> result = handler.listSoftwareChannels(adminKey);
         assertNotNull(result);
-        assertTrue(result.length > 0);
+        assertTrue(result.size() > 0);
 
-        for (int i = 0; i < result.length; i++) {
-            Map item = (Map) result[i];
-            Set keys = item.keySet();
-            for (Iterator itr = keys.iterator(); itr.hasNext();) {
+        for (Map<String, Object> item : result) {
+            Set<String> keys = item.keySet();
+            for (Iterator<String> itr = keys.iterator(); itr.hasNext();) {
                 Object key = itr.next();
                 // make sure we don't send out null
                 assertNotNull(item.get(key));

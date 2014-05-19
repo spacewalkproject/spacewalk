@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.ssm;
 
+import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -39,7 +40,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @version $Revision$
  */
-public class SelectInstallationPackagesAction extends RhnAction implements Listable {
+public class SelectInstallationPackagesAction extends RhnAction implements
+        Listable<PackageListItem> {
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
@@ -48,7 +50,7 @@ public class SelectInstallationPackagesAction extends RhnAction implements Lista
                                  HttpServletResponse response) throws Exception {
 
         RequestContext context = new RequestContext(request);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.CID, context.getRequiredParam(RequestContext.CID));
         params.put("mode", "install");
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
@@ -68,7 +70,7 @@ public class SelectInstallationPackagesAction extends RhnAction implements Lista
     }
 
     /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
+    public List<PackageListItem> getResult(RequestContext context) {
         Long cid = context.getRequiredParam(RequestContext.CID);
         return ChannelManager.latestPackagesInChannel(cid);
     }

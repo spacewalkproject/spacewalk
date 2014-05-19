@@ -85,11 +85,9 @@ public class ChildChannelAction extends RhnAction {
     // and create a data-structure mapping them to their respective base-channels
     protected void setupList(User user, HttpServletRequest request) {
 
-        DataResult dr = ChannelManager.childrenAvailableToSet(user);
-        List<ChildChannelDto> children = new ArrayList<ChildChannelDto>(dr);
+        List<ChildChannelDto> children = ChannelManager.childrenAvailableToSet(user);
 
-        dr = ChannelManager.baseChannelsInSet(user);
-        List<SystemsPerChannelDto> bases = new ArrayList<SystemsPerChannelDto>(dr);
+        List<SystemsPerChannelDto> bases = ChannelManager.baseChannelsInSet(user);
         request.setAttribute("bases", bases);
 
         int debugFound = 0;
@@ -142,9 +140,9 @@ public class ChildChannelAction extends RhnAction {
         List<String> subList = new ArrayList<String>();
         List<String> unsubList = new ArrayList<String>();
 
-        Enumeration names = request.getParameterNames();
+        Enumeration<String> names = request.getParameterNames();
         while (names.hasMoreElements()) {
-            String aName = (String)names.nextElement();
+            String aName = names.nextElement();
             String aValue = request.getParameter(aName);
             if ("subscribe".equals(aValue)) {
                 subList.add(aName);

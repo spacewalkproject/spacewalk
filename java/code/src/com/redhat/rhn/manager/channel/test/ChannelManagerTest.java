@@ -41,6 +41,8 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
+import com.redhat.rhn.frontend.dto.ChildChannelDto;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 import com.redhat.rhn.frontend.dto.PackageDto;
@@ -113,13 +115,14 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         //save the org
         OrgFactory.save(org);
         //inspect the data result
-        DataResult dr = ChannelManager.channelsOwnedByOrg(org.getId(), null);
+        DataResult<ChannelOverview> dr =
+                ChannelManager.channelsOwnedByOrg(org.getId(), null);
         assertNotNull(dr); //should be at least one item in there
     }
 
     public void testChannelsForUser() throws Exception {
         ChannelFactoryTest.createTestChannel(user);
-        List channels = ChannelManager.channelsForUser(user);
+        List<String> channels = ChannelManager.channelsForUser(user);
 
         //make sure we got a list out
         assertNotNull(channels);
@@ -131,7 +134,8 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
         OrgFactory.save(user.getOrg());
 
-        DataResult dr = ChannelManager.entitlements(user.getOrg().getId(), null);
+        DataResult<ChannelOverview> dr =
+                ChannelManager.entitlements(user.getOrg().getId(), null);
         assertNotEmpty(dr);
     }
 
@@ -165,7 +169,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
         OrgFactory.save(user.getOrg());
         ChannelFactory.save(channel);
-        DataResult dr = ChannelManager.vendorChannelTree(user, null);
+        DataResult<ChannelTreeNode> dr = ChannelManager.vendorChannelTree(user, null);
         assertNotEmpty(dr);
     }
 
@@ -176,7 +180,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
         OrgFactory.save(user.getOrg());
         ChannelFactory.save(channel);
-        DataResult dr = ChannelManager.myChannelTree(user, null);
+        DataResult<ChannelTreeNode> dr = ChannelManager.myChannelTree(user, null);
         assertNotEmpty(dr);
     }
 
@@ -189,7 +193,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
        user.getOrg().addOwnedChannel(channel);
        OrgFactory.save(user.getOrg());
 
-       DataResult dr = ChannelManager.popularChannelTree(user, 1L, null);
+        DataResult<ChannelTreeNode> dr = ChannelManager.popularChannelTree(user, 1L, null);
 
        assertTrue(dr.isEmpty());
        SystemManager.unsubscribeServerFromChannel(user, server, server.getBaseChannel());
@@ -209,7 +213,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
         OrgFactory.save(user.getOrg());
         ChannelFactory.save(channel);
-        DataResult dr = ChannelManager.allChannelTree(user, null);
+        DataResult<ChannelTreeNode> dr = ChannelManager.allChannelTree(user, null);
         assertNotEmpty(dr);
     }
 
@@ -228,7 +232,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         flushAndEvict(channel);
         flushAndEvict(childChannel);
 
-        DataResult dr = ChannelManager.allChannelTree(user, null);
+        DataResult<ChannelTreeNode> dr = ChannelManager.allChannelTree(user, null);
         assertNotEmpty(dr);
     }
 
@@ -242,7 +246,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         OrgFactory.save(user.getOrg());
         ChannelFactory.save(channel);
 
-        DataResult dr = ChannelManager.retiredChannelTree(user, null);
+        DataResult<ChannelTreeNode> dr = ChannelManager.retiredChannelTree(user, null);
         assertNotEmpty(dr);
     }
 
@@ -253,7 +257,8 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         TestUtils.saveAndFlush(child);
         TestUtils.saveAndFlush(parent);
 
-        List dr = ChannelManager.userAccessibleChildChannels(user.getOrg().getId(),
+        List<Channel> dr =
+                ChannelManager.userAccessibleChildChannels(user.getOrg().getId(),
                 parent.getId());
 
         assertFalse(dr.isEmpty());
@@ -588,7 +593,8 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         user.addPermanentRole(RoleFactory.ORG_ADMIN);
         TestUtils.saveAndFlush(user);
 
-        DataResult childChannels = ChannelManager.childrenAvailableToSet(user);
+        DataResult<ChildChannelDto> childChannels =
+                ChannelManager.childrenAvailableToSet(user);
         assertNotNull(childChannels);
         assertTrue(childChannels.size() == 0);
     }
@@ -596,7 +602,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     public void testGetChannelVersion() throws Exception {
         Channel c = ChannelTestUtils.createTestChannel(user);
         ChannelTestUtils.addDistMapToChannel(c);
-        Set versions = ChannelManager.getChannelVersions(c);
+        Set<ChannelVersion> versions = ChannelManager.getChannelVersions(c);
         assertEquals(1, versions.size());
         assertEquals(ChannelVersion.LEGACY, versions.iterator().next());
     }
@@ -626,10 +632,10 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
         UserTestUtils.addVirtualization(user.getOrg());
         Server s = ServerTestUtils.createTestSystem(user);
-        Channel[] chans = ChannelTestUtils.
+        ChannelTestUtils.
             setupBaseChannelForVirtualization(s.getCreator(), s.getBaseChannel());
         // Repeat to ensure there's multiple child channels created:
-        chans = ChannelTestUtils.
+        ChannelTestUtils.
             setupBaseChannelForVirtualization(s.getCreator(), s.getBaseChannel());
         Config.get().setString(ChannelEntitlementCounter.class.getName(),
                 TestChannelCounter.class.getName());
@@ -706,7 +712,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         RhnSetManager.store(set);
 
         // ask for the base channels of all systems in the system-set for the test user
-        DataResult dr = ChannelManager.baseChannelsInSet(user);
+        DataResult<SystemsPerChannelDto> dr = ChannelManager.baseChannelsInSet(user);
 
         // should be one, with one system, and its name should be == the name of the
         // base-channel for the system we just created
@@ -875,7 +881,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
         assertTrue(e.getChannels().contains(c));
 
-        Set eids = new HashSet();
+        Set<Long> eids = new HashSet<Long>();
         eids.add(e.getId());
 
         ChannelManager.removeErrata(c, eids, user);
@@ -927,7 +933,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         Errata oe = ErrataFactoryTest.createTestErrata(null);
         ochan.addErrata(oe);
 
-        List list = new ArrayList();
+        List<Long> list = new ArrayList<Long>();
         list.add(cchan.getId());
 
          Errata ce = ErrataManager.createClone(user, oe);
@@ -953,7 +959,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         Errata oe = ErrataFactoryTest.createTestErrata(null);
         ochan.addErrata(oe);
 
-        List list = new ArrayList();
+        List<Long> list = new ArrayList<Long>();
         list.add(cchan.getId());
 
          Errata ce = ErrataManager.createClone(user, oe);

@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.channel.manage;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -40,7 +41,7 @@ import javax.servlet.http.HttpServletResponse;
  * SyncErrataAction
  * @version $Rev$
  */
-public class SyncErrataAction extends RhnAction implements Listable  {
+public class SyncErrataAction extends RhnAction implements Listable<ErrataOverview> {
 
     /**
      *
@@ -70,7 +71,7 @@ public class SyncErrataAction extends RhnAction implements Listable  {
 
         helper.execute();
         if (helper.isDispatched()) {
-            Map params = new HashMap();
+            Map<String, Long> params = new HashMap<String, Long>();
             params.put(RequestContext.CID, chan.getId());
             return getStrutsDelegate().forwardParams(mapping.findForward("submit"),
                     params);
@@ -86,7 +87,7 @@ public class SyncErrataAction extends RhnAction implements Listable  {
      *
      * {@inheritDoc}
      */
-    public List getResult(RequestContext context) {
+    public List<ErrataOverview> getResult(RequestContext context) {
         User user = context.getCurrentUser();
         Channel chan = ChannelManager.lookupByIdAndUser(
                 context.getRequiredParam(RequestContext.CID), user);

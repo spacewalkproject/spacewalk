@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.RetiredChannelTreeAction;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -37,7 +38,7 @@ public class RetiredChannelTreeActionTest extends RhnBaseTestCase {
 
     public void testPerformExecute() throws Exception {
         RetiredChannelTreeAction action = new RetiredChannelTreeAction() {
-            protected DataResult getDataResult(User user, ListControl lc) {
+            protected DataResult<ChannelTreeNode> getDataResult(User user, ListControl lc) {
                 return ChannelManager.retiredChannelTree(user, lc);
             }
         };

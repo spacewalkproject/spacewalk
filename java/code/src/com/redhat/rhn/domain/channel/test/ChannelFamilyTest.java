@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.common.CommonConstants;
+import com.redhat.rhn.domain.common.VirtSubscriptionLevel;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 
 import java.util.HashSet;
@@ -56,7 +57,7 @@ public class ChannelFamilyTest extends BaseTestCaseWithUser {
     public void testVirtSubType() throws Exception {
         ChannelFamily cfam = ChannelFamilyFactory.
                                 lookupOrCreatePrivateFamily(user.getOrg());
-        Set levels = new HashSet();
+        Set<VirtSubscriptionLevel> levels = new HashSet<VirtSubscriptionLevel>();
         levels.add(CommonConstants.getVirtSubscriptionLevelFree());
         levels.add(CommonConstants.getVirtSubscriptionLevelPlatformFree());
         cfam.setVirtSubscriptionLevels(levels);

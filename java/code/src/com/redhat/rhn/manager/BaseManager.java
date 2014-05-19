@@ -62,6 +62,22 @@ public abstract class BaseManager {
 
     /**
      * Returns a DataResult for the given SelectMode bounded
+     * by the values of the PageControl.
+     * @param queryParams Named parameters for the driving query.
+     * @param elabParams Named parameters for the elaboration query.
+     * @param pc Page Control boundary definition.
+     * @param m datasource SelectMode.
+     * @param myClass Class of the DataResults
+     * @return resulting DataResult bounded by the values of the
+     * PageControl.
+     */
+    protected static <myClass> DataResult<myClass> makeDataResult(Map queryParams,
+            Map elabParams, PageControl pc, SelectMode m, Class myClass) {
+        return makeDataResult(queryParams, elabParams, pc, m);
+    }
+
+    /**
+     * Returns a DataResult for the given SelectMode bounded
      * by the values of the ListControl.
      * @param queryParams Named parameters for the driving query.
      * @param elabParams Named parameters for the elaboration query.
@@ -80,6 +96,22 @@ public abstract class BaseManager {
         dr.setTotalSize(dr.size());
         dr = processListControl(dr, lc, elabParams);
         return dr;
+    }
+
+    /**
+     * Returns a DataResult for the given SelectMode bounded
+     * by the values of the ListControl.
+     * @param queryParams Named parameters for the driving query.
+     * @param elabParams Named parameters for the elaboration query.
+     * @param lc ListControl filtering definition
+     * @param m datasource SelectMode.
+     * @param myClass the class of the DataResult to return
+     * @return resulting DataResult bounded by the values of the
+     * PageControl.
+     */
+    protected static <myClass> DataResult<myClass> makeDataResult(Map queryParams,
+            Map elabParams, ListControl lc, SelectMode m, Class myClass) {
+        return makeDataResult(queryParams, elabParams, lc, m);
     }
 
     /**

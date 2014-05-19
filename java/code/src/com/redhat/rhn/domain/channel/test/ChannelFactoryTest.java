@@ -96,7 +96,6 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
     }
 
     public static Channel createTestChannel(User user) throws Exception {
-        Org org = user.getOrg();
         Channel c = ChannelFactoryTest.createTestChannel(user.getOrg());
         // assume we want the user to have access to this channel once created
         UserManager.addChannelPerm(user, c.getId(), "subscribe");
@@ -166,7 +165,8 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         TestUtils.flushAndEvict(original);
         TestUtils.flushAndEvict(clone);
 
-        List channels = ChannelFactory.getChannelsWithClonableErrata(
+        List<ClonedChannel> channels =
+                ChannelFactory.getChannelsWithClonableErrata(
                 user.getOrg());
 
         assertTrue(channels.size() > 0);
@@ -177,7 +177,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
      */
     public void aTestChildChanneQuery() {
         Channel base = ChannelFactory.getBaseChannel(new Long(1005897296));
-        List labels = new ArrayList();
+        List<String> labels = new ArrayList<String>();
         labels.add("redhat-rhn-proxy-3.7-as-i386-4");
         labels.add("redhat-rhn-proxy-as-i386-2.1");
         List children = ChannelFactory.getChildChannelsByLabels(base, labels);
@@ -248,7 +248,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
 
-        List channels = ChannelFactory.getKickstartableChannels(user.getOrg());
+        List<Channel> channels = ChannelFactory.getKickstartableChannels(user.getOrg());
         assertNotNull(channels);
         int originalSize = channels.size();
 
@@ -350,7 +350,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
                 "testOrg" + this.getClass().getSimpleName());
         // do NOT use createBaseChannel here because that will create a Red Hat
         // base channel NOT a user owned base channel.
-        Channel base = createTestChannel(user);
+        createTestChannel(user);
         List<Channel> channels = ChannelFactory.listAllBaseChannels(user);
         assertNotNull(channels);
         assertEquals(1, channels.size());

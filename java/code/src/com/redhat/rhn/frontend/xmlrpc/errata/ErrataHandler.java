@@ -931,7 +931,7 @@ public class ErrataHandler extends BaseHandler {
             return errata;
         }
         Set<Channel> errataChannels = errata.getChannels();
-        List orgChannels = org.getAccessibleChannels();
+        List<Channel> orgChannels = org.getAccessibleChannels();
         for (Channel channel : errataChannels) {
            if (orgChannels.contains(channel)) {
                return errata;

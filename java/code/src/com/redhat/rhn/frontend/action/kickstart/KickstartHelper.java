@@ -92,18 +92,18 @@ public class KickstartHelper {
      * @param url to parse
      * @return Map of options.  Usually containing host, ksdata, label and org_id
      */
-    public Map parseKickstartUrl(String url) {
-        Map retval = new HashMap();
+    public Map<String, Object> parseKickstartUrl(String url) {
+        Map<String, Object> retval = new HashMap<String, Object>();
         KickstartData ksdata = null;
-        Map options = new HashMap();
+        Map<String, String> options = new HashMap<String, String>();
         log.debug("url: " + url);
-        List rawopts = Arrays.asList(
+        List<String> rawopts = Arrays.asList(
                 StringUtils.split(url, '/'));
 
-        for (Iterator iter = rawopts.iterator(); iter.hasNext();) {
-            String name = (String) iter.next();
+        for (Iterator<String> iter = rawopts.iterator(); iter.hasNext();) {
+            String name = iter.next();
             if (iter.hasNext()) {
-                String value = (String) iter.next();
+                String value = iter.next();
                 options.put(name, value);
             }
         }
@@ -419,16 +419,18 @@ public class KickstartHelper {
         //Check in the channel and all of its children channels
         Channel channel = ksdata.getChannel();
         log.debug("Checking on auto-ks in channel : " + channel.getId());
-        List channelsToCheck = ChannelManager.userAccessibleChildChannels(
+        List<Channel> channelsToCheck =
+                ChannelManager.userAccessibleChildChannels(
                 user.getOrg().getId(), channel.getId());
         channelsToCheck.add(channel);
 
-        Iterator i = channelsToCheck.iterator();
+        Iterator<Channel> i = channelsToCheck.iterator();
         while (i.hasNext()) {
-            Channel current = (Channel) i.next();
+            Channel current = i.next();
             log.debug("Current.channel : " + current.getId());
             //Look for the auto-kickstart package.
-            List kspackages = ChannelManager.listLatestPackagesLike(
+            List<Map<String, Object>> kspackages =
+                    ChannelManager.listLatestPackagesLike(
                     current.getId(),
                     ksdata.getKickstartPackageName());
             //found it, this channel is good.
@@ -462,7 +464,7 @@ public class KickstartHelper {
 
     private String createPackageNameList(KickstartData ksdata) {
         //First create a list of all the packages needed
-        List packages = new ArrayList();
+        List<String> packages = new ArrayList<String>();
         packages.addAll(Arrays.asList(KickstartFormatter.UPDATE_PKG_NAMES));
         //different 'fresh' packages for RHEL2
         if (ksdata.isRhel2()) {

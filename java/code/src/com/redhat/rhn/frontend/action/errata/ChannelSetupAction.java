@@ -68,15 +68,16 @@ public class ChannelSetupAction extends RhnListAction {
         Errata e = requestContext.lookupErratum();
 
         //get the data result containing the channels in this org
-        DataResult channels = ChannelManager.channelsOwnedByOrg(user.getOrg().getId(), pc);
+        DataResult<ChannelOverview> channels =
+                ChannelManager.channelsOwnedByOrg(user.getOrg().getId(), pc);
 
         //loop through the ones that will be displayed on the page, and get
         //the number of relevant packages.
-        Iterator itr = channels.iterator();
+        Iterator<ChannelOverview> itr = channels.iterator();
         while (itr.hasNext()) {
-            ChannelOverview channel = (ChannelOverview) itr.next();
+            ChannelOverview channel = itr.next();
 
-            List pkgs;
+            List<Long> pkgs;
             //so if the channel is not a clone or the errata is not cloned, we simply allow
             //the package name match to be used
             if (channel.getOriginalId() == null || !e.isCloned()) {
@@ -93,7 +94,7 @@ public class ChannelSetupAction extends RhnListAction {
                         e);
             } //if it wasn't then no packages are listed
             else {
-                pkgs = new ArrayList();
+                pkgs = new ArrayList<Long>();
             }
 
             if (pkgs.isEmpty()) { //There must be 0 relevant packages
@@ -119,11 +120,11 @@ public class ChannelSetupAction extends RhnListAction {
             //If e is published, it must already have channels and needs it's set init
             if (e.isPublished()) {
                 //get the channels for this errata
-                Set channelsInErrata = e.getChannels();
-                Iterator channelItr = channelsInErrata.iterator();
+                Set<Channel> channelsInErrata = e.getChannels();
+                Iterator<Channel> channelItr = channelsInErrata.iterator();
                 //loop through and add them to the set
                 while (channelItr.hasNext()) {
-                    Long cid = ((Channel) channelItr.next()).getId(); //get channel id
+                    Long cid = (channelItr.next()).getId(); //get channel id
                     set.addElement(cid); //add to set
                 }
             }
@@ -136,12 +137,13 @@ public class ChannelSetupAction extends RhnListAction {
          * or unselect all. Either way, we need to init the set to what is in the db.
          */
         else if (request.getParameter("setupdated") != null) {
-            List ids = new ArrayList();
-            Set elems = RhnSetDecl.CHANNELS_FOR_ERRATA.get(user).getElements();
-            Iterator idItr = elems.iterator();
+            List<String> ids = new ArrayList<String>();
+            Set<RhnSetElement> elems =
+                    RhnSetDecl.CHANNELS_FOR_ERRATA.get(user).getElements();
+            Iterator<RhnSetElement> idItr = elems.iterator();
             while (idItr.hasNext()) {
                 //get a string version of the id from the RhnSetElment object
-                String id = ((RhnSetElement) idItr.next()).getElement().toString();
+                String id = (idItr.next()).getElement().toString();
                 ids.add(id); //add to the list
             }
         }

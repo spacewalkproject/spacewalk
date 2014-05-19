@@ -37,7 +37,8 @@ public class ChannelFamily extends BaseDomainHelper {
     private Org org;
     private String productUrl;
     private Set<Channel> channels = new HashSet<Channel>();
-    private Set virtSubscriptionLevels = new HashSet();
+    private Set<VirtSubscriptionLevel> virtSubscriptionLevels =
+            new HashSet<VirtSubscriptionLevel>();
 
     private Set<PrivateChannelFamily> privateChannelFamilies =
                                     new HashSet<PrivateChannelFamily>();
@@ -161,7 +162,7 @@ public class ChannelFamily extends BaseDomainHelper {
     /**
      * @return Returns the virtSubscriptionLevels.
      */
-    public Set getVirtSubscriptionLevels() {
+    public Set<VirtSubscriptionLevel> getVirtSubscriptionLevels() {
         return virtSubscriptionLevels;
     }
 
@@ -169,7 +170,8 @@ public class ChannelFamily extends BaseDomainHelper {
     /**
      * @param virtSubscriptionLevelsIn The virtSubscriptionLevels to set.
      */
-    public void setVirtSubscriptionLevels(Set virtSubscriptionLevelsIn) {
+    public void setVirtSubscriptionLevels(
+            Set<VirtSubscriptionLevel> virtSubscriptionLevelsIn) {
         this.virtSubscriptionLevels = virtSubscriptionLevelsIn;
     }
 
@@ -179,7 +181,7 @@ public class ChannelFamily extends BaseDomainHelper {
      */
     public void addVirtSubscriptionLevel(VirtSubscriptionLevel virtSubIn) {
         if (this.virtSubscriptionLevels == null) {
-            this.virtSubscriptionLevels = new HashSet();
+            this.virtSubscriptionLevels = new HashSet<VirtSubscriptionLevel>();
         }
         this.virtSubscriptionLevels.add(virtSubIn);
     }

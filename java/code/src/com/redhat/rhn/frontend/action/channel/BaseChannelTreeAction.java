@@ -60,7 +60,8 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
 
-    protected abstract DataResult getDataResult(RequestContext requestContext,
+    protected abstract DataResult<ChannelTreeNode> getDataResult(
+            RequestContext requestContext,
             ListControl lc);
 
     /* override in subclasses if needed */

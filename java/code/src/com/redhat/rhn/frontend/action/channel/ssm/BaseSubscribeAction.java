@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.channel.ssm;
 
-import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.Channel;
@@ -81,7 +80,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
 */
 
 
-    protected Map getKeyMethodMap() {
+    protected Map<String, String> getKeyMethodMap() {
         Map<String, String> map = new HashMap<String, String>();
         map.put("basesub.jsp.confirmSubscriptions", "confirmUpdateBaseChannels");
         map.put("basesub.jsp.confirm.alter", "changeChannels");
@@ -355,8 +354,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
      */
     protected List<SystemsPerChannelDto> setupList(User user, HttpServletRequest request) {
         log.debug("setupList");
-        DataResult basesInSet = ChannelManager.baseChannelsInSet(user);
-        List<SystemsPerChannelDto> ldr = new DataList(basesInSet);
+        List<SystemsPerChannelDto> ldr = ChannelManager.baseChannelsInSet(user);
 
         for (SystemsPerChannelDto spc : ldr) {
             //We dont' need to do user auth, here because if the user doesn't have

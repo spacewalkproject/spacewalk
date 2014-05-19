@@ -182,7 +182,7 @@ public class ChannelAclHandler extends BaseHandler {
         User usr = (User)ctxMap.get(USER);
         Channel chan = getChannel(usr, ctxMap);
         if (chan != null) {
-            Set vers = ChannelManager.getChannelVersions(chan);
+            Set<ChannelVersion> vers = ChannelManager.getChannelVersions(chan);
             return (vers != null && vers.contains(ChannelVersion.RHEL5));
         }
         return false;

@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.channel.ssm;
 
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
@@ -37,7 +38,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @version $Revision$
  */
-public class SelectChannelAction extends RhnListAction implements Listable {
+public class SelectChannelAction extends RhnListAction implements
+        Listable<ChannelTreeNode> {
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
@@ -53,7 +55,7 @@ public class SelectChannelAction extends RhnListAction implements Listable {
     }
 
     /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
+    public List<ChannelTreeNode> getResult(RequestContext context) {
         User user = context.getCurrentUser();
         return  ChannelManager.getChannelsForSsm(user, null);
     }

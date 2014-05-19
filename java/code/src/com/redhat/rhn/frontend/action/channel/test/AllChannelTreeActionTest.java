@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.AllChannelTreeAction;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -36,7 +37,7 @@ public class AllChannelTreeActionTest extends RhnBaseTestCase {
 
     public void testPerformExecute() throws Exception {
         AllChannelTreeAction action = new AllChannelTreeAction() {
-            protected DataResult getDataResult(User user, ListControl lc) {
+            protected DataResult<ChannelTreeNode> getDataResult(User user, ListControl lc) {
                 return ChannelManager.allChannelTree(user, lc);
             }
         };
@@ -51,7 +52,8 @@ public class AllChannelTreeActionTest extends RhnBaseTestCase {
         OrgFactory.save(user.getOrg());
 
         sah.executeAction();
-        DataResult dr = (DataResult) sah.getRequest().getAttribute(
+        DataResult<ChannelTreeNode> dr =
+                (DataResult<ChannelTreeNode>) sah.getRequest().getAttribute(
                 RequestContext.PAGE_LIST);
         assertNotEmpty(dr);
    }

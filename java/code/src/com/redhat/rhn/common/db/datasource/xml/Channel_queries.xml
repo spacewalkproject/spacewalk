@@ -123,7 +123,7 @@ ORDER BY C.org_id, C.name
     </query>
 </mode>
 
-<mode name="relevant_packages_for_channel_unpublished">
+<mode name="relevant_packages_for_channel_unpublished" class="java.lang.Long">
     <query params="eid, cid">
 SELECT DISTINCT P1.name_id
   FROM rhnChannel C,
@@ -141,7 +141,7 @@ SELECT DISTINCT P1.name_id
     </query>
 </mode>
 
-<mode name="relevant_packages_for_channel_published">
+<mode name="relevant_packages_for_channel_published" class="java.lang.Long">
     <query params="eid, cid">
 SELECT DISTINCT P1.name_id
   FROM rhnChannel C,
@@ -489,7 +489,7 @@ SELECT DISTINCT C.name AS NAME,
   <elaborator name="visible_server_count"/>
 </mode>
 
-<mode name="channel_tree_ssm_install">
+<mode name="channel_tree_ssm_install" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="org_id, user_id, set_label">
 SELECT  ACh.channel_name AS NAME, ACh.channel_id ID, ACh.channel_depth DEPTH, ACh.channel_arch_id, ACh.current_members, ACh.available_members, (SELECT COUNT(DISTINCT CPN.name_id) FROM rhnChannelNewestPackage CPN WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT, ACh.parent_or_self_label, ACh.channel_label
   FROM  rhnAvailableChannels ACh
@@ -532,7 +532,7 @@ ORDER BY UPPER(C.name)
   <elaborator name="visible_server_count"/>
 </mode>
 
-<mode name="owned_channels_tree">
+<mode name="owned_channels_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
 SELECT CTV.name, CTV.id, CTV.depth, CTV.channel_arch_id, C.org_id,
        (SELECT COUNT (cp.package_id)
@@ -837,7 +837,7 @@ SELECT CP.package_id, CP.name_id, CP.evr_id
     </query>
 </mode>
 
-<mode name="channel_with_package">
+<mode name="channel_with_package" class="java.lang.Long">
     <query params="parent, package, org_id">
 SELECT  DISTINCT C.id
  FROM  rhnChannel C, rhnChannelPackage CP, rhnPackage P, rhnPackageName PN
@@ -852,7 +852,7 @@ SELECT  DISTINCT C.id
     </query>
 </mode>
 
-<mode name="child_channels_with_package">
+<mode name="child_channels_with_package" class="java.lang.Long">
     <query params="package, org_id">
 SELECT  DISTINCT CP.channel_id as id
   FROM  rhnChannelPackage CP
@@ -1002,7 +1002,7 @@ GROUP BY C.id, C.name
 </mode>
 
 
-<mode name="cloned_original_id">
+<mode name="cloned_original_id" class="java.lang.Long">
     <query params="cid">
     SELECT original_id AS id
     FROM rhnChannelCloned

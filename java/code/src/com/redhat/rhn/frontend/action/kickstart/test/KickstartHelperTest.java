@@ -63,7 +63,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
             user.getOrg().getId().toString() +
                 "/label/" + ksdata.getLabel();
         request.setAttribute(RequestContext.REQUESTED_URI, url);
-        Map options = helper.parseKickstartUrl(url);
+        Map<String, Object> options = helper.parseKickstartUrl(url);
         assertNotNull(options);
         assertNotNull(options.get("org_id"));
         assertNotNull(options.get("label"));
@@ -77,7 +77,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
             user.getOrg().getId().toString() +
                 "/view_label/" + ksdata.getLabel();
         request.setAttribute(RequestContext.REQUESTED_URI, url);
-        Map options = helper.parseKickstartUrl(url);
+        Map<String, Object> options = helper.parseKickstartUrl(url);
         assertNotNull(options.get("ksdata"));
         //  This is the key test
         assertNull(options.get("session"));
@@ -99,7 +99,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
                 "/mode/ip_range";
         request.setAttribute(RequestContext.REQUESTED_URI, url);
         helper = new KickstartHelper(request);
-        Map options = helper.parseKickstartUrl(url);
+        Map<String, Object> options = helper.parseKickstartUrl(url);
 
         assertEquals(ksdata, options.get("ksdata"));
     }
@@ -133,7 +133,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
         // URL: /kickstart/ks/session/2xb7d56e8958b0425e762cc74e8705d8e7
         String url = "http://rhn.redhat.com/session/ks/session/" + encodedSession;
         request.setAttribute(RequestContext.REQUESTED_URI, url);
-        Map options = helper.parseKickstartUrl(url);
+        Map<String, Object> options = helper.parseKickstartUrl(url);
         assertNotNull(options);
         assertNotNull(options.get("org_id"));
         assertNotNull(options.get("ksdata"));
@@ -147,7 +147,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
         String url = "http://somesat.redhat.com/ks/cfg/label/" +
             ksdata.getLabel();
         request.setAttribute(RequestContext.REQUESTED_URI, url);
-        Map options = helper.parseKickstartUrl(url);
+        Map<String, Object> options = helper.parseKickstartUrl(url);
         assertNotNull(options);
     }
 

@@ -1790,10 +1790,11 @@ public class SystemManager extends BaseManager {
                         ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME));
             }
             else {
-                List packageResults = ChannelManager.listLatestPackagesEqual(
+                List<Map<String, Object>> packageResults =
+                        ChannelManager.listLatestPackagesEqual(
                         toolsChannel.getId(), ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME);
                 if (packageResults.size() > 0) {
-                    Map row = (Map) packageResults.get(0);
+                    Map<String, Object> row = packageResults.get(0);
                     Long nameId = (Long) row.get("name_id");
                     Long evrId = (Long) row.get("evr_id");
                     Long archId = (Long) row.get("package_arch_id");

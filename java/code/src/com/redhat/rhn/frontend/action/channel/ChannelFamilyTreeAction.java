@@ -64,7 +64,8 @@ public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
     }
 
     @Override
-    protected DataResult getDataResult(RequestContext requestContext, ListControl lc) {
+    protected DataResult<ChannelTreeNode> getDataResult(RequestContext requestContext,
+            ListControl lc) {
         User user = requestContext.getCurrentUser();
         Long cfid = requestContext.getRequiredParam("cfid");
         return ChannelManager.channelFamilyTree(user, cfid, lc);

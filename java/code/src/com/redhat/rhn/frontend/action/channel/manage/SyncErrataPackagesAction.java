@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -50,7 +51,8 @@ import javax.servlet.http.HttpServletResponse;
  * SyncErrataAction
  * @version $Rev$
  */
-public class SyncErrataPackagesAction extends RhnAction implements Listable  {
+public class SyncErrataPackagesAction extends RhnAction implements
+        Listable<PackageOverview> {
 
 
     private Logger log = Logger.getLogger(SyncErrataPackagesAction.class);
@@ -88,9 +90,10 @@ public class SyncErrataPackagesAction extends RhnAction implements Listable  {
 
         if (helper.isDispatched()) {
 
-            Set eSet = RhnSetDecl.ERRATA_TO_SYNC.createCustom(
+            Set<Long> eSet =
+                    RhnSetDecl.ERRATA_TO_SYNC.createCustom(
                     chan.getId()).get(user).getElementValues();
-            Set pSet = pkgDecl.get(user).getElementValues();
+            Set<Long> pSet = pkgDecl.get(user).getElementValues();
             syncErrata(eSet, pSet, chan, user);
 
 
@@ -102,7 +105,7 @@ public class SyncErrataPackagesAction extends RhnAction implements Listable  {
             getStrutsDelegate().saveMessages(rc.getRequest(), msg);
 
 
-            Map params = new HashMap();
+            Map<String, Long> params = new HashMap<String, Long>();
             params.put(RequestContext.CID, chan.getId());
             return getStrutsDelegate().forwardParams(mapping.findForward("submit"),
                     params);
@@ -118,7 +121,7 @@ public class SyncErrataPackagesAction extends RhnAction implements Listable  {
      *
      * {@inheritDoc}
      */
-    public List getResult(RequestContext context) {
+    public List<PackageOverview> getResult(RequestContext context) {
         User user = context.getCurrentUser();
         Channel chan = ChannelManager.lookupByIdAndUser(
                 context.getRequiredParam(RequestContext.CID), user);

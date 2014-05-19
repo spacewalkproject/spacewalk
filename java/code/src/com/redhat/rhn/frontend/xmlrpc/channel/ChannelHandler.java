@@ -24,7 +24,6 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -58,10 +57,10 @@ public class ChannelHandler extends BaseHandler {
      *      #struct_end()
      *  #array_end()
      */
-    public Object[] listSoftwareChannels(String sessionKey) {
+    public List<Map<String, Object>> listSoftwareChannels(String sessionKey) {
 
         User user = ChannelHandler.getLoggedInUser(sessionKey);
-        List items = ChannelManager.allChannelsTree(user);
+        List<Map<String, Object>> items = ChannelManager.allChannelsTree(user);
 
         // perl just makes stuff so much harder since it
         // transforms data in a map with one line, but it's
@@ -71,13 +70,12 @@ public class ChannelHandler extends BaseHandler {
         //
         // Just because it is ONE line it doesn't make it efficient.
 
-        List returnList = new ArrayList(items.size());
-        for (Iterator itr = items.iterator(); itr.hasNext();) {
-            Map item = (Map) itr.next();
-
+        List<Map<String, Object>> returnList =
+                new ArrayList<Map<String, Object>>(items.size());
+        for (Map<String, Object> item : items) {
             // Deprecated stupid code
             // this is some really stupid code, but oh well, c'est la vie
-            Map newItem = new HashMap();
+            Map<String, Object> newItem = new HashMap<String, Object>();
             newItem.put("label", item.get("label"));
             newItem.put("parent_label", StringUtils.defaultString(
                     (String) item.get("parent_channel")));
@@ -90,7 +88,7 @@ public class ChannelHandler extends BaseHandler {
             returnList.add(newItem);
         }
 
-        return returnList.toArray();
+        return returnList;
     }
 
     /**

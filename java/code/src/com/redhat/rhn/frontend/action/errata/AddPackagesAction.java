@@ -147,7 +147,7 @@ public class AddPackagesAction extends RhnAction implements Listable {
      */
     private List getViewOptions(User user) {
         // List containing the names of the channels this user has permissions to.
-        List subscribableChannels = ChannelManager.channelsForUser(user);
+        List<String> subscribableChannels = ChannelManager.channelsForUser(user);
 
         //Init the viewoptions list to contain the "any_channel" option
         List<LabelValueBean> viewoptions = new ArrayList<LabelValueBean>();

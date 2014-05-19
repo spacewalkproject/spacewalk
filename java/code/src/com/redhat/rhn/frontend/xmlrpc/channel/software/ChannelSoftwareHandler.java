@@ -42,6 +42,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -228,7 +229,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, channelLabel);
 
-        List pkgs = ChannelManager.latestPackagesInChannel(channel);
+        List<Map<String, Object>> pkgs = ChannelManager.latestPackagesInChannel(channel);
         return pkgs.toArray();
     }
 
@@ -259,7 +260,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, channelLabel);
-        List pkgs = ChannelManager.listAllPackages(channel, startDate, endDate);
+        List<PackageDto> pkgs = ChannelManager.listAllPackages(channel, startDate, endDate);
         return pkgs.toArray();
     }
 
@@ -414,7 +415,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, channelLabel);
-        List pkgs = ChannelManager.listAllPackagesByDate(channel, startDate, endDate);
+        List<Map<String, Object>> pkgs =
+                ChannelManager.listAllPackagesByDate(channel, startDate, endDate);
         return pkgs.toArray();
     }
 
@@ -1639,9 +1641,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #struct_end()
      *    #array_end()
      */
-    public List listErrata(String sessionKey, String channelLabel)
+    public List<Map<String, Object>> listErrata(String sessionKey, String channelLabel)
         throws NoSuchChannelException {
-        List<Map> list = listErrata(sessionKey, channelLabel, "", "");
+        List<Map<String, Object>> list = listErrata(sessionKey, channelLabel, "", "");
         return list;
     }
 
@@ -1676,7 +1678,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
     @Deprecated
-    public List listErrata(String sessionKey, String channelLabel,
+    public List<Map<String, Object>> listErrata(String sessionKey, String channelLabel,
             String startDate) throws NoSuchChannelException {
 
         return listErrata(sessionKey, channelLabel, startDate, null);
@@ -1716,14 +1718,15 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
 
     @Deprecated
-    public List listErrata(String sessionKey, String channelLabel,
+    public List<Map<String, Object>> listErrata(String sessionKey, String channelLabel,
             String startDate, String endDate) throws NoSuchChannelException {
 
         //Get Logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
-        List errata = ChannelManager.listErrataForDates(channel, startDate, endDate);
+        List<Map<String, Object>> errata =
+                ChannelManager.listErrataForDates(channel, startDate, endDate);
         return errata;
     }
 
@@ -1766,7 +1769,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
-        List errata = ChannelManager.listErrataByType(channel, advisoryType);
+        List<Map<String, Object>> errata =
+                ChannelManager.listErrataByType(channel, advisoryType);
         return errata.toArray();
     }
 

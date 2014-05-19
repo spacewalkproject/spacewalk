@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.RhnSetAction;
+import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -186,12 +187,12 @@ public class ChannelAction extends RhnSetAction {
      * @param set The RhnSet object containing channel ids
      * @retval Set of channelIds
      */
-    private Set getChannelIdsFromRhnSet(RhnSet set) {
-        Set retval = new HashSet();
-        Iterator itr = set.getElements().iterator();
+    private Set<Long> getChannelIdsFromRhnSet(RhnSet set) {
+        Set<Long> retval = new HashSet<Long>();
+        Iterator<RhnSetElement> itr = set.getElements().iterator();
 
         while (itr.hasNext()) {
-            RhnSetElement element = (RhnSetElement) itr.next();
+            RhnSetElement element = itr.next();
             retval.add(element.getElement());
         }
         if (log.isDebugEnabled()) {
@@ -225,7 +226,7 @@ public class ChannelAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    public DataResult getDataResult(User user,
+    public DataResult<ChannelOverview> getDataResult(User user,
                                     ActionForm formIn,
                                     HttpServletRequest request) {
         //returns *all* items for the select all list function
