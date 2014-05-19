@@ -74,7 +74,7 @@ def print_channel_tree():
 
 def channel_exists(channel, quiet = False):
     try:
-        details = client.channel.software.getDetails(session, channel)
+        client.channel.software.getDetails(session, channel)
         return True
     except xmlrpclib.Fault, e:
         if options.debug: logging.exception(e)
