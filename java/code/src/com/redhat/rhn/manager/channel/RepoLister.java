@@ -57,7 +57,7 @@ public class RepoLister extends BaseManager {
     public DataResult<ContentSourceDto> sourcesInOrg(Org orgIn) {
 
         SelectMode m = ModeFactory.getMode("Channel_queries", "contentsrc_for_org");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         Map elabParams = new HashMap();
         DataResult<ContentSourceDto> returnDataResult = makeDataResult(params,

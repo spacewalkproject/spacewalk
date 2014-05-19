@@ -133,14 +133,14 @@ public class DownloadFile extends DownloadAction {
             }
         }
         else if (url.startsWith("/cblr/svc/op/ks/")) {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(TYPE,  DownloadManager.DOWNLOAD_TYPE_COBBLER);
             params.put(URL_STRING, url);
             request.setAttribute(PARAMS, params);
             return super.execute(mapping, formIn, request, response);
         }
         else if (url.startsWith("/cobbler_api")) {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(TYPE,  DownloadManager.DOWNLOAD_TYPE_COBBLER_API);
             request.setAttribute(PARAMS, params);
             return super.execute(mapping, formIn, request, response);
@@ -278,7 +278,7 @@ public class DownloadFile extends DownloadAction {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return mapping.findForward("error");
             }
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(TYPE, DownloadManager.DOWNLOAD_TYPE_KICKSTART);
             params.put(TREE, tree);
             params.put(CHILD, child);
@@ -294,7 +294,7 @@ public class DownloadFile extends DownloadAction {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return mapping.findForward("error");
         }
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(TYPE, DownloadManager.DOWNLOAD_TYPE_KICKSTART);
         params.put(TREE, tree);
         params.put(FILENAME, path);
@@ -310,7 +310,7 @@ public class DownloadFile extends DownloadAction {
             ActionMapping mapping) {
         List<String> split = Arrays.asList(url.split("/"));
         Iterator<String> it = split.iterator();
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
 
         String type = getNextValue(it);
         String hash = getNextValue(it);

@@ -74,7 +74,7 @@ public class SatClusterFactory extends HibernateFactory {
      * @return the <code>SatCluster</code> with ID <code>satClusterID</code>
      */
     public static SatCluster findSatClusterById(Long satClusterID) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("satClusterID", satClusterID);
         return (SatCluster)
             singleton.lookupObjectByNamedQuery("SatCluster.findByID", params);
@@ -224,7 +224,7 @@ public class SatClusterFactory extends HibernateFactory {
      * @return list of sat clusters
      */
     public static List<SatCluster> findSatClusters() {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         return singleton.listObjectsByNamedQuery("SatCluster.findAll", params);
     }
 

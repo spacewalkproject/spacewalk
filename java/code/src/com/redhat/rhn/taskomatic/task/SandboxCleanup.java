@@ -41,7 +41,7 @@ public class SandboxCleanup extends RhnJavaJob {
 
         int sandboxLifetime = Config.get().getInt("sandbox_lifetime"); //in days
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("window", new Integer(sandboxLifetime));
         remove("find_sandbox_file_candidates", params, "remove_sandbox_file");
         remove("find_sandbox_channel_candidates", params, "remove_sandbox_channel");
@@ -60,7 +60,7 @@ public class SandboxCleanup extends RhnJavaJob {
             else if (removeQuery.contains("channel")) {
                 log.info("Removing sandbox channels: " + candidates.size());
             }
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             Map out = new HashMap();
             for (Iterator iter = candidates.iterator(); iter.hasNext();) {
                 Map row = (Map) iter.next();

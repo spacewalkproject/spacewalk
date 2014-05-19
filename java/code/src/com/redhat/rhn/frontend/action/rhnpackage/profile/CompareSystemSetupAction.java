@@ -74,7 +74,7 @@ public class CompareSystemSetupAction extends RhnAction {
                 return handleDispatchAction(mapping, requestContext);
             }
             RhnHelper.handleEmptySelection(request);
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(RequestContext.SID, sid.toString());
             params.put(RequestContext.SID1, sid1.toString());
             return getStrutsDelegate().forwardParams(
@@ -109,7 +109,7 @@ public class CompareSystemSetupAction extends RhnAction {
         Long sid = context.getRequiredParam(RequestContext.SID);
         Long sid1 = context.getRequiredParam(RequestContext.SID1);
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.SID, sid.toString());
         params.put(RequestContext.SID1, sid1.toString());
         StrutsDelegate strutsDelegate = getStrutsDelegate();

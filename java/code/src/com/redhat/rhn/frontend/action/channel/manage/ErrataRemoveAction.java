@@ -91,7 +91,7 @@ public class ErrataRemoveAction extends RhnListAction implements Listable {
         if (requestContext.wasDispatched(CONFIRM)) {
            ChannelManager.removeErrata(currentChan, decl.get(user).getElementValues(),
                    user);
-           Map params = new HashMap();
+           Map<String, Object> params = new HashMap<String, Object>();
            params.put(CID, cid);
 
            ActionMessages msg = new ActionMessages();

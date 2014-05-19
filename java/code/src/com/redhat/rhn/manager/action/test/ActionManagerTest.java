@@ -701,7 +701,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         assertTrue(action instanceof PackageAction);
         PackageAction pa = (PackageAction) action;
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("action_id", pa.getId());
         DataResult dr = TestUtils.runTestQuery("package_install_list", params);
         assertEquals(2, dr.size());

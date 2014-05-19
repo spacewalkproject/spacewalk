@@ -100,7 +100,7 @@ public class FileListSubmitAction extends RhnSetAction {
         }
 
         //They selected stuff! send them to the confirm page.
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         processParamMap(formIn, request, params);
         return getStrutsDelegate().forwardParams(mapping.findForward(
                 "confirm"), params);

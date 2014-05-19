@@ -53,7 +53,7 @@ public class ProbesDeleteConfirmSetupAction extends RhnListAction implements Lis
         User user = requestContext.getCurrentUser();
         Server server = requestContext.lookupAndBindServer();
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.SID, server.getId());
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
                 RhnSetDecl.PROBES_TO_DELETE, params);

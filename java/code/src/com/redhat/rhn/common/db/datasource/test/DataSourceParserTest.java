@@ -262,7 +262,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         SelectMode m = ModeFactory.getMode("test_queries", "all_tables" + db_sufix);
         assertNotNull(m);
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("foo", "bar");
         DataResult dr = m.execute(params);
         assertNotNull(dr);
@@ -371,7 +371,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
 
     public void testExternalQuery() throws Exception {
         SelectMode m = ModeFactory.getMode("System_queries", "visible_to_uid");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("formvar_uid", new Long(12345));
         DataResult dr = m.execute(params);
         assertEquals(m, dr.getMode());

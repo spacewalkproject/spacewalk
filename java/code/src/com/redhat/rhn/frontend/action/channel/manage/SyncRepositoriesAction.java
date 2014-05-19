@@ -68,7 +68,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
         request.setAttribute("cid",  chan.getId());
 
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.CID, chan.getId().toString());
 
         ListHelper helper = new ListHelper(this, request, params);

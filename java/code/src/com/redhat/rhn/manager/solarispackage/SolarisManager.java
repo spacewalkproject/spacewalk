@@ -37,7 +37,7 @@ public class SolarisManager extends BaseManager {
      */
     private static DataResult solarisPackageHelper(Long sid, PageControl pc, String mode) {
         SelectMode m = ModeFactory.getMode("Package_queries", mode);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
         return makeDataResult(params, params, pc, m);
     }
@@ -71,7 +71,7 @@ public class SolarisManager extends BaseManager {
      */
     public static DataResult patchesInSet(User user, PageControl pc, String label) {
         SelectMode m = ModeFactory.getMode("Package_queries", "patches_in_set");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         Map elabParams = new HashMap();
         params.put("user_id", user.getId());
         params.put("set_label", label);

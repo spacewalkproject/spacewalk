@@ -130,7 +130,7 @@ public class EntitlementManager extends BaseManager {
         SelectMode m =
             ModeFactory.getMode("General_queries", "server_group_membership");
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         params.put("label", ent.getLabel());
 

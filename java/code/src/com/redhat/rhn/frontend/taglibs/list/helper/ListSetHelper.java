@@ -53,7 +53,7 @@ import javax.servlet.http.HttpServletRequest;
  *  Java Side ->
  *   public class  ..... extends RhnAction implements Listable {
  *      public ActionForward execute(.....) {
- *          Map params = new HashMap();
+ *          Map<String, Object> params = new HashMap<String, Object>();
  *          params.put("foo_id", request.getParamater("foo_id"));
  *          ListSessionSetHelper helper = new ListSessionSetHelper
  *                                          (this, request, params);

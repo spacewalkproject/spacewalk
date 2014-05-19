@@ -291,7 +291,7 @@ public class Access extends BaseHandler {
         }
         Long suite = Long.parseLong(suites[0]);
         SelectMode m = ModeFactory.getMode("Monitoring_queries", "probe_suite_accessible");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("suite_id", suite);
         Map row = (Map) m.execute(params).iterator().next();

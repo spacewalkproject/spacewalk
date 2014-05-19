@@ -61,7 +61,7 @@ public class ProbeDeleteAction extends BaseProbeAction {
         req.setAttribute("probe", probe);
 
         if (submitted) {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(RequestContext.SID, server.getId());
             log.debug("Deleted probe: " + probe.getId());
             return getStrutsDelegate().forwardParams(mapping.findForward("deleted"),

@@ -151,7 +151,7 @@ public class ActionManager extends BaseManager {
 
         //TODO: put this in the hibernate lookup query
         SelectMode m = ModeFactory.getMode("Action_queries", "visible_to_user");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("aid", aid);
         if (m.execute(params).size() < 1) {
@@ -200,7 +200,7 @@ public class ActionManager extends BaseManager {
     public static void deleteActions(User user, String label) {
         WriteMode m = ModeFactory.getWriteMode("Action_queries",
                 "delete_actions");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("label", label);
@@ -215,7 +215,7 @@ public class ActionManager extends BaseManager {
     public static void archiveActions(User user, String label) {
         WriteMode m = ModeFactory.getWriteMode("Action_queries",
                 "archive_actions");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("label", label);
@@ -548,7 +548,7 @@ public class ActionManager extends BaseManager {
         WriteMode m = ModeFactory.getWriteMode("Action_queries", "schedule_action_no_arch");
         for (Iterator itr = set.getElements().iterator(); itr.hasNext();) {
             RhnSetElement rse = (RhnSetElement) itr.next();
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("action_id", patchAction.getId());
             params.put("name_id", rse.getElement());
             params.put("evr_id", rse.getElementTwo());
@@ -590,7 +590,7 @@ public class ActionManager extends BaseManager {
             RhnSetElement rse = (RhnSetElement) itr.next();
             WriteMode m = ModeFactory.getWriteMode("Action_queries",
                     "schedule_action_no_arch");
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("action_id", patchAction.getId());
             params.put("name_id", rse.getElement());
             params.put("evr_id", rse.getElementTwo());
@@ -623,7 +623,7 @@ public class ActionManager extends BaseManager {
         ActionFactory.save(patchSetAction);
 
         WriteMode m = ModeFactory.getWriteMode("Action_queries", "schedule_action_no_arch");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("action_id", patchSetAction.getId());
         params.put("name_id", patchSet.getPackageName().getId());
         params.put("evr_id", patchSet.getPackageEvr().getId());
@@ -745,7 +745,7 @@ public class ActionManager extends BaseManager {
             long age) {
         SelectMode m = ModeFactory.getMode("Action_queries",
                 "recently_scheduled_action_list");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("age", new Long(age));
@@ -807,7 +807,7 @@ public class ActionManager extends BaseManager {
             String setLabel, Long sid) {
         SelectMode m = ModeFactory.getMode("System_queries",
                 "pending_actions_to_delete_in_set");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
         params.put("user_id", user.getId());
         params.put("set_label", setLabel);
@@ -861,7 +861,7 @@ public class ActionManager extends BaseManager {
     private static DataResult getActions(User user, PageControl pc, String mode,
             String setLabel) {
         SelectMode m = ModeFactory.getMode("Action_queries", mode);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         if (setLabel != null) {
@@ -901,7 +901,7 @@ public class ActionManager extends BaseManager {
     public static DataResult getPackageList(Long aid, PageControl pc) {
         SelectMode m = ModeFactory.getMode("Package_queries",
                 "packages_associated_with_action");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("aid", aid);
         if (pc != null) {
             return makeDataResult(params, params, pc, m);
@@ -920,7 +920,7 @@ public class ActionManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Errata_queries",
                 "errata_associated_with_action");
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("aid", aid);
 
         DataResult dr = m.execute(params);
@@ -936,7 +936,7 @@ public class ActionManager extends BaseManager {
     public static DataResult getConfigFileUploadList(Long aid) {
         SelectMode m = ModeFactory.getMode("config_queries", "upload_action_status");
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("aid", aid);
 
         DataResult dr = m.execute(params);
@@ -952,7 +952,7 @@ public class ActionManager extends BaseManager {
     public static DataResult getConfigFileDeployList(Long aid) {
         SelectMode m = ModeFactory.getMode("config_queries", "config_action_revisions");
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("aid", aid);
 
         DataResult dr = m.execute(params);
@@ -968,7 +968,7 @@ public class ActionManager extends BaseManager {
     public static DataResult getConfigFileDiffList(Long aid) {
         SelectMode m = ModeFactory.getMode("config_queries", "diff_action_revisions");
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("aid", aid);
 
         DataResult dr = m.execute(params);
@@ -990,7 +990,7 @@ public class ActionManager extends BaseManager {
             String mode) {
 
         SelectMode m = ModeFactory.getMode("System_queries", mode);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", user.getOrg().getId());
         params.put("aid", action.getId());
         params.put("user_id", user.getId());
@@ -1112,7 +1112,7 @@ public class ActionManager extends BaseManager {
                 "insert_package_delta_element");
         for (Iterator itr = pkgs.iterator(); itr.hasNext();) {
             PackageMetadata pm = (PackageMetadata) itr.next();
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("delta_id", pd.getId());
             if (pm.getComparisonAsInt() == PackageMetadata.KEY_THIS_ONLY) {
 
@@ -1189,7 +1189,7 @@ public class ActionManager extends BaseManager {
         // this is SOOOO WRONG, we need to get rid of DataSource
         m = ModeFactory.getWriteMode("Action_queries",
                 "insert_action_package_delta");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("action_id", action.getId());
         params.put("delta_id", pd.getId());
         m.executeUpdate(params);
@@ -1357,7 +1357,7 @@ public class ActionManager extends BaseManager {
      * @param serverIds server IDs
      */
     public static void scheduleForExecution(Action action, Set<Long> serverIds) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("status_id", ActionFactory.STATUS_QUEUED.getId());
         params.put("tries", REMAINING_TRIES);
         params.put("parent_id", action.getId());
@@ -1678,7 +1678,7 @@ public class ActionManager extends BaseManager {
             // correct table if I already have the ids.
             for (Iterator itr = packages.iterator(); itr.hasNext();) {
                 Map rse = (Map) itr.next();
-                Map params = new HashMap();
+                Map<String, Object> params = new HashMap<String, Object>();
                 Long nameId = (Long) rse.get("name_id");
                 Long evrId = (Long) rse.get("evr_id");
                 Long archId = (Long) rse.get("arch_id");

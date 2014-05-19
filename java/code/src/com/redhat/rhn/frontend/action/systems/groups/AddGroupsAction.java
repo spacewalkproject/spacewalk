@@ -74,7 +74,7 @@ public class AddGroupsAction extends DispatchedAction {
                     "systems.groups.jsp.added",
                         new String [] {String.valueOf(set.size())}, request);
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.SID, server.getId().toString());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         return strutsDelegate.forwardParams

@@ -72,7 +72,7 @@ public class RemoveFromSSMAction extends RhnAction {
             }
 
         }
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);

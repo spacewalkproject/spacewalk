@@ -101,7 +101,7 @@ public class SyncSystemsProfilesAction extends BaseProfilesAction {
                 log.debug("Returned from syncToProfile");
             }
 
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(RequestContext.SID, sid);
             params.put(RequestContext.SID1, sid1);
             params.put("time", new Long(time.getTime()));
@@ -109,7 +109,7 @@ public class SyncSystemsProfilesAction extends BaseProfilesAction {
                     params);
         }
         catch (MissingPackagesException mpe) {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(RequestContext.SID, sid);
             params.put(RequestContext.SID1, sid1);
             params.put("sync", "system");

@@ -434,7 +434,7 @@ public class ActivationKeyManager {
             ActivationKeyFactory.validateKeyName(newKey);
             WriteMode m = ModeFactory.getWriteMode("General_queries",
                                     "update_activation_key");
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("old_key", key.getKey());
             params.put("new_key", newKey);
             m.executeUpdate(params);

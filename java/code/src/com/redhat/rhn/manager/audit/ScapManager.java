@@ -56,7 +56,7 @@ public class ScapManager extends BaseManager {
     public static boolean isScapEnabled(Server server, User user) {
         SelectMode m = ModeFactory.getMode("scap_queries",
                 "system_scap_enabled_check");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("sid", server.getId());
         DataResult<Map<String, ? extends Number>> dr = m.execute(params);
@@ -72,7 +72,7 @@ public class ScapManager extends BaseManager {
     public static DataResult latestTestResultByUser(User user) {
         SelectMode m = ModeFactory.getMode("scap_queries",
                 "latest_testresults_by_user");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         return makeDataResult(params, new HashMap(), null, m);
     }
@@ -102,7 +102,7 @@ public class ScapManager extends BaseManager {
     public static DataResult allScans(Server server) {
         SelectMode m = ModeFactory.getMode("scap_queries",
                 "show_system_scans");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", server.getId());
         return makeDataResult(params, new HashMap(), null, m);
     }
@@ -130,7 +130,7 @@ public class ScapManager extends BaseManager {
     public static List<XccdfRuleResultDto> ruleResultsPerScan(Long testResultId) {
         SelectMode m = ModeFactory.getMode("scap_queries",
                 "show_ruleresults");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("xid", testResultId);
         return m.execute(params);
     }
@@ -143,7 +143,7 @@ public class ScapManager extends BaseManager {
     public static XccdfRuleResultDto ruleResultById(Long ruleResultId) {
         SelectMode m = ModeFactory.getMode("scap_queries",
                 "ruleresult_by_id");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("rr_id", ruleResultId);
         List<XccdfRuleResultDto> result = m.execute(params);
         return result.isEmpty() ? null : result.get(0);
@@ -199,7 +199,7 @@ public class ScapManager extends BaseManager {
     public static List<XccdfIdentDto> identsPerRuleResult(Long ruleResultId) {
         SelectMode m = ModeFactory.getMode("scap_queries",
                 "idents_per_ruleresult");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("rr_id", ruleResultId);
         return m.execute(params);
     }
@@ -212,7 +212,7 @@ public class ScapManager extends BaseManager {
     public static DataResult scapCapableSystemsInSsm(User scheduler) {
         SelectMode m = ModeFactory.getMode("scap_queries",
                 "scap_capable_systems_in_set");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", scheduler.getId());
         params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
         return m.execute(params);
@@ -226,7 +226,7 @@ public class ScapManager extends BaseManager {
     public static DataResult systemsInSsmAndScapCapability(User scheduler) {
         SelectMode m = ModeFactory.getMode("scap_queries",
                 "systems_in_set_and_scap_capability");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", scheduler.getId());
         params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
         return m.execute(params);

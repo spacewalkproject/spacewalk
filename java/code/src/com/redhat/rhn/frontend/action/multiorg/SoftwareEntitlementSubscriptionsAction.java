@@ -85,7 +85,7 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
             return mapping.findForward("unlimited");
         }
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("cfid", cfid);
         ListHelper helper = new ListHelper(this, request, params);
         helper.execute();

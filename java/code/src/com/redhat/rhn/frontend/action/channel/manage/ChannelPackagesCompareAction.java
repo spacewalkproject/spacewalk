@@ -81,7 +81,7 @@ public class ChannelPackagesCompareAction extends ChannelPackagesBaseAction {
         request.setAttribute(CHANNEL_NAME , chan.getName());
 
         if (requestContext.wasDispatched("channel.jsp.package.mergebutton")) {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(RequestContext.CID, cid);
             params.put(OTHER_ID, selectedChan);
             params.put(SYNC_TYPE, syncType);

@@ -60,7 +60,7 @@ public class ListControlTest extends RhnBaseTestCase {
         UserTestUtils.createUser("ffffffff", user.getOrg().getId());
 
         SelectMode m = ModeFactory.getMode("User_queries", "users_in_org");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", user.getOrg().getId());
         DataResult dr = m.execute(params);
         dr.setIndex(pc.createIndex(dr));

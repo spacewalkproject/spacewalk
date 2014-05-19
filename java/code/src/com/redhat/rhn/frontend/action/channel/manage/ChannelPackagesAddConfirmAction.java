@@ -108,7 +108,7 @@ public class ChannelPackagesAddConfirmAction extends RhnAction {
             set.clear();
             RhnSetManager.store(set);
 
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("cid", cid);
             return getStrutsDelegate().forwardParams(mapping.findForward("complete"),
                     params);

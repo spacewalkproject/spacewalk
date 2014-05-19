@@ -75,7 +75,7 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
         helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.MODE,
                 requestContext.getRequiredParamAsString(RequestContext.MODE));
 

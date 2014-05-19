@@ -57,7 +57,7 @@ public class MonitoringConfigFactory extends HibernateFactory {
      * @return List of ConfigMacro objects
      */
     public static List lookupConfigMacros(boolean editable) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         if (editable) {
             params.put("editable", "1");
         }
@@ -74,7 +74,7 @@ public class MonitoringConfigFactory extends HibernateFactory {
      * @return ConfigMacro if found.
      */
     public static ConfigMacro lookupConfigMacroByName(String name) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", name);
         return (ConfigMacro) singleton.lookupObjectByNamedQuery(
                 "ConfigMacro.lookupByName", params);

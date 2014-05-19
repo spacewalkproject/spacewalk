@@ -126,7 +126,7 @@ public class MissingPackageAction extends BaseProfilesAction {
             HttpServletRequest request,
             HttpServletResponse response) {
         Long sid = new RequestContext(request).getRequiredParam("sid");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
         return getStrutsDelegate().forwardParams(mapping.findForward("showprofile"),
                 params);
@@ -149,7 +149,7 @@ public class MissingPackageAction extends BaseProfilesAction {
         Long sid = context.getRequiredParam("sid");
         Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request,
                 getDecl(context, sid));
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
 
         syncToVictim(context, sid, pkgIdCombos, ProfileManager.OPTION_REMOVE);
@@ -174,7 +174,7 @@ public class MissingPackageAction extends BaseProfilesAction {
         Long sid = requestContext.getRequiredParam("sid");
         Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request,
                 getDecl(requestContext, sid));
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
 
         syncToVictim(requestContext, sid, pkgIdCombos,

@@ -61,7 +61,7 @@ public class ProfileFactory extends HibernateFactory {
      * @return statetype whose name matches the given name.
      */
     public static ProfileType lookupByLabel(String name) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("label", name);
         return (ProfileType) singleton.lookupObjectByNamedQuery(
                 "ProfileType.findByLabel", params, true);
@@ -74,7 +74,7 @@ public class ProfileFactory extends HibernateFactory {
      * @return the Profile found
      */
     public static Profile lookupByIdAndOrg(Long id, Org org) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
         params.put("org_id", org.getId());
         return (Profile) singleton.lookupObjectByNamedQuery("Profile.findByIdAndOrg",
@@ -88,7 +88,7 @@ public class ProfileFactory extends HibernateFactory {
      * @return  a list of Profiles which are compatible with the given server.
      */
     public static List compatibleWithServer(Server server, Org org) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", server.getId());
         params.put("org_id", org.getId());
         return singleton.listObjectsByNamedQuery(
@@ -128,7 +128,7 @@ public class ProfileFactory extends HibernateFactory {
      * given org, or null if none found.
      */
     public static Profile findByNameAndOrgId(String name, Long orgid) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", name);
         params.put("org_id", orgid);
         return (Profile) singleton.lookupObjectByNamedQuery(

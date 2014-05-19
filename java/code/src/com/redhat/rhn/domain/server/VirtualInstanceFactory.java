@@ -339,7 +339,7 @@ public class VirtualInstanceFactory extends HibernateFactory {
         List<ChannelFamilySystemGroup> ret = new LinkedList<ChannelFamilySystemGroup>();
 
         SelectMode m = ModeFactory.getMode("System_queries", query);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("checkin_threshold", Config.get().getInt(ConfigDefaults
                 .SYSTEM_CHECKIN_THRESHOLD));

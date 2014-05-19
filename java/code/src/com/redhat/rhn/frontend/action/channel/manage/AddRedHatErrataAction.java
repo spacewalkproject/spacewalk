@@ -183,7 +183,7 @@ public class AddRedHatErrataAction extends RhnListAction {
         request.setAttribute(SELECTED_VERSION, selectedVersionStr);
 
         if (requestContext.wasDispatched(SUBMITTED)) {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(CID, request.getParameter(CID));
             params.put(SELECTED_CHANNEL, selectedChannelStr);
             params.put(CHECKED, request.getParameter(CHECKED));

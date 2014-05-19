@@ -62,7 +62,7 @@ public class RepositoriesAction extends RhnAction implements Listable {
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute("cid", chan.getId());
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.CID, chan.getId().toString());
 
         ListSessionSetHelper helper =

@@ -70,7 +70,7 @@ public class VirtualGuestsConfirmAction extends BaseSystemListAction {
                                          HttpServletResponse response) {
         log.debug("scheduleActions() called.");
         RhnSet set = updateSet(request);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
 
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 

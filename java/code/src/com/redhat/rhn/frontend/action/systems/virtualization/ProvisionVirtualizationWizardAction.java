@@ -246,7 +246,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
 
         createSuccessMessage(ctx.getRequest(), "kickstart.schedule.success",
                 LocalizationService.getInstance().formatDate(scheduleTime));
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.SID, form.get(RequestContext.SID));
 
         return getStrutsDelegate().forwardParams(mapping.findForward("success"), params);

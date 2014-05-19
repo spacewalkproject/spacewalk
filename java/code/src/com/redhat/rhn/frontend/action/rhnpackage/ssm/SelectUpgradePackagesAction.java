@@ -49,7 +49,7 @@ public class SelectUpgradePackagesAction extends RhnAction implements Listable {
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("mode", "upgrade");
 
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);

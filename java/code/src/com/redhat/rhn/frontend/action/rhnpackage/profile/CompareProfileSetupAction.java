@@ -78,7 +78,7 @@ public class CompareProfileSetupAction extends RhnAction {
                 return handleDispatchAction(mapping, requestContext);
             }
             RhnHelper.handleEmptySelection(request);
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(RequestContext.SID, sid.toString());
             params.put(RequestContext.PRID, prid.toString());
             return getStrutsDelegate().forwardParams(
@@ -115,7 +115,7 @@ public class CompareProfileSetupAction extends RhnAction {
         Long sid = context.getRequiredParam("sid");
         Long prid = context.getRequiredParam("prid");
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.SID, sid.toString());
         params.put(RequestContext.PRID, prid.toString());
         StrutsDelegate strutsDelegate = getStrutsDelegate();

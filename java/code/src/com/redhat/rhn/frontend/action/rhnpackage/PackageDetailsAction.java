@@ -171,7 +171,7 @@ public class PackageDetailsAction extends RhnAction {
             throw new PermissionException("Invalid id_combo and cid/sid");
         }
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pkg.getId());
         return getStrutsDelegate().forwardParams(mapping.findForward("package"),
                 params);

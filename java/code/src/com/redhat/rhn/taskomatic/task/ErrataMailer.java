@@ -91,7 +91,7 @@ public class ErrataMailer extends RhnJavaJob {
     protected List getErrataToProcess() {
         SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_FIND_ERRATA);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("threshold", new Integer(1));
         List results = select.execute(params);
         return results;
@@ -101,7 +101,7 @@ public class ErrataMailer extends RhnJavaJob {
         HibernateFactory.getSession();
         WriteMode marker = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_MARK_ERRATA_DONE);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
         params.put("errata_id", errataId);
         params.put("channel_id", channelId);
@@ -170,7 +170,7 @@ public class ErrataMailer extends RhnJavaJob {
     private Map getUserInfo(Long userId) {
         SelectMode mode = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_GET_USERINFO);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", userId);
         return (Map) mode.execute(params).get(0);
     }
@@ -178,7 +178,7 @@ public class ErrataMailer extends RhnJavaJob {
     protected List getOrgRelevantServers(Long errataId, Long orgId, Long channelId) {
         SelectMode mode = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_GET_RELEVANT_SERVERS);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("errata_id", errataId);
         params.put("org_id", orgId);
         params.put("channel_id", channelId);

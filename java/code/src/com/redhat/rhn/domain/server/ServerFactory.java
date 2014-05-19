@@ -241,7 +241,7 @@ public class ServerFactory extends HibernateFactory {
      * @return the Server found (null if not or not member if orgIn)
      */
     public static Server lookupByIdAndOrg(Long id, Org orgIn) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", id);
         params.put("orgId", orgIn.getId());
         return (Server) singleton.lookupObjectByNamedQuery(
@@ -495,7 +495,7 @@ public class ServerFactory extends HibernateFactory {
         SelectMode m = ModeFactory.getMode("System_queries",
                 "compatible_with_server");
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", server.getId());
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -508,7 +508,7 @@ public class ServerFactory extends HibernateFactory {
      * @return list of User objects that can administer the system
      */
     public static List<User> listAdministrators(Server server) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", server.getId());
         params.put("org_id", server.getOrg().getId());
         return singleton.listObjectsByNamedQuery("Server.lookupAdministrators",
@@ -541,7 +541,7 @@ public class ServerFactory extends HibernateFactory {
      * @return A list of servers
      */
     public static List<Server> listUngroupedSystems(User user) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", user.getId());
         params.put("orgId", user.getOrg().getId());
         List<Server> servers = singleton.listObjectsByNamedQuery(
@@ -555,7 +555,7 @@ public class ServerFactory extends HibernateFactory {
      * @return a list of Proxy Server objects
      */
     public static List<Server> lookupProxiesByOrg(User user) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", user.getId());
         params.put("orgId", user.getOrg().getId());
         List<Number> ids = singleton.listObjectsByNamedQuery(
@@ -592,7 +592,7 @@ public class ServerFactory extends HibernateFactory {
      * @return List of servers.
      */
     public static List<Server> listSystemsInSsm(User user) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", user.getId());
         params.put("label", RhnSetDecl.SYSTEMS.getLabel());
         List<Server> servers = singleton.listObjectsByNamedQuery(
@@ -643,7 +643,7 @@ public class ServerFactory extends HibernateFactory {
     public static List<ServerSnapshot> listSnapshots(Org org, Server server,
             Date startDate, Date endDate) {
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org", org);
         params.put("server", server);
 
@@ -673,7 +673,7 @@ public class ServerFactory extends HibernateFactory {
      * @return the server snapshot
      */
     public static ServerSnapshot lookupSnapshotById(Integer id) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("snapId", new Long(id));
         return (ServerSnapshot) singleton.lookupObjectByNamedQuery(
                 "ServerSnapshot.findById", params);
@@ -788,7 +788,7 @@ public class ServerFactory extends HibernateFactory {
      * @return list of tags
      */
     public static List<SnapshotTag> getSnapshotTags(ServerSnapshot snap) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("snap", snap);
         List<SnapshotTag> snaps = singleton.listObjectsByNamedQuery(
                 "ServerSnapshot.findTags", params);
@@ -869,7 +869,7 @@ public class ServerFactory extends HibernateFactory {
     public static List<SoftwareCrashDto> listServerSoftwareCrashes(Server server) {
         SelectMode m = ModeFactory.getMode("System_queries",
                 "list_server_software_crashes");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         // params.put("org_id", user.getOrg().getId());
         params.put("server_id", server.getId());
         return m.execute(params);

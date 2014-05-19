@@ -128,7 +128,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
 
         WriteMode m = ModeFactory.getWriteMode("test_queries",
             "insert_into_time_series");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("entry_time", new Long(1));
         params.put("data", testString);
         params.put("probe_desc", "hmmm");

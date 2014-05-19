@@ -60,7 +60,7 @@ public class ActivationKeyChildChannelsAction extends RhnAction {
         DynaActionForm form = (DynaActionForm) formIn;
 
         ActivationKey key = context.lookupAndBindActivationKey();
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         String fwd = RhnHelper.DEFAULT_FORWARD;
 
         request.setAttribute("description", key.getNote());
@@ -136,7 +136,7 @@ public class ActivationKeyChildChannelsAction extends RhnAction {
     private static DataResult getPossibleChannels(User user, Long tokenId) {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                                            "activation_key_child_channels");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("token_id", tokenId);
         DataResult list = m.execute(params);

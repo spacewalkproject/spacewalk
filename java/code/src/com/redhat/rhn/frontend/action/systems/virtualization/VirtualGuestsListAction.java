@@ -131,7 +131,7 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
                                        HttpServletRequest request,
                                        HttpServletResponse response,
                                        String dispatchAction) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         params = makeParamMap(formIn, request);

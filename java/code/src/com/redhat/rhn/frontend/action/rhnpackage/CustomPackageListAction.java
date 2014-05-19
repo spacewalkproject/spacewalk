@@ -82,7 +82,7 @@ public class CustomPackageListAction extends RhnAction {
         "channel.jsp.manage.package.delete");
         if (button.equals(request.getParameter(RhnHelper.CONFIRM_FORWARD)) &&
             set.size() > 0) {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             return getStrutsDelegate().forwardParams(
                                 mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
         }

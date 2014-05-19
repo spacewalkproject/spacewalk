@@ -53,7 +53,7 @@ public class CrashFactory extends HibernateFactory {
      * @return the Crash found
      */
     public static Crash lookupById(Long id) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
         return (Crash) singleton.lookupObjectByNamedQuery(
                 "Crash.findById", params);
@@ -73,7 +73,7 @@ public class CrashFactory extends HibernateFactory {
      * @return the CrashFile found
      */
     public static CrashFile lookupCrashFileById(Long id) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
         return (CrashFile) singleton.lookupObjectByNamedQuery(
                 "CrashFile.findById", params);
@@ -87,7 +87,7 @@ public class CrashFactory extends HibernateFactory {
      */
     public static CrashNote lookupCrashNoteByIdAndCrash(Long crashNoteIdIn,
             Crash crashIn) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", crashNoteIdIn);
         params.put("crash", crashIn);
         return (CrashNote) singleton.lookupObjectByNamedQuery(
@@ -99,7 +99,7 @@ public class CrashFactory extends HibernateFactory {
      * @return Crash note for given id
      */
     public static CrashNote lookupCrashNoteById(Long crashNoteId) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", crashNoteId);
         return (CrashNote) singleton.lookupObjectByNamedQuery(
                 "CrashNote.findById", params);
@@ -111,7 +111,7 @@ public class CrashFactory extends HibernateFactory {
      * @return crash notes for given crash
      */
     public static List<CrashNote> listCrashNotesByCrash(Crash crashIn) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("crash", crashIn);
         return singleton.listObjectsByNamedQuery(
                 "CrashNote.listByCrash", params);
@@ -143,7 +143,7 @@ public class CrashFactory extends HibernateFactory {
                                                                        Org orgIn) {
         SelectMode m = ModeFactory.getMode("Crash_queries",
                                            "list_identical_crashes_for_org");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", userIn.getId());
         params.put("org_id", orgIn.getId());
         return m.execute(params);
@@ -161,7 +161,7 @@ public class CrashFactory extends HibernateFactory {
                                                            String uuidIn) {
         SelectMode m = ModeFactory.getMode("Crash_queries",
                                            "list_crash_details_for_uuid");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", userIn.getId());
         params.put("org_id", orgIn.getId());
         params.put("uuid", uuidIn);
@@ -180,7 +180,7 @@ public class CrashFactory extends HibernateFactory {
                                                          String uuidIn) {
         SelectMode m = ModeFactory.getMode("Crash_queries",
                                            "list_systems_for crash_uuid");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", userIn.getId());
         params.put("org_id", orgIn.getId());
         params.put("uuid", uuidIn);

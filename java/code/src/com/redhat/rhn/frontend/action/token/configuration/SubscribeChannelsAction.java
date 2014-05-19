@@ -63,7 +63,7 @@ public class SubscribeChannelsAction extends BaseListAction {
             helper.destroy();
             return af;
         }
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.TOKEN_ID, key.getToken().getId().toString());
         params.put(WIZARD_MODE, "true");
         params.put(DECL, helper.getDecl());

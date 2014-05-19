@@ -100,7 +100,7 @@ public class ErrataFactory extends HibernateFactory {
      * @return List of package ids
      */
     public static List<Long> listErrataChannelPackages(Long cid, Long eid) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("channel_id", cid);
         params.put("errata_id", eid);
         DataResult<ErrataPackageFile> dr = executeSelectMode(
@@ -751,7 +751,7 @@ public class ErrataFactory extends HibernateFactory {
     public static List lookupByCVE(String cve) {
         List retval = new LinkedList();
         SelectMode mode = ModeFactory.getMode("Errata_queries", "erratas_for_cve");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("cve", cve);
         List result = mode.execute(params);
         Session session = HibernateFactory.getSession();
@@ -975,7 +975,7 @@ public class ErrataFactory extends HibernateFactory {
      * @return the requested errata file object
      */
     public static List<ErrataFile> lookupErrataFile(Errata errata, Package pack) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("errata", errata);
         params.put("package", pack);
         return  singleton.listObjectsByNamedQuery(
@@ -989,7 +989,7 @@ public class ErrataFactory extends HibernateFactory {
      * @return a list of ErrataOverview that match the given errata ids.
      */
     public static List<ErrataOverview> search(List eids, Org org) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("eids", eids);
         params.put("org_id", org.getId());
         List results = singleton.listObjectsByNamedQuery(
@@ -1020,7 +1020,7 @@ public class ErrataFactory extends HibernateFactory {
      * ids.
      */
     public static List<ErrataOverview> searchByPackageIds(List pids) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("pids", pids);
         if (log.isDebugEnabled()) {
             log.debug("pids = " + pids);
@@ -1074,7 +1074,7 @@ public class ErrataFactory extends HibernateFactory {
      * ids.
      */
     public static List<ErrataOverview> searchByPackageIdsWithOrg(List pids, Org org) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("pids", pids);
         params.put("org_id", org.getId());
         if (log.isDebugEnabled()) {

@@ -62,7 +62,7 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
         DynaActionForm f = (DynaActionForm) actionForm;
         RequestContext requestContext = new RequestContext(request);
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.CID, requestContext.getRequiredParam(RequestContext.CID));
         params.put(RequestContext.MODE,
                 requestContext.getRequiredParamAsString(RequestContext.MODE));

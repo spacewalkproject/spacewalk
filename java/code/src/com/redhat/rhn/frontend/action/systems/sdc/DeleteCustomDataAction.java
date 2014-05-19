@@ -65,7 +65,7 @@ public class DeleteCustomDataAction extends RhnAction {
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         CustomDataKey key = OrgFactory.lookupKeyById(cikid);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         params.put(RequestContext.SID, request.getParameter(RequestContext.SID));

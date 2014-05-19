@@ -84,7 +84,7 @@ public class KickstartCloneAction extends RhnAction {
                         createSuccessMessage(request, "kickstart.clone.success", null);
                         request.setAttribute(RequestContext.KICKSTART,
                                 cmd.getClonedKickstart());
-                        Map params = new HashMap();
+                        Map<String, Object> params = new HashMap<String, Object>();
                         params.put(RequestContext.KICKSTART_ID,
                                 cmd.getClonedKickstart().getId());
                         return strutsDelegate.forwardParams(mapping.findForward("success"),

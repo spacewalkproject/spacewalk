@@ -60,7 +60,7 @@ public class DuplicateSystemsCompareAction extends RhnAction implements Listable
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(KEY, context.getRequiredParamAsString(KEY));
         params.put(KEY_TYPE, context.getRequiredParamAsString(KEY_TYPE));
         request.setAttribute("maxLimit", MAX_LIMIT);

@@ -89,7 +89,7 @@ public class ChannelPackagesAddAction extends ChannelPackagesBaseAction {
         "channel.jsp.package.addbutton");
         if (button.equals(request.getParameter(RhnHelper.CONFIRM_FORWARD)) &&
             set.size() > 0) {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("cid", cid);
             return getStrutsDelegate().forwardParams(
                                 mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);

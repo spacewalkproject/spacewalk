@@ -134,7 +134,7 @@ public class InstallPatchSetAction extends LookupDispatchAction {
     protected Map makeParamMap(HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         Long sid = requestContext.getParamAsLong("sid");
         Long pid = requestContext.getParamAsLong("pid");
 

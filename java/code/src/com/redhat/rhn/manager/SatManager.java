@@ -51,7 +51,7 @@ public class SatManager extends BaseManager {
      */
     public static List getActiveSatAdmins() {
         SelectMode m = ModeFactory.getMode("User_queries", "active_sat_admins");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         DataResult dr = m.execute(params);
         if (dr == null) {
             return Collections.EMPTY_LIST;

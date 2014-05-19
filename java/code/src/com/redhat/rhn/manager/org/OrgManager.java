@@ -118,7 +118,7 @@ public class OrgManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Org_queries", "trusted_orgs");
 
         Long orgIdIn = user.getOrg().getId();
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIdIn);
 
         return DataList.getDataList(m, params,
@@ -143,7 +143,7 @@ public class OrgManager extends BaseManager {
             throw pex;
         }
         SelectMode m = ModeFactory.getMode("Org_queries", "trust_overview");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIdIn);
         return DataList.getDataList(m, params, Collections.EMPTY_MAP);
     }
@@ -155,7 +155,7 @@ public class OrgManager extends BaseManager {
      */
     public static DataList<MultiOrgUserOverview> activeUsers(Long orgIdIn) {
         SelectMode m = ModeFactory.getMode("User_queries", "users_in_multiorg");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIdIn);
         return DataList.getDataList(m, params, Collections.EMPTY_MAP);
     }
@@ -169,7 +169,7 @@ public class OrgManager extends BaseManager {
     public static DataList<OrgChannelDto> orgChannelTrusts(Long cid, Org org) {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                 "protected_trust_channel");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", org.getId());
         params.put("cid", cid);
         return DataList.getDataList(m, params, Collections.EMPTY_MAP);
@@ -204,7 +204,7 @@ public class OrgManager extends BaseManager {
     public static DataList allOrgsSingleEntitlement(String entLabel) {
         SelectMode m = ModeFactory.getMode("Org_queries",
                 "get_org_entitlement_counts");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("label", entLabel);
         return DataList.getDataList(m, params,
                 Collections.EMPTY_MAP);
@@ -305,7 +305,7 @@ public class OrgManager extends BaseManager {
     public static DataList getSatEntitlementUsage(String entLabel) {
         SelectMode m = ModeFactory.getMode("Org_queries",
                 "get_sat_entitlement_usage");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("label", entLabel);
         return DataList.getDataList(m, params,
                 Collections.EMPTY_MAP);

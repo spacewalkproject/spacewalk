@@ -55,7 +55,7 @@ public class PatchInstallAction extends RhnSetAction {
                                      HttpServletRequest request,
                                      HttpServletResponse response) {
         RhnSet set = updateSet(request);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         if (set.isEmpty()) {

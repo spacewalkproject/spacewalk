@@ -138,7 +138,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         // for package search, we need to insert an entry into rhnVisibleObjects
         WriteMode mode = ModeFactory.getWriteMode(
                 "test_queries", "insert_into_visibleobjects");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         //"sessionid, obj_id, obj_type"
         params.put("sessionid", session.getId());
         params.put("obj_id", e.getId());

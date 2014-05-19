@@ -89,7 +89,7 @@ public class KickstartLister extends BaseManager {
         }
 
         SelectMode m = ModeFactory.getMode("General_queries", "kickstarts_for_org");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         Map elabParams = new HashMap();
         DataResult<KickstartDto> returnDataResult = makeDataResult(params,
@@ -113,7 +113,7 @@ public class KickstartLister extends BaseManager {
                     ", PageControl pc=" + pc + ") - start");
         }
         SelectMode m = ModeFactory.getMode("General_queries", "kickstart_trees_for_org");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         DataResult retval = makeDataResult(params, null, pc, m);
         if (logger.isDebugEnabled()) {
@@ -192,7 +192,7 @@ public class KickstartLister extends BaseManager {
         }
 
         SelectMode m = ModeFactory.getMode("General_queries", "org_ks_ip_ranges");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         Map elabParams = new HashMap();
         DataResult returnDataResult = makeDataResult(params, elabParams, pc, m);
@@ -216,7 +216,7 @@ public class KickstartLister extends BaseManager {
                     orgIn + ") - start");
         }
         SelectMode m = ModeFactory.getMode("General_queries", "crypto_keys_for_org");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         DataResult returnDataResult = makeDataResult(params, new HashMap(), null, m);
         if (logger.isDebugEnabled()) {
@@ -238,7 +238,7 @@ public class KickstartLister extends BaseManager {
         }
 
         SelectMode m = ModeFactory.getMode("General_queries", "preservations_for_org");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         DataResult returnDataResult = makeDataResult(params, new HashMap(), pc, m);
 
@@ -264,7 +264,7 @@ public class KickstartLister extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("General_queries",
                                            "activation_keys_for_org");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         DataResult <ActivationKeyDto>  returnDataResult = makeDataResult(params,
                                                     Collections.EMPTY_MAP, pc, m);
@@ -290,7 +290,7 @@ public class KickstartLister extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("General_queries",
                                            "active_activation_keys_for_org");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         DataResult returnDataResult = makeDataResult(params, new HashMap(), pc, m);
 
@@ -315,7 +315,7 @@ public class KickstartLister extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("General_queries",
                                            "systems_currently_kickstarted_for_org");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         DataResult returnDataResult = makeDataResult(params, new HashMap(), pc, m);
         if (logger.isDebugEnabled()) {
@@ -339,7 +339,7 @@ public class KickstartLister extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("General_queries",
                                      "systems_scheduled_tobe_kickstarted_for_org");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         DataResult returnDataResult = makeDataResult(params, new HashMap(), pc, m);
         if (logger.isDebugEnabled()) {
@@ -364,7 +364,7 @@ public class KickstartLister extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("General_queries",
                                      "kickstart_summary_for_org");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         DataResult returnDataResult = makeDataResultNoPagination(params,
                                                                  new HashMap(), m);
@@ -388,7 +388,7 @@ public class KickstartLister extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("General_queries",
                                      "valid_timezones_for_kickstart_profile");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("ksid", ksId);
         DataResult returnDataResult = makeDataResultNoPagination(params,
                                                                  new HashMap(), m);

@@ -641,7 +641,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 return runFirst(mapping, form, ctx, response, step);
             }
         }
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.SID, form.get(RequestContext.SID));
 
         if (cmd.isCobblerOnly()) {
@@ -685,7 +685,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         User user = ctx.getCurrentUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.SID, sid);
 
         log.debug("Creating cobbler system record");

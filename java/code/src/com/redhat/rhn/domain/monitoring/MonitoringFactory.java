@@ -78,7 +78,7 @@ public class MonitoringFactory extends HibernateFactory {
      */
     public static Probe lookupProbeByIdAndOrg(Long probeId, Org org) {
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", probeId);
         params.put("orgId", org.getId());
         return (Probe) singleton.lookupObjectByNamedQuery(
@@ -109,7 +109,7 @@ public class MonitoringFactory extends HibernateFactory {
         if (psId == null || orgIn == null) {
             throw new IllegalArgumentException("Probe ID or Org are null");
         }
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("psid", psId);
         params.put("orgId", orgIn.getId());
         return (ProbeSuite) singleton.lookupObjectByNamedQuery(
@@ -167,7 +167,7 @@ public class MonitoringFactory extends HibernateFactory {
      * <code>null</code> if no such command exists.
      */
     public static Command lookupCommand(String name) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", name);
         return (Command)
             singleton.lookupObjectByNamedQuery("Command.findByName", params, true);
@@ -175,7 +175,7 @@ public class MonitoringFactory extends HibernateFactory {
 
     // Util to lookup the probetypes
     static ProbeType lookupProbeType(String type) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("type", type);
         return (ProbeType)
             singleton.lookupObjectByNamedQuery("ProbeType.findByType", params, true);

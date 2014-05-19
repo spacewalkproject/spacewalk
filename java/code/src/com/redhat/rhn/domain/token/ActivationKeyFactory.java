@@ -267,7 +267,7 @@ public class ActivationKeyFactory extends HibernateFactory {
      * @return list of kickstartData objects
      */
     public static List<KickstartData> listAssociatedKickstarts(ActivationKey key) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("token", key.getToken());
         return singleton.listObjectsByNamedQuery("ActivationKey.listAssociatedKickstarts",
                                                                                     params);

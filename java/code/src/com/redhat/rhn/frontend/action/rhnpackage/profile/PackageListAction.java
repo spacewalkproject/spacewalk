@@ -59,7 +59,7 @@ public class PackageListAction extends RhnAction implements Listable {
             request.setAttribute("profile", profile);
         }
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.PRID, context.getRequiredParam(RequestContext.PRID));
         ListHelper helper = new ListHelper(this, request, params);
         helper.setDataSetName(RequestContext.PAGE_LIST);

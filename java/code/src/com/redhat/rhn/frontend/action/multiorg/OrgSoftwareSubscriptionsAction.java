@@ -67,7 +67,7 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
         Org org = OrgFactory.lookupById(oid);
         request.setAttribute("org", org);
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.ORG_ID, oid);
         ListHelper helper = new ListHelper(this, request, params);
         helper.execute();

@@ -190,7 +190,7 @@ public class ErrataSetupAction extends RhnAction implements Listable {
                                      HttpServletRequest request,
                                      HttpServletResponse response) {
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
 
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();

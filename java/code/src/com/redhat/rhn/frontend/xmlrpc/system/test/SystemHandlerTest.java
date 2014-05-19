@@ -2192,7 +2192,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         WriteMode m = ModeFactory.getWriteMode("test_queries",
         "insert_into_rhnServerPath");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("server_id", server.getId());
         params.put("proxy_server_id", proxy1.getId());
         params.put("proxy_hostname", proxy1.getName());

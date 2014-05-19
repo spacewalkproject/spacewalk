@@ -365,7 +365,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         WriteMode m =
             ModeFactory.
                 getWriteMode("test_queries", "insert_into_rhnServerNeededPackageCache");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("package_id", packageId);
         params.put("server_id", serverId);
         params.put("errata_id", errataId);

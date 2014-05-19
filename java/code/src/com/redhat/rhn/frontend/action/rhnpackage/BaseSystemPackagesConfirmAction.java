@@ -208,7 +208,7 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
         }
 
         strutsDelegate.saveMessages(request, msgs);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         processParamMap(formIn, request, params);
         return strutsDelegate.forwardParams(
                                 mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);

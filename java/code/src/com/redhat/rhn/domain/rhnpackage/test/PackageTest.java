@@ -214,7 +214,7 @@ public class PackageTest extends RhnBaseTestCase {
         WriteMode m =
             ModeFactory.
             getWriteMode("test_queries", "insert_into_rhnChannelNewestPackage");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("channel_id", c.getId());
         params.put("name_id", p.getPackageName().getId());
         params.put("evr_id", p.getPackageEvr().getId());

@@ -69,7 +69,7 @@ public class UpdateCustomDataAction extends RhnAction {
         User loggedInUser = context.getCurrentUser();
         Long sid = context.getRequiredParam(RequestContext.SID);
         Server server = SystemManager.lookupByIdAndUser(sid, loggedInUser);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         params.put(RequestContext.SID, request.getParameter(RequestContext.SID));

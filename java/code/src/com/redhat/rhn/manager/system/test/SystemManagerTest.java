@@ -624,7 +624,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
         WriteMode m = ModeFactory.getWriteMode("test_queries",
                                                     "add_to_client_capabilities");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
         params.put("capability", capability);
         params.put("version", version);

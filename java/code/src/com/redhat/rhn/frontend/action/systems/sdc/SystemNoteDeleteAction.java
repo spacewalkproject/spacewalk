@@ -58,7 +58,7 @@ public class SystemNoteDeleteAction extends RhnAction {
         Server server = SystemManager.lookupByIdAndUser(sid, loggedInUser);
         Note note = SystemManager.lookupNoteByIdAndSystem(loggedInUser, nid, sid);
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
 
         if (isSubmitted(daForm)) {
             SystemManager.deleteNote(loggedInUser, sid, nid);

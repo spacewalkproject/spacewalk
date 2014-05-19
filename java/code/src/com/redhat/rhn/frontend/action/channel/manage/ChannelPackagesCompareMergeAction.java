@@ -85,7 +85,7 @@ public class ChannelPackagesCompareMergeAction extends ChannelPackagesCompareAct
         //actually do anything else, so lets go ahead and forward and save some time
         if (requestContext.wasDispatched("channel.jsp.package.mergebutton") &&
             set.size() > 0) {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(RequestContext.CID, cid);
             return getStrutsDelegate().forwardParams(
                                  mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);

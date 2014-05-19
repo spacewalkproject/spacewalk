@@ -84,7 +84,7 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
                 // ServerProbe created and saved
                 createSuccessMessage(req, "probecreate.created",
                         cmd.getProbe().getDescription());
-                Map params = new HashMap();
+                Map<String, Object> params = new HashMap<String, Object>();
                 addSuccessParams(ctx, params, cmd.getProbe());
                 return getStrutsDelegate().forwardParams(mapping.findForward("success"),
                         params);

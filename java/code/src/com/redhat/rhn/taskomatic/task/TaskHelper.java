@@ -130,7 +130,7 @@ public class TaskHelper {
      */
     private static List<String> getActiveOrgAdminEmails(Integer orgId) {
         SelectMode m = ModeFactory.getMode("User_queries", "active_org_admin_emails");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
         DataResult<Map> dr = m.execute(params);
         List toReturn = new ArrayList<String>();

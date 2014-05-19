@@ -67,7 +67,7 @@ public class SoftwareCrashesDeleteAction extends RhnAction {
         if (ctx.isSubmitted()) {
             CrashManager.deleteCrash(user, crashId);
             createSuccessMessage(request, "message.crashdeleted", crash.getCrash());
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("sid", crash.getServer().getId());
             return getStrutsDelegate().forwardParams(mapping.findForward("delete"),
                     params);

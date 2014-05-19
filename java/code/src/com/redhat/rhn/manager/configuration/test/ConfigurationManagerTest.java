@@ -324,7 +324,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         assertNotNull(dr);
         assertEquals(5, dr.getTotalSize());
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("ccid", gcc1.getId());
         params.put("cfnid", theFile.getConfigFileName().getId());
         dr.elaborate(params);

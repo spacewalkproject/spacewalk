@@ -107,7 +107,7 @@ public class PackageIndexAction extends LookupDispatchAction {
     }
 
     protected Map getKeyMethodMap() {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("packagesindex.jsp.update", "update");
         return params;
     }

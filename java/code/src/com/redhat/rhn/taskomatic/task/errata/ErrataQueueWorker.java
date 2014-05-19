@@ -90,7 +90,7 @@ class ErrataQueueWorker implements QueueWorker {
 
             WriteMode marker = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATA_QUEUE_ENQUEUE_SAT_ERRATA);
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("errata_id", errataId);
             params.put("minutes", new Long(0));
             params.put("channel_id", channelId);
@@ -138,7 +138,7 @@ class ErrataQueueWorker implements QueueWorker {
         HibernateFactory.getSession();
         SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATA_QUEUE_FIND_AUTOUPDATE_SERVERS);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("channel_id", chan.getId());
         params.put("errata_id", errata.getId());
         List results = select.execute(params);

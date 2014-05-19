@@ -97,7 +97,7 @@ public class ShowProfileAction extends RhnAction {
 
         User user = new RequestContext(request).getCurrentUser();
         RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC.clear(user);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", request.getParameter("sid"));
         params.put("sid_1", f.get("server"));
         return getStrutsDelegate().forwardParams(mapping.findForward("comparesystems"),
@@ -109,7 +109,7 @@ public class ShowProfileAction extends RhnAction {
             HttpServletResponse response) {
         User user = new RequestContext(request).getCurrentUser();
         RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC.clear(user);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", request.getParameter("sid"));
         params.put("prid", f.get("profile"));
         return getStrutsDelegate().forwardParams(mapping.findForward("compareprofiles"),
@@ -119,7 +119,7 @@ public class ShowProfileAction extends RhnAction {
     private ActionForward create(ActionMapping mapping, DynaActionForm f,
             HttpServletRequest request, HttpServletResponse response) {
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", request.getParameter("sid"));
         return getStrutsDelegate().forwardParams(mapping.findForward("create"),
                 params);

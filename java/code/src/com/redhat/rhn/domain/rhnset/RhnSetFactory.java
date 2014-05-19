@@ -63,7 +63,7 @@ public class RhnSetFactory extends HibernateFactory {
      * @return the RhnSet which matched the given uid and label.
      */
     public static RhnSet lookupByLabel(Long uid, String label, SetCleanup cleanup) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", uid);
         params.put("label", label);
         SelectMode m = ModeFactory.getMode(CATALOG, "lookup_set");

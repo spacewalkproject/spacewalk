@@ -105,7 +105,7 @@ public class DeleteChannelAction extends RhnAction {
                 if (dr.size() > 0) {
                     prefillRhnSetWithElements(RhnSetDecl.DELETABLE_PACKAGE_LIST.get(user),
                             dr.iterator());
-                    Map params = new HashMap();
+                    Map<String, Object> params = new HashMap<String, Object>();
                     params.put("selected_channel", "all_managed_packages");
                     params.put("forwarded", "true");
                     return getStrutsDelegate().forwardParams(

@@ -170,7 +170,7 @@ public class ActionFactory extends HibernateFactory {
     public static void removeActionForSystem(Number actionId, Number sid) {
         CallableMode mode =
                 ModeFactory.getCallableMode("System_queries", "delete_action_for_system");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("action_id", actionId);
         params.put("server_id",  sid);
         mode.execute(params, new HashMap());
@@ -405,7 +405,7 @@ public class ActionFactory extends HibernateFactory {
      * @return the Action found
      */
     public static Action lookupByUserAndId(User user, Long id) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("aid", id);
         params.put("orgId", user.getOrg().getId());
         return (Action)singleton.lookupObjectByNamedQuery(
@@ -422,7 +422,7 @@ public class ActionFactory extends HibernateFactory {
      */
     public static Integer getServerActionCountByStatus(Org org, Action action,
             ActionStatus status) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("aid", action.getId());
         params.put("stid", status.getId());
         return (Integer)singleton.lookupObjectByNamedQuery(
@@ -444,7 +444,7 @@ public class ActionFactory extends HibernateFactory {
     public static Action lookupLastCompletedAction(User user,
             ActionType type,
             Server server) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", user.getId());
         params.put("actionTypeId", type.getId());
         params.put("serverId", server.getId());
@@ -641,7 +641,7 @@ public class ActionFactory extends HibernateFactory {
      * @return List of Action objects
      */
     public static List listActionsForServer(User user, Server serverIn) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("orgId", user.getOrg().getId());
         params.put("server", serverIn);
         return singleton.listObjectsByNamedQuery(
@@ -654,7 +654,7 @@ public class ActionFactory extends HibernateFactory {
      * @return List of ServerAction objects
      */
     public static List listServerActionsForServer(Server serverIn) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("server", serverIn);
         return singleton.listObjectsByNamedQuery(
                 "ServerAction.findByServer", params);
@@ -668,7 +668,7 @@ public class ActionFactory extends HibernateFactory {
      */
     public static ServerAction getServerActionForServerAndAction(Server serverIn,
             Action actionIn) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("server", serverIn);
         params.put("action", actionIn);
         return (ServerAction) singleton.lookupObjectByNamedQuery(
@@ -705,7 +705,7 @@ public class ActionFactory extends HibernateFactory {
      * @return history event
      */
     public static ServerHistoryEvent lookupHistoryEventById(Long aid) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", aid);
         return (ServerHistoryEvent) singleton.lookupObjectByNamedQuery(
                 "ServerHistory.lookupById", params);

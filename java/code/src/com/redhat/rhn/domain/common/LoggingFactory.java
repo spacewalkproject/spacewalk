@@ -53,7 +53,7 @@ public class LoggingFactory extends HibernateFactory {
      * @param userId user id
      */
     public static void setLogAuth(Long userId) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", userId.intValue());
         executeCallableMode("Logging_queries", "set_log_auth", params);
     }
@@ -67,7 +67,7 @@ public class LoggingFactory extends HibernateFactory {
         Long userId = null;
         SelectMode m = ModeFactory.getMode("Logging_queries",
                 "get_log_user_id");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("login", login);
         for (Iterator<Map> iter = m.execute(params).iterator(); iter.hasNext();) {
             userId = (Long) iter.next().get("id");

@@ -82,7 +82,7 @@ public class SoftwareCrashesAction extends RhnAction implements Listable {
       }
       createSuccessMessage(ctx.getRequest(), "message.crashesdeleted",
               Integer.toString(set.size()));
-      Map params = new HashMap();
+      Map<String, Object> params = new HashMap<String, Object>();
       params.put("sid", server.getId());
       return getStrutsDelegate().forwardParams(mapping.findForward("delete"),
               params);

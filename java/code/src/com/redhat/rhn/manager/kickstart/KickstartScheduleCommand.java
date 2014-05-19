@@ -394,7 +394,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 log.debug("getKickstartProfiles(): hostServer.baseChannel isnt null");
                 ChannelArch arch = baseChannel.getChannelArch();
                 SelectMode mode = getMode();
-                Map params = new HashMap();
+                Map<String, Object> params = new HashMap<String, Object>();
                 params.put("org_id", this.user.getOrg().getId());
                 params.put("prim_arch_id", arch.getId());
                 if (arch.getName().equals("x86_64")) {
@@ -450,7 +450,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (getTargetServer() != null) {
             SelectMode mode = ModeFactory.getMode("System_queries",
                     "proxy_path_for_server");
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("sid", getTargetServer().getId().toString());
             retval = mode.execute(params);
         }

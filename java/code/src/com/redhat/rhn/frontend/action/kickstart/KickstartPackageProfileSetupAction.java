@@ -76,7 +76,7 @@ public class KickstartPackageProfileSetupAction extends RhnAction implements Lis
                                 context.getCurrentUser().getOrg());
                 ks.getKickstartDefaults().setProfile(prof);
 
-                Map params = new HashMap();
+                Map<String, Object> params = new HashMap<String, Object>();
                 params.put("ksid", ks.getId());
                 getStrutsDelegate().saveMessage(UPDATE_METHOD, request);
                 return getStrutsDelegate().forwardParams(mapping.findForward("success"),
@@ -87,7 +87,7 @@ public class KickstartPackageProfileSetupAction extends RhnAction implements Lis
             ks.getKickstartDefaults().setProfile(null);
             KickstartFactory.saveKickstartData(ks);
             request.setAttribute("ksid", ks.getId());
-                Map params = new HashMap();
+                Map<String, Object> params = new HashMap<String, Object>();
                 params.put("ksid", ks.getId());
                 getStrutsDelegate().saveMessage(CLEAR_METHOD, request);
                 return getStrutsDelegate().forwardParams(mapping.findForward("success"),

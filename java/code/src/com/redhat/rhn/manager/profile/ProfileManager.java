@@ -137,7 +137,7 @@ public class ProfileManager extends BaseManager {
     public static void copyFrom(Server server, Profile profile) {
         WriteMode m = ModeFactory.getWriteMode("profile_queries",
                 "delete_package_profile");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", server.getId());
         params.put("prid", profile.getId());
         m.executeUpdate(params);
@@ -165,7 +165,7 @@ public class ProfileManager extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("Package_queries",
                 "profile_canonical_package_list");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("prid", prid);
         params.put("org_id", orgid);
         Map elabParams = new HashMap();
@@ -177,7 +177,7 @@ public class ProfileManager extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("Package_queries",
                 "system_canonical_package_list");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
         params.put("org_id", orgid);
         Map elabParams = new HashMap();
@@ -1075,7 +1075,7 @@ public class ProfileManager extends BaseManager {
     private static DataResult getPackagesInChannelByIdCombo(Long cid) {
         SelectMode m = ModeFactory.getMode("Package_queries",
                 "packages_in_channel_by_id_combo");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         Map elabParams = new HashMap();
         params.put("cid", cid);
         DataResult dr = makeDataResult(params, elabParams, null, m);
@@ -1261,7 +1261,7 @@ public class ProfileManager extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("profile_queries", "profile_overview");
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
         Map elabParams = new HashMap();
 
@@ -1278,7 +1278,7 @@ public class ProfileManager extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("profile_queries", "profile_package_overview");
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("prid", profileId);
         Map elabParams = new HashMap();
 
@@ -1319,7 +1319,7 @@ public class ProfileManager extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("profile_queries",
                 "compatible_with_channel");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         params.put("cid", channelIn.getId());
         return  makeDataResult(params, new HashMap(), pc, m);

@@ -99,7 +99,7 @@ public class ChannelPackagesCompareMergeConfirmAction extends ChannelPackagesCom
             set.clear();
             RhnSetManager.store(set);
 
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(RequestContext.CID, cid);
             return getStrutsDelegate().forwardParams(mapping.findForward("complete"),
                     params);

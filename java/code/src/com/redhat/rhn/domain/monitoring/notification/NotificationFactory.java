@@ -118,7 +118,7 @@ public class NotificationFactory extends HibernateFactory {
      * @return Filter if found, null if not
      */
     public static Filter lookupFilter(Long id, User currentUser) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("fid", id);
         params.put("orgId", currentUser.getOrg().getId());
         return (Filter) singleton.lookupObjectByNamedQuery(
@@ -228,7 +228,7 @@ public class NotificationFactory extends HibernateFactory {
      * @return Method if found.
      */
     public static Method lookupMethodByNameAndUser(String methodName, Long userId) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", methodName);
         params.put("userId", userId);
         return (Method) singleton.lookupObjectByNamedQuery(
@@ -252,7 +252,7 @@ public class NotificationFactory extends HibernateFactory {
      * @return ContactGroup found.  Null if not
      */
     public static ContactGroup lookupContactGroupByName(String methodName) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", methodName);
         return (ContactGroup) singleton.lookupObjectByNamedQuery(
                                        "ContactGroup.findByName", params);

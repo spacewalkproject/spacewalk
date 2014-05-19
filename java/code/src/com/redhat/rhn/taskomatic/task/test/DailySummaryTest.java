@@ -42,7 +42,7 @@ public class DailySummaryTest extends RhnBaseTestCase {
 
         WriteMode m = ModeFactory.getWriteMode("test_queries",
                 "insert_into_daily_summary_queue");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", oid);
         rows = m.executeUpdate(params);
         assertEquals(1, rows);

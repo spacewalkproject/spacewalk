@@ -187,7 +187,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
 
         WriteMode m = ModeFactory.getWriteMode("test_queries",
                 "insert_into_time_series");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
         params.put("probe_id", probeId);
         params.put("probe_desc", metric);
@@ -220,7 +220,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         throws Exception {
         WriteMode m = ModeFactory.getWriteMode("test_queries",
                 "insert_into_state_change");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         // oid == probe id
         params.put("oid", probeIn.getId());
         // Get the default MEDIUM/SHORT DateFormat

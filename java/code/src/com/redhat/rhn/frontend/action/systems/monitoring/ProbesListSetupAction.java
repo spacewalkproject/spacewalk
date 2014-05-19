@@ -58,7 +58,7 @@ public class ProbesListSetupAction extends RhnAction implements Listable {
         helper.execute();
 
         if (helper.isDispatched()) {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("sid", server.getId());
             return getStrutsDelegate().forwardParams(
                     actionMapping.findForward("continue"), params);

@@ -104,7 +104,7 @@ public class ServletUtilsTest extends MockObjectTestCase {
     }
 
     public void testPathWithParams() {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("a", new Object[] { new Integer(1), new Integer(3) });
         params.put("b", new Integer(2));
 
@@ -120,28 +120,28 @@ public class ServletUtilsTest extends MockObjectTestCase {
     }
 
     public void testPathWithParamsValueUrlEncoding() {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("key", "some; value&");
         String result = ServletUtils.pathWithParams("/foo", params);
         assertEquals("/foo?key=some%3B+value%26", result);
     }
 
     public void testPathWithParamsNullValue() {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("key", null);
         String result = ServletUtils.pathWithParams("/foo", params);
         assertEquals("/foo", result);
     }
 
     public void testPathWithParamsArrayValueUrlEncoding() {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("key", new Object[] {"value;", "value&", "$", "normal"});
         String result = ServletUtils.pathWithParams("/foo", params);
         assertEquals("/foo?key=value%3B&key=value%26&key=%24&key=normal", result);
     }
 
     public void testPathWithParamsListValue() {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         List values = new ArrayList();
         values.add("value;");
         values.add("value&");
@@ -154,14 +154,14 @@ public class ServletUtilsTest extends MockObjectTestCase {
     }
 
     public void testPathWithParamsKeyUrlEncoding() {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("a;", "somevalue");
         String result = ServletUtils.pathWithParams("/foo", params);
         assertEquals("/foo?a%3B=somevalue", result);
     }
 
     public void testPathWithParamsKeyArrayUrlEncoding() {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("a;", new Object[] {"1", "2", "3"});
         String result = ServletUtils.pathWithParams("/foo", params);
         assertEquals("/foo?a%3B=1&a%3B=2&a%3B=3", result);

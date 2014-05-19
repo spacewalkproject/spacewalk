@@ -193,7 +193,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             WriteMode m =
                 ModeFactory.
                 getWriteMode("test_queries", "insert_into_rhnServerPackage");
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("server_id", srvr.getId());
             params.put("pn_id", pn.getId());
             params.put("p_epoch", pe.getEpoch());
@@ -220,7 +220,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             WriteMode m =
                 ModeFactory.
                 getWriteMode("test_queries", "insert_into_rhnServerPackageSimple");
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("server_id", srvr.getId());
             params.put("name_id", p.getPackageName().getId());
             params.put("evr_id", p.getPackageEvr().getId());
@@ -494,7 +494,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
 
         WriteMode m = ModeFactory.getWriteMode("test_queries",
                 "insert_into_rhnPackageProvides");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("pkg_id", kickstartPkg.getId());
         params.put("capability_id", kickstartCapability.getId());
         params.put("sense_id", 8);

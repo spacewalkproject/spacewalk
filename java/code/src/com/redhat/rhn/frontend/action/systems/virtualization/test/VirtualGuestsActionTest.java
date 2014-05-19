@@ -140,7 +140,7 @@ public class VirtualGuestsActionTest extends RhnPostMockStrutsTestCase {
         assertNull(ServerFactory.lookupById(guest.getId()));
         assertNotNull(ServerFactory.lookupById(host.getId()));
         verifyActionMessage("systems.details.virt.one.virt.deleted");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", virtualInstance.getId());
         DataResult dr = TestUtils.runTestQuery("select_virtual_instance_by_id", params);
         assertTrue(dr.size() == 0);

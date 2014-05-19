@@ -53,7 +53,7 @@ public abstract class BaseSystemEditAction extends RhnAction {
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         request.setAttribute(RequestContext.SYSTEM, cmd.getServer());
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.SID, cmd.getServer().getId());
 
 

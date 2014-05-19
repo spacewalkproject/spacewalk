@@ -65,7 +65,7 @@ public class ListRemoveSystemsAction extends BaseListAction {
                     "systemgroup.systems.removed",
                         new String [] {String.valueOf(set.size()),
                             sg.getName()}, request);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.SERVER_GROUP_ID, sg.getId().toString());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         return strutsDelegate.forwardParams

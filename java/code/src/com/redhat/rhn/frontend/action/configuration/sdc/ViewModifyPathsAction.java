@@ -85,7 +85,7 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         RequestContext context = new RequestContext(request);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.SID, context.getRequiredParam(RequestContext.SID));
 
         request.setAttribute(TYPE, getType(mapping.getParameter()));
@@ -126,7 +126,7 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
         User user = context.getCurrentUser();
         Server server = context.lookupAndBindServer();
         String action = COPY_TO_GLOBAL;
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.SID, server.getId().toString());
         if (context.wasDispatched(COPY_TO_GLOBAL_KEY)) {
             updateRhnSet(helper, context.getRequest(), user);

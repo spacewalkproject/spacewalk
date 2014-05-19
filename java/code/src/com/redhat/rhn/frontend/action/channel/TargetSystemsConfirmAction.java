@@ -83,7 +83,7 @@ public class TargetSystemsConfirmAction extends RhnAction implements Listable {
                     servers.add(s);
                 }
             }
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put(RequestContext.CID, cid);
             ActionMessages msgs = new ActionMessages();
             if (servers.size() > 0) {

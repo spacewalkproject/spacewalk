@@ -140,7 +140,7 @@ public class KickstartManager extends BaseManager {
      */
     public DataResult<SystemOverview> kickstartableSystemsInSsm(User user) {
         SelectMode m = ModeFactory.getMode("System_queries", "ssm_kickstartable");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         return makeDataResult(params, Collections.EMPTY_MAP, null, m);
     }
@@ -198,7 +198,7 @@ public class KickstartManager extends BaseManager {
         DataResult ipRanges = null;
         SelectMode mode = ModeFactory.getMode("General_queries",
             "org_ks_ip_ranges_for_ip");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         params.put("ip", clientIpIn.getLongNumber());
         ipRanges = mode.execute(params);

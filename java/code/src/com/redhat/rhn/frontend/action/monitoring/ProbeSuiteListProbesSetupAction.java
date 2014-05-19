@@ -78,7 +78,7 @@ public class ProbeSuiteListProbesSetupAction extends RhnAction implements Listab
 
             createSuccessMessage(request, "probes.jsp.probesdeleted",
                     new Integer(updatedCount).toString());
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("suite_id", suite.getId());
             return getStrutsDelegate().forwardParams(mapping.findForward("remove"),
                     params);

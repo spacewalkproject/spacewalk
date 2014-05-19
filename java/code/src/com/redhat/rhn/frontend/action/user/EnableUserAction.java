@@ -80,7 +80,7 @@ public class EnableUserAction extends RhnAction {
             ActionErrors errors = new ActionErrors();
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage(e.getMessage()));
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("uid", uid);
             addErrors(request, errors);
             return getStrutsDelegate().forwardParams(mapping.findForward("failure"),

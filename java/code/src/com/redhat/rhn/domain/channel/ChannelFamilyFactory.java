@@ -90,7 +90,7 @@ public class ChannelFamilyFactory extends HibernateFactory {
      * @return the ChannelFamily found
      */
     public static ChannelFamily lookupByOrg(Org orgIn) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("orgId", orgIn.getId());
         return (ChannelFamily) singleton.lookupObjectByNamedQuery(
                                        "ChannelFamily.findByOrgId", params);
@@ -151,7 +151,7 @@ public class ChannelFamilyFactory extends HibernateFactory {
         //for which this org does not have appropriate permissions
         SelectMode m = ModeFactory.getMode("Channel_queries",
                 "families_for_org_without_permissions");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", org.getId());
         Iterator i = m.execute(params).iterator();
 

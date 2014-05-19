@@ -74,7 +74,7 @@ public class PackageFactory extends HibernateFactory {
      * @return the Package found
      */
     private static Package lookupById(Long id) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
         return (Package) singleton.lookupObjectByNamedQuery("Package.findById", params);
     }
@@ -89,7 +89,7 @@ public class PackageFactory extends HibernateFactory {
      * Channel whose id is cid.
      */
     public static boolean isPackageInChannel(Long cid, Long nameId, Long evrId) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", cid);
         params.put("name_id", nameId);
         params.put("evr_id", evrId);
@@ -153,7 +153,7 @@ public class PackageFactory extends HibernateFactory {
      * @return the PackageArch whose id matches the given id.
      */
     public static PackageArch lookupPackageArchById(Long id) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
         return (PackageArch) singleton.lookupObjectByNamedQuery("PackageArch.findById",
                 params, true);
@@ -165,7 +165,7 @@ public class PackageFactory extends HibernateFactory {
      * @return the PackageArch whose label matches the given label.
      */
     public static PackageArch lookupPackageArchByLabel(String label) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("label", label);
         return (PackageArch) singleton.lookupObjectByNamedQuery("PackageArch.findByLabel",
                 params, true);
@@ -281,7 +281,7 @@ public class PackageFactory extends HibernateFactory {
      */
     public static InstalledPackage lookupByNameAndServer(String name, Server server) {
         PackageName packName = lookupPackageName(name);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("server", server);
         params.put("name", packName);
 
@@ -390,7 +390,7 @@ public class PackageFactory extends HibernateFactory {
      * @return the key type
      */
     public static PackageKeyType lookupKeyTypeByLabel(String label) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("label", label);
         return (PackageKeyType) singleton.lookupObjectByNamedQuery(
                 "PackageKeyType.findByLabel", params);
@@ -422,7 +422,7 @@ public class PackageFactory extends HibernateFactory {
      * @return the list of package source objects
      */
     public static List<PackageSource> lookupPackageSources(Package pack) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("pack", pack);
 
         return singleton.listObjectsByNamedQuery("PackageSource.findByPackage", params);
@@ -434,7 +434,7 @@ public class PackageFactory extends HibernateFactory {
      * @return List of package objects
      */
     public static List<Package> findPackagesWithDifferentArch(Package pack) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("evr", pack.getPackageEvr());
         params.put("name", pack.getPackageName());
         params.put("arch", pack.getPackageArch());
@@ -485,7 +485,7 @@ public class PackageFactory extends HibernateFactory {
      * @return list of package providers
      */
     public static List<PackageProvider> listPackageProviders() {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         List<PackageProvider> list = singleton.listObjectsByNamedQuery(
                 "PackageProvider.listProviders", params);
         return list;
@@ -497,7 +497,7 @@ public class PackageFactory extends HibernateFactory {
      * @return the package provider
      */
     public static PackageProvider lookupPackageProvider(String name) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", name);
         PackageProvider prov = (PackageProvider) singleton.lookupObjectByNamedQuery(
                 "PackageProvider.findByName", params);
@@ -518,7 +518,7 @@ public class PackageFactory extends HibernateFactory {
      * @return the package key
      */
     public static PackageKey lookupPackageKey(String key) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("key", key);
         PackageKey prov = (PackageKey) singleton.lookupObjectByNamedQuery(
                 "PackageKey.findByKey", params);
@@ -530,7 +530,7 @@ public class PackageFactory extends HibernateFactory {
      * @return list of package key objects
      */
     public static List<PackageKey> listPackageKeys() {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         List<PackageKey> prov = singleton.listObjectsByNamedQuery("PackageKey.listKeys",
                 params);
         return prov;
@@ -546,7 +546,7 @@ public class PackageFactory extends HibernateFactory {
      */
     public static DataResult getPackagesChannelArchCompatAndOrgAccess(
             Long orgId, Long channelId, List<Long> packageIds) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
         params.put("channel_id", channelId);
         SelectMode m = ModeFactory.getMode("Package_queries",

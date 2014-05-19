@@ -126,7 +126,7 @@ public class SystemDetailsEditAction extends RhnAction {
             msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                     "kickstart.systemdetails.update.confirm"));
             getStrutsDelegate().saveMessages(request, msg);
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("ksid", ctx
                     .getRequiredParam(RequestContext.KICKSTART_ID));
             return getStrutsDelegate().forwardParams(

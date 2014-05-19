@@ -52,7 +52,7 @@ public abstract class BaseProbeEditAction extends BaseProbeAction {
             ModifyProbeCommand cmd = new ModifyProbeCommand(user, probe);
             if (editProbe(cmd, form, req)) {
                 createSuccessMessage(req, "probeedit.probesaved", probe.getDescription());
-                Map params = new HashMap();
+                Map<String, Object> params = new HashMap<String, Object>();
                 addSuccessParams(rctx, params, cmd.getProbe());
                 return getStrutsDelegate().forwardParams(mapping.findForward("success"),
                         params);

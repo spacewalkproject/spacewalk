@@ -47,7 +47,7 @@ import javax.servlet.http.HttpServletRequest;
  *  Java Side ->
  *   public class  ..... extends RhnAction implements Listable {
  *      public ActionForward execute(.....) {
- *          Map params = new HashMap();
+ *          Map<String, Object> params = new HashMap<String, Object>();
  *          params.put("foo_id", request.getParamater("foo_id"));
  *          ListHelper helper = new ListHelper(this, request, params);
  *          helper.execute();

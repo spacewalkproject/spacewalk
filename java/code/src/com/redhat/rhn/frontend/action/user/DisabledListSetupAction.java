@@ -117,7 +117,7 @@ public class DisabledListSetupAction extends RhnAction {
         User user = context.getCurrentUser();
         HttpServletRequest request = context.getRequest();
         RhnSet set =  getDecl().get(user);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
 
         //if they chose no users, return to the same page with a message
         if (set.isEmpty()) {

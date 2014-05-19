@@ -62,7 +62,7 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
                                      ActionForm formIn,
                                      HttpServletRequest request,
                                      HttpServletResponse response) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         //Put the filter string as a parameter
         params.put(RequestContext.FILTER_STRING,
                 request.getParameter(RequestContext.FILTER_STRING));
