@@ -106,7 +106,7 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
                 Channel child = (Channel) channels.get(i);
                 childchannels[i] = new ChildChannelDto(child.getId(), child.getName(),
                         s.isSubscribed(child),
-                        ChannelManager.isChannelFreeForSubscription(s, child),
+                        ChannelManager.isChannelFreeForSubscription(s.getId(), child),
                         child.isSubscribable(user.getOrg(), s));
 
                 childchannels[i].setAvailableSubscriptions(

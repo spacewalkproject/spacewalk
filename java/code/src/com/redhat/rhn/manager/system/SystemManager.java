@@ -2128,7 +2128,7 @@ public class SystemManager extends BaseManager {
         }
 
         // If channel is free for this guest, dont check avail subs
-        if (ChannelManager.isChannelFreeForSubscription(serverIn, channelIn)) {
+        if (ChannelManager.isChannelFreeForSubscription(serverIn.getId(), channelIn)) {
             return true;
         }
 

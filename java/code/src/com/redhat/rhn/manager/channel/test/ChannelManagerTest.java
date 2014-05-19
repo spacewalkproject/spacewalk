@@ -543,12 +543,12 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         Server guest = (s.getGuests().iterator().next()).getGuestSystem();
         Channel b1 = ChannelTestUtils.createTestChannel(user);
         Channel b2 = ChannelTestUtils.createTestChannel(user);
-        assertFalse(ChannelManager.isChannelFreeForSubscription(s, b1));
-        assertFalse(ChannelManager.isChannelFreeForSubscription(s, b2));
+        assertFalse(ChannelManager.isChannelFreeForSubscription(s.getId(), b1));
+        assertFalse(ChannelManager.isChannelFreeForSubscription(s.getId(), b2));
 
         b1.getChannelFamily().addVirtSubscriptionLevel(
                 CommonConstants.getVirtSubscriptionLevelFree());
-        assertTrue(ChannelManager.isChannelFreeForSubscription(guest, b1));
+        assertTrue(ChannelManager.isChannelFreeForSubscription(guest.getId(), b1));
 
         b2.getChannelFamily().addVirtSubscriptionLevel(
                 CommonConstants.getVirtSubscriptionLevelPlatformFree());
@@ -559,11 +559,11 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
                 EntitlementManager.VIRTUALIZATION);
         SystemManager.entitleServer(s, EntitlementManager.VIRTUALIZATION_PLATFORM);
 
-        assertTrue(ChannelManager.isChannelFreeForSubscription(guest, b2));
+        assertTrue(ChannelManager.isChannelFreeForSubscription(guest.getId(), b2));
 
         // Check guest without host
         guest.getVirtualInstance().setHostSystem(null);
-        assertFalse(ChannelManager.isChannelFreeForSubscription(guest, b1));
+        assertFalse(ChannelManager.isChannelFreeForSubscription(guest.getId(), b1));
 
     }
 
