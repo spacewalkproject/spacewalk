@@ -103,10 +103,10 @@ public class AddressTagTest extends RhnBaseTestCase {
 
     private String getEmptyReturnValue(HttpServletRequest req, Long uid) {
         return "<strong>Mailing Address</strong>" +
-                "<div class=\"alert alert-info\">Address not filled out</div>" +
+                "<div class=\"alert alert-info\">Address not filled in</div>" +
                 "<p>" +
                 "<a class=\"btn btn-primary\" href=\"/EditAddress.do?type=M&amp;uid=" +
-                uid + "\">Add this address</a>" + "</p>";
+                uid + "\">Fill in this address</a>" + "</p>";
     }
 
 }

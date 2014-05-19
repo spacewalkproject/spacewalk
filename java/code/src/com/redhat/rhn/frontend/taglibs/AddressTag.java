@@ -225,7 +225,7 @@ public class AddressTag extends TagSupport {
             }
             else {
                 result.append("<div class=\"alert alert-info\">");
-                result.append(ls.getMessage("address not filled out"));
+                result.append(ls.getMessage("address not filled in"));
                 result.append("</div>");
                 result.append("<p>");
                 result.append("<a ")
@@ -237,7 +237,7 @@ public class AddressTag extends TagSupport {
                       .append("&amp;uid=")
                       .append(String.valueOf(user.getId()))
                       .append("\">")
-                      .append(ls.getMessage("Add this address"))
+                      .append(ls.getMessage("Fill in this address"))
                       .append("</a>");
                 result.append("</p>");
             }
