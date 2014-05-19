@@ -3589,6 +3589,17 @@
                  path="/systems/details/history/snapshots/Tags.do" redirect="true"/>
     </action>
 
+    <action path="/systems/details/history/snapshots/SnapshotTagCreate"
+        name="snapshotTagCreateForm"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SingleSnapshotTagCreateAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/history/snapshots/snapshot_tag_create.jsp"/>
+        <forward name="confirm"
+                 path="/systems/details/history/snapshots/SnapshotTags.do" redirect="true"/>
+    </action>
+
     <!--System Details SSM Configuration -->
         <action path="/systems/ssm/DeleteConfirm"
         scope="request"
