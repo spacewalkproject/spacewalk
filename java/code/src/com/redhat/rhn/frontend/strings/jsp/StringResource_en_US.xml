@@ -12071,7 +12071,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>The following pending events for this system will be canceled:</source>
         </trans-unit>
         <trans-unit id="system.event.pending.confirm">
-          <souce>Cancel Events</souce>
+          <source>Cancel Events</source>
         </trans-unit>
         <trans-unit id="system.event.pending.canceled">
           <source>{0} system event(s) canceled.</source>

@@ -51,7 +51,7 @@
     <hr/>
     <input type="hidden" name="sid" value="${sid}" />
     <input type="submit" name="dispatch" class="btn btn-default"
-      value='<bean:message key="system.event.pending.cancel"/>'/>
+      value='<bean:message key="system.event.pending.confirm"/>'/>
   </div>
   <rhn:submitted />
 </rl:listset>

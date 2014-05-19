@@ -60,7 +60,7 @@ public class SystemPendingEventsCancelAction extends RhnAction {
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute(RequestContext.PAGE_LIST, result);
 
-        if (context.wasDispatched("system.event.pending.cancel")) {
+        if (context.wasDispatched("system.event.pending.confirm")) {
             createSuccessMessage(request, "system.event.pending.canceled",
                     new Integer(set.size()).toString());
             ActionManager.deleteActions(user,
