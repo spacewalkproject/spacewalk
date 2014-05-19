@@ -427,7 +427,7 @@ public class SystemManager extends BaseManager {
      * @param serverGroup The group to remove the server from
      */
     public static void removeServerFromServerGroup(Server server, ServerGroup serverGroup) {
-        ServerFactory.removeServerFromGroup(server, serverGroup);
+        ServerFactory.removeServerFromGroup(server.getId(), serverGroup.getId());
         snapshotServer(server, "Group membership alteration");
     }
 

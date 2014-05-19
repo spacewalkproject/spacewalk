@@ -190,14 +190,10 @@ public class ServerFactory extends HibernateFactory {
 
     /**
      * Removes a Server from a group
-     * @param serverIn The server to remove
-     * @param serverGroupIn The group to remove the server from
+     * @param sid The server id to remove
+     * @param sgid The group id to remove the server from
      */
-    public static void removeServerFromGroup(Server serverIn,
-            ServerGroup serverGroupIn) {
-        Long sid = serverIn.getId();
-        Long sgid = serverGroupIn.getId();
-
+    public static void removeServerFromGroup(Long sid, Long sgid) {
         CallableMode m = ModeFactory.getCallableMode("System_queries",
                 "delete_from_servergroup");
         Map inParams = new HashMap();

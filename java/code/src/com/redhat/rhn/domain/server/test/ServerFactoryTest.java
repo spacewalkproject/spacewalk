@@ -296,7 +296,7 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
 
         assertTrue(membersBefore.intValue() < membersAfter.intValue());
 
-        ServerFactory.removeServerFromGroup(testServer, group);
+        ServerFactory.removeServerFromGroup(testServer.getId(), group.getId());
         group = (ManagedServerGroup) reload(group);
 
         Long membersFinally = group.getCurrentMembers();
