@@ -75,6 +75,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
              order by s.id desc]]>
     </query>
 
+    <query name="ServerSnapshot.findLatestForServer">
+        <![CDATA[from com.redhat.rhn.domain.server.ServerSnapshot as s
+                where s.server = :sid and
+                      s.created = (
+                          select max(s1.created) from com.redhat.rhn.domain.server.ServerSnapshot as s1
+                          where s1.server = :sid)]]>
+    </query>
+
     <query name="ServerSnapshot.findAfterDate">
         <![CDATA[from com.redhat.rhn.domain.server.ServerSnapshot as s
                 where s.server = :server and

@@ -1268,6 +1268,11 @@
         <form-property name="submitted" type="java.lang.Boolean" />
     </form-bean>
 
+    <form-bean name="snapshotTagCreateForm"
+                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+        <form-property name="tagName" type="java.lang.String" />
+    </form-bean>
+
   </form-beans>
 
   <global-exceptions>
@@ -3571,6 +3576,17 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default"
                  path="/WEB-INF/pages/systems/sdc/history/snapshots/packages.jsp"/>
+    </action>
+
+    <action path="/systems/details/history/snapshots/TagCreate"
+        name="snapshotTagCreateForm"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SnapshotTagCreateAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/history/snapshots/tag_create.jsp"/>
+        <forward name="confirm"
+                 path="/systems/details/history/snapshots/Tags.do" redirect="true"/>
     </action>
 
     <!--System Details SSM Configuration -->

@@ -680,6 +680,18 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
+     * Looks up a latest snapshot for a sever
+     * @param server server
+     * @return the server snapshot
+     */
+    public static ServerSnapshot lookupLatestForServer(Server server) {
+        Map params = new HashMap();
+        params.put("sid", server);
+        return (ServerSnapshot) singleton.lookupObjectByNamedQuery(
+                "ServerSnapshot.findLatestForServer", params);
+    }
+
+    /**
      * Save a server snapshot
      * @param snapshotIn snapshot to save
      */
