@@ -19,6 +19,7 @@
 # Copyright 2012 Aron Parsons <aronparsons@gmail.com>
 #
 
+import os.path
 import getpass
 import logging
 import os
@@ -27,10 +28,102 @@ import sys
 import time
 import xmlrpclib
 from optparse import Option, OptionParser
+import ConfigParser
 
-SESSION_CACHE = os.path.expanduser("~/.spacewalk-manage-lifecycle-session")
+
+class Config(object):
+    """
+    Configuration parser with defaults handling.
+    """
+    SECTION_GENERAL = "general"
+    OPT_PHASES = "phases"
+    OPT_EXCLUDE_CHNL = "exclude channels"
+
+    def __init__(self, path):
+        self.path = path
+        self.default_section = Config.SECTION_GENERAL
+        self._cfg = ConfigParser.RawConfigParser()
+
+    def get(self, section, option, default=None):
+        if not self._cfg.has_section(section):
+            if not self._cfg.has_section(self.default_section):
+                return default
+            else:
+                if not self._cfg.has_option(self.default_section, option):
+                    return default
+                else:
+                    return self._cfg.get(self.default_section, option)
+        else:        
+            if not self._cfg.has_option(section, option):
+                return default
+
+        return self._cfg.get(section, option)
+
+
+    def set(self, section, option, value):
+        if not self._cfg.has_section(section):
+            self._cfg.add_section(section)
+        self._cfg.set(section, option, value)
+        
+    def write(self):
+        with open(self.path, "wb") as handle:
+            self._cfg.write(handle)
+    
+    def read(self):
+        self._cfg.read(self.path)
+        
+    def sections(self):
+        return filter(lambda i:i != self.default_section, self._cfg.sections())
+
+
+CONF_DIR = os.path.expanduser("~/.spacewalk-manage-channel-lifecycle")
+USER_CONF_FILE = os.path.join(CONF_DIR, "settings.conf")
+SESSION_CACHE = os.path.join(CONF_DIR, "session")
 
 ##############################################################################
+
+def setup_config(config):
+    """
+    Setup configuration.
+    """
+    if os.path.isfile(CONF_DIR):
+        os.unlink(CONF_DIR)
+
+    if not os.path.exists(CONF_DIR):            
+        logging.debug("Creating directory: %s" % CONF_DIR)
+        try:
+            os.mkdir(CONF_DIR, 0700)
+        except IOError:
+            logging.error("Unable to create %s" % CONF_DIR)
+            sys.exit(1)
+        
+    if not os.path.exists(USER_CONF_FILE):
+        logging.debug("Creating configuration file: %s" % USER_CONF_FILE)
+        config.set(Config.SECTION_GENERAL, Config.OPT_PHASES, "dev, test, prod")
+        config.set(Config.SECTION_GENERAL, Config.OPT_EXCLUDE_CHNL, "")
+        config.write()
+    else:
+        config.read()
+
+
+def ask(msg, password=False):
+    """
+    Ask input from the console. Hide the echo, in case of password or sensitive information.
+    """
+    msg += ": "
+    return password and getpass.getpass(msg) or raw_input(msg)
+
+
+def parse_enumerated(data):
+    """
+    Parse comma-separated elements.
+    """
+    items = []
+    if data:
+        items = filter(None, map(lambda i:i.strip(), data.split(",")))
+
+    return items
+
 
 # determine the name of the next phase
 def get_next_phase(current_name):
@@ -254,6 +347,9 @@ option_list = [
            action='store_true'),
     Option('', '--init', help='initialize a development channel', 
            action='store_true'),
+    Option('-w', '--workflow', help='use configured workflow', default=""),
+    Option('-f', '--list-workflows', help='list configured workflows', default=False,
+           action='store_true'),
     Option('', '--promote', help='promote a channel to the next phase', 
            action='store_true'),
     Option('', '--archive', help='archive a channel', action='store_true'),
@@ -268,7 +364,7 @@ option_list = [
            action='store_true'),
     Option('', '--no-children', help="don't operate on child channels",
            action='store_true'),
-    Option('-P', '--phases', default = 'dev,test,prod',
+    Option('-P', '--phases', default = '',
            help='comma-separated list of phases [default: %default]'),
     Option('-u', '--username', help='Spacewalk username'),
     Option('-p', '--password', help='Spacewalk password'),
@@ -291,6 +387,28 @@ else:
 
 logging.basicConfig(level = level, format='%(levelname)s: %(message)s')
 
+options.workflow = options.workflow or Config.SECTION_GENERAL
+config = Config(USER_CONF_FILE)
+try:
+    setup_config(config)
+except ConfigParser.ParsingError, ex:
+    logging.error("Unable to process configuration:\n" + str(ex))
+    sys.exit(1)
+
+if options.list_workflows:
+    workflows = config.sections()
+    if not workflows:
+        print "There are no additinal configured workflows except default."
+        sys.exit(0)
+
+    print "Configured additional workflows:"
+    idx = 1
+    for workflow in workflows:
+        print "  %s. %s" % (idx, workflow)
+        idx += 1
+    print
+    sys.exit(0)
+
 # sanity check
 if not (options.init or options.promote or options.archive or options.rollback \
         or options.list_channels):
@@ -302,7 +420,14 @@ elif not options.list_channels and not options.channel:
     sys.exit(1)
 
 # parse the list of phases
-phases = options.phases.split(',')
+phases = parse_enumerated(options.phases or config.get(options.workflow,
+                                                       Config.OPT_PHASES,
+                                                       "dev,test,prod"))
+
+# update exclude channel option
+options.exclude_channel = options.exclude_channel or \
+                          parse_enumerated(config.get(options.workflow,
+                                                      Config.OPT_EXCLUDE_CHNL, ""))
 
 if len(phases) < 2:
     logging.error('You must define at least 2 phases')
@@ -341,11 +466,14 @@ if os.path.exists(SESSION_CACHE):
 if not session:
     # prompt for the username
     if not options.username:
-        options.username = raw_input('Spacewalk Username: ')
+        while not options.username:
+            options.username = ask('Spacewalk Username')
 
     # prompt for the password
     if not options.password:
-        options.password = getpass.getpass('Spacewalk Password: ')
+        options.password = ask('Spacewalk Password', password=True)
+    if not options.password:
+        logging.warning("Empty password is not a good practice!")
 
     # login to the server
     try:
