@@ -44,7 +44,7 @@ Tag Systems
 
 <rhn-listview class="Sniglets::ListView::SystemList" mode="taggable_systems_in_set" alphabar_column="server_name">
    <column name="System" label="server_name" sort_by="1" align="left" width="35%">
-     <url>/network/systems/details/history/snapshots/system_tags.pxt?sid={column:id}</url>
+     <url>/rhn/systems/details/history/snapshots/Tags.do?sid={column:id}</url>
    </column>
   <column name="Base Channel" label="channel_labels" align="left" />
   <column name="Entitlement" label="entitlement_level" width="5%"/>

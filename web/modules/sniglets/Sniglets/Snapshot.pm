@@ -276,7 +276,7 @@ sub add_system_tag_cb {
   }
 
   $pxt->push_message(site_info => 'Tag added to system.');
-  $pxt->redirect("/network/systems/details/history/snapshots/system_tags.pxt?sid=$sid");
+  $pxt->redirect("/rhn/systems/details/history/snapshots/Tags.do?sid=$sid");
 }
 
 

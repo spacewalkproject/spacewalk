@@ -41,7 +41,7 @@
     <column name="Created" label="created" width="40%" />
     <empty_list_message>No tags selected for removal</empty_list_message>
 
-    <action name="Confirm" label="confirm_snapshot_tag_removal" url="/network/systems/details/history/snapshots/system_tags.pxt" />
+    <action name="Confirm" label="confirm_snapshot_tag_removal" url="/rhn/systems/details/history/snapshots/Tags.do" />
 </rhn-listview>
 </pxt-formvar>
   </grail-canvas-template>
