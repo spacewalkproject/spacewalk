@@ -8420,6 +8420,7 @@
 
     <!-- Provisioning group -->
     <action path="/systems/ssm/provisioning/RemoteCommand"
+            scope="request"
             name="remoteCommandForm"
             type="com.redhat.rhn.frontend.action.ssm.ProvisioningRemoteCommand"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
