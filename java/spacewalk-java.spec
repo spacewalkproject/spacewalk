@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.66
+Version: 2.2.67
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,28 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon May 19 2014 Stephen Herr <sherr@redhat.com> 2.2.67-1
+- Squashing a thousand more type warnings by doing param maps correctly
+- Squash a few hundred type safety warnings
+- 1098316 - don't let code diverge; everyone should use new method
+- add request scope to the remote command via SSM action
+- 1098313 - cleanup unused method
+- changed autoinstallation -> kickstart
+- testListPackagesFromChannel: update after changes to
+  SystemManager.packagesFromChannel
+- apidoc: reflect changes in createChain() return type
+- Action Chaining API: remove superfluous annotation
+- Action Chaining API: fail if trying to add multiple chains with the same
+  label
+- Fix: Action Chain XML-RPC API doc
+- Bugfix: API crashes, if label is null.
+- checkstyle: line length should be <= 92 characters
+- fix configchannel.createOrUpdatePath API issue that stored new revision
+  contents as null characters
+- autoinstallation -> kickstart
+- Added kickstart syntax rules box to advanced edit page
+- Added warning message about kickstart syntax rules
+
 * Fri May 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.66-1
 - Fix javadoc. 1-11 makes no sense, and the old picker did 1-12 for am/pm time.
 - Fix bug converting pm times to am when using locales in 24 hour format.
