@@ -3610,6 +3610,16 @@
                  path="/systems/details/history/snapshots/TagsDelete.do" redirect="true"/>
     </action>
 
+    <action path="/systems/details/history/snapshots/TagsDelete"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SnapshotTagsDeleteAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/history/snapshots/tags_delete.jsp"/>
+        <forward name="confirm"
+               path="/systems/details/history/snapshots/Tags.do" redirect="true"/>
+    </action>
+
     <!--System Details SSM Configuration -->
         <action path="/systems/ssm/DeleteConfirm"
         scope="request"
