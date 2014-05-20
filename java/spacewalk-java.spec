@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.67
+Version: 2.2.68
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 20 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.68-1
+- navigation links to new pages (Tags.do)
+- rewrite snapshots/rollback.pxt?sid=${sid}&ss_id=${ss_id} page to java
+- rewrite snapshot tag deletion to java
+- rewrite system_tags.pxt?sid=${sid} page to java
+- introduce snapshot tag filter
+- rewrite add_system_tag.pxt?sid=${sid} page to java
+- rewrite add_system_tag.pxt?sid=${sid} page to java
+- strings for snapshot tags pages rewrite
+
 * Mon May 19 2014 Stephen Herr <sherr@redhat.com> 2.2.67-1
 - Squashing a thousand more type warnings by doing param maps correctly
 - Squash a few hundred type safety warnings
