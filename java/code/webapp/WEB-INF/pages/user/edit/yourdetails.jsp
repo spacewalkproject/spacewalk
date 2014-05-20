@@ -33,8 +33,15 @@
                     <div class="form-group">
                         <label class="col-lg-3 control-label"><bean:message key="last_sign_in.displayname"/></label>
                         <div class="col-lg-6">
-                            <rhn:formatDate humanStyle="from" value="${lastLoggedIn}"
-                                         type="both" dateStyle="short" timeStyle="long"/>
+                            <c:choose>
+                                <c:when test="${empty lastLoggedIn}">
+                                    <bean:message key="neverinparens" />
+                                </c:when>
+                                <c:otherwise>
+                                    <rhn:formatDate humanStyle="from" value="${lastLoggedIn}"
+                                                type="both" dateStyle="short" timeStyle="long"/>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     <div class="form-group">

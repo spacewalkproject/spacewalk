@@ -80,20 +80,8 @@ public class UserEditSetupAction extends RhnAction {
         request.setAttribute("user", targetUser);
         request.setAttribute("mailableAddress", targetUser.getEmail());
 
-
-        String created = LocalizationService.getInstance()
-                .formatDate(targetUser.getCreated());
-        String lastLoggedIn = null;
-        if (targetUser.getLastLoggedIn() != null) {
-            lastLoggedIn = LocalizationService.getInstance()
-                                              .formatDate(targetUser.getLastLoggedIn());
-        }
-        else {
-            //Set the string to "(never)"
-            lastLoggedIn = LocalizationService.getInstance().getMessage("neverinparens");
-        }
-        request.setAttribute("created", created);
-        request.setAttribute("lastLoggedIn", lastLoggedIn);
+        request.setAttribute("created", targetUser.getCreated());
+        request.setAttribute("lastLoggedIn", targetUser.getLastLoggedIn());
 
         setupRoles(request, targetUser);
 
