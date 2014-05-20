@@ -1165,7 +1165,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         RhnSetManager.store(newrs);
 
         List<SystemOverview> dr = SystemManager.inSet(usr, newrs.getLabel());
-        assertEquals(dr.size(), 5);
+        assertEquals(5, dr.size());
         assertTrue(dr.iterator().hasNext());
 
         SystemOverview m = (dr.iterator().next());
