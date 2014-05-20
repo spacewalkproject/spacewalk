@@ -31,7 +31,7 @@
       ${current.created}
     </rl:column>
     <rl:column headerkey="system.history.snapshot.tags">
-      <a href="/network/systems/details/history/snapshots/snapshot_tags.pxt?sid=${param.sid}&amp;ss_id=${current.id}">${current.tag_count}</a>
+      <a href="/rhn/systems/details/history/snapshots/Tags.do?sid=${param.sid}&amp;ss_id=${current.id}">${current.tag_count}</a>
     </rl:column>
   </rl:list>
 </rl:listset>

@@ -272,7 +272,7 @@ sub add_system_tag_cb {
 
   if ($ss_id) {
       $pxt->push_message(site_info => 'Tag added to snapshot.');
-      $pxt->redirect("/network/systems/details/history/snapshots/snapshot_tags.pxt?sid=$sid&ss_id=$ss_id");
+      $pxt->redirect("/rhn/systems/details/history/snapshots/SnapshotTags.do?sid=$sid&ss_id=$ss_id");
   }
 
   $pxt->push_message(site_info => 'Tag added to system.');
