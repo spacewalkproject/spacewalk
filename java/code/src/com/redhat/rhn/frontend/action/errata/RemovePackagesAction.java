@@ -162,7 +162,7 @@ public class RemovePackagesAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("errata.edit.packages.confirm.confirm", "removePackagesFromErrata");
     }
 
@@ -171,7 +171,7 @@ public class RemovePackagesAction extends RhnSetAction {
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         params.put("eid", request.getParameter("eid"));
     }
 

@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.RhnSetAction;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
@@ -65,11 +66,11 @@ public class ProbeSuiteSystemsEditAction extends RhnSetAction {
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         User user = requestContext.getCurrentUser();
-        Set selectedSystems = updateSet(request).getElements();
+        Set<RhnSetElement> selectedSystems = updateSet(request).getElements();
         ProbeSuite suite = requestContext.lookupProbeSuite();
-        Iterator i = selectedSystems.iterator();
+        Iterator<RhnSetElement> i = selectedSystems.iterator();
         while (i.hasNext()) {
-            RhnSetElement element = (RhnSetElement) i.next();
+            RhnSetElement element = i.next();
             Server serverToAdd =
                 SystemManager.lookupByIdAndUser(element.getElement(), user);
             SatCluster sCluster =
@@ -86,7 +87,7 @@ public class ProbeSuiteSystemsEditAction extends RhnSetAction {
         // we added all the systems to the Suite
         getSetDecl().clear(user);
 
-        Map params = makeParamMap(formIn, request);
+        Map<String, Object> params = makeParamMap(formIn, request);
         strutsDelegate.saveMessages(request, msg);
         return strutsDelegate.forwardParams(mapping.findForward("added"), params);
     }
@@ -107,7 +108,7 @@ public class ProbeSuiteSystemsEditAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn,
+    protected DataResult<SystemOverview> getDataResult(User userIn,
                                        ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext rctx = new RequestContext(request);
@@ -117,7 +118,7 @@ public class ProbeSuiteSystemsEditAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("probesuitesystemsedit.jsp.addsystem", "addSystems");
         map.put("probesuitesystemsedit.jsp.search", "search");
 
@@ -126,9 +127,8 @@ public class ProbeSuiteSystemsEditAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn,
-                                   HttpServletRequest request,
-                                   Map params) {
+    protected void processParamMap(ActionForm formIn, HttpServletRequest request,
+            Map<String, Object> params) {
         ProbeSuiteHelper.processParamMap(request, params);
     }
 

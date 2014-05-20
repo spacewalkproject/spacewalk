@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.RhnSetAction;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
@@ -82,7 +83,7 @@ public class AffectedSystemsAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user,
+    protected DataResult<SystemOverview> getDataResult(User user,
                                        ActionForm formIn,
                                        HttpServletRequest request) {
         Long eid = new RequestContext(request).getParamAsLong("eid");
@@ -92,7 +93,7 @@ public class AffectedSystemsAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("affectedsystems.jsp.apply", "applyErrata");
     }
 
@@ -100,9 +101,8 @@ public class AffectedSystemsAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn,
-                                   HttpServletRequest request,
-                                   Map params) {
+    protected void processParamMap(ActionForm formIn, HttpServletRequest request,
+            Map<String, Object> params) {
         Long eid = new RequestContext(request).getParamAsLong("eid");
 
         if (eid != null) {

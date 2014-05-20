@@ -61,7 +61,7 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("ssm.config.subscribe.jsp.continue", "proceed");
     }
 
@@ -69,7 +69,7 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
      * {@inheritDoc}
      */
     protected void processParamMap(ActionForm form,
-            HttpServletRequest request, Map params) {
+            HttpServletRequest request, Map<String, Object> params) {
         //no-op
     }
 

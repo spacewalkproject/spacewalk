@@ -67,7 +67,7 @@ public class TargetSystemsListSubmit extends BaseSetOperateOnSelectedItemsAction
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map mapIn) {
+    protected void processMethodKeys(Map<String, String> mapIn) {
         mapIn.put("targetsystems.jsp.subscribe", "processSubscribe");
     }
 
@@ -76,7 +76,7 @@ public class TargetSystemsListSubmit extends BaseSetOperateOnSelectedItemsAction
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest requestIn,
-                                   Map paramsIn) {
+                                   Map<String, Object> paramsIn) {
         ConfigChannel cc = ConfigActionHelper.getChannel(requestIn);
         ConfigActionHelper.processParamMap(cc, paramsIn);
     }

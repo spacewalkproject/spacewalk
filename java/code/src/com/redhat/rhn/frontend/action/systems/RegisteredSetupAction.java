@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.systems;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -53,7 +54,7 @@ public class RegisteredSetupAction extends BaseSystemsAction {
             HttpServletResponse response) {
         ActionForward forward = super.execute(mapping, formIn, request, response);
         LocalizationService ls = LocalizationService.getInstance();
-        List optionsLabelValueBeans = new ArrayList();
+        List<LabelValueBean> optionsLabelValueBeans = new ArrayList<LabelValueBean>();
 
         for (int j = 0; j < OPTIONS.length; ++j) {
             optionsLabelValueBeans.add(new LabelValueBean(ls.getMessage(OPTIONS[j]),
@@ -67,7 +68,8 @@ public class RegisteredSetupAction extends BaseSystemsAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user, PageControl pc, ActionForm formIn) {
+    protected DataResult<SystemOverview> getDataResult(User user, PageControl pc,
+            ActionForm formIn) {
         DynaActionForm daForm = (DynaActionForm) formIn;
 
         String thresholdString = daForm.getString("threshold");
@@ -92,8 +94,7 @@ public class RegisteredSetupAction extends BaseSystemsAction {
             }
         }
 
-        DataResult dr = SystemManager.registeredList(user, pc, threshold);
-        return dr;
+        return SystemManager.registeredList(user, pc, threshold);
     }
 
 }

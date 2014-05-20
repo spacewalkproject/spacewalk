@@ -21,6 +21,7 @@ package com.redhat.rhn.frontend.action.rhnpackage;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.manager.system.SystemManager;
 
 /**
@@ -30,7 +31,7 @@ public class ExtraPackagesListAction extends BaseSystemPackagesAction {
     public static final String DATA_SET = "extras";
 
     @Override
-    protected DataResult getDataResult(Server server) {
+    protected DataResult<PackageListItem> getDataResult(Server server) {
         return SystemManager.listExtraPackages(server.getId());
     }
 }

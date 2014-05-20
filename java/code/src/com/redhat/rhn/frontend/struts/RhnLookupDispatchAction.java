@@ -78,14 +78,14 @@ public abstract class RhnLookupDispatchAction extends LookupDispatchAction {
 
             // Set alternateParameter to something like "dispatch.x"
             String alternateParameter = parameter + ".x";
-            Set keyset = request.getParameterMap().keySet();
+            Set<String> keyset = request.getParameterMap().keySet();
             /*
              * We need to loop throug the request parameters and look for a key in the form
              * of <method-to-execute>.alternateParameter
              * ex: selectall.dispatch.x
              */
-            for (Iterator itr = keyset.iterator(); itr.hasNext();) {
-                String key = (String) itr.next();
+            for (Iterator<String> itr = keyset.iterator(); itr.hasNext();) {
+                String key = itr.next();
                 // Look for the alternateParameter portion in the key
                 if (key.indexOf(alternateParameter) > 0) {
                     // if we find alternateParameter in the key, set the method name

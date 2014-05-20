@@ -56,14 +56,14 @@ public class GlobalRevisionDeployConfirmSubmit extends RhnListDispatchAction {
      * {@inheritDoc}
      */
     protected void processParamMap(
-            ActionForm form, HttpServletRequest request, Map params) {
+            ActionForm form, HttpServletRequest request, Map<String, Object> params) {
         ConfigActionHelper.processParamMap(request, params);
     }
 
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("deployconfirm.jsp.deploybutton", "scheduleDeploy");
     }
 

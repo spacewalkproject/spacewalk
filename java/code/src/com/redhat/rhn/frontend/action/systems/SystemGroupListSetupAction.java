@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.SystemGroupOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -61,7 +62,7 @@ public class SystemGroupListSetupAction extends RhnAction {
         User user =  requestContext.getCurrentUser();
 
 
-        DataResult result = SystemManager.groupList(user, null);
+        DataResult<SystemGroupOverview> result = SystemManager.groupList(user, null);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute(RequestContext.PAGE_LIST, result);
         ListTagHelper.bindSetDeclTo("groupList", getSetDecl(), request);
@@ -179,7 +180,7 @@ public class SystemGroupListSetupAction extends RhnAction {
     }
 
 
-    private List listIntersection(List<Long> one, List<Long> two) {
+    private List<Long> listIntersection(List<Long> one, List<Long> two) {
 
         List<Long> retval = new ArrayList<Long>();
         for (Long i : one) {
@@ -217,13 +218,14 @@ public class SystemGroupListSetupAction extends RhnAction {
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
 
-        Iterator groups = groupSet.getElements().iterator();
+        Iterator<RhnSetElement> groups = groupSet.getElements().iterator();
         while (groups.hasNext()) { //for every group
-            Long sgid = ((RhnSetElement)groups.next()).getElement();
-            Iterator systems = SystemManager.systemsInGroup(sgid, null).iterator();
+            Long sgid = groups.next().getElement();
+            Iterator<SystemOverview> systems =
+                    SystemManager.systemsInGroup(sgid, null).iterator();
 
             while (systems.hasNext()) { //for every system in a group
-                Long id = new Long(((SystemOverview)systems.next()).getId().longValue());
+                Long id = systems.next().getId();
                 if (!systemSet.contains(id)) {
                     systemSet.addElement(id);
                 }

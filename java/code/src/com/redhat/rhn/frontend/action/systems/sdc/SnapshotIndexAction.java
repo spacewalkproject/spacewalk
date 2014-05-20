@@ -34,7 +34,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * SnapshotIndexAction
  */
-public class SnapshotIndexAction extends RhnAction implements Listable {
+public class SnapshotIndexAction extends RhnAction
+        implements Listable<Map<String, Object>> {
 
     /**
      * {@inheritDoc}
@@ -49,7 +50,7 @@ public class SnapshotIndexAction extends RhnAction implements Listable {
 
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
-        Map params = makeParamMap(request);
+        Map<String, Object> params = makeParamMap(request);
         params.put(RequestContext.SID, sid);
 
         return getStrutsDelegate().forwardParams(
@@ -57,7 +58,7 @@ public class SnapshotIndexAction extends RhnAction implements Listable {
     }
 
     /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
+    public List<Map<String, Object>> getResult(RequestContext context) {
         Long sid = context.getRequiredParam("sid");
         return SystemManager.systemSnapshots(sid, null);
     }

@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.systems.sdc;
 
 import java.util.List;
+import java.util.Map;
 
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -27,7 +28,7 @@ import com.redhat.rhn.manager.system.SystemManager;
 public class SnapshotUnservablePackagesAction extends SnapshotBaseAction {
 
     /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
+    public List<Map<String, Object>> getResult(RequestContext context) {
         Long sid = context.getRequiredParam(RequestContext.SID);
         Long ssid = context.getRequiredParam(SNAPSHOT_ID);
         User user = context.getCurrentUser();

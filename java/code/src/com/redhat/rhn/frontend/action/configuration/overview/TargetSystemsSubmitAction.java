@@ -61,7 +61,7 @@ public class TargetSystemsSubmitAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map mapIn) {
+    protected void processMethodKeys(Map<String, String> mapIn) {
         mapIn.put("targetsystems.jsp.enable", "enableSystems");
     }
 
@@ -70,7 +70,7 @@ public class TargetSystemsSubmitAction extends RhnSetAction {
      */
     protected void processParamMap(ActionForm form,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         getStrutsDelegate().rememberDatePicker(params, (DynaActionForm)form, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
     }

@@ -138,6 +138,27 @@ public abstract class BaseManager {
     }
 
     /**
+     * Returns a DataResult for the given SelectMode with no bounds.  This
+     * can be usefull if you want a list without pagination controls.
+     *
+     * @param queryParams Named parameters for the driving query.
+     * @param elabParams Named parameters for the elaboration query.
+     * @param m datasource SelectMode.
+     * @param myClass Type of dataresult we will be returning
+     * @return resulting DataResult bounded by the values of the
+     * PageControl.
+     */
+    protected static <myClass> DataResult<myClass> makeDataResultNoPagination(
+            Map queryParams,
+            Map elabParams, SelectMode m, Class myClass) {
+        // execute the driving query to get the initial data set.
+        DataResult<myClass> dr = makeDataResult(queryParams, elabParams, null, m, myClass);
+        dr.setStart(1);
+        dr.setEnd(dr.getTotalSize());
+        return dr;
+    }
+
+    /**
      * Process the PageControl against the DataResult. Returns an
      * <strong>unelaborated</strong> list if PageControl is null.
      * @param dr

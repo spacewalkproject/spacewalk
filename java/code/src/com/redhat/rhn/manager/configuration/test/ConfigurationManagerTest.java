@@ -146,7 +146,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
             listSystemsForFileCopy(user,
                     cfnids[0], ConfigChannelType.local(), null);
         assertNotNull(dr);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("cfnid", cfnids[0]);
         elabParams.put("label", ConfigChannelType.local().getLabel());
         dr.elaborate(elabParams);
@@ -870,7 +870,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         //
         DataResult dr = ConfigurationManager.getInstance().listSystemInfoForChannel(user,
                 gcc1, null);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("ccid", gcc1.getId());
         dr.elaborate(elabParams);
 

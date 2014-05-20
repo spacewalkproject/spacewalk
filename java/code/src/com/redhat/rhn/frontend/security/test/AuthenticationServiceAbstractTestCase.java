@@ -93,8 +93,8 @@ public abstract class AuthenticationServiceAbstractTestCase extends MockObjectTe
         return (PxtSessionDelegate)mockPxtDelegate.proxy();
     }
 
-    protected Enumeration getParameterNames() {
-        Vector vector = new Vector();
+    protected Enumeration<String> getParameterNames() {
+        Vector<String> vector = new Vector<String>();
         vector.add(requestParamNames[0]);
         vector.add(requestParamNames[1]);
 

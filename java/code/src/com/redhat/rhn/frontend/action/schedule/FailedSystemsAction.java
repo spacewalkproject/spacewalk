@@ -86,7 +86,7 @@ public class FailedSystemsAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("failedsystems.jsp.rescheduleactions", "rescheduleActions");
     }
 
@@ -95,7 +95,7 @@ public class FailedSystemsAction extends RhnSetAction {
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         RequestContext requestContext = new RequestContext(request);
         params.put("aid", requestContext.getParamAsLong("aid"));
     }

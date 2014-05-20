@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -212,14 +211,15 @@ public class ErrataHandler extends BaseHandler {
      *          #prop("string", "solution")
      *     #struct_end()
      */
-    public Map getDetails(String sessionKey, String advisoryName) throws FaultException {
+    public Map<String, Object> getDetails(String sessionKey, String advisoryName)
+            throws FaultException {
         // Get the logged in user. We don't care what roles this user has, we
         // just want to make sure the caller is logged in.
         User loggedInUser = getLoggedInUser(sessionKey);
 
         Errata errata = lookupErrataReadOnly(advisoryName, loggedInUser.getOrg());
 
-        Map errataMap = new HashMap();
+        Map<String, Object> errataMap = new HashMap<String, Object>();
 
         errataMap.put("id", errata.getId());
         if (errata.getIssueDate() != null) {
@@ -309,7 +309,8 @@ public class ErrataHandler extends BaseHandler {
      *
      *  @xmlrpc.returntype #return_int_success()
      */
-    public Integer setDetails(String sessionKey, String advisoryName, Map details) {
+    public Integer setDetails(String sessionKey, String advisoryName,
+            Map<String, Object> details) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
@@ -542,23 +543,23 @@ public class ErrataHandler extends BaseHandler {
      *          #prop_desc("string", "bug_summary", "summary who's key is the bug id")
      *      #struct_end()
      */
-    public Map bugzillaFixes(String sessionKey, String advisoryName)
+    public Map<Long, String> bugzillaFixes(String sessionKey, String advisoryName)
             throws FaultException {
 
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
-        Set bugs = errata.getBugs();
-        Map returnMap = new HashMap();
+        Set<Bug> bugs = errata.getBugs();
+        Map<Long, String> returnMap = new HashMap<Long, String>();
 
         /*
          * Loop through and stick the bug ids and summaries into a map. This
          * is ok since (afaict) there isn't an unreasonable number of bugs
          * attatched to any erratum.
          */
-        for (Iterator itr = IteratorUtils.getIterator(bugs.iterator()); itr.hasNext();) {
-            Bug bug = (Bug) itr.next();
+        for (Iterator<Bug> itr = bugs.iterator(); itr.hasNext();) {
+            Bug bug = itr.next();
             returnMap.put(bug.getId(), bug.getSummary());
         }
 
@@ -587,11 +588,11 @@ public class ErrataHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
-        Set keywords = errata.getKeywords();
-        List returnList = new ArrayList();
+        Set<Keyword> keywords = errata.getKeywords();
+        List<String> returnList = new ArrayList<String>();
 
-        for (Iterator itr = IteratorUtils.getIterator(keywords); itr.hasNext();) {
-            Keyword keyword = (Keyword) itr.next();
+        for (Iterator<Keyword> itr = keywords.iterator(); itr.hasNext();) {
+            Keyword keyword = itr.next();
             returnList.add(keyword.getKeyword());
         }
 
@@ -1187,9 +1188,10 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.returntype
      *      $ErrataSerializer
      */
-    public Errata create(String sessionKey, Map errataInfo,
-            List bugs, List keywords, List packageIds, boolean publish,
-            List channelLabels) throws InvalidChannelRoleException {
+    public Errata create(String sessionKey, Map<String, String> errataInfo,
+            List<Map<String, Object>> bugs, List<String> keywords,
+            List<Integer> packageIds, boolean publish, List<String> channelLabels)
+            throws InvalidChannelRoleException {
 
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
@@ -1210,7 +1212,7 @@ public class ErrataHandler extends BaseHandler {
         validKeys.add("id");
         validKeys.add("summary");
         validKeys.add("url");
-        for (Map<String, Object> bugMap : (ArrayList<Map<String, Object>>) bugs) {
+        for (Map<String, Object> bugMap : bugs) {
             validateMap(validKeys, bugMap);
         }
 
@@ -1218,7 +1220,7 @@ public class ErrataHandler extends BaseHandler {
 
         //Don't want them to publish an errata without any channels,
         //so check first before creating anything
-        List channels = null;
+        List<Channel> channels = null;
         if (publish) {
             channels = verifyChannelList(channelLabels, loggedInUser);
         }
@@ -1274,8 +1276,8 @@ public class ErrataHandler extends BaseHandler {
         newErrata.setRefersTo(references);
         newErrata.setNotes(notes);
 
-        for (Iterator itr = bugs.iterator(); itr.hasNext();) {
-            Map bugMap = (Map) itr.next();
+        for (Iterator<Map<String, Object>> itr = bugs.iterator(); itr.hasNext();) {
+            Map<String, Object> bugMap = itr.next();
             String url = null;
             if (bugMap.containsKey("url")) {
                 url = (String) bugMap.get("url");
@@ -1286,14 +1288,14 @@ public class ErrataHandler extends BaseHandler {
                     (String)bugMap.get("summary"), url);
             newErrata.addBug(bug);
         }
-        for (Iterator itr = keywords.iterator(); itr.hasNext();) {
-            String  keyword = (String) itr.next();
+        for (Iterator<String> itr = keywords.iterator(); itr.hasNext();) {
+            String keyword = itr.next();
             newErrata.addKeyword(keyword);
         }
 
         newErrata.setPackages(new HashSet());
-        for (Iterator itr = packageIds.iterator(); itr.hasNext();) {
-            Integer pid = (Integer) itr.next();
+        for (Iterator<Integer> itr = packageIds.iterator(); itr.hasNext();) {
+            Integer pid = itr.next();
             Package pack = PackageFactory.lookupByIdAndOrg(new Long(pid.longValue()),
                     loggedInUser.getOrg());
             if (pack != null) {
@@ -1357,10 +1359,10 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.returntype
      *          $ErrataSerializer
      */
-    public Errata publish(String sessionKey, String advisory, List channelLabels)
+    public Errata publish(String sessionKey, String advisory, List<String> channelLabels)
             throws InvalidChannelRoleException {
         User loggedInUser = getLoggedInUser(sessionKey);
-        List channels = verifyChannelList(channelLabels, loggedInUser);
+        List<Channel> channels = verifyChannelList(channelLabels, loggedInUser);
         Errata toPublish = lookupErrata(advisory, loggedInUser.getOrg());
         return publish(toPublish, channels, loggedInUser, false);
     }
@@ -1384,7 +1386,7 @@ public class ErrataHandler extends BaseHandler {
      *          $ErrataSerializer
      */
     public Errata publishAsOriginal(String sessionKey, String advisory,
-            List channelLabels) throws InvalidChannelRoleException {
+            List<String> channelLabels) throws InvalidChannelRoleException {
         User loggedInUser = getLoggedInUser(sessionKey);
         List<Channel> channels = verifyChannelList(channelLabels, loggedInUser);
         for (Channel c : channels) {
@@ -1427,14 +1429,14 @@ public class ErrataHandler extends BaseHandler {
      * @param org the org of the user
      * @return a List of channel objects
      */
-    private List<Channel> verifyChannelList(List channelsLabels, User user) {
+    private List<Channel> verifyChannelList(List<String> channelsLabels, User user) {
         if (channelsLabels.size() == 0) {
             throw new NoChannelsSelectedException();
         }
 
         List<Channel> resolvedList = new ArrayList<Channel>();
-        for (Iterator itr = channelsLabels.iterator(); itr.hasNext();) {
-            String  channelLabel = (String) itr.next();
+        for (Iterator<String> itr = channelsLabels.iterator(); itr.hasNext();) {
+            String channelLabel = itr.next();
             Channel channel = ChannelFactory.lookupByLabelAndUser(channelLabel, user);
             if (channel == null) {
                 throw new InvalidChannelLabelException();
@@ -1512,8 +1514,8 @@ public class ErrataHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
 
         List<Errata> erratas = ErrataManager.lookupByCVE(cveName);
-        for (Iterator iter = erratas.iterator(); iter.hasNext();) {
-            Errata errata = (Errata) iter.next();
+        for (Iterator<Errata> iter = erratas.iterator(); iter.hasNext();) {
+            Errata errata = iter.next();
             // Remove errata that do not apply to the user's org
             if (errata.getOrg() != null &&
                     !errata.getOrg().equals(loggedInUser.getOrg())) {

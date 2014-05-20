@@ -55,7 +55,7 @@ public final class XmlResourceBundle extends java.util.ResourceBundle {
     /**
      * Map of key/value pairs
      */
-    private Map strings;
+    private Map<String, String> strings;
 
     /** Constructor
      */
@@ -69,7 +69,7 @@ public final class XmlResourceBundle extends java.util.ResourceBundle {
      * @throws IOException if the file can't be parsed/loaded
      */
     public XmlResourceBundle(String filelocation) throws IOException {
-        strings = new HashMap();
+        strings = new HashMap<String, String>();
         try {
             // These are namespace URLs, and don't actually
             // resolve to real documents that get downloaded on the
@@ -121,23 +121,23 @@ public final class XmlResourceBundle extends java.util.ResourceBundle {
      * @return Enumeration of the keys contained in this bundle.
      *         Useful for searching for a partial match.
      */
-    public Enumeration getKeys() {
-        List keys = new LinkedList();
+    public Enumeration<String> getKeys() {
+        List<String> keys = new LinkedList<String>();
 
         if (parent != null) {
-            Enumeration e = parent.getKeys();
+            Enumeration<String> e = parent.getKeys();
             while (e.hasMoreElements()) {
                 keys.add(e.nextElement());
             }
         }
 
-        Iterator itr = strings.keySet().iterator();
+        Iterator<String> itr = strings.keySet().iterator();
         while (itr.hasNext()) {
             keys.add(itr.next());
         }
         // Ugh, have to convert back to the old Enumeration interface
         // This isn't pretty but it works.
-        return new Vector(keys).elements();
+        return new Vector<String>(keys).elements();
     }
 
 }

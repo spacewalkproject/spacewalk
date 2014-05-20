@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.RhnSetAction;
+import com.redhat.rhn.frontend.dto.monitoring.MonitoredServerDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
@@ -87,13 +88,13 @@ public class ProbeSuiteSystemsAction extends RhnSetAction {
         RequestContext requestContext = new RequestContext(request);
 
         User user = requestContext.getCurrentUser();
-        Set selectedSystems = updateSet(request).getElements();
+        Set<RhnSetElement> selectedSystems = updateSet(request).getElements();
 
         ProbeSuite suite = new RequestContext(request).lookupProbeSuite();
-        Iterator i = selectedSystems.iterator();
+        Iterator<RhnSetElement> i = selectedSystems.iterator();
         int updatedCount = 0;
         while (i.hasNext()) {
-            RhnSetElement element = (RhnSetElement) i.next();
+            RhnSetElement element = i.next();
             Server serverToOperateOn =
                 SystemManager.lookupByIdAndUser(element.getElement(), user);
             if (deleteServer) {
@@ -108,7 +109,7 @@ public class ProbeSuiteSystemsAction extends RhnSetAction {
         }
         MonitoringManager.getInstance().storeProbeSuite(suite, user);
 
-        Map params = makeParamMap(formIn, request);
+        Map<String, Object> params = makeParamMap(formIn, request);
 
         createSuccessMessage(request, successKey,
                 new Integer(updatedCount).toString());
@@ -121,7 +122,7 @@ public class ProbeSuiteSystemsAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn,
+    protected DataResult<MonitoredServerDto> getDataResult(User userIn,
                                        ActionForm formIn,
                                        HttpServletRequest request) {
         return ProbeSuiteHelper.getServersInSuite(request, null);
@@ -130,7 +131,7 @@ public class ProbeSuiteSystemsAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("probesuitesystems.jsp.removesystem", "deleteFromSuite");
         map.put("probesuitesystems.jsp.detachsystem", "detachFromSuite");
 
@@ -141,7 +142,7 @@ public class ProbeSuiteSystemsAction extends RhnSetAction {
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         ProbeSuiteHelper.processParamMap(request, params);
     }
 

@@ -47,17 +47,17 @@ public class NavNode {
     private String onClick;
     private String dynamicChildren;
 
-    private List children;
-    private List urls;
-    private List dirs;
+    private List<NavNode> children;
+    private List<String> urls;
+    private List<String> dirs;
 
     /**
      * Default constructor
      */
     public NavNode() {
-        children = new ArrayList();
-        urls = new ArrayList();
-        dirs = new ArrayList();
+        children = new ArrayList<NavNode>();
+        urls = new ArrayList<String>();
+        dirs = new ArrayList<String>();
         showChildrenIfActive = true;
     }
 
@@ -65,7 +65,7 @@ public class NavNode {
      * Returns an unmodifiableList containing children of the node
      * @return List the children of the node
      */
-    public List getNodes() {
+    public List<NavNode> getNodes() {
              return Collections.unmodifiableList(children);
     }
 
@@ -99,7 +99,7 @@ public class NavNode {
      * Get URLs associated with this node
      * @return List the associated URLs
      */
-    public List getURLs() {
+    public List<String> getURLs() {
         return Collections.unmodifiableList(urls);
     }
 
@@ -107,7 +107,7 @@ public class NavNode {
      * Get Dirs associated with this node
      * @return List the associated dirs
      */
-    public List getDirs() {
+    public List<String> getDirs() {
         return Collections.unmodifiableList(dirs);
     }
 

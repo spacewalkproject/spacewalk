@@ -63,7 +63,7 @@ public abstract class RhnSetAction extends RhnListDispatchAction {
                                     ActionForm formIn,
                                     HttpServletRequest request,
                                     HttpServletResponse response) {
-        Map params = makeParamMap(formIn, request);
+        Map<String, Object> params = makeParamMap(formIn, request);
         RhnSetHelper helper = new RhnSetHelper(mapping, getSetDecl(), request);
         helper.setForward(getForwardName(request));
         return helper.updatelist(params);
@@ -92,7 +92,7 @@ public abstract class RhnSetAction extends RhnListDispatchAction {
                                    ActionForm formIn,
                                    HttpServletRequest request,
                                    HttpServletResponse response) {
-        Map params = makeParamMap(formIn, request);
+        Map<String, Object> params = makeParamMap(formIn, request);
         RhnSetHelper helper = new RhnSetHelper(mapping, getSetDecl(), request);
         helper.setForward(getForwardName(request));
         DataResult dr = getDataResult(helper.getUser(), formIn, request);
@@ -111,7 +111,7 @@ public abstract class RhnSetAction extends RhnListDispatchAction {
                                      ActionForm formIn,
                                      HttpServletRequest request,
                                      HttpServletResponse response) {
-        Map params = makeParamMap(formIn, request);
+        Map<String, Object> params = makeParamMap(formIn, request);
         RhnSetHelper helper = new RhnSetHelper(mapping, getSetDecl(), request);
         helper.setForward(getForwardName(request));
         return helper.unselectall(params);
@@ -138,8 +138,8 @@ public abstract class RhnSetAction extends RhnListDispatchAction {
     /**
      * {@inheritDoc}
      */
-    protected Map getKeyMethodMap() {
-        Map map = super.getKeyMethodMap();
+    protected Map<String, String> getKeyMethodMap() {
+        Map<String, String> map = super.getKeyMethodMap();
         map.put(ListDisplayTag.UPDATE_LIST_KEY, "updatelist");
         map.put(ListDisplayTag.SELECT_ALL_KEY, "selectall");
         map.put(ListDisplayTag.UNSELECT_ALL_KEY, "unselectall");

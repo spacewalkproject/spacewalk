@@ -64,7 +64,7 @@ public class SubscriptionsSubmitAction extends BaseSetOperateOnSelectedItemsActi
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put(CONTINUE_ACTION, "moveToRankChannel");
     }
 
@@ -110,7 +110,7 @@ public class SubscriptionsSubmitAction extends BaseSetOperateOnSelectedItemsActi
     }
 
     protected void processParamMap(ActionForm form,
-                                    HttpServletRequest request, Map params) {
+            HttpServletRequest request, Map<String, Object> params) {
         RequestContext  context = new RequestContext(request);
         params.put(RequestContext.SID,
                         context.lookupAndBindServer().getId().toString());

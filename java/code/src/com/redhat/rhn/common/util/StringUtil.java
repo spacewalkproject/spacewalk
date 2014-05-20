@@ -227,11 +227,11 @@ public class StringUtil {
      * @param params the parameters to fill out the source string with
      * @return String Replaced String
      */
-    public static String replaceTags(String source, Map params) {
+    public static String replaceTags(String source, Map<String, String> params) {
         String ret = source;
-        Iterator i = params.entrySet().iterator();
+        Iterator<Map.Entry<String, String>> i = params.entrySet().iterator();
         while (i.hasNext()) {
-            Map.Entry me = (Map.Entry) i.next();
+            Map.Entry<String, String> me = i.next();
             ret = StringUtils.replace(ret, "<" + me.getKey() + " />", me.getValue()
                     .toString());
         }
@@ -255,9 +255,9 @@ public class StringUtil {
      * @todo This should be removed and replaced with a call like:
      * Arrays.toList(str.split(","), String[]);
      */
-    public static List stringToList(String convertIn) {
+    public static List<String> stringToList(String convertIn) {
         StringTokenizer st = new StringTokenizer(convertIn);
-        List retval = new LinkedList();
+        List<String> retval = new LinkedList<String>();
         while (st.hasMoreTokens()) {
             retval.add(st.nextToken());
         }
@@ -324,7 +324,7 @@ public class StringUtil {
         Matcher next = startUrl.matcher(retval);
         boolean done = false;
         int previous = 0; // the starting index of the previously found url
-        List pieces = new LinkedList();
+        List<String> pieces = new LinkedList<String>();
 
         /*
          * Separates the string into a list. Break points for different tokens
@@ -347,10 +347,10 @@ public class StringUtil {
          * starts with http:// or https:// This part finds the end of each url
          * and executes modifications
          */
-        Iterator itr = pieces.iterator();
+        Iterator<String> itr = pieces.iterator();
         StringBuffer result = new StringBuffer();
         while (itr.hasNext()) {
-            String current = (String) itr.next();
+            String current = itr.next();
             Matcher match = startUrl.matcher(current);
             if (match.find()) { // if this is a url
                 int end = findEndOfUrl(current);
@@ -390,8 +390,8 @@ public class StringUtil {
      * @param inputList The List of Strings to join
      * @return The joined String
      */
-    public static String join(String separator, Collection inputList) {
-        Iterator itty = inputList.iterator();
+    public static String join(String separator, Collection<String> inputList) {
+        Iterator<String> itty = inputList.iterator();
 
         return join(separator, itty);
     }
@@ -406,7 +406,7 @@ public class StringUtil {
      * @param itty The iterator containing display items.
      * @return The joined String
      */
-    public static String join(String separator, Iterator itty) {
+    public static String join(String separator, Iterator<String> itty) {
         if (!itty.hasNext()) {
             return null;
         }
@@ -764,7 +764,7 @@ public class StringUtil {
      * @throws ValidatorException if there isn't an '=' sign seperating the
      * pairs
      */
-    public static Map convertOptionsToMap(String options, String errorKey,
+    public static Map<String, String> convertOptionsToMap(String options, String errorKey,
                                                                 String separator)
         throws ValidatorException {
         Map<String, String> toReturn = new HashMap<String, String>();

@@ -43,7 +43,6 @@ import java.util.Map;
  * OrgTrustHandlerTest
  * @version $Rev$
  */
-@SuppressWarnings("unchecked")
 public class OrgTrustHandlerTest extends BaseHandlerTestCase {
 
     private OrgTrustHandler handler = new OrgTrustHandler();
@@ -251,14 +250,14 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(s);
         addRole(admin, RoleFactory.CHANNEL_ADMIN);
         Package pkg = PackageTest.createTestPackage(orgA);
-        List packages = new ArrayList();
+        List<Long> packages = new ArrayList<Long>();
         packages.add(pkg.getId());
-        List<Map> affected =
+        List<Map<String, Object>> affected =
             handler.listSystemsAffected(
                     adminKey, orgA.getId().intValue(),
                     orgB.getId().intValue());
         boolean found = false;
-        for (Map m : affected) {
+        for (Map<String, Object> m : affected) {
             if (m.get("systemId").equals(s.getId())) {
                 found = true;
                 break;
@@ -268,8 +267,9 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
     }
 
     private boolean isTrusted(Org org, Org trusted) {
-        List trusts = handler.listTrusts(adminKey, org.getId().intValue());
-        for (OrgTrustOverview t :  (List<OrgTrustOverview>)trusts) {
+        List<OrgTrustOverview> trusts =
+                handler.listTrusts(adminKey, org.getId().intValue());
+        for (OrgTrustOverview t : trusts) {
             if (t.getId().equals(trusted.getId()) && t.getTrusted()) {
                 return true;
             }

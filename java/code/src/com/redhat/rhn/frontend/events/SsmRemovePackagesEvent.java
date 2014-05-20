@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public class SsmRemovePackagesEvent extends SsmPackageEvent {
 
-    private List<Map> result;
+    private List<Map<String, Object>> result;
 
     /**
      * Creates a new SSM remove packages event.
@@ -40,7 +40,7 @@ public class SsmRemovePackagesEvent extends SsmPackageEvent {
      * @param resultIn    Complex map of which packages we're removing from which servers.
      */
     public SsmRemovePackagesEvent(Long userIdIn, Date earliestIn,
-        ActionChain actionChainIn, List<Map> resultIn) {
+            ActionChain actionChainIn, List<Map<String, Object>> resultIn) {
         super(userIdIn, earliestIn, actionChainIn);
         result = resultIn;
     }
@@ -55,7 +55,7 @@ public class SsmRemovePackagesEvent extends SsmPackageEvent {
      *
      * @return The result.
      */
-    public List<Map> getResult() {
+    public List<Map<String, Object>> getResult() {
         return this.result;
     }
 

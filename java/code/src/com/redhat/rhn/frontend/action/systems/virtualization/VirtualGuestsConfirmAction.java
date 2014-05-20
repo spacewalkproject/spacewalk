@@ -194,12 +194,12 @@ public class VirtualGuestsConfirmAction extends BaseSystemListAction {
         return dr;
     }
 
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("virtualguests_confirm.jsp.confirm", "scheduleActions");
     }
 
     protected void processParamMap(ActionForm formIn,
-            HttpServletRequest request, Map params) {
+            HttpServletRequest request, Map<String, Object> params) {
         RequestContext ctx = new RequestContext(request);
         Long sid = ctx.getRequiredParam(RequestContext.SID);
         if (sid != null) {

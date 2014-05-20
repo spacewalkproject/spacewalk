@@ -73,10 +73,10 @@ public class LookupExceptionHandlerTest extends MockObjectTestCase {
 
             RhnMockHttpServletRequest request = TestUtils
                     .getRequestWithSessionAndUser();
-            request.setupGetHeaderNames(new Vector().elements());
+            request.setupGetHeaderNames(new Vector<String>().elements());
             request.setupGetMethod("POST");
             request.setupGetRequestURI("http://localhost:8080");
-            request.setupGetParameterNames(new Vector().elements());
+            request.setupGetParameterNames(new Vector<String>().elements());
 
             RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
             RhnMockDynaActionForm form = new RhnMockDynaActionForm();

@@ -133,17 +133,19 @@ public class ShowProfileAction extends RhnAction {
         // create a new list of label, value pairs
         User user = new RequestContext(request).getCurrentUser();
         Server server = (Server) request.getAttribute("system");
-        List dbprofiles = ProfileManager.compatibleWithServer(server, user.getOrg());
-        List profiles = new ArrayList(dbprofiles.size());
-        for (Iterator itr = dbprofiles.iterator(); itr.hasNext();) {
-            Profile p = (Profile) itr.next();
+        List<Profile> dbprofiles =
+                ProfileManager.compatibleWithServer(server, user.getOrg());
+        List<LabelValueBean> profiles = new ArrayList<LabelValueBean>(dbprofiles.size());
+        for (Iterator<Profile> itr = dbprofiles.iterator(); itr.hasNext();) {
+            Profile p = itr.next();
             profiles.add(new LabelValueBean(p.getName(), p.getId().toString()));
         }
 
-        List dbservers = SystemManager.compatibleWithServer(user, server);
-        List servers = new ArrayList(dbservers.size());
-        for (Iterator itr = dbservers.iterator(); itr.hasNext();) {
-            Map m = (Map) itr.next();
+        List<Map<String, Object>> dbservers =
+                SystemManager.compatibleWithServer(user, server);
+        List<LabelValueBean> servers = new ArrayList<LabelValueBean>(dbservers.size());
+        for (Iterator<Map<String, Object>> itr = dbservers.iterator(); itr.hasNext();) {
+            Map<String, Object> m = itr.next();
             servers.add(new LabelValueBean((String)m.get("name"), m.get("id").toString()));
         }
 

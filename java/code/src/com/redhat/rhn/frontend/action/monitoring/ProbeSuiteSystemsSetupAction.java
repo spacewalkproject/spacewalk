@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.monitoring;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
+import com.redhat.rhn.frontend.dto.monitoring.MonitoredServerDto;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.BaseSetListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -30,7 +31,8 @@ public class ProbeSuiteSystemsSetupAction extends BaseSetListAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
+    protected DataResult<MonitoredServerDto> getDataResult(RequestContext rctx,
+            PageControl pc) {
         return ProbeSuiteHelper.getServersInSuite(rctx.getRequest(), pc);
     }
 

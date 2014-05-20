@@ -80,7 +80,8 @@ public class AuthFilterTest extends MockObjectTestCase {
 
         mockRequest.stubs().method("getRequestDispatcher").withAnyArguments().will(
                 returnValue(mockDispatcher.proxy()));
-        mockRequest.stubs().method("getHeaders").will(returnValue(new Vector().elements()));
+        mockRequest.stubs().method("getHeaders")
+                .will(returnValue(new Vector<String>().elements()));
 
         mockRequest.stubs().method("getRemoteAddr")
                 .will(returnValue(new String("aaa.bbb.ccc.ddd")));

@@ -111,7 +111,7 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put(UPDATE_METHOD, "operateOnDiff");
     }
 

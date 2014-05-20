@@ -96,12 +96,12 @@ public abstract class BaseSystemsAction extends RhnListAction {
      * @param dr The list of System Overviews
      * @param user The user viewing the System List
      */
-    public void setStatusDisplay(DataResult dr, User user) {
+    public void setStatusDisplay(DataResult<SystemOverview> dr, User user) {
 
-        Iterator i = dr.iterator();
+        Iterator<SystemOverview> i = dr.iterator();
 
         while (i.hasNext()) {
-            SystemOverview next = (SystemOverview) i.next();
+            SystemOverview next = i.next();
             SystemListHelper.setSystemStatusDisplay(user, next);
         }
 

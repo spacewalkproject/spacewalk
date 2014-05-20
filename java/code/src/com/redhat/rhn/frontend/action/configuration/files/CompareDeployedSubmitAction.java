@@ -74,7 +74,7 @@ public class CompareDeployedSubmitAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map mapIn) {
+    protected void processMethodKeys(Map<String, String> mapIn) {
         mapIn.put("comparedeployed.jsp.schedule", "schedule");
     }
 
@@ -83,7 +83,7 @@ public class CompareDeployedSubmitAction extends RhnSetAction {
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest requestIn,
-                                   Map paramsIn) {
+                                   Map<String, Object> paramsIn) {
         ConfigActionHelper.processParamMap(requestIn, paramsIn);
     }
 

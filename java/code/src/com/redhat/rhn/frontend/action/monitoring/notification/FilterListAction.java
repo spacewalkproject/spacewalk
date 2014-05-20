@@ -53,7 +53,7 @@ public class FilterListAction extends BaseSetOperateOnSelectedItemsAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("filters.jsp.expirefilters", "operateOnSelectedSet");
     }
 
@@ -62,7 +62,7 @@ public class FilterListAction extends BaseSetOperateOnSelectedItemsAction {
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         // no-op
     }
 

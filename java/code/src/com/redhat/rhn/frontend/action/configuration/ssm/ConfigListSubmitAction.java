@@ -59,7 +59,7 @@ public class ConfigListSubmitAction extends BaseSetOperateOnSelectedItemsAction 
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map mapIn) {
+    protected void processMethodKeys(Map<String, String> mapIn) {
         mapIn.put("ssmdiff.jsp.schedule", "scheduleDiff");
         mapIn.put("ssmdeploy.jsp.schedule", "scheduleDeploy");
     }
@@ -69,7 +69,7 @@ public class ConfigListSubmitAction extends BaseSetOperateOnSelectedItemsAction 
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest requestIn,
-                                   Map paramsIn) {
+                                   Map<String, Object> paramsIn) {
         //no-op
     }
 

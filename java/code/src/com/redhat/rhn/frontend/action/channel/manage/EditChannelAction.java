@@ -67,7 +67,7 @@ import javax.servlet.http.HttpServletResponse;
  * EditChannelAction
  * @version $Rev: 1 $
  */
-public class EditChannelAction extends RhnAction implements Listable {
+public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
 
 
     /** {@inheritDoc} */
@@ -78,7 +78,7 @@ public class EditChannelAction extends RhnAction implements Listable {
 
         ActionErrors errors = new ActionErrors();
         DynaActionForm form = (DynaActionForm)formIn;
-        Map params = makeParamMap(request);
+        Map<String, Object> params = makeParamMap(request);
         RequestContext ctx = new RequestContext(request);
 
         // keep the cid
@@ -249,17 +249,17 @@ public class EditChannelAction extends RhnAction implements Listable {
      * @param channelIn base channel to unsubscribe from.
      */
     private void unsubscribeOrgsFromChannel(User user, Channel channelIn, String accessIn) {
-        Long cid = channelIn.getId();
         Org org = channelIn.getOrg();
 
         // find trusted orgs
         Set<Org> trustedOrgs = org.getTrustedOrgs();
         for (Org o : trustedOrgs) {
             // find systems subscribed in org Trust
-            DataResult<Map> dr = SystemManager.sidsInOrgTrust(
+            DataResult<Map<String, Object>> dr =
+                    SystemManager.sidsInOrgTrust(
                     org.getId(), o.getId());
 
-            for (Map item : dr) {
+            for (Map<String, Object> item : dr) {
                 Long sid = (Long) item.get("id");
                 Server s = ServerFactory.lookupById(sid);
                 if (s.isSubscribed(channelIn)) {
@@ -624,7 +624,7 @@ public class EditChannelAction extends RhnAction implements Listable {
     private void prepDropdowns(RequestContext ctx) {
         User loggedInUser = ctx.getCurrentUser();
         // populate parent base channels
-        List baseChannels = new ArrayList();
+        List<Map<String, String>> baseChannels = new ArrayList<Map<String, String>>();
         List<Channel> bases = ChannelManager.findAllBaseChannelsForOrg(
                         loggedInUser);
 
@@ -635,27 +635,27 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
         ctx.getRequest().setAttribute("parentChannels", baseChannels);
 
-        Map parentChannelArches = new HashMap();
+        Map<Long, String> parentChannelArches = new HashMap<Long, String>();
         for (Channel c : bases) {
             parentChannelArches.put(c.getId(), c.getChannelArch().getLabel());
         }
         ctx.getRequest().setAttribute("parentChannelArches", parentChannelArches);
 
-        Map parentChannelChecksums = new HashMap();
+        Map<Long, String> parentChannelChecksums = new HashMap<Long, String>();
         for (Channel c : bases) {
             parentChannelChecksums.put(c.getId(), c.getChecksumTypeLabel());
         }
         ctx.getRequest().setAttribute("parentChannelChecksums", parentChannelChecksums);
 
         // base channel arches
-        List channelArches = new ArrayList();
+        List<Map<String, String>> channelArches = new ArrayList<Map<String, String>>();
         List<ChannelArch> arches = ChannelManager.getChannelArchitectures();
         for (ChannelArch arch : arches) {
             addOption(channelArches, arch.getName(), arch.getLabel());
         }
         ctx.getRequest().setAttribute("channelArches", channelArches);
         // set the list of yum supported checksums
-        List checksums = new ArrayList();
+        List<Map<String, String>> checksums = new ArrayList<Map<String, String>>();
         addOption(checksums, ls.getMessage("generic.jsp.none"), "");
         for (ChecksumType chType : ChannelFactory.listYumSupportedChecksums()) {
             addOption(checksums, chType.getLabel(), chType.getLabel());
@@ -670,8 +670,8 @@ public class EditChannelAction extends RhnAction implements Listable {
      * @param key resource bundle key used as the display value.
      * @param value value to be submitted with form.
      */
-    private void addOption(List options, String key, String value) {
-        Map selection = new HashMap();
+    private void addOption(List<Map<String, String>> options, String key, String value) {
+        Map<String, String> selection = new HashMap<String, String>();
         selection.put("label", key);
         selection.put("value", value);
         options.add(selection);
@@ -695,16 +695,16 @@ public class EditChannelAction extends RhnAction implements Listable {
     }
 
     /** {@inheritDoc} */
-    public List getResult(RequestContext ctx) {
+    public List<OrgTrust> getResult(RequestContext ctx) {
         Org org = ctx.getCurrentUser().getOrg();
         Set<Org> trustedorgs = org.getTrustedOrgs();
         List<OrgTrust> trusts = new ArrayList<OrgTrust>();
         for (Org o : trustedorgs) {
-            DataResult<Map> dr =
+            DataResult<Map<String, Object>> dr =
                 SystemManager.sidsInOrgTrust(org.getId(), o.getId());
             OrgTrust trust = new OrgTrust(o);
             if (!dr.isEmpty()) {
-                for (Map m : dr) {
+                for (Map<String, Object> m : dr) {
                     Long sid = (Long)m.get("id");
                     trust.getSubscribed().add(sid);
                 }

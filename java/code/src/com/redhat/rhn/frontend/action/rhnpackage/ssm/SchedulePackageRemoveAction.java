@@ -57,7 +57,8 @@ import javax.servlet.http.HttpServletResponse;
  * Handles the display and capture of scheduling package removals for systems in the SSM.
  *
  */
-public class SchedulePackageRemoveAction extends RhnListAction implements Listable {
+public class SchedulePackageRemoveAction extends RhnListAction implements
+        Listable<Map<String, Object>> {
 
     private static Logger log = Logger.getLogger(SchedulePackageRemoveAction.class);
 
@@ -99,7 +100,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
     }
 
     /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
+    public List<Map<String, Object>> getResult(RequestContext context) {
         return getResult(context, false);
 
     }
@@ -111,7 +112,8 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
      *          or a shortened much faster ones
      * @return the List
      */
-    public DataResult<Map> getResult(RequestContext context, boolean shorten) {
+    public DataResult<Map<String, Object>>
+            getResult(RequestContext context, boolean shorten) {
         HttpServletRequest request = context.getRequest();
         User user = context.getCurrentUser();
 
@@ -131,7 +133,8 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
             RhnSetManager.store(packageSet);
         }
 
-        DataResult results = SystemManager.ssmSystemPackagesToRemove(user,
+        DataResult<Map<String, Object>> results =
+                SystemManager.ssmSystemPackagesToRemove(user,
             RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel(), shorten);
 
         TagHelper.bindElaboratorTo("groupList", results.getElaborator(), request);
@@ -166,7 +169,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
 
         // Parse through all of the results
-        DataResult result = getResult(context, true);
+        DataResult<Map<String, Object>> result = getResult(context, true);
         result.elaborate();
 
         log.debug("Publishing schedule package remove event to message queue.");

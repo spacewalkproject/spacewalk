@@ -66,7 +66,7 @@ public class ChannelListUnsubscribeSubmitAction extends
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put(UNSUBSCRIBE_ACTION, "processUnsubscribeAction");
 
     }
@@ -75,7 +75,7 @@ public class ChannelListUnsubscribeSubmitAction extends
      * {@inheritDoc}
      */
     protected void processParamMap(ActionForm form, HttpServletRequest request,
-            Map params) {
+            Map<String, Object> params) {
         // TODO Auto-generated method stub
 
     }

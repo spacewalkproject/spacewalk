@@ -231,13 +231,13 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
         return dr;
     }
 
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("virtualguestslist.jsp.applyaction", "applyAction");
         map.put("virtualguestslist.jsp.applychanges", "applySettings");
     }
 
     protected void processParamMap(ActionForm formIn,
-            HttpServletRequest request, Map params) {
+            HttpServletRequest request, Map<String, Object> params) {
         RequestContext ctx = new RequestContext(request);
         Long sid = ctx.getRequiredParam(RequestContext.SID);
 

@@ -88,7 +88,7 @@ public class KickstartCryptoKeysSubmitAction extends BaseKickstartListSubmitActi
             cryptoKeysInOrg(rctx.getCurrentUser().getOrg());
     }
 
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put(UPDATE_METHOD, "operateOnDiff");
     }
 

@@ -36,7 +36,7 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
 
     private static final String ACTIVE_LANG_ATTR = "rhnActiveLang";
 
-    private Vector locales = new Vector();
+    private Vector<Locale> locales = new Vector<Locale>();
 
     /**
      * Constructs a new RhnHttpServletRequest based on the given parameters.
@@ -148,7 +148,7 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
         retval.append("\n");
 
         retval.append("Attribute Names = ");
-        Enumeration e = this.getAttributeNames();
+        Enumeration<String> e = this.getAttributeNames();
         while (e.hasMoreElements()) {
             retval.append(e.nextElement());
             retval.append(", ");
@@ -170,7 +170,7 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
      * Returns the list of locales sent by the browser
      * @return browser's list of configured locales
      */
-    public Enumeration getBrowserLocales() {
+    public Enumeration<Locale> getBrowserLocales() {
         return super.getLocales();
     }
 
@@ -184,7 +184,7 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
     /**
      * {@inheritDoc}
      */
-    public Enumeration getLocales() {
+    public Enumeration<Locale> getLocales() {
         return this.locales.elements();
     }
 
@@ -208,10 +208,10 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
     /**
      * {@inheritDoc}
      */
-    public Enumeration getAttributeNames() {
-        Vector tmp = new Vector();
+    public Enumeration<String> getAttributeNames() {
+        Vector<String> tmp = new Vector<String>();
         tmp.add(ACTIVE_LANG_ATTR);
-        for (Enumeration e = super.getAttributeNames(); e.hasMoreElements();) {
+        for (Enumeration<String> e = super.getAttributeNames(); e.hasMoreElements();) {
             tmp.add(e.nextElement());
         }
         return tmp.elements();
@@ -238,9 +238,9 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
     void configureLocale() {
         Context ctx = Context.getCurrentContext();
         Locale userLocale = ctx.getLocale();
-        Enumeration e = super.getLocales();
+        Enumeration<Locale> e = super.getLocales();
         while (e.hasMoreElements()) {
-            Locale l = (Locale) e.nextElement();
+            Locale l = e.nextElement();
             locales.add(l);
         }
         if (!locales.contains(userLocale)) {

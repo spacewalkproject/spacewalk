@@ -77,7 +77,7 @@ public class PreservationListDeleteSubmitAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("preservation_list.jsp.deletelist", "forwardToConfirm");
     }
 
@@ -86,7 +86,7 @@ public class PreservationListDeleteSubmitAction extends RhnSetAction {
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         // no-op
     }
 

@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChildChannelDto;
+import com.redhat.rhn.frontend.dto.EssentialServerDto;
 import com.redhat.rhn.frontend.dto.SystemsPerChannelDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -111,7 +112,8 @@ public class ChildChannelAction extends RhnAction {
                 }
                 else if (childChannelDto.getParentId().equals(
                     systemsPerChannelDto.getId())) {
-                    DataResult sis = SystemManager.systemsSubscribedToChannelInSet(
+                    DataResult<EssentialServerDto> sis =
+                            SystemManager.systemsSubscribedToChannelInSet(
                             childChannelDto.getId().longValue(), user,
                         RhnSetDecl.SYSTEMS.getLabel());
                     childChannelDto.setSystemCount(0L + sis.size());

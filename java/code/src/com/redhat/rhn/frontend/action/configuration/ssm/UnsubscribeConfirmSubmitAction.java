@@ -51,7 +51,7 @@ public class UnsubscribeConfirmSubmitAction extends RhnListDispatchAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map mapIn) {
+    protected void processMethodKeys(Map<String, String> mapIn) {
         mapIn.put("unsubscribeconfirm.jsp.confirm", "confirm");
     }
 
@@ -59,7 +59,7 @@ public class UnsubscribeConfirmSubmitAction extends RhnListDispatchAction {
      * {@inheritDoc}
      */
     protected void processParamMap(ActionForm formIn,
-            HttpServletRequest requestIn, Map paramsIn) {
+            HttpServletRequest requestIn, Map<String, Object> paramsIn) {
         //no-op
     }
 

@@ -41,13 +41,13 @@ import javax.servlet.http.HttpServletResponse;
 public class ChannelFilesImportSubmit extends BaseSetOperateOnSelectedItemsAction {
     public static final String KEY_IMPORT = "addfiles.jsp.import.jspf.submit";
 
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put(KEY_IMPORT, "processImport");
     }
 
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         RequestContext requestContext = new RequestContext(request);
 
         Long ccid = requestContext.getRequiredParam("ccid");

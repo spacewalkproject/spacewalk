@@ -50,7 +50,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Handles the (un)enabling of organizations trusted to a channel.
  */
-public class OrgChannelListAction extends RhnAction implements Listable {
+public class OrgChannelListAction extends RhnAction implements Listable<OrgChannelDto> {
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
@@ -105,7 +105,7 @@ public class OrgChannelListAction extends RhnAction implements Listable {
     }
 
     /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
+    public List<OrgChannelDto> getResult(RequestContext context) {
         User user = context.getCurrentUser();
         Org org = user.getOrg();
         Long cid = context.getParamAsLong(RequestContext.CID);
@@ -131,7 +131,6 @@ public class OrgChannelListAction extends RhnAction implements Listable {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private void unsubscribeSystems(Org orgIn, Channel c) {
         User u = UserFactory.findRandomOrgAdmin(orgIn);
         DataResult<Map<String, Object>> myList =

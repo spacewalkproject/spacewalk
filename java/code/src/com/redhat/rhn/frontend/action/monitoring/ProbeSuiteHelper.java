@@ -17,6 +17,8 @@ package com.redhat.rhn.frontend.action.monitoring;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.dto.monitoring.MonitoredServerDto;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
@@ -44,7 +46,8 @@ public class ProbeSuiteHelper {
      * @param pc the page control we are using
      * @return DataResult of SystemOverview DTOs
      */
-    public static DataResult getServersNotInSuite(RequestContext rctx, PageControl pc) {
+    public static DataResult<SystemOverview> getServersNotInSuite(RequestContext rctx,
+            PageControl pc) {
         ProbeSuite suite = rctx.lookupProbeSuite();
         rctx.getRequest().setAttribute("probeSuite", suite);
         User u = rctx.getCurrentUser();
@@ -57,7 +60,8 @@ public class ProbeSuiteHelper {
      * @param pc pageControl for pagination
      * @return DataResult of MonitoredServers
      */
-    public static DataResult getServersInSuite(HttpServletRequest request, PageControl pc) {
+    public static DataResult<MonitoredServerDto> getServersInSuite(
+            HttpServletRequest request, PageControl pc) {
         RequestContext rctx = new RequestContext(request);
         ProbeSuite probeSuite = rctx.lookupProbeSuite();
         rctx.getRequest().setAttribute("probeSuite", probeSuite);
@@ -70,7 +74,8 @@ public class ProbeSuiteHelper {
      * @param request the current request
      * @param params the map to which to add the probe suite ID
      */
-    public static void processParamMap(HttpServletRequest request, Map params) {
+    public static void processParamMap(HttpServletRequest request,
+            Map<String, Object> params) {
         RequestContext rctx = new RequestContext(request);
         ProbeSuite probeSuite = rctx.lookupProbeSuite();
         params.put(RequestContext.SUITE_ID, probeSuite.getId());

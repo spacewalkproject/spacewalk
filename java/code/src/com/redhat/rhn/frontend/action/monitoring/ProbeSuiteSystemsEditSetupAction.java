@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.monitoring.satcluster.SatClusterFactory;
 import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.BaseSetListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -47,16 +48,16 @@ public class ProbeSuiteSystemsEditSetupAction extends BaseSetListAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
+    protected DataResult<SystemOverview> getDataResult(RequestContext rctx,
+            PageControl pc) {
 
         rctx.getRequest().setAttribute("satClusters",
                 SatClusterFactory.findSatClusters());
 
         User u = rctx.getCurrentUser();
         setupPageControl(pc);
-        DataResult retval = MonitoringManager.getInstance().
-            systemsNotInSuite(u, rctx.lookupProbeSuite(), pc);
-        return retval;
+        return MonitoringManager.getInstance().systemsNotInSuite(u,
+                rctx.lookupProbeSuite(), pc);
     }
 
     /**

@@ -38,7 +38,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -173,18 +172,6 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
                 user.getOrg());
 
         assertTrue(channels.size() > 0);
-    }
-
-    /**
-     * TODO: create a test base channel with child channels and perform search.
-     */
-    public void aTestChildChanneQuery() {
-        Channel base = ChannelFactory.getBaseChannel(new Long(1005897296));
-        List<String> labels = new ArrayList<String>();
-        labels.add("redhat-rhn-proxy-3.7-as-i386-4");
-        labels.add("redhat-rhn-proxy-as-i386-2.1");
-        List children = ChannelFactory.getChildChannelsByLabels(base, labels);
-        assertNotEmpty("List is empty", children);
     }
 
     public void testLookupByLabel() throws Exception {

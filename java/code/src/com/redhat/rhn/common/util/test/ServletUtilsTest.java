@@ -63,8 +63,8 @@ public class ServletUtilsTest extends MockObjectTestCase {
         return (HttpServletRequest)mockRequest.proxy();
     }
 
-    private Hashtable createParameterMap() {
-        Hashtable parameterMap = new Hashtable();
+    private Hashtable<String, String> createParameterMap() {
+        Hashtable<String, String> parameterMap = new Hashtable<String, String>();
 
         parameterMap.put(param1Name, param1Value);
         parameterMap.put(param2Name, param2Value);
@@ -82,7 +82,7 @@ public class ServletUtilsTest extends MockObjectTestCase {
     }
 
     private void setUpRequestParams() {
-        Hashtable parameterMap = createParameterMap();
+        Hashtable<String, String> parameterMap = createParameterMap();
 
         mockRequest.stubs().method("getParameterMap").will(returnValue(parameterMap));
 
@@ -111,8 +111,9 @@ public class ServletUtilsTest extends MockObjectTestCase {
         String result = ServletUtils.pathWithParams("/foo", params);
 
         assertTrue(result.startsWith("/foo?"));
-        Set actualParams = new HashSet(Arrays.asList(result.substring(5).split("&")));
-        Set expectedParams = new HashSet();
+        Set<String> actualParams =
+                new HashSet<String>(Arrays.asList(result.substring(5).split("&")));
+        Set<String> expectedParams = new HashSet<String>();
         expectedParams.add("a=1");
         expectedParams.add("a=3");
         expectedParams.add("b=2");
@@ -142,7 +143,7 @@ public class ServletUtilsTest extends MockObjectTestCase {
 
     public void testPathWithParamsListValue() {
         Map<String, Object> params = new HashMap<String, Object>();
-        List values = new ArrayList();
+        List<String> values = new ArrayList<String>();
         values.add("value;");
         values.add("value&");
         values.add("$");
@@ -169,7 +170,7 @@ public class ServletUtilsTest extends MockObjectTestCase {
 
     public final void testRequestParamsToQueryStringWithNoParams() throws Exception {
         mockRequest.stubs().method("getParameterNames").will(returnValue(
-                new Vector().elements()));
+new Vector<String>().elements()));
 
         mockRequest.stubs().method("getParameterMap").will(returnValue(new TreeMap()));
 

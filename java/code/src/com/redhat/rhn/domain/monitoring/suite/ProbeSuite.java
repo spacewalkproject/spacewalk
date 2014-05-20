@@ -21,7 +21,6 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -40,7 +39,7 @@ public class ProbeSuite {
     private Date lastUpdateDate;
 
     private Org org;
-    private Set probes;
+    private Set<TemplateProbe> probes;
 
     /**
      * Getter for recid
@@ -138,9 +137,9 @@ public class ProbeSuite {
     /**
      * @return Returns the probes.
      */
-    public Set getProbes() {
+    public Set<TemplateProbe> getProbes() {
         if (this.probes == null) {
-            return Collections.EMPTY_SET;
+            return new HashSet<TemplateProbe>();
         }
         return probes;
     }
@@ -148,7 +147,7 @@ public class ProbeSuite {
     /**
      * @param probesIn The probes to set.
      */
-    public void setProbes(Set probesIn) {
+    public void setProbes(Set<TemplateProbe> probesIn) {
         this.probes = probesIn;
     }
 
@@ -159,7 +158,7 @@ public class ProbeSuite {
      */
     public void addProbe(TemplateProbe probeIn, User currentUser) {
         if (this.probes == null || this.probes.size() == 0) {
-            this.probes = new HashSet();
+            this.probes = new HashSet<TemplateProbe>();
         }
         TemplateProbe model = null;
         if (!probes.isEmpty()) {
@@ -171,8 +170,9 @@ public class ProbeSuite {
         }
         // Apply probeIn to all existing servers
         if (model != null && model.getServerProbes() != null) {
-            for (Iterator i = model.getServerProbes().iterator(); i.hasNext();) {
-                ServerProbe sp = (ServerProbe) i.next();
+            for (Iterator<ServerProbe> i = model.getServerProbes().iterator();
+                    i.hasNext();) {
+                ServerProbe sp = i.next();
                 applyProbe(probeIn, sp.getSatCluster(), sp.getServer(), currentUser);
             }
         }
@@ -202,9 +202,9 @@ public class ProbeSuite {
             throw new IllegalArgumentException(
                     "Must add Probes to the Suite before we can add Servers");
         }
-        Iterator i = getProbes().iterator();
+        Iterator<TemplateProbe> i = getProbes().iterator();
         while (i.hasNext()) {
-            TemplateProbe sProbe = (TemplateProbe) i.next();
+            TemplateProbe sProbe = i.next();
             applyProbe(sProbe, satCluster, serverIn, currentUser);
         }
     }
@@ -221,17 +221,17 @@ public class ProbeSuite {
      * Get the Set of Server objects associated with this ProbeSuite
      * @return Set of Servers.
      */
-    public Set getServersInSuite() {
-        Set retval = new HashSet();
+    public Set<Server> getServersInSuite() {
+        Set<Server> retval = new HashSet<Server>();
         // Loop through all the probes fetch the Servers
         // assigned to them.
         if (this.getProbes() == null) {
-            return Collections.EMPTY_SET;
+            return new HashSet<Server>();
         }
-        Iterator i = getProbes().iterator();
+        Iterator<TemplateProbe> i = getProbes().iterator();
         while (i.hasNext()) {
-            TemplateProbe probe = (TemplateProbe) i.next();
-            Set servers = probe.getServersUsingProbe();
+            TemplateProbe probe = i.next();
+            Set<Server> servers = probe.getServersUsingProbe();
             retval.addAll(servers);
         }
         return retval;

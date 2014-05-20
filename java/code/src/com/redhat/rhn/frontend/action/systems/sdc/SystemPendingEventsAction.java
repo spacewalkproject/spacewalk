@@ -27,6 +27,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.SystemPendingEventDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -55,7 +56,7 @@ public class SystemPendingEventsAction extends RhnAction {
         Server server = context.lookupAndBindServer();
         User user = context.getCurrentUser();
 
-        Map params = makeParamMap(request);
+        Map<String, Object> params = makeParamMap(request);
         params.put("sid", server.getId());
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI() +
@@ -80,7 +81,8 @@ public class SystemPendingEventsAction extends RhnAction {
         set.clear();
         RhnSetManager.store(set);
 
-        DataResult result = SystemManager.systemPendingEvents(sid, null);
+        DataResult<SystemPendingEventDto> result =
+                SystemManager.systemPendingEvents(sid, null);
 
         if (ListTagHelper.getListAction(RequestContext.PAGE_LIST, request) != null) {
             helper.execute(set, RequestContext.PAGE_LIST, result);

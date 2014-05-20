@@ -45,7 +45,7 @@ public class ChannelSystemsListSubmit extends BaseSetOperateOnSelectedItemsActio
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put(KEY_UNSUBSCRIBE, "processUnsubscribe");
     }
 
@@ -73,7 +73,7 @@ public class ChannelSystemsListSubmit extends BaseSetOperateOnSelectedItemsActio
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest requestIn,
-                                   Map paramsIn) {
+                                   Map<String, Object> paramsIn) {
         ConfigChannel cc = ConfigActionHelper.getChannel(requestIn);
         ConfigActionHelper.processParamMap(cc, paramsIn);
     }

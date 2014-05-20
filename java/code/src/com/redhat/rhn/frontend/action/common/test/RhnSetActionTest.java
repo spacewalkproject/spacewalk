@@ -229,7 +229,7 @@ public class RhnSetActionTest extends RhnBaseTestCase {
         /**
          * {@inheritDoc}
          */
-        protected void processMethodKeys(Map map) {
+        protected void processMethodKeys(Map<String, String> map) {
             assertNotNull(map.get("updatelist"));
             assertNotNull(map.get("selectall"));
             assertNotNull(map.get("unselectall"));
@@ -240,7 +240,7 @@ public class RhnSetActionTest extends RhnBaseTestCase {
          */
         protected void processParamMap(ActionForm formIn,
                                        HttpServletRequest request,
-                                       Map params) {
+                                       Map<String, Object> params) {
             assertNotNull(params);
         }
 
@@ -265,7 +265,7 @@ public class RhnSetActionTest extends RhnBaseTestCase {
         /**
          * {@inheritDoc}
          */
-        protected void processMethodKeys(Map map) {
+        protected void processMethodKeys(Map<String, String> map) {
             assertNotNull(map.get("updatelist"));
             assertNotNull(map.get("selectall"));
             assertNotNull(map.get("unselectall"));
@@ -276,7 +276,7 @@ public class RhnSetActionTest extends RhnBaseTestCase {
          */
         protected void processParamMap(ActionForm formIn,
                                        HttpServletRequest request,
-                                       Map params) {
+                                       Map<String, Object> params) {
             assertNotNull(params);
         }
 

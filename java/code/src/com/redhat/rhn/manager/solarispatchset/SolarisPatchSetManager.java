@@ -37,7 +37,7 @@ public class SolarisPatchSetManager extends BaseManager {
     private static DataResult solarisPackageHelper(Long sid, PageControl pc, String mode) {
         SelectMode m = ModeFactory.getMode("Package_queries", mode);
         Map<String, Object> params = new HashMap<String, Object>();
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         params.put("sid", sid);
         elabParams.put("sid", sid);
 

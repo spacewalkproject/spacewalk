@@ -42,8 +42,8 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
     /**
      * {@inheritDoc}
      */
-    protected Map getKeyMethodMap() {
-        Map map = new HashMap();
+    protected Map<String, String> getKeyMethodMap() {
+        Map<String, String> map = new HashMap<String, String>();
         map.put(RequestContext.FILTER_KEY, "filter");
         processMethodKeys(map);
         return map;
@@ -85,7 +85,7 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
                                      ActionForm formIn,
                                      HttpServletRequest request,
                                      HttpServletResponse response) {
-        Map params = makeParamMap(formIn, request);
+        Map<String, Object> params = makeParamMap(formIn, request);
         String filter = request.getParameter(RequestContext.FILTER_STRING);
         if (filter != null) {
             params.put(RequestContext.FILTER_STRING, filter);
@@ -101,10 +101,11 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
      * @return Returns Map of parameters
      * TODO: was private
      */
-    protected Map makeParamMap(ActionForm form, HttpServletRequest request) {
+    protected Map<String, Object> makeParamMap(ActionForm form,
+            HttpServletRequest request) {
 
         RequestContext rctx = new RequestContext(request);
-        Map params = rctx.makeParamMapWithPagination();
+        Map<String, Object> params = rctx.makeParamMapWithPagination();
         processParamMap(form, request, params);
 
         return params;
@@ -140,8 +141,8 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
         getStrutsDelegate().saveMessages(req, msg);
     }
 
-    protected abstract void processParamMap(ActionForm form,
-            HttpServletRequest request, Map params);
+    protected abstract void processParamMap(ActionForm form, HttpServletRequest request,
+            Map<String, Object> params);
 
     /**
      * This method is used to add additional buttons to a list display. It is
@@ -158,5 +159,5 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
      * If there are no additional actions then simply return.
      * @param map Mapping between method and button names.
      */
-    protected abstract void processMethodKeys(Map map);
+    protected abstract void processMethodKeys(Map<String, String> map);
 }

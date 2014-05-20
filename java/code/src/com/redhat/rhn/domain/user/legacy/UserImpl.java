@@ -70,8 +70,8 @@ public class UserImpl extends BaseDomainHelper implements User {
     private String password;
     private Set<UserGroupMembers> groupMembers;
     private Org org;
-    private Set stateChanges;
-    private Set addresses;
+    private Set<StateChange> stateChanges;
+    private Set<Address> addresses;
     private Set hiddenPanes;
     private Set associatedServerGroups;
     private Set<Server> servers;
@@ -95,8 +95,8 @@ public class UserImpl extends BaseDomainHelper implements User {
         personalInfo.setUser(this);
         userInfo = new UserInfo();
         userInfo.setUser(this);
-        stateChanges = new TreeSet();
-        addresses = new HashSet();
+        stateChanges = new TreeSet<StateChange>();
+        addresses = new HashSet<Address>();
         hiddenPanes = new HashSet();
         associatedServerGroups = new HashSet();
     }
@@ -211,16 +211,16 @@ public class UserImpl extends BaseDomainHelper implements User {
     }
 
     /** {@inheritDoc} */
-    public Set getRoles() {
-        Set userRoles = new HashSet();
-        for (Iterator i = groupMembers.iterator(); i.hasNext();) {
-            UserGroupMembers ugm = (UserGroupMembers) i.next();
+    public Set<Role> getRoles() {
+        Set<Role> userRoles = new HashSet<Role>();
+        for (Iterator<UserGroupMembers> i = groupMembers.iterator(); i.hasNext();) {
+            UserGroupMembers ugm = i.next();
             userRoles.add(ugm.getUserGroup().getRole());
         }
 
         if (userRoles.contains(RoleFactory.ORG_ADMIN)) {
-            Set orgRoles = org.getRoles();
-            Set localImplied = new HashSet();
+            Set<Role> orgRoles = org.getRoles();
+            Set<Role> localImplied = new HashSet<Role>();
             localImplied.addAll(UserFactory.IMPLIEDROLES);
             localImplied.retainAll(orgRoles);
             userRoles.addAll(localImplied);
@@ -229,9 +229,9 @@ public class UserImpl extends BaseDomainHelper implements User {
     }
 
     /** {@inheritDoc} */
-    public Set getTemporaryRoles() {
-        Set userRoles = new HashSet();
-        for (Iterator i = groupMembers.iterator(); i.hasNext();) {
+    public Set<Role> getTemporaryRoles() {
+        Set<Role> userRoles = new HashSet<Role>();
+        for (Iterator<UserGroupMembers> i = groupMembers.iterator(); i.hasNext();) {
             UserGroupMembers ugm = (UserGroupMembers) i.next();
             if (ugm.getTemporary()) {
                 userRoles.add(ugm.getUserGroup().getRole());
@@ -239,8 +239,8 @@ public class UserImpl extends BaseDomainHelper implements User {
         }
 
         if (userRoles.contains(RoleFactory.ORG_ADMIN)) {
-            Set orgRoles = org.getRoles();
-            Set localImplied = new HashSet();
+            Set<Role> orgRoles = org.getRoles();
+            Set<Role> localImplied = new HashSet<Role>();
             localImplied.addAll(UserFactory.IMPLIEDROLES);
             localImplied.retainAll(orgRoles);
             userRoles.addAll(localImplied);
@@ -249,9 +249,9 @@ public class UserImpl extends BaseDomainHelper implements User {
     }
 
     /** {@inheritDoc} */
-    public Set getPermanentRoles() {
-        Set userRoles = new HashSet();
-        for (Iterator i = groupMembers.iterator(); i.hasNext();) {
+    public Set<Role> getPermanentRoles() {
+        Set<Role> userRoles = new HashSet<Role>();
+        for (Iterator<UserGroupMembers> i = groupMembers.iterator(); i.hasNext();) {
             UserGroupMembers ugm = (UserGroupMembers) i.next();
             if (!ugm.getTemporary()) {
                 userRoles.add(ugm.getUserGroup().getRole());
@@ -259,8 +259,8 @@ public class UserImpl extends BaseDomainHelper implements User {
         }
 
         if (userRoles.contains(RoleFactory.ORG_ADMIN)) {
-            Set orgRoles = org.getRoles();
-            Set localImplied = new HashSet();
+            Set<Role> orgRoles = org.getRoles();
+            Set<Role> localImplied = new HashSet<Role>();
             localImplied.addAll(UserFactory.IMPLIEDROLES);
             localImplied.retainAll(orgRoles);
             userRoles.addAll(localImplied);
@@ -946,7 +946,7 @@ public class UserImpl extends BaseDomainHelper implements User {
      * Set the addresses.
      * @param s the set
      */
-    protected void setAddresses(Set s) {
+    protected void setAddresses(Set<Address> s) {
         addresses = s;
     }
 
@@ -954,7 +954,7 @@ public class UserImpl extends BaseDomainHelper implements User {
      * Get the addresses
      * @return Set of addresses
      */
-    protected Set getAddresses() {
+    protected Set<Address> getAddresses() {
         return addresses;
     }
 

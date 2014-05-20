@@ -63,7 +63,7 @@ public class FileListSubmitAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("sdcdeployfile.jsp.confirm", "goToConfirm");
         map.put("sdcdifffile.jsp.confirm", "goToConfirm");
     }
@@ -72,7 +72,7 @@ public class FileListSubmitAction extends RhnSetAction {
      * {@inheritDoc}
      */
     protected void processParamMap(ActionForm formIn,
-            HttpServletRequest request, Map params) {
+            HttpServletRequest request, Map<String, Object> params) {
         params.put("sid", new RequestContext(request).getRequiredParam("sid"));
     }
 

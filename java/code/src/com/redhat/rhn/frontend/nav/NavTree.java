@@ -32,7 +32,7 @@ public class NavTree {
     private int titleDepth;
     private boolean invisible;
     private String formvar;
-    private List nodes;
+    private List<NavNode> nodes;
     private String aclMixins;
     private AclGuard guard;
 
@@ -42,7 +42,7 @@ public class NavTree {
         titleDepth = 0;
         invisible = false;
 
-        nodes = new ArrayList();
+        nodes = new ArrayList<NavNode>();
     }
 
     /**
@@ -56,7 +56,7 @@ public class NavTree {
      * Gets the top-level nodes associated with the tree
      * @return List of the nodes
      */
-    public List getNodes() {
+    public List<NavNode> getNodes() {
         return Collections.unmodifiableList(nodes);
     }
 

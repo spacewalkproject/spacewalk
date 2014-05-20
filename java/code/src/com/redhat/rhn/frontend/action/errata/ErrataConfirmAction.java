@@ -52,7 +52,7 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("confirm.jsp.confirm", "confirmErrata");
     }
 
@@ -60,7 +60,7 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
      * {@inheritDoc}
      */
     protected void processParamMap(ActionForm form, HttpServletRequest request,
-            Map params) {
+            Map<String, Object> params) {
         RequestContext requestContext = new RequestContext(request);
         Long eid = requestContext.getParamAsLong("eid");
 

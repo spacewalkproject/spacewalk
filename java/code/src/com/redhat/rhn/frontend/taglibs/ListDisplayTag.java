@@ -131,6 +131,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  * @see com.redhat.rhn.domain.rhnset.RhnSet
  */
 public class ListDisplayTag extends ListDisplayTagBase {
+    private static final long serialVersionUID = 8952182346554627507L;
     private static final String LAST = "Last";
     private static final String NEXT = "Next";
     private static final String PREV = "Prev";
@@ -139,7 +140,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
     private static final String NEXT_LOWER = "next_lower";
     private static final String PREV_LOWER = "prev_lower";
     private static final String FIRST_LOWER = "first_lower";
-    private static final Set PAGINATION_WASH_SET = buildPaginationWashSet();
+    private static final Set<String> PAGINATION_WASH_SET = buildPaginationWashSet();
 
     /** row count determines whether we're an even or odd row */
     protected int rowCnt = 0;
@@ -807,11 +808,11 @@ public class ListDisplayTag extends ListDisplayTagBase {
      * and should not be part of the URL's in the Alphabar
      * @return a set of all URL variables that are pagination-specific
      */
-    private static Set buildPaginationWashSet() {
+    private static Set<String> buildPaginationWashSet() {
         String [] keys = new String[] {FIRST, PREV, NEXT, LAST,
                                         FIRST_LOWER, PREV_LOWER,
                                             NEXT_LOWER, LAST_LOWER };
-        Set result = new HashSet();
+        Set<String> result = new HashSet<String>();
         for (int i = 0; i < keys.length; i++) {
             result.add(keys[i]);
         }

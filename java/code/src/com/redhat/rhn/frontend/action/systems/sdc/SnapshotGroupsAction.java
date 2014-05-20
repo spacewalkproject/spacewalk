@@ -20,6 +20,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * SnapshotGroupsAction
@@ -27,7 +28,7 @@ import java.util.List;
 public class SnapshotGroupsAction extends SnapshotBaseAction {
 
     /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
+    public List<Map<String, Object>> getResult(RequestContext context) {
         Long sid = context.getRequiredParam(RequestContext.SID);
         Long ssid = context.getRequiredParam(SNAPSHOT_ID);
         return SystemManager.systemSnapshotGroups(sid, ssid, null);

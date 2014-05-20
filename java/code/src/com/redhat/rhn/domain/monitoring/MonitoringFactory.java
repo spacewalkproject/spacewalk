@@ -126,9 +126,9 @@ public class MonitoringFactory extends HibernateFactory {
     public static void saveProbeSuite(ProbeSuite probeSuiteIn, User userIn) {
         probeSuiteIn.setLastUpdateUser(userIn.getLogin());
         probeSuiteIn.setLastUpdateDate(new Date());
-        Iterator i = probeSuiteIn.getProbes().iterator();
+        Iterator<TemplateProbe> i = probeSuiteIn.getProbes().iterator();
         while (i.hasNext()) {
-            TemplateProbe p = (TemplateProbe) i.next();
+            TemplateProbe p = i.next();
             p.setLastUpdateDate(new Date());
         }
         singleton.saveObject(probeSuiteIn);

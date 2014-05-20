@@ -52,12 +52,13 @@ public class ChannelFileDeploySubmit extends BaseSetOperateOnSelectedItemsAction
         return ConfigurationManager.getInstance().listCurrentFiles(usr, cc, null);
     }
 
-    protected void processParamMap(ActionForm form, HttpServletRequest request, Map m) {
+    protected void processParamMap(ActionForm form, HttpServletRequest request,
+            Map<String, Object> m) {
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
         ConfigActionHelper.processParamMap(cc, m);
     }
 
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("deploy.jsp.deployallbutton", "doAll");
         map.put("deploy.jsp.deployselectedbutton", "doSelected");
     }

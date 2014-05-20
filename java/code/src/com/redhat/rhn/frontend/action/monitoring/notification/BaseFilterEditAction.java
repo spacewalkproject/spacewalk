@@ -166,7 +166,7 @@ public abstract class BaseFilterEditAction extends RhnAction {
         req.setAttribute(STATES, makeStates());
         req.setAttribute(FREQUENCY_TYPES, makeFrequencyTypes());
         req.setAttribute(DURATION_TYPES, makeDurationTypes());
-        ArrayList orgs = new ArrayList();
+        ArrayList<Org> orgs = new ArrayList<Org>();
         Org org = rctx.getCurrentUser().getOrg();
         orgs.add(org);
         if (form.getStrings(ORG) == null || form.getStrings(ORG).length == 0) {

@@ -40,6 +40,7 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.dto.monitoring.MonitoredServerDto;
 import com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto;
 import com.redhat.rhn.frontend.dto.monitoring.TimeSeriesData;
 import com.redhat.rhn.frontend.listview.PageControl;
@@ -335,7 +336,7 @@ public class MonitoringManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
 
@@ -481,7 +482,7 @@ public class MonitoringManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Monitoring_queries", mode);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
 
@@ -528,7 +529,7 @@ public class MonitoringManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Monitoring_queries", "probes_in_org");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", currentUser.getOrg().getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
 
         return makeDataResult(params, elabParams, null, m);
     }
@@ -546,7 +547,7 @@ public class MonitoringManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", currentUser.getOrg().getId());
         params.put("suite_id", suiteID);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
 
@@ -559,7 +560,7 @@ public class MonitoringManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Monitoring_queries", "contact_groups_in_org");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", currentUser.getOrg().getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, null, m);
     }
 
@@ -571,42 +572,42 @@ public class MonitoringManager extends BaseManager {
      * @param pc pageControl we are using
      * @return DataResult of SystemOverview DTOs
      */
-    public DataResult systemsNotInSuite(User currentUser,
+    public DataResult<SystemOverview> systemsNotInSuite(User currentUser,
                                         ProbeSuite suiteIn,
                                         PageControl pc) {
         // First fetch *all* relavent systems.  Pass
         // in a NULL PageControl so we can do some manual
         // filtering below.  Easier than doing it in a query
         // because we get to reuse a lot of business logic.
-        DataResult retval =
+        DataResult<SystemOverview> retval =
             SystemManager.systemsWithFeature(currentUser,
                     ServerConstants.FEATURE_PROBES, null);
         // Now we filter out the selected items.  We could
         // do this in the query, but its easier to just filter
         // them out here.
-        Set s = suiteIn.getServersInSuite();
-        Set sIds = new HashSet();
-        Iterator i = s.iterator();
+        Set<Server> s = suiteIn.getServersInSuite();
+        Set<Long> sIds = new HashSet<Long>();
+        Iterator<Server> i = s.iterator();
         while (i.hasNext()) {
-            Server sInSuite = (Server) i.next();
+            Server sInSuite = i.next();
             sIds.add(sInSuite.getId());
         }
-        i = retval.iterator();
+        Iterator<SystemOverview> i2 = retval.iterator();
         // Now iterate over list of DTOs
         // and make sure we remove any items
         // that are already part of the suite.
         Long someValue = new Long(1);
-        while (i.hasNext()) {
-            SystemOverview so = (SystemOverview) i.next();
+        while (i2.hasNext()) {
+            SystemOverview so = i2.next();
             if (sIds.contains(new Long(so.getId().longValue()))) {
-                i.remove();
+                i2.remove();
             }
             else {
                 so.setSelectable(someValue);
             }
         }
         //  Now we filter based on the PageControl.
-        return processPageControl(retval, pc, new HashMap());
+        return processPageControl(retval, pc, new HashMap<String, Integer>());
     }
 
     /**
@@ -623,7 +624,7 @@ public class MonitoringManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Monitoring_queries", "probes_in_server");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", serverIn.getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResultNoPagination(params, elabParams, m);
 
     }
@@ -642,7 +643,7 @@ public class MonitoringManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Monitoring_queries", "system_groups_probes");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("group_id", sg.getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResultNoPagination(params, elabParams, m);
 
     }
@@ -663,7 +664,7 @@ public class MonitoringManager extends BaseManager {
                                            "probes_in_server_with_alerts");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", serverIn.getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResultNoPagination(params, elabParams, m);
 
     }
@@ -676,15 +677,15 @@ public class MonitoringManager extends BaseManager {
      * @param pc for pagination. Null if you want them all.
      * @return DataResult of MonitoredServerDto objects.
      */
-    public DataResult systemsInSuite(User currentUser,
+    public DataResult<MonitoredServerDto> systemsInSuite(User currentUser,
                                         ProbeSuite suiteIn,
                                         PageControl pc) {
 
         SelectMode m = ModeFactory.getMode("Monitoring_queries", "servers_in_suite");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("suite_id", suiteIn.getId());
-        Map elabParams = new HashMap();
-        return makeDataResult(params, elabParams, pc, m);
+        Map<String, Object> elabParams = new HashMap<String, Object>();
+        return makeDataResult(params, elabParams, pc, m, MonitoredServerDto.class);
 
     }
 
@@ -699,7 +700,7 @@ public class MonitoringManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Monitoring_queries", "methods_in_org");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", currentUser.getOrg().getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
 
@@ -718,7 +719,7 @@ public class MonitoringManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("state", probeStateIn);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
 
@@ -752,7 +753,7 @@ public class MonitoringManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
 
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
 
@@ -774,7 +775,7 @@ public class MonitoringManager extends BaseManager {
                 "probe_state_count_by_user");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, null, m);
     }
 

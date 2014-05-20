@@ -970,8 +970,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
         // Get the channel.
         Channel channel = lookupChannelByLabel(user, label);
 
-        DataResult<Map> dr = SystemManager.systemsSubscribedToChannel(channel, user);
-        for (Map sys : dr) {
+        DataResult<Map<String, Object>> dr =
+                SystemManager.systemsSubscribedToChannel(channel, user);
+        for (Map<String, Object> sys : dr) {
             sys.remove("selectable");
         }
         return dr.toArray();
@@ -1007,7 +1008,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = XmlRpcSystemHelper.getInstance().lookupServer(loggedInUser, sid);
 
-        DataResult dr = SystemManager.channelsForServer(server);
+        DataResult<Map<String, Object>> dr = SystemManager.channelsForServer(server);
         return dr.toArray();
     }
 
@@ -1429,7 +1430,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         // remove packages from the channel if requested
         if (removePackages) {
-            List<Long> packagesToRemove = new ArrayList();
+            List<Long> packagesToRemove = new ArrayList<Long>();
 
             List<Long> channelPkgs = ChannelFactory.getPackageIds(channel.getId());
 

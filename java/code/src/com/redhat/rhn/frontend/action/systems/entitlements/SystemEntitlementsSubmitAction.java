@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BaseSetOperateOnSelectedItemsAction;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
@@ -76,7 +77,7 @@ public class SystemEntitlementsSubmitAction extends
         return RhnSetDecl.SYSTEM_ENTITLEMENTS;
     }
 
-    protected DataResult getDataResult(User user,
+    protected DataResult<SystemOverview> getDataResult(User user,
             ActionForm formIn,
             HttpServletRequest request) {
         return SystemManager.getSystemEntitlements(user, null);
@@ -85,7 +86,7 @@ public class SystemEntitlementsSubmitAction extends
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put(KEY_UPDATE_ENTITLED, "processUpdateEntitled");
         map.put(KEY_MANAGEMENT_ENTITLED, "processManagementEntitled");
         map.put(KEY_UNENTITLED, "processUnentitle");
@@ -95,7 +96,7 @@ public class SystemEntitlementsSubmitAction extends
 
     protected void processParamMap(ActionForm formIn,
             HttpServletRequest request,
-            Map params) {
+            Map<String, Object> params) {
     }
 
     /**
@@ -325,7 +326,7 @@ public class SystemEntitlementsSubmitAction extends
             return handleEmptySelection(mapping, formIn, request);
         }
 
-        Map params = makeParamMap(formIn, request);
+        Map<String, Object> params = makeParamMap(formIn, request);
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getCurrentUser();
 
@@ -345,8 +346,8 @@ public class SystemEntitlementsSubmitAction extends
 
         // TODO: Why are we performing an 'i.remove()' in this loop?
         //Go through the set of systems to which we should add the entitlement
-        for (Iterator i = set.getElements().iterator(); i.hasNext();) {
-            RhnSetElement element = (RhnSetElement) i.next();
+        for (Iterator<RhnSetElement> i = set.getElements().iterator(); i.hasNext();) {
+            RhnSetElement element = i.next();
             Long sid = element.getElement();
 
             //We are adding the add on entitlement

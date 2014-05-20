@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.renderers;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.SystemGroupOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -37,7 +38,7 @@ public class SystemGroupsRenderer extends  BaseFragmentRenderer {
      * {@inheritDoc}
      */
     protected void render(User user, PageControl pc, HttpServletRequest request) {
-        DataResult sgdr = SystemManager.groupList(user, pc);
+        DataResult<SystemGroupOverview> sgdr = SystemManager.groupList(user, pc);
         String systemGroupsCSSTable = null;
 
         if (sgdr.isEmpty()) {

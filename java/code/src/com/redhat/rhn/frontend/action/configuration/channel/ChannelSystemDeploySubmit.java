@@ -51,12 +51,13 @@ public class ChannelSystemDeploySubmit extends BaseSetOperateOnSelectedItemsActi
         return ConfigurationManager.getInstance().listSystemInfoForChannel(usr, cc, null);
     }
 
-    protected void processParamMap(ActionForm form, HttpServletRequest request, Map m) {
+    protected void processParamMap(ActionForm form, HttpServletRequest request,
+            Map<String, Object> m) {
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
         ConfigActionHelper.processParamMap(cc, m);
     }
 
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("deploysystems.jsp.deployconfirmbutton", "doConfirm");
     }
 

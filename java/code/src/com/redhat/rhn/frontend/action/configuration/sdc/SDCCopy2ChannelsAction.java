@@ -81,7 +81,7 @@ public class SDCCopy2ChannelsAction extends Copy2ChannelsAction {
         ConfigurationManager cm = ConfigurationManager.getInstance();
 
         DataResult rs =  cm.listGlobalChannels(user, null);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
         rs.elaborate(elabParams);
         return rs;

@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
+import java.util.Map;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -55,7 +57,7 @@ public class NoteListAction extends RhnListAction {
         User user = rctx.getCurrentUser();
         Server s  = SystemManager.lookupByIdAndUser(sid, user);
 
-        DataResult dr = SystemManager.systemNotes(s);
+        DataResult<Map<String, Object>> dr = SystemManager.systemNotes(s);
 
         request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("sid", sid);

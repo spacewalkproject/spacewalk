@@ -34,6 +34,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,12 +62,13 @@ public class ChannelSubscribedAction extends RhnAction {
 
 
 
-        DataResult result = SystemManager.systemsSubscribedToChannelDto(chan, user);
-        result.setElaborationParams(new HashMap());
+        DataResult<Map<String, Object>> result =
+                SystemManager.systemsSubscribedToChannelDto(chan, user);
+        result.setElaborationParams(new HashMap<String, Object>());
         RhnListSetHelper helper = new RhnListSetHelper(request);
 
         RhnSet set =  RhnSetDecl.SYSTEMS.get(user);
-        String alphaBarPressed = request.getParameter(
+        request.getParameter(
                 AlphaBarHelper.makeAlphaKey(TagHelper.generateUniqueName(LIST_NAME)));
 
 

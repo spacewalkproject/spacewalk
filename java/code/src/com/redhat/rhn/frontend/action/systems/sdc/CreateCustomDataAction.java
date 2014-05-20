@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
+import java.util.Map;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -48,7 +50,8 @@ public class CreateCustomDataAction extends RhnAction {
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
-        DataResult result = SystemManager.lookupKeysSansValueForServer(
+        DataResult<Map<String, Object>> result =
+                SystemManager.lookupKeysSansValueForServer(
                 server.getOrg().getId(), sid);
         request.setAttribute(ListTagHelper.PARENT_URL,
                 request.getRequestURI() + "?sid=" + server.getId());

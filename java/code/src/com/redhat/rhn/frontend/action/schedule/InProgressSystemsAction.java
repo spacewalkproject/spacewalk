@@ -134,7 +134,7 @@ public class InProgressSystemsAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("actions.jsp.unscheduleaction", "unscheduleAction");
     }
 
@@ -143,7 +143,7 @@ public class InProgressSystemsAction extends RhnSetAction {
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         RequestContext requestContext = new RequestContext(request);
         params.put("aid", requestContext.getParamAsLong("aid"));
     }

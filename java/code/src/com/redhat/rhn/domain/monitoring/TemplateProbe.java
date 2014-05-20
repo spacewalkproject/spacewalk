@@ -25,7 +25,6 @@ import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.ClosureUtils;
 import org.apache.commons.collections.CollectionUtils;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -41,8 +40,8 @@ import java.util.Set;
  */
 public class TemplateProbe extends Probe {
 
-    private List serverProbes;
-    private Set probeSuites;
+    private List<ServerProbe> serverProbes;
+    private Set<ProbeSuite> probeSuites;
 
     /**
      * Creates new TemplateProbe instance with appropriate defaults
@@ -64,7 +63,7 @@ public class TemplateProbe extends Probe {
     /**
      * @return Returns the serverProbes.
      */
-    public List getServerProbes() {
+    public List<ServerProbe> getServerProbes() {
         // We would like to lazily initialize serverProbes here, or
         // even better, return Collections.EMPTY_LIST. But both seem
         // to confuse hibernate and lead to failures in ProbeSuiteTest
@@ -74,7 +73,7 @@ public class TemplateProbe extends Probe {
     /**
      * @param serverProbesIn The serverProbes to set.
      */
-    public void setServerProbes(List serverProbesIn) {
+    public void setServerProbes(List<ServerProbe> serverProbesIn) {
         this.serverProbes = serverProbesIn;
     }
 
@@ -86,7 +85,7 @@ public class TemplateProbe extends Probe {
      */
     public void addServerProbe(ServerProbe probeIn) {
         if (this.serverProbes == null) {
-            this.serverProbes = new LinkedList();
+            this.serverProbes = new LinkedList<ServerProbe>();
         }
         this.serverProbes.add(probeIn);
     }
@@ -103,14 +102,14 @@ public class TemplateProbe extends Probe {
      * Convenience method to get the Servers using this ServerProbe
      * @return Set of Servers using this probe
      */
-    public Set getServersUsingProbe() {
+    public Set<Server> getServersUsingProbe() {
         if (this.serverProbes == null) {
-            return Collections.EMPTY_SET;
+            return new HashSet<Server>();
         }
-        Iterator i = getServerProbes().iterator();
-        Set retval = new HashSet();
+        Iterator<ServerProbe> i = getServerProbes().iterator();
+        Set<Server> retval = new HashSet<Server>();
         while (i.hasNext()) {
-            ServerProbe p = (ServerProbe) i.next();
+            ServerProbe p = i.next();
             Server s = p.getServer();
             if (s != null) {
                 retval.add(p.getServer());
@@ -261,10 +260,10 @@ public class TemplateProbe extends Probe {
     public void setParameterValue(ProbeParameterValue ppv, String value) {
         super.setParameterValue(ppv, value);
         String paramName = ppv.getParamName();
-        List probes = getServerProbes();
+        List<ServerProbe> probes = getServerProbes();
         if (probes != null) {
             for (int i = 0; i < probes.size(); i++) {
-                ServerProbe p = (ServerProbe) probes.get(i);
+                ServerProbe p = probes.get(i);
                 p.setParameterValue(p.findParameter(paramName), value);
             }
         }
@@ -293,7 +292,7 @@ public class TemplateProbe extends Probe {
             old.removeProbe(this);
         }
         if (getProbeSuites() == null) {
-            setProbeSuites(new HashSet());
+            setProbeSuites(new HashSet<ProbeSuite>());
         }
         getProbeSuites().add(ps);
         if (!ps.getProbes().contains(this)) {
@@ -318,7 +317,7 @@ public class TemplateProbe extends Probe {
     /**
      * @return Returns the probeSuites.
      */
-    private Set getProbeSuites() {
+    private Set<ProbeSuite> getProbeSuites() {
         return probeSuites;
     }
 
@@ -326,7 +325,7 @@ public class TemplateProbe extends Probe {
     /**
      * @param probeSuitesIn The probeSuites to set.
      */
-    private void setProbeSuites(Set probeSuitesIn) {
+    private void setProbeSuites(Set<ProbeSuite> probeSuitesIn) {
         this.probeSuites = probeSuitesIn;
     }
 

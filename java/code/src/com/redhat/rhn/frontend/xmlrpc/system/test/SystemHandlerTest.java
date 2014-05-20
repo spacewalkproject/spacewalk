@@ -640,11 +640,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         int numPackages = SystemManager.latestUpgradablePackages(server.getId()).size();
 
-        Object[] results = handler.listLatestUpgradablePackages(adminKey,
+        List<Map<String, Object>> results =
+                handler.listLatestUpgradablePackages(adminKey,
                 new Integer(server.getId().intValue()));
 
         //make sure the handler returns the same number of packages as systemmanger...
-        assertEquals(numPackages, results.length);
+        assertEquals(numPackages, results.size());
     }
 
     public void testListLatestInstallablePackages() throws Exception {
@@ -652,11 +653,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         int numPackages = SystemManager.latestInstallablePackages(server.getId()).size();
 
-        Object[] results = handler.listLatestInstallablePackages(adminKey,
+        List<Map<String, Object>> results =
+                handler.listLatestInstallablePackages(adminKey,
                 new Integer(server.getId().intValue()));
 
         //make sure the handler returns the same number of packages as systemmanger...
-        assertEquals(numPackages, results.length);
+        assertEquals(numPackages, results.size());
     }
 
 
@@ -686,10 +688,11 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         int numPackages = SystemManager.installedPackages(server.getId(), false).size();
 
-        Object[] result = handler.listPackages(adminKey,
+        List<Map<String, Object>> result =
+                handler.listPackages(adminKey,
                 new Integer(server.getId().intValue()));
 
-        int numPackages2 = result.length;
+        int numPackages2 = result.size();
 
         assertEquals(numPackages, numPackages2);
 
@@ -1806,7 +1809,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Integer serverId = testServer.getId().intValue();
         Map<String, Object> returned = (Map<String, Object>) handler
             .listPackagesFromChannel(adminKey, serverId,
-            testChannel.getLabel())[0];
+                        testChannel.getLabel()).get(0);
 
         assertEquals(testPackage.getPackageName().getName(), returned.get("name"));
         assertEquals(testPackage.getPackageEvr().getVersion(), returned.get("version"));

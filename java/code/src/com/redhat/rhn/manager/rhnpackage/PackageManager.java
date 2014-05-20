@@ -234,7 +234,7 @@ public class PackageManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Package_queries", "system_package_list");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
 
@@ -249,7 +249,7 @@ public class PackageManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Package_queries", "system_available_packages");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
 
@@ -346,7 +346,7 @@ public class PackageManager extends BaseManager {
         params.put("target_eid", errata.getId());
         params.put("source_cid", cid);
 
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("org_id", user.getOrg().getId());
         return makeDataResult(params, elabParams, null, m);
     }

@@ -34,7 +34,7 @@ public abstract class BaseSystemListAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         //no op
     }
 
@@ -43,7 +43,7 @@ public abstract class BaseSystemListAction extends RhnSetAction {
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         // no-op
     }
 

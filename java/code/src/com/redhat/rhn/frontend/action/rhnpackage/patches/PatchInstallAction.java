@@ -73,13 +73,13 @@ public class PatchInstallAction extends RhnSetAction {
         return strutsDelegate.forwardParams(mapping.findForward("install"), params);
     }
 
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("packagelist.jsp.installpatch", "applyPatch");
     }
 
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         Long sid = new RequestContext(request).getParamAsLong("sid");
         if (sid != null) {
             params.put("sid", sid);

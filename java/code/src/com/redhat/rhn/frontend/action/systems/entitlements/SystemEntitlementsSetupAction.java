@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.BaseSystemListSetupAction;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.acl.AclManager;
@@ -86,7 +87,8 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
      * {@inheritDoc}
      */
     @Override
-    protected DataResult getDataResult(User user, PageControl pc, ActionForm formIn) {
+    protected DataResult<SystemOverview> getDataResult(User user, PageControl pc,
+            ActionForm formIn) {
         return SystemManager.getSystemEntitlements(user, pc);
     }
 
@@ -109,7 +111,7 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
             request.setAttribute(SHOW_COMMANDS, Boolean.TRUE);
         }
 
-        List addOnEntitlements = new ArrayList();
+        List<LabelValueBean> addOnEntitlements = new ArrayList<LabelValueBean>();
         if (log.isDebugEnabled()) {
             log.debug("user.getOrg().getEnts: " + user.getOrg().getEntitlements());
         }
@@ -159,8 +161,7 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
             Collections.sort(addOnEntitlements);
             request.setAttribute(ADDON_ENTITLEMENTS, addOnEntitlements);
             DynaActionForm form = (DynaActionForm)formIn;
-            form.set(ADDON_ENTITLEMENT,
-                    ((LabelValueBean) addOnEntitlements.get(0)).getValue());
+            form.set(ADDON_ENTITLEMENT, addOnEntitlements.get(0).getValue());
         }
         setupCounts(request, user);
 

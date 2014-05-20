@@ -101,7 +101,7 @@ public class VisibleSystemsListAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         // no op
     }
 
@@ -110,7 +110,7 @@ public class VisibleSystemsListAction extends RhnSetAction {
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         params.put("uid", new RequestContext(request).getParamAsLong("uid"));
     }
 

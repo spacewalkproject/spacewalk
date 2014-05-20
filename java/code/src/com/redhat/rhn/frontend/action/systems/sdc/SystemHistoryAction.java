@@ -25,6 +25,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.frontend.dto.SystemEventDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
@@ -36,7 +37,7 @@ import com.redhat.rhn.manager.system.SystemManager;
  * SystemHistoryAction
  * @version $Rev$
  */
-public class SystemHistoryAction extends RhnAction implements Listable {
+public class SystemHistoryAction extends RhnAction implements Listable<SystemEventDto> {
 
     /**
      * {@inheritDoc}
@@ -50,7 +51,7 @@ public class SystemHistoryAction extends RhnAction implements Listable {
 
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
-        Map params = makeParamMap(request);
+        Map<String, Object> params = makeParamMap(request);
         params.put(RequestContext.SID, sid);
         params.put("pendingActions", SystemManager.countPendingActions(sid));
         params.put("isLocked", server.getLock() == null ? false : true);
@@ -60,7 +61,7 @@ public class SystemHistoryAction extends RhnAction implements Listable {
     }
 
     /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
+    public List<SystemEventDto> getResult(RequestContext context) {
         Long sid = context.getRequiredParam("sid");
         return SystemManager.systemEventHistory(sid, null);
     }

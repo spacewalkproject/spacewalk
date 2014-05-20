@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelTreeNode;
+import com.redhat.rhn.frontend.dto.OrgTrustOverview;
 import com.redhat.rhn.frontend.dto.TrustedOrgDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
@@ -44,7 +45,6 @@ import java.util.Map;
  * @xmlrpc.doc Contains methods to access common organization trust information
  * available from the web interface.
  */
-@SuppressWarnings("unchecked")
 public class OrgTrustHandler extends BaseHandler {
 
     protected boolean availableInRestrictedPeriod() {
@@ -187,7 +187,7 @@ public class OrgTrustHandler extends BaseHandler {
      *          from the organization.")
      *     #struct_end()
      */
-    public Map getDetails(String sessionKey, Integer trustOrgId) {
+    public Map<String, Object> getDetails(String sessionKey, Integer trustOrgId) {
 
         User user = BaseHandler.getLoggedInUser(sessionKey);
         ensureUserRole(user, RoleFactory.ORG_ADMIN);
@@ -234,7 +234,7 @@ public class OrgTrustHandler extends BaseHandler {
      * @xmlrpc.returntype
      * $OrgTrustOverviewSerializer
      */
-    public List listTrusts(String sessionKey, Integer orgId) {
+    public List<OrgTrustOverview> listTrusts(String sessionKey, Integer orgId) {
         User user = BaseHandler.getLoggedInUser(sessionKey);
         ensureUserRole(user, RoleFactory.SAT_ADMIN);
         Org org = OrgFactory.lookupById(Long.valueOf(orgId));
@@ -322,18 +322,18 @@ public class OrgTrustHandler extends BaseHandler {
      *     #struct_end()
      *   #array_end()
      */
-    public List<Map> listSystemsAffected(
+    public List<Map<String, Object>> listSystemsAffected(
         String sessionKey,
         Integer orgId,
         Integer trustOrgId) {
 
         User user = BaseHandler.getLoggedInUser(sessionKey);
         ensureUserRole(user, RoleFactory.SAT_ADMIN);
-        List<Map> subscribed =
+        List<Map<String, Object>> subscribed =
             SystemManager.subscribedInOrgTrust(orgId, trustOrgId);
-        List<Map> result = new ArrayList<Map>();
-        for (Map sm : subscribed) {
-            Map m = new HashMap();
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+        for (Map<String, Object> sm : subscribed) {
+            Map<String, Object> m = new HashMap<String, Object>();
             m.put("systemId", sm.get("id"));
             m.put("systemName", sm.get("name"));
             result.add(m);

@@ -48,7 +48,7 @@ public class CreateRedirectURITest extends MockObjectTestCase {
         mockRequest = mock(HttpServletRequest.class);
 
         mockRequest.stubs().method("getParameterNames").will(returnValue(
-                new Vector().elements()));
+new Vector<String>().elements()));
         mockRequest.stubs().method("getRequestURI").will(returnValue("/YourRhn.do"));
     }
 
@@ -60,8 +60,8 @@ public class CreateRedirectURITest extends MockObjectTestCase {
      *
      */
     public final void testExecuteWhenRequestHasNoParams() throws Exception {
-        mockRequest.stubs().method("getParameterNames").will(
-                returnValue(new Vector().elements()));
+        mockRequest.stubs().method("getParameterNames")
+                .will(returnValue(new Vector<String>().elements()));
 
         CreateRedirectURI command = new CreateRedirectURI();
         String redirectUrl = command.execute(getMockRequest());
@@ -78,7 +78,7 @@ public class CreateRedirectURITest extends MockObjectTestCase {
 
         String expected = "/YourRhn.do?foo=" + URLEncoder.encode(paramValue, "UTF-8") + "&";
 
-        Vector paramNames = new Vector();
+        Vector<String> paramNames = new Vector<String>();
         paramNames.add(paramName);
 
         mockRequest.stubs().method("getParameterNames").will(

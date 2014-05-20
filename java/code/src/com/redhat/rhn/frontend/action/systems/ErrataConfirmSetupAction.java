@@ -114,7 +114,7 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
         User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam("sid");
 
-        Map hparams = new HashMap();
+        Map<String, Object> hparams = new HashMap<String, Object>();
 
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         RhnSet set = ErrataSetupAction.getSetDecl(sid).get(user);

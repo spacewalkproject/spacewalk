@@ -73,10 +73,11 @@ public class LocalizationService {
     // that map to the message keys found in the StringResources.xml
     // files. This allows us to have sets of XML ResourceBundles that
     // are specified in the rhn.jconf
-    private Map keyToBundleMap;
+    private Map<String, String> keyToBundleMap;
 
     // List of supported locales
-    private final Map supportedLocales = new HashMap();
+    private final Map<String, LocaleInfo> supportedLocales =
+            new HashMap<String, LocaleInfo>();
 
     /**
      * hidden constructor
@@ -95,7 +96,7 @@ public class LocalizationService {
             log.warn("Reloading XML StringResource files.");
             XmlMessages.getInstance().resetBundleCache();
         }
-        keyToBundleMap = new HashMap();
+        keyToBundleMap = new HashMap<String, String>();
 
         // Get the list of configured classnames from the config file.
         String[] packages = Config.get().getStringArray(
@@ -117,9 +118,9 @@ public class LocalizationService {
             // languages may have subsets but no unique keys. If this is a
             // problem
             // refactoring will need to take place.
-            Enumeration e = XmlMessages.getInstance().getKeys(z, Locale.US);
+            Enumeration<String> e = XmlMessages.getInstance().getKeys(z, Locale.US);
             while (e.hasMoreElements()) {
-                String key = (String) e.nextElement();
+                String key = e.nextElement();
                 keyToBundleMap.put(key, className);
             }
         }
@@ -136,8 +137,8 @@ public class LocalizationService {
         if (rawLocales == null) {
             return;
         }
-        List compoundLocales = new LinkedList();
-        for (Enumeration locales = new StringTokenizer(rawLocales, ","); locales
+        List<String> compoundLocales = new LinkedList<String>();
+        for (Enumeration<Object> locales = new StringTokenizer(rawLocales, ","); locales
                 .hasMoreElements();) {
             String locale = (String) locales.nextElement();
             if (locale.indexOf('_') > -1) {
@@ -146,7 +147,7 @@ public class LocalizationService {
             LocaleInfo li = new LocaleInfo(locale);
             this.supportedLocales.put(locale, li);
         }
-        for (Iterator iter = compoundLocales.iterator(); iter.hasNext();) {
+        for (Iterator<String> iter = compoundLocales.iterator(); iter.hasNext();) {
             String cl = (String) iter.next();
             String[] parts = cl.split("_");
             LocaleInfo li = new LocaleInfo(parts[0], cl);
@@ -523,7 +524,7 @@ public class LocalizationService {
      * Get alphabet list for callee's Thread's Locale
      * @return the list of alphanumeric characters from the alphabet
      */
-    public List getAlphabet() {
+    public List<String> getAlphabet() {
         return StringUtil.stringToList(getMessage("alphabet"));
     }
 
@@ -531,7 +532,7 @@ public class LocalizationService {
      * Get digit list for callee's Thread's Locale
      * @return the list of digits
      */
-    public List getDigits() {
+    public List<String> getDigits() {
         return StringUtil.stringToList(getMessage("digits"));
     }
 
@@ -540,17 +541,17 @@ public class LocalizationService {
      * returning a SortedSet object.
      * @return SortedSet sorted set of available prefixes.
      */
-    public SortedSet availablePrefixes() {
+    public SortedSet<String> availablePrefixes() {
         SelectMode prefixMode = ModeFactory.getMode("util_queries",
                 "available_prefixes");
         // no params for this query
-        DataResult dr = prefixMode.execute(new HashMap());
+        DataResult<Map<String, Object>> dr = prefixMode.execute(new HashMap());
 
-        SortedSet ret = new TreeSet();
-        Iterator i = dr.iterator();
+        SortedSet<String> ret = new TreeSet<String>();
+        Iterator<Map<String, Object>> i = dr.iterator();
         while (i.hasNext()) {
-            Map row = (Map) i.next();
-            ret.add(row.get("prefix"));
+            Map<String, Object> row = i.next();
+            ret.add((String) row.get("prefix"));
         }
         return ret;
     }
@@ -602,8 +603,8 @@ public class LocalizationService {
      * Get list of supported locales in string form
      * @return supported locales
      */
-    public List getSupportedLocales() {
-        List tmp = new LinkedList(this.supportedLocales.keySet());
+    public List<String> getSupportedLocales() {
+        List<String> tmp = new LinkedList<String>(this.supportedLocales.keySet());
         Collections.sort(tmp);
         return Collections.unmodifiableList(tmp);
     }
@@ -613,11 +614,11 @@ public class LocalizationService {
      * all the supported locales
      * @return list of configured locales
      */
-    public List getConfiguredLocales() {
-        List tmp = new LinkedList();
-        for (Iterator iter = this.supportedLocales.keySet().iterator(); iter
+    public List<String> getConfiguredLocales() {
+        List<String> tmp = new LinkedList<String>();
+        for (Iterator<String> iter = this.supportedLocales.keySet().iterator(); iter
                 .hasNext();) {
-            String key = (String) iter.next();
+            String key = iter.next();
             LocaleInfo li = (LocaleInfo) this.supportedLocales.get(key);
             if (!li.isAlias()) {
                 tmp.add(key);

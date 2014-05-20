@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
+import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -264,14 +265,15 @@ public class SystemDetailsHandler extends BaseHandler {
      *                  #options_end()
      *          #struct_end()
      */
-    public Map getLocale(String sessionKey, String ksLabel) throws FaultException {
+    public Map<String, Object> getLocale(String sessionKey, String ksLabel)
+            throws FaultException {
 
         User user = getLoggedInUser(sessionKey);
         ensureConfigAdmin(user);
 
         KickstartLocaleCommand command  = getLocaleCommand(ksLabel, user);
 
-        Map locale = new HashMap();
+        Map<String, Object> locale = new HashMap<String, Object>();
         locale.put("locale", command.getTimezone());
         locale.put("useUtc", command.isUsingUtc());
 
@@ -376,7 +378,6 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.returntype string[] - A list of partitioning commands used to
      * setup the partitions, logical volumes and volume groups."
      */
-    @SuppressWarnings("unchecked")
     public List<String> getPartitioningScheme(String sessionKey, String ksLabel) {
         User user = getLoggedInUser(sessionKey);
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
@@ -425,7 +426,7 @@ public class SystemDetailsHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Set listKeys(String sessionKey, String kickstartLabel) {
+    public Set<CryptoKey> listKeys(String sessionKey, String kickstartLabel) {
 
         // TODO: Determine if null or empty set is returned when no keys associated
 
@@ -445,7 +446,7 @@ public class SystemDetailsHandler extends BaseHandler {
                 org.getId());
 
         // Set will contain crypto key
-        Set keys = data.getCryptoKeys();
+        Set<CryptoKey> keys = data.getCryptoKeys();
         return keys;
     }
 
@@ -464,7 +465,7 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int addKeys(String sessionKey, String kickstartLabel,
-                             List descriptions) {
+ List<String> descriptions) {
         if (sessionKey == null) {
             throw new IllegalArgumentException("sessionKey cannot be null");
         }
@@ -510,7 +511,7 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int removeKeys(String sessionKey, String kickstartLabel,
-                             List descriptions) {
+            List<String> descriptions) {
         if (sessionKey == null) {
             throw new IllegalArgumentException("sessionKey cannot be null");
         }
@@ -560,7 +561,7 @@ public class SystemDetailsHandler extends BaseHandler {
      *         $FileListSerializer
      *     #array_end()
      */
-    public Set listFilePreservations(String sessionKey, String kickstartLabel)
+    public Set<FileList> listFilePreservations(String sessionKey, String kickstartLabel)
         throws FaultException {
 
         if (sessionKey == null) {

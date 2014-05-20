@@ -573,8 +573,8 @@ public class RequestContext {
      * @return Returns a new hashmap containing the parameters
      */
     // TODO Write unit tests for makeParamMapWithPagination()
-    public Map<String, String> makeParamMapWithPagination() {
-        Map<String, String> params = new HashMap<String, String>();
+    public Map<String, Object> makeParamMapWithPagination() {
+        Map<String, Object> params = new HashMap<String, Object>();
         String lower = processPagination();
 
         if (lower != null && lower.length() > 0 && StringUtils.isNumeric(lower)) {

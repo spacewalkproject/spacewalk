@@ -70,7 +70,7 @@ public class ImportFileSubmitAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("sdcimportfile.jsp.button", "importFile");
     }
 
@@ -78,7 +78,7 @@ public class ImportFileSubmitAction extends RhnSetAction {
      * {@inheritDoc}
      */
     protected void processParamMap(ActionForm formIn, HttpServletRequest requestIn,
-            Map paramsIn) {
+            Map<String, Object> paramsIn) {
         //keep sid around
         paramsIn.put("sid", requestIn.getParameter("sid"));
     }

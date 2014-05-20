@@ -835,13 +835,14 @@ public class SystemHandler extends BaseHandler {
             return returnList.toArray();
         }
 
-        DataResult dr = SystemManager.subscribableChannels(server.getId(),
+        DataResult<Map<String, Object>> dr =
+                SystemManager.subscribableChannels(server.getId(),
                 loggedInUser.getId(), baseChannel.getId());
 
         //TODO: This should go away once we teach marquee how to deal with nulls in a list.
         //      Luckily, this list shouldn't be too long.
-        for (Iterator itr = dr.iterator(); itr.hasNext();) {
-            Map row = (Map) itr.next();
+        for (Iterator<Map<String, Object>> itr = dr.iterator(); itr.hasNext();) {
+            Map<String, Object> row = itr.next();
             Map<String, Object> channel = new HashMap<String, Object>();
 
             channel.put("id", row.get("id"));
@@ -993,13 +994,15 @@ public class SystemHandler extends BaseHandler {
      * @throws NoSuchPackageException A no such package exception is thrown when no packages
      * with the given name are installed on the server.
      */
-    private List packagesToCheck(Server server, String name) throws NoSuchPackageException {
-        DataResult installed = SystemManager.installedPackages(server.getId(), false);
+    private List<Map<String, Object>> packagesToCheck(Server server, String name)
+            throws NoSuchPackageException {
+        DataResult<Map<String, Object>> installed =
+                SystemManager.installedPackages(server.getId(), false);
 
-        List toCheck = new ArrayList();
+        List<Map<String, Object>> toCheck = new ArrayList<Map<String, Object>>();
         // Get a list of packages with matching name
-        for (Iterator itr = installed.iterator(); itr.hasNext();) {
-            Map pkg = (Map) itr.next();
+        for (Iterator<Map<String, Object>> itr = installed.iterator(); itr.hasNext();) {
+            Map<String, Object> pkg = itr.next();
             String pkgName = StringUtils.trim((String) pkg.get("name"));
             if (pkgName.equals(StringUtils.trim(name))) {
                 toCheck.add(pkg);
@@ -1086,14 +1089,15 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        DataResult packages = SystemManager.installedPackages(server.getId(), false);
+        DataResult<Map<String, Object>> packages =
+                SystemManager.installedPackages(server.getId(), false);
 
         /*
          * Loop through the packages for this system and check each attribute. Use
          * StringUtils.trim() to disregard whitespace on either ends of the string.
          */
-        for (Iterator itr = packages.iterator(); itr.hasNext();) {
-            Map pkg = (Map) itr.next();
+        for (Iterator<Map<String, Object>> itr = packages.iterator(); itr.hasNext();) {
+            Map<String, Object> pkg = itr.next();
 
             //Check name
             String pkgName = StringUtils.trim((String) pkg.get("name"));
@@ -1155,15 +1159,13 @@ public class SystemHandler extends BaseHandler {
      *      #struct_end()
      * #array_end()
      */
-    public Object[] listLatestUpgradablePackages(String sessionKey, Integer sid)
-            throws FaultException {
+    public List<Map<String, Object>> listLatestUpgradablePackages(String sessionKey,
+            Integer sid) throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        DataResult dr = SystemManager.latestUpgradablePackages(server.getId());
-
-        return dr.toArray();
+        return SystemManager.latestUpgradablePackages(server.getId());
     }
 
     /**
@@ -1187,12 +1189,11 @@ public class SystemHandler extends BaseHandler {
      *          #prop("string", "arch_label")
      *      #struct_end()
      */
-    public Object[] listAllInstallablePackages(String sessionKey, Integer sid)
-            throws FaultException {
+    public List<Map<String, Object>> listAllInstallablePackages(String sessionKey,
+            Integer sid) throws FaultException {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
-        DataResult dr = SystemManager.allInstallablePackages(server.getId());
-        return dr.toArray();
+        return SystemManager.allInstallablePackages(server.getId());
     }
 
     /**
@@ -1218,15 +1219,13 @@ public class SystemHandler extends BaseHandler {
      *      #struct_end()
      * #array_end()
      */
-    public Object[] listLatestInstallablePackages(String sessionKey, Integer sid)
-            throws FaultException {
+    public List<Map<String, Object>> listLatestInstallablePackages(String sessionKey,
+            Integer sid) throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        DataResult dr = SystemManager.latestInstallablePackages(server.getId());
-
-        return dr.toArray();
+        return SystemManager.latestInstallablePackages(server.getId());
     }
 
     /**
@@ -1395,13 +1394,13 @@ public class SystemHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Object[] listPackages(String sessionKey, Integer sid) throws FaultException {
+    public List<Map<String, Object>> listPackages(String sessionKey, Integer sid)
+            throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        DataResult dr = SystemManager.installedPackages(server.getId(), false);
-        return dr.toArray();
+        return SystemManager.installedPackages(server.getId(), false);
     }
 
     /**
@@ -1721,13 +1720,14 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        DataResult groups = SystemManager.availableSystemGroups(server, loggedInUser);
+        DataResult<Map<String, Object>> groups =
+                SystemManager.availableSystemGroups(server, loggedInUser);
         List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
 
 
         // More stupid data munging...
-        for (Iterator itr = groups.iterator(); itr.hasNext();) {
-            Map map = (Map) itr.next();
+        for (Iterator<Map<String, Object>> itr = groups.iterator(); itr.hasNext();) {
+            Map<String, Object> map = itr.next();
             Map<String, Object> row = new HashMap<String, Object>();
 
             row.put("id", map.get("id"));
@@ -3361,15 +3361,15 @@ public class SystemHandler extends BaseHandler {
      *      $PackageSerializer
      *  #array_end()
      */
-    public Object[] listPackagesFromChannel(String sessionKey, Integer sid,
+    public List<Map<String, Object>> listPackagesFromChannel(String sessionKey,
+            Integer sid,
             String channelLabel) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
+        SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
         Channel channel = ChannelFactory.lookupByLabelAndUser(channelLabel,
                 loggedInUser);
-        return SystemManager.packagesFromChannel(sid.longValue(),
-                channel.getId()).toArray();
+        return SystemManager.packagesFromChannel(sid.longValue(), channel.getId());
     }
 
     /**
@@ -4253,10 +4253,12 @@ public class SystemHandler extends BaseHandler {
      * @return True is systems are compatible, false otherwise.
      */
     private boolean isCompatible(User user, Server target, Server source) {
-        List compatibleServers = SystemManager.compatibleWithServer(user, target);
+        List<Map<String, Object>> compatibleServers =
+                SystemManager.compatibleWithServer(user, target);
         boolean found = false;
-        for (Iterator it = compatibleServers.iterator(); it.hasNext();) {
-            Map m = (Map)it.next();
+        for (Iterator<Map<String, Object>> it = compatibleServers.iterator();
+                it.hasNext();) {
+            Map<String, Object> m = it.next();
             Long currentId = (Long)m.get("id");
             if (currentId.longValue() == source.getId().longValue()) {
                 found = true;
@@ -5343,15 +5345,17 @@ public class SystemHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public List listExtraPackages(String sessionKey, Integer serverId) {
+    public List<Map<String, Object>> listExtraPackages(String sessionKey,
+            Integer serverId) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        DataResult dr = SystemManager.listExtraPackages(new Long(serverId));
+        DataResult<PackageListItem> dr =
+                SystemManager.listExtraPackages(new Long(serverId));
 
-        List returnList = new ArrayList();
+        List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
 
-        for (Iterator itr = dr.iterator(); itr.hasNext();) {
-            PackageListItem row = (PackageListItem) itr.next();
-            Map pkg = new HashMap();
+        for (Iterator<PackageListItem> itr = dr.iterator(); itr.hasNext();) {
+            PackageListItem row = itr.next();
+            Map<String, Object> pkg = new HashMap<String, Object>();
 
             pkg.put("name", row.getName());
             pkg.put("version", row.getVersion());

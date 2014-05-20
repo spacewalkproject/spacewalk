@@ -133,7 +133,7 @@ public class PackagePushAction extends RhnSetAction {
      * {@inheritDoc}
      */
     protected void processParamMap(ActionForm form, HttpServletRequest request,
-            Map params) {
+            Map<String, Object> params) {
         DynaActionForm daForm = (DynaActionForm) form;
         params.put("eid", daForm.get("eid"));
 
@@ -142,7 +142,7 @@ public class PackagePushAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("errata.publish.packagepush.continue", "pushPackages");
     }
 

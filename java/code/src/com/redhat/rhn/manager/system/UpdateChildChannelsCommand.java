@@ -84,7 +84,8 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
 
         // Check whether channelsIds are childs of the current base if the system has a base
         if (server.getBaseChannel() != null) {
-            Set subscribableChannelIds = SystemManager.subscribableChannelIds(
+            Set<Long> subscribableChannelIds =
+                    SystemManager.subscribableChannelIds(
                             server.getId(), user.getId(), server.getBaseChannel().getId());
             for (Long channelId : cids) {
                 if (!subscribableChannelIds.contains(channelId)) {

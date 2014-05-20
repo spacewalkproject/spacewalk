@@ -45,10 +45,10 @@ public class NotificationFactory extends HibernateFactory {
 
     public static final FilterType FILTER_TYPE_METOO = lookupFilterType("METOO");
 
-    private static final List FILTER_TYPES;
+    private static final List<FilterType> FILTER_TYPES;
 
     static {
-        List types = new ArrayList();
+        List<FilterType> types = new ArrayList<FilterType>();
         types.add(FILTER_TYPE_REDIR);
         types.add(FILTER_TYPE_ACK);
         types.add(FILTER_TYPE_BLACKHOLE);
@@ -129,7 +129,7 @@ public class NotificationFactory extends HibernateFactory {
      * Return a list of all filter typ insert="false" update="falsees
      * @return a list of all filter types
      */
-    public static List listFilterTypes() {
+    public static List<FilterType> listFilterTypes() {
         return FILTER_TYPES;
     }
 

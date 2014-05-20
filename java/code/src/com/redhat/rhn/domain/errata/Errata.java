@@ -295,7 +295,7 @@ public interface Errata {
     /**
      * @param f The files to set.
      */
-    void setFiles(Set f);
+    void setFiles(Set<ErrataFile> f);
 
     /**
      * Convienience method so we can add keywords logically
@@ -318,7 +318,7 @@ public interface Errata {
     /**
      * @param k The keywords to set.
      */
-    void setKeywords(Set k);
+    void setKeywords(Set<Keyword> k);
 
     /**
      * Search for the given keyword in the set
@@ -342,12 +342,12 @@ public interface Errata {
     /**
      * @return Returns the packages.
      */
-    Set getPackages();
+    Set<Package> getPackages();
 
     /**
      * @param p The packages to set.
      */
-    void setPackages(Set p);
+    void setPackages(Set<Package> p);
 
     /**
      * @return Returns the Set of channels associated with this errata
@@ -357,7 +357,7 @@ public interface Errata {
     /**
      * @param channelsIn The set of channels to set for this errata
      */
-    void setChannels(Set channelsIn);
+    void setChannels(Set<Channel> channelsIn);
 
     /**
      * Getter for author

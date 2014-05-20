@@ -79,7 +79,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map mapIn) {
+    protected void processMethodKeys(Map<String, String> mapIn) {
         mapIn.put("manage.jsp.delete", "delete");
         mapIn.put("manage.jsp.uploadbutton", "upload");
     }
@@ -89,7 +89,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest requestIn,
-                                   Map paramsIn) {
+                                   Map<String, Object> paramsIn) {
         RequestContext requestContext = new RequestContext(requestIn);
 
         Long fileId = requestContext.getRequiredParam(ConfigActionHelper.FILE_ID);

@@ -487,7 +487,7 @@ public class ServerFactory extends HibernateFactory {
      * @param server Server whose profiles we want.
      * @return a list of Servers which are compatible with the given server.
      */
-    public static List compatibleWithServer(User user, Server server) {
+    public static List<Map<String, Object>> compatibleWithServer(User user, Server server) {
         SelectMode m = ModeFactory.getMode("System_queries",
                 "compatible_with_server");
 

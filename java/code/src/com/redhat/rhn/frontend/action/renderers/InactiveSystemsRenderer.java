@@ -42,11 +42,12 @@ public class InactiveSystemsRenderer extends BaseFragmentRenderer {
      */
     protected void render(User user, PageControl pc, HttpServletRequest request) {
         LocalizationService ls = LocalizationService.getInstance();
-        DataResult isdr = SystemManager.inactiveListSortbyCheckinTime(user, pc);
+        DataResult<SystemOverview> isdr =
+                SystemManager.inactiveListSortbyCheckinTime(user, pc);
         String inactiveSystemCSSTable = null;
         if (!isdr.isEmpty()) {
-            for (Iterator i = isdr.iterator(); i.hasNext();) {
-                SystemOverview so = (SystemOverview) i.next();
+            for (Iterator<SystemOverview> i = isdr.iterator(); i.hasNext();) {
+                SystemOverview so = i.next();
                 StringBuffer buffer = new StringBuffer();
                 Long lastCheckin = so.getLastCheckinDaysAgo();
                 if (lastCheckin.compareTo(new Long(1)) < 0) {

@@ -86,8 +86,8 @@ public class NewUserEventTest extends RhnBaseTestCase {
         // In the implementation we use getHeaderNames so we override it with
         // one that returns an empty implementation.
         MockHttpServletRequest request = new MockHttpServletRequest() {
-            public Enumeration getHeaderNames() {
-                return new Vector().elements();
+            public Enumeration<String> getHeaderNames() {
+                return new Vector<String>().elements();
             }
         };
         request.setSession(new MockHttpSession());
