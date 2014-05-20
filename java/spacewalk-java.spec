@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.68
+Version: 2.2.69
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 20 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.69-1
+- Systems in a channel family: converted from pxt to java
+- 1098805 - event cancel confirm botton label.
+
 * Tue May 20 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.68-1
 - navigation links to new pages (Tags.do)
 - rewrite snapshots/rollback.pxt?sid=${sid}&ss_id=${ss_id} page to java
