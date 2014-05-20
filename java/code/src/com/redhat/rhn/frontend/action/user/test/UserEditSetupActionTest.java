@@ -65,7 +65,7 @@ public class UserEditSetupActionTest extends RhnBaseTestCase {
             // verify the dyna form got the right values we expected.
             sah.getForm().verify();
 
-            assertNotNull(sah.getRequest().getAttribute("lastLoggedIn"));
+            assertEquals(sah.getUser().getLastLoggedIn(), sah.getRequest().getAttribute("lastLoggedIn"));
             // Verify some more intensive stuff
             assertNotNull(sah.getRequest().getAttribute("adminRoles"));
             assertNotNull(sah.getRequest().getAttribute("regularRoles"));
