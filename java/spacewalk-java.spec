@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.164
+Version: 2.1.165
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 20 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.165-1
+- add request scope to the remote command via SSM action
+- remote command webui: don't scrub the script body
+
 * Fri Feb 28 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.164-1
 - filter out channels that are not assigned to a server
 
