@@ -451,7 +451,7 @@ public class KickstartSession {
             }
             if (this.currentServer() != null) {
                 ActionFactory.removeActionForSystem(
-                    this.currentServer().getId(), parentAction.getId());
+                    parentAction.getId(), this.currentServer().getId());
             }
         }
         this.setState(KickstartFactory.SESSION_STATE_FAILED);
