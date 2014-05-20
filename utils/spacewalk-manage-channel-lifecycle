@@ -156,14 +156,19 @@ def print_channel_tree():
                 tree[channel.get('label')] = []
 
     # print the channels in a tree format
+    print "Channel tree:"
+    idx = 1
+    step = len(str(len(tree.keys())))
     for parent in sorted(tree.keys()):
-        print parent
+        if len(tree[parent]):
+            print
+        print " %s. %s" % (str(idx).rjust(step), parent)
+        idx += 1
         if len(tree[parent]):
             for child in sorted(tree[parent]):
-                print '  |- %s' % child   
-
-        print     
-
+                print (' ' * step) + '     \\__ %s' % child
+            print
+    print
 
 def channel_exists(channel, quiet = False):
     try:
