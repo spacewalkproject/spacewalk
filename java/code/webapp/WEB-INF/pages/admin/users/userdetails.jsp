@@ -72,7 +72,8 @@
                         </label>
                         <div class="col-lg-6">
                             <p class="form-control-static">
-                                ${created}
+                                <rhn:formatDate humanStyle="calendar" value="${created}"
+                                        type="both" dateStyle="short" timeStyle="long"/>
                             </p>
                         </div>
                     </div>
@@ -83,7 +84,15 @@
                         </label>
                         <div class="col-lg-6">
                              <p class="form-control-static">
-                                 ${lastLoggedIn}
+                                 <c:choose>
+                                <c:when test="${empty lastLoggedIn}">
+                                    <bean:message key="neverinparens" />
+                                </c:when>
+                                <c:otherwise>
+                                    <rhn:formatDate humanStyle="from" value="${lastLoggedIn}"
+                                                type="both" dateStyle="short" timeStyle="long"/>
+                                </c:otherwise>
+                            </c:choose>
                              </p>
                         </div>
                     </div>
