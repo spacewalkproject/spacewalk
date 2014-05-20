@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.19
+Version: 2.2.20
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -270,6 +270,16 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue May 20 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.20-1
+- links to Snapshot Tags pages
+- removed pxt pages and related code which had been converted to java
+- navigation links to new pages (Tags.do)
+- The old picker in isLatin mode transmitted 1-12 not 0-11 In 24 hour format is
+  0-23 even if DatePicker.getHourRange() and getHour javadoc is wrong
+  (1-11!!!).
+- Fix bug converting pm times to am when using locales in 24 hour format. See:
+  https://www.redhat.com/archives/spacewalk-list/2014-April/msg00011.html
+
 * Mon May 12 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.19-1
 - Extract function to humanize dates so that it can be used after DOM changes
 
