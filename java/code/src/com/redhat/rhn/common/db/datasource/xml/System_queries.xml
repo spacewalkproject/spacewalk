@@ -2046,9 +2046,15 @@ select s.id as id,
                                p.evr_id,
                                p.package_arch_id
                           from rhnPackage p,
-                               rhnServerChannel sc
-                          join rhnChannelPackage cp on (sc.channel_id = cp.channel_id)
+                               rhnServerChannel sc,
+                               rhnServerPackage sp2,
+                               rhnChannelPackage cp
                          where cp.package_id = p.id
+                           and cp.channel_id = sc.channel_id
+                           and sc.server_id = sp2.server_id
+                           and sp2.name_id = p.name_id
+                           and sp2.evr_id = p.evr_id
+                           and sp2.package_arch_id = p.package_arch_id
                        ) scp on (scp.server_id = sp.server_id and
                                  sp.name_id = scp.name_id and
                                  sp.evr_id = scp.evr_id and
