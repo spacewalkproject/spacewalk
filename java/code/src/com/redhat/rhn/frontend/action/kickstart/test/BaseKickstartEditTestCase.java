@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.kickstart.test;
 
-import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -22,8 +21,6 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import java.util.List;
 
 /**
  * KickstartDetailsEditTest
@@ -39,9 +36,6 @@ public class BaseKickstartEditTestCase extends RhnPostMockStrutsTestCase {
         UserTestUtils.addProvisioning(user.getOrg());
         this.ksdata = KickstartDataTest.createKickstartWithChannel(user.getOrg());
         TestUtils.saveAndFlush(ksdata);
-        List channels = ChannelFactory.getKickstartableChannels(user.getOrg());
-        assertNotNull(channels);
-        assertTrue(channels.size() > 0);
         addRequestParameter(RequestContext.KICKSTART_ID, this.ksdata.getId().toString());
     }
 
