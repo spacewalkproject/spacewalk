@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartInstallType;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
@@ -47,17 +48,11 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
 
     public void testListKickstartableChannels() throws Exception {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
-        List <Channel> ksChannels = handler.listKickstartableChannels(adminKey);
+        KickstartableTreeTest.createTestKickstartableTree(baseChan,
+                KickstartInstallType.FEDORA);
+        List<Channel> ksChannels = handler.listKickstartableChannels(adminKey);
         assertTrue(ksChannels.size() > 0);
-
-        boolean found = false;
-        for (Channel c : ksChannels) {
-            if (c.getId().equals(baseChan.getId())) {
-                found = true;
-                break;
-            }
-        }
-        assertTrue(found);
+        assertTrue(ksChannels.contains(baseChan));
     }
 
     public void testListKickstartableTrees() throws Exception {
