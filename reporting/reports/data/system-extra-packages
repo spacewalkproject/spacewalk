@@ -1,0 +1,56 @@
+
+synopsis:
+
+	Packages installed on systems that are not available from subscribed channels
+
+description:
+
+	List all packages installed on all systems that are not available from channels the system is subscribed to
+
+columns:
+
+	system_id	System id
+        system_name     System name
+	org_id	Id of organization system belongs to
+	package_name	Name of the package
+	package_epoch	Epoch of the package
+	package_version	Version of the package
+	package_release	Release of the package
+	package_arch	Architecture of the package
+
+sql:
+
+select s.id as system_id,
+       s.name as system_name,
+       s.org_id as org_id,
+       pn.name as package_name,
+       pe.epoch as package_epoch,
+       pe.version as package_version,
+       pe.release as package_release,
+       pa.label as package_arch
+  from rhnServer s
+  join rhnServerPackage sp on s.id = sp.server_id
+  join rhnPackageName pn on sp.name_id = pn.id
+  join rhnPackageArch pa on sp.package_arch_id = pa.id
+  join rhnPackageEvr pe on sp.evr_id = pe.id
+  left join (select sc.server_id,
+                    cp.package_id,
+                    p.name_id,
+                    p.evr_id,
+                    p.package_arch_id
+               from rhnPackage p,
+                    rhnServerChannel sc,
+                    rhnChannelPackage cp,
+                    rhnServerPackage sp2
+              where cp.package_id = p.id
+                and sc.channel_id = cp.channel_id
+                and sc.server_id = sp2.server_id
+                and sp2.package_arch_id = p.package_arch_id
+                and sp2.name_id = p.name_id
+                and sp2.evr_id = p.evr_id
+       ) scp on (scp.server_id = sp.server_id
+            and sp.name_id = scp.name_id
+            and sp.evr_id = scp.evr_id
+            and sp.package_arch_id = scp.package_arch_id)
+ where scp.package_id is null
+ order by s.org_id, s.name, s.id, pn.name

@@ -2048,9 +2048,12 @@ select s.id as id,
                           from rhnPackage p,
                                rhnServerChannel sc,
                                rhnServerPackage sp2,
-                               rhnChannelPackage cp
+                               rhnChannelPackage cp,
+                               rhnUserServerPerms usp2
                          where cp.package_id = p.id
                            and cp.channel_id = sc.channel_id
+                           and sc.server_id = usp2.server_id
+                           and usp2.user_id = :userid
                            and sc.server_id = sp2.server_id
                            and sp2.name_id = p.name_id
                            and sp2.evr_id = p.evr_id
