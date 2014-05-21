@@ -408,20 +408,38 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[select name from rhnChannel where name = :name]]>
     </sql-query>
 
+    <sql-query name="Channel.kickstartableTreeChannels">
+        <![CDATA[
+            SELECT {c.*}
+            FROM rhnChannel c
+                LEFT JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
+                JOIN rhnAvailableChannels ach ON ach.channel_id = c.id
+                JOIN rhnChannelArch ca ON ca.id = ach.channel_arch_id
+            WHERE ach.org_id = :org_id
+                AND ach.channel_depth = 1
+            ORDER BY rhn_channel.channel_priority(ach.parent_or_self_id),
+                UPPER(ach.channel_name)
+        ]]>
+        <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
+    </sql-query>
+
     <sql-query name="Channel.kickstartableChannels">
-        <![CDATA[SELECT {c.*}
-				  FROM rhnChannel c LEFT OUTER JOIN 
-				  	   rhnChannelCloned c_1_ ON c.id = c_1_.id,
-				      rhnAvailableChannels ACh,
-					  rhnChannelArch CA
-		      
-  				  WHERE CA.id = ACh.channel_arch_id
-				   AND ACh.org_id = :org_id
-				   AND ACH.channel_depth = 1
-				   AND c.id = ACh.channel_id
-				ORDER BY rhn_channel.channel_priority(ACh.parent_or_self_id),
-				 UPPER(ACh.channel_name)
-               ]]>
+        <![CDATA[
+            SELECT DISTINCT {c.*},
+                rhn_channel.channel_priority(ach.parent_or_self_id),
+                UPPER(ach.channel_name)
+            FROM rhnChannel c
+                LEFT JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
+                JOIN rhnAvailableChannels ach ON ach.channel_id = c.id
+                JOIN rhnChannelArch ca ON ca.id = ach.channel_arch_id
+                JOIN rhnKickstartableTree kt ON kt.channel_id = c.id
+                JOIN rhnKSInstallType ksit ON ksit.id = kt.install_type
+            WHERE ach.org_id = :org_id
+                AND ach.channel_depth = 1
+                AND (ksit.label LIKE 'rhel%' OR ksit.label = 'fedora')
+            ORDER BY rhn_channel.channel_priority(ach.parent_or_self_id),
+                UPPER(ach.channel_name)
+        ]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
 

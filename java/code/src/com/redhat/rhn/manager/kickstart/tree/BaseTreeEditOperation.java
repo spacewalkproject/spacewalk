@@ -230,12 +230,11 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     }
 
     /**
-     * Get List of KickstartInstallType objects.
-     * @return List of KickstartInstallType objets
+     * Return all channels available for creating kickstartable trees.
+     * @return list of channels
      */
-    public List getKickstartableChannels() {
-        return ChannelFactory.
-            getKickstartableChannels(user.getOrg());
+    public List<Channel> getKickstartableTreeChannels() {
+        return ChannelFactory.getKickstartableTreeChannels(user.getOrg());
     }
 
     /**
