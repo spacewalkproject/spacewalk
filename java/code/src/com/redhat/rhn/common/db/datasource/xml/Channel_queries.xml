@@ -1038,4 +1038,26 @@ GROUP BY C.id, C.name
   </query>
 </mode>
 
+<mode name="snapshot_channel_diff">
+  <query params="ss_id, sid">
+select count(*) as diffs
+  from (
+        select sc.channel_id as id
+          from rhnServerChannel SC
+         where sc.server_id = :sid
+       ) server_chanel
+  full outer join (
+        select snc.channel_id as id
+          from rhnSnapshotChannel snc
+          join rhnSnapshot sn
+            on sn.id = snc.snapshot_id
+         where sn.id = :ss_id
+           and sn.server_id = :sid
+       ) snapshot_channel
+    on server_chanel.id = snapshot_channel.id
+ where server_chanel.id is null
+    or snapshot_channel.id is null
+  </query>
+</mode>
+
 </datasource_modes>
