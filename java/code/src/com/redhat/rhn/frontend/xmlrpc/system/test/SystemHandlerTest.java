@@ -1814,9 +1814,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(testPackage.getPackageEvr().getEpoch(), returned.get("epoch"));
         assertEquals(testPackage.getId(), returned.get("id"));
         assertEquals(testPackage.getPackageArch().getLabel(), returned.get("arch_label"));
-        // milliseconds may be different depending on DB
-        assertTrue(testPackage.getLastModified().getTime() -
-                ((Date) returned.get("last_modified")).getTime() < 1000);
+
+        // reload object as modified data is changed by a trigger
+        HibernateFactory.getSession().refresh(testPackage);
+        assertEquals(testPackage.getModified().getTime(),
+                ((Date) returned.get("last_modified")).getTime());
+
         assertEquals(testPackage.getPath(), returned.get("path"));
     }
 
