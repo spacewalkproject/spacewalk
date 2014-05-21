@@ -57,7 +57,7 @@ public abstract class BaseTreeAction extends BaseEditAction {
 
     protected void processRequestAttributes(RequestContext rctx, PersistOperation opr) {
         BaseTreeEditOperation bte = (BaseTreeEditOperation) opr;
-        Iterator i = bte.getKickstartableChannels().iterator();
+        Iterator i = bte.getKickstartableTreeChannels().iterator();
         if (!i.hasNext()) {
             rctx.getRequest().setAttribute(NOCHANNELS, "true");
             rctx.getRequest().setAttribute(HIDE_SUBMIT, "true");

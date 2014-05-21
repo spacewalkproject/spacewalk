@@ -669,10 +669,23 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
-     * Get the List of Channel's that are kickstartable to the
-     * Org passed in.
-     * @param org who you want to get kickstartable channels
-     * @return List of Channel objects
+     * Return a list of kickstartable tree channels, i.e. channels that can
+     * be used for creating kickstartable trees (distributions).
+     * @param org org
+     * @return list of channels
+     */
+    public static List<Channel> getKickstartableTreeChannels(Org org) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org_id", org.getId());
+        return singleton.listObjectsByNamedQuery(
+                "Channel.kickstartableTreeChannels", params, false);
+    }
+
+    /**
+     * Return a list of channels that are kickstartable to the Org passed in,
+     * i.e. channels that can be used for creating kickstart profiles.
+     * @param org org
+     * @return list of channels
      */
     public static List<Channel> getKickstartableChannels(Org org) {
         Map<String, Object> params = new HashMap<String, Object>();
