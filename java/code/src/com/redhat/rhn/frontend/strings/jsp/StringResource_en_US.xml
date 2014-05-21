@@ -863,13 +863,13 @@
         </context-group>
       </trans-unit>
       <trans-unit id="login.jsp.satbody2">
-        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_blank"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
+        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.jsp.satbody3">
-        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_blank"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
+        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
@@ -9193,7 +9193,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="kickstartdetails.jsp.summary2">
-        <source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_blank" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
+        <source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
@@ -9860,7 +9860,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="keys.jsp.summary">
-        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;</source>
+        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" &gt;RHN Reference Guide&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
@@ -9998,7 +9998,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="preservation_list.jsp.summary">
-        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
@@ -10118,7 +10118,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="preservation_edit.jsp.summary">
-        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" &gt;RHN Reference Guide&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
@@ -19682,7 +19682,7 @@ given channel.</source>
                 of @@PRODUCT_NAME@@.</source>
       </trans-unit>
       <trans-unit id="help.jsp.chatlink">
-        <source>Access &lt;a href="http://webchat.freenode.net?channels=#spacewalk" target="_blank"&gt;#spacewalk&lt;/a&gt; channel on IRC.</source>
+        <source>Access &lt;a href="http://webchat.freenode.net?channels=#spacewalk"&gt;#spacewalk&lt;/a&gt; channel on IRC.</source>
       </trans-unit>
       <trans-unit id="help.jsp.refguide">
         <source>@@PRODUCT_NAME@@ Reference Guide</source>

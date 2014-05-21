@@ -549,7 +549,6 @@ public class ToolbarTag extends TagSupport {
 
             HtmlTag tag = new HtmlTag("a");
             tag.setAttribute("href", getHelpUrl());
-            tag.setAttribute("target", "_blank");
 
             IconTag help = new IconTag("header-help");
 

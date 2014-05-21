@@ -18,27 +18,27 @@ even greater levels of security and reduced network bandwidth.
 
   <h2>Modules</h2>
     <p>
-      <pxt-config var="product_name"/> currently offers three modules. Customers can purchase entitlements that allow their systems to be subscribed to the modules and receive <pxt-config var="product_name"/> services and functionality. <a href="http://www.redhat.com/software/rhn/purchase/" target="_blank">Learn more</a>.
+      <pxt-config var="product_name"/> currently offers three modules. Customers can purchase entitlements that allow their systems to be subscribed to the modules and receive <pxt-config var="product_name"/> services and functionality. <a href="http://www.redhat.com/software/rhn/purchase/">Learn more</a>.
     </p>
 
   <div class="marketing-summary">
   <h3>Update Module</h3>
     <p>
-Complimentary with a subscription to RHEL, the Update Module allows you to easily install new updates to your system, receive priority errata notifications, ensure RPM dependency checking, and <a href="http://www.redhat.com/rhn/rhndetails/update/" target="_blank">more</a>.
+Complimentary with a subscription to RHEL, the Update Module allows you to easily install new updates to your system, receive priority errata notifications, ensure RPM dependency checking, and <a href="http://www.redhat.com/rhn/rhndetails/update/">more</a>.
     </p>
   </div>
 
   <div class="marketing-summary">
   <h3>Management Module</h3>
     <p>
-The Management Module, which includes all the functionality of the Update Module, also gives you the ability to group your systems for easier maintenance, assign role-based permissions, schedule update actions, develop custom content channels (in conjunction with <pxt-config var="product_name"/>), and <a href="http://www.redhat.com/rhn/rhndetails/management/" target="_blank">more</a>.
+The Management Module, which includes all the functionality of the Update Module, also gives you the ability to group your systems for easier maintenance, assign role-based permissions, schedule update actions, develop custom content channels (in conjunction with <pxt-config var="product_name"/>), and <a href="http://www.redhat.com/rhn/rhndetails/management/">more</a>.
     </p>
   </div>
 
   <div class="marketing-summary">
   <h3>Provisioning Module</h3>
     <p>
-The Provisioning Module, which includes all the functionality of the Management Module, provides the ability to manage kickstarts, manage and deploy configuration files, create snapshots of your systems over time and roll your systems back to those snapshots, and <a href="http://www.redhat.com/rhn/rhndetails/provisioning/" target="_blank">more</a>.
+The Provisioning Module, which includes all the functionality of the Management Module, provides the ability to manage kickstarts, manage and deploy configuration files, create snapshots of your systems over time and roll your systems back to those snapshots, and <a href="http://www.redhat.com/rhn/rhndetails/provisioning/">more</a>.
     </p>
   </div>
 
@@ -70,7 +70,7 @@ All <pxt-config var="product_name"/> functionality (system profiles, reporting d
   </div>
 
     <p>
-<a href="https://www.redhat.com/red_hat_network/deploydetail" target="_blank">Read more</a> about RHN architectures.
+<a href="https://www.redhat.com/red_hat_network/deploydetail">Read more</a> about RHN architectures.
     </p>
   </grail-canvas-template>
 </pxt-passthrough>
