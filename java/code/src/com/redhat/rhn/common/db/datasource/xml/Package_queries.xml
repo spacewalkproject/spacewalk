@@ -2201,4 +2201,35 @@ select  pn.name as package_name,
  order by pn.name
   </query>
 </mode>
+
+<mode name="snapshot_package_diff">
+  <query params="sid, ss_id">
+select count(*) as diffs
+  from (
+        select sp1.name_id, sp1.evr_id, sp1.package_arch_id
+          from rhnServerPackage sp1
+         where sp1.server_id = :sid
+       ) server_packages
+  full outer join (
+        select pn2.name_id, pn2.evr_id, pn2.package_arch_id
+          from rhnSnapshotPackage sp2
+          join rhnpackagenevra pn2
+            on pn2.id = sp2.nevra_id
+         where sp2.snapshot_id = :ss_id
+       ) snapshot_packages
+    on server_packages.name_id = snapshot_packages.name_id
+   and server_packages.evr_id = snapshot_packages.evr_id
+   and server_packages.package_arch_id = snapshot_packages.package_arch_id
+ where (server_packages.name_id is null
+        or snapshot_packages.name_id is null)
+   and not exists (select 1
+                     from rhnPackageSyncBlacklist psb
+                     join rhnServer s
+                       on (s.org_id = psb.org_id or psb.org_id is null)
+                    where s.id = :sid
+                      and (psb.package_name_id = server_packages.name_id
+                           or psb.package_name_id = snapshot_packages.name_id)
+                       )
+  </query>
+</mode>
 </datasource_modes>

@@ -2311,6 +2311,37 @@ ORDER BY UPPER(CFN.path)
   </query>
 </mode>
 
+<mode name="snapshot_configchannel_diff">
+  <query params="ss_id, sid">
+select count(*) as diffs
+  from (
+        select cc1.id
+          from rhnSnapshotConfigChannel scc1
+          join rhnConfigChannel cc1
+            on cc1.id = scc1.config_channel_id
+          join rhnConfigChannelType cct1
+            on cct1.id = cc1.confchan_type_id
+         where scc1.snapshot_id = :ss_id
+           and cct1.priority is not null
+           and cct1.label = 'normal'
+       ) snapshotconfigchannel
+  full outer join (
+        select cc2.id
+          from rhnServerConfigChannel scc2
+          join rhnConfigChannel cc2
+            on cc2.id = scc2.config_channel_id
+          join rhnConfigChannelType cct2
+            on cct2.id = cc2.confchan_type_id
+         where scc2.server_id = :sid
+           and cct2.priority is not null
+           and cct2.label = 'normal'
+       ) serverconfigchannel
+    on snapshotconfigchannel.id = serverconfigchannel.id
+ where serverconfigchannel.id is null
+    or snapshotconfigchannel.id is null
+  </query>
+</mode>
+
 <callable-mode name="create_new_config_channel">
   <query params="org_id_in, type_in, name_in, label_in,  description_in">
       {:channelId = call rhn_config.insert_channel( :org_id_in, :type_in, :name_in, :label_in, :description_in)}
