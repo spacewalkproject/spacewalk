@@ -697,6 +697,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
 
         if (showDiskWarning(data, form)) {
                 form.set(NEXT_ACTION, "fourth");
+            ctx.getRequest().setAttribute(RequestContext.SYSTEM, server);
                 return mapping.findForward("fifth");
         }
 
