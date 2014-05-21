@@ -18,6 +18,8 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.server.Server;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 
 /**
  * ScriptRunAction
@@ -34,16 +36,18 @@ public class ScriptRunAction extends ScriptAction {
         StringBuilder retval = new StringBuilder();
         retval.append("</br>");
         retval.append(ls.getMessage("system.event.runAs",
-                getScriptActionDetails().getUsername(),
-                getScriptActionDetails().getGroupname()));
+                StringEscapeUtils.escapeHtml(getScriptActionDetails().getUsername()),
+                StringEscapeUtils.escapeHtml(getScriptActionDetails().getGroupname()))
+        );
         retval.append("</br>");
         retval.append(ls.getMessage("system.event.timeout",
                 getScriptActionDetails().getTimeout()));
         retval.append("</br>");
         retval.append(ls.getMessage("system.event.scriptContents"));
-        retval.append("</br><code>");
-        retval.append(StringUtil.htmlifyText(getScriptActionDetails().getScriptContents()));
-        retval.append("</code></br>");
+        retval.append("</br><pre>");
+        retval.append(StringEscapeUtils.escapeHtml(getScriptActionDetails()
+                .getScriptContents()));
+        retval.append("</pre></br>");
         for (ScriptResult sr : getScriptActionDetails().getResults()) {
             retval.append(ls.getMessage("system.event.scriptStart", sr.getStartDate()));
             retval.append("</br>");
@@ -60,9 +64,9 @@ public class ScriptRunAction extends ScriptAction {
             retval.append("</br>");
             retval.append(ls.getMessage("system.event.scriptFilteredOutput"));
             retval.append("</br>");
-            retval.append("<code>");
-            retval.append(sr.getOutputContents());
-            retval.append("</code>");
+            retval.append("<pre>");
+            retval.append(StringEscapeUtils.escapeHtml(sr.getOutputContents()));
+            retval.append("</pre>");
         }
         return retval.toString();
     }
