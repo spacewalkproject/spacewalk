@@ -491,7 +491,8 @@ SELECT DISTINCT C.name AS NAME,
 
 <mode name="channel_tree_ssm_install" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="org_id, user_id, set_label">
-SELECT  ACh.channel_name AS NAME, ACh.channel_id ID, ACh.channel_depth DEPTH, ACh.channel_arch_id, ACh.current_members, ACh.available_members, (SELECT COUNT(DISTINCT CPN.name_id) FROM rhnChannelNewestPackage CPN WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT, ACh.parent_or_self_label, ACh.channel_label
+SELECT  ACh.channel_name AS NAME, ACh.channel_id ID, ACh.channel_arch_id, ACh.current_members, ACh.available_members, (SELECT COUNT(DISTINCT CPN.name_id) FROM rhnChannelNewestPackage CPN WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT, ACh.channel_label,
+        CASE WHEN NOT ACh.parent_or_self_id = ACh.channel_id THEN ACh.parent_or_self_id END AS parent_id
   FROM  rhnAvailableChannels ACh
  WHERE  ACh.org_id = :org_id
    AND  (    ACh.channel_arch_id = lookup_channel_arch('channel-ia32')
@@ -534,11 +535,12 @@ ORDER BY UPPER(C.name)
 
 <mode name="owned_channels_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
-SELECT CTV.name, CTV.id, CTV.depth, CTV.channel_arch_id, C.org_id,
+SELECT CTV.name, CTV.id, CTV.channel_arch_id, C.org_id,
+       CASE WHEN NOT CTV.parent_or_self_id = CTV.channel_id THEN CTV.parent_or_self_id END AS parent_id,
        (SELECT COUNT (cp.package_id)
           FROM rhnchannelpackage cp
          WHERE cp.channel_id = CTV.id) AS package_count,
-       CTV.parent_or_self_label, CTV.label AS channel_label
+       CTV.label AS channel_label
   FROM rhnchannel C, rhnChannelTreeView CTV, rhnChannel C2
  WHERE CTV.id = C.ID
    AND  CTV.parent_or_self_id = C2.id

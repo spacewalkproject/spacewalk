@@ -42,7 +42,6 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     private Long availableMembers;
     private Long packageCount;
     private Long systemCount;
-    private String parentOrSelfLabel;
     private String channelLabel;
     private Long channelFamilyId;
     private Long channelFamilySearchedFor;
@@ -253,20 +252,6 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      */
     public void setPackageCount(Long packageCountIn) {
         this.packageCount = packageCountIn;
-    }
-
-    /**
-     * @return Returns the parentOrSelfLabel.
-     */
-    public String getParentOrSelfLabel() {
-        return parentOrSelfLabel;
-    }
-
-    /**
-     * @param parentOrSelfLabelIn The parentOrSelfLabel to set.
-     */
-    public void setParentOrSelfLabel(String parentOrSelfLabelIn) {
-        this.parentOrSelfLabel = parentOrSelfLabelIn;
     }
 
     /**
