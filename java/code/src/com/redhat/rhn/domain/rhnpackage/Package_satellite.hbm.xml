@@ -159,7 +159,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		  <key column="package_id"/>
                   <property name="setDate"     type="date" column="set_date"/>
                   <property name="readme" column="readme" type="binary" lazy="true" />
-			        <set name="members" lazy="true" table="rhnSolarisPatchMembers" cascade="all">
+			        <set name="members" lazy="true" table="rhnSolarisPatchSetMembers" cascade="all">
 			            <key column="patch_set_id"/>
 			            <many-to-many class="com.redhat.rhn.domain.rhnpackage.Patch"
 			                column="patch_id"/>
