@@ -164,7 +164,7 @@
       <rhn-tab name="Packages" url="/rhn/systems/details/history/snapshots/Packages.do">
         <rhn-tab-url>/network/systems/details/history/snapshots/unservable_packages.pxt</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Config Channels" url="/network/systems/details/history/snapshots/namespaces.pxt" />
+      <rhn-tab name="Config Channels" url="/rhn/systems/details/history/snapshots/ConfigChannels.do" />
       <rhn-tab name="Config Files" url="/network/systems/details/history/snapshots/config.pxt" />
       <rhn-tab name="Snapshot Tags" url="/rhn/systems/details/history/snapshots/SnapshotTags.do">
         <rhn-tab-url>/network/systems/details/history/snapshots/add_snapshot_tag.pxt</rhn-tab-url>

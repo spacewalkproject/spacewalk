@@ -3647,6 +3647,14 @@
                path="/systems/details/history/snapshots/Tags.do" redirect="true"/>
     </action>
 
+    <action path="/systems/details/history/snapshots/ConfigChannels"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SnapshotConfigChannelsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/history/snapshots/config_channels.jsp"/>
+    </action>
+
     <!--System Details SSM Configuration -->
         <action path="/systems/ssm/DeleteConfirm"
         scope="request"

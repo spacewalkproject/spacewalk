@@ -2313,9 +2313,12 @@ ORDER BY UPPER(CFN.path)
 
 <mode name="snapshot_configchannel_diff">
   <query params="ss_id, sid">
-select count(*) as diffs
+select case when serverconfigchannel.id is not null then serverconfigchannel.id else snapshotconfigchannel.id end as id,
+  case when serverconfigchannel.id is not null then serverconfigchannel.name else snapshotconfigchannel.name end as name,
+  case when serverconfigchannel.id is not null then serverconfigchannel.label else snapshotconfigchannel.label end as label,
+  case when serverconfigchannel.id is not null then 1 else -1 end as comparison
   from (
-        select cc1.id
+        select cc1.id, cc1.name, cc1.label
           from rhnSnapshotConfigChannel scc1
           join rhnConfigChannel cc1
             on cc1.id = scc1.config_channel_id
@@ -2326,7 +2329,7 @@ select count(*) as diffs
            and cct1.label = 'normal'
        ) snapshotconfigchannel
   full outer join (
-        select cc2.id
+        select cc2.id, cc2.name, cc2.label
           from rhnServerConfigChannel scc2
           join rhnConfigChannel cc2
             on cc2.id = scc2.config_channel_id

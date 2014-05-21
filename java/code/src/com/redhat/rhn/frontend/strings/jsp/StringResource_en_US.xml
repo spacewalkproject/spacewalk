@@ -12259,6 +12259,24 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.history.snapshot.tagAppliedToSnapshot">
           <source>Applied to this snapshot</source>
         </trans-unit>
+        <trans-unit id="system.history.snapshot.cfgChannelHeader">
+          <source>Snapshot - Configuration Channels</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.cfgChannelSummary">
+          <source>Here are the differences between the current and snapshot configuration channel subscriptions:</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.cfgChannelEmpty">
+          <source>No config channel differences</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.cfgChannel">
+          <source>Config Channel</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.cfgSnapshotOnly">
+          <source>Snapshot Profile Only</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.cfgProfileOnly">
+          <source>Current Profile Only</source>
+        </trans-unit>
       </group>
       <!-- Configuration Common -->
       <group>
