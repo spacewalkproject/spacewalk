@@ -59,7 +59,7 @@ public class SnapshotPackagesAction extends RhnAction implements Listable {
         Map params = makeParamMap(request);
         params.put(RequestContext.SID, sid);
         params.put(SNAPSHOT_ID, ssid);
-        params.put(SNAPSHOT_CREATED, snapshot.getCreated());
+        params.put(SNAPSHOT_CREATED, snapshot.getName());
 
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);

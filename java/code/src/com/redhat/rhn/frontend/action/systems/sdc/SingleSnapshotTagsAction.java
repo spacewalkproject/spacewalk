@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -58,9 +56,8 @@ public class SingleSnapshotTagsAction extends RhnAction implements Listable {
         params.put(RequestContext.SID, sid);
         params.put("ss_id", ssId);
 
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         params.put("ss_name",
-                df.format(ServerFactory.lookupSnapshotById(ssId.intValue()).getCreated()));
+                ServerFactory.lookupSnapshotById(ssId.intValue()).getName());
 
         return StrutsDelegate.getInstance().forwardParams(
                 mapping.findForward("default"), params);

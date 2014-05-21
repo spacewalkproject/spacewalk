@@ -23,6 +23,8 @@ import com.redhat.rhn.domain.rhnpackage.PackageNevra;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -235,6 +237,14 @@ public class ServerSnapshot extends BaseDomainHelper {
                                     .append(server.hashCode())
                                     .append(groups.hashCode())
                                     .toHashCode();
+    }
+
+    /**
+     * @return Returns date in format yyyy-mm-dd HH:mm:ss so it can be used as a name
+     */
+    public String getName() {
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        return df.format(this.getCreated());
     }
 
 }
