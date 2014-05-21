@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.71
+Version: 2.2.72
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed May 21 2014 Stephen Herr <sherr@redhat.com> 2.2.72-1
+- A couple of mode queries didn't quite fit into ChannelTreeNode objects.
+- 1099938 - add spacewalk-report for systems with extra packages
+- 1099938 - improve performance of Systems with Extra Packages query
+- remove redundant formvars
+- queries to compare snapshot to system packages / config channels
+- move code for snapshot name generation to more appropriate place
+
 * Wed May 21 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.71-1
 - insert ss_id parameter into navigation links if needed
 - checkstyle fix
