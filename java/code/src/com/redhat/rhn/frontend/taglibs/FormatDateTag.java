@@ -17,19 +17,19 @@ package com.redhat.rhn.frontend.taglibs;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import java.util.Date;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  * <strong>FormatDateTag</strong>
@@ -53,10 +53,6 @@ public class FormatDateTag extends TagSupport {
     private static final String FROM = "from";
     private static final String CALENDAR = "calendar";
     private static final String NONE = "none";
-
-    // ISO format usable by moment.js parsing
-    private static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
-    private final DateFormat isoFormatter = new SimpleDateFormat(ISO_FORMAT);
 
     protected Date value;
     protected Date reference;
@@ -273,14 +269,18 @@ public class FormatDateTag extends TagSupport {
         try {
             JspWriter out = pageContext.getOut();
 
-            renderMomentInclude(out);
+            Calendar refDate = Calendar.getInstance();
+            refDate.setTime(getReference());
+            Calendar valDate = Calendar.getInstance();
+            valDate.setTime(getValue());
 
+            renderMomentInclude(out);
             out.append("  <time");
             out.append(getCssClass());
             out.append(" data-reference-date=\"" +
-                    isoFormatter.format(getReference()) + "\"");
+                    DatatypeConverter.printDateTime(refDate) + "\"");
             out.append(" datetime=\"" +
-                    isoFormatter.format(getValue()) + "\">");
+                    DatatypeConverter.printDateTime(valDate) + "\">");
             out.append(getFormattedDate());
             out.append("  </time>");
         }
