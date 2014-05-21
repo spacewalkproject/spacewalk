@@ -219,4 +219,22 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
 
         return k;
     }
+
+    /**
+     * Create a KickstartableTree for testing purposes using the given install type.
+     * @param treeChannel channel to use for this tree.
+     * @param installTypeLabel install type to use
+     * @return the kickstartable tree
+     * @throws Exception
+     */
+    public static KickstartableTree createTestKickstartableTree(
+            Channel treeChannel, String installTypeLabel) throws Exception {
+        KickstartableTree tree = createTestKickstartableTree(treeChannel);
+        String query = "KickstartInstallType.findByLabel";
+        KickstartInstallType installtype = (KickstartInstallType)
+                TestUtils.lookupFromCacheByLabel(installTypeLabel, query);
+        tree.setInstallType(installtype);
+        TestUtils.saveAndFlush(tree);
+        return tree;
+    }
 }
