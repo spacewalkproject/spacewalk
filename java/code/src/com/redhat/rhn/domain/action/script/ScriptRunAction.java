@@ -15,7 +15,6 @@
 package com.redhat.rhn.domain.action.script;
 
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.server.Server;
 
 import org.apache.commons.lang.StringEscapeUtils;
