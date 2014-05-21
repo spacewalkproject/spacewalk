@@ -569,9 +569,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 scheduleTime, helper.getKickstartHost());
 
         if (showDiskWarning(cmd.getKsdata(), form)) {
-                form.set(NEXT_ACTION, "third");
+            form.set(NEXT_ACTION, "third");
             addRequestAttributes(ctx, cmd, form);
-                return mapping.findForward("fifth");
+            return mapping.findForward("fifth");
         }
         cmd.setNetworkDevice(form.getString(NETWORK_TYPE),
                 form.getString(NETWORK_INTERFACE));
@@ -696,9 +696,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 user.getOrg(), profile.getUid());
 
         if (showDiskWarning(data, form)) {
-                form.set(NEXT_ACTION, "fourth");
+            form.set(NEXT_ACTION, "fourth");
             ctx.getRequest().setAttribute(RequestContext.SYSTEM, server);
-                return mapping.findForward("fifth");
+            return mapping.findForward("fifth");
         }
 
         CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(server,
