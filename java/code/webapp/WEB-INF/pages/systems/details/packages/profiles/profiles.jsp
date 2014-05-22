@@ -56,13 +56,19 @@
         </c:choose>
         </p>
     </div>
-    <div class="text-right">
-    <hr />
-    <html:submit property="createBtn">
-        <bean:message key="profile.jsp.createsystemprofile"/>
-    </html:submit>
 
+    <hr />
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-12">
+                <html:submit property="createBtn" styleClass="btn btn-default">
+                    <bean:message key="profile.jsp.createsystemprofile"/>
+                </html:submit>
+            </div>
+        </div>
     </div>
+
     <html:hidden property="sid" value="${param.sid}" />
     <html:hidden property="submitted" value="true" />
 </html:form>
