@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.20
+Version: 2.2.21
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -270,6 +270,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu May 22 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.21-1
+- Removed groups.pxt and related code / db queries
+- system groups & snapshots page: converted from pxt to java
+- Add development_environment to rhn_web.conf
+
 * Tue May 20 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.20-1
 - links to Snapshot Tags pages
 - removed pxt pages and related code which had been converted to java
