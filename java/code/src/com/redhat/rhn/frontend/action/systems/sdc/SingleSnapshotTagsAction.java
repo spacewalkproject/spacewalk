@@ -15,59 +15,21 @@
 package com.redhat.rhn.frontend.action.systems.sdc;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * SingleSnapshotTagsAction
  * @version $Rev$
  */
-public class SingleSnapshotTagsAction extends RhnAction implements Listable {
-
-    /**
-     * {@inheritDoc}
-     */
-    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
-            HttpServletRequest request,
-            HttpServletResponse response) {
-        RequestContext context = new RequestContext(request);
-        Long sid = context.getRequiredParam("sid");
-        Server server = context.lookupAndBindServer();
-        Long ssId = context.getRequiredParam("ss_id");
-
-        ListHelper helper = new ListHelper(this, request);
-        helper.execute();
-        Map params = makeParamMap(request);
-        params.put(RequestContext.SID, sid);
-        params.put("ss_id", ssId);
-
-        params.put("ss_name",
-                ServerFactory.lookupSnapshotById(ssId.intValue()).getName());
-
-        return StrutsDelegate.getInstance().forwardParams(
-                mapping.findForward("default"), params);
-    }
+public class SingleSnapshotTagsAction extends SnapshotBaseAction {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        Long sid = context.getRequiredParam("sid");
-        Long ssId = context.getRequiredParam("ss_id");
-        return SystemManager.snapshotTagsForSystemAndSnapshot(sid, ssId, null);
+        Long sid = context.getRequiredParam(RequestContext.SID);
+        Long ssid = context.getRequiredParam(SNAPSHOT_ID);
+        return SystemManager.snapshotTagsForSystemAndSnapshot(sid, ssid, null);
     }
 
 }

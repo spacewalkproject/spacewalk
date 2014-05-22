@@ -9,7 +9,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <rhn:toolbar base="h2" icon="header-snapshot" creationUrl="SnapshotTagCreate.do?sid=${param.sid}&ss_id=${param.ss_id}" creationType="snapshot" iconAlt="info.alt.img">
-  ${param.ss_name} <bean:message key="system.history.snapshot.tagSingleHeader" />
+  ${param.snapshot_created} <bean:message key="system.history.snapshot.tagSingleHeader" />
 </rhn:toolbar>
 
 <div class="page-summary">

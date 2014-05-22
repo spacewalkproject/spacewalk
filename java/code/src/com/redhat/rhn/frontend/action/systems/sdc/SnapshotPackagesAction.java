@@ -14,56 +14,15 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
-import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.server.ServerSnapshot;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.system.SystemManager;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * SnapshotPackagesAction
  */
-public class SnapshotPackagesAction extends RhnAction implements Listable {
-
-    private static final String SNAPSHOT_ID = "ss_id";
-    private static final String SNAPSHOT_CREATED = "snapshot_created";
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
-            HttpServletRequest request,
-            HttpServletResponse response) {
-        RequestContext context = new RequestContext(request);
-        Long sid = context.getRequiredParam(RequestContext.SID);
-        Long ssid = context.getRequiredParam(SNAPSHOT_ID);
-        context.lookupAndBindServer();
-        ServerSnapshot snapshot = ServerFactory.lookupSnapshotById(ssid.intValue());
-
-        ListHelper helper = new ListHelper(this, request);
-        helper.execute();
-        Map params = makeParamMap(request);
-        params.put(RequestContext.SID, sid);
-        params.put(SNAPSHOT_ID, ssid);
-        params.put(SNAPSHOT_CREATED, snapshot.getName());
-
-        return getStrutsDelegate().forwardParams(
-                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
-    }
+public class SnapshotPackagesAction extends SnapshotBaseAction {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
