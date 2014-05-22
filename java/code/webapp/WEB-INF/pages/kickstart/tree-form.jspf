@@ -23,7 +23,7 @@
     </label>
     <div class="col-md-6">
         <c:if test="${requestScope.nochannels != 'true'}">
-            <html:select property="channelid" onchange="refresh('treeEditForm');" styleClass="form-control">
+            <html:select property="channelid" styleClass="form-control refreshes-form">
                 <html:options collection="channels" property="value" labelProperty="label" />
             </html:select>
         </c:if>
