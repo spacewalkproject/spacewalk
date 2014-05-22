@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.73
+Version: 2.2.74
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 22 2014 Stephen Herr <sherr@redhat.com> 2.2.74-1
+- fix JSP variable names
+- SQL query fix
+- refactor snapshot details code a bit
+- rewrite Snapshots - Config Channels page to Java
+
 * Thu May 22 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.73-1
 - system groups & snapshots page: converted from pxt to java
 - fix the date format (month vs minutes)
