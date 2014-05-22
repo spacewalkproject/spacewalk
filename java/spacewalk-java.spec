@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.72
+Version: 2.2.73
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 22 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.73-1
+- system groups & snapshots page: converted from pxt to java
+- fix the date format (month vs minutes)
+
 * Wed May 21 2014 Stephen Herr <sherr@redhat.com> 2.2.72-1
 - A couple of mode queries didn't quite fit into ChannelTreeNode objects.
 - 1099938 - add spacewalk-report for systems with extra packages
