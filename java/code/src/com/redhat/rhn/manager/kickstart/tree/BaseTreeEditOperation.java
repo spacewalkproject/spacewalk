@@ -124,11 +124,12 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         }
         catch (Exception e) {
             HibernateFactory.rollbackTransaction();
-            if (e.getMessage().contains("kernel not found")) {
+            String message = e.getMessage();
+            if (message != null && message.contains("kernel not found")) {
                 return new ValidatorError(INVALID_KERNEL,
                         this.tree.getKernelPath());
             }
-            else if (e.getMessage().contains("initrd not found")) {
+            else if (message != null && message.contains("initrd not found")) {
                 return new ValidatorError(INVALID_INITRD,
                         this.tree.getInitrdPath());
             }
