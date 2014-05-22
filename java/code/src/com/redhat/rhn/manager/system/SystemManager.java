@@ -3052,6 +3052,23 @@ public class SystemManager extends BaseManager {
 
     /**
      * @param sid server id
+     * @param ssid snapshot id
+     * @param pc pageContext
+     * @return Returns system vs. snapshot packages comparision list
+     */
+    public static DataResult systemSnapshotGroups(Long sid, Long ssid, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("SystemGroup_queries",
+                                           "snapshot_group_diff");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("sid", sid);
+        params.put("ss_id", ssid);
+        Map elabParams = new HashMap();
+        return makeDataResult(params, elabParams, pc, m);
+    }
+
+
+    /**
+     * @param sid server id
      * @return Count of pending actions on system
      */
     public static Long countPendingActions(Long sid) {

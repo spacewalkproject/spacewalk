@@ -28,7 +28,7 @@ Snapshot</h2>
 
 <p>
 To see what changes will occur during rollback, you may visit the
-<a href="/network/systems/details/history/snapshots/groups.pxt?sid={formvar:sid}&amp;ss_id={formvar:ss_id}">Groups</a>,
+<a href="/rhn/systems/details/history/snapshots/Groups.do?sid={formvar:sid}&amp;ss_id={formvar:ss_id}">Groups</a>,
 <a href="/network/systems/details/history/snapshots/channels.pxt?sid={formvar:sid}&amp;ss_id={formvar:ss_id}">Channels</a>,
 <a href="/rhn/systems/details/history/snapshots/Packages.do?sid={formvar:sid}&amp;ss_id={formvar:ss_id}">Packages</a>,
 <a href="/network/systems/details/history/snapshots/namespaces.pxt?sid={formvar:sid}&amp;ss_id={formvar:ss_id}">Config Channels</a>,

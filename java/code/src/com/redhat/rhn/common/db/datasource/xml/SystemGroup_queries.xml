@@ -143,9 +143,13 @@ SELECT  SECURITY_ERRATA as se, BUG_ERRATA as be, ENHANCEMENT_ERRATA as ee
 
 <mode name="snapshot_group_diff">
   <query params="ss_id, sid">
-select count(*) as diffs
+select snapshot_group.id as snapshot_group_id,
+       snapshot_group.name as snapshot_group_name,
+       server_group.id as current_group_id,
+       server_group.name as current_group_name
   from (
-        select sg.id
+        select sg.id as id,
+               sg.name as name
           from rhnSnapshotServerGroup ssg
           join rhnServerGroup sg
             on sg.id = ssg.server_group_id
@@ -156,7 +160,8 @@ select count(*) as diffs
            and sg.group_type is null
         ) snapshot_group
   full outer join (
-        select vsgm.group_id as id
+        select vsgm.group_id as id,
+               vsgm.group_name as name
           from rhnVisServerGroupMembership vsgm
          where vsgm.server_id = :sid
         ) server_group

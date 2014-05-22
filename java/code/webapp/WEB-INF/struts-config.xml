@@ -3581,6 +3581,14 @@
                  path="/WEB-INF/pages/systems/sdc/history/snapshots/index.jsp"/>
     </action>
 
+    <action path="/systems/details/history/snapshots/Groups"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SnapshotGroupsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/history/snapshots/groups.jsp"/>
+    </action>
+
     <action path="/systems/details/history/snapshots/Packages"
         scope="request"
         type="com.redhat.rhn.frontend.action.systems.sdc.SnapshotPackagesAction"
