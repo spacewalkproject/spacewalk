@@ -11995,6 +11995,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.event.details.status">
           <source>This action's status is: {0}.</source>
         </trans-unit>
+        <trans-unit id="system.event.details.statusPicked Up">
+          <source>Picked Up</source>
+        </trans-unit>
         <trans-unit id="system.event.details.statusCompleted">
           <source>Completed</source>
         </trans-unit>
