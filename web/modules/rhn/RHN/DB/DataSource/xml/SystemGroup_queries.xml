@@ -1,13 +1,5 @@
 <datasource_modes>
 
-<mode name="comparison_to_snapshot">
-  <query params="">
-SELECT 1 FROM DUAL
-<!-- dummy -->
-  </query>
-</mode>
-
-
 <mode name="system_snapshot_group_list">
   <query params="user_id, sid, ss_id">
 SELECT  SG.id,
