@@ -70,15 +70,16 @@
   </rl:list>
 
 <c:if test="${not empty requestScope.all}">
-  <div class="text-right">
     <rhn:submitted/>
-    <hr/>
-      <rhn:require acl="system_feature(ftr_package_remove)">
-        <input type="submit"
-               name ="dispatch"
-               value='<bean:message key="packagelist.jsp.removepackages"/>'/>
-      </rhn:require>
-  </div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-12">
+                <rhn:require acl="system_feature(ftr_package_remove)">
+                    <input type="submit" class="btn btn-danger" name ="dispatch" value='<bean:message key="packagelist.jsp.removepackages"/>'/>
+                </rhn:require>
+            </div>
+        </div>
+    </div>
 </c:if>
 
 </rl:listset>
