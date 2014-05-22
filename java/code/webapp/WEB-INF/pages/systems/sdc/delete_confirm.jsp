@@ -15,11 +15,15 @@
     <html:form method="post" action="/systems/details/DeleteConfirm.do?sid=${sid}">
       <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
-      <div class="text-right">
-        <html:submit property="button" styleClass="btn btn-default">
-          <bean:message key="delete_confirm.jsp.button"/>
-        </html:submit>
-      </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <html:submit property="button" styleClass="btn btn-danger">
+                        <bean:message key="delete_confirm.jsp.button"/>
+                    </html:submit>
+                </div>
+            </div>
+        </div>
     </html:form>
 
 </body>
