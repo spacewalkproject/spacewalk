@@ -1,42 +1,63 @@
 
 synopsis:
 
-    Activation-keys defined on the system, and the entitlements the grant
+    Activation-keys defined on the system, and their associated data
 
 description:
 
-    Lists all activation-keys and the entitlements associated with each
+    Lists all activation-keys and entitlements, channels, config-channels, server-groups, and packages associated with them
 
 columns:
 
-        org_id           The organization that owns the key
-        token            The token for a key
-        note             Description of this key
-        usage_limit      What is the key's usage-limit?
-        is_disabled      Is the key disabled?
-        deploys_configs  Does this key require config-files be deployed?
-        entitlement      Entitlements the key assigns
+        org_id            The organization that owns the key
+        token             The token for a key
+        note              Description of this key
+        usage_limit       What is the key's usage-limit?
+        is_disabled       Is the key disabled?
+        deploys_configs   Does this key require config-files be deployed?
+        entitlement       Entitlements the key assigns
+        channel           Channels the key subscribes a system to
+        cfg_channel_pos   "cfg-channel-label | position" for each cfg-channel in this key
+        server_group      Server-groups the key places the server into
+        package_name      packages the key deploys to the system
 
 multival_columns:
 
+        org_id
         token
-        entitlement : entitlement
+        entitlement     : entitlement
+        channel         : channel
+        cfg_channel_pos : cfg_channel_pos
+        server_group    : server_group
+        package_name    : package_name
 
 sql:
 
     select * from (
       select rt.org_id,
-             ak.token, 
-             rt.note note, 
+             ak.token,
+             rt.note note,
              rt.usage_limit usage_limit,
-             rt.disabled is_disabled, 
+             rt.disabled is_disabled,
              rt.deploy_configs deploys_configs,
-             sgt.label entitlement
+             sgt.label entitlement,
+             rc.label channel,
+             rcc.label || '|' || rtcc.position cfg_channel_pos,
+             sg.name server_group,
+             pn.name package_name
       from rhnactivationkey ak
            inner join rhnregtoken rt ON rt.id = ak.reg_token_id
            left outer join rhnregtokenentitlement rte on rte.reg_token_id = rt.id
            left outer join rhnservergrouptype sgt on sgt.id = rte.server_group_type_id
+           left outer join rhnregtokenchannels rtc on rtc.token_id = rt.id
+           left outer join rhnchannel rc on rc.id = rtc.channel_id
+           left outer join rhnregtokenconfigchannels rtcc on rtcc.token_id = rt.id
+           left outer join rhnconfigchannel rcc on rcc.id = rtcc.config_channel_id
+           left outer join rhnregtokengroups rtg on rtg.token_id = rt.id
+           left outer join rhnservergroup sg on sg.id = rtg.server_group_id
+           left outer join rhnregtokenpackages rtp on rtp.token_id = rt.id
+           left outer join rhnpackagename pn on pn.id = rtp.name_id
     ) X
     -- where placeholder
-    order by org_id, token, entitlement
+    order by org_id, token, note, entitlement, channel, cfg_channel_pos, server_group, package_name
 
