@@ -536,7 +536,7 @@ ORDER BY UPPER(C.name)
 <mode name="owned_channels_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
 SELECT CTV.name, CTV.id, CTV.channel_arch_id, C.org_id,
-       CASE WHEN NOT CTV.parent_or_self_id = CTV.channel_id THEN CTV.parent_or_self_id END AS parent_id,
+       CASE WHEN NOT CTV.parent_or_self_id = CTV.id THEN CTV.parent_or_self_id END AS parent_id,
        (SELECT COUNT (cp.package_id)
           FROM rhnchannelpackage cp
          WHERE cp.channel_id = CTV.id) AS package_count,
