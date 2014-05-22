@@ -39,22 +39,22 @@
                          src="/img/channel_child_node.gif"
                          alt="<bean:message
                          key='channels.childchannel.alt' />"/>
-                    <c:if test="${current.org_id !=  null}">
+                    <c:if test="${current.orgId != null}">
                     <html:link href="/rhn/channels/manage/Edit.do?cid=${current.id}">
                         ${current.name}
                     </html:link>
                     </c:if>
-                    <c:if test="${current.org_id eq  null}">
+                    <c:if test="${current.orgId eq null}">
                         ${current.name}
                     </c:if>
                 </c:when>
                 <c:otherwise>
-                    <c:if test="${current.org_id !=  null}">
+                    <c:if test="${current.orgId != null}">
                     <html:link href="/rhn/channels/manage/Edit.do?cid=${current.id}">
                         ${current.name}
                     </html:link>
                     </c:if>
-                    <c:if test="${current.org_id eq null}">
+                    <c:if test="${current.orgId eq null}">
                         ${current.name}
                     </c:if>
 
@@ -64,13 +64,13 @@
 
         <rl:column
                    headerkey="channels.overview.packages">
-            <c:if test="${current.org_id !=  null}">
+            <c:if test="${current.orgId != null}">
             <html:link href="/rhn/channels/manage/ChannelPackages.do?cid=${current.id}">
-                ${current.package_count}
+                ${current.packageCount}
             </html:link>
             </c:if>
-            <c:if test="${current.org_id eq  null}">
-                ${current.package_count}
+            <c:if test="${current.orgId eq null}">
+                ${current.packageCount}
             </c:if>
 
         </rl:column>
