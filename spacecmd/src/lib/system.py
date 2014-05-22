@@ -2282,6 +2282,7 @@ def do_system_details(self, args, short=False):
         print 'Registered:    %s' % registered
         print 'Last Checkin:  %s' % last_checkin
         print 'OSA Status:    %s' % details.get('osa_status')
+        print 'Last Boot:     %s' % details.get('last_boot')
 
         # only print basic information if requested
         if short: continue
