@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.74
+Version: 2.2.75
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.75-1
+- format the date in ISO format using javax.xml.bind.DatatypeConverter
+- 1044527 - EL7 Vhost warning about missing VT chann
+- use proxy host for kickstarting virtual guest if available
+- new system snapshot pages in java
+
 * Thu May 22 2014 Stephen Herr <sherr@redhat.com> 2.2.74-1
 - fix JSP variable names
 - SQL query fix
