@@ -3,6 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/config-managment" prefix="cfg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <html>
@@ -29,7 +30,7 @@
       <rhn:column header="localfilelist.jsp.system"
                   url="/rhn/systems/details/configuration/Overview.do?sid=${current.serverId}">
          <rhn:icon type="header-system-physical" title="system.common.systemAlt" />
-    	  ${current.serverName}
+    	  ${fn:escapeXml(current.serverName)}
       </rhn:column>
     </rhn:listdisplay>
   </rhn:list>
