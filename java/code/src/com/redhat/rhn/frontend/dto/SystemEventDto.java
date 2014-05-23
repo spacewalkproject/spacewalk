@@ -41,27 +41,27 @@ public class SystemEventDto extends BaseDto implements Serializable {
     protected String historyType;
     protected String historyTypeName;
     private String historyStatus;
-    protected static Map<String, String> actionTypes;
+    protected static final Map<String, String> ACTIONTYPES;
 
     static {
-        actionTypes = new HashMap<String, String>();
-        actionTypes.put("packages.refresh_list", "event-type-package");
-        actionTypes.put("packages.delta", "event-type-package");
-        actionTypes.put("packages.update", "event-type-package");
-        actionTypes.put("packages.remove", "event-type-package");
-        actionTypes.put("packages.verify", "event-type-package");
-        actionTypes.put("packages.runTransaction", "event-type-package");
-        actionTypes.put("rollback.listTransactions", "event-type-package");
-        actionTypes.put("up2date_config.get", "event-type-preferences");
-        actionTypes.put("up2date_config.update", "event-type-preferences");
-        actionTypes.put("rollback.config", "event-type-preferences");
-        actionTypes.put("errata.update", "event-type-errata");
-        actionTypes.put("hardware.refresh_list", "event-type-system");
-        actionTypes.put("reboot.reboot", "event-type-system");
-        actionTypes.put("configfiles.upload", "event-type-system");
-        actionTypes.put("configfiles.deploy", "event-type-system");
-        actionTypes.put("configfiles.verify", "event-type-system");
-        actionTypes.put("configfiles.diff", "event-type-system");
+        ACTIONTYPES = new HashMap<String, String>();
+        ACTIONTYPES.put("packages.refresh_list", "event-type-package");
+        ACTIONTYPES.put("packages.delta", "event-type-package");
+        ACTIONTYPES.put("packages.update", "event-type-package");
+        ACTIONTYPES.put("packages.remove", "event-type-package");
+        ACTIONTYPES.put("packages.verify", "event-type-package");
+        ACTIONTYPES.put("packages.runTransaction", "event-type-package");
+        ACTIONTYPES.put("rollback.listTransactions", "event-type-package");
+        ACTIONTYPES.put("up2date_config.get", "event-type-preferences");
+        ACTIONTYPES.put("up2date_config.update", "event-type-preferences");
+        ACTIONTYPES.put("rollback.config", "event-type-preferences");
+        ACTIONTYPES.put("errata.update", "event-type-errata");
+        ACTIONTYPES.put("hardware.refresh_list", "event-type-system");
+        ACTIONTYPES.put("reboot.reboot", "event-type-system");
+        ACTIONTYPES.put("configfiles.upload", "event-type-system");
+        ACTIONTYPES.put("configfiles.deploy", "event-type-system");
+        ACTIONTYPES.put("configfiles.verify", "event-type-system");
+        ACTIONTYPES.put("configfiles.diff", "event-type-system");
     }
 
     /**
@@ -178,8 +178,8 @@ public class SystemEventDto extends BaseDto implements Serializable {
      * @return Returns type of history event
      */
     public String getHistoryType() {
-        if (actionTypes.containsKey(historyType)) {
-            return actionTypes.get(historyType);
+        if (ACTIONTYPES.containsKey(historyType)) {
+            return ACTIONTYPES.get(historyType);
         }
         return historyType;
     }
