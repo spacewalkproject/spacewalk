@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 2.2.2
+Version: 2.2.3
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -90,6 +90,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.3-1
+- Do not look at processes in containers.
+
 * Thu May 22 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.2-1
 - 1064287 - Use systemctl to get the pid since /var/run/tomcat.pid is empty.
 
