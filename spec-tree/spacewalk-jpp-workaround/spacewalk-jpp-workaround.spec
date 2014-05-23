@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.1.2
+Version:	2.1.3
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.3-1
+- spec file polish
+
 * Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.2-1
 - obsoleted package should be also provided
 
