@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.2.2
+Version:     2.2.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.3-1
+- Added option to mirror a softwarechannel with spacecmd
+
 * Fri Apr 04 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.2-1
 - 893368 - set output encoding when stdout is not a tty
 
