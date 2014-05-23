@@ -30,6 +30,7 @@ Requires:      font-awesome >= 4.0.0
 Requires:      jquery-timepicker >= 1.3.2
 Requires:      roboto >= 1.2
 Requires:      pwstrength-bootstrap
+Requires:      momentjs
 
 %description
 Spacewalk specific branding, CSS, and images.
