@@ -203,22 +203,22 @@ public abstract class GenericIndexTask implements Job {
     protected int handleDeletedRecords(DatabaseManager databaseManager,
             IndexManager indexManager)
         throws SQLException {
-        List<Long> ids = null;
-        Query<Long> query = null;
+        List<Object> records = null;
+        Query<Object> query = null;
         String uniqField = null;
         String indexName = null;
         HashSet<String> idSet = null;
         try {
             query = databaseManager.getQuery(getQueryAllIds());
-            ids = query.loadList(Collections.EMPTY_MAP);
-            if ((ids == null) || (ids.size() == 0)) {
+            records = query.loadList(Collections.EMPTY_MAP);
+            if ((records == null) || (records.size() == 0)) {
                 log.info("Got back no data from '" + getQueryAllIds() + "'");
                 log.info("Skipping the handleDeletedRecords() method");
                 return 0;
             }
             idSet = new HashSet<String>();
-            for (Long num : ids) {
-                idSet.add(num.toString());
+            for (Object record : records) {
+                idSet.add(record.toString());
             }
             uniqField = getUniqueFieldId();
             indexName = getIndexName();
