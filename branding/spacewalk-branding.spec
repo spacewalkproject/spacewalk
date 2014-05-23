@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.2.2
+Version:    2.2.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -89,6 +89,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.3-1
+- make the warning alters readable
+
 * Wed Apr 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.2-1
 - Update default Spacewalk entitlement certificate
 
