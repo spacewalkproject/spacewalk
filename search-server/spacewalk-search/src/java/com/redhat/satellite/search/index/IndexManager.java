@@ -636,8 +636,11 @@ public class IndexManager {
         IndexReader reader = null;
         try {
             reader = getIndexReader(indexName, IndexHandler.DEFAULT_LANG);
-            int numDocs = reader.numDocs();
-            for (int i = 0; i < numDocs; i++) {
+
+            // Use maxDoc() to iterate over all docs, numDocs() returns the
+            // number of currently alive docs leaving out the deleted ones.
+            int maxDoc = reader.maxDoc();
+            for (int i = 0; i < maxDoc; i++) {
                 if (!reader.isDeleted(i)) {
                     Document doc = reader.document(i);
                     String uniqId = doc.getField(uniqField).stringValue();
