@@ -223,6 +223,7 @@ public class FormatDateTag extends TagSupport {
     protected void renderMomentInclude(Writer out) throws IOException {
         if (pageContext.getRequest().getAttribute(
                 "__spacewalk_momentjs_included") == null) {
+            this.bestLocale = null;
             out.append("<script type=\"text/javascript\" src=\"" +
                 "/javascript/momentjs/moment-with-langs.min.js\"></script>");
 
