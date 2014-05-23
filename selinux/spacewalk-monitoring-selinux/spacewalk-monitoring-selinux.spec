@@ -8,7 +8,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        2.2.0
+Version:        2.2.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -145,6 +145,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.1-1
+- spec file polish
+
 * Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
 - Bumping package versions for 2.0.
 
