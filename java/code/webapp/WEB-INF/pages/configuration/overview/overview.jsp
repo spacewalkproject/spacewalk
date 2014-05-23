@@ -44,17 +44,15 @@
         <c:choose>
           <c:when test="${current.type == 'file'}">
             <rhn:icon type="header-file" />
-            ${fn:escapeXml(current.path)}
           </c:when>
           <c:when test="${current.type == 'directory'}">
             <rhn:icon type="header-folder" />
-            ${fn:escapeXml(current.path)}
           </c:when>
           <c:otherwise>
             <rhn:icon type="header-symlink" />
-            ${fn:escapeXml(current.path)}
           </c:otherwise>
         </c:choose>
+        ${fn:escapeXml(current.path)}
       </rhn:column>
 
       <rhn:column header="config.common.configChannel"
@@ -62,19 +60,16 @@
 
         <c:if test="${current.configChannelType == 'normal'}">
           <rhn:icon type="header-channel" />
-          ${current.channelNameDisplay}
         </c:if>
 
         <c:if test="${current.configChannelType == 'local_override'}">
           <rhn:icon type="header-system" />
-          ${current.channelNameDisplay}
         </c:if>
 
         <c:if test="${current.configChannelType == 'server_import'}">
           <rhn:icon type="header-sandbox" />
-          ${current.channelNameDisplay}
         </c:if>
-
+        ${fn:escapeXml(current.channelNameDisplay)}
       </rhn:column>
 
       <rhn:column header="configoverview.jsp.modified">
