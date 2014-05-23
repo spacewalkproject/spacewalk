@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:         nocpulse-common
-Version:      2.2.7
+Version:      2.2.8
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -152,6 +152,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.8-1
+- spec file polish
+
 * Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 2.2.7-1
 - 919468 - fixed path in file based Requires
 
