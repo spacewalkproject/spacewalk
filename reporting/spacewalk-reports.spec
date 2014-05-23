@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.6
+Version: 2.2.7
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.7-1
+- fix activation-key info
+
 * Wed May 21 2014 Stephen Herr <sherr@redhat.com> 2.2.6-1
 - 1099938 - add spacewalk-report for systems with extra packages
 
