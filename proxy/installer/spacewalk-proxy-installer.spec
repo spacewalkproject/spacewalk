@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.2.0
+Version: 2.2.1
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -97,6 +97,9 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.1-1
+- spec file polish
+
 * Wed Oct 09 2013 Matej Kollar <mkollar@redhat.com> 2.1.6-1
 - Honour behavior described in help
 - Revert "Removed set_value as getopt made it redundant"
