@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.15
+Version:	2.2.16
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,16 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri May 23 2014 Stephen Herr <sherr@redhat.com> 2.2.16-1
+- Adding spacewalk-manage-channel-lifecycle to spacewalk-utils
+- spacewalk-manage-channel-lifecycle: Removed the whitespace
+- spacewalk-manage-channel-lifecycle: Added better channel tree printing.
+- spacewalk-manage-channel-lifecycle: Added multiple workflows.
+- spacewalk-manage-channel-lifecycle: Removed dead variable.
+- spacewalk-manage-channel-lifecycle: Fixing None-channel. Added real checks
+  instead of blind try/except.
+- spacewalk-manage-channel-lifecycle: Organizing imports
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.15-1
 - spec file polish
 
