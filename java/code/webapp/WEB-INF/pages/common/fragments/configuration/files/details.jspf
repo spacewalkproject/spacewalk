@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean"	prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-html"	prefix="html"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -28,7 +29,7 @@
                         </c:choose>
 
                         <a href="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}">
-                            ${channel.displayName}
+                            ${fn:escapeXml(channel.displayName)}
                         </a>
                     </p>
                 </div>

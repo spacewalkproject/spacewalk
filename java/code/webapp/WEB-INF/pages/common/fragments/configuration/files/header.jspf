@@ -19,7 +19,7 @@
 <c:set var="toolbarText" scope="request">
   <bean:message key="filedetails.header.jspf.label"
                 arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${revision.revision}"
-                arg2="${channel.displayName}"
+                arg2="${fn:escapeXml(channel.displayName)}"
                 arg3="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}" />
 </c:set>
 
