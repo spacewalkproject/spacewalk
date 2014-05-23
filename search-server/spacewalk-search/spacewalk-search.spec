@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.1
+Version: 2.2.2
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -198,6 +198,9 @@ fi
 %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.2-1
+- spec file polish
+
 * Tue Mar 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.1-1
 - make taskomatic and rhn-search configuration overrideable via rhn.conf
 
