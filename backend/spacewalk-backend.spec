@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.28
+Version: 2.2.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -641,6 +641,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.29-1
+- spec file polish
+- fixed 'empty separator' error
+
 * Fri May 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.28-1
 - rewrite uln_src plugin as yum_src plugin subclass
 - Added Oracle Unbreakable Linux Network integration to spacewalk-repo-sync
