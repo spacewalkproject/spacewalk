@@ -3589,6 +3589,15 @@
                  path="/WEB-INF/pages/systems/sdc/history/snapshots/groups.jsp"/>
     </action>
 
+    <action path="/systems/details/history/snapshots/Channels"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SnapshotChannelsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/history/snapshots/channels.jsp"/>
+    </action>
+
+
     <action path="/systems/details/history/snapshots/Packages"
         scope="request"
         type="com.redhat.rhn.frontend.action.systems.sdc.SnapshotPackagesAction"

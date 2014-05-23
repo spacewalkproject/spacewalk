@@ -12184,11 +12184,17 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.history.snapshot.header-groups">
           <source>Snapshot - System Groups</source>
         </trans-unit>
+        <trans-unit id="system.history.snapshot.header-channels">
+          <source>Snapshot - Software Channels</source>
+        </trans-unit>
         <trans-unit id="system.history.snapshot.summary-packages">
           <source>Below is a comparison of the current package profile and the snapshot package profile.</source>
         </trans-unit>
         <trans-unit id="system.history.snapshot.summary-groups">
           <source>Below is a comparison of the current system group membership and the recorded snapshot group list.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.summary-channels">
+          <source>Below is a comparison of the current system channel subscriptions and the recorded snapshot channel subscriptions.</source>
         </trans-unit>
         <trans-unit id="system.history.snapshot.profileonly">
           <source>Current profile only</source>
@@ -12207,6 +12213,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="system.history.snapshot.nogroupdiff">
           <source>No system group differences.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.nochanneldiff">
+          <source>No channel subscription differences.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.channel.list">
+          <source>Channel</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.channel.subscription">
+          <source>Subscription</source>
         </trans-unit>
         <trans-unit id="system.history.snapshot.tagCreateHeader">
           <source>Tag System</source>

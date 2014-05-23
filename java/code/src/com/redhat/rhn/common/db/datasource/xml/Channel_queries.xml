@@ -1042,22 +1042,31 @@ GROUP BY C.id, C.name
 
 <mode name="snapshot_channel_diff">
   <query params="ss_id, sid">
-select count(*) as diffs
+select server_channel.id as current_channel_id,
+       server_channel.label as current_channel_label,
+       snapshot_channel.id as snapshot_channel_id,
+       snapshot_channel.label as snapshot_channel_label
   from (
-        select sc.channel_id as id
+        select sc.channel_id as id,
+               c.label as label
           from rhnServerChannel SC
+          join rhnChannel c
+            on c.id = sc.channel_id
          where sc.server_id = :sid
-       ) server_chanel
+       ) server_channel
   full outer join (
-        select snc.channel_id as id
+        select snc.channel_id as id,
+               c.label as label
           from rhnSnapshotChannel snc
           join rhnSnapshot sn
             on sn.id = snc.snapshot_id
+          join rhnChannel c
+            on snc.channel_id = c.id
          where sn.id = :ss_id
            and sn.server_id = :sid
        ) snapshot_channel
-    on server_chanel.id = snapshot_channel.id
- where server_chanel.id is null
+    on server_channel.id = snapshot_channel.id
+ where server_channel.id is null
     or snapshot_channel.id is null
   </query>
 </mode>
