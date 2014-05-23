@@ -16,10 +16,12 @@ columns:
         is_disabled       Is the key disabled?
         deploys_configs   Does this key require config-files be deployed?
         entitlement       Entitlements the key assigns
-        channel           Channels the key subscribes a system to
+        channel           Channels that the key subscribes a system to
+        channel_id        IDs of Channel that the key subscribes a system to
         cfg_channel_pos   "cfg-channel-label | position" for each cfg-channel in this key
-        server_group      Server-groups the key places the server into
-        package_name      packages the key deploys to the system
+        server_group      Server-groups that the key places the server into
+        server_group_id   IDs of Server-groups that the key places the server into
+        package_name      Packages that the key deploys to the system
 
 multival_columns:
 
@@ -27,8 +29,10 @@ multival_columns:
         token
         entitlement     : entitlement
         channel         : channel
+        channel_id      : channel_id
         cfg_channel_pos : cfg_channel_pos
         server_group    : server_group
+        server_group_id : server_group_id
         package_name    : package_name
 
 sql:
@@ -42,8 +46,10 @@ sql:
              rt.deploy_configs deploys_configs,
              sgt.label entitlement,
              rc.label channel,
+             rc.id channel_id,
              rcc.label || '|' || rtcc.position cfg_channel_pos,
              sg.name server_group,
+             sg.id server_group_id,
              pn.name package_name
       from rhnactivationkey ak
            inner join rhnregtoken rt ON rt.id = ak.reg_token_id
