@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.2.3
+Version:    2.2.4
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -90,6 +90,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri May 23 2014 Stephen Herr <sherr@redhat.com> 2.2.4-1
+- build an rpm for momentjs and require it
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.3-1
 - make the warning alters readable
 
