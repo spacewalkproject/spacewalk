@@ -6,7 +6,7 @@
 
 Name:		gyp
 Version:	0.1
-Release:	0.6%{?revision:.%{revision}svn}.1%{?dist}
+Release:	0.6%{?revision:.%{revision}svn}.2%{?dist}
 Summary:	Generate Your Projects
 
 Group:		Development/Tools
@@ -67,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 0.1-0.6.1010svn.2
+- spec file polish
+
 * Tue Aug 23 2011 Akira TAGOH <tagoh@redhat.com> - 0.1-0.6.1010svn
 - Rebase to r1010.
 
