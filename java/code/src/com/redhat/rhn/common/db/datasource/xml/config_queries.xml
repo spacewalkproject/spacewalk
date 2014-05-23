@@ -2345,6 +2345,36 @@ select case when serverconfigchannel.id is not null then serverconfigchannel.id 
   </query>
 </mode>
 
+<mode name="configfiles_for_snapshot">
+  <query params="ss_id">
+SELECT DISTINCT
+       CR.id,
+       UPPER(Csum.checksum_type) || ': ' || Csum.checksum AS CHECKSUM,
+       CFN.id AS CONFIG_FILE_NAME_ID,
+       CFN.path,
+       CR.revision,
+       CR.id AS REVISION_ID,
+       CCon.delim_start,
+       CCon.delim_end,
+       CF.config_channel_id,
+       TO_CHAR(coalesce(CCon.created, CF.created), 'YYYY-MM-DD HH24:MI:SS') AS CREATED
+  FROM
+       rhnConfigFileName CFN,
+       rhnConfigFile CF,
+       rhnSnapshotConfigRevision SCR,
+       rhnConfigRevision CR
+  LEFT JOIN rhnConfigContent CCon
+    ON CR.config_content_id = CCon.id
+  LEFT JOIN rhnChecksumView Csum
+    ON CCon.checksum_id = Csum.id
+ WHERE SCR.snapshot_id = :ss_id
+   AND SCR.config_revision_id = CR.id
+   AND CR.config_file_id = CF.id
+   AND CF.config_file_name_id = CFN.id
+ORDER BY CFN.path
+  </query>
+</mode>
+
 <callable-mode name="create_new_config_channel">
   <query params="org_id_in, type_in, name_in, label_in,  description_in">
       {:channelId = call rhn_config.insert_channel( :org_id_in, :type_in, :name_in, :label_in, :description_in)}

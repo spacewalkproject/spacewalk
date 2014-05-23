@@ -12277,6 +12277,18 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.history.snapshot.cfgProfileOnly">
           <source>Current Profile Only</source>
         </trans-unit>
+        <trans-unit id="system.history.snapshot.cfgFilesHeader">
+          <source>Snapshot - Configuration Channels</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.cfgFilesSummary">
+          <source>These are the configuration files that will be pushed to the system after the package list is changed.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.cfgFilesEmpty">
+          <source>No files</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.cfgFilesChecksum">
+          <source>Checksum</source>
+        </trans-unit>
       </group>
       <!-- Configuration Common -->
       <group>

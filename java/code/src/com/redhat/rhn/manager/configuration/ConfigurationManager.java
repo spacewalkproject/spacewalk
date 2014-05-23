@@ -2337,4 +2337,17 @@ public class ConfigurationManager extends BaseManager {
         return makeDataResult(params, elabParams, pc, m);
     }
 
+    /**
+     * @param ssid snapshot ID
+     * @param pc page control
+     * @return List of config files whcih will be redeployed during rollback
+     */
+    public static DataResult systemSnapshotConfigFiles(Long ssid, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("config_queries", "configfiles_for_snapshot");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("ss_id", ssid);
+        Map elabParams = new HashMap();
+        return makeDataResult(params, elabParams, pc, m);
+    }
+
 }
