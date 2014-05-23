@@ -1,19 +1,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
        <rhn:column header="sdcconfigfiles.jsp.filename">
 			<c:choose>
               <c:when test="${current.configFileType == 'file'}">
-                <rhn:icon type="header-file" title="config.common.fileAlt" /> ${current.path}
+                <rhn:icon type="header-file" title="config.common.fileAlt" />
               </c:when>
               <c:when test="${current.configFileType == 'directory'}">
-                <rhn:icon type="header-folder" title="config.common.dirAlt" /> ${current.path}
+                <rhn:icon type="header-folder" title="config.common.dirAlt" />
               </c:when>
               <c:otherwise>
-                <rhn:icon type="header-symlink" title="config.common.symlinkAlt" /> ${current.path}
+                <rhn:icon type="header-symlink" title="config.common.symlinkAlt" />
               </c:otherwise>
             </c:choose>
+            ${fn:escapeXml(current.path)}
       	</rhn:column>
 
       	<rhn:column header="sdcconfigfiles.jsp.revision"
@@ -34,5 +36,5 @@
               <rhn:icon type="header-sandbox" title="config.common.sandboxAlt" />
             </c:otherwise>
           </c:choose>
-          ${current.channelNameDisplay}
+          ${fn:escapeXml(current.channelNameDisplay)}
         </rhn:column>
