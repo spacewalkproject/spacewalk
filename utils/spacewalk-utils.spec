@@ -16,7 +16,7 @@ BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
 BuildRequires:  python
 BuildRequires: /usr/bin/pod2man
-%if 0%{?fedora} > 15 || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5
 # pylint check
 BuildRequires:  spacewalk-pylint
 BuildRequires:  yum
@@ -73,7 +73,7 @@ make install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
 rm -rf $RPM_BUILD_ROOT
 
 %check
-%if 0%{?fedora} > 15 || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5
 # check coding style
 spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %endif

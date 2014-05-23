@@ -91,7 +91,7 @@ visibility=default \
 env=CCFLAGS:"-fPIC" \
 I_know_I_should_build_with_GYP=yes
 
-%if 0%{?fedora} >= 16
+%if 0%{?fedora}
 export ICU_LINK_FLAGS=`pkg-config --libs-only-l icu-i18n`
 %else
 export ICU_LINK_FLAGS=`pkg-config --libs-only-l icu`

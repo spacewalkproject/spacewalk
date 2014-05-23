@@ -33,7 +33,7 @@ Oracle tablespace name conversions have NOT been applied.
 %setup -q
 
 %build
-%if 0%{?fedora} >= 16
+%if 0%{?fedora}
 find . -name '*.91' | while read i ; do mv $i ${i%%.91} ; done
 %endif
 make -f Makefile.schema SCHEMA=%{name} VERSION=%{version} RELEASE=%{release}

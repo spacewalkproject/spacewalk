@@ -11,7 +11,7 @@ BuildArch: noarch
 BuildRequires: python-devel
 Requires: rhnlib
 
-%if 0%{?rhel} >= 5 || 0%{?fedora} >= 1
+%if 0%{?rhel} >= 5 || 0%{?fedora}
 Requires: yum-rhn-plugin
 %else
 # rpm do not support elif

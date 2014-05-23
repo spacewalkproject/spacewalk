@@ -141,7 +141,7 @@ make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 mkdir -pm700 $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date
 touch $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date/loginAuth.pkl
-%if 0%{?fedora} >= 18
+%if 0%{?fedora}
 mkdir -p $RPM_BUILD_ROOT/%{_presetdir}
 install 50-spacewalk-client.preset $RPM_BUILD_ROOT/%{_presetdir}
 %endif
@@ -252,7 +252,7 @@ make -f Makefile.rhn-client-tools test
 #public keys and certificates
 %{_datadir}/rhn/RHNS-CA-CERT
 
-%if 0%{?fedora} >= 18
+%if 0%{?fedora}
 %{_presetdir}/50-spacewalk-client.preset
 %endif
 
@@ -312,7 +312,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/icons/hicolor/24x24/apps/up2date.png
 %{_datadir}/icons/hicolor/32x32/apps/up2date.png
 %{_datadir}/icons/hicolor/48x48/apps/up2date.png
-%if 0%{?rhel} > 6 || 0%{?fedora} > 17
+%if 0%{?rhel} > 6 || 0%{?fedora}
 %{_datadir}/icons/hicolor/22x22/apps/up2date.png
 %{_datadir}/icons/hicolor/256x256/apps/up2date.png
 %endif

@@ -27,7 +27,7 @@ Requires: %{name}-libs >= 1.1.16-1
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
-%if 0%{?fedora} > 15 || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5
 BuildRequires: spacewalk-pylint
 BuildRequires: rhnlib >= 2.5.57
 BuildRequires: rpm-python
@@ -109,7 +109,7 @@ receivers and get them enabled automatically.
 Summary: Handler for /XMLRPC
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-%if 0%{?fedora} >= 19
+%if 0%{?fedora}
 # temporary workaround for bug BZ#1067443
 Requires: rpm-python < 4.11.2
 %endif
@@ -293,7 +293,7 @@ rm -rf $RPM_BUILD_ROOT
 %check
 make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} test || :
 
-%if 0%{?fedora} > 15 || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/lib/rhn
 spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \

@@ -77,7 +77,7 @@ SELinux policy module supporting Spacewalk monitoring.
 %build
 # Build SELinux policy modules
 perl -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' %{modulename}.te
-%if 0%{?fedora} >= 17
+%if 0%{?fedora}
 cat %{modulename}.te.fedora17 >> %{modulename}.te
 %endif
 for selinuxvariant in %{selinux_variants}

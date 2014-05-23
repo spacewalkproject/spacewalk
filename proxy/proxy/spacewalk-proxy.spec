@@ -10,7 +10,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
 BuildArch: noarch
 Requires: httpd
-%if 0%{?fedora} > 15 || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5
 # pylint check
 BuildRequires: spacewalk-pylint
 BuildRequires: rhnpush >= 5.5.52
@@ -169,7 +169,7 @@ touch $RPM_BUILD_ROOT/%{httpdconf}/cobbler-proxy.conf
 rm -rf $RPM_BUILD_ROOT
 
 %check
-%if 0%{?fedora} > 15 || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT/usr/share/rhn:$RPM_BUILD_ROOT%{python_sitelib}:/usr/share/rhn
 spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn

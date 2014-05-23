@@ -51,7 +51,7 @@ mkdir -p %{buildroot}%{_var}/lib/%{package_name}/.ssh
 
 # install log rotation stuff
 mkdir -p $RPM_BUILD_ROOT/etc/logrotate.d
-%if 0%{?fedora} && 0%{?fedora} >= 16
+%if 0%{?fedora}
 install -m644 nocpulse.logrotate.new \
    $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
 %else

@@ -37,7 +37,7 @@ Requires: javapackages-tools
 Requires: jpackage-utils >= 0:1.5
 %endif
 Requires: log4j
-%if 0%{?fedora} >= 16
+%if 0%{?fedora}
 Requires: jakarta-oro
 %else
 Requires: oro
@@ -71,7 +71,7 @@ BuildRequires: jakarta-commons-logging
 %endif
 BuildRequires: java-devel >= 1.6.0
 BuildRequires: log4j
-%if 0%{?fedora} >= 16
+%if 0%{?fedora}
 BuildRequires: jakarta-oro
 %else
 BuildRequires: oro
@@ -82,13 +82,13 @@ BuildRequires: redstone-xmlrpc
 #BuildRequires: picocontainer
 BuildRequires: tanukiwrapper
 BuildRequires: simple-core
-%if 0%{?fedora} <=16
+%if 0%{?rhel}
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 %endif
-%if 0%{?fedora} > 18
+%if 0%{?fedora}
 BuildRequires: systemd
 %endif
 

@@ -221,7 +221,7 @@ Provides: rhn-java = %{version}-%{release}
 Provides: rhn-java-sat = %{version}-%{release}
 Provides: rhn-oracle-jdbc-tomcat5 = %{version}-%{release}
 
-%if 0%{?fedora} && 0%{?fedora} >= 15
+%if 0%{?fedora}
 Requires: classpathx-jaf
 %endif
 
@@ -391,7 +391,7 @@ if test -d /usr/share/tomcat6; then
     fi
 fi
 
-%if 0%{?fedora} && 0%{?fedora} >= 19
+%if 0%{?fedora}
 %define skip_xliff  1
 %endif
 
@@ -464,15 +464,9 @@ find . -type f -name '*.xml' | xargs perl -CSAD -lne '
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%if 0%{?fedora} && 0%{?fedora} < 18
-mkdir -p $RPM_BUILD_ROOT%{_javadir}/hibernate3
-ln -s -f %{_javadir}/hibernate3/hibernate-core.jar $RPM_BUILD_ROOT%{_javadir}/hibernate3/hibernate-core-3.jar
-ln -s -f %{_javadir}/hibernate3/hibernate-c3p0.jar $RPM_BUILD_ROOT%{_javadir}/hibernate3/hibernate-c3p0-3.jar
-ln -s -f %{_javadir}/hibernate3/hibernate-ehcache.jar $RPM_BUILD_ROOT%{_javadir}/hibernate3/hibernate-ehcache-3.jar
-%endif
 
 # on Fedora 19 some jars are named differently
-%if 0%{?fedora} && 0%{?fedora} > 18
+%if 0%{?fedora}
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
 %if 0%{?fedora} < 20
 ln -s -f %{_javadir}/apache-commons-validator.jar $RPM_BUILD_ROOT%{_javadir}/commons-validator.jar
@@ -582,7 +576,7 @@ ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-a
 %endif
 
 # 732350 - On Fedora 15, mchange's log stuff is no longer in c3p0.
-%if 0%{?fedora} >= 15
+%if 0%{?fedora}
 ln -s -f %{_javadir}/mchange-commons.jar $RPM_BUILD_ROOT%{jardir}/mchange-commons.jar
 %endif
 

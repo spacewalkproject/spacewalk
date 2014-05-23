@@ -12,7 +12,7 @@ Requires: spacewalk-base
 Requires: perl-URI, perl(MIME::Base64)
 Requires: lsof
 BuildRequires: /usr/bin/pod2man
-%if 0%{?fedora} > 18
+%if 0%{?fedora}
 BuildRequires: systemd
 %endif
 Obsoletes: satellite-utils < 5.3.0

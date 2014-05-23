@@ -35,13 +35,9 @@ Requires: mod_wsgi
 
 Requires: createrepo
 %if 0%{?fedora}
-%if 0%{?fedora} >= 19
 Requires: fence-agents-all
-%else
-Requires: fence-agents
 %endif
-%endif
-%if 0%{?fedora} >= 11 || 0%{?rhel} >= 6
+%if 0%{?fedora} || 0%{?rhel} >= 6
 Requires: genisoimage
 %else
 Requires: mkisofs
@@ -51,7 +47,7 @@ Requires: python-cheetah
 Requires: python-devel
 Requires: python-netaddr
 Requires: python-simplejson
-%if 0%{?fedora} >= 8
+%if 0%{?fedora}
 BuildRequires: python-setuptools-devel
 %else
 BuildRequires: python-setuptools
@@ -62,24 +58,19 @@ Requires: PyYAML
 BuildRequires: redhat-rpm-config
 %endif
 Requires: rsync
-%if 0%{?fedora} >= 6 || 0%{?rhel} >= 5
+%if 0%{?fedora} || 0%{?rhel} >= 5
 Requires: yum-utils
 %endif
 
 %if 0%{?fedora}
-%if 0%{?fedora} > 18
 BuildRequires: systemd
-%else
-Requires(post):  /bin/systemctl
-Requires(preun): /bin/systemctl
-%endif
 %else
 Requires(post):  /sbin/chkconfig
 Requires(preun): /sbin/chkconfig
 Requires(preun): /sbin/service
 %endif
 
-%if 0%{?fedora} >= 11 || 0%{?rhel} >= 6
+%if 0%{?fedora} || 0%{?rhel} >= 6
 %{!?pyver: %define pyver %(%{__python} -c "import sys ; print sys.version[:3]" || echo 0)}
 Requires: python(abi) >= %{pyver}
 %endif
@@ -266,7 +257,7 @@ test "x$RPM_BUILD_ROOT" != "x" && rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/cobbler/*.py*
 #%{python_sitelib}/cobbler/server/*.py*
 %{python_sitelib}/cobbler/modules/*.py*
-%if 0%{?fedora} >= 9 || 0%{?rhel} >= 5
+%if 0%{?fedora} || 0%{?rhel} >= 5
 %exclude %{python_sitelib}/cobbler/sub_process.py*
 %endif
 %{_mandir}/man1/cobbler.1.gz
@@ -347,7 +338,7 @@ test "x$RPM_BUILD_ROOT" != "x" && rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /var/lib/cobbler/cobbler_hosts
 
 %defattr(-,root,root)
-%if 0%{?fedora} > 8 || 0%{?rhel} >= 6
+%if 0%{?fedora} || 0%{?rhel} >= 6
 %{python_sitelib}/cobbler*.egg-info
 %endif
 %doc AUTHORS CHANGELOG README COPYING
@@ -358,11 +349,11 @@ Summary: Helper tool that performs cobbler orders on remote machines.
 Group: Applications/System
 Requires: python >= 1.5
 BuildRequires: python-devel
-%if 0%{?fedora} >= 11 || 0%{?rhel} >= 6
+%if 0%{?fedora} || 0%{?rhel} >= 6
 %{!?pyver: %define pyver %(%{__python} -c "import sys ; print sys.version[:3]")}
 Requires: python(abi) >= %{pyver}
 %endif
-%if 0%{?fedora} >= 8
+%if 0%{?fedora}
 BuildRequires: python-setuptools-devel
 %endif
 %if 0%{?rhel} >= 4
@@ -382,15 +373,12 @@ of an existing system.  For use with a boot-server configured with Cobbler
 %files -n koan
 %defattr(-,root,root)
 # FIXME: need to generate in setup.py
-#%if 0%{?fedora} > 8
-#%{python_sitelib}/koan*.egg-info
-#%endif
 %dir /var/spool/koan
 %{_bindir}/koan
 %{_bindir}/cobbler-register
 %dir %{python_sitelib}/koan
 %{python_sitelib}/koan/*.py*
-%if 0%{?fedora} >= 9 || 0%{?rhel} >= 5
+%if 0%{?fedora} || 0%{?rhel} >= 5
 %exclude %{python_sitelib}/koan/sub_process.py*
 %exclude %{python_sitelib}/koan/opt_parse.py*
 %exclude %{python_sitelib}/koan/text_wrap.py*
@@ -434,11 +422,11 @@ Requires: apache2-mod_python
 %else
 Requires: mod_python
 %endif
-%if 0%{?fedora} >= 11 || 0%{?rhel} >= 6
+%if 0%{?fedora} || 0%{?rhel} >= 6
 %{!?pyver: %define pyver %(%{__python} -c "import sys ; print sys.version[:3]")}
 Requires: python(abi) >= %{pyver}
 %endif
-%if 0%{?fedora} >= 8
+%if 0%{?fedora}
 BuildRequires: python-setuptools-devel
 %else
 BuildRequires: python-setuptools

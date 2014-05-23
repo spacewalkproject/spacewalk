@@ -49,13 +49,7 @@ Requires:       tsdb
 Requires: spacewalk-monitoring-selinux
 
 %if 0%{?fedora}
-%if 0%{?fedora} > 18
 BuildRequires: systemd
-%else
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
-%endif
 %else
 Requires(post): chkconfig
 Requires(preun): chkconfig
