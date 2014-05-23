@@ -1,6 +1,6 @@
 Name:           momentjs
 Version:        2.6.0
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        A javascript date library for parsing, validating, manipulating, and formatting dates
 
 Group:          Development/Libraries
@@ -45,3 +45,6 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri May 23 2014 Stephen Herr <sherr@redhat.com> 2.6.0-1
+- new package built with tito
+
