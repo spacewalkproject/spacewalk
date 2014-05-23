@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.2.8
+Version:        2.2.9
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -108,6 +108,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.9-1
+- Fix SELinux capitalization.
+
 * Fri Apr 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.8-1
 - editarea has been replaced with ace-editor
 
