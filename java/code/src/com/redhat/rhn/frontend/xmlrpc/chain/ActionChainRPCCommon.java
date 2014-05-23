@@ -44,11 +44,12 @@ public class ActionChainRPCCommon {
      * Transformer from Long to Integer for the XML-RPC compatibility.
      */
     public static class IntegerToLongTransformer implements Transformer {
-        @Override
         /**
          * Transforms the input object (leaving it unchanged) into some output object.
          * @param value The object to be transformed, should be left unchanged.
+         * @return The Long that corresponds with this Integer
          */
+        @Override
         public Long transform(Object value) {
             return value == null ? null : ((Integer) value).longValue();
         }
