@@ -23,6 +23,8 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 /**
  * ConfigChannelTag
  * @version $Rev$
@@ -58,7 +60,7 @@ public class ConfigChannelTag extends TagSupport {
             result.append("<a href=\"" +
                         ConfigChannelTag.makeConfigChannelUrl(id) + "\">");
             result.append(writeIcon());
-            result.append(name + "</a>");
+            result.append(StringEscapeUtils.escapeXml(name) + "</a>");
         }
         JspWriter writer = pageContext.getOut();
         try {
