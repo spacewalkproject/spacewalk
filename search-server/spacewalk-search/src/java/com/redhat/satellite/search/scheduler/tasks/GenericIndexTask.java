@@ -211,11 +211,6 @@ public abstract class GenericIndexTask implements Job {
         try {
             query = databaseManager.getQuery(getQueryAllIds());
             records = query.loadList(Collections.EMPTY_MAP);
-            if ((records == null) || (records.size() == 0)) {
-                log.info("Got back no data from '" + getQueryAllIds() + "'");
-                log.info("Skipping the handleDeletedRecords() method");
-                return 0;
-            }
             idSet = new HashSet<String>();
             for (Object record : records) {
                 idSet.add(record.toString());
