@@ -151,7 +151,7 @@ def main():
          print "|             Parameters             |"
          print "======================================"
          for key in  l_params:
-             print "| {0:<{c1}}: {1:<{c2}}".format(key,getattr(options, key),c1=15,c2=15)
+             print " %s: %s" % (key,str(getattr(options, key)))
          return 0
 
     sync = reposync.RepoSync(channel_label=options.channel_label,
