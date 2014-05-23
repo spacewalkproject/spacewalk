@@ -46,6 +46,7 @@ public class ServerSnapshot extends BaseDomainHelper {
     private Set<ServerGroup> groups = new HashSet();
     private Set<PackageNevra> packages = new HashSet();
     private InvalidSnapshotReason invalidReason;
+    private static final DateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * @return Returns the channels.
@@ -243,8 +244,7 @@ public class ServerSnapshot extends BaseDomainHelper {
      * @return Returns date in format yyyy-MM-dd HH:mm:ss so it can be used as a name
      */
     public String getName() {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return df.format(this.getCreated());
+        return DF.format(this.getCreated());
     }
 
 }
