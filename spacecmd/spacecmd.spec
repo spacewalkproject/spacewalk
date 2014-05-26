@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.2.3
+Version:     2.2.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon May 26 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.4-1
+- added last boot message in system_details func.
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.3-1
 - Added option to mirror a softwarechannel with spacecmd
 
