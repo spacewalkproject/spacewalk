@@ -1,14 +1,5 @@
 <datasource_modes>
 
-
-<mode name="comparison_to_snapshot">
-  <query params="">
-SELECT 1 FROM DUAL
-<!-- dummy -->
-  </query>
-</mode>
-
-
 <mode name="system_channels">
   <query params="sid">
 SELECT C.id,

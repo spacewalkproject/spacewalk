@@ -36,10 +36,6 @@ sub list_of { return "channels" }
 
 sub _register_modes {
 
-  Sniglets::ListView::List->add_mode(-mode => "comparison_to_snapshot",
-			   -datasource => RHN::DataSource::Channel->new,
-			   -provider => \&comparison_to_snapshot_provider);
-
   Sniglets::ListView::List->add_mode(-mode => "user_subscribe_perms",
 			   -datasource => RHN::DataSource::Channel->new,
 			   -provider => \&subscribe_perm_provider,
@@ -108,87 +104,6 @@ sub change_perms {
   }
 
   return 1;
-}
-
-
-sub comparison_to_snapshot_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $ds = $self->datasource;
-
-  my %params;
-  $ds->mode('system_snapshot_channel_list');
-  %params = $self->lookup_params($pxt, $ds->required_params);
-
-  my $snapshot_channels = $ds->execute_query(%params);
-  $snapshot_channels = $ds->elaborate($snapshot_channels, %params);
-
-  my $current_ds = new RHN::DataSource::Channel;
-
-  $current_ds->mode('system_channels');
-  %params = $self->lookup_params($pxt, $current_ds->required_params);
-
-  my $current_channels = $current_ds->execute_query(%params);
-  $current_channels = $current_ds->elaborate($current_channels, %params);
-
-  # group names are unique within an org.
-  my %all_channels;
-
-  foreach my $snapshot_channel (@{$snapshot_channels}) {
-    $all_channels{$snapshot_channel->{NAME}}->{ID} = $snapshot_channel->{ID};
-    $all_channels{$snapshot_channel->{NAME}}->{IN_SNAPSHOT} = 1;
-  }
-
-  foreach my $current_channel (@{$current_channels}) {
-    $all_channels{$current_channel->{NAME}}->{ID} = $current_channel->{ID};
-    $all_channels{$current_channel->{NAME}}->{CURRENTLY_SUBSCRIBED} = 1;
-  }
-
-  my $delta = [];
-
-  my $some_delta;
-  foreach my $channel_name (sort {uc $a cmp uc $b} keys %all_channels) {
-
-    my $channel = $all_channels{$channel_name};
-    my $comparison;
-
-    if ($channel->{IN_SNAPSHOT}) {
-
-      if ($channel->{CURRENTLY_SUBSCRIBED}) {
-	$comparison = 'Both Current and Snapshot';
-      }
-      else {
-	$some_delta = 1;
-	$comparison = 'Snapshot Profile Only';
-      }
-    }
-    else {
-      $some_delta = 1;
-      $comparison = 'Current Profile Only';
-    }
-
-
-    push @{$delta}, { ID => $channel->{ID},
-		      CHANNEL_NAME => $channel_name,
-		      COMPARISON => $comparison,
-		    };
-  }
-
-  $delta = [] unless $some_delta;
-
-  my $alphabar = $self->init_alphabar($delta);
-  my $on_page = $self->filter_data($delta);
-
-  my @all_ids = map { $_->{ID} } @{$on_page};
-  $self->all_ids(\@all_ids);
-  $on_page = $current_ds->slice_data($on_page, $self->lower, $self->upper);
-
-
-  return (data => $on_page,
-	  all_ids => \@all_ids,
-	  alphabar => $alphabar,
-	  full_data => $delta);
 }
 
 sub subscribe_perm_provider {
