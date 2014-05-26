@@ -61,6 +61,7 @@
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">jquery-timepicker</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
+       <packagereq type="default">momentjs</packagereq>
        <packagereq type="default">msv</packagereq>
        <packagereq type="default">msv-demo</packagereq>
        <packagereq type="default">msv-manual</packagereq>
