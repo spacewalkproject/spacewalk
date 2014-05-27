@@ -1580,7 +1580,11 @@ public class ChannelManager extends BaseManager {
         params.put("package", packageName);
         params.put("org_id", org.getId());
 
-        List<Long> channelIds = m.execute(params);
+        DataResult dr = m.execute(params);
+        List<Long> channelIds = new ArrayList<Long>();
+        for (Iterator it = dr.iterator(); it.hasNext();) {
+            channelIds.add((Long) ((Map) it.next()).get("id"));
+        }
         if (expectOne && channelIds.size() > 1) {
             // Multiple channels have this package, highly unlikely we can guess which
             // one is the right one so we'll raise an exception and let the caller
@@ -1604,7 +1608,13 @@ public class ChannelManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("package", packageName);
         params.put("org_id", org.getId());
-        return m.execute(params);
+        //whittle down until we have the piece we want.
+        DataResult<Map<String, Long>> dr = m.execute(params);
+        List<Long> cids = new LinkedList<Long>();
+        for (Map<String, Long> row : dr) {
+            cids.add(row.get("id"));
+        }
+        return cids;
     }
     /**
      * Subscribe a Server to the first child channel of its base channel that contains
@@ -2620,9 +2630,10 @@ public class ChannelManager extends BaseManager {
 
         SelectMode mode = ModeFactory.getMode(
                 "Channel_queries", "cloned_original_id");
-        List<Long> list = mode.execute(params);
+        List<Map> list = mode.execute(params);
         if (!list.isEmpty()) {
-            return list.get(0);
+            Map map = list.get(0);
+            return (Long) map.get("id");
         }
         return null;
     }
