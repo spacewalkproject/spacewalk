@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.7
+Version: 2.2.8
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Tue May 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.8-1
+- Add channel- and server-group-ids to activation-keys
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.7-1
 - fix activation-key info
 
