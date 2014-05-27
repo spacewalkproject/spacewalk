@@ -16,6 +16,7 @@
 from config_common.rhn_log import log_debug, die
 
 import handler_base
+import sys
 
 class Handler(handler_base.HandlerBase):
     def run(self):
@@ -32,7 +33,15 @@ class Handler(handler_base.HandlerBase):
         maxlen = max(maxlen, len(label)) + 2
 
         print "DoFoS %*s   %s" % (maxlen, label, "File")
+        arg_files = []
+        if len(sys.argv) > 2:
+            arg_files = sys.argv[2:len(sys.argv)]
+
         for file in files:
+
+            if len(arg_files) and not file[1] in arg_files:
+                continue
+
             # checking to see if the filetype is in the 'file' entry,
             # and if it is and that type is '1', it is a file
             if (len(file) < 3) or file[2] == 1:

@@ -1,6 +1,7 @@
 from config_common.rhn_log import log_debug, die
 from config_common.file_utils import ostr_to_sym
 import handler_base, base64
+import sys
 
 class Handler(handler_base.HandlerBase):
     def run(self):
@@ -16,7 +17,14 @@ class Handler(handler_base.HandlerBase):
         maxlen = max(maxlen, len(label)) + 2
         print "%-10s %8s %-8s %10s %+3s    %*s    %s" % ('Mode', 'Owner', 'Group', 'Size', 'Rev', maxlen, label, "File")
 
+        arg_files = []
+        if len(sys.argv) > 2:
+            arg_files = sys.argv[2:len(sys.argv)]
+
         for file in files:
+
+            if len(arg_files) and not file[1] in arg_files:
+                continue
 
             # Get the file info
             finfo = r.get_file_info(file[1])[1]
