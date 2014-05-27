@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.2.10
+Version:        2.2.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -107,6 +107,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue May 27 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.11-1
+- spacewalk-setup: require curl
+
 * Tue May 27 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.10-1
 - use curl instead of libwww-perl
 
