@@ -13,12 +13,12 @@
 </rhn:toolbar>
 
 <c:set var="rollback_links">
-<a href="/network/systems/details/history/snapshots/groups.pxt?sid=${param.sid}&amp;ss_id=${param.ss_id}"><bean:message key="system.history.snapshot.groups-link"/></a>,
-<a href="/network/systems/details/history/snapshots/channels.pxt?sid=${param.sid}&amp;ss_id=${param.ss_id}"><bean:message key="system.history.snapshot.channels-link"/></a>,
+<a href="/rhn/systems/details/history/snapshots/Groups.do?sid=${param.sid}&amp;ss_id=${param.ss_id}"><bean:message key="system.history.snapshot.groups-link"/></a>,
+<a href="/rhn/systems/details/history/snapshots/Channels.do?sid=${param.sid}&amp;ss_id=${param.ss_id}"><bean:message key="system.history.snapshot.channels-link"/></a>,
 <a href="/rhn/systems/details/history/snapshots/Packages.do?sid=${param.sid}&amp;ss_id=${param.ss_id}"><bean:message key="system.history.snapshot.packages-link"/></a>,
-<a href="/network/systems/details/history/snapshots/namespaces.pxt?sid=${param.sid}&amp;ss_id=${param.ss_id}"><bean:message key="system.history.snapshot.config-channel-link"/></a>
+<a href="/rhn/systems/details/history/snapshots/ConfigChannels.do?sid=${param.sid}&amp;ss_id=${param.ss_id}"><bean:message key="system.history.snapshot.config-channel-link"/></a>
 and
-<a href="/network/systems/details/history/snapshots/config.pxt?sid=${param.sid}&amp;ss_id=${param.ss_id}"><bean:message key="system.history.snapshot.config-files-link"/></a>
+<a href="/rhn/systems/details/history/snapshots/ConfigFiles.do?sid=${param.sid}&amp;ss_id=${param.ss_id}"><bean:message key="system.history.snapshot.config-files-link"/></a>
 </c:set>
 <div class="page-summary">
   <p><bean:message key="system.history.snapshot.summary-rollback" arg0="${rollback_links}" /></p>
