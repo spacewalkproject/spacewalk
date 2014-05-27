@@ -1713,8 +1713,10 @@ def do_softwarechannel_listrepos(self, args):
 ####################
 
 def help_softwarechannel_mirrorpackages(self):
-    print 'softwarechannel_mirrorpackages: Download all packages of a given channel'
+    print 'softwarechannel_mirrorpackages: Download packages of a given channel'
     print 'usage: softwarechannel_mirrorpackages CHANNEL'
+    print 'Options:'
+    print '    -l/--latest : Only mirror latest package version'
 
 def complete_softwarechannel_mirrorpackages(self, text, line, beg, end):
     parts = line.split(' ')
@@ -1722,13 +1724,20 @@ def complete_softwarechannel_mirrorpackages(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_mirrorpackages(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-l', '--latest', action='store_true') ]
+
+    (args, options) = parse_arguments(args, options)
     if not len(args):
         self.help_softwarechannel_mirrorpackages()
         return
     channel = args[0]
-    packages = \
-        self.client.channel.software.listAllPackages(self.session, channel)
+    if not (options.latest):
+        packages = \
+            self.client.channel.software.listAllPackages(self.session, channel)
+    else:
+        packages = \
+            self.client.channel.software.listLatestPackages(self.session, channel)
+
     for package in packages:
         package_url = self.client.packages.getPackageUrl(self.session, package['id'])
         package_file = self.client.packages.getDetails(self.session, package['id']).get('file')
