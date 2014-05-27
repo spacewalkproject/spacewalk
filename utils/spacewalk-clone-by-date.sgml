@@ -10,7 +10,7 @@
 <RefNameDiv>
 <RefName><command>spacewalk-clone-by-date</command></RefName>
 <RefPurpose>
-Utility for cloning errata by date.
+Utility for cloning errata by date (For RHEL5 and above).
 </RefPurpose>
 </RefNameDiv>
 
@@ -103,6 +103,9 @@ Utility for cloning errata by date.
     </para>
     <para>
         Also note that spacewalk-clone-by-date will pull in any packages needed to resolve dependencies for any errata being cloned. Since dependency-resolution selects the "best" package to resolve dependencies, it is possible for the cloned channel(s) to end up with packages that are not directly associated with any errata, and which are newer than the specified date. This is expected behavior.
+    </para>
+    <para>
+	Note: spacewalk-clone-by-date does not support RHEL4 and earlier versions. It's a limitation of this tool.
     </para>
 
 </RefSect1>
