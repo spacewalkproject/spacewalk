@@ -139,7 +139,7 @@ def do_configchannel_forcedeploy(self, args):
             print '================='
             print '\n'.join(systems)
     if self.user_confirm('Really force deployment [y/N]:'):
-        forcedeploy = self.client.configchannel.deployAllSystems(self.session, channel)
+        self.client.configchannel.deployAllSystems(self.session, channel)
 
 ####################
 
