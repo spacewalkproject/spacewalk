@@ -101,6 +101,48 @@ def do_configchannel_listfiles(self, args, doreturn = False):
 
 ####################
 
+def help_configchannel_forcedeploy(self):
+    print 'configchannel_forcedeploy: Forces a redeployment'
+    print '                           of files within this channel'
+    print '                           on all subscribed systems'
+    print 'usage: configchannel_forcedeploy CHANNEL'
+
+def complete_configchannel_forcedeploy(self, text, line, beg, end):
+    return tab_completer(self.do_configchannel_list('', True), text)
+
+def do_configchannel_forcedeploy(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args):
+        self.help_configchannel_forcedeploy()
+        return
+
+    channel = args[0]
+
+    files = self.client.configchannel.listFiles(self.session, channel)
+    files = [f.get('path') for f in files]
+
+    if not len(files):
+        print 'No files within selected configchannel.'
+        return
+    else:
+        systems = self.client.configchannel.listSubscribedSystems(self.session, channel)
+        systems = sorted([s.get('name') for s in systems])
+        if not len(systems):
+            print 'Channel has no subscribed Systems'
+            return
+        else:
+            print 'Force deployment of the following configfiles:'
+            print '=============================================='
+            print '\n'.join(files)
+            print '\nOn these systems:'
+            print '================='
+            print '\n'.join(systems)
+    if self.user_confirm('Really force deployment [y/N]:'):
+        forcedeploy = self.client.configchannel.deployAllSystems(self.session, channel)
+
+####################
+
 def help_configchannel_filedetails(self):
     print 'configchannel_filedetails: Show the details of a file'
     print 'in a configuration channel'
