@@ -1314,7 +1314,7 @@ sub wait_for_tomcat {
     }
 
     for (my $i = 0; $i < 20; $i++) {
-        my $retval = system("PERL_LWP_SSL_VERIFY_HOSTNAME=0 PERL5OPT=-MNet::INET6Glue::INET_is_INET6 HEAD http://$hostname/ > /dev/null 2>&1");
+        my $retval = system("/usr/bin/curl -fkIL http://$hostname/ > /dev/null 2>&1");
         if ($retval) {
             sleep 5;
         }
