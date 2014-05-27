@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.23
+Version: 2.2.24
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -270,6 +270,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue May 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.24-1
+- rewrite system snapshot to java: Rollback.do
+
 * Mon May 26 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.23-1
 - removed unused code
 
