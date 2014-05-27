@@ -1726,16 +1726,21 @@ def do_softwarechannel_mirrorpackages(self, args):
     if not len(args):
         self.help_softwarechannel_mirrorpackages()
         return
-
+    channel = args[0]
     packages = \
-        self.client.channel.software.listAllPackages(self.session, args[0])
+        self.client.channel.software.listAllPackages(self.session, channel)
     for package in packages:
         package_url = self.client.packages.getPackageUrl(self.session, package['id'])
         package_file = self.client.packages.getDetails(self.session, package['id']).get('file')
-        if not os.path.isfile(package_file):
-            print "Fetching package", package_file
-            urllib.urlretrieve(package_url, package_file)
-        else:
+        if os.path.isfile(package_file):
             print "Skipping", package_file
+        else:
+            print "Fetching package", package_file
+            try:
+                urllib.urlretrieve(package_url, package_file)
+            except IOError:
+                logging.error("Could not fetch package %s from channel %s" % (package_file, channel))
+            except urllib.ContentTooShortError:
+                logging.error("Received package %s from channel %s is broken. Content is too short" % (package_file, channel))
 
 # vim:ts=4:expandtab:
