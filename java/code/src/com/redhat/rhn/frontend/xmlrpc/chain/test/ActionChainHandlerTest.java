@@ -15,6 +15,7 @@
 
 package com.redhat.rhn.frontend.xmlrpc.chain.test;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.action.ActionFactory;
@@ -50,7 +51,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -468,8 +468,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
      */
     @SuppressWarnings("unchecked")
     public void testAcPackageUpgrade() throws Exception {
-        Map info = ErrataCacheManagerTest
-                .createServerNeededPackageCache(this.admin, ErrataFactory.ERRATA_TYPE_BUG);
+        Map<String, Object> info =
+                ErrataCacheManagerTest.createServerNeededPackageCache(this.admin,
+                        ErrataFactory.ERRATA_TYPE_BUG);
         List<Integer> upgradePackages = new ArrayList<Integer>();
         Server system = (Server) info.get("server");
         upgradePackages.add(this.pkg.getId().intValue());
@@ -530,11 +531,11 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
      */
     @SuppressWarnings("unchecked")
     public void testAcPackageVerify() {
+        DataResult<PackageListItem> packageListItems =
+                PackageManager.systemPackageList(this.server.getId(), null);
         List<Integer> packages = new ArrayList<Integer>();
-        for (Iterator it = PackageManager.systemPackageList(
-                this.server.getId(), null).iterator(); it.hasNext();) {
-            PackageListItem pli = (PackageListItem) it.next();
-            packages.add(pli.getPackageId().intValue());
+        for (PackageListItem packageListItem: packageListItems) {
+            packages.add(packageListItem.getPackageId().intValue());
         }
 
         assertEquals(true, this.ach.addPackageVerify(this.adminKey,
