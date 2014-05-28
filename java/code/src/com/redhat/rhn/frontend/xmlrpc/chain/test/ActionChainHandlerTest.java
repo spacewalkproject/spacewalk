@@ -125,8 +125,10 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
      */
     public void testAcCreateActionChain() throws Exception {
         String chainName = TestUtils.randomString();
-        assertTrue(1 == this.ach.createChain(this.adminKey, chainName));
-        assertFalse(ActionChainFactory.getActionChain(chainName) == null);
+        Integer chainId = this.ach.createChain(this.adminKey, chainName);
+        ActionChain newActionChain = ActionChainFactory.getActionChain(chainName);
+        assertNotNull(newActionChain);
+        assertEquals(newActionChain.getId().longValue(), chainId.longValue());
     }
 
     /**
