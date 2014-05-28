@@ -59,6 +59,7 @@ import java.util.Set;
  * Test cases for the Action Chain XML-RPC API
  */
 public class ActionChainHandlerTest extends BaseHandlerTestCase {
+
     private ActionChainHandler ach;
     private static final String CHAIN_LABEL = "Quick Brown Fox";
     private static final String SCRIPT_SAMPLE = "#!/bin/bash\nexit 0;";
@@ -67,6 +68,10 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     private Package channelPackage;
     private ActionChain actionChain;
 
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("deprecation")
     @Override
     public void setUp() throws Exception {
         super.setUp();
@@ -111,7 +116,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         actionChain = ActionChainFactory.createActionChain(CHAIN_LABEL, admin);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
@@ -120,8 +127,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
 
     /**
      * Test action chain create.
-     *
-     * @throws java.lang.Exception
+     * @throws Exception if something bad happens
      */
     public void testAcCreateActionChain() throws Exception {
         String chainName = TestUtils.randomString();
@@ -133,8 +139,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
 
     /**
      * Test creating an action chain failure on wrong authentication token.
-     *
-     * @throws java.lang.Exception
+     * @throws Exception if something bad happens
      */
     public void testAcCreateActionChainFailureOnInvalidAuth() throws Exception {
         String chainName = TestUtils.randomString();
@@ -144,14 +149,13 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                  InvalidSessionIdException.class.getCanonicalName());
         }
         catch (InvalidSessionIdException ex) {
-            //expected
+            // expected
         }
     }
 
     /**
      * Test creating an action chain failure on an empty chain name.
-     *
-     * @throws java.lang.Exception
+     * @throws Exception if something bad happens
      */
     public void testAcCreateActionChainFailureOnEmptyName() throws Exception {
         try {
@@ -160,14 +164,13 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                  InvalidParameterException.class.getCanonicalName());
         }
         catch (InvalidParameterException ex) {
-            //expected
+            // expected
         }
     }
 
     /**
      * Test system reboot command schedule.
-     *
-     * @throws Exception
+     * @throws Exception if something bad happens
      */
     public void testAcAddSystemReboot() throws Exception {
         assertEquals(true, this.ach.addSystemReboot(this.adminKey,
@@ -180,10 +183,9 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                              .getAction().getActionType());
     }
 
-
     /**
      * Test package installation schedule.
-     * @throws Exception
+     * @throws Exception if something bad happens
      */
     public void testAcPackageInstallation() throws Exception {
         List<Integer> packages = new ArrayList<Integer>();
@@ -201,8 +203,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
 
     /**
      * Test package installation schedule.
-     *
-     * @throws Exception
+     * @throws Exception if something bad happens
      */
     public void testAcPackageInstallationFailed() throws Exception {
         List<Integer> packages = new ArrayList<Integer>();
@@ -221,8 +222,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
 
     /**
      * Test package removal.
-     *
-     * @throws Exception
+     * @throws Exception if something bad happens
      */
     public void testAcPackageRemoval() throws Exception {
         List<Integer> packagesToRemove = new ArrayList<Integer>();
@@ -239,8 +239,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
 
     /**
      * Test package removal failure when empty list of packages is passed.
-     *
-     * @throws Exception
+     * @throws Exception if something bad happens
      */
     public void testAcPackageRemovalFailureOnEmpty() throws Exception {
         try {
@@ -257,8 +256,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
 
     /**
      * Test package removal failure when list of unknown packages is passed.
-     *
-     * @throws Exception
+     * @throws Exception if something bad happens
      */
     public void testAcPackageRemovalFailureOnUnknownPackages() throws Exception {
         List<Integer> packagesToRemove = new ArrayList<Integer>();
@@ -447,8 +445,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     }
 
     /**
-     * Test unknown list of actions on certain chain does not remove anything and
-     * schedule should not happen.
+     * Test unknown list of actions on certain chain does not remove anything
+     * and schedule should not happen.
      */
     public void testAcRemoveActionsUnknownChainActions() {
         assertEquals(true, this.ach.addSystemReboot(this.adminKey,
@@ -466,7 +464,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
 
     /**
      * Test package upgrade.
-     * @throws java.lang.Exception
+     * @throws Exception if something bad happens
      */
     public void testAcPackageUpgrade() throws Exception {
         Map info = ErrataCacheManagerTest
@@ -529,6 +527,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     /**
      * Test package verification.
      */
+    @SuppressWarnings("unchecked")
     public void testAcPackageVerify() {
         List<Integer> packages = new ArrayList<Integer>();
         for (Iterator it = PackageManager.systemPackageList(
@@ -614,7 +613,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                  InvalidSessionIdException.class.getCanonicalName());
         }
         catch (InvalidSessionIdException ex) {
-            //expected
+            // expected
         }
     }
 
@@ -664,7 +663,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                  InvalidSessionIdException.class.getCanonicalName());
         }
         catch (InvalidSessionIdException ex) {
-            //expected
+            // expected
         }
     }
 
@@ -720,7 +719,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
                  InvalidSessionIdException.class.getCanonicalName());
         }
         catch (InvalidSessionIdException ex) {
-            //expected
+            // expected
         }
     }
 
