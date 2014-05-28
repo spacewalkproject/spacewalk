@@ -3134,4 +3134,39 @@ def do_system_schedulepackagerefresh(self, args):
                                                   system_id,
                                                   action_time)
 
+
+####################
+
+def help_system_scapscan(self):
+    print 'system_scapscan: Schedule a OpenSCAP XCCDF Scan'
+    print 'usage: system_scapscan <SYSTEM> [options]'
+    print 'options:'
+    print '  -p Profile'
+    print '  -x XCCDF FILE'
+    print
+
+def complete_system_scapscan(self, text, line, beg, end):
+    return self.tab_complete_systems(text)
+
+def do_system_scapscan(self, args):
+    options = [ Option('-p', '--profile', action='store'),
+                Option('-x', '--xccdf', action='store')]
+
+    (args, options) = parse_arguments(args, options)
+
+    if not len(args):
+        self.help_system_scapscan()
+        return
+
+    systemid = self.get_system_id(args[0])
+    if is_interactive(options):
+        options.profile = prompt_user('Profile [Default]: ', noblank = False)
+        options.xccdf = prompt_user('Path to XCCDF [/usr/share/openscap/scap-xccdf.xml]: ', noblank = False)
+
+    if not options.profile:  options.profile  = 'Default'
+    if not options.xccdf:    options.xccdf    = '/usr/share/openscap/scap-xccdf.xml'
+
+    self.client.system.scap.scheduleXccdfScan(self.session, systemid, options.xccdf,"--profile %s" % options.profile)
+
+
 # vim:ts=4:expandtab:
