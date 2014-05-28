@@ -466,6 +466,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
      * Test package upgrade.
      * @throws Exception if something bad happens
      */
+    @SuppressWarnings("unchecked")
     public void testAcPackageUpgrade() throws Exception {
         Map info = ErrataCacheManagerTest
                 .createServerNeededPackageCache(this.admin, ErrataFactory.ERRATA_TYPE_BUG);
