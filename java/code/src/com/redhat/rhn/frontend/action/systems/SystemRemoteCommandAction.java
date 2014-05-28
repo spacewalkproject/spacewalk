@@ -292,29 +292,21 @@ public class SystemRemoteCommandAction extends RhnAction {
         // Process submit
         if (form.get(RhnAction.SUBMITTED) != null) {
             if (this.validate(form, errorMessages)) {
-                try {
-                    Set<Action> actions = this.scheduleScript(form, user, server);
-                    ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
+                Set<Action> actions = this.scheduleScript(form, user, server);
+                ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
 
-                    if (actionChain == null) {
-                        Action action = actions.iterator().next();
-                        infoMessages.add(ActionMessages.GLOBAL_MESSAGE,
-                            new ActionMessage("ssm.overview.provisioning" +
-                                ".remotecommand.succeed", server.getId().toString(),
-                                action.getId().toString(), LocalizationService
-                                    .getInstance().formatDate(action.getEarliestAction())));
-                    }
-                    else {
-                        infoMessages.add(ActionMessages.GLOBAL_MESSAGE,
-                            new ActionMessage("message.addedtoactionchain",
-                                actionChain.getId(), actionChain.getLabel()));
-                    }
+                if (actionChain == null) {
+                    Action action = actions.iterator().next();
+                    infoMessages.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("ssm.overview.provisioning" +
+                            ".remotecommand.succeed", server.getId().toString(),
+                            action.getId().toString(), LocalizationService
+                                .getInstance().formatDate(action.getEarliestAction())));
                 }
-                catch (Exception ex) {
-                    errorMessages.add(ActionMessages.GLOBAL_MESSAGE,
-                                  new ActionMessage("ssm.operations.actionchaindetails." +
-                                                    "scheduleerror.general.param",
-                                                    ex.getLocalizedMessage()));
+                else {
+                    infoMessages.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("message.addedtoactionchain",
+                            actionChain.getId(), actionChain.getLabel()));
                 }
             }
             else {

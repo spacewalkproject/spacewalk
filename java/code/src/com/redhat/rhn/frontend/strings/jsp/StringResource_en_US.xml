@@ -15834,9 +15834,6 @@ any of these revisions.  Are you sure you want to do this?</source>
       <trans-unit id="ssm.operations.actionchaindetails.scheduleerror.general">
         <source>Unable to schedule chain action.</source>
       </trans-unit>
-      <trans-unit id="ssm.operations.actionchaindetails.scheduleerror.general.param">
-        <source>Fatal error due to {0}.</source>
-      </trans-unit>
       <!-- ssm/packages.jsp -->
       <group>
         <context-group name="ctx">
