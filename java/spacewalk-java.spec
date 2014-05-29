@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.78
+Version: 2.2.79
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,21 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.79-1
+- add_snapshot_tag.pxt has been replaced by SnapshotTagCreate.do
+- fixed links to new java pages
+- ChannelManager.ownedChannelsTree test added
+- ActionChainHandlerTest fixes
+- Fix refreshing of Autoinstallable Tree forms (bnc#874144)
+- BaseTreeEditOperation: avoid NPE in unexpected exception handling
+- Delete system: button styled
+- System/Software/Packages/Non Compliant: button styled
+- System/Software/Packages/Profiles: button styled
+- System/Software/Packages/Upgrade: button styled
+- System/Software/Packages/List: button styled
+- System/Software/Packages/Install: button styled
+- Missing translation string added (bnc#877547)
+
 * Tue May 27 2014 Stephen Herr <sherr@redhat.com> 2.2.78-1
 - Can't infer class is Long because there's no zero argument constructor
 
