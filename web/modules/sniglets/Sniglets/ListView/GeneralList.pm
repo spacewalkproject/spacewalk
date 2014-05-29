@@ -44,10 +44,6 @@ sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "tags_for_provisioning_entitled_in_set",
 			   -datasource => RHN::DataSource::General->new);
 
-  Sniglets::ListView::List->add_mode(-mode => "snapshot_tags_in_set",
-			   -datasource => RHN::DataSource::General->new,
-			   -action_callback => \&snapshot_tags_cb);
-
   Sniglets::ListView::List->add_mode(-mode => "system_events_history",
 			   -datasource => RHN::DataSource::General->new,
 			   -provider => \&system_history_provider);
@@ -330,33 +326,6 @@ sub crypto_key_cb {
 
       $pxt->push_message(site_info => sprintf('GPG and SSL keys updated for <strong>%s</strong>.', $ks->name) );
     }
-  }
-
-  return 1;
-}
-
-sub snapshot_tags_cb {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %action = @_;
-
-  if (exists $action{label} and $action{label} eq 'confirm_snapshot_tag_removal') {
-    my $set_label = $pxt->dirty_param('set_label');
-    throw "No set label" unless $set_label;
-
-    my $sid = $pxt->param('sid');
-    my $s = RHN::Server->lookup(-id => $sid);
-
-    my $tag_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-    my @tags = $tag_set->contents;
-    RHN::Tag->remove_tags_from_system(\@tags, $sid);
-
-    $tag_set->empty;
-    $tag_set->commit;
-
-    $pxt->push_message(site_info => sprintf('Snapshot Tags removed from <strong>%s</strong>', $s->name) );
   }
 
   return 1;
