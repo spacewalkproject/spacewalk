@@ -99,17 +99,4 @@ sub lookup {
   return $ret;
 }
 
-sub remove_tags_from_system {
-  my $class = shift;
-  my @tags = @{+shift};
-  my $sid = shift;
-
-  my $dbh = $params{transaction} || RHN::DB->connect();
-
-  for my $tag (@tags) {
-    $dbh->call_procedure('rhn_server.tag_delete', $sid, $tag);
-  }
-  $dbh->commit;
-}
-
 1;
