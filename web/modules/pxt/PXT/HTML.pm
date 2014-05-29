@@ -206,27 +206,6 @@ sub submit {
   return sprintf "<input type=\"submit\" $opts class=\"btn btn-default\"/>";
 }
 
-#submit(
-#	-name => foo,
-#	-value => "Click Me");
-sub submit_image {
-  my $class = shift;
-  my %e = @_;
-  if(!$e{-name}) {
-    $e{-name} = "image" . ( $elem_names{'image'}++ == 1 ? "" : $elem_names{'image'} - 2 );
-    $class->_spew("->submit no name given, defaulting to " . $e{-name});
-  }
-
-  my $opts = '';
-  foreach (keys %e) {
-    next unless $_;
-    /^\-(.*)$/;
-    $opts .= sprintf(" %s=\"%s\"",lc($1),$e{$_});
-  }
-
-  return sprintf "<input type=\"image\" $opts />";
-}
-
 #reset(
 #	-name => foo,
 #	-value => "Reset Form");
