@@ -915,40 +915,5 @@ sub org_ks_ip_ranges {
   return @{$data};
 }
 
-sub generate_url {
-  my %params = validate(@_, { org_id => 0, kstree => 0, label => 0, mode => 1, scheme => 0 });
-
-  my %url_data;
-
-  if ($params{org_id}) {
-    $url_data{org} = RHN::SessionSwap->encode_data($params{org_id});
-  }
-
-  if ($params{mode} eq 'view_label') {
-    $url_data{view_label} = $params{label};
-  }
-  elsif ($params{mode} eq 'label') {
-    $url_data{label} = $params{label};
-  }
-  elsif ($params{mode} eq 'ip_range') {
-    $url_data{mode} = 'ip_range';
-  }
-  else {
-    die "Invalid mode: '" . $params{mode} . "'\n";
-  }
-
-  my $scheme = $params{scheme} || 'http';
-  unless ($scheme eq 'http' or $scheme eq 'https') {
-    throw "(invalid_parameter) The 'scheme' parameter was '$scheme', but should be 'http' or 'https'";
-  }
-
-  my $url = new URI::URL;
-  $url->scheme($scheme);
-  $url->host(PXT::Config->get('base_domain'));
-  $url->path('/kickstart/ks/' . join('/', %url_data));
-
-  return $url;
-}
-
 1;
 
