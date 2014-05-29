@@ -38,10 +38,6 @@ sub list_of { return "namespaces" }
 
 sub _register_modes {
 
-  Sniglets::ListView::List->add_mode(-mode => "comparison_to_snapshot",
-			   -datasource => RHN::DataSource::ConfigChannel->new,
-			   -provider => \&comparison_to_snapshot_provider);
-
   Sniglets::ListView::List->add_mode(-mode => "namespaces_visible_to_org",
 			   -datasource => RHN::DataSource::ConfigChannel->new,
 			   -provider => \&namespaces_visible_to_org_provider,
@@ -61,91 +57,6 @@ sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "namespaces_with_filename",
 			   -datasource => RHN::DataSource::ConfigChannel->new);
-}
-
-
-sub comparison_to_snapshot_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $ds = $self->datasource;
-
-  my %params;
-  $ds->mode('namespaces_for_snapshot');
-  %params = $self->lookup_params($pxt, $ds->required_params);
-
-  my $snapshot_namespaces = $ds->execute_query(%params);
-  $snapshot_namespaces = $ds->elaborate($snapshot_namespaces, %params);
-
-  my $current_ds = new RHN::DataSource::ConfigChannel;
-
-  $current_ds->mode('namespaces_for_system');
-  %params = $self->lookup_params($pxt, $current_ds->required_params);
-
-  my $current_namespaces = $current_ds->execute_query(%params);
-  $current_namespaces = $current_ds->elaborate($current_namespaces, %params);
-
-  my %all_namespaces;
-
-  foreach my $snapshot_namespace (@{$snapshot_namespaces}) {
-    next unless $snapshot_namespace->{TYPE} eq 'normal';
-    $all_namespaces{$snapshot_namespace->{NAME}}->{ID} = $snapshot_namespace->{ID};
-    $all_namespaces{$snapshot_namespace->{NAME}}->{LABEL} = $snapshot_namespace->{LABEL};
-    $all_namespaces{$snapshot_namespace->{NAME}}->{IN_SNAPSHOT} = 1;
-  }
-
-  foreach my $current_namespace (@{$current_namespaces}) {
-    next unless $current_namespace->{TYPE} eq 'normal';
-    $all_namespaces{$current_namespace->{NAME}}->{ID} = $current_namespace->{ID};
-    $all_namespaces{$current_namespace->{NAME}}->{LABEL} = $current_namespace->{LABEL};
-    $all_namespaces{$current_namespace->{NAME}}->{CURRENTLY_SUBSCRIBED} = 1;
-  }
-
-  my $delta = [];
-
-  my $some_delta;
-  foreach my $channel_name (sort {uc $a cmp uc $b} keys %all_namespaces) {
-
-    my $channel = $all_namespaces{$channel_name};
-    my $comparison;
-
-    if ($channel->{IN_SNAPSHOT}) {
-
-      if ($channel->{CURRENTLY_SUBSCRIBED}) {
-	$comparison = 'Both Current and Snapshot';
-      }
-      else {
-	$some_delta = 1;
-	$comparison = 'Snapshot Profile Only';
-      }
-    }
-    else {
-      $some_delta = 1;
-      $comparison = 'Current Profile Only';
-    }
-
-    push @{$delta}, { ID => $channel->{ID},
-		      NAME => $channel_name,
-                      LABEL => $channel->{LABEL},
-		      COMPARISON => $comparison,
-		    };
-  }
-
-  $delta = [] unless $some_delta;
-
-  my $alphabar = $self->init_alphabar($delta);
-  my $on_page = $self->filter_data($delta);
-
-  my @all_ids = map { $_->{ID} } @{$on_page};
-  $self->all_ids(\@all_ids);
-  $on_page = $current_ds->slice_data($on_page, $self->lower, $self->upper);
-
-
-  return (data => $on_page,
-	  all_ids => \@all_ids,
-	  alphabar => $alphabar,
-	  full_data => $delta);
-
 }
 
 
