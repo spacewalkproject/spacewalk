@@ -61,7 +61,10 @@ class SSLSocket:
         """
         if not os.access(file, os.R_OK):
             raise ValueError, "Unable to read certificate file %s" % file
-        self._trusted_certs.append(file)
+        try:
+            self._trusted_certs.append(file.encode("ascii"))
+        except UnicodeEncodeError:
+            raise ValueError, "Filename {0} contains non-ascii characters which would break libopenssl, please rename the file".format(file)
 
     def init_ssl(self):
         """
