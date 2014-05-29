@@ -229,26 +229,6 @@ sub generate_salt {
   return $ret;
 }
 
-sub random_password {
-  my $class = shift;
-  my $length = shift;
-
-  die "random password too short"
-    unless $length > 5;
-
-  my $ret;
-  my @chars = ('a'..'z');
-  my @nums = ('0'..'9');
-
-  $ret .= $chars[int rand @chars]
-    while $length-- > 5;
-
-  $ret .= $nums[int rand @nums]
-    while $length-- >= 0;
-
-  return $ret;
-}
-
 # take a positive integer, return a pretty version with commas
 sub commafy {
   my $class = shift;
