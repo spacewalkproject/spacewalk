@@ -211,59 +211,6 @@ sub sscd_schedule_reboot {
   return $action_id;
 }
 
-sub sscd_schedule_package_refresh {
-  my $class = shift;
-  my %params = @_;
-
-  my ($org_id, $user_id, $server_set, $earliest, $transaction) =
-    map { $params{"-" . $_} } qw/org_id user_id server_set earliest transaction/;
-
-
-  my %servers_by_action_type;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT S.id, AT.label
-  FROM rhnActionType AT,
-       rhnArchTypeActions ATA,
-       rhnServerArch SA,
-       rhnServer S,
-       rhnSet ST
- WHERE ST.label = :set_label
-   AND ST.user_id = :user_id
-   AND ST.element = S.id
-   AND SA.id = S.server_arch_id
-   AND ATA.arch_type_id = SA.arch_type_id
-   AND ATA.action_style = 'refresh_list'
-   AND AT.id = ATA.action_type_id
-EOQ
-
-  $sth->execute_h(set_label => $server_set->label, user_id => $user_id);
-
-  while (my $row = $sth->fetchrow_hashref) {
-    push @{$servers_by_action_type{$row->{LABEL}}}, $row->{ID};
-  }
-
-  my @action_ids;
-
-  foreach my $action_label (keys %servers_by_action_type) {
-    my ($action_id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-							 -user_id => $user_id,
-							 -type_label => $action_label,
-							 -earliest => $earliest,
-							 -transaction => $transaction,
-							);
-
-    $class->add_servers_to_action($action_id, $stat_id, $user_id, undef, undef, undef, $servers_by_action_type{$action_label});
-
-    push @action_ids, $action_id;
-  }
-
-  osa_wakeup_tickle();
-
-  return @action_ids;
-}
-
 sub sscd_schedule_package_upgrade {
   my $class = shift;
   my %params = @_;
