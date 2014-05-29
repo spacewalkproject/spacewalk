@@ -80,7 +80,10 @@ public abstract class BaseEvent {
      * @return The userId that scheduled this event
      */
     public Long getUserId() {
-        return user.getId();
+        if (user != null) {
+            return user.getId();
+        }
+        return null;
     }
 
 }
