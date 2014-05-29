@@ -899,41 +899,6 @@ EOQ
   return;
 }
 
-sub installed_package_nvre {
-  my $class = shift;
-  my $sid = shift;
-  my $name_id = shift;
-  my $evr_id = shift;
-
-    my $query = <<EOQ;
-SELECT SPN.name || '-' || SPE.evr.as_vre_simple()
-  FROM rhnPackageName SPN,
-       rhnPackageEVR SPE,
-       rhnPackageEVR PE,
-       rhnServerPackage SP
- WHERE SP.server_id = :sid
-   AND SP.name_id = :name_id
-   AND PE.id = :evr_id
-   AND SPE.id = SP.evr_id
-   AND SPN.id = SP.name_id
-   AND SP.evr_id != PE.id
-   AND SPE.evr < PE.evr
-ORDER BY UPPER(SPN.name), SPE.evr DESC
-EOQ
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(sid => $sid, name_id => $name_id, evr_id => $evr_id);
-
-  my @nvres;
-
-  while (my ($nvre) = $sth->fetchrow()) {
-    push @nvres, $nvre;
-  }
-
-  return @nvres;
-}
-
 sub valid_package_archs { #return all archs recognized by our server
 
   my $class = shift;
