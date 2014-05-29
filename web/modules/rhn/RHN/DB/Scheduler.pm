@@ -175,42 +175,6 @@ EOQ
   }
 }
 
-sub sscd_schedule_reboot {
-  my $class = shift;
-  my %params = @_;
-
-  my ($earliest, $org_id, $user_id, $server_set) =
-    map { $params{"-" . $_} } qw/earliest org_id user_id server_set/;
-
-  my $ds = RHN::DataSource::System->new;
-  $ds->mode('system_set_supports_reboot');
-
-  my $ids_ref = $ds->execute_query(-user_id => $user_id, -set_label => $server_set->label);
-
-  my $action_name;
-
-  my ($action_id, $action_stat_id) = $class->make_base_action(-org_id => $org_id,
-							      -user_id => $user_id,
-							      -type_label => 'reboot.reboot',
-							      -earliest => $earliest,
-							      -action_name => $action_name);
-
-  my $query;
-  my $dbh = RHN::DB->connect;
-  $query = 'INSERT INTO rhnServerAction (server_id, action_id, status) VALUES (?, ?, ?)';
-
-  my $sth = $dbh->prepare($query);
-
-  foreach my $server (@{$ids_ref}) {
-    warn "rebooting $server->{ID}...";
-    $sth->execute($server->{ID}, $action_id, $action_stat_id);
-  }
-
-  osa_wakeup_tickle();
-
-  return $action_id;
-}
-
 sub sscd_schedule_package_upgrade {
   my $class = shift;
   my %params = @_;
