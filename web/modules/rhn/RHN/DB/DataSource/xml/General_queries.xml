@@ -72,24 +72,6 @@ ORDER BY UPPER(TN.name)
   </query>
 </mode>
 
-<mode name="tags_for_system">
-  <query params="sid">
-SELECT ST.tag_id AS ID,
-       TN.name,
-       SS.id AS SNAPSHOT_ID,
-       TO_CHAR(ST.created, 'YYYY-MM-DD HH24:MI:SS') AS CREATED
-  FROM rhnTagName TN,
-       rhnTag T,
-       rhnSnapshotTag ST,
-       rhnSnapshot SS
- WHERE SS.server_id = :sid
-   AND SS.id = ST.snapshot_id
-   AND ST.tag_id = T.id
-   AND T.name_id = TN.id
-ORDER BY UPPER(TN.name)
-  </query>
-</mode>
-
 <mode name="package_files">
   <query params="pid">
 SELECT C.name,

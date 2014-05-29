@@ -41,9 +41,6 @@ sub trap {
 
 sub _register_modes {
 
-  Sniglets::ListView::List->add_mode(-mode => "tags_for_system",
-			   -datasource => RHN::DataSource::General->new);
-
   Sniglets::ListView::List->add_mode(-mode => "tags_for_provisioning_entitled_in_set",
 			   -datasource => RHN::DataSource::General->new);
 
