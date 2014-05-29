@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.68
+Version: 5.10.69
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -119,6 +119,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Thu May 29 2014 Michael Mraka <michael.mraka@redhat.com> 5.10.69-1
+- list / elist: allow to specify list of files
+
 * Thu Apr 24 2014 Stephen Herr <sherr@redhat.com> 5.10.68-1
 - 1089729 - fix for assigning all groups user belongs to running process
 
