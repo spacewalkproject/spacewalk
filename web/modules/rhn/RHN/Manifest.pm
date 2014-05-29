@@ -239,17 +239,6 @@ sub new {
   return $self;
 }
 
-sub associate_data {
-  my $self = shift;
-  my $key = shift;
-
-  if (@_) {
-    $self->{__associated__}->{$key} = shift;
-  }
-
-  return $self->{__associated__}->{$key};
-}
-
 sub DESTROY { }
 
 my %accessors = map { $_ => 1 } qw/name version release epoch name_id evr_id arch id/;
