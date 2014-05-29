@@ -36,7 +36,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:add_system_tag_cb' => \&add_system_tag_cb);
   $pxt->register_callback('rhn:add_system_tag_bulk_cb' => \&add_system_tag_bulk_cb);
 }
 
@@ -214,68 +213,6 @@ sub add_system_tag_bulk_cb {
 
   $pxt->push_message(site_info => 'Tag added.');
   $pxt->redirect("/network/systems/ssm/provisioning/tag_systems.pxt");
-}
-
-sub add_system_tag_cb {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-  my $ss_id = $pxt->param('ss_id');
-
-  die "no sid" unless $sid;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-  die "no server obj" unless $server;
-
-  my $tagname = $pxt->dirty_param('tag');
-
-  if (length($tagname) > 256) {
-    $pxt->push_message(local_alert => 'Tag names must be no more than 256 characters.');
-
-    if ($ss_id) {
-	$pxt->redirect("/rhn/systems/details/history/snapshots/SnapshotTagCreate.do?sid=$sid&ss_id=$ss_id");
-    }
-    else {
-	$pxt->redirect("/rhn/systems/details/history/snapshots/TagCreate.do?sid=$sid");
-    }
-  }
-
-  my $transaction = RHN::DB->connect;
-
-  eval {
-    $server->add_system_tag(tagname => $tagname, ss_id => $ss_id);
-  };
-
-  if ($@) {
-    my $E = $@;
-    $transaction->rollback;
-
-    if ($E->constraint_value eq 'RHN_SS_TAG_SID_TID_UQ'
-	or $E->constraint_value eq 'RHN_SS_TAG_SSID_TID_UQ') {
-      my $msg = "That tag already exists for this system.  Please choose another tag name.";
-      $pxt->push_message(local_alert => $msg);
-
-      if ($ss_id) {
-	  $pxt->redirect("/rhn/systems/details/history/snapshots/SnapshotTagCreate.do?sid=$sid&ss_id=$ss_id");
-      }
-
-      $pxt->redirect("/rhn/systems/details/history/snapshots/TagCreate.do?sid=$sid");
-    }
-    else {
-      die $@;
-    }
-  }
-
-  $transaction->commit;
-
-
-  if ($ss_id) {
-      $pxt->push_message(site_info => 'Tag added to snapshot.');
-      $pxt->redirect("/rhn/systems/details/history/snapshots/SnapshotTags.do?sid=$sid&ss_id=$ss_id");
-  }
-
-  $pxt->push_message(site_info => 'Tag added to system.');
-  $pxt->redirect("/rhn/systems/details/history/snapshots/Tags.do?sid=$sid");
 }
 
 1;
