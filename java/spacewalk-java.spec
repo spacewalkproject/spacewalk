@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.79
+Version: 2.2.80
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.80-1
+- checkstyle fixes
+
 * Thu May 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.79-1
 - add_snapshot_tag.pxt has been replaced by SnapshotTagCreate.do
 - fixed links to new java pages
