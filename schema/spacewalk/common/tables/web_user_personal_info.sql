@@ -52,3 +52,5 @@ ENABLE ROW MOVEMENT
 CREATE INDEX wupi_email_uc_idx
     ON web_user_personal_info (email_uc);
 
+CREATE INDEX wupi_user_id_idx
+    ON web_user_personal_info (web_user_id);
