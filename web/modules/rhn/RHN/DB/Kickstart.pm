@@ -915,13 +915,6 @@ sub org_ks_ip_ranges {
   return @{$data};
 }
 
-sub get_url {
-  my $self = shift;
-  my $url = generate_url(@_, label => $self->label);
-
-  return $url->as_string;
-}
-
 sub generate_url {
   my %params = validate(@_, { org_id => 0, kstree => 0, label => 0, mode => 1, scheme => 0 });
 

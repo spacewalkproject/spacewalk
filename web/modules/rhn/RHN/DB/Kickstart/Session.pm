@@ -253,25 +253,6 @@ sub update_state {
   return;
 }
 
-sub get_url {
-  my $self = shift;
-
-  die "url called on a session without an id" unless ($self->id > 0);
-  my %url_data;
-
-  $url_data{session} = RHN::SessionSwap->encode_data($self->id);
-
-  my $url = new URI::URL;
-  $url->scheme('http');
-
-  my $host = $self->system_rhn_host || PXT::Config->get('base_domain');
-  $url->host($host);
-
-  $url->path('/kickstart/ks/' . join('/', %url_data));
-
-  return $url;
-}
-
 sub action {
   my $self = shift;
 
