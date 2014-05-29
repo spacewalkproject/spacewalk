@@ -236,6 +236,10 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         assertNotEmpty(dr);
     }
 
+    public void testOwnedChannelsTree() throws Exception {
+        assertTrue(ChannelManager.ownedChannelsTree(UserTestUtils.findNewUser()).isEmpty());
+        assertNotEmpty(ChannelManager.ownedChannelsTree(user));
+    }
 
     public void testRetiredChannelTree() throws Exception {
         Channel channel = ChannelFactoryTest.createTestChannel(user);
