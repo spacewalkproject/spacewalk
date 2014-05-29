@@ -233,7 +233,7 @@ sub add_system_tag_cb {
     $pxt->push_message(local_alert => 'Tag names must be no more than 256 characters.');
 
     if ($ss_id) {
-	$pxt->redirect("/network/systems/details/history/snapshots/add_snapshot_tag.pxt?sid=$sid&ss_id=$ss_id");
+	$pxt->redirect("/rhn/systems/details/history/snapshots/SnapshotTagCreate.do?sid=$sid&ss_id=$ss_id");
     }
     else {
 	$pxt->redirect("/network/systems/details/history/snapshots/add_system_tag.pxt?sid=$sid");
@@ -256,7 +256,7 @@ sub add_system_tag_cb {
       $pxt->push_message(local_alert => $msg);
 
       if ($ss_id) {
-	  $pxt->redirect("/network/systems/details/history/snapshots/add_snapshot_tag.pxt?sid=$sid&ss_id=$ss_id");
+	  $pxt->redirect("/rhn/systems/details/history/snapshots/SnapshotTagCreate.do?sid=$sid&ss_id=$ss_id");
       }
 
       $pxt->redirect("/network/systems/details/history/snapshots/add_system_tag.pxt?sid=$sid");
