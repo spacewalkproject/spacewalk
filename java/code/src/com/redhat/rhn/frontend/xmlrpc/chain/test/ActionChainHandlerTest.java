@@ -68,8 +68,8 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     private Package channelPackage;
     private ActionChain actionChain;
     private static final String UNAUTHORIZED_EXCEPTION_EXPECTED =
-            "Expected an exception of type "
-                    + InvalidSessionIdException.class.getCanonicalName();
+            "Expected an exception of type " +
+                      InvalidSessionIdException.class.getCanonicalName();
     protected String invalidKey;
 
     /**
@@ -538,7 +538,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         DataResult<PackageListItem> packageListItems =
                 PackageManager.systemPackageList(this.server.getId(), null);
         List<Integer> packages = new ArrayList<Integer>();
-        for (PackageListItem packageListItem: packageListItems) {
+        for (PackageListItem packageListItem : packageListItems) {
             packages.add(packageListItem.getPackageId().intValue());
         }
 
