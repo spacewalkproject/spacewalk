@@ -63,6 +63,11 @@ public class SsmChangeChannelSubscriptionsEvent implements EventMessage {
         return user;
     }
 
+    /** {@inheritDoc} */
+    public Long getUserId() {
+        return user.getId();
+    }
+
     /**
      * @return will not be <code>null</code>
      */

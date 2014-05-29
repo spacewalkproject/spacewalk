@@ -62,6 +62,12 @@ public class TestDBEventMessage implements EventDatabaseMessage {
         return this.testString;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public Long getUserId() {
+        return null;
+    }
 
 }
 

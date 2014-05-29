@@ -54,7 +54,7 @@ public class SsmDeleteServersEvent implements EventMessage {
     /**
      * @return will not be <code>null</code>
      */
-    public Long getUser() {
+    public Long getUserId() {
         return userId;
     }
 

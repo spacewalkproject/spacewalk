@@ -140,4 +140,11 @@ public class NewCloneErrataEvent implements EventDatabaseMessage {
     public void deregister() {
         AsyncErrataCloneCounter.getInstance().removeAsyncErrataCloneJob(chanId);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Long getUserId() {
+        return userId;
+    }
 }

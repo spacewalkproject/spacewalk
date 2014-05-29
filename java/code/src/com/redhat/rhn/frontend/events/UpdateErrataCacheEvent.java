@@ -139,4 +139,11 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
     public void setPackageIds(List<Long> packageIdsIn) {
         this.packageIds = packageIdsIn;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Long getUserId() {
+        return null;
+    }
 }

@@ -45,6 +45,12 @@ public class TestEventMessage implements EventMessage {
         msgReceived = msgIn;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public Long getUserId() {
+        return null;
+    }
 
 }
 

@@ -115,5 +115,11 @@ public class CloneErrataEvent implements EventDatabaseMessage {
         return UserFactory.lookupById(userId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public Long getUserId() {
+        return userId;
+    }
 
 }
