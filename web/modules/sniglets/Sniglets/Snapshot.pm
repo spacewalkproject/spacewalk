@@ -236,7 +236,7 @@ sub add_system_tag_cb {
 	$pxt->redirect("/rhn/systems/details/history/snapshots/SnapshotTagCreate.do?sid=$sid&ss_id=$ss_id");
     }
     else {
-	$pxt->redirect("/network/systems/details/history/snapshots/add_system_tag.pxt?sid=$sid");
+	$pxt->redirect("/rhn/systems/details/history/snapshots/TagCreate.do?sid=$sid");
     }
   }
 
@@ -259,7 +259,7 @@ sub add_system_tag_cb {
 	  $pxt->redirect("/rhn/systems/details/history/snapshots/SnapshotTagCreate.do?sid=$sid&ss_id=$ss_id");
       }
 
-      $pxt->redirect("/network/systems/details/history/snapshots/add_system_tag.pxt?sid=$sid");
+      $pxt->redirect("/rhn/systems/details/history/snapshots/TagCreate.do?sid=$sid");
     }
     else {
       die $@;
