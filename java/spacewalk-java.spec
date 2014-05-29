@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.80
+Version: 2.2.81
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 29 2014 Stephen Herr <sherr@redhat.com> 2.2.81-1
+- 1102831 - make BaseEvent null-safe
+- 1102831 - fix 'can't read the_log_id' errors in async events
+
 * Thu May 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.80-1
 - checkstyle fixes
 
