@@ -296,19 +296,6 @@ foreach my $field ($j->method_names) {
   }
 }
 
-sub users_by_email {
-  my $class = shift;
-  my $email = shift;
-
-  my $dbh = RHN::DB->connect;
-  # WARNING:  This uses an oracle hint.  
-  # See BZ 147452 for more info
-  my $sth = $dbh->prepare('SELECT web_user_id FROM web_user_personal_info WHERE upper(email) = ?');
-  $sth->execute(uc($email));
-
-  return $sth->fullfetch;
-}
-
 sub set_password {
   my $self = shift;
   my $new_pw = shift;
