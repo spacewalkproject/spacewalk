@@ -36,7 +36,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:system_snapshot_rollback_cb' => \&system_snapshot_rollback_cb);
   $pxt->register_callback('rhn:add_system_tag_cb' => \&add_system_tag_cb);
   $pxt->register_callback('rhn:add_system_tag_bulk_cb' => \&add_system_tag_bulk_cb);
 }
@@ -277,51 +276,6 @@ sub add_system_tag_cb {
 
   $pxt->push_message(site_info => 'Tag added to system.');
   $pxt->redirect("/rhn/systems/details/history/snapshots/Tags.do?sid=$sid");
-}
-
-
-
-
-sub system_snapshot_rollback_cb {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-  die "no sid" unless $sid;
-  PXT::Utils->untaint(\$sid);
-
-  my $snapshot_id = $pxt->param('ss_id');
-  die "no snapshot id" unless $snapshot_id;
-  PXT::Utils->untaint(\$snapshot_id);
-
-  my %results;
-  my $trans = RHN::DB->connect;
-  $trans->nest_transactions;
-
-  eval {
-    %results = RHN::SystemSnapshot->rollback_to_snapshot(user_id => $pxt->user->id,
-							 org_id => $pxt->user->org_id,
-							 server_id => $sid,
-							 snapshot_id => $snapshot_id,
-							);
-    $trans->nested_commit;
-  };
-
-  if ($@) {
-    $trans->nested_rollback;
-    my $E = $@;
-    if ($E->isa('RHN::Exception') and $E->is_rhn_exception('channel_family_no_subscriptions')) {
-      $pxt->push_message(local_alert => "Insufficient channel subscriptions to complete rollback; aborted.");
-    }
-    else {
-      throw $E;
-    }
-  }
-  else {
-    $pxt->push_message(site_info => "Channels and groups changed.");
-    $pxt->push_message(site_info => "Package delta scheduled.") if $results{is_some_pkg_delta};
-    $pxt->push_message(site_info => "Config files scheduled for deployment.") if $results{deployed_config_files};
-    $pxt->redirect("/rhn/systems/details/history/Pending.do?sid=$sid");
-  }
 }
 
 1;
