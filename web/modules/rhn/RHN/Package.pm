@@ -63,11 +63,4 @@ sub parse_dep_sense_flags {
   return $sense;
 }
 
-sub parse_sense_flag { 
-  my $class = shift;
-  my $sense = shift;
-
-  return $sense == 1 ? 'conflicts with' : 'requires';
-}
-
 1;
