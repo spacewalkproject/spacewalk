@@ -48,9 +48,6 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::General->new,
 			   -action_callback => \&snapshot_tags_cb);
 
-  Sniglets::ListView::List->add_mode(-mode => "tags_for_snapshot",
-			   -datasource => RHN::DataSource::General->new);
-
   Sniglets::ListView::List->add_mode(-mode => "system_events_history",
 			   -datasource => RHN::DataSource::General->new,
 			   -provider => \&system_history_provider);
