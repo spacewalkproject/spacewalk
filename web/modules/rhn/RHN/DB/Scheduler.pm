@@ -264,49 +264,6 @@ EOQ
   return @action_ids;
 }
 
-sub schedule_hardware_refresh {
-  my $class = shift;
-  my %params = @_;
-
-  my ($org_id, $user_id, $server_set, $package_set, $server_id, $earliest) =
-    map { $params{"-" . $_} } qw/org_id user_id server_set package_set server_id earliest/;
-
-  my ($id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-						-user_id => $user_id,
-						-type_label => 'hardware.refresh_list',
-						-earliest => $earliest
-					       );
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  if ($server_set) {
-    $query = <<EOQ;
-INSERT INTO rhnServerAction (server_id, action_id, status)
-(SELECT element, ?, ? FROM rhnSet WHERE user_id = ? AND label = ? AND EXISTS (SELECT 1 FROM rhnEntitledServers ES WHERE ES.id = element))
-EOQ
-    $sth = $dbh->prepare($query);
-    $sth->execute($id, $stat_id, $user_id, $server_set->label);
-  }
-  elsif ($server_id) {
-    $query = <<EOQ;
-INSERT INTO rhnServerAction (server_id, action_id, status) VALUES (?, ?, ?)
-EOQ
-    $sth = $dbh->prepare($query);
-    $sth->execute($server_id, $id, $stat_id);
-  }
-  else {
-    die "no servers provided!";
-  }
-
-  $dbh->commit;
-
-  osa_wakeup_tickle();
-
-  return $id;
-}
-
 sub sscd_schedule_package_upgrade {
   my $class = shift;
   my %params = @_;
