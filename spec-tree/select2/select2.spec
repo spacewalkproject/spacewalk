@@ -33,8 +33,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_var}/www/html/javascript/select2
-%{_var}/www/html/javascript/select2/*
+%{_var}/www/html/javascript/select2/
 
 
 %changelog
