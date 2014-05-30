@@ -123,11 +123,10 @@ public class ServerGroup extends BaseDomainHelper
      * want you to modify this set.
      * @return a list of Servers which are members of the group.
      */
-    public List getServers() {
+    public List<Server> getServers() {
         return ServerGroupManager.getInstance().
                                 listServers(this);
     }
-
 
     /**
      * Returns true if this server group is a User Managed

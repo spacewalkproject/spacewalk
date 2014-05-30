@@ -26,7 +26,6 @@ import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -216,18 +215,18 @@ public class ServerGroupFactory extends HibernateFactory {
      * @return list of Server objects that are part of
      *                      the server group
      */
-    public static List listServers(ServerGroup sg) {
+    public static List<Server> listServers(ServerGroup sg) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sgid", sg.getId());
         params.put("org_id", sg.getOrg().getId());
-        List ids = SINGLETON.listObjectsByNamedQuery(
+        List<Number> ids =
+                SINGLETON.listObjectsByNamedQuery(
                 "ServerGroup.lookupServerIds", params);
-        List servers = new ArrayList(ids.size());
-        for (Iterator itr = ids.iterator(); itr.hasNext();) {
-            Number id = (Number) itr.next();
-            servers.add(ServerFactory.lookupById(new Long(id.longValue())));
+        List<Long> serverIds = new ArrayList<Long>();
+        for (Number n : ids) {
+            serverIds.add(new Long(n.longValue()));
         }
-        return servers;
+        return ServerFactory.lookupByIds(serverIds);
     }
 
     /**

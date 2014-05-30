@@ -877,6 +877,20 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Returns list of systems in the specified group.
+     * This is meant to be fast and only return id, name, and last_checkin
+     * @param sgid System Group Id
+     * @return list of SystemOverviews.
+     */
+    public static DataResult<SystemOverview> systemsInGroupShort(Long sgid) {
+        SelectMode m = ModeFactory.getMode("System_queries", "xmlrpc_systems_in_group");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("sgid", sgid);
+        Map<String, Object> elabParams = new HashMap<String, Object>();
+        return makeDataResult(params, elabParams, null, m, SystemOverview.class);
+    }
+
+    /**
      * Returns the number of actions associated with a system
      * @param sid The system's id
      * @return number of actions

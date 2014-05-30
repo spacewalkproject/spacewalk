@@ -340,6 +340,23 @@ ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   <elaborator name="system_config_files_with_diffs" />
 </mode>
 
+<mode name="xmlrpc_systems_in_group" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="sgid">
+select * from (
+  SELECT  DISTINCT S.id AS ID,
+          S.name AS NAME,
+          INFO.checkin AS LAST_CHECKIN
+    FROM  rhnServer S,
+          rhnServerInfo INFO,
+          rhnServerGroupMembers SGM
+   WHERE  SGM.server_group_id = :sgid
+     AND  S.id = SGM.server_id
+     AND  S.id = INFO.server_id
+) X
+ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
+  </query>
+</mode>
+
 <mode name="target_systems_for_group" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="sgid, user_id">
 SELECT S.id, S.name,
@@ -408,7 +425,7 @@ SELECT ES.id, S.name, 1 as selectable
     <elaborator name="entitlements"/>
 </mode>
 
-<mode name="xmlrpc_visible_to_user" class="com.redhat.rhn.frontent.dto.SystemOverview">
+<mode name="xmlrpc_visible_to_user" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id">
 select * from (
   SELECT  DISTINCT S.id AS ID,
@@ -423,7 +440,7 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
   </query>
 </mode>
 
-<mode name="xmlrpc_visible_to_user_inactive" class="com.redhat.rhn.frontent.dto.SystemOverview">
+<mode name="xmlrpc_visible_to_user_inactive" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id, checkin_threshold">
 select * from (
   SELECT  DISTINCT S.id AS ID,
@@ -439,7 +456,7 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
   </query>
 </mode>
 
-<mode name="xmlrpc_visible_to_user_active" class="com.redhat.rhn.frontent.dto.SystemOverview">
+<mode name="xmlrpc_visible_to_user_active" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id, checkin_threshold">
 select * from (
   SELECT  DISTINCT S.id AS ID,

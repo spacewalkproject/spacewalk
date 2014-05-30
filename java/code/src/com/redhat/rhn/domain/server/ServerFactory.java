@@ -291,6 +291,37 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup Servers by their ids
+     * @param ids the ids to search for
+     * @return the Servers found
+     */
+    public static List<Server> lookupByIds(List<Long> ids) {
+        Session session = HibernateFactory.getSession();
+        Query query = session.getNamedQuery("Server.findByIds");
+        if (ids.size() < 1000) {
+            query.setParameterList("serverIds", ids);
+            return query.list();
+        }
+
+        List<Server> results = new LinkedList<Server>();
+        List<Long> blockOfIds = new LinkedList<Long>();
+        for (Long sid : ids) {
+            blockOfIds.add(sid);
+            if (blockOfIds.size() == 999) {
+                query.setParameterList("serverIds", blockOfIds);
+                results.addAll(query.list());
+                blockOfIds = new LinkedList<Long>();
+            }
+        }
+        // Deal with the remainder:
+        if (blockOfIds.size() > 0) {
+            query.setParameterList("serverIds", blockOfIds);
+            results.addAll(query.list());
+        }
+        return results;
+    }
+
+    /**
      * Lookup a ServerGroupType by its label
      * @param label The label to search for
      * @return The ServerGroupType

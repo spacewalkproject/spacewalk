@@ -196,6 +196,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.server.Server as s where ORG_ID = :orgId and s.id in (:serverIds)]]>
     </query>
 
+    <query name="Server.findByIds">
+        <![CDATA[from com.redhat.rhn.domain.server.Server as s where s.id in (:serverIds)]]>
+    </query>
+
      <query name="Server.listRedHatSystems">
         <![CDATA[ select s.id
 					from com.redhat.rhn.domain.server.Server as s

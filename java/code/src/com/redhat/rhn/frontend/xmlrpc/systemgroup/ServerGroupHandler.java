@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.LookupServerGroupException;
 import com.redhat.rhn.frontend.xmlrpc.ServerGroupAccessChangeException;
@@ -32,6 +33,7 @@ import com.redhat.rhn.frontend.xmlrpc.ServerNotInGroupException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -149,6 +151,30 @@ public class ServerGroupHandler extends BaseHandler {
         ServerGroupManager manager = ServerGroupManager.getInstance();
         ManagedServerGroup group = manager.lookup(systemGroupName, loggedInUser);
         return group.getServers();
+    }
+
+    /**
+     * List the systems that are associated to the given system group.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param systemGroupName the name of the system group
+     * @return a list of systems associated to a given system group.
+     *
+     * @xmlrpc.doc Return a list of systems associated with this system group.
+     * User must have access to this system group.
+
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "systemGroupName")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $SystemOverviewSerializer
+     *      #array_end()
+     */
+    public List<SystemOverview>
+            listSystemsMinimal(String sessionKey, String systemGroupName) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        ServerGroupManager manager = ServerGroupManager.getInstance();
+        ManagedServerGroup group = manager.lookup(systemGroupName, loggedInUser);
+        return SystemManager.systemsInGroupShort(group.getId());
     }
 
     /**
