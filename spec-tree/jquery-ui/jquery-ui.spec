@@ -1,6 +1,6 @@
 Name:           jquery-ui
 Version:        1.10.4.custom
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        jQuery UI is a curated set of user interface elements built on top of the jQuery JavaScript Library.
 
 Group:          Applications/Internet
@@ -34,3 +34,6 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 1.10.4.custom-1
+- initial jquery-ui build
+
