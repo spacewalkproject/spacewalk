@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.30
+Version: 2.2.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -641,6 +641,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri May 30 2014 Stephen Herr <sherr@redhat.com> 2.2.31-1
+- 517468 - Adding option [-p|--parent]
+
 * Fri May 23 2014 Stephen Herr <sherr@redhat.com> 2.2.30-1
 - 517468 - make format backwards compatible for python 2.4
 - 517468 - Correct the unindents to fix the logic.
