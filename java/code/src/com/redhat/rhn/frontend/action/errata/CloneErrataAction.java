@@ -111,10 +111,8 @@ public class CloneErrataAction extends RhnAction implements Listable {
         displayList.add(new LabelValueBean(ls.getMessage("cloneerrata.anychannel"),
             ANY_CHANNEL));
 
-        List<ClonedChannel> channels =
-                ChannelManager
-                        .
-            getChannelsWithClonableErrata(rctx.getCurrentUser().getOrg());
+        List<ClonedChannel> channels = ChannelManager
+            .getChannelsWithClonableErrata(rctx.getCurrentUser().getOrg());
 
         if (channels != null) {
             for (Iterator<ClonedChannel> i = channels.iterator(); i.hasNext();) {
