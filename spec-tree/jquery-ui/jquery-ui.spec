@@ -6,7 +6,9 @@ Summary:        jQuery UI is a curated set of user interface elements built on t
 Group:          Applications/Internet
 License:        MIT
 URL:            http://jqueryui.com/
-Source0:        http://jqueryui.com/download/#!version=1.10.4&components=1110000010000000000000000000000000&filename=%{name}-%{version}.zip
+# The source zip can be downloaded from the following URL:
+# http://jqueryui.com/download/#!version=1.10.4&components=1110000010000000000000000000000000&filename=%{name}-%{version}.zip
+Source0:        %{name}-%{version}.zip
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
