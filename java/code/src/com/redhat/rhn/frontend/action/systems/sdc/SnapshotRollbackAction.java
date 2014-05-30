@@ -89,6 +89,9 @@ public class SnapshotRollbackAction extends RhnAction {
         params.put(CHANNEL_CHANGES, snapshot.channelDiffs(sid));
         params.put(PACKAGE_CHANGES, snapshot.packageDiffs(sid));
         params.put(CONFIG_CHANGES,  snapshot.configChannelsDiffs(sid));
+        if (snapshot.getUnservablePackages() != null) {
+            params.put("snapshot_unservable_packages", true);
+        }
 
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);

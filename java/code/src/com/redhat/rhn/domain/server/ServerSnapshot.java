@@ -477,4 +477,12 @@ public class ServerSnapshot extends BaseDomainHelper {
         DataResult ret = new DataResult(pkgsMeta);
         return ret;
     }
+
+    /**
+     * @return return list of unservable packages for snapshot
+     */
+    public DataResult getUnservablePackages() {
+        return SystemManager.systemSnapshotUnservablePackages(org.getId(),
+                server.getId(), id, null);
+    }
 }
