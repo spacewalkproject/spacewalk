@@ -27,4 +27,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 where st.name.name = :tag_name]]>
     </query>
 
+    <query name="SnapshotTag.lookupById">
+        <![CDATA[from com.redhat.rhn.domain.server.SnapshotTag as st
+                where st.id = :id]]>
+    </query>
+
 </hibernate-mapping>

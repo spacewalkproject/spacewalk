@@ -870,6 +870,20 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
+     * @param tagId snapshot tag ID
+     * @return snapshot Tag
+     */
+    public static SnapshotTag lookupSnapshotTagbyId(Long tagId) {
+        SnapshotTag retval = (SnapshotTag) HibernateFactory
+                .getSession().getNamedQuery("SnapshotTag.lookupById")
+                .setLong("id", tagId)
+                // Do not use setCacheable(true), as tag deletion will
+                // usually end up making this query's output out of date
+                .uniqueResult();
+        return retval;
+    }
+
+    /**
      * Lists software crashes for a server
      * @param server of interest
      * @return crash list
