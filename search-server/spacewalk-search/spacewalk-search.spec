@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.2
+Version: 2.2.3
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -198,6 +198,11 @@ fi
 %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.3-1
+- Use maxDoc() to actually iterate over all documents
+- Do not skip in case the last record has been deleted
+- De-duplicate handleDeletedRecords() implementations
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.2-1
 - spec file polish
 
