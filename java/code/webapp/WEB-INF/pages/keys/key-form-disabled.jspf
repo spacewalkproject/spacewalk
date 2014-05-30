@@ -23,14 +23,9 @@
             <bean:message key="keycreate.jsp.filecontents"/>
         </label>
         <div class="col-md-6">
-            <c:if test="${cryptoKey.keyString != null}">
-                <textarea class="form-control" rows="10" disabled>
-                    <c:out escapeXml="true" value="${cryptoKey.keyString}" />
-                </textarea>
-            </c:if>
-            <c:if test="${cryptoKey.keyString == null}">
-                <p class="form-control-static"><bean:message key="keycreate.jsp.nokey"/></p>
-            </c:if>
+            <html:textarea property="contents_edit"
+                   cols="40" rows="20"
+                   styleClass="form-control" readonly="true"/>
         </div>
     </div>
     <html:hidden property="submitted" value="true"/>
