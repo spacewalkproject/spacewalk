@@ -291,6 +291,17 @@ public class FormatDateTag extends TagSupport {
         return (SKIP_BODY);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @throws JspException
+     */
+    @Override
+    public int doEndTag() throws JspException {
+        reset();
+        return super.doEndTag();
+    }
+
     protected String getCssClass() {
         if (FROM.equalsIgnoreCase(getHumanStyle())) {
             return " class=\"human-from\"";
@@ -386,12 +397,4 @@ public class FormatDateTag extends TagSupport {
         pattern = null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void release() {
-        reset();
-        super.release();
-    }
 }
