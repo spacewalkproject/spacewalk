@@ -59,6 +59,18 @@
             <context context-type="sourcefile">/rhn/systems/details/history/snapshots/Packages.do</context>
           </context-group>
         </trans-unit>
+        <trans-unit id="column.tag-name">
+          <source>Tag Name</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/RollbackToTag.do</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="column.reason">
+          <source>Reason</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/RollbackToTag.do</context>
+          </context-group>
+        </trans-unit>
       </group>
       <!-- Generic row labels. The intent is that these can be reused across multiple pages.-->
       <group>
@@ -8796,6 +8808,30 @@ Please note that some manual configuration of these scripts may still be require
         </trans-unit>
         <trans-unit id="ssm.kickstart.distro.cobbler-only.tooltip">
           <source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not the selected systems will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
+        </trans-unit>
+      </group>
+      <!-- SSM Rollback to tag -->
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/RollbackToTag.do</context>
+        </context-group>
+        <trans-unit id="ssm.provisioning.rollbacktotag.header">
+          <source>Rollback to Snapshot Tag: {0}</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.rollbacktotag.summary1">
+          <source>The systems below may be rolled back to their system snapshot associated with the tag: {0}.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.rollbacktotag.summary2">
+          <source>For details on the system snapshot tied to this tag for a particular system, click on the 'Reason for Snapshot' link for the desired system.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.rollbacktotag.note">
+          <source>Note: this operation will take some time to complete.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.rollbacktotag.datetagapplied">
+          <source>Date Tag Applied</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.rollbacktotag.rollback-button">
+          <source>Rollback Systems</source>
         </trans-unit>
       </group>
       <!-- Kickstart -->

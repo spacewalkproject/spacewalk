@@ -3214,4 +3214,18 @@ public class SystemManager extends BaseManager {
         return makeDataResult(params, elabParams, pc, m);
     }
 
+    /**
+     * @param uid user id
+     * @param tid tag id
+     * @return ssm systems with tag
+     */
+    public static DataResult provisioningSystemsInSetWithTag(Long uid, Long tid) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "provisioning_systems_in_set_with_tag");
+        Map params = new HashMap();
+        params.put("user_id", uid);
+        params.put("tag_id",  tid);
+        return m.execute(params);
+    }
+
 }

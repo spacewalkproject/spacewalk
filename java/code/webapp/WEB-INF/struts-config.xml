@@ -3802,6 +3802,15 @@
                  path="/systems/Overview.do" redirect="true"/>
      </action>
 
+    <action path="/systems/ssm/provisioning/RollbackToTag"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.ssm.RollbackToTagAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/provisioning/rollbacktotag.jsp"/>
+    </action>
+
     <!--System Details Configuration -->
      <action path="/systems/details/configuration/Overview"
          scope="request"
