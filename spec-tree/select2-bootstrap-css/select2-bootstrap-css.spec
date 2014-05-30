@@ -21,7 +21,7 @@ CSS to make Select2 fit in with Bootstrap 3 – ready for use in original, LESS,
 %install
 rm -rf %{buildroot}
 install -d -m 755 %{buildroot}%{_var}/www/html/javascript/select2
-install -m 644 select2-boostrap.css %{buildroot}%{_var}/www/html/javascript/select2
+install -m 644 select2-bootstrap.css %{buildroot}%{_var}/www/html/javascript/select2
 
 %clean
 rm -rf %{buildroot}
@@ -29,7 +29,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_var}/www/html/javascript/select2/select2/select2-boostrap.css
+%{_var}/www/html/javascript/select2/select2-bootstrap.css
 
 
 %changelog
