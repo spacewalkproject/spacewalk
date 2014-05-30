@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.16
+Version:	2.2.17
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.17-1
+- 1101545 - Added limitation of spacewlak-clone-by-date for RHEL4 and earlier
+- new report: spacewalk-export-channels
+
 * Fri May 23 2014 Stephen Herr <sherr@redhat.com> 2.2.16-1
 - Adding spacewalk-manage-channel-lifecycle to spacewalk-utils
 - spacewalk-manage-channel-lifecycle: Removed the whitespace
