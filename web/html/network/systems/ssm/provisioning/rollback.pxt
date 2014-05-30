@@ -25,10 +25,10 @@ Rollback to Snapshot Tag
 
 <rhn-listview class="Sniglets::ListView::GeneralList" mode="tags_for_provisioning_entitled_in_set" alphabar_column="name">
    <column name="Tag Name" label="name" sort_by="1" align="left" width="60%">
-     <url>/network/systems/ssm/provisioning/rollback_by_tag_conf.pxt?tag_id={column:id}</url>
+     <url>/rhn/systems/ssm/provisioning/RollbackToTag.do?tag_id={column:id}</url>
    </column>
    <column name="Tagged Systems" label="tagged_systems" align="left" width="15%">
-     <url>/network/systems/ssm/provisioning/rollback_by_tag_conf.pxt?tag_id={column:id}</url>
+     <url>/rhn/systems/ssm/provisioning/RollbackToTag.do?tag_id={column:id}</url>
    </column>
   <column name="Tag Created" label="date_tag_created" align="left" width="25%" />
 </rhn-listview>
