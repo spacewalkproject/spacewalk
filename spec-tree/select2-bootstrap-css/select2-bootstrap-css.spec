@@ -29,7 +29,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_var}/www/html/javascript/select2/select2/select2-boostrap.css
+%{_var}/www/html/javascript/select2/select2/select2-bootstrap.css
 
 
 %changelog
