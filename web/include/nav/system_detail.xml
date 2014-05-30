@@ -147,7 +147,7 @@
       <rhn-tab name="Groups" formvar="ss_id" url="/rhn/systems/details/history/snapshots/Groups.do" />
       <rhn-tab name="Channels" formvar="ss_id" url="/rhn/systems/details/history/snapshots/Channels.do" />
       <rhn-tab name="Packages" formvar="ss_id" url="/rhn/systems/details/history/snapshots/Packages.do">
-        <rhn-tab-url>/network/systems/details/history/snapshots/unservable_packages.pxt</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/history/snapshots/UnservablePackages.do</rhn-tab-url>
       </rhn-tab>
       <rhn-tab name="Config Channels" formvar="ss_id" url="/rhn/systems/details/history/snapshots/ConfigChannels.do" />
       <rhn-tab name="Config Files" formvar="ss_id" url="/rhn/systems/details/history/snapshots/ConfigFiles.do" />

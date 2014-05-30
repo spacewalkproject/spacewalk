@@ -12391,6 +12391,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.history.snapshot.configs_changed">
           <source>Config files scheduled for deployment.</source>
         </trans-unit>
+        <trans-unit id="system.history.snapshot.unservableHeader">
+          <source>Snapshot - Unservable Packages</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.unservableSummary">
+          <source>The snapshot packages below cannot be served due to channel management changes.</source>
+        </trans-unit>
       </group>
       <!-- Configuration Common -->
       <group>

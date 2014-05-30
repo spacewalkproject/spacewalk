@@ -48,7 +48,7 @@ and
      <c:if test="${! empty param.snapshot_unservable_packages}">
         <div class="local-alert">
         <p><bean:message key="system.history.snapshot.unservable_packages"
-                      arg0='<a href="/network/systems/details/history/snapshots/unservable_packages.pxt?sid=${param.sid}&amp;ss_id=${param.ss_id}">'
+                      arg0='<a href="/rhn/systems/details/history/snapshots/UnservablePackages.do?sid=${param.sid}&amp;ss_id=${param.ss_id}">'
                       arg1='</a>' /></p>
         </div>
      </c:if>
