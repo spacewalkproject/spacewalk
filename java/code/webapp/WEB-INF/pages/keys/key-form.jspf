@@ -49,13 +49,8 @@
         <bean:message key="keycreate.jsp.filecontents"/>
     </label>
     <div class="col-lg-6" id="filecontents">
-        <c:if test="${cryptoKey.keyString != null}">
-            <pre style="overflow: scroll;">
-                <c:out escapeXml="true" value="${cryptoKey.keyString}" />
-            </pre>
-        </c:if>
-        <c:if test="${cryptoKey.keyString == null}">
-            <bean:message key="keycreate.jsp.nokey"/>
-        </c:if>
+        <html:textarea property="contents_edit"
+                   cols="40" rows="20"
+                   styleClass="form-control"/>
     </div>
 </div>

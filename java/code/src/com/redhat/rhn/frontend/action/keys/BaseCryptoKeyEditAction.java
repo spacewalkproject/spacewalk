@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.keys;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -49,6 +50,7 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
     public static final String KEY = "cryptoKey";
     public static final String DESCRIPTION = "description";
     public static final String CONTENTS = "contents";
+    public static final String CONTENTS_EDIT = "contents_edit";
     public static final String TYPE = "type";
     public static final String TYPES = "types";
     public static final String CSRF_TOKEN = "csrfToken";
@@ -91,23 +93,21 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
         if (isSubmitted(form)) {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
                     this, form);
+
             String contents = strutsDelegate.getFormFileString(form, CONTENTS);
-            String contentFileName = strutsDelegate.getFormFileName(form, CONTENTS);
-            if (StringUtils.isEmpty(contentFileName)) {
-                if (cmd.getCryptoKey().getKey() == null) {
-                        strutsDelegate.addError(
-                            "configmanager.filedetails.path.empty", errors);
-                }
+            if (StringUtils.isEmpty(contents)) {
+                contents = StringUtil.nullIfEmpty((String) form
+                        .get(CONTENTS_EDIT));
             }
-            else if (StringUtils.isEmpty(contents)) {
-                        strutsDelegate.addError("crypto.key.nokey", errors);
+            if (contents == null) {
+                strutsDelegate.addError("crypto.key.nokey", errors);
             }
             if (!errors.isEmpty()) {
                 strutsDelegate.saveMessages(request, errors);
             }
             else {
                 cmd.setDescription(form.getString(DESCRIPTION));
-                if (!StringUtils.isEmpty(contentFileName)) {
+                if (!StringUtils.isEmpty(contents)) {
                     cmd.setContents(contents);
                 }
                 cmd.setType(form.getString(TYPE));
@@ -126,6 +126,7 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
         else {
             if (cmd.getCryptoKey() != null) {
                 form.set(DESCRIPTION, cmd.getCryptoKey().getDescription());
+                form.set(CONTENTS_EDIT, cmd.getCryptoKey().getKeyString());
             }
             form.set(TYPE, cmd.getType());
         }

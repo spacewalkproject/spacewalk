@@ -540,14 +540,17 @@
             <form-property name="description"  type="java.lang.String"/>
             <form-property name="type"  type="java.lang.String"/>
             <form-property name="contents"  type="org.apache.struts.upload.FormFile"/>
+            <form-property name="contents_edit" type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
-            <form-property name="no_scrub" type="java.lang.String" initial="contents"/>
+            <form-property name="no_scrub" type="java.lang.String"
+                                    initial="contents, contents_edit"/>
         </form-bean>
 
         <form-bean name="cryptoKeyDeleteForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="description"  type="java.lang.String"/>
             <form-property name="type"  type="java.lang.String"/>
+            <form-property name="contents_edit" type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
 
