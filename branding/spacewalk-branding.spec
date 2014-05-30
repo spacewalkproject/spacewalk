@@ -31,6 +31,9 @@ Requires:      jquery-timepicker >= 1.3.2
 Requires:      roboto >= 1.2
 Requires:      pwstrength-bootstrap
 Requires:      momentjs
+Requires:      jquery-ui
+Requires:      select2
+Requires:      select2-bootstrap-css
 
 %description
 Spacewalk specific branding, CSS, and images.
