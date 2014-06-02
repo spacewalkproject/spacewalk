@@ -191,16 +191,6 @@ sub snapshot_configfiles_list {
 }
 
 
-sub snapshot_config_channel_list {
-  my $class = shift;
-  my %params = validate(@_, {server_id => 1, snapshot_id => 1});
-
-  my $ds = new RHN::DataSource::ConfigChannel (-mode => 'namespaces_for_snapshot');
-  my $data = $ds->execute_query(-sid => $params{server_id}, -ss_id => $params{snapshot_id});
-
-  return $data;
-}
-
 sub snapshot_group_list {
   my $class = shift;
   my %params = validate(@_, {user_id => 1, server_id => 1, snapshot_id => 1});
