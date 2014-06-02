@@ -30,7 +30,6 @@ use RHN::DataSource::SystemGroup;
 use RHN::DataSource::Package;
 use RHN::DataSource::ConfigChannel;
 use RHN::Exception;
-use RHN::Manifest;
 
 use RHN::Action ();
 use RHN::DataSource::Simple ();
