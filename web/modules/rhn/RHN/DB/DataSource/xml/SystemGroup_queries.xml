@@ -122,20 +122,6 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
 	</query>
 </mode>
 
-<mode name="groups_a_system_is_in_unsafe">
-  <query params="sid, org_id">
-SELECT SGM.group_id AS ID,
-       SG.name AS GROUP_NAME
-  FROM rhnServerGroup SG,
-       rhnServerGroupMembership SGM
- WHERE SGM.org_id = :org_id
-   AND SGM.server_id = :sid
-   AND SGM.group_id = SG.id
-ORDER BY UPPER(SG.name)
-  </query>
-</mode>
-
-
 <mode name="ssm_group_membership_select">
   <query params="org_id">
 SELECT  SGO.group_id ID, SGO.group_name
