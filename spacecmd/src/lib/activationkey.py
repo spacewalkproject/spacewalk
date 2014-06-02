@@ -98,7 +98,8 @@ def help_activationkey_addgroups(self):
 
 def complete_activationkey_addgroups(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_activationkey_list('', True), text)
@@ -129,7 +130,8 @@ def help_activationkey_removegroups(self):
 
 def complete_activationkey_removegroups(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_activationkey_list('', True), text)
@@ -613,7 +615,8 @@ def do_activationkey_create(self, args):
         options.entitlements = []
 
         for e in self.ENTITLEMENTS:
-            if e == 'enterprise_entitled': continue
+            if e == 'enterprise_entitled':
+                continue
 
             if self.user_confirm('%s Entitlement [y/N]:' % e,
                                  ignore_yes = True):
@@ -622,10 +625,14 @@ def do_activationkey_create(self, args):
         options.universal = self.user_confirm('Universal Default [y/N]:',
                                               ignore_yes = True)
     else:
-        if not options.name: options.name = ''
-        if not options.description: options.description = ''
-        if not options.base_channel: options.base_channel = ''
-        if not options.universal: options.universal = False
+        if not options.name:
+            options.name = ''
+        if not options.description:
+            options.description = ''
+        if not options.base_channel:
+            options.base_channel = ''
+        if not options.universal:
+            options.universal = False
         if options.entitlements:
             options.entitlements = options.entitlements.split(',')
 
@@ -674,7 +681,8 @@ def do_activationkey_delete(self, args):
     # Print the keys prior to the confimation
     print '\n'.join(sorted(keys))
 
-    if not self.user_confirm('Delete activation key(s) [y/N]:'): return
+    if not self.user_confirm('Delete activation key(s) [y/N]:'):
+        return
 
     for key in keys:
         logging.debug("Deleting key %s" % key)
@@ -785,7 +793,8 @@ def do_activationkey_details(self, args):
                                                                group)
             groups.append(group_details.get('name'))
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         result.append( 'Key:                    %s' % details.get('key') )
@@ -1379,7 +1388,8 @@ def do_activationkey_clone(self, args):
 # activationkey helper
 
 def is_activationkey( self, name ):
-    if not name: return
+    if not name:
+        return
     return name in self.do_activationkey_list( name, True )
 
 def check_activationkey( self, name ):
@@ -1407,7 +1417,8 @@ def help_activationkey_diff(self):
 
 def complete_activationkey_diff(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
     args = len(parts)
 
     if args == 2:
@@ -1426,7 +1437,8 @@ def do_activationkey_diff(self, args):
         return
 
     source_channel = args[0]
-    if not self.check_activationkey( source_channel ): return
+    if not self.check_activationkey( source_channel ):
+        return
 
     target_channel = None
     if len(args) == 2:
@@ -1434,7 +1446,8 @@ def do_activationkey_diff(self, args):
     elif hasattr( self, "do_activationkey_getcorresponding" ):
         # can a corresponding channel name be found automatically?
         target_channel=self.do_activationkey_getcorresponding( source_channel )
-    if not self.check_activationkey( target_channel ): return
+    if not self.check_activationkey( target_channel ):
+        return
 
     source_replacedict, target_replacedict = get_string_diff_dicts( source_channel, target_channel )
 
