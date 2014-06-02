@@ -58,10 +58,6 @@ sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "taggable_systems_in_set",
 			   -datasource => RHN::DataSource::System->new);
 
-  Sniglets::ListView::List->add_mode(-mode => "provisioning_systems_in_set_with_tag",
-			   -datasource => RHN::DataSource::System->new,
-			   -action_callback => \&ssm_rollback_by_tag_action_cb);
-
   Sniglets::ListView::List->add_mode(-mode => "visible_to_user",
 			   -datasource => RHN::DataSource::System->new);
 
@@ -326,52 +322,6 @@ sub add_systems_to_namespace_cb {
    
   }
 
-
-  return 1;
-}
-
-sub ssm_rollback_by_tag_action_cb {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %action = @_;
-
-  my $label = '';
-
-  if (exists $action{label} and $action{label} eq 'rollback_systems') {
-
-    my $tag_id = $pxt->param('tag_id');
-    my $ds = new RHN::DataSource::System (-mode => 'provisioning_systems_in_set_with_tag');
-    my $data = $ds->execute_query(-user_id => $pxt->user->id, -tag_id => $tag_id);
-
-    my $transaction = RHN::DB->connect();
-
-    eval {
-      foreach my $server_data (@{$data}) {
-
-	my $sid = $server_data->{ID};
-	my $snapshot_id = $server_data->{SNAPSHOT_ID};
-
-	my %results = RHN::SystemSnapshot->rollback_to_snapshot(user_id => $pxt->user->id,
-								org_id => $pxt->user->org_id,
-								server_id => $sid,
-								snapshot_id => $snapshot_id,
-								transaction => $transaction,
-							       );
-	$transaction = $results{transaction};
-      }
-    };
-
-    if ($@) {
-      my $E = $@;
-      $transaction->rollback();
-      die $E;
-    }
-    else {
-      $pxt->push_message(site_info => "Rollbacks scheduled.");
-      $pxt->redirect("/network/systems/ssm/provisioning/rollback.pxt");
-    }
-  }
 
   return 1;
 }
