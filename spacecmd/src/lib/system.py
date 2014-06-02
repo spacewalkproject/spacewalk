@@ -77,7 +77,7 @@ def print_package_comparison(self, results):
 ####################
 
 def manipulate_child_channels(self, args, remove=False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         if remove:
@@ -161,7 +161,7 @@ def complete_system_reboot(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_reboot(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_reboot()
@@ -205,7 +205,7 @@ def help_system_search(self):
     print '> system_search ip:192.168.82'
 
 def do_system_search(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 1:
         self.help_system_search()
@@ -469,7 +469,7 @@ def complete_system_listhardware(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_listhardware(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_listhardware()
@@ -599,7 +599,7 @@ def complete_system_installpackage(self, text, line, beg, end):
         return tab_completer(self.get_package_names(), text)
 
 def do_system_installpackage(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_system_installpackage()
@@ -723,7 +723,7 @@ def complete_system_removepackage(self, text, line, beg, end):
         return tab_completer(self.get_package_names(), text)
 
 def do_system_removepackage(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_system_removepackage()
@@ -746,7 +746,6 @@ def do_system_removepackage(self, args):
         filter_results(self.get_package_names(True), package_list)
 
     jobs = {}
-    packages_by_id = {}
     for package_name in matching_packages:
         logging.debug('Finding systems with %s' % package_name)
 
@@ -777,8 +776,6 @@ def do_system_removepackage(self, args):
         print '%s:' % system
         for package in jobs[system]:
             print self.get_package_name(package)
-
-        spacer = True
 
     if not len(jobs):
         return
@@ -823,7 +820,7 @@ def complete_system_upgradepackage(self, text, line, beg, end):
         return tab_completer(self.get_package_names(), text)
 
 def do_system_upgradepackage(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_system_upgradepackage()
@@ -900,7 +897,7 @@ def do_system_upgradepackage(self, args):
                                                       action_time)
 
             scheduled += 1
-        except Exception, e:
+        except Exception:
             logging.error('Failed to schedule %s' % system)
 
     logging.info('Scheduled %i system(s)' % scheduled)
@@ -917,7 +914,7 @@ def complete_system_listupgrades(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_listupgrades(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_listupgrades()
@@ -972,7 +969,7 @@ def complete_system_listinstalledpackages(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_listinstalledpackages(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_listinstalledpackages()
@@ -1016,7 +1013,7 @@ def complete_system_listconfigchannels(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_listconfigchannels(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_listconfigchannels()
@@ -1375,7 +1372,7 @@ def complete_system_removeconfigchannels(self, text, line, beg, end):
                                   text)
 
 def do_system_removeconfigchannels(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_system_removeconfigchannels()
@@ -1409,7 +1406,7 @@ def complete_system_setconfigchannelorder(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_setconfigchannelorder(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_setconfigchannelorder()
@@ -1460,7 +1457,7 @@ def complete_system_deployconfigfiles(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_deployconfigfiles(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_deployconfigfiles()
@@ -1505,7 +1502,7 @@ def complete_system_delete(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_delete()
@@ -1571,7 +1568,7 @@ def complete_system_lock(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_lock(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_lock()
@@ -1602,7 +1599,7 @@ def complete_system_unlock(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_unlock(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_unlock()
@@ -1632,7 +1629,7 @@ def complete_system_rename(self, text, line, beg, end):
         return tab_completer(self.get_system_names(), text)
 
 def do_system_rename(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_system_rename()
@@ -1672,7 +1669,7 @@ def complete_system_listcustomvalues(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_listcustomvalues(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_listcustomvalues()
@@ -1725,7 +1722,7 @@ def complete_system_addcustomvalue(self, text, line, beg, end):
 
 def do_system_addcustomvalue(self, args):
     if not isinstance(args, list):
-        (args, options) = parse_arguments(args)
+        (args, _options) = parse_arguments(args)
 
     if len(args) < 3:
         self.help_system_addcustomvalue()
@@ -1768,7 +1765,7 @@ def complete_system_updatecustomvalue(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
 def do_system_updatecustomvalue(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 3:
         self.help_system_updatecustomvalue()
@@ -1794,7 +1791,7 @@ def complete_system_removecustomvalues(self, text, line, beg, end):
                                   text)
 
 def do_system_removecustomvalues(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_system_removecustomvalues()
@@ -1887,7 +1884,7 @@ def complete_system_deletenotes(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_deletenotes(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_listnotes()
@@ -1936,7 +1933,7 @@ def complete_system_listnotes(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_listnotes(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_listnotes()
@@ -1982,11 +1979,10 @@ def complete_system_setbasechannel(self, text, line, beg, end):
     if len(line.split(' ')) == 2:
         return self.tab_complete_systems(text)
     elif len(line.split(' ')) == 3:
-        system = line.split(' ')[1]
         return tab_completer(self.list_base_channels(), text)
 
 def do_system_setbasechannel(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_system_setbasechannel()
@@ -2042,7 +2038,7 @@ def complete_system_listbasechannel(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_listbasechannel(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_listbasechannel()
@@ -2086,7 +2082,7 @@ def complete_system_listchildchannels(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_listchildchannels(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_listchildchannels()
@@ -2305,7 +2301,7 @@ def complete_system_details(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_details(self, args, short=False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_details()
@@ -2439,7 +2435,7 @@ def complete_system_listerrata(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_listerrata(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_listerrata()
@@ -2488,7 +2484,7 @@ def complete_system_applyerrata(self, text, line, beg, end):
         return self.tab_complete_errata(text)
 
 def do_system_applyerrata(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_system_applyerrata()
@@ -2521,7 +2517,7 @@ def complete_system_listevents(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_listevents(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_listevents()
@@ -2567,7 +2563,7 @@ def complete_system_listentitlements(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_listentitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_listentitlements()
@@ -2615,7 +2611,7 @@ def complete_system_addentitlements(self, text, line, beg, end):
         return tab_completer(self.ENTITLEMENTS, text)
 
 def do_system_addentitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_system_addentitlements()
@@ -2660,7 +2656,7 @@ def complete_system_removeentitlement(self, text, line, beg, end):
         return tab_completer(self.ENTITLEMENTS, text)
 
 def do_system_removeentitlement(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_system_removeentitlement()
@@ -2720,7 +2716,7 @@ def complete_system_deletepackageprofile(self, text, line, beg, end):
                    self.do_system_listpackageprofiles('', True), text)
 
 def do_system_deletepackageprofile(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_deletepackageprofile()
@@ -2786,10 +2782,10 @@ def do_system_createpackageprofile(self, args):
             logging.error('A profile description is required')
             return
 
-    results = self.client.system.createPackageProfile(self.session,
-                                                      system_id,
-                                                      options.name,
-                                                      options.description)
+    self.client.system.createPackageProfile(self.session,
+                                            system_id,
+                                            options.name,
+                                            options.description)
 
     logging.info("Created package profile '%s'" % options.name)
 
@@ -2814,7 +2810,7 @@ def complete_system_comparepackageprofile(self, text, line, beg, end):
                    self.do_system_listpackageprofiles('', True), parts[-1])
 
 def do_system_comparepackageprofile(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_system_comparepackageprofile()
@@ -2857,7 +2853,7 @@ def complete_system_comparepackages(self, text, line, beg, end):
     return tab_completer(self.get_system_names(), text)
 
 def do_system_comparepackages(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_system_comparepackages()
@@ -2882,7 +2878,7 @@ def complete_system_syncpackages(self, text, line, beg, end):
     return tab_completer(self.get_system_names(), text)
 
 def do_system_syncpackages(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_system_syncpackages()
@@ -3163,7 +3159,7 @@ def complete_system_schedulehardwarerefresh(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_schedulehardwarerefresh(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_schedulehardwarerefresh()
@@ -3199,7 +3195,7 @@ def complete_system_schedulepackagerefresh(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_schedulepackagerefresh(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_system_schedulepackagerefresh()
