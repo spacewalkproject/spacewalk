@@ -21,6 +21,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# unused argument
 # pylint: disable=W0613
 
 # wildcard import
