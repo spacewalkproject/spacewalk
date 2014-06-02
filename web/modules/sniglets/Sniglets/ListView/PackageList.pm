@@ -49,11 +49,6 @@ sub list_of { return "packages" }
 
 sub _register_modes {
 
-
- Sniglets::ListView::List->add_mode(-mode => "snapshot_unservable_package_list",
-				    -datasource => RHN::DataSource::Package->new,
-				   );
-
   Sniglets::ListView::List->add_mode(-mode => "package_search_results",
 			   -datasource => new RHN::DataSource::Simple(-querybase => "package_search_elaborators"),
 			   -provider => \&package_search_results_provider);

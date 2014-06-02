@@ -106,17 +106,6 @@ sub gen_diff {
   return @diffs;
 }
 
-sub package_list_is_servable {
-  my $self = shift;
-
-  my $ds = new RHN::DataSource::Package;
-
-  $ds->mode('snapshot_unservable_package_list');
-  my $unservable_packages = $ds->execute_query(-sid => $self->server_id, -ss_id => $self->id, -org_id => $self->org_id);
-
-  return (not @{$unservable_packages});
-}
-
 sub lookup {
   my $class = shift;
   my %params = validate(@_, {id => 1});
