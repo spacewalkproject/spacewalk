@@ -1084,33 +1084,4 @@ EOQ
   return $label;
 }
 
-# Return list of blacklisted packages not to be included in Manifests and
-# UI lists.  org_id is optional.
-sub package_blacklist {
-  my $self = shift;
-  my $org_id = shift;
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-
-SELECT pn.name 
-  FROM rhnPackageSyncBlacklist BL,
-       rhnPackageName PN
-  WHERE PN.id = BL.package_name_id
-    AND (BL.org_id = :org_id or BL.org_id is null)
-
-EOQ
-
-  $sth->execute_h(org_id => $org_id);
-
-  my @blacklist;
-
-  while (my ($pname) = $sth->fetchrow()) {
-    push @blacklist, $pname;
-  }
-
-  return @blacklist;
-}
-
-
-
 1;
