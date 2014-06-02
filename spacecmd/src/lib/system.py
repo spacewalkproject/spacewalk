@@ -27,6 +27,9 @@
 # wildcard import
 # pylint: disable=W0401,W0614
 
+# invalid function name
+# pylint: disable=C0103
+
 import shlex
 from operator import itemgetter
 from optparse import Option
