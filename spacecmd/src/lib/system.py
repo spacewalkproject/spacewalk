@@ -522,7 +522,7 @@ def do_system_listhardware(self, args):
         print 'MHz:      %s' % cpu.get('mhz')
         print 'Cache:    %s' % cpu.get('cache')
         print 'Vendor:   %s' % cpu.get('vendor')
-        print 'Model:    %s' % re.sub('\s+', ' ', cpu.get('model'))
+        print 'Model:    %s' % re.sub(r'\s+', ' ', cpu.get('model'))
 
         print
         print 'Memory'
@@ -542,7 +542,7 @@ def do_system_listhardware(self, args):
             print 'Asset'
             print '-----'
             for asset in dmi.get('asset').split(') ('):
-                print re.sub('\)|\(', '', asset)
+                print re.sub(r'\)|\(', '', asset)
 
             print
             print 'BIOS Release: %s' % dmi.get('bios_release')
