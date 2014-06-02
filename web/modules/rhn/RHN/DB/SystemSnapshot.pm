@@ -106,57 +106,6 @@ sub gen_diff {
   return @diffs;
 }
 
-sub group_diffs {
-  my $self = shift;
-  my $org_id = shift;
-
-  my $ds = new RHN::DataSource::SystemGroup;
-
-  $ds->mode('system_snapshot_group_list');
-  my $snapshot_groups = $ds->execute_query(-user_id => undef, -sid => $self->server_id, -ss_id => $self->id);
-
-  $ds->mode('groups_a_system_is_in');
-  my $current_groups = $ds->execute_query(-sid => $self->server_id, -user_id => undef, -org_id => $org_id);
-
-  return $self->gen_diff(current => [grep {not $_->{GROUP_TYPE_LABEL}} @{$current_groups}],
-			 snapshot => [grep {not $_->{GROUP_TYPE_LABEL}} @{$snapshot_groups}],
-			);
-}
-
-sub channel_diffs {
-  my $self = shift;
-
-  my $ds = new RHN::DataSource::Channel;
-
-  $ds->mode('system_snapshot_channel_list');
-  my $snapshot_channels = $ds->execute_query(-user_id => undef, -sid => $self->server_id, -ss_id => $self->id);
-
-  $ds->mode('system_channels');
-  my $current_channels = $ds->execute_query(-sid => $self->server_id, -user_id => undef);
-
- return $self->gen_diff(current => $current_channels,
-			 snapshot => $snapshot_channels,
-			);
-}
-
-sub package_diffs {
-  my $self = shift;
-
-
-  my $ds = new RHN::DataSource::Package;
-
-  $ds->mode('snapshot_canonical_package_list');
-  my $snapshot_packages = $ds->execute_query(-user_id => undef, -sid => $self->server_id, -ss_id => $self->id, -org_id => $self->org_id);
-
-  $ds->mode('system_canonical_package_list');
-  my $current_packages = $ds->execute_query(-sid => $self->server_id, -user_id => undef, -org_id => $self->org_id);
-
- return $self->gen_diff(current => $current_packages,
-			snapshot => $snapshot_packages,
-		       );
-
-}
-
 sub package_list_is_servable {
   my $self = shift;
 
@@ -166,24 +115,6 @@ sub package_list_is_servable {
   my $unservable_packages = $ds->execute_query(-sid => $self->server_id, -ss_id => $self->id, -org_id => $self->org_id);
 
   return (not @{$unservable_packages});
-}
-
-sub config_channel_diffs {
-  my $self = shift;
-
-
-  my $ds = new RHN::DataSource::ConfigChannel;
-
-  $ds->mode('normal_namespaces_for_snapshot');
-  my $snapshot_config_channels = $ds->execute_query(-user_id => undef, -sid => $self->server_id, -ss_id => $self->id);
-
-  $ds->mode('normal_namespaces_for_system');
-  my $current_config_channels = $ds->execute_query(-sid => $self->server_id);
-
- return $self->gen_diff(current => $current_config_channels,
-			snapshot => $snapshot_config_channels,
-		       );
-
 }
 
 sub lookup {
