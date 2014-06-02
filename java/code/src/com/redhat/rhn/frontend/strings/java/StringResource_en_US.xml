@@ -1170,6 +1170,12 @@
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="error.user_readonly">
+        <source>This user has read only API access. WebUI login is denied.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/Login</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="error.org_already_taken">
         <source>That organization name is already taken; please choose another.</source>
         <context-group name="ctx">

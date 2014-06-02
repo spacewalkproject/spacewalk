@@ -445,6 +445,9 @@ public class UserManager extends BaseManager {
             else if (user.isDisabled()) {
                 exceptionType = "account.disabled";
             }
+            else if (user.getReadOnlyBool()) {
+                exceptionType = "error.user_readonly";
+            }
             else {
                 user.setLastLoggedIn(new Date());
                 if (!SatConfigFactory.getSatConfigBooleanValue(
