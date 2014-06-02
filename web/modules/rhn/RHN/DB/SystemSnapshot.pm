@@ -212,27 +212,4 @@ sub snapshot_group_list {
 }
 
 
-sub snapshot_pkg_delta {
-  my $class = shift;
-  my %params = validate(@_, {server_id => 1, snapshot_id => 1});
-
-  my $current_ds = new RHN::DataSource::Package(-mode => "system_package_list");
-  my $current_data = $current_ds->execute_query(-sid => $params{server_id});
-
-
-  my $snapshot_ds = new RHN::DataSource::Package(-mode => "system_snapshot_package_list");
-  my $snapshot_data = $snapshot_ds->execute_query(-sid => $params{server_id}, -ss_id => $params{snapshot_id}, -org_id => $params{org_id});
-
-  my $current_manifest = RHN::Manifest->new(-org_id => $params{org_id});
-  $current_manifest->datasource_result_into_manifest($current_data);
-
-  my $snapshot_manifest = RHN::Manifest->new(-org_id => $params{org_id});
-  $snapshot_manifest->datasource_result_into_manifest($snapshot_data);
-
-  # do comparison... diff only.
-  my $comparison = $snapshot_manifest->compare_manifests($current_manifest, 1);
-
-  return $comparison;
-}
-
 1;
