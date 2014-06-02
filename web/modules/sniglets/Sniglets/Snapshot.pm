@@ -28,7 +28,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-snapshot-tag-details' => \&snapshot_tag_details);
   $pxt->register_tag('rhn-snapshot-details' => \&snapshot_details);
 }
 
@@ -39,21 +38,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:add_system_tag_bulk_cb' => \&add_system_tag_bulk_cb);
 }
 
-
-sub snapshot_tag_details {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $tag_id = $pxt->param('tag_id');
-  die 'no tag id' unless $tag_id;
-
-  my $tag = RHN::Tag->lookup(-id => $tag_id);
-
-  my %sub;
-  $sub{tag_name} = $tag->name;
-
-  return PXT::Utils->perform_substitutions($params{__block__}, \%sub);
-}
 
 sub snapshot_details {
   my $pxt = shift;
