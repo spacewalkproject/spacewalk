@@ -39,18 +39,6 @@ sub generate_swap_key {
   return $ret;
 }
 
-sub encode_data {
-  my $class = shift;
-  my @in = @_;
-
-  die "Invalid data to encode: @in"
-    if grep { $_ =~ /[^0-9a-f]/ } @in;
-
-  my $in = join(":", @in);
-
-  return join("x", $in, $class->generate_swap_key($in));
-}
-
 sub rhn_hmac_data {
   my $class = shift;
   my $hmac_data = join("\0", @_);
