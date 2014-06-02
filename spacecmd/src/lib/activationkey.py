@@ -638,10 +638,8 @@ def do_activationkey_create(self, args):
             options.entitlements = options.entitlements.split(',')
 
             # remove empty strings from the list
-            try:
+            if '' in options.entitlements:
                 options.entitlements.remove('')
-            except:
-                pass
         else:
             options.entitlements = []
 
@@ -732,7 +730,7 @@ def do_activationkey_listsystems(self, args):
         systems = \
             self.client.activationkey.listActivatedSystems(self.session,
                                                            key)
-    except:
+    except xmlrpclib.Fault:
         logging.warning('%s is not a valid activation key' % key)
         return
 
@@ -775,7 +773,7 @@ def do_activationkey_details(self, args):
                 config_channel_deploy = \
                     self.client.activationkey.checkConfigDeployment(\
                                                   self.session, key)
-            except:
+            except xmlrpclib.Fault:
                 config_channels = []
                 config_channel_deploy = 0
 
@@ -784,7 +782,7 @@ def do_activationkey_details(self, args):
                 config_channel_deploy = True
             else:
                 config_channel_deploy = False
-        except:
+        except xmlrpclib.Fault:
             logging.warning('%s is not a valid activation key' % key)
             return
 
