@@ -136,38 +136,6 @@ EOQ
   return $server_status;
 }
 
-sub cancel_pending_for_system {
-  my $class = shift;
-  my %params = validate(@_, {server_id => 1, transaction => 0});
-
-  my $dbh = $params{transaction} || RHN::DB->connect;
-
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT A.id
-  FROM rhnAction A,
-       rhnServerAction SA
- WHERE SA.server_id = :server_id
-   AND SA.status = 0
-   AND SA.action_id = A.id
-   AND A.prerequisite IS NULL
-ORDER BY A.id
-EOQ
-
-  $sth->execute_h(server_id => $params{server_id});
-
-  while (my @results = $sth->fetchrow()) {
-    $dbh->call_procedure('rhn_server.remove_action', $params{server_id}, $results[0]);
-  }
-
-  if (defined $params{transaction}) {
-    return $params{transaction};
-  }
-  else {
-    $dbh->commit;
-  }
-}
-
-
 sub delete_set_from_action {
   my $class = shift;
   my $aid = shift;
