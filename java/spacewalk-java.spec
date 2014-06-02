@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.83
+Version: 2.2.84
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jun 02 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.84-1
+- rewrite rollback_by_tag_conf.pxt to java RollbackToTag.do
+
 * Fri May 30 2014 Stephen Herr <sherr@redhat.com> 2.2.83-1
 - A few hundred more warning fixes
 
