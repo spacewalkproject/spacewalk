@@ -102,8 +102,10 @@ public class PackageAction extends Action {
         retval.append("</br><ul>");
         for (PackageActionDetails pad : affectedPackages) {
             retval.append("<li>");
+            Long evrId = pad.getEvr() != null ? pad.getEvr().getId() : null;
+            Long archId = pad.getArch() != null ? pad.getArch().getId() : null;
             retval.append(PackageManager.buildPackageNevra(pad.getPackageName().getId(),
-                    pad.getEvr().getId(), pad.getArch().getId()));
+                    evrId, archId));
             retval.append("</li>");
         }
         retval.append("</ul>");
