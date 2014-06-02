@@ -31,6 +31,7 @@
 # pylint: disable=C0103
 
 import shlex
+import xmlrpclib
 from operator import itemgetter
 from optparse import Option
 from xml.parsers.expat import ExpatError
@@ -451,7 +452,7 @@ def do_system_runscript(self, args):
 
                 logging.info('Action ID: %i' % action_id)
                 scheduled += 1
-            except Exception, detail:
+            except xmlrpclib.Fault, detail:
                 logging.debug(detail)
                 logging.error('Failed to schedule %s' % system)
 
@@ -904,7 +905,7 @@ def do_system_upgradepackage(self, args):
                                                       action_time)
 
             scheduled += 1
-        except Exception:
+        except xmlrpclib.Fault:
             logging.error('Failed to schedule %s' % system)
 
     logging.info('Scheduled %i system(s)' % scheduled)
