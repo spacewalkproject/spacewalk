@@ -21,6 +21,8 @@ import com.redhat.rhn.domain.action.PackageActionFormatter;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -104,8 +106,9 @@ public class PackageAction extends Action {
             retval.append("<li>");
             Long evrId = pad.getEvr() != null ? pad.getEvr().getId() : null;
             Long archId = pad.getArch() != null ? pad.getArch().getId() : null;
-            retval.append(PackageManager.buildPackageNevra(pad.getPackageName().getId(),
-                    evrId, archId));
+            String nevra = PackageManager.buildPackageNevra(pad.getPackageName().getId(),
+                    evrId, archId);
+            retval.append(StringEscapeUtils.escapeHtml(nevra));
             retval.append("</li>");
         }
         retval.append("</ul>");
