@@ -21,6 +21,8 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# pylint: disable=W0613
+
 import shlex
 from operator import itemgetter
 from optparse import Option
