@@ -128,6 +128,8 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'arm-deb', 'arm-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_package_arch_id_seq'), 'armhf-deb', 'armhf-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'mips-deb', 'mips-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'amd64-deb', 'AMD64-deb', lookup_arch_type('deb'));
