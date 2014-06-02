@@ -158,15 +158,4 @@ sub bulk_snapshot_tag {
   return $dbh if $params{transaction};
 }
 
-sub snapshot_group_list {
-  my $class = shift;
-  my %params = validate(@_, {user_id => 1, server_id => 1, snapshot_id => 1});
-
-  my $ds = new RHN::DataSource::SystemGroup(-mode => "system_snapshot_group_list");
-  my $data = $ds->execute_query(-sid => $params{server_id}, -ss_id => $params{snapshot_id}, -user_id => $params{user_id});
-
-  return $data;
-}
-
-
 1;

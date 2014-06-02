@@ -1,25 +1,5 @@
 <datasource_modes>
 
-<mode name="system_snapshot_group_list">
-  <query params="user_id, sid, ss_id">
-SELECT  SG.id,
-        SG.name AS GROUP_NAME,
-        SGT.label AS GROUP_TYPE_LABEL,
-       (SELECT 1 FROM rhnUserServerGroupPerms WHERE user_id = :user_id AND server_group_id = SG.id) AS USER_PERMITTED_ACCESS
-  FROM
-        rhnServerGroup SG
-  LEFT  JOIN rhnServerGroupType SGT
-    ON  SG.group_type = SGT.id,
-        rhnSnapshotServerGroup SSG,
-        rhnSnapshot SN
- WHERE  SN.id = :ss_id
-   AND  SN.server_id = :sid
-   AND  SN.id = SSG.snapshot_id
-   AND  SSG.server_group_id = SG.id
-  </query>
-</mode>
-
-
   <query name="visible_to_user_overview_fast" params="org_id, user_id">
 SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
          GO.GROUP_ID AS ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT,
