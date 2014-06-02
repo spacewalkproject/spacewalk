@@ -979,38 +979,6 @@ sub add_servers_to_groups {
   }
 }
 
-sub remove_servers_from_groups {
-  my $class = shift;
-  my @servers = @{+shift};
-  my @groups = @{+shift};
-  my $transaction = shift;
-
-  unless (@servers and @groups) {
-
-    if (defined $transaction) {
-      return $transaction;
-    }
-    else {
-      return;
-    }
-  }
-
-  my $dbh = $transaction || RHN::DB->connect;
-
-  for my $server (@servers) {
-    for my $group (@groups) {
-      $dbh->call_procedure('rhn_server.delete_from_servergroup', $server, $group);
-    }
-  }
-      
-  if (defined $transaction) {
-    return $dbh if defined $transaction;
-  }
-  else {
-    $dbh->commit;
-  }
-}
-
 sub change_user_pref_bulk {
   my $class = shift;
   my $set = shift;
