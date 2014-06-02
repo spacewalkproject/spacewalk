@@ -2150,10 +2150,10 @@ def do_system_listcrashedsystems(self, args):
     print 'Count | System ID | Profile Name'
     print '--------------------------------'
     res=self.client.system.listUserSystems(self.session)
-    for sys in res:
-        res_crash=self.client.system.crash.listSystemCrashes(self.session,sys['id'])
+    for s in res:
+        res_crash=self.client.system.crash.listSystemCrashes(self.session, s['id'])
         if len(res_crash) != 0:
-            print "%d : %s : %s" % (len(res_crash),sys['id'],sys['name'])
+            print "%d : %s : %s" % (len(res_crash), s['id'], s['name'])
 
 ######
 
