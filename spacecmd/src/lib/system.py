@@ -63,7 +63,8 @@ def print_package_comparison(self, results):
 
     for item in results:
         # don't show packages that are the same
-        if item.get('comparison') == 0: continue
+        if item.get('comparison') == 0:
+            continue
 
         print '%s  %s  %s  %s' % (
               item.get('package_name').ljust(max_name),
@@ -106,11 +107,13 @@ def manipulate_child_channels(self, args, remove=False):
 
     print '\n'.join(sorted(new_channels))
 
-    if not self.user_confirm(): return
+    if not self.user_confirm():
+        return
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         child_channels = \
             self.client.system.listSubscribedChildChannels(self.session,
@@ -174,13 +177,15 @@ def do_system_reboot(self, args):
     print '-------'
     print '\n'.join(sorted(systems))
 
-    if not self.user_confirm('Reboot these systems [y/N]:'): return
+    if not self.user_confirm('Reboot these systems [y/N]:'):
+        return
 
     action_time = parse_time_input('now')
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         self.client.system.scheduleReboot(self.session, system_id, action_time)
 
@@ -326,8 +331,10 @@ def do_system_runscript(self, args):
         options.group = prompt_user('Group [root]:')
 
         # defaults
-        if not options.user:  options.user  = 'root'
-        if not options.group: options.group = 'root'
+        if not options.user:
+            options.user  = 'root'
+        if not options.group:
+            options.group = 'root'
 
         try:
             options.timeout = prompt_user('Timeout (in seconds) [600]:')
@@ -358,8 +365,10 @@ def do_system_runscript(self, args):
             logging.error('No script provided')
             return
     else:
-        if not options.user: options.user = 'root'
-        if not options.group: options.group = 'root'
+        if not options.user:
+            options.user = 'root'
+        if not options.group:
+            options.group = 'root'
         if not options.timeout:
             options.timeout = 600
         else:
@@ -392,7 +401,8 @@ def do_system_runscript(self, args):
     print '\n'.join(sorted(systems))
 
     # have the user confirm
-    if not self.user_confirm(): return
+    if not self.user_confirm():
+        return
 
     scheduled = 0
 
@@ -417,7 +427,8 @@ def do_system_runscript(self, args):
         # scheduled individually
         for system in systems:
             system_id = self.get_system_id(system)
-            if not system_id: continue
+            if not system_id:
+                continue
 
             try:
                 action_id = \
@@ -472,7 +483,8 @@ def do_system_listhardware(self, args):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         cpu = self.client.system.getCpu(self.session, system_id)
         memory = self.client.system.getMemory(self.session, system_id)
@@ -490,7 +502,8 @@ def do_system_listhardware(self, args):
         except ExpatError:
             dmi = None
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -503,7 +516,8 @@ def do_system_listhardware(self, args):
 
             count = 0
             for device in network:
-                if count: print
+                if count:
+                    print
                 count += 1
 
                 print 'Interface:   %s' % device.get('interface')
@@ -556,7 +570,8 @@ def do_system_listhardware(self, args):
 
             count = 0
             for device in devices:
-                if count: print
+                if count:
+                    print
                 count += 1
 
                 print 'Description: %s' % (
@@ -603,7 +618,8 @@ def do_system_installpackage(self, args):
     system_ids = []
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
         system_ids.append(system_id)
 
     jobs = {}
@@ -649,7 +665,8 @@ def do_system_installpackage(self, args):
 
     warnings = []
     for system_id in jobs:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         # warn the user if the request can not be 100% fulfilled
@@ -662,12 +679,14 @@ def do_system_installpackage(self, args):
             print self.get_package_name(package_id)
 
     # show the warnings to the user
-    if len(warnings): print
+    if len(warnings):
+        print
     for system_id in warnings:
         logging.warning('%s does not have access to all requested packages' % \
                         self.get_system_name(system_id))
 
-    if not self.user_confirm('Install these packages [y/N]:'): return
+    if not self.user_confirm('Install these packages [y/N]:'):
+        return
 
     scheduled = 0
     for system_id in jobs:
@@ -749,7 +768,8 @@ def do_system_removepackage(self, args):
     add_separator = False
 
     for system in jobs:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print '%s:' % system
@@ -758,15 +778,18 @@ def do_system_removepackage(self, args):
 
         spacer = True
 
-    if not len(jobs): return
-    if not self.user_confirm('Remove these packages [y/N]:'): return
+    if not len(jobs):
+        return
+    if not self.user_confirm('Remove these packages [y/N]:'):
+        return
 
     action_time = parse_time_input('now')
 
     scheduled = 0
     for system in jobs:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         try:
             action_id = self.client.system.schedulePackageRemove(self.session,
@@ -821,7 +844,8 @@ def do_system_upgradepackage(self, args):
     jobs = {}
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         packages = \
             self.client.system.listLatestUpgradablePackages(self.session,
@@ -833,12 +857,14 @@ def do_system_upgradepackage(self, args):
         else:
             logging.warning('No upgrades available for %s' % system)
 
-    if not len(jobs): return
+    if not len(jobs):
+        return
 
     add_separator = False
 
     for system in jobs:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print system
@@ -856,7 +882,8 @@ def do_system_upgradepackage(self, args):
 
         print '\n'.join(sorted(package_names))
 
-    if not self.user_confirm('Upgrade these packages [y/N]:'): return
+    if not self.user_confirm('Upgrade these packages [y/N]:'):
+        return
 
     action_time = parse_time_input('now')
 
@@ -904,7 +931,8 @@ def do_system_listupgrades(self, args):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         packages = \
             self.client.system.listLatestUpgradablePackages(self.session,
@@ -914,7 +942,8 @@ def do_system_listupgrades(self, args):
             logging.warning('No upgrades available for %s' % system)
             continue
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -957,12 +986,14 @@ def do_system_listinstalledpackages(self, args):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         packages = self.client.system.listPackages(self.session,
                                                    system_id)
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -999,9 +1030,11 @@ def do_system_listconfigchannels(self, args):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -1085,9 +1118,11 @@ def do_system_listconfigfiles(self, args):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -1401,7 +1436,8 @@ def do_system_setconfigchannelorder(self, args):
     for i, new_channel in new_channels(new_channels, 1):
         print '[%i] %s' % (i, new_channel)
 
-    if not self.user_confirm(): return
+    if not self.user_confirm():
+        return
 
     system_ids = [ self.get_system_id(s) for s in systems ]
 
@@ -1434,14 +1470,16 @@ def do_system_deployconfigfiles(self, args):
     else:
         systems = self.expand_systems(args)
 
-    if not len(systems): return
+    if not len(systems):
+        return
 
     print 'Systems'
     print '-------'
     print '\n'.join(sorted(systems))
 
     message = 'Deploy ALL configuration files to these systems [y/N]:'
-    if not self.user_confirm(message): return
+    if not self.user_confirm(message):
+        return
 
     system_ids = [ self.get_system_id(s) for s in systems ]
 
@@ -1482,7 +1520,8 @@ def do_system_delete(self, args):
     # get the system ID for each system
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         system_ids.append(system_id)
 
@@ -1492,7 +1531,8 @@ def do_system_delete(self, args):
 
     # make the column the right size
     colsize = max_length([ self.get_system_name(s) for s in system_ids ])
-    if colsize < 7: colsize = 7
+    if colsize < 7:
+        colsize = 7
 
     print '%s  System ID' % 'Profile'.ljust(colsize)
     print '%s  ---------' % ('-' * colsize)
@@ -1543,7 +1583,8 @@ def do_system_lock(self, args):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         self.client.system.setLockStatus(self.session, system_id, True)
 
@@ -1573,7 +1614,8 @@ def do_system_unlock(self, args):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         self.client.system.setLockStatus(self.session, system_id, False)
 
@@ -1597,10 +1639,12 @@ def do_system_rename(self, args):
     (old_name, new_name) = args
 
     system_id = self.get_system_id(old_name)
-    if not system_id: return
+    if not system_id:
+        return
 
     print '%s (%s) -> %s' % (old_name, system_id, new_name)
-    if not self.user_confirm(): return
+    if not self.user_confirm():
+        return
 
     self.client.system.setProfileName(self.session,
                                       system_id,
@@ -1641,7 +1685,8 @@ def do_system_listcustomvalues(self, args):
     add_separator = False
 
     for system in systems:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -1649,7 +1694,8 @@ def do_system_listcustomvalues(self, args):
             print
 
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         values = self.client.system.getCustomValues(self.session,
                                                     system_id)
@@ -1667,7 +1713,8 @@ def help_system_addcustomvalue(self):
 
 def complete_system_addcustomvalue(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_custominfo_listkeys('', True), text)
@@ -1693,7 +1740,8 @@ def do_system_addcustomvalue(self, args):
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         self.client.system.setCustomValues(self.session,
                                            system_id,
@@ -1709,7 +1757,8 @@ def help_system_updatecustomvalue(self):
 
 def complete_system_updatecustomvalue(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_custominfo_listkeys('', True), text)
@@ -1757,11 +1806,13 @@ def do_system_removecustomvalues(self, args):
 
     keys = args[1:]
 
-    if not self.user_confirm('Delete these values [y/N]:'): return
+    if not self.user_confirm('Delete these values [y/N]:'):
+        return
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         self.client.system.deleteCustomValues(self.session,
                                               system_id,
@@ -1814,7 +1865,8 @@ def do_system_addnote(self, args):
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         self.client.system.addNote(self.session,
                                    system_id,
@@ -1854,7 +1906,8 @@ def do_system_deletenotes(self, args):
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         if '.*' in note_ids:
             self.client.system.deleteNotes(self.session, system_id)
@@ -1896,7 +1949,8 @@ def do_system_listnotes(self, args):
     add_separator = False
 
     for system in sorted(systems):
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -1904,7 +1958,8 @@ def do_system_listnotes(self, args):
             print
 
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         notes = self.client.system.listNotes(self.session, system_id)
 
@@ -1947,23 +2002,27 @@ def do_system_setbasechannel(self, args):
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         old = self.client.system.getSubscribedBaseChannel(self.session,
                                                           system_id)
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'System:           %s' % system
         print 'Old Base Channel: %s' % old.get('label')
         print 'New Base Channel: %s' % new_channel
 
-    if not self.user_confirm(): return
+    if not self.user_confirm():
+        return
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         self.client.system.setBaseChannel(self.session,
                                           system_id,
@@ -1997,9 +2056,11 @@ def do_system_listbasechannel(self, args):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -2039,9 +2100,11 @@ def do_system_listchildchannels(self, args):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -2256,7 +2319,8 @@ def do_system_details(self, args, short=False):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         last_checkin = \
             self.client.system.getName(self.session,
@@ -2272,7 +2336,8 @@ def do_system_details(self, args, short=False):
         registered = self.client.system.getRegistrationDate(self.session,
                                                             system_id)
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Name:          %s' % system
@@ -2288,7 +2353,8 @@ def do_system_details(self, args, short=False):
         print 'Last Boot:     %s' % details.get('last_boot')
 
         # only print basic information if requested
-        if short: continue
+        if short:
+            continue
 
         network = self.client.system.getNetwork(self.session, system_id)
 
@@ -2387,9 +2453,11 @@ def do_system_listerrata(self, args):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -2467,9 +2535,11 @@ def do_system_listevents(self, args):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -2511,9 +2581,11 @@ def do_system_listentitlements(self, args):
 
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -2562,7 +2634,8 @@ def do_system_addentitlements(self, args):
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         self.client.system.addEntitlements(self.session,
                                            system_id,
@@ -2606,7 +2679,8 @@ def do_system_removeentitlement(self, args):
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         self.client.system.removeEntitlements(self.session,
                                               system_id,
@@ -2636,7 +2710,8 @@ def help_system_deletepackageprofile(self):
 
 def complete_system_deletepackageprofile(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return self.tab_complete_systems(\
@@ -2651,7 +2726,8 @@ def do_system_deletepackageprofile(self, args):
 
     label = args[0]
 
-    if not self.user_confirm('Delete this profile [y/N]:'): return
+    if not self.user_confirm('Delete this profile [y/N]:'):
+        return
 
     all_profiles = self.client.system.listPackageProfiles(self.session)
 
@@ -2693,7 +2769,8 @@ def do_system_createpackageprofile(self, args):
         return
 
     system_id = self.get_system_id(args[0])
-    if not system_id: return
+    if not system_id:
+        return
 
     if is_interactive(options):
         options.name = prompt_user('Profile Label:', noblank = True)
@@ -2725,7 +2802,8 @@ def help_system_comparepackageprofile(self):
 
 def complete_system_comparepackageprofile(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return self.tab_complete_systems(text)
@@ -2753,13 +2831,15 @@ def do_system_comparepackageprofile(self, args):
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         results = self.client.system.comparePackageProfile(self.session,
                                                            system_id,
                                                            profile)
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print '%s:' % system
@@ -2982,7 +3062,8 @@ def do_system_comparewithchannel(self, args):
     channel_latest={}
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         instpkgs = self.client.system.listPackages(self.session,\
                                                         system_id)
@@ -3096,7 +3177,8 @@ def do_system_schedulehardwarerefresh(self, args):
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         self.client.system.scheduleHardwareRefresh(self.session,
                                                    system_id,
@@ -3131,7 +3213,8 @@ def do_system_schedulepackagerefresh(self, args):
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         self.client.system.schedulePackageRefresh(self.session,
                                                   system_id,
