@@ -84,27 +84,6 @@ foreach my $field ($j->method_names) {
      }
 }
 
-sub gen_diff {
-  my $self = shift;
-  my %params = validate(@_, {current => 1, snapshot => 1});
-
-  my %universe = map {$_->{ID} => {snapshot => 1}} @{$params{snapshot}};
-
-  foreach my $current (@{$params{current}}) {
-    $universe{$current->{ID}}->{current} = 1;
-  }
-
-  my @diffs;
-
-  foreach my $id (keys %universe) {
-    unless ((exists $universe{$id}->{current}) and (exists $universe{$id}->{snapshot})) {
-      push @diffs, {$id => (keys %{$universe{$id}})[0]};
-    }
-  }
-
-  return @diffs;
-}
-
 sub lookup {
   my $class = shift;
   my %params = validate(@_, {id => 1});
