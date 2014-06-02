@@ -31,6 +31,7 @@
 # pylint: disable=C0103
 
 import re, shlex
+import xmlrpclib
 from optparse import Option
 from spacecmd.utils import *
 
@@ -956,7 +957,7 @@ def do_activationkey_setusagelimit(self, args):
         try:
             usage_limit = int(args[0])
             logging.debug("Setting usage for key %s to %d" % (key, usage_limit))
-        except Exception:
+        except ValueError:
             logging.error("Couldn't convert argument %s to an integer" %\
                 args[0])
             self.help_activationkey_setusagelimit()
@@ -1036,7 +1037,7 @@ def export_activationkey_getdetails(self, key):
     try:
         ccdlist = self.client.activationkey.listConfigChannels(self.session, \
             key)
-    except Exception:
+    except xmlrpclib.Fault:
         logging.debug("activationkey.listConfigChannel threw an exeception, \
             probably not provisioning entitled, setting config_channels=False")
 
