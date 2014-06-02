@@ -2200,7 +2200,10 @@ def do_system_getcrashfiles(self, args):
 
     for f in l_files:
         file_url=self.client.system.crash.getCrashFileUrl(self.session, f['id'])
-        os.system("wget  --directory-prefix=%s --tries=1 --no-check-certificate %s %s" % (options.dest_folder,file_url,options.verbose))
+        os.system("wget  --directory-prefix=%s --tries=1 --no-check-certificate %s %s" % ( \
+            options.dest_folder,
+            file_url,
+            options.verbose))
 
     print
     print "# All files we downloaded to %s." % options.dest_folder
