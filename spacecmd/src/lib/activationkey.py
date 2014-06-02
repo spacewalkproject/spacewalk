@@ -895,7 +895,7 @@ def complete_activationkey_setbasechannel(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_activationkey_list('', True), text)
     elif len(parts) > 2:
-        return tab_completer(list_base_channels(self), text)
+        return tab_completer(self.list_base_channels(), text)
 
 def do_activationkey_setbasechannel(self, args):
     (args, _options) = parse_arguments(args)
