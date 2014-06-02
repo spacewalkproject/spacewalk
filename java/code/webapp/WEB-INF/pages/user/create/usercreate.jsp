@@ -127,6 +127,13 @@
                    <html:text property="email" styleClass="form-control" maxlength="${emailLength}" styleId="email"/>
                </td>
             </tr>
+            <tr>
+               <td><label for="readonly"><bean:message key="usercreate.jsp.api.readOnly" /></label></td>
+               <td>
+                  <html:checkbox property="readonly" />
+                  <br/><small><bean:message key="usercreate.jsp.api.readOnlyHelp"/></small>
+               </td>
+            </tr>
             <html:hidden property="account_type" value="${account_type}" />
             <tr>
               <td colspan="2"><span class="required-form-field">*</span> - <bean:message key="usercreate.requiredField" /></td>

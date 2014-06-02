@@ -1593,6 +1593,18 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="usercreate.jsp.api.readOnly">
+        <source>Read only API user:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="usercreate.jsp.api.readOnlyHelp">
+        <source>Read-only API users are forbidden from the @@PRODUCT_NAME@@ web interface, and allowed access only to a limited subset of the public API.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+        </context-group>
+      </trans-unit>
       <!-- userdetails.jsp -->
       <trans-unit id="userdetails.jsp.header">
         <source>User Details</source>

@@ -70,6 +70,7 @@
                              initial="desiredpassword, desiredpasswordConfirm"/>
             <form-property name="preferredLocale" type="java.lang.String" />
             <form-property name="timezone" type="java.lang.Integer"/>
+            <form-property name="readonly" type="java.lang.Boolean"/>
         </form-bean>
         <form-bean name="userCreateForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
