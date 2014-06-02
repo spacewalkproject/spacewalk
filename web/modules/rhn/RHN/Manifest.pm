@@ -144,39 +144,6 @@ sub compare_manifests {
   return $ret;
 }
 
-sub datasource_result_into_manifest {
-  my $self = shift;
-  my $result = shift;
-
-  my @required_fields = qw/NAME_ID NAME VERSION RELEASE EPOCH/;
-  my $checked_fields = 0;
-
-  for my $package (@$result) {
-    if (not $checked_fields) {
-      $checked_fields++;
-
-      for my $field (@required_fields) {
-	die "Datasource does not provide field $field" unless exists $package->{$field};
-      }
-    }
-
-    my $manifest_package =
-      RHN::Manifest::Package->new(-name => $package->{NAME},
-				  -name_id => $package->{NAME_ID},
-				  -version => $package->{VERSION},
-				  -release => $package->{RELEASE},
-				  -epoch => $package->{EPOCH},
-				  -evr_id => $package->{EVR_ID},
-				  -id => $package->{ID},
-				  -arch => $package->{ARCH},
-				  );
-
-    $self->add_package($manifest_package);
-  }
-
-  return $self;
-}
-
 sub remove_packages {
   my $self = shift;
   my @packages = @_;
