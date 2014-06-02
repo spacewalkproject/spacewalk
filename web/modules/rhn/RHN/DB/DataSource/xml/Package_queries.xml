@@ -1,34 +1,5 @@
 <datasource_modes>
 
-<mode name="system_snapshot_package_list">
-  <query params="sid, ss_id, org_id">
-SELECT PN.id AS NAME_ID,
-       PE.id AS EVR_ID,
-       PN.name AS NAME,
-       (PE.evr).version AS VERSION,
-       (PE.evr).release AS RELEASE,
-       (PE.evr).epoch AS EPOCH,
-       PA.label as ARCH,
-       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE
-  FROM rhnPackageName PN,
-       rhnPackageEVR PE,
-       rhnPackageNEVRA PNEVRA,
-       rhnSnapshotPackage SP,
-       rhnSnapshot S,
-       rhnPackageArch PA
- WHERE S.id = :ss_id
-   AND S.server_id = :sid
-   AND S.id = SP.snapshot_id
-   AND SP.nevra_id = PNEVRA.id
-   AND PNEVRA.name_id = PN.id
-   AND NOT EXISTS (SELECT 1 FROM rhnPackageSyncBlacklist PSB WHERE
-                     PSB.package_name_id = PN.id AND org_id is NULL OR org_id = :org_id)
-   AND PNEVRA.evr_id = PE.id
-   AND PNEVRA.package_arch_id = PA.id
-ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END))
-  </query>
-</mode>
-
 <mode name="package_removal_failures">
   <query params="sid, action_id">
 select * from (
