@@ -23,6 +23,9 @@
 
 # pylint: disable=W0613
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
 import shlex
 from operator import itemgetter
 from optparse import Option
