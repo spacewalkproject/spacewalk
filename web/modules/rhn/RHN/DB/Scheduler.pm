@@ -1049,68 +1049,6 @@ EOQ
   osa_wakeup_tickle();
 }
 
-sub schedule_config_action {
-  my $class = shift;
-  my %params = validate(@_, { org_id => 1,
-			      user_id => 1,
-			      server_id => 1,
-			      earliest => 1,
-			      action_type => 1,
-			      action_name => 1,
-			      transaction => 0,
-			      prerequisite => 0,
-			      revision_ids => 1
-			    });
-
-  my $dbh = $params{transaction} || RHN::DB->connect;
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $params{org_id},
-						       -user_id => $params{user_id},
-						       -type_label => $params{action_type},
-						       -earliest => $params{earliest},
-						       -action_name => $params{action_name},
-						       -prerequisite => $params{prerequisite},
-						       -transaction => $dbh,
-						      );
-
-  $class->add_servers_to_action($action_id, $stat_id, $params{user_id}, undef, $params{server_id});
-
-  my $query;
-  my $sth;
-
-  if (grep { $params{action_type} eq $_ } qw/configfiles.deploy configfiles.verify configfiles.diff/) {
-    $query =<<EOQ;
-INSERT
-  INTO rhnActionConfigRevision
-       (id, action_id, server_id, config_revision_id)
-VALUES (sequence_nextval('rhn_actioncr_id_seq'), :aid, :server_id, :revision_id)
-EOQ
-
-    $sth = $dbh->prepare($query);
-
-    foreach my $revision_id (@{$params{revision_ids}}) {
-      $sth->execute_h(aid => $action_id,
-		      server_id => $params{server_id},
-		      revision_id => $revision_id,
-		     );
-    }
-  }
-  elsif ($params{action_type} eq 'configfiles.upload') {
-    die 'invalid option; you should be using scheduled_config_upload instead';
-  }
-  else {
-    die "unknown config file action!";
-  }
-
-  $dbh->commit unless $params{transaction};
-
-  # XXX FIXME:  trace and percolate up
-  osa_wakeup_tickle();
-
-  return ($action_id, $dbh);
-}
-
-
 sub associate_answer_files_with_action {
   my $class = shift;
   my $action_id = shift;
