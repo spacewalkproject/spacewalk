@@ -34,42 +34,42 @@ __PKG_COMPARISONS = { 0 : 'Same',
                       4 : 'Newer there' }
 
 def print_package_comparison(self, results):
-        max_name  = max_length(map(itemgetter('package_name'), results), min=7)
+    max_name  = max_length(map(itemgetter('package_name'), results), min=7)
 
-        # sometimes 'this_system' or 'other_system' can be None
-        tmp_this = []
-        tmp_other = []
-        for item in results:
-            tmp_this.append(str(item.get('this_system')))
-            tmp_other.append(str(item.get('other_system')))
+    # sometimes 'this_system' or 'other_system' can be None
+    tmp_this = []
+    tmp_other = []
+    for item in results:
+        tmp_this.append(str(item.get('this_system')))
+        tmp_other.append(str(item.get('other_system')))
 
-        max_this  = max_length(tmp_this, min=11)
-        max_other = max_length(tmp_other, min=12)
+    max_this  = max_length(tmp_this, min=11)
+    max_other = max_length(tmp_other, min=12)
 
-        max_comparison = 10
+    max_comparison = 10
 
-        # print headers
+    # print headers
+    print '%s  %s  %s  %s' % (
+            'Package'.ljust(max_name),
+            'This System'.ljust(max_this),
+            'Other System'.ljust(max_other),
+            'Difference'.ljust(max_comparison))
+
+    print '%s  %s  %s  %s' % (
+            '-' * max_name,
+            '-' * max_this,
+            '-' * max_other,
+            '-' * max_comparison)
+
+    for item in results:
+        # don't show packages that are the same
+        if item.get('comparison') == 0: continue
+
         print '%s  %s  %s  %s' % (
-                'Package'.ljust(max_name),
-                'This System'.ljust(max_this),
-                'Other System'.ljust(max_other),
-                'Difference'.ljust(max_comparison))
-
-        print '%s  %s  %s  %s' % (
-                '-' * max_name,
-                '-' * max_this,
-                '-' * max_other,
-                '-' * max_comparison)
-
-        for item in results:
-            # don't show packages that are the same
-            if item.get('comparison') == 0: continue
-
-            print '%s  %s  %s  %s' % (
-                  item.get('package_name').ljust(max_name),
-                  str(item.get('this_system')).ljust(max_this),
-                  str(item.get('other_system')).ljust(max_other),
-                  __PKG_COMPARISONS[item.get('comparison')])
+              item.get('package_name').ljust(max_name),
+              str(item.get('this_system')).ljust(max_this),
+              str(item.get('other_system')).ljust(max_other),
+              __PKG_COMPARISONS[item.get('comparison')])
 
 ####################
 
@@ -121,7 +121,7 @@ def manipulate_child_channels(self, args, remove=False):
         if remove:
             for channel in new_channels:
                 if channel in child_channels:
-                   child_channels.remove(channel)
+                    child_channels.remove(channel)
         else:
             for channel in new_channels:
                 if channel not in child_channels:
@@ -2088,7 +2088,7 @@ def do_system_listcrashedsystems(self, args):
     for sys in res:
         res_crash=self.client.system.crash.listSystemCrashes(self.session,sys['id'])
         if len(res_crash) != 0:
-                print "%d : %s : %s" % (len(res_crash),sys['id'],sys['name'])
+            print "%d : %s : %s" % (len(res_crash),sys['id'],sys['name'])
 
 ######
 
@@ -2101,8 +2101,8 @@ def help_system_deletecrashes(self):
 
 
 def print_msg(string_msg,flag_verbose):
-     if flag_verbose:
-          print string_msg
+    if flag_verbose:
+        print string_msg
 
 def do_system_deletecrashes(self, args):
     options = [ Option('-i', '--sysid', action='store'),
@@ -2118,17 +2118,17 @@ def do_system_deletecrashes(self, args):
 
     sys_id=[]
     if options.sysid:
-         sys_id.append(options.sysid)
-         prompt_string="Deleting all crashes from system with systemid %s [y/N]:" % options.sysid
+        sys_id.append(options.sysid)
+        prompt_string="Deleting all crashes from system with systemid %s [y/N]:" % options.sysid
     else: # all systems
-         prompt_string='Deleting all crashes from all systems [y/N]:'
-         systems=self.client.system.listUserSystems(self.session)
-         for s in systems:
-             sys_id.append(s['id'])
+        prompt_string='Deleting all crashes from all systems [y/N]:'
+        systems=self.client.system.listUserSystems(self.session)
+        for s in systems:
+            sys_id.append(s['id'])
 
     confirm = prompt_user(prompt_string)
     if re.match('n', confirm, re.I):
-         return
+        return
 
     for s_id in sys_id:
         list_crash=self.client.system.crash.listSystemCrashes(self.session,int(s_id))
@@ -2150,9 +2150,9 @@ def do_system_listcrashesbysystem(self, args):
     (args, options) = parse_arguments(args, options)
 
     if not options.sysid:
-       print "# System id must be provided."
-       print "usage: system_listcrashesbysystem -i sys_id"
-       return
+        print "# System id must be provided."
+        print "usage: system_listcrashesbysystem -i sys_id"
+        return
 
     l_crashes=self.client.system.crash.listSystemCrashes(self.session, int(options.sysid))
     print
@@ -2160,7 +2160,7 @@ def do_system_listcrashesbysystem(self, args):
     print '---------------------'
 
     for cr in l_crashes:
-       print "| %s  | %s" % (cr['id'],cr['crash'])
+        print "| %s  | %s" % (cr['id'],cr['crash'])
 
 
 #######
@@ -2179,28 +2179,28 @@ def do_system_getcrashfiles(self, args):
     (args, options) = parse_arguments(args, options)
 
     if not options.crashid:
-       print "# Crash id must be provided."
-       print "usage: system_getcrashfiles -c crash_id [--dest_folder=/tmp/crash_files] [--verbose]"
-       return
+        print "# Crash id must be provided."
+        print "usage: system_getcrashfiles -c crash_id [--dest_folder=/tmp/crash_files] [--verbose]"
+        return
 
     if not options.verbose:
-       options.verbose="&>/dev/null"
+        options.verbose="&>/dev/null"
 
     # create date stamp
     date_stamp=datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
 
     if not options.dest_folder:
-       options.dest_folder="files_for_" + "crashid_" + options.crashid + "_" + date_stamp
+        options.dest_folder="files_for_" + "crashid_" + options.crashid + "_" + date_stamp
     else:
-       options.dest_folder+="_" + date_stamp
+        options.dest_folder+="_" + date_stamp
 
     # create folder
     os.system("mkdir %s" % options.dest_folder)
     l_files=self.client.system.crash.listSystemCrashFiles(self.session, int(options.crashid))
 
     for f in l_files:
-       file_url=self.client.system.crash.getCrashFileUrl(self.session, f['id'])
-       os.system("wget  --directory-prefix=%s --tries=1 --no-check-certificate %s %s" % (options.dest_folder,file_url,options.verbose))
+        file_url=self.client.system.crash.getCrashFileUrl(self.session, f['id'])
+        os.system("wget  --directory-prefix=%s --tries=1 --no-check-certificate %s %s" % (options.dest_folder,file_url,options.verbose))
 
     print
     print "# All files we downloaded to %s." % options.dest_folder
