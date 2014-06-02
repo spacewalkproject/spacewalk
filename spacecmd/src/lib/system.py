@@ -709,7 +709,7 @@ def do_system_installpackage(self, args):
                                                       action_time)
 
             scheduled += 1
-        except:
+        except xmlrpclib.Fault:
             logging.error('Failed to schedule %s' % self.get_system_name(system_id))
 
     logging.info('Scheduled %i system(s)' % scheduled)
@@ -806,7 +806,7 @@ def do_system_removepackage(self, args):
 
             logging.info('Action ID: %i' % action_id)
             scheduled += 1
-        except:
+        except xmlrpclib.Fault:
             logging.error('Failed to schedule %s' % system)
 
     logging.info('Scheduled %i system(s)' % scheduled)
@@ -1050,7 +1050,7 @@ def do_system_listconfigchannels(self, args):
         try:
             channels = self.client.system.config.listChannels(self.session,
                                                               system_id)
-        except:
+        except xmlrpclib.Fault:
             logging.warning('%s does not support configuration channels' % \
                             system)
             continue
@@ -1142,7 +1142,7 @@ def do_system_listconfigfiles(self, args):
                                                               system_id, 0)
             files += self.client.system.config.listFiles(self.session,\
                                                               system_id, 1)
-        except:
+        except xmlrpclib.Fault:
             logging.warning('%s does not support configuration channels' %\
                             system)
             continue
@@ -1287,7 +1287,7 @@ def do_system_addconfigfile(self, args, update_path=''):
             system_id, [ options.path ], localopt)
         if file_info:
             logging.debug("Found existing file_info %s" % file_info)
-    except:
+    except xmlrpclib.Fault:
         logging.debug("No existing file information found for %s" %\
             options.path)
 
