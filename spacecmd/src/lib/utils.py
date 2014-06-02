@@ -52,7 +52,7 @@ def parse_arguments(args, options = [], glob = True):
 
         return leftovers, opts
     except IndexError:
-        return []
+        return None, None
 
 
 # check if any named options were passed to the function, and if so,
