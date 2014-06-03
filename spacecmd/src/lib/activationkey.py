@@ -1400,9 +1400,10 @@ def check_activationkey( self, name ):
         return False
     return True
 
-def dump_activationkey(self, name, replacedict=None, excludes=[ "Universal Default:" ]):
+def dump_activationkey(self, name, replacedict=None, excludes=None):
     content = self.do_activationkey_details( name )
-
+    if not excludes:
+        excludes = ["Universal Default:"]
     content = get_normalized_text( content, replacedict=replacedict, excludes=excludes )
 
     return content
