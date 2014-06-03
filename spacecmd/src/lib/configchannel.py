@@ -35,6 +35,7 @@ from datetime import datetime
 from time import strftime
 from spacecmd.utils import *
 import base64
+import xmlrpclib
 
 def help_configchannel_list(self):
     print 'configchannel_list: List all configuration channels'
@@ -182,7 +183,7 @@ def do_configchannel_filedetails(self, args):
 
     try:
         revision = int(args[2])
-    except:
+    except ValueError:
         pass
 
     # the server return a null exception if an invalid file is passed
@@ -272,7 +273,7 @@ def do_configchannel_backup(self, args):
     try:
         if not os.path.isdir( outputpath_base ):
             os.makedirs( outputpath_base )
-    except:
+    except OSError:
         logging.error('Could not create output directory')
         return
 
@@ -284,7 +285,7 @@ def do_configchannel_backup(self, args):
 
     try:
         fh = open( outputpath_base + "/.metainfo", 'w' )
-    except:
+    except IOError:
         logging.error('Could not create metainfo file')
         return
 
@@ -526,7 +527,7 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
             if revision_input:
                 try:
                     options.revision = int(revision_input)
-                except:
+                except ValueError:
                     logging.warning('The revision must be an integer')
 
             if not options.directory:
@@ -705,7 +706,7 @@ def do_configchannel_addfile(self, args, update_path=''):
                 self.client.configchannel.lookupFileInfo(self.session,
                                                          options.channel,
                                                          [ options.path ])
-        except:
+        except xmlrpclib.Fault:
             logging.debug("No existing file information found for %s" %\
                 options.path)
             file_info = None
@@ -888,7 +889,7 @@ def export_configchannel_getdetails(self, channel):
                 channel, [ p ])
             if len(pinfo):
                 fileinfo.append(pinfo[0])
-        except:
+        except xmlrpclib.Fault:
             logging.error("Failed to get details for file %s from %s"
                 % (p, channel))
     # Now we strip the datetime fields from the Info structs, as they
