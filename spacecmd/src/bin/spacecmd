@@ -24,7 +24,7 @@
 import logging, os, re, sys, xmlrpclib, codecs, locale
 from ConfigParser import SafeConfigParser, NoOptionError
 from optparse import Option, OptionParser
-    
+
 _INTRO = '''Welcome to spacecmd, a command-line interface to Spacewalk.
 
 Type: 'help' for a list of commands
@@ -104,8 +104,8 @@ if __name__ == '__main__':
             if not os.path.isdir(conf_dir):
                 logging.debug('Creating %s' % conf_dir)
                 os.mkdir(conf_dir, 0700)
-           
-            # create a template configuration file 
+
+            # create a template configuration file
             logging.debug('Creating configuration file: %s' % user_conf_file)
             handle = open(user_conf_file, 'w')
             handle.write('[spacecmd]\n')
