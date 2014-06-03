@@ -29,6 +29,7 @@ from spacecmd.utils import *
 
 import sys
 import logging
+import xmlrpclib
 
 
 def help_api(self):
@@ -94,7 +95,7 @@ def do_api(self, args):
 
         output == sys.stdout or output.close()
 
-    except:
+    except xmlrpclib.Fault:
         output == sys.stdout or output.close()
 
 
