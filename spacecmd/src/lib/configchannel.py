@@ -32,7 +32,6 @@
 
 from optparse import Option
 from datetime import datetime
-from time import strftime
 from spacecmd.utils import *
 import base64
 import xmlrpclib
