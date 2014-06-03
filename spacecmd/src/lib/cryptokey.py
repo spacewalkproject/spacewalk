@@ -20,6 +20,9 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
 from optparse import Option
 from spacecmd.utils import *
 
