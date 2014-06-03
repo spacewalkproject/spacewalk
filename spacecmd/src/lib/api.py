@@ -18,6 +18,9 @@
 # Copyright 2011 Satoru SATOH <ssato@redhat.com>
 #
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
 from optparse import Option
 from spacecmd.utils import *
 
