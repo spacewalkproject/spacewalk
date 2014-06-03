@@ -82,7 +82,8 @@ def do_custominfo_deletekey(self, args):
     # Print the keys prior to the confirmation
     print '\n'.join(sorted(keys))
 
-    if not self.user_confirm('Delete these keys [y/N]:'): return
+    if not self.user_confirm('Delete these keys [y/N]:'):
+        return
 
     for key in keys:
         self.client.system.custominfo.deleteKey(self.session, key)
@@ -137,7 +138,8 @@ def do_custominfo_details(self, args):
             if k.get('label') == key:
                 details = k
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Label:        %s' % details.get('label')
