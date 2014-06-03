@@ -263,6 +263,15 @@ public class BaseHandler implements XmlRpcInvocationHandler {
                                       sessionKey);
         }
 
+        if (user.getReadOnlyBool()) {
+            StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+            String callerName = stackTraceElements[2].getMethodName();
+            if (!callerName.matches("^(checkAuthToken|login|logout|list|get|is).*$")) {
+                throw new SecurityException("The " + callerName +
+                        " API is not available to read-only API users");
+            }
+        }
+
         //Return the logged in user
         return user;
     }

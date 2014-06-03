@@ -101,7 +101,7 @@ public class AuthHandler extends BaseHandler {
         //Log in the user (handles authentication and active/disabled logic)
         User user = null;
         try {
-            user = UserManager.loginUser(username, password);
+            user = UserManager.loginReadOnlyUser(username, password);
         }
         catch (LoginException e) {
             // Convert to fault exception
