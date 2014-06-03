@@ -22,7 +22,7 @@
 """ spacecmd - a command line interface to Spacewalk """
 
 import logging, os, re, sys, xmlrpclib, codecs, locale
-from ConfigParser import SafeConfigParser, NoOptionError
+from ConfigParser import SafeConfigParser
 from optparse import Option, OptionParser
 
 _INTRO = '''Welcome to spacecmd, a command-line interface to Spacewalk.
