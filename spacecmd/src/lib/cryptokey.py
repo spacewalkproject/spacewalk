@@ -174,7 +174,8 @@ def do_cryptokey_details(self, args):
             logging.warning('%s is not a valid crypto key' % key)
             return
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Description: %s' % details.get('description')
