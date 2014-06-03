@@ -2165,7 +2165,7 @@ order by completed desc, picked_up desc, created desc, event_id desc
 
 <mode name="system_events_history_count_pending">
   <query params="sid">
-select count(action_id)
+select count(action_id) as count
   from rhnServerAction
  where server_id = :sid
    and status = 0
