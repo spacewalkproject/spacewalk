@@ -33,7 +33,7 @@ def help_custominfo_createkey(self):
     print 'usage: custominfo_createkey [NAME] [DESCRIPTION]'
 
 def do_custominfo_createkey(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) > 0:
         key = args[0]
@@ -64,7 +64,7 @@ def complete_custominfo_deletekey(self, text, line, beg, end):
     return tab_completer(self.do_custominfo_listkeys('', True), text)
 
 def do_custominfo_deletekey(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_custominfo_deletekey()
@@ -113,7 +113,7 @@ def complete_custominfo_details(self, text, line, beg, end):
     return tab_completer(self.do_custominfo_listkeys('', True), text)
 
 def do_custominfo_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_custominfo_details()
@@ -152,7 +152,7 @@ def help_custominfo_updatekey(self):
     print 'usage: custominfo_updatekey [NAME] [DESCRIPTION]'
 
 def do_custominfo_updatekey(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) > 0:
         key = args[0]
