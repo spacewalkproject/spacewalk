@@ -27,6 +27,9 @@
 # unused argument
 # pylint: disable=W0613
 
+# invalid function name
+# pylint: disable=C0103
+
 from optparse import Option
 from datetime import datetime
 from time import strftime
