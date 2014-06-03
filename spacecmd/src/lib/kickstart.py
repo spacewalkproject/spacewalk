@@ -179,13 +179,12 @@ def do_kickstart_delete(self, args):
 
 def help_kickstart_import(self):
     print 'kickstart_import: Import a Kickstart profile from a file'
-    print '''usage: kickstart_import PROFILE [options]
+    print '''usage: kickstart_import [options]
 
 options:
   -f FILE
   -n NAME
   -d DISTRIBUTION
-  -p ROOT_PASSWORD
   -v VIRT_TYPE ['none', 'para_host', 'qemu', 'xenfv', 'xenpv']'''
 
 def do_kickstart_import(self, args):
@@ -195,16 +194,9 @@ def kickstart_import_file(self, raw, args):
     options = [ Option('-n', '--name', action='store'),
                 Option('-d', '--distribution', action='store'),
                 Option('-v', '--virt-type', action='store'),
-                Option('-p', '--root-password', action='store'),
                 Option('-f', '--file', action='store') ]
 
     (args, options) = parse_arguments(args, options)
-
-    for a in args:
-        if re.search("\.json$", a):
-            logging.warning("Argument %s looks like a JSON format " % a +\
-                "filename, use kickstart_importjson to import JSON files exported by " +\
-                "kickstart_export")
 
     if is_interactive(options):
         options.name = prompt_user('Name:', noblank = True)
@@ -269,13 +261,12 @@ def kickstart_import_file(self, raw, args):
 
 def help_kickstart_import_raw(self):
     print 'kickstart_import_raw: Import a raw Kickstart or autoyast profile from a file'
-    print '''usage: kickstart_import_raw PROFILE [options]
+    print '''usage: kickstart_import_raw [options]
 
 options:
   -f FILE
   -n NAME
   -d DISTRIBUTION
-  -p ROOT_PASSWORD
   -v VIRT_TYPE ['none', 'para_host', 'qemu', 'xenfv', 'xenpv']'''
 
 def do_kickstart_import_raw(self, args):
