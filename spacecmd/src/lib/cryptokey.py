@@ -100,7 +100,7 @@ def complete_cryptokey_delete(self, text, line, beg, end):
                                   text)
 
 def do_cryptokey_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_cryptokey_delete()
@@ -148,7 +148,7 @@ def complete_cryptokey_details(self, text, line, beg, end):
     return tab_completer(self.do_cryptokey_list('', True), text)
 
 def do_cryptokey_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_cryptokey_details()
