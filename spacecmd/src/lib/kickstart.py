@@ -189,6 +189,9 @@ options:
   -v VIRT_TYPE ['none', 'para_host', 'qemu', 'xenfv', 'xenpv']'''
 
 def do_kickstart_import(self, args):
+    self.kickstart_import_file(raw=False, args=args)
+
+def kickstart_import_file(self, raw, args):
     options = [ Option('-n', '--name', action='store'),
                 Option('-d', '--distribution', action='store'),
                 Option('-v', '--virt-type', action='store'),
@@ -245,15 +248,38 @@ def do_kickstart_import(self, args):
     # read the contents of the Kickstart file
     options.contents = read_file(options.file)
 
-    # use the default server
-    host = ''
+    if raw:
+        self.client.kickstart.importRawFile(self.session,
+                                         options.name,
+                                         options.virt_type,
+                                         options.distribution,
+                                         options.contents)
+    else:
+        # use the default server
+        host = ''
 
-    self.client.kickstart.importFile(self.session,
-                                     options.name,
-                                     options.virt_type,
-                                     options.distribution,
-                                     host,
-                                     options.contents)
+        self.client.kickstart.importFile(self.session,
+                                         options.name,
+                                         options.virt_type,
+                                         options.distribution,
+                                         host,
+                                         options.contents)
+
+####################
+
+def help_kickstart_import_raw(self):
+    print 'kickstart_import_raw: Import a raw Kickstart or autoyast profile from a file'
+    print '''usage: kickstart_import_raw PROFILE [options]
+
+options:
+  -f FILE
+  -n NAME
+  -d DISTRIBUTION
+  -p ROOT_PASSWORD
+  -v VIRT_TYPE ['none', 'para_host', 'qemu', 'xenfv', 'xenpv']'''
+
+def do_kickstart_import_raw(self, args):
+    self.kickstart_import_file(raw=True, args=args)
 
 ####################
 
