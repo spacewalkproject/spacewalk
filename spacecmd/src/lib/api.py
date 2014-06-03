@@ -93,10 +93,12 @@ def do_api(self, args):
         else:
             json_dump(res, output, indent=2)
 
-        output == sys.stdout or output.close()
+        if (output != sys.stdout):
+            output.close()
 
     except xmlrpclib.Fault:
-        output == sys.stdout or output.close()
+        if (output != sys.stdout):
+            output.close()
 
 
 # vim:ts=4:expandtab:
