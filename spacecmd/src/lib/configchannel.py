@@ -1228,7 +1228,9 @@ def dump_configchannel_filedetails(self, name, filename):
     content = self.do_configchannel_filedetails( name +" "+ filename )
     return content
 
-def dump_configchannel(self, name, replacedict=None, excludes=[ "Revision:", "Created:", "Modified:" ]):
+def dump_configchannel(self, name, replacedict=None, excludes=None):
+    if not excludes:
+        excludes = [ "Revision:", "Created:", "Modified:" ]
     content = self.do_configchannel_details( name )
 
     for filename in self.do_configchannel_listfiles(name, True):
