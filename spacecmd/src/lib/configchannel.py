@@ -351,7 +351,8 @@ def do_configchannel_details(self, args):
         files = self.client.configchannel.listFiles(self.session,
                                                     channel)
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         result.append( 'Label:       %s' % details.get('label') )
@@ -388,8 +389,10 @@ def do_configchannel_create(self, args):
         options.label = prompt_user('Label:')
         options.description = prompt_user('Description:')
 
-        if options.label == '': options.label = options.name
-        if options.description == '': options.description = options.name
+        if options.label == '':
+            options.label = options.name
+        if options.description == '':
+            options.description = options.name
     else:
         if not options.name:
             logging.error('A name is required')
@@ -467,8 +470,10 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
                     if info.get('type') == 'symlink':
                         options.symlink = True
 
-        if not options.owner: options.owner = 'root'
-        if not options.group: options.group = 'root'
+        if not options.owner:
+            options.owner = 'root'
+        if not options.group:
+            options.group = 'root'
 
         # if this is a new file, ask if it's a symlink
         if not options.symlink:
@@ -579,8 +584,10 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
         print 'Target Path:     %s' % file_info['target_path']
         print 'SELinux Context: %s' % file_info['selinux_ctx']
     else:
-        if not options.owner: options.owner = 'root'
-        if not options.group: options.group = 'root'
+        if not options.owner:
+            options.owner = 'root'
+        if not options.group:
+            options.group = 'root'
         if not options.mode:
             if options.directory:
                 options.mode = '0755'
@@ -1205,7 +1212,8 @@ def do_configchannel_clone(self, args):
 # configchannel helper
 
 def is_configchannel( self, name ):
-    if not name: return
+    if not name:
+        return
     return name in self.do_configchannel_list( name, True )
 
 def check_configchannel( self, name ):
@@ -1240,7 +1248,8 @@ def help_configchannel_diff(self):
 
 def complete_configchannel_diff(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
     args = len(parts)
 
     if args == 2:
@@ -1259,7 +1268,8 @@ def do_configchannel_diff(self, args):
         return
 
     source_channel = args[0]
-    if not self.check_configchannel( source_channel ): return
+    if not self.check_configchannel( source_channel ):
+        return
 
     target_channel = None
     if len(args) == 2:
@@ -1267,7 +1277,8 @@ def do_configchannel_diff(self, args):
     elif hasattr( self, "do_configchannel_getcorresponding" ):
         # can a corresponding channel name be found automatically?
         target_channel=self.do_configchannel_getcorresponding( source_channel )
-    if not self.check_configchannel( target_channel ): return
+    if not self.check_configchannel( target_channel ):
+        return
 
     source_replacedict, target_replacedict = get_string_diff_dicts( source_channel, target_channel )
 
@@ -1286,7 +1297,8 @@ def help_configchannel_sync(self):
 
 def complete_configchannel_sync(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
     args = len(parts)
 
     if args == 2:
@@ -1305,7 +1317,8 @@ def do_configchannel_sync(self, args, doreturn = False):
         return
 
     source_channel = args[0]
-    if not self.check_configchannel( source_channel ): return
+    if not self.check_configchannel( source_channel ):
+        return
 
     target_channel = None
     if len(args) == 2:
@@ -1313,7 +1326,8 @@ def do_configchannel_sync(self, args, doreturn = False):
     elif hasattr( self, "do_configchannel_getcorresponding" ):
         # can a corresponding channel name be found automatically?
         target_channel=self.do_configchannel_getcorresponding( source_channel)
-    if not self.check_configchannel( target_channel ): return
+    if not self.check_configchannel( target_channel ):
+        return
 
     logging.info( "syncing files from configchannel "+source_channel+" to "+target_channel )
 
@@ -1349,7 +1363,8 @@ def do_configchannel_sync(self, args, doreturn = False):
         logging.info( "nothing to do" )
         return
 
-    if not self.user_confirm('perform synchronisation [y/N]:'): return
+    if not self.user_confirm('perform synchronisation [y/N]:'):
+        return
 
     source_data_list = self.client.configchannel.lookupFileInfo(\
                                       self.session, source_channel,
