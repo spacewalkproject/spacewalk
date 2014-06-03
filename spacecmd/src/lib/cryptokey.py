@@ -26,6 +26,7 @@
 # unused argument
 # pylint: disable=W0613
 
+import xmlrpclib
 from optparse import Option
 from spacecmd.utils import *
 
@@ -169,7 +170,7 @@ def do_cryptokey_details(self, args):
         try:
             details = self.client.kickstart.keys.getDetails(self.session,
                                                             key)
-        except:
+        except xmlrpclib.Fault:
             logging.warning('%s is not a valid crypto key' % key)
             return
 
