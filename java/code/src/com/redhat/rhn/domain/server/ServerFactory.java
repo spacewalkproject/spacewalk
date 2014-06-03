@@ -298,12 +298,17 @@ public class ServerFactory extends HibernateFactory {
     public static List<Server> lookupByIds(List<Long> ids) {
         Session session = HibernateFactory.getSession();
         Query query = session.getNamedQuery("Server.findByIds");
+        List<Server> results = new LinkedList<Server>();
+
+        if (ids.size() == 0) {
+            return results;
+        }
+
         if (ids.size() < 1000) {
             query.setParameterList("serverIds", ids);
             return query.list();
         }
 
-        List<Server> results = new LinkedList<Server>();
         List<Long> blockOfIds = new LinkedList<Long>();
         for (Long sid : ids) {
             blockOfIds.add(sid);
