@@ -905,7 +905,7 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
         ChannelProduct product = new ChannelProduct();
         product.setProduct("proxy" + TestUtils.randomString());
         product.setVersion("1.1");
-        product.setBeta(false);
+        product.setMyBeta(false);
         proxyChan.setProduct(product);
         proxyChan.setChannelFamilies(chanFamilies);
         proxyChan.setParentChannel(baseChan);
