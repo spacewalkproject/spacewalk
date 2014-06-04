@@ -341,6 +341,14 @@ insert into rhnServerPackageArchCompat
 
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('armv6l-debian-linux'), LOOKUP_PACKAGE_ARCH('armhf-deb'), 0);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('armv6l-debian-linux'), LOOKUP_PACKAGE_ARCH('all-deb'), 1000);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('mips-debian-linux'), LOOKUP_PACKAGE_ARCH('mips-deb'), 0);
 
 insert into rhnServerPackageArchCompat

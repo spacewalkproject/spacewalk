@@ -130,6 +130,9 @@ insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('arm-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-arm-deb'));
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('armv6l-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-arm-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('mips-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-mips-deb'));
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
