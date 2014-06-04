@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.86
+Version: 2.2.87
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jun 04 2014 Stephen Herr <sherr@redhat.com> 2.2.87-1
+- Hibernate does not like overloaded setters
+
 * Tue Jun 03 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.86-1
 - lookupByIds(): fix handling of a minimal case
 - System Event History page: fix link to pending events on Oracle databases
