@@ -129,7 +129,8 @@ class SpacewalkShell(Cmd):
             # disable no-member error message
             # pylint: disable=E1101
             self.do_login('')
-            if self.session == '': return ''
+            if self.session == '':
+                return ''
 
         parts = shlex.split(line)
 
