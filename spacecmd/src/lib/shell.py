@@ -157,7 +157,7 @@ class SpacewalkShell(Cmd):
             if line:
                 history_match = True
             else:
-                logging.warning('%s: event not found' % command)
+                logging.warning('%s: event not found', command)
                 return ''
 
         # attempt to find a numbered history item
@@ -196,7 +196,7 @@ class SpacewalkShell(Cmd):
             print line
             return line
         else:
-            logging.warning('%s: event not found' % command)
+            logging.warning('%s: event not found', command)
             return ''
 
 
