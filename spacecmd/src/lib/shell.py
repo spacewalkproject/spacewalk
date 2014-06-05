@@ -61,6 +61,8 @@ class SpacewalkShell(Cmd):
     emptyline = lambda self: None
 
     def __init__(self, options, conf_dir, config_parser):
+        Cmd.__init__(self)
+
         self.session = ''
         self.current_user = ''
         self.server = ''
