@@ -180,7 +180,7 @@ SELECT  S.id AS ID,
    AND  P.name_id = PN.id
    AND  P.evr_id = PE.id
    AND  P.package_arch_id = PA.id
-GROUP BY s.id, pn.id, pa.id
+GROUP BY s.id, pn.id, pa.id, s.name, pn.name, pa.label
 ORDER BY UPPER(S.name), S.id, UPPER(PN.name), UPPER(PA.label)
   </elaborator>
 </mode>
