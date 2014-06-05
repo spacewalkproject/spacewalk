@@ -56,7 +56,8 @@ def do_package_details(self, args):
     add_separator = False
 
     for package in packages:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         package_id = self.get_package_id(package)
@@ -160,13 +161,15 @@ def do_package_remove(self, args):
 
     to_remove = filter_results(self.get_package_names(True), packages)
 
-    if not len(to_remove): return
+    if not len(to_remove):
+        return
 
     print 'Packages'
     print '--------'
     print '\n'.join(sorted(to_remove))
 
-    if not self.user_confirm('Remove these packages [y/N]:'): return
+    if not self.user_confirm('Remove these packages [y/N]:'):
+        return
 
     for package in to_remove:
         package_id = self.get_package_id(package)
@@ -215,7 +218,8 @@ def do_package_removeorphans(self, args):
     print '--------'
     print '\n'.join(sorted(build_package_names(packages)))
 
-    if not self.user_confirm('Remove these packages [y/N]:'): return
+    if not self.user_confirm('Remove these packages [y/N]:'):
+        return
 
     for package in packages:
         try:
@@ -251,7 +255,8 @@ def do_package_listinstalledsystems(self, args):
     add_separator = False
 
     for package in packages:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         package_id = self.get_package_id(package)
@@ -292,7 +297,8 @@ def do_package_listerrata(self, args):
     add_separator = False
 
     for package in packages:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         package_id = self.get_package_id(package)
@@ -330,7 +336,8 @@ def do_package_listdependencies(self, args):
     add_separator = False
 
     for package in packages:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         package_id = self.get_package_id(package)
