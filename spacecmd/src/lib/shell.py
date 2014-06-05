@@ -126,6 +126,8 @@ class SpacewalkShell(Cmd):
 
         # login before attempting to run a command
         if not self.session:
+            # disable no-member error message
+            # pylint: disable=E1101
             self.do_login('')
             if self.session == '': return ''
 
@@ -145,6 +147,8 @@ class SpacewalkShell(Cmd):
             return line
 
         # remove the '!*' line from the history
+        # disable no-member error message
+        # pylint: disable=E1101
         self.remove_last_history_item()
 
         history_match = False
