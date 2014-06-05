@@ -451,7 +451,8 @@ def do_kickstart_details(self, args):
         add_separator = False
 
         for s in scripts:
-            if add_separator: result.append( self.SEPARATOR )
+            if add_separator:
+                result.append( self.SEPARATOR )
             add_separator = True
 
             result.append( 'Type:        %s' % s.get('script_type') )
@@ -728,7 +729,8 @@ def do_kickstart_removeactivationkeys(self, args):
     profile = args[0]
     keys = args[1:]
 
-    if not self.user_confirm('Remove these keys [y/N]:'): return
+    if not self.user_confirm('Remove these keys [y/N]:'):
+        return
 
     for key in keys:
         self.client.kickstart.profile.keys.removeActivationKey(self.session,
@@ -935,7 +937,8 @@ def do_kickstart_setpartitions(self, args):
     (partitions, _ignore) = editor(template=template, delete=True)
 
     print partitions
-    if not self.user_confirm(): return
+    if not self.user_confirm():
+        return
 
     lines = partitions.split('\n')
 
@@ -1642,7 +1645,8 @@ def do_kickstart_listscripts(self, args):
     add_separator = False
 
     for script in scripts:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'ID:          %i' % script.get('id')
@@ -1702,7 +1706,8 @@ def do_kickstart_addscript(self, args):
             (options.contents, _ignore) = editor(delete=True)
 
         # check user input
-        if options.interpreter == '': options.interpreter = '/bin/bash'
+        if options.interpreter == '':
+            options.interpreter = '/bin/bash'
 
         if re.match('n', options.chroot, re.I):
             options.chroot = False
@@ -1753,7 +1758,8 @@ def do_kickstart_addscript(self, args):
     print 'Contents:'
     print options.contents
 
-    if not self.user_confirm(): return
+    if not self.user_confirm():
+        return
 
     self.client.kickstart.profile.addScript(self.session,
                                             options.profile,
@@ -1806,7 +1812,8 @@ def do_kickstart_removescript(self, args):
             except ValueError:
                 logging.error('Invalid script ID')
 
-    if not self.user_confirm('Remove this script [y/N]:'): return
+    if not self.user_confirm('Remove this script [y/N]:'):
+        return
 
     self.client.kickstart.profile.removeScript(self.session,
                                                profile,
@@ -2193,7 +2200,8 @@ def import_kickstart_fromdetails(self, ksdetails):
 # kickstart helper
 
 def is_kickstart( self, name ):
-    if not name: return
+    if not name:
+        return
     return name in self.do_kickstart_list( name, True )
 
 def check_kickstart( self, name ):
@@ -2221,7 +2229,8 @@ def help_kickstart_diff(self):
 
 def complete_kickstart_diff(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
     args = len(parts)
 
     if args == 2:
@@ -2240,7 +2249,8 @@ def do_kickstart_diff(self, args):
         return
 
     source_channel = args[0]
-    if not self.check_kickstart( source_channel ): return
+    if not self.check_kickstart( source_channel ):
+        return
 
     target_channel = None
     if len(args) == 2:
@@ -2248,7 +2258,8 @@ def do_kickstart_diff(self, args):
     elif hasattr( self, "do_kickstart_getcorresponding" ):
         # can a corresponding channel name be found automatically?
         target_channel=self.do_kickstart_getcorresponding( source_channel)
-    if not self.check_kickstart( target_channel ): return
+    if not self.check_kickstart( target_channel ):
+        return
 
     source_replacedict, target_replacedict = get_string_diff_dicts( source_channel, target_channel )
 
