@@ -58,7 +58,7 @@ def complete_repo_details(self, text, line, beg, end):
     return tab_completer(self.do_repo_list('', True), text)
 
 def do_repo_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_repo_details()
@@ -90,7 +90,7 @@ def complete_repo_listfilters(self, text, line, beg, end):
     return tab_completer(self.do_repo_list('', True), text)
 
 def do_repo_listfilters(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_repo_listfilters()
@@ -123,8 +123,6 @@ def do_repo_addfilters(self, args):
 
     repo = args[0]
 
-    filters = []
-
     for arg in args[1:]:
         flag = arg[0]
         filter = arg[1:]
@@ -156,8 +154,6 @@ def do_repo_removefilters(self, args):
         return
 
     repo = args[0]
-
-    filters = []
 
     for arg in args[1:]:
         flag = arg[0]
@@ -215,7 +211,7 @@ def complete_repo_clearfilters(self, text, line, beg, end):
     return tab_completer(self.do_repo_clear('', True), text)
 
 def do_repo_clearfilters(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_repo_clearfilters()
@@ -234,7 +230,7 @@ def complete_repo_delete(self, text, line, beg, end):
     return tab_completer(self.do_repo_list('', True), text)
 
 def do_repo_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_repo_delete()
@@ -299,7 +295,7 @@ def complete_repo_rename(self, text, line, beg, end):
                                   text)
 
 def do_repo_rename(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_repo_rename()
@@ -328,7 +324,7 @@ def complete_repo_updateurl(self, text, line, beg, end):
                                   text)
 
 def do_repo_updateurl(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_repo_updateurl()
