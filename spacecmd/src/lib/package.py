@@ -30,6 +30,7 @@
 # pylint: disable=C0103
 
 from spacecmd.utils import *
+import xmlrpclib
 
 def help_package_details(self):
     print 'package_details: Show the details of a software package'
@@ -176,7 +177,7 @@ def do_package_remove(self, args):
 
         try:
             self.client.packages.removePackage(self.session, package_id)
-        except:
+        except xmlrpclib.Fault:
             logging.error('Failed to remove package ID %i' % package_id)
 
     # regenerate the package cache after removing these packages
@@ -224,7 +225,7 @@ def do_package_removeorphans(self, args):
     for package in packages:
         try:
             self.client.packages.removePackage(self.session, package.get('id'))
-        except:
+        except xmlrpclib.Fault:
             logging.error('Failed to remove package ID %i' % package.get('id'))
 
 ####################
