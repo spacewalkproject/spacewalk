@@ -395,7 +395,8 @@ def print_errata_list(errata):
                             erratum.get('advisory_name'))
             continue
 
-    if not len(errata): return
+    if not len(errata):
+        return
 
     if len(rhsa):
         print 'Security Errata'
@@ -482,7 +483,8 @@ def config_channel_order(all_channels=None, new_channels=None):
 
 
 def list_locales():
-    if not os.path.isdir('/usr/share/zoneinfo'): return []
+    if not os.path.isdir('/usr/share/zoneinfo'):
+        return []
 
     zones = []
 
