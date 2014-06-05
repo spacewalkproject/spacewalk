@@ -226,7 +226,8 @@ def do_org_removetrust(self, args):
     else:
         print 'None'
 
-    if not self.user_confirm('Remove this trust [y/N]:'): return
+    if not self.user_confirm('Remove this trust [y/N]:'):
+        return
 
     self.client.org.trusts.removeTrust(self.session,
                                        your_org_id,
@@ -407,7 +408,8 @@ def help_org_setsoftwareentitlements(self):
 
 def complete_org_setsoftwareentitlements(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_org_list('', True), text)
@@ -472,7 +474,8 @@ def help_org_setsystementitlements(self):
 
 def complete_org_setsystementitlements(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_org_list('', True), text)
