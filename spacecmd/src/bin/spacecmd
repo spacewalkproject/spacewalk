@@ -35,6 +35,9 @@ Type: 'help' for a list of commands
 _SYSTEM_CONF_FILE = '/etc/spacecmd.conf'
 
 if __name__ == '__main__':
+    # disable no-member error message
+    # pylint: disable=E1101
+
     if not sys.stdout.isatty():
         sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
 
