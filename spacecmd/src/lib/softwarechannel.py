@@ -1448,7 +1448,8 @@ def check_softwarechannel( self, name ):
         return False
     return True
 
-def dump_softwarechannel(self, name, replacedict=None, excludes=[]):
+def dump_softwarechannel(self, name, replacedict=None, excludes=None):
+    excludes = excludes or []
     content = self.do_softwarechannel_listallpackages( name, doreturn=True )
 
     content = get_normalized_text( content, replacedict=replacedict, excludes=excludes )
