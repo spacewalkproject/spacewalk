@@ -48,9 +48,8 @@ except ImportError:
 
 __EDITORS = ['vim', 'vi', 'nano', 'emacs']
 
-def parse_arguments(args, options = None, glob=None):
+def parse_arguments(args, options = None, glob=True):
     options = options or []
-    glob = glob or True
     try:
         parts = shlex.split(args)
 
