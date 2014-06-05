@@ -39,7 +39,7 @@ def complete_package_details(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
 
 def do_package_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_package_details()
@@ -151,7 +151,7 @@ def complete_package_remove(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
 
 def do_package_remove(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_package_remove()
@@ -238,7 +238,7 @@ def complete_package_listinstalledsystems(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
 
 def do_package_listinstalledsystems(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_package_listinstalledsystems()
@@ -280,7 +280,7 @@ def complete_package_listerrata(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
 
 def do_package_listerrata(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_package_listerrata()
@@ -319,7 +319,7 @@ def help_package_listdependencies(self):
     print 'usage: package_listdependencies PACKAGE'
 
 def do_package_listdependencies(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_package_listdependencies()
