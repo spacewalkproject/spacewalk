@@ -117,7 +117,8 @@ def do_errata_apply(self, args, only_systems=[]):
     print '--------------     -------'
     print '\n'.join(sorted(summary))
 
-    if not self.user_confirm('Apply these errata [y/N]:'): return
+    if not self.user_confirm('Apply these errata [y/N]:'):
+        return
 
     # if the API supports it, try to schedule multiple systems for one erratum
     # in order to reduce the number of actions scheduled
@@ -204,7 +205,8 @@ def do_errata_listaffectedsystems(self, args):
         systems = self.client.errata.listAffectedSystems(self.session, erratum)
 
         if len(systems):
-            if add_separator: print self.SEPARATOR
+            if add_separator:
+                print self.SEPARATOR
             add_separator = True
 
             print '%s:' % erratum
@@ -236,7 +238,8 @@ def do_errata_listcves(self, args):
 
         if len(cves):
             if len(errata_list) > 1:
-                if add_separator: print self.SEPARATOR
+                if add_separator:
+                    print self.SEPARATOR
                 add_separator = True
 
                 print '%s:' % erratum
@@ -267,7 +270,8 @@ def do_errata_findbycve(self, args):
 
     # Then iterate over the requested CVEs and dump the errata which match
     for c in cve_list:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print "%s:" %c
@@ -314,7 +318,8 @@ def do_errata_details(self, args):
             logging.warning('%s is not a valid erratum' % erratum)
             continue
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Name:       %s' % erratum
@@ -392,7 +397,8 @@ def do_errata_delete(self, args):
         channels = self.client.errata.applicableToChannels(self.session, erratum)
         print '%s    %s' % (erratum.ljust(20), str(len(channels)).rjust(3))
 
-    if not self.user_confirm('Delete these errata [y/N]:'): return
+    if not self.user_confirm('Delete these errata [y/N]:'):
+        return
 
     for erratum in errata:
         self.client.errata.delete(self.session, erratum)
@@ -433,7 +439,8 @@ def do_errata_publish(self, args):
 
     print '\n'.join(sorted(errata))
 
-    if not self.user_confirm('Publish these errata [y/N]:'): return
+    if not self.user_confirm('Publish these errata [y/N]:'):
+        return
 
     for erratum in errata:
         self.client.errata.publish(self.session, erratum, channels)
@@ -482,7 +489,8 @@ def do_errata_search(self, args, doreturn = False):
                                     'advisory_synopsis' : match['advisory_synopsis'],
                                     'date'              : match['date'] } )
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(errata):
