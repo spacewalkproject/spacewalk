@@ -32,6 +32,7 @@
 import base64
 from operator import itemgetter
 from spacecmd.utils import *
+import xmlrpclib
 
 def print_schedule_summary(self, type, args):
     (args, _options) = parse_arguments(args)
@@ -126,7 +127,7 @@ def complete_schedule_cancel(self, text, line, beg, end):
     try:
         actions = self.client.schedule.listInProgressActions(self.session)
         return tab_completer([ str(a.get('id')) for a in actions ], text)
-    except:
+    except xmlrpclib.Fault:
         return []
 
 def do_schedule_cancel(self, args):
@@ -229,7 +230,7 @@ def do_schedule_details(self, args):
 
     try:
         action_id = int(args[0])
-    except:
+    except ValueError:
         logging.warning('%s is not a valid ID' % str(a))
         return
 
@@ -301,7 +302,7 @@ def do_schedule_getoutput(self, args):
 
     try:
         action_id = int(args[0])
-    except:
+    except ValueError:
         logging.error('%s is not a valid action ID' % str(args[0]))
         return
 
@@ -309,7 +310,7 @@ def do_schedule_getoutput(self, args):
     try:
         script_results = \
             self.client.system.getScriptResults(self.session, action_id)
-    except:
+    except xmlrpclib.Fault:
         pass
 
     # scripts have a different data structure than other actions
