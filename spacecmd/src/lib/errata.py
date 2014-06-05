@@ -66,8 +66,9 @@ def help_errata_apply(self):
 def complete_errata_apply(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
-def do_errata_apply(self, args, only_systems=[]):
+def do_errata_apply(self, args, only_systems=None):
     (args, _options) = parse_arguments(args)
+    only_systems = only_systems or []
 
     if not len(args):
         self.help_errata_apply()
