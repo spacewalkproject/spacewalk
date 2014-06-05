@@ -714,7 +714,8 @@ def get_system_id(self, name):
     try:
         # check if we were passed a system instead of a name
         id = int(name)
-        if id in self.all_systems: return id
+        if id in self.all_systems:
+            return id
     except ValueError:
         pass
 
@@ -840,7 +841,8 @@ def list_child_channels(self, system=None, parent=None, subscribed=False):
 
     if system:
         system_id = self.get_system_id(system)
-        if not system_id: return
+        if not system_id:
+            return
 
         if subscribed:
             channels = \
