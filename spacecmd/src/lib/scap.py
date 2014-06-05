@@ -55,7 +55,8 @@ def do_scap_listxccdfscans(self, args):
     add_separator = False
 
     for system in sorted(systems):
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -63,7 +64,8 @@ def do_scap_listxccdfscans(self, args):
             print
 
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         scan_list = self.client.system.scap.listXccdfScans(self.session, system_id)
 
@@ -86,7 +88,8 @@ def do_scap_getxccdfscanruleresults(self, args):
     add_separator = False
 
     for xid in args:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(args) > 1:
@@ -115,7 +118,8 @@ def do_scap_getxccdfscandetails(self, args):
     add_separator = False
 
     for xid in args:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(args) > 1:
@@ -164,7 +168,8 @@ def do_scap_schedulexccdfscan(self, args):
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         self.client.system.scap.scheduleXccdfScan(self.session, system_id, path, param)
 
