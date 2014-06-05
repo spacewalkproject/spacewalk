@@ -63,7 +63,7 @@ def complete_ssm_add(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_ssm_add(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_ssm_add()
@@ -105,7 +105,7 @@ def complete_ssm_intersect(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_ssm_intersect(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_ssm_intersect()
@@ -145,7 +145,7 @@ def complete_ssm_remove(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_ssm_remove(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_ssm_remove()
