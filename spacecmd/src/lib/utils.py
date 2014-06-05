@@ -48,7 +48,9 @@ except ImportError:
 
 __EDITORS = ['vim', 'vi', 'nano', 'emacs']
 
-def parse_arguments(args, options = [], glob = True):
+def parse_arguments(args, options = None, glob=None):
+    options = options or []
+    glob = glob or True
     try:
         parts = shlex.split(args)
 
@@ -421,7 +423,9 @@ def print_errata_list(errata):
             print_errata_summary(erratum)
 
 
-def config_channel_order(all_channels=[], new_channels=[]):
+def config_channel_order(all_channels=None, new_channels=None):
+    all_channels = all_channels or []
+    new_channels = new_channels or []
     while True:
         print 'Current Selections'
         print '------------------'
