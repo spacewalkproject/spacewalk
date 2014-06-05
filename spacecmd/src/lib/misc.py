@@ -35,6 +35,7 @@ from getpass import getpass
 from ConfigParser import NoOptionError
 from spacecmd.utils import *
 from time import sleep
+import xmlrpclib
 
 # list of system selection options for the help output
 HELP_SYSTEM_OPTS = '''<SYSTEMS> can be any of the following:
@@ -317,7 +318,7 @@ def do_login(self, args):
             logging.debug('Using cached credentials from %s', session_file)
 
             self.client.user.listAssignableRoles(self.session)
-        except:
+        except xmlrpclib.Fault:
             logging.warning('Cached credentials are invalid')
             self.current_user = ''
             self.session = ''
@@ -346,7 +347,7 @@ def do_login(self, args):
 
             # don't keep the password around
             password = None
-        except:
+        except xmlrpclib.Fault:
             logging.error('Invalid credentials')
             return False
 
@@ -494,7 +495,7 @@ def generate_errata_cache(self, force=False):
         try:
             errata = \
                 self.client.channel.software.listErrata(self.session, c)
-        except:
+        except xmlrpclib.Fault:
             logging.debug('No access to %s', c)
             continue
 
@@ -546,7 +547,7 @@ def generate_package_cache(self, force=False):
         try:
             packages = \
                 self.client.channel.software.listAllPackages(self.session, c)
-        except:
+        except xmlrpclib.Fault:
             logging.debug('No access to %s', c)
             continue
 
