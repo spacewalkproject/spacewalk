@@ -23,6 +23,9 @@
 # wildcard import
 # pylint: disable=W0401,W0614
 
+# unused argument
+# pylint: disable=W0613
+
 import os,re
 import shlex
 from time import strftime

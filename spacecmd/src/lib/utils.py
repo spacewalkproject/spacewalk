@@ -24,6 +24,9 @@
 # wildcard import
 # pylint: disable=W0401,W0614
 
+# unused argument
+# pylint: disable=W0613
+
 import logging, os, pickle, re, readline, shlex, sys, time, xmlrpclib
 from collections import deque
 from datetime import datetime, timedelta

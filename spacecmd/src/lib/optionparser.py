@@ -22,6 +22,9 @@
 # wildcard import
 # pylint: disable=W0401,W0614
 
+# unused argument
+# pylint: disable=W0613
+
 from optparse import OptionParser
 
 # optparse by default will exit when there is an error.  when spacecmd
