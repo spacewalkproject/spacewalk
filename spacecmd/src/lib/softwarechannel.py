@@ -426,11 +426,11 @@ def do_softwarechannel_listerrata(self, args):
             print
 
         if begin_date and end_date:
-                errata = self.client.channel.software.listErrata(self.session,
+            errata = self.client.channel.software.listErrata(self.session,
                                          channel, parse_time_input(begin_date),
                                                   parse_time_input(end_date))
         elif begin_date:
-                errata = self.client.channel.software.listErrata(self.session,
+            errata = self.client.channel.software.listErrata(self.session,
                                          channel, parse_time_input(begin_date))
         else:
             errata = self.client.channel.software.listErrata(self.session,
@@ -1262,8 +1262,8 @@ def do_softwarechannel_adderrata(self, args):
                     (e, dest_channel))
                 toremove.append(e)
         for e in toremove:
-                logging.debug("Removing %s from errata to be added" % e)
-                errata.remove(e)
+            logging.debug("Removing %s from errata to be added" % e)
+            errata.remove(e)
         logging.debug("skip-mode : reduced errata = %s" % errata)
 
     # keep the details for our matching errata so we can use them later
