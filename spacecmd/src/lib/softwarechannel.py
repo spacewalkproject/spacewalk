@@ -47,7 +47,7 @@ def complete_softwarechannel_getentitlements(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_getentitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_softwarechannel_getentitlements()
@@ -167,7 +167,7 @@ def complete_softwarechannel_listsystems(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_listsystems(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_softwarechannel_listsystems()
@@ -202,7 +202,7 @@ def complete_softwarechannel_listpackages(self, text, line, beg, end):
         return []
 
 def do_softwarechannel_listpackages(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_softwarechannel_listpackages()
@@ -235,7 +235,7 @@ def complete_softwarechannel_listallpackages(self, text, line, beg, end):
         return []
 
 def do_softwarechannel_listallpackages(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_softwarechannel_listallpackages()
@@ -274,7 +274,7 @@ def filter_latest_packages(pkglist):
                 latest[tuplekey] = p
 
     # Then return the dict items as a list
-    return [ v for k, v in latest.items() ]
+    return latest.values()
 
 def help_softwarechannel_listlatestpackages(self):
     print 'softwarechannel_listlatestpackages: List the newest version of all\
@@ -289,7 +289,7 @@ def complete_softwarechannel_listlatestpackages(self, text, line, beg, end):
         return []
 
 def do_softwarechannel_listlatestpackages(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_softwarechannel_listallpackages()
@@ -320,7 +320,7 @@ def complete_softwarechannel_details(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_softwarechannel_details()
@@ -398,7 +398,7 @@ def complete_softwarechannel_listerrata(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_listerrata(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_softwarechannel_listerrata()
@@ -450,7 +450,7 @@ def complete_softwarechannel_delete(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_softwarechannel_delete()
@@ -891,7 +891,7 @@ def complete_softwarechannel_addpackages(self, text, line, beg, end):
         return tab_completer(self.get_package_names(True), text)
 
 def do_softwarechannel_addpackages(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_softwarechannel_addpackages()
@@ -945,7 +945,7 @@ def complete_softwarechannel_removeerrata(self, text, line, beg, end):
         return self.tab_complete_errata(text)
 
 def do_softwarechannel_removeerrata(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_softwarechannel_removeerrata()
@@ -1033,7 +1033,7 @@ def complete_softwarechannel_removepackages(self, text, line, beg,
         return tab_completer(package_names, text)
 
 def do_softwarechannel_removepackages(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_softwarechannel_removepackages()
@@ -1158,7 +1158,7 @@ def complete_softwarechannel_listerratabydate(self, text, line, beg, end):
                                   text)
 
 def do_softwarechannel_listerratabydate(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 3:
         self.help_softwarechannel_listerratabydate()
@@ -1332,7 +1332,7 @@ def complete_softwarechannel_getorgaccess(self, text, line, beg, end):
 
 def do_softwarechannel_getorgaccess(self, args):
 
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     # If no args are passed, we dump the org access for all channels
     if not len(args):
@@ -1372,8 +1372,6 @@ def do_softwarechannel_setorgaccess(self, args):
     # allow globbing of software channel names
     channels = filter_results(self.do_softwarechannel_list('', True), args)
 
-    add_separator = False
-
     for channel in channels:
         # If they just specify a channel and --enable/--disable
         # this implies public/private access
@@ -1411,7 +1409,7 @@ def complete_softwarechannel_regenerateyumcache(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_regenerateyumcache(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_softwarechannel_regenerateyumcache()
@@ -1602,7 +1600,7 @@ def complete_softwarechannel_syncrepos(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_syncrepos(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_softwarechannel_syncrepos()
@@ -1627,7 +1625,7 @@ def complete_softwarechannel_setsyncschedule(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_setsyncschedule(self, args):
-    (args, options) = parse_arguments(args, glob = False)
+    (args, _options) = parse_arguments(args, glob = False)
 
     if not len(args) == 7:
         self.help_softwarechannel_setsyncschedule()
@@ -1654,7 +1652,7 @@ def complete_softwarechannel_addrepo(self, text, line, beg, end):
         return tab_completer(self.do_repo_list('', True), text)
 
 def do_softwarechannel_addrepo(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_softwarechannel_addrepo()
@@ -1688,7 +1686,7 @@ def complete_softwarechannel_removerepo(self, text, line, beg, end):
         return tab_completer(repos, text)
 
 def do_softwarechannel_removerepo(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_softwarechannel_removerepo()
@@ -1706,12 +1704,10 @@ def help_softwarechannel_listrepos(self):
     print 'usage: softwarechannel_listrepos CHANNEL'
 
 def complete_softwarechannel_listrepos(self, text, line, beg, end):
-    parts = line.split(' ')
-
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_listrepos(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     details = self.client.channel.software.getDetails(self.session, args[0])
     repos = [r.get('label') for r in details.get('contentSources')]
@@ -1728,8 +1724,6 @@ def help_softwarechannel_mirrorpackages(self):
     print '    -l/--latest : Only mirror latest package version'
 
 def complete_softwarechannel_mirrorpackages(self, text, line, beg, end):
-    parts = line.split(' ')
-
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_mirrorpackages(self, args):
