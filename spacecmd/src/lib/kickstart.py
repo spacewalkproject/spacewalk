@@ -36,6 +36,7 @@ from optparse import Option
 from urllib2 import urlopen, HTTPError
 from spacecmd.utils import *
 import re
+import xmlrpclib
 
 KICKSTART_OPTIONS = ['autostep', 'interactive', 'install', 'upgrade',
                      'text', 'network', 'cdrom', 'harddrive', 'nfs',
@@ -318,7 +319,7 @@ def do_kickstart_details(self, args):
     try:
         variables = self.client.kickstart.profile.getVariables(self.session,
                                                       label)
-    except:
+    except xmlrpclib.Fault:
         variables = []
 
     tree = \
@@ -512,7 +513,7 @@ def do_kickstart_getcontents(self, args):
         # the API.  This avoids "'ascii' codec can't encode character" errors
         try:
             print kickstart.encode('UTF8')
-        except:
+        except UnicodeDecodeError:
             print kickstart
 
 ####################
@@ -613,7 +614,7 @@ def complete_kickstart_removecryptokeys(self, text, line, beg, end):
         # only tab complete keys currently assigned to the profile
         try:
             keys = self.do_kickstart_listcryptokeys(parts[1], True)
-        except:
+        except xmlrpclib.Fault:
             keys = []
 
         return tab_completer(keys, text)
@@ -714,7 +715,7 @@ def complete_kickstart_removeactivationkeys(self, text, line, beg,
         # only tab complete keys currently assigned to the profile
         try:
             keys = self.do_kickstart_listactivationkeys(parts[1], True)
-        except:
+        except xmlrpclib.Fault:
             keys = []
 
         return tab_completer(keys, text)
@@ -931,7 +932,7 @@ def do_kickstart_setpartitions(self, args):
                 self.session, profile)
 
         template = '\n'.join(current)
-    except:
+    except xmlrpclib.Fault:
         template = ''
 
     (partitions, _ignore) = editor(template=template, delete=True)
@@ -1051,7 +1052,7 @@ def complete_kickstart_updatevariable(self, text, line, beg, end):
             variables = \
                 self.client.kickstart.profile.getVariables(self.session,
                                                            parts[1])
-        except:
+        except xmlrpclib.Fault:
             pass
 
         return tab_completer(variables.keys(), text)
@@ -1083,7 +1084,7 @@ def complete_kickstart_removevariables(self, text, line, beg, end):
             variables = \
                 self.client.kickstart.profile.getVariables(self.session,
                                                            parts[1])
-        except:
+        except xmlrpclib.Fault:
             pass
 
         return tab_completer(variables.keys(), text)
@@ -1204,7 +1205,7 @@ def complete_kickstart_removeoptions(self, text, line, beg, end):
                                                     self.session, parts[1])
 
             options = [ o.get('name') for o in options ]
-        except:
+        except xmlrpclib.Fault:
             options = self.KICKSTART_OPTIONS
 
         return tab_completer(sorted(options), text)
@@ -1362,7 +1363,7 @@ def complete_kickstart_addchildchannels(self, text, line, beg, end):
                                       tree_details.get('channel_id'))
 
             parent_channel = base_channel.get('label')
-        except:
+        except xmlrpclib.Fault:
             return []
 
         return tab_completer(self.list_child_channels(\
@@ -1508,7 +1509,7 @@ def complete_kickstart_removefilepreservations(self, text, line, beg,
                 self.client.kickstart.profile.system.listFilePreservations(\
                     self.session, parts[1])
             files = [ f.get('name') for f in files ]
-        except:
+        except xmlrpclib.Fault:
             return []
 
         return tab_completer(files, text)
