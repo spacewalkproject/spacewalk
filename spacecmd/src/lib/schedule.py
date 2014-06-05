@@ -250,7 +250,7 @@ def do_schedule_details(self, args):
 
     # schedule.getAction() API call would make this easier
     all_actions = self.client.schedule.listAllActions(self.session)
-    action = 0
+    action = None
     for a in all_actions:
         if a.get('id') == action_id:
             action = a
