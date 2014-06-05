@@ -54,7 +54,7 @@ def parse_arguments(args, options = [], glob = True):
 
         # allow simple globbing
         if glob:
-            parts = [re.sub('\*', '.*', a) for a in parts]
+            parts = [re.sub(r'\*', '.*', a) for a in parts]
 
         parser = SpacecmdOptionParser(option_list = options)
         (opts, leftovers) = parser.parse_args(args = parts)
@@ -245,7 +245,7 @@ def parse_time_input(userinput = ''):
 
     # handle YYYMMDDHHMM times
     if not timestamp:
-        match = re.match('^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?$', userinput)
+        match = re.match(r'^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?$', userinput)
 
         if match:
             format = '%Y%m%d'
@@ -282,7 +282,7 @@ def parse_time_input(userinput = ''):
 
     # handle time differences (e.g., +1m, +2h)
     if not timestamp:
-        match = re.search('^(\+|-)?(\d+)(s|m|h|d)$', userinput, re.I)
+        match = re.search(r'^(\+|-)?(\d+)(s|m|h|d)$', userinput, re.I)
 
         if match and len(match.groups()) >= 2:
             sign = match.group(1)
