@@ -67,7 +67,7 @@ def do_snippet_details(self, args):
 
     snippets = self.client.kickstart.snippet.listCustom(self.session)
 
-    snippet = ''
+    snippet = None
     for name in args:
         for s in snippets:
             if s.get('name') == name:
