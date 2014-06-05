@@ -98,7 +98,7 @@ def do_errata_apply(self, args, only_systems=None):
 
                         systems.append(system.get('name'))
                         count += 1
-        except:
+        except xmlrpclib.Fault:
             logging.debug('%s does not affect any systems' % erratum)
             continue
 
@@ -315,7 +315,7 @@ def do_errata_details(self, args):
 
             channels = \
                 self.client.errata.applicableToChannels(self.session, erratum)
-        except:
+        except xmlrpclib.Fault:
             logging.warning('%s is not a valid erratum' % erratum)
             continue
 
