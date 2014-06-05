@@ -51,7 +51,7 @@ def complete_group_addsystems(self, text, line, beg, end):
         return self.tab_complete_systems(parts[-1])
 
 def do_group_addsystems(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_group_addsystems()
@@ -96,7 +96,7 @@ def complete_group_removesystems(self, text, line, beg, end):
         return self.tab_complete_systems(parts[-1])
 
 def do_group_removesystems(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_group_removesystems()
@@ -136,7 +136,7 @@ def help_group_create(self):
     print 'usage: group_create [NAME] [DESCRIPTION]'
 
 def do_group_create(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) > 0:
         name = args[0]
@@ -148,7 +148,7 @@ def do_group_create(self, args):
     else:
         description = prompt_user('Description:')
 
-    group = self.client.systemgroup.create(self.session, name, description)
+    self.client.systemgroup.create(self.session, name, description)
 
 ####################
 
@@ -160,7 +160,7 @@ def complete_group_delete(self, text, line, beg, end):
     return tab_completer(self.do_group_list('', True), text)
 
 def do_group_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_group_delete()
@@ -192,7 +192,7 @@ def complete_group_backup(self, text, line, beg, end):
 
 
 def do_group_backup(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_group_backup()
@@ -252,7 +252,6 @@ def do_group_restore(self, args):
     inputdir = os.getcwd()
     groups = []
     files = {}
-    restore = {}
     current = {}
 
     if len(args):
@@ -348,7 +347,7 @@ def complete_group_listsystems(self, text, line, beg, end):
     return tab_completer(self.do_group_list('', True), text)
 
 def do_group_listsystems(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_group_listsystems()
@@ -379,7 +378,7 @@ def complete_group_details(self, text, line, beg, end):
     return tab_completer(self.do_group_list('', True), text)
 
 def do_group_details(self, args, short=False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_group_details()
