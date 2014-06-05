@@ -149,7 +149,7 @@ SELECT  S.id AS ID,
    AND  SET2.element_three = P.package_arch_id
    AND  SNPC.package_id = P.id
    AND  SNPC.server_id = S.id
-GROUP BY s.id
+GROUP BY s.id, s.name
 ORDER BY UPPER(S.name)
 </query>
 
