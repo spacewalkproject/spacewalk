@@ -216,7 +216,8 @@ def do_distribution_details(self, args):
             self.client.channel.software.getDetails(self.session,
                                                 details.get('channel_id'))
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Name:    %s' % details.get('label')
