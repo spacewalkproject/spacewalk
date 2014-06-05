@@ -214,7 +214,7 @@ def help_login(self):
     print 'usage: login [USERNAME] [SERVER]'
 
 def do_login(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     # logout before logging in again
     if len(self.session):
@@ -676,7 +676,7 @@ def load_caches(self, server):
         os.path.join(conf_dir, 'packages_short')
 
     # load self.ssm from disk
-    (self.ssm, ignore) = load_cache(self.ssm_cache_file)
+    (self.ssm, _ignore) = load_cache(self.ssm_cache_file)
 
     # update the prompt now that we loaded the SSM
     self.postcmd(False, '')
