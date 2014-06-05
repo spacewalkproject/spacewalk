@@ -250,33 +250,33 @@ def parse_time_input(userinput = ''):
         match = re.match(r'^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?$', userinput)
 
         if match:
-            format = '%Y%m%d'
+            date_format = '%Y%m%d'
 
             # YYYYMMDD
             if not match.group(4) and not match.group(5):
                 timestamp = time.strptime('%s%s%s' % (match.group(1),
                                                       match.group(2),
                                                       match.group(3)),
-                                          format)
+                                          date_format)
             # YYYYMMDDHH
             elif not match.group(5):
-                format += '%H'
+                date_format += '%H'
 
                 timestamp = time.strptime('%s%s%s%s' % (match.group(1),
                                                         match.group(2),
                                                         match.group(3),
                                                         match.group(4)),
-                                          format)
+                                          date_format)
             # YYYYMMDDHHMM
             else:
-                format += '%H%M'
+                date_format += '%H%M'
 
                 timestamp = time.strptime('%s%s%s%s%s' % (match.group(1),
                                                           match.group(2),
                                                           match.group(3),
                                                           match.group(4),
                                                           match.group(5)),
-                                          format)
+                                          date_format)
 
             if timestamp:
                 # 2.5 has a nice little datetime.strptime() function...
@@ -503,14 +503,14 @@ def list_locales():
 
 
 # find the longest string in a list
-def max_length(items, min=0):
+def max_length(items, minimum=0):
     max_size = 1
     for item in items:
         if len(item) > max_size:
             max_size = len(item)
 
-    if max_size < min:
-        max_size = min
+    if max_size < minimum:
+        max_size = minimum
 
     return max_size
 
