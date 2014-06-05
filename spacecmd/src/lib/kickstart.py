@@ -320,7 +320,7 @@ def do_kickstart_details(self, args):
         variables = self.client.kickstart.profile.getVariables(self.session,
                                                       label)
     except xmlrpclib.Fault:
-        variables = []
+        variables = {}
 
     tree = \
         self.client.kickstart.tree.getDetails(self.session,
@@ -1047,7 +1047,7 @@ def complete_kickstart_updatevariable(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_kickstart_list('', True), text)
     elif len(parts) > 2:
-        variables = []
+        variables = {}
         try:
             variables = \
                 self.client.kickstart.profile.getVariables(self.session,
@@ -1079,7 +1079,7 @@ def complete_kickstart_removevariables(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_kickstart_list('', True), text)
     elif len(parts) > 2:
-        variables = []
+        variables = {}
         try:
             variables = \
                 self.client.kickstart.profile.getVariables(self.session,
