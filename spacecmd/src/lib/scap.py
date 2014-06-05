@@ -125,11 +125,15 @@ def do_scap_getxccdfscandetails(self, args):
         xid = int(xid)
         scan_details = self.client.system.scap.getXccdfScanDetails(self.session, xid)
 
-        print "XID:",scan_details['xid'],"SID:",scan_details['sid'],"Action_ID:",scan_details['action_id'],"Path:",scan_details['path'],\
-                "OSCAP_Parameters:",scan_details['oscap_parameters'],"Test_Result:",scan_details['test_result'],\
-                "Benchmark:",scan_details['benchmark'],"Benchmark_Version:",scan_details['benchmark_version'],\
-                "Profile:",scan_details['profile'],"Profile_Title:",scan_details['profile_title'],"Start_Time:",scan_details['start_time'],\
-                "End_Time:",scan_details['end_time'],"Errors:",scan_details['errors']
+        print "XID:", scan_details['xid'], "SID:", scan_details['sid'], "Action_ID:", \
+              scan_details['action_id'], "Path:", scan_details['path'], \
+              "OSCAP_Parameters:", scan_details['oscap_parameters'], \
+              "Test_Result:", scan_details['test_result'], "Benchmark:", \
+              scan_details['benchmark'], "Benchmark_Version:", \
+              scan_details['benchmark_version'], "Profile:", scan_details['profile'], \
+              "Profile_Title:", scan_details['profile_title'], "Start_Time:", \
+              scan_details['start_time'], "End_Time:", scan_details['end_time'], \
+              "Errors:", scan_details['errors']
 
 ####################
 
@@ -138,7 +142,8 @@ def help_scap_schedulexccdfscan(self):
     print 'usage: scap_schedulexccdfscan PATH_TO_XCCDF_FILE XCCDF_OPTIONS SYSTEMS'
     print
     print 'Example:'
-    print '> scap_schedulexccdfscan \'/usr/share/openscap/scap-security-xccdf.xml\' \'profile Web-Default\' system-scap.example.com'
+    print '> scap_schedulexccdfscan \'/usr/share/openscap/scap-security-xccdf.xml\'' + \
+          ' \'profile Web-Default\' system-scap.example.com'
 
 def do_scap_schedulexccdfscan(self, args):
     (args, _options) = parse_arguments(args)
