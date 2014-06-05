@@ -32,6 +32,7 @@
 import os,re
 import shlex
 from spacecmd.utils import *
+import xmlrpclib
 
 def help_group_addsystems(self):
     print 'group_addsystems: Add systems to a group'
@@ -216,7 +217,7 @@ def do_group_backup(self, args):
     try:
         if not os.path.isdir( outputpath_base ):
             os.makedirs( outputpath_base )
-    except:
+    except OSError:
         logging.error('Could not create output directory')
         return
 
@@ -357,7 +358,7 @@ def do_group_listsystems(self, args, doreturn = False):
     try:
         systems = self.client.systemgroup.listSystems(self.session, group)
         systems = [s.get('profile_name') for s in systems]
-    except:
+    except xmlrpclib.Fault:
         logging.warning('%s is not a valid group' % group)
         return []
 
@@ -394,7 +395,7 @@ def do_group_details(self, args, short=False):
                                                           group)
 
             systems = [s.get('profile_name') for s in systems]
-        except:
+        except xmlrpclib.Fault:
             logging.warning('%s is not a valid group' % group)
             return
 
