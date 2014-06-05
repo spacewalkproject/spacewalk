@@ -82,7 +82,8 @@ def do_filepreservation_create(self, args):
     print '---------'
     print '\n'.join(sorted(files))
 
-    if not self.user_confirm(): return
+    if not self.user_confirm():
+        return
 
     self.client.kickstart.filepreservation.create(self.session,
                                                   name,
@@ -106,7 +107,8 @@ def do_filepreservation_delete(self, args):
 
     name = args[0]
 
-    if not self.user_confirm('Delete this list [y/N]:'): return
+    if not self.user_confirm('Delete this list [y/N]:'):
+        return
 
     self.client.kickstart.filepreservation.delete(self.session, name)
 
