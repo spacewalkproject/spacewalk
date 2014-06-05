@@ -724,8 +724,8 @@ def get_normalized_text( text, replacedict=None, excludes=None ):
 
     normalized_text = []
     if text:
-        for string in text:
-            for line in string.split( "\n" ):
+        for st in text:
+            for line in st.split( "\n" ):
                 if not excludes:
                     normalized_text.append( replace( line, replacedict ) )
                 # We do it this way instead of passing a tuple to
