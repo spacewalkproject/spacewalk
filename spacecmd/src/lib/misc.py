@@ -714,17 +714,17 @@ def get_system_id(self, name):
 
     try:
         # check if we were passed a system instead of a name
-        id = int(name)
-        if id in self.all_systems:
-            return id
+        system_id = int(name)
+        if system_id in self.all_systems:
+            return system_id
     except ValueError:
         pass
 
     # get a set of matching systems to check for duplicate names
     systems = []
-    for id in self.all_systems:
-        if name == self.all_systems[id]:
-            systems.append(id)
+    for system_id in self.all_systems:
+        if name == self.all_systems[system_id]:
+            systems.append(system_id)
 
     if len(systems) == 1:
         return systems[0]
@@ -738,8 +738,8 @@ def get_system_id(self, name):
 
         id_list = '%s = ' % name
 
-        for id in systems:
-            id_list = id_list + '%i, ' % id
+        for system_id in systems:
+            id_list = id_list + '%i, ' % system_id
 
         logging.warning('')
         logging.warning(id_list[:-2])
@@ -815,8 +815,8 @@ def expand_systems(self, args):
         else:
             # translate system IDs that the user passes
             try:
-                id = int(item)
-                system_ids.append(id)
+                sys_id = int(item)
+                system_ids.append(sys_id)
             except ValueError:
                 # just a system name
                 systems.append(item)
