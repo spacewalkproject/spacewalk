@@ -26,6 +26,9 @@
 # unused argument
 # pylint: disable=W0613
 
+# invalid function name
+# pylint: disable=C0103
+
 import os,re
 import shlex
 from time import strftime

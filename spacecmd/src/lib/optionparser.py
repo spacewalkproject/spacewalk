@@ -25,6 +25,9 @@
 # unused argument
 # pylint: disable=W0613
 
+# invalid function name
+# pylint: disable=C0103
+
 from optparse import OptionParser
 
 # optparse by default will exit when there is an error.  when spacecmd

@@ -26,6 +26,9 @@
 # unused argument
 # pylint: disable=W061
 
+# invalid function name
+# pylint: disable=C0103
+
 import base64
 from operator import itemgetter
 from spacecmd.utils import *

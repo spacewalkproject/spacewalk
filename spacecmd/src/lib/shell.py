@@ -26,6 +26,9 @@
 # unused argument
 # pylint: disable=W0613
 
+# invalid function name
+# pylint: disable=C0103
+
 import atexit, logging, os, readline, re, shlex, sys
 from cmd import Cmd
 from spacecmd.utils import *

@@ -27,6 +27,9 @@
 # unused argument
 # pylint: disable=W0613
 
+# invalid function name
+# pylint: disable=C0103
+
 import logging, os, pickle, re, readline, shlex, sys, time, xmlrpclib
 from collections import deque
 from datetime import datetime, timedelta

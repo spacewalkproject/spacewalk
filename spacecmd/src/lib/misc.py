@@ -27,6 +27,9 @@
 # unused argument
 # pylint: disable=W0613
 
+# invalid function name
+# pylint: disable=C0103
+
 import logging, readline, shlex
 from getpass import getpass
 from ConfigParser import NoOptionError
