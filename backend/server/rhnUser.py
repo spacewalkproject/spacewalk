@@ -336,6 +336,20 @@ def is_user_disabled(user):
         return 1
     return 0
 
+def is_user_read_only(user):
+    log_debug(3, user)
+    username = str(user)
+    h = rhnSQL.prepare("""
+    select 1 from web_contact
+    where login_uc = upper(:username)
+    and read_only = 'Y'
+    """)
+    h.execute(username=username)
+    row = h.fetchone_dict()
+    if row:
+        return 1
+    return 0
+
 def reserve_user(username, password):
     """ create a reservation record """
     return __reserve_user_db(username, password)

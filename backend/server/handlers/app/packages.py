@@ -191,6 +191,8 @@ class Packages(RPC_Base):
         user = rhnUser.search(username)
         if not user or not user.check_password(password):
             raise rhnFault(2)
+        if rhnUser.is_user_read_only(user.username):
+            raise rhnFault(702)
         session = user.create_session()
         return session.get_session()
 
