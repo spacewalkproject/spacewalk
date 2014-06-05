@@ -54,7 +54,7 @@ def help_filepreservation_create(self):
     print 'usage: filepreservation_create [NAME] [FILE ...]'
 
 def do_filepreservation_create(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args):
         name = args[0]
@@ -102,7 +102,7 @@ def complete_filepreservation_delete(self, text, line, beg, end):
     return tab_completer(self.do_filepreservation_list('', True), text)
 
 def do_filepreservation_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_filepreservation_delete()
@@ -126,7 +126,7 @@ def complete_filepreservation_details(self, text, line, beg, end):
     return tab_completer(self.do_filepreservation_list('', True), text)
 
 def do_filepreservation_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_filepreservation_details()
