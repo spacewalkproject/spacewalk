@@ -101,8 +101,8 @@ def do_repo_listfilters(self, args):
     filters = \
         self.client.channel.software.listRepoFilters(self.session, args[0])
 
-    for filter in filters:
-        print "%s%s" % (filter.get('flag'), filter.get('filter'))
+    for f in filters:
+        print "%s%s" % (f.get('flag'), f.get('filter'))
 
 ####################
 
@@ -127,7 +127,7 @@ def do_repo_addfilters(self, args):
 
     for arg in args[1:]:
         flag = arg[0]
-        filter = arg[1:]
+        repofilter = arg[1:]
 
         if not (flag == '+' or flag == '-'):
             logging.error('Each filter must start with + or -')
@@ -135,7 +135,7 @@ def do_repo_addfilters(self, args):
 
         self.client.channel.software.addRepoFilter(self.session,
                                                    repo,
-                                                   {'filter' : filter,
+                                                   {'filter' : repofilter,
                                                     'flag' : flag})
 
 ####################
@@ -159,7 +159,7 @@ def do_repo_removefilters(self, args):
 
     for arg in args[1:]:
         flag = arg[0]
-        filter = arg[1:]
+        repofilter = arg[1:]
 
         if not (flag == '+' or flag == '-'):
             logging.error('Each filter must start with + or -')
@@ -167,7 +167,7 @@ def do_repo_removefilters(self, args):
 
         self.client.channel.software.removeRepoFilter(self.session,
                                                    repo,
-                                                   {'filter' : filter,
+                                                   {'filter' : repofilter,
                                                     'flag' : flag})
 
 ####################
@@ -193,13 +193,13 @@ def do_repo_setfilters(self, args):
 
     for arg in args[1:]:
         flag = arg[0]
-        filter = arg[1:]
+        repofilter = arg[1:]
 
         if not (flag == '+' or flag == '-'):
             logging.error('Each filter must start with + or -')
             return
 
-        filters.append({'filter' : filter, 'flag' : flag})
+        filters.append({'filter' : repofilter, 'flag' : flag})
 
     self.client.channel.software.setRepoFilters(self.session, repo, filters)
 
