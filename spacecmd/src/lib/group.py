@@ -31,7 +31,6 @@
 
 import os,re
 import shlex
-from time import strftime
 from spacecmd.utils import *
 
 def help_group_addsystems(self):
