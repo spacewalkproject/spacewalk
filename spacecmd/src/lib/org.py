@@ -20,6 +20,9 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
 import shlex
 from getpass import getpass
 from operator import itemgetter

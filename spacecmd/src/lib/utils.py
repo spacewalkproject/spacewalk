@@ -21,6 +21,9 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
 import logging, os, pickle, re, readline, shlex, sys, time, xmlrpclib
 from collections import deque
 from datetime import datetime, timedelta

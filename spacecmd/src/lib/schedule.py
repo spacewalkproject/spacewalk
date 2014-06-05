@@ -20,6 +20,9 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
 import base64
 from operator import itemgetter
 from spacecmd.utils import *
