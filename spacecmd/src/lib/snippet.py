@@ -57,7 +57,7 @@ def complete_snippet_details(self, text, line, beg, end):
                               text)
 
 def do_snippet_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_snippet_details()
@@ -124,7 +124,7 @@ def do_snippet_create(self, args, update_name = ''):
                              nospacer = True, ignore_yes = True):
             options.file = prompt_user('File:')
         else:
-            (contents, ignore) = editor(template = contents,
+            (contents, _ignore) = editor(template = contents,
                                                 delete=True)
     else:
         if not options.name:
@@ -159,7 +159,7 @@ def complete_snippet_update(self, text, line, beg, end):
     return tab_completer(self.do_snippet_list('', True), text)
 
 def do_snippet_update(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_snippet_update()
@@ -177,7 +177,7 @@ def complete_snippet_delete(self, text, line, beg, end):
     return tab_completer(self.do_snippet_list('', True), text)
 
 def do_snippet_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_snippet_delete()
