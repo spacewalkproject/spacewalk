@@ -141,7 +141,7 @@ def complete_org_delete(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 1:
         self.help_org_delete()
@@ -163,7 +163,7 @@ def complete_org_rename(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_rename(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_org_rename()
@@ -184,7 +184,7 @@ def complete_org_addtrust(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_addtrust(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_org_addtrust()
@@ -205,7 +205,7 @@ def complete_org_removetrust(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_removetrust(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_org_removetrust()
@@ -242,7 +242,7 @@ def complete_org_trustdetails(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_trustdetails(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_trustdetails()
@@ -298,7 +298,7 @@ def complete_org_listtrusts(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_listtrusts(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_listtrusts()
@@ -322,7 +322,7 @@ def complete_org_listusers(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_listusers(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_listusers()
@@ -344,7 +344,7 @@ def complete_org_details(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_details()
@@ -380,7 +380,7 @@ def complete_org_listsoftwareentitlements(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_listsoftwareentitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_listsoftwareentitlements()
@@ -417,7 +417,7 @@ def complete_org_setsoftwareentitlements(self, text, line, beg, end):
         return tab_completer(items, parts[-1])
 
 def do_org_setsoftwareentitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_setsoftwareentitlements()
@@ -445,7 +445,7 @@ def complete_org_listsystementitlements(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_listsystementitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_listsystementitlements()
@@ -482,7 +482,7 @@ def complete_org_setsystementitlements(self, text, line, beg, end):
         return tab_completer(items, parts[-1])
 
 def do_org_setsystementitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_setsystementitlements()
