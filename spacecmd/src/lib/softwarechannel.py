@@ -1111,12 +1111,12 @@ def do_softwarechannel_adderratabydate(self, args):
     begin_date = args[2]
     end_date = args[3]
 
-    if not re.match('\d{8}', begin_date):
+    if not re.match(r'\d{8}', begin_date):
         logging.error('%s is an invalid date' % begin_date)
         self.help_softwarechannel_adderratabydate()
         return
 
-    if not re.match('\d{8}', end_date):
+    if not re.match(r'\d{8}', end_date):
         logging.error('%s is an invalid date' % end_date)
         self.help_softwarechannel_adderratabydate()
         return
@@ -1175,12 +1175,12 @@ def do_softwarechannel_listerratabydate(self, args):
     begin_date = args[1]
     end_date = args[2]
 
-    if not re.match('\d{8}', begin_date):
+    if not re.match(r'\d{8}', begin_date):
         logging.error('%s is an invalid date' % begin_date)
         self.help_softwarechannel_listerratabydate()
         return
 
-    if not re.match('\d{8}', end_date):
+    if not re.match(r'\d{8}', end_date):
         logging.error('%s is an invalid date' % end_date)
         self.help_softwarechannel_listerratabydate()
         return
