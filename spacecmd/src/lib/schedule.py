@@ -173,7 +173,7 @@ def complete_schedule_reschedule(self, text, line, beg, end):
     try:
         actions = self.client.schedule.listFailedActions(self.session)
         return tab_completer([ str(a.get('id')) for a in actions ], text)
-    except Exception:
+    except xmlrpclib.Fault:
         return []
 
 def do_schedule_reschedule(self, args):
