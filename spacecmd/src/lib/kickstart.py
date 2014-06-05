@@ -160,7 +160,7 @@ def complete_kickstart_delete(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 1:
         self.help_kickstart_delete()
@@ -292,7 +292,7 @@ def complete_kickstart_details(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 1:
         self.help_kickstart_details()
@@ -496,7 +496,7 @@ def complete_kickstart_getcontents(self, text, line, beg, end):
     return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_getcontents(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_getcontents()
@@ -525,7 +525,7 @@ def complete_kickstart_rename(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_rename(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_kickstart_rename()
@@ -550,7 +550,7 @@ def complete_kickstart_listcryptokeys(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_listcryptokeys(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_listcryptokeys()
@@ -583,7 +583,7 @@ def complete_kickstart_addcryptokeys(self, text, line, beg, end):
         return tab_completer(self.do_cryptokey_list('', True), text)
 
 def do_kickstart_addcryptokeys(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_kickstart_addcryptokeys()
@@ -618,7 +618,7 @@ def complete_kickstart_removecryptokeys(self, text, line, beg, end):
         return tab_completer(keys, text)
 
 def do_kickstart_removecryptokeys(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_kickstart_removecryptokeys()
@@ -645,7 +645,7 @@ def complete_kickstart_listactivationkeys(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_listactivationkeys(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_listactivationkeys()
@@ -682,7 +682,7 @@ def complete_kickstart_addactivationkeys(self, text, line, beg, end):
                                   text)
 
 def do_kickstart_addactivationkeys(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_kickstart_addactivationkeys()
@@ -719,7 +719,7 @@ def complete_kickstart_removeactivationkeys(self, text, line, beg,
         return tab_completer(keys, text)
 
 def do_kickstart_removeactivationkeys(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_kickstart_removeactivationkeys()
@@ -750,7 +750,7 @@ def complete_kickstart_enableconfigmanagement(self, text, line, beg,
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_enableconfigmanagement(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_enableconfigmanagement()
@@ -776,7 +776,7 @@ def complete_kickstart_disableconfigmanagement(self, text, line, beg,
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_disableconfigmanagement(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_disableconfigmanagement()
@@ -802,7 +802,7 @@ def complete_kickstart_enableremotecommands(self, text, line, beg,
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_enableremotecommands(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_enableremotecommands()
@@ -827,7 +827,7 @@ def complete_kickstart_disableremotecommands(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_disableremotecommands(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_disableremotecommands()
@@ -853,7 +853,7 @@ def complete_kickstart_setlocale(self, text, line, beg, end):
         return tab_completer(list_locales(), text)
 
 def do_kickstart_setlocale(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_kickstart_setlocale()
@@ -887,7 +887,7 @@ def complete_kickstart_setselinux(self, text, line, beg, end):
         return tab_completer(modes, text)
 
 def do_kickstart_setselinux(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_kickstart_setselinux()
@@ -914,7 +914,7 @@ def complete_kickstart_setpartitions(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_setpartitions(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_setpartitions()
@@ -932,7 +932,7 @@ def do_kickstart_setpartitions(self, args):
     except:
         template = ''
 
-    (partitions, ignore) = editor(template=template, delete=True)
+    (partitions, _ignore) = editor(template=template, delete=True)
 
     print partitions
     if not self.user_confirm(): return
@@ -959,7 +959,7 @@ def complete_kickstart_setdistribution(self, text, line, beg, end):
         return tab_completer(self.do_distribution_list('', True), text)
 
 def do_kickstart_setdistribution(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_kickstart_setdistribution()
@@ -985,7 +985,7 @@ def complete_kickstart_enablelogging(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_enablelogging(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_enablelogging()
@@ -1011,7 +1011,7 @@ def complete_kickstart_addvariable(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_addvariable(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 3:
         self.help_kickstart_addvariable()
@@ -1054,7 +1054,7 @@ def complete_kickstart_updatevariable(self, text, line, beg, end):
         return tab_completer(variables.keys(), text)
 
 def do_kickstart_updatevariable(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 3:
         self.help_kickstart_updatevariable()
@@ -1086,7 +1086,7 @@ def complete_kickstart_removevariables(self, text, line, beg, end):
         return tab_completer(variables.keys(), text)
 
 def do_kickstart_removevariables(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_kickstart_removevariables()
@@ -1120,7 +1120,7 @@ def complete_kickstart_listvariables(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_listvariables(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_listvariables()
@@ -1149,7 +1149,7 @@ def complete_kickstart_addoption(self, text, line, beg, end):
         return tab_completer(sorted(self.KICKSTART_OPTIONS), text)
 
 def do_kickstart_addoption(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_kickstart_addoption()
@@ -1207,7 +1207,7 @@ def complete_kickstart_removeoptions(self, text, line, beg, end):
         return tab_completer(sorted(options), text)
 
 def do_kickstart_removeoptions(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_kickstart_removeoptions()
@@ -1322,7 +1322,7 @@ def do_kickstart_setcustomoptions(self, args):
     old_options = '\n'.join(old_options)
 
     # let the user edit the custom options
-    (new_options, ignore) = editor(template = old_options,
+    (new_options, _ignore) = editor(template = old_options,
                                         delete = True)
 
     new_options = new_options.split('\n')
@@ -1366,7 +1366,7 @@ def complete_kickstart_addchildchannels(self, text, line, beg, end):
                                   parent=parent_channel), text)
 
 def do_kickstart_addchildchannels(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_kickstart_addchildchannels()
@@ -1402,7 +1402,7 @@ def complete_kickstart_removechildchannels(self, text, line, beg,
                                   parts[1], True), text)
 
 def do_kickstart_removechildchannels(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_kickstart_removechildchannels()
@@ -1436,7 +1436,7 @@ def complete_kickstart_listchildchannels(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_listchildchannels(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_listchildchannels()
@@ -1470,7 +1470,7 @@ def complete_kickstart_addfilepreservations(self, text, line, beg, end):
                                   text)
 
 def do_kickstart_addfilepreservations(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_addfilepreservations()
@@ -1511,7 +1511,7 @@ def complete_kickstart_removefilepreservations(self, text, line, beg,
         return tab_completer(files, text)
 
 def do_kickstart_removefilepreservations(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_kickstart_removefilepreservations()
@@ -1534,7 +1534,7 @@ def complete_kickstart_listpackages(self, text, line, beg, end):
     return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_listpackages(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_listpackages()
@@ -1567,7 +1567,7 @@ def complete_kickstart_addpackages(self, text, line, beg, end):
         return tab_completer(self.get_package_names(), text)
 
 def do_kickstart_addpackages(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_kickstart_addpackages()
@@ -1597,7 +1597,7 @@ def complete_kickstart_removepackages(self, text, line, beg, end):
                                   parts[1], True), text)
 
 def do_kickstart_removepackages(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_kickstart_removepackages()
@@ -1628,7 +1628,7 @@ def complete_kickstart_listscripts(self, text, line, beg, end):
     return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_listscripts(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_listscripts()
@@ -1699,7 +1699,7 @@ def do_kickstart_addscript(self, args):
                              nospacer = True, ignore_yes = True):
             options.file = prompt_user('File:')
         else:
-            (options.contents, ignore) = editor(delete=True)
+            (options.contents, _ignore) = editor(delete=True)
 
         # check user input
         if options.interpreter == '': options.interpreter = '/bin/bash'
@@ -1776,7 +1776,7 @@ def complete_kickstart_removescript(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_removescript(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_kickstart_removescript()
@@ -2031,7 +2031,7 @@ def help_kickstart_importjson(self):
     print '''usage: kickstart_import <JSONFILES...>'''
 
 def do_kickstart_importjson(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) == 0:
         logging.error("Error, no filename passed")
@@ -2270,7 +2270,7 @@ def complete_kickstart_getupdatetype(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_getupdatetype(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 1:
         self.help_kickstart_getupdatetype()
