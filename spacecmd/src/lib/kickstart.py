@@ -2214,7 +2214,8 @@ def check_kickstart( self, name ):
         return False
     return True
 
-def dump_kickstart(self, name, replacedict=None, excludes=[ "Org Default:" ]):
+def dump_kickstart(self, name, replacedict=None, excludes=None):
+    excludes = excludes or ["Org Default:"]
     content = self.do_kickstart_details( name )
 
     content = get_normalized_text( content, replacedict=replacedict, excludes=excludes )
