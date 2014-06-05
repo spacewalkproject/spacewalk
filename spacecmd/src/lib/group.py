@@ -42,7 +42,8 @@ def help_group_addsystems(self):
 
 def complete_group_addsystems(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_group_list('', True), text)
@@ -67,7 +68,8 @@ def do_group_addsystems(self, args):
     system_ids = []
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
         system_ids.append(system_id)
 
     self.client.systemgroup.addOrRemoveSystems(self.session,
@@ -85,7 +87,8 @@ def help_group_removesystems(self):
 
 def complete_group_removesystems(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_group_list('', True), text)
@@ -110,14 +113,16 @@ def do_group_removesystems(self, args):
     system_ids = []
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
         system_ids.append(system_id)
 
     print 'Systems'
     print '-------'
     print '\n'.join(sorted(systems))
 
-    if not self.user_confirm('Remove these systems [y/N]:'): return
+    if not self.user_confirm('Remove these systems [y/N]:'):
+        return
 
     self.client.systemgroup.addOrRemoveSystems(self.session,
                                                group_name,
@@ -164,7 +169,8 @@ def do_group_delete(self, args):
     groups = args
 
     self.do_group_details('', True)
-    if not self.user_confirm('Delete these groups [y/N]:'): return
+    if not self.user_confirm('Delete these groups [y/N]:'):
+        return
 
     for group in groups:
         self.client.systemgroup.delete(self.session, group)
@@ -394,7 +400,8 @@ def do_group_details(self, args, short=False):
             logging.warning('%s is not a valid group' % group)
             return
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Name               %s' % details.get('name')
