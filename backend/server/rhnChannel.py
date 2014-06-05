@@ -1019,6 +1019,52 @@ def list_packages_source(channel_id):
 
     return ret
 
+# the latest packages from the specified channel
+_query_all_packages_from_channel_checksum = """
+    select
+        p.id,
+        pn.name,
+        pevr.version,
+        pevr.release,
+        pevr.epoch,
+        pa.label arch,
+        p.package_size,
+        ct.label as checksum_type,
+        c.checksum
+    from
+        rhnChannelPackage cp,
+        rhnPackage p,
+        rhnPackageName pn,
+        rhnPackageEVR pevr,
+        rhnPackageArch pa,
+        rhnChecksumType ct,
+        rhnChecksum c
+    where
+        cp.channel_id = :channel_id
+    and cp.package_id = p.id
+    and p.name_id = pn.id
+    and p.evr_id = pevr.id
+    and p.package_arch_id = pa.id
+    and p.checksum_id = c.id
+    and c.checksum_type_id = ct.id
+    order by pn.name, pevr.evr desc, pa.label
+    """
+
+# This function executes the SQL call for listing packages with checksum info
+def list_all_packages_checksum_sql(channel_id):
+    log_debug(3, channel_id)
+    h = rhnSQL.prepare(_query_all_packages_from_channel_checksum)
+    h.execute(channel_id = str(channel_id))
+    ret = h.fetchall_dict()
+    if not ret:
+        return []
+    # process the results
+    ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
+                         a["arch"], a["package_size"], a['checksum_type'],
+                         a['checksum']),
+              __stringify(ret))
+    return ret
+
 # This function executes the SQL call for listing packages
 def _list_packages_sql(query, channel_id):
     h = rhnSQL.prepare(query)
@@ -1343,6 +1389,11 @@ def list_packages(channel):
 def list_all_packages(channel):
     return _list_packages(channel, cache_prefix="list_all_packages",
         function=list_all_packages_sql)
+
+# list _all_ the packages for a channel, including checksum info
+def list_all_packages_checksum(channel):
+    return _list_packages(channel, cache_prefix="list_all_packages_checksum",
+        function=list_all_packages_checksum_sql)
 
 # list _all_ the packages for a channel
 def list_all_packages_complete(channel):

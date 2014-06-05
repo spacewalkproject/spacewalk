@@ -61,6 +61,7 @@ class Repository(rhnRepository.Repository):
         self.functions.append('getObsoletes')
         self.functions.append('getObsoletesBlacklist')
         self.functions.append('listAllPackages')
+        self.functions.append('listAllPackagesChecksum')
         self.functions.append('listAllPackagesComplete')
         self.functions.append('repodata')
         self.set_compress_headers(CFG.COMPRESS_HEADERS)
@@ -146,6 +147,25 @@ class Repository(rhnRepository.Repository):
         self.__check_channel(version)
 
         packages = rhnChannel.list_all_packages(self.channelName)
+
+        # transport options...
+        transportOptions = rhnFlags.get('outputTransportOptions')
+        transportOptions['Last-Modified'] = rfc822time(timestamp(version))
+        rhnFlags.set("compress_response", 1)
+        return packages
+
+    def listAllPackagesChecksum(self, version):
+        """ Creates and/or serves up a cached copy of all the packages for
+        this channel, including checksum information.
+        """
+        log_debug(3, self.channelName, version)
+        # Check to see if the version they are requesting is the latest
+
+        # check the validity of what the client thinks about this channel
+        # or blow up
+        self.__check_channel(version)
+
+        packages = rhnChannel.list_all_packages_checksum(self.channelName)
 
         # transport options...
         transportOptions = rhnFlags.get('outputTransportOptions')
