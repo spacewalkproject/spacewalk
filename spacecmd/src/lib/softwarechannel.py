@@ -346,7 +346,8 @@ def do_softwarechannel_details(self, args):
             self.client.channel.software.listAllPackages(\
                                    self.session, channel)
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Label:              %s' % details.get('label')
@@ -437,7 +438,8 @@ def do_softwarechannel_listerrata(self, args):
 
         print_errata_list(errata)
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
 ####################
@@ -461,13 +463,15 @@ def do_softwarechannel_delete(self, args):
     # find all matching channels
     to_delete = filter_results(self.do_softwarechannel_list('', True), channels)
 
-    if not len(to_delete): return
+    if not len(to_delete):
+        return
 
     print 'Channels'
     print '--------'
     print '\n'.join(sorted(to_delete))
 
-    if not self.user_confirm('Delete these channels [y/N]:'): return
+    if not self.user_confirm('Delete these channels [y/N]:'):
+        return
 
     # delete child channels first to avoid errors
     parents = []
@@ -922,7 +926,8 @@ def do_softwarechannel_addpackages(self, args):
     print '--------'
     print '\n'.join(sorted(package_names))
 
-    if not self.user_confirm('Add these packages [y/N]:'): return
+    if not self.user_confirm('Add these packages [y/N]:'):
+        return
 
     self.client.channel.software.addPackages(self.session,
                                              channel,
@@ -996,7 +1001,8 @@ def do_softwarechannel_removeerrata(self, args):
     print 'Total Errata:   %s' % str(len(errata)).rjust(3)
     print 'Total Packages: %s' % str(len(package_ids)).rjust(3)
 
-    if not self.user_confirm('Remove these errata [y/N]:'): return
+    if not self.user_confirm('Remove these errata [y/N]:'):
+        return
 
     # remove the errata and the packages they brought in
     self.client.channel.software.removeErrata(self.session,
@@ -1066,7 +1072,8 @@ def do_softwarechannel_removepackages(self, args):
     print '--------'
     print '\n'.join(sorted(package_names))
 
-    if not self.user_confirm('Remove these packages [y/N]:'): return
+    if not self.user_confirm('Remove these packages [y/N]:'):
+        return
 
     self.client.channel.software.removePackages(self.session,
                                                 channel,
@@ -1299,7 +1306,8 @@ def do_softwarechannel_adderrata(self, args):
     if not options.quick:
         print 'Total Packages: %s' % str(len(package_ids)).rjust(3)
 
-    if not self.user_confirm('Add these errata [y/N]:'): return
+    if not self.user_confirm('Add these errata [y/N]:'):
+        return
 
     # clone each erratum individually because the process is slow and it can
     # lead to timeouts on the server
@@ -1426,7 +1434,8 @@ def do_softwarechannel_regenerateyumcache(self, args):
 # softwarechannel helper
 
 def is_softwarechannel( self, name ):
-    if not name: return
+    if not name:
+        return
     return name in self.do_softwarechannel_list( name, True )
 
 def check_softwarechannel( self, name ):
@@ -1454,7 +1463,8 @@ def help_softwarechannel_diff(self):
 
 def complete_softwarechannel_diff(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
     args = len(parts)
 
     if args == 2:
@@ -1473,7 +1483,8 @@ def do_softwarechannel_diff(self, args):
         return
 
     source_channel = args[0]
-    if not self.check_softwarechannel( source_channel ): return
+    if not self.check_softwarechannel( source_channel ):
+        return
 
     target_channel = None
     if len(args) == 2:
@@ -1481,7 +1492,8 @@ def do_softwarechannel_diff(self, args):
     elif hasattr( self, "do_softwarechannel_getcorresponding" ):
         # can a corresponding channel name be found automatically?
         target_channel=self.do_softwarechannel_getcorresponding( source_channel)
-    if not self.check_softwarechannel( target_channel ): return
+    if not self.check_softwarechannel( target_channel ):
+        return
 
     # softwarechannel do not contain references to other components,
     # therefore there is no need to use replace dicts
@@ -1500,7 +1512,8 @@ def help_softwarechannel_sync(self):
 
 def complete_softwarechannel_sync(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
     args = len(parts)
 
     if args == 2:
@@ -1519,7 +1532,8 @@ def do_softwarechannel_sync(self, args):
         return
 
     source_channel = args[0]
-    if not self.check_softwarechannel( source_channel ): return
+    if not self.check_softwarechannel( source_channel ):
+        return
 
     target_channel = None
     if len(args) == 2:
@@ -1527,7 +1541,8 @@ def do_softwarechannel_sync(self, args):
     elif hasattr( self, "do_softwarechannel_getcorresponding" ):
         # can a corresponding channel name be found automatically?
         target_channel=self.do_softwarechannel_getcorresponding( source_channel)
-    if not self.check_softwarechannel( target_channel ): return
+    if not self.check_softwarechannel( target_channel ):
+        return
 
     logging.info( "syncing packages from softwarechannel "+source_channel+" to "+target_channel )
 
@@ -1579,7 +1594,8 @@ def do_softwarechannel_sync(self, args):
         print
 
     if source_only or target_only:
-        if not self.user_confirm('Perform these changes to channel ' + target_channel + ' [y/N]:'): return
+        if not self.user_confirm('Perform these changes to channel ' + target_channel + ' [y/N]:'):
+            return
 
         self.client.channel.software.addPackages(self.session,
                                                 target_channel,
