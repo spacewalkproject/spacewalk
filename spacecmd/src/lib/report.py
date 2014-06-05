@@ -156,7 +156,8 @@ def do_report_errata(self, args):
     max_size = 0
     for e in report.keys():
         size = len(e)
-        if size > max_size: max_size = size
+        if size > max_size:
+            max_size = size
 
     if len(report):
         print '%s  # Systems' % ('Errata'.ljust(max_size))
@@ -196,12 +197,14 @@ def do_report_ipaddresses(self, args):
     system_max_size = 0
     for s in report.keys():
         size = len(s)
-        if size > system_max_size: system_max_size = size
+        if size > system_max_size:
+            system_max_size = size
 
     hostname_max_size = 0
     for h in [report[h]['hostname'] for h in report]:
         size = len(h)
-        if size > hostname_max_size: hostname_max_size = size
+        if size > hostname_max_size:
+            hostname_max_size = size
 
 
     if len(report):
@@ -247,7 +250,8 @@ def do_report_kernels(self, args):
     system_max_size = 0
     for s in report.keys():
         size = len(s)
-        if size > system_max_size: system_max_size = size
+        if size > system_max_size:
+            system_max_size = size
 
     if len(report):
         print '%s  Kernel' % ('System'.ljust(system_max_size))
@@ -288,7 +292,8 @@ def do_report_duplicates(self, args):
             for dupe in systems:
                 print '%i  %s' % (dupe.get('id'), dupe.get('last_checkin'))
 
-            if len(dupes_by_profile) > 1: print
+            if len(dupes_by_profile) > 1:
+                print
 
     if self.check_api_version('10.11'):
         dupes_by_ip = self.client.system.listDuplicatesByIp(self.session)
@@ -297,7 +302,8 @@ def do_report_duplicates(self, args):
             self.client.system.listDuplicatesByHostname(self.session)
 
         if len(dupes_by_ip):
-            if add_separator: print self.SEPARATOR
+            if add_separator:
+                print self.SEPARATOR
             add_separator = True
 
             for item in dupes_by_ip:
@@ -310,10 +316,12 @@ def do_report_duplicates(self, args):
                     print '%i  %s' % (dupe.get('systemId'),
                                       dupe.get('last_checkin'))
 
-                if len(dupes_by_ip) > 1: print
+                if len(dupes_by_ip) > 1:
+                    print
 
         if len(dupes_by_mac):
-            if add_separator: print self.SEPARATOR
+            if add_separator:
+                print self.SEPARATOR
             add_separator = True
 
             for item in dupes_by_mac:
@@ -326,10 +334,12 @@ def do_report_duplicates(self, args):
                     print '%i  %s' % (dupe.get('systemId'),
                                       dupe.get('last_checkin'))
 
-                if len(dupes_by_mac) > 1: print
+                if len(dupes_by_mac) > 1:
+                    print
 
         if len(dupes_by_hostname):
-            if add_separator: print self.SEPARATOR
+            if add_separator:
+                print self.SEPARATOR
             add_separator = True
 
             for item in dupes_by_hostname:
@@ -342,6 +352,7 @@ def do_report_duplicates(self, args):
                     print '%i  %s' % (dupe.get('systemId'),
                                       dupe.get('last_checkin'))
 
-                if len(dupes_by_hostname) > 1: print
+                if len(dupes_by_hostname) > 1:
+                    print
 
 # vim:ts=4:expandtab:
