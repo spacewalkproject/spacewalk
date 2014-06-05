@@ -71,17 +71,20 @@ def print_schedule_summary(self, type, args):
     else:
         return
 
-    if not len(actions): return
+    if not len(actions):
+        return
 
     print 'ID      Date                 C    F    P     Action'
     print '--      ----                ---  ---  ---    ------'
 
     for action in sorted(actions, key=itemgetter('id'), reverse = True):
         if begin_date:
-            if action.get('earliest') < begin_date: continue
+            if action.get('earliest') < begin_date:
+                continue
 
         if end_date:
-            if action.get('earliest') > end_date: continue
+            if action.get('earliest') > end_date:
+                continue
 
         if self.check_api_version('10.11'):
             print '%s  %s   %s  %s  %s    %s' % \
@@ -135,7 +138,8 @@ def do_schedule_cancel(self, args):
 
     # cancel all actions
     if '.*' in args:
-        if not self.user_confirm('Cancel all pending actions [y/N]:'): return
+        if not self.user_confirm('Cancel all pending actions [y/N]:'):
+            return
 
         actions = self.client.schedule.listInProgressActions(self.session)
         strings = [ a.get('id') for a in actions ]
@@ -185,7 +189,8 @@ def do_schedule_reschedule(self, args):
 
     # reschedule all failed actions
     if '.*' in args:
-        if not self.user_confirm('Reschedule all failed actions [y/N]:'): return
+        if not self.user_confirm('Reschedule all failed actions [y/N]:'):
+            return
         to_reschedule = failed_actions
     else:
         # use the list of action IDs passed in
@@ -311,7 +316,8 @@ def do_schedule_getoutput(self, args):
     if script_results:
         add_separator = False
         for r in script_results:
-            if add_separator: print self.SEPARATOR
+            if add_separator:
+                print self.SEPARATOR
             add_separator = True
 
             if r.get('serverId'):
@@ -341,7 +347,8 @@ def do_schedule_getoutput(self, args):
         add_separator = False
 
         for action in completed + failed:
-            if add_separator: print self.SEPARATOR
+            if add_separator:
+                print self.SEPARATOR
             add_separator = True
 
             print 'System:    %s' % action.get('server_name')
