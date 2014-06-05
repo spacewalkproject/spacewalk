@@ -34,6 +34,7 @@ import shlex
 from getpass import getpass
 from optparse import Option
 from spacecmd.utils import *
+import xmlrpclib
 
 def help_user_create(self):
     print 'user_create: Create an user'
@@ -295,7 +296,7 @@ def do_user_details(self, args):
             default_groups = \
                 self.client.user.listDefaultSystemGroups(self.session,
                                                          user)
-        except:
+        except xmlrpclib.Fault:
             logging.warning('%s is not a valid user' % user)
             continue
 
