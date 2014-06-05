@@ -102,7 +102,7 @@ class SpacewalkShell(Cmd):
     # handle shell exits and history substitution
     def precmd(self, line):
         # remove leading/trailing whitespace
-        line = re.sub('^\s+|\s+$', '', line)
+        line = re.sub(r'^\s+|\s+$', '', line)
 
         # don't do anything on empty lines
         if line == '':
