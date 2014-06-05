@@ -270,7 +270,7 @@ def do_login(self, args):
     try:
         self.api_version = self.client.api.getVersion()
         logging.debug('Server API Version = %s', self.api_version)
-    except Exception, e:
+    except xmlrpclib.Fault, e:
         if self.options.debug > 0:
             logging.exception(e)
 
