@@ -622,9 +622,9 @@ def json_dump_to_file(obj, filename):
         return False
 
     try:
-            fd = open(filename, 'w')
-            fd.write(json_data)
-            fd.close()
+        fd = open(filename, 'w')
+        fd.write(json_data)
+        fd.close()
     except IOError, E:
         logging.error("Could not open file %s for writing, permissions?" % \
             filename)
