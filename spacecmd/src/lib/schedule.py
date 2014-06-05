@@ -34,7 +34,7 @@ from operator import itemgetter
 from spacecmd.utils import *
 import xmlrpclib
 
-def print_schedule_summary(self, type, args):
+def print_schedule_summary(self, action_type, args):
     (args, _options) = parse_arguments(args)
 
     if len(args) > 0:
@@ -49,15 +49,15 @@ def print_schedule_summary(self, type, args):
     else:
         end_date = None
 
-    if type == 'pending':
+    if action_type == 'pending':
         actions = self.client.schedule.listInProgressActions(self.session)
-    elif type == 'completed':
+    elif action_type == 'completed':
         actions = self.client.schedule.listCompletedActions(self.session)
-    elif type == 'failed':
+    elif action_type == 'failed':
         actions = self.client.schedule.listFailedActions(self.session)
-    elif type == 'archived':
+    elif action_type == 'archived':
         actions = self.client.schedule.listArchivedActions(self.session)
-    elif type == 'all':
+    elif action_type == 'all':
         # get actions in all states except archived
         in_progress = self.client.schedule.listInProgressActions(self.session)
         completed = self.client.schedule.listCompletedActions(self.session)
