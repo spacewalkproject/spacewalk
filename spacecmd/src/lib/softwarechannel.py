@@ -34,6 +34,7 @@ from operator import itemgetter
 from optparse import Option
 from spacecmd.utils import *
 import urllib
+import xmlrpclib
 
 ARCH_LABELS = ['ia32', 'ia64', 'x86_64', 'ppc',
                'i386-sun-solaris', 'sparc-sun-solaris']
@@ -1033,7 +1034,7 @@ def complete_softwarechannel_removepackages(self, text, line, beg,
                                                              parts[1])
 
             package_names = build_package_names(packages)
-        except:
+        except xmlrpclib.Fault:
             package_names = []
 
         return tab_completer(package_names, text)
@@ -1696,7 +1697,7 @@ def complete_softwarechannel_removerepo(self, text, line, beg, end):
             details = self.client.channel.software.getDetails(self.session,
                                                               parts[1])
             repos = [r.get('label') for r in details.get('contentSources')]
-        except:
+        except xmlrpclib.Fault:
             return
 
         return tab_completer(repos, text)
