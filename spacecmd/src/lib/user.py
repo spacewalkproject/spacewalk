@@ -304,7 +304,8 @@ def do_user_details(self, args):
                                                  details.get('org_id'))
         organization = org_details.get('name')
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Username:      %s' % user
@@ -342,7 +343,8 @@ def help_user_addgroup(self):
 
 def complete_user_addgroup(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -372,7 +374,8 @@ def help_user_adddefaultgroup(self):
 
 def complete_user_adddefaultgroup(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -401,7 +404,8 @@ def help_user_removegroup(self):
 
 def complete_user_removegroup(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -435,7 +439,8 @@ def help_user_removedefaultgroup(self):
 
 def complete_user_removedefaultgroup(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -467,7 +472,8 @@ def help_user_setfirstname(self):
 
 def complete_user_setfirstname(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append(' ')
+    if line[-1] == ' ':
+        parts.append(' ')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -494,7 +500,8 @@ def help_user_setlastname(self):
 
 def complete_user_setlastname(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append(' ')
+    if line[-1] == ' ':
+        parts.append(' ')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -521,7 +528,8 @@ def help_user_setemail(self):
 
 def complete_user_setemail(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append(' ')
+    if line[-1] == ' ':
+        parts.append(' ')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -548,7 +556,8 @@ def help_user_setprefix(self):
 
 def complete_user_setprefix(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append(' ')
+    if line[-1] == ' ':
+        parts.append(' ')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -582,7 +591,8 @@ def help_user_setpassword(self):
 
 def complete_user_setpassword(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append(' ')
+    if line[-1] == ' ':
+        parts.append(' ')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
