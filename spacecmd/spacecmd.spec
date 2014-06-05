@@ -15,6 +15,7 @@ Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
+BuildRequires: spacewalk-pylint
 BuildRequires: python-devel
 %if 0%{?rhel} == 5
 Requires:    python-simplejson
@@ -53,6 +54,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 
 %clean
 %{__rm} -rf %{buildroot}
+
+%check
+spacewalk-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
 
 %files
 %{_bindir}/spacecmd
