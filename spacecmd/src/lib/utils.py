@@ -645,7 +645,7 @@ def json_read_from_file(filename):
         try:
             jsondata = json.loads(data)
             return jsondata
-        except:
+        except ValueError:
             print "could not read in data from %s" % filename
     except IOError, E:
         print "could not open file %s for reading, check permissions?" % filename
