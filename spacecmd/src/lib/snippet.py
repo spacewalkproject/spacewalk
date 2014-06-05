@@ -78,7 +78,8 @@ def do_snippet_details(self, args):
             logging.warning('%s is not a valid snippet' % name)
             continue
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Name:   %s' % snippet.get('name')
