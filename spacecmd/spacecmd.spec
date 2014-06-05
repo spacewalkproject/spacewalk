@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.2.5
+Version:     2.2.6
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -68,6 +68,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Jun 05 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.6-1
+- add spacewalk-pylint checks to spacecmd build
+- pylint fixes
 * Thu May 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.5-1
 - added option for downloading only latest package version with
   softwarechannel_mirrorpackages
