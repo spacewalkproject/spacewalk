@@ -81,7 +81,7 @@ def load_cache(cachefile):
     data = {}
     expire = datetime.now()
 
-    logging.debug('Loading cache from %s' % cachefile)
+    logging.debug('Loading cache from %s', cachefile)
 
     if os.path.isfile(cachefile):
         try:
@@ -94,19 +94,19 @@ def load_cache(cachefile):
             # So we catch this error and remove the corrupt partial file
             # If you don't do this then spacecmd will fail with an unhandled
             # exception until the partial file is manually removed
-            logging.warning("Loading cache file %s failed" % cachefile)
+            logging.warning("Loading cache file %s failed", cachefile)
             logging.warning("Cache generation was probably interrupted," + \
-                "removing corrupt %s" % cachefile)
+                "removing corrupt %s", cachefile)
             os.remove(cachefile)
         except IOError:
-            logging.error("Couldn't load cache from %s" % cachefile)
+            logging.error("Couldn't load cache from %s", cachefile)
 
         if isinstance(data, list) or isinstance(data, dict):
             if 'expire' in data:
                 expire = data['expire']
                 del data['expire']
     else:
-        logging.debug('%s does not exist' % cachefile)
+        logging.debug('%s does not exist', cachefile)
 
     return data, expire
 
@@ -120,7 +120,7 @@ def save_cache(cachefile, data, expire = None):
         pickle.dump(data, output, pickle.HIGHEST_PROTOCOL)
         output.close()
     except IOError:
-        logging.error("Couldn't write to %s" % cachefile)
+        logging.error("Couldn't write to %s", cachefile)
 
     if 'expire' in data:
         del data['expire']
@@ -182,7 +182,7 @@ def editor(template = '', delete = False):
                 success = True
                 break
             else:
-                logging.error('Editor exited with code %i' % exit_code)
+                logging.error('Editor exited with code %i', exit_code)
         except OSError:
             pass
 
@@ -202,11 +202,11 @@ def editor(template = '', delete = False):
                     os.remove(file_name)
                     file_name = ''
                 except OSError:
-                    logging.error('Could not remove %s' % file_name)
+                    logging.error('Could not remove %s', file_name)
 
             return (contents, file_name)
         except IOError:
-            logging.error('Could not read %s' % file_name)
+            logging.error('Could not read %s', file_name)
             return ([], '')
 
 
@@ -390,8 +390,8 @@ def print_errata_list(errata):
         elif re.match('product enhancement', erratum.get('advisory_type'), re.I):
             rhea.append(erratum)
         else:
-            logging.warning('%s is an unknown errata type' % (
-                            erratum.get('advisory_name')))
+            logging.warning('%s is an unknown errata type',
+                            erratum.get('advisory_name'))
             continue
 
     if not len(errata): return
@@ -491,7 +491,7 @@ def list_locales():
                 for subitem in os.listdir(path):
                     zones.append(os.path.join(item, subitem))
             except IOError:
-                logging.error('Could not read %s' % path)
+                logging.error('Could not read %s', path)
         else:
             zones.append(item)
 
@@ -618,7 +618,7 @@ def json_dump_to_file(obj, filename):
     json_data = json.dumps(obj, indent = 4, sort_keys = True)
 
     if json_data == None:
-        logging.error("Could not generate json data object!" % k)
+        logging.error("Could not generate json data object!")
         return False
 
     try:
@@ -626,7 +626,7 @@ def json_dump_to_file(obj, filename):
         fd.write(json_data)
         fd.close()
     except IOError, E:
-        logging.error("Could not open file %s for writing, permissions?" % \
+        logging.error("Could not open file %s for writing, permissions?", \
             filename)
         print E.strerror
         return False
