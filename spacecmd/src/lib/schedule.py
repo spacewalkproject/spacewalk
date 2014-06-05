@@ -24,7 +24,7 @@
 # pylint: disable=W0401,W0614
 
 # unused argument
-# pylint: disable=W061
+# pylint: disable=W0613
 
 # invalid function name
 # pylint: disable=C0103
