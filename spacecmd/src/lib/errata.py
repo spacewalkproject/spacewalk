@@ -67,7 +67,7 @@ def complete_errata_apply(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
 def do_errata_apply(self, args, only_systems=[]):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_apply()
@@ -189,7 +189,7 @@ def complete_errata_listaffectedsystems(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
 def do_errata_listaffectedsystems(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_listaffectedsystems()
@@ -220,7 +220,7 @@ def complete_errata_listcves(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
 def do_errata_listcves(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_listcves()
@@ -253,7 +253,7 @@ def complete_errata_findbycve(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
 def do_errata_findbycve(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_findbycve()
@@ -286,7 +286,7 @@ def complete_errata_details(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
 def do_errata_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_details()
@@ -371,7 +371,7 @@ def complete_errata_delete(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
 def do_errata_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_delete()
@@ -416,7 +416,7 @@ def complete_errata_publish(self, text, line, beg, end):
         return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_errata_publish(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_errata_publish()
@@ -452,7 +452,7 @@ def complete_errata_search(self, text, line, beg, end):
     return tab_completer(self.do_errata_list('', True), text)
 
 def do_errata_search(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_search()
