@@ -1374,12 +1374,10 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "ksLabel")
      * @xmlrpc.returntype
-     *          #array()
-     *              #struct("kickstart variable")
-     *                  #prop("string", "key")
-     *                  #prop("string or int", "value")
-     *              #struct_end()
-     *          #array_end()
+     *     #struct("kickstart variable")
+     *         #prop("string", "key")
+     *         #prop("string or int", "value")
+     *     #struct_end()
      */
     public Map<String, Object> getVariables(String sessionKey, String ksLabel) {
 
@@ -1406,12 +1404,10 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "ksLabel")
      * @xmlrpc.param
-     *      #array()
-     *          #struct("kickstart variable")
-     *              #prop("string", "key")
-     *              #prop("string or int", "value")
-     *          #struct_end()
-     *      #array_end()
+     *     #struct("kickstart variable")
+     *         #prop("string", "key")
+     *         #prop("string or int", "value")
+     *     #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
     public int setVariables
