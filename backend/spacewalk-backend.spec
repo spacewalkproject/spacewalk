@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.32
+Version: 2.2.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Thu Jun 05 2014 Stephen Herr <sherr@redhat.com> 2.2.33-1
+- 1105282 - Spacewalk changes needed to support collisionless proxy lookaside
+
 * Mon Jun 02 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.32-1
 - rpm initialization bug has been resloved
 
