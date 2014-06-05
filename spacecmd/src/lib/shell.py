@@ -105,6 +105,9 @@ class SpacewalkShell(Cmd):
 
     # handle shell exits and history substitution
     def precmd(self, line):
+        # disable too-many-return-statements warning
+        # pylint: disable=R0911
+
         # remove leading/trailing whitespace
         line = re.sub(r'^\s+|\s+$', '', line)
 
