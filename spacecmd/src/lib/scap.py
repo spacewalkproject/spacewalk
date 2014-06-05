@@ -30,7 +30,6 @@
 # invalid function name
 # pylint: disable=C0103
 
-from optparse import Option
 from spacecmd.utils import *
 
 def help_scap_listxccdfscans(self):
