@@ -30,7 +30,6 @@
 # invalid function name
 # pylint: disable=C0103
 
-from operator import itemgetter
 from optparse import Option
 from spacecmd.utils import *
 import urllib
