@@ -73,7 +73,8 @@ def do_repo_details(self, args):
         details = self.client.channel.software.getRepoDetails(\
                                     self.session, repo)
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Repository Label:   %s' % details.get('label')
