@@ -33,6 +33,7 @@ from optparse import Option
 from spacecmd.utils import *
 
 import shlex
+import xmlrpclib
 
 def help_repo_list(self):
     print 'repo_list: List all available user repos'
@@ -248,7 +249,7 @@ def do_repo_delete(self, args):
         for repo in repos:
             try:
                 self.client.channel.software.removeRepo(self.session, repo)
-            except:
+            except xmlrpclib.Fault:
                 logging.error('Failed to remove repo %s' % repo)
 
 ####################
@@ -305,7 +306,7 @@ def do_repo_rename(self, args):
     try:
         details = self.client.channel.software.getRepoDetails(self.session, args[0])
         oldname = details.get('id')
-    except:
+    except xmlrpclib.Fault:
         logging.error('Could not find repo %s' % args[0])
         return False
 
