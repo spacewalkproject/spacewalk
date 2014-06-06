@@ -56,7 +56,8 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %{__rm} -rf %{buildroot}
 
 %check
-spacewalk-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
+PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
+	spacewalk-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
 
 %files
 %{_bindir}/spacecmd
