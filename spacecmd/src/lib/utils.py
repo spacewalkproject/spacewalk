@@ -37,7 +37,6 @@ from difflib  import unified_diff
 from tempfile import mkstemp
 from textwrap import wrap
 import rpm
-import string
 from spacecmd.optionparser import SpacecmdOptionParser
 
 try:
@@ -755,6 +754,8 @@ def file_needs_b64_enc(self, contents):
         translate_table = dict((ord(char), None) for char in text_characters)
         return float(len(contents.translate(translate_table))) / len(contents) > 0.3
     if isinstance(contents, str):
+        # pylint: disable=W0402
+        import string
         translate_table = string.maketrans("", "")
         return float(len(contents.translate(translate_table, text_characters))) / len(contents) > 0.3
 
