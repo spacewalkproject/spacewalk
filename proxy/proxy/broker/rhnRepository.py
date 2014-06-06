@@ -97,12 +97,18 @@ class Repository(rhnRepository.Repository):
             log_error("Package not in mapping: %s" % pkgFilename)
             raise rhnFault(17, _("Invalid RPM package requested: %s")
                                  % pkgFilename)
-        filePath = "%s/%s" % (CFG.PKG_DIR, mapping[pkgFilename])
-        log_debug(4, "File path", filePath)
-        if not os.access(filePath, os.R_OK):
-            log_debug(4, "Package not found locally: %s" % pkgFilename)
-            raise NotLocalError(filePath, pkgFilename)
-        return filePath
+        # A list of possible file paths. Always a list, channel mappings are
+        # cleared on package upgrade so we don't have to worry about the old
+        # behavior of returning a string
+        filePaths = mapping[pkgFilename]
+        # Can we see a file at any of the possible filepaths?
+        for filePath in filePaths:
+            filePath = "%s/%s" % (CFG.PKG_DIR, filePath)
+            log_debug(4, "File path", filePath)
+            if os.access(filePath, os.R_OK):
+                return filePath
+        log_debug(4, "Package not found locally: %s" % pkgFilename)
+        raise NotLocalError(filePaths[0], pkgFilename)
 
 
     def getSourcePackagePath(self, pkgFilename):
@@ -144,13 +150,14 @@ class Repository(rhnRepository.Repository):
             nvrea = list(parseRPMName(pkgFilename[:-10]))
             nvrea.append("nosrc")
 
-        filePath = computePackagePath(nvrea, source=1, prepend=PREFIX)
-        filePath = "%s/%s" % (CFG.PKG_DIR, filePath)
-        log_debug(4, "File path", filePath)
-        if not os.access(filePath, os.R_OK):
-            log_debug(4, "Source package not found locally: %s" % pkgFilename)
-            raise NotLocalError(filePath, pkgFilename)
-        return filePath
+        filePaths = computePackagePaths(nvrea, source=1, prepend=PREFIX)
+        for filePath in filePaths:
+            filePath = "%s/%s" % (CFG.PKG_DIR, filePath)
+            log_debug(4, "File path", filePath)
+            if os.access(filePath, os.R_OK):
+                return filePath
+        log_debug(4, "Source package not found locally: %s" % pkgFilename)
+        raise NotLocalError(filePaths[0], pkgFilename)
 
     def _cacheObj(self, fileName, version, dataProducer, params=None):
         """ The real workhorse for all flavors of listall
@@ -207,7 +214,7 @@ class Repository(rhnRepository.Repository):
         if self.caChain:
             server.add_trusted_cert(self.caChain)
 
-        packageList = listPackages(server.listAllPackages, self.channelName,
+        packageList = listPackages(server, self.channelName,
                                    self.channelVersion)
 
         # Hash the list
@@ -221,8 +228,14 @@ class Repository(rhnRepository.Repository):
 
             filename = "%s-%s-%s.%s.%s" % (package[0], package[1],
                 package[2], package[4], extension)
-            filePath = computePackagePath(package, source=0, prepend=PREFIX)
-            _hash[filename] = filePath
+            # if the package contains checksum info
+            if len(package) > 6:
+                filePaths = computePackagePaths(package, source=0,
+                        prepend=PREFIX, checksum=package[7])
+            else:
+                filePaths = computePackagePaths(package, source=0,
+                        prepend=PREFIX)
+            _hash[filename] = filePaths
 
         if CFG.DEBUG > 4:
             log_debug(5, "Mapping: %s[...snip snip...]%s" % (str(_hash)[:40], str(_hash)[-40:]))
@@ -234,19 +247,25 @@ def isSolarisArch(arch):
     """
     return arch.find("solaris") != -1
 
-def listPackages(function, channel, version):
+# First try to get package list with checksum information. If upstream is
+# not updated enough, fall back to package list with no checksums.
+def listPackages(server, channel, version):
     """ Generates a list of objects by calling the function """
 
     try:
-        return function(channel, version)
-    except xmlrpclib.ProtocolError, e:
-        errcode, errmsg = rpclib.reportError(e.headers)
-        raise rhnFault(1000, "SpacewalkProxy error (xmlrpclib.ProtocolError): "
+        return server.listAllPackagesChecksum(channel, version)
+    except:
+        try:
+            return server.listAllPackages(channel, version)
+        except xmlrpclib.ProtocolError, e:
+            errcode, errmsg = rpclib.reportError(e.headers)
+            raise rhnFault(1000, "SpacewalkProxy error (xmlrpclib.ProtocolError): "
                              "errode=%s; errmsg=%s" % (errcode, errmsg)), None, sys.exc_info()[2]
 
 
-def computePackagePath(nvrea, source=0, prepend=""):
-    """ Finds the appropriate path, prepending something if necessary """
+def computePackagePaths(nvrea, source=0, prepend="", checksum=None):
+    """ Finds the appropriate paths, prepending something if necessary """
+    paths = []
     name = nvrea[0]
     release = nvrea[2]
 
@@ -264,11 +283,22 @@ def computePackagePath(nvrea, source=0, prepend=""):
     epoch = nvrea[3]
     if epoch not in [None, '']:
         version = str(epoch) + ':' + version
+    # The new prefered path template avoides collisions if packages with the
+    # same nevra but different checksums are uploaded. It also should be the
+    # same as the /var/satellite/redhat/NULL/* paths upstream.
+    # We can't reliably look up the checksum for source packages, so don't
+    # use it in the source path.
+    if checksum and not source:
+        checksum_template = prepend + "/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s"
+        checksum_template = '/'.join(filter(truth, checksum_template.split('/')))
+        paths.append(checksum_template % (checksum[:3], name, version, release,
+            dirarch, checksum, name, nvrea[1], release, pkgarch, extension))
     template = prepend + "/%s/%s-%s/%s/%s-%s-%s.%s.%s"
     # Sanitize the path: remove duplicated /
     template = '/'.join(filter(truth, template.split('/')))
-    return template % (name, version, release, dirarch, name, nvrea[1],
-        release, pkgarch, extension)
+    paths.append(template % (name, version, release, dirarch, name, nvrea[1],
+        release, pkgarch, extension))
+    return paths
 
 def cache(stringObject, directory, filename, version):
     """ Caches stringObject into a file and removes older files """

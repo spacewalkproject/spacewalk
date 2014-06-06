@@ -74,6 +74,7 @@ class UploadClass:
         self.orgId = None
         self.relativeDir = None
         self.use_session = True
+        self.use_checksum_paths = False
 
     def warn(self, verbose, *args):
         if self.options.verbose >= verbose:
@@ -186,11 +187,20 @@ class UploadClass:
 
     def _listChannel(self):
         if self.use_session:
-            return listChannelBySession(self.server,
+            if self.use_checksum_paths:
+                return listChannelChecksumBySession(self.server,
+                        self.session.getSessionString(), self.channels)
+            else:
+                return listChannelBySession(self.server,
                                         self.session.getSessionString(),
                                         self.channels)
         else:
-            return listChannel(self.server,
+            if self.use_checksum_paths:
+                return listChannelChecksum(self.server,
+                               self.username, self.password,
+                               self.channels)
+            else:
+                return listChannel(self.server,
                                self.username, self.password,
                                self.channels)
 
@@ -409,7 +419,7 @@ class UploadClass:
             # Some feedback
             if self.options.verbose:
                 ReportError("Uploading batch:")
-                for p in uploadedPackages.values():
+                for p in uploadedPackages.values()[0]:
                     ReportError("\t\t%s" % p)
 
             if source:
@@ -430,7 +440,7 @@ class UploadClass:
                     if not uploadedPackages.has_key(key):
                         # XXX Hmm
                         self.warn("XXX XXX %s" % str(p))
-                    filename = uploadedPackages[key]
+                    filename, checksum = uploadedPackages[key]
                     # Some debugging
                     if self.options.verbose:
                         if idx == 0:
@@ -439,9 +449,9 @@ class UploadClass:
                             pattern = "Uploaded: %s"
                         print pattern % filename
                     # Per-package post actions
-                    self.processPackage(p, filename)
+                    self.processPackage(p, filename, checksum)
 
-    def processPackage(self, package, filename):
+    def processPackage(self, package, filename, checksum):
         pass
 
     def checkSession(self, session):
@@ -475,6 +485,10 @@ class UploadClass:
         self.setUsernamePassword()
         sessstr = call(self.server.packages.login, self.username, self.password)
         self.writeSession(sessstr)
+
+        # set whether we should use checksum paths or not (if upstream supports
+        # it we should).
+        self.use_checksum_paths = hasChannelChecksumCapability(server)
 
     @staticmethod
     def _processFile(filename, relativeDir=None, source=None, nosig=None):
@@ -549,7 +563,7 @@ class UploadClass:
             nvrea = info['nvrea']
             del info['nvrea']
 
-            sentPackages[nvrea] = filename
+            sentPackages[nvrea] = (filename, info['checksum'])
 
             # Append the header to the list of headers to be sent out
             headersList.append(info)
@@ -648,8 +662,16 @@ def parseXMLRPCfault(fault):
 def listChannel(server, username, password, channels):
     return call(server.packages.listChannel, channels, username, password)
 
+def listChannelChecksum(server, username, password, channels):
+    return call(server.packages.listChannelChecksum, channels, username,
+            password)
+
 def listChannelBySession(server, session_string, channels):
     return call(server.packages.listChannelBySession, channels, session_string)
+
+def listChannelChecksumBySession(server, session_string, channels):
+    return call(server.packages.listChannelChecksumBySession, channels,
+            session_string)
 
 def listChannelSource(server, username, password, channels):
     return call(server.packages.listChannelSource, channels, username, password)
@@ -686,6 +708,13 @@ def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
     if ca_chain:
         s.add_trusted_cert(ca_chain)
     return s
+
+def hasChannelChecksumCapability(rpc_server):
+    """ check whether server supports getPackageChecksumBySession function"""
+    server = rhnserver.RhnServer()
+    # pylint: disable=W0212
+    server._server = rpc_server
+    return server.capabilities.hasCapability('xmlrpc.packages.checksums')
 
 def exists_getPackageChecksumBySession(rpc_server):
     """ check whether server supports getPackageChecksumBySession function"""

@@ -13,7 +13,7 @@ Requires: httpd
 %if 0%{?fedora} || 0%{?rhel} > 5
 # pylint check
 BuildRequires: spacewalk-pylint
-BuildRequires: rhnpush >= 5.5.52
+BuildRequires: rhnpush >= 5.5.74
 BuildRequires: spacewalk-backend-libs >= 1.7.24
 BuildRequires: spacewalk-backend >= 1.7.24
 %endif
@@ -134,7 +134,7 @@ Group:   Applications/Internet
 Requires: spacewalk-backend >= 1.7.24
 Requires: rhnlib >= 2.5.56
 Requires: python
-Requires: rhnpush
+Requires: rhnpush >= 5.5.74
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: python-devel
 Obsoletes: rhn_package_manager < 5.3.0

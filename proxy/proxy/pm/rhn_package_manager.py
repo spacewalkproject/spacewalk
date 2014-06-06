@@ -45,6 +45,7 @@ from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnLib import parseUrl
 initCFG('proxy.package_manager')
+from proxy.broker.rhnRepository import computePackagePaths
 
 # globals
 PREFIX = 'rhn'
@@ -194,27 +195,38 @@ class UploadClass(uploadLib.UploadClass):
         for channel in self.channels:
             remotePackages[channel] = {}
         for p in channel_list:
-            channelName = p[5]
+            channelName = p[-1]
             key = tuple(p[:5])
             remotePackages[channelName][key] = None
 
         missing = []
         for package in channel_list:
-            packagePath = getPackagePath(package, 0, PREFIX)
-            packagePath = "%s/%s" % (CFG.PKG_DIR, packagePath)
-            if not os.path.isfile(packagePath):
-                missing.append([package, packagePath])
+            found = False
+            # if the package includes checksum info
+            if self.use_checksum_paths:
+                checksum = package[6]
+            else:
+                checksum = None
+
+            packagePaths = computePackagePaths(package, 0, PREFIX, checksum)
+            for packagePath in packagePaths:
+                packagePath = "%s/%s" % (CFG.PKG_DIR, packagePath)
+                if  os.path.isfile(packagePath):
+                    found = True
+                    break
+            if not found:
+                missing.append([package, packagePaths[0]])
 
         if not missing:
             self.warn(0, "Channels in sync with the server")
             return
 
         for package, packagePath in missing:
-            channelName = package[5]
+            channelName = package[-1]
             self.warn(0, "Missing: %s in channel %s (path %s)" % (
                 rpmPackageName(package), channelName, packagePath))
 
-    def processPackage(self, package, filename):
+    def processPackage(self, package, filename, checksum):
         if self.options.dontcopy:
             return
 
@@ -222,7 +234,11 @@ class UploadClass(uploadLib.UploadClass):
             self.warn(1, "No package directory specified; will not copy the package")
             return
 
-        packagePath = getPackagePath(package, self.options.source, PREFIX)
+        if not self.use_checksum_paths:
+            checksum = None
+        # Copy file to the prefered path
+        packagePath = computePackagePaths(package, self.options.source,
+                PREFIX, checksum)[0]
         packagePath = "%s/%s" % (CFG.PKG_DIR, packagePath)
         destdir = os.path.dirname(packagePath)
         if not os.path.isdir(destdir):
@@ -249,43 +265,41 @@ class UploadClass(uploadLib.UploadClass):
         # Set the count
         self.setCount()
 
+        if not CFG.PKG_DIR:
+            self.warn(1, "No package directory specified; will not copy the package")
+            return
+
+        # We'll controll this manually, see comment below.
+        self.use_checksum_paths = True
+
         for filename in self.files:
             fileinfo = self._processFile(filename,
                                     relativeDir=self.relativeDir,
                                     source=self.options.source,
                                     nosig=self.options.nosig)
-            self.processPackage(fileinfo['nvrea'], filename)
+            # This is an entirely local operation so we don't know what the
+            # server capabilities are. Painful, but for each file look at the
+            # options and see if we can find the file we're trying to replace.
+            # If can't find it default to checksumless path.
+            possiblePaths = computePackagePaths(fileinfo['nvrea'], filename,
+                    fileinfo['checksum'])
+            found = False
+            for path in possiblePaths:
+                path = "%s/%s" % (CFG.PKG_DIR, path)
+                if  os.path.isfile(path):
+                    found = path
+                    break
+
+            if found and fileinfo['checksum'] in found:
+                checksum = fileinfo['checksum']
+            else:
+                checksum = None
+
+            self.processPackage(fileinfo['nvrea'], filename, checksum)
 
 
 def rpmPackageName(p):
     return "%s-%s-%s.%s.rpm" % (p[0], p[1], p[2], p[4])
-
-
-def getPackagePath(nvrea, source=0, prepend=""):
-    """Finds the appropriate path, prepending something if necessary
-    """
-    name = nvrea[0]
-    release = nvrea[2]
-
-    if source:
-        dirarch = 'SRPMS'
-        pkgarch = 'src'
-    else:
-        dirarch = pkgarch = nvrea[4]
-
-    version = nvrea[1]
-    epoch = nvrea[3]
-    # Source packages are soooo broken; if they have an epoch, there is no
-    # possible way to retrieve them, so assume the epoch is None
-    if source:
-        epoch = None
-    if epoch not in [None, '']:
-        version = str(epoch) + ':' + version
-    template = prepend + "/%s/%s-%s/%s/%s-%s-%s.%s.rpm"
-    # Sanitize the path: remove duplicated /
-    template = '/'.join(filter(truth, template.split('/')))
-    return template % (name, version, release, dirarch, name, nvrea[1],
-        release, pkgarch)
 
 
 if __name__ == '__main__':
