@@ -1065,6 +1065,86 @@ def list_all_packages_checksum_sql(channel_id):
               __stringify(ret))
     return ret
 
+# This function executes the SQL call for listing latest packages with
+# checksum info
+def list_packages_checksum_sql(channel_id):
+    log_debug(3, channel_id)
+    # return the latest packages from the specified channel
+    query = """
+    select
+        pn.name,
+        pevr.version,
+        pevr.release,
+        pevr.epoch,
+        pa.label arch,
+        full_channel.package_size,
+        full_channel.checksum_type,
+        full_channel.checksum
+    from
+        rhnPackageArch pa,
+        ( select
+            p.name_id,
+            max(pe.evr) evr
+          from
+            rhnChannelPackage cp,
+            rhnPackage p,
+            rhnPackageEVR pe
+          where
+              cp.channel_id = :channel_id
+          and cp.package_id = p.id
+          and p.evr_id = pe.id
+          group by p.name_id
+        ) listall,
+        ( select distinct
+            p.package_size,
+            p.name_id,
+            p.evr_id,
+            p.package_arch_id,
+            ct.label as checksum_type,
+            c.checksum
+          from
+            rhnChannelPackage cp,
+            rhnPackage p,
+            rhnChecksumType ct,
+            rhnChecksum c
+          where
+              cp.channel_id = :channel_id
+          and cp.package_id = p.id
+          and p.checksum_id = c.id
+          and c.checksum_type_id = ct.id
+        ) full_channel,
+        -- Rank the package's arch
+        ( select
+            package_arch_id,
+            count(*) rank
+          from
+            rhnServerPackageArchCompat
+          group by package_arch_id
+        ) arch_rank,
+        rhnPackageName pn,
+        rhnPackageEVR pevr
+    where
+        pn.id = listall.name_id
+        -- link back to the specific package
+    and full_channel.name_id = listall.name_id
+    and full_channel.evr_id = pevr.id
+    and pevr.evr = listall.evr
+    and pa.id = full_channel.package_arch_id
+    and pa.id = arch_rank.package_arch_id
+    order by pn.name, arch_rank.rank desc
+    """
+    h = rhnSQL.prepare(query)
+    h.execute(channel_id = str(channel_id))
+    ret = h.fetchall_dict()
+    if not ret:
+        return []
+    # process the results
+    ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
+                         a["arch"], a["package_size"], a['checksum_type'],
+                         a['checksum']),
+              __stringify(ret))
+    return ret
+
 # This function executes the SQL call for listing packages
 def _list_packages_sql(query, channel_id):
     h = rhnSQL.prepare(query)

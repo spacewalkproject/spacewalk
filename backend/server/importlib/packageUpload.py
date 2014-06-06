@@ -155,12 +155,15 @@ def _dump(object):
 
 
 def listChannelsSource(channelList):
-    return _listChannels(channelList, True)
+    return _listChannels(channelList, True, False)
 
 def listChannels(channelList):
-    return _listChannels(channelList, False)
+    return _listChannels(channelList, False, False)
 
-def _listChannels(channelList, is_source):
+def listChannelsChecksum(channelList):
+    return _listChannels(channelList, False, True)
+
+def _listChannels(channelList, is_source, include_checksums):
     # Lists the packages from these channels
     # Uniquify the channels
     channels = set(channelList)
@@ -174,7 +177,11 @@ def _listChannels(channelList, is_source):
         if is_source:
             packageList = rhnChannel.list_packages_source(c_info['id'])
         else:
-            packageList = rhnChannel.list_packages_sql(c_info['id'])
+            if include_checksums:
+                packageList = rhnChannel.list_packages_checksum_sql(
+                        c_info['id'])
+            else:
+                packageList = rhnChannel.list_packages_sql(c_info['id'])
         for p in packageList:
             if is_source:
                 for pkg in range(len(p)):
@@ -183,7 +190,9 @@ def _listChannels(channelList, is_source):
                 print p
                 rez.append([p[0], p[1], p[2], p[3], channel])
             else:
-                # We don't care about the size for now, even if we all know size
-                # matters :-)
-                rez.append([p[0], p[1], p[2], p[3], p[4], channel])
+                if include_checksums:
+                    rez.append([p[0], p[1], p[2], p[3], p[4], p[6], p[7],
+                        channel])
+                else:
+                    rez.append([p[0], p[1], p[2], p[3], p[4], channel])
     return rez
