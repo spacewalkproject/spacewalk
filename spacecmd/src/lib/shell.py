@@ -100,8 +100,8 @@ class SpacewalkShell(Cmd):
                                     self.history_file)
                 except IOError:
                     logging.error('Could not read history file')
-        # pylint: disable=W0702
         except:
+            # pylint: disable=W0702
             pass
 
 
