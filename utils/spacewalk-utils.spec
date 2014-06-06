@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.17
+Version:	2.2.18
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Jun 06 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.18-1
+- fixed spacewalk-hostname-rename to work with postgresql backend
+
 * Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.17-1
 - 1101545 - Added limitation of spacewlak-clone-by-date for RHEL4 and earlier
 - new report: spacewalk-export-channels
