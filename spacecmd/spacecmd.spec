@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.2.8
+Version:     2.2.9
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -75,6 +75,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Jun 06 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.9-1
+- allow bare-except (W0702) in the outer block as well
+
 * Fri Jun 06 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.8-1
 - spacecmd: new build requires needed by pylint checking
 - pylint fixes: comma and operator to be followed / preceded by space
