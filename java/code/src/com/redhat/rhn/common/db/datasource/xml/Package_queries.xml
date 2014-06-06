@@ -2159,11 +2159,15 @@ select p.id,
   <query params="sid, ss_id">
 select  pn.name as package_name,
         pa.name as arch,
-        evr_t_as_vre_simple(server_pkgs.max_evr) as server_nvrea,
+        case when server_pkgs.max_evr is null then null
+          else evr_t_as_vre_simple(server_pkgs.max_evr)
+        end as server_nvrea,
         srvpe.epoch as server_epoch,
         srvpe.version as server_version,
         srvpe.release as server_release,
-        evr_t_as_vre_simple(snapshot_pkgs.max_evr) as snapshot_nvrea,
+        case when snapshot_pkgs.max_evr is null then null
+          else evr_t_as_vre_simple(snapshot_pkgs.max_evr)
+        end as snapshot_nvrea,
         snape.epoch as snapshot_epoch,
         snape.version as snapshot_version,
         snape.release as snapshot_release,
