@@ -2142,14 +2142,6 @@ def processCommandline():
         Option(     '--master',      action='store',
             help=_('the fully qualified domain name of the master Satellite. '
                  + 'Valid with --mount-point only. Required if you want to import org data and channel permissions.')),
-        # We can't have this option because then the new org won't have a user:
-        #Option(     '--create-missing-orgs',      action='store_true',
-        #    help=_('create orgs on this Satellite to match orgs exported by the master Satellite if local orgs have not already been mapped to the master orgs (use with --mount-point or --iss-parent only)')),
-
-        # DEFERRED:
-        #Option(     '--source-packages',     action='store_true', help='sync source rpms/metadata as well.'),
-        #Option(     '--no-srpms',            action='store_true', help='do not download, or process any SRPMs'),
-        #Option(     '--no-source-packages',  action='store_true', help='do not process source package metadata'),
     ]
     optionParser = OptionParser(option_list=optionsTable)
     global OPTIONS
@@ -2226,11 +2218,6 @@ def processCommandline():
             sys.exit(28)
     elif CFG.ISS_PARENT:
         OPTIONS.master = CFG.ISS_PARENT
-
-    #if OPTIONS.create_missing_orgs and not OPTIONS.master:
-    #    msg = _("ERROR: Org syncing is only available during an Inter Satellite Sync or import of a channel dump created by another Satellite with --master specified.")
-    #    log2stderr(-1, msg, cleanYN=1)
-    #    sys.exit(29)
 
     if OPTIONS.orgid:
         # verify if its a valid org
