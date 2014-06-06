@@ -56,9 +56,6 @@ public class ExplainPlanGenerator {
      * @param output The file to write the plans to.
      */
     public ExplainPlanGenerator(String source, String output) {
-        if (source != null && !source.equals("")) {
-            source = source + "/web/modules/rhn/RHN/DB/DataSource/xml";
-        }
         outfile = output;
     }
 
