@@ -5511,7 +5511,7 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="crypto.key.nokey">
-        <source>No file contents found. Please select a proper key file from your local machine to upload.</source>
+        <source>No GPL/SSL key content was provided.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysCreate.do</context>
         </context-group>
