@@ -256,14 +256,6 @@ class UploadClass(uploadLib.UploadClass):
                                     nosig=self.options.nosig)
             self.processPackage(fileinfo['nvrea'], filename)
 
-    @staticmethod
-    def _processFile(filename, relativeDir=None, source=None, nosig=None):
-        """ call parent _processFile and add to returned has md5sum """
-        info = uploadLib.UploadClass._processFile(filename, relativeDir, source, nosig)
-        checksum = getFileChecksum('md5', filename=filename)
-        info['md5sum'] = checksum
-        return info
-
 
 def rpmPackageName(p):
     return "%s-%s-%s.%s.rpm" % (p[0], p[1], p[2], p[4])
