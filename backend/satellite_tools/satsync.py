@@ -41,12 +41,11 @@ from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
 from spacewalk.common.rhnTB import exitWithTraceback
 sys.path.append("/usr/share/rhn")
 from up2date_client import config
-from spacewalk.common import rhn_rpm
 from spacewalk.common.checksum import getFileChecksum
 
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
-from spacewalk.server.rhnServer import satellite_cert, server_packages
+from spacewalk.server.rhnServer import satellite_cert
 from spacewalk.server.rhnLib import get_package_path
 from spacewalk.common import fileutils
 

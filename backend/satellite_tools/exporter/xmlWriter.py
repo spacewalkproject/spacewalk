@@ -18,7 +18,6 @@
 
 import re
 import sys
-from spacewalk.common.rhnLog import log_error
 
 class XMLWriter:
     """

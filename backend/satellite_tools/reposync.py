@@ -32,7 +32,6 @@ from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.errataImport import ErrataImport
 from spacewalk.server import taskomatic
 
-from urlgrabber.grabber import URLGrabError
 
 default_log_location = '/var/log/rhn/reposync/'
 relative_comps_dir   = 'rhn/comps'
