@@ -76,7 +76,7 @@ public class BaseUserSetupAction extends RhnAction {
         List locales = ls.getConfiguredLocales();
         for (Iterator iter = locales.iterator(); iter.hasNext();) {
             String locale = (String) iter.next();
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             buf.append("/img/i18n/").append(locale);
             buf.append(".gif");
             LangDisplayBean ldb = new LangDisplayBean();

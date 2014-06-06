@@ -258,7 +258,7 @@ public class ActionManager extends BaseManager {
         actionsToDelete.addAll(ActionFactory.lookupDependentActions(action));
 
         // Delete the server actions associated with the actions queried:
-        StringBuffer actionsToDeleteBuffer = new StringBuffer(
+        StringBuilder actionsToDeleteBuffer = new StringBuilder(
                 "Actions to be cancelled (including children):");
         Iterator iter = actionsToDelete.iterator();
         while (iter.hasNext()) {

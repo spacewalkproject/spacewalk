@@ -525,7 +525,7 @@ public class KickstartFormatter {
             log.debug("URL is not customized.");
             log.debug("Formatting for view use.");
             // /kickstart/dist/ks-rhel-i386-as-4-u2
-            StringBuffer url = new StringBuffer();
+            StringBuilder url = new StringBuilder();
             url.append("--url ");
             url.append(urlHelper.getCobblerMediaUrl());
             log.debug("constructed: " + url);
@@ -560,7 +560,7 @@ public class KickstartFormatter {
      * @return string containing packages
      */
     private String getPackages() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         for (KickstartPackage kp : ksdata.getKsPackages()) {
             buf.append(kp.getPackageName().getName() + NEWLINE);
         }
@@ -807,7 +807,7 @@ public class KickstartFormatter {
      */
     public static String generateActivationKeyString(KickstartData ksdata,
             KickstartSession ksession) {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         List<ActivationKey> tokens = generateActKeyTokens(ksdata, ksession);
         for (Iterator itr = tokens.iterator(); itr.hasNext();) {
             ActivationKey act = (ActivationKey) itr.next();
@@ -868,7 +868,7 @@ public class KickstartFormatter {
     }
 
     private String renderKeys() {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
 
         HashSet sslKeys = new HashSet();
         HashSet gpgKeys = new HashSet();
@@ -983,7 +983,7 @@ public class KickstartFormatter {
      * @return rendered gpg key string for kickstart
      */
     private String renderGpgKeys(HashSet<CryptoKey> setIn) {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         int peg = 1;
         for (CryptoKey myKey : setIn) {
             retval.append("cat > /tmp/gpg-key-" + peg + " <<'EOF'" + NEWLINE);
@@ -1009,7 +1009,7 @@ public class KickstartFormatter {
      * @return rendered sll key string for kickstart
      */
     private String renderSslKeys(HashSet setIn) {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         int peg = 1;
         for (Iterator itr = setIn.iterator(); itr.hasNext();) {
             retval.append("cat > /tmp/ssl-key-" + peg + " <<'EOF'" + NEWLINE);

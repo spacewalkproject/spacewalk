@@ -69,7 +69,7 @@ public class ServletUtils {
      * @return String path
      */
     public static String pathWithParams(String base, Map params) {
-        StringBuffer ret = new StringBuffer(base);
+        StringBuilder ret = new StringBuilder(base);
         boolean firstPass = true;
 
         // let's bail if there's no params

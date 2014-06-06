@@ -172,7 +172,7 @@ public class RhnHtmlDiffWriter implements DiffWriter, DiffVisitor {
      * @return The resulting html String.  Valid only after running report.
      */
     public String getResult() {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         result.append("<div class=\"oldfile\">");
         result.append(oldfile);
         result.append("</div>");

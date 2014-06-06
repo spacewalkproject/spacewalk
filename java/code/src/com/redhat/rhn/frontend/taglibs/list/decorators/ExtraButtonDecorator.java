@@ -51,7 +51,7 @@ public class ExtraButtonDecorator extends BaseListDecorator {
         String value = ls.getMessage(msg);
 
 
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         //   Add to SSM button
         HtmlTag tag = new HtmlTag("input");
         tag.setAttribute("type", "submit");

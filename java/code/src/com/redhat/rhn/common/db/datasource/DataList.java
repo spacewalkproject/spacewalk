@@ -231,7 +231,7 @@ public class DataList<E> extends ArrayList<E> {
      * data of the list.
      */
     public String toString() {
-        StringBuffer buffy = new StringBuffer();
+        StringBuilder buffy = new StringBuilder();
         buffy.append("DataList(");
         buffy.append("mode:");
         buffy.append(mode.toString());

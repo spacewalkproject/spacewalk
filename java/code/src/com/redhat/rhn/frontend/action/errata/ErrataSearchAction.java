@@ -467,7 +467,7 @@ public class ErrataSearchAction extends BaseSearchAction {
 
     protected String preprocessSearchString(String searchstring, String mode) {
 
-        StringBuffer buf = new StringBuffer(searchstring.length());
+        StringBuilder buf = new StringBuilder(searchstring.length());
         String[] tokens = searchstring.split(" ");
         for (String s : tokens) {
             if (s.trim().equalsIgnoreCase("AND") ||

@@ -205,7 +205,7 @@ public class ConfigurationValidation {
      * @return string with non-whitespace and non-word characters escaped
      */
     static String regexEscape(String inStr) {
-        StringBuffer buff = new StringBuffer("");
+        StringBuilder buff = new StringBuilder("");
         for (int i = 0; i < inStr.length(); i++) {
             if (!inStr.substring(i, i + 1).matches("[\\s\\w]")) {
                 buff.append("\\").append(inStr.charAt(i));

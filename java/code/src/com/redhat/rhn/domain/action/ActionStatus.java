@@ -73,9 +73,7 @@ public class ActionStatus {
      * {@inheritDoc}
      */
     public String toString() {
-        StringBuffer result = new StringBuffer();
-        result.append(name);
-        return result.toString();
+        return name;
     }
 
     /**

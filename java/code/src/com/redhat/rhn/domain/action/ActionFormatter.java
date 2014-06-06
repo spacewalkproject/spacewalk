@@ -54,7 +54,7 @@ public class ActionFormatter {
      */
     protected String getNotesHeader() {
 
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
 
         if (action.getFailedCount().longValue() > 0) {
             retval.append(getActionLink("action.failedlink",
@@ -74,7 +74,7 @@ public class ActionFormatter {
         LocalizationService ls = LocalizationService.getInstance();
         //  We may have to append .plural to the key
         //  if the case includes multiple systems
-        StringBuffer keybuff = new StringBuffer();
+        StringBuilder keybuff = new StringBuilder();
         keybuff.append(key);
         Object[] args = new Object[2];
         args[0] = action.getId().toString();
@@ -98,10 +98,10 @@ public class ActionFormatter {
      * @return the HTML String representation of the Notes
      */
     public String getNotes() {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         retval.append(getNotesHeader());
         retval.append(getNotesBody());
-        // The default StringBuffer with nothing in it
+        // The default StringBuilder with nothing in it
         // has the value of "null" so we also want to check
         // for that.
         if (retval.toString().length() == 0 ||

@@ -117,7 +117,7 @@ public class StringUtil {
      */
     public static String beanify(String strIn) {
         String str = strIn.trim();
-        StringBuffer result = new StringBuffer(str.length());
+        StringBuilder result = new StringBuilder(str.length());
         boolean wasWhitespace = false;
 
         for (int i = 0, j = 0; i < str.length(); i++) {
@@ -146,7 +146,7 @@ public class StringUtil {
      */
     public static String debeanify(String strIn) {
         String str = strIn.trim();
-        StringBuffer result = new StringBuffer(str.length());
+        StringBuilder result = new StringBuilder(str.length());
 
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
@@ -166,7 +166,7 @@ public class StringUtil {
      */
     public static String classify(String strIn) {
         String str = strIn.trim();
-        StringBuffer result = new StringBuffer(str.length());
+        StringBuilder result = new StringBuilder(str.length());
         boolean wasWhitespace = false;
 
         for (int i = 0, j = 0; i < str.length(); i++) {
@@ -273,7 +273,7 @@ public class StringUtil {
         if (lengthIn < 5) {
             throw new IllegalArgumentException("Length too short");
         }
-        StringBuffer sb = new StringBuffer(lengthIn);
+        StringBuilder sb = new StringBuilder(lengthIn);
         Random rand = new Random();
         int length = lengthIn;
         while (length-- > 5) {
@@ -348,13 +348,13 @@ public class StringUtil {
          * and executes modifications
          */
         Iterator<String> itr = pieces.iterator();
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         while (itr.hasNext()) {
             String current = itr.next();
             Matcher match = startUrl.matcher(current);
             if (match.find()) { // if this is a url
                 int end = findEndOfUrl(current);
-                StringBuffer modify = new StringBuffer("<a href=\"");
+                StringBuilder modify = new StringBuilder("<a href=\"");
                 if (end != -1) { // if the end of the url is not the end of the
                                  // token
                     modify.append(current.substring(0, end).replaceAll("&amp;", "&"));
@@ -411,7 +411,7 @@ public class StringUtil {
             return null;
         }
 
-        StringBuffer ret = new StringBuffer();
+        StringBuilder ret = new StringBuilder();
         ret.append(itty.next());
 
         while (itty.hasNext()) {
@@ -559,7 +559,7 @@ public class StringUtil {
         }
 
         // Now, localize the unit-strings for each unit requested
-        StringBuffer buff = new StringBuffer();
+        StringBuilder buff = new StringBuilder();
         for (int currUnit = maxUnit; currUnit >= minUnit; currUnit--) {
             buff = buff.append(localizeUnit(unitValues[currUnit], currUnit)).append(" ");
         }

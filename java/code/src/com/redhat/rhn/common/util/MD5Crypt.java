@@ -46,7 +46,7 @@ public class MD5Crypt {
      */
     private static String generateEncodedKey(byte[] digest, String salt) {
 
-        StringBuffer out = new StringBuffer(CryptHelper.getMD5Prefix());
+        StringBuilder out = new StringBuilder(CryptHelper.getMD5Prefix());
         out.append(salt);
         out.append("$");
 

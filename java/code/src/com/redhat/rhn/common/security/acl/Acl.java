@@ -341,7 +341,7 @@ public class Acl {
      */
     private String methodNameToAclName(String name) {
 
-        StringBuffer ret = new StringBuffer();
+        StringBuilder ret = new StringBuilder();
         boolean lastWasLower = false;
 
         ret.append(Character.toLowerCase(name.charAt(ACL_PREFIX.length())));

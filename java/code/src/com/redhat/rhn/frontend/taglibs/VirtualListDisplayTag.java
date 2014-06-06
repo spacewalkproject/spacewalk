@@ -37,7 +37,7 @@ public class VirtualListDisplayTag extends ListDisplayTag {
      * systems, and another for the 'virtual' systems.
      */
     protected String getTrElement(Object o) {
-        StringBuffer retval;
+        StringBuilder retval;
 
         VirtualSystemOverview system = (VirtualSystemOverview) o;
 
@@ -47,10 +47,10 @@ public class VirtualListDisplayTag extends ListDisplayTag {
             rowCnt = 0;
 
             if (outerRowCnt == 0) {
-                retval = new StringBuffer("<tr class=\"list-row-virtual-host-even\"");
+                retval = new StringBuilder("<tr class=\"list-row-virtual-host-even\"");
             }
             else {
-                retval = new StringBuffer("<tr class=\"list-row-virtual-host-odd\"");
+                retval = new StringBuilder("<tr class=\"list-row-virtual-host-odd\"");
             }
         }
         else {
@@ -58,10 +58,10 @@ public class VirtualListDisplayTag extends ListDisplayTag {
             rowCnt = rowCnt % 2;
 
             if (rowCnt == 1 || isTransparent()) {
-                retval = new StringBuffer("<tr class=\"list-row-virtual-odd\"");
+                retval = new StringBuilder("<tr class=\"list-row-virtual-odd\"");
             }
             else {
-                retval = new StringBuffer("<tr class=\"list-row-virtual-even\"");
+                retval = new StringBuilder("<tr class=\"list-row-virtual-even\"");
             }
         }
 

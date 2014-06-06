@@ -153,7 +153,7 @@ public class ErrataFactory extends HibernateFactory {
                 prefix = identifier.substring(0, 4);
                 if (prefix.matches("RH.A")) {
                     StringTokenizer strtok = new StringTokenizer(identifier, "-");
-                    StringBuffer buf = new StringBuffer();
+                    StringBuilder buf = new StringBuilder();
                     boolean foundFirst = false;
                     while (strtok.hasMoreTokens()) {
                         buf.append(strtok.nextToken());

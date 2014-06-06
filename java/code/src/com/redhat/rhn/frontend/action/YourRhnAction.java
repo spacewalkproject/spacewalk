@@ -130,7 +130,7 @@ public class YourRhnAction extends RhnAction {
         if (parts.length < 2) {
             return key;
         }
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(parts[0].toLowerCase());
         for (int x = 1; x < parts.length; x++) {
             String s = parts[x].substring(0, 1);

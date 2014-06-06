@@ -494,7 +494,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
         if (ent != null) {
             Iterator i = ent.iterator();
             // Get the first entitlement
-            StringBuffer retval = new StringBuffer();
+            StringBuilder retval = new StringBuilder();
             retval.append(ls.getMessage((String) i.next()));
             //Loop through and append the rest
             while (i.hasNext()) {
@@ -642,7 +642,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
     public void setInactivityString() {
 
         LocalizationService ls = LocalizationService.getInstance();
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         if (lastCheckinDaysAgo.compareTo(new Long(1)) < 0) {
             buffer.append(lastCheckinDaysAgo * new Long(24));

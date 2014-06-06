@@ -255,7 +255,7 @@ public class DailySummary extends RhnJavaJob {
         }
 
         //render the header--  System Id        System Name        LastCheckin
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(sid);
         buf.append(StringUtils.repeat(" ", sidLength - sid.length()));
         buf.append(sname);
@@ -277,7 +277,7 @@ public class DailySummary extends RhnJavaJob {
         }
 
         //Lastly, create the url for the link in the email.
-        StringBuffer url = new StringBuffer();
+        StringBuilder url = new StringBuilder();
         if (Config.get().getBoolean(ConfigDefaults.SSL_AVAILABLE)) {
             url.append("https://");
         }
@@ -300,10 +300,10 @@ public class DailySummary extends RhnJavaJob {
 
         int longestActionLength = HEADER_SPACER;
         int longestStatusLength = 0;
-        StringBuffer hdr = new StringBuffer();
-        StringBuffer body = new StringBuffer();
-        StringBuffer legend = new StringBuffer();
-        StringBuffer msg = new StringBuffer();
+        StringBuilder hdr = new StringBuilder();
+        StringBuilder body = new StringBuilder();
+        StringBuilder legend = new StringBuilder();
+        StringBuilder msg = new StringBuilder();
         LinkedHashSet<String> statusSet = new LinkedHashSet();
         TreeMap<String, Map<String, Integer>> nonErrataActions = new TreeMap();
         TreeMap<String, Map<String, Integer>> errataActions = new TreeMap();

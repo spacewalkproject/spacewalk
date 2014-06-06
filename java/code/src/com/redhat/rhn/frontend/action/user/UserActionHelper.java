@@ -47,7 +47,7 @@ public class UserActionHelper {
                             availablePrefixes().iterator();
         while (i.hasNext()) {
             String keyval = (String) i.next();
-            StringBuffer msgKey = new StringBuffer("user prefix ");
+            StringBuilder msgKey = new StringBuilder("user prefix ");
             msgKey.append(keyval);
             String display = LocalizationService.getInstance().
                     getMessage(msgKey.toString());

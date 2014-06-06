@@ -170,7 +170,7 @@ public class NavTreeIndex {
         // loop through the path parts of URL, creating a new split
         // URL for each pass, starting with longest, going to shortest
         for (int i = splitPath.length - 1; i >= 0; i--) {
-            StringBuffer sb = new StringBuffer("/");
+            StringBuilder sb = new StringBuilder("/");
 
             for (int j = 0; j <= i; j++) {
                 sb.append(splitPath[j]);

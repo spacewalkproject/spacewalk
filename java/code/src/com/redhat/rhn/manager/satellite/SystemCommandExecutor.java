@@ -135,7 +135,7 @@ public class SystemCommandExecutor implements Executor {
      * @return will not be <code>null</code> but may be the empty string
      */
     private String inputStreamToString(InputStream in) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         try {
             BufferedReader input = new BufferedReader(new InputStreamReader(in));

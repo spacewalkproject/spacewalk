@@ -98,7 +98,7 @@ public class ErrataDetailsSetupAction extends RhnAction {
             return null;
         }
         ErrataFile ef = (ErrataFile) files.get(0);
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append("<a href=\"/rhn/oval?errata=").append(errataId).append("\">");
         String name = ef.getErrata().getAdvisoryName().toLowerCase();
         name = name.replaceAll(":", "");

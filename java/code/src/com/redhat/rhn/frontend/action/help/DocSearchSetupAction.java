@@ -166,7 +166,7 @@ public class DocSearchSetupAction extends BaseSearchAction {
             throw new ValidatorException("Can't use free form and field search.");
         }
 
-        StringBuffer buf = new StringBuffer(searchstring.length());
+        StringBuilder buf = new StringBuilder(searchstring.length());
         String[] tokens = searchstring.split(" ");
         for (String s : tokens) {
             if (s.trim().equalsIgnoreCase("AND") ||

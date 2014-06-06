@@ -642,7 +642,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      * {@inheritDoc}
      */
     public String toString() {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         result.append(this.getClass().getName());
         result.append(" : ");
         result.append(id);

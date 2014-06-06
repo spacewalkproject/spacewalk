@@ -658,7 +658,7 @@ public class Package extends BaseDomainHelper {
     public String getFilename() {
         String pkgFile = getFile();
         if (pkgFile == null) {
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             buf.append(getPackageName().getName());
             buf.append("-");
             buf.append(getPackageEvr().getVersion());

@@ -594,7 +594,7 @@ public class RequestContext {
      * @return url that is built.
      */
     public String buildPageLink(String name, String value) {
-        StringBuffer page = new StringBuffer((String)request
+        StringBuilder page = new StringBuilder((String)request
                 .getAttribute("requestedUri"));
 
         if (request.getQueryString() != null) {

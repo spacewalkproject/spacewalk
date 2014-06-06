@@ -45,7 +45,7 @@ public class PendingActionsRenderer extends BaseFragmentRenderer {
         String pendingActionsCSSTable = null;
         DataResult padr = ActionManager.recentlyScheduledActions(user, pc, 30);
         for (Iterator i = padr.iterator(); i.hasNext();) {
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             ScheduledAction sa = (ScheduledAction) i.next();
 
             Action action = ActionManager.lookupAction(user, sa.getId());

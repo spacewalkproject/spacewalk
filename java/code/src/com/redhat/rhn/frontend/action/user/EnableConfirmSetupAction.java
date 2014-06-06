@@ -146,7 +146,7 @@ public class EnableConfirmSetupAction extends RhnListAction {
         RhnSetDecl.USERS.clear(user);
 
         ActionMessages msg = new ActionMessages();
-        StringBuffer messageKey = new StringBuffer("enable.confirmed");
+        StringBuilder messageKey = new StringBuilder("enable.confirmed");
         if (count > 1) {
             messageKey = messageKey.append(".plural");
         }

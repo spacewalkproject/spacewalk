@@ -111,7 +111,7 @@ public class SessionSwap {
      */
     public static String generateSwapKey(String data) {
         Config c = Config.get();
-        StringBuffer swapKey = new StringBuffer(20);
+        StringBuilder swapKey = new StringBuilder(20);
 
         swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_1));
         swapKey.append(":");
@@ -158,7 +158,7 @@ public class SessionSwap {
     public static String rhnHmacData(List<String> text) {
 
         Config c = Config.get();
-        StringBuffer swapKey = new StringBuffer(20);
+        StringBuilder swapKey = new StringBuilder(20);
         if (log.isDebugEnabled()) {
             for (String tmp : text) {
                 log.debug("val : " + tmp);

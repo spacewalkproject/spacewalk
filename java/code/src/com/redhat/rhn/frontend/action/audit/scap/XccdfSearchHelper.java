@@ -95,7 +95,7 @@ public class XccdfSearchHelper extends RhnAction {
     }
 
     private static String keywordsToUpper(String searchString) {
-        StringBuffer buf = new StringBuffer(searchString.length() + 1);
+        StringBuilder buf = new StringBuilder(searchString.length() + 1);
         for (String s : searchString.split(" ")) {
             if (s.trim().equalsIgnoreCase("AND") ||
                     s.trim().equalsIgnoreCase("OR") ||

@@ -40,7 +40,7 @@ public class SystemCommandThreadedExecutor implements Executor {
                 logger = log;
         }
         public void run() {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             try {
                 BufferedReader input = new BufferedReader(
                                                 new InputStreamReader(inputStream));

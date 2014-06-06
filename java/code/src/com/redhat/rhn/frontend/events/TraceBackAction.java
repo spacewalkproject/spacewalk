@@ -37,7 +37,7 @@ public class TraceBackAction extends BaseMailAction implements MessageAction {
 
     protected String getSubject(BaseEvent evtIn) {
         // setup subject
-        StringBuffer subject = new StringBuffer();
+        StringBuilder subject = new StringBuilder();
         subject.append(LocalizationService.getInstance().
                 getMessage("web traceback subject", evtIn.getUserLocale()));
         // Not sure if getting the local hostname is the correct thing to do

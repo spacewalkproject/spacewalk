@@ -177,7 +177,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
             HttpServletRequest request, Long cfid) {
         ActionMessages msg = new ActionMessages();
         Object[] args = new Object[2];
-        StringBuffer buffy = new StringBuffer();
+        StringBuilder buffy = new StringBuilder();
         buffy.append("/rhn/configuration/file/FileDetails.do?" +
                 ConfigActionHelper.FILE_ID + "=");
         buffy.append(cfid);

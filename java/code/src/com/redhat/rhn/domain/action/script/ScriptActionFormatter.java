@@ -39,7 +39,7 @@ public class ScriptActionFormatter extends ActionFormatter {
      * @return String of the Errata HTML
      */
     protected String getNotesBody() {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         ScriptAction sa = (ScriptAction) getAction();
         retval.append(LocalizationService.getInstance().getMessage("run as"));
         retval.append("<strong>");

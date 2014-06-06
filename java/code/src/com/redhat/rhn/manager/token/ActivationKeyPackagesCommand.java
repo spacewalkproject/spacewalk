@@ -59,7 +59,7 @@ public class ActivationKeyPackagesCommand {
      * @return String representation of package information
      */
     public String populatePackages() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
 
         // in order to ensure that packages are displayed in order, we'll obtain them
         // using the TokenPackageFactory

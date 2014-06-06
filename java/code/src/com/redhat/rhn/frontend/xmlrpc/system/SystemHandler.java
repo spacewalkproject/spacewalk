@@ -1844,7 +1844,7 @@ public class SystemHandler extends BaseHandler {
         if (skippedKeys.size() > 0) {
             // We need to throw an exception. Append each undefined key to the
             // exception message.
-            StringBuffer msg = new StringBuffer("One or more of the following " +
+            StringBuilder msg = new StringBuilder("One or more of the following " +
                     "custom info fields was not defined: ");
 
             for (Iterator<String> itr = skippedKeys.iterator(); itr.hasNext();) {
@@ -1949,7 +1949,7 @@ public class SystemHandler extends BaseHandler {
         if (skippedKeys.size() > 0) {
             // We need to throw an exception. Append each undefined key to the
             // exception message.
-            StringBuffer msg = new StringBuffer("One or more of the following " +
+            StringBuilder msg = new StringBuilder("One or more of the following " +
                     "custom info fields was not defined: ");
 
             for (String label : skippedKeys) {

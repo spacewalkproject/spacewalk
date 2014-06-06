@@ -94,7 +94,7 @@ public class SubscribeConfirm extends RhnAction {
         List systems = cm.ssmSystemsForSubscribe(user);
 
         //Create the parent url. Copy the one important parameter.
-        StringBuffer parentUrl = new StringBuffer();
+        StringBuilder parentUrl = new StringBuilder();
         parentUrl.append(request.getRequestURI());
         parentUrl.append("?");
         parentUrl.append(POSITION);

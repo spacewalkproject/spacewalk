@@ -81,7 +81,7 @@ public class ChannelEditor {
                                 Collection packageIds, boolean add) {
         //Make sure the person adding packages is a channel admin
         if (!UserManager.verifyChannelAdmin(user, channel)) {
-            StringBuffer msg = new StringBuffer("User: ");
+            StringBuilder msg = new StringBuilder("User: ");
             msg.append(user.getLogin());
             msg.append(" does not have channel admin access to channel: ");
             msg.append(channel.getLabel());

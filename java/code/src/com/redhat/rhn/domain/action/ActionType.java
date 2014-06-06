@@ -123,7 +123,7 @@ public class ActionType implements Serializable {
      * @return Returns ActionType as a String
      */
     public String toString() {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         result.append(label);
         result.append(" : ");
         result.append(name);

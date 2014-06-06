@@ -79,7 +79,7 @@ public class PermissionException extends RhnRuntimeException  {
         setLocalizedTitle(ls.getMessage("permission.jsp.title.acl"));
 
         //Set the summary. The default summary gives several reasons
-        StringBuffer summary = new StringBuffer();
+        StringBuilder summary = new StringBuilder();
         summary.append(ls.getMessage("permission.jsp.summary.acl.header"));
 
         //wrap the reasons as an ordered list

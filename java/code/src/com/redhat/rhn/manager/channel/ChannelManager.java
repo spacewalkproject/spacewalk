@@ -1009,7 +1009,7 @@ public class ChannelManager extends BaseManager {
              * access to this channel, so catch the exception, log it, and simply
              * return false.
              */
-            StringBuffer msg = new StringBuffer("User: ");
+            StringBuilder msg = new StringBuilder("User: ");
             msg.append(user.getLogin());
             msg.append(" either does not have subscribe privileges to Channel: ");
             msg.append(cid);
@@ -1037,7 +1037,7 @@ public class ChannelManager extends BaseManager {
              * access to this channel, so catch the exception, log it, and simply
              * return false.
              */
-            StringBuffer msg = new StringBuffer("User: ");
+            StringBuilder msg = new StringBuilder("User: ");
             msg.append(user.getLogin());
             msg.append(" either does not have subscribe privileges to Channel: ");
             msg.append(cid);
@@ -1532,7 +1532,7 @@ public class ChannelManager extends BaseManager {
         }
         SelectMode m = ModeFactory.getMode("Channel_queries",
             "latest_package_like");
-        StringBuffer pname = new StringBuffer();
+        StringBuilder pname = new StringBuilder();
         pname.append("%");
         pname.append(packageName);
         pname.append("%");
@@ -1829,7 +1829,7 @@ public class ChannelManager extends BaseManager {
             return originalRelease;
         }
 
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(tokens[0]);
         buf.append(".");
         buf.append(tokens[1]);
@@ -2518,7 +2518,7 @@ public class ChannelManager extends BaseManager {
     public static void removePackages(Channel chan, List<Long> packageIds, User user) {
 
         if (!UserManager.verifyChannelAdmin(user, chan)) {
-            StringBuffer msg = new StringBuffer("User: ");
+            StringBuilder msg = new StringBuilder("User: ");
             msg.append(user.getLogin());
             msg.append(" does not have channel admin access to channel: ");
             msg.append(chan.getLabel());
@@ -2549,7 +2549,7 @@ public class ChannelManager extends BaseManager {
     public static void addPackages(Channel chan, List<Long> packageIds, User user) {
 
         if (!UserManager.verifyChannelAdmin(user, chan)) {
-            StringBuffer msg = new StringBuffer("User: ");
+            StringBuilder msg = new StringBuilder("User: ");
             msg.append(user.getLogin());
             msg.append(" does not have channel admin access to channel: ");
             msg.append(chan.getLabel());

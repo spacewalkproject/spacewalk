@@ -226,7 +226,7 @@ public class AddressImpl extends BaseDomainHelper implements Address {
      * @return String value of AddressImpl object
      */
     public String toString() {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         retval.append("{ID: " + getId());
         retval.append(", type: " + getType());
         retval.append(", created: " + getCreated());

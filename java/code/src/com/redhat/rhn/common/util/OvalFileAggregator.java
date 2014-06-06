@@ -214,7 +214,7 @@ public class OvalFileAggregator {
         Element timestamp = new Element("timestamp", oval);
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        StringBuffer date = new StringBuffer();
+        StringBuilder date = new StringBuilder();
         date.append(cal.get(Calendar.YEAR));
         date.append("-");
         int month = cal.get(Calendar.MONTH);

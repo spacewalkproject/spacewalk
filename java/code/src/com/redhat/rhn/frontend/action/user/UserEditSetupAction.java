@@ -120,7 +120,7 @@ public class UserEditSetupAction extends RhnAction {
         // the simple checkbox interface. Thus we hack around the problem by storing a list
         // of the disabled roles, bar separated. This allows us to add the extra info we
         // need when processing the form.
-        StringBuffer disabledRoles = new StringBuffer();
+        StringBuilder disabledRoles = new StringBuilder();
 
         for (Role currRole : orgRoles) {
             log.debug("currRole = " + currRole.getLabel());
@@ -142,7 +142,7 @@ public class UserEditSetupAction extends RhnAction {
             // and disable the item in the UI.
             if (UserFactory.IMPLIEDROLES.contains(currRole) &&
                     targetUser.hasPermanentRole(RoleFactory.ORG_ADMIN)) {
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 sb.append(uilabel);
                 sb.append(" - [ ");
                 sb.append(LocalizationService.getInstance().getMessage("Admin Access"));

@@ -101,7 +101,7 @@ public class OrgEntitlementType extends BaseDomainHelper {
 
     /** {@inheritDoc} */
     public String toString() {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         retval.append("Entitlement: ");
         retval.append(label);
         return retval.toString();

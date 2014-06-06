@@ -74,7 +74,7 @@ public class GraphGenerator {
         try {
             log.debug("Generating graph with title: ");
             String tmpDir = System.getProperty("java.io.tmpdir");
-            StringBuffer fname = new StringBuffer();
+            StringBuilder fname = new StringBuilder();
             fname.append(tmpDir);
             fname.append("/chart");
             fname.append(System.currentTimeMillis());

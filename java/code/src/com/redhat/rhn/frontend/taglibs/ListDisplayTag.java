@@ -452,8 +452,8 @@ public class ListDisplayTag extends ListDisplayTagBase {
         HttpServletRequest request =
             (HttpServletRequest) pageContext.getRequest();
 
-        StringBuffer page =
-            new StringBuffer((String) request.getAttribute("requestedUri"));
+        StringBuilder page =
+            new StringBuilder((String) request.getAttribute("requestedUri"));
 
         page.append("?" + RequestContext.LIST_DISPLAY_EXPORT + "=1");
         if (request.getQueryString() != null) {
@@ -467,7 +467,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
     }
 
     private void renderBoundsVariables(Writer out) throws IOException {
-        StringBuffer target = new StringBuffer();
+        StringBuilder target = new StringBuilder();
         // pagination formvars
         renderHidden(target, "lower", String.valueOf(getPageList().getStart()));
 
@@ -490,7 +490,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
     }
 
     private void renderSetButtons(Writer out) throws IOException {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         if (set != null) {
             if (showSetButtons) {
                 buf.append("<span class=\"spacewalk-list-selection-btns\">");
@@ -511,7 +511,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
         out.append(buf.toString());
     }
 
-    private HtmlTag addButtonTo(StringBuffer buf, String name,
+    private HtmlTag addButtonTo(StringBuilder buf, String name,
                                String label) {
 
         LocalizationService ls = LocalizationService.getInstance();
@@ -525,7 +525,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
 
     }
 
-    private HtmlTag addButtonTo(StringBuffer buf, String name,
+    private HtmlTag addButtonTo(StringBuilder buf, String name,
                                String label, String id) {
 
         HtmlTag input = addButtonTo(buf, name, label);
@@ -667,12 +667,12 @@ public class ListDisplayTag extends ListDisplayTagBase {
         rowCnt++;
         rowCnt = rowCnt % 2;
 
-        StringBuffer retval;
+        StringBuilder retval;
         if (rowCnt == 1 || isTransparent()) {
-            retval = new StringBuffer("<tr class=\"list-row-odd");
+            retval = new StringBuilder("<tr class=\"list-row-odd");
         }
         else {
-            retval = new StringBuffer("<tr class=\"list-row-even");
+            retval = new StringBuilder("<tr class=\"list-row-even");
         }
         if (renderDisabled() && o instanceof UserOverview &&
                 ((UserOverview)o).getStatus() != null &&
@@ -691,11 +691,11 @@ public class ListDisplayTag extends ListDisplayTagBase {
      * <pre>
      * <input type="hidden" name="foo" value="bar" />
      * </pre>
-     * @param buf StringBuffer that will be affected.
+     * @param buf StringBuilder that will be affected.
      * @param name Name of hidden input tag.
      * @param value Value of hidden input tag.
      */
-    private void renderHidden(StringBuffer buf, String name, String value) {
+    private void renderHidden(StringBuilder buf, String name, String value) {
         HtmlTag input = new HtmlTag("input");
         input.setAttribute("type", "hidden");
         input.setAttribute("name", name);
@@ -725,12 +725,12 @@ public class ListDisplayTag extends ListDisplayTagBase {
     }
 
     private void renderAlphabar(Writer out) throws IOException {
-        StringBuffer target = new StringBuffer();
+        StringBuilder target = new StringBuilder();
 
         target.append("<div class=\"spacewalk-alphabar\">");
 
         target.append("<ul class=\"pagination pagination-sm\">");
-        StringBuffer enabled = new StringBuffer("<li><a href=\"");
+        StringBuilder enabled = new StringBuilder("<li><a href=\"");
         enabled.append("?lower={1}");
 
         /**

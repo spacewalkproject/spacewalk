@@ -117,7 +117,7 @@ public class SelectableDecorator extends BaseListDecorator {
 
     private void renderSelectButtons() throws JspException {
         if (!currentList.isEmpty()) {
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             buf.append("<span class=\"spacewalk-list-selection-btns\">");
             String buttonName = ListTagUtil.makeSelectActionName(listName);
             LocalizationService ls = LocalizationService.getInstance();

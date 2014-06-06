@@ -105,7 +105,7 @@ public abstract class BaseDaemon implements WrapperListener {
      * @param err Optional
      */
     public void logMessage(int logLevel, String msg, Throwable err) {
-        StringBuffer buf  = new StringBuffer();
+        StringBuilder buf  = new StringBuilder();
         buf.append(msg);
         if (err != null) {
            buf.append("\n");

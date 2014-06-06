@@ -45,7 +45,7 @@ public class ErrataActionFormatter extends ActionFormatter {
      * @return String of the Errata HTML
      */
     protected String getNotesBody() {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         Set<Errata> erratas = ((ErrataAction) this.getAction()).getErrata();
         if (erratas != null && erratas.size() > 0) {
             for (Errata errata : erratas) {

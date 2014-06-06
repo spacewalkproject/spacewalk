@@ -496,7 +496,7 @@ public class KickstartSession {
      * @return String url
      */
     public String getUrl(String kickstartHostIn, Date earliestDate) {
-        StringBuffer filepath = new StringBuffer();
+        StringBuilder filepath = new StringBuilder();
         String encodedId = SessionSwap.encodeData(this.getId().toString());
         filepath.append("/kickstart/ks/");
         filepath.append("session/");

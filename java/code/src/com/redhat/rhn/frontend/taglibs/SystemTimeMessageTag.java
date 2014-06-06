@@ -66,7 +66,7 @@ public class SystemTimeMessageTag extends TagSupport {
         if (server == null) {
             throw new JspException("Tag error: Server must be defined");
         }
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         LocalizationService translate = LocalizationService.getInstance();
 
         Date now = new Date();

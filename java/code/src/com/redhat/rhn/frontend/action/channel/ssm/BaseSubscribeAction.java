@@ -456,8 +456,8 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
     private Map<Long, Long> copyChangedChannels(HttpServletRequest request) {
         Enumeration<String> names = request.getParameterNames();
         Map<Long, Long> oldToNewMap = new HashMap<Long, Long>();
-        StringBuffer idsBuf = new StringBuffer();
-        StringBuffer valuesBuf = new StringBuffer();
+        StringBuilder idsBuf = new StringBuilder();
+        StringBuilder valuesBuf = new StringBuilder();
 
         while (names.hasMoreElements()) {
             String aName = names.nextElement();

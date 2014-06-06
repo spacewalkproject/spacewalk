@@ -165,7 +165,7 @@ public class MonitoringManager extends BaseManager {
         //Must concat the values together
         //to produce the oid: 1-3-pctfree
         //     orgId-probeId-metric
-        StringBuffer oid = new StringBuffer();
+        StringBuilder oid = new StringBuilder();
         oid.append(probeIn.getOrg().getId());
         oid.append("-");
         oid.append(probeIn.getId());

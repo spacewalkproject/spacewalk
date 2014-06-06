@@ -68,7 +68,7 @@ public class TaskHelper {
         }
         SmtpMail mail = new SmtpMail();
         mail.setRecipients(recipients);
-        StringBuffer subject = new StringBuffer();
+        StringBuilder subject = new StringBuilder();
         subject.append(ls.getMessage("web traceback subject", Locale.getDefault()));
         try {
             subject.append(InetAddress.getLocalHost().getHostName());
@@ -111,7 +111,7 @@ public class TaskHelper {
         }
         SmtpMail mail = new SmtpMail();
         mail.setRecipients(recipients);
-        StringBuffer subject = new StringBuffer();
+        StringBuilder subject = new StringBuilder();
         subject.append(ls.getMessage("taskomatic notif subject", Locale.getDefault()));
         try {
             subject.append(" from " + InetAddress.getLocalHost().getHostName());

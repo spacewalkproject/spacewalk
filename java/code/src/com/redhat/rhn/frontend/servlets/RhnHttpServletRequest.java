@@ -105,7 +105,7 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
      * @return lots of information about this object in a String object.
      */
     public String toString() {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
 
         retval.append("Local Name = ");
         retval.append(getLocalName());

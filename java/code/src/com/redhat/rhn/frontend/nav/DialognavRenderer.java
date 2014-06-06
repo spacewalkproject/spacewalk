@@ -111,12 +111,12 @@ public class DialognavRenderer extends Renderable {
         String href = node.getPrimaryURL();
         String allowedFormVars = treeIndex.getTree().getFormvar();
         if (allowedFormVars != null) {
-            StringBuffer formVars;
+            StringBuilder formVars;
             if (href.indexOf('?') == -1) {
-                formVars = new StringBuffer("?");
+                formVars = new StringBuilder("?");
             }
             else {
-                formVars = new StringBuffer("&");
+                formVars = new StringBuilder("&");
             }
 
             StringTokenizer st = new StringTokenizer(allowedFormVars);

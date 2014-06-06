@@ -52,7 +52,7 @@ public class AddToSsmDecorator extends BaseListDecorator {
             String clearText = ls.getMessage("Clear SSM");
 
             // Generate the HTML to output
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             buf.append("<span class=\"spacewalk-list-selection-btns\">");
 
             //   Add to SSM button

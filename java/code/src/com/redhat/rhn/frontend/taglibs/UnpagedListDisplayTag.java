@@ -167,12 +167,12 @@ public class UnpagedListDisplayTag extends ListDisplayTagBase {
             rowCnt = rowCnt % 2;
         }
 
-        StringBuffer retval;
+        StringBuilder retval;
         if (rowCnt == 1 || isTransparent()) {
-            retval = new StringBuffer("<tr class=\"list-row-odd");
+            retval = new StringBuilder("<tr class=\"list-row-odd");
         }
         else {
-            retval = new StringBuffer("<tr class=\"list-row-even");
+            retval = new StringBuilder("<tr class=\"list-row-even");
         }
 
         if (renderDisabled() && o instanceof UserOverview &&
@@ -204,7 +204,7 @@ public class UnpagedListDisplayTag extends ListDisplayTagBase {
      * @return tr/td id-string
      */
     public String createIdString(String nId) {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         if (isParent(nId)) {
             retval.append("id" + nId.substring(1));
 

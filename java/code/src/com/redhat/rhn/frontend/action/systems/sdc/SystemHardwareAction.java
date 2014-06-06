@@ -130,7 +130,7 @@ public class SystemHardwareAction extends RhnAction {
         request.setAttribute("system_ram", server.getRam());
         request.setAttribute("system_swap", server.getSwap());
 
-        StringBuffer dmiBios = new StringBuffer();
+        StringBuilder dmiBios = new StringBuilder();
         if (server.getDmi() != null) {
 
             if (server.getDmi().getBios() != null) {

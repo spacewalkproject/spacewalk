@@ -205,7 +205,7 @@ public class ClientCertificate {
      * @return Xml document
      */
     public String asXml() {
-        StringBuffer buf = new StringBuffer(XmlTag.XML_HDR);
+        StringBuilder buf = new StringBuilder(XmlTag.XML_HDR);
         XmlTag params = new XmlTag("params");
         XmlTag param = new XmlTag("param");
         XmlTag value = new XmlTag("value");

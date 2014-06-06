@@ -317,7 +317,7 @@ public class LocalizationService {
         // will wrap all the messages in a marker.
         boolean debugMode = Config.get().getBoolean("java.l10n_debug");
         if (debugMode) {
-            StringBuffer debug = new StringBuffer();
+            StringBuilder debug = new StringBuilder();
             String marker = Config.get().getString("java.l10n_debug_marker",
                     "$$$");
             debug.append(marker);
@@ -414,7 +414,7 @@ public class LocalizationService {
      */
     public String formatShortDate(Date date, Locale locale) {
 
-        StringBuffer dbuff = new StringBuffer();
+        StringBuilder dbuff = new StringBuilder();
         DateFormat dateI = DateFormat.getDateInstance(DateFormat.SHORT, locale);
 
         dbuff.append(dateI.format(date));
@@ -442,7 +442,7 @@ public class LocalizationService {
      */
     public String formatDate(Date date, Locale locale) {
         // Example: 2004-12-10 13:20:00 PST
-        StringBuffer dbuff = new StringBuffer();
+        StringBuilder dbuff = new StringBuilder();
         DateFormat dateI = DateFormat.getDateInstance(DateFormat.SHORT, locale);
         dateI.setTimeZone(determineTimeZone());
         DateFormat timeI = DateFormat.getTimeInstance(DateFormat.LONG, locale);

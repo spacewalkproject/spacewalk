@@ -505,7 +505,7 @@ public class UserHandler extends BaseHandler {
         //Validate the user to be
         ValidatorError[] errors = command.validate();
         if (errors.length > 0) {
-            StringBuffer errorString = new StringBuffer();
+            StringBuilder errorString = new StringBuilder();
             LocalizationService ls = LocalizationService.getInstance();
             //Build a sane error message here
             for (int i = 0; i < errors.length; i++) {

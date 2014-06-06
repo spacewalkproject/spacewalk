@@ -413,7 +413,7 @@ public class PackagesHandler extends BaseHandler {
      * @return Returns a string in the form of something like '>= 4.1-3'
      */
     private String getDependencyModifier(Long sense, String version) {
-        StringBuffer depmod = new StringBuffer();
+        StringBuilder depmod = new StringBuilder();
 
         if (sense != null) { //how ironic ;)
             int senseIntVal = sense.intValue();

@@ -1405,7 +1405,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public String getAddOnEntitlementsAsText() {
         Set<?> addOnEntitlements = getAddOnEntitlements();
         Iterator<?> iterator = addOnEntitlements.iterator();
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         Entitlement entitlement = null;
 
         while (iterator.hasNext()) {

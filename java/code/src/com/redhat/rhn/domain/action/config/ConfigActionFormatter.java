@@ -50,7 +50,7 @@ public class ConfigActionFormatter extends ActionFormatter {
      * @return The html notes string
      */
     protected String getNotesBody() {
-        StringBuffer buffy = new StringBuffer();
+        StringBuilder buffy = new StringBuilder();
         ConfigAction action = (ConfigAction)getAction();
         Iterator configs = action.getConfigRevisionActions().iterator();
 
@@ -72,7 +72,7 @@ public class ConfigActionFormatter extends ActionFormatter {
 
     private String displayRevision(ConfigRevision revision) {
         ConfigFile file = revision.getConfigFile();
-        StringBuffer buffy = new StringBuffer();
+        StringBuilder buffy = new StringBuilder();
         Object[] args = new Object[5];
         args[0] = "/rhn/configuration/file/FileDetails.do?cfid=" + file.getId() +
             "&crid=" + revision.getId();

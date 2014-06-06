@@ -77,7 +77,7 @@ public class AlphaBar {
     * correct characters enabled.
     */
     public String getAlphaList(Map<Character, Integer> charsEnabled) {
-        StringBuffer target = new StringBuffer();
+        StringBuilder target = new StringBuilder();
         // Get the list of all the letters and digits in current thread's Locale
         // and put them together in the collection
         List alist = LocalizationService.getInstance().getAlphabet();

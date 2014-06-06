@@ -48,7 +48,7 @@ public class InactiveSystemsRenderer extends BaseFragmentRenderer {
         if (!isdr.isEmpty()) {
             for (Iterator<SystemOverview> i = isdr.iterator(); i.hasNext();) {
                 SystemOverview so = i.next();
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 Long lastCheckin = so.getLastCheckinDaysAgo();
                 if (lastCheckin.compareTo(new Long(1)) < 0) {
                     buffer.append(lastCheckin * 24);
