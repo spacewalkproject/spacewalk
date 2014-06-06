@@ -130,7 +130,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
             self.__parser.parse(self.__stream)
         except (KeyboardInterrupt, SystemExit):
             raise
-        except Exception, e:
+        except Exception:
             Traceback(ostream=sys.stderr, with_locals=1)
             if stream is not None:
                 stream.close()
@@ -877,7 +877,7 @@ class ContainerHandler:
         # Remove the previous tag
         del self.tagStack[-1]
         # Decode the tag object
-        name, attrs = tagobj.name, tagobj.attributes
+        name = tagobj.name
         if name != element:
             raise ParseException(
                 "incorrect XML data: closing tag %s, opening tag %s" % (

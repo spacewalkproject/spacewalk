@@ -190,8 +190,6 @@ def get_channel_handler():
 def import_channels(channels, orgid=None, master=None):
     collection = ChannelCollection()
     batch = []
-    import satCerts
-    orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
     org_map = None
     my_backend = diskImportLib.get_backend()
     if master:
@@ -588,11 +586,11 @@ def populate_channel_family_permissions(cert):
 
         cf_name = to_string(cf_name)
         try:
-            old_max_tuple = cfps[(cf_name, org_id)]
+            _old_max_tuple = cfps[(cf_name, org_id)]
         except KeyError:
             # New channel family, populate the db from cert
             cfps[(cf_name, org_id)] = max_tuple
-            old_max_tuple = None
+            _old_max_tuple = None
 
 
     sum_max_values = compute_sum_max_members(cfps)
@@ -655,7 +653,7 @@ def populate_channel_family_permissions(cert):
 def compute_sum_max_members(cfps):
     """If a channel family appears multiple times for each org, comgine them"""
     cf_max_tuples = {}
-    for (cf_name, org_id), (max_members, max_flex) in cfps.items():
+    for (cf_name, _org_id), (max_members, max_flex) in cfps.items():
         if not max_members:
             max_members = 0
         if not max_flex:

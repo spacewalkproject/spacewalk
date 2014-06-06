@@ -362,7 +362,7 @@ def set_slots_from_cert(cert, testonly=False):
         extra_slots[entry['slot_type_id']] = ent_label
 
     sys_ent_total_max = {}
-    for (ent_name, org_id_in), max_members in sys_ent_counts.items():
+    for (ent_name, _org_id_in), max_members in sys_ent_counts.items():
         # compute total max_member could in db
         if not sys_ent_total_max.has_key(ent_name):
             sys_ent_total_max[ent_name] = max_members
@@ -747,7 +747,7 @@ def create_first_private_chan_family():
         h.execute(name='Private Channel Family 1', \
                   label='private-channel-family-1', \
                   org=1, url='First Org Created')
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
         # if we're here that means we're voilating something
         raise
 

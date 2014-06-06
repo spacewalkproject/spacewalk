@@ -214,7 +214,7 @@ class Runner:
             self._xml_file_dir_error_message = messages.file_dir_error % \
                 OPTIONS.mount_point
 
-        for i in range(2):
+        for _try in range(2):
             try:
                 for step in self.step_hierarchy:
                     if not actionDict[step]:
@@ -310,7 +310,7 @@ class Runner:
     def _step_short(self):
         try:
             return self.syncer.processShortPackages()
-        except xmlDiskSource.MissingXmlDiskSourceFileError, e:
+        except xmlDiskSource.MissingXmlDiskSourceFileError:
             msg = _("ERROR: The dump is missing package data, "
                   + "use --no-rpms to skip this step or fix the content to include package data.")
             log2disk(-1, msg)
@@ -356,7 +356,7 @@ class Runner:
         try:
             self.syncer.import_orgs()
         except (RhnSyncException, xmlDiskSource.MissingXmlDiskSourceFileError,
-                xmlDiskSource.MissingXmlDiskSourceDirError), e:
+                xmlDiskSource.MissingXmlDiskSourceDirError):
             # the orgs() method doesn't exist; that's fine we just
             # won't sync the orgs
             log(1, [_("The upstream Satellite does not support syncing orgs data."), _("Skipping...")])
@@ -1169,7 +1169,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if not sps:
                 # Nothing to see here
                 continue
-            missing_sps[channel] = [sp_id for (sp_id, timestamp) in sps
+            missing_sps[channel] = [sp_id for (sp_id, _timestamp) in sps
                                           if not sp_collection.has_package(sp_id)]
         return missing_sps
 
@@ -1188,7 +1188,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         package_collection = sync_handlers.SourcePackageCollection()
         sql_params = ['package_id', 'checksum', 'checksum_type']
         h = rhnSQL.prepare(self._query_compare_source_packages)
-        for pid, timestamp in chunk:
+        for pid, _timestamp in chunk:
             package = package_collection.get_package(pid)
             assert package is not None
 
@@ -1295,7 +1295,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         path = os.path.join(base_path, relative_path)
         f = FileManip(path, timestamp=timestamp, file_size=file_size)
         # Retry a number of times, we may have network errors
-        for i in range(cfg['networkRetries']):
+        for _try in range(cfg['networkRetries']):
             stream = self._get_ks_file_stream(channel_label, label, relative_path)
             try:
                 f.write_file(stream)
@@ -1401,7 +1401,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 ksobj['org_id'] = OPTIONS.orgid or DEFAULT_ORG
             batch.append(ksobj)
 
-        importer = sync_handlers.import_kickstarts(batch)
+        _importer = sync_handlers.import_kickstarts(batch)
         log(1, messages.kickstart_imported % ks_count)
 
     def _compute_not_cached_errata(self):
@@ -1414,7 +1414,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if not errata:
                 # Nothing to see here
                 continue
-            missing_errata[channel] = [eid for (eid, timestamp, advisory_name) in errata
+            missing_errata[channel] = [eid for (eid, timestamp, _advisory_name) in errata
                                                if not errata_collection.has_erratum(eid, timestamp)
                                                   or self.forceAllErrata]
         return missing_errata
@@ -1478,7 +1478,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                     last_modified = rhnLib.timestamp(last_modified)
                     advisory_name = erratum['advisory_name']
                     if db_ce.has_key(advisory_name):
-                        foo, db_last_modified = db_ce[advisory_name]
+                        _foo, db_last_modified = db_ce[advisory_name]
                         if last_modified == db_last_modified:
                             # We already have this erratum
                             continue
@@ -1605,7 +1605,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     def _link_channel_packages(self):
         log(1, ["", messages.link_channel_packages])
         short_package_collection = sync_handlers.ShortPackageCollection()
-        package_collection = sync_handlers.PackageCollection()
+        _package_collection = sync_handlers.PackageCollection()
         uq_packages = {}
         for chn, package_ids in self._channel_packages_full.items():
             for pid in package_ids:
@@ -1663,7 +1663,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         for chn, errata in sorted_channels:
             log(2, _("Importing %s errata for channel %s.") % (len(errata), chn))
             batch = []
-            for eid, timestamp, advisory_name in errata:
+            for eid, timestamp, _advisory_name in errata:
                 erratum = errata_collection.get_erratum(eid, timestamp)
                 # bug 161144: it seems that incremental dumps can create an
                 # errata collection None
@@ -1750,7 +1750,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         start_time = round(time.time())
 
         all_threads=[]
-        for i in range(4):
+        for _thread in range(4):
             t = ThreadDownload(lock, queue, out_queue, short_package_collection, package_collection,
                                self, self._failed_fs_packages, self._extinct_packages, sources, channel)
             t.setDaemon(True)
@@ -1902,7 +1902,7 @@ class ThreadDownload(threading.Thread):
             nvrea = rpmManip.nvrea()
 
             # Retry a number of times, we may have network errors
-            for i in range(cfg['networkRetries']):
+            for _try in range(cfg['networkRetries']):
                 self.lock.acquire()
                 try:
                     rpmFile, stream = self.syncer._get_package_stream(self.channel,

@@ -41,6 +41,7 @@ class DiskSource:
 
     def _getFile(self, create=0):
         # Virtual
+        # pylint: disable=W0613
         return None
 
     def _loadFile(self, filename):

@@ -81,10 +81,10 @@ def main():
 
     try:
         satCerts.store_rhnCryptoKey(values.label, values.ca_cert, verbosity=values.verbose)
-    except satCerts.NoOrgIdError, e:
+    except satCerts.NoOrgIdError:
         writeError("no organization ID!?!\n\n%s\n" % rhnTB.fetchTraceback())
         sys.exit(12)
-    except satCerts.CaCertInsertionError, e:
+    except satCerts.CaCertInsertionError:
         writeError("no organization ID!?!\n\n%s\n" % rhnTB.fetchTraceback())
         sys.exit(13)
     return 0

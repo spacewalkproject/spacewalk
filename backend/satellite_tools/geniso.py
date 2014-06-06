@@ -47,7 +47,7 @@ def main(arglist):
                   this flag is optional, but can be set to spanning, non-spanning, or base.'),
     ]
     parser = OptionParser(option_list=optionsTable)
-    options, args = parser.parse_args(arglist)
+    options, _args = parser.parse_args(arglist)
 
     # Check to see if mkisofs is installed
     if not os.path.exists('/usr/bin/mkisofs'):

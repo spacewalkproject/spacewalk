@@ -308,10 +308,7 @@ class AuthWireSource(XMLRPCWireSource):
         log(2, '   +++ Satellite synchronization tool checking in.')
         try:
             authYN = self._xmlrpc('authentication.check', (self.systemid,))
-        except (rpclib.xmlrpclib.ProtocolError, rpclib.xmlrpclib.Fault), e:
-            # bug 141197: the logging of all exceptions is handled higher up in
-            # the call stack
-#            log2(-1, 1, '   ERROR: %s' % e, stream=sys.stderr)
+        except (rpclib.xmlrpclib.ProtocolError, rpclib.xmlrpclib.Fault):
             raise
         if authYN:
             log(2, '   +++ Entitled satellite validated.', stream=sys.stderr)

@@ -229,7 +229,7 @@ def process_package_data():
     return
 
 def process_kickstart_trees():
-    for root,dirs,files in os.walk(CFG.MOUNT_POINT + "/rhn/"):
+    for root, _dirs, files in os.walk(CFG.MOUNT_POINT + "/rhn/"):
         for name in files:
             os.chmod(root + '/' + name, 0644)
 
@@ -321,7 +321,7 @@ def process_sha256_packages():
         if debug and verbose:
             Log.writeMessage("Processing package: %s" % old_abs_path)
         temp_file = open(old_abs_path, 'rb')
-        header, payload_stream, header_start, header_end = \
+        header, _payload_stream, _header_start, _header_end = \
                 rhnPackageUpload.load_package(temp_file)
         checksum_type = header.checksum_type()
         checksum = getFileChecksum(checksum_type, file_obj=temp_file)

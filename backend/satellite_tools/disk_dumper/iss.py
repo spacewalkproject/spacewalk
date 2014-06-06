@@ -680,7 +680,6 @@ class Dumper(dumper.XML_Dumper):
                 log2email(5, "Channel exported to %s" % self.fm.getChannelsFile(channel['label']))
 
                 if channel['channel_id'] in self.channel_comps:
-                    relative_filename = self.channel_comps[channel['channel_id']]
                     full_filename = os.path.join(CFG.MOUNT_POINT, self.channel_comps[channel['channel_id']])
                     target_filename = self.fm.getChannelCompsFile(channel['label'])
                     log2stderr(3, "Need to copy %s to %s" % ( full_filename, target_filename ))
@@ -1311,7 +1310,7 @@ class ExporterMain:
                                 action = 'kickstart_trees'
                             os_data_dir = os.path.join(self.outputdir, action)
                             if os.path.exists(os_data_dir):
-                                for fpath, dirs, files in \
+                                for fpath, _dirs, files in \
                                     os.walk(os_data_dir):
                                     for file in files:
                                         if file.endswith(".xml"):
@@ -1344,7 +1343,7 @@ class ExporterMain:
             if self.options.print_report:
                 print_report()
 
-        except SystemExit, se:
+        except SystemExit:
             sys.exit(0)
 
         except ISSError, isserror:
