@@ -36,6 +36,7 @@ import java.io.Serializable;
  */
 public class ProfileEntry implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private PackageEvr evr;
     private PackageName name;
     private PackageArch arch;

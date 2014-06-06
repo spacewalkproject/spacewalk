@@ -28,6 +28,7 @@ import java.io.Serializable;
  */
 public class PackageActionResult extends BaseDomainHelper implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Server server;
     private PackageActionDetails details;
     private Long resultCode;

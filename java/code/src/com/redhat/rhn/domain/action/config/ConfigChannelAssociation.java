@@ -38,6 +38,7 @@ import java.io.Serializable;
  */
 public class ConfigChannelAssociation extends ActionChild implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Server server;
     private ConfigChannel configChannel;
 

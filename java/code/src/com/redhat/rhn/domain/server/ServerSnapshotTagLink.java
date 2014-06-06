@@ -28,7 +28,7 @@ import java.io.Serializable;
  */
 public class ServerSnapshotTagLink extends BaseDomainHelper implements Serializable {
 
-
+    private static final long serialVersionUID = 1L;
     private Server server;
     private ServerSnapshot snapshot;
     private SnapshotTag tag;

@@ -30,6 +30,7 @@ public class UserServerPreferenceId implements Serializable {
     public static final String RECEIVE_NOTIFICATIONS = "receive_notifications";
     public static final String INCLUDE_IN_DAILY_SUMMARY = "include_in_daily_summary";
 
+    private static final long serialVersionUID = 1L;
     private User user;
     private Server server;
     private String name;

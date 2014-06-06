@@ -26,6 +26,7 @@ import java.util.Date;
  */
 public class ContactGroupMember implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private ContactGroup contactGroup;
     private Long orderNumber;
     private Method contactMethod;

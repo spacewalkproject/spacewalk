@@ -28,6 +28,7 @@ import java.util.Date;
  */
 public class KickstartDefaultRegToken implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private KickstartData ksdata;
     private Token token;
     private Date created;

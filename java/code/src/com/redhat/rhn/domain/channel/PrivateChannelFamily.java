@@ -28,6 +28,7 @@ import java.util.Date;
  */
 public class PrivateChannelFamily implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private ChannelFamily channelFamily;
     private Org org;
     private Long maxMembers;

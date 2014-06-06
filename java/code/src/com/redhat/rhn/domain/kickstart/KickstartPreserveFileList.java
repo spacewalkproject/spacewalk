@@ -29,6 +29,7 @@ import java.util.Date;
  */
 public class KickstartPreserveFileList implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private KickstartData ksdata;
     private FileList fileList;
     private Date created;

@@ -33,6 +33,7 @@ import java.util.List;
 public class ReleaseChannelMap implements Serializable,
                                Comparable<ReleaseChannelMap> {
 
+    private static final long serialVersionUID = 1L;
     private String product;
     private String version;
     private String release;

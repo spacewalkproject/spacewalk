@@ -30,6 +30,7 @@ import java.util.Date;
  */
 public class SystemMigration implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Server server;
     private Org toOrg;
     private Org fromOrg;

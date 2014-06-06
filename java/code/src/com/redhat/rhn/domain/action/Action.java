@@ -37,6 +37,7 @@ public class Action extends BaseDomainHelper implements Serializable {
 
     public static final Integer NAME_LENGTH_LIMIT = 128;
 
+    private static final long serialVersionUID = 1L;
     private Long id;
     private String name;
     // private Long scheduler;

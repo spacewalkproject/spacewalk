@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageName;
 public class KickstartPackage
         implements Serializable, Comparable<KickstartPackage> {
 
+    private static final long serialVersionUID = 1L;
     private Long position;
     private Date created;
     private Date modified;

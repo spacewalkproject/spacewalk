@@ -31,6 +31,7 @@ import java.util.Date;
  */
 public class CustomDataValue implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Server server;
     private CustomDataKey key;
     private String value;

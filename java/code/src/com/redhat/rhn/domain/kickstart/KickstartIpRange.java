@@ -29,6 +29,7 @@ import java.util.Date;
  */
 public class KickstartIpRange implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private KickstartData ksdata;
     private Org org;
     private Long min;
