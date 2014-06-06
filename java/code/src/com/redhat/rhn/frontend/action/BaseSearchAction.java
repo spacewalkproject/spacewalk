@@ -52,7 +52,7 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
  *
  */
 public abstract class BaseSearchAction extends RhnAction {
-    protected static Logger log = Logger.getLogger(BaseSearchAction.class);
+    protected static final Logger LOG = Logger.getLogger(BaseSearchAction.class);
 
     /** Channel-arches a default package-search should look in */
     public static final String[] DEFAULT_ARCHES = {
@@ -138,20 +138,20 @@ public abstract class BaseSearchAction extends RhnAction {
             destination = executeBody(request, mapping, form);
         }
         catch (XmlRpcException xre) {
-            log.error("Could not connect to search server.", xre);
+            LOG.error("Could not connect to search server.", xre);
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("packages.search.connection_error"));
         }
         catch (XmlRpcFault e) {
-            log.info("Caught Exception :" + e + ", code [" + e.getErrorCode() + "]");
+            LOG.info("Caught Exception :" + e + ", code [" + e.getErrorCode() + "]");
             if (e.getErrorCode() == 100) {
-                log.error("Invalid search query", e);
+                LOG.error("Invalid search query", e);
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage("packages.search.could_not_parse_query",
                                           searchString));
             }
             else if (e.getErrorCode() == 200) {
-                log.error("Index files appear to be missing: ", e);
+                LOG.error("Index files appear to be missing: ", e);
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage("packages.search.index_files_missing",
                                           searchString));
@@ -163,7 +163,7 @@ public abstract class BaseSearchAction extends RhnAction {
             }
         }
         catch (MalformedURLException e) {
-            log.error("Could not connect to server.", e);
+            LOG.error("Could not connect to server.", e);
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("packages.search.connection_error"));
         }

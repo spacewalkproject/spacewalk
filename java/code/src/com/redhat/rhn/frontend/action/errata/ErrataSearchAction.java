@@ -110,10 +110,10 @@ public class ErrataSearchAction extends BaseSearchAction {
             // If doing a dateSearch use the DatePicker values from the
             // request params otherwise use the defaults.
             dates = picker.processDatePickers(dateSearch, true);
-            if (log.isDebugEnabled()) {
-                log.debug("search is NOT blank");
-                log.debug("Issue Start Date = " + dates.getStart().getDate());
-                log.debug("End Start Date = " + dates.getEnd().getDate());
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("search is NOT blank");
+                LOG.debug("Issue Start Date = " + dates.getStart().getDate());
+                LOG.debug("End Start Date = " + dates.getEnd().getDate());
             }
             List results = performSearch(request, ctx.getWebSession().getId(),
                     search, viewmode, form);
@@ -124,10 +124,10 @@ public class ErrataSearchAction extends BaseSearchAction {
         else {
             // Reset info on date pickers
             dates = picker.processDatePickers(false, true);
-            if (log.isDebugEnabled()) {
-                log.debug("search is blank");
-                log.debug("Issue Start Date = " + dates.getStart().getDate());
-                log.debug("End Start Date = " + dates.getEnd().getDate());
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("search is blank");
+                LOG.debug("Issue Start Date = " + dates.getStart().getDate());
+                LOG.debug("End Start Date = " + dates.getEnd().getDate());
             }
             request.setAttribute(RequestContext.PAGE_LIST, Collections.EMPTY_LIST);
 
@@ -186,7 +186,7 @@ public class ErrataSearchAction extends BaseSearchAction {
             String searchString, String mode, DynaActionForm formIn)
         throws XmlRpcFault, MalformedURLException {
 
-        log.debug("Performing errata search");
+        LOG.debug("Performing errata search");
         RequestContext ctx = new RequestContext(request);
         Org org = ctx.getCurrentUser().getOrg();
         // call search server
@@ -223,7 +223,7 @@ public class ErrataSearchAction extends BaseSearchAction {
         // will be to filter the results by issue date.
         //
         Boolean dateSearch = getOptionIssueDateSearch(request);
-        log.debug("Datesearch is " + dateSearch);
+        LOG.debug("Datesearch is " + dateSearch);
 
         Date startDate = getPickerDate(request, "start");
         Date endDate = getPickerDate(request, "end");
@@ -248,12 +248,12 @@ public class ErrataSearchAction extends BaseSearchAction {
             path = "index.search";
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Calling to search server (XMLRPC):  \"index.search\", args=" + args);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Calling to search server (XMLRPC):  \"index.search\", args=" + args);
         }
         results = (List)client.invoke(path, args);
-        if (log.isDebugEnabled()) {
-            log.debug("results = [" + results + "]");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("results = [" + results + "]");
         }
 
         if (results.isEmpty()) {
@@ -309,7 +309,7 @@ public class ErrataSearchAction extends BaseSearchAction {
         List<ErrataOverview> filteredByIssueDate = new ArrayList<ErrataOverview>();
         if (dateSearch && !StringUtils.isBlank(searchString)) {
             // search string is not blank, therefore a search was run so filter the results
-            log.debug("Performing filter on issue date, we only want records between " +
+            LOG.debug("Performing filter on issue date, we only want records between " +
                 startDate + " - " + endDate);
             filteredByIssueDate = filterByIssueDate(filteredByType, startDate, endDate);
             filtered.addAll(filteredByIssueDate);
@@ -319,8 +319,8 @@ public class ErrataSearchAction extends BaseSearchAction {
             filtered.addAll(filteredByType);
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug(filtered.size() + " records have passed being filtered " +
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(filtered.size() + " records have passed being filtered " +
                 "and will be displayed.");
         }
 
@@ -343,8 +343,8 @@ public class ErrataSearchAction extends BaseSearchAction {
         List<ErrataOverview> ordered = new LinkedList<ErrataOverview>();
 
         for (ErrataOverview eo : filtered) {
-            if (log.isDebugEnabled()) {
-                log.debug("Processing eo: " + eo.getAdvisory() + " id: " + eo.getId());
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Processing eo: " + eo.getAdvisory() + " id: " + eo.getId());
             }
             int idx = lookupmap.get(eo.getId());
             if (ordered.isEmpty()) {
@@ -373,9 +373,9 @@ public class ErrataSearchAction extends BaseSearchAction {
 
     private List<ErrataOverview> filterByIssueDate(List<ErrataOverview> unfiltered,
             Date startDate, Date endDate) {
-        if (log.isDebugEnabled()) {
-            log.debug("Filtering " + unfiltered.size() + " records based on Issue Date");
-            log.debug("Allowed issue date range is " + startDate + " to " + endDate);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Filtering " + unfiltered.size() + " records based on Issue Date");
+            LOG.debug("Allowed issue date range is " + startDate + " to " + endDate);
         }
         List<ErrataOverview> filteredByIssueDate = new ArrayList<ErrataOverview>();
         for (ErrataOverview eo : unfiltered) {
@@ -389,11 +389,11 @@ public class ErrataSearchAction extends BaseSearchAction {
 
     private List<ErrataOverview> filterByAdvisoryType(List<ErrataOverview> unfiltered,
             DynaActionForm formIn) {
-        if (log.isDebugEnabled()) {
-            log.debug("Filtering " + unfiltered.size() + " records based on Advisory type");
-            log.debug("BugFixes = " + formIn.get(ERRATA_BUG));
-            log.debug("Security = " + formIn.get(ERRATA_SEC));
-            log.debug("Enhancement = " + formIn.get(ERRATA_ENH));
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Filtering " + unfiltered.size() + " records based on Advisory type");
+            LOG.debug("BugFixes = " + formIn.get(ERRATA_BUG));
+            LOG.debug("Security = " + formIn.get(ERRATA_SEC));
+            LOG.debug("Enhancement = " + formIn.get(ERRATA_ENH));
         }
         List<ErrataOverview> filteredByType = new ArrayList<ErrataOverview>();
         for (ErrataOverview eo : unfiltered) {
@@ -440,7 +440,7 @@ public class ErrataSearchAction extends BaseSearchAction {
         while (recordsRead < idsIn.size()) {
             List<Long> chunkIDs = idsIn.subList(recordsRead, toIndex);
             if (chunkIDs.size() == 0) {
-                log.warn("Processing 0 size chunkIDs....something seems wrong.");
+                LOG.warn("Processing 0 size chunkIDs....something seems wrong.");
                 break;
             }
             List<ErrataOverview> temp = ErrataManager.search(chunkIDs, org);
@@ -508,7 +508,7 @@ public class ErrataSearchAction extends BaseSearchAction {
         Date d = null;
         DatePicker dPick = (DatePicker)request.getAttribute(paramName);
         if (dPick == null) {
-            log.debug("DatePicker for request attribute '" + paramName + "' was null");
+            LOG.debug("DatePicker for request attribute '" + paramName + "' was null");
             d = new Date();
         }
         else {
