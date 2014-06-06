@@ -51,7 +51,8 @@ def main(arglist):
 
     # Check to see if mkisofs is installed
     if not os.path.exists('/usr/bin/mkisofs'):
-        print "ERROR:: mkisofs is not Installed. Cannot Proceed iso build. Please install mkisofs and rerun this command."
+        print "ERROR:: mkisofs is not Installed. Cannot Proceed iso build. " \
+              + "Please install mkisofs and rerun this command."
         return
 
     mountPoint = options.mountpoint or MOUNT_POINT
@@ -111,7 +112,8 @@ def main(arglist):
     os.close(fd)
 
     # command-line template
-    mkisofsTemplate = "mkisofs -r -J -D -file-mode 0444 -new-dir-mode 0555 -dir-mode 0555 -graft-points %s -o %s /DISK_%s_OF_%s=%s"
+    mkisofsTemplate = "mkisofs -r -J -D -file-mode 0444 -new-dir-mode 0555 -dir-mode 0555 " \
+                    + "-graft-points %s -o %s /DISK_%s_OF_%s=%s"
     for i in range(cdcount):
         print "---------- %s/%s" % (i+1, cdcount)
 

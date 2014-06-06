@@ -208,10 +208,11 @@ def activateSatellite_local(options):
     except satCerts.CertVersionMismatchError, e:
         raise RHNCertLocalActivationException(
             'RHN Entitlement Certificate cannot be imported - ' + str(e) \
-            + '\nIf you are trying to upgrade the Satellite server, please see the upgrade documentation ' + \
-            'located here /etc/sysconfig/rhn/satellite-upgrade/README  (as part of the rhn-upgrade package).  ' + \
-            'WARNING: If you want to skip this check, please use --ignore-version-mismatch, but doing so may cause issues ' + \
-            '(including malfunction of the Satellite software).  Only skip the test if instructed to do so by a support technician.'), None, sys.exc_info()[2]
+            + '\nIf you are trying to upgrade the Satellite server, please see the upgrade documentation ' \
+            + 'located here /etc/sysconfig/rhn/satellite-upgrade/README  (as part of the rhn-upgrade package).  ' \
+            + 'WARNING: If you want to skip this check, please use --ignore-version-mismatch, ' \
+            + 'but doing so may cause issues (including malfunction of the Satellite software).  ' \
+            + 'Only skip the test if instructed to do so by a support technician.'), None, sys.exc_info()[2]
     except satCerts.NoFreeEntitlementsError, e:
         sys.stderr.write(e.message + '\n')
         sys.exit(1)
@@ -456,14 +457,20 @@ ERROR: can't seem to parse the expires field in the RHN Certificate.
 
 def processCommandline():
     options = [
-        Option('--systemid',     action='store',      help='(FOR TESTING ONLY) alternative systemid path/filename. The system default is used if not specified.'),
-        Option('--rhn-cert',     action='store',      help='new RHN certificate path/filename (default is %s - the saved RHN cert).' % DEFAULT_RHN_CERT_LOCATION),
+        Option('--systemid',     action='store',      help='(FOR TESTING ONLY) alternative systemid path/filename. '
+                                                         + 'The system default is used if not specified.'),
+        Option('--rhn-cert',     action='store',      help='new RHN certificate path/filename (default is'
+                                                         + ' %s - the saved RHN cert).' % DEFAULT_RHN_CERT_LOCATION),
         Option('--no-ssl',       action='store_true', help='(FOR TESTING ONLY) disables SSL'),
-        Option('--sanity-only',  action='store_true', help="confirm certificate sanity. Does not activate the Red Hat Satellite locally or remotely."),
+        Option('--sanity-only',  action='store_true', help="confirm certificate sanity. Does not activate"
+                                                         + "the Red Hat Satellite locally or remotely."),
         Option('--disconnected', action='store_true', help="activate locally, but not on remote RHN servers,"),
-        Option('--ignore-expiration', action='store_true', help='execute regardless of the expiration of the RHN Certificate (not recommended).'),
-        Option('--ignore-version-mismatch', action='store_true', help='execute regardless of version mismatch of existing and new certificate.'),
-        Option('-v','--verbose', action='count',      help='be verbose (accumulable: -vvv means "be *really* verbose").'),
+        Option('--ignore-expiration', action='store_true', help='execute regardless of the expiration'
+                                                         + 'of the RHN Certificate (not recommended).'),
+        Option('--ignore-version-mismatch', action='store_true', help='execute regardless of version '
+                                                         + 'mismatch of existing and new certificate.'),
+        Option('-v','--verbose', action='count',      help='be verbose '
+                                                         + '(accumulable: -vvv means "be *really* verbose").'),
         Option(     '--dump-version', action='store', help="requested version of XML dump"),
               ]
 

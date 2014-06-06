@@ -224,7 +224,8 @@ def process_package_data():
     rhnSQL.commit()
     sys.stderr.write("Transaction Committed! \n")
     if verbose: print " Skipping %s packages, paths not found" % len(skip_list)
-    if len(new_ok_list) > 0 and verbose: print " There were %s packages found in the correct location" % len(new_ok_list)
+    if len(new_ok_list) > 0 and verbose:
+        print " There were %s packages found in the correct location" % len(new_ok_list)
     return
 
 def process_kickstart_trees():

@@ -316,7 +316,9 @@ class AuthWireSource(XMLRPCWireSource):
         if authYN:
             log(2, '   +++ Entitled satellite validated.', stream=sys.stderr)
         elif authYN == None:
-            log(-1, '   --- An error occurred upon authentication of this satellite -- review the pertinent log file (%s) and/or alert RHN at rhn-satellite@redhat.com.' % CFG.LOG_FILE, stream=sys.stderr)
+            log(-1, '   --- An error occurred upon authentication of this satellite -- '
+                    'review the pertinent log file (%s) and/or alert RHN at rhn-satellite@redhat.com.' % CFG.LOG_FILE,
+                    stream=sys.stderr)
             sys.exit(-1)
         elif authYN == 0:
             log(-1, '   --- This server is not an entitled satellite.', stream=sys.stderr)

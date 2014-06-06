@@ -457,7 +457,8 @@ class XML_Dumper:
             all_channels_hash[row['label']] = row
 
         # Intersect the list of channels they've sent to us
-        iss_slave_sha256_capable = (float(rhnFlags.get('X-RHN-Satellite-XML-Dump-Version')) >= constants.SHA256_SUPPORTED_VERSION)
+        iss_slave_sha256_capable = (float(rhnFlags.get('X-RHN-Satellite-XML-Dump-Version')) \
+                                    >= constants.SHA256_SUPPORTED_VERSION)
 
         if not channel_labels:
             channels = all_channels_hash

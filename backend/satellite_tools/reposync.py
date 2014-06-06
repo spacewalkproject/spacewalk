@@ -698,7 +698,8 @@ class RepoSync(object):
                 continue
 
             for s in (m.group(1) for m in re.finditer(r'(?i)<a href="(.+?)"', v)):
-                if re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s) or re.match(r'[a-zA-Z]+:', s) or re.search(r'\.rpm$', s):
+                if re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s)
+                    or re.match(r'[a-zA-Z]+:', s) or re.search(r'\.rpm$', s):
                     continue
                 if re.search(r'/$', s):
                     dirs.append(d + s)
@@ -710,7 +711,8 @@ class RepoSync(object):
                     print "Retrieving %s" % d + s
                     plug.get_file(d + s, os.path.join(CFG.MOUNT_POINT, ks_path))
                 st = os.stat(local_path)
-                insert_h.execute(id = ks_id, path = d + s, checksum = getFileChecksum('sha256', local_path), st_size = st.st_size, st_time = st.st_mtime)
+                insert_h.execute(id = ks_id, path = d + s, checksum = getFileChecksum('sha256', local_path),
+                                 st_size = st.st_size, st_time = st.st_mtime)
 
         rhnSQL.commit()
 

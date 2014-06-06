@@ -226,21 +226,24 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
     def error(self, e):
         """Handle a recoverable error.
         """
-        log_debug(-1, "ERROR (RECOVERABLE): parse error encountered - line: %s, col: %s, msg: %s" % (e.getLineNumber(), e.getColumnNumber(), e._msg))
+        log_debug(-1, "ERROR (RECOVERABLE): parse error encountered - line: %s, col: %s, msg: %s" \
+                        % (e.getLineNumber(), e.getColumnNumber(), e._msg))
         raise RecoverableParseException(e._msg, e, e._locator)
 
 
     def fatalError(self, e):
         """Handle a non-recoverable error.
         """
-        log_debug(-1, "ERROR (FATAL): parse error encountered - line: %s, col: %s, msg: %s" % (e.getLineNumber(), e.getColumnNumber(), e._msg))
+        log_debug(-1, "ERROR (FATAL): parse error encountered - line: %s, col: %s, msg: %s" \
+                        % (e.getLineNumber(), e.getColumnNumber(), e._msg))
         raise FatalParseException(e._msg, e, e._locator)
 
 
     def warning(self, e):
         """Handle a warning.
         """
-        log_debug(-1, "ERROR (WARNING): parse error encountered - line: %s, col: %s, msg: %s" % (e.getLineNumber(), e.getColumnNumber(), e._msg))
+        log_debug(-1, "ERROR (WARNING): parse error encountered - line: %s, col: %s, msg: %s" \
+                        % (e.getLineNumber(), e.getColumnNumber(), e._msg))
 
     # To be overridden in subclasses
     def _check_version(self):

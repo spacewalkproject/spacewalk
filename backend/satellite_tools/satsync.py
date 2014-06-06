@@ -312,7 +312,8 @@ class Runner:
         try:
             return self.syncer.processShortPackages()
         except xmlDiskSource.MissingXmlDiskSourceFileError, e:
-            msg = _("ERROR: The dump is missing package data, use --no-rpms to skip this step or fix the content to include package data.")
+            msg = _("ERROR: The dump is missing package data, "
+                  + "use --no-rpms to skip this step or fix the content to include package data.")
             log2disk(-1, msg)
             log2stderr(-1, msg, cleanYN=1)
             sys.exit(25)
@@ -520,7 +521,8 @@ class Syncer:
                 raise
             else:
                 msg = _('ERROR: exception (during parse) occurred: ')
-            log2stderr(-1, _('   Encountered some errors with %s data (see logs (%s) for more information)') % (step_name, CFG.LOG_FILE))
+            log2stderr(-1, _('   Encountered some errors with %s data '
+                           + '(see logs (%s) for more information)') % (step_name, CFG.LOG_FILE))
             log2(-1, 3, [_('   Encountered some errors with %s data:') % step_name,
                          _('   ------- %s PARSE/IMPORT ERROR -------') % step_name,
                          '   %s' % msg,
@@ -915,7 +917,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             row = None
             for r in (h.fetchall_dict() or []):
                 # let's check which checksum we have in database
-                if r['checksum_type'] in package['checksums'] and package['checksums'][r['checksum_type']] == r['checksum']:
+                if (r['checksum_type'] in package['checksums']
+                    and package['checksums'][r['checksum_type']] == r['checksum']):
                     row = r
                     break
 
@@ -1749,7 +1752,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         all_threads=[]
         for i in range(4):
-            t = ThreadDownload(lock, queue, out_queue, short_package_collection, package_collection, self, self._failed_fs_packages, self._extinct_packages, sources, channel)
+            t = ThreadDownload(lock, queue, out_queue, short_package_collection, package_collection,
+                               self, self._failed_fs_packages, self._extinct_packages, sources, channel)
             t.setDaemon(True)
             t.start()
             all_threads.append(t)
@@ -1779,7 +1783,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             processed_size += size
             current_time = round(time.time())
             # timedalta could not be multiplicated by float
-            remain_time = (datetime.timedelta(seconds=current_time-start_time))*((real_total_size*10000)/real_processed_size-10000)/10000
+            remain_time = (datetime.timedelta(seconds=current_time-start_time))* \
+                          ((real_total_size*10000)/real_processed_size-10000)/10000
             # cut off miliseconds
             remain_time = datetime.timedelta(remain_time.days, remain_time.seconds)
             log(1, messages.package_fetch_remain_size_time %
@@ -1846,7 +1851,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         return (None, stream)
 
 class ThreadDownload(threading.Thread):
-    def __init__(self, lock, queue, out_queue, short_package_collection, package_collection, syncer, failed_fs_packages, extinct_packages, sources, channel):
+    def __init__(self, lock, queue, out_queue, short_package_collection, package_collection, syncer,
+                       failed_fs_packages, extinct_packages, sources, channel):
         threading.Thread.__init__(self)
         self.queue = queue
         self.out_queue = out_queue
@@ -2006,11 +2012,13 @@ def _verifyPkgRepMountPoint():
         sys.exit(16)
 
     if not os.path.exists(fileutils.cleanupAbsPath(CFG.MOUNT_POINT)):
-        log(-1, _("ERROR: server.mount_point %s do not exist") % fileutils.cleanupAbsPath(CFG.MOUNT_POINT))
+        log(-1, _("ERROR: server.mount_point %s do not exist") \
+                % fileutils.cleanupAbsPath(CFG.MOUNT_POINT))
         sys.exit(26)
 
     if not os.path.exists(fileutils.cleanupAbsPath(CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR)):
-        log(-1, _("ERROR: path under server.mount_point (%s)  do not exist") % fileutils.cleanupAbsPath(CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR))
+        log(-1, _("ERROR: path under server.mount_point (%s)  do not exist") \
+                % fileutils.cleanupAbsPath(CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR))
         sys.exit(26)
 
 def _validate_package_org(batch):
@@ -2070,7 +2078,8 @@ def processCommandline():
     log2disk(-1, _("Commandline: %s") % repr(sys.argv))
     optionsTable = [
         Option(     '--batch-size',          action='store',
-            help=_('DEBUG ONLY: max. batch-size for XML/database-import processing (1..%s). "man satellite-sync" for more information.') % SequenceServer.NEVER_MORE_THAN),
+            help=_('DEBUG ONLY: max. batch-size for XML/database-import processing (1..%s).'
+                 + '"man satellite-sync" for more information.') % SequenceServer.NEVER_MORE_THAN),
         Option(     '--ca-cert',             action='store',
             help=_('alternative SSL CA Cert (fullpath to cert file)')),
         Option('-c','--channel',             action='append',
@@ -2131,7 +2140,8 @@ def processCommandline():
         Option(     '--keep-rpms',      action='store_true',
             help=_('do not remove rpms when importing from local dump')),
         Option(     '--master',      action='store',
-            help=_('the fully qualified domain name of the master Satellite. Valid with --mount-point only. Required if you want to import org data and channel permissions.')),
+            help=_('the fully qualified domain name of the master Satellite. '
+                 + 'Valid with --mount-point only. Required if you want to import org data and channel permissions.')),
         # We can't have this option because then the new org won't have a user:
         #Option(     '--create-missing-orgs',      action='store_true',
         #    help=_('create orgs on this Satellite to match orgs exported by the master Satellite if local orgs have not already been mapped to the master orgs (use with --mount-point or --iss-parent only)')),
@@ -2191,7 +2201,8 @@ def processCommandline():
         except KeyboardInterrupt, e:
             raise
         except:
-            msg = [_("ERROR: --debug-level takes an in integer value within the range %s.") % repr(tuple(range(debugRange + 1))),
+            msg = [_("ERROR: --debug-level takes an in integer value within the range %s.") \
+                     % repr(tuple(range(debugRange + 1))),
                    _("  0  - little logging/messaging."),
                    _("  1  - minimal logging/messaging."),
                    _("  2  - normal level of logging/messaging."),
@@ -2249,7 +2260,8 @@ def processCommandline():
         OPTIONS.step = stepHierarchy[-1]
 
     if OPTIONS.step not in stepHierarchy:
-        log2stderr(-1, _("ERROR: '%s' is not a valid step. See 'man satellite-sync' for more detail.") % OPTIONS.step, 1, 1)
+        log2stderr(-1, _("ERROR: '%s' is not a valid step. See 'man satellite-sync' for more detail.") \
+                         % OPTIONS.step, 1, 1)
         sys.exit(22)
 
     #XXX: --source is deferred for the time being
@@ -2280,7 +2292,8 @@ def processCommandline():
 
     if not channels:
         if actionDict['channels'] and not actionDict['list-channels']:
-            msg = _("ERROR: No channels currently imported; try satellite-sync --list-channels; then satellite-sync -c chn0 -c chn1...")
+            msg = _("ERROR: No channels currently imported; try satellite-sync --list-channels; "
+                  + "then satellite-sync -c chn0 -c chn1...")
             log2disk(-1, msg)
             log2stderr(-1, msg, cleanYN=1)
             sys.exit(0)
@@ -2337,7 +2350,8 @@ def processCommandline():
         except (ValueError, TypeError):
             # int(None) --> TypeError
             # int('a')  --> ValueError
-            raise ValueError(_("ERROR: --batch-size must have a value within the range: 1..50")), None, sys.exc_info()[2]
+            raise ValueError(_("ERROR: --batch-size must have a value within the range: 1..50")), \
+                  None, sys.exc_info()[2]
 
     OPTIONS.mount_point = fileutils.cleanupAbsPath(OPTIONS.mount_point)
     OPTIONS.rhn_cert = fileutils.cleanupAbsPath(OPTIONS.rhn_cert)
