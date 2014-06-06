@@ -703,27 +703,6 @@ public class ListDisplayTag extends ListDisplayTagBase {
         buf.append(input.render() + "\n");
     }
 
-    private void renderViewAllLink(JspWriter out) {
-
-
-        /*
-         * Bugzilla #185976
-         * Link isn't working correctly commenting out for now
-         * TODO: fix this
-         * HtmlTag link = new HtmlTag("a");*/
-
-        /*
-        link.setAttribute("href", "/rhn/Load.do?pagesize=" +
-                pageList.getTotalSize() + "&amp;what=" + getDomainClass() +
-                "&amp;return_url=" + buildReturnUrl());
-
-        link.addBody(
-                LocalizationService.getInstance().getMessage(
-                        "listdisplaytag.viewall"));
-
-        out.println(link.render());*/
-    }
-
     private void renderAlphabar(Writer out) throws IOException {
         StringBuilder target = new StringBuilder();
 
