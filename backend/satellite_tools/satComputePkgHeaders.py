@@ -50,6 +50,7 @@ sys.modules["_apache"] = sys.modules["__main__"]
 
 from spacewalk.server import rhnSQL
 from spacewalk.common import rhn_rpm
+from spacewalk.common.rhn_pkg import InvalidPackageError
 
 options_table = [
     Option("-v", "--verbose",       action="count",
@@ -188,13 +189,13 @@ class Runner:
         for package_id, (path, header_start, header_end) in package_ids.items():
             try:
                 p_file = file(self.options.prefix + "/" + path, 'r')
-            except:
+            except IOError:
                 print "Error opening file %s" % path
                 continue
 
             try:
                 (header_start, header_end) = rhn_rpm.get_header_byte_range(p_file)
-            except Exception, e:
+            except InvalidPackageError, e:
                 print "Error reading header size from file %s: %s" % (path, e)
 
             try:
@@ -202,14 +203,15 @@ class Runner:
             except rhnSQL.SQLError, e:
                 pass
 
-    def _backup_packages(self, package_ids, backup_file):
+    @staticmethod
+    def _backup_packages(package_ids, backup_file):
         f = open(backup_file, "w+")
 
         if not package_ids:
             return
 
         template = "update rhnPackage set header_start=%s and header_end=%s where id = %s;\n"
-        for package_id, (path, header_start, header_end) in package_ids.items():
+        for package_id, (_path, header_start, header_end) in package_ids.items():
             s = template % (header_start, header_end, package_id)
             f.write(s)
         f.write("commit;\n")
