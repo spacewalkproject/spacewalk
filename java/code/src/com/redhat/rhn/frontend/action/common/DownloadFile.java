@@ -738,7 +738,7 @@ public class DownloadFile extends DownloadAction {
             start = 0;
         }
         else {
-            start = Long.valueOf(rangeMatcher.group(1)).longValue();
+            start = Long.valueOf(rangeMatcher.group(1));
         }
         File actualFile = new File(diskPath);
         long totalSize = actualFile.length();

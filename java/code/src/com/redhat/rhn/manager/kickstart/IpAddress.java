@@ -50,7 +50,7 @@ public class IpAddress {
         if (soctets.length == 4) {
             try {
                 for (int i = 0; i < 4; i++) {
-                    setOctet(i, new Long(soctets[i]).longValue());
+                    setOctet(i, new Long(soctets[i]));
                 }
             }
             catch (NumberFormatException num) {
