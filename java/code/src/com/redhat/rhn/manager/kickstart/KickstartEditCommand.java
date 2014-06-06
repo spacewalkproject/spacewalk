@@ -52,6 +52,9 @@ import java.util.TreeSet;
  */
 public class KickstartEditCommand extends BaseKickstartCommand {
 
+    private static final String[] UPDATES =
+        {"", "u1", "u2", "u3", "u4", "u5", "u6", "u7", "u8", "u9"};
+
     /**
      * Logger for this class
      */
@@ -322,11 +325,8 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      * @return Set of String values.
      */
     public Set<String> getAvailableUpdates() {
-
-        // TODO: Take out this hard coded list!
-        String[] updates = {"", "u1", "u2", "u3", "u4", "u5", "u6", "u7", "u8", "u9"};
         Set<String> retval = new TreeSet<String>();
-        retval.addAll(Arrays.asList(updates));
+        retval.addAll(Arrays.asList(UPDATES));
 
         logger.debug("getAvailableUpdates() - end - return value=" + retval);
         return retval;
