@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.2.2
+Version: 2.2.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,11 @@ fi
 
 
 %changelog
+* Fri Jun 06 2014 Stephen Herr <sherr@redhat.com> 2.2.3-1
+- 1104375 - add default path structure to proxy lookaside that avoids
+  collisions
+- 1105273 - rhn_package_manager should not force md5; use package hearders
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.2-1
 - spec file polish
 
