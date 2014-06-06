@@ -1138,18 +1138,18 @@ def do_system_listconfigfiles(self, args):
         try:
             # Pass 0 for system-sandbox files
             # Pass 1 for locally managed or centrally managed
-            files = self.client.system.config.listFiles(self.session,\
+            files = self.client.system.config.listFiles(self.session, \
                                                               system_id, 0)
-            files += self.client.system.config.listFiles(self.session,\
+            files += self.client.system.config.listFiles(self.session, \
                                                               system_id, 1)
         except xmlrpclib.Fault:
-            logging.warning('%s does not support configuration channels' %\
+            logging.warning('%s does not support configuration channels' % \
                             system)
             continue
 
         # For system sandbox or locally managed files, there is no
         # channel_label so we add a descriptive label for these files
-        toprint=[]
+        toprint = []
         for f in files:
             if f['channel_type']['label'] == 'server_import':
                 f['channel_label'] = "system_sandbox"
@@ -1256,16 +1256,16 @@ def do_system_addconfigfile(self, args, update_path=''):
             answer = prompt_user('System-Sandbox or Locally-Managed? [S/L]:')
             if re.match('L', answer, re.I):
                 options.local = True
-                localopt=1
+                localopt = 1
             elif re.match('S', answer, re.I):
                 options.sandbox = True
-                localopt=0
+                localopt = 0
 
     # Set the int variable (required by the API calls) for sandbox/local
-    localopt=0
+    localopt = 0
     if options.local:
         logging.debug("Selected locally-managed")
-        localopt=1
+        localopt = 1
     elif options.sandbox:
         logging.debug("Selected system-sandbox")
     else:
@@ -1283,12 +1283,12 @@ def do_system_addconfigfile(self, args, update_path=''):
 
     # check if this file already exists
     try:
-        file_info = self.client.system.config.lookupFileInfo(self.session,\
+        file_info = self.client.system.config.lookupFileInfo(self.session, \
             system_id, [ options.path ], localopt)
         if file_info:
             logging.debug("Found existing file_info %s" % file_info)
     except xmlrpclib.Fault:
-        logging.debug("No existing file information found for %s" %\
+        logging.debug("No existing file information found for %s" % \
             options.path)
 
     file_info = self.configfile_getinfo(args, options, file_info, interactive)
@@ -2153,7 +2153,7 @@ def do_system_listcrashedsystems(self, args):
     print
     print 'Count | System ID | Profile Name'
     print '--------------------------------'
-    res=self.client.system.listUserSystems(self.session)
+    res = self.client.system.listUserSystems(self.session)
     for s in res:
         res_crash=self.client.system.crash.listSystemCrashes(self.session, s['id'])
         if len(res_crash) != 0:
@@ -2169,7 +2169,7 @@ def help_system_deletecrashes(self):
     print
 
 
-def print_msg(string_msg,flag_verbose):
+def print_msg(string_msg, flag_verbose):
     if flag_verbose:
         print string_msg
 
@@ -2181,8 +2181,8 @@ def do_system_deletecrashes(self, args):
     (args, options) = parse_arguments(args, options)
 
     if options.crashid:
-        print_msg ("Deleting crash with id %s." % options.crashid,options.verbose)
-        self.client.system.crash.deleteCrash(self.session,int(options.crashid))
+        print_msg ("Deleting crash with id %s." % options.crashid, options.verbose)
+        self.client.system.crash.deleteCrash(self.session, int(options.crashid))
         return
 
     sys_id=[]
@@ -2200,10 +2200,10 @@ def do_system_deletecrashes(self, args):
         return
 
     for s_id in sys_id:
-        list_crash=self.client.system.crash.listSystemCrashes(self.session,int(s_id))
+        list_crash=self.client.system.crash.listSystemCrashes(self.session, int(s_id))
         for crash in list_crash:
-            print_msg("Deleting crash with id %s from system %s." % (crash['id'], s_id),options.verbose)
-            self.client.system.crash.deleteCrash(self.session,int(crash['id']))
+            print_msg("Deleting crash with id %s from system %s." % (crash['id'], s_id), options.verbose)
+            self.client.system.crash.deleteCrash(self.session, int(crash['id']))
 
 #######
 
@@ -2229,7 +2229,7 @@ def do_system_listcrashesbysystem(self, args):
     print '---------------------'
 
     for cr in l_crashes:
-        print "| %s  | %s" % (cr['id'],cr['crash'])
+        print "| %s  | %s" % (cr['id'], cr['crash'])
 
 
 #######
@@ -2261,7 +2261,7 @@ def do_system_getcrashfiles(self, args):
     if not options.dest_folder:
         options.dest_folder="files_for_" + "crashid_" + options.crashid + "_" + date_stamp
     else:
-        options.dest_folder+="_" + date_stamp
+        options.dest_folder += "_" + date_stamp
 
     # create folder
     os.system("mkdir %s" % options.dest_folder)
@@ -2934,7 +2934,7 @@ def filter_latest_packages(pkglist, version_key = 'version',
     # Returns a dict, indexed by a compound (tuple) key based on
     # arch and name, so we can store the latest version of each package
     # for each arch.  This approach avoids nested loops :)
-    latest={}
+    latest = {}
     for p in pkglist:
         if p.has_key('arch_label'):
             tuplekey = p['name'], p['arch_label']
@@ -2943,7 +2943,7 @@ def filter_latest_packages(pkglist, version_key = 'version',
             p['arch'] = re.sub('AMD64', 'x86_64', p['arch'])
             tuplekey = p['name'], p['arch']
         else:
-            logging.error("Failed to filter package list, package %s" % p\
+            logging.error("Failed to filter package list, package %s" % p \
                 + "found with no arch or arch_label")
             return None
         if not latest.has_key(tuplekey):
@@ -2955,7 +2955,7 @@ def filter_latest_packages(pkglist, version_key = 'version',
 
     return latest
 
-def print_comparison_withchannel(self,channelnewer,systemnewer,\
+def print_comparison_withchannel(self,channelnewer,systemnewer, \
                                         channelmissing, channel_latest):
 
     # Figure out correct indentation to allow pretty table output
@@ -3065,23 +3065,23 @@ def do_system_comparewithchannel(self, args):
     else:
         systems = self.expand_systems(args)
 
-    channel_latest={}
+    channel_latest = {}
     for system in sorted(systems):
         system_id = self.get_system_id(system)
         if not system_id:
             continue
 
-        instpkgs = self.client.system.listPackages(self.session,\
+        instpkgs = self.client.system.listPackages(self.session, \
                                                         system_id)
-        logging.debug("Got %d packages installed in system %s" %\
+        logging.debug("Got %d packages installed in system %s" % \
             (len(instpkgs), system))
         # We need to filter to get only the latest installed packages,
         # because multiple versions (e.g kernel) can be installed
         packages = filter_latest_packages(instpkgs)
-        logging.debug("Got latest %d packages installed in system %s" %\
+        logging.debug("Got latest %d packages installed in system %s" % \
             (len(packages.keys()), system))
 
-        channels=[]
+        channels = []
         if options.channel:
             # User specified a specific channel, check it exists
             allch = self.client.channel.listSoftwareChannels(self.session)
@@ -3095,16 +3095,16 @@ def do_system_comparewithchannel(self, args):
         else:
             # No specified channel, so we create a list of all channels the
             # system is subscribed to
-            basech = self.client.system.getSubscribedBaseChannel(self.session,\
+            basech = self.client.system.getSubscribedBaseChannel(self.session, \
                                                                     system_id)
             if not basech:
-                logging.error("system %s is not subscribed to any channel!"\
+                logging.error("system %s is not subscribed to any channel!" \
                                                                      % system)
-                logging.error("Please subscribe to a channel, or specify a" +\
+                logging.error("Please subscribe to a channel, or specify a" + \
                     "channel to compare with")
                 return
             logging.debug("base channel %s for %s" % (basech['name'], system))
-            childch = self.client.system.listSubscribedChildChannels(\
+            childch = self.client.system.listSubscribedChildChannels( \
                                                     self.session, system_id)
             channels = [ basech['label'] ]
             for c in childch:
@@ -3116,7 +3116,7 @@ def do_system_comparewithchannel(self, args):
             if not channel_latest.has_key(c):
                 logging.debug("Getting packages for channel %s" % c)
                 pkgs = self.client.channel.software.listAllPackages(
-                    self.session,c)
+                    self.session, c)
                 # filter_latest_packages Returns a dict of latest packages
                 # indexed by name,arch tuple, which we add to the dict-of-dict
                 # channel_latest, to avoid getting the same channel data
@@ -3137,9 +3137,9 @@ def do_system_comparewithchannel(self, args):
             print '\nSystem: %s' % system
 
         # Iterate over the installed packages
-        channelnewer=[]
-        systemnewer=[]
-        channelmissing=[]
+        channelnewer = []
+        systemnewer = []
+        channelmissing = []
         for key in packages.keys():
             syspkg = packages.get(key)
             if latestpkgs.has_key(key):

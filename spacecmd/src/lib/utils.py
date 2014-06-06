@@ -676,7 +676,7 @@ def get_string_diff_dicts( string1, string2, sep="-" ):
 
     if string1 == string2:
         logging.info( "Skipping usage of common strings: both strings are equal" )
-        return [None,None]
+        return [None, None]
     substrings1 = deque( string1.split(sep) )
     substrings2 = deque( string2.split(sep) )
 
@@ -692,8 +692,8 @@ def get_string_diff_dicts( string1, string2, sep="-" ):
             replace2['(^|-)' + sub2 + '(-|$)'] = r'\1' + "DIFF("+sub1+"|"+sub2+")" + r'\2'
     if substrings1 or substrings2:
         logging.info( "Skipping usage of common strings: number of substrings differ" )
-        return [None,None]
-    return [replace1,replace2]
+        return [None, None]
+    return [replace1, replace2]
 
 def replace( line, replacedict ):
     if replacedict:

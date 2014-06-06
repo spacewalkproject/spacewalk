@@ -1911,7 +1911,7 @@ def export_kickstart_getdetails(self, profile, kickstarts):
     logging.debug("About to get variable_list for %s" % profile)
     details['variable_list'] = \
         self.client.kickstart.profile.getVariables(self.session, profile)
-    logging.debug("done variable_list for %s = %s" % (profile,\
+    logging.debug("done variable_list for %s = %s" % (profile, \
         details['variable_list']))
     # just export the key names, then look for one with the same name on import
     details['activation_keys'] = [ k['key'] for k in \
@@ -1969,7 +1969,7 @@ def export_kickstart_getdetails(self, profile, kickstarts):
 
     #and now sort all the lists
     for i in details.keys():
-        if isinstance(details[i],list):
+        if isinstance(details[i], list):
             details[i].sort()
 
     return details
@@ -1978,17 +1978,17 @@ def do_kickstart_export(self, args):
     options = [ Option('-f', '--file', action='store') ]
     (args, options) = parse_arguments(args, options)
 
-    filename=""
+    filename = ""
     if options.file != None:
         logging.debug("Passed filename do_kickstart_export %s" % \
             options.file)
-        filename=options.file
+        filename = options.file
 
     # Get the list of profiles to export and sort out the filename if required
-    profiles=[]
+    profiles = []
     if not len(args):
         if len(filename) == 0:
-            filename="ks_all.json"
+            filename = "ks_all.json"
         logging.info("Exporting ALL kickstart profiles to %s" % filename)
         profiles = self.do_kickstart_list('', True)
     else:
@@ -2005,7 +2005,7 @@ def do_kickstart_export(self, args):
             # If we are exporting exactly one ks, we default to ksname.json
             # otherwise, generic ks_profiles.json name
             if len(profiles) == 1:
-                filename="%s.json" % profiles[0]
+                filename = "%s.json" % profiles[0]
             else:
                 filename="ks_profiles.json"
 
@@ -2015,7 +2015,7 @@ def do_kickstart_export(self, args):
     kickstarts = self.client.kickstart.listKickstarts(self.session)
 
     # Dump as a list of dict
-    ksdetails_list=[]
+    ksdetails_list = []
     for p in profiles:
         logging.info("Exporting ks %s to %s" % (p, filename))
         ksdetails_list.append(self.export_kickstart_getdetails(p, kickstarts))
@@ -2075,28 +2075,28 @@ def import_kickstart_fromdetails(self, ksdetails):
     tmppw = 'foobar'
     virt_type = 'none'  # assume none as there's no API call to read this info
     ks_host = ''
-    self.client.kickstart.createProfile(self.session, ksdetails['label'],\
+    self.client.kickstart.createProfile(self.session, ksdetails['label'], \
         virt_type, ksdetails['tree_label'], ks_host, tmppw)
     # Now set other options
-    self.client.kickstart.profile.setChildChannels(self.session,\
+    self.client.kickstart.profile.setChildChannels(self.session, \
         ksdetails['label'], ksdetails['child_channels'])
-    self.client.kickstart.profile.setAdvancedOptions(self.session,\
+    self.client.kickstart.profile.setAdvancedOptions(self.session, \
         ksdetails['label'], ksdetails['advanced_opts'])
-    self.client.kickstart.profile.system.setPartitioningScheme(self.session,\
+    self.client.kickstart.profile.system.setPartitioningScheme(self.session, \
         ksdetails['label'], ksdetails['partitioning_scheme'])
-    self.client.kickstart.profile.software.setSoftwareList(self.session,\
+    self.client.kickstart.profile.software.setSoftwareList(self.session, \
         ksdetails['label'], ksdetails['software_list'])
-    self.client.kickstart.profile.setCustomOptions(self.session,\
+    self.client.kickstart.profile.setCustomOptions(self.session, \
         ksdetails['label'], ksdetails['custom_opts'])
-    self.client.kickstart.profile.setVariables(self.session,\
+    self.client.kickstart.profile.setVariables(self.session, \
         ksdetails['label'], ksdetails['variable_list'])
-    self.client.kickstart.profile.system.setRegistrationType(self.session,\
+    self.client.kickstart.profile.system.setRegistrationType(self.session, \
         ksdetails['label'], ksdetails['reg_type'])
     if ksdetails['config_mgmt']:
-        self.client.kickstart.profile.system.enableConfigManagement(\
+        self.client.kickstart.profile.system.enableConfigManagement( \
             self.session, ksdetails['label'])
     if ksdetails['remote_cmds']:
-        self.client.kickstart.profile.system.enableRemoteCommands(self.session,\
+        self.client.kickstart.profile.system.enableRemoteCommands(self.session, \
             ksdetails['label'])
     # Add the scripts
     for script in ksdetails['script_list']:
@@ -2111,13 +2111,13 @@ def import_kickstart_fromdetails(self, ksdetails):
         # so ensure the target satellite is at least as up-to-date as the
         # satellite where the export was performed.
         if script.has_key('template'):
-            ret = self.client.kickstart.profile.addScript(self.session,\
-            ksdetails['label'], script['name'], script['contents'],\
-            script['interpreter'], script['script_type'], script['chroot'],\
+            ret = self.client.kickstart.profile.addScript(self.session, \
+            ksdetails['label'], script['name'], script['contents'], \
+            script['interpreter'], script['script_type'], script['chroot'], \
             script['template'])
         else:
-            ret = self.client.kickstart.profile.addScript(self.session,\
-            ksdetails['label'], script['name'], script['contents'],\
+            ret = self.client.kickstart.profile.addScript(self.session, \
+            ksdetails['label'], script['name'], script['contents'], \
             script['interpreter'], script['script_type'], script['chroot'])
         if ret:
             logging.debug("Added %s script to profile" % script['script_type'])
@@ -2125,22 +2125,22 @@ def import_kickstart_fromdetails(self, ksdetails):
             logging.error("Error adding %s script" % script['script_type'])
     # Specify ip ranges
     for iprange in ksdetails['ip_ranges']:
-        if self.client.kickstart.profile.addIpRange(self.session,\
+        if self.client.kickstart.profile.addIpRange(self.session, \
             ksdetails['label'], iprange['min'], iprange['max']):
-            logging.debug("added ip range %s-%s" %\
+            logging.debug("added ip range %s-%s" % \
                 iprange['min'], iprange['max'])
         else:
-            logging.warning("failed to add ip range %s-%s, continuing" %\
+            logging.warning("failed to add ip range %s-%s, continuing" % \
                 iprange['min'], iprange['max'])
             continue
     # File preservations, only if the list exists
     existing_file_preservations = [ x['name'] for x in \
-        self.client.kickstart.filepreservation.listAllFilePreservations(\
+        self.client.kickstart.filepreservation.listAllFilePreservations( \
             self.session) ]
     if len(ksdetails['file_preservations']) != 0:
         for fp in ksdetails['file_preservations']:
             if fp in existing_file_preservations:
-                if self.client.kickstart.profile.system.addFilePreservations(\
+                if self.client.kickstart.profile.system.addFilePreservations( \
                     self.session, ksdetails['label'], [ fp ]):
                     logging.debug("added file preservation '%s'" % fp)
                 else:
@@ -2154,10 +2154,10 @@ def import_kickstart_fromdetails(self, ksdetails):
     for akey in ksdetails['activation_keys']:
         if akey in existing_act_keys:
             logging.debug("Adding activation key %s to profile" % akey)
-            self.client.kickstart.profile.keys.addActivationKey(self.session,\
+            self.client.kickstart.profile.keys.addActivationKey(self.session, \
                 ksdetails['label'], akey)
         else:
-            logging.warning("Actvationkey %s does not exist on the " % akey +\
+            logging.warning("Actvationkey %s does not exist on the " % akey + \
                 "satellite, skipping")
 
     # The GPG/SSL keys, only if they exist
@@ -2167,20 +2167,20 @@ def import_kickstart_fromdetails(self, ksdetails):
     for key in ksdetails['gpg_ssl_keys']:
         if key in existing_gpg_ssl_keys:
             logging.debug("Adding GPG/SSL key %s to profile" % key)
-            self.client.kickstart.profile.system.addKeys(self.session,\
+            self.client.kickstart.profile.system.addKeys(self.session, \
                 ksdetails['label'], [ key ])
         else:
-            logging.warning("GPG/SSL key %s does not exist on the " % key +\
+            logging.warning("GPG/SSL key %s does not exist on the " % key + \
                 "satellite, skipping")
 
     # The pre/post logging settings
-    self.client.kickstart.profile.setLogging(self.session, ksdetails['label'],\
+    self.client.kickstart.profile.setLogging(self.session, ksdetails['label'], \
         ksdetails['pre_logging'], ksdetails['post_logging'])
 
     # There are some frustrating ommisions from the API which means we can't
     # export/import some settings, so we post a warning that some manual
     # fixup may be required
-    logging.warning("Due to API ommissions, there are some settings which" +\
+    logging.warning("Due to API ommissions, there are some settings which" + \
         " cannot be imported, please check and fixup manually if necessary")
     logging.warning(" * Details->Preserve ks.cfg")
     logging.warning(" * Details->Comment")
@@ -2259,7 +2259,7 @@ def do_kickstart_diff(self, args):
         target_channel = args[1]
     elif hasattr( self, "do_kickstart_getcorresponding" ):
         # can a corresponding channel name be found automatically?
-        target_channel=self.do_kickstart_getcorresponding( source_channel)
+        target_channel=self.do_kickstart_getcorresponding(source_channel)
     if not self.check_kickstart( target_channel ):
         return
 
@@ -2309,7 +2309,7 @@ def do_kickstart_getupdatetype(self, args):
         if len(labels) == 1:
             print updatetype
         elif len(labels) > 1:
-            print label,":",updatetype
+            print label, ":", updatetype
 
 ####################
 

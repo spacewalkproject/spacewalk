@@ -106,7 +106,7 @@ def do_user_create(self, args):
             # when PAM is enabled
             if options.password:
                 logging.warning("Note password field is ignored for PAM mode")
-            options.password=""
+            options.password = ""
         else:
             options.pam = 0
 

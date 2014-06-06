@@ -1051,7 +1051,7 @@ def export_activationkey_getdetails(self, key):
     # across servers, so we need the group name on import
     details['server_groups'] = []
     if len(details['server_group_ids']) != 0:
-        grp_detail_list=[]
+        grp_detail_list = []
         for grp in details['server_group_ids']:
             grp_details = self.client.systemgroup.getDetails(self.session, grp)
 
@@ -1067,17 +1067,17 @@ def do_activationkey_export(self, args):
     options = [ Option('-f', '--file', action='store') ]
     (args, options) = parse_arguments(args, options)
 
-    filename=""
+    filename = ""
     if options.file != None:
         logging.debug("Passed filename do_activationkey_export %s" % \
             options.file)
-        filename=options.file
+        filename = options.file
 
     # Get the list of keys to export and sort out the filename if required
-    keys=[]
+    keys = []
     if not len(args):
         if len(filename) == 0:
-            filename="akey_all.json"
+            filename = "akey_all.json"
         logging.info("Exporting ALL activation keys to %s" % filename)
         keys = self.do_activationkey_list('', True)
     else:
@@ -1095,12 +1095,12 @@ def do_activationkey_export(self, args):
             # If we are exporting exactly one key, we default to keyname.json
             # otherwise, generic akeys.json name
             if len(keys) == 1:
-                filename="%s.json" % keys[0]
+                filename = "%s.json" % keys[0]
             else:
-                filename="akeys.json"
+                filename = "akeys.json"
 
     # Dump as a list of dict
-    keydetails_list=[]
+    keydetails_list = []
     for k in keys:
         logging.info("Exporting key %s to %s" % (k, filename))
         keydetails_list.append(self.export_activationkey_getdetails(k))
@@ -1187,19 +1187,19 @@ def import_activationkey_fromdetails(self, keydetails):
             return False
 
         # add child channels
-        self.client.activationkey.addChildChannels(self.session, newkey,\
+        self.client.activationkey.addChildChannels(self.session, newkey, \
             keydetails['child_channel_labels'])
 
         # set config channel options and channels (missing are skipped)
         if keydetails['config_deploy'] != 0:
-            self.client.activationkey.enableConfigDeployment(self.session,\
+            self.client.activationkey.enableConfigDeployment(self.session, \
                 newkey)
         else:
-            self.client.activationkey.disableConfigDeployment(self.session,\
+            self.client.activationkey.disableConfigDeployment(self.session, \
                 newkey)
 
         if len(keydetails['config_channels']) > 0:
-            self.client.activationkey.addConfigChannels(self.session, [newkey],\
+            self.client.activationkey.addConfigChannels(self.session, [newkey], \
                 keydetails['config_channels'], False)
 
         # set groups (missing groups are created)
@@ -1208,7 +1208,7 @@ def import_activationkey_fromdetails(self, keydetails):
             grpdetails = self.client.systemgroup.getDetails(self.session, grp)
             if grpdetails == None:
                 logging.info("System group %s doesn't exist, creating" % grp)
-                grpdetails = self.client.systemgroup.create(self.session, grp,\
+                grpdetails = self.client.systemgroup.create(self.session, grp, \
                      grp)
             gids.append(grpdetails.get('id'))
 
@@ -1318,7 +1318,7 @@ def do_activationkey_clone(self, args):
                 # we have the new base-channel, we can check if the new child
                 # label exists under the new base-channel:
                 # If it doesn't we can only skip it and print a warning
-                all_childch = self.list_child_channels(system=None,\
+                all_childch = self.list_child_channels(system=None, \
                     parent=newbasech, subscribed=False)
 
                 new_child_channel_labels = []
@@ -1445,7 +1445,7 @@ def do_activationkey_diff(self, args):
         target_channel = args[1]
     elif hasattr( self, "do_activationkey_getcorresponding" ):
         # can a corresponding channel name be found automatically?
-        target_channel=self.do_activationkey_getcorresponding( source_channel )
+        target_channel = self.do_activationkey_getcorresponding(source_channel)
     if not self.check_activationkey( target_channel ):
         return
 

@@ -29,7 +29,7 @@
 # invalid function name
 # pylint: disable=C0103
 
-import os,re
+import os, re
 import shlex
 from spacecmd.utils import *
 import xmlrpclib

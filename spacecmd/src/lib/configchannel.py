@@ -959,17 +959,17 @@ def do_configchannel_export(self, args):
     options = [ Option('-f', '--file', action='store') ]
     (args, options) = parse_arguments(args, options)
 
-    filename=""
+    filename = ""
     if options.file != None:
         logging.debug("Passed filename do_configchannel_export %s" % \
             options.file)
-        filename=options.file
+        filename = options.file
 
     # Get the list of ccs to export and sort out the filename if required
-    ccs=[]
+    ccs = []
     if not len(args):
         if len(filename) == 0:
-            filename="cc_all.json"
+            filename = "cc_all.json"
         logging.info("Exporting ALL config channels to %s" % filename)
         ccs = self.do_configchannel_list('', True)
     else:
@@ -986,12 +986,12 @@ def do_configchannel_export(self, args):
             # If we are exporting exactly one cc, we default to ccname.json
             # otherwise, generic ccs.json name
             if len(ccs) == 1:
-                filename="%s.json" % ccs[0]
+                filename = "%s.json" % ccs[0]
             else:
-                filename="ccs.json"
+                filename = "ccs.json"
 
     # Dump as a list of dict
-    ccdetails_list=[]
+    ccdetails_list = []
     for c in ccs:
         logging.info("Exporting cc %s to %s" % (c, filename))
         ccdetails_list.append(self.export_configchannel_getdetails(c))
@@ -1085,7 +1085,7 @@ def import_configchannel_fromdetails(self, ccdetails):
                     # eaten by the API)
                     elif self.file_needs_b64_enc(filedetails['contents']):
                         logging.debug("Detected file needs base64 encoding")
-                        filedetails['contents'] =\
+                        filedetails['contents'] = \
                             base64.b64encode(filedetails['contents'])
                         filedetails['contents_enc64'] = True
 
@@ -1098,7 +1098,7 @@ def import_configchannel_fromdetails(self, ccdetails):
                 ret = self.client.configchannel.createOrUpdatePath(\
                     self.session, ccdetails['label'], path, isdir, filedetails)
             if ret != None:
-                logging.debug("Added file %s to %s" %\
+                logging.debug("Added file %s to %s" % \
                     (ret['path'],ccdetails['name']))
             else:
                 logging.error("Error adding file %s to %s" % \
@@ -1277,7 +1277,7 @@ def do_configchannel_diff(self, args):
         target_channel = args[1]
     elif hasattr( self, "do_configchannel_getcorresponding" ):
         # can a corresponding channel name be found automatically?
-        target_channel=self.do_configchannel_getcorresponding( source_channel )
+        target_channel = self.do_configchannel_getcorresponding( source_channel )
     if not self.check_configchannel( target_channel ):
         return
 
@@ -1326,7 +1326,7 @@ def do_configchannel_sync(self, args, doreturn = False):
         target_channel = args[1]
     elif hasattr( self, "do_configchannel_getcorresponding" ):
         # can a corresponding channel name be found automatically?
-        target_channel=self.do_configchannel_getcorresponding( source_channel)
+        target_channel = self.do_configchannel_getcorresponding(source_channel)
     if not self.check_configchannel( target_channel ):
         return
 
@@ -1335,21 +1335,21 @@ def do_configchannel_sync(self, args, doreturn = False):
     source_files = set( self.do_configchannel_listfiles( source_channel, doreturn = True ) )
     target_files = set( self.do_configchannel_listfiles( target_channel, doreturn = True ) )
 
-    both=source_files & target_files
+    both = source_files & target_files
     if both:
         print "files common in both channels:"
         print "\n".join( both )
         print
 
-    source_only=source_files.difference( target_files )
+    source_only = source_files.difference(target_files)
     if source_only:
         print "files only in source "+source_channel
         print "\n".join( source_only )
         print
 
-    target_only=target_files.difference( source_files )
+    target_only = target_files.difference(source_files)
     if target_only:
-        print "files only in target "+target_channel
+        print "files only in target " + target_channel
         print "\n".join( target_only )
         print
 
@@ -1388,7 +1388,7 @@ def do_configchannel_sync(self, args, doreturn = False):
                 'macro-start-delimiter':    source_data.get('macro-start-delimiter'),
                 'macro-end-delimiter':      source_data.get('macro-end-delimiter'),
             }
-            for k,v in target_data.items():
+            for k, v in target_data.items():
                 if not v:
                     del target_data[k]
             logging.debug( source_data.get('path') + ": " + str(target_data) )

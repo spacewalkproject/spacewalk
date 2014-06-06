@@ -278,7 +278,7 @@ def do_errata_findbycve(self, args):
             print self.SEPARATOR
         add_separator = True
 
-        print "%s:" %c
+        print "%s:" % c
         errata = self.client.errata.findByCve(self.session, c)
         if len(errata):
             for e in errata:
