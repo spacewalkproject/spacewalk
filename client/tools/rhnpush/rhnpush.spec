@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.73
+Version:       5.5.74
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -75,6 +75,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Fri Jun 06 2014 Stephen Herr <sherr@redhat.com> 5.5.74-1
+- 1104375 - add default path structure to proxy lookaside that avoids
+  collisions
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.5.73-1
 - spec file polish
 
