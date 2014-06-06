@@ -2007,7 +2007,7 @@ def do_kickstart_export(self, args):
             if len(profiles) == 1:
                 filename = "%s.json" % profiles[0]
             else:
-                filename="ks_profiles.json"
+                filename = "ks_profiles.json"
 
     # First grab the list of basic details about all kickstarts because you
     # can't get details-per-label, call here to avoid potential duplicate calls
@@ -2259,7 +2259,7 @@ def do_kickstart_diff(self, args):
         target_channel = args[1]
     elif hasattr( self, "do_kickstart_getcorresponding" ):
         # can a corresponding channel name be found automatically?
-        target_channel=self.do_kickstart_getcorresponding(source_channel)
+        target_channel = self.do_kickstart_getcorresponding(source_channel)
     if not self.check_kickstart( target_channel ):
         return
 

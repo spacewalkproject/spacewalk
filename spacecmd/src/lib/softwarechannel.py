@@ -836,7 +836,7 @@ def do_softwarechannel_clonetree(self, args):
             details['parent_label'] = parent_channel
 
         if options.gpg_copy:
-            srcdetails = self.client.channel.software.getDetails(self.session,\
+            srcdetails = self.client.channel.software.getDetails(self.session, \
                 ch)
             if srcdetails['gpg_key_url']:
                 details['gpg_url'] = srcdetails['gpg_key_url']

@@ -1079,8 +1079,8 @@ def print_configfiles(self, quiet, filelist):
                 '-' * max_label)
 
     for f in filelist:
-        print '%s  %s  %s' % (f['path'].ljust(max_path),\
-                              f['type'].ljust(max_type),\
+        print '%s  %s  %s' % (f['path'].ljust(max_path), \
+                              f['type'].ljust(max_type), \
                               f['channel_label'].ljust(max_label))
 
 def help_system_listconfigfiles(self):
@@ -2155,7 +2155,7 @@ def do_system_listcrashedsystems(self, args):
     print '--------------------------------'
     res = self.client.system.listUserSystems(self.session)
     for s in res:
-        res_crash=self.client.system.crash.listSystemCrashes(self.session, s['id'])
+        res_crash = self.client.system.crash.listSystemCrashes(self.session, s['id'])
         if len(res_crash) != 0:
             print "%d : %s : %s" % (len(res_crash), s['id'], s['name'])
 
@@ -2185,13 +2185,13 @@ def do_system_deletecrashes(self, args):
         self.client.system.crash.deleteCrash(self.session, int(options.crashid))
         return
 
-    sys_id=[]
+    sys_id = []
     if options.sysid:
         sys_id.append(options.sysid)
-        prompt_string="Deleting all crashes from system with systemid %s [y/N]:" % options.sysid
+        prompt_string = "Deleting all crashes from system with systemid %s [y/N]:" % options.sysid
     else: # all systems
-        prompt_string='Deleting all crashes from all systems [y/N]:'
-        systems=self.client.system.listUserSystems(self.session)
+        prompt_string = 'Deleting all crashes from all systems [y/N]:'
+        systems = self.client.system.listUserSystems(self.session)
         for s in systems:
             sys_id.append(s['id'])
 
@@ -2200,7 +2200,7 @@ def do_system_deletecrashes(self, args):
         return
 
     for s_id in sys_id:
-        list_crash=self.client.system.crash.listSystemCrashes(self.session, int(s_id))
+        list_crash = self.client.system.crash.listSystemCrashes(self.session, int(s_id))
         for crash in list_crash:
             print_msg("Deleting crash with id %s from system %s." % (crash['id'], s_id), options.verbose)
             self.client.system.crash.deleteCrash(self.session, int(crash['id']))
@@ -2223,7 +2223,7 @@ def do_system_listcrashesbysystem(self, args):
         print "usage: system_listcrashesbysystem -i sys_id"
         return
 
-    l_crashes=self.client.system.crash.listSystemCrashes(self.session, int(options.sysid))
+    l_crashes = self.client.system.crash.listSystemCrashes(self.session, int(options.sysid))
     print
     print 'Crash ID | Crash Name'
     print '---------------------'
@@ -2253,22 +2253,22 @@ def do_system_getcrashfiles(self, args):
         return
 
     if not options.verbose:
-        options.verbose="&>/dev/null"
+        options.verbose = "&>/dev/null"
 
     # create date stamp
-    date_stamp=datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
+    date_stamp = datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
 
     if not options.dest_folder:
-        options.dest_folder="files_for_" + "crashid_" + options.crashid + "_" + date_stamp
+        options.dest_folder = "files_for_" + "crashid_" + options.crashid + "_" + date_stamp
     else:
         options.dest_folder += "_" + date_stamp
 
     # create folder
     os.system("mkdir %s" % options.dest_folder)
-    l_files=self.client.system.crash.listSystemCrashFiles(self.session, int(options.crashid))
+    l_files = self.client.system.crash.listSystemCrashFiles(self.session, int(options.crashid))
 
     for f in l_files:
-        file_url=self.client.system.crash.getCrashFileUrl(self.session, f['id'])
+        file_url = self.client.system.crash.getCrashFileUrl(self.session, f['id'])
         os.system("wget  --directory-prefix=%s --tries=1 --no-check-certificate %s %s" % ( \
             options.dest_folder,
             file_url,
@@ -2955,7 +2955,7 @@ def filter_latest_packages(pkglist, version_key = 'version',
 
     return latest
 
-def print_comparison_withchannel(self,channelnewer,systemnewer, \
+def print_comparison_withchannel(self, channelnewer, systemnewer, \
                                         channelmissing, channel_latest):
 
     # Figure out correct indentation to allow pretty table output
@@ -3144,14 +3144,14 @@ def do_system_comparewithchannel(self, args):
             syspkg = packages.get(key)
             if latestpkgs.has_key(key):
                 chpkg = latestpkgs.get(key)
-                newest = latest_pkg(syspkg,chpkg)
+                newest = latest_pkg(syspkg, chpkg)
                 if syspkg == newest:
                     systemnewer.append(syspkg)
                 elif chpkg == newest:
                     channelnewer.append(syspkg)
             else:
                 channelmissing.append(syspkg)
-        self.print_comparison_withchannel(channelnewer, systemnewer,\
+        self.print_comparison_withchannel(channelnewer, systemnewer, \
                                             channelmissing, latestpkgs)
 
 ####################
