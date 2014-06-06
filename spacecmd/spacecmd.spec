@@ -17,6 +17,12 @@ BuildArch:   noarch
 
 BuildRequires: spacewalk-pylint
 BuildRequires: python-devel
+BuildRequires: python-simplejson
+BuildRequires: rpm-python
+%if 0%{?rhel} == 5
+BuildRequires: python-json
+%endif
+
 %if 0%{?rhel} == 5
 Requires:    python-simplejson
 %endif
