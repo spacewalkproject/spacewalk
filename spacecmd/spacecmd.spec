@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.2.6
+Version:     2.2.7
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -69,6 +69,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Jun 06 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.7-1
+- system: don't use python built-ins for identifiers
+- set PYTHONPATH for pylint
+
 * Thu Jun 05 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.6-1
 - add spacewalk-pylint checks to spacecmd build
 - pylint fixes
