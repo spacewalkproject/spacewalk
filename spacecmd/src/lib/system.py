@@ -44,7 +44,7 @@ __PKG_COMPARISONS = { 0 : 'Same',
                       4 : 'Newer there' }
 
 def print_package_comparison(self, results):
-    max_name  = max_length(map(itemgetter('package_name'), results), min=7)
+    max_name  = max_length(map(itemgetter('package_name'), results), minimum=7)
 
     # sometimes 'this_system' or 'other_system' can be None
     tmp_this = []
@@ -53,8 +53,8 @@ def print_package_comparison(self, results):
         tmp_this.append(str(item.get('this_system')))
         tmp_other.append(str(item.get('other_system')))
 
-    max_this  = max_length(tmp_this, min=11)
-    max_other = max_length(tmp_other, min=12)
+    max_this  = max_length(tmp_this, minimum=11)
+    max_other = max_length(tmp_other, minimum=12)
 
     max_comparison = 10
 
@@ -1062,9 +1062,9 @@ def do_system_listconfigchannels(self, args):
 def print_configfiles(self, quiet, filelist):
 
     # Figure out correct indentation to allow pretty table output
-    max_path  = max_length([f['path'] for f in filelist], min=10)
-    max_type  = max_length(["file", "directory", "symlink"], min=10)
-    max_label = max_length([f['channel_label'] for f in filelist], min=15)
+    max_path  = max_length([f['path'] for f in filelist], minimum=10)
+    max_type  = max_length(["file", "directory", "symlink"], minimum=10)
+    max_label = max_length([f['channel_label'] for f in filelist], minimum=15)
 
     # print header when not in quiet mode
     if not quiet:
@@ -2977,9 +2977,9 @@ def print_comparison_withchannel(self,channelnewer,systemnewer,\
             version_string = "%(version)s-%(release)s" % channel_latest[key]
             tmp_channel.append(version_string)
 
-    max_name  = max_length(tmp_names, min=7)
-    max_system  = max_length(tmp_system, min=11)
-    max_channel = max_length(tmp_channel, min=15)
+    max_name  = max_length(tmp_names, minimum=7)
+    max_system  = max_length(tmp_system, minimum=11)
+    max_channel = max_length(tmp_channel, minimum=15)
     max_comparison = 25
 
     # print headers
