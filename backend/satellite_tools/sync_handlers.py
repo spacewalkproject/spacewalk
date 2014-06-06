@@ -15,7 +15,6 @@
 
 
 import types
-import string
 import sys
 
 from spacewalk.common.stringutils import to_string
@@ -416,7 +415,7 @@ def _to_timestamp(t):
     # last_modified is YYYY-MM-DD HH24:MI:SS
     # The cache expects YYYYMMDDHH24MISS as format; so just drop the
     # spaces, dashes and columns
-    last_modified = string.translate(t, string.maketrans("", ""), ' -:')
+    last_modified = t.translate(None, ' -:')
     return last_modified
 
 # Generic container handler

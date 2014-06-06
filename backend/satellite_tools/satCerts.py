@@ -18,7 +18,6 @@
 #
 
 ## language imports
-from string import strip
 from time import strftime, strptime
 import os
 import sys
@@ -426,7 +425,7 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
     """
 
     label = 'rhn-satellite-cert'
-    cert = strip(cert)
+    cert = cert.strip()
 
     # sanity check
     # satellite_cert.ParseException can be thrown
@@ -592,7 +591,7 @@ def _checkCertMatch_rhnCryptoKey(caCert, description, org_id, deleteRowYN=0,
         Used ONLY by: store_rhnCryptoKey(...)
     """
 
-    cert = strip(open(caCert, 'rb').read())
+    cert = open(caCert, 'rb').read().strip()
 
     h = rhnSQL.prepare(_querySelectCryptoCertInfo)
     h.execute(description=description, org_id=org_id)
@@ -640,7 +639,7 @@ def _insertPrep_rhnCryptoKey(rhn_cryptokey_id, description, org_id):
 def _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert):
     """ writes/updates the cert as a lob """
 
-    cert = strip(open(caCert, 'rb').read())
+    cert = open(caCert, 'rb').read().strip()
 
     # Use our update blob wrapper to accomodate differences between Oracle
     # and PostgreSQL:

@@ -18,7 +18,6 @@
 import os
 import sys
 import time
-import string
 import connection
 
 # rhn imports
@@ -62,7 +61,7 @@ class BaseWireSource:
             url = CFG.RHN_PARENT # the default
         # just make the url complete.
         hostname = rhnLib.parseUrl(url or '')[1]
-        hostname = string.split(hostname, ':')[0] # just in case
+        hostname = hostname.split(':')[0] # just in case
         if self.sslYN:
             url = 'https://' + hostname
         else:

@@ -17,7 +17,6 @@
 
 import sys
 import types
-import string
 from xml.sax import make_parser, SAXParseException, ContentHandler, \
     ErrorHandler
 
@@ -269,8 +268,8 @@ class SatelliteDispatchHandler(BaseDispatchHandler):
         rhnFlags.set("stream-generation", generation)
         if not version:
             version = "0"
-        stream_version = map(int, string.split(version, '.'))
-        allowed_version = map(int, string.split(self.version, "."))
+        stream_version = map(int, version.split('.'))
+        allowed_version = map(int, self.version.split("."))
         if (stream_version[0] != allowed_version[0] or
             stream_version[1] < allowed_version[1]):
             raise IncompatibleVersionError(version, self.version,
@@ -313,7 +312,7 @@ class BaseItem:
         for element in elements:
             if _is_string(element):
                 if keys_len != 1:
-                    if not string.strip(element):
+                    if not element.strip():
                         # White space around an element - skip
                         continue
                     # Ambiguity: don't know which attribute to initialize
@@ -953,7 +952,7 @@ def _normalizeSubelements(objtype, subelements):
     _s = []
     _strings_only = 1
     for subel in subelements:
-        if _is_string(subel) and not string.strip(subel):
+        if _is_string(subel) and not subel.strip():
             # Ignore it for now
             continue
         _s.append(subel)
@@ -962,7 +961,7 @@ def _normalizeSubelements(objtype, subelements):
 
     if _strings_only:
         # Multiple strings - contactenate into one
-        subelements = [ string.join(subelements, '') ]
+        subelements = [ ''.join(subelements) ]
     else:
         # Ignore whitespaces around elements
         subelements = _s
@@ -1034,7 +1033,7 @@ def _normalizeAttribute(objtype, attribute):
         return _normalizeDateType(attribute)
     elif isinstance(objtype, types.ListType):
         # List type - split stuff
-        return string.split(attribute)
+        return attribute.split()
     else:
         raise Exception("Unhandled attribute data type %s" % objtype)
 

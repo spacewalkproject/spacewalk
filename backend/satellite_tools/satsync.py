@@ -22,7 +22,6 @@ import datetime
 import os
 import sys
 import stat
-import string
 import time
 import types
 import exceptions
@@ -221,7 +220,7 @@ class Runner:
                 for step in self.step_hierarchy:
                     if not actionDict[step]:
                         continue
-                    method_name = '_step_' + string.replace(step, '-', '_')
+                    method_name = '_step_' + step.replace('-', '_')
                     if not hasattr(self, method_name):
                         log(-1, _("No handler for step %s") % step)
                         continue
@@ -267,8 +266,7 @@ class Runner:
         secs = elapsed - mins*60 - hours*60*60
 
         delta_list = [ [hours, _("hours")], [mins, _("minutes")], [secs, _("seconds")] ]
-        delta_str = string.join(map(lambda l: "%s %s" % (l[0], l[1]),
-                                    delta_list), ", ")
+        delta_str = ", ".join(map(lambda l: "%s %s" % (l[0], l[1]), delta_list))
         return delta_str
 
 
@@ -550,7 +548,7 @@ class Syncer:
                 except IOError, e:
                     raise RhnSyncException(_("Unable to open file %s: %s") % (
                         self.rhn_cert, e)), None, sys.exc_info()[2]
-                cert = string.strip(cert)
+                cert = cert.strip()
             else:
                 # Try to retrieve the certificate from the database
                 row = satCerts.retrieve_db_cert()
@@ -563,7 +561,7 @@ class Syncer:
             log2(1, 3, ["", _("RHN Entitlement Certificate sync")])
             certSource = xmlWireSource.CertWireSource(self.systemid, self.sslYN,
                                                       self.xml_dump_version)
-            cert = string.strip(certSource.download())
+            cert = certSource.download().strip()
 
         return self._process_cert(cert, store_cert)
 
@@ -688,7 +686,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         except InvalidChannelFamilyError:
             raise RhnSyncException(messages.invalid_channel_family_error %
-                string.join(requested_channels)), None, sys.exc_info()[2]
+                ''.join(requested_channels)), None, sys.exc_info()[2]
         except MissingParentChannelError:
             raise
 
