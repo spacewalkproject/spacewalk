@@ -230,7 +230,7 @@ public class DateTimePickerTag extends TagSupport {
             timeInput.setAttribute("size", "10");
 
             timeInput.setAttribute("data-picker-name", data.getName());
-            timeInput.setAttribute("data-initial-hour", String.valueOf(data.getHour()));
+            timeInput.setAttribute("data-initial-hour", String.valueOf(data.getHourOfDay()));
             timeInput.setAttribute("data-initial-minute", String.valueOf(data.getMinute()));
 
             group.addBody(timeInput);
