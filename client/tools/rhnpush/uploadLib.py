@@ -488,7 +488,7 @@ class UploadClass:
 
         # set whether we should use checksum paths or not (if upstream supports
         # it we should).
-        self.use_checksum_paths = hasChannelChecksumCapability(server)
+        self.use_checksum_paths = hasChannelChecksumCapability(self.server)
 
     @staticmethod
     def _processFile(filename, relativeDir=None, source=None, nosig=None):
