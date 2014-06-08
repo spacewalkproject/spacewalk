@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.2.3
+Version: 2.2.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Sat Jun 07 2014 Stephen Herr <sherr@redhat.com> 2.2.4-1
+- 1104375 - checkstyle fixes
+
 * Fri Jun 06 2014 Stephen Herr <sherr@redhat.com> 2.2.3-1
 - 1104375 - add default path structure to proxy lookaside that avoids
   collisions
