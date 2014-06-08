@@ -254,6 +254,7 @@ def listPackages(server, channel, version):
 
     try:
         return server.listAllPackagesChecksum(channel, version)
+    # pylint: disable=W0702
     except:
         try:
             return server.listAllPackages(channel, version)

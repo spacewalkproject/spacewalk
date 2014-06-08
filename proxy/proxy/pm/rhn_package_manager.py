@@ -35,13 +35,11 @@ import os
 import sys
 import shutil
 import xmlrpclib
-from operator import truth
 from rhnpush.uploadLib import UploadError
 from optparse import Option, OptionParser
 
 # RHN imports
 from rhnpush import uploadLib
-from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnLib import parseUrl
 initCFG('proxy.package_manager')
