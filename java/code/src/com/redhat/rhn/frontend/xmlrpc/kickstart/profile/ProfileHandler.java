@@ -1108,8 +1108,7 @@ public class ProfileHandler extends BaseHandler {
      * Returns a list for each kickstart profile of activation keys that are present
      * in that profile but not the other.
      *
-     * @param sessionKey      identifies the user making the call;
-     *                        cannot be <code>null</code>
+     * @param loggedInUser The current user
      * @param kickstartLabel1 identifies a profile to be compared;
      *                        cannot be <code>null</code>
      * @param kickstartLabel2 identifies a profile to be compared;
@@ -1137,13 +1136,9 @@ public class ProfileHandler extends BaseHandler {
      *          #array_end()
      *  #struct_end()
      */
-    public Map<String, List<ActivationKey>> compareActivationKeys(String sessionKey,
+    public Map<String, List<ActivationKey>> compareActivationKeys(User loggedInUser,
                                                                   String kickstartLabel1,
                                                                   String kickstartLabel2) {
-        // Validate parameters
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
 
         if (kickstartLabel1 == null) {
             throw new IllegalArgumentException("kickstartLabel1 cannot be null");
@@ -1157,9 +1152,9 @@ public class ProfileHandler extends BaseHandler {
         KeysHandler keysHandler = new KeysHandler();
 
         List<ActivationKey> keyList1 =
-            keysHandler.getActivationKeys(sessionKey, kickstartLabel1);
+            keysHandler.getActivationKeys(loggedInUser, kickstartLabel1);
         List<ActivationKey> keyList2 =
-            keysHandler.getActivationKeys(sessionKey, kickstartLabel2);
+            keysHandler.getActivationKeys(loggedInUser, kickstartLabel2);
 
         // Set operations to determine deltas
         List<ActivationKey> onlyInKickstart1 = new ArrayList<ActivationKey>(keyList1);

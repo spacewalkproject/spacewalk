@@ -46,7 +46,7 @@ public class KeysHandlerTest extends BaseHandlerTestCase {
         KickstartFactory.saveKickstartData(ks);
 
         // execute api under test
-        List<ActivationKey> keys = handler.getActivationKeys(adminKey, ks.getLabel());
+        List<ActivationKey> keys = handler.getActivationKeys(admin, ks.getLabel());
 
         // verify results ...
         assertEquals(keys.size(), 2);
@@ -77,16 +77,16 @@ public class KeysHandlerTest extends BaseHandlerTestCase {
         ActivationKey activationKey2 = manager.createNewActivationKey(admin, "Test");
 
         KickstartData ks  = KickstartDataTest.createKickstartWithProfile(admin);
-        List<ActivationKey> keys = handler.getActivationKeys(adminKey, ks.getLabel());
+        List<ActivationKey> keys = handler.getActivationKeys(admin, ks.getLabel());
         KickstartFactory.saveKickstartData(ks);
         int keySizeInitial = keys.size();
 
         // execute api under test
-        handler.addActivationKey(adminKey, ks.getLabel(), activationKey1.getKey());
-        handler.addActivationKey(adminKey, ks.getLabel(), activationKey2.getKey());
+        handler.addActivationKey(admin, ks.getLabel(), activationKey1.getKey());
+        handler.addActivationKey(admin, ks.getLabel(), activationKey2.getKey());
 
         // verify results ...
-        keys = handler.getActivationKeys(adminKey, ks.getLabel());
+        keys = handler.getActivationKeys(admin, ks.getLabel());
 
         assertEquals(keySizeInitial, 0);
         assertEquals(keys.size(), 2);
@@ -118,10 +118,10 @@ public class KeysHandlerTest extends BaseHandlerTestCase {
         int keySizeInitial = ks.getDefaultRegTokens().size();
 
         // execute api under test
-        handler.removeActivationKey(adminKey, ks.getLabel(), activationKey1.getKey());
+        handler.removeActivationKey(admin, ks.getLabel(), activationKey1.getKey());
 
         // verify results ...
-        List<ActivationKey> keys = handler.getActivationKeys(adminKey, ks.getLabel());
+        List<ActivationKey> keys = handler.getActivationKeys(admin, ks.getLabel());
 
         assertEquals(keySizeInitial, 2);
         assertEquals(keys.size(), 1);

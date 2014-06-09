@@ -471,7 +471,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
         // Test
         Map<String, List<ActivationKey>> keysDiff =
-            handler.compareActivationKeys(adminKey, ks1.getLabel(), ks2.getLabel());
+            handler.compareActivationKeys(admin, ks1.getLabel(), ks2.getLabel());
 
         // Verify
         assertNotNull(keysDiff);
@@ -504,7 +504,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
         // Test
         Map<String, List<ActivationKey>> keysDiff =
-            handler.compareActivationKeys(adminKey, ks1.getLabel(), ks1.getLabel());
+            handler.compareActivationKeys(admin, ks1.getLabel(), ks1.getLabel());
 
         // Verify
         assertNotNull(keysDiff);
@@ -524,7 +524,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
         // Test
         Map<String, List<ActivationKey>> keysDiff =
-            handler.compareActivationKeys(adminKey, ks1.getLabel(), ks2.getLabel());
+            handler.compareActivationKeys(admin, ks1.getLabel(), ks2.getLabel());
 
         // Verify
         assertNotNull(keysDiff);
