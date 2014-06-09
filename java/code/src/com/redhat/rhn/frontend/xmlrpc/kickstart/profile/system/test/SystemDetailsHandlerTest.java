@@ -408,7 +408,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         List<String> files = new ArrayList<String>();
         files.add("file1");
         files.add("file2");
-        int result = fpHandler.create(adminKey, "list1", files);
+        int result = fpHandler.create(admin, "list1", files);
         assertEquals(1, result);
         return CommonFactory.lookupFileList("list1", admin.getOrg());
     }

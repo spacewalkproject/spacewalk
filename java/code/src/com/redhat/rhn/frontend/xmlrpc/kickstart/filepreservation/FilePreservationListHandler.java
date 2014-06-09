@@ -22,7 +22,6 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.FileListAlreadyExistsException;
-import com.redhat.rhn.frontend.xmlrpc.NoSuchUserException;
 import com.redhat.rhn.manager.common.CreateFileListCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 
@@ -41,7 +40,7 @@ public class FilePreservationListHandler extends BaseHandler {
      * Lists all file preservation lists associated with the org of the user
      * (identified by the session key).
      *
-     * @param sessionKey identifies the user that is logged in and performing the call
+     * @param loggedInUser The current user
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
      * @return a list of maps containing the file preservation lists
@@ -54,14 +53,8 @@ public class FilePreservationListHandler extends BaseHandler {
      *        $FilePreservationDtoSerializer
      *      #array_end()
      */
-    public List listAllFilePreservations(String sessionKey)
+    public List listAllFilePreservations(User loggedInUser)
         throws FaultException {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
-
-        if (loggedInUser == null) {
-            throw new NoSuchUserException();
-        }
 
         Org org = loggedInUser.getOrg();
         KickstartLister lister = KickstartLister.getInstance();
@@ -73,7 +66,7 @@ public class FilePreservationListHandler extends BaseHandler {
     /**
      * Creates a new file preservation list.
      *
-     * @param sessionKey identifies the user that is logged in and performing the call
+     * @param loggedInUser The current user
      * @param name  name of the file list to create
      * @param files list of file names to include
      * @return 1 if the creation was successful
@@ -87,13 +80,8 @@ public class FilePreservationListHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "name - file names to include")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int create(String sessionKey, String name, List<String> files)
+    public int create(User loggedInUser, String name, List<String> files)
         throws FaultException {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
-        if (loggedInUser == null) {
-            throw new NoSuchUserException();
-        }
 
         if (CommonFactory.lookupFileList(name, loggedInUser.getOrg()) != null) {
             // file list already exists...
@@ -113,7 +101,7 @@ public class FilePreservationListHandler extends BaseHandler {
     /**
      * Delete a file preservation list.
      *
-     * @param sessionKey identifies the user that is logged in and performing the call
+     * @param loggedInUser The current user
      * @param name  name of the file list to delee
      * @return 1 if the creation was successful
      * @throws FaultException A FaultException is thrown if:
@@ -125,13 +113,8 @@ public class FilePreservationListHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "name of the file list to delete")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int delete(String sessionKey, String name)
+    public int delete(User loggedInUser, String name)
         throws FaultException {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
-        if (loggedInUser == null) {
-            throw new NoSuchUserException();
-        }
 
         FileList fileList = CommonFactory.lookupFileList(name, loggedInUser.getOrg());
         if (fileList != null) {
@@ -143,7 +126,7 @@ public class FilePreservationListHandler extends BaseHandler {
     /**
      * Returns all of the data associated with the given file preservation list.
      *
-     * @param sessionKey  identifies the user that is logged in and performing the call
+     * @param loggedInUser The current user
      * @param name identifies the file preservation list
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
@@ -157,14 +140,8 @@ public class FilePreservationListHandler extends BaseHandler {
      * @xmlrpc.returntype
      *     $FileListSerializer
      */
-    public FileList getDetails(String sessionKey, String name)
+    public FileList getDetails(User loggedInUser, String name)
         throws FaultException {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
-        if (loggedInUser == null) {
-            throw new NoSuchUserException();
-        }
-
         return CommonFactory.lookupFileList(name, loggedInUser.getOrg());
     }
 }

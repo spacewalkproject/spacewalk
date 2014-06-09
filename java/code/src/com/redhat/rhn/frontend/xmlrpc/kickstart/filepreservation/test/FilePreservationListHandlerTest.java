@@ -41,7 +41,7 @@ public class FilePreservationListHandlerTest extends BaseHandlerTestCase {
         FileList fileList = createFileList();
 
         // Test
-        List<FilePreservationDto> list = handler.listAllFilePreservations(adminKey);
+        List<FilePreservationDto> list = handler.listAllFilePreservations(admin);
 
         // Verify
         assertNotNull(list);
@@ -73,11 +73,11 @@ public class FilePreservationListHandlerTest extends BaseHandlerTestCase {
         List<String> files = new ArrayList<String>();
         files.add("file1");
         files.add("file2");
-        int result = handler.create(adminKey, "list1", files);
+        int result = handler.create(admin, "list1", files);
 
         // Verify
         assertEquals(1, result);
-        assertEquals(initialSize + 1, handler.listAllFilePreservations(adminKey).size());
+        assertEquals(initialSize + 1, handler.listAllFilePreservations(admin).size());
 
         FileList entryCreated = CommonFactory.lookupFileList("list1", admin.getOrg());
         assertNotNull(entryCreated);
@@ -91,14 +91,14 @@ public class FilePreservationListHandlerTest extends BaseHandlerTestCase {
         int initialSize = lister.preservationListsInOrg(admin.getOrg(), null).size();
         FileList fileList = createFileList();
 
-        assertEquals(initialSize + 1, handler.listAllFilePreservations(adminKey).size());
+        assertEquals(initialSize + 1, handler.listAllFilePreservations(admin).size());
 
         // Test
-        int result = handler.delete(adminKey, fileList.getLabel());
+        int result = handler.delete(admin, fileList.getLabel());
 
         // Verify
         assertEquals(1, result);
-        assertEquals(initialSize, handler.listAllFilePreservations(adminKey).size());
+        assertEquals(initialSize, handler.listAllFilePreservations(admin).size());
 
         FileList entryDeleted = CommonFactory.lookupFileList(fileList.getLabel(),
                 admin.getOrg());
@@ -110,7 +110,7 @@ public class FilePreservationListHandlerTest extends BaseHandlerTestCase {
         FileList fileList = createFileList();
 
         // Test
-        FileList details = handler.getDetails(adminKey, fileList.getLabel());
+        FileList details = handler.getDetails(admin, fileList.getLabel());
 
         // Verify
         assertNotNull(details);
@@ -122,7 +122,7 @@ public class FilePreservationListHandlerTest extends BaseHandlerTestCase {
         List<String> files = new ArrayList<String>();
         files.add("file1");
         files.add("file2");
-        int result = handler.create(adminKey, "list1", files);
+        int result = handler.create(admin, "list1", files);
         assertEquals(1, result);
         return CommonFactory.lookupFileList("list1", admin.getOrg());
     }
