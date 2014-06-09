@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.77
+Version:       5.5.78
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -75,6 +75,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Mon Jun 09 2014 Stephen Herr <sherr@redhat.com> 5.5.78-1
+- This should work for all versions of pylint
+
 * Mon Jun 09 2014 Stephen Herr <sherr@redhat.com> 5.5.77-1
 - One more pylint fix for rhnpush
 
