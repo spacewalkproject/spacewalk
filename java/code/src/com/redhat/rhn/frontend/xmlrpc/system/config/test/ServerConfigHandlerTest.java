@@ -111,7 +111,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
         try {
             // validate that system must have config deployment capability
             // in order to deploy config files... (e.g. rhncfg* pkgs installed)
-            handler.deployAll(regularKey, systems, date);
+            handler.deployAll(regular, systems, date);
 
             fail("Shouldn't be permitted to deploy without config deploy capability.");
         }
@@ -122,7 +122,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
         SystemManagerTest.giveCapability(srv1.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
 
-        handler.deployAll(regularKey, systems, date);
+        handler.deployAll(regular, systems, date);
 
         DataResult<ScheduledAction> actions = ActionManager.
                                     recentlyScheduledActions(regular, null, 1);
@@ -164,29 +164,29 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
         for (ConfigChannel cc : channels) {
             channelLabels.add(cc.getLabel());
         }
-        handler.setChannels(adminKey, serverIds, channelLabels);
-        List<ConfigChannel> actual = handler.listChannels(regularKey,
+        handler.setChannels(admin, serverIds, channelLabels);
+        List<ConfigChannel> actual = handler.listChannels(regular,
                                     srv1.getId().intValue());
         assertEquals(channels, actual);
 
-        handler.removeChannels(adminKey, serverIds,
+        handler.removeChannels(admin, serverIds,
                                                 channelLabels.subList(0, 1));
-        actual = handler.listChannels(regularKey,
+        actual = handler.listChannels(regular,
                                             srv1.getId().intValue());
         assertEquals(channels.subList(1, channels.size()), actual);
 
         //test add channels
-        handler.addChannels(adminKey, serverIds, channelLabels.subList(0, 1), true);
-        actual = handler.listChannels(regularKey,
+        handler.addChannels(admin, serverIds, channelLabels.subList(0, 1), true);
+        actual = handler.listChannels(regular,
                 srv1.getId().intValue());
         assertEquals(channels, actual);
 
-        assertEquals(1,  handler.removeChannels(adminKey, serverIds,
+        assertEquals(1,  handler.removeChannels(admin, serverIds,
                                     channelLabels.subList(1, channelLabels.size())));
         assertEquals(1,
-                handler.addChannels(adminKey, serverIds, channelLabels.subList(1,
+                handler.addChannels(admin, serverIds, channelLabels.subList(1,
                                                         channelLabels.size()), false));
-        actual = handler.listChannels(regularKey, srv1.getId().intValue());
+        actual = handler.listChannels(regular, srv1.getId().intValue());
         assertEquals(channels, actual);
     }
 
@@ -210,7 +210,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
             }
 
             ConfigRevision rev = handler.createOrUpdatePath(
-                        adminKey, server.getId().intValue(),
+                        admin, server.getId().intValue(),
                         path, isDir, data, commitToLocal);
 
             ConfigChannel cc = commitToLocal ? server.getLocalOverride() :
@@ -231,7 +231,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
         Map <String, Object> data = new HashMap<String, Object>();
         data.put(ConfigRevisionSerializer.TARGET_PATH, targetPath);
         data.put(ConfigRevisionSerializer.SELINUX_CTX, selinuxCtx);
-        ConfigRevision rev = handler.createOrUpdateSymlink(adminKey,
+        ConfigRevision rev = handler.createOrUpdateSymlink(admin,
                     server.getId().intValue(), path, data, commitToLocal);
         ConfigChannel cc = commitToLocal ? server.getLocalOverride() :
             server.getSandboxOverride();
@@ -277,7 +277,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                                                         boolean lookLocal) {
         List<String> paths = new ArrayList<String>(1);
         paths.add(path);
-        assertTrue(rev.matches(handler.lookupFileInfo(adminKey, server.getId().intValue(),
+        assertTrue(rev.matches(handler.lookupFileInfo(admin, server.getId().intValue(),
                 paths, lookLocal).get(0)));
     }
 
@@ -289,7 +289,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
         paths.add("/no/such/file.txt");
 
         // Should not throw a NullPointerException (anymore):
-        handler.lookupFileInfo(adminKey, new Integer(srv1.getId().intValue()),
+        handler.lookupFileInfo(admin, new Integer(srv1.getId().intValue()),
                 paths, true);
     }
 
@@ -360,7 +360,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
             Map<String, ConfigRevision> revisions = new HashMap<String, ConfigRevision>();
             setupPathsAndRevisions(srv1, paths, revisions, local);
 
-            List<ConfigFileNameDto> files = handler.listFiles(adminKey,
+            List<ConfigFileNameDto> files = handler.listFiles(admin,
                                                 srv1.getId().intValue(), local);
             for (ConfigFileNameDto dto : files) {
                 assertTrue(revisions.containsKey(dto.getPath()));
@@ -410,8 +410,8 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
 
             setupPathsAndRevisions(srv1, paths, revisions, isLocal);
             paths.remove(paths.size() - 1);
-            handler.deleteFiles(adminKey, srv1.getId().intValue(), paths, isLocal);
-            List<ConfigFileNameDto> files = handler.listFiles(adminKey,
+            handler.deleteFiles(admin, srv1.getId().intValue(), paths, isLocal);
+            List<ConfigFileNameDto> files = handler.listFiles(admin,
                                             srv1.getId().intValue(), isLocal);
             assertEquals(1, files.size());
         }
