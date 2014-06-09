@@ -61,7 +61,7 @@ if __name__ == "__main__":
     obj1 = class1()
     obj2 = class2()
 
-    obj1, obj2 = make_common_attr_equal( obj1, obj2 )
+    obj1, obj2 = make_common_attr_equal(obj1, obj2)
 
     print obj1.a
     print obj2.a

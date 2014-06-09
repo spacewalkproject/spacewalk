@@ -20,7 +20,7 @@ import os
 
 class  ConfManager:
     def __init__(self, optionparser, store_true_list):
-        sysdir  = '/etc/sysconfig/rhn'
+        sysdir = '/etc/sysconfig/rhn'
         homedir = utils.get_home_dir()
         default = 'rhnpushrc'
         regular = '.rhnpushrc'

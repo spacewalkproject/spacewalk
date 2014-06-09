@@ -105,7 +105,7 @@ class PackageUpload:
         else:
             vlist = self.headers[name]
             if type(vlist) not in (ListType, TupleType):
-                vlist = [ vlist ]
+                vlist = [vlist]
         vlist.append(value)
 
     def send_http_headers(self, method, content_length=None):
@@ -262,10 +262,12 @@ class PackageUpload:
         return text
 
 def parse_url(url, scheme="http", path='/'):
+    # pylint: disable=unpacking-non-sequence
     _scheme, netloc, _path, params, query, fragment = urlparse.urlparse(url)
     if not netloc:
         # No scheme - trying to patch it up ourselves?
         url = scheme + "://" + url
+        # pylint: disable=unpacking-non-sequence
         _scheme, netloc, _path, params, query, fragment = urlparse.urlparse(url)
 
     if not netloc:

@@ -538,7 +538,7 @@ class UploadClass:
             lh.append(a_pkg.header['arch'])
 
         # Build the header hash to be sent
-        info = { 'header' : Binary(a_pkg.header.unload()),
+        info = {'header' : Binary(a_pkg.header.unload()),
                 'checksum_type' : a_pkg.checksum_type,
                 'checksum' : a_pkg.checksum,
                 'packageSize' : size,

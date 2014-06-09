@@ -469,7 +469,7 @@ def parse_pkginfo(pkginfo_str):
                   "ARCH=":      "arch",
                   "VERSION=":   "version",
                   "PSTAMP=":    "pstamp",
-                  "VENDOR=":    "vendor" }
+                  "VENDOR=":    "vendor"}
 
     parse_dict, _dummy = parser(lines, trans_dict.keys(), "=")
 
@@ -572,15 +572,15 @@ def parse_depends(depends_str):
 
     lines = depends_str.splitlines()
 
-    dct = { 'requires': [],
-            'conflicts': [],
-            'obsoletes': [],
-            'provides': [] }
+    dct = {'requires': [],
+           'conflicts': [],
+           'obsoletes': [],
+           'provides': []}
 
-    pkg_dict = { 'name'     : None,
-                 'version'  : None,
-                 'release'  : 1,
-                 'flags'    : 0 }
+    pkg_dict = {'name'     : None,
+                'version'  : None,
+                'release'  : 1,
+                'flags'    : 0}
 
     for i in range(0, len(lines)):
         line = lines[i]
@@ -634,9 +634,9 @@ def _parse_dep_lookahead(index, lines):
 def provide_self(header):
     """Figure out the info needed to put a package into its provides list"""
 
-    dct = { 'name'      : None,
-             'version'   : None,
-             'flags'     : 8, }
+    dct = {'name'      : None,
+           'version'   : None,
+           'flags'     : 8,}
 
     dct['name'] = header['name']
     dct['version'] = header['version']
@@ -646,7 +646,7 @@ def provide_self(header):
     header['provides'].insert(0, dct)
 
     if header.has_key('release'):
-        header['provides'].insert(1, { 'name' : dct['name'], 'flags' : 8,
+        header['provides'].insert(1, {'name' : dct['name'], 'flags' : 8,
                   'version' : "%s-%s" % (header['version'], header['release'])})
 
 def md5sum_for_stream(data_stream):
@@ -660,9 +660,9 @@ def parse_cluster_readme(readme_string):
     """Parse the README file for the summary, date and description"""
 
     lines = readme_string.splitlines()
-    trans_dict = { "NAME:":                 "summary",
-                   "DATE:":                 "date",
-                   "CLUSTER DESCRIPTION":   "description" }
+    trans_dict = {"NAME:":                 "summary",
+                  "DATE:":                 "date",
+                  "CLUSTER DESCRIPTION":   "description"}
 
     parse_dict, _dummy = parser(lines, trans_dict.keys(), ":")
 
@@ -679,12 +679,12 @@ def parse_patch_readme(readme_string):
     summary, solaris_rel, sunos_rel, and target_arch"""
 
     lines = readme_string.splitlines()
-    trans_dict = { "Date:":                     "date",
-                   "Synopsis:":                 "description",
-                   "Topic:":                    "summary",
-                   "Solaris Release:":          "solaris_rel",
-                   "SunOS Release:":            "sunos_rel",
-                   "Relevant Architectures:":   "target_arch" }
+    trans_dict = {"Date:":                     "date",
+                  "Synopsis:":                 "description",
+                  "Topic:":                    "summary",
+                  "Solaris Release:":          "solaris_rel",
+                  "SunOS Release:":            "sunos_rel",
+                  "Relevant Architectures:":   "target_arch"}
 
     parse_dict, _dummy = parser(lines, trans_dict.keys(), ":")
 
@@ -704,10 +704,10 @@ def parse_patchinfo(patchinfo_string):
     obsoletes
     """
     lines = patchinfo_string.splitlines()
-    trans_dict = { "PATCH_PROPERTIES=": "intonly",
-                   "PATCH_REQUIRES=":   "requires",
-                   "PATCH_INCOMPAT=":   "conflicts",
-                   "PATCH_OBSOLETES=":  "obsoletes" }
+    trans_dict = {"PATCH_PROPERTIES=": "intonly",
+                  "PATCH_REQUIRES=":   "requires",
+                  "PATCH_INCOMPAT=":   "conflicts",
+                  "PATCH_OBSOLETES=":  "obsoletes"}
 
     parse_dict, _dummy = parser(lines, trans_dict.keys(), "=")
 
@@ -720,7 +720,7 @@ def parse_patchinfo(patchinfo_string):
             del dct['intonly']
 
     if "requires" in dct:
-        dct['requires']  = patch_list(dct['requires'], sense=12)
+        dct['requires'] = patch_list(dct['requires'], sense=12)
     else:
         dct['requires'] = []
 
@@ -743,25 +743,25 @@ def parse_patch_pkginfo(pkginfo_string):
     obsoletes, requires, conflicts
     """
     lines = pkginfo_string.splitlines()
-    trans_dict = { "PKG=":              "name",
-                   "VERSION=":          "version",
-                   "PSTAMP=":           "pstamp",
-                   "ARCH=":             "arch",
-                   "SUNW_OBSOLETES=":   "obsoletes",
-                   "SUNW_REQUIRES=":    "requires",
-                   "SUNW_INCOMPAT=":    "conflicts" }
+    trans_dict = {"PKG=":              "name",
+                  "VERSION=":          "version",
+                  "PSTAMP=":           "pstamp",
+                  "ARCH=":             "arch",
+                  "SUNW_OBSOLETES=":   "obsoletes",
+                  "SUNW_REQUIRES=":    "requires",
+                  "SUNW_INCOMPAT=":    "conflicts"}
 
     parse_dict, _dummy = parser(lines, trans_dict.keys(), "=")
 
     dct = _translate_dict(trans_dict, parse_dict)
 
     # get the package info for this pkginfo file
-    pkg_dict = { 'name'      : None,
-                 'epoch'     : None,
-                 'version'   : None,
-                 'pstamp'    : None,
-                 'release'   : '1',
-                 'arch'      : None, }
+    pkg_dict = {'name'      : None,
+                'epoch'     : None,
+                'version'   : None,
+                'pstamp'    : None,
+                'release'   : '1',
+                'arch'      : None,}
 
     pkg_dict['name'] = dct['name']
     # Some package names have extensions which are derived from their arch.
@@ -815,9 +815,9 @@ def patch_list(patch_str, sense):
         print "Unsupported patch list expression:", patch_str
         return []
 
-    dct = { 'name'      : None,
-             'version'   : None,
-             'flags'     : sense }
+    dct = {'name'      : None,
+           'version'   : None,
+           'flags'     : sense}
 
     patches = []
     l = patch_str.split()

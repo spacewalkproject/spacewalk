@@ -331,7 +331,7 @@ def _my_popen(cmd):
 
     txt = ""
     while 1:
-        rd, _wr, ex = select.select([ popen.stdout, popen.stderr ], [], [ popen.stdout, popen.stderr ], 5)
+        rd, _wr, ex = select.select([popen.stdout, popen.stderr], [], [popen.stdout, popen.stderr], 5)
         if ex:
             txt += popen.stdout.read()
             txt += popen.stderr.read()
