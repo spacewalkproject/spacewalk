@@ -112,7 +112,7 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
         String systemGroupName = "my-system-group-name" + TestUtils.randomString();
         String desc = TestUtils.randomString();
         ServerGroupHandler sghandler = new ServerGroupHandler();
-        sghandler.create(adminKey, systemGroupName, desc);
+        sghandler.create(admin, systemGroupName, desc);
 
         //admin should be able to call list users, regular should not
         OrgUserExtGroup result =
@@ -181,7 +181,7 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
         success = handler.deleteExternalGroupToSystemGroupMap(adminKey, name);
         assertTrue(success == 1);
 
-        sghandler.delete(adminKey, systemGroupName);
+        sghandler.delete(admin, systemGroupName);
     }
 
     public void testDefaultOrg() {
