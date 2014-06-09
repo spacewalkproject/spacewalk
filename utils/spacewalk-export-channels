@@ -112,6 +112,7 @@ def export_packages(options):
             package_count["repo"] = 0
             package_count["export"] = 0
             package_count["parent"] = 0
+            package_count["missing"] = 0
             for repo in repos:
                 if repo['source_url'].startswith('file://'):
                     log(2, "  - local repo: %s. Skipping." % repo['label'])
@@ -150,6 +151,10 @@ def export_packages(options):
                                 channel_csv.write("%d,%d,%s,%s,%s,%s,%s\n" % (org['id'], channel['id'], channel['label'], pkg['nevra'], os.path.basename(pkg['path']), repo_id, ''))
 
                         else:
+                            if not os.path.isfile(abs_path):
+                                log(0, "   File missing on the file system: %s" % abs_path)
+                                package_count["missing"] += 1
+                                continue
                             package_count["export"] += 1
                             if options.size:
                                 check_disk_size(abs_path, pkg['package_size'])
@@ -159,6 +164,7 @@ def export_packages(options):
             log(2, "  - pkgs available in external repos: %d" % package_count["repo"])
             log(2, "  - pkgs available in clone originals: %d" % package_count["parent"])
             log(2, "  - pkgs exported: %d" % package_count["export"])
+            log(2, "  - pkgs to export missing on file system: %d" % package_count["missing"])
             if options.skiprepogeneration:
                 log(2, "  - skipping repo generation")
             else:
@@ -192,7 +198,6 @@ def pkg_nevra(pkg):
 
 def cp_to_export_dir(pkg_path, dir, options):
     if not os.path.isfile(pkg_path):
-        log(0, "File missing: %s" % abs_path)
         return
     target = os.path.join(dir, os.path.basename(pkg_path))
     if os.path.isfile(target):
@@ -225,13 +230,15 @@ def list_repo_packages(label, source_url):
     try:
         repo_plugin = plugin(source_url, label)
     except ValueError:
-        log(2, "Invalid repo source_url ... %s" % source_url)
+        log(2, "   Invalid repo source_url ... %s" % source_url)
         return set([])
     packages = map(lambda p:p.getNEVRA(), plugin.list_packages(repo_plugin, []))
     return set(packages)
 
 
 def check_disk_size(abs_path, size):
+    if not os.path.isfile(abs_path):
+        return None
     file_size = os.stat(abs_path)[stat.ST_SIZE]
     ret = 0
     if file_size != size:
