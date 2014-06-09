@@ -63,7 +63,7 @@ public class MasterHandler extends BaseHandler {
 
     /**
      * Create a new Master, known to this Slave.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param label Master's fully-qualified domain name
      * @return Newly created ISSMaster object.
      *
@@ -72,9 +72,8 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "label", "Master's fully-qualified domain name")
      * @xmlrpc.returntype $IssMasterSerializer
      */
-    public IssMaster create(String sessionKey, String label) {
-        User u = getLoggedInUser(sessionKey);
-        ensureSatAdmin(u);
+    public IssMaster create(User loggedInUser, String label) {
+        ensureSatAdmin(loggedInUser);
         if (IssFactory.lookupMasterByLabel(label) != null) {
             throw new IssDuplicateMasterException(label);
         }
@@ -87,7 +86,7 @@ public class MasterHandler extends BaseHandler {
 
     /**
      * Updates the label of the specified Master
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param masterId Id of the Master to update
      * @param newLabel new label
      * @return updated IssMaster
@@ -98,8 +97,8 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "label", "Desired new label")
      * @xmlrpc.returntype $IssMasterSerializer
      */
-    public IssMaster update(String sessionKey, Integer masterId, String newLabel) {
-        IssMaster master = getMaster(sessionKey, masterId);
+    public IssMaster update(User loggedInUser, Integer masterId, String newLabel) {
+        IssMaster master = getMaster(loggedInUser, masterId);
         master.setLabel(newLabel);
         IssFactory.save(master);
         return master;
@@ -108,7 +107,7 @@ public class MasterHandler extends BaseHandler {
     /**
      * Removes a specified Master
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param masterId Id of the Master to remove
      * @return 1 on success, exception otherwise
      *
@@ -117,15 +116,15 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "id", "Id of the Master to remove")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int delete(String sessionKey, Integer masterId) {
-        IssMaster master = getMaster(sessionKey, masterId);
+    public int delete(User loggedInUser, Integer masterId) {
+        IssMaster master = getMaster(loggedInUser, masterId);
         IssFactory.delete(master);
         return 1;
     }
 
     /**
      * Make the specified Master the default for this Slave's satellite-sync
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param masterId Id of the Master to be the default
      * @return 1 on success, exception otherwise
      *
@@ -134,8 +133,8 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "id", "Id of the Master to make the default")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int makeDefault(String sessionKey, Integer masterId) {
-        IssMaster master = getMaster(sessionKey, masterId);
+    public int makeDefault(User loggedInUser, Integer masterId) {
+        IssMaster master = getMaster(loggedInUser, masterId);
         master.makeDefaultMaster();
         IssFactory.save(master);
         return 1;
@@ -143,15 +142,15 @@ public class MasterHandler extends BaseHandler {
 
     /**
      * Return the current default-Master for this Slave
-     * @param sessionKey User's session key
+     * @param loggedInUser The current user
      * @return current default Master, null if there isn't one
      *
      * @xmlrpc.doc Return the current default-Master for this Slave
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype $IssMasterSerializer
      */
-    public IssMaster getDefaultMaster(String sessionKey) {
-        ensureSatAdmin(getLoggedInUser(sessionKey));
+    public IssMaster getDefaultMaster(User loggedInUser) {
+        ensureSatAdmin(loggedInUser);
         IssMaster dflt = IssFactory.getCurrentMaster();
         validateExists(dflt, "Default Master");
         return dflt;
@@ -159,22 +158,22 @@ public class MasterHandler extends BaseHandler {
 
     /**
      * Make this slave have no default Master for satellite-sync
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @return 1 on success, exception otherwise
      *
      * @xmlrpc.doc Make this slave have no default Master for satellite-sync
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int unsetDefaultMaster(String sessionKey) {
-        ensureSatAdmin(getLoggedInUser(sessionKey));
+    public int unsetDefaultMaster(User loggedInUser) {
+        ensureSatAdmin(loggedInUser);
         IssFactory.unsetCurrentMaster();
         return 1;
     }
 
     /**
      * Set the CA-CERT filename for specified Master on this Slave
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param masterId Id of the Master we're affecting
      * @param caCertFilename path to this Master's CA Cert on this Slave
      * @return 1 on success, exception otherwise
@@ -186,15 +185,15 @@ public class MasterHandler extends BaseHandler {
      *  "path to specified Master's CA cert")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setCaCert(String sessionKey, Integer masterId, String caCertFilename) {
-        IssMaster master = getMaster(sessionKey, masterId);
+    public int setCaCert(User loggedInUser, Integer masterId, String caCertFilename) {
+        IssMaster master = getMaster(loggedInUser, masterId);
         master.setCaCert(caCertFilename);
         return 1;
     }
 
     /**
      * Find a Master by specifying its ID
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param masterId Id of the Master to look for
      * @return the specified Master if found, exception otherwise
      *
@@ -203,9 +202,8 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "id", "Id of the desired Master")
      * @xmlrpc.returntype $IssMasterSerializer
      */
-    public IssMaster getMaster(String sessionKey, Integer masterId) {
-        User u = getLoggedInUser(sessionKey);
-        ensureSatAdmin(u);
+    public IssMaster getMaster(User loggedInUser, Integer masterId) {
+        ensureSatAdmin(loggedInUser);
         IssMaster master = IssFactory.lookupMasterById(masterId.longValue());
         validateExists(master, masterId.toString());
         return master;
@@ -213,7 +211,7 @@ public class MasterHandler extends BaseHandler {
 
     /**
      * Find a Master by specifying its label
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param masterLabel Label of the Master to look for
      * @return the specified Master if found, exception otherwise
      *
@@ -222,9 +220,8 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "label", "Label of the desired Master")
      * @xmlrpc.returntype $IssMasterSerializer
      */
-    public IssMaster getMasterByLabel(String sessionKey, String masterLabel) {
-        User u = getLoggedInUser(sessionKey);
-        ensureSatAdmin(u);
+    public IssMaster getMasterByLabel(User loggedInUser, String masterLabel) {
+        ensureSatAdmin(loggedInUser);
         IssMaster master = IssFactory.lookupMasterByLabel(masterLabel);
         validateExists(master, masterLabel);
         return master;
@@ -232,7 +229,7 @@ public class MasterHandler extends BaseHandler {
 
     /**
      * Get all the Masters this Slave knows about
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @return list of all the IssMasters we know about
      *
      * @xmlrpc.doc Get all the Masters this Slave knows about
@@ -242,16 +239,15 @@ public class MasterHandler extends BaseHandler {
      *          $IssMasterSerializer
      *      #array_end()
      */
-    public List<IssMaster> getMasters(String sessionKey) {
-        User u = getLoggedInUser(sessionKey);
-        ensureSatAdmin(u);
+    public List<IssMaster> getMasters(User loggedInUser) {
+        ensureSatAdmin(loggedInUser);
         return IssFactory.listAllMasters();
     }
 
     /**
      * List all organizations the specified Master has exported to this Slave
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param masterId Id of the Master to look for
      * @return List of MasterOrgs we know about
      *
@@ -263,8 +259,8 @@ public class MasterHandler extends BaseHandler {
      *     $IssMasterOrgSerializer
      *   #array_end()
      */
-    public List<IssMasterOrg> getMasterOrgs(String sessionKey, Integer masterId) {
-        IssMaster master = getMaster(sessionKey, masterId);
+    public List<IssMasterOrg> getMasterOrgs(User loggedInUser, Integer masterId) {
+        IssMaster master = getMaster(loggedInUser, masterId);
         ArrayList<IssMasterOrg> orgs = new ArrayList<IssMasterOrg>();
         orgs.addAll(master.getMasterOrgs());
         return orgs;
@@ -273,7 +269,7 @@ public class MasterHandler extends BaseHandler {
     /**
      * Reset all organizations the specified Master has exported to this Slave
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param masterId Id of the Master to look for
      * @param orgMaps List of MasterOrgs we know about
      * @return 1 if successful, exception otherwise
@@ -291,10 +287,10 @@ public class MasterHandler extends BaseHandler {
      *   #array_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setMasterOrgs(String sessionKey,
+    public int setMasterOrgs(User loggedInUser,
                              Integer masterId,
                              List<Map<String, Object>> orgMaps) {
-        IssMaster master = getMaster(sessionKey, masterId);
+        IssMaster master = getMaster(loggedInUser, masterId);
         Set<IssMasterOrg> orgs = new HashSet<IssMasterOrg>();
         for (Map<String, Object> anOrgMap : orgMaps) {
             IssMasterOrg o = validateOrg(anOrgMap);
@@ -308,7 +304,7 @@ public class MasterHandler extends BaseHandler {
      * Add a single organizations to the list of those the specified Master has
      * exported to this Slave
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param masterId Id of the Master to look for
      * @param newOrg new master-organization to add
      * @return 1 if success, exception otherwise
@@ -326,10 +322,10 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      *
      */
-    public int addToMaster(String sessionKey,
+    public int addToMaster(User loggedInUser,
                            Integer masterId,
                            Map<String, Object> newOrg) {
-        IssMaster master = getMaster(sessionKey, masterId);
+        IssMaster master = getMaster(loggedInUser, masterId);
         IssMasterOrg org = validateOrg(newOrg);
         master.addToMaster(org);
         return 1;
@@ -338,7 +334,7 @@ public class MasterHandler extends BaseHandler {
     /**
      * Map a given master-organization to a specific local-organization
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param masterId Id of the Master to look for
      * @param masterOrgId id of the master-organization to work with
      * @param localOrgId id of the local organization to map to masterOrgId
@@ -353,13 +349,13 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      *
      */
-    public int mapToLocal(String sessionKey,
+    public int mapToLocal(User loggedInUser,
                           Integer masterId,
                           Integer masterOrgId,
                           Integer localOrgId) {
         boolean found = false;
 
-        IssMaster master = getMaster(sessionKey, masterId);
+        IssMaster master = getMaster(loggedInUser, masterId);
         Set<IssMasterOrg> orgs = master.getMasterOrgs();
 
         Org localOrg = OrgFactory.lookupById(localOrgId.longValue());
