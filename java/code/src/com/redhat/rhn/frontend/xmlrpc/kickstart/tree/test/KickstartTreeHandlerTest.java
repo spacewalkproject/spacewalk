@@ -116,7 +116,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
 
         // verify our setup... should have 1 tree and 1 profile associated w/it
         List ksTrees = handler.list(admin, channel.getLabel());
-        List ksProfiles = ksHandler.listKickstarts(adminKey);
+        List ksProfiles = ksHandler.listKickstarts(admin);
         assertNotNull(ksTrees);
         assertNotNull(ksProfiles);
         Integer numKsTrees = ksTrees.size();
@@ -128,7 +128,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
 
         // verify that both the tree and associated profile no longer exist
         ksTrees = handler.list(admin, channel.getLabel());
-        ksProfiles = ksHandler.listKickstarts(adminKey);
+        ksProfiles = ksHandler.listKickstarts(admin);
         assertNotNull(ksTrees);
         assertNotNull(ksProfiles);
         assertEquals(numKsTrees - 1, ksTrees.size());
