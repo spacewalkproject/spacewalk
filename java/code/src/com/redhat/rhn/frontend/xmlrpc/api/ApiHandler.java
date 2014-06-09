@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.xmlrpc.api;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.HandlerFactory;
 
@@ -73,7 +74,7 @@ public class ApiHandler extends BaseHandler {
     }
 
     /** Lists available API namespaces
-     * @param sessionKey session of the logged in user
+     * @param loggedInUser The current user
      * @return map of API namespaces
      *
      * @xmlrpc.doc Lists available API namespaces
@@ -84,7 +85,7 @@ public class ApiHandler extends BaseHandler {
      *        #prop_desc("string", "handler", "API Handler")
      *   #struct_end()
      */
-    public Map getApiNamespaces(String sessionKey) {
+    public Map getApiNamespaces(User loggedInUser) {
         Map namespacesHash = new HashMap();
         HandlerFactory hf = new HandlerFactory();
 
@@ -99,7 +100,7 @@ public class ApiHandler extends BaseHandler {
 
     /**
      * Lists all available api calls grouped by namespace
-     * @param sessionKey session of the logged in user
+     * @param loggedInUser The current user
      * @return a map containing list of api calls for every namespace
      *
      * @xmlrpc.doc Lists all available api calls grouped by namespace
@@ -112,14 +113,14 @@ public class ApiHandler extends BaseHandler {
      *       #prop_desc("string", "return", "method return type")
      *   #struct_end()
      */
-    public Map getApiCallList(String sessionKey) {
+    public Map getApiCallList(User loggedInUser) {
         Map callHash = new HashMap();
 
         Iterator i = getNamespaces().iterator();
         while (i.hasNext()) {
                 String namespace = (String)i.next();
             try {
-                callHash.put(namespace, getApiNamespaceCallList(sessionKey, namespace));
+                callHash.put(namespace, getApiNamespaceCallList(loggedInUser, namespace));
             }
             catch (ClassNotFoundException e) {
                 callHash.put(namespace, "notFound");
@@ -130,7 +131,7 @@ public class ApiHandler extends BaseHandler {
 
     /**
      * Lists all available api calls for the specified namespace
-     * @param sessionKey session of the logged in user
+     * @param loggedInUser The current user
      * @param namespace namespace of interest
      * @return a map containing list of api calls for every namespace
      * @throws ClassNotFoundException if namespace isn't valid
@@ -146,7 +147,7 @@ public class ApiHandler extends BaseHandler {
      *        #prop_desc("string", "return", "method return type")
      *   #struct_end()
      */
-    public Map getApiNamespaceCallList(String sessionKey, String namespace)
+    public Map getApiNamespaceCallList(User loggedInUser, String namespace)
                                             throws ClassNotFoundException  {
         Class<? extends BaseHandler> handlerClass =
                                 new HandlerFactory().getHandler(namespace).getClass();
