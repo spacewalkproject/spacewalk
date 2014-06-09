@@ -71,7 +71,7 @@ public class CrashHandler extends BaseHandler {
 
     /**
      * Return crash count information
-     * @param sessionKey Session key
+     * @param loggedInUser The current user
      * @param serverId Server ID
      * @return Return crash count information
      *
@@ -88,8 +88,7 @@ public class CrashHandler extends BaseHandler {
      *                    "Date of the last software crash report")
      *     #struct_end()
      */
-    public Map getCrashCountInfo(String sessionKey, Integer serverId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Map getCrashCountInfo(User loggedInUser, Integer serverId) {
         XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
         Server server = sysHelper.lookupServer(loggedInUser, serverId);
 
@@ -114,7 +113,7 @@ public class CrashHandler extends BaseHandler {
 
     /**
      * Returns list of software crashes for a system.
-     * @param sessionKey Session key
+     * @param loggedInUser The current user
      * @param serverId Server ID
      * @return Returns list of software crashes for given system id.
      *
@@ -142,8 +141,7 @@ public class CrashHandler extends BaseHandler {
      *         #struct_end()
      *     #array_end()
      */
-    public List listSystemCrashes(String sessionKey, Integer serverId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List listSystemCrashes(User loggedInUser, Integer serverId) {
         XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
         Server server = sysHelper.lookupServer(loggedInUser, serverId);
 
@@ -204,7 +202,7 @@ public class CrashHandler extends BaseHandler {
 
     /**
      * Returns list of crash files for a given crash id.
-     * @param sessionKey Session key
+     * @param loggedInUser The current user
      * @param crashId Crash ID
      * @return Returns list of crash files.
      *
@@ -224,8 +222,7 @@ public class CrashHandler extends BaseHandler {
      *         #struct_end()
      *     #array_end()
      */
-    public List listSystemCrashFiles(String sessionKey, Integer crashId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List listSystemCrashFiles(User loggedInUser, Integer crashId) {
         Crash crash = CrashManager.lookupCrashByUserAndId(loggedInUser,
                       new Long(crashId.longValue()));
 
@@ -248,7 +245,7 @@ public class CrashHandler extends BaseHandler {
 
     /**
      * Delete a crash with given crash id.
-     * @param sessionKey Session key
+     * @param loggedInUser The current user
      * @param crashId Crash ID
      * @return 1 In case of success, exception otherwise.
      *
@@ -257,15 +254,14 @@ public class CrashHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "crashId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer deleteCrash(String sessionKey, Integer crashId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Integer deleteCrash(User loggedInUser, Integer crashId) {
         CrashManager.deleteCrash(loggedInUser, new Long(crashId.longValue()));
         return 1;
     }
 
     /**
      * Get a crash file download url
-     * @param sessionKey Session key
+     * @param loggedInUser The current user
      * @param crashFileId Crash File ID
      * @return Return a download url string.
      *
@@ -274,8 +270,7 @@ public class CrashHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "crashFileId")
      * @xmlrpc.returntype string - The crash file download url
      */
-    public String getCrashFileUrl(String sessionKey, Integer crashFileId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public String getCrashFileUrl(User loggedInUser, Integer crashFileId) {
         CrashFile crashFile = CrashManager.lookupCrashFileByUserAndId(loggedInUser,
                               new Long(crashFileId.longValue()));
 
@@ -286,7 +281,7 @@ public class CrashHandler extends BaseHandler {
 
     /**
      * Download a base64 encoded crash file.
-     * @param sessionKey Session key
+     * @param loggedInUser The current user
      * @param crashFileId Crash File ID
      * @return Return a byte array of the crash file.
      * @throws IOException if there is an exception
@@ -296,8 +291,7 @@ public class CrashHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "crashFileId")
      * @xmlrpc.returntype base64 - base64 encoded crash file.
      */
-    public byte[] getCrashFile(String sessionKey, Integer crashFileId) throws IOException {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public byte[] getCrashFile(User loggedInUser, Integer crashFileId) throws IOException {
         CrashFile crashFile = CrashManager.lookupCrashFileByUserAndId(loggedInUser,
                               new Long(crashFileId.longValue()));
         String path = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" +
@@ -319,7 +313,7 @@ public class CrashHandler extends BaseHandler {
     }
 
     /**
-     * @param sessionKey Session key
+     * @param loggedInUser The current user
      * @param crashId Crash ID
      * @param subject Crash note subject
      * @param details Crash note details
@@ -332,9 +326,8 @@ public class CrashHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "details")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int createCrashNote(String sessionKey, Integer crashId,
+    public int createCrashNote(User loggedInUser, Integer crashId,
             String subject, String details) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         if (StringUtils.isBlank(subject)) {
             throw new IllegalArgumentException("Crash note subject is required");
         }
@@ -349,7 +342,7 @@ public class CrashHandler extends BaseHandler {
     }
 
     /**
-     * @param sessionKey Session ID
+     * @param loggedInUser The current user
      * @param crashNoteId Crash note ID
      * @return 1 on success
      *
@@ -358,8 +351,7 @@ public class CrashHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "crashNoteId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteCrashNote(String sessionKey, Integer crashNoteId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int deleteCrashNote(User loggedInUser, Integer crashNoteId) {
         CrashNote cn = CrashManager.lookupCrashNoteByUserAndId(loggedInUser,
                 crashNoteId.longValue());
         CrashFactory.delete(cn);
@@ -367,7 +359,7 @@ public class CrashHandler extends BaseHandler {
     }
 
     /**
-     * @param sessionKey Session ID
+     * @param loggedInUser The current user
      * @param crashId Crash ID
      * @return Crash notes for crash
      *
@@ -384,8 +376,7 @@ public class CrashHandler extends BaseHandler {
      *         #struct_end()
      *     #array_end()
      */
-    public List getCrashNotesForCrash(String sessionKey, Integer crashId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List getCrashNotesForCrash(User loggedInUser, Integer crashId) {
         Crash c = CrashManager.lookupCrashByUserAndId(loggedInUser,
                 crashId.longValue());
         List returnList = new ArrayList();
@@ -401,7 +392,7 @@ public class CrashHandler extends BaseHandler {
     }
 
     /**
-     * @param sessionKey Session ID
+     * @param loggedInUser The current user
      * @return Software Crash Overview
      *
      * @xmlrpc.doc Get Software Crash Overview
@@ -418,11 +409,10 @@ public class CrashHandler extends BaseHandler {
      *         #struct_end()
      *     #array_end()
      */
-    public List getCrashOverview(String sessionKey) {
-        User user = getLoggedInUser(sessionKey);
+    public List getCrashOverview(User loggedInUser) {
         List returnList = new ArrayList();
-        for (IdenticalCrashesDto ic : CrashFactory.listIdenticalCrashesForOrg(user,
-            user.getOrg())) {
+        for (IdenticalCrashesDto ic : CrashFactory.listIdenticalCrashesForOrg(loggedInUser,
+                loggedInUser.getOrg())) {
             Map crashMap = new HashMap();
             crashMap.put("uuid", ic.getUuid());
             String component = ic.getComponent();
@@ -438,7 +428,7 @@ public class CrashHandler extends BaseHandler {
     }
 
     /**
-     * @param sessionKey Session ID
+     * @param loggedInUser The current user
      * @param uuid Crash UUID to search for
      * @return List of crashes with given UUID
      *
@@ -460,11 +450,10 @@ public class CrashHandler extends BaseHandler {
      *         #struct_end()
      *     #array_end()
      */
-    public List getCrashesByUuid(String sessionKey, String uuid) {
-        User user = getLoggedInUser(sessionKey);
+    public List getCrashesByUuid(User loggedInUser, String uuid) {
         List returnList = new ArrayList();
-        for (CrashSystemsDto cs : CrashFactory.listCrashSystems(user,
-            user.getOrg(), uuid)) {
+        for (CrashSystemsDto cs : CrashFactory.listCrashSystems(loggedInUser,
+                loggedInUser.getOrg(), uuid)) {
             Map crashMap = new HashMap();
             crashMap.put("server_id", cs.getServerId());
             crashMap.put("server_name", cs.getServerName());
