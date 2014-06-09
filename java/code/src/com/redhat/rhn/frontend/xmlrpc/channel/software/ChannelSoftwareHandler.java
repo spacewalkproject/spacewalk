@@ -1867,7 +1867,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Subscribe a system to a list of channels
-     * @param sessionKey The key of the logged in user
+     * @param loggedInUser The current user
      * @param labels a list of channel labels to subscribe the system to
      * @param sid the serverId of the system in question
      * @return 1 for success
@@ -1887,9 +1887,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     @Deprecated
-    public int subscribeSystem(String sessionKey, Integer sid, List labels) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public int subscribeSystem(User loggedInUser, Integer sid, List labels) {
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
 
@@ -1920,10 +1918,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
         SystemHandler sysHandler = new SystemHandler();
         if (base != null) {
 
-            sysHandler.setBaseChannel(sessionKey, sid,
+            sysHandler.setBaseChannel(loggedInUser, sid,
                     new Integer(base.getId().intValue()));
         }
-        sysHandler.setChildChannels(sessionKey, sid, childChannelIds);
+        sysHandler.setChildChannels(loggedInUser, sid, childChannelIds);
 
         return 1;
     }

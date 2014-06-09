@@ -710,7 +710,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         labels.add(baseChan.getLabel());
         labels.add(childChan.getLabel());
 
-        int returned = handler.subscribeSystem(adminKey,
+        int returned = handler.subscribeSystem(admin,
                 new Integer(server.getId().intValue()), labels);
 
         assertEquals(1, returned);
@@ -720,7 +720,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         assertTrue(server.getChannels().contains(childChan));
 
         labels.clear();
-        returned = handler.subscribeSystem(adminKey,
+        returned = handler.subscribeSystem(admin,
                 new Integer(server.getId().intValue()), labels);
         assertEquals(1, returned);
         server = (Server)HibernateFactory.reload(server);
