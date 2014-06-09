@@ -42,7 +42,7 @@ public class CryptoKeysHandler extends BaseHandler {
     /**
      * Lists all keys associated with the org of the user (identified by the session key).
      *
-     * @param sessionKey identifies the user that is logged in and performing the call
+     * @param loggedInUser The current user
      * @return a list of maps containing the description and type of key found
      *
      * @xmlrpc.doc list all keys for the org associated with the user logged into the
@@ -56,8 +56,7 @@ public class CryptoKeysHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public List listAllKeys(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List listAllKeys(User loggedInUser) {
 
         if (loggedInUser == null) {
             throw new NoSuchUserException();
@@ -75,7 +74,7 @@ public class CryptoKeysHandler extends BaseHandler {
     /**
      * Creates a new key with the given parameters.
      *
-     * @param sessionKey   identifies the user that is logged in and performing the call
+     * @param loggedInUser The current user
      * @param description  description of the key
      * @param type         type of key being created
      * @param content      contents of the key itself
@@ -90,8 +89,7 @@ public class CryptoKeysHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "content")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int create(String sessionKey, String description, String type, String content) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int create(User loggedInUser, String description, String type, String content) {
 
         if (loggedInUser == null) {
             throw new NoSuchUserException();
@@ -116,7 +114,7 @@ public class CryptoKeysHandler extends BaseHandler {
     /**
      * Deletes the key identified by the given parameters.
      *
-     * @param sessionKey   identifies the user that is logged in and performing the call
+     * @param loggedInUser The current user
      * @param description  description of the key
      * @return 1 if the delete was successful
      * @throws KickstartKeyDeleteException if there is an error during the delete
@@ -126,8 +124,7 @@ public class CryptoKeysHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "description")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int delete(String sessionKey, String description) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int delete(User loggedInUser, String description) {
 
         if (loggedInUser == null) {
             throw new NoSuchUserException();
@@ -155,7 +152,7 @@ public class CryptoKeysHandler extends BaseHandler {
     /**
      * Updates type and content of the key identified by the description
      *
-     * @param sessionKey   identifies the user that is logged in and performing the call
+     * @param loggedInUser The current user
      * @param description  description of the key used for identification
      * @param type         type of key being created
      * @param content      contents of the key itself
@@ -169,8 +166,7 @@ public class CryptoKeysHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "content")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int update(String sessionKey, String description, String type, String content) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int update(User loggedInUser, String description, String type, String content) {
         BaseHandler.ensureOrgOrConfigAdmin(loggedInUser);
 
         EditCryptoKeyCommand cmd = new EditCryptoKeyCommand(loggedInUser, description);
@@ -189,7 +185,7 @@ public class CryptoKeysHandler extends BaseHandler {
     /**
      * Returns all of the data associated with the given key.
      *
-     * @param sessionKey  identifies the user that is logged in and performing the call
+     * @param loggedInUser The current user
      * @param description identifies the key
      *
      * @return holder object containing the data associated with the key
@@ -204,8 +200,7 @@ public class CryptoKeysHandler extends BaseHandler {
      *          #prop("string", "content")
      *      #struct_end()
      */
-    public CryptoKey getDetails(String sessionKey, String description) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public CryptoKey getDetails(User loggedInUser, String description) {
 
         ensureOrgOrConfigAdmin(loggedInUser);
 

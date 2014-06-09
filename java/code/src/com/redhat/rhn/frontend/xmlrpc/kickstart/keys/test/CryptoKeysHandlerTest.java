@@ -22,7 +22,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.CryptoKeyDto;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.keys.CryptoKeysHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
-import com.redhat.rhn.frontend.xmlrpc.test.XmlRpcTestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -46,8 +45,7 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
         // Test
         CryptoKeysHandler handler = new CryptoKeysHandler();
 
-        List allKeys = handler.listAllKeys(
-                XmlRpcTestUtils.getSessionKey(otherOrg));
+        List allKeys = handler.listAllKeys(otherOrg);
 
         // Verify
         assertNotNull(allKeys);
@@ -65,7 +63,7 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
 
         // Test
         CryptoKeysHandler handler = new CryptoKeysHandler();
-        handler.create(adminKey, description, "GPG", content);
+        handler.create(admin, description, "GPG", content);
 
         // Verify
         CryptoKey cryptoKey =
@@ -86,7 +84,7 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
 
         // Test
         CryptoKeysHandler handler = new CryptoKeysHandler();
-        handler.delete(adminKey, key.getDescription());
+        handler.delete(admin, key.getDescription());
 
         // Verify
         CryptoKey deletedKey =
@@ -103,7 +101,7 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
 
         // Test
         CryptoKeysHandler handler = new CryptoKeysHandler();
-        CryptoKey cryptoKey = handler.getDetails(adminKey, key.getDescription());
+        CryptoKey cryptoKey = handler.getDetails(admin, key.getDescription());
 
         // Verify
         assertNotNull(cryptoKey);
