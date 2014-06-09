@@ -29,7 +29,7 @@ class Builder(builder.Builder):
                 return
         except AttributeError:
             pass
-        return super(Builder, self).srpm(dist, reuse_cvs_checkout)
+        return super(Builder, self).srpm(dist)
 
 class NoTgzBuilder(builder.NoTgzBuilder, Builder):
 
