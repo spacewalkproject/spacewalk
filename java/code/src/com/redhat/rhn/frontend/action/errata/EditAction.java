@@ -31,7 +31,10 @@ import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -85,8 +88,14 @@ public class EditAction extends LookupDispatchAction {
         DynaActionForm form = (DynaActionForm) formIn;
 
         String keywordDisplay = StringUtil.join(
-                LocalizationService.getInstance().getMessage("list delimiter"),
-                IteratorUtils.getIterator(errata.getKeywords()));
+            LocalizationService.getInstance().getMessage("list delimiter"),
+            IteratorUtils.getIterator(CollectionUtils.collect(errata.getKeywords(),
+                new Transformer() {
+                    @Override
+                    public Object transform(Object o) {
+                        return o.toString();
+                    }
+                })));
 
         //pre-populate form with current values
         form.set("synopsis", errata.getSynopsis());
