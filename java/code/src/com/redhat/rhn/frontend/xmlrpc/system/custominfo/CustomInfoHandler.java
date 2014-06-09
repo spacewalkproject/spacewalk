@@ -33,7 +33,7 @@ public class CustomInfoHandler extends BaseHandler {
 
     /**
      * Create a new custom key
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param keyLabel string
      * @param keyDescription string
      * @return 1 on success, 0 on failure
@@ -47,10 +47,8 @@ public class CustomInfoHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "keyDescription", "new key's description")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int createKey(String sessionKey, String keyLabel,
+    public int createKey(User loggedInUser, String keyLabel,
                 String keyDescription) throws FaultException {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         if ((keyLabel.length() < 2) || (keyDescription.length() < 2)) {
             throw new FaultException(-1, "labelOrDescriptionTooShort",
@@ -73,7 +71,7 @@ public class CustomInfoHandler extends BaseHandler {
 
     /**
      * Update description of a custom key
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param keyLabel string
      * @param keyDescription string
      * @return 1 on success, 0 on failure
@@ -86,10 +84,8 @@ public class CustomInfoHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "keyDescription", "new key's description")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int updateKey(String sessionKey, String keyLabel,
+    public int updateKey(User loggedInUser, String keyLabel,
                 String keyDescription) throws FaultException {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         CustomDataKey key = OrgFactory.lookupKeyByLabelAndOrg(keyLabel,
                 loggedInUser.getOrg());
@@ -112,7 +108,7 @@ public class CustomInfoHandler extends BaseHandler {
 
     /**
      * Delete an existing custom key
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param keyLabel string
      * @return 1 on success, exception thrown otherwise
      * @throws FaultException A FaultException is thrown if:
@@ -124,10 +120,8 @@ public class CustomInfoHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "keyLabel", "new key's label")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteKey(String sessionKey, String keyLabel)
+    public int deleteKey(User loggedInUser, String keyLabel)
         throws FaultException {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         CustomDataKey key = OrgFactory.lookupKeyByLabelAndOrg(keyLabel,
                 loggedInUser.getOrg());
@@ -143,7 +137,7 @@ public class CustomInfoHandler extends BaseHandler {
 
     /**
      * List the custom information keys defined for the user's organization.
-     * @param sessionKey the session of the user
+     * @param loggedInUser The current user
      * @return list of inactive systems
      * @throws FaultException A FaultException is thrown on error.
      *
@@ -154,9 +148,7 @@ public class CustomInfoHandler extends BaseHandler {
      *          $CustomDataKeySerializer
      *      #array_end()
      */
-    public Object[] listAllKeys(String sessionKey) throws FaultException {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listAllKeys(User loggedInUser) throws FaultException {
 
         DataResult result = SystemManager.listDataKeys(loggedInUser);
         return result.toArray();

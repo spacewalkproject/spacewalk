@@ -36,7 +36,7 @@ public class CustomInfoHandlerTest extends BaseHandlerTestCase {
         // grab the initial size
         int initialSize = SystemManager.listDataKeys(admin).size();
 
-        handler.createKey(adminKey, "testlabel", "test description");
+        handler.createKey(admin, "testlabel", "test description");
 
         DataResult result = SystemManager.listDataKeys(admin);
 
@@ -60,7 +60,7 @@ public class CustomInfoHandlerTest extends BaseHandlerTestCase {
         // grab the initial size
         DataResult initialKeys = SystemManager.listDataKeys(admin);
 
-        handler.createKey(adminKey, "testlabel", "test description");
+        handler.createKey(admin, "testlabel", "test description");
         DataResult result = SystemManager.listDataKeys(admin);
         assertEquals(initialKeys.size() + 1, result.size());
 
@@ -75,7 +75,7 @@ public class CustomInfoHandlerTest extends BaseHandlerTestCase {
         }
         assertTrue(foundKey);
 
-        handler.deleteKey(adminKey, "testlabel");
+        handler.deleteKey(admin, "testlabel");
         result = SystemManager.listDataKeys(admin);
         assertEquals(initialKeys.size(), result.size());
 
@@ -96,7 +96,7 @@ public class CustomInfoHandlerTest extends BaseHandlerTestCase {
         // default setup already includes a custom key; therefore, we don't
         // need to add any as part of this test.
 
-        Object[] keys = handler.listAllKeys(adminKey);
+        Object[] keys = handler.listAllKeys(admin);
 
         assertEquals(SystemManager.listDataKeys(admin).size(),
                 keys.length);
