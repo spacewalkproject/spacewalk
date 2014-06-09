@@ -65,11 +65,11 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         assertTrue(check.getAdvisory().equals(errata.getAdvisory()));
         assertTrue(check.getId().equals(errata.getId()));
 
-        Map details = handler.getDetails(adminKey, errata.getAdvisory());
+        Map details = handler.getDetails(admin, errata.getAdvisory());
         assertNotNull(details);
 
         try {
-            details = handler.getDetails(adminKey, "foo" + TestUtils.randomString());
+            details = handler.getDetails(admin, "foo" + TestUtils.randomString());
             fail("found invalid errata");
         }
         catch (FaultException e) {
@@ -83,7 +83,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         Map<String, Object> details = new HashMap<String, Object>();
         details.put("advisory_release", new Integer(10000));
         try {
-            handler.setDetails(adminKey, errata.getAdvisory(), details);
+            handler.setDetails(admin, errata.getAdvisory(), details);
             fail("invalid advisory of 10000 accepted");
         }
         catch (InvalidAdvisoryReleaseException iare) {
@@ -128,7 +128,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         keywords.add("keyword2");
         details.put("keywords", keywords);
 
-        int result = handler.setDetails(adminKey, errata.getAdvisory(), details);
+        int result = handler.setDetails(admin, errata.getAdvisory(), details);
 
         // verify
         assertEquals(1, result);
@@ -181,7 +181,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         assertTrue(check.getAdvisory().equals(errata.getAdvisory()));
         assertTrue(check.getId().equals(errata.getId()));
 
-        Object[] systems = handler.listAffectedSystems(adminKey, errata.getAdvisory());
+        Object[] systems = handler.listAffectedSystems(admin, errata.getAdvisory());
         assertNotNull(systems);
         assertTrue(systems.length == 0);
     }
@@ -199,7 +199,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
 
         int numBugs = errata.getBugs().size();
 
-        Map bugs = handler.bugzillaFixes(adminKey, errata.getAdvisory());
+        Map bugs = handler.bugzillaFixes(admin, errata.getAdvisory());
 
         assertEquals(numBugs, bugs.size());
 
@@ -217,7 +217,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
 
         ErrataManager.storeErrata(errata);
 
-        Object[] keywords = handler.listKeywords(adminKey, errata.getAdvisory());
+        Object[] keywords = handler.listKeywords(admin, errata.getAdvisory());
 
         assertEquals(errata.getKeywords().size(), keywords.length);
 
@@ -229,7 +229,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         DataResult dr = ErrataManager.applicableChannels(errata.getId(),
                             user.getOrg().getId(), null, Map.class);
 
-        Object[] channels = handler.applicableToChannels(adminKey, errata.getAdvisory());
+        Object[] channels = handler.applicableToChannels(admin, errata.getAdvisory());
         assertEquals(dr.size(), channels.length);
     }
 
@@ -238,7 +238,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
 
         DataResult dr = ErrataManager.errataCVEs(errata.getId());
 
-        List cves = handler.listCves(adminKey, errata.getAdvisory());
+        List cves = handler.listCves(admin, errata.getAdvisory());
 
         assertEquals(dr.size(), cves.size());
     }
@@ -249,7 +249,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         errata.addPackage(p);
         ErrataManager.storeErrata(errata);
 
-        List<Map> pkgs = handler.listPackages(adminKey, errata.getAdvisory());
+        List<Map> pkgs = handler.listPackages(admin, errata.getAdvisory());
 
         assertNotNull(pkgs);
         assertEquals(errata.getPackages().size(), pkgs.size());
@@ -268,7 +268,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         ErrataManager.storeErrata(errata);
 
-        int initialNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).size();
+        int initialNumPkgs = handler.listPackages(admin, errata.getAdvisory()).size();
 
         Package pkg1 = PackageTest.createTestPackage(user.getOrg());
         Package pkg2 = PackageTest.createTestPackage(user.getOrg());
@@ -277,12 +277,12 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         List<Integer> pkgIds = new ArrayList<Integer>();
         pkgIds.add(pkg1.getId().intValue());
         pkgIds.add(pkg2.getId().intValue());
-        int numPkgsAdded = handler.addPackages(adminKey, errata.getAdvisory(), pkgIds);
+        int numPkgsAdded = handler.addPackages(admin, errata.getAdvisory(), pkgIds);
 
         // verify
         assertEquals(2, numPkgsAdded);
 
-        int resultNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).size();
+        int resultNumPkgs = handler.listPackages(admin, errata.getAdvisory()).size();
         assertEquals(initialNumPkgs + 2, resultNumPkgs);
 
         boolean found1 = false, found2 = false;
@@ -307,17 +307,17 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         errata.addPackage(pkg2);
         ErrataManager.storeErrata(errata);
 
-        int initialNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).size();
+        int initialNumPkgs = handler.listPackages(admin, errata.getAdvisory()).size();
 
         // execute
         List<Integer> pkgIds = new ArrayList<Integer>();
         pkgIds.add(pkg2.getId().intValue());
-        int numPkgsRemoved = handler.removePackages(adminKey, errata.getAdvisory(), pkgIds);
+        int numPkgsRemoved = handler.removePackages(admin, errata.getAdvisory(), pkgIds);
 
         // verify
         assertEquals(1, numPkgsRemoved);
 
-        int resultNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).size();
+        int resultNumPkgs = handler.listPackages(admin, errata.getAdvisory()).size();
         assertEquals(initialNumPkgs - 1, resultNumPkgs);
 
         boolean found1 = false, found2 = false;
@@ -354,7 +354,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         ArrayList errata = new ArrayList();
         errata.add(toClone.getAdvisory());
 
-        Object[] returnValue = handler.clone(adminKey,
+        Object[] returnValue = handler.clone(admin,
                 channel.getLabel(), errata);
         assertEquals(1, returnValue.length);
 
@@ -392,7 +392,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         ArrayList channels = new ArrayList();
         channels.add(channel.getLabel());
 
-        Errata errata = handler.create(adminKey, errataInfo,
+        Errata errata = handler.create(admin, errataInfo,
                 bugs, keywords, packages, true, channels);
 
         Errata result = ErrataFactory.lookupByAdvisory(advisoryName);
@@ -409,7 +409,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         assertTrue(check.getId().equals(errata.getId()));
 
         // delete a published erratum
-        int result = handler.delete(adminKey, errata.getAdvisory());
+        int result = handler.delete(admin, errata.getAdvisory());
         assertEquals(1, result);
         errata = (Errata) TestUtils.reload(errata);
         assertNull(errata);
@@ -420,7 +420,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         assertTrue(check.getId().equals(errata.getId()));
 
         // delete an unpublished erratum
-        result = handler.delete(adminKey, errata.getAdvisory());
+        result = handler.delete(admin, errata.getAdvisory());
         assertEquals(1, result);
         errata = (Errata) TestUtils.reload(errata);
         assertNull(errata);
@@ -455,7 +455,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         channels.add(channel.getLabel());
 
         try {
-            Errata errata = handler.create(adminKey, errataInfo,
+            Errata errata = handler.create(admin, errataInfo,
                 bugs, keywords, packages, true, channels);
             fail("large advisory name was accepted");
         }
@@ -482,7 +482,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         channels.add(channel.getLabel());
 
         try {
-            Errata errata = handler.create(adminKey, errataInfo,
+            Errata errata = handler.create(admin, errataInfo,
                 bugs, keywords, packages, true, channels);
             fail("large advisory release was accepted");
         }
@@ -508,7 +508,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         ArrayList channels = new ArrayList();
         channels.add(channel.getLabel());
 
-        Errata errata = handler.create(adminKey, errataInfo,
+        Errata errata = handler.create(admin, errataInfo,
             bugs, keywords, packages, true, channels);
 
         assertEquals(ErrataManager.MAX_ADVISORY_RELEASE,
@@ -523,7 +523,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         channel.setOrg(admin.getOrg());
         ArrayList channels = new ArrayList();
         channels.add(channel.getLabel());
-        Errata published = handler.publish(adminKey, unpublished.getAdvisoryName(),
+        Errata published = handler.publish(admin, unpublished.getAdvisoryName(),
                 channels);
 
         assertTrue(published.isPublished());
@@ -552,7 +552,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
        laterErrata.addChannel(testChannel);
        laterErrata.setIssueDate(laterDate);
 
-       List test =  handler.listByDate(adminKey, testChannel.getLabel());
+       List test =  handler.listByDate(admin, testChannel.getLabel());
 
        assertEquals(2, test.size());
        Object[] array = test.toArray();

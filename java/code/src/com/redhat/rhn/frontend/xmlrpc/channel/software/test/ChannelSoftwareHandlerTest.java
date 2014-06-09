@@ -839,7 +839,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         ArrayList channels = new ArrayList();
         channels.add(mergeFrom.getLabel());
 
-        Errata errata = errataHandler.create(adminKey, errataInfo,
+        Errata errata = errataHandler.create(admin, errataInfo,
                 bugs, keywords, packages, true, channels);
         TestUtils.flushAndEvict(errata);
 
@@ -882,7 +882,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         ArrayList channels = new ArrayList();
         channels.add(mergeFrom.getLabel());
 
-        Errata errata = errataHandler.create(adminKey, errataInfo,
+        Errata errata = errataHandler.create(admin, errataInfo,
                 bugs, keywords, packages, true, channels);
         TestUtils.flushAndEvict(errata);
 

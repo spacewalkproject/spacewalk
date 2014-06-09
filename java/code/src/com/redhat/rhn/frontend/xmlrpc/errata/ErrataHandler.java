@@ -79,7 +79,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * Returns an OVAL metadata file for a given errata or CVE
-     * @param sessionKey The authenticated user's session key
+     * @param loggedInUser The current user
      * @param identifier Errata identifier (either id, CVE/CAN, or Advisory name)
      * @return Escaped XML representing the OVAL metadata document
      * @throws IOException error building XML file
@@ -103,7 +103,7 @@ public class ErrataHandler extends BaseHandler {
      * than to have the method that cannot return any data. :)  It is, however,
      * desirable to support this in the future, so we don't want to lose the logic.
      *
-    public String getOval(String sessionKey, String identifier) throws IOException,
+    public String getOval(User loggedInUser, String identifier) throws IOException,
             FaultException {
         User loggedInUser = getLoggedInUser(sessionKey);
 
@@ -182,7 +182,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * GetDetails - Retrieves the details for a given errata.
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param advisoryName The advisory name of the errata
      * @return Returns a map containing the details of the errata
      * @throws FaultException A FaultException is thrown if the errata
@@ -211,11 +211,10 @@ public class ErrataHandler extends BaseHandler {
      *          #prop("string", "solution")
      *     #struct_end()
      */
-    public Map<String, Object> getDetails(String sessionKey, String advisoryName)
+    public Map<String, Object> getDetails(User loggedInUser, String advisoryName)
             throws FaultException {
         // Get the logged in user. We don't care what roles this user has, we
         // just want to make sure the caller is logged in.
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         Errata errata = lookupErrataReadOnly(advisoryName, loggedInUser.getOrg());
 
@@ -264,7 +263,7 @@ public class ErrataHandler extends BaseHandler {
     /**
      * Set erratum details.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param advisoryName The advisory name of the errata
      * @param details Map of (optional) erratum details to be set.
      * @return 1 on success, exception thrown otherwise.
@@ -309,10 +308,9 @@ public class ErrataHandler extends BaseHandler {
      *
      *  @xmlrpc.returntype #return_int_success()
      */
-    public Integer setDetails(String sessionKey, String advisoryName,
+    public Integer setDetails(User loggedInUser, String advisoryName,
             Map<String, Object> details) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
         if (errata.getOrg() == null) {
@@ -495,7 +493,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * ListAffectedSystems
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param advisoryName The advisory name of the errata
      * @return Returns an object array containing the system ids and system name
      * @throws FaultException A FaultException is thrown if the errata corresponding to
@@ -510,11 +508,10 @@ public class ErrataHandler extends BaseHandler {
      *          $SystemOverviewSerializer
      *      #array_end()
      */
-    public Object[] listAffectedSystems(String sessionKey, String advisoryName)
+    public Object[] listAffectedSystems(User loggedInUser, String advisoryName)
             throws FaultException {
 
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
         DataResult dr = ErrataManager.systemsAffectedXmlRpc(loggedInUser, errata.getId());
@@ -524,7 +521,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * Get the Bugzilla fixes for a given errata
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param advisoryName The advisory name of the errata
      * @return Returns a map containing the Bugzilla id and summary for each bug
      * @throws FaultException A FaultException is thrown if the errata
@@ -543,11 +540,10 @@ public class ErrataHandler extends BaseHandler {
      *          #prop_desc("string", "bug_summary", "summary who's key is the bug id")
      *      #struct_end()
      */
-    public Map<Long, String> bugzillaFixes(String sessionKey, String advisoryName)
+    public Map<Long, String> bugzillaFixes(User loggedInUser, String advisoryName)
             throws FaultException {
 
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
         Set<Bug> bugs = errata.getBugs();
@@ -568,7 +564,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * Get the keywords for a given erratum
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param advisoryName The advisory name of the erratum
      * @return Returns an array of keywords for the erratum
      * @throws FaultException A FaultException is thrown if the errata corresponding to the
@@ -581,11 +577,10 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.returntype #array_single("string", "Keyword associated with erratum.")
 
      */
-    public Object[] listKeywords(String sessionKey, String advisoryName)
+    public Object[] listKeywords(User loggedInUser, String advisoryName)
             throws FaultException {
 
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
         Set<Keyword> keywords = errata.getKeywords();
@@ -602,7 +597,7 @@ public class ErrataHandler extends BaseHandler {
     /**
      * Returns a list of channels (represented by a map) that the given erratum is
      * applicable to.
-     * @param sessionKey The sessionKey for the logged in user.
+     * @param loggedInUser The current user
      * @param advisoryName The advisory name of the erratum
      * @return Returns an array of channels for the erratum
      * @throws FaultException A FaultException is thrown if the errata corresponding to the
@@ -622,11 +617,10 @@ public class ErrataHandler extends BaseHandler {
      *          #struct_end()
      *       #array_end()
      */
-    public Object[] applicableToChannels(String sessionKey, String advisoryName)
+    public Object[] applicableToChannels(User loggedInUser, String advisoryName)
             throws FaultException {
 
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
         return ErrataManager.applicableChannels(errata.getId(),
@@ -635,7 +629,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * Returns a list of unpublished errata for the logged-in user's Org.
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @return Returns an array of errata
      *
      * @xmlrpc.doc Returns a list of unpublished errata
@@ -654,8 +648,7 @@ public class ErrataHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Object[] listUnpublishedErrata(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listUnpublishedErrata(User loggedInUser) {
         Map[] unpub = (Map[])ErrataManager.unpublishedOwnedErrata(loggedInUser, Map.class)
                 .toArray(new Map[0]);
 
@@ -674,7 +667,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * Returns a list of CVEs for a given erratum
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param advisoryName The advisory name of the erratum
      * @return Returns a list of CVEs
      * @throws FaultException A FaultException is thrown if the errata corresponding to the
@@ -690,9 +683,8 @@ public class ErrataHandler extends BaseHandler {
      *      #array_single("string", "cveName")
      *
      */
-    public List listCves(String sessionKey, String advisoryName) throws FaultException {
+    public List listCves(User loggedInUser, String advisoryName) throws FaultException {
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
         DataResult dr = ErrataManager.errataCVEs(errata.getId());
@@ -709,7 +701,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * List the packages for a given erratum
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param advisoryName The advisory name of the erratum
      * @return Returns an Array of maps representing a package
      * @throws FaultException A FaultException is thrown if the errata corresponding to the
@@ -747,10 +739,9 @@ public class ErrataHandler extends BaseHandler {
      *               #struct_end()
      *           #array_end()
      */
-    public List<Map> listPackages(String sessionKey, String advisoryName)
+    public List<Map> listPackages(User loggedInUser, String advisoryName)
             throws FaultException {
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrataReadOnly(advisoryName, loggedInUser.getOrg());
 
         List<Map> toRet = new ArrayList<Map>();
@@ -763,7 +754,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * Add a set of packages to an erratum
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param advisoryName The advisory name of the erratum
      * @param packageIds The ids for packages to remove
      * @return Returns int - representing the number of packages added, exception otherwise
@@ -779,11 +770,10 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.returntype int - representing the number of packages added,
      * exception otherwise
      */
-    public int addPackages(String sessionKey, String advisoryName,
+    public int addPackages(User loggedInUser, String advisoryName,
             List<Integer> packageIds) throws FaultException {
 
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
         if (errata.getOrg() == null) {
@@ -819,7 +809,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * Remove a set of packages from an erratum
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param advisoryName The advisory name of the erratum
      * @param packageIds The ids for packages to remove
      * @return Returns int - representing the number of packages removed,
@@ -836,11 +826,10 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.returntype int - representing the number of packages removed,
      * exception otherwise
      */
-    public int removePackages(String sessionKey, String advisoryName,
+    public int removePackages(User loggedInUser, String advisoryName,
             List<Integer> packageIds) throws FaultException {
 
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
         if (errata.getOrg() == null) {
@@ -945,7 +934,7 @@ public class ErrataHandler extends BaseHandler {
     /**
      * Clones a list of errata into a specified channel
      *
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel the channel's label that we are cloning into
      * @param advisoryNames an array of String objects containing the advisory name
      *          of every errata you want to clone
@@ -963,15 +952,15 @@ public class ErrataHandler extends BaseHandler {
      *              $ErrataSerializer
      *          #array_end()
      */
-    public Object[] clone(String sessionKey, String channelLabel,
+    public Object[] clone(User loggedInUser, String channelLabel,
             List advisoryNames) throws InvalidChannelRoleException {
-        return clone(sessionKey, channelLabel, advisoryNames, false, false);
+        return clone(loggedInUser, channelLabel, advisoryNames, false, false);
     }
 
     /**
      * Asynchronously clones a list of errata into a specified channel
      *
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel the channel's label that we are cloning into
      * @param advisoryNames an array of String objects containing the advisory name
      *          of every errata you want to clone
@@ -987,17 +976,16 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.returntype
      *          #return_int_success()
      */
-    public int cloneAsync(String sessionKey, String channelLabel,
+    public int cloneAsync(User loggedInUser, String channelLabel,
             List advisoryNames) throws InvalidChannelRoleException {
-        clone(sessionKey, channelLabel, advisoryNames, false, false);
+        clone(loggedInUser, channelLabel, advisoryNames, false, false);
         return 1;
     }
 
 
-    private Object[] clone(String sessionKey, String channelLabel,
+    private Object[] clone(User loggedInUser, String channelLabel,
             List<String> advisoryNames, boolean inheritPackages,
             boolean asynchronous) {
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         Logger log = Logger.getLogger(ErrataFactory.class);
 
@@ -1065,7 +1053,7 @@ public class ErrataHandler extends BaseHandler {
      * Clones a list of errata into a specified cloned channel
      * according the original erratas
      *
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel the cloned channel's label that we are cloning into
      * @param advisoryNames an array of String objects containing the advisory name
      *          of every errata you want to clone
@@ -1084,16 +1072,16 @@ public class ErrataHandler extends BaseHandler {
      *              $ErrataSerializer
      *          #array_end()
      */
-    public Object[] cloneAsOriginal(String sessionKey, String channelLabel,
+    public Object[] cloneAsOriginal(User loggedInUser, String channelLabel,
             List<String> advisoryNames) throws InvalidChannelRoleException {
-        return clone(sessionKey, channelLabel, advisoryNames, true, false);
+        return clone(loggedInUser, channelLabel, advisoryNames, true, false);
     }
 
     /**
      * Asynchronously clones a list of errata into a specified cloned channel
      * according the original erratas
      *
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel the cloned channel's label that we are cloning into
      * @param advisoryNames an array of String objects containing the advisory name
      *          of every errata you want to clone
@@ -1110,9 +1098,9 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.returntype
      *          #return_int_success()
      */
-    public int cloneAsOriginalAsync(String sessionKey, String channelLabel,
+    public int cloneAsOriginalAsync(User loggedInUser, String channelLabel,
             List<String> advisoryNames) throws InvalidChannelRoleException {
-        clone(sessionKey, channelLabel, advisoryNames, true, true);
+        clone(loggedInUser, channelLabel, advisoryNames, true, true);
         return 1;
     }
 
@@ -1127,7 +1115,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * creates an errata
-     * @param sessionKey  The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param errataInfo map containing the following values:
      *  String "synopsis" short synopsis of the errata
      *  String "advisory_name" advisory name of the errata
@@ -1188,7 +1176,7 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.returntype
      *      $ErrataSerializer
      */
-    public Errata create(String sessionKey, Map<String, String> errataInfo,
+    public Errata create(User loggedInUser, Map<String, String> errataInfo,
             List<Map<String, Object>> bugs, List<String> keywords,
             List<Integer> packageIds, boolean publish, List<String> channelLabels)
             throws InvalidChannelRoleException {
@@ -1215,8 +1203,6 @@ public class ErrataHandler extends BaseHandler {
         for (Map<String, Object> bugMap : bugs) {
             validateMap(validKeys, bugMap);
         }
-
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         //Don't want them to publish an errata without any channels,
         //so check first before creating anything
@@ -1317,7 +1303,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * Delete an erratum.
-     * @param sessionKey session of the logged in user
+     * @param loggedInUser The current user
      * @param advisoryName The advisory Name of the erratum to delete
      * @throws FaultException if unknown or invalid erratum is provided.
      * @return 1 on success, exception thrown otherwise.
@@ -1328,9 +1314,8 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "advisoryName")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer delete(String sessionKey, String advisoryName)
+    public Integer delete(User loggedInUser, String advisoryName)
             throws FaultException {
-        User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
         if (errata.getOrg() == null) {
@@ -1345,7 +1330,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * Publishes an existing (unpublished) errata to a set of channels
-     * @param sessionKey session of the logged in user
+     * @param loggedInUser The current user
      * @param advisory The advisory Name of the errata to publish
      * @param channelLabels List of channels to publish the errata to
      * @throws InvalidChannelRoleException if the user perms are incorrect
@@ -1359,9 +1344,8 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.returntype
      *          $ErrataSerializer
      */
-    public Errata publish(String sessionKey, String advisory, List<String> channelLabels)
+    public Errata publish(User loggedInUser, String advisory, List<String> channelLabels)
             throws InvalidChannelRoleException {
-        User loggedInUser = getLoggedInUser(sessionKey);
         List<Channel> channels = verifyChannelList(channelLabels, loggedInUser);
         Errata toPublish = lookupErrata(advisory, loggedInUser.getOrg());
         return publish(toPublish, channels, loggedInUser, false);
@@ -1370,7 +1354,7 @@ public class ErrataHandler extends BaseHandler {
     /**
      * Publishes an existing (unpublished) cloned errata to a set of cloned channels
      * according to its original erratum
-     * @param sessionKey session of the logged in user
+     * @param loggedInUser The current user
      * @param advisory The advisory Name of the errata to publish
      * @param channelLabels List of channels to publish the errata to
      * @throws InvalidChannelRoleException if the user perms are incorrect
@@ -1385,9 +1369,8 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.returntype
      *          $ErrataSerializer
      */
-    public Errata publishAsOriginal(String sessionKey, String advisory,
+    public Errata publishAsOriginal(User loggedInUser, String advisory,
             List<String> channelLabels) throws InvalidChannelRoleException {
-        User loggedInUser = getLoggedInUser(sessionKey);
         List<Channel> channels = verifyChannelList(channelLabels, loggedInUser);
         for (Channel c : channels) {
             ClonedChannel cc = null;
@@ -1471,10 +1454,10 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * list errata by date
-     * @param sessionKey session of the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel channel associated with the errata you are interested in.
      * @return List of Errata objects
-     * @deprecated being replaced by channel.software.listErrata(string sessionKey,
+     * @deprecated being replaced by channel.software.listErrata(User LoggedInUser,
      * string channelLabel)
      *
      * @xmlrpc.doc List errata that have been applied to a particular channel by date.
@@ -1486,8 +1469,7 @@ public class ErrataHandler extends BaseHandler {
      *          #array_end()
      */
     @Deprecated
-    public List listByDate(String sessionKey, String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List listByDate(User loggedInUser, String channelLabel) {
         Channel channel = ChannelFactory.lookupByLabel(loggedInUser.getOrg(),
                 channelLabel);
         return ErrataFactory.lookupByChannelSorted(loggedInUser.getOrg(), channel);
@@ -1495,7 +1477,7 @@ public class ErrataHandler extends BaseHandler {
 
     /**
      * Lookup the details for errata associated with the given CVE.
-     * @param sessionKey session of the logged in user
+     * @param loggedInUser The current user
      * @param cveName name of the CVE
      * @return List of Errata objects
      *
@@ -1508,10 +1490,9 @@ public class ErrataHandler extends BaseHandler {
      *              $ErrataSerializer
      *          #array_end()
      */
-    public List<Errata> findByCve(String sessionKey, String cveName) {
+    public List<Errata> findByCve(User loggedInUser, String cveName) {
         // Get the logged in user. We don't care what roles this user has, we
         // just want to make sure the caller is logged in.
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         List<Errata> erratas = ErrataManager.lookupByCVE(cveName);
         for (Iterator<Errata> iter = erratas.iterator(); iter.hasNext();) {
