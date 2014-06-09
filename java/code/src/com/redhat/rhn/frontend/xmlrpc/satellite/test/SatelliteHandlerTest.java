@@ -31,7 +31,7 @@ public class SatelliteHandlerTest extends BaseHandlerTestCase {
 
     public void testListProxies() throws Exception {
         Server server = ServerFactoryTest.createTestProxyServer(admin, false);
-        Object[] list = handler.listProxies(adminKey);
+        Object[] list = handler.listProxies(admin);
         assertEquals(1, list.length);
         assertEquals(server.getId(), ((Map)list[0]).get("id"));
     }
@@ -42,7 +42,7 @@ public class SatelliteHandlerTest extends BaseHandlerTestCase {
         //  these values.  Just some basic class checking done to make sure nothing has
         //  really gone crazy
 
-        Map map = handler.listEntitlements(adminKey);
+        Map map = handler.listEntitlements(admin);
         Object[] systemEnts = (Object[]) map.get("system");
         assertNotNull(systemEnts);
         for (int i = 0; i < systemEnts.length; i++) {
@@ -60,7 +60,7 @@ public class SatelliteHandlerTest extends BaseHandlerTestCase {
 
     public void testGetCertificateExpiration() throws Exception  {
         admin.addPermanentRole(RoleFactory.SAT_ADMIN);
-        handler.getCertificateExpirationDate(adminKey);
+        handler.getCertificateExpirationDate(admin);
     }
 
 

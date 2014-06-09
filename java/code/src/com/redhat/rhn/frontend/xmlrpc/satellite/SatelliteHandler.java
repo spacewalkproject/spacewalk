@@ -62,7 +62,7 @@ public class SatelliteHandler extends BaseHandler {
 
     /**
      * List all proxies on the Satellite for the current org
-     * @param sessionKey session of the logged in user
+     * @param loggedInUser The current user
      * @return  list of Maps containing "id", "name", and "last_checkin"
      *
      * @xmlrpc.doc List the proxies within the user's organization.
@@ -72,8 +72,7 @@ public class SatelliteHandler extends BaseHandler {
      *   $SystemOverviewSerializer
      * #array_end()
      */
-    public Object[] listProxies(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listProxies(User loggedInUser) {
         List <Server> proxies = ServerFactory.lookupProxiesByOrg(loggedInUser);
         List toReturn = new ArrayList();
         XmlRpcSystemHelper helper = XmlRpcSystemHelper.getInstance();
@@ -87,7 +86,7 @@ public class SatelliteHandler extends BaseHandler {
     /**
      * Lists all the channel and system entitlements for the org associated
      * with the user executing the request.
-     * @param sessionKey session of the logged in user
+     * @param loggedInUser The current user
      * @return A map containing two items.  "system" which is an array of
      *          EntitlementServerGroup objects, and 'channel' which is an
      *          array of "ChannelOverview" objects
@@ -105,8 +104,7 @@ public class SatelliteHandler extends BaseHandler {
      *   #prop_array_end()
      * #struct_end()
      */
-    public Map listEntitlements(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Map listEntitlements(User loggedInUser) {
 
         List<EntitlementServerGroup> systemEnts = new
             LinkedList<EntitlementServerGroup>();
@@ -151,7 +149,7 @@ public class SatelliteHandler extends BaseHandler {
 
     /**
      * Get the Satellite certificate expiration date
-     * @param sessionKey session of the logged in user
+     * @param loggedInUser The current user
      * @return A Date object of the expiration of the certificate
      *
      * @xmlrpc.doc Retrieves the certificate expiration date of the activated
@@ -160,8 +158,7 @@ public class SatelliteHandler extends BaseHandler {
      * @xmlrpc.returntype
      *    $date
      */
-    public Date getCertificateExpirationDate(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Date getCertificateExpirationDate(User loggedInUser) {
         if (!loggedInUser.hasRole(RoleFactory.SAT_ADMIN)) {
             throw new PermissionCheckFailureException(RoleFactory.SAT_ADMIN);
         }
@@ -172,15 +169,14 @@ public class SatelliteHandler extends BaseHandler {
     /**
      * Indicates if monitoring is enabled on the satellite
      * available since API version 10.13
-     * @param sessionKey session of the logged in user
+     * @param loggedInUser The current user
      * @return True if monitoring is enabled
      *
      * @xmlrpc.doc Indicates if monitoring is enabled on the satellite
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype #param("boolean", "True if monitoring is enabled")
      */
-    public boolean isMonitoringEnabled(String sessionKey) {
-        getLoggedInUser(sessionKey);
+    public boolean isMonitoringEnabled(User loggedInUser) {
         return ConfigDefaults.get().isMonitoringBackend();
     }
 
