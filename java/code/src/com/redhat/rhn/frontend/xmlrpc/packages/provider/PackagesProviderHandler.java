@@ -41,7 +41,7 @@ public class PackagesProviderHandler extends BaseHandler {
 
     /**
      * list the package providers
-     * @param sessionKey  the session key
+     * @param loggedInUser The current user
      * @return List of package providers
      *
      * @xmlrpc.doc List all Package Providers.
@@ -52,9 +52,8 @@ public class PackagesProviderHandler extends BaseHandler {
      *      $PackageProviderSerializer
      *  #array_end()
      */
-    public List<PackageProvider> list(String sessionKey) {
-        User user = getLoggedInUser(sessionKey);
-        isSatelliteAdmin(user);
+    public List<PackageProvider> list(User loggedInUser) {
+        isSatelliteAdmin(loggedInUser);
         List<PackageProvider> list = PackageFactory.listPackageProviders();
         return list;
     }
@@ -63,7 +62,7 @@ public class PackagesProviderHandler extends BaseHandler {
 
     /**
      * List the keys associated with a package provider
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param providerName the provider name
      * @return set of package keys
      *
@@ -76,9 +75,8 @@ public class PackagesProviderHandler extends BaseHandler {
      *      $PackageKeySerializer
      *  #array_end()
      */
-    public Set<PackageKey> listKeys(String sessionKey, String providerName) {
-        User user = getLoggedInUser(sessionKey);
-        isSatelliteAdmin(user);
+    public Set<PackageKey> listKeys(User loggedInUser, String providerName) {
+        isSatelliteAdmin(loggedInUser);
         PackageProvider prov = PackageFactory.lookupPackageProvider(providerName);
         if (prov == null) {
             throw new InvalidPackageProviderException(providerName);
@@ -90,7 +88,7 @@ public class PackagesProviderHandler extends BaseHandler {
     /**
      * Associate a package key with provider.  Provider is created if it doesn't exist.
      *  Key is created if it doesn't exist.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param providerName the provider name
      * @param key the key string
      * @param typeStr the type string (currently only 'gpg' is supported)
@@ -107,10 +105,9 @@ public class PackagesProviderHandler extends BaseHandler {
      * @xmlrpc.returntype
      *      #return_int_success()
      */
-    public int associateKey(String sessionKey, String providerName, String key,
+    public int associateKey(User loggedInUser, String providerName, String key,
             String typeStr) {
-        User user = getLoggedInUser(sessionKey);
-        isSatelliteAdmin(user);
+        isSatelliteAdmin(loggedInUser);
         PackageProvider prov = PackageFactory.lookupPackageProvider(providerName);
         if (prov == null) {
             prov = new PackageProvider();

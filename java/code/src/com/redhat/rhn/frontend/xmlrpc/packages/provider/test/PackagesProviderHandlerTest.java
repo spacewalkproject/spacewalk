@@ -38,7 +38,7 @@ public class PackagesProviderHandlerTest extends BaseHandlerTestCase {
 
         PackageFactory.save(prov);
 
-        assertTrue(handler.listKeys(adminKey, name).isEmpty());
+        assertTrue(handler.listKeys(admin, name).isEmpty());
 
 
         String keyStr = RandomStringUtils.randomAlphabetic(5);
@@ -47,7 +47,7 @@ public class PackagesProviderHandlerTest extends BaseHandlerTestCase {
         key.setType(PackageFactory.PACKAGE_KEY_TYPE_GPG);
         prov.addKey(key);
 
-        assertFalse(handler.listKeys(adminKey, name).isEmpty());
+        assertFalse(handler.listKeys(admin, name).isEmpty());
 
     }
 
@@ -59,7 +59,7 @@ public class PackagesProviderHandlerTest extends BaseHandlerTestCase {
 
         PackageFactory.save(prov);
 
-        List list = handler.list(adminKey);
+        List list = handler.list(admin);
         assertContains(list, prov);
 
     }
@@ -71,8 +71,8 @@ public class PackagesProviderHandlerTest extends BaseHandlerTestCase {
         String provStr = RandomStringUtils.randomAlphabetic(5);
         String keyStr = RandomStringUtils.randomAlphabetic(5);
 
-        handler.associateKey(adminKey, provStr, keyStr, "gpg");
-        assertFalse(handler.listKeys(adminKey, provStr).isEmpty());
+        handler.associateKey(admin, provStr, keyStr, "gpg");
+        assertFalse(handler.listKeys(admin, provStr).isEmpty());
 
     }
 
