@@ -41,6 +41,7 @@ from rhn import rpclib
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 import uploadLib
 import rhnpush_v2
+from utils import tupleify_urlparse
 
 # Global settings
 BUFFER_SIZE = 65536
@@ -180,13 +181,13 @@ class UploadClass(uploadLib.UploadClass):
         server = idn_ascii_to_pune(self.options.server)
         if server is None:
             self.die(1, "Required parameter --server not supplied")
-        # pylint: disable=W0633
-        scheme, netloc, path, params, query, fragment = urlparse.urlparse(server)
+        scheme, netloc, path, params, query, fragment = tupleify_urlparse(
+                urlparse.urlparse(server))
         if not netloc:
             # No schema - trying to patch it up ourselves?
             server = "http://" + server
-            # pylint: disable=W0633
-            scheme, netloc, path, params, query, fragment = urlparse.urlparse(server)
+            scheme, netloc, path, params, query, fragment = tupleify_urlparse(
+                    urlparse.urlparse(server))
 
         if not netloc:
             self.die(2, "Invalid URL %s" % server)

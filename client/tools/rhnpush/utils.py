@@ -47,6 +47,17 @@ def make_common_attr_equal(object1, object2):
 
     return (object1, object2)
 
+# Pylint is too stupid to understand subclasses of tuples apparently.
+# This is just to make it shut up.
+def tupleify_urlparse(urlparse_object):
+    scheme = urlparse_object.scheme
+    netloc = urlparse_object.netloc
+    path = urlparse_object.path
+    params = urlparse_object.params
+    query = urlparse_object.query
+    fragment = urlparse_object.fragment
+    return scheme, netloc, path, params, query, fragment
+
 if __name__ == "__main__":
 #This is just for testing purposes.
 # pylint: disable=R0903

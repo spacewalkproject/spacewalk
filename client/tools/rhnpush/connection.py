@@ -24,6 +24,7 @@ from types import ListType, TupleType, IntType
 from rhn import connections, rpclib
 
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
+from utils import tupleify_urlparse
 
 class ConnectionError(Exception):
     pass
@@ -262,13 +263,13 @@ class PackageUpload:
         return text
 
 def parse_url(url, scheme="http", path='/'):
-    # pylint: disable=W0633
-    _scheme, netloc, _path, params, query, fragment = urlparse.urlparse(url)
+    _scheme, netloc, _path, params, query, fragment = tupleify_urlparse(
+            urlparse.urlparse(url))
     if not netloc:
         # No scheme - trying to patch it up ourselves?
         url = scheme + "://" + url
-        # pylint: disable=W0633
-        _scheme, netloc, _path, params, query, fragment = urlparse.urlparse(url)
+        _scheme, netloc, _path, params, query, fragment = tupleify_urlparse(
+                urlparse.urlparse(url))
 
     if not netloc:
         # XXX
