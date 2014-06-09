@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.18
+Version:	2.2.19
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Jun 09 2014 Tomas Lestach <tlestach@redhat.com> 2.2.19-1
+- 1105904 - do not check size of missing files
+
 * Fri Jun 06 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.18-1
 - fixed spacewalk-hostname-rename to work with postgresql backend
 
