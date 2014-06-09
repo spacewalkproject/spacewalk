@@ -35,7 +35,7 @@ public class PreferencesLocaleHandlerTest extends BaseHandlerTestCase {
 
     public void testSetTimeZoneInvalidId() {
         try {
-            handler.setTimeZone(adminKey, admin.getLogin(), 0);
+            handler.setTimeZone(admin, admin.getLogin(), 0);
             fail("Expected an exception for timezoneid = 0");
         }
         catch (InvalidTimeZoneException itze) {
@@ -50,7 +50,7 @@ public class PreferencesLocaleHandlerTest extends BaseHandlerTestCase {
         RhnTimeZone tz = (RhnTimeZone)tzs[0];
 
         assertEquals(1,
-           handler.setTimeZone(adminKey, admin.getLogin(), tz.getTimeZoneId()));
+           handler.setTimeZone(admin, admin.getLogin(), tz.getTimeZoneId()));
 
         RhnTimeZone usersTz = admin.getTimeZone();
         assertNotNull(usersTz);
@@ -67,7 +67,7 @@ public class PreferencesLocaleHandlerTest extends BaseHandlerTestCase {
 
     public void testSetLocaleInvalidLocale() {
         try {
-            handler.setLocale(adminKey, admin.getLogin(), "rd_NK");
+            handler.setLocale(admin, admin.getLogin(), "rd_NK");
             fail("rd_NK should be an invalid locale");
         }
         catch (InvalidLocaleCodeException ilce) {
@@ -75,7 +75,7 @@ public class PreferencesLocaleHandlerTest extends BaseHandlerTestCase {
         }
 
         try {
-            handler.setLocale(adminKey, admin.getLogin(), null);
+            handler.setLocale(admin, admin.getLogin(), null);
             fail("null should be an invalid locale");
         }
         catch (InvalidLocaleCodeException ilce) {
@@ -87,7 +87,7 @@ public class PreferencesLocaleHandlerTest extends BaseHandlerTestCase {
         String l = admin.getPreferredLocale();
         assertNull(l);
         System.out.println(l);
-        handler.setLocale(adminKey, admin.getLogin(), "en_US");
+        handler.setLocale(admin, admin.getLogin(), "en_US");
         assertEquals("en_US", admin.getPreferredLocale());
     }
 }

@@ -39,7 +39,7 @@ public class PreferencesLocaleHandler extends BaseHandler {
 
     /**
      * Set the TimeZone for the given user.
-     * @param sessionKey The sessionkey for the session containing the logged
+     * @param loggedInUser The current user
      * in user.
      * @param login The login of the user whose timezone will be changed.
      * @param tzid TimeZone id
@@ -51,14 +51,13 @@ public class PreferencesLocaleHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "tzid" "Timezone ID. (from listTimeZones)")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setTimeZone(String sessionKey, String login, Integer tzid) {
+    public int setTimeZone(User loggedInUser, String login, Integer tzid) {
         List tzs = UserManager.lookupAllTimeZones();
         Object o = CollectionUtils.find(tzs, new TzPredicate(tzid));
         if (o == null) {
             throw new InvalidTimeZoneException(tzid);
         }
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance()
                                       .lookupTargetUser(loggedInUser, login);
 
@@ -70,7 +69,7 @@ public class PreferencesLocaleHandler extends BaseHandler {
 
     /**
      * Set the language the user will display in the user interface.
-     * @param sessionKey The sessionkey for the session containing the logged
+     * @param loggedInUser The current user
      * in user.
      * @param login The login of the user whose language will be changed.
      * @param locale Locale code to be used as the users language.
@@ -82,7 +81,7 @@ public class PreferencesLocaleHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "locale", "Locale to set. (from listLocales)")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setLocale(String sessionKey, String login, String locale) {
+    public int setLocale(User loggedInUser, String login, String locale) {
         LocalizationService ls = LocalizationService.getInstance();
         List locales = ls.getConfiguredLocales();
         Object o = CollectionUtils.find(locales, new LocalePredicate(locale));
@@ -90,7 +89,6 @@ public class PreferencesLocaleHandler extends BaseHandler {
             throw new InvalidLocaleCodeException(locale);
         }
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance()
                                       .lookupTargetUser(loggedInUser, login);
         target.setPreferredLocale(locale);
