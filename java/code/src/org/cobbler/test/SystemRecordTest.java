@@ -48,8 +48,9 @@ public class SystemRecordTest extends BaseTestCaseWithUser {
     public void setUp() throws Exception {
         super.setUp();
         connection = CobblerXMLRPCHelper.getConnection(user.getLogin());
-        Distro distro = Distro.create(connection, "test-distro", "kernel", "initrd",
-            new HashMap());
+        Distro distro =
+                Distro.create(connection, "test-distro", "kernel", "initrd", new HashMap(),
+                        "redhat", "rhel6");
         Profile profile = Profile.create(connection, "test-profile", distro);
         system = SystemRecord.create(connection, "test-system", profile);
     }

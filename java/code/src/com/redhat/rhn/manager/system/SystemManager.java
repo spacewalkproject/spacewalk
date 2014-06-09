@@ -3242,6 +3242,7 @@ public class SystemManager extends BaseManager {
         return m.execute(params);
     }
 
+    /**
      * Returns ids and names for systems in a given set with at least one of the
      * specified entitlements.
      * @param user the requesting user
