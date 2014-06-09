@@ -262,12 +262,12 @@ class PackageUpload:
         return text
 
 def parse_url(url, scheme="http", path='/'):
-    # pylint: disable=unpacking-non-sequence
+    # pylint: disable=W0633
     _scheme, netloc, _path, params, query, fragment = urlparse.urlparse(url)
     if not netloc:
         # No scheme - trying to patch it up ourselves?
         url = scheme + "://" + url
-        # pylint: disable=unpacking-non-sequence
+        # pylint: disable=W0633
         _scheme, netloc, _path, params, query, fragment = urlparse.urlparse(url)
 
     if not netloc:

@@ -180,12 +180,12 @@ class UploadClass(uploadLib.UploadClass):
         server = idn_ascii_to_pune(self.options.server)
         if server is None:
             self.die(1, "Required parameter --server not supplied")
-        # pylint: disable=unpacking-non-sequence
+        # pylint: disable=W0633
         scheme, netloc, path, params, query, fragment = urlparse.urlparse(server)
         if not netloc:
             # No schema - trying to patch it up ourselves?
             server = "http://" + server
-            # pylint: disable=unpacking-non-sequence
+            # pylint: disable=W0633
             scheme, netloc, path, params, query, fragment = urlparse.urlparse(server)
 
         if not netloc:
