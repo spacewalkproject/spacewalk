@@ -44,7 +44,7 @@ public class SnapshotHandler extends BaseHandler {
     /**
      * List the snapshots for a given system that were created on or between
      * the dates specified.
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param sid system id
      * @param dateDetails map containing optional start/end date
      * @return list of server snapshots
@@ -74,12 +74,11 @@ public class SnapshotHandler extends BaseHandler {
      *      $ServerSnapshotSerializer
      *  #array_end()
      */
-    public List<ServerSnapshot> listSnapshots(String sessionKey, Integer sid,
+    public List<ServerSnapshot> listSnapshots(User loggedInUser, Integer sid,
         Map dateDetails) {
 
         validateDateKeys(dateDetails);
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         Date startDate = null;
@@ -101,7 +100,7 @@ public class SnapshotHandler extends BaseHandler {
 
     /**
      * list the packages for a given snapshot
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param snapId snapshot id
      * @return Set of packageNEvra objects
      * @since 10.1
@@ -114,8 +113,7 @@ public class SnapshotHandler extends BaseHandler {
      *         $PackageNevraSerializer
      *     #array_end()
      */
-    public Set<PackageNevra> listSnapshotPackages(String sessionKey, Integer snapId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Set<PackageNevra> listSnapshotPackages(User loggedInUser, Integer snapId) {
         ServerSnapshot snap = lookupSnapshot(loggedInUser, snapId);
         return snap.getPackages();
 
@@ -123,7 +121,7 @@ public class SnapshotHandler extends BaseHandler {
 
     /**
      * list the config files for a given snapshot
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param snapId snapshot id
      * @return Set of ConfigRevision objects
      * @since 10.2
@@ -136,15 +134,14 @@ public class SnapshotHandler extends BaseHandler {
      *         $ConfigRevisionSerializer
      *     #array_end()
      */
-    public Set<ConfigRevision> listSnapshotConfigFiles(String sessionKey, Integer snapId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Set<ConfigRevision> listSnapshotConfigFiles(User loggedInUser, Integer snapId) {
         ServerSnapshot snap = lookupSnapshot(loggedInUser, snapId);
         return snap.getConfigRevisions();
     }
 
     /**
      * Deletes all snapshots across multiple systems.
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param dateDetails map containing optional start/end Date objects.
      * @return 1 on success
      * @since 10.1
@@ -169,10 +166,8 @@ public class SnapshotHandler extends BaseHandler {
      *     #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteSnapshots(String sessionKey, Map dateDetails) {
+    public int deleteSnapshots(User loggedInUser, Map dateDetails) {
         validateDateKeys(dateDetails);
-
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         Date startDate = null;
         Date endDate = null;
@@ -194,7 +189,7 @@ public class SnapshotHandler extends BaseHandler {
 
     /**
      * Deletes all snapshots for a given system based on the given date criteria.
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param sid system id
      * @param dateDetails map containing optional start/end Date objects.
      * @return 1 on success
@@ -222,10 +217,9 @@ public class SnapshotHandler extends BaseHandler {
      *     #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteSnapshots(String sessionKey, Integer sid, Map dateDetails) {
+    public int deleteSnapshots(User loggedInUser, Integer sid, Map dateDetails) {
         validateDateKeys(dateDetails);
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         Date startDate = null;
@@ -248,7 +242,7 @@ public class SnapshotHandler extends BaseHandler {
 
     /**
      * Deletes a snapshot
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param snapId id of snapshot
      * @return 1 on success
      * @since 10.1
@@ -258,8 +252,7 @@ public class SnapshotHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "snapshotId", "Id of snapshot to delete")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteSnapshot(String sessionKey, Integer snapId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int deleteSnapshot(User loggedInUser, Integer snapId) {
         ServerSnapshot snap = lookupSnapshot(loggedInUser, snapId);
         ServerFactory.deleteSnapshot(snap);
         return 1;
@@ -267,7 +260,7 @@ public class SnapshotHandler extends BaseHandler {
 
     /**
      * Adds tag to snapshot
-     * @param sessionKey session key
+     * @param loggedInUser The current user
      * @param snapId shapshot id
      * @param tagName name iof the snapshot tag
      * @return 1 on success
@@ -278,8 +271,7 @@ public class SnapshotHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "tag", "Name of the snapshot tag")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addTagToSnapshot(String sessionKey, Integer snapId, String tagName) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int addTagToSnapshot(User loggedInUser, Integer snapId, String tagName) {
         ServerSnapshot snap = lookupSnapshot(loggedInUser, snapId);
         if (!snap.addTag(tagName)) {
             throw new SnapshotTagAlreadyExistsException(tagName);

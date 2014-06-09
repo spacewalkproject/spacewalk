@@ -55,7 +55,7 @@ public class SnapshotHandlerTest extends BaseHandlerTestCase {
 
         TestUtils.saveAndFlush(snap);
         Map dateInfo = new HashMap();
-        List<ServerSnapshot> list = handler.listSnapshots(adminKey,
+        List<ServerSnapshot> list = handler.listSnapshots(admin,
                 server.getId().intValue(), dateInfo);
         assertContains(list, snap);
         assertContains(snap.getGroups(), grp);
@@ -73,7 +73,7 @@ public class SnapshotHandlerTest extends BaseHandlerTestCase {
         snap.getPackages().add(packN);
         TestUtils.saveAndFlush(packN);
         TestUtils.saveAndFlush(snap);
-        Set<PackageNevra> list = handler.listSnapshotPackages(adminKey,
+        Set<PackageNevra> list = handler.listSnapshotPackages(admin,
                 snap.getId().intValue());
          assertContains(list, packN);
     }
@@ -83,9 +83,9 @@ public class SnapshotHandlerTest extends BaseHandlerTestCase {
         ServerSnapshot snap = generateSnapshot(server);
         TestUtils.saveAndFlush(snap);
 
-        handler.deleteSnapshot(adminKey, snap.getId().intValue());
+        handler.deleteSnapshot(admin, snap.getId().intValue());
         Map dateInfo = new HashMap();
-        List<ServerSnapshot> list = handler.listSnapshots(adminKey,
+        List<ServerSnapshot> list = handler.listSnapshots(admin,
                 server.getId().intValue(), dateInfo);
         assertTrue(list.size() == 0);
 
@@ -101,8 +101,8 @@ public class SnapshotHandlerTest extends BaseHandlerTestCase {
         TestUtils.saveAndFlush(snap);
 
         Map dateInfo = new HashMap();
-        handler.deleteSnapshots(adminKey, server.getId().intValue(), dateInfo);
-        List<ServerSnapshot> list = handler.listSnapshots(adminKey,
+        handler.deleteSnapshots(admin, server.getId().intValue(), dateInfo);
+        List<ServerSnapshot> list = handler.listSnapshots(admin,
                 server.getId().intValue(), dateInfo);
         assertTrue(list.size() == 0);
     }
