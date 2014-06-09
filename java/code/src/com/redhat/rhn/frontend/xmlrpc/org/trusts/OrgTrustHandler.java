@@ -53,7 +53,7 @@ public class OrgTrustHandler extends BaseHandler {
 
     /**
      * Lists all organizations trusted by the user's organization.
-     * @param sessionKey session containing User information.
+     * @param loggedInUser The current user
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
      *
@@ -64,18 +64,17 @@ public class OrgTrustHandler extends BaseHandler {
      *         $TrustedOrgDtoSerializer
      *     #array_end()
      */
-    public Object[] listOrgs(String sessionKey) {
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        ensureUserRole(user, RoleFactory.ORG_ADMIN);
+    public Object[] listOrgs(User loggedInUser) {
+        ensureUserRole(loggedInUser, RoleFactory.ORG_ADMIN);
 
-        DataList<TrustedOrgDto> result = OrgManager.trustedOrgs(user);
+        DataList<TrustedOrgDto> result = OrgManager.trustedOrgs(loggedInUser);
         return result.toArray();
     }
 
     /**
      * Lists all software channels that organization given is providing to the user's
      * organization.
-     * @param sessionKey session containing User information.
+     * @param loggedInUser The current user
      * @param trustOrgId organization id of the trusted org
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
@@ -94,24 +93,23 @@ public class OrgTrustHandler extends BaseHandler {
      *         #struct_end()
      *     #array_end()
      */
-    public Object[] listChannelsProvided(String sessionKey, Integer trustOrgId) {
+    public Object[] listChannelsProvided(User loggedInUser, Integer trustOrgId) {
 
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        ensureUserRole(user, RoleFactory.ORG_ADMIN);
+        ensureUserRole(loggedInUser, RoleFactory.ORG_ADMIN);
 
         Org trustOrg = OrgFactory.lookupById(new Long(trustOrgId));
         if (trustOrg == null) {
             throw new NoSuchOrgException(trustOrgId.toString());
         }
 
-        if (!user.getOrg().getTrustedOrgs().contains(trustOrg)) {
+        if (!loggedInUser.getOrg().getTrustedOrgs().contains(trustOrg)) {
             // the org requested isn't in the user's trust list; therefore, this
             // request is not allowed.
             throw new OrgNotInTrustException(trustOrgId);
         }
 
         DataResult<ChannelTreeNode> result = ChannelManager.trustChannelConsume(
-                trustOrg, user.getOrg(), user, null);
+                trustOrg, loggedInUser.getOrg(), loggedInUser, null);
 
         return result.toArray();
     }
@@ -119,7 +117,7 @@ public class OrgTrustHandler extends BaseHandler {
     /**
      * Lists all software channels that organization given may consume from the user's
      * organization.
-     * @param sessionKey session containing User information.
+     * @param loggedInUser The current user
      * @param trustOrgId organization id of the trusted org
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
@@ -138,24 +136,23 @@ public class OrgTrustHandler extends BaseHandler {
      *         #struct_end()
      *     #array_end()
      */
-    public Object[] listChannelsConsumed(String sessionKey, Integer trustOrgId) {
+    public Object[] listChannelsConsumed(User loggedInUser, Integer trustOrgId) {
 
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        ensureUserRole(user, RoleFactory.ORG_ADMIN);
+        ensureUserRole(loggedInUser, RoleFactory.ORG_ADMIN);
 
         Org trustOrg = OrgFactory.lookupById(new Long(trustOrgId));
         if (trustOrg == null) {
             throw new NoSuchOrgException(trustOrgId.toString());
         }
 
-        if (!user.getOrg().getTrustedOrgs().contains(trustOrg)) {
+        if (!loggedInUser.getOrg().getTrustedOrgs().contains(trustOrg)) {
             // the org requested isn't in the user's trust list; therefore, this
             // request is not allowed.
             throw new OrgNotInTrustException(trustOrgId);
         }
 
         DataResult<ChannelTreeNode> result = ChannelManager.trustChannelConsume(
-                user.getOrg(), trustOrg, user, null);
+                loggedInUser.getOrg(), trustOrg, loggedInUser, null);
 
         return result.toArray();
     }
@@ -163,7 +160,7 @@ public class OrgTrustHandler extends BaseHandler {
     /**
      * Returns the organization trust details.
      * given the org_id.
-     * @param sessionKey Caller's session key.
+     * @param loggedInUser The current user
      * @param trustOrgId the id of the organization to lookup on.
      * @return details on the trusted organization.
      *
@@ -187,16 +184,15 @@ public class OrgTrustHandler extends BaseHandler {
      *          from the organization.")
      *     #struct_end()
      */
-    public Map<String, Object> getDetails(String sessionKey, Integer trustOrgId) {
+    public Map<String, Object> getDetails(User loggedInUser, Integer trustOrgId) {
 
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        ensureUserRole(user, RoleFactory.ORG_ADMIN);
+        ensureUserRole(loggedInUser, RoleFactory.ORG_ADMIN);
 
         Org trustOrg = OrgFactory.lookupById(new Long(trustOrgId));
         if (trustOrg == null) {
             throw new NoSuchOrgException(trustOrgId.toString());
         }
-        if (!user.getOrg().getTrustedOrgs().contains(trustOrg)) {
+        if (!loggedInUser.getOrg().getTrustedOrgs().contains(trustOrg)) {
             throw new OrgNotInTrustException(trustOrgId);
         }
 
@@ -206,26 +202,31 @@ public class OrgTrustHandler extends BaseHandler {
             details.put("created", trustOrg.getCreated());
         }
 
-        Date since = OrgManager.getTrustedSince(user, user.getOrg(), trustOrg);
+        Date since = OrgManager.getTrustedSince(loggedInUser,
+                loggedInUser.getOrg(), trustOrg);
         if (since != null) {
             details.put("trusted_since", since);
         }
         details.put("channels_provided",
-                OrgManager.getSharedChannels(user, trustOrg, user.getOrg()));
+                OrgManager.getSharedChannels(loggedInUser,
+                        trustOrg, loggedInUser.getOrg()));
         details.put("channels_consumed",
-                OrgManager.getSharedChannels(user, user.getOrg(), trustOrg));
+                OrgManager.getSharedChannels(loggedInUser,
+                        loggedInUser.getOrg(), trustOrg));
 
         details.put("systems_migrated_to",
-                OrgManager.getMigratedSystems(user, trustOrg, user.getOrg()));
+                OrgManager.getMigratedSystems(loggedInUser,
+                        trustOrg, loggedInUser.getOrg()));
         details.put("systems_migrated_from",
-                OrgManager.getMigratedSystems(user, user.getOrg(), trustOrg));
+                OrgManager.getMigratedSystems(loggedInUser,
+                        loggedInUser.getOrg(), trustOrg));
 
         return details;
     }
 
     /**
      * Returns a list of organizations along with a trusted indicator.
-     * @param sessionKey Caller's session key.
+     * @param loggedInUser The current user
      * @param orgId the id of an organization.
      * @return Returns a list of organizations along with a trusted indicator.
      * @xmlrpc.doc Returns the list of trusted organizations.
@@ -234,19 +235,18 @@ public class OrgTrustHandler extends BaseHandler {
      * @xmlrpc.returntype
      * $OrgTrustOverviewSerializer
      */
-    public List<OrgTrustOverview> listTrusts(String sessionKey, Integer orgId) {
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        ensureUserRole(user, RoleFactory.SAT_ADMIN);
+    public List<OrgTrustOverview> listTrusts(User loggedInUser, Integer orgId) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = OrgFactory.lookupById(Long.valueOf(orgId));
         if (org == null) {
             throw new NoSuchOrgException(orgId.toString());
         }
-        return OrgManager.orgTrusts(user, Long.valueOf(orgId));
+        return OrgManager.orgTrusts(loggedInUser, Long.valueOf(orgId));
     }
 
     /**
      * Add an organization to the list of <i>trusted</i> organizations.
-     * @param sessionKey Caller's session key.
+     * @param loggedInUser The current user
      * @param orgId The id of the organization to be updated.
      * @param trustOrgId The id of the organization to be added.
      * @return 1 on success, else 0.
@@ -256,9 +256,8 @@ public class OrgTrustHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "trustOrgId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addTrust(String sessionKey, Integer orgId, Integer trustOrgId) {
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        ensureUserRole(user, RoleFactory.SAT_ADMIN);
+    public int addTrust(User loggedInUser, Integer orgId, Integer trustOrgId) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = OrgFactory.lookupById(Long.valueOf(orgId));
         if (org == null) {
             throw new NoSuchOrgException(orgId.toString());
@@ -274,7 +273,7 @@ public class OrgTrustHandler extends BaseHandler {
 
     /**
      * Remove an organization to the list of <i>trusted</i> organizations.
-     * @param sessionKey Caller's session key.
+     * @param loggedInUser The current user
      * @param orgId the id of the organization to be updated.
      * @param trustOrgId The id of the organization to be removed.
      * @return 1 on success, else 0.
@@ -284,9 +283,8 @@ public class OrgTrustHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "trustOrgId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeTrust(String sessionKey, Integer orgId, Integer trustOrgId) {
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        ensureUserRole(user, RoleFactory.SAT_ADMIN);
+    public int removeTrust(User loggedInUser, Integer orgId, Integer trustOrgId) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = OrgFactory.lookupById(Long.valueOf(orgId));
         if (org == null) {
             throw new NoSuchOrgException(orgId.toString());
@@ -304,7 +302,7 @@ public class OrgTrustHandler extends BaseHandler {
      * Get a list of systems within the  <i>trusted</i> organization that would be
      * affected if the <i>trust</i> relationship was removed.  This basically lists
      * systems that are sharing at least (1) package.
-     * @param sessionKey Caller's session key.
+     * @param loggedInUser The current user
      * @param orgId the id of <i>trusting</i> organization.
      * @param trustOrgId The id of the <i>trusted</i> organization.
      * @return A list of affected systems.
@@ -323,12 +321,11 @@ public class OrgTrustHandler extends BaseHandler {
      *   #array_end()
      */
     public List<Map<String, Object>> listSystemsAffected(
-        String sessionKey,
+        User loggedInUser,
         Integer orgId,
         Integer trustOrgId) {
 
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        ensureUserRole(user, RoleFactory.SAT_ADMIN);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         List<Map<String, Object>> subscribed =
             SystemManager.subscribedInOrgTrust(orgId, trustOrgId);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
