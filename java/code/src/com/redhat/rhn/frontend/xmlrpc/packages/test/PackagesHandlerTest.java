@@ -34,12 +34,12 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         Package pkg = PackageTest.createTestPackage(admin.getOrg());
         assertNotNull(pkg.getOrg().getId());
 
-        Map details = handler.getDetails(adminKey, new Integer(pkg.getId().intValue()));
+        Map details = handler.getDetails(admin, new Integer(pkg.getId().intValue()));
         assertNotNull(details);
         assertTrue(details.containsKey("name"));
 
         try {
-            handler.getDetails(adminKey, new Integer(-213344));
+            handler.getDetails(admin, new Integer(-213344));
             fail("handler.getDetails didn't throw FaultException for non-existant package");
         }
         catch (FaultException e) {
@@ -52,7 +52,7 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
         Package pkg = PackageTest.createTestPackage(user.getOrg());
 
-        Object[] files = handler.listFiles(adminKey,
+        Object[] files = handler.listFiles(admin,
                 new Integer(pkg.getId().intValue()));
 
         // PackageTest.populateTestPackage populates a test package with 2 associated files
@@ -67,7 +67,7 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
         Package pkg = PackageTest.createTestPackage(user.getOrg());
 
-        Object[] result = handler.listProvidingErrata(adminKey,
+        Object[] result = handler.listProvidingErrata(admin,
                                                       new Integer(pkg.getId().intValue()));
         assertEquals(0, result.length);
     }
@@ -76,7 +76,7 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
         Package pkg = PackageTest.createTestPackage(user.getOrg());
 
-        Object[] result = handler.listProvidingChannels(adminKey,
+        Object[] result = handler.listProvidingChannels(admin,
                                                        new Integer(pkg.getId().intValue()));
         //test package shouldn't be "provided" by any channel yet
         assertEquals(0, result.length);
@@ -88,7 +88,7 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
       User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
       Package pkg = PackageTest.createTestPackage(user.getOrg());
 
-      Object[] result = handler.listDependencies(adminKey,
+      Object[] result = handler.listDependencies(admin,
                                                      new Integer(pkg.getId().intValue()));
       //test package shouldn't have any deps yet
       assertEquals(0, result.length);
@@ -97,19 +97,19 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
     public void testRemovePackage() throws Exception {
         User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
         Package pkg = PackageTest.createTestPackage(user.getOrg());
-        handler.removePackage(adminKey, new Integer(pkg.getId().intValue()));
+        handler.removePackage(admin, new Integer(pkg.getId().intValue()));
     }
 
 
     public void testFindByNevra() throws Exception {
         Package p = PackageTest.createTestPackage(admin.getOrg());
 
-        List<Package> newP = handler.findByNvrea(adminKey, p.getPackageName().getName(),
+        List<Package> newP = handler.findByNvrea(admin, p.getPackageName().getName(),
                 p.getPackageEvr().getVersion(), p.getPackageEvr().getRelease(),
                 p.getPackageEvr().getEpoch(), p.getPackageArch().getLabel());
         assertTrue(newP.size() == 1);
         assertEquals(p, newP.get(0));
-        newP = handler.findByNvrea(adminKey, p.getPackageName().getName(),
+        newP = handler.findByNvrea(admin, p.getPackageName().getName(),
                 p.getPackageEvr().getVersion(), p.getPackageEvr().getRelease(),
                 "", p.getPackageArch().getLabel());
         assertTrue(newP.size() == 1);
