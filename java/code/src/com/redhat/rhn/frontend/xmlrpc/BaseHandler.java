@@ -57,6 +57,9 @@ public class BaseHandler implements XmlRpcInvocationHandler {
 
     private static Logger log = Logger.getLogger(BaseHandler.class);
 
+    private static final String RO_REGEX = "^(list|get|is).*$";
+    private static final String KEY_REGEX = "^[1-9][0-9]*x[a-f0-9]{64}$";
+
     protected boolean providesAuthentication() {
         return false;
     }
@@ -90,6 +93,19 @@ public class BaseHandler implements XmlRpcInvocationHandler {
         String[] byNamespace = methodCalled.split("\\.");
         String beanifiedMethod = StringUtil.beanify(byNamespace[byNamespace.length - 1]);
 
+        if (params.size() > 0 && params.get(0) instanceof String &&
+                isSessionKey((String)params.get(0)) && !"logout".equals(beanifiedMethod) &&
+                !(myClass.getName().endsWith("PackagesSearcHandler") ||
+                        myClass.getName().endsWith("SystemSearchHandler"))) {
+            params.set(0, getLoggedInUser((String)params.get(0)));
+            if (((User)params.get(0)).getReadOnlyBool()) {
+                if (!beanifiedMethod.matches(RO_REGEX)) {
+                    throw new SecurityException("The " + beanifiedMethod +
+                            " API is not available to read-only API users");
+                }
+            }
+        }
+
         //we've found all the methods that have the same number of parameters
         List<Method> matchedMethods = findMethods(methods, params, beanifiedMethod);
 
@@ -97,6 +113,7 @@ public class BaseHandler implements XmlRpcInvocationHandler {
         Method foundMethod = findPerfectMethod(params, matchedMethods);
 
         Object[] converted = params.toArray();
+
 
         //If we were not able to find the exact method match, let's just use the first one
         //      This isn't the best method, but if you can figure out a better way
@@ -263,15 +280,6 @@ public class BaseHandler implements XmlRpcInvocationHandler {
                                       sessionKey);
         }
 
-        if (user.getReadOnlyBool()) {
-            StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-            String callerName = stackTraceElements[2].getMethodName();
-            if (!callerName.matches("^(checkAuthToken|login|logout|list|get|is).*$")) {
-                throw new SecurityException("The " + callerName +
-                        " API is not available to read-only API users");
-            }
-        }
-
         //Return the logged in user
         return user;
     }
@@ -426,6 +434,10 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             value
         };
         MethodUtil.callMethod(entity, methodName, params);
+    }
+
+    private boolean isSessionKey(String string) {
+        return string.matches(KEY_REGEX);
     }
 
 }
