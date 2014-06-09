@@ -42,7 +42,7 @@ public class SoftwareHandler extends BaseHandler {
 
     /**
      * Get a list of a kickstart profile's software packages.
-     * @param sessionKey An active session key
+     * @param loggedInUser The current user
      * @param ksLabel A kickstart profile label
      * @return A list of package names.
      * @throws FaultException
@@ -53,11 +53,10 @@ public class SoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype string[] - Get a list of a kickstart profile's
      * software packages.
      */
-    public List<String> getSoftwareList(String sessionKey, String ksLabel) {
+    public List<String> getSoftwareList(User loggedInUser, String ksLabel) {
 
-        User user = getLoggedInUser(sessionKey);
-        checkKickstartPerms(user);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        checkKickstartPerms(loggedInUser);
+        KickstartData ksdata = lookupKsData(ksLabel, loggedInUser.getOrg());
         List<String> list = new ArrayList<String>();
         for (KickstartPackage p : ksdata.getKsPackages()) {
             list.add(p.getPackageName().getName());
@@ -67,7 +66,7 @@ public class SoftwareHandler extends BaseHandler {
 
     /**
      * Set the list of software packages for a kickstart profile.
-     * @param sessionKey An active session key
+     * @param loggedInUser The current user
      * @param ksLabel A kickstart profile label
      * @param packageList  A list of package names.
      * @return 1 on success.
@@ -81,13 +80,12 @@ public class SoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int setSoftwareList(
-            String sessionKey,
+            User loggedInUser,
             String ksLabel,
             List<String> packageList) {
 
-        User user = getLoggedInUser(sessionKey);
-        checkKickstartPerms(user);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        checkKickstartPerms(loggedInUser);
+        KickstartData ksdata = lookupKsData(ksLabel, loggedInUser.getOrg());
         Set<KickstartPackage> packages = ksdata.getKsPackages();
         packages.clear();
         KickstartFactory.saveKickstartData(ksdata);
@@ -103,7 +101,7 @@ public class SoftwareHandler extends BaseHandler {
 
     /**
      * Set the list of software packages for a kickstart profile.
-     * @param sessionKey An active session key
+     * @param loggedInUser The current user
      * @param ksLabel A kickstart profile label
      * @param packageList  A list of package names.
      * @param ignoremissing The boolean value setting --ignoremissing in %packages line
@@ -124,43 +122,41 @@ public class SoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int setSoftwareList(
-            String sessionKey,
+            User loggedInUser,
             String ksLabel,
             List<String> packageList,
             Boolean ignoremissing,
             Boolean nobase) {
 
-        User user = getLoggedInUser(sessionKey);
-        checkKickstartPerms(user);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        checkKickstartPerms(loggedInUser);
+        KickstartData ksdata = lookupKsData(ksLabel, loggedInUser.getOrg());
         ksdata.setNoBase(nobase);
         ksdata.setIgnoreMissing(ignoremissing);
         KickstartFactory.saveKickstartData(ksdata);
-        return setSoftwareList(sessionKey, ksLabel, packageList);
+        return setSoftwareList(loggedInUser, ksLabel, packageList);
     }
 
     /**
      * Append the list of software packages to a kickstart profile.
-     * @param sessionKey An active session key
+     * @param loggedInUser The current user
      * @param ksLabel A kickstart profile label
      * @param packageList  A list of package names.
      * @return 1 on success.
      * @throws FaultException
      * @xmlrpc.doc Append the list of software packages to a kickstart profile.
      * Duplicate packages will be ignored.
-     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #So_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
      * profile.")
      * @xmlrpc.param #param_desc("string[]", "packageList", "A list of package
      * names to be added to the profile.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int appendToSoftwareList(String sessionKey, String ksLabel,
+    public int appendToSoftwareList(User loggedInUser, String ksLabel,
             List<String> packageList) {
 
-        User user = getLoggedInUser(sessionKey);
-        checkKickstartPerms(user);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        checkKickstartPerms(loggedInUser);
+        KickstartData ksdata = lookupKsData(ksLabel, loggedInUser.getOrg());
         Set<KickstartPackage> packages = ksdata.getKsPackages();
         Long pos = new Long(packages.size()); // position package in list
         for (String p : packageList) {
