@@ -42,7 +42,7 @@ public class SlaveHandler extends BaseHandler {
 
     /**
      * Create a new Slave, known to this Master.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param inSlave Slave's fully-qualified domain name
      * @param inEnabled Is this Slave allowed to talk to us?
      * @param inAllowAllOrgs Should we export all orgs to this Slave?
@@ -57,12 +57,11 @@ public class SlaveHandler extends BaseHandler {
      *    "allowAllOrgs", "Export all our orgs to this slave?")
      * @xmlrpc.returntype $IssSlaveSerializer
      */
-    public IssSlave create(String sessionKey,
+    public IssSlave create(User loggedInUser,
                            String inSlave,
                            Boolean inEnabled,
                            Boolean inAllowAllOrgs) {
-        User u = getLoggedInUser(sessionKey);
-        ensureSatAdmin(u);
+        ensureSatAdmin(loggedInUser);
         if (IssFactory.lookupSlaveByName(inSlave) != null) {
             throw new IssDuplicateSlaveException(inSlave);
         }
@@ -78,7 +77,7 @@ public class SlaveHandler extends BaseHandler {
 
     /**
      * Updates attributes of the specified Slave
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param inSlaveId id of Slave to update
      * @param inSlave Slave's fully-qualified domain name
      * @param inEnabled Is this Slave allowed to talk to us?
@@ -95,12 +94,12 @@ public class SlaveHandler extends BaseHandler {
      *    "allowAllOrgs", "Export all our orgs to this Slave?")
      * @xmlrpc.returntype $IssSlaveSerializer
      */
-    public IssSlave update(String sessionKey,
+    public IssSlave update(User loggedInUser,
                            Integer inSlaveId,
                            String inSlave,
                            Boolean inEnabled,
                            Boolean inAllowAllOrgs) {
-        IssSlave slave = getSlave(sessionKey, inSlaveId);
+        IssSlave slave = getSlave(loggedInUser, inSlaveId);
         slave.setSlave(inSlave);
         slave.setEnabled(inEnabled ? "Y" : "N");
         slave.setAllowAllOrgs(inAllowAllOrgs ? "Y" : "N");
@@ -112,7 +111,7 @@ public class SlaveHandler extends BaseHandler {
     /**
      * Removes a specified Slave
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param inSlaveId Id of the Slave to remove
      * @return 1 on success, exception otherwise
      *
@@ -121,15 +120,15 @@ public class SlaveHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "id", "Id of the Slave to remove")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int delete(String sessionKey, Integer inSlaveId) {
-        IssSlave slave = getSlave(sessionKey, inSlaveId);
+    public int delete(User loggedInUser, Integer inSlaveId) {
+        IssSlave slave = getSlave(loggedInUser, inSlaveId);
         IssFactory.delete(slave);
         return 1;
     }
 
     /**
      * Find a Slave by specifying its ID
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param slaveId Id of the Slave to look for
      * @return the specified Slave if found, exception otherwise
      *
@@ -138,9 +137,8 @@ public class SlaveHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "id", "Id of the desired Slave")
      * @xmlrpc.returntype $IssSlaveSerializer
      */
-    public IssSlave getSlave(String sessionKey, Integer slaveId) {
-        User u = getLoggedInUser(sessionKey);
-        ensureSatAdmin(u);
+    public IssSlave getSlave(User loggedInUser, Integer slaveId) {
+        ensureSatAdmin(loggedInUser);
         IssSlave slave = IssFactory.lookupSlaveById(slaveId.longValue());
         validateExists(slave, slaveId.toString());
         return slave;
@@ -148,7 +146,7 @@ public class SlaveHandler extends BaseHandler {
 
     /**
      * Find a Slave by specifying its Fully-Qualified Domain Name
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param slaveFqdn Domain name of the Slave to look for
      * @return the specified Slave if found, exception otherwise
      *
@@ -157,9 +155,8 @@ public class SlaveHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "fqdn", "Domain-name of the desired Slave")
      * @xmlrpc.returntype $IssSlaveSerializer
      */
-    public IssSlave getSlaveByName(String sessionKey, String slaveFqdn) {
-        User u = getLoggedInUser(sessionKey);
-        ensureSatAdmin(u);
+    public IssSlave getSlaveByName(User loggedInUser, String slaveFqdn) {
+        ensureSatAdmin(loggedInUser);
         IssSlave slave = IssFactory.lookupSlaveByName(slaveFqdn);
         validateExists(slave, slaveFqdn);
         return slave;
@@ -167,7 +164,7 @@ public class SlaveHandler extends BaseHandler {
 
     /**
      * Get all the Slaves this Master knows about
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @return list of all the IssSlaves we know about
      *
      * @xmlrpc.doc Get all the Slaves this Master knows about
@@ -177,15 +174,14 @@ public class SlaveHandler extends BaseHandler {
      *          $IssSlaveSerializer
      *      #array_end()
      */
-    public List<IssSlave> getSlaves(String sessionKey) {
-        User u = getLoggedInUser(sessionKey);
-        ensureSatAdmin(u);
+    public List<IssSlave> getSlaves(User loggedInUser) {
+        ensureSatAdmin(loggedInUser);
         return IssFactory.listAllIssSlaves();
     }
 
     /**
      * Get all the orgs that this Master is willing to export to the specified Slave
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param slaveId Id of the Slave to look for
      * @return list of all the IssSlaves we know about
      *
@@ -194,8 +190,8 @@ public class SlaveHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "id", "Id of the desired Slave")
      * @xmlrpc.returntype #array_single("int", "ids of allowed organizations")
      */
-    public List<Integer> getAllowedOrgs(String sessionKey, Integer slaveId) {
-        IssSlave slave = getSlave(sessionKey, slaveId);
+    public List<Integer> getAllowedOrgs(User loggedInUser, Integer slaveId) {
+        IssSlave slave = getSlave(loggedInUser, slaveId);
         List<Integer> allowedOrgIds = new ArrayList<Integer>();
         for (Org o : slave.getAllowedOrgs()) {
             allowedOrgIds.add(o.getId().intValue());
@@ -205,7 +201,7 @@ public class SlaveHandler extends BaseHandler {
 
     /**
      * Set the orgs that this Master is willing to export to the specified Slave
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param slaveId Id of the Slave to look for
      * @param orgIds List of org-ids we're willing to export
      * @return 1 for success, exception otherwise
@@ -216,8 +212,8 @@ public class SlaveHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "List of org-ids we're willing to export")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setAllowedOrgs(String sessionKey, Integer slaveId, List<Integer> orgIds) {
-        IssSlave slave = getSlave(sessionKey, slaveId);
+    public int setAllowedOrgs(User loggedInUser, Integer slaveId, List<Integer> orgIds) {
+        IssSlave slave = getSlave(loggedInUser, slaveId);
         Set<Org> orgs = getOrgsFromIds(orgIds);
         slave.setAllowedOrgs(orgs);
         return 1;
