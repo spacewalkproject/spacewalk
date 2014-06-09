@@ -61,7 +61,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      * Creates a new global config channel based on the values provided..
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param label label of the config channel
      * @param name name of the config channel
      * @param description description of the config channel
@@ -76,10 +76,9 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.returntype
      * $ConfigChannelSerializer
      */
-    public ConfigChannel create(String sessionKey, String label,
+    public ConfigChannel create(User loggedInUser, String label,
                                             String name,
                                             String description) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         ensureConfigAdmin(loggedInUser);
 
         ConfigChannelCreationHelper helper = new ConfigChannelCreationHelper();
@@ -100,7 +99,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      *  Delete specified revisions of a given configuration file
-     *  @param sessionKey User's session key.
+     *  @param loggedInUser The current user
      *  @param configChannelLabel Config channel label.
      *  @param filePath The configuration file path.
      *  @param revisions List of configuration file revisions to delete.
@@ -115,10 +114,8 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "List of revisions to delete")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteFileRevisions(String sessionKey, String configChannelLabel,
+    public int deleteFileRevisions(User loggedInUser, String configChannelLabel,
                                    String filePath, List<Integer> revisions) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         ConfigChannel cc = configHelper.lookupGlobal(loggedInUser, configChannelLabel);
         ConfigurationManager cm = ConfigurationManager.getInstance();
@@ -135,7 +132,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      * Get list of revisions for specified config file
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param configChannelLabel Config channel label.
      * @param filePath The configuration file path.
      * @return List of revisions of the configuration file, errors out otherwise.
@@ -151,9 +148,8 @@ public class ConfigChannelHandler extends BaseHandler {
      * $ConfigRevisionSerializer
      * #array_end()
      */
-    public List getFileRevisions(String sessionKey, String configChannelLabel,
+    public List getFileRevisions(User loggedInUser, String configChannelLabel,
                                  String filePath) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         ConfigChannel cc = configHelper.lookupGlobal(loggedInUser, configChannelLabel);
         ConfigurationManager cm = ConfigurationManager.getInstance();
@@ -172,7 +168,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      * Get revision for specified config file
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param configChannelLabel Config channel label.
      * @param filePath The configuration file path.
      * @param revision The configuration file revision.
@@ -187,9 +183,8 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.returntype
      * $ConfigRevisionSerializer
      */
-    public ConfigRevision getFileRevision(String sessionKey, String configChannelLabel,
+    public ConfigRevision getFileRevision(User loggedInUser, String configChannelLabel,
                                String filePath, Integer revision) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         ConfigChannel cc = configHelper.lookupGlobal(loggedInUser, configChannelLabel);
         ConfigurationManager cm = ConfigurationManager.getInstance();
@@ -208,7 +203,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      * Get base64 encoded revision for specified config file
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param configChannelLabel Config channel label.
      * @param filePath The configuration file path.
      * @param revision The configuration file revision.
@@ -224,15 +219,15 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.returntype
      * $ConfigRevisionSerializer
      */
-    public EncodedConfigRevision getEncodedFileRevision(String sessionKey,
+    public EncodedConfigRevision getEncodedFileRevision(User loggedInUser,
             String configChannelLabel, String filePath, Integer revision) {
-         return new EncodedConfigRevision(getFileRevision(sessionKey, configChannelLabel,
+         return new EncodedConfigRevision(getFileRevision(loggedInUser, configChannelLabel,
                  filePath, revision));
     }
 
     /**
      * Return a struct of config channel details.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param configChannelLabel Config channel label.
      * @return the Config channel details
      *
@@ -242,8 +237,7 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.returntype
      *   $ConfigChannelSerializer
      */
-    public ConfigChannel getDetails(String sessionKey, String configChannelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public ConfigChannel getDetails(User loggedInUser, String configChannelLabel) {
         ConfigurationManager manager = ConfigurationManager.getInstance();
         return manager.lookupConfigChannel(loggedInUser, configChannelLabel,
                 ConfigChannelType.global());
@@ -251,7 +245,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      * Return a struct of config channel details.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param configChannelId Config channel ID.
      * @return the Config channel details
      *
@@ -261,8 +255,7 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.returntype
      *    $ConfigChannelSerializer
      */
-    public ConfigChannel getDetails(String sessionKey, Integer configChannelId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public ConfigChannel getDetails(User loggedInUser, Integer configChannelId) {
         ConfigurationManager manager = ConfigurationManager.getInstance();
 
         Long id = configChannelId.longValue();
@@ -271,7 +264,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      *Updates a global config channel based on the values provided..
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param label label of the config channel
      * @param name name of the config channel
      * @param description description of the config channel
@@ -287,11 +280,9 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.returntype
      * $ConfigChannelSerializer
      */
-    public ConfigChannel update(String sessionKey, String label,
+    public ConfigChannel update(User loggedInUser, String label,
                                             String name ,
                                             String description) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-
         ConfigurationManager manager = ConfigurationManager.getInstance();
         ConfigChannel cc = manager.lookupConfigChannel(loggedInUser, label,
                                         ConfigChannelType.global());
@@ -314,7 +305,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      * Lists details on a list channels given their channel labels.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param labels the list of channel labels to lookup on
      * @return a list of config channels.
      *
@@ -327,16 +318,15 @@ public class ConfigChannelHandler extends BaseHandler {
      *  $ConfigChannelSerializer
      * #array_end()
      */
-    public List<ConfigChannel> lookupChannelInfo(String sessionKey,
+    public List<ConfigChannel> lookupChannelInfo(User loggedInUser,
                                                     List<String> labels) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper helper = XmlRpcConfigChannelHelper.getInstance();
         return helper.lookupGlobals(loggedInUser, labels);
     }
 
     /**
      * List all the global channels accessible to the logged-in user
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @return a list of accessible global config channels
      *
      * @xmlrpc.doc List all the global config channels accessible to the logged-in user.
@@ -346,8 +336,7 @@ public class ConfigChannelHandler extends BaseHandler {
      *  $ConfigChannelDtoSerializer
      * #array_end()
      */
-    public List<ConfigChannelDto> listGlobals(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<ConfigChannelDto> listGlobals(User loggedInUser) {
         ConfigurationManager manager = ConfigurationManager.getInstance();
         DataResult<ConfigChannelDto> list = manager.
                                     listGlobalChannels(loggedInUser, null);
@@ -358,7 +347,7 @@ public class ConfigChannelHandler extends BaseHandler {
     /**
      * Creates a NEW path(file/directory) with the given path or updates an existing path
      * with the given contents in a given channel.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param channelLabel the label of the config channel.
      * @param path the path of the given text file.
      * @param isDir true if this is a directory path, false if its to be a file path
@@ -403,7 +392,7 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.returntype
      * $ConfigRevisionSerializer
      */
-    public ConfigRevision createOrUpdatePath(String sessionKey,
+    public ConfigRevision createOrUpdatePath(User loggedInUser,
                                                 String channelLabel,
                                                 String path,
                                                 boolean isDir,
@@ -429,10 +418,9 @@ public class ConfigChannelHandler extends BaseHandler {
             data.put(ConfigRevisionSerializer.SELINUX_CTX, "");
         }
 
-        User user = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper helper = XmlRpcConfigChannelHelper.getInstance();
-        ConfigChannel channel = helper.lookupGlobal(user, channelLabel);
-        return helper.createOrUpdatePath(user, channel, path,
+        ConfigChannel channel = helper.lookupGlobal(loggedInUser, channelLabel);
+        return helper.createOrUpdatePath(loggedInUser, channel, path,
                             isDir ? ConfigFileType.dir() : ConfigFileType.file(), data);
     }
 
@@ -440,7 +428,7 @@ public class ConfigChannelHandler extends BaseHandler {
     /**
      * Creates a NEW symbolic link with the given path or updates an existing path
      * with the given target_path in a given channel.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param channelLabel the label of the config channel.
      * @param path the path of the given text file.
      * @param data a map containing properties pertaining to the given path..
@@ -465,7 +453,7 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.returntype
      * $ConfigRevisionSerializer
      */
-    public ConfigRevision createOrUpdateSymlink(String sessionKey,
+    public ConfigRevision createOrUpdateSymlink(User loggedInUser,
                                                 String channelLabel,
                                                 String path,
                                                 Map<String, Object> data) {
@@ -480,10 +468,9 @@ public class ConfigChannelHandler extends BaseHandler {
             data.put(ConfigRevisionSerializer.SELINUX_CTX, "");
         }
 
-        User user = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper helper = XmlRpcConfigChannelHelper.getInstance();
-        ConfigChannel channel = helper.lookupGlobal(user, channelLabel);
-        return helper.createOrUpdatePath(user, channel, path,
+        ConfigChannel channel = helper.lookupGlobal(loggedInUser, channelLabel);
+        return helper.createOrUpdatePath(loggedInUser, channel, path,
                                     ConfigFileType.symlink(), data);
     }
 
@@ -491,7 +478,7 @@ public class ConfigChannelHandler extends BaseHandler {
     /**
      * Given a list of paths and a channel the method returns details about the latest
      * revisions of the paths.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param channelLabel the channel label
      * @param paths a list of paths to examine.
      * @return a list containing the latest config revisions of the requested paths.
@@ -509,11 +496,10 @@ public class ConfigChannelHandler extends BaseHandler {
      * $ConfigRevisionSerializer
      * #array_end()
      */
-    public List<ConfigRevision> lookupFileInfo(String sessionKey,
+    public List<ConfigRevision> lookupFileInfo(User loggedInUser,
                                                 String channelLabel,
                                                 List<String> paths
                                                 ) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         ConfigChannel channel = configHelper.lookupGlobal(loggedInUser,
                                                                 channelLabel);
@@ -532,7 +518,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      * Given a path and revision number, return the revision
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param channelLabel the channel label
      * @param path path to examine.
      * @param revision the revision to fetch
@@ -552,12 +538,11 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.returntype
      * $ConfigRevisionSerializer
      */
-    public ConfigRevision lookupFileInfo(String sessionKey,
+    public ConfigRevision lookupFileInfo(User loggedInUser,
                                                 String channelLabel,
                                                 String path,
                                                 Integer revision
                                                 ) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         ConfigChannel channel = configHelper.lookupGlobal(loggedInUser,
                                                                 channelLabel);
@@ -578,7 +563,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      * List files in a given channel
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param channelLabel the label of the config channel
      * @return a list of dto's holding this info.
      *
@@ -591,8 +576,7 @@ public class ConfigChannelHandler extends BaseHandler {
      * $ConfigFileDtoSerializer
      * #array_end()
      */
-    public List<ConfigFileDto> listFiles(String sessionKey, String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<ConfigFileDto> listFiles(User loggedInUser, String channelLabel) {
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         ConfigChannel channel = configHelper.lookupGlobal(loggedInUser,
                                                                 channelLabel);
@@ -605,7 +589,7 @@ public class ConfigChannelHandler extends BaseHandler {
     /**
      * Deletes a list of  global channels..
      * Need to be a config admin to do this operation.
-     * @param sessionKey the session
+     * @param loggedInUser The current user
      *  key
      * @param channelLabels the the list of global channels.
      * @return 1 if successful with the operation errors out otherwise.
@@ -618,8 +602,7 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      *
      */
-    public int deleteChannels(String sessionKey, List<String> channelLabels) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int deleteChannels(User loggedInUser, List<String> channelLabels) {
         ensureConfigAdmin(loggedInUser);
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         List <ConfigChannel> channels = configHelper.lookupGlobals(loggedInUser,
@@ -633,7 +616,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      * Removes a list of paths from a global channel..
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param channelLabel the channel to remove the files from..
      * @param paths the list of paths to delete.
      * @return 1 if successful with the operation errors out otherwise.
@@ -647,8 +630,7 @@ public class ConfigChannelHandler extends BaseHandler {
      * #array_single("string","file paths to remove.")
      * @xmlrpc.returntype #return_int_success()
      */
-     public int deleteFiles(String sessionKey, String channelLabel, List <String> paths) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+     public int deleteFiles(User loggedInUser, String channelLabel, List <String> paths) {
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         ConfigChannel channel = configHelper.lookupGlobal(loggedInUser,
                                                                 channelLabel);
@@ -671,7 +653,7 @@ public class ConfigChannelHandler extends BaseHandler {
      /**
       * Schedule a comparison of the latest revision of a file
       * against the version deployed on a list of systems.
-      * @param sessionKey the session key
+      * @param loggedInUser The current user
       * @param channelLabel label of the config channel
       * @param path the path of file to be compared
       * @param serverIds the list of server ids that the comparison will be
@@ -689,10 +671,8 @@ public class ConfigChannelHandler extends BaseHandler {
       * comparison will be performed on")
       * @xmlrpc.returntype int actionId - The action id of the scheduled action
       */
-     public Integer scheduleFileComparisons(String sessionKey, String channelLabel,
+     public Integer scheduleFileComparisons(User loggedInUser, String channelLabel,
              String path, List<Integer> serverIds) {
-
-         User loggedInUser = getLoggedInUser(sessionKey);
 
          XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
          ConfigChannel channel = configHelper.lookupGlobal(loggedInUser, channelLabel);
@@ -721,7 +701,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      * Check for the existence of the config channel provided.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param channelLabel the channel to check for.
      * @return 1 if exists, 0 otherwise.
      *
@@ -731,8 +711,7 @@ public class ConfigChannelHandler extends BaseHandler {
      *                       "Channel to check for.")
      * @xmlrpc.returntype 1 if exists, 0 otherwise.
      */
-    public int channelExists(String sessionKey, String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int channelExists(User loggedInUser, String channelLabel) {
         ConfigurationManager manager = ConfigurationManager.getInstance();
         DataResult<ConfigChannelDto> list = manager.
                                     listGlobalChannels(loggedInUser, null);
@@ -748,7 +727,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      * Schedule a configuration deployment for all systems in a config channel immediately
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param channelLabel the channel to remove the files from..
      * @return 1 if successful with the operation errors out otherwise.
      *
@@ -760,14 +739,14 @@ public class ConfigChannelHandler extends BaseHandler {
      *                       "The configuration channel's label.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deployAllSystems(String sessionKey, String channelLabel) {
-        return deployAllSystems(sessionKey, channelLabel, new Date());
+    public int deployAllSystems(User loggedInUser, String channelLabel) {
+        return deployAllSystems(loggedInUser, channelLabel, new Date());
     }
 
 
     /**
      * Schedule a configuration deployment for all systems in a config channel
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param channelLabel the channel to remove the files from..
      * @param date the date to schedule
      * @return 1 if successful with the operation errors out otherwise.
@@ -782,8 +761,7 @@ public class ConfigChannelHandler extends BaseHandler {
      *                       "The date to schedule the action")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deployAllSystems(String sessionKey, String channelLabel, Date date) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int deployAllSystems(User loggedInUser, String channelLabel, Date date) {
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         ConfigurationManager manager = ConfigurationManager.getInstance();
 
@@ -812,7 +790,7 @@ public class ConfigChannelHandler extends BaseHandler {
 
     /**
      * List the systems subscribed to a configuration channel
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param channelLabel the label of the config channel
      * @return a list of dto's holding this info.
      *
@@ -825,9 +803,8 @@ public class ConfigChannelHandler extends BaseHandler {
      * $ConfigSystemDtoSerializer
      * #array_end()
      */
-    public List<ConfigSystemDto> listSubscribedSystems(String sessionKey,
+    public List<ConfigSystemDto> listSubscribedSystems(User loggedInUser,
             String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         ConfigChannel channel = configHelper.lookupGlobal(loggedInUser,
                                                           channelLabel);

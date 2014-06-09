@@ -68,21 +68,21 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
 
     public void testCreate() {
         try {
-            handler.create(regularKey, LABEL, NAME, DESCRIPTION);
+            handler.create(regular, LABEL, NAME, DESCRIPTION);
             String msg = "Needs to be a config admin.. perm error not detected.";
             fail(msg);
         }
         catch (Exception e) {
             //Cool perm error!
         }
-        ConfigChannel cc = handler.create(adminKey, LABEL, NAME, DESCRIPTION);
+        ConfigChannel cc = handler.create(admin, LABEL, NAME, DESCRIPTION);
         assertEquals(LABEL, cc.getLabel());
         assertEquals(NAME, cc.getName());
         assertEquals(DESCRIPTION, cc.getDescription());
         assertEquals(admin.getOrg(), cc.getOrg());
 
         try {
-            cc = handler.create(adminKey, LABEL + "/", NAME, DESCRIPTION);
+            cc = handler.create(admin, LABEL + "/", NAME, DESCRIPTION);
             String msg = "Invalid character / not detected:(";
             fail(msg);
         }
@@ -94,11 +94,11 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
 
 
     public void testUpdate() {
-        ConfigChannel cc = handler.create(adminKey, LABEL, NAME, DESCRIPTION);
+        ConfigChannel cc = handler.create(admin, LABEL, NAME, DESCRIPTION);
         String newName = NAME + TestUtils.randomString();
         String desc = DESCRIPTION + TestUtils.randomString();
         try {
-            handler.update(regularKey, LABEL, newName, desc);
+            handler.update(regular, LABEL, newName, desc);
             String msg = "Needs to be a config admin/have access.. " +
                             "perm error not detected.";
             fail(msg);
@@ -106,7 +106,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         catch (Exception e) {
             //Cool perm error!
         }
-        cc = handler.update(adminKey, LABEL, newName, desc);
+        cc = handler.update(admin, LABEL, newName, desc);
         assertEquals(LABEL, cc.getLabel());
         assertEquals(newName, cc.getName());
         assertEquals(desc, cc.getDescription());
@@ -114,7 +114,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         try {
             String name = RandomStringUtils.randomAlphanumeric(
                     ConfigChannelCreationHelper.MAX_NAME_LENGTH + 1);
-            cc = handler.update(adminKey, LABEL, name, DESCRIPTION);
+            cc = handler.update(admin, LABEL, name, DESCRIPTION);
             String msg = "Max length reached for name- not detected :(";
             fail(msg);
         }
@@ -127,7 +127,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
     public void testListGlobal() throws Exception {
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(admin.getOrg());
         ConfigTestUtils.giveUserChanAccess(regular, cc);
-        List<ConfigChannelDto> list = handler.listGlobals(regularKey);
+        List<ConfigChannelDto> list = handler.listGlobals(regular);
         assertTrue(contains(cc, list));
     }
 
@@ -142,7 +142,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
             channelLabels.add(cc.getLabel());
         }
 
-        List<ConfigChannel> list = handler.lookupChannelInfo(regularKey,
+        List<ConfigChannel> list = handler.lookupChannelInfo(regular,
                                                                     channelLabels);
         assertEquals(channels, list);
     }
@@ -152,7 +152,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
 
         ConfigTestUtils.giveUserChanAccess(regular, cc);
 
-        ConfigChannel channel = handler.getDetails(regularKey, cc.getLabel());
+        ConfigChannel channel = handler.getDetails(regular, cc.getLabel());
 
         assertEquals(channel, cc);
     }
@@ -162,20 +162,20 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
 
         ConfigTestUtils.giveUserChanAccess(regular, cc);
 
-        ConfigChannel channel = handler.getDetails(regularKey, cc.getId().intValue());
+        ConfigChannel channel = handler.getDetails(regular, cc.getId().intValue());
 
         assertEquals(channel, cc);
     }
 
     public void testDelete() {
-        ConfigChannel cc = handler.create(adminKey, LABEL, NAME, DESCRIPTION);
+        ConfigChannel cc = handler.create(admin, LABEL, NAME, DESCRIPTION);
         List<String> labels = new LinkedList<String>();
         labels.add(cc.getLabel());
-        List <ConfigChannel> channels = handler.lookupChannelInfo(adminKey, labels);
+        List <ConfigChannel> channels = handler.lookupChannelInfo(admin, labels);
         assertEquals(1, channels.size());
-        handler.deleteChannels(adminKey, labels);
+        handler.deleteChannels(admin, labels);
         try {
-            handler.lookupChannelInfo(adminKey, labels);
+            handler.lookupChannelInfo(admin, labels);
             fail("Lookup exception not raised!");
         }
         catch (LookupException e) {
@@ -217,7 +217,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         }
 
         ConfigRevision rev = handler.createOrUpdatePath(
-                            adminKey, cc.getLabel(), path, isDir, data);
+                            admin, cc.getLabel(), path, isDir, data);
 
         assertEquals(path, rev.getConfigFile().getConfigFileName().getPath());
         assertEquals(group, rev.getConfigInfo().getGroupname());
@@ -246,7 +246,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         Map <String, Object> data = new HashMap<String, Object>();
         data.put(ConfigRevisionSerializer.TARGET_PATH, targetPath);
         data.put(ConfigRevisionSerializer.SELINUX_CTX, selinuxCtx);
-        ConfigRevision rev = handler.createOrUpdateSymlink(adminKey,
+        ConfigRevision rev = handler.createOrUpdateSymlink(admin,
                                                 cc.getLabel(), path, data);
         assertEquals(path, rev.getConfigFile().getConfigFileName().getPath());
         assertEquals(ConfigFileType.symlink(), rev.getConfigFileType());
@@ -262,7 +262,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
     private void assertRev(ConfigRevision rev, String path, ConfigChannel cc) {
         List<String> paths = new ArrayList<String>(1);
         paths.add(path);
-        assertTrue(rev.matches(handler.lookupFileInfo(adminKey, cc.getLabel(), paths)
+        assertTrue(rev.matches(handler.lookupFileInfo(admin, cc.getLabel(), paths)
                     .get(0)));
 
     }
@@ -272,7 +272,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testAddPath() throws Exception {
-        ConfigChannel cc = handler.create(adminKey, LABEL, NAME, DESCRIPTION);
+        ConfigChannel cc = handler.create(admin, LABEL, NAME, DESCRIPTION);
 
         String path = "/tmp/foo/path" + TestUtils.randomString();
         String contents = "HAHAHAHA";
@@ -318,14 +318,14 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testListFiles() {
-        ConfigChannel cc = handler.create(adminKey, LABEL, NAME, DESCRIPTION);
+        ConfigChannel cc = handler.create(admin, LABEL, NAME, DESCRIPTION);
 
         List<String> paths = new LinkedList<String>();
         Map<String, ConfigRevision> revisions = new HashMap<String, ConfigRevision>();
 
         setupPathsAndRevisions(cc, paths, revisions);
 
-        List<ConfigFileDto> files = handler.listFiles(adminKey, LABEL);
+        List<ConfigFileDto> files = handler.listFiles(admin, LABEL);
         for (ConfigFileDto dto : files) {
             assertTrue(revisions.containsKey(dto.getPath()));
             ConfigRevision rev = revisions.get(dto.getPath());
@@ -358,21 +358,21 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testRemovePaths() throws Exception {
-        ConfigChannel cc = handler.create(adminKey, LABEL, NAME, DESCRIPTION);
+        ConfigChannel cc = handler.create(admin, LABEL, NAME, DESCRIPTION);
         List<String> paths = new LinkedList<String>();
         Map<String, ConfigRevision> revisions = new HashMap<String, ConfigRevision>();
 
         setupPathsAndRevisions(cc, paths, revisions);
         paths.remove(paths.size() - 1);
-        handler.deleteFiles(adminKey, LABEL, paths);
-        List<ConfigFileDto> files = handler.listFiles(adminKey, LABEL);
+        handler.deleteFiles(admin, LABEL, paths);
+        List<ConfigFileDto> files = handler.listFiles(admin, LABEL);
         assertEquals(1, files.size());
     }
 
     public void testScheduleFileComparisons() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
 
-        ConfigChannel cc = handler.create(adminKey, LABEL, NAME, DESCRIPTION);
+        ConfigChannel cc = handler.create(admin, LABEL, NAME, DESCRIPTION);
 
         // create a config file
         String path = "/tmp/foo/path" + TestUtils.randomString();
@@ -390,7 +390,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(server.getId().intValue());
 
-        Integer actionId = handler.scheduleFileComparisons(adminKey, LABEL, path,
+        Integer actionId = handler.scheduleFileComparisons(admin, LABEL, path,
                 serverIds);
 
         // was the action scheduled?
@@ -404,10 +404,10 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testChannelExists() {
-        handler.create(adminKey, LABEL, NAME, DESCRIPTION);
+        handler.create(admin, LABEL, NAME, DESCRIPTION);
 
-        int validChannel = handler.channelExists(adminKey, LABEL);
-        int invalidChannel = handler.channelExists(adminKey, "dummy");
+        int validChannel = handler.channelExists(admin, LABEL);
+        int invalidChannel = handler.channelExists(admin, "dummy");
 
         assertEquals(validChannel, 1);
         assertEquals(invalidChannel, 0);
@@ -467,7 +467,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         try {
             // validate that system must have config deployment capability
             // in order to deploy config files... (e.g. rhncfg* pkgs installed)
-            handler.deployAllSystems(regularKey, gcc1.getLabel(), date);
+            handler.deployAllSystems(regular, gcc1.getLabel(), date);
 
             fail("Shouldn't be permitted to deploy without config deploy capability.");
         }
@@ -478,7 +478,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         SystemManagerTest.giveCapability(srv1.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
 
-        handler.deployAllSystems(regularKey, gcc1.getLabel(), date);
+        handler.deployAllSystems(regular, gcc1.getLabel(), date);
 
         DataResult<ScheduledAction> actions = ActionManager.
                                     recentlyScheduledActions(regular, null, 1);
