@@ -17,7 +17,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.35
+Version: 5.11.36
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -388,6 +388,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Jun 09 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.11.36-1
+- don't add user site dir to sys.path
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.11.35-1
 - spec file polish
 
