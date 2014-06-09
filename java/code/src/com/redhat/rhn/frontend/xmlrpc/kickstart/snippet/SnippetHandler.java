@@ -42,7 +42,7 @@ public class SnippetHandler extends BaseHandler {
 
     /**
      * list all cobbler snippets for a user.  Includes default and custom snippets
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @return List of cobbler snippet objects
      *
      * @xmlrpc.doc List all cobbler snippets for the logged in user
@@ -52,15 +52,14 @@ public class SnippetHandler extends BaseHandler {
      *            $SnippetSerializer
      *          #array_end()
      */
-    public List<CobblerSnippet> listAll(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<CobblerSnippet> listAll(User loggedInUser) {
         verifyKSAdmin(loggedInUser);
         return CobblerSnippetLister.getInstance().list(loggedInUser);
     }
 
     /**
      * list custom cobbler snippets for a user.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @return List of cobbler snippet objects
      *
      * @xmlrpc.doc List only custom snippets for the logged in user.
@@ -71,15 +70,14 @@ public class SnippetHandler extends BaseHandler {
      *            $SnippetSerializer
      *          #array_end()
      */
-    public List<CobblerSnippet> listCustom(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<CobblerSnippet> listCustom(User loggedInUser) {
         verifyKSAdmin(loggedInUser);
         return CobblerSnippetLister.getInstance().listCustom(loggedInUser);
     }
 
     /**
      * list all pre-made default cobbler snippets for a user.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @return List of cobbler snippet objects
      *
      * @xmlrpc.doc List only pre-made default snippets for the logged in user.
@@ -90,8 +88,7 @@ public class SnippetHandler extends BaseHandler {
      *            $SnippetSerializer
      *          #array_end()
      */
-    public List<CobblerSnippet> listDefault(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<CobblerSnippet> listDefault(User loggedInUser) {
         verifyKSAdmin(loggedInUser);
         return CobblerSnippetLister.getInstance().listDefault(loggedInUser);
     }
@@ -99,7 +96,7 @@ public class SnippetHandler extends BaseHandler {
 
     /**
      * Create or update a snippet.  If the snippet doesn't exist it will be created.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param name name of the snippet
      * @param contents the contents of the snippet
      * @return  the snippet
@@ -112,8 +109,7 @@ public class SnippetHandler extends BaseHandler {
      * @xmlrpc.returntype
      *            $SnippetSerializer
      */
-    public CobblerSnippet createOrUpdate(String sessionKey, String name, String contents) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public CobblerSnippet createOrUpdate(User loggedInUser, String name, String contents) {
         verifyKSAdmin(loggedInUser);
         CobblerSnippet snip = CobblerSnippet.loadEditableIfExists(name,
                 loggedInUser.getOrg());
@@ -123,7 +119,7 @@ public class SnippetHandler extends BaseHandler {
 
     /**
      * Delete a snippet.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param name the name of the snippet
      * @return 1 for success 0 for not
      *
@@ -134,8 +130,7 @@ public class SnippetHandler extends BaseHandler {
      * @xmlrpc.returntype
      *            #return_int_success()
      */
-    public int delete(String sessionKey, String name) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int delete(User loggedInUser, String name) {
         verifyKSAdmin(loggedInUser);
         CobblerSnippet snip = CobblerSnippet.loadEditableIfExists(name,
                 loggedInUser.getOrg());

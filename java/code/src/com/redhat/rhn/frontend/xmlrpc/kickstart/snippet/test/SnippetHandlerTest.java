@@ -30,38 +30,38 @@ public class SnippetHandlerTest extends BaseHandlerTestCase {
 
     public void testListAll() {
         deleteAllSnippets();
-        List old = handler.listAll(adminKey);
+        List old = handler.listAll(admin);
         CobblerSnippet.createOrUpdate(true, "foo", "My foo snippet", admin.getOrg());
-        List newList = handler.listAll(adminKey);
+        List newList = handler.listAll(admin);
         assertTrue(old.size() + 1 == newList.size());
 
     }
 
     public void testListCustom() {
         deleteAllSnippets();
-        assertTrue(handler.listCustom(adminKey).isEmpty());
+        assertTrue(handler.listCustom(admin).isEmpty());
         CobblerSnippet.createOrUpdate(true, "foo", "My foo snippet", admin.getOrg());
-        assertFalse(handler.listCustom(adminKey).isEmpty());
+        assertFalse(handler.listCustom(admin).isEmpty());
     }
 
 
     public void testCreateOrUpdate() {
         deleteAllSnippets();
-        handler.createOrUpdate(adminKey, "foobar", "My Little foobar");
-        assertTrue(handler.listCustom(adminKey).get(0).getName().equals("foobar"));
+        handler.createOrUpdate(admin, "foobar", "My Little foobar");
+        assertTrue(handler.listCustom(admin).get(0).getName().equals("foobar"));
     }
 
     public void testDelete() {
         deleteAllSnippets();
-        handler.createOrUpdate(adminKey, "foobar", "My Little foobar");
-        assertTrue(handler.listCustom(adminKey).get(0).getName().equals("foobar"));
-        handler.delete(adminKey, "foobar");
-        assertTrue(handler.listCustom(adminKey).isEmpty());
+        handler.createOrUpdate(admin, "foobar", "My Little foobar");
+        assertTrue(handler.listCustom(admin).get(0).getName().equals("foobar"));
+        handler.delete(admin, "foobar");
+        assertTrue(handler.listCustom(admin).isEmpty());
     }
 
 
     private void deleteAllSnippets() {
-        List<CobblerSnippet> list = handler.listCustom(adminKey);
+        List<CobblerSnippet> list = handler.listCustom(admin);
         for (CobblerSnippet snip : list) {
             snip.delete();
         }
