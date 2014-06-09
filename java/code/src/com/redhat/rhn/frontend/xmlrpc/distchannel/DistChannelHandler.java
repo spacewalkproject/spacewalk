@@ -41,7 +41,7 @@ public class DistChannelHandler extends BaseHandler {
 
     /**
      * Lists the default distribution channel maps
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @return List of dist channel maps
      *
      * @xmlrpc.doc Lists the default distribution channel maps
@@ -51,14 +51,13 @@ public class DistChannelHandler extends BaseHandler {
      *      $DistChannelMapSerializer
      *   #array_end()
      */
-    public Object[] listDefaultMaps(String sessionKey) {
-        getLoggedInUser(sessionKey);
+    public Object[] listDefaultMaps(User loggedInUser) {
         return ChannelFactory.listAllDistChannelMaps().toArray();
     }
 
     /**
      * Lists distribution channel maps valid for the user's organization
-     * @param sessionKey session key
+     * @param loggedInUser The current user
      * @return List of dist channel maps
      *
      * @xmlrpc.doc Lists distribution channel maps valid for the user's organization
@@ -68,15 +67,14 @@ public class DistChannelHandler extends BaseHandler {
      *      $DistChannelMapSerializer
      *   #array_end()
      */
-    public Object[] listMapsForOrg(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listMapsForOrg(User loggedInUser) {
         return ChannelFactory.listAllDistChannelMapsByOrg(loggedInUser.getOrg()).toArray();
     }
 
     /**
      * Lists distribution channel maps valid for an organization,
      * satellite admin right needed
-     * @param sessionKey session key
+     * @param loggedInUser The current user
      * @param orgId organization id
      * @return List of dist channel maps
      *
@@ -89,8 +87,7 @@ public class DistChannelHandler extends BaseHandler {
      *      $DistChannelMapSerializer
      *   #array_end()
      */
-    public Object[] listMapsForOrg(String sessionKey, Integer orgId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listMapsForOrg(User loggedInUser, Integer orgId) {
         if (!loggedInUser.hasRole(RoleFactory.SAT_ADMIN)) {
             throw new PermissionException(RoleFactory.SAT_ADMIN);
         }
@@ -105,7 +102,7 @@ public class DistChannelHandler extends BaseHandler {
     /**
      * Sets, overrides (/removes if channelLabel empty) a distribution channel map
      * within an organization
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param os OS
      * @param release Relase
      * @param archName architecture label
@@ -121,9 +118,8 @@ public class DistChannelHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "channelLabel")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setMapForOrg(String sessionKey, String os, String release,
+    public int setMapForOrg(User loggedInUser, String os, String release,
                                             String archName, String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         if (!loggedInUser.hasRole(RoleFactory.ORG_ADMIN)) {
             throw new PermissionException(RoleFactory.ORG_ADMIN);
         }
