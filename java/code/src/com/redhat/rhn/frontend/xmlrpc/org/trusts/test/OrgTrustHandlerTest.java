@@ -211,7 +211,7 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         String email = "EddieNorton@redhat.com";
         Boolean usePam = Boolean.FALSE;
 
-        orgHandler.create(adminKey, orgName, login, password, prefix, first,
+        orgHandler.create(admin, orgName, login, password, prefix, first,
                 last, email, usePam);
 
         Org org =  OrgFactory.lookupByName(orgName);
