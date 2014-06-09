@@ -55,7 +55,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * Set the value of EXT_AUTH_KEEP_ROLES
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param keepRoles True if we should keep temporary roles between login sessions
      * @return 1 on success
      * @throws PermissionCheckFailureException if the user is not a Sat admin
@@ -68,10 +68,10 @@ public class UserExternalHandler extends BaseHandler {
      * after users log in through non-IPA method, false otherwise.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setKeepTemporaryRoles(String sessionKey, Boolean keepRoles)
+    public int setKeepTemporaryRoles(User loggedInUser, Boolean keepRoles)
             throws PermissionCheckFailureException {
         // Make sure we're logged in and a Sat Admin
-        ensureSatAdmin(getLoggedInUser(sessionKey));
+        ensureSatAdmin(loggedInUser);
 
         if (SatConfigFactory.getSatConfigBooleanValue(
                 SatConfigFactory.EXT_AUTH_KEEP_ROLES) &&
@@ -89,7 +89,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * Get the value of EXT_AUTH_KEEP_ROLES
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @return True if we should keep roles
      * after users log in through non-IPA method, false otherwise.
      * @throws PermissionCheckFailureException if the user is not a Sat admin
@@ -101,10 +101,10 @@ public class UserExternalHandler extends BaseHandler {
      * @xmlrpc.returntype boolean - True if we should keep roles
      * after users log in through non-IPA method, false otherwise.
      */
-    public boolean getKeepTemporaryRoles(String sessionKey)
+    public boolean getKeepTemporaryRoles(User loggedInUser)
             throws PermissionCheckFailureException {
         // Make sure we're logged in and a Sat Admin
-        ensureSatAdmin(getLoggedInUser(sessionKey));
+        ensureSatAdmin(loggedInUser);
 
         // get the value
         return SatConfigFactory
@@ -113,7 +113,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * Set the value of EXT_AUTH_USE_ORGUNIT
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param useOrgUnit True if we should keep pay attention to the Org Unit from IPA
      * @return 1 on success
      * @throws PermissionCheckFailureException if the user is not a Sat admin
@@ -126,10 +126,10 @@ public class UserExternalHandler extends BaseHandler {
      * orgunit to determine which organization to create the user in, false otherwise.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setUseOrgUnit(String sessionKey, Boolean useOrgUnit)
+    public int setUseOrgUnit(User loggedInUser, Boolean useOrgUnit)
             throws PermissionCheckFailureException {
         // Make sure we're logged in and a Sat Admin
-        ensureSatAdmin(getLoggedInUser(sessionKey));
+        ensureSatAdmin(loggedInUser);
 
         // store the value
         SatConfigFactory.setSatConfigBooleanValue(SatConfigFactory.EXT_AUTH_USE_ORGUNIT,
@@ -140,7 +140,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * Get the value of EXT_AUTH_USE_ORGUNIT
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @return True if we should use org unit
      * @throws PermissionCheckFailureException if the user is not a Sat admin
      *
@@ -151,9 +151,9 @@ public class UserExternalHandler extends BaseHandler {
      * @xmlrpc.returntype boolean - True if we should use the IPA
      * orgunit to determine which organization to create the user in, false otherwise.
      */
-    public boolean getUseOrgUnit(String sessionKey) throws PermissionCheckFailureException {
+    public boolean getUseOrgUnit(User loggedInUser) throws PermissionCheckFailureException {
         // Make sure we're logged in and a Sat Admin
-        ensureSatAdmin(getLoggedInUser(sessionKey));
+        ensureSatAdmin(loggedInUser);
 
         // get the value
         return SatConfigFactory
@@ -162,7 +162,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * Set the value of EXT_AUTH_DEFAULT_ORGID
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param defaultOrg the orgId that we want to use as the default org
      * @return 1 on success
      * @throws PermissionCheckFailureException if the user is not a Sat admin
@@ -174,10 +174,10 @@ public class UserExternalHandler extends BaseHandler {
      * as the default org. 0 if there should not be a default organization.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setDefaultOrg(String sessionKey, Integer defaultOrg)
+    public int setDefaultOrg(User loggedInUser, Integer defaultOrg)
             throws PermissionCheckFailureException {
         // Make sure we're logged in and a Sat Admin
-        ensureSatAdmin(getLoggedInUser(sessionKey));
+        ensureSatAdmin(loggedInUser);
 
         if (defaultOrg != 0) {
             OrgHandler.verifyOrgExists(defaultOrg);
@@ -193,7 +193,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * Get the value of EXT_AUTH_DEFAULT_ORGID
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @return orgId of the default org
      * @throws PermissionCheckFailureException if the user is not a Sat admin
      *
@@ -202,9 +202,9 @@ public class UserExternalHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype int - Id of the default organization. 0 if there is no default.
      */
-    public int getDefaultOrg(String sessionKey) throws PermissionCheckFailureException {
+    public int getDefaultOrg(User loggedInUser) throws PermissionCheckFailureException {
         // Make sure we're logged in and a Sat Admin
-        ensureSatAdmin(getLoggedInUser(sessionKey));
+        ensureSatAdmin(loggedInUser);
 
         // get the value
         String org = SatConfigFactory.getSatConfigValue(
@@ -217,7 +217,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * Create a new external user group
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param name The name of the new group
      * @param roles List of roles to set for this group
      * @return the newly created group
@@ -235,10 +235,10 @@ public class UserExternalHandler extends BaseHandler {
      * activation_key_admin, or monitoring_admin.")
      * @xmlrpc.returntype $UserExtGroupSerializer
      */
-    public UserExtGroup createExternalGroupToRoleMap(String sessionKey, String name,
+    public UserExtGroup createExternalGroupToRoleMap(User loggedInUser, String name,
             List<String> roles) {
         // Make sure we're logged in and a Sat Admin
-        ensureSatAdmin(getLoggedInUser(sessionKey));
+        ensureSatAdmin(loggedInUser);
 
         if (UserGroupFactory.lookupExtGroupByLabel(name) != null) {
             throw new ExternalGroupAlreadyExistsException(name);
@@ -264,7 +264,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * Get a external user group
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param name The name of the group
      * @return the  group
      * @throws PermissionCheckFailureException if the user is not a Sat admin
@@ -275,9 +275,9 @@ public class UserExternalHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "Name of the external group.")
      * @xmlrpc.returntype $UserExtGroupSerializer
      */
-    public UserExtGroup getExternalGroupToRoleMap(String sessionKey, String name) {
+    public UserExtGroup getExternalGroupToRoleMap(User loggedInUser, String name) {
         // Make sure we're logged in and a Sat Admin
-        ensureSatAdmin(getLoggedInUser(sessionKey));
+        ensureSatAdmin(loggedInUser);
 
         UserExtGroup group = UserGroupFactory.lookupExtGroupByLabel(name);
         if (group == null) {
@@ -290,7 +290,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * update a external user group
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param name The name of the group
      * @param roles the roles to set
      * @return 1 if successful, error otherwise
@@ -305,9 +305,9 @@ public class UserExternalHandler extends BaseHandler {
      * activation_key_admin, or monitoring_admin.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setExternalGroupRoles(String sessionKey, String name, List<String> roles) {
+    public int setExternalGroupRoles(User loggedInUser, String name, List<String> roles) {
         // Make sure we're logged in and a Sat Admin
-        ensureSatAdmin(getLoggedInUser(sessionKey));
+        ensureSatAdmin(loggedInUser);
 
         UserExtGroup group = UserGroupFactory.lookupExtGroupByLabel(name);
         if (group == null) {
@@ -332,7 +332,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * delete an external user group
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param name The name of the group
      * @return 1 if successful, error otherwise
      * @throws PermissionCheckFailureException if the user is not a Sat admin
@@ -343,9 +343,9 @@ public class UserExternalHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "Name of the external group.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteExternalGroupToRoleMap(String sessionKey, String name) {
+    public int deleteExternalGroupToRoleMap(User loggedInUser, String name) {
         // Make sure we're logged in and a Sat Admin
-        ensureSatAdmin(getLoggedInUser(sessionKey));
+        ensureSatAdmin(loggedInUser);
 
         UserExtGroup group = UserGroupFactory.lookupExtGroupByLabel(name);
         if (group == null) {
@@ -358,7 +358,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * delete an external user group
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @return the external groups
      * @throws PermissionCheckFailureException if the user is not a Sat admin
      *
@@ -370,16 +370,15 @@ public class UserExternalHandler extends BaseHandler {
      *     $UserExtGroupSerializer
      * #array_end()
      */
-    public List<UserExtGroup> listExternalGroupToRoleMaps(String sessionKey) {
+    public List<UserExtGroup> listExternalGroupToRoleMaps(User loggedInUser) {
         // Make sure we're logged in and a Sat Admin
-        User user = getLoggedInUser(sessionKey);
-        ensureSatAdmin(user);
+        ensureSatAdmin(loggedInUser);
 
-        List<UserExtGroup> groups = UserGroupFactory.listExtAuthGroups(user);
+        List<UserExtGroup> groups = UserGroupFactory.listExtAuthGroups(loggedInUser);
         for (UserExtGroup group : groups) {
             addImpliedRoles(group.getRoles());
         }
-        return UserGroupFactory.listExtAuthGroups(user);
+        return UserGroupFactory.listExtAuthGroups(loggedInUser);
     }
 
     // remove all the implied roles if we're adding org_admin (for storing to db)
@@ -401,7 +400,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * Create a new external user group
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param name The name of the new group
      * @param groupNames List of system groups to set for this group
      * @return the newly created group
@@ -416,11 +415,10 @@ public class UserExternalHandler extends BaseHandler {
      * groups to grant access to.")
      * @xmlrpc.returntype $OrgUserExtGroupSerializer
      */
-    public OrgUserExtGroup createExternalGroupToSystemGroupMap(String sessionKey,
+    public OrgUserExtGroup createExternalGroupToSystemGroupMap(User loggedInUser,
             String name, List<String> groupNames) {
-        User user = getLoggedInUser(sessionKey);
-        ensureOrgAdmin(user);
-        Org org = user.getOrg();
+        ensureOrgAdmin(loggedInUser);
+        Org org = loggedInUser.getOrg();
 
         OrgUserExtGroup group = UserGroupFactory.lookupOrgExtGroupByLabelAndOrg(name, org);
         if (group != null) {
@@ -445,7 +443,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * Get a external user group
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param name The name of the group
      * @return the  group
      *
@@ -455,17 +453,16 @@ public class UserExternalHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "Name of the external group.")
      * @xmlrpc.returntype $OrgUserExtGroupSerializer
      */
-    public OrgUserExtGroup getExternalGroupToSystemGroupMap(String sessionKey,
+    public OrgUserExtGroup getExternalGroupToSystemGroupMap(User loggedInUser,
             String name) {
-        User user = getLoggedInUser(sessionKey);
-        ensureOrgAdmin(user);
+        ensureOrgAdmin(loggedInUser);
 
-        return UserGroupFactory.lookupOrgExtGroupByLabelAndOrg(name, user.getOrg());
+        return UserGroupFactory.lookupOrgExtGroupByLabelAndOrg(name, loggedInUser.getOrg());
     }
 
     /**
      * update a external user group
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param name The name of the group
      * @param groupNames the groups to set
      * @return 1 if successful, error otherwise
@@ -478,11 +475,10 @@ public class UserExternalHandler extends BaseHandler {
      * server groups to grant access to.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setExternalGroupSystemGroups(String sessionKey, String name,
+    public int setExternalGroupSystemGroups(User loggedInUser, String name,
             List<String> groupNames) {
-        User user = getLoggedInUser(sessionKey);
-        ensureOrgAdmin(user);
-        Org org = user.getOrg();
+        ensureOrgAdmin(loggedInUser);
+        Org org = loggedInUser.getOrg();
 
         OrgUserExtGroup group = UserGroupFactory.lookupOrgExtGroupByLabelAndOrg(name, org);
         if (group == null) {
@@ -505,7 +501,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * delete an external user group
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param name The name of the group
      * @return 1 if successful, error otherwise
      *
@@ -515,10 +511,9 @@ public class UserExternalHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "Name of the external group.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteExternalGroupToSystemGroupMap(String sessionKey, String name) {
-        User user = getLoggedInUser(sessionKey);
-        ensureOrgAdmin(user);
-        Org org = user.getOrg();
+    public int deleteExternalGroupToSystemGroupMap(User loggedInUser, String name) {
+        ensureOrgAdmin(loggedInUser);
+        Org org = loggedInUser.getOrg();
 
         OrgUserExtGroup group = UserGroupFactory.lookupOrgExtGroupByLabelAndOrg(name, org);
         if (group == null) {
@@ -531,7 +526,7 @@ public class UserExternalHandler extends BaseHandler {
 
     /**
      * delete an external user group
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @return the external groups
      * @throws PermissionCheckFailureException if the user is not an Org admin
      *
@@ -543,11 +538,10 @@ public class UserExternalHandler extends BaseHandler {
      *     $OrgUserExtGroupSerializer
      * #array_end()
      */
-    public List<OrgUserExtGroup> listExternalGroupToSystemGroupMaps(String sessionKey) {
-        User user = getLoggedInUser(sessionKey);
-        ensureOrgAdmin(user);
+    public List<OrgUserExtGroup> listExternalGroupToSystemGroupMaps(User loggedInUser) {
+        ensureOrgAdmin(loggedInUser);
 
-        return UserGroupFactory.listExtAuthOrgGroups(user);
+        return UserGroupFactory.listExtAuthOrgGroups(loggedInUser);
     }
 
 }
