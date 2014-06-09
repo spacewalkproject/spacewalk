@@ -56,7 +56,7 @@ public class KickstartHandler extends BaseHandler {
 
     /**
      * List the available kickstartable trees for the given channel.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel to search.
      * @return Array of KickstartableTreeObjects
      * @deprecated being replaced by kickstart.tree.list(string sessionKey,
@@ -69,10 +69,10 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.returntype #array() $KickstartTreeSerializer #array_end()
      */
     @Deprecated
-    public List listKickstartableTrees(String sessionKey,
+    public List listKickstartableTrees(User loggedInUser,
             String channelLabel) {
         return new KickstartTreeHandler().
-                list(sessionKey, channelLabel);
+                list(loggedInUser, channelLabel);
     }
 
     /**

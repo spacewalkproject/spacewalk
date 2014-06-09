@@ -42,7 +42,7 @@ public class KickstartTreeHandler extends BaseHandler {
 
     /**
      * Returns details of kickstartable tree specified by the label
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param treeLabel Label of kickstartable tree to search.
      * @return found KickstartableTreeObject
      *
@@ -52,8 +52,7 @@ public class KickstartTreeHandler extends BaseHandler {
      * search.")
      * @xmlrpc.returntype $KickstartTreeDetailSerializer
      */
-    public KickstartableTreeDetail getDetails(String sessionKey, String treeLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public KickstartableTreeDetail getDetails(User loggedInUser, String treeLabel) {
         ensureConfigAdmin(loggedInUser);
 
         KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(treeLabel);
@@ -66,7 +65,7 @@ public class KickstartTreeHandler extends BaseHandler {
 
     /**
      * List the available kickstartable trees for the given channel.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel to search.
      * @return Array of KickstartableTreeObjects
      *
@@ -76,9 +75,8 @@ public class KickstartTreeHandler extends BaseHandler {
      * search.")
      * @xmlrpc.returntype #array() $KickstartTreeSerializer #array_end()
      */
-    public List list(String sessionKey,
+    public List list(User loggedInUser,
             String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         ensureConfigAdmin(loggedInUser);
 
         List<KickstartableTree> ksTrees = KickstartFactory
@@ -90,7 +88,7 @@ public class KickstartTreeHandler extends BaseHandler {
 
     /**
      * List the available kickstartable tree types (rhel2,3,4,5 and fedora9+)
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @return Array of KickstartInstallType objects
      *
      * @xmlrpc.doc List the available kickstartable install types (rhel2,3,4,5 and
@@ -98,14 +96,14 @@ public class KickstartTreeHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype #array() $KickstartInstallTypeSerializer #array_end()
      */
-    public List listInstallTypes(String sessionKey) {
+    public List listInstallTypes(User loggedInUser) {
         return KickstartFactory.lookupKickstartInstallTypes();
     }
 
     /**
      * Create a Kickstart Tree (Distribution) in Satellite
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param treeLabel Label for the new kickstart tree
      * @param basePath path to the base/root of the kickstart tree.
      * @param channelLabel label of channel to associate with ks tree.
@@ -124,11 +122,10 @@ public class KickstartTreeHandler extends BaseHandler {
      * KickstartInstallType (rhel_2.1, rhel_3, rhel_4, rhel_5, fedora_9).")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int create(String sessionKey, String treeLabel,
+    public int create(User loggedInUser, String treeLabel,
             String basePath, String channelLabel,
             String installType) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         ensureConfigAdmin(loggedInUser);
 
         TreeCreateOperation create = new TreeCreateOperation(loggedInUser);
@@ -148,7 +145,7 @@ public class KickstartTreeHandler extends BaseHandler {
      * Delete a kickstarttree
      * kickstartable tree and kickstart host specified.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param treeLabel Label for the new kickstart tree
      * @return 1 if successful, exception otherwise.
      *
@@ -158,9 +155,8 @@ public class KickstartTreeHandler extends BaseHandler {
      * kickstart tree to delete.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int delete(String sessionKey, String treeLabel) {
+    public int delete(User loggedInUser, String treeLabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         ensureConfigAdmin(loggedInUser);
 
         TreeDeleteOperation op = new TreeDeleteOperation(treeLabel, loggedInUser);
@@ -178,7 +174,7 @@ public class KickstartTreeHandler extends BaseHandler {
      * Delete a kickstarttree and any profiles associated with this kickstart tree.
      * WARNING:  This will delete all profiles associated with this kickstart tree!
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param treeLabel Label for the new kickstart tree
      * @return 1 if successful, exception otherwise.
      *
@@ -190,9 +186,8 @@ public class KickstartTreeHandler extends BaseHandler {
      * kickstart tree to delete.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteTreeAndProfiles(String sessionKey, String treeLabel) {
+    public int deleteTreeAndProfiles(User loggedInUser, String treeLabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         ensureConfigAdmin(loggedInUser);
 
         TreeDeleteOperation op = new TreeDeleteOperation(treeLabel, loggedInUser);
@@ -211,7 +206,7 @@ public class KickstartTreeHandler extends BaseHandler {
      * Edit a kickstarttree.  This method will not edit the label of the tree, see
      * renameTree().
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param treeLabel Label for the existing kickstart tree
      * @param basePath New basepath for tree.
      * rhn-kickstart.
@@ -234,11 +229,9 @@ public class KickstartTreeHandler extends BaseHandler {
      *
      * @xmlrpc.returntype #return_int_success()
      */
-    public int update(String sessionKey, String treeLabel, String basePath,
+    public int update(User loggedInUser, String treeLabel, String basePath,
                  String channelLabel, String installType) {
 
-
-        User loggedInUser = getLoggedInUser(sessionKey);
         ensureConfigAdmin(loggedInUser);
 
         TreeEditOperation op = new TreeEditOperation(treeLabel, loggedInUser);
@@ -259,7 +252,7 @@ public class KickstartTreeHandler extends BaseHandler {
     /**
      * Rename a kickstart tree.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param originalLabel Label for tree we want to edit
      * @param newLabel to assign to tree.
      * @return 1 if successful, exception otherwise.
@@ -271,9 +264,8 @@ public class KickstartTreeHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "newLabel" "The kickstart tree's new label.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int rename(String sessionKey, String originalLabel, String newLabel) {
+    public int rename(User loggedInUser, String originalLabel, String newLabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         ensureConfigAdmin(loggedInUser);
 
         TreeEditOperation op = new TreeEditOperation(originalLabel, loggedInUser);

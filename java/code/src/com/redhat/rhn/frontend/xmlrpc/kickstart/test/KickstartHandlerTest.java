@@ -59,7 +59,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
-        List ksTrees = handler.listKickstartableTrees(adminKey,
+        List ksTrees = handler.listKickstartableTrees(admin,
                 baseChan.getLabel());
         assertTrue(ksTrees.size() > 0);
 
@@ -76,7 +76,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
 
     public void testListKickstartableTreesByNonExistentChannelLabel() throws Exception {
         try {
-            handler.listKickstartableTrees(adminKey,
+            handler.listKickstartableTrees(admin,
                     "no such label");
             fail();
         }
