@@ -55,7 +55,7 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
       * Check the configuration management status for a kickstart profile
       * so that a system created using this profile will be configuration capable.
-      * @param sessionKey the session key
+      * @param loggedInUser The current user
       * @param ksLabel the ks profile label
       * @return returns true if configuration management is enabled; otherwise, false
       *
@@ -65,10 +65,9 @@ public class SystemDetailsHandler extends BaseHandler {
       * @xmlrpc.returntype #param_desc("boolean", "enabled", "true if configuration
       * management is enabled; otherwise, false")
       */
-    public boolean checkConfigManagement(String sessionKey, String ksLabel) {
-        User user = getLoggedInUser(sessionKey);
-        ensureConfigAdmin(user);
-        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
+    public boolean checkConfigManagement(User loggedInUser, String ksLabel) {
+        ensureConfigAdmin(loggedInUser);
+        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, loggedInUser);
         return command.getKickstartData().getKickstartDefaults().getCfgManagementFlag().
             booleanValue();
     }
@@ -76,7 +75,7 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Enables the configuration management flag in a kickstart profile
      * so that a system created using this profile will be configuration capable.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param ksLabel the ks profile label
      * @return 1 on success
      *
@@ -87,14 +86,14 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int enableConfigManagement(String sessionKey, String ksLabel) {
-        return setConfigFlag(sessionKey, ksLabel, true);
+    public int enableConfigManagement(User loggedInUser, String ksLabel) {
+        return setConfigFlag(loggedInUser, ksLabel, true);
     }
 
     /**
      * Disables the configuration management flag in a kickstart profile
      * so that a system created using this profile will be NOT be configuration capable.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param ksLabel the ks profile label
      * @return 1 on success
      *
@@ -105,14 +104,13 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
 
      */
-    public int disableConfigManagement(String sessionKey, String ksLabel) {
-        return setConfigFlag(sessionKey, ksLabel, false);
+    public int disableConfigManagement(User loggedInUser, String ksLabel) {
+        return setConfigFlag(loggedInUser, ksLabel, false);
     }
 
-    private int setConfigFlag(String sessionKey, String ksLabel, boolean flag) {
-        User user = getLoggedInUser(sessionKey);
-        ensureConfigAdmin(user);
-        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
+    private int setConfigFlag(User loggedInUser, String ksLabel, boolean flag) {
+        ensureConfigAdmin(loggedInUser);
+        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, loggedInUser);
         command.enableConfigManagement(flag);
         command.store();
         return 1;
@@ -122,7 +120,7 @@ public class SystemDetailsHandler extends BaseHandler {
     * Check the remote commands status flag for a kickstart profile
     * so that a system created using this profile
     * will be capable of running remote commands
-    * @param sessionKey the session key
+    * @param loggedInUser The current user
     * @param ksLabel the ks profile label
     * @return returns true if remote command support is enabled; otherwise, false
     *
@@ -132,10 +130,9 @@ public class SystemDetailsHandler extends BaseHandler {
     * @xmlrpc.returntype #param_desc("boolean", "enabled", "true if remote
     * commands support is enabled; otherwise, false")
     */
-    public boolean checkRemoteCommands(String sessionKey, String ksLabel) {
-        User user = getLoggedInUser(sessionKey);
-        ensureConfigAdmin(user);
-        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
+    public boolean checkRemoteCommands(User loggedInUser, String ksLabel) {
+        ensureConfigAdmin(loggedInUser);
+        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, loggedInUser);
         return command.getKickstartData().getKickstartDefaults().getRemoteCommandFlag().
             booleanValue();
     }
@@ -144,7 +141,7 @@ public class SystemDetailsHandler extends BaseHandler {
      * Enables the remote command flag in a kickstart profile
      * so that a system created using this profile
      * will be capable of running remote commands
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param ksLabel the ks profile label
      * @return 1 on success
      *
@@ -155,15 +152,15 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int enableRemoteCommands(String sessionKey, String ksLabel) {
-        return setRemoteCommandsFlag(sessionKey, ksLabel, true);
+    public int enableRemoteCommands(User loggedInUser, String ksLabel) {
+        return setRemoteCommandsFlag(loggedInUser, ksLabel, true);
     }
 
     /**
      * Disables the remote command flag in a kickstart profile
      * so that a system created using this profile
      * will be capable of running remote commands
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param ksLabel the ks profile label
      * @return 1 on success
      *
@@ -175,14 +172,13 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
 
      */
-    public int disableRemoteCommands(String sessionKey, String ksLabel) {
-        return setRemoteCommandsFlag(sessionKey, ksLabel, false);
+    public int disableRemoteCommands(User loggedInUser, String ksLabel) {
+        return setRemoteCommandsFlag(loggedInUser, ksLabel, false);
     }
 
-    private int setRemoteCommandsFlag(String sessionKey, String ksLabel, boolean flag) {
-        User user = getLoggedInUser(sessionKey);
-        ensureConfigAdmin(user);
-        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
+    private int setRemoteCommandsFlag(User loggedInUser, String ksLabel, boolean flag) {
+        ensureConfigAdmin(loggedInUser);
+        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, loggedInUser);
         command.enableRemoteCommands(flag);
         command.store();
         return 1;
@@ -191,7 +187,7 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Retrieves the SELinux enforcing mode property of a kickstart
      * profile.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param ksLabel the ks profile label
      * @return the enforcing mode
      *
@@ -207,10 +203,9 @@ public class SystemDetailsHandler extends BaseHandler {
      *          #item ("disabled")
      *      #options_end()
      */
-    public String getSELinux(String sessionKey, String ksLabel) {
-        User user = getLoggedInUser(sessionKey);
-        ensureConfigAdmin(user);
-        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
+    public String getSELinux(User loggedInUser, String ksLabel) {
+        ensureConfigAdmin(loggedInUser);
+        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, loggedInUser);
         return command.getKickstartData().getSELinuxMode().getValue();
     }
 
@@ -218,7 +213,7 @@ public class SystemDetailsHandler extends BaseHandler {
      * Sets the SELinux enforcing mode property of a kickstart profile
      * so that a system created using this profile will be have
      * the appropriate SELinux enforcing mode.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param ksLabel the ks profile label
      * @param enforcingMode the SELinux enforcing mode.
      * @return 1 on success
@@ -236,17 +231,16 @@ public class SystemDetailsHandler extends BaseHandler {
      *      #options_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setSELinux(String sessionKey, String ksLabel, String enforcingMode) {
-        User user = getLoggedInUser(sessionKey);
-        ensureConfigAdmin(user);
-        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
+    public int setSELinux(User loggedInUser, String ksLabel, String enforcingMode) {
+        ensureConfigAdmin(loggedInUser);
+        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, loggedInUser);
         command.setMode(SELinuxMode.lookup(enforcingMode));
-        return setRemoteCommandsFlag(sessionKey, ksLabel, true);
+        return setRemoteCommandsFlag(loggedInUser, ksLabel, true);
     }
 
     /**
      * Retrieves the locale for a kickstart profile.
-     * @param sessionKey The current user's session key
+     * @param loggedInUser The current user
      * @param ksLabel The kickstart profile label
      * @return Returns a map containing the local and useUtc.
      * @throws FaultException A FaultException is thrown if:
@@ -265,13 +259,12 @@ public class SystemDetailsHandler extends BaseHandler {
      *                  #options_end()
      *          #struct_end()
      */
-    public Map<String, Object> getLocale(String sessionKey, String ksLabel)
+    public Map<String, Object> getLocale(User loggedInUser, String ksLabel)
             throws FaultException {
 
-        User user = getLoggedInUser(sessionKey);
-        ensureConfigAdmin(user);
+        ensureConfigAdmin(loggedInUser);
 
-        KickstartLocaleCommand command  = getLocaleCommand(ksLabel, user);
+        KickstartLocaleCommand command  = getLocaleCommand(ksLabel, loggedInUser);
 
         Map<String, Object> locale = new HashMap<String, Object>();
         locale.put("locale", command.getTimezone());
@@ -282,7 +275,7 @@ public class SystemDetailsHandler extends BaseHandler {
 
     /**
      * Sets the locale for a kickstart profile.
-     * @param sessionKey The current user's session key
+     * @param loggedInUser The current user
      * @param ksLabel The kickstart profile label
      * @param locale The locale
      * @param useUtc true if the hardware clock uses UTC
@@ -304,13 +297,12 @@ public class SystemDetailsHandler extends BaseHandler {
      *      #options_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setLocale(String sessionKey, String ksLabel, String locale,
+    public int setLocale(User loggedInUser, String ksLabel, String locale,
             boolean useUtc) throws FaultException {
 
-        User user = getLoggedInUser(sessionKey);
-        ensureConfigAdmin(user);
+        ensureConfigAdmin(loggedInUser);
 
-        KickstartLocaleCommand command  = getLocaleCommand(ksLabel, user);
+        KickstartLocaleCommand command  = getLocaleCommand(ksLabel, loggedInUser);
 
         if (command.isValidTimezone(locale) == Boolean.FALSE) {
             throw new InvalidLocaleCodeException(locale);
@@ -329,7 +321,7 @@ public class SystemDetailsHandler extends BaseHandler {
 
     /**
      * Set the partitioning scheme for a kickstart profile.
-     * @param sessionKey An active session key.
+     * @param loggedInUser The current user
      * @param ksLabel A kickstart profile label.
      * @param scheme The partitioning scheme.
      * @return 1 on success
@@ -343,13 +335,12 @@ public class SystemDetailsHandler extends BaseHandler {
      * volume groups and logical volumes.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setPartitioningScheme(String sessionKey, String ksLabel,
+    public int setPartitioningScheme(User loggedInUser, String ksLabel,
             List<String> scheme) {
-        User user = getLoggedInUser(sessionKey);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        KickstartData ksdata = lookupKsData(ksLabel, loggedInUser.getOrg());
         Long ksid = ksdata.getId();
         KickstartPartitionCommand command = new KickstartPartitionCommand(ksid,
-                user);
+                loggedInUser);
         StringBuilder sb = new StringBuilder();
         for (String s : scheme) {
             sb.append(s);
@@ -366,7 +357,7 @@ public class SystemDetailsHandler extends BaseHandler {
 
     /**
      * Get the partitioning scheme for a kickstart profile.
-     * @param sessionKey An active session key
+     * @param loggedInUser The current user
      * @param ksLabel A kickstart profile label
      * @return The profile's partitioning scheme. This is a list of commands
      * used to setup the partitions, logical volumes and volume groups.
@@ -378,9 +369,8 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.returntype string[] - A list of partitioning commands used to
      * setup the partitions, logical volumes and volume groups."
      */
-    public List<String> getPartitioningScheme(String sessionKey, String ksLabel) {
-        User user = getLoggedInUser(sessionKey);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+    public List<String> getPartitioningScheme(User loggedInUser, String ksLabel) {
+        KickstartData ksdata = lookupKsData(ksLabel, loggedInUser.getOrg());
         List<String> list = new LinkedList<String>();
         for (String str : ksdata.getPartitionData().split("\\r?\\n")) {
             if (!StringUtils.isBlank(str)) {
@@ -409,7 +399,7 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Returns the set of all keys associated with the indicated kickstart profile.
      *
-     * @param sessionKey     user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param loggedInUser The current user
      * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @return set of all keys associated with the given profile
      *
@@ -426,20 +416,15 @@ public class SystemDetailsHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Set<CryptoKey> listKeys(String sessionKey, String kickstartLabel) {
+    public Set<CryptoKey> listKeys(User loggedInUser, String kickstartLabel) {
 
         // TODO: Determine if null or empty set is returned when no keys associated
-
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
 
         if (kickstartLabel == null) {
             throw new IllegalArgumentException("kickstartLabel cannot be null");
         }
 
-        User user = getLoggedInUser(sessionKey);
-        Org org = user.getOrg();
+        Org org = loggedInUser.getOrg();
 
         KickstartData data =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
@@ -453,7 +438,7 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Adds the given list of keys to the specified kickstart profile.
      *
-     * @param sessionKey     user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param loggedInUser The current user
      * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @param descriptions   list identifiying the keys to add
      * @return 1 if the associations were performed correctly
@@ -464,11 +449,8 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "keyDescription")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addKeys(String sessionKey, String kickstartLabel,
+    public int addKeys(User loggedInUser, String kickstartLabel,
  List<String> descriptions) {
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
 
         if (kickstartLabel == null) {
             throw new IllegalArgumentException("kickstartLabel cannot be null");
@@ -479,8 +461,7 @@ public class SystemDetailsHandler extends BaseHandler {
         }
 
         // Load the kickstart profile
-        User user = getLoggedInUser(sessionKey);
-        Org org = user.getOrg();
+        Org org = loggedInUser.getOrg();
 
         KickstartData data =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
@@ -488,7 +469,7 @@ public class SystemDetailsHandler extends BaseHandler {
 
         // Associate the keys
         KickstartCryptoKeyCommand command =
-            new KickstartCryptoKeyCommand(data.getId(), user);
+            new KickstartCryptoKeyCommand(data.getId(), loggedInUser);
 
         command.addKeysByDescriptionAndOrg(descriptions, org);
         command.store();
@@ -499,7 +480,7 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Removes the given list of keys from the specified kickstart profile.
      *
-     * @param sessionKey     user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param loggedInUser The current user
      * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @param descriptions   list identifiying the keys to remove
      * @return 1 if the associations were performed correctly
@@ -510,11 +491,8 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "keyDescription")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeKeys(String sessionKey, String kickstartLabel,
+    public int removeKeys(User loggedInUser, String kickstartLabel,
             List<String> descriptions) {
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
 
         if (kickstartLabel == null) {
             throw new IllegalArgumentException("kickstartLabel cannot be null");
@@ -525,15 +503,14 @@ public class SystemDetailsHandler extends BaseHandler {
         }
 
         // Load the kickstart profile
-        User user = getLoggedInUser(sessionKey);
-        Org org = user.getOrg();
+        Org org = loggedInUser.getOrg();
 
         KickstartData data =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
                 org.getId());
 
         KickstartCryptoKeyCommand command =
-            new KickstartCryptoKeyCommand(data.getId(), user);
+            new KickstartCryptoKeyCommand(data.getId(), loggedInUser);
 
         command.removeKeysByDescriptionAndOrg(descriptions, org);
         command.store();
@@ -545,7 +522,7 @@ public class SystemDetailsHandler extends BaseHandler {
      * Returns the set of all file preservations associated with the given kickstart
      * profile.
      *
-     * @param sessionKey     user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param loggedInUser The current user
      * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
@@ -561,19 +538,14 @@ public class SystemDetailsHandler extends BaseHandler {
      *         $FileListSerializer
      *     #array_end()
      */
-    public Set<FileList> listFilePreservations(String sessionKey, String kickstartLabel)
+    public Set<FileList> listFilePreservations(User loggedInUser, String kickstartLabel)
         throws FaultException {
-
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
 
         if (kickstartLabel == null) {
             throw new IllegalArgumentException("kickstartLabel cannot be null");
         }
 
-        User user = getLoggedInUser(sessionKey);
-        Org org = user.getOrg();
+        Org org = loggedInUser.getOrg();
 
         KickstartData data =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
@@ -585,7 +557,7 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Adds the given list of file preservations to the specified kickstart profile.
      *
-     * @param sessionKey     user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param loggedInUser The current user
      * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @param filePreservations   list identifying the file preservations to add
      * @throws FaultException A FaultException is thrown if:
@@ -601,11 +573,8 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "filePreservations")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addFilePreservations(String sessionKey, String kickstartLabel,
+    public int addFilePreservations(User loggedInUser, String kickstartLabel,
                              List<String> filePreservations) throws FaultException {
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
 
         if (kickstartLabel == null) {
             throw new IllegalArgumentException("kickstartLabel cannot be null");
@@ -616,8 +585,7 @@ public class SystemDetailsHandler extends BaseHandler {
         }
 
         // Load the kickstart profile
-        User user = getLoggedInUser(sessionKey);
-        Org org = user.getOrg();
+        Org org = loggedInUser.getOrg();
 
         KickstartData data =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
@@ -625,11 +593,11 @@ public class SystemDetailsHandler extends BaseHandler {
 
         // Add the file preservations
         KickstartEditCommand command =
-            new KickstartEditCommand(data.getId(), user);
+            new KickstartEditCommand(data.getId(), loggedInUser);
 
         Set<FileList> fileLists = new HashSet<FileList>();
         for (String name : filePreservations) {
-            FileList fileList = CommonFactory.lookupFileList(name, user.getOrg());
+            FileList fileList = CommonFactory.lookupFileList(name, loggedInUser.getOrg());
             if (fileList == null) {
                 throw new FileListNotFoundException(name);
             }
@@ -649,7 +617,7 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Removes the given list of file preservations from the specified kickstart profile.
      *
-     * @param sessionKey     user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param loggedInUser The current user
      * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @param filePreservations   list identifying the file preservations to remove
      * @throws FaultException A FaultException is thrown if:
@@ -665,11 +633,8 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "filePreservations")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeFilePreservations(String sessionKey, String kickstartLabel,
+    public int removeFilePreservations(User loggedInUser, String kickstartLabel,
                              List<String> filePreservations) throws FaultException {
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
 
         if (kickstartLabel == null) {
             throw new IllegalArgumentException("kickstartLabel cannot be null");
@@ -680,8 +645,7 @@ public class SystemDetailsHandler extends BaseHandler {
         }
 
         // Load the kickstart profile
-        User user = getLoggedInUser(sessionKey);
-        Org org = user.getOrg();
+        Org org = loggedInUser.getOrg();
 
         KickstartData data =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
@@ -689,11 +653,11 @@ public class SystemDetailsHandler extends BaseHandler {
 
         // Associate the file preservations
         KickstartEditCommand command =
-            new KickstartEditCommand(data.getId(), user);
+            new KickstartEditCommand(data.getId(), loggedInUser);
 
         Set<FileList> fileLists = new HashSet<FileList>();
         for (String name : filePreservations) {
-            FileList fileList = CommonFactory.lookupFileList(name, user.getOrg());
+            FileList fileList = CommonFactory.lookupFileList(name, loggedInUser.getOrg());
             if (fileList == null) {
                 throw new FileListNotFoundException(name);
             }
@@ -714,7 +678,7 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Sets the registration type of a given kickstart profile.
      *
-     * @param sessionKey     user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param loggedInUser The current user
      * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @param registrationType   registration type
      * @throws FaultException A FaultException is thrown if:
@@ -740,11 +704,11 @@ public class SystemDetailsHandler extends BaseHandler {
      *      #options_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setRegistrationType(String sessionKey, String kickstartLabel,
+    public int setRegistrationType(User loggedInUser, String kickstartLabel,
                                                         String registrationType) {
-        User user = getLoggedInUser(sessionKey);
-        ensureConfigAdmin(user);
-        SystemDetailsCommand command = getSystemDetailsCommand(kickstartLabel, user);
+        ensureConfigAdmin(loggedInUser);
+        SystemDetailsCommand command = getSystemDetailsCommand(kickstartLabel,
+                loggedInUser);
         command.setRegistrationType(registrationType);
         command.store();
         return 1;
@@ -754,7 +718,7 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Returns the registration type of a given kickstart profile.
      *
-     * @param sessionKey     user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param loggedInUser The current user
      * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
@@ -775,12 +739,11 @@ public class SystemDetailsHandler extends BaseHandler {
      *         #item ("none")
      *      #options_end()
      */
-    public String  getRegistrationType(String sessionKey, String kickstartLabel) {
-        User user = getLoggedInUser(sessionKey);
-        ensureConfigAdmin(user);
+    public String  getRegistrationType(User loggedInUser, String kickstartLabel) {
+        ensureConfigAdmin(loggedInUser);
         KickstartData data =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
-                    user.getOrg().getId());
-        return data.getRegistrationType(user).getType();
+                    loggedInUser.getOrg().getId());
+        return data.getRegistrationType(loggedInUser).getType();
     }
 }
