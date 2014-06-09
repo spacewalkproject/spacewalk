@@ -54,7 +54,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * List currently available action chains.
      *
-     * @param sessionKey Session token.
+     * @param loggedInUser The current user
      * @return list of action chains.
      *
      * @xmlrpc.doc List currently available action chains.
@@ -67,9 +67,7 @@ public class ActionChainHandler extends BaseHandler {
      *                      #struct_end()
      *                    #array_end()
      */
-    public List<Map<String, Object>> listChains(String sessionKey) {
-        BaseHandler.getLoggedInUser(sessionKey);
-
+    public List<Map<String, Object>> listChains(User loggedInUser) {
         List<Map<String, Object>> chains = new ArrayList<Map<String, Object>>();
         for (ActionChain actionChain : ActionChainFactory.getActionChains()) {
             Map<String, Object> info = new HashMap<String, Object>();
@@ -84,7 +82,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * List all actions in the particular Action Chain.
      *
-     * @param sessionKey Session token.
+     * @param loggedInUser The current user
      * @param chainLabel The label of the Action Chain.
      * @return List of entries in the particular action chain, if any.
      *
@@ -104,7 +102,7 @@ public class ActionChainHandler extends BaseHandler {
      *                      #struct_end()
      *                    #array_end()
      */
-    public List<Map<String, Object>> listChainActions(String sessionKey,
+    public List<Map<String, Object>> listChainActions(User loggedInUser,
                                                       String chainLabel) {
         List<Map<String, Object>> entries = new ArrayList<Map<String, Object>>();
         ActionChain chain = this.acUtil.getActionChainByLabel(chainLabel);
@@ -132,7 +130,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Remove an action from the Action Chain.
      *
-     * @param sessionKey Session key.
+     * @param loggedInUser The current user
      * @param chainLabel The label of the Action Chain.
      * @param actionId Action ID.
      * @return State of the action result. Negative is false. Positive: number
@@ -144,10 +142,9 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "actionId", "Action ID")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer removeAction(String sessionKey,
+    public Integer removeAction(User loggedInUser,
                                 String chainLabel,
                                 Integer actionId) {
-        BaseHandler.getLoggedInUser(sessionKey);
         ActionChain chain = this.acUtil.getActionChainByLabel(chainLabel);
 
         for (ActionChainEntry entry : chain.getEntries()) {
@@ -163,7 +160,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Remove Action Chains by label.
      *
-     * @param sessionKey Session key.
+     * @param loggedInUser The current user
      * @param chainLabel Action Chain label.
      * @return State of the action result. Negative is false. Positive: number
      * of successfully deleted entries.
@@ -173,8 +170,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer deleteChain(String sessionKey, String chainLabel) {
-        BaseHandler.getLoggedInUser(sessionKey);
+    public Integer deleteChain(User loggedInUser, String chainLabel) {
         ActionChainFactory.delete(this.acUtil.getActionChainByLabel(chainLabel));
 
         return BaseHandler.VALID;
@@ -183,7 +179,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Create an Action Chain.
      *
-     * @param sessionKey Session key (token)
+     * @param loggedInUser The current user
      * @param chainLabel Label of the action chain
      * @return id of the created action chain
      *
@@ -192,7 +188,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype int actionId - The ID of the created action chain
      */
-    public Integer createChain(String sessionKey,
+    public Integer createChain(User loggedInUser,
                                      String chainLabel) {
         if (StringUtil.nullOrValue(chainLabel) == null) {
             throw new InvalidParameterException("Chain label is missing");
@@ -204,14 +200,13 @@ public class ActionChainHandler extends BaseHandler {
         }
 
         return ActionChainFactory.createActionChain(
-                chainLabel, BaseHandler.getLoggedInUser(sessionKey)
-        ).getId().intValue();
+                chainLabel, loggedInUser).getId().intValue();
     }
 
     /**
      * Schedule system reboot.
      *
-     * @param sessionKey Session key (token)
+     * @param loggedInUser The current user
      * @param serverId Server ID.
      * @param chainLabel Label of the action chain
      * @return list of action ids, exception thrown otherwise
@@ -223,20 +218,19 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Integer addSystemReboot(String sessionKey,
+    public Integer addSystemReboot(User loggedInUser,
                                    Integer serverId,
                                    String chainLabel) {
-        User user = BaseHandler.getLoggedInUser(sessionKey);
         return ActionChainManager.scheduleRebootAction(
-                user, this.acUtil.getServerById(serverId, user), new Date(),
-                this.acUtil.getActionChainByLabel(chainLabel)
+                loggedInUser, this.acUtil.getServerById(serverId, loggedInUser),
+                new Date(), this.acUtil.getActionChainByLabel(chainLabel)
         ).getId().intValue();
     }
 
     /**
      * Adds an action to remove installed packages on the system.
      *
-     * @param sessionKey Session key (token)
+     * @param loggedInUser The current user
      * @param serverId System ID
      * @param packages List of packages
      * @param chainLabel Label of the action chain
@@ -250,7 +244,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action or exception
      */
-    public Integer addPackageRemoval(String sessionKey,
+    public Integer addPackageRemoval(User loggedInUser,
                                      Integer serverId,
                                      List<Integer> packages,
                                      String chainLabel) {
@@ -258,11 +252,9 @@ public class ActionChainHandler extends BaseHandler {
             throw new InvalidParameterException("No specified packages.");
         }
 
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        return ActionChainManager.schedulePackageRemoval(user,
-                this.acUtil.getServerById(serverId, user),
-                this.acUtil.resolvePackages(packages,
-                                            BaseHandler.getLoggedInUser(sessionKey)),
+        return ActionChainManager.schedulePackageRemoval(loggedInUser,
+                this.acUtil.getServerById(serverId, loggedInUser),
+                this.acUtil.resolvePackages(packages, loggedInUser),
                 new Date(),
                 this.acUtil.getActionChainByLabel(chainLabel)).getId().intValue();
     }
@@ -270,7 +262,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Schedule package installation to an Action Chain.
      *
-     * @param sessionKey Session key (token)
+     * @param loggedInUser The current user
      * @param serverId System ID.
      * @param packages List of packages.
      * @param chainLabel Label of the Action Chain.
@@ -283,7 +275,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "chainLabel")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer addPackageInstall(String sessionKey,
+    public Integer addPackageInstall(User loggedInUser,
                                      Integer serverId,
                                      List<Integer> packages,
                                      String chainLabel) {
@@ -291,10 +283,9 @@ public class ActionChainHandler extends BaseHandler {
             throw new InvalidParameterException("No specified packages.");
         }
 
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        return ActionChainManager.schedulePackageInstall(user,
-                this.acUtil.getServerById(serverId, user),
-                this.acUtil.resolvePackages(packages, user), new Date(),
+        return ActionChainManager.schedulePackageInstall(loggedInUser,
+                this.acUtil.getServerById(serverId, loggedInUser),
+                this.acUtil.resolvePackages(packages, loggedInUser), new Date(),
                 this.acUtil.getActionChainByLabel(chainLabel)
         ).getId().intValue();
     }
@@ -302,7 +293,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Adds an action to verify installed packages on the system.
      *
-     * @param sessionKey Session key (token)
+     * @param loggedInUser The current user
      * @param serverId System ID
      * @param packages List of packages
      * @param chainLabel Label of the action chain
@@ -316,7 +307,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer addPackageVerify(String sessionKey,
+    public Integer addPackageVerify(User loggedInUser,
                                     Integer serverId,
                                     List<Integer> packages,
                                     String chainLabel) {
@@ -324,18 +315,17 @@ public class ActionChainHandler extends BaseHandler {
             throw new InvalidParameterException("No specified packages.");
         }
 
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        Server server = this.acUtil.getServerById(serverId, user);
+        Server server = this.acUtil.getServerById(serverId, loggedInUser);
         return ActionChainManager.schedulePackageVerify(
-                user, server, this.acUtil.resolvePackages(packages, user), new Date(),
-                this.acUtil.getActionChainByLabel(chainLabel)
+                loggedInUser, server, this.acUtil.resolvePackages(packages, loggedInUser),
+                new Date(), this.acUtil.getActionChainByLabel(chainLabel)
         ).getId().intValue();
     }
 
     /**
      * Adds an action to upgrade installed packages on the system.
      *
-     * @param sessionKey Session key (token)
+     * @param loggedInUser The current user
      * @param serverId System ID
      * @param packages List of packages
      * @param chainLabel Label of the action chain
@@ -349,7 +339,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
      * @xmlrpc.returntype - actionID or throw an exception
      */
-    public int addPackageUpgrade(String sessionKey,
+    public int addPackageUpgrade(User loggedInUser,
                                  Integer serverId,
                                  List<Integer> packages,
                                  String chainLabel) {
@@ -357,17 +347,17 @@ public class ActionChainHandler extends BaseHandler {
             throw new InvalidParameterException("No specified packages.");
         }
 
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        Server server = this.acUtil.getServerById(serverId, user);
+        Server server = this.acUtil.getServerById(serverId, loggedInUser);
         return ActionChainManager.schedulePackageUpgrade(
-                user, server, this.acUtil.resolvePackages(packages, user), new Date(),
+                loggedInUser, server, this.acUtil.resolvePackages(packages, loggedInUser),
+                new Date(),
                 this.acUtil.getActionChainByLabel(chainLabel)).getId().intValue();
     }
 
     /**
      * Add a remote command as a script.
      *
-     * @param sessionKey Session key (token)
+     * @param loggedInUser The current user
      * @param serverId System ID
      * @param chainLabel Label of the action chain.
      * @param uid User ID on the remote system.
@@ -390,7 +380,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype int actionId - The id of the action or throw an
      * exception
      */
-    public Integer addScriptRun(String sessionKey, Integer serverId, String chainLabel,
+    public Integer addScriptRun(User loggedInUser, Integer serverId, String chainLabel,
             String uid, String gid, Integer timeout, String scriptBody) {
         List<Long> systems = new ArrayList<Long>();
         systems.add((long) serverId);
@@ -399,7 +389,7 @@ public class ActionChainHandler extends BaseHandler {
                 uid, gid, (long) timeout, new String(
                         DatatypeConverter.parseBase64Binary(scriptBody)));
         return ActionChainManager.scheduleScriptRuns(
-                BaseHandler.getLoggedInUser(sessionKey), systems, null, script, new Date(),
+                loggedInUser, systems, null, script, new Date(),
                 this.acUtil.getActionChainByLabel(chainLabel)
         ).iterator().next().getId().intValue();
     }
@@ -407,7 +397,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Schedule action chain.
      *
-     * @param sessionKey Session key (token)
+     * @param loggedInUser The current user
      * @param chainLabel Label of the action chain
      * @param date Earliest date
      * @return True in XML-RPC representation
@@ -419,8 +409,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param("dateTime.iso8601", "Earliest date")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer scheduleChain(String sessionKey, String chainLabel, Date date) {
-        BaseHandler.getLoggedInUser(sessionKey);
+    public Integer scheduleChain(User loggedInUser, String chainLabel, Date date) {
         ActionChainFactory.schedule(this.acUtil.getActionChainByLabel(chainLabel), date);
 
         return BaseHandler.VALID;
@@ -429,7 +418,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Deploy configuration.
      *
-     * @param sessionKey Session key (token)
+     * @param loggedInUser The current user
      * @param chainLabel Label of the action chain
      * @param serverId System ID
      * @param revisions List of configuration revisions.
@@ -443,7 +432,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     @SuppressWarnings("unchecked")
-    public Integer addConfigurationDeployment(String sessionKey,
+    public Integer addConfigurationDeployment(User loggedInUser,
                                               String chainLabel,
                                               Integer serverId,
                                               List<Integer> revisions) {
@@ -454,7 +443,7 @@ public class ActionChainHandler extends BaseHandler {
         List<Long> server = new ArrayList<Long>();
         server.add(serverId.longValue());
 
-        ActionChainManager.createConfigActions(BaseHandler.getLoggedInUser(sessionKey),
+        ActionChainManager.createConfigActions(loggedInUser,
                 CollectionUtils.collect(revisions,
                         new ActionChainRPCCommon.IntegerToLongTransformer()), server,
                 ActionFactory.TYPE_CONFIGFILES_DEPLOY,
@@ -466,7 +455,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Rename Action Chain.
      *
-     * @param sessionKey Session key (token)
+     * @param loggedInUser The current user
      * @param previousLabel Previous (existing) label of the Action Chain
      * @param newLabel New (desired) label of the Action Chain
      * @return list of action ids, exception thrown otherwise
@@ -477,10 +466,9 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "newLabel", "New chain label")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer renameChain(String sessionKey,
+    public Integer renameChain(User loggedInUser,
                                String previousLabel,
                                String newLabel) {
-        BaseHandler.getLoggedInUser(sessionKey);
         if (previousLabel.equals(newLabel)) {
             throw new InvalidParameterException("New label of the Action Chain should " +
                     "not be the same as previous!");
