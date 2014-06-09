@@ -44,7 +44,7 @@ public class SystemScapHandler extends BaseHandler {
 
     /**
      * List OpenSCAP XCCDF scans for a given system.
-     * @param sessionKey The session key.
+     * @param loggedInUser The current user
      * @param serverId The server ID.
      * @return a list of dto holding this info.
      *
@@ -56,9 +56,7 @@ public class SystemScapHandler extends BaseHandler {
      *   $XccdfTestResultDtoSerializer
      * #array_end()
      */
-    public List<XccdfTestResultDto> listXccdfScans(String sessionKey, Integer serverId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public List<XccdfTestResultDto> listXccdfScans(User loggedInUser, Integer serverId) {
         /* Make sure the system is available to user and throw a nice exception.
          * If it was not done, an empty list would be returned. */
         SystemManager.ensureAvailableToUser(loggedInUser, new Long(serverId));
@@ -67,7 +65,7 @@ public class SystemScapHandler extends BaseHandler {
 
     /**
      * Get Details of given OpenSCAP XCCDF scan.
-     * @param sessionKey The session key.
+     * @param loggedInUser The current user
      * @param xid The id of XCCDF scan.
      * @return a details of OpenSCAP XCCDF scan.
      *
@@ -76,15 +74,14 @@ public class SystemScapHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "Id of XCCDF scan (xid).")
      * @xmlrpc.returntype $XccdfTestResultSerializer
      */
-    public XccdfTestResult getXccdfScanDetails(String sessionKey, Integer xid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public XccdfTestResult getXccdfScanDetails(User loggedInUser, Integer xid) {
         ScapManager.ensureAvailableToUser(loggedInUser, new Long(xid));
         return ScapFactory.lookupTestResultById(new Long(xid));
     }
 
     /**
      * List RuleResults for given XCCDF Scan.
-     * @param sessionKey The session key.
+     * @param loggedInUser The current user
      * @param xid The id of XCCDF scan.
      * @return a list of RuleResults for given scan.
      *
@@ -96,16 +93,15 @@ public class SystemScapHandler extends BaseHandler {
      *   $XccdfRuleResultDtoSerializer
      * #array_end()
      */
-    public List<XccdfRuleResultDto> getXccdfScanRuleResults(String sessionKey,
+    public List<XccdfRuleResultDto> getXccdfScanRuleResults(User loggedInUser,
             Integer xid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         ScapManager.ensureAvailableToUser(loggedInUser, new Long(xid));
         return ScapManager.ruleResultsPerScan(new Long(xid));
     }
 
     /**
      * Delete OpenSCAP XCCDF Scan from the Spacewalk database.
-     * @param sessionKey The session key.
+     * @param loggedInUser The current user
      * @param xid The id of XCCDF scan.
      * @return a boolean indicating success of the operation.
      *
@@ -115,15 +111,14 @@ public class SystemScapHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "Id of XCCDF scan (xid).")
      * @xmlrpc.returntype boolean - indicates success of the operation.
      */
-    public Boolean deleteXccdfScan(String sessionKey, Integer xid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Boolean deleteXccdfScan(User loggedInUser, Integer xid) {
         ScapManager.ensureAvailableToUser(loggedInUser, new Long(xid));
         return ScapManager.deleteScan(new Long(xid));
     }
 
     /**
      * Run OpenSCAP XCCDF Evaluation on a given list of servers
-     * @param sessionKey The session key.
+     * @param loggedInUser The current user
      * @param serverIds The list of server ids,
      * @param xccdfPath The path to xccdf document.
      * @param oscapParams The additional params for oscap tool.
@@ -136,15 +131,15 @@ public class SystemScapHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "Additional parameters for oscap tool.")
      * @xmlrpc.returntype int - ID if SCAP action created.
      */
-    public int scheduleXccdfScan(String sessionKey, List serverIds,
+    public int scheduleXccdfScan(User loggedInUser, List serverIds,
             String xccdfPath, String oscapParams) {
-        return scheduleXccdfScan(sessionKey, serverIds, xccdfPath,
+        return scheduleXccdfScan(loggedInUser, serverIds, xccdfPath,
                 oscapParams, new Date());
     }
 
     /**
      * Run OpenSCAP XCCDF Evaluation on a given list of servers
-     * @param sessionKey The session key.
+     * @param loggedInUser The current user
      * @param serverIds The list of server ids,
      * @param xccdfPath The path to xccdf document.
      * @param oscapParams The additional params for oscap tool.
@@ -160,10 +155,8 @@ public class SystemScapHandler extends BaseHandler {
      *                       "The date to schedule the action")
      * @xmlrpc.returntype int - ID if SCAP action created.
      */
-    public int scheduleXccdfScan(String sessionKey, List serverIds,
+    public int scheduleXccdfScan(User loggedInUser, List serverIds,
              String xccdfPath, String oscapParams, Date date) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-
         if (serverIds.isEmpty()) {
             throw new InvalidSystemException();
         }
@@ -190,7 +183,7 @@ public class SystemScapHandler extends BaseHandler {
 
     /**
      * Run Open Scap XCCDF Evaluation on a given server
-     * @param sessionKey The session key.
+     * @param loggedInUser The current user
      * @param sid The server id.
      * @param xccdfPath The path to xccdf path.
      * @param oscapParams The additional params for oscap tool.
@@ -203,14 +196,14 @@ public class SystemScapHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "Additional parameters for oscap tool.")
      * @xmlrpc.returntype int - ID of the scap action created.
      */
-    public int scheduleXccdfScan(String sessionKey, Integer sid,
+    public int scheduleXccdfScan(User loggedInUser, Integer sid,
         String xccdfPath, String oscapParams) {
-        return scheduleXccdfScan(sessionKey, sid, xccdfPath, oscapParams, new Date());
+        return scheduleXccdfScan(loggedInUser, sid, xccdfPath, oscapParams, new Date());
     }
 
     /**
      * Run Open Scap XCCDF Evaluation on a given server at a given time.
-     * @param sessionKey The session key.
+     * @param loggedInUser The current user
      * @param sid The server id.
      * @param xccdfPath The path to xccdf path.
      * @param oscapParams The additional params for oscap tool.
@@ -226,10 +219,10 @@ public class SystemScapHandler extends BaseHandler {
      *                       "The date to schedule the action")
      * @xmlrpc.returntype int - ID of the scap action created.
      */
-    public int scheduleXccdfScan(String sessionKey, Integer sid,
+    public int scheduleXccdfScan(User loggedInUser, Integer sid,
             String xccdfPath, String oscapParams, Date date) {
         List serverIds = new ArrayList();
         serverIds.add(sid);
-        return scheduleXccdfScan(sessionKey, serverIds, xccdfPath, oscapParams, date);
+        return scheduleXccdfScan(loggedInUser, serverIds, xccdfPath, oscapParams, date);
     }
 }
