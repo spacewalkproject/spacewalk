@@ -224,7 +224,7 @@ class UploadClass(uploadLib.UploadClass):
             self.warn(0, "Missing: %s in channel %s (path %s)" % (
                 rpmPackageName(package), channelName, packagePath))
 
-    def processPackage(self, package, filename, checksum):
+    def processPackage(self, package, filename, checksum=None):
         if self.options.dontcopy:
             return
 

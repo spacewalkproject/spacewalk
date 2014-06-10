@@ -449,9 +449,13 @@ class UploadClass:
                             pattern = "Uploaded: %s"
                         print pattern % filename
                     # Per-package post actions
-                    self.processPackage(p, filename, checksum)
+                    # For backwards-compatibility with old spacewalk-proxy
+                    try:
+                        self.processPackage(p, filename, checksum)
+                    except TypeError:
+                        self.processPackage(p, filename)
 
-    def processPackage(self, package, filename, checksum):
+    def processPackage(self, package, filename, checksum=None):
         pass
 
     def checkSession(self, session):
