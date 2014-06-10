@@ -1127,4 +1127,28 @@ public class UserHandler extends BaseHandler {
         return 1;
 
     }
+
+    /**
+     * @param loggedInUser The current user
+     * @param login User to modify.
+     * @param readOnly readOnly flag to set
+     * @return 1 (should always succeed)
+     * @xmlrpc.doc Sets whether the target user should have only read-only API access or
+     * standard full scale access.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "login", "User's login name.")
+     * @xmlrpc.param #param_desc("boolean", "readOnly", "Sets whether the target user should
+     * have only read-only API access or standard full scale access.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setReadOnly(User loggedInUser, String login, Boolean readOnly) {
+        //Logged in user must be an org admin.
+        ensureOrgAdmin(loggedInUser);
+
+        User targetUser = XmlRpcUserHelper.getInstance().lookupTargetUser(
+                loggedInUser, login);
+
+        targetUser.setReadOnly(readOnly);
+        return 1;
+    }
 }
