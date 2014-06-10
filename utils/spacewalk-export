@@ -158,10 +158,10 @@ def _issueReport(options, reportname):
     where_clause = _generateWhere(options, reportname)
     logging.debug('...WHERE = {0}'.format(where_clause))
     if len(where_clause) == 0:
-        call(['/usr/bin/sudo', '/usr/bin/spacewalk-report', reportname] ,
+        call(['/usr/bin/spacewalk-report', reportname] ,
             stdout = open(report_file, 'w'))
     else:
-        call(['/usr/bin/sudo', '/usr/bin/spacewalk-report'] + where_clause + [reportname] ,
+        call(['/usr/bin/spacewalk-report'] + where_clause + [reportname] ,
             stdout = open(report_file, 'w'))
     return report_file
 
@@ -186,7 +186,7 @@ def channelsDump(options):
     channel_export_dir = options.export_dir + '/' + REPORTS_DIR + '/' + 'CHANNELS'
     if not os.path.isdir(channel_export_dir):
         os.mkdir(channel_export_dir, 0700)
-    call(['/usr/bin/sudo', '/usr/bin/spacewalk-export-channels', '-d', channel_export_dir,
+    call(['/usr/bin/spacewalk-export-channels', '-d', channel_export_dir,
          '-f', 'FORCE'] + extra_args)
     return
 
@@ -229,12 +229,12 @@ def repositoriesDump(options):
                 logging.info('...storing file-repo {0} into {1}'.format(repo_loc, repo_tarname))
                 # Tar it up into the export-dir
                 if options.debug:
-                    call(['/usr/bin/sudo', '/bin/tar', '-c', '-v', '-z',
+                    call(['/bin/tar', '-c', '-v', '-z',
                         '-C', repo_dir,
                         '-f', '{0}/{1}/{2}'.format(options.export_dir, REPORTS_DIR, repo_tarname),
                         repo_basename])
                 else:
-                    call(['/usr/bin/sudo', '/bin/tar', '-c', '-z',
+                    call(['/bin/tar', '-c', '-z',
                         '-C', repo_dir,
                         '-f', '{0}/{1}/{2}'.format(options.export_dir, REPORTS_DIR, repo_tarname),
                         repo_basename])
@@ -243,12 +243,12 @@ def repositoriesDump(options):
 
 def prepareExport(options):
     if options.debug:
-        call(['/usr/bin/sudo', '/bin/tar', '-c', '-v', '-z',
+        call(['/bin/tar', '-c', '-v', '-z',
             '-C', options.export_dir,
             '-f', '{0}/{1}'.format(options.export_dir, options.export_package),
             REPORTS_DIR])
     else:
-        call(['/usr/bin/sudo', '/bin/tar', '-c', '-z',
+        call(['/bin/tar', '-c', '-z',
             '-C', options.export_dir,
             '-f', '{0}/{1}'.format(options.export_dir, options.export_package),
             REPORTS_DIR])
@@ -261,6 +261,13 @@ def cleanup(options):
     logging.info('NOTE:  No, I will not do it for you!')
     return
 
+
+def checkSuperUser():
+    if os.geteuid() != 0:
+        print "You must be root to run this!"
+        sys.exit(1)
+
+
 if __name__ == '__main__':
     parser = setupOptions()
     (options, args) = parser.parse_args()
@@ -270,6 +277,8 @@ if __name__ == '__main__':
     if (options.list):
         listSupported()
         sys.exit(0)
+
+    checkSuperUser()
 
     if (options.clean):
         cleanup(options)
