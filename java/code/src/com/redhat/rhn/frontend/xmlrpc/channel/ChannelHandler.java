@@ -39,7 +39,7 @@ public class ChannelHandler extends BaseHandler {
      * Lists all visible software channels. For all child channels,
      * 'channel_parent_label' will be the channel label of the parent channel.
      * For all base channels, 'channel_parent_label' will be an empty string.
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @return Returns array of Maps with the following keys:
      * channel_label, channel_parent_label, channel_name, channel_end_of_life,
      * channel_arch
@@ -57,10 +57,9 @@ public class ChannelHandler extends BaseHandler {
      *      #struct_end()
      *  #array_end()
      */
-    public List<Map<String, Object>> listSoftwareChannels(String sessionKey) {
+    public List<Map<String, Object>> listSoftwareChannels(User loggedInUser) {
 
-        User user = ChannelHandler.getLoggedInUser(sessionKey);
-        List<Map<String, Object>> items = ChannelManager.allChannelsTree(user);
+        List<Map<String, Object>> items = ChannelManager.allChannelsTree(loggedInUser);
 
         // perl just makes stuff so much harder since it
         // transforms data in a map with one line, but it's
@@ -93,7 +92,7 @@ public class ChannelHandler extends BaseHandler {
 
     /**
      * Lists all software channels that the user's organization is entitled to.
-     * @param sessionKey session containing User information.
+     * @param loggedInUser The current user
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
      *
@@ -104,9 +103,8 @@ public class ChannelHandler extends BaseHandler {
      *         $ChannelTreeNodeSerializer
      *     #array_end()
      */
-    public Object[] listAllChannels(String sessionKey) {
-        User user = ChannelHandler.getLoggedInUser(sessionKey);
-        DataResult<ChannelTreeNode> dr = ChannelManager.allChannelTree(user, null);
+    public Object[] listAllChannels(User loggedInUser) {
+        DataResult<ChannelTreeNode> dr = ChannelManager.allChannelTree(loggedInUser, null);
         dr.elaborate();
         return dr.toArray();
     }
@@ -114,7 +112,7 @@ public class ChannelHandler extends BaseHandler {
     /**
      * Lists all the vendor software channels that the user's organization is
      * entitled to.
-     * @param sessionKey session containing User information.
+     * @param loggedInUser The current user
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
      *
@@ -126,16 +124,16 @@ public class ChannelHandler extends BaseHandler {
      *         $ChannelTreeNodeSerializer
      *     #array_end()
      */
-    public Object[] listVendorChannels(String sessionKey) {
-        User user = ChannelHandler.getLoggedInUser(sessionKey);
-        DataResult<ChannelTreeNode> dr = ChannelManager.vendorChannelTree(user, null);
+    public Object[] listVendorChannels(User loggedInUser) {
+        DataResult<ChannelTreeNode> dr = ChannelManager
+                .vendorChannelTree(loggedInUser, null);
         dr.elaborate();
         return dr.toArray();
     }
 
     /**
      * Lists all Red Hat software channels that the user's organization is entitled to.
-     * @param sessionKey session containing User information.
+     * @param loggedInUser The current user
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
      * @deprecated being replaced by listVendorChannels(String sessionKey)
@@ -149,14 +147,14 @@ public class ChannelHandler extends BaseHandler {
      *     #array_end()
      */
     @Deprecated
-    public Object[] listRedHatChannels(String sessionKey) {
-        return listVendorChannels(sessionKey);
+    public Object[] listRedHatChannels(User loggedInUser) {
+        return listVendorChannels(loggedInUser);
     }
 
     /**
      * Lists the most popular software channels based on the popularity
      * count given.
-     * @param sessionKey session containing User information.
+     * @param loggedInUser The current user
      * @param popularityCount channels with at least this many systems subscribed
      * will be returned
      * @return Returns array of channels with info such as channel_label, channel_name,
@@ -172,9 +170,8 @@ public class ChannelHandler extends BaseHandler {
      *         $ChannelTreeNodeSerializer
      *     #array_end()
      */
-    public Object[] listPopularChannels(String sessionKey, Integer popularityCount) {
-        User user = ChannelHandler.getLoggedInUser(sessionKey);
-        DataResult<ChannelTreeNode> dr = ChannelManager.popularChannelTree(user,
+    public Object[] listPopularChannels(User loggedInUser, Integer popularityCount) {
+        DataResult<ChannelTreeNode> dr = ChannelManager.popularChannelTree(loggedInUser,
                 new Long(popularityCount), null);
         dr.elaborate();
         return dr.toArray();
@@ -182,7 +179,7 @@ public class ChannelHandler extends BaseHandler {
 
     /**
      * Lists all software channels that belong to the user's organization.
-     * @param sessionKey session containing User information.
+     * @param loggedInUser The current user
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
      *
@@ -193,16 +190,15 @@ public class ChannelHandler extends BaseHandler {
      *         $ChannelTreeNodeSerializer
      *     #array_end()
      */
-    public Object[] listMyChannels(String sessionKey) {
-        User user = ChannelHandler.getLoggedInUser(sessionKey);
-        DataResult<ChannelTreeNode> dr = ChannelManager.myChannelTree(user, null);
+    public Object[] listMyChannels(User loggedInUser) {
+        DataResult<ChannelTreeNode> dr = ChannelManager.myChannelTree(loggedInUser, null);
         dr.elaborate();
         return dr.toArray();
     }
 
     /**
      * List all software channels that may be shared by the user's organization.
-     * @param sessionKey session containing User information.
+     * @param loggedInUser The current user
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
      *
@@ -214,9 +210,9 @@ public class ChannelHandler extends BaseHandler {
      *         $ChannelTreeNodeSerializer
      *     #array_end()
      */
-    public Object[] listSharedChannels(String sessionKey) {
-        User user = ChannelHandler.getLoggedInUser(sessionKey);
-        DataResult<ChannelTreeNode> dr = ChannelManager.sharedChannelTree(user, null);
+    public Object[] listSharedChannels(User loggedInUser) {
+        DataResult<ChannelTreeNode> dr = ChannelManager
+                .sharedChannelTree(loggedInUser, null);
         dr.elaborate();
         return dr.toArray();
     }
@@ -225,7 +221,7 @@ public class ChannelHandler extends BaseHandler {
      * List all retired software channels.  These are channels that the user's organization
      * is entitled to, but are no longer supported as they have reached their 'end-of-life'
      * date.
-     * @param sessionKey session containing User information.
+     * @param loggedInUser The current user
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
      *
@@ -238,9 +234,9 @@ public class ChannelHandler extends BaseHandler {
      *         $ChannelTreeNodeSerializer
      *     #array_end()
      */
-    public Object[] listRetiredChannels(String sessionKey) {
-        User user = ChannelHandler.getLoggedInUser(sessionKey);
-        DataResult<ChannelTreeNode> dr = ChannelManager.retiredChannelTree(user, null);
+    public Object[] listRetiredChannels(User loggedInUser) {
+        DataResult<ChannelTreeNode> dr = ChannelManager
+                .retiredChannelTree(loggedInUser, null);
         dr.elaborate();
         return dr.toArray();
     }

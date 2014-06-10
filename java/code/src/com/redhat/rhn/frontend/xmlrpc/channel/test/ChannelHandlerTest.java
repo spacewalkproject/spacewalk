@@ -49,7 +49,7 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         ChannelFactory.save(channel);
         flushAndEvict(channel);
 
-        List<Map<String, Object>> result = handler.listSoftwareChannels(adminKey);
+        List<Map<String, Object>> result = handler.listSoftwareChannels(admin);
         assertNotNull(result);
         assertTrue(result.size() > 0);
 
@@ -72,7 +72,7 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         // execute
-        Object[] result = handler.listAllChannels(adminKey);
+        Object[] result = handler.listAllChannels(admin);
 
         // verify
         assertNotNull(result);
@@ -100,7 +100,7 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         SystemManager.subscribeServerToChannel(admin, server, channel);
 
         // execute
-        Object[] result = handler.listPopularChannels(adminKey, 1);
+        Object[] result = handler.listPopularChannels(admin, 1);
 
         // verify
         assertNotNull(result);
@@ -119,7 +119,7 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         assertTrue(foundChannel);
 
         // execute
-        result = handler.listPopularChannels(adminKey, 50000);
+        result = handler.listPopularChannels(admin, 50000);
 
         // verify
         assertNotNull(result);
@@ -135,7 +135,7 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         // execute
-        Object[] result = handler.listMyChannels(adminKey);
+        Object[] result = handler.listMyChannels(admin);
 
         // verify
         assertNotNull(result);
@@ -172,7 +172,7 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         // execute
-        Object[] result = handler.listSharedChannels(adminKey);
+        Object[] result = handler.listSharedChannels(admin);
 
         // verify
         assertNotNull(result);
@@ -202,7 +202,7 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         // execute
-        Object[] result = handler.listRetiredChannels(adminKey);
+        Object[] result = handler.listRetiredChannels(admin);
 
         // verify
         assertNotNull(result);
