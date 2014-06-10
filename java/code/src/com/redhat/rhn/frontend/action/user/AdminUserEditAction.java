@@ -91,6 +91,7 @@ public class AdminUserEditAction extends UserEditActionHelper {
         if (!errors.isEmpty()) {
             return returnFailure(mapping, request, errors, targetUser.getId());
         }
+        targetUser.setReadOnly(form.get("readonly") != null ? true : false);
 
         //Everything must have gone smoothly
         UserManager.storeUser(targetUser);

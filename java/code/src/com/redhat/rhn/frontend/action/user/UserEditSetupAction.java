@@ -80,6 +80,7 @@ public class UserEditSetupAction extends RhnAction {
         request.setAttribute("user", targetUser);
         request.setAttribute("mailableAddress", targetUser.getEmail());
 
+        request.setAttribute("readonly", targetUser.getReadOnlyBool());
         request.setAttribute("created", targetUser.getCreated());
         request.setAttribute("lastLoggedIn", targetUser.getLastLoggedIn());
 

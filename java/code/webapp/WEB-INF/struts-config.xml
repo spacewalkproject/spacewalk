@@ -114,6 +114,7 @@
                            type="org.apache.struts.util.LabelValueBean[]"/>
             <form-property name="selectedRoles" type="java.lang.String[]"/>
             <form-property name="usersRoles" type="java.lang.String[]"/>
+            <form-property name="readonly" type="java.lang.Boolean"/>
             <form-property name="usepam" type="java.lang.Boolean"/>
             <form-property name="no_scrub" type="java.lang.String" initial="desiredpassword, desiredpasswordConfirm"/>
         </form-bean>
