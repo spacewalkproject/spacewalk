@@ -49,7 +49,7 @@ public class ChannelOrgHandler extends BaseHandler {
 
     /**
      * List the organizations associated with the given channel that may be trusted.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel
      * @return List of map entries indicating the orgs available and if access is enabled.
      * @throws FaultException A FaultException is thrown if:
@@ -70,23 +70,22 @@ public class ChannelOrgHandler extends BaseHandler {
      *     #struct_end()
      *  #array_end()
      */
-    public List list(String sessionKey, String channelLabel)
+    public List list(User loggedInUser, String channelLabel)
         throws FaultException {
 
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
-        verifyChannelAdmin(user, channel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+        verifyChannelAdmin(loggedInUser, channel);
 
-        if (!user.getOrg().equals(channel.getOrg())) {
+        if (!loggedInUser.getOrg().equals(channel.getOrg())) {
             // users are not allowed to access properties for a channel that is in a
             // different org
-            throw new NotPermittedByOrgException(user.getOrg().getId().toString(),
+            throw new NotPermittedByOrgException(loggedInUser.getOrg().getId().toString(),
                     channel.getLabel(), channel.getOrg().getId().toString());
         }
 
         // retrieve the orgs available to be "trusted" for this channel
         List<OrgChannelDto> orgs = OrgManager.orgChannelTrusts(channel.getId(),
-                user.getOrg());
+                loggedInUser.getOrg());
         // retrieve the orgs that are trusted for this channel
         Set<Org> trustedOrgs = channel.getTrustedOrgs();
 
@@ -115,7 +114,7 @@ public class ChannelOrgHandler extends BaseHandler {
 
     /**
      * Enable access to the channel for the given organization.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel to change
      * @param orgId The org id being granted access.
      * @return Returns 1 if successful, exception otherwise
@@ -131,15 +130,15 @@ public class ChannelOrgHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "orgId", "id of org being granted access")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int enableAccess(String sessionKey, String channelLabel, Integer orgId)
+    public int enableAccess(User loggedInUser, String channelLabel, Integer orgId)
         throws FaultException {
 
-        return enableAccess(sessionKey, channelLabel, orgId, true);
+        return enableAccess(loggedInUser, channelLabel, orgId, true);
     }
 
     /**
      * Disable access to the channel for the given organization.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel to change
      * @param orgId The org id being removed access.
      * @return Returns 1 if successful, exception otherwise
@@ -155,22 +154,21 @@ public class ChannelOrgHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "orgId", "id of org being removed access")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int disableAccess(String sessionKey, String channelLabel, Integer orgId)
+    public int disableAccess(User loggedInUser, String channelLabel, Integer orgId)
         throws FaultException {
 
-        return enableAccess(sessionKey, channelLabel, orgId, false);
+        return enableAccess(loggedInUser, channelLabel, orgId, false);
     }
 
-    private int enableAccess(String sessionKey, String channelLabel, Integer orgId,
+    private int enableAccess(User loggedInUser, String channelLabel, Integer orgId,
             boolean enable) throws FaultException {
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
-        verifyChannelAdmin(user, channel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+        verifyChannelAdmin(loggedInUser, channel);
 
-        if (!user.getOrg().equals(channel.getOrg())) {
+        if (!loggedInUser.getOrg().equals(channel.getOrg())) {
             // users are not allowed to alter properties for a channel that is in a
             // different org
-            throw new NotPermittedByOrgException(user.getOrg().getId().toString(),
+            throw new NotPermittedByOrgException(loggedInUser.getOrg().getId().toString(),
                     channel.getLabel(), channel.getOrg().getId().toString());
         }
 
@@ -187,7 +185,7 @@ public class ChannelOrgHandler extends BaseHandler {
         // need to validate that the org provided is in the list of orgs that may
         // be granted access
         List<OrgChannelDto> orgs = OrgManager.orgChannelTrusts(channel.getId(),
-                user.getOrg());
+                loggedInUser.getOrg());
         boolean orgInTrust = false;
 
         for (OrgChannelDto orgDto : orgs) {

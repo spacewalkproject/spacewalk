@@ -62,7 +62,7 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         // execute
-        List<Map<String, Object>> result = handler.list(adminKey, channel.getLabel());
+        List<Map<String, Object>> result = handler.list(admin, channel.getLabel());
 
         // verify
         assertNotNull(result);
@@ -110,7 +110,7 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         assertFalse(channel.getTrustedOrgs().contains(org3));
 
         // execute
-        int result = handler.enableAccess(adminKey, channel.getLabel(),
+        int result = handler.enableAccess(admin, channel.getLabel(),
                 org3.getId().intValue());
 
         // verify
@@ -141,7 +141,7 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         // execute
-        int result = handler.disableAccess(adminKey, channel.getLabel(),
+        int result = handler.disableAccess(admin, channel.getLabel(),
                 org3.getId().intValue());
 
         // verify
