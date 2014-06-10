@@ -36,7 +36,7 @@ public class ChannelAccessHandler extends BaseHandler {
     /**
      * Enable user restrictions for the given channel. If enabled, only
      * selected users within the organization may subscribe to the channel.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel to change
      * @return Returns 1 if successful, exception otherwise
      * @throws FaultException A FaultException is thrown if:
@@ -50,14 +50,13 @@ public class ChannelAccessHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int enableUserRestrictions(String sessionKey, String channelLabel)
+    public int enableUserRestrictions(User loggedInUser, String channelLabel)
         throws FaultException {
 
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
-        verifyChannelAdmin(user, channel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+        verifyChannelAdmin(loggedInUser, channel);
 
-        channel.setGloballySubscribable(false, user.getOrg());
+        channel.setGloballySubscribable(false, loggedInUser.getOrg());
         ChannelFactory.save(channel);
 
         return 1;
@@ -66,7 +65,7 @@ public class ChannelAccessHandler extends BaseHandler {
     /**
      * Disable user restrictions for the given channel. If disabled,
      * all users within the organization may subscribe to the channel.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel to change
      * @return Returns 1 if successful, exception otherwise
      * @throws FaultException A FaultException is thrown if:
@@ -80,14 +79,13 @@ public class ChannelAccessHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int disableUserRestrictions(String sessionKey, String channelLabel)
+    public int disableUserRestrictions(User loggedInUser, String channelLabel)
         throws FaultException {
 
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
-        verifyChannelAdmin(user, channel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+        verifyChannelAdmin(loggedInUser, channel);
 
-        channel.setGloballySubscribable(true, user.getOrg());
+        channel.setGloballySubscribable(true, loggedInUser.getOrg());
         ChannelFactory.save(channel);
 
         return 1;
@@ -95,7 +93,7 @@ public class ChannelAccessHandler extends BaseHandler {
 
     /**
      * Set organization sharing access control.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel to change
      * @param access The access value to set. (Must be one of the following:
      * "public", "private" or "protected")
@@ -113,12 +111,11 @@ public class ChannelAccessHandler extends BaseHandler {
      *                  following: 'public', 'private', or 'protected'")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int setOrgSharing(String sessionKey, String channelLabel, String access)
+    public int setOrgSharing(User loggedInUser, String channelLabel, String access)
         throws FaultException {
 
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
-        verifyChannelAdmin(user, channel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+        verifyChannelAdmin(loggedInUser, channel);
 
         if (channel.isValidAccess(access)) {
             channel.setAccess(access);
@@ -132,7 +129,7 @@ public class ChannelAccessHandler extends BaseHandler {
 
     /**
      * Get organization sharing access control.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel
      * @return The access value
      * @throws FaultException A FaultException is thrown if:
@@ -147,12 +144,11 @@ public class ChannelAccessHandler extends BaseHandler {
      * @xmlrpc.returntype string - The access value (one of the following: 'public',
      * 'private', or 'protected'.
      */
-    public String getOrgSharing(String sessionKey, String channelLabel)
+    public String getOrgSharing(User loggedInUser, String channelLabel)
         throws FaultException {
 
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
-        verifyChannelAdmin(user, channel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+        verifyChannelAdmin(loggedInUser, channel);
 
         return channel.getAccess();
     }

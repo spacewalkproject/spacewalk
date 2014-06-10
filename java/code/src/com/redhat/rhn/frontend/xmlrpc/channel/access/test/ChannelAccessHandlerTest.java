@@ -43,7 +43,7 @@ public class ChannelAccessHandlerTest extends BaseHandlerTestCase {
         assertTrue(channel.isGloballySubscribable(admin.getOrg()));
 
         // execute
-        int result = handler.enableUserRestrictions(adminKey, channel.getLabel());
+        int result = handler.enableUserRestrictions(admin, channel.getLabel());
 
         // verify
         assertEquals(1, result);
@@ -65,7 +65,7 @@ public class ChannelAccessHandlerTest extends BaseHandlerTestCase {
         assertFalse(channel.isGloballySubscribable(admin.getOrg()));
 
         // execute
-        int result = handler.disableUserRestrictions(adminKey, channel.getLabel());
+        int result = handler.disableUserRestrictions(admin, channel.getLabel());
 
         // verify
         assertEquals(1, result);
@@ -87,7 +87,7 @@ public class ChannelAccessHandlerTest extends BaseHandlerTestCase {
         assertEquals(Channel.PUBLIC, channel.getAccess());
 
         // execute
-        String result = handler.getOrgSharing(adminKey, channel.getLabel());
+        String result = handler.getOrgSharing(admin, channel.getLabel());
 
         // verify
         assertEquals(Channel.PUBLIC, result);
@@ -105,7 +105,7 @@ public class ChannelAccessHandlerTest extends BaseHandlerTestCase {
         assertEquals(Channel.PRIVATE, channel.getAccess());
 
         // execute
-        int result = handler.setOrgSharing(adminKey, channel.getLabel(), Channel.PROTECTED);
+        int result = handler.setOrgSharing(admin, channel.getLabel(), Channel.PROTECTED);
 
         // verify
         assertEquals(1, result);
@@ -124,7 +124,7 @@ public class ChannelAccessHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         try {
-            handler.setOrgSharing(adminKey, channel.getLabel(), "invalid");
+            handler.setOrgSharing(admin, channel.getLabel(), "invalid");
             fail("should have gottent an invalid access value exception.");
         }
         catch (InvalidAccessValueException e) {
