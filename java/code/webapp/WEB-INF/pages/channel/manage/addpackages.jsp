@@ -74,7 +74,7 @@
 
 
   			<p align="right">
-			    <input type="submit" name="confirm" class="btn btn-default"  value="<bean:message key='channel.jsp.package.addbutton'/>" ${empty pageList ? 'disabled' : ''} >
+			    <input type="submit" name="confirm" class="btn btn-default"  value="<bean:message key='channel.jsp.package.addbutton'/>" ${empty pageList ? 'disabled' : 'btn btn-default'} >
 			</p>
      <rhn:submitted/>
 </rl:listset>
