@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.19
+Version:	2.2.20
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Jun 11 2014 Tomas Lestach <tlestach@redhat.com> 2.2.20-1
+- 1108138 - detect repositories with inaccessible metadata
+
 * Mon Jun 09 2014 Tomas Lestach <tlestach@redhat.com> 2.2.19-1
 - 1105904 - do not check size of missing files
 
