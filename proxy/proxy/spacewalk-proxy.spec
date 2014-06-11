@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.2.4
+Version: 2.2.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,10 @@ fi
 
 
 %changelog
+* Wed Jun 11 2014 Stephen Herr <sherr@redhat.com> 2.2.5-1
+- 1108370 - add --from-export option to rhn_package_manager
+- make rhnpush backwards-compatible with old spacewalk-proxy
+
 * Sat Jun 07 2014 Stephen Herr <sherr@redhat.com> 2.2.4-1
 - 1104375 - checkstyle fixes
 
