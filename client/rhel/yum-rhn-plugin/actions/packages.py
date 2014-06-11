@@ -309,6 +309,7 @@ def update(package_list, cache_only=None):
 
     log.log_debug("Called update", package_list)
 
+    errmsgs = []
     # Remove already installed packages from the list
     for package in package_list[:]:
         pkgkeys = {
@@ -340,22 +341,40 @@ def update(package_list, cache_only=None):
         pkgs = yum_base.rpmdb.searchNevra(name=pkgkeys['name'], arch=pkgkeys['arch'])
         evr  = yum.packages.PackageEVR(pkgkeys['epoch'], pkgkeys['version'], pkgkeys['release'])
 
+        found = False
         for pkg in pkgs:
             if pkg.returnEVR() == evr:
                 log.log_debug('Package %s already installed' \
                     % _yum_package_tup(package))
                 package_list.remove(package)
+                found = True
                 break
             elif pkg.returnEVR() > evr:
                 log.log_debug('More recent version of package %s is already installed' \
                     % _yum_package_tup(package))
                 package_list.remove(package)
+                found = True
                 break
+
+        if not found:
+            available = yum_base.pkgSack.searchNevra(name=pkgkeys['name'], arch=pkgkeys['arch'],
+                        epoch=pkgkeys['epoch'], ver=pkgkeys['version'], rel=pkgkeys['release'])
+            if not available:
+                err = 'Package %s is not available for installation' \
+                          % _yum_package_tup(package)
+                log.log_me('E: ', err )
+                package_list.remove(package)
+                errmsgs.append(err)
 
     # Don't proceed further with empty list,
     # since this would result into an empty yum transaction
     if not package_list:
-        return (0, "Requested packages already installed", {})
+        if err:
+           ret = (32, "Failed: Packages failed to install properly:\n" + '\n'.join(errmsgs),
+                      {'version': '1', 'name': "package_install_failure"})
+        else:
+           ret = (0, "Requested packages already installed", {})
+        return ret
 
     transaction_data = __make_transaction(package_list, 'i')
 
