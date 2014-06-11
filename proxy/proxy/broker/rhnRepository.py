@@ -253,15 +253,14 @@ def listPackages(server, channel, version):
     """ Generates a list of objects by calling the function """
 
     try:
-        return server.listAllPackagesChecksum(channel, version)
-    # pylint: disable=W0702
-    except:
         try:
+            return server.listAllPackagesChecksum(channel, version)
+        except xmlrpclib.Fault:
             return server.listAllPackages(channel, version)
-        except xmlrpclib.ProtocolError, e:
-            errcode, errmsg = rpclib.reportError(e.headers)
-            raise rhnFault(1000, "SpacewalkProxy error (xmlrpclib.ProtocolError): "
-                             "errode=%s; errmsg=%s" % (errcode, errmsg)), None, sys.exc_info()[2]
+    except xmlrpclib.ProtocolError, e:
+        errcode, errmsg = rpclib.reportError(e.headers)
+        raise rhnFault(1000, "SpacewalkProxy error (xmlrpclib.ProtocolError): "
+                "errode=%s; errmsg=%s" % (errcode, errmsg)), None, sys.exc_info()[2]
 
 
 def computePackagePaths(nvrea, source=0, prepend="", checksum=None):

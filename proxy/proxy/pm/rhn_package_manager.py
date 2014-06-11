@@ -28,10 +28,15 @@ This script performs various management operations on the Spacewalk Proxy:
 - Checks if the local image of the channel (the local directory) is in sync
   with the server's image, and prints the missing packages (or the extra
   ones)
+- Cache any RPM content locally to avoid needing to download them. This can be
+  particularly useful if bandwitdth is precious or the connection upstream is
+  slow.
 """
 
 # system imports
+import gzip
 import os
+from xml.dom import minidom
 import sys
 import shutil
 import xmlrpclib
@@ -54,7 +59,8 @@ def main():
     optionsTable = [
         Option('-v','--verbose',   action='count',      help='Increase verbosity'),
         Option('-d','--dir',       action='store',      help='Process packages from this directory'),
-        Option('-c','--channel',   action='append',     help='Manage this channel'),
+        Option('-e','--from-export', action='store',    help='Process packages from this channel export. Can only be used with --copyonly.', dest='export_location'),
+        Option('-c','--channel',   action='append',     help='Channel to operate on. When used with --from-export specifies channels to cache rpms for, else specifies channels that we will be pushing into.'),
         Option('-n','--count',     action='store',      help='Process this number of headers per call', type='int'),
         Option('-l','--list',      action='store_true', help='Only list the specified channels'),
         Option('-s','--sync',      action='store_true', help='Check if in sync with the server'),
@@ -96,14 +102,31 @@ def main():
         upload.checkSync()
         return
 
-    if options.copyonly:
-        upload.copyonly()
-        return
-
+    # remeber to process dir option before export, export can overwrite dir
     if options.dir:
         upload.directory()
-    elif options.stdin:
+    if options.export_location:
+        if not options.copyonly:
+            upload.die(0, "--from-export can only be used with --copyonly")
+        if options.source:
+            upload.die(0, "--from-export cannot be used with --source")
+        upload.from_export()
+    if options.stdin:
         upload.readStdin()
+
+    # if we're going to allow the user to specify packages by dir *and* export
+    # *and* stdin *and* package list (why not?) then we have to uniquify
+    # the list afterwards. Sort just for user-friendly display.
+    upload.files = sorted(list(set(upload.files)))
+
+    if options.copyonly:
+        if not upload.files:
+            upload.die(0, "Nothing to do; exiting. Try --help")
+        if options.test:
+            upload.test()
+            return
+        upload.copyonly()
+        return
 
     if options.exclude:
         upload.filter_excludes()
@@ -138,6 +161,47 @@ class UploadClass(uploadLib.UploadClass):
         self.url = CFG.RHN_PARENT or ''
         self.url = parseUrl(self.url)[1].split(':')[0]
         self.url = scheme + self.url + path
+
+    # The rpm names in channel exports have been changed to be something like
+    # rhn-package-XXXXXX.rpm, but that's okay because the rpm headers are
+    # still intact and that's what we use to determine the destination
+    # filename. Read the channel xml to determin what rpms to cache if the
+    # --channel option was used.
+    def from_export(self):
+        export_dir = self.options.export_location
+        self.warn(1, "Getting files from channel export: ", export_dir)
+        if not self.options.channel:
+            self.warn(2, "No channels specified, getting all files")
+            # If no channels specified just upload all rpms from
+            # all the rpm directories
+            for hash_dir in uploadLib.listdir(os.path.join(
+                    export_dir, "rpms")):
+                self.options.dir = hash_dir
+                self.directory()
+            return
+        # else...
+        self.warn(2, "Getting only files in these channels",
+                self.options.channel)
+        # Read the channel xml and add only packages that are in these channels
+        package_set = set([])
+        for channel in self.options.channel:
+            xml_path = os.path.join(export_dir, "channels", channel,
+                    "channel.xml.gz")
+            if not os.access(xml_path, os.R_OK):
+                self.warn(0, "Could not find metadata for channel %s, skipping..." % channel)
+                print "Could not find metadata for channel %s, skipping..." % channel
+                continue
+            dom = minidom.parse(gzip.open(xml_path))
+            # will only ever be the one
+            dom_channel = dom.getElementsByTagName('rhn-channel')[0]
+            package_set.update(dom_channel.attributes['packages']
+                    .value.encode('ascii','ignore').split())
+        # Try to find relevent packages in the export
+        for hash_dir in uploadLib.listdir(os.path.join(export_dir, "rpms")):
+            for rpm in uploadLib.listdir(hash_dir):
+                # rpm name minus '.rpm'
+                if os.path.basename(rpm)[:-4] in package_set:
+                    self.files.append(rpm)
 
     def setServer(self):
         try:
@@ -267,7 +331,8 @@ class UploadClass(uploadLib.UploadClass):
             self.warn(1, "No package directory specified; will not copy the package")
             return
 
-        # We'll controll this manually, see comment below.
+        # Safe because proxy X can't be activated against Spacewalk / Satellite
+        # < X.
         self.use_checksum_paths = True
 
         for filename in self.files:
@@ -275,30 +340,12 @@ class UploadClass(uploadLib.UploadClass):
                                     relativeDir=self.relativeDir,
                                     source=self.options.source,
                                     nosig=self.options.nosig)
-            # This is an entirely local operation so we don't know what the
-            # server capabilities are. Painful, but for each file look at the
-            # options and see if we can find the file we're trying to replace.
-            # If can't find it default to checksumless path.
-            possiblePaths = computePackagePaths(fileinfo['nvrea'], filename,
+            self.processPackage(fileinfo['nvrea'], filename,
                     fileinfo['checksum'])
-            found = False
-            for path in possiblePaths:
-                path = "%s/%s" % (CFG.PKG_DIR, path)
-                if  os.path.isfile(path):
-                    found = path
-                    break
-
-            if found and fileinfo['checksum'] in found:
-                checksum = fileinfo['checksum']
-            else:
-                checksum = None
-
-            self.processPackage(fileinfo['nvrea'], filename, checksum)
 
 
 def rpmPackageName(p):
     return "%s-%s-%s.%s.rpm" % (p[0], p[1], p[2], p[4])
-
 
 if __name__ == '__main__':
     try:
