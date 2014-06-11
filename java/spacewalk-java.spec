@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.89
+Version: 2.2.90
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,33 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jun 11 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.90-1
+- 1086256 - style submit buttons
+- page for viewing channels repo is associated to
+- API for setting read-only user flag
+- allow read-only user flag to be set in webUI
+- remove unused class
+- using User as parameter in API instead of sessionKey
+- authenticate user before invoking API methods
+- check method name in order to distinguish read only api calls
+- disable read-only users to log in
+- allow user to be created as read only
+- hibernate mapping for read only user
+- checkstyle fix
+- Fix datepicker time at xx:xx PM pre-filled with xx:xx AM inducing user to
+  enter the wrong time. (bnc#880936)
+- SystemRemoteCommandAction: avoid exception swallowing[1]
+- 574974 - RFE: Add option of pasting key into textarea
+- remove dead variable
+- make array initialized from constants static final
+- remove redundant .LongValue() call on Long object
+- finalize variables which should be final
+- use serialVersionUID
+- remove unused method
+- use StringBuilder instead of StringBuffer for local variables
+- remove link to the dead page
+- Fix human dates now() staying unmodified (bnc#880081)
+
 * Thu Jun 05 2014 Stephen Herr <sherr@redhat.com> 2.2.89-1
 - 594455 - group by db fix for elaborator
 - apidoc fix: remove extraneous #array from function prototypes
