@@ -229,11 +229,13 @@ def list_repo_packages(label, source_url):
     plugin = getattr(submod, "ContentSource")
     try:
         repo_plugin = plugin(source_url, label)
+        packages = map(lambda p:p.getNEVRA(), plugin.list_packages(repo_plugin, []))
+        return set(packages)
     except ValueError:
         log(2, "   Invalid repo source_url ... %s" % source_url)
-        return set([])
-    packages = map(lambda p:p.getNEVRA(), plugin.list_packages(repo_plugin, []))
-    return set(packages)
+    except:
+        log(2, "   Inaccessible repo metadata ... %s" % source_url)
+    return set([])
 
 
 def check_disk_size(abs_path, size):
