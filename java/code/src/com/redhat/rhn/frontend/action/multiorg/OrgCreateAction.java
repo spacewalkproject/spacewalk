@@ -105,7 +105,7 @@ public class OrgCreateAction extends RhnAction {
                 String prefix = dynaForm.getString("prefix");
 
                 if (!pass.equals(passConfirm)) {
-                    addMessage(request, "error.password_mismatch");
+                    createErrorMessage(request, "error.password_mismatch", null);
                 }
                 else {
                     CreateOrgCommand cmd = new CreateOrgCommand(name, login, pass, email);
