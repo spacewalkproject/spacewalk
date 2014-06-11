@@ -8435,6 +8435,17 @@
                  path="/channels/manage/repos/RepoList.do" redirect = "true"/>
     </action>
 
+    <action path="/channels/manage/repos/AssociatedChannels"
+        scope="request"
+        parameter="all"
+        input="/WEB-INF/pages/channel/manage/repo/repos.jsp"
+        type="com.redhat.rhn.frontend.action.channel.manage.repo.RepoChannelsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/manage/repo/repochannels.jsp"/>
+    </action>
+
 <!-- end repo -->
 
     <action path="/channels/manage/DistChannelMap"

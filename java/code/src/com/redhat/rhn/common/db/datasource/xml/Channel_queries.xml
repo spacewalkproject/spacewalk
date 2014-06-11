@@ -1088,4 +1088,15 @@ select c.id,
   </query>
 </mode>
 
+<mode name="channels_for_content_source">
+  <query params="csid">
+select c.id,
+       c.name
+  from rhnChannel c
+  join rhnChannelContentSource cs
+    on c.id = cs.channel_id
+   and cs.source_id = :csid
+  </query>
+</mode>
+
 </datasource_modes>

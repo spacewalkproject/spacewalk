@@ -8665,6 +8665,15 @@ Please note that some manual configuration of these scripts may still be require
       <trans-unit id="repos.jsp.filters.error">
         <source>Filter syntax is incorrect!</source>
       </trans-unit>
+      <trans-unit id="repos.jsp.channelHeader">
+        <source>Channels using {0} repository</source>
+      </trans-unit>
+      <trans-unit id="repos.jsp.channelSummary">
+        <source>Bellow are channels with {0} repository attached to them.</source>
+      </trans-unit>
+      <trans-unit id="repos.jsp.noChannels">
+        <source>This repository is not linked to any channel.</source>
+      </trans-unit>
       <trans-unit id="os">
         <source>Operating System</source>
       </trans-unit>

@@ -145,6 +145,7 @@ public class RepoDetailsAction extends RhnAction {
         RequestContext context = new RequestContext(request);
         setupPopup(context);
         if (!createMode) {
+            request.setAttribute("id", context.getParamAsLong("id"));
             setupRepo(request, form, ChannelFactory.lookupContentSource(
                     context.getParamAsLong("id"), context.getCurrentUser().getOrg()));
         }

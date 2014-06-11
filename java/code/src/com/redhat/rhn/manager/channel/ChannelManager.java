@@ -2854,4 +2854,18 @@ public class ChannelManager extends BaseManager {
     public static List<Long> listChannelManagerIdsForChannel(Org org, Channel channel) {
         return ChannelFactory.listManagerIdsForChannel(org, channel.getId());
     }
+
+    /**
+     * @param csid content source (repository) ID
+     * @param pc pageControl
+     * @return List of channels associated to a content source (repository)
+     */
+    public static DataResult channelsForContentSource(Long csid, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+                "channels_for_content_source");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("csid", csid);
+        Map<String, Object> elabParams = new HashMap<String, Object>();
+        return makeDataResult(params, elabParams, pc, m);
+    }
 }

@@ -18,6 +18,8 @@
                              deletionType="repos">
                     <c:out value="${requestScope.repo.label}"/>
                 </rhn:toolbar>
+                <rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/repo_detail.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
                 <h2><bean:message key="repos.jsp.details.header2"/></h2>
             </c:otherwise>
         </c:choose>
