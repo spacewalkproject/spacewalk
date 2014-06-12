@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.keys.test;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.frontend.action.keys.BaseCryptoKeyEditAction;
 import com.redhat.rhn.frontend.action.keys.CryptoKeyCreateAction;
+import com.redhat.rhn.frontend.action.keys.CryptoKeyDeleteAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.crypto.CreateCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.crypto.test.CryptoKeyCommandTest;
@@ -48,6 +49,7 @@ public class CryptoKeyDeleteActionTest extends RhnPostMockStrutsTestCase {
         setRequestPathInfo("/keys/CryptoKeyDelete");
         addRequestParameter(RequestContext.KEY_ID, cmd.getCryptoKey().getId().toString());
         addRequestParameter(CryptoKeyCreateAction.SUBMITTED, Boolean.TRUE.toString());
+        addRequestParameter(CryptoKeyDeleteAction.CONTENTS_EDIT, cmd.getCryptoKey().getKeyString());
         actionPerform();
         String[] keys = {"cryptokey.delete.success"};
         verifyActionMessages(keys);
