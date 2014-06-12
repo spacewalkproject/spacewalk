@@ -24,7 +24,7 @@ Requires: dbus-1-python
 Requires: dbus-python
 %endif
 %if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
-Requires: python-gudev
+Requires: pygobject3-base libgudev1
 Requires: python-hwdata
 %else
 Requires: hal >= 0.5.8.1-52
