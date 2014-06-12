@@ -12,7 +12,14 @@
 # in this software or its documentation.
 #
 
-from gi.repository import GUdev
+try:
+    from gi.repository import GUdev
+    gi_gudev = True
+except ImportError:
+    import gudev
+    import glib
+    gi_gudev = False
+
 import os
 import re
 
@@ -29,7 +36,10 @@ def get_devices():
         'desc' : 'Intel Corporation|5000 Series Chipset PCI Express x4 Port 2'
     """
     # listen to uevents on all subsystems
-    client = GUdev.Client()
+    if gi_gudev:
+        client = GUdev.Client()
+    else:
+        client = gudev.Client([""])
     # FIX ME - change to None to list all devices once it is fixed in gudev
     devices = client.query_by_subsystem("pci") + client.query_by_subsystem("usb") + client.query_by_subsystem("block") + client.query_by_subsystem("ccw") + client.query_by_subsystem("scsi")
     result = []

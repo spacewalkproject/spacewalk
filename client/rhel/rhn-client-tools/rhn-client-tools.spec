@@ -23,11 +23,16 @@ Requires: dbus-1-python
 %else
 Requires: dbus-python
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
+%if 0%{?fedora}
 Requires: pygobject3-base libgudev1
 Requires: python-hwdata
 %else
+%if 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
+Requires: python-gudev
+Requires: python-hwdata
+%else
 Requires: hal >= 0.5.8.1-52
+%endif
 %endif
 %if 0%{?suse_version}
 Requires: python-newt
