@@ -3,6 +3,7 @@
       <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_channel.jspf" %>
       <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_provider.jspf" %>
       <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_packages.jspf" %>
+      <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_erratas.jspf" %>
       <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_systems.jspf" %>
    </rhn:unpagedlistdisplay>
 </rhn:list>

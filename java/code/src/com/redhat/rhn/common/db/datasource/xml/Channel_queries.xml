@@ -296,6 +296,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 	 where UC.user_id = :user_id
     </query>
       <elaborator name="visible_server_count"/>
+      <elaborator name="channel_errata_count"/>
 </mode>
 
 <mode name="shared_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
@@ -564,6 +565,19 @@ ORDER BY UPPER(C2.name), depth, UPPER(C.name)
      AND SC.channel_id IN(%s)
      AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
 GROUP BY SC.channel_id
+</query>
+
+<query name="channel_errata_count">
+  SELECT id,
+         COUNT (errata_id) AS errata_count
+    FROM (
+    SELECT DISTINCT cp.channel_id AS id,
+           ep.errata_id AS errata_id
+      FROM rhnChannelPackage cp
+      JOIN rhnErrataPackage ep
+        ON cp.package_id = ep.package_id
+     WHERE channel_id = 2396) as X
+ GROUP BY id
 </query>
 
 <mode name="custom_base_channels_for_server"
