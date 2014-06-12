@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.20
+Version:	2.2.21
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Jun 12 2014 Grant Gainey 2.2.21-1
+- Add spacewalk-export-channels to Makefile too
+- Calling sudo inside may be problematic
+
 * Wed Jun 11 2014 Tomas Lestach <tlestach@redhat.com> 2.2.20-1
 - 1108138 - detect repositories with inaccessible metadata
 
