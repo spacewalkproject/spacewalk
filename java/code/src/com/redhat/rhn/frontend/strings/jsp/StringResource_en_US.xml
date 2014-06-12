@@ -21722,6 +21722,9 @@ given channel.</source>
         <trans-unit id="help.credentials.jsp.logininput">
           <source>@@PRODUCT_NAME@@ Login:</source>
         </trans-unit>
+        <trans-unit id="server.runningkernel.unknown">
+          <source>Unknown running kernel</source>
+        </trans-unit>
       </group>
     </body>
   </file>
