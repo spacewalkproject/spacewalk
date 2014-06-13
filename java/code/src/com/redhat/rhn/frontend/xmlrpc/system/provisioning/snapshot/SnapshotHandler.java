@@ -14,18 +14,26 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.system.provisioning.snapshot;
 
+import com.redhat.rhn.common.db.WrappedSQLException;
+import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.rhnpackage.PackageNevra;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerSnapshot;
+import com.redhat.rhn.domain.server.SnapshotTag;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
+import com.redhat.rhn.frontend.xmlrpc.SnapshotLookupException;
+import com.redhat.rhn.frontend.xmlrpc.SnapshotRollbackException;
 import com.redhat.rhn.frontend.xmlrpc.SnapshotTagAlreadyExistsException;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidArgsException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSnapshotException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
+import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -308,5 +316,93 @@ public class SnapshotHandler extends BaseHandler {
         validKeys.add("startDate");
         validKeys.add("endDate");
         validateMap(validKeys, map);
+    }
+
+    /**
+     * @param loggedInUser The current user
+     * @param serverId server ID
+     * @param snapshotId snapshot ID
+     * @return 1 in case of success, exception thrown otherwise
+     * @xmlrpc.doc Rollbacks server to snapshot
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param_desc("int", "snapshotId", "Id of the snapshot")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int rollbackToSnapshot(User loggedInUser, Integer serverId,
+            Integer snapshotId) {
+        Server server = lookupServer(loggedInUser, serverId);
+
+        if (server == null) {
+            throw new InvalidSystemException();
+        }
+
+        ServerSnapshot snapshot = ServerFactory.lookupSnapshotById(snapshotId.intValue());
+        if (snapshot == null) {
+            throw new SnapshotLookupException(snapshotId);
+        }
+        doRollback(loggedInUser, snapshot);
+        return 1;
+    }
+
+    /**
+     * @param loggedInUser The current user
+     * @param serverId server ID
+     * @param tagName Snapshot tag name
+     * @return 1 in case of success, exception thrown otherwise
+     * @xmlrpc.doc Rollbacks server to snapshot
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param_desc("string", "tagName", "Name of the snapshot tag")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int rollbackToTag(User loggedInUser, Integer serverId,
+            String tagName) {
+        SnapshotTag tag = ServerFactory.lookupSnapshotTagbyName(tagName);
+        for (ServerSnapshot snapshot : tag.getSnapshots()) {
+            if (snapshot.getServer().getId() == serverId.longValue()) {
+                doRollback(loggedInUser, snapshot);
+            }
+        }
+        return 1;
+    }
+
+    /**
+     * @param loggedInUser The current user
+     * @param tagName Snapshot tag name
+     * @return 1 in case of success, exception thrown otherwise
+     * @xmlrpc.doc Rollbacks server to snapshot
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "tagName", "Name of the snapshot tag")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int rollbackToTag(User loggedInUser, String tagName) {
+        SnapshotTag tag = ServerFactory.lookupSnapshotTagbyName(tagName);
+        for (ServerSnapshot snapshot : tag.getSnapshots()) {
+            doRollback(loggedInUser, snapshot);
+        }
+        return 1;
+    }
+
+    private void doRollback(User loggedInUser, ServerSnapshot snapshot) {
+        SystemManager.ensureAvailableToUser(loggedInUser, snapshot.getServer().getId());
+        ActionManager.checkConfigActionOnServer(ActionFactory.TYPE_CONFIGFILES_DEPLOY,
+                snapshot.getServer());
+        try {
+            snapshot.cancelPendingActions();
+            snapshot.rollbackChannels();
+            snapshot.rollbackGroups();
+            snapshot.rollbackPackages(loggedInUser);
+            snapshot.rollbackConfigFiles(loggedInUser);
+        }
+        catch (WrappedSQLException e) {
+            String msg = e.getMessage();
+            if (msg != null && msg.contains("channel_family_no_subscriptions")) {
+                throw new SnapshotRollbackException();
+            }
+            else {
+                throw e;
+            }
+        }
     }
 }
