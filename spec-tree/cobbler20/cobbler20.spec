@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 22%{?dist}
+Release: 23%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -454,6 +454,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Fri Jun 13 2014 Stephen Herr <sherr@redhat.com> 2.0.11-23
+- 1109276 - make cobbler20 guest kickstart work with new koan
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.0.11-22
 - spec polishing
 
