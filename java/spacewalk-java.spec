@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.90
+Version: 2.2.91
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jun 13 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.91-1
+- compare_packages_to_snapshot: performance fix
+- compare_packages_to_snapshot: avoid failure on NULL evr on Oracle
+- start using User as parameter instead of sessionKey in ScheduleHandler
+- OrgHandler: unused private methods removed
+- 1011935 - add missing localization string
+- 1012643 - display errata count in channels/All.do
+- 1063342 - create error message if passwords doesn't match
+
 * Wed Jun 11 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.90-1
 - 1086256 - style submit buttons
 - page for viewing channels repo is associated to
