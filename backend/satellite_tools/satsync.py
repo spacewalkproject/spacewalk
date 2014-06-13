@@ -31,8 +31,8 @@ from optparse import Option, OptionParser
 from rhn.connections import idn_ascii_to_pune, idn_pune_to_unicode
 
 import gettext
-t = gettext.translation('spacewalk-backend-server', fallback=True)
-_ = t.ugettext
+translation = gettext.translation('spacewalk-backend-server', fallback=True)
+_ = translation.ugettext
 
 # __rhn imports__
 from spacewalk.common import rhnMail, rhnLib, rhnFlags
@@ -2417,8 +2417,8 @@ if __name__ == '__main__':
                      " purposes !!!\n")
     try:
         sys.exit(Runner().main() or 0)
-    except (KeyboardInterrupt, SystemExit), e:
-        sys.exit(e)
+    except (KeyboardInterrupt, SystemExit), ex:
+        sys.exit(ex)
     except Exception:
         from spacewalk.common.rhnTB import fetchTraceback
         tb = 'TRACEBACK: ' + fetchTraceback(with_locals=1)
