@@ -42,7 +42,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         int numActions = actions.size();
 
         //compare against number retrieved from api... should be the same
-        Object[] apiActions = handler.listAllActions(adminKey);
+        Object[] apiActions = handler.listAllActions(admin);
         assertEquals(numActions, apiActions.length);
 
         //add new actions and verify that the value returned by the api
@@ -64,18 +64,18 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         ServerAction saction3 = ServerActionTest.createServerAction(server, a3);
         saction3.setStatus(ActionFactory.STATUS_FAILED);
 
-        apiActions = handler.listAllActions(adminKey);
+        apiActions = handler.listAllActions(admin);
         assertEquals(numActions + 3, apiActions.length);
 
         // execute
         List<Integer> actionIds = new ArrayList<Integer>();
         actionIds.add(a1.getId().intValue());
         actionIds.add(a3.getId().intValue());
-        int result = handler.cancelActions(adminKey, actionIds);
+        int result = handler.cancelActions(admin, actionIds);
 
         // verify
         assertEquals(1, result);
-        apiActions = handler.listAllActions(adminKey);
+        apiActions = handler.listAllActions(admin);
         assertEquals(numActions + 1, apiActions.length);
     }
 
@@ -87,7 +87,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         int numActions = actions.size();
 
         //compare against number retrieved from api... should be the same
-        Object[] apiActions = handler.listAllActions(adminKey);
+        Object[] apiActions = handler.listAllActions(admin);
         assertEquals(numActions, apiActions.length);
 
         //add new actions and verify that the value returned by the api
@@ -110,7 +110,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         saction3.setStatus(ActionFactory.STATUS_FAILED);
 
         // execute
-        apiActions = handler.listAllActions(adminKey);
+        apiActions = handler.listAllActions(admin);
 
         // verify
         assertEquals(numActions + 3, apiActions.length);
@@ -123,7 +123,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         int numActions = actions.size();
 
         //compare against number retrieved from api... should be the same
-        Object[] apiActions = handler.listCompletedActions(adminKey);
+        Object[] apiActions = handler.listCompletedActions(admin);
 
         assertEquals(numActions, apiActions.length);
 
@@ -135,7 +135,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         ServerAction saction = ServerActionTest.createServerAction(server, a);
         saction.setStatus(ActionFactory.STATUS_COMPLETED);
 
-        apiActions = handler.listCompletedActions(adminKey);
+        apiActions = handler.listCompletedActions(admin);
 
         assertTrue(apiActions.length > numActions);
     }
@@ -146,7 +146,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         int numActions = actions.size();
 
         //compare against number retrieved from api... should be the same
-        Object[] apiActions = handler.listInProgressActions(adminKey);
+        Object[] apiActions = handler.listInProgressActions(admin);
 
         assertEquals(numActions, apiActions.length);
 
@@ -158,7 +158,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         ServerAction saction = ServerActionTest.createServerAction(server, a);
         saction.setStatus(ActionFactory.STATUS_QUEUED);
 
-        apiActions = handler.listInProgressActions(adminKey);
+        apiActions = handler.listInProgressActions(admin);
 
         assertTrue(apiActions.length > numActions);
     }
@@ -169,7 +169,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         int numActions = actions.size();
 
         //compare against number retrieved from api... should be the same
-        Object[] apiActions = handler.listFailedActions(adminKey);
+        Object[] apiActions = handler.listFailedActions(admin);
 
         assertEquals(numActions, apiActions.length);
 
@@ -181,7 +181,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         ServerAction saction = ServerActionTest.createServerAction(server, a);
         saction.setStatus(ActionFactory.STATUS_FAILED);
 
-        apiActions = handler.listFailedActions(adminKey);
+        apiActions = handler.listFailedActions(admin);
 
         assertTrue(apiActions.length > numActions);
     }
@@ -192,7 +192,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         int numActions = actions.size();
 
         //compare against number retrieved from api... should be the same
-        Object[] apiActions = handler.listArchivedActions(adminKey);
+        Object[] apiActions = handler.listArchivedActions(admin);
 
         assertEquals(numActions, apiActions.length);
 
@@ -205,7 +205,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         ServerAction saction = ServerActionTest.createServerAction(server, a);
         saction.setStatus(ActionFactory.STATUS_QUEUED);
 
-        apiActions = handler.listArchivedActions(adminKey);
+        apiActions = handler.listArchivedActions(admin);
 
         assertTrue(apiActions.length > numActions);
     }
@@ -223,7 +223,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         int numSystems = systems.size();
 
         //compare against number retrieved from api... should be the same
-        Object[] apiSystems = handler.listCompletedSystems(adminKey,
+        Object[] apiSystems = handler.listCompletedSystems(admin,
             action.getId().intValue());
 
         assertTrue(apiSystems.length > 0);
@@ -243,7 +243,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         int numSystems = systems.size();
 
         //compare against number retrieved from api... should be the same
-        Object[] apiSystems = handler.listInProgressSystems(adminKey,
+        Object[] apiSystems = handler.listInProgressSystems(admin,
             action.getId().intValue());
 
         assertTrue(apiSystems.length > 0);
@@ -263,7 +263,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         int numSystems = systems.size();
 
         //compare against number retrieved from api... should be the same
-        Object[] apiSystems = handler.listFailedSystems(adminKey,
+        Object[] apiSystems = handler.listFailedSystems(admin,
             action.getId().intValue());
 
         assertTrue(apiSystems.length > 0);

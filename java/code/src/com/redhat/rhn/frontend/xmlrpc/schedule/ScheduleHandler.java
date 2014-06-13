@@ -35,7 +35,7 @@ public class ScheduleHandler extends BaseHandler {
     /**
      * Cancel all actions in given list. If an invalid action is provided, none of the
      * actions given will canceled.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param actionIds The list of ids for actions to cancel.
      * @return Returns a list of actions with details
      * @throws FaultException A FaultException is thrown if one of the actions provided
@@ -47,11 +47,8 @@ public class ScheduleHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "action id")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int cancelActions(String sessionKey, List<Integer> actionIds)
+    public int cancelActions(User loggedInUser, List<Integer> actionIds)
         throws FaultException {
-
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         List actions = new ArrayList<Action>();
         for (Integer actionId : actionIds) {
@@ -67,7 +64,7 @@ public class ScheduleHandler extends BaseHandler {
     /**
      * List all scheduled actions regardless of status.  This includes pending,
      * completed, failed and archived.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @return Returns a list of actions with details
      *
      * @xmlrpc.doc Returns a list of all actions.  This includes completed, in progress,
@@ -78,10 +75,7 @@ public class ScheduleHandler extends BaseHandler {
      *   $ScheduleActionSerializer
      * #array_end()
      */
-    public Object[] listAllActions(String sessionKey) {
-
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listAllActions(User loggedInUser) {
 
         // the second argument is "PageControl". This is not needed for the api usage;
         // therefore, null will be used.
@@ -91,7 +85,7 @@ public class ScheduleHandler extends BaseHandler {
 
     /**
      * List the scheduled actions that have succeeded.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @return Returns a list of actions with details
      *
      * @xmlrpc.doc Returns a list of actions that have completed successfully.
@@ -101,10 +95,7 @@ public class ScheduleHandler extends BaseHandler {
      *   $ScheduleActionSerializer
      * #array_end()
      */
-    public Object[] listCompletedActions(String sessionKey) {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public Object[] listCompletedActions(User loggedInUser) {
         // the second argument is "PageControl". This is not needed for the api usage;
         // therefore, null will be used.
         DataResult dr = ActionManager.completedActions(loggedInUser, null);
@@ -113,7 +104,7 @@ public class ScheduleHandler extends BaseHandler {
 
     /**
      * List the scheduled actions that are in progress.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @return Returns a list of actions with details
      *
      * @xmlrpc.doc Returns a list of actions that are in progress.
@@ -123,10 +114,7 @@ public class ScheduleHandler extends BaseHandler {
      *   $ScheduleActionSerializer
      * #array_end()
      */
-    public Object[] listInProgressActions(String sessionKey) {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public Object[] listInProgressActions(User loggedInUser) {
         // the second argument is "PageControl". This is not needed for the api usage;
         // therefore, null will be used.
         DataResult dr = ActionManager.pendingActions(loggedInUser, null);
@@ -135,7 +123,7 @@ public class ScheduleHandler extends BaseHandler {
 
     /**
      * List the scheduled actions that have failed.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @return Returns a list of actions with details
      *
      * @xmlrpc.doc Returns a list of actions that have failed.
@@ -145,10 +133,7 @@ public class ScheduleHandler extends BaseHandler {
      *   $ScheduleActionSerializer
      * #array_end()
      */
-    public Object[] listFailedActions(String sessionKey) {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public Object[] listFailedActions(User loggedInUser) {
         // the second argument is "PageControl". This is not needed for the api usage;
         // therefore, null will be used.
         DataResult dr = ActionManager.failedActions(loggedInUser, null);
@@ -157,7 +142,7 @@ public class ScheduleHandler extends BaseHandler {
 
     /**
      * List the scheduled actions that have been archived.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @return Returns a list of actions with details
      *
      * @xmlrpc.doc Returns a list of actions that have been archived.
@@ -167,10 +152,7 @@ public class ScheduleHandler extends BaseHandler {
      *   $ScheduleActionSerializer
      * #array_end()
      */
-    public Object[] listArchivedActions(String sessionKey) {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public Object[] listArchivedActions(User loggedInUser) {
         // the second argument is "PageControl". This is not needed for the api usage;
         // therefore, null will be used.
         DataResult dr = ActionManager.archivedActions(loggedInUser, null);
@@ -179,7 +161,7 @@ public class ScheduleHandler extends BaseHandler {
 
     /**
      * List the systems that have completed a specific action.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param actionId The id of the action.
      * @return Returns a list of systems along with details
      *
@@ -191,10 +173,7 @@ public class ScheduleHandler extends BaseHandler {
      *   $ScheduleSystemSerializer
      * #array_end()
      */
-    public Object[] listCompletedSystems(String sessionKey, Integer actionId) {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public Object[] listCompletedSystems(User loggedInUser, Integer actionId) {
         Long aid = actionId.longValue();
         Action action = ActionManager.lookupAction(loggedInUser, aid);
         // the third argument is "PageControl". This is not needed for the api usage;
@@ -207,7 +186,7 @@ public class ScheduleHandler extends BaseHandler {
 
     /**
      * List the systems that have a specific action in progress.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param actionId The id of the action.
      * @return Returns a list of systems along with details
      *
@@ -219,10 +198,7 @@ public class ScheduleHandler extends BaseHandler {
      *   $ScheduleSystemSerializer
      * #array_end()
      */
-    public Object[] listInProgressSystems(String sessionKey, Integer actionId) {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public Object[] listInProgressSystems(User loggedInUser, Integer actionId) {
         Long aid = actionId.longValue();
         Action action = ActionManager.lookupAction(loggedInUser, aid);
         // the third argument is "PageControl". This is not needed for the api usage;
@@ -235,7 +211,7 @@ public class ScheduleHandler extends BaseHandler {
 
     /**
      * List the systems that have failed a specific action.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param actionId The id of the action.
      * @return Returns a list of systems along with details
      *
@@ -247,10 +223,7 @@ public class ScheduleHandler extends BaseHandler {
      *   $ScheduleSystemSerializer
      * #array_end()
      */
-    public Object[] listFailedSystems(String sessionKey, Integer actionId) {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public Object[] listFailedSystems(User loggedInUser, Integer actionId) {
         Long aid = actionId.longValue();
         Action action = ActionManager.lookupAction(loggedInUser, aid);
         // the third argument is "PageControl". This is not needed for the api usage;
@@ -262,7 +235,7 @@ public class ScheduleHandler extends BaseHandler {
 
     /**
      * Reschedule all actions in the given list.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param actionIds The list of ids for actions to reschedule.
      * @param onlyFailed only reschedule failed actions
      * @return Returns a list of actions with details
@@ -276,12 +249,8 @@ public class ScheduleHandler extends BaseHandler {
      *               "True to only reschedule failed actions, False to reschedule all")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int rescheduleActions(String sessionKey, List<Integer> actionIds,
+    public int rescheduleActions(User loggedInUser, List<Integer> actionIds,
             boolean onlyFailed) throws FaultException {
-
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
-
         for (Integer actionId : actionIds) {
             Action action = ActionManager.lookupAction(loggedInUser, new Long(actionId));
             if (action != null) {
@@ -294,7 +263,7 @@ public class ScheduleHandler extends BaseHandler {
 
     /**
      * Archive all actions in the given list.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param actionIds The list of ids for actions to archive.
      * @return Returns a integer 1 on success
      * @throws FaultException A FaultException is thrown if one of the actions provided
@@ -305,14 +274,10 @@ public class ScheduleHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "action id")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int archiveActions(String sessionKey, List<Integer> actionIds)
+    public int archiveActions(User loggedInUser, List<Integer> actionIds)
             throws FaultException {
-
-        // Get the logged in user
-        User user = getLoggedInUser(sessionKey);
-
         for (Integer actionId : actionIds) {
-            Action action = ActionManager.lookupAction(user, new Long(actionId));
+            Action action = ActionManager.lookupAction(loggedInUser, new Long(actionId));
             if (action != null) {
                 action.setArchived(new Long(1));
             }
@@ -322,7 +287,7 @@ public class ScheduleHandler extends BaseHandler {
 
     /**
      * Delete all archived actions in the given list.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param actionIds The list of ids for actions to delete.
      * @return Returns a integer 1 on success
      * @throws FaultException In case of an error
@@ -332,9 +297,8 @@ public class ScheduleHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "action id")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteActions(String sessionKey, List<Integer> actionIds) {
-        User user = getLoggedInUser(sessionKey);
-        ActionManager.deleteActionsById(user, actionIds);
+    public int deleteActions(User loggedInUser, List<Integer> actionIds) {
+        ActionManager.deleteActionsById(loggedInUser, actionIds);
         return 1;
     }
 }
