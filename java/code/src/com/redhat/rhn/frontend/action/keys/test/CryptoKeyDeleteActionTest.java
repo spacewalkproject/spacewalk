@@ -48,7 +48,8 @@ public class CryptoKeyDeleteActionTest extends RhnPostMockStrutsTestCase {
         setRequestPathInfo("/keys/CryptoKeyDelete");
         addRequestParameter(RequestContext.KEY_ID, cmd.getCryptoKey().getId().toString());
         addRequestParameter(CryptoKeyDeleteAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(CryptoKeyDeleteAction.CONTENTS_EDIT, cmd.getCryptoKey().getKeyString());
+        addRequestParameter(CryptoKeyDeleteAction.CONTENTS_EDIT,
+                            cmd.getCryptoKey().getKeyString());
         actionPerform();
         String[] keys = {"cryptokey.delete.success"};
         verifyActionMessages(keys);
