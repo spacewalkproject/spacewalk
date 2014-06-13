@@ -353,7 +353,7 @@ def _dict_to_utf8(d):
     # Convert the dictionary to have non-unocide key-value pairs
     ret = {}
     for k, v in d.items():
-        if isinstance(k,types.UnicodeType):
+        if isinstance(k, types.UnicodeType):
             k = k.encode('UTF8')
         if isinstance(v, types.UnicodeType):
             v = v.encode('UTF8')
