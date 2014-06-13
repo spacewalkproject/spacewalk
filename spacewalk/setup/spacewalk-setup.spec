@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.2.11
+Version:        2.2.12
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -109,6 +109,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jun 13 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.12-1
+- extract the sudo setup into a separate script/tool
+
 * Tue May 27 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.11-1
 - spacewalk-setup: require curl
 
