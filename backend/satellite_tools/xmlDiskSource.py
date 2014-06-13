@@ -156,14 +156,14 @@ class ShortPackageDiskSource(DiskSource):
         self.id = None
         self._file_suffix = ".xml"
 
-    def setID(self, id):
-        self.id = id
+    def setID(self, pid):
+        self.id = pid
 
     # limited dict behaviour
-    def has_key(self, id):
+    def has_key(self, pid):
         # Save the old id
         old_id = self.id
-        self.id = id
+        self.id = pid
         f = self._getFile()
         # Restore the old id
         self.id = old_id

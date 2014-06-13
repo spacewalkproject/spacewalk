@@ -367,7 +367,7 @@ def process_sha256_packages():
         checksum_type_id =_select_checksum_type_id_sql.fetchone()[0]
 
         # Update checksum of every single file in a package
-        for i, file in enumerate(header['filenames']):
+        for i, f in enumerate(header['filenames']):
             csum  = header['filemd5s'][i]
 
             # Do not update checksums for directories & links
@@ -375,7 +375,7 @@ def process_sha256_packages():
                 continue
 
             _update_package_files_sql.execute(ctype_id=checksum_type_id, csum=csum,
-                                              pid=package['id'], filename=file)
+                                              pid=package['id'], filename=f)
 
         rhnSQL.commit()
 
@@ -468,15 +468,15 @@ def process_package_files():
 
     package_name_h = rhnSQL.prepare(package_name_query)
 
-    def package_name(id):
-        package_name_h.execute(pid=id)
+    def package_name(pid):
+        package_name_h.execute(pid=pid)
         r = package_name_h.fetchall_dict()[0]
         return "%s-%s.%s" % (r['name'], r['vre'], r['arch'])
 
     package_repodata_h = rhnSQL.prepare(package_repodata_delete)
 
-    def delete_package_repodata(id):
-        package_repodata_h.execute(pid=id)
+    def delete_package_repodata(pid):
+        package_repodata_h.execute(pid=pid)
 
     Log = rhnLog('/var/log/rhn/update-packages.log', 5)
 

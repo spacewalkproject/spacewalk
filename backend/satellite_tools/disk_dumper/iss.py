@@ -1312,9 +1312,9 @@ class ExporterMain:
                             if os.path.exists(os_data_dir):
                                 for fpath, _dirs, files in \
                                     os.walk(os_data_dir):
-                                    for file in files:
-                                        if file.endswith(".xml"):
-                                            filepath = os.path.join(fpath, file)
+                                    for f in files:
+                                        if f.endswith(".xml"):
+                                            filepath = os.path.join(fpath, f)
                                             compress_file(filepath)
             if self.options.make_isos:
                 #iso_output = os.path.join(self.isos_dir, self.dump_dir)
@@ -1329,11 +1329,11 @@ class ExporterMain:
                 # Generate md5sum digest file for isos
                 if os.path.exists(iso_output):
                     f = open(os.path.join(iso_output, 'MD5SUM'), 'w')
-                    for file in os.listdir(iso_output):
+                    for f in os.listdir(iso_output):
                         if self.options.make_isos != "dvds":
-                            if file != "MD5SUM":
-                                md5_val = getFileChecksum('md5', (os.path.join(iso_output, file)))
-                                md5str = "%s  %s\n" % (md5_val, file)
+                            if f != "MD5SUM":
+                                md5_val = getFileChecksum('md5', (os.path.join(iso_output, f)))
+                                md5str = "%s  %s\n" % (md5_val, f)
                                 f.write(md5str)
                     f.close()
 
@@ -1373,19 +1373,19 @@ class ExporterMain:
             sys.exit(-1)
 
 
-def compress_file(file):
+def compress_file(f):
     """
     Gzip the given file and then remove the file.
     """
-    datafile = open(file, 'r')
-    gzipper = gzip.GzipFile(file + '.gz', 'w', 9)
+    datafile = open(f, 'r')
+    gzipper = gzip.GzipFile(f + '.gz', 'w', 9)
     gzipper.write(datafile.read())
     gzipper.flush()
     # close opened streams
     gzipper.close()
     datafile.close()
     # removed the old file
-    os.unlink(file)
+    os.unlink(f)
 
 if __name__ == "__main__":
     em = ExporterMain()

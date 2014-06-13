@@ -719,7 +719,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         else:
             return _("%10s") % export_type
 
-    def _printChannel(self, label, channel_object, format, is_imported):
+    def _printChannel(self, label, channel_object, log_format, is_imported):
         assert channel_object is not None
         all_pkgs = channel_object['all-packages'] or channel_object['packages']
         pkgs_count = len(all_pkgs)
@@ -727,7 +727,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             status = _('p')
         else:
             status = _('.')
-        log(1, format % (status, label, pkgs_count, self._formatChannelExportType(channel_object)))
+        log(1, log_format % (status, label, pkgs_count, self._formatChannelExportType(channel_object)))
 
     def _printChannelTree(self, doEOSYN=1, doTyposYN=1):
         "pretty prints a tree of channel information"
@@ -1809,10 +1809,10 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             notimeYN=1)
 
     # Translate x bytes to string "x MB", "x GB" or "x kB"
-    def _bytes_to_fuzzy(self, bytes):
+    def _bytes_to_fuzzy(self, b):
         units = [ 'bytes', 'kiB', 'MiB', 'GiB', 'TiB', 'PiB']
         base = 1024
-        fuzzy = bytes
+        fuzzy = b
         for unit in units:
             if fuzzy >= base:
                 fuzzy = float(fuzzy)/base

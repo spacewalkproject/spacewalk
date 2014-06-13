@@ -368,10 +368,10 @@ class XML_Dumper:
         if name[:prefix_len] != prefix:
             raise rhnFault(errnum, errmsg % name)
         try:
-            id = int(name[prefix_len:])
+            uuid = int(name[prefix_len:])
         except ValueError:
             raise rhnFault(errnum, errmsg % name), None, sys.exc_info()[2]
-        return id
+        return uuid
 
     def _packages(self, packages, prefix, dump_class, sources=0,
                         verify_packages=False):

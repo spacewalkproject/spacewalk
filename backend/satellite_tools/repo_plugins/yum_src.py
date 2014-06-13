@@ -56,7 +56,7 @@ class YumWarnings:
 class YumUpdateMetadata(UpdateMetadata):
     """The root update metadata object supports getting all updates"""
 
-    def add(self, obj, mdtype='updateinfo', all=False):
+    def add(self, obj, mdtype='updateinfo', all_versions=False):
         """ Parse a metadata from a given YumRepository, file, or filename. """
         if not obj:
             raise UpdateNoticeException
@@ -76,7 +76,7 @@ class YumUpdateMetadata(UpdateMetadata):
             if elem.tag == 'update':
                 un = UpdateNotice(elem)
                 key = un['update_id']
-                if all:
+                if all_versions:
                     key = "%s-%s" % (un['update_id'], un['version'])
                 if not self._notices.has_key(key):
                     self._notices[key] = un
@@ -258,7 +258,7 @@ class ContentSource(object):
         if not self.repo.repoXML.repoData.has_key('updateinfo'):
             return []
         um = YumUpdateMetadata()
-        um.add(self.repo, all=True)
+        um.add(self.repo, all_versions=True)
         return um.notices
 
     def get_groups(self):
@@ -270,28 +270,28 @@ class ContentSource(object):
 
     def set_ssl_options(self, ca_cert, client_cert, client_key):
         repo = self.repo
-        dir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
-        mkdir(dir, 0750)
-        repo.sslcacert = os.path.join(dir, 'ca.pem')
+        ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
+        mkdir(ssldir, 0750)
+        repo.sslcacert = os.path.join(ssldir, 'ca.pem')
         f = open(repo.sslcacert, "w")
         f.write(str(ca_cert))
         f.close
         if client_cert is not None:
-            repo.sslclientcert = os.path.join(dir, 'cert.pem')
+            repo.sslclientcert = os.path.join(ssldir, 'cert.pem')
             f = open(repo.sslclientcert, "w")
             f.write(str(client_cert))
             f.close
         if client_key is not None:
-            repo.sslclientkey = os.path.join(dir, 'key.pem')
+            repo.sslclientkey = os.path.join(ssldir, 'key.pem')
             f = open(repo.sslclientkey, "w")
             f.write(str(client_key))
             f.close
 
     def clear_ssl_cache(self):
         repo = self.repo
-        dir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
+        ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
         try:
-            self._clean_cache(dir)
+            self._clean_cache(ssldir)
         except:
             pass
 
