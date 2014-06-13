@@ -346,30 +346,6 @@ public class OrgHandler extends BaseHandler {
     }
 
     /**
-     * Convenience method to get the loggedInUser
-     * and ensure the logged in user is a SatelliteAdmin
-     * @param loggedInUser The current user
-     * @return the logged in user with him guaranteed to be satellite admin.
-     */
-    private User getSatAdmin(String sessionKey) {
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        ensureUserRole(user, RoleFactory.SAT_ADMIN);
-        return user;
-    }
-
-    /**
-     * Convenience method to get the loggedInUser
-     * and ensure the logged in user is an Org admin
-     * @param loggedInUser The current user
-     * @return the logged in user with him guaranteed to be org admin.
-     */
-    private User getOrgAdmin(String sessionKey) {
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        ensureUserRole(user, RoleFactory.ORG_ADMIN);
-        return user;
-    }
-
-    /**
      * Lists software entitlement allocation/distribution information
      *  across all organizations.
      * User needs to be a satellite administrator to get this information
