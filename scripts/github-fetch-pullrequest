@@ -10,12 +10,15 @@ Usage:
 """
 
 import git
+import os
 import simplejson
 import sys
 import urllib
 
 USER = "spacewalkproject"
 REPO = "spacewalk"
+OAUTH_FILE = os.environ['HOME'] + "/.github-fetch-pullrequest-token"
+OAUTH = ""
 
 
 class Progress(git.RemoteProgress):
@@ -28,6 +31,12 @@ class Progress(git.RemoteProgress):
         print "\r%s: %s/%s %s" % (self.desc, cur_count, max_count, message),
         sys.stdout.flush()
 
+def setup_token():
+    global OAUTH
+    try:
+        OAUTH = open(OAUTH_FILE).readline().strip()
+    except Exception:
+        pass
 
 def list_requests():
     """Prints open pull requests with some additional info"""
@@ -40,6 +49,8 @@ def list_requests():
 def get_pull_request(req_num):
     """Get data about one request"""
     url = "https://api.github.com/repos/%s/%s/pulls/%d" % (USER, REPO, req_num)
+    if OAUTH:
+        url += "?access_token=%s" % OAUTH
     result = simplejson.load(urllib.urlopen(url))
     return result
 
@@ -80,4 +91,5 @@ if __name__ == "__main__":
         list_requests()
         sys.exit(0)
 
+    setup_token()
     prepare_repo(int(sys.argv[1]))
