@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.92
+Version: 2.2.93
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jun 13 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.93-1
+- checkstyle fix
+
 * Fri Jun 13 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.92-1
 - We are testing CryptoKeyDeleteAction here
 - CryptoKeyDelete needs the "contents_edit" parameter now
