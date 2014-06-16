@@ -20,6 +20,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             column="org_id"/>
      <many-to-one name="name" class="com.redhat.rhn.domain.server.SnapshotTagName"
             column="name_id" cascade="all"/>
+
+    <set name="snapshots" lazy="true" table="rhnSnapshotTag"
+        cascade="save-update" >
+      <key column="tag_id"/>
+        <many-to-many
+            class="com.redhat.rhn.domain.server.ServerSnapshot"
+            column="snapshot_id"/>
+    </set>
     </class>
 
     <query name="SnapshotTag.lookupByTagName">
