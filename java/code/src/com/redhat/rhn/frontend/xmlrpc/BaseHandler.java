@@ -94,13 +94,15 @@ public class BaseHandler implements XmlRpcInvocationHandler {
         String beanifiedMethod = StringUtil.beanify(byNamespace[byNamespace.length - 1]);
 
         if (params.size() > 0 && params.get(0) instanceof String &&
-                isSessionKey((String)params.get(0)) && !"logout".equals(beanifiedMethod) &&
+                isSessionKey((String)params.get(0))) {
+            if (!myClass.getName().endsWith("AuthHandler") &&
                 !myClass.getName().endsWith("SearchHandler")) {
-            params.set(0, getLoggedInUser((String)params.get(0)));
-            if (((User)params.get(0)).getReadOnlyBool()) {
-                if (!beanifiedMethod.matches(RO_REGEX)) {
-                    throw new SecurityException("The " + beanifiedMethod +
-                            " API is not available to read-only API users");
+                params.set(0, getLoggedInUser((String)params.get(0)));
+                if (((User)params.get(0)).getReadOnlyBool()) {
+                    if (!beanifiedMethod.matches(RO_REGEX)) {
+                        throw new SecurityException("The " + beanifiedMethod +
+                                " API is not available to read-only API users");
+                    }
                 }
             }
         }
