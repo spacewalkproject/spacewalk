@@ -95,8 +95,7 @@ public class BaseHandler implements XmlRpcInvocationHandler {
 
         if (params.size() > 0 && params.get(0) instanceof String &&
                 isSessionKey((String)params.get(0)) && !"logout".equals(beanifiedMethod) &&
-                !(myClass.getName().endsWith("PackagesSearchHandler") ||
-                        myClass.getName().endsWith("SystemSearchHandler"))) {
+                !myClass.getName().endsWith("SearchHandler")) {
             params.set(0, getLoggedInUser((String)params.get(0)));
             if (((User)params.get(0)).getReadOnlyBool()) {
                 if (!beanifiedMethod.matches(RO_REGEX)) {
