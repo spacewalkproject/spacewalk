@@ -17155,6 +17155,9 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <trans-unit id="exportcolumn.errataAdvisoryType">
           <source>Advisory Type</source>
         </trans-unit>
+        <trans-unit id="exportcolumn.affectedSystemCount">
+          <source>Systems Affected</source>
+        </trans-unit>
         <trans-unit id="exportcolumn.advisorySynopsis">
           <source>Synopsis</source>
         </trans-unit>
