@@ -42,7 +42,7 @@
                 <p><bean:message key="errata.edit.youmaypublish" /></p>
                 <div class="form-group">
                     <div class="col-lg-offset-3 col-lg-6">
-                        <html:submit property="dispatch">
+                        <html:submit property="dispatch" styleClass="btn btn-default">
                             <bean:message key="errata.edit.publisherrata" />
                         </html:submit>
                     </div>
