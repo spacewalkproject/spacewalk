@@ -562,7 +562,7 @@ ORDER BY UPPER(C2.name), depth, UPPER(C.name)
          rhnServer S
    WHERE S.org_id = :org_id
      AND S.id = SC.server_id
-     AND SC.channel_id IN(%s)
+     AND SC.channel_id IN (%s)
      AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
 GROUP BY SC.channel_id
 </query>
@@ -572,7 +572,7 @@ GROUP BY SC.channel_id
          COUNT(*) AS errata_count
     FROM rhnErrata E,
          rhnChannelErrata CE
-   WHERE CE.channel_id IN(%s)
+   WHERE CE.channel_id IN (%s)
      AND CE.errata_id = E.id
 GROUP BY CE.channel_id
 </query>
