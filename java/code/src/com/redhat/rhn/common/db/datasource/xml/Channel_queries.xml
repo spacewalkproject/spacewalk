@@ -568,16 +568,13 @@ GROUP BY SC.channel_id
 </query>
 
 <query name="channel_errata_count">
-  SELECT id,
-         COUNT (errata_id) AS errata_count
-    FROM (
-    SELECT DISTINCT cp.channel_id AS id,
-           ep.errata_id AS errata_id
-      FROM rhnChannelPackage cp
-      JOIN rhnErrataPackage ep
-        ON cp.package_id = ep.package_id
-     WHERE channel_id = 2396) as X
- GROUP BY id
+  SELECT CE.channel_id AS id,
+         COUNT(*) AS errata_count
+    FROM rhnErrata E,
+         rhnChannelErrata CE
+   WHERE CE.channel_id IN(%s)
+     AND CE.errata_id = E.id
+GROUP BY CE.channel_id
 </query>
 
 <mode name="custom_base_channels_for_server"
