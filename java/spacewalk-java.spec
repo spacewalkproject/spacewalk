@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.93
+Version: 2.2.94
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 17 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.94-1
+- 1012643 - display count of errata in channel not packages with errata
+- disable last org/sat admin become read-only
+- add csv report to errata pages
+- fix dead links
+- 803040 - API for snapshot rollback
+- hibernate mapping for snapshots associated to a snapshot tag
+- don't execute sessionKey -> User translation for AuthHandler
+- simplify expression a bit
+- fix typo in class name
+
 * Fri Jun 13 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.93-1
 - checkstyle fix
 
