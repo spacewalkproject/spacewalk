@@ -167,6 +167,7 @@ def _issueReport(options, reportname):
 
 def channelsDump(options):
     logging.info('Processing channels...')
+    _issueReport(options, 'channels')
     # /usr/bin/spacewalk-export-channels -d options.export_dir + '/' + REPORTS_DIR + '/' + 'CHANNELS' -f FORCE
     # if extpkgs -e; if skipregen -s; if nosize -S
     extra_args = []
