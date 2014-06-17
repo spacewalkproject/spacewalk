@@ -17,6 +17,7 @@ Patch3: buildiso.patch
 Patch4: koan-rhel7-virtinst.patch
 Patch5: koan-extra-options.patch
 Patch6: cobbler-interface-type.patch
+Patch7: cobblerd-python-s.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -104,6 +105,9 @@ a XMLRPC API for integration with other applications.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 5)
+%patch7 -p1
+%endif
 
 %build
 %{__python} setup.py build 
