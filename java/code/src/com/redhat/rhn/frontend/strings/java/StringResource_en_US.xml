@@ -1267,6 +1267,18 @@
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="error.readonly_org_admin">
+        <source>At least one Organization Administrator with regular access must remain in {0} organization.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserDetailsSubmit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error.readonly_sat_admin">
+        <source>At least one @@PRODUCT_NAME@@ Administrator must remain with regular access.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserDetailsSubmit</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="login">
         <source>Desired Login</source>
         <context-group name="ctx">

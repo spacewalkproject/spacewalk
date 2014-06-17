@@ -32,6 +32,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.DeleteUserException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidOperationException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidServerGroupException;
 import com.redhat.rhn.frontend.xmlrpc.LookupServerGroupException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchRoleException;
@@ -1148,6 +1149,15 @@ public class UserHandler extends BaseHandler {
         User targetUser = XmlRpcUserHelper.getInstance().lookupTargetUser(
                 loggedInUser, login);
 
+        if (readOnly && targetUser.hasRole(RoleFactory.ORG_ADMIN) &&
+                targetUser.getOrg().numActiveOrgAdmins() < 2) {
+            throw new InvalidOperationException("error.readonly_org_admin",
+                    targetUser.getOrg().getName());
+        }
+        if (readOnly && targetUser.hasRole(RoleFactory.SAT_ADMIN) &&
+                SatManager.getActiveSatAdmins().size() < 2) {
+            throw new InvalidOperationException("error.readonly_sat_admin");
+        }
         targetUser.setReadOnly(readOnly);
         return 1;
     }

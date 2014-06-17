@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.manager.SatManager;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
@@ -54,6 +55,20 @@ public abstract class UserEditActionHelper extends RhnAction {
         if (!pw.equals(conf)) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("error.password_mismatch"));
+        }
+
+        Boolean readOnly = form.get("readonly") != null ? true : false;
+        if (readOnly && targetUser.hasRole(RoleFactory.ORG_ADMIN) &&
+                targetUser.getOrg().numActiveOrgAdmins() < 2) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("error.readonly_org_admin",
+                            targetUser.getOrg().getName()));
+        }
+        if (readOnly && targetUser.hasRole(RoleFactory.SAT_ADMIN) &&
+                SatManager.getActiveSatAdmins().size() < 2) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("error.readonly_sat_admin",
+                            targetUser.getOrg().getName()));
         }
 
         //Make sure password is not empty
@@ -89,6 +104,7 @@ public abstract class UserEditActionHelper extends RhnAction {
             targetUser.setPrefix(prefix.isEmpty() ? " " : prefix);
             // Update PAM Authentication attribute
             updatePamAttribute(loggedInUser, targetUser, form);
+            targetUser.setReadOnly(readOnly);
         }
 
         return errors;
