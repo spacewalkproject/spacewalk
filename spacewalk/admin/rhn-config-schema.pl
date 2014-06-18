@@ -133,6 +133,12 @@ for (sort keys %exception_files) {
 		$error = 1;
 	}
 }
+
+system('/usr/sbin/selinuxenabled');
+if ($? >> 8 == 0) {
+        system('/usr/sbin/restorecon', '-F', $target);
+}
+
 exit $error;
 
 =pod
