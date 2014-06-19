@@ -472,6 +472,10 @@ sub process_table {
 				}
 				print $ROWIDS{$row->[$i]};
 			} elsif (defined $row->[$i]) {
+				# create array from (a,b,c) string - custom types selected from PG
+				if ($types[$i] eq 'unknown' and $row->[$i] =~ s/^\((.*)\)$/$1/) {
+					$row->[$i] = [ split(/,/, $row->[$i]) ];
+				}
 				if (ref $row->[$i] and ref $row->[$i] eq 'ARRAY') {	# user types
 					no warnings 'uninitialized';
 					my @r = @{$row->[$i]};
