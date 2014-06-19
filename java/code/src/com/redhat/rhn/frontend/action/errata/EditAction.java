@@ -86,7 +86,7 @@ public class EditAction extends LookupDispatchAction {
 
         String keywordDisplay = StringUtil.join(
                 LocalizationService.getInstance().getMessage("list delimiter"),
-                IteratorUtils.getIterator(errata.getKeywords()));
+                IteratorUtils.getIterator(errata.getKeywords().toString()));
 
         //pre-populate form with current values
         form.set("synopsis", errata.getSynopsis());
