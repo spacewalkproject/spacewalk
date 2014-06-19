@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.21
+Version:	2.2.22
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,13 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Jun 19 2014 Grant Gainey 2.2.22-1
+- Added man-pg for spacewalk-export-channels Minor cleanup of spacewalk-export
+  man-pg
+- manpage for spacewalk-export
+- Some PEP8 suggestions
+- Restored spacewalk-report channels to export
+
 * Thu Jun 12 2014 Grant Gainey 2.2.21-1
 - Add spacewalk-export-channels to Makefile too
 - Calling sudo inside may be problematic
