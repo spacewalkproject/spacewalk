@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.9
+Version: 2.2.10
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Thu Jun 19 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.10-1
+- 1054342 - added hostname and IP address to scap-scan
+- 1053876 - added system_id to scap-scan-results
+
 * Tue Jun 03 2014 Tomas Lestach <tlestach@redhat.com> 2.2.9-1
 - we need base_channel_id and child_channel_id instead of channel_id in
   activation_key report
