@@ -13,6 +13,7 @@ columns:
 	ruleresult_id:i		Ruleresult identifier
 	idref			Ruleresult text identifier
 	system			Naming scheme for the identifier
+	system_id:i		System identifier
 	ident			Identifier of the xccdf rule
 	result			Result of the check
 
@@ -20,7 +21,7 @@ multival_columns:
 
 sql:
 
-	select testresult_id, ruleresult_id, idref, system, ident, result from (
+	select testresult_id, ruleresult_id, idref, system, system_id, ident, result from (
 	select rhnxccdfruleresult.testresult_id as testresult_id,
 		rhnxccdfruleresult.id as ruleresult_id,
 		(select xi.identifier
@@ -31,6 +32,7 @@ sql:
 				and xis.system = '#IDREF#'
 		) as idref,
 		rhnxccdfidentsystem.system as system,
+                rhnxccdftestresult.server_id as system_id,
 		rhnxccdfident.identifier as ident,
 		rhnxccdfruleresulttype.label as result
 	from rhnxccdfruleresult
@@ -48,6 +50,8 @@ sql:
 			on rhnxccdfruleidentmap.ident_id = rhnxccdfident.id
 		left outer join rhnxccdfidentsystem
 			on rhnxccdfident.identsystem_id = rhnxccdfidentsystem.id
+                left outer join rhnxccdftestresult
+                        on rhnxccdfruleresult.testresult_id = rhnxccdftestresult.id
 	) X
 	-- where placeholder
-	order by testresult_id, ruleresult_id, system, ident
+	order by testresult_id, ruleresult_id, system, system_id, ident
