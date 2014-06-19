@@ -22,8 +22,11 @@ Utility for extracting data from an existing spacewalk instance
         <arg>options <replaceable>...</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-h</arg>
-        <arg>--help</arg>
+        <arg>--dump-repos</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--entities=<replaceable>entity[,entity...]</replaceable></arg>
+    </cmdsynopsis>
     <cmdsynopsis>
         <arg>--export-dir=<replaceable>DIR</replaceable></arg>
     </cmdsynopsis>
@@ -31,25 +34,19 @@ Utility for extracting data from an existing spacewalk instance
         <arg>--export-package=<replaceable>FILE</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--ext-pkgs</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--list-entities</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>--entities=<replaceable>entity[,entity...]</replaceable></arg>
+        <arg>--no-size</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--org=<replaceable>ORG-ID</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>--dump-repos</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>--ext-pkgs</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
         <arg>--skip-repogen</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>--no-size</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--clean</arg>
@@ -59,6 +56,10 @@ Utility for extracting data from an existing spacewalk instance
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--quiet</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-h</arg>
+        <arg>--help</arg>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -86,70 +87,81 @@ Utility for extracting data from an existing spacewalk instance
 <RefSect1><Title>Options</Title>
 <variablelist>
     <varlistentry>
-        <term>-h, --help</term>
+        <term>--dump-repos</term>
         <listitem>
-            <para>Display the help screen with a list of options.</para>
+            <para>If specified, and if 'repositories' are being exported, the contents of any repositories specified using the <emphasis>file:</emphasis> protocol will be bundled into the final export-file.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--entities=<replaceable>entity[,entity...] </replaceable></term>
+        <listitem>
+            <para>Specify comma-separated list of entities to export (default is all)</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term>--export-dir=<replaceable>DIR</replaceable></term>
         <listitem>
-          <para>Specify directory to store exports in (will be created if not found) - defaults to ~/spacewalk-export-dir</para>
+            <para>Specify directory to store exports in (will be created if not found) - defaults to ~/spacewalk-export-dir</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term>--export-package=<replaceable>FILE</replaceable></term>
-          <para>Specify filename to use for final packaged-exports tarfile - defaults to spacewalk_export.tar.gz</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--list-entities</term>
-          <para>List supported entities (e.g., 'users', 'channels', etc.)</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--entities=<replaceable>entity[,entity...] </replaceable></term>
-          <para>Specify comma-separated list of entities to export (default is all)</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--org=<replaceable>ORG-ID</replaceable></term>
-        <para>Specify an org-id whose data we will export. Can be specified multiple times to export entities for multiple organizations.  If not specified, all organizations' entities will be exported.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--dump-repos</term>
-        <para>If specfied, and if 'repositories' are being exported, the contents of any repositories specified using the <emphasis>file:</emphasis> protocol will be bundled into the final export-file.</para>
+        <listitem>
+            <para>Specify filename to use for final packaged-exports tarfile - defaults to spacewalk_export.tar.gz</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term>--ext-pkgs</term>
-        <para>Channel-output will contain only exported packages (by default, CVS output contains all packages, even those available in external repositories and in clone original channels)</para>
+        <listitem>
+            <para>Channel-output will contain only exported packages (by default, CVS output contains all packages, even those available in external repositories and in clone original channels)</para>
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--skip-repogen</term>
-        <para>Omit repodata generation for exported channels</para>
+        <term>--list-entities</term>
+        <listitem>
+            <para>List supported entities (e.g., 'users', 'channels', etc.)</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term> --no-size</term>
-        <para>Do not check package size. Speeds up the export, but misses a chance to catch errors.</para>
+        <listitem>
+            <para>Do not check package size. Speeds up the export, but misses a chance to catch errors.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--org=<replaceable>ORG-ID</replaceable></term>
+        <listitem>
+            <para>Specify an org-id whose data we will export. Can be specified multiple times to export entities for multiple organizations.  If not specified, all organizations' entities will be exported.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--skip-repogen</term>
+        <listitem>
+            <para>Omit repodata generation for exported channels</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term>--clean</term>
-        <para>Describes how to clean up from previous exports. This does <emphasis>not</emphasis> execute the command, leaving it to the user to decide whether issuing an 'rm -rf' command as root is a good idea.</para>
+        <listitem>
+           <para>Describes how to clean up from previous exports. This does <emphasis>not</emphasis> execute the command, leaving it to the user to decide whether issuing an 'rm -rf' command as root is a good idea.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term>--debug</term>
-        <para>Log debugging output</para>
+        <listitem>
+            <para>Log debugging output</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term>--quiet</term>
-        <para>Log only errors</para>
+        <listitem>
+            <para>Log only errors</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
         </listitem>
     </varlistentry>
 </variablelist>
