@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.94
+Version: 2.2.95
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jun 19 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.95-1
+- explicitly convert errata keywords to String
+- allow filtering of events based on event type for listSystemEvents api
+- specify 'None' repository checksum type usage
+- style add/remove system to system group buttons
+- add white space after 'in'
+- style publish button
+
 * Tue Jun 17 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.94-1
 - 1012643 - display count of errata in channel not packages with errata
 - disable last org/sat admin become read-only
