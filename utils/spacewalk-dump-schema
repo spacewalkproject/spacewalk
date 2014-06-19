@@ -481,7 +481,7 @@ sub process_table {
 					my @r = @{$row->[$i]};
 					map { s/,/\\\\,/g; } @r;
 					$row->[$i] = "(@{[ join ',', @r ]})";
-				} elsif ($types[$i] eq 'unknown' or $types[$i] eq 'BLOB') {	# blobs
+				} elsif ($types[$i] eq 'unknown' or $types[$i] eq 'BLOB' or $types[$i] eq 'bytea') {	# blobs
 					$row->[$i] =~ s!(.)! sprintf "\\\\%03o", ord($1) !seg;
 				} else {
 					utf8::encode($row->[$i]);
