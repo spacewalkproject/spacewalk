@@ -241,6 +241,8 @@ function setupTextareaEditor(textarea, mode) {
     editor.getSession().setMode("ace/mode/" + $(this).val());
   });
 
+  // Set editor to read only according to data attribute
+  editor.setReadOnly(textarea.data('readonly'));
 }
 
 /**

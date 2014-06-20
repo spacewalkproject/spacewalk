@@ -5,9 +5,8 @@
 
 
 <html>
-
 <head>
-<%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
+    <script src="/ace-editor/ace.js"></script>
 </head>
 
 <body>
@@ -21,7 +20,7 @@
          <bean:message key="catalina.jsp.show"/>
        </div>
        <div class="panel-body">
-        <textarea name="contents" rows="24" class="form-control" id="contents">${contents}</textarea>
+        <textarea data-editor="text" data-readonly="true" rows="24" class="form-control">${contents}</textarea>
        </div>
      </div>
      <rhn:submitted/>
