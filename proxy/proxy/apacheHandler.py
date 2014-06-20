@@ -37,7 +37,7 @@ from spacewalk.common.rhnLib import setHeaderValue
 
 ## local imports
 from proxy.rhnProxyAuth import get_proxy_auth
-from spacewalk.common.byterange import parse_byteranges, get_content_range
+from spacewalk.common import byterange
 
 def getComponentType(req):
     """
@@ -377,8 +377,7 @@ class apacheHandler(rhnApache):
     @staticmethod
     def response_file(req, response):
         """ send a file out """
-
-        log_debug(1, response.name)
+        log_debug(3, response.name)
         # We may set the content type remotely
         if rhnFlags.test("Content-Type"):
             req.content_type = rhnFlags.get("Content-Type")
@@ -389,49 +388,87 @@ class apacheHandler(rhnApache):
         # find out the size of the file
         if response.length == 0:
             response.file_obj.seek(0, 2)
-            size = response.file_obj.tell()
+            file_size = response.file_obj.tell()
             response.file_obj.seek(0, 0)
         else:
-            size = response.length
-        req.headers_out["Content-Length"] = str(size)
+            file_size = response.length
+
+        success_response = apache.OK
+        response_size = file_size
+
+        # Serve up the requested byte range
+        if req.headers_in.has_key("Range"):
+            try:
+                range_start, range_end = \
+                    byterange.parse_byteranges(req.headers_in["Range"],
+                        file_size)
+                response_size = range_end - range_start
+                req.headers_out["Content-Range"] = \
+                    byterange.get_content_range(range_start, range_end, file_size)
+                req.headers_out["Accept-Ranges"] = "bytes"
+
+                response.file_obj.seek(range_start)
+
+                # We'll want to send back a partial content rather than ok
+                # if this works
+                req.status = apache.HTTP_PARTIAL_CONTENT
+                success_response = apache.HTTP_PARTIAL_CONTENT
+
+            # For now we will just return the file file on the following exceptions
+            except byterange.InvalidByteRangeException:
+                pass
+            except byterange.UnsatisfyableByteRangeException:
+                pass
+
+
+
+        req.headers_out["Content-Length"] = str(response_size)
 
         # if we loaded this from a real fd, set it as the X-Replace-Content
-        # check for "name" since sometimes we get xmlrpclib.File's that have
+        # check for "name" since sometimes we get xmlrpclib.transports.File's that have
         # a stringIO as the file_obj, and they dont have a .name (ie,
         # fileLists...)
         if response.name:
             req.headers_out["X-Package-FileName"] = response.name
 
-        # yum can request for HTTP_PARTIAL_CONTENT content
-        if req.headers_in.has_key('Range'):
-            (start, end)=parse_byteranges(req.headers_in['Range'], size)
-            req.headers_out["Accept-Ranges"] = "bytes"
-            req.headers_out["Content-Range"] = get_content_range(start, end, size)
-            size = end - start + 1
-            response.file_obj.seek(start, 0)
-            status = apache.HTTP_PARTIAL_CONTENT
-        else:
-            start = 0
-            end = size
-            status = apache.OK
+        xrepcon = req.headers_in.has_key("X-Replace-Content-Active") \
+                  and rhnFlags.test("Download-Accelerator-Path")
+        if xrepcon:
+            fpath = rhnFlags.get("Download-Accelerator-Path")
+            log_debug(1, "Serving file %s" % fpath)
+            req.headers_out["X-Replace-Content"] = fpath
+            # Only set a byte rate if xrepcon is active
+            byte_rate = rhnFlags.get("QOS-Max-Bandwidth")
+            if byte_rate:
+                req.headers_out["X-Replace-Content-Throttle"] = str(byte_rate)
 
         # send the headers
         req.send_http_header()
-        # and the file
-        buffer_size = CFG.BUFFER_SIZE
-        while 1:
-            if buffer_size > size:
-                buffer_size = size
-            buf = response.read(buffer_size)
-            size = size - buffer_size
-            if not buf:
-                break
-            try:
-                req.write(buf)
-            except IOError:
-                return apache.HTTP_BAD_REQUEST
-        response.close()
-        return status
+
+        if req.headers_in.has_key("Range"):
+            # and the file
+            read = 0
+            while read < response_size:
+                # We check the size here in case we're not asked for the entire file.
+                buf = response.read(CFG.BUFFER_SIZE)
+                if not buf:
+                    break
+                try:
+                    req.write(buf)
+                    read = read + CFG.BUFFER_SIZE
+                except IOError:
+                    if xrepcon:
+                        # We're talking to a proxy, so don't bother to report
+                        # a SIGPIPE
+                        break
+                    return apache.HTTP_BAD_REQUEST
+            response.close()
+        else:
+            if 'wsgi.file_wrapper' in req.headers_in:
+                req.output = req.headers_in['wsgi.file_wrapper'](response, CFG.BUFFER_SIZE)
+            else:
+                req.output = iter(lambda: response.read(CFG.BUFFER_SIZE), '')
+        return success_response
 
     def response(self, req, response):
         """ send the response (common code) """
