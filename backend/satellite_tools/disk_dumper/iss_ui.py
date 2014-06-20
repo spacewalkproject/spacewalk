@@ -82,7 +82,7 @@ class UI:
         self.optionparser = option_parser(option_list=self.optiontable)
         self.options, self.args = self.optionparser.parse_args()
         if self.options.verbose and not self.options.debug_level:
-            self.options.debug_level=3
+            self.options.debug_level = 3
 
         for i in self.options.__dict__.keys():
             if not self.__dict__.has_key(i):

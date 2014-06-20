@@ -47,7 +47,7 @@ def getChannelRepo():
 
     initCFG('server')
     rhnSQL.initDB()
-    items={}
+    items = {}
     sql = """
            select s.source_url, c.label
                        from rhnContentSource s,
@@ -95,8 +95,8 @@ def getParentsChilds():
 
 def getCustomChannels():
 
-    d_parents=getParentsChilds()
-    l_custom_ch=[]
+    d_parents = getParentsChilds()
+    l_custom_ch = []
 
     for ch in d_parents:
         l_custom_ch += [ch] + d_parents[ch]
@@ -477,7 +477,7 @@ class RepoSync(object):
                                                   (num_passed - num_to_process))
             self.print_msg("Packages to sync:             %5d" % num_to_process)
 
-        self.regen=True
+        self.regen = True
         is_non_local_repo = (url.find("file://") < 0)
 
         def finally_remove(path):
