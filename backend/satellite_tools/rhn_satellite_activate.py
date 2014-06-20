@@ -557,6 +557,7 @@ def main():
 
         FIXME - need to redo how we process error codes - very manual
     """
+    # pylint: disable=R0911
 
     options = processCommandline()
 
