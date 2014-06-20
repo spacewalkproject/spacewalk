@@ -629,7 +629,7 @@ class Dumper(dumper.XML_Dumper):
             raise ISSError(exceptmsg % e.__class__.__name__, tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_arches(self, rpm_arch_type_only=0)):
+    def dump_arches(self, rpm_arch_type_only=0):
         self._dump_simple(self.fm.getArchesFile(), dumper.XML_Dumper.dump_arches,
                           "Exporting arches...",
                           "Arches exported to %s",
