@@ -1,0 +1,40 @@
+
+synopsis:
+
+    Kickstart scripts
+
+description:
+
+    Lists all kickstart scripts and their details
+
+columns:
+
+    id              Kickstart script id
+    org_id          Organization id of the kickstart
+    script_name     Kickstart script name
+    kickstart_id    Kickstart id the kickstart script is assocxiated to
+    kickstart_label Kickstart label the kickstart script is assocxiated to
+    position        Position of the kickstart script within a Kickstart
+    script_type     Type of the kickstart script
+    chroot          Run the script within the chroot environment
+    interpreter     Kickstart script interpreter (bash if empty)
+    data            Actual kickstart script
+
+sql:
+
+    select * from (
+        select kss.id,
+               ks.org_id,
+               kss.script_name,
+               kss.kickstart_id,
+               ks.label AS kickstart_label,
+               kss.position,
+               kss.script_type,
+               kss.chroot,
+               kss.interpreter,
+               kss.data
+        from rhnKickstartScript kss join rhnKsData ks on ks.id = kss.kickstart_id
+        where kss.raw_script = 'Y'
+    ) X
+    -- where placeholder
+    order by kickstart_id, position, id
