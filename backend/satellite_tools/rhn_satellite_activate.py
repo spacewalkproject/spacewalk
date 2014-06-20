@@ -428,7 +428,7 @@ def expiredYN(certPath):
     ## open cert
     try:
         fo = open(certPath, 'rb')
-    except:
+    except IOError:
         sys.stderr.write("ERROR: unable to open the cert: %s\n" % certPath)
         sys.exit(1)
 

@@ -161,6 +161,7 @@ class RepoSync(object):
             if url.startswith("uln://"):
                 self.repo_plugin = self.load_plugin("uln")
 
+            # pylint: disable=W0703
             try:
                 plugin = self.repo_plugin(url, self.channel_label)
                 if repo_id is not None:
@@ -488,6 +489,7 @@ class RepoSync(object):
         for (index, what) in enumerate(to_process):
             pack, to_download, to_link = what
             localpath = None
+            # pylint: disable=W0703
             try:
                 self.print_msg("%d/%d : %s" % (index+1, num_to_process, pack.getNVREA()))
                 if to_download:

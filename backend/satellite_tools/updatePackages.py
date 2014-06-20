@@ -147,11 +147,12 @@ def process_package_data():
         pb.printIncrement()
         old_path_nvrea = path['path'].split('/')
         org_id = old_path_nvrea[1]
+        # pylint: disable=W0703
         try:
             nevra = parseRPMFilename(old_path_nvrea[-1])
             if nevra[1] in [ None, '']:
                 nevra[1] = path['epoch']
-        except:
+        except Exception:
             # probably not an rpm skip
             if debug:
                 log.writeMessage("Skipping: %s Not a valid rpm" \
@@ -184,6 +185,7 @@ def process_package_data():
                     log.writeMessage("Missing path %s for package %d" % ( old_abs_path, path['id']))
                 continue
 
+        # pylint: disable=W0703
         try:
             hdr = rhn_rpm.get_package_header(filename=old_abs_path)
         except Exception, e:
@@ -502,6 +504,7 @@ def process_package_files():
                 log.writeMessage("Package path '%s' does not exist." % package_path)
             continue
 
+        # pylint: disable=W0703
         try:
             hdr = rhn_rpm.get_package_header(filename=package_path)
         except Exception, e:

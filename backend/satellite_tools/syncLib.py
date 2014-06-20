@@ -210,7 +210,7 @@ class FileManip:
             # Try not to leave garbage around
             try:
                 os.unlink(self.full_path)
-            except:
+            except (OSError, IOError):
                 pass
             raise FileCreationError(msg), None, sys.exc_info()[2]
         l_file_size = fout.tell()
@@ -224,7 +224,7 @@ class FileManip:
             # Try not to leave garbage around
             try:
                 os.unlink(self.full_path)
-            except:
+            except (OSError, IOError):
                 pass
             raise FileCreationError(msg)
 

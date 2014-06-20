@@ -49,9 +49,10 @@ def processCommandline():
                          "%s\n" % values.ca_cert)
         sys.exit(10)
 
+    # pylint: disable=W0703
     try:
         rhnSQL.initDB()
-    except:
+    except Exception:
         sys.stderr.write("""\
 ERROR: there was a problem trying to initialize the database:
 

@@ -296,7 +296,7 @@ class ContentSource(object):
         ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
         try:
             self._clean_cache(ssldir)
-        except:
+        except (OSError, IOError):
             pass
 
     def get_file(self, path, local_base=None):
