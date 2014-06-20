@@ -88,7 +88,8 @@ class FileMapper:
 
     #This will make sure that all of the directories leading up to the
     #xml file actually exist.
-    def setup_file(self, ofile):
+    @staticmethod
+    def setup_file(ofile):
         #Split the path. The filename is [1], and the directories are in [0].
         dirs_to_make = os.path.split(ofile)[0]
 
@@ -1186,7 +1187,8 @@ class ExporterMain:
             print "can't access output directory"
             sys.exit(-1)
 
-    def list_channels(self):
+    @staticmethod
+    def list_channels():
         """ return all available channels
 
             the returned format is dictionary containing base_label as keys and value is list
@@ -1240,7 +1242,8 @@ class ExporterMain:
                         channel_dict[base_label].append(child_label)
         return channel_dict
 
-    def print_list_channels(self, channel_dict):
+    @staticmethod
+    def print_list_channels(channel_dict):
         """ channel_dict is dictionary containing base_label as keys and value is list
             of labels of child channels
         """
@@ -1263,7 +1266,8 @@ class ExporterMain:
         else:
             print "No Channels available for listing."
 
-    def list_orgs(self):
+    @staticmethod
+    def list_orgs():
         """
         Return a list of all orgs.
         """
@@ -1275,7 +1279,8 @@ class ExporterMain:
         org_data.execute()
         return org_data.fetchall_dict()
 
-    def print_orgs(self, orgs):
+    @staticmethod
+    def print_orgs(orgs):
         if orgs and len(orgs) > 0:
             print "Orgs available for export:"
             for org in orgs:

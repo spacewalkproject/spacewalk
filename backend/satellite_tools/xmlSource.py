@@ -118,7 +118,8 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
         self.__parser.setContentHandler(self)
         self.__parser.setErrorHandler(self)
 
-    def setStream(self, stream):
+    @staticmethod
+    def setStream(stream):
         BaseDispatchHandler.__stream = stream
 
     # Starts processing the data from the XML stream

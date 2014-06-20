@@ -41,7 +41,7 @@ class DiskSource:
 
     def _getFile(self, create=0):
         # Virtual
-        # pylint: disable=W0613
+        # pylint: disable=W0613,R0201
         return None
 
     def _loadFile(self, filename):
@@ -137,13 +137,15 @@ class ChannelDiskSource(DiskSource):
             createPath(dirname)
         return os.path.join(dirname, self._file_name())
 
-    def _file_name(self):
+    @staticmethod
+    def _file_name():
         return "channel.xml"
 
 
 class ChannelCompsDiskSource(ChannelDiskSource):
 
-    def _file_name(self):
+    @staticmethod
+    def _file_name():
         return "comps.xml"
 
 
@@ -254,7 +256,8 @@ class MetadataDiskSource:
     def __init__(self, mountpoint):
         self.mountpoint = mountpoint
 
-    def is_disk_loader(self):
+    @staticmethod
+    def is_disk_loader():
         return True
 
     def getArchesXmlStream(self):

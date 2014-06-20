@@ -61,7 +61,8 @@ class XML_Dumper:
         """ % self._channel_family_query
         return rhnSQL.prepare(query)
 
-    def get_orgs_statement(self, org_ids):
+    @staticmethod
+    def get_orgs_statement(org_ids):
         query = """
             select wc.id, wc.name
               from web_customer wc
@@ -69,7 +70,8 @@ class XML_Dumper:
         """ % org_ids
         return rhnSQL.prepare(query)
 
-    def get_channel_families_statement_new(self, cids):
+    @staticmethod
+    def get_channel_families_statement_new(cids):
 
         args = {
            'ch_ids'     : cids
@@ -363,7 +365,8 @@ class XML_Dumper:
         return self._packages(packages, prefix='rhn-source-package-',
             dump_class=SourcePackagesDumper, sources=1)
 
-    def _get_item_id(self, prefix, name, errnum, errmsg):
+    @staticmethod
+    def _get_item_id(prefix, name, errnum, errmsg):
         prefix_len = len(prefix)
         if name[:prefix_len] != prefix:
             raise rhnFault(errnum, errmsg % name)
@@ -643,7 +646,8 @@ class CachedDumper(exportLib.BaseDumper):
         exportLib.BaseDumper.__init__(self, writer, data_iterator=iterator)
         self.non_cached_class = self.__class__.__bases__[1]
 
-    def _get_last_modified(self, params):
+    @staticmethod
+    def _get_last_modified(params):
         """ To be overwritten. """
         return params['last_modified']
 

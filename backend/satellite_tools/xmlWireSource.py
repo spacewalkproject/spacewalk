@@ -87,7 +87,8 @@ class BaseWireSource:
         self._set_ssl_trusted_certs(serverObj)
         return serverObj
 
-    def _set_connection_params(self, handler, url):
+    @staticmethod
+    def _set_connection_params(handler, url):
         BaseWireSource.handler = handler
         BaseWireSource.url = url
 
@@ -187,7 +188,8 @@ class MetadataWireSource(BaseWireSource):
 
     """retrieve specific xml stream through xmlrpc interface."""
 
-    def is_disk_loader(self):
+    @staticmethod
+    def is_disk_loader():
         return False
 
     def _prepare(self):
@@ -286,7 +288,8 @@ class XMLRPCWireSource(BaseWireSource):
 
     "Base class for all the XMLRPC calls"
 
-    def _xmlrpc(self, function, params):
+    @staticmethod
+    def _xmlrpc(function, params):
         try:
             retval = getattr(BaseWireSource.serverObj, function)(*params)
         except TypeError, e:
@@ -348,8 +351,9 @@ class RPCGetWireSource(BaseWireSource):
         BaseWireSource.__init__(self, systemid, sslYN, xml_dump_version)
         self.extinctErrorYN = 0
 
-    def _set_connection_params(self, handler, url):
-        BaseWireSource._set_connection_params(self, handler, url)
+    @staticmethod
+    def _set_connection_params(handler, url):
+        BaseWireSource._set_connection_params(handler, url)
         RPCGetWireSource.login_token = None
 
     def login(self, force=0):
@@ -386,10 +390,12 @@ class RPCGetWireSource(BaseWireSource):
             raise
         return login_token
 
-    def _set_login_token(self, token):
+    @staticmethod
+    def _set_login_token(token):
         RPCGetWireSource.login_token = token
 
-    def _set_rpc_server(self, server):
+    @staticmethod
+    def _set_rpc_server(server):
         RPCGetWireSource.get_server_obj = server
 
     def _rpc_call(self, function_name, params):

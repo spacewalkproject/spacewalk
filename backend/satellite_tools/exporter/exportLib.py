@@ -46,7 +46,8 @@ class BaseDumper:
         self._iterator = data_iterator
 
     # Generic timing function
-    def timer(self, debug_level, message, function, *args, **kwargs):
+    @staticmethod
+    def timer(debug_level, message, function, *args, **kwargs):
         start = time.time()
         result = function(*args, **kwargs)
         log_debug(debug_level, message, "timing: %.3f" % (time.time() - start))
@@ -90,6 +91,7 @@ class BaseDumper:
             self._writer.empty_tag(tag_name, attributes=self._attributes)
 
     def dump_subelement(self, data):
+        # pylint: disable=R0201
         if isinstance(data, BaseDumper):
             data.dump()
 

@@ -111,7 +111,8 @@ class ChannelCollection:
         self._channels_hash[channel_label] = last_modified
         return self
 
-    def _get_list_from_dict(self, diction, key):
+    @staticmethod
+    def _get_list_from_dict(diction, key):
         # Returns the dictionary's key if present (assumed to be a list), or
         # sets the value to an empty list and returns it
         if diction.has_key(key):

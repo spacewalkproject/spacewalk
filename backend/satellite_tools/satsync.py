@@ -258,7 +258,8 @@ class Runner:
         sendMail()
         return 0
 
-    def _get_elapsed_time(self, elapsed):
+    @staticmethod
+    def _get_elapsed_time(elapsed):
         elapsed = int(elapsed)
         hours = elapsed/60/60
         mins = elapsed/60 - hours*60
@@ -566,7 +567,8 @@ class Syncer:
 
         return self._process_cert(cert, store_cert)
 
-    def _process_cert(self, cert, store_cert=1):
+    @staticmethod
+    def _process_cert(cert, store_cert=1):
         """Give the cert a check - if it's broken xml we'd better find it out
            now
         """
@@ -695,7 +697,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         log(1, _("Channel data complete"))
 
-    def _formatChannelExportType(self, channel):
+    @staticmethod
+    def _formatChannelExportType(channel):
         """returns pretty formated text with type of channel export"""
         if 'export-type' not in channel or channel['export-type'] is None:
             return ''
@@ -958,11 +961,13 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if set(pids or []) > set(avail_pids or []):
                 raise RhnSyncException, _('ERROR: incremental dump skipped')
 
-    def _get_rel_package_path(self, nevra, org_id, source, checksum_type, checksum):
+    @staticmethod
+    def _get_rel_package_path(nevra, org_id, source, checksum_type, checksum):
         return get_package_path(nevra, org_id, prepend=CFG.PREPENDED_DIR,
             source=source, checksum_type=checksum_type, checksum=checksum)
 
-    def _verify_file(self, path, mtime, size, checksum_type, checksum):
+    @staticmethod
+    def _verify_file(path, mtime, size, checksum_type, checksum):
         """
         Verifies if the file is on the filesystem and matches the mtime and checksum.
         Computing the checksum is costly, that's why we rely on mtime comparisons.
@@ -1635,7 +1640,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             exitWithTraceback(e, 'Exception caught during import', 14)
         return importer.affected_channels
 
-    def _get_cached_package_batch(self, chunk, sources=0):
+    @staticmethod
+    def _get_cached_package_batch(chunk, sources=0):
         """ short-circuit the most common case"""
         if not chunk:
             return []
@@ -1674,7 +1680,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             self._proces_batch(chn, batch, messages.errata_importing,
                         sync_handlers.import_errata)
 
-    def _fix_erratum(self, erratum):
+    @staticmethod
+    def _fix_erratum(erratum):
         """ Replace the list of packages with references to short packages"""
         sp_coll = sync_handlers.ShortPackageCollection()
         pids = set(erratum['packages'] or [])
@@ -1809,7 +1816,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             notimeYN=1)
 
     # Translate x bytes to string "x MB", "x GB" or "x kB"
-    def _bytes_to_fuzzy(self, b):
+    @staticmethod
+    def _bytes_to_fuzzy(b):
         units = [ 'bytes', 'kiB', 'MiB', 'GiB', 'TiB', 'PiB']
         base = 1024
         fuzzy = b
