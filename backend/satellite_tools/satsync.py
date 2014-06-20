@@ -129,6 +129,8 @@ class Runner:
         self.packages_report = None
         self._xml_file_dir_error_message = ''
         self._affected_channels = None
+        self._packages_report = None
+        self._actions = None
 
     #5/24/05 wregglej - 156079 turn off a step's dependents in the step is turned off.
     def _handle_step_dependents(self, actionDict, step):
@@ -435,6 +437,9 @@ class Syncer:
         self._channel_source_packages_full = {}
 
         self._channel_kickstarts = {}
+        self._avail_channel_source_packages = None
+        self._missing_channel_src_packages = None
+        self._missing_fs_source_packages = None
 
     def initialize(self):
         """Initialization that requires IO, etc."""

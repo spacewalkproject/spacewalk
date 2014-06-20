@@ -172,6 +172,8 @@ class Dumper(dumper.XML_Dumper):
         self.pb_complete = " - Done!"   #string that's printed when progress bar is done.
         self.pb_char = "#"              #the string used as each unit in the progress bar.
         self.hardlinks = hardlinks
+        self.filename = None
+        self.outstream = None
 
         self.start_date = start_date
         self.end_date   = end_date

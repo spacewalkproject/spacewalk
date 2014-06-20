@@ -34,6 +34,10 @@ class ContentSource(yum_ContentSource):
             print "url format error, url must start with uln://"
             return -1
         yum_ContentSource.__init__(self, url, name, ULNSRC_CONF)
+        self.uln_url = None
+        self.uln_user = None
+        self.uln_pass = None
+        self.key = None
 
     def _authenticate(self, url):
         if url.startswith("uln:///"):

@@ -42,6 +42,7 @@ class XML_Dumper:
         self.channel_ids = []
         self.channel_ids_for_families = []
         self.exportable_orgs = 'null'
+        self._raw_stream = None
 
     def send(self, data):
         # to be overwritten in subclass
