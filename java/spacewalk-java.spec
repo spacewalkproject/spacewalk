@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.95
+Version: 2.2.96
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jun 20 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.96-1
+- syntax fix
+
 * Thu Jun 19 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.95-1
 - explicitly convert errata keywords to String
 - allow filtering of events based on event type for listSystemEvents api
