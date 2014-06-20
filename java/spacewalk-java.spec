@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.96
+Version: 2.2.97
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jun 20 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.97-1
+- ensure an Iterator<String> is passed instead of an Iterator<Object>
+
 * Fri Jun 20 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.96-1
 - syntax fix
 
