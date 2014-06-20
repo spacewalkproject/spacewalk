@@ -41,6 +41,7 @@ _ = t.ugettext
 
 class ISSError(Exception):
     def __init__(self, msg, tb):
+        Exception.__init__(self)
         self.msg = msg
         self.tb = tb
 

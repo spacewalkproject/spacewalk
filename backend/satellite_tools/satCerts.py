@@ -40,6 +40,7 @@ class CertGenerationMismatchError(Exception):
 
 class CertVersionMismatchError(Exception):
     def __init__(self, old_version, new_version):
+        Exception.__init__(self)
         self._message = "the versions of current and new certificate do not match, [%s] vs. [%s]" % (
                                                                               old_version, new_version)
     def __str__(self):
@@ -47,6 +48,7 @@ class CertVersionMismatchError(Exception):
 
 class NoFreeEntitlementsError(Exception):
     def __init__(self, label, quantity):
+        Exception.__init__(self)
         self.label = label
         self.quantity = quantity
         self.message = ("Error: You do not have enough unused %s entitlements in the base org. "
