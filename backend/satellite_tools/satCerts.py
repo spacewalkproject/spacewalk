@@ -442,6 +442,7 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
     sc = satellite_cert.SatelliteCert()
     sc.load(cert)
 
+    # pylint: disable=E1101
     # gotta make sure there is a first org_id
     create_first_org(owner=sc.owner)
 

@@ -439,6 +439,7 @@ def expiredYN(certPath):
     sc = satellite_cert.SatelliteCert()
     sc.load(cert)
     # note the correction for timezone
+    # pylint: disable=E1101
     try:
         expires = time.mktime(time.strptime(sc.expires, sc.datesFormat_cert))-time.timezone
     except ValueError:

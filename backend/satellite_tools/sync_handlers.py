@@ -169,6 +169,7 @@ class SyncHandlerContainer:
         # reference to xmlSource superclass we redefines
         xml_superclass = self.__class__.__bases__[1]
         xml_superclass.endItemCallback(self)
+        # pylint: disable=E1101
         if not self.batch:
             return
         c = self.collection()
@@ -483,6 +484,7 @@ class ContainerHandler:
     def setProductNamesContainer(self):
         self.handler.set_container(diskImportLib.ProductNamesContainer())
     def setOrgContainer(self, master_label, create_orgs):
+        # pylint: disable=E1101
         self.handler.set_container(diskImportLib.OrgContainer())
         self.handler.get_container('rhn-orgs').set_master_and_create_org_args(
                 master_label, create_orgs)

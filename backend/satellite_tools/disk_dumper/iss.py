@@ -1029,6 +1029,7 @@ class ExporterMain:
     def __init__(self):
         initCFG('server.iss')
 
+        # pylint: disable=E1101
         self.options = UI()
         self.action_deps = ActionDeps(self.options)
         self.action_order, self.actions = self.action_deps.get_actions()
@@ -1289,6 +1290,7 @@ class ExporterMain:
             print "No Orgs available for listing."
 
     def main(self):
+        # pylint: disable=E1101
         try:
             for action in self.action_order:
                 if self.actions[action] == 1:
