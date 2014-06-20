@@ -65,7 +65,7 @@ public class ErrataDetailsSetupAction extends RhnAction {
         if (keywords != null) {
             keywordsDisplay = StringUtil.join(
                     LocalizationService.getInstance().getMessage("list delimiter"),
-                    IteratorUtils.getIterator(keywords).toString());
+                    IteratorUtils.getIterator(keywords.toString()));
         }
 
         request.setAttribute("errata", errata);
