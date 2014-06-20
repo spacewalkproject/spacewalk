@@ -1212,24 +1212,24 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             h.execute(**params)
             row = h.fetchone_dict()
             self._process_package(pid, package, None, row,
-                self._missing_channel_source_packages[channel_label],
+                self._missing_channel_src_packages[channel_label],
                 self._missing_fs_source_packages[channel_label],
                 source=1)
 
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_source_packages(self):
-        self._missing_channel_source_packages = {}
+        self._missing_channel_src_packages = {}
         self._missing_fs_source_packages = {}
         for channel_label, upids in self._channel_source_packages.items():
             log(1, _("Diffing source package metadata (what's missing locally?): %s") % channel_label)
-            self._missing_channel_source_packages[channel_label] = []
+            self._missing_channel_src_packages[channel_label] = []
             self._missing_fs_source_packages[channel_label] = []
             self._proces_batch(channel_label, upids[:], None,
                                          self._diff_source_packages_process,
                                          _('Diffing:    '),
                                          [channel_label])
 
-        self._verify_missing_channel_packages(self._missing_channel_source_packages, sources=1)
+        self._verify_missing_channel_packages(self._missing_channel_src_packages, sources=1)
 
     def download_source_package_metadata(self):
         log(1, ["", _("Downloading source package metadata")])
@@ -1595,7 +1595,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     def import_packages(self, sources=0):
         if sources:
             log(1, ["", _("Importing source package metadata")])
-            missing_channel_items = self._missing_channel_source_packages
+            missing_channel_items = self._missing_channel_src_packages
         else:
             log(1, ["", _("Importing package metadata")])
             missing_channel_items = self._missing_channel_packages

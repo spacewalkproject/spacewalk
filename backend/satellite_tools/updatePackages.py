@@ -125,7 +125,7 @@ def process_package_data():
     global verbose, debug
 
     if debug:
-        Log = rhnLog('/var/log/rhn/update-packages.log', 5)
+        log = rhnLog('/var/log/rhn/update-packages.log', 5)
 
     _get_path_sql = rhnSQL.prepare(_get_path_query)
     _update_package_path = rhnSQL.prepare(_update_pkg_path_query)
@@ -155,7 +155,7 @@ def process_package_data():
         except:
             # probably not an rpm skip
             if debug:
-                Log.writeMessage("Skipping: %s Not a valid rpm" \
+                log.writeMessage("Skipping: %s Not a valid rpm" \
                                   % old_path_nvrea[-1])
             continue
         old_abs_path = os.path.join(CFG.MOUNT_POINT, path['path'])
@@ -173,14 +173,14 @@ def process_package_data():
         if not os.path.exists(old_abs_path):
             if os.path.exists(new_abs_path):
                 new_ok_list.append(new_abs_path)
-                if debug: Log.writeMessage("File %s already on final path %s" % (path['path'], new_abs_path))
+                if debug: log.writeMessage("File %s already on final path %s" % (path['path'], new_abs_path))
                 old_abs_path = new_abs_path
             elif os.path.exists(bad_abs_path):
-                Log.writeMessage("File %s found on %s" % (path['path'], bad_abs_path))
+                log.writeMessage("File %s found on %s" % (path['path'], bad_abs_path))
                 old_abs_path = bad_abs_path
             else:
                 skip_list.append(old_abs_path)
-                if debug: Log.writeMessage("Missing path %s for package %d" % ( old_abs_path, path['id']))
+                if debug: log.writeMessage("Missing path %s for package %d" % ( old_abs_path, path['id']))
                 continue
 
         try:
@@ -190,14 +190,14 @@ def process_package_data():
                 (old_abs_path, str(e))
             print msg
             if debug:
-                Log.writeMessage(msg)
+                log.writeMessage(msg)
             rhnSQL.commit()
             sys.exit(1)
 
         if old_abs_path != new_abs_path:
             new_abs_dir = os.path.dirname(new_abs_path)
             # relocate the package on the filer
-            if debug: Log.writeMessage("Relocating %s to %s on filer" \
+            if debug: log.writeMessage("Relocating %s to %s on filer" \
                            % (old_abs_path, new_abs_path))
             if not os.path.isdir(new_abs_dir):
                 os.makedirs(new_abs_dir)
@@ -210,11 +210,11 @@ def process_package_data():
         # Update the db paths
         _update_package_path.execute(the_id= path['id'], \
                              new_path = new_path )
-        if debug: Log.writeMessage("query Executed: update rhnPackage %d to %s" \
+        if debug: log.writeMessage("query Executed: update rhnPackage %d to %s" \
                                % ( path['id'], new_path ))
         # Process gpg key ids
         server_packages.processPackageKeyAssociations(hdr, checksum_type, checksum)
-        if debug: Log.writeMessage("gpg key info updated from %s" % new_abs_path )
+        if debug: log.writeMessage("gpg key info updated from %s" % new_abs_path )
         i = i + 1
         # we need to break the transaction to smaller pieces
         if i % 1000 == 0:
@@ -290,7 +290,7 @@ def process_sha256_packages():
     global verbose, debug
 
     if debug:
-        Log = rhnLog('/var/log/rhn/update-packages.log', 5)
+        log = rhnLog('/var/log/rhn/update-packages.log', 5)
 
     _get_sha256_packages_sql = rhnSQL.prepare(_get_sha256_packages_query)
     _get_sha256_packages_sql.execute()
@@ -299,7 +299,7 @@ def process_sha256_packages():
     if not packages:
         print "No SHA256 capable packages to process."
         if debug:
-            Log.writeMessage("No SHA256 capable packages to process.")
+            log.writeMessage("No SHA256 capable packages to process.")
 
         return
 
@@ -319,7 +319,7 @@ def process_sha256_packages():
 
         old_abs_path = os.path.join(CFG.MOUNT_POINT, package['path'])
         if debug and verbose:
-            Log.writeMessage("Processing package: %s" % old_abs_path)
+            log.writeMessage("Processing package: %s" % old_abs_path)
         temp_file = open(old_abs_path, 'rb')
         header, _payload_stream, _header_start, _header_end = \
                 rhnPackageUpload.load_package(temp_file)
@@ -336,7 +336,7 @@ def process_sha256_packages():
         try:
             if old_abs_path != new_abs_path:
                 if debug:
-                    Log.writeMessage("Relocating %s to %s on filer" % (old_abs_path, new_abs_path))
+                    log.writeMessage("Relocating %s to %s on filer" % (old_abs_path, new_abs_path))
 
                 new_abs_dir = os.path.dirname(new_abs_path)
                 if not os.path.isdir(new_abs_dir):
@@ -346,7 +346,7 @@ def process_sha256_packages():
                 if not os.path.exists(new_abs_path):
                     os.link(old_abs_path, new_abs_path)
                 elif debug:
-                    Log.writeMessage("File %s already exists" % new_abs_path)
+                    log.writeMessage("File %s already exists" % new_abs_path)
 
                 # Make the new path readable
                 os.chmod(new_abs_path, 0644)
@@ -355,7 +355,7 @@ def process_sha256_packages():
                       (old_abs_path, new_abs_path, str(e))
             print message
             if debug:
-                Log.writeMessage(message)
+                log.writeMessage(message)
             sys.exit(1)
 
         # Update package checksum in the database
@@ -388,7 +388,7 @@ def process_sha256_packages():
             message = "Error when removing %s: %s" % (old_abs_path, str(e))
             print message
             if debug:
-                Log.writeMessage(message)
+                log.writeMessage(message)
 
             sys.exit(1)
 
@@ -478,7 +478,7 @@ def process_package_files():
     def delete_package_repodata(pid):
         package_repodata_h.execute(pid=pid)
 
-    Log = rhnLog('/var/log/rhn/update-packages.log', 5)
+    log = rhnLog('/var/log/rhn/update-packages.log', 5)
 
     package_query_h = rhnSQL.prepare(package_query)
     package_query_h.execute()
@@ -496,7 +496,7 @@ def process_package_files():
 
         if not os.path.exists(package_path):
             if debug:
-                Log.writeMessage("Package path '%s' does not exist." % package_path)
+                log.writeMessage("Package path '%s' does not exist." % package_path)
             continue
 
         try:
@@ -504,7 +504,7 @@ def process_package_files():
         except Exception, e:
             message = "Error when reading package %s header: %s" % (package_path, e)
             if debug:
-                Log.writeMessage(message)
+                log.writeMessage(message)
             continue
 
         pkg_updates = 0
@@ -530,7 +530,7 @@ def process_package_files():
                 pkg_updates += 1
 
             if debug and pkg_updates:
-                Log.writeMessage("Package id: %s, name: %s, %s files inserted" % \
+                log.writeMessage("Package id: %s, name: %s, %s files inserted" % \
                     (row['id'], package_name(row['id']), pkg_updates))
         elif row['nonnullcsums'] == 0:
             # All package files in the DB have null checksum (possibly a bug #659348)
@@ -552,11 +552,11 @@ def process_package_files():
                     pkg_updates += 1
 
             if debug and pkg_updates:
-                Log.writeMessage("Package id: %s, name: %s, %s checksums updated" % \
+                log.writeMessage("Package id: %s, name: %s, %s checksums updated" % \
                     (row['id'], package_name(row['id']), pkg_updates))
 
         if pkg_updates:
-            Log.writeMessage("Package id: %s, purging rhnPackageRepoData" % row['id'])
+            log.writeMessage("Package id: %s, purging rhnPackageRepoData" % row['id'])
             delete_package_repodata(row['id'])
 
         rhnSQL.commit() # End of a package
