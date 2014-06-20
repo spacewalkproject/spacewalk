@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ULN plugin for spacewalk-repo-sync.
 """
 import sys
-sys.path.append('/usr/share/rhn/up2date_client')
-from rpcServer import RetryServer
+sys.path.append('/usr/share/rhn')
+from up2date_client.rpcServer import RetryServer
 
 from spacewalk.satellite_tools.repo_plugins.yum_src import ContentSource as yum_ContentSource
 

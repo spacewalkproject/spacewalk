@@ -36,7 +36,7 @@ except ImportError:
     except ImportError:
         import cElementTree
     iterparse = cElementTree.iterparse
-from spacewalk.satellite_tools.reposync import ContentPackage
+from ..reposync import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
 
 CACHE_DIR   = '/var/cache/rhn/reposync/'
