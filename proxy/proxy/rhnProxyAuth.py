@@ -112,7 +112,7 @@ class ProxyAuth:
 
         # ids were updated
         return 1
-    
+
     def get_system_id(self):
         """ return the system id"""
         self.__processSystemid()

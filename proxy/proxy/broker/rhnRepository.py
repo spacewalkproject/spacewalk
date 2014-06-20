@@ -299,11 +299,16 @@ class KickstartRepository(Repository):
                     username=httpProxyUsername, password=httpProxyPassword)
             if caChain:
                 server.add_trusted_cert(caChain)
-            response = self._getMapping(server)
+            try:
+                response = self._getMapping(server)
+                mapping =  {'channel': str(response['label']),
+                            'version': str(response['last_modified']),
+                            'expires': int(time.time()) + 3600} #1 hour from now
+            except Exception:
+                # something went wrong. Punt, we just won't serve this request
+                # locally
+                raise NotLocalError
 
-            mapping =  {'channel': str(response['label']),
-                        'version': str(response['last_modified']),
-                        'expires': int(time.time()) + 3600} # an hour from now
             # Cache the thing
             cache(cPickle.dumps(mapping, 1), fileDir, fileName, "1")
 
