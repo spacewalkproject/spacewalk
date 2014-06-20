@@ -31,14 +31,15 @@ Utility for exporting the minimal set of RPMs and metadata required to recreate 
         <arg>--exported-only</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-f FORCE</arg>
-        <arg>--force=FORCE</arg>
+        <arg>-f</arg>
+        <arg>--force</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-o<replaceable>ORG_ID</replaceable></arg>
+        <arg>-o <replaceable>ORG_ID</replaceable></arg>
         <arg>--org_id=<replaceable>ORG_ID</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-q</arg>
         <arg>--quiet</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -67,7 +68,7 @@ Utility for exporting the minimal set of RPMs and metadata required to recreate 
   </para>
 
   <para>
-      <emphasis>spacewalk-export-channels</emphasis> exports the data and content necessary to recreate the channels of the &PRODUCT; instance, <emphasis>assuming that Red Hat content is otherwise available</emphasis>. Data and content of Red Hat-provided channels are not included.
+      <emphasis>spacewalk-export-channels</emphasis> exports the data and content necessary to recreate the channels of the &PRODUCT; instance, <emphasis>assuming that online repositories and Red Hat content are otherwise available</emphasis>. Data and content of online repositories and Red Hat-provided channels are not included.
   </para>
 
   <para>
@@ -79,17 +80,18 @@ Utility for exporting the minimal set of RPMs and metadata required to recreate 
   </para>
   <screen>
       export-dir:
+        export.csv
         {org-id}:
             {channel-id}.csv
             {channel-id}:
-            {rpm1}.rpm
-            {rpm2}.rpm
-            {rpm3}.rpm
-            repodata:
-                {checksum}-other.xml.gz
-                {checksum}-filelists.xml.gz
-                {checksum}-primary.xml.gz
-                repomd.xml
+                {rpm1}.rpm
+                {rpm2}.rpm
+                {rpm3}.rpm
+                repodata:
+                    {checksum}-other.xml.gz
+                    {checksum}-filelists.xml.gz
+                    {checksum}-primary.xml.gz
+                    repomd.xml
   </screen>
 
 </RefSect1>
@@ -98,7 +100,7 @@ Utility for exporting the minimal set of RPMs and metadata required to recreate 
 <RefSect1><Title>Options</Title>
 <variablelist>
     <varlistentry>
-        <term>-d, --dir<replaceable>DIRECTORY</replaceable></term>
+        <term>-d, --dir=<replaceable>DIRECTORY</replaceable></term>
         <listitem>
             <para>Specify export-directory (will be created if necessary) - <emphasis>REQUIRED</emphasis></para>
         </listitem>
@@ -110,7 +112,7 @@ Utility for exporting the minimal set of RPMs and metadata required to recreate 
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-f FORCE, --force=FORCE</term>
+        <term>-f, --force</term>
         <listitem>
           <para>Overwrite exported package rpms, even if already present in the dump
         </listitem>
@@ -133,7 +135,7 @@ Utility for exporting the minimal set of RPMs and metadata required to recreate 
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--quiet</term>
+        <term>-q --quiet</term>
         <listitem>
         <para>Log only errors</para>
         </listitem>
@@ -141,7 +143,7 @@ Utility for exporting the minimal set of RPMs and metadata required to recreate 
     <varlistentry>
         <term>-v, --verbose</term>
         <listitem>
-        <para>Increased logging output</para>
+        <para>Increased logging output, may be used several times</para>
         </listitem>
     </varlistentry>
     <varlistentry>
