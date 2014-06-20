@@ -209,7 +209,8 @@ class RepoSync(object):
                              where label = :channel""")
         h.execute(channel=self.channel['label'])
 
-    def load_plugin(self, repo_type):
+    @staticmethod
+    def load_plugin(repo_type):
         name = repo_type + "_src"
         mod = __import__('spacewalk.satellite_tools.repo_plugins', globals(), locals(), [name])
         submod = getattr(mod, name)
@@ -517,7 +518,8 @@ class RepoSync(object):
         importer.run()
         backend.commit()
 
-    def match_package_checksum(self, abspath, checksum_type, checksum):
+    @staticmethod
+    def match_package_checksum(abspath, checksum_type, checksum):
         if (os.path.exists(abspath) and
             getFileChecksum(checksum_type, filename=abspath) == checksum):
             return 1
@@ -568,10 +570,12 @@ class RepoSync(object):
         if not self.quiet:
             sys.stderr.write(str(message) + "\n")
 
-    def log_msg(self, message):
+    @staticmethod
+    def log_msg(message):
         rhnLog.log_clean(0, message)
 
-    def _to_db_date(self, date):
+    @staticmethod
+    def _to_db_date(date):
         ret = ""
         if date.isdigit():
             ret = datetime.fromtimestamp(float(date)).isoformat(' ')
@@ -580,7 +584,8 @@ class RepoSync(object):
             ret = date
         return ret[:19] #return 1st 19 letters of date, therefore preventing ORA-01830 caused by fractions of seconds
 
-    def fix_notice(self, notice):
+    @staticmethod
+    def fix_notice(notice):
         if "." in notice['version']:
             new_version = 0
             for n in notice['version'].split('.'):
@@ -597,7 +602,8 @@ class RepoSync(object):
                 notice._md['update_id'] = notice['update_id'] + '-' + notice['version']
         return notice
 
-    def get_errata(self, update_id):
+    @staticmethod
+    def get_errata(update_id):
         h = rhnSQL.prepare("""select
             e.id, e.advisory, e.advisory_name, e.advisory_rel
             from rhnerrata e
