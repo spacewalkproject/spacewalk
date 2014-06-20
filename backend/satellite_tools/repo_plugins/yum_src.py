@@ -279,17 +279,17 @@ class ContentSource(object):
         repo.sslcacert = os.path.join(ssldir, 'ca.pem')
         f = open(repo.sslcacert, "w")
         f.write(str(ca_cert))
-        f.close
+        f.close()
         if client_cert is not None:
             repo.sslclientcert = os.path.join(ssldir, 'cert.pem')
             f = open(repo.sslclientcert, "w")
             f.write(str(client_cert))
-            f.close
+            f.close()
         if client_key is not None:
             repo.sslclientkey = os.path.join(ssldir, 'key.pem')
             f = open(repo.sslclientkey, "w")
             f.write(str(client_key))
-            f.close
+            f.close()
 
     def clear_ssl_cache(self):
         repo = self.repo

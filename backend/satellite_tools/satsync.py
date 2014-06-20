@@ -632,7 +632,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         try:
             self._process_simple("getProductNamesXmlStream", "product names")
         except Exception:
-            None
+            pass
 
     def _process_comps(self, backend, label, timestamp):
         comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
