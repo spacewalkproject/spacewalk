@@ -256,6 +256,7 @@ $(function () {
     setupTextareaEditor(textarea, mode);
   });
 });
+
 // Disables the enter key from submitting the form
 function disableEnterKey() {
   $(window).keydown(function(event){
