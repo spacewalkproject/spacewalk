@@ -56,6 +56,7 @@ class YumWarnings:
 class YumUpdateMetadata(UpdateMetadata):
     """The root update metadata object supports getting all updates"""
 
+# pylint: disable=W0221
     def add(self, obj, mdtype='updateinfo', all_versions=False):
         """ Parse a metadata from a given YumRepository, file, or filename. """
         if not obj:

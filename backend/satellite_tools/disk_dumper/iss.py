@@ -629,14 +629,14 @@ class Dumper(dumper.XML_Dumper):
             raise ISSError(exceptmsg % e.__class__.__name__, tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_arches(self):
+    def dump_arches(self, rpm_arch_type_only=0)):
         self._dump_simple(self.fm.getArchesFile(), dumper.XML_Dumper.dump_arches,
                           "Exporting arches...",
                           "Arches exported to %s",
                           "%s caught in dump_arches.")
 
     #This dumps arches_extra
-    def dump_server_group_type_server_arches(self):
+    def dump_server_group_type_server_arches(self, rpm_arch_type_only=0, virt_filter=0):
         self._dump_simple(self.fm.getArchesExtraFile(),
                           dumper.XML_Dumper.dump_server_group_type_server_arches,
                           "Exporting arches extra...",
@@ -664,7 +664,7 @@ class Dumper(dumper.XML_Dumper):
                           "Orgs exported to %s",
                           "%s caught in dump_orgs.")
 
-    def dump_channels(self):
+    def dump_channels(self,  channel_labels=None, start_date=None, end_date=None, use_rhn_date=True, whole_errata=False):
         try:
             print "\n"
             log2stdout(1, "Exporting channel info...")
@@ -707,7 +707,9 @@ class Dumper(dumper.XML_Dumper):
                            tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_channel_packages_short(self):
+    def dump_channel_packages_short(self, channel_label=None, last_modified=None, filepath=None,
+                                    validate_channels=False, send_headers=False,
+                                    open_stream=True):
         try:
             print "\n"
             for ch_id in self.channel_ids:
@@ -722,7 +724,7 @@ class Dumper(dumper.XML_Dumper):
                                 e.__class__.__name__, tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_packages(self):
+    def dump_packages(self, packages=None):
         try:
             print "\n"
             log2stdout(1, "Exporting packages...")
@@ -752,7 +754,7 @@ class Dumper(dumper.XML_Dumper):
                            tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_packages_short(self):
+    def dump_packages_short(self, packages=None):
         try:
             print "\n"
             log2stdout(1, "Exporting short packages...")
@@ -781,7 +783,7 @@ class Dumper(dumper.XML_Dumper):
                                 e.__class__.__name__, tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_source_packages(self):
+    def dump_source_packages(self, packages=None):
         try:
             print "\n"
             for pkg_info in self.src_pkg_info:
@@ -795,7 +797,7 @@ class Dumper(dumper.XML_Dumper):
                                 e.__class__.__name__, tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_errata(self):
+    def dump_errata(self, errata=None, verify_errata=False):
         try:
             print "\n"
             log2stdout(1, "Exporting errata...")
