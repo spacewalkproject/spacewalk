@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.2.5
+Version: 2.2.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,10 @@ fi
 
 
 %changelog
+* Fri Jun 20 2014 Stephen Herr <sherr@redhat.com> 2.2.6-1
+- 1108370 - enable proxy to serve files from its cache for kickstarts
+- 1108370 - enable proxy to correctly respond to partial http requests
+
 * Wed Jun 11 2014 Stephen Herr <sherr@redhat.com> 2.2.5-1
 - 1108370 - add --from-export option to rhn_package_manager
 - make rhnpush backwards-compatible with old spacewalk-proxy
