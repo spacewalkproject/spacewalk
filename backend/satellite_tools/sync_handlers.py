@@ -162,6 +162,9 @@ class ChannelCollection:
 class SyncHandlerContainer:
     collection = None
 
+    def __init__(self):
+        pass
+
     def endItemCallback(self):
         # reference to xmlSource superclass we redefines
         xml_superclass = self.__class__.__bases__[1]

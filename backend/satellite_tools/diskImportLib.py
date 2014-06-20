@@ -31,6 +31,9 @@ from spacewalk.server.importlib import orgImport
 class Backend:
     __backend = None
 
+    def __init__(self):
+        pass
+
     def get_backend(self):
         if self.__backend:
             return self.__backend
@@ -56,6 +59,9 @@ def rpmsPath(obj_id, mountPoint, sources=0):
 class diskImportLibContainer:
     """virtual class - redefines endContainerCallback"""
     importer_class = None
+    def __init__(self):
+        pass
+
     def endContainerCallback(self):
         importer = self.importer_class(self.batch, get_backend())
         importer.run()

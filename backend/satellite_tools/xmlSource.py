@@ -286,6 +286,9 @@ class BaseItem:
     item_class = None
     tagMap = {}
 
+    def __init__(self):
+        pass
+
     def populate(self, attributes, elements):
         item = self.item_class()
         # Populate the item from the attribute data structure
