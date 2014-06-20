@@ -15,10 +15,9 @@
 #
 
 import sys
-import gzip
 import os.path
 from shutil import rmtree
-from os import mkdir, makedirs
+from os import mkdir
 
 import yum
 from spacewalk.common import fileutils
