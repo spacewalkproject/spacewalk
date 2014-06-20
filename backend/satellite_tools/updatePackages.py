@@ -55,7 +55,7 @@ options_table = [
 
 
 def main():
-    global options_table, debug, verbose
+    global debug, verbose
     parser = OptionParser(option_list=options_table)
 
     (options, args) = parser.parse_args()
@@ -122,8 +122,6 @@ _update_pkg_path_query = """
 """
 
 def process_package_data():
-    global verbose, debug
-
     if debug:
         log = rhnLog('/var/log/rhn/update-packages.log', 5)
 
@@ -294,8 +292,6 @@ end;
 """
 
 def process_sha256_packages():
-    global verbose, debug
-
     if debug:
         log = rhnLog('/var/log/rhn/update-packages.log', 5)
 
