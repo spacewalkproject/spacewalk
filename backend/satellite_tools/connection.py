@@ -103,9 +103,11 @@ class GETServer(rpclib.GETServer):
     _transport_class_proxy = ProxyTransport
     _transport_class_https_proxy = SafeProxyTransport
     def __init__(self, uri, transport=None, proxy=None, username=None,
-            password=None, client_version=2, headers={}, refreshCallback=None,
+            password=None, client_version=2, headers=None, refreshCallback=None,
             progressCallback=None, xml_dump_version=constants.PROTOCOL_VERSION,
             timeout=None):
+        if headers is None:
+            headers = {}
         rpclib.GETServer.__init__(self, uri,
             transport=transport,
             proxy=proxy,

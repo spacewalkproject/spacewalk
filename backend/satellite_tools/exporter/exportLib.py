@@ -573,7 +573,7 @@ class ChannelsDumper(BaseSubelementDumper):
     tag_name = 'rhn-channels'
     subelement_dumper_class = _ChannelDumper
 
-    def __init__(self, writer, channels=[]):
+    def __init__(self, writer, channels=()):
         BaseSubelementDumper.__init__(self, writer)
         self._channels = channels
 

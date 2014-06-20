@@ -707,7 +707,7 @@ class ChannelsDumper(exportLib.ChannelsDumper):
            and c.channel_arch_id = ca.id
     """)
 
-    def __init__(self, writer, channels=[], start_date=None, end_date=None, use_rhn_date=True, whole_errata=False):
+    def __init__(self, writer, channels=(), start_date=None, end_date=None, use_rhn_date=True, whole_errata=False):
         exportLib.ChannelsDumper.__init__(self, writer, channels)
         self.start_date = start_date
         self.end_date = end_date
