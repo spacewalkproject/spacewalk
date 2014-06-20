@@ -87,6 +87,8 @@ class _Server(rpclib.Server):
     _transport_class_proxy = ProxyTransport
     _transport_class_https_proxy = SafeProxyTransport
 
+    def use_CA_chain(self, ca_chain=None):
+        pass
 
 class StreamConnection(_Server):
     def __init__(self, uri, proxy=None, username=None, password=None,
@@ -118,6 +120,9 @@ class GETServer(rpclib.GETServer):
             refreshCallback=refreshCallback,
             timeout=timeout)
         self.add_header("X-RHN-Satellite-XML-Dump-Version", xml_dump_version)
+
+    def use_CA_chain(self, ca_chain=None):
+        pass
 
 class CompressedStream:
     """
