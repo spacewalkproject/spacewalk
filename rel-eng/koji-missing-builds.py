@@ -34,7 +34,7 @@ if len(args) > 1:
 
 distmap = {'rhel6':'.el6',
            'rhel5':'.el5',
-           'rhel4':'.el4',
+           'rhel7':'.el7',
            'fedora18':'.fc18',
            'fedora19':'.fc19',
            'fedora20':'.fc20'}
