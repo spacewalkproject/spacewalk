@@ -588,6 +588,7 @@ class RepoSync(object):
 
     @staticmethod
     def fix_notice(notice):
+        # pylint: disable=W0212
         if "." in notice['version']:
             new_version = 0
             for n in notice['version'].split('.'):
