@@ -136,7 +136,8 @@ def process_package_data():
     if not paths:
         # Nothing to change
         return
-    if verbose: print "Processing %s packages" % len(paths)
+    if verbose:
+        print "Processing %s packages" % len(paths)
     pb = ProgressBar(prompt='standby: ', endTag=' - Complete!', \
                      finalSize=len(paths), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
@@ -173,14 +174,16 @@ def process_package_data():
         if not os.path.exists(old_abs_path):
             if os.path.exists(new_abs_path):
                 new_ok_list.append(new_abs_path)
-                if debug: log.writeMessage("File %s already on final path %s" % (path['path'], new_abs_path))
+                if debug:
+                    log.writeMessage("File %s already on final path %s" % (path['path'], new_abs_path))
                 old_abs_path = new_abs_path
             elif os.path.exists(bad_abs_path):
                 log.writeMessage("File %s found on %s" % (path['path'], bad_abs_path))
                 old_abs_path = bad_abs_path
             else:
                 skip_list.append(old_abs_path)
-                if debug: log.writeMessage("Missing path %s for package %d" % ( old_abs_path, path['id']))
+                if debug:
+                    log.writeMessage("Missing path %s for package %d" % ( old_abs_path, path['id']))
                 continue
 
         try:
@@ -197,7 +200,8 @@ def process_package_data():
         if old_abs_path != new_abs_path:
             new_abs_dir = os.path.dirname(new_abs_path)
             # relocate the package on the filer
-            if debug: log.writeMessage("Relocating %s to %s on filer" \
+            if debug:
+                log.writeMessage("Relocating %s to %s on filer" \
                            % (old_abs_path, new_abs_path))
             if not os.path.isdir(new_abs_dir):
                 os.makedirs(new_abs_dir)
@@ -210,11 +214,13 @@ def process_package_data():
         # Update the db paths
         _update_package_path.execute(the_id= path['id'], \
                              new_path = new_path )
-        if debug: log.writeMessage("query Executed: update rhnPackage %d to %s" \
+        if debug:
+            log.writeMessage("query Executed: update rhnPackage %d to %s" \
                                % ( path['id'], new_path ))
         # Process gpg key ids
         server_packages.processPackageKeyAssociations(hdr, checksum_type, checksum)
-        if debug: log.writeMessage("gpg key info updated from %s" % new_abs_path )
+        if debug:
+            log.writeMessage("gpg key info updated from %s" % new_abs_path )
         i = i + 1
         # we need to break the transaction to smaller pieces
         if i % 1000 == 0:
@@ -223,7 +229,8 @@ def process_package_data():
     # All done, final commit
     rhnSQL.commit()
     sys.stderr.write("Transaction Committed! \n")
-    if verbose: print " Skipping %s packages, paths not found" % len(skip_list)
+    if verbose:
+        print " Skipping %s packages, paths not found" % len(skip_list)
     if len(new_ok_list) > 0 and verbose:
         print " There were %s packages found in the correct location" % len(new_ok_list)
     return
