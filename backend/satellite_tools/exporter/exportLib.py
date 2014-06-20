@@ -155,7 +155,7 @@ class BaseQueryDumper(BaseDumper):
         return h
 
 class BaseSubelementDumper(BaseDumper):
-    subelement_dumper_class = None
+    subelement_dumper_class = object
     def dump_subelement(self, data):
         d = self.subelement_dumper_class(self._writer, data)
         d.dump()

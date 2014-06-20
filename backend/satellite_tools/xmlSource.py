@@ -284,7 +284,7 @@ class SatelliteDispatchHandler(BaseDispatchHandler):
 # Element handler
 class BaseItem:
     item_name = None
-    item_class = None
+    item_class = object
     tagMap = {}
 
     def __init__(self):

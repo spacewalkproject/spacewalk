@@ -160,7 +160,7 @@ class ChannelCollection:
         self.__init__()
 
 class SyncHandlerContainer:
-    collection = None
+    collection = object
 
     def __init__(self):
         pass
