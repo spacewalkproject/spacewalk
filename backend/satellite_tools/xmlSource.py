@@ -224,7 +224,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
 
     #___Error handling methods___
 
-    # pylint: disable=W0212
+    # pylint: disable=W0212,W0710
     def error(self, e):
         """Handle a recoverable error.
         """
