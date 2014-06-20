@@ -305,6 +305,44 @@ class BrokerHandler(SharedHandler):
         SharedHandler._prepHandler(self)
 
     @staticmethod
+    def _split_ks_url(req):
+        """ read kickstart options from incoming url
+            URIs we care about look something like:
+            /ks/dist/session/2xfe7113bc89f359001280dee1f4a020bc/
+                ks-rhel-x86_64-server-6-6.5/Packages/rhnsd-4.9.3-2.el6.x86_64.rpm
+            /ks/dist/ks-rhel-x86_64-server-6-6.5/Packages/
+                rhnsd-4.9.3-2.el6.x86_64.rpm
+            /ks/dist/org/1/ks-rhel-x86_64-server-6-6.5/Packages/
+                rhnsd-4.9.3-2.el6.x86_64.rpm
+            /ks/dist/ks-rhel-x86_64-server-6-6.5/child/sherr-child-1/Packages/
+                rhnsd-4.9.3-2.el6.x86_64.rpm
+        """
+        args = req.path_info.split('/')
+        params = {'child': None, 'session': None, 'orgId': None,
+                'file': args[-1]}
+        action = None
+        if args[2] == 'org':
+            params['orgId'] = args[3]
+            kickstart = args[4]
+            if args[5] == 'Packages':
+                action = 'getPackage'
+        elif args[2] == 'session':
+            params['session'] = args[3]
+            kickstart = args[4]
+            if args[5] == 'Packages':
+                action = 'getPackage'
+        elif args[3] == 'child':
+            params['child'] = args[4]
+            kickstart = args[2]
+            if args[5] == 'Packages':
+                action = 'getPackage'
+        else:
+            kickstart = args[2]
+            if args[3] == 'Packages':
+                action = 'getPackage'
+        return kickstart, action, params
+
+    @staticmethod
     def _split_url(req):
         """ read url from incoming url and return (req_type, channel, action, params)
             URI should look something like:
@@ -340,55 +378,82 @@ class BrokerHandler(SharedHandler):
             if not a local fetch, return None
         """
 
-        # Early test to check if this is a request the proxy can handle
         log_debug(2, 'request method: %s' % req.method)
-        if req.method != "GET":
+        # Early test to check if this is a request the proxy can handle
+        # Can we serve this request?
+        if req.method != "GET" or not CFG.PKG_DIR:
             # Don't know how to handle this
             return None
 
-        (req_type, reqchannel, reqaction, reqparams) = self._split_url(req)
-        if req_type is None or (req_type not in ['$RHN', 'GET-REQ']):
+        # Tiny-url kickstart requests (for server kickstarts, aka not profiles)
+        # have been name munged and we've already sent a HEAD request to the
+        # Satellite to get a checksum for the rpm so we can find it in the
+        # squid cache.
+        # Original url looks like /ty/bSWE7qIq/Packages/policycoreutils-2.0.83
+        #  -19.39.el6.x86_64.rpm which gets munged to be /ty-cksm/ddb43838ad58
+        #  d74dc95badef543cd96459b8bb37ff559339de58ec8dbbd1f18b/Packages/polic
+        #  ycoreutils-2.0.83-19.39.el6.x86_64.rpm
+        args = req.path_info.split('/')
+        # urlparse returns a ParseResult, index 2 is the path
+        if re.search('^'+URI_PREFIX_KS_CHECKSUM, urlparse(self.rhnParent)[2]):
+            # We *ONLY* locally cache RPMs for kickstarts
+            if len(args) < 3 or args[2] != 'Packages':
+                return None
+            req_type = 'tinyurl'
+            reqident = args[1]
+            reqaction = 'getPackage'
+            reqparams = [args[-1]]
+            self.cachedClientInfo = UserDictCase()
+        elif (len(args) > 3 and args[1] == 'dist'):
+            # This is a kickstart request
+            req_type = 'ks-dist'
+            reqident, reqaction, reqparams = self._split_ks_url(req)
+            self.cachedClientInfo = UserDictCase()
+        else:
+            # Some other type of request
+            (req_type, reqident, reqaction, reqparams) = self._split_url(req)
+
+        if req_type is None or (req_type not in
+                ['$RHN', 'GET-REQ', 'tinyurl', 'ks-dist']):
             # not a traditional RHN GET (i.e., it is an arbitrary get)
             # XXX: there has to be a more elegant way to do this
             return None
 
-        # --- AUTH. CHECK:
-        # Check client authentication. If not authenticated, throw
-        # an exception.
-        token = self.__getSessionToken()
-        self.__checkAuthSessionTokenCache(token, reqchannel)
-
         # --- LOCAL GET:
         localFlist = CFG.PROXY_LOCAL_FLIST or []
-
-        # Can we serve this request?
-        if not CFG.PKG_DIR:
-            return None
 
         if reqaction not in localFlist:
             # Not an action we know how to handle
             return None
 
-        # Is this channel local?
-        for ch in self.authChannels:
-            channel, _version, _isBaseChannel, isLocalChannel = ch[:4]
-            if channel == reqchannel and str(isLocalChannel) == '1':
-                # Local channel
-                break
-        else:
-            # Not a local channel
-            return None
+        # kickstarts don't auth...
+        if req_type in ['$RHN', 'GET-REQ']:
+            # --- AUTH. CHECK:
+            # Check client authentication. If not authenticated, throw
+            # an exception.
+            token = self.__getSessionToken()
+            self.__checkAuthSessionTokenCache(token, reqident)
+
+            # Is this channel local?
+            for ch in self.authChannels:
+                channel, _version, _isBaseChannel, isLocalChannel = ch[:4]
+                if channel == reqident and str(isLocalChannel) == '1':
+                    # Local channel
+                    break
+            else:
+                # Not a local channel
+                return None
 
         # We have a match; we'll try to serve packages from the local
         # repository
         log_debug(3, "Retrieve from local repository.")
-        log_debug(3, reqchannel, reqaction, reqparams)
-        result = self.__callLocalRepository(reqchannel, reqaction, reqparams)
+        log_debug(3, req_type, reqident, reqaction, reqparams)
+        result = self.__callLocalRepository(req_type, reqident, reqaction,
+                reqparams)
         if result is None:
             log_debug(3, "Not available locally; will try higher up the chain.")
         else:
             # Signal that we have to XMLRPC encode the response in apacheHandler
-            #log_debug(0, 'XXXXXXXXX result is not None XXXXXXXXXX')
             rhnFlags.set("NeedEncoding", 1)
 
         return result
@@ -439,22 +504,10 @@ class BrokerHandler(SharedHandler):
         _writeToCache(self.clientServerId, token)
         return token
 
-    def __callLocalRepository(self, channelName, funct, params):
-        """ Contacts the local repository and retrieves files
+    def __callLocalRepository(self, req_type, identifier, funct, params):
+        """ Contacts the local repository and retrieves files"""
 
-            URI looks like:
-              /$RHN/<channel>/<function>/<params>
-        """
-
-        log_debug(2, channelName, funct, params)
-
-        # Find the channel version
-        version = None
-        for c in self.authChannels:
-            ch, ver = c[:2]
-            if ch == channelName:
-                version = ver
-                break
+        log_debug(2, req_type, identifier, funct, params)
 
         # NOTE: X-RHN-Proxy-Auth described in broker/rhnProxyAuth.py
         if rhnFlags.get('outputTransportOptions').has_key('X-RHN-Proxy-Auth'):
@@ -462,16 +515,50 @@ class BrokerHandler(SharedHandler):
         if rhnFlags.get('outputTransportOptions').has_key('Host'):
             self.cachedClientInfo['Host'] = rhnFlags.get('outputTransportOptions')['Host']
 
-        # We already know he's subscribed to this channel
-        # channel, so the version is non-null
-        rep = rhnRepository.Repository(channelName, version,
-                                       self.cachedClientInfo,
-                                       rhnParent=self.rhnParent,
-                                       rhnParentXMLRPC=self.rhnParentXMLRPC,
-                                       httpProxy=self.httpProxy,
-                                       httpProxyUsername=self.httpProxyUsername,
-                                       httpProxyPassword=self.httpProxyPassword,
-                                       caChain=self.caChain)
+        if req_type == 'tinyurl':
+            try:
+                rep = rhnRepository.TinyUrlRepository(identifier,
+                        self.cachedClientInfo, rhnParent=self.rhnParent,
+                        rhnParentXMLRPC=self.rhnParentXMLRPC,
+                        httpProxy=self.httpProxy,
+                        httpProxyUsername=self.httpProxyUsername,
+                        httpProxyPassword=self.httpProxyPassword,
+                        caChain=self.caChain,
+                        systemId=self.proxyAuth.get_system_id())
+            except rhnRepository.NotLocalError:
+                return None
+        elif req_type == 'ks-dist':
+            try:
+                rep = rhnRepository.KickstartRepository(identifier,
+                        self.cachedClientInfo, rhnParent=self.rhnParent,
+                        rhnParentXMLRPC=self.rhnParentXMLRPC,
+                        httpProxy=self.httpProxy,
+                        httpProxyUsername=self.httpProxyUsername,
+                        httpProxyPassword=self.httpProxyPassword,
+                        caChain=self.caChain, orgId=params['orgId'],
+                        child=params['child'], session=params['session'],
+                        systemId=self.proxyAuth.get_system_id())
+            except rhnRepository.NotLocalError:
+                return None
+            params = [params['file']]
+        else:
+            # Find the channel version
+            version = None
+            for c in self.authChannels:
+                ch, ver = c[:2]
+                if ch == identifier:
+                    version = ver
+                    break
+
+            # We already know he's subscribed to this channel
+            # channel, so the version is non-null
+            rep = rhnRepository.Repository(identifier, version,
+                    self.cachedClientInfo, rhnParent=self.rhnParent,
+                    rhnParentXMLRPC=self.rhnParentXMLRPC,
+                    httpProxy=self.httpProxy,
+                    httpProxyUsername=self.httpProxyUsername,
+                    httpProxyPassword=self.httpProxyPassword,
+                    caChain=self.caChain)
 
         f = rep.get_function(funct)
         if not f:
@@ -486,6 +573,7 @@ class BrokerHandler(SharedHandler):
         except rhnRepository.NotLocalError:
             # The package is not local
             return None
+
         return ret
 
     def __checkAuthSessionTokenCache(self, token, channel):

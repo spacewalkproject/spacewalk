@@ -112,6 +112,11 @@ class ProxyAuth:
 
         # ids were updated
         return 1
+    
+    def get_system_id(self):
+        """ return the system id"""
+        self.__processSystemid()
+        return self.__systemid
 
     def check_cached_token(self, forceRefresh=0):
         """ check cache, login if need be, and cache.

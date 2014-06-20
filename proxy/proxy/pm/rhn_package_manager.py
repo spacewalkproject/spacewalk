@@ -59,8 +59,13 @@ def main():
     optionsTable = [
         Option('-v','--verbose',   action='count',      help='Increase verbosity'),
         Option('-d','--dir',       action='store',      help='Process packages from this directory'),
-        Option('-e','--from-export', action='store',    help='Process packages from this channel export. Can only be used with --copyonly.', dest='export_location'),
-        Option('-c','--channel',   action='append',     help='Channel to operate on. When used with --from-export specifies channels to cache rpms for, else specifies channels that we will be pushing into.'),
+        Option('-e','--from-export', action='store', dest='export_location',
+            help='Process packages from this channel export. Can only be used '
+            + 'with --copyonly.'),
+        Option('-c','--channel',   action='append',
+            help='Channel to operate on. When used with --from-export '
+            + 'specifies channels to cache rpms for, else specifies channels '
+            + 'that we will be pushing into.'),
         Option('-n','--count',     action='store',      help='Process this number of headers per call', type='int'),
         Option('-l','--list',      action='store_true', help='Only list the specified channels'),
         Option('-s','--sync',      action='store_true', help='Check if in sync with the server'),

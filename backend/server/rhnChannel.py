@@ -1515,7 +1515,81 @@ def _list_packages(channel, cache_prefix, function):
     return ret
 
 
+def getChannelInfoForKickstart(kickstart):
+    query = """
+    select c.label,
+           to_char(c.last_modified, 'YYYYMMDDHH24MISS') last_modified
+      from rhnChannel c,
+           rhnKickstartableTree kt
+     where c.id = kt.channel_id
+       and kt.label = :kickstart_label
+    """
+    h = rhnSQL.prepare(query)
+    h.execute(kickstart_label = str(kickstart))
+    return h.fetchone_dict()
 
+def getChannelInfoForKickstartOrg(kickstart, org_id):
+    query = """
+    select c.label,
+           to_char(c.last_modified, 'YYYYMMDDHH24MISS') last_modified
+      from rhnChannel c,
+           rhnKickstartableTree kt
+     where c.id = kt.channel_id
+       and kt.label = :kickstart_label
+       and kt.org_id = :org_id
+    """
+    h = rhnSQL.prepare(query)
+    h.execute(kickstart_label = str(kickstart), org_id = int(org_id))
+    return h.fetchone_dict()
+
+def getChannelInfoForKickstartSession(session):
+    # decode the session string
+    try:
+        session_id = int(session.split('x')[0].split(':')[0])
+    except Exception:
+        return None, None
+
+    query = """
+    select c.label,
+           to_char(c.last_modified, 'YYYYMMDDHH24MISS') last_modified
+      from rhnChannel c,
+           rhnKickstartableTree kt,
+           rhnKickstartSession ks
+     where c.id = kt.channel_id
+       and kt.id = ks.kstree_id
+       and ks.id = :session_id
+    """
+    h = rhnSQL.prepare(query)
+    h.execute(session_id = session_id)
+    return h.fetchone_dict()
+
+def getChildChannelInfoForKickstart(kickstart, child):
+    query = """
+    select c.label,
+           to_char(c.last_modified, 'YYYYMMDDHH24MISS') last_modified
+      from rhnChannel c,
+           rhnKickstartableTree kt,
+           rhnKickstartSession ks,
+           rhnChannel c2
+     where c2.id = kt.channel_id
+       and kt.label = :kickstart_label
+       and c.label = :child_label
+       and c.parent_channel = c2.id
+    """
+    h = rhnSQL.prepare(query)
+    h.execute(kickstart_label = str(kickstart), child_label = str(child))
+    return h.fetchone_dict()
+
+def getChannelInfoForTinyUrl(tinyurl):
+    query = """
+    select tu.url
+      from rhnTinyUrl tu
+     where tu.enabled = 'Y'
+       and tu.token = :tinyurl
+    """
+    h = rhnSQL.prepare(query)
+    h.execute(tinyurl = str(tinyurl))
+    return h.fetchone_dict()
 
 # list the obsoletes for a channel
 def list_obsoletes(channel):
