@@ -280,7 +280,7 @@ class MetadataDiskSource:
         sourcer.setChannel(label)
         return sourcer.load()
 
-    def getChannelXmlStream(self, labels):
+    def getChannelXmlStream(self):
         sourcer = ChannelDiskSource(self.mountpoint)
         channels = sourcer.list()
         stream_list = []

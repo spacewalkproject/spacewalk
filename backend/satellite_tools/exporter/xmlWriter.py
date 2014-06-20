@@ -92,7 +92,7 @@ class XMLWriter:
         self.data(name)
         self.stream.write(">")
 
-    def data(self, data_string, max_bytes=None):
+    def data(self, data_string):
         """
         Writes the data, performing the necessary UTF-8 conversions
         max_bytes is the satellite schema dependent maximum value (in bytes)

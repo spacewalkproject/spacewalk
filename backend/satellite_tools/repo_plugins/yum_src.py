@@ -251,7 +251,7 @@ class ContentSource(object):
         return self.repo.getPackage(package.unique_id, checkfunc=check)
 
     @staticmethod
-    def verify_pkg(fo, pkg, fail):
+    def verify_pkg(_fo, pkg, _fail):
         return pkg.verifyLocalPkg()
 
     @staticmethod
