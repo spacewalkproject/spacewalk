@@ -85,6 +85,7 @@ DEFAULT_ORG = 1
 # global so we don't have to pass it to everyone.
 OPTIONS = None
 
+# pylint: disable=W0212
 class Runner:
     step_precedence = {
         'packages'                  : ['download-packages'],

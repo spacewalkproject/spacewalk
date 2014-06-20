@@ -716,6 +716,7 @@ class ChannelsDumper(exportLib.ChannelsDumper):
     def dump_subelement(self, data):
         log_debug(6, data)
         #return exportLib.ChannelsDumper.dump_subelement(self, data)
+        # pylint: disable=W0212
         c = exportLib._ChannelDumper(self._writer, data, self.start_date, self.end_date,
                 self.use_rhn_date, self.whole_errata)
         c.dump()

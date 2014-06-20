@@ -100,6 +100,7 @@ class FileMapper:
         return ofile
 
     #The get*File methods will return the full path to the xml file that the dumps are placed in.
+    # pylint: disable=W0212
     def getArchesFile(self):
         return self.setup_file(self.filemap['arches']._getFile())
 

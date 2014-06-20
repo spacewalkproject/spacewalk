@@ -29,6 +29,9 @@ class ArrayIterator:
             # Nothing to iterate over
             self._pos = None
 
+    def get_array(self):
+        return self._arr
+
     def fetchone_dict(self):
         if self._pos is None:
             return None
@@ -599,7 +602,7 @@ class ChannelDumper(_ChannelDumper):
 
     def set_iterator(self):
         arrayiterator = _ChannelDumper.set_iterator()
-        arr = arrayiterator._arr
+        arr = arrayiterator.get_array()
         mappings = [
             ('rhn-channel-receiving-updates', 'receiving_updates'),
         ]
