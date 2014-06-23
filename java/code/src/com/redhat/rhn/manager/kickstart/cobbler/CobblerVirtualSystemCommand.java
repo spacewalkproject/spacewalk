@@ -88,13 +88,11 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
     }
 
     /**
-     * Returns the Cobbler name for a virtual guest
-     *
-     * @return the Cobbler record name
+     * {@inheritDoc}
      */
+    @Override
     public String getCobblerSystemRecordName() {
-        return CobblerSystemCreateCommand.getCobblerSystemRecordName(this.getServer()) +
-            ":" + guestName.replace(' ', '_');
+        return super.getCobblerSystemRecordName() + ":" + guestName.replace(' ', '_');
     }
 
     @Override
