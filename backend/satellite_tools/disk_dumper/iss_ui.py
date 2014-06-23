@@ -20,6 +20,7 @@ from spacewalk.common.rhnConfig import PRODUCT_NAME
 option_parser = OptionParser
 option = Option
 
+# pylint: disable=R0903
 class UI:
     def __init__(self):
         self.optiontable =  [

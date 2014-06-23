@@ -153,6 +153,7 @@ class RequestedChannels:
         raise AttributeError(name)
 
 class Method:
+    # pylint: disable=R0903
     def __init__(self, name, func):
         self._func = func
         self._name = name
