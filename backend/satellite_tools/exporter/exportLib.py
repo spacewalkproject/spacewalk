@@ -588,7 +588,7 @@ class ChannelsDumper(BaseSubelementDumper):
 
 class ChannelDumper(_ChannelDumper):
 
-    # pylint: disable=W0231
+    # pylint: disable=W0231,W0233
     def __init__(self, writer, row):
         BaseRowDumper.__init__(self, writer, row)
 
