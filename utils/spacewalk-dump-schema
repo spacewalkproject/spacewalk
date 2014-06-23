@@ -533,8 +533,13 @@ sub process_tables {
 			}
 		}
 
-		print "alter table $_ disable trigger all;\n";
-		print "alter table $_ set (autovacuum_enabled = false);\n";
+		if ($options->{db_backend_target} eq 'postgresql') {
+			print "alter table $_ disable trigger all;\n";
+			print "alter table $_ set (autovacuum_enabled = false);\n";
+		} else {
+			print "alter table $_ disable all triggers;\n";
+			print "alter table $_ nologging;\n";
+		}
 	}
 	for (sort keys %$tables) {
 		if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
@@ -553,8 +558,15 @@ sub process_tables {
 		if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
 			next;
 		}
-		print "alter table $_ enable trigger all;\n";
-		print "alter table $_ set (autovacuum_enabled = true);\n";
+		if ($options->{db_backend_target} eq 'postgresql') {
+			print "alter table $_ enable trigger all;\n";
+			print "alter table $_ set (autovacuum_enabled = true);\n";
+		} else {
+			print "alter table $_ enable all triggers;\n";
+			if (uc($_) ne 'RHNORGERRATACACHEQUEUE' and uc($_) ne 'RHNSET') {
+				print "alter table $_ logging;\n";
+			}
+		}
 	}
 }
 
