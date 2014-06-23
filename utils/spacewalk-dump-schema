@@ -79,6 +79,7 @@ $SIG{'PIPE'} = sub {
 
 process_scripts($dbh, 'pre', \%options);
 
+if ($options{db_backend_target} eq 'postgresql') {
 print <<'EOS';
 \set ON_ERROR_STOP on
 update pg_index
@@ -95,6 +96,97 @@ where indexrelid in (
              pn.nspname = current_schema()
       );
 EOS
+} else {
+print <<EOS;
+whenever sqlerror exit sql.sqlcode;
+SET AUTOCOMMIT OFF
+
+-- disable constraints
+BEGIN
+ FOR item IN (
+select uc.owner, uc.table_name, uc.constraint_name 
+  from user_constraints uc, user_tables ut
+where uc.table_name = ut.table_name and
+      uc.status = 'ENABLED'
+order by decode ( uc.constraint_type, 'R', 1, 'U', 2, 'P', 3 )
+)
+ LOOP
+        execute immediate 'alter table ' || item.owner || '.' || item.table_name || ' disable constraint ' || item.constraint_name;
+ END LOOP;
+END;
+/
+
+-- create temporary tables
+BEGIN
+ EXECUTE IMMEDIATE '
+  create table tmp_migration_indexes (
+   index_name VARCHAR2(30) NOT NULL,
+   table_name VARCHAR2(30) NOT NULL,
+   tablespace_name VARCHAR2(30) NOT NULL)
+  ';
+EXCEPTION
+ WHEN OTHERS THEN
+  IF SQLCODE = -955 THEN
+   EXECUTE IMMEDIATE 'delete from tmp_migration_indexes';
+  ELSE
+   RAISE;
+  END IF;
+END;
+/
+
+BEGIN
+ EXECUTE IMMEDIATE '
+  create table tmp_migration_index_columns (
+   index_name VARCHAR2(30) NOT NULL,
+   column_name VARCHAR2(4000) NOT NULL)
+  ';
+EXCEPTION
+ WHEN OTHERS THEN
+  IF SQLCODE = -955 THEN
+   EXECUTE IMMEDIATE 'tmp_migration_index_columns';
+  ELSE
+   RAISE;
+  END IF;
+END;
+/
+
+-- save and drop unique indexes
+BEGIN
+ FOR item IN (
+select index_name, table_name, tablespace_name
+  from user_indexes
+where index_name not like 'SYS%' and
+      index_type = 'NORMAL' and
+      uniqueness = 'UNIQUE'
+)
+ LOOP
+    execute immediate 'insert into tmp_migration_indexes values(:index_name, :table_name, :tablespace_name)' using item.index_name, item.table_name, item.tablespace_name;
+    execute immediate 'insert into tmp_migration_index_columns select index_name, column_name from user_ind_columns where index_name = :index_name' using item.index_name;
+    execute immediate 'drop index ' || item.index_name;
+ END LOOP;
+END;
+/
+
+-- turn off nonunique indexes
+alter session set SKIP_UNUSABLE_INDEXES = true;
+BEGIN
+ FOR item IN (
+select index_name
+  from user_indexes
+where index_type = 'NORMAL' and
+      uniqueness = 'NONUNIQUE'
+)
+ LOOP
+    execute immediate 'alter index ' || item.index_name || ' unusable';
+ END LOOP;
+END;
+/
+
+alter session set NLS_DATE_FORMAT = '$ENV{NLS_DATE_FORMAT}';
+alter session set NLS_TIMESTAMP_FORMAT = '$ENV{NLS_TIMESTAMP_FORMAT}';
+alter session set NLS_TIMESTAMP_TZ_FORMAT = '$ENV{NLS_TIMESTAMP_TZ_FORMAT}';
+EOS
+}
 
 my %ROWIDS = ();
 my $SEQ = 1;
@@ -115,6 +207,7 @@ if (not $raw) {
 	}
 }
 
+if ($options{db_backend_target} eq 'postgresql') {
 print <<'EOS';
 update pg_index
   set indisvalid = true,
@@ -131,6 +224,56 @@ where indexrelid in (
       );
 select pg_dblink_exec('reindex database "' || current_database() || '";');
 EOS
+} else {
+print <<'EOS';
+-- recreate unique indexes
+BEGIN
+ FOR item IN (
+SELECT mi.index_name, mi.table_name, mi.tablespace_name, LISTAGG ( mic.column_name, ', ' )
+  WITHIN GROUP ( ORDER BY mic.column_name ) index_columns
+  FROM tmp_migration_indexes mi, tmp_migration_index_columns mic
+WHERE mi.index_name = mic.index_name
+GROUP BY mi.index_name, mi.table_name, mi.tablespace_name
+)
+ LOOP
+    execute immediate 'create unique index ' || item.index_name || ' on ' || item.table_name || ' ( ' || item.index_columns || ' ) tablespace ' || item.tablespace_name;
+ END LOOP;
+END;
+/
+
+-- drop temporary tables
+drop table tmp_migration_indexes;
+drop table tmp_migration_index_columns;
+
+-- rebuild all indexes
+BEGIN
+ FOR item IN (
+select index_name
+  from user_indexes
+where index_type = 'NORMAL'
+)
+ LOOP
+    execute immediate 'alter index ' || item.index_name || ' rebuild';
+ END LOOP;
+END;
+/
+
+-- enable constraints
+BEGIN
+ FOR item IN (
+select uc.owner, uc.table_name, uc.constraint_name
+  from user_constraints uc, user_tables ut
+where uc.table_name = ut.table_name and
+      uc.status = 'DISABLED'
+order by decode ( uc.constraint_type, 'P', 1, 'U', 2, 'R', 3 )
+)
+ LOOP
+    execute immediate 'alter table ' || item.owner || '.' || item.table_name || ' enable constraint ' || item.constraint_name;
+ END LOOP;
+END;
+/
+EOS
+}
 
 exit 0;
 
