@@ -39,8 +39,10 @@ default_hash = 'sha256'
 
 def set_filter_opt(option, opt_str, value, parser):
     # pylint: disable=W0613
-    if opt_str in [ '--include', '-i']: f_type = '+'
-    else:                               f_type = '-'
+    if opt_str in [ '--include', '-i']:
+        f_type = '+'
+    else:
+        f_type = '-'
     parser.values.filters.append((f_type, re.split('[,\s]+', value)))
 
 def getChannelRepo():
