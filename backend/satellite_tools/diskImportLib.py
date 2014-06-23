@@ -58,6 +58,7 @@ def rpmsPath(obj_id, mountPoint, sources=0):
 
 class diskImportLibContainer:
     """virtual class - redefines endContainerCallback"""
+    # pylint: disable=E1101
     importer_class = object
     def __init__(self):
         self.batch = None

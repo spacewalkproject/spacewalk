@@ -155,6 +155,7 @@ class BaseQueryDumper(BaseDumper):
         return h
 
 class BaseSubelementDumper(BaseDumper):
+    # pylint: disable=E1101
     subelement_dumper_class = object
     def dump_subelement(self, data):
         d = self.subelement_dumper_class(self._writer, data)
