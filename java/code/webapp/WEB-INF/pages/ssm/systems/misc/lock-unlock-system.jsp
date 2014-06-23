@@ -59,7 +59,7 @@
                     </c:choose>
                 </rl:column>
                 <rl:column headerkey="systemlist.jsp.channel" bound="false" sortattr="name" sortable="true" styleclass="last-column">
-                    <a href="/rhn/channels/ChannelDetail.do?cid=${current.channelId}">${current.channelLabels}</a>
+                    <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
                 </rl:column>
                 <rl:column headerkey="systemlist.jsp.entitlement" bound="false" sortattr="name" sortable="true" styleclass="last-column">
                     <c:choose>
