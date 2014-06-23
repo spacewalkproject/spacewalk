@@ -1188,7 +1188,7 @@ sub setup_gpg {
 
 # Satellite services are handled by chkconfig now.
 sub setup_services {
-  Spacewalk::Setup::system_or_exit(["/usr/sbin/spacewalk-service", "--level", "345", "enable"], 11, 'Could not turn spacewalk services on.');
+  Spacewalk::Setup::system_or_exit(["/usr/sbin/spacewalk-service", "--level", "35", "enable"], 11, 'Could not turn spacewalk services on.');
 
   return 1;
 }
