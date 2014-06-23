@@ -369,7 +369,7 @@ def process_sha256_packages():
 
         _select_checksum_type_id_sql = rhnSQL.prepare(_select_checksum_type_id)
         _select_checksum_type_id_sql.execute(ctype=checksum_type)
-        checksum_type_id =_select_checksum_type_id_sql.fetchone()[0]
+        checksum_type_id = _select_checksum_type_id_sql.fetchone()[0]
 
         # Update checksum of every single file in a package
         for i, f in enumerate(header['filenames']):
