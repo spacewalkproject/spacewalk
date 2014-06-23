@@ -33,6 +33,7 @@ except ImportError:
     try:
         from xml.etree import cElementTree
     except ImportError:
+        # pylint: disable=F0401
         import cElementTree
     iterparse = cElementTree.iterparse
 from ..reposync import ContentPackage
