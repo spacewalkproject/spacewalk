@@ -1835,6 +1835,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 break
         int_len = len("%d" % fuzzy)
         fract_len = 3 - int_len
+        # pylint: disable=W0631
         return "%*.*f %s" % (int_len, fract_len, fuzzy, unit)
 
     def _get_package_stream(self, channel, package_id, nvrea, sources):
