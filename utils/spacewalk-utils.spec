@@ -45,7 +45,7 @@ Requires:       spacewalk-config
 Requires:       spacewalk-setup
 Requires:       spacewalk-backend
 Requires:       spacewalk-backend-libs
-Requires:       spacewalk-backend-tools
+Requires:       spacewalk-backend-tools >= 2.2.27
 Requires:       yum-utils
 
 %description
