@@ -105,11 +105,11 @@ def getCustomChannels():
 
 class RepoSync(object):
     def __init__(self, channel_label, repo_type, url=None, fail=False,
-                 quiet=False, filters=[], no_errata = False, sync_kickstart = False):
+                 quiet=False, filters=None, no_errata=False, sync_kickstart=False):
         self.regen = False
         self.fail = fail
         self.quiet = quiet
-        self.filters = filters
+        self.filters = filters or []
         self.no_errata = no_errata
         self.sync_kickstart = sync_kickstart
 
