@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.23
+Version:	2.2.24
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Jun 23 2014 Tomas Lestach <tlestach@redhat.com> 2.2.24-1
+- let spacewalk-utils require a specific version of spacewalk-backend-tools
+
 * Fri Jun 20 2014 Tomas Lestach <tlestach@redhat.com> 2.2.23-1
 - minor fixes to spacewalk-export-channels man page
 
