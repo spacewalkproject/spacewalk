@@ -665,7 +665,8 @@ class Dumper(dumper.XML_Dumper):
                           "Orgs exported to %s",
                           "%s caught in dump_orgs.")
 
-    def dump_channels(self,  channel_labels=None, start_date=None, end_date=None, use_rhn_date=True, whole_errata=False):
+    def dump_channels(self, channel_labels=None, start_date=None, end_date=None,
+                            use_rhn_date=True, whole_errata=False):
         try:
             print "\n"
             log2stdout(1, "Exporting channel info...")
