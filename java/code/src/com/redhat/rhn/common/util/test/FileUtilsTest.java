@@ -48,4 +48,16 @@ public class FileUtilsTest extends TestCase {
         String expect = "DEFGH";
         assertEquals(expect, received);
     }
+
+    public void testGetTailOfFile() throws Exception {
+        String tail = FileUtils.getTailOfFile(
+                TestUtils.findTestData("test.file").getPath(), 1);
+        assertEquals("UVXYZ!@#$%\n", tail);
+        tail = FileUtils.getTailOfFile(
+                TestUtils.findTestData("test.file").getPath(), 2);
+        assertEquals("KLMNOPQRST\nUVXYZ!@#$%\n", tail);
+        tail = FileUtils.getTailOfFile(
+                TestUtils.findTestData("test.file").getPath(), 3);
+        assertEquals("ABCDEFGHIJ\nKLMNOPQRST\nUVXYZ!@#$%\n", tail);
+    }
 }
