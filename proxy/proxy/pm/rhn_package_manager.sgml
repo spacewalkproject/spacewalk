@@ -47,11 +47,16 @@ Manages RPM packages for the Spacewalk Proxy
     applicable. This is useful even if the RPMs would be available otherwise
     because it reduces the bandwidth required and can greatly speed up
     RPM retrieval in the case of a slow network. This is accomplished with the
-    <emphasis>--copyonly</emphasis> option in conjuction with a file list.
+    <emphasis>--cache-locally</emphasis> option in conjuction with a file list.
     Normally the file list would come from the
     <emphasis>--from-export</emphasis> or <emphasis>--dir</emphasis> options,
     but the <emphasis>--stdin</emphasis> option or a file list specified on the
-    command line will also work.
+    command line will also work. If for some reason you need to remove packages
+    from this cache in the future you will need to delete them from the
+    /var/spool/rhn-proxy/rhn directory. It is also possible to manually
+    populate this cache by copying the files / directories from
+    $base/redhat/*/ on a Spacewalk server into the above directory (where
+    $base is configurable, but by default is /var/satellite).
 </para>
 </RefSect1>
 
@@ -71,6 +76,20 @@ Manages RPM packages for the Spacewalk Proxy
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>-L, --cache-locally</term>
+        <listitem>
+            <para>Only copy packages into the local cache; don't upload or
+                  import the package metadata anywhere else. The only options
+                  that can be used with <emphasis>--cache-locally</emphasis>
+                  are <emphasis>--test</emphasis>,
+                  <emphasis>--from-export</emphasis>,
+                  <emphasis>--dir</emphasis>,
+                  <emphasis>--stdin</emphasis>, and
+                  <emphasis>--channel</emphasis> when used with
+                  <emphasis>--from-export</emphasis>.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>-e <replaceable>export_location</replaceable>,
             --from-export <replaceable>export_location</replaceable></term>
         <listitem>
@@ -86,7 +105,8 @@ Manages RPM packages for the Spacewalk Proxy
                   <emphasis>rhn_package_manager</emphasis>, however you must
                   repeat the same command with each ISO to ensure that all
                   packages are found. Only functions in conjunction with the
-                  <emphasis>--copyonly</emphasis> option.</para>
+                  <emphasis>--cache-locally</emphasis> or
+                  <emphasis>--copyonly</emphasis> options.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -177,15 +197,8 @@ Manages RPM packages for the Spacewalk Proxy
     <varlistentry>
         <term>--copyonly</term>
         <listitem>
-            <para>Only copy packages into the local cache; don't upload or
-                  import the package metadata anywhere else. The only options
-                  that can be used with <emphasis>--copyonly</emphasis> are
-                  <emphasis>--test</emphasis>,
-                  <emphasis>--from-export</emphasis>,
-                  <emphasis>--dir</emphasis>,
-                  <emphasis>--stdin</emphasis>, and
-                  <emphasis>--channel</emphasis> when used with
-                  <emphasis>--from-export</emphasis>.</para>
+            <para>An alias to <emphasis>--cache-locally</emphasis> for
+                  backwards compatiblity.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

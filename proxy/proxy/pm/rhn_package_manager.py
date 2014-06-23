@@ -29,8 +29,8 @@ This script performs various management operations on the Spacewalk Proxy:
   with the server's image, and prints the missing packages (or the extra
   ones)
 - Cache any RPM content locally to avoid needing to download them. This can be
-  particularly useful if bandwitdth is precious or the connection upstream is
-  slow.
+  particularly useful if bandwitdth is precious or the connection to the server
+  is slow.
 """
 
 # system imports
@@ -59,9 +59,12 @@ def main():
     optionsTable = [
         Option('-v','--verbose',   action='count',      help='Increase verbosity'),
         Option('-d','--dir',       action='store',      help='Process packages from this directory'),
+        Option('-L','--cache-locally', action='store_true',
+            help='Locally cache packages so that Proxy will not ever need to '
+            + 'download them. Changes nothing on the upstream server.'),
         Option('-e','--from-export', action='store', dest='export_location',
             help='Process packages from this channel export. Can only be used '
-            + 'with --copyonly.'),
+            + 'with --cache-locally or --copyonly.'),
         Option('-c','--channel',   action='append',
             help='Channel to operate on. When used with --from-export '
             + 'specifies channels to cache rpms for, else specifies channels '
@@ -78,7 +81,7 @@ def main():
         Option(     '--password',  action='store',      help='Use this password to connect to RHN'),
         Option(     '--source',    action='store_true', help='Upload source package headers'),
         Option(     '--dontcopy',  action='store_true', help='Do not copy packages to the local directory'),
-        Option(     '--copyonly',  action='store_true', help="Only copy packages; don't reimport"),
+        Option(     '--copyonly',  action='store_true', help="Only copy packages; don't reimport. Same as --cache-locally"),
         Option(     '--test',      action='store_true', help='Only print the packages to be pushed'),
         Option('-N','--new-cache',  action='store_true', help='Create a new username/password cache'),
         Option(     '--no-ssl',    action='store_true', help='Turn off SSL (not recommended).'),
@@ -107,12 +110,17 @@ def main():
         upload.checkSync()
         return
 
+    # It's just an alias to copyonly
+    if options.cache_locally:
+        options.copyonly = True
+
     # remeber to process dir option before export, export can overwrite dir
     if options.dir:
         upload.directory()
     if options.export_location:
         if not options.copyonly:
-            upload.die(0, "--from-export can only be used with --copyonly")
+            upload.die(0, "--from-export can only be used with --cache-locally"
+                    + " or --copyonly")
         if options.source:
             upload.die(0, "--from-export cannot be used with --source")
         upload.from_export()
