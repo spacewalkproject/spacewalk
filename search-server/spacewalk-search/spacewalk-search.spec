@@ -30,7 +30,7 @@ Requires: apache-commons-logging
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-logging
 %endif
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >=7
 BuildRequires: javapackages-tools
 Requires: javapackages-tools
 %else

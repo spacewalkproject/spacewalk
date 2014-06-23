@@ -108,7 +108,7 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >=7
 BuildRequires: apache-commons-validator
 BuildRequires: mvn(ant-contrib:ant-contrib)
 BuildRequires: javapackages-tools
