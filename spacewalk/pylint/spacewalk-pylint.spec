@@ -13,7 +13,11 @@ BuildArch:	noarch
 %if 0%{?fedora}
 Requires:	pylint > 1.1
 %else
+%if 0%{?rhel} > 6
+Requires:	pylint > 1.0
+%else
 Requires:	pylint < 1.0
+%endif
 %endif
 BuildRequires:	asciidoc
 BuildRequires:	libxslt
@@ -42,6 +46,8 @@ install -p -m 644 spacewalk-pylint.rc %{buildroot}/%{_sysconfdir}/
 # new checks in pylint 1.1
 sed -i '/disable=/ s/,bad-whitespace,unpacking-non-sequence,superfluous-parens//g;' \
         %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
+%endif
+%if 0%{?rhel} < 7
 # new checks in pylint 1.0
 sed -i '/disable=/ s/\(,C1001\|,W0121\)//g;' \
         %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
