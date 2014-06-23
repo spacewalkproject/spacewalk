@@ -65,7 +65,7 @@ def getChannelRepo():
             items[row['label']] = []
         items[row['label']] += [row['source_url']]
 
-    return items;
+    return items
 
 def getParentsChilds():
 
