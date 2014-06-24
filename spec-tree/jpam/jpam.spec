@@ -1,4 +1,4 @@
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-io
 %define jpackage_run_jars antlr apache-commons-beanutils apache-commons-collections apache-commons-logging regexp
 %else
@@ -27,7 +27,7 @@ Requires: %jpackage_run_jars
 BuildRequires: %jpackage_jars
 BuildRequires: gcc make
 BuildRequires: pam-devel
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
 Requires:      javapackages-tools
 %else
