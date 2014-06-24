@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.100
+Version: 2.2.101
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 24 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.101-1
+- correctly retrieve user name for logging purposes
+- fix channel link
+- check for read_only flag when checking for active (Sat|Org)Admins
+- better logging of post process exceptions
+- ErrataHandlerTest: avoid accidental end-of-string chars in test strings
+
 * Mon Jun 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.100-1
 - don't render a link for non-existent base channel
 
