@@ -9,7 +9,7 @@ Source0:	simple-core-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{origname}-%{version}-%{release}-buildroot
 
 BuildRequires:  ant
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
 %endif
 BuildRequires:  java >= 1.5
