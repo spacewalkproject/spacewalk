@@ -210,19 +210,19 @@ class SpacewalkShell(Cmd):
             logging.warning('%s: event not found', command)
             return ''
 
+    @staticmethod
+    def print_result(cmdresult, cmd):
+        logging.debug(cmd + ": " + repr(cmdresult))
+        if cmd:
+            try:
+                for i in cmdresult:
+                    print i
+            except TypeError:
+                pass
 
     # update the prompt with the SSM size
     def postcmd(self, cmdresult, cmd):
-        def print_result(cmdresult, cmd):
-            logging.debug(cmd + ": " + repr(cmdresult))
-            if cmd:
-                try:
-                    for i in cmdresult:
-                        print i
-                except TypeError:
-                    pass
-
-        print_result(cmdresult, cmd)
+        SpacewalkShell.print_result(cmdresult, cmd)
         self.prompt = re.sub('##', str(len(self.ssm)), self.prompt_template)
 
 # vim:ts=4:expandtab:
