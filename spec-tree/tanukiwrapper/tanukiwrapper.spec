@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -220,6 +220,9 @@ fi
 %endif
 
 %changelog
+* Tue Jun 24 2014 Michael Mraka <michael.mraka@redhat.com> 3.2.3-13
+- update tanukiwrapper deps for RHEL7
+
 * Tue Jan 07 2014 Tomas Lestach <tlestach@redhat.com> 3.2.3-12
 - jpackage-utils were replaced with javapackages-tools in fc20
 - there's not ant-nodeps on fc20
