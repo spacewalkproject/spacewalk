@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -220,6 +220,9 @@ fi
 %endif
 
 %changelog
+* Tue Jun 24 2014 Michael Mraka <michael.mraka@redhat.com> 3.2.3-14
+- no gcj on RHEL7
+
 * Tue Jun 24 2014 Michael Mraka <michael.mraka@redhat.com> 3.2.3-13
 - update tanukiwrapper deps for RHEL7
 
