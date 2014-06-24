@@ -29,7 +29,7 @@
 
     <rl:column sortable="true" headerkey="channel.edit.jsp.name"
         sortattr= "label" defaultsort="asc">
-      <c:out value="<a href=\"/rhn/channels/ChannelDetail.do?cid=?cid=${current.id}\">${current.name}</a>" escapeXml="false" />
+      <c:out value="<a href=\"/rhn/channels/ChannelDetail.do?cid=${current.id}\">${current.name}</a>" escapeXml="false" />
     </rl:column>
   </rl:list>
 </rl:listset>
