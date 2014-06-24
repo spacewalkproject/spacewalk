@@ -61,40 +61,42 @@ def do_package_details(self, args):
             print self.SEPARATOR
         add_separator = True
 
-        package_id = self.get_package_id(package)
+        package_ids = self.get_package_id(package)
 
-        if not package_id:
+        if not package_ids:
             logging.warning('%s is not a valid package' % package)
             continue
 
-        details = self.client.packages.getDetails(self.session, package_id)
+        for package_id in package_ids:
+            details = self.client.packages.getDetails(self.session, package_id)
 
-        channels = \
-            self.client.packages.listProvidingChannels(self.session, package_id)
+            channels = \
+                self.client.packages.listProvidingChannels(self.session, package_id)
 
-        installed_systems = \
-            self.client.system.listSystemsWithPackage(self.session, package_id)
+            installed_systems = \
+                self.client.system.listSystemsWithPackage(self.session, package_id)
 
-        print 'Name:    %s' % details.get('name')
-        print 'Version: %s' % details.get('version')
-        print 'Release: %s' % details.get('release')
-        print 'Epoch:   %s' % details.get('epoch')
-        print 'Arch:    %s' % details.get('arch_label')
-        print
-        print 'File:    %s' % details.get('file')
-        print 'Path:    %s' % details.get('path')
-        print 'Size:    %s' % details.get('size')
-        print 'MD5:     %s' % details.get('md5sum')
-        print
-        print 'Installed Systems: %i' % len(installed_systems)
-        print
-        print 'Description'
-        print '-----------'
-        print '\n'.join(wrap(details.get('description')))
-        print
-        print 'Available From Channels'
-        print '-----------------------'
-        print '\n'.join(sorted([c.get('label') for c in channels]))
+            print 'Name:    %s' % details.get('name')
+            print 'Version: %s' % details.get('version')
+            print 'Release: %s' % details.get('release')
+            print 'Epoch:   %s' % details.get('epoch')
+            print 'Arch:    %s' % details.get('arch_label')
+            print
+            print 'File:    %s' % details.get('file')
+            print 'Path:    %s' % details.get('path')
+            print 'Size:    %s' % details.get('size')
+            print 'MD5:     %s' % details.get('md5sum')
+            print
+            print 'Installed Systems: %i' % len(installed_systems)
+            print
+            print 'Description'
+            print '-----------'
+            print '\n'.join(wrap(details.get('description')))
+            print
+            print 'Available From Channels'
+            print '-----------------------'
+            print '\n'.join(sorted([c.get('label') for c in channels]))
+            print
 
 ####################
 
@@ -173,12 +175,11 @@ def do_package_remove(self, args):
         return
 
     for package in to_remove:
-        package_id = self.get_package_id(package)
-
-        try:
-            self.client.packages.removePackage(self.session, package_id)
-        except xmlrpclib.Fault:
-            logging.error('Failed to remove package ID %i' % package_id)
+        for package_id in self.get_package_id(package):
+            try:
+                self.client.packages.removePackage(self.session, package_id)
+            except xmlrpclib.Fault:
+                logging.error('Failed to remove package ID %i' % package_id)
 
     # regenerate the package cache after removing these packages
     self.generate_package_cache(True)
@@ -260,10 +261,10 @@ def do_package_listinstalledsystems(self, args):
             print self.SEPARATOR
         add_separator = True
 
-        package_id = self.get_package_id(package)
-
-        systems = self.client.system.listSystemsWithPackage(self.session,
-                                                            package_id)
+        systems = []
+        for package_id in self.get_package_id(package):
+            systems += self.client.system.listSystemsWithPackage(self.session,
+                                                                 package_id)
 
         print package
         print '-' * len(package)
@@ -302,16 +303,15 @@ def do_package_listerrata(self, args):
             print self.SEPARATOR
         add_separator = True
 
-        package_id = self.get_package_id(package)
+        for package_id in self.get_package_id(package):
+            errata = self.client.packages.listProvidingErrata(self.session,
+                                                              package_id)
 
-        errata = self.client.packages.listProvidingErrata(self.session,
-                                                          package_id)
+            print package
+            print '-' * len(package)
 
-        print package
-        print '-' * len(package)
-
-        if len(errata):
-            print '\n'.join(sorted([ e.get('advisory') for e in errata ]))
+            if len(errata):
+                print '\n'.join(sorted([ e.get('advisory') for e in errata ]))
 
 ####################
 
@@ -341,17 +341,17 @@ def do_package_listdependencies(self, args):
             print self.SEPARATOR
         add_separator = True
 
-        package_id = self.get_package_id(package)
+        for package_id in self.get_package_id(package):
+            if not package_id:
+                logging.warning('%s is not a valid package' % package)
+                continue
 
-        if not package_id:
-            logging.warning('%s is not a valid package' % package)
-            continue
-
-        package_id = int(package_id)
-        pkgdeps = self.client.packages.list_dependencies(self.session, package_id)
-        print 'Package Name: %s' % package
-        for dep in pkgdeps:
-            print 'Dependency: %s Type: %s Modifier: %s' % \
-                  (dep['dependency'], dep['dependency_type'], dep['dependency_modifier'])
+            package_id = int(package_id)
+            pkgdeps = self.client.packages.list_dependencies(self.session, package_id)
+            print 'Package Name: %s' % package
+            for dep in pkgdeps:
+                print 'Dependency: %s Type: %s Modifier: %s' % \
+                      (dep['dependency'], dep['dependency_type'], dep['dependency_modifier'])
+            print self.SEPARATOR
 
 # vim:ts=4:expandtab:

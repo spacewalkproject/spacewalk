@@ -757,22 +757,20 @@ def do_system_removepackage(self, args):
     for package_name in matching_packages:
         logging.debug('Finding systems with %s' % package_name)
 
-        package_id = self.get_package_id(package_name)
-
-        installed_systems = \
-            self.client.system.listSystemsWithPackage(self.session, package_id)
-
-        installed_systems = [ s.get('name') for s in installed_systems ]
+        installed_systems = {}
+        for package_id in self.get_package_id(package_name):
+            for system in self.client.system.listSystemsWithPackage(self.session, package_id):
+                installed_systems[system.get('name')] = package_id
 
         # each system has a list of packages to remove so that only one
         # API call needs to be made to schedule all the package removals
         # for each system
         for system in systems:
-            if system in installed_systems:
+            if system in installed_systems.keys():
                 if system not in jobs:
                     jobs[system] = []
 
-                jobs[system].append(package_id)
+                jobs[system].append(installed_systems[system])
 
     add_separator = False
 
@@ -2916,11 +2914,11 @@ def do_system_syncpackages(self, args):
     package_ids = []
 
     for name in package_names:
-        pkg_id = self.get_package_id(name)
+        p_ids = self.get_package_id(name)
 
         # filter out invalid package IDs
-        if pkg_id:
-            package_ids.append(pkg_id)
+        if p_ids:
+            package_ids += p_ids
 
     self.client.system.scheduleSyncPackagesWithSystem(self.session,
                                                       target_id,
