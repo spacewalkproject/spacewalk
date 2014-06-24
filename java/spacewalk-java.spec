@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.102
+Version: 2.2.103
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 24 2014 Stephen Herr <sherr@redhat.com> 2.2.103-1
+- 1109276 - checkstyle fix
+
 * Tue Jun 24 2014 Stephen Herr <sherr@redhat.com> 2.2.102-1
 - 1112633 - Prevent CobblerSync from failing from removed ks trees
 - 1109276 - Correctly set cobbler arch
