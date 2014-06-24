@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.4
+Version: 2.2.5
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -198,6 +198,9 @@ fi
 %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Tue Jun 24 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.5-1
+- updated deps on RHEL7
+
 * Mon Jun 23 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.4-1
 - use javapackages-tools instead of jpackage-utils on RHEL7
 
