@@ -18,7 +18,7 @@ blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhn
 
 [spacewalk-nightly-rhel7]
 disttag = .el7
-blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata mod_perl nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging
+blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata mod_perl nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging perl-Net-INET6Glue
 
 [spacewalk-nightly-fedora19]
 disttag = .fc19
