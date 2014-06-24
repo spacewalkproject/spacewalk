@@ -45,6 +45,7 @@ public class Distro extends CobblerObject {
      * @param ksmeta inital ksmeta to set
      * @param breed initial breed to set
      * @param osVersion initial os_version to set
+     * @param arch initial cobbler arch to set
      * @return a new Distro
      */
     public static Distro create(CobblerConnection client, String name, String kernel,
