@@ -33,17 +33,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CatalinaAction extends RhnAction {
    /** {@inheritDoc} */
-
    public ActionForward execute(ActionMapping mapping,
                                 ActionForm formIn,
                                 HttpServletRequest request,
                                 HttpServletResponse response) {
-
        String catalinaBase = System.getProperty("catalina.base");
-
-       request.setAttribute("contents",
-               FileUtils.readStringFromFile(catalinaBase + "/logs/catalina.out"));
-
+       String contents = FileUtils.getTailOfFile(catalinaBase + "/logs/catalina.out", 1000);
+       request.setAttribute("contents", contents);
        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
    }
 }
