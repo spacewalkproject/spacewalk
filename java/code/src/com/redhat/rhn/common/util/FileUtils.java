@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.common.util;
 
+import org.apache.commons.collections.buffer.CircularFifoBuffer;
+import org.apache.commons.io.LineIterator;
 import org.apache.log4j.Logger;
 import org.jfree.io.IOUtils;
 
@@ -157,5 +159,41 @@ public class FileUtils {
             }
         }
         return bytes;
+    }
+
+    /**
+     * Reads and returns the last n lines from a given file as string.
+     * @param pathToFile path to file
+     * @param lines size of the tail
+     * @return tail of file as string
+     */
+    public static String getTailOfFile(String pathToFile, Integer lines) {
+        InputStream fileStream = null;
+        CircularFifoBuffer buffer = new CircularFifoBuffer(lines);
+        try {
+            fileStream = new FileInputStream(pathToFile);
+            LineIterator it = org.apache.commons.io.IOUtils.lineIterator(fileStream, null);
+            while (it.hasNext()) {
+                buffer.add(it.nextLine());
+            }
+        }
+        catch (FileNotFoundException e) {
+            log.error("File not found: " + pathToFile);
+            throw new RuntimeException(e);
+        }
+        catch (IOException e) {
+            log.error("Could not read from: " + pathToFile);
+            throw new RuntimeException(e);
+        }
+        finally {
+            org.apache.commons.io.IOUtils.closeQuietly(fileStream);
+        }
+        // Construct a string from the buffered lines
+        StringBuilder sb = new StringBuilder();
+        for (Object s : buffer) {
+            sb.append(s);
+            sb.append(System.getProperty("line.separator"));
+        }
+        return sb.toString();
     }
 }
