@@ -61,10 +61,15 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
         // the postProcess, but that works for ALL methods except
         // logout.  So we do it here.
         if ((arguments != null) && (arguments.size() > 0)) {
-            String arg = (String) Translator.convert(
-                    arguments.get(0), String.class);
-            if (potentialSessionKey(arg)) {
-                setCaller(getLoggedInUser(arg));
+            if (arguments.get(0) instanceof User) {
+                setCaller(((User)arguments.get(0)).getLogin());
+            }
+            else {
+                String arg = (String) Translator.convert(
+                        arguments.get(0), String.class);
+                if (potentialSessionKey(arg)) {
+                    setCaller(getLoggedInUser(arg));
+                }
             }
         }
 
@@ -162,8 +167,14 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
             if (arguments != null) {
                 int size = arguments.size();
                 for (int i = 0; i < size; i++) {
-                    String arg = (String) Translator.convert(
-                            arguments.get(i), String.class);
+                    String arg = null;
+                    if (arguments.get(i) instanceof User) {
+                        arg = ((User)arguments.get(i)).getLogin();
+                    }
+                    else {
+                        arg = (String) Translator.convert(
+                                arguments.get(i), String.class);
+                    }
 
                     buf.append(arg);
 
