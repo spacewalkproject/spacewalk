@@ -1,6 +1,6 @@
 Name:       ycssmin
 Version:    1.0.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    CSS minification tool
 License:    BSD
 URL:        https://github.com/yui/ycssmin
@@ -44,6 +44,9 @@ ln -sf ../lib/node_modules/%{name}/bin/cssmin %{buildroot}%{_bindir}/cssmin
 %doc README.md LICENSE
 
 %changelog
+* Tue Jun 24 2014 Michael Mraka <michael.mraka@redhat.com> 1.0.1-4
+- ycssmin rebuilt for spacewalk
+
 * Mon May 06 2013 T.C. Hollingsworth <tchollingsworth@gmail.com> - 1.0.1-3
 - improve description
 - drop spurious executable permissions
