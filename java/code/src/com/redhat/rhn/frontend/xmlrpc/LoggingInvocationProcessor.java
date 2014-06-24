@@ -102,7 +102,8 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
             log.info(buf.toString());
         }
         catch (RuntimeException e) {
-            log.error("postProcess error", e);
+            log.error("postProcess error CALL: " + invocation.getHandlerName() +
+                    " " + invocation.getMethodName(), e);
         }
 
         return returnValue;
@@ -139,7 +140,8 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
             log.error(buf.toString(), exception);
         }
         catch (RuntimeException e) {
-            log.error("postProcess error", e);
+            log.error("postProcess error CALL: " + invocation.getHandlerName() +
+                    " " + invocation.getMethodName(), e);
         }
     }
 
