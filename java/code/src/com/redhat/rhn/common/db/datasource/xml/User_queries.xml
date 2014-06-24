@@ -44,6 +44,10 @@ SELECT ugm.user_id
       AND exists (select wc.id
                     from rhnwebcontactenabled wc
                    where wc.id = ugm.user_id)
+      AND exists (select wc.id
+                    from web_contact wc
+                   where wc.id = ugm.user_id
+                     and read_only = 'N')
  ORDER BY ugm.user_id
     </query>
 </mode>
