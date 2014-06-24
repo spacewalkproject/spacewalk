@@ -23,7 +23,7 @@ Requires: doc-indexes
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-httpclient
 Requires: jakarta-commons-lang >= 0:2.1
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 Requires: apache-commons-cli
 Requires: apache-commons-logging
 %else
@@ -37,13 +37,13 @@ Requires: javapackages-tools
 Requires: jpackage-utils >= 0:1.5
 %endif
 Requires: log4j
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 Requires: jakarta-oro
 %else
 Requires: oro
 %endif
 #Requires: lucene
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 Requires: mchange-commons
 Requires: objectweb-asm
 %else
@@ -62,7 +62,7 @@ BuildRequires: c3p0 >= 0.9.1
 BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-httpclient
 BuildRequires: jakarta-commons-lang >= 0:2.1
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 BuildRequires: apache-commons-cli
 BuildRequires: apache-commons-logging
 %else
@@ -71,7 +71,7 @@ BuildRequires: jakarta-commons-logging
 %endif
 BuildRequires: java-devel >= 1.6.0
 BuildRequires: log4j
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 BuildRequires: jakarta-oro
 %else
 BuildRequires: oro
@@ -82,13 +82,13 @@ BuildRequires: redstone-xmlrpc
 #BuildRequires: picocontainer
 BuildRequires: tanukiwrapper
 BuildRequires: simple-core
-%if 0%{?rhel}
+%if 0%{?rhel} < 7
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 %endif
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 BuildRequires: systemd
 %endif
 
@@ -109,7 +109,7 @@ install -d -m 755 $RPM_BUILD_ROOT%{_var}/lib/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/lib/rhn/search/indexes
 ln -s -f %{_prefix}/share/rhn/search/indexes/docs $RPM_BUILD_ROOT%{_var}/lib/rhn/search/indexes/docs
 install -d -m 755 $RPM_BUILD_ROOT%{_sbindir}
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 install -d -m 755 $RPM_BUILD_ROOT%{_unitdir}
 %else
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
@@ -123,7 +123,7 @@ install -p -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_prefix}/share/rh
 cp -d lib/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
 install -p -m 644 src/config/etc/logrotate.d/rhn-search $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn-search
 install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT%{_sbindir}
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 install -p -m 755 src/config/rhn-search.service $RPM_BUILD_ROOT%{_unitdir}
 %else
 install -p -m 755 src/config/rhn-search.init $RPM_BUILD_ROOT%{_initrddir}/rhn-search
@@ -184,7 +184,7 @@ fi
 %attr(755, root, root) %{_var}/log/rhn/search
 %{_prefix}/share/rhn/search/lib/*
 %attr(755, root, root) %{_sbindir}/rhn-search
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 %attr(755, root, root) %{_unitdir}/rhn-search.service
 %else
 %attr(755, root, root) %{_initrddir}/rhn-search
