@@ -219,12 +219,11 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                         "] unusable.";
             }
 
-            Distro distro =
-                    Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
-                            tree.getCobblerDistroName(), tree.getKernelPath(),
-                            tree.getInitrdPath(), ksmeta,
-                            tree.getInstallType().getCobblerBreed(),
-                            tree.getInstallType().getCobblerOsVersion());
+            Distro distro = Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
+                    tree.getCobblerDistroName(), tree.getKernelPath(),
+                    tree.getInitrdPath(), ksmeta, tree.getInstallType().getCobblerBreed(),
+                    tree.getInstallType().getCobblerOsVersion(),
+                    tree.getChannel().getChannelArch().cobblerArch());
             tree.setCobblerId(distro.getUid());
             invokeCobblerUpdate();
         }
@@ -239,12 +238,12 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                 return error;
             }
 
-            Distro distroXen =
-                    Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
-                            tree.getCobblerXenDistroName(),
-                            tree.getKernelXenPath(), tree.getInitrdXenPath(),
-                            ksmeta, tree.getInstallType().getCobblerBreed(),
-                            tree.getInstallType().getCobblerOsVersion());
+            Distro distroXen = Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
+                    tree.getCobblerXenDistroName(), tree.getKernelXenPath(),
+                    tree.getInitrdXenPath(), ksmeta,
+                    tree.getInstallType().getCobblerBreed(),
+                    tree.getInstallType().getCobblerOsVersion(),
+                    tree.getChannel().getChannelArch().cobblerArch());
             tree.setCobblerXenId(distroXen.getUid());
         }
         tree.setModified(new Date());

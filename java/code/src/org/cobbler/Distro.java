@@ -48,7 +48,7 @@ public class Distro extends CobblerObject {
      * @return a new Distro
      */
     public static Distro create(CobblerConnection client, String name, String kernel,
-            String initrd, Map ksmeta, String breed, String osVersion) {
+            String initrd, Map ksmeta, String breed, String osVersion, String arch) {
         Distro distro = new Distro(client);
         distro.handle = (String) client.invokeTokenMethod("new_distro");
         distro.modify(NAME, name);
@@ -64,6 +64,7 @@ public class Distro extends CobblerObject {
             distro.setOsVersion(osVersion);
         }
         distro.setKsMeta(ksmeta);
+        distro.setArch(arch);
         distro.save();
         distro = lookupByName(client, name);
         return distro;

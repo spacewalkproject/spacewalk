@@ -181,4 +181,32 @@ public class ChannelArch extends BaseDomainHelper {
         compatiblePackageArches = arches;
     }
 
+    /**
+     * Get the equivalent cobbler arch string for this ChannelArch, or null.
+     * Valid values are i386,x86_64,ia64,ppc,s390
+     * @return the cobbler arch
+     */
+    public String cobblerArch() {
+        // will be like ["channel", "ia32", and possibly "deb"]. The second one is what
+        // we care about, map it to a cobbler arch if possible.
+        String[] substrings = getLabel().split("-");
+        if (substrings[1].equals("x86_64") || substrings[1].equals("amd64")) {
+            return "x86_64";
+        }
+        if (substrings[1].equals("ia32") || substrings[1].equals("i386")) {
+            return "i386";
+        }
+        if (substrings[1].equals("s390") || substrings[1].equals("s390x")) {
+            return "s390";
+        }
+        if (substrings[1].equals("ia64")) {
+            return "ia64";
+        }
+        if (substrings[1].equals("ppc") || substrings[1].equals("powerpc") ||
+                substrings[1].equals("iSeries") || substrings[1].equals("pSeries")) {
+            return "ppc";
+        }
+        return null;
+    }
+
 }
