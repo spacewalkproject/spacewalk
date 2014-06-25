@@ -466,7 +466,12 @@ sub process_sequences {
 			}
 		}
 		$last_number = 1 if not defined $last_number;
-		print "select pg_catalog.setval('$_', $last_number, false);\n";
+		if ($options->{db_backend_target} eq 'postgresql') {
+			print "select pg_catalog.setval('$_', $last_number, false);\n";
+		} else {
+			print "drop sequence $_;\n";
+			print "create sequence $_ start with $last_number;\n";
+		}
 	}
 }
 
