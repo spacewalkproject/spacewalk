@@ -30,6 +30,9 @@ Obsoletes:  spring < 1:1.2.9.0
 Provides:   struts-taglib = 1.3.10
 Provides:   struts-tiles = 1.3.10
 Requires:   struts >= 1.3.10
+Provides:   oro
+Obsoletes:  spacewalk-oro-compat
+Requires:   jakarta-oro
 %endif
 
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
