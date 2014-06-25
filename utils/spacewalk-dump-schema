@@ -645,7 +645,13 @@ sub process_table {
 					no warnings 'uninitialized';
 					my @r = @{$row->[$i]};
 					map { s/,/\\\\,/g; } @r;
-					$row->[$i] = "(@{[ join ',', @r ]})";
+					if ($target_backend eq 'postgresql') {
+						$row->[$i] = "(@{[ join ',', @r ]})";
+					} else {
+						$row->[$i] = "('@{[ join '\',\'', @r ]}')";
+						# guess type name from column name (column name evr -> type evr_t), not clever but we use only one custom type anyway
+						$row->[$i] = $names->[$i] . '_t' . $row->[$i];
+					}
 				} elsif ($types[$i] eq 'unknown' or $types[$i] eq 'BLOB' or $types[$i] eq 'bytea') {	# blobs
 					$row->[$i] =~ s!(.)! sprintf "\\\\%03o", ord($1) !seg;
 				# convert timestamp to Oracle statement
