@@ -1,6 +1,6 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.1.3
-Release:	1%{?dist}
+Version:	2.2.0
+Release:	0%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
 Group:		Applications/Internet
@@ -16,7 +16,7 @@ Obsoletes:      msv-workaround
 Obsoletes:      msv
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Provides:   hivemind-lib = 1.1.1.0
 Obsoletes:  hivemind-lib < 1.1.1.0
 Provides:   hivemind = 1.1.1.0
@@ -32,7 +32,7 @@ Provides:   struts-tiles = 1.3.10
 Requires:   struts >= 1.3.10
 %endif
 
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 Provides:   jakarta-commons-logging = 1.1.3
 Requires:   apache-commons-logging
 Obsoletes:  jpackage-utils >= 5.0.0
