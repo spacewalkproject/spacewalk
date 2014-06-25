@@ -9,7 +9,7 @@
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %define appdir          %{_localstatedir}/lib/tomcat/webapps
 %define jardir          %{_localstatedir}/lib/tomcat/webapps/rhn/WEB-INF/lib
 %else
@@ -63,7 +63,6 @@ Requires: hibernate3 = 0:3.2.4
 %endif
 Requires: java >= 1:1.6.0
 Requires: java-devel >= 1:1.6.0
-Requires: jakarta-commons-discovery
 Requires: jakarta-commons-el
 Requires: jakarta-commons-fileupload
 Requires: jakarta-taglibs-standard
@@ -81,7 +80,7 @@ Requires: jasper5
 Requires: tomcat5-servlet-2.4-api
 Requires: struts >= 0:1.2.9
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: tomcat >= 7
 Requires: tomcat-lib >= 7
 Requires: tomcat-servlet-3.0-api >= 7
@@ -121,13 +120,21 @@ Requires:      jpackage-utils
 Requires: cobbler >= 2.0.0
 Requires: dojo
 %if 0%{?fedora} || 0%{?rhel} >=7
+BuildRequires:  apache-commons-codec
 Requires:       apache-commons-codec
+BuildRequires:  apache-commons-collections
+BuildRequires:  apache-commons-discovery
+Requires:       apache-commons-discovery
 Requires:       apache-commons-io
 Requires:       apache-commons-lang
 BuildRequires:  apache-commons-logging
 Requires:       apache-commons-logging
 %else
+BuildRequires:  jakarta-commons-codec
 Requires:       jakarta-commons-codec
+BuildRequires:  jakarta-commons-collections
+BuildRequires:  jakarta-commons-discovery
+Requires:       jakarta-commons-discovery
 Requires:       jakarta-commons-io
 Requires:       jakarta-commons-lang >= 0:2.1
 BuildRequires:  jakarta-commons-logging
@@ -168,9 +175,6 @@ BuildRequires: javassist
 BuildRequires: hibernate3 = 0:3.2.4
 %endif
 BuildRequires: jaf
-BuildRequires: jakarta-commons-codec
-BuildRequires: jakarta-commons-collections
-BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
 BuildRequires: jakarta-taglibs-standard
@@ -191,7 +195,7 @@ BuildRequires: struts >= 0:1.2.9
 BuildRequires: jsp
 BuildRequires: jasper5
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 BuildRequires: struts >= 0:1.3.0
 BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat >= 7
@@ -340,14 +344,17 @@ Requires: hibernate3 >= 0:3.2.4
 %endif
 Requires: java >= 0:1.6.0
 Requires: java-devel >= 0:1.6.0
-Requires: jakarta-commons-lang >= 0:2.1
-Requires: jakarta-commons-codec
-Requires: jakarta-commons-dbcp
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-cli
+Requires: apache-commons-codec
+Requires: apache-commons-dbcp
+Requires: apache-commons-lang
 Requires: apache-commons-logging
 %else
 Requires: jakarta-commons-cli
+Requires: jakarta-commons-codec
+Requires: jakarta-commons-dbcp
+Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-logging
 %endif
 Requires: jakarta-taglibs-standard
