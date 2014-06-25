@@ -33,6 +33,8 @@ Requires:   struts >= 1.3.10
 %endif
 
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
+Requires:   apache-commons-digester
+Provides:   jakarta-commons-digester = 1.8.1
 Provides:   jakarta-commons-logging = 1.1.3
 Requires:   apache-commons-logging
 Obsoletes:  jpackage-utils >= 5.0.0
