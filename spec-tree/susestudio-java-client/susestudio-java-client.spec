@@ -25,7 +25,7 @@ Source0:        https://github.com/susestudio/susestudio-lib-java/archive/v%{ver
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  ant
 BuildRequires:  java-devel
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >=7
 BuildRequires: javapackages-tools
 %else
 BuildRequires:  jpackage-utils >= 1.6
