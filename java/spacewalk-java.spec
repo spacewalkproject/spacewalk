@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.104
+Version: 2.2.105
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -804,6 +804,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.105-1
+- fixed apache-commons-* vs. jakarta-commons-* conflicts
+- return whether staging content is enabled for org in org.getDetails api
+- add csv report for relevant erratas in system groups
+
 * Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.104-1
 - fixed apache vs. jakarta  -commons-{codec,lang} conflict
 
