@@ -10,11 +10,11 @@ autobuild_tags = spacewalk-nightly-rhel5 spacewalk-nightly-rhel6 spacewalk-night
 
 [spacewalk-nightly-rhel5]
 disttag = .el5
-blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux spacewalk-jpp-workaround apt-spacewalk python-hwdata spacewalk-oro-compat spacewalk-abrt mod_perl tito ycssmin
+blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux spacewalk-jpp-workaround apt-spacewalk python-hwdata spacewalk-abrt mod_perl tito ycssmin
 
 [spacewalk-nightly-rhel6]
 disttag = .el6
-blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata spacewalk-oro-compat mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging ycssmin
+blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging ycssmin
 
 [spacewalk-nightly-rhel7]
 disttag = .el7
