@@ -61,14 +61,16 @@ Obsoletes: rhn-search < 5.3.0
 BuildRequires: ant
 #BuildRequires: apache-ibatis-sqlmap
 BuildRequires: c3p0 >= 0.9.1
-BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-httpclient
-BuildRequires: jakarta-commons-lang >= 0:2.1
 %if 0%{?fedora} || 0%{?rhel} >=7
 BuildRequires: apache-commons-cli
+BuildRequires: apache-commons-codec
+BuildRequires: apache-commons-lang
 BuildRequires: apache-commons-logging
 %else
 BuildRequires: jakarta-commons-cli
+BuildRequires: jakarta-commons-codec
+BuildRequires: jakarta-commons-lang >= 0:2.1
 BuildRequires: jakarta-commons-logging
 %endif
 BuildRequires: java-devel >= 1.6.0
