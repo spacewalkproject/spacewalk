@@ -1,6 +1,6 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.2.0
-Release:	0%{?dist}
+Version:	2.2.1
+Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
 Group:		Applications/Internet
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.1-1
+- updated for RHEL7
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.3-1
 - spec file polish
 
