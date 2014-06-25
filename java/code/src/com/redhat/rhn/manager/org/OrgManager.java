@@ -75,6 +75,7 @@ public class OrgManager extends BaseManager {
         dto.setKickstartProfiles(OrgFactory.getKickstarts(org));
         dto.setServerGroups(OrgFactory.getServerGroups(org));
         dto.setConfigChannels(OrgFactory.getConfigChannels(org));
+        dto.setStagingContentEnabled(org.getOrgConfig().isStagingContentEnabled());
         return dto;
     }
 

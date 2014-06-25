@@ -43,6 +43,8 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *                          "Number of kickstart profiles in the organization. (optional)")
  *   #prop_desc("int", "configuration_channels",
  *                      "Number of configuration channels in the organization. (optional)")
+ *   #prop_desc("boolean", "staging_content_enabled",
+ *                      "Is staging content enabled in organization. (optional)")
  * #struct_end()
  */
 public class OrgDtoSerializer extends RhnXmlRpcCustomSerializer {
@@ -74,6 +76,7 @@ public class OrgDtoSerializer extends RhnXmlRpcCustomSerializer {
         add(helper, "system_groups", dto.getServerGroups());
         add(helper, "kickstart_profiles", dto.getKickstartProfiles());
         add(helper, "configuration_channels", dto.getConfigChannels());
+        add(helper, "staging_content_enabled", dto.isStagingContentEnabled());
         helper.writeTo(output);
     }
 

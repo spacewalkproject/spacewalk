@@ -35,6 +35,7 @@ public class OrgDto extends BaseDto {
     private Long kickstartProfiles;
     private Long serverGroups;
     private Long configChannels;
+    private Boolean stagingContentEnabled;
 
     /**
      *
@@ -206,6 +207,20 @@ public class OrgDto extends BaseDto {
         HashCodeBuilder b = new HashCodeBuilder();
         b.append(getId()).append(getName());
         return b.toHashCode();
+    }
+
+    /**
+     * @return stagingContentEnabled
+     */
+    public Boolean isStagingContentEnabled() {
+        return stagingContentEnabled;
+    }
+
+    /**
+     * @param stagingContentEnabledIn stagingContentEnabled to set
+     */
+    public void setStagingContentEnabled(Boolean stagingContentEnabledIn) {
+        this.stagingContentEnabled = stagingContentEnabledIn;
     }
 
 }
