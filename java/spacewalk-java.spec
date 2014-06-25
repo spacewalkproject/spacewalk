@@ -63,8 +63,6 @@ Requires: hibernate3 = 0:3.2.4
 %endif
 Requires: java >= 1:1.6.0
 Requires: java-devel >= 1:1.6.0
-Requires: jakarta-commons-lang >= 0:2.1
-Requires: jakarta-commons-codec
 Requires: jakarta-commons-discovery
 Requires: jakarta-commons-el
 Requires: jakarta-commons-fileupload
@@ -122,12 +120,16 @@ Requires:      jpackage-utils
 %endif
 Requires: cobbler >= 2.0.0
 Requires: dojo
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
+Requires:       apache-commons-codec
 Requires:       apache-commons-io
+Requires:       apache-commons-lang
 BuildRequires:  apache-commons-logging
 Requires:       apache-commons-logging
 %else
+Requires:       jakarta-commons-codec
 Requires:       jakarta-commons-io
+Requires:       jakarta-commons-lang >= 0:2.1
 BuildRequires:  jakarta-commons-logging
 Requires:       jakarta-commons-logging
 %endif
@@ -203,7 +205,7 @@ BuildRequires: tomcat6-lib
 %endif
 BuildRequires: sitemesh
 BuildRequires: postgresql-jdbc
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 # spelling checker is only for Fedoras (no aspell in RHEL6)
 BuildRequires: aspell aspell-en libxslt
 Requires:      apache-commons-cli
@@ -260,7 +262,7 @@ Requires: ojdbc14
 %if  0%{?rhel} && 0%{?rhel} < 6
 Requires: tomcat5
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: tomcat >= 7
 %else
 Requires: tomcat6
@@ -278,7 +280,7 @@ Requires: postgresql-jdbc
 %if  0%{?rhel} && 0%{?rhel} < 6
 Requires: tomcat5
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 Requires: tomcat >= 7
 %else
 Requires: tomcat6

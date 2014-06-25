@@ -20,14 +20,16 @@ BuildArch: noarch
 Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: doc-indexes
-Requires: jakarta-commons-codec
 Requires: jakarta-commons-httpclient
-Requires: jakarta-commons-lang >= 0:2.1
 %if 0%{?fedora} || 0%{?rhel} >=7
 Requires: apache-commons-cli
+Requires: apache-commons-codec
+Requires: apache-commons-lang
 Requires: apache-commons-logging
 %else
 Requires: jakarta-commons-cli
+Requires: jakarta-commons-codec
+Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-logging
 %endif
 %if 0%{?fedora} >= 20 || 0%{?rhel} >=7
