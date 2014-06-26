@@ -63,7 +63,7 @@ public class CobblerPowerCommandTest extends BaseTestCaseWithUser {
             case PowerOff:
                 cobblerCommand = "off";
                 break;
-            case Reboot:
+            default:
                 cobblerCommand = "reboot";
                 break;
             }

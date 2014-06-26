@@ -95,9 +95,6 @@ public class MockConnection extends CobblerConnection {
     //no op -> mock version ..
     // we'll add more useful constructs in the future..
     // log.debug("called: " + name + " args: " + args);
-
-
-
     if ("token_check".equals(name) || "update".equals(name)) {
         return true;
     }
@@ -135,27 +132,7 @@ public class MockConnection extends CobblerConnection {
         return true;
     }
     else if ("new_profile".equals(name)) {
-        Map profile = new HashMap();
-        String uid = random();
-        String key = random();
-        profile.put("uid", uid);
-
-        log.debug("PROFILE: Created w/ uid " + uid + "returing handle " + key);
-
-        profiles.add(profile);
-        profileMap.put(key, profile);
-
-        profile.put("virt_bridge", "xenb0");
-        profile.put("virt_cpus", Integer.valueOf(1));
-        profile.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
-        profile.put("virt_path", "/tmp/foo");
-        profile.put("virt_file_size", Integer.valueOf(8));
-        profile.put("virt_ram", Integer.valueOf(512));
-        profile.put("kernel_options", new HashMap());
-        profile.put("kernel_options_post", new HashMap());
-        profile.put("ks_meta", new HashMap());
-        profile.put("redhat_management_key", "");
-        return key;
+            return newProfile();
     }
     //distros
     else if ("find_distro".equals(name)) {
@@ -188,28 +165,7 @@ public class MockConnection extends CobblerConnection {
         return true;
     }
     else if ("new_distro".equals(name)) {
-        String uid = random();
-
-        Map distro = new HashMap();
-        String key = random();
-        distro.put("uid", uid);
-
-        log.debug("DISTRO: Created w/ uid " + uid + "returing handle " + key);
-
-        distros.add(distro);
-        distroMap.put(key, distro);
-
-        distro.put("virt_bridge", "xenb0");
-        distro.put("virt_cpus", Integer.valueOf(1));
-        distro.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
-        distro.put("virt_path", "/tmp/foo");
-        distro.put("virt_file_size", Integer.valueOf(8));
-        distro.put("virt_ram", Integer.valueOf(512));
-        distro.put("kernel_options", new HashMap());
-        distro.put("kernel_options_post", new HashMap());
-        distro.put("ks_meta", new HashMap());
-        distro.put("redhat_management_key", "");
-        return key;
+            return newDistro();
     }
     //System
     else if ("find_system".equals(name)) {
@@ -239,20 +195,7 @@ public class MockConnection extends CobblerConnection {
         return true;
     }
     else if ("new_system".equals(name)) {
-        Map profile = new HashMap();
-        String key = random();
-        profile.put("uid", random());
-        Map interfaces = new HashMap();
-        Map iface = new HashMap();
-        iface.put("mac_address", NetworkInterfaceTest.TEST_MAC);
-        iface.put("ip_address", "127.0.0.1");
-        interfaces.put("eth0", iface);
-        profile.put("interfaces", interfaces);
-        systems.add(profile);
-        systemMap.put(key, profile);
-        profile.put("ks_meta", new HashMap());
-        profile.put("redhat_management_key", "");
-        return key;
+            return newSystem();
     }
     else if ("power_system".equals(name)) {
         boolean firstArgumentValid = systemMap.containsKey(args[0]);
@@ -314,6 +257,72 @@ public class MockConnection extends CobblerConnection {
     }
     return "";
    }
+
+    private String newProfile() {
+        Map profile = new HashMap();
+        String uid = random();
+        String key = random();
+        profile.put("uid", uid);
+
+        log.debug("PROFILE: Created w/ uid " + uid + "returing handle " + key);
+
+        profiles.add(profile);
+        profileMap.put(key, profile);
+
+        profile.put("virt_bridge", "xenb0");
+        profile.put("virt_cpus", Integer.valueOf(1));
+        profile.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
+        profile.put("virt_path", "/tmp/foo");
+        profile.put("virt_file_size", Integer.valueOf(8));
+        profile.put("virt_ram", Integer.valueOf(512));
+        profile.put("kernel_options", new HashMap());
+        profile.put("kernel_options_post", new HashMap());
+        profile.put("ks_meta", new HashMap());
+        profile.put("redhat_management_key", "");
+        return key;
+    }
+
+    private String newSystem() {
+        Map profile = new HashMap();
+        String key = random();
+        profile.put("uid", random());
+        Map interfaces = new HashMap();
+        Map iface = new HashMap();
+        iface.put("mac_address", NetworkInterfaceTest.TEST_MAC);
+        iface.put("ip_address", "127.0.0.1");
+        interfaces.put("eth0", iface);
+        profile.put("interfaces", interfaces);
+        systems.add(profile);
+        systemMap.put(key, profile);
+        profile.put("ks_meta", new HashMap());
+        profile.put("redhat_management_key", "");
+        return key;
+    }
+
+    private String newDistro() {
+        String uid = random();
+
+        Map distro = new HashMap();
+        String key = random();
+        distro.put("uid", uid);
+
+        log.debug("DISTRO: Created w/ uid " + uid + "returing handle " + key);
+
+        distros.add(distro);
+        distroMap.put(key, distro);
+
+        distro.put("virt_bridge", "xenb0");
+        distro.put("virt_cpus", Integer.valueOf(1));
+        distro.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
+        distro.put("virt_path", "/tmp/foo");
+        distro.put("virt_file_size", Integer.valueOf(8));
+        distro.put("virt_ram", Integer.valueOf(512));
+        distro.put("kernel_options", new HashMap());
+        distro.put("kernel_options_post", new HashMap());
+        distro.put("ks_meta", new HashMap());
+        distro.put("redhat_management_key", "");
+        return key;
+    }
 
    private Map findByName(String name, List<Map> maps) {
        for (Map map : maps) {

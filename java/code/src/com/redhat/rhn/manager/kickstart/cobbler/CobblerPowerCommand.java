@@ -89,7 +89,7 @@ public class CobblerPowerCommand extends CobblerCommand {
                         case PowerOff:
                             success = systemRecord.powerOff();
                             break;
-                        case Reboot:
+                        default:
                             success = systemRecord.reboot();
                             break;
                         }

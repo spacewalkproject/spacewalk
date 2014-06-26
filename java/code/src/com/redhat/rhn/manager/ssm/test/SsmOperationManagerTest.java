@@ -31,8 +31,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
