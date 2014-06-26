@@ -32,13 +32,6 @@ if len(args) > 1:
     parser.print_help()
     sys.exit(1)
 
-distmap = {'rhel6':'.el6',
-           'rhel5':'.el5',
-           'rhel7':'.el7',
-           'fedora18':'.fc18',
-           'fedora19':'.fc19',
-           'fedora20':'.fc20'}
-
 distsuffix = ''
 tag = args[0]
 pkgstoignore = []
@@ -46,14 +39,9 @@ pkgstoignore = []
 if config.has_section(tag) and config.has_option(tag, 'blacklist'):
     pkgstoignore = config.get(tag, 'blacklist').split(' ')
 
+disttag = config.get(tag, 'disttag')
 if tag.startswith('satellite'):
-    if tag.find('rhel-5') > 0:
-        disttag = '.el5'
-    else:
-        disttag = '.el6'
     tag = tag + '-candidate'
-else:
-    disttag = distmap[tag.split('-')[-1]]
 
 if opts.brew:
     mysession = koji.ClientSession("http://brewhub.devel.redhat.com/brewhub")
