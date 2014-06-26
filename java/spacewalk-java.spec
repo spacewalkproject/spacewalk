@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.106
+Version: 2.2.107
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -783,6 +783,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jun 26 2014 Stephen Herr <sherr@redhat.com> 2.2.107-1
+- Fixing merge problem and checkstyle for power management merge
+
 * Thu Jun 26 2014 Stephen Herr <sherr@redhat.com> 2.2.106-1
 - Guest Provisioning was broken because of refactoring
 - Update to build on newer source
