@@ -183,7 +183,9 @@
     <packagelist>
        <packagereq type="optional">cobbler-web</packagereq>
        <packagereq type="optional">koan</packagereq>
+       <packagereq type="optional">nodejs-less</packagereq>
        <packagereq type="optional">tito</packagereq>
+       <packagereq type="optional">ycssmin</packagereq>
     </packagelist>
   </group>
 </comps>
