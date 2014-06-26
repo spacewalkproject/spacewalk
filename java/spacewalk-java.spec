@@ -39,34 +39,9 @@ ExcludeArch: ia64
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 
-# for RHEL6 we need to filter out several package versions
-%if  0%{?rhel} && 0%{?rhel} >= 6
-# cglib is not compatible with hibernate and asm from RHEL6
-Requires: cglib < 0:2.2
-# we dont want jfreechart from EPEL because it has different symlinks
-Requires: jfreechart < 1.0.13
-%else
-Requires: cglib
-Requires: jfreechart >= 1.0.9
-%endif
-
 Requires: bcel
 Requires: c3p0 >= 0.9.1
 Requires: dwr >= 3
-%if 0%{?fedora}
-Requires: hibernate3 >= 3.6.10
-Requires: hibernate3-c3p0 >= 3.6.10
-Requires: hibernate3-ehcache >= 3.6.10
-Requires: javassist
-BuildRequires: hibernate3 >= 0:3.6.10
-BuildRequires: hibernate3-c3p0 >= 3.6.10
-BuildRequires: hibernate3-ehcache >= 3.6.10
-BuildRequires: ehcache-core
-BuildRequires: javassist
-%else
-Requires: hibernate3 = 0:3.2.4
-BuildRequires: hibernate3 = 0:3.2.4
-%endif
 Requires: java >= 1:1.6.0
 Requires: java-devel >= 1:1.6.0
 Requires: jakarta-commons-el
@@ -79,6 +54,35 @@ Requires: jta
 Requires: log4j
 Requires: redstone-xmlrpc
 Requires: oscache
+Requires: xalan-j2 >= 0:2.6.0
+Requires: xerces-j2
+Requires: simple-core
+Requires: simple-xml
+Requires: sitemesh
+Requires: stringtree-json
+Requires: susestudio-java-client
+Requires: spacewalk-java-config
+Requires: spacewalk-java-lib
+Requires: spacewalk-java-jdbc
+Requires: spacewalk-branding
+Requires: cobbler >= 2.0.0
+Requires: dojo
+Requires: classpathx-mail
+%if 0%{?fedora}
+Requires: hibernate3 >= 3.6.10
+Requires: hibernate3-c3p0 >= 3.6.10
+Requires: hibernate3-ehcache >= 3.6.10
+Requires: javassist
+Requires: classpathx-jaf
+BuildRequires: hibernate3 >= 0:3.6.10
+BuildRequires: hibernate3-c3p0 >= 3.6.10
+BuildRequires: hibernate3-ehcache >= 3.6.10
+BuildRequires: ehcache-core
+BuildRequires: javassist
+%else
+Requires: hibernate3 = 0:3.2.4
+BuildRequires: hibernate3 = 0:3.2.4
+%endif
 # EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
 %if 0%{?rhel} && 0%{?rhel} < 6
 Requires: tomcat5
@@ -111,17 +115,6 @@ BuildRequires: tomcat6
 BuildRequires: tomcat6-lib
 %endif
 %endif
-Requires: xalan-j2 >= 0:2.6.0
-Requires: xerces-j2
-Requires: simple-core
-Requires: simple-xml
-Requires: sitemesh
-Requires: stringtree-json
-Requires: susestudio-java-client
-Requires: spacewalk-java-config
-Requires: spacewalk-java-lib
-Requires: spacewalk-java-jdbc
-Requires: spacewalk-branding
 %if 0%{?fedora} || 0%{?rhel} >=7
 Requires:      apache-commons-codec
 Requires:      apache-commons-discovery
@@ -160,8 +153,17 @@ Requires:      jakarta-commons-cli
 BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-io
 %endif
-Requires: cobbler >= 2.0.0
-Requires: dojo
+# for RHEL6 we need to filter out several package versions
+%if  0%{?rhel} && 0%{?rhel} >= 6
+# cglib is not compatible with hibernate and asm from RHEL6
+Requires: cglib < 0:2.2
+# we dont want jfreechart from EPEL because it has different symlinks
+Requires: jfreechart < 1.0.13
+%else
+Requires: cglib
+Requires: jfreechart >= 1.0.9
+%endif
+
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1:1.6.0
@@ -169,18 +171,9 @@ BuildRequires: ant-junit
 BuildRequires: antlr >= 0:2.7.6
 BuildRequires: jpam
 BuildRequires: tanukiwrapper
-Requires: classpathx-mail
 BuildRequires: classpathx-mail
 BuildRequires: /usr/bin/xmllint
 BuildRequires: /usr/bin/perl
-%if 0%{?run_checkstyle}
-BuildRequires: checkstyle
-%endif
-%if ! 0%{?omit_tests} > 0
-BuildRequires: translate-toolkit
-%endif
-
-# Sadly I need these to symlink the jars properly.
 BuildRequires: bcel
 BuildRequires: c3p0 >= 0.9.1
 BuildRequires: concurrent
@@ -204,16 +197,18 @@ BuildRequires: stringtree-json
 BuildRequires: susestudio-java-client
 BuildRequires: sitemesh
 BuildRequires: postgresql-jdbc
+%if 0%{?run_checkstyle}
+BuildRequires: checkstyle
+%endif
+%if ! 0%{?omit_tests} > 0
+BuildRequires: translate-toolkit
+%endif
 Obsoletes: rhn-java < 5.3.0
 Obsoletes: rhn-java-sat < 5.3.0
 Obsoletes: rhn-oracle-jdbc-tomcat5 <= 1.0
 Provides: rhn-java = %{version}-%{release}
 Provides: rhn-java-sat = %{version}-%{release}
 Provides: rhn-oracle-jdbc-tomcat5 = %{version}-%{release}
-
-%if 0%{?fedora}
-Requires: classpathx-jaf
-%endif
 
 %description
 This package contains the code for the Java version of the Spacewalk Web Site.
