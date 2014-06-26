@@ -9,6 +9,9 @@ URL: http://search.cpan.org/search?mode=module&query=Mail%3a%3aRFC822%3a%3aAddre
 BuildRoot: %{_tmppath}/%{name}-root
 Buildarch: noarch
 BuildRequires:	perl(ExtUtils::MakeMaker)
+%if 0%{?rhel} >= 7
+BuildRequires:  perl(Data::Dumper)
+%endif
 
 
 Requires: %(perl -MConfig -le 'if (defined $Config{useithreads}) { print "perl(:WITH_ITHREADS)" } else { print "perl(:WITHOUT_ITHREADS)" }')
