@@ -41,43 +41,43 @@ Group: Applications/Internet
 
 Requires: bcel
 Requires: c3p0 >= 0.9.1
+Requires: classpathx-mail
+Requires: cobbler >= 2.0.0
+Requires: dojo
 Requires: dwr >= 3
-Requires: java >= 1:1.6.0
-Requires: java-devel >= 1:1.6.0
 Requires: jakarta-commons-el
 Requires: jakarta-commons-fileupload
 Requires: jakarta-taglibs-standard
+Requires: java >= 1:1.6.0
+Requires: java-devel >= 1:1.6.0
 Requires: jcommon
 Requires: jdom
 Requires: jpam
 Requires: jta
 Requires: log4j
-Requires: redstone-xmlrpc
 Requires: oscache
-Requires: xalan-j2 >= 0:2.6.0
-Requires: xerces-j2
+Requires: redstone-xmlrpc
 Requires: simple-core
 Requires: simple-xml
 Requires: sitemesh
+Requires: spacewalk-branding
+Requires: spacewalk-java-config
+Requires: spacewalk-java-jdbc
+Requires: spacewalk-java-lib
 Requires: stringtree-json
 Requires: susestudio-java-client
-Requires: spacewalk-java-config
-Requires: spacewalk-java-lib
-Requires: spacewalk-java-jdbc
-Requires: spacewalk-branding
-Requires: cobbler >= 2.0.0
-Requires: dojo
-Requires: classpathx-mail
+Requires: xalan-j2 >= 0:2.6.0
+Requires: xerces-j2
 %if 0%{?fedora}
+Requires: classpathx-jaf
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
 Requires: javassist
-Requires: classpathx-jaf
+BuildRequires: ehcache-core
 BuildRequires: hibernate3 >= 0:3.6.10
 BuildRequires: hibernate3-c3p0 >= 3.6.10
 BuildRequires: hibernate3-ehcache >= 3.6.10
-BuildRequires: ehcache-core
 BuildRequires: javassist
 %else
 Requires: hibernate3 = 0:3.2.4
@@ -85,30 +85,30 @@ BuildRequires: hibernate3 = 0:3.2.4
 %endif
 # EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
 %if 0%{?rhel} && 0%{?rhel} < 6
-Requires: tomcat5
 Requires: jasper5
-Requires: tomcat5-servlet-2.4-api
 Requires: struts >= 0:1.2.9
-BuildRequires: struts >= 0:1.2.9
-BuildRequires: jsp
+Requires: tomcat5
+Requires: tomcat5-servlet-2.4-api
 BuildRequires: jasper5
+BuildRequires: jsp
+BuildRequires: struts >= 0:1.2.9
 %else
 %if 0%{?fedora} || 0%{?rhel} >= 7
+Requires: struts >= 0:1.3.0
+Requires: struts-taglib >= 0:1.3.0
 Requires: tomcat >= 7
 Requires: tomcat-lib >= 7
 Requires: tomcat-servlet-3.0-api >= 7
-Requires: struts >= 0:1.3.0
-Requires: struts-taglib >= 0:1.3.0
 BuildRequires: struts >= 0:1.3.0
 BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat >= 7
 BuildRequires: tomcat-lib >= 7
 %else
+Requires: struts >= 0:1.3.0
+Requires: struts-taglib >= 0:1.3.0
 Requires: tomcat6
 Requires: tomcat6-lib
 Requires: tomcat6-servlet-2.5-api
-Requires: struts >= 0:1.3.0
-Requires: struts-taglib >= 0:1.3.0
 BuildRequires: struts >= 0:1.3.0
 BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat6
@@ -116,42 +116,42 @@ BuildRequires: tomcat6-lib
 %endif
 %endif
 %if 0%{?fedora} || 0%{?rhel} >=7
+Requires:      apache-commons-cli
 Requires:      apache-commons-codec
 Requires:      apache-commons-discovery
 Requires:      apache-commons-io
 Requires:      apache-commons-lang
 Requires:      apache-commons-logging
+Requires:      javapackages-tools
+BuildRequires: apache-commons-cli
 BuildRequires: apache-commons-codec
 BuildRequires: apache-commons-collections
 BuildRequires: apache-commons-discovery
+BuildRequires: apache-commons-io
 BuildRequires: apache-commons-logging
 BuildRequires: apache-commons-validator
-BuildRequires: mvn(ant-contrib:ant-contrib)
-BuildRequires: javapackages-tools
-Requires:      javapackages-tools
 # spelling checker is only for Fedoras (no aspell in RHEL6)
 BuildRequires: aspell aspell-en libxslt
-Requires:      apache-commons-cli
-BuildRequires: apache-commons-cli
-BuildRequires: apache-commons-io
+BuildRequires: javapackages-tools
+BuildRequires: mvn(ant-contrib:ant-contrib)
 %else
+Requires:      jakarta-commons-cli
 Requires:      jakarta-commons-codec
 Requires:      jakarta-commons-discovery
 Requires:      jakarta-commons-io
 Requires:      jakarta-commons-lang >= 0:2.1
 Requires:      jakarta-commons-logging
+Requires:      jpackage-utils
+BuildRequires: ant-contrib
+BuildRequires: ant-nodeps
+BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
+BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-logging
 BuildRequires: jakarta-commons-validator
-BuildRequires: ant-contrib
-BuildRequires: ant-nodeps
 BuildRequires: jpackage-utils
-Requires:      jpackage-utils
-Requires:      jakarta-commons-cli
-BuildRequires: jakarta-commons-cli
-BuildRequires: jakarta-commons-io
 %endif
 # for RHEL6 we need to filter out several package versions
 %if  0%{?rhel} && 0%{?rhel} >= 6
@@ -164,39 +164,39 @@ Requires: cglib
 Requires: jfreechart >= 1.0.9
 %endif
 
+BuildRequires: /usr/bin/perl
+BuildRequires: /usr/bin/xmllint
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
-BuildRequires: java-devel >= 1:1.6.0
 BuildRequires: ant-junit
 BuildRequires: antlr >= 0:2.7.6
-BuildRequires: jpam
-BuildRequires: tanukiwrapper
-BuildRequires: classpathx-mail
-BuildRequires: /usr/bin/xmllint
-BuildRequires: /usr/bin/perl
 BuildRequires: bcel
 BuildRequires: c3p0 >= 0.9.1
-BuildRequires: concurrent
 BuildRequires: cglib
+BuildRequires: classpathx-mail
+BuildRequires: concurrent
 BuildRequires: dom4j
 BuildRequires: dwr >= 3
 BuildRequires: jaf
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
 BuildRequires: jakarta-taglibs-standard
+BuildRequires: java-devel >= 1:1.6.0
 BuildRequires: jcommon
 BuildRequires: jdom
 BuildRequires: jfreechart >= 0:1.0.9
+BuildRequires: jpam
 BuildRequires: jta
-BuildRequires: redstone-xmlrpc
 BuildRequires: oscache
+BuildRequires: postgresql-jdbc
 BuildRequires: quartz
+BuildRequires: redstone-xmlrpc
 BuildRequires: simple-core
 BuildRequires: simple-xml
+BuildRequires: sitemesh
 BuildRequires: stringtree-json
 BuildRequires: susestudio-java-client
-BuildRequires: sitemesh
-BuildRequires: postgresql-jdbc
+BuildRequires: tanukiwrapper
 %if 0%{?run_checkstyle}
 BuildRequires: checkstyle
 %endif
@@ -313,6 +313,23 @@ Requires: jfreechart >= 1.0.9
 
 Requires: bcel
 Requires: c3p0 >= 0.9.1
+Requires: cobbler >= 2.0.0
+Requires: concurrent
+Requires: jakarta-taglibs-standard
+Requires: java >= 0:1.6.0
+Requires: java-devel >= 0:1.6.0
+Requires: jcommon
+Requires: jpam
+Requires: log4j
+Requires: oscache
+Requires: quartz < 2.0
+Requires: simple-core
+Requires: spacewalk-java-config
+Requires: spacewalk-java-jdbc
+Requires: spacewalk-java-lib
+Requires: tanukiwrapper
+Requires: xalan-j2 >= 0:2.6.0
+Requires: xerces-j2
 %if 0%{?fedora}
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
@@ -321,8 +338,6 @@ Requires: javassist
 %else
 Requires: hibernate3 >= 0:3.2.4
 %endif
-Requires: java >= 0:1.6.0
-Requires: java-devel >= 0:1.6.0
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-cli
 Requires: apache-commons-codec
@@ -336,22 +351,7 @@ Requires: jakarta-commons-dbcp
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-logging
 %endif
-Requires: jakarta-taglibs-standard
-Requires: jcommon
-Requires: jpam
-Requires: log4j
-Requires: oscache
-Requires: xalan-j2 >= 0:2.6.0
-Requires: xerces-j2
-Requires: tanukiwrapper
-Requires: simple-core
-Requires: spacewalk-java-config
-Requires: spacewalk-java-lib
-Requires: spacewalk-java-jdbc
-Requires: concurrent
-Requires: quartz < 2.0
 Conflicts: quartz >= 2.0
-Requires: cobbler >= 2.0.0
 Obsoletes: taskomatic < 5.3.0
 Obsoletes: taskomatic-sat < 5.3.0
 Provides: taskomatic = %{version}-%{release}
