@@ -1,8 +1,7 @@
 %{!?perlgen:%define perlgen 5.8}
 Name: perl-Mail-RFC822-Address
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version: 0.3
+Release: 10%{?dist}
 Summary: Mail-RFC822-Address Perl module
 License: distributable
 Group: Development/Libraries
