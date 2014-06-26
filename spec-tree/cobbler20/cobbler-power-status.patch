@@ -61,7 +61,7 @@ diff -rupN cobbler-2.0.11.old/cobbler/cli.py cobbler-2.0.11/cobbler/cli.py
 +   "system"  : "add copy dumpvars edit find getks list remove rename report poweron poweroff powerstatus reboot".split(" "),
     "image"   : "add copy edit find list remove rename report".split(" "),
     "repo"    : "add copy edit find list remove rename report".split(" ")
- }
+ } 
 @@ -277,7 +277,7 @@ class BootCLI:
              keys.sort()
              for x in keys:
@@ -77,7 +77,7 @@ diff -rupN cobbler-2.0.11.old/cobbler/remote.py cobbler-2.0.11/cobbler/remote.py
 @@ -1711,7 +1711,7 @@ class CobblerXMLRPCInterface:
          """
          Internal implementation used by background_power, do not call
-         directly if possible.
+         directly if possible.  
 -        Allows poweron/poweroff/reboot of a system specified by object_id.
 +        Allows poweron/poweroff/powerstatus/reboot of a system specified by object_id.
          """
