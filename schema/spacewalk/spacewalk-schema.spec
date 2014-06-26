@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.27
+Version:        2.2.28
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jun 26 2014 Stephen Herr <sherr@redhat.com> 2.2.28-1
+- Moving schema upgrade to appropriate dir
+- rhnSsmOperationServer: note column added
+
 * Thu May 29 2014 Stephen Herr <sherr@redhat.com> 2.2.27-1
 - 1077365 - index for user_id on wupi table speeds up errata mailer
 
