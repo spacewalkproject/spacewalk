@@ -176,6 +176,7 @@ public class UserHandler extends BaseHandler {
      *     #prop("string", "last_name")
      *     #prop("string", "email")
      *     #prop("int", "org_id")
+     *     #prop("string", "org_name")
      *     #prop("string", "prefix")
      *     #prop("string", "last_login_date")
      *     #prop("string", "created_date")
@@ -206,6 +207,7 @@ public class UserHandler extends BaseHandler {
                                   "" : ls.formatDate(target.getCreated());
         ret.put("created_date", created);
         ret.put("org_id", loggedInUser.getOrg().getId());
+        ret.put("org_name", loggedInUser.getOrg().getName());
 
         if (target.isDisabled()) {
             ret.put("enabled", Boolean.FALSE);
