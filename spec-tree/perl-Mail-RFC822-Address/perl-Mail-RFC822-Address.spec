@@ -1,7 +1,7 @@
 %{!?perlgen:%define perlgen 5.8}
 Name: perl-Mail-RFC822-Address
 Version: 0.3
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Mail-RFC822-Address Perl module
 License: distributable
 Group: Development/Libraries
@@ -63,6 +63,9 @@ fi
 %files -f Mail-RFC822-Address-%{version}-filelist
 
 %changelog
+* Thu Jun 26 2014 Michael Mraka <michael.mraka@redhat.com> 0.3-12
+- RHEL7 dependency
+
 * Thu Jun 26 2014 Michael Mraka <michael.mraka@redhat.com> 0.3-11
 - rebuild for RHEL7
 
