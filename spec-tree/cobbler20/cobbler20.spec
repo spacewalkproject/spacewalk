@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 24%{?dist}
+Release: 25%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -460,6 +460,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Thu Jun 26 2014 Stephen Herr <sherr@redhat.com> 2.0.11-25
+- adding status power command to cobbler
+
 * Tue Jun 17 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.0.11-24
 - cobblerd: don't search user's ~/.local on Fedora and RHEL-6
 
