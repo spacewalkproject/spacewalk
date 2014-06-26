@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.105
+Version: 2.2.106
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -783,6 +783,37 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jun 26 2014 Stephen Herr <sherr@redhat.com> 2.2.106-1
+- Guest Provisioning was broken because of refactoring
+- Update to build on newer source
+- $ tags removed as suggested by mkollar
+- SSM power management operation page test
+- SSM power management operation page added
+- SSM power management configuration page test
+- SSM power management configuration page added
+- rhnSsmOperationServer: note column tests
+- rhnSsmOperationServer: note column added
+- ServerTestUtils: add a server group parameter to createTestSystem
+- Single-system power management page tests
+- Single-system power management page added
+- Configuration options added
+- SystemRecord: power status support tests
+- SystemRecord: power status support added
+- CobblerPowerCommand tests
+- CobblerPowerCommand added
+- CobblerPowerSettingsUpdateCommand tests
+- CobblerPowerSettingsUpdateCommand added
+- Refactoring: make getCobblerSystemRecordName() callable from other classes
+- Do not assume a Cobbler system record always has a profile attached
+- Cobbler image support tests
+- Cobbler image support added
+- SystemRecord: power management support tests
+- SystemRecord: power management support added
+- make requires sorted
+- moved common requires before conditional ones
+- reduced number of if-else-endif blocks
+- return also org_name in user.getDetails api
+
 * Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.105-1
 - fixed apache-commons-* vs. jakarta-commons-* conflicts
 - return whether staging content is enabled for org in org.getDetails api
