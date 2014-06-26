@@ -80,6 +80,9 @@ Utility for cloning errata by date (For RHEL5 and above).
         <arg>-a <replaceable>SRC_PARENT DEST_PARENT</replaceable></arg>
 	<arg>--parents=<replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></arg>
     </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-j</arg><arg>--dry-run</arg>
+    </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
 
@@ -229,6 +232,13 @@ Utility for cloning errata by date (For RHEL5 and above).
         <term>-a <replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable>, --parents=<replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></term>
         <listitem>
             <para>The parent channels that will be used for dependency resolution and that newly cloned channels will be created as children of. No changes will be made to these channels unless dependency resolution demands it; errata will never be cloned to the destination parent channel regardless of the date chosen. If only the destination parent channel is specified then the source parent channel will be automatically chosen as the channel the destination parent channel was cloned from. Both of these channels must already exist. The config file equivalent to this option is specifiying '"existing-parent-do-not-modify": true' for a parent channel.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-j --dry-run</term>
+        <listitem>
+            <para>Creates a file for each pair of channels in the working directory that comprises the list of erratas that are to be cloned. No actual errata cloning takes place.</para>
+            <para>Warning: If some of the destination channels do not exist, they will be created with the original package set.</para>
         </listitem>
     </varlistentry>
 </variablelist>

@@ -244,6 +244,24 @@ def main(options):
     for tree_cloner in cloners:
         tree_cloner.prepare()
 
+    if options.dry_run:
+        for tree_cloner in cloners:
+            d_errata = {}
+            separator = "|"
+            d_errata = tree_cloner.get_errata_to_clone()
+            now = datetime.datetime.now()
+            for ch in  d_errata:
+                log_file = ch + "_" + now.strftime("%Y-%m-%d-%H:%M")
+                print "# Log file: " + log_file
+                fh = open(log_file, 'w')
+                for errata in d_errata[ch]:
+                    line = ""
+                    for item in list(set(errata) - set(['id'])):
+                        line = line + str(errata[item]) + separator
+                    fh.write(line + "\n")
+                fh.close()
+        sys.exit(0)
+
     print "\nBy continuing the following will be cloned:"
     total = 0
     for cloner in cloners:
@@ -425,6 +443,13 @@ class ChannelTreeCloner:
         for cloner in self.cloners:
             cloner.prepare()
 
+    def get_errata_to_clone(self):
+        d_result = {}
+        for cloner in self.cloners:
+            d_result[cloner.src_label() + "_to_" + cloner.dest_label()] = \
+            cloner.get_errata_to_clone()
+        return d_result
+
     def pre_summary(self):
         for cloner in self.cloners:
             cloner.pre_summary()
@@ -566,6 +591,9 @@ class ChannelCloner:
 
     def pending(self):
         return len(self.errata_to_clone)
+
+    def get_errata_to_clone(self):
+        return self.errata_to_clone
 
     def pre_summary(self):
         print "  %s -> %s  (%i/%i Errata)" % (self.from_label, self.to_label,

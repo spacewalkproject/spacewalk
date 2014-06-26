@@ -254,6 +254,12 @@ def parse_args():
             + "created. If omitted we will synchronize the cloned errata "
             + "with the originals to ensure the expected packages are "
             + "included (default).")
+    parser.add_option("-j", "--dry-run", dest="dry_run",action='store_true',
+            help="Creates a file for each pair of channels in the working "
+            + "directory that comprises the list of erratas that are to be cloned. "
+            + "No actual errata cloning takes place. "
+            + "Warning: If some of the destination channels do not exist, "
+            + "they will be created with the original package set.")
 
     (options, args) = parser.parse_args()
 
