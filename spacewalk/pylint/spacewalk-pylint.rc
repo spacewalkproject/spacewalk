@@ -87,6 +87,9 @@ variable-rgx=[a-z_][a-zA-Z0-9_]{,30}$
 # generator expression variable names
 inlinevar-rgx=[A-Za-z_][A-Za-z0-9_]*$
 
+# Regular expression which should only match correct class sttribute names
+class-attribute-rgx=([A-Za-z_][A-Za-z0-9_]{2,42}|(__.*__))$
+
 # Good variable names which should always be accepted, separated by a comma
 good-names=i,j,k,ex,Run,_
 

@@ -399,7 +399,7 @@ class _ChannelDumper(BaseRowDumper):
            and rp.last_modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
      """)
 
-    _query_get_package_ids_by_date_limits_whole_errata = rhnSQL.Statement("""
+    _query_pkgids_by_date_whole_errata = rhnSQL.Statement("""
         select rcp.package_id as id
           from rhnChannelPackage rcp, rhnPackage rp
             left join rhnErrataPackage rep on rp.id = rep.package_id
@@ -415,7 +415,7 @@ class _ChannelDumper(BaseRowDumper):
             )
      """)
 
-    _query_get_package_ids_by_rhndate_limits_whole_errata = rhnSQL.Statement("""
+    _query_get_pkgids_by_rhndate_whole_errata = rhnSQL.Statement("""
         select rcp.package_id as id
           from rhnChannelPackage rcp, rhnPackage rp
             left join rhnErrataPackage rep on rp.id = rep.package_id
@@ -436,8 +436,8 @@ class _ChannelDumper(BaseRowDumper):
     # Things that can be overwriten in subclasses
     def _get_package_ids(self):
         if self.start_date and self.whole_errata:
-            return self._get_ids(self._query_get_package_ids_by_date_limits_whole_errata,
-                             self._query_get_package_ids_by_rhndate_limits_whole_errata,
+            return self._get_ids(self._query_pkgids_by_date_whole_errata,
+                             self._query_get_pkgids_by_rhndate_whole_errata,
                              self._query_get_package_ids)
         else:
             return self._get_ids(self._query_get_package_ids_by_date_limits,
