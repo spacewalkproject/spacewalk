@@ -20,13 +20,11 @@ import tempfile
 import base64
 import difflib
 try:
-    from selinux import lgetfilecon, is_selinux_enabled
+    from selinux import lgetfilecon
 except:
     # on rhel4 we do not support selinux
     def lgetfilecon(path):
         return [0, '']
-    def is_selinux_enabled():
-        return 0
 
 from config_common import utils
 from config_common.local_config import get as get_config
@@ -115,8 +113,6 @@ class FileProcessor:
         try:
             cur_sectx = lgetfilecon(path)[1]
         except OSError: # workarounding BZ 690238
-            cur_sectx = None
-        if not is_selinux_enabled():
             cur_sectx = None
 
         if cur_sectx == None:
