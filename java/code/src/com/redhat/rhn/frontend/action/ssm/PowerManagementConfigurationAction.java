@@ -31,6 +31,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -69,6 +70,7 @@ public class PowerManagementConfigurationAction extends RhnAction implements Lis
         DynaActionForm form = (DynaActionForm) formIn;
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         User user = context.getCurrentUser();
+        ActionErrors errors = new ActionErrors();
         int successCount = 0;
 
         if (context.isSubmitted() && context.wasDispatched(
@@ -95,7 +97,8 @@ public class PowerManagementConfigurationAction extends RhnAction implements Lis
         }
 
         Map<String, String> types = PowerManagementAction.setUpPowerTypes(request,
-            strutsDelegate);
+                strutsDelegate, errors);
+        PowerManagementAction.ensureAgentInstalled(request, strutsDelegate, errors);
         if (!types.isEmpty()) {
             types.put(
                 LocalizationService.getInstance().getPlainText(

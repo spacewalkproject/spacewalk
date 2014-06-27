@@ -4775,6 +4775,12 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.overview.provisioning.powermanagement.operations">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/PowerManagementOperations.do"&gt;power management operations&lt;/a&gt;</source>
         </trans-unit>
+      <trans-unit id="provisioning.powermanagement.ipmi_note">
+        <source>&lt;strong&gt;NOTE:&lt;/strong&gt; IPMI is the only power management type that has been tested and is supported, but others may work. To enable other power management types override the "java.power_management.types" option in rhn.conf.</source>
+      </trans-unit>
+      <trans-unit id="provisioning.powermanagement.security_warning">
+        <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
+      </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>
         </trans-unit>

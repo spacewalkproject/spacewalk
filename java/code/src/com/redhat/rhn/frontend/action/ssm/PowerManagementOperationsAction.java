@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.ssm;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.kickstart.PowerManagementAction;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.events.SsmPowerManagementEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -30,6 +31,7 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerPowerCommand.Operation;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -44,7 +46,8 @@ import javax.servlet.http.HttpServletResponse;
  * Powers on, off and reboots multiple systems.
  * @author Silvio Moioli <smoioli@suse.de>
  */
-public class PowerManagementOperationsAction extends RhnAction implements Listable {
+public class PowerManagementOperationsAction extends RhnAction implements
+        Listable<SystemOverview> {
 
     /**
      * Runs this action.
@@ -60,6 +63,7 @@ public class PowerManagementOperationsAction extends RhnAction implements Listab
         RequestContext context = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         User user = context.getCurrentUser();
+        ActionErrors errors = new ActionErrors();
 
         if (context.isSubmitted()) {
 
@@ -95,6 +99,8 @@ public class PowerManagementOperationsAction extends RhnAction implements Listab
             }
         }
 
+        PowerManagementAction.setUpPowerTypes(request, strutsDelegate, errors);
+        PowerManagementAction.ensureAgentInstalled(request, strutsDelegate, errors);
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
 

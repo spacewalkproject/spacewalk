@@ -11,6 +11,9 @@
     <html:select property="powerType" value="${powerType}" styleClass="form-control">
       <html:options collection="types" labelProperty="key" property="value" />
     </html:select>
+    <p class="small-text">
+      <bean:message key="provisioning.powermanagement.ipmi_note" />
+    </p>
   </div>
 </div>
 
@@ -87,5 +90,9 @@
     </div>
   </div>
 </c:if>
+
+<p>
+  <bean:message key="provisioning.powermanagement.security_warning" />
+</p>
 
 <hr>

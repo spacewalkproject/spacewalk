@@ -28,6 +28,7 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerPowerCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerPowerCommand.Operation;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerPowerSettingsUpdateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.log4j.Logger;
@@ -54,21 +55,12 @@ public class PowerManagementAction extends RhnAction {
 
     /** The log. */
     private static Logger log = Logger.getLogger(PowerManagementAction.class);
-
-    /** Attribute name. */
     public static final String TYPES = "types";
-
-    /** Attribute name. */
     public static final String POWER_TYPE = "powerType";
-
-    /** Attribute name. */
     public static final String POWER_ADDRESS = "powerAddress";
-
-    /** Attribute name. */
     public static final String POWER_USERNAME = "powerUsername";
-
-    /** Attribute name. */
     public static final String POWER_PASSWORD = "powerPassword";
+    public static final String POWER_NO_AGENT = "powerNoAgent";
 
     /** Attribute name. */
     public static final String POWER_ID = "powerId";
@@ -94,6 +86,7 @@ public class PowerManagementAction extends RhnAction {
         User user = context.getCurrentUser();
         Long sid = context.getRequiredParam(RequestContext.SID);
         Server server = SystemManager.lookupByIdAndUser(sid, user);
+        ActionErrors errors = new ActionErrors();
 
         if (context.isSubmitted()) {
             CobblerPowerSettingsUpdateCommand command = getPowerSettingsUpdateCommand(form,
@@ -145,13 +138,12 @@ public class PowerManagementAction extends RhnAction {
             }
 
             if (error != null) {
-                ActionErrors errors = new ActionErrors();
                 strutsDelegate.addError(errors, error.getKey(), error.getValues());
                 strutsDelegate.saveMessages(request, errors);
             }
         }
 
-        setAttributes(request, context, server, user, strutsDelegate);
+        setAttributes(request, context, server, user, strutsDelegate, errors);
 
         return strutsDelegate.forwardParams(
             mapping.findForward(RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
@@ -180,13 +172,15 @@ public class PowerManagementAction extends RhnAction {
      * @param server the server
      * @param user the user
      * @param strutsDelegate the Struts delegate
+     * @param errors ActionErrors that might have already been raised
      */
     private void setAttributes(HttpServletRequest request, RequestContext context,
-        Server server, User user, StrutsDelegate strutsDelegate) {
+            Server server, User user, StrutsDelegate strutsDelegate, ActionErrors errors) {
         request.setAttribute(RequestContext.SID, server.getId());
         request.setAttribute(RequestContext.SYSTEM, server);
 
-        SortedMap<String, String> types = setUpPowerTypes(request, strutsDelegate);
+        SortedMap<String, String> types = setUpPowerTypes(request, strutsDelegate, errors);
+        ensureAgentInstalled(request, strutsDelegate, errors);
         if (types.size() > 0) {
             SystemRecord record = getSystemRecord(user, server);
 
@@ -207,10 +201,11 @@ public class PowerManagementAction extends RhnAction {
      * Sets up and returns a list of supported Cobbler power types.
      * @param request the current request
      * @param strutsDelegate the Struts delegate
+     * @param errors ActionErrors that might have already been raised
      * @return the types
      */
     public static SortedMap<String, String> setUpPowerTypes(HttpServletRequest request,
-        StrutsDelegate strutsDelegate) {
+            StrutsDelegate strutsDelegate, ActionErrors errors) {
         SortedMap<String, String> types = new TreeMap<String, String>();
         String typeString = ConfigDefaults.get().getCobblerPowerTypes();
         if (typeString != null) {
@@ -224,7 +219,6 @@ public class PowerManagementAction extends RhnAction {
         request.setAttribute(TYPES, types);
 
         if (types.size() == 0) {
-            ActionErrors errors = new ActionErrors();
             strutsDelegate.addError(errors, "kickstart.powermanagement.jsp.no_types",
                 ConfigDefaults.POWER_MANAGEMENT_TYPES);
             strutsDelegate.saveMessages(request, errors);
@@ -241,5 +235,28 @@ public class PowerManagementAction extends RhnAction {
     private SystemRecord getSystemRecord(User user, Server server) {
         return SystemRecord.lookupById(
             CobblerXMLRPCHelper.getConnection(user), server.getCobblerId());
+    }
+
+    /**
+     * Ensure a fence agent is installed, raise an error and disable fields if not
+     * @param request the current request
+     * @param strutsDelegate the Struts delegate
+     * @param errors ActionErrors that might have already been raised
+     */
+    public static void ensureAgentInstalled(HttpServletRequest request,
+            StrutsDelegate strutsDelegate, ActionErrors errors) {
+        // written this way instead of one rpm command because if any of the rpms passed
+        // to a single rpm command are not installed the return status is 1
+        String[] rhelRpm = { "rpm", "-q", "fence-agents" };
+        String[] fedoraRpm = { "rpm", "-q", "fence-agents-all" };
+        String[] fedoraSpecificRpm = { "rpm", "-q", "fence-agents" };
+        SystemCommandExecutor ce = new SystemCommandExecutor();
+        if (ce.execute(rhelRpm) != 0 && ce.execute(fedoraRpm) != 0 &&
+                ce.execute(fedoraSpecificRpm) != 0) {
+            strutsDelegate.addError(errors, "cobbler.powermanagement.no_fence_agents");
+            strutsDelegate.saveMessages(request, errors);
+            // overwrite types with an empty list to disable pages
+            request.setAttribute(TYPES, new TreeMap<String, String>());
+        }
     }
 }
