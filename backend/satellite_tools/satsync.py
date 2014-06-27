@@ -208,8 +208,7 @@ class Runner:
 
         log(1, '   db:  %s/<password>@%s' % (CFG.DB_USER, CFG.DB_NAME))
 
-        selected = filter(lambda action, ad=actionDict: ad[action],
-                          actionDict.keys())
+        selected = [action for action in actionDict.keys() if actionDict[action]]
         log2(-1, 3, "Action list/commandline toggles: %s" % repr(selected),
             stream=sys.stderr)
 
@@ -269,7 +268,7 @@ class Runner:
         secs = elapsed - mins*60 - hours*60*60
 
         delta_list = [ [hours, _("hours")], [mins, _("minutes")], [secs, _("seconds")] ]
-        delta_str = ", ".join(map(lambda l: "%s %s" % (l[0], l[1]), delta_list))
+        delta_str = ", ".join(["%s %s" % (l[0], l[1]) for l in delta_list])
         return delta_str
 
 
@@ -962,7 +961,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         incremental to the wrong base"""
         for channel_label, pids in missing_channel_packages.items():
             if sources:
-                avail_pids = map(lambda x: x[0], self._avail_channel_source_packages[channel_label])
+                avail_pids = [x[0] for x in self._avail_channel_source_packages[channel_label]]
             else:
                 avail_pids = self._avail_channel_packages[channel_label]
 
@@ -1479,7 +1478,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if errata_timestamps is None or self.forceAllErrata:
                 # No unique key information, so assume we need all errata
                 erratum_ids = channel_obj['errata']
-                errata = map(lambda x: (x, None, None), erratum_ids)
+                errata = [(x, None, None) for x in erratum_ids]
                 log(2, _("Grabbing all errata for channel %s") % chn)
             else:
                 errata = []
@@ -1771,7 +1770,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             t.start()
             all_threads.append(t)
 
-        while (filter(lambda x: x.isAlive(), all_threads)
+        while ([x for x in all_threads if x.isAlive()]
                and pkg_current < pkgs_total):
             try:
                 (rpmManip, package, is_done) = out_queue.get(False, 0.1)
@@ -2063,7 +2062,7 @@ def _getImportedChannels():
         else:
             h = rhnSQL.prepare("""select label from rhnChannel where org_id is null""")
         h.execute()
-        return map(lambda x: x['label'], h.fetchall_dict() or [])
+        return [x['label'] for x in h.fetchall_dict() or []]
     except (SQLError, SQLSchemaError, SQLConnectError), e:
         # An SQL error is fatal... crash and burn
         exitWithTraceback(e, 'SQL ERROR during xml processing', 17)
@@ -2236,7 +2235,7 @@ def processCommandline():
 
     if OPTIONS.orgid:
         # verify if its a valid org
-        orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
+        orgs = [a['id'] for a in satCerts.get_all_orgs()]
         if int(OPTIONS.orgid) not in orgs:
             msg = _("ERROR: Unable to lookup Org Id %s") % OPTIONS.orgid
             log2stderr(-1, msg, cleanYN=1)

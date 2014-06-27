@@ -271,11 +271,11 @@ class _ChannelDumper(BaseRowDumper):
     def set_attributes(self):
         channel_id = self._row['id']
 
-        packages = map(lambda x: "rhn-package-%s" % x, self._get_package_ids())
+        packages = ["rhn-package-%s" % x for x in self._get_package_ids()]
         # XXX channel-errata is deprecated and should go away in dump version
         # 3 or higher - we now dump that information in its own subelement
         # rhn-channel-errata
-        errata = map(lambda x: "rhn-erratum-%s" % x, self._get_errata_ids())
+        errata = ["rhn-erratum-%s" % x for x in self._get_errata_ids()]
         ks_trees = self._get_kickstartable_trees()
 
         return {
@@ -457,7 +457,7 @@ class _ChannelDumper(BaseRowDumper):
             query = query_no_limits
         h = rhnSQL.prepare(query)
         h.execute(**query_args)
-        return map(lambda x: x['id'], h.fetchall_dict() or [])
+        return [x['id'] for x in h.fetchall_dict() or []]
 
     _query_get_source_package_ids = rhnSQL.Statement("""
         select distinct ps.id, sr.name source_rpm,
@@ -742,7 +742,7 @@ class _ChannelFamilyDumper(BaseRowDumper):
         h = rhnSQL.prepare(self._query_get_channel_family_channels)
         channel_family_id = self._row['id']
         h.execute(channel_family_id=channel_family_id)
-        channels = map(lambda x: x['label'], h.fetchall_dict() or [])
+        channels = [x['label'] for x in h.fetchall_dict() or []]
 
         if not self._virt_filter:
             h_virt = rhnSQL.prepare(self._query_cf_virt_sublevel)
@@ -751,10 +751,10 @@ class _ChannelFamilyDumper(BaseRowDumper):
             cf_virt_data = h_virt.fetchall_dict() or []
             log_debug(3, cf_virt_data, channel_family_id)
 
-            vsl_label = map(lambda x: x['label'], cf_virt_data)
+            vsl_label = [x['label'] for x in cf_virt_data]
             cf_vsl_label = ' '.join(vsl_label)
 
-            vsl_name = map(lambda x: x['name'], cf_virt_data)
+            vsl_name = [x['name'] for x in cf_virt_data]
             cf_vsl_name = ','.join(vsl_name)
 
         attributes = {
@@ -1014,7 +1014,7 @@ class _ErratumDumper(BaseRowDumper):
             and ec.errata_id = :errata_id
         """)
         h.execute(errata_id=self._row['id'])
-        channels = map(lambda x: x['label'], h.fetchall_dict() or [])
+        channels = [x['label'] for x in h.fetchall_dict() or []]
 
         h = rhnSQL.prepare("""
             select ep.package_id
@@ -1022,8 +1022,8 @@ class _ErratumDumper(BaseRowDumper):
             where ep.errata_id = :errata_id
         """)
         h.execute(errata_id=self._row['id'])
-        packages = map(lambda x: "rhn-package-%s" % x['package_id'],
-            h.fetchall_dict() or [])
+        packages = ["rhn-package-%s" % x['package_id'] for x in
+            h.fetchall_dict() or []]
 
         h = rhnSQL.prepare("""
             select c.name cve
@@ -1032,7 +1032,7 @@ class _ErratumDumper(BaseRowDumper):
             and ec.cve_id = c.id
         """)
         h.execute(errata_id=self._row['id'])
-        cves = map(lambda x: x['cve'], h.fetchall_dict() or [])
+        cves = [x['cve'] for x in h.fetchall_dict() or []]
 
         return {
             'id'        : 'rhn-erratum-%s' % self._row['id'],
@@ -1155,7 +1155,7 @@ class _ErratumFileEntryDumper(BaseChecksumRowDumper):
         """)
         h.execute(errata_file_id=self._row['errata_file_id'])
         channels = ' '.join(
-            map(lambda x: x['label'], h.fetchall_dict() or []))
+            [x['label'] for x in h.fetchall_dict() or []])
         if channels:
             attributes['channels'] = channels
 

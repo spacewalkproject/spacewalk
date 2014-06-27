@@ -247,6 +247,6 @@ class RpmManip(FileManip):
         self.pdict = pdict
 
     def nvrea(self):
-        return tuple(map(lambda x, s=self: s.pdict[x],
-            ['name', 'version', 'release', 'epoch', 'arch']))
+        return tuple([self.pdict[x] for x in
+            ['name', 'version', 'release', 'epoch', 'arch']])
 

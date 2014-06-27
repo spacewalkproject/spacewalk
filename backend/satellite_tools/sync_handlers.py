@@ -123,7 +123,7 @@ class ChannelCollection:
 
     def get_channel_labels(self):
         """Return the channel labels from this collection"""
-        return map(lambda x: x[0], self._channels)
+        return [x[0] for x in self._channels]
 
     def get_channels(self):
         """Return a list of (channel label, channel timestamp) from this

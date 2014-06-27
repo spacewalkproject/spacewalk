@@ -198,7 +198,7 @@ class XML_Dumper:
     def dump_channel_families(self):
         log_debug(2)
 
-        cids = ','.join(map(lambda x:str(x['channel_id']), self.channel_ids + self.channel_ids_for_families))
+        cids = ','.join([str(x['channel_id']) for x in self.channel_ids + self.channel_ids_for_families])
 
         h = self.get_channel_families_statement_new(cids)
         h.execute()

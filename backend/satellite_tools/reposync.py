@@ -397,7 +397,7 @@ class RepoSync(object):
             e['bugs'] = []
             e['cve'] = []
             if notice['references']:
-                bzs = filter(lambda r: r['type'] == 'bugzilla', notice['references'])
+                bzs = [r for r in notice['references'] if r['type'] == 'bugzilla']
                 if len(bzs):
                     tmp = {}
                     for bz in bzs:
@@ -406,7 +406,8 @@ class RepoSync(object):
                             bug.populate({'bug_id' : bz['id'], 'summary' : bz['title'], 'href' : bz['href']})
                             e['bugs'].append(bug)
                             tmp[bz['id']] = None
-                cves = filter(lambda r: r['type'] == 'cve', notice['references'])
+                cves = [r for r in notice['references'] if r['type'] == 'cve']
+
                 if len(cves):
                     tmp = {}
                     for cve in cves:
