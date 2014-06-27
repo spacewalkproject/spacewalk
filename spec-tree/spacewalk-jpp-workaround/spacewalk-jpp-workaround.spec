@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.2.2
+Version:	2.2.3
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jun 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.3-1
+- provide missing link on Fedora 19
+
 * Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.2-1
 - megred spacewalk-oro-compat into spacewalk-jpp-workaround
 - force use of apache-commons-digester on Fedora/RHEL7+
