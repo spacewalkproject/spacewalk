@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.2.7
+Version:	2.2.8
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -67,6 +67,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jun 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.8-1
+- silenced Abstract class is only referenced 1 times
+- fixed Invalid name
+
 * Thu Jun 26 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.7-1
 - fix condition for Fedora
 
