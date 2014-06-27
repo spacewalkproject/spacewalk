@@ -45,6 +45,7 @@ YUMSRC_CONF = '/etc/rhn/spacewalk-repo-sync/yum.conf'
 class YumWarnings:
     def __init__(self):
         self.saved_stdout = None
+        self.errors = None
     def write(self, s):
         pass
     def disable(self):
