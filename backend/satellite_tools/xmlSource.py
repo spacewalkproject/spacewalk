@@ -60,13 +60,13 @@ class IncompatibleVersionError(ParseException):
 # Exposed functionality for the next three include:
 #    getColumnNumber(), getLineNumber(), and _msg (or just str(e))
 
-class RecoverableParseException(SAXParseException):
+class RecoverableParseException(SAXParseException, Exception):
     """exception wrapper for a critical, but possibly recoverable, XML parser
        error.
     """
     pass
 
-class FatalParseException(SAXParseException):
+class FatalParseException(SAXParseException, Exception):
     """exception wrapper for a critical XML parser error.
     """
     pass
