@@ -145,7 +145,7 @@ def validateSatCert(certFilename, verbosity=0):
 def writeRhnCert(options, cert):
     if os.path.exists(DEFAULT_RHN_CERT_LOCATION):
         fileutils.rotateFile(DEFAULT_RHN_CERT_LOCATION, depth=5)
-    fo = open(DEFAULT_RHN_CERT_LOCATION, 'wb+')
+    fo = open(DEFAULT_RHN_CERT_LOCATION, 'w+b')
     fo.write(cert)
     fo.close()
     options.rhn_cert = DEFAULT_RHN_CERT_LOCATION
