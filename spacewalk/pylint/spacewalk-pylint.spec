@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.2.8
+Version:	2.2.9
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -67,6 +67,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jun 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.9-1
+- fixed  Invalid class attribute name
+- fixed Else clause on loop without a break statement
+
 * Fri Jun 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.8-1
 - silenced Abstract class is only referenced 1 times
 - fixed Invalid name
