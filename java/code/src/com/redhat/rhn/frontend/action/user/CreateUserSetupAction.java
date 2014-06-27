@@ -55,6 +55,11 @@ public class CreateUserSetupAction extends BaseUserSetupAction {
                                   UserActionHelper.getPrefixes());
         request.setAttribute("countries",
                                   UserActionHelper.getCountries());
+        if (UserManager.satelliteHasUsers()) {
+            request.setAttribute("firstUserMode", Boolean.FALSE);
+        } else {
+            request.setAttribute("firstUserMode", Boolean.TRUE);
+        }
 
         if (!RhnValidationHelper.getFailedValidation(request)) {
             form.set("country", "US");
