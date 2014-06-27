@@ -456,9 +456,6 @@ rm -rf $RPM_BUILD_ROOT
 # on Fedora 19 some jars are named differently
 %if 0%{?fedora}
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
-%if 0%{?fedora} < 20
-ln -s -f %{_javadir}/apache-commons-validator.jar $RPM_BUILD_ROOT%{_javadir}/commons-validator.jar
-%endif
 ln -s -f %{_javadir}/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
 ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/jboss-logging.jar
 %endif
@@ -644,7 +641,7 @@ fi
 %{jardir}/commons-io.jar
 %{jardir}/commons-lang.jar
 %{jardir}/commons-logging.jar
-%{jardir}/commons-validator.jar
+%{jardir}/*commons-validator.jar
 %{jardir}/concurrent.jar
 %{jardir}/dom4j.jar
 %{jardir}/dwr.jar
@@ -658,9 +655,6 @@ fi
 %{jardir}/slf4j_log4j12.jar
 %endif
 %if 0%{?fedora}
-%if 0%{?fedora} < 20
-%{_javadir}/commons-validator.jar
-%endif
 %{_javadir}/mchange-commons.jar
 %{_javadir}/jboss-logging.jar
 %{jardir}/*jboss-logging.jar
