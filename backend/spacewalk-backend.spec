@@ -7,6 +7,10 @@
 %endif
 %global pythonrhnroot %{python_sitelib}/spacewalk
 
+%if 0%{?fedora} || 0%{?rhel} > 5
+%{!?pylint_check: %global pylint_check 1}
+%endif
+
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
@@ -27,12 +31,15 @@ Requires: %{name}-libs >= 1.1.16-1
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?pylint_check}
 BuildRequires: spacewalk-pylint
 BuildRequires: rhnlib >= 2.5.57
+BuildRequires: rhn-client-tools
 BuildRequires: rpm-python
 BuildRequires: python-crypto
 BuildRequires: python-debian
+BuildRequires: python-gzipstream
+BuildRequires: yum
 %endif
 Requires(pre): httpd
 Requires: httpd
@@ -290,7 +297,7 @@ rm -rf $RPM_BUILD_ROOT
 %check
 make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} test || :
 
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?pylint_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/lib/rhn:/usr/share/rhn
 spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
