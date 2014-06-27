@@ -57,6 +57,10 @@ This package fulfills jpackage missing msv-msv dependency.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+%if 0%{?fedora} == 19
+mkdir -p $RPM_BUILD_ROOT/usr/share/java
+ln -s apache-commons-validator.jar $RPM_BUILD_ROOT/usr/share/java/commons-validator.jar
+%endif
 
 
 %clean
@@ -64,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
+%if 0%{?fedora} == 19
+/usr/share/java/commons-validator.jar
+%endif
 
 
 %changelog
