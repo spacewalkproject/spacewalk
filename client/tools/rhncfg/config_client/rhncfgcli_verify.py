@@ -21,14 +21,11 @@ import os
 import stat
 import pwd, grp
 try:
-    from selinux import lgetfilecon, is_selinux_enabled
+    from selinux import lgetfilecon
 except:
     # on rhel4 we do not support selinux
     def lgetfilecon(path):
         return [0, '']
-    def is_selinux_enabled():
-        return 0
-
 
 class Handler(handler_base.HandlerBase):
     _usage_options = handler_base.HandlerBase._usage_options + " [ files ... ]"
@@ -253,8 +250,6 @@ class Handler(handler_base.HandlerBase):
                     try:
                         dst_selinux = lgetfilecon(dst)[1]
                     except OSError:
-                        dst_selinux = ""
-                    if not is_selinux_enabled():
                         dst_selinux = ""
                     if dst_selinux == None:
                         dst_selinux = ""
