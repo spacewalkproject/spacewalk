@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.28
+Version:        2.2.29
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jun 27 2014 Stephen Herr <sherr@redhat.com> 2.2.29-1
+- Fix rhnKickstartableTree trigger, 'null = null' is not true in sql
+
 * Thu Jun 26 2014 Stephen Herr <sherr@redhat.com> 2.2.28-1
 - Moving schema upgrade to appropriate dir
 - rhnSsmOperationServer: note column added
