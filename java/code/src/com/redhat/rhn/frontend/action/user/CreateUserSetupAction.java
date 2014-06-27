@@ -57,7 +57,8 @@ public class CreateUserSetupAction extends BaseUserSetupAction {
                                   UserActionHelper.getCountries());
         if (UserManager.satelliteHasUsers()) {
             request.setAttribute("firstUserMode", Boolean.FALSE);
-        } else {
+        }
+        else {
             request.setAttribute("firstUserMode", Boolean.TRUE);
         }
 
