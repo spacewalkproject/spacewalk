@@ -103,6 +103,8 @@ public class ConfigDefaults {
 
     public static final String ACTIONS_DISPLAY_LIMIT = "web.actions_display_limit";
 
+    public static final String CONFIG_FILE_EDIT_SIZE = "java.config_file_edit_size";
+
     /**
      * The default maximum size for config revisions,  (128 K)
      */
@@ -634,5 +636,13 @@ public class ConfigDefaults {
      */
     public int getActionsDisplayLimit() {
         return Config.get().getInt(ACTIONS_DISPLAY_LIMIT, 10000);
+    }
+
+    /**
+     * Returns config file editable size (in KB)
+     * @return config file editable size (in KB)
+     */
+    public int getConfigFileEditSize() {
+        return Config.get().getInt(CONFIG_FILE_EDIT_SIZE, 32);
     }
 }
