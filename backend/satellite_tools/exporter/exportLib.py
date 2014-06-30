@@ -128,7 +128,7 @@ class SimpleDumper(BaseDumper):
         if self._value is None:
             self._writer.empty_tag('rhn-null')
         else:
-            self._writer.data(self._value, self._max_value_bytes)
+            self._writer.data(self._value)
         self._writer.close_tag(self.tag_name)
 
 
