@@ -250,7 +250,6 @@ if __name__ == '__main__':
 							else:
 								# check another multival
 								continue
-							break
 
 				if outrow == None:
 					outrow = []
