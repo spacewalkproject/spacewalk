@@ -159,11 +159,13 @@ class ChannelCollection:
         self._shared_state.clear()
         self.__init__()
 
+# pylint: disable=W0232
 class SyncHandlerContainer:
     collection = object
 
-    def __init__(self):
-        pass
+    # this class has no __init__ for the purpose
+    # it's used in multiple inheritance mode and inherited classes should
+    # use __init__ from the other base class
 
     def endItemCallback(self):
         # reference to xmlSource superclass we redefines

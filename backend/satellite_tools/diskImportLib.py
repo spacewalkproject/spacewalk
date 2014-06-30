@@ -56,12 +56,15 @@ def rpmsPath(obj_id, mountPoint, sources=0):
     return os.path.normpath(template % (mountPoint, hash_object_id(obj_id, 2), obj_id))
 
 
+# pylint: disable=W0232
 class diskImportLibContainer:
     """virtual class - redefines endContainerCallback"""
-    # pylint: disable=E1101
+    # pylint: disable=E1101,E0203,W0201
+    # this class has no __init__ for the purpose
+    # it's used in multiple inheritance mode and inherited classes should
+    # use __init__ from the other base class
+
     importer_class = object
-    def __init__(self):
-        self.batch = None
 
     def endContainerCallback(self):
         importer = self.importer_class(self.batch, get_backend())
