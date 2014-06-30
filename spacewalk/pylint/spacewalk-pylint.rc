@@ -12,7 +12,7 @@ persistent=no
 [MESSAGES CONTROL]
 
 # Disable the message(s) with the given id(s).
-disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,R0921,R0922,W0142,W0403,W0603,C1001,W0121,bad-whitespace,unpacking-non-sequence,superfluous-parens,useless-else-on-loop
+disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,R0921,R0922,W0142,W0403,W0603,C1001,W0121,useless-else-on-loop,bad-whitespace,unpacking-non-sequence,superfluous-parens
 
 # list of disabled messages:
 #I0011: 62: Locally disabling R0201
@@ -30,12 +30,12 @@ disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,R0921,R0922,
 # for pylint-1.0 we also disable
 #C1001: 46, 0: Old-style class defined. (old-style-class)
 #W0121: 33,16: Use raise ErrorClass(args) instead of raise ErrorClass, args. (old-raise-syntax)
+#W:243, 8: Else clause on loop without a break statement (useless-else-on-loop)
 # pylint-1.1 checks
 #C:334, 0: No space allowed after bracket (bad-whitespace)
 #W:162, 8: Attempting to unpack a non-sequence defined at line 6 of (unpacking-non-sequence)
 #C: 37, 0: Unnecessary parens after 'not' keyword (superfluous-parens)
 #C:301, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
-#W:243, 8: Else clause on loop without a break statement (useless-else-on-loop)
 
 [REPORTS]
 
