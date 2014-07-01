@@ -62,7 +62,7 @@ public class CobblerDistroCommand extends CobblerCommand {
      * Copy cobbler fields that shouldn't change in cobbler
      */
     protected void updateCobblerFields() {
-        CobblerConnection con = CobblerXMLRPCHelper.getConnection(user.getLogin());
+        CobblerConnection con = getCobblerConnection();
         Distro nonXen = Distro.lookupById(con, tree.getCobblerId());
         Distro xen = Distro.lookupById(con, tree.getCobblerXenId());
 
