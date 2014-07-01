@@ -23,6 +23,7 @@ from spacewalk.server.importlib import channelImport, packageImport, errataImpor
     kickstartImport, importLib
 import diskImportLib
 import xmlSource
+import string # pylint: disable=W0402
 import syncCache
 import syncLib
 
@@ -420,7 +421,8 @@ def _to_timestamp(t):
     # last_modified is YYYY-MM-DD HH24:MI:SS
     # The cache expects YYYYMMDDHH24MISS as format; so just drop the
     # spaces, dashes and columns
-    last_modified = t.translate(None, ' -:')
+    # python 2.4 can't handle t.translate(None, ' -:')
+    last_modified = t.translate(string.maketrans("", ""), ' -:')
     return last_modified
 
 # Generic container handler
