@@ -1,0 +1,92 @@
+
+synopsis:
+
+	System profile report
+
+description:
+
+	List of systems registered to the server, together with
+	software and system group information.
+
+columns:
+
+	server_id:i	                System identifier
+	profile_name	            Profile name, as stored on server
+	hostname	                Hostname, as reported by the system
+    description                 System description
+	organization_id:i	        Organization id
+	organization_name	        Organization name
+	base_channel_id:i 	        Base channel id to which the system is registered
+	base_channel_label 	        Base channel to which the system is registered
+	child_channel_id:i 	        List of child channel ids to which the system is registered
+	child_channel_label	        List of child channels to which the system is registered
+	system_group_id:i	        List of system group ids to which the system belongs
+	system_group		        List of system group to which the system belongs
+    release                     Release of the system
+	architecture		        Architecture of the system
+	virtual_host:i              System identifier of virtual host (own system identifier in case of host)
+	virtual_guest:i		        System identifier of virtual guests, if system is a host
+	is_virtualized	            Information whether system is virtualized or not
+	virt_type                   System virtualization type
+
+multival_columns:
+
+	server_id
+	child_channel_id : child_channel_id
+	child_channel_label : child_channel_label
+	system_group_id : system_group_id
+	system_group : system_group
+	virtual_guest : virtual_guest
+
+sql:
+
+	select server_id, profile_name, hostname, description,
+        organization_id, organization_name,
+        base_channel_id, base_channel_label,
+        child_channel_id, child_channel_label,
+        system_group_id, system_group,
+        release, architecture,
+        virtual_host, virtual_guest, is_virtualized, virt_type
+	from (
+	select rhnServer.id as server_id, rhnServer.name as profile_name,
+		rhnServerNetwork.hostname,
+        rhnServer.description,
+        CASE WHEN rhnChannel.parent_channel IS NULL THEN rhnChannel.id ELSE NULL END AS base_channel_id,
+        CASE WHEN rhnChannel.parent_channel IS NULL THEN NULL ELSE rhnChannel.id END AS child_channel_id,
+        CASE WHEN rhnChannel.parent_channel IS NULL THEN rhnChannel.label ELSE NULL END AS base_channel_label,
+        CASE WHEN rhnChannel.parent_channel IS NULL THEN NULL ELSE rhnChannel.label END AS child_channel_label,
+		group_data.server_group_id as system_group_id,
+		group_data.name as system_group,
+        rhnServer.org_id as organization_id,
+		(select name from web_customer where rhnServer.org_id = web_customer.id) as organization_name,
+        rhnServer.release,
+		(select rhnServerArch.name from rhnServerArch where rhnServer.server_arch_id = rhnServerArch.id) as architecture,
+		(select host_system_id from rhnVirtualInstance where uuid is not null and host_system_id = rhnServer.id or virtual_system_id = rhnServer.id) as virtual_host,
+		(select virtual_system_id from rhnVirtualInstance where uuid is not null and host_system_id = rhnServer.id) as virtual_guest,
+		(case when (select rhnVirtualInstance.virtual_system_id from rhnVirtualInstance where rhnVirtualInstance.virtual_system_id=rhnServer.id) is null then 'No' else 'Yes' end
+) as is_virtualized,
+		(select rvit.name from rhnVirtualInstance rvi inner join rhnVirtualInstanceInfo rvii on rvi.id = rvii.instance_id inner join rhnVirtualInstanceType rvit on rvii.instance_type = rvit.id where rvi.virtual_system_id = rhnServer.id) as virt_type
+	from rhnServer left outer join
+		(
+		select server_id, hostname, ipaddr, ip6addr
+		from rhnServerNetwork
+		where id in (
+			select min(id)
+			from rhnServerNetwork
+			group by server_id
+			)
+		) rhnServerNetwork on rhnServer.id = rhnServerNetwork.server_id
+		left outer join rhnServerChannel on rhnServer.id = rhnServerChannel.server_id
+		left outer join rhnChannel on rhnServerChannel.channel_id = rhnChannel.id
+		left outer join
+		(
+		select rhnServerGroupMembers.server_id, rhnServerGroupMembers.server_group_id, rhnServerGroup.name
+		from rhnServerGroupMembers left outer join rhnServerGroup
+			on rhnServerGroupMembers.server_group_id = rhnServerGroup.id
+		where rhnServerGroup.group_type is null
+		) group_data on rhnServer.id = group_data.server_id
+	) X
+	-- where placeholder
+	order by organization_id, server_id, base_channel_id,
+		system_group_id,
+		virtual_host
