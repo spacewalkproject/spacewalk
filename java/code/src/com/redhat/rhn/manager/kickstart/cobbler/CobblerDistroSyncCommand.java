@@ -177,7 +177,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                 if (Math.abs(cobDistro.getModified().getTime() -
                         tree.getLastModified().getTime()) > 1000) {
                     syncSpacewalkToDistro(tree);
-                    // we've synced; set tree.last_modified to indicate that everything is good
+                    // we've synced; set tree.last_modified to indicate we're in-sync
                     cobDistro.reload();
                     tree.setLastModified(cobDistro.getModified());
                 }
