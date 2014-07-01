@@ -641,7 +641,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="other.evr">
-        <source>base channel</source>
+        <source>profile</source>
         <context-group name="ctx">
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
