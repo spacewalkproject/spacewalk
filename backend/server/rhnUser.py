@@ -439,7 +439,7 @@ def __new_user_db(username, password, email, org_id, org_password):
     if not data:
         # the username is not there, check the reserved user table
         h = rhnSQL.prepare("""
-        select login, password, password from rhnUserReserved
+        select login, password from rhnUserReserved
         where login_uc = upper(:username)
         """)
         h.execute(username=username)
