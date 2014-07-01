@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.29
+Version:        2.2.30
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jul 01 2014 Stephen Herr <sherr@redhat.com> 2.2.30-1
+- 1109276 - Fix Distro syncing in CobblerSyncTask, force one sync to fix arch
+
 * Fri Jun 27 2014 Stephen Herr <sherr@redhat.com> 2.2.29-1
 - Fix rhnKickstartableTree trigger, 'null = null' is not true in sql
 
