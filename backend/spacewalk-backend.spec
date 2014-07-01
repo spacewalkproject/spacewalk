@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.40
+Version: 2.2.41
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Tue Jul 01 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.41-1
+- moved ContentPackage to repo_plugins to avoid relative imports
+- selecting password once shall be enough
+
 * Mon Jun 30 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.40-1
 - max_bytes is unused
 - fixed ProductNamesContainer instance has no attribute 'tagStack'
