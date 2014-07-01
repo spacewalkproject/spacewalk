@@ -36,7 +36,7 @@ except ImportError:
         # pylint: disable=F0401
         import cElementTree
     iterparse = cElementTree.iterparse
-from ..reposync import ContentPackage
+from spacewalk.satellite_tools.repo_plugins import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
 
 CACHE_DIR   = '/var/cache/rhn/reposync/'

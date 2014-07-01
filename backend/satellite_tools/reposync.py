@@ -20,12 +20,11 @@ import sys
 import time
 from datetime import datetime
 
-from spacewalk.server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
-from spacewalk.common import fileutils, rhnLog, rhn_pkg
+from spacewalk.server import rhnPackage, rhnSQL, rhnChannel
+from spacewalk.common import fileutils, rhnLog
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
-from spacewalk.common.rhnException import rhnFault
 from spacewalk.server.importlib.importLib import IncompletePackage, Erratum, Bug, Keyword
 from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 from spacewalk.server.importlib.backendOracle import SQLBackend
@@ -726,60 +725,3 @@ class RepoSync(object):
                                  st_size = st.st_size, st_time = st.st_mtime)
 
         rhnSQL.commit()
-
-class ContentPackage:
-
-    def __init__(self):
-        # map of checksums
-        self.checksum_type = None
-        self.checksum = None
-
-        #unique ID that can be used by plugin
-        self.unique_id = None
-
-        self.name = None
-        self.version = None
-        self.release = None
-        self.epoch = None
-        self.arch = None
-
-        self.path = None
-        self.file = None
-
-        self.a_pkg = None
-
-    def setNVREA(self, name, version, release, epoch, arch):
-        self.name = name
-        self.version = version
-        self.release = release
-        self.arch = arch
-        self.epoch = epoch
-
-    def getNVREA(self):
-        if self.epoch:
-            return self.name + '-' + self.version + '-' + self.release + '-' + self.epoch + '.' + self.arch
-        else:
-            return self.name + '-' + self.version + '-' + self.release + '.' + self.arch
-
-    def getNEVRA(self):
-        if self.epoch is None:
-            self.epoch = '0'
-        return self.name + '-' + self.epoch + ':' + self.version + '-' + self.release + '.' + self.arch
-
-    def load_checksum_from_header(self):
-        if self.path is None:
-            raise rhnFault(50, "Unable to load package", explain=0)
-        self.file = open(self.path, 'rb')
-        self.a_pkg = rhn_pkg.package_from_stream(self.file, packaging='rpm')
-        self.a_pkg.read_header()
-        self.a_pkg.payload_checksum()
-        self.file.close()
-
-    def upload_package(self, channel):
-        rel_package_path = rhnPackageUpload.relative_path_from_header(
-                self.a_pkg.header, channel['org_id'],
-                self.a_pkg.checksum_type, self.a_pkg.checksum)
-        _unused = rhnPackageUpload.push_package(self.a_pkg,
-                force=False,
-                relative_path=rel_package_path,
-                org_id=channel['org_id'])
