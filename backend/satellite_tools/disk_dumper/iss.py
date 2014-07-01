@@ -1343,11 +1343,11 @@ class ExporterMain:
                 # Generate md5sum digest file for isos
                 if os.path.exists(iso_output):
                     f = open(os.path.join(iso_output, 'MD5SUM'), 'w')
-                    for f in os.listdir(iso_output):
+                    for iso_file in os.listdir(iso_output):
                         if self.options.make_isos != "dvds":
-                            if f != "MD5SUM":
-                                md5_val = getFileChecksum('md5', (os.path.join(iso_output, f)))
-                                md5str = "%s  %s\n" % (md5_val, f)
+                            if iso_file != "MD5SUM":
+                                md5_val = getFileChecksum('md5', (os.path.join(iso_output, iso_file)))
+                                md5str = "%s  %s\n" % (md5_val, iso_file)
                                 f.write(md5str)
                     f.close()
 
