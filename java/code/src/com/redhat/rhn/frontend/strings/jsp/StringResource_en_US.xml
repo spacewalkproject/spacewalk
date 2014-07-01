@@ -12298,6 +12298,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.history.snapshot.tagCreateSuccess">
           <source>Tag added to system</source>
         </trans-unit>
+        <trans-unit id="system.history.snapshot.tagNameEmpty">
+          <source>Tag name may not be left empty, please choose a name for the new tag.</source>
+        </trans-unit>
         <trans-unit id="system.history.snapshot.tagCreateFailure">
           <source>That tag already exists for this system. Please choose another tag name.</source>
         </trans-unit>
