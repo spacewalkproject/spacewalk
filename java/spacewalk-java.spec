@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.113
+Version: 2.2.114
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 01 2014 Stephen Herr <sherr@redhat.com> 2.2.114-1
+- 1109276 - Fix Distro syncing in CobblerSyncTask, force one sync to fix arch
+- don't show packages tab if activation key hasn't provisioning entitlement
+- fix column header for package profile difference
+- add csv export for package profile comparison
+- handle NestedNullException while creating csv
+- allow users to set size of config files to be editable in webUI
+
 * Mon Jun 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.113-1
 - add missing string resource
 - don't use obsolete hibernate namespace
