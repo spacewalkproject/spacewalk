@@ -145,7 +145,7 @@ public class SoftwareHandler extends BaseHandler {
      * @throws FaultException
      * @xmlrpc.doc Append the list of software packages to a kickstart profile.
      * Duplicate packages will be ignored.
-     * @xmlrpc.param #So_key()
+     * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
      * profile.")
      * @xmlrpc.param #param_desc("string[]", "packageList", "A list of package
