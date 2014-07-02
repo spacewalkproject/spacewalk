@@ -15,7 +15,9 @@
 package com.redhat.rhn.domain.token.test;
 
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
+import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.token.TokenPackage;
 import com.redhat.rhn.domain.token.TokenPackageFactory;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
@@ -108,16 +110,21 @@ public class TokenPackageFactoryTest extends BaseTestCaseWithUser {
 
         boolean foundPkg1 = false, foundPkg2 = false;
         for (TokenPackage pkg : pkgs) {
-           if (pkg.getPackageName().equals(pkg1.getPackageName()) &&
-               pkg.getPackageArch().equals(pkg1.getPackageArch()) &&
-               pkg.getToken().equals(pkg1.getToken())) {
-               foundPkg1 = true;
-           }
-           else if (pkg.getPackageName().equals(pkg2.getPackageName()) &&
-                   pkg.getPackageArch().equals(pkg2.getPackageArch()) &&
-                   pkg.getToken().equals(pkg2.getToken())) {
-                   foundPkg2 = true;
-           }
+            PackageName packageName = pkg.getPackageName();
+            PackageArch packageArch = pkg.getPackageArch();
+            Token token = pkg.getToken();
+            if (packageName != null && packageArch != null && token != null) {
+                if (packageName.equals(pkg1.getPackageName()) &&
+                        packageArch.equals(pkg1.getPackageArch()) &&
+                        token.equals(pkg1.getToken())) {
+                    foundPkg1 = true;
+                }
+                else if (packageName.equals(pkg2.getPackageName()) &&
+                        packageArch.equals(pkg2.getPackageArch()) &&
+                        token.equals(pkg2.getToken())) {
+                    foundPkg2 = true;
+                }
+            }
         }
         assertTrue(foundPkg1);
         assertTrue(foundPkg2);
