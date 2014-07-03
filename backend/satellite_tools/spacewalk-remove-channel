@@ -23,6 +23,11 @@ import os
 import shutil
 from optparse import Option, OptionParser
 
+# quick check to see if you are a super-user.
+if os.getuid() != 0:
+    sys.stderr.write('ERROR: must be root to execute\n')
+    sys.exit(8)
+
 try:
     from rhn import rhnLockfile    #new place for rhnLockfile
 except:
@@ -63,12 +68,8 @@ LOCK = []
 LOCK_DIR = '/var/run'
 
 def main():
+
     global LOCK
-
-    if os.getuid() != 0:
-        sys.stderr.write('ERROR: must be root to execute\n')
-        sys.exit(8)
-
     global options_table
     parser = OptionParser(option_list=options_table)
 
