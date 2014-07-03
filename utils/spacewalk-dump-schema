@@ -658,7 +658,12 @@ sub process_table {
 						$row->[$i] = $names->[$i] . '_t' . $row->[$i];
 					}
 				} elsif ($types[$i] eq 'unknown' or $types[$i] eq 'BLOB' or $types[$i] eq 'bytea') {	# blobs
-					$row->[$i] =~ s!(.)! sprintf "\\\\%03o", ord($1) !seg;
+					if ($target_backend eq 'postgresql') {
+						$row->[$i] =~ s!(.)! sprintf "\\\\%03o", ord($1) !seg;
+					} else {
+						$row->[$i] =~ s!(.)! sprintf "%x", ord($1) !seg;
+						$row->[$i] = "to_blob('" . $row->[$i] . "')";
+					}
 				# convert timestamp to Oracle statement
 				} elsif ($types[$i] =~ /^timestamp/i and $target_backend eq 'oracle') {
 					$row->[$i] = "to_timestamp_tz('" . $row->[$i] . "')";
