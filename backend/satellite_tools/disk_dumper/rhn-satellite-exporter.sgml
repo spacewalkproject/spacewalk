@@ -85,6 +85,16 @@ A tool that exports satellite content into a directory in an XML format. That co
         <arg>--traceback-mail</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--all-orgs</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-o<replaceable>ORG</replaceable></arg>
+        <arg>--org=<replaceable>ORG</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--list-orgs</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--help</arg>
     </cmdsynopsis>
 </Synopsis>
@@ -263,6 +273,24 @@ A tool that exports satellite content into a directory in an XML format. That co
         <term>--traceback-mail</term>
         <listitem>
             <para>Alternative email address for --email.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--all-orgs</term>
+        <listitem>
+            <para>Export all orgs.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-o<replaceable>ORG</replaceable>, --org=<replaceable>ORG</replaceable></term>
+        <listitem>
+            <para>Include the org with this id in the export.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--list-orgs</term>
+        <listitem>
+            <para>List all orgs that can be exported.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
