@@ -44,9 +44,9 @@ class UI:
 	        help="The end date limit that the last modified dates are compared against. "
                    + "Should be in the format 'YYYYMMDDHH24MISS'."),
 	    option(         "--use-rhn-date",            action="store_true",
-	        help="Limit exported packages according to the date when they appeared at %s." % PRODUCT_NAME),
+	        help="Limit exported packages according to the date when they appeared at Red Hat Network."),
 	    option(         "--use-sync-date",            action="store_true",
-	        help="Limit exported packages according to the date they where pulled into satellite."),
+	        help="Limit exported packages according to the date they where pulled into %s." % PRODUCT_NAME),
         option(         "--whole-errata",            action="store_true",
             help="Always include package if it belongs to errata which is withing start/end-date range."),
 	    option(         "--make-isos",               action="store",
