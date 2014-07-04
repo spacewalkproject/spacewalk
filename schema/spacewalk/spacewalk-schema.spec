@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.30
+Version:        2.2.31
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jul 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.31-1
+- 1103813 - armhf support for "arm Debian" channel
+
 * Tue Jul 01 2014 Stephen Herr <sherr@redhat.com> 2.2.30-1
 - 1109276 - Fix Distro syncing in CobblerSyncTask, force one sync to fix arch
 
