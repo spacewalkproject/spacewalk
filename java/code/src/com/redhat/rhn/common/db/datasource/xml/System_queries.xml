@@ -168,13 +168,13 @@ SELECT  S.id AS ID,
         rhnPackage P,
         rhnPackageArch PA,
         rhnServerNeededPackageCache SNPC,
-        rhnSet SET
+        rhnSet
  WHERE  SNPC.server_id IN (%s)
-   AND  SET.user_id = :user_id
-   AND  SET.label = :package_set_label
-   AND  SET.element = P.name_id
-   AND  SET.element_two = P.evr_id
-   AND  SET.element_three = P.package_arch_id
+   AND  rhnSet.user_id = :user_id
+   AND  rhnSet.label = :package_set_label
+   AND  rhnSet.element = P.name_id
+   AND  rhnSet.element_two = P.evr_id
+   AND  rhnSet.element_three = P.package_arch_id
    AND  SNPC.package_id = P.id
    AND  SNPC.server_id = S.id
    AND  P.name_id = PN.id
