@@ -156,7 +156,7 @@ Stops the Red Hat Satellite database instance.  This is required to perform B<ba
 
 =item B<tablesizes>
 
-Show space report for each table. On PostgreSQL the meaning of columns is as follows: "Planner Size" - size which planner usefor determining execution plan. It may differ from real size. "Real Size" - real size of data file on disk. "Real Size+Toasts+Idx" - reali size of data file on disk, including TOAST (The Oversized-Attribute Storage Technique) and indexes.
+Show space report for each table. On PostgreSQL the meaning of columns is as follows: "Planner Size" - size which planner uses for determining execution plan. It may differ from real size. "Real Size" - real size of data file on disk. "Real Size+Toasts+Idx" - real size of data file on disk, including TOAST (The Oversized-Attribute Storage Technique) and indexes.
 
 =item B<verify DIRNAME>
 
