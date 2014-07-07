@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.116
+Version: 2.2.117
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 07 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.117-1
+- call rhn-config-satellite.pl only if anything has changed
+
 * Fri Jul 04 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.116-1
 - SET is a Oracle reserved word
 - TokenPackageFactoryTest: avoid NPE on incomplete existing packages
