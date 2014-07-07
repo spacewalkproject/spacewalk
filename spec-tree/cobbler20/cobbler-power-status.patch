@@ -1,6 +1,6 @@
 diff -rupN cobbler-2.0.11.old/cobbler/action_power.py cobbler-2.0.11/cobbler/action_power.py
---- cobbler-2.0.11.old/cobbler/action_power.py	2014-06-26 13:50:30.152046118 -0400
-+++ cobbler-2.0.11/cobbler/action_power.py	2014-06-26 13:50:44.898150359 -0400
+--- cobbler-2.0.11.old/cobbler/action_power.py	2011-04-20 08:40:48.000000000 -0400
++++ cobbler-2.0.11/cobbler/action_power.py	2014-07-07 10:09:19.361118180 -0400
 @@ -30,6 +30,7 @@ import os
  import os.path
  import traceback
@@ -9,7 +9,7 @@ diff -rupN cobbler-2.0.11.old/cobbler/action_power.py cobbler-2.0.11/cobbler/act
 
  import utils
  import func_utils
-@@ -108,8 +109,20 @@ class PowerTool:
+@@ -108,8 +109,22 @@ class PowerTool:
          # Try the power command 5 times before giving up.
          # Some power switches are flakey
          for x in range(0,5):
@@ -20,9 +20,11 @@ diff -rupN cobbler-2.0.11.old/cobbler/action_power.py cobbler-2.0.11/cobbler/act
 +                # return different information than command return code
 +                if desired_state == 'status':
 +                    match = re.match('(^Status:\s)(ON|OFF)', output)
++                    if not match:
++                        match = re.match('(.*Chassis power = )(On|Off)', output)
 +                    if match:
 +                        power_status = match.groups()[1]
-+                        if power_status == 'ON':
++                        if power_status.upper() == 'ON':
 +                            return True
 +                        else:
 +                            return False
@@ -32,8 +34,8 @@ diff -rupN cobbler-2.0.11.old/cobbler/action_power.py cobbler-2.0.11/cobbler/act
              else:
                  time.sleep(2)
 diff -rupN cobbler-2.0.11.old/cobbler/api.py cobbler-2.0.11/cobbler/api.py
---- cobbler-2.0.11.old/cobbler/api.py	2014-06-26 13:50:30.151046110 -0400
-+++ cobbler-2.0.11/cobbler/api.py	2014-06-26 13:50:44.898150359 -0400
+--- cobbler-2.0.11.old/cobbler/api.py	2014-07-07 09:41:53.412830237 -0400
++++ cobbler-2.0.11/cobbler/api.py	2014-07-07 09:42:26.844060269 -0400
 @@ -820,6 +820,15 @@ class BootAPI:
          time.sleep(5)
          return self.power_on(system, user, password, logger=logger)
@@ -51,8 +53,8 @@ diff -rupN cobbler-2.0.11.old/cobbler/api.py cobbler-2.0.11/cobbler/api.py
 
      def clear_logs(self, system, logger=None):
 diff -rupN cobbler-2.0.11.old/cobbler/cli.py cobbler-2.0.11/cobbler/cli.py
---- cobbler-2.0.11.old/cobbler/cli.py	2014-06-26 13:50:30.149046096 -0400
-+++ cobbler-2.0.11/cobbler/cli.py	2014-06-26 13:54:21.536676903 -0400
+--- cobbler-2.0.11.old/cobbler/cli.py	2014-07-07 09:41:53.412830237 -0400
++++ cobbler-2.0.11/cobbler/cli.py	2014-07-07 09:42:26.844060269 -0400
 @@ -39,7 +39,7 @@ import item_image
  OBJECT_ACTIONS   = {
     "distro"  : "add copy edit find list remove rename report".split(" "),
@@ -72,8 +74,8 @@ diff -rupN cobbler-2.0.11.old/cobbler/cli.py cobbler-2.0.11/cobbler/cli.py
              power["power"] = object_action.replace("power","")
              power["systems"] = [options.name]
 diff -rupN cobbler-2.0.11.old/cobbler/remote.py cobbler-2.0.11/cobbler/remote.py
---- cobbler-2.0.11.old/cobbler/remote.py	2014-06-26 13:50:30.150046104 -0400
-+++ cobbler-2.0.11/cobbler/remote.py	2014-06-26 13:50:44.900150373 -0400
+--- cobbler-2.0.11.old/cobbler/remote.py	2014-07-07 09:41:53.428830347 -0400
++++ cobbler-2.0.11/cobbler/remote.py	2014-07-07 09:42:26.845060276 -0400
 @@ -1711,7 +1711,7 @@ class CobblerXMLRPCInterface:
          """
          Internal implementation used by background_power, do not call
@@ -97,3 +99,10 @@ diff -rupN cobbler-2.0.11.old/cobbler/remote.py cobbler-2.0.11/cobbler/remote.py
          return rc
 
      def clear_system_logs(self, object_id, token=None, logger=None):
+diff -rupN cobbler-2.0.11.old/templates/power_ipmilan.template cobbler-2.0.11/templates/power_ipmilan.template
+--- cobbler-2.0.11.old/templates/power_ipmilan.template	2011-04-20 08:40:48.000000000 -0400
++++ cobbler-2.0.11/templates/power_ipmilan.template	2014-07-07 09:42:50.837225387 -0400
+@@ -1,2 +1,2 @@
+ #use power_id to pass in additional options like -P, Use Lanplus
+-fence_ipmilan -i "$power_address" $power_id -l "$power_user" -p "$power_pass" -o "$power_mode"
++fence_ipmilan -a "$power_address" $power_id -l "$power_user" -p "$power_pass" -o "$power_mode"
