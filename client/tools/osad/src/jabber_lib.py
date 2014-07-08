@@ -80,6 +80,7 @@ class Runner:
         self._password = None
         self._resource = None
         self._in_background = 0
+        self._use_proxy = 0
 
     def process_cli_options(self):
         "Process command line options"
@@ -296,13 +297,23 @@ class Runner:
         log_debug(3)
         arr = string.split(jabber_server, ':', 1)
         jabber_server = arr[0]
+        cf = self.read_config()
+
+        jabberpy_proxy_dict = None
+        if self._use_proxy:
+            jabberpy_proxy_dict = {'host': cf['proxy_url'].split(':')[0],
+                                   'port': int(cf['proxy_url'].split(':')[1])}
+            if cf['enable_proxy_auth']:
+                jabberpy_proxy_dict['user'] = cf['proxy_user'];
+                jabberpy_proxy_dict['password'] = cf['proxy_password'];
+
         if len(arr) == 2:
             jabber_port = int(arr[1])
             log_debug(2, "Connecting to", jabber_server, jabber_port)
-            c = self.client_factory(jabber_server, jabber_port)
+            c = self.client_factory(jabber_server, jabber_port, proxy=jabberpy_proxy_dict)
         else:
             log_debug(2, "Connecting to", jabber_server)
-            c = self.client_factory(jabber_server)
+            c = self.client_factory(jabber_server, proxy=jabberpy_proxy_dict)
 
         c.debug_level = self.debug_level
         c.add_trusted_cert(self.ssl_cert)
