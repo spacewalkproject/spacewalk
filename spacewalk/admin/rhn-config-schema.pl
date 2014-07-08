@@ -136,7 +136,7 @@ for (sort keys %exception_files) {
 
 system('/usr/sbin/selinuxenabled');
 if ($? >> 8 == 0) {
-        system('/usr/sbin/restorecon', '-F', $target);
+        system('restorecon', '-F', $target);
 }
 
 exit $error;
