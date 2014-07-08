@@ -71,6 +71,35 @@ def __init__DB(backend, host, port, username, password, database, sslmode, sslro
     __DB.connect()
     return 0
 
+def __init__DB2(backend, host, port, username, password, database, sslmode, sslrootcert):
+    """
+    Establish and check the connection so we can wrap it and handle
+    exceptions.
+    """
+    # __DB2 global object created here and pushed into the global namespace.
+    global __DB2
+    try:
+        my_db = __DB2
+    except NameError:  # __DB2 has not been set up
+        db_class = dbi.get_database_class(backend=backend)
+        __DB2 = db_class(host, port, username, password, database, sslmode, sslrootcert)
+        __DB2.connect()
+        return
+    else:
+        del my_db
+
+    if __DB2.is_connected_to(backend, host, port, username, password,
+                            database, sslmode, sslrootcert):
+        __DB2.check_connection()
+        return
+
+    __DB2.commit()
+    __DB2.close()
+    # now we have to get a different connection
+    __DB2 = dbi.get_database_class(backend=backend)(
+        host, port, username, password, database, sslmode, sslrootcert)
+    __DB2.connect()
+    return 0
 
 def initDB(backend=None, host=None, port=None, username=None,
            password=None, database=None, sslmode=None, sslrootcert=None):
@@ -107,13 +136,16 @@ def initDB(backend=None, host=None, port=None, username=None,
     add_to_seclist(password)
     try:
         __init__DB(backend, host, port, username, password, database, sslmode, sslrootcert)
+        __init__DB2(backend, host, port, username, password, database, sslmode, sslrootcert)
 #    except (rhnException, SQLError):
 #        raise  # pass on, we know those ones
 #    except (KeyboardInterrupt, SystemExit):
 #        raise
     except SQLConnectError, e:
         global __DB
+        global __DB2
         del __DB
+        del __DB2
         raise e
     except:
         raise
@@ -122,6 +154,22 @@ def initDB(backend=None, host=None, port=None, username=None,
         #                   str(e_type), str(e_value))
     return 0
 
+def __closeDB2():
+    global __DB2
+    try:
+        my_db = __DB2
+    except NameError:
+        return
+    else:
+        del my_db
+    # can be None
+    if not __DB2:
+        del __DB2
+        return
+    __DB2.commit()
+    __DB2.close()
+    del __DB2
+    return
 
 # close the database
 def closeDB():
@@ -129,12 +177,14 @@ def closeDB():
     try:
         my_db = __DB
     except NameError:
+        __closeDB2()
         return
     else:
         del my_db
     __DB.commit()
     __DB.close()
     del __DB
+    __closeDB2()
     return
 
 
@@ -146,6 +196,12 @@ def __test_DB():
     except NameError:
         raise SystemError("Not connected to any database!"), None, sys.exc_info()[2]
 
+def __test_DB2():
+    global __DB2
+    try:
+        return __DB2
+    except NameError:
+        raise SystemError("Not connected to secondary database!"), None, sys.exc_info()[2]
 
 # wrapper for a Procedure callable class
 def Procedure(name):
@@ -193,11 +249,19 @@ def prepare(sql, blob_map=None):
         sql = sql.statement
     return db.prepare(sql, blob_map=blob_map)
 
+def prepare_secondary(sql, blob_map=None):
+    db = __test_DB2()
+    if isinstance(sql, Statement):
+        sql = sql.statement
+    return db.prepare(sql, blob_map=blob_map)
 
 def execute(sql, *args, **kwargs):
     db = __test_DB()
     return db.execute(sql, *args, **kwargs)
 
+def execute_secondary(sql, *args, **kwargs):
+    db = __test_DB2()
+    return db.execute(sql, *args, **kwargs)
 
 def fetchall_dict(sql, *args, **kwargs):
     h = prepare(sql)
@@ -215,6 +279,9 @@ def commit():
     db = __test_DB()
     return db.commit()
 
+def commit_secondary():
+    db = __test_DB2()
+    return db.commit()
 
 def rollback(name=None):
     db = __test_DB()

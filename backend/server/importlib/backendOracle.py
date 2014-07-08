@@ -661,6 +661,60 @@ class PostgresqlBackend(OracleBackend):
         """
         return Backend.init(self)
 
+    # Postgres doesn't support autonomous transactions. We could use
+    # dblink_exec like we do in other stored procedures to open a new
+    # connection to the db and do our inserts there, but there are a lot of
+    # capabilities and opening several million connections to the db in the
+    # middle of a sat-sync is slow. Instead we keep open a secondary db
+    # connection which we only use here, so we can directly commit to that
+    # instead of opening a new connection for each insert.
+    def processCapabilities(self, capabilityHash):
+        # initiate transaction, turns off auto-commit mode
+        self.dbmodule.execute_secondary("begin")
+        # must lock the table to keep rhnpush or whomever from causing
+        # this transaction to fail
+        lock_sql = "lock table rhnPackageCapability in exclusive mode"
+        sql = "select lookup_package_capability_fast(:name, :version) as id from dual"
+        try:
+            self.dbmodule.execute_secondary(lock_sql)
+            h = self.dbmodule.prepare_secondary(sql)
+            for name, version in capabilityHash.keys():
+                ver = version
+                if version is None or version == '':
+                    ver = None
+                h.execute(name = name, version = ver)
+                row = h.fetchone_dict()
+                capabilityHash[(name, version)] = row['id']
+            self.dbmodule.commit_secondary() # commit also unlocks the table
+        except Exception, e:
+            self.dbmodule.execute_secondary("rollback")
+            raise e
+
+    # Same as processCapabilities
+    def lookupChecksums(self, checksumHash):
+        if not checksumHash:
+            return
+        # initiate transaction, turns off auto-commit mode
+        self.dbmodule.execute_secondary("begin")
+        # must lock the table to keep rhnpush or whomever from causing
+        # this transaction to fail
+        lock_sql = "lock table rhnChecksum in exclusive mode"
+        sql = "select lookup_checksum_fast(:ctype, :csum) id from dual"
+        try:
+            self.dbmodule.execute_secondary(lock_sql)
+            h = self.dbmodule.prepare_secondary(sql)
+            for k in checksumHash.keys():
+                ctype, csum = k
+                if csum != '':
+                    h.execute(ctype=ctype, csum=csum)
+                    row = h.fetchone_dict()
+                    if row:
+                        checksumHash[k] = row['id']
+            self.dbmodule.commit_secondary() # commit also unlocks the table
+        except Exception, e:
+            self.dbmodule.execute_secondary("rollback")
+            raise e
+
 def SQLBackend():
     if CFG.DB_BACKEND == ORACLE:
         backend = OracleBackend()

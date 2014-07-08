@@ -82,6 +82,7 @@ class Backend:
                                  % format)
         sth.execute()
 
+    # Note: postgres-specific implementation overrides this in PostgresBackend
     def processCapabilities(self, capabilityHash):
         h = self.dbmodule.prepare("select lookup_package_capability(:name, :version) as id from dual")
         for name, version in capabilityHash.keys():
@@ -494,6 +495,7 @@ class Backend:
             if row:
                 evrHash[evr] = row['id']
 
+    # Note: postgres-specific implementation overrides this in PostgresBackend
     def lookupChecksums(self, checksumHash):
         if not checksumHash:
             return
