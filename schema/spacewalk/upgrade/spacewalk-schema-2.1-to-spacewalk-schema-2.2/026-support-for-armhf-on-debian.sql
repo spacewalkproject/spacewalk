@@ -1,9 +1,9 @@
 
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-        values (LOOKUP_CHANNEL_ARCH('channel-arm-deb'), LOOKUP_PACKAGE_ARCH('armhf-deb'));
-
 insert into rhnPackageArch (id, label, name, arch_type_id) values
         (sequence_nextval('rhn_package_arch_id_seq'), 'armhf-deb', 'armhf-deb', lookup_arch_type('deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+        values (LOOKUP_CHANNEL_ARCH('channel-arm-deb'), LOOKUP_PACKAGE_ARCH('armhf-deb'));
 
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('armhf-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('armhf-deb'), current_timestamp, current_timestamp);
