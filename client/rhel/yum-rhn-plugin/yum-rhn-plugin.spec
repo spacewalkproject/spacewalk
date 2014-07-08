@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.2.2
+Version: 2.2.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Jul 08 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.3-1
+- 1115527 - correctly initialize proxy settings for URLGrabber
+
 * Wed Jun 18 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.2-1
 - err variable needs to be initialized before assignment
 
