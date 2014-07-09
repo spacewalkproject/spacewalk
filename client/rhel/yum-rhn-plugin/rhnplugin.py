@@ -8,6 +8,7 @@ and XMLRPC calls.
 import os
 import sys
 import urllib
+import locale
 
 from yum.plugins import TYPE_CORE
 from yum.yumRepo import YumRepository
@@ -77,7 +78,7 @@ def init_hook(conduit):
     up2date_cfg = config.initUp2dateConfig()
     proxy_dict = {}
     try:
-        proxy_url = get_proxy_url(up2date_cfg)
+        proxy_url = get_proxy_url(up2date_cfg).encode(locale.getpreferredencoding())
         if proxy_url:
             if up2date_cfg['useNoSSLForPackages']:
                 proxy_dict = {'http' : proxy_url}
