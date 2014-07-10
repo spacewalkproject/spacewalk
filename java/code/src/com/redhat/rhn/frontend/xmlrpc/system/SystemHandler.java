@@ -3210,6 +3210,73 @@ public class SystemHandler extends BaseHandler {
      * Schedule package installation for a system.
      *
      * @param loggedInUser The current user
+     * @param sids IDs of the servers
+     * @param packageIds List of package IDs to install (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the package install
+     * @return package action id
+     *
+     * @xmlrpc.doc Schedule package installation for a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
+     */
+    public Long[] schedulePackageInstall(User loggedInUser, List<Integer> sids,
+            List<Integer> packageIds, Date earliestOccurrence) {
+        List<Long> actionIds = new ArrayList<Long>();
+        for (Integer sid : sids) {
+            Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
+                    loggedInUser);
+
+            // Would be nice to do this check at the Manager layer but upset many tests,
+            // some of which were not cooperative when being fixed. Placing here for now.
+            if (!SystemManager.hasEntitlement(server.getId(),
+                    EntitlementManager.MANAGEMENT)) {
+                throw new MissingEntitlementException(
+                        EntitlementManager.MANAGEMENT.getHumanReadableLabel());
+            }
+
+            // Build a list of maps in the format the ActionManager wants:
+            List<Map<String, Long>> packageMaps = new LinkedList<Map<String, Long>>();
+            for (Iterator<Integer> it = packageIds.iterator(); it.hasNext();) {
+                Integer pkgId = it.next();
+                Map<String, Long> pkgMap = new HashMap<String, Long>();
+
+                Package p = PackageManager.lookupByIdAndUser(new Long(pkgId.longValue()),
+                        loggedInUser);
+                if (p == null) {
+                    throw new InvalidPackageException(pkgId.toString());
+                }
+
+                pkgMap.put("name_id", p.getPackageName().getId());
+                pkgMap.put("evr_id", p.getPackageEvr().getId());
+                pkgMap.put("arch_id", p.getPackageArch().getId());
+                packageMaps.add(pkgMap);
+            }
+
+            if (packageMaps.isEmpty()) {
+                throw new InvalidParameterException("No packages to install.");
+            }
+
+            Action action = null;
+            try {
+                action = ActionManager.schedulePackageInstall(loggedInUser, server,
+                        packageMaps, earliestOccurrence);
+            }
+            catch (MissingEntitlementException e) {
+                throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
+            }
+
+            actionIds.add(action.getId());
+        }
+        return (Long[]) actionIds.toArray(new Long[actionIds.size()]);
+    }
+
+    /**
+     * Schedule package installation for a system.
+     *
+     * @param loggedInUser The current user
      * @param sid ID of the server
      * @param packageIds List of package IDs to install (as Integers)
      * @param earliestOccurrence Earliest occurrence of the package install
@@ -3225,48 +3292,8 @@ public class SystemHandler extends BaseHandler {
      */
     public Long schedulePackageInstall(User loggedInUser, Integer sid,
             List<Integer> packageIds, Date earliestOccurrence) {
-        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
-                loggedInUser);
-
-        // Would be nice to do this check at the Manager layer but upset many tests,
-        // some of which were not cooperative when being fixed. Placing here for now.
-        if (!SystemManager.hasEntitlement(server.getId(), EntitlementManager.MANAGEMENT)) {
-            throw new MissingEntitlementException(
-                    EntitlementManager.MANAGEMENT.getHumanReadableLabel());
-        }
-
-        // Build a list of maps in the format the ActionManager wants:
-        List<Map<String, Long>> packageMaps = new LinkedList<Map<String, Long>>();
-        for (Iterator<Integer> it = packageIds.iterator(); it.hasNext();) {
-            Integer pkgId = it.next();
-            Map<String, Long> pkgMap = new HashMap<String, Long>();
-
-            Package p = PackageManager.lookupByIdAndUser(new Long(pkgId.longValue()),
-                    loggedInUser);
-            if (p == null) {
-                throw new InvalidPackageException(pkgId.toString());
-            }
-
-            pkgMap.put("name_id", p.getPackageName().getId());
-            pkgMap.put("evr_id", p.getPackageEvr().getId());
-            pkgMap.put("arch_id", p.getPackageArch().getId());
-            packageMaps.add(pkgMap);
-        }
-
-        if (packageMaps.isEmpty()) {
-            throw new InvalidParameterException("No packages to install.");
-        }
-
-        Action action = null;
-        try {
-            action = ActionManager.schedulePackageInstall(loggedInUser, server,
-                    packageMaps, earliestOccurrence);
-        }
-        catch (MissingEntitlementException e) {
-            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
-        }
-
-        return action.getId();
+        return schedulePackageInstall(loggedInUser, new ArrayList<Integer>(sid), packageIds,
+                earliestOccurrence)[0];
     }
 
     /**
