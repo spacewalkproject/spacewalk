@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.117
+Version: 2.2.118
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 10 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.118-1
+- add api for setting kickstart/software properties
+- fix api call paramater in api documentation
+
 * Mon Jul 07 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.117-1
 - call rhn-config-satellite.pl only if anything has changed
 
