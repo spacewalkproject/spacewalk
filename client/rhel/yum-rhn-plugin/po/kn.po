@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 13:38+0100\n"
+"POT-Creation-Date: 2014-07-10 10:36+0200\n"
 "PO-Revision-Date: 2012-10-30 10:38+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/fedora/language/"
@@ -22,17 +22,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../rhnplugin.py:51
+#: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
 msgstr "RHN ಜೊತೆಗೆ ಸಂಪರ್ಕ ಸಾಧಿಸುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ."
 
-#: ../rhnplugin.py:66
+#: ../rhnplugin.py:67
 #, fuzzy
 msgid "Red Hat Satellite or RHN Classic support will be disabled."
 msgstr "RHN ಮಾರ್ಗ ಬೆಂಬಲವು ಅಶಕ್ತಗೊಂಡಿದೆ."
 
 #. If non-root notify user Spacewalk repo not accessible
-#: ../rhnplugin.py:73
+#: ../rhnplugin.py:74
 #, fuzzy
 msgid ""
 "*Note* Spacewalk repositories are not listed below. You must run this "
@@ -41,62 +41,62 @@ msgstr ""
 "*ಸೂಚನೆ* Red Hat Network ರೆಪೊಸಿಟರಿಗಳನ್ನು ಈ ಕೆಳಗೆ ಪಟ್ಟಿ ಮಾಡಲಾಗಿರುವುದಿಲ್ಲ. RHN "
 "ರೆಪೊಸಿಟರಿಗಳನ್ನು ನಿಲುಕಿಸಿಕೊಳ್ಳಲು ನೀವು ಈ ಆಜ್ಞೆಯನ್ನು ನಿರ್ವಾಹಕನಾಗಿ ಚಲಾಯಿಸಬೇಕು."
 
-#: ../rhnplugin.py:88
+#: ../rhnplugin.py:90
 #, fuzzy
 msgid "There was an error parsing the Red Hat Satellite Proxy settings."
 msgstr "RHN ನ ಪ್ರಾಕ್ಸಿ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ವಿಶ್ಲೇಷಿಸುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ."
 
-#: ../rhnplugin.py:100
+#: ../rhnplugin.py:102
 msgid "Either --version, --help or no commands entered"
 msgstr ""
 
-#: ../rhnplugin.py:105
+#: ../rhnplugin.py:107
 msgid "Cleaning"
 msgstr ""
 
-#: ../rhnplugin.py:114
+#: ../rhnplugin.py:116
 msgid "Using list of RHN repos from cache"
 msgstr ""
 
-#: ../rhnplugin.py:130
+#: ../rhnplugin.py:132
 msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:131 ../rhnplugin.py:147
+#: ../rhnplugin.py:133 ../rhnplugin.py:149
 msgid "You can use rhn_register to register."
 msgstr ""
 
-#: ../rhnplugin.py:137
+#: ../rhnplugin.py:139
 msgid "RHN channel support will be disabled."
 msgstr "RHN ಮಾರ್ಗ ಬೆಂಬಲವು ಅಶಕ್ತಗೊಂಡಿದೆ."
 
-#: ../rhnplugin.py:141
+#: ../rhnplugin.py:143
 msgid "This system is not subscribed to any channels."
 msgstr "ಈ ವ್ಯವಸ್ಥೆಯು ಯಾವುದೇ ಮಾರ್ಗಗಳಿಗೆ ಚಂದಾದಾರನಾಗಿಲ್ಲ."
 
-#: ../rhnplugin.py:146
+#: ../rhnplugin.py:148
 msgid ""
 "This system may not be registered to RHN Classic or Red Hat Satellite. "
 "SystemId could not be acquired."
 msgstr ""
 
-#: ../rhnplugin.py:159
+#: ../rhnplugin.py:161
 msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:284
+#: ../rhnplugin.py:286
 msgid "Package profile information could not be sent."
 msgstr "ಪ್ಯಾಕೆಜಿನ ಮಾಹಿತಿ ಪರಿಚಯವನ್ನು ಕಳುಹಿಸಲಾಗಿಲ್ಲ."
 
-#: ../rhnplugin.py:292
+#: ../rhnplugin.py:294
 msgid "Error Message:"
 msgstr "ದೋಷ ಸಂದೇಶ:"
 
-#: ../rhnplugin.py:293
+#: ../rhnplugin.py:295
 msgid "Please run rhn_register as root on this client"
 msgstr "ಈ ಕ್ಲೈಂಟ್‌ನಲ್ಲಿ ನಿರ್ವಾಹಕರಾಗಿ rhn_register ಅನ್ನು ಚಲಾಯಿಸಿ"
 
-#: ../rhnplugin.py:372
+#: ../rhnplugin.py:374
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHNಗೆ ಬೇಕಾದ ಈ ಪ್ರವೇಶ ಮಾಹಿತಿ ಕಾಣೆಯಾಗಿದೆ: %s"
