@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.2.5
+Version: 2.2.6
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Thu Jul 10 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.6-1
+- Update .po and .pot files for yum-rhn-plugin.
+
 * Thu Jul 10 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.5-1
 - 1115527 - don't encode proxy url if not set
 
