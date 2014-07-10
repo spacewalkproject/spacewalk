@@ -38,7 +38,7 @@
         <a href="/rhn/software/channels/ChannelFamilyTree.do?cfid=${current.id}">${current.name}</a>
     </rl:column>
 
-    <rl:column headerkey="entitlements.jsp.consumed" >
+    <rl:column headerkey="entitlements.jsp.consumed" sortattr="currentMembers">
         <c:if test="${current.currentMembers == 0}">
             ${current.currentMembers}
         </c:if>
@@ -57,7 +57,7 @@
 	    </c:if>
     </rl:column>
 
-    <rl:column headerkey="entitlements.jsp.subscribed_flex"  >
+    <rl:column headerkey="entitlements.jsp.subscribed_flex" sortattr="currentFlex">
         <c:if test="${current.currentFlex == 0}">
             ${current.currentFlex}
         </c:if>
@@ -75,7 +75,7 @@
 	    </c:if>
     </rl:column>
 
-    <rl:column headerkey="entitlements.jsp.subscribed" >
+    <rl:column headerkey="entitlements.jsp.subscribed" sortattr="subscribeCount">
         <c:if test="${current.subscribeCount == 0}">
             ${current.subscribeCount}
         </c:if>
