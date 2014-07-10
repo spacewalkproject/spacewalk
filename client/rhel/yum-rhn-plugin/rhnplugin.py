@@ -78,8 +78,9 @@ def init_hook(conduit):
     up2date_cfg = config.initUp2dateConfig()
     proxy_dict = {}
     try:
-        proxy_url = get_proxy_url(up2date_cfg).encode(locale.getpreferredencoding())
+        proxy_url = get_proxy_url(up2date_cfg)
         if proxy_url:
+            proxy_url = proxy_url.encode(locale.getpreferredencoding())
             if up2date_cfg['useNoSSLForPackages']:
                 proxy_dict = {'http' : proxy_url}
             else:
