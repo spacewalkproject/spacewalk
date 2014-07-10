@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"POT-Creation-Date: 2014-07-10 10:36+0200\n"
 "PO-Revision-Date: 2013-02-06 09:40+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -272,6 +272,11 @@ msgid ""
 "parts of '%s' would be very helpful. Thanks!"
 msgstr ""
 
+#: ../src/up2date_client/config.py:154
+#, python-format
+msgid "%s was not found"
+msgstr ""
+
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr ""
@@ -291,6 +296,105 @@ msgstr ""
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:56
 msgid "Getting list of packages installed on the system"
 msgstr "Henter liste over pakker som er installert på systemet"
+
+#: ../src/up2date_client/tui.py:134
+msgid "Spacewalk Location:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:135
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "Login:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:313
+msgid "Error"
+msgstr "Feil"
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr "Tjeneren gav beskjed om en feil:\n"
+
+#. Navigation
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:312
+msgid "OK"
+msgstr "OK"
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr "Profilnavn:"
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr "%s MB"
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr "Problemer ved sending av maskinvareprofilen:\n"
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr "Problemer med å sende maskinvareprofilen."
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr "Problemer ved sending av liste over pakker\n"
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr "Feil under sending av liste over pakker."
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr "Fullfør"
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> mellom elementer  |  <Space> velger   | <F12> neste skjerm"
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr "Du må kjøre Oppdateringsagenten som root."
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
@@ -464,11 +568,6 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Red Hat Login:"
-msgstr ""
-
-#: ../src/up2date_client/rhnreg_constants.py:84
-#: ../src/up2date_client/tui.py:135
-msgid "Login:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85
@@ -905,17 +1004,6 @@ msgid ""
 "Are you sure you would like to continue?"
 msgstr ""
 
-#. Navigation
-#: ../src/up2date_client/rhnreg_constants.py:312
-#: ../src/up2date_client/tui.py:536
-msgid "OK"
-msgstr "OK"
-
-#: ../src/up2date_client/rhnreg_constants.py:313
-#: ../src/up2date_client/tui.py:536
-msgid "Error"
-msgstr "Feil"
-
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
 msgstr "Neste"
@@ -942,23 +1030,23 @@ msgstr ""
 msgid "Press <space> to deselect the option."
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:820
+#: ../src/up2date_client/hardware.py:819
 msgid "Error reading cpu information:"
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:827
+#: ../src/up2date_client/hardware.py:826
 msgid "Error reading system memory information:"
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:837
+#: ../src/up2date_client/hardware.py:836
 msgid "Error reading networking information:"
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:858
+#: ../src/up2date_client/hardware.py:857
 msgid "Error reading install method information:"
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:866
+#: ../src/up2date_client/hardware.py:865
 msgid "Error reading network interface information:"
 msgstr ""
 
@@ -977,11 +1065,6 @@ msgstr ""
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "Dette systemet kan ikke oppdateres før det assosieres med en kanal."
-
-#: ../src/up2date_client/config.py:153
-#, python-format
-msgid "%s was not found"
-msgstr ""
 
 #: ../src/up2date_client/rhnreg.py:59
 #, fuzzy
@@ -1171,89 +1254,6 @@ msgid ""
 "not support"
 msgstr ""
 "Denne klienten krever at tjeneren støtter %s, hvilket aktiv tjener ikke gjør"
-
-#: ../src/up2date_client/tui.py:134
-msgid "Spacewalk Location:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "Tjeneren gav beskjed om en feil:\n"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "Profilnavn:"
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr "%s MB"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "Problemer ved sending av maskinvareprofilen:\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "Problemer med å sende maskinvareprofilen."
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "Problemer ved sending av liste over pakker\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "Feil under sending av liste over pakker."
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "Fullfør"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr ""
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> mellom elementer  |  <Space> velger   | <F12> neste skjerm"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "Du må kjøre Oppdateringsagenten som root."
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"

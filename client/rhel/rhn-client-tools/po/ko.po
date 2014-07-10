@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"POT-Creation-Date: 2014-07-10 10:36+0200\n"
 "PO-Revision-Date: 2013-02-06 09:40+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/fedora/language/"
@@ -291,6 +291,11 @@ msgstr ""
 "redhat.com에 보고해 주시기 바랍니다. 버그와 연관된 '%s'의 부분을 알려주시면 "
 "더욱 감사드리겠습니다. 감사합니다!"
 
+#: ../src/up2date_client/config.py:154
+#, python-format
+msgid "%s was not found"
+msgstr "%s을 찾을 수 없음"
+
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr "오류: 사용 가능한 서버가 없음. 나중에 다시 시도하십시오.  "
@@ -310,6 +315,105 @@ msgstr "네트워크 부하로 인해 서버 연결 실패"
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:56
 msgid "Getting list of packages installed on the system"
 msgstr "시스템에 설치된 패키지 목록을 가져옴"
+
+#: ../src/up2date_client/tui.py:134
+#, fuzzy
+msgid "Spacewalk Location:"
+msgstr "Red Hat Network 위치:"
+
+#: ../src/up2date_client/tui.py:135
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "Login:"
+msgstr "로그인:"
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr "시스템 ID:"
+
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:313
+msgid "Error"
+msgstr "오류"
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr "서버에 오류 발생:\n"
+
+#. Navigation
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:312
+msgid "OK"
+msgstr "확인"
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr "등록 서버와 통신하는 동안 오류가 발생했습니다:\n"
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr "프로파일 이름:"
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr "버전: "
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr "CPU 모델: "
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr "호스트명: "
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr "CPU 속도: "
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr "IP 주소: "
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr "메모리: "
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr "%s 메가바이트"
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr "하드웨어 프로파일을 보내는 도중 문제 발생:\n"
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr "하드웨어 프로파일을 보내는 중 문제가 발생했습니다."
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr "패키지 목록을 보내는 도중 문제 발생:\n"
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr "패키지 목록을 보내는 도중 문제가 발생했습니다."
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr "완료"
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr "잘못된 프로토콜을 지정하셨습니다."
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr "  <Tab>/<Alt-Tab> 항목 간 이동  |  <Space> 선택  |  <F12> 다음 화면"
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr "root로 RHN 등록 프로그램을 실행하셔야 합니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
@@ -515,11 +619,6 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Red Hat Login:"
 msgstr "Red Hat 로그인:"
-
-#: ../src/up2date_client/rhnreg_constants.py:84
-#: ../src/up2date_client/tui.py:135
-msgid "Login:"
-msgstr "로그인:"
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
@@ -1037,17 +1136,6 @@ msgstr ""
 "없을 것입니다.(더 최신 버전으로는 변경\n"
 "가능합니다) 정말로 계속 진행하겠습니까?"
 
-#. Navigation
-#: ../src/up2date_client/rhnreg_constants.py:312
-#: ../src/up2date_client/tui.py:536
-msgid "OK"
-msgstr "확인"
-
-#: ../src/up2date_client/rhnreg_constants.py:313
-#: ../src/up2date_client/tui.py:536
-msgid "Error"
-msgstr "오류"
-
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
 msgstr "다음"
@@ -1074,23 +1162,23 @@ msgstr "예, 계속진행합니다"
 msgid "Press <space> to deselect the option."
 msgstr "옵션을 선택 해제하시려면 <space> 버튼을 누르십시오."
 
-#: ../src/up2date_client/hardware.py:820
+#: ../src/up2date_client/hardware.py:819
 msgid "Error reading cpu information:"
 msgstr "cpu 정보를 읽어오는 중 오류 발생:"
 
-#: ../src/up2date_client/hardware.py:827
+#: ../src/up2date_client/hardware.py:826
 msgid "Error reading system memory information:"
 msgstr "시스템 메모리 정보를 읽어오는 중 오류 발생:"
 
-#: ../src/up2date_client/hardware.py:837
+#: ../src/up2date_client/hardware.py:836
 msgid "Error reading networking information:"
 msgstr "네트워크 정보를 읽어오는 중 오류 발생:"
 
-#: ../src/up2date_client/hardware.py:858
+#: ../src/up2date_client/hardware.py:857
 msgid "Error reading install method information:"
 msgstr "설치 방식 정보를 읽어오는 중 오류 발생:"
 
-#: ../src/up2date_client/hardware.py:866
+#: ../src/up2date_client/hardware.py:865
 msgid "Error reading network interface information:"
 msgstr "네트워크 인터페이스 정보를 읽어오는 중 오류 발생:"
 
@@ -1109,11 +1197,6 @@ msgstr "SystemId를 찾을 수 없음 "
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "이 시스템에 채널을 할당하기 전에는 업데이트가 실행되지 않을 것입니다."
-
-#: ../src/up2date_client/config.py:153
-#, python-format
-msgid "%s was not found"
-msgstr "%s을 찾을 수 없음"
 
 #: ../src/up2date_client/rhnreg.py:59
 #, fuzzy
@@ -1320,89 +1403,6 @@ msgid ""
 "not support"
 msgstr ""
 "현재 서버가 지원되지 않으므로, 클라이언트에 %s(을)를 지원하는 서버가 필요함"
-
-#: ../src/up2date_client/tui.py:134
-#, fuzzy
-msgid "Spacewalk Location:"
-msgstr "Red Hat Network 위치:"
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr "시스템 ID:"
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "서버에 오류 발생:\n"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr "등록 서버와 통신하는 동안 오류가 발생했습니다:\n"
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "프로파일 이름:"
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr "버전: "
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr "CPU 모델: "
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr "호스트명: "
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr "CPU 속도: "
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr "IP 주소: "
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr "메모리: "
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr "%s 메가바이트"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "하드웨어 프로파일을 보내는 도중 문제 발생:\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "하드웨어 프로파일을 보내는 중 문제가 발생했습니다."
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "패키지 목록을 보내는 도중 문제 발생:\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "패키지 목록을 보내는 도중 문제가 발생했습니다."
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "완료"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr "잘못된 프로토콜을 지정하셨습니다."
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr "  <Tab>/<Alt-Tab> 항목 간 이동  |  <Space> 선택  |  <F12> 다음 화면"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "root로 RHN 등록 프로그램을 실행하셔야 합니다."
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"

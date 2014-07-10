@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"POT-Creation-Date: 2014-07-10 10:36+0200\n"
 "PO-Revision-Date: 2013-02-06 09:40+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Chinese (Taiwan) <trans-zh_TW@lists.fedoraproject.org>\n"
@@ -278,6 +278,11 @@ msgstr ""
 "這錯誤不該發生。如果您願意幫助我們改善這程式，請透過 bugzilla.redhat.com 發送"
 "錯誤報告。請在其中包含相關的 %s，這會很有幫助。謝謝！"
 
+#: ../src/up2date_client/config.py:154
+#, python-format
+msgid "%s was not found"
+msgstr "找不到 %s"
+
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr "錯誤：伺服器無法使用。請稍後再嘗試。"
@@ -297,6 +302,105 @@ msgstr "由於負載太大，伺服器拒絕連線"
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:56
 msgid "Getting list of packages installed on the system"
 msgstr "取得已安裝在系統的套件清單"
+
+#: ../src/up2date_client/tui.py:134
+#, fuzzy
+msgid "Spacewalk Location:"
+msgstr "Red Hat Network 的位置："
+
+#: ../src/up2date_client/tui.py:135
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "Login:"
+msgstr "登入名稱："
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr "系統 ID："
+
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:313
+msgid "Error"
+msgstr "錯誤"
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr "伺服器指出有錯誤發生：\n"
+
+#. Navigation
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:312
+msgid "OK"
+msgstr "確定"
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr "連接註冊伺服器時發生了錯誤：\n"
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr "資料檔名稱："
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr "版本："
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr "處理器型號："
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr "主機名稱："
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr "處理器速度："
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr "IP 位址："
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr "記憶體："
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr "%s MB"
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr "傳送硬體資料檔發生問題：\n"
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr "傳送硬體資料檔發生問題。"
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr "傳送套件清單發生問題：\n"
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr "傳送套件清單發生問題。"
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr "完成"
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr "指定了不合規定的通訊協定。"
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr "  <Tab>/<Alt-Tab> 移動游標  |  <Space> 選取  |  <F12> 下一個畫面"
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr "必須是 root 才能執行 RHN 註冊程式。"
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
@@ -497,11 +601,6 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Red Hat Login:"
 msgstr "Red Hat 登入："
-
-#: ../src/up2date_client/rhnreg_constants.py:84
-#: ../src/up2date_client/tui.py:135
-msgid "Login:"
-msgstr "登入名稱："
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
@@ -989,17 +1088,6 @@ msgstr ""
 "（您可轉換為較新的發行版。）\n"
 "您是否要繼續進行？"
 
-#. Navigation
-#: ../src/up2date_client/rhnreg_constants.py:312
-#: ../src/up2date_client/tui.py:536
-msgid "OK"
-msgstr "確定"
-
-#: ../src/up2date_client/rhnreg_constants.py:313
-#: ../src/up2date_client/tui.py:536
-msgid "Error"
-msgstr "錯誤"
-
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
 msgstr "下一步"
@@ -1026,23 +1114,23 @@ msgstr "是的，請繼續"
 msgid "Press <space> to deselect the option."
 msgstr "請按下 <space> 取消選取選項。"
 
-#: ../src/up2date_client/hardware.py:820
+#: ../src/up2date_client/hardware.py:819
 msgid "Error reading cpu information:"
 msgstr "讀取處理器資訊時發生問題："
 
-#: ../src/up2date_client/hardware.py:827
+#: ../src/up2date_client/hardware.py:826
 msgid "Error reading system memory information:"
 msgstr "讀取系統記憶體資訊時發生錯誤："
 
-#: ../src/up2date_client/hardware.py:837
+#: ../src/up2date_client/hardware.py:836
 msgid "Error reading networking information:"
 msgstr "讀取網路資訊時發生問題："
 
-#: ../src/up2date_client/hardware.py:858
+#: ../src/up2date_client/hardware.py:857
 msgid "Error reading install method information:"
 msgstr "讀取安裝方法的資訊時發生問題："
 
-#: ../src/up2date_client/hardware.py:866
+#: ../src/up2date_client/hardware.py:865
 msgid "Error reading network interface information:"
 msgstr "讀取網路介面資訊時發生問題："
 
@@ -1061,11 +1149,6 @@ msgstr "找不到 SystemId"
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "在系統與一個頻道產生關聯前，該部系統將不會被更新。"
-
-#: ../src/up2date_client/config.py:153
-#, python-format
-msgid "%s was not found"
-msgstr "找不到 %s"
 
 #: ../src/up2date_client/rhnreg.py:59
 #, fuzzy
@@ -1266,89 +1349,6 @@ msgid ""
 "This client requires the server to support %s, which the current server does "
 "not support"
 msgstr "這個用戶端需要支援 %s 的伺服器，然而目前的伺服器並不支援"
-
-#: ../src/up2date_client/tui.py:134
-#, fuzzy
-msgid "Spacewalk Location:"
-msgstr "Red Hat Network 的位置："
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr "系統 ID："
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "伺服器指出有錯誤發生：\n"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr "連接註冊伺服器時發生了錯誤：\n"
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "資料檔名稱："
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr "版本："
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr "處理器型號："
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr "主機名稱："
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr "處理器速度："
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr "IP 位址："
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr "記憶體："
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr "%s MB"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "傳送硬體資料檔發生問題：\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "傳送硬體資料檔發生問題。"
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "傳送套件清單發生問題：\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "傳送套件清單發生問題。"
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "完成"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr "指定了不合規定的通訊協定。"
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr "  <Tab>/<Alt-Tab> 移動游標  |  <Space> 選取  |  <F12> 下一個畫面"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "必須是 root 才能執行 RHN 註冊程式。"
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"

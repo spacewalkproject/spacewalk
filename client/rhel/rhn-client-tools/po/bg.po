@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"POT-Creation-Date: 2014-07-10 10:36+0200\n"
 "PO-Revision-Date: 2013-02-06 09:40+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Bulgarian <trans-bg@lists.fedoraproject.org>\n"
@@ -287,6 +287,11 @@ msgstr ""
 "подобрим тази програма, моля, съобщете за бъг на bugzilla.redhat.com. "
 "Включването на подходящи части от '%s' би било много полезно. Благодарим Ви!"
 
+#: ../src/up2date_client/config.py:154
+#, python-format
+msgid "%s was not found"
+msgstr "%s не бе намерен"
+
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr "Грешка: Сървърът е недостъпен. Моля, опитайте по-късно."
@@ -306,6 +311,107 @@ msgstr "Сървърът отказа връзка заради претовар
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:56
 msgid "Getting list of packages installed on the system"
 msgstr "Получаване на списък на пакетите, инсталирани на системата"
+
+#: ../src/up2date_client/tui.py:134
+#, fuzzy
+msgid "Spacewalk Location:"
+msgstr "Red Hat Network местоположение:"
+
+#: ../src/up2date_client/tui.py:135
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "Login:"
+msgstr "Име:"
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr "ID на системата:"
+
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:313
+msgid "Error"
+msgstr "Грешка"
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr "Сървърът показва грешка:\n"
+
+#. Navigation
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:312
+msgid "OK"
+msgstr "Добре"
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr "Имаше грешка при комуникацията с регистриращия сървър:\n"
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr "Име на профила:"
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr "Версия: "
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr "Модел CPU: "
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr "Име на хоста: "
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr "CPU скорост: "
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr "IP Адрес: "
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr "Памет: "
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr "%s мегабайта"
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr "Проблем при изпращане на хардуерния профил:\n"
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr "Проблем при изпращане на хардуерния профил."
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr "Проблем при изпращане на списъка с пакети:\n"
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr "Проблем при изпращане на списъка с пакети."
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr "Завърши"
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr "Задали сте невалиден протокол."
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+"  <Таб>/<Алт-Таб> между елементите  |  <Интервал> избери  |  <F12> следващ "
+"екран"
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr "Трябва да стартирате RHN регистрационната програма като root."
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
@@ -516,11 +622,6 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Red Hat Login:"
 msgstr "Red Hat Login:"
-
-#: ../src/up2date_client/rhnreg_constants.py:84
-#: ../src/up2date_client/tui.py:135
-msgid "Login:"
-msgstr "Име:"
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
@@ -1023,17 +1124,6 @@ msgid ""
 "Are you sure you would like to continue?"
 msgstr ""
 
-#. Navigation
-#: ../src/up2date_client/rhnreg_constants.py:312
-#: ../src/up2date_client/tui.py:536
-msgid "OK"
-msgstr "Добре"
-
-#: ../src/up2date_client/rhnreg_constants.py:313
-#: ../src/up2date_client/tui.py:536
-msgid "Error"
-msgstr "Грешка"
-
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
 msgstr "Напред"
@@ -1060,23 +1150,23 @@ msgstr "Да, Продължи"
 msgid "Press <space> to deselect the option."
 msgstr "Натиснете <интервал> за да размаркирате опцията."
 
-#: ../src/up2date_client/hardware.py:820
+#: ../src/up2date_client/hardware.py:819
 msgid "Error reading cpu information:"
 msgstr "Грешка при четене на cpu информацията:"
 
-#: ../src/up2date_client/hardware.py:827
+#: ../src/up2date_client/hardware.py:826
 msgid "Error reading system memory information:"
 msgstr "Грешка при четене на информация за системната памет:"
 
-#: ../src/up2date_client/hardware.py:837
+#: ../src/up2date_client/hardware.py:836
 msgid "Error reading networking information:"
 msgstr "Грешка при четене на мрежова информация:"
 
-#: ../src/up2date_client/hardware.py:858
+#: ../src/up2date_client/hardware.py:857
 msgid "Error reading install method information:"
 msgstr "Грешка при четене на информация за инсталационния метод:"
 
-#: ../src/up2date_client/hardware.py:866
+#: ../src/up2date_client/hardware.py:865
 msgid "Error reading network interface information:"
 msgstr "Грешка при четене на информация на мрежови интерфейс:"
 
@@ -1095,11 +1185,6 @@ msgstr "Не мога да локализирам SystemId"
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "Системата може да не бъде обновена докато е асоциирана с канал."
-
-#: ../src/up2date_client/config.py:153
-#, python-format
-msgid "%s was not found"
-msgstr "%s не бе намерен"
 
 #: ../src/up2date_client/rhnreg.py:59
 #, fuzzy
@@ -1309,91 +1394,6 @@ msgid ""
 "not support"
 msgstr ""
 "Клиентът изисква сървъра да поддържа %s, което текущият сървър не прави"
-
-#: ../src/up2date_client/tui.py:134
-#, fuzzy
-msgid "Spacewalk Location:"
-msgstr "Red Hat Network местоположение:"
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr "ID на системата:"
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "Сървърът показва грешка:\n"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr "Имаше грешка при комуникацията с регистриращия сървър:\n"
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "Име на профила:"
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr "Версия: "
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr "Модел CPU: "
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr "Име на хоста: "
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr "CPU скорост: "
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr "IP Адрес: "
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr "Памет: "
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr "%s мегабайта"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "Проблем при изпращане на хардуерния профил:\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "Проблем при изпращане на хардуерния профил."
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "Проблем при изпращане на списъка с пакети:\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "Проблем при изпращане на списъка с пакети."
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "Завърши"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr "Задали сте невалиден протокол."
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-"  <Таб>/<Алт-Таб> между елементите  |  <Интервал> избери  |  <F12> следващ "
-"екран"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "Трябва да стартирате RHN регистрационната програма като root."
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"
