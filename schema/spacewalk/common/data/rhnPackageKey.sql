@@ -76,6 +76,9 @@ insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 -- CentOS 6
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), '0946fca2c105b9de', lookup_package_key_type('gpg'), lookup_package_provider('CentOS'));
+-- CentOS 7
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '24c6a8a7f4a80eb5', lookup_package_key_type('gpg'), lookup_package_provider('CentOS'));
 
 
 -- Scientific Linux
