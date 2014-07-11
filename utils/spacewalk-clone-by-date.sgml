@@ -228,7 +228,7 @@ Utility for cloning errata by date (For RHEL5 and above).
     <varlistentry>
         <term>-a <replaceable>SRC_PARENT DEST_PARENT</replaceable>, --parents=<replaceable>SRC_PARENT DEST_PARENT</replaceable></term>
         <listitem>
-            <para>Space separated list of source parent channel and destination parent channel.  These channels are used for resolving dependencies and cloning the children, but will not be cloned themselves.  Both channels specified here must already exist.  There is no way to specify this option through the config channel, you must simply re-list the parent src:dest channels as part of the list to clone.  Spacewalk-clone-by-date will detect that the dest parent channel already exists and will not try to re-create it.</para>
+            <para>Space separated list of source parent channel and destination parent channel. These channels are used for resolving dependencies and cloning the children, but will not be cloned themselves. Both channels specified here must already exist. There is no way to specify this option through the config file.</para>
         </listitem>
     </varlistentry>
 </variablelist>

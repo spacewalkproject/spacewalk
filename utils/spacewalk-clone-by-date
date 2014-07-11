@@ -232,9 +232,12 @@ def parse_args():
     # correctly determins if a channel already exists and does not try
     # to re-create it.
     parser.add_option("-a", "--parents", dest="parents", nargs=2,
-            help="Already existing channels that will be used as the "
-            + "original parent and destination parent of child "
-            + "channels cloned this session.")
+            help="Space separated list of source parent channel and "
+            + "destination parent channel. These channels are used for "
+            + "resolving dependencies and cloning the children, but will "
+            + "not be cloned themselves. Both channels specified here must "
+            + "already exist. There is no way to specify this option through "
+            + "the config file.")
     parser.add_option("-z", "--use-update-date", dest="use_update_date",
             action='store_true', help="While cloning errata by date, clone "
             + "all errata that have last been updated on or before the date "
