@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.119
+Version: 2.2.120
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.120-1
+- bump api version
+- fix copyright years
+- Fix ISE when tag name is left empty
+
 * Thu Jul 10 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.119-1
 - make channel family consumtion columns sortable
 - add schedulePackageInstall api for array of servers
