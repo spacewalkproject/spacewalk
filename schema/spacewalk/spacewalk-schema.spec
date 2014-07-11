@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.32
+Version:        2.2.33
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.33-1
+- add CentOS 7 GPG key
+- fix copyright years
+
 * Tue Jul 08 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.32-1
 - 1103813 - fixed order of tables in upgrade script
 
