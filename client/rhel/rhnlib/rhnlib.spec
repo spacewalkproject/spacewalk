@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.71
+Version: 2.5.72
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.5.72-1
+- fix copyright years
+
 * Wed Jun 04 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.5.71-1
 - SmartIO: don't use tmpDir configuration from /etc/sysconfig/rhn/up2date
 
