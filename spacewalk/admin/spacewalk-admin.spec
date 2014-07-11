@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 2.2.6
+Version: 2.2.7
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -90,6 +90,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.7-1
+- we need to call restorecon with full path
+
 * Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.6-1
 - fix copyright years
 
