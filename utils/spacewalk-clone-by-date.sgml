@@ -78,7 +78,7 @@ Utility for cloning errata by date (For RHEL5 and above).
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-a <replaceable>SRC_PARENT DEST_PARENT</replaceable></arg>
-        <arg>--parents=<replaceable>SRC_PARENT DEST_PARENT</replaceable></arg>
+	<arg>--parents=<replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></arg>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -226,9 +226,9 @@ Utility for cloning errata by date (For RHEL5 and above).
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-a <replaceable>SRC_PARENT DEST_PARENT</replaceable>, --parents=<replaceable>SRC_PARENT DEST_PARENT</replaceable></term>
+        <term>-a <replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable>, --parents=<replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></term>
         <listitem>
-            <para>Space separated list of source parent channel and destination parent channel.  These channels are used for resolving dependencies and cloning the children, but will not be cloned themselves.  Both channels specified here must already exist.  There is no way to specify this option through the config channel, you must simply re-list the parent src:dest channels as part of the list to clone.  Spacewalk-clone-by-date will detect that the dest parent channel already exists and will not try to re-create it.</para>
+            <para>The parent channels that will be used for dependency resolution and that newly cloned channels will be created as children of. No changes will be made to these channels unless dependency resolution demands it; errata will never be cloned to the destination parent channel regardless of the date chosen. If only the destination parent channel is specified then the source parent channel will be automatically chosen as the channel the destination parent channel was cloned from. Both of these channels must already exist. There is no config file equivalent to this option.</para>
         </listitem>
     </varlistentry>
 </variablelist>

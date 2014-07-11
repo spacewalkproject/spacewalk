@@ -223,18 +223,15 @@ def parse_args():
             + "dependencies unless paired with --skip_depsolve) (e.g. "
             + "--errata=RHSA-2014:0043,RHBA-2014:0085).")
     # Note: the parents option has no logical analog for the config
-    # file. This option is provided primarily as a convenience option to
-    # provide a more intuitive way to clone a child channels for an
-    # already-existing parent. However, the config file can easily
-    # contain many different channel trees, and any implementation that
-    # involves multiple channel trees would be extremely un-intuitive.
-    # Config file users must re-list the parent channels, the tool
-    # correctly determins if a channel already exists and does not try
-    # to re-create it.
-    parser.add_option("-a", "--parents", dest="parents", nargs=2,
-            help="Already existing channels that will be used as the "
-            + "original parent and destination parent of child "
-            + "channels cloned this session.")
+    # file.
+    parser.add_option("-a", "--parents", dest="parents", action='callback',
+            callback=vararg_callback, help="Already existing channel that "
+            + "will be used as parent of child channels cloned this session. "
+            + "No changes will be made to this channel unless dependency "
+            + "resolution requires it. No errata will be cloned to this "
+            + "channel in any circumstance. Source parent is optional, will "
+            + "be looked up if not provided (eg. --parents [src_parent] "
+            + "dest_parent")
     parser.add_option("-z", "--use-update-date", dest="use_update_date",
             action='store_true', help="While cloning errata by date, clone "
             + "all errata that have last been updated on or before the date "
@@ -253,10 +250,11 @@ def parse_args():
     (options, args) = parser.parse_args()
 
     if options.parents != None:
-        if (len(options.parents) != 2
-                or options.parents[0].startswith('-')
-                or options.parents[1].startswith('-')):
-            raise UserError("The -a / --parents option requires two arguments")
+        # vararg_callback was designed for use with --channels, fix
+        options.parents = options.parents[0]
+        parent_len = len(options.parents)
+        if (parent_len != 1 and parent_len != 2):
+            raise UserError("The -a / --parents option requires an argument")
 
     # have to check this option before we merge with the config file to
     # ensure that optparse is parsing the args correctly. We have to

@@ -140,6 +140,17 @@ def main(options):
     errata = None
     if options.errata:
         errata = set(options.errata)
+    if options.parents:
+        # if only the destination parent is specified, look up the src parent
+        if len(options.parents) == 1:
+            src_parent = xmlrpc.get_original(options.parents[0])
+            print "Looking up the original channel for %s, %s found" % (
+                    options.parents[0], src_parent)
+            options.parents = [src_parent] + options.parents
+        # ensure the parent's channel metadata is available
+        for label in options.parents:
+            if not os.path.exists(repodata(label)):
+                raise UserRepoError(label)
     for channel_list in options.channels:
         # before we start make sure we can get repodata for all channels
         # involved.
@@ -793,6 +804,11 @@ class RemoteApi:
         errata = self.client.channel.software.listErrata(self.auth_token,
                 channel_label)
         return [erratum['advisory_name'] for erratum in errata]
+
+    def get_original(self, clone_label):
+        self.auth_check()
+        return self.client.channel.software.getDetails(self.auth_token,
+                clone_label)['clone_original']
 
 
 class DBApi:
