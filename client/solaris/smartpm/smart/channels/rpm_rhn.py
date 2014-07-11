@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2005 Red Hat, Inc.
+# Copyright (c) 2005--2013 Red Hat, Inc.
 #
 # Written by Joel Martin <jmartin@redhat.com>
 #
