@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.2.6
+Version: 2.2.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -365,6 +365,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.7-1
+- fix copyright years
+
 * Thu Jul 10 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.6-1
 - Update .po and .pot files for rhn-client-tools.
 
