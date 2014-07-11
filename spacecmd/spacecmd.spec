@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.2.10
+Version:     2.2.11
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -75,6 +75,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.11-1
+- fix copyright years
+
 * Tue Jun 24 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.10-1
 - 1083519 - make spacecmd funtion correctly in multi-nevra environments
 - make print_result a static method of SpacewalkShell
