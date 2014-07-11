@@ -56,10 +56,16 @@ SAMPLE_CONFIG = """
               },
  "channels":[
              {
-                "rhel-x86_64-server-5": "my-rhel5-x86_64-clone",
-                "rhn-tools-rhel-x86_64-server-5": ["my-tools-5-x86_64-clone",
-                        "My Clone's Name", "This is my channel's summary",
-                        "This is my channel's description"]
+                "rhel-x86_64-server-5": {
+                    "label": "my-rhel5-x86_64-clone",
+                    "existing-parent-do-not-modify": true
+                },
+                "rhn-tools-rhel-x86_64-server-5": {
+                    "label": "my-tools-5-x86_64-clone",
+                    "name": "My Clone's Name",
+                    "summary": "This is my channel's summary",
+                    "description": "This is my channel's description"
+                }
              },
             {
                 "rhel-i386-server-5": "my-rhel5-i386-clone"
@@ -95,12 +101,16 @@ def merge_config(options):
         if config.has_key(key) and not getattr(options, key):
             setattr(options, key, config[key])
 
+    # If from the command line there is only one channel tree. Transform single
+    # channel tree to a list of channel trees, which is what the rest of the
+    # code expects
     if type(options.channels) == dict:
         options.channels =  [options.channels]
 
     for channel_dict in options.channels:
         for key in channel_dict.keys():
-            if type(channel_dict[key]) != list:
+            # handle the just-the-lable case
+            if type(channel_dict[key]) == type(""):
                 channel_dict[key] = [channel_dict[key]]
 
     validate_list_dict("blacklist", options.blacklist)
@@ -222,8 +232,6 @@ def parse_args():
             help="Only clone errata in this comma separated list (and "
             + "dependencies unless paired with --skip_depsolve) (e.g. "
             + "--errata=RHSA-2014:0043,RHBA-2014:0085).")
-    # Note: the parents option has no logical analog for the config
-    # file.
     parser.add_option("-a", "--parents", dest="parents", action='callback',
             callback=vararg_callback, help="Already existing channel that "
             + "will be used as parent of child channels cloned this session. "
@@ -231,7 +239,7 @@ def parse_args():
             + "resolution requires it. No errata will be cloned to this "
             + "channel in any circumstance. Source parent is optional, will "
             + "be looked up if not provided (eg. --parents [src_parent] "
-            + "dest_parent")
+            + "dest_parent)")
     parser.add_option("-z", "--use-update-date", dest="use_update_date",
             action='store_true', help="While cloning errata by date, clone "
             + "all errata that have last been updated on or before the date "
@@ -314,7 +322,7 @@ def parse_args():
             errata_list.append(errata.strip())
         options.errata = errata_list
     for option in [getattr(options, 'blacklist', None),
-            getattr(options, 'removelist', None)] + options.channels:
+            getattr(options, 'removelist', None)]:
         if option:
             for key in option.keys()[:]:
                 if key != key.strip():
@@ -325,6 +333,25 @@ def parse_args():
                 for element in option[key]:
                     my_list.append(element.strip())
                 option[key] = my_list
+    for channel_tree in options.channels:
+        for channel in channel_tree.keys()[:]:
+            if channel != channel.strip():
+                channel_tree[channel.strip()] = channel_tree[channel]
+                del channel_tree[channel]
+                channel = channel.strip()
+            if type(channel_tree[channel]) == list:
+                my_list = []
+                for element in channel_tree[channel]:
+                    my_list.append(element.strip())
+                channel_tree[channel] = my_list
+            elif type(channel_tree[channel]) == dict:
+                my_dict = {}
+                for key in channel_tree[channel].keys():
+                    if type(channel_tree[channel][key]) == str:
+                        my_dict[key.strip()] = channel_tree[channel][key].strip()
+                    else:
+                        my_dict[key.strip()] = channel_tree[channel][key]
+                channel_tree[channel] = my_dict
 
     return options
 
