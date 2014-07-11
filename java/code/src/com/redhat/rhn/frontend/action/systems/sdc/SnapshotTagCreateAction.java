@@ -73,7 +73,11 @@ public class SnapshotTagCreateAction extends RhnAction {
             else {
                 snap = ServerFactory.lookupLatestForServer(server);
             }
-            if (!snap.addTag(tagName)) {
+            if (tagName.isEmpty()) {
+                createErrorMessage(request,
+                        "system.history.snapshot.tagNameEmpty", null);
+            }
+            else if (!snap.addTag(tagName)) {
                 createErrorMessage(request,
                         "system.history.snapshot.tagCreateFailure", null);
             }
