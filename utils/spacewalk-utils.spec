@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.25
+Version:	2.2.26
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.26-1
+- Spacewalk 2.2 repos for spacewalk-common-channels
+- fix copyright years
+
 * Wed Jul 09 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.25-1
 - CentOS 7 + EPEL 7 channels
 
