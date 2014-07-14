@@ -1163,4 +1163,26 @@ public class UserHandler extends BaseHandler {
         targetUser.setReadOnly(readOnly);
         return 1;
     }
+
+    /**
+     * @param loggedInUser The current user
+     * @param login User to modify
+     * @param value value to enable/disable errata mail notifications
+     * @return Returns 1 if successful (exception thrown otherwise)
+     * @xmlrpc.doc Enables/disables errata mail notifications for a specific user.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "login", "User's login name.")
+     * @xmlrpc.param #param_desc("boolean", "value", "True for enabling
+     * errata notifications, False for disabling")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setErrataNotifications(User loggedInUser, String login, Boolean value) {
+        //Logged in user must be an org admin.
+        ensureOrgAdmin(loggedInUser);
+
+        User targetUser = XmlRpcUserHelper.getInstance().lookupTargetUser(
+                loggedInUser, login);
+        targetUser.setEmailNotify(BooleanUtils.toIntegerObject(value));
+        return 1;
+    }
 }
