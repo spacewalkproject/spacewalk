@@ -19,6 +19,7 @@ Patch5: koan-extra-options.patch
 Patch6: cobbler-interface-type.patch
 Patch7: cobblerd-python-s.patch
 Patch8: cobbler-power-status.patch
+Patch9: cobbler-rhel7-variant.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -110,6 +111,7 @@ a XMLRPC API for integration with other applications.
 %patch7 -p1
 %endif
 %patch8 -p1
+%patch9 -p1
 
 %build
 %{__python} setup.py build 
