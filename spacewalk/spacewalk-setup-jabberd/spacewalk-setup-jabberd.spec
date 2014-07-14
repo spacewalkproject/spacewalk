@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        2.2.0
+Version:        2.3.0
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System

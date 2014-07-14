@@ -1,6 +1,6 @@
 Name:         scdb
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      2.2.0
+Version:      2.3.0
 Release:      1%{?dist}
 Summary:      State Change Database
 URL:          https://fedorahosted.org/spacewalk

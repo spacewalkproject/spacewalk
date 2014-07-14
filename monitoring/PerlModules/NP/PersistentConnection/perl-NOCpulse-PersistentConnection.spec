@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-PersistentConnection
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      2.2.0
+Version:      2.3.0
 Release:      1%{?dist}
 Summary:      Persistent HTTP connection over SSL
 URL:          https://fedorahosted.org/spacewalk
