@@ -235,7 +235,7 @@ public class KickstartUrlHelper {
         file.append("/");
 
         // check for custom distros
-        if(this.ksTree.getOrgId() != null) {
+        if (this.ksTree.getOrgId() != null) {
            file.append("org/");
            file.append(this.ksTree.getOrgId());
            file.append("/");
