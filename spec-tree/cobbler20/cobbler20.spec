@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 30%{?dist}
+Release: 31%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -464,6 +464,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Tue Jul 15 2014 Stephen Herr <sherr@redhat.com> 2.0.11-31
+- 1119758 - Make cobbler findks work and be compatible with Proxy
+
 * Mon Jul 14 2014 Stephen Herr <sherr@redhat.com> 2.0.11-30
 - bump cobbler version to avoid conflict with 2.2 branch
 - Cobbler needs to know about newer OSs
