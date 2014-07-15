@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.0
+Version: 2.3.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 15 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.1-1
+- API for deployment of certain config file to all system from its config
+  channel
+- add api for setting OS repositories in kickstart profiles
+- allow setting errata mailer preferences via API
+- Bumping package versions for 2.3.
+
 * Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.120-1
 - bump api version
 - fix copyright years
