@@ -146,6 +146,9 @@ def main(options):
             # if only the dest parent is specified, look up the src parent
             if len(options.parents) == 1:
                 src_parent = xmlrpc.get_original(options.parents[0])
+                if not src_parent:
+                    print ("Channel %s is not a cloned channel." % options.parents[0])
+                    sys.exit(1)
                 print "Looking up the original channel for %s, %s found" % (
                         options.parents[0], src_parent)
                 options.parents = [src_parent] + options.parents
