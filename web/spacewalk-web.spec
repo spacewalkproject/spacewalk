@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.1
+Version: 2.3.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Jul 15 2014 Stephen Herr <sherr@redhat.com> 2.3.2-1
+- 1117047 - db-control manpage fixes
+
 * Mon Jul 14 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.3.1-1
 - change version for Spacewalk 2.3 nightly
 - Bumping package versions for 2.3.
