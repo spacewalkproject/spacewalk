@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.1
+Version:	2.3.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Jul 15 2014 Stephen Herr <sherr@redhat.com> 2.3.2-1
+- 1119405 - Check if dest parent is cloned
+- 1119405 - sw-clone-by-date man page update
+
 * Mon Jul 14 2014 Stephen Herr <sherr@redhat.com> 2.3.1-1
 - 1119411 - add dry-run to config file
 - 1119411 - [RFE] sw-clone-by-date --dry-run
