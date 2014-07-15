@@ -20,6 +20,7 @@ Patch6: cobbler-interface-type.patch
 Patch7: cobblerd-python-s.patch
 Patch8: cobbler-power-status.patch
 Patch9: cobbler-rhel7-variant.patch
+Patch10: cobbler-findks.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -112,6 +113,7 @@ a XMLRPC API for integration with other applications.
 %endif
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 %{__python} setup.py build 
