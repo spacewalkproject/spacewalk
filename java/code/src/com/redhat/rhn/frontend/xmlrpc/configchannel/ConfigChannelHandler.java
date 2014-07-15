@@ -789,6 +789,71 @@ public class ConfigChannelHandler extends BaseHandler {
     }
 
     /**
+     * @param loggedInUser The current user
+     * @param channelLabel  the channel to deploy the files from..
+     * @param filePath config file path
+     * @return 1 if successful with the operation errors out otherwise.
+     * @xmlrpc.doc Schedule a configuration deployment of a certain file for all systems
+     *    subscribed to a particular configuration channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string","channelLabel",
+     *                       "The configuration channel's label.")
+     * @xmlrpc.param #param_desc("string", "filePath",
+     *                       "The configuration file path.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deployAllSystems(User loggedInUser, String channelLabel, String filePath) {
+        return deployAllSystems(loggedInUser, channelLabel, filePath, new Date());
+    }
+
+    /**
+     * @param loggedInUser The current user
+     * @param channelLabel  the channel to deploy the files from..
+     * @param filePath config file path
+     * @param date the date to schedule
+     * @return 1 if successful with the operation errors out otherwise.
+     * @xmlrpc.doc Schedule a configuration deployment of a certain file for all systems
+     *    subscribed to a particular configuration channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string","channelLabel",
+     *                       "The configuration channel's label.")
+     * @xmlrpc.param #param_desc("string", "filePath",
+     *                       "The configuration file path.")
+     * @xmlrpc.param #param_desc("dateTime.iso8601","date",
+     *                       "The date to schedule the action")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deployAllSystems(User loggedInUser, String channelLabel,
+            String filePath, Date date) {
+        XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
+        ConfigurationManager manager = ConfigurationManager.getInstance();
+
+        ConfigChannel channel = configHelper.lookupGlobal(loggedInUser,
+                channelLabel);
+        List<ConfigSystemDto> dtos = manager.listChannelSystems(loggedInUser, channel,
+                null);
+        Set<Long> servers = new HashSet<Long>();
+        for (ConfigSystemDto m : dtos) {
+            Server s = SystemManager.lookupByIdAndUser(m.getId(), loggedInUser);
+            if (s != null) {
+                servers.add(s.getId());
+            }
+        }
+        Set<Long> fileIds = new HashSet<Long>();
+        fileIds.add(manager.lookupConfigFile(loggedInUser,
+                channel.getId(), filePath).getId());
+
+        try {
+            manager.deployFiles(loggedInUser, fileIds, servers, date);
+        }
+        catch (MissingCapabilityException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingCapabilityException(
+                e.getCapability(), e.getServer());
+        }
+        return 1;
+    }
+
+    /**
      * List the systems subscribed to a configuration channel
      * @param loggedInUser The current user
      * @param channelLabel the label of the config channel
