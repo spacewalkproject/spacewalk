@@ -77,7 +77,7 @@ Utility for cloning errata by date (For RHEL5 and above).
         <arg>-h</arg><arg>--help</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-a <replaceable>SRC_PARENT DEST_PARENT</replaceable></arg>
+        <arg>-a <replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></arg>
 	<arg>--parents=<replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
