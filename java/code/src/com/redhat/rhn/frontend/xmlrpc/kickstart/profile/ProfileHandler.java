@@ -55,6 +55,7 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
+import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
@@ -1455,6 +1456,46 @@ public class ProfileHandler extends BaseHandler {
             KickstartWizardHelper ksHelper = new KickstartWizardHelper(loggedInUser);
             ksHelper.processSkipKey(ksData);
         }
+        return 1;
+    }
+
+    /**
+     * @param loggedInUser The Current user
+     * @param ksLabel Kickstart profile label
+     * @return Label of virtualization type for given profile
+     * @xmlrpc.doc For given kickstart profile label returns label of
+     * virtualization type it's using
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "ksLabel")
+     * @xmlrpc.returntype #param_desc("string", "virtLabel",
+     * "Label of virtualization type.")
+     */
+    public String getVirtualizationType(User loggedInUser, String ksLabel) {
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+        KickstartEditCommand cmd = new KickstartEditCommand(ksData.getId(), loggedInUser);
+
+        return cmd.getVirtualizationType().getLabel();
+    }
+
+    /**
+     * @param loggedInUser The Current user
+     * @param ksLabel Kickstart profile label
+     * @param typeLabel virtualization type label
+     * @return int - 1 on success, exception thrown otherwise
+     * @xmlrpc.doc For given kickstart profile label sets its virtualization type.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "ksLabel")
+     * @xmlrpc.param #param_desc("string", "typeLabel", "One of the following: 'none',
+     * 'qemu', 'para_host', 'xenpv', 'xenfv'")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setVirtualizationType(User loggedInUser, String ksLabel, String typeLabel) {
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+        KickstartEditCommand cmd = new KickstartEditCommand(ksData.getId(), loggedInUser);
+
+        cmd.setVirtualizationType(KickstartFactory.
+                lookupKickstartVirtualizationTypeByLabel(typeLabel));
+        cmd.store();
         return 1;
     }
 }
