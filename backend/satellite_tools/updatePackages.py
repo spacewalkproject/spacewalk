@@ -47,6 +47,8 @@ options_table = [
         help="Convert filer structure"),
     Option("--update-kstrees", action="store_true",
         help="Fix kickstart trees permissions"),
+    Option("--update-changelog", action="store_true",
+        help="Fix incorrectly encoded package changelog data"),
     Option("-v", "--verbose", action="count",
         help="Increase verbosity"),
     Option("--debug", action="store_true",
@@ -86,6 +88,9 @@ def main():
 
     if options.update_package_files:
         process_package_files()
+
+    if options.update_changelog:
+        process_changelog()
 
 _get_path_query = """
 	select id, checksum_type, checksum, path, epoch, new_path
@@ -566,6 +571,98 @@ def process_package_files():
             delete_package_repodata(row['id'])
 
         rhnSQL.commit() # End of a package
+
+def process_changelog():
+    def convert(u):
+        last = ''
+        fixed = u
+        while u != last:
+            last = u
+            try:
+                u = last.encode('iso8859-1').decode('utf8')
+            except (UnicodeDecodeError, UnicodeEncodeError), e:
+                if e.reason == 'unexpected end of data':
+                    u = u[:-1]
+                    continue
+                else:
+                    break
+        return u
+
+    if CFG.db_backend == 'postgresql':
+        lengthb = "octet_length(%s)";
+    else:
+        lengthb = "lengthb(%s)";
+    _non_ascii_changelog_data_count = """select count(*) as cnt from rhnpackagechangelogdata
+                                          where length(name) <> %s
+                                             or length(text) <> %s
+        """ % (lengthb % 'name', lengthb % 'text');
+    _non_ascii_changelog_data = """select * from rhnpackagechangelogdata
+                                    where length(name) <> %s
+                                       or length(text) <> %s
+        """ % (lengthb % 'name', lengthb % 'text');
+    _update_changelog_data_name = """update rhnpackagechangelogdata set name = :name
+                                           where id = :id""";
+    _update_changelog_data_text = """update rhnpackagechangelogdata set text = :text
+                                           where id = :id""";
+    if debug:
+        log = rhnLog('/var/log/rhn/update-packages.log', 5)
+
+
+    query_count = rhnSQL.prepare(_non_ascii_changelog_data_count)
+    query_count.execute()
+    nrows = query_count.fetchall_dict()[0]['cnt']
+
+    query = rhnSQL.prepare(_non_ascii_changelog_data)
+    query.execute()
+
+    if nrows == 0:
+        msg = "No non-ASCII changelog entries to process."
+        print msg
+        if debug:
+            log.writeMessage(msg)
+        return
+
+    if verbose:
+        print "Processing %s non-ASCII changelog entries" % nrows
+
+    pb = ProgressBar(prompt='standby: ', endTag=' - Complete!', \
+                     finalSize=nrows, finalBarLength=40, stream=sys.stdout)
+    pb.printAll(1)
+
+    update_name = rhnSQL.prepare(_update_changelog_data_name)
+    update_text = rhnSQL.prepare(_update_changelog_data_text)
+
+    while (True):
+        row = query.fetchone_dict()
+        if not row: # No more packages in DB to process
+            break
+
+        pb.addTo(1)
+        pb.printIncrement()
+
+        name_u = row['name'].decode('utf8', 'ignore')
+        name_fixed = name_u
+        if len(row['name']) != len(name_u):
+            name_fixed = convert(name_u)
+        if name_fixed != name_u:
+            if debug and verbose:
+                log.writeMessage("Fixing record %s: name: '%s'" % (row['id'], row['name']))
+            update_name.execute(id=row['id'], name=name_fixed)
+
+        text_u = row['text'].decode('utf8', 'ignore')
+        text_fixed = text_u
+        if len(row['text']) != len(text_u):
+            text_fixed = convert(text_u)
+        if text_fixed != text_u:
+            if debug and verbose:
+                log.writeMessage("Fixing record %s: text: '%s'" % (row['id'], row['text']))
+            update_text.execute(id=row['id'], text=text_fixed)
+
+
+        rhnSQL.commit()
+
+    pb.printComplete()
+
 
 if __name__ == '__main__':
     main()
