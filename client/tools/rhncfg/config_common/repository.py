@@ -29,13 +29,11 @@ import xmlrpclib
 from rhn_log import log_debug
 
 try:
-    from selinux import lgetfilecon, is_selinux_enabled
+    from selinux import lgetfilecon
 except:
     # on rhel4 we do not support selinux
     def lgetfilecon(path):
         return [0, '']
-    def is_selinux_enabled():
-        return 0
 
 #6/29/05 rpc_wrapper implements the failover logic.
 import rpc_wrapper
@@ -138,10 +136,7 @@ class Repository:
         except OSError:
             selinux_ctx = None
 
-        if is_selinux_enabled():
-            ret['selinux_ctx'] = selinux_ctx
-        else:
-            ret['selinux_ctx'] = ''
+        ret['selinux_ctx'] = selinux_ctx
 
         return ret
 

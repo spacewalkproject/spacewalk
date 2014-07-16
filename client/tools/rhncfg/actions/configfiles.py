@@ -343,7 +343,8 @@ def diff(params, cache_only=None):
             continue
 
         diff = fp.diff(file)
-        diffs[path] = diff
+        if diff:
+            diffs[path] = diff
 
     extras = {}
     if missing_files:
