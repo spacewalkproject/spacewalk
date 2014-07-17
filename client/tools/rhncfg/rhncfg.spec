@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.71
+Version: 5.10.72
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -119,6 +119,10 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Thu Jul 17 2014 Stephen Herr <sherr@redhat.com> 5.10.72-1
+- 1120802 - remove debuging output and fix perm comparison from previous patch
+- 1120802 - ensure webui config file diff looks at owner and permissions
+
 * Wed Jul 16 2014 Stephen Herr <sherr@redhat.com> 5.10.71-1
 - 1113848 - make sure webui doesn't say there are diffs if there aren't
 - bz1113848 - Reverting changes of 1003459 and making GUI results compatible to
