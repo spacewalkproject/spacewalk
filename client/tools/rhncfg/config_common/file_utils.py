@@ -19,6 +19,8 @@ import time
 import tempfile
 import base64
 import difflib
+import pwd
+import grp
 try:
     from selinux import lgetfilecon
 except:
@@ -108,7 +110,69 @@ class FileProcessor:
         temp_file, temp_dirs = self.process(file_struct)
         path = file_struct['path']
         sectx_result = ''
+        owner_result = ''
+        group_result = ''
+        perm_result = ''
         result = ''
+
+        stat_err = 0
+
+        try:
+            cur_stat = os.lstat(path)
+            print cur_stat
+        except:
+            stat_err = 1
+
+        if file_struct['filetype'] != 'symlink':
+            if not stat_err:
+                #check for owner differences
+                 cur_uid = cur_stat[stat.ST_UID]
+                 try:
+                     cur_user = pwd.getpwuid(cur_uid)[0]
+                 except KeyError:
+                     #Orphan UID with no name,return unknown
+                     cur_user = "unknown(UID %d)" % (cur_uid,)
+            else:
+                 cur_user = "missing"
+
+            if cur_user == file_struct['username']:
+                 owner_result = ""
+
+            else:
+                 owner_result = "User name differ: actual: [%s], expected: [%s]\n" % (cur_user, file_struct['username'])
+
+            if not stat_err:
+                #check for group differences
+                cur_gid = cur_stat[stat.ST_GID]
+                try:
+                    cur_group = grp.getgrgid(cur_gid)[0]
+                except KeyError:
+                    #Orphan GID with no name,return unknown
+                    cur_group = "unknown(GID %d)" % (cur_gid,)
+            else:
+                cur_group = "missing"
+
+            if cur_group == file_struct['groupname']:
+                group_result = ""
+            else:
+                group_result = "Group name differ: actual: [%s], expected: [%s]\n" % (cur_group, file_struct['groupname'])
+
+            #check for permissions differences
+            if not stat_err:
+                cur_perm = str(oct(stat.S_IMODE(cur_stat[stat.ST_MODE])))
+                print cur_perm
+            else:
+                cur_perm = "missing"
+
+            #rip off the leading '0' from the mode returned by stat()
+            if cur_perm[0] == '0':
+                cur_perm = cur_perm[1:]
+
+            #perm_status gets displayed with the verbose option.
+            if cur_perm == file_struct['filemode']:
+                perm_result = ""
+            else:
+                perm_result = "File mode differ: actual: [%s], expected: [%s]\n" % (cur_perm, file_struct['filemode'])
 
         try:
             cur_sectx = lgetfilecon(path)[1]
@@ -140,7 +204,7 @@ class FileProcessor:
                     display_diff=get_config('display_diff')))
 
         os.unlink(temp_file)
-        return sectx_result + result
+        return owner_result + group_result + perm_result + sectx_result + result
 
     def _validate_struct(self, file_struct):
         for k in self.file_struct_fields.keys():
