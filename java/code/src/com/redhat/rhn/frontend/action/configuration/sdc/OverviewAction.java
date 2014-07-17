@@ -86,7 +86,7 @@ public class OverviewAction extends RhnAction {
                         "/rhn/systems/details/configuration/DeployFile.do";
 
     private static final String ACTION_DETAILS_URL =
-                                "/network/systems/details/history/event.pxt";
+        "/rhn/systems/details/history/Event.do";
 
     private static final String USER_DETAILS_URL =
                                             "/rhn/users/UserDetails.do";
@@ -194,9 +194,8 @@ public class OverviewAction extends RhnAction {
             ConfigFileCount differing = cm.countDifferingPaths(server, sysCompare);
 
 
-            String url = ACTION_DETAILS_URL +
-                            "?hid=" + sysCompare.getId() +
-                                    "&sid=" + server.getId();
+            String url = ACTION_DETAILS_URL + "?aid=" + sysCompare.getId() + "&sid=" +
+                    server.getId();
 
             setupDiffActionMessage(request, total, successful, differing, url);
         }
@@ -236,8 +235,8 @@ public class OverviewAction extends RhnAction {
 
             params[0] = ConfigActionHelper.makeFileCountsMessage(total,
                                                                 null, true, true);
-            params[1] = ACTION_DETAILS_URL +
-                                "?hid=" + ca.getId() + "&sid=" + server.getId();
+            params[1] = ACTION_DETAILS_URL + "?aid=" + ca.getId() + "&sid=" +
+                    server.getId();
             String messageKey;
 
             if (ActionFactory.STATUS_FAILED.equals(sa.getStatus())) {
