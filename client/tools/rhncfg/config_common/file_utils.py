@@ -119,13 +119,12 @@ class FileProcessor:
 
         try:
             cur_stat = os.lstat(path)
-            print cur_stat
         except:
             stat_err = 1
 
         if file_struct['filetype'] != 'symlink':
             if not stat_err:
-                #check for owner differences
+                 #check for owner differences
                  cur_uid = cur_stat[stat.ST_UID]
                  try:
                      cur_user = pwd.getpwuid(cur_uid)[0]
@@ -160,7 +159,6 @@ class FileProcessor:
             #check for permissions differences
             if not stat_err:
                 cur_perm = str(oct(stat.S_IMODE(cur_stat[stat.ST_MODE])))
-                print cur_perm
             else:
                 cur_perm = "missing"
 
@@ -169,7 +167,7 @@ class FileProcessor:
                 cur_perm = cur_perm[1:]
 
             #perm_status gets displayed with the verbose option.
-            if cur_perm == file_struct['filemode']:
+            if cur_perm == str(file_struct['filemode']):
                 perm_result = ""
             else:
                 perm_result = "File mode differ: actual: [%s], expected: [%s]\n" % (cur_perm, file_struct['filemode'])
