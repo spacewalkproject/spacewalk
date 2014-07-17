@@ -300,7 +300,7 @@ class Runner:
         cf = self.read_config()
 
         jabberpy_proxy_dict = None
-        if self._use_proxy:
+        if self._use_proxy and cf.has_key('proxy_url'):
             jabberpy_proxy_dict = {'host': cf['proxy_url'].split(':')[0],
                                    'port': int(cf['proxy_url'].split(':')[1])}
             if cf['enable_proxy_auth']:
