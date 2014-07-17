@@ -575,7 +575,6 @@ def process_package_files():
 def process_changelog():
     def convert(u):
         last = ''
-        fixed = u
         while u != last:
             last = u
             try:
@@ -589,21 +588,21 @@ def process_changelog():
         return u
 
     if CFG.db_backend == 'postgresql':
-        lengthb = "octet_length(%s)";
+        lengthb = "octet_length(%s)"
     else:
-        lengthb = "lengthb(%s)";
+        lengthb = "lengthb(%s)"
     _non_ascii_changelog_data_count = """select count(*) as cnt from rhnpackagechangelogdata
                                           where length(name) <> %s
                                              or length(text) <> %s
-        """ % (lengthb % 'name', lengthb % 'text');
+        """ % (lengthb % 'name', lengthb % 'text')
     _non_ascii_changelog_data = """select * from rhnpackagechangelogdata
                                     where length(name) <> %s
                                        or length(text) <> %s
-        """ % (lengthb % 'name', lengthb % 'text');
+        """ % (lengthb % 'name', lengthb % 'text')
     _update_changelog_data_name = """update rhnpackagechangelogdata set name = :name
-                                           where id = :id""";
+                                           where id = :id"""
     _update_changelog_data_text = """update rhnpackagechangelogdata set text = :text
-                                           where id = :id""";
+                                           where id = :id"""
     if debug:
         log = rhnLog('/var/log/rhn/update-packages.log', 5)
 
