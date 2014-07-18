@@ -36,7 +36,7 @@ for package in $PACKAGE_LIST; do
 
 		echo "Updating $TOP_DIR_FEDORA/$package"
 		fedpkg switch-branch master || ( echo 'Error: could not switch to master' && exit 1 )
-        git pull || ( echo 'Error: could not update git' && exit 1 )
+        git reset --hard origin/master || ( echo 'Error: could not update git' && exit 1 )
 
 		# find version of package in fedora git and strip release from it
 		NVR_DISTGIT=`fedpkg verrel | perl -an -F- -e 'pop @F; print join("-", @F)'`
