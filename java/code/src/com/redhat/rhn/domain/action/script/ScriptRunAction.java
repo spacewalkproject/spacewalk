@@ -48,24 +48,27 @@ public class ScriptRunAction extends ScriptAction {
                 .getScriptContents()));
         retval.append("</pre></br>");
         for (ScriptResult sr : getScriptActionDetails().getResults()) {
-            retval.append(ls.getMessage("system.event.scriptStart", sr.getStartDate()));
-            retval.append("</br>");
-            retval.append(ls.getMessage("system.event.scriptEnd", sr.getStopDate()));
-            retval.append("</br>");
-            retval.append(ls.getMessage("system.event.scriptReturnCode",
-                    sr.getReturnCode().toString()));
-            retval.append("</br>");
-            retval.append(ls.getMessage("system.event.scriptRawOutput"));
-            retval.append("<a href=\"/network/systems/details/history/raw_script_output" +
-                    ".txt?hid=" + this.getId() + "&sid=" + server.getId() + "\">");
-            retval.append(ls.getMessage("system.event.downloadRawOutput"));
-            retval.append("</a>");
-            retval.append("</br>");
-            retval.append(ls.getMessage("system.event.scriptFilteredOutput"));
-            retval.append("</br>");
-            retval.append("<pre>");
-            retval.append(StringEscapeUtils.escapeHtml(sr.getOutputContents()));
-            retval.append("</pre>");
+            if (sr.getServerId().equals(server.getId())) {
+                retval.append(ls.getMessage("system.event.scriptStart", sr.getStartDate()));
+                retval.append("</br>");
+                retval.append(ls.getMessage("system.event.scriptEnd", sr.getStopDate()));
+                retval.append("</br>");
+                retval.append(ls.getMessage("system.event.scriptReturnCode", sr
+                        .getReturnCode().toString()));
+                retval.append("</br>");
+                retval.append(ls.getMessage("system.event.scriptRawOutput"));
+                retval.append("<a href=\"/network/systems/details/history/" +
+                        "raw_script_output.txt?hid=" + this.getId() + "&sid=" +
+                        server.getId() + "\">");
+                retval.append(ls.getMessage("system.event.downloadRawOutput"));
+                retval.append("</a>");
+                retval.append("</br>");
+                retval.append(ls.getMessage("system.event.scriptFilteredOutput"));
+                retval.append("</br>");
+                retval.append("<pre>");
+                retval.append(StringEscapeUtils.escapeHtml(sr.getOutputContents()));
+                retval.append("</pre>");
+            }
         }
         return retval.toString();
     }
