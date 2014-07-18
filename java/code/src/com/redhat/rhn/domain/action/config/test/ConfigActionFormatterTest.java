@@ -40,7 +40,7 @@ public class ConfigActionFormatterTest extends BaseTestCaseWithUser {
 
         ConfigRevision revision = action.getConfigRevisionActions().iterator().next()
             .getConfigRevision();
-        String expected = "<a href=\"/rhn/configuration/file/FileDetails.do?cfid=" +
+        String expected = "<a href=\"/rhn/configuration/file/FileDetails.do?crid=" +
             revision.getId().toString() +
             "\">" +
             StringEscapeUtils.escapeHtml(revision.getConfigFile().getConfigFileName()
