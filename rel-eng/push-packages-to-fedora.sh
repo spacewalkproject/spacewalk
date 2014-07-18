@@ -24,7 +24,7 @@ for package in $PACKAGE_LIST; do
         echo "Importing $package to Fedora:"
 		cd "$TOP_DIR_GIT"
 		cd `cat rel-eng/packages/$package | cut -f2 -d" "`
-		SRC_RPM=`tito build --srpm | tail -n1 | cut -f2 -d" "`
+		SRC_RPM=`tito build --srpm | grep 'Wrote' | tail -n1 | cut -f2 -d" "`
 		BASENAME=`basename $SRC_RPM .src.rpm`
 		NVR_GIT=`rpm -qp --queryformat '%{name}-%{version}' "$SRC_RPM"`
 		cd "$TOP_DIR_FEDORA"
