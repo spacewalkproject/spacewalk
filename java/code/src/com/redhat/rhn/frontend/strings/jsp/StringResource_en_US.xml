@@ -14978,6 +14978,9 @@ any of these revisions.  Are you sure you want to do this?</source>
             <context context-type="paramnotes">3 config files</context>
           </context-group>
         </trans-unit>
+        <trans-unit id="diffconfirm.jsp.widgetsummary">
+          <source>You may schedule configuration file compare actions to occur for the time below. &lt;br/&gt; &lt;strong&gt;Note: The time below represents the earliest time the action could occur&lt;/strong&gt;.</source>
+        </trans-unit>
       </group>
       <!-- configuration/ssm/diffsystems.jsp  -->
       <group>

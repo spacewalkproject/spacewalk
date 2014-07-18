@@ -5154,6 +5154,7 @@
     <action path="/systems/ssm/config/DiffConfirm"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/diffconfirm.jsp"
+        name="datePickerForm"
         type="com.redhat.rhn.frontend.action.configuration.ssm.ConfigConfirmAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="org_entitlement(rhn_provisioning)"/>
@@ -5164,6 +5165,7 @@
     <action path="/systems/ssm/config/DiffConfirmSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/diffconfirm.jsp"
+        name="datePickerForm"
         type="com.redhat.rhn.frontend.action.configuration.ssm.ConfigConfirmSubmitAction"
         parameter="dispatch"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
