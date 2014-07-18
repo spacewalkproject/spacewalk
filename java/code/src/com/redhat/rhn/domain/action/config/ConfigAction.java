@@ -82,9 +82,9 @@ public class ConfigAction extends Action {
         retval.append("</br>");
         for (ConfigRevisionAction rev : this.getConfigRevisionActions()) {
             HtmlTag a = new HtmlTag("a");
-            a.setAttribute("href",
-                    "/rhn/configuration/file/FileDetails.do?sid=" +
-                    server.getId().toString() + "&crid=" + rev.getId());
+            a.setAttribute("href", "/rhn/configuration/file/FileDetails.do?sid=" +
+                    server.getId().toString() + "&crid=" +
+                    rev.getConfigRevision().getId());
             a.addBody(rev.getConfigRevision()
                     .getConfigFile().getConfigFileName().getPath());
             retval.append(a.render());

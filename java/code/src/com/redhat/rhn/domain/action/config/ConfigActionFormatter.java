@@ -105,7 +105,7 @@ public class ConfigActionFormatter extends ActionFormatter {
                         ConfigFileName configFileName = configFile.getConfigFileName();
                         if (configFileName != null) {
                             result.add(
-                                "<a href=\"/rhn/configuration/file/FileDetails.do?cfid=" +
+                                "<a href=\"/rhn/configuration/file/FileDetails.do?crid=" +
                                 revision.getId().toString() +
                                 "\">" +
                                 StringEscapeUtils.escapeHtml(configFileName.getPath()) +

@@ -39,7 +39,7 @@ public class ConfigVerifyAction extends ConfigAction {
             a.setAttribute("href",
                     "/rhn/configuration/file/FileDetails.do?sid=" +
                     server.getId() + "&crid=" +
-                    rev.getConfigRevision().getConfigFile().getId());
+                    rev.getConfigRevision().getId());
             a.addBody(rev.getConfigRevision()
                     .getConfigFile().getConfigFileName().getPath());
             retval.append(a.render());
