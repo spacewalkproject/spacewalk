@@ -44,19 +44,9 @@ for package in $PACKAGE_LIST; do
 		if [ "$NVR_DISTGIT" != "$NVR_GIT" ]; then
 			echo "Version in dist-git is: $NVR_DISTGIT"
 			echo "Importing version: $NVR_GIT"
-			fedpkg import $SRC_RPM || exit $?
-            fedpkg commit -m "Rebase to $BASENAME in rawhide."
-			echo "Review your changes and hit ENTER to continue or Ctrl+C to stop"
-            read
-			git push || ( echo 'Error: could not push changes' && exit 1 )
-            if [ $package == "spacewalk-backend" ]; then
-				echo "WARNING: please manualy comment out subpackage spacewalk-backend-sql-oracle in fedora dist-git and build the package. Hit ENTER to continue"
-                read
-            else
-                fedpkg tag -c
-                git push --tags
-				fedpkg build --nowait
-			fi
+            cd "$TOP_DIR_GIT"
+            cd `cat rel-eng/packages/$package | cut -f2 -d" "`
+            tito release fedora-git
 		else
 			echo "$NVR_DISTGIT already imported - skipping."
 		fi
