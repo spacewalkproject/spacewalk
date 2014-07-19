@@ -282,24 +282,16 @@ sub clone_original_channel_packages {
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);
 INSERT INTO rhnChannelPackage
-(channel_id, package_id)
-(SELECT :to_cid, OLDEST.package_id
-  FROM  (SELECT P.id package_id,
-                RANK() OVER (PARTITION BY P.name_id, P.package_arch_id ORDER BY PE.evr ASC) AS DEPTH
-          FROM rhnPackageEVR PE,
-               rhnPackage P,
-               rhnChannelPackage CP
-         WHERE CP.channel_id = :from_cid
-           AND P.id = CP.package_id
-           AND PE.id = P.evr_id
-        ) OLDEST
-  WHERE OLDEST.DEPTH = 1
-    AND NOT EXISTS (SELECT 1
-                      FROM rhnChannelErrata CE, rhnErrataPackage EP
-                     WHERE CE.channel_id = :from_cid
-                       AND CE.errata_id = EP.errata_id
-                       AND EP.package_id = OLDEST.package_id)
-)
+(package_id, channel_id)
+(SELECT DISTINCT cp.package_id, CAST(:to_cid as INT)
+            FROM rhnChannelPackage cp
+            LEFT OUTER JOIN (
+                    SELECT ep.package_id, ep.errata_id
+                    FROM rhnChannelErrata ce
+                    JOIN rhnErrataPackage ep ON ep.errata_id = ce.errata_id
+                    WHERE ce.channel_id = :from_cid) e ON cp.package_id = e.package_id
+            WHERE cp.channel_id = :from_cid
+            AND e.errata_id IS NULL)
 EOQ
 
   $sth->execute_h(to_cid => $to_cid, from_cid => $from_cid);
