@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.121
+Version: 2.2.122
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Jul 19 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.122-1
+- 1121245 - history events should show script results for this system only
+- 1121252 - config revision not found when following history link
+- 1121215 - ISE comparing config files in SSM
+
 * Fri Jul 18 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.121-1
 - 1120814 - fix broken links to old perl events page
 
