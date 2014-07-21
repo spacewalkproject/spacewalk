@@ -3224,4 +3224,43 @@ def do_system_schedulepackagerefresh(self, args):
                                                   system_id,
                                                   action_time)
 
+####################
+def help_system_show_packageversion(self):
+    print 'system_show_packageversion: Shows version of installed package on given system(s)'
+    print 'usage: system_show_packageversion <SYSTEM> <PACKAGE>'
+    print
+    print self.HELP_SYSTEM_OPTS
+
+def complete_system_show_packageversion(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) == 2:
+        return self.tab_complete_systems(text)
+    else:
+        return tab_completer(self.get_package_names(), text)
+
+
+def do_system_show_packageversion(self, args):
+    (args, options) = parse_arguments(args)
+
+
+    if re.match('ssm', args[0], re.I):
+        systems = self.ssm.keys()
+    else:
+        systems = self.expand_systems(args)
+
+    print "Package\tVersion\tRelease\tEpoch\tArch\tSystem"
+    print "=============================================="
+    for system in sorted(systems):
+        system_id = self.get_system_id(system)
+        if not system_id: continue
+
+        instpkgs = self.client.system.listPackages(self.session,\
+                                                        system_id)
+        searchpkg= args[1]
+        for pkg in instpkgs:
+            if  pkg.get('name') == searchpkg:
+                print "%s\t%s\t%s\t%s\t%s\t%s" % ( pkg.get('name'),pkg.get('version'),pkg.get('release'), pkg.get('epoch'), pkg.get('arch_label'), system)
+
+
 # vim:ts=4:expandtab:
