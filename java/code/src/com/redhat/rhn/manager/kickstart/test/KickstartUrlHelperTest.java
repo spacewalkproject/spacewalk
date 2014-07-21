@@ -69,15 +69,30 @@ public class KickstartUrlHelperTest extends BaseKickstartCommandTestCase {
     }
 
     public void testGetKickstartMediaPath() {
-        String expected = KickstartUrlHelper.KS_DIST + "/" +
-            ksdata.getKickstartDefaults().getKstree().getLabel();
+        String expected = null;
+        Long orgId = ksdata.getKickstartDefaults().getKstree().getOrgId();
+        if (orgId == null) {
+            expected = KickstartUrlHelper.KS_DIST + "/" +
+                    ksdata.getKickstartDefaults().getKstree().getLabel();
+        }
+        else {
+            expected = KickstartUrlHelper.KS_DIST + "/org/" + orgId.toString() + "/" +
+                    ksdata.getKickstartDefaults().getKstree().getLabel();
+        }
        assertEquals(expected, helper.getKickstartMediaPath());
     }
 
     public void testGetKickstartMediaUrl() {
-        String expected = "http://spacewalk.example.com" +
-            KickstartUrlHelper.KS_DIST + "/" +
-                ksdata.getKickstartDefaults().getKstree().getLabel();
+        Long orgId = ksdata.getKickstartDefaults().getKstree().getOrgId();
+        String expected = "http://spacewalk.example.com" + KickstartUrlHelper.KS_DIST;
+        if (orgId == null) {
+            expected = expected + "/" +
+                    ksdata.getKickstartDefaults().getKstree().getLabel();
+        }
+        else {
+            expected = expected + "/org/" + orgId.toString() + "/" +
+                    ksdata.getKickstartDefaults().getKstree().getLabel();
+        }
         assertEquals(expected, helper.getKickstartMediaUrl());
 
     }
