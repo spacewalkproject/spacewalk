@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -66,7 +66,7 @@ public class SystemTimeMessageTag extends TagSupport {
         if (server == null) {
             throw new JspException("Tag error: Server must be defined");
         }
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         LocalizationService translate = LocalizationService.getInstance();
 
         Date now = new Date();

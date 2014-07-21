@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -146,7 +146,7 @@ public class EnableConfirmSetupAction extends RhnListAction {
         RhnSetDecl.USERS.clear(user);
 
         ActionMessages msg = new ActionMessages();
-        StringBuffer messageKey = new StringBuffer("enable.confirmed");
+        StringBuilder messageKey = new StringBuilder("enable.confirmed");
         if (count > 1) {
             messageKey = messageKey.append(".plural");
         }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -148,7 +148,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, server.getNetworkInterfaces().size());
         TestUtils.saveAndFlush(server);
 
-        List<NetworkInterface> results = handler.getNetworkDevices(adminKey, sid);
+        List<NetworkInterface> results = handler.getNetworkDevices(admin, sid);
         assertEquals(1, results.size());
 
         NetworkInterface dev = results.get(0);
@@ -161,7 +161,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         //since we can't really test this without giving the server entitlements, just
         //make sure we get a permission exception
         try {
-            handler.obtainReactivationKey(adminKey, new Integer(server.getId().intValue()));
+            handler.obtainReactivationKey(admin, new Integer(server.getId().intValue()));
             fail("SystemHandler.obtainReactivationKey allowed key to be generated for " +
             "system without agent smith feature.");
         }
@@ -186,7 +186,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         assertTrue(SystemManager.canEntitleServer(server, ent));
 
-        int result = handler.upgradeEntitlement(adminKey,
+        int result = handler.upgradeEntitlement(admin,
                 new Integer(server.getId().intValue()),
                 ent.getLabel());
 
@@ -195,7 +195,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         //Cause PermissionCheckFailureException
         try {
-            result = handler.upgradeEntitlement(adminKey,
+            result = handler.upgradeEntitlement(admin,
                     new Integer(server.getId().intValue()),
                     ent.getLabel());
             fail("SystemHandler.upgradeEntitlement allowed upgrade when canEntitleServer " +
@@ -207,7 +207,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         //Cause InvalidEntitlementException
         try {
-            result = handler.upgradeEntitlement(adminKey,
+            result = handler.upgradeEntitlement(admin,
                     new Integer(server.getId().intValue()),
                     TestUtils.randomString());
             fail("SystemHandler.upgradeEntitlement allowed upgrade to phoney entitlement");
@@ -244,7 +244,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         cids.add(new Integer(child1.getId().intValue()));
         cids.add(new Integer(child2.getId().intValue()));
 
-        int result = handler.setChildChannels(adminKey, sid, cids);
+        int result = handler.setChildChannels(admin, sid, cids);
         server = (Server) TestUtils.reload(server);
         assertEquals(1, result);
         assertEquals(3, server.getChannels().size());
@@ -254,7 +254,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         cids.add(new Integer(child2.getId().intValue()));
         assertEquals(1, cids.size());
 
-        result = handler.setChildChannels(adminKey, sid, cids);
+        result = handler.setChildChannels(admin, sid, cids);
         server = (Server) TestUtils.reload(server);
         assertEquals(1, result);
         assertEquals(2, server.getChannels().size());
@@ -265,7 +265,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, cids.size());
 
         try {
-            result = handler.setChildChannels(adminKey, sid, cids);
+            result = handler.setChildChannels(admin, sid, cids);
             fail("SystemHandler.setChildChannels allowed invalid child channel to be set.");
         }
         catch (InvalidChannelException e) {
@@ -280,7 +280,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, cids.size());
 
         try {
-            result = handler.setChildChannels(adminKey, sid, cids);
+            result = handler.setChildChannels(admin, sid, cids);
             fail("SystemHandler.setChildChannels allowed invalid child channel to be set.");
         }
         catch (InvalidChannelException e) {
@@ -306,7 +306,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
             ServerFactory.save(server);
 
 
-            result = handler.setChildChannels(adminKey, sid, ia32Children);
+            result = handler.setChildChannels(admin, sid, ia32Children);
             fail("allowed invalid child channel to be set.");
         }
         catch (InvalidChannelException e) {
@@ -338,7 +338,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         channelLabels.add(new String(child1.getLabel()));
         channelLabels.add(new String(child2.getLabel()));
 
-        int result = handler.setChildChannels(adminKey, sid, channelLabels);
+        int result = handler.setChildChannels(admin, sid, channelLabels);
         server = (Server) TestUtils.reload(server);
         assertEquals(1, result);
         assertEquals(3, server.getChannels().size());
@@ -348,7 +348,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         channelLabels.add(new String(child2.getLabel()));
         assertEquals(1, channelLabels.size());
 
-        result = handler.setChildChannels(adminKey, sid, channelLabels);
+        result = handler.setChildChannels(admin, sid, channelLabels);
         server = (Server) TestUtils.reload(server);
         assertEquals(1, result);
         assertEquals(2, server.getChannels().size());
@@ -359,7 +359,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, channelLabels.size());
 
         try {
-            result = handler.setChildChannels(adminKey, sid, channelLabels);
+            result = handler.setChildChannels(admin, sid, channelLabels);
             fail("SystemHandler.setChildChannels allowed invalid child channel to be set.");
         }
         catch (InvalidChannelLabelException e) {
@@ -374,7 +374,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, channelLabels.size());
 
         try {
-            result = handler.setChildChannels(adminKey, sid, channelLabels);
+            result = handler.setChildChannels(admin, sid, channelLabels);
             fail("SystemHandler.setChildChannels allowed invalid child channel to be set.");
         }
         catch (InvalidChannelException e) {
@@ -400,7 +400,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
             ServerFactory.save(server);
 
 
-            result = handler.setChildChannels(adminKey, sid, ia32Children);
+            result = handler.setChildChannels(admin, sid, ia32Children);
             fail("allowed invalid child channel to be set.");
         }
         catch (InvalidChannelException e) {
@@ -426,7 +426,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         child1.setParentChannel(base1);
 
         // Set base channel to base1
-        int result = handler.setBaseChannel(adminKey, sid,
+        int result = handler.setBaseChannel(admin, sid,
                 new Integer(base1.getId().intValue()));
         server = (Server) reload(server);
         assertEquals(1, result);
@@ -434,7 +434,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(server.getBaseChannel().getLabel(), base1.getLabel());
 
         // Set base channel to base2
-        result = handler.setBaseChannel(adminKey, sid,
+        result = handler.setBaseChannel(admin, sid,
                 new Integer(base2.getId().intValue()));
         server = (Server) TestUtils.reload(server);
         assertEquals(1, result);
@@ -443,7 +443,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         // Try setting base channel to child
         try {
-            result = handler.setBaseChannel(adminKey, sid,
+            result = handler.setBaseChannel(admin, sid,
                     new Integer(child1.getId().intValue()));
             fail("SystemHandler.setBaseChannel allowed invalid base channel to be set.");
         }
@@ -461,7 +461,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
             ServerFactory.save(server);
 
 
-            result = handler.setBaseChannel(adminKey, sid,
+            result = handler.setBaseChannel(admin, sid,
                     new Integer(base1.getId().intValue()));
             fail("allowed channel with incompatible arch to be set");
         }
@@ -486,14 +486,14 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         child1.setParentChannel(base1);
 
         // Set base channel to base1
-        int result = handler.setBaseChannel(adminKey, sid, base1.getLabel());
+        int result = handler.setBaseChannel(admin, sid, base1.getLabel());
         server = (Server) reload(server);
         assertEquals(1, result);
         assertNotNull(server.getBaseChannel());
         assertEquals(server.getBaseChannel().getLabel(), base1.getLabel());
 
         // Set base channel to base2
-        result = handler.setBaseChannel(adminKey, sid, base2.getLabel());
+        result = handler.setBaseChannel(admin, sid, base2.getLabel());
         server = (Server) TestUtils.reload(server);
         assertEquals(1, result);
         assertNotNull(server.getBaseChannel());
@@ -501,7 +501,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         // Try setting base channel to child
         try {
-            result = handler.setBaseChannel(adminKey, sid, child1.getLabel());
+            result = handler.setBaseChannel(admin, sid, child1.getLabel());
             fail("SystemHandler.setBaseChannel allowed invalid base channel to be set.");
         }
         catch (InvalidChannelException e) {
@@ -518,7 +518,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
             ServerFactory.save(server);
 
 
-            result = handler.setBaseChannel(adminKey, sid, base1.getLabel());
+            result = handler.setBaseChannel(admin, sid, base1.getLabel());
             fail("allowed channel with incompatible arch to be set");
         }
         catch (InvalidChannelException e) {
@@ -533,7 +533,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         base.setParentChannel(null);
         SystemManager.subscribeServerToChannel(admin, server, base);
 
-        Object[] results = handler.listSubscribableBaseChannels(adminKey,
+        Object[] results = handler.listSubscribableBaseChannels(admin,
                 new Integer(server.getId().intValue()));
 
         assertTrue(results.length > 0);
@@ -555,13 +555,13 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Channel child = ChannelFactoryTest.createTestChannel(admin);
         child.setParentChannel(parent);
 
-        Object[] result = handler.listSubscribableChildChannels(adminKey,
+        Object[] result = handler.listSubscribableChildChannels(admin,
                 new Integer(server.getId().intValue()));
         //server shouldn't have any channels yet
         assertEquals(0, result.length);
         SystemManager.subscribeServerToChannel(admin, server, parent);
         server = (Server) reload(server);
-        result = handler.listSubscribableChildChannels(adminKey,
+        result = handler.listSubscribableChildChannels(admin,
                 new Integer(server.getId().intValue()));
 
         //server should have 1 child channel
@@ -575,7 +575,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         base.setParentChannel(null);
         SystemManager.subscribeServerToChannel(admin, server, base);
 
-        Object[] results = handler.listBaseChannels(adminKey,
+        Object[] results = handler.listBaseChannels(admin,
                 new Integer(server.getId().intValue()));
 
         assertTrue(results.length > 0);
@@ -597,13 +597,13 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Channel child = ChannelFactoryTest.createTestChannel(admin);
         child.setParentChannel(parent);
 
-        Object[] result = handler.listChildChannels(adminKey,
+        Object[] result = handler.listChildChannels(admin,
                 new Integer(server.getId().intValue()));
         //server shouldn't have any channels yet
         assertEquals(0, result.length);
         SystemManager.subscribeServerToChannel(admin, server, parent);
         server = (Server) reload(server);
-        result = handler.listChildChannels(adminKey,
+        result = handler.listChildChannels(admin,
                 new Integer(server.getId().intValue()));
 
         //server should have 1 child channel
@@ -615,7 +615,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         //make sure we get back a fault exception
         Server server = ServerFactoryTest.createTestServer(admin, true);
         try {
-            handler.listNewerInstalledPackages(adminKey,
+            handler.listNewerInstalledPackages(admin,
                     new Integer(server.getId().intValue()),
                     TestUtils.randomString(), "3", "4", "");
             fail("listNewerInstalledPackages did not throw fault exception.");
@@ -625,7 +625,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         }
 
         try {
-            handler.listOlderInstalledPackages(adminKey,
+            handler.listOlderInstalledPackages(admin,
                     new Integer(server.getId().intValue()),
                     "" + System.currentTimeMillis(), "3", "4", "");
             fail("listOlderInstalledPackages did not throw fault exception.");
@@ -640,11 +640,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         int numPackages = SystemManager.latestUpgradablePackages(server.getId()).size();
 
-        Object[] results = handler.listLatestUpgradablePackages(adminKey,
+        List<Map<String, Object>> results =
+                handler.listLatestUpgradablePackages(admin,
                 new Integer(server.getId().intValue()));
 
         //make sure the handler returns the same number of packages as systemmanger...
-        assertEquals(numPackages, results.length);
+        assertEquals(numPackages, results.size());
     }
 
     public void testListLatestInstallablePackages() throws Exception {
@@ -652,11 +653,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         int numPackages = SystemManager.latestInstallablePackages(server.getId()).size();
 
-        Object[] results = handler.listLatestInstallablePackages(adminKey,
+        List<Map<String, Object>> results =
+                handler.listLatestInstallablePackages(admin,
                 new Integer(server.getId().intValue()));
 
         //make sure the handler returns the same number of packages as systemmanger...
-        assertEquals(numPackages, results.length);
+        assertEquals(numPackages, results.size());
     }
 
 
@@ -665,7 +667,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         int numEntitlements = server.getEntitlements().size();
 
-        Object[] results = handler.getEntitlements(adminKey,
+        Object[] results = handler.getEntitlements(admin,
                 new Integer(server.getId().intValue()));
         assertEquals(numEntitlements, results.length);
         assertTrue(results.length > 0);
@@ -676,7 +678,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
     public void testDownloadSystemId() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        String sysid = handler.downloadSystemId(adminKey,
+        String sysid = handler.downloadSystemId(admin,
                 new Integer(server.getId().intValue()));
         assertNotNull(sysid);
     }
@@ -686,10 +688,11 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         int numPackages = SystemManager.installedPackages(server.getId(), false).size();
 
-        Object[] result = handler.listPackages(adminKey,
+        List<Map<String, Object>> result =
+                handler.listPackages(admin,
                 new Integer(server.getId().intValue()));
 
-        int numPackages2 = result.length;
+        int numPackages2 = result.size();
 
         assertEquals(numPackages, numPackages2);
 
@@ -699,13 +702,13 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testIsNvreInstalled() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
 
-        int result = handler.isNvreInstalled(adminKey,
+        int result = handler.isNvreInstalled(admin,
                 new Integer(server.getId().intValue()),
                 "foo", "-4", "1.b2", "bar");
 
         assertEquals(0, result);
 
-        result = handler.isNvreInstalled(adminKey,
+        result = handler.isNvreInstalled(admin,
                 new Integer(server.getId().intValue()),
                 "foo", "-4", "1.b2");
 
@@ -734,13 +737,13 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         List sids = new ArrayList();
         sids.add(id);
         try {
-            handler.deleteSystems(regularKey, sids);
+            handler.deleteSystems(regular, sids);
             fail("SystemHandler.deleteSystems allowed unauthorized deletion");
         }
         catch (FaultException e) {
             //success
         }
-        assertEquals(1, handler.deleteSystems(adminKey, sids));
+        assertEquals(1, handler.deleteSystems(admin, sids));
 
         List<OperationDetailsDto> ops = SsmOperationManager.allOperations(admin);
         for (OperationDetailsDto op : ops) {
@@ -766,7 +769,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         String guestName = "vguest-" + TestUtils.randomString();
         String profileName = k.getLabel();
 
-        int result = handler.provisionVirtualGuest(adminKey,
+        int result = handler.provisionVirtualGuest(admin,
                 new Integer(server.getId().intValue()),
                 guestName, profileName,
                 new Integer(256), new Integer(1), new Integer(2048));
@@ -777,7 +780,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testAddNote() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin);
         int sizeBefore = server.getNotes().size();
-        int result = handler.addNote(adminKey, new Integer(server.getId().intValue()),
+        int result = handler.addNote(admin, new Integer(server.getId().intValue()),
                 "TestNote", "TestNote body");
         int sizeAfter = server.getNotes().size();
         assertEquals(1, result);
@@ -789,7 +792,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         // Setup
         Server server = ServerFactoryTest.createTestServer(admin);
         int sizeBefore = server.getNotes().size();
-        int result = handler.addNote(adminKey, server.getId().intValue(),
+        int result = handler.addNote(admin, server.getId().intValue(),
                 "TestNote", "TestNote body");
         int sizeAfter = server.getNotes().size();
         assertEquals(1, result);
@@ -797,7 +800,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         // Test
         Note deleteMe = server.getNotes().iterator().next();
-        result = handler.deleteNote(adminKey, server.getId().intValue(),
+        result = handler.deleteNote(admin, server.getId().intValue(),
                 deleteMe.getId().intValue());
 
         // Verify
@@ -808,14 +811,14 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         // Setup
         Server server = ServerFactoryTest.createTestServer(admin);
         int sizeBefore = server.getNotes().size();
-        int result = handler.addNote(adminKey, server.getId().intValue(),
+        int result = handler.addNote(admin, server.getId().intValue(),
                 "TestNote", "TestNote body");
         int sizeAfter = server.getNotes().size();
         assertEquals(1, result);
         assertTrue(sizeAfter > sizeBefore);
 
         // Test
-        result = handler.deleteNotes(adminKey, server.getId().intValue());
+        result = handler.deleteNotes(admin, server.getId().intValue());
 
         // Verify
         assertEquals(1, result);
@@ -826,7 +829,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
     public void testListAllEvents() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin);
-        List<Map<String, Object>>results = handler.listSystemEvents(adminKey,
+        List<Map<String, Object>>results = handler.listSystemEvents(admin,
                 new Integer(server.getId().intValue()));
         assertEquals(0, results.size());
 
@@ -835,7 +838,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         ActionFactory.save(a);
         a = (Action) reload(a);
 
-        results = handler.listSystemEvents(adminKey,
+        results = handler.listSystemEvents(admin,
                 new Integer(server.getId().intValue()));
 
         assertEquals(1, results.size());
@@ -847,7 +850,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         int result;
         //try empty string
         try {
-            result = handler.setProfileName(adminKey,
+            result = handler.setProfileName(admin,
                     new Integer(server.getId().intValue()), "    ");
             fail("SystemHandler.setProfileName allowed an invalid profile name to be set.");
         }
@@ -856,7 +859,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         }
         //try name that is too short
         try {
-            result = handler.setProfileName(adminKey,
+            result = handler.setProfileName(admin,
                     new Integer(server.getId().intValue()), "   f   ");
             fail("SystemHandler.setProfileName allowed an invalid profile name to be set.");
         }
@@ -866,7 +869,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         //try name that is too long
         try {
-            result = handler.setProfileName(adminKey,
+            result = handler.setProfileName(admin,
                     new Integer(server.getId().intValue()), getLongTestString());
             fail("SystemHandler.setProfileName allowed an invalid profile name to be set.");
         }
@@ -875,7 +878,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         }
 
         String validProfileName = "XmlRpcTest - " + TestUtils.randomString();
-        result = handler.setProfileName(adminKey,
+        result = handler.setProfileName(admin,
                 new Integer(server.getId().intValue()), validProfileName);
         assertEquals(1, result);
         assertEquals(validProfileName, server.getName());
@@ -913,7 +916,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Map valuesToSet = new HashMap();
         valuesToSet.put(keyLabel, val2);
 
-        int setResult = handler.setCustomValues(adminKey,
+        int setResult = handler.setCustomValues(admin,
                 new Integer(server.getId().intValue()),
                 valuesToSet);
 
@@ -925,7 +928,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         // try to set custom values with some undefined keys
         valuesToSet.put(fooKey, val1);
         try {
-            setResult = handler.setCustomValues(adminKey,
+            setResult = handler.setCustomValues(admin,
                     new Integer(server.getId().intValue()),
                     valuesToSet);
             fail("Didn't get exception for undefined keys.");
@@ -935,7 +938,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         }
 
         //getCustomValues
-        Map result = handler.getCustomValues(adminKey,
+        Map result = handler.getCustomValues(admin,
                 new Integer(server.getId().intValue()));
 
         assertEquals(1, result.size());
@@ -944,7 +947,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         List<String> valuesToDelete = new ArrayList<String>();
         valuesToDelete.add(fooKey);
         try {
-            setResult = handler.deleteCustomValues(adminKey,
+            setResult = handler.deleteCustomValues(admin,
                     new Integer(server.getId().intValue()),
                     valuesToDelete);
             fail("Didn't get exception for undefined keys.");
@@ -955,13 +958,13 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         val = server.getCustomDataValue(testKey);
         assertNotNull(val);
 
-        result = handler.getCustomValues(adminKey, new Integer(server.getId().intValue()));
+        result = handler.getCustomValues(admin, new Integer(server.getId().intValue()));
         assertEquals(1, result.size());
 
         // now delete the custom value that was previously added
         valuesToDelete.clear();
         valuesToDelete.add(testKey.getLabel());
-        setResult = handler.deleteCustomValues(adminKey,
+        setResult = handler.deleteCustomValues(admin,
                 new Integer(server.getId().intValue()),
                 valuesToDelete);
 
@@ -975,18 +978,18 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         DataResult adminSystems = UserManager.visibleSystems(admin);
         int numAdminSystems = adminSystems.size();
 
-        List results = handler.listUserSystems(adminKey, admin.getLogin());
+        List results = handler.listUserSystems(admin, admin.getLogin());
         assertEquals(numAdminSystems, results.size());
 
         ServerFactoryTest.createTestServer(admin, true);
-        results = handler.listUserSystems(adminKey, admin.getLogin());
+        results = handler.listUserSystems(admin, admin.getLogin());
         assertTrue(results.size() > numAdminSystems);
     }
 
     public void testListGroups() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         DataResult dr = SystemManager.availableSystemGroups(server, admin);
-        Object[] results = handler.listGroups(adminKey,
+        Object[] results = handler.listGroups(admin,
                 new Integer(server.getId().intValue()));
         assertEquals(dr.size(), results.length);
     }
@@ -997,7 +1000,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         assertEquals(0, group.getServers().size());
 
-        handler.setGroupMembership(adminKey,
+        handler.setGroupMembership(admin,
                 new Integer(server.getId().intValue()),
                 new Integer(group.getId().intValue()),
                 true);
@@ -1005,7 +1008,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, group.getServers().size());
 
 
-        handler.setGroupMembership(adminKey,
+        handler.setGroupMembership(admin,
                 new Integer(server.getId().intValue()),
                 new Integer(group.getId().intValue()),
                 false);
@@ -1014,7 +1017,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
 
         try {
-            handler.setGroupMembership(adminKey,
+            handler.setGroupMembership(admin,
                     new Integer(server.getId().intValue()),
                     new Integer(-10),
                     true);
@@ -1033,7 +1036,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Network testNetwork = NetworkTest.createTestNetwork();
         server.addNetwork(testNetwork);
 
-        Map result = handler.getNetwork(adminKey, new Integer(server.getId().intValue()));
+        Map result = handler.getNetwork(admin, new Integer(server.getId().intValue()));
         assertNotNull(result.get("ip"));
         assertNotNull(result.get("hostname"));
     }
@@ -1041,7 +1044,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testGetId() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
 
-        List<SystemOverview> idList = handler.getId(adminKey, server.getName());
+        List<SystemOverview> idList = handler.getId(admin, server.getName());
         assertTrue(1 == idList.size());
         SystemOverview smap = idList.get(0);
         assertEquals(server.getId(), smap.getId());
@@ -1052,7 +1055,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testGetName() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
 
-        Map name = handler.getName(adminKey, server.getId().intValue());
+        Map name = handler.getName(admin, server.getId().intValue());
 
         assertTrue(null != name);
         assertEquals(server.getId(), name.get("id"));
@@ -1060,7 +1063,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertNotNull(name.get("last_checkin"));
 
         try {
-            Map invalid = handler.getName(adminKey, 10001234);
+            Map invalid = handler.getName(admin, 10001234);
             assertTrue(null != invalid);
             assertNull(invalid.get("id"));
             assertNull(invalid.get("name"));
@@ -1072,7 +1075,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
     public void testGetRegistrationDate() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        assertEquals(server.getCreated(), handler.getRegistrationDate(adminKey,
+        assertEquals(server.getCreated(), handler.getRegistrationDate(admin,
                 new Integer(server.getId().intValue())));
 
     }
@@ -1090,7 +1093,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         server.addChannel(child);
         server.addChannel(child2);
 
-        List<Channel> list = handler.listSubscribedChildChannels(adminKey,
+        List<Channel> list = handler.listSubscribedChildChannels(admin,
                 new Integer(server.getId().intValue()));
 
         assertEquals(2, list.size());
@@ -1117,7 +1120,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Server server2 = ServerFactoryTest.createTestServer(admin, true);
         server2.setName("ydjdk-test1234");
 
-        List<SystemOverview> sysList = handler.searchByName(adminKey, "ydjdk1");
+        List<SystemOverview> sysList = handler.searchByName(admin, "ydjdk1");
         assertTrue(sysList.size() == 1);
         SystemOverview result = sysList.get(0);
         assertEquals(server.getId().intValue(), (result.getId().intValue()));
@@ -1168,14 +1171,14 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
     public void testGetRunningKernel() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        assertEquals(ServerFactoryTest.RUNNING_KERNEL, handler.getRunningKernel(adminKey,
+        assertEquals(ServerFactoryTest.RUNNING_KERNEL, handler.getRunningKernel(admin,
                 new Integer(server.getId().intValue())));
     }
 
     public void testUserCantSeeRunningKernel() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         try {
-            handler.getRunningKernel(regularKey, new Integer(server.getId().intValue()));
+            handler.getRunningKernel(regular, new Integer(server.getId().intValue()));
             fail();
         }
         catch (NoSuchSystemException e) {
@@ -1197,7 +1200,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         TestUtils.saveAndFlush(event);
         TestUtils.saveAndFlush(server);
 
-        Object[] supposedHistory = handler.getEventHistory(adminKey,
+        Object[] supposedHistory = handler.getEventHistory(admin,
                 new Integer(server.getId().intValue()));
 
         assertEquals(((HistoryEvent) supposedHistory[0]).getId().longValue(),
@@ -1219,7 +1222,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         ErrataCacheManager.insertNeededErrataCache(
                 s.getId(), e.getId(), p.getId());
 
-        Object[] array = handler.getRelevantErrata(adminKey,
+        Object[] array = handler.getRelevantErrata(admin,
                 new Integer(s.getId().intValue()));
         assertEquals(array.length, 1);
         ErrataOverview errata = (ErrataOverview) array[0];
@@ -1232,7 +1235,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         int numErrata = SystemManager.relevantErrataByType(admin, server.getId(),
         "Bug Fix Advisory").size();
 
-        Object[] result = handler.getRelevantErrataByType(adminKey,
+        Object[] result = handler.getRelevantErrataByType(admin,
                 new Integer(server.getId().intValue()), "Bug Fix Advisory");
 
         int numErrata2 = result.length;
@@ -1252,7 +1255,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         dmi.setServer(server);
         server.setDmi(dmi);
 
-        Dmi dmiMap = (Dmi) handler.getDmi(adminKey,
+        Dmi dmiMap = (Dmi) handler.getDmi(admin,
                 new Integer(server.getId().intValue()));
 
         assertEquals(dmi.getAsset(), dmiMap.getAsset());
@@ -1286,7 +1289,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         cpu.setArch(arch);
         server.setCpu(cpu);
 
-        CPU cpuMap = (CPU) handler.getCpu(adminKey,
+        CPU cpuMap = (CPU) handler.getCpu(admin,
                 new Integer(server.getId().intValue()));
         assertEquals(cpu.getCache(), cpuMap.getCache());
         assertEquals(cpu.getFamily(), cpuMap.getFamily());
@@ -1303,7 +1306,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         server.setRam(1024);
         server.setSwap(1025);
 
-        Map memory = handler.getMemory(adminKey,
+        Map memory = handler.getMemory(admin,
                 new Integer(server.getId().intValue()));
         assertEquals(new Long(server.getRam()), memory.get("ram"));
         assertEquals(new Long(server.getSwap()), memory.get("swap"));
@@ -1323,7 +1326,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         device.setServer(server);
         server.addDevice(device);
 
-        Object[] dev =  handler.getDevices(adminKey,
+        Object[] dev =  handler.getDevices(admin,
                 new Integer(server.getId().intValue()));
 
         Device fetchedDev = (Device) dev[0];
@@ -1343,7 +1346,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         packageIds.add(new Integer(-1));
 
         try {
-            handler.schedulePackageInstall(adminKey, new Integer(
+            handler.schedulePackageInstall(admin, new Integer(
                     server.getId().intValue()), packageIds, new Date());
             fail();
         }
@@ -1360,7 +1363,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         List serverIds = new ArrayList();
         serverIds.add(server.getId().intValue());
 
-        Integer actionId = handler.scheduleScriptRun(adminKey,
+        Integer actionId = handler.scheduleScriptRun(admin,
                 serverIds, "root", "root",
                 new Integer(600), "", new Date());
 
@@ -1371,7 +1374,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertNotNull(newActionDetails);
 
         // Results not yet available:
-        Object [] result = handler.getScriptResults(adminKey, actionId);
+        Object [] result = handler.getScriptResults(admin, actionId);
         assertEquals(0, result.length);
     }
 
@@ -1382,7 +1385,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         serverIds.add(server.getId().intValue());
 
         try {
-            handler.scheduleScriptRun(adminKey,
+            handler.scheduleScriptRun(admin,
                     serverIds, "root", "root",
                     new Integer(600), "", new Date());
             fail();
@@ -1399,7 +1402,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         serverIds.add(server.getId().intValue());
 
         try {
-            handler.scheduleScriptRun(regularKey,
+            handler.scheduleScriptRun(regular,
                     serverIds, "root", "root",
                     new Integer(600), "", new Date());
             fail();
@@ -1417,7 +1420,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         serverIds.add(server.getId().intValue());
 
         try {
-            handler.scheduleScriptRun(adminKey,
+            handler.scheduleScriptRun(admin,
                     serverIds, "root", "root",
                     new Integer(600), "", new Date());
             fail();
@@ -1432,7 +1435,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         serverIds.add(new Integer(-1));
 
         try {
-            handler.scheduleScriptRun(adminKey, serverIds, "root", "root",
+            handler.scheduleScriptRun(admin, serverIds, "root", "root",
                     new Integer(600), "", new Date());
             fail();
         }
@@ -1452,7 +1455,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         List serverIds = new ArrayList();
         serverIds.add(server.getId().intValue());
 
-        Integer actionId = handler.scheduleScriptRun(adminKey,
+        Integer actionId = handler.scheduleScriptRun(admin,
                 serverIds, "root", "root",
                 new Integer(600), "", new Date());
 
@@ -1476,14 +1479,14 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         ActionFactory.save(newAction);
         flushAndEvict(newAction);
 
-        Object [] scriptResult = handler.getScriptResults(adminKey,
+        Object [] scriptResult = handler.getScriptResults(admin,
                 new Integer(newAction.getId().intValue()));
         assertEquals(1, scriptResult.length);
     }
 
     public void testGetScriptResultForNonExistentAction() throws Exception {
         try {
-            handler.getScriptResults(adminKey, new Integer(-1));
+            handler.getScriptResults(admin, new Integer(-1));
             fail();
         }
         catch (NoSuchActionException e) {
@@ -1497,7 +1500,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         ActionFactory.save(a);
 
         try {
-            handler.getScriptResults(adminKey, new Integer(a.getId().intValue()));
+            handler.getScriptResults(admin, new Integer(a.getId().intValue()));
             fail();
         }
         catch (InvalidActionTypeException e) {
@@ -1517,7 +1520,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         List errataIds = new LinkedList();
         errataIds.add(new Integer(irrelevantErrata.getId().intValue()));
         try {
-            handler.applyErrata(adminKey, new Integer(server.getId().intValue()),
+            handler.applyErrata(admin, new Integer(server.getId().intValue()),
                     errataIds);
             fail();
         }
@@ -1525,7 +1528,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
             // expected
         }
         try {
-            handler.scheduleApplyErrata(adminKey, serverIds, errataIds);
+            handler.scheduleApplyErrata(admin, serverIds, errataIds);
             fail();
         }
         catch (InvalidErrataException e) {
@@ -1542,7 +1545,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         DataResult dr = ActionManager.recentlyScheduledActions(admin, null, 30);
         int preScheduleSize = dr.size();
-        handler.schedulePackageInstall(adminKey, new Integer(server.getId().intValue()),
+        handler.schedulePackageInstall(admin, new Integer(server.getId().intValue()),
                 packageIds, new Date());
 
         dr = ActionManager.recentlyScheduledActions(admin, null, 30);
@@ -1567,7 +1570,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         List packageIds = new LinkedList();
         packageIds.add(pkg.getId().intValue());
 
-        handler.schedulePackageRemove(adminKey, new Integer(server.getId().intValue()),
+        handler.schedulePackageRemove(admin, new Integer(server.getId().intValue()),
                 packageIds, new Date());
 
         dr = ActionManager.recentlyScheduledActions(admin, null, 30);
@@ -1580,7 +1583,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         DataResult dr = ActionManager.recentlyScheduledActions(admin, null, 30);
         int preScheduleSize = dr.size();
-        handler.scheduleHardwareRefresh(adminKey, new Integer(server.getId().intValue()),
+        handler.scheduleHardwareRefresh(admin, new Integer(server.getId().intValue()),
                 new Date());
 
         dr = ActionManager.recentlyScheduledActions(admin, null, 30);
@@ -1593,7 +1596,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         DataResult dr = ActionManager.recentlyScheduledActions(admin, null, 30);
         int preScheduleSize = dr.size();
-        handler.schedulePackageRefresh(adminKey, new Integer(server.getId().intValue()),
+        handler.schedulePackageRefresh(admin, new Integer(server.getId().intValue()),
                 new Date());
 
         dr = ActionManager.recentlyScheduledActions(admin, null, 30);
@@ -1603,14 +1606,14 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
     public void testGetDetails() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        Server lookupServer = (Server)handler.getDetails(adminKey,
+        Server lookupServer = (Server)handler.getDetails(admin,
                 new Integer(server.getId().intValue()));
         assertNotNull(lookupServer);
     }
 
     public void testGetDetailsNoSuchServer() throws Exception {
         try {
-            handler.getDetails(adminKey, new Integer(-1));
+            handler.getDetails(admin, new Integer(-1));
             fail();
         }
         catch (NoSuchSystemException e) {
@@ -1648,7 +1651,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         details.put("room", room);
         details.put("rack", rack);
 
-        handler.setDetails(adminKey, new Integer(server.getId().intValue()), details);
+        handler.setDetails(admin, new Integer(server.getId().intValue()), details);
         TestUtils.saveAndFlush(server);
         server = (Server)reload(server);
 
@@ -1673,7 +1676,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertNull(server.getLock());
 
         //lock the server
-        handler.setLockStatus(adminKey, new Integer(server.getId().intValue()),
+        handler.setLockStatus(admin, new Integer(server.getId().intValue()),
                 true);
 
         TestUtils.saveAndFlush(server);
@@ -1681,7 +1684,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertNotNull(server.getLock());
 
         //unlock the server
-        handler.setLockStatus(adminKey, new Integer(server.getId().intValue()),
+        handler.setLockStatus(admin, new Integer(server.getId().intValue()),
                 false);
 
         TestUtils.saveAndFlush(server);
@@ -1695,7 +1698,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Map details = new HashMap();
         details.put("base_entitlement", "unentitle");
 
-        handler.setDetails(adminKey, new Integer(server.getId().intValue()), details);
+        handler.setDetails(admin, new Integer(server.getId().intValue()), details);
         TestUtils.saveAndFlush(server);
         server = (Server)reload(server);
 
@@ -1709,7 +1712,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         details.put("base_entitlement", "unentitle");
 
         try {
-            handler.setDetails(regularKey, new Integer(server.getId().intValue()), details);
+            handler.setDetails(regular, new Integer(server.getId().intValue()), details);
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -1725,7 +1728,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         entitlements.add(EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED);
 
         try {
-            handler.addEntitlements(adminKey, new Integer(server.getId().intValue()),
+            handler.addEntitlements(admin, new Integer(server.getId().intValue()),
                     entitlements);
             fail();
         }
@@ -1742,7 +1745,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         List entitlements = new LinkedList();
         entitlements.add(EntitlementManager.MONITORING_ENTITLED);
 
-        handler.addEntitlements(adminKey, new Integer(server.getId().intValue()),
+        handler.addEntitlements(admin, new Integer(server.getId().intValue()),
                 entitlements);
 
         TestUtils.flushAndEvict(server);
@@ -1759,7 +1762,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         entitlements.add(EntitlementManager.MONITORING_ENTITLED);
 
         // Shouldn't fail:
-        handler.addEntitlements(adminKey, new Integer(server.getId().intValue()),
+        handler.addEntitlements(admin, new Integer(server.getId().intValue()),
                 entitlements);
     }
 
@@ -1771,7 +1774,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         List entitlements = new LinkedList();
         entitlements.add(EntitlementManager.MONITORING_ENTITLED);
 
-        handler.removeEntitlements(adminKey, new Integer(server.getId().intValue()),
+        handler.removeEntitlements(admin, new Integer(server.getId().intValue()),
                 entitlements);
     }
 
@@ -1782,7 +1785,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         List entitlements = new LinkedList();
         entitlements.add(EntitlementManager.MONITORING_ENTITLED);
 
-        handler.removeEntitlements(adminKey, new Integer(server.getId().intValue()),
+        handler.removeEntitlements(admin, new Integer(server.getId().intValue()),
                 entitlements);
     }
 
@@ -1805,8 +1808,8 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         testServer.setPackages(instPackages);
         Integer serverId = testServer.getId().intValue();
         Map<String, Object> returned = (Map<String, Object>) handler
-            .listPackagesFromChannel(adminKey, serverId,
-            testChannel.getLabel())[0];
+            .listPackagesFromChannel(admin, serverId,
+                        testChannel.getLabel()).get(0);
 
         assertEquals(testPackage.getPackageName().getName(), returned.get("name"));
         assertEquals(testPackage.getPackageEvr().getVersion(), returned.get("version"));
@@ -1855,7 +1858,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         // lookup_transaction_package(:operation, :n, :e, :v, :r, :a)
         // which can cause deadlocks.  We are forced to call commitAndCloseTransaction()
         commitAndCloseSession();
-        handler.scheduleSyncPackagesWithSystem(adminKey, new Integer(s1.getId().
+        handler.scheduleSyncPackagesWithSystem(admin, new Integer(s1.getId().
                 intValue()), new Integer(s2.getId().intValue()), packagesToSync,
                 new Date());
     }
@@ -1868,7 +1871,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         int preScheduleSize = dr.size();
 
-        Long returnInt = handler.scheduleReboot(adminKey,
+        Long returnInt = handler.scheduleReboot(admin,
                 new Integer(testServer.getId().intValue()), new Date());
         assertNotNull(returnInt);
 
@@ -1904,7 +1907,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                 admin.getOrg().getId());
         assertNull(newProfile);
 
-        Integer returned = handler.createPackageProfile(adminKey,
+        Integer returned = handler.createPackageProfile(admin,
                 new Integer(testServer.getId().intValue()),
                 profileLabel, TestUtils.randomString());
 
@@ -1938,7 +1941,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         String profileLabel = TestUtils.randomString();
 
-        handler.createPackageProfile(adminKey,
+        handler.createPackageProfile(admin,
                 new Integer(testServer.getId().intValue()),
                 profileLabel, TestUtils.randomString());
 
@@ -1946,7 +1949,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         // compare the newly created profile against.
         Server testServer2 = ServerFactoryTest.createTestServer(admin, true);
 
-        Object[] compareResults = handler.comparePackageProfile(adminKey,
+        Object[] compareResults = handler.comparePackageProfile(admin,
                 new Integer(testServer2.getId().intValue()), profileLabel);
 
         assertEquals(1, compareResults.length);
@@ -1966,7 +1969,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         ErrataCacheManager.insertNeededErrataCache(sid, null,
                 pack.getId());
 
-        Object [] array =  handler.listOutOfDateSystems(regularKey);
+        Object [] array =  handler.listOutOfDateSystems(regular);
 
         assertTrue(array.length > 0);
         boolean sidExists  = false;
@@ -1986,7 +1989,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Server testServer = ServerFactoryTest.createTestServer(admin, false);
         ServerFactoryTest.createTestServer(admin, true);
 
-        Object[] servers = handler.listUngroupedSystems(adminKey);
+        Object[] servers = handler.listUngroupedSystems(admin);
         assertTrue(servers.length > 0);
         boolean sidExists  = false;
         for (int i = 0; i < servers.length; i++) {
@@ -2003,7 +2006,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Server srv1 = ServerFactoryTest.createTestServer(regular, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         if (srv1.getBaseChannel() != null) {
-            Channel base = (Channel) handler.getSubscribedBaseChannel(adminKey,
+            Channel base = (Channel) handler.getSubscribedBaseChannel(admin,
                 new Integer(srv1.getId().intValue()));
             assertEquals(srv1.getBaseChannel(), base);
         }
@@ -2015,20 +2018,20 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Calendar cal = Calendar.getInstance();
         srv1.getServerInfo().setCheckin(cal.getTime());
 
-        List list = handler.listInactiveSystems(adminKey);
+        List list = handler.listInactiveSystems(admin);
         assertFalse(systemInList(srv1.getId(), list));
 
         cal.add(Calendar.DAY_OF_YEAR, -5);
 
         srv1.getServerInfo().setCheckin(cal.getTime());
-        list = handler.listInactiveSystems(adminKey);
+        list = handler.listInactiveSystems(admin);
         System.out.println(list);
         assertTrue(systemInList(srv1.getId(), list));
 
-        list = handler.listInactiveSystems(adminKey, 2);
+        list = handler.listInactiveSystems(admin, 2);
         assertTrue(systemInList(srv1.getId(), list));
 
-        list = handler.listInactiveSystems(adminKey, 10);
+        list = handler.listInactiveSystems(admin, 10);
         assertFalse(systemInList(srv1.getId(), list));
 
     }
@@ -2047,7 +2050,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Server srv1 = ServerFactoryTest.createTestServer(regular, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         srv1.setCreator(admin);
-        assertEquals(admin, handler.whoRegistered(adminKey, srv1.getId().intValue()));
+        assertEquals(admin, handler.whoRegistered(admin, srv1.getId().intValue()));
     }
 
 
@@ -2069,12 +2072,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         PackageFactory.getSession().save(pack);
 
-        List list = handler.listSystemsWithPackage(adminKey, iPack.getName().getName(),
+        List list = handler.listSystemsWithPackage(admin, iPack.getName().getName(),
                 iPack.getEvr().getVersion(), iPack.getEvr().getRelease());
 
         assertTrue(systemInList(srv1.getId(), list));
 
-        list = handler.listSystemsWithPackage(adminKey, pack.getId().intValue());
+        list = handler.listSystemsWithPackage(admin, pack.getId().intValue());
         assertTrue(systemInList(srv1.getId(), list));
 
 
@@ -2088,7 +2091,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         VirtualInstanceFactory.getInstance().saveVirtualInstance(guest);
 
-        int id = handler.scheduleGuestAction(adminKey,
+        int id = handler.scheduleGuestAction(admin,
                 guest.getGuestSystem().getId().intValue(), "restart");
 
         List<Action> actions = ActionFactory.listActionsForServer(admin, host);
@@ -2111,7 +2114,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         VirtualInstanceFactory.getInstance().saveVirtualInstance(guest);
 
-        int id = handler.setGuestMemory(adminKey,
+        int id = handler.setGuestMemory(admin,
                 guest.getGuestSystem().getId().intValue(), 512);
 
         List<Action> actions = ActionFactory.listActionsForServer(admin, host);
@@ -2140,7 +2143,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         VirtualInstanceFactory.getInstance().saveVirtualInstance(guest);
 
-        int id = handler.setGuestCpus(adminKey,
+        int id = handler.setGuestCpus(admin,
                 guest.getGuestSystem().getId().intValue(), 3);
 
         List<Action> actions = ActionFactory.listActionsForServer(admin, host);
@@ -2165,13 +2168,13 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         ActivationKey key = ActivationKeyTest.createTestActivationKey(admin);
 
-        List<String> keys = handler.listActivationKeys(adminKey, server.getId().intValue());
+        List<String> keys = handler.listActivationKeys(admin, server.getId().intValue());
         assertEquals(0, keys.size());
 
         key.getToken().getActivatedServers().add(server);
         TestUtils.saveAndFlush(key);
 
-        keys = handler.listActivationKeys(adminKey, server.getId().intValue());
+        keys = handler.listActivationKeys(admin, server.getId().intValue());
         assertEquals(1, keys.size());
     }
 
@@ -2180,7 +2183,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Server server = ServerFactoryTest.createTestServer(admin, true);
 
         // check the initial state of the connection path for the server
-        Object[] results = handler.getConnectionPath(adminKey,
+        Object[] results = handler.getConnectionPath(admin,
                 new Integer(server.getId().intValue()));
 
         assertEquals(0, results.length);
@@ -2210,7 +2213,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         m.executeUpdate(params);
 
         // execute test...
-        results = handler.getConnectionPath(adminKey,
+        results = handler.getConnectionPath(admin,
                 new Integer(server.getId().intValue()));
 
         assertEquals(2, results.length);

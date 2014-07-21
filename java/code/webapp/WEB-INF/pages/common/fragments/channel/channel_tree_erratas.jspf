@@ -1,0 +1,7 @@
+<rhn:column
+   header="channels.overview.erratas"
+   style="text-align: right;"
+   url="/rhn/channels/ChannelErrata.do?cid=${current.id}"
+   usesRefactoredList="true">
+      ${empty current.errataCount ? '0' : current.errataCount}
+</rhn:column>

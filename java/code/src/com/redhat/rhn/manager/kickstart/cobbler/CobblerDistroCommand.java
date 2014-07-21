@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -62,7 +62,7 @@ public class CobblerDistroCommand extends CobblerCommand {
      * Copy cobbler fields that shouldn't change in cobbler
      */
     protected void updateCobblerFields() {
-        CobblerConnection con = CobblerXMLRPCHelper.getConnection(user.getLogin());
+        CobblerConnection con = getCobblerConnection();
         Distro nonXen = Distro.lookupById(con, tree.getCobblerId());
         Distro xen = Distro.lookupById(con, tree.getCobblerXenId());
 
@@ -78,11 +78,11 @@ public class CobblerDistroCommand extends CobblerCommand {
         if (tree.doesParaVirt()) {
             //IT does paravirt so we need to either update the xen distro or create one
             if (xen == null) {
-                xen =
-                        Distro.create(con, tree.getCobblerXenDistroName(), tree
-                                .getKernelXenPath(), tree.getInitrdXenPath(), ksmeta, tree
-                                .getInstallType().getCobblerBreed(), tree.getInstallType()
-                                .getCobblerOsVersion());
+                xen = Distro.create(con, tree.getCobblerXenDistroName(), tree
+                        .getKernelXenPath(), tree.getInitrdXenPath(), ksmeta, tree
+                        .getInstallType().getCobblerBreed(), tree.getInstallType()
+                        .getCobblerOsVersion(), tree.getChannel().getChannelArch()
+                        .cobblerArch());
                 xen.save();
                 tree.setCobblerXenId(xen.getId());
             }
@@ -92,6 +92,7 @@ public class CobblerDistroCommand extends CobblerCommand {
                 xen.setBreed(tree.getInstallType().getCobblerBreed());
                 xen.setOsVersion(tree.getInstallType().getCobblerOsVersion());
                 xen.setKsMeta(ksmeta);
+                xen.setArch(tree.getChannel().getChannelArch().cobblerArch());
                 xen.save();
             }
 
@@ -110,6 +111,7 @@ public class CobblerDistroCommand extends CobblerCommand {
             nonXen.setBreed(tree.getInstallType().getCobblerBreed());
             nonXen.setOsVersion(tree.getInstallType().getCobblerOsVersion());
             nonXen.setKsMeta(ksmeta);
+            nonXen.setArch(tree.getChannel().getChannelArch().cobblerArch());
             nonXen.save();
         }
     }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -214,7 +214,7 @@ public class OvalFileAggregator {
         Element timestamp = new Element("timestamp", oval);
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        StringBuffer date = new StringBuffer();
+        StringBuilder date = new StringBuilder();
         date.append(cal.get(Calendar.YEAR));
         date.append("-");
         int month = cal.get(Calendar.MONTH);

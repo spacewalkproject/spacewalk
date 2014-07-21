@@ -258,7 +258,7 @@ public class ErrataManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Errata_queries", "all_errata");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", user.getOrg().getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
         DataResult result = makeDataResult(params, elabParams, null, m);
         return result;
@@ -275,7 +275,7 @@ public class ErrataManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", user.getOrg().getId());
         params.put("type", type);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
         DataResult result = makeDataResult(params, elabParams, null, m);
         return result;
@@ -292,7 +292,7 @@ public class ErrataManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", user.getOrg().getId());
         params.put("type", ErrataFactory.ERRATA_TYPE_SECURITY);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
         DataResult result = makeDataResult(params, elabParams, null, m);
         return result;
@@ -368,7 +368,7 @@ public class ErrataManager extends BaseManager {
                                            "relevant_to_system_set");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
         DataResult dr = m.execute(params, types);
         dr.setElaborationParams(elabParams);
@@ -385,7 +385,7 @@ public class ErrataManager extends BaseManager {
                                            "relevant_errata");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
         return makeDataResult(params, elabParams, null, m);
     }
@@ -403,7 +403,7 @@ public class ErrataManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("type", typeIn);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
         return makeDataResult(params, elabParams, pc, m);
     }
@@ -421,7 +421,7 @@ public class ErrataManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("type", ErrataFactory.ERRATA_TYPE_SECURITY);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
         return makeDataResult(params, elabParams, pc, m);
     }
@@ -547,7 +547,7 @@ public class ErrataManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("set_label", label);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
         return makeDataResult(params, elabParams, pc, m);
     }
@@ -754,14 +754,15 @@ public class ErrataManager extends BaseManager {
      * @param pc PageControl
      * @return systems affected by current errata
      */
-    public static DataResult systemsAffected(User user, Long eid, PageControl pc) {
+    public static DataResult<SystemOverview> systemsAffected(User user, Long eid,
+            PageControl pc) {
         SelectMode m = ModeFactory.getMode("System_queries", "affected_by_errata");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("eid", eid);
         params.put("user_id", user.getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("eid", eid);
-        return makeDataResult(params, elabParams, pc, m);
+        return makeDataResult(params, elabParams, pc, m, SystemOverview.class);
     }
 
     /**
@@ -814,7 +815,7 @@ public class ErrataManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("eid", eid);
         params.put("user_id", user.getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("eid", eid);
         return makeDataResult(params, elabParams, null, m);
     }
@@ -1154,7 +1155,7 @@ public class ErrataManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("set", setLabel);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
         SelectMode m = ModeFactory.getMode(
                 "Errata_queries", "errata_list_in_set");

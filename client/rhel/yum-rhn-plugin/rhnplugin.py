@@ -8,6 +8,7 @@ and XMLRPC calls.
 import os
 import sys
 import urllib
+import locale
 
 from yum.plugins import TYPE_CORE
 from yum.yumRepo import YumRepository
@@ -79,10 +80,11 @@ def init_hook(conduit):
     try:
         proxy_url = get_proxy_url(up2date_cfg)
         if proxy_url:
+            proxy_url = proxy_url.encode(locale.getpreferredencoding())
             if up2date_cfg['useNoSSLForPackages']:
-                proxy_dict = {'HTTP' : proxy_url}
+                proxy_dict = {'http' : proxy_url}
             else:
-                proxy_dict = {'HTTPS' : proxy_url}
+                proxy_dict = {'https' : proxy_url}
     except BadProxyConfig:
         rhn_enabled = False
         PROXY_ERROR =  _("There was an error parsing the Red Hat Satellite Proxy settings.")

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,6 @@
 import os
 import sys
 import time
-import string
 import connection
 
 # rhn imports
@@ -62,7 +61,7 @@ class BaseWireSource:
             url = CFG.RHN_PARENT # the default
         # just make the url complete.
         hostname = rhnLib.parseUrl(url or '')[1]
-        hostname = string.split(hostname, ':')[0] # just in case
+        hostname = hostname.split(':')[0] # just in case
         if self.sslYN:
             url = 'https://' + hostname
         else:
@@ -88,7 +87,8 @@ class BaseWireSource:
         self._set_ssl_trusted_certs(serverObj)
         return serverObj
 
-    def _set_connection_params(self, handler, url):
+    @staticmethod
+    def _set_connection_params(handler, url):
         BaseWireSource.handler = handler
         BaseWireSource.url = url
 
@@ -188,7 +188,8 @@ class MetadataWireSource(BaseWireSource):
 
     """retrieve specific xml stream through xmlrpc interface."""
 
-    def is_disk_loader(self):
+    @staticmethod
+    def is_disk_loader():
         return False
 
     def _prepare(self):
@@ -220,11 +221,11 @@ class MetadataWireSource(BaseWireSource):
         self._prepare()
         return self._openSocketStream("dump.orgs", (self.systemid,))
 
-    def getChannelXmlStream(self, channels):
+    def getChannelXmlStream(self):
         """retrieve xml stream for channel data given a
         list of channel labels."""
         self._prepare()
-        return self._openSocketStream("dump.channels", (self.systemid, channels))
+        return self._openSocketStream("dump.channels", (self.systemid, []))
 
     def getShortPackageXmlStream(self, packageIds):
         """retrieve xml stream for short package data given
@@ -287,7 +288,8 @@ class XMLRPCWireSource(BaseWireSource):
 
     "Base class for all the XMLRPC calls"
 
-    def _xmlrpc(self, function, params):
+    @staticmethod
+    def _xmlrpc(function, params):
         try:
             retval = getattr(BaseWireSource.serverObj, function)(*params)
         except TypeError, e:
@@ -309,15 +311,14 @@ class AuthWireSource(XMLRPCWireSource):
         log(2, '   +++ Satellite synchronization tool checking in.')
         try:
             authYN = self._xmlrpc('authentication.check', (self.systemid,))
-        except (rpclib.xmlrpclib.ProtocolError, rpclib.xmlrpclib.Fault), e:
-            # bug 141197: the logging of all exceptions is handled higher up in
-            # the call stack
-#            log2(-1, 1, '   ERROR: %s' % e, stream=sys.stderr)
+        except (rpclib.xmlrpclib.ProtocolError, rpclib.xmlrpclib.Fault):
             raise
         if authYN:
             log(2, '   +++ Entitled satellite validated.', stream=sys.stderr)
         elif authYN == None:
-            log(-1, '   --- An error occurred upon authentication of this satellite -- review the pertinent log file (%s) and/or alert RHN at rhn-satellite@redhat.com.' % CFG.LOG_FILE, stream=sys.stderr)
+            log(-1, '   --- An error occurred upon authentication of this satellite -- '
+                    'review the pertinent log file (%s) and/or alert RHN at rhn-satellite@redhat.com.' % CFG.LOG_FILE,
+                    stream=sys.stderr)
             sys.exit(-1)
         elif authYN == 0:
             log(-1, '   --- This server is not an entitled satellite.', stream=sys.stderr)
@@ -350,8 +351,9 @@ class RPCGetWireSource(BaseWireSource):
         BaseWireSource.__init__(self, systemid, sslYN, xml_dump_version)
         self.extinctErrorYN = 0
 
-    def _set_connection_params(self, handler, url):
-        BaseWireSource._set_connection_params(self, handler, url)
+    @staticmethod
+    def _set_connection_params(handler, url):
+        BaseWireSource._set_connection_params(handler, url)
         RPCGetWireSource.login_token = None
 
     def login(self, force=0):
@@ -388,10 +390,12 @@ class RPCGetWireSource(BaseWireSource):
             raise
         return login_token
 
-    def _set_login_token(self, token):
+    @staticmethod
+    def _set_login_token(token):
         RPCGetWireSource.login_token = token
 
-    def _set_rpc_server(self, server):
+    @staticmethod
+    def _set_rpc_server(server):
         RPCGetWireSource.get_server_obj = server
 
     def _rpc_call(self, function_name, params):

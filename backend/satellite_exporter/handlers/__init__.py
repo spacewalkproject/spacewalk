@@ -1,4 +1,4 @@
-# Copyright (C) 2008 Red Hat, Inc.
+# Copyright (C) 2008--2013 Red Hat, Inc.
 # Init module for the handlers used by the XML exporter listeners
 #
 #

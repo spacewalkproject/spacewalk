@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -48,11 +48,6 @@ sub trap {
 sub list_of { return "packages" }
 
 sub _register_modes {
-
-
- Sniglets::ListView::List->add_mode(-mode => "snapshot_unservable_package_list",
-				    -datasource => RHN::DataSource::Package->new,
-				   );
 
   Sniglets::ListView::List->add_mode(-mode => "package_search_results",
 			   -datasource => new RHN::DataSource::Simple(-querybase => "package_search_elaborators"),
@@ -1111,29 +1106,6 @@ sub obsoleting_packages_provider {
   }
 
   return (%ret);
-}
-
-sub comparison_string {
-  my $row = shift;
-  my $other_name = shift;
-
-  if ($row->{S1} and $row->{S1}->{evr_id} and not $row->{S2}->{evr_id}) {
-    return "This channel only";
-  }
-  elsif ($row->{S2} and $row->{S2}->{evr_id} and not $row->{S1}->{evr_id}) {
-    return "$other_name only";
-  }
-
-  my $comparison = $row->{S1} cmp $row->{S2};
-
-  if ($comparison > 0) {
-    return "This channel newer";
-  }
-  elsif ($comparison < 0) {
-    return "$other_name newer";
-  }
-
-  die "Invalid comparison in '" . Data::Dumper->Dump([($row)]) . "'\n";
 }
 
 sub patches_for_package_provider {

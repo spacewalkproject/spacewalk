@@ -1,4 +1,4 @@
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-io
 %define jpackage_run_jars antlr apache-commons-beanutils apache-commons-collections apache-commons-logging regexp
 %else
@@ -20,14 +20,14 @@ Patch2: jpam-0.4-ppc.patch
 Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Version: 0.4
-Release: 26%{?dist}
+Release: 27%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Requires: %jpackage_run_jars
 BuildRequires: %jpackage_jars
 BuildRequires: gcc make
 BuildRequires: pam-devel
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
 Requires:      javapackages-tools
 %else
@@ -107,6 +107,9 @@ fi
 %{_javadocdir}/%{name}-%{version}
 
 %changelog
+* Tue Jun 24 2014 Michael Mraka <michael.mraka@redhat.com> 0.4-27
+- update jpam deps for RHEL7
+
 * Wed Jan 08 2014 Tomas Lestach <tlestach@redhat.com> 0.4-26
 - ant-nodeps is required on rhel as well
 

@@ -1,0 +1,20 @@
+<rl:listset name="systemListSet" legend="system">
+  <rhn:csrf />
+  <rhn:submitted />
+  <rl:list
+    emptykey="nosystems.message"
+    alphabarcolumn="name"
+    filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter"
+  >
+  <rl:decorator name="ElaborationDecorator"/>
+  <rl:decorator name="PageSizeDecorator"/>
+  <rl:column
+    sortable="true"
+    bound="false"
+    headerkey="systemlist.jsp.system"
+    sortattr="name"
+    defaultsort="asc">
+    <%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
+  </rl:column>
+  </rl:list>
+</rl:listset>

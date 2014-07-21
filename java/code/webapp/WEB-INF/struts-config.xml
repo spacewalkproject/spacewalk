@@ -70,6 +70,7 @@
                              initial="desiredpassword, desiredpasswordConfirm"/>
             <form-property name="preferredLocale" type="java.lang.String" />
             <form-property name="timezone" type="java.lang.Integer"/>
+            <form-property name="readonly" type="java.lang.Boolean"/>
         </form-bean>
         <form-bean name="userCreateForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
@@ -113,6 +114,7 @@
                            type="org.apache.struts.util.LabelValueBean[]"/>
             <form-property name="selectedRoles" type="java.lang.String[]"/>
             <form-property name="usersRoles" type="java.lang.String[]"/>
+            <form-property name="readonly" type="java.lang.Boolean"/>
             <form-property name="usepam" type="java.lang.Boolean"/>
             <form-property name="no_scrub" type="java.lang.String" initial="desiredpassword, desiredpasswordConfirm"/>
         </form-bean>
@@ -540,14 +542,17 @@
             <form-property name="description"  type="java.lang.String"/>
             <form-property name="type"  type="java.lang.String"/>
             <form-property name="contents"  type="org.apache.struts.upload.FormFile"/>
+            <form-property name="contents_edit" type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
-            <form-property name="no_scrub" type="java.lang.String" initial="contents"/>
+            <form-property name="no_scrub" type="java.lang.String"
+                                    initial="contents, contents_edit"/>
         </form-bean>
 
         <form-bean name="cryptoKeyDeleteForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="description"  type="java.lang.String"/>
             <form-property name="type"  type="java.lang.String"/>
+            <form-property name="contents_edit" type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
 
@@ -1280,6 +1285,15 @@
         <form-property name="submitted" type="java.lang.Boolean" />
     </form-bean>
 
+    <form-bean name="powerManagementForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+      <form-property name="systemId" type="java.lang.Long" />
+      <form-property name="powerType" type="java.lang.String" />
+      <form-property name="powerAddress" type="java.lang.String" />
+      <form-property name="powerUsername" type="java.lang.String" />
+      <form-property name="powerPassword" type="java.lang.String" />
+      <form-property name="powerId" type="java.lang.String" />
+    </form-bean>
   </form-beans>
 
   <global-exceptions>
@@ -3691,6 +3705,14 @@
                  path="/WEB-INF/pages/systems/sdc/history/snapshots/config_files.jsp"/>
     </action>
 
+    <action path="/systems/details/history/snapshots/UnservablePackages"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SnapshotUnservablePackagesAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/history/snapshots/unservable_packages.jsp"/>
+    </action>
+
     <!--System Details SSM Configuration -->
         <action path="/systems/ssm/DeleteConfirm"
         scope="request"
@@ -3793,6 +3815,15 @@
                <forward name="confirm"
                  path="/systems/Overview.do" redirect="true"/>
      </action>
+
+    <action path="/systems/ssm/provisioning/RollbackToTag"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.ssm.RollbackToTagAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/provisioning/rollbacktotag.jsp"/>
+    </action>
 
     <!--System Details Configuration -->
      <action path="/systems/details/configuration/Overview"
@@ -5123,6 +5154,7 @@
     <action path="/systems/ssm/config/DiffConfirm"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/diffconfirm.jsp"
+        name="datePickerForm"
         type="com.redhat.rhn.frontend.action.configuration.ssm.ConfigConfirmAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="org_entitlement(rhn_provisioning)"/>
@@ -5133,6 +5165,7 @@
     <action path="/systems/ssm/config/DiffConfirmSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/diffconfirm.jsp"
+        name="datePickerForm"
         type="com.redhat.rhn.frontend.action.configuration.ssm.ConfigConfirmSubmitAction"
         parameter="dispatch"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -7057,6 +7090,16 @@
                 path="/WEB-INF/pages/kickstart/wizard/schedule/fifth.jsp" />
     </action>
 
+    <action path="/systems/details/kickstart/PowerManagement"
+        scope="request"
+        name="powerManagementForm"
+        type="com.redhat.rhn.frontend.action.kickstart.PowerManagementAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/powermanagement.jsp"/>
+    </action>
+
     <action path="/systems/details/virtualization/ProvisionVirtualizationWizard"
         scope="request"
     name="kickstartScheduleWizardForm"
@@ -8413,6 +8456,17 @@
                  path="/channels/manage/repos/RepoList.do" redirect = "true"/>
     </action>
 
+    <action path="/channels/manage/repos/AssociatedChannels"
+        scope="request"
+        parameter="all"
+        input="/WEB-INF/pages/channel/manage/repo/repos.jsp"
+        type="com.redhat.rhn.frontend.action.channel.manage.repo.RepoChannelsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/manage/repo/repochannels.jsp"/>
+    </action>
+
 <!-- end repo -->
 
     <action path="/channels/manage/DistChannelMap"
@@ -8545,6 +8599,26 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/ssm/provisioning-remote-command.jsp"/>
+    </action>
+
+    <action path="/systems/ssm/provisioning/PowerManagementConfiguration"
+            name="powerManagementForm"
+            type="com.redhat.rhn.frontend.action.ssm.PowerManagementConfigurationAction"
+            scope="request"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/powermanagement-configuration.jsp"/>
+    </action>
+
+    <action path="/systems/ssm/provisioning/PowerManagementOperations"
+            name="powerManagementForm"
+            type="com.redhat.rhn.frontend.action.ssm.PowerManagementOperationsAction"
+            scope="request"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/powermanagement-operations.jsp"/>
     </action>
 
     <!-- SSM Package tab home page -->

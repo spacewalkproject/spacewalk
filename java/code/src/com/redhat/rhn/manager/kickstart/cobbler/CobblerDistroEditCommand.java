@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,14 +18,11 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
-import org.cobbler.Distro;
-
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
  */
 public class CobblerDistroEditCommand extends CobblerDistroCommand {
-
 
     /**
      * Constructor
@@ -38,17 +35,18 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
     }
 
     /**
+     * Constructor - for use with taskomatic
+     * @param ksTreeIn to sync
+     */
+    public CobblerDistroEditCommand(KickstartableTree ksTreeIn) {
+        super(ksTreeIn);
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public ValidatorError store() {
-
-        Distro d = Distro.lookupById(
-                CobblerXMLRPCHelper.getConnection(user.getLogin()), tree.getCobblerId());
-        String newName = makeCobblerName(tree);
-        if (!d.getName().equals(newName)) {
-            d.setName(newName);
-        }
         updateCobblerFields();
         return null;
     }

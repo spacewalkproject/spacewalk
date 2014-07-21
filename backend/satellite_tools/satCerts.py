@@ -3,7 +3,7 @@
 #   - RHN certificate
 #   - SSL CA certificate
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,6 @@
 #
 
 ## language imports
-from string import strip
 from time import strftime, strptime
 import os
 import sys
@@ -41,16 +40,21 @@ class CertGenerationMismatchError(Exception):
 
 class CertVersionMismatchError(Exception):
     def __init__(self, old_version, new_version):
-        self._message = "the versions of current and new certificate do not match, [%s] vs. [%s]" % (old_version, new_version)
+        Exception.__init__(self)
+        self._message = "the versions of current and new certificate do not match, [%s] vs. [%s]" % (
+                                                                              old_version, new_version)
     def __str__(self):
         return self._message
 
 class NoFreeEntitlementsError(Exception):
     def __init__(self, label, quantity):
+        Exception.__init__(self)
         self.label = label
         self.quantity = quantity
-        self.message = \
-        "Error: You do not have enough unused %s entitlements in the base org. You will need at least %s free entitlements, based on your current consumption. Please un-entitle the remaining systems for the activation to proceed." % (self.label, self.quantity)
+        self.message = ("Error: You do not have enough unused %s entitlements in the base org. "
+                      + "You will need at least %s free entitlements, based on your current consumption. "
+                      + "Please un-entitle the remaining systems for the activation to proceed.") % (
+                        self.label, self.quantity)
         self.args = [self.message]
 
 def get_all_orgs():
@@ -209,11 +213,13 @@ def set_slots_from_cert(cert, testonly=False):
             sys.stderr.write("Certificate specifies %s of %s entitlements.\n" % ( quantity, db_label ))
             sys.stderr.write("    There are ")
             if counts[db_label]['base'][1]:
-                sys.stderr.write("%s entitlements used by systems in the base (id %s) organization" % ( counts[db_label]['base'][1], org_id ))
+                sys.stderr.write("%s entitlements used by systems in the base (id %s) organization" % (
+                                                                 counts[db_label]['base'][1], org_id ))
             if counts[db_label]['base'][1] and counts[db_label]['other'][0]:
                 sys.stderr.write(",\n    plus ")
             if counts[db_label]['other'][0]:
-                sys.stderr.write("%s entitlements allocated to non-base org(s) (%s used)" % ( counts[db_label]['other'][0], counts[db_label]['other'][1] ))
+                sys.stderr.write("%s entitlements allocated to non-base org(s) (%s used)" % (
+                                          counts[db_label]['other'][0], counts[db_label]['other'][1] ))
             sys.stderr.write(".\n")
 
             sys.stderr.write("    You might need to ")
@@ -224,7 +230,8 @@ def set_slots_from_cert(cert, testonly=False):
             if counts[db_label]['other'][0]:
                 sys.stderr.write("deallocate some entitlements from non-base organization(s)")
             sys.stderr.write(".\n")
-            sys.stderr.write("    You need to free %s entitlements to match the new certificate.\n" % (allocated - quantity))
+            sys.stderr.write("    You need to free %s entitlements to match the new certificate.\n" % (
+                                                                                 allocated - quantity))
             if slot_table.has_key(db_label):
                 entitlement_name = slot_table[db_label]['name']
                 entitlement_name = entitlement_name.replace(' Entitled Servers', '')
@@ -286,7 +293,8 @@ def set_slots_from_cert(cert, testonly=False):
                     sys.stderr.write(".\n")
 
             if allocated_other:
-                sys.stderr.write(" %s entitlements allocated to non-base org(s) (%s used).\n" % (allocated_other, families[cf.name]['other'][0] + families[cf.name]['other'][2]))
+                sys.stderr.write(" %s entitlements allocated to non-base org(s) (%s used).\n" % (
+                        allocated_other, families[cf.name]['other'][0] + families[cf.name]['other'][2]))
 
             sys.stderr.write("    You might need to ")
             if existing_base:
@@ -296,7 +304,8 @@ def set_slots_from_cert(cert, testonly=False):
             if allocated_other:
                 sys.stderr.write("deallocate some entitlements from non-base organization(s)")
             sys.stderr.write(".\n")
-            sys.stderr.write("    You need to free %s entitlements to match the new certificate.\n" % (existing_base + allocated_other - quantity))
+            sys.stderr.write("    You need to free %s entitlements to match the new certificate.\n" % (
+                                                             existing_base + allocated_other - quantity))
 
         elif quantity - flex < families[cf.name]['base'][4] + families[cf.name]['other'][1]:
             has_error = True
@@ -312,7 +321,8 @@ def set_slots_from_cert(cert, testonly=False):
                     sys.stderr.write(".\n")
 
             if families[cf.name]['other'][1]:
-                sys.stderr.write(" %s non-flex entitlements allocated to non-base org(s) (%s used).\n" % (families[cf.name]['other'][1], families[cf.name]['other'][0]))
+                sys.stderr.write(" %s non-flex entitlements allocated to non-base org(s) (%s used).\n" % (
+                                           families[cf.name]['other'][1], families[cf.name]['other'][0]))
 
             sys.stderr.write("    You might need to ")
             if families[cf.name]['base'][4]:
@@ -322,7 +332,8 @@ def set_slots_from_cert(cert, testonly=False):
             if families[cf.name]['other'][1]:
                 sys.stderr.write("deallocate some entitlements from non-base organization(s)")
             sys.stderr.write(".\n")
-            sys.stderr.write("    You need to free %s entitlements to match the new certificate.\n" % (families[cf.name]['base'][4] + families[cf.name]['other'][1] - (quantity - flex)))
+            sys.stderr.write("    You need to free %s entitlements to match the new certificate.\n" % (
+                        families[cf.name]['base'][4] + families[cf.name]['other'][1] - (quantity - flex)))
 
     if has_error:
         sys.stderr.write("Activation failed, will now exit with no changes.\n")
@@ -353,7 +364,7 @@ def set_slots_from_cert(cert, testonly=False):
         extra_slots[entry['slot_type_id']] = ent_label
 
     sys_ent_total_max = {}
-    for (ent_name, org_id_in), max_members in sys_ent_counts.items():
+    for (ent_name, _org_id_in), max_members in sys_ent_counts.items():
         # compute total max_member could in db
         if not sys_ent_total_max.has_key(ent_name):
             sys_ent_total_max[ent_name] = max_members
@@ -426,13 +437,14 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
     """
 
     label = 'rhn-satellite-cert'
-    cert = strip(cert)
+    cert = cert.strip()
 
     # sanity check
     # satellite_cert.ParseException can be thrown
     sc = satellite_cert.SatelliteCert()
     sc.load(cert)
 
+    # pylint: disable=E1101
     # gotta make sure there is a first org_id
     create_first_org(owner=sc.owner)
 
@@ -592,7 +604,7 @@ def _checkCertMatch_rhnCryptoKey(caCert, description, org_id, deleteRowYN=0,
         Used ONLY by: store_rhnCryptoKey(...)
     """
 
-    cert = strip(open(caCert, 'rb').read())
+    cert = open(caCert, 'rb').read().strip()
 
     h = rhnSQL.prepare(_querySelectCryptoCertInfo)
     h.execute(description=description, org_id=org_id)
@@ -640,7 +652,7 @@ def _insertPrep_rhnCryptoKey(rhn_cryptokey_id, description, org_id):
 def _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert):
     """ writes/updates the cert as a lob """
 
-    cert = strip(open(caCert, 'rb').read())
+    cert = open(caCert, 'rb').read().strip()
 
     # Use our update blob wrapper to accomodate differences between Oracle
     # and PostgreSQL:
@@ -738,7 +750,7 @@ def create_first_private_chan_family():
         h.execute(name='Private Channel Family 1', \
                   label='private-channel-family-1', \
                   org=1, url='First Org Created')
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
         # if we're here that means we're voilating something
         raise
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -111,7 +111,7 @@ public class SessionSwap {
      */
     public static String generateSwapKey(String data) {
         Config c = Config.get();
-        StringBuffer swapKey = new StringBuffer(20);
+        StringBuilder swapKey = new StringBuilder(20);
 
         swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_1));
         swapKey.append(":");
@@ -158,7 +158,7 @@ public class SessionSwap {
     public static String rhnHmacData(List<String> text) {
 
         Config c = Config.get();
-        StringBuffer swapKey = new StringBuffer(20);
+        StringBuilder swapKey = new StringBuilder(20);
         if (log.isDebugEnabled()) {
             for (String tmp : text) {
                 log.debug("val : " + tmp);

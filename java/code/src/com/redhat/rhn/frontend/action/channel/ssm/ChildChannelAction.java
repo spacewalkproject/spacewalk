@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChildChannelDto;
+import com.redhat.rhn.frontend.dto.EssentialServerDto;
 import com.redhat.rhn.frontend.dto.SystemsPerChannelDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -111,7 +112,8 @@ public class ChildChannelAction extends RhnAction {
                 }
                 else if (childChannelDto.getParentId().equals(
                     systemsPerChannelDto.getId())) {
-                    DataResult sis = SystemManager.systemsSubscribedToChannelInSet(
+                    DataResult<EssentialServerDto> sis =
+                            SystemManager.systemsSubscribedToChannelInSet(
                             childChannelDto.getId().longValue(), user,
                         RhnSetDecl.SYSTEMS.getLabel());
                     childChannelDto.setSystemCount(0L + sis.size());

@@ -1,7 +1,7 @@
 #
 # Module that provides the client-side functionality for an XML importer
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -87,6 +87,8 @@ class _Server(rpclib.Server):
     _transport_class_proxy = ProxyTransport
     _transport_class_https_proxy = SafeProxyTransport
 
+    def use_CA_chain(self, ca_chain=None):
+        pass
 
 class StreamConnection(_Server):
     def __init__(self, uri, proxy=None, username=None, password=None,
@@ -103,9 +105,11 @@ class GETServer(rpclib.GETServer):
     _transport_class_proxy = ProxyTransport
     _transport_class_https_proxy = SafeProxyTransport
     def __init__(self, uri, transport=None, proxy=None, username=None,
-            password=None, client_version=2, headers={}, refreshCallback=None,
+            password=None, client_version=2, headers=None, refreshCallback=None,
             progressCallback=None, xml_dump_version=constants.PROTOCOL_VERSION,
             timeout=None):
+        if headers is None:
+            headers = {}
         rpclib.GETServer.__init__(self, uri,
             transport=transport,
             proxy=proxy,
@@ -116,6 +120,9 @@ class GETServer(rpclib.GETServer):
             refreshCallback=refreshCallback,
             timeout=timeout)
         self.add_header("X-RHN-Satellite-XML-Dump-Version", xml_dump_version)
+
+    def use_CA_chain(self, ca_chain=None):
+        pass
 
 class CompressedStream:
     """

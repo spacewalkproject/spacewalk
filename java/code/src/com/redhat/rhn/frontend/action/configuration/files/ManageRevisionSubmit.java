@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -79,7 +79,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map mapIn) {
+    protected void processMethodKeys(Map<String, String> mapIn) {
         mapIn.put("manage.jsp.delete", "delete");
         mapIn.put("manage.jsp.uploadbutton", "upload");
     }
@@ -89,7 +89,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest requestIn,
-                                   Map paramsIn) {
+                                   Map<String, Object> paramsIn) {
         RequestContext requestContext = new RequestContext(requestIn);
 
         Long fileId = requestContext.getRequiredParam(ConfigActionHelper.FILE_ID);
@@ -177,7 +177,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
             HttpServletRequest request, Long cfid) {
         ActionMessages msg = new ActionMessages();
         Object[] args = new Object[2];
-        StringBuffer buffy = new StringBuffer();
+        StringBuilder buffy = new StringBuilder();
         buffy.append("/rhn/configuration/file/FileDetails.do?" +
                 ConfigActionHelper.FILE_ID + "=");
         buffy.append(cfid);

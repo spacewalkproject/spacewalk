@@ -1,6 +1,6 @@
--- oracle equivalent source sha1 c01fe7ee5e3b52bc8bc22cf21f1e5ee4a63a79c4
+-- oracle equivalent source sha1 30edfc565762a5569ae6ab1d0e20a0fbfc6084f9
 --
--- Copyright (c) 2008--2012 Red Hat, Inc.
+-- Copyright (c) 2008--2014 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,12 +18,18 @@ create or replace function rhn_kstree_mod_trig_fun() returns trigger as
 $$
 begin
         if tg_op='UPDATE' then
-                if new.cobbler_id = old.cobbler_id
-                        and new.cobbler_xen_id = old.cobbler_xen_id
-                        and new.last_modified = old.last_modified
-                        or new.last_modified is null
-                        then
-                        new.last_modified := current_timestamp;
+                -- Basically if we're changing something other than cobbler_id,
+                -- cobbler_xen_id, and last_modified - or if last_modified is
+                -- explicity set to null. Gets complicated because we have
+                -- to allow for the possibility of the ids being null
+                if ((not old.cobbler_id is null and new.cobbler_id = old.cobbler_id)
+                        or (old.cobbler_id is null and new.cobbler_id is null))
+                    and ((not old.cobbler_xen_id is null and new.cobbler_xen_id = old.cobbler_xen_id)
+                        or (old.cobbler_xen_id is null and new.cobbler_xen_id is null))
+                    and new.last_modified = old.last_modified
+                    or new.last_modified is null
+                then
+                    new.last_modified := current_timestamp;
                 end if;
         elseif tg_op='INSERT' and new.last_modified is null then
                 new.last_modified := current_timestamp;

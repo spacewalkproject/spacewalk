@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,12 +21,12 @@ import java.util.Comparator;
  *
  * @version $Rev$
  */
-public class SystemOverviewComparator implements Comparator {
+public class SystemOverviewComparator implements Comparator<SystemOverview> {
 
     /**
      * {@inheritDoc}
      */
-    public int compare(Object firstObj, Object secondObj) {
+    public int compare(SystemOverview firstObj, SystemOverview secondObj) {
         /*
          * Sorts in descending order:
          *   Security Errata Count
@@ -34,8 +34,8 @@ public class SystemOverviewComparator implements Comparator {
          *       Enhancement Errata Count
          *         Alphabetically by system name
          */
-        SystemOverview first = (SystemOverview) firstObj;
-        SystemOverview second = (SystemOverview) secondObj;
+        SystemOverview first = firstObj;
+        SystemOverview second = secondObj;
         int retval = compareLongs(first.getSecurityErrata(),
                 second.getSecurityErrata());
         if (retval == 0) {

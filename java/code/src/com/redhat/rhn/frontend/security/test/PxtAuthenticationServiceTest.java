@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.security.test;
 import com.redhat.rhn.common.util.ServletUtils;
 import com.redhat.rhn.frontend.security.PxtAuthenticationService;
 
-import org.jmock.Mock;
 import org.jmock.core.Constraint;
 
 import java.util.Vector;
@@ -35,8 +34,6 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
     private class PxtAuthenticationServiceStub extends PxtAuthenticationService {
     }
 
-    private Mock mockDispatcher;
-
     private PxtAuthenticationService service;
 
     public PxtAuthenticationServiceTest(String name) {
@@ -46,7 +43,7 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
     protected void setUp() throws Exception {
         super.setUp();
 
-        mockDispatcher = mock(RequestDispatcher.class);
+        mock(RequestDispatcher.class);
 
         mockRequest.stubs().method("getRequestURI").will(returnValue("/rhn/YourRhn.do"));
 
@@ -141,7 +138,7 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
                 new Constraint[] {eq("/rhn/Login.do")}).will(returnValue(null));
 
         mockRequest.stubs().method("getParameterNames").will(
-                returnValue(new Vector().elements()));
+returnValue(new Vector<String>().elements()));
 
         mockRequest.stubs().method("setAttribute").with(
                 new Constraint[] {eq("url_bounce"), eq(getRequest().getRequestURI())});
@@ -155,7 +152,7 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
     public final void testRedirectToLoginSetsURLBounceRequestAttribute() throws Exception {
         setUpRedirectToLogin();
 
-        String redirectUri = createRequestURIWithParams(requestParamNames,
+        createRequestURIWithParams(requestParamNames,
                 requestParamValues);
 
         mockResponse.expects(once()).method("sendRedirect").with(

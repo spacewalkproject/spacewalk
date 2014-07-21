@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -65,20 +65,20 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
     public void testSELinux() throws Exception {
         KickstartData profile = createProfile();
 
-        handler.setSELinux(adminKey, profile.getLabel(), SELinuxMode.PERMISSIVE.getValue());
-        String mode = handler.getSELinux(adminKey, profile.getLabel());
+        handler.setSELinux(admin, profile.getLabel(), SELinuxMode.PERMISSIVE.getValue());
+        String mode = handler.getSELinux(admin, profile.getLabel());
         assertEquals(SELinuxMode.PERMISSIVE.toString(), mode);
 
-        handler.setSELinux(adminKey, profile.getLabel(), SELinuxMode.ENFORCING.getValue());
-        mode = handler.getSELinux(adminKey, profile.getLabel());
+        handler.setSELinux(admin, profile.getLabel(), SELinuxMode.ENFORCING.getValue());
+        mode = handler.getSELinux(admin, profile.getLabel());
         assertEquals(SELinuxMode.ENFORCING.toString(), mode);
 
-        handler.setSELinux(adminKey, profile.getLabel(), SELinuxMode.DISABLED.getValue());
-        mode = handler.getSELinux(adminKey, profile.getLabel());
+        handler.setSELinux(admin, profile.getLabel(), SELinuxMode.DISABLED.getValue());
+        mode = handler.getSELinux(admin, profile.getLabel());
         assertEquals(SELinuxMode.DISABLED.toString(), mode);
 
         try {
-            handler.setSELinux(adminKey, profile.getLabel(), "HOHOHOH!!!");
+            handler.setSELinux(admin, profile.getLabel(), "HOHOHOH!!!");
             fail("No exception thrown on invlaid input for SE linux mode..");
         }
         catch (Exception e) {
@@ -89,40 +89,40 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
     public void testConfigMgmt() throws Exception {
         KickstartData profile = createProfile();
 
-        handler.enableConfigManagement(adminKey, profile.getLabel());
+        handler.enableConfigManagement(admin, profile.getLabel());
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profile.getLabel(), admin.getOrg().getId());
         assertEquals(true, newKsProfile.isConfigManageable());
 
-        boolean configManaged = handler.checkConfigManagement(adminKey, profile.getLabel());
+        boolean configManaged = handler.checkConfigManagement(admin, profile.getLabel());
         assertTrue(configManaged);
 
-        handler.disableConfigManagement(adminKey, profile.getLabel());
+        handler.disableConfigManagement(admin, profile.getLabel());
         newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profile.getLabel(), admin.getOrg().getId());
         assertEquals(false, newKsProfile.isConfigManageable());
 
-        configManaged = handler.checkConfigManagement(adminKey, profile.getLabel());
+        configManaged = handler.checkConfigManagement(admin, profile.getLabel());
         assertFalse(configManaged);
     }
 
     public void testRemoteCommands() throws Exception {
         KickstartData profile = createProfile();
 
-        handler.enableRemoteCommands(adminKey, profile.getLabel());
+        handler.enableRemoteCommands(admin, profile.getLabel());
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profile.getLabel(), admin.getOrg().getId());
         assertEquals(true, newKsProfile.isRemoteCommandable());
 
-        boolean remoteCommands = handler.checkRemoteCommands(adminKey, profile.getLabel());
+        boolean remoteCommands = handler.checkRemoteCommands(admin, profile.getLabel());
         assertTrue(remoteCommands);
 
-        handler.disableRemoteCommands(adminKey, profile.getLabel());
+        handler.disableRemoteCommands(admin, profile.getLabel());
         newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profile.getLabel(), admin.getOrg().getId());
         assertEquals(false, newKsProfile.isRemoteCommandable());
 
-        remoteCommands = handler.checkRemoteCommands(adminKey, profile.getLabel());
+        remoteCommands = handler.checkRemoteCommands(admin, profile.getLabel());
         assertFalse(remoteCommands);
     }
 
@@ -132,7 +132,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         KickstartData newProfile = createProfile();
 
         try {
-            handler.getLocale(adminKey, "InvalidProfile");
+            handler.getLocale(admin, "InvalidProfile");
             fail("SystemDetailsHandler.getLocale allowed execution with invalid " +
                     "profile label");
         }
@@ -140,10 +140,10 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
             //success
         }
 
-        handler.setLocale(adminKey, newProfile.getLabel(), "America/Guayaquil",
+        handler.setLocale(admin, newProfile.getLabel(), "America/Guayaquil",
                 Boolean.TRUE);
 
-        Map locale = handler.getLocale(adminKey, newProfile.getLabel());
+        Map locale = handler.getLocale(admin, newProfile.getLabel());
 
         assertEquals(locale.size(), 2);
         assertEquals(locale.get("locale"), "America/Guayaquil");
@@ -155,7 +155,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         KickstartData newProfile = createProfile();
 
         try {
-            handler.setLocale(adminKey, "InvalidProfile", "Pacific/Galapagos",
+            handler.setLocale(admin, "InvalidProfile", "Pacific/Galapagos",
                     Boolean.TRUE);
             fail("SystemDetailsHandler.setLocale allowed execution with invalid " +
                     "profile label");
@@ -165,7 +165,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         }
 
         try {
-            handler.setLocale(adminKey, newProfile.getLabel(), "InvalidLocale",
+            handler.setLocale(admin, newProfile.getLabel(), "InvalidLocale",
                     Boolean.TRUE);
             fail("SystemDetailsHandler.setLocale allowed setting invalid locale.");
         }
@@ -173,7 +173,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
             //success
         }
 
-        handler.setLocale(adminKey, newProfile.getLabel(), "America/Guayaquil",
+        handler.setLocale(admin, newProfile.getLabel(), "America/Guayaquil",
                 Boolean.TRUE);
 
         KickstartData profile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
@@ -213,7 +213,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         command.store();
 
         // Test
-        Set associatedKeys = handler.listKeys(userKey, profile.getLabel());
+        Set associatedKeys = handler.listKeys(userNotOrgOne, profile.getLabel());
         System.out.println("Keys: " + associatedKeys);
         // Verify
         assertNotNull(associatedKeys);
@@ -228,7 +228,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         KickstartData profile = createProfile(userNotOrgOne, userKey);
 
         // Test
-        Set associatedKeys = handler.listKeys(userKey, profile.getLabel());
+        Set associatedKeys = handler.listKeys(userNotOrgOne, profile.getLabel());
 
         // Verify
         assertNotNull(associatedKeys);
@@ -250,7 +250,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         // Test
         List descriptions = new ArrayList();
         descriptions.add(key.getDescription());
-        int result = handler.addKeys(userKey, profile.getLabel(), descriptions);
+        int result = handler.addKeys(userNotOrgOne, profile.getLabel(), descriptions);
 
         // Verify
         assertEquals(result, 1);
@@ -283,7 +283,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
 
         List descriptions = new ArrayList();
         descriptions.add(key.getDescription());
-        int result = handler.addKeys(userKey, profile.getLabel(), descriptions);
+        int result = handler.addKeys(userNotOrgOne, profile.getLabel(), descriptions);
 
         KickstartData data =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(profile.getLabel(),
@@ -292,7 +292,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         assertEquals(1, data.getCryptoKeys().size());
 
         // Test
-        result = handler.removeKeys(userKey, profile.getLabel(), descriptions);
+        result = handler.removeKeys(userNotOrgOne, profile.getLabel(), descriptions);
 
         // Verify
         assertEquals(1, result);
@@ -318,7 +318,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         command.store();
 
         // Test
-        Set associatedFL = handler.listFilePreservations(regularKey,
+        Set associatedFL = handler.listFilePreservations(regular,
                 profile.getLabel());
 
         // Verify
@@ -335,7 +335,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         KickstartData profile = createProfile();
 
         // Test
-        Set associatedFL = handler.listFilePreservations(regularKey,
+        Set associatedFL = handler.listFilePreservations(regular,
                 profile.getLabel());
 
         // Verify
@@ -352,7 +352,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         // Test
         List<String> fileLists = new ArrayList<String>();
         fileLists.add(fileList.getLabel());
-        int result = handler.addFilePreservations(regularKey, profile.getLabel(),
+        int result = handler.addFilePreservations(regular, profile.getLabel(),
                 fileLists);
 
         // Verify
@@ -380,7 +380,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
 
         List<String> fileLists = new ArrayList<String>();
         fileLists.add(fileList.getLabel());
-        int result = handler.addFilePreservations(regularKey, profile.getLabel(),
+        int result = handler.addFilePreservations(regular, profile.getLabel(),
                 fileLists);
         assertEquals(1, result);
 
@@ -391,7 +391,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         assertEquals(1, data.getPreserveFileLists().size());
 
         // Test
-        result = handler.removeFilePreservations(regularKey, profile.getLabel(),
+        result = handler.removeFilePreservations(regular, profile.getLabel(),
                 fileLists);
 
         // Verify
@@ -408,20 +408,20 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         List<String> files = new ArrayList<String>();
         files.add("file1");
         files.add("file2");
-        int result = fpHandler.create(adminKey, "list1", files);
+        int result = fpHandler.create(admin, "list1", files);
         assertEquals(1, result);
         return CommonFactory.lookupFileList("list1", admin.getOrg());
     }
 
     public void testRegistrationType() throws Exception {
         KickstartData profile = createProfile();
-        handler.setRegistrationType(adminKey, profile.getLabel(),
+        handler.setRegistrationType(admin, profile.getLabel(),
                         RegistrationType.DELETION.getType());
 
         assertEquals(RegistrationType.DELETION.getType(),
-                handler.getRegistrationType(adminKey, profile.getLabel()));
+                handler.getRegistrationType(admin, profile.getLabel()));
         try {
-            handler.setRegistrationType(adminKey, profile.getLabel(),
+            handler.setRegistrationType(admin, profile.getLabel(),
                     TestUtils.randomString());
             fail("It let it set random values for registration type");
         }

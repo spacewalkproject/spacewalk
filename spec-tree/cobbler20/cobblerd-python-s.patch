@@ -1,0 +1,8 @@
+--- ./scripts/cobblerd	2014-06-17 14:12:01.655369370 +0200
++++ ./scripts/cobblerd	2014-06-17 14:11:39.527646005 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python -s
+ 
+ """
+ Wrapper for cobbler's remote syslog watching daemon.

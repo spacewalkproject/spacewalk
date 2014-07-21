@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -59,7 +59,7 @@ public class ActivationKeyPackagesCommand {
      * @return String representation of package information
      */
     public String populatePackages() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
 
         // in order to ensure that packages are displayed in order, we'll obtain them
         // using the TokenPackageFactory

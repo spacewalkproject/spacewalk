@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -44,7 +44,7 @@ public class KeysHandler extends BaseHandler {
 
     /**
      * Lookup the activation keys associated with the kickstart profile.
-     * @param sessionKey The current user's session key
+     * @param loggedInUser The current user
      * @param ksLabel The kickstart profile label
      * @return List of map representations of activation keys
      *
@@ -57,9 +57,8 @@ public class KeysHandler extends BaseHandler {
      *     $ActivationKeySerializer
      *   #array_end()
      */
-    public List<ActivationKey> getActivationKeys(String sessionKey, String ksLabel) {
+    public List<ActivationKey> getActivationKeys(User loggedInUser, String ksLabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         checkKickstartPerms(loggedInUser);
 
         // retrieve the data associated with the kickstart profile
@@ -80,7 +79,7 @@ public class KeysHandler extends BaseHandler {
 
     /**
      * Add an activation key association to the kickstart profile.
-     * @param sessionKey The current user's session key
+     * @param loggedInUser The current user
      * @param ksLabel The kickstart profile label
      * @param key The activation key
      * @return 1 on success, exception thrown otherwise
@@ -91,9 +90,8 @@ public class KeysHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "key", "the activation key")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addActivationKey(String sessionKey, String ksLabel, String key) {
+    public int addActivationKey(User loggedInUser, String ksLabel, String key) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         checkKickstartPerms(loggedInUser);
 
         KickstartData ksdata = lookupKsData(ksLabel, loggedInUser.getOrg());
@@ -113,7 +111,7 @@ public class KeysHandler extends BaseHandler {
 
     /**
      * Remove an activation key association from the kickstart profile.
-     * @param sessionKey The current user's session key
+     * @param loggedInUser The current user
      * @param ksLabel The kickstart profile label
      * @param key The activation key
      * @return 1 on success, exception thrown otherwise
@@ -124,9 +122,8 @@ public class KeysHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "key", "the activation key")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeActivationKey(String sessionKey, String ksLabel, String key) {
+    public int removeActivationKey(User loggedInUser, String ksLabel, String key) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         checkKickstartPerms(loggedInUser);
 
         KickstartData ksdata = lookupKsData(ksLabel, loggedInUser.getOrg());

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,7 +16,7 @@ package com.redhat.rhn.frontend.action.keys.test;
 
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.frontend.action.keys.BaseCryptoKeyEditAction;
-import com.redhat.rhn.frontend.action.keys.CryptoKeyCreateAction;
+import com.redhat.rhn.frontend.action.keys.CryptoKeyDeleteAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.crypto.CreateCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.crypto.test.CryptoKeyCommandTest;
@@ -36,7 +36,7 @@ public class CryptoKeyDeleteActionTest extends RhnPostMockStrutsTestCase {
         testObj.setupKey(cmd);
         setRequestPathInfo("/keys/CryptoKeyDelete");
         addRequestParameter(RequestContext.KEY_ID, cmd.getCryptoKey().getId().toString());
-        addRequestParameter(CryptoKeyCreateAction.SUBMITTED, Boolean.FALSE.toString());
+        addRequestParameter(CryptoKeyDeleteAction.SUBMITTED, Boolean.FALSE.toString());
         actionPerform();
         assertNotNull(request.getAttribute(BaseCryptoKeyEditAction.KEY));
     }
@@ -47,7 +47,9 @@ public class CryptoKeyDeleteActionTest extends RhnPostMockStrutsTestCase {
         testObj.setupKey(cmd);
         setRequestPathInfo("/keys/CryptoKeyDelete");
         addRequestParameter(RequestContext.KEY_ID, cmd.getCryptoKey().getId().toString());
-        addRequestParameter(CryptoKeyCreateAction.SUBMITTED, Boolean.TRUE.toString());
+        addRequestParameter(CryptoKeyDeleteAction.SUBMITTED, Boolean.TRUE.toString());
+        addRequestParameter(CryptoKeyDeleteAction.CONTENTS_EDIT,
+                            cmd.getCryptoKey().getKeyString());
         actionPerform();
         String[] keys = {"cryptokey.delete.success"};
         verifyActionMessages(keys);

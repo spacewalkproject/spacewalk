@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,6 +30,7 @@ public class UserServerPreferenceId implements Serializable {
     public static final String RECEIVE_NOTIFICATIONS = "receive_notifications";
     public static final String INCLUDE_IN_DAILY_SUMMARY = "include_in_daily_summary";
 
+    private static final long serialVersionUID = 1L;
     private User user;
     private Server server;
     private String name;

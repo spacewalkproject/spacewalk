@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -56,9 +56,6 @@ public class ExplainPlanGenerator {
      * @param output The file to write the plans to.
      */
     public ExplainPlanGenerator(String source, String output) {
-        if (source != null && !source.equals("")) {
-            source = source + "/web/modules/rhn/RHN/DB/DataSource/xml";
-        }
         outfile = output;
     }
 

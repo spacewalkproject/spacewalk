@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.2
+Version: 2.3.0
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -20,30 +20,32 @@ BuildArch: noarch
 Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: doc-indexes
-Requires: jakarta-commons-codec
 Requires: jakarta-commons-httpclient
-Requires: jakarta-commons-lang >= 0:2.1
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 Requires: apache-commons-cli
+Requires: apache-commons-codec
+Requires: apache-commons-lang
 Requires: apache-commons-logging
 %else
 Requires: jakarta-commons-cli
+Requires: jakarta-commons-codec
+Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-logging
 %endif
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >=7
 BuildRequires: javapackages-tools
 Requires: javapackages-tools
 %else
 Requires: jpackage-utils >= 0:1.5
 %endif
 Requires: log4j
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 Requires: jakarta-oro
 %else
 Requires: oro
 %endif
 #Requires: lucene
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 Requires: mchange-commons
 Requires: objectweb-asm
 %else
@@ -59,19 +61,21 @@ Obsoletes: rhn-search < 5.3.0
 BuildRequires: ant
 #BuildRequires: apache-ibatis-sqlmap
 BuildRequires: c3p0 >= 0.9.1
-BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-httpclient
-BuildRequires: jakarta-commons-lang >= 0:2.1
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 BuildRequires: apache-commons-cli
+BuildRequires: apache-commons-codec
+BuildRequires: apache-commons-lang
 BuildRequires: apache-commons-logging
 %else
 BuildRequires: jakarta-commons-cli
+BuildRequires: jakarta-commons-codec
+BuildRequires: jakarta-commons-lang >= 0:2.1
 BuildRequires: jakarta-commons-logging
 %endif
 BuildRequires: java-devel >= 1.6.0
 BuildRequires: log4j
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 BuildRequires: jakarta-oro
 %else
 BuildRequires: oro
@@ -82,13 +86,13 @@ BuildRequires: redstone-xmlrpc
 #BuildRequires: picocontainer
 BuildRequires: tanukiwrapper
 BuildRequires: simple-core
-%if 0%{?rhel}
+%if 0%{?rhel} < 7
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 %endif
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 BuildRequires: systemd
 %endif
 
@@ -109,7 +113,7 @@ install -d -m 755 $RPM_BUILD_ROOT%{_var}/lib/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/lib/rhn/search/indexes
 ln -s -f %{_prefix}/share/rhn/search/indexes/docs $RPM_BUILD_ROOT%{_var}/lib/rhn/search/indexes/docs
 install -d -m 755 $RPM_BUILD_ROOT%{_sbindir}
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 install -d -m 755 $RPM_BUILD_ROOT%{_unitdir}
 %else
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
@@ -123,7 +127,7 @@ install -p -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_prefix}/share/rh
 cp -d lib/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
 install -p -m 644 src/config/etc/logrotate.d/rhn-search $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn-search
 install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT%{_sbindir}
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 install -p -m 755 src/config/rhn-search.service $RPM_BUILD_ROOT%{_unitdir}
 %else
 install -p -m 755 src/config/rhn-search.init $RPM_BUILD_ROOT%{_initrddir}/rhn-search
@@ -184,7 +188,7 @@ fi
 %attr(755, root, root) %{_var}/log/rhn/search
 %{_prefix}/share/rhn/search/lib/*
 %attr(755, root, root) %{_sbindir}/rhn-search
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 %attr(755, root, root) %{_unitdir}/rhn-search.service
 %else
 %attr(755, root, root) %{_initrddir}/rhn-search
@@ -198,6 +202,26 @@ fi
 %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.8-1
+- fix copyright years
+
+* Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.7-1
+- fixed apache vs. jakarta  -commons-{codec,lang} build requires
+
+* Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.6-1
+- fixed apache vs. jakarta  -commons-{codec,lang} conflict
+
+* Tue Jun 24 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.5-1
+- updated deps on RHEL7
+
+* Mon Jun 23 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.4-1
+- use javapackages-tools instead of jpackage-utils on RHEL7
+
+* Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.3-1
+- Use maxDoc() to actually iterate over all documents
+- Do not skip in case the last record has been deleted
+- De-duplicate handleDeletedRecords() implementations
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.2-1
 - spec file polish
 

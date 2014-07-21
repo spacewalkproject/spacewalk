@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -51,7 +51,7 @@ class Checksum:
             algo = kwargs['algo']
         self.sum = hashlib.new(algo, secret)
         if len(args) > 0:
-            apply(self.feed, args)
+            self.feed(*args)
     def feed(self, arg):
         #sys.stderr.write("arg = %s, type = %s\n" % (arg, type(arg)))
         if type(arg) == type(()) or type(arg) == type([]):

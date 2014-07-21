@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2011 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -98,7 +98,7 @@ class Row(UserDictCase):
     def load_sql(self, sql, pdict={}):
         """ load from a sql clause """
         h = self.db.prepare("select * from %s where %s" % (self.table, sql))
-        apply(h.execute, (), pdict)
+        h.execute(**pdict)
         ret = h.fetchone_dict()
         self.data = {}
         if not ret:
@@ -128,6 +128,6 @@ class Row(UserDictCase):
         h = self.db.prepare(sql)
         pdict["p0"] = self.data[self.hashname][0]
         # and now do it
-        apply(h.execute, (), pdict)
+        h.execute(**pdict)
         self.real = 1
         return

@@ -20,10 +20,19 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
-import os,re
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
+
+import os, re
 import shlex
-from time import strftime
 from spacecmd.utils import *
+import xmlrpclib
 
 def help_group_addsystems(self):
     print 'group_addsystems: Add systems to a group'
@@ -33,7 +42,8 @@ def help_group_addsystems(self):
 
 def complete_group_addsystems(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_group_list('', True), text)
@@ -41,7 +51,7 @@ def complete_group_addsystems(self, text, line, beg, end):
         return self.tab_complete_systems(parts[-1])
 
 def do_group_addsystems(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_group_addsystems()
@@ -58,7 +68,8 @@ def do_group_addsystems(self, args):
     system_ids = []
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
         system_ids.append(system_id)
 
     self.client.systemgroup.addOrRemoveSystems(self.session,
@@ -76,7 +87,8 @@ def help_group_removesystems(self):
 
 def complete_group_removesystems(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_group_list('', True), text)
@@ -84,7 +96,7 @@ def complete_group_removesystems(self, text, line, beg, end):
         return self.tab_complete_systems(parts[-1])
 
 def do_group_removesystems(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_group_removesystems()
@@ -101,14 +113,16 @@ def do_group_removesystems(self, args):
     system_ids = []
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
         system_ids.append(system_id)
 
     print 'Systems'
     print '-------'
     print '\n'.join(sorted(systems))
 
-    if not self.user_confirm('Remove these systems [y/N]:'): return
+    if not self.user_confirm('Remove these systems [y/N]:'):
+        return
 
     self.client.systemgroup.addOrRemoveSystems(self.session,
                                                group_name,
@@ -122,7 +136,7 @@ def help_group_create(self):
     print 'usage: group_create [NAME] [DESCRIPTION]'
 
 def do_group_create(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) > 0:
         name = args[0]
@@ -134,7 +148,7 @@ def do_group_create(self, args):
     else:
         description = prompt_user('Description:')
 
-    group = self.client.systemgroup.create(self.session, name, description)
+    self.client.systemgroup.create(self.session, name, description)
 
 ####################
 
@@ -146,7 +160,7 @@ def complete_group_delete(self, text, line, beg, end):
     return tab_completer(self.do_group_list('', True), text)
 
 def do_group_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_group_delete()
@@ -155,7 +169,8 @@ def do_group_delete(self, args):
     groups = args
 
     self.do_group_details('', True)
-    if not self.user_confirm('Delete these groups [y/N]:'): return
+    if not self.user_confirm('Delete these groups [y/N]:'):
+        return
 
     for group in groups:
         self.client.systemgroup.delete(self.session, group)
@@ -177,7 +192,7 @@ def complete_group_backup(self, text, line, beg, end):
 
 
 def do_group_backup(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_group_backup()
@@ -202,7 +217,7 @@ def do_group_backup(self, args):
     try:
         if not os.path.isdir( outputpath_base ):
             os.makedirs( outputpath_base )
-    except:
+    except OSError:
         logging.error('Could not create output directory')
         return
 
@@ -237,7 +252,6 @@ def do_group_restore(self, args):
     inputdir = os.getcwd()
     groups = []
     files = {}
-    restore = {}
     current = {}
 
     if len(args):
@@ -333,7 +347,7 @@ def complete_group_listsystems(self, text, line, beg, end):
     return tab_completer(self.do_group_list('', True), text)
 
 def do_group_listsystems(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_group_listsystems()
@@ -344,7 +358,7 @@ def do_group_listsystems(self, args, doreturn = False):
     try:
         systems = self.client.systemgroup.listSystems(self.session, group)
         systems = [s.get('profile_name') for s in systems]
-    except:
+    except xmlrpclib.Fault:
         logging.warning('%s is not a valid group' % group)
         return []
 
@@ -364,7 +378,7 @@ def complete_group_details(self, text, line, beg, end):
     return tab_completer(self.do_group_list('', True), text)
 
 def do_group_details(self, args, short=False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_group_details()
@@ -381,11 +395,12 @@ def do_group_details(self, args, short=False):
                                                           group)
 
             systems = [s.get('profile_name') for s in systems]
-        except:
+        except xmlrpclib.Fault:
             logging.warning('%s is not a valid group' % group)
             return
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Name               %s' % details.get('name')

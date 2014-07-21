@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -139,11 +139,11 @@ public class ProbeDetailsAction extends BaseProbeAction implements Listable {
             if (valid && showGraph) {
                 // Setup the graphing specific parameters so we can
                 // fill out the URL on details.jsp to the ProbeGraphAction
-                StringBuffer ssString = new StringBuffer();
+                StringBuilder ssString = new StringBuilder();
                 // We also need to localize the labels so we can
                 // pass them into ProbeGraphAction so it can localize
                 // the metric lables within the graph itself.
-                StringBuffer l10nString = new StringBuffer();
+                StringBuilder l10nString = new StringBuilder();
                 // Here we concat together the selected metrics
                 // so we don't have to do this in the JSP.  The graphing
                 // Action can take multiple metrics so we just concat them together

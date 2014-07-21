@@ -69,7 +69,7 @@
 		        exportColumns="id, nvrea, provider" />
 	<div class="text-right">
 	  <hr />
-		<input type="submit" name="confirm"
+		<input type="submit" name="confirm" class="btn btn-default"
 				value="<bean:message key='channel.jsp.package.removebutton'/>" />
 	</div>
 		<rhn:submitted/>

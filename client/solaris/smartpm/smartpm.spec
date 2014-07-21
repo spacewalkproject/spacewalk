@@ -11,7 +11,7 @@ Name: smartpm
 Source0: smartpm-%{version}.tar.gz
 Epoch:   1 
 Version: 5.5.0
-Release: 7
+Release: 8
 License: GPLv2
 Group: Applications/System
 URL: http://www.smartpm.org/
@@ -56,6 +56,10 @@ env %{__python} setup.py build
 %{python_sitearch}/rhn/actions/solarispkgs.py*
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.5.0-8
+- fix copyright years
+- fixed tito build warning
+
 * Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 5.5.0-7
 - removed trailing whitespaces
 

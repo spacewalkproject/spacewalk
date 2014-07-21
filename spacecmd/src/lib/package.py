@@ -20,7 +20,17 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
+
 from spacecmd.utils import *
+import xmlrpclib
 
 def help_package_details(self):
     print 'package_details: Show the details of a software package'
@@ -30,7 +40,7 @@ def complete_package_details(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
 
 def do_package_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_package_details()
@@ -47,43 +57,46 @@ def do_package_details(self, args):
     add_separator = False
 
     for package in packages:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
-        package_id = self.get_package_id(package)
+        package_ids = self.get_package_id(package)
 
-        if not package_id:
+        if not package_ids:
             logging.warning('%s is not a valid package' % package)
             continue
 
-        details = self.client.packages.getDetails(self.session, package_id)
+        for package_id in package_ids:
+            details = self.client.packages.getDetails(self.session, package_id)
 
-        channels = \
-            self.client.packages.listProvidingChannels(self.session, package_id)
+            channels = \
+                self.client.packages.listProvidingChannels(self.session, package_id)
 
-        installed_systems = \
-            self.client.system.listSystemsWithPackage(self.session, package_id)
+            installed_systems = \
+                self.client.system.listSystemsWithPackage(self.session, package_id)
 
-        print 'Name:    %s' % details.get('name')
-        print 'Version: %s' % details.get('version')
-        print 'Release: %s' % details.get('release')
-        print 'Epoch:   %s' % details.get('epoch')
-        print 'Arch:    %s' % details.get('arch_label')
-        print
-        print 'File:    %s' % details.get('file')
-        print 'Path:    %s' % details.get('path')
-        print 'Size:    %s' % details.get('size')
-        print 'MD5:     %s' % details.get('md5sum')
-        print
-        print 'Installed Systems: %i' % len(installed_systems)
-        print
-        print 'Description'
-        print '-----------'
-        print '\n'.join(wrap(details.get('description')))
-        print
-        print 'Available From Channels'
-        print '-----------------------'
-        print '\n'.join(sorted([c.get('label') for c in channels]))
+            print 'Name:    %s' % details.get('name')
+            print 'Version: %s' % details.get('version')
+            print 'Release: %s' % details.get('release')
+            print 'Epoch:   %s' % details.get('epoch')
+            print 'Arch:    %s' % details.get('arch_label')
+            print
+            print 'File:    %s' % details.get('file')
+            print 'Path:    %s' % details.get('path')
+            print 'Size:    %s' % details.get('size')
+            print 'MD5:     %s' % details.get('md5sum')
+            print
+            print 'Installed Systems: %i' % len(installed_systems)
+            print
+            print 'Description'
+            print '-----------'
+            print '\n'.join(wrap(details.get('description')))
+            print
+            print 'Available From Channels'
+            print '-----------------------'
+            print '\n'.join(sorted([c.get('label') for c in channels]))
+            print
 
 ####################
 
@@ -141,7 +154,7 @@ def complete_package_remove(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
 
 def do_package_remove(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_package_remove()
@@ -151,21 +164,22 @@ def do_package_remove(self, args):
 
     to_remove = filter_results(self.get_package_names(True), packages)
 
-    if not len(to_remove): return
+    if not len(to_remove):
+        return
 
     print 'Packages'
     print '--------'
     print '\n'.join(sorted(to_remove))
 
-    if not self.user_confirm('Remove these packages [y/N]:'): return
+    if not self.user_confirm('Remove these packages [y/N]:'):
+        return
 
     for package in to_remove:
-        package_id = self.get_package_id(package)
-
-        try:
-            self.client.packages.removePackage(self.session, package_id)
-        except:
-            logging.error('Failed to remove package ID %i' % package_id)
+        for package_id in self.get_package_id(package):
+            try:
+                self.client.packages.removePackage(self.session, package_id)
+            except xmlrpclib.Fault:
+                logging.error('Failed to remove package ID %i' % package_id)
 
     # regenerate the package cache after removing these packages
     self.generate_package_cache(True)
@@ -206,12 +220,13 @@ def do_package_removeorphans(self, args):
     print '--------'
     print '\n'.join(sorted(build_package_names(packages)))
 
-    if not self.user_confirm('Remove these packages [y/N]:'): return
+    if not self.user_confirm('Remove these packages [y/N]:'):
+        return
 
     for package in packages:
         try:
             self.client.packages.removePackage(self.session, package.get('id'))
-        except:
+        except xmlrpclib.Fault:
             logging.error('Failed to remove package ID %i' % package.get('id'))
 
 ####################
@@ -225,7 +240,7 @@ def complete_package_listinstalledsystems(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
 
 def do_package_listinstalledsystems(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_package_listinstalledsystems()
@@ -242,13 +257,14 @@ def do_package_listinstalledsystems(self, args):
     add_separator = False
 
     for package in packages:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
-        package_id = self.get_package_id(package)
-
-        systems = self.client.system.listSystemsWithPackage(self.session,
-                                                            package_id)
+        systems = []
+        for package_id in self.get_package_id(package):
+            systems += self.client.system.listSystemsWithPackage(self.session,
+                                                                 package_id)
 
         print package
         print '-' * len(package)
@@ -266,7 +282,7 @@ def complete_package_listerrata(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
 
 def do_package_listerrata(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_package_listerrata()
@@ -283,19 +299,19 @@ def do_package_listerrata(self, args):
     add_separator = False
 
     for package in packages:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
-        package_id = self.get_package_id(package)
+        for package_id in self.get_package_id(package):
+            errata = self.client.packages.listProvidingErrata(self.session,
+                                                              package_id)
 
-        errata = self.client.packages.listProvidingErrata(self.session,
-                                                          package_id)
+            print package
+            print '-' * len(package)
 
-        print package
-        print '-' * len(package)
-
-        if len(errata):
-            print '\n'.join(sorted([ e.get('advisory') for e in errata ]))
+            if len(errata):
+                print '\n'.join(sorted([ e.get('advisory') for e in errata ]))
 
 ####################
 
@@ -304,7 +320,7 @@ def help_package_listdependencies(self):
     print 'usage: package_listdependencies PACKAGE'
 
 def do_package_listdependencies(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_package_listdependencies()
@@ -321,19 +337,21 @@ def do_package_listdependencies(self, args):
     add_separator = False
 
     for package in packages:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
-        package_id = self.get_package_id(package)
+        for package_id in self.get_package_id(package):
+            if not package_id:
+                logging.warning('%s is not a valid package' % package)
+                continue
 
-        if not package_id:
-            logging.warning('%s is not a valid package' % package)
-            continue
-
-        package_id = int(package_id)
-        pkgdeps = self.client.packages.list_dependencies(self.session, package_id)
-        print 'Package Name: %s' % package
-        for dep in pkgdeps:
-            print 'Dependency: %s Type: %s Modifier: %s' % (dep['dependency'], dep['dependency_type'], dep['dependency_modifier'])
+            package_id = int(package_id)
+            pkgdeps = self.client.packages.list_dependencies(self.session, package_id)
+            print 'Package Name: %s' % package
+            for dep in pkgdeps:
+                print 'Dependency: %s Type: %s Modifier: %s' % \
+                      (dep['dependency'], dep['dependency_type'], dep['dependency_modifier'])
+            print self.SEPARATOR
 
 # vim:ts=4:expandtab:

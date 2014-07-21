@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013 Red Hat, Inc.
+ * Copyright (c) 2013--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -45,7 +45,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
     public void testCreate() {
         // Make sure that non-sat-admin users cannot access
         try {
-            IssMaster master = handler.create(regularKey, masterName);
+            IssMaster master = handler.create(regular, masterName);
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -54,7 +54,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            IssMaster master = handler.create(adminKey, masterName);
+            IssMaster master = handler.create(admin, masterName);
             assertEquals(masterName, master.getLabel());
         }
         catch (PermissionCheckFailureException e) {
@@ -63,11 +63,11 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
    }
 
     public void testUpdate() {
-        IssMaster master = handler.create(adminKey, masterName);
+        IssMaster master = handler.create(admin, masterName);
 
         // Make sure that non-sat-admin users cannot access
         try {
-            IssMaster updMaster = handler.update(regularKey,
+            IssMaster updMaster = handler.update(regular,
                     master.getId().intValue(),
                     "new_" + masterName);
             fail();
@@ -78,7 +78,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            IssMaster updMaster = handler.update(adminKey, master.getId().intValue(),
+            IssMaster updMaster = handler.update(admin, master.getId().intValue(),
                     "new_" + masterName);
             assertEquals("new_" + masterName, updMaster.getLabel());
             assertEquals(master.getId(), updMaster.getId());
@@ -89,12 +89,12 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testCaCert() {
-        IssMaster master = handler.create(adminKey, masterName);
+        IssMaster master = handler.create(admin, masterName);
         Integer mstrId = master.getId().intValue();
 
         // Make sure that non-sat-admin users cannot access
         try {
-            int rc = handler.setCaCert(regularKey, mstrId, "/tmp/foo");
+            int rc = handler.setCaCert(regular, mstrId, "/tmp/foo");
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -103,8 +103,8 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            int rc = handler.setCaCert(adminKey, mstrId, "/tmp/foo");
-            IssMaster gotMaster = handler.getMaster(adminKey, mstrId);
+            int rc = handler.setCaCert(admin, mstrId, "/tmp/foo");
+            IssMaster gotMaster = handler.getMaster(admin, mstrId);
             assertEquals("/tmp/foo", gotMaster.getCaCert());
         }
         catch (PermissionCheckFailureException e) {
@@ -117,21 +117,21 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
         String masterName2 = "testMaster" + TestUtils.randomString();
         String masterName3 = "testMaster" + TestUtils.randomString();
 
-        IssMaster master1 = handler.create(adminKey, masterName1);
-        IssMaster master2 = handler.create(adminKey, masterName2);
-        IssMaster master3 = handler.create(adminKey, masterName3);
+        IssMaster master1 = handler.create(admin, masterName1);
+        IssMaster master2 = handler.create(admin, masterName2);
+        IssMaster master3 = handler.create(admin, masterName3);
 
         // Make sure that non-sat-admin users cannot do any of the
         // master-default APIs
         try {
-            IssMaster retMaster = handler.getDefaultMaster(regularKey);
+            IssMaster retMaster = handler.getDefaultMaster(regular);
             fail();
         }
         catch (PermissionCheckFailureException e) {
             // success
         }
         try {
-            int rc = handler.makeDefault(regularKey, master1.getId().intValue());
+            int rc = handler.makeDefault(regular, master1.getId().intValue());
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -139,7 +139,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
         }
 
         try {
-            int rc = handler.unsetDefaultMaster(regularKey);
+            int rc = handler.unsetDefaultMaster(regular);
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -150,36 +150,36 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
         try {
             IssMaster defaultMaster = null;
             try {
-                defaultMaster = handler.getDefaultMaster(adminKey);
+                defaultMaster = handler.getDefaultMaster(admin);
             }
             catch (LookupException e) {
                 // master not found, leave null
             }
 
-            int rc = handler.makeDefault(adminKey, master1.getId().intValue());
+            int rc = handler.makeDefault(admin, master1.getId().intValue());
             assertEquals(1, rc);
-            IssMaster retMaster = handler.getDefaultMaster(adminKey);
+            IssMaster retMaster = handler.getDefaultMaster(admin);
             assertNotNull(retMaster);
             assertTrue(retMaster.getId().equals(master1.getId()));
 
-            rc = handler.makeDefault(adminKey, master3.getId().intValue());
+            rc = handler.makeDefault(admin, master3.getId().intValue());
             assertEquals(1, rc);
-            retMaster = handler.getDefaultMaster(adminKey);
+            retMaster = handler.getDefaultMaster(admin);
             assertNotNull(retMaster);
             assertTrue(retMaster.getId().equals(master3.getId()));
 
-            retMaster = handler.getMaster(adminKey, master1.getId().intValue());
+            retMaster = handler.getMaster(admin, master1.getId().intValue());
             assertNotNull(retMaster);
             assertFalse(retMaster.isDefaultMaster());
 
-            rc = handler.unsetDefaultMaster(adminKey);
+            rc = handler.unsetDefaultMaster(admin);
             assertEquals(1, rc);
-            retMaster = handler.getMaster(adminKey, master3.getId().intValue());
+            retMaster = handler.getMaster(admin, master3.getId().intValue());
             assertNotNull(retMaster);
             assertFalse(retMaster.isDefaultMaster());
 
             try {
-                retMaster = handler.getDefaultMaster(adminKey);
+                retMaster = handler.getDefaultMaster(admin);
                 fail();
             }
             catch (LookupException le) {
@@ -187,7 +187,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
             }
 
             if (defaultMaster != null) {
-                handler.makeDefault(adminKey, defaultMaster.getId().intValue());
+                handler.makeDefault(admin, defaultMaster.getId().intValue());
             }
         }
         catch (PermissionCheckFailureException e) {
@@ -196,12 +196,12 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testDelete() {
-        IssMaster master = handler.create(adminKey, masterName);
+        IssMaster master = handler.create(admin, masterName);
         Long mstrId = master.getId();
 
         // Make sure that non-sat-admin users cannot access
         try {
-            int rmvd = handler.delete(regularKey, master.getId().intValue());
+            int rmvd = handler.delete(regular, master.getId().intValue());
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -210,7 +210,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            int rmvd = handler.delete(adminKey, master.getId().intValue());
+            int rmvd = handler.delete(admin, master.getId().intValue());
             assertEquals(1, rmvd);
         }
         catch (PermissionCheckFailureException e) {
@@ -223,12 +223,12 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testGetMaster() {
-        IssMaster master = handler.create(adminKey, masterName);
+        IssMaster master = handler.create(admin, masterName);
         Integer mstrId = master.getId().intValue();
 
         // Make sure that non-sat-admin users cannot access
         try {
-            IssMaster gotMaster = handler.getMaster(regularKey, mstrId);
+            IssMaster gotMaster = handler.getMaster(regular, mstrId);
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -237,7 +237,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            IssMaster gotMaster = handler.getMaster(adminKey, mstrId);
+            IssMaster gotMaster = handler.getMaster(admin, mstrId);
             assertEquals(mstrId.intValue(), gotMaster.getId().intValue());
         }
         catch (PermissionCheckFailureException e) {
@@ -246,11 +246,11 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testGetMasterByLabel() {
-        IssMaster master = handler.create(adminKey, masterName);
+        IssMaster master = handler.create(admin, masterName);
 
         // Make sure that non-sat-admin users cannot access
         try {
-            IssMaster gotMaster = handler.getMasterByLabel(regularKey, masterName);
+            IssMaster gotMaster = handler.getMasterByLabel(regular, masterName);
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -259,7 +259,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            IssMaster gotMaster = handler.getMasterByLabel(adminKey, masterName);
+            IssMaster gotMaster = handler.getMasterByLabel(admin, masterName);
             assertNotNull(gotMaster);
             assertEquals(masterName, gotMaster.getLabel());
         }
@@ -269,11 +269,11 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testGetMasterOrgs() {
-        IssMaster master = handler.create(adminKey, masterName);
+        IssMaster master = handler.create(admin, masterName);
 
         // Make sure that non-sat-admin users cannot access
         try {
-            List<IssMasterOrg> orgs = handler.getMasterOrgs(regularKey,
+            List<IssMasterOrg> orgs = handler.getMasterOrgs(regular,
                     master.getId().intValue());
             fail();
         }
@@ -283,7 +283,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            List<IssMasterOrg> orgs = handler.getMasterOrgs(adminKey,
+            List<IssMasterOrg> orgs = handler.getMasterOrgs(admin,
                     master.getId().intValue());
             assertNotNull(orgs);
             assertEquals(0, orgs.size());
@@ -295,14 +295,14 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testMappedMasterOrgs() {
-        IssMaster master = handler.create(adminKey, masterName);
+        IssMaster master = handler.create(admin, masterName);
         addOrgsTo(master, false);
         assertEquals(0, master.getNumMappedMasterOrgs());
         assertEquals(masterOrgNames.length, master.getNumMasterOrgs());
 
         // Make sure that non-sat-admin users cannot access
         try {
-            List<IssMasterOrg> orgs = handler.getMasterOrgs(regularKey,
+            List<IssMasterOrg> orgs = handler.getMasterOrgs(regular,
                     master.getId().intValue());
             fail();
         }
@@ -313,7 +313,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
         // Make sure satellite-admin can
         List<IssMasterOrg> orgs = null;
         try {
-            orgs = handler.getMasterOrgs(adminKey, master.getId().intValue());
+            orgs = handler.getMasterOrgs(admin, master.getId().intValue());
             assertNotNull(orgs);
             assertEquals(masterOrgNames.length, orgs.size());
         }
@@ -333,7 +333,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         master.resetMasterOrgs(new HashSet<IssMasterOrg>(orgs));
 
-        orgs = handler.getMasterOrgs(adminKey, master.getId().intValue());
+        orgs = handler.getMasterOrgs(admin, master.getId().intValue());
         for (IssMasterOrg o : orgs) {
             assertEquals(o.getLocalOrg().getId(), admin.getOrg().getId());
         }
@@ -341,15 +341,15 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testSetMasterOrgs() {
-        IssMaster master = handler.create(adminKey, masterName);
+        IssMaster master = handler.create(admin, masterName);
 
         List<IssMasterOrg> someOrgs = getBareOrgs(true);
 
         // Make sure that non-sat-admin users cannot access
         try {
-            IssMaster m = handler.getMaster(adminKey, master.getId().intValue());
+            IssMaster m = handler.getMaster(admin, master.getId().intValue());
             assertNotNull(m);
-            List<IssMasterOrg> orgs = handler.getMasterOrgs(regularKey,
+            List<IssMasterOrg> orgs = handler.getMasterOrgs(regular,
                     master.getId().intValue());
             fail();
         }
@@ -359,13 +359,13 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            IssMaster m = handler.getMaster(adminKey, master.getId().intValue());
+            IssMaster m = handler.getMaster(admin, master.getId().intValue());
             assertNotNull(m);
             assertEquals(0, m.getNumMasterOrgs());
-            int rc = handler.setMasterOrgs(adminKey, m.getId().intValue(),
+            int rc = handler.setMasterOrgs(admin, m.getId().intValue(),
                     orgsToMaps(someOrgs));
             assertEquals(1, rc);
-            IssMaster m2 = handler.getMaster(adminKey, master.getId().intValue());
+            IssMaster m2 = handler.getMaster(admin, master.getId().intValue());
             assertEquals(someOrgs.size(), m2.getNumMasterOrgs());
         }
         catch (PermissionCheckFailureException e) {
@@ -378,37 +378,37 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
         org.setMasterOrgId(1013L);
         List<Map<String, Object>> mapOrgs = new ArrayList();
         mapOrgs.add(orgToMap(org));
-        IssMaster m3 = handler.getMaster(adminKey, master.getId().intValue());
-        int rc = handler.setMasterOrgs(adminKey,
+        IssMaster m3 = handler.getMaster(admin, master.getId().intValue());
+        int rc = handler.setMasterOrgs(admin,
                 m3.getId().intValue(),
                 mapOrgs);
         assertEquals(1, rc);
-        List<IssMasterOrg> orgSet = handler.getMasterOrgs(adminKey,
+        List<IssMasterOrg> orgSet = handler.getMasterOrgs(admin,
                 master.getId().intValue());
         assertNotNull(orgSet);
         assertEquals(1, orgSet.size());
 
         // Make sure resetting to "empty" works
-        IssMaster m4 = handler.getMaster(adminKey, master.getId().intValue());
-        rc = handler.setMasterOrgs(adminKey,
+        IssMaster m4 = handler.getMaster(admin, master.getId().intValue());
+        rc = handler.setMasterOrgs(admin,
                 m4.getId().intValue(),
                 new ArrayList<Map<String, Object>>());
         assertEquals(1, rc);
-        orgSet = handler.getMasterOrgs(adminKey, master.getId().intValue());
+        orgSet = handler.getMasterOrgs(admin, master.getId().intValue());
         assertNotNull(orgSet);
         assertEquals(0, orgSet.size());
 
     }
 
     public void testAddOrg() {
-        IssMaster master = handler.create(adminKey, masterName);
+        IssMaster master = handler.create(admin, masterName);
         IssMasterOrg org = new IssMasterOrg();
         org.setMasterOrgName("newMasterOrg");
         org.setMasterOrgId(1001L);
 
         // Make sure that non-sat-admin users cannot access
         try {
-            int rc = handler.addToMaster(regularKey, master.getId().intValue(),
+            int rc = handler.addToMaster(regular, master.getId().intValue(),
                     orgToMap(org));
             fail();
         }
@@ -417,10 +417,10 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
         }
         // Make sure satellite-admin can
         try {
-            int rc = handler.addToMaster(adminKey, master.getId().intValue(),
+            int rc = handler.addToMaster(admin, master.getId().intValue(),
                     orgToMap(org));
             assertEquals(1, rc);
-            List<IssMasterOrg> orgs = handler.getMasterOrgs(adminKey,
+            List<IssMasterOrg> orgs = handler.getMasterOrgs(admin,
                     master.getId().intValue());
             boolean found = false;
             for (IssMasterOrg o : orgs) {
@@ -450,7 +450,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure that non-sat-admin users cannot access
         try {
-            int rc = handler.mapToLocal(regularKey, master.getId().intValue(),
+            int rc = handler.mapToLocal(regular, master.getId().intValue(),
                     masterOrg.getMasterOrgId().intValue(),
                     admin.getOrg().getId().intValue());
             fail();
@@ -460,7 +460,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
         }
         // Make sure satellite-admin can
         try {
-            int rc = handler.mapToLocal(adminKey, master.getId().intValue(),
+            int rc = handler.mapToLocal(admin, master.getId().intValue(),
                     masterOrg.getMasterOrgId().intValue(),
                     admin.getOrg().getId().intValue());
             assertEquals(1, rc);

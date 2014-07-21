@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -112,7 +112,7 @@ public class NavMenuTag extends TagSupport {
             // successfull navigation match from the Session
             // This is used as a fallback if the current URL doesnt
             // have a matching navigation map
-            StringBuffer locationKey = new StringBuffer();
+            StringBuilder locationKey = new StringBuilder();
             locationKey.append(nt.getLabel());
             locationKey.append("navi_location");
 

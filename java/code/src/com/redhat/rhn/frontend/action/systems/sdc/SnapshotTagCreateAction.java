@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,6 +19,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -73,7 +74,11 @@ public class SnapshotTagCreateAction extends RhnAction {
             else {
                 snap = ServerFactory.lookupLatestForServer(server);
             }
-            if (!snap.addTag(tagName)) {
+            if (StringUtils.isBlank(tagName)) {
+                createErrorMessage(request,
+                        "system.history.snapshot.tagNameEmpty", null);
+            }
+            else if (!snap.addTag(tagName)) {
                 createErrorMessage(request,
                         "system.history.snapshot.tagCreateFailure", null);
             }

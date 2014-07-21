@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -427,6 +427,18 @@ public class UserManager extends BaseManager {
         }
     }
 
+    private static User performLoginActions(User user) {
+        user.setLastLoggedIn(new Date());
+        if (!SatConfigFactory.getSatConfigBooleanValue(
+                SatConfigFactory.EXT_AUTH_KEEP_ROLES)) {
+            // delete all temporary roles
+            UserManager.resetTemporaryRoles(user, new HashSet<Role>());
+        }
+        // need to disable OAI_SYNC during login
+        storeUser(user);
+        return user;
+    }
+
 
     /**
      * Login the user with the given username and password.
@@ -445,16 +457,11 @@ public class UserManager extends BaseManager {
             else if (user.isDisabled()) {
                 exceptionType = "account.disabled";
             }
+            else if (user.getReadOnlyBool()) { // KEEP LAST!!
+                exceptionType = "error.user_readonly";
+            }
             else {
-                user.setLastLoggedIn(new Date());
-                if (!SatConfigFactory.getSatConfigBooleanValue(
-                        SatConfigFactory.EXT_AUTH_KEEP_ROLES)) {
-                    // delete all temporary roles
-                    UserManager.resetTemporaryRoles(user, new HashSet<Role>());
-                }
-                // need to disable OAI_SYNC during login
-                storeUser(user);
-                return user;
+                return performLoginActions(user);
             }
         }
         catch (LookupException le) {
@@ -469,6 +476,32 @@ public class UserManager extends BaseManager {
             log.warn("Failed to set timeout: " + ie.getMessage());
         }
         throw new LoginException(exceptionType);
+    }
+
+    /**
+     * This method should be ONLY called when we need to authenticate read-only user
+     * e.g. for purpose of the API calls
+     * Login the user with the given username and password.
+     * @param username User's login name
+     * @param password User's unencrypted password.
+     * @return Returns the user if login is successful, or null othewise.
+     * @throws LoginException if login fails.  The message is a string resource key.
+     */
+    public static User loginReadOnlyUser(String username,
+            String password) throws LoginException {
+        try {
+            loginUser(username, password);
+        }
+        catch (LoginException e) {
+            // if exception type is error.user_readonly everything else went well
+            // and we can safely log the read-only user
+            if (!e.getMessage().equals("error.user_readonly")) {
+                throw e;
+            }
+        }
+        User user = UserFactory.lookupByLogin(username);
+        user.authenticate(password);
+        return performLoginActions(user);
     }
 
     /**

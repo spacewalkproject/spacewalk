@@ -1,0 +1,1007 @@
+diff -rupN cobbler-2.0.11.old/cobbler/field_info.py cobbler-2.0.11/cobbler/field_info.py
+--- cobbler-2.0.11.old/cobbler/field_info.py	2014-07-01 18:10:39.749432808 -0400
++++ cobbler-2.0.11/cobbler/field_info.py	2014-07-01 18:50:04.225175799 -0400
+@@ -45,7 +45,7 @@ USES_SELECT = [
+    "image",
+    "virt_type",
+    "arch",
+-   "*bonding",
++   "*interface_type",
+    "parent",
+    "breed",
+    "os_version",
+@@ -104,12 +104,13 @@ BLOCK_MAPPINGS = {
+    "*ip_address"     : "Networking",
+    "*dhcp_tag"       : "Networking",
+    "*static"         : "Networking",
+-   "*bonding"        : "Networking",
++   "*interface_type" : "Networking",
++   "*interface_master" : "Networking",
+    "*bonding_opts"   : "Networking",
+-   "*bonding_master" : "Networking",
++   "*bridge_opts"    : "Networking",
+    "*dns_name"       : "Networking",
+    "*static_routes"  : "Networking",
+-   "*subnet"         : "Networking",
++   "*netmask"        : "Networking",
+    "hostname"        : "Networking (Global)",
+    "gateway"         : "Networking (Global)",
+    "name_servers"         : "Networking (Global)",
+@@ -138,3 +139,12 @@ ALTERNATE_OPTIONS = {
+    "kernel_options"      : "--kopts",
+    "kernel_options_post" : "--kopts-post",
+ }
++
++# Deprecated fields that have been renamed, but we need to account for them appearing in older 
++# datastructs that may not have been saved since the code change
++
++DEPRECATED_FIELDS = {
++   "subnet"         : "netmask",
++   "bonding"        : "interface_type",
++   "bonding_master" : "interface_master",
++}
+diff -rupN cobbler-2.0.11.old/cobbler/item.py cobbler-2.0.11/cobbler/item.py
+--- cobbler-2.0.11.old/cobbler/item.py	2014-07-01 18:10:39.749432808 -0400
++++ cobbler-2.0.11/cobbler/item.py	2014-07-01 18:51:51.217931102 -0400
+@@ -278,10 +278,16 @@ class Item:
+         # special case for systems
+         key_found_already = False
+         if data.has_key("interfaces"):
+-            if key in [ "mac_address", "ip_address", "subnet", "virt_bridge", "dhcp_tag", "dns_name", "static_routes", "bonding", "bonding_opts", "bonding_master" ]:
++            if key in [ "mac_address", "ip_address", "subnet", "netmask", "virt_bridge", \
++                        "dhcp_tag", "dns_name", "static_routes", "interface_type", \
++                        "interface_master", "bonding_opts", "bridge_opts", "bonding", "bonding_master" ]:
++                if key == "bonding":
++                    key = "interface_type" # bonding is deprecated
++                elif key == "bonding_master":
++                    key = "interface_master" # bonding_master is deprecated
+                 key_found_already = True
+                 for (name, interface) in data["interfaces"].iteritems(): 
+-                    if value is not None:
++                    if value is not None and interface.has_key(key):
+                         if self.__find_compare(interface[key], value):
+                             return True
+ 
+diff -rupN cobbler-2.0.11.old/cobbler/item_system.py cobbler-2.0.11/cobbler/item_system.py
+--- cobbler-2.0.11.old/cobbler/item_system.py	2014-07-01 18:10:39.750432815 -0400
++++ cobbler-2.0.11/cobbler/item_system.py	2014-07-01 18:59:23.845123045 -0400
+@@ -63,11 +63,12 @@ FIELDS = [
+   ["network_widget_b","",0,"Edit Interface",True,"",0,"str"], # not a real field, a marker for the web app
+   ["*mac_address","",0,"MAC Address",True,"(Place \"random\" in this field for a random MAC Address.)",0,"str"],
+   ["*ip_address","",0,"IP Address",True,"",0,"str"],
+-  ["*bonding","na",0,"Bonding Mode",True,"",["na","master","slave"],"str"],
+-  ["*bonding_master","",0,"Bonding Master",True,"",0,"str"],
++  ["*interface_type","na",0,"Interface Type",True,"",["na","master","slave","bond","bond_slave","bridge","bridge_slave"],"str"],
++  ["*interface_master","",0,"Master Interface",True,"",0,"str"],
+   ["*bonding_opts","",0,"Bonding Opts",True,"",0,"str"],
++  ["*bridge_opts","",0,"Bridge Opts",True,"",0,"str"],
+   ["*static",False,0,"Static",True,"Is this interface static?",0,"bool"],
+-  ["*subnet","",0,"Subnet",True,"",0,"str"],
++  ["*netmask","",0,"Subnet Mask",True,"",0,"str"],
+   ["*dhcp_tag","",0,"DHCP Tag",True,"",0,"str"],
+   ["*dns_name","",0,"DNS Name",True,"",0,"str"],
+   ["*static_routes",[],0,"Static Routes",True,"",0,"list"],
+@@ -116,12 +117,16 @@ class System(item.Item):
+                 "mac_address"    : "",
+                 "ip_address"     : "",
+                 "dhcp_tag"       : "",
+-                "subnet"         : "",
++                "subnet"         : "", # deprecated
++                "netmask"        : "",
+                 "virt_bridge"    : "",
+                 "static"         : False,
+-                "bonding"        : "",
+-                "bonding_master" : "",
++                "interface_type"       : "",
++                "interface_master"     : "",
++                "bonding"              : "", # deprecated
++                "bonding_master"       : "", # deprecated
+                 "bonding_opts"   : "",
++                "bridge_opts"    : "",
+                 "dns_name"       : "",
+                 "static_routes"  : [],
+             }
+@@ -333,9 +338,9 @@ class System(item.Item):
+         self.name_servers_search = data
+         return True
+ 
+-    def set_subnet(self,subnet,interface):
++    def set_netmask(self,netmask,interface):
+         intf = self.__get_interface(interface)
+-        intf["subnet"] = subnet
++        intf["netmask"] = netmask
+         return True
+     
+     def set_virt_bridge(self,bridge,interface):
+@@ -345,18 +350,25 @@ class System(item.Item):
+         intf["virt_bridge"] = bridge
+         return True
+ 
+-    def set_bonding(self,bonding,interface):
+-        if bonding not in ["master","slave","na",""] : 
+-            raise CX(_("bonding value must be one of: master, slave, na"))
+-        if bonding == "na":
+-            bonding = ""
++    def set_interface_type(self,type,interface):
++        # master and slave are deprecated, and will
++        # be assumed to mean bonding slave/master
++        interface_types = ["bridge","bridge_slave","bond","bond_slave","master","slave","na",""]
++        if type not in interface_types:
++            raise CX(_("interface type value must be one of: %s or blank" % interface_types.join(",")))
++        if type == "na":
++            type = ""
++        elif type == "master":
++            type = "bond"
++        elif type == "slave":
++            type = "bond_slave"
+         intf = self.__get_interface(interface)
+-        intf["bonding"] = bonding
++        intf["interface_type"] = type
+         return True
+ 
+-    def set_bonding_master(self,bonding_master,interface):
++    def set_interface_master(self,interface_master,interface):
+         intf = self.__get_interface(interface)
+-        intf["bonding_master"] = bonding_master
++        intf["interface_master"] = interface_master
+         return True
+ 
+     def set_bonding_opts(self,bonding_opts,interface):
+@@ -390,6 +402,11 @@ class System(item.Item):
+             return True
+         raise CX(_("invalid profile name: %s") % profile_name)
+ 
++    def set_bridge_opts(self,bridge_opts,interface):
++        intf = self.__get_interface(interface)
++        intf["bridge_opts"] = bridge_opts
++        return True
++
+     def set_image(self,image_name):
+         """
+         Set the system to use a certain named image.  Works like set_profile
+@@ -524,11 +541,16 @@ class System(item.Item):
+             if field == "dnsname"       : self.set_dns_name(value, interface)
+             if field == "static"        : self.set_static(value, interface)
+             if field == "dhcptag"       : self.set_dhcp_tag(value, interface)
+-            if field == "subnet"        : self.set_subnet(value, interface)
++            if field == "subnet"        : self.set_netmask(value, interface)
++            if field == "netmask"       : self.set_netmask(value, interface)
+             if field == "virtbridge"    : self.set_virt_bridge(value, interface)
+-            if field == "bonding"       : self.set_bonding(value, interface)
+-            if field == "bondingmaster" : self.set_bonding_master(value, interface)
+-            if field == "bondingopts"   : self.set_bonding_opts(value, interface)
++            if field == "interfacetype"       : self.set_interface_type(value, interface)
++            if field == "interfacemaster"     : self.set_interface_master(value, interface)
++            if field == "bonding"             : self.set_interface_type(value, interface)   # deprecated
++            if field == "bondingmaster"       : self.set_interface_master(value, interface) # deprecated
++            if field == "bondingopts"         : self.set_bonding_opts(value, interface)
++            if field == "bridgeopts"          : self.set_bridge_opts(value, interface)
++
+             if field == "staticroutes"  : self.set_static_routes(value, interface)
+         return True
+ 
+diff -rupN cobbler-2.0.11.old/cobbler/modules/manage_isc.py cobbler-2.0.11/cobbler/modules/manage_isc.py
+--- cobbler-2.0.11.old/cobbler/modules/manage_isc.py	2014-07-01 18:10:39.747432794 -0400
++++ cobbler-2.0.11/cobbler/modules/manage_isc.py	2014-07-01 18:47:03.331897941 -0400
+@@ -117,14 +117,14 @@ class IscManager:
+                 interface["gateway"] = system.gateway
+ 
+                 mac  = interface["mac_address"]
+-                if interface["bonding"] == "slave":
+-                    if interface["bonding_master"] not in system.interfaces:
++                if interface["interface_type"] in ("slave","bond_slave","bridge_slave"):
++                    if interface["interface_master"] not in system.interfaces:
+                         # Can't write DHCP entry; master interface does not
+                         # exist
+                         continue
+-                    ip = system.interfaces[interface["bonding_master"]]["ip_address"]
++                    ip = system.interfaces[interface["interface_master"]]["ip_address"]
+                     interface["ip_address"] = ip
+-                    host = system.interfaces[interface["bonding_master"]]["dns_name"]
++                    host = system.interfaces[interface["interface_master"]]["dns_name"]
+                 else:
+                     ip   = interface["ip_address"]
+                     host = interface["dns_name"]
+diff -rupN cobbler-2.0.11.old/cobbler/remote.py cobbler-2.0.11/cobbler/remote.py
+--- cobbler-2.0.11.old/cobbler/remote.py	2014-07-01 18:10:39.749432808 -0400
++++ cobbler-2.0.11/cobbler/remote.py	2014-07-01 18:47:18.690006479 -0400
+@@ -1064,7 +1064,7 @@ class CobblerXMLRPCInterface:
+             if ip != "" and ip != "?":
+                 obj.set_ip_address(ip, iname)
+             if netmask != "" and netmask != "?":
+-                obj.set_subnet(netmask, iname)
++                obj.set_netmask(netmask, iname)
+         self.api.add_system(obj)
+         return 0
+  
+diff -rupN cobbler-2.0.11.old/cobbler/test_basic.py cobbler-2.0.11/cobbler/test_basic.py
+--- cobbler-2.0.11.old/cobbler/test_basic.py	2014-07-01 18:10:39.746432787 -0400
++++ cobbler-2.0.11/cobbler/test_basic.py	2014-07-01 18:47:18.690006479 -0400
+@@ -402,7 +402,7 @@ class MultiNIC(BootTest):
+         self.assertTrue(system.set_dns_name("fooserver","eth4"))
+         self.assertTrue(system.set_dhcp_tag("red","eth4"))
+         self.assertTrue(system.set_ip_address("192.168.1.26","eth4"))
+-        self.assertTrue(system.set_subnet("255.255.255.0","eth4"))
++        self.assertTrue(system.set_netmask("255.255.255.0","eth4"))
+         self.assertTrue(system.set_dhcp_tag("tag2","eth5"))
+         self.assertTrue(self.api.add_system(system))
+         self.assertTrue(self.api.find_system(dns_name="fooserver"))
+@@ -410,7 +410,7 @@ class MultiNIC(BootTest):
+         self.assertTrue(self.api.find_system(ip_address="127.0.0.5"))
+         self.assertTrue(self.api.find_system(virt_bridge="zero"))
+         self.assertTrue(self.api.find_system(gateway="192.168.1.25"))
+-        self.assertTrue(self.api.find_system(subnet="255.255.255.0"))
++        self.assertTrue(self.api.find_system(netmask="255.255.255.0"))
+         self.assertTrue(self.api.find_system(dhcp_tag="tag2"))
+         self.assertTrue(self.api.find_system(dhcp_tag="zero"))
+ 
+@@ -425,7 +425,7 @@ class MultiNIC(BootTest):
+         for (name,intf) in system.interfaces.iteritems():
+             if name == "eth4": # xmlrpc dicts must have string keys, so we must also
+                 self.assertTrue(intf["virt_bridge"] == "zero")
+-                self.assertTrue(intf["subnet"] == "255.255.255.0")
++                self.assertTrue(intf["netmask"] == "255.255.255.0")
+                 self.assertTrue(intf["mac_address"] == "AA:AA:BB:BB:CC:CC")
+                 self.assertTrue(intf["ip_address"] == "192.168.1.26")
+                 self.assertTrue(intf["dns_name"] == "fooserver")
+diff -rupN cobbler-2.0.11.old/cobbler/utils.py cobbler-2.0.11/cobbler/utils.py
+--- cobbler-2.0.11.old/cobbler/utils.py	2014-07-01 18:10:39.746432787 -0400
++++ cobbler-2.0.11/cobbler/utils.py	2014-07-01 18:47:18.691006486 -0400
+@@ -1698,9 +1698,12 @@ def from_datastruct_from_fields(obj, see
+         # we don't have to load interface fields here
+         if elems[0].startswith("*") or elems[0].find("widget") != -1:
+             continue
+-        k = elems[0]
+-        if seed_data.has_key(k):
+-            setattr(obj, k, seed_data[k])
++        src_k = dst_k = elems[0]
++        # deprecated field switcheroo
++        if field_info.DEPRECATED_FIELDS.has_key(src_k):
++            dst_k = field_info.DEPRECATED_FIELDS[src_k]
++        if seed_data.has_key(src_k):
++            setattr(obj, dst_k, seed_data[src_k])
+ 
+     if obj.uid == '':
+         obj.uid = obj.config.generate_uid()
+@@ -1708,6 +1711,13 @@ def from_datastruct_from_fields(obj, see
+     # special handling for interfaces
+     if obj.COLLECTION_TYPE == "system":
+         obj.interfaces = copy.deepcopy(seed_data["interfaces"])
++        # deprecated field switcheroo for interfaces
++        for interface in obj.interfaces.keys():
++            for k in obj.interfaces[interface].keys():
++                if field_info.DEPRECATED_FIELDS.has_key(k):
++                    if not obj.interfaces[interface].has_key(field_info.DEPRECATED_FIELDS[k]) or \
++                           obj.interfaces[interface][field_info.DEPRECATED_FIELDS[k]] == "":
++                        obj.interfaces[interface][field_info.DEPRECATED_FIELDS[k]] = obj.interfaces[interface][k]
+ 
+     return obj
+ 
+@@ -1734,6 +1744,10 @@ def to_datastruct_from_fields(obj, field
+     # they are the only exception in Cobbler.
+     if obj.COLLECTION_TYPE == "system":
+         ds["interfaces"] = copy.deepcopy(obj.interfaces)
++        #for interface in ds["interfaces"].keys():
++        #    for k in ds["interfaces"][interface].keys():
++        #        if field_info.DEPRECATED_FIELDS.has_key(k):
++        #            ds["interfaces"][interface][field_info.DEPRECATED_FIELDS[k]] = ds["interfaces"][interface][k]
+ 
+     return ds
+ 
+diff -rupN cobbler-2.0.11.old/config/completions cobbler-2.0.11/config/completions
+--- cobbler-2.0.11.old/config/completions	2014-07-01 18:10:39.771432964 -0400
++++ cobbler-2.0.11/config/completions	2014-07-01 18:47:18.691006486 -0400
+@@ -392,7 +392,7 @@ system:
+         "''owners": {}
+         "''profile": {}
+         "''server'override": {}
+-        "''subnet": {}
++        "''netmask": {}
+         "''virt'bridge": {}
+         "''virt'cpus": {}
+         "''virt'file'size": {}
+@@ -418,7 +418,7 @@ system:
+         "''owners": {}
+         "''profile": {}
+         "''server'override": {}
+-        "''subnet": {}
++        "''netmask": {}
+         "''virt'bridge": {}
+         "''virt'cpus": {}
+         "''virt'file'size": {}
+@@ -445,7 +445,7 @@ system:
+         "''owners": {}
+         "''profile": {}
+         "''server'override": {}
+-        "''subnet": {}
++        "''netmask": {}
+         "''virt'bridge": {}
+         "''virt'cpus": {}
+         "''virt'file'size": {}
+@@ -466,7 +466,7 @@ system:
+         "''owners": {}
+         "''profile": {}
+         "''server'override": {}
+-        "''subnet": {}
++        "''netmask": {}
+         "''virt'bridge": {}
+         "''virt'cpus": {}
+         "''virt'file'size": {}
+@@ -497,7 +497,7 @@ system:
+         "''owners": {}
+         "''profile": {}
+         "''server'override": {}
+-        "''subnet": {}
++        "''netmask": {}
+         "''virt'bridge": {}
+         "''virt'cpus": {}
+         "''virt'file'size": {}
+diff -rupN cobbler-2.0.11.old/koan/app.py cobbler-2.0.11/koan/app.py
+--- cobbler-2.0.11.old/koan/app.py	2014-07-01 18:10:39.756432858 -0400
++++ cobbler-2.0.11/koan/app.py	2014-07-01 18:47:18.692006493 -0400
+@@ -1118,14 +1118,14 @@ class Koan:
+                 interface_data = self.safe_load(interfaces, interface_name)
+ 
+             ip = self.safe_load(interface_data, "ip_address")
+-            subnet = self.safe_load(interface_data, "subnet")
++            netmask = self.safe_load(interface_data, "netmask")
+             gateway = self.safe_load(pd, "gateway")
+ 
+             hashv["ksdevice"] = self.static_interface
+             if ip is not None:
+                 hashv["ip"] = ip
+-            if subnet is not None:
+-                hashv["netmask"] = subnet
++            if netmask is not None:
++                hashv["netmask"] = netmask
+             if gateway is not None:
+                 hashv["gateway"] = gateway
+ 
+diff -rupN cobbler-2.0.11.old/snippets/network_config cobbler-2.0.11/snippets/network_config
+--- cobbler-2.0.11.old/snippets/network_config	2014-07-01 18:10:39.769432950 -0400
++++ cobbler-2.0.11/snippets/network_config	2014-07-01 19:02:46.534558212 -0400
+@@ -9,7 +9,7 @@
+     #set $configbymac = True
+     #for $iname in $ikeys
+         #set $idata = $interfaces[$iname]
+-        #if $idata["mac_address"] == "" and not $vlanpattern.match($iname) and not $idata["bonding"].lower() == "master"
++        #if $idata["mac_address"] == "" and not $vlanpattern.match($iname) and not $idata["interface_type"].lower() in ("master","bond","bridge")
+             #set $configbymac = False
+         #end if
+     #end for
+@@ -26,9 +26,9 @@
+             #set $mac      = $idata["mac_address"]
+             #set $static   = $idata["static"]
+             #set $ip       = $idata["ip_address"]
+-            #set $netmask  = $idata["subnet"]
+-            #set $bonding  = $idata["bonding"]
+-            #if $vlanpattern.match($iname) or $bonding == "master" 
++            #set $netmask  = $idata["netmask"]
++            #set $type     = $idata["interface_type"]
++            #if $vlanpattern.match($iname) or $type in ("master","bond","bridge")
+                 ## If this is a VLAN interface, skip it, anaconda doesn't know
+                 ## about VLANs.
+                 #set $is_vlan = "true"
+Binary files cobbler-2.0.11.old/snippets/.network_config.rej.swp and cobbler-2.0.11/snippets/.network_config.rej.swp differ
+diff -rupN cobbler-2.0.11.old/snippets/post_install_network_config cobbler-2.0.11/snippets/post_install_network_config
+--- cobbler-2.0.11.old/snippets/post_install_network_config	2014-07-01 18:10:39.769432950 -0400
++++ cobbler-2.0.11/snippets/post_install_network_config	2014-07-01 18:47:03.353898097 -0400
+@@ -4,49 +4,59 @@
+     ## so we can do the more complex stuff
+     ## get the list of interface names
+     #set ikeys = $interfaces.keys()
+-    #set osversion = $getVar("os_version","") 
++    #set osversion = $getVar("os_version","")
+     #import re
+     #set $vlanpattern = $re.compile("[a-zA-Z0-9]+[\.:][0-9]+")
+     ## Determine if we should use the MAC address to configure the interfaces first
+     ## Only physical interfaces are required to have a MAC address
+     ## Also determine the number of bonding devices we have, so we can set the
+     ## max-bonds option in modprobe.conf accordingly. -- jcapel
+-    #
+     #set $configbymac = True
+     #set $numbondingdevs = 0
++    #set $enableipv6 = False
+     ## =============================================================================
+     #for $iname in $ikeys
+         ## look at the interface hash data for the specific interface
+-    	#set $idata = $interfaces[$iname]
++        #set $idata = $interfaces[$iname]
+         ## do not configure by mac address if we don't have one AND it's not for bonding/vlans
+         ## as opposed to a "real" physical interface
+-    	#if $idata["mac_address"] == "" and not $vlanpattern.match($iname) and not $idata["bonding"].lower() == "master":
+-    		## we have to globally turn off the config by mac feature as we can't
+-    		## use it now
+-    		#set $configbymac = False
+-    	#end if
+-    	## count the number of bonding devices we have.
+-    	#if $idata["bonding"].lower() == "master"
+-    	    #set $numbondingdevs += 1
+-    	#end if
++        #if $idata.get("mac_address", "") == "" and not $vlanpattern.match($iname) and not $idata.get("interface_type", "").lower() in ("master","bond","bridge"):
++                ## we have to globally turn off the config by mac feature as we can't
++                ## use it now
++                #set $configbymac = False
++        #end if
++        ## count the number of bonding devices we have.
++        #if $idata.get("interface_type", "").lower() in ("master","bond","bonded_bridge_slave")
++            #set $numbondingdevs += 1
++        #end if
++        ## enable IPv6 networking if we set an ipv6 address or turn on autoconfiguration
++        #if $idata.get("ipv6_address", "") != "" or $ipv6_autoconfiguration == True
++            #set $enableipv6 = True
++        #end if
+     #end for
+     ## end looping through the interfaces to see which ones we need to configure.
+     ## =============================================================================
+     #set $i = 0
+     ## setup bonding if we have to
+     #if $numbondingdevs > 0
++
++# we have bonded interfaces, so set max_bonds
+ if [ -f "/etc/modprobe.conf" ]; then
+     echo "options bonding max_bonds=$numbondingdevs" >> /etc/modprobe.conf
+-fi 
++fi
+     #end if
+     ## =============================================================================
+     ## create a staging directory to build out our network scripts into
+     ## make sure we preserve the loopback device
++
++# create a working directory for interface scripts
+ mkdir /etc/sysconfig/network-scripts/cobbler
+ cp /etc/sysconfig/network-scripts/ifcfg-lo /etc/sysconfig/network-scripts/cobbler/
+     ## =============================================================================
+     ## configure the gateway if set up (this is global, not a per-interface setting)
+     #if $gateway != ""
++
++# set the gateway in the network configuration file
+ grep -v GATEWAY /etc/sysconfig/network > /etc/sysconfig/network.cobbler
+ echo "GATEWAY=$gateway" >> /etc/sysconfig/network.cobbler
+ rm -f /etc/sysconfig/network
+@@ -56,55 +66,84 @@ mv /etc/sysconfig/network.cobbler /etc/s
+     ## Configure the system's primary hostname. This is also passed to anaconda, but
+     ## anaconda doesn't seem to honour it in DHCP-setups.
+     #if $hostname != ""
++
++# set the hostname in the network configuration file
+ grep -v HOSTNAME /etc/sysconfig/network > /etc/sysconfig/network.cobbler
+ echo "HOSTNAME=$hostname" >> /etc/sysconfig/network.cobbler
+ rm -f /etc/sysconfig/network
+ mv /etc/sysconfig/network.cobbler /etc/sysconfig/network
+-    # Also set the hostname now, some applications require it (e.g.: if we're
+-    # connecting to Puppet before a reboot).
++
++# Also set the hostname now, some applications require it
++# (e.g.: if we're connecting to Puppet before a reboot).
+ /bin/hostname $hostname
+     #end if
++    #if $enableipv6 == True
++grep -v NETWORKING_IPV6 /etc/sysconfig/network > /etc/sysconfig/network.cobbler
++echo "NETWORKING_IPV6=yes" >> /etc/sysconfig/network.cobbler
++rm -f /etc/sysconfig/network
++mv /etc/sysconfig/network.cobbler /etc/sysconfig/network
++        #if $ipv6_autoconfiguration != ""
++grep -v IPV6_AUTOCONF /etc/sysconfig/network > /etc/sysconfig/network.cobbler
++            #if $ipv6_autoconfiguration == True
++echo "IPV6_AUTOCONF=yes" >> /etc/sysconfig/network.cobbler
++            #else
++echo "IPV6_AUTOCONF=no" >> /etc/sysconfig/network.cobbler
++            #end if
++rm -f /etc/sysconfig/network
++mv /etc/sysconfig/network.cobbler /etc/sysconfig/network
++        #end if
++        #if $ipv6_default_device != ""
++grep -v IPV6_DEFAULTDEV /etc/sysconfig/network > /etc/sysconfig/network.cobbler
++echo "IPV6_DEFAULTDEV=$ipv6_default_device" >> /etc/sysconfig/network.cobbler
++rm -f /etc/sysconfig/network
++mv /etc/sysconfig/network.cobbler /etc/sysconfig/network
++        #end if
++    #end if
+     ## =============================================================================
+     ## now create the config file for each interface
+     #for $iname in $ikeys
++
+ # Start configuration for $iname
+         ## create lots of variables to use later
+-        #set $idata          = $interfaces[$iname]
+-        #set $mac            = $idata["mac_address"].upper()
+-        #set $static         = $idata["static"]
+-        #set $ip             = $idata["ip_address"]
+-        #set $netmask        = $idata["subnet"]
+-        #set $static_routes  = $idata["static_routes"]
+-        #set $bonding        = $idata["bonding"]
+-        #set $bonding_master = $idata["bonding_master"]
+-        #set $bonding_opts   = $idata["bonding_opts"]
+-        #set $devfile        = "/etc/sysconfig/network-scripts/cobbler/ifcfg-" + $iname
+-        #set $routesfile     = "/etc/sysconfig/network-scripts/cobbler/route-" + $iname
++        #set $idata                = $interfaces[$iname]
++        #set $mac                  = $idata.get("mac_address", "").upper()
++        #set $mtu                  = $idata.get("mtu", "")
++        #set $static               = $idata.get("static", "")
++        #set $ip                   = $idata.get("ip_address", "")
++        #set $netmask              = $idata.get("netmask", "")
++        #set $if_gateway           = $idata.get("if_gateway", "")
++        #set $static_routes        = $idata.get("static_routes", "")
++        #set $iface_type           = $idata.get("interface_type", "").lower()
++        #set $iface_master         = $idata.get("interface_master", "")
++        #set $bonding_opts         = $idata.get("bonding_opts", "")
++        #set $bridge_opts          = $idata.get("bridge_opts", "").split(" ")
++        #set $ipv6_address         = $idata.get("ipv6_address", "")
++        #set $ipv6_secondaries     = $idata.get("ipv6_secondaries", "")
++        #set $ipv6_mtu             = $idata.get("ipv6_mtu", "")
++        #set $ipv6_default_gateway = $idata.get("ipv6_default_gateway", "")
++        #set $ipv6_static_routes   = $idata.get("ipv6_static_routes", "")
++        #set $devfile              = "/etc/sysconfig/network-scripts/cobbler/ifcfg-" + $iname
++        #set $routesfile           = "/etc/sysconfig/network-scripts/cobbler/route-" + $iname
++        #set $ipv6_routesfile      = "/etc/sysconfig/network-scripts/cobbler/route6-" + $iname
+         ## determine if this interface is for a VLAN
+         #if $vlanpattern.match($iname)
+-            ## If this is a VLAN interface, skip it, anaconda doesn't know
+-            ## about VLANs.
+             #set $is_vlan = "true"
+         #else
+             #set $is_vlan = "false"
+         #end if
+-        ## if this is a bonded interface, configure it in modprobe.conf
+-        #if $bonding.lower() == "master"
+-            #if $osversion == "rhel4"
+-if [ -f "/etc/modprobe.conf" ]; then
+-    echo "install $iname /sbin/modprobe bonding -o $iname $bonding_opts" >> /etc/modprobe.conf.cobbler
+-fi
+-            #else
+-            ## Add required entry to modprobe.conf
+-if [ -f "/etc/modprobe.conf" ]; then
+-    echo "alias $iname bonding" >> /etc/modprobe.conf.cobbler
+-fi
+-            #end if
+-        #end if
+-        #if $configbymac and $is_vlan == "false" and $bonding.lower() != "master"
+-            ## This is the code path physical interfaces will follow.
+-            ## Get the current interface name
+-IFNAME=\$(ifconfig -a | grep -i '$mac' | cut -d ' ' -f 1)
++        ## slave interfaces are assumed to be static
++        #if $iface_type in ("slave","bond_slave","bridge_slave","bonded_bridge_slave")
++            #set $static = 1
++        #end if 
++        ## ===================================================================
++        ## Things every interface get, no matter what
++        ## ===================================================================
++echo "DEVICE=$iname" > $devfile
++echo "ONBOOT=yes" >> $devfile
++            #if $mac != "" and $iface_type not in ("master","bond","bridge","bonded_bridge_slave")
++            ## virtual interfaces don't get MACs
++echo "HWADDR=$mac" >> $devfile
++IFNAME=\$(ip -o link | grep -i '$mac' | sed -e 's/^[0-9]*: //' -e 's/:.*//')
+             ## Rename this interface in modprobe.conf
+             ## FIXME: if both interfaces startwith eth this is wrong
+ if [ -f "/etc/modprobe.conf" ] && [ \$IFNAME ]; then
+@@ -113,137 +152,155 @@ if [ -f "/etc/modprobe.conf" ] && [ \$IF
+     rm -f /etc/modprobe.conf
+     mv /etc/modprobe.conf.new /etc/modprobe.conf
+ fi
+-echo "DEVICE=$iname" > $devfile
+-echo "HWADDR=$mac" >> $devfile
+-echo "ONBOOT=yes" >> $devfile
+-            #if $bonding.lower() == "slave" and $bonding_master != ""
+-                ## if needed setup bonding
+-echo "SLAVE=yes" >> $devfile
+-echo "MASTER=$bonding_master" >> $devfile
+-                ## see Red Hat bugzilla 442339
+-echo "HOTPLUG=no" >> $devfile
+             #end if
+-            #if $static or $bonding.lower() == "slave"
+-                ## for static or slave interfaces
+-                #if $ip != "" and $bonding.lower() != "slave"
+-                    ## Only configure static networking if an IP-address is
+-                    ## configured
+-echo "BOOTPROTO=static" >> $devfile
+-echo "IPADDR=$ip" >> $devfile
+-                    #if $netmask == ""
+-                        ## Default to 255.255.255.0?
+-                        #set $netmask = "255.255.255.0"
+-                    #end if
+-echo "NETMASK=$netmask" >> $devfile
+-                #else
+-                    ## Leave the interface unconfigured
+-                    ## we don't have enough info for static configuration
+-echo "BOOTPROTO=none" >> $devfile
+-                #end if
++        ## ===================================================================
++        ## Actions based on interface_type
++        ## ===================================================================
++        #if $iface_type in ("master","bond","bonded_bridge_slave")
++            ## if this is a bonded interface, configure it in modprobe.conf
++            #if $osversion == "rhel4"
++if [ -f "/etc/modprobe.conf" ]; then
++    echo "install $iname /sbin/modprobe bonding -o $iname $bonding_opts" >> /etc/modprobe.conf.cobbler
++fi
+             #else
+-                ## this is a DHCP interface, much less work to do
+-echo "BOOTPROTO=dhcp" >> $devfile
+-            #end if
+-        #else if $is_vlan == "true" or $bonding.lower() == "master"
+-            ## Handle non-physical interfaces with special care. :)
+-echo "# Cobbler generated non-physical interface" > $devfile
+-echo "DEVICE=$iname" >> $devfile
+-            #if $is_vlan == "true"
+-                ## configure vlan if required
+-echo "VLAN=yes" >> $devfile
++            ## Add required entry to modprobe.conf
++if [ -f "/etc/modprobe.conf" ]; then
++    echo "alias $iname bonding" >> /etc/modprobe.conf.cobbler
++fi
+             #end if
+-            #if $bonding.lower() == "master" and $bonding_opts != ""
+-                ## configure bonding if required
++            #if $bonding_opts != ""
+ cat >> $devfile << EOF
+ BONDING_OPTS="$bonding_opts"
+ EOF
+             #end if
+-echo "ONPARENT=yes" >> $devfile
+-            #if $static
+-                ## for static non-physical interfaces...
+-                #if $ip != ""
+-                    ## Only configure static networking if an IP-address is
+-                    ## configured
+-echo "BOOTPROTO=static" >> $devfile
+-echo "IPADDR=$ip" >> $devfile
+-                    #if $netmask == ""
+-                        ## Default to 255.255.255.0?
+-                        #set $netmask = "255.255.255.0"
+-                    #end if
+-echo "NETMASK=$netmask" >> $devfile
+-                #else
+-                    ## Leave the interface unconfigured
+-echo "BOOTPROTO=none" >> $devfile
+-                #end if
+-            #else
+-echo "BOOTPROTO=dhcp" >> $devfile
+-            #end if
+-        #else if $configbymac == False
+-            ## We'll end up here when not all physical interfaces present for
+-            ## this system have MAC-addresses configured for them. We don't
+-            ## support interface renaming here.
+-MAC=\$(ifconfig -a | grep $iname | awk '{ print \$5 }')
+-echo "DEVICE=$iname" > $devfile
+-echo "HWADDR=\$MAC" >> $devfile
+-echo "ONBOOT=yes" >> $devfile
+-            #if $bonding.lower() == "slave" and $bonding_master != ""
+-                ## if needed setup bonding
++        #elif $iface_type in ("slave","bond_slave") and $iface_master != ""
+ echo "SLAVE=yes" >> $devfile
+-echo "MASTER=$bonding_master" >> $devfile
+-                ## see Red Hat bugzilla 442339
++echo "MASTER=$iface_master" >> $devfile
++echo "HOTPLUG=no" >> $devfile
++        #end if
++        #if $iface_type == "bridge"
++echo "TYPE=Bridge" >> $devfile
++        #for $bridge_opt in $bridge_opts
++            #if $bridge_opt.strip() != ""
++echo "$bridge_opt" >> $devfile
++            #end if
++        #end for
++        #elif ($iface_type == "bridge_slave" or $iface_type == "bonded_bridge_slave") and $iface_master != ""
++echo "BRIDGE=$iface_master" >> $devfile
+ echo "HOTPLUG=no" >> $devfile
++        #end if
++        #if $iface_type != "bridge"
++echo "TYPE=Ethernet" >> $devfile
++        #end if
++        ## ===================================================================
++        ## Actions based on static/dynamic configuration
++        ## ===================================================================
++        #if $static
++            #if $mac == "" and $iface_type == ""
++# WARNING! Configuring interfaces by their names only
++#          is error-prone, and can cause issues if and when
++#          the kernel gives an interface a different name
++#          following a reboot/hardware changes.
+             #end if
+-            #if $static or $bonding.lower() == "slave"
+-                ## for static or slave interfaces
+-                #if $ip != "" and $bonding.lower() != "slave"
+-                    ## Only configure static networking if an IP-address is
+-                    ## configured
+-echo "BOOTPROTO=static" >> $devfile
++echo "BOOTPROTO=none" >> $devfile
++            #if $ip != "" and $iface_type not in ("slave","bond_slave","bridge_slave","bonded_bridge_slave")
++                ## Only configure static networking if an IP-address is configured
++                ## and if the interface isn't slaved to another interface (bridging or bonding)
+ echo "IPADDR=$ip" >> $devfile
+-                    #if $netmask == ""
+-                        ## Default to 255.255.255.0?
+-                        #set $netmask = "255.255.255.0"
+-                    #end if
++                #if $if_gateway != ""
++echo "GATEWAY=$if_gateway" >> $devfile
++                #end if
++                #if $netmask == ""
++                    ## Default to 255.255.255.0?
++                    #set $netmask = "255.255.255.0"
++                #end if
+ echo "NETMASK=$netmask" >> $devfile
+-                #else
+-                    ## Leave the interface unconfigured
+-                    ## we don't have enough info for static configuration
+-echo "BOOTPROTO=none" >> $devfile
++            #end if
++            #if $enableipv6 == True and $ipv6_autoconfiguration == False
++                #if $ipv6_address != ""
++echo "IPV6INIT=yes" >> $devfile
++echo "IPV6ADDR=$ipv6_address" >> $devfile
++                #end if
++                #if $ipv6_secondaries != ""
++                    #set ipv6_secondaries = ' '.join(ipv6_secondaries)
++                    ## The quotes around the ipv6 ip's need to be here
++echo "IPV6ADDR_SECONDARIES=\"$ipv6_secondaries\"" >> $devfile
++                #end if
++                #if $ipv6_mtu != ""
++echo "IPV6MTU=$ipv6_mtu" >> $devfile
++                #end if
++                #if $ipv6_default_gateway != ""
++echo "IPV6_DEFAULTGW=$ipv6_default_gateway" >> $devfile
+                 #end if
+-            #else
+-                ## this is a DHCP interface, much less work to do
+-echo "BOOTPROTO=dhcp" >> $devfile
+             #end if
+         #else
+-            # If you end up here, please mail the list... This shouldn't
+-            # happen. ;-) -- jcapel
+-	#end if
++            ## this is a DHCP interface, much less work to do
++echo "BOOTPROTO=dhcp" >> $devfile
++            #if $len($name_servers) > 0
++echo "PEERDNS=no" >> $devfile
++            #end if
++        #end if
++        ## ===================================================================
++        ## VLAN configuration
++        ## ===================================================================
++        #if $is_vlan == "true"
++echo "VLAN=yes" >> $devfile
++echo "ONPARENT=yes" >> $devfile
++        #end if
++        ## ===================================================================
++        ## Optional configuration stuff
++        ## ===================================================================
++        #if $mtu != ""
++echo "MTU=$mtu" >> $devfile
++        #end if
++        ## ===================================================================
++        ## Non-slave DNS configuration, when applicable
++        ## ===================================================================
+         ## If the interface is anything but a slave then add DNSn entry
+-        #if $bonding.lower() != "slave"
++        #if $iface_type.lower() not in ("slave","bond_slave","bridge_slave","bonded_bridge_slave")
+             #set $nct = 0
+             #for $nameserver in $name_servers
+                 #set $nct = $nct + 1
+ echo "DNS$nct=$nameserver" >> $devfile
+             #end for
+-	#end if
+-	#for $route in $static_routes
+-	    #set routepattern = $re.compile("[0-9/.]+:[0-9.]+")
+-	    #if $routepattern.match($route)
++        #end if
++        ## ===================================================================
++        ## Interface route configuration
++        ## ===================================================================
++        #for $route in $static_routes
++            #set routepattern = $re.compile("[0-9/.]+:[0-9.]+")
++            #if $routepattern.match($route)
+                 #set $routebits = $route.split(":")
+                 #set [$network, $router] = $route.split(":")
+ echo "$network via $router" >> $routesfile
+-	    #else
+-                # Warning: invalid route "$route"
++            #else
++# Warning: invalid route "$route"
+             #end if
+-	#end for
+-	#set $i = $i + 1
++        #end for
++        #if $enableipv6 == True
++            #for $route in $ipv6_static_routes
++                #set routepattern = $re.compile("[0-9a-fA-F:/]+,[0-9a-fA-F:]+")
++                #if $routepattern.match($route)
++                    #set $routebits = $route.split(",")
++                    #set [$network, $router] = $route.split(",")
++echo "$network via $router dev $iname" >> $ipv6_routesfile
++                #else
++# Warning: invalid ipv6 route "$route"
++                #end if
++            #end for
++        #end if
++        ## ===================================================================
++        ## Done with this interface
++        ## ===================================================================
++        #set $i = $i + 1
+ # End configuration for $iname
+-    #end for	
++    #end for
+     ## =============================================================================
+     ## Configure name server search path in /etc/resolv.conf
+     #set $num_ns = $len($name_servers)
+     #set $num_ns_search = $len($name_servers_search)
+-        #if $num_ns_search > 0
++    #if $num_ns_search > 0
++
+ sed -i -e "/^search /d" /etc/resolv.conf
+ echo -n "search " >>/etc/resolv.conf
+         #for $nameserversearch in $name_servers_search
+@@ -254,13 +311,23 @@ echo "" >>/etc/resolv.conf
+     ## =============================================================================
+     ## Configure name servers in /etc/resolv.conf
+     #if $num_ns > 0
++
+ sed -i -e "/^nameserver /d" /etc/resolv.conf
+         #for $nameserver in $name_servers
+ echo "nameserver $nameserver" >>/etc/resolv.conf
+         #end for
+     #end if
++
++## Disable all eth interfaces by default before overwriting
++## the old files with the new ones in the working directory
++## This stops unneccesary (and time consuming) DHCP queries
++## during the network initialization
++sed -i 's/ONBOOT=yes/ONBOOT=no/g' /etc/sysconfig/network-scripts/ifcfg-eth*
++
+ ## Move all staged files to their final location
+-rm -f /etc/sysconfig/network-scripts/ifcfg-*
++    #for $iname in $ikeys
++rm -f /etc/sysconfig/network-scripts/ifcfg-$iname
++    #end for
+ mv /etc/sysconfig/network-scripts/cobbler/* /etc/sysconfig/network-scripts/
+ rm -r /etc/sysconfig/network-scripts/cobbler
+ if [ -f "/etc/modprobe.conf" ]; then
+diff -rupN cobbler-2.0.11.old/snippets/pre_install_network_config cobbler-2.0.11/snippets/pre_install_network_config
+--- cobbler-2.0.11.old/snippets/pre_install_network_config	2014-07-01 18:10:39.769432950 -0400
++++ cobbler-2.0.11/snippets/pre_install_network_config	2014-07-01 19:01:44.217117013 -0400
+@@ -1,15 +1,45 @@
+ #if $getVar("system_name","") != ""
+ # Start pre_install_network_config generated code
++#raw
++# generic functions to be used later for discovering NICs
++mac_exists() {
++  [ -z "$1" ] && return 1
++
++  if which ip 2>/dev/null >/dev/null; then
++    ip -o link | grep -i "$1" 2>/dev/null >/dev/null
++    return $?
++  elif which esxcfg-nics 2>/dev/null >/dev/null; then
++    esxcfg-nics -l | grep -i "$1" 2>/dev/null >/dev/null
++    return $?
++  else
++    ifconfig -a | grep -i "$1" 2>/dev/null >/dev/null
++    return $?
++  fi
++}
++get_ifname() {
++  if which ip 2>/dev/null >/dev/null; then
++    IFNAME=$(ip -o link | grep -i "$1" | sed -e 's/^[0-9]*: //' -e 's/:.*//')
++  elif which esxcfg-nics 2>/dev/null >/dev/null; then
++    IFNAME=$(esxcfg-nics -l | grep -i "$1" | cut -d " " -f 1)
++  else
++    IFNAME=$(ifconfig -a | grep -i "$1" | cut -d " " -f 1)
++    if [ -z $IFNAME ]; then
++      IFNAME=$(ifconfig -a | grep -i -B 2 "$1" | sed -n '/flags/s/:.*$//p')
++    fi
++  fi
++}
++#end raw
+     #set ikeys = $interfaces.keys()
+     #import re
+     #set $vlanpattern = $re.compile("[a-zA-Z0-9]+[\.:][0-9]+")
++    #set $routepattern = $re.compile("[0-9/.]+:[0-9.]+")
+     ##
+     ## Determine if we should use the MAC address to configure the interfaces first
+     ## Only physical interfaces are required to have a MAC address
+     #set $configbymac = True
+     #for $iname in $ikeys
+         #set $idata = $interfaces[$iname]
+-        #if $idata["mac_address"] == "" and not $vlanpattern.match($iname) and not $idata["bonding"].lower() == "master"
++        #if $idata["mac_address"] == "" and not $vlanpattern.match($iname) and not $idata["interface_type"].lower() in ("master","bond","bridge","bonded_bridge_slave")
+             #set $configbymac = False
+         #end if
+     #end for
+@@ -21,15 +51,15 @@
+     #end if
+     #for $iname in $ikeys
+ #  Start $iname
+-        #set $idata    = $interfaces[$iname]
+-        #set $mac      = $idata["mac_address"]
+-        #set $static   = $idata["static"]
+-        #set $ip       = $idata["ip_address"]
+-        #set $netmask  = $idata["subnet"]
+-        #set $bonding  = $idata["bonding"]
+-        #set $bonding_master = $idata["bonding_master"]
+-        #set $bonding_opts = $idata["bonding_opts"]
+-        #set $devfile = "/etc/sysconfig/network-scripts/ifcfg-" + $iname
++        #set $idata         = $interfaces[$iname]
++        #set $mac           = $idata["mac_address"]
++        #set $static        = $idata["static"]
++        #set $ip            = $idata["ip_address"]
++        #set $netmask       = $idata["netmask"]
++        #set $iface_type    = $idata["interface_type"]
++        #set $iface_master  = $idata["interface_master"]
++        #set $static_routes = $idata["static_routes"]
++        #set $devfile       = "/etc/sysconfig/network-scripts/ifcfg-" + $iname
+         #if $vlanpattern.match($iname)
+             ## If this is a VLAN interface, skip it, anaconda doesn't know
+             ## about VLANs.
+@@ -37,17 +67,27 @@
+         #else
+             #set $is_vlan = "false"
+         #end if
+-        #if ($configbymac and $is_vlan == "false" and $bonding.lower() != "slave") or $bonding.lower() == "master"
++        #if ($configbymac and $is_vlan == "false" and $iface_type.lower() not in ("slave","bond_slave","bridge_slave","bonded_bridge_slave")) or $iface_type.lower() in ("master","bond","bridge")
+             ## This is a physical interface, hand it to anaconda. Do not
+-            ## process bonding slaves here.
+-            #if $bonding.lower() == "master"
++            ## process slave interface here.
++            #if $iface_type.lower() in ("master","bond","bridge","bonded_bridge_slave")
+                 ## Find a slave for this interface
+                 #for $tiname in $ikeys
+                     #set $tidata = $interfaces[$tiname]
+-                    #if $tidata["bonding"].lower() == "slave" and $tidata["bonding_master"].lower() == $iname
++                    #if $tidata["interface_type"].lower() in ("slave","bond_slave","bridge_slave") and $tidata["interface_master"].lower() == $iname
+                         #set $mac = $tidata["mac_address"]
+ #  Found a slave for this interface: $tiname ($mac)
+                         #break
++                    #else if $tidata["interface_type"].lower() == "bonded_bridge_slave" and $tidata["interface_master"].lower() == $iname
++                        ## find a slave for this slave interface...
++                        #for $stiname in $ikeys
++                            #set $stidata = $interfaces[$stiname]
++                            #if $stidata["interface_type"].lower() in ("slave","bond_slave","bridge_slave") and $stidata["interface_master"].lower() == $tiname
++                                #set $mac = $stidata["mac_address"]
++#  Found a slave for this interface: $tiname -> $stiname ($mac)
++                                #break
++                            #end if
++                        #end for
+                     #end if
+                 #end for
+             #end if
+@@ -75,13 +115,22 @@
+                 #set $netinfo = "%s --hostname=%s" % ($netinfo, $hostname)
+             #end if
+ # Configuring $iname ($mac)
+-if ifconfig -a | grep -i $mac
++if mac_exists $mac
+ then
+-  IFNAME=\$(ifconfig -a | grep -i '$mac' | cut -d " " -f 1)
++  get_ifname $mac
+   echo "network --device=\$IFNAME $netinfo" >> /tmp/pre_install_network_config
++            #for $route in $static_routes
++                #if $routepattern.match($route)
++                    #set $routebits = $route.split(":")
++                    #set [$network, $router] = $route.split(":")
++  ip route add $network via $router dev \$IFNAME
++                #else
++  # Warning: invalid route "$route"
++                #end if
++            #end for
+ fi
+         #else
+-            #if $bonding.lower() == "slave"
++            #if $iface_type.lower() in ("slave","bond_slave","bridge_slave","bonded_bridge_slave")
+ #  Skipping (slave-interface)
+             #else
+ #  Skipping (not a physical interface)...
+diff -rupN cobbler-2.0.11.old/templates/dhcp.template cobbler-2.0.11/templates/dhcp.template
+--- cobbler-2.0.11.old/templates/dhcp.template	2014-07-01 18:10:39.753432837 -0400
++++ cobbler-2.0.11/templates/dhcp.template	2014-07-01 18:47:41.488167581 -0400
+@@ -44,8 +44,8 @@ group {
+         #if $iface.hostname:
+         option host-name "$iface.hostname";
+         #end if
+-        #if $iface.subnet:
+-        option subnet-mask $iface.subnet;
++        #if $iface.netmask:
++        option subnet-mask $iface.netmask;
+         #end if
+         #if $iface.gateway:
+         option routers $iface.gateway;

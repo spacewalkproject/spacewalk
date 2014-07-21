@@ -20,6 +20,13 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+import xmlrpclib
 from optparse import Option
 from spacecmd.utils import *
 
@@ -94,7 +101,7 @@ def complete_cryptokey_delete(self, text, line, beg, end):
                                   text)
 
 def do_cryptokey_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_cryptokey_delete()
@@ -142,7 +149,7 @@ def complete_cryptokey_details(self, text, line, beg, end):
     return tab_completer(self.do_cryptokey_list('', True), text)
 
 def do_cryptokey_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_cryptokey_details()
@@ -163,11 +170,12 @@ def do_cryptokey_details(self, args):
         try:
             details = self.client.kickstart.keys.getDetails(self.session,
                                                             key)
-        except:
+        except xmlrpclib.Fault:
             logging.warning('%s is not a valid crypto key' % key)
             return
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Description: %s' % details.get('description')

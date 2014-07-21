@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.53
+Version:        5.4.54
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -151,6 +151,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.4.54-1
+- fix copyright years
+
 * Wed Apr 23 2014 Stephen Herr <sherr@redhat.com> 5.4.53-1
 - 1089715 - some systems to not have /sbin in path
 

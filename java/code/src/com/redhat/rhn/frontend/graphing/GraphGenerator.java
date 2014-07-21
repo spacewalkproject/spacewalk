@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -74,7 +74,7 @@ public class GraphGenerator {
         try {
             log.debug("Generating graph with title: ");
             String tmpDir = System.getProperty("java.io.tmpdir");
-            StringBuffer fname = new StringBuffer();
+            StringBuilder fname = new StringBuilder();
             fname.append(tmpDir);
             fname.append("/chart");
             fname.append(System.currentTimeMillis());

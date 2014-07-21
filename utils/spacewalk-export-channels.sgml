@@ -1,0 +1,177 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY PRODUCT "Red Hat Satellite or Spacewalk server" >
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-export-channels</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 0.9</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-export-channels</command></RefName>
+<RefPurpose>
+Utility for exporting the minimal set of RPMs and metadata required to recreate the &PRODUCT; channel content
+</RefPurpose>
+</RefNameDiv>
+
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spacewalk-export-channels</command>
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-d <replaceable>DIRECTORY</replaceable></arg>
+        <arg>--dir=<replaceable>DIRECTORY</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-e</arg>
+        <arg>--exported-only</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-f</arg>
+        <arg>--force</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-o <replaceable>ORG_ID</replaceable></arg>
+        <arg>--org_id=<replaceable>ORG_ID</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-q</arg>
+        <arg>--quiet</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-s</arg>
+        <arg>--skip-repogeneration</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-S</arg>
+        <arg>--no-size</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-v</arg>
+        <arg>--verbose</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-h</arg>
+        <arg>--help</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+
+<RefSect1><Title>Description</Title>
+  <para>
+      <emphasis>spacewalk-export-channels</emphasis> exports the minimal set of RPMs and channel-metadata required to be able to recreate the channel-contents.
+  </para>
+
+  <para>
+      <emphasis>spacewalk-export-channels</emphasis> exports the data and content necessary to recreate the channels of the &PRODUCT; instance, <emphasis>assuming that online repositories and Red Hat content are otherwise available</emphasis>. Data and content of online repositories and Red Hat-provided channels are not included.
+  </para>
+
+  <para>
+      Requests can by limited by specifying specific organization-ids of interest; only channels owned by the specified organizations will be considered.
+  </para>
+
+  <para>
+      The structure of the export directory is:
+  </para>
+  <screen>
+      export-dir:
+        export.csv
+        {org-id}:
+            {channel-id}.csv
+            {channel-id}:
+                {rpm1}.rpm
+                {rpm2}.rpm
+                {rpm3}.rpm
+                repodata:
+                    {checksum}-other.xml.gz
+                    {checksum}-filelists.xml.gz
+                    {checksum}-primary.xml.gz
+                    repomd.xml
+  </screen>
+
+</RefSect1>
+
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-d, --dir=<replaceable>DIRECTORY</replaceable></term>
+        <listitem>
+            <para>Specify export-directory (will be created if necessary) - <emphasis>REQUIRED</emphasis></para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-e, --exported-only</term>
+        <listitem>
+            <para>CSV output will contain only exported packages (by default, CVS output contains all packages, even those available in external repositories and in clone original channels)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-f, --force</term>
+        <listitem>
+          <para>Overwrite exported package rpms, even if already present in the dump
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-o <replaceable>ORG-ID</replaceable>, --org_id=<replaceable>ORG-ID</replaceable></term>
+        <listitem>
+        <para>Limit channels to those owned by the specified organization-id. Can be specified multiple times to export channels for multiple organizations.  If not specified, all organizations' channels will be exported.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-s, --skip-repogeneration</term>
+        <listitem>
+        <para>Omit repodata generation for exported channels</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-S, --no-size</term>
+        <para>Do not check package size. Speeds up the export, but misses a chance to catch errors.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-q --quiet</term>
+        <listitem>
+        <para>Log only errors</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-v, --verbose</term>
+        <listitem>
+        <para>Increased logging output, may be used several times</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+
+<RefSect1><Title>Examples</Title>
+<example>
+  <title>Export all channels to the specified directory</title>
+  <para>spacewalk-export-channels -d /tmp/exports</para>
+</example>
+<example>
+  <title>Export only channels for org-id 4 and 7 to specified location</title>
+  <para>spacewalk-export-channels -o 4 -o 7 -d /tmp/exports</para>
+</example>
+</RefSect1>
+
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Tomáš Leštách<email>tlestach@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</refentry>
+

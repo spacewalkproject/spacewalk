@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -1928,7 +1928,7 @@ class Backend:
         deletes = []
         for val, valhash in uq_col_values.items():
             params = {first_uq_col : val}
-            apply(h.execute, (), params)
+            h.execute(**params)
             while 1:
                 row = h.fetchone_dict()
                 if not row:
@@ -1961,7 +1961,7 @@ class Backend:
                             ' and '),
             )
             h = self.dbmodule.prepare(query)
-            apply(h.executemany, (), params)
+            h.executemany(**params)
         if inserts:
             params = transpose(inserts, all_fields)
             query = "insert into %s (%s) values (%s)" % (
@@ -1970,7 +1970,7 @@ class Backend:
                 string.join(map(lambda x: ":" + x, all_fields), ', '),
             )
             h = self.dbmodule.prepare(query)
-            apply(h.executemany, (), params)
+            h.executemany(**params)
         if updates:
             params = transpose(updates, all_fields)
             query = "update % set %s where %s" % (
@@ -1981,7 +1981,7 @@ class Backend:
                             ' and '),
             )
             h = self.dbmodule.prepare(query)
-            apply(h.executemany, (), params)
+            h.executemany(**params)
 
     def validate_pks(self):
         # If nevra is enabled use checksum as primary key

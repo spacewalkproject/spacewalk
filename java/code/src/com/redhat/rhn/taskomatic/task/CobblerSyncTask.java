@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -125,7 +125,8 @@ public class CobblerSyncTask extends RhnJavaJob {
             LAST_UPDATED.set((new Date()).getTime() / 1000 + 1);
         }
         catch (RuntimeException re) {
-            log.error("RuntimeExceptioneError trying to sync to cobbler: " +
+            log.error(
+                    "RuntimeExceptionError trying to sync to cobbler: " +
                     re.getMessage(), re);
             // Only throw up one error.  Otherwise if say cobblerd is shutoff you can
             // possibly generate 1 stacktrace email per minute which is quite spammy.

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -88,7 +88,7 @@ public class EditPackagesAction extends RhnAction {
             RequestContext ctx,
             KickstartData ksdata) throws Exception {
         transferEdits(ksdata, form,  ctx);
-        StringBuffer redirectUrl = new StringBuffer();
+        StringBuilder redirectUrl = new StringBuilder();
         redirectUrl.append(request.getContextPath());
         redirectUrl.append(mapping.getPath());
         redirectUrl.append(".do?ksid=").append(form.get("ksid"));
@@ -120,7 +120,7 @@ public class EditPackagesAction extends RhnAction {
     private void prepareForm(KickstartData ksdata, DynaActionForm form) {
         Set ksPackages = ksdata.getKsPackages();
         if (ksPackages != null && ksPackages.size() > 0) {
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             for (Iterator iter = ksPackages.iterator(); iter.hasNext();) {
                 KickstartPackage pn = (KickstartPackage)iter.next();
                 buf.append(pn.getPackageName().getName());

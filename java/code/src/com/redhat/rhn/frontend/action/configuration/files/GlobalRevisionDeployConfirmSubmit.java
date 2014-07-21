@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -56,14 +56,14 @@ public class GlobalRevisionDeployConfirmSubmit extends RhnListDispatchAction {
      * {@inheritDoc}
      */
     protected void processParamMap(
-            ActionForm form, HttpServletRequest request, Map params) {
+            ActionForm form, HttpServletRequest request, Map<String, Object> params) {
         ConfigActionHelper.processParamMap(request, params);
     }
 
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("deployconfirm.jsp.deploybutton", "scheduleDeploy");
     }
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -973,38 +973,6 @@ sub add_servers_to_groups {
 
   if (defined $transaction) {
     return $transaction;
-  }
-  else {
-    $dbh->commit;
-  }
-}
-
-sub remove_servers_from_groups {
-  my $class = shift;
-  my @servers = @{+shift};
-  my @groups = @{+shift};
-  my $transaction = shift;
-
-  unless (@servers and @groups) {
-
-    if (defined $transaction) {
-      return $transaction;
-    }
-    else {
-      return;
-    }
-  }
-
-  my $dbh = $transaction || RHN::DB->connect;
-
-  for my $server (@servers) {
-    for my $group (@groups) {
-      $dbh->call_procedure('rhn_server.delete_from_servergroup', $server, $group);
-    }
-  }
-      
-  if (defined $transaction) {
-    return $dbh if defined $transaction;
   }
   else {
     $dbh->commit;

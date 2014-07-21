@@ -1,0 +1,107 @@
+#!/usr/bin/perl
+#
+# Copyright (c) 2008--2014 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+
+use strict;
+use Spacewalk::Setup;
+
+sub setup_sudoers {
+  my $opts = shift;
+  my $answers = shift;
+
+  my ($sudoers_content_orig, $sudoers_content);
+  my $sudoers_path = '/etc/sudoers';
+
+  local *FILE;
+  if (-e $sudoers_path) {
+    # If /etc/sudoers exists, let's modify that
+    open FILE, $sudoers_path or die "Error reading [$sudoers_path]: $!\n";
+  } else {
+    # otherwise start with our own file
+    my $init_sudoers_path = Spacewalk::Setup::SHARED_DIR . '/sudoers.base';
+    open FILE, $init_sudoers_path
+      or die "Error reading [$init_sudoers_path]: $!\n";
+    $sudoers_content_orig = '';
+  }
+  {
+  local $/ = undef;
+  $sudoers_content = <FILE>;
+  $sudoers_content_orig = $sudoers_content if not defined $sudoers_content_orig;
+  }
+  close FILE;
+
+  # The sudoers.clear file has regular expressions for clearing
+  # old configuration
+  if (open FILE, Spacewalk::Setup::SHARED_DIR . '/sudoers.clear') {
+    while (defined(my $regexp = <FILE>)) {
+      chomp $regexp;
+      $sudoers_content =~ s!$regexp!!igm;
+    }
+    close FILE;
+  }
+
+  # The sudoers.1, ... files have parts of configuration that we
+  # need to add to sudoers. The first line of each file helps us
+  # detect that the part is already present, and potentially
+  # modify it to the latest versions we need.
+  for my $file (glob Spacewalk::Setup::SHARED_DIR . '/sudoers.[0-9]') {
+    open FILE, $file or die "Error reading [$file]: $!\n";
+    my $regexp = <FILE>;
+    chomp $regexp;
+
+    my $content;
+    {
+    local $/ = undef;
+    $content = <FILE>;
+    }
+    close FILE;
+
+    $sudoers_content =~ s!$regexp!$content!igm
+      or $sudoers_content .= "\n" . $content;
+  }
+
+  if ($sudoers_content ne $sudoers_content_orig) {
+    open FILE, "> $sudoers_path" or die "Error writing [$sudoers_path]: $!\n";
+    chmod 0440, $sudoers_path;
+    print FILE $sudoers_content;
+    close FILE;
+  }
+
+  return;
+}
+
+setup_sudoers();
+
+=head1 NAME
+
+spacewalk-setup-sudoers - utility for configuring sudo configuration required
+to work with Spacewalk / Satellite
+
+=head1 SYNOPSIS
+
+B<spacewalk-setup-sudoers>
+
+=head1 DESCRIPTION
+
+B<spacewalk-setup-sudoers> is a utility for configuring sudo to give
+access to certain commands run by Spacewalk / Satellite.
+
+Ordinarily, spacewalk-setup-sudoers is called by spacewalk-setup(1) during
+initial Spacewalk / Satellite configuration or upgrade.
+
+=head1 SEE ALSO
+
+B<spacewalk-setup>(1) - Spacewalk setup program
+
+=cut

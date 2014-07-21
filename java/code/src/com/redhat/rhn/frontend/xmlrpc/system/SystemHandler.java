@@ -179,7 +179,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Get a reactivation key for this server.
      *
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the server in question
      * @return Returns the reactivation key string for the given server
      * @throws FaultException A FaultException is thrown if:
@@ -191,10 +191,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype string
      */
-    public String obtainReactivationKey(String sessionKey, Integer sid)
+    public String obtainReactivationKey(User loggedInUser, Integer sid)
             throws FaultException {
         //Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         return getReactivationKey(loggedInUser, server);
@@ -269,7 +268,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Adds an entitlement to a given server.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the server in question
      * @param entitlementLevel The entitlement to add to the server
      * @return Returns 1 if successful, exception otherwise
@@ -289,10 +288,9 @@ public class SystemHandler extends BaseHandler {
      *          'virtualization_host_platform'.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int upgradeEntitlement(String sessionKey, Integer sid, String entitlementLevel)
+    public int upgradeEntitlement(User loggedInUser, Integer sid, String entitlementLevel)
             throws FaultException {
         //Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         Entitlement entitlement = EntitlementManager.getByName(entitlementLevel);
@@ -324,7 +322,7 @@ public class SystemHandler extends BaseHandler {
      * is currently subscribed to, but that are not included in the list.  The user may
      * provide either a list of channel ids (int) or a list of channel labels (string) as
      * input.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the server in question
      * @param channelIdsOrLabels The list of channel ids or labels this server should
      * be subscribed to.
@@ -346,12 +344,11 @@ public class SystemHandler extends BaseHandler {
      * or channelLabel")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setChildChannels(String sessionKey, Integer sid,
+    public int setChildChannels(User loggedInUser, Integer sid,
             List channelIdsOrLabels)
                     throws FaultException {
 
         //Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         // Determine if user passed in a list of channel ids or labels... note: the list
@@ -408,7 +405,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Sets the base channel for the given server to the given channel
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id for the server
      * @param cid The id for the channel
      * @return Returns 1 if successful, exception otherwise
@@ -427,10 +424,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     @Deprecated
-    public int setBaseChannel(String sessionKey, Integer sid, Integer cid)
+    public int setBaseChannel(User loggedInUser, Integer sid, Integer cid)
             throws FaultException {
         //Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         UpdateBaseChannelCommand cmd =
                 new UpdateBaseChannelCommand(
@@ -446,7 +442,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Sets the base channel for the given server to the given channel
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id for the server
      * @param channelLabel The id for the channel
      * @return Returns 1 if successful, exception otherwise
@@ -464,11 +460,10 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "channelLabel")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setBaseChannel(String sessionKey, Integer sid, String channelLabel)
+    public int setBaseChannel(User loggedInUser, Integer sid, String channelLabel)
             throws FaultException {
 
         //Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         UpdateBaseChannelCommand cmd = null;
@@ -504,7 +499,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Gets a list of base channels subscribable by the logged in user for the server with
      * the given id.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the server in question
      * @return Returns an array of maps representing the base channels the logged in user
      * can subscribe this system to.
@@ -530,15 +525,15 @@ public class SystemHandler extends BaseHandler {
      *
      */
     @Deprecated
-    public Object[] listBaseChannels(String sessionKey, Integer sid) throws FaultException {
+    public Object[] listBaseChannels(User loggedInUser, Integer sid) throws FaultException {
 
-        return listSubscribableBaseChannels(sessionKey, sid);
+        return listSubscribableBaseChannels(loggedInUser, sid);
     }
 
     /**
      * Gets a list of base channels subscribable by the logged in user for the server with
      * the given id.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the server in question
      * @return Returns an array of maps representing the base channels the logged in user
      * can subscribe this system to.
@@ -561,11 +556,10 @@ public class SystemHandler extends BaseHandler {
      *  #array_end()
      *
      */
-    public Object[] listSubscribableBaseChannels(String sessionKey, Integer sid)
+    public Object[] listSubscribableBaseChannels(User loggedInUser, Integer sid)
             throws FaultException {
 
         //Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         Channel baseChannel = server.getBaseChannel();
         List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
@@ -583,7 +577,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Gets a list of all systems visible to user
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @return Returns an array of maps representing all systems visible to user
      *
      * @throws FaultException A FaultException is thrown if a valid user can not be found
@@ -596,8 +590,7 @@ public class SystemHandler extends BaseHandler {
      *          $SystemOverviewSerializer
      *      #array_end()
      */
-    public Object[] listSystems(String sessionKey) throws FaultException {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listSystems(User loggedInUser) throws FaultException {
         DataResult<SystemOverview> dr = SystemManager.systemListShort(loggedInUser, null);
         dr.elaborate();
         return dr.toArray();
@@ -605,7 +598,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Gets a list of all active systems visible to user
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @return Returns an array of maps representing all active systems visible to user
      *
      * @throws FaultException A FaultException is thrown if a valid user can not be found
@@ -618,9 +611,8 @@ public class SystemHandler extends BaseHandler {
      *          $SystemOverviewSerializer
      *      #array_end()
      */
-    public List<SystemOverview> listActiveSystems(String sessionKey)
+    public List<SystemOverview> listActiveSystems(User loggedInUser)
             throws FaultException {
-        User loggedInUser = getLoggedInUser(sessionKey);
         return SystemManager.systemListShortActive(loggedInUser, null);
     }
 
@@ -643,7 +635,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Given a list of server ids, will return details about the
      * systems that are active and visible to the user
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param serverIds A list of ids to get info for
      * @return a list of maps representing the details for the active systems
      *
@@ -685,8 +677,7 @@ public class SystemHandler extends BaseHandler {
      *   #array_end()
      */
     public List<Map<String, Object>> listActiveSystemsDetails(
-            String sessionKey, List<Integer> serverIds) throws FaultException {
-        User loggedInUser = getLoggedInUser(sessionKey);
+            User loggedInUser, List<Integer> serverIds) throws FaultException {
         List<Server> servers = XmlRpcSystemHelper.getInstance().lookupServers(
                 loggedInUser, serverIds);
         List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
@@ -764,7 +755,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * List the child channels that this system can subscribe to.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system in question
      * @return Returns an array of maps representing the channels this server could
      * subscribe too.
@@ -790,15 +781,15 @@ public class SystemHandler extends BaseHandler {
      *      #array_end()
      */
     @Deprecated
-    public Object[] listChildChannels(String sessionKey, Integer sid)
+    public Object[] listChildChannels(User loggedInUser, Integer sid)
             throws FaultException {
 
-        return listSubscribableChildChannels(sessionKey, sid);
+        return listSubscribableChildChannels(loggedInUser, sid);
     }
 
     /**
      * List the child channels that this system can subscribe to.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system in question
      * @return Returns an array of maps representing the channels this server could
      * subscribe too.
@@ -821,10 +812,9 @@ public class SystemHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Object[] listSubscribableChildChannels(String sessionKey, Integer sid)
+    public Object[] listSubscribableChildChannels(User loggedInUser, Integer sid)
             throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         Channel baseChannel = server.getBaseChannel();
         List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
@@ -835,13 +825,14 @@ public class SystemHandler extends BaseHandler {
             return returnList.toArray();
         }
 
-        DataResult dr = SystemManager.subscribableChannels(server.getId(),
+        DataResult<Map<String, Object>> dr =
+                SystemManager.subscribableChannels(server.getId(),
                 loggedInUser.getId(), baseChannel.getId());
 
         //TODO: This should go away once we teach marquee how to deal with nulls in a list.
         //      Luckily, this list shouldn't be too long.
-        for (Iterator itr = dr.iterator(); itr.hasNext();) {
-            Map row = (Map) itr.next();
+        for (Iterator<Map<String, Object>> itr = dr.iterator(); itr.hasNext();) {
+            Map<String, Object> row = itr.next();
             Map<String, Object> channel = new HashMap<String, Object>();
 
             channel.put("id", row.get("id"));
@@ -861,7 +852,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Given a package name + version + release + epoch, returns the list of
      * packages installed on the system w/ the same name that are older.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system you're checking
      * @param name The name of the package you're checking
      * @param version The version of the package
@@ -891,11 +882,10 @@ public class SystemHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Object[] listOlderInstalledPackages(String sessionKey, Integer sid,
+    public Object[] listOlderInstalledPackages(User loggedInUser, Integer sid,
             String name, String version, String release, String epoch)
                     throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         List toCheck = packagesToCheck(server, name);
@@ -926,7 +916,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Given a package name + version + release + epoch, returns the list of
      * packages installed on the system w/ the same name that are newer.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system you're checking
      * @param name The name of the package you're checking
      * @param version The version of the package
@@ -956,11 +946,10 @@ public class SystemHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Object[] listNewerInstalledPackages(String sessionKey, Integer sid,
+    public Object[] listNewerInstalledPackages(User loggedInUser, Integer sid,
             String name, String version, String release, String epoch)
                     throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         List toCheck = packagesToCheck(server, name);
         List returnList = new ArrayList();
@@ -993,13 +982,15 @@ public class SystemHandler extends BaseHandler {
      * @throws NoSuchPackageException A no such package exception is thrown when no packages
      * with the given name are installed on the server.
      */
-    private List packagesToCheck(Server server, String name) throws NoSuchPackageException {
-        DataResult installed = SystemManager.installedPackages(server.getId(), false);
+    private List<Map<String, Object>> packagesToCheck(Server server, String name)
+            throws NoSuchPackageException {
+        DataResult<Map<String, Object>> installed =
+                SystemManager.installedPackages(server.getId(), false);
 
-        List toCheck = new ArrayList();
+        List<Map<String, Object>> toCheck = new ArrayList<Map<String, Object>>();
         // Get a list of packages with matching name
-        for (Iterator itr = installed.iterator(); itr.hasNext();) {
-            Map pkg = (Map) itr.next();
+        for (Iterator<Map<String, Object>> itr = installed.iterator(); itr.hasNext();) {
+            Map<String, Object> pkg = itr.next();
             String pkgName = StringUtils.trim((String) pkg.get("name"));
             if (pkgName.equals(StringUtils.trim(name))) {
                 toCheck.add(pkg);
@@ -1034,7 +1025,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Is the package with the given NVRE installed on given system
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The sid for the server in question
      * @param name The name of the package
      * @param version The version of the package
@@ -1052,15 +1043,15 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype 1 if package exists, 0 if not, exception is thrown
      * if an error occurs
      */
-    public int isNvreInstalled(String sessionKey, Integer sid, String name,
+    public int isNvreInstalled(User loggedInUser, Integer sid, String name,
             String version, String release) throws FaultException {
         //Set epoch to an empty string
-        return isNvreInstalled(sessionKey, sid, name, version, release, null);
+        return isNvreInstalled(loggedInUser, sid, name, version, release, null);
     }
 
     /**
      * Is the package with the given NVRE installed on given system
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The sid for the server in question
      * @param name The name of the package
      * @param version The version of the package
@@ -1080,20 +1071,20 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype 1 if package exists, 0 if not, exception is thrown
      * if an error occurs
      */
-    public int isNvreInstalled(String sessionKey, Integer sid, String name,
+    public int isNvreInstalled(User loggedInUser, Integer sid, String name,
             String version, String release, String epoch) throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        DataResult packages = SystemManager.installedPackages(server.getId(), false);
+        DataResult<Map<String, Object>> packages =
+                SystemManager.installedPackages(server.getId(), false);
 
         /*
          * Loop through the packages for this system and check each attribute. Use
          * StringUtils.trim() to disregard whitespace on either ends of the string.
          */
-        for (Iterator itr = packages.iterator(); itr.hasNext();) {
-            Map pkg = (Map) itr.next();
+        for (Iterator<Map<String, Object>> itr = packages.iterator(); itr.hasNext();) {
+            Map<String, Object> pkg = itr.next();
 
             //Check name
             String pkgName = StringUtils.trim((String) pkg.get("name"));
@@ -1131,7 +1122,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Get the list of latest upgradable packages for a given system
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id for the system in question
      * @return Returns an array of maps representing the latest upgradable packages
      * @throws FaultException A FaultException is thrown if the server corresponding to
@@ -1155,20 +1146,17 @@ public class SystemHandler extends BaseHandler {
      *      #struct_end()
      * #array_end()
      */
-    public Object[] listLatestUpgradablePackages(String sessionKey, Integer sid)
-            throws FaultException {
+    public List<Map<String, Object>> listLatestUpgradablePackages(User loggedInUser,
+            Integer sid) throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        DataResult dr = SystemManager.latestUpgradablePackages(server.getId());
-
-        return dr.toArray();
+        return SystemManager.latestUpgradablePackages(server.getId());
     }
 
     /**
      * Get the list of all installable packages for a given system.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id for the system in question
      * @return Returns an array of maps representing the latest installable packages
      * @throws FaultException A FaultException is thrown if the server corresponding to
@@ -1187,17 +1175,15 @@ public class SystemHandler extends BaseHandler {
      *          #prop("string", "arch_label")
      *      #struct_end()
      */
-    public Object[] listAllInstallablePackages(String sessionKey, Integer sid)
-            throws FaultException {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<Map<String, Object>> listAllInstallablePackages(User loggedInUser,
+            Integer sid) throws FaultException {
         Server server = lookupServer(loggedInUser, sid);
-        DataResult dr = SystemManager.allInstallablePackages(server.getId());
-        return dr.toArray();
+        return SystemManager.allInstallablePackages(server.getId());
     }
 
     /**
      * Get the list of latest installable packages for a given system.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id for the system in question
      * @return Returns an array of maps representing the latest installable packages
      * @throws FaultException A FaultException is thrown if the server corresponding to
@@ -1218,20 +1204,17 @@ public class SystemHandler extends BaseHandler {
      *      #struct_end()
      * #array_end()
      */
-    public Object[] listLatestInstallablePackages(String sessionKey, Integer sid)
-            throws FaultException {
+    public List<Map<String, Object>> listLatestInstallablePackages(User loggedInUser,
+            Integer sid) throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        DataResult dr = SystemManager.latestInstallablePackages(server.getId());
-
-        return dr.toArray();
+        return SystemManager.latestInstallablePackages(server.getId());
     }
 
     /**
      * Get the latest available version of a package for each system
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param systemIds The IDs of the systems in question
      * @param name the package name
      * @return Returns an a map with the latest available package for each system
@@ -1259,10 +1242,8 @@ public class SystemHandler extends BaseHandler {
      *        #struct_end()
      *    #array_end()
      */
-    public List<Map<String, Object>> listLatestAvailablePackage(String sessionKey,
+    public List<Map<String, Object>> listLatestAvailablePackage(User loggedInUser,
             List<Integer> systemIds, String name) throws FaultException {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
@@ -1310,7 +1291,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Gets the entitlements for a given server.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id for the system in question
      * @return Returns an array of entitlement labels for the system
      * @throws FaultException A FaultException is thrown if the server corresponding to
@@ -1321,9 +1302,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype #array_single("string", "entitlement_label")
      */
-    public Object[] getEntitlements(String sessionKey, Integer sid) throws FaultException {
+    public Object[] getEntitlements(User loggedInUser, Integer sid) throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         // A list of entitlements to return
@@ -1342,7 +1322,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Get the system_id file for a given server
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system in question
      * @return Returns the system_id file for the server
      * @throws FaultException A FaultException is thrown if the server
@@ -1354,9 +1334,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype string
      */
-    public String downloadSystemId(String sessionKey, Integer sid) throws FaultException {
+    public String downloadSystemId(User loggedInUser, Integer sid) throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         // Try to generate the cert.
@@ -1374,7 +1353,7 @@ public class SystemHandler extends BaseHandler {
      * List the installed packages for a given system.
      * @xmlrpc.doc List the installed packages for a given system. The attribute
      * installtime is returned since API version 10.10.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system in question
      * @return Returns an array of maps representing the packages installed on a system
      * @throws FaultException A FaultException is thrown if the server corresponding to
@@ -1395,18 +1374,17 @@ public class SystemHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Object[] listPackages(String sessionKey, Integer sid) throws FaultException {
+    public List<Map<String, Object>> listPackages(User loggedInUser, Integer sid)
+            throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        DataResult dr = SystemManager.installedPackages(server.getId(), false);
-        return dr.toArray();
+        return SystemManager.installedPackages(server.getId(), false);
     }
 
     /**
      * Delete the specified list of guest profiles for a given host.
-     * @param sessionKey The sessionKey containing the logged in user.
+     * @param loggedInUser The current user
      * @param hostId The id of the host system.
      * @param guestNames List of guest names to delete.
      * @return 1 in case of success, traceback otherwise.
@@ -1417,9 +1395,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "guestNames")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer deleteGuestProfiles(String sessionKey, Integer hostId,
+    public Integer deleteGuestProfiles(User loggedInUser, Integer hostId,
             List<String> guestNames) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, hostId);
 
         if (server != null && !server.isVirtualHost()) {
@@ -1458,7 +1435,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Delete systems given a list of system ids asynchronously.
      * This call queues the systems for deletion
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param systemIds A list of systems ids to delete
      * @return Returns the number of systems deleted if successful, fault exception
      * containing ids of systems not deleted otherwise
@@ -1470,10 +1447,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "serverId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteSystems(String sessionKey, List<Integer> systemIds)
+    public int deleteSystems(User loggedInUser, List<Integer> systemIds)
             throws FaultException {
-        // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         List <Integer> skippedSids = new ArrayList<Integer>();
         List <Long> deletion = new LinkedList<Long>();
@@ -1560,7 +1535,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Delete a system given its server id synchronously
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param serverId The id of the server in question
      * @return 1 on success
      * @throws FaultException A FaultException is thrown if:
@@ -1570,10 +1545,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteSystem(String sessionKey, Integer serverId)
+    public int deleteSystem(User loggedInUser, Integer serverId)
             throws FaultException {
 
-        User loggedInUser =  getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, serverId);
 
         SystemManager.deleteServer(loggedInUser, server.getId());
@@ -1582,7 +1556,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Get the addresses and hostname for a given server
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the server in question
      * @return Returns a map containing the servers addresses and hostname attributes
      * @throws FaultException A FaultException is thrown if the server corresponding to
@@ -1598,10 +1572,9 @@ public class SystemHandler extends BaseHandler {
      *              #prop_desc("string", "hostname", "Hostname of server")
      *          #struct_end()
      */
-    public Map<String, String> getNetwork(String sessionKey, Integer sid)
+    public Map<String, String> getNetwork(User loggedInUser, Integer sid)
             throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         // Get the ip, ip6 and hostname for the server
@@ -1620,7 +1593,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Get a list of network devices for a given server.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the server in question
      * @return Returns an array of maps representing a network device for the server.
      * @throws FaultException A FaultException is thrown if the server corresponding to
@@ -1634,11 +1607,10 @@ public class SystemHandler extends BaseHandler {
      *          $NetworkInterfaceSerializer
      *      #array_end()
      */
-    public List<NetworkInterface> getNetworkDevices(String sessionKey,
+    public List<NetworkInterface> getNetworkDevices(User loggedInUser,
             Integer sid)
                     throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         Set<NetworkInterface> devices = server.getNetworkInterfaces();
         return new ArrayList<NetworkInterface>(devices);
@@ -1646,7 +1618,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Set a servers membership in a given group
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the server in question
      * @param sgid The id of the server group
      * @param member Should this server be a member of this group?
@@ -1663,10 +1635,9 @@ public class SystemHandler extends BaseHandler {
      * group.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setGroupMembership(String sessionKey, Integer sid, Integer sgid,
+    public int setGroupMembership(User loggedInUser, Integer sid, Integer sgid,
             boolean member) throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         ensureSystemGroupAdmin(loggedInUser);
         Server server = lookupServer(loggedInUser, sid);
         ServerGroupManager manager = ServerGroupManager.getInstance();
@@ -1696,7 +1667,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * List the available groups for a given system
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id for the server in question
      * @return Returns an array of maps representing a system group
      * @throws FaultException A FaultException is thrown if the server corresponding to
@@ -1716,18 +1687,18 @@ public class SystemHandler extends BaseHandler {
      *      #struct_end()
      *  #array_end()
      */
-    public Object[] listGroups(String sessionKey, Integer sid) throws FaultException {
+    public Object[] listGroups(User loggedInUser, Integer sid) throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        DataResult groups = SystemManager.availableSystemGroups(server, loggedInUser);
+        DataResult<Map<String, Object>> groups =
+                SystemManager.availableSystemGroups(server, loggedInUser);
         List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
 
 
         // More stupid data munging...
-        for (Iterator itr = groups.iterator(); itr.hasNext();) {
-            Map map = (Map) itr.next();
+        for (Iterator<Map<String, Object>> itr = groups.iterator(); itr.hasNext();) {
+            Map<String, Object> map = itr.next();
             Map<String, Object> row = new HashMap<String, Object>();
 
             row.put("id", map.get("id"));
@@ -1743,7 +1714,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * List systems for a given user
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param login The login for the target user
      * @return Returns an array of maps representing a system
      * @throws FaultException A FaultException is thrown if the user doesn't have access
@@ -1757,17 +1728,16 @@ public class SystemHandler extends BaseHandler {
      *              $SystemOverviewSerializer
      *          #array_end()
      */
-    public List<SystemOverview> listUserSystems(String sessionKey, String login)
+    public List<SystemOverview> listUserSystems(User loggedInUser, String login)
             throws FaultException {
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
         return SystemManager.systemListShort(target, null);
     }
 
     /**
      * List systems for the logged in user
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @return Returns an array of maps representing a system
      *
      * @xmlrpc.doc List systems for the logged in user.
@@ -1777,9 +1747,8 @@ public class SystemHandler extends BaseHandler {
      *              $SystemOverviewSerializer
      *          #array_end()
      */
-    public List<SystemOverview> listUserSystems(String sessionKey) {
+    public List<SystemOverview> listUserSystems(User loggedInUser) {
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         return SystemManager.systemListShort(loggedInUser, null);
     }
 
@@ -1796,7 +1765,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Set custom values for the specified server.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the server in question
      * @param values A map containing the new set of custom data values for this server
      * @return Returns a 1 if successful, exception otherwise
@@ -1813,10 +1782,9 @@ public class SystemHandler extends BaseHandler {
      *    #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setCustomValues(String sessionKey, Integer sid, Map<String, String> values)
+    public int setCustomValues(User loggedInUser, Integer sid, Map<String, String> values)
             throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         Org org = loggedInUser.getOrg();
         List<String> skippedKeys = new ArrayList<String>();
@@ -1844,7 +1812,7 @@ public class SystemHandler extends BaseHandler {
         if (skippedKeys.size() > 0) {
             // We need to throw an exception. Append each undefined key to the
             // exception message.
-            StringBuffer msg = new StringBuffer("One or more of the following " +
+            StringBuilder msg = new StringBuilder("One or more of the following " +
                     "custom info fields was not defined: ");
 
             for (Iterator<String> itr = skippedKeys.iterator(); itr.hasNext();) {
@@ -1860,7 +1828,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Get the custom data values defined for the server
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the server in question
      * @return Returns a map containing the defined custom data values for the given server.
      * @throws FaultException A FaultException is thrown if the server corresponding to
@@ -1874,10 +1842,9 @@ public class SystemHandler extends BaseHandler {
      *          #prop("string", "custom info label")
      *      #struct_end()
      */
-    public Map<String, String> getCustomValues(String sessionKey, Integer sid)
+    public Map<String, String> getCustomValues(User loggedInUser, Integer sid)
         throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         Set<CustomDataValue> customDataValues = server.getCustomDataValues();
@@ -1903,7 +1870,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Delete the custom values defined for the custom system information keys
      * provided from the given system.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the server in question
      * @param keys A list of custom data labels/keys to delete from the server
      * @return Returns a 1 if successful, exception otherwise
@@ -1917,10 +1884,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param  #array_single("string", "customInfoLabel")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteCustomValues(String sessionKey, Integer sid, List<String> keys)
+    public int deleteCustomValues(User loggedInUser, Integer sid, List<String> keys)
             throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         loggedInUser.getOrg();
         List<String> skippedKeys = new ArrayList<String>();
@@ -1949,7 +1915,7 @@ public class SystemHandler extends BaseHandler {
         if (skippedKeys.size() > 0) {
             // We need to throw an exception. Append each undefined key to the
             // exception message.
-            StringBuffer msg = new StringBuffer("One or more of the following " +
+            StringBuilder msg = new StringBuilder("One or more of the following " +
                     "custom info fields was not defined: ");
 
             for (String label : skippedKeys) {
@@ -1962,7 +1928,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Set the profile name for the server
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id for the server in question
      * @param name The new profile name for the server
      * @return Returns 1 if successful, exception otherwise
@@ -1975,10 +1941,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "Name of the profile.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setProfileName(String sessionKey, Integer sid, String name)
+    public int setProfileName(User loggedInUser, Integer sid, String name)
             throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         //Do some validation on the name string
@@ -2003,7 +1968,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Add a new note to the given server
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id for the server to add the note to
      * @param subject The subject of the note
      * @param body The body for the note
@@ -2018,10 +1983,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "body", "Content of the note.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addNote(String sessionKey, Integer sid, String subject, String body)
+    public int addNote(User loggedInUser, Integer sid, String subject, String body)
             throws FaultException {
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         server.addNote(loggedInUser, subject, body);
@@ -2033,7 +1997,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Deletes the given note from the server.
      *
-     * @param sessionKey identifies the logged in user
+     * @param loggedInUser The current user
      * @param sid        identifies the server on which the note resides
      * @param nid        identifies the note to delete
      * @return 1 if successful, exception otherwise
@@ -2046,11 +2010,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "noteId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteNote(String sessionKey, Integer sid, Integer nid) {
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
-
+    public int deleteNote(User loggedInUser, Integer sid, Integer nid) {
         if (sid == null) {
             throw new IllegalArgumentException("sid cannot be null");
         }
@@ -2058,8 +2018,6 @@ public class SystemHandler extends BaseHandler {
         if (nid == null) {
             throw new IllegalArgumentException("nid cannot be null");
         }
-
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         SystemManager.deleteNote(loggedInUser, sid.longValue(), nid.longValue());
 
@@ -2069,7 +2027,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Deletes all notes from the server.
      *
-     * @param sessionKey identifies the logged in user
+     * @param loggedInUser The current user
      * @param sid        identifies the server on which the note resides
      * @return 1 if successful, exception otherwise
      * @throws NoSuchSystemException A NoSuchSystemException is thrown if the server
@@ -2080,16 +2038,10 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteNotes(String sessionKey, Integer sid) {
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
-
+    public int deleteNotes(User loggedInUser, Integer sid) {
         if (sid == null) {
             throw new IllegalArgumentException("sid cannot be null");
         }
-
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         SystemManager.deleteNotes(loggedInUser, sid.longValue());
 
@@ -2098,8 +2050,9 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * List Events for a given server.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the server you are wanting to lookup
+     * @param actionType type of the action
      * @return Returns an array of maps representing a system
      * @since 10.8
      *
@@ -2109,6 +2062,7 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "serverId", "ID of system.")
+     * @xmlrpc.param #param_desc("string", "actionTyper", "Type of the action.")
      * @xmlrpc.returntype
      *  #array()
      *      #struct("action")
@@ -2164,10 +2118,10 @@ public class SystemHandler extends BaseHandler {
      *      #struct_end()
      *  #array_end()
      */
-    public List<Map<String, Object>> listSystemEvents(String sessionKey, Integer sid) {
+    public List<Map<String, Object>> listSystemEvents(User loggedInUser, Integer sid,
+            String actionType) {
 
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         List<ServerAction> sActions = ActionFactory.listServerActionsForServer(server);
@@ -2181,11 +2135,27 @@ public class SystemHandler extends BaseHandler {
         // upgraded/verified, config files uploaded, deployed or compared...etc.
 
         List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
+
+        ActionType at = null;
+        if (actionType != null) {
+                try {
+                    at = (ActionType) ActionFactory.class.getField(actionType)
+                            .get(new ActionType());
+                }
+                catch (Exception e) {
+                    at = null;
+                }
+        }
+
         for (ServerAction sAction : sActions) {
 
             Map<String, Object> result = new HashMap<String, Object>();
 
             Action action = sAction.getParentAction();
+
+            if (at != null && action.getActionType().equals(at)) {
+                continue;
+            }
 
             if (action.getFailedCount() != null) {
                 result.put("failed_count", action.getFailedCount());
@@ -2358,11 +2328,83 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
+     * List Events for a given server.
+     * @param loggedInUser The current user
+     * @param sid The id of the server you are wanting to lookup
+     * @return Returns an array of maps representing a system
+     * @since 10.8
+     *
+     * @xmlrpc.doc List all system events for given server. This includes *all* events
+     * for the server since it was registered.  This may require the caller to
+     * filter the results to fetch the specific events they are looking for.
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("int", "serverId", "ID of system.")
+     * @xmlrpc.returntype
+     *  #array()
+     *      #struct("action")
+     *          #prop_desc("int", "failed_count", "Number of times action failed.")
+     *          #prop_desc("string", "modified", "Date modified. (Deprecated by
+     *                     modified_date)")
+     *          #prop_desc($date, "modified_date", "Date modified.")
+     *          #prop_desc("string", "created", "Date created. (Deprecated by
+     *                     created_date)")
+     *          #prop_desc($date, "created_date", "Date created.")
+     *          #prop("string", "action_type")
+     *          #prop_desc("int", "successful_count",
+     *                     "Number of times action was successful.")
+     *          #prop_desc("string", "earliest_action", "Earliest date this action
+     *                     will occur.")
+     *          #prop_desc("int", "archived", "If this action is archived. (1 or 0)")
+     *          #prop_desc("string", "scheduler_user", "available only if concrete user
+     *                     has scheduled the action")
+     *          #prop_desc("string", "prerequisite", "Pre-requisite action. (optional)")
+     *          #prop_desc("string", "name", "Name of this action.")
+     *          #prop_desc("int", "id", "Id of this action.")
+     *          #prop_desc("string", "version", "Version of action.")
+     *          #prop_desc("string", "completion_time", "The date/time the event was
+     *                     completed. Format -&gt;YYYY-MM-dd hh:mm:ss.ms
+     *                     Eg -&gt;2007-06-04 13:58:13.0. (optional)
+     *                     (Deprecated by completed_date)")
+     *          #prop_desc($date, "completed_date", "The date/time the event was completed.
+     *                     (optional)")
+     *          #prop_desc("string", "pickup_time", "The date/time the action was picked
+     *                     up. Format -&gt;YYYY-MM-dd hh:mm:ss.ms
+     *                     Eg -&gt;2007-06-04 13:58:13.0. (optional)
+     *                     (Deprecated by pickup_date)")
+     *          #prop_desc($date, "pickup_date", "The date/time the action was picked up.
+     *                     (optional)")
+     *          #prop_desc("string", "result_msg", "The result string after the action
+     *                     executes at the client machine. (optional)")
+     *          #prop_array_begin_desc("additional_info", "This array contains additional
+     *              information for the event, if available.")
+     *              #struct("info")
+     *                  #prop_desc("string", "detail", "The detail provided depends on the
+     *                  specific event.  For example, for a package event, this will be the
+     *                  package name, for an errata event, this will be the advisory name
+     *                  and synopsis, for a config file event, this will be path and
+     *                  optional revision information...etc.")
+     *                  #prop_desc("string", "result", "The result (if included) depends
+     *                  on the specific event.  For example, for a package or errata event,
+     *                  no result is included, for a config file event, the result might
+     *                  include an error (if one occurred, such as the file was missing)
+     *                  or in the case of a config file comparison it might include the
+     *                  differenes found.")
+     *              #struct_end()
+     *          #prop_array_end()
+     *      #struct_end()
+     *  #array_end()
+     */
+    public List<Map<String, Object>> listSystemEvents(User loggedInUser, Integer sid) {
+        return listSystemEvents(loggedInUser, sid, null);
+    }
+
+    /**
      *
      * Provision a guest on the server specified.  Defaults to: memory=512, vcpu=1,
      * storage=3GB.
      *
-     * @param sessionKey of user making call
+     * @param loggedInUser The current user
      * @param sid of server to provision guest on
      * @param guestName to assign to guest
      * @param profileName of Kickstart Profile to use.
@@ -2376,16 +2418,16 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int provisionVirtualGuest(String sessionKey, Integer sid, String guestName,
+    public int provisionVirtualGuest(User loggedInUser, Integer sid, String guestName,
             String profileName) {
-        return provisionVirtualGuest(sessionKey, sid, guestName, profileName,
+        return provisionVirtualGuest(loggedInUser, sid, guestName, profileName,
                 new Integer(512), new Integer(1), new Integer(3), "");
     }
 
     /**
      * Provision a system using the specified kickstart profile.
      *
-     * @param sessionKey of user making call
+     * @param loggedInUser The current user
      * @param serverId of the system to be provisioned
      * @param profileName of Kickstart Profile to be used.
      * @return Returns 1 if successful, exception otherwise
@@ -2399,10 +2441,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown
      * on error
      */
-    public int provisionSystem(String sessionKey, Integer serverId, String profileName)
+    public int provisionSystem(User loggedInUser, Integer serverId, String profileName)
             throws FaultException {
         log.debug("provisionSystem called.");
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup the server so we can validate it exists and throw error if not.
         Server server = lookupServer(loggedInUser, serverId);
@@ -2436,7 +2477,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Provision a system using the specified kickstart profile at specified time.
      *
-     * @param sessionKey of user making call
+     * @param loggedInUser The current user
      * @param serverId of the system to be provisioned
      * @param profileName of Kickstart Profile to be used.
      * @param earliestDate when the kickstart needs to be scheduled
@@ -2452,11 +2493,10 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown
      * on error
      */
-    public int provisionSystem(String sessionKey, Integer serverId,
+    public int provisionSystem(User loggedInUser, Integer serverId,
             String profileName, Date earliestDate)
                     throws FaultException {
         log.debug("provisionSystem called.");
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup the server so we can validate it exists and throw error if not.
         Server server = lookupServer(loggedInUser, serverId);
@@ -2492,7 +2532,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Provision a guest on the server specified.
      *
-     * @param sessionKey of user making call
+     * @param loggedInUser The current user
      * @param sid of server to provision guest on
      * @param guestName to assign to guest
      * @param profileName of Kickstart Profile to use.
@@ -2515,16 +2555,16 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "storageGb", "Size of the guests disk image.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int provisionVirtualGuest(String sessionKey, Integer sid, String guestName,
+    public int provisionVirtualGuest(User loggedInUser, Integer sid, String guestName,
             String profileName, Integer memoryMb, Integer vcpus, Integer storageGb) {
-        return provisionVirtualGuest(sessionKey, sid, guestName, profileName,
+        return provisionVirtualGuest(loggedInUser, sid, guestName, profileName,
                 memoryMb, vcpus, storageGb, "");
     }
 
     /**
      * Provision a guest on the server specified.
      *
-     * @param sessionKey of user making call
+     * @param loggedInUser The current user
      * @param sid of server to provision guest on
      * @param guestName to assign to guest
      * @param profileName of Kickstart Profile to use.
@@ -2550,11 +2590,10 @@ public class SystemHandler extends BaseHandler {
      *                                          virtual networking hardware.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int provisionVirtualGuest(String sessionKey, Integer sid,
+    public int provisionVirtualGuest(User loggedInUser, Integer sid,
             String guestName, String profileName, Integer memoryMb,
             Integer vcpus, Integer storageGb, String macAddress) {
         log.debug("provisionVirtualGuest called.");
-        User loggedInUser = getLoggedInUser(sessionKey);
         // Lookup the server so we can validate it exists and throw error if not.
         lookupServer(loggedInUser, sid);
         KickstartData ksdata = KickstartFactory.
@@ -2619,7 +2658,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Get system IDs and last check in information for the given system name.
-     * @param sessionKey of user making call
+     * @param loggedInUser The current user
      * @param name of the server
      * @return Object[]  Integer Array containing system Ids with the given name
      *
@@ -2631,15 +2670,14 @@ public class SystemHandler extends BaseHandler {
      *              $SystemOverviewSerializer
      *          #array_end()
      */
-    public List<SystemOverview> getId(String sessionKey, String name) {
+    public List<SystemOverview> getId(User loggedInUser, String name) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         return SystemManager.listSystemsByName(loggedInUser, name);
     }
 
     /**
      * Get system name and last check in information for the given system ID.
-     * @param sessionKey of user making call
+     * @param loggedInUser The current user
      * @param serverId of the server
      * @return Map containing server id, name and last checkin date
      *
@@ -2654,8 +2692,7 @@ public class SystemHandler extends BaseHandler {
      *              successfully checked in")
      *  #struct_end()
      */
-    public Map<String, Object> getName(String sessionKey, Integer serverId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Map<String, Object> getName(User loggedInUser, Integer serverId) {
         Server server = lookupServer(loggedInUser, serverId);
         Map<String, Object> name = new HashMap<String, Object>();
         name.put("id", server.getId());
@@ -2666,7 +2703,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Provides the Date that the system was registered
-     * @param sessionKey of user making call
+     * @param loggedInUser The current user
      * @param sid  the ServerId of the system
      * @return Date the date the system was registered
      *
@@ -2676,8 +2713,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype dateTime.iso8601 - The date the system was registered,
      * in local time.
      */
-    public Date getRegistrationDate(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Date getRegistrationDate(User loggedInUser, Integer sid) {
         Server server = lookupServer(loggedInUser, sid);
         return server.getCreated();
     }
@@ -2685,7 +2721,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * List the child channels that this system is subscribed to.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system in question
      * @return Returns an array of maps representing the channels this server is
      * subscribed too.
@@ -2700,8 +2736,7 @@ public class SystemHandler extends BaseHandler {
      *          $ChannelSerializer
      *      #array_end()
      */
-    public List<Channel> listSubscribedChildChannels(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<Channel> listSubscribedChildChannels(User loggedInUser, Integer sid) {
         Server server = lookupServer(loggedInUser, sid);
         Set<Channel> childChannels = server.getChildChannels();
 
@@ -2717,7 +2752,7 @@ public class SystemHandler extends BaseHandler {
      * Searching the system names using the regular expression
      *   passed in
      *
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param regexp regular expression to search with.  See the api for the
      *  Patter object for java specific regular expression details
      * @return an array of Integers containing the system Ids
@@ -2736,8 +2771,7 @@ public class SystemHandler extends BaseHandler {
      *          #array_end()
      *
      */
-    public List<SystemOverview> searchByName(String sessionKey, String regexp) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<SystemOverview> searchByName(User loggedInUser, String regexp) {
         List<SystemOverview>  systems =  getUserSystemsList(loggedInUser);
         List<SystemOverview> returnList = new ArrayList<SystemOverview>();
 
@@ -2755,7 +2789,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Lists the administrators of a given system.  This includes Org Admins as well
      *      as system group users of groups that the system is in.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system in question
      * @return Returns an array of maps representing the users that can
      *              administer the system
@@ -2770,8 +2804,7 @@ public class SystemHandler extends BaseHandler {
      *              $UserSerializer
      *      #array_end()
      */
-    public Object[] listAdministrators(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listAdministrators(User loggedInUser, Integer sid) {
         Server server = lookupServer(loggedInUser, sid);
         return ServerFactory.listAdministrators(server).toArray();
     }
@@ -2779,7 +2812,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Returns the running kernel of the given system.
      *
-     * @param sessionKey The current user's session key
+     * @param loggedInUser The current user
      * @param sid Server ID to lookup.
      * @return Running kernel string.
      *
@@ -2788,8 +2821,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype string
      */
-    public String getRunningKernel(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public String getRunningKernel(User loggedInUser, Integer sid) {
         try {
             Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                     loggedInUser);
@@ -2806,7 +2838,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Lists the server history of a system.  Ordered from oldest to newest.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system in question
      * @return Returns an array of maps representing the server history items
      * @throws FaultException A FaultException is thrown if the server corresponding to
@@ -2824,8 +2856,7 @@ public class SystemHandler extends BaseHandler {
      *           $HistoryEventSerializer
      *      #array_end()
      */
-    public Object[] getEventHistory(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] getEventHistory(User loggedInUser, Integer sid) {
         Server server = lookupServer(loggedInUser, sid);
         List<HistoryEvent> history = ServerFactory.getServerHistory(server);
         return history.toArray();
@@ -2834,7 +2865,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Returns a list of all errata that are relevant to the system.
      *
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system in question
      * @return Returns an array of maps representing the errata that can be applied
      * @throws FaultException A FaultException is thrown if the server corresponding to
@@ -2848,9 +2879,8 @@ public class SystemHandler extends BaseHandler {
      *          $ErrataOverviewSerializer
      *      #array_end()
      */
-    public Object[] getRelevantErrata(String sessionKey, Integer sid) {
+    public Object[] getRelevantErrata(User loggedInUser, Integer sid) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         DataResult<ErrataOverview> dr = SystemManager.relevantErrata(
                 loggedInUser, server.getId());
@@ -2859,7 +2889,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Returns a list of all errata of the specified type that are relevant to the system.
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param serverId serverId
      * @param advisoryType The type of advisory (one of the following:
      * "Security Advisory", "Product Enhancement Advisory",
@@ -2882,10 +2912,9 @@ public class SystemHandler extends BaseHandler {
      *          $ErrataOverviewSerializer
      *      #array_end()
      */
-    public Object[] getRelevantErrataByType(String sessionKey, Integer serverId,
+    public Object[] getRelevantErrataByType(User loggedInUser, Integer serverId,
             String advisoryType) throws FaultException {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, serverId);
 
         DataResult<ErrataOverview> dr = SystemManager.relevantErrataByType(loggedInUser,
@@ -2897,7 +2926,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Lists all the relevant unscheduled errata for a system.
      *
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system in question
      * @return Returns an array of maps representing the errata that can be applied
      * @throws FaultException A FaultException is thrown if the server corresponding to
@@ -2911,9 +2940,8 @@ public class SystemHandler extends BaseHandler {
      *          $ErrataSerializer
      *      #array_end()
      */
-    public Errata[] getUnscheduledErrata(String sessionKey, Integer sid) {
+    public Errata[] getUnscheduledErrata(User loggedInUser, Integer sid) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         DataResult<Errata> dr = SystemManager.unscheduledErrata(loggedInUser,
                 server.getId(), null);
@@ -2923,7 +2951,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Schedules an action to apply errata updates to multiple systems.
-     * @param sessionKey The user's session key.
+     * @param loggedInUser The current user
      * @param serverIds List of server IDs to apply the errata to (as Integers)
      * @param errataIds List of errata IDs to apply (as Integers)
      * @return list of action ids, exception thrown otherwise
@@ -2935,14 +2963,14 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "errataId")
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public List<Long> scheduleApplyErrata(String sessionKey, List<Integer> serverIds,
+    public List<Long> scheduleApplyErrata(User loggedInUser, List<Integer> serverIds,
             List<Integer> errataIds) {
-        return scheduleApplyErrata(sessionKey, serverIds, errataIds, null);
+        return scheduleApplyErrata(loggedInUser, serverIds, errataIds, null);
     }
 
     /**
      * Schedules an action to apply errata updates to multiple systems at a specified time.
-     * @param sessionKey The user's session key.
+     * @param loggedInUser The current user
      * @param serverIds List of server IDs to apply the errata to (as Integers)
      * @param errataIds List of errata IDs to apply (as Integers)
      * @param earliestOccurrence Earliest occurrence of the errata update
@@ -2957,7 +2985,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public List<Long> scheduleApplyErrata(String sessionKey, List<Integer> serverIds,
+    public List<Long> scheduleApplyErrata(User loggedInUser, List<Integer> serverIds,
             List<Integer> errataIds, Date earliestOccurrence) {
 
         // we need long values to pass to ErrataManager.applyErrataHelper
@@ -2966,13 +2994,13 @@ public class SystemHandler extends BaseHandler {
             longServerIds.add(new Long(it.next()));
         }
 
-        return ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey),
+        return ErrataManager.applyErrataHelper(loggedInUser,
                 longServerIds, errataIds, earliestOccurrence);
     }
 
     /**
      * Schedules an action to apply errata updates to a system.
-     * @param sessionKey The user's session key.
+     * @param loggedInUser The current user
      * @param sid ID of the server
      * @param errataIds List of errata IDs to apply (as Integers)
      * @return 1 if successful, exception thrown otherwise
@@ -2986,15 +3014,15 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     @Deprecated
-    public int applyErrata(String sessionKey, Integer sid,
+    public int applyErrata(User loggedInUser, Integer sid,
             List<Integer> errataIds) {
-        scheduleApplyErrata(sessionKey, sid, errataIds);
+        scheduleApplyErrata(loggedInUser, sid, errataIds);
         return 1;
     }
 
     /**
      * Schedules an action to apply errata updates to a system.
-     * @param sessionKey The user's session key.
+     * @param loggedInUser The current user
      * @param sid ID of the server
      * @param errataIds List of errata IDs to apply (as Integers)
      * @return list of action ids, exception thrown otherwise
@@ -3006,17 +3034,17 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param  #array_single("int", "errataId")
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public List<Long> scheduleApplyErrata(String sessionKey, Integer sid,
+    public List<Long> scheduleApplyErrata(User loggedInUser, Integer sid,
             List<Integer> errataIds) {
         List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(sid);
 
-        return scheduleApplyErrata(sessionKey, serverIds, errataIds);
+        return scheduleApplyErrata(loggedInUser, serverIds, errataIds);
     }
 
     /**
      * Schedules an action to apply errata updates to a system at a specified time.
-     * @param sessionKey The user's session key.
+     * @param loggedInUser The current user
      * @param sid ID of the server
      * @param errataIds List of errata IDs to apply (as Integers)
      * @param earliestOccurrence Earliest occurrence of the errata update
@@ -3031,18 +3059,18 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public List<Long> scheduleApplyErrata(String sessionKey, Integer sid,
+    public List<Long> scheduleApplyErrata(User loggedInUser, Integer sid,
             List<Integer> errataIds, Date earliestOccurrence) {
         List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(sid);
 
-        return scheduleApplyErrata(sessionKey, serverIds, errataIds, earliestOccurrence);
+        return scheduleApplyErrata(loggedInUser, serverIds, errataIds, earliestOccurrence);
     }
 
     /**
      * Compares the packages installed on two systems.
      *
-     * @param sessionKey User's session key
+     * @param loggedInUser The current user
      * @param sid1 This system's ID
      * @param sid2 Other system's ID
      * @return Array of PackageMetadata
@@ -3057,8 +3085,7 @@ public class SystemHandler extends BaseHandler {
      *          #array_end()
      *
      */
-    public Object [] comparePackages(String sessionKey, Integer sid1, Integer sid2) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object [] comparePackages(User loggedInUser, Integer sid1, Integer sid2) {
 
         Server target = null;
         Server source = null;
@@ -3092,7 +3119,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Gets the hardware profile of a specific system
      *
-     * @param sessionKey User's session key
+     * @param loggedInUser The current user
      * @param sid This system's ID
      * @return Map contianing the DMI information of the system
      *
@@ -3102,8 +3129,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype
      *      $DmiSerializer
      */
-    public Object getDmi(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object getDmi(User loggedInUser, Integer sid) {
         Server server = lookupServer(loggedInUser, sid);
         Dmi dmi = server.getDmi();
         if (dmi == null) {
@@ -3115,7 +3141,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Gets the hardware profile of a specific system
      *
-     * @param sessionKey User's session key
+     * @param loggedInUser The current user
      * @param sid This system's ID
      * @return Map contianing the CPU info of the system
      *
@@ -3125,8 +3151,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype
      *      $CpuSerializer
      */
-    public Object getCpu(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object getCpu(User loggedInUser, Integer sid) {
         Server server = lookupServer(loggedInUser, sid);
         CPU cpu = server.getCpu();
         if (cpu == null) {
@@ -3138,7 +3163,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Gets the memory information of a specific system
      *
-     * @param sessionKey User's session key
+     * @param loggedInUser The current user
      * @param sid This system's ID
      * @return Map contianing the memory profile
      *
@@ -3151,8 +3176,7 @@ public class SystemHandler extends BaseHandler {
      *      #prop_desc("int", "swap", "The amount of swap space in MB.")
      *  #struct_end()
      */
-    public Map<String, Long> getMemory(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Map<String, Long> getMemory(User loggedInUser, Integer sid) {
         Server server = lookupServer(loggedInUser, sid);
         Map<String, Long> memory = new HashMap<String, Long>();
         memory.put("swap", new Long(server.getSwap()));
@@ -3164,7 +3188,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Provides an array of devices for a system
      *
-     * @param sessionKey User's session key
+     * @param loggedInUser The current user
      * @param sid This system's ID
      * @return array continaing device Maps
      *
@@ -3176,8 +3200,7 @@ public class SystemHandler extends BaseHandler {
      *              $DeviceSerializer
      *              #array_end()
      */
-    public Object[] getDevices(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] getDevices(User loggedInUser, Integer sid) {
         Server server = lookupServer(loggedInUser, sid);
         Set<Device> devices = server.getDevices();
         return devices.toArray();
@@ -3186,7 +3209,74 @@ public class SystemHandler extends BaseHandler {
     /**
      * Schedule package installation for a system.
      *
-     * @param sessionKey The user's session key
+     * @param loggedInUser The current user
+     * @param sids IDs of the servers
+     * @param packageIds List of package IDs to install (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the package install
+     * @return package action id
+     *
+     * @xmlrpc.doc Schedule package installation for a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
+     */
+    public Long[] schedulePackageInstall(User loggedInUser, List<Integer> sids,
+            List<Integer> packageIds, Date earliestOccurrence) {
+        List<Long> actionIds = new ArrayList<Long>();
+        for (Integer sid : sids) {
+            Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
+                    loggedInUser);
+
+            // Would be nice to do this check at the Manager layer but upset many tests,
+            // some of which were not cooperative when being fixed. Placing here for now.
+            if (!SystemManager.hasEntitlement(server.getId(),
+                    EntitlementManager.MANAGEMENT)) {
+                throw new MissingEntitlementException(
+                        EntitlementManager.MANAGEMENT.getHumanReadableLabel());
+            }
+
+            // Build a list of maps in the format the ActionManager wants:
+            List<Map<String, Long>> packageMaps = new LinkedList<Map<String, Long>>();
+            for (Iterator<Integer> it = packageIds.iterator(); it.hasNext();) {
+                Integer pkgId = it.next();
+                Map<String, Long> pkgMap = new HashMap<String, Long>();
+
+                Package p = PackageManager.lookupByIdAndUser(new Long(pkgId.longValue()),
+                        loggedInUser);
+                if (p == null) {
+                    throw new InvalidPackageException(pkgId.toString());
+                }
+
+                pkgMap.put("name_id", p.getPackageName().getId());
+                pkgMap.put("evr_id", p.getPackageEvr().getId());
+                pkgMap.put("arch_id", p.getPackageArch().getId());
+                packageMaps.add(pkgMap);
+            }
+
+            if (packageMaps.isEmpty()) {
+                throw new InvalidParameterException("No packages to install.");
+            }
+
+            Action action = null;
+            try {
+                action = ActionManager.schedulePackageInstall(loggedInUser, server,
+                        packageMaps, earliestOccurrence);
+            }
+            catch (MissingEntitlementException e) {
+                throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
+            }
+
+            actionIds.add(action.getId());
+        }
+        return (Long[]) actionIds.toArray(new Long[actionIds.size()]);
+    }
+
+    /**
+     * Schedule package installation for a system.
+     *
+     * @param loggedInUser The current user
      * @param sid ID of the server
      * @param packageIds List of package IDs to install (as Integers)
      * @param earliestOccurrence Earliest occurrence of the package install
@@ -3200,57 +3290,16 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Long schedulePackageInstall(String sessionKey, Integer sid,
+    public Long schedulePackageInstall(User loggedInUser, Integer sid,
             List<Integer> packageIds, Date earliestOccurrence) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
-                loggedInUser);
-
-        // Would be nice to do this check at the Manager layer but upset many tests,
-        // some of which were not cooperative when being fixed. Placing here for now.
-        if (!SystemManager.hasEntitlement(server.getId(), EntitlementManager.MANAGEMENT)) {
-            throw new MissingEntitlementException(
-                    EntitlementManager.MANAGEMENT.getHumanReadableLabel());
-        }
-
-        // Build a list of maps in the format the ActionManager wants:
-        List<Map<String, Long>> packageMaps = new LinkedList<Map<String, Long>>();
-        for (Iterator<Integer> it = packageIds.iterator(); it.hasNext();) {
-            Integer pkgId = it.next();
-            Map<String, Long> pkgMap = new HashMap<String, Long>();
-
-            Package p = PackageManager.lookupByIdAndUser(new Long(pkgId.longValue()),
-                    loggedInUser);
-            if (p == null) {
-                throw new InvalidPackageException(pkgId.toString());
-            }
-
-            pkgMap.put("name_id", p.getPackageName().getId());
-            pkgMap.put("evr_id", p.getPackageEvr().getId());
-            pkgMap.put("arch_id", p.getPackageArch().getId());
-            packageMaps.add(pkgMap);
-        }
-
-        if (packageMaps.isEmpty()) {
-            throw new InvalidParameterException("No packages to install.");
-        }
-
-        Action action = null;
-        try {
-            action = ActionManager.schedulePackageInstall(loggedInUser, server,
-                    packageMaps, earliestOccurrence);
-        }
-        catch (MissingEntitlementException e) {
-            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
-        }
-
-        return action.getId();
+        return schedulePackageInstall(loggedInUser, new ArrayList<Integer>(sid), packageIds,
+                earliestOccurrence)[0];
     }
 
     /**
      * Schedule package removal for a system.
      *
-     * @param sessionKey The user's session key
+     * @param loggedInUser The current user
      * @param sid ID of the server
      * @param packageIds List of package IDs to remove (as Integers)
      * @param earliestOccurrence Earliest occurrence of the package install
@@ -3264,10 +3313,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown
      * on error
      */
-    public int schedulePackageRemove(String sessionKey, Integer sid,
+    public int schedulePackageRemove(User loggedInUser, Integer sid,
             List<Integer> packageIds, Date earliestOccurrence) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
 
@@ -3315,7 +3363,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Lists all of the notes that are associated with a system.
      *   If no notes are found it should return an empty set.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param sid the system id
      * @return Array of Note objects associated with the given system
      *
@@ -3327,8 +3375,7 @@ public class SystemHandler extends BaseHandler {
      *      $NoteSerializer
      *  #array_end()
      */
-    public Set<Note> listNotes(String sessionKey , Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Set<Note> listNotes(User loggedInUser , Integer sid) {
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
         return server.getNotes();
@@ -3342,7 +3389,7 @@ public class SystemHandler extends BaseHandler {
      *  This is usually the case for RHEL 4 or older.  RHEL 5 started uploading
      *  arch information, so that information is taken into account when matching
      *  packages.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param sid the system Id
      * @param channelLabel the channel label
      * @return Array of Package objects representing the intersection of the channel
@@ -3361,21 +3408,20 @@ public class SystemHandler extends BaseHandler {
      *      $PackageSerializer
      *  #array_end()
      */
-    public Object[] listPackagesFromChannel(String sessionKey, Integer sid,
+    public List<Map<String, Object>> listPackagesFromChannel(User loggedInUser,
+            Integer sid,
             String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
+        SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
         Channel channel = ChannelFactory.lookupByLabelAndUser(channelLabel,
                 loggedInUser);
-        return SystemManager.packagesFromChannel(sid.longValue(),
-                channel.getId()).toArray();
+        return SystemManager.packagesFromChannel(sid.longValue(), channel.getId());
     }
 
     /**
      * Schedule a hardware refresh for a system.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param sid ID of the server.
      * @param earliestOccurrence Earliest occurrence of the hardware refresh.
      * @return action id, exception thrown otherwise
@@ -3387,9 +3433,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("dateTime.iso8601",  "earliestOccurrence")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Long scheduleHardwareRefresh(String sessionKey, Integer sid,
+    public Long scheduleHardwareRefresh(User loggedInUser, Integer sid,
             Date earliestOccurrence) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
 
@@ -3403,7 +3448,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Schedule a package list refresh for a system.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param sid ID of the server.
      * @param earliestOccurrence Earliest occurrence of the refresh.
      * @return the id of the action scheduled, exception thrown otherwise
@@ -3415,9 +3460,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown
      * on error
      */
-    public int schedulePackageRefresh(String sessionKey, Integer sid,
+    public int schedulePackageRefresh(User loggedInUser, Integer sid,
             Date earliestOccurrence) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
 
@@ -3431,7 +3475,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Schedule a script to run.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param systemIds IDs of the servers to run the script on.
      * @param username User to run script as.
      * @param groupname Group to run script as.
@@ -3453,11 +3497,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
      * results with system.getScriptResults.
      */
-    public Integer scheduleScriptRun(String sessionKey, List<Integer> systemIds,
+    public Integer scheduleScriptRun(User loggedInUser, List<Integer> systemIds,
             String username, String groupname, Integer timeout, String script,
             Date earliest) {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         ScriptActionDetails scriptDetails = ActionManager.createScript(username, groupname,
                 new Long(timeout.longValue()), script);
@@ -3497,7 +3539,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Schedule a script to run.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param sid ID of the server to run the script on.
      * @param username User to run script as.
      * @param groupname Group to run script as.
@@ -3520,13 +3562,13 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
      * results with system.getScriptResults.
      */
-    public Integer scheduleScriptRun(String sessionKey, Integer sid, String username,
+    public Integer scheduleScriptRun(User loggedInUser, Integer sid, String username,
             String groupname, Integer timeout, String script, Date earliest) {
 
         List<Integer> systemIds = new ArrayList<Integer>();
         systemIds.add(sid);
 
-        return scheduleScriptRun(sessionKey, systemIds, username, groupname, timeout,
+        return scheduleScriptRun(loggedInUser, systemIds, username, groupname, timeout,
                 script, earliest);
     }
 
@@ -3534,7 +3576,7 @@ public class SystemHandler extends BaseHandler {
      * Fetch results from a script execution. Returns an empty array if no results are
      * yet available.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param actionId ID of the script run action.
      * @return Array of ScriptResult objects.
      *
@@ -3547,8 +3589,7 @@ public class SystemHandler extends BaseHandler {
      *              $ScriptResultSerializer
      *         #array_end()
      */
-    public Object [] getScriptResults(String sessionKey, Integer actionId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object [] getScriptResults(User loggedInUser, Integer actionId) {
         ScriptRunAction action = lookupScriptRunAction(actionId, loggedInUser);
         ScriptActionDetails details = action.getScriptActionDetails();
 
@@ -3567,7 +3608,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Returns action script contents for script run actions
-     * @param sessionKey session key
+     * @param loggedInUser The current user
      * @param actionId action identifier
      * @return script details
      *
@@ -3584,9 +3625,8 @@ public class SystemHandler extends BaseHandler {
      *          #array_single("$ScriptResultSerializer", "result")
      *      #struct_end()
      */
-    public Map<String, Object> getScriptActionDetails(String sessionKey, Integer actionId) {
+    public Map<String, Object> getScriptActionDetails(User loggedInUser, Integer actionId) {
         Map<String, Object> retDetails = new HashMap<String, Object>();
-        User loggedInUser = getLoggedInUser(sessionKey);
         ScriptRunAction action = lookupScriptRunAction(actionId, loggedInUser);
         ScriptActionDetails details = action.getScriptActionDetails();
         retDetails.put("id", action.getId());
@@ -3625,7 +3665,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Schedule a system reboot
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param sid ID of the server.
      * @param earliestOccurrence Earliest occurrence of the reboot.
      * @return action id, exception thrown otherwise
@@ -3637,9 +3677,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("dateTime.iso860", "earliestOccurrence")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Long scheduleReboot(String sessionKey, Integer sid,
+    public Long scheduleReboot(User loggedInUser, Integer sid,
             Date earliestOccurrence) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
 
@@ -3652,7 +3691,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Get system details.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param serverId ID of server to lookup details for.
      * @return Server object. (converted to XMLRPC struct by serializer)
      *
@@ -3662,8 +3701,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype
      *          $ServerSerializer
      */
-    public Object getDetails(String sessionKey, Integer serverId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object getDetails(User loggedInUser, Integer serverId) {
         Server server = null;
         try {
             server = SystemManager.lookupByIdAndUser(new Long(serverId.longValue()),
@@ -3679,7 +3717,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Set server details.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param serverId ID of server to lookup details for.
      * @param details Map of (optional) system details to be set.
      * @return 1 on success, exception thrown otherwise.
@@ -3708,7 +3746,7 @@ public class SystemHandler extends BaseHandler {
      *
      *  @xmlrpc.returntype #return_int_success()
      */
-    public Integer setDetails(String sessionKey, Integer serverId,
+    public Integer setDetails(User loggedInUser, Integer serverId,
             Map<String, Object> details) {
 
         // confirm that the user only provided valid keys in the map
@@ -3727,7 +3765,6 @@ public class SystemHandler extends BaseHandler {
         validKeys.add("description");
         validateMap(validKeys, details);
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = null;
         try {
             server = SystemManager.lookupByIdAndUser(new Long(serverId.longValue()),
@@ -3824,7 +3861,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Set server lock status.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param serverId ID of server to lookup details for.
      * @param lockStatus to set. True to lock the system, False to unlock the system.
      * @return 1 on success, exception thrown otherwise.
@@ -3837,9 +3874,8 @@ public class SystemHandler extends BaseHandler {
      *
      *  @xmlrpc.returntype #return_int_success()
      */
-    public Integer setLockStatus(String sessionKey, Integer serverId, boolean lockStatus) {
+    public Integer setLockStatus(User loggedInUser, Integer serverId, boolean lockStatus) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = null;
         try {
             server = SystemManager.lookupByIdAndUser(new Long(serverId.longValue()),
@@ -3872,7 +3908,7 @@ public class SystemHandler extends BaseHandler {
      * Add addon entitlements to a server. Entitlements a server already has are simply
      * ignored.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param serverId ID of server.
      * @param entitlements List of addon entitlement labels to add.
      * @return 1 on success, exception thrown otherwise.
@@ -3886,10 +3922,9 @@ public class SystemHandler extends BaseHandler {
      * virtualization_host_platform, enterprise_entitled")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addEntitlements(String sessionKey, Integer serverId,
+    public int addEntitlements(User loggedInUser, Integer serverId,
             List<String> entitlements) {
         boolean needsSnapshot = false;
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = null;
         try {
             server = SystemManager.lookupByIdAndUser(new Long(serverId.longValue()),
@@ -3962,7 +3997,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Remove addon entitlements from a server.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param serverId ID of server.
      * @param entitlements List of addon entitlement labels to remove.
      * @return 1 on success, exception thrown otherwise.
@@ -3974,10 +4009,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "entitlement_label")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeEntitlements(String sessionKey, Integer serverId,
+    public int removeEntitlements(User loggedInUser, Integer serverId,
             List<String> entitlements) {
         boolean needsSnapshot = false;
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = null;
         try {
             server = SystemManager.lookupByIdAndUser(new Long(serverId.longValue()),
@@ -4019,7 +4053,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Lists the package profiles in this organization
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @return 1 on success
      *
      * @xmlrpc.doc List the package profiles in this organization
@@ -4029,9 +4063,7 @@ public class SystemHandler extends BaseHandler {
      *      $ProfileOverviewDtoSerializer
      *  #array_end()
      */
-    public Object[] listPackageProfiles(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public Object[] listPackageProfiles(User loggedInUser) {
         DataResult<ProfileOverviewDto> profiles = ProfileManager.listProfileOverviews(
                 loggedInUser.getOrg().getId());
 
@@ -4041,7 +4073,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Delete a package profile
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param profileId The package profile ID to delete.
      * @return 1 on success
      *
@@ -4050,8 +4082,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "profileId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deletePackageProfile(String sessionKey, Integer profileId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int deletePackageProfile(User loggedInUser, Integer profileId) {
 
         // make sure the user can access this profile
         Profile profile = ProfileManager.lookupByIdAndOrg(profileId.longValue(),
@@ -4063,7 +4094,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Creates a new stored Package Profile
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param sid ID of server to lookup details for.
      * @param profileLabel the label of the profile to be created
      * @param desc the description of the profile to be created
@@ -4077,10 +4108,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "description")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int createPackageProfile(String sessionKey, Integer sid,
+    public int createPackageProfile(User loggedInUser, Integer sid,
             String profileLabel, String desc) {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
@@ -4107,7 +4136,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Compare a system's packages against a package profile.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param serverId ID of server
      * @param profileLabel the label of the package profile
      * @return 1 on success
@@ -4123,10 +4152,8 @@ public class SystemHandler extends BaseHandler {
      *              $PackageMetadataSerializer
      *          #array_end()
      */
-    public Object[] comparePackageProfile(String sessionKey, Integer serverId,
+    public Object[] comparePackageProfile(User loggedInUser, Integer serverId,
             String profileLabel) {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         Long sid = new Long(serverId.longValue());
         SystemManager.lookupByIdAndUser(sid, loggedInUser);
@@ -4146,7 +4173,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Returns list of systems which have packages needing updates
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @return Returns an array of SystemOverview objects (which are then
      *          serialized using SystemOverviewSerializer)
      *
@@ -4158,8 +4185,7 @@ public class SystemHandler extends BaseHandler {
      *          #array_end()
      *
      */
-    public Object[] listOutOfDateSystems(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listOutOfDateSystems(User loggedInUser) {
         DataResult<SystemOverview> list = SystemManager.outOfDateList(
                 loggedInUser, null);
         return list.toArray();
@@ -4168,7 +4194,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Sync packages from a source system to a target.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param targetServerId Target system to apply package changes to.
      * @param sourceServerId Source system to retrieve package state from.
      * @param packageIds List of package IDs to be synced.
@@ -4186,11 +4212,10 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("dateTime.iso8601", "date", "Date to schedule action for")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Long scheduleSyncPackagesWithSystem(String sessionKey, Integer targetServerId,
+    public Long scheduleSyncPackagesWithSystem(User loggedInUser, Integer targetServerId,
             Integer sourceServerId,
             List<Integer> packageIds, Date earliest) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server target = null;
         Server source = null;
         try {
@@ -4253,10 +4278,12 @@ public class SystemHandler extends BaseHandler {
      * @return True is systems are compatible, false otherwise.
      */
     private boolean isCompatible(User user, Server target, Server source) {
-        List compatibleServers = SystemManager.compatibleWithServer(user, target);
+        List<Map<String, Object>> compatibleServers =
+                SystemManager.compatibleWithServer(user, target);
         boolean found = false;
-        for (Iterator it = compatibleServers.iterator(); it.hasNext();) {
-            Map m = (Map)it.next();
+        for (Iterator<Map<String, Object>> it = compatibleServers.iterator();
+                it.hasNext();) {
+            Map<String, Object> m = it.next();
             Long currentId = (Long)m.get("id");
             if (currentId.longValue() == source.getId().longValue()) {
                 found = true;
@@ -4269,7 +4296,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * list systems that are not in any system group
-     * @param sessionKey of user making call
+     * @param loggedInUser The current user
      * @return A list of Maps containing ID,name, and last checkin
      *
      * @xmlrpc.doc List systems that are not associated with any system groups.
@@ -4284,9 +4311,7 @@ public class SystemHandler extends BaseHandler {
      *      #struct_end()
      *      #array_end()
      */
-    public Object[] listUngroupedSystems(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public Object[] listUngroupedSystems(User loggedInUser) {
         List <Server> servers = ServerFactory.listUngroupedSystems(loggedInUser);
         List<Map<String, Object>> serverMaps = new ArrayList<Map<String, Object>>();
         XmlRpcSystemHelper helper = XmlRpcSystemHelper.getInstance();
@@ -4299,7 +4324,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Gets the base channel for a particular system
-     * @param sessionKey key of the logged in user
+     * @param loggedInUser The current user
      * @param sid SystemID of the system in question
      * @return Channel that is the base channel
      *
@@ -4309,8 +4334,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype
      *      $ChannelSerializer
      */
-    public Object getSubscribedBaseChannel(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object getSubscribedBaseChannel(User loggedInUser, Integer sid) {
         Server server = lookupServer(loggedInUser, sid);
         Channel base = server.getBaseChannel();
         if (base == null) {
@@ -4322,7 +4346,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Gets the list of inactive systems using the default inactive period
-     * @param sessionKey the session of the user
+     * @param loggedInUser The current user
      * @return list of inactive systems
      *
      * @xmlrpc.doc Lists systems that have been inactive for the default period of
@@ -4333,15 +4357,14 @@ public class SystemHandler extends BaseHandler {
      *          $SystemOverviewSerializer
      *      #array_end()
      */
-    public List<SystemOverview> listInactiveSystems(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<SystemOverview> listInactiveSystems(User loggedInUser) {
         return SystemManager.systemListShortInactive(loggedInUser, null);
     }
 
 
     /**
      * Gets the list of inactive systems using the provided  inactive period
-     * @param sessionKey the session of the user
+     * @param loggedInUser The current user
      * @param days the number of days for inactivity you want
      * @return list of inactive systems
      *
@@ -4354,15 +4377,14 @@ public class SystemHandler extends BaseHandler {
      *          $SystemOverviewSerializer
      *      #array_end()
      */
-    public List<SystemOverview> listInactiveSystems(String sessionKey,
+    public List<SystemOverview> listInactiveSystems(User loggedInUser,
             Integer days) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         return SystemManager.systemListShortInactive(loggedInUser, days, null);
     }
 
     /**
      * Retrieve the user who registered a particular system
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param sid the id of the system in question
      * @return the User
      *
@@ -4372,15 +4394,14 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype
      *          $UserSerializer
      */
-    public User whoRegistered(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public User whoRegistered(User loggedInUser, Integer sid) {
         Server server = lookupServer(loggedInUser, sid);
         return server.getCreator();
     }
 
     /**
      * returns a list of SystemOverview objects that contain the given package id
-     * @param sessionKey the session of the user
+     * @param loggedInUser The current user
      * @param pid the package id to search for
      * @return an array of systemOverview objects
      *
@@ -4392,9 +4413,8 @@ public class SystemHandler extends BaseHandler {
      *              $SystemOverviewSerializer
      *           #array_end()
      */
-    public List<SystemOverview> listSystemsWithPackage(String sessionKey,
+    public List<SystemOverview> listSystemsWithPackage(User loggedInUser,
             Integer pid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         Package pack = PackageFactory.lookupByIdAndOrg(
                 pid.longValue(), loggedInUser.getOrg());
         if (pack == null) {
@@ -4405,7 +4425,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * returns a list of SystemOverview objects that contain a package given it's NVR
-     * @param sessionKey the session of the user
+     * @param loggedInUser The current user
      * @param name package name
      * @param version package version
      * @param release package release
@@ -4422,17 +4442,16 @@ public class SystemHandler extends BaseHandler {
      *                  $SystemOverviewSerializer
      *              #array_end()
      */
-    public List<SystemOverview> listSystemsWithPackage(String sessionKey,
+    public List<SystemOverview> listSystemsWithPackage(User loggedInUser,
             String name, String version,
             String release) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         return SystemManager.listSystemsWithPackage(loggedInUser,
                 name, version, release);
     }
 
     /**
      * Gets a list of all Physical systems visible to user
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @return Returns an array of maps representing all systems visible to user
      *
      * @throws FaultException A FaultException is thrown if a valid user can not be found
@@ -4445,8 +4464,7 @@ public class SystemHandler extends BaseHandler {
      *          $SystemOverviewSerializer
      *      #array_end()
      */
-    public Object[] listPhysicalSystems(String sessionKey) throws FaultException {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listPhysicalSystems(User loggedInUser) throws FaultException {
         DataResult<SystemOverview> dr = SystemManager.physicalList(loggedInUser, null);
         dr.elaborate();
         return dr.toArray();
@@ -4454,7 +4472,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Gets a list of virtual hosts for the current user
-     * @param sessionKey session
+     * @param loggedInUser The current user
      * @return list of SystemOverview objects
      *
      * @xmlrpc.doc Lists the virtual hosts visible to the user
@@ -4464,14 +4482,13 @@ public class SystemHandler extends BaseHandler {
      *       $SystemOverviewSerializer
      *      #array_end()
      */
-    public List<SystemOverview> listVirtualHosts(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<SystemOverview> listVirtualHosts(User loggedInUser) {
         return SystemManager.listVirtualHosts(loggedInUser);
     }
 
     /**
      * Gets a list of virtual guests for the given host
-     * @param sessionKey session
+     * @param loggedInUser The current user
      * @param sid the host system id
      * @return list of VirtualSystemOverview objects
      *
@@ -4483,9 +4500,8 @@ public class SystemHandler extends BaseHandler {
      *          $VirtualSystemOverviewSerializer
      *     #array_end()
      */
-    public List<VirtualSystemOverview> listVirtualGuests(String sessionKey,
+    public List<VirtualSystemOverview> listVirtualGuests(User loggedInUser,
             Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         DataResult<VirtualSystemOverview> result = SystemManager
                 .virtualGuestsForHostList(loggedInUser,
                         sid.longValue(), null);
@@ -4495,7 +4511,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Schedules an action to set the guests memory usage
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param sid the server ID of the guest
      * @param memory the amount of memory to set the guest to use
      * @return the action id of the scheduled action
@@ -4510,8 +4526,7 @@ public class SystemHandler extends BaseHandler {
      *              on the host system.
      *
      */
-    public int setGuestMemory(String sessionKey, Integer sid, Integer memory) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int setGuestMemory(User loggedInUser, Integer sid, Integer memory) {
         VirtualInstance vi = VirtualInstanceFactory.getInstance().lookupByGuestId(
                 loggedInUser.getOrg(), sid.longValue());
 
@@ -4534,7 +4549,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Schedules an actino to set the guests CPU allocation
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param sid the server ID of the guest
      * @param numOfCpus the num of cpus to set
      * @return the action id of the scheduled action
@@ -4549,8 +4564,7 @@ public class SystemHandler extends BaseHandler {
      *              on the host system.
      *
      */
-    public int setGuestCpus(String sessionKey, Integer sid, Integer numOfCpus) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int setGuestCpus(User loggedInUser, Integer sid, Integer numOfCpus) {
         VirtualInstance vi = VirtualInstanceFactory.getInstance().lookupByGuestId(
                 loggedInUser.getOrg(), sid.longValue());
 
@@ -4569,7 +4583,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      *  schedules the specified action on the guest
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param sid the id of the system
      * @param state one of the following: 'start', 'suspend', 'resume', 'restart',
      *          'shutdown'
@@ -4585,9 +4599,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param  #param_desc($date, "date", "the time/date to schedule the action")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public int scheduleGuestAction(String sessionKey, Integer sid, String state,
+    public int scheduleGuestAction(User loggedInUser, Integer sid, String state,
             Date date) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         VirtualInstance vi = VirtualInstanceFactory.getInstance().lookupByGuestId(
                 loggedInUser.getOrg(), sid.longValue());
 
@@ -4623,7 +4636,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      *  schedules the specified action on the guest
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param sid the id of the system
      * @param state one of the following: 'start', 'suspend', 'resume', 'restart',
      *          'shutdown'
@@ -4637,13 +4650,13 @@ public class SystemHandler extends BaseHandler {
      *          'suspend', 'resume', 'restart', 'shutdown'.")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public int scheduleGuestAction(String sessionKey, Integer sid, String state) {
-        return scheduleGuestAction(sessionKey, sid, state, null);
+    public int scheduleGuestAction(User loggedInUser, Integer sid, String state) {
+        return scheduleGuestAction(loggedInUser, sid, state, null);
     }
 
     /**
      * List the activation keys the system was registered with.
-     * @param sessionKey session
+     * @param loggedInUser The current user
      * @param serverId the host system id
      * @return list of keys
      *
@@ -4653,8 +4666,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype #array_single ("string", "key")
      */
-    public List<String> listActivationKeys(String sessionKey, Integer serverId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<String> listActivationKeys(User loggedInUser, Integer serverId) {
         Server server = lookupServer(loggedInUser, serverId);
 
         DataResult<ActivationKeyDto> result = SystemManager.getActivationKeys(server);
@@ -4671,7 +4683,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Get the list of proxies that the given system connects
      * through in order to reach the server.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system in question
      * @return Returns an array of maps representing the proxies the system is connected
      * through
@@ -4687,11 +4699,10 @@ public class SystemHandler extends BaseHandler {
      *          $ServerPathSerializer
      *      #array_end()
      */
-    public Object[] getConnectionPath(String sessionKey, Integer sid)
+    public Object[] getConnectionPath(User loggedInUser, Integer sid)
             throws FaultException {
 
         // Get the logged in user and server
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
         DataResult<ServerPath> dr = SystemManager.getConnectionPath(server.getId());
@@ -4839,7 +4850,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Creates a cobbler system record
-     * @param sessionKey session
+     * @param loggedInUser The current user
      * @param serverId the host system id
      * @param ksLabel identifies the kickstart profile
      *
@@ -4851,9 +4862,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "ksLabel")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int createSystemRecord(String sessionKey, Integer serverId, String ksLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public int createSystemRecord(User loggedInUser, Integer serverId, String ksLabel) {
         Server server = null;
         try {
             server = SystemManager.lookupByIdAndUser(serverId.longValue(),
@@ -4879,7 +4888,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Returns a list of kickstart variables set for the specified server
      *
-     * @param sessionKey      identifies the user making the call;
+     * @param loggedInUser The current user
      * @param serverId        identifies the server
      * @return map of kickstart variables set for the specified server
      *
@@ -4906,9 +4915,7 @@ public class SystemHandler extends BaseHandler {
      *          #prop_array_end()
      *      #struct_end()
      */
-    public Map<String, Object> getVariables(String sessionKey, Integer serverId) {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Map<String, Object> getVariables(User loggedInUser, Integer serverId) {
 
         Server server = null;
         try {
@@ -4939,7 +4946,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Sets a list of kickstart variables for the specified server
      *
-     * @param sessionKey      identifies the user making the call
+     * @param loggedInUser The current user
      * @param serverId        identifies the server
      * @param netboot         netboot enabled
      * @param variables       list of system kickstart variables to set
@@ -4968,10 +4975,8 @@ public class SystemHandler extends BaseHandler {
      *      #array_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setVariables(String sessionKey, Integer serverId, Boolean netboot,
+    public int setVariables(User loggedInUser, Integer serverId, Boolean netboot,
             Map<String, Object> variables) {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         Server server = null;
         try {
@@ -5014,7 +5019,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * List Duplicates by IP
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @return List of Duplicates
      *
      *
@@ -5030,8 +5035,7 @@ public class SystemHandler extends BaseHandler {
      *           #struct_end()
      *      #array_end()
      **/
-    public List<Map<String, Object>> listDuplicatesByIp(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<Map<String, Object>> listDuplicatesByIp(User loggedInUser) {
         List<DuplicateSystemGrouping> list =
                 SystemManager.listDuplicatesByIP(loggedInUser, 0L);
         return transformDuplicate(list, "ip");
@@ -5039,7 +5043,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * List Duplicates by Mac Address
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @return List of Duplicates
      *
      *
@@ -5055,8 +5059,7 @@ public class SystemHandler extends BaseHandler {
      *           #struct_end()
      *      #array_end()
      **/
-    public List listDuplicatesByMac(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List listDuplicatesByMac(User loggedInUser) {
         List<DuplicateSystemGrouping> list =
                 SystemManager.listDuplicatesByMac(loggedInUser, 0L);
         return transformDuplicate(list, "mac");
@@ -5064,7 +5067,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * List Duplicates by Hostname
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @return List of Duplicates
      *
      *
@@ -5080,8 +5083,7 @@ public class SystemHandler extends BaseHandler {
      *           #struct_end()
      *      #array_end()
      **/
-    public List<Map<String, Object>> listDuplicatesByHostname(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<Map<String, Object>> listDuplicatesByHostname(User loggedInUser) {
         List<DuplicateSystemGrouping> list =
                 SystemManager.listDuplicatesByHostname(loggedInUser, 0L);
         return transformDuplicate(list, "hostname");
@@ -5090,7 +5092,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * List flex guests accessible to the user
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @return List of Flex guests
      *
      *
@@ -5101,14 +5103,13 @@ public class SystemHandler extends BaseHandler {
      *              $ChannelFamilySystemGroupSerializer
      *          #array_end()
      **/
-    public List<ChannelFamilySystemGroup> listFlexGuests(String sessionKey) {
-        User user = getLoggedInUser(sessionKey);
-        return VirtualizationEntitlementsManager.getInstance().listFlexGuests(user);
+    public List<ChannelFamilySystemGroup> listFlexGuests(User loggedInUser) {
+        return VirtualizationEntitlementsManager.getInstance().listFlexGuests(loggedInUser);
     }
 
     /**
      * List eligible flex guests accessible to the user
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @return List of Flex guests
      *
      *
@@ -5120,15 +5121,14 @@ public class SystemHandler extends BaseHandler {
      *          #array_end()
      **/
     public List<ChannelFamilySystemGroup> listEligibleFlexGuests(
-            String sessionKey) {
-        User user = getLoggedInUser(sessionKey);
+            User loggedInUser) {
         return VirtualizationEntitlementsManager.
-                getInstance().listEligibleFlexGuests(user);
+                getInstance().listEligibleFlexGuests(loggedInUser);
     }
 
     /**
      * Converts the given list of systems to use the flex entitlement.
-     * @param sessionKey session
+     * @param loggedInUser The current user
      * @param serverIds list of server ids whom
      *      you want to get converted to flex entitlement
      * @param channelFamilyLabel the channel family label of the channel
@@ -5142,11 +5142,10 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int - the total the number of systems
      *                  that were converted to use flex entitlement.
      */
-    public int convertToFlexEntitlement(String sessionKey,
+    public int convertToFlexEntitlement(User loggedInUser,
             List<Integer> serverIds, String channelFamilyLabel) {
-        User user = getLoggedInUser(sessionKey);
         ChannelFamily cf = ChannelFamilyFactory.lookupByLabel(
-                channelFamilyLabel, user.getOrg());
+                channelFamilyLabel, loggedInUser.getOrg());
         if (cf == null) {
             throw new InvalidEntitlementException();
         }
@@ -5156,20 +5155,19 @@ public class SystemHandler extends BaseHandler {
             longServerIds.add(new Long(it.next()));
         }
         return VirtualizationEntitlementsManager.getInstance().
-                convertToFlex(longServerIds, cf.getId(), user).size();
+                convertToFlex(longServerIds, cf.getId(), loggedInUser).size();
     }
 
     /**
      * Get the System Currency score multipliers
-     * @param sessionKey session
+     * @param loggedInUser The current user
      * @return the score multipliers used by the System Currency page
      *
      * @xmlrpc.doc Get the System Currency score multipliers
      *  @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype Map of score multipliers
      */
-    public Map<String, Integer> getSystemCurrencyMultipliers(String sessionKey) {
-        getLoggedInUser(sessionKey);
+    public Map<String, Integer> getSystemCurrencyMultipliers(User loggedInUser) {
         Map<String, Integer> multipliers = new HashMap<String, Integer>();
         multipliers.put("scCrit", ConfigDefaults.get().getSCCrit());
         multipliers.put("scImp", ConfigDefaults.get().getSCImp());
@@ -5182,7 +5180,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Get System Currency scores for all servers the user has access to
-     * @param sessionKey session
+     * @param loggedInUser The current user
      * @return List of user visible systems and a breakdown of the security,
      * bug fix and enhancement errata counts plus a score based on the default
      * system currency multipliers.
@@ -5203,9 +5201,9 @@ public class SystemHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public List<Map<String, Long>> getSystemCurrencyScores(String sessionKey) {
-        User user = getLoggedInUser(sessionKey);
-        DataResult<SystemCurrency> dr = SystemManager.systemCurrencyList(user, null);
+    public List<Map<String, Long>> getSystemCurrencyScores(User loggedInUser) {
+        DataResult<SystemCurrency> dr = SystemManager.systemCurrencyList(loggedInUser,
+                null);
         List<Map<String, Long>> l = new ArrayList<Map<String, Long>>();
         for (Iterator<SystemCurrency> it = dr.iterator(); it.hasNext();) {
             Map<String, Long> m = new HashMap<String, Long>();
@@ -5226,7 +5224,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Get the UUID for the given system ID.
-     * @param sessionKey of user making call
+     * @param loggedInUser The current user
      * @param serverId of the server
      * @return UUID string
      *
@@ -5235,8 +5233,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype string
      */
-    public String getUuid(String sessionKey, Integer serverId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public String getUuid(User loggedInUser, Integer serverId) {
         Server server = lookupServer(loggedInUser, serverId);
 
         if (server.isVirtualGuest()) {
@@ -5247,7 +5244,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Tags latest system snapshot
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param serverId server id
      * @param tagName tag
      * @return 1 on success, exception thrown otherwise.
@@ -5258,8 +5255,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "tagName")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int tagLatestSnapshot(String sessionKey, Integer serverId, String tagName) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int tagLatestSnapshot(User loggedInUser, Integer serverId, String tagName) {
         Server server = lookupServer(loggedInUser, serverId);
         if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
             throw new FaultException(-2, "provisionError",
@@ -5279,7 +5275,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Deletes tag from system snapshot
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param serverId server id
      * @param tagName tag
      * @return 1 on success, exception thrown otherwise.
@@ -5290,8 +5286,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "tagName")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteTagFromSnapshot(String sessionKey, Integer serverId, String tagName) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int deleteTagFromSnapshot(User loggedInUser, Integer serverId, String tagName) {
         Server server = lookupServer(loggedInUser, serverId);
         SnapshotTag tag = ServerFactory.lookupSnapshotTagbyName(tagName);
         if (tag == null) {
@@ -5303,7 +5298,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * List systems with extra packages
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @return Array of systems with extra packages
      *
      * @xmlrpc.doc List systems with extra packages
@@ -5317,14 +5312,13 @@ public class SystemHandler extends BaseHandler {
      *         #struct_end()
      *     #array_end()
      */
-    public Object[] listSystemsWithExtraPackages(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listSystemsWithExtraPackages(User loggedInUser) {
         return SystemManager.getExtraPackagesSystems(loggedInUser, null).toArray();
     }
 
     /**
      * List extra packages for given system
-     * @param sessionKey Session key
+     * @param loggedInUser The current user
      * @param serverId Server ID
      * @return Array of extra packages for given system
      *
@@ -5343,15 +5337,16 @@ public class SystemHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public List listExtraPackages(String sessionKey, Integer serverId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        DataResult dr = SystemManager.listExtraPackages(new Long(serverId));
+    public List<Map<String, Object>> listExtraPackages(User loggedInUser,
+            Integer serverId) {
+        DataResult<PackageListItem> dr =
+                SystemManager.listExtraPackages(new Long(serverId));
 
-        List returnList = new ArrayList();
+        List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
 
-        for (Iterator itr = dr.iterator(); itr.hasNext();) {
-            PackageListItem row = (PackageListItem) itr.next();
-            Map pkg = new HashMap();
+        for (Iterator<PackageListItem> itr = dr.iterator(); itr.hasNext();) {
+            PackageListItem row = itr.next();
+            Map<String, Object> pkg = new HashMap<String, Object>();
 
             pkg.put("name", row.getName());
             pkg.put("version", row.getVersion());
@@ -5370,7 +5365,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Sets new primary network interface
-     * @param sessionKey Session key
+     * @param loggedInUser The current user
      * @param serverId Server ID
      * @param interfaceName Interface name
      * @return 1 if success, exception thrown otherwise
@@ -5382,9 +5377,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "interfaceName")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setPrimaryInterface(String sessionKey, Integer serverId,
+    public int setPrimaryInterface(User loggedInUser, Integer serverId,
             String interfaceName) throws Exception {
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, serverId);
 
         if (!server.existsActiveInterfaceWithName(interfaceName)) {
@@ -5397,7 +5391,7 @@ public class SystemHandler extends BaseHandler {
 
     /**
      * Schedule update of client certificate
-     * @param sessionKey Session key
+     * @param loggedInUser The current user
      * @param serverId Server Id
      * @return ID of the action if the action scheduling succeeded, exception otherwise
      *
@@ -5406,13 +5400,13 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public int scheduleCertificateUpdate(String sessionKey, Integer serverId) {
-        return scheduleCertificateUpdate(sessionKey, serverId, new Date());
+    public int scheduleCertificateUpdate(User loggedInUser, Integer serverId) {
+        return scheduleCertificateUpdate(loggedInUser, serverId, new Date());
     }
 
     /**
      * Schedule update of client certificate at given date and time
-     * @param sessionKey Session key
+     * @param loggedInUser The current user
      * @param serverId Server Id
      * @param date The date of earliest occurence
      * @return ID of the action if the action scheduling succeeded, exception otherwise
@@ -5423,8 +5417,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("dateTime.iso860", "date")
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public int scheduleCertificateUpdate(String sessionKey, Integer serverId, Date date) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int scheduleCertificateUpdate(User loggedInUser, Integer serverId, Date date) {
         Server server = lookupServer(loggedInUser, serverId);
 
         if (server == null) {

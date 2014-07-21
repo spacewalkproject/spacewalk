@@ -1,7 +1,7 @@
 #
 # Abstraction for an XML importer with a disk base
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -41,6 +41,7 @@ class DiskSource:
 
     def _getFile(self, create=0):
         # Virtual
+        # pylint: disable=W0613,R0201
         return None
 
     def _loadFile(self, filename):
@@ -136,13 +137,15 @@ class ChannelDiskSource(DiskSource):
             createPath(dirname)
         return os.path.join(dirname, self._file_name())
 
-    def _file_name(self):
+    @staticmethod
+    def _file_name():
         return "channel.xml"
 
 
 class ChannelCompsDiskSource(ChannelDiskSource):
 
-    def _file_name(self):
+    @staticmethod
+    def _file_name():
         return "comps.xml"
 
 
@@ -155,14 +158,14 @@ class ShortPackageDiskSource(DiskSource):
         self.id = None
         self._file_suffix = ".xml"
 
-    def setID(self, id):
-        self.id = id
+    def setID(self, pid):
+        self.id = pid
 
     # limited dict behaviour
-    def has_key(self, id):
+    def has_key(self, pid):
         # Save the old id
         old_id = self.id
-        self.id = id
+        self.id = pid
         f = self._getFile()
         # Restore the old id
         self.id = old_id
@@ -253,7 +256,8 @@ class MetadataDiskSource:
     def __init__(self, mountpoint):
         self.mountpoint = mountpoint
 
-    def is_disk_loader(self):
+    @staticmethod
+    def is_disk_loader():
         return True
 
     def getArchesXmlStream(self):
@@ -276,7 +280,7 @@ class MetadataDiskSource:
         sourcer.setChannel(label)
         return sourcer.load()
 
-    def getChannelXmlStream(self, labels):
+    def getChannelXmlStream(self):
         sourcer = ChannelDiskSource(self.mountpoint)
         channels = sourcer.list()
         stream_list = []

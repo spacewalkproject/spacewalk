@@ -1,4 +1,4 @@
-# Copyright (c) 2010--2011 Red Hat, Inc.
+# Copyright (c) 2010--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -12,8 +12,14 @@
 # in this software or its documentation.
 #
 
-import gudev
-import glib
+try:
+    from gi.repository import GUdev
+    gi_gudev = True
+except ImportError:
+    import gudev
+    import glib
+    gi_gudev = False
+
 import os
 import re
 
@@ -30,7 +36,10 @@ def get_devices():
         'desc' : 'Intel Corporation|5000 Series Chipset PCI Express x4 Port 2'
     """
     # listen to uevents on all subsystems
-    client = gudev.Client([""])
+    if gi_gudev:
+        client = GUdev.Client()
+    else:
+        client = gudev.Client([""])
     # FIX ME - change to None to list all devices once it is fixed in gudev
     devices = client.query_by_subsystem("pci") + client.query_by_subsystem("usb") + client.query_by_subsystem("block") + client.query_by_subsystem("ccw") + client.query_by_subsystem("scsi")
     result = []
@@ -80,7 +89,6 @@ def get_devices():
                 result_item['prop1'] = device.get_property('ID_VENDOR_ID')
            if device.has_property('ID_MODEL_ID'):
                 result_item['prop2'] = device.get_property('ID_MODEL_ID')
-
         if device.has_property('ID_BUS') and device.get_property('ID_BUS') == 'scsi':
             if device.has_property('ID_PATH') or device.has_property('DEVPATH'):
                 if device.has_property('ID_PATH'):
@@ -94,7 +102,6 @@ def get_devices():
                     result_item['prop2'] = m.group(2) # DEV_ID
                     result_item['prop3'] = m.group(3) # DEV_CHANNEL
                     result_item['prop4'] = m.group(4) # DEV_LUN
-
         result.append(result_item)
     return result
 

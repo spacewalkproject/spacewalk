@@ -74,7 +74,7 @@ class SSLSocket:
         """
         if not os.access(file, os.R_OK):
             raise ValueError, "Unable to read certificate file %s" % file
-        self._trusted_certs.append(file)
+        self._trusted_certs.append(file.encode("utf-8"))
 
     def init_ssl(self):
         """

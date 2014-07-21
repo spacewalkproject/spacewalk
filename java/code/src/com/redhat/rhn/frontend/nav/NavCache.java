@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,7 +30,8 @@ import java.util.Map;
 
 public class NavCache {
     // the cache itself; a nice, happy, synchronized map
-    private static Map cache = Collections.synchronizedMap(new HashMap());
+    private static Map<URL, NavTree> cache = Collections
+            .synchronizedMap(new HashMap<URL, NavTree>());
 
     /** Private constructor, this is a utility cass  */
     private NavCache() {
@@ -43,7 +44,7 @@ public class NavCache {
      * @throws Exception if an error occurs building the tree.
      */
     public static NavTree getTree(URL url) throws Exception {
-        NavTree ret = (NavTree)cache.get(url);
+        NavTree ret = cache.get(url);
 
         if (ret != null) {
             return ret;

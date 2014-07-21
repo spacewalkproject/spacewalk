@@ -2,7 +2,7 @@
 #-------------------------------------------------------------------------------
 # This module contains the functionality for providing local packages.
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -97,12 +97,18 @@ class Repository(rhnRepository.Repository):
             log_error("Package not in mapping: %s" % pkgFilename)
             raise rhnFault(17, _("Invalid RPM package requested: %s")
                                  % pkgFilename)
-        filePath = "%s/%s" % (CFG.PKG_DIR, mapping[pkgFilename])
-        log_debug(4, "File path", filePath)
-        if not os.access(filePath, os.R_OK):
-            log_debug(4, "Package not found locally: %s" % pkgFilename)
-            raise NotLocalError(filePath, pkgFilename)
-        return filePath
+        # A list of possible file paths. Always a list, channel mappings are
+        # cleared on package upgrade so we don't have to worry about the old
+        # behavior of returning a string
+        filePaths = mapping[pkgFilename]
+        # Can we see a file at any of the possible filepaths?
+        for filePath in filePaths:
+            filePath = "%s/%s" % (CFG.PKG_DIR, filePath)
+            log_debug(4, "File path", filePath)
+            if os.access(filePath, os.R_OK):
+                return filePath
+        log_debug(4, "Package not found locally: %s" % pkgFilename)
+        raise NotLocalError(filePaths[0], pkgFilename)
 
 
     def getSourcePackagePath(self, pkgFilename):
@@ -144,13 +150,14 @@ class Repository(rhnRepository.Repository):
             nvrea = list(parseRPMName(pkgFilename[:-10]))
             nvrea.append("nosrc")
 
-        filePath = computePackagePath(nvrea, source=1, prepend=PREFIX)
-        filePath = "%s/%s" % (CFG.PKG_DIR, filePath)
-        log_debug(4, "File path", filePath)
-        if not os.access(filePath, os.R_OK):
-            log_debug(4, "Source package not found locally: %s" % pkgFilename)
-            raise NotLocalError(filePath, pkgFilename)
-        return filePath
+        filePaths = computePackagePaths(nvrea, source=1, prepend=PREFIX)
+        for filePath in filePaths:
+            filePath = "%s/%s" % (CFG.PKG_DIR, filePath)
+            log_debug(4, "File path", filePath)
+            if os.access(filePath, os.R_OK):
+                return filePath
+        log_debug(4, "Source package not found locally: %s" % pkgFilename)
+        raise NotLocalError(filePaths[0], pkgFilename)
 
     def _cacheObj(self, fileName, version, dataProducer, params=None):
         """ The real workhorse for all flavors of listall
@@ -196,19 +203,28 @@ class Repository(rhnRepository.Repository):
             os.makedirs(PKG_LIST_DIR)
         return PKG_LIST_DIR
 
-    def __channelPackageMapping(self):
-        """ fetch package list on behalf of the client """
-
-        log_debug(6, self.rhnParentXMLRPC, self.httpProxy, self.httpProxyUsername, self.httpProxyPassword)
-        log_debug(6, self.clientInfo)
+    def _listPackages(self):
+        """ Generates a list of objects by calling the function """
         server = rpclib.GETServer(self.rhnParentXMLRPC, proxy=self.httpProxy,
             username=self.httpProxyUsername, password=self.httpProxyPassword,
             headers=self.clientInfo)
         if self.caChain:
             server.add_trusted_cert(self.caChain)
+        return server.listAllPackagesChecksum(self.channelName,
+                self.channelVersion)
 
-        packageList = listPackages(server.listAllPackages, self.channelName,
-                                   self.channelVersion)
+    def __channelPackageMapping(self):
+        """ fetch package list on behalf of the client """
+
+        log_debug(6, self.rhnParentXMLRPC, self.httpProxy, self.httpProxyUsername, self.httpProxyPassword)
+        log_debug(6, self.clientInfo)
+
+        try:
+            packageList = self._listPackages()
+        except xmlrpclib.ProtocolError, e:
+            errcode, errmsg = rpclib.reportError(e.headers)
+            raise rhnFault(1000, "SpacewalkProxy error (xmlrpclib.ProtocolError): "
+                    "errode=%s; errmsg=%s" % (errcode, errmsg)), None, sys.exc_info()[2]
 
         # Hash the list
         _hash = {}
@@ -221,12 +237,150 @@ class Repository(rhnRepository.Repository):
 
             filename = "%s-%s-%s.%s.%s" % (package[0], package[1],
                 package[2], package[4], extension)
-            filePath = computePackagePath(package, source=0, prepend=PREFIX)
-            _hash[filename] = filePath
+            # if the package contains checksum info
+            if len(package) > 6:
+                filePaths = computePackagePaths(package, source=0,
+                        prepend=PREFIX, checksum=package[7])
+            else:
+                filePaths = computePackagePaths(package, source=0,
+                        prepend=PREFIX)
+            _hash[filename] = filePaths
 
         if CFG.DEBUG > 4:
             log_debug(5, "Mapping: %s[...snip snip...]%s" % (str(_hash)[:40], str(_hash)[-40:]))
         return cPickle.dumps(_hash, 1)
+
+class KickstartRepository(Repository):
+    """ Kickstarts always end up pointing to a channel that they're getting
+    rpms from. Lookup what channel that is and then just use the regular
+    repository """
+
+    def __init__(self, kickstart, clientInfo, rhnParent=None,
+            rhnParentXMLRPC=None, httpProxy=None, httpProxyUsername=None,
+            httpProxyPassword=None, caChain=None, orgId=None, child=None,
+            session=None, systemId=None):
+        log_debug(3, kickstart)
+
+        self.systemId = systemId
+        self.kickstart = kickstart
+        self.ks_orgId = orgId
+        self.ks_child = child
+        self.ks_session = session
+
+        # have to look up channel name and version for this kickstart
+        # we have no equievanet to the channel version for kickstarts,
+        # expire the cache after an hour
+        fileName = "kickstart_mapping:%s-%s-%s-%s:" % (str(kickstart),
+                str(orgId), str(child), str(session))
+
+        mapping = self._lookupKickstart(fileName, rhnParentXMLRPC, httpProxy,
+                httpProxyUsername, httpProxyPassword, caChain)
+        Repository.__init__(self, mapping['channel'], mapping['version'],
+                clientInfo, rhnParent, rhnParentXMLRPC, httpProxy,
+                httpProxyUsername, httpProxyPassword, caChain)
+
+    def _lookupKickstart(self, fileName, rhnParentXMLRPC, httpProxy,
+            httpProxyUsername, httpProxyPassword, caChain):
+        fileDir = self._getPkgListDir()
+        filePath = "%s/%s-1" % (fileDir, fileName)
+        mapping = None
+        if os.access(filePath, os.R_OK):
+            # Slurp the file
+            f = open(filePath, "r")
+            mapping = cPickle.loads(f.read())
+            f.close()
+
+        now = int(time.time())
+        if not mapping or mapping['expires'] < now:
+            # Can't use the normal GETServer handler because there is no client
+            # to auth. Instead this is something the Proxy has to be able to
+            # do, so read the serverid and send that up.
+            server = rpclib.Server(rhnParentXMLRPC, proxy=httpProxy,
+                    username=httpProxyUsername, password=httpProxyPassword)
+            if caChain:
+                server.add_trusted_cert(caChain)
+            try:
+                response = self._getMapping(server)
+                mapping =  {'channel': str(response['label']),
+                            'version': str(response['last_modified']),
+                            'expires': int(time.time()) + 3600} #1 hour from now
+            except Exception:
+                # something went wrong. Punt, we just won't serve this request
+                # locally
+                raise NotLocalError
+
+            # Cache the thing
+            cache(cPickle.dumps(mapping, 1), fileDir, fileName, "1")
+
+        return mapping
+
+    def _listPackages(self):
+        """ Generates a list of objects by calling the function"""
+        # Can't use the normal GETServer handler because there is no client
+        # to auth. Instead this is something the Proxy has to be able to do,
+        # so read the serverid and send that up.
+        server = rpclib.Server(self.rhnParentXMLRPC, proxy=self.httpProxy,
+            username=self.httpProxyUsername, password=self.httpProxyPassword)
+        if self.caChain:
+            server.add_trusted_cert(self.caChain)
+        # Versionless package listing from Server. This saves us from erroring
+        # unnecessarily if the channel has changed since the kickstart mapping.
+        # No problem, newer channel listings will work fine with kickstarts
+        # unless they have removed the kernel or something, in which case it's
+        # not supposed to work.
+        # Worst case scenario is that we cache listing using an older version
+        # than it actually is, and the next time we serve a file from the
+        # regular Repository it'll get replace with the same info but newer
+        # version in filename.
+        return server.proxy.listAllPackagesKickstart(self.channelName,
+                self.systemId)
+
+    def _getMapping(self, server):
+        """ Generate a hash that tells us what channel this
+        kickstart is looking at. We have no equivalent to channel version,
+        so expire the cached file after an hour."""
+        if self.ks_orgId:
+            return server.proxy.getKickstartOrgChannel(self.kickstart,
+                    self.ks_orgId, self.systemId)
+        elif self.ks_session:
+            return server.proxy.getKickstartSessionChannel(self.kickstart,
+                    self.ks_session, self.systemId)
+        elif self.ks_child:
+            return server.proxy.getKickstartChildChannel(self.kickstart,
+                    self.ks_child, self.systemId)
+        else:
+            return server.proxy.getKickstartChannel(self.kickstart,
+                    self.systemId)
+
+class TinyUrlRepository(KickstartRepository):
+    # pylint: disable=W0233,W0231
+    """ TinyURL kickstarts have actually already made a HEAD request up to the
+    Satellite to to get the checksum for the rpm, however we can't just use
+    that data because the epoch information is not in the filename so we'd
+    never find files with a non-None epoch. Instead do the same thing we do
+    for non-tiny-urlified kickstarts and look up what channel it maps to."""
+
+    def __init__(self, tinyurl, clientInfo, rhnParent=None,
+            rhnParentXMLRPC=None, httpProxy=None, httpProxyUsername=None,
+            httpProxyPassword=None, caChain=None, systemId=None):
+        log_debug(3, tinyurl)
+
+        self.systemId = systemId
+        self.tinyurl = tinyurl
+
+        # have to look up channel name and version for this kickstart
+        # we have no equievanet to the channel version for kickstarts,
+        # expire the cache after an hour
+        fileName = "tinyurl_mapping:%s:" % (str(tinyurl))
+
+        mapping = self._lookupKickstart(fileName, rhnParentXMLRPC, httpProxy,
+                httpProxyUsername, httpProxyPassword, caChain)
+        Repository.__init__(self, mapping['channel'], mapping['version'],
+                clientInfo, rhnParent, rhnParentXMLRPC, httpProxy,
+                httpProxyUsername, httpProxyPassword, caChain)
+
+    def _getMapping(self, server):
+        return server.proxy.getTinyUrlChannel(self.tinyurl, self.systemId)
 
 def isSolarisArch(arch):
     """
@@ -234,19 +388,9 @@ def isSolarisArch(arch):
     """
     return arch.find("solaris") != -1
 
-def listPackages(function, channel, version):
-    """ Generates a list of objects by calling the function """
-
-    try:
-        return function(channel, version)
-    except xmlrpclib.ProtocolError, e:
-        errcode, errmsg = rpclib.reportError(e.headers)
-        raise rhnFault(1000, "SpacewalkProxy error (xmlrpclib.ProtocolError): "
-                             "errode=%s; errmsg=%s" % (errcode, errmsg)), None, sys.exc_info()[2]
-
-
-def computePackagePath(nvrea, source=0, prepend=""):
-    """ Finds the appropriate path, prepending something if necessary """
+def computePackagePaths(nvrea, source=0, prepend="", checksum=None):
+    """ Finds the appropriate paths, prepending something if necessary """
+    paths = []
     name = nvrea[0]
     release = nvrea[2]
 
@@ -264,11 +408,22 @@ def computePackagePath(nvrea, source=0, prepend=""):
     epoch = nvrea[3]
     if epoch not in [None, '']:
         version = str(epoch) + ':' + version
+    # The new prefered path template avoides collisions if packages with the
+    # same nevra but different checksums are uploaded. It also should be the
+    # same as the /var/satellite/redhat/NULL/* paths upstream.
+    # We can't reliably look up the checksum for source packages, so don't
+    # use it in the source path.
+    if checksum and not source:
+        checksum_template = prepend + "/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s"
+        checksum_template = '/'.join(filter(truth, checksum_template.split('/')))
+        paths.append(checksum_template % (checksum[:3], name, version, release,
+            dirarch, checksum, name, nvrea[1], release, pkgarch, extension))
     template = prepend + "/%s/%s-%s/%s/%s-%s-%s.%s.%s"
     # Sanitize the path: remove duplicated /
     template = '/'.join(filter(truth, template.split('/')))
-    return template % (name, version, release, dirarch, name, nvrea[1],
-        release, pkgarch, extension)
+    paths.append(template % (name, version, release, dirarch, name, nvrea[1],
+        release, pkgarch, extension))
+    return paths
 
 def cache(stringObject, directory, filename, version):
     """ Caches stringObject into a file and removes older files """

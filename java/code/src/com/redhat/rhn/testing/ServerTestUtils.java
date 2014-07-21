@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,6 +32,7 @@ import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
+import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.server.test.VirtualInstanceManufacturer;
@@ -69,8 +70,21 @@ public class ServerTestUtils {
      * @throws Exception if error
      */
     public static Server createTestSystem(User creator) throws Exception {
-        Server retval = ServerFactoryTest.createTestServer(creator, true,
-                ServerConstants.getServerGroupTypeEnterpriseEntitled());
+        return createTestSystem(creator,
+            ServerConstants.getServerGroupTypeEnterpriseEntitled());
+    }
+
+    /**
+     * Create a test system that has a base channel in a certain server group
+     * type.
+     * @param creator who owns the server
+     * @param serverGroupType the server group type
+     * @return Server created
+     * @throws Exception if error
+     */
+    public static Server createTestSystem(User creator, ServerGroupType serverGroupType)
+        throws Exception {
+        Server retval = ServerFactoryTest.createTestServer(creator, true, serverGroupType);
         Channel baseChannel = ChannelTestUtils.createBaseChannel(creator);
         retval.addChannel(baseChannel);
         ServerFactory.save(retval);

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013 Red Hat, Inc.
+ * Copyright (c) 2013--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -91,6 +91,7 @@ public class IconTag extends TagSupport {
         icons.put("header-package-del", "fa spacewalk-icon-package-delete");
         icons.put("header-package-extra", "fa spacewalk-icon-package-extra");
         icons.put("header-package-upgrade", "fa spacewalk-icon-package-upgrade");
+        icons.put("header-power", "fa fa-power-off");
         icons.put("header-preferences", "fa fa-cogs");
         icons.put("header-proxy", "fa spacewalk-icon-proxy");
         icons.put("header-refresh", "fa fa-refresh");

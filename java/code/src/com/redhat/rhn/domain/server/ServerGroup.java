@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -123,11 +123,10 @@ public class ServerGroup extends BaseDomainHelper
      * want you to modify this set.
      * @return a list of Servers which are members of the group.
      */
-    public List getServers() {
+    public List<Server> getServers() {
         return ServerGroupManager.getInstance().
                                 listServers(this);
     }
-
 
     /**
      * Returns true if this server group is a User Managed

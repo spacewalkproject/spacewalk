@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -61,7 +61,7 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
         pc.setPageSize(50);
         pc.setStart(1);
         boolean isThere = false;
-        DataResult dr = SystemManager.systemList(user, pc);
+        DataResult<SystemOverview> dr = SystemManager.systemList(user, pc);
 
         LocalizationService ls = LocalizationService.getInstance();
         // TODO: This looks a bit on the fragile side:
@@ -108,11 +108,11 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
 
     }
 
-    private boolean findStatus(DataResult dr, String status, Long sid) {
+    private boolean findStatus(DataResult<SystemOverview> dr, String status, Long sid) {
         boolean isThere = false;
-        Iterator i = dr.iterator();
+        Iterator<SystemOverview> i = dr.iterator();
         while (i.hasNext() && !isThere) {
-            SystemOverview next = (SystemOverview)i.next();
+            SystemOverview next = i.next();
             if ((next.getId().longValue() == sid.longValue())) {
                 isThere = true;
             }

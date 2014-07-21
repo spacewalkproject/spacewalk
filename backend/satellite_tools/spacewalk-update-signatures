@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # Authors: Pradeep Kilambi
 #
@@ -82,7 +82,7 @@ def process_package_data():
     global verbose, debug
 
     if debug:
-        Log = rhnLog.rhnLog('/var/log/rhn/update-packages.log', 5)
+        Log = rhnLog('/var/log/rhn/update-packages.log', 5)
 
     _get_path_sql = rhnSQL.prepare(_get_needed_pkgs_query)
 

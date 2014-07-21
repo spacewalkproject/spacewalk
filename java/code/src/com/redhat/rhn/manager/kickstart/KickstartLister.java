@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -91,7 +91,7 @@ public class KickstartLister extends BaseManager {
         SelectMode m = ModeFactory.getMode("General_queries", "kickstarts_for_org");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         DataResult<KickstartDto> returnDataResult = makeDataResult(params,
                                                             elabParams, pc, m);
         if (logger.isDebugEnabled()) {
@@ -194,7 +194,7 @@ public class KickstartLister extends BaseManager {
         SelectMode m = ModeFactory.getMode("General_queries", "org_ks_ip_ranges");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         DataResult returnDataResult = makeDataResult(params, elabParams, pc, m);
         if (logger.isDebugEnabled()) {
             logger.debug("kickstartIpRangesInOrg(Org, PageControl) - end - return value=" +

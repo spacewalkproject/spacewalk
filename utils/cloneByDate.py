@@ -2,7 +2,7 @@
 #
 # Clonse channels by a particular date
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 #
 # This software is licensed to you under the GNU General Public License,
@@ -141,12 +141,68 @@ def main(options):
     if options.errata:
         errata = set(options.errata)
     for channel_list in options.channels:
+        parents = None
+        if options.parents:
+            # if only the dest parent is specified, look up the src parent
+            if len(options.parents) == 1:
+                src_parent = xmlrpc.get_original(options.parents[0])
+                if not src_parent:
+                    print ("Channel %s is not a cloned channel." % options.parents[0])
+                    sys.exit(1)
+                print "Looking up the original channel for %s, %s found" % (
+                        options.parents[0], src_parent)
+                options.parents = [src_parent] + options.parents
+            # options.parents is only set by command line, this must be the
+            # only channel tree
+            parents = options.parents
+
+        # Handle the new-style channel specification that uses
+        # key value pairs. Transform into channel / parent setup that
+        # ChannelTreeCloner expects. This code has to be here now that you can
+        # specify parents for multiple trees.
+        # TODO: the channel / parents structure needs to be cleaned up throught
+        # clone-by-date. Probably best thing would to make everywhere use the
+        # dict structure instead of the list structure.
+        for src_channel in channel_list.keys():
+            dest_channel = channel_list[src_channel]
+            # new-style config file channel specification
+            if type(dest_channel) == dict:
+                if 'label' not in dest_channel:
+                    raise UserError("You must specify a label for the clone of %s" % src_channel)
+                label = dest_channel['label']
+                if 'name' in dest_channel:
+                    name = dest_channel['name']
+                else:
+                    name = label
+                if 'summary' in dest_channel:
+                    summary = dest_channel['summary']
+                else:
+                    summary = label
+                if 'description' in dest_channel:
+                    description = dest_channel['description']
+                else:
+                    description = label
+                # This is the options.parents equivalent for config files.
+                # Add channels to parents option and remove from channels.
+                if ('existing-parent-do-not-modify' in dest_channel
+                       and dest_channel['existing-parent-do-not-modify']):
+                    parents = [src_channel, label]
+                    del channel_list[src_channel]
+                else: # else tranform channel_list entry to the list format
+                    channel_list[src_channel] = [label, name, summary,
+                            description]
+
         # before we start make sure we can get repodata for all channels
         # involved.
         channel_labels = channel_list.keys()
         for label in channel_labels:
             if not os.path.exists(repodata(label)):
                 raise UserRepoError(label)
+        # ensure the parent's channel metadata is available
+        if parents:
+            for label in parents:
+                if not os.path.exists(repodata(label)):
+                    raise UserRepoError(label)
 
         # if cloning specific errata validate that they actually exist
         # in the original channels
@@ -161,18 +217,12 @@ def main(options):
                             (channel, errata - channel_errata))
                     sys.exit(1)
 
-        if options.parents:
-            tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db,
-                    options.to_date, options.blacklist,
-                    options.removelist, options.background,
-                    options.security_only, options.use_update_date,
-                    options.no_errata_sync, errata, options.parents)
-        else:
-            tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db,
-                    options.to_date, options.blacklist,
-                    options.removelist, options.background,
-                    options.security_only,options.use_update_date,
-                    options.no_errata_sync, errata)
+
+        tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db,
+                options.to_date, options.blacklist,
+                options.removelist, options.background,
+                options.security_only, options.use_update_date,
+                options.no_errata_sync, errata, parents)
 
         cloners.append(tree_cloner)
         needed_channels += tree_cloner.needing_create().values()
@@ -196,6 +246,24 @@ def main(options):
 
     for tree_cloner in cloners:
         tree_cloner.prepare()
+
+    if options.dry_run:
+        for tree_cloner in cloners:
+            d_errata = {}
+            separator = "|"
+            d_errata = tree_cloner.get_errata_to_clone()
+            now = datetime.datetime.now()
+            for ch in  d_errata:
+                log_file = ch + "_" + now.strftime("%Y-%m-%d-%H:%M")
+                print "# Log file: " + log_file
+                fh = open(log_file, 'w')
+                for errata in d_errata[ch]:
+                    line = ""
+                    for item in list(set(errata) - set(['id'])):
+                        line = line + str(errata[item]) + separator
+                    fh.write(line + "\n")
+                fh.close()
+        sys.exit(0)
 
     print "\nBy continuing the following will be cloned:"
     total = 0
@@ -345,7 +413,10 @@ class ChannelTreeCloner:
                 if (self.channel_details[channel]['parent_channel_label']
                         != parent):
                     raise UserError(("Child channel '%s' is not a child of "
-                            + "parent channel '%s'") % (channel, parent))
+                            + "parent channel '%s'. If you are using --config "
+                            + "ensure you have not specified "
+                            + "existing-parent-do-not-modify on a child "
+                            + "channel.") % (channel, parent))
 
     def find_parent(self, label_list):
         found_list = []
@@ -374,6 +445,13 @@ class ChannelTreeCloner:
         self.validate_dest_channels()
         for cloner in self.cloners:
             cloner.prepare()
+
+    def get_errata_to_clone(self):
+        d_result = {}
+        for cloner in self.cloners:
+            d_result[cloner.src_label() + "_to_" + cloner.dest_label()] = \
+            cloner.get_errata_to_clone()
+        return d_result
 
     def pre_summary(self):
         for cloner in self.cloners:
@@ -516,6 +594,9 @@ class ChannelCloner:
 
     def pending(self):
         return len(self.errata_to_clone)
+
+    def get_errata_to_clone(self):
+        return self.errata_to_clone
 
     def pre_summary(self):
         print "  %s -> %s  (%i/%i Errata)" % (self.from_label, self.to_label,
@@ -793,6 +874,11 @@ class RemoteApi:
         errata = self.client.channel.software.listErrata(self.auth_token,
                 channel_label)
         return [erratum['advisory_name'] for erratum in errata]
+
+    def get_original(self, clone_label):
+        self.auth_check()
+        return self.client.channel.software.getDetails(self.auth_token,
+                clone_label)['clone_original']
 
 
 class DBApi:

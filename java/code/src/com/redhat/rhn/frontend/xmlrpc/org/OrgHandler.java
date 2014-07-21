@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -96,7 +96,7 @@ public class OrgHandler extends BaseHandler {
 
     /**
      * Create a new organization.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgName Organization name. Must meet same criteria as in the web UI.
      * @param adminLogin New administrator login name for the new org.
      * @param adminPassword New administrator password.
@@ -122,11 +122,11 @@ public class OrgHandler extends BaseHandler {
      * should be used for the new administrator account.")
      * @xmlrpc.returntype $OrgDtoSerializer
      */
-    public OrgDto create(String sessionKey, String orgName, String adminLogin,
+    public OrgDto create(User loggedInUser, String orgName, String adminLogin,
             String adminPassword, String prefix, String firstName, String lastName,
             String email, Boolean usePamAuth) {
         log.debug("OrgHandler.create");
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
 
         validateCreateOrgData(orgName, adminPassword, firstName, lastName, email,
                 usePamAuth);
@@ -189,22 +189,22 @@ public class OrgHandler extends BaseHandler {
 
     /**
      * Returns the list of organizations.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @return list of orgs.
      * @xmlrpc.doc Returns the list of organizations.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
      * $OrgDtoSerializer
      */
-    public List<OrgDto> listOrgs(String sessionKey) {
-        User user  = getSatAdmin(sessionKey);
-        return OrgManager.activeOrgs(user);
+    public List<OrgDto> listOrgs(User loggedInUser) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
+        return OrgManager.activeOrgs(loggedInUser);
     }
 
     /**
      * Delete an organization.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId ID of organization to delete.
      * @return 1 on success, exception thrown otherwise.
      *
@@ -214,8 +214,8 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int delete(String sessionKey, Integer orgId) {
-        User user = getSatAdmin(sessionKey);
+    public int delete(User loggedInUser, Integer orgId) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
 
         // Verify we're not trying to delete the default org (id 1):
@@ -224,7 +224,7 @@ public class OrgHandler extends BaseHandler {
             throw new SatelliteOrgException();
         }
 
-        OrgFactory.deleteOrg(org.getId(), user);
+        OrgFactory.deleteOrg(org.getId(), loggedInUser);
 
         return 1;
     }
@@ -263,7 +263,7 @@ public class OrgHandler extends BaseHandler {
 
     /**
      * Returns the list of active users in a given organization
-     * @param sessionKey Caller's session key.
+     * @param loggedInUser The current user
      * @param orgId the orgId of the organization to lookup on.
      * @return the list of users in a organization.
      * @xmlrpc.doc Returns the list of users in a given organization.
@@ -274,8 +274,8 @@ public class OrgHandler extends BaseHandler {
      *     $MultiOrgUserOverviewSerializer
      *   #array_end()
      */
-    public List listUsers(String sessionKey, Integer orgId) {
-        getSatAdmin(sessionKey);
+    public List listUsers(User loggedInUser, Integer orgId) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         verifyOrgExists(orgId);
         return OrgManager.activeUsers(Long.valueOf(orgId));
     }
@@ -283,7 +283,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * Returns the detailed information about an organization
      * given the org_id.
-     * @param sessionKey Caller's session key.
+     * @param loggedInUser The current user
      * @param orgId the orgId of the organization to lookup on.
      * @return the list of users in a organization.
      *
@@ -293,15 +293,15 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.returntype $OrgDtoSerializer
      */
-    public OrgDto getDetails(String sessionKey, Integer orgId) {
-        getSatAdmin(sessionKey);
+    public OrgDto getDetails(User loggedInUser, Integer orgId) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         return OrgManager.toDetailsDto(verifyOrgExists(orgId));
     }
 
     /**
      * Returns the detailed information about an organization
      * given the org_name.
-     * @param sessionKey Caller's session key.
+     * @param loggedInUser The current user
      * @param name the name of the organization to lookup on.
      * @return the list of users in a organization.
      *
@@ -311,14 +311,14 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "name")
      * @xmlrpc.returntype $OrgDtoSerializer
      */
-    public OrgDto getDetails(String sessionKey, String name) {
-        getSatAdmin(sessionKey);
+    public OrgDto getDetails(User loggedInUser, String name) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         return OrgManager.toDetailsDto(verifyOrgExists(name));
     }
 
     /**
      *
-     * @param sessionKey Caller's session key.
+     * @param loggedInUser The current user
      * @param orgId the orgId of the organization to set name on
      * @param name the new name for the org.
      * @return the updated org.
@@ -330,8 +330,8 @@ public class OrgHandler extends BaseHandler {
      * criteria as in the web UI.")
      * @xmlrpc.returntype $OrgDtoSerializer
      */
-    public OrgDto updateName(String sessionKey, Integer orgId, String name) {
-        getSatAdmin(sessionKey);
+    public OrgDto updateName(User loggedInUser, Integer orgId, String name) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
         if (!org.getName().equals(name)) {
             try {
@@ -346,34 +346,10 @@ public class OrgHandler extends BaseHandler {
     }
 
     /**
-     * Convenience method to get the loggedInUser
-     * and ensure the logged in user is a SatelliteAdmin
-     * @param sessionKey  User's session key.
-     * @return the logged in user with him guaranteed to be satellite admin.
-     */
-    private User getSatAdmin(String sessionKey) {
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        ensureUserRole(user, RoleFactory.SAT_ADMIN);
-        return user;
-    }
-
-    /**
-     * Convenience method to get the loggedInUser
-     * and ensure the logged in user is an Org admin
-     * @param sessionKey  User's session key.
-     * @return the logged in user with him guaranteed to be org admin.
-     */
-    private User getOrgAdmin(String sessionKey) {
-        User user = BaseHandler.getLoggedInUser(sessionKey);
-        ensureUserRole(user, RoleFactory.ORG_ADMIN);
-        return user;
-    }
-
-    /**
      * Lists software entitlement allocation/distribution information
      *  across all organizations.
      * User needs to be a satellite administrator to get this information
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @return Array of MultiOrgEntitlementsDto.
      *
      * @xmlrpc.doc List software entitlement allocation information
@@ -385,8 +361,8 @@ public class OrgHandler extends BaseHandler {
      *      $MultiOrgEntitlementsDtoSerializer
      *   #array_end()
      */
-    public List<MultiOrgEntitlementsDto> listSoftwareEntitlements(String sessionKey) {
-        getSatAdmin(sessionKey);
+    public List<MultiOrgEntitlementsDto> listSoftwareEntitlements(User loggedInUser) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         return ChannelManager.entitlementsForAllMOrgs();
     }
 
@@ -395,7 +371,7 @@ public class OrgHandler extends BaseHandler {
      * List an organization's allocation for each software entitlement.
      * A value of -1 indicates unlimited entitlements.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId Organization ID
      * @return Array of maps.
      *
@@ -409,10 +385,10 @@ public class OrgHandler extends BaseHandler {
      *      $OrgChannelFamilySerializer
      *   #array_end()
      */
-    public List<OrgChannelFamily> listSoftwareEntitlementsForOrg(String sessionKey,
+    public List<OrgChannelFamily> listSoftwareEntitlementsForOrg(User loggedInUser,
             Integer orgId) {
 
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
 
         return ChannelManager.listChannelFamilySubscriptionsFor(org);
@@ -423,7 +399,7 @@ public class OrgHandler extends BaseHandler {
      * Organizations with no allocations will not be present in the list. A value of -1
      * indicates unlimited entitlements.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param channelFamilyLabel Software entitlement label.
      * @return Array of maps.
      * @deprecated being replaced by listSoftwareEntitlements(string sessionKey,
@@ -441,23 +417,23 @@ public class OrgHandler extends BaseHandler {
      *   #array_end()
      */
     @Deprecated
-    public List<OrgSoftwareEntitlementDto> listSoftwareEntitlements(String sessionKey,
+    public List<OrgSoftwareEntitlementDto> listSoftwareEntitlements(User loggedInUser,
             String channelFamilyLabel) {
 
-        User user = getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
 
         ChannelFamily cf = ChannelFamilyFactory.lookupByLabel(channelFamilyLabel, null);
         if (cf == null) {
             throw new InvalidEntitlementException();
         }
-        return ChannelManager.listEntitlementsForAllOrgs(cf, user);
+        return ChannelManager.listEntitlementsForAllOrgs(cf, loggedInUser);
     }
 
     /**
      * List each organization's allocation of a given software entitlement.
      * A value of -1 indicates unlimited entitlements.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param channelFamilyLabel Software entitlement label.
      * @param includeUnentitled If true, the result will include both organizations
      * that have the entitlement as well as those that do not; otherwise, the
@@ -478,10 +454,10 @@ public class OrgHandler extends BaseHandler {
      *     $OrgSoftwareEntitlementDtoSerializer
      *   #array_end()
      */
-    public List<OrgSoftwareEntitlementDto> listSoftwareEntitlements(String sessionKey,
+    public List<OrgSoftwareEntitlementDto> listSoftwareEntitlements(User loggedInUser,
             String channelFamilyLabel, Boolean includeUnentitled) {
 
-        User user = getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
 
         ChannelFamily cf = ChannelFamilyFactory.lookupByLabel(channelFamilyLabel, null);
         if (cf == null) {
@@ -489,9 +465,9 @@ public class OrgHandler extends BaseHandler {
         }
 
         if (includeUnentitled) {
-            return ChannelManager.listEntitlementsForAllOrgsWithEmptyOrgs(cf, user);
+            return ChannelManager.listEntitlementsForAllOrgsWithEmptyOrgs(cf, loggedInUser);
         }
-        return ChannelManager.listEntitlementsForAllOrgs(cf, user);
+        return ChannelManager.listEntitlementsForAllOrgs(cf, loggedInUser);
     }
 
     /**
@@ -500,7 +476,7 @@ public class OrgHandler extends BaseHandler {
      * If increasing the entitlement allocation, the default organization
      * must have a sufficient number of free entitlements.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId Organization ID to set allocation for.
      * @param channelFamilyLabel Channel family to set allocation for.
      * @param allocation New entitlement allocation.
@@ -518,10 +494,10 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "allocation")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setSoftwareEntitlements(String sessionKey, Integer orgId,
+    public int setSoftwareEntitlements(User loggedInUser, Integer orgId,
             String channelFamilyLabel, Integer allocation) {
 
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
         lookupChannelFamily(channelFamilyLabel);
 
@@ -542,7 +518,7 @@ public class OrgHandler extends BaseHandler {
      * If increasing the entitlement allocation, the default organization
      * must have a sufficient number of free entitlements.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId Organization ID to set allocation for.
      * @param channelFamilyLabel Channel family to set allocation for.
      * @param allocation New  flex entitlement allocation.
@@ -560,10 +536,10 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "allocation")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setSoftwareFlexEntitlements(String sessionKey, Integer orgId,
+    public int setSoftwareFlexEntitlements(User loggedInUser, Integer orgId,
             String channelFamilyLabel, Integer allocation) {
 
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
         lookupChannelFamily(channelFamilyLabel);
 
@@ -597,7 +573,7 @@ public class OrgHandler extends BaseHandler {
      * Lists system entitlement allocation/distribution information
      *  across all organizations.
      * User needs to be a satellite administrator to get this information
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @return Array of SystemEntitlementsDtoSerializer.
      *
      * @xmlrpc.doc Lists system entitlement allocation information
@@ -610,8 +586,8 @@ public class OrgHandler extends BaseHandler {
      *     $SystemEntitlementsDtoSerializer
      *   #array_end()
      */
-    public List<SystemEntitlementsDto> listSystemEntitlements(String sessionKey) {
-        getSatAdmin(sessionKey);
+    public List<SystemEntitlementsDto> listSystemEntitlements(User loggedInUser) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         return OrgManager.allOrgsEntitlements();
     }
 
@@ -620,7 +596,7 @@ public class OrgHandler extends BaseHandler {
      * If the organization has no allocation for a particular entitlement, it will
      * not appear in the list.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param label system entitlement label
      * @return a list of Maps having the system entitlements info.
      * @deprecated being replaced by listSystemEntitlements(string sessionKey,
@@ -645,9 +621,9 @@ public class OrgHandler extends BaseHandler {
      *   #array_end()
      */
     @Deprecated
-    public List<Map> listSystemEntitlements(String sessionKey,
+    public List<Map> listSystemEntitlements(User loggedInUser,
             String label) {
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         verifyEntitlementExists(label);
         DataList<Map> result = OrgManager.allOrgsSingleEntitlement(label);
         List<Map> details = new LinkedList<Map>();
@@ -670,7 +646,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * List an organization's allocation of a system entitlement.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param label System entitlement label.
      * @param includeUnentitled If true, the result will include both organizations
      * that have the entitlement as well as those that do not; otherwise, the
@@ -698,10 +674,10 @@ public class OrgHandler extends BaseHandler {
      *     #struct_end()
      *   #array_end()
      */
-    public List<Map> listSystemEntitlements(String sessionKey,
+    public List<Map> listSystemEntitlements(User loggedInUser,
             String label, Boolean includeUnentitled) {
 
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         verifyEntitlementExists(label);
 
         DataList<Map> result = null;
@@ -732,7 +708,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * List an organization's allocations of each system entitlement.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId Organization ID
      * @return Array of maps.
      *
@@ -745,9 +721,9 @@ public class OrgHandler extends BaseHandler {
      *     $OrgEntitlementDtoSerializer
      *   #array_end()
      */
-    public List<OrgEntitlementDto> listSystemEntitlementsForOrg(String sessionKey,
+    public List<OrgEntitlementDto> listSystemEntitlementsForOrg(User loggedInUser,
             Integer orgId)  {
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
         return OrgManager.listEntitlementsFor(org);
     }
@@ -758,7 +734,7 @@ public class OrgHandler extends BaseHandler {
      * If increasing the entitlement allocation, the default organization
      * (i.e. orgId=1) must have a sufficient number of free entitlements.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId Organization ID to set allocation for.
      * @param systemEntitlementLabel System entitlement to set allocation for.
      * @param allocation New entitlement allocation.
@@ -784,10 +760,10 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "allocation")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setSystemEntitlements(String sessionKey, Integer orgId,
+    public int setSystemEntitlements(User loggedInUser, Integer orgId,
             String systemEntitlementLabel, Integer allocation) {
 
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
 
         Org org = verifyOrgExists(orgId);
 
@@ -816,7 +792,7 @@ public class OrgHandler extends BaseHandler {
      * specified by the toOrgId. In any scenario, the origination and destination
      * organizations must be defined in a trust.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param toOrgId destination organization ID.
      * @param sids System IDs.
      * @return list of systems migrated.
@@ -843,12 +819,12 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.returntype
      * #array_single("int", "serverIdMigrated")
      */
-    public Object[] migrateSystems(String sessionKey, Integer toOrgId,
+    public Object[] migrateSystems(User loggedInUser, Integer toOrgId,
             List<Integer> sids) throws FaultException {
 
         // the user executing the request must at least be an org admin to perform
         // a system migration
-        User admin = getOrgAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.ORG_ADMIN);
 
         Org toOrg = verifyOrgExists(toOrgId);
 
@@ -876,8 +852,8 @@ public class OrgHandler extends BaseHandler {
 
             // unless the user is a satellite admin, they are not permitted to migrate
             // systems from an org that they do not belong to
-            if ((!admin.hasRole(RoleFactory.SAT_ADMIN)) &&
-                    (!admin.getOrg().equals(server.getOrg()))) {
+            if ((!loggedInUser.hasRole(RoleFactory.SAT_ADMIN)) &&
+                    (!loggedInUser.getOrg().equals(server.getOrg()))) {
                 throw new PermissionCheckFailureException(server);
             }
 
@@ -895,7 +871,7 @@ public class OrgHandler extends BaseHandler {
             }
         }
 
-        List<Long> serversMigrated = MigrationManager.migrateServers(admin,
+        List<Long> serversMigrated = MigrationManager.migrateServers(loggedInUser,
                 toOrg, servers);
         return serversMigrated.toArray();
     }
@@ -903,7 +879,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * Get organization wide crash file size limit.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId Organization ID to set the limit for.
      * @return Returns the organization wide crash file size limit.
      *
@@ -914,8 +890,8 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.returntype int - Crash file size limit.
      */
-    public int getCrashFileSizeLimit(String sessionKey, Integer orgId) {
-        getSatAdmin(sessionKey);
+    public int getCrashFileSizeLimit(User loggedInUser, Integer orgId) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
         return org.getOrgConfig().getCrashFileSizelimit().intValue();
     }
@@ -923,7 +899,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * Set organization wide crash file size limit.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId Organization ID to set the limit for.
      * @param limit The limit to set.
      * @return 1 on success.
@@ -936,8 +912,8 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "limit", "The limit to set (non-negative value).")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setCrashFileSizeLimit(String sessionKey, Integer orgId, Integer limit) {
-        getSatAdmin(sessionKey);
+    public int setCrashFileSizeLimit(User loggedInUser, Integer orgId, Integer limit) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
         if (limit < 0) {
             throw new InvalidParameterException("Limit value must be non-negative.");
@@ -950,7 +926,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * Get the status of crash reporting settings for the given organization.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId Organization ID to set the limit for.
      * @return Returns the status of crash reporting settings.
      *
@@ -961,8 +937,8 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.returntype boolean - Get the status of crash reporting settings.
      */
-    public boolean isCrashReportingEnabled(String sessionKey, Integer orgId) {
-        getSatAdmin(sessionKey);
+    public boolean isCrashReportingEnabled(User loggedInUser, Integer orgId) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
         return org.getOrgConfig().isCrashReportingEnabled();
     }
@@ -970,7 +946,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * Set the status of crash reporting settings for the given organization.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId Organization ID to set the limit for.
      * @param enable Boolean to indicate desired settings.
      * @return Returns 1 for successfull change, traceback otherwise.
@@ -983,9 +959,9 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("boolean", "enable", "Use true/false to enable/disable")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer setCrashReporting(String sessionKey, Integer orgId,
+    public Integer setCrashReporting(User loggedInUser, Integer orgId,
                                      Boolean enable) {
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
         if (enable) {
             org.getOrgConfig().setCrashReportingEnabled(enable);
@@ -1001,7 +977,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * Get the status of crash file upload settings for the given organization.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId Organization ID to set the limit for.
      * @return Returns the status of crash file upload settings.
      *
@@ -1012,8 +988,8 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.returntype boolean - Get the status of crash file upload settings.
      */
-    public boolean isCrashfileUploadEnabled(String sessionKey, Integer orgId) {
-        getSatAdmin(sessionKey);
+    public boolean isCrashfileUploadEnabled(User loggedInUser, Integer orgId) {
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
         return org.getOrgConfig().isCrashfileUploadEnabled();
     }
@@ -1021,7 +997,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * Set the status of crash file upload settings for the given organization.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId Organization ID to set the limit for.
      * @param enable Boolean to indicate desired settings.
      * @return Returns 1 for successfull change, 0 if the change failed.
@@ -1034,9 +1010,9 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("boolean", "enable", "Use true/false to enable/disable")
      * @xmlrpc.returntype #return_int_success()
      */
-    public Integer setCrashfileUpload(String sessionKey, Integer orgId,
+    public Integer setCrashfileUpload(User loggedInUser, Integer orgId,
                                       Boolean enable) {
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
         if (org.getOrgConfig().isCrashReportingEnabled()) {
             org.getOrgConfig().setCrashfileUploadEnabled(enable);
@@ -1052,7 +1028,7 @@ public class OrgHandler extends BaseHandler {
      * Get the status of SCAP detailed result file upload settings for the given
      * organization.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId ID of organization to query.
      * @return Returns the status of SCAP detailed result file upload settings.
      *
@@ -1069,9 +1045,9 @@ public class OrgHandler extends BaseHandler {
      *             "Limit (in Bytes) for a single SCAP file upload.")
      *     #struct_end()
      */
-    public Map<String, Object> getPolicyForScapFileUpload(String sessionKey,
+    public Map<String, Object> getPolicyForScapFileUpload(User loggedInUser,
             Integer orgId) {
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("enabled", org.getOrgConfig().isScapfileUploadEnabled());
@@ -1083,7 +1059,7 @@ public class OrgHandler extends BaseHandler {
      * Set the status of SCAP detailed result file upload settings for the given
      * organization.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId ID of organization to work with.
      * @param newSettings New settings of the SCAP detailed result file upload.
      * @return Returns 1 for successfull change.
@@ -1102,14 +1078,14 @@ public class OrgHandler extends BaseHandler {
      *     #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setPolicyForScapFileUpload(String sessionKey, Integer orgId,
+    public int setPolicyForScapFileUpload(User loggedInUser, Integer orgId,
             Map<String, Object> newSettings) {
         Set<String> validKeys = new HashSet<String>();
         validKeys.add("enabled");
         validKeys.add("size_limit");
         validateMap(validKeys, newSettings);
 
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         OrgConfig orgConfig = verifyOrgExists(orgId).getOrgConfig();
         if (newSettings.containsKey("enabled")) {
             Boolean enabled = (Boolean) newSettings.get("enabled");
@@ -1126,7 +1102,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * Get the status of SCAP result deletion settings for the given organization.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId ID of organization to query.
      * @return Returns the status of SCAP result deletion settings.
      *
@@ -1142,9 +1118,9 @@ public class OrgHandler extends BaseHandler {
      *             "Period (in days) after which a scan can be deleted (if enabled).")
      *     #struct_end()
      */
-    public Map<String, Object> getPolicyForScapResultDeletion(String sessionKey,
+    public Map<String, Object> getPolicyForScapResultDeletion(User loggedInUser,
             Integer orgId) {
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         Org org = verifyOrgExists(orgId);
         Long retentionPeriod = org.getOrgConfig().getScapRetentionPeriodDays();
         Map<String, Object> result = new HashMap<String, Object>();
@@ -1157,7 +1133,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * Set the status of SCAP result deletion settings for the given organization.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param orgId ID of organization to work with.
      * @param newSettings New settings of the SCAP result deletion settings.
      * @return Returns 1 for successfull change.
@@ -1176,14 +1152,14 @@ public class OrgHandler extends BaseHandler {
      *     #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setPolicyForScapResultDeletion(String sessionKey, Integer orgId,
+    public int setPolicyForScapResultDeletion(User loggedInUser, Integer orgId,
             Map<String, Object> newSettings) {
         Set<String> validKeys = new HashSet<String>();
         validKeys.add("enabled");
         validKeys.add("retention_period");
         validateMap(validKeys, newSettings);
 
-        getSatAdmin(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
         OrgConfig orgConfig = verifyOrgExists(orgId).getOrgConfig();
         if (newSettings.containsKey("enabled")) {
             if ((Boolean) newSettings.get("enabled")) {

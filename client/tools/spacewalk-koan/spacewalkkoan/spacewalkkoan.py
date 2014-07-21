@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -246,6 +246,8 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
             k.no_copy_default = 1
         else: # older koan
             k.grubby_copy_default = 0
+        if hasattr(k, 'virtinstall_wait'):
+            k.virtinstall_wait = 0
         k.run()
 
         # refresh current virtualization state on the server

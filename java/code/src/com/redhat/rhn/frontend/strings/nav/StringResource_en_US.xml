@@ -617,6 +617,18 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Power Management Configuration">
+        <source>Power Management Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Power Management Operations">
+        <source>Power Management Operations</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Tag Systems">
         <source>Tag Systems</source>
         <context-group name="ctx">

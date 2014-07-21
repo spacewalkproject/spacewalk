@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -130,7 +130,7 @@ public class SystemHardwareAction extends RhnAction {
         request.setAttribute("system_ram", server.getRam());
         request.setAttribute("system_swap", server.getSwap());
 
-        StringBuffer dmiBios = new StringBuffer();
+        StringBuilder dmiBios = new StringBuilder();
         if (server.getDmi() != null) {
 
             if (server.getDmi().getBios() != null) {

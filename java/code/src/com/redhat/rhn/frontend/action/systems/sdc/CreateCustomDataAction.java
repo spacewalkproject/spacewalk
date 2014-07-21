@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,6 +13,8 @@
  * in this software or its documentation.
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
+
+import java.util.Map;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Server;
@@ -48,7 +50,8 @@ public class CreateCustomDataAction extends RhnAction {
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
-        DataResult result = SystemManager.lookupKeysSansValueForServer(
+        DataResult<Map<String, Object>> result =
+                SystemManager.lookupKeysSansValueForServer(
                 server.getOrg().getId(), sid);
         request.setAttribute(ListTagHelper.PARENT_URL,
                 request.getRequestURI() + "?sid=" + server.getId());

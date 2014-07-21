@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -45,7 +45,7 @@ public class PendingActionsRenderer extends BaseFragmentRenderer {
         String pendingActionsCSSTable = null;
         DataResult padr = ActionManager.recentlyScheduledActions(user, pc, 30);
         for (Iterator i = padr.iterator(); i.hasNext();) {
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             ScheduledAction sa = (ScheduledAction) i.next();
 
             Action action = ActionManager.lookupAction(user, sa.getId());

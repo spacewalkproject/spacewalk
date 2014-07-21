@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -165,7 +165,7 @@ public class PackageSearchHelper {
             throw new ValidatorException("Can't use free form and field search.");
         }
 
-        StringBuffer buf = new StringBuffer(searchstring.length());
+        StringBuilder buf = new StringBuilder(searchstring.length());
         String[] tokens = searchstring.split(" ");
         for (String s : tokens) {
             if (s.trim().equalsIgnoreCase("AND") ||
@@ -178,7 +178,7 @@ public class PackageSearchHelper {
         }
 
         // if we're passing in arches let's add them to the query
-        StringBuffer archBuf = new StringBuffer();
+        StringBuilder archBuf = new StringBuilder();
         if (arches != null && !arches.isEmpty()) {
             archBuf.append(" AND (");
             for (String s : arches) {

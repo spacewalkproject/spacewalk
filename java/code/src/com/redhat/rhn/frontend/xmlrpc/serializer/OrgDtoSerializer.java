@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2011 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -43,6 +43,8 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *                          "Number of kickstart profiles in the organization. (optional)")
  *   #prop_desc("int", "configuration_channels",
  *                      "Number of configuration channels in the organization. (optional)")
+ *   #prop_desc("boolean", "staging_content_enabled",
+ *                      "Is staging content enabled in organization. (optional)")
  * #struct_end()
  */
 public class OrgDtoSerializer extends RhnXmlRpcCustomSerializer {
@@ -74,6 +76,7 @@ public class OrgDtoSerializer extends RhnXmlRpcCustomSerializer {
         add(helper, "system_groups", dto.getServerGroups());
         add(helper, "kickstart_profiles", dto.getKickstartProfiles());
         add(helper, "configuration_channels", dto.getConfigChannels());
+        add(helper, "staging_content_enabled", dto.isStagingContentEnabled());
         helper.writeTo(output);
     }
 

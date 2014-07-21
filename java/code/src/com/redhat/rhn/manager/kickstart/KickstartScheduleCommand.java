@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -377,7 +377,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @return DataResult, else null if the server does not exist or
      * does not have a base channel assigned
      */
-    public DataResult<? extends KickstartDto> getKickstartProfiles() {
+    public DataResult<KickstartDto> getKickstartProfiles() {
         log.debug("getKickstartProfiles()");
         DataResult<KickstartDto> retval = new DataResult
                 <KickstartDto>(Collections.EMPTY_LIST);
@@ -1036,11 +1036,11 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         }
 
         Server hostServer = getHostServer();
-        List channelIds = new ArrayList();
-        Set serverChannelIds = new HashSet();
-        Iterator i = hostServer.getChannels().iterator();
+        List<Long> channelIds = new ArrayList<Long>();
+        Set<Long> serverChannelIds = new HashSet<Long>();
+        Iterator<Channel> i = hostServer.getChannels().iterator();
         while (i.hasNext()) {
-            Channel c = (Channel) i.next();
+            Channel c = i.next();
             serverChannelIds.add(c.getId());
         }
         // first add channels, the system is currently subscribed to
@@ -1049,10 +1049,9 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         channelIds.addAll(SystemManager.subscribableChannelIds(hostServer.getId(),
                 this.user.getId(), hostServer.getBaseChannel().getId()));
 
-        i = channelIds.iterator();
-        while (i.hasNext()) {
-            Object id = i.next();
-            Long cid = (Long) id;
+        Iterator<Long> i2 = channelIds.iterator();
+        while (i2.hasNext()) {
+            Long cid = i2.next();
             log.debug("    Checking on:" + cid + " for: " +
                     getKickstartPackageName());
             List<Map<String, Object>> result =
@@ -1185,11 +1184,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * Get the list of compatible systems you could sync to
      * @return DataResult of System DTOs
      */
-    public List getCompatibleSystems() {
+    public List<Map<String, Object>> getCompatibleSystems() {
         if (!isCobblerOnly()) {
-            DataResult dr = SystemManager.systemsSubscribedToChannel(
+            return SystemManager.systemsSubscribedToChannel(
                     this.getKsdata().getKickstartDefaults().getKstree().getChannel(), user);
-            return dr;
         }
         return Collections.EMPTY_LIST;
     }

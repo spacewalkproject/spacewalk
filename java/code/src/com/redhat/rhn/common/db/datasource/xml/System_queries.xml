@@ -149,7 +149,7 @@ SELECT  S.id AS ID,
    AND  SET2.element_three = P.package_arch_id
    AND  SNPC.package_id = P.id
    AND  SNPC.server_id = S.id
-GROUP BY s.id
+GROUP BY s.id, s.name
 ORDER BY UPPER(S.name)
 </query>
 
@@ -168,19 +168,19 @@ SELECT  S.id AS ID,
         rhnPackage P,
         rhnPackageArch PA,
         rhnServerNeededPackageCache SNPC,
-        rhnSet SET
+        rhnSet
  WHERE  SNPC.server_id IN (%s)
-   AND  SET.user_id = :user_id
-   AND  SET.label = :package_set_label
-   AND  SET.element = P.name_id
-   AND  SET.element_two = P.evr_id
-   AND  SET.element_three = P.package_arch_id
+   AND  rhnSet.user_id = :user_id
+   AND  rhnSet.label = :package_set_label
+   AND  rhnSet.element = P.name_id
+   AND  rhnSet.element_two = P.evr_id
+   AND  rhnSet.element_three = P.package_arch_id
    AND  SNPC.package_id = P.id
    AND  SNPC.server_id = S.id
    AND  P.name_id = PN.id
    AND  P.evr_id = PE.id
    AND  P.package_arch_id = PA.id
-GROUP BY s.id, pn.id, pa.id
+GROUP BY s.id, pn.id, pa.id, s.name, pn.name, pa.label
 ORDER BY UPPER(S.name), S.id, UPPER(PN.name), UPPER(PA.label)
   </elaborator>
 </mode>
@@ -340,6 +340,23 @@ ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   <elaborator name="system_config_files_with_diffs" />
 </mode>
 
+<mode name="xmlrpc_systems_in_group" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="sgid">
+select * from (
+  SELECT  DISTINCT S.id AS ID,
+          S.name AS NAME,
+          INFO.checkin AS LAST_CHECKIN
+    FROM  rhnServer S,
+          rhnServerInfo INFO,
+          rhnServerGroupMembers SGM
+   WHERE  SGM.server_group_id = :sgid
+     AND  S.id = SGM.server_id
+     AND  S.id = INFO.server_id
+) X
+ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
+  </query>
+</mode>
+
 <mode name="target_systems_for_group" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="sgid, user_id">
 SELECT S.id, S.name,
@@ -408,7 +425,7 @@ SELECT ES.id, S.name, 1 as selectable
     <elaborator name="entitlements"/>
 </mode>
 
-<mode name="xmlrpc_visible_to_user" class="com.redhat.rhn.frontent.dto.SystemOverview">
+<mode name="xmlrpc_visible_to_user" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id">
 select * from (
   SELECT  DISTINCT S.id AS ID,
@@ -423,7 +440,7 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
   </query>
 </mode>
 
-<mode name="xmlrpc_visible_to_user_inactive" class="com.redhat.rhn.frontent.dto.SystemOverview">
+<mode name="xmlrpc_visible_to_user_inactive" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id, checkin_threshold">
 select * from (
   SELECT  DISTINCT S.id AS ID,
@@ -439,7 +456,7 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
   </query>
 </mode>
 
-<mode name="xmlrpc_visible_to_user_active" class="com.redhat.rhn.frontent.dto.SystemOverview">
+<mode name="xmlrpc_visible_to_user_active" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id, checkin_threshold">
 select * from (
   SELECT  DISTINCT S.id AS ID,
@@ -2148,7 +2165,7 @@ order by completed desc, picked_up desc, created desc, event_id desc
 
 <mode name="system_events_history_count_pending">
   <query params="sid">
-select count(action_id)
+select count(action_id) as count
   from rhnServerAction
  where server_id = :sid
    and status = 0
@@ -2301,6 +2318,50 @@ select a.id
    and sa.status = 0
    and a.prerequisite is null
  order by a.id
+  </query>
+</mode>
+
+<mode name="provisioning_systems_in_set_with_tag">
+  <query params="user_id, tag_id">
+SELECT * FROM (
+SELECT DISTINCT S.id,
+       S.name AS SERVER_NAME,
+       SS.id AS SNAPSHOT_ID,
+       SS.reason AS SNAPSHOT_REASON,
+       TO_CHAR(STag.created, 'YYYY-MM-DD HH24:MI:SS') AS DATE_TAG_APPLIED
+  FROM rhnServer S,
+       rhnSnapshotTag STag,
+       rhnSnapshot SS,
+       rhnClientCapabilityName CCN,
+       rhnClientCapability CC,
+       rhnSet ST,
+       rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND ST.user_id = :user_id
+   AND ST.label = 'system_list'
+   AND USP.server_id = ST.element
+   AND rhn_server.system_service_level(USP.server_id, 'provisioning') &gt; 0
+   AND USP.server_id = CC.server_id
+   AND CC.capability_name_id = CCN.id
+   AND CCN.name = 'packages.runTransaction'
+   AND USP.server_id = SS.server_id
+   AND SS.id = STag.snapshot_id
+   AND STag.tag_id = :tag_id
+   AND USP.server_id = S.id) X
+ORDER BY UPPER(COALESCE(X.SERVER_NAME, '(none)')), X.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="entitled_systems_in_set" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="user_id, set_label">
+    SELECT rhnServer.id, rhnServer.name
+      FROM rhnServerEntitlementView
+        JOIN rhnSet ON rhnServerEntitlementView.server_id = rhnSet.element
+        JOIN rhnServer ON rhnServerEntitlementView.server_id = rhnServer.id
+      WHERE rhnSet.user_id = :user_id AND
+        rhnSet.label = :set_label AND
+        rhnServerEntitlementView.label IN (%s)
   </query>
 </mode>
 </datasource_modes>

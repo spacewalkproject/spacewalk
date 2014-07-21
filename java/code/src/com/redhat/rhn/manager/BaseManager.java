@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -132,6 +132,27 @@ public abstract class BaseManager {
 
         // execute the driving query to get the initial data set.
         DataResult dr = makeDataResult(queryParams, elabParams, null, m);
+        dr.setStart(1);
+        dr.setEnd(dr.getTotalSize());
+        return dr;
+    }
+
+    /**
+     * Returns a DataResult for the given SelectMode with no bounds.  This
+     * can be usefull if you want a list without pagination controls.
+     *
+     * @param queryParams Named parameters for the driving query.
+     * @param elabParams Named parameters for the elaboration query.
+     * @param m datasource SelectMode.
+     * @param myClass Type of dataresult we will be returning
+     * @return resulting DataResult bounded by the values of the
+     * PageControl.
+     */
+    protected static <myClass> DataResult<myClass> makeDataResultNoPagination(
+            Map queryParams,
+            Map elabParams, SelectMode m, Class myClass) {
+        // execute the driving query to get the initial data set.
+        DataResult<myClass> dr = makeDataResult(queryParams, elabParams, null, m, myClass);
         dr.setStart(1);
         dr.setEnd(dr.getTotalSize());
         return dr;

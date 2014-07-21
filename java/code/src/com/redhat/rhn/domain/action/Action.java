@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,6 +37,7 @@ public class Action extends BaseDomainHelper implements Serializable {
 
     public static final Integer NAME_LENGTH_LIMIT = 128;
 
+    private static final long serialVersionUID = 1L;
     private Long id;
     private String name;
     // private Long scheduler;
@@ -378,7 +379,7 @@ public class Action extends BaseDomainHelper implements Serializable {
      */
     @Override
     public String toString() {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         result.append(id);
         result.append(" : ");
         result.append(name);

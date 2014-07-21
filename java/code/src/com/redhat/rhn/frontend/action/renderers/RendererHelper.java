@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.action.renderers.io.CachingResponseWrapper;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemOverviewComparator;
 
 /**
@@ -58,11 +59,11 @@ public class RendererHelper {
      * @param dr data result to sort
      * @return sorted data result
      */
-    public static DataResult sortOverviews(DataResult dr) {
-        Object[] overviews = dr.toArray();
+    public static DataResult<SystemOverview> sortOverviews(DataResult<SystemOverview> dr) {
+        SystemOverview[] overviews = dr.toArray(new SystemOverview[dr.size()]);
         if (overviews != null && overviews.length > 0) {
             Arrays.sort(overviews, new SystemOverviewComparator());
-            return new DataResult(Arrays.asList(overviews));
+            return new DataResult<SystemOverview>(Arrays.asList(overviews));
         }
         return dr;
     }

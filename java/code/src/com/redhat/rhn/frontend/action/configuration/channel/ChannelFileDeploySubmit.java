@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -52,12 +52,13 @@ public class ChannelFileDeploySubmit extends BaseSetOperateOnSelectedItemsAction
         return ConfigurationManager.getInstance().listCurrentFiles(usr, cc, null);
     }
 
-    protected void processParamMap(ActionForm form, HttpServletRequest request, Map m) {
+    protected void processParamMap(ActionForm form, HttpServletRequest request,
+            Map<String, Object> m) {
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
         ConfigActionHelper.processParamMap(cc, m);
     }
 
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("deploy.jsp.deployallbutton", "doAll");
         map.put("deploy.jsp.deployselectedbutton", "doSelected");
     }

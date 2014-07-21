@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -86,8 +86,8 @@ public class NewUserEventTest extends RhnBaseTestCase {
         // In the implementation we use getHeaderNames so we override it with
         // one that returns an empty implementation.
         MockHttpServletRequest request = new MockHttpServletRequest() {
-            public Enumeration getHeaderNames() {
-                return new Vector().elements();
+            public Enumeration<String> getHeaderNames() {
+                return new Vector<String>().elements();
             }
         };
         request.setSession(new MockHttpSession());

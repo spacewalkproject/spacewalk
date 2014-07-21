@@ -69,8 +69,11 @@
                 ${current.updateDate}
             </rl:column>
         </c:if>
-
     </rl:list>
+    <rl:csv
+        name="errataList"
+        exportColumns="advisoryName,advisorySynopsis,affectedSystemCount,updateDate"
+        header="${system.name}"/>
 </rl:listset>
 
 </body>

@@ -16,16 +16,26 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 # Copyright 2013 Aron Parsons <aronparsons@gmail.com>
-# Copyright (c) 2011--2013 Red Hat, Inc.
+# Copyright (c) 2011--2014 Red Hat, Inc.
 #
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
+
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
 
 import logging, readline, shlex
 from getpass import getpass
 from ConfigParser import NoOptionError
 from spacecmd.utils import *
 from time import sleep
+import xmlrpclib
 
 # list of system selection options for the help output
 HELP_SYSTEM_OPTS = '''<SYSTEMS> can be any of the following:
@@ -205,7 +215,7 @@ def help_login(self):
     print 'usage: login [USERNAME] [SERVER]'
 
 def do_login(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     # logout before logging in again
     if len(self.session):
@@ -253,25 +263,25 @@ def do_login(self, args):
         verbose_xmlrpc = True
 
     # connect to the server
-    logging.debug('Connecting to %s' % (server_url))
+    logging.debug('Connecting to %s', server_url)
     self.client = xmlrpclib.Server(server_url, verbose = verbose_xmlrpc)
 
     # check the API to verify connectivity
     try:
         self.api_version = self.client.api.getVersion()
-        logging.debug('Server API Version = %s' % self.api_version)
-    except Exception, e:
+        logging.debug('Server API Version = %s', self.api_version)
+    except xmlrpclib.Fault, e:
         if self.options.debug > 0:
             logging.exception(e)
 
-        logging.error('Failed to connect to %s' % server_url)
+        logging.error('Failed to connect to %s', server_url)
         self.client = None
         return False
 
     # ensure the server is recent enough
     if self.api_version < self.MINIMUM_API_VERSION:
-        logging.error('API (%s) is too old (>= %s required)'
-                      % (self.api_version, self.MINIMUM_API_VERSION))
+        logging.error('API (%s) is too old (>= %s required)',
+                      self.api_version, self.MINIMUM_API_VERSION)
 
         self.client = None
         return False
@@ -300,15 +310,15 @@ def do_login(self, args):
 
             sessionfile.close()
         except IOError:
-            logging.error('Could not read %s' % session_file)
+            logging.error('Could not read %s', session_file)
 
     # check the cached credentials by doing an API call
     if self.session:
         try:
-            logging.debug('Using cached credentials from %s' % session_file)
+            logging.debug('Using cached credentials from %s', session_file)
 
             self.client.user.listAssignableRoles(self.session)
-        except:
+        except xmlrpclib.Fault:
             logging.warning('Cached credentials are invalid')
             self.current_user = ''
             self.session = ''
@@ -316,7 +326,7 @@ def do_login(self, args):
     # attempt to login if we don't have a valid session yet
     if not len(self.session):
         if len(username):
-            logging.info('Spacewalk Username: %s' % username)
+            logging.info('Spacewalk Username: %s', username)
         else:
             username = prompt_user('Spacewalk Username:', noblank = True)
 
@@ -337,7 +347,7 @@ def do_login(self, args):
 
             # don't keep the password around
             password = None
-        except:
+        except xmlrpclib.Fault:
             logging.error('Invalid credentials')
             return False
 
@@ -365,7 +375,7 @@ def do_login(self, args):
     self.current_user = username
     self.server = server
 
-    logging.info('Connected to %s as %s' % (server_url, username))
+    logging.info('Connected to %s as %s', server_url, username)
 
     return True
 
@@ -485,8 +495,8 @@ def generate_errata_cache(self, force=False):
         try:
             errata = \
                 self.client.channel.software.listErrata(self.session, c)
-        except:
-            logging.debug('No access to %s' % c)
+        except xmlrpclib.Fault:
+            logging.debug('No access to %s', c)
             continue
 
         for erratum in errata:
@@ -537,8 +547,8 @@ def generate_package_cache(self, force=False):
         try:
             packages = \
                 self.client.channel.software.listAllPackages(self.session, c)
-        except:
-            logging.debug('No access to %s' % c)
+        except xmlrpclib.Fault:
+            logging.debug('No access to %s', c)
             continue
 
         for p in packages:
@@ -548,11 +558,15 @@ def generate_package_cache(self, force=False):
             longname = build_package_names(p)
 
             if not longname in self.all_packages:
-                self.all_packages[longname] = p.get('id')
+                self.all_packages[longname] = [p.get('id')]
+            else:
+                self.all_packages[longname].append(p.get('id'))
 
     # keep a reverse dictionary so we can lookup package names by ID
-    self.all_packages_by_id = \
-        dict( (v, k) for k, v in self.all_packages.iteritems() )
+    self.all_packages_by_id = {}
+    for (k, v) in self.all_packages.iteritems():
+        for i in v:
+            self.all_packages_by_id[i] = k
 
     self.package_cache_expire = \
         datetime.now() + timedelta(seconds=self.PACKAGE_CACHE_TTL)
@@ -654,7 +668,7 @@ def load_caches(self, server):
         if not os.path.isdir(conf_dir):
             os.mkdir(conf_dir, 0700)
     except OSError:
-        logging.error('Could not create directory %s' % conf_dir)
+        logging.error('Could not create directory %s', conf_dir)
         return
 
     self.ssm_cache_file = os.path.join(conf_dir, 'ssm')
@@ -667,7 +681,7 @@ def load_caches(self, server):
         os.path.join(conf_dir, 'packages_short')
 
     # load self.ssm from disk
-    (self.ssm, ignore) = load_cache(self.ssm_cache_file)
+    (self.ssm, _ignore) = load_cache(self.ssm_cache_file)
 
     # update the prompt now that we loaded the SSM
     self.postcmd(False, '')
@@ -704,21 +718,22 @@ def get_system_id(self, name):
 
     try:
         # check if we were passed a system instead of a name
-        id = int(name)
-        if id in self.all_systems: return id
+        system_id = int(name)
+        if system_id in self.all_systems:
+            return system_id
     except ValueError:
         pass
 
     # get a set of matching systems to check for duplicate names
     systems = []
-    for id in self.all_systems:
-        if name == self.all_systems[id]:
-            systems.append(id)
+    for system_id in self.all_systems:
+        if name == self.all_systems[system_id]:
+            systems.append(system_id)
 
     if len(systems) == 1:
         return systems[0]
     elif not len(systems):
-        logging.warning("Can't find system ID for %s" % name)
+        logging.warning("Can't find system ID for %s", name)
         return 0
     else:
         logging.warning('Duplicate system profile names found!')
@@ -727,8 +742,8 @@ def get_system_id(self, name):
 
         id_list = '%s = ' % name
 
-        for id in systems:
-            id_list = id_list + '%i, ' % id
+        for system_id in systems:
+            id_list = id_list + '%i, ' % system_id
 
         logging.warning('')
         logging.warning(id_list[:-2])
@@ -786,7 +801,7 @@ def expand_systems(self, args):
             if len(members):
                 systems.extend( [re.escape(m) for m in members] )
             else:
-                logging.warning('No systems in group %s' % item)
+                logging.warning('No systems in group %s', item)
         elif re.match('search:', item):
             query = item.split(':', 1)[1]
             results = self.do_system_search(query, True)
@@ -800,12 +815,12 @@ def expand_systems(self, args):
             if len(members):
                 systems.extend( [re.escape(m) for m in members] )
             else:
-                logging.warning('No systems subscribed to %s' % item)
+                logging.warning('No systems subscribed to %s', item)
         else:
             # translate system IDs that the user passes
             try:
-                id = int(item)
-                system_ids.append(id)
+                sys_id = int(item)
+                system_ids.append(sys_id)
             except ValueError:
                 # just a system name
                 systems.append(item)
@@ -831,7 +846,8 @@ def list_child_channels(self, system=None, parent=None, subscribed=False):
 
     if system:
         system_id = self.get_system_id(system)
-        if not system_id: return
+        if not system_id:
+            return
 
         if subscribed:
             channels = \
@@ -927,10 +943,10 @@ def load_config_section(self, section):
     config_opts = [ 'server', 'username', 'password', 'nossl' ]
 
     if not self.config_parser.has_section(section):
-        logging.debug('Configuration section [%s] does not exist' % section)
+        logging.debug('Configuration section [%s] does not exist', section)
         return
 
-    logging.debug('Loading configuration section [%s]' % section)
+    logging.debug('Loading configuration section [%s]', section)
 
     for key in config_opts:
         # don't override command-line options
@@ -955,6 +971,6 @@ def load_config_section(self, section):
     if config_debug.has_key('password'):
         config_debug['password'] = "*" * len(config_debug['password'])
 
-    logging.debug('Current Configuration: %s' % config_debug)
+    logging.debug('Current Configuration: %s', config_debug)
 
 # vim:ts=4:expandtab:

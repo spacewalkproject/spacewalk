@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -66,7 +66,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);
 
         String profileLabel = "new-ks-profile";
-        ksHandler.createProfile(adminKey, profileLabel,
+        ksHandler.createProfile(admin, profileLabel,
                 KickstartVirtualizationType.XEN_PARAVIRT,
                 testTree.getLabel(), "localhost", "rootpw");
 
@@ -77,11 +77,11 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
         KickstartableTree anotherTestTree = KickstartableTreeTest.
         createTestKickstartableTree(baseChan);
-        int result = handler.setKickstartTree(adminKey, profileLabel,
+        int result = handler.setKickstartTree(admin, profileLabel,
                 anotherTestTree.getLabel());
         assertEquals(1, result);
 
-        String tree = handler.getKickstartTree(adminKey, profileLabel);
+        String tree = handler.getKickstartTree(admin, profileLabel);
         assertEquals(anotherTestTree.getLabel(), tree);
     }
 
@@ -93,7 +93,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);
 
         String profileLabel = "new-ks-profile";
-        ksHandler.createProfile(adminKey, profileLabel,
+        ksHandler.createProfile(admin, profileLabel,
                 KickstartVirtualizationType.XEN_PARAVIRT,
                 testTree.getLabel(), "localhost", "rootpw");
 
@@ -102,12 +102,12 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         assertNotNull(newKsProfile);
         assertTrue(newKsProfile.getCommand("url").getArguments().contains("/ks/dist/org/"));
 
-        int result = handler.setCfgPreservation(adminKey, profileLabel, true);
+        int result = handler.setCfgPreservation(admin, profileLabel, true);
         assertEquals(1, result);
-        assertTrue(handler.getCfgPreservation(adminKey, profileLabel));
-        result = handler.setCfgPreservation(adminKey, profileLabel, false);
+        assertTrue(handler.getCfgPreservation(admin, profileLabel));
+        result = handler.setCfgPreservation(admin, profileLabel, false);
         assertEquals(1, result);
-        assertFalse(handler.getCfgPreservation(adminKey, profileLabel));
+        assertFalse(handler.getCfgPreservation(admin, profileLabel));
     }
 
     public void testChildChannels() throws Exception {
@@ -118,7 +118,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);
 
         String profileLabel = "new-ks-profile";
-        ksHandler.createProfile(adminKey, profileLabel,
+        ksHandler.createProfile(admin, profileLabel,
                 KickstartVirtualizationType.XEN_PARAVIRT,
                 testTree.getLabel(), "localhost", "rootpw");
 
@@ -135,10 +135,10 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         channelsToSubscribe.add(c1.getLabel());
         channelsToSubscribe.add(c2.getLabel());
 
-        int result = handler.setChildChannels(adminKey, profileLabel, channelsToSubscribe);
+        int result = handler.setChildChannels(admin, profileLabel, channelsToSubscribe);
         assertEquals(1, result);
 
-        List<String> channels = handler.getChildChannels(adminKey, profileLabel);
+        List<String> channels = handler.getChildChannels(admin, profileLabel);
         assertEquals(channelsToSubscribe.size(), channels.size());
         boolean foundC1 = false, foundC2 = false;
         for (String channel : channels) {
@@ -155,12 +155,12 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
     public void testListScript() throws Exception {
         KickstartData ks  = KickstartDataTest.createKickstartWithChannel(admin.getOrg());
-        int id = handler.addScript(adminKey, ks.getLabel(), "sample",
+        int id = handler.addScript(admin, ks.getLabel(), "sample",
                 "This is a script", "", "post", true);
         ks = (KickstartData) HibernateFactory.reload(ks);
         boolean found = false;
 
-        for (KickstartScript script : handler.listScripts(adminKey, ks.getLabel())) {
+        for (KickstartScript script : handler.listScripts(admin, ks.getLabel())) {
             if (script.getId().intValue() == id && script.getDataContents().equals(
                     "This is a script")) {
                 found = true;
@@ -172,34 +172,34 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
     public void testOrderScripts() throws Exception {
         KickstartData ks = KickstartDataTest.createKickstartWithChannel(admin.getOrg());
         // delete kickstart scripts that are already there
-        List<KickstartScript> scripts = handler.listScripts(adminKey, ks.getLabel());
+        List<KickstartScript> scripts = handler.listScripts(admin, ks.getLabel());
         for (KickstartScript script : scripts) {
-            handler.removeScript(adminKey, ks.getLabel(), script.getId().intValue());
+            handler.removeScript(admin, ks.getLabel(), script.getId().intValue());
         }
         ks = (KickstartData) HibernateFactory.reload(ks);
 
         int idPost1 =
-                handler.addScript(adminKey, ks.getLabel(), "myPost1", "This is a script",
+                handler.addScript(admin, ks.getLabel(), "myPost1", "This is a script",
                         "", "post", true);
         int idPost2 =
-                handler.addScript(adminKey, ks.getLabel(), "myPost2", "This is a script",
+                handler.addScript(admin, ks.getLabel(), "myPost2", "This is a script",
                         "", "post", true);
         int idPostNochroot1 =
-                handler.addScript(adminKey, ks.getLabel(), "myPostNochroot1",
+                handler.addScript(admin, ks.getLabel(), "myPostNochroot1",
                         "This is a script", "", "post", false);
         int idPostNochroot2 =
-                handler.addScript(adminKey, ks.getLabel(), "myPostNochroot2",
+                handler.addScript(admin, ks.getLabel(), "myPostNochroot2",
                         "This is a script", "", "post", false);
         int idPre1 =
-                handler.addScript(adminKey, ks.getLabel(), "myPre1", "This is a script",
+                handler.addScript(admin, ks.getLabel(), "myPre1", "This is a script",
                         "", "pre", false);
         int idPre2 =
-                handler.addScript(adminKey, ks.getLabel(), "myPre2", "This is a script",
+                handler.addScript(admin, ks.getLabel(), "myPre2", "This is a script",
                         "", "pre", false);
         ks = (KickstartData) HibernateFactory.reload(ks);
 
         // make sure they're in the proper order initially
-        scripts = handler.listScripts(adminKey, ks.getLabel());
+        scripts = handler.listScripts(admin, ks.getLabel());
         assertNotNull(scripts);
         assertEquals(6, scripts.size());
         assertEquals(idPre1, scripts.get(0).getId().intValue());
@@ -220,11 +220,11 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         orderedPostAfter.add(idPostNochroot2);
 
         //make the acutal call
-        handler.orderScripts(adminKey, ks.getLabel(), orderedPre, orderedPostBefore,
+        handler.orderScripts(admin, ks.getLabel(), orderedPre, orderedPostBefore,
                 orderedPostAfter);
 
         //test results
-        scripts = handler.listScripts(adminKey, ks.getLabel());
+        scripts = handler.listScripts(admin, ks.getLabel());
         assertTrue(scripts.get(0).getId().intValue() == idPre2);
         assertTrue(scripts.get(1).getId().intValue() == idPre1);
         assertTrue(scripts.get(2).getId().intValue() == idPost1);
@@ -235,7 +235,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
     public void testAddScript() throws Exception {
         KickstartData ks  = KickstartDataTest.createKickstartWithChannel(admin.getOrg());
-        int id = handler.addScript(adminKey, ks.getLabel(), "sample",
+        int id = handler.addScript(admin, ks.getLabel(), "sample",
                 "This is a script", "", "post", true);
         ks = (KickstartData) HibernateFactory.reload(ks);
         boolean found = false;
@@ -260,7 +260,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         script.setPosition(new Long(0));
         script = (KickstartScript) TestUtils.saveAndReload(script);
 
-        assertEquals(1, handler.removeScript(adminKey, ks.getLabel(),
+        assertEquals(1, handler.removeScript(admin, ks.getLabel(),
                 script.getId().intValue()));
         ks = (KickstartData) TestUtils.saveAndReload(ks);
 
@@ -282,7 +282,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         ks1.addDefaultRegToken(key.getToken());
         ks1 = (KickstartData) TestUtils.saveAndReload(ks1);
 
-        String file = handler.downloadKickstart(adminKey, ks1.getLabel(), "hostName");
+        String file = handler.downloadKickstart(admin, ks1.getLabel(), "hostName");
         assertTrue(file.contains("blahPackage"));
     }
 
@@ -290,7 +290,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         //setup
         KickstartData ks = KickstartDataTest.createKickstartWithProfile(admin);
 
-        Object[] s1 = handler.getAdvancedOptions(adminKey, ks.getLabel());
+        Object[] s1 = handler.getAdvancedOptions(admin, ks.getLabel());
         List<Map> l1 = new ArrayList();
 
         for (int i = 0; i < s1.length; i++) {
@@ -331,8 +331,8 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         l1.add(m6);
 
         //test
-        int result = handler.setAdvancedOptions(adminKey, ks.getLabel(), l1);
-        Object[] s2 = handler.getAdvancedOptions(adminKey, ks.getLabel());
+        int result = handler.setAdvancedOptions(admin, ks.getLabel(), l1);
+        Object[] s2 = handler.getAdvancedOptions(admin, ks.getLabel());
 
         //verify
         for (int i = 0; i < s1.length; i++) {
@@ -351,7 +351,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         //setup
         KickstartData ks = KickstartDataTest.createKickstartWithProfile(admin);
 
-        Object[] s1 = handler.getAdvancedOptions(adminKey, ks.getLabel());
+        Object[] s1 = handler.getAdvancedOptions(admin, ks.getLabel());
         List<Map> l1 = new ArrayList();
 
         for (int i = 0; i < s1.length; i++) {
@@ -392,8 +392,8 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         l1.add(m6);
 
         //test
-        int result = handler.setAdvancedOptions(adminKey, ks.getLabel(), l1);
-        Object[] s2 = handler.getAdvancedOptions(adminKey, ks.getLabel());
+        int result = handler.setAdvancedOptions(admin, ks.getLabel(), l1);
+        Object[] s2 = handler.getAdvancedOptions(admin, ks.getLabel());
 
         //verify
         for (int i = 0; i < s1.length; i++) {
@@ -412,7 +412,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
     public void testListIpRanges() throws Exception {
         KickstartData ks1 = setupIpRanges(100);
         KickstartData ks2 = setupIpRanges(110);
-        Set set = handler.listIpRanges(adminKey, ks1.getLabel());
+        Set set = handler.listIpRanges(admin, ks1.getLabel());
 
         assertTrue(set.contains(ks1.getIps().iterator().next()));
         assertFalse(set.contains(ks2.getIps().iterator().next()));
@@ -420,7 +420,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
     public void testAddIpRange() throws Exception {
         KickstartData ks1 = setupIpRanges(100);
-        handler.addIpRange(adminKey, ks1.getLabel(), "192.168.1.1", "192.168.1.10");
+        handler.addIpRange(admin, ks1.getLabel(), "192.168.1.1", "192.168.1.10");
         ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(),
                 admin.getOrg().getId());
         assertTrue(ks1.getIps().size() == 2);
@@ -430,7 +430,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         KickstartData ks1 = setupIpRanges(100);
         boolean caught = false;
         try {
-            handler.addIpRange(adminKey, ks1.getLabel(), "192.168.0.3", "192.168.1.10");
+            handler.addIpRange(admin, ks1.getLabel(), "192.168.0.3", "192.168.1.10");
         }
         catch (Exception e) {
             caught = true;
@@ -444,7 +444,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
     public void testRemoveIpRange() throws Exception {
         KickstartData ks1 = setupIpRanges(100);
         assertTrue(ks1.getIps().size() == 1);
-        handler.removeIpRange(adminKey, ks1.getLabel(), "192.168.0.1");
+        handler.removeIpRange(admin, ks1.getLabel(), "192.168.0.1");
         ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(),
                 admin.getOrg().getId());
         assertTrue(ks1.getIps().size() == 0);
@@ -471,7 +471,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
         // Test
         Map<String, List<ActivationKey>> keysDiff =
-            handler.compareActivationKeys(adminKey, ks1.getLabel(), ks2.getLabel());
+            handler.compareActivationKeys(admin, ks1.getLabel(), ks2.getLabel());
 
         // Verify
         assertNotNull(keysDiff);
@@ -504,7 +504,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
         // Test
         Map<String, List<ActivationKey>> keysDiff =
-            handler.compareActivationKeys(adminKey, ks1.getLabel(), ks1.getLabel());
+            handler.compareActivationKeys(admin, ks1.getLabel(), ks1.getLabel());
 
         // Verify
         assertNotNull(keysDiff);
@@ -524,7 +524,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
         // Test
         Map<String, List<ActivationKey>> keysDiff =
-            handler.compareActivationKeys(adminKey, ks1.getLabel(), ks2.getLabel());
+            handler.compareActivationKeys(admin, ks1.getLabel(), ks2.getLabel());
 
         // Verify
         assertNotNull(keysDiff);
@@ -559,7 +559,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
         // Test
         Map<String, Set<String>> packagesDiff =
-            handler.comparePackages(adminKey, ks1.getLabel(), ks2.getLabel());
+            handler.comparePackages(admin, ks1.getLabel(), ks2.getLabel());
 
         // Verify
         assertNotNull(packagesDiff);
@@ -592,7 +592,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
         // Test
         Map<String, Set<String>> packagesDiff =
-            handler.comparePackages(adminKey, ks1.getLabel(), ks1.getLabel());
+            handler.comparePackages(admin, ks1.getLabel(), ks1.getLabel());
 
         // Verify
         assertNotNull(packagesDiff);
@@ -617,7 +617,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
         // Test
         Map<String, Set<String>> packagesDiff =
-            handler.comparePackages(adminKey, ks1.getLabel(), ks2.getLabel());
+            handler.comparePackages(admin, ks1.getLabel(), ks2.getLabel());
 
         // Verify
         assertNotNull(packagesDiff);
@@ -658,7 +658,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
         // Test
         Map<String, List<KickstartOptionValue>> optionsDiff =
-            handler.compareAdvancedOptions(adminKey, ks1.getLabel(), ks2.getLabel());
+            handler.compareAdvancedOptions(admin, ks1.getLabel(), ks2.getLabel());
 
         // Verify
         assertNotNull(optionsDiff);
@@ -704,10 +704,10 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         options.add("new");
         options.add("COBOL");
 
-        assertEquals(handler.setCustomOptions(adminKey, newProfile.getLabel(),
+        assertEquals(handler.setCustomOptions(admin, newProfile.getLabel(),
                 options), 1);
 
-        Object[] results = handler.getCustomOptions(adminKey, newProfile.getLabel());
+        Object[] results = handler.getCustomOptions(admin, newProfile.getLabel());
         assertEquals(5, results.length);
     }
 
@@ -718,7 +718,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);
 
         String profileLabel = "new-ks-profile" + TestUtils.randomString();
-        kh.createProfile(adminKey, profileLabel,  KickstartVirtualizationType.XEN_PARAVIRT,
+        kh.createProfile(admin, profileLabel,  KickstartVirtualizationType.XEN_PARAVIRT,
                 testTree.getLabel(), "localhost", "rootpw");
 
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(

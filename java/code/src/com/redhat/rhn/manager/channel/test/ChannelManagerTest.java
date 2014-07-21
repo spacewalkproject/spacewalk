@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -236,6 +236,10 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         assertNotEmpty(dr);
     }
 
+    public void testOwnedChannelsTree() throws Exception {
+        assertTrue(ChannelManager.ownedChannelsTree(UserTestUtils.findNewUser()).isEmpty());
+        assertNotEmpty(ChannelManager.ownedChannelsTree(user));
+    }
 
     public void testRetiredChannelTree() throws Exception {
         Channel channel = ChannelFactoryTest.createTestChannel(user);

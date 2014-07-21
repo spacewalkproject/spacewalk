@@ -15,7 +15,6 @@
 
 
 import types
-import string
 import sys
 
 from spacewalk.common.stringutils import to_string
@@ -24,6 +23,7 @@ from spacewalk.server.importlib import channelImport, packageImport, errataImpor
     kickstartImport, importLib
 import diskImportLib
 import xmlSource
+import string # pylint: disable=W0402
 import syncCache
 import syncLib
 
@@ -112,7 +112,8 @@ class ChannelCollection:
         self._channels_hash[channel_label] = last_modified
         return self
 
-    def _get_list_from_dict(self, diction, key):
+    @staticmethod
+    def _get_list_from_dict(diction, key):
         # Returns the dictionary's key if present (assumed to be a list), or
         # sets the value to an empty list and returns it
         if diction.has_key(key):
@@ -123,7 +124,7 @@ class ChannelCollection:
 
     def get_channel_labels(self):
         """Return the channel labels from this collection"""
-        return map(lambda x: x[0], self._channels)
+        return [x[0] for x in self._channels]
 
     def get_channels(self):
         """Return a list of (channel label, channel timestamp) from this
@@ -159,13 +160,19 @@ class ChannelCollection:
         self._shared_state.clear()
         self.__init__()
 
+# pylint: disable=W0232
 class SyncHandlerContainer:
-    collection = None
+    collection = object
+
+    # this class has no __init__ for the purpose
+    # it's used in multiple inheritance mode and inherited classes should
+    # use __init__ from the other base class
 
     def endItemCallback(self):
         # reference to xmlSource superclass we redefines
         xml_superclass = self.__class__.__bases__[1]
         xml_superclass.endItemCallback(self)
+        # pylint: disable=E1101
         if not self.batch:
             return
         c = self.collection()
@@ -191,8 +198,6 @@ def get_channel_handler():
 def import_channels(channels, orgid=None, master=None):
     collection = ChannelCollection()
     batch = []
-    import satCerts
-    orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
     org_map = None
     my_backend = diskImportLib.get_backend()
     if master:
@@ -416,7 +421,8 @@ def _to_timestamp(t):
     # last_modified is YYYY-MM-DD HH24:MI:SS
     # The cache expects YYYYMMDDHH24MISS as format; so just drop the
     # spaces, dashes and columns
-    last_modified = string.translate(t, string.maketrans("", ""), ' -:')
+    # python 2.4 can't handle t.translate(None, ' -:')
+    last_modified = t.translate(string.maketrans("", ""), ' -:')
     return last_modified
 
 # Generic container handler
@@ -482,6 +488,7 @@ class ContainerHandler:
     def setProductNamesContainer(self):
         self.handler.set_container(diskImportLib.ProductNamesContainer())
     def setOrgContainer(self, master_label, create_orgs):
+        # pylint: disable=E1101,E1103
         self.handler.set_container(diskImportLib.OrgContainer())
         self.handler.get_container('rhn-orgs').set_master_and_create_org_args(
                 master_label, create_orgs)
@@ -580,7 +587,7 @@ def populate_channel_family_permissions(cert):
     for cf_name, max_tuple in cert_chfam_hash.items():
         # Make the channel families with null max_members public
         if max_tuple is None:
-            max_tuple = [0,0]
+            max_tuple = [0, 0]
             org_id = None
         else:
             max_members, max_flex = max_tuple
@@ -589,11 +596,11 @@ def populate_channel_family_permissions(cert):
 
         cf_name = to_string(cf_name)
         try:
-            old_max_tuple = cfps[(cf_name, org_id)]
+            _old_max_tuple = cfps[(cf_name, org_id)]
         except KeyError:
             # New channel family, populate the db from cert
             cfps[(cf_name, org_id)] = max_tuple
-            old_max_tuple = None
+            _old_max_tuple = None
 
 
     sum_max_values = compute_sum_max_members(cfps)
@@ -656,7 +663,7 @@ def populate_channel_family_permissions(cert):
 def compute_sum_max_members(cfps):
     """If a channel family appears multiple times for each org, comgine them"""
     cf_max_tuples = {}
-    for (cf_name, org_id), (max_members, max_flex) in cfps.items():
+    for (cf_name, _org_id), (max_members, max_flex) in cfps.items():
         if not max_members:
             max_members = 0
         if not max_flex:

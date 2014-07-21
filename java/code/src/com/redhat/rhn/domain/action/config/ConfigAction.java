@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -82,9 +82,9 @@ public class ConfigAction extends Action {
         retval.append("</br>");
         for (ConfigRevisionAction rev : this.getConfigRevisionActions()) {
             HtmlTag a = new HtmlTag("a");
-            a.setAttribute("href",
-                    "/rhn/configuration/file/FileDetails.do?sid=" +
-                    server.getId().toString() + "&crid=" + rev.getId());
+            a.setAttribute("href", "/rhn/configuration/file/FileDetails.do?sid=" +
+                    server.getId().toString() + "&crid=" +
+                    rev.getConfigRevision().getId());
             a.addBody(rev.getConfigRevision()
                     .getConfigFile().getConfigFileName().getPath());
             retval.append(a.render());

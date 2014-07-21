@@ -1,6 +1,6 @@
 Name:		simple-core		
 Version:	3.1.3
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Embeddable Java HTTP engine capable of handling large loads
 Group:	 	Development/Libraries	
 License:	GNU
@@ -9,7 +9,7 @@ Source0:	simple-core-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{origname}-%{version}-%{release}-buildroot
 
 BuildRequires:  ant
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
 %endif
 BuildRequires:  java >= 1.5
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadocdir}/*
 
 %changelog
+* Tue Jun 24 2014 Michael Mraka <michael.mraka@redhat.com> 3.1.3-5
+- update deps for RHEL7
+
 * Tue Jan 07 2014 Tomas Lestach <tlestach@redhat.com> 3.1.3-4
 - let simple-core buildrequire javapackages-tools on fc20
 - let simple-core buildrequire java

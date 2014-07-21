@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"POT-Creation-Date: 2014-07-10 10:36+0200\n"
 "PO-Revision-Date: 2013-02-06 09:40+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -286,6 +286,11 @@ msgstr ""
 "இந்த பிழை வரக்கூடாது. நீங்கள் இந்த நிரலை மேம்படுத்த எங்களுக்கு உதவி எண்ணினால், bugzilla."
 "redhat.com இல் ஒரு பிழையை '%s' உடன் அறிக்கையிட்டால் உதவியாக இருக்கும். நன்றி!"
 
+#: ../src/up2date_client/config.py:154
+#, python-format
+msgid "%s was not found"
+msgstr "%s ஐ காணவில்லை"
+
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr "பிழை: சேவையகம் இல்லை. பின்னர் முயற்சிக்கவும்."
@@ -305,6 +310,106 @@ msgstr "அதிக சுமையால் சேவையகம் இணை
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:56
 msgid "Getting list of packages installed on the system"
 msgstr "கணினியில் நிறுவப்பட்ட தொகுப்பின் பட்டியலை பெறுகிறது"
+
+#: ../src/up2date_client/tui.py:134
+#, fuzzy
+msgid "Spacewalk Location:"
+msgstr "Red Hat Network இடம்:"
+
+#: ../src/up2date_client/tui.py:135
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "Login:"
+msgstr "புகுபதிவு:"
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr "கணினி ID:"
+
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:313
+msgid "Error"
+msgstr "பிழை"
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr "சேவையகம் ஒரு பிழையை காட்டியது:\n"
+
+#. Navigation
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:312
+msgid "OK"
+msgstr "சரி"
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr "பதிவு சேவையகத்துடன் தொடர்பு கொள்வதில் ஒரு பிழை:\n"
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr "விவரக்குறிப்பு பெயர்:"
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr "பதிப்பு: "
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr "CPU மாதிரி: "
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr "புரவலன் பெயர்: "
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr "CPU வேகம்: "
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr "IP முகவரி: "
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr "நினைவகம்: "
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr "%s மெகாபைட்கள்"
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr "வன்பொருள் விவரக்குறிப்பை அனுப்புவதில் சிக்கல்:\n"
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr "வன்பொருள் விவரக்குறிப்பை அனுப்புவதில் சிக்கல்."
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr "தொகுப்பு பட்டியலை அனுப்புவதில் சிக்கல்:\n"
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr "தொகுப்பு பட்டியலை அனுப்புவதில் பிழை."
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr "முடிவு"
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr "நீங்கள் தவறான நெறிமுறையை குறிப்பிட்டுள்ளீர்கள்."
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr "நீங்கள் RHN பதிவு நிரலை ரூட்டாக் இயக்கவேண்டும்."
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
@@ -512,11 +617,6 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Red Hat Login:"
 msgstr "Red Hat புகுபதிவு:"
-
-#: ../src/up2date_client/rhnreg_constants.py:84
-#: ../src/up2date_client/tui.py:135
-msgid "Login:"
-msgstr "புகுபதிவு:"
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
@@ -1037,17 +1137,6 @@ msgstr ""
 "(ஒரு புதிய வெளியீட்டை உங்களால் நகர்த்த முடியும்.)\n"
 "நீங்கள் தொடர விரும்புகிறீர்களா?"
 
-#. Navigation
-#: ../src/up2date_client/rhnreg_constants.py:312
-#: ../src/up2date_client/tui.py:536
-msgid "OK"
-msgstr "சரி"
-
-#: ../src/up2date_client/rhnreg_constants.py:313
-#: ../src/up2date_client/tui.py:536
-msgid "Error"
-msgstr "பிழை"
-
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
 msgstr "அடுத்து"
@@ -1074,23 +1163,23 @@ msgstr "ஆம், தொடரவும்"
 msgid "Press <space> to deselect the option."
 msgstr "<space>ஐ அழுத்தி விருப்பத்தை தேர்வு நீக்கவும்."
 
-#: ../src/up2date_client/hardware.py:820
+#: ../src/up2date_client/hardware.py:819
 msgid "Error reading cpu information:"
 msgstr "cpu தகவலை வாசிக்கும் போது பிழை:"
 
-#: ../src/up2date_client/hardware.py:827
+#: ../src/up2date_client/hardware.py:826
 msgid "Error reading system memory information:"
 msgstr "கணினி நினைவக தகவலை வாசிக்கும் போது பிழை:"
 
-#: ../src/up2date_client/hardware.py:837
+#: ../src/up2date_client/hardware.py:836
 msgid "Error reading networking information:"
 msgstr "பிணைய தகவலை வாசிக்கும் போது பிழை:"
 
-#: ../src/up2date_client/hardware.py:858
+#: ../src/up2date_client/hardware.py:857
 msgid "Error reading install method information:"
 msgstr "நிறுவல் முறை தகவலை வாசிக்கும் போது பிழை:"
 
-#: ../src/up2date_client/hardware.py:866
+#: ../src/up2date_client/hardware.py:865
 msgid "Error reading network interface information:"
 msgstr "பிணைய முகப்பு தகவலை வாசிக்கும் போது பிழை:"
 
@@ -1109,11 +1198,6 @@ msgstr "SystemIdஐ காண முடியவில்லை"
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "தடத்தோடு தொடர்பை ஏற்படுத்தாத வரை கணினியை மேம்படுத்த முடியாது."
-
-#: ../src/up2date_client/config.py:153
-#, python-format
-msgid "%s was not found"
-msgstr "%s ஐ காணவில்லை"
 
 #: ../src/up2date_client/rhnreg.py:59
 #, fuzzy
@@ -1318,90 +1402,6 @@ msgid ""
 msgstr ""
 "நடப்பு சேவையகம் துணைபுரியாததால், இந்த கிளையன் சேவையகம் %sக்கு துணைபுரிய "
 "தேவைப்படுத்துகிறது."
-
-#: ../src/up2date_client/tui.py:134
-#, fuzzy
-msgid "Spacewalk Location:"
-msgstr "Red Hat Network இடம்:"
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr "கணினி ID:"
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "சேவையகம் ஒரு பிழையை காட்டியது:\n"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr "பதிவு சேவையகத்துடன் தொடர்பு கொள்வதில் ஒரு பிழை:\n"
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "விவரக்குறிப்பு பெயர்:"
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr "பதிப்பு: "
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr "CPU மாதிரி: "
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr "புரவலன் பெயர்: "
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr "CPU வேகம்: "
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr "IP முகவரி: "
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr "நினைவகம்: "
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr "%s மெகாபைட்கள்"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "வன்பொருள் விவரக்குறிப்பை அனுப்புவதில் சிக்கல்:\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "வன்பொருள் விவரக்குறிப்பை அனுப்புவதில் சிக்கல்."
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "தொகுப்பு பட்டியலை அனுப்புவதில் சிக்கல்:\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "தொகுப்பு பட்டியலை அனுப்புவதில் பிழை."
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "முடிவு"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr "நீங்கள் தவறான நெறிமுறையை குறிப்பிட்டுள்ளீர்கள்."
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "நீங்கள் RHN பதிவு நிரலை ரூட்டாக் இயக்கவேண்டும்."
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"

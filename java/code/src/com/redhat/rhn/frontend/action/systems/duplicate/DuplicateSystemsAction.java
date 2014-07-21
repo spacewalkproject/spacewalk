@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010--2012 Red Hat, Inc.
+ * Copyright (c) 2010--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -41,7 +41,8 @@ import javax.servlet.http.HttpServletResponse;
  * SystemListAction
  * @version $Rev$
  */
-public class DuplicateSystemsAction extends RhnAction implements Listable {
+public class DuplicateSystemsAction extends RhnAction implements
+        Listable<DuplicateSystemGrouping> {
 
     private static final String INACTIVE_COUNT = "inactive_count";
     public static final String MAC_ADDRESS = "macaddress";
@@ -102,7 +103,7 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
     /**
      * {@inheritDoc}
      */
-    public List getResult(RequestContext contextIn) {
+    public List<DuplicateSystemGrouping> getResult(RequestContext contextIn) {
         Long count = (Long) contextIn.getRequest().getAttribute(INACTIVE_COUNT);
         if (contextIn.getRequest().getAttribute(HOSTNAME) != null) {
             return SystemManager.listDuplicatesByHostname

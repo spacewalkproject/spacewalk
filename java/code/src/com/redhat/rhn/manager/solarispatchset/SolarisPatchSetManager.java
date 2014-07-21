@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,7 +37,7 @@ public class SolarisPatchSetManager extends BaseManager {
     private static DataResult solarisPackageHelper(Long sid, PageControl pc, String mode) {
         SelectMode m = ModeFactory.getMode("Package_queries", mode);
         Map<String, Object> params = new HashMap<String, Object>();
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         params.put("sid", sid);
         elabParams.put("sid", sid);
 

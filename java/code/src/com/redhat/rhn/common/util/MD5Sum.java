@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -82,7 +82,7 @@ public class MD5Sum {
                 digest = md.digest();
             }
 
-            StringBuffer hexString = new StringBuffer();
+            StringBuilder hexString = new StringBuilder();
 
             for (int i = 0; i < digest.length; i++) {
                 hexString.append(hexDigit(digest[i]));
@@ -102,7 +102,7 @@ public class MD5Sum {
      * @return the hex code for the digit
      */
     private static String hexDigit(byte x) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         char c;
 
         // First nibble

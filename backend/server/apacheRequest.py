@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -119,10 +119,7 @@ class apacheRequest:
             rhnSQL.clear_log_id()
             # now get the function reference and call it
             func = self.method_ref(method)
-            if len(params):
-                response = apply(func, params)
-            else:
-                response = func()
+            response = func(*params)
         except (TypeError, ValueError, KeyError, IndexError, UnknownXML):
             # report exception back to server
             fault = 1

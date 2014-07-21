@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 22%{?dist}
+Release: 31%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -16,6 +16,11 @@ Patch2: koan_no_selinux_set.patch
 Patch3: buildiso.patch
 Patch4: koan-rhel7-virtinst.patch
 Patch5: koan-extra-options.patch
+Patch6: cobbler-interface-type.patch
+Patch7: cobblerd-python-s.patch
+Patch8: cobbler-power-status.patch
+Patch9: cobbler-rhel7-variant.patch
+Patch10: cobbler-findks.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -102,6 +107,13 @@ a XMLRPC API for integration with other applications.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
+%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 5)
+%patch7 -p1
+%endif
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
 
 %build
 %{__python} setup.py build 
@@ -452,6 +464,31 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Tue Jul 15 2014 Stephen Herr <sherr@redhat.com> 2.0.11-31
+- 1119758 - Make cobbler findks work and be compatible with Proxy
+
+* Mon Jul 14 2014 Stephen Herr <sherr@redhat.com> 2.0.11-30
+- bump cobbler version to avoid conflict with 2.2 branch
+- Cobbler needs to know about newer OSs
+
+* Mon Jul 07 2014 Stephen Herr <sherr@redhat.com> 2.0.11-28
+- Fixes for cobbler power status command
+
+* Tue Jul 01 2014 Stephen Herr <sherr@redhat.com> 2.0.11-27
+- 1109276 - cobbler interface type patch fix
+
+* Thu Jun 26 2014 Stephen Herr <sherr@redhat.com> 2.0.11-26
+- vim helpfully auto-stripped ending whitespace and broke my patch :(
+
+* Thu Jun 26 2014 Stephen Herr <sherr@redhat.com> 2.0.11-25
+- adding status power command to cobbler
+
+* Tue Jun 17 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.0.11-24
+- cobblerd: don't search user's ~/.local on Fedora and RHEL-6
+
+* Fri Jun 13 2014 Stephen Herr <sherr@redhat.com> 2.0.11-23
+- 1109276 - make cobbler20 guest kickstart work with new koan
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.0.11-22
 - spec polishing
 

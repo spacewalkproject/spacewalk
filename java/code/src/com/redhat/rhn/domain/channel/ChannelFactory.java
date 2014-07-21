@@ -31,7 +31,6 @@ import com.redhat.rhn.domain.user.User;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -260,10 +259,10 @@ public class ChannelFactory extends HibernateFactory {
 
         CallableMode m = ModeFactory.getCallableMode(
                 "Channel_queries", "delete_channel");
-        Map inParams = new HashMap();
+        Map<String, Object> inParams = new HashMap<String, Object>();
         inParams.put("cid", c.getId());
 
-        m.execute(inParams, new HashMap());
+        m.execute(inParams, new HashMap<String, Integer>());
     }
 
     /**
@@ -354,22 +353,6 @@ public class ChannelFactory extends HibernateFactory {
         Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", orgid);
         return singleton.listObjectsByNamedQuery("Org.accessibleChannels", params);
-    }
-
-    /**
-     * Returns a list of Channels matching the given labels and a child of the
-     * given baseChannel.
-     * @param baseChannel Parent channel whose children are sought.
-     * @param labels Channel labels being searched.
-     * @return List of channels matching the criteria, or empty list.
-     */
-    public static List getChildChannelsByLabels(Channel baseChannel, List labels) {
-        Session session = getSession();
-        Criteria c = session.createCriteria(Channel.class);
-        c.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-        c.add(Restrictions.eq("parentChannel.id", baseChannel.getId()));
-        c.add(Restrictions.in("label", labels));
-        return c.list();
     }
 
     /**
@@ -620,11 +603,11 @@ public class ChannelFactory extends HibernateFactory {
     public static void refreshNewestPackageCache(Long channelId, String label) {
         CallableMode m = ModeFactory.getCallableMode("Channel_queries",
             "refresh_newest_package");
-        Map inParams = new HashMap();
+        Map<String, Object> inParams = new HashMap<String, Object>();
         inParams.put("cid", channelId);
         inParams.put("label", label);
 
-        m.execute(inParams, new HashMap());
+        m.execute(inParams, new HashMap<String, Integer>());
     }
 
     /**
@@ -669,10 +652,23 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
-     * Get the List of Channel's that are kickstartable to the
-     * Org passed in.
-     * @param org who you want to get kickstartable channels
-     * @return List of Channel objects
+     * Return a list of kickstartable tree channels, i.e. channels that can
+     * be used for creating kickstartable trees (distributions).
+     * @param org org
+     * @return list of channels
+     */
+    public static List<Channel> getKickstartableTreeChannels(Org org) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org_id", org.getId());
+        return singleton.listObjectsByNamedQuery(
+                "Channel.kickstartableTreeChannels", params, false);
+    }
+
+    /**
+     * Return a list of channels that are kickstartable to the Org passed in,
+     * i.e. channels that can be used for creating kickstart profiles.
+     * @param org org
+     * @return list of channels
      */
     public static List<Channel> getKickstartableChannels(Org org) {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -760,9 +756,9 @@ public class ChannelFactory extends HibernateFactory {
      * @param cid the channel id
      * @return List of package ids
      */
-    public static List getPackageIds(Long cid) {
+    public static List<Long> getPackageIds(Long cid) {
         if (cid == null) {
-            return Collections.EMPTY_LIST;
+            return new ArrayList<Long>();
         }
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", cid);
@@ -799,13 +795,11 @@ public class ChannelFactory extends HibernateFactory {
      * @param channel the channel to clone from
      * @return List of packages
      */
-    public static List findOriginalPackages(Channel channel) {
-
-            Map<String, Object> params = new HashMap<String, Object>();
-            params.put("from_cid", channel.getId());
-            List idList = singleton.listObjectsByNamedQuery(
+    public static List<Long> findOriginalPackages(Channel channel) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("from_cid", channel.getId());
+        return singleton.listObjectsByNamedQuery(
                     "Channel.lookupOriginalPackages", params);
-            return idList;
     }
 
     /**
@@ -1173,10 +1167,10 @@ public class ChannelFactory extends HibernateFactory {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", org.getId());
         params.put("channel_id", channelId);
-        DataResult<Map> dr = m.execute(params);
+        DataResult<Map<String, Long>> dr = m.execute(params);
         List<Long> ids = new ArrayList<Long>();
-        for (Map row : dr) {
-            ids.add((Long) row.get("id"));
+        for (Map<String, Long> row : dr) {
+            ids.add(row.get("id"));
         }
         return ids;
     }

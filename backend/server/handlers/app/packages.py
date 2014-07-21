@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,7 +35,7 @@ from spacewalk.server.importlib.importLib import Collection, IncompatibleArchErr
     Channel, IncompletePackage, InvalidChannelError
 from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 
-from spacewalk.server.importlib.packageUpload import uploadPackages, listChannels, listChannelsSource
+from spacewalk.server.importlib.packageUpload import uploadPackages, listChannels, listChannelsSource, listChannelsChecksum
 from spacewalk.server.importlib.userAuth import UserAuth
 from spacewalk.server.importlib.errataCache import schedule_errata_cache_update
 
@@ -60,6 +60,8 @@ class Packages(RPC_Base):
         self.functions.append('uploadSourcePackageInfoBySession')
         self.functions.append('listChannel')
         self.functions.append('listChannelBySession')
+        self.functions.append('listChannelChecksum')
+        self.functions.append('listChannelChecksumBySession')
         self.functions.append('listChannelSource')
         self.functions.append('listChannelSourceBySession')
         self.functions.append('listMissingSourcePackages')
@@ -165,6 +167,21 @@ class Packages(RPC_Base):
         authobj.authzChannels(channelList)
         return listChannels(channelList)
 
+    def listChannelChecksum(self, channelList, username, password):
+        """ List packages of a specified channel. """
+        log_debug(5, channelList, username)
+        authobj = auth(username, password)
+        return self._listChannelChecksum(authobj, channelList)
+
+    def listChannelChecksumBySession(self, channelList, session_string):
+        log_debug(5, channelList, session_string)
+        authobj = auth_session(session_string)
+        return self._listChannelChecksum(authobj, channelList)
+
+    def _listChannelChecksum(self, authobj, channelList):
+        authobj.authzChannels(channelList)
+        return listChannelsChecksum(channelList)
+
     def login(self, username, password):
         """ This function that takes in the username
             and password and returns a session string if they are correct. It raises a
@@ -174,6 +191,8 @@ class Packages(RPC_Base):
         user = rhnUser.search(username)
         if not user or not user.check_password(password):
             raise rhnFault(2)
+        if rhnUser.is_user_read_only(user.username):
+            raise rhnFault(702)
         session = user.create_session()
         return session.get_session()
 

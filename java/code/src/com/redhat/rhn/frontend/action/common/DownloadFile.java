@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -738,7 +738,7 @@ public class DownloadFile extends DownloadAction {
             start = 0;
         }
         else {
-            start = Long.valueOf(rangeMatcher.group(1)).longValue();
+            start = Long.valueOf(rangeMatcher.group(1));
         }
         File actualFile = new File(diskPath);
         long totalSize = actualFile.length();

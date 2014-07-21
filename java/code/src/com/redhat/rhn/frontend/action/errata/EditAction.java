@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,7 +31,9 @@ import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -85,8 +87,14 @@ public class EditAction extends LookupDispatchAction {
         DynaActionForm form = (DynaActionForm) formIn;
 
         String keywordDisplay = StringUtil.join(
-                LocalizationService.getInstance().getMessage("list delimiter"),
-                IteratorUtils.getIterator(errata.getKeywords()));
+            LocalizationService.getInstance().getMessage("list delimiter"),
+            IteratorUtils.getIterator(CollectionUtils.collect(errata.getKeywords(),
+                new Transformer() {
+                    @Override
+                    public Object transform(Object o) {
+                        return o.toString();
+                    }
+                })));
 
         //pre-populate form with current values
         form.set("synopsis", errata.getSynopsis());

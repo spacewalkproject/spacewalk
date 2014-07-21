@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.systems;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -27,7 +28,8 @@ import org.apache.struts.action.ActionForm;
  */
 public class UngroupedSetupAction  extends BaseSystemsAction {
 
-    protected DataResult getDataResult(User user, PageControl pc, ActionForm formIn) {
+    protected DataResult<SystemOverview> getDataResult(User user, PageControl pc,
+            ActionForm formIn) {
         return SystemManager.ungroupedList(user, pc);
     }
 

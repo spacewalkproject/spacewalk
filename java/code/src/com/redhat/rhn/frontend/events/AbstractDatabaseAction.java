@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.events;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.common.messaging.MessageAction;
+import com.redhat.rhn.domain.common.LoggingFactory;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -44,6 +45,11 @@ public abstract class AbstractDatabaseAction implements MessageAction {
     public void execute(EventMessage msg) {
         boolean commit = true;
         try {
+            // initialize logging
+            if (msg.getUserId() != null) {
+                LoggingFactory.clearLogId();
+                LoggingFactory.setLogAuth(msg.getUserId());
+            }
             doExecute(msg);
         }
         catch (Exception e) {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -44,7 +44,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -76,13 +75,13 @@ public class KickstartData {
     private Boolean verboseUp2date;
     private String cobblerId;
     private byte[] partitionData;
-    private Set cryptoKeys;
-    private Set childChannels;
-    private Set defaultRegTokens;
-    private Set preserveFileLists;
+    private Set<CryptoKey> cryptoKeys;
+    private Set<Channel> childChannels;
+    private Set<Token> defaultRegTokens;
+    private Set<FileList> preserveFileLists;
     private Set<KickstartPackage> ksPackages = new HashSet<KickstartPackage>();
     private Collection<KickstartCommand> commands = new HashSet<KickstartCommand>();
-    private Set ips;          // rhnKickstartIpRange
+    private Set<KickstartIpRange> ips; // rhnKickstartIpRange
     private Set<KickstartScript> scripts;      // rhnKickstartScript
     private KickstartDefaults kickstartDefaults;
     private boolean noBase;
@@ -104,25 +103,25 @@ public class KickstartData {
         {"partitions", "raids", "logvols", "volgroups", "include",
         "repo", "custom", "custom_partition"};
 
-    private static final List ADANCED_OPTIONS = Arrays.asList(advancedOptions);
+    private static final List<String> ADANCED_OPTIONS = Arrays.asList(advancedOptions);
 
     /**
      * Initializes properties.
      */
     public KickstartData() {
-        cryptoKeys = new HashSet();
-        defaultRegTokens = new HashSet();
-        preserveFileLists = new HashSet();
+        cryptoKeys = new HashSet<CryptoKey>();
+        defaultRegTokens = new HashSet<Token>();
+        preserveFileLists = new HashSet<FileList>();
         ksPackages = new TreeSet<KickstartPackage>();
         commands = new HashSet<KickstartCommand>();
-        ips = new HashSet();
+        ips = new HashSet<KickstartIpRange>();
         scripts = new HashSet<KickstartScript>();
         postLog = false;
         preLog = false;
         ksCfg = false;
         verboseUp2date = false;
         nonChrootPost = false;
-        childChannels = new HashSet();
+        childChannels = new HashSet<Channel>();
         kickstartType = TYPE_WIZARD;
         noBase = false;
         ignoreMissing = false;
@@ -323,7 +322,7 @@ public class KickstartData {
     /**
      * @param cryptoKeysIn The cryptoKeys to set.
      */
-    public void setCryptoKeys(Set cryptoKeysIn) {
+    public void setCryptoKeys(Set<CryptoKey> cryptoKeysIn) {
         this.cryptoKeys = cryptoKeysIn;
     }
 
@@ -353,7 +352,7 @@ public class KickstartData {
     /**
      * @param childChannelsIn childChannels to set.
      */
-    public void setChildChannels(Set childChannelsIn) {
+    public void setChildChannels(Set<Channel> childChannelsIn) {
         this.childChannels = childChannelsIn;
     }
 
@@ -363,7 +362,7 @@ public class KickstartData {
      */
     public void addChildChannel(Channel childChnl) {
         if (this.childChannels == null) {
-            this.childChannels = new HashSet();
+            this.childChannels = new HashSet<Channel>();
         }
         this.childChannels.add(childChnl);
     }
@@ -397,7 +396,7 @@ public class KickstartData {
      * Setter for defaultRegTokens
      * @param p The packageLists to set.
      */
-    public void setDefaultRegTokens(Set p) {
+    public void setDefaultRegTokens(Set<Token> p) {
         this.defaultRegTokens = p;
     }
 
@@ -406,7 +405,7 @@ public class KickstartData {
      *
      * @return the value of preserveFileLists
      */
-    public Set getPreserveFileLists() {
+    public Set<FileList> getPreserveFileLists() {
         return this.preserveFileLists;
     }
 
@@ -416,7 +415,7 @@ public class KickstartData {
      * @param preserveFileListsIn set of FileList objects to assign to
      * this.preserveFileLists
      */
-    public void setPreserveFileLists(Set preserveFileListsIn) {
+    public void setPreserveFileLists(Set<FileList> preserveFileListsIn) {
         this.preserveFileLists = preserveFileListsIn;
     }
 
@@ -477,9 +476,9 @@ public class KickstartData {
      * Clear all ksPackages
      */
     public void clearKsPackages() {
-        for (Iterator iter = ksPackages.iterator(); iter.hasNext();) {
+        for (Iterator<KickstartPackage> iter = ksPackages.iterator(); iter.hasNext();) {
             // remove from DB
-            KickstartFactory.removePackage((KickstartPackage)iter.next());
+            KickstartFactory.removePackage(iter.next());
             // remove from collection
             iter.remove();
         }
@@ -519,9 +518,9 @@ public class KickstartData {
     private KickstartScript lookupScriptByType(String typeIn) {
         if (this.getScripts() != null &&
                 this.getScripts().size() > 0) {
-            Iterator i = this.getScripts().iterator();
+            Iterator<KickstartScript> i = this.getScripts().iterator();
             while (i.hasNext()) {
-                KickstartScript kss = (KickstartScript) i.next();
+                KickstartScript kss = i.next();
                 if (kss.getScriptType().equals(typeIn)) {
                     return kss;
                 }
@@ -546,8 +545,9 @@ public class KickstartData {
     public boolean hasCommand(String commandName) {
         boolean retval = false;
         if (this.commands != null && this.commands.size() > 0) {
-            for (Iterator iter = this.commands.iterator(); iter.hasNext();) {
-                KickstartCommand cmd = (KickstartCommand) iter.next();
+            for (Iterator<KickstartCommand> iter = this.commands.iterator();
+                    iter.hasNext();) {
+                KickstartCommand cmd = iter.next();
                 if (cmd.getCommandName().getName().equals(label)) {
                     retval = true;
                     break;
@@ -564,8 +564,9 @@ public class KickstartData {
      */
     public void removeCommand(String commandName, boolean removeFirst) {
         if (this.commands != null && this.commands.size() > 0) {
-            for (Iterator iter = this.commands.iterator(); iter.hasNext();) {
-                KickstartCommand cmd = (KickstartCommand) iter.next();
+            for (Iterator<KickstartCommand> iter = this.commands.iterator();
+                    iter.hasNext();) {
+                KickstartCommand cmd = iter.next();
                 if (cmd.getCommandName().getName().equals(commandName)) {
                     iter.remove();
                     if (removeFirst) {
@@ -584,8 +585,9 @@ public class KickstartData {
     public KickstartCommand getCommand(String commandName) {
         KickstartCommand retval = null;
         if (this.commands != null && this.commands.size() > 0) {
-            for (Iterator iter = this.commands.iterator(); iter.hasNext();) {
-                KickstartCommand cmd = (KickstartCommand) iter.next();
+            for (Iterator<KickstartCommand> iter = this.commands.iterator();
+                    iter.hasNext();) {
+                KickstartCommand cmd = iter.next();
                 if (cmd.getCommandName().getName().equals(commandName)) {
                     retval = cmd;
                     break;
@@ -603,11 +605,12 @@ public class KickstartData {
         this.commands = c;
     }
 
-    private Set <KickstartCommand> getCommandSubset(String name) {
-        Set retval = new HashSet();
+    private Set<KickstartCommand> getCommandSubset(String name) {
+        Set<KickstartCommand> retval = new HashSet<KickstartCommand>();
         if (this.commands != null && this.commands.size() > 0) {
-            for (Iterator iter = this.commands.iterator(); iter.hasNext();) {
-                KickstartCommand cmd = (KickstartCommand) iter.next();
+            for (Iterator<KickstartCommand> iter = this.commands.iterator();
+                    iter.hasNext();) {
+                KickstartCommand cmd = iter.next();
                 logger.debug("getCommandSubset : working with: " +
                         cmd.getCommandName().getName());
                 if (cmd.getCommandName().getName().equals(name)) {
@@ -666,8 +669,8 @@ public class KickstartData {
     /**
      * @return Returns the customOptions.
      */
-    public SortedSet getCustomOptions() {
-        return new TreeSet(getCommandSubset("custom"));
+    public SortedSet<KickstartCommand> getCustomOptions() {
+        return new TreeSet<KickstartCommand>(getCommandSubset("custom"));
     }
 
     /**
@@ -703,10 +706,11 @@ public class KickstartData {
     public Set<KickstartCommand> getOptions() {
         // 'partitions', 'raids', 'logvols', 'volgroups', 'include', 'repo', 'custom'
         logger.debug("returning all commands except: " + ADANCED_OPTIONS);
-        Set retval = new HashSet();
+        Set<KickstartCommand> retval = new HashSet<KickstartCommand>();
         if (this.commands != null && this.commands.size() > 0) {
-            for (Iterator iter = this.commands.iterator(); iter.hasNext();) {
-                KickstartCommand cmd = (KickstartCommand) iter.next();
+            for (Iterator<KickstartCommand> iter = this.commands.iterator();
+                    iter.hasNext();) {
+                KickstartCommand cmd = iter.next();
                 logger.debug("working with: " + cmd.getCommandName().getName());
                 if (!ADANCED_OPTIONS.contains(cmd.getCommandName().getName())) {
                     logger.debug("not contained within filtered list. adding to retval");
@@ -900,7 +904,7 @@ public class KickstartData {
      *
      * @param ipsIn Set of IPRanges to set
      */
-    public void setIps(Set ipsIn) {
+    public void setIps(Set<KickstartIpRange> ipsIn) {
         this.ips = ipsIn;
     }
 
@@ -942,7 +946,7 @@ public class KickstartData {
     /**
      * @param scriptsIn The scripts to set.
      */
-    public void setScripts(Set scriptsIn) {
+    public void setScripts(Set<KickstartScript> scriptsIn) {
         this.scripts = scriptsIn;
     }
 
@@ -1076,13 +1080,12 @@ public class KickstartData {
             return "";
         }
 
-        LinkedList tokens =
-                (LinkedList) StringUtil.stringToList(tzCommand.getArguments());
+        List<String> tokens = StringUtil.stringToList(tzCommand.getArguments());
 
-        Iterator iter = tokens.iterator();
+        Iterator<String> iter = tokens.iterator();
 
         while (iter.hasNext()) {
-            String token = (String) iter.next();
+            String token = iter.next();
 
             if (!token.startsWith("--")) {
                 return token;
@@ -1104,13 +1107,12 @@ public class KickstartData {
             return Boolean.FALSE;
         }
 
-        LinkedList tokens =
-                (LinkedList) StringUtil.stringToList(tzCommand.getArguments());
+        List<String> tokens = StringUtil.stringToList(tzCommand.getArguments());
 
-        Iterator iter = tokens.iterator();
+        Iterator<String> iter = tokens.iterator();
 
         while (iter.hasNext()) {
-            String token = (String) iter.next();
+            String token = iter.next();
 
             if (token.equals("--utc")) {
                 return Boolean.TRUE;
@@ -1150,7 +1152,7 @@ public class KickstartData {
         cloned.setNonChrootPost(this.getNonChrootPost());
         cloned.setVerboseUp2date(this.getVerboseUp2date());
         cloned.setOrg(this.getOrg());
-        cloned.setChildChannels(new HashSet(this.getChildChannels()));
+        cloned.setChildChannels(new HashSet<Channel>(this.getChildChannels()));
         cloned.setPartitionData(getPartitionData());
         copyKickstartCommands(getCommands(), cloned);
 
@@ -1159,7 +1161,7 @@ public class KickstartData {
         // complain that you are using the same collection
         // in two objects.
         if (this.getCryptoKeys() != null) {
-            cloned.setCryptoKeys(new HashSet(this.getCryptoKeys()));
+            cloned.setCryptoKeys(new HashSet<CryptoKey>(this.getCryptoKeys()));
         }
 
 
@@ -1178,13 +1180,13 @@ public class KickstartData {
         }
 
         if (this.getPreserveFileLists() != null) {
-            cloned.setPreserveFileLists(new HashSet(this.getPreserveFileLists()));
+            cloned.setPreserveFileLists(new HashSet<FileList>(this.getPreserveFileLists()));
         }
 
         if (this.getScripts() != null) {
-            Iterator i = this.getScripts().iterator();
+            Iterator<KickstartScript> i = this.getScripts().iterator();
             while (i.hasNext()) {
-                KickstartScript kss = (KickstartScript) i.next();
+                KickstartScript kss = i.next();
                 KickstartScript ksscloned = kss.deepCopy(cloned);
                 cloned.getScripts().add(ksscloned);
             }
@@ -1207,11 +1209,12 @@ public class KickstartData {
     }
 
     // Helper method to copy KickstartCommands
-    private static void copyKickstartCommands(Collection commands, KickstartData cloned) {
+    private static void copyKickstartCommands(Collection<KickstartCommand> commands,
+            KickstartData cloned) {
         if (commands != null) {
-            Iterator i = commands.iterator();
+            Iterator<KickstartCommand> i = commands.iterator();
             while (i.hasNext()) {
-                KickstartCommand cmd = (KickstartCommand) i.next();
+                KickstartCommand cmd = i.next();
                 KickstartCommand clonedCmd = cmd.deepCopy(cloned);
                 cloned.addCommand(clonedCmd);
             }

@@ -30,6 +30,8 @@
   <%@ include file="/WEB-INF/pages/common/fragments/configuration/ssm/configconfirmlist.jspf"%>
 
   <c:if test="${not empty requestScope.pageList}">
+    <p><bean:message key="diffconfirm.jsp.widgetsummary" /></p>
+    <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>
     <div class="text-right">
       <hr />
       <html:submit styleClass="btn btn-default" property="dispatch">

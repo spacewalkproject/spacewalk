@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.73
+Version:       5.5.81
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -75,6 +75,31 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.5.81-1
+- fix copyright years
+
+* Tue Jun 17 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.5.80-1
+- urlparse_object on RHEL-5 is a regular tuple
+
+* Tue Jun 10 2014 Stephen Herr <sherr@redhat.com> 5.5.79-1
+- make rhnpush backwards-compatible with old spacewalk-proxy
+
+* Mon Jun 09 2014 Stephen Herr <sherr@redhat.com> 5.5.78-1
+- This should work for all versions of pylint
+
+* Mon Jun 09 2014 Stephen Herr <sherr@redhat.com> 5.5.77-1
+- One more pylint fix for rhnpush
+
+* Mon Jun 09 2014 Stephen Herr <sherr@redhat.com> 5.5.76-1
+- Whitespace changes to rhnpush to make pylint happy
+
+* Sat Jun 07 2014 Stephen Herr <sherr@redhat.com> 5.5.75-1
+- 1104375 - typo fix
+
+* Fri Jun 06 2014 Stephen Herr <sherr@redhat.com> 5.5.74-1
+- 1104375 - add default path structure to proxy lookaside that avoids
+  collisions
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.5.73-1
 - spec file polish
 

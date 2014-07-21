@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,7 +31,7 @@ public class ChildChannelPreservationDto {
     private String otherChannelName;
 
     private Long systemsAffectedCount;
-    private List<Map> systemsAffected;
+    private List<Map<String, Object>> systemsAffected;
 
     /**
      * @param oldChannelIdIn The oldChannelId to set.
@@ -42,7 +42,7 @@ public class ChildChannelPreservationDto {
      */
     public ChildChannelPreservationDto(Long oldChannelIdIn, String oldChannelNameIn,
             Long otherChannelIdIn, String otherChannelNameIn,
-            List<Map> systemsAffectedIn) {
+            List<Map<String, Object>> systemsAffectedIn) {
 
         this.oldChannelId = oldChannelIdIn;
         this.oldChannelName = oldChannelNameIn;
@@ -102,14 +102,14 @@ public class ChildChannelPreservationDto {
     /**
      * @param systemsAffectedIn The systemsAffected to set.
      */
-    public void setSystemsAffected(List<Map> systemsAffectedIn) {
+    public void setSystemsAffected(List<Map<String, Object>> systemsAffectedIn) {
         this.systemsAffected = systemsAffectedIn;
     }
 
     /**
      * @return Returns the systemsAffected.
      */
-    public List<Map> getSystemsAffected() {
+    public List<Map<String, Object>> getSystemsAffected() {
         return this.systemsAffected;
     }
 

@@ -133,7 +133,7 @@ my $config_opts = populate_initial_configs(\%opts, \%answers);
 mkdir_mount_points($config_opts->{'mount_point'},
 	$config_opts->{'mount_point'} . '/redhat',
 	$config_opts->{'kickstart_mount_point'});
-setup_sudoers(\%opts, \%answers);
+setup_sudoers();
 
 print Spacewalk::Setup::loc("* Activating $product_name.\n");
 load_satellite_certificate(\%opts, \%answers);
@@ -340,68 +340,9 @@ sub setup_admin_email {
 
 
 sub setup_sudoers {
-	my $opts = shift;
-	my $answers = shift;
-
-	my ($sudoers_content_orig, $sudoers_content);
-	my $sudoers_path = '/etc/sudoers';
-
-	local *FILE;
-	if (-e $sudoers_path) {
-		# If /etc/sudoers exists, let's modify that
-		open FILE, $sudoers_path or die "Error reading [$sudoers_path]: $!\n";
-	} else {
-		# otherwise start with our own file
-		my $init_sudoers_path = Spacewalk::Setup::SHARED_DIR . '/sudoers.base';
-		open FILE, $init_sudoers_path
-			or die "Error reading [$init_sudoers_path]: $!\n";
-		$sudoers_content_orig = '';
-	}
-	{
-	local $/ = undef;
-	$sudoers_content = <FILE>;
-	$sudoers_content_orig = $sudoers_content if not defined $sudoers_content_orig;
-	}
-	close FILE;
-
-	# The sudoers.clear file has regular expressions for clearing
-	# old configuration
-	if (open FILE, Spacewalk::Setup::SHARED_DIR . '/sudoers.clear') {
-		while (defined(my $regexp = <FILE>)) {
-			chomp $regexp;
-			$sudoers_content =~ s!$regexp!!igm;
-		}
-		close FILE;
-	}
-
-	# The sudoers.1, ... files have parts of configuration that we
-	# need to add to sudoers. The first line of each file helps us
-	# detect that the part is already present, and potentially
-	# modify it to the latest versions we need.
-	for my $file (glob Spacewalk::Setup::SHARED_DIR . '/sudoers.[0-9]') {
-		open FILE, $file or die "Error reading [$file]: $!\n";
-		my $regexp = <FILE>;
-		chomp $regexp;
-
-		my $content;
-		{
-		local $/ = undef;
-		$content = <FILE>;
-		}
-		close FILE;
-
-		$sudoers_content =~ s!$regexp!$content!igm
-			or $sudoers_content .= "\n" . $content;
-	}
-
-	if ($sudoers_content ne $sudoers_content_orig) {
-		open FILE, "> $sudoers_path" or die "Error writing [$sudoers_path]: $!\n";
-		chmod 0440, $sudoers_path;
-		print FILE $sudoers_content;
-		close FILE;
-	}
-
-	return;
+  Spacewalk::Setup::system_or_exit(['/usr/bin/spacewalk-setup-sudoers', ''], 1,
+    'Could not setup sudo for Spacewalk commands.');
+  return;
 }
 
 sub passwords_match {
@@ -1247,7 +1188,7 @@ sub setup_gpg {
 
 # Satellite services are handled by chkconfig now.
 sub setup_services {
-  Spacewalk::Setup::system_or_exit(["/usr/sbin/spacewalk-service", "--level", "345", "enable"], 11, 'Could not turn spacewalk services on.');
+  Spacewalk::Setup::system_or_exit(["/usr/sbin/spacewalk-service", "--level", "35", "enable"], 11, 'Could not turn spacewalk services on.');
 
   return 1;
 }

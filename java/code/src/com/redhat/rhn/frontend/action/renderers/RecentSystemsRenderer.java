@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -45,12 +45,12 @@ public class RecentSystemsRenderer extends BaseFragmentRenderer {
      * {@inheritDoc}
      */
     protected void render(User user, PageControl pc, HttpServletRequest request) {
-        DataResult rdr = SystemManager.registeredList(user, pc, 30);
+        DataResult<SystemOverview> rdr = SystemManager.registeredList(user, pc, 30);
         String registeredSystemsCSSTable = null;
 
-        Iterator i = rdr.iterator();
+        Iterator<SystemOverview> i = rdr.iterator();
         while (i.hasNext()) {
-            SystemOverview next = (SystemOverview) i.next();
+            SystemOverview next = i.next();
             SystemListHelper.setSystemStatusDisplay(user, next);
         }
 

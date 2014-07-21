@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -69,7 +69,7 @@ public class ServletUtils {
      * @return String path
      */
     public static String pathWithParams(String base, Map params) {
-        StringBuffer ret = new StringBuffer(base);
+        StringBuilder ret = new StringBuilder(base);
         boolean firstPass = true;
 
         // let's bail if there's no params

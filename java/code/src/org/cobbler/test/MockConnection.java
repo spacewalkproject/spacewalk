@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -44,12 +44,15 @@ public class MockConnection extends CobblerConnection {
     private static List<Map> profiles = new ArrayList<Map>();
     private static List<Map> distros = new ArrayList<Map>();
     private static List<Map> systems = new ArrayList<Map>();
+    private static List<Map> images = new ArrayList<Map>();
 
 
     private static Map<String, Map> systemMap = new HashMap<String, Map>();
     private static Map<String, Map> profileMap = new HashMap<String, Map>();
     private static Map<String, Map> distroMap = new HashMap<String, Map>();
+    private static Map<String, Map> imageMap = new HashMap<String, Map>();
 
+    private static List<String> powerCommands = new ArrayList<String>();
 
     /**
      * Mock constructors for Cobbler connection
@@ -92,9 +95,6 @@ public class MockConnection extends CobblerConnection {
     //no op -> mock version ..
     // we'll add more useful constructs in the future..
     // log.debug("called: " + name + " args: " + args);
-
-
-
     if ("token_check".equals(name) || "update".equals(name)) {
         return true;
     }
@@ -132,27 +132,7 @@ public class MockConnection extends CobblerConnection {
         return true;
     }
     else if ("new_profile".equals(name)) {
-        Map profile = new HashMap();
-        String uid = random();
-        String key = random();
-        profile.put("uid", uid);
-
-        log.debug("PROFILE: Created w/ uid " + uid + "returing handle " + key);
-
-        profiles.add(profile);
-        profileMap.put(key, profile);
-
-        profile.put("virt_bridge", "xenb0");
-        profile.put("virt_cpus", Integer.valueOf(1));
-        profile.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
-        profile.put("virt_path", "/tmp/foo");
-        profile.put("virt_file_size", Integer.valueOf(8));
-        profile.put("virt_ram", Integer.valueOf(512));
-        profile.put("kernel_options", new HashMap());
-        profile.put("kernel_options_post", new HashMap());
-        profile.put("ks_meta", new HashMap());
-        profile.put("redhat_management_key", "");
-        return key;
+            return newProfile();
     }
     //distros
     else if ("find_distro".equals(name)) {
@@ -185,28 +165,7 @@ public class MockConnection extends CobblerConnection {
         return true;
     }
     else if ("new_distro".equals(name)) {
-        String uid = random();
-
-        Map distro = new HashMap();
-        String key = random();
-        distro.put("uid", uid);
-
-        log.debug("DISTRO: Created w/ uid " + uid + "returing handle " + key);
-
-        distros.add(distro);
-        distroMap.put(key, distro);
-
-        distro.put("virt_bridge", "xenb0");
-        distro.put("virt_cpus", Integer.valueOf(1));
-        distro.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
-        distro.put("virt_path", "/tmp/foo");
-        distro.put("virt_file_size", Integer.valueOf(8));
-        distro.put("virt_ram", Integer.valueOf(512));
-        distro.put("kernel_options", new HashMap());
-        distro.put("kernel_options_post", new HashMap());
-        distro.put("ks_meta", new HashMap());
-        distro.put("redhat_management_key", "");
-        return key;
+            return newDistro();
     }
     //System
     else if ("find_system".equals(name)) {
@@ -236,6 +195,94 @@ public class MockConnection extends CobblerConnection {
         return true;
     }
     else if ("new_system".equals(name)) {
+            return newSystem();
+    }
+    else if ("power_system".equals(name)) {
+        boolean firstArgumentValid = systemMap.containsKey(args[0]);
+            boolean secondArgumentValid = args[1].equals("on") || args[1].equals("off") ||
+                args[1].equals("reboot") || args[1].equals("status");
+        boolean thirdArgumentValid = args[2].equals(token);
+        if (firstArgumentValid && secondArgumentValid && thirdArgumentValid) {
+            powerCommands.add(name + " " + args[1] + " " +
+                    systemMap.get(args[0]).get("uid"));
+            return args[1].equals("status") ? true : 0;
+        }
+        return 1;
+    }
+    // images
+    else if ("find_image".equals(name)) {
+        return find((Map)args[0], images);
+    }
+    else if ("get_images".equals(name)) {
+        return images;
+    }
+    else if (name.equals("modify_image")) {
+        Map image = imageMap.get(args[0]);
+        image.put(args[1], args[2]);
+        imageMap.get(args[0]).put(args[1], args[2]);
+    }
+    else if ("rename_image".equals(name)) {
+        imageMap.get(args[0]).put("name", args[2]);
+        return "";
+    }
+    else if ("get_image".equals(name)) {
+        return findByName((String)args[0], images);
+    }
+    else if ("get_image_handle".equals(name)) {
+        if (findByName((String) args[0], images) != null) {
+            String key = random();
+            imageMap.put(key, findByName((String) args[0], images));
+            return key;
+        }
+        return null;
+    }
+    else if ("remove_image".equals(name)) {
+        images.remove(findByName((String)args[0], images));
+        return true;
+    }
+    else if ("new_image".equals(name)) {
+        Map<String, Object> image = new HashMap<String, Object>();
+        String uid = random();
+        image.put("uid", uid);
+        images.add(image);
+        imageMap.put(uid, image);
+        return uid;
+    }
+    // other
+    else if ("sync".equals(name)) {
+        return true;
+    }
+    else {
+        log.debug("Unhandled xmlrpc call in MockConnection: " + name);
+    }
+    return "";
+   }
+
+    private String newProfile() {
+        Map profile = new HashMap();
+        String uid = random();
+        String key = random();
+        profile.put("uid", uid);
+
+        log.debug("PROFILE: Created w/ uid " + uid + "returing handle " + key);
+
+        profiles.add(profile);
+        profileMap.put(key, profile);
+
+        profile.put("virt_bridge", "xenb0");
+        profile.put("virt_cpus", Integer.valueOf(1));
+        profile.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
+        profile.put("virt_path", "/tmp/foo");
+        profile.put("virt_file_size", Integer.valueOf(8));
+        profile.put("virt_ram", Integer.valueOf(512));
+        profile.put("kernel_options", new HashMap());
+        profile.put("kernel_options_post", new HashMap());
+        profile.put("ks_meta", new HashMap());
+        profile.put("redhat_management_key", "");
+        return key;
+    }
+
+    private String newSystem() {
         Map profile = new HashMap();
         String key = random();
         profile.put("uid", random());
@@ -251,11 +298,31 @@ public class MockConnection extends CobblerConnection {
         profile.put("redhat_management_key", "");
         return key;
     }
-    else {
-        log.debug("Unhandled xmlrpc call in MockConnection: " + name);
+
+    private String newDistro() {
+        String uid = random();
+
+        Map distro = new HashMap();
+        String key = random();
+        distro.put("uid", uid);
+
+        log.debug("DISTRO: Created w/ uid " + uid + "returing handle " + key);
+
+        distros.add(distro);
+        distroMap.put(key, distro);
+
+        distro.put("virt_bridge", "xenb0");
+        distro.put("virt_cpus", Integer.valueOf(1));
+        distro.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
+        distro.put("virt_path", "/tmp/foo");
+        distro.put("virt_file_size", Integer.valueOf(8));
+        distro.put("virt_ram", Integer.valueOf(512));
+        distro.put("kernel_options", new HashMap());
+        distro.put("kernel_options_post", new HashMap());
+        distro.put("ks_meta", new HashMap());
+        distro.put("redhat_management_key", "");
+        return key;
     }
-    return "";
-   }
 
    private Map findByName(String name, List<Map> maps) {
        for (Map map : maps) {
@@ -318,15 +385,35 @@ public class MockConnection extends CobblerConnection {
         return new Double(2.2);
     }
 
+    /**
+     * Returns a list of strings with the latest power commands received by this
+     * connection.
+     * @return the latest commands
+     */
+    public static List<String> getPowerCommands() {
+        return powerCommands;
+    }
+
+    /**
+     * Returns a string with the latest power command received by this
+     * connection or null.
+     * @return the latest command
+     */
+    public static String getLatestPowerCommand() {
+        return powerCommands.get(powerCommands.size() - 1);
+    }
+
     public static void clear() {
         profiles = new ArrayList<Map>();
         distros = new ArrayList<Map>();
         systems = new ArrayList<Map>();
+        images = new ArrayList<Map>();
 
 
         systemMap = new HashMap<String, Map>();
         profileMap = new HashMap<String, Map>();
         distroMap = new HashMap<String, Map>();
+        imageMap = new HashMap<String, Map>();
     }
 
 }

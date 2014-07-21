@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -112,7 +112,7 @@ public class KickstartUrlHelper {
      */
     public String getKickstartFileUrl() {
 
-        StringBuffer urlBuf = new StringBuffer();
+        StringBuilder urlBuf = new StringBuilder();
         urlBuf.append("/label/");
         urlBuf.append(StringEscapeUtils.escapeHtml(ksData.getLabel()));
 
@@ -201,7 +201,7 @@ public class KickstartUrlHelper {
      */
     public String getKickstartMediaUrl() {
         log.debug("Formatting for view use.");
-        StringBuffer url = new StringBuffer();
+        StringBuilder url = new StringBuilder();
         url.append(protocol + host + getKickstartMediaPath());
         log.debug("returning: " + url);
         return url.toString();
@@ -213,7 +213,7 @@ public class KickstartUrlHelper {
      * @return string that represents the repo url
      */
     public String getKickstartChildRepoUrl(Channel child) {
-        StringBuffer url = new StringBuffer();
+        StringBuilder url = new StringBuilder();
         url.append(protocol + host + "/ks/dist/");
         url.append("child/" + child.getLabel() + "/");
         url.append(ksData.getTree().getLabel());
@@ -230,9 +230,17 @@ public class KickstartUrlHelper {
      */
     public String getKickstartMediaPath() {
         // /kickstart/dist/ks-rhel-i386-as-4-u2
-        StringBuffer file = new StringBuffer();
+        StringBuilder file = new StringBuilder();
         file.append(KS_DIST);
         file.append("/");
+
+        // check for custom distros
+        if (this.ksTree.getOrgId() != null) {
+           file.append("org/");
+           file.append(this.ksTree.getOrgId());
+           file.append("/");
+        }
+
         file.append(this.ksTree.getLabel());
         return file.toString();
     }
@@ -292,7 +300,7 @@ public class KickstartUrlHelper {
     }
 
     private String getLongMediaPath(KickstartSession session) {
-        StringBuffer file = new StringBuffer();
+        StringBuilder file = new StringBuilder();
         file.append(KS_DIST + "/session/");
         file.append(SessionSwap.encodeData(session.getId().toString()));
         file.append("/");

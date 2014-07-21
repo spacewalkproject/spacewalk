@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,6 +20,8 @@ import com.redhat.rhn.domain.action.ActionFormatter;
 import com.redhat.rhn.domain.action.PackageActionFormatter;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
+
+import org.apache.commons.lang.StringEscapeUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -102,8 +104,11 @@ public class PackageAction extends Action {
         retval.append("</br><ul>");
         for (PackageActionDetails pad : affectedPackages) {
             retval.append("<li>");
-            retval.append(PackageManager.buildPackageNevra(pad.getPackageName().getId(),
-                    pad.getEvr().getId(), pad.getArch().getId()));
+            Long evrId = pad.getEvr() != null ? pad.getEvr().getId() : null;
+            Long archId = pad.getArch() != null ? pad.getArch().getId() : null;
+            String nevra = PackageManager.buildPackageNevra(pad.getPackageName().getId(),
+                    evrId, archId);
+            retval.append(StringEscapeUtils.escapeHtml(nevra));
             retval.append("</li>");
         }
         retval.append("</ul>");

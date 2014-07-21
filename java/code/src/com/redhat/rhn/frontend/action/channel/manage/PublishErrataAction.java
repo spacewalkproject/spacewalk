@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -86,7 +86,7 @@ public class PublishErrataAction extends RhnListAction {
         List<Long> pidList = new ArrayList<Long>();
         pidList.addAll(packageIds);
 
-        List channelPacks = ChannelFactory.getPackageIds(currentChan.getId());
+        List<Long> channelPacks = ChannelFactory.getPackageIds(currentChan.getId());
 
         for (Long pid : pidList) {
             if (!channelPacks.contains(pid)) {
@@ -96,7 +96,7 @@ public class PublishErrataAction extends RhnListAction {
 
 
         //update the errata info
-        List chanList = new ArrayList();
+        List<Long> chanList = new ArrayList<Long>();
         chanList.add(currentChan.getId());
         ErrataCacheManager.insertCacheForChannelPackagesAsync(chanList, pidList);
         ChannelManager.refreshWithNewestPackages(currentChan, "web.errata_push");

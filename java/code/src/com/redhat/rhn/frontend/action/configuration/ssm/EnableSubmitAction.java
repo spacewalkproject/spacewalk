@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -42,7 +42,7 @@ public class EnableSubmitAction extends RhnListDispatchAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("targetsystems.jsp.enable", "enable");
     }
 
@@ -50,7 +50,7 @@ public class EnableSubmitAction extends RhnListDispatchAction {
      * {@inheritDoc}
      */
     protected void processParamMap(ActionForm form, HttpServletRequest request,
-            Map params) {
+            Map<String, Object> params) {
         getStrutsDelegate().rememberDatePicker(params, (DynaActionForm)form, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
     }

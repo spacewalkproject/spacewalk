@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -727,7 +727,7 @@ class GenericPackageImport(Import):
 # Exceptions
 class ImportException(Exception):
     def __init__(self, arglist):
-        apply(Exception.__init__, (self, ) + arglist)
+        Exception.__init__(self, *arglist)
 
 class AlreadyUploadedError(ImportException):
     def __init__(self, object, *rest):

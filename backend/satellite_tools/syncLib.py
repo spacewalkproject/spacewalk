@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2011 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -210,7 +210,7 @@ class FileManip:
             # Try not to leave garbage around
             try:
                 os.unlink(self.full_path)
-            except:
+            except (OSError, IOError):
                 pass
             raise FileCreationError(msg), None, sys.exc_info()[2]
         l_file_size = fout.tell()
@@ -224,7 +224,7 @@ class FileManip:
             # Try not to leave garbage around
             try:
                 os.unlink(self.full_path)
-            except:
+            except (OSError, IOError):
                 pass
             raise FileCreationError(msg)
 
@@ -247,6 +247,6 @@ class RpmManip(FileManip):
         self.pdict = pdict
 
     def nvrea(self):
-        return tuple(map(lambda x, s=self: s.pdict[x],
-            ['name', 'version', 'release', 'epoch', 'arch']))
+        return tuple([self.pdict[x] for x in
+            ['name', 'version', 'release', 'epoch', 'arch']])
 

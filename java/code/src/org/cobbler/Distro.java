@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2011 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -45,10 +45,11 @@ public class Distro extends CobblerObject {
      * @param ksmeta inital ksmeta to set
      * @param breed initial breed to set
      * @param osVersion initial os_version to set
+     * @param arch initial cobbler arch to set
      * @return a new Distro
      */
     public static Distro create(CobblerConnection client, String name, String kernel,
-            String initrd, Map ksmeta, String breed, String osVersion) {
+            String initrd, Map ksmeta, String breed, String osVersion, String arch) {
         Distro distro = new Distro(client);
         distro.handle = (String) client.invokeTokenMethod("new_distro");
         distro.modify(NAME, name);
@@ -64,6 +65,7 @@ public class Distro extends CobblerObject {
             distro.setOsVersion(osVersion);
         }
         distro.setKsMeta(ksmeta);
+        distro.setArch(arch);
         distro.save();
         distro = lookupByName(client, name);
         return distro;

@@ -1,7 +1,7 @@
 #
 # Decoding data from XML streams
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,7 +17,6 @@
 
 import sys
 import types
-import string
 from xml.sax import make_parser, SAXParseException, ContentHandler, \
     ErrorHandler
 
@@ -61,13 +60,13 @@ class IncompatibleVersionError(ParseException):
 # Exposed functionality for the next three include:
 #    getColumnNumber(), getLineNumber(), and _msg (or just str(e))
 
-class RecoverableParseException(SAXParseException):
+class RecoverableParseException(SAXParseException, Exception):
     """exception wrapper for a critical, but possibly recoverable, XML parser
        error.
     """
     pass
 
-class FatalParseException(SAXParseException):
+class FatalParseException(SAXParseException, Exception):
     """exception wrapper for a critical XML parser error.
     """
     pass
@@ -119,7 +118,8 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
         self.__parser.setContentHandler(self)
         self.__parser.setErrorHandler(self)
 
-    def setStream(self, stream):
+    @staticmethod
+    def setStream(stream):
         BaseDispatchHandler.__stream = stream
 
     # Starts processing the data from the XML stream
@@ -131,7 +131,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
             self.__parser.parse(self.__stream)
         except (KeyboardInterrupt, SystemExit):
             raise
-        except Exception, e:
+        except Exception:
             Traceback(ostream=sys.stderr, with_locals=1)
             if stream is not None:
                 stream.close()
@@ -224,24 +224,28 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
 
     #___Error handling methods___
 
+    # pylint: disable=W0212,W0710
     def error(self, e):
         """Handle a recoverable error.
         """
-        log_debug(-1, "ERROR (RECOVERABLE): parse error encountered - line: %s, col: %s, msg: %s" % (e.getLineNumber(), e.getColumnNumber(), e._msg))
+        log_debug(-1, "ERROR (RECOVERABLE): parse error encountered - line: %s, col: %s, msg: %s" \
+                        % (e.getLineNumber(), e.getColumnNumber(), e._msg))
         raise RecoverableParseException(e._msg, e, e._locator)
 
 
     def fatalError(self, e):
         """Handle a non-recoverable error.
         """
-        log_debug(-1, "ERROR (FATAL): parse error encountered - line: %s, col: %s, msg: %s" % (e.getLineNumber(), e.getColumnNumber(), e._msg))
+        log_debug(-1, "ERROR (FATAL): parse error encountered - line: %s, col: %s, msg: %s" \
+                        % (e.getLineNumber(), e.getColumnNumber(), e._msg))
         raise FatalParseException(e._msg, e, e._locator)
 
 
     def warning(self, e):
         """Handle a warning.
         """
-        log_debug(-1, "ERROR (WARNING): parse error encountered - line: %s, col: %s, msg: %s" % (e.getLineNumber(), e.getColumnNumber(), e._msg))
+        log_debug(-1, "ERROR (WARNING): parse error encountered - line: %s, col: %s, msg: %s" \
+                        % (e.getLineNumber(), e.getColumnNumber(), e._msg))
 
     # To be overridden in subclasses
     def _check_version(self):
@@ -269,8 +273,8 @@ class SatelliteDispatchHandler(BaseDispatchHandler):
         rhnFlags.set("stream-generation", generation)
         if not version:
             version = "0"
-        stream_version = map(int, string.split(version, '.'))
-        allowed_version = map(int, string.split(self.version, "."))
+        stream_version = map(int, version.split('.'))
+        allowed_version = map(int, self.version.split("."))
         if (stream_version[0] != allowed_version[0] or
             stream_version[1] < allowed_version[1]):
             raise IncompatibleVersionError(version, self.version,
@@ -280,8 +284,11 @@ class SatelliteDispatchHandler(BaseDispatchHandler):
 # Element handler
 class BaseItem:
     item_name = None
-    item_class = None
+    item_class = object
     tagMap = {}
+
+    def __init__(self):
+        pass
 
     def populate(self, attributes, elements):
         item = self.item_class()
@@ -313,7 +320,7 @@ class BaseItem:
         for element in elements:
             if _is_string(element):
                 if keys_len != 1:
-                    if not string.strip(element):
+                    if not element.strip():
                         # White space around an element - skip
                         continue
                     # Ambiguity: don't know which attribute to initialize
@@ -351,7 +358,7 @@ def _dict_to_utf8(d):
     # Convert the dictionary to have non-unocide key-value pairs
     ret = {}
     for k, v in d.items():
-        if isinstance(k,types.UnicodeType):
+        if isinstance(k, types.UnicodeType):
             k = k.encode('UTF8')
         if isinstance(v, types.UnicodeType):
             v = v.encode('UTF8')
@@ -875,7 +882,7 @@ class ContainerHandler:
         # Remove the previous tag
         del self.tagStack[-1]
         # Decode the tag object
-        name, attrs = tagobj.name, tagobj.attributes
+        name = tagobj.name
         if name != element:
             raise ParseException(
                 "incorrect XML data: closing tag %s, opening tag %s" % (
@@ -935,6 +942,7 @@ class ContainerHandler:
         pass
 
 def _normalizeSubelements(objtype, subelements):
+    # pylint: disable=R0911
     # Deal with simple cases first
     if objtype is None:
         # Don't know how to handle it
@@ -953,7 +961,7 @@ def _normalizeSubelements(objtype, subelements):
     _s = []
     _strings_only = 1
     for subel in subelements:
-        if _is_string(subel) and not string.strip(subel):
+        if _is_string(subel) and not subel.strip():
             # Ignore it for now
             continue
         _s.append(subel)
@@ -962,7 +970,7 @@ def _normalizeSubelements(objtype, subelements):
 
     if _strings_only:
         # Multiple strings - contactenate into one
-        subelements = [ string.join(subelements, '') ]
+        subelements = [ ''.join(subelements) ]
     else:
         # Ignore whitespaces around elements
         subelements = _s
@@ -1034,7 +1042,7 @@ def _normalizeAttribute(objtype, attribute):
         return _normalizeDateType(attribute)
     elif isinstance(objtype, types.ListType):
         # List type - split stuff
-        return string.split(attribute)
+        return attribute.split()
     else:
         raise Exception("Unhandled attribute data type %s" % objtype)
 

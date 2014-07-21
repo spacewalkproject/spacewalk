@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.16
+Version:	2.3.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -45,7 +45,7 @@ Requires:       spacewalk-config
 Requires:       spacewalk-setup
 Requires:       spacewalk-backend
 Requires:       spacewalk-backend-libs
-Requires:       spacewalk-backend-tools
+Requires:       spacewalk-backend-tools >= 2.2.27
 Requires:       yum-utils
 
 %description
@@ -91,6 +91,55 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Jul 15 2014 Stephen Herr <sherr@redhat.com> 2.3.2-1
+- 1119405 - Check if dest parent is cloned
+- 1119405 - sw-clone-by-date man page update
+
+* Mon Jul 14 2014 Stephen Herr <sherr@redhat.com> 2.3.1-1
+- 1119411 - add dry-run to config file
+- 1119411 - [RFE] sw-clone-by-date --dry-run
+- 1119406 - make clone-by-date able to specify --parents from config file
+- 1119405 - you should not have to specify both parent channels for clone-by-
+  date
+- Bumping package versions for 2.3.
+
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.26-1
+- Spacewalk 2.2 repos for spacewalk-common-channels
+- fix copyright years
+
+* Wed Jul 09 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.25-1
+- CentOS 7 + EPEL 7 channels
+
+* Mon Jun 23 2014 Tomas Lestach <tlestach@redhat.com> 2.2.24-1
+- let spacewalk-utils require a specific version of spacewalk-backend-tools
+
+* Fri Jun 20 2014 Tomas Lestach <tlestach@redhat.com> 2.2.23-1
+- minor fixes to spacewalk-export-channels man page
+
+* Thu Jun 19 2014 Grant Gainey 2.2.22-1
+- Added man-pg for spacewalk-export-channels Minor cleanup of spacewalk-export
+  man-pg
+- manpage for spacewalk-export
+- Some PEP8 suggestions
+- Restored spacewalk-report channels to export
+
+* Thu Jun 12 2014 Grant Gainey 2.2.21-1
+- Add spacewalk-export-channels to Makefile too
+- Calling sudo inside may be problematic
+
+* Wed Jun 11 2014 Tomas Lestach <tlestach@redhat.com> 2.2.20-1
+- 1108138 - detect repositories with inaccessible metadata
+
+* Mon Jun 09 2014 Tomas Lestach <tlestach@redhat.com> 2.2.19-1
+- 1105904 - do not check size of missing files
+
+* Fri Jun 06 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.18-1
+- fixed spacewalk-hostname-rename to work with postgresql backend
+
+* Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.17-1
+- 1101545 - Added limitation of spacewlak-clone-by-date for RHEL4 and earlier
+- new report: spacewalk-export-channels
+
 * Fri May 23 2014 Stephen Herr <sherr@redhat.com> 2.2.16-1
 - Adding spacewalk-manage-channel-lifecycle to spacewalk-utils
 - spacewalk-manage-channel-lifecycle: Removed the whitespace

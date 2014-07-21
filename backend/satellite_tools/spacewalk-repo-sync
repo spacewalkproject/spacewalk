@@ -1,6 +1,6 @@
 #!/usr/bin/python -u
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 # Copyright (c) 2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # This software is licensed to you under the GNU General Public License,
@@ -68,11 +68,15 @@ def main():
     parser = OptionParser()
     parser.add_option('-l', '--list', action='store_true', dest='list',
                       help='List the custom channels with the assosiated repositories.')
-    parser.add_option('-u', '--url', action='store', dest='url',
-                      help='The url to sync')
+    parser.add_option('-u', '--url', action='append', dest='url',
+                      default=[], help='The url to sync')
     parser.add_option('-c', '--channel', action='store',
                       dest='channel_label',
                       help='The label of the channel to sync packages to')
+    parser.add_option('-p', '--parent-channel', action='append',
+                      dest='parent_label', default=[],
+                      help='The label of the channel to sync packages to')
+
     parser.add_option('-d', '--dry-run', action='store_true',
                       dest='dry_run',
                       help='Test run. No sync takes place.')
@@ -101,6 +105,7 @@ def main():
     l_params=["no_errata", "sync_kickstart", "quiet", "fail"]
     d_chan_repo=reposync.getChannelRepo()
     l_ch_custom=reposync.getCustomChannels()
+    d_parent_child=reposync.getParentsChilds()
     d_ch_repo_sync={}
 
     if options.list:
@@ -116,9 +121,6 @@ def main():
             print "%s | No repository set" % ch
         return 0
 
-    if not options.channel_label:
-        systemExit(1, "--channel must be specified")
-
     # Automatically remove all the remains inside of /var/spacewalk/packages/1/stage
     # Yum does not seem to handle download resumes properly. This can lead to
     # errors like:
@@ -127,8 +129,19 @@ def main():
     # > afd8c60d7908b2b0e2d95ad0b333920aea9892eb', 'Invalid information uploaded to the server')
     clear_interrupted_downloads()
 
+    if not options.channel_label and not options.parent_label:
+        systemExit(1, "--channel or --parent-channel  must be specifed.")
+
     if options.channel_label:
         d_ch_repo_sync[options.channel_label]=options.url
+
+    if options.parent_label:
+        for pch in options.parent_label:
+            if pch in d_parent_child:
+               for ch in [pch]+d_parent_child[pch]:
+                    d_ch_repo_sync[ch]=[]
+            else:
+                systemExit(1, "Channel %s is not custom base channel." % pch)
 
     for ch in d_ch_repo_sync:
         if ch not in l_ch_custom:
@@ -141,9 +154,9 @@ def main():
          print "|   Channel Label   |   Repository   |"
          print "======================================"
 
-         for ch  in d_ch_repo_sync:
-             if d_ch_repo_sync[ch]:
-                print " %s : %s" % (ch,d_ch_repo_sync[ch])
+         for ch,repo in d_ch_repo_sync.items():
+             if repo:
+                print " %s : %s" % (ch,", ".join(repo))
              else:
                 print " %s : %s" % (ch,", ".join(d_chan_repo[ch]))
 
@@ -154,15 +167,17 @@ def main():
              print " %s: %s" % (key,str(getattr(options, key)))
          return 0
 
-    sync = reposync.RepoSync(channel_label=options.channel_label,
+    for ch,repo in d_ch_repo_sync.items():
+        print "#### Channel label: %s ####" % ch
+        sync = reposync.RepoSync(channel_label=ch,
                       repo_type=options.repo_type,
-                      url=options.url,
+                      url=repo,
                       fail=options.fail,
                       quiet=options.quiet,
                       filters=options.filters,
                       no_errata=options.no_errata,
                       sync_kickstart=options.sync_kickstart)
-    sync.sync()
+        sync.sync()
     releaseLOCK()
     return 0
 

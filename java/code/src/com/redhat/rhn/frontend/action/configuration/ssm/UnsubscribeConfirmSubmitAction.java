@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -51,7 +51,7 @@ public class UnsubscribeConfirmSubmitAction extends RhnListDispatchAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map mapIn) {
+    protected void processMethodKeys(Map<String, String> mapIn) {
         mapIn.put("unsubscribeconfirm.jsp.confirm", "confirm");
     }
 
@@ -59,7 +59,7 @@ public class UnsubscribeConfirmSubmitAction extends RhnListDispatchAction {
      * {@inheritDoc}
      */
     protected void processParamMap(ActionForm formIn,
-            HttpServletRequest requestIn, Map paramsIn) {
+            HttpServletRequest requestIn, Map<String, Object> paramsIn) {
         //no-op
     }
 

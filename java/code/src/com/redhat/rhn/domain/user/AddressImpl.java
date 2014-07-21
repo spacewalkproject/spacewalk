@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -226,7 +226,7 @@ public class AddressImpl extends BaseDomainHelper implements Address {
      * @return String value of AddressImpl object
      */
     public String toString() {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         retval.append("{ID: " + getId());
         retval.append(", type: " + getType());
         retval.append(", created: " + getCreated());

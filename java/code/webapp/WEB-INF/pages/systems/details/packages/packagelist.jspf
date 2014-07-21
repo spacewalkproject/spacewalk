@@ -68,13 +68,14 @@
 	</rl:list>
 
 <c:if test="${not empty requestScope.all}">
-<div class="text-right">
-   <rhn:submitted/>
-   <hr/>
-    <input type="submit"
-    	name ="dispatch"
-	    value='<bean:message key="${dispatch}"/>'/>
-</div>
+    <rhn:submitted/>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" class="btn btn-success" name ="dispatch" value='<bean:message key="${dispatch}"/>'/>
+            </div>
+        </div>
+    </div>
 </c:if>
 </rl:listset>
 </body>

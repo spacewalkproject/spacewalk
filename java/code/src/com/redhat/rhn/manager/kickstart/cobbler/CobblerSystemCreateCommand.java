@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -273,8 +273,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         // Else, lets make a new system
         if (rec == null) {
             rec = SystemRecord.create(getCobblerConnection(),
-                    getCobblerSystemRecordName(),
-                    profile);
+                    getCobblerSystemRecordName(), profile);
         }
         try {
             processNetworkInterfaces(rec, server);
@@ -287,6 +286,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             }
             throw e;
         }
+        rec.enableNetboot(true);
         rec.setProfile(profile);
 
         if (isDhcp) {
@@ -360,16 +360,25 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         }
         return null;
     }
+
     /**
-     * Get the cobbler system record name for this system.
-     * @return String name of cobbler system record.
+     * Get the cobbler system record name for a system
+     * @return String name of cobbler system record
      */
     public String getCobblerSystemRecordName() {
+        return CobblerSystemCreateCommand.getCobblerSystemRecordName(this.server);
+    }
+
+    /**
+     * Get the cobbler system record name for a system
+     * @param serverIn the server to get the name from
+     * @return String name of cobbler system record
+     */
+    public static String getCobblerSystemRecordName(Server serverIn) {
         String sep = ConfigDefaults.get().getCobblerNameSeparator();
-        String name = this.server.getName().replace(' ', '_');
+        String name = serverIn.getName().replace(' ', '_');
         name = name.replace(' ', '_').replaceAll("[^a-zA-Z0-9_\\-\\.]", "");
-        return name + sep +
-                this.server.getOrg().getId();
+        return name + sep + serverIn.getOrg().getId();
     }
 
     protected void processNetworkInterfaces(SystemRecord rec,

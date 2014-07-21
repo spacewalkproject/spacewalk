@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.configuration;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorResult;
@@ -79,7 +80,11 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
 
     // This cannot be the right way to find this
     // Here to deal with form-size-limits
-    public static final long   MAX_EDITABLE_SIZE = (32L * 1024L);
+    public static final long   MAX_EDITABLE_SIZE;
+    static {
+        MAX_EDITABLE_SIZE = new Long(new Config().getInt(
+                ConfigDefaults.CONFIG_FILE_EDIT_SIZE) * 1024);
+    }
 
     /**
      * Set acceptable defaults for our form

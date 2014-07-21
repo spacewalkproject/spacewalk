@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -72,6 +72,18 @@ public abstract class BaseEvent {
         //String loc = (getUser() == null) ? null : getUser().getPreferredLocale();
         //return (loc == null) ? LocalizationService.DEFAULT_LOCALE : new Locale(loc);
         return LocalizationService.DEFAULT_LOCALE;
+    }
+
+    /**
+     * Return the userId for the user that scheduled this event
+     * (used to initialize logging)
+     * @return The userId that scheduled this event
+     */
+    public Long getUserId() {
+        if (user != null) {
+            return user.getId();
+        }
+        return null;
     }
 
 }

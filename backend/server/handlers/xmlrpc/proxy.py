@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,12 +22,13 @@ from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
+from spacewalk.common.rhnLib import rfc822time, timestamp
 from spacewalk.common.rhnTranslate import _
 
 # local module imports
 from spacewalk.server.rhnLib import computeSignature
 from spacewalk.server.rhnHandler import rhnHandler
-from spacewalk.server import rhnServer, rhnSQL, apacheAuth, rhnPackage
+from spacewalk.server import rhnServer, rhnSQL, apacheAuth, rhnPackage, rhnChannel
 
 # a class that provides additional authentication support for the
 # proxy functions
@@ -103,6 +104,12 @@ class Proxy(rhnProxyHandler):
         rhnProxyHandler.__init__(self)
         self.functions.append('package_source_in_channel')
         self.functions.append('login')
+        self.functions.append('listAllPackagesKickstart')
+        self.functions.append('getKickstartChannel')
+        self.functions.append('getKickstartOrgChannel')
+        self.functions.append('getKickstartSessionChannel')
+        self.functions.append('getKickstartChildChannel')
+        self.functions.append('getTinyUrlChannel')
 
     def package_source_in_channel(self, package, channel, auth_token):
         """ Validates the client request for a source package download """
@@ -150,6 +157,85 @@ class Proxy(rhnProxyHandler):
         transport['X-RHN-Proxy-Auth'] = token
         return token
 
+    def listAllPackagesKickstart(self, channel, system_id):
+        """ Creates and/or serves up a cached copy of all the packages for
+        this channel, including checksum information.
+        """
+        log_debug(5, channel)
+        # authenticate that this request is initiated from a proxy
+        self.auth_system(system_id)
+
+        packages = rhnChannel.list_all_packages_checksum(channel)
+
+        # transport options...
+        rhnFlags.set("compress_response", 1)
+        return packages
+
+    def getKickstartChannel(self, kickstart, system_id):
+        """ Gets channel information for this kickstart tree"""
+        log_debug(5, kickstart)
+        # authenticate that this request is initiated from a proxy
+        self.auth_system(system_id)
+        return self.__getKickstartChannel(kickstart)
+
+    def getKickstartOrgChannel(self, kickstart, org_id, system_id):
+        """ Gets channel information for this kickstart tree"""
+        log_debug(5, kickstart, org_id)
+        # authenticate that this request is initiated from a proxy
+        self.auth_system(system_id)
+        ret = rhnChannel.getChannelInfoForKickstartOrg(kickstart, org_id)
+        return self.__getKickstart(kickstart, ret)
+
+    def getKickstartSessionChannel(self, kickstart, session, system_id):
+        """ Gets channel information for this kickstart tree"""
+        log_debug(5, kickstart, session)
+        # authenticate that this request is initiated from a proxy
+        self.auth_system(system_id)
+        return self.__getKickstartSessionChannel(kickstart, session)
+
+    def getKickstartChildChannel(self, kickstart, child, system_id):
+        """ Gets channel information for this kickstart tree"""
+        log_debug(5, kickstart, child)
+        # authenticate that this request is initiated from a proxy
+        self.auth_system(system_id)
+        if (hasattr(CFG, 'KS_RESTRICT_CHILD_CHANNELS') and
+                CFG.KS_RESTRICT_CHILD_CHANNELS):
+            return getKickstartChannel(kickstart)
+
+        ret = rhnChannel.getChildChannelInfoForKickstart(kickstart, child)
+        return self.__getKickstart(kickstart, ret)
+
+    def getTinyUrlChannel(self, tinyurl, system_id):
+        """ Gets channel information for this tinyurl"""
+        log_debug(5, tinyurl)
+        # authenticate that this request is initiated from a proxy
+        self.auth_system(system_id)
+        ret = rhnChannel.getChannelInfoForTinyUrl(tinyurl)
+        if not ret or not 'url' in ret or len(ret['url'].split('/')) != 6:
+            raise rhnFault(40,
+                    "could not find any data on tiny url '%s'" % tinyurl)
+
+        # tiny urls are always for kickstart sessions
+        args = ret['url'].split('/')
+        return self.__getKickstartSessionChannel(args[-1], args[-2])
+
 
 #-----------------------------------------------------------------------------
+
+    def __getKickstartChannel(self, kickstart):
+        ret = rhnChannel.getChannelInfoForKickstart(kickstart)
+        return self.__getKickstart(kickstart, ret)
+
+    def __getKickstartSessionChannel(self, kickstart, session):
+        ret = rhnChannel.getChannelInfoForKickstartSession(session)
+
+        if not ret:
+            return self.__getKickstartChannel(kickstart)
+        return self.__getKickstart(kickstart, ret)
+
+    def __getKickstart(self, kickstart, ret):
+        if not ret:
+            raise rhnFault(40,
+                    "could not find any data on kickstart '%s'" % kickstart)
+        return ret
 

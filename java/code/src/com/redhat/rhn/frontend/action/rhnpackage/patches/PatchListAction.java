@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -75,13 +75,13 @@ public class PatchListAction extends RhnSetAction {
                                 mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
     }
 
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("packagelist.jsp.backoutpatch", "applyPatch");
     }
 
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         Long sid = new RequestContext(request).getParamAsLong("sid");
         if (sid != null) {
             params.put("sid", sid);

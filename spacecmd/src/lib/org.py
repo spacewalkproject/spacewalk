@@ -20,6 +20,15 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
+
 import shlex
 from getpass import getpass
 from operator import itemgetter
@@ -132,7 +141,7 @@ def complete_org_delete(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 1:
         self.help_org_delete()
@@ -154,7 +163,7 @@ def complete_org_rename(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_rename(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_org_rename()
@@ -175,7 +184,7 @@ def complete_org_addtrust(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_addtrust(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_org_addtrust()
@@ -196,7 +205,7 @@ def complete_org_removetrust(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_removetrust(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_org_removetrust()
@@ -217,7 +226,8 @@ def do_org_removetrust(self, args):
     else:
         print 'None'
 
-    if not self.user_confirm('Remove this trust [y/N]:'): return
+    if not self.user_confirm('Remove this trust [y/N]:'):
+        return
 
     self.client.org.trusts.removeTrust(self.session,
                                        your_org_id,
@@ -233,7 +243,7 @@ def complete_org_trustdetails(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_trustdetails(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_trustdetails()
@@ -289,7 +299,7 @@ def complete_org_listtrusts(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_listtrusts(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_listtrusts()
@@ -313,7 +323,7 @@ def complete_org_listusers(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_listusers(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_listusers()
@@ -335,7 +345,7 @@ def complete_org_details(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_details()
@@ -371,7 +381,7 @@ def complete_org_listsoftwareentitlements(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_listsoftwareentitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_listsoftwareentitlements()
@@ -398,7 +408,8 @@ def help_org_setsoftwareentitlements(self):
 
 def complete_org_setsoftwareentitlements(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_org_list('', True), text)
@@ -408,7 +419,7 @@ def complete_org_setsoftwareentitlements(self, text, line, beg, end):
         return tab_completer(items, parts[-1])
 
 def do_org_setsoftwareentitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_setsoftwareentitlements()
@@ -436,7 +447,7 @@ def complete_org_listsystementitlements(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
 
 def do_org_listsystementitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_listsystementitlements()
@@ -463,7 +474,8 @@ def help_org_setsystementitlements(self):
 
 def complete_org_setsystementitlements(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_org_list('', True), text)
@@ -473,7 +485,7 @@ def complete_org_setsystementitlements(self, text, line, beg, end):
         return tab_completer(items, parts[-1])
 
 def do_org_setsystementitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_org_setsystementitlements()

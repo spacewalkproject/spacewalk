@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -72,6 +72,8 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
      */
     public String[] getCommandArguments(String configFilePath,
             Map<String, String> optionMap, List<String> removals) {
+        boolean anythingChanged = false;
+
         if (logger.isDebugEnabled()) {
             logger.debug("getCommandArguments(String configFilePath=" +
                     configFilePath + ", Iterator keyIterator=" + optionMap +
@@ -98,6 +100,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             }
 
             argList.add(sb.toString());
+            anythingChanged = true;
         }
 
         for (String key : removals) {
@@ -105,6 +108,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             sb.append("--remove=");
             sb.append(key);
             argList.add(sb.toString());
+            anythingChanged = true;
         }
 
         argList.add("2>&1");
@@ -115,7 +119,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             logger.debug("getCommandArguments(String, Iterator) - end - return value=" +
                     returnStringArray);
         }
-        return returnStringArray;
+        return (anythingChanged ? returnStringArray : null);
     }
 
     /**
@@ -188,16 +192,19 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             }
         }
 
-        int exitcode = e.execute(getCommandArguments());
-        if (exitcode != 0) {
-            ValidatorError[] retval = new ValidatorError[1];
-            retval[0] = new ValidatorError("config.storeconfig.error",
-                    Integer.toString(exitcode));
+        String[] commandArguments = getCommandArguments();
+        if (commandArguments != null) {
+            int exitcode = e.execute(commandArguments);
+            if (exitcode != 0) {
+                ValidatorError[] retval = new ValidatorError[1];
+                retval[0] = new ValidatorError("config.storeconfig.error",
+                        Integer.toString(exitcode));
 
-            if (logger.isDebugEnabled()) {
-                logger.debug("storeConfiguration() - end - return value="  + retval);
+                if (logger.isDebugEnabled()) {
+                    logger.debug("storeConfiguration() - end - return value="  + retval);
+                }
+                return retval;
             }
-            return retval;
         }
         this.keysToBeUpdated.clear();
 

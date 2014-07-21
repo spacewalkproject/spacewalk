@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,6 +13,8 @@
  * in this software or its documentation.
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
+
+import java.util.Map;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Server;
@@ -55,7 +57,7 @@ public class NoteListAction extends RhnListAction {
         User user = rctx.getCurrentUser();
         Server s  = SystemManager.lookupByIdAndUser(sid, user);
 
-        DataResult dr = SystemManager.systemNotes(s);
+        DataResult<Map<String, Object>> dr = SystemManager.systemNotes(s);
 
         request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("sid", sid);

@@ -1,6 +1,6 @@
 
 --
--- Copyright (c) 2008--2012 Red Hat, Inc.
+-- Copyright (c) 2008--2014 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,8 +19,14 @@ rhn_kstree_mod_trig
 before insert or update on rhnKickstartableTree
 for each row
 begin
-     if (:new.cobbler_id = :old.cobbler_id) and
-        (:new.cobbler_xen_id = :old.cobbler_xen_id) and
+     -- Basically if we're changing something other than cobbler_id,
+     -- cobbler_xen_id, and last_modified - or if last_modified is
+     -- explicity set to null. Gets complicated because we have
+     -- to allow for the possibility of the ids being null
+     if ((not :old.cobbler_id is null and :new.cobbler_id = :old.cobbler_id) or
+            (:old.cobbler_id is null and :new.cobbler_id is null)) and
+        ((not :old.cobbler_xen_id is null and :new.cobbler_xen_id = :old.cobbler_xen_id) or
+            (:old.cobbler_xen_id is null and :new.cobbler_xen_id is null)) and
         (:new.last_modified = :old.last_modified) or
         (:new.last_modified is null ) then
              :new.last_modified := current_timestamp;

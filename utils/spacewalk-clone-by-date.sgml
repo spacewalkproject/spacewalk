@@ -10,7 +10,7 @@
 <RefNameDiv>
 <RefName><command>spacewalk-clone-by-date</command></RefName>
 <RefPurpose>
-Utility for cloning errata by date.
+Utility for cloning errata by date (For RHEL5 and above).
 </RefPurpose>
 </RefNameDiv>
 
@@ -77,8 +77,11 @@ Utility for cloning errata by date.
         <arg>-h</arg><arg>--help</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-a <replaceable>SRC_PARENT DEST_PARENT</replaceable></arg>
-        <arg>--parents=<replaceable>SRC_PARENT DEST_PARENT</replaceable></arg>
+        <arg>-a <replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></arg>
+	<arg>--parents=<replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-j</arg><arg>--dry-run</arg>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -103,6 +106,9 @@ Utility for cloning errata by date.
     </para>
     <para>
         Also note that spacewalk-clone-by-date will pull in any packages needed to resolve dependencies for any errata being cloned. Since dependency-resolution selects the "best" package to resolve dependencies, it is possible for the cloned channel(s) to end up with packages that are not directly associated with any errata, and which are newer than the specified date. This is expected behavior.
+    </para>
+    <para>
+	Note: spacewalk-clone-by-date does not support RHEL4 and earlier versions. It's a limitation of this tool.
     </para>
 
 </RefSect1>
@@ -223,9 +229,16 @@ Utility for cloning errata by date.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-a <replaceable>SRC_PARENT DEST_PARENT</replaceable>, --parents=<replaceable>SRC_PARENT DEST_PARENT</replaceable></term>
+        <term>-a <replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable>, --parents=<replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></term>
         <listitem>
-            <para>Space separated list of source parent channel and destination parent channel.  These channels are used for resolving dependencies and cloning the children, but will not be cloned themselves.  Both channels specified here must already exist.  There is no way to specify this option through the config channel, you must simply re-list the parent src:dest channels as part of the list to clone.  Spacewalk-clone-by-date will detect that the dest parent channel already exists and will not try to re-create it.</para>
+            <para>The parent channels that will be used for dependency resolution and that newly cloned channels will be created as children of. No changes will be made to these channels unless dependency resolution demands it; errata will never be cloned to the destination parent channel regardless of the date chosen. If only the destination parent channel is specified then the source parent channel will be automatically chosen as the channel the destination parent channel was cloned from. Both of these channels must already exist. The config file equivalent to this option is specifiying '"existing-parent-do-not-modify": true' for a parent channel.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-j --dry-run</term>
+        <listitem>
+            <para>Creates a file for each pair of channels in the working directory that comprises the list of erratas that are to be cloned. No actual errata cloning takes place.</para>
+            <para>Warning: If some of the destination channels do not exist, they will be created with the original package set.</para>
         </listitem>
     </varlistentry>
 </variablelist>

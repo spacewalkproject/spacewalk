@@ -123,7 +123,7 @@ ORDER BY C.org_id, C.name
     </query>
 </mode>
 
-<mode name="relevant_packages_for_channel_unpublished" class="java.lang.Long">
+<mode name="relevant_packages_for_channel_unpublished">
     <query params="eid, cid">
 SELECT DISTINCT P1.name_id
   FROM rhnChannel C,
@@ -141,7 +141,7 @@ SELECT DISTINCT P1.name_id
     </query>
 </mode>
 
-<mode name="relevant_packages_for_channel_published" class="java.lang.Long">
+<mode name="relevant_packages_for_channel_published">
     <query params="eid, cid">
 SELECT DISTINCT P1.name_id
   FROM rhnChannel C,
@@ -296,6 +296,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 	 where UC.user_id = :user_id
     </query>
       <elaborator name="visible_server_count"/>
+      <elaborator name="channel_errata_count"/>
 </mode>
 
 <mode name="shared_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
@@ -561,9 +562,19 @@ ORDER BY UPPER(C2.name), depth, UPPER(C.name)
          rhnServer S
    WHERE S.org_id = :org_id
      AND S.id = SC.server_id
-     AND SC.channel_id IN(%s)
+     AND SC.channel_id IN (%s)
      AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
 GROUP BY SC.channel_id
+</query>
+
+<query name="channel_errata_count">
+  SELECT CE.channel_id AS id,
+         COUNT(*) AS errata_count
+    FROM rhnErrata E,
+         rhnChannelErrata CE
+   WHERE CE.channel_id IN (%s)
+     AND CE.errata_id = E.id
+GROUP BY CE.channel_id
 </query>
 
 <mode name="custom_base_channels_for_server"
@@ -839,7 +850,7 @@ SELECT CP.package_id, CP.name_id, CP.evr_id
     </query>
 </mode>
 
-<mode name="channel_with_package" class="java.lang.Long">
+<mode name="channel_with_package">
     <query params="parent, package, org_id">
 SELECT  DISTINCT C.id
  FROM  rhnChannel C, rhnChannelPackage CP, rhnPackage P, rhnPackageName PN
@@ -854,7 +865,7 @@ SELECT  DISTINCT C.id
     </query>
 </mode>
 
-<mode name="child_channels_with_package" class="java.lang.Long">
+<mode name="child_channels_with_package">
     <query params="package, org_id">
 SELECT  DISTINCT CP.channel_id as id
   FROM  rhnChannelPackage CP
@@ -1004,7 +1015,7 @@ GROUP BY C.id, C.name
 </mode>
 
 
-<mode name="cloned_original_id" class="java.lang.Long">
+<mode name="cloned_original_id">
     <query params="cid">
     SELECT original_id AS id
     FROM rhnChannelCloned
@@ -1085,6 +1096,17 @@ select c.id,
    and sn.id = snc.snapshot_id
    and snc.channel_id = c.id
  order by c.parent_channel nulls first, upper(c.name)
+  </query>
+</mode>
+
+<mode name="channels_for_content_source">
+  <query params="csid">
+select c.id,
+       c.name
+  from rhnChannel c
+  join rhnChannelContentSource cs
+    on c.id = cs.channel_id
+   and cs.source_id = :csid
   </query>
 </mode>
 

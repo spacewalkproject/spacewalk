@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -258,7 +258,7 @@ public class ActionManager extends BaseManager {
         actionsToDelete.addAll(ActionFactory.lookupDependentActions(action));
 
         // Delete the server actions associated with the actions queried:
-        StringBuffer actionsToDeleteBuffer = new StringBuffer(
+        StringBuilder actionsToDeleteBuffer = new StringBuilder(
                 "Actions to be cancelled (including children):");
         Iterator iter = actionsToDelete.iterator();
         while (iter.hasNext()) {

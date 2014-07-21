@@ -2,7 +2,7 @@
 
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        2.2.0
+Version:        2.3.0
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System

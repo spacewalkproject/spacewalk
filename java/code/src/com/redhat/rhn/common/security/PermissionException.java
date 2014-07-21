@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -79,7 +79,7 @@ public class PermissionException extends RhnRuntimeException  {
         setLocalizedTitle(ls.getMessage("permission.jsp.title.acl"));
 
         //Set the summary. The default summary gives several reasons
-        StringBuffer summary = new StringBuffer();
+        StringBuilder summary = new StringBuilder();
         summary.append(ls.getMessage("permission.jsp.summary.acl.header"));
 
         //wrap the reasons as an ordered list

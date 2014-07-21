@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2012 Red Hat, Inc.
+-- Copyright (c) 2008--2014 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -127,6 +127,8 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'powerpc-deb', 'powerpc-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'arm-deb', 'arm-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_package_arch_id_seq'), 'armhf-deb', 'armhf-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'mips-deb', 'mips-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values

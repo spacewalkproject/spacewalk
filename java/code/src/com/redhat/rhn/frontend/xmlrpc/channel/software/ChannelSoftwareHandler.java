@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -109,7 +109,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * should include the new packages, they will not be included when they
      * should. This method lists the errata that will be updated if you run the
      * syncErrata method.
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of cloned channel to check
      * @return List of errata that are missing packages
      *
@@ -127,12 +127,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          $ErrataOverviewSerializer
      *      #array_end()
      */
-    public List<ErrataOverview> listErrataNeedingSync(String sessionKey,
+    public List<ErrataOverview> listErrataNeedingSync(User loggedInUser,
                 String channelLabel) {
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
-        return ChannelManager.listErrataNeedingResync(channel, user);
+        return ChannelManager.listErrataNeedingResync(channel, loggedInUser);
     }
 
     /**
@@ -144,7 +143,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * should. This method updates all the errata in the given cloned channel
      * with packages that have recently been added, and ensures that all the
      * packages you expect are in the channel.
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of cloned channel to update
      * @return Returns 1 if successfull, FaultException otherwise
      * @throws NoSuchChannelException thrown if no channel is found.
@@ -161,32 +160,32 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to update")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public Integer syncErrata(String sessionKey, String channelLabel) {
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
+    public Integer syncErrata(User loggedInUser, String channelLabel) {
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
         //Verify permissions
-        if (!(UserManager.verifyChannelAdmin(user, channel) ||
-              user.hasRole(RoleFactory.CHANNEL_ADMIN))) {
+        if (!(UserManager.verifyChannelAdmin(loggedInUser, channel) ||
+                loggedInUser.hasRole(RoleFactory.CHANNEL_ADMIN))) {
             throw new PermissionCheckFailureException();
         }
 
-        List<ErrataOverview> errata = ChannelManager.listErrataNeedingResync(channel, user);
+        List<ErrataOverview> errata = ChannelManager.listErrataNeedingResync(channel,
+                loggedInUser);
         List<Long> eids = new ArrayList<Long>();
         for (ErrataOverview e : errata) {
             eids.add(e.getId());
         }
 
         List<PackageOverview> packages = ChannelManager
-                .listErrataPackagesForResync(channel, user);
+                .listErrataPackagesForResync(channel, loggedInUser);
         List<Long> pids = new ArrayList<Long>();
         for (PackageOverview p : packages) {
             pids.add(p.getId());
         }
 
-        ChannelEditor.getInstance().addPackages(user, channel, pids);
+        ChannelEditor.getInstance().addPackages(loggedInUser, channel, pids);
 
         for (Long eid : eids) {
-            Errata e = ErrataManager.lookupErrata(eid, user);
+            Errata e = ErrataManager.lookupErrata(eid, loggedInUser);
             if (e.isPublished() && e.isCloned()) {
                 ErrataFactory.syncErrataDetails((PublishedClonedErrata) e);
             }
@@ -201,7 +200,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     /**
      * Lists the packages with the latest version (including release and epoch)
      * for the unique package names
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel whose package are sought.
      * @return Lists the packages with the largest version (including release
      * and epoch) for the unique package names
@@ -223,11 +222,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Object[] listLatestPackages(String sessionKey, String channelLabel)
+    public Object[] listLatestPackages(User loggedInUser, String channelLabel)
         throws NoSuchChannelException {
 
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
         List<Map<String, Object>> pkgs = ChannelManager.latestPackagesInChannel(channel);
         return pkgs.toArray();
@@ -236,7 +234,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     /**
      * Lists all packages in the channel, regardless of version, between the
      * given dates.
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel whose package are sought.
      * @param startDate last modified begin date (as a string)
      * @param endDate last modified end date (as a string)
@@ -255,11 +253,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              $PackageDtoSerializer
      *      #array_end()
      */
-    public Object[] listAllPackages(String sessionKey, String channelLabel,
+    public Object[] listAllPackages(User loggedInUser, String channelLabel,
             Date startDate, Date endDate) throws NoSuchChannelException {
 
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
         List<PackageDto> pkgs = ChannelManager.listAllPackages(channel, startDate, endDate);
         return pkgs.toArray();
     }
@@ -267,7 +264,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     /**
      * Lists all packages in the channel, regardless of version whose last
      * modified date is greater than given date.
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel whose package are sought.
      * @param startDate last modified begin date (as a string)
      * @return all packages in the channel, regardless of version whose last
@@ -284,14 +281,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              $PackageDtoSerializer
      *      #array_end()
      */
-    public Object[] listAllPackages(String sessionKey, String channelLabel,
+    public Object[] listAllPackages(User loggedInUser, String channelLabel,
             Date startDate) throws NoSuchChannelException {
-        return listAllPackages(sessionKey, channelLabel, startDate, null);
+        return listAllPackages(loggedInUser, channelLabel, startDate, null);
     }
 
     /**
      * Lists all packages in the channel, regardless of version
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel whose package are sought.
      * @return all packages in the channel, regardless of version
      * @throws NoSuchChannelException thrown if no channel is found.
@@ -304,11 +301,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              $PackageDtoSerializer
      *      #array_end()
      */
-    public Object[] listAllPackages(String sessionKey, String channelLabel)
+    public Object[] listAllPackages(User loggedInUser, String channelLabel)
         throws NoSuchChannelException {
 
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
         List pkgs = ChannelManager.listAllPackages(channel);
         return pkgs.toArray();
     }
@@ -316,7 +312,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     /**
      * Lists all packages in the channel, regardless of version, between the
      * given dates.
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel whose package are sought.
      * @param startDate last modified begin date (as a string)
      * @param endDate last modified end date (as a string)
@@ -339,11 +335,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
     @Deprecated
-    public Object[] listAllPackages(String sessionKey, String channelLabel,
+    public Object[] listAllPackages(User loggedInUser, String channelLabel,
             String startDate, String endDate) throws NoSuchChannelException {
 
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
         List pkgs = ChannelManager.listAllPackages(channel, startDate, endDate);
         return pkgs.toArray();
     }
@@ -351,7 +346,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     /**
      * Lists all packages in the channel, regardless of version whose last
      * modified date is greater than given date.
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel whose package are sought.
      * @param startDate last modified begin date (as a string)
      * @return all packages in the channel, regardless of version whose last
@@ -371,15 +366,15 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
     @Deprecated
-    public Object[] listAllPackages(String sessionKey, String channelLabel,
+    public Object[] listAllPackages(User loggedInUser, String channelLabel,
             String startDate) throws NoSuchChannelException {
-        return listAllPackages(sessionKey, channelLabel, startDate, null);
+        return listAllPackages(loggedInUser, channelLabel, startDate, null);
     }
 
     /**
      * Lists all packages in the channel, regardless of version, between the
      * given dates.
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel whose package are sought.
      * @param startDate last modified begin date (as a string)
      * @param endDate last modified end date (as a string)
@@ -410,11 +405,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
     @Deprecated
-    public Object[] listAllPackagesByDate(String sessionKey, String channelLabel,
+    public Object[] listAllPackagesByDate(User loggedInUser, String channelLabel,
             String startDate, String endDate) throws NoSuchChannelException {
 
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, channelLabel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
         List<Map<String, Object>> pkgs =
                 ChannelManager.listAllPackagesByDate(channel, startDate, endDate);
         return pkgs.toArray();
@@ -423,7 +417,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     /**
      * Lists all packages in the channel, regardless of version, whose last
      * modified date is greater than given date.
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel whose package are sought.
      * @param startDate last modified begin date (as a string)
      * @return all packages in the channel, regardless of version whose last
@@ -452,15 +446,15 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
     @Deprecated
-    public Object[] listAllPackagesByDate(String sessionKey, String channelLabel,
+    public Object[] listAllPackagesByDate(User loggedInUser, String channelLabel,
             String startDate) throws NoSuchChannelException {
 
-        return listAllPackagesByDate(sessionKey, channelLabel, startDate, null);
+        return listAllPackagesByDate(loggedInUser, channelLabel, startDate, null);
     }
 
     /**
      * Lists all packages in the channel, regardless of version
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel whose package are sought.
      * @return all packages in the channel, regardless of version between the
      * given dates.
@@ -485,15 +479,15 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
     @Deprecated
-    public Object[] listAllPackagesByDate(String sessionKey, String channelLabel)
+    public Object[] listAllPackagesByDate(User loggedInUser, String channelLabel)
         throws NoSuchChannelException {
 
-        return listAllPackagesByDate(sessionKey, channelLabel, null, null);
+        return listAllPackagesByDate(loggedInUser, channelLabel, null, null);
     }
 
     /**
      * Return Lists potential software channel arches that can be created
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @return Lists potential software channel arches that can be created
      * @throws PermissionCheckFailureException thrown if the user is not a
      * channel admin
@@ -505,9 +499,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              $ChannelArchSerializer
      *          #array_end()
      */
-    public Object[] listArches(String sessionKey) throws PermissionCheckFailureException {
-        User user = getLoggedInUser(sessionKey);
-        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+    public Object[] listArches(User loggedInUser) throws PermissionCheckFailureException {
+        if (!loggedInUser.hasRole(RoleFactory.CHANNEL_ADMIN)) {
             throw new PermissionCheckFailureException();
         }
 
@@ -518,7 +511,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Deletes a software channel
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel to be deleted.
      * @return 1 if Channel was successfully deleted.
      * @throws PermissionCheckFailureException thrown if User has no access to
@@ -530,12 +523,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to delete")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int delete(String sessionKey, String channelLabel)
+    public int delete(User loggedInUser, String channelLabel)
         throws PermissionCheckFailureException, NoSuchChannelException {
 
-        User user = getLoggedInUser(sessionKey);
         try {
-            ChannelManager.deleteChannel(user, channelLabel);
+            ChannelManager.deleteChannel(loggedInUser, channelLabel);
         }
         catch (InvalidChannelRoleException e) {
             throw new PermissionCheckFailureException(e);
@@ -547,7 +539,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     /**
      * Returns whether the channel is subscribable by any user in the
      * organization.
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel to be deleted.
      * @return 1 if the Channel is globally subscribable, 0 otherwise.
      *
@@ -557,20 +549,19 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
      * @xmlrpc.returntype int - 1 if true, 0 otherwise
      */
-    public int isGloballySubscribable(String sessionKey, String channelLabel) {
+    public int isGloballySubscribable(User loggedInUser, String channelLabel) {
         // TODO: this should return a boolean NOT an int
-        User user = getLoggedInUser(sessionKey);
 
         // Make sure the channel exists:
-        lookupChannelByLabel(user, channelLabel);
+        lookupChannelByLabel(loggedInUser, channelLabel);
 
-        return ChannelManager.isGloballySubscribable(user, channelLabel) ? 1 : 0;
+        return ChannelManager.isGloballySubscribable(loggedInUser, channelLabel) ? 1 : 0;
     }
 
     /**
      * Returns the details of the given channel as a map with the following
      * keys:
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel whose details are sought.
      * @throws NoSuchChannelException thrown if no channel is found.
      * @return the channel requested.
@@ -581,15 +572,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype
      *     $ChannelSerializer
      */
-    public Channel getDetails(String sessionKey, String channelLabel)
+    public Channel getDetails(User loggedInUser, String channelLabel)
         throws NoSuchChannelException {
-        User user = getLoggedInUser(sessionKey);
-        return lookupChannelByLabel(user, channelLabel);
+        return lookupChannelByLabel(loggedInUser, channelLabel);
     }
 
     /**
      * Returns the requested channel
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param id - id of channel wanted
      * @throws NoSuchChannelException thrown if no channel is found.
      * @return the channel requested.
@@ -600,15 +590,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype
      *     $ChannelSerializer
      */
-    public Channel getDetails(String sessionKey, Integer id)
+    public Channel getDetails(User loggedInUser, Integer id)
         throws NoSuchChannelException {
-        User user = getLoggedInUser(sessionKey);
-        return lookupChannelById(user, id.longValue());
+        return lookupChannelById(loggedInUser, id.longValue());
     }
 
     /**
      * Allows to modify channel attributes
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelId id of channel to be modified
      * @param details map of channel attributes to be changed
      * @return 1 if edit was successful, exception thrown otherwise
@@ -636,9 +625,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
      *@xmlrpc.returntype #return_int_success()
      */
-    public int setDetails(String sessionKey, Integer channelId, Map details) {
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelById(user, channelId.longValue());
+    public int setDetails(User loggedInUser, Integer channelId, Map details) {
+        Channel channel = lookupChannelById(loggedInUser, channelId.longValue());
 
         Set<String> validKeys = new HashSet<String>();
         validKeys.add("checksum_label");
@@ -653,7 +641,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         validKeys.add("gpg_key_fp");
         validateMap(validKeys, details);
 
-        UpdateChannelCommand ucc = new UpdateChannelCommand(user, channel);
+        UpdateChannelCommand ucc = new UpdateChannelCommand(loggedInUser, channel);
 
         if (details.containsKey("checksum_label")) {
             ucc.setChecksumLabel((String) details.get("checksum_label"));
@@ -702,7 +690,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Returns the number of available subscriptions for the given channel
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel whose details are sought.
      * @return the number of available subscriptions for the given channel
      * @throws NoSuchChannelException thrown if no channel is found.
@@ -712,12 +700,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
      * @xmlrpc.returntype int number of available subscriptions for the given channel
      */
-    public int availableEntitlements(String sessionKey, String channelLabel)
+    public int availableEntitlements(User loggedInUser, String channelLabel)
         throws NoSuchChannelException {
 
-        User user = getLoggedInUser(sessionKey);
-        Channel c = lookupChannelByLabel(user, channelLabel);
-        Long cnt = ChannelManager.getAvailableEntitlements(user.getOrg(), c);
+        Channel c = lookupChannelByLabel(loggedInUser, channelLabel);
+        Long cnt = ChannelManager.getAvailableEntitlements(loggedInUser.getOrg(), c);
         if (cnt == null) {
             return 0;
         }
@@ -726,7 +713,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Creates a software channel, parent_channel_label can be empty string
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param label Channel label to be created
      * @param name Name of Channel
      * @param summary Channel Summary
@@ -774,14 +761,13 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #struct_end()
      * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
      */
-    public int create(String sessionKey, String label, String name,
+    public int create(User loggedInUser, String label, String name,
             String summary, String archLabel, String parentLabel, String checksumType,
             Map gpgKey)
         throws PermissionCheckFailureException, InvalidChannelLabelException,
                InvalidChannelNameException, InvalidParentChannelException {
 
-        User user = getLoggedInUser(sessionKey);
-        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+        if (!loggedInUser.hasRole(RoleFactory.CHANNEL_ADMIN)) {
             throw new PermissionCheckFailureException();
         }
         CreateChannelCommand ccc = new CreateChannelCommand();
@@ -790,7 +776,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ccc.setName(name);
         ccc.setSummary(summary);
         ccc.setParentLabel(parentLabel);
-        ccc.setUser(user);
+        ccc.setUser(loggedInUser);
         ccc.setChecksumLabel(checksumType);
         ccc.setGpgKeyUrl((String)gpgKey.get("url"));
         ccc.setGpgKeyId((String)gpgKey.get("id"));
@@ -801,7 +787,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Creates a software channel, parent_channel_label can be empty string
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param label Channel label to be created
      * @param name Name of Channel
      * @param summary Channel Summary
@@ -840,19 +826,19 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
      */
 
-    public int create(String sessionKey, String label, String name,
+    public int create(User loggedInUser, String label, String name,
             String summary, String archLabel, String parentLabel, String checksumType)
         throws PermissionCheckFailureException, InvalidChannelLabelException,
                InvalidChannelNameException, InvalidParentChannelException {
 
-        return create(sessionKey, label, name,
+        return create(loggedInUser, label, name,
                 summary, archLabel, parentLabel, checksumType,
                 new HashMap());
     }
 
     /**
      * Creates a software channel, parent_channel_label can be empty string
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param label Channel label to be created
      * @param name Name of Channel
      * @param summary Channel Summary
@@ -880,17 +866,17 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              channel, an empty string if it does not have one")
      * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
      */
-    public int create(String sessionKey, String label, String name,
+    public int create(User loggedInUser, String label, String name,
             String summary, String archLabel, String parentLabel)
         throws PermissionCheckFailureException, InvalidChannelLabelException,
                InvalidChannelNameException, InvalidParentChannelException {
 
-        return create(sessionKey, label, name, summary, archLabel, parentLabel, "sha1");
+        return create(loggedInUser, label, name, summary, archLabel, parentLabel, "sha1");
     }
 
     /**
      * Set the contact/support information for given channel.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel to change
      * @param maintainerName The name of the channel maintainer
      * @param maintainerEmail The email address of the channel maintainer
@@ -914,17 +900,16 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "supportPolicy", "channel support policy")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int setContactDetails(String sessionKey, String channelLabel,
+    public int setContactDetails(User loggedInUser, String channelLabel,
             String maintainerName, String maintainerEmail, String maintainerPhone,
             String supportPolicy)
         throws FaultException {
 
-        User user = getLoggedInUser(sessionKey);
-        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+        if (!loggedInUser.hasRole(RoleFactory.CHANNEL_ADMIN)) {
             throw new PermissionCheckFailureException();
         }
 
-        Channel channel = lookupChannelByLabel(user, channelLabel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
         channel.setMaintainerName(maintainerName);
         channel.setMaintainerEmail(maintainerEmail);
@@ -938,7 +923,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Returns list of subscribed systems for the given channel label.
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @param label Label of the channel in question.
      * @return Returns an array of maps representing a system. Contains system id and
      * system name for each system subscribed to this channel.
@@ -957,21 +942,20 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              #struct_end()
      *           #array_end()
      */
-    public Object[] listSubscribedSystems(String sessionKey, String label)
+    public Object[] listSubscribedSystems(User loggedInUser, String label)
         throws FaultException {
 
-        User user = getLoggedInUser(sessionKey);
-
         // Make sure user has access to the orgs channels
-        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+        if (!loggedInUser.hasRole(RoleFactory.CHANNEL_ADMIN)) {
             throw new PermissionCheckFailureException();
         }
 
         // Get the channel.
-        Channel channel = lookupChannelByLabel(user, label);
+        Channel channel = lookupChannelByLabel(loggedInUser, label);
 
-        DataResult<Map> dr = SystemManager.systemsSubscribedToChannel(channel, user);
-        for (Map sys : dr) {
+        DataResult<Map<String, Object>> dr =
+                SystemManager.systemsSubscribedToChannel(channel, loggedInUser);
+        for (Map<String, Object> sys : dr) {
             sys.remove("selectable");
         }
         return dr.toArray();
@@ -979,7 +963,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Retrieve the channels for a given system id.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id of the system in question.
      * @return Returns an array of maps representing the channels this system is
      * subscribed to.
@@ -1001,19 +985,17 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              #struct_end()
      *           #array_end()
      */
-    public Object[] listSystemChannels(String sessionKey, Integer sid)
+    public Object[] listSystemChannels(User loggedInUser, Integer sid)
         throws FaultException {
-        // Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = XmlRpcSystemHelper.getInstance().lookupServer(loggedInUser, sid);
 
-        DataResult dr = SystemManager.channelsForServer(server);
+        DataResult<Map<String, Object>> dr = SystemManager.channelsForServer(server);
         return dr.toArray();
     }
 
     /**
      * Change a systems subscribed channels to the list of channels passed in.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param sid The id for the system in question
      * @param channelLabels The list of labels to subscribe the system to
      * @return Returns 1 on success, Exception otherwise.
@@ -1036,10 +1018,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     @Deprecated
-    public int setSystemChannels(String sessionKey, Integer sid, List channelLabels)
+    public int setSystemChannels(User loggedInUser, Integer sid, List channelLabels)
         throws FaultException {
-        // Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Server server = XmlRpcSystemHelper.getInstance().lookupServer(loggedInUser, sid);
         List<Channel> channels = new ArrayList<Channel>();
         log.debug("setSystemChannels()");
@@ -1125,7 +1105,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * Set the subscribable flag for a given channel and user. If value is set to 'true',
      * this method will give the user subscribe permissions to the channel. Otherwise, this
      * method revokes that privilege.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel in question
      * @param login The login for the user in question
      * @param value The boolean value telling us whether to grant subscribe permission or
@@ -1144,10 +1124,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("boolean", "value", "value of the flag to set")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setUserSubscribable(String sessionKey, String channelLabel,
+    public int setUserSubscribable(User loggedInUser, String channelLabel,
                    String login, Boolean value) throws FaultException {
-        // Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
 
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
@@ -1173,7 +1151,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * Set the manageable flag for a given channel and user. If value is set to 'true',
      * this method will give the user manage permissions to the channel. Otherwise, this
      * method revokes that privilege.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel in question
      * @param login The login for the user in question
      * @param value The boolean value telling us whether to grant manage permission or
@@ -1192,10 +1170,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("boolean", "value", "value of the flag to set")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setUserManageable(String sessionKey, String channelLabel,
+    public int setUserManageable(User loggedInUser, String channelLabel,
                    String login, Boolean value) throws FaultException {
-        // Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
 
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
@@ -1223,7 +1199,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Returns whether the channel may be subscribed to by the given user.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel in question
      * @param login The login for the user in question
      * @return whether the channel may be subscribed to by the given user.
@@ -1237,10 +1213,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "login", "login of the target user")
      * @xmlrpc.returntype int - 1 if subscribable, 0 if not
      */
-    public int isUserSubscribable(String sessionKey, String channelLabel,
+    public int isUserSubscribable(User loggedInUser, String channelLabel,
             String login) throws FaultException {
-        // Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(
                 loggedInUser, login);
 
@@ -1257,7 +1231,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Returns whether the channel may be managed by the given user.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel in question
      * @param login The login for the user in question
      * @return whether the channel may be managed by the given user.
@@ -1271,10 +1245,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "login", "login of the target user")
      * @xmlrpc.returntype int - 1 if manageable, 0 if not
      */
-    public int isUserManageable(String sessionKey, String channelLabel,
+    public int isUserManageable(User loggedInUser, String channelLabel,
             String login) throws FaultException {
-        // Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(
                 loggedInUser, login);
 
@@ -1295,7 +1267,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Set globally subscribable attribute for given channel.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel to change
      * @param value The boolean value to set globally subscribable to.
      * @return Returns 1 if successful, exception otherwise
@@ -1311,10 +1283,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          globally subscribable.  False otherwise.")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int setGloballySubscribable(String sessionKey, String channelLabel,
+    public int setGloballySubscribable(User loggedInUser, String channelLabel,
                    boolean value) throws FaultException {
-        //Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), channelLabel);
 
         try {
@@ -1338,7 +1308,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Adds a given list of packages to the given channel.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel
      * @param packageIds A list containing the ids of the packages to be added
      * @return Returns 1 if successfull, FaultException otherwise
@@ -1355,10 +1325,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *                                   add to the channel.")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int addPackages(String sessionKey, String channelLabel, List packageIds)
+    public int addPackages(User loggedInUser, String channelLabel, List packageIds)
         throws FaultException {
-        //Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), channelLabel);
 
         // Try to add the list of packages to the channel. Catch any exceptions and
@@ -1387,7 +1355,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Removes a given list of errata from the given channel.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel
      * @param errataNames A list containing the advisory names of errata to remove
      * @param removePackages Boolean to remove packages from the channel also
@@ -1404,15 +1372,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *                          "True to remove packages from the channel")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int removeErrata(String sessionKey, String channelLabel,
+    public int removeErrata(User loggedInUser, String channelLabel,
             List errataNames, boolean removePackages) {
 
-        User user = getLoggedInUser(sessionKey);
-        channelAdminPermCheck(user);
+        channelAdminPermCheck(loggedInUser);
 
-        Channel channel = lookupChannelByLabel(user, channelLabel);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
-        if (!UserManager.verifyChannelAdmin(user, channel)) {
+        if (!UserManager.verifyChannelAdmin(loggedInUser, channel)) {
             throw new PermissionCheckFailureException();
         }
 
@@ -1423,13 +1390,13 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
             if (erratum != null) {
                 errataToRemove.add(erratum);
-                ErrataManager.removeErratumFromChannel(erratum, channel, user);
+                ErrataManager.removeErratumFromChannel(erratum, channel, loggedInUser);
             }
         }
 
         // remove packages from the channel if requested
         if (removePackages) {
-            List<Long> packagesToRemove = new ArrayList();
+            List<Long> packagesToRemove = new ArrayList<Long>();
 
             List<Long> channelPkgs = ChannelFactory.getPackageIds(channel.getId());
 
@@ -1445,7 +1412,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
             }
 
             // remove the packages from the channel
-            ChannelManager.removePackages(channel, packagesToRemove, user);
+            ChannelManager.removePackages(channel, packagesToRemove, loggedInUser);
 
             // refresh the channel
             ChannelManager.refreshWithNewestPackages(channel, "api");
@@ -1453,7 +1420,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
             // Mark the affected channel to have it's metadata evaluated, where necessary
             // (RHEL5+, mostly)
             ChannelManager.queueChannelChange(channel.getLabel(), "java::removeErrata",
-                                              user.getLogin());
+                    loggedInUser.getLogin());
 
             List<Long> cids = new ArrayList();
             cids.add(channel.getId());
@@ -1465,7 +1432,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Removes a given list of packages from the given channel.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel
      * @param packageIds A list containing the ids of the packages to be removed
      * @return Returns 1 if successfull, FaultException otherwise
@@ -1482,10 +1449,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *                                   remove from the channel.")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int removePackages(String sessionKey, String channelLabel, List packageIds)
+    public int removePackages(User loggedInUser, String channelLabel, List packageIds)
         throws FaultException {
-        //Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), channelLabel);
 
         //Make sure the user is a channel admin for the given channel.
@@ -1544,7 +1509,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * List the errata applicable to a channel after given startDate
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel
      * @param startDate begin date
      * @return the errata applicable to a channel
@@ -1560,9 +1525,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          $ErrataOverviewSerializer
      *      #array_end()
      */
-    public List listErrata(String sessionKey, String channelLabel,
+    public List listErrata(User loggedInUser, String channelLabel,
             Date startDate) throws NoSuchChannelException {
-        User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
         DataResult dr = ChannelManager.listErrata(channel, startDate, null, loggedInUser);
@@ -1572,7 +1536,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * List the errata applicable to a channel between startDate and endDate.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel
      * @param startDate begin date
      * @param endDate end date
@@ -1591,11 +1555,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
 
-    public List<ErrataOverview> listErrata(String sessionKey, String channelLabel,
+    public List<ErrataOverview> listErrata(User loggedInUser, String channelLabel,
             Date startDate, Date endDate) throws NoSuchChannelException {
 
-        //Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
         DataResult errata = ChannelManager.listErrata(channel, startDate, endDate,
@@ -1609,7 +1571,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * List the errata applicable to a channel
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel
      * @return the errata applicable to a channel
      * @throws NoSuchChannelException thrown if there is no channel matching
@@ -1642,15 +1604,15 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #struct_end()
      *    #array_end()
      */
-    public List<Map<String, Object>> listErrata(String sessionKey, String channelLabel)
+    public List<Map<String, Object>> listErrata(User loggedInUser, String channelLabel)
         throws NoSuchChannelException {
-        List<Map<String, Object>> list = listErrata(sessionKey, channelLabel, "", "");
+        List<Map<String, Object>> list = listErrata(loggedInUser, channelLabel, "", "");
         return list;
     }
 
     /**
      * List the errata applicable to a channel after given startDate
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel
      * @param startDate begin date
      * @return the errata applicable to a channel
@@ -1679,15 +1641,15 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
     @Deprecated
-    public List<Map<String, Object>> listErrata(String sessionKey, String channelLabel,
+    public List<Map<String, Object>> listErrata(User loggedInUser, String channelLabel,
             String startDate) throws NoSuchChannelException {
 
-        return listErrata(sessionKey, channelLabel, startDate, null);
+        return listErrata(loggedInUser, channelLabel, startDate, null);
     }
 
     /**
      * List the errata applicable to a channel between startDate and endDate.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel
      * @param startDate begin date
      * @param endDate end date
@@ -1719,11 +1681,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
 
     @Deprecated
-    public List<Map<String, Object>> listErrata(String sessionKey, String channelLabel,
+    public List<Map<String, Object>> listErrata(User loggedInUser, String channelLabel,
             String startDate, String endDate) throws NoSuchChannelException {
 
-        //Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
         List<Map<String, Object>> errata =
@@ -1733,7 +1693,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * List the errata of a specific type that are applicable to a channel
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param channelLabel The label for the channel
      * @param advisoryType The type of advisory (one of the following:
      * "Security Advisory", "Product Enhancement Advisory",
@@ -1763,11 +1723,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Object[] listErrataByType(String sessionKey, String channelLabel,
+    public Object[] listErrataByType(User loggedInUser, String channelLabel,
             String advisoryType) throws NoSuchChannelException {
 
-        //Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
         List<Map<String, Object>> errata =
@@ -1846,7 +1804,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Lists all packages for an Org that are not contained within any channel
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @return list of Package objects not associated with a channel
      * @throws NoSuchChannelException thrown if no channel is found.
      *
@@ -1858,15 +1816,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      $PackageSerializer
      *   #array_end()
      */
-    public Object[] listPackagesWithoutChannel(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listPackagesWithoutChannel(User loggedInUser) {
         ensureUserRole(loggedInUser, RoleFactory.CHANNEL_ADMIN);
         return PackageFactory.lookupOrphanPackages(loggedInUser.getOrg()).toArray();
     }
 
     /**
      * Subscribe a system to a list of channels
-     * @param sessionKey The key of the logged in user
+     * @param loggedInUser The current user
      * @param labels a list of channel labels to subscribe the system to
      * @param sid the serverId of the system in question
      * @return 1 for success
@@ -1886,9 +1843,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     @Deprecated
-    public int subscribeSystem(String sessionKey, Integer sid, List labels) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-
+    public int subscribeSystem(User loggedInUser, Integer sid, List labels) {
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
 
@@ -1919,10 +1874,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
         SystemHandler sysHandler = new SystemHandler();
         if (base != null) {
 
-            sysHandler.setBaseChannel(sessionKey, sid,
+            sysHandler.setBaseChannel(loggedInUser, sid,
                     new Integer(base.getId().intValue()));
         }
-        sysHandler.setChildChannels(sessionKey, sid, childChannelIds);
+        sysHandler.setChildChannels(loggedInUser, sid, childChannelIds);
 
         return 1;
     }
@@ -1930,7 +1885,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Clone a channel
-     * @param sessionKey session of the user
+     * @param loggedInUser The current user
      * @param originalLabel the label of the channel to clone
      * @param channelDetails a map consisting of
      *      string name
@@ -1969,7 +1924,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param("boolean", "original_state")
      * @xmlrpc.returntype int the cloned channel ID
      */
-    public int clone(String sessionKey, String originalLabel, Map channelDetails,
+    public int clone(User loggedInUser, String originalLabel, Map channelDetails,
             Boolean originalState) {
 
         // confirm that the user only provided valid keys in the map
@@ -1988,7 +1943,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
         validKeys.add("description");
         validateMap(validKeys, channelDetails);
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         channelAdminPermCheck(loggedInUser);
 
         String name = (String) channelDetails.get("name");
@@ -2089,7 +2043,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Merge a channel's errata into another channel.
-     * @param sessionKey session of the user
+     * @param loggedInUser The current user
      * @param mergeFromLabel the label of the channel to pull the errata from
      * @param mergeToLabel the label of the channel to push errata into
      * @return A list of errata that were merged.
@@ -2105,9 +2059,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          $ErrataSerializer
      *      #array_end()
      */
-    public Object[] mergeErrata(String sessionKey, String mergeFromLabel,
+    public Object[] mergeErrata(User loggedInUser, String mergeFromLabel,
             String mergeToLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         channelAdminPermCheck(loggedInUser);
 
         Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
@@ -2126,7 +2079,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Merge a channel's errata into another channel based upon a given start/end date.
-     * @param sessionKey session of the user
+     * @param loggedInUser The current user
      * @param mergeFromLabel the label of the channel to pull the errata from
      * @param mergeToLabel the label of the channel to push errata into
      * @param startDate begin date
@@ -2147,9 +2100,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          $ErrataSerializer
      *      #array_end()
      */
-    public Object[] mergeErrata(String sessionKey, String mergeFromLabel,
+    public Object[] mergeErrata(User loggedInUser, String mergeFromLabel,
             String mergeToLabel, String startDate, String endDate) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         channelAdminPermCheck(loggedInUser);
 
         Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
@@ -2170,7 +2122,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Merge a list of errata from one channel into another channel
-     * @param sessionKey session of the user
+     * @param loggedInUser The current user
      * @param mergeFromLabel the label of the channel to pull the errata from
      * @param mergeToLabel the label of the channel to push errata into
      * @param errataNames the list of errata to merge
@@ -2189,10 +2141,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          $ErrataSerializer
      *      #array_end()
      */
-    public Object[] mergeErrata(String sessionKey, String mergeFromLabel,
+    public Object[] mergeErrata(User loggedInUser, String mergeFromLabel,
             String mergeToLabel, List errataNames) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         channelAdminPermCheck(loggedInUser);
 
         Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
@@ -2256,7 +2207,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Merge a channel's packages into another channel.
-     * @param sessionKey session of the user
+     * @param loggedInUser The current user
      * @param mergeFromLabel the label of the channel to pull the packages from
      * @param mergeToLabel the label of the channel to push packages into
      * @return A list of packages that were merged.
@@ -2272,10 +2223,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          $PackageSerializer
      *      #array_end()
      */
-    public Object[] mergePackages(String sessionKey, String mergeFromLabel,
+    public Object[] mergePackages(User loggedInUser, String mergeFromLabel,
             String mergeToLabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         channelAdminPermCheck(loggedInUser);
 
         Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
@@ -2314,7 +2264,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Regenerate the errata cache for all the systems subscribed to a particular channel
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param channelLabel the channel label
      * @return int - 1 on success!
      *
@@ -2328,8 +2278,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype  #return_int_success()
      *
      */
-    public int regenerateNeededCache(String sessionKey, String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int regenerateNeededCache(User loggedInUser, String channelLabel) {
         channelAdminPermCheck(loggedInUser);
         Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
         List chanList = new ArrayList<Long>();
@@ -2340,7 +2289,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Regenerate the errata cache for all the systems subscribed to the satellite
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @return int - 1 on success!
      *
      * @xmlrpc.doc Completely clear and regenerate the needed Errata and Package
@@ -2350,8 +2299,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype  #return_int_success()
      *
      */
-    public int regenerateNeededCache(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int regenerateNeededCache(User loggedInUser) {
         if (loggedInUser.hasRole(RoleFactory.SAT_ADMIN)) {
             Set set = new HashSet();
             set.addAll(ChannelFactory.listAllBaseChannels());
@@ -2365,7 +2313,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Regenerate the yum cache for a specific channel.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param channelLabel the channel label
      * @return int - 1 on success!
      *
@@ -2376,8 +2324,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype  #return_int_success()
      *
      */
-    public int regenerateYumCache(String sessionKey, String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int regenerateYumCache(User loggedInUser, String channelLabel) {
         channelAdminPermCheck(loggedInUser);
         Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
         ChannelManager.queueChannelChange(channelLabel,
@@ -2388,7 +2335,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * List the children of a channel
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param channelLabel the channel label
      * @return list of channel id's and labels
      *
@@ -2401,9 +2348,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
 
-    public Object[] listChildren(String sessionKey, String channelLabel) {
-        // Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listChildren(User loggedInUser, String channelLabel) {
         Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
 
         return ChannelFactory.getAccessibleChildChannels(chan, loggedInUser).toArray();
@@ -2411,7 +2356,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
     * Returns the last build date on the repodata for a channel
-    * @param sessionKey WebSession containing User information.
+    * @param loggedInUser The current user
     * @param id - id of channel wanted
     * @throws NoSuchChannelException thrown if no channel is found.
     * @return the build date on the repodata of the channel requested
@@ -2424,11 +2369,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * as a localised string
     */
 
-    public String getChannelLastBuildById(String sessionKey, Integer id)
+    public String getChannelLastBuildById(User loggedInUser, Integer id)
                                             throws NoSuchChannelException {
-        User user = getLoggedInUser(sessionKey);
         String repoLastBuild =
-                ChannelManager.getRepoLastBuild(lookupChannelById(user, id.longValue()));
+                ChannelManager.getRepoLastBuild(lookupChannelById(loggedInUser,
+                        id.longValue()));
         if (repoLastBuild == null) {
             return "";
         }
@@ -2436,7 +2381,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     }
 
    /** Returns a list of ContentSource (repos) that the user can see
-     * @param sessionKey WebSession containing User information.
+     * @param loggedInUser The current user
      * @return Lists the repos visible to the user
      * @xmlrpc.doc Returns a list of ContentSource (repos) that the user can see
      * @xmlrpc.param #session_key()
@@ -2449,9 +2394,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      **/
-    public List listUserRepos(String sessionKey) {
-        User user = getLoggedInUser(sessionKey);
-        List<ContentSource> result = ChannelFactory.lookupContentSources(user.getOrg());
+    public List listUserRepos(User loggedInUser) {
+        List<ContentSource> result = ChannelFactory
+                .lookupContentSources(loggedInUser.getOrg());
 
         List list = new ArrayList();
         for (Iterator itr = result.iterator(); itr.hasNext();) {
@@ -2467,7 +2412,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
    /**
     * Creates a repository
-    * @param sessionKey Session containing user information.
+    * @param loggedInUser The current user
     * @param label of the repo to be created
     * @param type of the repo (YUM only for now)
     * @param url of the repo
@@ -2480,12 +2425,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #param_desc("string", "url", "repository url")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
-    public ContentSource createRepo(String sessionKey, String label, String type,
+    public ContentSource createRepo(User loggedInUser, String label, String type,
             String url) {
-        User user = getLoggedInUser(sessionKey);
 
         BaseRepoCommand repoCmd = null;
-        repoCmd = new CreateRepoCommand(user.getOrg());
+        repoCmd = new CreateRepoCommand(loggedInUser.getOrg());
 
         repoCmd.setLabel(label);
         repoCmd.setUrl(url);
@@ -2498,13 +2442,13 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
 
         ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(
-                user.getOrg(), label);
+                loggedInUser.getOrg(), label);
         return repo;
     }
 
    /**
     * Removes a repository
-    * @param sessionKey Session containing user information.
+    * @param loggedInUser The current user
     * @param id of the repo to be removed
     * @return Integer 1 on success
     *
@@ -2513,9 +2457,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #param_desc("long", "id", "ID of repo to be removed")
     * @xmlrpc.returntype #return_int_success()
    **/
-    public Integer removeRepo(String sessionKey, Integer id) {
-        User user = getLoggedInUser(sessionKey);
-        ContentSource repo = lookupContentSourceById(id.longValue(), user.getOrg());
+    public Integer removeRepo(User loggedInUser, Integer id) {
+        ContentSource repo = lookupContentSourceById(id.longValue(), loggedInUser.getOrg());
 
         ChannelFactory.remove(repo);
         return 1;
@@ -2523,7 +2466,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
    /**
     * Removes a repository
-    * @param sessionKey Session containing user information.
+    * @param loggedInUser The current user
     * @param label of the repo to be removed
     * @return Integer 1 on success
     *
@@ -2532,9 +2475,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #param_desc("string", "label", "label of repo to be removed")
     * @xmlrpc.returntype #return_int_success()
    **/
-    public Integer removeRepo(String sessionKey, String label) {
-        User user = getLoggedInUser(sessionKey);
-        ContentSource repo = lookupContentSourceByLabel(label, user.getOrg());
+    public Integer removeRepo(User loggedInUser, String label) {
+        ContentSource repo = lookupContentSourceByLabel(label, loggedInUser.getOrg());
         ChannelFactory.clearContentSourceFilters(repo.getId());
 
         ChannelFactory.remove(repo);
@@ -2543,7 +2485,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
    /**
     * Associates a repository with a channel
-    * @param sessionKey Session containing user information.
+    * @param loggedInUser The current user
     * @param chanLabel of the channel to use
     * @param repoLabel of the repo to associate
     * @return the channel with the newly associated repo
@@ -2554,10 +2496,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #param_desc("string", "repoLabel", "repository label")
     * @xmlrpc.returntype $ChannelSerializer
    **/
-    public Channel associateRepo(String sessionKey, String chanLabel, String repoLabel) {
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, chanLabel);
-        ContentSource repo = lookupContentSourceByLabel(repoLabel, user.getOrg());
+    public Channel associateRepo(User loggedInUser, String chanLabel, String repoLabel) {
+        Channel channel = lookupChannelByLabel(loggedInUser, chanLabel);
+        ContentSource repo = lookupContentSourceByLabel(repoLabel, loggedInUser.getOrg());
 
         Set<ContentSource> set = channel.getSources();
         set.add(repo);
@@ -2568,7 +2509,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
    /**
     * Disassociates a repository from a channel
-    * @param sessionKey Session containing user information.
+    * @param loggedInUser The current user
     * @param chanLabel of the channel to use
     * @param repoLabel of the repo to disassociate
     * @return the channel minus the disassociated repo
@@ -2579,10 +2520,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #param_desc("string", "repoLabel", "repository label")
     * @xmlrpc.returntype $ChannelSerializer
    **/
-    public Channel disassociateRepo(String sessionKey, String chanLabel, String repoLabel) {
-        User user = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(user, chanLabel);
-        ContentSource repo = lookupContentSourceByLabel(repoLabel, user.getOrg());
+    public Channel disassociateRepo(User loggedInUser, String chanLabel, String repoLabel) {
+        Channel channel = lookupChannelByLabel(loggedInUser, chanLabel);
+        ContentSource repo = lookupContentSourceByLabel(repoLabel, loggedInUser.getOrg());
 
         Set<ContentSource> set = channel.getSources();
         set.remove(repo);
@@ -2595,7 +2535,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
    /**
     * Updates repository source URL
-    * @param sessionKey Session containing user information.
+    * @param loggedInUser The current user
     * @param id ID of the repo
     * @param url new URL to use
     * @return the updated repo
@@ -2606,9 +2546,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #param_desc("string", "url", "new repository url")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
-    public ContentSource updateRepoUrl(String sessionKey, Integer id, String url) {
-        User user = getLoggedInUser(sessionKey);
-        ContentSource repo = lookupContentSourceById(id.longValue(), user.getOrg());
+    public ContentSource updateRepoUrl(User loggedInUser, Integer id, String url) {
+        ContentSource repo = lookupContentSourceById(id.longValue(), loggedInUser.getOrg());
         setRepoUrl(repo, url);
         ChannelFactory.save(repo);
         return repo;
@@ -2616,7 +2555,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
    /**
     * Updates repository source URL
-    * @param sessionKey Session containing user information.
+    * @param loggedInUser The current user
     * @param label of the repo to use
     * @param url new URL to use
     * @return the updated repo
@@ -2627,9 +2566,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #param_desc("string", "url", "new repository url")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
-    public ContentSource updateRepoUrl(String sessionKey, String label, String url) {
-        User user = getLoggedInUser(sessionKey);
-        ContentSource repo = lookupContentSourceByLabel(label, user.getOrg());
+    public ContentSource updateRepoUrl(User loggedInUser, String label, String url) {
+        ContentSource repo = lookupContentSourceByLabel(label, loggedInUser.getOrg());
         setRepoUrl(repo, url);
         ChannelFactory.save(repo);
         return repo;
@@ -2637,7 +2575,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
    /**
     * Updates repository label
-    * @param sessionKey Session containing user information.
+    * @param loggedInUser The current user
     * @param id ID of the repo
     * @param label new label
     * @return the updated repo
@@ -2648,9 +2586,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #param_desc("string", "label", "new repository label")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
-    public ContentSource updateRepoLabel(String sessionKey, Integer id, String label) {
-        User user = getLoggedInUser(sessionKey);
-        ContentSource repo = lookupContentSourceById(id.longValue(), user.getOrg());
+    public ContentSource updateRepoLabel(User loggedInUser, Integer id, String label) {
+        ContentSource repo = lookupContentSourceById(id.longValue(), loggedInUser.getOrg());
         setRepoLabel(repo, label);
         ChannelFactory.save(repo);
         return repo;
@@ -2658,7 +2595,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Updates repository label
-     * @param sessionKey Session containing user information.
+     * @param loggedInUser The current user
      * @param label of the repo
      * @param newLabel new label
      * @return the updated repo
@@ -2669,10 +2606,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "newLabel", "new repository label")
      * @xmlrpc.returntype $ContentSourceSerializer
     **/
-     public ContentSource updateRepoLabel(String sessionKey, String label,
+     public ContentSource updateRepoLabel(User loggedInUser, String label,
                      String newLabel) {
-         User user = getLoggedInUser(sessionKey);
-         ContentSource repo = lookupContentSourceByLabel(label, user.getOrg());
+         ContentSource repo = lookupContentSourceByLabel(label, loggedInUser.getOrg());
          setRepoLabel(repo, newLabel);
          ChannelFactory.save(repo);
          return repo;
@@ -2680,7 +2616,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
    /**
     * Updates a repository
-    * @param sessionKey Session containing user information.
+    * @param loggedInUser The current user
     * @param id ID of the repo
     * @param label new label
     * @param url new URL
@@ -2693,10 +2629,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #param_desc("string", "url", "new repository URL")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
-    public ContentSource updateRepo(String sessionKey, Integer id, String label,
+    public ContentSource updateRepo(User loggedInUser, Integer id, String label,
             String url) {
-        User user = getLoggedInUser(sessionKey);
-        ContentSource repo = lookupContentSourceById(id.longValue(), user.getOrg());
+        ContentSource repo = lookupContentSourceById(id.longValue(), loggedInUser.getOrg());
         setRepoLabel(repo, label);
         setRepoUrl(repo, url);
         ChannelFactory.save(repo);
@@ -2705,7 +2640,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Returns the details of the given repo
-     * @param sessionKey Session containing user information.
+     * @param loggedInUser The current user
      * @param repoLabel Label of repo whose details are sought.
      * @return the repo requested.
      *
@@ -2715,14 +2650,13 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype
      *     $ContentSourceSerializer
      */
-    public ContentSource getRepoDetails(String sessionKey, String repoLabel) {
-        User user = getLoggedInUser(sessionKey);
-        return lookupContentSourceByLabel(repoLabel, user.getOrg());
+    public ContentSource getRepoDetails(User loggedInUser, String repoLabel) {
+        return lookupContentSourceByLabel(repoLabel, loggedInUser.getOrg());
     }
 
     /**
      * Returns the details of the given repo
-     * @param sessionKey Session containing user information.
+     * @param loggedInUser The current user
      * @param id ID of repo whose details are sought.
      * @return the repo requested.
      *
@@ -2732,14 +2666,13 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype
      *     $ContentSourceSerializer
      */
-    public ContentSource getRepoDetails(String sessionKey, Integer id) {
-        User user = getLoggedInUser(sessionKey);
-        return lookupContentSourceById(id.longValue(), user.getOrg());
+    public ContentSource getRepoDetails(User loggedInUser, Integer id) {
+        return lookupContentSourceById(id.longValue(), loggedInUser.getOrg());
     }
 
     /**
      * Lists associated repos with the given channel
-     * @param sessionKey session key
+     * @param loggedInUser The current user
      * @param channelLabel channel label
      * @return list of associates repos
      *
@@ -2751,15 +2684,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          $ContentSourceSerializer
      *      #array_end()
      */
-    public List<ContentSource> listChannelRepos(String sessionKey, String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<ContentSource> listChannelRepos(User loggedInUser, String channelLabel) {
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
         return ChannelFactory.lookupContentSources(loggedInUser.getOrg(), channel);
     }
 
     /**
      * Trigger immediate repo synchronization
-     * @param sessionKey session key
+     * @param loggedInUser The current user
      * @param channelLabel channel label
      * @return 1 on success
      *
@@ -2768,8 +2700,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel label")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int syncRepo(String sessionKey, String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int syncRepo(User loggedInUser, String channelLabel) {
         Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
         new TaskomaticApi().scheduleSingleRepoSync(chan, loggedInUser);
         return 1;
@@ -2777,7 +2708,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Trigger immediate repo synchronization
-     * @param sessionKey session key
+     * @param loggedInUser The current user
      * @param channelLabel channel label
      * @param params parameters
      * @return 1 on success
@@ -2793,9 +2724,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *  #struct_end()
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int syncRepo(String sessionKey, String channelLabel,
+    public int syncRepo(User loggedInUser, String channelLabel,
                                                Map <String, String> params) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
         new TaskomaticApi().scheduleSingleRepoSync(chan, loggedInUser, params);
         return 1;
@@ -2803,7 +2733,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Schedule periodic repo synchronization
-     * @param sessionKey session key
+     * @param loggedInUser The current user
      * @param channelLabel channel label
      * @param cronExpr cron expression, if empty all periodic schedules will be disabled
      * @return 1 on success
@@ -2815,8 +2745,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      "if empty all periodic schedules will be disabled")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int syncRepo(String sessionKey, String channelLabel, String cronExpr) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int syncRepo(User loggedInUser, String channelLabel, String cronExpr) {
         Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
         if (StringUtils.isEmpty(cronExpr)) {
             new TaskomaticApi().unscheduleRepoSync(chan, loggedInUser);
@@ -2829,7 +2758,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Schedule periodic repo synchronization
-     * @param sessionKey session key
+     * @param loggedInUser The current user
      * @param channelLabel channel label
      * @param cronExpr cron expression, if empty all periodic schedules will be disabled
      * @param params parameters
@@ -2848,9 +2777,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *  #struct_end()
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int syncRepo(String sessionKey,
+    public int syncRepo(User loggedInUser,
             String channelLabel, String cronExpr, Map <String, String> params) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
         if (StringUtils.isEmpty(cronExpr)) {
             new TaskomaticApi().unscheduleRepoSync(chan, loggedInUser);
@@ -2863,7 +2791,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Returns repo synchronization quartz expression
-     * @param sessionKey session key
+     * @param loggedInUser The current user
      * @param channelLabel channel label
      * @return quartz expression
      *
@@ -2872,8 +2800,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel label")
      * @xmlrpc.returntype string quartz expression
      */
-    public String getRepoSyncCronExpression(String sessionKey, String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public String getRepoSyncCronExpression(User loggedInUser, String channelLabel) {
         Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
             String cronExpr = new TaskomaticApi().getRepoSyncSchedule(chan, loggedInUser);
             if (StringUtils.isEmpty(cronExpr)) {
@@ -2884,7 +2811,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
    /**
     * Lists the filters for a repo
-    * @param sessionKey Session containing user information.
+    * @param loggedInUser The current user
     * @param label of the repo to use
     * @return list of filters
     *
@@ -2897,10 +2824,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
     *      #array_end()
     *
    **/
-    public List<ContentSourceFilter> listRepoFilters(String sessionKey, String label) {
-        User user = getLoggedInUser(sessionKey);
+    public List<ContentSourceFilter> listRepoFilters(User loggedInUser, String label) {
 
-        ContentSource cs = lookupContentSourceByLabel(label, user.getOrg());
+        ContentSource cs = lookupContentSourceByLabel(label, loggedInUser.getOrg());
 
         List<ContentSourceFilter> result =
             ChannelFactory.lookupContentSourceFiltersById(cs.getId());
@@ -2910,7 +2836,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * adds a filter for a given repo.
-     * @param sessionKey the sessionkey needed for authentication
+     * @param loggedInUser The current user
      * @param label of the repo to use
      * @param filterIn list of filters
      * @return sort order for the new filter
@@ -2925,16 +2851,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *  #struct_end()
      * @xmlrpc.returntype int sort order for new filter
      */
-    public int addRepoFilter(String sessionKey, String label, Map filterIn) {
-        User user = getLoggedInUser(sessionKey);
-
+    public int addRepoFilter(User loggedInUser, String label, Map filterIn) {
         Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
 
-        if (!user.hasRole(orgAdminRole)) {
+        if (!loggedInUser.hasRole(orgAdminRole)) {
             throw new PermissionException("Only Org Admins can add repo filters.");
         }
 
-        ContentSource cs = lookupContentSourceByLabel(label, user.getOrg());
+        ContentSource cs = lookupContentSourceByLabel(label, loggedInUser.getOrg());
 
         String flag = (String) filterIn.get("flag");
         String filter = (String) filterIn.get("filter");
@@ -2945,7 +2869,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         // determine the highest sort order of existing filters
         int sortOrder = 0;
-        for (ContentSourceFilter f : listRepoFilters(sessionKey, label)) {
+        for (ContentSourceFilter f : listRepoFilters(loggedInUser, label)) {
             sortOrder = Math.max(sortOrder, f.getSortOrder());
         }
 
@@ -2962,7 +2886,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     /**
      * Removes a filter for a given repo.
-     * @param sessionKey the sessionkey needed for authentication
+     * @param loggedInUser The current user
      * @param label of the repo to use
      * @param filterIn list of filters
      * @return 1 on success
@@ -2977,16 +2901,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *  #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeRepoFilter(String sessionKey, String label, Map filterIn) {
-        User user = getLoggedInUser(sessionKey);
-
+    public int removeRepoFilter(User loggedInUser, String label, Map filterIn) {
         Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
 
-        if (!user.hasRole(orgAdminRole)) {
+        if (!loggedInUser.hasRole(orgAdminRole)) {
             throw new PermissionException("Only Org Admins can remove repo filters.");
         }
 
-        ContentSource cs = lookupContentSourceByLabel(label, user.getOrg());
+        ContentSource cs = lookupContentSourceByLabel(label, loggedInUser.getOrg());
 
         String flag = (String) filterIn.get("flag");
         String filter = (String) filterIn.get("filter");
@@ -2997,7 +2919,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         // find the existing filter
         ContentSourceFilter oldFilter = null;
-        for (ContentSourceFilter f : listRepoFilters(sessionKey, label)) {
+        for (ContentSourceFilter f : listRepoFilters(loggedInUser, label)) {
             if (flag.equals(f.getFlag()) && filter.equals(f.getFilter())) {
                 oldFilter = f;
                 break;
@@ -3016,7 +2938,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     /**
      * replaces the existing set of filters for a given repo.
      * filters are ranked by their order in the array.
-     * @param sessionKey the sessionkey needed for authentication
+     * @param loggedInUser The current user
      * @param label of the repo to use
      * @param filtersIn list of filters
      * @return 1 on success
@@ -3034,16 +2956,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *  #array_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setRepoFilters(String sessionKey, String label, List<Map> filtersIn) {
-        User user = getLoggedInUser(sessionKey);
-
+    public int setRepoFilters(User loggedInUser, String label, List<Map> filtersIn) {
         Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
 
-        if (!user.hasRole(orgAdminRole)) {
+        if (!loggedInUser.hasRole(orgAdminRole)) {
             throw new PermissionException("Only Org Admins can set repo filters.");
         }
 
-        ContentSource cs = lookupContentSourceByLabel(label, user.getOrg());
+        ContentSource cs = lookupContentSourceByLabel(label, loggedInUser.getOrg());
 
         List<ContentSourceFilter> filters = new ArrayList();
 
@@ -3078,7 +2998,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
    /**
     * Clears the filters for a repo
-    * @param sessionKey Session containing user information.
+    * @param loggedInUser The current user
     * @param label of the repo to use
     * @return 1 on success
     *
@@ -3087,16 +3007,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.param #param_desc("string", "label", "repository label")
     * @xmlrpc.returntype #return_int_success()
    **/
-    public int clearRepoFilters(String sessionKey, String label) {
-        User user = getLoggedInUser(sessionKey);
-
+    public int clearRepoFilters(User loggedInUser, String label) {
         Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
 
-        if (!user.hasRole(orgAdminRole)) {
+        if (!loggedInUser.hasRole(orgAdminRole)) {
             throw new PermissionException("Only Org Admins can remove repo filters.");
         }
 
-        ContentSource cs = lookupContentSourceByLabel(label, user.getOrg());
+        ContentSource cs = lookupContentSourceByLabel(label, loggedInUser.getOrg());
 
         ChannelFactory.clearContentSourceFilters(cs.getId());
 

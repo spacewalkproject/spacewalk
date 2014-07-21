@@ -1,0 +1,193 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN"
+>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-export</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 0.9</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-export</command></RefName>
+<RefPurpose>
+Utility for extracting data from an existing spacewalk instance
+</RefPurpose>
+</RefNameDiv>
+
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spacewalk-export</command>
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--dump-repos</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--entities=<replaceable>entity[,entity...]</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--export-dir=<replaceable>DIR</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--export-package=<replaceable>FILE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--ext-pkgs</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--list-entities</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-size</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--org=<replaceable>ORG-ID</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--skip-repogen</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--clean</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--debug</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--quiet</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-h</arg>
+        <arg>--help</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+
+<RefSect1><Title>Description</Title>
+  <para>
+      <emphasis>spacewalk-export</emphasis> exports entities from a running spacewalk system
+  </para>
+
+  <para>
+      Script to export a variety of entities from spacewalk in a format that can be consumed elsewhere.
+  </para>
+
+  <para>
+      <emphasis>spacewalk-export</emphasis> leverages the <emphasis>spacewalk-report</emphasis> to extract entities in standard CSV format. The tool extracts the entities requested, or all entities of which it is aware, into the location specified, and then collects all results into one compressed file that can be easily transferred and consumed elsewhere.
+  </para>
+
+  <para>
+      Requests can be limited by entity and/or to a specific subset of organizations. Channel-exports can be limited to external-packages-only, and repo-metadata can be included if desired.
+  </para>
+</RefSect1>
+
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>--dump-repos</term>
+        <listitem>
+            <para>If specified, and if 'repositories' are being exported, the contents of any repositories specified using the <emphasis>file:</emphasis> protocol will be bundled into the final export-file.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--entities=<replaceable>entity[,entity...] </replaceable></term>
+        <listitem>
+            <para>Specify comma-separated list of entities to export (default is all)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--export-dir=<replaceable>DIR</replaceable></term>
+        <listitem>
+            <para>Specify directory to store exports in (will be created if not found) - defaults to ~/spacewalk-export-dir</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--export-package=<replaceable>FILE</replaceable></term>
+        <listitem>
+            <para>Specify filename to use for final packaged-exports tarfile - defaults to spacewalk_export.tar.gz</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ext-pkgs</term>
+        <listitem>
+            <para>Channel-output will contain only exported packages (by default, CVS output contains all packages, even those available in external repositories and in clone original channels)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--list-entities</term>
+        <listitem>
+            <para>List supported entities (e.g., 'users', 'channels', etc.)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term> --no-size</term>
+        <listitem>
+            <para>Do not check package size. Speeds up the export, but misses a chance to catch errors.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--org=<replaceable>ORG-ID</replaceable></term>
+        <listitem>
+            <para>Specify an org-id whose data we will export. Can be specified multiple times to export entities for multiple organizations.  If not specified, all organizations' entities will be exported.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--skip-repogen</term>
+        <listitem>
+            <para>Omit repodata generation for exported channels</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--clean</term>
+        <listitem>
+           <para>Describes how to clean up from previous exports. This does <emphasis>not</emphasis> execute the command, leaving it to the user to decide whether issuing an 'rm -rf' command as root is a good idea.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--debug</term>
+        <listitem>
+            <para>Log debugging output</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--quiet</term>
+        <listitem>
+            <para>Log only errors</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+
+<RefSect1><Title>Examples</Title>
+<example>
+  <title>Export all entities, including dumping repositories, to the default file locations</title>
+  <para>spacewalk-export --dump-repos</para>
+</example>
+<example>
+  <title>Export only users and channels, using directory /tmp/exports as an export-directory, and naming the final bundled-file 'my_users_and_chans.tar.gz'</title>
+  <para>spacewalk-export --entities=users,channels --export-dir=/tmp/exports --export-package=my_users_and_chans.tar.gz</para>
+</example>
+<example>
+  <title>Export only users for org-id 4 and 7 to default locations</title>
+  <para>spacewalk-export --entities=users --org=4 --org=7</para>
+</example>
+</RefSect1>
+
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Grant Gainey<email>ggainey@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</refentry>
+

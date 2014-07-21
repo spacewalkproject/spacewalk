@@ -68,6 +68,20 @@
                     </c:if>
                     <div class="form-group">
                         <label class="col-lg-3 control-label">
+                            <bean:message key="usercreate.jsp.api.readOnly"/>
+                        </label>
+                        <div class="col-lg-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="readonly"
+                                      <c:if test="${readonly}">checked="true"</c:if>/>
+                                </label>
+                            </div>
+                            <br/><small><bean:message key="usercreate.jsp.api.readOnlyHelp"/></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">
                             <bean:message key="created.displayname"/>
                         </label>
                         <div class="col-lg-6">

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -138,7 +138,7 @@ def verify(blob_values):
             s = "id2 = :id2"
             hval['id2'] = i2
         h = rhnSQL.prepare(q % s)
-        apply(h.execute, (), hval)
+        h.execute(**hval)
         row = h.fetchone_dict()
         val1 = row['val1']
         val2 = row['val2']

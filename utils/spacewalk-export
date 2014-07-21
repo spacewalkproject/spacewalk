@@ -35,10 +35,11 @@ DEFAULT_EXPORT_PACKAGE = 'spacewalk_export.tar.gz'
 REPORTS_DIR = 'exports'
 
 SUPPORTED_ENTITIES = {
-        'users' : 'Users and Organizations',
-        'systemgroups' : 'System-groups for all organizations',
-        'repositories' : 'Defined repositories',
-        'customchannels' : 'Custom channels for all organizations'
+        'activation-keys' : 'Activation keys',
+        'channels'        : 'Custom/cloned channels and repositories for all organizations',
+        'repositories'    : 'Defined repositories',
+        'system-groups'   : 'System-groups for all organizations',
+        'users'           : 'Users and Organizations'
         }
 
 #
@@ -46,10 +47,11 @@ SUPPORTED_ENTITIES = {
 # Map report-to-org-id so we can make generic decisions later
 #
 REPORT_TO_ORG = {
-        'users'           : 'organization_id',
-        'system-groups'   : 'org_id',
+        'activation-keys' : 'org_id',
+        'channels'        : 'org_id',
         'repositories'    : 'org_id',
-        'custom-channels' : 'org_id'
+        'system-groups'   : 'org_id',
+        'users'           : 'organization_id'
         }
 
 def setupOptions():
@@ -71,19 +73,24 @@ def setupOptions():
     entGroup.add_option('--entities', action='store', dest='entities',
             metavar='entity[,entity...]', default='all',
             help='Specify comma-separated list of entities to export (default is all)')
-    entGroup.add_option('--dump-channels', action='store_true', dest='dump_channels',
-            default=False, help='Use rhn-satellite-exporter to export custom-channel-contents')
+    entGroup.add_option('--org', action='append', type='int', dest='org_ids',
+            metavar='ORG-ID', help='Specify an org-id whose data we will export')
     entGroup.add_option('--dump-repos', action='store_true', dest='dump_repos',
             default=False, help='Dump contents of file: repositories')
-    entGroup.add_option('--select-orgs', action='store', dest='org_list',
-            metavar='org1[,org2...]', default='all',
-            help='Specify list of specific organizations whose data we will export')
     parser.add_option_group(entGroup)
 
-    utilGroup = OptionGroup(parser, "Utility")
+    chanGroup = OptionGroup(parser, "Channels")
+    chanGroup.add_option('--ext-pkgs', action='store_true', dest='extpkgs',
+            default=False, help='Channel-output contains only external packages')
+    chanGroup.add_option('--skip-repogen', action='store_true', dest='skipregen',
+            default=False, help='Omit repodata generation for exported channels')
+    chanGroup.add_option('--no-size', action='store_true', dest='nosize',
+            default=False, help='Do not check package size')
+    parser.add_option_group(chanGroup)
 
+    utilGroup = OptionGroup(parser, "Utility")
     utilGroup.add_option('--clean', action='store_true', default=False, dest='clean',
-            help='How do I clean up from pervious runs?')
+            help='How do I clean up from previous runs?')
     utilGroup.add_option('--debug', action='store_true', default=False, dest='debug',
             help='Log debugging output')
     utilGroup.add_option('--quiet', action='store_true', default=False, dest='quiet',
@@ -129,12 +136,6 @@ def setupEntities(options):
 
     return entities;
 
-def setupOrgClauses(options):
-    if options.org_list == 'all':
-        return ''
-
-    orgs = options.org_list.split(',')
-
 def setupOutputDir(options):
     if not os.path.isdir(options.export_dir):
         os.mkdir(options.export_dir, 0700)
@@ -144,11 +145,10 @@ def setupOutputDir(options):
 # Did we get an orgs-list? If so, return an array of --where entries
 def _generateWhere(options, reportname):
     where = []
-    if options.org_list == 'all':
-        return where
 
-    for org in options.org_list.split(','):
-        where.append('--where-{0}={1}'.format(REPORT_TO_ORG[reportname], org))
+    if options.org_ids:
+        for org in options.org_ids:
+            where.append('--where-{0}={1}'.format(REPORT_TO_ORG[reportname], org))
 
     return where
 
@@ -158,12 +158,38 @@ def _issueReport(options, reportname):
     where_clause = _generateWhere(options, reportname)
     logging.debug('...WHERE = {0}'.format(where_clause))
     if len(where_clause) == 0:
-        call(['/usr/bin/sudo', '/usr/bin/spacewalk-report', reportname] ,
+        call(['/usr/bin/spacewalk-report', reportname] ,
             stdout = open(report_file, 'w'))
     else:
-        call(['/usr/bin/sudo', '/usr/bin/spacewalk-report'] + where_clause + [reportname] ,
+        call(['/usr/bin/spacewalk-report'] + where_clause + [reportname] ,
             stdout = open(report_file, 'w'))
     return report_file
+
+def channelsDump(options):
+    logging.info('Processing channels...')
+    _issueReport(options, 'channels')
+    # /usr/bin/spacewalk-export-channels -d options.export_dir + '/' + REPORTS_DIR + '/' + 'CHANNELS' -f FORCE
+    # if extpkgs -e; if skipregen -s; if nosize -S
+    extra_args = []
+    if options.extpkgs:
+        extra_args.append('-e')
+    if options.skipregen:
+        extra_args.append('-s')
+    if options.nosize:
+        extra_args.append('-S')
+    if options.org_ids:
+        # Go from list-of-ints to list-of-args-to-export - ['-o', 'oid1', '-o', 'oid2', ...]
+        oid_args = ' '.join(['-o '+i for i in map(str,options.org_ids)]).split(' ')
+        extra_args = extra_args + oid_args
+
+    logging.debug('...EXTRA = %s' % extra_args)
+
+    channel_export_dir = options.export_dir + '/' + REPORTS_DIR + '/' + 'CHANNELS'
+    if not os.path.isdir(channel_export_dir):
+        os.mkdir(channel_export_dir, 0700)
+    call(['/usr/bin/spacewalk-export-channels', '-d', channel_export_dir,
+         '-f', 'FORCE'] + extra_args)
+    return
 
 def usersDump(options):
     logging.info('Processing users...')
@@ -171,8 +197,13 @@ def usersDump(options):
     return
 
 def systemgroupsDump(options):
-    logging.info('Processing systemgroups...')
+    logging.info('Processing system-groups...')
     _issueReport(options, 'system-groups')
+    return
+
+def activationkeysDump(options):
+    logging.info('Processing activation-keys...')
+    _issueReport(options, 'activation-keys')
     return
 
 def repositoriesDump(options):
@@ -199,51 +230,26 @@ def repositoriesDump(options):
                 logging.info('...storing file-repo {0} into {1}'.format(repo_loc, repo_tarname))
                 # Tar it up into the export-dir
                 if options.debug:
-                    call(['/usr/bin/sudo', '/bin/tar', '-c', '-v', '-z',
+                    call(['/bin/tar', '-c', '-v', '-z',
                         '-C', repo_dir,
                         '-f', '{0}/{1}/{2}'.format(options.export_dir, REPORTS_DIR, repo_tarname),
                         repo_basename])
                 else:
-                    call(['/usr/bin/sudo', '/bin/tar', '-c', '-z',
+                    call(['/bin/tar', '-c', '-z',
                         '-C', repo_dir,
                         '-f', '{0}/{1}/{2}'.format(options.export_dir, REPORTS_DIR, repo_tarname),
                         repo_basename])
-        handle.close()
-    return
-
-def customchannelsDump(options):
-    logging.info('Processing customchannels...')
-    repo_file = _issueReport(options, 'custom-channels')
-    if options.dump_channels:
-        logging.info('...channel export requested')
-        # Go thru the CSV we just dumped and dig out channel labels
-        handle = open(repo_file, 'r')
-        channels = csv.DictReader(handle)
-        for channel in channels:
-            channel_dumps_dir = options.export_dir + '/' + REPORTS_DIR + '/' + 'channel_dumps/'
-            if not os.path.isdir(channel_dumps_dir):
-                os.mkdir(channel_dumps_dir, 0700)
-
-            channel_dir = channel_dumps_dir + '/' + channel['channel_label']
-            if not os.path.isdir(channel_dir):
-                os.mkdir(channel_dir, 0700)
-
-            logging.info('...about to export ' + channel['channel_label'])
-            logging.debug('/usr/bin/sudo /usr/bin/rhn-satellite-exporter -c {0} -d {1}'.format(channel['channel_label'], channel_dir))
-            call(['/usr/bin/sudo', '/usr/bin/rhn-satellite-exporter',
-                '-c', channel['channel_label'],
-                '-d', channel_dir])
         handle.close()
     return
 
 def prepareExport(options):
     if options.debug:
-        call(['/usr/bin/sudo', '/bin/tar', '-c', '-v', '-z',
+        call(['/bin/tar', '-c', '-v', '-z',
             '-C', options.export_dir,
             '-f', '{0}/{1}'.format(options.export_dir, options.export_package),
             REPORTS_DIR])
     else:
-        call(['/usr/bin/sudo', '/bin/tar', '-c', '-z',
+        call(['/bin/tar', '-c', '-z',
             '-C', options.export_dir,
             '-f', '{0}/{1}'.format(options.export_dir, options.export_package),
             REPORTS_DIR])
@@ -256,6 +262,13 @@ def cleanup(options):
     logging.info('NOTE:  No, I will not do it for you!')
     return
 
+
+def checkSuperUser():
+    if os.geteuid() != 0:
+        print "You must be root to run this!"
+        sys.exit(1)
+
+
 if __name__ == '__main__':
     parser = setupOptions()
     (options, args) = parser.parse_args()
@@ -265,6 +278,8 @@ if __name__ == '__main__':
     if (options.list):
         listSupported()
         sys.exit(0)
+
+    checkSuperUser()
 
     if (options.clean):
         cleanup(options)
@@ -276,7 +291,9 @@ if __name__ == '__main__':
     for entity in entities.keys():
         if (entities[entity]):
             logging.debug('DUMPING ' + entity)
-            globals()[entity.lower() + 'Dump'](options)
+            # dump-function name is <entity>Dump(options)
+            # BUT - entity-names can have dashes, function names do NOT
+            globals()[entity.lower().replace('-','') + 'Dump'](options)
         else:
             logging.debug('SKIPPING ' + entity)
 

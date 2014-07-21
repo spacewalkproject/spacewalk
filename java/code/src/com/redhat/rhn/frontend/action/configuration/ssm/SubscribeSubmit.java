@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -61,7 +61,7 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("ssm.config.subscribe.jsp.continue", "proceed");
     }
 
@@ -69,7 +69,7 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
      * {@inheritDoc}
      */
     protected void processParamMap(ActionForm form,
-            HttpServletRequest request, Map params) {
+            HttpServletRequest request, Map<String, Object> params) {
         //no-op
     }
 

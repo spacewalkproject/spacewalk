@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -50,7 +50,7 @@ public class ConfigActionFormatter extends ActionFormatter {
      * @return The html notes string
      */
     protected String getNotesBody() {
-        StringBuffer buffy = new StringBuffer();
+        StringBuilder buffy = new StringBuilder();
         ConfigAction action = (ConfigAction)getAction();
         Iterator configs = action.getConfigRevisionActions().iterator();
 
@@ -72,7 +72,7 @@ public class ConfigActionFormatter extends ActionFormatter {
 
     private String displayRevision(ConfigRevision revision) {
         ConfigFile file = revision.getConfigFile();
-        StringBuffer buffy = new StringBuffer();
+        StringBuilder buffy = new StringBuilder();
         Object[] args = new Object[5];
         args[0] = "/rhn/configuration/file/FileDetails.do?cfid=" + file.getId() +
             "&crid=" + revision.getId();
@@ -105,7 +105,7 @@ public class ConfigActionFormatter extends ActionFormatter {
                         ConfigFileName configFileName = configFile.getConfigFileName();
                         if (configFileName != null) {
                             result.add(
-                                "<a href=\"/rhn/configuration/file/FileDetails.do?cfid=" +
+                                "<a href=\"/rhn/configuration/file/FileDetails.do?crid=" +
                                 revision.getId().toString() +
                                 "\">" +
                                 StringEscapeUtils.escapeHtml(configFileName.getPath()) +

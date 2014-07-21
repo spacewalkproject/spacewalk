@@ -594,4 +594,25 @@ public interface User {
      * @return Set of temporary Roles that this user has
      */
     Set<Role> getTemporaryRoles();
+
+    /**
+     * @return Returns whether user is readonly
+     */
+    String getReadOnly();
+
+    /**
+     * @param readOnlyIn readOnly to set
+     */
+    void setReadOnly(String readOnlyIn);
+
+    /**
+     * @return Returns whether user is readonly
+     */
+    boolean getReadOnlyBool();
+
+    /**
+     * @param readOnlyIn readOnly to set
+     */
+    void setReadOnly(boolean readOnlyIn);
+
 }

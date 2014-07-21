@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2011 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -225,26 +225,6 @@ sub generate_salt {
   my $ret;
 
   $ret .= $chars[int rand @chars] while $length--;
-
-  return $ret;
-}
-
-sub random_password {
-  my $class = shift;
-  my $length = shift;
-
-  die "random password too short"
-    unless $length > 5;
-
-  my $ret;
-  my @chars = ('a'..'z');
-  my @nums = ('0'..'9');
-
-  $ret .= $chars[int rand @chars]
-    while $length-- > 5;
-
-  $ret .= $nums[int rand @nums]
-    while $length-- >= 0;
 
   return $ret;
 }

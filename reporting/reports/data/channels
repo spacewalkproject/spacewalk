@@ -9,6 +9,7 @@ description:
 
 columns:
 
+    channel_id:i            Channel identifier
     channel_label           Channel label
     channel_name            Channel name
     number_of_packages:i    Number of packages in the channel
@@ -17,7 +18,7 @@ columns:
 sql:
 
     select * from (
-        select rhnchannel.label channel_label, rhnchannel.name channel_name,
+        select rhnchannel.id channel_id, rhnchannel.label channel_label, rhnchannel.name channel_name,
                count(rhnchannelpackage.channel_id) number_of_packages,
                rhnchannel.org_id
           from rhnchannel

@@ -19,6 +19,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.dto.BaseDto;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.NestedNullException;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -210,6 +211,9 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
                 throw new IllegalArgumentException("Can't call method in DTO class: " +
                         row.getClass().getName() + "." + "get" +
                         columnKey + "(), NoSuchMethodException: " + e.toString());
+            }
+            catch (NestedNullException e) {
+                return null;
             }
             return ovalue;
         }

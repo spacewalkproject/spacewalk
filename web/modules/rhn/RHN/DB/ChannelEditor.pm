@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -408,18 +408,6 @@ sub errata_migration_provider {
   }
 
   return $errata_data;
-}
-
-sub clone_errata_into_channel {
-  my $class = shift;
-  my %attr = validate(@_, {from_cid => 0, to_cid => 1, eid => 1, org_id => 1, include_packages => 0});
-
-  my $new_eid = RHN::ErrataEditor->clone_into_org($attr{eid}, $attr{org_id});
-  my $new_errata = RHN::ErrataTmp->lookup_managed_errata(-id => $new_eid);
-  $new_eid = RHN::ErrataEditor->publish_errata($new_errata);
-  RHN::ChannelEditor->add_cloned_errata_to_channel(-eids => [ $new_eid ], -to_cid => $attr{to_cid}, -from_cid => $attr{from_cid});
-
-  return $new_eid;
 }
 
 sub schedule_errata_cache_update {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -102,9 +102,10 @@ public class ChannelProduct {
 
     /**
      * Setter for whether the channel product is a beta product or not
+     * Can't be named setBeta or hibernate wigs out
      * @param isBeta true if the product is a beta product, false otherwise
      */
-    public void setBeta(boolean isBeta) {
+    public void setMyBeta(boolean isBeta) {
         if (isBeta) {
             this.setBeta("Y");
         }

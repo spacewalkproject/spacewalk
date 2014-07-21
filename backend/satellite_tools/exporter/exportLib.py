@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -29,6 +29,9 @@ class ArrayIterator:
             # Nothing to iterate over
             self._pos = None
 
+    def get_array(self):
+        return self._arr
+
     def fetchone_dict(self):
         if self._pos is None:
             return None
@@ -46,7 +49,8 @@ class BaseDumper:
         self._iterator = data_iterator
 
     # Generic timing function
-    def timer(self, debug_level, message, function, *args, **kwargs):
+    @staticmethod
+    def timer(debug_level, message, function, *args, **kwargs):
         start = time.time()
         result = function(*args, **kwargs)
         log_debug(debug_level, message, "timing: %.3f" % (time.time() - start))
@@ -90,6 +94,7 @@ class BaseDumper:
             self._writer.empty_tag(tag_name, attributes=self._attributes)
 
     def dump_subelement(self, data):
+        # pylint: disable=R0201
         if isinstance(data, BaseDumper):
             data.dump()
 
@@ -123,7 +128,7 @@ class SimpleDumper(BaseDumper):
         if self._value is None:
             self._writer.empty_tag('rhn-null')
         else:
-            self._writer.data(self._value, self._max_value_bytes)
+            self._writer.data(self._value)
         self._writer.close_tag(self.tag_name)
 
 
@@ -150,7 +155,8 @@ class BaseQueryDumper(BaseDumper):
         return h
 
 class BaseSubelementDumper(BaseDumper):
-    subelement_dumper_class = None
+    # pylint: disable=E1101
+    subelement_dumper_class = object
     def dump_subelement(self, data):
         d = self.subelement_dumper_class(self._writer, data)
         d.dump()
@@ -265,11 +271,11 @@ class _ChannelDumper(BaseRowDumper):
     def set_attributes(self):
         channel_id = self._row['id']
 
-        packages = map(lambda x: "rhn-package-%s" % x, self._get_package_ids())
+        packages = ["rhn-package-%s" % x for x in self._get_package_ids()]
         # XXX channel-errata is deprecated and should go away in dump version
         # 3 or higher - we now dump that information in its own subelement
         # rhn-channel-errata
-        errata = map(lambda x: "rhn-erratum-%s" % x, self._get_errata_ids())
+        errata = ["rhn-erratum-%s" % x for x in self._get_errata_ids()]
         ks_trees = self._get_kickstartable_trees()
 
         return {
@@ -393,7 +399,7 @@ class _ChannelDumper(BaseRowDumper):
            and rp.last_modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
      """)
 
-    _query_get_package_ids_by_date_limits_whole_errata = rhnSQL.Statement("""
+    _query_pkgids_by_date_whole_errata = rhnSQL.Statement("""
         select rcp.package_id as id
           from rhnChannelPackage rcp, rhnPackage rp
             left join rhnErrataPackage rep on rp.id = rep.package_id
@@ -409,7 +415,7 @@ class _ChannelDumper(BaseRowDumper):
             )
      """)
 
-    _query_get_package_ids_by_rhndate_limits_whole_errata = rhnSQL.Statement("""
+    _query_get_pkgids_by_rhndate_whole_errata = rhnSQL.Statement("""
         select rcp.package_id as id
           from rhnChannelPackage rcp, rhnPackage rp
             left join rhnErrataPackage rep on rp.id = rep.package_id
@@ -430,8 +436,8 @@ class _ChannelDumper(BaseRowDumper):
     # Things that can be overwriten in subclasses
     def _get_package_ids(self):
         if self.start_date and self.whole_errata:
-            return self._get_ids(self._query_get_package_ids_by_date_limits_whole_errata,
-                             self._query_get_package_ids_by_rhndate_limits_whole_errata,
+            return self._get_ids(self._query_pkgids_by_date_whole_errata,
+                             self._query_get_pkgids_by_rhndate_whole_errata,
                              self._query_get_package_ids)
         else:
             return self._get_ids(self._query_get_package_ids_by_date_limits,
@@ -451,7 +457,7 @@ class _ChannelDumper(BaseRowDumper):
             query = query_no_limits
         h = rhnSQL.prepare(query)
         h.execute(**query_args)
-        return map(lambda x: x['id'], h.fetchall_dict() or [])
+        return [x['id'] for x in h.fetchall_dict() or []]
 
     _query_get_source_package_ids = rhnSQL.Statement("""
         select distinct ps.id, sr.name source_rpm,
@@ -568,7 +574,7 @@ class ChannelsDumper(BaseSubelementDumper):
     tag_name = 'rhn-channels'
     subelement_dumper_class = _ChannelDumper
 
-    def __init__(self, writer, channels=[]):
+    def __init__(self, writer, channels=()):
         BaseSubelementDumper.__init__(self, writer)
         self._channels = channels
 
@@ -582,6 +588,7 @@ class ChannelsDumper(BaseSubelementDumper):
 
 class ChannelDumper(_ChannelDumper):
 
+    # pylint: disable=W0231,W0233
     def __init__(self, writer, row):
         BaseRowDumper.__init__(self, writer, row)
 
@@ -597,7 +604,7 @@ class ChannelDumper(_ChannelDumper):
 
     def set_iterator(self):
         arrayiterator = _ChannelDumper.set_iterator()
-        arr = arrayiterator._arr
+        arr = arrayiterator.get_array()
         mappings = [
             ('rhn-channel-receiving-updates', 'receiving_updates'),
         ]
@@ -735,7 +742,7 @@ class _ChannelFamilyDumper(BaseRowDumper):
         h = rhnSQL.prepare(self._query_get_channel_family_channels)
         channel_family_id = self._row['id']
         h.execute(channel_family_id=channel_family_id)
-        channels = map(lambda x: x['label'], h.fetchall_dict() or [])
+        channels = [x['label'] for x in h.fetchall_dict() or []]
 
         if not self._virt_filter:
             h_virt = rhnSQL.prepare(self._query_cf_virt_sublevel)
@@ -744,10 +751,10 @@ class _ChannelFamilyDumper(BaseRowDumper):
             cf_virt_data = h_virt.fetchall_dict() or []
             log_debug(3, cf_virt_data, channel_family_id)
 
-            vsl_label = map(lambda x: x['label'], cf_virt_data)
+            vsl_label = [x['label'] for x in cf_virt_data]
             cf_vsl_label = ' '.join(vsl_label)
 
-            vsl_name = map(lambda x: x['name'], cf_virt_data)
+            vsl_name = [x['name'] for x in cf_virt_data]
             cf_vsl_name = ','.join(vsl_name)
 
         attributes = {
@@ -1007,7 +1014,7 @@ class _ErratumDumper(BaseRowDumper):
             and ec.errata_id = :errata_id
         """)
         h.execute(errata_id=self._row['id'])
-        channels = map(lambda x: x['label'], h.fetchall_dict() or [])
+        channels = [x['label'] for x in h.fetchall_dict() or []]
 
         h = rhnSQL.prepare("""
             select ep.package_id
@@ -1015,8 +1022,8 @@ class _ErratumDumper(BaseRowDumper):
             where ep.errata_id = :errata_id
         """)
         h.execute(errata_id=self._row['id'])
-        packages = map(lambda x: "rhn-package-%s" % x['package_id'],
-            h.fetchall_dict() or [])
+        packages = ["rhn-package-%s" % x['package_id'] for x in
+            h.fetchall_dict() or []]
 
         h = rhnSQL.prepare("""
             select c.name cve
@@ -1025,7 +1032,7 @@ class _ErratumDumper(BaseRowDumper):
             and ec.cve_id = c.id
         """)
         h.execute(errata_id=self._row['id'])
-        cves = map(lambda x: x['cve'], h.fetchall_dict() or [])
+        cves = [x['cve'] for x in h.fetchall_dict() or []]
 
         return {
             'id'        : 'rhn-erratum-%s' % self._row['id'],
@@ -1148,7 +1155,7 @@ class _ErratumFileEntryDumper(BaseChecksumRowDumper):
         """)
         h.execute(errata_file_id=self._row['errata_file_id'])
         channels = ' '.join(
-            map(lambda x: x['label'], h.fetchall_dict() or []))
+            [x['label'] for x in h.fetchall_dict() or []])
         if channels:
             attributes['channels'] = channels
 

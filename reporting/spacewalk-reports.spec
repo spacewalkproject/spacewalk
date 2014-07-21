@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.8
+Version: 2.3.0
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,31 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.15-1
+- fix copyright years
+
+* Wed Jul 02 2014 Tomas Lestach <tlestach@redhat.com> 2.2.14-1
+- let roles sort within the user spacewalk-report
+
+* Tue Jul 01 2014 Tomas Lestach <tlestach@redhat.com> 2.2.13-1
+- introduce system-profiles report
+
+* Mon Jun 30 2014 Tomas Lestach <tlestach@redhat.com> 2.2.12-1
+- do not sort multival values within one column to match other multival values
+  (in another columns)
+- process all the multival values on row
+
+* Fri Jun 20 2014 Tomas Lestach <tlestach@redhat.com> 2.2.11-1
+- intorduce kickstart-scripts reports
+
+* Thu Jun 19 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.10-1
+- 1054342 - added hostname and IP address to scap-scan
+- 1053876 - added system_id to scap-scan-results
+
+* Tue Jun 03 2014 Tomas Lestach <tlestach@redhat.com> 2.2.9-1
+- we need base_channel_id and child_channel_id instead of channel_id in
+  activation_key report
+
 * Tue May 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.8-1
 - Add channel- and server-group-ids to activation-keys
 

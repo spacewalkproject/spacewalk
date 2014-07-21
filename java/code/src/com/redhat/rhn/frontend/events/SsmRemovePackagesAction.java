@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -44,8 +44,8 @@ public class SsmRemovePackagesAction extends SsmPackagesAction {
     protected List<Long> getAffectedServers(SsmPackageEvent event, User u) {
         SsmRemovePackagesEvent srpe = (SsmRemovePackagesEvent) event;
         List<Long> sids = new ArrayList<Long>();
-        List<Map> result = srpe.getResult();
-        for (Map data : result) {
+        List<Map<String, Object>> result = srpe.getResult();
+        for (Map<String, Object> data : result) {
             Long sid = (Long) data.get("id");
             sids.add(sid);
         }
@@ -57,7 +57,7 @@ public class SsmRemovePackagesAction extends SsmPackagesAction {
 
         SsmRemovePackagesEvent srpe = (SsmRemovePackagesEvent) event;
 
-        List<Map> result = srpe.getResult();
+        List<Map<String, Object>> result = srpe.getResult();
 
         /*
          * 443500 - The following was changed to be able to stuff all of the package
@@ -86,7 +86,7 @@ public class SsmRemovePackagesAction extends SsmPackagesAction {
         log.debug("Iterating data.");
 
         // Add action for each package found in the elaborator
-        for (Map data : result) {
+        for (Map<String, Object> data : result) {
             // Load the server
             Long sid = (Long) data.get("id");
             allServerIds.add(sid);

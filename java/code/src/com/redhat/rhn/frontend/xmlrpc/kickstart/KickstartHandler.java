@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -56,7 +56,7 @@ public class KickstartHandler extends BaseHandler {
 
     /**
      * List the available kickstartable trees for the given channel.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param channelLabel Label of channel to search.
      * @return Array of KickstartableTreeObjects
      * @deprecated being replaced by kickstart.tree.list(string sessionKey,
@@ -69,23 +69,22 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.returntype #array() $KickstartTreeSerializer #array_end()
      */
     @Deprecated
-    public List listKickstartableTrees(String sessionKey,
+    public List listKickstartableTrees(User loggedInUser,
             String channelLabel) {
         return new KickstartTreeHandler().
-                list(sessionKey, channelLabel);
+                list(loggedInUser, channelLabel);
     }
 
     /**
      * List kickstartable channels for the logged in user.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @return Array of Channel objects.
      *
      * @xmlrpc.doc List kickstartable channels for the logged in user.
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype #array() $ChannelSerializer #array_end()
      */
-    public List<Channel> listKickstartableChannels(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<Channel> listKickstartableChannels(User loggedInUser) {
         ensureConfigAdmin(loggedInUser);
         return  ChannelFactory
                 .getKickstartableChannels(loggedInUser.getOrg());
@@ -99,7 +98,7 @@ public class KickstartHandler extends BaseHandler {
      * url/nfs/harddrive/cdrom command in the kickstart file rather than replace
      * it with the kickstartable tree's default URL.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
      * @param kickstartableTreeLabel Label of a kickstartable tree.
@@ -118,11 +117,11 @@ public class KickstartHandler extends BaseHandler {
      * the kickstart file to import.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int importFile(String sessionKey, String profileLabel,
+    public int importFile(User loggedInUser, String profileLabel,
             String virtualizationType, String kickstartableTreeLabel,
             String kickstartFileContents) {
 
-        return importFile(sessionKey, profileLabel, virtualizationType,
+        return importFile(loggedInUser, profileLabel, virtualizationType,
                 kickstartableTreeLabel,
                 RhnXmlRpcServer.getServerName(), kickstartFileContents);
     }
@@ -132,7 +131,7 @@ public class KickstartHandler extends BaseHandler {
      * url/nfs/harddrive/cdrom command in the file and replacing it with the
      * default URL for the kickstartable tree and kickstart host specified.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
      * @param kickstartableTreeLabel Label of a kickstartable tree.
@@ -160,10 +159,10 @@ public class KickstartHandler extends BaseHandler {
      * the kickstart file to import.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int importFile(String sessionKey, String profileLabel,
+    public int importFile(User loggedInUser, String profileLabel,
             String virtualizationType, String kickstartableTreeLabel,
             String kickstartHost, String kickstartFileContents) {
-        return importFile(sessionKey, profileLabel, virtualizationType,
+        return importFile(loggedInUser, profileLabel, virtualizationType,
                 kickstartableTreeLabel, kickstartHost, kickstartFileContents,
                 getDefaultUpdateType());
     }
@@ -173,7 +172,7 @@ public class KickstartHandler extends BaseHandler {
      * url/nfs/harddrive/cdrom command in the file and replacing it with the
      * default URL for the kickstartable tree and kickstart host specified.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
      * @param kickstartableTreeLabel Label of a kickstartable tree.
@@ -207,12 +206,10 @@ public class KickstartHandler extends BaseHandler {
      * custom Kickstart Trees).")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int importFile(String sessionKey, String profileLabel,
+    public int importFile(User loggedInUser, String profileLabel,
             String virtualizationType, String kickstartableTreeLabel,
             String kickstartHost, String kickstartFileContents,
             String updateType) {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         KickstartParser parser = new KickstartParser(kickstartFileContents);
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
@@ -243,7 +240,7 @@ public class KickstartHandler extends BaseHandler {
      * Create a new kickstart profile using the default download URL for the
      * kickstartable tree and kickstart host specified.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
      * @param kickstartableTreeLabel Label of a kickstartable tree.
@@ -272,11 +269,10 @@ public class KickstartHandler extends BaseHandler {
      * custom Kickstart Trees).")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int createProfile(String sessionKey, String profileLabel,
+    public int createProfile(User loggedInUser, String profileLabel,
             String virtualizationType, String kickstartableTreeLabel,
             String kickstartHost, String rootPassword, String updateType) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
 
         KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
@@ -308,7 +304,7 @@ public class KickstartHandler extends BaseHandler {
      * Create a new kickstart profile using the default download URL for the
      * kickstartable tree and kickstart host specified.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
      * @param kickstartableTreeLabel Label of a kickstartable tree.
@@ -331,10 +327,10 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "rootPassword", "Root password.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int createProfile(String sessionKey, String profileLabel,
+    public int createProfile(User loggedInUser, String profileLabel,
             String virtualizationType, String kickstartableTreeLabel,
             String kickstartHost, String rootPassword) {
-        return createProfile(sessionKey, profileLabel, virtualizationType,
+        return createProfile(loggedInUser, profileLabel, virtualizationType,
                 kickstartableTreeLabel, kickstartHost, rootPassword,
                 getDefaultUpdateType());
     }
@@ -342,7 +338,7 @@ public class KickstartHandler extends BaseHandler {
     /**
      * Create a new kickstart profile with a custom download URL.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
      * @param kickstartableTreeLabel Label of a kickstartable tree.
@@ -364,11 +360,11 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "rootPassword", "Root password.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int createProfileWithCustomUrl(String sessionKey,
+    public int createProfileWithCustomUrl(User loggedInUser,
             String profileLabel, String virtualizationType,
             String kickstartableTreeLabel, String downloadUrl,
             String rootPassword) {
-        return createProfileWithCustomUrl(sessionKey, profileLabel,
+        return createProfileWithCustomUrl(loggedInUser, profileLabel,
                 virtualizationType, kickstartableTreeLabel, downloadUrl,
                 rootPassword, getDefaultUpdateType());
     }
@@ -376,7 +372,7 @@ public class KickstartHandler extends BaseHandler {
     /**
      * Create a new kickstart profile with a custom download URL.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
      * @param kickstartableTreeLabel Label of a kickstartable tree.
@@ -404,12 +400,11 @@ public class KickstartHandler extends BaseHandler {
      * custom Kickstart Trees).")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int createProfileWithCustomUrl(String sessionKey,
+    public int createProfileWithCustomUrl(User loggedInUser,
             String profileLabel, String virtualizationType,
             String kickstartableTreeLabel, String downloadUrl,
             String rootPassword, String updateType) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
 
         KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
@@ -446,7 +441,7 @@ public class KickstartHandler extends BaseHandler {
 
     /**
      * List kickstarts for a user
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @return list of KickstartDto objects
      *
      * @xmlrpc.doc Provides a list of kickstart profiles visible to the user's
@@ -454,8 +449,7 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype #array() $KickstartDtoSerializer #array_end()
      */
-    public List listKickstarts(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List listKickstarts(User loggedInUser) {
         checkKickstartPerms(loggedInUser);
         DataResult<KickstartDto> result = KickstartLister.getInstance()
                 .kickstartsInOrg(loggedInUser.getOrg(), null);
@@ -464,7 +458,7 @@ public class KickstartHandler extends BaseHandler {
 
     /**
      * Lists all ip ranges for an org
-     * @param sessionKey An active session key
+     * @param loggedInUser The current user
      * @return List of KickstartIpRange objects
      *
      * @xmlrpc.doc List all Ip Ranges and their associated kickstarts available
@@ -473,18 +467,17 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.returntype #array() $KickstartIpRangeSerializer #array_end()
      *
      */
-    public List listAllIpRanges(String sessionKey) {
-        User user = getLoggedInUser(sessionKey);
-        if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+    public List listAllIpRanges(User loggedInUser) {
+        if (!loggedInUser.hasRole(RoleFactory.CONFIG_ADMIN)) {
             throw new PermissionCheckFailureException();
         }
 
-        return KickstartFactory.lookupRangeByOrg(user.getOrg());
+        return KickstartFactory.lookupRangeByOrg(loggedInUser.getOrg());
     }
 
     /**
      * find a kickstart profile by an ip
-     * @param sessionKey the session
+     * @param loggedInUser The current user
      * @param ipAddress the ipaddress to search on
      * @return label of the associated kickstart
      *
@@ -495,9 +488,8 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.returntype string - label of the kickstart. Empty string ("") if
      * not found.
      */
-    public String findKickstartForIp(String sessionKey, String ipAddress) {
-        User user = getLoggedInUser(sessionKey);
-        List<KickstartIpRange> ranges = KickstartFactory.lookupRangeByOrg(user
+    public String findKickstartForIp(User loggedInUser, String ipAddress) {
+        List<KickstartIpRange> ranges = KickstartFactory.lookupRangeByOrg(loggedInUser
                 .getOrg());
         KickstartIpRangeFilter filter = new KickstartIpRangeFilter();
         for (KickstartIpRange range : ranges) {
@@ -511,7 +503,7 @@ public class KickstartHandler extends BaseHandler {
 
     /**
      * delete a kickstart profile
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param ksLabel the kickstart to remove an ip range from
      * @return 1 if successful, exception otherwise.
      *
@@ -521,13 +513,13 @@ public class KickstartHandler extends BaseHandler {
      * the kickstart profile you want to remove")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteProfile(String sessionKey, String ksLabel) {
-        User user = getLoggedInUser(sessionKey);
-        if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+    public int deleteProfile(User loggedInUser, String ksLabel) {
+        if (!loggedInUser.hasRole(RoleFactory.CONFIG_ADMIN)) {
             throw new PermissionException(RoleFactory.CONFIG_ADMIN);
         }
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        KickstartDeleteCommand com = new KickstartDeleteCommand(ksdata.getId(), user);
+        KickstartData ksdata = lookupKsData(ksLabel, loggedInUser.getOrg());
+        KickstartDeleteCommand com = new KickstartDeleteCommand(ksdata.getId(),
+                loggedInUser);
         ValidatorError error = com.store();
 
         return 1;
@@ -536,7 +528,7 @@ public class KickstartHandler extends BaseHandler {
     /**
      * En/Disable kickstart profile
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param profileLabel Label for tree we want to en/disable
      * @param disabled True to disable the profile
      * @return 1 if successful, exception otherwise.
@@ -548,9 +540,8 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "disabled" "true to disable the profile")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int disableProfile(String sessionKey, String profileLabel, Boolean disabled) {
+    public int disableProfile(User loggedInUser, String profileLabel, Boolean disabled) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         if (!loggedInUser.hasRole(RoleFactory.CONFIG_ADMIN)) {
             throw new PermissionException(RoleFactory.CONFIG_ADMIN);
         }
@@ -568,7 +559,7 @@ public class KickstartHandler extends BaseHandler {
     /**
      * Returns whether a kickstart profile is disabled
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param profileLabel kickstart profile label
      * @return true if profile is disabled
      *
@@ -577,9 +568,8 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "profileLabel" "kickstart profile label")
      * @xmlrpc.returntype true if profile is disabled
      */
-    public boolean isProfileDisabled(String sessionKey, String profileLabel) {
+    public boolean isProfileDisabled(User loggedInUser, String profileLabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksData = lookupKsData(profileLabel, loggedInUser.getOrg());
 
         return !ksData.isActive();
@@ -588,7 +578,7 @@ public class KickstartHandler extends BaseHandler {
     /**
      * Rename a kickstart profile.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param originalLabel Label for profile we want to edit
      * @param newLabel to assign to profile
      * @return 1 if successful, exception otherwise.
@@ -600,9 +590,8 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "newLabel" "new label to change to")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int renameProfile(String sessionKey, String originalLabel, String newLabel) {
+    public int renameProfile(User loggedInUser, String originalLabel, String newLabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksData = lookupKsData(originalLabel, loggedInUser.getOrg());
 
         KickstartData existing = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
@@ -623,7 +612,7 @@ public class KickstartHandler extends BaseHandler {
     /**
      * Clones a kickstart profile.
      *
-     * @param sessionKey user's session key.
+     * @param loggedInUser The current user
      * @param ksLabelToClone label of the kickstart profile to clone
      * @param newKsLabel label of the cloned profile
      * @return 1 if successful, exception otherwise.
@@ -635,9 +624,8 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "newKsLabel" "label of the cloned profile")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int cloneProfile(String sessionKey, String ksLabelToClone, String newKsLabel) {
+    public int cloneProfile(User loggedInUser, String ksLabelToClone, String newKsLabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData toClone = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 ksLabelToClone, loggedInUser.getOrg().getId());
         if (toClone == null) {
@@ -659,7 +647,7 @@ public class KickstartHandler extends BaseHandler {
      * url/nfs/harddrive/cdrom command in the file and replacing it with the
      * default URL for the kickstartable tree and kickstart host specified.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
      * @param kickstartableTreeLabel Label of a kickstartable tree.
@@ -678,10 +666,10 @@ public class KickstartHandler extends BaseHandler {
      * the kickstart file to import.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int importRawFile(String sessionKey, String profileLabel,
+    public int importRawFile(User loggedInUser, String profileLabel,
             String virtualizationType, String kickstartableTreeLabel,
             String kickstartFileContents) {
-        return importRawFile(sessionKey, profileLabel, virtualizationType,
+        return importRawFile(loggedInUser, profileLabel, virtualizationType,
                 kickstartableTreeLabel, kickstartFileContents,
                 getDefaultUpdateType());
     }
@@ -691,7 +679,7 @@ public class KickstartHandler extends BaseHandler {
      * url/nfs/harddrive/cdrom command in the file and replacing it with the
      * default URL for the kickstartable tree and kickstart host specified.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
      * @param kickstartableTreeLabel Label of a kickstartable tree.
@@ -716,11 +704,10 @@ public class KickstartHandler extends BaseHandler {
      * custom Kickstart Trees).")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int importRawFile(String sessionKey, String profileLabel,
+    public int importRawFile(User loggedInUser, String profileLabel,
             String virtualizationType, String kickstartableTreeLabel,
             String kickstartFileContents, String updateType) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
 
         KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(

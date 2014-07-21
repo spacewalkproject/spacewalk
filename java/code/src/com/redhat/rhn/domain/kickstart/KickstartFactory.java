@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -117,6 +117,9 @@ public class KickstartFactory extends HibernateFactory {
         if (updateType.equals(KickstartTreeUpdateType.ALL)) {
             trees = KickstartManager.getInstance().removeInvalid(
                     lookupKickstartableTrees(channelId, org));
+            if (trees.size() < 1) {
+                return null;
+            }
             // they are ordered by last_modified, get the last element to get
             // newest
             // tree
@@ -759,7 +762,7 @@ public class KickstartFactory extends HibernateFactory {
         Session session = null;
         List retval = null;
         String query = "KickstartableTree.findAll";
-        return singleton.listObjectsByNamedQuery(query, Collections.EMPTY_MAP, true);
+        return singleton.listObjectsByNamedQuery(query, Collections.EMPTY_MAP, false);
     }
 
     /**

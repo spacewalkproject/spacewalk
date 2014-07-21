@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -43,7 +43,6 @@ import java.util.Map;
  * OrgTrustHandlerTest
  * @version $Rev$
  */
-@SuppressWarnings("unchecked")
 public class OrgTrustHandlerTest extends BaseHandlerTestCase {
 
     private OrgTrustHandler handler = new OrgTrustHandler();
@@ -60,12 +59,12 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         Org org3 = createOrg();
 
         handler.addTrust(
-                adminKey,
+                admin,
                 org2.getId().intValue(),
                 org3.getId().intValue());
         assertTrue(isTrusted(org2, org3));
         handler.removeTrust(
-                adminKey,
+                admin,
                 org2.getId().intValue(),
                 org3.getId().intValue());
         assertFalse(isTrusted(org2, org3));
@@ -89,7 +88,7 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         // execute
-        Object[] result = handler.listOrgs(adminKey);
+        Object[] result = handler.listOrgs(admin);
 
         // verify
         assertNotNull(result);
@@ -128,7 +127,7 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
 
 
         // execute
-        Object[] result = handler.listChannelsProvided(adminKey, org2.getId().intValue());
+        Object[] result = handler.listChannelsProvided(admin, org2.getId().intValue());
 
         // verify
         assertNotNull(result);
@@ -159,7 +158,7 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         // execute
-        Object[] result = handler.listChannelsConsumed(adminKey, org2.getId().intValue());
+        Object[] result = handler.listChannelsConsumed(admin, org2.getId().intValue());
 
         // verify
         assertNotNull(result);
@@ -189,7 +188,7 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         // execute
-        Map<String, Object> result = handler.getDetails(adminKey, org2.getId().intValue());
+        Map<String, Object> result = handler.getDetails(admin, org2.getId().intValue());
 
         // verify
         assertNotNull(result);
@@ -212,7 +211,7 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         String email = "EddieNorton@redhat.com";
         Boolean usePam = Boolean.FALSE;
 
-        orgHandler.create(adminKey, orgName, login, password, prefix, first,
+        orgHandler.create(admin, orgName, login, password, prefix, first,
                 last, email, usePam);
 
         Org org =  OrgFactory.lookupByName(orgName);
@@ -224,12 +223,12 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         Org org1 = createOrg();
         Org org2 = createOrg();
         handler.addTrust(
-                adminKey,
+                admin,
                 org1.getId().intValue(),
                 org2.getId().intValue());
         assertTrue(isTrusted(org1, org2));
         handler.removeTrust(
-                adminKey,
+                admin,
                 org1.getId().intValue(),
                 org2.getId().intValue());
         assertFalse(isTrusted(org1, org2));
@@ -242,7 +241,7 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         Org orgB = createOrg();
         User userB = UserTestUtils.createUser("Johnny Quest", orgB.getId());
         handler.addTrust(
-                adminKey,
+                admin,
                 orgA.getId().intValue(),
                 orgB.getId().intValue());
         Server s = ServerFactoryTest.createTestServer(userB);
@@ -251,14 +250,14 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(s);
         addRole(admin, RoleFactory.CHANNEL_ADMIN);
         Package pkg = PackageTest.createTestPackage(orgA);
-        List packages = new ArrayList();
+        List<Long> packages = new ArrayList<Long>();
         packages.add(pkg.getId());
-        List<Map> affected =
+        List<Map<String, Object>> affected =
             handler.listSystemsAffected(
-                    adminKey, orgA.getId().intValue(),
+                    admin, orgA.getId().intValue(),
                     orgB.getId().intValue());
         boolean found = false;
-        for (Map m : affected) {
+        for (Map<String, Object> m : affected) {
             if (m.get("systemId").equals(s.getId())) {
                 found = true;
                 break;
@@ -268,8 +267,9 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
     }
 
     private boolean isTrusted(Org org, Org trusted) {
-        List trusts = handler.listTrusts(adminKey, org.getId().intValue());
-        for (OrgTrustOverview t :  (List<OrgTrustOverview>)trusts) {
+        List<OrgTrustOverview> trusts =
+                handler.listTrusts(admin, org.getId().intValue());
+        for (OrgTrustOverview t : trusts) {
             if (t.getId().equals(trusted.getId()) && t.getTrusted()) {
                 return true;
             }

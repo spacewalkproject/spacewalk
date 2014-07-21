@@ -1,6 +1,6 @@
 # -*- coding: ISO-8859-1 -*-
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,6 @@
 
 import re
 import sys
-from spacewalk.common.rhnLog import log_error
 
 class XMLWriter:
     """
@@ -93,7 +92,7 @@ class XMLWriter:
         self.data(name)
         self.stream.write(">")
 
-    def data(self, data_string, max_bytes=None):
+    def data(self, data_string):
         """
         Writes the data, performing the necessary UTF-8 conversions
         max_bytes is the satellite schema dependent maximum value (in bytes)

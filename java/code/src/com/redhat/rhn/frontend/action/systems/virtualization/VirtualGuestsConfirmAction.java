@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -194,12 +194,12 @@ public class VirtualGuestsConfirmAction extends BaseSystemListAction {
         return dr;
     }
 
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("virtualguests_confirm.jsp.confirm", "scheduleActions");
     }
 
     protected void processParamMap(ActionForm formIn,
-            HttpServletRequest request, Map params) {
+            HttpServletRequest request, Map<String, Object> params) {
         RequestContext ctx = new RequestContext(request);
         Long sid = ctx.getRequiredParam(RequestContext.SID);
         if (sid != null) {

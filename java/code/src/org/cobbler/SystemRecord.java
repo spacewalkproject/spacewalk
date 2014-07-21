@@ -45,6 +45,36 @@ public class SystemRecord extends CobblerObject {
     private static final String GET_INTERFACES = "interface";
     private static final String IPV6_AUTOCONF = "ipv6_autoconfiguration";
 
+    /**
+     * Image key.
+     */
+    public static final String IMAGE = "image";
+
+    /**
+     * Power management type key.
+     */
+    public static final String POWER_TYPE = "power_type";
+
+    /**
+     * Power management address key.
+     */
+    public static final String POWER_ADDRESS = "power_address";
+
+    /**
+     * Power username key.
+     */
+    public static final String POWER_USERNAME = "power_user";
+
+    /**
+     * Power type key.
+     */
+    public static final String POWER_PASSWORD = "power_pass";
+
+    /**
+     * Power management id key.
+     */
+    public static final String POWER_ID = "power_id";
+
     private SystemRecord(CobblerConnection clientIn) {
         client = clientIn;
     }
@@ -63,6 +93,25 @@ public class SystemRecord extends CobblerObject {
         sys.handle = (String) client.invokeTokenMethod("new_system");
         sys.modify(NAME, name);
         sys.setProfile(profile);
+        sys.save();
+        sys = lookupByName(client, name);
+        return sys;
+    }
+
+    /**
+     * Create a new system record in Cobbler, based on an image
+     * @param client the xmlrpc client
+     * @param name the system record name
+     * @param image the image to be associated to this system
+     * @return the newly created system record
+     */
+    public static SystemRecord create(CobblerConnection client,
+                                String name,
+                                Image image) {
+        SystemRecord sys = new SystemRecord(client);
+        sys.handle = (String) client.invokeTokenMethod("new_system");
+        sys.modify(NAME, name);
+        sys.setImage(image);
         sys.save();
         sys = lookupByName(client, name);
         return sys;
@@ -202,13 +251,58 @@ public class SystemRecord extends CobblerObject {
     }
 
     /**
+     * Powers on this system, assuming correct power information was set (type,
+     * username, password, address, and optionally id).
+     *
+     * @return true if the command was successful
+     */
+    public boolean powerOn() {
+        return (Integer)client.invokeTokenMethod("power_system", getHandle(), "on") == 0;
+    }
 
+    /**
+     * Powers off this system, assuming correct power information was set (type,
+     * username, password, address, and optionally id).
+     *
+     * @return true if the command was successful
+     */
+    public boolean powerOff() {
+        return (Integer)client.invokeTokenMethod("power_system", getHandle(), "off") == 0;
+    }
+
+    /**
+     * Reboots this system, assuming correct power information was set (type,
+     * username, password, address, and optionally id).
+     *
+     * @return true if the command was successful
+     */
+    public boolean reboot() {
+        return (Integer)
+            client.invokeTokenMethod("power_system", getHandle(), "reboot") == 0;
+    }
+
+    /**
+     * Gets the power status of this system, assuming correct power information
+     * was set (type, username, password, address, and optionally id).
+     *
+     * @return true if the system is on, false if it is off, null if it cannot be determined
+     */
+    public Boolean getPowerStatus() {
+        return (Boolean) client.invokeTokenMethod("power_system", getHandle(), "status");
+    }
 
      /**
      * @return the Cobbler Profile name
      */
      public Profile getProfile() {
          return Profile.lookupByName(client, (String)dataMap.get(PROFILE));
+     }
+
+     /**
+      * @return the Cobbler Image
+      */
+     public Image getImage() {
+         return Image.lookupByName(client, (String)dataMap.get(IMAGE));
      }
 
      /**
@@ -350,6 +444,22 @@ public class SystemRecord extends CobblerObject {
       }
 
       /**
+       * Associates an image to this system record
+       * @param image the image to associate
+       */
+      public void setImage(Image image) {
+          setImage(image.getName());
+      }
+
+      /**
+       * Associates an image to this system record
+       * @param imageName the name of the image
+       */
+      public void  setImage(String imageName) {
+          modify(IMAGE, imageName);
+      }
+
+      /**
        * Sets the cobbler server host information for this system
        * @param server the server host name.
        */
@@ -392,4 +502,90 @@ public class SystemRecord extends CobblerObject {
           }
           return networks;
       }
+
+    /**
+     * Gets the power management scheme/protocol for this system
+     * @return the type name
+     */
+    public String getPowerType() {
+        return (String) dataMap.get(POWER_TYPE);
+    }
+
+    /**
+     * Gets the IP address or hostname for this system's power management
+     * @return the address
+     */
+    public String getPowerAddress() {
+        return (String) dataMap.get(POWER_ADDRESS);
+    }
+
+    /**
+     * Gets the username for this system's power management system
+     * @return the username
+     */
+    public String getPowerUsername() {
+        return (String) dataMap.get(POWER_USERNAME);
+    }
+
+    /**
+     * Gets the password for this system's power management system
+     * @return the password
+     */
+    public String getPowerPassword() {
+        return (String) dataMap.get(POWER_PASSWORD);
+    }
+
+    /**
+     * Gets an additional ID for this system's power management system. The ID
+     * is usually a type-specific identifier for the system or port to be
+     * managed (eg. plug number on WTI, blade id on DRAC, etc.). See
+     * https://github.com/cobbler/cobbler/wiki/Power%20Management
+     * @return the ID
+     */
+    public String getPowerId() {
+        return (String) dataMap.get(POWER_ID);
+    }
+
+    /**
+     * Sets the power management scheme/protocol for this system
+     * @param powerType the type name
+     */
+    public void setPowerType(String powerType) {
+        modify(POWER_TYPE, powerType);
+    }
+
+    /**
+     * Sets the IP address or hostname for this system's power management
+     * @param powerAddress the address
+     */
+    public void setPowerAddress(String powerAddress) {
+        modify(POWER_ADDRESS, powerAddress);
+    }
+
+    /**
+     * Sets the username for this system's power management system
+     * @param powerUsername the username
+     */
+    public void setPowerUsername(String powerUsername) {
+        modify(POWER_USERNAME, powerUsername);
+    }
+
+    /**
+     * Sets the password for this system's power management system
+     * @param powerPassword the password
+     */
+    public void setPowerPassword(String powerPassword) {
+        modify(POWER_PASSWORD, powerPassword);
+    }
+
+    /**
+     * Sets an additional ID for this system's power management system. The ID
+     * is usually a type-specific identifier for the system or port to be
+     * managed (eg. plug number on WTI, blade id on DRAC, etc.). See
+     * https://github.com/cobbler/cobbler/wiki/Power%20Management
+     * @param powerId the ID
+     */
+    public void setPowerId(String powerId) {
+        modify(POWER_ID, powerId);
+    }
 }

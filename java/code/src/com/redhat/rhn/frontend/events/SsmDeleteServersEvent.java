@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -54,7 +54,7 @@ public class SsmDeleteServersEvent implements EventMessage {
     /**
      * @return will not be <code>null</code>
      */
-    public Long getUser() {
+    public Long getUserId() {
         return userId;
     }
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -47,11 +47,12 @@ def main(arglist):
                   this flag is optional, but can be set to spanning, non-spanning, or base.'),
     ]
     parser = OptionParser(option_list=optionsTable)
-    options, args = parser.parse_args(arglist)
+    options, _args = parser.parse_args(arglist)
 
     # Check to see if mkisofs is installed
     if not os.path.exists('/usr/bin/mkisofs'):
-        print "ERROR:: mkisofs is not Installed. Cannot Proceed iso build. Please install mkisofs and rerun this command."
+        print "ERROR:: mkisofs is not Installed. Cannot Proceed iso build. " \
+              + "Please install mkisofs and rerun this command."
         return
 
     mountPoint = options.mountpoint or MOUNT_POINT
@@ -111,7 +112,8 @@ def main(arglist):
     os.close(fd)
 
     # command-line template
-    mkisofsTemplate = "mkisofs -r -J -D -file-mode 0444 -new-dir-mode 0555 -dir-mode 0555 -graft-points %s -o %s /DISK_%s_OF_%s=%s"
+    mkisofsTemplate = "mkisofs -r -J -D -file-mode 0444 -new-dir-mode 0555 -dir-mode 0555 " \
+                    + "-graft-points %s -o %s /DISK_%s_OF_%s=%s"
     for i in range(cdcount):
         print "---------- %s/%s" % (i+1, cdcount)
 
@@ -132,7 +134,7 @@ def main(arglist):
             'volid'         : "RHNSAT_%s/%s" % (i+1, cdcount),
             'path-list'     : pathfiles,
         }
-        opts = map(lambda x: '-%s "%s"' % x, opts.items())
+        opts = ['-%s "%s"' % x for x in opts.items()]
 
         # Generate the file list that will go into the CD
         # See the man page for mkisofs to better understand how graft points

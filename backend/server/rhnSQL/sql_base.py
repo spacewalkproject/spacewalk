@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -60,10 +60,7 @@ class SQLSchemaError(SQLError):
     def __init__(self, errno, errmsg, *args):
         self.errno = errno
         (self.errmsg, errmsg) = string.split(errmsg, '\n', 1)
-        if len(args):
-            apply(SQLError.__init__, (self, self.errno, self.errmsg, errmsg) + args)
-        else:
-            apply(SQLError.__init__, (self, errno, self.errmsg) + (errmsg,))
+        SQLError.__init__(self, self.errno, self.errmsg, errmsg, *args)
 
 
 # SQL connect error
@@ -72,10 +69,7 @@ class SQLConnectError(SQLError):
         self.db = db
         self.errno = errno
         self.errmsg = errmsg
-        if len(args):
-            apply(SQLError.__init__, (self, errno, errmsg, db) + args)
-        else:
-            SQLError.__init__(self, errno, errmsg, db)
+        SQLError.__init__(self, errno, errmsg, db, *args)
 
 
 # Cannot prepare statement
@@ -83,7 +77,7 @@ class SQLStatementPrepareError(SQLError):
     def __init__(self, db, errmsg, *args):
         self.db = db
         self.errmsg = errmsg
-        apply(SQLError.__init__, (self, errmsg, db) + args)
+        SQLError.__init__(self, errmsg, db, *args)
 
 
 class ModifiedRowError(SQLError):
@@ -150,7 +144,7 @@ class Cursor:
 
     def execute(self, *p, **kw):
         """ Execute a single query. """
-        return apply(self._execute_wrapper, (self._execute, ) + p, kw)
+        return self._execute_wrapper(self._execute, *p, **kw)
 
     def executemany(self, *p, **kw):
         """
@@ -159,7 +153,7 @@ class Cursor:
         Call with keyword arguments mapping to ordered lists.
         i.e. cursor.executemany(id=[1, 2], name=["Bill", "Mary"])
         """
-        return apply(self._execute_wrapper, (self._executemany, ) + p, kw)
+        return self._execute_wrapper(self._executemany, *p, **kw)
 
     def execute_bulk(self, dict, chunk_size=100):
         """
@@ -184,7 +178,7 @@ class Cursor:
                     # Nothing more to do here - we exhausted the array(s)
                     return ret
                 subdict[k] = subarr
-            ret = ret + apply(self.executemany, (), subdict)
+            ret = ret + self.executemany(**subdict)
             start_chunk = start_chunk + chunk_size
 
         # Should never reach this point

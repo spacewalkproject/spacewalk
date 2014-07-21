@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,6 +32,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.DeleteUserException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidOperationException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidServerGroupException;
 import com.redhat.rhn.frontend.xmlrpc.LookupServerGroupException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchRoleException;
@@ -91,7 +92,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Lists the users in the org.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @return Returns a list of userids and logins
      * @throws FaultException A FaultException is thrown if the loggedInUser
      * doesn't have permissions to list the users in their org.
@@ -103,9 +104,8 @@ public class UserHandler extends BaseHandler {
      *     $UserSerializer
      * #array_end()
      */
-    public List listUsers(String sessionKey) throws FaultException {
+    public List listUsers(User loggedInUser) throws FaultException {
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         try {
             List users = UserManager.usersInOrg(loggedInUser);
             return users;
@@ -117,7 +117,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Lists the roles for a user
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param login The login for the user you want to get the roles for
      * @return Returns a list of roles for the user specified by login
      * @throws FaultException A FaultException is thrown if the user doesn't have access
@@ -128,9 +128,8 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "login", "User's login name.")
      * @xmlrpc.returntype #array_single("string", "(role label)")
      */
-    public Object[] listRoles(String sessionKey, String login) throws FaultException {
+    public Object[] listRoles(User loggedInUser, String login) throws FaultException {
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
         List roles = new ArrayList(); //List of role labels to return
 
@@ -146,7 +145,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Lists all the roles that can be assign by this user.
-     * @param sessionKey The session key for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @return Returns a list of assignable roles for user
      * @throws FaultException A FaultException is thrown if the logged doesn't have access.
      *
@@ -154,16 +153,14 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype #array_single("string", "(role label)")
      */
-    public Set<String> listAssignableRoles(String sessionKey) {
-        // Get the logged in user
-        User user = getLoggedInUser(sessionKey);
-        return getAssignableRoles(user);
+    public Set<String> listAssignableRoles(User loggedInUser) {
+        return getAssignableRoles(loggedInUser);
     }
 
     /**
      * Gets details for a given user. These details include first names, last name, email,
      * prefix, last login date, and created on date.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param login The login for the user you want the details for
      * @return Returns a Map containing the details for the given user.
      * @throws FaultException A FaultException is thrown if the user doesn't have access
@@ -179,6 +176,7 @@ public class UserHandler extends BaseHandler {
      *     #prop("string", "last_name")
      *     #prop("string", "email")
      *     #prop("int", "org_id")
+     *     #prop("string", "org_name")
      *     #prop("string", "prefix")
      *     #prop("string", "last_login_date")
      *     #prop("string", "created_date")
@@ -188,9 +186,7 @@ public class UserHandler extends BaseHandler {
      *     PAM authentication")
      *   #struct_end()
      */
-    public Map getDetails(String sessionKey, String login) throws FaultException {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Map getDetails(User loggedInUser, String login) throws FaultException {
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
         LocalizationService ls = LocalizationService.getInstance();
 
@@ -211,6 +207,7 @@ public class UserHandler extends BaseHandler {
                                   "" : ls.formatDate(target.getCreated());
         ret.put("created_date", created);
         ret.put("org_id", loggedInUser.getOrg().getId());
+        ret.put("org_name", loggedInUser.getOrg().getName());
 
         if (target.isDisabled()) {
             ret.put("enabled", Boolean.FALSE);
@@ -226,7 +223,7 @@ public class UserHandler extends BaseHandler {
     /**
      * Sets the details for a given user. Settable details include: first names,
      * last name, email, prefix, and password.
-     * @param sessionKey The sessionkey for the session containing the logged in
+     * @param loggedInUser The current user
      * user.
      * @param login The login for the user you want to edit
      * @param details A map containing the new details values
@@ -249,13 +246,10 @@ public class UserHandler extends BaseHandler {
      *   #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setDetails(String sessionKey, String login, Map details)
+    public int setDetails(User loggedInUser, String login, Map details)
         throws FaultException {
 
         validateMap(USER_EDITABLE_DETAILS.keySet(), details);
-
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup user handles the logic for making sure that the loggedInUser
         // has access to the login they are trying to edit.
@@ -339,7 +333,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Adds a role to the given user
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param login The login for the user you would like to add the role to
      * @param role The role you would like to give the user
      * @return Returns 1 if successful (exception otherwise)
@@ -354,9 +348,7 @@ public class UserHandler extends BaseHandler {
      * activation_key_admin, or monitoring_admin.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addRole(String sessionKey, String login, String role) throws FaultException {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int addRole(User loggedInUser, String login, String role) throws FaultException {
         validateRoleInputs(role, loggedInUser);
         if (RoleFactory.SAT_ADMIN.getLabel().equals(role)) {
             return modifySatAdminRole(loggedInUser, login, true);
@@ -373,7 +365,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Removes a role from the given user
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param login The login for the user you would like to remove the role from
      * @param role The role you would like to remove from the user
      * @return Returns 1 if successful (exception otherwise)
@@ -388,10 +380,8 @@ public class UserHandler extends BaseHandler {
      * activation_key_admin, or monitoring_admin.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeRole(String sessionKey, String login, String role)
+    public int removeRole(User loggedInUser, String login, String role)
         throws FaultException {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         validateRoleInputs(role, loggedInUser);
 
         if (RoleFactory.SAT_ADMIN.getLabel().equals(role)) {
@@ -423,7 +413,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Creates a new user
-     * @param sessionKey The sessionKey for the session containing the logged in user
+     * @param loggedInUser The current user
      * @param desiredLogin The login for the new user
      * @param desiredPassword The password for the new user
      * @param firstName The first name of the new user
@@ -443,17 +433,17 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "email", "User's e-mail address.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int create(String sessionKey, String desiredLogin, String desiredPassword,
+    public int create(User loggedInUser, String desiredLogin, String desiredPassword,
                    String firstName, String lastName, String email) throws FaultException {
 
         // If we didn't get a value for pamAuth, default to no
-        return create(sessionKey, desiredLogin, desiredPassword, firstName, lastName,
+        return create(loggedInUser, desiredLogin, desiredPassword, firstName, lastName,
                       email, new Integer(0));
     }
 
     /**
      * Creates a new user
-     * @param sessionKey The sessionKey for hte session containing the logged in user
+     * @param loggedInUser The current user
      * @param desiredLogin The login for the new user
      * @param desiredPassword The password for the new user
      * @param firstName The first name of the new user
@@ -476,11 +466,9 @@ public class UserHandler extends BaseHandler {
      * authentication for this user, 0 otherwise.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int create(String sessionKey, String desiredLogin, String desiredPassword,
+    public int create(User loggedInUser, String desiredLogin, String desiredPassword,
                       String firstName, String lastName, String email, Integer usePamAuth)
                       throws FaultException {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         //Logged in user must be an org admin and we must be on a sat to do this.
         ensureOrgAdmin(loggedInUser);
         ensurePasswordOrPamAuth(usePamAuth, desiredPassword);
@@ -505,7 +493,7 @@ public class UserHandler extends BaseHandler {
         //Validate the user to be
         ValidatorError[] errors = command.validate();
         if (errors.length > 0) {
-            StringBuffer errorString = new StringBuffer();
+            StringBuilder errorString = new StringBuilder();
             LocalizationService ls = LocalizationService.getInstance();
             //Build a sane error message here
             for (int i = 0; i < errors.length; i++) {
@@ -525,7 +513,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Deletes a user
-     * @param sessionKey The sessionKey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param login The login for the user you would like to delete
      * @return Returns 1 if successful (exception otherwise)
      * @throws FaultException A FaultException is thrown if the user doesn't have access
@@ -536,9 +524,7 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "login", "User login name to delete.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int delete(String sessionKey, String login) throws FaultException {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int delete(User loggedInUser, String login) throws FaultException {
         ensureOrgAdmin(loggedInUser);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
 
@@ -554,7 +540,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Disable a user
-     * @param sessionKey The sessionKey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param login The login for the user you would like to disable
      * @return Returns 1 if successful (exception otherwise)
      * @throws FaultException A FaultException is thrown if the user doesn't have access
@@ -565,9 +551,7 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "login", "User login name to disable.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int disable(String sessionKey, String login) throws FaultException {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int disable(User loggedInUser, String login) throws FaultException {
         ensureOrgAdmin(loggedInUser);
 
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
@@ -578,7 +562,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Enable a user
-     * @param sessionKey The sessionKey for the session containing the logged in user
+     * @param loggedInUser The current user
      * @param login The login for the user you would like to enable
      * @return Returns 1 if successful (exception otherwise)
      * @throws FaultException A FaultException is thrown if the user doesn't have access
@@ -589,9 +573,7 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "login", "User login name to enable.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int enable(String sessionKey, String login) throws FaultException {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int enable(User loggedInUser, String login) throws FaultException {
         ensureOrgAdmin(loggedInUser);
 
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
@@ -602,7 +584,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Toggles whether or not a user users pamAuthentication or the basic RHN db auth.
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * @param login The login for the user you would like to change
      * @param val The value you would like to set this to (1 = true, 0 = false)
      * @return Returns 1 if successful (exception otherwise)
@@ -620,10 +602,8 @@ public class UserHandler extends BaseHandler {
      *   #options_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int usePamAuthentication(String sessionKey, String login, Integer val)
+    public int usePamAuthentication(User loggedInUser, String login, Integer val)
         throws FaultException {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         // Only org admins can use this method.
         ensureOrgAdmin(loggedInUser);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
@@ -671,7 +651,7 @@ public class UserHandler extends BaseHandler {
      * Add ServerGroup to the list of Default System groups. The ServerGroup
      * <strong>MUST</strong> exist otherwise a IllegalArgumentException is
      * thrown.
-     * @param sessionKey The sessionKey for the session containing the logged
+     * @param loggedInUser The current user
      * in user.
      * @param login The login for the user whose Default ServerGroup list will
      * be affected.
@@ -684,17 +664,17 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "serverGroupName")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addDefaultSystemGroup(String sessionKey, String login, String name) {
+    public int addDefaultSystemGroup(User loggedInUser, String login, String name) {
         List<String> ids = new LinkedList<String>();
         ids.add(name);
-        return addDefaultSystemGroups(sessionKey, login, ids);
+        return addDefaultSystemGroups(loggedInUser, login, ids);
     }
 
     /**
      * Add ServerGroups to the list of Default System groups. The ServerGroups
      * <strong>MUST</strong> exist otherwise a IllegalArgumentException is
      * thrown.
-     * @param sessionKey The sessionKey for the session containing the logged
+     * @param loggedInUser The current user
      * in user.
      * @param login The login for the user whose Default ServerGroup list will
      * be affected.
@@ -707,10 +687,8 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "serverGroupName")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addDefaultSystemGroups(String sessionKey, String login, List sgNames) {
+    public int addDefaultSystemGroups(User loggedInUser, String login, List sgNames) {
 
-
-        User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(
                 loggedInUser, login);
 
@@ -762,7 +740,7 @@ public class UserHandler extends BaseHandler {
      * Remove ServerGroup from the list of Default System groups. The
      * ServerGroup <strong>MUST</strong> exist otherwise a
      * IllegalArgumentException is thrown.
-     * @param sessionKey The sessionKey for the session containing the logged
+     * @param loggedInUser The current user
      * in user.
      * @param login The login for the user whose Default ServerGroup list will
      * be affected.
@@ -775,17 +753,17 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "serverGroupName")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeDefaultSystemGroup(String sessionKey, String login, String sgName) {
+    public int removeDefaultSystemGroup(User loggedInUser, String login, String sgName) {
         List<String> names = new LinkedList<String>();
         names.add(sgName);
-        return removeDefaultSystemGroups(sessionKey, login, names);
+        return removeDefaultSystemGroups(loggedInUser, login, names);
     }
 
     /**
      * Remove ServerGroups from the list of Default System groups. The
      * ServerGroups <strong>MUST</strong> exist otherwise a
      * IllegalArgumentException is thrown.
-     * @param sessionKey The sessionKey for the session containing the logged
+     * @param loggedInUser The current user
      * in user.
      * @param login The login for the user whose Default ServerGroup list will
      * be affected.
@@ -798,10 +776,8 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "serverGroupName")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeDefaultSystemGroups(String sessionKey, String login, List sgNames) {
+    public int removeDefaultSystemGroups(User loggedInUser, String login, List sgNames) {
 
-
-        User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(
                 loggedInUser, login);
 
@@ -850,7 +826,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Returns default system groups for the given login.
-     * @param sessionKey The sessionKey for the session containing the logged
+     * @param loggedInUser The current user
      * in user.
      * @param login The login for the user whose Default ServerGroup list is
      * sought.
@@ -870,8 +846,7 @@ public class UserHandler extends BaseHandler {
      *     #struct_end()
      *   #array_end()
      */
-    public Object[] listDefaultSystemGroups(String sessionKey, String login) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Object[] listDefaultSystemGroups(User loggedInUser, String login) {
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(
                 loggedInUser, login);
         Set<Long> ids =  target.getDefaultSystemGroupIds();
@@ -886,7 +861,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Returns the ServerGroups that the user can administer.
-     * @param sessionKey The sessionKey for the session containing the logged
+     * @param loggedInUser The current user
      * in user.
      * @param login The login for the user whose ServerGroups are sought.
      * @return the ServerGroups that the user can administer.
@@ -908,10 +883,8 @@ public class UserHandler extends BaseHandler {
      *     #struct_end()
      *   #array_end()
      */
-    public Object[] listAssignedSystemGroups(String sessionKey, String login)
+    public Object[] listAssignedSystemGroups(User loggedInUser, String login)
         throws FaultException {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(
                     loggedInUser, login);
         List groups = ServerGroupFactory.listAdministeredServerGroups(target);
@@ -920,7 +893,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Returns the last logged in time of the given user.
-     * @param sessionKey The sessionKey for the session containing the logged
+     * @param loggedInUser The current user
      * in user.
      * @param login The login of the user.
      * @return last logged in time
@@ -931,10 +904,9 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "login", "User's login name.")
      * @xmlrpc.returntype dateTime.iso8601
      */
-    public Date getLoggedInTime(String sessionKey, String login)
+    public Date getLoggedInTime(User loggedInUser, String login)
         throws UserNeverLoggedInException {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(
                     loggedInUser, login);
         Date d = target.getLastLoggedIn();
@@ -948,7 +920,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * remove system group association from a user
-     * @param sessionKey The sessionKey
+     * @param loggedInUser The current user
      * @param login the user's login that we want to remove the association from
      * @param systemGroupNames list of system group names to remove
      * @param setDefault if true the default group will be removed from the users's
@@ -963,13 +935,12 @@ public class UserHandler extends BaseHandler {
      * removed from the user's list of default system groups.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeAssignedSystemGroups(String sessionKey,
+    public int removeAssignedSystemGroups(User loggedInUser,
             String login, List<String> systemGroupNames, Boolean setDefault) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         ensureUserRole(loggedInUser, RoleFactory.ORG_ADMIN);
 
         if (setDefault) {
-            removeDefaultSystemGroups(sessionKey, login, systemGroupNames);
+            removeDefaultSystemGroups(loggedInUser, login, systemGroupNames);
          }
 
         User user = UserManager.lookupUser(loggedInUser, login);
@@ -998,7 +969,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * remove system group association from a user
-     * @param sessionKey The sessionKey
+     * @param loggedInUser The current user
      * @param login the user's login that we want to remove the association from
      * @param systemGroupName  system group name to remove
      * @param setDefault if true the default group will be removed from the users's
@@ -1013,11 +984,11 @@ public class UserHandler extends BaseHandler {
      * be removed from the user's list of default system groups.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeAssignedSystemGroup(String sessionKey,
+    public int removeAssignedSystemGroup(User loggedInUser,
             String login, String systemGroupName, Boolean setDefault) {
             List groups = new ArrayList();
             groups.add(systemGroupName);
-            return removeAssignedSystemGroups(sessionKey, login, groups, setDefault);
+            return removeAssignedSystemGroups(loggedInUser, login, groups, setDefault);
     }
 
 
@@ -1025,7 +996,7 @@ public class UserHandler extends BaseHandler {
     /**
      * Add to the user's list of assigned system groups.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param login User to modify.
      * @param sgName Server group Name.
      * @param setDefault True to also add group to the user's default system groups.
@@ -1039,17 +1010,17 @@ public class UserHandler extends BaseHandler {
      * added to user's list of default system groups.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addAssignedSystemGroup(String sessionKey, String login, String sgName,
+    public int addAssignedSystemGroup(User loggedInUser, String login, String sgName,
             Boolean setDefault) {
         List<String> names = new LinkedList<String>();
         names.add(sgName);
-        return addAssignedSystemGroups(sessionKey, login, names, setDefault);
+        return addAssignedSystemGroups(loggedInUser, login, names, setDefault);
     }
 
     /**
      * Add to the user's list of assigned system groups.
      *
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param login User to modify.
      * @param sgNames List of server group Names.
      * @param setDefault True to also add groups to the user's default system groups.
@@ -1063,10 +1034,9 @@ public class UserHandler extends BaseHandler {
      * added to user's list of default system groups.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addAssignedSystemGroups(String sessionKey, String login, List sgNames,
+    public int addAssignedSystemGroups(User loggedInUser, String login, List sgNames,
             Boolean setDefault) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         User targetUser = XmlRpcUserHelper.getInstance().lookupTargetUser(
                 loggedInUser, login);
 
@@ -1101,7 +1071,7 @@ public class UserHandler extends BaseHandler {
 
         // Follow up with a call to addDefaultSystemGroups if setDefault is true:
         if (setDefault.booleanValue()) {
-            addDefaultSystemGroups(sessionKey, login, sgNames);
+            addDefaultSystemGroups(loggedInUser, login, sgNames);
         }
 
         return 1;
@@ -1109,7 +1079,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Return the current value of the createDefaultSystemGroup settnig
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * Must be org_admin.
      * @return Returns 1 if successful (exception otherwise)
      *
@@ -1124,8 +1094,7 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype #return_int_success()
      */
-    public boolean getCreateDefaultSystemGroup(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public boolean getCreateDefaultSystemGroup(User loggedInUser) {
         //Logged in user must be an org admin.
         ensureOrgAdmin(loggedInUser);
 
@@ -1134,7 +1103,7 @@ public class UserHandler extends BaseHandler {
 
     /**
      * Return the current value of the createDefaultSystemGroup settnig
-     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param loggedInUser The current user
      * Must be org_admin.
      * @param createDefaultSystemGroup The value to set
      * @return Returns 1 if successful (exception otherwise)
@@ -1152,14 +1121,68 @@ public class UserHandler extends BaseHandler {
      * "True if we should automatically create system groups, false otherwise.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setCreateDefaultSystemGroup(String sessionKey,
+    public int setCreateDefaultSystemGroup(User loggedInUser,
             Boolean createDefaultSystemGroup) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         //Logged in user must be an org admin.
         ensureOrgAdmin(loggedInUser);
 
         loggedInUser.getOrg().getOrgConfig().setCreateDefaultSg(createDefaultSystemGroup);
         return 1;
 
+    }
+
+    /**
+     * @param loggedInUser The current user
+     * @param login User to modify.
+     * @param readOnly readOnly flag to set
+     * @return 1 (should always succeed)
+     * @xmlrpc.doc Sets whether the target user should have only read-only API access or
+     * standard full scale access.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "login", "User's login name.")
+     * @xmlrpc.param #param_desc("boolean", "readOnly", "Sets whether the target user should
+     * have only read-only API access or standard full scale access.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setReadOnly(User loggedInUser, String login, Boolean readOnly) {
+        //Logged in user must be an org admin.
+        ensureOrgAdmin(loggedInUser);
+
+        User targetUser = XmlRpcUserHelper.getInstance().lookupTargetUser(
+                loggedInUser, login);
+
+        if (readOnly && targetUser.hasRole(RoleFactory.ORG_ADMIN) &&
+                targetUser.getOrg().numActiveOrgAdmins() < 2) {
+            throw new InvalidOperationException("error.readonly_org_admin",
+                    targetUser.getOrg().getName());
+        }
+        if (readOnly && targetUser.hasRole(RoleFactory.SAT_ADMIN) &&
+                SatManager.getActiveSatAdmins().size() < 2) {
+            throw new InvalidOperationException("error.readonly_sat_admin");
+        }
+        targetUser.setReadOnly(readOnly);
+        return 1;
+    }
+
+    /**
+     * @param loggedInUser The current user
+     * @param login User to modify
+     * @param value value to enable/disable errata mail notifications
+     * @return Returns 1 if successful (exception thrown otherwise)
+     * @xmlrpc.doc Enables/disables errata mail notifications for a specific user.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "login", "User's login name.")
+     * @xmlrpc.param #param_desc("boolean", "value", "True for enabling
+     * errata notifications, False for disabling")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setErrataNotifications(User loggedInUser, String login, Boolean value) {
+        //Logged in user must be an org admin.
+        ensureOrgAdmin(loggedInUser);
+
+        User targetUser = XmlRpcUserHelper.getInstance().lookupTargetUser(
+                loggedInUser, login);
+        targetUser.setEmailNotify(BooleanUtils.toIntegerObject(value));
+        return 1;
     }
 }

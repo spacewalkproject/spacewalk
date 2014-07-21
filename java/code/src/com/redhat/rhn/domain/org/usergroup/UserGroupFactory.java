@@ -62,11 +62,11 @@ public class UserGroupFactory extends HibernateFactory {
         LocalizationService ls = LocalizationService.getInstance();
         // Concat the Role name with the letter s to form the UserGroup name
         // such as: "Organization Applicants"
-        StringBuffer key = new StringBuffer();
+        StringBuilder key = new StringBuilder();
         key.append(role.getName());
         key.append("s");
         retval.setName(ls.getMessage(key.toString()));
-        StringBuffer desc = new StringBuffer();
+        StringBuilder desc = new StringBuilder();
         desc.append(retval.getName());
         desc.append(ls.getMessage("for Org"));
         desc.append(org.getName());

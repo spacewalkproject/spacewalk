@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -180,7 +180,7 @@ class CallableObj:
         self.name = name
 
     def __call__(self, *args, **kwargs):
-        return apply(self.func, (self.name, ) + args, kwargs)
+        return self.func(self.name, *args, **kwargs)
 
 def make_evr(nvre, source=False):
     """ IN: 'e:name-version-release' or 'name-version-release:e'

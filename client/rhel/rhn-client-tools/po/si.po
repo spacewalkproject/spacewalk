@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"POT-Creation-Date: 2014-07-10 10:36+0200\n"
 "PO-Revision-Date: 2013-02-06 09:40+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Sinhala (http://www.transifex.com/projects/p/fedora/language/"
@@ -284,6 +284,11 @@ msgstr ""
 "කරුණාකර  bugzilla.redhat.com හී දෝශය සටහන් කරන්න. '%s' හි කොටස් සමඟ වාර්තා කරන්නේ නම් "
 "එය වඩාත් ප්‍රයෝජනවත් වනු ඇත. ස්තූතියි!"
 
+#: ../src/up2date_client/config.py:154
+#, python-format
+msgid "%s was not found"
+msgstr "%s සොයාගත නොහැකි විය"
+
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr ""
@@ -303,6 +308,105 @@ msgstr "කාර්යයන් අධික හෙයින් සේවා �
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:56
 msgid "Getting list of packages installed on the system"
 msgstr "ඔබේ පද්ධතිය තුල ස්ථාපනය කල යුතු ඇසුරුම් ලයිස්තුව ලබා ගනිමින්"
+
+#: ../src/up2date_client/tui.py:134
+msgid "Spacewalk Location:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:135
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "Login:"
+msgstr "පිවිසුම:"
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:313
+msgid "Error"
+msgstr "දෝශයකි"
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr "සේවා දායකය මඟින් දෝශයක් හඟවන ලදී:\n"
+
+#. Navigation
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:312
+msgid "OK"
+msgstr "හරි"
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr "පැතිකඩේ නම:"
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr "වෙළුම:"
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr "CPU මාදිලිය:"
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr "ධාරක නම:"
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr "CPU වේගය:"
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr "IP ලිපිනය:"
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr "මතකය:"
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr "%s මෙගා බයිටස්"
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr "දෘඪාංග පැතිකඩ යැවීමේදී දෝශයක් ඇතිවිය:\n"
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr "දෘඪාංග පැතිකඩ යැවීමේදී දෝශයක් ඇතිවිය."
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr "ඇසුරුම් ලැයිස්තුව යැවීමේදී දෝශයක් ඇතිවිය:\n"
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr "ඇසුරුම් ලැයිස්තුව යැවීමේදී දෝශයක් ඇතිවිය"
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr "නිමයි"
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr "ඔබ විසින් සපයා ඇත්තේ සාවද්‍ය වාහකයෙකි."
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> සංඝටක අතර  |  <Space> තෝරාගැනීමට  |  <F12> මීලඟ තිරය සඳහා"
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr "ඔබ විසින් RHN ලියාපදිංචි කිරීමේ වැඩසටහන root ලෙස ක්‍රියාත්මක කල යුතු වේ"
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
@@ -506,11 +610,6 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Red Hat Login:"
 msgstr "Red Hat පිවිසුම:"
-
-#: ../src/up2date_client/rhnreg_constants.py:84
-#: ../src/up2date_client/tui.py:135
-msgid "Login:"
-msgstr "පිවිසුම:"
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
@@ -996,17 +1095,6 @@ msgid ""
 "Are you sure you would like to continue?"
 msgstr ""
 
-#. Navigation
-#: ../src/up2date_client/rhnreg_constants.py:312
-#: ../src/up2date_client/tui.py:536
-msgid "OK"
-msgstr "හරි"
-
-#: ../src/up2date_client/rhnreg_constants.py:313
-#: ../src/up2date_client/tui.py:536
-msgid "Error"
-msgstr "දෝශයකි"
-
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
 msgstr "මීලඟ"
@@ -1033,23 +1121,23 @@ msgstr "ඔව්, දිගටම කරගෙන යන්න"
 msgid "Press <space> to deselect the option."
 msgstr "තෝරාගෙන විකල්පය ඉවත් කිරීමට <space> ඔබන්න."
 
-#: ../src/up2date_client/hardware.py:820
+#: ../src/up2date_client/hardware.py:819
 msgid "Error reading cpu information:"
 msgstr "cpu තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය:"
 
-#: ../src/up2date_client/hardware.py:827
+#: ../src/up2date_client/hardware.py:826
 msgid "Error reading system memory information:"
 msgstr "පද්ධතියේ මතක තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය:"
 
-#: ../src/up2date_client/hardware.py:837
+#: ../src/up2date_client/hardware.py:836
 msgid "Error reading networking information:"
 msgstr "ජාලයේ තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය:"
 
-#: ../src/up2date_client/hardware.py:858
+#: ../src/up2date_client/hardware.py:857
 msgid "Error reading install method information:"
 msgstr "ස්ථාපනය සිදුකල යුතු ආකාරය සම්බන්ධ තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය:"
 
-#: ../src/up2date_client/hardware.py:866
+#: ../src/up2date_client/hardware.py:865
 msgid "Error reading network interface information:"
 msgstr "ජාල අන්තර් මුහුණත් තොරතුරු කියවීමේදී දෝශයක් ඇතිවිය :"
 
@@ -1068,11 +1156,6 @@ msgstr ""
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "ඕඩයක් සමඟ නිසි ලෙස සම්බන්ධ වන තුරු පද්ධතිය නවීකරණය නොවනු ඇත."
-
-#: ../src/up2date_client/config.py:153
-#, python-format
-msgid "%s was not found"
-msgstr "%s සොයාගත නොහැකි විය"
 
 #: ../src/up2date_client/rhnreg.py:59
 #, fuzzy
@@ -1262,89 +1345,6 @@ msgid ""
 "not support"
 msgstr ""
 "මෙම සේවා දායකයට %s පහසුකම අවශ්‍යව ඇත, නමුත් වත්මන් සේවා දායකය එම පහසුකම සපයන්නේ නැත"
-
-#: ../src/up2date_client/tui.py:134
-msgid "Spacewalk Location:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "සේවා දායකය මඟින් දෝශයක් හඟවන ලදී:\n"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "පැතිකඩේ නම:"
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr "වෙළුම:"
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr "CPU මාදිලිය:"
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr "ධාරක නම:"
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr "CPU වේගය:"
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr "IP ලිපිනය:"
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr "මතකය:"
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr "%s මෙගා බයිටස්"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "දෘඪාංග පැතිකඩ යැවීමේදී දෝශයක් ඇතිවිය:\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "දෘඪාංග පැතිකඩ යැවීමේදී දෝශයක් ඇතිවිය."
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "ඇසුරුම් ලැයිස්තුව යැවීමේදී දෝශයක් ඇතිවිය:\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "ඇසුරුම් ලැයිස්තුව යැවීමේදී දෝශයක් ඇතිවිය"
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "නිමයි"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr "ඔබ විසින් සපයා ඇත්තේ සාවද්‍ය වාහකයෙකි."
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> සංඝටක අතර  |  <Space> තෝරාගැනීමට  |  <F12> මීලඟ තිරය සඳහා"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "ඔබ විසින් RHN ලියාපදිංචි කිරීමේ වැඩසටහන root ලෙස ක්‍රියාත්මක කල යුතු වේ"
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"

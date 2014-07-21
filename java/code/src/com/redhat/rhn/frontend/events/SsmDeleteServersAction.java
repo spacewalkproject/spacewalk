@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.events;
 
 import com.redhat.rhn.common.messaging.EventMessage;
-import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
@@ -35,10 +34,8 @@ public class SsmDeleteServersAction extends AbstractDatabaseAction {
     /** {@inheritDoc} */
     protected void doExecute(EventMessage msg) {
         SsmDeleteServersEvent event = (SsmDeleteServersEvent) msg;
-        User user = UserFactory.lookupById(event.getUser());
+        User user = UserFactory.lookupById(event.getUserId());
         List<Long> sids = event.getSids();
-        LoggingFactory.clearLogId();
-        LoggingFactory.setLogAuth(event.getUser());
 
         long operationId = SsmOperationManager.createOperation(user,
                         OPERATION_NAME, null);

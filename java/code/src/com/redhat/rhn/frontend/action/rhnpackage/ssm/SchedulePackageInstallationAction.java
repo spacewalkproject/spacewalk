@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,12 +30,12 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
+import com.redhat.rhn.frontend.dto.EssentialServerDto;
 import com.redhat.rhn.frontend.events.SsmInstallPackagesEvent;
 import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -51,7 +51,8 @@ import com.redhat.rhn.manager.system.SystemManager;
  * SSM action that handles prompting the user for when to install the package as well as
  * creating the action when the user confirms the creation.
  */
-public class SchedulePackageInstallationAction extends RhnListAction implements Listable {
+public class SchedulePackageInstallationAction extends RhnListAction implements
+        Listable<EssentialServerDto> {
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
@@ -123,14 +124,12 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
     }
 
     /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
+    public List<EssentialServerDto> getResult(RequestContext context) {
         Long cid = context.getRequiredParam(RequestContext.CID);
         User user = context.getCurrentUser();
 
-        DataResult dataResult = SystemManager.systemsSubscribedToChannelInSet(cid, user,
+        return SystemManager.systemsSubscribedToChannelInSet(cid, user,
                 SetLabels.SYSTEM_LIST);
-
-        return dataResult;
     }
 
 }

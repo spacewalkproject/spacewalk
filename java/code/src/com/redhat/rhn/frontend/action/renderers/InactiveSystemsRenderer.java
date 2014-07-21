@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -42,12 +42,13 @@ public class InactiveSystemsRenderer extends BaseFragmentRenderer {
      */
     protected void render(User user, PageControl pc, HttpServletRequest request) {
         LocalizationService ls = LocalizationService.getInstance();
-        DataResult isdr = SystemManager.inactiveListSortbyCheckinTime(user, pc);
+        DataResult<SystemOverview> isdr =
+                SystemManager.inactiveListSortbyCheckinTime(user, pc);
         String inactiveSystemCSSTable = null;
         if (!isdr.isEmpty()) {
-            for (Iterator i = isdr.iterator(); i.hasNext();) {
-                SystemOverview so = (SystemOverview) i.next();
-                StringBuffer buffer = new StringBuffer();
+            for (Iterator<SystemOverview> i = isdr.iterator(); i.hasNext();) {
+                SystemOverview so = i.next();
+                StringBuilder buffer = new StringBuilder();
                 Long lastCheckin = so.getLastCheckinDaysAgo();
                 if (lastCheckin.compareTo(new Long(1)) < 0) {
                     buffer.append(lastCheckin * 24);

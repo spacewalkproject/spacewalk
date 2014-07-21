@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -68,7 +68,7 @@ public class TaskHelper {
         }
         SmtpMail mail = new SmtpMail();
         mail.setRecipients(recipients);
-        StringBuffer subject = new StringBuffer();
+        StringBuilder subject = new StringBuilder();
         subject.append(ls.getMessage("web traceback subject", Locale.getDefault()));
         try {
             subject.append(InetAddress.getLocalHost().getHostName());
@@ -111,7 +111,7 @@ public class TaskHelper {
         }
         SmtpMail mail = new SmtpMail();
         mail.setRecipients(recipients);
-        StringBuffer subject = new StringBuffer();
+        StringBuilder subject = new StringBuilder();
         subject.append(ls.getMessage("taskomatic notif subject", Locale.getDefault()));
         try {
             subject.append(" from " + InetAddress.getLocalHost().getHostName());

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2011 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -42,7 +42,7 @@ def schedule_action(action_type, action_name=None, delta_time=0,
         values (:action_id, :org_id, :action_type_id, :action_name, :scheduler,
                 current_timestamp + numtodsinterval(:delta, 'second'), :prerequisite)
     """)
-    apply(h.execute, (), params)
+    h.execute(**params)
 
     return action_id
 

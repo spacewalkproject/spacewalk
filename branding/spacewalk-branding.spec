@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.2.4
+Version:    2.3.0
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -31,6 +31,9 @@ Requires:      jquery-timepicker >= 1.3.2
 Requires:      roboto >= 1.2
 Requires:      pwstrength-bootstrap
 Requires:      momentjs
+Requires:      jquery-ui
+Requires:      select2
+Requires:      select2-bootstrap-css
 
 %description
 Spacewalk specific branding, CSS, and images.
@@ -90,6 +93,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.5-1
+- require jquery-ui, select2 and select2-bootstrap-css
+
 * Fri May 23 2014 Stephen Herr <sherr@redhat.com> 2.2.4-1
 - build an rpm for momentjs and require it
 

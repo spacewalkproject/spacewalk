@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2009--2013 Red Hat, Inc.
+# Copyright (c) 2009--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,9 +27,13 @@ DEFAULT_TRUSTED_CERT = 'RHN-ORG-TRUSTED-SSL-CERT'
 def processCommandline():
 
     options = [
-        Option('--ca-cert',      action='store', default=DEFAULT_TRUSTED_CERT, type="string", help='public CA certificate, default is %s' % DEFAULT_TRUSTED_CERT),
-        Option('--label',        action='store', default='RHN-ORG-TRUSTED-SSL-CERT', type="string", help='FOR TESTING ONLY - alternative database label for this CA certificate, default is "RHN-ORG-TRUSTED-SSL-CERT"'),
-        Option('-v','--verbose', action='count', help='be verbose (accumulable: -vvv means "be *really* verbose").'),
+        Option('--ca-cert',      action='store', default=DEFAULT_TRUSTED_CERT, type="string",
+               help='public CA certificate, default is %s' % DEFAULT_TRUSTED_CERT),
+        Option('--label',        action='store', default='RHN-ORG-TRUSTED-SSL-CERT', type="string",
+               help='FOR TESTING ONLY - alternative database label for this CA certificate, '
+                  + 'default is "RHN-ORG-TRUSTED-SSL-CERT"'),
+        Option('-v','--verbose', action='count',
+               help='be verbose (accumulable: -vvv means "be *really* verbose").'),
               ]
 
     values, args = OptionParser(option_list=options).parse_args()
@@ -45,9 +49,10 @@ def processCommandline():
                          "%s\n" % values.ca_cert)
         sys.exit(10)
 
+    # pylint: disable=W0703
     try:
         rhnSQL.initDB()
-    except:
+    except Exception:
         sys.stderr.write("""\
 ERROR: there was a problem trying to initialize the database:
 
@@ -77,10 +82,10 @@ def main():
 
     try:
         satCerts.store_rhnCryptoKey(values.label, values.ca_cert, verbosity=values.verbose)
-    except satCerts.NoOrgIdError, e:
+    except satCerts.NoOrgIdError:
         writeError("no organization ID!?!\n\n%s\n" % rhnTB.fetchTraceback())
         sys.exit(12)
-    except satCerts.CaCertInsertionError, e:
+    except satCerts.CaCertInsertionError:
         writeError("no organization ID!?!\n\n%s\n" % rhnTB.fetchTraceback())
         sys.exit(13)
     return 0

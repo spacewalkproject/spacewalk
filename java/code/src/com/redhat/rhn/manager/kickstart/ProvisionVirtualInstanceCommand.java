@@ -289,9 +289,9 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      * {@inheritDoc}
      */
     @Override
-    public DataResult<? extends KickstartDto> getKickstartProfiles() {
-        DataResult<? extends KickstartDto> result =  super.getKickstartProfiles();
-        for (Iterator<? extends KickstartDto> itr = result.iterator(); itr.hasNext();) {
+    public DataResult<KickstartDto> getKickstartProfiles() {
+        DataResult<KickstartDto> result = super.getKickstartProfiles();
+        for (Iterator<KickstartDto> itr = result.iterator(); itr.hasNext();) {
             KickstartDto dto  = itr.next();
             Profile prf = Profile.lookupById(
                     CobblerXMLRPCHelper.getConnection(this.getUser()), dto.getCobblerId());

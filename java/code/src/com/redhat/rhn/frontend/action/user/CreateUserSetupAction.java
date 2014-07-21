@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -55,6 +55,12 @@ public class CreateUserSetupAction extends BaseUserSetupAction {
                                   UserActionHelper.getPrefixes());
         request.setAttribute("countries",
                                   UserActionHelper.getCountries());
+        if (UserManager.satelliteHasUsers()) {
+            request.setAttribute("firstUserMode", Boolean.FALSE);
+        }
+        else {
+            request.setAttribute("firstUserMode", Boolean.TRUE);
+        }
 
         if (!RhnValidationHelper.getFailedValidation(request)) {
             form.set("country", "US");

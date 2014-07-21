@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -92,7 +92,8 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
                         tree.getCobblerDistroName(), tree.getKernelPath(),
                         tree.getInitrdPath(), ksmeta,
                         tree.getInstallType().getCobblerBreed(),
-                        tree.getInstallType().getCobblerOsVersion());
+                        tree.getInstallType().getCobblerOsVersion(),
+                        tree.getChannel().getChannelArch().cobblerArch());
         // Setup the kickstart metadata so the URLs and activation key are setup
         tree.setCobblerId(distro.getUid());
         invokeCobblerUpdate();
@@ -103,7 +104,8 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
                             tree.getCobblerXenDistroName(),
                             tree.getKernelXenPath(), tree.getInitrdXenPath(),
                             ksmeta, tree.getInstallType().getCobblerBreed(),
-                            tree.getInstallType().getCobblerOsVersion());
+                            tree.getInstallType().getCobblerOsVersion(),
+                            tree.getChannel().getChannelArch().cobblerArch());
             tree.setCobblerXenId(distroXen.getUid());
         }
 

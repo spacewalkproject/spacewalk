@@ -20,6 +20,18 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
+
+# use of exec
+# pylint: disable=W0122
+
 import atexit, logging, os, readline, re, shlex, sys
 from cmd import Cmd
 from spacecmd.utils import *
@@ -49,6 +61,8 @@ class SpacewalkShell(Cmd):
     emptyline = lambda self: None
 
     def __init__(self, options, conf_dir, config_parser):
+        Cmd.__init__(self)
+
         self.session = ''
         self.current_user = ''
         self.server = ''
@@ -86,14 +100,19 @@ class SpacewalkShell(Cmd):
                                     self.history_file)
                 except IOError:
                     logging.error('Could not read history file')
+        # pylint: disable=W0702
         except:
+            # pylint: disable=W0702
             pass
 
 
     # handle shell exits and history substitution
     def precmd(self, line):
+        # disable too-many-return-statements warning
+        # pylint: disable=R0911
+
         # remove leading/trailing whitespace
-        line = re.sub('^\s+|\s+$', '', line)
+        line = re.sub(r'^\s+|\s+$', '', line)
 
         # don't do anything on empty lines
         if line == '':
@@ -113,8 +132,11 @@ class SpacewalkShell(Cmd):
 
         # login before attempting to run a command
         if not self.session:
+            # disable no-member error message
+            # pylint: disable=E1101
             self.do_login('')
-            if self.session == '': return ''
+            if self.session == '':
+                return ''
 
         parts = shlex.split(line)
 
@@ -132,6 +154,8 @@ class SpacewalkShell(Cmd):
             return line
 
         # remove the '!*' line from the history
+        # disable no-member error message
+        # pylint: disable=E1101
         self.remove_last_history_item()
 
         history_match = False
@@ -144,7 +168,7 @@ class SpacewalkShell(Cmd):
             if line:
                 history_match = True
             else:
-                logging.warning('%s: event not found' % command)
+                logging.warning('%s: event not found', command)
                 return ''
 
         # attempt to find a numbered history item
@@ -183,17 +207,12 @@ class SpacewalkShell(Cmd):
             print line
             return line
         else:
-            logging.warning('%s: event not found' % command)
+            logging.warning('%s: event not found', command)
             return ''
 
-
-    # update the prompt with the SSM size
-    def postcmd(self, cmdresult, cmd):
-        self.print_result( cmdresult, cmd )
-        self.prompt = re.sub('##', str(len(self.ssm)), self.prompt_template)
-
-    def print_result( self, cmdresult, cmd ):
-        logging.debug( cmd + ": " + repr(cmdresult) )
+    @staticmethod
+    def print_result(cmdresult, cmd):
+        logging.debug(cmd + ": " + repr(cmdresult))
         if cmd:
             try:
                 for i in cmdresult:
@@ -201,5 +220,9 @@ class SpacewalkShell(Cmd):
             except TypeError:
                 pass
 
+    # update the prompt with the SSM size
+    def postcmd(self, cmdresult, cmd):
+        SpacewalkShell.print_result(cmdresult, cmd)
+        self.prompt = re.sub('##', str(len(self.ssm)), self.prompt_template)
 
 # vim:ts=4:expandtab:

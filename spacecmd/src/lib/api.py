@@ -18,11 +18,18 @@
 # Copyright 2011 Satoru SATOH <ssato@redhat.com>
 #
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
 from optparse import Option
 from spacecmd.utils import *
 
 import sys
 import logging
+import xmlrpclib
 
 
 def help_api(self):
@@ -86,10 +93,12 @@ def do_api(self, args):
         else:
             json_dump(res, output, indent=2)
 
-        output == sys.stdout or output.close()
+        if (output != sys.stdout):
+            output.close()
 
-    except:
-        output == sys.stdout or output.close()
+    except xmlrpclib.Fault:
+        if (output != sys.stdout):
+            output.close()
 
 
 # vim:ts=4:expandtab:

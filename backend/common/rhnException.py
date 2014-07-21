@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -171,6 +171,7 @@ maximum membership exceeded"),
      # 700-799: Additional user input verification errors.
      700: _("Maximum username length violation"),
      701: _("Maximum password length violation"),
+     702: _("This user has read only API access. Action denied."),
 
      800: _("System Name cannot be less than 1 character"),
 

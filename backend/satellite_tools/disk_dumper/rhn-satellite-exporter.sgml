@@ -12,7 +12,7 @@
 <RefNameDiv>
 <RefName><command>rhn-satellite-exporter</command></RefName>
 <RefPurpose>
-A tool that exports satellite content into a directory in an XML format. That content can then be imported using satellite-sync's -m option.
+A tool that exports Red Hat Satellite content into a directory in an XML format. That content can then be imported using satellite-sync's -m option.
 </RefPurpose>
 </RefNameDiv>
 
@@ -85,6 +85,16 @@ A tool that exports satellite content into a directory in an XML format. That co
         <arg>--traceback-mail</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--all-orgs</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-o<replaceable>ORG</replaceable></arg>
+        <arg>--org=<replaceable>ORG</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--list-orgs</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--help</arg>
     </cmdsynopsis>
 </Synopsis>
@@ -93,16 +103,16 @@ A tool that exports satellite content into a directory in an XML format. That co
 <RefSect1><Title>Description</Title>
 
 <para>
-    The &RHNSATEXPORTER; (<emphasis>rhn-satellite-exporter</emphasis>) tool exports satellite content in an XML format that is understood by satellite-sync's -m option. The means of transporting the exported information to the satellite is up to the user and beyond the scope of this document. The content is exported into a directory that is specified by the user with the -d option. rhn-satellite-exporter can export the following content: <emphasis>Channel Families, Arches, Channel Metadata, Blacklists, RPMS, RPM Metadata, Errata, Kickstarts</emphasis>.
+    The &RHNSATEXPORTER; (<emphasis>rhn-satellite-exporter</emphasis>) tool exports Red Hat Satellite content in an XML format that is understood by satellite-sync's -m option. The means of transporting the exported information to the Red Hat Satellite server is up to the user and beyond the scope of this document. The content is exported into a directory that is specified by the user with the -d option. rhn-satellite-exporter can export the following content: <emphasis>Channel Families, Arches, Channel Metadata, Blacklists, RPMS, RPM Metadata, Errata, Kickstarts</emphasis>.
 </para>
 <para>
     The amount of time it takes rhn-satellite-exporter to export data is dependent on the number and size of the channels being exported. Using the --no-packages, --no-kickstarts, --no-errata, and --no-rpms options will reduce the amount of time it takes for rhn-satellite-exporter to run, but they will also prevent potentially useful information from being exported. For that reason, they should only be used when you are certain that you will not need the content that they exclude. Additionally, you will need to use the matching options for satellite-sync when importing the data. For example, if you use --no-kickstarts with rhn-satellite-exporter you will have to use satellite-sync's --no-kickstarts option when importing the data.
 </para>
 <para>
-    If you are exporting one of the base channels provided by RHN, you will also need to export the tools channel associated with that base channel in order to kickstart machines to the distribution in the base channel. For instance, if you export rhel-i386-as-4 you should also export the rhn-tools-rhel-4-as-i386 channel in order to kickstart machines to RHEL 4 AS. This is because the tools channels contain the auto-kickstart packages that install packages for kickstarting a machine through the Satellite.
+    If you are exporting one of the base channels provided by RHN, you will also need to export the tools channel associated with that base channel in order to kickstart machines to the distribution in the base channel. For instance, if you export rhel-i386-as-4 you should also export the rhn-tools-rhel-4-as-i386 channel in order to kickstart machines to RHEL 4 AS. This is because the tools channels contain the auto-kickstart packages that install packages for kickstarting a machine through the Red Hat Satellite.
 </para>
 <para>
-    When importing an exported channel into a satellite on which you have not run satellite-sync, you will need to use satellite-sync's --rhn-cert option to import the entitlements cert.
+    When importing an exported channel into Red Hat Satellite on which you have not run satellite-sync, you will need to use satellite-sync's --rhn-cert option to import the entitlements cert.
 </para>
 <para>
     The --email option is used to send a report to the administrator's email address when the export is complete. If an error occurs when the --email option is set, the error should be included in the report. The only time that --email will not work is if an error occurs while the program is starting up. Increasing the debug level by using --debug-level will increase the amount of information included in the report.
@@ -132,7 +142,7 @@ A tool that exports satellite content into a directory in an XML format. That co
     <varlistentry>
         <term>-c<replaceable>CHANNEL_LABEL</replaceable>, --channel=<replaceable>CHANNEL_LABEL</replaceable></term>
         <listitem>
-            <para>Process data for this specific channel (specified by label) 
+            <para>Process data for this specific channel (specified by label)
             only.
             NOTE: the channel's *label* is NOT the same as the channel's
             *name*.</para>
@@ -166,7 +176,7 @@ A tool that exports satellite content into a directory in an XML format. That co
         <term>--use-rhn-date</term>
         <listitem>
             <para>Limit exported packages according to the date when
-                  they appeared at Red Hat Satellite. This is default.
+                  they appeared at Red Hat Network. This is default.
                   </para>
         </listitem>
     </varlistentry>
@@ -174,7 +184,7 @@ A tool that exports satellite content into a directory in an XML format. That co
         <term>--use-sync-date</term>
         <listitem>
             <para>Limit exported packages according to the date they
-                  where pulled into satellite.
+                  where pulled into Red Hat Satellite.
                   </para>
         </listitem>
     </varlistentry>
@@ -263,6 +273,24 @@ A tool that exports satellite content into a directory in an XML format. That co
         <term>--traceback-mail</term>
         <listitem>
             <para>Alternative email address for --email.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--all-orgs</term>
+        <listitem>
+            <para>Export all orgs.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-o<replaceable>ORG</replaceable>, --org=<replaceable>ORG</replaceable></term>
+        <listitem>
+            <para>Include the org with this id in the export.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--list-orgs</term>
+        <listitem>
+            <para>List all orgs that can be exported.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

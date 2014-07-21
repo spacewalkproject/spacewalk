@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,6 +31,8 @@ import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.dto.OrgProxyServer;
+import com.redhat.rhn.frontend.dto.ProfileDto;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.wizard.RhnWizardAction;
@@ -130,9 +132,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      */
     @Override
     protected void generateWizardSteps(Map wizardSteps) {
-        List methods = findMethods("run");
-        for (Iterator iter = methods.iterator(); iter.hasNext();) {
-            Method m = (Method) iter.next();
+        List<Method> methods = findMethods("run");
+        for (Iterator<Method> iter = methods.iterator(); iter.hasNext();) {
+            Method m = iter.next();
             String stepName = m.getName().substring(3).toLowerCase();
             WizardStep wizStep = new WizardStep();
             wizStep.setWizardMethod(m);
@@ -158,18 +160,18 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         }
     }
 
-    private class Profiles implements Listable {
+    private class Profiles implements Listable<KickstartDto> {
 
         /**
          * {@inheritDoc}
          */
-        public List getResult(RequestContext ctx) {
+        public List<KickstartDto> getResult(RequestContext ctx) {
             Long sid = ctx.getParamAsLong(RequestContext.SID);
             User user = ctx.getCurrentUser();
 
             KickstartScheduleCommand cmd = getKickstartScheduleCommand(sid,
                     user);
-            DataResult profiles = cmd.getKickstartProfiles();
+            DataResult<KickstartDto> profiles = cmd.getKickstartProfiles();
             if (profiles.size() == 0) {
                 addMessage(ctx.getRequest(), "kickstart.schedule.noprofiles");
                 ctx.getRequest().setAttribute(HAS_PROFILES,
@@ -198,11 +200,12 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             List<LabelValueBean> formatted = new LinkedList<LabelValueBean>();
 
             formatted.add(lvl10n("kickstart.schedule.default.proxy.jsp", ""));
-            Map cnames = new HashMap();
+            Map<String, List<String>> cnames = new HashMap<String, List<String>>();
             for (OrgProxyServer serv : proxies) {
                 formatted.add(lv(serv.getName() + " (" + serv.getCheckin() + ")",
                         serv.getId().toString()));
-                List proxyCnames = Config.get().getList(VALID_CNAMES +
+                List<String> proxyCnames =
+                        Config.get().getList(VALID_CNAMES +
                         serv.getId().toString());
                 if (!proxyCnames.isEmpty()) {
                     cnames.put(serv.getId().toString(), proxyCnames);
@@ -390,7 +393,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 ctx.getRequest(), form, "date", DatePicker.YEAR_RANGE_POSITIVE);
 
         SdcHelper.ssmCheck(ctx.getRequest(), system.getId(), user);
-        Map params = new HashMap<String, String>();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put(RequestContext.SID, sid);
         ListHelper helper = new ListHelper(new Profiles(), ctx.getRequest(),
                 params);
@@ -407,8 +410,11 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                             ConfigDefaults.get().getCobblerAutomatedUser()),
                             system.getCobblerId());
             if (rec != null) {
-                ListTagHelper.selectRadioValue(ListHelper.LIST,
-                        rec.getProfile().getId(), ctx.getRequest());
+                org.cobbler.Profile profile = rec.getProfile();
+                if (profile != null) {
+                    ListTagHelper.selectRadioValue(ListHelper.LIST,
+                        profile.getId(), ctx.getRequest());
+                }
             }
         }
 
@@ -448,9 +454,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         checkForKickstart(form, cmd, ctx);
         addRequestAttributes(ctx, cmd, form);
         if (!cmd.isCobblerOnly()) {
-            List packageProfiles = cmd.getProfiles();
+            List<ProfileDto> packageProfiles = cmd.getProfiles();
             form.set(SYNCH_PACKAGES, packageProfiles);
-            List systemProfiles = cmd.getCompatibleSystems();
+            List<Map<String, Object>> systemProfiles = cmd.getCompatibleSystems();
             form.set(SYNCH_SYSTEMS, systemProfiles);
 
             // Disable the package/system sync radio buttons if no profiles are
@@ -516,7 +522,8 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             if (cmd.getServer().getCobblerId() != null) {
                 SystemRecord rec = SystemRecord.
                         lookupById(con, cmd.getServer().getCobblerId());
-                if (rec != null && profile.getName().equals(rec.getProfile().getName())) {
+                if (rec != null && rec.getProfile() != null &&
+                    profile.getName().equals(rec.getProfile().getName())) {
                     if (StringUtils.isBlank(form.getString(KERNEL_PARAMS_TYPE))) {
                         form.set(KERNEL_PARAMS_TYPE, KERNEL_PARAMS_CUSTOM);
                         form.set(KERNEL_PARAMS, rec.getKernelOptionsString());

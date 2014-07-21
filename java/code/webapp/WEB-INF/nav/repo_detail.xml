@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="channel_detail" invisible="1" formvar="id" title-depth="1">
+  <rhn-tab name="Details">
+    <rhn-tab-url>/rhn/channels/manage/repos/RepoEdit.do</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Channels">
+    <rhn-tab-url>/rhn/channels/manage/repos/AssociatedChannels.do</rhn-tab-url>
+  </rhn-tab>
+</rhn-navi-tree>
+

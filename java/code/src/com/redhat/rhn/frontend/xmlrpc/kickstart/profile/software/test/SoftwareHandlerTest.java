@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -36,7 +36,7 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
 
         KickstartData ksProfile  = KickstartDataTest.createKickstartWithProfile(admin);
 
-        List<String> packages = handler.getSoftwareList(adminKey, ksProfile.getLabel());
+        List<String> packages = handler.getSoftwareList(admin, ksProfile.getLabel());
 
         // Note: the test profile created should have had at least 1 package listed
         assertTrue(ksProfile.getKsPackages().size() > 0);
@@ -50,7 +50,7 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
         List<String> packages = new ArrayList<String>();
         packages.add("gcc");
 
-        int result = handler.setSoftwareList(adminKey, ksProfile.getLabel(), packages);
+        int result = handler.setSoftwareList(admin, ksProfile.getLabel(), packages);
 
         boolean pkgFound = false;
         for (Iterator<KickstartPackage> itr = ksProfile.getKsPackages().iterator();
@@ -74,7 +74,7 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
         List<String> packages = new ArrayList<String>();
         packages.add("gcc");
 
-        int result = handler.setSoftwareList(adminKey, ksProfile.getLabel(), packages,
+        int result = handler.setSoftwareList(admin, ksProfile.getLabel(), packages,
                 true, true);
 
         boolean pkgFound = false;
@@ -102,7 +102,7 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
         packages.add("bash");
         packages.add("gcc");
 
-        int result = handler.appendToSoftwareList(adminKey, ksProfile.getLabel(), packages);
+        int result = handler.appendToSoftwareList(admin, ksProfile.getLabel(), packages);
 
         assertEquals(1, result);
         assertEquals(numPackagesInitial + packages.size(),
@@ -110,7 +110,7 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
 
         // attempt to add the same packages again and verify that the list did not change
         // (i.e. we don't allow duplicates)
-        result = handler.appendToSoftwareList(adminKey, ksProfile.getLabel(), packages);
+        result = handler.appendToSoftwareList(admin, ksProfile.getLabel(), packages);
 
         assertEquals(1, result);
         assertEquals(numPackagesInitial + packages.size(),

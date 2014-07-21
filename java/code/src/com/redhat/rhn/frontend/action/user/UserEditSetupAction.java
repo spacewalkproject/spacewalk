@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -80,6 +80,7 @@ public class UserEditSetupAction extends RhnAction {
         request.setAttribute("user", targetUser);
         request.setAttribute("mailableAddress", targetUser.getEmail());
 
+        request.setAttribute("readonly", targetUser.getReadOnlyBool());
         request.setAttribute("created", targetUser.getCreated());
         request.setAttribute("lastLoggedIn", targetUser.getLastLoggedIn());
 
@@ -120,7 +121,7 @@ public class UserEditSetupAction extends RhnAction {
         // the simple checkbox interface. Thus we hack around the problem by storing a list
         // of the disabled roles, bar separated. This allows us to add the extra info we
         // need when processing the form.
-        StringBuffer disabledRoles = new StringBuffer();
+        StringBuilder disabledRoles = new StringBuilder();
 
         for (Role currRole : orgRoles) {
             log.debug("currRole = " + currRole.getLabel());
@@ -142,7 +143,7 @@ public class UserEditSetupAction extends RhnAction {
             // and disable the item in the UI.
             if (UserFactory.IMPLIEDROLES.contains(currRole) &&
                     targetUser.hasPermanentRole(RoleFactory.ORG_ADMIN)) {
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 sb.append(uilabel);
                 sb.append(" - [ ");
                 sb.append(LocalizationService.getInstance().getMessage("Admin Access"));

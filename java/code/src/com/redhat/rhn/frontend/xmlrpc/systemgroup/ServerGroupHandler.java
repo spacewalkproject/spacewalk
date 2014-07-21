@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.LookupServerGroupException;
 import com.redhat.rhn.frontend.xmlrpc.ServerGroupAccessChangeException;
@@ -32,6 +33,7 @@ import com.redhat.rhn.frontend.xmlrpc.ServerNotInGroupException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,7 +54,7 @@ public class ServerGroupHandler extends BaseHandler {
      * Given a systemGroupName this call returns the list of users
      * who can administer the group. One has to be a SystemGroupAdmin
      * or an Org Admin to obtain this list..
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param systemGroupName the name of the system group
      * @return a list of users who can administer this system group.
      *
@@ -65,8 +67,7 @@ public class ServerGroupHandler extends BaseHandler {
      *      $UserSerializer
      *   #array_end()
      */
-    public List listAdministrators(String sessionKey, String systemGroupName) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List listAdministrators(User loggedInUser, String systemGroupName) {
         ServerGroupManager manager = ServerGroupManager.getInstance();
         ManagedServerGroup sg = manager.lookup(systemGroupName, loggedInUser);
         return manager.listAdministrators(sg, loggedInUser);
@@ -77,7 +78,7 @@ public class ServerGroupHandler extends BaseHandler {
      * this call adds or removes them as system administrators
      * Note one needs to be  an Org Admin to perform this
      * operation..
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param systemGroupName the name of the system group
      * @param loginNames login names of users to be made admins..
      * @param add a boolean to associate  or dissociate admins from the group
@@ -94,9 +95,8 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "add", "1 to add administrators, 0 to remove.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addOrRemoveAdmins(String sessionKey, String systemGroupName,
+    public int addOrRemoveAdmins(User loggedInUser, String systemGroupName,
                                         List<String> loginNames, boolean add) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         ensureSystemGroupAdmin(loggedInUser);
 
         // Check to see if any of the users provided are Satellite or Organization
@@ -130,7 +130,7 @@ public class ServerGroupHandler extends BaseHandler {
 
     /**
      * List the systems that are associated to the given system group.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param systemGroupName the name of the system group
      * @return a list of systems associated to a given system group.
      *
@@ -144,16 +144,38 @@ public class ServerGroupHandler extends BaseHandler {
      *          $ServerSerializer
      *      #array_end()
      */
-    public List listSystems(String sessionKey, String systemGroupName) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List listSystems(User loggedInUser, String systemGroupName) {
         ServerGroupManager manager = ServerGroupManager.getInstance();
         ManagedServerGroup group = manager.lookup(systemGroupName, loggedInUser);
         return group.getServers();
     }
 
     /**
+     * List the systems that are associated to the given system group.
+     * @param loggedInUser The current user
+     * @param systemGroupName the name of the system group
+     * @return a list of systems associated to a given system group.
+     *
+     * @xmlrpc.doc Return a list of systems associated with this system group.
+     * User must have access to this system group.
+
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "systemGroupName")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $SystemOverviewSerializer
+     *      #array_end()
+     */
+    public List<SystemOverview>
+            listSystemsMinimal(User loggedInUser, String systemGroupName) {
+        ServerGroupManager manager = ServerGroupManager.getInstance();
+        ManagedServerGroup group = manager.lookup(systemGroupName, loggedInUser);
+        return SystemManager.systemsInGroupShort(group.getId());
+    }
+
+    /**
      * Associates a list of servers to a given group
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param systemGroupName The name system group to whom you want to add servers
      * @param serverIds  a list of ids of the servers you wish to add to this group.
      * @param add should this server be associated or dissociated to this group.
@@ -167,9 +189,8 @@ public class ServerGroupHandler extends BaseHandler {
      *              False to remove.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addOrRemoveSystems(String sessionKey, String systemGroupName,
+    public int addOrRemoveSystems(User loggedInUser, String systemGroupName,
             List serverIds, Boolean add) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         ServerGroupManager manager = ServerGroupManager.getInstance();
         ManagedServerGroup group = manager.lookup(systemGroupName, loggedInUser);
 
@@ -196,7 +217,7 @@ public class ServerGroupHandler extends BaseHandler {
     /**
      * Creates a new system group.. User needs to be a System Group Admin
      * or an OrgAdmin to be able to create new  system groups.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param name The name of the system group..
      *              Note duplicates names cannot be created
      *              and will be responded to with an exception.
@@ -210,8 +231,7 @@ public class ServerGroupHandler extends BaseHandler {
      *                  system group.")
      * @xmlrpc.returntype $ManagedServerGroupSerializer
      */
-    public ServerGroup create(String sessionKey, String name, String description) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public ServerGroup create(User loggedInUser, String name, String description) {
         ensureSystemGroupAdmin(loggedInUser);
         ServerGroupManager manager = ServerGroupManager.getInstance();
         ManagedServerGroup sg = manager.create(loggedInUser, name, description);
@@ -220,7 +240,7 @@ public class ServerGroupHandler extends BaseHandler {
 
     /**
      * Deletes a given system group - given the system group name
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param systemGroupName the name of the system group
      * @return 1 for success exception  other wise.
      *
@@ -229,8 +249,7 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "systemGroupName")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int delete(String sessionKey, String systemGroupName) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int delete(User loggedInUser, String systemGroupName) {
         ensureSystemGroupAdmin(loggedInUser);
         ServerGroupManager manager = ServerGroupManager.getInstance();
         ManagedServerGroup group = manager.lookup(systemGroupName, loggedInUser);
@@ -241,7 +260,7 @@ public class ServerGroupHandler extends BaseHandler {
     /**
      * Updates a system group. User needs to be a System Group Admin
      * or an OrgAdmin to be able to create new  system groups.
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param systemGroupName The name of the system group that needs to updated..
      * @param description The description of the system group.
      * @return the updated system group.
@@ -252,9 +271,8 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "description")
      * @xmlrpc.returntype $ManagedServerGroupSerializer
      */
-    public ServerGroup update(String sessionKey,
+    public ServerGroup update(User loggedInUser,
                                 String systemGroupName, String description) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         ServerGroupManager manager = ServerGroupManager.getInstance();
         ManagedServerGroup group = manager.lookup(systemGroupName, loggedInUser);
         group.setDescription(description);
@@ -273,7 +291,7 @@ public class ServerGroupHandler extends BaseHandler {
      * Note the caller must be an orgadmin to get this
      *  information..
      *
-     * @param sessionKey The sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @return List of ServerGroups that do not have an associated admin.
      *
      * @xmlrpc.doc Returns a list of system groups that do not have an administrator.
@@ -285,8 +303,7 @@ public class ServerGroupHandler extends BaseHandler {
      *          $ManagedServerGroupSerializer
      *      #array_end()
      */
-    public List listGroupsWithNoAssociatedAdmins(String sessionKey) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List listGroupsWithNoAssociatedAdmins(User loggedInUser) {
         ensureOrgAdmin(loggedInUser);
         ServerGroupManager manager = ServerGroupManager.getInstance();
         return manager.listNoAdminGroups(loggedInUser);
@@ -295,7 +312,7 @@ public class ServerGroupHandler extends BaseHandler {
 
     /**
      * List all groups accessible by the logged in user
-     * @param sessionKey the  sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @return a list of ServerGroup objects
      *
      * @xmlrpc.doc Retrieve a list of system groups that are accessible by the logged
@@ -306,8 +323,7 @@ public class ServerGroupHandler extends BaseHandler {
      *          $ManagedServerGroupSerializer
      *      #array_end()
      */
-    public List<ManagedServerGroup> listAllGroups(String sessionKey) {
-        User loggedInUser =  getLoggedInUser(sessionKey);
+    public List<ManagedServerGroup> listAllGroups(User loggedInUser) {
         List<ManagedServerGroup> groups = ServerGroupFactory.listManagedGroups(
                 loggedInUser.getOrg());
         List<ManagedServerGroup> toReturn = new ArrayList();
@@ -322,7 +338,7 @@ public class ServerGroupHandler extends BaseHandler {
 
     /**
      *
-     * @param sessionKey the  sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param systemGroupId Integer id of system group to look up
      * @return ServerGroup object
      * @throws FaultException A FaultException is thrown if the server group
@@ -333,9 +349,8 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "systemGroupId")
      * @xmlrpc.returntype $ManagedServerGroupSerializer
      */
-    public ServerGroup getDetails(String sessionKey, Integer systemGroupId)
+    public ServerGroup getDetails(User loggedInUser, Integer systemGroupId)
         throws FaultException {
-        User loggedInUser =  getLoggedInUser(sessionKey);
         ServerGroup sg = lookup(systemGroupId, loggedInUser);
 
         return sg;
@@ -344,7 +359,7 @@ public class ServerGroupHandler extends BaseHandler {
 
     /**
      *
-     * @param sessionKey the sessionKey containing the logged in user
+     * @param loggedInUser The current user
      * @param systemGroupName Name of the system group to lookup
      * @return ServerGroup object
      * @throws FaultException A FaultException is thrown if the server group
@@ -355,9 +370,8 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "systemGroupName")
      * @xmlrpc.returntype $ManagedServerGroupSerializer
      */
-    public ServerGroup getDetails(String sessionKey, String systemGroupName)
+    public ServerGroup getDetails(User loggedInUser, String systemGroupName)
         throws FaultException {
-        User loggedInUser =  getLoggedInUser(sessionKey);
         ServerGroup sg = lookup(systemGroupName, loggedInUser);
         return sg;
 
@@ -398,7 +412,7 @@ public class ServerGroupHandler extends BaseHandler {
     /**
      * Lists active systems in a server group using the default inactivity
      *      time (Currently 1 day)
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param systemGroupName the system group
      * @return List of system ids that are active
      *
@@ -407,8 +421,7 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "systemGroupName")
      * @xmlrpc.returntype #array_single("int", "server_id")
      */
-    public List<Long> listActiveSystemsInGroup(String sessionKey, String systemGroupName) {
-        User loggedInUser =  getLoggedInUser(sessionKey);
+    public List<Long> listActiveSystemsInGroup(User loggedInUser, String systemGroupName) {
         return activeSystemsInGroup(loggedInUser, systemGroupName);
     }
 
@@ -421,7 +434,7 @@ public class ServerGroupHandler extends BaseHandler {
 
     /**
      * Lists inactive systems in a server group using the specified time
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param systemGroupName the system group
      * @param daysInactive number of days a system has to not check in to be inactive
      * @return List of system ids that are active
@@ -434,9 +447,8 @@ public class ServerGroupHandler extends BaseHandler {
      *           must not check in to be considered inactive.")
      * @xmlrpc.returntype #array_single("int", "server_id")
      */
-    public List<Long> listInactiveSystemsInGroup(String sessionKey,
+    public List<Long> listInactiveSystemsInGroup(User loggedInUser,
             String systemGroupName, Integer daysInactive) {
-        User loggedInUser =  getLoggedInUser(sessionKey);
         ServerGroup sg = lookup(systemGroupName, loggedInUser);
         return ServerGroupManager.getInstance().listInactiveServers(sg,
                 daysInactive.longValue());
@@ -445,7 +457,7 @@ public class ServerGroupHandler extends BaseHandler {
     /**
      * Lists inactive systems in a server group using the default inactivity
      *      time (Currently 1 day)
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param systemGroupName the system group
      * @return List of system ids that are active
      *
@@ -455,17 +467,17 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "systemGroupName")
      * @xmlrpc.returntype #array_single("int", "server_id")
      */
-    public List<Long> listInactiveSystemsInGroup(String sessionKey,
+    public List<Long> listInactiveSystemsInGroup(User loggedInUser,
             String systemGroupName) {
         Long threshold = new Long(Config.get().getInt(
                 ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD));
-        return listInactiveSystemsInGroup(sessionKey, systemGroupName,
+        return listInactiveSystemsInGroup(loggedInUser, systemGroupName,
                 threshold.intValue());
     }
 
     /**
      * Schedules an action to apply errata updates to active systems from a group.
-     * @param sessionKey The user's session key.
+     * @param loggedInUser The current user
      * @param systemGroupName the system group
      * @param errataIds List of errata IDs to apply (as Integers)
      * @return list of action ids, exception thrown otherwise
@@ -478,15 +490,15 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param  #array_single("int", "errataId")
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public List<Long> scheduleApplyErrataToActive(String sessionKey, String systemGroupName,
+    public List<Long> scheduleApplyErrataToActive(User loggedInUser, String systemGroupName,
                                                                     List errataIds) {
-        return scheduleApplyErrataToActive(sessionKey, systemGroupName, errataIds, null);
+        return scheduleApplyErrataToActive(loggedInUser, systemGroupName, errataIds, null);
     }
 
     /**
      * Schedules an action to apply errata updates to active systems from a group
      * at a specified time.
-     * @param sessionKey The user's session key.
+     * @param loggedInUser The current user
      * @param systemGroupName the system group
      * @param errataIds List of errata IDs to apply (as Integers)
      * @param earliestOccurrence Earliest occurrence of the errata update
@@ -501,9 +513,8 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public List<Long> scheduleApplyErrataToActive(String sessionKey, String systemGroupName,
+    public List<Long> scheduleApplyErrataToActive(User loggedInUser, String systemGroupName,
                                 List<Integer> errataIds, Date earliestOccurrence) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         List<Long> systemIds = activeSystemsInGroup(loggedInUser, systemGroupName);
         return ErrataManager.applyErrataHelper(loggedInUser, systemIds, errataIds,
                 earliestOccurrence);

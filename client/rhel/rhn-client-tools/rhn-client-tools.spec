@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.2.2
+Version: 2.3.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -23,11 +23,16 @@ Requires: dbus-1-python
 %else
 Requires: dbus-python
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
+%if 0%{?fedora}
+Requires: pygobject3-base libgudev1
+Requires: python-hwdata
+%else
+%if 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
 Requires: python-gudev
 Requires: python-hwdata
 %else
 Requires: hal >= 0.5.8.1-52
+%endif
 %endif
 %if 0%{?suse_version}
 Requires: python-newt
@@ -360,6 +365,21 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.7-1
+- fix copyright years
+
+* Thu Jul 10 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.6-1
+- Update .po and .pot files for rhn-client-tools.
+
+* Wed Jul 09 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.5-1
+- allow unicode characters in proxy username / password
+
+* Fri Jun 13 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.4-1
+- replace python-gudev by gudev introspection
+
+* Wed Jun 04 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.3-1
+- tmpDir option from up2date is no longer used, removing
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.2-1
 - spec file polish
 

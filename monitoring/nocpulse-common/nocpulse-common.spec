@@ -1,7 +1,11 @@
-%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
+%if 0%{?fedora} || 0%{?rhel} > 6
+%global sbinpath %{_sbindir}
+%else
+%global sbinpath /sbin
+%endif
 
 Name:         nocpulse-common
-Version:      2.2.8
+Version:      2.3.0
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -152,6 +156,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Jun 23 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.9-1
+- fixed runuser path on RHEL7
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.8-1
 - spec file polish
 

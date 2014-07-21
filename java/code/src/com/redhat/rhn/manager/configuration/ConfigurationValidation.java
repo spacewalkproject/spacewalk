@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -205,7 +205,7 @@ public class ConfigurationValidation {
      * @return string with non-whitespace and non-word characters escaped
      */
     static String regexEscape(String inStr) {
-        StringBuffer buff = new StringBuffer("");
+        StringBuilder buff = new StringBuilder("");
         for (int i = 0; i < inStr.length(); i++) {
             if (!inStr.substring(i, i + 1).matches("[\\s\\w]")) {
                 buff.append("\\").append(inStr.charAt(i));

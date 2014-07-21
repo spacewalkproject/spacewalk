@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -170,7 +170,7 @@ public class NavTreeIndex {
         // loop through the path parts of URL, creating a new split
         // URL for each pass, starting with longest, going to shortest
         for (int i = splitPath.length - 1; i >= 0; i--) {
-            StringBuffer sb = new StringBuffer("/");
+            StringBuilder sb = new StringBuilder("/");
 
             for (int j = 0; j <= i; j++) {
                 sb.append(splitPath[j]);

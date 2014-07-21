@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,6 +30,7 @@ import com.redhat.rhn.domain.action.server.test.ServerActionTest;
 import com.redhat.rhn.domain.action.test.ActionFactoryTest;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
@@ -255,7 +256,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         // Create a test server so we have one in the list.
         ServerFactoryTest.createTestServer(user, true);
 
-        DataResult systems = SystemManager.systemList(user, null);
+        DataResult<SystemOverview> systems = SystemManager.systemList(user, null);
         assertNotNull(systems);
         assertFalse(systems.isEmpty());
         assertTrue(systems.size() > 0);
@@ -267,7 +268,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
         PageControl pc = new PageControl();
         pc.setStart(1);
         pc.setPageSize(20);
-        DataResult systems = SystemManager.systemsWithFeature(user, "ftr_probes", pc);
+        DataResult<SystemOverview> systems =
+                SystemManager.systemsWithFeature(user, "ftr_probes", pc);
         int origCount = systems.size();
 
         user.addPermanentRole(RoleFactory.ORG_ADMIN);
@@ -302,14 +304,15 @@ public class SystemManagerTest extends RhnBaseTestCase {
         ServerFactory.save(server);
         ServerFactory.addServerToGroup(server, group);
 
-        DataResult systems = SystemManager.systemsInGroup(group.getId(), null);
+        DataResult<SystemOverview> systems =
+                SystemManager.systemsInGroup(group.getId(), null);
         assertNotNull(systems);
         assertFalse(systems.isEmpty());
         assertTrue(systems.size() > origCount);
         boolean found = false;
-        Iterator i = systems.iterator();
+        Iterator<SystemOverview> i = systems.iterator();
         while (i.hasNext()) {
-            SystemOverview so = (SystemOverview) i.next();
+            SystemOverview so = i.next();
             if (so.getId().longValue() ==
                 server.getId().longValue()) {
                 found = true;
@@ -373,15 +376,16 @@ public class SystemManagerTest extends RhnBaseTestCase {
         pc.setStart(1);
         pc.setPageSize(20);
 
-        DataResult errata = SystemManager.unscheduledErrata(user, server.getId(), pc);
+        DataResult<Errata> errata =
+                SystemManager.unscheduledErrata(user, server.getId(), pc);
         assertNotNull(errata);
         assertTrue(errata.isEmpty());
         assertTrue(errata.size() == 0);
         assertFalse(SystemManager.hasUnscheduledErrata(user, server.getId()));
 
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
-        for (Iterator itr = e.getPackages().iterator(); itr.hasNext();) {
-            Package pkg = (Package) itr.next();
+        for (Iterator<Package> itr = e.getPackages().iterator(); itr.hasNext();) {
+            Package pkg = itr.next();
             ErrataCacheManager.insertNeededErrataCache(server.getId(),
                     e.getId(), pkg.getId());
         }
@@ -593,7 +597,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
         Server server = ServerFactoryTest.createTestServer(user);
-        List entitlements = SystemManager.getServerEntitlements(server.getId());
+        List<Entitlement> entitlements =
+                SystemManager.getServerEntitlements(server.getId());
         assertFalse(entitlements.isEmpty());
         assertTrue(entitlements.contains(EntitlementManager.MANAGEMENT));
     }
@@ -657,17 +662,13 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
 
         // Ok let's finally test what we came here for.
-        List list = SystemManager.compatibleWithServer(user, srvr);
+        List<Map<String, Object>> list = SystemManager.compatibleWithServer(user, srvr);
         assertNotNull("List is null", list);
         assertFalse("List is empty", list.isEmpty());
         boolean found = false;
-        for (Iterator itr = list.iterator(); itr.hasNext();) {
-            Object o = itr.next();
-
-            assertEquals("List contains something other than Profiles",
-                    HashMap.class, o.getClass());
-            Map s = (Map) o;
-            if (srvr1.getName().equals(s.get("name"))) {
+        for (Iterator<Map<String, Object>> itr = list.iterator(); itr.hasNext();) {
+            Map<String, Object> o = itr.next();
+            if (srvr1.getName().equals(o.get("name"))) {
                 found = true;
             }
         }
@@ -688,10 +689,11 @@ public class SystemManagerTest extends RhnBaseTestCase {
         set.addElement(s.getId());
         RhnSetManager.store(set);
 
-        List<Map> systems = SystemManager.getSsmSystemsSubscribedToChannel(user,
+        List<Map<String, Object>> systems =
+                SystemManager.getSsmSystemsSubscribedToChannel(user,
                 s.getBaseChannel().getId());
         assertEquals(1, systems.size());
-        Map result1 = systems.get(0);
+        Map<String, Object> result1 = systems.get(0);
         assertEquals(s.getName(), result1.get("name"));
         assertEquals(s.getId(), result1.get("id"));
     }
@@ -713,7 +715,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
         RhnSetManager.store(set);
 
         // ask for the base channels of all systems in the system-set for the test user
-        DataResult dr = SystemManager.systemsWithoutBaseChannelsInSet(user);
+        DataResult<EssentialServerDto> dr =
+                SystemManager.systemsWithoutBaseChannelsInSet(user);
         assertNotNull(dr);
         assertEquals(dr.size(), 1);
         EssentialServerDto m = (EssentialServerDto)dr.get(0);
@@ -747,7 +750,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         SystemManager.addServerToServerGroup(server, group);
         ServerFactory.save(server);
 
-        DataResult dr = SystemManager.registeredList(user, null, 0);
+        DataResult<SystemOverview> dr = SystemManager.registeredList(user, null, 0);
         assertNotEmpty(dr);
     }
 
@@ -789,10 +792,9 @@ public class SystemManagerTest extends RhnBaseTestCase {
         // Currently 32 is the maximum supported number of vcpus on both 32 and 64-bit
         // systems:
         ValidatorResult result = SystemManager.validateVcpuSetting(vi.getId(), 33);
-        List errors = result.getErrors();
+        List<ValidatorError> errors = result.getErrors();
         assertEquals(1, errors.size());
-        assertEquals("systems.details.virt.vcpu.limit.msg",
-                ((ValidatorError)errors.get(0)).getKey());
+        assertEquals("systems.details.virt.vcpu.limit.msg", errors.get(0).getKey());
     }
 
     public void testVcpuSettingExceedsPhysicalCpus() throws Exception {
@@ -804,10 +806,10 @@ public class SystemManagerTest extends RhnBaseTestCase {
         ValidatorResult result = SystemManager.validateVcpuSetting(vi.getId(), 6);
         assertEquals(0, result.getErrors().size());
 
-        List warnings = result.getWarnings();
+        List<ValidatorWarning> warnings = result.getWarnings();
         assertEquals(2, warnings.size());
-        assertEquals("systems.details.virt.vcpu.exceeds.host.cpus",
-                ((ValidatorWarning)warnings.get(0)).getKey());
+        assertEquals("systems.details.virt.vcpu.exceeds.host.cpus", warnings.get(0)
+                .getKey());
     }
 
     // Increasing the vCPUs should create a warning that if the new setting exceeds
@@ -819,24 +821,24 @@ public class SystemManagerTest extends RhnBaseTestCase {
         ValidatorResult result = SystemManager.validateVcpuSetting(vi.getId(), 3);
         assertEquals(0, result.getErrors().size());
 
-        List warnings = result.getWarnings();
+        List<ValidatorWarning> warnings = result.getWarnings();
         assertEquals(1, warnings.size());
         assertEquals("systems.details.virt.vcpu.increase.warning",
-                ((ValidatorWarning)warnings.get(0)).getKey());
+                warnings.get(0).getKey());
     }
 
     public void testMemoryChangeWarnings() throws Exception {
         Server host = setupHostWithGuests(1);
 
-        List guestIds = new LinkedList();
+        List<Long> guestIds = new LinkedList<Long>();
         VirtualInstance vi = host.getGuests().iterator().next();
         guestIds.add(vi.getId());
 
         ValidatorResult result = SystemManager.validateGuestMemorySetting(guestIds,
             512);
-        List errors = result.getErrors();
+        List<ValidatorError> errors = result.getErrors();
         assertEquals(0, errors.size());
-        List warnings = result.getWarnings();
+        List<ValidatorWarning> warnings = result.getWarnings();
         assertEquals(2, warnings.size());
     }
 
@@ -847,8 +849,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
         User user = host.getCreator();
         UserTestUtils.addVirtualization(user.getOrg());
 
-        for (Iterator it = host.getGuests().iterator(); it.hasNext();) {
-            VirtualInstance vi = (VirtualInstance)it.next();
+        for (Iterator<VirtualInstance> it = host.getGuests().iterator(); it.hasNext();) {
+            VirtualInstance vi = it.next();
             Server guest = vi.getGuestSystem();
             guest.addChannel(ChannelTestUtils.createBaseChannel(user));
             ServerTestUtils.addVirtualization(user, guest);
@@ -871,9 +873,9 @@ public class SystemManagerTest extends RhnBaseTestCase {
         HibernateFactory.getSession().save(key);
 
 
-        List list = SystemManager.listDataKeys(admin);
+        List<CustomDataKeyOverview> list = SystemManager.listDataKeys(admin);
         assertTrue(1 == list.size());
-        CustomDataKeyOverview dataKey = (CustomDataKeyOverview) list.get(0);
+        CustomDataKeyOverview dataKey = list.get(0);
         assertEquals(key.getLabel(), dataKey.getLabel());
     }
 
@@ -981,7 +983,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertNotNull(packagesSet);
 
         // Test
-        DataResult result =
+        DataResult<Map<String, Object>> result =
             SystemManager.ssmSystemPackagesToRemove(admin, packagesSet.getLabel(), false);
         assertNotNull(result);
 
@@ -991,8 +993,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         // Verify
         assertEquals(2, result.size());
 
-        for (Object r : result) {
-            Map map = (Map)r;
+        for (Map<String, Object> map : result) {
 
             if (map.get("id").equals(server1.getId())) {
                 assertEquals(server1.getName(), map.get("system_name"));
@@ -1100,15 +1101,16 @@ public class SystemManagerTest extends RhnBaseTestCase {
         pc.setStart(1);
         pc.setPageSize(20);
 
-        DataResult errata = SystemManager.unscheduledErrata(user, server.getId(), pc);
+        DataResult<Errata> errata =
+                SystemManager.unscheduledErrata(user, server.getId(), pc);
         assertNotNull(errata);
         assertTrue(errata.isEmpty());
         assertTrue(errata.size() == 0);
         assertFalse(SystemManager.hasUnscheduledErrata(user, server.getId()));
 
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
-        for (Iterator itr = e.getPackages().iterator(); itr.hasNext();) {
-            Package pkg = (Package) itr.next();
+        for (Iterator<Package> itr = e.getPackages().iterator(); itr.hasNext();) {
+            Package pkg = itr.next();
             ErrataCacheManager.insertNeededErrataCache(server.getId(),
                     e.getId(), pkg.getId());
             List<SystemOverview> systems =
@@ -1138,7 +1140,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         p.setName(PackageFactory.lookupOrCreatePackageByName("kernel"));
         p.setEvr(PackageEvrFactoryTest.createTestPackageEvr());
         p.setServer(s);
-        Set set = new HashSet();
+        Set<InstalledPackage> set = new HashSet<InstalledPackage>();
         set.add(p);
         s.setPackages(set);
 
@@ -1206,7 +1208,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         List<SystemOverview> list = SystemManager.listDuplicatesByHostname(user, "duphost");
         assertTrue(list.size() == 2);
 
-        DataResult dr = SystemManager.systemList(user, null);
+        DataResult<SystemOverview> dr = SystemManager.systemList(user, null);
         assertTrue(dr.size() == 3);
 
     }

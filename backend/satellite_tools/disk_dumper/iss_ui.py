@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,6 +20,7 @@ from spacewalk.common.rhnConfig import PRODUCT_NAME
 option_parser = OptionParser
 option = Option
 
+# pylint: disable=R0903
 class UI:
     def __init__(self):
         self.optiontable =  [
@@ -30,19 +31,22 @@ class UI:
             option(         "--list-channels",          action="store_true",    default=0,
                 help="List all of the channels that can be exported."),
             option(         "--list-steps",             action="store_true",    default=0,
-                help="List all of the steps that rhn-satellite-exporter takes while exporting data. These can be used as values for --step"),
+                help="List all of the steps that rhn-satellite-exporter takes while exporting data."
+                   + " These can be used as values for --step"),
             option("-c",    "--channel",                action="append",
                 help="Include this channel in the export."),
             option("-a",    "--all-channels",            action="store_true",    default=0,
                 help="Export all channels."),
 	    option(         "--start-date",             action="store",
-	        help="The start date limit that the last modified dates are compared against. Should be in the format 'YYYYMMDDHH24MISS'."),
+	        help="The start date limit that the last modified dates are compared against. "
+                   + "Should be in the format 'YYYYMMDDHH24MISS'."),
 	    option(         "--end-date",                action="store",
-	        help="The end date limit that the last modified dates are compared against. Should be in the format 'YYYYMMDDHH24MISS'."),
+	        help="The end date limit that the last modified dates are compared against. "
+                   + "Should be in the format 'YYYYMMDDHH24MISS'."),
 	    option(         "--use-rhn-date",            action="store_true",
-	        help="Limit exported packages according to the date when they appeared at %s." % PRODUCT_NAME),
+	        help="Limit exported packages according to the date when they appeared at Red Hat Network."),
 	    option(         "--use-sync-date",            action="store_true",
-	        help="Limit exported packages according to the date they where pulled into satellite."),
+	        help="Limit exported packages according to the date they where pulled into %s." % PRODUCT_NAME),
         option(         "--whole-errata",            action="store_true",
             help="Always include package if it belongs to errata which is withing start/end-date range."),
 	    option(         "--make-isos",               action="store",
@@ -79,12 +83,13 @@ class UI:
         self.optionparser = option_parser(option_list=self.optiontable)
         self.options, self.args = self.optionparser.parse_args()
         if self.options.verbose and not self.options.debug_level:
-            self.options.debug_level=3
+            self.options.debug_level = 3
 
         for i in self.options.__dict__.keys():
             if not self.__dict__.has_key(i):
                 self.__dict__[i] = self.options.__dict__[i]
 
 if __name__ == "__main__":
+    # pylint: disable=E1101
     a = UI()
     print str(a.no_errata)

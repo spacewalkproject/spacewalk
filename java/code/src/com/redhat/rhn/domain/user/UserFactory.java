@@ -57,7 +57,7 @@ public  class UserFactory extends HibernateFactory {
     private static final String USER_ID = "user_id";
     private static final String LOGIN_UC = "loginUc";
     private static final UserFactory SINGLETON = new UserFactory();
-    protected static Logger log = Logger.getLogger(UserFactory.class);
+    protected static final Logger LOG = Logger.getLogger(UserFactory.class);
 
     private static List timeZoneList;
 
@@ -141,7 +141,7 @@ public  class UserFactory extends HibernateFactory {
      */
     @Override
     protected Logger getLogger() {
-        return log;
+        return LOG;
     }
 
     /**
@@ -340,7 +340,7 @@ public  class UserFactory extends HibernateFactory {
      * @return User The freshly commited user.
      */
     protected User addNewUser(User usr, Address addr, Long orgId) {
-        log.debug("Starting addNewUser");
+        LOG.debug("Starting addNewUser");
         if (addr != null) {
             usr.setAddress1(addr.getAddress1());
             usr.setAddress2(addr.getAddress2());
@@ -422,7 +422,7 @@ public  class UserFactory extends HibernateFactory {
      * @param user The object we are committing.
      */
     protected void saveUser(User user) {
-        log.debug("*********STARTING SAVE USER*********\n\n\n\n\n\n\n\n");
+        LOG.debug("*********STARTING SAVE USER*********\n\n\n\n\n\n\n\n");
         if (user.getId() == null) {
             // New org, gotta use the stored procedure.
             throw new IllegalArgumentException("Only use commit for" +

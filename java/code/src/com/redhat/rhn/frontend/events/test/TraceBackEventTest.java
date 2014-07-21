@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -127,14 +127,14 @@ public class TraceBackEventTest extends RhnBaseTestCase {
         // In the implementation we use getHeaderNames so we override it with
         // one that returns an empty implementation.
         MockHttpServletRequest request = new MockHttpServletRequest() {
-            public Enumeration getHeaderNames() {
-                return new Vector().elements();
+            public Enumeration<String> getHeaderNames() {
+                return new Vector<String>().elements();
             }
         };
         request.setSession(new MockHttpSession());
         request.setupGetRequestURI("http://localhost:8080");
         request.setupGetMethod("POST");
-        Vector v = new Vector();
+        Vector<String> v = new Vector<String>();
         v.add("someparam");
         request.setupAddParameter("someparam", "somevalue");
         request.setupGetParameterNames(v.elements());
@@ -152,14 +152,14 @@ public class TraceBackEventTest extends RhnBaseTestCase {
         // In the implementation we use getHeaderNames so we override it with
         // one that returns an empty implementation.
         MockHttpServletRequest request = new MockHttpServletRequest() {
-            public Enumeration getHeaderNames() {
-                return new Vector().elements();
+            public Enumeration<String> getHeaderNames() {
+                return new Vector<String>().elements();
             }
         };
         request.setSession(new MockHttpSession());
         request.setupGetRequestURI("http://localhost:8080");
         request.setupGetMethod("POST");
-        Vector v = new Vector();
+        Vector<String> v = new Vector<String>();
         v.add(paramIn);
         request.setupAddParameter(paramIn, valueIn);
         request.setupGetParameterNames(v.elements());

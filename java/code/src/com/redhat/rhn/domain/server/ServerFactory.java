@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -291,6 +291,42 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup Servers by their ids
+     * @param ids the ids to search for
+     * @return the Servers found
+     */
+    public static List<Server> lookupByIds(List<Long> ids) {
+        Session session = HibernateFactory.getSession();
+        Query query = session.getNamedQuery("Server.findByIds");
+        List<Server> results = new LinkedList<Server>();
+
+        if (ids.size() == 0) {
+            return results;
+        }
+
+        if (ids.size() < 1000) {
+            query.setParameterList("serverIds", ids);
+            return query.list();
+        }
+
+        List<Long> blockOfIds = new LinkedList<Long>();
+        for (Long sid : ids) {
+            blockOfIds.add(sid);
+            if (blockOfIds.size() == 999) {
+                query.setParameterList("serverIds", blockOfIds);
+                results.addAll(query.list());
+                blockOfIds = new LinkedList<Long>();
+            }
+        }
+        // Deal with the remainder:
+        if (blockOfIds.size() > 0) {
+            query.setParameterList("serverIds", blockOfIds);
+            results.addAll(query.list());
+        }
+        return results;
+    }
+
+    /**
      * Lookup a ServerGroupType by its label
      * @param label The label to search for
      * @return The ServerGroupType
@@ -487,7 +523,7 @@ public class ServerFactory extends HibernateFactory {
      * @param server Server whose profiles we want.
      * @return a list of Servers which are compatible with the given server.
      */
-    public static List compatibleWithServer(User user, Server server) {
+    public static List<Map<String, Object>> compatibleWithServer(User user, Server server) {
         SelectMode m = ModeFactory.getMode("System_queries",
                 "compatible_with_server");
 
@@ -863,6 +899,20 @@ public class ServerFactory extends HibernateFactory {
         SnapshotTag retval = (SnapshotTag) HibernateFactory
                 .getSession().getNamedQuery("SnapshotTag.lookupByTagName")
                 .setString("tag_name", tagName)
+                // Do not use setCacheable(true), as tag deletion will
+                // usually end up making this query's output out of date
+                .uniqueResult();
+        return retval;
+    }
+
+    /**
+     * @param tagId snapshot tag ID
+     * @return snapshot Tag
+     */
+    public static SnapshotTag lookupSnapshotTagbyId(Long tagId) {
+        SnapshotTag retval = (SnapshotTag) HibernateFactory
+                .getSession().getNamedQuery("SnapshotTag.lookupById")
+                .setLong("id", tagId)
                 // Do not use setCacheable(true), as tag deletion will
                 // usually end up making this query's output out of date
                 .uniqueResult();

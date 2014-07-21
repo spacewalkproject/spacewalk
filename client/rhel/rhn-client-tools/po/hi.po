@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"POT-Creation-Date: 2014-07-10 10:36+0200\n"
 "PO-Revision-Date: 2013-02-06 09:40+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -283,6 +283,11 @@ msgstr ""
 "bugzilla.redhat.com पर एक बग फाइल करें. '%s' का संबंधित हिस्सा काफी मददगार होगा. "
 "धन्यवाद!"
 
+#: ../src/up2date_client/config.py:154
+#, python-format
+msgid "%s was not found"
+msgstr "%s नहीं मिला"
+
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr "त्रुटि: सर्वर अनुपलब्ध. कृपया फिर कोशिश करें"
@@ -302,6 +307,106 @@ msgstr "अधिक भार के कारण सर्वर ने सं
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:56
 msgid "Getting list of packages installed on the system"
 msgstr "सिस्टम पर अधिष्ठापित संकुलों की सूची प्राप्त कर रहा है"
+
+#: ../src/up2date_client/tui.py:134
+#, fuzzy
+msgid "Spacewalk Location:"
+msgstr "Red Hat नेटवर्क स्थान:"
+
+#: ../src/up2date_client/tui.py:135
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "Login:"
+msgstr "लॉगिन:"
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr "तंत्र ID: "
+
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:313
+msgid "Error"
+msgstr "त्रुटि"
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr "सर्वर ने एक त्रुटि प्रदर्शित किया है:\n"
+
+#. Navigation
+#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/rhnreg_constants.py:312
+msgid "OK"
+msgstr "ठीक"
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr "पंजीयन सर्वर के साथ संचार करने में एक त्रुटि थी:\n"
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr "प्रोफाइल नामः"
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr "संस्करणः "
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr "CPU मॉडलः "
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr "मेजबाननाम: "
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr "CPU गतिः "
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr "IP पताः "
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr "स्मृतिः "
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr "%s मेगाबाइट्स"
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr "हार्डवेयर प्रोफाइल को भेजने में समस्या:\n"
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr "हार्डवेयर प्रोफाइल भेजने में समस्या."
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr "संकुल सूची भेजने में समस्या:\n"
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr "संकुल सूची भेजने में समस्या."
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr "समाप्त"
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr "आपने एक अवैध प्रोटोकॉल निर्दिष्ट किया है."
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> तत्वों के बीच           |  <Space> चुनते हैं  |  <F12> अगला प्रपट"
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr "आपको रूट होकर RHN पंजीयन कार्यक्रम चलाना जरुरी है."
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
@@ -508,11 +613,6 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Red Hat Login:"
 msgstr "Red Hat लॉगिन:"
-
-#: ../src/up2date_client/rhnreg_constants.py:84
-#: ../src/up2date_client/tui.py:135
-msgid "Login:"
-msgstr "लॉगिन:"
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
@@ -1022,17 +1122,6 @@ msgstr ""
 "(आप किसी नए रिलीज में खिसकाने में समर्थ होंगे.)\n"
 "क्या आप निश्चित हैं कि आप जारी रखना चाहेंगे?"
 
-#. Navigation
-#: ../src/up2date_client/rhnreg_constants.py:312
-#: ../src/up2date_client/tui.py:536
-msgid "OK"
-msgstr "ठीक"
-
-#: ../src/up2date_client/rhnreg_constants.py:313
-#: ../src/up2date_client/tui.py:536
-msgid "Error"
-msgstr "त्रुटि"
-
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
 msgstr "आगे"
@@ -1059,23 +1148,23 @@ msgstr "हां जारी रखें"
 msgid "Press <space> to deselect the option."
 msgstr "विकल्प विचयन के लिये <space> दबायें."
 
-#: ../src/up2date_client/hardware.py:820
+#: ../src/up2date_client/hardware.py:819
 msgid "Error reading cpu information:"
 msgstr "cpu जानकारी पढ़ने में समस्या:"
 
-#: ../src/up2date_client/hardware.py:827
+#: ../src/up2date_client/hardware.py:826
 msgid "Error reading system memory information:"
 msgstr "सिस्टम स्मृति सूचना पढ़ने में त्रुटि:"
 
-#: ../src/up2date_client/hardware.py:837
+#: ../src/up2date_client/hardware.py:836
 msgid "Error reading networking information:"
 msgstr "संजाल सूचना पढ़ने में त्रुटि"
 
-#: ../src/up2date_client/hardware.py:858
+#: ../src/up2date_client/hardware.py:857
 msgid "Error reading install method information:"
 msgstr "अधिष्ठापन विधि सूचना पढ़ने में त्रुटि"
 
-#: ../src/up2date_client/hardware.py:866
+#: ../src/up2date_client/hardware.py:865
 msgid "Error reading network interface information:"
 msgstr "संजाल अंतरफलक सूचना पढ़ने में त्रुटि:"
 
@@ -1094,11 +1183,6 @@ msgstr "SystemId का पता करने में असमर्थ"
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "यह सिस्टम अद्यतन नहीं होगा जबतक कि यह चैनल से जुड़ता नहीं है."
-
-#: ../src/up2date_client/config.py:153
-#, python-format
-msgid "%s was not found"
-msgstr "%s नहीं मिला"
 
 #: ../src/up2date_client/rhnreg.py:59
 #, fuzzy
@@ -1306,90 +1390,6 @@ msgid ""
 msgstr ""
 "%s के समर्थन के लिए इस क्लाइंट को सर्वर की आवश्यकता है, जिसे मौजूदा सर्वर समर्थन नहीं देता "
 "है."
-
-#: ../src/up2date_client/tui.py:134
-#, fuzzy
-msgid "Spacewalk Location:"
-msgstr "Red Hat नेटवर्क स्थान:"
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr "तंत्र ID: "
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "सर्वर ने एक त्रुटि प्रदर्शित किया है:\n"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr "पंजीयन सर्वर के साथ संचार करने में एक त्रुटि थी:\n"
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "प्रोफाइल नामः"
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr "संस्करणः "
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr "CPU मॉडलः "
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr "मेजबाननाम: "
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr "CPU गतिः "
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr "IP पताः "
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr "स्मृतिः "
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr "%s मेगाबाइट्स"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "हार्डवेयर प्रोफाइल को भेजने में समस्या:\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "हार्डवेयर प्रोफाइल भेजने में समस्या."
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "संकुल सूची भेजने में समस्या:\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "संकुल सूची भेजने में समस्या."
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "समाप्त"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr "आपने एक अवैध प्रोटोकॉल निर्दिष्ट किया है."
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> तत्वों के बीच           |  <Space> चुनते हैं  |  <F12> अगला प्रपट"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "आपको रूट होकर RHN पंजीयन कार्यक्रम चलाना जरुरी है."
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"

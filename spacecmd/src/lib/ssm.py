@@ -20,6 +20,15 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
+
 from spacecmd.utils import *
 
 def help_ssm(self):
@@ -54,7 +63,7 @@ def complete_ssm_add(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_ssm_add(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_ssm_add()
@@ -96,7 +105,7 @@ def complete_ssm_intersect(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_ssm_intersect(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_ssm_intersect()
@@ -136,7 +145,7 @@ def complete_ssm_remove(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_ssm_remove(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_ssm_remove()

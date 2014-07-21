@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 13:38+0100\n"
+"POT-Creation-Date: 2014-07-10 10:36+0200\n"
 "PO-Revision-Date: 2012-10-30 10:38+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
@@ -20,78 +20,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../rhnplugin.py:51
+#: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
 msgstr "Det oppsto et problem ved kommunikasjon med RHN."
 
-#: ../rhnplugin.py:66
+#: ../rhnplugin.py:67
 #, fuzzy
 msgid "Red Hat Satellite or RHN Classic support will be disabled."
 msgstr "Støtte for RHN-kanaler vil bli deaktivert."
 
 #. If non-root notify user Spacewalk repo not accessible
-#: ../rhnplugin.py:73
+#: ../rhnplugin.py:74
 msgid ""
 "*Note* Spacewalk repositories are not listed below. You must run this "
 "command as root to access Spacewalk repositories."
 msgstr ""
 
-#: ../rhnplugin.py:88
+#: ../rhnplugin.py:90
 #, fuzzy
 msgid "There was an error parsing the Red Hat Satellite Proxy settings."
 msgstr "Det oppsto en feil ved innlesing av proxyinnstillinger for RHN."
 
-#: ../rhnplugin.py:100
+#: ../rhnplugin.py:102
 msgid "Either --version, --help or no commands entered"
 msgstr ""
 
-#: ../rhnplugin.py:105
+#: ../rhnplugin.py:107
 msgid "Cleaning"
 msgstr ""
 
-#: ../rhnplugin.py:114
+#: ../rhnplugin.py:116
 msgid "Using list of RHN repos from cache"
 msgstr ""
 
-#: ../rhnplugin.py:130
+#: ../rhnplugin.py:132
 msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:131 ../rhnplugin.py:147
+#: ../rhnplugin.py:133 ../rhnplugin.py:149
 msgid "You can use rhn_register to register."
 msgstr ""
 
-#: ../rhnplugin.py:137
+#: ../rhnplugin.py:139
 msgid "RHN channel support will be disabled."
 msgstr "Støtte for RHN-kanaler vil bli deaktivert."
 
-#: ../rhnplugin.py:141
+#: ../rhnplugin.py:143
 msgid "This system is not subscribed to any channels."
 msgstr "Dette systemet abonnerer ikke på noen kanaler."
 
-#: ../rhnplugin.py:146
+#: ../rhnplugin.py:148
 msgid ""
 "This system may not be registered to RHN Classic or Red Hat Satellite. "
 "SystemId could not be acquired."
 msgstr ""
 
-#: ../rhnplugin.py:159
+#: ../rhnplugin.py:161
 msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:284
+#: ../rhnplugin.py:286
 msgid "Package profile information could not be sent."
 msgstr "Informasjon om pakkeprofilen kunne ikke bli sendt."
 
-#: ../rhnplugin.py:292
+#: ../rhnplugin.py:294
 msgid "Error Message:"
 msgstr ""
 
-#: ../rhnplugin.py:293
+#: ../rhnplugin.py:295
 msgid "Please run rhn_register as root on this client"
 msgstr ""
 
-#: ../rhnplugin.py:372
+#: ../rhnplugin.py:374
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Nødvendig innloggingsinformasjon for RHN mangler: %s"

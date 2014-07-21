@@ -1,22 +1,5 @@
 <datasource_modes>
 
-<mode name="tags_for_snapshot">
-  <query params="ss_id">
-SELECT T.id AS ID,
-       TN.name,
-       TO_CHAR(ST.created, 'YYYY-MM-DD HH24:MI:SS') AS DATE_TAG_APPLIED
-  FROM rhnTagName TN,
-       rhnTag T,
-       rhnSnapshotTag ST,
-       rhnSnapshot SS
- WHERE SS.id = :ss_id
-   AND SS.id = ST.snapshot_id
-   AND ST.tag_id = T.id
-   AND T.name_id = TN.id
-ORDER BY UPPER(TN.name)
-  </query>
-</mode>
-
 <mode name="tags_for_provisioning_entitled_in_set">
   <query params="user_id">
 select * from (
@@ -47,46 +30,6 @@ SELECT DISTINCT T.id AS ID,
 GROUP BY T.id, TN.name, T.created
 ) S
 ORDER BY UPPER(name)
-  </query>
-</mode>
-
-<mode name="snapshot_tags_in_set">
-  <query params="sid, user_id, set_label">
-SELECT ST.tag_id AS ID,
-       TN.name,
-       SS.id AS SNAPSHOT_ID,
-       TO_CHAR(ST.created, 'YYYY-MM-DD HH24:MI:SS') AS CREATED
-  FROM rhnTagName TN,
-       rhnTag T,
-       rhnSnapshotTag ST,
-       rhnSnapshot SS,
-       rhnSet S
- WHERE SS.server_id = :sid
-   AND SS.id = ST.snapshot_id
-   AND ST.tag_id = T.id
-   AND T.name_id = TN.id
-   AND T.id = S.element
-   AND S.user_id = :user_id
-   AND S.label = :set_label
-ORDER BY UPPER(TN.name)
-  </query>
-</mode>
-
-<mode name="tags_for_system">
-  <query params="sid">
-SELECT ST.tag_id AS ID,
-       TN.name,
-       SS.id AS SNAPSHOT_ID,
-       TO_CHAR(ST.created, 'YYYY-MM-DD HH24:MI:SS') AS CREATED
-  FROM rhnTagName TN,
-       rhnTag T,
-       rhnSnapshotTag ST,
-       rhnSnapshot SS
- WHERE SS.server_id = :sid
-   AND SS.id = ST.snapshot_id
-   AND ST.tag_id = T.id
-   AND T.name_id = TN.id
-ORDER BY UPPER(TN.name)
   </query>
 </mode>
 

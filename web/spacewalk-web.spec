@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.24
+Version: 2.3.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -194,7 +194,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Kickstart.pm
 %{perl_vendorlib}/RHN/Kickstart/
 %{perl_vendorlib}/RHN/Mail.pm
-%{perl_vendorlib}/RHN/Manifest.pm
 %{perl_vendorlib}/RHN/Org.pm
 %{perl_vendorlib}/RHN/Package.pm
 %{perl_vendorlib}/RHN/Package/
@@ -270,6 +269,44 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Jul 15 2014 Stephen Herr <sherr@redhat.com> 2.3.2-1
+- 1117047 - db-control manpage fixes
+
+* Mon Jul 14 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.3.1-1
+- change version for Spacewalk 2.3 nightly
+- Bumping package versions for 2.3.
+
+* Mon Jul 14 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.32-1
+- Removing nightly string
+
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.31-1
+- fix copyright years
+
+* Thu Jun 26 2014 Stephen Herr <sherr@redhat.com> 2.2.30-1
+- SSM power management operation page added
+- SSM power management configuration page added
+- Single-system power management page added
+
+* Fri Jun 20 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.29-1
+- 249743 - add robots.txt
+
+* Mon Jun 02 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.28-1
+- removed unused code (snapshot pxt pages related)
+
+* Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.27-1
+- select2-bootstrap-css packaged
+- select2 packaged
+- jQuery UI packaged
+- rewrite unservable_packages.pxt page to java
+
+* Thu May 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.26-1
+- removed unused code
+
+* Thu May 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.25-1
+- removed unused code
+- removed snapshot pxt pages which were rewritten to java
+- Fix refreshing of Autoinstallable Tree forms (bnc#874144)
+
 * Tue May 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.24-1
 - rewrite system snapshot to java: Rollback.do
 

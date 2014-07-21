@@ -568,6 +568,12 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Power Management">
+        <source>Power Management</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Lookup Login/Password">
         <source>Lookup Login/Password</source>
         <context-group name="ctx">
@@ -618,6 +624,30 @@
       </trans-unit>
       <trans-unit id="name">
         <source>name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="arch">
+        <source>architecture</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="system.evr">
+        <source>this system</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="other.evr">
+        <source>profile</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="comparison">
+        <source>difference</source>
         <context-group name="ctx">
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
@@ -1170,6 +1200,12 @@
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="error.user_readonly">
+        <source>This user has read only API access. WebUI login is denied.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/Login</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="error.org_already_taken">
         <source>That organization name is already taken; please choose another.</source>
         <context-group name="ctx">
@@ -1259,6 +1295,18 @@
         <source>Invalid prefix [{0}]. Must be one of {1}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error.readonly_org_admin">
+        <source>At least one Organization Administrator with regular access must remain in {0} organization.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserDetailsSubmit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error.readonly_sat_admin">
+        <source>At least one @@PRODUCT_NAME@@ Administrator must remain with regular access.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserDetailsSubmit</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login">
@@ -5511,7 +5559,7 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="crypto.key.nokey">
-        <source>No file contents found. Please select a proper key file from your local machine to upload.</source>
+        <source>No GPL/SSL key content was provided.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysCreate.do</context>
         </context-group>
@@ -6632,6 +6680,291 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/system/details/kickstart/KickstartScriptEdit.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="cobbler.powermanagement.poweron">
+        <source>Power On</source>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.poweroff">
+        <source>Power Off</source>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.reboot">
+        <source>Reboot</source>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.command_failed">
+        <source>Cobbler reported a power management error, please check Cobbler logs.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.not_configured">
+        <source>Cannot do power management on a system that has no saved configuration.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.no_fence_agents">
+        <source>This functionality is only available on @@PRODUCT_NAME@@ servers that have installed "fence agents," which are possibly availabe as "fence-agents", "fence-agents-all", or "fence-agents-ipmilan" packages depending on your operating system and desired power management infrastructure. Please install the fence agents. If fence agents are not available for your operating system then power management functionality is not supported.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.alom">
+        <source>Advanced Lights Out Manager</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.apc">
+        <source>APC</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.apc_snmp">
+        <source>APC via SNMP</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.baytech">
+        <source>BayTech</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.bladecenter">
+        <source>BladeCenter</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.brocade">
+        <source>BROCADE</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.bullpap">
+        <source>Bull FAME via PAP</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.cisco_mds">
+        <source>Cisco MDS</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.cisco_ucs">
+        <source>Cisco UCS</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.cpint">
+        <source>GFS on s390 and zSeries</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.drac">
+        <source>Dell DRAC</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.drac5">
+        <source>Dell DRAC 5</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.eaton_snmp">
+        <source>Eaton SNMP</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.egenera">
+        <source>Egenera</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.eps">
+        <source>ePowerSwitch</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.hds_cb">
+        <source>Hitachi HDS Compute Blade</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.hpblade">
+        <source>HP Blade</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.ibmblade">
+        <source>IBM Blade</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.ifmib">
+        <source>Cisco IF-MIB</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.ilo">
+        <source>HP Integrated Lights-Out</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.ilo_mp">
+        <source>HP Integrated Lights-Out Management Processor</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.intelmodular">
+        <source>Intel Modular Server</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.ipdu">
+        <source>HP Intelligent Power Distribution Unit</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.ipmilan">
+        <source>IPMI</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.ldom">
+        <source>SPARC Logical Domains</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.lpar">
+        <source>IBM LPAR</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.mcdata">
+        <source>McData</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.netio">
+        <source>Koukaam NETIO</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.ovh">
+        <source>OVH</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.rackswitch">
+        <source>IBM RackSwitch</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.rhevm">
+        <source>Red Hat Enterprise Virtualization Manager</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.rsa">
+        <source>IBM Remote Supervisor Adapter</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.rsb">
+        <source>Fujitsu-Siemens RSB</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.sanbox2">
+        <source>QLogic SANbox2</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.scsi">
+        <source>SCSI-3</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.virsh">
+        <source>libvirt</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.vixel">
+        <source>Vixel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.vmware">
+        <source>VMWare</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.vmware_soap">
+        <source>VMWare via SOAP</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.wti">
+        <source>WTI PowerSwitch</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.xcat">
+        <source>Extreme Cloud Administration Toolkit</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.xenapi">
+        <source>Xen</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.powermanagement.zvm">
+        <source>z/VM</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="oneday">
         <source>within the past day</source>
         <context-group name="ctx">
@@ -7175,6 +7508,9 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="api.provisioning.snapshot.nosuchtag">
         <source>No such server snapshot tag: {0}</source>
+      </trans-unit>
+      <trans-unit id="api.provisioning.snapshot.nosuchsnapshot">
+        <source>No such server snapshot: {0}</source>
       </trans-unit>
       <trans-unit id="api.package.provider.invalidKeyType">
         <source>The package key type specified ({0}) is invalid.</source>

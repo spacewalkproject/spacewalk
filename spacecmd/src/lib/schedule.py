@@ -20,12 +20,22 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
+
 import base64
 from operator import itemgetter
 from spacecmd.utils import *
+import xmlrpclib
 
-def print_schedule_summary(self, type, args):
-    (args, options) = parse_arguments(args)
+def print_schedule_summary(self, action_type, args):
+    (args, _options) = parse_arguments(args)
 
     if len(args) > 0:
         begin_date = parse_time_input(args[0])
@@ -39,15 +49,15 @@ def print_schedule_summary(self, type, args):
     else:
         end_date = None
 
-    if type == 'pending':
+    if action_type == 'pending':
         actions = self.client.schedule.listInProgressActions(self.session)
-    elif type == 'completed':
+    elif action_type == 'completed':
         actions = self.client.schedule.listCompletedActions(self.session)
-    elif type == 'failed':
+    elif action_type == 'failed':
         actions = self.client.schedule.listFailedActions(self.session)
-    elif type == 'archived':
+    elif action_type == 'archived':
         actions = self.client.schedule.listArchivedActions(self.session)
-    elif type == 'all':
+    elif action_type == 'all':
         # get actions in all states except archived
         in_progress = self.client.schedule.listInProgressActions(self.session)
         completed = self.client.schedule.listCompletedActions(self.session)
@@ -62,17 +72,20 @@ def print_schedule_summary(self, type, args):
     else:
         return
 
-    if not len(actions): return
+    if not len(actions):
+        return
 
     print 'ID      Date                 C    F    P     Action'
     print '--      ----                ---  ---  ---    ------'
 
     for action in sorted(actions, key=itemgetter('id'), reverse = True):
         if begin_date:
-            if action.get('earliest') < begin_date: continue
+            if action.get('earliest') < begin_date:
+                continue
 
         if end_date:
-            if action.get('earliest') > end_date: continue
+            if action.get('earliest') > end_date:
+                continue
 
         if self.check_api_version('10.11'):
             print '%s  %s   %s  %s  %s    %s' % \
@@ -114,11 +127,11 @@ def complete_schedule_cancel(self, text, line, beg, end):
     try:
         actions = self.client.schedule.listInProgressActions(self.session)
         return tab_completer([ str(a.get('id')) for a in actions ], text)
-    except:
+    except xmlrpclib.Fault:
         return []
 
 def do_schedule_cancel(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_schedule_cancel()
@@ -126,7 +139,8 @@ def do_schedule_cancel(self, args):
 
     # cancel all actions
     if '.*' in args:
-        if not self.user_confirm('Cancel all pending actions [y/N]:'): return
+        if not self.user_confirm('Cancel all pending actions [y/N]:'):
+            return
 
         actions = self.client.schedule.listInProgressActions(self.session)
         strings = [ a.get('id') for a in actions ]
@@ -159,11 +173,11 @@ def complete_schedule_reschedule(self, text, line, beg, end):
     try:
         actions = self.client.schedule.listFailedActions(self.session)
         return tab_completer([ str(a.get('id')) for a in actions ], text)
-    except Exception:
+    except xmlrpclib.Fault:
         return []
 
 def do_schedule_reschedule(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_schedule_reschedule()
@@ -176,7 +190,8 @@ def do_schedule_reschedule(self, args):
 
     # reschedule all failed actions
     if '.*' in args:
-        if not self.user_confirm('Reschedule all failed actions [y/N]:'): return
+        if not self.user_confirm('Reschedule all failed actions [y/N]:'):
+            return
         to_reschedule = failed_actions
     else:
         # use the list of action IDs passed in
@@ -207,7 +222,7 @@ def help_schedule_details(self):
     print 'usage: schedule_details ID'
 
 def do_schedule_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_schedule_details()
@@ -215,8 +230,8 @@ def do_schedule_details(self, args):
 
     try:
         action_id = int(args[0])
-    except:
-        logging.warning('%s is not a valid ID' % str(a))
+    except ValueError:
+        logging.warning('%s is not a valid ID' % str(action_id))
         return
 
     completed = self.client.schedule.listCompletedSystems(self.session,
@@ -235,7 +250,7 @@ def do_schedule_details(self, args):
 
     # schedule.getAction() API call would make this easier
     all_actions = self.client.schedule.listAllActions(self.session)
-    action = 0
+    action = None
     for a in all_actions:
         if a.get('id') == action_id:
             action = a
@@ -279,7 +294,7 @@ def help_schedule_getoutput(self):
     print 'usage: schedule_getoutput ID'
 
 def do_schedule_getoutput(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_schedule_getoutput()
@@ -287,7 +302,7 @@ def do_schedule_getoutput(self, args):
 
     try:
         action_id = int(args[0])
-    except:
+    except ValueError:
         logging.error('%s is not a valid action ID' % str(args[0]))
         return
 
@@ -295,14 +310,15 @@ def do_schedule_getoutput(self, args):
     try:
         script_results = \
             self.client.system.getScriptResults(self.session, action_id)
-    except:
+    except xmlrpclib.Fault:
         pass
 
     # scripts have a different data structure than other actions
     if script_results:
         add_separator = False
         for r in script_results:
-            if add_separator: print self.SEPARATOR
+            if add_separator:
+                print self.SEPARATOR
             add_separator = True
 
             if r.get('serverId'):
@@ -332,7 +348,8 @@ def do_schedule_getoutput(self, args):
         add_separator = False
 
         for action in completed + failed:
-            if add_separator: print self.SEPARATOR
+            if add_separator:
+                print self.SEPARATOR
             add_separator = True
 
             print 'System:    %s' % action.get('server_name')

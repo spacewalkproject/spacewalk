@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -61,13 +61,6 @@ sub parse_dep_sense_flags {
   }
 
   return $sense;
-}
-
-sub parse_sense_flag { 
-  my $class = shift;
-  my $sense = shift;
-
-  return $sense == 1 ? 'conflicts with' : 'requires';
 }
 
 1;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -45,7 +45,7 @@ public class ChannelSystemsListSubmit extends BaseSetOperateOnSelectedItemsActio
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put(KEY_UNSUBSCRIBE, "processUnsubscribe");
     }
 
@@ -73,7 +73,7 @@ public class ChannelSystemsListSubmit extends BaseSetOperateOnSelectedItemsActio
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest requestIn,
-                                   Map paramsIn) {
+                                   Map<String, Object> paramsIn) {
         ConfigChannel cc = ConfigActionHelper.getChannel(requestIn);
         ConfigActionHelper.processParamMap(cc, paramsIn);
     }

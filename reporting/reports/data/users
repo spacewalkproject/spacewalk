@@ -66,5 +66,5 @@ sql:
 		and web_contact.id = rhnUserInfo.user_id
 	) X
 	-- where placeholder
-	order by organization_id, user_id
+	order by organization_id, user_id, role
 

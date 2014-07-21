@@ -1,5 +1,5 @@
 # This file is a portion of the Red Hat Update Agent
-# Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPL
+# Copyright (c) 1999--2014 Red Hat, Inc.  Distributed under GPL
 #
 # Authors:
 #       Cristian Gafton <gafton@redhat.com>
@@ -12,6 +12,7 @@ up2date agent to hold config info.
 
 import os
 import sys
+import locale
 from urlparse import urlsplit, urlunsplit
 from rhn.connections import idn_ascii_to_pune, idn_pune_to_unicode
 
@@ -113,7 +114,7 @@ class ConfigFile:
                 # possibly split value into a list
                 values = value.split(";")
                 if key in ['proxyUser', 'proxyPassword']:
-                    value = str(value)
+                    value = str(value.encode(locale.getpreferredencoding()))
                 elif len(values) == 1:
                     try:
                         value = int(value)

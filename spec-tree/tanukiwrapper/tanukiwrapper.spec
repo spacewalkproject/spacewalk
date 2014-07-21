@@ -30,7 +30,7 @@
 
 %define gcj_support %{?_with_gcj_support:1}%{!?_with_gcj_support:%{?_without_gcj_support:0}%{!?_without_gcj_support:%{?_gcj_support:%{_gcj_support}}%{!?_gcj_support:0}}}
 
-%if 0%{?rhel} >= 5
+%if 0%{?rhel} >= 5 && 0%{?rhel} < 7
 %define gcj_support 1
 %endif
 
@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	12%{?dist}
+Release:	14%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -55,7 +55,7 @@ Patch5:         %{name}-Makefile-sparc-sparc64.patch
 Patch6:		%{name}-nosun-jvm-64.patch
 Patch7:     %{name}-compilewithfpic.patch
 Group:		Development/Java
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
 Requires:      javapackages-tools
 %else
@@ -220,6 +220,12 @@ fi
 %endif
 
 %changelog
+* Tue Jun 24 2014 Michael Mraka <michael.mraka@redhat.com> 3.2.3-14
+- no gcj on RHEL7
+
+* Tue Jun 24 2014 Michael Mraka <michael.mraka@redhat.com> 3.2.3-13
+- update tanukiwrapper deps for RHEL7
+
 * Tue Jan 07 2014 Tomas Lestach <tlestach@redhat.com> 3.2.3-12
 - jpackage-utils were replaced with javapackages-tools in fc20
 - there's not ant-nodeps on fc20

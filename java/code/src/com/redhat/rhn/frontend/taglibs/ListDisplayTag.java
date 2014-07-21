@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2011 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -131,6 +131,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  * @see com.redhat.rhn.domain.rhnset.RhnSet
  */
 public class ListDisplayTag extends ListDisplayTagBase {
+    private static final long serialVersionUID = 8952182346554627507L;
     private static final String LAST = "Last";
     private static final String NEXT = "Next";
     private static final String PREV = "Prev";
@@ -139,7 +140,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
     private static final String NEXT_LOWER = "next_lower";
     private static final String PREV_LOWER = "prev_lower";
     private static final String FIRST_LOWER = "first_lower";
-    private static final Set PAGINATION_WASH_SET = buildPaginationWashSet();
+    private static final Set<String> PAGINATION_WASH_SET = buildPaginationWashSet();
 
     /** row count determines whether we're an even or odd row */
     protected int rowCnt = 0;
@@ -451,8 +452,8 @@ public class ListDisplayTag extends ListDisplayTagBase {
         HttpServletRequest request =
             (HttpServletRequest) pageContext.getRequest();
 
-        StringBuffer page =
-            new StringBuffer((String) request.getAttribute("requestedUri"));
+        StringBuilder page =
+            new StringBuilder((String) request.getAttribute("requestedUri"));
 
         page.append("?" + RequestContext.LIST_DISPLAY_EXPORT + "=1");
         if (request.getQueryString() != null) {
@@ -466,7 +467,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
     }
 
     private void renderBoundsVariables(Writer out) throws IOException {
-        StringBuffer target = new StringBuffer();
+        StringBuilder target = new StringBuilder();
         // pagination formvars
         renderHidden(target, "lower", String.valueOf(getPageList().getStart()));
 
@@ -489,7 +490,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
     }
 
     private void renderSetButtons(Writer out) throws IOException {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         if (set != null) {
             if (showSetButtons) {
                 buf.append("<span class=\"spacewalk-list-selection-btns\">");
@@ -510,7 +511,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
         out.append(buf.toString());
     }
 
-    private HtmlTag addButtonTo(StringBuffer buf, String name,
+    private HtmlTag addButtonTo(StringBuilder buf, String name,
                                String label) {
 
         LocalizationService ls = LocalizationService.getInstance();
@@ -524,7 +525,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
 
     }
 
-    private HtmlTag addButtonTo(StringBuffer buf, String name,
+    private HtmlTag addButtonTo(StringBuilder buf, String name,
                                String label, String id) {
 
         HtmlTag input = addButtonTo(buf, name, label);
@@ -666,12 +667,12 @@ public class ListDisplayTag extends ListDisplayTagBase {
         rowCnt++;
         rowCnt = rowCnt % 2;
 
-        StringBuffer retval;
+        StringBuilder retval;
         if (rowCnt == 1 || isTransparent()) {
-            retval = new StringBuffer("<tr class=\"list-row-odd");
+            retval = new StringBuilder("<tr class=\"list-row-odd");
         }
         else {
-            retval = new StringBuffer("<tr class=\"list-row-even");
+            retval = new StringBuilder("<tr class=\"list-row-even");
         }
         if (renderDisabled() && o instanceof UserOverview &&
                 ((UserOverview)o).getStatus() != null &&
@@ -690,11 +691,11 @@ public class ListDisplayTag extends ListDisplayTagBase {
      * <pre>
      * <input type="hidden" name="foo" value="bar" />
      * </pre>
-     * @param buf StringBuffer that will be affected.
+     * @param buf StringBuilder that will be affected.
      * @param name Name of hidden input tag.
      * @param value Value of hidden input tag.
      */
-    private void renderHidden(StringBuffer buf, String name, String value) {
+    private void renderHidden(StringBuilder buf, String name, String value) {
         HtmlTag input = new HtmlTag("input");
         input.setAttribute("type", "hidden");
         input.setAttribute("name", name);
@@ -702,34 +703,13 @@ public class ListDisplayTag extends ListDisplayTagBase {
         buf.append(input.render() + "\n");
     }
 
-    private void renderViewAllLink(JspWriter out) {
-
-
-        /*
-         * Bugzilla #185976
-         * Link isn't working correctly commenting out for now
-         * TODO: fix this
-         * HtmlTag link = new HtmlTag("a");*/
-
-        /*
-        link.setAttribute("href", "/rhn/Load.do?pagesize=" +
-                pageList.getTotalSize() + "&amp;what=" + getDomainClass() +
-                "&amp;return_url=" + buildReturnUrl());
-
-        link.addBody(
-                LocalizationService.getInstance().getMessage(
-                        "listdisplaytag.viewall"));
-
-        out.println(link.render());*/
-    }
-
     private void renderAlphabar(Writer out) throws IOException {
-        StringBuffer target = new StringBuffer();
+        StringBuilder target = new StringBuilder();
 
         target.append("<div class=\"spacewalk-alphabar\">");
 
         target.append("<ul class=\"pagination pagination-sm\">");
-        StringBuffer enabled = new StringBuffer("<li><a href=\"");
+        StringBuilder enabled = new StringBuilder("<li><a href=\"");
         enabled.append("?lower={1}");
 
         /**
@@ -807,11 +787,11 @@ public class ListDisplayTag extends ListDisplayTagBase {
      * and should not be part of the URL's in the Alphabar
      * @return a set of all URL variables that are pagination-specific
      */
-    private static Set buildPaginationWashSet() {
+    private static Set<String> buildPaginationWashSet() {
         String [] keys = new String[] {FIRST, PREV, NEXT, LAST,
                                         FIRST_LOWER, PREV_LOWER,
                                             NEXT_LOWER, LAST_LOWER };
-        Set result = new HashSet();
+        Set<String> result = new HashSet<String>();
         for (int i = 0; i < keys.length; i++) {
             result.add(keys[i]);
         }

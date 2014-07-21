@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -237,7 +237,7 @@ public class ChannelAction extends RhnSetAction {
      * {@inheritDoc}
      * Add publish method to our map of dispatch methods
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("errata.publish.publisherrata", "publish");
         map.put("errata.channels.updatechannels", "updateChannels");
     }
@@ -248,7 +248,7 @@ public class ChannelAction extends RhnSetAction {
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         //keep eid in params
         Long eid = new RequestContext(request).getRequiredParam("eid");
         //keep track of return visit

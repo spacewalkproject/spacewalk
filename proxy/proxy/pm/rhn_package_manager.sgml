@@ -40,6 +40,24 @@ Manages RPM packages for the Spacewalk Proxy
     installed using <command>rpm</command>. The &RHNPM; is used to populate
     those custom channels with RPMs and SRPMs.
 </para>
+
+<para>
+    The &RHNPM; also provides the ability to create a local cache of RPMs that
+    does not expire and will be used instead of downloading the RPM when
+    applicable. This is useful even if the RPMs would be available otherwise
+    because it reduces the bandwidth required and can greatly speed up
+    RPM retrieval in the case of a slow network. This is accomplished with the
+    <emphasis>--cache-locally</emphasis> option in conjuction with a file list.
+    Normally the file list would come from the
+    <emphasis>--from-export</emphasis> or <emphasis>--dir</emphasis> options,
+    but the <emphasis>--stdin</emphasis> option or a file list specified on the
+    command line will also work. If for some reason you need to remove packages
+    from this cache in the future you will need to delete them from the
+    /var/spool/rhn-proxy/rhn directory. It is also possible to manually
+    populate this cache by copying the files / directories from
+    $base/redhat/*/ on a Spacewalk server into the above directory (where
+    $base is configurable, but by default is /var/satellite).
+</para>
 </RefSect1>
 
 <RefSect1><Title>Options</Title>
@@ -58,10 +76,44 @@ Manages RPM packages for the Spacewalk Proxy
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>-L, --cache-locally</term>
+        <listitem>
+            <para>Only copy packages into the local cache; don't upload or
+                  import the package metadata anywhere else. The only options
+                  that can be used with <emphasis>--cache-locally</emphasis>
+                  are <emphasis>--test</emphasis>,
+                  <emphasis>--from-export</emphasis>,
+                  <emphasis>--dir</emphasis>,
+                  <emphasis>--stdin</emphasis>, and
+                  <emphasis>--channel</emphasis> when used with
+                  <emphasis>--from-export</emphasis>.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-e <replaceable>export_location</replaceable>,
+            --from-export <replaceable>export_location</replaceable></term>
+        <listitem>
+            <para>Process packages from the channel export. This can be either
+                  a channel export that you have generated with
+                  rhn-satellite-exporter or channel dump ISOs obtained
+                  elsewhere (ISOs must be mounted, and the mount location given
+                  here). If used with <emphasis>--channel</emphasis> this
+                  will only process packages that are contained in that
+                  channel, else all packages in the export will be processed.
+                  If the channel export is spread across multiple ISOs it is
+                  not required that you recombine them locally before running
+                  <emphasis>rhn_package_manager</emphasis>, however you must
+                  repeat the same command with each ISO to ensure that all
+                  packages are found. Only functions in conjunction with the
+                  <emphasis>--cache-locally</emphasis> or
+                  <emphasis>--copyonly</emphasis> options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>-c <replaceable>channel</replaceable>, 
             --channel <replaceable>channel</replaceable></term>
         <listitem>
-            <para>Manage this channel -- may be present multiple times.</para>
+            <para>Operate on this channel -- may be present multiple times.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -145,9 +197,8 @@ Manages RPM packages for the Spacewalk Proxy
     <varlistentry>
         <term>--copyonly</term>
         <listitem>
-            <para>Only copy packages; don't reimport. I.e., Merely copy a file
-                into the repository/package-tree, do not upload/reimport its
-                metadata.</para>
+            <para>An alias to <emphasis>--cache-locally</emphasis> for
+                  backwards compatiblity.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

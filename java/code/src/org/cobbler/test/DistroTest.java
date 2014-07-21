@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -46,8 +46,9 @@ public class DistroTest extends TestCase {
             "/var/satellite/rhn/kickstart/ks-rhel-i386-as-4-u2//images/pxeboot/initrd.img";
         String breed = "redhat";
         String osVersion = "rhel4";
+        String arch = "i386";
         Distro newDistro = Distro.create(client, name, kernel, initrd, new HashMap(),
-                breed, osVersion);
+                breed, osVersion, arch);
         assertEquals(name, newDistro.getName());
         assertEquals(kernel, newDistro.getKernel());
         assertEquals(initrd, newDistro.getInitrd());

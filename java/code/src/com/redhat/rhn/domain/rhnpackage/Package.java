@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -658,7 +658,7 @@ public class Package extends BaseDomainHelper {
     public String getFilename() {
         String pkgFile = getFile();
         if (pkgFile == null) {
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             buf.append(getPackageName().getName());
             buf.append("-");
             buf.append(getPackageEvr().getVersion());

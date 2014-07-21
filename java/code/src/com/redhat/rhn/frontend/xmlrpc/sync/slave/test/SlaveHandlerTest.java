@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013 Red Hat, Inc.
+ * Copyright (c) 2013--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -41,7 +41,7 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
     public void testCreate() {
         // Make sure that non-sat-admin users cannot access
         try {
-            IssSlave slave = handler.create(regularKey, slaveName, true, true);
+            IssSlave slave = handler.create(regular, slaveName, true, true);
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -50,7 +50,7 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            IssSlave slave = handler.create(adminKey, slaveName, true, true);
+            IssSlave slave = handler.create(admin, slaveName, true, true);
             assertEquals(slaveName, slave.getSlave());
             assertTrue("Y".equals(slave.getEnabled()));
             assertTrue("Y".equals(slave.getAllowAllOrgs()));
@@ -61,11 +61,11 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
    }
 
     public void testUpdate() {
-        IssSlave slave = handler.create(adminKey, slaveName, true, true);
+        IssSlave slave = handler.create(admin, slaveName, true, true);
 
         // Make sure that non-sat-admin users cannot access
         try {
-            IssSlave updSlave = handler.update(regularKey,
+            IssSlave updSlave = handler.update(regular,
                     slave.getId().intValue(),
                     "new_" + slaveName,
                     false,
@@ -78,7 +78,7 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            IssSlave updSlave = handler.update(adminKey, slave.getId().intValue(),
+            IssSlave updSlave = handler.update(admin, slave.getId().intValue(),
                     "new_" + slaveName, false, false);
             assertEquals("new_" + slaveName, updSlave.getSlave());
             assertEquals(slave.getId(), updSlave.getId());
@@ -91,12 +91,12 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testDelete() {
-        IssSlave slave = handler.create(adminKey, slaveName, true, true);
+        IssSlave slave = handler.create(admin, slaveName, true, true);
         Long slaveId = slave.getId();
 
         // Make sure that non-sat-admin users cannot access
         try {
-            int rmvd = handler.delete(regularKey, slave.getId().intValue());
+            int rmvd = handler.delete(regular, slave.getId().intValue());
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -105,7 +105,7 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            int rmvd = handler.delete(adminKey, slave.getId().intValue());
+            int rmvd = handler.delete(admin, slave.getId().intValue());
             assertEquals(1, rmvd);
         }
         catch (PermissionCheckFailureException e) {
@@ -118,12 +118,12 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testGetSlave() {
-        IssSlave slave = handler.create(adminKey, slaveName, true, true);
+        IssSlave slave = handler.create(admin, slaveName, true, true);
         Integer slaveId = slave.getId().intValue();
 
         // Make sure that non-sat-admin users cannot access
         try {
-            IssSlave gotSlave = handler.getSlave(regularKey, slaveId);
+            IssSlave gotSlave = handler.getSlave(regular, slaveId);
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -132,7 +132,7 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            IssSlave gotSlave = handler.getSlave(adminKey, slaveId);
+            IssSlave gotSlave = handler.getSlave(admin, slaveId);
             assertEquals(slaveId.intValue(), gotSlave.getId().intValue());
         }
         catch (PermissionCheckFailureException e) {
@@ -141,11 +141,11 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testGetAllowedOrgs() {
-        IssSlave slave = handler.create(adminKey, slaveName, true, false);
+        IssSlave slave = handler.create(admin, slaveName, true, false);
 
         // Make sure that non-sat-admin users cannot access
         try {
-            List<Integer> orgs = handler.getAllowedOrgs(regularKey,
+            List<Integer> orgs = handler.getAllowedOrgs(regular,
                     slave.getId().intValue());
             fail();
         }
@@ -155,7 +155,7 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            List<Integer> orgs = handler.getAllowedOrgs(adminKey,
+            List<Integer> orgs = handler.getAllowedOrgs(admin,
                     slave.getId().intValue());
             assertNotNull(orgs);
             assertEquals(0, orgs.size());
@@ -166,15 +166,15 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testSetAllowedOrgs() {
-        IssSlave slave = handler.create(adminKey, slaveName, true, false);
+        IssSlave slave = handler.create(admin, slaveName, true, false);
 
         List<Integer> orgs = getBareOrgs();
 
         // Make sure that non-sat-admin users cannot access
         try {
-            IssSlave m = handler.getSlave(adminKey, slave.getId().intValue());
+            IssSlave m = handler.getSlave(admin, slave.getId().intValue());
             assertNotNull(m);
-            orgs = handler.getAllowedOrgs(regularKey, slave.getId().intValue());
+            orgs = handler.getAllowedOrgs(regular, slave.getId().intValue());
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -183,12 +183,12 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            IssSlave m = handler.getSlave(adminKey, slave.getId().intValue());
+            IssSlave m = handler.getSlave(admin, slave.getId().intValue());
             assertNotNull(m);
             assertEquals(0, m.getAllowedOrgs().size());
-            int rc = handler.setAllowedOrgs(adminKey, m.getId().intValue(), orgs);
+            int rc = handler.setAllowedOrgs(admin, m.getId().intValue(), orgs);
             assertEquals(1, rc);
-            IssSlave m2 = handler.getSlave(adminKey, slave.getId().intValue());
+            IssSlave m2 = handler.getSlave(admin, slave.getId().intValue());
             assertEquals(orgs.size(), m2.getAllowedOrgs().size());
         }
         catch (PermissionCheckFailureException e) {
@@ -199,23 +199,23 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
         orgs.add(1);
 
         // Make sure setting to one-new-one, really sets to one
-        IssSlave m3 = handler.getSlave(adminKey, slave.getId().intValue());
-        int rc = handler.setAllowedOrgs(adminKey,
+        IssSlave m3 = handler.getSlave(admin, slave.getId().intValue());
+        int rc = handler.setAllowedOrgs(admin,
                 m3.getId().intValue(),
                 orgs);
         assertEquals(1, rc);
-        orgs = handler.getAllowedOrgs(adminKey,
+        orgs = handler.getAllowedOrgs(admin,
                 slave.getId().intValue());
         assertNotNull(orgs);
         assertEquals(1, orgs.size());
 
         // Make sure resetting to "empty" works
-        IssSlave m4 = handler.getSlave(adminKey, slave.getId().intValue());
-        rc = handler.setAllowedOrgs(adminKey,
+        IssSlave m4 = handler.getSlave(admin, slave.getId().intValue());
+        rc = handler.setAllowedOrgs(admin,
                 m4.getId().intValue(),
                 new ArrayList<Integer>());
         assertEquals(1, rc);
-        orgs = handler.getAllowedOrgs(adminKey, slave.getId().intValue());
+        orgs = handler.getAllowedOrgs(admin, slave.getId().intValue());
         assertNotNull(orgs);
         assertEquals(0, orgs.size());
 

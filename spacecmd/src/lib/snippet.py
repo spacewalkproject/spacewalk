@@ -20,6 +20,15 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
+
 from optparse import Option
 from spacecmd.utils import *
 
@@ -48,7 +57,7 @@ def complete_snippet_details(self, text, line, beg, end):
                               text)
 
 def do_snippet_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_snippet_details()
@@ -58,7 +67,7 @@ def do_snippet_details(self, args):
 
     snippets = self.client.kickstart.snippet.listCustom(self.session)
 
-    snippet = ''
+    snippet = None
     for name in args:
         for s in snippets:
             if s.get('name') == name:
@@ -69,7 +78,8 @@ def do_snippet_details(self, args):
             logging.warning('%s is not a valid snippet' % name)
             continue
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Name:   %s' % snippet.get('name')
@@ -115,7 +125,7 @@ def do_snippet_create(self, args, update_name = ''):
                              nospacer = True, ignore_yes = True):
             options.file = prompt_user('File:')
         else:
-            (contents, ignore) = editor(template = contents,
+            (contents, _ignore) = editor(template = contents,
                                                 delete=True)
     else:
         if not options.name:
@@ -150,7 +160,7 @@ def complete_snippet_update(self, text, line, beg, end):
     return tab_completer(self.do_snippet_list('', True), text)
 
 def do_snippet_update(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_snippet_update()
@@ -168,7 +178,7 @@ def complete_snippet_delete(self, text, line, beg, end):
     return tab_completer(self.do_snippet_list('', True), text)
 
 def do_snippet_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_snippet_delete()

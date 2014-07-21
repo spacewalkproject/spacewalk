@@ -42,6 +42,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     private Long availableMembers;
     private Long packageCount;
     private Long systemCount;
+    private Long errataCount;
     private String channelLabel;
     private Long channelFamilyId;
     private Long channelFamilySearchedFor;
@@ -484,6 +485,20 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      */
     public void setArchName(String archNameIn) {
         this.archName = archNameIn;
+    }
+
+    /**
+     * @return errata count for channel
+     */
+    public Long getErrataCount() {
+        return errataCount;
+    }
+
+    /**
+     * @param errataCountIn errata count to set
+     */
+    public void setErrataCount(Long errataCountIn) {
+        this.errataCount = errataCountIn;
     }
 
 }

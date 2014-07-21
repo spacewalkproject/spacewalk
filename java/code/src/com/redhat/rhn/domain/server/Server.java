@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -1405,7 +1405,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public String getAddOnEntitlementsAsText() {
         Set<?> addOnEntitlements = getAddOnEntitlements();
         Iterator<?> iterator = addOnEntitlements.iterator();
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         Entitlement entitlement = null;
 
         while (iterator.hasNext()) {

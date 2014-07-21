@@ -41,14 +41,14 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
         String name = "My External Group Name" + TestUtils.randomString();
         //admin should be able to call list users, regular should not
         UserExtGroup result =
-                handler.createExternalGroupToRoleMap(satAdminKey, name, roles);
+                handler.createExternalGroupToRoleMap(satAdmin, name, roles);
         assertNotNull(result);
 
         //make sure we get a permission exception if a regular user tries to get the user
         //list.
         try {
             result =
-                    handler.createExternalGroupToRoleMap(regularKey,
+                    handler.createExternalGroupToRoleMap(regular,
                             "another group" + TestUtils.randomString(), roles);
             fail();
         }
@@ -58,7 +58,7 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
 
         //can't add the same group twice
         try {
-            result = handler.createExternalGroupToRoleMap(satAdminKey, name, roles);
+            result = handler.createExternalGroupToRoleMap(satAdmin, name, roles);
             fail();
         }
         catch (ExternalGroupAlreadyExistsException e) {
@@ -66,7 +66,7 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
         }
 
         //make sure at least this group is in the list
-        List<UserExtGroup> groups = handler.listExternalGroupToRoleMaps(satAdminKey);
+        List<UserExtGroup> groups = handler.listExternalGroupToRoleMaps(satAdmin);
         Set<String> names = new HashSet<String>();
         for (UserExtGroup g : groups) {
             names.add(g.getLabel());
@@ -75,7 +75,7 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
 
         //regular user can't update
         try {
-            handler.setExternalGroupRoles(regularKey, name, roles);
+            handler.setExternalGroupRoles(regular, name, roles);
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -83,27 +83,27 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
         }
 
         //set org_admin, make sure we get all implied roles. implicitly testing get.
-        handler.setExternalGroupRoles(satAdminKey, name,
+        handler.setExternalGroupRoles(satAdmin, name,
                 Arrays.asList(RoleFactory.ORG_ADMIN.getLabel()));
-        UserExtGroup group = handler.getExternalGroupToRoleMap(satAdminKey, name);
+        UserExtGroup group = handler.getExternalGroupToRoleMap(satAdmin, name);
         assertEquals(UserFactory.IMPLIEDROLES.size() + 1, group.getRoles().size());
 
         //if we set just two roles all others should be deleted
-        handler.setExternalGroupRoles(satAdminKey, name, roles);
-        group = handler.getExternalGroupToRoleMap(satAdminKey, name);
+        handler.setExternalGroupRoles(satAdmin, name, roles);
+        group = handler.getExternalGroupToRoleMap(satAdmin, name);
         assertTrue(group.getRoles().size() == 2);
 
         //regular user can't delete
         int success = -1;
         try {
-            success = handler.deleteExternalGroupToRoleMap(regularKey, name);
+            success = handler.deleteExternalGroupToRoleMap(regular, name);
             fail();
         }
         catch (PermissionCheckFailureException e) {
             //success
         }
 
-        success = handler.deleteExternalGroupToRoleMap(satAdminKey, name);
+        success = handler.deleteExternalGroupToRoleMap(satAdmin, name);
         assertTrue(success == 1);
     }
 
@@ -112,18 +112,18 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
         String systemGroupName = "my-system-group-name" + TestUtils.randomString();
         String desc = TestUtils.randomString();
         ServerGroupHandler sghandler = new ServerGroupHandler();
-        sghandler.create(adminKey, systemGroupName, desc);
+        sghandler.create(admin, systemGroupName, desc);
 
         //admin should be able to call list users, regular should not
         OrgUserExtGroup result =
-                handler.createExternalGroupToSystemGroupMap(adminKey, name,
+                handler.createExternalGroupToSystemGroupMap(admin, name,
                         Arrays.asList(systemGroupName));
 
         //make sure we get a permission exception if a regular user tries to get the user
         //list.
         try {
             result =
-                    handler.createExternalGroupToSystemGroupMap(regularKey,
+                    handler.createExternalGroupToSystemGroupMap(regular,
                             "another group" + TestUtils.randomString(),
                             Arrays.asList(systemGroupName));
             fail();
@@ -135,7 +135,7 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
         //can't add the same group twice
         try {
             result =
-                    handler.createExternalGroupToSystemGroupMap(adminKey, name,
+                    handler.createExternalGroupToSystemGroupMap(admin, name,
                             Arrays.asList(systemGroupName));
             fail();
         }
@@ -144,7 +144,7 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
         }
 
         //make sure at least this group is in the list
-        List<OrgUserExtGroup> groups = handler.listExternalGroupToSystemGroupMaps(adminKey);
+        List<OrgUserExtGroup> groups = handler.listExternalGroupToSystemGroupMaps(admin);
         Set<String> names = new HashSet<String>();
         for (OrgUserExtGroup g : groups) {
             names.add(g.getLabel());
@@ -153,7 +153,7 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
 
         //regular user can't update
         try {
-            handler.setExternalGroupSystemGroups(regularKey, name,
+            handler.setExternalGroupSystemGroups(regular, name,
                     Arrays.asList(systemGroupName));
             fail();
         }
@@ -162,50 +162,50 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
         }
 
         //set sysgroup, implicitly testing get.
-        handler.setExternalGroupSystemGroups(adminKey, name,
+        handler.setExternalGroupSystemGroups(admin, name,
                 Arrays.asList(systemGroupName));
-        OrgUserExtGroup group = handler.getExternalGroupToSystemGroupMap(adminKey, name);
+        OrgUserExtGroup group = handler.getExternalGroupToSystemGroupMap(admin, name);
         assertEquals(1, group.getServerGroups().size());
         assertTrue(group.getServerGroupsName().contains(systemGroupName));
 
         //regular user can't delete
         int success = -1;
         try {
-            success = handler.deleteExternalGroupToSystemGroupMap(regularKey, name);
+            success = handler.deleteExternalGroupToSystemGroupMap(regular, name);
             fail();
         }
         catch (PermissionCheckFailureException e) {
             //success
         }
 
-        success = handler.deleteExternalGroupToSystemGroupMap(adminKey, name);
+        success = handler.deleteExternalGroupToSystemGroupMap(admin, name);
         assertTrue(success == 1);
 
-        sghandler.delete(adminKey, systemGroupName);
+        sghandler.delete(admin, systemGroupName);
     }
 
     public void testDefaultOrg() {
-        int currentDefault = handler.getDefaultOrg(satAdminKey);
-        handler.setDefaultOrg(satAdminKey, 0);
-        assertTrue(0 == handler.getDefaultOrg(satAdminKey));
+        int currentDefault = handler.getDefaultOrg(satAdmin);
+        handler.setDefaultOrg(satAdmin, 0);
+        assertTrue(0 == handler.getDefaultOrg(satAdmin));
 
-        handler.setDefaultOrg(satAdminKey, 1);
-        assertTrue(1 == handler.getDefaultOrg(satAdminKey));
+        handler.setDefaultOrg(satAdmin, 1);
+        assertTrue(1 == handler.getDefaultOrg(satAdmin));
 
-        handler.setDefaultOrg(satAdminKey, currentDefault);
+        handler.setDefaultOrg(satAdmin, currentDefault);
     }
 
     public void testKeepRoles() {
-        boolean currentKeepRoles = handler.getKeepTemporaryRoles(satAdminKey);
-        handler.setKeepTemporaryRoles(satAdminKey, !currentKeepRoles);
-        assertTrue(!currentKeepRoles == handler.getKeepTemporaryRoles(satAdminKey));
-        handler.setKeepTemporaryRoles(satAdminKey, currentKeepRoles);
+        boolean currentKeepRoles = handler.getKeepTemporaryRoles(satAdmin);
+        handler.setKeepTemporaryRoles(satAdmin, !currentKeepRoles);
+        assertTrue(!currentKeepRoles == handler.getKeepTemporaryRoles(satAdmin));
+        handler.setKeepTemporaryRoles(satAdmin, currentKeepRoles);
     }
 
     public void testUseOrgUnit() {
-        boolean currentUseOrgUnit = handler.getUseOrgUnit(satAdminKey);
-        handler.setUseOrgUnit(satAdminKey, !currentUseOrgUnit);
-        assertTrue(!currentUseOrgUnit == handler.getUseOrgUnit(satAdminKey));
-        handler.setUseOrgUnit(satAdminKey, currentUseOrgUnit);
+        boolean currentUseOrgUnit = handler.getUseOrgUnit(satAdmin);
+        handler.setUseOrgUnit(satAdmin, !currentUseOrgUnit);
+        assertTrue(!currentUseOrgUnit == handler.getUseOrgUnit(satAdmin));
+        handler.setUseOrgUnit(satAdmin, currentUseOrgUnit);
     }
 }

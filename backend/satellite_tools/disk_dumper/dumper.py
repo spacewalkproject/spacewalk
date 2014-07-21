@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -42,6 +42,7 @@ class XML_Dumper:
         self.channel_ids = []
         self.channel_ids_for_families = []
         self.exportable_orgs = 'null'
+        self._raw_stream = None
 
     def send(self, data):
         # to be overwritten in subclass
@@ -61,7 +62,8 @@ class XML_Dumper:
         """ % self._channel_family_query
         return rhnSQL.prepare(query)
 
-    def get_orgs_statement(self, org_ids):
+    @staticmethod
+    def get_orgs_statement(org_ids):
         query = """
             select wc.id, wc.name
               from web_customer wc
@@ -69,7 +71,8 @@ class XML_Dumper:
         """ % org_ids
         return rhnSQL.prepare(query)
 
-    def get_channel_families_statement_new(self, cids):
+    @staticmethod
+    def get_channel_families_statement_new(cids):
 
         args = {
            'ch_ids'     : cids
@@ -195,7 +198,7 @@ class XML_Dumper:
     def dump_channel_families(self):
         log_debug(2)
 
-        cids = ','.join(map(lambda x:str(x['channel_id']), self.channel_ids + self.channel_ids_for_families))
+        cids = ','.join([str(x['channel_id']) for x in self.channel_ids + self.channel_ids_for_families])
 
         h = self.get_channel_families_statement_new(cids)
         h.execute()
@@ -363,15 +366,16 @@ class XML_Dumper:
         return self._packages(packages, prefix='rhn-source-package-',
             dump_class=SourcePackagesDumper, sources=1)
 
-    def _get_item_id(self, prefix, name, errnum, errmsg):
+    @staticmethod
+    def _get_item_id(prefix, name, errnum, errmsg):
         prefix_len = len(prefix)
         if name[:prefix_len] != prefix:
             raise rhnFault(errnum, errmsg % name)
         try:
-            id = int(name[prefix_len:])
+            uuid = int(name[prefix_len:])
         except ValueError:
             raise rhnFault(errnum, errmsg % name), None, sys.exc_info()[2]
-        return id
+        return uuid
 
     def _packages(self, packages, prefix, dump_class, sources=0,
                         verify_packages=False):
@@ -457,7 +461,8 @@ class XML_Dumper:
             all_channels_hash[row['label']] = row
 
         # Intersect the list of channels they've sent to us
-        iss_slave_sha256_capable = (float(rhnFlags.get('X-RHN-Satellite-XML-Dump-Version')) >= constants.SHA256_SUPPORTED_VERSION)
+        iss_slave_sha256_capable = (float(rhnFlags.get('X-RHN-Satellite-XML-Dump-Version')) \
+                                    >= constants.SHA256_SUPPORTED_VERSION)
 
         if not channel_labels:
             channels = all_channels_hash
@@ -642,7 +647,8 @@ class CachedDumper(exportLib.BaseDumper):
         exportLib.BaseDumper.__init__(self, writer, data_iterator=iterator)
         self.non_cached_class = self.__class__.__bases__[1]
 
-    def _get_last_modified(self, params):
+    @staticmethod
+    def _get_last_modified(params):
         """ To be overwritten. """
         return params['last_modified']
 
@@ -701,7 +707,7 @@ class ChannelsDumper(exportLib.ChannelsDumper):
            and c.channel_arch_id = ca.id
     """)
 
-    def __init__(self, writer, channels=[], start_date=None, end_date=None, use_rhn_date=True, whole_errata=False):
+    def __init__(self, writer, channels=(), start_date=None, end_date=None, use_rhn_date=True, whole_errata=False):
         exportLib.ChannelsDumper.__init__(self, writer, channels)
         self.start_date = start_date
         self.end_date = end_date
@@ -711,6 +717,7 @@ class ChannelsDumper(exportLib.ChannelsDumper):
     def dump_subelement(self, data):
         log_debug(6, data)
         #return exportLib.ChannelsDumper.dump_subelement(self, data)
+        # pylint: disable=W0212
         c = exportLib._ChannelDumper(self._writer, data, self.start_date, self.end_date,
                 self.use_rhn_date, self.whole_errata)
         c.dump()

@@ -16,15 +16,25 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 # Copyright 2013 Aron Parsons <aronparsons@gmail.com>
-# Copyright (c) 2013 Red Hat, Inc.
+# Copyright (c) 2013--2014 Red Hat, Inc.
 #
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
+
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
 
 import shlex
 from getpass import getpass
 from optparse import Option
 from spacecmd.utils import *
+import xmlrpclib
 
 def help_user_create(self):
     print 'user_create: Create an user'
@@ -96,7 +106,7 @@ def do_user_create(self, args):
             # when PAM is enabled
             if options.password:
                 logging.warning("Note password field is ignored for PAM mode")
-            options.password=""
+            options.password = ""
         else:
             options.pam = 0
 
@@ -118,7 +128,7 @@ def complete_user_delete(self, text, line, beg, end):
     return tab_completer(self.do_user_list('', True), text)
 
 def do_user_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 1:
         self.help_user_delete()
@@ -139,7 +149,7 @@ def complete_user_disable(self, text, line, beg, end):
     return tab_completer(self.do_user_list('', True), text)
 
 def do_user_disable(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 1:
         self.help_user_disable()
@@ -159,7 +169,7 @@ def complete_user_enable(self, text, line, beg, end):
     return tab_completer(self.do_user_list('', True), text)
 
 def do_user_enable(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 1:
         self.help_user_enable()
@@ -216,7 +226,7 @@ def complete_user_addrole(self, text, line, beg, end):
                                   text)
 
 def do_user_addrole(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_user_addrole()
@@ -244,7 +254,7 @@ def complete_user_removerole(self, text, line, beg, end):
         return tab_completer(roles, text)
 
 def do_user_removerole(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_user_removerole()
@@ -265,7 +275,7 @@ def complete_user_details(self, text, line, beg, end):
     return tab_completer(self.do_user_list('', True), text)
 
 def do_user_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_user_details()
@@ -286,7 +296,7 @@ def do_user_details(self, args):
             default_groups = \
                 self.client.user.listDefaultSystemGroups(self.session,
                                                          user)
-        except:
+        except xmlrpclib.Fault:
             logging.warning('%s is not a valid user' % user)
             continue
 
@@ -294,7 +304,8 @@ def do_user_details(self, args):
                                                  details.get('org_id'))
         organization = org_details.get('name')
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Username:      %s' % user
@@ -332,7 +343,8 @@ def help_user_addgroup(self):
 
 def complete_user_addgroup(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -340,7 +352,7 @@ def complete_user_addgroup(self, text, line, beg, end):
         return tab_completer(self.do_group_list('', True), parts[-1])
 
 def do_user_addgroup(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_user_addgroup()
@@ -362,7 +374,8 @@ def help_user_adddefaultgroup(self):
 
 def complete_user_adddefaultgroup(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -370,7 +383,7 @@ def complete_user_adddefaultgroup(self, text, line, beg, end):
         return tab_completer(self.do_group_list('', True), parts[-1])
 
 def do_user_adddefaultgroup(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_user_adddefaultgroup()
@@ -391,7 +404,8 @@ def help_user_removegroup(self):
 
 def complete_user_removegroup(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -402,7 +416,7 @@ def complete_user_removegroup(self, text, line, beg, end):
         return tab_completer([ g.get('name') for g in groups ], parts[-1])
 
 def do_user_removegroup(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_user_removegroup()
@@ -425,7 +439,8 @@ def help_user_removedefaultgroup(self):
 
 def complete_user_removedefaultgroup(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -436,7 +451,7 @@ def complete_user_removedefaultgroup(self, text, line, beg, end):
         return tab_completer([ g.get('name') for g in groups ], parts[-1])
 
 def do_user_removedefaultgroup(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_user_removedefaultgroup()
@@ -457,7 +472,8 @@ def help_user_setfirstname(self):
 
 def complete_user_setfirstname(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append(' ')
+    if line[-1] == ' ':
+        parts.append(' ')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -465,7 +481,7 @@ def complete_user_setfirstname(self, text, line, beg, end):
         return
 
 def do_user_setfirstname(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_user_setfirstname()
@@ -484,7 +500,8 @@ def help_user_setlastname(self):
 
 def complete_user_setlastname(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append(' ')
+    if line[-1] == ' ':
+        parts.append(' ')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -492,7 +509,7 @@ def complete_user_setlastname(self, text, line, beg, end):
         return
 
 def do_user_setlastname(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_user_setlastname()
@@ -511,7 +528,8 @@ def help_user_setemail(self):
 
 def complete_user_setemail(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append(' ')
+    if line[-1] == ' ':
+        parts.append(' ')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -519,7 +537,7 @@ def complete_user_setemail(self, text, line, beg, end):
         return
 
 def do_user_setemail(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_user_setemail()
@@ -538,7 +556,8 @@ def help_user_setprefix(self):
 
 def complete_user_setprefix(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append(' ')
+    if line[-1] == ' ':
+        parts.append(' ')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -546,7 +565,7 @@ def complete_user_setprefix(self, text, line, beg, end):
         return
 
 def do_user_setprefix(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) > 2:
         self.help_user_setprefix()
@@ -572,7 +591,8 @@ def help_user_setpassword(self):
 
 def complete_user_setpassword(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append(' ')
+    if line[-1] == ' ':
+        parts.append(' ')
 
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -580,7 +600,7 @@ def complete_user_setpassword(self, text, line, beg, end):
         return
 
 def do_user_setpassword(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_user_setpassword()

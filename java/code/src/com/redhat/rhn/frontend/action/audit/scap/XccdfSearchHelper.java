@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012 Red Hat, Inc.
+ * Copyright (c) 2012--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -95,7 +95,7 @@ public class XccdfSearchHelper extends RhnAction {
     }
 
     private static String keywordsToUpper(String searchString) {
-        StringBuffer buf = new StringBuffer(searchString.length() + 1);
+        StringBuilder buf = new StringBuilder(searchString.length() + 1);
         for (String s : searchString.split(" ")) {
             if (s.trim().equalsIgnoreCase("AND") ||
                     s.trim().equalsIgnoreCase("OR") ||

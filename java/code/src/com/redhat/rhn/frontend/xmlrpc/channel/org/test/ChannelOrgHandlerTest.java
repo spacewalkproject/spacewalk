@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -62,7 +62,7 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         // execute
-        List<Map<String, Object>> result = handler.list(adminKey, channel.getLabel());
+        List<Map<String, Object>> result = handler.list(admin, channel.getLabel());
 
         // verify
         assertNotNull(result);
@@ -110,7 +110,7 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         assertFalse(channel.getTrustedOrgs().contains(org3));
 
         // execute
-        int result = handler.enableAccess(adminKey, channel.getLabel(),
+        int result = handler.enableAccess(admin, channel.getLabel(),
                 org3.getId().intValue());
 
         // verify
@@ -141,7 +141,7 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         // execute
-        int result = handler.disableAccess(adminKey, channel.getLabel(),
+        int result = handler.disableAccess(admin, channel.getLabel(),
                 org3.getId().intValue());
 
         // verify
@@ -162,7 +162,7 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         String email = "EddieNorton@redhat.com";
         Boolean usePam = Boolean.FALSE;
 
-        orgHandler.create(adminKey, orgName, login, password, prefix, first,
+        orgHandler.create(admin, orgName, login, password, prefix, first,
                 last, email, usePam);
 
         Org org =  OrgFactory.lookupByName(orgName);

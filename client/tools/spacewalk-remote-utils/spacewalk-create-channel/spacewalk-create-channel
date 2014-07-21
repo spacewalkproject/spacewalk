@@ -23,7 +23,7 @@ DATA_DIR = "./data/"
 DATA_DIR_RHN = "/usr/share/rhn/channel-data/"
 GATHER_DIR = "/mnt/engarchive2/released/"
 
-versions = ( "6", "5", "4", "3", "2.1" );
+versions = ( "7", "6", "5", "4", "3", "2.1" );
 releases = ( "AS", "ES", "WS", "Server", "Client", "Desktop", "Appliance",
 		"ComputeNode", "WebServer", "Workstation");
 arches = ( "i386",  "ia64",  "ppc",  "s390",  "s390x",  "x86_64", "ppc64");
@@ -413,6 +413,26 @@ def gather(clear):
                   #do optional
                   fullDir = GATHER_DIR + "RHEL-%s/%s.%s/%s/optional/%s/os/" % (version, version, update_num, release, arch)
                   saveRpmList(fullDir + "/Packages/", DATA_DIR + getFileName(version, update,release, arch, 'optional'))
+
+               elif float(version) == 7:
+                  if update == "GOLD":
+                    update_num = "0"
+                  else:
+                    update_num = update.replace("U","") #strip the U
+                  # RHEL-7/7.0/Server/x86_64/os/
+                  repoDir = "RHEL-%s/%s.%s/%s/%s/os/" % (version, version, update_num, release, arch)
+                  fullDir = GATHER_DIR + repoDir
+
+                  saveRpmList(fullDir + "/Packages/", DATA_DIR + getFileName(version, update,release, arch))
+
+                  #now lets handle the other repos:
+                  for subrepo in subrepos:
+                     saveRpmList(fullDir +  '/addons/' + subrepo, DATA_DIR + getFileName(version, update,release, arch, subrepo))
+
+                  #do optional
+                  fullDir = GATHER_DIR + "RHEL-%s/%s.%s/%s-optional/%s/os/" % (version, version, update_num, release, arch)
+                  saveRpmList(fullDir + "/Packages/", DATA_DIR + getFileName(version, update,release, arch, 'optional'))
+
 
 def saveRpmList(source, filename):
    if path.exists(source) and not path.exists(filename):

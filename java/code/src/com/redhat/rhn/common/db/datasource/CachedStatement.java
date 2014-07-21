@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -313,7 +313,7 @@ public class CachedStatement implements Serializable {
             // TODO: what if inClause is > 1000 items, do we let
             // the DB blow up or catch it here? what do we do if
             // we have > 1000.  Not much we can do.
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
 
             int len = inClause.size();
             Object o = inClause.get(0);
@@ -385,7 +385,7 @@ public class CachedStatement implements Serializable {
                     mode, resultList);
         }
 
-        StringBuffer bindParams = new StringBuffer(":l0");
+        StringBuilder bindParams = new StringBuilder(":l0");
         List<String> newParams = new ArrayList<String>(params);
         if (!checkForColumn(resultList.get(0), column)) {
             throw new MapColumnNotFoundException("Column, " + column +

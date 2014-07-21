@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2010--2012 Red Hat, Inc.
+# Copyright (c) 2010--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,7 +30,8 @@ BOOTSTRAP_CCO=/var/www/html/pub/bootstrap/client-config-overrides.txt
 SAT_LOCAL_RULES_CONF=/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf
 BACKUP_EXT=.rnmbck
 
-if [ "$(spacewalk-cfg-get db_backend)" = "oracle" ]; then
+DB_BACKEND="$(spacewalk-cfg-get db_backend)"
+if [ "$DB_BACKEND" = "oracle" ]; then
     DBSHELL_QUIT="QUIT"
     DBSHELL_QUIET="
 set feed off;
@@ -40,7 +41,7 @@ set pages 0;"
         DB_SERVICE="oracle"
     fi
 
-elif [ "$(spacewalk-cfg-get db_backend)" = "postgresql" ]; then
+elif [ "$DB_BACKEND" = "postgresql" ]; then
     DBSHELL_QUIT="\q"
     DBSHELL_QUIET="
 \set QUIET on
@@ -336,16 +337,30 @@ function re-generate_server_ssl_certificate {
 }
 
 function push_monitoring_scounts {
-    spacewalk-sql --select-mode - >>$LOG 2>&1 <<EOS
+    if [ "$DB_BACKEND" = "oracle" ]; then
+        PUSH_CODE="
 BEGIN
-    FOR t IN (SELECT ORG.id as FIRST, RSC.recid as SECOND, 1 as THIRD
+    FOR t IN (SELECT ORG.id as FIRST, RSC.recid as SECOND, '1' as THIRD
                 FROM web_customer ORG INNER JOIN rhn_sat_cluster RSC
                 ON ORG.id  = RSC.customer_id) LOOP
         rhn_install_org_satellites(t.FIRST, t.SECOND, t.THIRD);
     END LOOP;
-    commit;
+    COMMIT;
 END;
-/
+"
+    else
+        PUSH_CODE="
+    SELECT rhn_install_org_satellites(ORG.id, RSC.recid, '1'),
+           ORG.id as FIRST, RSC.recid as SECOND, '1' as THIRD
+                FROM web_customer ORG INNER JOIN rhn_sat_cluster RSC
+                ON ORG.id  = RSC.customer_id);
+    COMMIT;
+END;
+"
+    fi
+    spacewalk-sql --select-mode - >>$LOG 2>&1 <<EOS
+$PUSH_CODE
+$DBSHELL_QUIT
 EOS
 }
 

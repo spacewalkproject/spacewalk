@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.2.4
+Version:     2.3.0
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -15,7 +15,14 @@ Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
+BuildRequires: spacewalk-pylint
 BuildRequires: python-devel
+BuildRequires: python-simplejson
+BuildRequires: rpm-python
+%if 0%{?rhel} == 5
+BuildRequires: python-json
+%endif
+
 %if 0%{?rhel} == 5
 Requires:    python-simplejson
 %endif
@@ -54,6 +61,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %clean
 %{__rm} -rf %{buildroot}
 
+%check
+PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
+	spacewalk-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
+
 %files
 %{_bindir}/spacecmd
 %{python_sitelib}/spacecmd/
@@ -64,6 +75,34 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.11-1
+- fix copyright years
+
+* Tue Jun 24 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.10-1
+- 1083519 - make spacecmd funtion correctly in multi-nevra environments
+- make print_result a static method of SpacewalkShell
+
+* Fri Jun 06 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.9-1
+- allow bare-except (W0702) in the outer block as well
+
+* Fri Jun 06 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.8-1
+- spacecmd: new build requires needed by pylint checking
+- pylint fixes: comma and operator to be followed / preceded by space
+
+* Fri Jun 06 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.7-1
+- system: don't use python built-ins for identifiers
+- set PYTHONPATH for pylint
+
+* Thu Jun 05 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.6-1
+- add spacewalk-pylint checks to spacecmd build
+- pylint fixes
+* Thu May 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.5-1
+- added option for downloading only latest package version with
+  softwarechannel_mirrorpackages
+- improofed error handling of softwarechannel_mirrorpackages
+- Added option to spacecmd for force a deployment of a config channel to all
+  subscribed systems
+
 * Mon May 26 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.4-1
 - added last boot message in system_details func.
 

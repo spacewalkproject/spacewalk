@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,7 +24,6 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -119,10 +118,9 @@ public class NewChannelHelper {
         cloned.setGloballySubscribable(true, cloned.getOrg());
 
         if (originalState) {
-            List originalPacks = ChannelFactory.findOriginalPackages(toClone);
+            List<Long> originalPacks = ChannelFactory.findOriginalPackages(toClone);
             Long clonedChannelId = cloned.getId();
-            for (Iterator it = originalPacks.iterator(); it.hasNext();) {
-                Long pid = (Long) it.next();
+            for (Long pid : originalPacks) {
                 if (UserManager.verifyPackageAccess(user.getOrg(), pid)) {
                    ChannelFactory.addChannelPackage(clonedChannelId, pid);
                 }

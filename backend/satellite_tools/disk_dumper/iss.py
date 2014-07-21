@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -41,6 +41,7 @@ _ = t.ugettext
 
 class ISSError(Exception):
     def __init__(self, msg, tb):
+        Exception.__init__(self)
         self.msg = msg
         self.tb = tb
 
@@ -88,7 +89,8 @@ class FileMapper:
 
     #This will make sure that all of the directories leading up to the
     #xml file actually exist.
-    def setup_file(self, ofile):
+    @staticmethod
+    def setup_file(ofile):
         #Split the path. The filename is [1], and the directories are in [0].
         dirs_to_make = os.path.split(ofile)[0]
 
@@ -99,6 +101,7 @@ class FileMapper:
         return ofile
 
     #The get*File methods will return the full path to the xml file that the dumps are placed in.
+    # pylint: disable=W0212
     def getArchesFile(self):
         return self.setup_file(self.filemap['arches']._getFile())
 
@@ -170,6 +173,8 @@ class Dumper(dumper.XML_Dumper):
         self.pb_complete = " - Done!"   #string that's printed when progress bar is done.
         self.pb_char = "#"              #the string used as each unit in the progress bar.
         self.hardlinks = hardlinks
+        self.filename = None
+        self.outstream = None
 
         self.start_date = start_date
         self.end_date   = end_date
@@ -625,14 +630,14 @@ class Dumper(dumper.XML_Dumper):
             raise ISSError(exceptmsg % e.__class__.__name__, tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_arches(self):
+    def dump_arches(self, rpm_arch_type_only=0):
         self._dump_simple(self.fm.getArchesFile(), dumper.XML_Dumper.dump_arches,
                           "Exporting arches...",
                           "Arches exported to %s",
                           "%s caught in dump_arches.")
 
     #This dumps arches_extra
-    def dump_server_group_type_server_arches(self):
+    def dump_server_group_type_server_arches(self, rpm_arch_type_only=0, virt_filter=0):
         self._dump_simple(self.fm.getArchesExtraFile(),
                           dumper.XML_Dumper.dump_server_group_type_server_arches,
                           "Exporting arches extra...",
@@ -660,7 +665,8 @@ class Dumper(dumper.XML_Dumper):
                           "Orgs exported to %s",
                           "%s caught in dump_orgs.")
 
-    def dump_channels(self):
+    def dump_channels(self, channel_labels=None, start_date=None, end_date=None,
+                            use_rhn_date=True, whole_errata=False):
         try:
             print "\n"
             log2stdout(1, "Exporting channel info...")
@@ -680,7 +686,6 @@ class Dumper(dumper.XML_Dumper):
                 log2email(5, "Channel exported to %s" % self.fm.getChannelsFile(channel['label']))
 
                 if channel['channel_id'] in self.channel_comps:
-                    relative_filename = self.channel_comps[channel['channel_id']]
                     full_filename = os.path.join(CFG.MOUNT_POINT, self.channel_comps[channel['channel_id']])
                     target_filename = self.fm.getChannelCompsFile(channel['label'])
                     log2stderr(3, "Need to copy %s to %s" % ( full_filename, target_filename ))
@@ -704,7 +709,9 @@ class Dumper(dumper.XML_Dumper):
                            tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_channel_packages_short(self):
+    def dump_channel_packages_short(self, channel_label=None, last_modified=None, filepath=None,
+                                    validate_channels=False, send_headers=False,
+                                    open_stream=True):
         try:
             print "\n"
             for ch_id in self.channel_ids:
@@ -719,7 +726,7 @@ class Dumper(dumper.XML_Dumper):
                                 e.__class__.__name__, tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_packages(self):
+    def dump_packages(self, packages=None):
         try:
             print "\n"
             log2stdout(1, "Exporting packages...")
@@ -749,7 +756,7 @@ class Dumper(dumper.XML_Dumper):
                            tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_packages_short(self):
+    def dump_packages_short(self, packages=None):
         try:
             print "\n"
             log2stdout(1, "Exporting short packages...")
@@ -778,7 +785,7 @@ class Dumper(dumper.XML_Dumper):
                                 e.__class__.__name__, tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_source_packages(self):
+    def dump_source_packages(self, packages=None):
         try:
             print "\n"
             for pkg_info in self.src_pkg_info:
@@ -792,7 +799,7 @@ class Dumper(dumper.XML_Dumper):
                                 e.__class__.__name__, tbout.getvalue()), \
                   None, sys.exc_info()[2]
 
-    def dump_errata(self):
+    def dump_errata(self, errata=None, verify_errata=False):
         try:
             print "\n"
             log2stdout(1, "Exporting errata...")
@@ -1029,6 +1036,7 @@ class ExporterMain:
     def __init__(self):
         initCFG('server.iss')
 
+        # pylint: disable=E1101
         self.options = UI()
         self.action_deps = ActionDeps(self.options)
         self.action_order, self.actions = self.action_deps.get_actions()
@@ -1187,7 +1195,8 @@ class ExporterMain:
             print "can't access output directory"
             sys.exit(-1)
 
-    def list_channels(self):
+    @staticmethod
+    def list_channels():
         """ return all available channels
 
             the returned format is dictionary containing base_label as keys and value is list
@@ -1241,7 +1250,8 @@ class ExporterMain:
                         channel_dict[base_label].append(child_label)
         return channel_dict
 
-    def print_list_channels(self, channel_dict):
+    @staticmethod
+    def print_list_channels(channel_dict):
         """ channel_dict is dictionary containing base_label as keys and value is list
             of labels of child channels
         """
@@ -1264,7 +1274,8 @@ class ExporterMain:
         else:
             print "No Channels available for listing."
 
-    def list_orgs(self):
+    @staticmethod
+    def list_orgs():
         """
         Return a list of all orgs.
         """
@@ -1276,7 +1287,8 @@ class ExporterMain:
         org_data.execute()
         return org_data.fetchall_dict()
 
-    def print_orgs(self, orgs):
+    @staticmethod
+    def print_orgs(orgs):
         if orgs and len(orgs) > 0:
             print "Orgs available for export:"
             for org in orgs:
@@ -1285,6 +1297,7 @@ class ExporterMain:
             print "No Orgs available for listing."
 
     def main(self):
+        # pylint: disable=E1101
         try:
             for action in self.action_order:
                 if self.actions[action] == 1:
@@ -1311,11 +1324,11 @@ class ExporterMain:
                                 action = 'kickstart_trees'
                             os_data_dir = os.path.join(self.outputdir, action)
                             if os.path.exists(os_data_dir):
-                                for fpath, dirs, files in \
+                                for fpath, _dirs, files in \
                                     os.walk(os_data_dir):
-                                    for file in files:
-                                        if file.endswith(".xml"):
-                                            filepath = os.path.join(fpath, file)
+                                    for f in files:
+                                        if f.endswith(".xml"):
+                                            filepath = os.path.join(fpath, f)
                                             compress_file(filepath)
             if self.options.make_isos:
                 #iso_output = os.path.join(self.isos_dir, self.dump_dir)
@@ -1330,11 +1343,11 @@ class ExporterMain:
                 # Generate md5sum digest file for isos
                 if os.path.exists(iso_output):
                     f = open(os.path.join(iso_output, 'MD5SUM'), 'w')
-                    for file in os.listdir(iso_output):
+                    for iso_file in os.listdir(iso_output):
                         if self.options.make_isos != "dvds":
-                            if file != "MD5SUM":
-                                md5_val = getFileChecksum('md5', (os.path.join(iso_output, file)))
-                                md5str = "%s  %s\n" % (md5_val, file)
+                            if iso_file != "MD5SUM":
+                                md5_val = getFileChecksum('md5', (os.path.join(iso_output, iso_file)))
+                                md5str = "%s  %s\n" % (md5_val, iso_file)
                                 f.write(md5str)
                     f.close()
 
@@ -1344,7 +1357,7 @@ class ExporterMain:
             if self.options.print_report:
                 print_report()
 
-        except SystemExit, se:
+        except SystemExit:
             sys.exit(0)
 
         except ISSError, isserror:
@@ -1374,19 +1387,19 @@ class ExporterMain:
             sys.exit(-1)
 
 
-def compress_file(file):
+def compress_file(f):
     """
     Gzip the given file and then remove the file.
     """
-    datafile = open(file, 'r')
-    gzipper = gzip.GzipFile(file + '.gz', 'w', 9)
+    datafile = open(f, 'r')
+    gzipper = gzip.GzipFile(f + '.gz', 'w', 9)
     gzipper.write(datafile.read())
     gzipper.flush()
     # close opened streams
     gzipper.close()
     datafile.close()
     # removed the old file
-    os.unlink(file)
+    os.unlink(f)
 
 if __name__ == "__main__":
     em = ExporterMain()

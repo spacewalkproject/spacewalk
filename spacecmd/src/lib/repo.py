@@ -20,10 +20,20 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
+
 from optparse import Option
 from spacecmd.utils import *
 
 import shlex
+import xmlrpclib
 
 def help_repo_list(self):
     print 'repo_list: List all available user repos'
@@ -49,7 +59,7 @@ def complete_repo_details(self, text, line, beg, end):
     return tab_completer(self.do_repo_list('', True), text)
 
 def do_repo_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_repo_details()
@@ -64,7 +74,8 @@ def do_repo_details(self, args):
         details = self.client.channel.software.getRepoDetails(\
                                     self.session, repo)
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Repository Label:   %s' % details.get('label')
@@ -81,7 +92,7 @@ def complete_repo_listfilters(self, text, line, beg, end):
     return tab_completer(self.do_repo_list('', True), text)
 
 def do_repo_listfilters(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_repo_listfilters()
@@ -90,8 +101,8 @@ def do_repo_listfilters(self, args):
     filters = \
         self.client.channel.software.listRepoFilters(self.session, args[0])
 
-    for filter in filters:
-        print "%s%s" % (filter.get('flag'), filter.get('filter'))
+    for f in filters:
+        print "%s%s" % (f.get('flag'), f.get('filter'))
 
 ####################
 
@@ -114,11 +125,9 @@ def do_repo_addfilters(self, args):
 
     repo = args[0]
 
-    filters = []
-
     for arg in args[1:]:
         flag = arg[0]
-        filter = arg[1:]
+        repofilter = arg[1:]
 
         if not (flag == '+' or flag == '-'):
             logging.error('Each filter must start with + or -')
@@ -126,7 +135,7 @@ def do_repo_addfilters(self, args):
 
         self.client.channel.software.addRepoFilter(self.session,
                                                    repo,
-                                                   {'filter' : filter,
+                                                   {'filter' : repofilter,
                                                     'flag' : flag})
 
 ####################
@@ -148,11 +157,9 @@ def do_repo_removefilters(self, args):
 
     repo = args[0]
 
-    filters = []
-
     for arg in args[1:]:
         flag = arg[0]
-        filter = arg[1:]
+        repofilter = arg[1:]
 
         if not (flag == '+' or flag == '-'):
             logging.error('Each filter must start with + or -')
@@ -160,7 +167,7 @@ def do_repo_removefilters(self, args):
 
         self.client.channel.software.removeRepoFilter(self.session,
                                                    repo,
-                                                   {'filter' : filter,
+                                                   {'filter' : repofilter,
                                                     'flag' : flag})
 
 ####################
@@ -186,13 +193,13 @@ def do_repo_setfilters(self, args):
 
     for arg in args[1:]:
         flag = arg[0]
-        filter = arg[1:]
+        repofilter = arg[1:]
 
         if not (flag == '+' or flag == '-'):
             logging.error('Each filter must start with + or -')
             return
 
-        filters.append({'filter' : filter, 'flag' : flag})
+        filters.append({'filter' : repofilter, 'flag' : flag})
 
     self.client.channel.software.setRepoFilters(self.session, repo, filters)
 
@@ -206,7 +213,7 @@ def complete_repo_clearfilters(self, text, line, beg, end):
     return tab_completer(self.do_repo_clear('', True), text)
 
 def do_repo_clearfilters(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_repo_clearfilters()
@@ -225,7 +232,7 @@ def complete_repo_delete(self, text, line, beg, end):
     return tab_completer(self.do_repo_list('', True), text)
 
 def do_repo_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_repo_delete()
@@ -242,7 +249,7 @@ def do_repo_delete(self, args):
         for repo in repos:
             try:
                 self.client.channel.software.removeRepo(self.session, repo)
-            except:
+            except xmlrpclib.Fault:
                 logging.error('Failed to remove repo %s' % repo)
 
 ####################
@@ -290,7 +297,7 @@ def complete_repo_rename(self, text, line, beg, end):
                                   text)
 
 def do_repo_rename(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_repo_rename()
@@ -299,7 +306,7 @@ def do_repo_rename(self, args):
     try:
         details = self.client.channel.software.getRepoDetails(self.session, args[0])
         oldname = details.get('id')
-    except:
+    except xmlrpclib.Fault:
         logging.error('Could not find repo %s' % args[0])
         return False
 
@@ -319,7 +326,7 @@ def complete_repo_updateurl(self, text, line, beg, end):
                                   text)
 
 def do_repo_updateurl(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_repo_updateurl()

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010--2012 Red Hat, Inc.
+ * Copyright (c) 2010--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -98,11 +98,11 @@ public class DWRItemSelector {
 
     // Write an responseText with the current count from the set
     private String getResponse(int setSize, String setLabel) {
-        StringBuffer responseText = new StringBuffer();
+        StringBuilder responseText = new StringBuilder();
         LocalizationService ls = LocalizationService.getInstance();
         Boolean systemsRelated = RhnSetDecl.SYSTEMS.getLabel().equals(setLabel);
         if (systemsRelated) {
-            StringBuffer headerMessage = new StringBuffer();
+            StringBuilder headerMessage = new StringBuilder();
             headerMessage.append("<span id='spacewalk-set-system_list-counter'")
                          .append(" class='badge'>")
                          .append(Integer.toString(setSize))

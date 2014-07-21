@@ -12,7 +12,7 @@ persistent=no
 [MESSAGES CONTROL]
 
 # Disable the message(s) with the given id(s).
-disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,W0142,W0403,W0603,C1001,W0121,bad-whitespace,unpacking-non-sequence,superfluous-parens
+disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,R0921,R0922,W0142,W0403,W0603,C1001,W0121,useless-else-on-loop,bad-whitespace,unpacking-non-sequence,superfluous-parens
 
 # list of disabled messages:
 #I0011: 62: Locally disabling R0201
@@ -30,6 +30,7 @@ disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,W0142,W0403,
 # for pylint-1.0 we also disable
 #C1001: 46, 0: Old-style class defined. (old-style-class)
 #W0121: 33,16: Use raise ErrorClass(args) instead of raise ErrorClass, args. (old-raise-syntax)
+#W:243, 8: Else clause on loop without a break statement (useless-else-on-loop)
 # pylint-1.1 checks
 #C:334, 0: No space allowed after bracket (bad-whitespace)
 #W:162, 8: Attempting to unpack a non-sequence defined at line 6 of (unpacking-non-sequence)
@@ -68,10 +69,10 @@ const-rgx=(([a-zA-Z_][a-zA-Z0-9_]*)|(__.*__))$
 class-rgx=[a-zA-Z_][a-zA-Z0-9_]+$
 
 # Regular expression which should only match correct function names
-function-rgx=[a-z_][a-zA-Z0-9_]{,30}$
+function-rgx=[a-z_][a-zA-Z0-9_]{,42}$
 
 # Regular expression which should only match correct method names
-method-rgx=[a-z_][a-zA-Z0-9_]{,30}$
+method-rgx=[a-z_][a-zA-Z0-9_]{,42}$
 
 # Regular expression which should only match correct instance attribute names
 attr-rgx=[a-z_][a-zA-Z0-9_]{,30}$
@@ -85,6 +86,9 @@ variable-rgx=[a-z_][a-zA-Z0-9_]{,30}$
 # Regular expression which should only match correct list comprehension /
 # generator expression variable names
 inlinevar-rgx=[A-Za-z_][A-Za-z0-9_]*$
+
+# Regular expression which should only match correct class sttribute names
+class-attribute-rgx=([A-Za-z_][A-Za-z0-9_]{2,42}|(__.*__))$
 
 # Good variable names which should always be accepted, separated by a comma
 good-names=i,j,k,ex,Run,_

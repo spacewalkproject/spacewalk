@@ -20,6 +20,15 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
+
 from optparse import Option
 from spacecmd.utils import *
 
@@ -154,7 +163,7 @@ def complete_distribution_delete(self, text, line, beg, end):
                                   text)
 
 def do_distribution_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_distribution_delete()
@@ -186,7 +195,7 @@ def complete_distribution_details(self, text, line, beg, end):
     return tab_completer(self.do_distribution_list('', True), text)
 
 def do_distribution_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_distribution_details()
@@ -210,7 +219,8 @@ def do_distribution_details(self, args):
             self.client.channel.software.getDetails(self.session,
                                                 details.get('channel_id'))
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Name:    %s' % details.get('label')
@@ -229,7 +239,7 @@ def complete_distribution_rename(self, text, line, beg, end):
                                   text)
 
 def do_distribution_rename(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_distribution_rename()

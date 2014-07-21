@@ -1,7 +1,7 @@
 Summary: An xmlrpc library
 Name: redstone-xmlrpc
 Version: 1.1_20071120 
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: LGPL
 Group: Development/Library
 URL: http://xmlrpc.sourceforge.net
@@ -9,7 +9,7 @@ Source0: %{name}-%{version}.tar.gz
 Patch0: build-classpath.patch
 Patch1: fault_serialization.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >=7
 BuildRequires: javapackages-tools
 %else
 BuildRequires: jpackage-utils >= 0:1.5
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
+* Mon Jun 23 2014 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-15
+- use javapackages-tools instead of jpackage-utils on RHEL7
+
 * Tue Jan 07 2014 Tomas Lestach <tlestach@redhat.com> 1.1_20071120-14
 - jpackage-utils were replaced with javapackages-tools in fc20
 

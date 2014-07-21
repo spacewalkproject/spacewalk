@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,7 +37,7 @@ public class TraceBackAction extends BaseMailAction implements MessageAction {
 
     protected String getSubject(BaseEvent evtIn) {
         // setup subject
-        StringBuffer subject = new StringBuffer();
+        StringBuilder subject = new StringBuilder();
         subject.append(LocalizationService.getInstance().
                 getMessage("web traceback subject", evtIn.getUserLocale()));
         // Not sure if getting the local hostname is the correct thing to do

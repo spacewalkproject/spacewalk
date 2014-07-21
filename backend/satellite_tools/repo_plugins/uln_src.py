@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ULN plugin for spacewalk-repo-sync.
 """
 import sys
-sys.path.append('/usr/share/rhn/up2date_client')
-from rpcServer import RetryServer
+sys.path.append('/usr/share/rhn')
+from up2date_client.rpcServer import RetryServer
 
 from spacewalk.satellite_tools.repo_plugins.yum_src import ContentSource as yum_ContentSource
+from spacewalk.satellite_tools.syncLib import RhnSyncException
 
 ULNSRC_CONF = '/etc/rhn/spacewalk-repo-sync/uln.conf'
 DEFAULT_UP2DATE_URL = "linux-update.oracle.com"
@@ -31,9 +32,12 @@ DEFAULT_UP2DATE_URL = "linux-update.oracle.com"
 class ContentSource(yum_ContentSource):
     def __init__(self, url, name):
         if url[:6] != "uln://":
-            print "url format error, url must start with uln://"
-            return -1
+            raise RhnSyncException("url format error, url must start with uln://")
         yum_ContentSource.__init__(self, url, name, ULNSRC_CONF)
+        self.uln_url = None
+        self.uln_user = None
+        self.uln_pass = None
+        self.key = None
 
     def _authenticate(self, url):
         if url.startswith("uln:///"):
@@ -44,8 +48,7 @@ class ContentSource(yum_ContentSource):
             self.uln_url = "https://" + parts[0]
             label = parts[1]
         else:
-            print "url format error, url must start with uln://"
-            return -1
+            raise RhnSyncException("url format error, url must start with uln://")
         self.uln_user = self.yumbase.conf.username
         self.uln_pass = self.yumbase.conf.password
         self.url = self.uln_url + "/XMLRPC/GET-REQ/" + label

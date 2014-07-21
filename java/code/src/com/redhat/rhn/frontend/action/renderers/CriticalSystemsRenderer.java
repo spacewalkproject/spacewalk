@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,13 +17,14 @@ package com.redhat.rhn.frontend.action.renderers;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
-import java.util.Collections;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,13 +44,13 @@ public class CriticalSystemsRenderer extends BaseFragmentRenderer {
      * {@inheritDoc}
      */
     protected void render(User user, PageControl pc, HttpServletRequest request) {
-        DataResult mcdr = SystemManager.mostCriticalSystems(user, pc);
+        DataResult<SystemOverview> mcdr = SystemManager.mostCriticalSystems(user, pc);
 
         if (!mcdr.isEmpty()) {
             mcdr = RendererHelper.sortOverviews(mcdr);
         }
 
-        mcdr.setElaborationParams(Collections.EMPTY_MAP);
+        mcdr.setElaborationParams(new HashMap<String, Object>());
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
         TagHelper.bindElaboratorTo(LIST_NAME, mcdr.getElaborator(), request);
 

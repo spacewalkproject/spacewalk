@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,7 +31,6 @@ import com.redhat.rhn.domain.org.usergroup.UserGroupFactory;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
-import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.Token;
@@ -68,10 +67,10 @@ public class Org extends BaseDomainHelper {
 
     private Long id;
     private String name;
-    private Set usergroups;
+    private Set<UserGroup> usergroups;
     private Set entitlements;
-    private Set ownedChannels;
-    private Set customDataKeys;
+    private Set<Channel> ownedChannels;
+    private Set<CustomDataKey> customDataKeys;
     private Set<Org> trustedOrgs;
     private Set<IssSlave> allowedToSlaves;
     private Token token;
@@ -85,7 +84,7 @@ public class Org extends BaseDomainHelper {
      * Construct new Org
      */
     protected Org() {
-        usergroups = new HashSet();
+        usergroups = new HashSet<UserGroup>();
         entitlements = new HashSet();
     }
 
@@ -99,7 +98,7 @@ public class Org extends BaseDomainHelper {
     /**
      * @param customDataKeysIn The customDataKeys to set.
      */
-    public void setCustomDataKeys(Set customDataKeysIn) {
+    public void setCustomDataKeys(Set<CustomDataKey> customDataKeysIn) {
         this.customDataKeys = customDataKeysIn;
     }
 
@@ -116,8 +115,8 @@ public class Org extends BaseDomainHelper {
             return false;
         }
         // Loop through the custom data keys and check for the label
-        for (Iterator itr = customDataKeys.iterator(); itr.hasNext();) {
-            CustomDataKey key = (CustomDataKey) itr.next();
+        for (Iterator<CustomDataKey> itr = customDataKeys.iterator(); itr.hasNext();) {
+            CustomDataKey key = itr.next();
             if (label.equals(key.getLabel())) {
                 // Found it! no need to check anything else.
                 return true;
@@ -175,9 +174,9 @@ public class Org extends BaseDomainHelper {
      * @return Set of Roles associated with this Org
      */
     public Set<Role> getRoles() {
-        Set orgRoles = new HashSet();
-        for (Iterator i = usergroups.iterator(); i.hasNext();) {
-            UserGroup ug = (UserGroup) i.next();
+        Set<Role> orgRoles = new HashSet<Role>();
+        for (Iterator<UserGroup> i = usergroups.iterator(); i.hasNext();) {
+            UserGroup ug = i.next();
             orgRoles.add(ug.getRole());
         }
         return Collections.unmodifiableSet(orgRoles);
@@ -215,8 +214,8 @@ public class Org extends BaseDomainHelper {
      * @return the UserGroup if found, otherwise null.
      */
     public UserGroup getUserGroup(Role roleIn) {
-        for (Iterator i = usergroups.iterator(); i.hasNext();) {
-            UserGroup ug = (UserGroup) i.next();
+        for (Iterator<UserGroup> i = usergroups.iterator(); i.hasNext();) {
+            UserGroup ug = i.next();
             if (ug.getRole().equals(roleIn)) {
                 return ug;
             }
@@ -229,7 +228,7 @@ public class Org extends BaseDomainHelper {
      * to map Roles to UserGroups
      * @return userGroup array
      */
-    public Set getUserGroups() {
+    public Set<UserGroup> getUserGroups() {
         return usergroups;
     }
 
@@ -238,7 +237,7 @@ public class Org extends BaseDomainHelper {
      * to map Roles to UserGroups
      * @param ugIn the new array
      */
-    public void setUserGroups(Set ugIn) {
+    public void setUserGroups(Set<UserGroup> ugIn) {
         usergroups = ugIn;
     }
 
@@ -298,7 +297,7 @@ public class Org extends BaseDomainHelper {
      */
     public void addOwnedChannel(Channel channelIn) {
         if (this.ownedChannels == null) {
-            this.ownedChannels = new HashSet();
+            this.ownedChannels = new HashSet<Channel>();
         }
         channelIn.setOrg(this);
         this.ownedChannels.add(channelIn);
@@ -308,7 +307,7 @@ public class Org extends BaseDomainHelper {
      * Set the channels for this org.
      * @param channelsIn The channels for this org
      */
-    public void setOwnedChannels(Set channelsIn) {
+    public void setOwnedChannels(Set<Channel> channelsIn) {
         this.ownedChannels = channelsIn;
     }
 
@@ -316,7 +315,7 @@ public class Org extends BaseDomainHelper {
      * Get the set of channels associated with this org.
      * @return Returns the set of channels for this org.
      */
-    public Set getOwnedChannels() {
+    public Set<Channel> getOwnedChannels() {
         return ownedChannels;
     }
 
@@ -496,12 +495,12 @@ public class Org extends BaseDomainHelper {
      * @return Set of Entitlements
      */
     public Set<Entitlement> getValidBaseEntitlementsForOrg() {
-        Set<Entitlement> baseEntitlements = new HashSet();
+        Set<Entitlement> baseEntitlements = new HashSet<Entitlement>();
 
-        Iterator i = getEntitledServerGroups().iterator();
+        Iterator<EntitlementServerGroup> i = getEntitledServerGroups().iterator();
 
         while (i.hasNext()) {
-            ServerGroupType sgt = ((ServerGroup) i.next()).getGroupType();
+            ServerGroupType sgt = i.next().getGroupType();
 
             // Filter out the update entitlement for satellite:
             if (sgt.isBase() && !sgt.getLabel().equals(
@@ -520,12 +519,12 @@ public class Org extends BaseDomainHelper {
      * @return Set of Entitlements
      */
     public Set<Entitlement> getValidAddOnEntitlementsForOrg() {
-        Set<Entitlement> addonEntitlements = new HashSet();
+        Set<Entitlement> addonEntitlements = new HashSet<Entitlement>();
 
-        Iterator i = getEntitledServerGroups().iterator();
+        Iterator<EntitlementServerGroup> i = getEntitledServerGroups().iterator();
 
         while (i.hasNext()) {
-            ServerGroupType sgt = ((ServerGroup) i.next()).getGroupType();
+            ServerGroupType sgt = i.next().getGroupType();
 
             if (!sgt.isBase()) {
                 addonEntitlements.add(EntitlementManager.getByName(sgt

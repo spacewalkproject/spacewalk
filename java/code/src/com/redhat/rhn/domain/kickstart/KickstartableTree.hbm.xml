@@ -17,10 +17,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
   		<property name="cobblerXenId" column="cobbler_xen_id"  type="string" length="64" />
         <property name="basePath" type="string" column="base_path"/>
         <property name="label" type="string" column="label"/>
-        <property name="lastModified" type="date" column="last_modified"/>
+        <property name="lastModified" type="timestamp" column="last_modified"/>
 
-        <property name="created" type="date" column="created"/>
-        <property name="modified" type="date" column="modified"/>
+        <property name="created" type="timestamp" column="created"/>
+        <property name="modified" type="timestamp" column="modified"/>
 
         <many-to-one name="org"
                      column="org_id"

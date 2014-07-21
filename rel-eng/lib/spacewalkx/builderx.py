@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2011 Red Hat, Inc.
+# Copyright (c) 2011--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -29,7 +29,7 @@ class Builder(builder.Builder):
                 return
         except AttributeError:
             pass
-        return super(Builder, self).srpm(dist, reuse_cvs_checkout)
+        return super(Builder, self).srpm(dist)
 
 class NoTgzBuilder(builder.NoTgzBuilder, Builder):
 

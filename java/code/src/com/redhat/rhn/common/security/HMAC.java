@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -42,7 +42,7 @@ public class HMAC {
      */
     public static String byteArrayToHex(byte[] a) {
         int hn, ln, cx;
-        StringBuffer buf = new StringBuffer(a.length * 2);
+        StringBuilder buf = new StringBuilder(a.length * 2);
         for (cx = 0; cx < a.length; cx++) {
             hn = ((a[cx]) & 0x00ff) / 16;
             ln = (a[cx]) & 0x000f;

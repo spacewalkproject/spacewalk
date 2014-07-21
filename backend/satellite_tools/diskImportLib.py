@@ -1,7 +1,7 @@
 #
 # Common dumper stuff
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,6 @@ import os
 from spacewalk.common.rhnLib import hash_object_id
 
 import xmlSource
-import xmlDiskSource
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.channelImport import ChannelImport, ChannelFamilyImport
 from spacewalk.server.importlib.packageImport import PackageImport, SourcePackageImport
@@ -31,6 +30,9 @@ from spacewalk.server.importlib import orgImport
 
 class Backend:
     __backend = None
+
+    def __init__(self):
+        pass
 
     def get_backend(self):
         if self.__backend:
@@ -54,9 +56,16 @@ def rpmsPath(obj_id, mountPoint, sources=0):
     return os.path.normpath(template % (mountPoint, hash_object_id(obj_id, 2), obj_id))
 
 
+# pylint: disable=W0232
 class diskImportLibContainer:
     """virtual class - redefines endContainerCallback"""
-    importer_class = None
+    # pylint: disable=E1101,E0203,W0201
+    # this class has no __init__ for the purpose
+    # it's used in multiple inheritance mode and inherited classes should
+    # use __init__ from the other base class
+
+    importer_class = object
+
     def endContainerCallback(self):
         importer = self.importer_class(self.batch, get_backend())
         importer.run()

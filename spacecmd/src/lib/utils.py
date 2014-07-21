@@ -16,10 +16,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 # Copyright 2013 Aron Parsons <aronparsons@gmail.com>
-# Copyright (c) 2011--2013 Red Hat, Inc.
+# Copyright (c) 2011--2014 Red Hat, Inc.
 #
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
+
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
 
 import logging, os, pickle, re, readline, shlex, sys, time, xmlrpclib
 from collections import deque
@@ -28,7 +37,6 @@ from difflib  import unified_diff
 from tempfile import mkstemp
 from textwrap import wrap
 import rpm
-import string
 from spacecmd.optionparser import SpacecmdOptionParser
 
 try:
@@ -39,20 +47,21 @@ except ImportError:
 
 __EDITORS = ['vim', 'vi', 'nano', 'emacs']
 
-def parse_arguments(args, options = [], glob = True):
+def parse_arguments(args, options = None, glob=True):
+    options = options or []
     try:
         parts = shlex.split(args)
 
         # allow simple globbing
         if glob:
-            parts = [re.sub('\*', '.*', a) for a in parts]
+            parts = [re.sub(r'\*', '.*', a) for a in parts]
 
         parser = SpacecmdOptionParser(option_list = options)
         (opts, leftovers) = parser.parse_args(args = parts)
 
         return leftovers, opts
     except IndexError:
-        return []
+        return None, None
 
 
 # check if any named options were passed to the function, and if so,
@@ -72,7 +81,7 @@ def load_cache(cachefile):
     data = {}
     expire = datetime.now()
 
-    logging.debug('Loading cache from %s' % cachefile)
+    logging.debug('Loading cache from %s', cachefile)
 
     if os.path.isfile(cachefile):
         try:
@@ -85,19 +94,19 @@ def load_cache(cachefile):
             # So we catch this error and remove the corrupt partial file
             # If you don't do this then spacecmd will fail with an unhandled
             # exception until the partial file is manually removed
-            logging.warning("Loading cache file %s failed" % cachefile)
+            logging.warning("Loading cache file %s failed", cachefile)
             logging.warning("Cache generation was probably interrupted," + \
-                "removing corrupt %s" % cachefile)
+                "removing corrupt %s", cachefile)
             os.remove(cachefile)
         except IOError:
-            logging.error("Couldn't load cache from %s" % cachefile)
+            logging.error("Couldn't load cache from %s", cachefile)
 
         if isinstance(data, list) or isinstance(data, dict):
             if 'expire' in data:
                 expire = data['expire']
                 del data['expire']
     else:
-        logging.debug('%s does not exist' % cachefile)
+        logging.debug('%s does not exist', cachefile)
 
     return data, expire
 
@@ -111,7 +120,7 @@ def save_cache(cachefile, data, expire = None):
         pickle.dump(data, output, pickle.HIGHEST_PROTOCOL)
         output.close()
     except IOError:
-        logging.error("Couldn't write to %s" % cachefile)
+        logging.error("Couldn't write to %s", cachefile)
 
     if 'expire' in data:
         del data['expire']
@@ -173,7 +182,7 @@ def editor(template = '', delete = False):
                 success = True
                 break
             else:
-                logging.error('Editor exited with code %i' % exit_code)
+                logging.error('Editor exited with code %i', exit_code)
         except OSError:
             pass
 
@@ -193,11 +202,11 @@ def editor(template = '', delete = False):
                     os.remove(file_name)
                     file_name = ''
                 except OSError:
-                    logging.error('Could not remove %s' % file_name)
+                    logging.error('Could not remove %s', file_name)
 
             return (contents, file_name)
         except IOError:
-            logging.error('Could not read %s' % file_name)
+            logging.error('Could not read %s', file_name)
             return ([], '')
 
 
@@ -236,36 +245,36 @@ def parse_time_input(userinput = ''):
 
     # handle YYYMMDDHHMM times
     if not timestamp:
-        match = re.match('^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?$', userinput)
+        match = re.match(r'^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?$', userinput)
 
         if match:
-            format = '%Y%m%d'
+            date_format = '%Y%m%d'
 
             # YYYYMMDD
             if not match.group(4) and not match.group(5):
                 timestamp = time.strptime('%s%s%s' % (match.group(1),
                                                       match.group(2),
                                                       match.group(3)),
-                                          format)
+                                          date_format)
             # YYYYMMDDHH
             elif not match.group(5):
-                format += '%H'
+                date_format += '%H'
 
                 timestamp = time.strptime('%s%s%s%s' % (match.group(1),
                                                         match.group(2),
                                                         match.group(3),
                                                         match.group(4)),
-                                          format)
+                                          date_format)
             # YYYYMMDDHHMM
             else:
-                format += '%H%M'
+                date_format += '%H%M'
 
                 timestamp = time.strptime('%s%s%s%s%s' % (match.group(1),
                                                           match.group(2),
                                                           match.group(3),
                                                           match.group(4),
                                                           match.group(5)),
-                                          format)
+                                          date_format)
 
             if timestamp:
                 # 2.5 has a nice little datetime.strptime() function...
@@ -273,7 +282,7 @@ def parse_time_input(userinput = ''):
 
     # handle time differences (e.g., +1m, +2h)
     if not timestamp:
-        match = re.search('^(\+|-)?(\d+)(s|m|h|d)$', userinput, re.I)
+        match = re.search(r'^(\+|-)?(\d+)(s|m|h|d)$', userinput, re.I)
 
         if match and len(match.groups()) >= 2:
             sign = match.group(1)
@@ -381,11 +390,12 @@ def print_errata_list(errata):
         elif re.match('product enhancement', erratum.get('advisory_type'), re.I):
             rhea.append(erratum)
         else:
-            logging.warning('%s is an unknown errata type' % (
-                            erratum.get('advisory_name')))
+            logging.warning('%s is an unknown errata type',
+                            erratum.get('advisory_name'))
             continue
 
-    if not len(errata): return
+    if not len(errata):
+        return
 
     if len(rhsa):
         print 'Security Errata'
@@ -412,7 +422,9 @@ def print_errata_list(errata):
             print_errata_summary(erratum)
 
 
-def config_channel_order(all_channels=[], new_channels=[]):
+def config_channel_order(all_channels=None, new_channels=None):
+    all_channels = all_channels or []
+    new_channels = new_channels or []
     while True:
         print 'Current Selections'
         print '------------------'
@@ -470,7 +482,8 @@ def config_channel_order(all_channels=[], new_channels=[]):
 
 
 def list_locales():
-    if not os.path.isdir('/usr/share/zoneinfo'): return []
+    if not os.path.isdir('/usr/share/zoneinfo'):
+        return []
 
     zones = []
 
@@ -482,7 +495,7 @@ def list_locales():
                 for subitem in os.listdir(path):
                     zones.append(os.path.join(item, subitem))
             except IOError:
-                logging.error('Could not read %s' % path)
+                logging.error('Could not read %s', path)
         else:
             zones.append(item)
 
@@ -490,14 +503,14 @@ def list_locales():
 
 
 # find the longest string in a list
-def max_length(items, min=0):
+def max_length(items, minimum=0):
     max_size = 1
     for item in items:
         if len(item) > max_size:
             max_size = len(item)
 
-    if max_size < min:
-        max_size = min
+    if max_size < minimum:
+        max_size = minimum
 
     return max_size
 
@@ -609,15 +622,15 @@ def json_dump_to_file(obj, filename):
     json_data = json.dumps(obj, indent = 4, sort_keys = True)
 
     if json_data == None:
-        logging.error("Could not generate json data object!" % k)
+        logging.error("Could not generate json data object!")
         return False
 
     try:
-            fd = open(filename, 'w')
-            fd.write(json_data)
-            fd.close()
+        fd = open(filename, 'w')
+        fd.write(json_data)
+        fd.close()
     except IOError, E:
-        logging.error("Could not open file %s for writing, permissions?" % \
+        logging.error("Could not open file %s for writing, permissions?", \
             filename)
         print E.strerror
         return False
@@ -631,9 +644,9 @@ def json_read_from_file(filename):
         try:
             jsondata = json.loads(data)
             return jsondata
-        except:
+        except ValueError:
             print "could not read in data from %s" % filename
-    except IOError, E:
+    except IOError:
         print "could not open file %s for reading, check permissions?" % filename
         return None
 
@@ -662,7 +675,7 @@ def get_string_diff_dicts( string1, string2, sep="-" ):
 
     if string1 == string2:
         logging.info( "Skipping usage of common strings: both strings are equal" )
-        return [None,None]
+        return [None, None]
     substrings1 = deque( string1.split(sep) )
     substrings2 = deque( string2.split(sep) )
 
@@ -678,8 +691,8 @@ def get_string_diff_dicts( string1, string2, sep="-" ):
             replace2['(^|-)' + sub2 + '(-|$)'] = r'\1' + "DIFF("+sub1+"|"+sub2+")" + r'\2'
     if substrings1 or substrings2:
         logging.info( "Skipping usage of common strings: number of substrings differ" )
-        return [None,None]
-    return [replace1,replace2]
+        return [None, None]
+    return [replace1, replace2]
 
 def replace( line, replacedict ):
     if replacedict:
@@ -710,8 +723,8 @@ def get_normalized_text( text, replacedict=None, excludes=None ):
 
     normalized_text = []
     if text:
-        for string in text:
-            for line in string.split( "\n" ):
+        for st in text:
+            for line in st.split( "\n" ):
                 if not excludes:
                     normalized_text.append( replace( line, replacedict ) )
                 # We do it this way instead of passing a tuple to
@@ -741,6 +754,8 @@ def file_needs_b64_enc(self, contents):
         translate_table = dict((ord(char), None) for char in text_characters)
         return float(len(contents.translate(translate_table))) / len(contents) > 0.3
     if isinstance(contents, str):
+        # pylint: disable=W0402
+        import string
         translate_table = string.maketrans("", "")
         return float(len(contents.translate(translate_table, text_characters))) / len(contents) > 0.3
 

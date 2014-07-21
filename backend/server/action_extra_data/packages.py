@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -168,11 +168,11 @@ def verify(server_id, action_id, data={}):
 
     if verify_attribs['action_id']:
         h = rhnSQL.prepare(_query_insert_attribute_verify_results)
-        apply(h.executemany, (), verify_attribs)
+        h.executemany(**verify_attribs)
 
     if missing_files['action_id']:
         h = rhnSQL.prepare(_query_insert_missing_verify_results)
-        apply(h.executemany, (), missing_files)
+        h.executemany(**missing_files)
 
     rhnSQL.commit()
 

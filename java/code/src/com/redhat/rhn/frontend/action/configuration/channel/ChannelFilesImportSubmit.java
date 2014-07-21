@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -41,13 +41,13 @@ import javax.servlet.http.HttpServletResponse;
 public class ChannelFilesImportSubmit extends BaseSetOperateOnSelectedItemsAction {
     public static final String KEY_IMPORT = "addfiles.jsp.import.jspf.submit";
 
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put(KEY_IMPORT, "processImport");
     }
 
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest request,
-                                   Map params) {
+                                   Map<String, Object> params) {
         RequestContext requestContext = new RequestContext(request);
 
         Long ccid = requestContext.getRequiredParam("ccid");

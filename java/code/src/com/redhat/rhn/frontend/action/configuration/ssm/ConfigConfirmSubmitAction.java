@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -60,7 +60,7 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
+    protected void processMethodKeys(Map<String, String> map) {
         map.put("diffconfirm.jsp.confirm", "diff");
         map.put("deployconfirm.jsp.confirm", "deploy");
     }
@@ -69,7 +69,7 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
      * {@inheritDoc}
      */
     protected void processParamMap(ActionForm form,
-            HttpServletRequest requestIn, Map params) {
+            HttpServletRequest requestIn, Map<String, Object> params) {
         //no-op for diff
         if (form != null) {
             getStrutsDelegate().rememberDatePicker(params, (DynaActionForm)form,

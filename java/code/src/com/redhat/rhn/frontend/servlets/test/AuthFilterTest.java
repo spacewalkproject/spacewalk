@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -80,7 +80,8 @@ public class AuthFilterTest extends MockObjectTestCase {
 
         mockRequest.stubs().method("getRequestDispatcher").withAnyArguments().will(
                 returnValue(mockDispatcher.proxy()));
-        mockRequest.stubs().method("getHeaders").will(returnValue(new Vector().elements()));
+        mockRequest.stubs().method("getHeaders")
+                .will(returnValue(new Vector<String>().elements()));
 
         mockRequest.stubs().method("getRemoteAddr")
                 .will(returnValue(new String("aaa.bbb.ccc.ddd")));

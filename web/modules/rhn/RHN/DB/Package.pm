@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -899,41 +899,6 @@ EOQ
   return;
 }
 
-sub installed_package_nvre {
-  my $class = shift;
-  my $sid = shift;
-  my $name_id = shift;
-  my $evr_id = shift;
-
-    my $query = <<EOQ;
-SELECT SPN.name || '-' || SPE.evr.as_vre_simple()
-  FROM rhnPackageName SPN,
-       rhnPackageEVR SPE,
-       rhnPackageEVR PE,
-       rhnServerPackage SP
- WHERE SP.server_id = :sid
-   AND SP.name_id = :name_id
-   AND PE.id = :evr_id
-   AND SPE.id = SP.evr_id
-   AND SPN.id = SP.name_id
-   AND SP.evr_id != PE.id
-   AND SPE.evr < PE.evr
-ORDER BY UPPER(SPN.name), SPE.evr DESC
-EOQ
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(sid => $sid, name_id => $name_id, evr_id => $evr_id);
-
-  my @nvres;
-
-  while (my ($nvre) = $sth->fetchrow()) {
-    push @nvres, $nvre;
-  }
-
-  return @nvres;
-}
-
 sub valid_package_archs { #return all archs recognized by our server
 
   my $class = shift;
@@ -1118,34 +1083,5 @@ EOQ
 
   return $label;
 }
-
-# Return list of blacklisted packages not to be included in Manifests and
-# UI lists.  org_id is optional.
-sub package_blacklist {
-  my $self = shift;
-  my $org_id = shift;
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-
-SELECT pn.name 
-  FROM rhnPackageSyncBlacklist BL,
-       rhnPackageName PN
-  WHERE PN.id = BL.package_name_id
-    AND (BL.org_id = :org_id or BL.org_id is null)
-
-EOQ
-
-  $sth->execute_h(org_id => $org_id);
-
-  my @blacklist;
-
-  while (my ($pname) = $sth->fetchrow()) {
-    push @blacklist, $pname;
-  }
-
-  return @blacklist;
-}
-
-
 
 1;

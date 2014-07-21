@@ -1,6 +1,6 @@
 Name:       dwr
 Version:    3.0rc2
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Direct Web Remoting
 Group:      Development/Libraries/Java
 License:    Apache Software License v2
@@ -22,7 +22,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:   java
 BuildRequires:   java-devel >= 1.5.0
 BuildRequires:   ant
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
 %endif
 
@@ -51,6 +51,9 @@ install -m 644 ./target/ant/dwr.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version
 
 
 %changelog
+* Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 3.0rc2-6
+- fixed deps on RHEL7
+
 * Wed Jan 08 2014 Tomas Lestach <tlestach@redhat.com> 3.0rc2-5
 - let dwr buildrequire javapackages-tools on fc20
 

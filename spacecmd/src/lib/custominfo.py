@@ -20,6 +20,12 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
 from spacecmd.utils import *
 
 def help_custominfo_createkey(self):
@@ -27,7 +33,7 @@ def help_custominfo_createkey(self):
     print 'usage: custominfo_createkey [NAME] [DESCRIPTION]'
 
 def do_custominfo_createkey(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) > 0:
         key = args[0]
@@ -58,7 +64,7 @@ def complete_custominfo_deletekey(self, text, line, beg, end):
     return tab_completer(self.do_custominfo_listkeys('', True), text)
 
 def do_custominfo_deletekey(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_custominfo_deletekey()
@@ -76,7 +82,8 @@ def do_custominfo_deletekey(self, args):
     # Print the keys prior to the confirmation
     print '\n'.join(sorted(keys))
 
-    if not self.user_confirm('Delete these keys [y/N]:'): return
+    if not self.user_confirm('Delete these keys [y/N]:'):
+        return
 
     for key in keys:
         self.client.system.custominfo.deleteKey(self.session, key)
@@ -107,7 +114,7 @@ def complete_custominfo_details(self, text, line, beg, end):
     return tab_completer(self.do_custominfo_listkeys('', True), text)
 
 def do_custominfo_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_custominfo_details()
@@ -131,7 +138,8 @@ def do_custominfo_details(self, args):
             if k.get('label') == key:
                 details = k
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Label:        %s' % details.get('label')
@@ -146,7 +154,7 @@ def help_custominfo_updatekey(self):
     print 'usage: custominfo_updatekey [NAME] [DESCRIPTION]'
 
 def do_custominfo_updatekey(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) > 0:
         key = args[0]

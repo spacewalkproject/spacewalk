@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -1009,7 +1009,7 @@ public class ChannelManager extends BaseManager {
              * access to this channel, so catch the exception, log it, and simply
              * return false.
              */
-            StringBuffer msg = new StringBuffer("User: ");
+            StringBuilder msg = new StringBuilder("User: ");
             msg.append(user.getLogin());
             msg.append(" either does not have subscribe privileges to Channel: ");
             msg.append(cid);
@@ -1037,7 +1037,7 @@ public class ChannelManager extends BaseManager {
              * access to this channel, so catch the exception, log it, and simply
              * return false.
              */
-            StringBuffer msg = new StringBuffer("User: ");
+            StringBuilder msg = new StringBuilder("User: ");
             msg.append(user.getLogin());
             msg.append(" either does not have subscribe privileges to Channel: ");
             msg.append(cid);
@@ -1532,7 +1532,7 @@ public class ChannelManager extends BaseManager {
         }
         SelectMode m = ModeFactory.getMode("Channel_queries",
             "latest_package_like");
-        StringBuffer pname = new StringBuffer();
+        StringBuilder pname = new StringBuilder();
         pname.append("%");
         pname.append(packageName);
         pname.append("%");
@@ -1580,7 +1580,11 @@ public class ChannelManager extends BaseManager {
         params.put("package", packageName);
         params.put("org_id", org.getId());
 
-        List<Long> channelIds = m.execute(params);
+        DataResult dr = m.execute(params);
+        List<Long> channelIds = new ArrayList<Long>();
+        for (Iterator it = dr.iterator(); it.hasNext();) {
+            channelIds.add((Long) ((Map) it.next()).get("id"));
+        }
         if (expectOne && channelIds.size() > 1) {
             // Multiple channels have this package, highly unlikely we can guess which
             // one is the right one so we'll raise an exception and let the caller
@@ -1604,7 +1608,13 @@ public class ChannelManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("package", packageName);
         params.put("org_id", org.getId());
-        return m.execute(params);
+        //whittle down until we have the piece we want.
+        DataResult<Map<String, Long>> dr = m.execute(params);
+        List<Long> cids = new LinkedList<Long>();
+        for (Map<String, Long> row : dr) {
+            cids.add(row.get("id"));
+        }
+        return cids;
     }
     /**
      * Subscribe a Server to the first child channel of its base channel that contains
@@ -1819,7 +1829,7 @@ public class ChannelManager extends BaseManager {
             return originalRelease;
         }
 
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(tokens[0]);
         buf.append(".");
         buf.append(tokens[1]);
@@ -2508,7 +2518,7 @@ public class ChannelManager extends BaseManager {
     public static void removePackages(Channel chan, List<Long> packageIds, User user) {
 
         if (!UserManager.verifyChannelAdmin(user, chan)) {
-            StringBuffer msg = new StringBuffer("User: ");
+            StringBuilder msg = new StringBuilder("User: ");
             msg.append(user.getLogin());
             msg.append(" does not have channel admin access to channel: ");
             msg.append(chan.getLabel());
@@ -2539,7 +2549,7 @@ public class ChannelManager extends BaseManager {
     public static void addPackages(Channel chan, List<Long> packageIds, User user) {
 
         if (!UserManager.verifyChannelAdmin(user, chan)) {
-            StringBuffer msg = new StringBuffer("User: ");
+            StringBuilder msg = new StringBuilder("User: ");
             msg.append(user.getLogin());
             msg.append(" does not have channel admin access to channel: ");
             msg.append(chan.getLabel());
@@ -2620,9 +2630,10 @@ public class ChannelManager extends BaseManager {
 
         SelectMode mode = ModeFactory.getMode(
                 "Channel_queries", "cloned_original_id");
-        List<Long> list = mode.execute(params);
+        List<Map> list = mode.execute(params);
         if (!list.isEmpty()) {
-            return list.get(0);
+            Map map = list.get(0);
+            return (Long) map.get("id");
         }
         return null;
     }
@@ -2842,5 +2853,19 @@ public class ChannelManager extends BaseManager {
      */
     public static List<Long> listChannelManagerIdsForChannel(Org org, Channel channel) {
         return ChannelFactory.listManagerIdsForChannel(org, channel.getId());
+    }
+
+    /**
+     * @param csid content source (repository) ID
+     * @param pc pageControl
+     * @return List of channels associated to a content source (repository)
+     */
+    public static DataResult channelsForContentSource(Long csid, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+                "channels_for_content_source");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("csid", csid);
+        Map<String, Object> elabParams = new HashMap<String, Object>();
+        return makeDataResult(params, elabParams, pc, m);
     }
 }

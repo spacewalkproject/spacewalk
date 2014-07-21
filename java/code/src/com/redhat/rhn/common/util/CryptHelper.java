@@ -81,7 +81,7 @@ public class CryptHelper {
      * @return String
      */
     static String to64(int value, int length) {
-        StringBuffer out = new StringBuffer();
+        StringBuilder out = new StringBuilder();
 
         while (length > 0) {
             out.append(b64t.substring((value & 0x3f), (value & 0x3f) + 1));
@@ -97,7 +97,7 @@ public class CryptHelper {
      * @return String
      */
     static String generateRandomSalt(Integer saltLength) {
-        StringBuffer salt = new StringBuffer();
+        StringBuilder salt = new StringBuilder();
         Random r = new Random();
 
         for (int i = 0; i < saltLength; i++) {

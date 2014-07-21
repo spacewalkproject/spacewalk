@@ -1,12 +1,5 @@
 <datasource_modes>
 
-<mode name="comparison_to_snapshot">
-  <query params="">
-SELECT 1 FROM DUAL
-<!-- dummy -->
-  </query>
-</mode>
-
 <mode name="namespaces_visible_to_org">
   <query params="org_id">
 SELECT CC.id,

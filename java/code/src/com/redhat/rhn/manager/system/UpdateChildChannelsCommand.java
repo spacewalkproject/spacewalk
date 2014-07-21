@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -84,7 +84,8 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
 
         // Check whether channelsIds are childs of the current base if the system has a base
         if (server.getBaseChannel() != null) {
-            Set subscribableChannelIds = SystemManager.subscribableChannelIds(
+            Set<Long> subscribableChannelIds =
+                    SystemManager.subscribableChannelIds(
                             server.getId(), user.getId(), server.getBaseChannel().getId());
             for (Long channelId : cids) {
                 if (!subscribableChannelIds.contains(channelId)) {

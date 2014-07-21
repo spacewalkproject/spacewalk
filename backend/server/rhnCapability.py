@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -116,7 +116,7 @@ def update_client_capabilities(server_id):
             where server_id = :server_id
             and capability_name_id = :capability_name_id
         """)
-        apply(h.executemany, (), deletes)
+        h.executemany(**deletes)
 
     if updates['server_id']:
         h = rhnSQL.prepare("""
@@ -125,7 +125,7 @@ def update_client_capabilities(server_id):
             where server_id = :server_id
             and capability_name_id = :capability_name_id
         """)
-        apply(h.executemany, (), updates)
+        h.executemany(**updates)
 
     if inserts['server_id']:
         h = rhnSQL.prepare("""
@@ -133,7 +133,7 @@ def update_client_capabilities(server_id):
             (server_id, capability_name_id, version)
             values (:server_id, LOOKUP_CLIENT_CAPABILITY(:capability), :version)
         """)
-        apply(h.executemany, (), inserts)
+        h.executemany(**inserts)
 
     # Commit work. This can be dangerous if there is previously uncommited
     # work
@@ -165,6 +165,7 @@ def _set_server_capabilities():
         'rhncfg.content.base64_decode'          : {'version' : 1, 'value' : 1},
         'rhncfg.filetype.directory'             : {'version' : 1, 'value' : 1},
         'xmlrpc.packages.extended_profile'      : {'version' : '1-2', 'value' : 1},
+        'xmlrpc.packages.checksums'             : {'version' : 1, 'value' : 1},
         'xmlrpc.errata.patch_names'             : {'version' : 1, 'value' : 1},
         'staging_content'                       : {'version' : 1, 'value' : 1},
         'ipv6'                                  : {'version' : 1, 'value' : 1},

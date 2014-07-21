@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -231,7 +231,7 @@ public class DataList<E> extends ArrayList<E> {
      * data of the list.
      */
     public String toString() {
-        StringBuffer buffy = new StringBuffer();
+        StringBuilder buffy = new StringBuilder();
         buffy.append("DataList(");
         buffy.append("mode:");
         buffy.append(mode.toString());

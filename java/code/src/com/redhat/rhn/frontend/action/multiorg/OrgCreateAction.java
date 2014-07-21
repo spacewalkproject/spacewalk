@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -105,7 +105,7 @@ public class OrgCreateAction extends RhnAction {
                 String prefix = dynaForm.getString("prefix");
 
                 if (!pass.equals(passConfirm)) {
-                    addMessage(request, "error.password_mismatch");
+                    createErrorMessage(request, "error.password_mismatch", null);
                 }
                 else {
                     CreateOrgCommand cmd = new CreateOrgCommand(name, login, pass, email);

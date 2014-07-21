@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -43,7 +43,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
-        List ksTrees = handler.list(adminKey,
+        List ksTrees = handler.list(admin,
                 baseChan.getLabel());
         assertTrue(ksTrees.size() > 0);
 
@@ -67,7 +67,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
             origCount = trees.size();
         }
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
-        handler.create(adminKey, label,
+        handler.create(admin, label,
                 KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath(),
                 baseChan.getLabel(), KickstartInstallType.RHEL_5);
         assertTrue(origCount + 1 == KickstartFactory.
@@ -81,7 +81,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         String newBase = "/tmp/kickstart/new-base-path";
         KickstartableTreeTest.createKickstartTreeItems(new File(newBase), admin);
         Channel newChan = ChannelFactoryTest.createTestChannel(admin);
-        handler.update(adminKey, testTree.getLabel(),
+        handler.update(admin, testTree.getLabel(),
                 newBase, newChan.getLabel(),
                 testTree.getInstallType().getLabel());
 
@@ -95,7 +95,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
         String newLabel = "newlabel-" + TestUtils.randomString();
-        handler.rename(adminKey, testTree.getLabel(), newLabel);
+        handler.rename(admin, testTree.getLabel(), newLabel);
         assertEquals(newLabel, testTree.getLabel());
     }
 
@@ -104,7 +104,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
         String label = testTree.getLabel();
-        handler.delete(adminKey, label);
+        handler.delete(admin, label);
         assertNull(KickstartFactory.lookupKickstartTreeByLabel(label, admin.getOrg()));
     }
 
@@ -115,20 +115,20 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         Channel channel = testTree.getChannel();
 
         // verify our setup... should have 1 tree and 1 profile associated w/it
-        List ksTrees = handler.list(adminKey, channel.getLabel());
-        List ksProfiles = ksHandler.listKickstarts(adminKey);
+        List ksTrees = handler.list(admin, channel.getLabel());
+        List ksProfiles = ksHandler.listKickstarts(admin);
         assertNotNull(ksTrees);
         assertNotNull(ksProfiles);
         Integer numKsTrees = ksTrees.size();
         Integer numKsProfiles = ksProfiles.size();
 
         // execute test...
-        int result = handler.deleteTreeAndProfiles(adminKey, testTree.getLabel());
+        int result = handler.deleteTreeAndProfiles(admin, testTree.getLabel());
         assertEquals(1, result);
 
         // verify that both the tree and associated profile no longer exist
-        ksTrees = handler.list(adminKey, channel.getLabel());
-        ksProfiles = ksHandler.listKickstarts(adminKey);
+        ksTrees = handler.list(admin, channel.getLabel());
+        ksProfiles = ksHandler.listKickstarts(admin);
         assertNotNull(ksTrees);
         assertNotNull(ksProfiles);
         assertEquals(numKsTrees - 1, ksTrees.size());
@@ -136,7 +136,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testListTreeTypes() throws Exception {
-        List types = handler.listInstallTypes(adminKey);
+        List types = handler.listInstallTypes(admin);
         assertNotNull(types);
         assertTrue(types.size() > 0);
         System.out.println("type: " + types.get(0).getClass().getName());

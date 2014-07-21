@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,6 +30,7 @@ import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
@@ -37,6 +38,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.action.kickstart.KickstartTreeUpdateType;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
+import com.redhat.rhn.frontend.struts.LabelValueEnabledBean;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
@@ -53,10 +55,12 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
+import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
+import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -69,6 +73,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -84,9 +89,19 @@ import java.util.TreeSet;
  */
 public class ProfileHandler extends BaseHandler {
 
+    private static final String[] VALIDOPTIONNAMES = {"autostep", "interactive", "install",
+            "upgrade", "text", "network", "cdrom", "harddrive", "nfs", "url",
+            "lang", "langsupport", "keyboard", "mouse", "device", "deviceprobe",
+            "zerombr", "clearpart", "bootloader", "timezone", "auth", "rootpw",
+            "selinux", "reboot", "firewall", "xconfig", "skipx", "key",
+            "ignoredisk", "autopart", "cmdline", "firstboot", "graphical", "iscsi",
+            "iscsiname", "logging", "monitor", "multipath", "poweroff", "halt",
+            "services", "shutdown", "user", "vnc", "zfcp", "driverdisk",
+            "md5_crypt_rootpw"};
+
     /**
      * Get the kickstart tree for a kickstart profile.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param kslabel label of the kickstart profile to be changed.
      * @return kickstart tree label
      *
@@ -97,9 +112,8 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype
      *     #param_desc("string", "kstreeLabel", "Label of the kickstart tree.")
      */
-    public String getKickstartTree(String sessionKey, String kslabel) {
+    public String getKickstartTree(User loggedInUser, String kslabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksdata = KickstartFactory
                 .lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser
                         .getOrg().getId());
@@ -114,7 +128,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Get the update type for a kickstart profile.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param kslabel label of the kickstart profile to be changed.
      * @return kickstart tree label
      *
@@ -125,9 +139,8 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype
      *     #param_desc("string", "update_type", "Update type for this Kickstart Profile.")
      */
-    public String getUpdateType(String sessionKey, String kslabel) {
+    public String getUpdateType(User loggedInUser, String kslabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksdata = KickstartFactory
                 .lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser
                         .getOrg().getId());
@@ -141,7 +154,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Get the option to perserve ks.cfg.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param kslabel the kickstart label
      * @return Boolean value of the option
      *
@@ -152,8 +165,7 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype boolean - The value of the option. True means that
      *     ks.cfg will be copied to /root, false means that it will not.
      */
-    public Boolean getCfgPreservation(String sessionKey, String kslabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public Boolean getCfgPreservation(User loggedInUser, String kslabel) {
         checkKickstartPerms(loggedInUser);
         KickstartData data = lookupKsData(kslabel, loggedInUser.getOrg());
         if (data == null) {
@@ -165,7 +177,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Set the option to perserve ks.cfg.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param kslabel the kickstart label
      * @param preserve whether to perserve ks.cfg or not
      * @return int 1 for success
@@ -178,8 +190,7 @@ public class ProfileHandler extends BaseHandler {
      *      ks.cfg and all %include fragments will be copied to /root.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setCfgPreservation(String sessionKey, String kslabel, boolean preserve) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int setCfgPreservation(User loggedInUser, String kslabel, boolean preserve) {
         checkKickstartPerms(loggedInUser);
         KickstartData data = lookupKsData(kslabel, loggedInUser.getOrg());
         if (data == null) {
@@ -193,7 +204,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Set the logging (Pre and post) for a kickstart file
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param kslabel the kickstart label
      * @param pre whether to log pre scripts or not
      * @param post whether to log post scripts or not
@@ -209,8 +220,7 @@ public class ProfileHandler extends BaseHandler {
      *      the post section of a kickstart to /root/ks-post.log")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setLogging(String sessionKey, String kslabel, boolean pre, boolean post) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int setLogging(User loggedInUser, String kslabel, boolean pre, boolean post) {
         checkKickstartPerms(loggedInUser);
         KickstartData data = lookupKsData(kslabel, loggedInUser.getOrg());
         data.setPreLog(pre);
@@ -222,7 +232,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Set the kickstart tree for a kickstart profile.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param kslabel label of the kickstart profile to be changed.
      * @param kstreeLabel label of the new kickstart tree.
      * @return 1 if successful, exception otherwise.
@@ -235,10 +245,9 @@ public class ProfileHandler extends BaseHandler {
      * kickstart tree.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setKickstartTree(String sessionKey, String kslabel,
+    public int setKickstartTree(User loggedInUser, String kslabel,
             String kstreeLabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksdata = KickstartFactory
                 .lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser
                         .getOrg().getId());
@@ -260,7 +269,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Set the update type for a kickstart profile.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param kslabel label of the kickstart profile to be changed.
      * @param updateType the new update type.
      * @return 1 if successful, exception otherwise.
@@ -273,10 +282,9 @@ public class ProfileHandler extends BaseHandler {
      * to set. Possible values are 'red_hat', 'all', and 'none'.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setUpdateType(String sessionKey, String kslabel,
+    public int setUpdateType(User loggedInUser, String kslabel,
             String updateType) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksdata = KickstartFactory
                 .lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser
                         .getOrg().getId());
@@ -315,7 +323,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Get the child channels for a kickstart profile.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param kslabel label of the kickstart profile to be updated.
      * @return list of child channels associated with the profile.
      *
@@ -326,9 +334,8 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype
      *     #array_single("string", "channelLabel")
      */
-    public List<String> getChildChannels(String sessionKey, String kslabel) {
+    public List<String> getChildChannels(User loggedInUser, String kslabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksdata = KickstartFactory.
               lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser.getOrg().getId());
         if (ksdata == null) {
@@ -348,7 +355,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Set the child channels for a kickstart profile.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param kslabel label of the kickstart profile to be updated.
      * @param channelLabels labels of the child channels to be set in the
      * kickstart profile.
@@ -362,10 +369,9 @@ public class ProfileHandler extends BaseHandler {
      * "List of labels of child channels")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setChildChannels(String sessionKey, String kslabel,
+    public int setChildChannels(User loggedInUser, String kslabel,
             List<String> channelLabels) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksdata = KickstartFactory.
               lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser.getOrg().getId());
         if (ksdata == null) {
@@ -392,7 +398,7 @@ public class ProfileHandler extends BaseHandler {
     /**
      * List the pre and post scripts for a kickstart profile in the order
      * they will run during the kickstart.
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param label the kickstart label
      * @return list of kickstartScript objects
      *
@@ -403,8 +409,7 @@ public class ProfileHandler extends BaseHandler {
      * kickstart")
      * @xmlrpc.returntype #array() $KickstartScriptSerializer #array_end()
      */
-    public List<KickstartScript> listScripts(String sessionKey, String label) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public List<KickstartScript> listScripts(User loggedInUser, String label) {
         checkKickstartPerms(loggedInUser);
         KickstartData data = lookupKsData(label, loggedInUser.getOrg());
 
@@ -424,7 +429,7 @@ public class ProfileHandler extends BaseHandler {
      * and one for post scripts that run after registration and server
      * actinos. All scripts must be included in one of these lists, as
      * appropriate.
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param ksLabel the kickstart label
      * @param preScripts the ordered list of pre scripts
      * @param postScriptsBeforeRegistration the ordered list of post
@@ -453,10 +458,9 @@ public class ProfileHandler extends BaseHandler {
      *              after registration")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int orderScripts(String sessionKey, String ksLabel, List<Integer> preScripts,
+    public int orderScripts(User loggedInUser, String ksLabel, List<Integer> preScripts,
             List<Integer> postScriptsBeforeRegistration,
             List<Integer> postScriptsAfterRegistration) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         checkKickstartPerms(loggedInUser);
         KickstartData data = lookupKsData(ksLabel, loggedInUser.getOrg());
         if (data == null) {
@@ -534,7 +538,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Add a script to a kickstart profile
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param ksLabel the kickstart label
      * @param name name of the script
      * @param contents the contents
@@ -560,15 +564,15 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype int id - the id of the added script
      *
      */
-    public int addScript(String sessionKey, String ksLabel, String name, String contents,
+    public int addScript(User loggedInUser, String ksLabel, String name, String contents,
             String interpreter, String type, boolean chroot) {
-        return addScript(sessionKey, ksLabel, name, contents, interpreter, type,
+        return addScript(loggedInUser, ksLabel, name, contents, interpreter, type,
                 chroot, false);
     }
 
     /**
      * Add a script to a kickstart profile
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param ksLabel the kickstart label
      * @param name name of the script
      * @param contents the contents
@@ -596,15 +600,15 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype int id - the id of the added script
      *
      */
-    public int addScript(String sessionKey, String ksLabel, String name, String contents,
+    public int addScript(User loggedInUser, String ksLabel, String name, String contents,
             String interpreter, String type, boolean chroot, boolean template) {
-        return addScript(sessionKey, ksLabel, name, contents, interpreter, type, chroot,
+        return addScript(loggedInUser, ksLabel, name, contents, interpreter, type, chroot,
                 template, false);
     }
 
     /**
      * Add a script to a kickstart profile
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param ksLabel the kickstart label
      * @param name name of the script
      * @param contents the contents
@@ -635,10 +639,9 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype int id - the id of the added script
      *
      */
-    public int addScript(String sessionKey, String ksLabel, String name, String contents,
+    public int addScript(User loggedInUser, String ksLabel, String name, String contents,
             String interpreter, String type, boolean chroot, boolean template,
             boolean erroronfail) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         checkKickstartPerms(loggedInUser);
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
 
@@ -667,7 +670,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Remove a script from a kickstart profile.
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param ksLabel the kickstart to remove a script from
      * @param id the id of the kickstart
      * @return 1 on success
@@ -681,8 +684,7 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      *
      */
-    public int removeScript(String sessionKey, String ksLabel, Integer id) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public int removeScript(User loggedInUser, String ksLabel, Integer id) {
         checkKickstartPerms(loggedInUser);
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
 
@@ -703,7 +705,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * returns the fully formatted kickstart file
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param ksLabel the label to download
      * @param host The host/ip to use when referring to the server itself
      * @return the kickstart file
@@ -722,9 +724,8 @@ public class ProfileHandler extends BaseHandler {
      *
      *
      */
-    public String downloadKickstart(String sessionKey, String ksLabel,
+    public String downloadKickstart(User loggedInUser, String ksLabel,
             String host) {
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
         KickstartFormatter form = new KickstartFormatter(host, ksData);
         return form.getFileData();
@@ -732,7 +733,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * returns the Cobbler-rendered kickstart file
-     * @param sessionKey key
+     * @param loggedInUser The current user
      * @param ksLabel the label to download
      * @return the kickstart file
      *
@@ -742,8 +743,7 @@ public class ProfileHandler extends BaseHandler {
      * kickstart to download.")
      * @xmlrpc.returntype string - The contents of the kickstart file.
      */
-    public String downloadRenderedKickstart(String sessionKey, String ksLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public String downloadRenderedKickstart(User loggedInUser, String ksLabel) {
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
         KickstartManager manager = KickstartManager.getInstance();
         return manager.renderKickstart(ksData);
@@ -751,7 +751,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Get advanced options for existing kickstart profile.
-     * @param sessionKey User's session key.
+     * @param loggedInUser The current user
      * @param ksLabel label of the kickstart profile to be updated.
      * @return An array of advanced options
      * @throws FaultException A FaultException is thrown if
@@ -767,9 +767,8 @@ public class ProfileHandler extends BaseHandler {
      * #array_end()
      */
 
-    public Object[] getAdvancedOptions(String sessionKey, String ksLabel)
+    public Object[] getAdvancedOptions(User loggedInUser, String ksLabel)
     throws FaultException {
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(ksLabel, loggedInUser.
                     getOrg().getId());
@@ -784,7 +783,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Set advanced options in a kickstart profile
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param ksLabel the kickstart label
      * @param options the advanced options to set
      * @return 1 if success, exception otherwise
@@ -814,28 +813,17 @@ public class ProfileHandler extends BaseHandler {
      *   #array_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setAdvancedOptions(String sessionKey, String ksLabel, List<Map> options)
+    public int setAdvancedOptions(User loggedInUser, String ksLabel, List<Map> options)
     throws FaultException {
-        User user = getLoggedInUser(sessionKey);
         KickstartData ksdata = KickstartFactory.
-            lookupKickstartDataByLabelAndOrgId(ksLabel, user.
+            lookupKickstartDataByLabelAndOrgId(ksLabel, loggedInUser.
                     getOrg().getId());
         if (ksdata == null) {
             throw new FaultException(-3, "kickstartProfileNotFound",
             "No Kickstart Profile found with label: " + ksLabel);
         }
 
-        String[] validOptionNames = new String[] {"autostep", "interactive", "install",
-                "upgrade", "text", "network", "cdrom", "harddrive", "nfs", "url",
-                "lang", "langsupport", "keyboard", "mouse", "device", "deviceprobe",
-                "zerombr", "clearpart", "bootloader", "timezone", "auth", "rootpw",
-                "selinux", "reboot", "firewall", "xconfig", "skipx", "key",
-                "ignoredisk", "autopart", "cmdline", "firstboot", "graphical", "iscsi",
-                "iscsiname", "logging", "monitor", "multipath", "poweroff", "halt",
-                "services", "shutdown", "user", "vnc", "zfcp", "driverdisk",
-                "md5_crypt_rootpw"};
-
-        List<String> validOptions = Arrays.asList(validOptionNames);
+        List<String> validOptions = Arrays.asList(VALIDOPTIONNAMES);
 
         Set<String> givenOptions = new HashSet<String>();
         for (Map option : options) {
@@ -850,7 +838,7 @@ public class ProfileHandler extends BaseHandler {
           }
 
         Long ksid = ksdata.getId();
-        KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user);
+        KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, loggedInUser);
 
         //check if all the required options are present
         List<KickstartCommandName> requiredOptions = KickstartFactory.
@@ -922,7 +910,7 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * Get custom options for a kickstart profile.
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param ksLabel the kickstart label
      * @return a list of hashes holding this info.
      * @throws FaultException A FaultException is thrown if
@@ -937,11 +925,10 @@ public class ProfileHandler extends BaseHandler {
      * $KickstartCommandSerializer
      * #array_end()
      */
-    public Object[] getCustomOptions(String sessionKey, String ksLabel)
+    public Object[] getCustomOptions(User loggedInUser, String ksLabel)
     throws FaultException {
-        User user = getLoggedInUser(sessionKey);
         KickstartData ksdata = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
-                ksLabel, user.getOrg().getId());
+                ksLabel, loggedInUser.getOrg().getId());
         if (ksdata == null) {
             throw new FaultException(-3, "kickstartProfileNotFound",
             "No Kickstart Profile found with label: " + ksLabel);
@@ -952,7 +939,7 @@ public class ProfileHandler extends BaseHandler {
 
    /**
     * Set custom options for a kickstart profile.
-    * @param sessionKey the session key
+    * @param loggedInUser The current user
     * @param ksLabel the kickstart label
     * @param options the custom options to set
     * @return a int being the number of options set
@@ -965,17 +952,17 @@ public class ProfileHandler extends BaseHandler {
     * @xmlrpc.param #param("string[]","options")
     * @xmlrpc.returntype #return_int_success()
     */
-   public int setCustomOptions(String sessionKey, String ksLabel, List<String> options)
+   public int setCustomOptions(User loggedInUser, String ksLabel, List<String> options)
    throws FaultException {
-       User user = getLoggedInUser(sessionKey);
        KickstartData ksdata =
-               XmlRpcKickstartHelper.getInstance().lookupKsData(ksLabel, user.getOrg());
+               XmlRpcKickstartHelper.getInstance().lookupKsData(ksLabel,
+                       loggedInUser.getOrg());
        if (ksdata == null) {
            throw new FaultException(-3, "kickstartProfileNotFound",
                "No Kickstart Profile found with label: " + ksLabel);
        }
        Long ksid = ksdata.getId();
-       KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user);
+       KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, loggedInUser);
        SortedSet<KickstartCommand> customSet = new TreeSet<KickstartCommand>();
        if (options != null) {
            for (int i = 0; i < options.size(); i++) {
@@ -1010,7 +997,7 @@ public class ProfileHandler extends BaseHandler {
 
    /**
     * Lists all ip ranges for a kickstart profile.
-    * @param sessionKey An active session key
+    * @param loggedInUser The current user
     * @param ksLabel the label of the kickstart
     * @return List of KickstartIpRange objects
     *
@@ -1021,18 +1008,17 @@ public class ProfileHandler extends BaseHandler {
     * @xmlrpc.returntype #array() $KickstartIpRangeSerializer #array_end()
     *
     */
-   public Set listIpRanges(String sessionKey, String ksLabel) {
-       User user = getLoggedInUser(sessionKey);
-       if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+   public Set listIpRanges(User loggedInUser, String ksLabel) {
+       if (!loggedInUser.hasRole(RoleFactory.CONFIG_ADMIN)) {
            throw new PermissionCheckFailureException();
        }
-       KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+       KickstartData ksdata = lookupKsData(ksLabel, loggedInUser.getOrg());
        return ksdata.getIps();
    }
 
    /**
     * Add an ip range to a kickstart.
-    * @param sessionKey the session key
+    * @param loggedInUser The current user
     * @param ksLabel the kickstart label
     * @param min the min ip address of the range
     * @param max the max ip address of the range
@@ -1049,11 +1035,10 @@ public class ProfileHandler extends BaseHandler {
     * @xmlrpc.returntype #return_int_success()
     *
     */
-   public int addIpRange(String sessionKey, String ksLabel, String min,
+   public int addIpRange(User loggedInUser, String ksLabel, String min,
            String max) {
-       User user = getLoggedInUser(sessionKey);
-       KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-       KickstartIpCommand com = new KickstartIpCommand(ksdata.getId(), user);
+       KickstartData ksdata = lookupKsData(ksLabel, loggedInUser.getOrg());
+       KickstartIpCommand com = new KickstartIpCommand(ksdata.getId(), loggedInUser);
 
        IpAddress minIp = new IpAddress(min);
        IpAddress maxIp = new IpAddress(max);
@@ -1072,7 +1057,7 @@ public class ProfileHandler extends BaseHandler {
 
    /**
     * Remove an ip range from a kickstart profile.
-    * @param sessionKey the session key
+    * @param loggedInUser The current user
     * @param ksLabel the kickstart to remove an ip range from
     * @param ipAddress an ip address in the range that you want to remove
     * @return 1 on removal, 0 if not found, exception otherwise
@@ -1087,12 +1072,11 @@ public class ProfileHandler extends BaseHandler {
     * @xmlrpc.returntype int - 1 on successful removal, 0 if range wasn't found
     * for the specified kickstart, exception otherwise.
     */
-   public int removeIpRange(String sessionKey, String ksLabel, String ipAddress) {
-       User user = getLoggedInUser(sessionKey);
-       if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+   public int removeIpRange(User loggedInUser, String ksLabel, String ipAddress) {
+       if (!loggedInUser.hasRole(RoleFactory.CONFIG_ADMIN)) {
            throw new PermissionCheckFailureException();
        }
-       KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+       KickstartData ksdata = lookupKsData(ksLabel, loggedInUser.getOrg());
        KickstartIpRangeFilter filter = new KickstartIpRangeFilter();
        for (KickstartIpRange range : ksdata.getIps()) {
            if (filter.filterOnRange(ipAddress, range.getMinString(), range
@@ -1108,8 +1092,7 @@ public class ProfileHandler extends BaseHandler {
      * Returns a list for each kickstart profile of activation keys that are present
      * in that profile but not the other.
      *
-     * @param sessionKey      identifies the user making the call;
-     *                        cannot be <code>null</code>
+     * @param loggedInUser The current user
      * @param kickstartLabel1 identifies a profile to be compared;
      *                        cannot be <code>null</code>
      * @param kickstartLabel2 identifies a profile to be compared;
@@ -1137,13 +1120,9 @@ public class ProfileHandler extends BaseHandler {
      *          #array_end()
      *  #struct_end()
      */
-    public Map<String, List<ActivationKey>> compareActivationKeys(String sessionKey,
+    public Map<String, List<ActivationKey>> compareActivationKeys(User loggedInUser,
                                                                   String kickstartLabel1,
                                                                   String kickstartLabel2) {
-        // Validate parameters
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
 
         if (kickstartLabel1 == null) {
             throw new IllegalArgumentException("kickstartLabel1 cannot be null");
@@ -1157,9 +1136,9 @@ public class ProfileHandler extends BaseHandler {
         KeysHandler keysHandler = new KeysHandler();
 
         List<ActivationKey> keyList1 =
-            keysHandler.getActivationKeys(sessionKey, kickstartLabel1);
+            keysHandler.getActivationKeys(loggedInUser, kickstartLabel1);
         List<ActivationKey> keyList2 =
-            keysHandler.getActivationKeys(sessionKey, kickstartLabel2);
+            keysHandler.getActivationKeys(loggedInUser, kickstartLabel2);
 
         // Set operations to determine deltas
         List<ActivationKey> onlyInKickstart1 = new ArrayList<ActivationKey>(keyList1);
@@ -1182,7 +1161,7 @@ public class ProfileHandler extends BaseHandler {
      * Returns a list for each kickstart profile of package names that are present
      * in that profile but not the other.
      *
-     * @param sessionKey      identifies the user making the call;
+     * @param loggedInUser The current user
      *                        cannot be <code>null</code>
      * @param kickstartLabel1 identifies a profile to be compared;
      *                        cannot be <code>null</code>
@@ -1207,13 +1186,9 @@ public class ProfileHandler extends BaseHandler {
      *          #array_single("string", "package name")
      *  #struct_end()
      */
-    public Map<String, Set<String>> comparePackages(String sessionKey,
+    public Map<String, Set<String>> comparePackages(User loggedInUser,
                                        String kickstartLabel1, String kickstartLabel2) {
         // Validate parameters
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
-
         if (kickstartLabel1 == null) {
             throw new IllegalArgumentException("kickstartLabel1 cannot be null");
         }
@@ -1223,7 +1198,6 @@ public class ProfileHandler extends BaseHandler {
         }
 
         // Load the profiles and their package lists
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData profile1 =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel1,
                 loggedInUser.getOrg().getId());
@@ -1265,7 +1239,7 @@ public class ProfileHandler extends BaseHandler {
      * the profiles. Each property that is not equal between the two profiles will be
      * present in both lists with the current values for its respective profile.
      *
-     * @param sessionKey      identifies the user making the call;
+     * @param loggedInUser The current user
      *                        cannot be <code>null</code>
      * @param kickstartLabel1 identifies a profile to be compared;
      *                        cannot be <code>null</code>
@@ -1295,13 +1269,9 @@ public class ProfileHandler extends BaseHandler {
      *          #array_end()
      *  #struct_end()
      */
-    public Map<String, List<KickstartOptionValue>> compareAdvancedOptions(String sessionKey,
+    public Map<String, List<KickstartOptionValue>> compareAdvancedOptions(User loggedInUser,
                                         String kickstartLabel1, String kickstartLabel2) {
         // Validate parameters
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
-
         if (kickstartLabel1 == null) {
             throw new IllegalArgumentException("kickstartLabel1 cannot be null");
         }
@@ -1311,7 +1281,6 @@ public class ProfileHandler extends BaseHandler {
         }
 
         // Load the profiles
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData profile1 =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel1,
                 loggedInUser.getOrg().getId());
@@ -1361,7 +1330,7 @@ public class ProfileHandler extends BaseHandler {
     /**
      * Returns a list of kickstart variables associated with the specified kickstart profile
      *
-     * @param sessionKey      identifies the user making the call
+     * @param loggedInUser The current user
      *                        cannot be <code>null</code>
      * @param ksLabel identifies the kickstart profile
      *                        cannot be <code>null</code>
@@ -1374,16 +1343,13 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "ksLabel")
      * @xmlrpc.returntype
-     *          #array()
-     *              #struct("kickstart variable")
-     *                  #prop("string", "key")
-     *                  #prop("string or int", "value")
-     *              #struct_end()
-     *          #array_end()
+     *     #struct("kickstart variable")
+     *         #prop("string", "key")
+     *         #prop("string or int", "value")
+     *     #struct_end()
      */
-    public Map<String, Object> getVariables(String sessionKey, String ksLabel) {
+    public Map<String, Object> getVariables(User loggedInUser, String ksLabel) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
 
         return ksData.getCobblerObject(loggedInUser).getKsMeta();
@@ -1392,7 +1358,7 @@ public class ProfileHandler extends BaseHandler {
     /**
      * Associates list of kickstart variables with the specified kickstart profile
      *
-     * @param sessionKey      identifies the user making the call
+     * @param loggedInUser The current user
      *                        cannot be <code>null</code>
      * @param ksLabel identifies the kickstart profile
      *                        cannot be <code>null</code>
@@ -1406,24 +1372,130 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "ksLabel")
      * @xmlrpc.param
-     *      #array()
-     *          #struct("kickstart variable")
-     *              #prop("string", "key")
-     *              #prop("string or int", "value")
-     *          #struct_end()
-     *      #array_end()
+     *     #struct("kickstart variable")
+     *         #prop("string", "key")
+     *         #prop("string or int", "value")
+     *     #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
     public int setVariables
-                (String sessionKey, String ksLabel, Map<String, Object> variables) {
+                (User loggedInUser, String ksLabel, Map<String, Object> variables) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
 
         Profile profile = ksData.getCobblerObject(loggedInUser);
         profile.setKsMeta(variables);
         profile.save();
 
+        return 1;
+    }
+
+    /**
+     * @param loggedInUser The current user
+     * @param ksLabel identifies the kickstart profile
+     * @return Array of available OS repositories
+     * @xmlrpc.doc Lists all available OS repositories for a given kickstart profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "ksLabel")
+     * @xmlrpc.returntype #array_single("string", "repositoryLabel")
+     */
+    public String[] getAvailableRepositories(User loggedInUser, String ksLabel) {
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+        KickstartableTree ksTree = ksData.getKickstartDefaults().getKstree();
+
+        if (ksTree != null && !ksTree.getInstallType().isRhel2() &&
+                !ksTree.getInstallType().isRhel3() &&
+                !ksTree.getInstallType().isRhel4()) {
+            List <LabelValueEnabledBean> repos = new LinkedList<LabelValueEnabledBean>();
+            for (RepoInfo repo : RepoInfo.getStandardRepos(ksTree)) {
+                repos.add(new LabelValueEnabledBean(repo.getName(), repo.getName(),
+                        !repo.isAvailable()));
+            }
+            Set<RepoInfo> selected = ksData.getRepoInfos();
+            String [] items = new String[selected.size()];
+            int i = 0;
+            for (RepoInfo repo : selected) {
+                items[i] = repo.getName();
+                i++;
+            }
+            return items;
+        }
+        return null;
+    }
+
+    /**
+     * @param loggedInUser The current user
+     * @param ksLabel ksLabel identifies the kickstart profile
+     * @param reposIn OS repositories to set
+     * @return int - 1 on success, exception thrown otherwise
+     * @xmrpc.doc Associates OS repository to a kickstart profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "ksLabel")
+     * @xmlrpc.param #array_single("string", "repositoryLabel")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setRepositories(User loggedInUser, String ksLabel, List<String> reposIn) {
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+
+        if (ksData.isRhel5OrGreater()) {
+            List<RepoInfo> repoList = RepoInfo.getStandardRepos(
+                    ksData.getKickstartDefaults().getKstree());
+            Map<String, RepoInfo> repoSet = new HashMap<String, RepoInfo>();
+            for (Iterator<RepoInfo> ri = repoList.iterator(); ri.hasNext();) {
+                RepoInfo rInfo = ri.next();
+                repoSet.put(rInfo.getName(), rInfo);
+            }
+            Set<RepoInfo> selected = new HashSet <RepoInfo>();
+            for (int i = 0; i < reposIn.size(); i++) {
+                RepoInfo repoInfo = repoSet.get(reposIn.get(i));
+                if (repoInfo != null) {
+                    selected.add(repoInfo);
+                }
+            }
+            ksData.setRepoInfos(selected);
+            KickstartWizardHelper ksHelper = new KickstartWizardHelper(loggedInUser);
+            ksHelper.processSkipKey(ksData);
+        }
+        return 1;
+    }
+
+    /**
+     * @param loggedInUser The Current user
+     * @param ksLabel Kickstart profile label
+     * @return Label of virtualization type for given profile
+     * @xmlrpc.doc For given kickstart profile label returns label of
+     * virtualization type it's using
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "ksLabel")
+     * @xmlrpc.returntype #param_desc("string", "virtLabel",
+     * "Label of virtualization type.")
+     */
+    public String getVirtualizationType(User loggedInUser, String ksLabel) {
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+        KickstartEditCommand cmd = new KickstartEditCommand(ksData.getId(), loggedInUser);
+
+        return cmd.getVirtualizationType().getLabel();
+    }
+
+    /**
+     * @param loggedInUser The Current user
+     * @param ksLabel Kickstart profile label
+     * @param typeLabel virtualization type label
+     * @return int - 1 on success, exception thrown otherwise
+     * @xmlrpc.doc For given kickstart profile label sets its virtualization type.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "ksLabel")
+     * @xmlrpc.param #param_desc("string", "typeLabel", "One of the following: 'none',
+     * 'qemu', 'para_host', 'xenpv', 'xenfv'")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setVirtualizationType(User loggedInUser, String ksLabel, String typeLabel) {
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+        KickstartEditCommand cmd = new KickstartEditCommand(ksData.getId(), loggedInUser);
+
+        cmd.setVirtualizationType(KickstartFactory.
+                lookupKickstartVirtualizationTypeByLabel(typeLabel));
+        cmd.store();
         return 1;
     }
 }

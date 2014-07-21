@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -26,7 +26,6 @@ import com.redhat.rhn.frontend.xmlrpc.ServerGroupAccessChangeException;
 import com.redhat.rhn.frontend.xmlrpc.ServerNotInGroupException;
 import com.redhat.rhn.frontend.xmlrpc.systemgroup.ServerGroupHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
-import com.redhat.rhn.frontend.xmlrpc.test.XmlRpcTestUtils;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
@@ -50,11 +49,11 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
     private static final String DESCRIPTION =  TestUtils.randomString();
 
     public void testCreate() {
-        ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
+        ServerGroup group = handler.create(admin, NAME, DESCRIPTION);
         assertNotNull(manager.lookup(NAME, admin));
 
         try {
-            handler.create(adminKey, NAME, DESCRIPTION);
+            handler.create(admin, NAME, DESCRIPTION);
             fail("Duplicate key didn't raise an exception");
         }
         catch (Exception e) {
@@ -63,7 +62,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         regular.removePermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         try {
 
-            handler.create(regularKey, NAME + "F", DESCRIPTION + "F");
+            handler.create(regular, NAME + "F", DESCRIPTION + "F");
             fail("Regular user allowed to create server groups");
         }
         catch (Exception e) {
@@ -73,31 +72,31 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
 
     public void testUpdate() {
 
-        ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
+        ServerGroup group = handler.create(admin, NAME, DESCRIPTION);
         assertNotNull(manager.lookup(NAME, admin));
         regular.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         String newDescription = DESCRIPTION + TestUtils.randomString();
         try {
-            handler.update(regularKey, NAME, newDescription);
+            handler.update(regular, NAME, newDescription);
             fail("Can't access .. Should throw access / permission exception");
         }
         catch (Exception e) {
             //access check successful.
         }
-        group = handler.update(adminKey, NAME, newDescription);
+        group = handler.update(admin, NAME, newDescription);
         assertEquals(group.getDescription(), newDescription);
     }
 
     public void testListAdministrators() {
         regular.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
-        ServerGroup group = handler.create(regularKey, NAME, DESCRIPTION);
-        List admins = handler.listAdministrators(regularKey, group.getName());
+        ServerGroup group = handler.create(regular, NAME, DESCRIPTION);
+        List admins = handler.listAdministrators(regular, group.getName());
         assertTrue(admins.contains(regular));
         assertTrue(admins.contains(admin));
         //now test on permissions
         regular.removePermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         try {
-            admins = handler.listAdministrators(regularKey, group.getName());
+            admins = handler.listAdministrators(regular, group.getName());
             fail("Should throw access / permission exception" +
                                 " for regular is not a sys admin");
         }
@@ -107,7 +106,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testAddRemoveAdmins() {
-        ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
+        ServerGroup group = handler.create(admin, NAME, DESCRIPTION);
         assertNotNull(manager.lookup(NAME, admin));
         User newbie = UserTestUtils.createUser("Hahaha", admin.getOrg().getId());
 
@@ -116,24 +115,24 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
 
 
         try {
-            handler.addOrRemoveAdmins(regularKey, group.getName(), logins, true);
+            handler.addOrRemoveAdmins(regular, group.getName(), logins, true);
             fail("Regular user allowed to create server groups");
         }
         catch (Exception e) {
             //Cool only sys admins can create.
         }
 
-        handler.addOrRemoveAdmins(adminKey, group.getName(),
+        handler.addOrRemoveAdmins(admin, group.getName(),
                 Arrays.asList(new String []{regular.getLogin()}), true);
 
         regular.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
-        handler.addOrRemoveAdmins(regularKey, group.getName(), logins, true);
-        List admins = handler.listAdministrators(regularKey, group.getName());
+        handler.addOrRemoveAdmins(regular, group.getName(), logins, true);
+        List admins = handler.listAdministrators(regular, group.getName());
         assertTrue(admins.contains(newbie));
 
-        handler.addOrRemoveAdmins(regularKey, group.getName(), logins, false);
+        handler.addOrRemoveAdmins(regular, group.getName(), logins, false);
         assertFalse(manager.canAccess(newbie, group));
-        admins = handler.listAdministrators(adminKey, group.getName());
+        admins = handler.listAdministrators(admin, group.getName());
         assertFalse(admins.contains(newbie));
 
         // verify that neither an org or sat admin may have their
@@ -160,7 +159,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         logins.add(user.getLogin());
 
         try {
-            handler.addOrRemoveAdmins(adminKey, group.getName(), logins, false);
+            handler.addOrRemoveAdmins(admin, group.getName(), logins, false);
             if (user.hasRole(RoleFactory.SAT_ADMIN)) {
                 fail("Allowed changing admin access for a satellite admin.  add=" + add);
             }
@@ -174,21 +173,21 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testListGroupsWithNoAssociatedAdmins() {
-        ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
-        ServerGroup group1 = handler.create(adminKey, NAME + "1",
+        ServerGroup group = handler.create(admin, NAME, DESCRIPTION);
+        ServerGroup group1 = handler.create(admin, NAME + "1",
                                                     DESCRIPTION + "1");
-        ServerGroup group2 = handler.create(adminKey, NAME + "2",
+        ServerGroup group2 = handler.create(admin, NAME + "2",
                                                     DESCRIPTION + "2");
-        List groups = handler.listGroupsWithNoAssociatedAdmins(adminKey);
+        List groups = handler.listGroupsWithNoAssociatedAdmins(admin);
         assertTrue(groups.contains(group));
         assertTrue(groups.contains(group1));
         assertTrue(groups.contains(group2));
 
         List logins = new ArrayList();
         logins.add(regular.getLogin());
-        handler.addOrRemoveAdmins(adminKey, group1.getName(), logins, true);
+        handler.addOrRemoveAdmins(admin, group1.getName(), logins, true);
         assertTrue(manager.canAccess(regular, group1));
-        groups = handler.listGroupsWithNoAssociatedAdmins(adminKey);
+        groups = handler.listGroupsWithNoAssociatedAdmins(admin);
         assertFalse(groups.contains(group1));
 
         assertTrue(groups.contains(group));
@@ -196,8 +195,8 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testDelete() {
-        ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
-        handler.delete(adminKey, NAME);
+        ServerGroup group = handler.create(admin, NAME, DESCRIPTION);
+        handler.delete(admin, NAME);
         try {
             manager.lookup(NAME, admin);
             fail("Should throw a lookup exception");
@@ -208,23 +207,22 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testAddRemoveSystems() throws Exception {
-        ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
+        ServerGroup group = handler.create(admin, NAME, DESCRIPTION);
         assertNotNull(manager.lookup(NAME, admin));
 
         User unpriv = UserTestUtils.createUser("Unpriv", admin.getOrg().getId());
-        String unprivKey = XmlRpcTestUtils.getSessionKey(unpriv);
         List logins = new ArrayList();
         logins.add(regular.getLogin());
         logins.add(unpriv.getLogin());
 
-        handler.addOrRemoveAdmins(adminKey, group.getName(), logins, true);
+        handler.addOrRemoveAdmins(admin, group.getName(), logins, true);
         regular.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
 
         Server server1 = ServerFactoryTest.createTestServer(regular, true);
         Server server2 = ServerFactoryTest.createTestServer(regular, true);
         Server server3 = ServerFactoryTest.createTestServer(regular, true);
 
-        handler.addOrRemoveSystems(regularKey, group.getName(),
+        handler.addOrRemoveSystems(regular, group.getName(),
                 Arrays.asList(new Integer []{
                             new Integer(server3.getId().intValue())}), new Boolean(true));
 
@@ -232,26 +230,26 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         systems.add(server1.getId());
         systems.add(server2.getId());
         systems.add(server3.getId());
-        handler.addOrRemoveSystems(regularKey, group.getName(), systems, new Boolean(true));
+        handler.addOrRemoveSystems(regular, group.getName(), systems, new Boolean(true));
 
 
-        List actual = handler.listSystems(unprivKey, group.getName());
+        List actual = handler.listSystems(unpriv, group.getName());
         assertTrue(actual.contains(server1));
 
-        handler.addOrRemoveSystems(regularKey, group.getName(), systems,
+        handler.addOrRemoveSystems(regular, group.getName(), systems,
                 new Boolean(false));
 
-        actual = handler.listSystems(regularKey, group.getName());
+        actual = handler.listSystems(regular, group.getName());
         assertFalse(actual.contains(server1));
     }
 
     public void testRemoveNonExistentServer() throws Exception {
-        ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
+        ServerGroup group = handler.create(admin, NAME, DESCRIPTION);
         List<Long> systems = new ArrayList<Long>();
         Server server1 = ServerFactoryTest.createTestServer(admin, true);
         systems.add(server1.getId());
         try {
-            handler.addOrRemoveSystems(adminKey, group.getName(), systems,
+            handler.addOrRemoveSystems(admin, group.getName(), systems,
                     new Boolean(false));
             fail();
         }
@@ -261,24 +259,24 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testListAllGroups() throws Exception {
-        int preSize = handler.listAllGroups(adminKey).size();
+        int preSize = handler.listAllGroups(admin).size();
 
         ManagedServerGroup group = ServerGroupTestUtils.createManaged(admin);
-        List groups = handler.listAllGroups(adminKey);
+        List groups = handler.listAllGroups(admin);
         assertTrue(groups.contains(group));
         assertEquals(1, groups.size() - preSize);
     }
 
     public void testGetDetailsById() throws Exception {
         ManagedServerGroup group = ServerGroupTestUtils.createManaged(admin);
-        ServerGroup sg = handler.getDetails(adminKey,
+        ServerGroup sg = handler.getDetails(admin,
                 new Integer(group.getId().intValue()));
         assertEquals(sg, group);
     }
 
     public void testGetDetailsByName() throws Exception {
         ManagedServerGroup group = ServerGroupTestUtils.createManaged(admin);
-        ServerGroup sg = handler.getDetails(adminKey, group.getName());
+        ServerGroup sg = handler.getDetails(admin, group.getName());
         assertEquals(sg, group);
 
     }
@@ -287,7 +285,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         boolean exceptCaught = false;
         int badValue = -80;
         try {
-            ServerGroup sg = handler.getDetails(adminKey, new Integer(badValue));
+            ServerGroup sg = handler.getDetails(admin, new Integer(badValue));
         }
         catch (FaultException e) {
             exceptCaught = true;
@@ -299,7 +297,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         boolean exceptCaught = false;
         String badName = new String("intentionalBadName123456789");
         try {
-            ServerGroup sg = handler.getDetails(adminKey, badName);
+            ServerGroup sg = handler.getDetails(admin, badName);
         }
         catch (FaultException e) {
             exceptCaught = true;
@@ -325,7 +323,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         TestUtils.saveAndFlush(server);
         TestUtils.saveAndFlush(group);
 
-        List list = handler.listInactiveSystemsInGroup(adminKey, group.getName(), 1);
+        List list = handler.listInactiveSystemsInGroup(admin, group.getName(), 1);
         assertEquals(1, list.size());
         assertEquals(server.getId().toString(), list.get(0).toString());
     }
@@ -348,7 +346,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         TestUtils.saveAndFlush(server);
         TestUtils.saveAndFlush(group);
 
-        List list = handler.listActiveSystemsInGroup(adminKey, group.getName());
+        List list = handler.listActiveSystemsInGroup(admin, group.getName());
 
         assertEquals(1, list.size());
         assertEquals(server.getId().toString(), list.get(0).toString());

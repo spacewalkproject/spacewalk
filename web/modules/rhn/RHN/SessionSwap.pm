@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,35 +22,6 @@ use Digest::HMAC_SHA1 qw/hmac_sha1_hex/;
 use PXT::Config;
 
 # this is basically a copy of RHN::Session's key stuff
-sub generate_swap_key {
-  my $class = shift;
-  my $id = shift;
-
-  my $chaff = join(":",
-		   PXT::Config->get('session_swap_secret_1'),
-		   PXT::Config->get('session_swap_secret_2'),
-		   $id,
-		   PXT::Config->get('session_swap_secret_3'),
-		   PXT::Config->get('session_swap_secret_4')
-		  );
-
-  my $ret = Digest::MD5::md5_hex($chaff);
-
-  return $ret;
-}
-
-sub encode_data {
-  my $class = shift;
-  my @in = @_;
-
-  die "Invalid data to encode: @in"
-    if grep { $_ =~ /[^0-9a-f]/ } @in;
-
-  my $in = join(":", @in);
-
-  return join("x", $in, $class->generate_swap_key($in));
-}
-
 sub rhn_hmac_data {
   my $class = shift;
   my $hmac_data = join("\0", @_);

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -41,6 +41,7 @@ from rhn import rpclib
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 import uploadLib
 import rhnpush_v2
+from utils import tupleify_urlparse
 
 # Global settings
 BUFFER_SIZE = 65536
@@ -52,41 +53,62 @@ def main():
     # Initialize a command-line processing object with a table of options
     # pylint: disable=C0301
     optionsTable = [
-        Option('-v','--verbose',    action='count',      help='Increase verbosity', default=0),
-        Option('-d','--dir',        action='store',      help='Process packages from this directory'),
-        Option('-c','--channel',    action='append',     help='Manage this channel (specified by label)'),
-        Option('-n','--count',      action='store',      help='Process this number of headers per call', type='int'),
-        Option('-l','--list',       action='store_true', help='Only list the specified channels'),
-        Option('-r','--reldir',     action='store',      help='Relative dir to associate with the file'),
-        Option('-o','--orgid',      action='store',      help='Org ID', type='int'),
-        Option('-u','--username',   action='store',      help='Use this username to connect to RHN/Satellite'),
-        Option('-p','--password',   action='store',      help='Use this password to connect to RHN/Satellite'),
-        Option('-s','--stdin',      action='store_true', help='Read the package names from stdin'),
-        Option('-X','--exclude',    action='append',     help='Exclude packages that match this glob expression'),
-        Option(     '--force',      action='store_true', help='Force the package upload (overwrites if already uploaded)'),
-        Option(     '--nosig',      action='store_true', help='Push unsigned packages'),
-        Option(     '--newest',     action='store_true', help='Only push the packages that are newer than the server ones'),
-        Option(     '--nullorg',    action='store_true', help='Use the null org id'),
-        Option(     '--header',     action='store_true', help='Upload only the header(s)'),
-        Option(     '--source',     action='store_true', help='Upload source package information'),
-        Option(     '--server',     action='store',      help='Push to this server (http[s]://<hostname>/APP)'),
-        Option(     '--proxy',      action='store',      help='Use proxy server (<server>:<port>)'),
-        Option(     '--test',       action='store_true', help='Only print the packages to be pushed'),
-        Option('-?','--usage',      action='store_true', help='Briefly describe the options'),
-        Option('-N','--new-cache',  action='store_true', help='Create a new username/password cache'),
-        Option(     '--extended-test',  action='store_true', help='Perform a more verbose test'),
-        Option(     '--no-session-caching',  action='store_true',
+        Option('-v', '--verbose', action='count', help='Increase verbosity',
+            default=0),
+        Option('-d', '--dir', action='store',
+            help='Process packages from this directory'),
+        Option('-c', '--channel', action='append',
+            help='Manage this channel (specified by label)'),
+        Option('-n', '--count', action='store',
+            help='Process this number of headers per call', type='int'),
+        Option('-l', '--list', action='store_true',
+            help='Only list the specified channels'),
+        Option('-r', '--reldir', action='store',
+            help='Relative dir to associate with the file'),
+        Option('-o', '--orgid', action='store',
+            help='Org ID', type='int'),
+        Option('-u', '--username', action='store',
+            help='Use this username to connect to RHN/Satellite'),
+        Option('-p', '--password', action='store',
+            help='Use this password to connect to RHN/Satellite'),
+        Option('-s', '--stdin', action='store_true',
+            help='Read the package names from stdin'),
+        Option('-X', '--exclude', action='append',
+            help='Exclude packages that match this glob expression'),
+        Option('--force', action='store_true',
+            help='Force the package upload (overwrites if already uploaded)'),
+        Option('--nosig', action='store_true', help='Push unsigned packages'),
+        Option('--newest', action='store_true',
+            help='Only push the packages that are newer than the server ones'),
+        Option('--nullorg', action='store_true', help='Use the null org id'),
+        Option('--header', action='store_true',
+            help='Upload only the header(s)'),
+        Option('--source', action='store_true',
+            help='Upload source package information'),
+        Option('--server', action='store',
+            help='Push to this server (http[s]://<hostname>/APP)'),
+        Option('--proxy', action='store',
+            help='Use proxy server (<server>:<port>)'),
+        Option('--test', action='store_true',
+            help='Only print the packages to be pushed'),
+        Option('-?', '--usage', action='store_true',
+            help='Briefly describe the options'),
+        Option('-N', '--new-cache', action='store_true',
+            help='Create a new username/password cache'),
+        Option('--extended-test', action='store_true',
+            help='Perform a more verbose test'),
+        Option('--no-session-caching', action='store_true',
             help='Disables session-token authentication.'),
-        Option(     '--tolerant',   action='store_true',
+        Option('--tolerant', action='store_true',
             help='If rhnpush errors while uploading a package, continue uploading the rest of the packages.'),
-        Option(     '--ca-chain',     action='store',      help='alternative SSL CA Cert')
+        Option('--ca-chain', action='store', help='alternative SSL CA Cert')
     ]
     # pylint: enable=C0301
 
     #Having to maintain a store_true list is ugly. I'm trying to get rid of this.
-    true_list = ['usage', 'test', 'source', 'header', 'nullorg', 'newest', \
-                 'nosig', 'force', 'list', 'stdin', 'new_cache','extended_test', \
-                 'no_session_caching', 'tolerant']
+    true_list = ['usage', 'test', 'source', 'header', 'nullorg', 'newest',
+                 'nosig', 'force', 'list', 'stdin', 'new_cache',
+                 'extended_test', 'no_session_caching', 'tolerant']
     # pylint: disable=E1101,E1103
     optionParser = OptionParser(option_list=optionsTable, usage="%prog [OPTION] [<package>]")
     manager = rhnpush_confmanager.ConfManager(optionParser, true_list)
@@ -159,11 +181,13 @@ class UploadClass(uploadLib.UploadClass):
         server = idn_ascii_to_pune(self.options.server)
         if server is None:
             self.die(1, "Required parameter --server not supplied")
-        scheme, netloc, path, params, query, fragment = urlparse.urlparse(server)
+        scheme, netloc, path, params, query, fragment = tupleify_urlparse(
+                urlparse.urlparse(server))
         if not netloc:
             # No schema - trying to patch it up ourselves?
             server = "http://" + server
-            scheme, netloc, path, params, query, fragment = urlparse.urlparse(server)
+            scheme, netloc, path, params, query, fragment = tupleify_urlparse(
+                    urlparse.urlparse(server))
 
         if not netloc:
             self.die(2, "Invalid URL %s" % server)
@@ -201,7 +225,7 @@ class UploadClass(uploadLib.UploadClass):
 
     # pylint: disable=W0702
     def _test_force(self):
-        test_force_str =  "Setting force flag:  %s"
+        test_force_str = "Setting force flag:  %s"
         test_force = "Passed"
         try:
             self.setForce()
@@ -255,7 +279,8 @@ class UploadClass(uploadLib.UploadClass):
         print test_set_server_str % test_set_server
 
     def _test_connect(self):
-        auth_ret = uploadLib.call(self.server.packages.test_login, self.username, self.password )
+        auth_ret = uploadLib.call(self.server.packages.test_login,
+                self.username, self.password)
         if auth_ret == 1:
             test_auth = "Passed"
         else:
@@ -353,7 +378,7 @@ class UploadClass(uploadLib.UploadClass):
                 continue
 
             elif server_digest == ():
-                self.warn(1,"Package %s Not Found on RHN Server -- Uploading" % pkg)
+                self.warn(1, "Package %s Not Found on RHN Server -- Uploading" % pkg)
 
             elif server_digest == "on-disk" and not self.options.force:
                 channel_packages.append(pkgs_info[pkg_key])
@@ -472,7 +497,7 @@ class UploadClass(uploadLib.UploadClass):
                 self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                 continue
 
-            digest_hash[pkg_key] =  (a_pkg.checksum_type, a_pkg.checksum)
+            digest_hash[pkg_key] = (a_pkg.checksum_type, a_pkg.checksum)
             a_pkg.input_stream.close()
 
             for tag in ('name', 'version', 'release', 'epoch', 'arch'):

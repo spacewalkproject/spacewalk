@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -145,6 +145,7 @@ public class RepoDetailsAction extends RhnAction {
         RequestContext context = new RequestContext(request);
         setupPopup(context);
         if (!createMode) {
+            request.setAttribute("id", context.getParamAsLong("id"));
             setupRepo(request, form, ChannelFactory.lookupContentSource(
                     context.getParamAsLong("id"), context.getCurrentUser().getOrg()));
         }

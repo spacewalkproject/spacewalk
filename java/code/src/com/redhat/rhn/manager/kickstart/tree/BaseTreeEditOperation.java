@@ -124,11 +124,12 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         }
         catch (Exception e) {
             HibernateFactory.rollbackTransaction();
-            if (e.getMessage().contains("kernel not found")) {
+            String message = e.getMessage();
+            if (message != null && message.contains("kernel not found")) {
                 return new ValidatorError(INVALID_KERNEL,
                         this.tree.getKernelPath());
             }
-            else if (e.getMessage().contains("initrd not found")) {
+            else if (message != null && message.contains("initrd not found")) {
                 return new ValidatorError(INVALID_INITRD,
                         this.tree.getInitrdPath());
             }
@@ -230,12 +231,11 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     }
 
     /**
-     * Get List of KickstartInstallType objects.
-     * @return List of KickstartInstallType objets
+     * Return all channels available for creating kickstartable trees.
+     * @return list of channels
      */
-    public List getKickstartableChannels() {
-        return ChannelFactory.
-            getKickstartableChannels(user.getOrg());
+    public List<Channel> getKickstartableTreeChannels() {
+        return ChannelFactory.getKickstartableTreeChannels(user.getOrg());
     }
 
     /**

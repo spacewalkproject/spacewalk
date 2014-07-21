@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,12 +19,14 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartInstallType;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidKickstartLabelException;
@@ -47,24 +49,18 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
 
     public void testListKickstartableChannels() throws Exception {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
-        List <Channel> ksChannels = handler.listKickstartableChannels(adminKey);
+        KickstartableTreeTest.createTestKickstartableTree(baseChan,
+                KickstartInstallType.FEDORA);
+        List<Channel> ksChannels = handler.listKickstartableChannels(admin);
         assertTrue(ksChannels.size() > 0);
-
-        boolean found = false;
-        for (Channel c : ksChannels) {
-            if (c.getId().equals(baseChan.getId())) {
-                found = true;
-                break;
-            }
-        }
-        assertTrue(found);
+        assertTrue(ksChannels.contains(baseChan));
     }
 
     public void testListKickstartableTrees() throws Exception {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
-        List ksTrees = handler.listKickstartableTrees(adminKey,
+        List ksTrees = handler.listKickstartableTrees(admin,
                 baseChan.getLabel());
         assertTrue(ksTrees.size() > 0);
 
@@ -81,7 +77,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
 
     public void testListKickstartableTreesByNonExistentChannelLabel() throws Exception {
         try {
-            handler.listKickstartableTrees(adminKey,
+            handler.listKickstartableTrees(admin,
                     "no such label");
             fail();
         }
@@ -94,7 +90,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
-        runImport(adminKey, testTree.getLabel());
+        runImport(admin, testTree.getLabel());
     }
 
     public void testInvalidKickstartLabel() throws Exception {
@@ -105,7 +101,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
                 "samplekickstart1.ks"));
 
         try {
-            handler.importFile(adminKey, "a", KickstartVirtualizationType.XEN_PARAVIRT,
+            handler.importFile(admin, "a", KickstartVirtualizationType.XEN_PARAVIRT,
                     testTree.getLabel(), kickstartFileContents);
             fail();
         }
@@ -114,12 +110,12 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         }
     }
 
-    public void runImport(String sessionKey, String treeLabel) throws Exception {
+    public void runImport(User user, String treeLabel) throws Exception {
 
         String newKsProfileLabel = "test-" + TestUtils.randomString();
         String kickstartFileContents = TestUtils.readAll(TestUtils.findTestData(
                 "samplekickstart1.ks"));
-        handler.importFile(sessionKey, newKsProfileLabel, KickstartVirtualizationType.XEN_PARAVIRT,
+        handler.importFile(user, newKsProfileLabel, KickstartVirtualizationType.XEN_PARAVIRT,
                 treeLabel, kickstartFileContents);
 
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
@@ -139,7 +135,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         String kickstartFileContents = TestUtils.readAll(TestUtils.findTestData(
                 "samplekickstart1.ks"));
         try {
-            handler.importRawFile(regularKey, newKsProfileLabel,
+            handler.importRawFile(regular, newKsProfileLabel,
                     KickstartVirtualizationType.XEN_PARAVIRT,
                     testTree.getLabel(), kickstartFileContents);
             fail("No permission check failure");
@@ -147,7 +143,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         catch (PermissionCheckFailureException pe) {
             //cool!
         }
-        handler.importRawFile(adminKey, newKsProfileLabel,
+        handler.importRawFile(admin, newKsProfileLabel,
                 KickstartVirtualizationType.XEN_PARAVIRT,
                 testTree.getLabel(), kickstartFileContents);
 
@@ -163,7 +159,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
         try {
-            runImport(regularKey, testTree.getLabel());
+            runImport(regular, testTree.getLabel());
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -173,7 +169,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
 
     public void testNoSuchKickstartTreeLabel() throws Exception {
         try {
-            runImport(adminKey, "nosuchlabel");
+            runImport(admin, "nosuchlabel");
             fail();
         }
         catch (NoSuchKickstartTreeException e) {
@@ -187,7 +183,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);
 
         String profileLabel = "new-ks-profile";
-        handler.createProfile(adminKey, profileLabel,
+        handler.createProfile(admin, profileLabel,
                 KickstartVirtualizationType.XEN_PARAVIRT,
                 testTree.getLabel(), "localhost", "rootpw");
 
@@ -204,7 +200,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
 
         String profileLabel = "new-ks-profile";
         try {
-            handler.createProfileWithCustomUrl(regularKey, profileLabel,
+            handler.createProfileWithCustomUrl(regular, profileLabel,
                     KickstartVirtualizationType.XEN_PARAVIRT,
                     testTree.getLabel(), "default", "rootpw");
             fail();
@@ -217,7 +213,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
     public void testCreateWithInvalidKickstartLabel() throws Exception {
         String profileLabel = "new-ks-profile";
         try {
-            handler.createProfileWithCustomUrl(adminKey, profileLabel, "none",
+            handler.createProfileWithCustomUrl(admin, profileLabel, "none",
                     "nosuchtree", "default", "rootpw");
             fail();
         }
@@ -233,7 +229,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
 
         String profileLabel = "short";
         try {
-            handler.createProfileWithCustomUrl(adminKey, profileLabel, "none",
+            handler.createProfileWithCustomUrl(admin, profileLabel, "none",
                     testTree.getLabel(), "default", "rootpw");
             fail();
         }
@@ -249,7 +245,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
 
         String profileLabel = "test-ks-profile";
         try {
-            handler.createProfileWithCustomUrl(adminKey, profileLabel,
+            handler.createProfileWithCustomUrl(admin, profileLabel,
                     "fakevirttype", testTree.getLabel(), "default", "rootpw");
             fail();
         }
@@ -264,7 +260,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         KickstartFactory.saveKickstartData(ks);
         ks = (KickstartData) TestUtils.reload(ks);
 
-        List<KickstartDto> list = handler.listKickstarts(adminKey);
+        List<KickstartDto> list = handler.listKickstarts(admin);
         boolean foundKs = false;
         for (KickstartDto ksDto : list) {
             assertNotNull(ksDto.getTreeLabel());
@@ -285,7 +281,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         String oldLabel = ks.getLabel();
 
         try {
-            handler.renameProfile(adminKey, ks.getLabel(),
+            handler.renameProfile(admin, ks.getLabel(),
                 ks.getLabel());
             fail("We should have got a InvalidKickstartLabelException");
         }
@@ -293,7 +289,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
             // Do nothing
         }
 
-        handler.renameProfile(adminKey, ks.getLabel(),
+        handler.renameProfile(admin, ks.getLabel(),
                 newLabel);
 
         ks = (KickstartData) reload(ks);
@@ -314,20 +310,20 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
 
     public void testListAllIpRanges() throws Exception {
         KickstartData ks1 = setupIpRanges();
-        List list = handler.listAllIpRanges(adminKey);
+        List list = handler.listAllIpRanges(admin);
         assertContains(list, ks1.getIps().iterator().next());
     }
 
     public void testFindKickstartForIp() throws Exception {
         KickstartData ks1 = setupIpRanges();
-        String label = handler.findKickstartForIp(adminKey, "192.168.0.5");
+        String label = handler.findKickstartForIp(admin, "192.168.0.5");
         assertEquals(label, ks1.getLabel());
     }
 
     public void testDeleteProfile() throws Exception {
         KickstartData ksdata =
             KickstartDataTest.createKickstartWithChannel(admin.getOrg());
-        Integer i = handler.deleteProfile(adminKey, ksdata.getLabel());
+        Integer i = handler.deleteProfile(admin, ksdata.getLabel());
         assertEquals(new Integer(1), i);
     }
 }

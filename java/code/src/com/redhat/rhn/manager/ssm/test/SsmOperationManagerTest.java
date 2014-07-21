@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,11 +16,13 @@ package com.redhat.rhn.manager.ssm.test;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.OperationDetailsDto;
+import com.redhat.rhn.frontend.dto.ServerOperationDataDto;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
@@ -29,12 +31,14 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Set;
 
 /**
  * @version $Revision$
  */
 public class SsmOperationManagerTest extends RhnBaseTestCase {
+
+    private static final String EXPECTED_NOTE = "Test note";
 
     private User ssmUser;
 
@@ -139,9 +143,10 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         assertNotNull(result);
         assertEquals(2, result.size());
 
-        Map serverData = (Map) result.get(0);
-        assertNotNull(serverData.get("id"));
-        assertNotNull(serverData.get("name"));
+        ServerOperationDataDto serverData = (ServerOperationDataDto) result.get(0);
+        assertNotNull(serverData.getId());
+        assertNotNull(serverData.getName());
+        assertNull(serverData.getNote());
     }
 
     public void testAssociateServersWithOperation() throws Exception {
@@ -165,9 +170,10 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         assertNotNull(result);
         assertEquals(2, result.size());
 
-        Map serverData = (Map) result.get(0);
-        assertNotNull(serverData.get("id"));
-        assertNotNull(serverData.get("name"));
+        ServerOperationDataDto serverData = (ServerOperationDataDto) result.get(0);
+        assertNotNull(serverData.getId());
+        assertNotNull(serverData.getName());
+        assertNull(serverData.getNote());
     }
 
     /**
@@ -211,9 +217,10 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         assertNotNull(result);
         assertEquals(2, result.size());
 
-        Map serverData = (Map) result.get(0);
-        assertNotNull(serverData.get("id"));
-        assertNotNull(serverData.get("name"));
+        ServerOperationDataDto serverData = (ServerOperationDataDto) result.get(0);
+        assertNotNull(serverData.getId());
+        assertNotNull(serverData.getName());
+        assertNull(serverData.getNote());
     }
 
     /**
@@ -260,10 +267,40 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         assertNotNull(result);
         assertEquals(1, result.size());
 
-        Map serverData = (Map) result.get(0);
-        assertNotNull(serverData.get("id"));
-        assertNotNull(serverData.get("name"));
+        ServerOperationDataDto serverData = (ServerOperationDataDto) result.get(0);
+        assertNotNull(serverData.getId());
+        assertNotNull(serverData.getName());
+        assertNull(serverData.getNote());
+    }
 
+    /**
+     * Tests a failed server-operation association.
+     * @throws Exception when things go wrong
+     */
+    @SuppressWarnings("unchecked")
+    public void testAssociateServersWithFailedOperation() throws Exception {
+        //   Pass null label so no servers are associated
+        long operationId =
+            SsmOperationManager.createOperation(ssmUser, "Test operation", null);
+
+        // Test
+        SsmOperationManager.associateServersWithOperation(operationId, ssmUser.getId(),
+            serverSetLabel);
+        for (RhnSetElement server : (Set<RhnSetElement>)serverSet) {
+            SsmOperationManager.addNoteToOperationOnServer(operationId,
+                server.getElement(), EXPECTED_NOTE);
+        }
+
+        // Verify
+        DataResult<Object> result = SsmOperationManager
+            .findServerDataForOperation(operationId);
+        assertNotNull(result);
+        assertEquals(2, result.size());
+
+        ServerOperationDataDto serverData = (ServerOperationDataDto) result.get(0);
+        assertNotNull(serverData.getId());
+        assertNotNull(serverData.getName());
+        assertEquals(EXPECTED_NOTE, serverData.getNote());
     }
 
     /**

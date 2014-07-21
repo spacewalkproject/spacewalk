@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2011 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -26,7 +26,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageArchException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
-import com.redhat.rhn.frontend.xmlrpc.NoSuchUserException;
 import com.redhat.rhn.frontend.xmlrpc.PackageDownloadException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
@@ -60,7 +59,7 @@ public class PackagesHandler extends BaseHandler {
 
     /**
      * Get Details - Retrieves the details for a given package
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param pid The id of the package you're looking for
      * @return Returns a Map containing the details of the package
      * @throws FaultException A FaultException is thrown if the errata corresponding to
@@ -96,9 +95,8 @@ public class PackagesHandler extends BaseHandler {
      *       #prop("string", "payload_size")
      *    #struct_end()
      */
-    public Map getDetails(String sessionKey, Integer pid) throws FaultException {
+    public Map getDetails(User loggedInUser, Integer pid) throws FaultException {
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
 
         Map returnMap = PackageHelper.packageToMap(pkg, loggedInUser);
@@ -108,7 +106,7 @@ public class PackagesHandler extends BaseHandler {
 
     /**
      * List of Channels that provide a given package
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param pid The id of the package in question
      * @return Returns an array of maps representing a channel
      * @throws FaultException A FaultException is thrown if the errata corresponding to
@@ -126,10 +124,9 @@ public class PackagesHandler extends BaseHandler {
      *   #struct_end()
      * #array_end()
      */
-    public Object[] listProvidingChannels(String sessionKey, Integer pid)
+    public Object[] listProvidingChannels(User loggedInUser, Integer pid)
             throws FaultException {
         //Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
 
         DataResult dr = PackageManager.orgPackageChannels(loggedInUser.getOrg().getId(),
@@ -139,7 +136,7 @@ public class PackagesHandler extends BaseHandler {
 
     /**
      * List of Errata that provide the given package.
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param pid The id of the package in question
      * @return Returns an array of maps representing an erratum
      * @throws FaultException A FaultException is thrown if the errata corresponding to
@@ -160,10 +157,9 @@ public class PackagesHandler extends BaseHandler {
      *   #struct_end()
      * #array_end()
      */
-    public Object[] listProvidingErrata(String sessionKey, Integer pid)
+    public Object[] listProvidingErrata(User loggedInUser, Integer pid)
             throws FaultException {
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
 
         DataResult dr = PackageManager.providingErrata(loggedInUser.getOrg().getId(),
@@ -174,7 +170,7 @@ public class PackagesHandler extends BaseHandler {
 
     /**
      * Get a list of files associated with a package
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param pid The id of the package you're looking for
      * @return Returns an Array of maps representing a file
      * @throws FaultException A FaultException is thrown if the errata corresponding to
@@ -196,9 +192,8 @@ public class PackagesHandler extends BaseHandler {
      *     #struct_end()
      *   #array_end()
      */
-    public Object[] listFiles(String sessionKey, Integer pid) throws FaultException {
+    public Object[] listFiles(User loggedInUser, Integer pid) throws FaultException {
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
 
         DataResult dr = PackageManager.packageFiles(pkg.getId());
@@ -242,7 +237,7 @@ public class PackagesHandler extends BaseHandler {
 
     /**
      * Gets the change log for a given package
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param pid The id of the package you're looking for
      * @return Returns a string with the changelog
      * @throws FaultException A FaultException is thrown if the errata corresponding to
@@ -254,9 +249,8 @@ public class PackagesHandler extends BaseHandler {
      * @xmlrpc.returntype
      *   string
      */
-    public String listChangelog(String sessionKey, Integer pid) throws FaultException {
+    public String listChangelog(User loggedInUser, Integer pid) throws FaultException {
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
 
         return PackageManager.getPackageChangeLog(pkg);
@@ -264,7 +258,7 @@ public class PackagesHandler extends BaseHandler {
 
     /**
      * List dependencies for a given package.
-     * @param sessionKey The sessionKey for the logged in user
+     * @param loggedInUser The current user
      * @param pid The package id for the package in question
      * @return Returns an array of maps representing a dependency
      * @throws FaultException A FaultException is thrown if the errata corresponding to
@@ -288,9 +282,8 @@ public class PackagesHandler extends BaseHandler {
      *     #struct_end()
      *   #array_end()
      */
-    public Object[] listDependencies(String sessionKey, Integer pid) throws FaultException {
+    public Object[] listDependencies(User loggedInUser, Integer pid) throws FaultException {
         // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
 
         // The list we'll eventually return
@@ -340,7 +333,7 @@ public class PackagesHandler extends BaseHandler {
 
     /**
      * Removes a package from the system based on package id
-     * @param sessionKey user's session key
+     * @param loggedInUser The current user
      * @param pid package id
      * @throws FaultException something bad happens
      * @return 1 on success.
@@ -350,12 +343,8 @@ public class PackagesHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "packageId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removePackage(String sessionKey, Integer pid) throws FaultException {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        if (loggedInUser == null) {
-            throw new NoSuchUserException();
-        }
-        else if (!loggedInUser.hasRole(RoleFactory.ORG_ADMIN)) {
+    public int removePackage(User loggedInUser, Integer pid) throws FaultException {
+        if (!loggedInUser.hasRole(RoleFactory.ORG_ADMIN)) {
             throw new PermissionCheckFailureException();
         }
         Package pkg = lookupPackage(loggedInUser, pid);
@@ -413,7 +402,7 @@ public class PackagesHandler extends BaseHandler {
      * @return Returns a string in the form of something like '>= 4.1-3'
      */
     private String getDependencyModifier(Long sense, String version) {
-        StringBuffer depmod = new StringBuffer();
+        StringBuilder depmod = new StringBuilder();
 
         if (sense != null) { //how ironic ;)
             int senseIntVal = sense.intValue();
@@ -468,7 +457,7 @@ public class PackagesHandler extends BaseHandler {
     /**
      * Lookup the details for packages with the given name, version,
      * release, architecture label, and (optionally) epoch.
-     * @param sessionKey The sessionKey for the logged in used
+     * @param loggedInUser The current user
      * @param name - name of the package to search for
      * @param version - version of the package to search for
      * @param release release of the package to search for
@@ -496,10 +485,8 @@ public class PackagesHandler extends BaseHandler {
      *     $PackageSerializer
      *   #array_end()
      */
-    public List<Package> findByNvrea(String sessionKey, String name, String version,
+    public List<Package> findByNvrea(User loggedInUser, String name, String version,
             String release, String epoch, String archLabel) {
-        // Get the logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
         PackageArch arch = PackageFactory.lookupPackageArchByLabel(archLabel);
 
         if (arch == null) {
@@ -515,7 +502,7 @@ public class PackagesHandler extends BaseHandler {
 
     /**
      * get a package's download url
-     * @param sessionKey the key
+     * @param loggedInUser The current user
      * @param pid the package id
      * @return the url
      *
@@ -527,8 +514,7 @@ public class PackagesHandler extends BaseHandler {
      *  string - the download url
      *
      */
-    public String getPackageUrl(String sessionKey, Integer pid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public String getPackageUrl(User loggedInUser, Integer pid) {
         Package pkg = lookupPackage(loggedInUser, pid);
         return RhnXmlRpcServer.getProtocol() + "://" +
             RhnXmlRpcServer.getServerName() +
@@ -538,7 +524,7 @@ public class PackagesHandler extends BaseHandler {
 
     /**
      * download a binary package
-     * @param sessionKey the session key
+     * @param loggedInUser The current user
      * @param pid the package id
      * @return  a byte array of the package
      * @throws IOException if there is an exception
@@ -548,8 +534,7 @@ public class PackagesHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "package_id")
      * @xmlrpc.returntype binary object - package file
      */
-    public byte[] getPackage(String sessionKey, Integer pid) throws IOException {
-        User loggedInUser = getLoggedInUser(sessionKey);
+    public byte[] getPackage(User loggedInUser, Integer pid) throws IOException {
         Package pkg = lookupPackage(loggedInUser, pid);
         String path = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" +
             pkg.getPath();

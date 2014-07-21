@@ -57,7 +57,7 @@ public class SHA256Crypt {
      * @return Returns encoded string $1$salt$encodedkey
      */
     private static String generateEncodedKey(byte[] digest, String salt) {
-        StringBuffer out = new StringBuffer(CryptHelper.getSHA256Prefix());
+        StringBuilder out = new StringBuilder(CryptHelper.getSHA256Prefix());
         out.append(salt);
         out.append("$");
 

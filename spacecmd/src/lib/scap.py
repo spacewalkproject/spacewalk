@@ -16,12 +16,20 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 # Copyright 2013 Aron Parsons <aronparsons@gmail.com>
-# Copyright (c) 2013 Red Hat, Inc.
+# Copyright (c) 2013--2014 Red Hat, Inc.
 #
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
-from optparse import Option
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
+
 from spacecmd.utils import *
 
 def help_scap_listxccdfscans(self):
@@ -32,7 +40,7 @@ def complete_system_scap_listxccdfscans(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_scap_listxccdfscans(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_scap_listxccdfscans()
@@ -47,7 +55,8 @@ def do_scap_listxccdfscans(self, args):
     add_separator = False
 
     for system in sorted(systems):
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
@@ -55,7 +64,8 @@ def do_scap_listxccdfscans(self, args):
             print
 
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
         scan_list = self.client.system.scap.listXccdfScans(self.session, system_id)
 
@@ -69,7 +79,7 @@ def help_scap_getxccdfscanruleresults(self):
     print 'usage: scap_getxccdfscanruleresults <XID>'
 
 def do_scap_getxccdfscanruleresults(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_scap_getxccdfscanruleresults()
@@ -78,7 +88,8 @@ def do_scap_getxccdfscanruleresults(self, args):
     add_separator = False
 
     for xid in args:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(args) > 1:
@@ -98,7 +109,7 @@ def help_scap_getxccdfscandetails(self):
     print 'usage: scap_getxccdfscandetails <XID>'
 
 def do_scap_getxccdfscandetails(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_scap_getxccdfscandetails()
@@ -107,7 +118,8 @@ def do_scap_getxccdfscandetails(self, args):
     add_separator = False
 
     for xid in args:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(args) > 1:
@@ -117,11 +129,15 @@ def do_scap_getxccdfscandetails(self, args):
         xid = int(xid)
         scan_details = self.client.system.scap.getXccdfScanDetails(self.session, xid)
 
-        print "XID:",scan_details['xid'],"SID:",scan_details['sid'],"Action_ID:",scan_details['action_id'],"Path:",scan_details['path'],\
-                "OSCAP_Parameters:",scan_details['oscap_parameters'],"Test_Result:",scan_details['test_result'],\
-                "Benchmark:",scan_details['benchmark'],"Benchmark_Version:",scan_details['benchmark_version'],\
-                "Profile:",scan_details['profile'],"Profile_Title:",scan_details['profile_title'],"Start_Time:",scan_details['start_time'],\
-                "End_Time:",scan_details['end_time'],"Errors:",scan_details['errors']
+        print "XID:", scan_details['xid'], "SID:", scan_details['sid'], "Action_ID:", \
+              scan_details['action_id'], "Path:", scan_details['path'], \
+              "OSCAP_Parameters:", scan_details['oscap_parameters'], \
+              "Test_Result:", scan_details['test_result'], "Benchmark:", \
+              scan_details['benchmark'], "Benchmark_Version:", \
+              scan_details['benchmark_version'], "Profile:", scan_details['profile'], \
+              "Profile_Title:", scan_details['profile_title'], "Start_Time:", \
+              scan_details['start_time'], "End_Time:", scan_details['end_time'], \
+              "Errors:", scan_details['errors']
 
 ####################
 
@@ -130,10 +146,11 @@ def help_scap_schedulexccdfscan(self):
     print 'usage: scap_schedulexccdfscan PATH_TO_XCCDF_FILE XCCDF_OPTIONS SYSTEMS'
     print
     print 'Example:'
-    print '> scap_schedulexccdfscan \'/usr/share/openscap/scap-security-xccdf.xml\' \'profile Web-Default\' system-scap.example.com'
+    print '> scap_schedulexccdfscan \'/usr/share/openscap/scap-security-xccdf.xml\'' + \
+          ' \'profile Web-Default\' system-scap.example.com'
 
 def do_scap_schedulexccdfscan(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 3:
         self.help_scap_schedulexccdfscan()
@@ -151,8 +168,9 @@ def do_scap_schedulexccdfscan(self, args):
 
     for system in systems:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
-        scan_schedule = self.client.system.scap.scheduleXccdfScan(self.session, system_id, path, param)
+        self.client.system.scap.scheduleXccdfScan(self.session, system_id, path, param)
 
 # vim:ts=4:expandtab:

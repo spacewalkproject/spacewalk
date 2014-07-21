@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -275,7 +275,7 @@ def build_new_system_params_with_token(**kwargs):
     params = {
         'token'         : kwargs.get('token', "no such token"),
     }
-    params.update(apply(build_new_system_params_with_username, (), kwargs))
+    params.update(build_new_system_params_with_username(**kwargs))
     del params['username']
     del params['password']
     return params

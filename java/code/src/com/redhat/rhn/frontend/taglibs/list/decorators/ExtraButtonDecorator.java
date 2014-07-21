@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -51,7 +51,7 @@ public class ExtraButtonDecorator extends BaseListDecorator {
         String value = ls.getMessage(msg);
 
 
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         //   Add to SSM button
         HtmlTag tag = new HtmlTag("input");
         tag.setAttribute("type", "submit");

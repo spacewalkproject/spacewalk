@@ -64,7 +64,7 @@ public final class XmlMessages {
 
     // Store the bundles in memory so we don't load it off disk
     // each time.
-    private Map bundles;
+    private Map<String, ResourceBundle> bundles;
 
 
     /** Private constructor, since this is a singleton
@@ -74,7 +74,7 @@ public final class XmlMessages {
     }
 
     private void initBundleCache() {
-        bundles = new HashMap();
+        bundles = new HashMap<String, ResourceBundle>();
     }
 
     /**
@@ -105,7 +105,7 @@ public final class XmlMessages {
         // Construct the key to the Map of Bundles
         // that is a combination of the bundlename
         // plus the locale
-        StringBuffer bundleBuff = new StringBuffer(bundleName);
+        StringBuilder bundleBuff = new StringBuilder(bundleName);
         if (locale != null) {
             bundleBuff.append(".");
             bundleBuff.append(locale.toString());
@@ -113,7 +113,7 @@ public final class XmlMessages {
         String bundleKey = bundleBuff.toString();
         // Check the local in memory cache of the bundles
         // to see if it has been loaded already.
-        ResourceBundle retval = (ResourceBundle) bundles.get(bundleKey);
+        ResourceBundle retval = bundles.get(bundleKey);
 
         if (retval != null) {
             // System.out.println("Got bundle from cache, returning : " + bundleKey);
@@ -121,7 +121,7 @@ public final class XmlMessages {
         }
         // System.out.println("Reloading BUNDLE : " + bundleKey);
 
-        StringBuffer urlName = new StringBuffer("/" + bundleName.replace('.', '/'));
+        StringBuilder urlName = new StringBuilder("/" + bundleName.replace('.', '/'));
 
         // if we specified a locale
         // then make sure we tack it on to the filename

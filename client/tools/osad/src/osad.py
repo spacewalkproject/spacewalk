@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -61,6 +61,7 @@ class Runner(jabber_lib.Runner):
         # How often to re-setup the config (i.e. make xmlrpc requests to get
         # the config from the server)
         self._config_setup_interval = random.randint(50, 100)
+        self._use_proxy = 1
 
     def setup_config(self, config, force=0):
         # We don't want to slam the server with lots of XMLRPC requests at the
@@ -290,7 +291,9 @@ class Runner(jabber_lib.Runner):
         if enable_proxy:
             ret['enable_proxy'] = 1
 
-            ret['proxy_url'] = config.getProxySetting()
+            ret['proxy_url'] = self._config.get_option('httpProxy')
+            if ret['proxy_url'] is None:
+                ret['proxy_url'] = str(config.getProxySetting())
 
             enable_proxy_auth = self._config.get_option('enableProxyAuth')
             if enable_proxy_auth is None:
@@ -341,7 +344,7 @@ class Runner(jabber_lib.Runner):
         ret = {}
         kmap = {
             'server_url'        : 'uri',
-            'proxy_username'    : 'username',
+            'proxy_user'        : 'username',
             'proxy_password'    : 'password',
             'proxy_url'         : 'proxy',
         }

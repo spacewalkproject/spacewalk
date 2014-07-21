@@ -117,7 +117,7 @@ public class StringUtil {
      */
     public static String beanify(String strIn) {
         String str = strIn.trim();
-        StringBuffer result = new StringBuffer(str.length());
+        StringBuilder result = new StringBuilder(str.length());
         boolean wasWhitespace = false;
 
         for (int i = 0, j = 0; i < str.length(); i++) {
@@ -146,7 +146,7 @@ public class StringUtil {
      */
     public static String debeanify(String strIn) {
         String str = strIn.trim();
-        StringBuffer result = new StringBuffer(str.length());
+        StringBuilder result = new StringBuilder(str.length());
 
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
@@ -166,7 +166,7 @@ public class StringUtil {
      */
     public static String classify(String strIn) {
         String str = strIn.trim();
-        StringBuffer result = new StringBuffer(str.length());
+        StringBuilder result = new StringBuilder(str.length());
         boolean wasWhitespace = false;
 
         for (int i = 0, j = 0; i < str.length(); i++) {
@@ -227,11 +227,11 @@ public class StringUtil {
      * @param params the parameters to fill out the source string with
      * @return String Replaced String
      */
-    public static String replaceTags(String source, Map params) {
+    public static String replaceTags(String source, Map<String, String> params) {
         String ret = source;
-        Iterator i = params.entrySet().iterator();
+        Iterator<Map.Entry<String, String>> i = params.entrySet().iterator();
         while (i.hasNext()) {
-            Map.Entry me = (Map.Entry) i.next();
+            Map.Entry<String, String> me = i.next();
             ret = StringUtils.replace(ret, "<" + me.getKey() + " />", me.getValue()
                     .toString());
         }
@@ -255,9 +255,9 @@ public class StringUtil {
      * @todo This should be removed and replaced with a call like:
      * Arrays.toList(str.split(","), String[]);
      */
-    public static List stringToList(String convertIn) {
+    public static List<String> stringToList(String convertIn) {
         StringTokenizer st = new StringTokenizer(convertIn);
-        List retval = new LinkedList();
+        List<String> retval = new LinkedList<String>();
         while (st.hasMoreTokens()) {
             retval.add(st.nextToken());
         }
@@ -273,7 +273,7 @@ public class StringUtil {
         if (lengthIn < 5) {
             throw new IllegalArgumentException("Length too short");
         }
-        StringBuffer sb = new StringBuffer(lengthIn);
+        StringBuilder sb = new StringBuilder(lengthIn);
         Random rand = new Random();
         int length = lengthIn;
         while (length-- > 5) {
@@ -324,7 +324,7 @@ public class StringUtil {
         Matcher next = startUrl.matcher(retval);
         boolean done = false;
         int previous = 0; // the starting index of the previously found url
-        List pieces = new LinkedList();
+        List<String> pieces = new LinkedList<String>();
 
         /*
          * Separates the string into a list. Break points for different tokens
@@ -347,14 +347,14 @@ public class StringUtil {
          * starts with http:// or https:// This part finds the end of each url
          * and executes modifications
          */
-        Iterator itr = pieces.iterator();
-        StringBuffer result = new StringBuffer();
+        Iterator<String> itr = pieces.iterator();
+        StringBuilder result = new StringBuilder();
         while (itr.hasNext()) {
-            String current = (String) itr.next();
+            String current = itr.next();
             Matcher match = startUrl.matcher(current);
             if (match.find()) { // if this is a url
                 int end = findEndOfUrl(current);
-                StringBuffer modify = new StringBuffer("<a href=\"");
+                StringBuilder modify = new StringBuilder("<a href=\"");
                 if (end != -1) { // if the end of the url is not the end of the
                                  // token
                     modify.append(current.substring(0, end).replaceAll("&amp;", "&"));
@@ -390,8 +390,8 @@ public class StringUtil {
      * @param inputList The List of Strings to join
      * @return The joined String
      */
-    public static String join(String separator, Collection inputList) {
-        Iterator itty = inputList.iterator();
+    public static String join(String separator, Collection<String> inputList) {
+        Iterator<String> itty = inputList.iterator();
 
         return join(separator, itty);
     }
@@ -406,12 +406,12 @@ public class StringUtil {
      * @param itty The iterator containing display items.
      * @return The joined String
      */
-    public static String join(String separator, Iterator itty) {
+    public static String join(String separator, Iterator<String> itty) {
         if (!itty.hasNext()) {
             return null;
         }
 
-        StringBuffer ret = new StringBuffer();
+        StringBuilder ret = new StringBuilder();
         ret.append(itty.next());
 
         while (itty.hasNext()) {
@@ -559,7 +559,7 @@ public class StringUtil {
         }
 
         // Now, localize the unit-strings for each unit requested
-        StringBuffer buff = new StringBuffer();
+        StringBuilder buff = new StringBuilder();
         for (int currUnit = maxUnit; currUnit >= minUnit; currUnit--) {
             buff = buff.append(localizeUnit(unitValues[currUnit], currUnit)).append(" ");
         }
@@ -764,7 +764,7 @@ public class StringUtil {
      * @throws ValidatorException if there isn't an '=' sign seperating the
      * pairs
      */
-    public static Map convertOptionsToMap(String options, String errorKey,
+    public static Map<String, String> convertOptionsToMap(String options, String errorKey,
                                                                 String separator)
         throws ValidatorException {
         Map<String, String> toReturn = new HashMap<String, String>();

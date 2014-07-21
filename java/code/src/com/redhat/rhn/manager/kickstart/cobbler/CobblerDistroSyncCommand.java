@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -67,11 +67,11 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
     /**
      * Sync spacewalk distros that have a null cobblerId
      *  we do this in store as well, (while doing other syncing
-     *  tasks, but this is needed occasoinally outside of store.
+     *  tasks, but this is needed occasionally outside of store.
      * @return an error if applicable
      */
     public ValidatorError syncNullDistros() {
-        List errors = new LinkedList();
+        List<String> errors = new LinkedList<String>();
         List<KickstartableTree> unSynced = KickstartFactory.listUnsyncedKickstartTrees();
         String err;
         for (KickstartableTree tree : unSynced) {
@@ -130,7 +130,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
      */
     @Override
     public ValidatorError store() {
-        List errors = new LinkedList();
+        List<String> errors = new LinkedList<String>();
 
         List <KickstartableTree> trees = KickstartFactory.lookupKickstartTrees();
 
@@ -154,21 +154,34 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
 
         log.debug(trees);
         log.debug(cobblerDistros);
-        //Are there any distros on cobbler that have changed
+        // Are there any distros that have changed
         for (KickstartableTree tree : trees) {
+            Distro cobDistro = null;
             if (cobblerDistros.containsKey(tree.getCobblerId())) {
-                Distro cobDistro = cobblerDistros.get(tree.getCobblerId());
-                if ((cobDistro.getModified()).getTime() > tree.getModified().getTime()) {
-                    syncDistroToSpacewalk(tree, cobDistro);
+                cobDistro = cobblerDistros.get(tree.getCobblerId());
+            }
+            else if (cobblerDistros.containsKey(tree.getCobblerXenId())) {
+                cobDistro = cobblerDistros.get(tree.getCobblerXenId());
+            }
+            if (cobDistro != null) {
+                // last_modified is updated:
+                // 1) if we're inserting a new kickstartable tree
+                // 2) if we're updating a row and not changing cobbler_id, cobbler_xen_id,
+                //    and last_modified -- aka we update tree_path or something
+                // 3) if you update it explicitly
+                // If everything is updated then they should be the same, this loop sets
+                // last_modified. If dates are different then sync Spacewalk's data to
+                // cobbler. Syncing the other way is not supported. Round to within
+                // 1 second to smooth out differences between storing fractional seconds
+                // or not.
+                if (Math.abs(cobDistro.getModified().getTime() -
+                        tree.getLastModified().getTime()) > 1000) {
+                    syncSpacewalkToDistro(tree);
+                    // we've synced; set tree.last_modified to indicate we're in-sync
+                    cobDistro.reload();
+                    tree.setLastModified(cobDistro.getModified());
                 }
             }
-            if (cobblerDistros.containsKey(tree.getCobblerXenId())) {
-                Distro cobDistro = cobblerDistros.get(tree.getCobblerXenId());
-                if ((cobDistro.getModified()).getTime() > tree.getModified().getTime()) {
-                    syncDistroToSpacewalk(tree, cobDistro);
-                }
-            }
-            tree.setModified(new Date());
         }
         StringBuffer messages = new StringBuffer();
         for (int i = 0; i < errors.size(); i++) {
@@ -219,12 +232,11 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                         "] unusable.";
             }
 
-            Distro distro =
-                    Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
-                            tree.getCobblerDistroName(), tree.getKernelPath(),
-                            tree.getInitrdPath(), ksmeta,
-                            tree.getInstallType().getCobblerBreed(),
-                            tree.getInstallType().getCobblerOsVersion());
+            Distro distro = Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
+                    tree.getCobblerDistroName(), tree.getKernelPath(),
+                    tree.getInitrdPath(), ksmeta, tree.getInstallType().getCobblerBreed(),
+                    tree.getInstallType().getCobblerOsVersion(),
+                    tree.getChannel().getChannelArch().cobblerArch());
             tree.setCobblerId(distro.getUid());
             invokeCobblerUpdate();
         }
@@ -239,12 +251,12 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                 return error;
             }
 
-            Distro distroXen =
-                    Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
-                            tree.getCobblerXenDistroName(),
-                            tree.getKernelXenPath(), tree.getInitrdXenPath(),
-                            ksmeta, tree.getInstallType().getCobblerBreed(),
-                            tree.getInstallType().getCobblerOsVersion());
+            Distro distroXen = Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
+                    tree.getCobblerXenDistroName(), tree.getKernelXenPath(),
+                    tree.getInitrdXenPath(), ksmeta,
+                    tree.getInstallType().getCobblerBreed(),
+                    tree.getInstallType().getCobblerOsVersion(),
+                    tree.getChannel().getChannelArch().cobblerArch());
             tree.setCobblerXenId(distroXen.getUid());
         }
         tree.setModified(new Date());
@@ -275,27 +287,11 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         return null;
     }
 
-
-    private void syncDistroToSpacewalk(KickstartableTree tree, Distro distro) {
-        log.debug("Syncing distro: " + tree.getLabel() + " known in cobbler as: " +
-                distro.getName());
-        String kernel;
-        String initrd;
-
-        //if this is the xenpv distro, then use those paths..
-        if (distro.getUid().equals(tree.getCobblerXenId())) {
-            kernel = tree.getKernelXenPath();
-            initrd = tree.getInitrdXenPath();
-        }
-        else {
-            kernel = tree.getKernelPath();
-            initrd = tree.getKernelXenPath();
-        }
-
+    private void syncSpacewalkToDistro(KickstartableTree tree) {
         if (tree.isRhnTree()) {
-            distro.setKernel(kernel);
-            distro.setInitrd(initrd);
-            distro.save();
+            log.debug("Syncing: " + tree.getLabel() + " to cobbler over xmlrpc");
+            CobblerDistroEditCommand command = new CobblerDistroEditCommand(tree);
+            command.store();
         }
         else {
             //Do nothing.  Let us be out of sync with cobbler

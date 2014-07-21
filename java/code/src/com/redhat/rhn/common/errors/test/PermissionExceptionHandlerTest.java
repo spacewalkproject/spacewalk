@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -71,10 +71,10 @@ public class PermissionExceptionHandlerTest extends MockObjectTestCase {
 
             RhnMockHttpServletRequest request = TestUtils
                     .getRequestWithSessionAndUser();
-            request.setupGetHeaderNames(new Vector().elements());
+            request.setupGetHeaderNames(new Vector<String>().elements());
             request.setupGetMethod("POST");
             request.setupGetRequestURI("http://localhost:8080");
-            request.setupGetParameterNames(new Vector().elements());
+            request.setupGetParameterNames(new Vector<String>().elements());
 
             RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
             response.setExpectedSetStatusCalls(1);

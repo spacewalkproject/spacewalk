@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2012 Red Hat, Inc.
+-- Copyright (c) 2008--2014 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -161,6 +161,10 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
             lookup_sg_type('sw_mgr_entitled'));
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('armv6l-debian-linux'),
+            lookup_sg_type('sw_mgr_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
 	values (lookup_server_arch('mips-debian-linux'),
             lookup_sg_type('sw_mgr_entitled'));
 
@@ -305,6 +309,10 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
             lookup_sg_type('enterprise_entitled'));
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('armv6l-debian-linux'),
+            lookup_sg_type('enterprise_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
 	values (lookup_server_arch('mips-debian-linux'),
             lookup_sg_type('enterprise_entitled'));
 
@@ -465,6 +473,10 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
            lookup_sg_type('provisioning_entitled'));
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+   values (lookup_server_arch('armv6l-debian-linux'),
+           lookup_sg_type('provisioning_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
    values (lookup_server_arch('mips-debian-linux'),
            lookup_sg_type('provisioning_entitled'));
 
@@ -606,6 +618,10 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
    values (lookup_server_arch('arm-debian-linux'),
+           lookup_sg_type('monitoring_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+   values (lookup_server_arch('armv6l-debian-linux'),
            lookup_sg_type('monitoring_entitled'));
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -80,7 +80,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
     public String getUrl() {
         //create url for new user
         Config c = Config.get();
-        StringBuffer url = new StringBuffer();
+        StringBuilder url = new StringBuilder();
         if (ConfigDefaults.get().isSSLAvailable()) {
             url.append("https://");
         }
@@ -186,6 +186,13 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
         bodyArgs[index + 2] = getUser().getEmail();
         bodyArgs[index + 3] = getUrl();
         bodyArgs[index + 4] = OrgFactory.EMAIL_FOOTER.getValue();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Long getUserId() {
+        return accountCreator.getId();
     }
 
 }

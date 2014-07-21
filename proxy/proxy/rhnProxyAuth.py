@@ -1,6 +1,6 @@
 # Spacewalk Proxy Server authentication manager.
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -112,6 +112,11 @@ class ProxyAuth:
 
         # ids were updated
         return 1
+
+    def get_system_id(self):
+        """ return the system id"""
+        self.__processSystemid()
+        return self.__systemid
 
     def check_cached_token(self, forceRefresh=0):
         """ check cache, login if need be, and cache.

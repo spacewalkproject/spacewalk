@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -271,29 +271,33 @@ public abstract class CobblerObject {
      */
     public Date getCreated() {
         Double time = (Double)dataMap.get(CTIME);
-        return new Date(time.longValue());
+        // cobbler deals with seconds since epoch, Date expects milliseconds. Convert.
+        return new Date(time.longValue() * 1000);
     }
 
     /**
      * @param createdIn the created to set
      */
     public void setCreated(Date createdIn) {
-        modify(CTIME, createdIn.getTime());
+        // cobbler deals with seconds since epoch, Date returns milliseconds. Convert.
+        modify(CTIME, createdIn.getTime() / 1000);
     }
 
     /**
      * @return the modified
      */
     public Date getModified() {
-        Double time = (Double)dataMap.get(MTIME);
-        return new Date(time.longValue());
+        Double time = (Double) dataMap.get(MTIME);
+        // cobbler deals with seconds since epoch, Date expects milliseconds. Convert.
+        return new Date(time.longValue() * 1000);
     }
 
     /**
      * @param modifiedIn the modified to set
      */
     public void setModified(Date modifiedIn) {
-        modify(MTIME, modifiedIn.getTime());
+        // cobbler deals with seconds since epoch, Date returns milliseconds. Convert.
+        modify(MTIME, modifiedIn.getTime() / 1000);
     }
 
     /**

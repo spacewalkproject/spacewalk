@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -59,7 +59,7 @@ public class ConfigListSubmitAction extends BaseSetOperateOnSelectedItemsAction 
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map mapIn) {
+    protected void processMethodKeys(Map<String, String> mapIn) {
         mapIn.put("ssmdiff.jsp.schedule", "scheduleDiff");
         mapIn.put("ssmdeploy.jsp.schedule", "scheduleDeploy");
     }
@@ -69,7 +69,7 @@ public class ConfigListSubmitAction extends BaseSetOperateOnSelectedItemsAction 
      */
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest requestIn,
-                                   Map paramsIn) {
+                                   Map<String, Object> paramsIn) {
         //no-op
     }
 

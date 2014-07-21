@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.2.11
+Version:        2.3.0
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -82,6 +82,7 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man8
 /usr/bin/pod2man --section=1 $RPM_BUILD_ROOT/%{_bindir}/spacewalk-setup-cobbler | gzip > $RPM_BUILD_ROOT%{_mandir}/man1/spacewalk-setup-cobbler.1.gz
 /usr/bin/pod2man --section=1 $RPM_BUILD_ROOT/%{_bindir}/spacewalk-setup-tomcat | gzip > $RPM_BUILD_ROOT%{_mandir}/man1/spacewalk-setup-tomcat.1.gz
 /usr/bin/pod2man --section=1 $RPM_BUILD_ROOT/%{_bindir}/spacewalk-setup-httpd | gzip > $RPM_BUILD_ROOT%{_mandir}/man1/spacewalk-setup-httpd.1.gz
+/usr/bin/pod2man --section=1 $RPM_BUILD_ROOT/%{_bindir}/spacewalk-setup-sudoers| gzip > $RPM_BUILD_ROOT%{_mandir}/man1/spacewalk-setup-sudoers.1.gz
 
 %check
 make test
@@ -99,6 +100,7 @@ rm -rf %{buildroot}
 %{_bindir}/spacewalk-make-mount-points
 %{_bindir}/spacewalk-setup-cobbler
 %{_bindir}/spacewalk-setup-tomcat
+%{_bindir}/spacewalk-setup-sudoers
 %{_bindir}/cobbler20-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
@@ -107,6 +109,12 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.13-1
+- Do not enable spacewalk-service in runlevel 4 (bnc#879992)
+
+* Fri Jun 13 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.12-1
+- extract the sudo setup into a separate script/tool
+
 * Tue May 27 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.11-1
 - spacewalk-setup: require curl
 

@@ -59,6 +59,18 @@
             <context context-type="sourcefile">/rhn/systems/details/history/snapshots/Packages.do</context>
           </context-group>
         </trans-unit>
+        <trans-unit id="column.tag-name">
+          <source>Tag Name</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/RollbackToTag.do</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="column.reason">
+          <source>Reason</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/RollbackToTag.do</context>
+          </context-group>
+        </trans-unit>
       </group>
       <!-- Generic row labels. The intent is that these can be reused across multiple pages.-->
       <group>
@@ -1577,6 +1589,18 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="usercreate.jsp.pam.reference">
         <source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="usercreate.jsp.api.readOnly">
+        <source>Read only API user:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="usercreate.jsp.api.readOnlyHelp">
+        <source>Read-only API users are forbidden from the @@PRODUCT_NAME@@ web interface, and allowed access only to a limited subset of the public API.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
         </context-group>
@@ -4745,6 +4769,18 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.overview.provisioning.remotecommands">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
         </trans-unit>
+        <trans-unit id="ssm.overview.provisioning.powermanagement.configure">
+          <source>&lt;a href="/rhn/systems/ssm/provisioning/PowerManagementConfiguration.do"&gt;Configure power management&lt;/a&gt;</source>
+        </trans-unit>
+        <trans-unit id="ssm.overview.provisioning.powermanagement.operations">
+          <source>Run &lt;a href="/rhn/systems/ssm/provisioning/PowerManagementOperations.do"&gt;power management operations&lt;/a&gt;</source>
+        </trans-unit>
+      <trans-unit id="provisioning.powermanagement.ipmi_note">
+        <source>&lt;strong&gt;NOTE:&lt;/strong&gt; IPMI is the only power management type that has been tested and is supported, but others may work. To enable other power management types override the "java.power_management.types" option in rhn.conf.</source>
+      </trans-unit>
+      <trans-unit id="provisioning.powermanagement.security_warning">
+        <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
+      </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>
         </trans-unit>
@@ -8641,6 +8677,15 @@ Please note that some manual configuration of these scripts may still be require
       <trans-unit id="repos.jsp.filters.error">
         <source>Filter syntax is incorrect!</source>
       </trans-unit>
+      <trans-unit id="repos.jsp.channelHeader">
+        <source>Channels using {0} repository</source>
+      </trans-unit>
+      <trans-unit id="repos.jsp.channelSummary">
+        <source>Bellow are channels with {0} repository attached to them.</source>
+      </trans-unit>
+      <trans-unit id="repos.jsp.noChannels">
+        <source>This repository is not linked to any channel.</source>
+      </trans-unit>
       <trans-unit id="os">
         <source>Operating System</source>
       </trans-unit>
@@ -8796,6 +8841,30 @@ Please note that some manual configuration of these scripts may still be require
         </trans-unit>
         <trans-unit id="ssm.kickstart.distro.cobbler-only.tooltip">
           <source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not the selected systems will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
+        </trans-unit>
+      </group>
+      <!-- SSM Rollback to tag -->
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/RollbackToTag.do</context>
+        </context-group>
+        <trans-unit id="ssm.provisioning.rollbacktotag.header">
+          <source>Rollback to Snapshot Tag: {0}</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.rollbacktotag.summary1">
+          <source>The systems below may be rolled back to their system snapshot associated with the tag: {0}.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.rollbacktotag.summary2">
+          <source>For details on the system snapshot tied to this tag for a particular system, click on the 'Reason for Snapshot' link for the desired system.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.rollbacktotag.note">
+          <source>Note: this operation will take some time to complete.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.rollbacktotag.datetagapplied">
+          <source>Date Tag Applied</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.rollbacktotag.rollback-button">
+          <source>Rollback Systems</source>
         </trans-unit>
       </group>
       <!-- Kickstart -->
@@ -9944,7 +10013,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="keycreate.jsp.summary">
-        <source>Please enter the information for your key in the form provided below.  Entries marked with an (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt; and must be unique.</source>
+        <source>Please enter the information for your key in the form provided below.  Entries marked with an (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt; and must be unique. The actual key content can be provided by uploading a file or by filling out the dedicated text area. In case both ways were used, the file selected for upload takes precedence.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysCreate.do</context>
         </context-group>
@@ -9975,12 +10044,6 @@ Please note that some manual configuration of these scripts may still be require
       </trans-unit>
       <trans-unit id="keycreate.jsp.selectfile">
         <source>Select file to upload: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/keys/CryptoKeysCreate.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="keycreate.jsp.nokey">
-        <source>&lt;span class="required-form-field"&gt;Neither a GPG or SSL Certificate is currently attached to this cryptokey.  Please attach a GPG key or SSL Certificate to this crypto key using the form above.&lt;/span&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysCreate.do</context>
         </context-group>
@@ -10920,6 +10983,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>
       <trans-unit id="channels.overview.packages">
         <source>Packages</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/RelevantChannels.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channels.overview.erratas">
+        <source>Erratas</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/RelevantChannels.do</context>
         </context-group>
@@ -11995,6 +12064,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.event.details.status">
           <source>This action's status is: {0}.</source>
         </trans-unit>
+        <trans-unit id="system.event.details.statusPicked Up">
+          <source>Picked Up</source>
+        </trans-unit>
         <trans-unit id="system.event.details.statusCompleted">
           <source>Completed</source>
         </trans-unit>
@@ -12238,6 +12310,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.history.snapshot.tagCreateSuccess">
           <source>Tag added to system</source>
         </trans-unit>
+        <trans-unit id="system.history.snapshot.tagNameEmpty">
+          <source>Tag name may not be left empty, please choose a name for the new tag.</source>
+        </trans-unit>
         <trans-unit id="system.history.snapshot.tagCreateFailure">
           <source>That tag already exists for this system. Please choose another tag name.</source>
         </trans-unit>
@@ -12387,6 +12462,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="system.history.snapshot.configs_changed">
           <source>Config files scheduled for deployment.</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.unservableHeader">
+          <source>Snapshot - Unservable Packages</source>
+        </trans-unit>
+        <trans-unit id="system.history.snapshot.unservableSummary">
+          <source>The snapshot packages below cannot be served due to channel management changes.</source>
         </trans-unit>
       </group>
       <!-- Configuration Common -->
@@ -14897,6 +14978,9 @@ any of these revisions.  Are you sure you want to do this?</source>
             <context context-type="paramnotes">3 config files</context>
           </context-group>
         </trans-unit>
+        <trans-unit id="diffconfirm.jsp.widgetsummary">
+          <source>You may schedule configuration file compare actions to occur for the time below. &lt;br/&gt; &lt;strong&gt;Note: The time below represents the earliest time the action could occur&lt;/strong&gt;.</source>
+        </trans-unit>
       </group>
       <!-- configuration/ssm/diffsystems.jsp  -->
       <group>
@@ -15650,6 +15734,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="ssm.operations.viewlog.servers">
           <source>Servers</source>
         </trans-unit>
+        <trans-unit id="ssm.operations.viewlog.note_heading">
+          <source>Note</source>
+        </trans-unit>
         <trans-unit id="ssm.operations.viewlog.inprogress">
           <source>In Progress</source>
         </trans-unit>
@@ -15716,6 +15803,34 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommand.header">
           <source>Remote Command on {0}</source>
+        </trans-unit>
+        <!-- Power Management Configuration Labels -->
+        <trans-unit id="ssm.provisioning.powermanagement.configuration.header">
+          <source>Change Power Management Configuration</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.configuration.summary">
+          <source>Change power management configuration details to the systems displayed below. Leave a field blank to avoid changing the corresponding parameter.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.configuration.saved">
+          <source>Configuration successfully saved for {0} system(s).</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.configuration.dontchange">
+          <source>Don't change</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.configuration.update">
+          <source>Update</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.operations.header">
+          <source>Power Management Operations</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.operations.summary">
+          <source>Apply one of the following power management operations to the systems below.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.operations.saved">
+          <source>Successfully scheduled {0} system(s) for {1}.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.cobbler_error">
+          <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
         </trans-unit>
         <trans-unit id="">
           <source/>
@@ -15794,9 +15909,6 @@ any of these revisions.  Are you sure you want to do this?</source>
       </trans-unit>
       <trans-unit id="ssm.operations.actionchaindetails.scheduleerror.general">
         <source>Unable to schedule chain action.</source>
-      </trans-unit>
-      <trans-unit id="ssm.operations.actionchaindetails.scheduleerror.general.param">
-        <source>Fatal error due to {0}.</source>
       </trans-unit>
       <!-- ssm/packages.jsp -->
       <group>
@@ -16160,6 +16272,150 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         <source>Basic Options</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.heading">
+        <source>Power Management Settings</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.powertype">
+        <source>Type</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.on">
+        <source>On</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.off">
+        <source>Off</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.unknown">
+        <source>Unknown</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.power_status_failed">
+        <source>An error prevented retrieving the system's power status. Please check parameters and Cobbler log.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.power_address">
+        <source>Network address</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.power_username">
+        <source>Username</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.power_password">
+        <source>Password</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.power_id">
+        <source>System identifier</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.power_status">
+        <source>Current power status</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.save_and">
+        <source>Save and</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.get_status">
+        <source>Get status</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.power_on">
+        <source>Power On</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.power_off">
+        <source>Power Off</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.reboot">
+        <source>Reboot</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.save_only">
+        <source>Save Only</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.saved">
+        <source>Power settings saved</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.powered_on">
+        <source>Power settings saved, system has been powered on</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.powered_off">
+        <source>Power settings saved, system has been powered off</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.rebooted">
+        <source>Power settings saved, system has been rebooted</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.no_types">
+        <source>No Power Management Types configured, please check the "{0}" setting in rhn.conf.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.cannot_create_file">
+        <source>Cannot create a necessary temporary file. Check disk space and permissions on /tmp.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.unsupported_power_type">
+        <source>Selected power management type is not supported by Cobbler. Please check your configuration.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.channel.label.jsp">
@@ -17091,6 +17347,9 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </trans-unit>
         <trans-unit id="exportcolumn.errataAdvisoryType">
           <source>Advisory Type</source>
+        </trans-unit>
+        <trans-unit id="exportcolumn.affectedSystemCount">
+          <source>Systems Affected</source>
         </trans-unit>
         <trans-unit id="exportcolumn.advisorySynopsis">
           <source>Synopsis</source>
@@ -20359,7 +20618,7 @@ given channel.</source>
       <trans-unit id="channel.edit.jsp.checksumtip">
         <source>&lt;strong&gt; Tip:&lt;/strong&gt;
           sha1 offers the widest compatibility with clients. sha-256 offers higher security,
-          but is compatible only with newer clients: Fedora 11 and newer, or Enterprise Linux 6 and newer.
+          but is compatible only with newer clients: Fedora 11 and newer, or Enterprise Linux 6 and newer. Yum repository checksum type 'None' is supported only for RHEL 3 and RHEL 4.
          </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
@@ -20801,6 +21060,12 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="bunch.jsp.description.cleanup-data-bunch">
         <source>Cleans up orphaned and outdated data</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.reboot-action-cleanup-bunch">
+        <source>Invalidate reboot actions which never finish</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
@@ -21658,6 +21923,9 @@ given channel.</source>
         </trans-unit>
         <trans-unit id="help.credentials.jsp.logininput">
           <source>@@PRODUCT_NAME@@ Login:</source>
+        </trans-unit>
+        <trans-unit id="server.runningkernel.unknown">
+          <source>Unknown running kernel</source>
         </trans-unit>
       </group>
     </body>

@@ -9,7 +9,7 @@
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %define appdir          %{_localstatedir}/lib/tomcat/webapps
 %define jardir          %{_localstatedir}/lib/tomcat/webapps/rhn/WEB-INF/lib
 %else
@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.77
+Version: 2.3.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -39,6 +39,120 @@ ExcludeArch: ia64
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 
+Requires: bcel
+Requires: c3p0 >= 0.9.1
+Requires: classpathx-mail
+Requires: cobbler >= 2.0.0
+Requires: dojo
+Requires: dwr >= 3
+Requires: jakarta-commons-el
+Requires: jakarta-commons-fileupload
+Requires: jakarta-taglibs-standard
+Requires: java >= 1:1.6.0
+Requires: java-devel >= 1:1.6.0
+Requires: jcommon
+Requires: jdom
+Requires: jpam
+Requires: jta
+Requires: log4j
+Requires: oscache
+Requires: redstone-xmlrpc
+Requires: simple-core
+Requires: simple-xml
+Requires: sitemesh
+Requires: spacewalk-branding
+Requires: spacewalk-java-config
+Requires: spacewalk-java-jdbc
+Requires: spacewalk-java-lib
+Requires: stringtree-json
+Requires: susestudio-java-client
+Requires: xalan-j2 >= 0:2.6.0
+Requires: xerces-j2
+%if 0%{?fedora}
+Requires: classpathx-jaf
+Requires: hibernate3 >= 3.6.10
+Requires: hibernate3-c3p0 >= 3.6.10
+Requires: hibernate3-ehcache >= 3.6.10
+Requires: javassist
+BuildRequires: ehcache-core
+BuildRequires: hibernate3 >= 0:3.6.10
+BuildRequires: hibernate3-c3p0 >= 3.6.10
+BuildRequires: hibernate3-ehcache >= 3.6.10
+BuildRequires: javassist
+%else
+Requires: hibernate3 = 0:3.2.4
+BuildRequires: hibernate3 = 0:3.2.4
+%endif
+# EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
+%if 0%{?rhel} && 0%{?rhel} < 6
+Requires: jasper5
+Requires: struts >= 0:1.2.9
+Requires: tomcat5
+Requires: tomcat5-servlet-2.4-api
+BuildRequires: jasper5
+BuildRequires: jsp
+BuildRequires: struts >= 0:1.2.9
+%else
+%if 0%{?fedora} || 0%{?rhel} >= 7
+Requires: struts >= 0:1.3.0
+Requires: struts-taglib >= 0:1.3.0
+Requires: tomcat >= 7
+Requires: tomcat-lib >= 7
+Requires: tomcat-servlet-3.0-api >= 7
+BuildRequires: struts >= 0:1.3.0
+BuildRequires: struts-taglib >= 0:1.3.0
+BuildRequires: tomcat >= 7
+BuildRequires: tomcat-lib >= 7
+%else
+Requires: struts >= 0:1.3.0
+Requires: struts-taglib >= 0:1.3.0
+Requires: tomcat6
+Requires: tomcat6-lib
+Requires: tomcat6-servlet-2.5-api
+BuildRequires: struts >= 0:1.3.0
+BuildRequires: struts-taglib >= 0:1.3.0
+BuildRequires: tomcat6
+BuildRequires: tomcat6-lib
+%endif
+%endif
+%if 0%{?fedora} || 0%{?rhel} >=7
+Requires:      apache-commons-cli
+Requires:      apache-commons-codec
+Requires:      apache-commons-discovery
+Requires:      apache-commons-io
+Requires:      apache-commons-lang
+Requires:      apache-commons-logging
+Requires:      javapackages-tools
+BuildRequires: apache-commons-cli
+BuildRequires: apache-commons-codec
+BuildRequires: apache-commons-collections
+BuildRequires: apache-commons-discovery
+BuildRequires: apache-commons-io
+BuildRequires: apache-commons-logging
+BuildRequires: apache-commons-validator
+# spelling checker is only for Fedoras (no aspell in RHEL6)
+BuildRequires: aspell aspell-en libxslt
+BuildRequires: javapackages-tools
+BuildRequires: mvn(ant-contrib:ant-contrib)
+%else
+Requires:      jakarta-commons-cli
+Requires:      jakarta-commons-codec
+Requires:      jakarta-commons-discovery
+Requires:      jakarta-commons-io
+Requires:      jakarta-commons-lang >= 0:2.1
+Requires:      jakarta-commons-logging
+Requires:      jpackage-utils
+BuildRequires: ant-contrib
+BuildRequires: ant-nodeps
+BuildRequires: jakarta-commons-cli
+BuildRequires: jakarta-commons-codec
+BuildRequires: jakarta-commons-collections
+BuildRequires: jakarta-commons-discovery
+BuildRequires: jakarta-commons-io
+BuildRequires: jakarta-commons-logging
+BuildRequires: jakarta-commons-validator
+BuildRequires: jpackage-utils
+%endif
 # for RHEL6 we need to filter out several package versions
 %if  0%{?rhel} && 0%{?rhel} >= 6
 # cglib is not compatible with hibernate and asm from RHEL6
@@ -50,169 +164,44 @@ Requires: cglib
 Requires: jfreechart >= 1.0.9
 %endif
 
-Requires: bcel
-Requires: c3p0 >= 0.9.1
-Requires: dwr >= 3
-%if 0%{?fedora}
-Requires: hibernate3 >= 3.6.10
-Requires: hibernate3-c3p0 >= 3.6.10
-Requires: hibernate3-ehcache >= 3.6.10
-Requires: javassist
-%else
-Requires: hibernate3 = 0:3.2.4
-%endif
-Requires: java >= 1:1.6.0
-Requires: java-devel >= 1:1.6.0
-Requires: jakarta-commons-lang >= 0:2.1
-Requires: jakarta-commons-codec
-Requires: jakarta-commons-discovery
-Requires: jakarta-commons-el
-Requires: jakarta-commons-fileupload
-Requires: jakarta-taglibs-standard
-Requires: jcommon
-Requires: jdom
-Requires: jpam
-Requires: jta
-Requires: log4j
-Requires: redstone-xmlrpc
-Requires: oscache
-# EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
-%if 0%{?rhel} && 0%{?rhel} < 6
-Requires: tomcat5
-Requires: jasper5
-Requires: tomcat5-servlet-2.4-api
-Requires: struts >= 0:1.2.9
-%else
-%if 0%{?fedora}
-Requires: tomcat >= 7
-Requires: tomcat-lib >= 7
-Requires: tomcat-servlet-3.0-api >= 7
-Requires: struts >= 0:1.3.0
-Requires: struts-taglib >= 0:1.3.0
-%else
-Requires: tomcat6
-Requires: tomcat6-lib
-Requires: tomcat6-servlet-2.5-api
-Requires: struts >= 0:1.3.0
-Requires: struts-taglib >= 0:1.3.0
-%endif
-%endif
-Requires: xalan-j2 >= 0:2.6.0
-Requires: xerces-j2
-Requires: simple-core
-Requires: simple-xml
-Requires: sitemesh
-Requires: stringtree-json
-Requires: susestudio-java-client
-Requires: spacewalk-java-config
-Requires: spacewalk-java-lib
-Requires: spacewalk-java-jdbc
-Requires: spacewalk-branding
-%if 0%{?fedora} >= 20
-BuildRequires: apache-commons-validator
-BuildRequires: mvn(ant-contrib:ant-contrib)
-BuildRequires: javapackages-tools
-Requires:      javapackages-tools
-%else
-BuildRequires: jakarta-commons-validator
-BuildRequires: ant-contrib
-BuildRequires: ant-nodeps
-BuildRequires: jpackage-utils
-Requires:      jpackage-utils
-%endif
-Requires: cobbler >= 2.0.0
-Requires: dojo
-%if 0%{?fedora}
-Requires:       apache-commons-io
-BuildRequires:  apache-commons-logging
-Requires:       apache-commons-logging
-%else
-Requires:       jakarta-commons-io
-BuildRequires:  jakarta-commons-logging
-Requires:       jakarta-commons-logging
-%endif
+BuildRequires: /usr/bin/perl
+BuildRequires: /usr/bin/xmllint
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
-BuildRequires: java-devel >= 1:1.6.0
 BuildRequires: ant-junit
 BuildRequires: antlr >= 0:2.7.6
-BuildRequires: jpam
-BuildRequires: tanukiwrapper
-Requires: classpathx-mail
+BuildRequires: bcel
+BuildRequires: c3p0 >= 0.9.1
+BuildRequires: cglib
 BuildRequires: classpathx-mail
-BuildRequires: /usr/bin/xmllint
-BuildRequires: /usr/bin/perl
+BuildRequires: concurrent
+BuildRequires: dom4j
+BuildRequires: dwr >= 3
+BuildRequires: jaf
+BuildRequires: jakarta-commons-el
+BuildRequires: jakarta-commons-fileupload
+BuildRequires: jakarta-taglibs-standard
+BuildRequires: java-devel >= 1:1.6.0
+BuildRequires: jcommon
+BuildRequires: jdom
+BuildRequires: jfreechart >= 0:1.0.9
+BuildRequires: jpam
+BuildRequires: jta
+BuildRequires: oscache
+BuildRequires: postgresql-jdbc
+BuildRequires: quartz
+BuildRequires: redstone-xmlrpc
+BuildRequires: simple-core
+BuildRequires: simple-xml
+BuildRequires: sitemesh
+BuildRequires: stringtree-json
+BuildRequires: susestudio-java-client
+BuildRequires: tanukiwrapper
 %if 0%{?run_checkstyle}
 BuildRequires: checkstyle
 %endif
 %if ! 0%{?omit_tests} > 0
 BuildRequires: translate-toolkit
-%endif
-
-# Sadly I need these to symlink the jars properly.
-BuildRequires: bcel
-BuildRequires: c3p0 >= 0.9.1
-BuildRequires: concurrent
-BuildRequires: cglib
-BuildRequires: dom4j
-BuildRequires: dwr >= 3
-%if 0%{?fedora}
-BuildRequires: hibernate3 >= 0:3.6.10
-BuildRequires: hibernate3-c3p0 >= 3.6.10
-BuildRequires: hibernate3-ehcache >= 3.6.10
-BuildRequires: ehcache-core
-BuildRequires: javassist
-%else
-BuildRequires: hibernate3 = 0:3.2.4
-%endif
-BuildRequires: jaf
-BuildRequires: jakarta-commons-codec
-BuildRequires: jakarta-commons-collections
-BuildRequires: jakarta-commons-discovery
-BuildRequires: jakarta-commons-el
-BuildRequires: jakarta-commons-fileupload
-BuildRequires: jakarta-taglibs-standard
-BuildRequires: jcommon
-BuildRequires: jdom
-BuildRequires: jfreechart >= 0:1.0.9
-BuildRequires: jta
-BuildRequires: redstone-xmlrpc
-BuildRequires: oscache
-BuildRequires: quartz
-BuildRequires: simple-core
-BuildRequires: simple-xml
-BuildRequires: stringtree-json
-BuildRequires: susestudio-java-client
-# EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
-%if 0%{?rhel} && 0%{?rhel} < 6
-BuildRequires: struts >= 0:1.2.9
-BuildRequires: jsp
-BuildRequires: jasper5
-%else
-%if 0%{?fedora}
-BuildRequires: struts >= 0:1.3.0
-BuildRequires: struts-taglib >= 0:1.3.0
-BuildRequires: tomcat >= 7
-BuildRequires: tomcat-lib >= 7
-%else
-BuildRequires: struts >= 0:1.3.0
-BuildRequires: struts-taglib >= 0:1.3.0
-BuildRequires: tomcat6
-BuildRequires: tomcat6-lib
-%endif
-%endif
-BuildRequires: sitemesh
-BuildRequires: postgresql-jdbc
-%if 0%{?fedora}
-# spelling checker is only for Fedoras (no aspell in RHEL6)
-BuildRequires: aspell aspell-en libxslt
-Requires:      apache-commons-cli
-BuildRequires: apache-commons-cli
-BuildRequires: apache-commons-io
-%else
-Requires:      jakarta-commons-cli
-BuildRequires: jakarta-commons-cli
-BuildRequires: jakarta-commons-io
 %endif
 Obsoletes: rhn-java < 5.3.0
 Obsoletes: rhn-java-sat < 5.3.0
@@ -220,10 +209,6 @@ Obsoletes: rhn-oracle-jdbc-tomcat5 <= 1.0
 Provides: rhn-java = %{version}-%{release}
 Provides: rhn-java-sat = %{version}-%{release}
 Provides: rhn-oracle-jdbc-tomcat5 = %{version}-%{release}
-
-%if 0%{?fedora}
-Requires: classpathx-jaf
-%endif
 
 %description
 This package contains the code for the Java version of the Spacewalk Web Site.
@@ -260,7 +245,7 @@ Requires: ojdbc14
 %if  0%{?rhel} && 0%{?rhel} < 6
 Requires: tomcat5
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: tomcat >= 7
 %else
 Requires: tomcat6
@@ -278,7 +263,7 @@ Requires: postgresql-jdbc
 %if  0%{?rhel} && 0%{?rhel} < 6
 Requires: tomcat5
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >=7
 Requires: tomcat >= 7
 %else
 Requires: tomcat6
@@ -328,6 +313,23 @@ Requires: jfreechart >= 1.0.9
 
 Requires: bcel
 Requires: c3p0 >= 0.9.1
+Requires: cobbler >= 2.0.0
+Requires: concurrent
+Requires: jakarta-taglibs-standard
+Requires: java >= 0:1.6.0
+Requires: java-devel >= 0:1.6.0
+Requires: jcommon
+Requires: jpam
+Requires: log4j
+Requires: oscache
+Requires: quartz < 2.0
+Requires: simple-core
+Requires: spacewalk-java-config
+Requires: spacewalk-java-jdbc
+Requires: spacewalk-java-lib
+Requires: tanukiwrapper
+Requires: xalan-j2 >= 0:2.6.0
+Requires: xerces-j2
 %if 0%{?fedora}
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
@@ -336,34 +338,20 @@ Requires: javassist
 %else
 Requires: hibernate3 >= 0:3.2.4
 %endif
-Requires: java >= 0:1.6.0
-Requires: java-devel >= 0:1.6.0
-Requires: jakarta-commons-lang >= 0:2.1
-Requires: jakarta-commons-codec
-Requires: jakarta-commons-dbcp
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-cli
+Requires: apache-commons-codec
+Requires: apache-commons-dbcp
+Requires: apache-commons-lang
 Requires: apache-commons-logging
 %else
 Requires: jakarta-commons-cli
+Requires: jakarta-commons-codec
+Requires: jakarta-commons-dbcp
+Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-logging
 %endif
-Requires: jakarta-taglibs-standard
-Requires: jcommon
-Requires: jpam
-Requires: log4j
-Requires: oscache
-Requires: xalan-j2 >= 0:2.6.0
-Requires: xerces-j2
-Requires: tanukiwrapper
-Requires: simple-core
-Requires: spacewalk-java-config
-Requires: spacewalk-java-lib
-Requires: spacewalk-java-jdbc
-Requires: concurrent
-Requires: quartz < 2.0
 Conflicts: quartz >= 2.0
-Requires: cobbler >= 2.0.0
 Obsoletes: taskomatic < 5.3.0
 Obsoletes: taskomatic-sat < 5.3.0
 Provides: taskomatic = %{version}-%{release}
@@ -468,9 +456,6 @@ rm -rf $RPM_BUILD_ROOT
 # on Fedora 19 some jars are named differently
 %if 0%{?fedora}
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
-%if 0%{?fedora} < 20
-ln -s -f %{_javadir}/apache-commons-validator.jar $RPM_BUILD_ROOT%{_javadir}/commons-validator.jar
-%endif
 ln -s -f %{_javadir}/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
 ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/jboss-logging.jar
 %endif
@@ -656,7 +641,7 @@ fi
 %{jardir}/commons-io.jar
 %{jardir}/commons-lang.jar
 %{jardir}/commons-logging.jar
-%{jardir}/commons-validator.jar
+%{jardir}/*commons-validator.jar
 %{jardir}/concurrent.jar
 %{jardir}/dom4j.jar
 %{jardir}/dwr.jar
@@ -670,9 +655,6 @@ fi
 %{jardir}/slf4j_log4j12.jar
 %endif
 %if 0%{?fedora}
-%if 0%{?fedora} < 20
-%{_javadir}/commons-validator.jar
-%endif
 %{_javadir}/mchange-commons.jar
 %{_javadir}/jboss-logging.jar
 %{jardir}/*jboss-logging.jar
@@ -795,6 +777,273 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 18 2014 Stephen Herr <sherr@redhat.com> 2.3.5-1
+- 1121215 - ISE comparing config files in SSM
+- 1121245 - history events should show script results for this system only
+- 1121252 - config revision not found when following history link
+
+* Thu Jul 17 2014 Stephen Herr <sherr@redhat.com> 2.3.4-1
+- 1120814 - fix broken links to old perl events page
+- api for setting/getting kickstart virtualization profiles
+
+* Tue Jul 15 2014 Stephen Herr <sherr@redhat.com> 2.3.3-1
+- 1114044 - checkstyle fix
+
+* Tue Jul 15 2014 Stephen Herr <sherr@redhat.com> 2.3.2-1
+- 1114044 - fix to support custom kickstart distributions
+
+* Tue Jul 15 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.1-1
+- API for deployment of certain config file to all system from its config
+  channel
+- add api for setting OS repositories in kickstart profiles
+- allow setting errata mailer preferences via API
+- Bumping package versions for 2.3.
+
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.120-1
+- bump api version
+- fix copyright years
+- Fix ISE when tag name is left empty
+
+* Thu Jul 10 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.119-1
+- make channel family consumtion columns sortable
+- add schedulePackageInstall api for array of servers
+
+* Thu Jul 10 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.118-1
+- add api for setting kickstart/software properties
+- fix api call paramater in api documentation
+
+* Mon Jul 07 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.117-1
+- call rhn-config-satellite.pl only if anything has changed
+
+* Fri Jul 04 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.116-1
+- SET is a Oracle reserved word
+- TokenPackageFactoryTest: avoid NPE on incomplete existing packages
+
+* Tue Jul 01 2014 Stephen Herr <sherr@redhat.com> 2.2.115-1
+- 1109276 - checkstyle fix
+
+* Tue Jul 01 2014 Stephen Herr <sherr@redhat.com> 2.2.114-1
+- 1109276 - Fix Distro syncing in CobblerSyncTask, force one sync to fix arch
+- don't show packages tab if activation key hasn't provisioning entitlement
+- fix column header for package profile difference
+- add csv export for package profile comparison
+- handle NestedNullException while creating csv
+- allow users to set size of config files to be editable in webUI
+
+* Mon Jun 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.113-1
+- add missing string resource
+- don't use obsolete hibernate namespace
+
+* Fri Jun 27 2014 Stephen Herr <sherr@redhat.com> 2.2.112-1
+- Some final polish on power management feature.
+- Power Management: indentation corrected
+- Power Management: use rhn:toolbar
+
+* Fri Jun 27 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.111-1
+- checkstyle fix
+
+* Fri Jun 27 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.110-1
+- don't offer read-only flag in the initial user creation page
+
+* Fri Jun 27 2014 Tomas Lestach <tlestach@redhat.com> 2.2.109-1
+- package (apache-)commons-validator.jar
+- on fc19 we shall link apache-commons-validator instead of commons-validator
+
+* Thu Jun 26 2014 Stephen Herr <sherr@redhat.com> 2.2.108-1
+- Fixing missing headers
+
+* Thu Jun 26 2014 Stephen Herr <sherr@redhat.com> 2.2.107-1
+- Fixing merge problem and checkstyle for power management merge
+
+* Thu Jun 26 2014 Stephen Herr <sherr@redhat.com> 2.2.106-1
+- Guest Provisioning was broken because of refactoring
+- Update to build on newer source
+- $ tags removed as suggested by mkollar
+- SSM power management operation page test
+- SSM power management operation page added
+- SSM power management configuration page test
+- SSM power management configuration page added
+- rhnSsmOperationServer: note column tests
+- rhnSsmOperationServer: note column added
+- ServerTestUtils: add a server group parameter to createTestSystem
+- Single-system power management page tests
+- Single-system power management page added
+- Configuration options added
+- SystemRecord: power status support tests
+- SystemRecord: power status support added
+- CobblerPowerCommand tests
+- CobblerPowerCommand added
+- CobblerPowerSettingsUpdateCommand tests
+- CobblerPowerSettingsUpdateCommand added
+- Refactoring: make getCobblerSystemRecordName() callable from other classes
+- Do not assume a Cobbler system record always has a profile attached
+- Cobbler image support tests
+- Cobbler image support added
+- SystemRecord: power management support tests
+- SystemRecord: power management support added
+- make requires sorted
+- moved common requires before conditional ones
+- reduced number of if-else-endif blocks
+- return also org_name in user.getDetails api
+
+* Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.105-1
+- fixed apache-commons-* vs. jakarta-commons-* conflicts
+- return whether staging content is enabled for org in org.getDetails api
+- add csv report for relevant erratas in system groups
+
+* Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.104-1
+- fixed apache vs. jakarta  -commons-{codec,lang} conflict
+
+* Tue Jun 24 2014 Stephen Herr <sherr@redhat.com> 2.2.103-1
+- 1109276 - checkstyle fix
+
+* Tue Jun 24 2014 Stephen Herr <sherr@redhat.com> 2.2.102-1
+- 1112633 - Prevent CobblerSync from failing from removed ks trees
+- 1109276 - Correctly set cobbler arch
+
+* Tue Jun 24 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.101-1
+- correctly retrieve user name for logging purposes
+- fix channel link
+- check for read_only flag when checking for active (Sat|Org)Admins
+- better logging of post process exceptions
+- ErrataHandlerTest: avoid accidental end-of-string chars in test strings
+
+* Mon Jun 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.100-1
+- don't render a link for non-existent base channel
+
+* Mon Jun 23 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.99-1
+- use javapackages-tools instead of jpackage-utils on RHEL7
+
+* Mon Jun 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.98-1
+- removed unused import
+
+* Fri Jun 20 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.97-1
+- ensure an Iterator<String> is passed instead of an Iterator<Object>
+
+* Fri Jun 20 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.96-1
+- syntax fix
+
+* Thu Jun 19 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.95-1
+- explicitly convert errata keywords to String
+- allow filtering of events based on event type for listSystemEvents api
+- specify 'None' repository checksum type usage
+- style add/remove system to system group buttons
+- add white space after 'in'
+- style publish button
+
+* Tue Jun 17 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.94-1
+- 1012643 - display count of errata in channel not packages with errata
+- disable last org/sat admin become read-only
+- add csv report to errata pages
+- fix dead links
+- 803040 - API for snapshot rollback
+- hibernate mapping for snapshots associated to a snapshot tag
+- don't execute sessionKey -> User translation for AuthHandler
+- simplify expression a bit
+- fix typo in class name
+
+* Fri Jun 13 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.93-1
+- checkstyle fix
+
+* Fri Jun 13 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.92-1
+- We are testing CryptoKeyDeleteAction here
+- CryptoKeyDelete needs the "contents_edit" parameter now
+
+* Fri Jun 13 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.91-1
+- compare_packages_to_snapshot: performance fix
+- compare_packages_to_snapshot: avoid failure on NULL evr on Oracle
+- start using User as parameter instead of sessionKey in ScheduleHandler
+- OrgHandler: unused private methods removed
+- 1011935 - add missing localization string
+- 1012643 - display errata count in channels/All.do
+- 1063342 - create error message if passwords doesn't match
+
+* Wed Jun 11 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.90-1
+- 1086256 - style submit buttons
+- page for viewing channels repo is associated to
+- API for setting read-only user flag
+- allow read-only user flag to be set in webUI
+- remove unused class
+- using User as parameter in API instead of sessionKey
+- authenticate user before invoking API methods
+- check method name in order to distinguish read only api calls
+- disable read-only users to log in
+- allow user to be created as read only
+- hibernate mapping for read only user
+- checkstyle fix
+- Fix datepicker time at xx:xx PM pre-filled with xx:xx AM inducing user to
+  enter the wrong time. (bnc#880936)
+- SystemRemoteCommandAction: avoid exception swallowing[1]
+- 574974 - RFE: Add option of pasting key into textarea
+- remove dead variable
+- make array initialized from constants static final
+- remove redundant .LongValue() call on Long object
+- finalize variables which should be final
+- use serialVersionUID
+- remove unused method
+- use StringBuilder instead of StringBuffer for local variables
+- remove link to the dead page
+- Fix human dates now() staying unmodified (bnc#880081)
+
+* Thu Jun 05 2014 Stephen Herr <sherr@redhat.com> 2.2.89-1
+- 594455 - group by db fix for elaborator
+- apidoc fix: remove extraneous #array from function prototypes
+
+* Thu Jun 05 2014 Stephen Herr <sherr@redhat.com> 2.2.88-1
+- 594455 - Fix db grouping error
+
+* Wed Jun 04 2014 Stephen Herr <sherr@redhat.com> 2.2.87-1
+- Hibernate does not like overloaded setters
+
+* Tue Jun 03 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.86-1
+- lookupByIds(): fix handling of a minimal case
+- System Event History page: fix link to pending events on Oracle databases
+
+* Mon Jun 02 2014 Stephen Herr <sherr@redhat.com> 2.2.85-1
+- 1103822 - Provide faster systemgroup.listSystemsMinimal
+- Escape package name to prevent from script injection
+- Allow for null evr and archs on event history detail
+
+* Mon Jun 02 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.84-1
+- rewrite rollback_by_tag_conf.pxt to java RollbackToTag.do
+
+* Fri May 30 2014 Stephen Herr <sherr@redhat.com> 2.2.83-1
+- A few hundred more warning fixes
+
+* Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.82-1
+- Remove assert statements from setUp() method
+- Fix and improve unit tests involving kickstartable channels
+- New query to determine kickstartable channels
+- create named query for snapshotTag lookup by name
+- CloneErrataAction: spacing fix
+- provide information about unservable packages to Rollback.do page
+- rewrite unservable_packages.pxt page to java
+
+* Thu May 29 2014 Stephen Herr <sherr@redhat.com> 2.2.81-1
+- 1102831 - make BaseEvent null-safe
+- 1102831 - fix 'can't read the_log_id' errors in async events
+
+* Thu May 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.80-1
+- checkstyle fixes
+
+* Thu May 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.79-1
+- add_snapshot_tag.pxt has been replaced by SnapshotTagCreate.do
+- fixed links to new java pages
+- ChannelManager.ownedChannelsTree test added
+- ActionChainHandlerTest fixes
+- Fix refreshing of Autoinstallable Tree forms (bnc#874144)
+- BaseTreeEditOperation: avoid NPE in unexpected exception handling
+- Delete system: button styled
+- System/Software/Packages/Non Compliant: button styled
+- System/Software/Packages/Profiles: button styled
+- System/Software/Packages/Upgrade: button styled
+- System/Software/Packages/List: button styled
+- System/Software/Packages/Install: button styled
+- Missing translation string added (bnc#877547)
+
+* Tue May 27 2014 Stephen Herr <sherr@redhat.com> 2.2.78-1
+- Can't infer class is Long because there's no zero argument constructor
+
 * Tue May 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.77-1
 - rewrite system snapshot to java: Rollback.do
 - call removeServerFromGroup() with ids not objects

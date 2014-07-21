@@ -44,7 +44,7 @@
 	           sortable="false"
 	           headerkey="repo.jsp.channels"
 	           attr="channels">
-		<c:out value="${current.channels}" />
+		  <a href="/rhn/channels/manage/repos/AssociatedChannels.do?id=${current.id}"><c:out value="${current.channels}" /></a>
 	    </rl:column>
       </rl:list>
      </rl:listset>

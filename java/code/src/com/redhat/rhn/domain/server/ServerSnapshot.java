@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2011 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -56,11 +56,11 @@ public class ServerSnapshot extends BaseDomainHelper {
     private Server server;
     private Long id;
     private String reason;
-    private Set<Channel> channels = new HashSet();
-    private Set<ConfigChannel> configChannels = new HashSet();
-    private Set<ConfigRevision> configRevisions = new HashSet();
-    private Set<ServerGroup> groups = new HashSet();
-    private Set<PackageNevra> packages = new HashSet();
+    private Set<Channel> channels = new HashSet<Channel>();
+    private Set<ConfigChannel> configChannels = new HashSet<ConfigChannel>();
+    private Set<ConfigRevision> configRevisions = new HashSet<ConfigRevision>();
+    private Set<ServerGroup> groups = new HashSet<ServerGroup>();
+    private Set<PackageNevra> packages = new HashSet<PackageNevra>();
     private InvalidSnapshotReason invalidReason;
     private static final DateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -474,7 +474,15 @@ public class ServerSnapshot extends BaseDomainHelper {
             pm.updateActionStatus();
             pkgsMeta.add(pm);
         }
-        DataResult ret = new DataResult(pkgsMeta);
+        DataResult<PackageMetadata> ret = new DataResult<PackageMetadata>(pkgsMeta);
         return ret;
+    }
+
+    /**
+     * @return return list of unservable packages for snapshot
+     */
+    public DataResult<Map<String, Object>> getUnservablePackages() {
+        return SystemManager.systemSnapshotUnservablePackages(org.getId(),
+                server.getId(), id, null);
     }
 }

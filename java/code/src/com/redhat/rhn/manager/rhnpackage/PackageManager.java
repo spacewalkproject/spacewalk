@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -74,7 +74,7 @@ import java.util.Set;
  * @version $Rev$
  */
 public class PackageManager extends BaseManager {
-    private static Logger log = Logger.getLogger(PackageManager.class);
+    private static final Logger LOG = Logger.getLogger(PackageManager.class);
     public static final String RHNCFG = "rhncfg";
     public static final String RHNCFG_CLIENT = "rhncfg-client";
     public static final String RHNCFG_ACTIONS = "rhncfg-actions";
@@ -234,7 +234,7 @@ public class PackageManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Package_queries", "system_package_list");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
 
@@ -249,7 +249,7 @@ public class PackageManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Package_queries", "system_available_packages");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
 
@@ -346,7 +346,7 @@ public class PackageManager extends BaseManager {
         params.put("target_eid", errata.getId());
         params.put("source_cid", cid);
 
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("org_id", user.getOrg().getId());
         return makeDataResult(params, elabParams, null, m);
     }
@@ -511,7 +511,7 @@ public class PackageManager extends BaseManager {
                                        .uniqueResult();
         }
         catch (HibernateException e) {
-            log.error("Hibernate exception: " + e.toString());
+            LOG.error("Hibernate exception: " + e.toString());
         }
         return null;
     }
@@ -604,7 +604,7 @@ public class PackageManager extends BaseManager {
         }
         Session session = HibernateFactory.getSession();
         cleanupFileEntries(pkg.getId());
-        StringBuffer packageFileName = new StringBuffer();
+        StringBuilder packageFileName = new StringBuilder();
         if (pkg.getPath() != null) {
             packageFileName.append(pkg.getPath().trim());
         }
@@ -720,7 +720,7 @@ public class PackageManager extends BaseManager {
             for (int x = 0; x < possiblePackages.size(); x++) {
                 PackageComparison pinner = (PackageComparison) possiblePackages.get(x);
                 if (pinner.getId().equals(po.getId())) {
-                    log.debug("possiblePackagesForPushingIntoChannel removing: " +
+                    LOG.debug("possiblePackagesForPushingIntoChannel removing: " +
                             pinner.getId());
                     i.remove();
                 }
@@ -729,8 +729,8 @@ public class PackageManager extends BaseManager {
 
         // Combine the 2
         possiblePackages.addAll(notInChannelPackages);
-        if (log.isDebugEnabled()) {
-            log.debug("All: " + possiblePackages);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("All: " + possiblePackages);
         }
         possiblePackages.setTotalSize(possiblePackages.size());
         return processPageControl(possiblePackages, pc, null);
@@ -1152,7 +1152,7 @@ public class PackageManager extends BaseManager {
 
         mode.executeUpdate(params);
 
-        log.debug("Time to delete [" + ids.size() + "] packages [" +
+        LOG.debug("Time to delete [" + ids.size() + "] packages [" +
             (System.currentTimeMillis() - start) + "] ms");
 
         start = System.currentTimeMillis();
@@ -1166,7 +1166,7 @@ public class PackageManager extends BaseManager {
             ErrataCacheManager.deleteCacheEntriesForChannelPackages(channelId, pList);
         }
 
-        log.debug("Time to update [" + channelIds.size() + "] channels [" +
+        LOG.debug("Time to update [" + channelIds.size() + "] channels [" +
             (System.currentTimeMillis() - start) + "] ms");
     }
 
@@ -1460,7 +1460,7 @@ public class PackageManager extends BaseManager {
         missing.removeAll(found);
         orgNoAccess.addAll(missing);
         if (!orgNoAccess.isEmpty()) {
-            StringBuffer msg = new StringBuffer("User: ");
+            StringBuilder msg = new StringBuilder("User: ");
             msg.append(user.getLogin());
             msg.append(" does not have access to packages: ");
             msg.append(orgNoAccess);

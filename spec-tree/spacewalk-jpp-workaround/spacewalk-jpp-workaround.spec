@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.1.3
+Version:	2.2.3
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -16,7 +16,7 @@ Obsoletes:      msv-workaround
 Obsoletes:      msv
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Provides:   hivemind-lib = 1.1.1.0
 Obsoletes:  hivemind-lib < 1.1.1.0
 Provides:   hivemind = 1.1.1.0
@@ -30,9 +30,14 @@ Obsoletes:  spring < 1:1.2.9.0
 Provides:   struts-taglib = 1.3.10
 Provides:   struts-tiles = 1.3.10
 Requires:   struts >= 1.3.10
+Provides:   oro
+Obsoletes:  spacewalk-oro-compat
+Requires:   jakarta-oro
 %endif
 
-%if 0%{?fedora} >= 20
+%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
+Requires:   apache-commons-digester
+Provides:   jakarta-commons-digester = 1.8.1
 Provides:   jakarta-commons-logging = 1.1.3
 Requires:   apache-commons-logging
 Obsoletes:  jpackage-utils >= 5.0.0
@@ -52,6 +57,10 @@ This package fulfills jpackage missing msv-msv dependency.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+%if 0%{?fedora} == 19
+mkdir -p $RPM_BUILD_ROOT/usr/share/java
+ln -s apache-commons-validator.jar $RPM_BUILD_ROOT/usr/share/java/commons-validator.jar
+%endif
 
 
 %clean
@@ -59,9 +68,22 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
+%if 0%{?fedora} == 19
+/usr/share/java/commons-validator.jar
+%endif
 
 
 %changelog
+* Fri Jun 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.3-1
+- provide missing link on Fedora 19
+
+* Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.2-1
+- megred spacewalk-oro-compat into spacewalk-jpp-workaround
+- force use of apache-commons-digester on Fedora/RHEL7+
+
+* Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.1-1
+- updated for RHEL7
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.3-1
 - spec file polish
 

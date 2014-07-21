@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -280,7 +280,7 @@ and p.package_arch_id = pa.id
 
 class SolveDependenciesError(Exception):
     def __init__(self, deps=None, packages=None, *args, **kwargs):
-        apply(Exception.__init__, (self, ) + args, kwargs)
+        Exception.__init__(self, *args, **kwargs)
         self.deps = deps
         self.packages = packages
 

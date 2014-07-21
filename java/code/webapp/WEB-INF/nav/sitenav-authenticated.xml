@@ -376,9 +376,6 @@
     <rhn-tab name="Release Notes" url="/rhn/help/dispatcher/release_notes">
       <rhn-tab-directory>/rhn/help/release-notes/satellite</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Unix Release Notes" url="/help/release-notes/unix/index.pxt" acl="org_entitlement(rhn_nonlinux)">
-      <rhn-tab name="3.2.0" url="/help/release-notes/unix/unix-release-notes-3.2.0.html"/>
-    </rhn-tab>
     <rhn-tab name="API" url="/rhn/apidoc/index.jsp">
     <rhn-tab name="Overview" url="/rhn/apidoc/index.jsp">
       <rhn-tab-directory>/rhn/apidoc</rhn-tab-directory>

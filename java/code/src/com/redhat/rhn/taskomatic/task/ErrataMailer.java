@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -144,7 +144,7 @@ public class ErrataMailer extends RhnJavaJob {
             mail.setHeader("Errors-To", "rhn-bounce" +
                     login + "-" + orgId.toString() + "@rhn.redhat.com");
             mail.setBody(emailBody);
-            StringBuffer subject = new StringBuffer();
+            StringBuilder subject = new StringBuilder();
             subject.append(Config.get().getString("web.product_name") + " Errata Alert: ");
             subject.append(errata.getAdvisory()).append(" - ");
             subject.append(errata.getSynopsis());
@@ -189,7 +189,7 @@ public class ErrataMailer extends RhnJavaJob {
             String email,
             Errata errata,
             List servers) {
-        StringBuffer body = new StringBuffer();
+        StringBuilder body = new StringBuilder();
 
         //Build the hostname with protocol. Used to create urls for the email.
         String host;
@@ -218,7 +218,7 @@ public class ErrataMailer extends RhnJavaJob {
         Object[] args = new Object[8];
 
         //Build the errata details url.
-        StringBuffer buffy = new StringBuffer();
+        StringBuilder buffy = new StringBuilder();
         buffy.append(host).append("/rhn/errata/details/Details.do?eid=");
         buffy.append(errata.getId().toString());
         args[0] = buffy.toString();
@@ -238,7 +238,7 @@ public class ErrataMailer extends RhnJavaJob {
         LocalizationService ls = LocalizationService.getInstance();
 
         //Render the header of the affected systems section along with helpful text.
-        StringBuffer buffy = new StringBuffer();
+        StringBuilder buffy = new StringBuilder();
         buffy.append(ls.getMessage("email.errata.notification.body.affectedheader"));
         buffy.append("\n").append("\n");
 

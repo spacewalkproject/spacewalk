@@ -16,10 +16,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 # Copyright 2013 Aron Parsons <aronparsons@gmail.com>
-# Copyright (c) 2013 Red Hat, Inc.
+# Copyright (c) 2013--2014 Red Hat, Inc.
 #
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
+
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
 
 from operator import itemgetter
 import xmlrpclib
@@ -60,8 +69,9 @@ def help_errata_apply(self):
 def complete_errata_apply(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
-def do_errata_apply(self, args, only_systems=[]):
-    (args, options) = parse_arguments(args)
+def do_errata_apply(self, args, only_systems=None):
+    (args, _options) = parse_arguments(args)
+    only_systems = only_systems or []
 
     if not len(args):
         self.help_errata_apply()
@@ -91,7 +101,7 @@ def do_errata_apply(self, args, only_systems=[]):
 
                         systems.append(system.get('name'))
                         count += 1
-        except:
+        except xmlrpclib.Fault:
             logging.debug('%s does not affect any systems' % erratum)
             continue
 
@@ -111,7 +121,8 @@ def do_errata_apply(self, args, only_systems=[]):
     print '--------------     -------'
     print '\n'.join(sorted(summary))
 
-    if not self.user_confirm('Apply these errata [y/N]:'): return
+    if not self.user_confirm('Apply these errata [y/N]:'):
+        return
 
     # if the API supports it, try to schedule multiple systems for one erratum
     # in order to reduce the number of actions scheduled
@@ -183,7 +194,7 @@ def complete_errata_listaffectedsystems(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
 def do_errata_listaffectedsystems(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_listaffectedsystems()
@@ -198,7 +209,8 @@ def do_errata_listaffectedsystems(self, args):
         systems = self.client.errata.listAffectedSystems(self.session, erratum)
 
         if len(systems):
-            if add_separator: print self.SEPARATOR
+            if add_separator:
+                print self.SEPARATOR
             add_separator = True
 
             print '%s:' % erratum
@@ -214,7 +226,7 @@ def complete_errata_listcves(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
 def do_errata_listcves(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_listcves()
@@ -230,7 +242,8 @@ def do_errata_listcves(self, args):
 
         if len(cves):
             if len(errata_list) > 1:
-                if add_separator: print self.SEPARATOR
+                if add_separator:
+                    print self.SEPARATOR
                 add_separator = True
 
                 print '%s:' % erratum
@@ -247,7 +260,7 @@ def complete_errata_findbycve(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
 def do_errata_findbycve(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_findbycve()
@@ -261,10 +274,11 @@ def do_errata_findbycve(self, args):
 
     # Then iterate over the requested CVEs and dump the errata which match
     for c in cve_list:
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
-        print "%s:" %c
+        print "%s:" % c
         errata = self.client.errata.findByCve(self.session, c)
         if len(errata):
             for e in errata:
@@ -280,7 +294,7 @@ def complete_errata_details(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
 def do_errata_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_details()
@@ -304,11 +318,12 @@ def do_errata_details(self, args):
 
             channels = \
                 self.client.errata.applicableToChannels(self.session, erratum)
-        except:
+        except xmlrpclib.Fault:
             logging.warning('%s is not a valid erratum' % erratum)
             continue
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         print 'Name:       %s' % erratum
@@ -365,7 +380,7 @@ def complete_errata_delete(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
 def do_errata_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_delete()
@@ -386,7 +401,8 @@ def do_errata_delete(self, args):
         channels = self.client.errata.applicableToChannels(self.session, erratum)
         print '%s    %s' % (erratum.ljust(20), str(len(channels)).rjust(3))
 
-    if not self.user_confirm('Delete these errata [y/N]:'): return
+    if not self.user_confirm('Delete these errata [y/N]:'):
+        return
 
     for erratum in errata:
         self.client.errata.delete(self.session, erratum)
@@ -410,7 +426,7 @@ def complete_errata_publish(self, text, line, beg, end):
         return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_errata_publish(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_errata_publish()
@@ -427,7 +443,8 @@ def do_errata_publish(self, args):
 
     print '\n'.join(sorted(errata))
 
-    if not self.user_confirm('Publish these errata [y/N]:'): return
+    if not self.user_confirm('Publish these errata [y/N]:'):
+        return
 
     for erratum in errata:
         self.client.errata.publish(self.session, erratum, channels)
@@ -446,7 +463,7 @@ def complete_errata_search(self, text, line, beg, end):
     return tab_completer(self.do_errata_list('', True), text)
 
 def do_errata_search(self, args, doreturn = False):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_errata_search()
@@ -476,7 +493,8 @@ def do_errata_search(self, args, doreturn = False):
                                     'advisory_synopsis' : match['advisory_synopsis'],
                                     'date'              : match['date'] } )
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         if len(errata):

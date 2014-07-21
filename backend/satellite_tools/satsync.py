@@ -22,7 +22,6 @@ import datetime
 import os
 import sys
 import stat
-import string
 import time
 import types
 import exceptions
@@ -32,8 +31,8 @@ from optparse import Option, OptionParser
 from rhn.connections import idn_ascii_to_pune, idn_pune_to_unicode
 
 import gettext
-t = gettext.translation('spacewalk-backend-server', fallback=True)
-_ = t.ugettext
+translation = gettext.translation('spacewalk-backend-server', fallback=True)
+_ = translation.ugettext
 
 # __rhn imports__
 from spacewalk.common import rhnMail, rhnLib, rhnFlags
@@ -42,12 +41,11 @@ from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
 from spacewalk.common.rhnTB import exitWithTraceback
 sys.path.append("/usr/share/rhn")
 from up2date_client import config
-from spacewalk.common import rhn_rpm
 from spacewalk.common.checksum import getFileChecksum
 
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
-from spacewalk.server.rhnServer import satellite_cert, server_packages
+from spacewalk.server.rhnServer import satellite_cert
 from spacewalk.server.rhnLib import get_package_path
 from spacewalk.common import fileutils
 
@@ -87,6 +85,7 @@ DEFAULT_ORG = 1
 # global so we don't have to pass it to everyone.
 OPTIONS = None
 
+# pylint: disable=W0212
 class Runner:
     step_precedence = {
         'packages'                  : ['download-packages'],
@@ -130,6 +129,8 @@ class Runner:
         self.packages_report = None
         self._xml_file_dir_error_message = ''
         self._affected_channels = None
+        self._packages_report = None
+        self._actions = None
 
     #5/24/05 wregglej - 156079 turn off a step's dependents in the step is turned off.
     def _handle_step_dependents(self, actionDict, step):
@@ -207,8 +208,7 @@ class Runner:
 
         log(1, '   db:  %s/<password>@%s' % (CFG.DB_USER, CFG.DB_NAME))
 
-        selected = filter(lambda action, ad=actionDict: ad[action],
-                          actionDict.keys())
+        selected = [action for action in actionDict.keys() if actionDict[action]]
         log2(-1, 3, "Action list/commandline toggles: %s" % repr(selected),
             stream=sys.stderr)
 
@@ -216,12 +216,12 @@ class Runner:
             self._xml_file_dir_error_message = messages.file_dir_error % \
                 OPTIONS.mount_point
 
-        for i in range(2):
+        for _try in range(2):
             try:
                 for step in self.step_hierarchy:
                     if not actionDict[step]:
                         continue
-                    method_name = '_step_' + string.replace(step, '-', '_')
+                    method_name = '_step_' + step.replace('-', '_')
                     if not hasattr(self, method_name):
                         log(-1, _("No handler for step %s") % step)
                         continue
@@ -260,15 +260,15 @@ class Runner:
         sendMail()
         return 0
 
-    def _get_elapsed_time(self, elapsed):
+    @staticmethod
+    def _get_elapsed_time(elapsed):
         elapsed = int(elapsed)
         hours = elapsed/60/60
         mins = elapsed/60 - hours*60
         secs = elapsed - mins*60 - hours*60*60
 
         delta_list = [ [hours, _("hours")], [mins, _("minutes")], [secs, _("seconds")] ]
-        delta_str = string.join(map(lambda l: "%s %s" % (l[0], l[1]),
-                                    delta_list), ", ")
+        delta_str = ", ".join(["%s %s" % (l[0], l[1]) for l in delta_list])
         return delta_str
 
 
@@ -313,8 +313,9 @@ class Runner:
     def _step_short(self):
         try:
             return self.syncer.processShortPackages()
-        except xmlDiskSource.MissingXmlDiskSourceFileError, e:
-            msg = _("ERROR: The dump is missing package data, use --no-rpms to skip this step or fix the content to include package data.")
+        except xmlDiskSource.MissingXmlDiskSourceFileError:
+            msg = _("ERROR: The dump is missing package data, "
+                  + "use --no-rpms to skip this step or fix the content to include package data.")
             log2disk(-1, msg)
             log2stderr(-1, msg, cleanYN=1)
             sys.exit(25)
@@ -358,7 +359,7 @@ class Runner:
         try:
             self.syncer.import_orgs()
         except (RhnSyncException, xmlDiskSource.MissingXmlDiskSourceFileError,
-                xmlDiskSource.MissingXmlDiskSourceDirError), e:
+                xmlDiskSource.MissingXmlDiskSourceDirError):
             # the orgs() method doesn't exist; that's fine we just
             # won't sync the orgs
             log(1, [_("The upstream Satellite does not support syncing orgs data."), _("Skipping...")])
@@ -435,6 +436,9 @@ class Syncer:
         self._channel_source_packages_full = {}
 
         self._channel_kickstarts = {}
+        self._avail_channel_source_packages = None
+        self._missing_channel_src_packages = None
+        self._missing_fs_source_packages = None
 
     def initialize(self):
         """Initialization that requires IO, etc."""
@@ -522,7 +526,8 @@ class Syncer:
                 raise
             else:
                 msg = _('ERROR: exception (during parse) occurred: ')
-            log2stderr(-1, _('   Encountered some errors with %s data (see logs (%s) for more information)') % (step_name, CFG.LOG_FILE))
+            log2stderr(-1, _('   Encountered some errors with %s data '
+                           + '(see logs (%s) for more information)') % (step_name, CFG.LOG_FILE))
             log2(-1, 3, [_('   Encountered some errors with %s data:') % step_name,
                          _('   ------- %s PARSE/IMPORT ERROR -------') % step_name,
                          '   %s' % msg,
@@ -550,7 +555,7 @@ class Syncer:
                 except IOError, e:
                     raise RhnSyncException(_("Unable to open file %s: %s") % (
                         self.rhn_cert, e)), None, sys.exc_info()[2]
-                cert = string.strip(cert)
+                cert = cert.strip()
             else:
                 # Try to retrieve the certificate from the database
                 row = satCerts.retrieve_db_cert()
@@ -563,11 +568,12 @@ class Syncer:
             log2(1, 3, ["", _("RHN Entitlement Certificate sync")])
             certSource = xmlWireSource.CertWireSource(self.systemid, self.sslYN,
                                                       self.xml_dump_version)
-            cert = string.strip(certSource.download())
+            cert = certSource.download().strip()
 
         return self._process_cert(cert, store_cert)
 
-    def _process_cert(self, cert, store_cert=1):
+    @staticmethod
+    def _process_cert(cert, store_cert=1):
         """Give the cert a check - if it's broken xml we'd better find it out
            now
         """
@@ -579,6 +585,7 @@ class Syncer:
             # XXX figure out what to do
             raise RhnSyncException(_("Error parsing the satellite cert")), None, sys.exc_info()[2]
 
+        # pylint: disable=E1101
         # Compare certificate generation - should match the stream's
         generation = rhnFlags.get('stream-generation')
         if sat_cert.generation != generation:
@@ -620,10 +627,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
     def processChannelFamilies(self):
         self._process_simple("getChannelFamilyXmlStream", "channel-families")
+        # pylint: disable=W0703
         try:
             self._process_simple("getProductNamesXmlStream", "product names")
         except Exception:
-            None
+            pass
 
     def _process_comps(self, backend, label, timestamp):
         comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
@@ -649,7 +657,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         h = sync_handlers.get_channel_handler()
 
         # get channel XML stream
-        stream = self.xmlDataServer.getChannelXmlStream([])
+        stream = self.xmlDataServer.getChannelXmlStream()
         if self.mountpoint:
             for substream in stream:
                 h.process(substream)
@@ -688,7 +696,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         except InvalidChannelFamilyError:
             raise RhnSyncException(messages.invalid_channel_family_error %
-                string.join(requested_channels)), None, sys.exc_info()[2]
+                ''.join(requested_channels)), None, sys.exc_info()[2]
         except MissingParentChannelError:
             raise
 
@@ -696,7 +704,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         log(1, _("Channel data complete"))
 
-    def _formatChannelExportType(self, channel):
+    @staticmethod
+    def _formatChannelExportType(channel):
         """returns pretty formated text with type of channel export"""
         if 'export-type' not in channel or channel['export-type'] is None:
             return ''
@@ -720,7 +729,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         else:
             return _("%10s") % export_type
 
-    def _printChannel(self, label, channel_object, format, is_imported):
+    def _printChannel(self, label, channel_object, log_format, is_imported):
         assert channel_object is not None
         all_pkgs = channel_object['all-packages'] or channel_object['packages']
         pkgs_count = len(all_pkgs)
@@ -728,7 +737,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             status = _('p')
         else:
             status = _('.')
-        log(1, format % (status, label, pkgs_count, self._formatChannelExportType(channel_object)))
+        log(1, log_format % (status, label, pkgs_count, self._formatChannelExportType(channel_object)))
 
     def _printChannelTree(self, doEOSYN=1, doTyposYN=1):
         "pretty prints a tree of channel information"
@@ -917,14 +926,15 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             row = None
             for r in (h.fetchall_dict() or []):
                 # let's check which checksum we have in database
-                if r['checksum_type'] in package['checksums'] and package['checksums'][r['checksum_type']] == r['checksum']:
+                if (r['checksum_type'] in package['checksums']
+                    and package['checksums'][r['checksum_type']] == r['checksum']):
                     row = r
                     break
 
             self._process_package(pid, package, l_timestamp, row,
                 self._missing_channel_packages[channel_label],
                 self._missing_fs_packages[channel_label],
-                source=0, check_rpms=self.check_rpms)
+                check_rpms=self.check_rpms)
 
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
@@ -951,18 +961,20 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         incremental to the wrong base"""
         for channel_label, pids in missing_channel_packages.items():
             if sources:
-                avail_pids = map(lambda x: x[0], self._avail_channel_source_packages[channel_label])
+                avail_pids = [x[0] for x in self._avail_channel_source_packages[channel_label]]
             else:
                 avail_pids = self._avail_channel_packages[channel_label]
 
             if set(pids or []) > set(avail_pids or []):
                 raise RhnSyncException, _('ERROR: incremental dump skipped')
 
-    def _get_rel_package_path(self, nevra, org_id, source, checksum_type, checksum):
+    @staticmethod
+    def _get_rel_package_path(nevra, org_id, source, checksum_type, checksum):
         return get_package_path(nevra, org_id, prepend=CFG.PREPENDED_DIR,
             source=source, checksum_type=checksum_type, checksum=checksum)
 
-    def _verify_file(self, path, mtime, size, checksum_type, checksum):
+    @staticmethod
+    def _verify_file(path, mtime, size, checksum_type, checksum):
         """
         Verifies if the file is on the filesystem and matches the mtime and checksum.
         Computing the checksum is costly, that's why we rely on mtime comparisons.
@@ -997,7 +1009,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         return 0
 
     def _process_package(self, package_id, package, l_timestamp, row,
-            m_channel_packages, m_fs_packages, source=0, check_rpms=1):
+            m_channel_packages, m_fs_packages, check_rpms=1):
         path = None
         channel_package = None
         fs_package      = None
@@ -1169,7 +1181,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if not sps:
                 # Nothing to see here
                 continue
-            missing_sps[channel] = [sp_id for (sp_id, timestamp) in sps
+            missing_sps[channel] = [sp_id for (sp_id, _timestamp) in sps
                                           if not sp_collection.has_package(sp_id)]
         return missing_sps
 
@@ -1188,7 +1200,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         package_collection = sync_handlers.SourcePackageCollection()
         sql_params = ['package_id', 'checksum', 'checksum_type']
         h = rhnSQL.prepare(self._query_compare_source_packages)
-        for pid, timestamp in chunk:
+        for pid, _timestamp in chunk:
             package = package_collection.get_package(pid)
             assert package is not None
 
@@ -1205,24 +1217,23 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             h.execute(**params)
             row = h.fetchone_dict()
             self._process_package(pid, package, None, row,
-                self._missing_channel_source_packages[channel_label],
-                self._missing_fs_source_packages[channel_label],
-                source=1)
+                self._missing_channel_src_packages[channel_label],
+                self._missing_fs_source_packages[channel_label])
 
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_source_packages(self):
-        self._missing_channel_source_packages = {}
+        self._missing_channel_src_packages = {}
         self._missing_fs_source_packages = {}
         for channel_label, upids in self._channel_source_packages.items():
             log(1, _("Diffing source package metadata (what's missing locally?): %s") % channel_label)
-            self._missing_channel_source_packages[channel_label] = []
+            self._missing_channel_src_packages[channel_label] = []
             self._missing_fs_source_packages[channel_label] = []
             self._proces_batch(channel_label, upids[:], None,
                                          self._diff_source_packages_process,
                                          _('Diffing:    '),
                                          [channel_label])
 
-        self._verify_missing_channel_packages(self._missing_channel_source_packages, sources=1)
+        self._verify_missing_channel_packages(self._missing_channel_src_packages, sources=1)
 
     def download_source_package_metadata(self):
         log(1, ["", _("Downloading source package metadata")])
@@ -1295,7 +1306,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         path = os.path.join(base_path, relative_path)
         f = FileManip(path, timestamp=timestamp, file_size=file_size)
         # Retry a number of times, we may have network errors
-        for i in range(cfg['networkRetries']):
+        for _try in range(cfg['networkRetries']):
             stream = self._get_ks_file_stream(channel_label, label, relative_path)
             try:
                 f.write_file(stream)
@@ -1401,7 +1412,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 ksobj['org_id'] = OPTIONS.orgid or DEFAULT_ORG
             batch.append(ksobj)
 
-        importer = sync_handlers.import_kickstarts(batch)
+        _importer = sync_handlers.import_kickstarts(batch)
         log(1, messages.kickstart_imported % ks_count)
 
     def _compute_not_cached_errata(self):
@@ -1414,7 +1425,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if not errata:
                 # Nothing to see here
                 continue
-            missing_errata[channel] = [eid for (eid, timestamp, advisory_name) in errata
+            missing_errata[channel] = [eid for (eid, timestamp, _advisory_name) in errata
                                                if not errata_collection.has_erratum(eid, timestamp)
                                                   or self.forceAllErrata]
         return missing_errata
@@ -1467,7 +1478,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if errata_timestamps is None or self.forceAllErrata:
                 # No unique key information, so assume we need all errata
                 erratum_ids = channel_obj['errata']
-                errata = map(lambda x: (x, None, None), erratum_ids)
+                errata = [(x, None, None) for x in erratum_ids]
                 log(2, _("Grabbing all errata for channel %s") % chn)
             else:
                 errata = []
@@ -1478,7 +1489,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                     last_modified = rhnLib.timestamp(last_modified)
                     advisory_name = erratum['advisory_name']
                     if db_ce.has_key(advisory_name):
-                        foo, db_last_modified = db_ce[advisory_name]
+                        _foo, db_last_modified = db_ce[advisory_name]
                         if last_modified == db_last_modified:
                             # We already have this erratum
                             continue
@@ -1542,7 +1553,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                                 process_function,
                                 prompt=_('Downloading:'),
                                 nevermorethan=None,
-                                process_function_args=[]):
+                                process_function_args=()):
         pb = ProgressBar(prompt=prompt, endTag=_(' - complete'),
                 finalSize=size, finalBarLength=40, stream=sys.stdout)
         if CFG.DEBUG > 2:
@@ -1562,7 +1573,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     def _proces_batch(self, channel, batch, log_msg,
                       process_function,
                       prompt=_('Downloading:'),
-                      process_function_args=[],
+                      process_function_args=(),
                       nevermorethan=None,
                       is_slow=False):
         count = len(batch)
@@ -1588,7 +1599,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     def import_packages(self, sources=0):
         if sources:
             log(1, ["", _("Importing source package metadata")])
-            missing_channel_items = self._missing_channel_source_packages
+            missing_channel_items = self._missing_channel_src_packages
         else:
             log(1, ["", _("Importing package metadata")])
             missing_channel_items = self._missing_channel_packages
@@ -1605,7 +1616,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     def _link_channel_packages(self):
         log(1, ["", messages.link_channel_packages])
         short_package_collection = sync_handlers.ShortPackageCollection()
-        package_collection = sync_handlers.PackageCollection()
+        _package_collection = sync_handlers.PackageCollection()
         uq_packages = {}
         for chn, package_ids in self._channel_packages_full.items():
             for pid in package_ids:
@@ -1635,7 +1646,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             exitWithTraceback(e, 'Exception caught during import', 14)
         return importer.affected_channels
 
-    def _get_cached_package_batch(self, chunk, sources=0):
+    @staticmethod
+    def _get_cached_package_batch(chunk, sources=0):
         """ short-circuit the most common case"""
         if not chunk:
             return []
@@ -1663,7 +1675,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         for chn, errata in sorted_channels:
             log(2, _("Importing %s errata for channel %s.") % (len(errata), chn))
             batch = []
-            for eid, timestamp, advisory_name in errata:
+            for eid, timestamp, _advisory_name in errata:
                 erratum = errata_collection.get_erratum(eid, timestamp)
                 # bug 161144: it seems that incremental dumps can create an
                 # errata collection None
@@ -1674,7 +1686,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             self._proces_batch(chn, batch, messages.errata_importing,
                         sync_handlers.import_errata)
 
-    def _fix_erratum(self, erratum):
+    @staticmethod
+    def _fix_erratum(erratum):
         """ Replace the list of packages with references to short packages"""
         sp_coll = sync_handlers.ShortPackageCollection()
         pids = set(erratum['packages'] or [])
@@ -1749,14 +1762,15 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         real_total_size = total_size
         start_time = round(time.time())
 
-        all_threads=[]
-        for i in range(4):
-            t = ThreadDownload(lock, queue, out_queue, short_package_collection, package_collection, self, self._failed_fs_packages, self._extinct_packages, sources, channel)
+        all_threads = []
+        for _thread in range(4):
+            t = ThreadDownload(lock, queue, out_queue, short_package_collection, package_collection,
+                               self, self._failed_fs_packages, self._extinct_packages, sources, channel)
             t.setDaemon(True)
             t.start()
             all_threads.append(t)
 
-        while (filter(lambda x: x.isAlive(), all_threads)
+        while ([x for x in all_threads if x.isAlive()]
                and pkg_current < pkgs_total):
             try:
                 (rpmManip, package, is_done) = out_queue.get(False, 0.1)
@@ -1781,7 +1795,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             processed_size += size
             current_time = round(time.time())
             # timedalta could not be multiplicated by float
-            remain_time = (datetime.timedelta(seconds=current_time-start_time))*((real_total_size*10000)/real_processed_size-10000)/10000
+            remain_time = (datetime.timedelta(seconds=current_time-start_time))* \
+                          ((real_total_size*10000)/real_processed_size-10000)/10000
             # cut off miliseconds
             remain_time = datetime.timedelta(remain_time.days, remain_time.seconds)
             log(1, messages.package_fetch_remain_size_time %
@@ -1807,10 +1822,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             notimeYN=1)
 
     # Translate x bytes to string "x MB", "x GB" or "x kB"
-    def _bytes_to_fuzzy(self, bytes):
+    @staticmethod
+    def _bytes_to_fuzzy(b):
         units = [ 'bytes', 'kiB', 'MiB', 'GiB', 'TiB', 'PiB']
         base = 1024
-        fuzzy = bytes
+        fuzzy = b
         for unit in units:
             if fuzzy >= base:
                 fuzzy = float(fuzzy)/base
@@ -1818,6 +1834,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 break
         int_len = len("%d" % fuzzy)
         fract_len = 3 - int_len
+        # pylint: disable=W0631
         return "%*.*f %s" % (int_len, fract_len, fuzzy, unit)
 
     def _get_package_stream(self, channel, package_id, nvrea, sources):
@@ -1848,7 +1865,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         return (None, stream)
 
 class ThreadDownload(threading.Thread):
-    def __init__(self, lock, queue, out_queue, short_package_collection, package_collection, syncer, failed_fs_packages, extinct_packages, sources, channel):
+    def __init__(self, lock, queue, out_queue, short_package_collection, package_collection, syncer,
+                       failed_fs_packages, extinct_packages, sources, channel):
         threading.Thread.__init__(self)
         self.queue = queue
         self.out_queue = out_queue
@@ -1899,7 +1917,7 @@ class ThreadDownload(threading.Thread):
             nvrea = rpmManip.nvrea()
 
             # Retry a number of times, we may have network errors
-            for i in range(cfg['networkRetries']):
+            for _try in range(cfg['networkRetries']):
                 self.lock.acquire()
                 try:
                     rpmFile, stream = self.syncer._get_package_stream(self.channel,
@@ -1955,7 +1973,7 @@ class ThreadDownload(threading.Thread):
                 assert(rpmFile is not None)
                 try:
                     os.unlink(rpmFile)
-                except:
+                except (OSError, IOError):
                     pass
 
             #signals to queue job is done
@@ -2008,11 +2026,13 @@ def _verifyPkgRepMountPoint():
         sys.exit(16)
 
     if not os.path.exists(fileutils.cleanupAbsPath(CFG.MOUNT_POINT)):
-        log(-1, _("ERROR: server.mount_point %s do not exist") % fileutils.cleanupAbsPath(CFG.MOUNT_POINT))
+        log(-1, _("ERROR: server.mount_point %s do not exist") \
+                % fileutils.cleanupAbsPath(CFG.MOUNT_POINT))
         sys.exit(26)
 
     if not os.path.exists(fileutils.cleanupAbsPath(CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR)):
-        log(-1, _("ERROR: path under server.mount_point (%s)  do not exist") % fileutils.cleanupAbsPath(CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR))
+        log(-1, _("ERROR: path under server.mount_point (%s)  do not exist") \
+                % fileutils.cleanupAbsPath(CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR))
         sys.exit(26)
 
 def _validate_package_org(batch):
@@ -2042,7 +2062,7 @@ def _getImportedChannels():
         else:
             h = rhnSQL.prepare("""select label from rhnChannel where org_id is null""")
         h.execute()
-        return map(lambda x: x['label'], h.fetchall_dict() or [])
+        return [x['label'] for x in h.fetchall_dict() or []]
     except (SQLError, SQLSchemaError, SQLConnectError), e:
         # An SQL error is fatal... crash and burn
         exitWithTraceback(e, 'SQL ERROR during xml processing', 17)
@@ -2072,7 +2092,8 @@ def processCommandline():
     log2disk(-1, _("Commandline: %s") % repr(sys.argv))
     optionsTable = [
         Option(     '--batch-size',          action='store',
-            help=_('DEBUG ONLY: max. batch-size for XML/database-import processing (1..%s). "man satellite-sync" for more information.') % SequenceServer.NEVER_MORE_THAN),
+            help=_('DEBUG ONLY: max. batch-size for XML/database-import processing (1..%s).'
+                 + '"man satellite-sync" for more information.') % SequenceServer.NEVER_MORE_THAN),
         Option(     '--ca-cert',             action='store',
             help=_('alternative SSL CA Cert (fullpath to cert file)')),
         Option('-c','--channel',             action='append',
@@ -2133,15 +2154,8 @@ def processCommandline():
         Option(     '--keep-rpms',      action='store_true',
             help=_('do not remove rpms when importing from local dump')),
         Option(     '--master',      action='store',
-            help=_('the fully qualified domain name of the master Satellite. Valid with --mount-point only. Required if you want to import org data and channel permissions.')),
-        # We can't have this option because then the new org won't have a user:
-        #Option(     '--create-missing-orgs',      action='store_true',
-        #    help=_('create orgs on this Satellite to match orgs exported by the master Satellite if local orgs have not already been mapped to the master orgs (use with --mount-point or --iss-parent only)')),
-
-        # DEFERRED:
-        #Option(     '--source-packages',     action='store_true', help='sync source rpms/metadata as well.'),
-        #Option(     '--no-srpms',            action='store_true', help='do not download, or process any SRPMs'),
-        #Option(     '--no-source-packages',  action='store_true', help='do not process source package metadata'),
+            help=_('the fully qualified domain name of the master Satellite. '
+                 + 'Valid with --mount-point only. Required if you want to import org data and channel permissions.')),
     ]
     optionParser = OptionParser(option_list=optionsTable)
     global OPTIONS
@@ -2193,7 +2207,8 @@ def processCommandline():
         except KeyboardInterrupt, e:
             raise
         except:
-            msg = [_("ERROR: --debug-level takes an in integer value within the range %s.") % repr(tuple(range(debugRange + 1))),
+            msg = [_("ERROR: --debug-level takes an in integer value within the range %s.") \
+                     % repr(tuple(range(debugRange + 1))),
                    _("  0  - little logging/messaging."),
                    _("  1  - minimal logging/messaging."),
                    _("  2  - normal level of logging/messaging."),
@@ -2218,14 +2233,9 @@ def processCommandline():
     elif CFG.ISS_PARENT:
         OPTIONS.master = CFG.ISS_PARENT
 
-    #if OPTIONS.create_missing_orgs and not OPTIONS.master:
-    #    msg = _("ERROR: Org syncing is only available during an Inter Satellite Sync or import of a channel dump created by another Satellite with --master specified.")
-    #    log2stderr(-1, msg, cleanYN=1)
-    #    sys.exit(29)
-
     if OPTIONS.orgid:
         # verify if its a valid org
-        orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
+        orgs = [a['id'] for a in satCerts.get_all_orgs()]
         if int(OPTIONS.orgid) not in orgs:
             msg = _("ERROR: Unable to lookup Org Id %s") % OPTIONS.orgid
             log2stderr(-1, msg, cleanYN=1)
@@ -2251,7 +2261,8 @@ def processCommandline():
         OPTIONS.step = stepHierarchy[-1]
 
     if OPTIONS.step not in stepHierarchy:
-        log2stderr(-1, _("ERROR: '%s' is not a valid step. See 'man satellite-sync' for more detail.") % OPTIONS.step, 1, 1)
+        log2stderr(-1, _("ERROR: '%s' is not a valid step. See 'man satellite-sync' for more detail.") \
+                         % OPTIONS.step, 1, 1)
         sys.exit(22)
 
     #XXX: --source is deferred for the time being
@@ -2282,7 +2293,8 @@ def processCommandline():
 
     if not channels:
         if actionDict['channels'] and not actionDict['list-channels']:
-            msg = _("ERROR: No channels currently imported; try satellite-sync --list-channels; then satellite-sync -c chn0 -c chn1...")
+            msg = _("ERROR: No channels currently imported; try satellite-sync --list-channels; "
+                  + "then satellite-sync -c chn0 -c chn1...")
             log2disk(-1, msg)
             log2stderr(-1, msg, cleanYN=1)
             sys.exit(0)
@@ -2339,7 +2351,8 @@ def processCommandline():
         except (ValueError, TypeError):
             # int(None) --> TypeError
             # int('a')  --> ValueError
-            raise ValueError(_("ERROR: --batch-size must have a value within the range: 1..50")), None, sys.exc_info()[2]
+            raise ValueError(_("ERROR: --batch-size must have a value within the range: 1..50")), \
+                  None, sys.exc_info()[2]
 
     OPTIONS.mount_point = fileutils.cleanupAbsPath(OPTIONS.mount_point)
     OPTIONS.rhn_cert = fileutils.cleanupAbsPath(OPTIONS.rhn_cert)
@@ -2419,8 +2432,8 @@ if __name__ == '__main__':
                      " purposes !!!\n")
     try:
         sys.exit(Runner().main() or 0)
-    except (KeyboardInterrupt, SystemExit), e:
-        sys.exit(e)
+    except (KeyboardInterrupt, SystemExit), ex:
+        sys.exit(ex)
     except Exception:
         from spacewalk.common.rhnTB import fetchTraceback
         tb = 'TRACEBACK: ' + fetchTraceback(with_locals=1)

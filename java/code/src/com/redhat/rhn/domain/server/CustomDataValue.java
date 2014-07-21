@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,6 +31,7 @@ import java.util.Date;
  */
 public class CustomDataValue implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Server server;
     private CustomDataKey key;
     private String value;

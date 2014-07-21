@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -97,19 +97,6 @@ sub lookup {
   }
 
   return $ret;
-}
-
-sub remove_tags_from_system {
-  my $class = shift;
-  my @tags = @{+shift};
-  my $sid = shift;
-
-  my $dbh = $params{transaction} || RHN::DB->connect();
-
-  for my $tag (@tags) {
-    $dbh->call_procedure('rhn_server.tag_delete', $sid, $tag);
-  }
-  $dbh->commit;
 }
 
 1;

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -29,7 +29,7 @@ class RequestedChannels:
         '_end_of_service', # requested, once available, but no longer supported
         '_typos', # requested, but probably a typo
     ]
-    def __init__(self, requested=[]):
+    def __init__(self, requested=()):
         # All the requested channels
         self._requested = {}
         # All available channels
@@ -153,6 +153,7 @@ class RequestedChannels:
         raise AttributeError(name)
 
 class Method:
+    # pylint: disable=R0903
     def __init__(self, name, func):
         self._func = func
         self._name = name

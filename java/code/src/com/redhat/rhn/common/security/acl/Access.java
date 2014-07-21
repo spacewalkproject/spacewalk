@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -50,7 +50,7 @@ import java.util.Map;
  */
 public class Access extends BaseHandler {
 
-    protected static Logger log = Logger.getLogger(Access.class);
+    protected static final Logger LOG = Logger.getLogger(Access.class);
 
     /**
      * Constructor for Access object
@@ -85,13 +85,13 @@ public class Access extends BaseHandler {
         User user = (User) map.get("user");
         if (user != null) {
             boolean retval = user.hasRole(RoleFactory.lookupByLabel(params[0]));
-            if (log.isDebugEnabled()) {
-                log.debug(params[0] + " aclUserRole | A returning " + retval);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug(params[0] + " aclUserRole | A returning " + retval);
             }
             return retval;
         }
-        if (log.isDebugEnabled()) {
-            log.debug(params[0] + " aclUserRole | B returning false ..");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(params[0] + " aclUserRole | B returning false ..");
         }
         return false;
     }
@@ -222,13 +222,13 @@ public class Access extends BaseHandler {
             Org org = user.getOrg();
             boolean retval = org.hasEntitlement(OrgFactory.
                     lookupEntitlementByLabel(params[0]));
-            if (log.isDebugEnabled()) {
-                log.debug(params[0] + " aclOrgEntitlement | 1 returning " + retval);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug(params[0] + " aclOrgEntitlement | 1 returning " + retval);
             }
             return retval;
         }
-        if (log.isDebugEnabled()) {
-            log.debug(params[0] + " aclOrgEntitlement | 2 returning false... ");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(params[0] + " aclOrgEntitlement | 2 returning false... ");
         }
         return false;
     }

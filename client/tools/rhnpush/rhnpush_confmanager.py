@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,7 @@ import os
 
 class  ConfManager:
     def __init__(self, optionparser, store_true_list):
-        sysdir  = '/etc/sysconfig/rhn'
+        sysdir = '/etc/sysconfig/rhn'
         homedir = utils.get_home_dir()
         default = 'rhnpushrc'
         regular = '.rhnpushrc'

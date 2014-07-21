@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -905,7 +905,7 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
         ChannelProduct product = new ChannelProduct();
         product.setProduct("proxy" + TestUtils.randomString());
         product.setVersion("1.1");
-        product.setBeta(false);
+        product.setMyBeta(false);
         proxyChan.setProduct(product);
         proxyChan.setChannelFamilies(chanFamilies);
         proxyChan.setParentChannel(baseChan);

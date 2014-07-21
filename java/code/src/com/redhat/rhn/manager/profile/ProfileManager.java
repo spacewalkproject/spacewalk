@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -168,7 +168,7 @@ public class ProfileManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("prid", prid);
         params.put("org_id", orgid);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
 
@@ -180,7 +180,7 @@ public class ProfileManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
         params.put("org_id", orgid);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
 
@@ -1076,7 +1076,7 @@ public class ProfileManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Package_queries",
                 "packages_in_channel_by_id_combo");
         Map<String, Object> params = new HashMap<String, Object>();
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
         params.put("cid", cid);
         DataResult dr = makeDataResult(params, elabParams, null, m);
         return dr;
@@ -1263,7 +1263,7 @@ public class ProfileManager extends BaseManager {
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
 
         return makeDataResult(params, elabParams, null, m);
     }
@@ -1280,7 +1280,7 @@ public class ProfileManager extends BaseManager {
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("prid", profileId);
-        Map elabParams = new HashMap();
+        Map<String, Object> elabParams = new HashMap<String, Object>();
 
         return makeDataResult(params, elabParams, null, m);
     }

@@ -17,7 +17,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.35
+Version: 5.11.44
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -137,6 +137,10 @@ SELinux policy module supporting osa-dispatcher.
 %if 0%{?suse_version}
 cp prog.init.SUSE prog.init
 %endif
+%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 5)
+sed -i 's@^#!/usr/bin/python$@#!/usr/bin/python -s@' invocation.py
+%endif
+
 
 %build
 make -f Makefile.osad all
@@ -388,6 +392,24 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Thu Jul 17 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.11.41-1
+- osad: fix traceback if http proxy is not configured
+
+* Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.11.40-1
+- fix copyright years
+
+* Tue Jul 08 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.11.39-1
+- 1117343 - osad: support communication over proxy
+
+* Fri Jun 20 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.11.38-1
+- start osad after package installation on sysvinit systems
+
+* Tue Jun 10 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.11.37-1
+- RHEL-5 python doesn't support -s option
+
+* Mon Jun 09 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.11.36-1
+- don't add user site dir to sys.path
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.11.35-1
 - spec file polish
 

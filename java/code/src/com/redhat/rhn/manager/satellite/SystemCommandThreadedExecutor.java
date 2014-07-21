@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013 Red Hat, Inc.
+ * Copyright (c) 2013--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -40,7 +40,7 @@ public class SystemCommandThreadedExecutor implements Executor {
                 logger = log;
         }
         public void run() {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             try {
                 BufferedReader input = new BufferedReader(
                                                 new InputStreamReader(inputStream));

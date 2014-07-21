@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -172,7 +172,7 @@ public class RhnHtmlDiffWriter implements DiffWriter, DiffVisitor {
      * @return The resulting html String.  Valid only after running report.
      */
     public String getResult() {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         result.append("<div class=\"oldfile\">");
         result.append(oldfile);
         result.append("</div>");

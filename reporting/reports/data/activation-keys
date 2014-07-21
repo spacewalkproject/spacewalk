@@ -16,8 +16,9 @@ columns:
         is_disabled       Is the key disabled?
         deploys_configs   Does this key require config-files be deployed?
         entitlement       Entitlements the key assigns
-        channel           Channels that the key subscribes a system to
-        channel_id        IDs of Channel that the key subscribes a system to
+        channel_label     Channels that the key subscribes a system to
+        base_channel_id   Base channel id the key subscribes a system to
+        child_channel_id  Child channel ids the key subscribes a system to
         cfg_channel_pos   "cfg-channel-label | position" for each cfg-channel in this key
         server_group      Server-groups that the key places the server into
         server_group_id   IDs of Server-groups that the key places the server into
@@ -28,8 +29,9 @@ multival_columns:
         org_id
         token
         entitlement     : entitlement
-        channel         : channel
-        channel_id      : channel_id
+        channel_label   : channel_label
+        base_channel_id : base_channel_id
+        child_channel_id : child_channel_id
         cfg_channel_pos : cfg_channel_pos
         server_group    : server_group
         server_group_id : server_group_id
@@ -45,8 +47,9 @@ sql:
              rt.disabled is_disabled,
              rt.deploy_configs deploys_configs,
              sgt.label entitlement,
-             rc.label channel,
-             rc.id channel_id,
+             rc.label channel_label,
+             CASE WHEN rc.parent_channel IS NULL THEN rc.id ELSE NULL END AS base_channel_id,
+             CASE WHEN rc.parent_channel IS NULL THEN NULL ELSE rc.id END AS child_channel_id,
              rcc.label || '|' || rtcc.position cfg_channel_pos,
              sg.name server_group,
              sg.id server_group_id,
@@ -63,7 +66,9 @@ sql:
            left outer join rhnservergroup sg on sg.id = rtg.server_group_id
            left outer join rhnregtokenpackages rtp on rtp.token_id = rt.id
            left outer join rhnpackagename pn on pn.id = rtp.name_id
+           where ak.ks_session_id is null
+           and ak.token not like 're-%'
     ) X
     -- where placeholder
-    order by org_id, token, note, entitlement, channel, cfg_channel_pos, server_group, package_name
+    order by org_id, token, note, entitlement, base_channel_id, child_channel_id, cfg_channel_pos, server_group_id, package_name
 

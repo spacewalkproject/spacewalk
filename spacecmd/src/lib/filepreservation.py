@@ -20,6 +20,15 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
+
 from spacecmd.utils import *
 
 def help_filepreservation_list(self):
@@ -45,7 +54,7 @@ def help_filepreservation_create(self):
     print 'usage: filepreservation_create [NAME] [FILE ...]'
 
 def do_filepreservation_create(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args):
         name = args[0]
@@ -76,7 +85,8 @@ def do_filepreservation_create(self, args):
     print '---------'
     print '\n'.join(sorted(files))
 
-    if not self.user_confirm(): return
+    if not self.user_confirm():
+        return
 
     self.client.kickstart.filepreservation.create(self.session,
                                                   name,
@@ -92,7 +102,7 @@ def complete_filepreservation_delete(self, text, line, beg, end):
     return tab_completer(self.do_filepreservation_list('', True), text)
 
 def do_filepreservation_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_filepreservation_delete()
@@ -100,7 +110,8 @@ def do_filepreservation_delete(self, args):
 
     name = args[0]
 
-    if not self.user_confirm('Delete this list [y/N]:'): return
+    if not self.user_confirm('Delete this list [y/N]:'):
+        return
 
     self.client.kickstart.filepreservation.delete(self.session, name)
 
@@ -115,7 +126,7 @@ def complete_filepreservation_details(self, text, line, beg, end):
     return tab_completer(self.do_filepreservation_list('', True), text)
 
 def do_filepreservation_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_filepreservation_details()

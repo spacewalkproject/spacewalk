@@ -103,6 +103,8 @@ public class ConfigDefaults {
 
     public static final String ACTIONS_DISPLAY_LIMIT = "web.actions_display_limit";
 
+    public static final String CONFIG_FILE_EDIT_SIZE = "java.config_file_edit_size";
+
     /**
      * The default maximum size for config revisions,  (128 K)
      */
@@ -126,6 +128,7 @@ public class ConfigDefaults {
     public static final String COBBLER_SNIPPETS_DIR = "cobbler.snippets.dir";
     private static final String DEFAULT_COBBLER_SNIPPET_DIR = "/var/lib/cobbler/snippets";
     private static final String COBBLER_NAME_SEPARATOR = "cobbler.name.separator";
+    public static final String POWER_MANAGEMENT_TYPES = "java.power_management.types";
 
     public static final String KVM_VIRT_PATH_DIR = "kickstart.virt_storage_path_kvm";
     public static final String XEN_VIRT_PATH_DIR = "kickstart.virt_storage_path_xen";
@@ -528,6 +531,14 @@ public class ConfigDefaults {
     }
 
     /**
+     * Returns power management types supported by Cobbler
+     * @return the types
+     */
+    public String getCobblerPowerTypes() {
+        return Config.get().getString(POWER_MANAGEMENT_TYPES);
+    }
+
+    /**
      * is the server configured to use oracle
      * @return true if so
      */
@@ -625,5 +636,13 @@ public class ConfigDefaults {
      */
     public int getActionsDisplayLimit() {
         return Config.get().getInt(ACTIONS_DISPLAY_LIMIT, 10000);
+    }
+
+    /**
+     * Returns config file editable size (in KB)
+     * @return config file editable size (in KB)
+     */
+    public int getConfigFileEditSize() {
+        return Config.get().getInt(CONFIG_FILE_EDIT_SIZE, 32);
     }
 }

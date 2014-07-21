@@ -34,6 +34,7 @@
        <packagereq type="optional">font-awesome-devel</packagereq>
        <packagereq type="optional">heirloom-pkgtools</packagereq>
        <packagereq type="default">jpam</packagereq>
+       <packagereq type="default">jquery-ui</packagereq>
        <packagereq type="default">jquery-timepicker</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
        <packagereq type="default">momentjs</packagereq>
@@ -66,7 +67,6 @@
        <packagereq type="default">perl-NOCpulse-Scheduler</packagereq>
        <packagereq type="default">perl-NOCpulse-SetID</packagereq>
        <packagereq type="default">perl-NOCpulse-Utils</packagereq>
-       <packagereq type="default">perl-RPM2</packagereq>
        <packagereq type="default">perl-Satcon</packagereq>
        <packagereq type="default">ProgAGoGo</packagereq>
        <packagereq type="default">python-gzipstream</packagereq>
@@ -85,6 +85,8 @@
        <packagereq type="default">SatConfig-installer</packagereq>
        <packagereq type="default">SatConfig-spread</packagereq>
        <packagereq type="default">scdb</packagereq>
+       <packagereq type="default">select2</packagereq>
+       <packagereq type="default">select2-bootstrap-css</packagereq>
        <packagereq type="default">simple-core</packagereq>
        <packagereq type="default">simple-xml</packagereq>
        <packagereq type="default">SNMPAlerts</packagereq>

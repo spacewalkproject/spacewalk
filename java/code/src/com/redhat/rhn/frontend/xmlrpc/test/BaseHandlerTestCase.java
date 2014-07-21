@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.test;
 
+import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -60,6 +61,9 @@ public class BaseHandlerTestCase extends RhnBaseTestCase {
         Org org = admin.getOrg();
         org.addRole(RoleFactory.CHANNEL_ADMIN);
         org.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+
+        // Setup configuration for kickstart tests (mock cobbler etc.)
+        KickstartDataTest.setupTestConfiguration(admin);
     }
 
     protected void addRole(User user, Role role) {

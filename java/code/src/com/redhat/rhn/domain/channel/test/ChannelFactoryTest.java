@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,6 +23,9 @@ import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.ProductName;
 import com.redhat.rhn.domain.common.ChecksumType;
+import com.redhat.rhn.domain.kickstart.KickstartInstallType;
+import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
+import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
@@ -35,7 +38,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -172,18 +174,6 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         assertTrue(channels.size() > 0);
     }
 
-    /**
-     * TODO: create a test base channel with child channels and perform search.
-     */
-    public void aTestChildChanneQuery() {
-        Channel base = ChannelFactory.getBaseChannel(new Long(1005897296));
-        List<String> labels = new ArrayList<String>();
-        labels.add("redhat-rhn-proxy-3.7-as-i386-4");
-        labels.add("redhat-rhn-proxy-as-i386-2.1");
-        List children = ChannelFactory.getChildChannelsByLabels(base, labels);
-        assertNotEmpty("List is empty", children);
-    }
-
     public void testLookupByLabel() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
         Channel rh = createTestChannel(user);
@@ -244,20 +234,51 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         assertTrue(ChannelFactory.doesChannelNameExist(c.getName()));
     }
 
-    public void testKickstartableChannels() throws Exception {
+    public void testKickstartableTreeChannels() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
 
-        List<Channel> channels = ChannelFactory.getKickstartableChannels(user.getOrg());
+        List<Channel> channels = ChannelFactory.getKickstartableTreeChannels(user.getOrg());
         assertNotNull(channels);
         int originalSize = channels.size();
 
         createTestChannel(user);
 
-        channels = ChannelFactory.getKickstartableChannels(user.getOrg());
-        assertNotNull(channels);
-        assertTrue(channels.size() > 0);
+        channels = ChannelFactory.getKickstartableTreeChannels(user.getOrg());
         assertEquals(originalSize + 1, channels.size());
+    }
+
+    public void testKickstartableChannels() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
+        // Setup test config since kickstartable trees are required
+        KickstartDataTest.setupTestConfiguration(user);
+
+        List<Channel> channels = ChannelFactory.getKickstartableChannels(user.getOrg());
+        assertNotNull(channels);
+        int originalSize = channels.size();
+
+        // c1 is kickstartable
+        Channel c1 = createTestChannel(user);
+        KickstartableTreeTest.createTestKickstartableTree(c1,
+                KickstartInstallType.RHEL_7);
+        KickstartableTreeTest.createTestKickstartableTree(c1,
+                KickstartInstallType.RHEL_7);
+        // c2 is kickstartable
+        Channel c2 = createTestChannel(user);
+        KickstartableTreeTest.createTestKickstartableTree(c2,
+                KickstartInstallType.FEDORA);
+        // c3 is not kickstartable
+        Channel c3 = createTestChannel(user);
+        KickstartableTreeTest.createTestKickstartableTree(c3,
+                KickstartInstallType.SUSE);
+        // c4 is not kickstartable
+        createTestChannel(user);
+
+        channels = ChannelFactory.getKickstartableChannels(user.getOrg());
+        assertEquals(originalSize + 2, channels.size());
+        assertTrue(channels.contains(c1));
+        assertTrue(channels.contains(c2));
     }
 
     public void testPackageCount() throws Exception {

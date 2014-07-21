@@ -142,21 +142,23 @@
       <rhn-tab name="kickstart.variable.nav" url="/rhn/systems/details/kickstart/Variables.do" acl="cobbler_system_record_exists()"/>
     </rhn-tab>
 
+    <rhn-tab name="Power Management" url="/rhn/systems/details/kickstart/PowerManagement.do" acl="system_feature(ftr_kickstart)" node-id="power_management" />
+
     <rhn-tab name="Snapshots" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/rhn/systems/details/history/snapshots/Index.do" hide_all_children_unless_active="1">
       <rhn-tab name="Rollback" formvar="ss_id" url="/rhn/systems/details/history/snapshots/Rollback.do" />
       <rhn-tab name="Groups" formvar="ss_id" url="/rhn/systems/details/history/snapshots/Groups.do" />
       <rhn-tab name="Channels" formvar="ss_id" url="/rhn/systems/details/history/snapshots/Channels.do" />
       <rhn-tab name="Packages" formvar="ss_id" url="/rhn/systems/details/history/snapshots/Packages.do">
-        <rhn-tab-url>/network/systems/details/history/snapshots/unservable_packages.pxt</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/history/snapshots/UnservablePackages.do</rhn-tab-url>
       </rhn-tab>
       <rhn-tab name="Config Channels" formvar="ss_id" url="/rhn/systems/details/history/snapshots/ConfigChannels.do" />
       <rhn-tab name="Config Files" formvar="ss_id" url="/rhn/systems/details/history/snapshots/ConfigFiles.do" />
       <rhn-tab name="Snapshot Tags" formvar="ss_id" url="/rhn/systems/details/history/snapshots/SnapshotTags.do">
-        <rhn-tab-url>/network/systems/details/history/snapshots/add_snapshot_tag.pxt</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/history/snapshots/SnapshotTagCreate.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
     <rhn-tab name="Snapshot Tags" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/rhn/systems/details/history/snapshots/Tags.do" >
-      <rhn-tab-url>/network/systems/details/history/snapshots/add_system_tag.pxt</rhn-tab-url>
+      <rhn-tab-url>/rhn/systems/details/history/snapshots/TagCreate.do</rhn-tab-url>
     </rhn-tab>
 
   </rhn-tab>

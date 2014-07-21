@@ -16,12 +16,22 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 # Copyright 2013 Aron Parsons <aronparsons@gmail.com>
-# Copyright (c) 2011--2013 Red Hat, Inc.
+# Copyright (c) 2011--2014 Red Hat, Inc.
 #
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+# wildcard import
+# pylint: disable=W0401,W0614
+
+# unused argument
+# pylint: disable=W0613
+
+# invalid function name
+# pylint: disable=C0103
+
 import re, shlex
+import xmlrpclib
 from optparse import Option
 from spacecmd.utils import *
 
@@ -39,7 +49,7 @@ def complete_activationkey_addpackages(self, text, line, beg, end):
         return tab_completer(self.get_package_names(), text)
 
 def do_activationkey_addpackages(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_activationkey_addpackages()
@@ -70,7 +80,7 @@ def complete_activationkey_removepackages(self, text, line, beg, end):
         return tab_completer(packages, text)
 
 def do_activationkey_removepackages(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_activationkey_removepackages()
@@ -89,7 +99,8 @@ def help_activationkey_addgroups(self):
 
 def complete_activationkey_addgroups(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_activationkey_list('', True), text)
@@ -97,7 +108,7 @@ def complete_activationkey_addgroups(self, text, line, beg, end):
         return tab_completer(self.do_group_list('', True), parts[-1])
 
 def do_activationkey_addgroups(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_activationkey_addgroups()
@@ -120,7 +131,8 @@ def help_activationkey_removegroups(self):
 
 def complete_activationkey_removegroups(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
 
     if len(parts) == 2:
         return tab_completer(self.do_activationkey_list('', True), text)
@@ -137,7 +149,7 @@ def complete_activationkey_removegroups(self, text, line, beg, end):
         return tab_completer(groups, text)
 
 def do_activationkey_removegroups(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_activationkey_removegroups()
@@ -169,7 +181,7 @@ def complete_activationkey_addentitlements(self, text, line, beg, end):
         return tab_completer(self.ENTITLEMENTS, text)
 
 def do_activationkey_addentitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_activationkey_addentitlements()
@@ -202,7 +214,7 @@ def complete_activationkey_removeentitlements(self, text, line, beg, end):
         return tab_completer(entitlements, text)
 
 def do_activationkey_removeentitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_activationkey_removeentitlements()
@@ -249,7 +261,7 @@ def complete_activationkey_addchildchannels(self, text, line, beg, end):
         return tab_completer(child_channels, text)
 
 def do_activationkey_addchildchannels(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_activationkey_addchildchannels()
@@ -279,7 +291,7 @@ def complete_activationkey_removechildchannels(self, text, line, beg, end):
         return tab_completer(key_details.get('child_channel_labels'), text)
 
 def do_activationkey_removechildchannels(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_activationkey_removechildchannels()
@@ -303,7 +315,7 @@ def complete_activationkey_listchildchannels(self, text, line, beg, end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listchildchannels(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_activationkey_listchildchannels()
@@ -327,7 +339,7 @@ def complete_activationkey_listbasechannel(self, text, line, beg, end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listbasechannel(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_activationkey_listbasechannel()
@@ -350,7 +362,7 @@ def complete_activationkey_listgroups(self, text, line, beg, end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listgroups(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_activationkey_listgroups()
@@ -376,7 +388,7 @@ def complete_activationkey_listentitlements(self, text, line, beg, end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listentitlements(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_activationkey_listentitlements()
@@ -400,7 +412,7 @@ def complete_activationkey_listpackages(self, text, line, beg, end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listpackages(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_activationkey_listpackages()
@@ -427,7 +439,7 @@ def complete_activationkey_listconfigchannels(self, text, line, beg, end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listconfigchannels(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_activationkey_listconfigchannels()
@@ -514,7 +526,7 @@ def complete_activationkey_removeconfigchannels(self, text, line, beg, end):
         return tab_completer(config_channels, text)
 
 def do_activationkey_removeconfigchannels(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_activationkey_removeconfigchannels()
@@ -539,7 +551,7 @@ def complete_activationkey_setconfigchannelorder(self, text, line, beg,
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_setconfigchannelorder(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) != 1:
         self.help_activationkey_setconfigchannelorder()
@@ -604,7 +616,8 @@ def do_activationkey_create(self, args):
         options.entitlements = []
 
         for e in self.ENTITLEMENTS:
-            if e == 'enterprise_entitled': continue
+            if e == 'enterprise_entitled':
+                continue
 
             if self.user_confirm('%s Entitlement [y/N]:' % e,
                                  ignore_yes = True):
@@ -613,18 +626,20 @@ def do_activationkey_create(self, args):
         options.universal = self.user_confirm('Universal Default [y/N]:',
                                               ignore_yes = True)
     else:
-        if not options.name: options.name = ''
-        if not options.description: options.description = ''
-        if not options.base_channel: options.base_channel = ''
-        if not options.universal: options.universal = False
+        if not options.name:
+            options.name = ''
+        if not options.description:
+            options.description = ''
+        if not options.base_channel:
+            options.base_channel = ''
+        if not options.universal:
+            options.universal = False
         if options.entitlements:
             options.entitlements = options.entitlements.split(',')
 
             # remove empty strings from the list
-            try:
+            if '' in options.entitlements:
                 options.entitlements.remove('')
-            except:
-                pass
         else:
             options.entitlements = []
 
@@ -647,7 +662,7 @@ def complete_activationkey_delete(self, text, line, beg, end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_delete(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_activationkey_delete()
@@ -665,7 +680,8 @@ def do_activationkey_delete(self, args):
     # Print the keys prior to the confimation
     print '\n'.join(sorted(keys))
 
-    if not self.user_confirm('Delete activation key(s) [y/N]:'): return
+    if not self.user_confirm('Delete activation key(s) [y/N]:'):
+        return
 
     for key in keys:
         logging.debug("Deleting key %s" % key)
@@ -702,7 +718,7 @@ def complete_activationkey_listsystems(self, text, line, beg, end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listsystems(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_activationkey_listsystems()
@@ -714,7 +730,7 @@ def do_activationkey_listsystems(self, args):
         systems = \
             self.client.activationkey.listActivatedSystems(self.session,
                                                            key)
-    except:
+    except xmlrpclib.Fault:
         logging.warning('%s is not a valid activation key' % key)
         return
 
@@ -733,7 +749,7 @@ def complete_activationkey_details(self, text, line, beg, end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_details(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_activationkey_details()
@@ -757,7 +773,7 @@ def do_activationkey_details(self, args):
                 config_channel_deploy = \
                     self.client.activationkey.checkConfigDeployment(\
                                                   self.session, key)
-            except:
+            except xmlrpclib.Fault:
                 config_channels = []
                 config_channel_deploy = 0
 
@@ -766,7 +782,7 @@ def do_activationkey_details(self, args):
                 config_channel_deploy = True
             else:
                 config_channel_deploy = False
-        except:
+        except xmlrpclib.Fault:
             logging.warning('%s is not a valid activation key' % key)
             return
 
@@ -776,7 +792,8 @@ def do_activationkey_details(self, args):
                                                                group)
             groups.append(group_details.get('name'))
 
-        if add_separator: print self.SEPARATOR
+        if add_separator:
+            print self.SEPARATOR
         add_separator = True
 
         result.append( 'Key:                    %s' % details.get('key') )
@@ -833,7 +850,7 @@ def complete_activationkey_enableconfigdeployment(self, text, line, beg,
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_enableconfigdeployment(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_activationkey_enableconfigdeployment()
@@ -855,7 +872,7 @@ def complete_activationkey_disableconfigdeployment(self, text, line, beg,
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_disableconfigdeployment(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_activationkey_disableconfigdeployment()
@@ -878,10 +895,10 @@ def complete_activationkey_setbasechannel(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_activationkey_list('', True), text)
     elif len(parts) > 2:
-        return tab_completer(list_base_channels(self), text)
+        return tab_completer(self.list_base_channels(), text)
 
 def do_activationkey_setbasechannel(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_activationkey_setbasechannel()
@@ -924,7 +941,7 @@ def complete_activationkey_setusagelimit(self, text, line, beg, end):
         return "unlimited"
 
 def do_activationkey_setusagelimit(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_activationkey_setusagelimit()
@@ -938,7 +955,7 @@ def do_activationkey_setusagelimit(self, args):
         try:
             usage_limit = int(args[0])
             logging.debug("Setting usage for key %s to %d" % (key, usage_limit))
-        except Exception, E:
+        except ValueError:
             logging.error("Couldn't convert argument %s to an integer" %\
                 args[0])
             self.help_activationkey_setusagelimit()
@@ -966,7 +983,7 @@ def complete_activationkey_setuniversaldefault(self, text, line, beg, end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_setuniversaldefault(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args):
         self.help_activationkey_setuniversaldefault()
@@ -1018,7 +1035,7 @@ def export_activationkey_getdetails(self, key):
     try:
         ccdlist = self.client.activationkey.listConfigChannels(self.session, \
             key)
-    except Exception, E:
+    except xmlrpclib.Fault:
         logging.debug("activationkey.listConfigChannel threw an exeception, \
             probably not provisioning entitled, setting config_channels=False")
 
@@ -1034,7 +1051,7 @@ def export_activationkey_getdetails(self, key):
     # across servers, so we need the group name on import
     details['server_groups'] = []
     if len(details['server_group_ids']) != 0:
-        grp_detail_list=[]
+        grp_detail_list = []
         for grp in details['server_group_ids']:
             grp_details = self.client.systemgroup.getDetails(self.session, grp)
 
@@ -1050,17 +1067,17 @@ def do_activationkey_export(self, args):
     options = [ Option('-f', '--file', action='store') ]
     (args, options) = parse_arguments(args, options)
 
-    filename=""
+    filename = ""
     if options.file != None:
         logging.debug("Passed filename do_activationkey_export %s" % \
             options.file)
-        filename=options.file
+        filename = options.file
 
     # Get the list of keys to export and sort out the filename if required
-    keys=[]
+    keys = []
     if not len(args):
         if len(filename) == 0:
-            filename="akey_all.json"
+            filename = "akey_all.json"
         logging.info("Exporting ALL activation keys to %s" % filename)
         keys = self.do_activationkey_list('', True)
     else:
@@ -1078,12 +1095,12 @@ def do_activationkey_export(self, args):
             # If we are exporting exactly one key, we default to keyname.json
             # otherwise, generic akeys.json name
             if len(keys) == 1:
-                filename="%s.json" % keys[0]
+                filename = "%s.json" % keys[0]
             else:
-                filename="akeys.json"
+                filename = "akeys.json"
 
     # Dump as a list of dict
-    keydetails_list=[]
+    keydetails_list = []
     for k in keys:
         logging.info("Exporting key %s to %s" % (k, filename))
         keydetails_list.append(self.export_activationkey_getdetails(k))
@@ -1109,7 +1126,7 @@ def help_activationkey_import(self):
     print '''usage: activationkey_import <JSONFILE ...>'''
 
 def do_activationkey_import(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if len(args) == 0:
         logging.error("No filename passed")
@@ -1170,19 +1187,19 @@ def import_activationkey_fromdetails(self, keydetails):
             return False
 
         # add child channels
-        self.client.activationkey.addChildChannels(self.session, newkey,\
+        self.client.activationkey.addChildChannels(self.session, newkey, \
             keydetails['child_channel_labels'])
 
         # set config channel options and channels (missing are skipped)
         if keydetails['config_deploy'] != 0:
-            self.client.activationkey.enableConfigDeployment(self.session,\
+            self.client.activationkey.enableConfigDeployment(self.session, \
                 newkey)
         else:
-            self.client.activationkey.disableConfigDeployment(self.session,\
+            self.client.activationkey.disableConfigDeployment(self.session, \
                 newkey)
 
         if len(keydetails['config_channels']) > 0:
-            self.client.activationkey.addConfigChannels(self.session, [newkey],\
+            self.client.activationkey.addConfigChannels(self.session, [newkey], \
                 keydetails['config_channels'], False)
 
         # set groups (missing groups are created)
@@ -1191,7 +1208,7 @@ def import_activationkey_fromdetails(self, keydetails):
             grpdetails = self.client.systemgroup.getDetails(self.session, grp)
             if grpdetails == None:
                 logging.info("System group %s doesn't exist, creating" % grp)
-                grpdetails = self.client.systemgroup.create(self.session, grp,\
+                grpdetails = self.client.systemgroup.create(self.session, grp, \
                      grp)
             gids.append(grpdetails.get('id'))
 
@@ -1301,7 +1318,7 @@ def do_activationkey_clone(self, args):
                 # we have the new base-channel, we can check if the new child
                 # label exists under the new base-channel:
                 # If it doesn't we can only skip it and print a warning
-                all_childch = self.list_child_channels(system=None,\
+                all_childch = self.list_child_channels(system=None, \
                     parent=newbasech, subscribed=False)
 
                 new_child_channel_labels = []
@@ -1370,7 +1387,8 @@ def do_activationkey_clone(self, args):
 # activationkey helper
 
 def is_activationkey( self, name ):
-    if not name: return
+    if not name:
+        return
     return name in self.do_activationkey_list( name, True )
 
 def check_activationkey( self, name ):
@@ -1382,9 +1400,10 @@ def check_activationkey( self, name ):
         return False
     return True
 
-def dump_activationkey(self, name, replacedict=None, excludes=[ "Universal Default:" ]):
+def dump_activationkey(self, name, replacedict=None, excludes=None):
     content = self.do_activationkey_details( name )
-
+    if not excludes:
+        excludes = ["Universal Default:"]
     content = get_normalized_text( content, replacedict=replacedict, excludes=excludes )
 
     return content
@@ -1398,7 +1417,8 @@ def help_activationkey_diff(self):
 
 def complete_activationkey_diff(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
     args = len(parts)
 
     if args == 2:
@@ -1417,15 +1437,17 @@ def do_activationkey_diff(self, args):
         return
 
     source_channel = args[0]
-    if not self.check_activationkey( source_channel ): return
+    if not self.check_activationkey( source_channel ):
+        return
 
     target_channel = None
     if len(args) == 2:
         target_channel = args[1]
     elif hasattr( self, "do_activationkey_getcorresponding" ):
         # can a corresponding channel name be found automatically?
-        target_channel=self.do_activationkey_getcorresponding( source_channel )
-    if not self.check_activationkey( target_channel ): return
+        target_channel = self.do_activationkey_getcorresponding(source_channel)
+    if not self.check_activationkey( target_channel ):
+        return
 
     source_replacedict, target_replacedict = get_string_diff_dicts( source_channel, target_channel )
 
@@ -1448,7 +1470,7 @@ def complete_activationkey_disable(self, text, line, beg, end):
         return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_disable(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 1:
         self.help_activationkey_disable()
@@ -1475,7 +1497,7 @@ def complete_activationkey_enable(self, text, line, beg, end):
         return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_enable(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 1:
         self.help_activationkey_enable()
@@ -1502,7 +1524,7 @@ def complete_activationkey_setdescription(self, text, line, beg, end):
         return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_setdescription(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
     if not len(args) >= 2:
         self.help_activationkey_setdescription()

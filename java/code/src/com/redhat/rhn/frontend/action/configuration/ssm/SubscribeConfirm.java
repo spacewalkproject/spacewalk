@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -94,7 +94,7 @@ public class SubscribeConfirm extends RhnAction {
         List systems = cm.ssmSystemsForSubscribe(user);
 
         //Create the parent url. Copy the one important parameter.
-        StringBuffer parentUrl = new StringBuffer();
+        StringBuilder parentUrl = new StringBuilder();
         parentUrl.append(request.getRequestURI());
         parentUrl.append("?");
         parentUrl.append(POSITION);

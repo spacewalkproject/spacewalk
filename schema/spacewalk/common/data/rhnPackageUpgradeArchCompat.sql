@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2010--2012 Red Hat, Inc.
+-- Copyright (c) 2010--2014 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -164,6 +164,9 @@ insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_i
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('arm-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('arm-deb'), LOOKUP_PACKAGE_ARCH('arm-deb'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('arm-deb'), current_timestamp, current_timestamp);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('armhf-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), current_timestamp, current_timestamp);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('armhf-deb'), current_timestamp, current_timestamp);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('armhf-deb'), LOOKUP_PACKAGE_ARCH('armhf-deb'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('mips-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('mips-deb'), LOOKUP_PACKAGE_ARCH('mips-deb'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('mips-deb'), current_timestamp, current_timestamp);
