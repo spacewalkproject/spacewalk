@@ -35,32 +35,30 @@ public class ConfigVerifyAction extends ConfigAction {
         retval.append(ls.getMessage("system.event.configFiles"));
         retval.append("</br>");
         for (ConfigRevisionAction rev : this.getConfigRevisionActions()) {
-            HtmlTag a = new HtmlTag("a");
-            a.setAttribute("href",
-                    "/rhn/configuration/file/FileDetails.do?sid=" +
-                    server.getId() + "&crid=" +
-                    rev.getConfigRevision().getId());
-            a.addBody(rev.getConfigRevision()
-                    .getConfigFile().getConfigFileName().getPath());
-            retval.append(a.render());
-            retval.append(" (rev. " + rev.getConfigRevision().getRevision() + ")");
-
-            if (rev.getConfigRevisionActionResult() != null) {
-                a.setAttribute("href",
-                        "/rhn/systems/details/configuration/ViewDiffResult.do?sid=" +
-                        server.getId() + "&acrid=" +
-                        rev.getConfigRevisionActionResult()
-                        .getConfigRevisionAction().getId());
-                a.setBody(ls.getMessage("system.event.configFiesDiffExist"));
-                retval.append(" ");
+            if (rev.getServer().equals(server)) {
+                HtmlTag a = new HtmlTag("a");
+                a.setAttribute("href", "/rhn/configuration/file/FileDetails.do?sid=" +
+                        server.getId() + "&crid=" + rev.getConfigRevision().getId());
+                a.addBody(rev.getConfigRevision().getConfigFile().getConfigFileName()
+                        .getPath());
                 retval.append(a.render());
+                retval.append(" (rev. " + rev.getConfigRevision().getRevision() + ")");
+                if (rev.getConfigRevisionActionResult() != null) {
+                    a.setAttribute("href",
+                            "/rhn/systems/details/configuration/ViewDiffResult.do?sid=" +
+                            server.getId() + "&acrid=" +
+                            rev.getConfigRevisionActionResult().getConfigRevisionAction()
+                            .getId());
+                    a.setBody(ls.getMessage("system.event.configFiesDiffExist"));
+                    retval.append(" ");
+                    retval.append(a.render());
+                }
+                if (rev.getFailureId() != null) {
+                    retval.append(" ");
+                    retval.append(ls.getMessage("system.event.configFiesMissing"));
+                }
+                retval.append("</br>");
             }
-            if (rev.getFailureId() != null) {
-                retval.append(" ");
-                retval.append(ls.getMessage("system.event.configFiesMissing"));
-            }
-
-            retval.append("</br>");
         }
         return retval.toString();
     }
