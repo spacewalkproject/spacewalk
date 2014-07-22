@@ -81,15 +81,17 @@ public class ConfigAction extends Action {
         retval.append(ls.getMessage("system.event.configFiles"));
         retval.append("</br>");
         for (ConfigRevisionAction rev : this.getConfigRevisionActions()) {
-            HtmlTag a = new HtmlTag("a");
-            a.setAttribute("href", "/rhn/configuration/file/FileDetails.do?sid=" +
-                    server.getId().toString() + "&crid=" +
-                    rev.getConfigRevision().getId());
-            a.addBody(rev.getConfigRevision()
-                    .getConfigFile().getConfigFileName().getPath());
-            retval.append(a.render());
-            retval.append(" (rev. " + rev.getConfigRevision().getRevision() + ")");
-            retval.append("</br>");
+            if (rev.getServer().equals(server)) {
+                HtmlTag a = new HtmlTag("a");
+                a.setAttribute("href", "/rhn/configuration/file/FileDetails.do?sid=" +
+                        server.getId().toString() + "&crid=" +
+                        rev.getConfigRevision().getId());
+                a.addBody(rev.getConfigRevision().getConfigFile().getConfigFileName()
+                        .getPath());
+                retval.append(a.render());
+                retval.append(" (rev. " + rev.getConfigRevision().getRevision() + ")");
+                retval.append("</br>");
+            }
         }
         return retval.toString();
     }
