@@ -539,6 +539,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
     public static KickstartData createKickstartWithChannel(Org orgIn) throws Exception {
         KickstartData ksdata = KickstartDataTest.createTestKickstartData(orgIn);
+        KickstartCommand pwdcmd = KickstartFactory.createKickstartCommand(ksdata, "rootpw");
+        pwdcmd.setArguments(ksdata.encryptPassword("password"));
         KickstartDefaults d1 = KickstartDataTest.createDefaults(ksdata,
                 UserTestUtils.ensureOrgAdminExists(orgIn));
         ksdata.setKickstartDefaults(d1);
