@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.1
+Version:        2.3.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jul 22 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.2-1
+- 1023557 - Speed up satellite-sync by avoiding commonly-called dblink_exec
+
 * Fri Jul 18 2014 Miroslav Suchý <msuchy@redhat.com> 2.3.1-1
 - add Fedora 21 GPG keys
 - Bumping package versions for 2.3.
