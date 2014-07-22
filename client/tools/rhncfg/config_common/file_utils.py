@@ -45,8 +45,7 @@ class FileProcessor:
         # assume file
 
     	if file_struct.get('filetype') == 'directory':
-                file_struct['path'] = directory + file_struct['path']
-                return file_struct['path'], []
+            return None, None
 
         if directory:
             directory += os.path.split(file_struct['path'])[0]
@@ -184,7 +183,12 @@ class FileProcessor:
             if cur_sectx != file_struct['selinux_ctx']:
                 sectx_result = "SELinux contexts differ:  actual: [%s], expected: [%s]\n" % (cur_sectx, file_struct['selinux_ctx'])
 
-        if file_struct['filetype'] == 'symlink':
+        if file_struct['filetype'] == 'directory':
+            if os.path.isdir(file_struct['path']):
+                result = ''
+            else:
+                result = "Deployed directory is no longer a directory!"
+        elif file_struct['filetype'] == 'symlink':
             try:
                 curlink = os.readlink(path)
                 newlink = os.readlink(temp_file)
@@ -201,7 +205,8 @@ class FileProcessor:
             result = ''.join(diff(temp_file, path,
                     display_diff=get_config('display_diff')))
 
-        os.unlink(temp_file)
+        if temp_file:
+            os.unlink(temp_file)
         return owner_result + group_result + perm_result + sectx_result + result
 
     def _validate_struct(self, file_struct):

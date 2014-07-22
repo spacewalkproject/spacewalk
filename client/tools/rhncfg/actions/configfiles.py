@@ -338,9 +338,6 @@ def diff(params, cache_only=None):
         if not exists(path):
             missing_files.append(path)
             continue
-        if os.path.isdir(path):
-            # We dont support dir diffs, ignore
-            continue
 
         diff = fp.diff(file)
         if diff:
