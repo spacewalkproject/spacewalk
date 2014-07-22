@@ -17,7 +17,7 @@ my @supported_backends = qw( oracle postgresql );
 my ($db, $user, $password, $from_backend, $to_backend, $raw);
 
 sub usage {
-	print "$0: [--db=SID --user=USERNAME --password=PASSWORD] [ --help ]\n";
+	print "$0: [--from=DB_BACKEND] [--to=DB_BACKEND] [--db=SID --user=USERNAME --password=PASSWORD] [ --help ]\n";
 	if ($@) {
 		exit shift;
 	}
@@ -708,31 +708,32 @@ spacewalk-dump-schema
 
 =head1 SYNOPSIS
 
-	spacewalk-dump-schema --db=SID \
-		--user=USERNAME --password=PASSWORD
+	spacewalk-dump-schema [--from=DB_BACKEND] [--to=DB_BACKEND]
+            [--db=SID --user=USERNAME --password=PASSWORD]
 
 	spacewalk-dump-schema --help
 
 =head1 DESCRIPTION
 
 The B<spacewalk-dump-schema> script dumps the content of Spacewalk's
-Oracle database schema in format which can be fed to PostgreSQL's
-B<psql>. Thus it can be used to convert Spacewalk with Oracle database
-backend to the one which uses PostgreSQL database backend.
+database schema in format which can be fed to PostgreSQL's B<psql>
+or Oracle's B<sqlplus>. Thus it can be used to migrate between Spacewalk
+with Oracle database backend and the one which uses PostgreSQL database
+backend.
 
-The script connects to the Oracle instance, so that one must be
-running and accessible with given connect parameter.
+The script connects to the Oracle or PostgreSQL instance, so that one
+must be running and accessible with given connect parameter.
 
 The output is printed to the standard output. It can be piped to
-B<psql> directly in which case the PostgreSQL server must also be
-running, or you can redirect it to a file and use that file as
-input for B<psql> later.
+B<psql> or B<sqlplus> directly in which case the PostgreSQL or Oracle
+server must also be running, or you can redirect it to a file and use
+that file as input for B<psql> or B<sqlplus> later.
 
-The database schema in PostgreSQL must already exist, created by
+The database schema in target backend must already exist, created by
 (probably) B<spacewalk-setup>. The output of this script does not
 create any tables or other database objects, it only emits commands
-to set sequences and table contents in the PostgreSQL database schema.
-Any existing content in those PostgreSQL tables is discarded, data
+to set sequences and table contents in the PostgreSQL or Oracle
+database schema. Any existing content in tables is discarded, data
 is not appended.
 
 The exit value is 0 upon success, non-zero value upon error.
@@ -743,6 +744,15 @@ The exit value is 0 upon success, non-zero value upon error.
 		--user=spacewalk --password=o9k2HInsl \
 		| PGPASSWORD=o9k2HInsl psql -h localhost \
 			-U spaceuser spaceschema
+
+	spacewalk-dump-schema --from=oracle --to=postgresql --db=xe \
+                --user=spacewalk --password=o9k2HInsl \
+                | PGPASSWORD=o9k2HInsl psql -h localhost \
+                        -U spaceuser spaceschema
+
+	spacewalk-dump-schema --to=oracle --db=spaceschema \
+                --user=spaceuser --password=o9k2HInsl \
+                | NLS_LANG=AMERICAN_AMERICA.UTF8 sqlplus spaceuser/spacepw@//localhost/XE
 
 =head1 AUTHOR
 
