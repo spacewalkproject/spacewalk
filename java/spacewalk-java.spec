@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.6
+Version: 2.3.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 22 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.7-1
+- better initialization of array
+
 * Mon Jul 21 2014 Stephen Herr <sherr@redhat.com> 2.3.6-1
 - fixing junit tests after cd0a7132d6fe8a1b24f6078bd079e9757db1f2bc
 
