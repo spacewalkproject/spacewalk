@@ -3290,9 +3290,10 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public Long schedulePackageInstall(User loggedInUser, Integer sid,
+    public Long schedulePackageInstall(User loggedInUser, final Integer sid,
             List<Integer> packageIds, Date earliestOccurrence) {
-        return schedulePackageInstall(loggedInUser, new ArrayList<Integer>(sid), packageIds,
+        return schedulePackageInstall(loggedInUser,
+                new ArrayList<Integer>() { { add(sid); } }, packageIds,
                 earliestOccurrence)[0];
     }
 
