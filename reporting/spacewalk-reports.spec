@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.0
+Version: 2.3.1
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Wed Jul 23 2014 Grant Gainey 2.3.1-1
+- 1122706 - Added config-files and config-files-latest reports
+- Add id column to channel export
+- Bumping package versions for 2.3.
+
 * Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.15-1
 - fix copyright years
 
