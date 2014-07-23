@@ -49,6 +49,8 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'ppc64', 'ppc64', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_package_arch_id_seq'), 'ppc64le', 'ppc64le', lookup_arch_type('rpm'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'pSeries', 'pSeries', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'iSeries', 'iSeries', lookup_arch_type('rpm'));
