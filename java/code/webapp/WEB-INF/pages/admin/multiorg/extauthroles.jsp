@@ -37,7 +37,9 @@
                headerkey="extgrouplist.jsp.name"
                attr="label"
                filterattr="label">
-        <c:out value="<a href=\"/rhn/admin/multiorg/ExtGroupDetails.do?gid=${current.id}\">${current.label}</a>" escapeXml="false" />
+        <a href="/rhn/admin/multiorg/ExtGroupDetails.do?gid=${current.id}">
+            <c:out value="${current.label}" escapeXml="true" />
+        </a>
     </rl:column>
 
     <rl:column attr="roleNames"
