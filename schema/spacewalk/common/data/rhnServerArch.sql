@@ -89,6 +89,9 @@ insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'ppc64-redhat-linux', 'ppc64', lookup_arch_type('rpm'));
 
 insert into rhnServerArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_server_arch_id_seq'), 'ppc64le-redhat-linux', 'ppc64le', lookup_arch_type('rpm'));
+
+insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'pSeries-redhat-linux', 'pSeries', lookup_arch_type('rpm'));
 
 insert into rhnServerArch (id, label, name, arch_type_id) values

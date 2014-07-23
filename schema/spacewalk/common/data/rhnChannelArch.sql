@@ -68,6 +68,9 @@ insert into rhnChannelArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_channel_arch_id_seq'), 'channel-ppc', 'PPC', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-ppc64le', 'PPC64LE', lookup_arch_type('rpm'));
+
+insert into rhnChannelArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_channel_arch_id_seq'), 'channel-powerpc-deb', 'PowerPC Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values

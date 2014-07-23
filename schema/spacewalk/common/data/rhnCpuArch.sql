@@ -47,6 +47,8 @@ insert into rhnCpuArch (id, label, name) values
 insert into rhnCpuArch (id, label, name) values
 (sequence_nextval('rhn_cpu_arch_id_seq'), 'ppc64', 'ppc64');
 insert into rhnCpuArch (id, label, name) values
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'ppc64le', 'ppc64le');
+insert into rhnCpuArch (id, label, name) values
 (sequence_nextval('rhn_cpu_arch_id_seq'), 'pSeries', 'pSeries');
 insert into rhnCpuArch (id, label, name) values
 (sequence_nextval('rhn_cpu_arch_id_seq'), 'iSeries', 'iSeries');

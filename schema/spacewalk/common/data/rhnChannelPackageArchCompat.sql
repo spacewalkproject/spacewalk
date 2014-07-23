@@ -280,6 +280,12 @@ insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-ppc'), LOOKUP_PACKAGE_ARCH('src'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-ppc64le'), LOOKUP_PACKAGE_ARCH('noarch'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-ppc64le'), LOOKUP_PACKAGE_ARCH('ppc64le'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-powerpc-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
