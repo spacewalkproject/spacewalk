@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -53,7 +54,8 @@ public class SystemGroupConfigAction extends RhnAction {
         Org org = user.getOrg();
 
         if (ctx.isSubmitted()) {
-            Boolean createDefaultSG = (Boolean) daForm.get(CREATE_DEFAULT_SG);
+            Boolean createDefaultSG = BooleanUtils.toBoolean(
+                    (Boolean) daForm.get(CREATE_DEFAULT_SG));
             // store the value
             org.getOrgConfig().setCreateDefaultSg(createDefaultSG);
 
