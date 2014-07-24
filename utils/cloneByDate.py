@@ -316,6 +316,7 @@ class ChannelTreeCloner:
         self.security_only = security_only
         self.use_update_date = use_update_date
         self.no_errata_sync = no_errata_sync
+        self.solver = None
 
         self.validate_source_channels()
         for from_label in self.ordered_labels():
@@ -489,16 +490,20 @@ class ChannelTreeCloner:
             temp_repo_links.append(yum_repodata_path)
         try:
             try:
-                solver = DepSolver(repos, nvrea_list)
-                dep_results = solver.processResults(solver.getDependencylist())
-                solver.cleanup()
-                self.process_deps(dep_results)
+                self.solver = DepSolver(repos)
+                self.__dep_solve(nvrea_list)
+                self.solver.cleanup()
             except RepoError, e:
                 raise UserRepoError(repo["id"], e.value)
         finally:
             # clean up temporary symlinks
             for link in temp_repo_links:
                 remove_repodata_link(link)
+
+    def __dep_solve(self, nvrea_list):
+        self.solver.setPackages(nvrea_list)
+        dep_results = self.solver.processResults(self.solver.getDependencylist())
+        self.process_deps(dep_results)
 
     def process_deps(self, deps):
         needed_list = dict((channel[0], [])
@@ -527,13 +532,19 @@ class ChannelTreeCloner:
                         found = True
                 if not found:
                     unsolved_deps.append((pkg))
-        pb.printComplete()
 
-
+        added_nevras = []
         for cloner in self.cloners:
             needed = needed_list[cloner.dest_label()]
             if len(needed) > 0:
-                cloner.process_deps(needed)
+                added_nevras = added_nevras + cloner.process_deps(needed)
+
+        pb.printComplete()
+
+        # recursively solve dependencies to get dependencies-of-dependencies
+        if len(added_nevras) > 0:
+            print 'Dependencies added, looking for new dependencies'
+            self.__dep_solve(added_nevras)
 
     def remove_packages(self):
         for cloner in self.cloners:
@@ -561,6 +572,10 @@ class ChannelCloner:
         self.use_update_date = use_update_date
         self.no_errata_sync = no_errata_sync
         self.errata = errata
+        # construct a set of every erratum name in the original channel
+        self.original_errata = set(self.remote_api.list_errata(self.from_label))
+        self.original_pid_errata_map = {}
+        self.bunch_size = 10
 
     def dest_label(self):
         return self.to_label
@@ -619,13 +634,46 @@ class ChannelCloner:
             else:
                 unsolved_deps.append(pkg)
 
+        needed_errata = []
+        still_needed_pids = []
+        for pid in needed_ids:
+            if pid not in self.original_pid_errata_map:
+                errata_list = self.remote_api.list_providing_errata(pid)
+                for erratum in errata_list:
+                    if erratum['advisory'] in self.original_errata:
+                        self.original_pid_errata_map[pid] = \
+                                erratum['advisory']
+                        break
+                else: # no match found, store so we don't repeat search
+                    self.original_pid_errata_map[pid] = None
+            if self.original_pid_errata_map[pid] != None:
+                needed_errata.append(self.original_pid_errata_map[pid])
+            else:
+                still_needed_pids.append(pid)
+        needed_ids = still_needed_pids
+
+        for name in needed_names:
+            log_clean(0, name)
+        if len(needed_errata) > 0:
+            log_clean(0, "")
+            log_clean(0, "Cloning %i errata for dependencies to %s" %
+                    (len(needed_errata), self.to_label))
+        while(len(needed_errata) > 0):
+            errata_set = needed_errata[:self.bunch_size]
+            del needed_errata[:self.bunch_size]
+            if self.detached:
+                self.remote_api.clone_errata_async(self.to_label, errata_set)
+            else:
+                self.remote_api.clone_errata(self.to_label, errata_set)
+
         if len(needed_ids) > 0:
             log_clean(0, "")
             log_clean(0, "Adding %i needed dependencies to %s" %
                     (len(needed_ids), self.to_label))
-            for name in needed_names:
-                log_clean(0, name)
             self.remote_api.add_packages(self.to_label, needed_ids)
+
+        self.reset_new_pkgs()
+        return needed_names
 
     def src_pkg_exist(self, needed_list):
         if not self.from_pkg_hash:
@@ -647,7 +695,6 @@ class ChannelCloner:
 
 
     def clone(self):
-        bunch_size = 10
         errata_ids = [ e["advisory_name"] for e in self.errata_to_clone]
         if len(errata_ids) == 0:
             return
@@ -664,13 +711,13 @@ class ChannelCloner:
                 stream=sys.stdout)
         pb.printAll(1)
         while(len(errata_ids) > 0):
-            errata_set = errata_ids[:bunch_size]
-            del errata_ids[:bunch_size]
+            errata_set = errata_ids[:self.bunch_size]
+            del errata_ids[:self.bunch_size]
             if self.detached:
                 self.remote_api.clone_errata_async(self.to_label, errata_set)
             else:
                 self.remote_api.clone_errata(self.to_label, errata_set)
-            pb.addTo(bunch_size)
+            pb.addTo(self.bunch_size)
             pb.printIncrement()
 
         self.reset_new_pkgs()
@@ -879,6 +926,10 @@ class RemoteApi:
         self.auth_check()
         return self.client.channel.software.getDetails(self.auth_token,
                 clone_label)['clone_original']
+
+    def list_providing_errata(self, pid):
+        self.auth_check()
+        return self.client.packages.listProvidingErrata(self.auth_token, pid)
 
 
 class DBApi:

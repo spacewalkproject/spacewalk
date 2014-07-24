@@ -65,6 +65,9 @@ Utility for cloning errata by date (For RHEL5 and above).
         <arg>-o</arg><arg>--security_only</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-e</arg><arg>--errata</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-z</arg><arg>--use-update-date</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -93,7 +96,7 @@ Utility for cloning errata by date (For RHEL5 and above).
     </para>
 
     <para>
-        Script to clone all errata belonging to software channels as of a specific date, ensuring any added packages have their dependencies satisfied. Any destination channels that do not exist will be created.
+        Script to clone all errata belonging to software channels as of a specific date, attempting to ensure any added packages have their dependencies satisfied. Any destination channels that do not exist will be created.
     </para>
     <para>
         By specifying channels on the command line, only a single channel tree (a base channel and its children) can be cloned with a single command. If you would like to specify multiple trees within a single command, simply use a configuration file.  See --sample-config for a sample.
@@ -105,7 +108,13 @@ Utility for cloning errata by date (For RHEL5 and above).
         Please keep in mind that not all packages are associated with an erratum. This means that since spacewalk-clone-by-date will grab only packages associated with an erratum, not all packages available as of the specified date will get cloned.
     </para>
     <para>
-        Also note that spacewalk-clone-by-date will pull in any packages needed to resolve dependencies for any errata being cloned. Since dependency-resolution selects the "best" package to resolve dependencies, it is possible for the cloned channel(s) to end up with packages that are not directly associated with any errata, and which are newer than the specified date. This is expected behavior.
+        Also note that spacewalk-clone-by-date will pull in any packages or errata needed to resolve dependencies for any errata being cloned. Since dependency-resolution selects the "best" package to resolve dependencies, it is possible for the cloned channel(s) to end up with packages that are not directly associated with any errata, and which are newer than the specified date. This is expected behavior.
+    </para>
+    <para>
+        Spacewalk-clone-by-date is tool that provides a best-effort attempt at cloning valid and dependency-complete channels. However, there is not enough information available to guarantee that the results will always be completely dependency-complete, espcecially if used with the --errata, --security_only, --blacklist, or --removelist options. This is a tool to assist Administrators with channel creation, it cannot replace them. Cases that spacewalk-clone-by-date cannot completely resolve all potential dependencies include but are not limited to: if the original channel is not dependency-complete, if the original channel does not have or contains incomplete errata information, or if packages are not strictly dependent on each other but conflict with specific versions.
+    </para>
+    <para>
+	Note: Unlike pervious versions spacewalk-clone-by-date now clones entire errata that are determined to be required when doing dependency resolution, not just single packages. This solves a number of dependency-completeness problems but is still not a perfect solution. This may mean that errata end up being cloned that do not meet you specifications (for example, that were added after the --to_date or are not security errata when used with --security_only). This is expected behavior. The only way to avoid this is to run with --skip_depsolve and manually resolve any dependency cloning that may be required.
     </para>
     <para>
 	Note: spacewalk-clone-by-date does not support RHEL4 and earlier versions. It's a limitation of this tool.
@@ -165,6 +174,12 @@ Utility for cloning errata by date (For RHEL5 and above).
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>-e  --errata</term>
+        <listitem>
+            <para>Clone only specified errata (and their dependencies). A comma-separated list (e.g. --errata=RHSA-2014:0043,RHBA-2014:0085).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>-z  --use-update-date</term>
         <listitem>
             <para>While cloning errata by date, clone all errata that have last been updated on or before the date provided by to_date. If omitted will use issue date of errata (default).</para>
@@ -185,7 +200,7 @@ Utility for cloning errata by date (For RHEL5 and above).
     <varlistentry>
         <term>-d <replaceable>YYYY-MM-DD</replaceable>, --to_date=<replaceable>YYYY-MM-DD</replaceable></term>
         <listitem>
-            <para>All errata on or before the specified date will be cloned if it does not already exist in the destination channel(s). If this option is omitted no errata will be cloned.
+            <para>All errata on or before the specified date will be cloned if it does not already exist in the destination channel(s). If this option is omitted no errata will be cloned (unless dependency resolution demands it).
             </para>
         </listitem>
     </varlistentry>
@@ -231,7 +246,7 @@ Utility for cloning errata by date (For RHEL5 and above).
     <varlistentry>
         <term>-a <replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable>, --parents=<replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></term>
         <listitem>
-            <para>The parent channels that will be used for dependency resolution and that newly cloned channels will be created as children of. No changes will be made to these channels unless dependency resolution demands it; errata will never be cloned to the destination parent channel regardless of the date chosen. If only the destination parent channel is specified then the source parent channel will be automatically chosen as the channel the destination parent channel was cloned from. Both of these channels must already exist. The config file equivalent to this option is specifiying '"existing-parent-do-not-modify": true' for a parent channel.</para>
+            <para>The parent channels that will be used for dependency resolution and that newly cloned channels will be created as children of. No changes will be made to these channels unless dependency resolution demands it. If only the destination parent channel is specified then the source parent channel will be automatically chosen as the channel the destination parent channel was cloned from. Both of these channels must already exist. The config file equivalent to this option is specifiying '"existing-parent-do-not-modify": true' for a parent channel.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

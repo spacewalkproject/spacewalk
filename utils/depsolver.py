@@ -51,6 +51,9 @@ class DepSolver:
         self.loadPackages()
         self.yrepo =  None
 
+    def setPackages(self, pkgs_in):
+        self.pkgs = pkgs_in
+
     def setup(self):
         """
          Load the repos into repostore to query package dependencies
