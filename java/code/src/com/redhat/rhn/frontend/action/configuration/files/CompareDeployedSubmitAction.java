@@ -46,6 +46,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
  * CompareDeployedSubmitAction
  * @version $Rev$
@@ -122,9 +123,17 @@ public class CompareDeployedSubmitAction extends RhnSetAction {
         Set crids = new HashSet();
         crids.add(revision.getId());
 
-        //create the action and then create the message to send the user.
-        Action action = ActionManager.createConfigDiffAction(user, crids, sids);
-        makeMessage(action, request);
+        Action action = null;
+        try {
+            // create the action and then create the message to send the user.
+            action = ActionManager.createConfigDiffAction(user, crids, sids);
+        }
+        catch (Exception e) {
+            // something went wrong, no systems selected?
+        }
+        finally {
+            makeMessage(action, request);
+        }
 
         //go to the next page.
         ActionForward base = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
@@ -164,7 +173,8 @@ public class CompareDeployedSubmitAction extends RhnSetAction {
         else {
             //Something went wrong, tell user!
             ActionErrors errors = new ActionErrors();
-            getStrutsDelegate().addError("configdiff.schedule.error", errors);
+            getStrutsDelegate().addError("configdiff.schedule.selection_error",
+                    errors);
             getStrutsDelegate().saveMessages(request, errors);
         }
     }
