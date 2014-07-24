@@ -21561,6 +21561,30 @@ given channel.</source>
       <trans-unit id="channel.jsp.changelog.error">
         <source>There was an error reading the selected package changelog.  Please check that the package physically exists and has the correct permissions.</source>
       </trans-unit>
+      <trans-unit id="channel.jsp.dependencies.requires.title">
+        <source>Requires</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.dependencies.provides.title">
+        <source>Provides</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.dependencies.obsoletes.title">
+        <source>Obsoletes</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.dependencies.conflicts.title">
+        <source>Conflicts</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.dependencies.recommends.title">
+        <source>Recommends</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.dependencies.suggests.title">
+        <source>Suggests</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.dependencies.supplements.title">
+        <source>Supplements</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.dependencies.enhances.title">
+        <source>Enhances</source>
+      </trans-unit>
       <!-- SUSE Studio -->
       <trans-unit id="image.deploy">
         <source>Image Deployment</source>
