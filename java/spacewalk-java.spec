@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.10
+Version: 2.3.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 24 2014 Jan Dobes 2.3.11-1
+- fix NullPointerException
+
 * Wed Jul 23 2014 Tomas Lestach <tlestach@redhat.com> 2.3.10-1
 - fixing java.lang.NullPointerException
 
