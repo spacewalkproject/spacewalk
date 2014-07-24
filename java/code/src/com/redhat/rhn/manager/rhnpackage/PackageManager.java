@@ -1408,10 +1408,13 @@ public class PackageManager extends BaseManager {
      */
     public static String getPackageChangeLog(Package pkg) {
 
-        File f = new File(Config.get().getString(ConfigDefaults.MOUNT_POINT),
-                            pkg.getPath());
+        String path = pkg.getPath();
+        if (path == null) {
+            return null;
+        }
+        File f = new File(Config.get().getString(ConfigDefaults.MOUNT_POINT), path);
         if (!f.canRead()) {
-                return null;
+            return null;
         }
 
         List<String> cmd = new ArrayList<String>();
