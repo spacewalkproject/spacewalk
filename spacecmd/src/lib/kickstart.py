@@ -2357,4 +2357,48 @@ def do_kickstart_setupdatetype(self, args):
 
         self.client.kickstart.profile.setUpdateType(self.session, label, options.update_type)
 
+####################
+
+def help_kickstart_getsoftwaredetails(self):
+    print 'kickstart_getsoftwaredetails: Gets kickstart profile software details'
+    print 'usage: kickstart_getsoftwaredetails KS_LABEL'
+    print 'usage: kickstart_getsoftwaredetails KS_LABEL KS_LABEL2 ...'
+
+def complete_kickstart_getsoftwaredetails(self, text, line, beg, end):
+    if len(line.split(' ')) <= 1:
+        return tab_completer(self.do_kickstart_list('', True), text)
+
+def do_kickstart_getsoftwaredetails(self, args):
+    (args, _options) = parse_arguments(args)
+
+    if len(args) < 1:
+        self.help_kickstart_getsoftwaredetails()
+        return
+
+    # allow globbing of kickstart labels
+    all_labels = self.do_kickstart_list('', True)
+    labels = filter_results(all_labels, args)
+    logging.debug("Got labels to set the update type %s" % labels)
+
+    if len(labels) == 0:
+        logging.error("No valid kickstart labels passed as arguments!")
+        self.help_kickstart_getsoftwaredetails()
+        return
+
+    for label in labels:
+        if not label in all_labels:
+            logging.error("kickstart label %s doesn't exist!" % label)
+            continue
+
+        software_details = self.client.kickstart.profile.software.getSoftwareDetails(self.session, label)
+
+        if len(labels) == 1:
+            print "noBase:        %s" % software_details.get("noBase")
+            print "ignoreMissing: %s" % software_details.get("ignoreMissing")
+        elif len(labels) > 1:
+            print "Kickstart Label: %s" % label
+            print "noBase:          %s" % software_details.get("noBase")
+            print "ignoreMissing:   %s" % software_details.get("ignoreMissing")
+            print
+
 # vim:ts=4:expandtab:
