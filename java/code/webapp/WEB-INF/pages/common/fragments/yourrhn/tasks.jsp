@@ -86,16 +86,6 @@
           </a>
         </li>
 
-        <rhn:require acl="show_monitoring();"
-          mixins="com.redhat.rhn.common.security.acl.MonitoringAclHandler">
-          <li class="list-group-item">
-            <rhn:icon type="nav-bullet" /> <a
-              href="/rhn/monitoring/ProbeList.do"> <bean:message
-                  key="yourrhn.jsp.tasks.monitoring" />
-            </a>
-          </li>
-        </rhn:require>
-
         <rhn:require acl="user_role(satellite_admin)">
           <li class="list-group-item">
             <rhn:icon type="nav-bullet" /> <a

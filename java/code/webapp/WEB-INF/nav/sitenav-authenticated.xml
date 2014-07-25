@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rhn-navi-tree xmlns:xi="http://www.w3.org/2001/XInclude" label="sitenav" title-depth="0"
-  acl_mixins="com.redhat.rhn.common.security.acl.MonitoringAclHandler">
   <rhn-tab name="Overview" url="/rhn/YourRhn.do" active-image="tab-your_rhn-selected.gif" inactive-image="tab-your_rhn.gif">
     <rhn-tab name="Overview" url="/rhn/YourRhn.do"/>
     <rhn-tab name="Your Account" url="/rhn/account/UserDetails.do" >
@@ -246,28 +245,6 @@
       </rhn-tab>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Monitoring" url="/rhn/monitoring/ProbeList.do" active-image="tab-monitoring-selected.gif" inactive-image="tab-monitoring.gif" acl="show_monitoring()">
-    <rhn-tab-directory>/rhn/monitoring/</rhn-tab-directory>
-    <rhn-tab name="Status" acl="show_monitoring()" url="/rhn/monitoring/ProbeList.do">
-       <rhn-tab-directory>/rhn/monitoring/</rhn-tab-directory>
-    </rhn-tab>
-    <rhn-tab name="Scout Config Push" acl="show_monitoring();" url="/network/monitoring/scout/index.pxt" />
-    <rhn-tab name="Notification" acl="show_monitoring()" url="/rhn/monitoring/config/notification/Methods.do">
-      <rhn-tab-url>/rhn/monitoring/config/notification/NotificationMethods.do</rhn-tab-url>
-      <rhn-tab name="Filters" acl="show_monitoring()" url="/rhn/monitoring/config/notification/ActiveFilters.do">
-        <rhn-tab-directory>/rhn/monitoring/config/notification</rhn-tab-directory>
-      </rhn-tab>
-    </rhn-tab>
-    <rhn-tab name="Probe Suites" acl="show_monitoring()" url="/rhn/monitoring/config/ProbeSuites.do">
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteCreate.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteEdit.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteListProbes.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteProbeCreate.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteProbeEdit.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteSystems.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</rhn-tab-url>
-    </rhn-tab>
-  </rhn-tab>
   <rhn-tab name="Admin" url="/rhn/admin/multiorg/Organizations.do" active-image="tab-tools-selected.gif" inactive-image="tab-tools.gif" acl="user_role(satellite_admin)">
     <rhn-tab name="Organizations" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/Organizations.do">
         <rhn-tab-url>/rhn/admin/multiorg/OrgDetails.do</rhn-tab-url>
@@ -309,9 +286,6 @@
       <rhn-tab-url>/internal/satellite/config/restart_in_progress.pxt</rhn-tab-url>
        <rhn-tab name="General" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/config/GeneralConfig.do</rhn-tab-url>
-      </rhn-tab>
-      <rhn-tab name="Monitoring" acl="user_role(satellite_admin); show_scout()">
-        <rhn-tab-url>/rhn/admin/config/MonitoringConfig.do</rhn-tab-url>
       </rhn-tab>
       <rhn-tab name="Certificate" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/config/CertificateConfig.do</rhn-tab-url>

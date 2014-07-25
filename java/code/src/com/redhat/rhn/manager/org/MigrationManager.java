@@ -15,9 +15,6 @@
 package com.redhat.rhn.manager.org;
 
 import com.redhat.rhn.common.security.PermissionException;
-import com.redhat.rhn.domain.monitoring.MonitoringFactory;
-import com.redhat.rhn.domain.monitoring.Probe;
-import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.org.SystemMigration;
@@ -32,10 +29,8 @@ import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.token.TokenFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
-import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.UpdateChildChannelsCommand;
@@ -163,21 +158,6 @@ public class MigrationManager extends BaseManager {
                 server.getOrg(), server, null, null);
         for (ServerSnapshot snapshot : snapshots) {
             ServerFactory.deleteSnapshot(snapshot);
-        }
-
-        // Remove monitoring probe suites:
-        MonitoringManager monMgr = MonitoringManager.getInstance();
-        for (ServerProbeDto dto : monMgr.probesForSystem(user, server, null)) {
-            if (dto.getIsSuiteProbe()) {
-                ProbeSuite suite = MonitoringFactory.lookupProbeSuiteByIdAndOrg(
-                        dto.getProbeSuiteId(), server.getOrg());
-                monMgr.removeServerFromSuite(suite, server, user);
-            }
-            else {
-                Probe probe = MonitoringFactory.lookupProbeByIdAndOrg(
-                        dto.getId(), server.getOrg());
-                MonitoringFactory.deleteProbe(probe);
-            }
         }
 
         SystemManager.removeAllServerEntitlements(server.getId());

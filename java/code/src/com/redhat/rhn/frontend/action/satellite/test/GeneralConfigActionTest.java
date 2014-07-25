@@ -32,8 +32,7 @@ import java.util.Map;
  * @version $Rev: 1 $
  */
 public class GeneralConfigActionTest extends RhnPostMockStrutsTestCase {
-    private static final String TEST_CONFIG_BOOLEAN =
-        ConfigDefaults.WEB_IS_MONITORING_BACKEND;
+    private static final String TEST_CONFIG_BOOLEAN = ConfigDefaults.DISCONNECTED;
 
     public void testTestValue() {
 

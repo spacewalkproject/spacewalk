@@ -2,11 +2,6 @@
 
 <dwr>
     <allow>
-        <create creator="new" javascript="CriticalProbesRenderer">
-            <param name="class"
-                value="com.redhat.rhn.frontend.action.renderers.CriticalProbesRenderer" />
-            <include method="renderAsync" />
-        </create>
         <create creator="new" javascript="CriticalSystemsRenderer">
             <param name="class"
                 value="com.redhat.rhn.frontend.action.renderers.CriticalSystemsRenderer" />
@@ -39,11 +34,6 @@
         </create>
         <create creator="new" javascript="TasksRenderer">
             <param name="class" value="com.redhat.rhn.frontend.action.renderers.TasksRenderer" />
-            <include method="renderAsync" />
-        </create>
-        <create creator="new" javascript="WarningProbesRenderer">
-            <param name="class"
-                value="com.redhat.rhn.frontend.action.renderers.WarningProbesRenderer" />
             <include method="renderAsync" />
         </create>
         <create creator="new" javascript="DWRItemSelector">

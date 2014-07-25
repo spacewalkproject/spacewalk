@@ -29,17 +29,14 @@ public class Pane {
 
     public static final String TASKS = "tasks";
     public static final String CRITICAL_SYSTEMS = "critical-systems";
-    public static final String CRITICAL_PROBES = "critical-probes";
-    public static final String WARNING_PROBES = "warning-probes";
     public static final String SYSTEM_GROUPS = "system-groups-widget";
     public static final String LATEST_ERRATA = "latest-errata";
     public static final String INACTIVE_SYSTEMS = "inactive-systems";
     public static final String PENDING_ACTIONS = "pending-actions";
     public static final String RECENTLY_REGISTERED_SYSTEMS = "recently-registered-systems";
 
-    public static final String[] ALL_PANES = {TASKS, CRITICAL_SYSTEMS, CRITICAL_PROBES,
-        WARNING_PROBES, SYSTEM_GROUPS, LATEST_ERRATA, INACTIVE_SYSTEMS,
-        PENDING_ACTIONS, RECENTLY_REGISTERED_SYSTEMS};
+    public static final String[] ALL_PANES = { TASKS, CRITICAL_SYSTEMS, SYSTEM_GROUPS,
+            LATEST_ERRATA, INACTIVE_SYSTEMS, PENDING_ACTIONS, RECENTLY_REGISTERED_SYSTEMS };
     /**
      * Maps to RHNINFOPANE.LABEL
      * This is more of a label prefix

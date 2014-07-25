@@ -712,12 +712,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Probes">
-        <source>Probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Profiles">
         <source>Profiles</source>
         <context-group name="ctx">
@@ -2427,18 +2421,6 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="toolbar.create.probe">
-        <source>Create Probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="toolbar.delete.probe">
-        <source>Delete Probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="toolbar.delete.user">
         <source>Delete User</source>
         <context-group name="ctx">
@@ -2485,18 +2467,6 @@ available for this kickstart profile to function properly.
         <source>Delete Distribution</source>
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="toolbar.create.probesuite">
-        <source>Create Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="toolbar.create.probesuitesystem">
-        <source>Add Systems to Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.delete.profile">
@@ -3006,12 +2976,6 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">/rhn/schedule/InProgressSystems</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="probesuites.none">
-        <source>No probe suites selected.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="systemgroups.none">
         <source>No system groups selected.</source>
         <context-group name="ctx">
@@ -3023,24 +2987,6 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
       <trans-unit id="systemgroups.edit.successmessage">
         <source>System group {0} updated.</source>
-      </trans-unit>
-      <trans-unit id="probe.empty.status">
-        <source>No status for probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probedetails.graph.noprobedata">
-        <source>NO DATA FOR SELECTED TIME PERIOD AND METRIC</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probedetails.graph.yAxis">
-        <source>Metrics</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
       </trans-unit>
       <!-- Errata creation validation errors -->
       <trans-unit id="product">
@@ -3195,55 +3141,6 @@ user before attempting to deactivate their account.</source>
         <source>No patches selected.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchList</context>
-        </context-group>
-      </trans-unit>
-      <!-- Probe Edit -->
-      <trans-unit id="probeeditaction.minute">
-        <source>1 minute</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeeditaction.minutes">
-        <source>{0} minutes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeeditaction.hour">
-        <source>1 hour</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeeditaction.hours">
-        <source>{0} hours</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeedit.probesdeleted">
-        <source>Successfully deleted {0} probe(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeedit.probedeleted">
-        <source>Probe &lt;strong&gt;{0}&lt;/strong&gt; deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeedit.probesaved">
-        <source>System Probe &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probecreate.created">
-        <source>Probe &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="timetag.lastcheckin">
@@ -3406,132 +3303,6 @@ user before attempting to deactivate their account.</source>
                                              for workstation3.</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Probe Suites">
-        <source>Probe Suites</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeSuiteEdit.success">
-        <source>Probe Suite {0} updated</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeSuiteCreate.success">
-        <source>Probe Suite {0} created</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteCreate.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="suite_name">
-        <source>Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteCreate.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.systemsadded">
-        <source>Systems added to Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.systemsdeleted">
-        <source>{0} system(s) deleted from Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.systemsdetached">
-        <source>{0} system(s) detached from Probe Suite.  You may now edit the probes directly against the Systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.addprobesfirst">
-        <source>Please add Probes to the Suite before adding Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.addsystem">
-        <source>Add systems to probe suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.search">
-        <source>Search for Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.selectasuite">
-        <source>No Probe Suites selected.  Please select a Probe Suite from the list and try again.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.suitesdeleted">
-        <source>{0} Probe Suite(s) deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.jsp.probesdeleted">
-        <source>{0} Probe(s) deleted from suite.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
-        </context-group>
-        <note>Validation errors for probe parameters</note>
-        <trans-unit id="probeparam.mandatory">
-          <source>The parameter {0} is mandatory.</source>
-        </trans-unit>
-        <trans-unit id="probeparam.toolarge">
-          <source>The parameter {0} cannot be larger than {2}, but is {1}.</source>
-        </trans-unit>
-        <trans-unit id="probeparam.toosmall">
-          <source>The parameter {0} must be at least {2}, but is {1}.</source>
-        </trans-unit>
-        <trans-unit id="probeparam.notbetween">
-          <source>The parameter {0} must be between {2} and {3}, but is {1}.</source>
-        </trans-unit>
-        <trans-unit id="probeparam.illegal">
-          <source>The parameter {0} must be {2}, but is {1}.</source>
-        </trans-unit>
-        <trans-unit id="probeparam.threshold.inverted">
-          <source>For the metric {0}, the value for "{1}" must be smaller than the value for "{3}", but the values are {2} and {4}.</source>
-        </trans-unit>
-      </group>
-      <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
-        </context-group>
-        <note>Names for the command parameter data types</note>
-        <trans-unit id="checkbox">
-          <source>an on/off value</source>
-        </trans-unit>
-        <trans-unit id="float">
-          <source>a floating point value</source>
-        </trans-unit>
-        <trans-unit id="generic">
-          <source>a generic value</source>
-        </trans-unit>
-        <trans-unit id="integer">
-          <source>an integer value</source>
-        </trans-unit>
-        <trans-unit id="probestate">
-          <source>a probe state</source>
-        </trans-unit>
-        <trans-unit id="string">
-          <source>string</source>
-        </trans-unit>
-      </group>
       <trans-unit id="General Config">
         <source>General Config</source>
         <context-group name="ctx">
@@ -3636,12 +3407,6 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">com.redhat.rhn.frontend.action.monitoring.notification.FilterEditAction</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="probedit.checklessthannotif">
-        <source>The Notification Interval must be greater than or equal to the Probe Check Interval.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">com.redhat.rhn.frontend.action.systems.monitoring.BaseProbeAction</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="punctuation.colonwithspace">
         <source>: </source>
         <context-group name="ctx">
@@ -3652,12 +3417,6 @@ user before attempting to deactivate their account.</source>
         <source>{0} is already in use. Please enter a different profile name.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probestate.pending">
-        <source>Awaiting Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
         </context-group>
       </trans-unit>
       <trans-unit id="message.serverdeleted.param">

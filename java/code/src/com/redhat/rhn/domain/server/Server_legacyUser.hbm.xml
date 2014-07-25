@@ -163,17 +163,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <key column="server_id"/>
             <one-to-many class="com.redhat.rhn.domain.server.InstalledPackage"/>
         </set>
-        	
-        <joined-subclass name="com.redhat.rhn.domain.server.MonitoredServer"
-            table="RHN_CHECK_PROBE" lazy="true"
-            subselect="SELECT DISTINCT HOST_ID from RHN_CHECK_PROBE">
-            <key column="host_id" unique="true"/>
-            <bag name="probes" cascade="none" table="RHN_CHECK_PROBE" lazy="true">
-                <key column="host_id"/>
-                <many-to-many column="probe_id"
-                    class="com.redhat.rhn.domain.monitoring.ServerProbe"/>
-            </bag>
-        </joined-subclass>
 
         <joined-subclass name="com.redhat.rhn.domain.server.SatelliteServer"
             table="rhnSatelliteInfo">
@@ -271,7 +260,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <![CDATA[select {S.*}
 			           	from rhnServer {S}
 		                     left outer join  rhnSatelliteInfo S_2_ on S.id = S_2_.server_id
-		                     left outer join  rhn_check_probe S_1_ on S.id = S_1_.host_id
 		                     left outer join  rhnProxyInfo S_3_ on S.id = S_3_.server_id
 			           	
 					where S.org_id = :orgId
@@ -301,13 +289,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
      <sql-query name="Server.findInSet">
      <![CDATA[
          select S.*,
-           case when p.host_id is not null then 1
-                when ss.server_id is not null then 2
+           case when ss.server_id is not null then 2
                 when proxy.server_id is not null then 3
                 when S.id is not null then 0 end as clazz_
              from rhnServer S
                      left outer join  rhnSatelliteInfo SS on S.id = SS.server_id
-                     left outer join  rhn_check_probe P on S.id = P.host_id
                      left outer join  rhnProxyInfo proxy on S.id = proxy.server_id
                      inner join rhnSet ST on S.id = st.element
              where

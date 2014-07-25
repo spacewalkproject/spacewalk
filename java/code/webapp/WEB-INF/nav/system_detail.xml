@@ -176,16 +176,6 @@
 
   </rhn-tab>
 
-  <rhn-tab name="Monitoring" acl="show_monitoring(); system_feature(ftr_probes)">
-    <rhn-tab-directory>/rhn/systems/details/probes</rhn-tab-directory>
-    <rhn-tab-url>/rhn/systems/details/probes/ProbesList.do</rhn-tab-url>
-    <rhn-tab-url>/rhn/systems/details/probes/ProbeDetails.do</rhn-tab-url>
-    <rhn-tab-url>/rhn/systems/details/probes/ProbeEdit.do</rhn-tab-url>
-    <rhn-tab-url>/rhn/systems/details/probes/ProbeDelete.do</rhn-tab-url>
-    <rhn-tab-url>/network/systems/details/probes/create.pxt</rhn-tab-url>
-    <rhn-tab-url>/network/systems/details/probes/delete_conf.pxt</rhn-tab-url>
-  </rhn-tab>
-
   <rhn-tab name="Groups" acl="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin)" url="/rhn/systems/details/groups/ListRemove.do">
 
     <rhn-tab name="List / Leave" url="/rhn/systems/details/groups/ListRemove.do"/>

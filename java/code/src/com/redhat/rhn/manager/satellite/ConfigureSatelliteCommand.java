@@ -16,23 +16,14 @@ package com.redhat.rhn.manager.satellite;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
 import com.redhat.rhn.domain.monitoring.config.MonitoringConfigFactory;
-import com.redhat.rhn.domain.monitoring.notification.NotificationFactory;
-import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
-import com.redhat.rhn.domain.monitoring.satcluster.SatClusterFactory;
-import com.redhat.rhn.domain.monitoring.satcluster.SatNode;
-import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.monitoring.ModifyMethodCommand;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -153,19 +144,6 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         }
 
         Executor e = getExecutor();
-        if (keysToBeUpdated.contains(ConfigDefaults.WEB_IS_MONITORING_BACKEND)) {
-            boolean backend = Config.get().getBoolean(
-                    ConfigDefaults.WEB_IS_MONITORING_BACKEND);
-            if (backend) {
-                enableMonitoring();
-            }
-        }
-        if (keysToBeUpdated.contains(ConfigDefaults.WEB_IS_MONITORING_SCOUT)) {
-            boolean scout = Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT);
-            if (scout) {
-                enableMonitoringScout();
-            }
-        }
 
         if (keysToBeUpdated.contains(ConfigDefaults.JABBER_SERVER)) {
             updateHostname();
@@ -231,100 +209,6 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
                 args.toString() + "] got back exit code: " + exitcode;
             logger.error(message);
             throw new RuntimeException(message);
-        }
-    }
-
-    /**
-     * Logic for enabling Monitoring
-     */
-    protected void enableMonitoring() {
-        if (logger.isDebugEnabled()) {
-            logger.debug("enableMonitoring() - start");
-        }
-
-        // Add the MONITORING_ADMIN role
-        this.getUser().getOrg().addRole(RoleFactory.MONITORING_ADMIN);
-
-        Set scouts = this.getUser().getOrg().getMonitoringScouts();
-        //We need to create the SatCluster (the Scout)
-        if (scouts == null || scouts.size() == 0) {
-            SatCluster scout = SatClusterFactory.createSatCluster(getUser());
-            scout.setDescription(LocalizationService.getInstance().
-                    getMessage("scout.default.name"));
-            SatNode node =  SatClusterFactory.createSatNode(getUser(), scout);
-            SatClusterFactory.saveSatCluster(scout);
-            SatClusterFactory.saveSatNode(node);
-
-            // Set the scout shared key so it can be stored out to disk.
-            Config.get().setString(ConfigDefaults.WEB_SCOUT_SHARED_KEY,
-                    node.getScoutSharedKey());
-            ModifyMethodCommand mmc = new ModifyMethodCommand(getUser());
-            mmc.setType(NotificationFactory.TYPE_EMAIL);
-            mmc.setEmail(getUser().getEmail());
-            // This has to be hard coded to en_US because the backend
-            // looks for a method with this name.
-            mmc.setMethodName("Panic Destination");
-            mmc.storeMethod(getUser());
-            //HibernateFactory.getSession().evict(scout);
-            scouts.add(scout);
-        }
-
-
-        Executor e = getExecutor();
-
-        // Write the scout shared key to cluster.ini
-        Map<String, String> optionMap = new HashMap<String, String>();
-        List<String> removals = Collections.<String>emptyList();
-
-        optionMap.put("LocalConfig.0.dbd", "Oracle");
-        optionMap.put("LocalConfig.0.dbname",
-                MonitoringConfigFactory.getDatabaseName());
-        optionMap.put("LocalConfig.0.username",
-                MonitoringConfigFactory.getDatabaseUsername());
-        optionMap.put("LocalConfig.0.password",
-                MonitoringConfigFactory.getDatabasePassword());
-        optionMap.put("smonaddr", "127.0.0.1");
-        optionMap.put("smonfqdn", "localhost");
-        optionMap.put("smontestaddr", "127.0.0.1");
-        optionMap.put("smontestfqdn", "localhost");
-
-        SatCluster c = (SatCluster) scouts.iterator().next();
-        optionMap.put("scoutsharedkey",
-                SatClusterFactory.lookupSatNodeByCluster(c).getScoutSharedKey());
-
-
-        int exitcode = e.execute(getCommandArguments("/etc/rhn/cluster.ini",
-                optionMap, removals));
-        if (exitcode != 0) {
-            String message = "Not able to write to /etc/rhn/cluster.ini, " +
-                "got exit code: " + exitcode +
-                ".  Check that /etc/rhn/cluster.ini exists";
-            logger.error(message);
-            throw new RuntimeException(message);
-        }
-
-        // Setup sensible defaults for the ConfigMacro settings.
-        ConfigMacro cmadmin = MonitoringConfigFactory.
-            lookupConfigMacroByName("RHN_ADMIN_EMAIL");
-        setConfigMacroDefault(cmadmin, getUser().getEmail());
-        ConfigMacro cmmail = MonitoringConfigFactory.
-            lookupConfigMacroByName("MAIL_MX");
-        setConfigMacroDefault(cmmail, "localhost");
-        ConfigMacro cmdom = MonitoringConfigFactory.
-            lookupConfigMacroByName("MDOM");
-        setConfigMacroDefault(cmdom, ConfigDefaults.get().getHostname());
-        ConfigMacro sathostname = MonitoringConfigFactory.
-            lookupConfigMacroByName("RHN_SAT_HOSTNAME");
-        setConfigMacroDefault(sathostname, ConfigDefaults.get().getHostname());
-        ConfigMacro xproto = MonitoringConfigFactory.
-            lookupConfigMacroByName("XPROTO");
-        setConfigMacroDefault(xproto, "https");
-        ConfigMacro port = MonitoringConfigFactory.
-            lookupConfigMacroByName("RHN_SAT_WEB_PORT");
-        setConfigMacroDefault(port, "443");
-
-        if (logger.isDebugEnabled()) {
-            logger.debug("enableMonitoring() - end");
         }
     }
 

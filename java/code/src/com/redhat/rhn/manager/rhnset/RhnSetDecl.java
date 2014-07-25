@@ -21,7 +21,6 @@ import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
-import com.redhat.rhn.frontend.action.monitoring.ProbeSuiteHelper;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -148,26 +147,6 @@ public class RhnSetDecl {
     // set of patches by name_id/evr_id; can not be cleaned
     public static final RhnSetDecl PATCH_REMOVE = make(
             SetLabels.PATCH_REMOVE_SET, SetCleanup.NOOP);
-
-    // set of servers by server_id
-    public static final RhnSetDecl PROBE_SUITE_SYSTEMS = make(
-            "probe_suite_systems_list", SetCleanup.UNOWNED_SERVERS);
-
-    // set of servers by server_id
-    public static final RhnSetDecl PROBE_SUITE_SYSTEMS_EDIT = make(
-            "probe_suite_systems_edit_list", SetCleanup.UNOWNED_SERVERS);
-
-    // set of probe suites to delete
-    public static final RhnSetDecl PROBE_SUITES_TO_DELETE = make(
-            ProbeSuiteHelper.DELETE_SUITES_LIST_NAME, SetCleanup.UNOWNED_SUITES);
-
-    // set of probes to delete
-    public static final RhnSetDecl PROBES_TO_DELETE = make(
-            "probe_delete_list", SetCleanup.NOOP);
-
-    // set of probe suites to delete
-    public static final RhnSetDecl SUITE_PROBES_TO_DELETE = make(
-            ProbeSuiteHelper.DELETE_PROBES_LIST_NAME, SetCleanup.NOOP);
 
     // set of servers by server_id
     public static final RhnSetDecl SYSTEMS = make(SetLabels.SYSTEM_LIST,
@@ -338,9 +317,6 @@ public class RhnSetDecl {
 
     public static final RhnSetDecl DELETABLE_PACKAGE_LIST = make(
             "deletable_package_list", SetCleanup.NOOP);
-
-    public static final RhnSetDecl SCOUT_LIST = make("scout_list",
-            SetCleanup.NOOP);
 
     public static final RhnSetDecl REMOVEABLE_SYSTEM_LIST = make(
             "removable_system_list", SetCleanup.NOOP);

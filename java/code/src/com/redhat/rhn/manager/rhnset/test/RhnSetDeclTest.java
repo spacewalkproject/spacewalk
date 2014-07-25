@@ -14,10 +14,6 @@
  */
 package com.redhat.rhn.manager.rhnset.test;
 
-import com.redhat.rhn.domain.monitoring.notification.Filter;
-import com.redhat.rhn.domain.monitoring.notification.test.FilterTest;
-import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
-import com.redhat.rhn.domain.monitoring.suite.test.ProbeSuiteTest;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -52,22 +48,11 @@ public class RhnSetDeclTest extends RhnBaseTestCase {
         super.tearDown();
     }
 
-    public void testFilterExpire() throws Exception {
-        Filter testF = FilterTest.createTestFilter(user, "setDesc");
-        testBadAndGoodIds(RhnSetDecl.FILTER_EXPIRE, testF.getId());
-    }
-
-    public void testSuiteDelete() throws Exception {
-        ProbeSuite s = ProbeSuiteTest.createTestProbeSuite(user);
-        testBadAndGoodIds(RhnSetDecl.PROBE_SUITES_TO_DELETE, s.getId());
-    }
-
     public void testGetUnownedSystems() throws Exception {
         user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
         Server s = ServerFactoryTest.createTestServer(user, true);
-        testBadAndGoodIds(RhnSetDecl.PROBE_SUITE_SYSTEMS_EDIT,
-                s.getId());
+        testBadAndGoodIds(RhnSetDecl.VIRTUAL_SYSTEMS, s.getId());
     }
 
     private void testBadAndGoodIds(RhnSetDecl declIn, Long goodId) throws Exception {

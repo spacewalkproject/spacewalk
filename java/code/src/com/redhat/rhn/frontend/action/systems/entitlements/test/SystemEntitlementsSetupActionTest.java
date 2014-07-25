@@ -14,11 +14,8 @@
  */
 package com.redhat.rhn.frontend.action.systems.entitlements.test;
 
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.org.OrgFactory;
-import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
@@ -178,35 +175,6 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
-    }
-
-    private void setupMonitoring() {
-        user.addPermanentRole(RoleFactory.MONITORING_ADMIN);
-        user.addPermanentRole(RoleFactory.ORG_ADMIN);
-        user.getOrg().getEntitlements().add(
-            OrgFactory.lookupEntitlementByLabel("rhn_monitor"));
-        Config.get().setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "1");
-    }
-
-
-    /**
-     *
-     * @throws Exception throws exception if createServerTest fails
-     */
-    public void testMonitoring() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(user);
-        final ServerGroup provisioning = ServerGroupTest.createTestServerGroup(
-                                user.getOrg(),
-                                ServerConstants.getServerGroupTypeProvisioningEntitled());
-        ServerFactory.save(server);
-
-        SystemManager.addServerToServerGroup(server, provisioning);
-        setupMonitoring();
-        executeTests();
-        assertNotNull(request.getAttribute(
-            SystemEntitlementsSetupAction.SHOW_MONITORING));
-        assertNotNull(request.getAttribute(
-            SystemEntitlementsSetupAction.MONITORING_COUNTS_MESSAGE));
     }
 
     /**

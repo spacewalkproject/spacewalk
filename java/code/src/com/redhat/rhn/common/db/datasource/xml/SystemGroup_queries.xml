@@ -12,23 +12,6 @@
                               FROM rhnServerFeaturesView SFV
                               WHERE SFV.server_id = SGM.server_id
                                     AND SFV.label = 'ftr_system_grouping')) AS  SERVER_COUNT,
-    (SELECT CASE MAX(CASE PS.state
-        WHEN 'OK' THEN 1
-        WHEN 'PENDING' THEN 2
-        WHEN 'UNKNOWN' THEN 3
-        WHEN 'WARNING' THEN 4
-        WHEN 'CRITICAL' THEN 5 END)
-    WHEN 1 THEN 'OK'
-    WHEN 2 THEN 'PENDING'
-    WHEN 3 THEN 'UNKNOWN'
-    WHEN 4 THEN 'WARNING'
-    WHEN 5 THEN 'CRITICAL' END ST
-        FROM rhn_probe_state PS,
-        rhnServerGroupMembership SGM LEFT OUTER JOIN rhn_check_probe CP
-            ON SGM.server_id = CP.host_id
-          WHERE  PS.probe_id = CP.probe_id
-            AND  SGM.group_id = UMSG.server_group_id
-         GROUP BY SGM.group_id) MONITORING_STATUS,
         (SELECT CASE MAX(CASE E.advisory_type
             WHEN 'Security Advisory' THEN 3
             WHEN 'Bug Fix Advisory' THEN 2

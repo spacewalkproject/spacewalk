@@ -106,7 +106,6 @@
                             </html:submit>
                         </div>
                     </div>
-                    <html:hidden property="suite_id" value="${probeSuite.id}"/>
                     <html:hidden property="submitted" value="true"/>
                 </html:form>
             </div>

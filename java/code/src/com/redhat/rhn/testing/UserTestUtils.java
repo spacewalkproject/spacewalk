@@ -17,9 +17,6 @@ package com.redhat.rhn.testing;
 
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
-import com.redhat.rhn.domain.monitoring.satcluster.SatClusterFactory;
-import com.redhat.rhn.domain.monitoring.satcluster.SatNode;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.Role;
@@ -84,23 +81,7 @@ public class UserTestUtils extends Assert {
         Address addr1 = createTestAddress(usr);
         usr = UserFactory.saveNewUser(usr, addr1, orgId);
         assertTrue(usr.getId().longValue() > 0);
-        addMonitoringScoutOrg(usr);
         return usr.getId();
-    }
-
-    /**
-     * Add a Monitoring Scout to the org associated with the User passed in.
-     * @param usr to add a Monitoring scout to their org.
-     */
-    public static void addMonitoringScoutOrg(User usr) {
-        // Setup the Monitoring data for the new org.
-        SatCluster scout = SatClusterFactory.createSatCluster(usr);
-        scout.setDescription(LocalizationService.getInstance().
-                getMessage("scout.default.name"));
-        SatNode node =  SatClusterFactory.createSatNode(usr, scout);
-        SatClusterFactory.saveSatCluster(scout);
-        SatClusterFactory.saveSatNode(node);
-        usr.getOrg().getMonitoringScouts().add(scout);
     }
 
     /**

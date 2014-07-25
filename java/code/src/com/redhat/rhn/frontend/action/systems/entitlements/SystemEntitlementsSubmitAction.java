@@ -30,7 +30,6 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.manager.monitoring.ScoutConfigPushCommand;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -408,13 +407,7 @@ public class SystemEntitlementsSubmitAction extends
 
         String prefix = getSetDecl().getLabel() + ".provisioning";
         log.debug("prefix: " + prefix);
-        if (ent.equals(EntitlementManager.MONITORING)) {
-            // Need to push the scout configs as well.
-            ScoutConfigPushCommand cmd = new ScoutConfigPushCommand(user);
-            cmd.store();
-            prefix = getSetDecl().getLabel() + ".monitoring";
-        }
-        else if (ent.equals(EntitlementManager.VIRTUALIZATION) ||
+        if (ent.equals(EntitlementManager.VIRTUALIZATION) ||
                 ent.equals(EntitlementManager.VIRTUALIZATION_PLATFORM)) {
             prefix = getSetDecl().getLabel() + "." + ent.getLabel();
         }

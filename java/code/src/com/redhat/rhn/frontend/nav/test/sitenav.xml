@@ -6,17 +6,6 @@
 		active-image="tab-sign_in-selected.gif"
 		inactive-image="tab-sign_in.gif">
 	</rhn-tab>
-    <rhn-tab name="Monitoring" url="/network/monitoring/index.pxt" active-image="tab-monitoring-selected.gif" inactive-image="tab-monitoring.gif" acl="show_monitoring()">
-    <rhn-tab name="Probe Suites" url="/rhn/monitoring/config/ProbeSuites.do">
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteCreate.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteEdit.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteListProbes.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteProbeCreate.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteProbeEdit.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteSystems.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</rhn-tab-url>
-    </rhn-tab>
-  </rhn-tab>
 	<rhn-tab name="About Spacewalk" url="/help/about.pxt"
 		active-image="tab-about_rhn-selected.gif"
 		inactive-image="tab-about_rhn.gif" >

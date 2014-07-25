@@ -17,11 +17,7 @@ package com.redhat.rhn.frontend.xmlrpc.proxy;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
-import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
-import com.redhat.rhn.domain.monitoring.satcluster.SatClusterFactory;
-import com.redhat.rhn.domain.monitoring.satcluster.SatNode;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
@@ -34,7 +30,6 @@ import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.log4j.Logger;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,44 +41,6 @@ import java.util.List;
  */
 public class ProxyHandler extends BaseHandler {
     private static Logger log = Logger.getLogger(ProxyHandler.class);
-
-    /**
-     * Create Monitoring Scout for proxy.
-     * @param clientcert client certificate of the system.
-     * @return string - scout shared key on success,
-     *      empty string if system is not proxy (scout is not created)
-     * @throws MethodInvalidParamException thrown if certificate is invalid.
-     * @since 10.7
-     *
-     * @xmlrpc.doc Create Monitoring Scout for proxy.
-     * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
-     * @xmlrpc.returntype string
-     */
-    public String createMonitoringScout(String clientcert)
-        throws MethodInvalidParamException {
-        Server server = validateClientCertificate(clientcert);
-        if (server.isProxy()) {
-            User owner = server.getCreator();
-
-            SatCluster scout = SatClusterFactory.createSatCluster(owner);
-            scout.setDescription("Proxy" + " " +
-                        server.getHostname() +
-                        " (" + server.getId() + ")");
-            scout.setVip(server.getIpAddress());
-            scout.setVip6(server.getIp6Address());
-
-            SatNode node =  SatClusterFactory.createSatNode(owner, scout);
-            node.setServer(server);
-            node.setLastUpdateUser(owner.getLogin());
-            node.setLastUpdateDate(new Date());
-
-            SatClusterFactory.saveSatCluster(scout);
-            SatClusterFactory.saveSatNode(node);
-
-            return node.getScoutSharedKey();
-        }
-        return "";
-    }
 
     /**
      * Test, if the system identified by the given client certificate, is proxy.

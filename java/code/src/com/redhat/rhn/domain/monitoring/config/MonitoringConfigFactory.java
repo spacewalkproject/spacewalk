@@ -17,7 +17,6 @@ package com.redhat.rhn.domain.monitoring.config;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.domain.monitoring.notification.ContactGroup;
 
 import org.apache.log4j.Logger;
 
@@ -87,14 +86,6 @@ public class MonitoringConfigFactory extends HibernateFactory {
      */
     public static void saveConfigMacro(ConfigMacro cIn) {
         singleton.saveObject(cIn);
-    }
-
-    /**
-     *
-     * @return The Panic Destination for this Sat
-     */
-    public static ContactGroup lookupPanicDestination() {
-        return null;
     }
 
     /**

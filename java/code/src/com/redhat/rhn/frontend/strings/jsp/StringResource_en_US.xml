@@ -968,30 +968,6 @@
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="preferences.critical-probes.name">
-        <source>Monitoring Status - Critical Probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="preferences.critical-probes.description">
-        <source> A preview of probes that are in critical state.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="preferences.warning-probes.name">
-        <source>Monitoring Status - Warning Probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="preferences.warning-probes.description">
-        <source> A preview of probes that are in a warning state.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="preferences.system-groups-widget.name">
         <source>System Groups</source>
         <context-group name="ctx">
@@ -5222,7 +5198,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
-          <context context-type="sourcefile">/rhn/monitoring/ProbeList</context>
         </context-group>
       </trans-unit>
       <trans-unit id="systemlist.jsp.channel">
@@ -5348,36 +5323,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="systemlist.jsp.probecritical">
-        <source>Critical probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="systemlist.jsp.probewarning">
-        <source>Warning probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="systemlist.jsp.probeunknown">
-        <source>Unknown probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="systemlist.jsp.probepending">
-        <source>Pending probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="systemlist.jsp.probeok">
-        <source>OK</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
       </trans-unit>
       <trans-unit id="outofdatelist.jsp.header">
@@ -5686,9 +5631,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="Child Software Channels">
           <source>Child Software Channels</source>
-        </trans-unit>
-        <trans-unit id="Monitoring Probes">
-          <source>Monitoring Probes</source>
         </trans-unit>
         <trans-unit id="Software Entitlements">
           <source>Software Entitlements</source>
@@ -6232,79 +6174,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
       </trans-unit>
-      <!-- probedatails.jsp -->
-      <trans-unit id="probedetails.jsp.eventlog">
-        <source>Event Log:</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.graph">
-        <source>Graph:</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.editsuiteprobe">
-        <source>edit suite probe</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.editthisprobe">
-        <source>edit this probe</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.currentstate">
-        <source>Probe Current State</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.probe">
-        <source>Probe:</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.status">
-        <source>Status:</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.last_update">
-        <source>Last update:</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.start_date">
-        <source>Start date:</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.end_date">
-        <source>End date:</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.metrics">
-        <source>Metrics:</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.show_graph">
-        <source>Show graph:</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.show_event_log">
-        <source>Show event log:</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.generate_report">
-        <source>Generate report</source>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.timestamp">
-        <source>Timestamp</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.state">
-        <source>State</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
-          <context context-type="sourcefile">/rhn/monitoring/ProbesList.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.message">
-        <source>Message</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.noevents">
-        <source>No events this period</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probedetails.jsp.noselection">
-        <source>You probably want to select at least one of 'Show graph' or 'Show event log'.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
-        </context-group>
       </trans-unit>
       <!-- Monitoring General Config Page -->
       <trans-unit id="generalconfig.jsp.header1">
@@ -6492,12 +6361,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       </trans-unit>
       <!-- PROBE EDIT PAGE -->
-      <trans-unit id="probeedit.jsp.editprobe">
-        <source>Edit System Probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="download.jsp.header">
         <source>Download Packages</source>
         <context-group name="ctx">
@@ -6532,115 +6395,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <source>You may schedule the package upgrades to take place as soon as possible, or no sooner than a specified time:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/VerifyConfirm.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeedit.jsp.probecommand">
-        <source>Probe Command</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeedit.jsp.satclusterdesc">
-        <source>Monitoring Scout</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeedit.jsp.commandrequirements">
-        <source>Probe Requirements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeedit.jsp.versionsupport">
-        <source>Supported Versions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeedit.jsp.description">
-        <source>Probe Description</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeedit.jsp.notification">
-        <source>Probe Notifications</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeedit.jsp.notifmin">
-        <source>Notification Interval</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeedit.jsp.notifmethod">
-        <source>Notification Method</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probeedit.jsp.checkinterval">
-        <source>Probe Check Interval</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probedit.jsp.updateprobe">
-        <source>Update Probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <!-- Probe Deletion -->
-      <trans-unit id="probdelete.jsp.header">
-        <source> System Probe Deletion</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probdelete.jsp.multiple">
-        <source>This will delete selected probes &lt;strong&gt;permanently&lt;/strong&gt; from this system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probdelete.jsp.p1">
-        <source>This will delete the probe &lt;strong&gt;permanently&lt;/strong&gt; from this system and will remove all Time Series and State Change data associated with this probe from the database.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probdelete.jsp.p2">
-        <source>If you are uncertain about performing this action, please &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt;review the details&lt;/a&gt; for this probe.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probdelete.jsp.p3">
-        <source>Otherwise, confirm the immediate deletion of this system probe by clicking the button below.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probdelete.jsp.p4">
-        <source>Please click the button only once; it will take a few moments for the deletion process to complete.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probdelete.jsp.deleteprobes">
-        <source>Delete Probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probdelete.jsp.deleteprobe">
-        <source>Delete Probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="schedule.jsp.at">
@@ -6695,305 +6449,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <source>Update Package List</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/Packages.do</context>
-        </context-group>
-      </trans-unit>
-      <!-- Probe Suites -->
-      <trans-unit id="probesuitesremoveconfirm.jsp.header1">
-        <source>Probe Suites</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuitesRemoveConfirm.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesremoveconfirm.jsp.header2">
-        <source>Confirm Probe Suites deletion.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuitesRemoveConfirm.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesremoveconfirm.jsp.summary">
-        <source>Are you sure you want to delete these Probe Suites?  &lt;strong&gt;WARNING: Deleting these Probe Suites will delete all the probes defined within them, all the probes assigned to the systems and all of the associated Time Series and Event history.&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuitesRemoveConfirm.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesremoveconfirm.jsp.deleteprobesuites">
-        <source>Delete Probe Suites</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuitesRemoveConfirm.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesremoveconfirm.jsp.nothingselected">
-        <source>No Probe Suites selected. Please use the back button in your browser and select some Probe Suites.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuitesRemoveConfirm.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.name">
-        <source>Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.description">
-        <source>Description</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.system_count">
-        <source>Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.header1">
-        <source>Probe Suites</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.header2">
-        <source>Probe Suites Configuration.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.summary">
-        <source>Probe Suites allows you to apply a set of pre-configured service probes to a system or systems. This is helpful when you have many systems to monitor using the same probes Making changes to the suite automatically applies to the system or systems to which they are defined. Multiple probe suites can be applied to a system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.access">
-        <source>You can only access Probe Suites that contain systems that you have access to. Probe Suites that contain at least one system that you are not allowed to access are shown in the list but can't be accessed by you. Speak with your Org Admin if you need to access those suites.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.deleteprobesuites">
-        <source>Delete Probe Suites</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.nosuites">
-        <source>No Probe Suites defined.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.deleteprobesuite">
-        <source>Delete Probe Suites</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitecreate.jsp.header">
-        <source>Create Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteCreate.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitecreate.jsp.header1">
-        <source>Create a new Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteCreate.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitecreate.jsp.createsuite">
-        <source>Create Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuiteedit.jsp.header">
-        <source>Edit Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuiteedit.jsp.suitename">
-        <source>Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuiteedit.jsp.description">
-        <source>Description</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuiteedit.jsp.updatesuite">
-        <source>Update Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuiteedit.jsp.header1">
-        <source>Edit {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.jsp.header1">
-        <source>Probes in {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteListProbes.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.jsp.header2">
-        <source>Probes in this suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteListProbes.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.jsp.deleteprobe">
-        <source>Delete probes from Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteListProbes.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.jsp.noprobes">
-        <source>There are no probes in this suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteListProbes.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.jsp.probe_description">
-        <source>Probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteListProbes.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.jsp.command_description">
-        <source>Command</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteListProbes.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probe-create.jsp.header1">
-        <source>Create a probe for suite {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probe-create.jsp.header2">
-        <source>Create a new probe for this suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probe-edit.jsp.header1">
-        <source>Edit probe {0} for suite {1}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probe-edit.jsp.header2">
-        <source>Edit an existing probe for this suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probecreate.jsp.probecommandgroup">
-        <source>Command group</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probecreate.jsp.createprobe">
-        <source>Create probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probecreate.jsp.probecommand">
-        <source>Command</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.header1">
-        <source>Add systems to Probe Suite: {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.summary">
-        <source>This list displays Monitoring entitled systems that have not yet been added to the Suite.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.monscouttouse">
-        <source>Monitoring Scout for Systems added to this Suite:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.systemname">
-        <source>System Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.nosystems">
-        <source>&lt;p&gt;&amp;nbsp;&lt;/p&gt;No more Systems available that are Monitoring Entitled.  Add Monitoring Entitlement to systems you wish to use with Probe Suites.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystems.jsp.header1">
-        <source>Edit {0}'s systems assigned</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystems.jsp.header2">
-        <source>Edit the systems that are assigned to the suite.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystems.jsp.summary">
-        <source>Add and remove systems to this Probe Suite.  Each system will have the Probes in this Suite assigned to it.  Detaching changes the suite of probes to be independent probes that can be configured specific to the system they are monitoring.  Detached probes cannot be re-attached to the Suite.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystems.jsp.state">
-        <source>State</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystems.jsp.system">
-        <source>System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystems.jsp.removesystem">
-        <source>Remove System(s) from Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystems.jsp.detachsystem">
-        <source>Detach System(s) from Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probesuitesystems.jsp.nosystems">
-        <source>No systems added to suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="message.remotecommandbefore.remove">
@@ -7508,42 +6963,6 @@ organization management tools if you choose to remove this role from your login.
           <context context-type="sourcefile">NOTFILLEDOUT</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="probes-list-legend.jsp.title">
-        <source>Probe State Legend</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with Probes listed</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes-list-legend.jsp.ok">
-        <source>OK</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with Probes listed</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes-list-legend.jsp.warning">
-        <source>Warning</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with Probes listed</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes-list-legend.jsp.critical">
-        <source>Critical</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with Probes listed</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes-list-legend.jsp.unknown">
-        <source>Unknown</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with Probes listed</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes-list-legend.jsp.pending">
-        <source>Pending</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with Probes listed</context>
-        </context-group>
-      </trans-unit>
       <!-- Notification Filters -->
       <trans-unit id="filters.jsp.header1">
         <source>Notification Filters</source>
@@ -7732,12 +7151,6 @@ organization management tools if you choose to remove this role from your login.
           <context context-type="sourcefile">/rhn/monitoring/config/notification/FilterCreate.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="filter-form.jspf.probe">
-        <source>Probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/notification/FilterCreate.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="filter-form.jspf.orgs">
         <source>Organization</source>
         <context-group name="ctx">
@@ -7746,18 +7159,6 @@ organization management tools if you choose to remove this role from your login.
       </trans-unit>
       <trans-unit id="filter-form.jspf.scouts">
         <source>Scouts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/notification/FilterCreate.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="filter-form.jspf.probes">
-        <source>Probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/notification/FilterCreate.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="filter-form.jspf.probe_states">
-        <source>Probes in state</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/notification/FilterCreate.do</context>
         </context-group>
@@ -7972,109 +7373,6 @@ organization management tools if you choose to remove this role from your login.
         <source>The errata listed below will be cloned. Once they are cloned, they will appear in your &lt;a href="{0}"&gt;unpublished errata list&lt;/a&gt;. From there you can verify the text and associated packages for each erratum. Once you are ready, you can publish the errata so they are available to users in your organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/CloneConfirm.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitoring.status.ok">
-        <source>Probe(s) assigned to system have an OK status</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with Probes listed</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitoring.status.warn">
-        <source>Probe(s) assigned to system have a WARNING status</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with Probes listed</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitoring.status.unknown">
-        <source>Probe(s) assigned to system have an UNKNOWN status</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with Probes listed</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitoring.status.pending">
-        <source>Probe(s) assigned to system have a PENDING status</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with Probes listed</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitoring.status.critical">
-        <source>Probe(s) assigned to system have a CRITICAL status</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with Probes listed</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.index.jsp.summary">
-        <source>This list shows the Probes that are assigned to this system.  This list includes individual System Probes as well as Probes that are part of Probe Suites used by this System.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.groups.jsp.summary">
-        <source>This list shows the Probes that are assigned to systems in this system group.  This list includes individual System Probes as well as Probes that are part of Probe Suites used by this System.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/groups/ProbesList.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.index.jsp.description">
-        <source>Probe Description</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
-          <context context-type="sourcefile">/rhn/monitoring/ProbeList.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.index.jsp.status">
-        <source>Status String</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.index.jsp.type">
-        <source>Type</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.index.jsp.suite">
-        <source>Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.index.jsp.suiteedit">
-        <source>Click here to edit the Suite Probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.index.jsp.systemedit">
-        <source>Click here to edit the System Probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.index.jsp.system">
-        <source>System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.index.jsp.noprobes">
-        <source>No probes assigned to this system.  Click the "Create Probe" link above to add a Probe to this system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.groups.jsp.noprobes">
-        <source>No probes assigned to this system group.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/groups/ProbesList.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="probes.index.jsp.toolbar">
-        <source>Configured Monitoring Probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="applyerrata.disclaimer">

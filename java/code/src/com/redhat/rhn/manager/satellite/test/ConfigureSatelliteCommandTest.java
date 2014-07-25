@@ -19,17 +19,13 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
 import com.redhat.rhn.domain.monitoring.config.MonitoringConfigFactory;
-import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.satellite.ConfigureSatelliteCommand;
 import com.redhat.rhn.manager.satellite.Executor;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -140,90 +136,6 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         assertEquals(8, cmdargs.length);
         assertNull(cmd.storeConfiguration());
         assertEquals(0, cmd.getKeysToBeUpdated().size());
-    }
-
-    public void testEnableMonitoring() throws Exception {
-        Config.get().setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND,
-                Boolean.FALSE.toString());
-
-        // Delete the Scout so we can have the script re-set it up.
-        if (user.getOrg().getMonitoringScouts() != null &&
-                user.getOrg().getMonitoringScouts().size() != 0) {
-            SatCluster cluster = (SatCluster)
-                user.getOrg().getMonitoringScouts().iterator().next();
-
-            TestUtils.removeObject(cluster);
-            flushAndEvict(cluster);
-            flushAndEvict(user.getOrg());
-            user = (User) reload(user);
-            assertEquals(0, user.getOrg().getMonitoringScouts().size());
-            assertEquals(0, user.getNotificationMethods().size());
-
-        }
-
-        List configMacros = MonitoringConfigFactory.lookupConfigMacros(true);
-        Iterator i = configMacros.iterator();
-        while (i.hasNext()) {
-            ConfigMacro cm = (ConfigMacro) i.next();
-            cm.setDefinition("**" + cm.getName().toUpperCase() + "**");
-            MonitoringConfigFactory.saveConfigMacro(cm);
-            flushAndEvict(cm);
-        }
-
-        cmd = new ConfigureSatelliteCommand(user) {
-            protected Executor getExecutor() {
-                return new TestExecutor();
-            }
-        };
-        cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, Boolean.TRUE);
-        assertNull(cmd.storeConfiguration());
-        assertTrue(Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND));
-        Long uid = user.getId();
-        flushAndEvict(user.getOrg());
-        flushAndEvict(user);
-        User orgAdmin = UserFactory.lookupById(uid);
-        assertTrue(orgAdmin.getOrg().getMonitoringScouts() != null);
-        assertEquals(1, orgAdmin.getOrg().getMonitoringScouts().size());
-        // Make sure we created the gritch dest
-        assertEquals(1, orgAdmin.getNotificationMethods().size());
-        assertNotNull(Config.get().getString(ConfigDefaults.WEB_SCOUT_SHARED_KEY));
-        ConfigMacro cm = MonitoringConfigFactory.lookupConfigMacroByName("MAIL_MX");
-        assertFalse(cm.getDefinition().startsWith("**"));
-        assertFalse(cm.getDefinition().endsWith("**"));
-        assertTrue(user.getOrg().hasRole(RoleFactory.MONITORING_ADMIN));
-        user.addPermanentRole(RoleFactory.ORG_ADMIN);
-        assertTrue(user.hasRole(RoleFactory.MONITORING_ADMIN));
-        user.removePermanentRole(RoleFactory.ORG_ADMIN);
-    }
-
-    public void testDisableMonitoring() throws Exception {
-        cmd = new ConfigureSatelliteCommand(user) {
-            protected Executor getExecutor() {
-                return new TestExecutor();
-            }
-        };
-        cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, Boolean.TRUE);
-        assertNull(cmd.storeConfiguration());
-        assertTrue(Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND));
-
-        cmd = new ConfigureSatelliteCommand(user) {
-            protected Executor getExecutor() {
-                return new TestExecutor();
-            }
-        };
-        cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, Boolean.FALSE);
-        assertFalse(Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND));
-    }
-
-    public void testEnableMonitoringScout() throws Exception {
-        cmd = new ConfigureSatelliteCommand(user) {
-            protected Executor getExecutor() {
-                return new TestExecutor();
-            }
-        };
-        cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT, Boolean.TRUE);
-        assertNull(cmd.storeConfiguration());
-        assertTrue(Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT));
     }
 
     public void testUpdateHostname() throws Exception {

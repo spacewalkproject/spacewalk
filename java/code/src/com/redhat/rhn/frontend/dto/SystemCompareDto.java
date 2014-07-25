@@ -18,8 +18,6 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.entitlement.Entitlement;
-import com.redhat.rhn.domain.monitoring.ServerProbe;
-import com.redhat.rhn.domain.server.MonitoredServer;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
@@ -295,25 +293,6 @@ public class SystemCompareDto {
                 }
             }
 
-            ret.add(keys);
-        }
-        return compareList(ret, idMap);
-    }
-
-    /**
-     * Returns a list of (monitoring probes per system)
-     * @return a list of monitoring probes per system
-     */
-    public List<List<Item>> getMonitoringProbes() {
-        List<List> ret = new LinkedList<List>();
-        Map <String, String> idMap = new HashMap<String, String>();
-        for (Server system : servers) {
-            List keys = new LinkedList();
-            if (system instanceof MonitoredServer) {
-                for (ServerProbe probe : ((MonitoredServer)system).getProbes()) {
-                    keys.add(probe.getDescription());
-                }
-            }
             ret.add(keys);
         }
         return compareList(ret, idMap);

@@ -1316,25 +1316,6 @@ ORDER BY  UPPER(COALESCE(SERVER_NAME, '(none)')), SERVER_ID
 GROUP BY ACR.server_id
 </query>
 
-<query name="system_monitoring" params="">
-  SELECT CP.host_id AS id,
-    CASE MAX(CASE PS.state
-        WHEN 'OK' THEN 1
-        WHEN 'PENDING' THEN 2
-        WHEN 'UNKNOWN' THEN 3
-        WHEN 'WARNING' THEN 4
-        WHEN 'CRITICAL' THEN 5 END)
-      WHEN 1 THEN 'OK'
-      WHEN 2 THEN 'PENDING'
-      WHEN 3 THEN 'UNKNOWN'
-      WHEN 4 THEN 'WARNING'
-      WHEN 5 THEN 'CRITICAL' END MONITORING_STATUS
-  FROM rhn_check_probe CP, rhn_probe_state PS
-  WHERE  PS.probe_id = CP.probe_id
-    AND CP.host_id IN (%s)
-  GROUP BY CP.host_id
-</query>
-
 <query name="is_virtual_guest" params="">
 SELECT vi.virtual_system_id as ID, 1 as virtual_guest FROM rhnVirtualInstance vi WHERE vi.virtual_system_id in (%s)
 </query>

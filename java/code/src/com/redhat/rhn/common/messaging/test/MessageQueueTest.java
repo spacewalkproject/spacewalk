@@ -15,25 +15,14 @@
 
 package com.redhat.rhn.common.messaging.test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
-import org.hibernate.Transaction;
 
 import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.WriteMode;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.common.LoggingFactory;
-import com.redhat.rhn.domain.monitoring.ServerProbe;
-import com.redhat.rhn.domain.monitoring.test.MonitoringFactoryTest;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.TestUtils;
-import com.redhat.rhn.testing.UserTestUtils;
 
 public class MessageQueueTest extends RhnBaseTestCase {
 
@@ -99,56 +88,6 @@ public class MessageQueueTest extends RhnBaseTestCase {
         assertTrue(true);
         logger.debug("testMultiThreadedPublish - end");
 
-    }
-
-    /**
-     * Test to make sure that Events process after the publisher's DB transaction
-     * is complete.  Need to make sure this is the case because caller's may be
-     * writing things to the DB that need to complete before the MessageQueue
-     * thread can process them.
-     *
-     * @throws Exception
-     */
-    public void xXXtestDatabaseTransactionHandling() throws Exception {
-        // XXX: Committing transactions that involve users has far-reaching effects!
-        // XXX: DON'T DO IT!!
-        logger.debug("testDatabaseTransactionHandling - start");
-        // === START TXN ===
-        Transaction t = HibernateFactory.getSession().getTransaction();
-        String testString = TestUtils.randomString();
-        TestDBEventMessage me = new TestDBEventMessage(t, testString);
-
-        MessageQueue.publish(me);
-        assertFalse(me.getMessageReceived());
-
-        //create probe first
-        user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        ServerProbe probe = (ServerProbe) MonitoringFactoryTest.createTestProbe(user);
-
-        WriteMode m = ModeFactory.getWriteMode("test_queries",
-            "insert_into_time_series");
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("entry_time", new Long(1));
-        params.put("data", testString);
-        params.put("probe_desc", "hmmm");
-        params.put("probe_id", probe.getId());
-        params.put("org_id", user.getOrg().getId());
-        m.executeUpdate(params);
-        commitAndCloseSession();
-        committed = true;
-
-        // === END TXN ===
-        boolean finished = false;
-        for (int i = 0; i < 1000; i++) {
-            if (me.getMessageReceived()) {
-                finished = true;
-                break;
-            }
-            Thread.sleep(100);
-        }
-        assertTrue(finished);
-        logger.debug("testDatabaseTransactionHandling - end");
     }
 
 

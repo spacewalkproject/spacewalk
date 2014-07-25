@@ -63,10 +63,6 @@ public class ConfigDefaults {
 
     public static final String NON_EXPIRABLE_PACKAGE_URLS = "non_expirable_package_urls";
 
-    public static final String WEB_IS_MONITORING_SCOUT = "web.is_monitoring_scout";
-
-    public static final String WEB_IS_MONITORING_BACKEND = "web.is_monitoring_backend";
-
     public static final String SATELLITE_PARENT = "server.satellite.rhn_parent";
 
     public static final String JABBER_SERVER = "server.jabber_server";
@@ -385,24 +381,6 @@ public class ConfigDefaults {
         return Config.get().getInt(VIRT_CPU, 1);
     }
 
-
-    /**
-     * Check to see if monitoring scout functionality is enabled
-     *
-     * @return true if scout is enabled
-     */
-    public boolean isMonitoringScout() {
-        return Config.get().getBoolean(WEB_IS_MONITORING_SCOUT);
-    }
-
-    /**
-     * Check to see if monitoring backend functionality is enabled
-     *
-     * @return true if backend is enabled
-     */
-    public boolean isMonitoringBackend() {
-        return Config.get().getBoolean(WEB_IS_MONITORING_BACKEND);
-    }
 
     /**
      * Return <code>true</code> if SSL is available for web traffic.

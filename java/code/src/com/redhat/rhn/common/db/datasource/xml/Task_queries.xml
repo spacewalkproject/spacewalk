@@ -224,42 +224,6 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
    </query>
 </write-mode>
 
-<write-mode name="taskomatic_time_series_data_cleanup">
-   <query params="">
-        DELETE
-          FROM time_series_data tsd
-         WHERE tsd.probe_id in (
-               SELECT tsp.id
-                 FROM time_series_purge tsp
-                WHERE tsp.deleted = 1
-         )
-   </query>
-</write-mode>
-
-<write-mode name="taskomatic_state_change_cleanup">
-   <query params="">
-        DELETE
-          FROM state_change sc
-         WHERE sc.o_id in (
-               SELECT tsp.id || ''
-                 FROM time_series_purge tsp
-                WHERE tsp.deleted = 1
-         )
-   </query>
-</write-mode>
-
-<write-mode name="taskomatic_probe_state_cleanup">
-   <query params="">
-        DELETE
-          FROM rhn_probe_state rps
-         WHERE rps.probe_id in (
-               SELECT tsp.id
-                 FROM time_series_purge tsp
-                WHERE tsp.deleted = 1
-         )
-   </query>
-</write-mode>
-
 <write-mode name="taskomatic_package_changelog_cleanup">
    <query params="">
 <!-- DISTINCT makes the DELETE faster for postgresql (no difference for oracle) -->
@@ -267,12 +231,6 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
         WHERE id NOT IN ( SELECT DISTINCT changelog_data_id FROM rhnPackageChangeLogRec )
    </query>
 </write-mode>
-
-<callable-mode name="synchprobestate_synch_proc">
-   <query params="">
-      { call rhn_synch_probe_state() }
-   </query>
-</callable-mode>
 
 <callable-mode name="taskomatic_session_cleanup">
    <query params="bound, commit_interval, batch_size, sessions_deleted">
