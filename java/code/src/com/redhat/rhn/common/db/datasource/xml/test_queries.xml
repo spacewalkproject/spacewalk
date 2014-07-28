@@ -414,13 +414,6 @@ SELECT u.created as CREATED
   </query>
 </write-mode>
 
-<write-mode name="insert_into_state_change">
-  <query params="oid, entry_time, data">
-  INSERT INTO STATE_CHANGE(O_ID, ENTRY_TIME, DATA)
-      VALUES(:oid, :entry_time, :data)
-  </query>
-</write-mode>
-
 <write-mode name="insert_into_rhnServerPackage">
   <query params="server_id, pn_id, p_epoch, p_version, p_release">
 INSERT
