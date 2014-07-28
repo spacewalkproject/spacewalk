@@ -37,6 +37,7 @@ REPORTS_DIR = 'exports'
 SUPPORTED_ENTITIES = {
         'activation-keys' : 'Activation keys',
         'channels'        : 'Custom/cloned channels and repositories for all organizations',
+        'config-files'    : 'Latest revision of all configuration files',
         'repositories'    : 'Defined repositories',
         'system-groups'   : 'System-groups for all organizations',
         'users'           : 'Users and Organizations'
@@ -48,6 +49,7 @@ SUPPORTED_ENTITIES = {
 #
 REPORT_TO_ORG = {
         'activation-keys' : 'org_id',
+        'config-files'    : 'org_id',
         'channels'        : 'org_id',
         'repositories'    : 'org_id',
         'system-groups'   : 'org_id',
@@ -240,6 +242,11 @@ def repositoriesDump(options):
                         '-f', '{0}/{1}/{2}'.format(options.export_dir, REPORTS_DIR, repo_tarname),
                         repo_basename])
         handle.close()
+    return
+
+def configfilesDump(options):
+    logging.info('Processing config-files...')
+    _issueReport(options, 'config-files-latest')
     return
 
 def prepareExport(options):
