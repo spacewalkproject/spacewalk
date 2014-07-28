@@ -81,11 +81,13 @@ public class PackageManager extends BaseManager {
 
     // Valid dependency types
     public static final String[]
-        DEPENDENCY_TYPES = {"requires", "conflicts", "obsoletes", "provides"};
+        DEPENDENCY_TYPES = {"requires", "conflicts", "obsoletes", "provides",
+            "recommends", "suggests", "supplements", "enhances"};
 
 
     private static final String[]
         CLEANUP_QUERIES = {"requires", "provides", "conflicts", "obsoletes",
+            "recommends", "suggests", "supplements", "enhances",
             "channels", "files", "caps", "changelogs"};
 
     /**
@@ -148,6 +150,65 @@ public class PackageManager extends BaseManager {
         return dr;
     }
 
+    /**
+     * Runs Package_queries.package_recommends query, which returns dependencies of the
+     * recommends type.
+     * @param pid The package in question
+     * @return Returns dependencies of type recommends.
+     */
+    public static DataResult packageRecommends(Long pid) {
+        SelectMode m = ModeFactory.getMode("Package_queries", "package_recommends",
+                                           Map.class);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("pid", pid);
+        DataResult dr = m.execute(params);
+        return dr;
+    }
+
+    /**
+     * Runs Package_queries.package_suggests query, which returns dependencies of the
+     * suggests type.
+     * @param pid The package in question
+     * @return Returns dependencies of type suggests.
+     */
+    public static DataResult packageSuggests(Long pid) {
+        SelectMode m = ModeFactory.getMode("Package_queries", "package_suggests",
+                                           Map.class);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("pid", pid);
+        DataResult dr = m.execute(params);
+        return dr;
+    }
+
+    /**
+     * Runs Package_queries.package_supplements query, which returns dependencies of the
+     * supplements type.
+     * @param pid The package in question
+     * @return Returns dependencies of type supplements.
+     */
+    public static DataResult packageSupplements(Long pid) {
+        SelectMode m = ModeFactory.getMode("Package_queries", "package_supplements",
+                                           Map.class);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("pid", pid);
+        DataResult dr = m.execute(params);
+        return dr;
+    }
+
+    /**
+     * Runs Package_queries.package_enhances query, which returns dependencies of the
+     * enhances type.
+     * @param pid The package in question
+     * @return Returns dependencies of type enhances.
+     */
+    public static DataResult packageEnhances(Long pid) {
+        SelectMode m = ModeFactory.getMode("Package_queries", "package_enhances",
+                                           Map.class);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("pid", pid);
+        DataResult dr = m.execute(params);
+        return dr;
+    }
 
     /**
      * List the package in a channel (for the web UI lists)

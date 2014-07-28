@@ -277,6 +277,10 @@ public class PackagesHandler extends BaseHandler {
      *           #item("conflicts")
      *           #item("obsoletes")
      *           #item("provides")
+     *           #item("recommends")
+     *           #item("suggests")
+     *           #item("supplements")
+     *           #item("enhances")
      *         #options_end()
      *       #prop("string", "dependency_modifier")
      *     #struct_end()
@@ -389,6 +393,18 @@ public class PackagesHandler extends BaseHandler {
         }
         else if (type.equals("conflicts")) {
             return PackageManager.packageConflicts(pkg.getId());
+        }
+        else if (type.equals("recommends")) {
+            return PackageManager.packageRecommends(pkg.getId());
+        }
+        else if (type.equals("suggests")) {
+            return PackageManager.packageSuggests(pkg.getId());
+        }
+        else if (type.equals("supplements")) {
+            return PackageManager.packageSupplements(pkg.getId());
+        }
+        else if (type.equals("enhances")) {
+            return PackageManager.packageEnhances(pkg.getId());
         }
         return null;
     }

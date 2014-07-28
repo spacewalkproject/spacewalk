@@ -171,6 +171,54 @@ ORDER BY UPPER(X.name), X.version
   </query>
 </mode>
 
+<mode name="package_recommends">
+  <query params="pid">
+select * from (
+SELECT  DISTINCT C.name, C.version, P.sense
+  FROM  rhnPackageCapability C, rhnPackageRecommends P
+ WHERE  P.package_id = :pid
+   AND  P.capability_id = C.id
+) X
+ORDER BY UPPER(X.name), X.version
+  </query>
+</mode>
+
+<mode name="package_suggests">
+  <query params="pid">
+select * from (
+SELECT  DISTINCT C.name, C.version, P.sense
+  FROM  rhnPackageCapability C, rhnPackageSuggests P
+ WHERE  P.package_id = :pid
+   AND  P.capability_id = C.id
+) X
+ORDER BY UPPER(X.name), X.version
+  </query>
+</mode>
+
+<mode name="package_supplements">
+  <query params="pid">
+select * from (
+SELECT  DISTINCT C.name, C.version, P.sense
+  FROM  rhnPackageCapability C, rhnPackageSupplements P
+ WHERE  P.package_id = :pid
+   AND  P.capability_id = C.id
+) X
+ORDER BY UPPER(X.name), X.version
+  </query>
+</mode>
+
+<mode name="package_enhances">
+  <query params="pid">
+select * from (
+SELECT  DISTINCT C.name, C.version, P.sense
+  FROM  rhnPackageCapability C, rhnPackageEnhances P
+ WHERE  P.package_id = :pid
+   AND  P.capability_id = C.id
+) X
+ORDER BY UPPER(X.name), X.version
+  </query>
+</mode>
+
 <mode name="package_files">
   <query params="pid">
 SELECT C.name,
@@ -217,6 +265,38 @@ ORDER BY UPPER(C.name)
   <query params="pid">
     DELETE from
     rhnPackageObsoletes
+    where package_id = :pid
+  </query>
+</write-mode>
+
+<write-mode name="cleanup_package_recommends">
+  <query params="pid">
+    DELETE from
+    rhnPackageRecommends
+    where package_id = :pid
+  </query>
+</write-mode>
+
+<write-mode name="cleanup_package_suggests">
+  <query params="pid">
+    DELETE from
+    rhnPackageSuggests
+    where package_id = :pid
+  </query>
+</write-mode>
+
+<write-mode name="cleanup_package_supplements">
+  <query params="pid">
+    DELETE from
+    rhnPackageSupplements
+    where package_id = :pid
+  </query>
+</write-mode>
+
+<write-mode name="cleanup_package_enhances">
+  <query params="pid">
+    DELETE from
+    rhnPackageEnhances
     where package_id = :pid
   </query>
 </write-mode>
