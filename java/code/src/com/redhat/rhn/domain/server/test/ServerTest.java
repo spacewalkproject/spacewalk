@@ -70,7 +70,6 @@ public class ServerTest extends BaseTestCaseWithUser {
     }
 
     public void testIsEntitlementAllowed() throws Exception {
-        UserTestUtils.addMonitoring(user.getOrg());
         UserTestUtils.addProvisioning(user.getOrg());
         UserTestUtils.addVirtualizationPlatform(user.getOrg());
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);

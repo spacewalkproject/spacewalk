@@ -4070,6 +4070,12 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="probedetails.jsp.start_date">
+        <source>Start date:</source>
+      </trans-unit>
+      <trans-unit id="probedetails.jsp.end_date">
+        <source>End date:</source>
+      </trans-unit>
       <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsage">
         <source>Entitlement Usage</source>
         <context-group name="ctx">
@@ -5611,8 +5617,8 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="System Identity Properties">
           <source>System Identity Properties</source>
         </trans-unit>
-        <trans-unit id="System Content And Monitoring">
-          <source>System Content And Monitoring</source>
+        <trans-unit id="System Content">
+          <source>System Content</source>
         </trans-unit>
         <trans-unit id="Extended System Identity Properties">
           <source>Extended System Identity Properties</source>

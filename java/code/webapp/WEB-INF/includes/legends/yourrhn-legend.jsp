@@ -17,9 +17,6 @@
     <li><rhn:icon type="action-pending" /><bean:message key="system-legend.jsp.pending" /></li>
     <li><rhn:icon type="action-failed" /><bean:message key="yourrhn-legend.jsp.failedactions" /></li>
     <li><rhn:icon type="action-ok" /><bean:message key="yourrhn-legend.jsp.completedactions" /></li>
-    <rhn:require acl="show_monitoring();" mixins="com.redhat.rhn.common.security.acl.MonitoringAclHandler">
-      <li><rhn:icon type="monitoring-status" /><bean:message key="system-legend.jsp.monitoring" /></li>
-    </rhn:require>
     <li><rhn:icon type="errata-security" /><bean:message key="errata-legend.jsp.security" /></li>
     <li><rhn:icon type="errata-bugfix" /><bean:message key="errata-legend.jsp.bugfix" /></li>
     <li><rhn:icon type="errata-enhance" /><bean:message key="errata-legend.jsp.enhancement" /></li>

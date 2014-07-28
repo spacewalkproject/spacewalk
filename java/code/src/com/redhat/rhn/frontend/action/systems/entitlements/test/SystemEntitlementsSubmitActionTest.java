@@ -162,9 +162,9 @@ public class SystemEntitlementsSubmitActionTest extends RhnPostMockStrutsTestCas
     }
 
     private EntitlementServerGroup  findGroupOfType(ServerGroupType type) {
-        for (Iterator itr = user.getOrg().getEntitledServerGroups().iterator();
-                                                        itr.hasNext();) {
-            EntitlementServerGroup grp = (EntitlementServerGroup) itr.next();
+        for (Iterator<EntitlementServerGroup> itr = user.getOrg().getEntitledServerGroups()
+                .iterator(); itr.hasNext();) {
+            EntitlementServerGroup grp = itr.next();
             if (type.equals(grp.getGroupType())) {
                 return grp;
             }
@@ -388,41 +388,6 @@ public class SystemEntitlementsSubmitActionTest extends RhnPostMockStrutsTestCas
                 "provisioning",
                 EntitlementManager.PROVISIONING,
                ServerConstants.getServerGroupTypeProvisioningEntitled());
-    }
-
-
-    /**
-     *
-     * @throws Exception on server init failure
-     */
-    public void testAddMonitoringForUpdate() throws Exception {
-        testAddOnForUpdate("monitoring_entitled",
-            "monitoring",
-            EntitlementManager.MONITORING,
-            ServerConstants.getServerGroupTypeMonitoringEntitled());
-    }
-
-    /**
-     *
-     * @throws Exception on server init failure
-     */
-    public void testAddMonitoringForManagement() throws Exception {
-        testAddOnForManagement("monitoring_entitled",
-            "monitoring",
-            EntitlementManager.MONITORING,
-            ServerConstants.getServerGroupTypeMonitoringEntitled());
-    }
-
-    /**
-     *
-     * @throws Exception on server init failure
-     */
-    public void testRemoveMonitoringForManagement() throws Exception {
-        testRemoveAddOnForManagement("monitoring_entitled",
-                "monitoring",
-                EntitlementManager.MONITORING,
-               ServerConstants.getServerGroupTypeMonitoringEntitled());
-
     }
 
     /**

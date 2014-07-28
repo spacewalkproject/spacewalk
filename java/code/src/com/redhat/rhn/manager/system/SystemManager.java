@@ -1563,25 +1563,6 @@ public class SystemManager extends BaseManager {
      * @return deproxified server.
      */
     public static Server deactivateProxy(Server server) {
-        Long sid = server.getId();
-
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("server_id", sid);
-
-        executeWriteMode("Monitoring_queries",
-                "delete_probe_states_from_server", params);
-        executeWriteMode("Monitoring_queries",
-                "delete_deployed_probes_from_server", params);
-        executeWriteMode("Monitoring_queries",
-                "delete_probes_from_server", params);
-        executeWriteMode("Monitoring_queries",
-                "delete_sat_cluster_for_server", params);
-
-        // At this point we have the deletes happening
-        // in write mode. So our server which is a hibernate
-        // object is NOT in sync and so we have to refresh
-        // for it to work....
-        HibernateFactory.getSession().refresh(server);
         ServerFactory.deproxify(server);
 
         Set<Channel> channels = server.getChannels();

@@ -75,9 +75,6 @@ public class Org extends BaseDomainHelper {
     private Set<IssSlave> allowedToSlaves;
     private Token token;
 
-    private Set monitoringScouts;
-    private Set contactGroups;
-
     private OrgConfig orgConfig;
 
     /**
@@ -446,40 +443,6 @@ public class Org extends BaseDomainHelper {
             userIds.add(bd);
         }
         return userIds;
-    }
-
-    /**
-     * Gets the com.redhat.rhn.domain.monitoring.satcluster.SatClusters
-     * associated with this Org. Null if there are none or is not a Monitoring
-     * Sat.
-     * @return Set of SatClusters (Monitoring Scouts) associated with Org
-     */
-    public Set getMonitoringScouts() {
-        return monitoringScouts;
-    }
-
-    /**
-     * Sets the monitoring Scouts for this Org.
-     * @param monitoringScoutsIn the new set of Monitoring scouts
-     */
-    public void setMonitoringScouts(Set monitoringScoutsIn) {
-        this.monitoringScouts = monitoringScoutsIn;
-    }
-
-    /**
-     * Get the Set of com.redhat.rhn.domain.monitoring.notification.ContactGroup
-     * objects associated with this Org.
-     * @return Set of ContactGroups
-     */
-    public Set getContactGroups() {
-        return contactGroups;
-    }
-
-    /**
-     * @param contactGroupsIn The contactGroups to set.
-     */
-    protected void setContactGroups(Set contactGroupsIn) {
-        this.contactGroups = contactGroupsIn;
     }
 
     /**

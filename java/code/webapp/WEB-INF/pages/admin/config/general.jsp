@@ -120,16 +120,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-3 control-label" for="web|is_monitoring_backend">
-                            <bean:message key="general.jsp.monitoring_backend"/>
-                        </label>
-                        <div class="col-lg-6">
-                            <div class="checkbox">
-                                <html:checkbox property="web|is_monitoring_backend" styleId="is_monitoring_backend" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <div class="col-lg-offset-3 col-lg-6">
                             <html:submit styleClass="btn btn-success">
                                 <bean:message key="config.update"/>

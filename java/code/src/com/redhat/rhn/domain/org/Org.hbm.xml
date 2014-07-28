@@ -40,16 +40,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.org.CustomDataKey" />
         </set>
 
-        <set name="monitoringScouts" lazy="true" cascade="none"  >
-            <key column="customer_id" />
-            <one-to-many class="com.redhat.rhn.domain.monitoring.satcluster.SatCluster" />
-        </set>
-
-        <set name="contactGroups" lazy="true" cascade="all"  >
-            <key column="customer_id" />
-            <one-to-many class="com.redhat.rhn.domain.monitoring.notification.ContactGroup" />
-        </set>
-
         <set name="trustedOrgs" access="field" table="rhnTrustedOrgs" outer-join="true" cascade="all" lazy="true">
           <key column="org_id" />
           <many-to-many column="org_trust_id" outer-join="true" class="com.redhat.rhn.domain.org.Org" />

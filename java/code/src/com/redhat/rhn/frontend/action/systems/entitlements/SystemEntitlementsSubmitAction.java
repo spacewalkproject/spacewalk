@@ -253,10 +253,7 @@ public class SystemEntitlementsSubmitAction extends
         String entType = form
         .getString(SystemEntitlementsSetupAction.ADDON_ENTITLEMENT);
 
-        if (EntitlementManager.MONITORING_ENTITLED.equals(entType)) {
-            return EntitlementManager.MONITORING;
-        }
-        else if (EntitlementManager.PROVISIONING_ENTITLED.equals(entType)) {
+        if (EntitlementManager.PROVISIONING_ENTITLED.equals(entType)) {
             return EntitlementManager.PROVISIONING;
         }
         else if (EntitlementManager.VIRTUALIZATION_ENTITLED.equals(entType)) {
@@ -498,8 +495,7 @@ public class SystemEntitlementsSubmitAction extends
     private boolean checkSolarisFailure(Long sid, Entitlement ent, User user) {
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         if (server.isSolaris()) {
-            return EntitlementManager.MONITORING.equals(ent) ||
-                      EntitlementManager.VIRTUALIZATION.equals(ent) ||
+            return EntitlementManager.VIRTUALIZATION.equals(ent) ||
                       EntitlementManager.VIRTUALIZATION_PLATFORM.equals(ent);
         }
         return false;

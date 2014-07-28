@@ -182,7 +182,6 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
             // noop
         }
         user.addPermanentRole(RoleFactory.SAT_ADMIN);
-        user.addPermanentRole(RoleFactory.MONITORING_ADMIN);
         cmd = new ConfigureSatelliteCommand(user);
         assertNotNull(cmd);
     }

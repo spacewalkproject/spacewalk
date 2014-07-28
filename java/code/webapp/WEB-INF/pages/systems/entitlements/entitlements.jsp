@@ -140,12 +140,6 @@
 	              <td><bean:message key="provisioning_entitled"/>:</td>
 	        	  <td>${requestScope.provisioningCountsMessage}</td>
 	    	</tr>
-		   <c:if test="${requestScope.showMonitoring}">
-		    	<tr>
-		              <td><bean:message key="monitoring_entitled"/>:</td>
-		        	  <td>${requestScope.monitoringCountsMessage}</td>
-		    	</tr>
-	    	</c:if>
 	    	<tr>
 	    		<td><bean:message key="virtualization_host"/>:</td>
 	       		<td>${requestScope.virtualizationCountsMessage}</td>

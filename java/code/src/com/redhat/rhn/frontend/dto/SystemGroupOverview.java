@@ -28,7 +28,6 @@ public class SystemGroupOverview extends BaseDto {
     private Long serverCount;
     private Date modified;
     private Long maxMembers;
-    private String monitoringStatus;
     private String mostSevereErrata;
 
 
@@ -127,20 +126,6 @@ public class SystemGroupOverview extends BaseDto {
      */
     public void setServerCount(Long serverCountIn) {
         this.serverCount = serverCountIn;
-    }
-
-    /**
-     * @return Returns the monitoringStatus.
-     */
-    public String getMonitoringStatus() {
-        return monitoringStatus;
-    }
-
-    /**
-     * @param monitoringStatusIn The monitoringStatus to set.
-     */
-    public void setMonitoringStatus(String monitoringStatusIn) {
-        this.monitoringStatus = monitoringStatusIn;
     }
 
 }

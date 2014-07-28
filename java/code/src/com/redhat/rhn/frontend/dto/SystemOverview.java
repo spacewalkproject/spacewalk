@@ -56,7 +56,6 @@ public class SystemOverview extends BaseDto implements Serializable  {
     private Date lastCheckin;
     private Date created;
     private Long locked;
-    private String monitoringStatus;
     private String name;
     private List status;
     private List actionId;
@@ -402,18 +401,6 @@ public class SystemOverview extends BaseDto implements Serializable  {
      */
     public void setServerName(String serverNameIn) {
         this.serverName = serverNameIn;
-    }
-    /**
-     * @return Returns the monitoringStatus.
-     */
-    public String getMonitoringStatus() {
-        return monitoringStatus;
-    }
-    /**
-     * @param statIn The monitoringStatus to set.
-     */
-    public void setMonitoringStatus(String statIn) {
-        this.monitoringStatus = statIn;
     }
     /**
      * @return Returns the name.

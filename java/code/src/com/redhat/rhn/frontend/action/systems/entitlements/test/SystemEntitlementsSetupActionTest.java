@@ -48,7 +48,6 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
 
         setRequestPathInfo("/systems/SystemEntitlements");
         UserTestUtils.addManagement(user.getOrg());
-        UserTestUtils.addMonitoring(user.getOrg());
         UserTestUtils.addVirtualization(user.getOrg());
     }
     /**
@@ -63,7 +62,6 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
                 SystemEntitlementsSetupAction.SHOW_UPDATE_ASPECTS));
         assertNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_NO_SYSTEMS));
         assertNotNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_COMMANDS));
-        assertNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_MONITORING));
 
         assertNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_ADDON_ASPECTS));
         assertNull(request.getAttribute(SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));

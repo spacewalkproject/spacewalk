@@ -104,10 +104,4 @@ public class RoleFactory extends HibernateFactory {
      * The constant representing activation_key_admin
      */
     public static final Role ACTIVATION_KEY_ADMIN = lookupByLabel("activation_key_admin");
-
-    /**
-     * The constant representing monitoring_admin
-     */
-    public static final Role MONITORING_ADMIN = lookupByLabel("monitoring_admin");
-
 }

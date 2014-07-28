@@ -237,11 +237,6 @@ public class SystemDetailsEditAction extends RhnAction {
             success = false;
         }
         else if (checkSolarisFailure(validAddons,
-                        EntitlementManager.MONITORING, daForm, s)) {
-            handleSolarisError(request, EntitlementManager.MONITORING);
-            success = false;
-        }
-        else if (checkSolarisFailure(validAddons,
                 EntitlementManager.VIRTUALIZATION, daForm, s)) {
             handleSolarisError(request, EntitlementManager.VIRTUALIZATION);
             success = false;
@@ -441,7 +436,7 @@ public class SystemDetailsEditAction extends RhnAction {
     }
 
     private void handleSolarisError(HttpServletRequest request, Entitlement e) {
-        log.debug("Solaris Machine can't accept monitoring slotes.");
+        log.debug("Solaris Machine can't accept virtualization slotes.");
 
         ValidatorError err = new ValidatorError(
                 "system.entitle.no-add.solaris-slots", e.getHumanReadableLabel());

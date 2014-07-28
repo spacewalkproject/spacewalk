@@ -194,25 +194,6 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
     }
 
 
-
-    private void enableMonitoringScout() {
-        // Enable monitoring cron
-        Executor e = getExecutor();
-        List args = new LinkedList();
-        args.add("/usr/bin/sudo");
-        args.add("/etc/rc.d/np.d/step");
-        args.add("MonitoringScout");
-        args.add("install");
-        int exitcode = e.execute((String[]) args.toArray(new String[0]));
-        if (exitcode != 0) {
-            String message = "Not able to execute: [" +
-                args.toString() + "] got back exit code: " + exitcode;
-            logger.error(message);
-            throw new RuntimeException(message);
-        }
-    }
-
-
     // Util to set the ConfigMacro.definition field to a default value
     // if its set to the **DEFAULT** value that the records start
     // out in when the schema is initialized.

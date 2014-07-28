@@ -29,7 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * ProbeSuitesRemoveActionTest
+ * PreservationListDeleteActionTest
  * @version
  */
 public class PreservationListDeleteActionTest extends RhnBaseTestCase {

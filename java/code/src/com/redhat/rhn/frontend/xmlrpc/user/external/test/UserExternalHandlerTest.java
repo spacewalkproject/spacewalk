@@ -33,9 +33,8 @@ import java.util.Set;
 public class UserExternalHandlerTest extends BaseHandlerTestCase {
 
     private UserExternalHandler handler = new UserExternalHandler();
-    private static List<String> roles = Arrays.asList(
-            RoleFactory.SYSTEM_GROUP_ADMIN.getLabel(),
-            RoleFactory.MONITORING_ADMIN.getLabel());
+    private static List<String> roles = Arrays.asList(RoleFactory.SYSTEM_GROUP_ADMIN
+            .getLabel());
 
     public void testExternalGroupToRoleMap() {
         String name = "My External Group Name" + TestUtils.randomString();

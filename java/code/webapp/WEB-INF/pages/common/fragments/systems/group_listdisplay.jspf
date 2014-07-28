@@ -46,9 +46,6 @@
 		</rl:column>
 
 
-       <%@ include file="monitoring_status_groups.jspf" %>
-
-
   	   <!--Name Column -->
 		<rl:column sortable="true"
 				   bound="false"
@@ -96,7 +93,7 @@
 </rl:list>
 <rl:csv dataset="pageList"
 	        name="groupList"
-	        exportColumns="id, name, groupAdmins, serverCount, monitoringStatus" />
+	        exportColumns="id, name, groupAdmins, serverCount" />
 <div class="text-right">
   <hr />
 	<input class="btn btn-default" type="submit" name="union" value="${rhn:localize('grouplist.jsp.union')}" />

@@ -361,11 +361,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
                 new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
         assertEquals(1, result);
 
-        systemEnt = EntitlementManager.MONITORING_ENTITLED;
-        result = handler.setSystemEntitlements(admin,
-                new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
-        assertEquals(1, result);
-
         systemEnt = EntitlementManager.VIRTUALIZATION_ENTITLED;
         result = handler.setSystemEntitlements(admin,
                 new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));

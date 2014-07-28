@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <rhn-navi-tree label="system_detail" invisible="1" formvar="sid ss_id" title-depth="1"
-    acl_mixins="com.redhat.rhn.common.security.acl.SystemAclHandler,com.redhat.rhn.common.security.acl.MonitoringAclHandler">
+    acl_mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
   <rhn-tab name="Details" url="/rhn/systems/details/Overview.do">
     <rhn-tab name="Overview">
 	  <rhn-tab-url>/rhn/systems/details/Overview.do</rhn-tab-url>

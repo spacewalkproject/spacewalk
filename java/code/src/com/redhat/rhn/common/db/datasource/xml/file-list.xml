@@ -18,7 +18,6 @@
     <template name="User_queries" filename="xml/User_queries.xml" />
     <template name="Set_queries" filename="xml/Set_queries.xml" />
     <template name="Org_queries" filename="xml/Org_queries.xml" />
-    <template name="Monitoring_queries" filename="xml/Monitoring_queries.xml" />
     <template name="ssm_operation_queries" filename="xml/ssm_operation_queries.xml" />
     <template name="util_queries" filename="xml/util_queries.xml" />
     <template name="ErrataCache_queries" filename="xml/ErrataCache_queries.xml" />

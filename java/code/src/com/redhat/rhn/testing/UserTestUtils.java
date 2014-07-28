@@ -316,20 +316,6 @@ public class UserTestUtils extends Assert {
     }
 
     /**
-     * Add monitoring to an org
-     * @param orgIn to add to
-     * @throws Exception foo
-     */
-    public static void addMonitoring(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements();
-        ents.add(OrgFactory.getEntitlementMonitoring());
-        EntitlementServerGroup sg =
-            ServerGroupTestUtils.createEntitled(orgIn,
-                    ServerConstants.getServerGroupTypeMonitoringEntitled());
-        incrementSgMaxMembers(sg);
-    }
-
-    /**
      * Add virtualization to an org
      * @param orgIn to add to
      * @throws Exception foo

@@ -30,8 +30,6 @@
 	   			</a>
         	</rl:column>
 
-        	<%@ include file="/WEB-INF/pages/common/fragments/systems/monitoring_status_groups.jspf" %>
-
 			<rl:column headerkey="yourrhn.jsp.systemgroups">
                 <a href="/rhn/groups/GroupDetail.do?sgid=${current.id}">
                 <c:out value="${current.name}"/></a>

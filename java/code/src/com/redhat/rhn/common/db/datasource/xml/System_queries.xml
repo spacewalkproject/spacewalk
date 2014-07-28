@@ -486,7 +486,6 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
   <query name="available_to_user" />
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -496,7 +495,6 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
   <query name="available_to_user_physical_list" />
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -530,7 +528,6 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
   <query name="available_to_user_with_errata" />
   <elaborator name="system_overview_most_critical" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
 </mode>
 
 <query name="available_to_uid" params="formvar_uid">
@@ -668,14 +665,12 @@ ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="in_set" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="in_set" />
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -748,7 +743,6 @@ ORDER BY  UPPER(COALESCE(X.NAME, '(none)')), X.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -769,7 +763,6 @@ ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
 </mode>
@@ -793,7 +786,6 @@ ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -826,7 +818,6 @@ SELECT DISTINCT S.id, S.NAME,
   <query name="having_errata_with_keyword_applied_since_last_reboot_list"/>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -872,7 +863,6 @@ ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -895,7 +885,6 @@ ORDER BY SI.checkin DESC
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
 </mode>
 
@@ -922,7 +911,6 @@ ORDER BY S.created DESC
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -952,7 +940,6 @@ ORDER BY S.created DESC
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
 </mode>
 
@@ -969,7 +956,6 @@ SELECT PI.server_id ID, S.name,
   </query>
   <elaborator name="system_overview"/>
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -1104,7 +1090,6 @@ ORDER BY SP.position
   </query>
   <elaborator name="system_overview"/>
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
 </mode>
 
 <!--     TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS DISPLAY_DATE -->
@@ -1131,7 +1116,6 @@ ORDER BY SP.position
 ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
-  <elaborator name="system_monitoring" />
   <elaborator name="system_config_files_with_diffs" />
 </mode>
 
@@ -1154,7 +1138,6 @@ ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="systems_completed_action" class="com.redhat.rhn.frontend.dto.ActionedSystem">
@@ -1177,7 +1160,6 @@ ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="systems_in_set_with_no_base_channel"  class="com.redhat.rhn.frontend.dto.EssentialServerDto">
@@ -2024,7 +2006,6 @@ ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="extra_packages_systems_count"

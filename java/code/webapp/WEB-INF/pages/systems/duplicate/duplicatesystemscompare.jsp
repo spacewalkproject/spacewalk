@@ -165,9 +165,9 @@
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
 	<tr>
-		<td colspan="${requestScope.systems.size + 1}"><bean:message key="System Content And Monitoring"/> &nbsp;
-			 <a  id='sysContentIdHide' href="javascript:pageToggleRows('sysContentId', ['baseChannelRow', 'childChannelsRow','configChannelsRow','monitoringProbesRow'])"><bean:message key="Click Here To Hide"/> </a>
-			 <a  style="display:none" id='sysContentIdShow' href="javascript:pageToggleRows('sysContentId', ['baseChannelRow', 'childChannelsRow','configChannelsRow','monitoringProbesRow'])"><bean:message key="Click Here To Show"/> </a>
+		<td colspan="${requestScope.systems.size + 1}"><bean:message key="System Content"/> &nbsp;
+			 <a  id='sysContentIdHide' href="javascript:pageToggleRows('sysContentId', ['baseChannelRow', 'childChannelsRow','configChannelsRow'])"><bean:message key="Click Here To Hide"/> </a>
+			 <a  style="display:none" id='sysContentIdShow' href="javascript:pageToggleRows('sysContentId', ['baseChannelRow', 'childChannelsRow','configChannelsRow'])"><bean:message key="Click Here To Show"/> </a>
 	    </td>
 	</tr>
 
@@ -187,12 +187,6 @@
 		<c:set var ="key" value="org.config.channels.jsp"/>
 		<c:set var ="items_list" value="${requestScope.systems.configChannels}"/>
 		<c:set var ="href" value="/rhn/configuration/ChannelOverview.do?ccid="/>
-		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
-	</tr>
-	<tr class="list-row-even" id="monitoringProbesRow">
-		<c:set var ="key" value="Monitoring Probes"/>
-		<c:set var ="items_list" value="${requestScope.systems.monitoringProbes}"/>
-		<c:set var ="href" value=""/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
 	<tr>

@@ -54,7 +54,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
 
     public static final String SHOW_COMMANDS = "showCommands";
 
-    public static final String SHOW_MONITORING = "showMonitoring";
     public static final String SHOW_MANAGEMENT_ASPECTS = "showManagementAspects";
     public static final String SHOW_UPDATE_ASPECTS = "showUpdateAspects";
 
@@ -72,8 +71,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         "virtualizationCountsMessage";
     public static final String VIRTUALIZATION_PLATFORM_COUNTS_MESSAGE =
         "virtualizationPlatformCountsMessage";
-
-    public static final String MONITORING_COUNTS_MESSAGE = "monitoringCountsMessage";
 
     /**
      * {@inheritDoc}
@@ -117,7 +114,7 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         }
 
         // Virt is an addon to update so just check to make sure we
-        // have virt.  This is different from provisioning and monitoring
+        // have virt.
         if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementVirtualization())) {
             log.debug("Adding virt-entitled droplist entry");
             addOnEntitlements.add(lvl10n(EntitlementManager.VIRTUALIZATION_ENTITLED,
@@ -138,15 +135,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
                     request, user,
                     EntitlementManager.MANAGEMENT);
 
-
-
-            if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementMonitoring()) &&
-                    hasMonitoringAcl(user, request)) {
-                addOnEntitlements.add(lvl10n("monitoring_entitled",
-                        EntitlementManager.MONITORING_ENTITLED));
-                request.setAttribute(SHOW_MONITORING, Boolean.TRUE);
-                request.setAttribute(SHOW_ADDON_ASPECTS, Boolean.TRUE);
-            }
 
             if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementProvisioning())) {
                 addOnEntitlements.add(lvl10n("provisioning_entitled",
@@ -206,13 +194,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         }
     }
 
-    private boolean hasMonitoringAcl(User user, HttpServletRequest request) {
-        return  (request.getAttribute(SHOW_MONITORING) != null) ||
-        (AclManager.hasAcl("show_monitoring();", user,
-                "com.redhat.rhn.common.security.acl.MonitoringAclHandler",
-                null));
-    }
-
 
     private void setupCounts(HttpServletRequest request, User user) {
         setupCountsMessage(request, user,
@@ -228,12 +209,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
 
         setupCountsMessage(request, user, EntitlementManager.VIRTUALIZATION_PLATFORM,
                 VIRTUALIZATION_PLATFORM_COUNTS_MESSAGE);
-
-        if (hasMonitoringAcl(user, request)) {
-            setupCountsMessage(request, user,
-                    EntitlementManager.MONITORING,
-                    MONITORING_COUNTS_MESSAGE);
-        }
 
         setupCountsMessage(request, user,
                 EntitlementManager.UPDATE,

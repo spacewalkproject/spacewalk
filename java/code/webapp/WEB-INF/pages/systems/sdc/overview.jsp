@@ -55,34 +55,6 @@
           </div>
         </div>
       </c:if>
-
-      <c:if test="${probeListEmpty != 'true'}">
-        <div class="row-0">
-          <div class="col-md-6">
-            <c:choose>
-              <c:when test="${probeList[0].state == 'CRITICAL'}">
-                <rhn:icon type="monitoring-crit" />  <bean:message key="sdc.details.overview.probes.critical" arg0="/rhn/help/reference/en-US/sect-Reference_Guide-Monitoring.jsp"/>
-              </c:when>
-              <c:otherwise>
-                <rhn:icon type="monitoring-warn" />  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en-US/sect-Reference_Guide-Monitoring.jsp"/>
-              </c:otherwise>
-            </c:choose>
-          </div>
-          <div class="col-md-6">
-            <c:forEach items="${probeList}" var="probe">
-              <c:choose>
-                <c:when test="${probe.state == 'CRITICAL'}">
-                  <rhn:icon type="monitoring-crit" />
-                </c:when>
-                <c:otherwise>
-                  <rhn:icon type="monitoring-warn" />
-                </c:otherwise>
-              </c:choose>
-              <a href="/rhn/systems/details/probes/ProbeDetails.do?sid=${system.id}&probe_id=${probe.id}">${probe.description}</a><br/>
-            </c:forEach>
-          </div>
-        </div>
-      </c:if>
     </div>
   </div>
 

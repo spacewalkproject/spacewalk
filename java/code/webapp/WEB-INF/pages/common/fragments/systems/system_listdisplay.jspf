@@ -55,11 +55,6 @@
 		</rl:column>
 		</c:if>
 
-		<c:if test = "${empty noMonitoring and empty extraPackagesMode}">
-		<!-- Health Column -->
-    <%@ include file="monitoring_status_systems.jspf" %>
-		</c:if>
-
 		<c:if test = "${empty noErrata and empty extraPackagesMode}">
 		<!-- errata Column -->
 		<rl:column sortable="false"

@@ -67,8 +67,6 @@ public class ConfigDefaults {
 
     public static final String JABBER_SERVER = "server.jabber_server";
 
-    public static final String WEB_SCOUT_SHARED_KEY = "monitoring.scout_shared_key";
-
     public static final String KICKSTART_HOST = "kickstart_host";
 
     public static final String CONFIG_REVISION_MAX_SIZE = "web.maximum_config_file_size";

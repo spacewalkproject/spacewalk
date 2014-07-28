@@ -207,18 +207,6 @@ public interface User {
      */
     Set getStateChanges();
 
-    /**
-     * Set the notification method set.
-     * @param methodsIn notification methods
-     */
-    void setNotificationMethods(Set methodsIn);
-
-    /**
-     * Get the notification methods set
-     * @return Set notification methods
-     */
-    Set getNotificationMethods();
-
 
 
     // ******************************************

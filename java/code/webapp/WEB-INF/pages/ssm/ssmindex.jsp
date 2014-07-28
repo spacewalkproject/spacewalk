@@ -137,7 +137,7 @@
                         <rhn:require acl="org_entitlement(rhn_provisioning)">
                             <li><bean:message key="ssm.overview.misc.customvalues"/></li>
                         </rhn:require>
-                        <rhn:require acl="user_role(org_admin);org_entitlement(rhn_provisioning) or org_entitlement(rhn_monitor)">
+                        <rhn:require acl="user_role(org_admin);org_entitlement(rhn_provisioning)">
                             <li><bean:message key="ssm.overview.misc.entitlements"/></li>
                         </rhn:require>
                         <li><bean:message key="ssm.overview.misc.delete"/></li>

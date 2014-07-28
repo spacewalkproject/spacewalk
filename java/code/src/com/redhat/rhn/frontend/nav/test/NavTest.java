@@ -149,11 +149,11 @@ public class NavTest extends RhnBaseTestCase {
             NavDigester.buildTree(TestUtils.findTestData("sitenav.xml"));
 
         NavTreeIndex nti = new NavTreeIndex(nt);
-        String lastPath = "/rhn/systems/details/probes/ProbeDetails.do";
-        String curPath = "/rhn/monitoring/config/ProbeSuiteProbeEdit.do";
+        String lastPath = "/rhn/systems/SystemGroupList.do";
+        String curPath = "/rhn/systems/entitlements/GuestUnlimitedHosts.do";
         nti.computeActiveNodes(curPath, lastPath);
         NavNode bestNode = nti.getBestNode();
-        assertEquals("/rhn/monitoring/config/ProbeSuites.do", bestNode.getPrimaryURL());
+        assertEquals("/rhn/systems/SystemEntitlements.do", bestNode.getPrimaryURL());
     }
 
     public void testMatchByDir() throws Exception {

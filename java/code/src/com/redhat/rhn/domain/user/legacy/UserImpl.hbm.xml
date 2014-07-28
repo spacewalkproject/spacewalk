@@ -45,11 +45,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <key column="user_id"/>
             <one-to-many class="com.redhat.rhn.domain.org.usergroup.UserGroupMembers"/>
         </set>
-        <set name="notificationMethods" table="rhn_contact_methods" lazy="true"
-			inverse="true" cascade="none">
-            <key column="contact_id" />
-            <one-to-many class="com.redhat.rhn.domain.monitoring.notification.Method"/>
-        </set>
         <set name="stateChanges" lazy="true"
             cascade="save-update" sort="natural">
             <key column="web_contact_id"/>

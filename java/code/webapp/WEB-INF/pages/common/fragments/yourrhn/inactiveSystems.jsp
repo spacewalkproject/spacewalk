@@ -17,7 +17,7 @@
                            reflinkkey="yourrhn.jsp.allinactivesystems"
                            reflinkkeyarg0="${pageList.size}"
                            domainClass="systems">
-	        <rhn:column header="probesuitesystemsedit.jsp.systemname"
+	        <rhn:column header="actions.jsp.system"
               url="/rhn/systems/details/Overview.do?sid=${current.id}">
 	          <rhn:icon type="system-unknown" />
 		      <c:out value="${current.name}" escapeXml="true" />

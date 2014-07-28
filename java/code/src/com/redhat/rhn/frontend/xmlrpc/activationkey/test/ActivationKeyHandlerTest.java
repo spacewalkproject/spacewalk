@@ -180,7 +180,7 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
 
     public void testCreateWithInvalidEntitlement() {
         List<String> badEntitlements = new LinkedList<String>();
-        badEntitlements.add("monitoring_foobar");
+        badEntitlements.add("provisioning_foobar");
         try {
             keyHandler.create(admin, "", "testing", baseChannelLabel,
                     new Integer(0), badEntitlements, Boolean.FALSE);
@@ -280,8 +280,10 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testSetAddOnEntitlement() throws Exception {
+        List<String> entitlements = new ArrayList<String>();
+        entitlements.add(EntitlementManager.PROVISIONING_ENTITLED);
         String newKey = keyHandler.create(admin, KEY, KEY_DESCRIPTION, baseChannelLabel,
-                KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
+                KEY_USAGE_LIMIT, entitlements, Boolean.FALSE);
         ActivationKey activationKey = ActivationKeyManager.getInstance()
                                                     .lookupByKey(newKey, admin);
         assertEquals(3, activationKey.getEntitlements().size());
@@ -289,14 +291,15 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
                 ServerConstants.getServerGroupTypeEnterpriseEntitled()));
         assertTrue(keyHasEntitlement(activationKey,
                 ServerConstants.getServerGroupTypeProvisioningEntitled()));
-        assertTrue(keyHasEntitlement(activationKey,
-                ServerConstants.getServerGroupTypeVirtualizationEntitled()));
+        assertFalse(keyHasEntitlement(activationKey, ServerConstants
+                .getServerGroupTypeVirtualizationEntitled()));
 
-        ServerGroupType monitoring = ServerConstants.getServerGroupTypeMonitoringEntitled();
+        ServerGroupType virtualization = ServerConstants
+                .getServerGroupTypeVirtualizationEntitled();
         keyHandler.addEntitlements(admin, newKey,
-                buildEntitlementsList(new String []{monitoring.getLabel()}));
+                buildEntitlementsList(new String[] { virtualization.getLabel() }));
         assertEquals(4, activationKey.getEntitlements().size());
-        assertTrue(keyHasEntitlement(activationKey, monitoring));
+        assertTrue(keyHasEntitlement(activationKey, virtualization));
     }
 
     private List<String> buildEntitlementsList(String [] entitlements) {

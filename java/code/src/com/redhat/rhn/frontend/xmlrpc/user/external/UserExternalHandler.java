@@ -229,8 +229,8 @@ public class UserExternalHandler extends BaseHandler {
      * unique.")
      * @xmlrpc.param #array_single("string", "role - Can be any of:
      * satellite_admin, org_admin (implies all other roles except for satellite_admin),
-     * channel_admin, config_admin, system_group_admin,
-     * activation_key_admin, or monitoring_admin.")
+     * channel_admin, config_admin, system_group_admin, or
+     * activation_key_admin.")
      * @xmlrpc.returntype $UserExtGroupSerializer
      */
     public UserExtGroup createExternalGroupToRoleMap(User loggedInUser, String name,
@@ -299,8 +299,8 @@ public class UserExternalHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "Name of the external group.")
      * @xmlrpc.param #array_single("string", "role - Can be any of:
      * satellite_admin, org_admin (implies all other roles except for satellite_admin),
-     * channel_admin, config_admin, system_group_admin,
-     * activation_key_admin, or monitoring_admin.")
+     * channel_admin, config_admin, system_group_admin, or
+     * activation_key_admin.")
      * @xmlrpc.returntype #return_int_success()
      */
     public int setExternalGroupRoles(User loggedInUser, String name, List<String> roles) {

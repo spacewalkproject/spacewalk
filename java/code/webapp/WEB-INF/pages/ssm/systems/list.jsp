@@ -14,7 +14,6 @@
 <p><bean:message key="ssm.list.systems.summary" /></p>
 <c:set var="notSelectable" value="true"/>
 <c:set var="showLastCheckin" value="true"/>
-<c:set var="noMonitoring" value="true"/>
 
 <rl:listset name="systemListSet" legend="system">
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>

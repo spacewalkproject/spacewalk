@@ -21,9 +21,9 @@ package com.redhat.rhn.domain.server;
  */
 public class ServerConstants {
     /**
-     * Feature constant for probes
+     * Feature constant for kickstarts
      */
-    public static final String FEATURE_PROBES = "ftr_probes";
+    public static final String FEATURE_KICKSTART = "ftr_kickstart";
 
     private ServerConstants() {
 
@@ -50,14 +50,6 @@ public class ServerConstants {
      */
     public static final ServerGroupType getServerGroupTypeEnterpriseEntitled() {
        return  ServerFactory.lookupServerGroupTypeByLabel("enterprise_entitled");
-    }
-
-    /**
-     * Static representing the monitoring_entitled ServerGroup
-     * @return ServerGroupType
-     */
-    public static final ServerGroupType getServerGroupTypeMonitoringEntitled() {
-        return ServerFactory.lookupServerGroupTypeByLabel("monitoring_entitled");
     }
 
     /**

@@ -16,9 +16,6 @@
   </rhn:require>
   <li><rhn:icon type="action-pending" /><bean:message key="system-legend.jsp.pending"/></li>
   <li><rhn:icon type="system-unentitled" /><bean:message key="system-legend.jsp.unentitled"/></li>
-  <rhn:require acl="org_entitlement(rhn_monitor)">
-  <li><rhn:icon type="monitoring-status" /><bean:message key="system-legend.jsp.monitoring"/></li>
-  </rhn:require>
   <li><rhn:icon type="system-virt-host" /><bean:message key="systemlist.jsp.virthost"/></li>
   <li><rhn:icon type="system-virt-guest" /><bean:message key="systemlist.jsp.virtguest"/></li>
   <li><rhn:icon type="system-physical" /><bean:message key="systemlist.jsp.nonvirt"/></li>

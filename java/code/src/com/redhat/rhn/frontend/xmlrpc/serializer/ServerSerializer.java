@@ -47,7 +47,7 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
  *                      (enterprise_entitled or sw_mgr_entitled)")
  *
  *         #prop_array("string", "addon_entitlements","System's addon entitlements labels,
- *                       including monitoring_entitled, provisioning_entitled,
+ *                       including provisioning_entitled,
  *                                 virtualization_host, virtualization_host_platform")
  *          #prop_desc("boolean", "auto_update", "True if system has auto errata updates
  *                                          enabled.")

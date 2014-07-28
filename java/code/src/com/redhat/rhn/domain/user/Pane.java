@@ -149,9 +149,7 @@ public class Pane {
      * @return true if the pane is to be accessible.
      */
     public boolean isValidFor(User user) {
-        return AclManager.hasAcl(getAcl(), user,
-                "com.redhat.rhn.common.security.acl.MonitoringAclHandler",
-                        null);
+        return AclManager.hasAcl(getAcl(), user, null, null);
     }
     /**
      * {@inheritDoc}

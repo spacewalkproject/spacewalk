@@ -9,7 +9,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/groups/header.jspf" %>
-<c:set var="noMonitoring" value="true"/>
 
 <rhn:require acl="not user_role(org_admin);not user_role(system_group_admin)">
  <c:set var="notSelectable" value="True"/>

@@ -15,12 +15,6 @@
         </simpleType>
     </attribute>
 
-    <attribute name="monitoring_entitled">
-        <simpleType baseType="long">
-            <minInclusive value="0" />
-        </simpleType>
-    </attribute>
-
     <attribute name="virtualization_host">
         <simpleType baseType="long">
             <minInclusive value="0" />

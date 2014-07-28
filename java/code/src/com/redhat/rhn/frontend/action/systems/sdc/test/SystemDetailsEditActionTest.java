@@ -58,7 +58,6 @@ public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
         ChannelTestUtils.setupBaseChannelForVirtualization(user, s.getBaseChannel());
 
         UserTestUtils.addProvisioning(user.getOrg());
-        UserTestUtils.addMonitoring(user.getOrg());
         UserTestUtils.addVirtualization(user.getOrg());
         UserTestUtils.addVirtualizationPlatform(user.getOrg());
         TestUtils.saveAndFlush(user.getOrg());
