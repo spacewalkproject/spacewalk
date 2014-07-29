@@ -32,7 +32,7 @@ BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
 %if 0%{?pylint_check}
-BuildRequires: spacewalk-pylint
+BuildRequires: spacewalk-pylint >= 2.2
 BuildRequires: rhnlib >= 2.5.57
 BuildRequires: rhn-client-tools
 BuildRequires: rpm-python
