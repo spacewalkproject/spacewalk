@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.12
+Version: 2.3.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jul 30 2014 Stephen Herr <sherr@redhat.com> 2.3.13-1
+- 1066432 - auto errata updates have to wait for errataCache to finish
+
 * Tue Jul 29 2014 Jan Dobes 2.3.12-1
 - update linking and delete old page
 - create /software/packages/Dependencies page in Java
