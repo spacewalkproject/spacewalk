@@ -34,6 +34,11 @@ INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
         (SELECT id FROM rhnTaskoBunch WHERE name='channel-repodata-bunch'),
         current_timestamp, '0 * * * * ?');
 
+INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
+    VALUES(sequence_nextval('rhn_tasko_schedule_id_seq'), 'errata-cache-default',
+        (SELECT id FROM rhnTaskoBunch WHERE name='errata-cache-bunch'),
+        current_timestamp, '0 * * * * ?');
+
 -- Every 10 minutes
 
 INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
@@ -44,11 +49,6 @@ INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
 INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
     VALUES(sequence_nextval('rhn_tasko_schedule_id_seq'), 'kickstart-cleanup-default',
         (SELECT id FROM rhnTaskoBunch WHERE name='kickstart-cleanup-bunch'),
-        current_timestamp, '0 0/10 * * * ?');
-
-INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
-    VALUES(sequence_nextval('rhn_tasko_schedule_id_seq'), 'errata-cache-default',
-        (SELECT id FROM rhnTaskoBunch WHERE name='errata-cache-bunch'),
         current_timestamp, '0 0/10 * * * ?');
 
 INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
