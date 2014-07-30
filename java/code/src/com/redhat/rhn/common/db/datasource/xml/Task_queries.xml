@@ -8,6 +8,7 @@ SELECT eq.errata_id, E.org_id, EQ.channel_id
        rhnErrata E on E.id = EQ.errata_id inner join
        rhnChannel C on C.id = EQ.channel_id
    WHERE C.label not in (  	select channel_label from rhnRepoRegenQueue)
+   AND C.id not in (select task_data from rhnTaskQueue where task_name = 'update_errata_cache_by_channel')
 ORDER BY next_action DESC
   </query>
 </mode>
