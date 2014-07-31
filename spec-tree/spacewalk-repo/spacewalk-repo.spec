@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 2.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Thu Jul 31 2014 Michael Mraka <michael.mraka@redhat.com> 2.3-2
+- New signing key for 2014-2016
+
 * Mon Jul 14 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.3-1
 - update for Spacewalk 2.3
 
