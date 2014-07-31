@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.74
+Version: 5.10.75
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -119,6 +119,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Thu Jul 31 2014 Stephen Herr <sherr@redhat.com> 5.10.75-1
+- Avoid traceback with a configfiles upload action with no selinux context
+
 * Tue Jul 22 2014 Stephen Herr <sherr@redhat.com> 5.10.74-1
 - 1120802 - make webui config dir diff work
 - bumping rhncfg version to avoid tag collision with 2.2
