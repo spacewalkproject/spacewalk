@@ -156,7 +156,11 @@ if __name__ == '__main__':
         if not shell.options.quiet:
             print _INTRO
 
-        if not shell.do_login(''):
+        try:
+            if not shell.do_login(''):
+                sys.exit(1)
+        except xmlrpclib.ProtocolError, e:
+            logging.error(e.errmsg)
             sys.exit(1)
 
         # stay in the interactive shell forever
