@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.4
+Version:	2.3.5
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Jul 31 2014 Grant Gainey 2.3.5-1
+- Fix spacewalk-export to use config-files-latest not config-files
+- 1123437 - Replace .format with %% to run on python2.4
+
 * Thu Jul 31 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.4-1
 - 1122706 - Add config-files to list spacewalk-export knows
 
