@@ -174,11 +174,10 @@ if __name__ == '__main__':
             except Exception, detail:
                 # get the relevant part of a XML-RPC fault
                 if isinstance(detail, xmlrpclib.Fault):
-                    detail = detail.faultString
-
-                    # the session expired
-                    if re.search('Could not find session', detail, re.I):
+                    if detail.faultCode in [2800, 2950]:
                         shell.session = ''
+                    else:
+                        logging.exception(detail.faultString)
 
                 if shell.options.debug:
                     # print the traceback when debugging

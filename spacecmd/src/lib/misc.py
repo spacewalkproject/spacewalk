@@ -318,10 +318,13 @@ def do_login(self, args):
             logging.debug('Using cached credentials from %s', session_file)
 
             self.client.user.listAssignableRoles(self.session)
-        except xmlrpclib.Fault:
-            logging.warning('Cached credentials are invalid')
-            self.current_user = ''
-            self.session = ''
+        except xmlrpclib.Fault, fault:
+            if hasattr(fault, "faultCode") and fault.faultCode in [2800, 2950]:
+                logging.warning('Cached credentials are invalid')
+                self.current_user = ''
+                self.session = ''
+            else:
+                raise fault
 
     # attempt to login if we don't have a valid session yet
     if not len(self.session):
