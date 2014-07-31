@@ -38,6 +38,7 @@ import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.session.InvalidSessionIdException;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
@@ -272,13 +273,23 @@ public class BaseHandler implements XmlRpcInvocationHandler {
      */
     public static User getLoggedInUser(String sessionKey) {
         //Load the session
-        WebSession session = SessionManager.loadSession(sessionKey);
+        WebSession session = null;
+        try {
+            session = SessionManager.loadSession(sessionKey);
+        }
+        catch (InvalidSessionIdException ex) {
+            throw new ValidationException(ex.getLocalizedMessage());
+        }
+        catch (LookupException ex) {
+            throw new ValidationException(ex.getLocalizedMessage());
+        }
+
         User user = session.getUser();
 
         //Make sure there was a valid user in the session. If not, the session is invalid.
         if (user == null) {
-            throw new LookupException("Could not find a valid user for session with key: " +
-                                      sessionKey);
+            throw new UserLoginException(
+                    "Could not find a valid user for session with key: " + sessionKey);
         }
 
         //Return the logged in user
