@@ -116,7 +116,7 @@ def setupLogging(opt):
 def listSupported():
     logging.info('Currently-supported entities include:')
     for s in SUPPORTED_ENTITIES.keys():
-        logging.info('{0:20} : {1}'.format(s, SUPPORTED_ENTITIES[s]))
+        logging.info('%20s : %s' % (s, SUPPORTED_ENTITIES[s]))
 
     return
 
@@ -150,15 +150,14 @@ def _generateWhere(options, reportname):
 
     if options.org_ids:
         for org in options.org_ids:
-            where.append('--where-{0}={1}'.format(REPORT_TO_ORG[reportname], org))
+            where.append('--where-%s=%s' % (REPORT_TO_ORG[reportname], org))
 
     return where
 
 def _issueReport(options, reportname):
-    reps_dir_str = '{0}/' + REPORTS_DIR + '/{1}.csv'
-    report_file = reps_dir_str.format(options.export_dir, reportname)
+    report_file = '%s/%s/%s.csv' % (options.export_dir, REPORTS_DIR, reportname)
     where_clause = _generateWhere(options, reportname)
-    logging.debug('...WHERE = {0}'.format(where_clause))
+    logging.debug('...WHERE = %s' % where_clause)
     if len(where_clause) == 0:
         call(['/usr/bin/spacewalk-report', reportname] ,
             stdout = open(report_file, 'w'))
@@ -229,22 +228,22 @@ def repositoriesDump(options):
                 repo_basename = repo_loc.rsplit('/', 1)[-1]
                 # Tarfile name is 'repository_<repo-label>_contents.tar.gz'
                 repo_tarname = 'repository_' + entry['repo_label'] + '_contents.tar.gz'
-                logging.info('...storing file-repo {0} into {1}'.format(repo_loc, repo_tarname))
+                logging.info('...storing file-repo %s into %s' % (repo_loc, repo_tarname))
                 # Tar it up into the export-dir
                 if options.debug:
                     call(['/bin/tar', '-c', '-v', '-z',
                         '-C', repo_dir,
-                        '-f', '{0}/{1}/{2}'.format(options.export_dir, REPORTS_DIR, repo_tarname),
+                        '-f', '%s/%s/%s' % (options.export_dir, REPORTS_DIR, repo_tarname),
                         repo_basename])
                 else:
                     call(['/bin/tar', '-c', '-z',
                         '-C', repo_dir,
-                        '-f', '{0}/{1}/{2}'.format(options.export_dir, REPORTS_DIR, repo_tarname),
+                        '-f', '%s/%s/%s' % (options.export_dir, REPORTS_DIR, repo_tarname),
                         repo_basename])
         handle.close()
     return
 
-def configfilesDump(options):
+def configfiles(options):
     logging.info('Processing config-files...')
     _issueReport(options, 'config-files-latest')
     return
@@ -253,19 +252,19 @@ def prepareExport(options):
     if options.debug:
         call(['/bin/tar', '-c', '-v', '-z',
             '-C', options.export_dir,
-            '-f', '{0}/{1}'.format(options.export_dir, options.export_package),
+            '-f', '%s/%s' % (options.export_dir, options.export_package),
             REPORTS_DIR])
     else:
         call(['/bin/tar', '-c', '-z',
             '-C', options.export_dir,
-            '-f', '{0}/{1}'.format(options.export_dir, options.export_package),
+            '-f', '%s/%s' % (options.export_dir, options.export_package),
             REPORTS_DIR])
-    logging.info('Export-file created at {0}/{1}'.format(options.export_dir,
+    logging.info('Export-file created at %s/%s' % (options.export_dir,
         options.export_package))
 
 def cleanup(options):
     logging.info('To clean up, issue the following command:')
-    logging.info('sudo rm -rf {0}'.format(options.export_dir))
+    logging.info('sudo rm -rf %s' % (options.export_dir))
     logging.info('NOTE:  No, I will not do it for you!')
     return
 
