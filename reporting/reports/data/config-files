@@ -14,6 +14,7 @@ description:
 columns:
 
     org_id        Organization identifier
+    channel_id    ID of the configuration channel containing the file
     channel       Configuration channel containing the file
     channel_type  Config-channel type (normal, local_override, server_import)
     path          Path of the config-file
@@ -35,6 +36,7 @@ sql:
 
     select * from (
         select cchan.org_id,
+               cchan.id as channel_id,
                cchan.label as channel,
                cct.label as channel_type,
                cfn.path,

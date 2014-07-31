@@ -13,27 +13,29 @@ description:
 columns:
 
     org_id        Organization identifier
+    channel_id    ID of the Configuration channel containing the file
     channel       Configuration channel containing the file
-    channel_type    Config-channel type (normal, local_override, server_import)
+    channel_type  Config-channel type (normal, local_override, server_import)
     path          Path of the config-file
-    file_type       Filetype of the cfg-file (file, directory, symlink)
-    file_id         File-id of the cfg-file
-    revision        Revision of this cfg-file in this channel
-    is_binary       true if file is binary (base64-enc) or false if text
-    contents        Actual content of this version of this cfg-file in this channel
-    delim_start     Sequence used to delimit start-of-macro
-    delim_end       Sequence used to delimit end-of-macro
-    username        Username file is to be owned-by
-    groupname       Groupname of file's grou-owner
-    filemode        Filemode of the deployed file
-    symbolic_link   Path to be linked-to if filetype == symlink
-    selinux_ctx     selinux context of delpoyed file
+    file_type     Filetype of the cfg-file (file, directory, symlink)
+    file_id       File-id of the cfg-file
+    revision      Revision of this cfg-file in this channel
+    is_binary     true if file is binary (base64-enc) or false if text
+    contents      Actual content of this version of this cfg-file in this channel
+    delim_start   Sequence used to delimit start-of-macro
+    delim_end     Sequence used to delimit end-of-macro
+    username      Username file is to be owned-by
+    groupname     Groupname of file's grou-owner
+    filemode      Filemode of the deployed file
+    symbolic_link Path to be linked-to if filetype == symlink
+    selinux_ctx   selinux context of delpoyed file
 
 sql:
 
     select * from (
         select T1.* from (
             select cchan.org_id,
+                   cchan.id as channel_id,
                    cchan.label as channel,
                    cct.label as channel_type,
                    cfn.path,
@@ -61,6 +63,7 @@ sql:
         ) T1
         left outer join (
             select cchan.org_id,
+                   cchan.id as channel_id,
                    cchan.label as channel,
                    cct.label as channel_type,
                    cfn.path,
