@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.2
+Version:        2.3.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jul 31 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.3-1
+- 1066432 - make future installs run ErrataCache task more often
+
 * Tue Jul 22 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.2-1
 - 1023557 - Speed up satellite-sync by avoiding commonly-called dblink_exec
 
