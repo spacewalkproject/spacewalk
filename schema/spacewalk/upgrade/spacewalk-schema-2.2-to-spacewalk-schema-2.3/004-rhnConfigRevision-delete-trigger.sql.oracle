@@ -17,16 +17,6 @@
 --
 
 create or replace trigger
-rhn_confrevision_mod_trig
-before insert or update on rhnConfigRevision
-for each row
-begin
-	:new.modified := current_timestamp;
-end;
-/
-show errors
-
-create or replace trigger
 rhn_confrevision_del_trig
 before delete on rhnConfigRevision
 for each row

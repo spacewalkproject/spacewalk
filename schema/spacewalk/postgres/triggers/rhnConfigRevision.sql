@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 8a61ab7f325dd72c5dae04eca2b0910f881a1535
+-- oracle equivalent source sha1 9f775f5426841dd2bc2f673452eed93d3aa619ee
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -39,16 +39,13 @@ $$
 declare
         cr_removed numeric := lookup_snapshot_invalid_reason('cr_removed');
 begin
-        update rhnSnapshot
+        update rhnSnapshot as s
            set invalid = cr_removed
-         where id in (select snapshot_id
-                        from rhnSnapshotConfigRevision
-                       where config_revision_id = old.id);
+          from rhnSnapshotConfigRevision as scr
+         where s.id = scr.snapshot_id
+           and scr.config_revision_id = old.id;
         delete from rhnSnapshotConfigRevision
-         where config_revision_id = old.id
-           and snapshot_id in (select snapshot_id
-                                 from rhnSnapshotConfigRevision
-                                where config_revision_id = old.id);
+         where config_revision_id = old.id;
         return old;
 end;
 $$ language plpgsql;

@@ -1,3 +1,4 @@
+-- oracle equivalent source sha1 c2537356ebd01ad42676801e41197e1999398c8b
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -16,30 +17,20 @@
 --
 --
 
-create or replace trigger
-rhn_confrevision_mod_trig
-before insert or update on rhnConfigRevision
-for each row
-begin
-	:new.modified := current_timestamp;
-end;
-/
-show errors
 
-create or replace trigger
-rhn_confrevision_del_trig
-before delete on rhnConfigRevision
-for each row
+create or replace function rhn_confrevision_del_trig_fun() returns trigger 
+as
+$$
 declare
-        cr_removed number := lookup_snapshot_invalid_reason('cr_removed');
+        cr_removed numeric := lookup_snapshot_invalid_reason('cr_removed');
 begin
-        update rhnSnapshot
+        update rhnSnapshot as s
            set invalid = cr_removed
-         where id in (select snapshot_id
-                        from rhnSnapshotConfigRevision
-                       where config_revision_id = :old.id);
+          from rhnSnapshotConfigRevision as scr
+         where s.id = scr.snapshot_id
+           and scr.config_revision_id = old.id;
         delete from rhnSnapshotConfigRevision
-         where config_revision_id = :old.id;
+         where config_revision_id = old.id;
+        return old;
 end;
-/
-show errors
+$$ language plpgsql;
