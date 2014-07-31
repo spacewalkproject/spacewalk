@@ -35,12 +35,12 @@ DEFAULT_EXPORT_PACKAGE = 'spacewalk_export.tar.gz'
 REPORTS_DIR = 'exports'
 
 SUPPORTED_ENTITIES = {
-        'activation-keys' : 'Activation keys',
-        'channels'        : 'Custom/cloned channels and repositories for all organizations',
-        'config-files'    : 'Latest revision of all configuration files',
-        'repositories'    : 'Defined repositories',
-        'system-groups'   : 'System-groups for all organizations',
-        'users'           : 'Users and Organizations'
+        'activation-keys'     : 'Activation keys',
+        'channels'            : 'Custom/cloned channels and repositories for all organizations',
+        'config-files-latest' : 'Latest revision of all configuration files',
+        'repositories'        : 'Defined repositories',
+        'system-groups'       : 'System-groups for all organizations',
+        'users'               : 'Users and Organizations'
         }
 
 #
@@ -48,12 +48,12 @@ SUPPORTED_ENTITIES = {
 # Map report-to-org-id so we can make generic decisions later
 #
 REPORT_TO_ORG = {
-        'activation-keys' : 'org_id',
-        'config-files'    : 'org_id',
-        'channels'        : 'org_id',
-        'repositories'    : 'org_id',
-        'system-groups'   : 'org_id',
-        'users'           : 'organization_id'
+        'activation-keys'     : 'org_id',
+        'config-files-latest' : 'org_id',
+        'channels'            : 'org_id',
+        'repositories'        : 'org_id',
+        'system-groups'       : 'org_id',
+        'users'               : 'organization_id'
         }
 
 def setupOptions():
@@ -243,7 +243,7 @@ def repositoriesDump(options):
         handle.close()
     return
 
-def configfiles(options):
+def configfileslatestDump(options):
     logging.info('Processing config-files...')
     _issueReport(options, 'config-files-latest')
     return
