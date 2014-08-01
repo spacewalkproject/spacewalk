@@ -172,7 +172,8 @@ public class FileUtils {
         CircularFifoBuffer buffer = new CircularFifoBuffer(lines);
         try {
             fileStream = new FileInputStream(pathToFile);
-            LineIterator it = org.apache.commons.io.IOUtils.lineIterator(fileStream, null);
+            LineIterator it = org.apache.commons.io.IOUtils.lineIterator(fileStream,
+                                                                         (String) null);
             while (it.hasNext()) {
                 buffer.add(it.nextLine());
             }
