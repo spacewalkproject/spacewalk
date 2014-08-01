@@ -44,7 +44,7 @@ install -d -m 755 %{buildroot}/%{_sysconfdir}
 install -p -m 644 spacewalk-pylint.rc %{buildroot}/%{_sysconfdir}/
 %if 0%{?rhel}
 # new checks in pylint 1.1
-sed -i '/disable=/ s/,bad-whitespace,unpacking-non-sequence,superfluous-parens//g;' \
+sed -i '/disable=/ s/,bad-whitespace,unpacking-non-sequence,superfluous-parens,cyclic-import//g;' \
         %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
 %endif
 %if 0%{?rhel} && 0%{?rhel} < 7
