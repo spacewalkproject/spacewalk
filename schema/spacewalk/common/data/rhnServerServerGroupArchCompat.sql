@@ -806,9 +806,5 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)
     values (lookup_server_arch('x86_64-redhat-linux'),
             lookup_sg_type('virtualization_host_platform'));
 
-            lookup_sg_type('bootstrap_entitled'));
-
-insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
-    values (lookup_server_arch('ppc64le-redhat-linux'),
 commit;
 

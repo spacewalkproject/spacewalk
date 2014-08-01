@@ -51,6 +51,3 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)
     values (lookup_server_arch('ppc64le-redhat-linux'),
             lookup_sg_type('virtualization_host'));
 
-insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
-    values (lookup_server_arch('ppc64le-redhat-linux'),
-            lookup_sg_type('bootstrap_entitled'));
