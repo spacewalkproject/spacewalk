@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.5
+Version:        2.3.6
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Aug 01 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.6-1
+- there's no bootstrap entitlement in spacewalk
+
 * Thu Jul 31 2014 Stephen Herr <sherr@redhat.com> 2.3.5-1
 - 1125428 - make config file deletion faster if there are lots of snapshots
 
