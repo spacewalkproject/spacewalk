@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.3.0
+Version:	2.3.1
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -67,6 +67,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Aug 01 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.1-1
+- disable reporting cyclic imports
+
 * Mon Jun 30 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.10-1
 - disable useless-else-on-loop also in pylint 1.0
 
