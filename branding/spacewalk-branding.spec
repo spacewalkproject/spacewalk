@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.0
+Version:    2.3.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -93,6 +93,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Aug 01 2014 Jan Dobes 2.3.1-1
+- sidenav should always have it's space
+- Bumping package versions for 2.3.
+
 * Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.5-1
 - require jquery-ui, select2 and select2-bootstrap-css
 
