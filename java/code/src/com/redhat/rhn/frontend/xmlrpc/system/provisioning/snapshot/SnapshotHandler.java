@@ -400,9 +400,7 @@ public class SnapshotHandler extends BaseHandler {
             if (msg != null && msg.contains("channel_family_no_subscriptions")) {
                 throw new SnapshotRollbackException();
             }
-            else {
-                throw e;
-            }
+            throw e;
         }
     }
 }
