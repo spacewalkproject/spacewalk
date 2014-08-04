@@ -1631,9 +1631,7 @@ public class KickstartData {
         if (this.isRHEL5OrLess()) {
             return "--enablemd5 --enableshadow";
         }
-        else {
-            return "--enableshadow --passalgo=sha256";
-        }
+        return "--enableshadow --passalgo=sha256";
     }
 
     /**
