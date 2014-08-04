@@ -627,6 +627,8 @@ sub process_table {
 	}
 	while ($row) {
 		my $line = '';
+		my @blobs_names = ();
+		my @blobs = ();
 		if ($target_backend eq 'oracle') {
 			$line = $line . "insert into $table values (";
 		}
@@ -662,8 +664,11 @@ sub process_table {
 					if ($target_backend eq 'postgresql') {
 						$row->[$i] =~ s!(.)! sprintf "\\\\%03o", ord($1) !seg;
 					} else {
-						$row->[$i] =~ s!(.)! sprintf "%x", ord($1) !seg;
-						$row->[$i] = "to_blob('" . $row->[$i] . "')";
+						$row->[$i] =~ s!(.)! sprintf "%02x", ord($1) !seg;
+						push @blobs_names, $names->[$i];
+						push @blobs, $row->[$i];
+						# Save variable name referencing to procedure variable
+						$row->[$i] = $names->[$i];
 					}
 				# convert timestamp to Oracle statement
 				} elsif ($types[$i] =~ /^timestamp/i and $target_backend eq 'oracle') {
@@ -692,6 +697,24 @@ sub process_table {
 		} else {
 			$line = $line . ");\n";
 		}
+		# Inserting BLOB(s) into Oracle, need to wrap insert statement in procedure due to SQLPlus length limits
+		if (@blobs_names) {
+			my $prefix = "declare\n";
+			for (my $i = 0; $i < @blobs_names; $i++) {
+				$prefix = $prefix . $blobs_names[$i] . " blob;\n";
+			}
+			$prefix = $prefix . "begin\n";
+			for (my $i = 0; $i < @blobs_names; $i++) {
+				$prefix = $prefix . "dbms_lob.createtemporary($blobs_names[$i], true);\n";
+				# Split BLOB to multiple lines
+				$blobs[$i] =~ s/(.{1,2000})/dbms_lob.append($blobs_names[$i], to_blob('$1'));\n/g;
+				$prefix = $prefix . $blobs[$i] . "\n";
+			}
+			$line = $prefix . $line;
+			# End procedure and execute
+			$line = $line . "end;\n/\n";
+		}
+
 		print $line;
 		$row = $sth->fetchrow_arrayref();
 	}
