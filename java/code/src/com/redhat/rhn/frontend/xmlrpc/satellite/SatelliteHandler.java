@@ -14,9 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.satellite;
 
-import com.redhat.rhn.common.client.ClientCertificate;
-import com.redhat.rhn.common.client.ClientCertificateDigester;
-import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
@@ -35,13 +32,7 @@ import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.manager.system.SystemManager;
-
 import org.apache.log4j.Logger;
-import org.xml.sax.SAXException;
-
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -194,30 +185,7 @@ public class SatelliteHandler extends BaseHandler {
 
     public boolean isMonitoringEnabledBySystemId(String clientcert)
         throws MethodInvalidParamException {
-
-        StringReader rdr = new StringReader(clientcert);
-        Server server = null;
-
-        ClientCertificate cert;
-        try {
-            cert = ClientCertificateDigester.buildCertificate(rdr);
-            server = SystemManager.lookupByCert(cert);
-        }
-        catch (IOException ioe) {
-            log.error("IOException - Trying to access a system with an " +
-                    "invalid certificate", ioe);
-            throw new MethodInvalidParamException();
-        }
-        catch (SAXException se) {
-            log.error("SAXException - Trying to access a " +
-                    "system with an invalid certificate", se);
-            throw new MethodInvalidParamException();
-        }
-        catch (InvalidCertificateException e) {
-            log.error("InvalidCertificateException - Trying to access a " +
-                    "system with an invalid certificate", e);
-            throw new MethodInvalidParamException();
-        }
+       validateClientCertificate(clientcert);
         return ConfigDefaults.get().isMonitoringBackend();
     }
 }

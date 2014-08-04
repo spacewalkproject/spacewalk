@@ -15,6 +15,8 @@
 
 package com.redhat.rhn.frontend.xmlrpc;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -25,11 +27,15 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
 
 import redstone.xmlrpc.XmlRpcFault;
 import redstone.xmlrpc.XmlRpcInvocationHandler;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.client.ClientCertificate;
+import com.redhat.rhn.common.client.ClientCertificateDigester;
+import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.translation.Translator;
 import com.redhat.rhn.common.util.MethodUtil;
@@ -38,11 +44,13 @@ import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.satellite.CertificateManager;
 import com.redhat.rhn.manager.session.SessionManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * A basic xmlrpc handler class.  Uses reflection + an arbitrary algorithm
@@ -435,6 +443,38 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             value
         };
         MethodUtil.callMethod(entity, methodName, params);
+    }
+
+
+    protected Server validateClientCertificate(String clientCert) {
+        StringReader rdr = new StringReader(clientCert);
+        Server server = null;
+
+        ClientCertificate cert;
+        try {
+            cert = ClientCertificateDigester.buildCertificate(rdr);
+            server = SystemManager.lookupByCert(cert);
+        }
+        catch (IOException ioe) {
+            log.error("IOException - Trying to access a system with an " +
+                    "invalid certificate", ioe);
+            throw new MethodInvalidParamException();
+        }
+        catch (SAXException se) {
+            log.error("SAXException - Trying to access a " +
+                    "system with an invalid certificate", se);
+            throw new MethodInvalidParamException();
+        }
+        catch (InvalidCertificateException e) {
+            log.error("InvalidCertificateException - Trying to access a " +
+                    "system with an invalid certificate", e);
+            throw new MethodInvalidParamException();
+        }
+        if (server == null) {
+            throw new NoSuchSystemException();
+        }
+
+        return server;
     }
 
     private boolean isSessionKey(String string) {

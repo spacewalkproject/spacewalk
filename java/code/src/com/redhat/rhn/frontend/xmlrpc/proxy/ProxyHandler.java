@@ -14,9 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.proxy;
 
-import com.redhat.rhn.common.client.ClientCertificate;
-import com.redhat.rhn.common.client.ClientCertificateDigester;
-import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
@@ -28,7 +25,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
-import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyAlreadyRegisteredException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyNeedProvisioningException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyNotActivatedException;
@@ -37,10 +33,6 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.log4j.Logger;
-import org.xml.sax.SAXException;
-
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,30 +61,7 @@ public class ProxyHandler extends BaseHandler {
      */
     public String createMonitoringScout(String clientcert)
         throws MethodInvalidParamException {
-
-        StringReader rdr = new StringReader(clientcert);
-        Server server = null;
-
-        ClientCertificate cert;
-        try {
-            cert = ClientCertificateDigester.buildCertificate(rdr);
-            server = SystemManager.lookupByCert(cert);
-        }
-        catch (IOException ioe) {
-            log.error("IOException - Trying to access a system with an " +
-                    "invalid certificate", ioe);
-            throw new MethodInvalidParamException();
-        }
-        catch (SAXException se) {
-            log.error("SAXException - Trying to access a " +
-                    "system with an invalid certificate", se);
-            throw new MethodInvalidParamException();
-        }
-        catch (InvalidCertificateException e) {
-            log.error("InvalidCertificateException - Trying to access a " +
-                    "system with an invalid certificate", e);
-            throw new MethodInvalidParamException();
-        }
+        Server server = validateClientCertificate(clientcert);
         if (server.isProxy()) {
             User owner = server.getCreator();
 
@@ -129,30 +98,7 @@ public class ProxyHandler extends BaseHandler {
      */
     public int isProxy(String clientcert)
         throws MethodInvalidParamException {
-
-        StringReader rdr = new StringReader(clientcert);
-        Server server = null;
-
-        ClientCertificate cert;
-        try {
-            cert = ClientCertificateDigester.buildCertificate(rdr);
-            server = SystemManager.lookupByCert(cert);
-        }
-        catch (IOException ioe) {
-            log.error("IOException - Trying to access a system with an " +
-                    "invalid certificate", ioe);
-            throw new MethodInvalidParamException();
-        }
-        catch (SAXException se) {
-            log.error("SAXException - Trying to access a " +
-                    "system with an invalid certificate", se);
-            throw new MethodInvalidParamException();
-        }
-        catch (InvalidCertificateException e) {
-            log.error("InvalidCertificateException - Trying to access a " +
-                    "system with an invalid certificate", e);
-            throw new MethodInvalidParamException();
-        }
+        Server server = validateClientCertificate(clientcert);
         return (server.isProxy() ? 1 : 0);
     }
 
@@ -170,34 +116,13 @@ public class ProxyHandler extends BaseHandler {
      */
     public int deactivateProxy(String clientcert)
         throws ProxyNotActivatedException, MethodInvalidParamException {
-
-        StringReader rdr = new StringReader(clientcert);
-        try {
-            ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
-            Server server;
-            try {
-                server = SystemManager.lookupByCert(cert);
-            }
-            catch (InvalidCertificateException e) {
-                log.error("Trying to access a system with an invalid certificate", e);
-                throw new MethodInvalidParamException();
-            }
-
-            if (!server.isProxy()) {
-                throw new ProxyNotActivatedException();
-            }
-
-            SystemManager.deactivateProxy(server);
-            return 1;
+        Server server = validateClientCertificate(clientcert);
+        if (!server.isProxy()) {
+            throw new ProxyNotActivatedException();
         }
-        catch (IOException e) {
-            log.error("Problem reading certificate", e);
-            throw new ProxyNotActivatedException(e);
-        }
-        catch (SAXException e) {
-            log.error("Problem parsing certificate", e);
-            throw new ProxyNotActivatedException(e);
-        }
+
+        SystemManager.deactivateProxy(server);
+        return 1;
     }
 
     /**
@@ -225,40 +150,23 @@ public class ProxyHandler extends BaseHandler {
         throws ProxyAlreadyRegisteredException, MethodInvalidParamException,
                ProxySystemIsSatelliteException, InvalidProxyVersionException {
 
-        StringReader rdr = new StringReader(clientcert);
-        try {
-            ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
-            Server server = SystemManager.lookupByCert(cert);
-
-            if (server.isProxy()) {
-                throw new ProxyAlreadyRegisteredException();
-            }
-
-            if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
-                throw new ProxyNeedProvisioningException();
-            }
-
-            // if the server does nto have enterprise_entitled entitlement, add it
-            //
-
-            if (!server.hasEntitlement(EntitlementManager.MANAGEMENT)) {
-                SystemManager.entitleServer(server, EntitlementManager.MANAGEMENT);
-            }
-            SystemManager.activateProxy(server, version);
-            return 1;
-        }
-        catch (InvalidCertificateException e) {
-            log.error("Trying to access a system with an invalid certificate", e);
-            throw new MethodInvalidParamException();
-        }
-        catch (IOException e) {
-            log.error("Problem reading certificate", e);
-        }
-        catch (SAXException e) {
-            log.error("Problem parsing certificate", e);
+        Server server = validateClientCertificate(clientcert);
+        if (server.isProxy()) {
+            throw new ProxyAlreadyRegisteredException();
         }
 
-        return 0;
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+            throw new ProxyNeedProvisioningException();
+        }
+
+        // if the server does nto have enterprise_entitled entitlement, add it
+        //
+
+        if (!server.hasEntitlement(EntitlementManager.MANAGEMENT)) {
+            SystemManager.entitleServer(server, EntitlementManager.MANAGEMENT);
+        }
+        SystemManager.activateProxy(server, version);
+        return 1;
     }
 
     /**
@@ -274,26 +182,7 @@ public class ProxyHandler extends BaseHandler {
      */
     public List<String> listAvailableProxyChannels(String clientcert) {
 
-        StringReader rdr = new StringReader(clientcert);
-        Server server = null;
-        try {
-            ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
-            server = SystemManager.lookupByCert(cert);
-        }
-        catch (InvalidCertificateException e) {
-            log.error("Trying to access a system with an invalid certificate", e);
-            throw new MethodInvalidParamException();
-        }
-        catch (IOException e) {
-            log.error("Problem reading certificate", e);
-        }
-        catch (SAXException e) {
-            log.error("Problem parsing certificate", e);
-        }
-
-        if (server == null) {
-            throw new NoSuchSystemException();
-        }
+        Server server = validateClientCertificate(clientcert);
 
         ChannelFamily proxyFamily = ChannelFamilyFactory
             .lookupByLabel(ChannelFamilyFactory
