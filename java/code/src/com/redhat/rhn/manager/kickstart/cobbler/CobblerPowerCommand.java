@@ -118,11 +118,9 @@ public class CobblerPowerCommand extends CobblerCommand {
 
                         return null;
                     }
-                    else {
-                        log.error(operation.toString() + " on " + server.getId() +
-                                " failed");
-                        return new ValidatorError("cobbler.powermanagement.command_failed");
-                    }
+                    log.error(operation.toString() + " on " + server.getId() +
+                            " failed");
+                    return new ValidatorError("cobbler.powermanagement.command_failed");
                 }
             }
         }
