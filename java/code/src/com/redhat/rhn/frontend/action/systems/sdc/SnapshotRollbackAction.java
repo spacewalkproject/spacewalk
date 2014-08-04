@@ -114,9 +114,7 @@ public class SnapshotRollbackAction extends RhnAction {
                 createErrorMessage(request, NO_SUBSCRIPTION_MSG, null);
                 return RhnHelper.DEFAULT_FORWARD;
             }
-            else {
-                throw e;
-            }
+            throw e;
         }
 
         createSuccessMessage(request, GROUPS_CHANGED_MSG, null);
