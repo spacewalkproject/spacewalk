@@ -1220,12 +1220,12 @@ public class ErrataHandler extends BaseHandler {
         }
         String advisoryType = (String) getRequiredAttribute(errataInfo, "advisory_type");
         String product = (String) getRequiredAttribute(errataInfo, "product");
-        String errataFrom = (String) errataInfo.get("errataFrom");
+        String errataFrom = errataInfo.get("errataFrom");
         String topic = (String) getRequiredAttribute(errataInfo, "topic");
         String description = (String) getRequiredAttribute(errataInfo, "description");
         String solution = (String) getRequiredAttribute(errataInfo, "solution");
-        String references = (String) errataInfo.get("references");
-        String notes = (String) errataInfo.get("notes");
+        String references = errataInfo.get("references");
+        String notes = errataInfo.get("notes");
 
         Errata newErrata = ErrataManager.lookupByAdvisory(advisoryName);
         if (newErrata != null) {

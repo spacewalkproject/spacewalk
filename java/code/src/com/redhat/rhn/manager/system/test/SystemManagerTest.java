@@ -719,7 +719,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
                 SystemManager.systemsWithoutBaseChannelsInSet(user);
         assertNotNull(dr);
         assertEquals(dr.size(), 1);
-        EssentialServerDto m = (EssentialServerDto)dr.get(0);
+        EssentialServerDto m = dr.get(0);
         Long id = m.getId().longValue();
         assertTrue(s.getId().equals(id));
 

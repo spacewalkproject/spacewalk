@@ -69,7 +69,7 @@ public class ActionChainEditAction extends RhnAction {
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext requestContext = new RequestContext(request);
         ActionChain actionChain = ActionChainFactory.getActionChain(Long
-            .valueOf((String) request.getParameter(ACTION_CHAIN_ID_PARAMETER)));
+            .valueOf(request.getParameter(ACTION_CHAIN_ID_PARAMETER)));
 
         if (isSubmitted(form)) {
             if (requestContext.wasDispatched("actionchain.jsp.delete")) {

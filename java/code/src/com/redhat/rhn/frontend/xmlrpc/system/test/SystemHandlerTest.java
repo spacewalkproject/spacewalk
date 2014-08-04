@@ -1218,7 +1218,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         UserFactory.save(admin);
         TestUtils.flushAndEvict(admin);
-        Package p = (Package) e.getPackages().iterator().next();
+        Package p = e.getPackages().iterator().next();
         ErrataCacheManager.insertNeededErrataCache(
                 s.getId(), e.getId(), p.getId());
 
@@ -1807,7 +1807,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         instPackages.add(testInstPack);
         testServer.setPackages(instPackages);
         Integer serverId = testServer.getId().intValue();
-        Map<String, Object> returned = (Map<String, Object>) handler
+        Map<String, Object> returned = handler
             .listPackagesFromChannel(admin, serverId,
                         testChannel.getLabel()).get(0);
 

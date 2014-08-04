@@ -331,7 +331,7 @@ public class NavNode {
      */
     public String getPrimaryURL() {
         if (urls != null && urls.size() > 0) {
-            return (String)urls.get(0);
+            return urls.get(0);
         }
         throw new IndexOutOfBoundsException("attempt to ask for primary URL of " +
                                             this.getName() +

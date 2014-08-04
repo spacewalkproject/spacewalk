@@ -89,7 +89,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             sb.append("--option=");
             sb.append(key);
             sb.append("=");
-            String val = (String) optionMap.get(key);
+            String val = optionMap.get(key);
             // We don't want to put the actual string 'null'
             // in rhn.conf.  See bz: 189600
             if (StringUtils.isEmpty(val)) {
@@ -114,7 +114,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         argList.add("2>&1");
         argList.add(">");
         argList.add("/dev/null");
-        String[] returnStringArray = (String[]) argList.toArray(new String[0]);
+        String[] returnStringArray = argList.toArray(new String[0]);
         if (logger.isDebugEnabled()) {
             logger.debug("getCommandArguments(String, Iterator) - end - return value=" +
                     returnStringArray);

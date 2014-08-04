@@ -203,7 +203,7 @@ public class ActionChainFactory extends HibernateFactory {
      */
     @SuppressWarnings("unchecked")
     public static List<ActionChain> getActionChains() {
-        return (List<ActionChain>) getSession()
+        return getSession()
             .createCriteria(ActionChain.class)
             .addOrder(Order.asc("label"))
             .list();
@@ -215,7 +215,7 @@ public class ActionChainFactory extends HibernateFactory {
      */
     @SuppressWarnings("unchecked")
     public static List<ActionChain> getActionChainsByModificationDate() {
-        return (List<ActionChain>) getSession()
+        return getSession()
             .createCriteria(ActionChain.class)
             .addOrder(Order.desc("modified"))
             .list();
@@ -230,7 +230,7 @@ public class ActionChainFactory extends HibernateFactory {
     @SuppressWarnings("unchecked")
     public static List<ActionChainEntryGroup> getActionChainEntryGroups(
         final ActionChain actionChain) {
-        return (List<ActionChainEntryGroup>) singleton.listObjectsByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
             "ActionChainEntry.getGroups",
             new HashMap<String, Object>() { { put("id", actionChain.getId()); } }
         );
@@ -245,7 +245,7 @@ public class ActionChainFactory extends HibernateFactory {
     @SuppressWarnings("unchecked")
     public static List<ActionChainEntry> getActionChainEntries(
         final ActionChain actionChain, final Integer sortOrder) {
-        return (List<ActionChainEntry>) singleton.listObjectsByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
             "ActionChainEntry.getActionChainEntries",
             new HashMap<String, Object>() { {
                 put("id", actionChain.getId());

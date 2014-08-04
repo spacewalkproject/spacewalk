@@ -393,7 +393,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         }
 
         // Test removing a system.
-        Server s = (Server) probeSuite.getServersInSuite().iterator().next();
+        Server s = probeSuite.getServersInSuite().iterator().next();
         MonitoringManager.getInstance().removeServerFromSuite(probeSuite, s, user);
         // assertTrue(probeSuite.getServersInSuite().size() == 4);
         MonitoringFactory.saveProbeSuite(probeSuite, user);
@@ -425,7 +425,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         probeSuite = (ProbeSuite) reload(probeSuite);
 
         assertTrue(probeSuite.getServersInSuite().size() == 5);
-        Server s = (Server) probeSuite.getServersInSuite().iterator().next();
+        Server s = probeSuite.getServersInSuite().iterator().next();
         MonitoringManager.getInstance().
             detatchServerFromSuite(probeSuite, s, user);
 

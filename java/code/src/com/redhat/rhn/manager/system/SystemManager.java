@@ -2360,7 +2360,7 @@ public class SystemManager extends BaseManager {
         }
 
         // Grab the host from the first guest in the list:
-        Long firstGuestId = (Long)guestIds.get(0);
+        Long firstGuestId = guestIds.get(0);
         Server host = (viFactory.lookupById(firstGuestId)).
                 getHostSystem();
 

@@ -1482,10 +1482,10 @@ public class ChannelManager extends BaseManager {
                 // see if we can find one that is of the default arch. If we run out
                 // or go down to an older EVR, just return first result as a fallback.
                 for (Map<String, Object> result : results) {
-                    if (!((Long) result.get("evr_id")).equals((Long) row.get("evr_id"))) {
+                    if (!((Long) result.get("evr_id")).equals(row.get("evr_id"))) {
                         break;
                     }
-                    if (defaultArches.contains((String) result.get("arch_label"))) {
+                    if (defaultArches.contains(result.get("arch_label"))) {
                         return (Long) result.get("package_id");
                     }
                 }

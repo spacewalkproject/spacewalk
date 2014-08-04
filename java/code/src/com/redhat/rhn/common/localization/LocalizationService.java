@@ -148,7 +148,7 @@ public class LocalizationService {
             this.supportedLocales.put(locale, li);
         }
         for (Iterator<String> iter = compoundLocales.iterator(); iter.hasNext();) {
-            String cl = (String) iter.next();
+            String cl = iter.next();
             String[] parts = cl.split("_");
             LocaleInfo li = new LocaleInfo(parts[0], cl);
             if (this.supportedLocales.get(parts[0]) == null) {
@@ -274,7 +274,7 @@ public class LocalizationService {
             if (!keyToBundleMap.containsKey(messageId)) {
                 return getMissingMessageString(messageId);
             }
-            z = Class.forName((String) keyToBundleMap.get(messageId));
+            z = Class.forName(keyToBundleMap.get(messageId));
             // If we already determined that there aren't an bundles
             // for this Locale then we shouldn't repeatedly fail
             // attempts to parse the bundle. Instead just force a
@@ -619,7 +619,7 @@ public class LocalizationService {
         for (Iterator<String> iter = this.supportedLocales.keySet().iterator(); iter
                 .hasNext();) {
             String key = iter.next();
-            LocaleInfo li = (LocaleInfo) this.supportedLocales.get(key);
+            LocaleInfo li = this.supportedLocales.get(key);
             if (!li.isAlias()) {
                 tmp.add(key);
             }

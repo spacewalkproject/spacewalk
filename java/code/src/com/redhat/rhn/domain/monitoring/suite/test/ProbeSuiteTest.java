@@ -77,7 +77,7 @@ public class ProbeSuiteTest extends BaseTestCaseWithUser {
         flushAndEvict(probeSuite);
         probeSuite = MonitoringFactory.lookupProbeSuiteByIdAndOrg(psId, user.getOrg());
         assertTrue(probeSuite.getProbes().size() == 1);
-        Probe savedP = (Probe) probeSuite.getProbes().iterator().next();
+        Probe savedP = probeSuite.getProbes().iterator().next();
         assertTrue(savedP instanceof TemplateProbe);
         assertNotNull(((TemplateProbe)savedP).getProbeSuite());
         // Make sure delete still works

@@ -71,7 +71,7 @@ public class SnapshotRollbackAction extends RhnAction {
         context.lookupAndBindServer();
         ServerSnapshot snapshot = ServerFactory.lookupSnapshotById(ssid.intValue());
 
-        Map<String, Object> params = (Map<String, Object>) makeParamMap(request);
+        Map<String, Object> params = makeParamMap(request);
         params.put(RequestContext.SID, sid);
         params.put(SNAPSHOT_ID, ssid);
 

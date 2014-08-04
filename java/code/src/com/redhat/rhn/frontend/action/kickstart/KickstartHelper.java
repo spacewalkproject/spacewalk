@@ -114,7 +114,7 @@ public class KickstartHelper {
 
         // Process the org
         if (options.containsKey(ORG)) {
-            String id = (String) options.get(ORG);
+            String id = options.get(ORG);
             retval.put(ORG_ID, id);
         }
         else {
@@ -125,7 +125,7 @@ public class KickstartHelper {
         // /kickstart/ks/session/2xb7d56e8958b0425e762cc74e8705d8e7
         if (options.containsKey(SESSION)) {
             // update session
-            String hashed = (String) options.get(SESSION);
+            String hashed = options.get(SESSION);
             String[] ids = SessionSwap.extractData(hashed);
             retval.put(SESSION_ID, ids[0]);
             Long kssid = new Long(ids[0]);

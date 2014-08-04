@@ -215,7 +215,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Long sid = server.getId();
         Long eid = e.getId();
 
-        Package p = (Package) e.getPackages().iterator().next();
+        Package p = e.getPackages().iterator().next();
         // insert record into table
         int rows = ErrataCacheManager.insertNeededErrataCache(sid, eid, p.getId());
 
@@ -234,7 +234,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         e = (Errata) TestUtils.saveAndReload(e);
         Long eid = e.getId();
 
-        Package p = (Package) e.getPackages().iterator().next();
+        Package p = e.getPackages().iterator().next();
 
         // insert record into table
         int rows = ErrataCacheManager.insertNeededErrataCache(sid, eid, p.getId());
@@ -264,7 +264,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Long sid = server.getId();
         Long eid = e.getId();
 
-        Package p = (Package) e.getPackages().iterator().next();
+        Package p = e.getPackages().iterator().next();
 
         // insert record into table
         int rows = ErrataCacheManager.insertNeededErrataCache(sid, eid, p.getId());

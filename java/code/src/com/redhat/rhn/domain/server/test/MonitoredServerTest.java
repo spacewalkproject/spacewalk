@@ -49,7 +49,7 @@ public class MonitoredServerTest extends BaseTestCaseWithUser {
         flushAndEvict(suite);
 
         suite = MonitoringFactory.lookupProbeSuiteByIdAndOrg(psId, user.getOrg());
-        Server s = (Server) suite.getServersInSuite().iterator().next();
+        Server s = suite.getServersInSuite().iterator().next();
         assertTrue(s instanceof MonitoredServer);
     }
 

@@ -59,7 +59,7 @@ public class NavNodeTest extends RhnBaseTestCase {
         n1.setName(randName);
         node.addNode(n1);
 
-        NavNode n2 = (NavNode) node.getNodes().get(0);
+        NavNode n2 = node.getNodes().get(0);
         assertEquals("**" + randName + "**", n2.getName());
         Class c = n2.getClass();
         Field[] fields = c.getDeclaredFields();
