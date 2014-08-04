@@ -4000,6 +4000,23 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
+     * Unentitle the system completely
+     * @param clientCert client system id file
+     * @return 1 if successful
+     *
+     * @xmlrpc.doc Unentitle the system completely
+     * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int unentitle(String clientCert) {
+        Server server = validateClientCertificate(clientCert);
+        SystemManager.removeAllServerEntitlements(server.getId());
+        SystemManager.snapshotServer(server, LocalizationService
+                .getInstance().getMessage("snapshots.entitlements"));
+        return 1;
+    }
+
+    /**
      * Lists the package profiles in this organization
      *
      * @param loggedInUser The current user
