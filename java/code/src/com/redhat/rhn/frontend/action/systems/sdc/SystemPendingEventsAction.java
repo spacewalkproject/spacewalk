@@ -73,9 +73,7 @@ public class SystemPendingEventsAction extends RhnAction {
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward("continue"), params);
             }
-            else {
-                RhnHelper.handleEmptySelection(request);
-            }
+            RhnHelper.handleEmptySelection(request);
         }
 
         set.clear();
