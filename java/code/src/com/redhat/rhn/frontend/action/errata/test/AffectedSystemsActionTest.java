@@ -112,7 +112,7 @@ public class AffectedSystemsActionTest extends MockObjectTestCase {
         for (int i = 0; i < 4; i++) {
             Server server = ServerFactoryTest.createTestServer(user, true);
             ErrataFactoryTest.updateNeedsErrataCache(
-                    ((Package)errata.getPackages().iterator().next()).getId(),
+                    errata.getPackages().iterator().next().getId(),
                     server.getId(), errata.getId());
         }
 

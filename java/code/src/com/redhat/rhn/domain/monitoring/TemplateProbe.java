@@ -278,7 +278,7 @@ public class TemplateProbe extends Probe {
         if (getProbeSuites() == null) {
             return null;
         }
-        return (ProbeSuite) getProbeSuites().iterator().next();
+        return getProbeSuites().iterator().next();
     }
 
     /**

@@ -286,7 +286,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         assertEquals(initialNumPkgs + 2, resultNumPkgs);
 
         boolean found1 = false, found2 = false;
-        for (Package pkg : (Set<Package>) errata.getPackages()) {
+        for (Package pkg : errata.getPackages()) {
             if (pkg.getId().equals(pkg1.getId())) {
                 found1 = true;
             }
@@ -321,7 +321,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         assertEquals(initialNumPkgs - 1, resultNumPkgs);
 
         boolean found1 = false, found2 = false;
-        for (Package pkg : (Set<Package>) errata.getPackages()) {
+        for (Package pkg : errata.getPackages()) {
             if (pkg.getId().equals(pkg1.getId())) {
                 found1 = true;
             }

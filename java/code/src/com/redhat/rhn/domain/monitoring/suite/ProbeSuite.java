@@ -162,7 +162,7 @@ public class ProbeSuite {
         }
         TemplateProbe model = null;
         if (!probes.isEmpty()) {
-            model = (TemplateProbe) getProbes().iterator().next();
+            model = getProbes().iterator().next();
         }
         this.probes.add(probeIn);
         if (!equals(probeIn.getProbeSuite())) {

@@ -87,7 +87,7 @@ public class ProbeSuiteSystemsActionTest extends RhnBaseTestCase {
         suite = ProbeSuiteTest.createTestProbeSuite(user);
         ProbeSuiteTest.addTestServersToSuite(suite, user);
         assertTrue(suite.getServersInSuite().size() == 5);
-        Server removeMe = (Server) suite.getServersInSuite().iterator().next();
+        Server removeMe = suite.getServersInSuite().iterator().next();
         // Gotta do this twice
         sah.getRequest().setupAddParameter(RequestContext.SUITE_ID,
                 suite.getId().toString());

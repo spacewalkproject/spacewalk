@@ -49,7 +49,7 @@ public class ErrataConfirmSetupActionTest extends RhnMockStrutsTestCase {
         //Associate the system and the errata
         UserFactory.save(user);
         OrgFactory.save(user.getOrg());
-        Package p = (Package) e.getPackages().iterator().next();
+        Package p = e.getPackages().iterator().next();
         int rows = ErrataCacheManager.insertNeededErrataCache(
                 server.getId(), e.getId(), p.getId());
         assertEquals(1, rows);

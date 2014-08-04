@@ -44,7 +44,7 @@ public class ErrataActionTest extends RhnPostMockStrutsTestCase {
         addRequestParameter(RequestContext.DISPATCH, Boolean.toString(true));
         Server server = ServerFactoryTest.createTestServer(user, true);
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
-        Package p = (Package) e.getPackages().iterator().next();
+        Package p = e.getPackages().iterator().next();
         ErrataCacheManager.insertNeededErrataCache(server.getId(),
                 e.getId(), p.getId());
         addRequestParameter(RequestContext.SID, server.getId().toString());
@@ -76,7 +76,7 @@ public class ErrataActionTest extends RhnPostMockStrutsTestCase {
             ErrataManager.storeErrata(e);
             errata.addElement(e.getId());
             ErrataFactoryTest.updateNeedsErrataCache(
-                    ((Package)e.getPackages().iterator().next()).getId(),
+                    e.getPackages().iterator().next().getId(),
                     server.getId(), e.getId());
             UserFactory.save(user);
         }

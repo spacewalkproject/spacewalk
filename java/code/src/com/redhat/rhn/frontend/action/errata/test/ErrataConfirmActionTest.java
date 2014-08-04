@@ -44,7 +44,7 @@ public class ErrataConfirmActionTest extends RhnPostMockStrutsTestCase {
             Server s = ServerFactoryTest.createTestServer(user, true);
             updateMe.addElement(s.getId());
             ErrataFactoryTest.updateNeedsErrataCache(
-                    ((Package)e.getPackages().iterator().next()).getId(),
+                    e.getPackages().iterator().next().getId(),
                     s.getId(), e.getId());
             UserFactory.save(user);
         }
