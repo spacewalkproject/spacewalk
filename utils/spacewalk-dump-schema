@@ -626,21 +626,22 @@ sub process_table {
 		print qq!copy $table($the_names) from stdin;\n!;
 	}
 	while ($row) {
+		my $line = '';
 		if ($target_backend eq 'oracle') {
-			print "insert into $table values (";
+			$line = $line . "insert into $table values (";
 		}
 		for (my $i = 0; $i < @$row; $i++) {
 			if ($target_backend eq 'postgresql') {
-				print "\t" if $i;
+				$line = $line . "\t" if $i;
 			} else {
-				print ", " if $i;
+				$line = $line . ", " if $i;
 			}
 			if (defined $use_rowids[$i]) {
 				if (not defined $ROWIDS{$row->[$i]}) {
 					$SEQ++;
 					$ROWIDS{$row->[$i]} = $SEQ;
 				}
-				print $ROWIDS{$row->[$i]};
+				$line = $line . $ROWIDS{$row->[$i]};
 			} elsif (defined $row->[$i]) {
 				# create array from (a,b,c) string - custom types selected from PG
 				if ($types[$i] eq 'unknown' and $row->[$i] =~ s/^\((.*)\)$/$1/) {
@@ -677,20 +678,21 @@ sub process_table {
 						$row->[$i] = "'" . $row->[$i] . "'";
 					}
 				}
-				print $row->[$i];
+				$line = $line . $row->[$i];
 			} else {
 				if ($target_backend eq 'postgresql') {
-					print '\N';
+					$line = $line . '\N';
 				} else {
-					print "''";
+					$line = $line . "''";
 				}
 			}
 		}
 		if ($target_backend eq 'postgresql') {
-			print "\n";
+			$line = $line . "\n";
 		} else {
-			print ");\n";
+			$line = $line . ");\n";
 		}
+		print $line;
 		$row = $sth->fetchrow_arrayref();
 	}
 	if ($target_backend eq 'postgresql') {
