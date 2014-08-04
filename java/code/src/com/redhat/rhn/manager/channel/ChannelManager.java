@@ -1467,30 +1467,28 @@ public class ChannelManager extends BaseManager {
             if (results.size() == 1) {
                 return (Long) row.get("package_id");
             }
-            else {
-                // "default arches". If a channel contains multiple arches (eg.
-                // "i386" and "x86_86") then these are probably the arches that we
-                // want to install by default.
-                List<String> defaultArches = new ArrayList<String>();
-                defaultArches.add("x86_64");
-                defaultArches.add("sparc64");
-                defaultArches.add("s390x");
-                defaultArches.add("armv7hnl");
+            // "default arches". If a channel contains multiple arches (eg.
+            // "i386" and "x86_86") then these are probably the arches that we
+            // want to install by default.
+            List<String> defaultArches = new ArrayList<String>();
+            defaultArches.add("x86_64");
+            defaultArches.add("sparc64");
+            defaultArches.add("s390x");
+            defaultArches.add("armv7hnl");
 
-                // more than one result. they are ordered based on EVR, so let's
-                // examine the packages that have the same EVR as the first one and
-                // see if we can find one that is of the default arch. If we run out
-                // or go down to an older EVR, just return first result as a fallback.
-                for (Map<String, Object> result : results) {
-                    if (!((Long) result.get("evr_id")).equals(row.get("evr_id"))) {
-                        break;
-                    }
-                    if (defaultArches.contains(result.get("arch_label"))) {
-                        return (Long) result.get("package_id");
-                    }
+            // more than one result. they are ordered based on EVR, so let's
+            // examine the packages that have the same EVR as the first one and
+            // see if we can find one that is of the default arch. If we run out
+            // or go down to an older EVR, just return first result as a fallback.
+            for (Map<String, Object> result : results) {
+                if (!((Long) result.get("evr_id")).equals(row.get("evr_id"))) {
+                    break;
                 }
-                return (Long) row.get("package_id");
+                if (defaultArches.contains(result.get("arch_label"))) {
+                    return (Long) result.get("package_id");
+                }
             }
+            return (Long) row.get("package_id");
         }
         return null;
     }
