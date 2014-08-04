@@ -69,7 +69,6 @@ public class ErrataDetailsSetupAction extends RhnAction {
                 LocalizationService.getInstance().getMessage("list delimiter"),
                 IteratorUtils.getIterator(CollectionUtils.collect(keywords,
                         new Transformer() {
-                            @Override
                             public Object transform(Object o) {
                                 return o.toString();
                             }

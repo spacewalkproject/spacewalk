@@ -49,7 +49,6 @@ public class ActionChainRPCCommon {
          * @param value The object to be transformed, should be left unchanged.
          * @return The Long that corresponds with this Integer
          */
-        @Override
         public Long transform(Object value) {
             return value == null ? null : ((Integer) value).longValue();
         }

@@ -90,7 +90,6 @@ public class EditAction extends LookupDispatchAction {
             LocalizationService.getInstance().getMessage("list delimiter"),
             IteratorUtils.getIterator(CollectionUtils.collect(errata.getKeywords(),
                 new Transformer() {
-                    @Override
                     public Object transform(Object o) {
                         return o.toString();
                     }
