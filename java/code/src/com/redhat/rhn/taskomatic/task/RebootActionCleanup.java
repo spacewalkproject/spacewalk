@@ -44,7 +44,6 @@ public class RebootActionCleanup extends RhnJavaJob {
     /**
      * {@inheritDoc}
      */
-    @Override
     public void execute(JobExecutionContext arg0In)
         throws JobExecutionException {
         List<Map<String, Long>> failedRebootActions = lookupRebootActionCleanup();

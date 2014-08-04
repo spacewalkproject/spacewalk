@@ -55,7 +55,6 @@ public class ActionChainListAction extends RhnAction implements Listable<ActionC
     /**
      * {@inheritDoc}
      */
-    @Override
     public List<ActionChain> getResult(RequestContext context) {
         return ActionChainFactory.getActionChains();
     }
