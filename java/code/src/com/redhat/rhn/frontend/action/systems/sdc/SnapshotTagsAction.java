@@ -70,9 +70,7 @@ public class SnapshotTagsAction extends RhnAction {
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward("confirm"), params);
             }
-            else {
-                RhnHelper.handleEmptySelection(request);
-            }
+            RhnHelper.handleEmptySelection(request);
         }
 
         DataResult result = SystemManager.snapshotTagsForSystem(sid, null);
