@@ -221,9 +221,7 @@ public class KickstartInstallType extends BaseDomainHelper {
         if (this.getCobblerBreed().equals(REDHAT)) {
             return this.getLabel().replace("_", "");
         }
-        else {
-            return "generic26";
-        }
+        return "generic26";
     }
 
 }
