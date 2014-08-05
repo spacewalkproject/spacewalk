@@ -1723,7 +1723,7 @@ def subscribe_sql(server_id, channel_id, commit=1):
 
 _query_parent_channel_subscribed = rhnSQL.Statement("""
 select 1
-  from rhnChannel c,
+  from rhnChannel c
        join rhnServerChannel sc on c.parent_channel = sc.channel_id
   where sc.server_id = :sid
     and c.label = :channel
