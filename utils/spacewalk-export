@@ -251,11 +251,13 @@ def configfileslatestDump(options):
 def prepareExport(options):
     if options.debug:
         call(['/bin/tar', '-c', '-v', '-z',
+            '--owner', 'apache', '--group', 'apache',
             '-C', options.export_dir,
             '-f', '%s/%s' % (options.export_dir, options.export_package),
             REPORTS_DIR])
     else:
         call(['/bin/tar', '-c', '-z',
+            '--owner', 'apache', '--group', 'apache',
             '-C', options.export_dir,
             '-f', '%s/%s' % (options.export_dir, options.export_package),
             REPORTS_DIR])
