@@ -1,0 +1,24 @@
+From 726503fb63791aec058a6331f8e2f9bb56f3896b Mon Sep 17 00:00:00 2001
+From: Michael Mraka <michael.mraka@redhat.com>
+Date: Wed, 6 Aug 2014 10:59:45 +0200
+Subject: [PATCH 2/2] fixed no source spec issue
+
+---
+ src/tito/builder.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/tito/builder.py b/src/tito/builder.py
+index ac47a12..a274e0d 100644
+--- a/src/tito/builder.py
++++ b/src/tito/builder.py
+@@ -491,7 +491,7 @@ class NoTgzBuilder(Builder):
+         result = run_command(cmd)
+         self.sources = [os.path.join(self.rpmbuild_gitcopy, x)
+                         for x in result.split("\n")
+-                        if os.path.exists(os.path.join(self.rpmbuild_gitcopy, x))]
++                        if x and os.path.exists(os.path.join(self.rpmbuild_gitcopy, x))]
+         debug("  Sources: %s" % self.sources)
+
+     def _get_rpmbuild_dir_options(self):
+--
+1.8.3.1

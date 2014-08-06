@@ -11,6 +11,8 @@ URL: http://rm-rf.ca/tito
 Source0: http://rm-rf.ca/files/tito/tito-%{version}.tar.gz
 Patch0:  0001-support-local-releasers.conf-overwrite.patch
 Patch1:  0001-fixed-building-third-party-packages.patch
+Patch2:  0001-fixed-changelog-formating.patch
+Patch3:  0002-fixed-no-source-spec-issue.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
