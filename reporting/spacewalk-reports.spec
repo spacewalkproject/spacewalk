@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.2
+Version: 2.3.3
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Wed Aug 06 2014 Tomas Lestach <tlestach@redhat.com> 2.3.3-1
+- fix system-profiles report to expect multiple virtual guests per host
+
 * Thu Jul 31 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.2-1
 - 1122706 - Add channel_id to config-file* reports
 
