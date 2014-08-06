@@ -38,8 +38,10 @@ SUPPORTED_ENTITIES = {
         'activation-keys'     : 'Activation keys',
         'channels'            : 'Custom/cloned channels and repositories for all organizations',
         'config-files-latest' : 'Latest revision of all configuration files',
+        'kickstart-scripts'   : 'Kickstart scripts for all organizations',
         'repositories'        : 'Defined repositories',
         'system-groups'       : 'System-groups for all organizations',
+        'system-profiles'     : 'System profiles for all organizations',
         'users'               : 'Users and Organizations'
         }
 
@@ -49,10 +51,12 @@ SUPPORTED_ENTITIES = {
 #
 REPORT_TO_ORG = {
         'activation-keys'     : 'org_id',
-        'config-files-latest' : 'org_id',
         'channels'            : 'org_id',
+        'config-files-latest' : 'org_id',
+        'kickstart-scripts'   : 'org_id',
         'repositories'        : 'org_id',
         'system-groups'       : 'org_id',
+        'system-profiles'     : 'org_id',
         'users'               : 'organization_id'
         }
 
@@ -202,6 +206,11 @@ def systemgroupsDump(options):
     _issueReport(options, 'system-groups')
     return
 
+def systemprofilesDump(options):
+    logging.info('Processing system-profiles...')
+    _issueReport(options, 'system-profiles')
+    return
+
 def activationkeysDump(options):
     logging.info('Processing activation-keys...')
     _issueReport(options, 'activation-keys')
@@ -241,6 +250,11 @@ def repositoriesDump(options):
                         '-f', '%s/%s/%s' % (options.export_dir, REPORTS_DIR, repo_tarname),
                         repo_basename])
         handle.close()
+    return
+
+def kickstartscriptsDump(options):
+    logging.info('Processing kickstart-scripts...')
+    _issueReport(options, 'kickstart-scripts')
     return
 
 def configfileslatestDump(options):
