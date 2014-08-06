@@ -61,8 +61,8 @@ sql:
 		(select name from web_customer where rhnServer.org_id = web_customer.id) as organization_name,
         rhnServer.release,
 		(select rhnServerArch.name from rhnServerArch where rhnServer.server_arch_id = rhnServerArch.id) as architecture,
-		(select host_system_id from rhnVirtualInstance where uuid is not null and host_system_id = rhnServer.id or virtual_system_id = rhnServer.id) as virtual_host,
-		(select virtual_system_id from rhnVirtualInstance where uuid is not null and host_system_id = rhnServer.id) as virtual_guest,
+		vi.virtual_system_id as virtual_guest,
+		(select distinct host_system_id from rhnVirtualInstance where uuid is not null and host_system_id = rhnServer.id or virtual_system_id = rhnServer.id) as virtual_host,
 		(case when (select rhnVirtualInstance.virtual_system_id from rhnVirtualInstance where rhnVirtualInstance.virtual_system_id=rhnServer.id) is null then 'No' else 'Yes' end
 ) as is_virtualized,
 		(select rvit.name from rhnVirtualInstance rvi inner join rhnVirtualInstanceInfo rvii on rvi.id = rvii.instance_id inner join rhnVirtualInstanceType rvit on rvii.instance_type = rvit.id where rvi.virtual_system_id = rhnServer.id) as virt_type
@@ -78,6 +78,7 @@ sql:
 		) rhnServerNetwork on rhnServer.id = rhnServerNetwork.server_id
 		left outer join rhnServerChannel on rhnServer.id = rhnServerChannel.server_id
 		left outer join rhnChannel on rhnServerChannel.channel_id = rhnChannel.id
+		left outer join rhnVirtualInstance vi on vi.host_system_id = rhnServer.id and uuid is not null
 		left outer join
 		(
 		select rhnServerGroupMembers.server_id, rhnServerGroupMembers.server_group_id, rhnServerGroup.name
