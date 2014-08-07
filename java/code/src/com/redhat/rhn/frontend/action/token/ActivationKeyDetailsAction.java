@@ -193,7 +193,6 @@ public class ActivationKeyDetailsAction extends RhnAction {
         }
 
         key.setBaseChannel(lookupChannel(form, user));
-        key.setNote(form.getString(DESCRIPTION));
 
         key.getToken().setOrgDefault(Boolean.TRUE.equals(form.get(ORG_DEFAULT)));
 
