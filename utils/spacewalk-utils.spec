@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.5
+Version:	2.3.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,11 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Aug 07 2014 Grant Gainey 2.3.6-1
+- 1126928 - add sys-prof and kickstart-scripts to spacewalk-export
+- 1114602 - Teach spacewalk-export that files in final tar should be owned by
+  apache
+
 * Thu Jul 31 2014 Grant Gainey 2.3.5-1
 - Fix spacewalk-export to use config-files-latest not config-files
 - 1123437 - Replace .format with %% to run on python2.4
