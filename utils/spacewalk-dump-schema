@@ -99,7 +99,8 @@ EOS
 } else {
 print <<EOS;
 whenever sqlerror exit sql.sqlcode;
-SET AUTOCOMMIT OFF
+SET AUTOCOMMIT OFF;
+SET DEFINE OFF;
 
 -- disable constraints
 BEGIN
