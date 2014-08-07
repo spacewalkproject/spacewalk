@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.7
+Version:        2.3.8
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Aug 07 2014 Jan Dobes 2.3.8-1
+- fixing order of commands
+
 * Fri Aug 01 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.7-1
 - add Korea to the list of timezones
 
