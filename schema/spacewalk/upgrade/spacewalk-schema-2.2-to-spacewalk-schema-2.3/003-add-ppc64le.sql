@@ -4,14 +4,14 @@ insert into rhnChannelArch (id, label, name, arch_type_id) values
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-ppc64le'), LOOKUP_PACKAGE_ARCH('noarch'));
 
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-ppc64le'), LOOKUP_PACKAGE_ARCH('ppc64le'));
-
 insert into rhnCpuArch (id, label, name) values
 (sequence_nextval('rhn_cpu_arch_id_seq'), 'ppc64le', 'ppc64le');
 
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'ppc64le', 'ppc64le', lookup_arch_type('rpm'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-ppc64le'), LOOKUP_PACKAGE_ARCH('ppc64le'));
 
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('ppc64le'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('ppc64le'), LOOKUP_PACKAGE_ARCH('ppc64le'), current_timestamp, current_timestamp);
