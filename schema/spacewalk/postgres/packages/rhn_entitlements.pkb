@@ -1114,6 +1114,12 @@ as $$
                                          group_type,
                                          new_ent_count);
 
+        if group_label_in = 'provisioning_entitled' then
+            if new_ent_count = 0 then
+                 perform rhn_entitlements.unset_customer_provisioning(from_org_id_in);
+            end if;
+        end if;
+
         perform rhn_entitlements.set_server_group_count(to_org_id_in,
                                          group_type,
                                          new_quantity);
