@@ -44,6 +44,7 @@ import com.redhat.rhn.frontend.xmlrpc.configchannel.XmlRpcConfigChannelHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
+import com.redhat.rhn.manager.token.ActivationKeyCloneCommand;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -190,6 +191,28 @@ public class ActivationKeyHandler extends BaseHandler {
         catch (NonUniqueObjectException e) {
             throw new ActivationKeyAlreadyExistsException();
         }
+    }
+
+    /**
+     * Clones activation key
+     * @param loggedInUser The current user
+     * @param key Actication Key to be cloned
+     * @param cloneDescription Description for the new activation key.
+     * @return Key of the newly created activation key.
+     * @throws FaultException A FaultException is thrown if the loggedInUser
+     * doesn't have permissions to create new activation keys.
+     * @xmlrpc.doc Clone an existing activation key.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "key", "Key to be cloned.")
+     * @xmlrpc.param #param_desc("string", "cloneDescription",
+     * "Description of the cloned key.")
+     * @xmlrpc.returntype string - The new activation key.
+     */
+    public String clone(User loggedInUser, String key, String cloneDescription)
+        throws FaultException {
+        ActivationKeyCloneCommand cak = new ActivationKeyCloneCommand(
+                loggedInUser, key, cloneDescription);
+        return cak.getclonedkey();
     }
 
     /**

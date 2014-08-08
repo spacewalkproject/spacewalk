@@ -292,6 +292,13 @@ public class ActivationKey extends BaseDomainHelper {
     }
 
     /**
+     * Set the Set of Channels associated with this ActivationKey
+     * @param channelsIn Channel set
+     */
+    public void setChannels(Set channelsIn) {
+        this.getToken().setChannels(channelsIn);
+    }
+    /**
      * Add a ServerGroup to this ActivationKey
      * @param serverGroupIn to add
      */
@@ -313,6 +320,15 @@ public class ActivationKey extends BaseDomainHelper {
      */
     public Set<ServerGroup> getServerGroups() {
         return this.getToken().getServerGroups();
+    }
+
+    /**
+     * Set the Set of ServerGroup objects associated with this ActivationKey
+     * @param serverGroupsIn Servers Groups set
+     * @return
+     */
+    public void setServerGroups(Set<ServerGroup> serverGroupsIn) {
+        this.getToken().setServerGroups(serverGroupsIn);
     }
 
     /**
@@ -340,6 +356,14 @@ public class ActivationKey extends BaseDomainHelper {
      */
     public Set<TokenPackage> getPackages() {
         return this.getToken().getPackages();
+    }
+
+    /**
+     * set the Set of TokenPackage objects associated with this ActivationKey
+     * @param packagesIn Set of TokenPackage objects.
+     */
+    public void setPackages(Set<TokenPackage> packagesIn) {
+        this.getToken().setPackages(packagesIn);
     }
 
     /**
