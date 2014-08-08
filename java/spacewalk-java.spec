@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.17
+Version: 2.3.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 08 2014 Jan Dobes 2.3.18-1
+- 1127750 - ISE when activation key has no description.
+
 * Wed Aug 06 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.17-1
 - remove wrong @Override annotations
 - remove unused import
