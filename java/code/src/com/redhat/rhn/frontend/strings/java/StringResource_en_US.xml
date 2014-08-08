@@ -6035,6 +6035,9 @@ Follow this url to see the full list of inactive systems:
         <trans-unit id="activation-key.java.deleted">
           <source>Activation key &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
         </trans-unit>
+        <trans-unit id="activation-key.java.cloned">
+          <source>Activation key &lt;strong&gt;{0}&lt;/strong&gt; has been cloned.</source>
+        </trans-unit>
         <trans-unit id="activation-key.java.modified">
           <source>Activation key &lt;strong&gt;{0}&lt;/strong&gt; has been modified.</source>
         </trans-unit>

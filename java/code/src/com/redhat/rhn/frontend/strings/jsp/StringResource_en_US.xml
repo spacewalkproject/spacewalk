@@ -9590,6 +9590,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ActivationKeysEdit.do</context>
           <context context-type="sourcefile">/rhn/activationkeys/List.do</context>
+          <context context-type="sourcefile">/rhn/activationkeys/Clone.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.activationkeys.jsp.key">
@@ -11308,6 +11309,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="toolbar.create.activationkeys">
           <source>create new key</source>
         </trans-unit>
+        <trans-unit id="toolbar.clone.activationkeys">
+          <source>clone key</source>
+        </trans-unit>
         <trans-unit id="toolbar.delete.activationkeys">
           <source>delete key</source>
         </trans-unit>
@@ -11397,6 +11401,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="activation-key.details.jsp.title">
           <source>Activation Key Details</source>
+        </trans-unit>
+        <trans-unit id="activation-key.jsp.clone-key">
+          <source>Clone Activation Key {0}</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/activationkeys/Clone</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="activation-key.clone.jsp.summary">
+          <source>Please specify a new Description for the cloned Activation Key. All options and settings from the source ativation key will be copied to the cloned one without the Universal default option. In case no description is specified, the cloned activation key will be created with the same description as the source one preceded by "clone-".</source>
         </trans-unit>
         <trans-unit id="activation-key.jsp.delete-key">
           <source>Delete Activation Key</source>
