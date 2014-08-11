@@ -112,8 +112,6 @@ def main():
         print "======================================"
         print "|   Channel Label   |   Repository   |"
         print "======================================"
-        d_chan_repo=reposync.getChannelRepo()
-        l_ch_custom=reposync.getCustomChannels()
         for ch in d_chan_repo:
             for repo in d_chan_repo[ch]:
                 print "%s | %s" %(ch,repo)

@@ -90,7 +90,12 @@ def getParentsChilds():
             if not parent_channel:
                 d_parents[row['label']] = []
             else:
-                d_parents[parent_channel].append(row['label'])
+                # If the parent is not a custom channel treat the child like
+                # it's a parent for our purposes
+                if parent_channel not in d_parents:
+                    d_parents[row['label']] = []
+                else:
+                    d_parents[parent_channel].append(row['label'])
 
     return d_parents
 
