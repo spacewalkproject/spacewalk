@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.6
+Version:	2.3.7
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Aug 11 2014 Tomas Lestach <tlestach@redhat.com> 2.3.7-1
+- 1128680 - add spacewalk-reports dependency for spacewalk-utils
+
 * Thu Aug 07 2014 Grant Gainey 2.3.6-1
 - 1126928 - add sys-prof and kickstart-scripts to spacewalk-export
 - 1114602 - Teach spacewalk-export that files in final tar should be owned by
