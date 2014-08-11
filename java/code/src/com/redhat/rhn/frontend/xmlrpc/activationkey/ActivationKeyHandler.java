@@ -34,6 +34,7 @@ import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.InvalidArgsException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidServerGroupException;
@@ -734,6 +735,10 @@ public class ActivationKeyHandler extends BaseHandler {
         String arch = null;
         for (Map<String, String> pkg : packages) {
             name = pkg.get("name");
+            if (name.contains(" ")) {
+                throw new InvalidArgsException(
+                        "More than one package names are specified.");
+            }
             PackageName packageName = PackageFactory.lookupOrCreatePackageByName(name);
 
             arch = pkg.get("arch");
