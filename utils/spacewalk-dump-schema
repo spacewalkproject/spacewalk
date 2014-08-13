@@ -637,7 +637,7 @@ sub process_table {
 			if ($target_backend eq 'postgresql') {
 				$line = $line . "\t" if $i;
 			} else {
-				$line = $line . ", " if $i;
+				$line = $line . ",\n" if $i;
 			}
 			if (defined $use_rowids[$i]) {
 				if (not defined $ROWIDS{$row->[$i]}) {
@@ -679,10 +679,12 @@ sub process_table {
 					if ($target_backend eq 'postgresql') {
 						$row->[$i] =~ s!([\x00-\x1f\x5c])! sprintf "\\x%02x", ord($1) !seg;
 					} else {
+						# Split long inputs to multiple lines
+						$row->[$i] =~ s/(.{2000})/$1'||\n');\n/g;
 						# Close data in apostrophes due to insert into statement
 						$row->[$i] =~ s/'/''/g;
                                                 $row->[$i] = "'" . $row->[$i] . "'";
-						$row->[$i] =~ s!([\x00-\x1f\x5c])! sprintf "'||chr(%02d)||'", ord($1) !seg;
+						$row->[$i] =~ s!([\x00-\x1f\x5c])! sprintf "'||chr(%02d)||\n'", ord($1) !seg;
 					}
 					utf8::decode($row->[$i]);
 				}
