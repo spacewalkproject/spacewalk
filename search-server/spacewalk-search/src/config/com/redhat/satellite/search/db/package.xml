@@ -60,13 +60,37 @@
    <select id="verifyPackageVisibility" resultType="string">
       select cp.package_id
         from rhnChannelPackage cp,
-             pxtsessions ps,
-             rhnUserChannelFamilyPerms ucfp,
-             rhnChannelFamilyMembers cfm
-       where cfm.channel_id = cp.channel_id
-         and cfm.channel_family_id = ucfp.channel_family_id
-         and ucfp.user_id = ps.web_user_id
-         and ps.id = #{session_id}
+             rhnChannel c
+       where c.id = cp.channel_id
+             -- channel in a trusted org and public
+         and ((c.channel_access = 'public'
+                and c.id in (select c2.id
+                               from rhnChannel c2,
+                                    rhnTrustedOrgs rto,
+                                    web_contact wc,
+                                    pxtsessions ps
+                              where c2.org_id = rto.org_id
+                                and rto.org_trust_id = wc.org_id
+                                and wc.id = ps.web_user_id
+                                and ps.id = #{session_id}))
+             -- or specific channel trust granted and protected
+             or (c.channel_access = 'protected'
+                and c.id in (select ct.channel_id
+                               from rhnChannelTrust ct,
+                                    web_contact wc,
+                                    pxtsessions ps
+                              where ct.org_trust_id = wc.org_id
+                                and wc.id = ps.web_user_id
+                                and ps.id = #{session_id}))
+             -- or channel family is visible (null or this org)
+             or c.id in (select cfm.channel_id
+                           from rhnChannelFamilyMembers cfm,
+                                rhnUserChannelFamilyPerms ucfp,
+                                pxtsessions ps
+                          where ps.id = #{session_id}
+                            and ucfp.user_id = ps.web_user_id
+                            and cfm.channel_family_id = ucfp.channel_family_id)
+             )
          and cp.package_id IN
        <foreach collection="id_list" item="item" separator="," close=")" open="(">
          #{item}
