@@ -127,6 +127,7 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 import com.redhat.rhn.manager.system.DuplicateSystemGrouping;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -140,6 +141,12 @@ import com.redhat.rhn.manager.user.UserManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.cobbler.SystemRecord;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -4014,6 +4021,107 @@ public class SystemHandler extends BaseHandler {
         SystemManager.snapshotServer(server, LocalizationService
                 .getInstance().getMessage("snapshots.entitlements"));
         return 1;
+    }
+
+    /**
+     * returns uuid and other transition data for the system according to the mapping file
+     * @param clientCert client certificate
+     * @return map containing transition data (hostname, uuid, system_id, timestamp)
+     * @throws FileNotFoundException in case no transition data are available
+     * @throws NoSuchSystemException in case no transition data for the specific system
+     * were found
+     *
+     * @xmlrpc.ignore Since this API is used for transition of systems and
+     * is not useful to external users of the API, the typical XMLRPC API documentation
+     * is not being included.
+     */
+    public Map transitionDataForSystem(String clientCert) throws FileNotFoundException,
+        NoSuchSystemException {
+        final File transitionFolder =  new File("/usr/share/rhn/transition");
+        final String csvUuid = "uuid";
+        final String csvSystemId = "system_id";
+        final String csvStamp = "timestamp";
+        final String csvHostname = "hostname";
+
+        Server server = validateClientCertificate(clientCert);
+        String systemIdStr = server.getId().toString();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put(csvStamp, 0);
+
+        File[] files = transitionFolder.listFiles();
+        if (files == null) {
+            throw new FileNotFoundException("Transition data not available");
+        }
+        for (File file : files) {
+            Pattern pattern = Pattern.compile("id_to_uuid-(\\d+).map");
+            Matcher matcher = pattern.matcher(file.getName());
+            if (matcher.find()) {
+                Integer fileStamp;
+                try {
+                    fileStamp = Integer.parseInt(matcher.group(1));
+                }
+                catch (NumberFormatException nfe) {
+                    // not our file, skip it
+                    log.debug("Skipping " + file.getName());
+                    break;
+                }
+
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(file));
+                    String line;
+                    String[] header = null;
+                    Integer systemIdPos = null, uuidPos = null;
+                    while ((line = br.readLine()) != null) {
+                        if (header == null) {
+                            header = line.split(",");
+                            for (int i = 0; i < header.length; i++) {
+                                if (header[i].equals(csvUuid)) { uuidPos = i; }
+                                if (header[i].equals(csvSystemId)) { systemIdPos = i; }
+                            }
+                            if (uuidPos == null || systemIdPos == null) {
+                                log.warn("Unexpected format of mapping file " +
+                                        file.getName());
+                                break;
+                            }
+                            continue;
+                        }
+                        String[] record = line.split(",");
+                        if (record.length <= uuidPos || record.length <= systemIdPos) {
+                            log.warn("Unexpected format of mapping file " + file.getName());
+                            break;
+                        }
+                        if (record[systemIdPos].equals(systemIdStr) &&
+                                fileStamp > (Integer)map.get(csvStamp)) {
+                            map.put(csvUuid, record[uuidPos]);
+                            map.put(csvSystemId, record[systemIdPos]);
+                            map.put(csvStamp, fileStamp);
+                            String[] cmd = {"rpm", "--qf=%{NAME}",
+                                    "-qf", file.getAbsolutePath()};
+                            map.remove(csvHostname);
+                            SystemCommandExecutor ce = new SystemCommandExecutor();
+                            if (ce.execute(cmd) == 0) {
+                                Pattern rpmPattern = Pattern.compile(
+                                        "system-profile-transition-(\\S+)-" + fileStamp +
+                                        "\n$");
+                                matcher = rpmPattern.matcher(ce.getLastCommandOutput());
+                                if (matcher.find()) {
+                                    map.put(csvHostname, matcher.group(1));
+                                }
+                            }
+                       }
+                    }
+                    br.close();
+                }
+                catch (IOException e) {
+                    log.warn("Cannot read " + file.getName());
+                }
+            }
+        }
+
+        if (!map.containsKey(csvUuid)) {
+            throw new NoSuchSystemException("No transition data for system " + systemIdStr);
+        }
+        return map;
     }
 
     /**
