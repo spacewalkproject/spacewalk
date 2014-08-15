@@ -137,7 +137,8 @@ def main():
         for pch in options.parent_label:
             if pch in d_parent_child:
                for ch in [pch]+d_parent_child[pch]:
-                    d_ch_repo_sync[ch]=[]
+                    if ch in l_ch_custom:
+                        d_ch_repo_sync[ch]=[]
             else:
                 systemExit(1, "Channel %s is not custom base channel." % pch)
 
