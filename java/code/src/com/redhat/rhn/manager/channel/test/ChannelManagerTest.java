@@ -721,7 +721,6 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         // should be one, with one system, and its name should be == the name of the
         // base-channel for the system we just created
         assertTrue(dr.size() == 1);
-        assertTrue(dr.get(0) instanceof SystemsPerChannelDto);
         SystemsPerChannelDto spc = dr.get(0);
         assertTrue(spc.getName().equals(s.getBaseChannel().getName()));
         assertTrue(spc.getSystemCount() == 1);
