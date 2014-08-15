@@ -521,12 +521,6 @@ SELECT * FROM rhnVirtualInstance WHERE id = :id
     </query>
 </mode>
 
-<mode name="get_debug_log">
-    <query params="">
-SELECT * FROM time_series order by entry_time
-    </query>
-</mode>
-
 <mode name="get_test_users">
     <query params="">
 SELECT id from web_contact where UPPER(login) like 'TEST%'
@@ -574,7 +568,7 @@ SELECT name FROM web_customer WHERE id IN (%s) AND name = :name
 
 <mode name="select_test_time_series">
     <query params="data">
-SELECT data FROM time_series WHERE data = :data
+SELECT 1 FROM dual
     </query>
 </mode>
 </datasource_modes>

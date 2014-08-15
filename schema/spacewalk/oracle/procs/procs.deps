@@ -50,11 +50,7 @@ delete_server                   :: rhn_channel.pks rhn_config.pks \
                                    rhnServerTokenRegs rhnSnapshotTag \
                                    rhnUserServerPrefs \
                                    rhnServerPath rhnServerPath \
-                                   rhn_check_probe \
-                                   rhnServerNetInterface rhn_host_probe \
-                                   rhn_probe_state rhn_sat_cluster \
-                                   rhn_sat_node rhn_probe \
-                                   rhn_server_monitoring_info \
+                                   rhnServerNetInterface \
                                    rhnServerEntitlementView
 delete_server_bulk              :: delete_server
 does_user_have_role             :: rhnUserGroup rhnUserGroupMembers rhnUserGroupType
@@ -132,16 +128,6 @@ pxt_session_cleanup             :: PXTSessions
 queue_server                    :: rhnTaskQueue rhnServer \
                                    rhn_server.update_needed_cache
 
-rhn_install_org_satellites      :: rhn_command_queue_instances rhn_ll_netsaint \
-                                   rhn_sat_cluster web_customer \
-                                   rhn_prepare_install rhn_install_satellite
-rhn_install_satellite           :: rhn_command_queue_instances rhn_sat_cluster \
-                                   rhn_command_queue_execs
-rhn_prepare_install             :: rhn_command_queue_instances
-rhn_synch_probe_state           :: rhn_probe_state rhn_deployed_probe \
-                                   rhn_current_state_summaries \
-                                   rhn_multi_scout_threshold \
-                                   rhn_current_state_summaries
 set_ks_session_history_message  :: rhnKickstartSessionState \
                                    rhnKickstartSessionHistory
 get_hw_info_as_clob             :: rhnCpu rhnServerNetInterface

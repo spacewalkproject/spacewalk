@@ -466,22 +466,6 @@ public class TestUtils {
     }
 
     /**
-     * Dumb util method to print * from time_series table (can stuff debug in there)
-     */
-    public static void printDBDebugLog() {
-        SelectMode m =
-            ModeFactory.
-            getMode("test_queries", "get_debug_log");
-        DataResult rows = m.execute(new HashMap());
-        Iterator i = rows.iterator();
-        while (i.hasNext()) {
-            Map row = (Map) i.next();
-            System.out.println("Message: " + row.get("o_id") + ": " + row.get("data"));
-        }
-
-    }
-
-    /**
      * Search an array by calling the passsed in method name with the key as the checker
      * @param search array
      * @param methodName to call on each object in the array (can be toString())

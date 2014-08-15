@@ -61,10 +61,6 @@ public class SetCleanup {
         new SetCleanup("remove_unowned_system_groups");
     public static final SetCleanup UNOWNED_USERS =
         new SetCleanup("remove_unowned_users");
-    public static final SetCleanup UNOWNED_FILTERS =
-        new SetCleanup("remove_unowned_filters");
-    public static final SetCleanup UNOWNED_SUITES =
-        new SetCleanup("remove_unowned_suites");
     public static final SetCleanup UNOWNED_METHODS =
         new SetCleanup("remove_unowned_methods");
     public static final SetCleanup UNOWNED_ACTIVATION_KEYS =

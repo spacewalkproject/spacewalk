@@ -216,49 +216,7 @@ rhnVirtualInstanceEventLog     :: rhnVirtualInstance rhnVirtualInstanceEventType
                                   rhnVirtualInstanceState
 rhnVisibleObjects              :: PXTSessions
 rhnWebContactChangeLog         :: rhnWebContactChangeState
-rhn_check_probe                :: rhnServer rhn_probe rhn_sat_cluster
-rhn_check_suite_probe          :: rhn_check_suites
-rhn_check_suites               :: web_customer
-rhn_command                    :: rhn_command_groups rhn_command_class \
-                                  rhn_command_requirements
-rhn_command_parameter          :: rhn_command rhn_widget rhn_semantic_data_type
-rhn_command_param_threshold    :: rhn_command rhn_metrics rhn_threshold_type
-rhn_command_queue_execs        :: rhn_command_queue_instances rhn_command_target
-rhn_command_queue_instances    :: rhn_command_queue_commands
-rhn_command_queue_params       :: rhn_command_queue_instances
-rhn_command_queue_sessions     :: web_contact
-rhn_command_target             :: web_customer
 rhn_config_parameter           :: rhn_config_group rhn_config_security_type
-rhn_contact_group_members      :: rhn_contact_methods rhn_contact_groups
-rhn_contact_groups             :: web_customer rhn_strategies \
-                                  rhn_notification_formats
-rhn_contact_methods            :: web_contact rhn_method_types rhn_pager_types \
-                                  rhn_sat_cluster rhn_schedules \
-                                  rhn_notification_formats rhnTimezone rhnUserInfo
-rhn_host_probe                 :: rhnServer rhn_probe rhn_sat_cluster 
-rhn_ll_netsaint                :: rhn_sat_cluster 
-rhn_metrics                    :: rhn_command_class rhn_units
-rhn_notification_formats       :: web_customer 
-rhn_os_commands_xref           :: rhn_command rhn_os
-rhn_probe                      :: rhn_command web_customer rhn_probe_types
-rhn_probe_param_value          :: rhn_probe rhn_command_parameter
-rhn_redirect_criteria          :: rhn_redirects rhn_redirect_match_types
-rhn_redirect_email_targets     :: rhn_redirects 
-rhn_redirect_group_targets     :: rhn_contact_groups rhn_redirects 
-rhn_redirect_method_targets    :: rhn_contact_methods rhn_redirects 
-rhn_redirects                  :: web_contact web_customer rhn_redirect_types
-rhn_sat_cluster                :: rhn_command_target web_customer rhn_physical_location
-rhn_sat_cluster_probe          :: rhn_probe rhn_sat_cluster
-rhn_sat_node                   :: rhn_command_target rhn_sat_cluster 
-rhn_schedule_days              :: rhn_schedules
-rhn_schedules                  :: web_customer rhn_schedule_types
-rhn_schedule_weeks             :: rhn_schedules
-rhn_server_monitoring_info     :: rhnServer rhn_os
-rhn_service_probe_origins      :: rhn_check_suite_probe rhn_probe 
-rhn_snmp_alert                 :: rhn_sat_cluster 
-rhn_units                      :: rhn_quanta
-rhn_url_probe                  :: rhn_probe 
-rhn_url_probe_step             :: rhn_url_probe 
 rhnActionChain                 :: web_contact
 rhnActionChainEntry            :: rhnActionChain rhnAction rhnServer
 suseCredentials                :: suseCredentialsType web_contact

@@ -7,10 +7,10 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 --
 --
@@ -18,7 +18,7 @@
 
 CREATE OR REPLACE
 PACKAGE BODY rhn_org
-IS  
+IS
     procedure delete_org (
         org_id_in in number
     )
@@ -78,7 +78,7 @@ IS
           delete from rhnServerProfile where base_channel = cc.id;
         end loop;
 
-        -- Delete all errata packages 
+        -- Delete all errata packages
         for e in errata loop
             delete from rhnErrataPackage where errata_id = e.id;
         end loop;
@@ -204,4 +204,3 @@ IS
 END rhn_org;
 /
 SHOW ERRORS
-

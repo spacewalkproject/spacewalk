@@ -30,5 +30,5 @@ rhnServerGroup             :: rhnUserGroup rhnUserGroupType rhn_exception \
                               lookup_functions rhnSnapshot rhnServerGroup \
                               rhnSnapshotServerGroup
 rhnSnapshotConfigChannel   :: rhnSnapshot rhnConfigChannel
-rhnUserInfo                :: rhnTimezone rhn_contact_methods
+rhnUserInfo                :: rhnTimezone
 web_contact                :: web_contact web_contact_all

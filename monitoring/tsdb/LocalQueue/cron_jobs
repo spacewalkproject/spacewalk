@@ -1,5 +1,0 @@
-# Move files to supplemental drainers
-*/20 * * * * nocpulse /usr/bin/rebalance_cron
-
-# Delete old archive files
-4 0 * * * nocpulse find /var/log/nocpulse/TSDBLocalQueue*/archive -type f -and -mtime +10 | xargs /bin/rm 

@@ -141,11 +141,6 @@ setup_sudoers();
 print Spacewalk::Setup::loc("* Activating $product_name.\n");
 load_satellite_certificate(\%opts, \%answers);
 
-print Spacewalk::Setup::loc("* Enabling Monitoring.\n");
-setup_monitoring(\%opts, \%answers);
-Spacewalk::Setup::update_monitoring_scout(\%opts, \%answers);
-Spacewalk::Setup::update_monitoring_ack_enqueuer(\%opts, \%answers);
-
 print Spacewalk::Setup::loc("* Configuring apache SSL virtual host.\n");
 setup_mod_ssl(\%opts, \%answers);
 

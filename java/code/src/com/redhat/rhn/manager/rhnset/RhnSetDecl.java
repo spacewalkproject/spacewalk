@@ -99,10 +99,6 @@ public class RhnSetDecl {
     public static final RhnSetDecl FILE_LISTS = make("file_lists",
             SetCleanup.UNOWNED_FILE_LIST);
 
-    // mmccune to provide cleanup
-    public static final RhnSetDecl FILTER_EXPIRE = make("filter_expire_list",
-            SetCleanup.UNOWNED_FILTERS);
-
     // set of packages by package_id
     public static final RhnSetDecl PACKAGES_FOR_SYSTEM_SYNC = make(
             "packages_for_system_sync", SetCleanup.NOOP);

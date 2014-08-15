@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 ac267d828333cf407cd9e19842d7fc86d5e17628
+-- oracle equivalent source sha1 a9d16d81fb97485aad121d13ea1f52ef426f2254
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -94,14 +94,6 @@ create or replace function delete_org (
         delete from rhnDailySummaryQueue where org_id = org_id_in;
         delete from rhnFileList where org_id = org_id_in;
         delete from rhnServerGroup where org_id = org_id_in;
-        delete from rhn_check_suites where customer_id = org_id_in;
-        delete from rhn_command_target where customer_id = org_id_in;
-        delete from rhn_contact_groups where customer_id = org_id_in;
-        delete from rhn_notification_formats where customer_id = org_id_in;
-        delete from rhn_probe where customer_id = org_id_in;
-        delete from rhn_redirects where customer_id = org_id_in;
-        delete from rhn_sat_cluster where customer_id = org_id_in;
-        delete from rhn_schedules where customer_id = org_id_in;
         delete from rhnContentSource where org_id = org_id_in;
 
         -- Delete the org.
@@ -197,25 +189,6 @@ create or replace function delete_user(user_id_in in numeric, deleting_org in nu
         end if;
 
         -- and now things for every user
-        delete from rhn_command_queue_sessions where contact_id = user_id_in;
-        delete from rhn_contact_groups
-        where recid in (
-            select contact_group_id
-            from rhn_contact_group_members
-            where member_contact_method_id in (
-                select recid from rhn_contact_methods
-                where contact_id = user_id_in
-                )
-            )
-            and not exists (
-                select 1
-                from rhn_contact_group_members, rhn_contact_methods
-                where rhn_contact_groups.recid = rhn_contact_group_members.contact_group_id
-                    and rhn_contact_group_members.member_contact_method_id = rhn_contact_methods.recid
-                    and rhn_contact_methods.contact_id <> user_id_in
-            );
-        delete from rhn_contact_methods where contact_id = user_id_in;
-        delete from rhn_redirects where contact_id = user_id_in;
         delete from rhnUserServerPerms where user_id = user_id_in;
         update rhnConfigRevision
            set changed_by_id = NULL

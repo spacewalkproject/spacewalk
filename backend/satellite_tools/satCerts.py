@@ -510,9 +510,6 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
 
     cfg = RHNOptions('web')
     cfg.parse()
-    if cfg.get('is_monitoring_backend') == 1:
-        org_id = get_org_id()
-        push_monitoring_configs(org_id)
 
     rhnSQL.commit()
 
@@ -554,34 +551,6 @@ _query_update_web_user = rhnSQL.Statement("""
     UPDATE web_user_personal_info
     SET company = :owner
 """)
-
-#
-# Monitoring Scout Config Push section
-# Stuff needed to push scout configs after a successful sat-cert activation
-# see BZ# 163392 for more info
-
-def push_monitoring_configs(org_id):
-    push_configs_proc = rhnSQL.Procedure("rhn_install_org_satellites")
-
-    h = rhnSQL.prepare(_query_get_sat_clusters)
-    h.execute(customer_id=org_id)
-    rows = h.fetchall_dict()
-    if not rows:
-        #since we've not found any scouts, just do nothing
-        pass
-    else:
-        for row in rows:
-            push_configs_proc(org_id, row['recid'], '1')
-
-        print "Pushing scout configs to all monitoring scouts"
-
-
-_query_get_sat_clusters = rhnSQL.Statement("""
-    SELECT recid
-      FROM rhn_Sat_Cluster
-     WHERE customer_id = :customer_id
-""")
-
 
 #
 # SSL CA certificate section
