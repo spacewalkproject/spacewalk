@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.18
+Version: 2.3.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 18 2014 Tomas Lestach <tlestach@redhat.com> 2.3.19-1
+- introduce system.transitionDataForSystem API
+- expression of type SystemsPerChannelDto is already an instance of type
+  SystemsPerChannelDto
+- Eclipse code formatter settings: use checkstyle compatible spacing for array
+  initializers
+
 * Fri Aug 08 2014 Jan Dobes 2.3.18-1
 - 1127750 - ISE when activation key has no description.
 
