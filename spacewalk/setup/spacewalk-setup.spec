@@ -109,6 +109,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Aug 18 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.0-1
+- Bumping package versions for 2.3.
+
 * Wed Jun 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.13-1
 - Do not enable spacewalk-service in runlevel 4 (bnc#879992)
 
