@@ -7856,6 +7856,10 @@ Follow this url to see the full list of inactive systems:
         <source>ARM aarch64</source>
         <target>ARM aarch64</target>
       </trans-unit>
+      <trans-unit id="PPC64LE">
+        <source>PPC64LE</source>
+        <target>PPC64LE</target>
+      </trans-unit>
       <trans-unit id="channel.manage.patchset.deleteconfirm">
         <source>{0} patch cluster(s) have been removed from this channel</source>
       </trans-unit>
