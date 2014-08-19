@@ -311,15 +311,15 @@ class Packages:
         return 0
 
 def update_errata_cache(server_id):
-    """ Function that updates rhnServerNeededPackageCache by deltas (as opposed to
-        calling queue_server which removes the old entries and inserts new ones).
-        It now also updates rhnServerNeededErrataCache, but as the entries there
-        are a subset of rhnServerNeededPackageCache's entries, it still gives
-        statistics regarding only rhnServerNeededPackageCache.
+    """ Queue an update the the server's errata cache. This queues for
+        Taskomatic instead of doing it in-line because updating many servers
+        at once was problematic and lead to unresponsive Satellite and
+        incorrectly reporting failed actions when they did not fail (see
+        bz 1119460).
     """
-    log_debug(2, "Updating the errata cache", server_id)
-    update_needed_cache = rhnSQL.Procedure("rhn_server.update_needed_cache")
-    update_needed_cache(server_id)
+    log_debug(2, "Queueing the errata cache update", server_id)
+    update_needed_cache = rhnSQL.Procedure("queue_server")
+    update_needed_cache(server_id, 0)
 
 def processPackageKeyAssociations(header, checksum_type, checksum):
     provider_sql = rhnSQL.prepare("""
