@@ -20,6 +20,9 @@ import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
 import com.redhat.rhn.manager.ssm.SsmManager;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.util.Collection;
 
 /**
@@ -29,6 +32,8 @@ import java.util.Collection;
  * @version $Revision$
  */
 public class SsmChangeChannelSubscriptionsAction extends AbstractDatabaseAction {
+    /** Logger instance. */
+    private static Log log = LogFactory.getLog(SsmChangeChannelSubscriptionsAction.class);
 
     /** {@inheritDoc} */
     protected void doExecute(EventMessage msg) {
@@ -44,6 +49,9 @@ public class SsmChangeChannelSubscriptionsAction extends AbstractDatabaseAction 
          */
         try {
             SsmManager.performChannelActions(user, changes);
+        }
+        catch (Exception e) {
+            log.error("Error changing channel subscriptions " + event, e);
         }
         finally {
             // Complete the action

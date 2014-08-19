@@ -20,6 +20,9 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.util.List;
 
 /**
@@ -30,6 +33,9 @@ import java.util.List;
  */
 public class SsmDeleteServersAction extends AbstractDatabaseAction {
     public static final String OPERATION_NAME = "ssm.server.delete.operationname";
+
+    /** Logger instance. */
+    private static Log log = LogFactory.getLog(SsmDeleteServersAction.class);
 
     /** {@inheritDoc} */
     protected void doExecute(EventMessage msg) {
@@ -47,6 +53,9 @@ public class SsmDeleteServersAction extends AbstractDatabaseAction {
             for (Long sid : sids) {
                 SystemManager.deleteServer(user, sid);
             }
+        }
+        catch (Exception e) {
+            log.error("Error deleting servers " + event, e);
         }
         finally {
             // Complete the action

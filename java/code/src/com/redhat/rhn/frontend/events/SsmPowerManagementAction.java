@@ -83,6 +83,9 @@ public class SsmPowerManagementAction extends AbstractDatabaseAction {
                 }
             }
         }
+        catch (Exception e) {
+            log.error("Error in power management operations " + event, e);
+        }
         finally {
             SsmOperationManager.completeOperation(user, operationId);
         }
