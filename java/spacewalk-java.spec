@@ -95,12 +95,10 @@ BuildRequires: struts >= 0:1.2.9
 %else
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: struts >= 0:1.3.0
-Requires: struts-taglib >= 0:1.3.0
 Requires: tomcat >= 7
 Requires: tomcat-lib >= 7
 Requires: tomcat-servlet-3.0-api >= 7
 BuildRequires: struts >= 0:1.3.0
-BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat >= 7
 BuildRequires: tomcat-lib >= 7
 %else
