@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.8
+Version:	2.3.9
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,27 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Aug 21 2014 Jan Dobes 2.3.9-1
+- Oracle SQLPlus fixes
+- cannot use hex characters in Oracle
+- do not use substitution characters
+- insert binaries in procedure due to Oracle SQLPlus limits
+- print insert statement at once
+- update documentation
+- insert into Oracle tables - binaries
+- insert into Oracle tables - sequences
+- insert into Oracle tables - custom types
+- insert into Oracle tables - timestamps
+- insert into Oracle tables - insert statement
+- disable and enable triggers and logging in Oracle
+- disable and enable indexes in Oracle, set time format and control parameters
+- add PostgreSQL binary type
+- create array from custom types fetched from PostgreSQL
+- support getting sequence names from PostgreSQL
+- support getting table names from PostgreSQL
+- support connection to PostgreSQL backend
+- add new parameters for specify source and target database backend
+
 * Tue Aug 12 2014 Stephen Herr <sherr@redhat.com> 2.3.8-1
 - 1079263 - man page update: clone-by-date doesn't support 3rd party repos
 
