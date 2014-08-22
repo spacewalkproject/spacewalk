@@ -25,7 +25,6 @@ import org.cobbler.Image;
 import org.cobbler.SystemRecord;
 import org.cobbler.XmlRpcException;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -165,8 +164,7 @@ public class CobblerPowerSettingsUpdateCommand extends CobblerCommand {
         if (image == null) {
             log.debug("Creating Cobbler dummy image");
             // any existing readable filename is accepted by Cobbler
-            String tempFile = File.createTempFile(POWER_MANAGEMENT_DUMMY_NAME, "")
-                .getAbsolutePath();
+            String tempFile = "/dev/null";
             image = Image.create(connection, POWER_MANAGEMENT_DUMMY_NAME, Image.TYPE_ISO,
                 tempFile);
             image.save();
