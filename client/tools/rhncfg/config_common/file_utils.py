@@ -75,6 +75,11 @@ class FileProcessor:
         delim_start = file_struct['delim_start']
         delim_end = file_struct['delim_end']
 
+        if 'checksum' in file_struct and 'checksum_type' in file_struct:
+            if file_struct['checksum'] != utils.getContentChecksum(
+                    file_struct['checksum_type'], contents):
+                raise Exception, "Corrupt file received: Content checksums do not match!"
+
         fh = None
 
         (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
