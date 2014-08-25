@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.75
+Version: 5.10.76
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -119,6 +119,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Mon Aug 25 2014 Stephen Herr <sherr@redhat.com> 5.10.76-1
+- 1133652 - validate the content of config files before deploying
+
 * Thu Jul 31 2014 Stephen Herr <sherr@redhat.com> 5.10.75-1
 - Avoid traceback with a configfiles upload action with no selinux context
 
