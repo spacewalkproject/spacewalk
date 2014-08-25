@@ -480,6 +480,11 @@ public class ActionChainHandler extends BaseHandler {
             throw new InvalidParameterException("New label cannot be empty.");
         }
 
+        if (ActionChainFactory.getActionChain(newLabel) != null) {
+            throw new InvalidParameterException(
+                    "Another Action Chain with the same label already exists");
+        }
+
         this.acUtil.getActionChainByLabel(previousLabel).setLabel(newLabel);
 
         return BaseHandler.VALID;
