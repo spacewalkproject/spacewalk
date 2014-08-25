@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-"""Fetch pull requests from GitHub and prepare them for Spacewalk process
+"""Fetch pull requests from GitHub and prepare them for rebase process
 
 Usage:
 
   * PROG     -- With no arguments it just lists actual pull requests
   * PROG <n> -- Fetches the pull request #n, creates separate branch
-        for it, rebases it on top of requested branch (ususally master)
+        for it, rebases it on top of requested branch (usually master)
         and deletes remote.
 """
 
