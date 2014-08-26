@@ -31,12 +31,14 @@ class Progress(git.RemoteProgress):
         print "\r%s: %s/%s %s" % (self.desc, cur_count, max_count, message),
         sys.stdout.flush()
 
+
 def setup_token():
     global OAUTH
     try:
         OAUTH = open(OAUTH_FILE).readline().strip()
     except Exception:
         pass
+
 
 def list_requests():
     """Prints open pull requests with some additional info"""
