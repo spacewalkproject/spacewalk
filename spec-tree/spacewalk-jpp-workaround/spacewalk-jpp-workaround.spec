@@ -11,6 +11,7 @@ BuildArch: noarch
 
 %if 0%{?rhel} > 5
 Requires:	relaxngDatatype
+
 Provides:	msv-msv = 1.2.0
 Obsoletes:      msv-workaround
 Obsoletes:      msv
@@ -21,30 +22,36 @@ Provides:   hivemind-lib = 1.1.1.0
 Obsoletes:  hivemind-lib < 1.1.1.0
 Provides:   hivemind = 1.1.1.0
 Obsoletes:  hivemind < 1.1.1.0
+
 Provides:   tapestry = 4.0.2.0
 Obsoletes:  tapestry < 4.0.2.0
+
 Provides:   spring-all = 1.2.9.0
 Obsoletes:  spring-all < 1.2.9.0
 Provides:   spring = 1:1.2.9.0
 Obsoletes:  spring < 1:1.2.9.0
+
+Requires:   struts >= 1.3.10
 Provides:   struts-taglib = 1.3.10
 Provides:   struts-tiles = 1.3.10
-Requires:   struts >= 1.3.10
+
+Requires:   jakarta-oro
 Provides:   oro
 Obsoletes:  spacewalk-oro-compat
-Requires:   jakarta-oro
 %endif
 
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 Requires:   apache-commons-digester
 Provides:   jakarta-commons-digester = 1.8.1
 Obsoletes:  jakarta-commons-digester < 1.8.1
+
 Requires:   apache-commons-logging
 Provides:   jakarta-commons-logging = 1.1.3
 Obsoletes:  jakarta-commons-logging < 1.1.3
-Obsoletes:  jpackage-utils >= 5.0.0
+
 Requires:   javapackages-tools
 Provides:   jpackage-utils
+Obsoletes:  jpackage-utils >= 5.0.0
 %endif
 
 %description
