@@ -38,8 +38,10 @@ Requires:   jakarta-oro
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 Requires:   apache-commons-digester
 Provides:   jakarta-commons-digester = 1.8.1
-Provides:   jakarta-commons-logging = 1.1.3
+Obsoletes:  jakarta-commons-digester < 1.8.1
 Requires:   apache-commons-logging
+Provides:   jakarta-commons-logging = 1.1.3
+Obsoletes:  jakarta-commons-logging < 1.1.3
 Obsoletes:  jpackage-utils >= 5.0.0
 Requires:   javapackages-tools
 Provides:   jpackage-utils
