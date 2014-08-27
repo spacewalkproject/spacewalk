@@ -638,13 +638,11 @@ delete from rhnChannel where label like 'ChannelLabel%';
     <mkdir dir="${build.dir}/apidoc-temp" />
     <mkdir dir="${build.dir}/webapp/rhnjava/WEB-INF/classes" />
     <jasper2
-        validateXml="false"
         verbose="2"
         uriroot="${build.dir}/webapp/rhnjava"
         webXmlFragment="${build.dir}/webapp/generated_web.xml"
         outputDir="${build.dir}/jsp-temp" />
     <jasper2
-        validateXml="false"
         verbose="2"
         uriroot="${prefix}${webapp-dir}/rhn"
         webXmlFragment="${build.dir}/webapp/generated_apidoc.xml"
