@@ -30,6 +30,7 @@ import java.util.Date;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
@@ -176,17 +177,25 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         filelists.begin(channel);
         other.begin(channel);
 
-        for (PackageDto pkgDto : TaskManager.getChannelPackageDtos(channel)) {
-            primary.addPackage(pkgDto);
-            filelists.addPackage(pkgDto);
-            other.addPackage(pkgDto);
-            try {
-                primaryFile.flush();
-                filelistsFile.flush();
-                otherFile.flush();
-            }
-            catch (IOException e) {
-                throw new RepomdRuntimeException(e);
+        // batch the elaboration so we don't have to hold many thousands of
+        // packages in memory at once
+        final int batchSize = 1000;
+        DataResult<PackageDto> packages = TaskManager.getChannelPackageDtos(channel);
+        for (int i = 0; i < packages.size(); i += batchSize) {
+            DataResult<PackageDto> packageBatch = packages.subList(i, i + batchSize);
+            packageBatch.elaborate();
+            for (PackageDto pkgDto : packageBatch) {
+                primary.addPackage(pkgDto);
+                filelists.addPackage(pkgDto);
+                other.addPackage(pkgDto);
+                try {
+                    primaryFile.flush();
+                    filelistsFile.flush();
+                    otherFile.flush();
+                }
+                catch (IOException e) {
+                    throw new RepomdRuntimeException(e);
+                }
             }
         }
         primary.end();

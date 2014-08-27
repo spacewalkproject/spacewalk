@@ -1269,6 +1269,22 @@ public class ChannelManager extends BaseManager {
 
 
     /**
+     * List the errata applicable to a channel (used for repomd generation)
+     * @param channelId channel whose errata are sought
+     * @return the errata applicable to a channel
+     */
+    public static DataResult<ErrataOverview> listErrataSimple(Long channelId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("cid", channelId);
+        SelectMode m = ModeFactory.getMode("Errata_queries", "simple_in_channel");
+
+        DataResult<ErrataOverview> dr = m.execute(params);
+        Map<String, Object> elabParams = new HashMap<String, Object>();
+        dr.setElaborationParams(elabParams);
+        return dr;
+    }
+
+    /**
      * List the errata applicable to a channel between start and end date
      * @deprecated Use appropriate listErrata
      * @param channel channel whose errata are sought

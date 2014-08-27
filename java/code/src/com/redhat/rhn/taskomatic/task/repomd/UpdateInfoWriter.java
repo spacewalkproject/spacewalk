@@ -17,18 +17,21 @@
  */
 package com.redhat.rhn.taskomatic.task.repomd;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.errata.Bug;
-import com.redhat.rhn.domain.errata.Cve;
-import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.frontend.dto.Bug;
+import com.redhat.rhn.frontend.dto.CVE;
+import com.redhat.rhn.frontend.dto.ErrataOverview;
+import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.errata.ErrataManager;
 
 import org.xml.sax.SAXException;
 
 import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Iterator;
+import java.util.List;
 
 /**
  * UpdateInfo.xml writer class
@@ -54,14 +57,19 @@ public class UpdateInfoWriter extends RepomdWriter {
     public String getUpdateInfo(Channel channel) {
         begin(channel);
 
-        Iterator iter = channel.getErratas().iterator();
-
-        while (iter.hasNext()) {
-            try {
-                addErratum((Errata) iter.next(), channel);
-            }
-            catch (SAXException e) {
-                throw new RepomdRuntimeException(e);
+        DataResult<ErrataOverview> errata = ChannelManager
+                .listErrataSimple(channel.getId());
+        final int batchSize = 500;
+        for (int i = 0; i < errata.size(); i += batchSize) {
+            DataResult<ErrataOverview> errataBatch = errata.subList(i, i + batchSize);
+            errataBatch.elaborate();
+            for (ErrataOverview erratum : errataBatch) {
+                try {
+                    addErratum(erratum, channel);
+                }
+                catch (SAXException e) {
+                    throw new RepomdRuntimeException(e);
+                }
             }
         }
 
@@ -103,7 +111,7 @@ public class UpdateInfoWriter extends RepomdWriter {
      * @param channel channel info
      * @throws SAXException
      */
-    private void addErratum(Errata erratum, Channel channel)
+    private void addErratum(ErrataOverview erratum, Channel channel)
             throws SAXException {
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("from", erratum.getErrataFrom());
@@ -115,19 +123,18 @@ public class UpdateInfoWriter extends RepomdWriter {
         handler.addElementWithCharacters("id",
                 sanitize(0L, erratum
                 .getAdvisoryName()));
-        handler.addElementWithCharacters("title",
-                sanitize(0L, erratum
-                .getSynopsis()));
+        handler.addElementWithCharacters("title", sanitize(0L, erratum
+                .getAdvisorySynopsis()));
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         attr.clear();
-        attr.addAttribute("date", df.format(erratum.getIssueDate()));
+        attr.addAttribute("date", df.format(erratum.getIssueDateObj()));
         handler.startElement("issued", attr);
         handler.endElement("issued");
 
         attr.clear();
-        attr.addAttribute("date", df.format(erratum.getUpdateDate()));
+        attr.addAttribute("date", df.format(erratum.getUpdateDateObj()));
         handler.startElement("updated", attr);
         handler.endElement("updated");
 
@@ -147,7 +154,7 @@ public class UpdateInfoWriter extends RepomdWriter {
      * @param channel channel info
      * @throws SAXException
      */
-    private void addErratumPkgList(Errata erratum, Channel channel)
+    private void addErratumPkgList(ErrataOverview erratum, Channel channel)
             throws SAXException {
         handler.startElement("pkglist");
 
@@ -157,49 +164,38 @@ public class UpdateInfoWriter extends RepomdWriter {
 
         handler.addElementWithCharacters("name", channel.getName());
 
-        Iterator iter = erratum.getPackages().iterator();
-
-        while (iter.hasNext()) {
-            Package pkg = (Package) iter.next();
-            if (channel.getPackages().contains(pkg)) {
-                long pkgId = pkg.getId();
-                String epoch = pkg.getPackageEvr().getEpoch();
-                if (epoch == null || epoch.length() == 0) {
-                    epoch = "0";
-                }
-                attr.clear();
-                attr.addAttribute("name", sanitize(pkgId, pkg.getPackageName()
-                        .getName()));
-                attr.addAttribute("version", sanitize(pkgId, pkg
-                        .getPackageEvr().getVersion()));
-                attr.addAttribute("release", sanitize(pkgId, pkg
-                        .getPackageEvr().getRelease()));
-                attr.addAttribute("epoch", sanitize(pkgId, epoch));
-                attr.addAttribute("arch", sanitize(pkgId, pkg.getPackageArch()
-                        .getLabel()));
-                attr.addAttribute("src", sanitize(pkgId, pkg.getSourceRpm()
-                        .getName()));
-                handler.startElement("package", attr);
-
-                handler.addElementWithCharacters("filename", sanitize(pkgId,
-                        pkg.getFilename()));
-
-                if (erratum.hasKeyword("reboot_suggested")) {
-                    handler.addElementWithCharacters("reboot_suggested", "1");
-                }
-                else if (erratum.hasKeyword("restart_suggested")) {
-                    handler.addElementWithCharacters("restart_suggested", "1");
-                }
-
-                attr.clear();
-                attr.addAttribute("type",
-                        sanitize(pkgId, pkg.getChecksum().getChecksumType().getLabel()));
-                handler.startElement("sum", attr);
-                handler.addCharacters(sanitize(pkgId, pkg.getChecksum().getChecksum()));
-                handler.endElement("sum");
-
-                handler.endElement("package");
+        for (PackageDto pkg : ErrataManager.lookupPacksFromErrataForChannel(
+                channel.getId(), erratum.getId())) {
+            long pkgId = pkg.getId();
+            String epoch = pkg.getEpoch();
+            if (epoch == null || epoch.length() == 0) {
+                epoch = "0";
             }
+            attr.clear();
+            attr.addAttribute("name", sanitize(pkgId, pkg.getName()));
+            attr.addAttribute("version", sanitize(pkgId, pkg.getVersion()));
+            attr.addAttribute("release", sanitize(pkgId, pkg.getRelease()));
+            attr.addAttribute("epoch", sanitize(pkgId, epoch));
+            attr.addAttribute("arch", sanitize(pkgId, pkg.getArchLabel()));
+            attr.addAttribute("src", sanitize(pkgId, pkg.getSourceRpm()));
+            handler.startElement("package", attr);
+            handler.addElementWithCharacters("filename", sanitize(pkgId, pkg.getFile()));
+
+            List<String> keywords = ErrataManager.lookupKeywordsForErratum(erratum.getId());
+            if (keywords.contains("reboot_suggested")) {
+                handler.addElementWithCharacters("reboot_suggested", "1");
+            }
+            else if (keywords.contains("restart_suggested")) {
+                handler.addElementWithCharacters("restart_suggested", "1");
+            }
+
+            attr.clear();
+            attr.addAttribute("type", sanitize(pkgId, pkg.getChecksumType()));
+            handler.startElement("sum", attr);
+            handler.addCharacters(sanitize(pkgId, pkg.getChecksum()));
+            handler.endElement("sum");
+
+            handler.endElement("package");
         }
 
         handler.endElement("collection");
@@ -213,23 +209,20 @@ public class UpdateInfoWriter extends RepomdWriter {
      * @param erratum erratum to be added
      * @throws SAXException
      */
-    private void addErratumReferences(Errata erratum) throws SAXException {
+    private void addErratumReferences(ErrataOverview erratum) throws SAXException {
         handler.startElement("references");
 
-        Iterator iter = erratum.getBugs().iterator();
-        while (iter.hasNext()) {
-            Bug bug = (Bug) iter.next();
-
+        for (Bug bug : ErrataManager.lookupBugsForErratum(erratum.getId())) {
             SimpleAttributesImpl attr = new SimpleAttributesImpl();
-            if (bug.getUrl() != "") {
-                attr.addAttribute("href", bug.getUrl());
+            if (bug.getHref() != null && !bug.getHref().equals("")) {
+                attr.addAttribute("href", bug.getHref());
             }
             else {
                 attr.addAttribute("href",
                         "http://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=" +
-                                bug.getId());
+                                bug.getBugId());
             }
-            attr.addAttribute("id", Long.toString(bug.getId()));
+            attr.addAttribute("id", Long.toString(bug.getBugId()));
             attr.addAttribute("type", "bugzilla");
             handler.startElement("reference", attr);
             if (bug.getSummary() != null) {
@@ -238,9 +231,7 @@ public class UpdateInfoWriter extends RepomdWriter {
             handler.endElement("reference");
         }
 
-        iter = erratum.getCves().iterator();
-        while (iter.hasNext()) {
-            Cve cve = (Cve) iter.next();
+        for (CVE cve : ErrataManager.lookupCvesForErratum(erratum.getId())) {
             String cveid = sanitize(0L, cve.getName());
 
             SimpleAttributesImpl attr = new SimpleAttributesImpl();

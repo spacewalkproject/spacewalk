@@ -44,7 +44,7 @@ public class TaskManager {
      * @param channel channel info
      * @return the iterator
      */
-    public static Collection<PackageDto> getChannelPackageDtos(Channel channel) {
+    public static DataResult<PackageDto> getChannelPackageDtos(Channel channel) {
         SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CHANNEL_PACKAGES);
         Map<String, Object> params = new HashMap<String, Object>();
