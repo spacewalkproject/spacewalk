@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.2.3
+Version:	2.3.1
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -83,6 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.1-1
+- added obsoletes to force replacement of jakarta-common-* packages
+
 * Fri Jun 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.3-1
 - provide missing link on Fedora 19
 
