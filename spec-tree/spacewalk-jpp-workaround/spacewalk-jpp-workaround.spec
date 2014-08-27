@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.2.3
+Version:	2.3.1
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -11,6 +11,7 @@ BuildArch: noarch
 
 %if 0%{?rhel} > 5
 Requires:	relaxngDatatype
+
 Provides:	msv-msv = 1.2.0
 Obsoletes:      msv-workaround
 Obsoletes:      msv
@@ -21,28 +22,36 @@ Provides:   hivemind-lib = 1.1.1.0
 Obsoletes:  hivemind-lib < 1.1.1.0
 Provides:   hivemind = 1.1.1.0
 Obsoletes:  hivemind < 1.1.1.0
+
 Provides:   tapestry = 4.0.2.0
 Obsoletes:  tapestry < 4.0.2.0
+
 Provides:   spring-all = 1.2.9.0
 Obsoletes:  spring-all < 1.2.9.0
 Provides:   spring = 1:1.2.9.0
 Obsoletes:  spring < 1:1.2.9.0
+
+Requires:   struts >= 1.3.10
 Provides:   struts-taglib = 1.3.10
 Provides:   struts-tiles = 1.3.10
-Requires:   struts >= 1.3.10
+
+Requires:   jakarta-oro
 Provides:   oro
 Obsoletes:  spacewalk-oro-compat
-Requires:   jakarta-oro
 %endif
 
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 Requires:   apache-commons-digester
 Provides:   jakarta-commons-digester = 1.8.1
-Provides:   jakarta-commons-logging = 1.1.3
+Obsoletes:  jakarta-commons-digester < 1.8.1
+
 Requires:   apache-commons-logging
-Obsoletes:  jpackage-utils >= 5.0.0
+Provides:   jakarta-commons-logging = 1.1.3
+Obsoletes:  jakarta-commons-logging < 1.1.3
+
 Requires:   javapackages-tools
 Provides:   jpackage-utils
+Obsoletes:  jpackage-utils >= 5.0.0
 %endif
 
 %description
@@ -74,6 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.1-1
+- added obsoletes to force replacement of jakarta-common-* packages
+
 * Fri Jun 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.3-1
 - provide missing link on Fedora 19
 

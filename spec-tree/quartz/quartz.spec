@@ -1,7 +1,7 @@
 Name: quartz
 Summary: Quartz Enterprise Job Scheduler
 Version:        1.8.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Quartz Enterprise Job Scheduler
 License:        ASL 2.0
 URL:            http://www.quartz-scheduler.org/
@@ -12,7 +12,7 @@ BuildArch: noarch
 
 Requires: java >= 1.5
 Requires: jakarta-commons-collections
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-logging
 %else
 Requires: jakarta-commons-logging
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/%{name}-oracle-%{version}.jar
 
 %changelog
+* Wed Aug 27 2014 Michael Mraka <michael.mraka@redhat.com> 1.8.4-6
+- fixed requires for RHEL7
+
 * Fri Mar 15 2013 Michael Mraka <michael.mraka@redhat.com> 1.8.4-5
 - fixed builder definition
 

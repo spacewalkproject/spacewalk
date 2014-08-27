@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.3.0
+Version: 2.3.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -365,6 +365,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Aug 26 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.1-1
+- updated translations
+
 * Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.7-1
 - fix copyright years
 

@@ -96,6 +96,7 @@
         </div>
         <div class="panel-body">
             <form action="/rhn/schedule/ActionChain.do?id=${param.id}" method="post" class="schedule">
+            <div class="form-horizontal">
                 <div class="form-group">
                     <div class="col-sm-12">
                         <p>
@@ -105,6 +106,7 @@
                 </div>
                 <div class="form-group">
                     <input type="hidden" name="use_date" value="true"/>
+                    <input type="hidden" name="dispatch" value='<bean:message key="actionchain.jsp.saveandschedule"/>'/>
                     <rhn:csrf/>
                     <rhn:submitted/>
                     <div class="col-md-offset-3 col-md-6">
@@ -113,18 +115,14 @@
                         </jsp:include>
                     </div>
                 </div>
-               <div class="form-group">
-                   <div class="col-md-offset-3 col-md-6">
-                       <input type="hidden" name="dispatch" value='<bean:message key="actionchain.jsp.saveandschedule"/>'/>
-                   </div>
-               </div>
-               <div class="form-group">
-                   <div class="col-md-offset-3 col-md-6">
-                       <button type="button" class="btn btn-success" id="save-and-schedule">
-                           <bean:message key="actionchain.jsp.saveandschedule"/>
-                       </button>
-                   </div>
-               </div>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-6">
+                        <button type="button" class="btn btn-success" id="save-and-schedule">
+                            <bean:message key="actionchain.jsp.saveandschedule"/>
+                        </button>
+                    </div>
+                </div>
+            </div>
             </form>
         </div>
     </div>

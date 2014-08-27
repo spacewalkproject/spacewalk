@@ -43,7 +43,7 @@ msgstr "Ошибка при применении изменений."
 
 #: ../src/up2date_client/rhnregGui.py:289
 msgid "You specified an invalid protocol. Only https and http are allowed."
-msgstr "Указан неверный протокол. Допускаются только https и http."
+msgstr "Неверный протокол: ожидается https или http."
 
 #: ../src/up2date_client/rhnregGui.py:303
 #, fuzzy
@@ -657,7 +657,7 @@ msgstr "Версия ОС:"
 
 #: ../src/up2date_client/rhnreg_constants.py:94
 msgid " Minor Release: "
-msgstr " Вспомогательный выпуск: "
+msgstr " Версия: "
 
 #: ../src/up2date_client/rhnreg_constants.py:95
 msgid "Limited Updates Only"
@@ -1225,7 +1225,7 @@ msgstr "Внимание: невозможно включить rhnsd с chkconf
 #: ../src/up2date_client/up2dateErrors.py:74
 #, python-format
 msgid "class %s has no attribute '%s'"
-msgstr "класс %s не содержит атрибут «%s»"
+msgstr "класс %s не содержит атрибута «%s»"
 
 #: ../src/up2date_client/up2dateErrors.py:97
 msgid "RPM error.  The message was:\n"
@@ -1664,7 +1664,7 @@ msgstr "Настройка обновлений"
 
 #: ../data/gui.glade.h:3 ../data/rh_register.glade.h:6
 msgid "Choose Service"
-msgstr ""
+msgstr "Выберите службу"
 
 #: ../data/gui.glade.h:6
 msgid "Create Profile"
@@ -2075,7 +2075,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:94
 msgid "Proxy Configuration"
-msgstr ""
+msgstr "Настройка прокси"
 
 #: ../data/rh_register.glade.h:95
 msgid "<b>HTTP Proxy</b>"
@@ -2280,11 +2280,11 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:147
 msgid "_Minor release:"
-msgstr "_Вспомогательный выпуск:"
+msgstr "_Версия:"
 
 #: ../data/rh_register.glade.h:148
 msgid "Choose minor release"
-msgstr "Промежуточный выпуск"
+msgstr "Выберите версию"
 
 #: ../data/rh_register.glade.h:149
 msgid "       "

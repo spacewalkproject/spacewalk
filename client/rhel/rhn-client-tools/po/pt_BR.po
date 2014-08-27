@@ -70,7 +70,7 @@ msgid ""
 "Double-check the location - is '%s' correct? If not, you can correct it and "
 "try again."
 msgstr ""
-"Verifique novamente a localização - é '%s' correto? Se não for, você pode "
+"Verifique novamente o local - é '%s' correto? Se não for, você pode "
 "corrigir e tentar novamente."
 
 #: ../src/up2date_client/rhnregGui.py:329
@@ -327,7 +327,7 @@ msgstr "Obtendo a lista de pacotes instalados no sistema"
 #: ../src/up2date_client/tui.py:134
 #, fuzzy
 msgid "Spacewalk Location:"
-msgstr "Localização do Red Hat Network:"
+msgstr "Local do Red Hat Network:"
 
 #: ../src/up2date_client/tui.py:135
 #: ../src/up2date_client/rhnreg_constants.py:84
@@ -505,7 +505,7 @@ msgstr ""
 "\n"
 " * Uma conexão de rede\n"
 " * Seu Login & senha da Red Hat\n"
-" * A localização de um Red Hat Network Satellite or Proxy (opcional)\n"
+" * O local de um Red Hat Network Satellite or Proxy (opcional)\n"
 "\n"
 
 #. Why Register Window
@@ -1050,7 +1050,7 @@ msgid ""
 msgstr ""
 "Não é possível contatar o Red Hat Network Server.\n"
 "\n"
-"Verifique novamente a localização fornecida - é '%s' correto?\n"
+"Verifique novamente o local fornecida - é '%s' correto?\n"
 "Se não for, você pode corrigir e tentar novamente.\n"
 "\n"
 "Certifique-se de que a conexão de rede neste sistema está operacional.\n"
@@ -1692,7 +1692,7 @@ msgstr "Configurar Atualizações"
 
 #: ../data/gui.glade.h:3 ../data/rh_register.glade.h:6
 msgid "Choose Service"
-msgstr ""
+msgstr "Escolher Serviço"
 
 #: ../data/gui.glade.h:6
 msgid "Create Profile"
@@ -1746,7 +1746,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:8
 msgid "Location:"
-msgstr ""
+msgstr "Local:"
 
 #: ../data/rh_register.glade.h:9
 msgid "Example: https://satellite.example.com/XMLRPC"
@@ -1754,7 +1754,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:10
 msgid "satellite server location"
-msgstr "local de servidor do satellite"
+msgstr "local do servidor de satellite"
 
 #: ../data/rh_register.glade.h:11
 msgid "_Proxy Setup"
@@ -2095,7 +2095,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:89
 msgid "Certificate _Location:"
-msgstr "_Localização do Certificado:"
+msgstr "Local_do Certificado:"
 
 #: ../data/rh_register.glade.h:90
 msgid "Select A File"
@@ -2121,7 +2121,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:94
 msgid "Proxy Configuration"
-msgstr ""
+msgstr "Configuração do Proxy"
 
 #: ../data/rh_register.glade.h:95
 msgid "<b>HTTP Proxy</b>"
@@ -2142,7 +2142,7 @@ msgstr "<small><b>Exemplo:</b> squid.example.com:3128</small>"
 
 #: ../data/rh_register.glade.h:99
 msgid "_Proxy Location:"
-msgstr "Localização do _Proxy:"
+msgstr "_Local do _Proxy:"
 
 #: ../data/rh_register.glade.h:100
 msgid "Enter in the format hostname(:port)"
@@ -2150,7 +2150,7 @@ msgstr "Indique no formato nome de host(:porta)"
 
 #: ../data/rh_register.glade.h:101
 msgid "proxy location"
-msgstr "Localização do Proxy"
+msgstr "Local do Proxy"
 
 #: ../data/rh_register.glade.h:102
 msgid "Use Au_thentication with HTTP Proxy:"
@@ -2245,11 +2245,12 @@ msgstr ""
 msgid ""
 "You will not be able to take advantage of these benefits without registering."
 msgstr ""
+"Você não poderá usufruir destes privilégios sem se registrar."
 
 #: ../data/rh_register.glade.h:127
 #, fuzzy
 msgid "<b>Spacewalk Location:</b>"
-msgstr "<b>Localização da Rede Red Hat:</b>"
+msgstr "<b>Local da Rede Red Hat:</b>"
 
 #: ../data/rh_register.glade.h:128
 msgid "<b>Login:</b>"

@@ -1591,7 +1591,7 @@ msgstr "设置软件更新"
 
 #: ../data/gui.glade.h:3 ../data/rh_register.glade.h:6
 msgid "Choose Service"
-msgstr ""
+msgstr "选择服务"
 
 #: ../data/gui.glade.h:6
 msgid "Create Profile"
@@ -1642,7 +1642,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:8
 msgid "Location:"
-msgstr ""
+msgstr "位置："
 
 #: ../data/rh_register.glade.h:9
 msgid "Example: https://satellite.example.com/XMLRPC"
@@ -2004,7 +2004,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:94
 msgid "Proxy Configuration"
-msgstr ""
+msgstr "代理服务器配置："
 
 #: ../data/rh_register.glade.h:95
 msgid "<b>HTTP Proxy</b>"

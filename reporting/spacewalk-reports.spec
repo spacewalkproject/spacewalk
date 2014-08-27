@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.3
+Version: 2.3.4
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Mon Aug 25 2014 Tomas Lestach <tlestach@redhat.com> 2.3.4-1
+- 1132868 - avoid getting multiple host_system_id(s) per server
+
 * Wed Aug 06 2014 Tomas Lestach <tlestach@redhat.com> 2.3.3-1
 - fix system-profiles report to expect multiple virtual guests per host
 

@@ -1311,15 +1311,15 @@ msgstr "추가 출력을 보여줌"
 
 #: ../src/up2date_client/rhncli.py:72
 msgid "Specify an http proxy to use"
-msgstr "사용할 http proxy를 지정"
+msgstr "사용할 http 프록시를 지정"
 
 #: ../src/up2date_client/rhncli.py:74
 msgid "Specify a username to use with an authenticated http proxy"
-msgstr "인증받은 http proxy와 함께 사용할 사용자명 지정"
+msgstr "인증받은 http 프록시와 함께 사용할 사용자명 지정"
 
 #: ../src/up2date_client/rhncli.py:76
 msgid "Specify a password to use with an authenticated http proxy"
-msgstr "인증받은 http proxy에 사용할 암호 지정"
+msgstr "인증받은 http 프록시에 사용할 암호 지정"
 
 #: ../src/up2date_client/rhncli.py:98
 msgid ""
@@ -1650,7 +1650,7 @@ msgstr "소프트웨어 업데이트 설정"
 
 #: ../data/gui.glade.h:3 ../data/rh_register.glade.h:6
 msgid "Choose Service"
-msgstr ""
+msgstr "서비스 선택"
 
 #: ../data/gui.glade.h:6
 msgid "Create Profile"
@@ -1703,7 +1703,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:8
 msgid "Location:"
-msgstr ""
+msgstr "위치: "
 
 #: ../data/rh_register.glade.h:9
 msgid "Example: https://satellite.example.com/XMLRPC"
@@ -2058,20 +2058,20 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:94
 msgid "Proxy Configuration"
-msgstr ""
+msgstr "Proxy 설정   "
 
 #: ../data/rh_register.glade.h:95
 msgid "<b>HTTP Proxy</b>"
-msgstr ""
+msgstr "<b>HTTP 프록시</b>"
 
 #: ../data/rh_register.glade.h:96
 msgid "I would like to connect via an _HTTP proxy."
-msgstr ""
+msgstr "HTTP 프록시를 통해 연결하고자 합니다.(_H)"
 
 #: ../data/rh_register.glade.h:97
 #, fuzzy
 msgid "I would like to connect to Spacewalk via an _HTTP proxy."
-msgstr "HTTP proxy를 통해 Red Hat Network에 연결하고자 합니다(_H)."
+msgstr "HTTP 프록시를 통해 Red Hat Network에 연결하고자 합니다(_H)."
 
 #: ../data/rh_register.glade.h:98
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
@@ -2091,11 +2091,11 @@ msgstr "Proxy 위치 "
 
 #: ../data/rh_register.glade.h:102
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr ""
+msgstr "HTTP 프록시로 인증 사용(_t):  "
 
 #: ../data/rh_register.glade.h:103
 msgid "Use Authentication with HTTP Proxy"
-msgstr "TTP Proxy로 인증 사용 "
+msgstr "TTP 프록시로 인증 사용 "
 
 #: ../data/rh_register.glade.h:104
 msgid "Proxy _Username:"
