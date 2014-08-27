@@ -12,7 +12,7 @@ BuildArch: noarch
 
 Requires: java >= 1.5
 Requires: jakarta-commons-collections
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-logging
 %else
 Requires: jakarta-commons-logging
