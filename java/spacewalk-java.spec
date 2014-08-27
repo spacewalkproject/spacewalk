@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.23
+Version: 2.3.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 27 2014 Tomas Lestach <tlestach@redhat.com> 2.3.24-1
+- remove jasper2 validateXml attribute as it's causing troubles
+- improve spacing between UI elements
+- 1063808 - Custom info empty value added (java/api)
+
 * Mon Aug 25 2014 Jan Dobes 2.3.23-1
 - 1127730 - check if action chain with same name already exists
 
