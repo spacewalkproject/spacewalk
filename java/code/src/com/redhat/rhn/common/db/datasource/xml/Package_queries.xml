@@ -557,8 +557,14 @@ ORDER BY UPPER(X.nvre)
 
 <mode name="system_package_list" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
-  SELECT scp.package_id,                                                                 pn.id || '|' || pe.id || '|' || pa.id as id_combo,
-         pn.name || '-' || pe.version || '-' || pe.release as nvre,
+  SELECT (SELECT max(p.id) FROM rhnPackage p
+                          WHERE p.name_id = pn.id
+                            AND p.evr_id = pe.id
+                            AND p.package_arch_id = pa.id
+                            AND (p.org_id = s.org_id or p.org_id is null)
+          ) as package_id,
+         pn.id || '|' || pe.id || '|' || pa.id as id_combo,
+         pn.name || '-' || evr_t_as_vre_simple(pe.evr) as nvre,
          pn.name || '-' || evr_t_as_vre_simple(pe.evr) || '.' || pa.label as nvrea,
          pn.name as name,
          pe.version as version,
@@ -567,25 +573,16 @@ ORDER BY UPPER(X.nvre)
          pn.id as name_id,
          pe.id as evr_id,
          pa.label as arch,
-         sp.installTime
-    FROM rhnServerPackage sp
-         LEFT OUTER JOIN (select sc.server_id,
-                                 cp.package_id,
-                                 p.name_id,
-                                 p.evr_id,
-                                 p.package_arch_id
-                            FROM rhnPackage p,
-                                 rhnServerChannel sc
-                            JOIN rhnChannelPackage cp
-                              ON (sc.channel_id = cp.channel_id)
-                           WHERE cp.package_id = p.id
-                         ) scp on (scp.server_id = sp.server_id and
-                                   sp.name_id = scp.name_id and
-                                   sp.evr_id = scp.evr_id and
-                                   sp.package_arch_id = scp.package_arch_id)
-         LEFT OUTER JOIN rhnPackageName pn ON (pn.id = sp.name_id)
-         LEFT OUTER JOIN rhnPackageArch pa ON (pa.id = sp.package_arch_id)
-         LEFT OUTER JOIN rhnPackageEvr pe ON (pe.id = sp.evr_id)
+         sp.installtime
+    FROM rhnPackageName pn
+    JOIN rhnServerPackage sp
+      ON sp.name_id = pn.id
+    JOIN rhnServer s
+      ON sp.server_id = s.id
+    JOIN rhnPackageEvr pe
+      ON sp.evr_id = pe.id
+    LEFT JOIN rhnPackageArch pa
+      ON sp.package_arch_id = pa.id
    WHERE sp.server_id = :sid
    ORDER BY nvre
   </query>

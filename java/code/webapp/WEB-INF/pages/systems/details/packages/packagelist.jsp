@@ -54,7 +54,7 @@
 		  	sortable="true" filterattr="nvre" defaultsort="asc">
             <c:choose>
                 <c:when test="${not empty current.packageId}">
-                    <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
+                    <a href="/rhn/software/packages/Details.do?pid=${current.packageId}">
 		            ${current.nvre}</a>
                 </c:when>
                 <c:otherwise>
