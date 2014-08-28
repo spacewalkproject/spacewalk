@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.24
+Version: 2.3.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 28 2014 Stephen Herr <sherr@redhat.com> 2.3.25-1
+- 1135073, 1132398 - repomd generation memory increases with channel size
+
 * Wed Aug 27 2014 Tomas Lestach <tlestach@redhat.com> 2.3.24-1
 - remove jasper2 validateXml attribute as it's causing troubles
 - improve spacing between UI elements
