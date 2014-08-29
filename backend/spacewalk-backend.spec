@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.8
+Version: 2.3.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri Aug 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.9-1
+- fix traceback when pushing rpms with archive size > 4GB
+
 * Tue Aug 19 2014 Stephen Herr <sherr@redhat.com> 2.3.8-1
 - 1119459 - queue server for errata cache update when package list changes
 
