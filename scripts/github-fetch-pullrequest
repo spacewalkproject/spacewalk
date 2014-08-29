@@ -86,7 +86,7 @@ def prepare_repo(req_num):
     except git.exc.GitCommandError:
         print ("Rebase failed. You can either resolve it and run "
                "`git rebase --continue` or ask author to do the rebase.")
-
+    print "\n", remote_name
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
