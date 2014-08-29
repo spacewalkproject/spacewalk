@@ -187,10 +187,6 @@ rhnSnapshotConfigRevision      :: rhnSnapshot rhnConfigRevision
 rhnSnapshotPackage             :: rhnSnapshot
 rhnSnapshotServerGroup         :: rhnServerGroup rhnSnapshot
 rhnSnapshotTag                 :: rhnSnapshot rhnTag
-rhnSolarisPackage              :: rhnPackage
-rhnSolarisPatch                :: rhnPackage rhnSolarisPatchType
-rhnSolarisPatchPackages        :: rhnPackage rhnPackageNEVRA 
-rhnSolarisPatchSetMembers      :: rhnPackage rhnSolarisPatchSet
 rhnSsmOperationServer          :: rhnSsmOperation
 rhnTag                         :: rhnTagName web_customer
 rhnTaskoRun                    :: rhnTaskoTemplate rhnTaskoSchedule
