@@ -6,7 +6,7 @@
     <rhn-tab name="package.jsp.menu.deps" url="/rhn/software/packages/Dependencies.do"/>
     <rhn-tab name="package.jsp.menu.map" url="/network/software/packages/package_map.pxt" acl="package_type_capable(package_map)"/>
     <rhn-tab name="package.jsp.menu.changelog" url="/rhn/software/packages/ChangeLog.do" acl="package_type_capable(change_log)"/>
-    <rhn-tab name="package.jsp.menu.filelist" url="/network/software/packages/file_list.pxt" acl="package_type_capable(file_list)"/>
+    <rhn-tab name="package.jsp.menu.filelist" url="/rhn/software/packages/FileList.do" acl="package_type_capable(file_list)"/>
   </rhn-tab>
   <rhn-tab name="package.jsp.menu.newversions" url="/network/software/packages/newer_versions.pxt"/>
   <rhn-tab name="package.jsp.menu.installedsystems" url="/network/software/packages/system_list.pxt"/>

@@ -19863,6 +19863,27 @@ given channel.</source>
       <trans-unit id="layout.jsp.vendor.website">
         <source>http://www.spacewalkproject.org/</source>
       </trans-unit>
+      <trans-unit id="filelist.jsp.title">
+        <source>File List</source>
+      </trans-unit>
+      <trans-unit id="filelist.jsp.message">
+        <source>This package contains the following files.</source>
+      </trans-unit>
+      <trans-unit id="filelist.jsp.nofiles">
+        <source>No files.</source>
+      </trans-unit>
+      <trans-unit id="filelist.jsp.filename">
+        <source>Filename</source>
+      </trans-unit>
+      <trans-unit id="filelist.jsp.checksum">
+        <source>Checksum</source>
+      </trans-unit>
+      <trans-unit id="filelist.jsp.lastmodified">
+        <source>Last Modified</source>
+      </trans-unit>
+      <trans-unit id="filelist.jsp.size">
+        <source>Size</source>
+      </trans-unit>
       <trans-unit id="channel.edit.jsp.name">
         <source>Channel Name</source>
         <context-group name="ctx">

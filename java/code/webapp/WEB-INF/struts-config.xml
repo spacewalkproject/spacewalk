@@ -7835,6 +7835,13 @@
         <forward name="default" path="/WEB-INF/pages/rhnpackage/changelog.jsp" />
       </action>
 
+   <action path="/software/packages/FileList"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.PackageFileListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/rhnpackage/filelist.jsp" />
+      </action>
+
 
 <!-- Repo Sync -->
 

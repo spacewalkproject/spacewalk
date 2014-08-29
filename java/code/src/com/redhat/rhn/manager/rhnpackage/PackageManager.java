@@ -42,6 +42,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageComparison;
+import com.redhat.rhn.frontend.dto.PackageFileDto;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
@@ -260,8 +261,8 @@ public class PackageManager extends BaseManager {
      * @param pid The package id for the package in question
      * @return Returns a list of files associated with the package
      */
-    public static DataResult packageFiles(Long pid) {
-        SelectMode m = ModeFactory.getMode("Package_queries", "package_files", Map.class);
+    public static DataResult<PackageFileDto> packageFiles(Long pid) {
+        SelectMode m = ModeFactory.getMode("Package_queries", "package_files");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
         DataResult dr = m.execute(params);

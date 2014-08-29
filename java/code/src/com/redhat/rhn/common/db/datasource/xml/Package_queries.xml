@@ -219,7 +219,7 @@ ORDER BY UPPER(X.name), X.version
   </query>
 </mode>
 
-<mode name="package_files">
+<mode name="package_files" class="com.redhat.rhn.frontend.dto.PackageFileDto">
   <query params="pid">
 SELECT C.name,
        F.file_size,
