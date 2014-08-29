@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.9
+Version:        2.3.10
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Aug 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.10-1
+- 1128735 - force character set and numerical separators to good known
+  defaults.
+
 * Fri Aug 08 2014 Jan Dobes 2.3.9-1
 - adding missing upgrade
 
