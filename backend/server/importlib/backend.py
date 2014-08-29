@@ -599,12 +599,6 @@ class Backend:
                 # package is not in database at all
                 raise not_found[0], None, not_found[1]
 
-    def lookupSolarisPackages(self, packages, ignore_missing=0):
-        for pkg in packages:
-            if not isinstance(pkg, IncompletePackage):
-                raise TypeError("Expected an IncompletePackage instance")
-        self.__lookupObjectCollection(packages, 'rhnSolarisPackage', ignore_missing)
-
     def lookupChannelFamilies(self, hash):
         if not hash:
             return
@@ -741,34 +735,11 @@ class Backend:
             'rhnPackageChangeLogRec':  'package_id',
         }
 
-        solarisChildTables = {
-            'rhnSolarisPackage':    'package_id',
-        }
-
-        solarisPatchChildTables = {
-            'rhnSolarisPatch':      'package_id',
-            'rhnSolarisPatchPackages':'patch_id',
-        }
-
-        solarisPatchSetChildTables = {
-            'rhnSolarisPatchSet':   'package_id',
-            'rhnSolarisPatchSetMembers':'patch_set_id',
-        }
-
         for package in packages:
             if not isinstance(package, Package):
                 raise TypeError("Expected a Package instance")
 
             tableList = copy.deepcopy(childTables)
-
-            if 'solaris_package' in package:
-                tableList.update(solarisChildTables)
-
-            if 'solaris_patch' in package:
-                tableList.update(solarisPatchChildTables)
-
-            if 'solaris_patch_set' in package:
-                tableList.update(solarisPatchSetChildTables)
 
             # older sat packages wont have these fields
             # avoid Null insertions

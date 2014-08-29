@@ -576,64 +576,6 @@ class OracleBackend(Backend):
             },
             pk          = ['id', 'label', 'name'],
         ),
-
-        # tables needed for solaris --------------------------------------
-
-        Table('rhnSolarisPatch',
-            # Table column -> Column type mapping
-            fields      = {
-                'package_id'        : DBint(),
-                'solaris_release'   : DBstring(64),
-                'sunos_release'     : DBstring(64),
-                'patch_type'        : DBint(),
-                'readme'            : DBblob(),
-                'patchinfo'         : DBstring(4000),
-            },
-            pk          = ['package_id',],
-            nullable    = ['solaris_release', 'sunos_release', 'patchinfo'],
-            # Object attribute -> Sub-table mapping
-            attribute   = 'solaris_patch',
-        ),
-        Table('rhnSolarisPatchPackages',
-            fields      = {
-                'patch_id'          : DBint(),
-                'package_nevra_id'  : DBint(),
-            },
-            pk          = ['patch_id', 'package_nevra_id'],
-            attribute   = 'solaris_patch_packages',
-        ),
-        Table('rhnSolarisPatchSet',
-            fields      = {
-                'package_id'        : DBint(),
-                'readme'            : DBblob(),
-                'set_date'          : DBdateTime(),
-            },
-            pk          = ['package_id',],
-            nullable    = ['readme'],
-            attribute   = 'solaris_patch_set',
-        ),
-        Table('rhnSolarisPatchSetMembers',
-            fields      = {
-                'patch_id'          : DBint(),
-                'patch_set_id'      : DBint(),
-                'patch_order'       : DBint(),
-            },
-            pk          = ['patch_set_id', 'patch_id'],
-            nullable    = ['patch_order'],
-            attribute   = 'solaris_patch_set_members',
-        ),
-        Table('rhnSolarisPackage',
-            fields      = {
-                'package_id'        : DBint(),
-                'category'          : DBstring(2048),
-                'pkginfo'           : DBstring(4000),
-                'pkgmap'            : DBblob(),
-                'intonly'           : DBstring(1),
-            },
-            pk          = ['package_id'],
-            nullable    = ['category', 'pkginfo', 'pkgmap'],
-            attribute   = 'solaris_package',
-        ),
     )
 
     def __init__(self):

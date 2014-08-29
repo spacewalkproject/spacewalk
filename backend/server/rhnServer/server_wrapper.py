@@ -22,12 +22,11 @@
 from server_hardware import Hardware
 from server_packages import Packages
 from server_history import History
-from server_solarispatches import SolarisPatches
 
 from rhn.UserDictCase import UserDictCase
 from spacewalk.server import rhnSQL
 
-class ServerWrapper(Packages, Hardware, History, SolarisPatches):
+class ServerWrapper(Packages, Hardware, History):
     """ This is a middle class that ties all the subclasses together, plus it
         provides a cleaner way to keep all the wrapper functions in one place.
         The main Server class is based on this one and it looks a little bit
@@ -38,7 +37,6 @@ class ServerWrapper(Packages, Hardware, History, SolarisPatches):
         Packages.__init__(self)
         History.__init__(self)
         Hardware.__init__(self)
-        SolarisPatches.__init__(self)
 
     def __repr__(self):
         return "<%s instance>" % (self.__class__,)
@@ -58,20 +56,16 @@ class ServerWrapper(Packages, Hardware, History, SolarisPatches):
         """ Wrappers for the similar functions from Packages class that supplementaly
             require a valid sysid.
         """
-        if entry['name'].startswith("patch-solaris"):
-            SolarisPatches.add_patch(self, self.server.get("id"), entry)
         return Packages.add_package(self, self.server.get("id"), entry)
 
     def delete_package(self, entry):
         return Packages.delete_package(self, self.server.get("id"), entry)
 
     def dispose_packages(self):
-        SolarisPatches.dispose_patched_packages(self, self.server["id"])
         return Packages.dispose_packages(self, self.server["id"])
 
     def save_packages(self, schedule=1):
         """ wrapper for the Packages.save_packages_byid() which requires the sysid """
-        SolarisPatches.save_patched_packages(self, self.server["id"])
         ret = self.save_packages_byid(self.server["id"], schedule=schedule)
         # this function is primarily called from outside
         # so we have to commit here

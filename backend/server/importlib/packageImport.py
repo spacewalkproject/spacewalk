@@ -272,12 +272,6 @@ class PackageImport(ChannelPackageSubscription):
                 unique_package_changelog_hash[key] = 1
         package['changelog'] = unique_package_changelog
 
-        if 'solaris_patch_set' in package:
-            if package.arch.startswith("sparc"):
-                self.package_arches['sparc-solaris-patch'] = None
-            else:
-                self.package_arches['i386-solaris-patch'] = None
-
         # fix encoding issues in package summary and description
         package['description'] = self._fix_encoding(package['description'])
         package['summary'] = self._fix_encoding(package['summary'])
@@ -351,12 +345,6 @@ class PackageImport(ChannelPackageSubscription):
             # Only deal with packages
             self.__postprocessPackage(package)
 
-            # solaris specific stuff
-            if 'solaris_package' in package or \
-               'solaris_patch' in package or \
-               'solaris_patch_set' in package:
-                self.__postprocessSolarisPackage(package)
-
     def __postprocessPackage(self, package):
         """ populate the columns foo_id with id numbers from appropriate hashes """
         package['package_group'] = self.groups[package['package_group']]
@@ -378,115 +366,6 @@ class PackageImport(ChannelPackageSubscription):
         fileList = package['files']
         for f in fileList:
             f['checksum_id'] = self.checksums[(f['checksum_type'], f['checksum'])]
-
-    def __postprocessSolarisPackage(self, package):
-        # set solaris patch packages for a solaris patch
-        if 'solaris_patch_packages' in package:
-            self.__postprocessSolarisPatchPackages(package)
-
-        # set solaris patch set memebers for a solaris patch set
-        if 'solaris_patch_set_members' in package:
-            self.__postprocessSolarisPatchSetMembers(package)
-
-    def __postprocessSolarisPatchPackages(self, package):
-
-        evrs = {}
-        names = {}
-        archs = {}
-        checksums = {}
-
-        for pkgDict, pkgInfoObj in package['solaris_patch_packages']:
-
-            evr = []
-            for field in ('epoch', 'version', 'release'):
-                evr.append(pkgDict[field])
-            evr = tuple(evr)
-
-            pkgDict['evr'] = evr
-
-            evrs[evr] = None
-            names[pkgDict['name']] = None
-            archs[pkgDict['arch']] = None
-
-        self.backend.lookupEVRs(evrs)
-        self.backend.lookupPackageNames(names)
-        self.backend.lookupPackageArches(archs)
-
-        nevras = {}
-
-        for pkgDict, pkgInfoObj in package['solaris_patch_packages']:
-
-            nevra = []
-
-            nevra.append(names[pkgDict['name']])
-            nevra.append(evrs[pkgDict['evr']])
-            nevra.append(archs[pkgDict['arch']])
-
-            nevra = tuple(nevra)
-            pkgDict['nevra'] = nevra
-            nevras[nevra] = None
-
-        self.backend.lookupPackageNEVRAs(nevras)
-
-        infoObjs = []
-
-        for pkgDict, pkgInfoObj in package['solaris_patch_packages']:
-            pkgInfoObj['package_nevra_id'] = nevras[pkgDict['nevra']]
-            infoObjs.append(pkgInfoObj)
-
-        package['solaris_patch_packages'] = infoObjs
-
-    def __postprocessSolarisPatchSetMembers(self, package):
-
-        evrs = {}
-        checksums = {}
-        names = {}
-
-        for patchDict, patchObj in package['solaris_patch_set_members']:
-
-            evr = [None,]
-            evr.append(patchDict['version'])
-            evr.append('1')
-            evr = tuple(evr)
-
-            patchDict['evr'] = evr
-
-            evrs[evr] = None
-            names[patchDict['name']] = None
-
-        self.backend.lookupEVRs(evrs)
-        self.backend.lookupPackageNames(names)
-
-        nevras = {}
-
-        for patchDict, patchInfoObj in package['solaris_patch_set_members']:
-
-            nevra = []
-
-            nevra.append(names[patchDict['name']])
-            nevra.append(evrs[patchDict['evr']])
-
-            if package.arch.startswith('sparc'):
-                nevra.append(self.package_arches['sparc-solaris-patch'])
-            else:
-                nevra.append(self.package_arches['i386-solaris-patch'])
-
-            nevra = tuple(nevra)
-            patchDict['nevra'] = nevra
-            nevras[nevra] = None
-
-        self.backend.lookupPackagesByNEVRA(nevras)
-
-        infoObjs = []
-
-        for patchDict, patchInfoObj in package['solaris_patch_set_members']:
-	    if not nevras[patchDict['nevra']]:
-	        # if patch doesn't exist,skip from the set
-                continue
-            patchInfoObj['patch_id'] = nevras[patchDict['nevra']]
-            infoObjs.append(patchInfoObj)
-
-        package['solaris_patch_set_members'] = infoObjs
 
     def _comparePackages(self, package1, package2):
         if (package1['checksum_type'] == package2['checksum_type']

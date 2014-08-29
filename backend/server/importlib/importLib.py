@@ -556,50 +556,6 @@ class ProductName(Information):
 	'name'              : StringType,
     }
 
-class SolarisPatchInfo(Information):
-    # Object attribute name -> Object attribute type mapping
-    attributeTypes = {
-        'package_id'    : IntType,
-        'solaris_release': StringType,
-        'sunos_release' : StringType,
-        'patch_type'    : IntType,
-        'readme'        : StringType,
-        'patchinfo'     : StringType,
-    }
-
-
-class SolarisPatchPackagesInfo(Information):
-    attributeTypes = {
-        'patch_id'      : IntType,
-        'package_nevra_id': IntType,
-    }
-
-
-class SolarisPatchSetMember(Information):
-    attributeTypes = {
-        'patch_id'      : IntType,
-        'patch_set_id'  : IntType,
-    }
-
-
-class SolarisPatchSetInfo(Information):
-    attributeTypes = {
-        'package_id'    : IntType,
-        'readme'        : StringType,
-        'set_date'      : DateType,
-        'members'       : [ SolarisPatchSetMember ],
-    }
-
-
-class SolarisPackageInfo(Information):
-    attributeTypes = {
-        'package_id'    : IntType,
-        'category'      : StringType,
-        'pkginfo'       : StringType,
-        'pkgmap'        : StringType,
-        'intonly'       : StringType,
-    }
-
 
 # Generic error object
 class Error(Information):

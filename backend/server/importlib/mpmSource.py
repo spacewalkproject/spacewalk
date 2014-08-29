@@ -18,53 +18,6 @@
 
 import headerSource
 import debPackage
-from importLib import SolarisPatchInfo, \
-                      SolarisPatchPackagesInfo, SolarisPatchSetInfo, \
-                      SolarisPatchSetMember, SolarisPackageInfo
-
-class mpmSolarisPatchInfo(SolarisPatchInfo):
-    tagMap = {
-        # DB field -> header field
-        'package_id'    : None,
-        'solaris_release':'solaris_rel',
-        'sunos_release' : 'sunos_rel',
-        'patch_type'    : 'patch_type',
-        'readme'        : 'readme',
-        'patchinfo'     : 'summary',
-    }
-
-
-class mpmSolarisPatchPackagesInfo(SolarisPatchPackagesInfo):
-    tagMap = {
-        'patch_id'      : None,
-        'package_nevra_id': None,
-    }
-
-
-class mpmSolarisPatchSetInfo(SolarisPatchSetInfo):
-    tagMap = {
-        'package_id'    : None,
-        'readme'        : 'readme',
-        'set_date'      : 'date',
-    }
-
-
-class mpmSolarisPatchSetMember(SolarisPatchSetMember):
-    tagMap = {
-        'patch_id'      : None,
-        'patch_set_id'  : None,
-        'patch_order'   : None,
-    }
-
-
-class mpmSolarisPackageInfo(SolarisPackageInfo):
-    tagMap = {
-        'package_id'    : None,
-        'category'      : 'package_group',
-        'pkginfo'       : 'pkginfo',
-        'pkgmap'        : 'pkgmap',
-        'intonly'       : 'intonly',
-    }
 
 
 class mpmBinaryPackage(headerSource.rpmBinaryPackage):
@@ -94,20 +47,6 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
         group = self.get('package_group', '')
         if group == '':
             self['package_group'] = 'NoGroup'
-
-        # Solaris specific populations
-        if header.get('package_type', "") == "solaris":
-            group = header.get('package_group', "")
-            self['header_start'] = self['header_end'] = 0
-
-            if group == 'Patches':
-                self._populate_solaris_patch_info(header)
-
-            elif group == 'Patch Clusters':
-                self._populate_solaris_patch_set_info(header)
-
-            else: # it's a solaris package
-                self._populate_solaris_package_info(header)
 
         return self
 
@@ -155,64 +94,6 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
             cinst.populate(cinfo)
             l.append(cinst)
         self['changelog'] = l
-
-    def _populate_solaris_package_info(self, header):
-        mapping = {
-            'solaris_package': mpmSolarisPackageInfo,
-        }
-        for k, v in mapping.items():
-            self._populate_solaris_tag(k, v, header)
-
-    def _populate_solaris_patch_info(self, header):
-        mapping = {
-            'solaris_patch' : mpmSolarisPatchInfo,
-        }
-        for k, v in mapping.items():
-            self._populate_solaris_tag(k, v, header)
-
-        list_ = []
-
-        for pkg in header.get('packages', []):
-            # mpmSolarisPatchPackagesInfo contains only info from the db, so
-            # I'll store tuples so that the info from the db can be retrieved
-            list_.append((pkg, mpmSolarisPatchPackagesInfo()))
-
-        self['solaris_patch_packages'] = list_
-
-    def _populate_solaris_patch_set_info(self, header):
-        mapping = {
-            'solaris_patch_set' : mpmSolarisPatchSetInfo,
-        }
-        for k, v in mapping.items():
-            self._populate_solaris_tag(k, v, header)
-
-        list_ = []
-
-        patch_list = header.get('patches', [])
-        for patch in patch_list:
-            member = mpmSolarisPatchSetMember()
-            member['patch_order'] = patch['patch_order']
-            list_.append((patch, member))
-
-        self['solaris_patch_set_members'] = list_
-
-
-    def _populate_solaris_tag(self, tag, Class, header):
-
-        list_ = self.get(tag, [])
-
-        assert type(list_) == type([])
-
-        obj = Class()
-
-        dict = {}
-        for k, v in obj.tagMap.items():
-            dict[k] = header.get(v, None)
-
-        obj.populate(dict)
-        list_.append(obj)
-
-        self[tag] = list_
 
 # top-level package object creation --------------------------------------
 
