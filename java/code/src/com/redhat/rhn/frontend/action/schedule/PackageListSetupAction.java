@@ -55,18 +55,8 @@ public class PackageListSetupAction extends RhnAction implements Listable {
 
         ActionType type = action.getActionType();
         if (type.equals(ActionFactory.TYPE_PACKAGES_UPDATE) ||
-                type.equals(ActionFactory.TYPE_PACKAGES_REMOVE) ||
-                type.equals(ActionFactory.TYPE_SOLARISPKGS_INSTALL) ||
-                type.equals(ActionFactory.TYPE_SOLARISPKGS_REMOVE)) {
+                type.equals(ActionFactory.TYPE_PACKAGES_REMOVE)) {
             request.setAttribute("type", "packages");
-        }
-        else if (type.equals(ActionFactory.TYPE_SOLARISPKGS_PATCHINSTALL) ||
-                type.equals(ActionFactory.TYPE_SOLARISPKGS_PATCHREMOVE)) {
-            request.setAttribute("type", "patches");
-        }
-        else if (type.equals(ActionFactory.TYPE_SOLARISPKGS_PATCHCLUSTERINSTALL) ||
-                type.equals(ActionFactory.TYPE_SOLARISPKGS_PATCHCLUSTERREMOVE)) {
-            request.setAttribute("type", "patchsets");
         }
 
 

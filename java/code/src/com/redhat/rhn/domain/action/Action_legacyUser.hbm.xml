@@ -387,35 +387,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 discriminator-value="33" lazy="true">
             </subclass>
 
-            <subclass
-                name="com.redhat.rhn.domain.action.solaris.SolarisPackageInstallAction"
-                discriminator-value="24" lazy="true">
-            </subclass>
-            <subclass
-                name="com.redhat.rhn.domain.action.solaris.SolarisPackageRemoveAction"
-                discriminator-value="25" lazy="true">
-            </subclass>
-            <subclass
-                name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchInstallAction"
-                discriminator-value="26" lazy="true">
-            </subclass>
-            <subclass
-                name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchRemoveAction"
-                discriminator-value="27" lazy="true">
-            </subclass>
-            <subclass
-                name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchClusterInstallAction"
-                discriminator-value="28" lazy="true">
-            </subclass>
-            <subclass
-                name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchClusterRemoveAction"
-                discriminator-value="29" lazy="true">
-            </subclass>
-            <subclass
-                name="com.redhat.rhn.domain.action.solaris.SolarisPackageRefreshListAction"
-                discriminator-value="31" lazy="true">
-            </subclass>
-
 
         </subclass>
 

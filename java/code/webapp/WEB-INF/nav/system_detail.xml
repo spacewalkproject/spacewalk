@@ -11,7 +11,7 @@
       <rhn-tab-url>/rhn/systems/details/SystemRemoteCommand.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Connection" url="/network/systems/details/connection.pxt" acl="org_has_proxies()"/>
-    <rhn-tab name="Proxy" url="/network/systems/details/proxy.pxt" acl="user_role(org_admin); system_feature(ftr_proxy_capable) or system_is_proxy(); org_channel_family(rhn-proxy) or system_is_proxy(); child_channel_candidate(rhn-proxy) or system_is_proxy(); not system_is_satellite(); not is_solaris();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)">
+    <rhn-tab name="Proxy" url="/network/systems/details/proxy.pxt" acl="user_role(org_admin); system_feature(ftr_proxy_capable) or system_is_proxy(); org_channel_family(rhn-proxy) or system_is_proxy(); child_channel_candidate(rhn-proxy) or system_is_proxy(); not system_is_satellite();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)">
       <rhn-tab name="Activation" url="/network/systems/details/proxy.pxt" />
       <rhn-tab name="Systems Using Proxy" url="/network/systems/details/proxy-clients.pxt" acl="system_is_proxy() "/>
     </rhn-tab>
@@ -31,25 +31,9 @@
 
   <rhn-tab name="Software" url="/rhn/systems/details/packages/Packages.do">
 
-    <rhn-tab name="Errata" acl="system_feature(ftr_errata_updates); not is_solaris()">
+    <rhn-tab name="Errata" acl="system_feature(ftr_errata_updates)">
       <rhn-tab-url>/rhn/systems/details/ErrataList.do</rhn-tab-url>
       <rhn-tab-url>/rhn/systems/details/ErrataConfirm.do</rhn-tab-url>
-    </rhn-tab>
-
-    <rhn-tab name="Patches" acl="is_solaris()">
-      <rhn-tab-url>/rhn/systems/details/packages/patches/PatchList.do</rhn-tab-url>
-      <rhn-tab name="List / Remove">
-        <rhn-tab-url>/rhn/systems/details/packages/patches/PatchList.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/systems/details/packages/patches/PatchListConfirm.do</rhn-tab-url>
-      </rhn-tab>
-      <rhn-tab name="Install">
-        <rhn-tab-url>/rhn/systems/details/packages/patches/PatchInstall.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/systems/details/packages/patches/PatchInstallConfirm.do</rhn-tab-url>
-      </rhn-tab>
-    </rhn-tab>
-    <rhn-tab name="Patch Clusters" acl="is_solaris()">
-      <rhn-tab-url>/rhn/systems/details/packages/patchsets/PatchSetList.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/systems/details/packages/patchsets/InstallPatchSet.do</rhn-tab-url>
     </rhn-tab>
 
     <rhn-tab name="Packages">
@@ -146,9 +130,9 @@
     </rhn-tab>
   </rhn-tab>
 
-  <rhn-tab name="Provisioning" acl="not is_solaris();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)" url="/rhn/systems/details/kickstart/ScheduleWizard.do">
+  <rhn-tab name="Provisioning" acl="system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)" url="/rhn/systems/details/kickstart/ScheduleWizard.do">
 
-    <rhn-tab name="Kickstart" url="/rhn/systems/details/kickstart/ScheduleWizard.do" acl="system_feature(ftr_kickstart); not is_solaris()">
+    <rhn-tab name="Kickstart" url="/rhn/systems/details/kickstart/ScheduleWizard.do" acl="system_feature(ftr_kickstart)">
       <rhn-tab-directory>/rhn/systems/details/kickstart</rhn-tab-directory>
       <rhn-tab name="Session Status" url="/rhn/systems/details/kickstart/SessionStatus.do" acl="system_kickstart_session_exists()">
         <rhn-tab-url>/rhn/systems/details/kickstart/SessionCancel.do</rhn-tab-url>
@@ -159,7 +143,7 @@
 
     <rhn-tab name="Power Management" url="/rhn/systems/details/kickstart/PowerManagement.do" acl="system_feature(ftr_kickstart)" node-id="power_management" />
 
-    <rhn-tab name="Snapshots" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/rhn/systems/details/history/snapshots/Index.do" showChildrenIfActive="0">
+    <rhn-tab name="Snapshots" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting)" url="/rhn/systems/details/history/snapshots/Index.do" showChildrenIfActive="0">
       <rhn-tab name="Rollback" url="/rhn/systems/details/history/snapshots/Rollback.do" />
       <rhn-tab name="Groups" url="/rhn/systems/details/history/snapshots/Groups.do" />
       <rhn-tab name="Channels" url="/rhn/systems/details/history/snapshots/Channels.do" />
@@ -172,7 +156,7 @@
         <rhn-tab-url>/rhn/systems/details/history/snapshots/SnapshotTagCreate.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="Snapshot Tags" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/rhn/systems/details/history/snapshots/Tags.do" />
+    <rhn-tab name="Snapshot Tags" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting)" url="/rhn/systems/details/history/snapshots/Tags.do" />
 
   </rhn-tab>
 

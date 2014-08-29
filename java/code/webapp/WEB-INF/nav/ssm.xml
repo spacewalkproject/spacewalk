@@ -5,7 +5,7 @@
         <rhn-tab-url>/rhn/systems/ssm/ListSystems.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Errata">
-        <rhn-tab-url>/rhn/systems/ssm/ListPatches.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/ssm/ListErrata.do</rhn-tab-url>
     </rhn-tab>
 
    <rhn-tab name="Packages">
@@ -23,41 +23,6 @@
                 <rhn-tab-url>/rhn/ssm/PackageVerify.do</rhn-tab-url>
             </rhn-tab>
    </rhn-tab>
-
-   <rhn-tab name="Patches" acl="is(enable_solaris_support)">
-
-             <rhn-tab-url>/network/systems/ssm/patches/index.pxt</rhn-tab-url>
-
-             <rhn-tab name="Install">
-		<rhn-tab-url>/network/systems/ssm/patches/install.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/patches/install_channel.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/patches/install_conf.pxt</rhn-tab-url>
-             </rhn-tab>
-
-             <rhn-tab name="Remove">
-		<rhn-tab-url>/network/systems/ssm/patches/remove.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/patches/remove_conf.pxt</rhn-tab-url>
-             </rhn-tab>
-
-	</rhn-tab>
-
-	<rhn-tab name="Patch Clusters" acl="is(enable_solaris_support)">
-
-             <rhn-tab-url>/network/systems/ssm/patchsets/index.pxt</rhn-tab-url>
-
-             <rhn-tab name="Install">
-		<rhn-tab-url>/network/systems/ssm/patchsets/install.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/patchsets/install_channel.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/patchsets/install_conf.pxt</rhn-tab-url>
-             </rhn-tab>
-
-	</rhn-tab>
-
-	<rhn-tab name="Groups" acl="user_role(org_admin)">
-		<rhn-tab-url>/network/systems/ssm/groups/index.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/groups/alter_membership_conf.pxt</rhn-tab-url>
-                <rhn-tab-url>/network/systems/ssm/groups/create.pxt</rhn-tab-url>
-	</rhn-tab>
 
 	<rhn-tab name="Channels">
             <rhn-tab-url>/rhn/channel/ssm/ChildSubscriptions.do</rhn-tab-url>

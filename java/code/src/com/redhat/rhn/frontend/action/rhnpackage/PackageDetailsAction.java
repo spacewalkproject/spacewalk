@@ -20,8 +20,6 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageSource;
-import com.redhat.rhn.domain.rhnpackage.Patch;
-import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.dto.PackageListItem;
@@ -73,45 +71,29 @@ public class PackageDetailsAction extends RhnAction {
                 throw new PermissionException("Invalid pid");
             }
 
-            if (pkg instanceof Patch) {
-                request.setAttribute("type", "patch");
-                request.setAttribute(PACKAGE_NAME, pkg.getPackageName().getName());
-                request.setAttribute("readme_url",
-                        DownloadManager.getPatchReadmeDownloadPath(
-                                (Patch) pkg, user));
+            request.setAttribute("type", "rpm");
+            request.setAttribute(PACKAGE_NAME, pkg.getFilename());
+            if (!pkg.getPackageKeys().isEmpty()) {
+                request.setAttribute(PACKAGE_KEY, pkg.getPackageKeys().iterator().next()
+                        .getKey());
             }
-            else if (pkg instanceof PatchSet) {
-                request.setAttribute("type", "patchset");
-                request.setAttribute(PACKAGE_NAME, pkg.getNameEvra());
-                request.setAttribute("readme_url",
-                        DownloadManager.getPatchSetReadmeDownloadPath(
-                                (PatchSet) pkg, user));
-            }
-            else {
-                request.setAttribute("type", "rpm");
-                request.setAttribute(PACKAGE_NAME, pkg.getFilename());
-                if (!pkg.getPackageKeys().isEmpty()) {
-                    request.setAttribute(PACKAGE_KEY,
-                            pkg.getPackageKeys().iterator().next().getKey());
+            boolean isDebug = pkg.getPackageName().getName().contains("debuginfo");
+
+            request.setAttribute("isDebuginfo", isDebug);
+            if (!isDebug) {
+                Package debugPkg = PackageManager.findDebugInfo(user, pkg);
+                String ftpUrl = PackageManager.generateFtpDebugPath(pkg);
+                if (debugPkg != null) {
+                    request.setAttribute("debugUrl", DownloadManager
+                            .getPackageDownloadPath(debugPkg, user));
                 }
-                boolean isDebug = pkg.getPackageName().getName().contains("debuginfo");
-
-                request.setAttribute("isDebuginfo", isDebug);
-                if (!isDebug) {
-                    Package debugPkg = PackageManager.findDebugInfo(user, pkg);
-                    String ftpUrl = PackageManager.generateFtpDebugPath(pkg);
-                    if (debugPkg != null) {
-                        request.setAttribute("debugUrl",
-                                DownloadManager.getPackageDownloadPath(debugPkg, user));
-                    }
-                    else if (ftpUrl != null) {
-                        request.setAttribute("debugUrl", ftpUrl);
-                        request.setAttribute("debugFtp", true);
-                    }
-
+                else if (ftpUrl != null) {
+                    request.setAttribute("debugUrl", ftpUrl);
+                    request.setAttribute("debugFtp", true);
                 }
 
             }
+
 
             if (DownloadManager.isFileAvailable(pkg.getPath())) {
                 request.setAttribute("url",

@@ -9,15 +9,6 @@
     <rhn-tab name="package.jsp.menu.filelist" url="/network/software/packages/file_list.pxt" acl="package_type_capable(file_list)"/>
   </rhn-tab>
   <rhn-tab name="package.jsp.menu.newversions" url="/network/software/packages/newer_versions.pxt"/>
-  <rhn-tab name="package.jsp.menu.patches" url="/network/software/packages/patches_patching_package.pxt" acl="package_type_capable(solaris_patchable)"/>
-  <rhn-tab name="package.jsp.menu.packages" url="/network/software/packages/patch_packages.pxt" acl="package_type_capable(solaris_patch)"/>
-  <rhn-tab name="package.jsp.menu.patchclusters" url="/network/software/packages/patch_patchsets.pxt" acl="package_type_capable(solaris_patch)"/>
-  <rhn-tab name="package.jsp.menu.patches" url="/network/software/packages/patchset_patches.pxt" acl="package_type_capable(solaris_patchset)"/>
-  <rhn-tab name="package.jsp.menu.patchedsystems" url="/network/software/packages/system_list_for_patch.pxt" acl="package_type_capable(solaris_patch)"/>
-  <rhn-tab name="package.jsp.menu.installedsystems" url="/network/software/packages/system_list.pxt" acl="not package_type_capable(solaris_patch); not package_type_capable(solaris-patch-cluster)"/>
-  <rhn-tab name="package.jsp.menu.installedsystems" url="/network/software/packages/system_list_for_patchset.pxt" acl="package_type_capable(solaris_patchset)"/>
-  <rhn-tab name="package.jsp.menu.targetsystems" url="/network/software/packages/target_system_list_for_patch.pxt" acl="org_entitlement(sw_mgr_enterprise);package_type_capable(solaris_patch)"/>
-  <rhn-tab name="package.jsp.menu.targetsystems" url="/network/software/packages/target_system_list_for_patchset.pxt" acl="org_entitlement(sw_mgr_enterprise);package_type_capable(solaris_patchset)"/>
-  <rhn-tab name="package.jsp.menu.targetsystems"
-  url="/network/software/packages/target_system_list.pxt" acl="org_entitlement(sw_mgr_enterprise);not package_type_capable(solaris_patch); not package_type_capable(solaris_patchset)"/>
+  <rhn-tab name="package.jsp.menu.installedsystems" url="/network/software/packages/system_list.pxt"/>
+  <rhn-tab name="package.jsp.menu.targetsystems" url="/network/software/packages/target_system_list.pxt" acl="org_entitlement(sw_mgr_enterprise)"/>
 </rhn-navi-tree>

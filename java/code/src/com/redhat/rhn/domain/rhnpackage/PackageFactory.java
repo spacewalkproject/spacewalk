@@ -51,10 +51,7 @@ public class PackageFactory extends HibernateFactory {
     public static final PackageKeyType PACKAGE_KEY_TYPE_GPG = lookupKeyTypeByLabel("gpg");
 
     public static final String ARCH_TYPE_RPM = "rpm";
-    public static final String ARCH_TYPE_SYSV = "sysv-solaris";
     public static final String ARCH_TYPE_TAR = "tar";
-    public static final String ARCH_TYPE_PATCH = "solaris-patch";
-    public static final String ARCH_TYPE_PATCH_CLUSTER = "solaris-patch-cluster";
 
     private PackageFactory() {
         super();
@@ -460,23 +457,6 @@ public class PackageFactory extends HibernateFactory {
         rpmCaps.add("remove");
         rpmCaps.add("rpm");
         map.put(PackageFactory.ARCH_TYPE_RPM, rpmCaps);
-
-        Set<String> patchCaps = new HashSet<String>();
-        patchCaps.add("dependencies");
-        patchCaps.add("solaris_patch");
-        patchCaps.add("remove");
-        map.put(PackageFactory.ARCH_TYPE_PATCH, patchCaps);
-
-        Set<String> patchSetCaps = new HashSet<String>();
-        patchSetCaps.add("solaris_patchset");
-        map.put(PackageFactory.ARCH_TYPE_PATCH_CLUSTER, patchSetCaps);
-
-        Set<String> sysVCaps = new HashSet<String>();
-        sysVCaps.add("deploy_answer_file");
-        sysVCaps.add("remove");
-        sysVCaps.add("package_map");
-        sysVCaps.add("solaris_patchable");
-        map.put(PackageFactory.ARCH_TYPE_SYSV, sysVCaps);
         return map;
     }
 

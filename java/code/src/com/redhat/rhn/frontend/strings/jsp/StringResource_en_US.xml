@@ -2790,68 +2790,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
         </context-group>
       </trans-unit>
-      <!-- patchset.jsp -->
-      <trans-unit id="patchsetlist.jsp.patchsets">
-        <source>Patch Clusters</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patchsets/PatchSetList</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="patchsetlist.jsp.patchsets_summary">
-        <source>You can install a patch cluster by clicking on its name.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patchsets/PatchSetList</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="patchsetlist.jsp.nopatchsets">
-        <source>No Patch Clusters</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patchsets/PatchSetList</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="patchsetlist.jsp.patchsetname">
-        <source>Patch Cluster Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patchsets/PatchSetList</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="patchsetlist.jsp.patchsetdate">
-        <source>Patch Cluster Date</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patchsets/PatchSetList</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="patchsetlist.jsp.patchsetactionstatus">
-        <source>Status</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patchsets/PatchSetList</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="patchsetlist.jsp.patchsetactiontimestamp">
-        <source>Last Action</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patchsets/PatchSetList</context>
-        </context-group>
-      </trans-unit>
-      <!-- install_patchset.jsp -->
-      <trans-unit id="install_patchset.jsp.header">
-        <source>Install Patch Cluster</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patchsets/InstallPatchSet</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="install_patchset.jsp.installpagesummary">
-        <source>You can install this patch cluster on your system using the button below.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patchsets/InstallPatchSet</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="install_patchset.jsp.installbutton">
-        <source>Install Patch Cluster</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patchsets/InstallPatchSet</context>
-        </context-group>
-      </trans-unit>
       <!-- package details -->
       <trans-unit id="packagedetails.description">
         <source>Description:</source>
@@ -4703,7 +4641,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Errata</source>
         </trans-unit>
         <trans-unit id="ssm.overview.errata.schedule">
-          <source>&lt;a href="/rhn/systems/ssm/ListPatches.do"&gt;Schedule errata updates&lt;/a&gt; relevant to selected systems</source>
+          <source>&lt;a href="/rhn/systems/ssm/ListErrata.do"&gt;Schedule errata updates&lt;/a&gt; relevant to selected systems</source>
         </trans-unit>
         <trans-unit id="ssm.overview.packages">
           <source>Packages</source>
@@ -4731,24 +4669,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning">
           <source>Provisioning</source>
-        </trans-unit>
-        <trans-unit id="ssm.overview.patches">
-          <source>Patches</source>
-        </trans-unit>
-        <trans-unit id="ssm.overview.patches.install">
-          <source>Install</source>
-        </trans-unit>
-        <trans-unit id="ssm.overview.patches.remove">
-          <source>Remove</source>
-        </trans-unit>
-        <trans-unit id="ssm.overview.patches.patches">
-          <source>patches</source>
-        </trans-unit>
-        <trans-unit id="ssm.overview.patch.clusters">
-          <source>Patch Clusters</source>
-        </trans-unit>
-        <trans-unit id="ssm.overview.patch.clusters.install">
-          <source>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;Install&lt;/a&gt; patch clusters</source>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.kickstart">
           <source>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; systems</source>
@@ -19336,30 +19256,6 @@ As a Channel Administrator, you may change the base channels your systems are su
       </trans-unit>
       <trans-unit id="channel.manage.errata.packageassocmsg">
         <source>(Recommended) With this selected only errata that contain packages that apply to this channel are shown.  Also, package architecture will match what is currently in the channel.</source>
-      </trans-unit>
-      <trans-unit id="channel.manage.patchset.none">
-        <source>No patch sets associated with this channel.</source>
-      </trans-unit>
-      <trans-unit id="channel.manage.patchset.listremove">
-        <source>List/Remove</source>
-      </trans-unit>
-      <trans-unit id="channel.manage.patchset">
-        <source>Patchsets</source>
-      </trans-unit>
-      <trans-unit id="channel.manage.patchset.clustername">
-        <source>Name</source>
-      </trans-unit>
-      <trans-unit id="channel.manage.patchset.releasedate">
-        <source>Release Date</source>
-      </trans-unit>
-      <trans-unit id="channel.manage.patchset.delete">
-        <source>Delete</source>
-      </trans-unit>
-      <trans-unit id="channel.manage.patchset.desc">
-        <source>The following patchsets are in this channel.  To add a patchset to this channel, click 'add' above.</source>
-      </trans-unit>
-      <trans-unit id="channel.manage.patchset.title">
-        <source>List Channel Patchsets</source>
       </trans-unit>
       <trans-unit id="toolbar.ssm.add">
         <source>Add to SSM</source>

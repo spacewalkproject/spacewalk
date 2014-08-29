@@ -840,16 +840,6 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
-     * Filter out a list of systemIds with ones that are solaris systems
-     * @param systemIds list of system ids
-     * @return list of system ids that are solaris systems
-     */
-    public static List<Long> listSolarisSystems(Collection<Long> systemIds) {
-        return singleton.listObjectsByNamedQuery("Server.listSolarisSystems",
-                new HashMap(), systemIds, "sids");
-    }
-
-    /**
      * Filter out a list of systemIds with ones that are linux systems
      *  (i.e. not solaris systems)
      * @param systemIds list of system ids

@@ -136,14 +136,6 @@ public class RhnSetDecl {
     public static final RhnSetDecl PACKAGES_TO_SYNC_CHANNEL = make(
             "packages_to_sync_channel", SetCleanup.NOOP);
 
-    // set of patches by name_id/evr_id; can not be cleaned
-    public static final RhnSetDecl PATCH_INSTALL = make(
-            SetLabels.PATCH_INSTALL_SET, SetCleanup.NOOP);
-
-    // set of patches by name_id/evr_id; can not be cleaned
-    public static final RhnSetDecl PATCH_REMOVE = make(
-            SetLabels.PATCH_REMOVE_SET, SetCleanup.NOOP);
-
     // set of servers by server_id
     public static final RhnSetDecl SYSTEMS = make(SetLabels.SYSTEM_LIST,
             SetCleanup.ILLEGAL_SERVERS);
@@ -281,12 +273,6 @@ public class RhnSetDecl {
     public static final RhnSetDecl PACKAGE_DOWNLOADABLE_LIST = make(
             "package_downloadable_list", SetCleanup.NOOP);
 
-    public static final RhnSetDecl PATCHES_TO_ADD = make("patches_to_add",
-            SetCleanup.NOOP);
-
-    public static final RhnSetDecl PATCHES_TO_REMOVE = make(
-            "patches_to_remove", SetCleanup.NOOP);
-
     public static final RhnSetDecl ERRATA_TO_REMOVE = make("errata_to_remove",
             SetCleanup.NOOP);
 
@@ -298,12 +284,6 @@ public class RhnSetDecl {
 
     public static final RhnSetDecl PACKAGES_FOR_MERGE = make(
             "packages_for_merge", SetCleanup.NOOP);
-
-    public static final RhnSetDecl PATCHSETS_TO_ADD = make("patchsets_to_add",
-            SetCleanup.NOOP);
-
-    public static final RhnSetDecl PATCHSETS_TO_REMOVE = make(
-            "patchsets_to_remove", SetCleanup.NOOP);
 
     public static final RhnSetDecl CHANNEL_MANAGEMENT_PERMS = make(
             "channel_management_perms", SetCleanup.NOOP);
@@ -317,9 +297,6 @@ public class RhnSetDecl {
     public static final RhnSetDecl REMOVEABLE_SYSTEM_LIST = make(
             "removable_system_list", SetCleanup.NOOP);
 
-    public static final RhnSetDecl PATCH_INSTALLABLE_LIST = make(
-            "patch_installable_list", SetCleanup.NOOP);
-
     public static final RhnSetDecl PACKAGE_INSTALLABLE_LIST = make(
             "package_installable_list", SetCleanup.NOOP);
 
@@ -328,9 +305,6 @@ public class RhnSetDecl {
 
     public static final RhnSetDecl PACKAGE_UPGRADABLE_LIST = make(
             "package_upgradable_list", SetCleanup.NOOP);
-
-    public static final RhnSetDecl PATCHSET_INSTALLABLE_LIST = make(
-            "patchset_installable_list", SetCleanup.NOOP);
 
     public static final RhnSetDecl REMOVE_SYSTEM_FROM_GROUPS = make(
             "remove_system_from_groups", SetCleanup.NOOP);
@@ -346,9 +320,6 @@ public class RhnSetDecl {
 
     public static final RhnSetDecl SYSTEMS_AFFECTED_BY_ERRATA = make(
             "systems_affected_by_errata", SetCleanup.NOOP);
-
-    public static final RhnSetDecl SSCD_REMOVABLE_PATCH_LIST = make(
-            "sscd_removable_patch_list", SetCleanup.NOOP);
 
     public static final RhnSetDecl SSCD_VERIFY_PACKAGE_LIST = make(
             "sscd_verify_package_list", SetCleanup.NOOP);

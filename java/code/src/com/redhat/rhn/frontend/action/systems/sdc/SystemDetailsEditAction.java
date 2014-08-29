@@ -236,16 +236,6 @@ public class SystemDetailsEditAction extends RhnAction {
                     RhnValidationHelper.validatorErrorToActionErrors(err));
             success = false;
         }
-        else if (checkSolarisFailure(validAddons,
-                EntitlementManager.VIRTUALIZATION, daForm, s)) {
-            handleSolarisError(request, EntitlementManager.VIRTUALIZATION);
-            success = false;
-        }
-        else if (checkSolarisFailure(validAddons,
-                EntitlementManager.VIRTUALIZATION_PLATFORM, daForm, s)) {
-            handleSolarisError(request, EntitlementManager.VIRTUALIZATION_PLATFORM);
-            success = false;
-        }
         else {
             for (Iterator i = validAddons.iterator(); i.hasNext();) {
                 Entitlement e = (Entitlement) i.next();
@@ -433,21 +423,6 @@ public class SystemDetailsEditAction extends RhnAction {
             countries.add(new LabelValueBean(name, code));
         }
         return countries;
-    }
-
-    private void handleSolarisError(HttpServletRequest request, Entitlement e) {
-        log.debug("Solaris Machine can't accept virtualization slotes.");
-
-        ValidatorError err = new ValidatorError(
-                "system.entitle.no-add.solaris-slots", e.getHumanReadableLabel());
-
-        getStrutsDelegate().saveMessages(request,
-                RhnValidationHelper.validatorErrorToActionErrors(err));
-    }
-
-    private boolean checkSolarisFailure(Set<Entitlement> validAddons, Entitlement e,
-            DynaActionForm daForm, Server s) {
-        return (s.isSolaris()) ? checkEnt(validAddons, e, daForm) : false;
     }
 
     private boolean checkEnt(Set<Entitlement> validAddons,

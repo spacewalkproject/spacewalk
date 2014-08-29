@@ -163,16 +163,6 @@ public class AccessTest extends BaseTestCaseWithUser {
         assertFalse(rc);
     }
 
-    public void testSolarisAclFalse() throws Exception {
-        Map context = new HashMap();
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        Server s =  ServerFactoryTest.createTestServer(user, false);
-        context.put("sid", s.getId().toString());
-        boolean rc = acl.evalAcl(context, "is_solaris()");
-        assertFalse(rc);
-    }
-
     public void testOrgEntitlementAclTrue() {
         Map context = new HashMap();
         User user = UserTestUtils.findNewUser("testUser",

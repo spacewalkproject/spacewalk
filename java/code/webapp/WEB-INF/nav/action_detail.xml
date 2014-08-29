@@ -13,16 +13,10 @@
   <rhn-tab name="Failed Systems">
     <rhn-tab-url>/rhn/schedule/FailedSystems.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Remove Packages" acl="generic_action_type(remove);not action_type_patch()">
+  <rhn-tab name="Remove Packages" acl="generic_action_type(remove)">
     <rhn-tab-url>/rhn/schedule/PackageList.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Update Packages" acl="generic_action_type(install);not action_type_patch()">
-    <rhn-tab-url>/rhn/schedule/PackageList.do</rhn-tab-url>
-  </rhn-tab>
-  <rhn-tab name="action.nav.backout" acl="generic_action_type(remove);action_type_patch()">
-    <rhn-tab-url>/rhn/schedule/PackageList.do</rhn-tab-url>
-  </rhn-tab>
-  <rhn-tab name="action.nav.install" acl="generic_action_type(install);action_type_patch()">
+  <rhn-tab name="Update Packages" acl="generic_action_type(install)">
     <rhn-tab-url>/rhn/schedule/PackageList.do</rhn-tab-url>
   </rhn-tab>
 </rhn-navi-tree>

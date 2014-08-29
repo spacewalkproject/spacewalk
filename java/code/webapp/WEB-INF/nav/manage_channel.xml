@@ -13,7 +13,7 @@
   <rhn-tab name="Managers" acl="channel_exists();org_entitlement(sw_mgr_enterprise);user_role(channel_admin)">
     <rhn-tab-url>/rhn/channels/manage/Managers.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Errata" acl="channel_exists();user_can_admin_channel();channel_type_capable(errata); not channel_packaging_type(sysv-solaris)">
+  <rhn-tab name="Errata" acl="channel_exists();user_can_admin_channel();channel_type_capable(errata)">
     <rhn-tab-url>/rhn/channels/manage/errata/Errata.do</rhn-tab-url>
     <rhn-tab name="List / Remove">
       <rhn-tab-url>/rhn/channels/manage/errata/ListRemove.do</rhn-tab-url>
@@ -44,7 +44,7 @@
       <rhn-tab-url>/rhn/channels/manage/ChannelPackagesAdd.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/ChannelPackagesAddConfirm.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Compare" acl="channel_exists(); not channel_packaging_type(sysv-solaris)" url="/rhn/channels/manage/ChannelPackagesCompare.do">
+    <rhn-tab name="Compare" acl="channel_exists()" url="/rhn/channels/manage/ChannelPackagesCompare.do">
       <rhn-tab-directory>/network/software/channels/manage/packages/compare</rhn-tab-directory>
     </rhn-tab>
   </rhn-tab>
@@ -55,28 +55,6 @@
     </rhn-tab>
     <rhn-tab name="Sync">
       <rhn-tab-url>/rhn/channels/manage/Sync.do</rhn-tab-url>
-    </rhn-tab>
-  </rhn-tab>
-  <rhn-tab name="Patches" acl="channel_exists();channel_packaging_type(sysv-solaris)">
-    <rhn-tab-url>/network/software/channels/manage/patches/index.pxt</rhn-tab-url>
-    <rhn-tab name="List / Remove">
-      <rhn-tab-url>/network/software/channels/manage/patches/patch_list.pxt</rhn-tab-url>
-      <rhn-tab-url>/network/software/channels/manage/patches/remove_confirm.pxt</rhn-tab-url>
-    </rhn-tab>
-    <rhn-tab name="Add">
-      <rhn-tab-url>/network/software/channels/manage/patches/add.pxt?view_channel=no_channels</rhn-tab-url>
-      <rhn-tab-url>/network/software/channels/manage/patches/add.pxt</rhn-tab-url>
-      <rhn-tab-url>/network/software/channels/manage/patches/add_confirm.pxt</rhn-tab-url>
-    </rhn-tab>
-  </rhn-tab>
-  <rhn-tab name="channel.manage.patchset" acl="channel_exists();channel_packaging_type(sysv-solaris)">
-    <rhn-tab-url>/network/software/channels/manage/patchsets/index.pxt</rhn-tab-url>
-    <rhn-tab name="channel.manage.patchset.listremove">
-      <rhn-tab-url>/rhn/channels/manage/solaris/ListPatchSets.do</rhn-tab-url>
-    </rhn-tab>
-    <rhn-tab name="Add">
-       <rhn-formvar name="view_channel" value="no_channels"/>
-      <rhn-tab-url>/network/software/channels/manage/patchsets/add.pxt?view_channel=no_channels&amp;set_label=packages_to_add</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
 </rhn-navi-tree>

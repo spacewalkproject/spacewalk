@@ -100,16 +100,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-3 control-label" for="web|enable_solaris_support">
-                            <bean:message key="general.jsp.solaris"/>
-                        </label>
-                        <div class="col-lg-6">
-                            <div class="checkbox">
-                                <html:checkbox property="web|enable_solaris_support" styleId="solaris" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-lg-3 control-label" for="disconnected">
                             <bean:message key="general.jsp.disconnected"/>
                         </label>

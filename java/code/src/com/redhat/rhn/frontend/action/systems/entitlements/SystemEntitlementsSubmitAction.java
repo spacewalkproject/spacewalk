@@ -351,10 +351,7 @@ public class SystemEntitlementsSubmitAction extends
                 //if the system already has the entitlement, do nothing
                 //  if so, neither success nor failure count will be updated.
                 if (!SystemManager.hasEntitlement(sid, ent)) {
-                        if (checkSolarisFailure(sid, ent, user)) {
-                            failureDueToSolarisCount++;
-                        }
-                        else if (SystemManager.canEntitleServer(sid, ent)) {
+                    if (SystemManager.canEntitleServer(sid, ent)) {
                             log.debug("we can entitle.  Lets entitle to : " + ent);
                             ValidatorResult vr =
                                 SystemManager.entitleServer(user.getOrg(), sid, ent);
@@ -490,15 +487,6 @@ public class SystemEntitlementsSubmitAction extends
         strutsDelegate.saveMessages(request, msg);
         return strutsDelegate.forwardParams(mapping.findForward(
                 RhnHelper.DEFAULT_FORWARD), params);
-    }
-
-    private boolean checkSolarisFailure(Long sid, Entitlement ent, User user) {
-        Server server = SystemManager.lookupByIdAndUser(sid, user);
-        if (server.isSolaris()) {
-            return EntitlementManager.VIRTUALIZATION.equals(ent) ||
-                      EntitlementManager.VIRTUALIZATION_PLATFORM.equals(ent);
-        }
-        return false;
     }
 
     /**

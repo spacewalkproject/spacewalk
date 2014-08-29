@@ -264,18 +264,6 @@ public class Access extends BaseHandler {
     }
 
     /**
-     * returns true if sid is a solaris system
-     * @param ctx Context Map to pass in
-     * @param params Parameters to use to fetch from Context
-     * @return true if access is granted, false otherwise
-     */
-    public boolean aclIsSolaris(Object ctx, String[] params) {
-        Map map = (Map) ctx;
-        Long sid = getAsLong(map.get("sid"));
-        return ServerFactory.lookupById(sid).isSolaris();
-    }
-
-    /**
      * Returns true if the system is a satellite and has any users.
      * NOTE: this is an expensive call with many many users.  It is intended
      * to be called from the installer.

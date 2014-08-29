@@ -10,17 +10,11 @@
   <rhn-tab name="Managers" acl="org_entitlement(sw_mgr_enterprise);user_role(channel_admin);user_can_admin_channel()">
     <rhn-tab-url>/rhn/channels/Managers.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Errata" acl="channel_type_capable(errata); not channel_packaging_type(sysv-solaris)">
+  <rhn-tab name="Errata" acl="channel_type_capable(errata)">
     <rhn-tab-url>/rhn/channels/ChannelErrata.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Packages">
     <rhn-tab-url>/rhn/channels/ChannelPackages.do</rhn-tab-url>
-  </rhn-tab>
-  <rhn-tab name="Patches" acl="channel_packaging_type(sysv-solaris)">
-    <rhn-tab-url>/network/software/channels/patches.pxt</rhn-tab-url>
-  </rhn-tab>
-  <rhn-tab name="Patch Clusters" acl="channel_packaging_type(sysv-solaris)">
-    <rhn-tab-url>/network/software/channels/patchsets.pxt</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Subscribed Systems">
     <rhn-tab-url>/rhn/channels/ChannelSubscribers.do</rhn-tab-url>

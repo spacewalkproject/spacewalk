@@ -457,9 +457,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <sql-query name="Channel.packageByFileName">
       <![CDATA[SELECT {p.*}
-          FROM rhnPackage {p}
-             left join rhnSolarisPatchSet P_2_ on p.id = P_2_.package_id
-             left join rhnSolarisPatch P_1_ on p.id = P_1_.package_id,
+          FROM rhnPackage {p},
              rhnChannelPackage CP,
              rhnChannel C
              WHERE (C.id = :channel_id OR C.parent_channel = :channel_id)

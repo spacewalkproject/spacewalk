@@ -66,8 +66,7 @@ public class ActionChainManager {
     public static PackageAction schedulePackageInstall(User user, Server server,
         List<Map<String, Long>> packages, Date earliest, ActionChain actionChain) {
         return schedulePackageActionByOs(user, server, packages, earliest, actionChain,
-            null, ActionFactory.TYPE_PACKAGES_UPDATE,
-            ActionFactory.TYPE_SOLARISPKGS_INSTALL);
+                null, ActionFactory.TYPE_PACKAGES_UPDATE);
     }
 
     /**
@@ -83,8 +82,7 @@ public class ActionChainManager {
     public static PackageAction schedulePackageRemoval(User user, Server server,
         List<Map<String, Long>> packages, Date earliest, ActionChain actionChain) {
         return schedulePackageActionByOs(user, server, packages, earliest, actionChain,
-            null, ActionFactory.TYPE_PACKAGES_REMOVE,
-            ActionFactory.TYPE_SOLARISPKGS_REMOVE);
+                null, ActionFactory.TYPE_PACKAGES_REMOVE);
     }
 
     /**
@@ -109,8 +107,8 @@ public class ActionChainManager {
         for (Long sid : packageMaps.keySet()) {
             Server server = SystemManager.lookupByIdAndUser(sid, user);
             actions.add(schedulePackageActionByOs(user, server, packageMaps.get(sid),
-                earliestAction, actionChain, sortOrder, ActionFactory.TYPE_PACKAGES_UPDATE,
-                ActionFactory.TYPE_SOLARISPKGS_INSTALL));
+                    earliestAction, actionChain, sortOrder,
+                    ActionFactory.TYPE_PACKAGES_UPDATE));
         }
         return actions;
     }
@@ -402,7 +400,7 @@ public class ActionChainManager {
         ActionChain actionChain) {
 
         return schedulePackageActionsByOs(user, serverIds, packages, earliest, actionChain,
-            ActionFactory.TYPE_PACKAGES_UPDATE, ActionFactory.TYPE_SOLARISPKGS_INSTALL);
+                ActionFactory.TYPE_PACKAGES_UPDATE);
     }
 
     /**
@@ -419,7 +417,7 @@ public class ActionChainManager {
         Collection<Long> serverIds, List<Map<String, Long>> packages, Date earliest,
         ActionChain actionChain) {
         return schedulePackageActionsByOs(user, serverIds, packages, earliest, actionChain,
-            ActionFactory.TYPE_PACKAGES_REMOVE, ActionFactory.TYPE_SOLARISPKGS_REMOVE);
+                ActionFactory.TYPE_PACKAGES_REMOVE);
     }
 
     /**
@@ -460,8 +458,7 @@ public class ActionChainManager {
     }
 
     /**
-     * Schedules package actions differentiating their type among Linux and Solaris
-     * servers.
+     * Schedules package actions.
      * @param user the user scheduling actions
      * @param server the server
      * @param packages the packages
@@ -469,51 +466,38 @@ public class ActionChainManager {
      * @param actionChain the action chain or null
      * @param sortOrder the sort order or null
      * @param linuxActionType the action type to apply to Linux servers
-     * @param solarisActionType the action type to apply to Solaris servers
      * @return scheduled action
      */
     private static PackageAction schedulePackageActionByOs(User user, Server server,
         List<Map<String, Long>> packages, Date earliest, ActionChain actionChain,
-        Integer sortOrder, ActionType linuxActionType, ActionType solarisActionType) {
-        if (!server.isSolaris()) {
-            return (PackageAction) schedulePackageAction(user, packages, linuxActionType,
-                earliest, actionChain, sortOrder, server);
-        }
-        return (PackageAction) schedulePackageAction(user, packages, solarisActionType,
+            Integer sortOrder, ActionType linuxActionType) {
+        return (PackageAction) schedulePackageAction(user, packages, linuxActionType,
             earliest, actionChain, sortOrder, server);
     }
 
     /**
-     * Schedules package actions differentiating their type among Linux and Solaris
-     * servers.
+     * Schedules package actions.
      * @param user the user scheduling actions
      * @param serverIds the affected servers' IDs
      * @param packages the packages involved
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
      * @param linuxActionType the action type to apply to Linux servers
-     * @param solarisActionType the action type to apply to Solaris servers
      * @return scheduled actions
      */
     private static List<Action> schedulePackageActionsByOs(User user,
         Collection<Long> serverIds, List<Map<String, Long>> packages, Date earliest,
-        ActionChain actionChain, ActionType linuxActionType, ActionType solarisActionType) {
+            ActionChain actionChain, ActionType linuxActionType) {
 
         List<Action> result = new LinkedList<Action>();
         Set<Long> rhelServers = new HashSet<Long>();
         rhelServers.addAll(ServerFactory.listLinuxSystems(serverIds));
-        Set<Long> solarisServers = new HashSet<Long>();
-        solarisServers.addAll(ServerFactory.listSolarisSystems(serverIds));
 
         if (!rhelServers.isEmpty()) {
             result.addAll(schedulePackageActions(user, packages, linuxActionType, earliest,
                 actionChain, null, rhelServers));
         }
 
-        if (!solarisServers.isEmpty()) {
-            result.addAll(schedulePackageActions(user, packages, solarisActionType,
-                earliest, actionChain, null, solarisServers));
-        }
         return result;
     }
 }

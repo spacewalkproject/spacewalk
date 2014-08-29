@@ -62,7 +62,7 @@ public class GeneralConfigAction extends BaseConfigAction {
         "mount_point"};
 
     private static final String[] BOOLEAN_CONFIG_ARRAY = {"web.ssl_available",
-            "web.enable_solaris_support", ConfigDefaults.DISCONNECTED };
+            ConfigDefaults.DISCONNECTED };
 
     private static final List COMBO_LIST = new LinkedList();
     static {

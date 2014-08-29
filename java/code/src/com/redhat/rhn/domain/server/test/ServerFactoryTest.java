@@ -421,15 +421,6 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
         assertNotNull(s2);
     }
 
-    /**
-     * Test server is not Solaris.
-     * @throws Exception
-     */
-    public void testNotSolarisServer() throws Exception {
-        Server s1 = createTestServer(user);
-        assertFalse(s1.isSolaris());
-    }
-
     public void testGetChildChannels() throws Exception {
         Server s1 = ServerTestUtils.createTestSystem(user);
         assertTrue(s1.getChildChannels().isEmpty());

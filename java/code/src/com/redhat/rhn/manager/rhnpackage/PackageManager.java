@@ -797,8 +797,6 @@ public class PackageManager extends BaseManager {
      * <li>channel-pSeries</li>
      * <li>channel-x86_64</li>
      * <li>channel-ppc</li>
-     * <li>channel-sparc-sun-solaris</li>
-     * <li>channel-i386-sun-solaris</li>
      * </ul>
      * @return package metadata for all packages named 'packageName' and exist
      * in the channels whose arch is one of the 'channelArches'.
@@ -859,21 +857,6 @@ public class PackageManager extends BaseManager {
         SelectMode m = ModeFactory.getMode(
                 "Package_queries", "packages_by_name_cid");
         return m.execute(params);
-    }
-
-    /**
-     * list patch sets for a specific channel
-     * @param cid the channel id
-     * @return list of patch sets
-     */
-    public static DataResult listPatchSetsForChannel(Long cid) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("cid", cid);
-
-        SelectMode m = ModeFactory.getMode(
-                "Package_queries", "patchsets_in_channel");
-        return m.execute(params);
-
     }
 
     /**

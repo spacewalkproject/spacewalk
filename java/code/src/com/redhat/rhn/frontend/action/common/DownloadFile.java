@@ -32,8 +32,6 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageSource;
-import com.redhat.rhn.domain.rhnpackage.Patch;
-import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.server.CrashFile;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
@@ -430,19 +428,6 @@ public class DownloadFile extends DownloadAction {
                         src.get(0).getPath();
                     return getStreamForBinary(path);
                 }
-            }
-            else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_README)) {
-                Patch patch = (Patch) PackageFactory.lookupByIdAndOrg(fileId,
-                        user.getOrg());
-                setTextContentInfo(response, patch.getPackageSize().intValue());
-                return getStreamForText(patch.getReadme());
-
-            }
-            else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_SET_README)) {
-                PatchSet patch = (PatchSet) PackageFactory.lookupByIdAndOrg(fileId,
-                        user.getOrg());
-                setTextContentInfo(response, patch.getPackageSize().intValue());
-                return getStreamForText(patch.getReadme());
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_REPO_LOG)) {
                 Channel c = ChannelFactory.lookupById(fileId);

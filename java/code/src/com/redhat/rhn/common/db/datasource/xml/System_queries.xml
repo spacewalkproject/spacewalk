@@ -66,7 +66,7 @@ select 1
 </mode>
 
 
-<!-- system_feature(ftr_kickstart); not is_solaris() -->
+<!-- system_feature(ftr_kickstart) -->
 <mode name="ssm_kickstartable" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id">
 SELECT  S.id,

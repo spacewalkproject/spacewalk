@@ -195,12 +195,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         				where s.id in (:sids) and s.serverArch.archType.label != 'sysv-solaris']]>
     </query>
 
-     <query name="Server.listSolarisSystems">
-        <![CDATA[ select s.id
-					from com.redhat.rhn.domain.server.Server as s
-        				where s.id in (:sids) and s.serverArch.archType.label = 'sysv-solaris']]>
-    </query>
-
      <query name="Server.listConfigEnabledSystems">
         <![CDATA[ select s
         			 from com.redhat.rhn.domain.server.Server as s
