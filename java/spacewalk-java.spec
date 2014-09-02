@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.27
+Version: 2.3.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 02 2014 Jan Dobes 2.3.28-1
+- 1120847 - improving 'All Custom Channels' queries
+
 * Fri Aug 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.27-1
 - 1119447 - show package link if package is in database
 
