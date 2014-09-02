@@ -2457,6 +2457,7 @@ public class ChannelManager extends BaseManager {
 
         Map<String, Long> params = new HashMap<String, Long>();
         params.put("custom_cid", targetChannel.getId());
+        params.put("org_id", targetChannel.getOrg().getId());
 
         SelectMode m = ModeFactory.getMode(
                 "Errata_queries", mode);
