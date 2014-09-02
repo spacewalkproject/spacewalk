@@ -854,8 +854,8 @@ SELECT  distinct pn.name AS NAME,
         pn.id name_id,
         full_list.arch_id,
         lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) evr_id,
-        ep.release,
-        ep.version
+        (full_list.evr).release,
+        (full_list.evr).version
   FROM  (
          SELECT  p.name_id name_id, max(pe.evr) evr,
                  pa.label as arch_label, pa.id as arch_id
@@ -871,7 +871,6 @@ SELECT  distinct pn.name AS NAME,
        ) full_list,
        rhnPackageName pn
      INNER JOIN rhnPackage PKG ON pkg.name_id = pn.id
-     INNER JOIN rhnpackageevr ep ON ep.id = evr_id
  WHERE  full_list.name_id = pn.id
    AND  NOT EXISTS (SELECT 1
                       FROM rhnServerPackage SP
