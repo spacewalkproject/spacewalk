@@ -773,6 +773,7 @@ sub channel_sync_prompt {
   return PXT::Utils->perform_substitutions($params{__block__}, \%s);
 }
 
+# This is the wrong way to do this! We should be selecting from an compatibility table instead!
 sub verify_arch_compat {
 	my $parent_arch = shift;
 	my $child_arch = shift;
@@ -789,6 +790,8 @@ sub verify_arch_compat {
 	my $ppc = "PPC";
 	my $sparc_solaris = "Sparc Solaris";
 	my $i386_solaris = "i386 Solaris";
+	my $aarch64 = "AArch64";
+	my $ppcle = "PPC64LE";
 	
 	my %compat_table = (
 	        $ia32 => {$ia32 => '1'},
@@ -802,7 +805,9 @@ sub verify_arch_compat {
 	        $x86_64 => {$x86_64 => '1', $ia32 => '1'},
 	        $ppc => {$ppc => '1'},
 	        $sparc_solaris => {$sparc => '1',  $sparc_solaris => '1',  $i386_solaris => '1'},
-	        $i386_solaris => {$sparc => '1',  $sparc_solaris => '1',  $i386_solaris => '1'}
+	        $i386_solaris => {$sparc => '1',  $sparc_solaris => '1',  $i386_solaris => '1'},
+		$aarch64 => {$aarch64 => '1'},
+		$ppcle => {$ppcle => '1'}
 	    );
 	return $compat_table{$parent_arch}->{$child_arch};
 }
