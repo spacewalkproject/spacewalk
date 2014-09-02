@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.5
+Version: 2.3.6
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Sep 02 2014 Stephen Herr <sherr@redhat.com> 2.3.6-1
+- 1136529 - Add aarch64 and ppc64le to parent-child channel compatibility list
+
 * Fri Aug 01 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.5-1
 - 1117976 - WebUI cloning uses the same SQL query as API
 
