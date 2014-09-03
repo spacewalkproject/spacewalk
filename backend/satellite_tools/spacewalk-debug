@@ -89,6 +89,7 @@ mkdir -p $DIR/httpd-logs
 mkdir -p $DIR/tomcat-logs
 mkdir -p $DIR/cobbler-logs
 mkdir -p $DIR/rhn-logs
+mkdir -p $DIR/config-defaults
 mkdir -p $DIR/kickstarts
 mkdir -p $DIR/database
 mkdir -p $DIR/cobbler-lib
@@ -130,6 +131,12 @@ done
 #entitlement report
 if [ -x /usr/bin/rhn-entitlement-report ]; then
    /usr/bin/rhn-entitlement-report &> $DIR/entitlement-report
+fi
+
+# copying the /usr/share/rhn/config-defaults
+echo "    * copying config-defaults files"
+if [ -d /usr/share/rhn/config-defaults ]; then
+    cp -fapRd /usr/share/rhn/config-defaults/* $DIR/config-defaults
 fi
 
 #cobbler stuff
