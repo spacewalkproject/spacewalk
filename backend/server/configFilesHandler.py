@@ -303,10 +303,10 @@ class ConfigFilesHandler(rhnHandler):
             # XXX We may need a heuristic; this is what the web site does, and we
             # have to be consistent
             # XXX Yes this is iterating over a string
-            for c in file_contents:
-                if ord(c) > 127:
-                    file['is_binary'] = 'Y'
-                    break
+            try:
+                file_contents.decode('UTF-8')
+            except UnicodeDecodeError:
+                file['is_binary'] = 'Y'
 
         h = rhnSQL.prepare(self._query_content_lookup)
         h.execute(**file)
