@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.29
+Version: 2.3.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 04 2014 Stephen Herr <sherr@redhat.com> 2.3.30-1
+- 1138451 - add aarch64 provisioning support
+
 * Tue Sep 02 2014 Stephen Herr <sherr@redhat.com> 2.3.29-1
 - 1136526 - Fix installabe package list in system details
 
