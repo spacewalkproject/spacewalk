@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.9
+Version:	2.3.10
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Sep 04 2014 Jan Dobes 2.3.10-1
+- export sequences from PostgreSQL properly
+
 * Thu Aug 21 2014 Jan Dobes 2.3.9-1
 - Oracle SQLPlus fixes
 - cannot use hex characters in Oracle
