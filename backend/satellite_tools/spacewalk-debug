@@ -183,14 +183,14 @@ fi
 
 # /etc/passwd
 if [ -f /etc/passwd ] ; then
-	echo "    * copying apache, oracle, tomcat, nocpulse entries from /etc/passwd"
-	getent passwd apache tomcat oracle nocpulse > $DIR/conf/passwd
+	echo "    * copying apache, postgres, tomcat, nocpulse entries from /etc/passwd"
+	getent passwd apache tomcat postgres nocpulse > $DIR/conf/passwd
 fi
 
 # /etc/group
 if [ -f /etc/group ] ; then
-	echo "    * copying apache, oracle, tomcat, nocpulse entries from /etc/group"
-	getent group apache tomcat oracle nocpulse dba > $DIR/conf/group
+	echo "    * copying apache, postgres, tomcat, nocpulse entries from /etc/group"
+	getent group apache tomcat postgres nocpulse > $DIR/conf/group
 fi
 
 echo "    * querying RPM database (versioning of Spacewalk, etc.)"
@@ -218,9 +218,6 @@ if [ -f /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log ] ; then
 	echo "    * copying alert_rhnsat.log"
 	cp -fa /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log $DIR/database/
 fi
-
-ls /rhnsat/admin/rhnsat/bdump/*.trc 2>/dev/null | xargs -I file cp -fa file $DIR/database
-ls /rhnsat/admin/rhnsat/logs/*.log 2>/dev/null | xargs -I file cp -fa file $DIR/database
 
 # PostgreSQL logs
 if [ -f /var/lib/pgsql/pgstartup.log ] ; then
