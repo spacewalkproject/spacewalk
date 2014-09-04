@@ -7,8 +7,8 @@ Summary: Bootloaders to make cobbler buildiso work
 Name: cobbler-loaders
 License: GPLv2+
 AutoReq: no
-Version: 1.0.2
-Release: 2%{?dist}
+Version: 1.0.3
+Release: 0%{?dist}
 Url: http://fedorahosted.org/cobbler
 Source0: cobbler-loaders-%{version}.tar.gz
 Group: Applications/System
