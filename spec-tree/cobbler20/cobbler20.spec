@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 32%{?dist}
+Release: 33%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -466,6 +466,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Fri Sep 05 2014 Stephen Herr <sherr@redhat.com> 2.0.11-33
+- 1138451 - fixing a couple of cobbler problems with aarch64 support
+
 * Thu Sep 04 2014 Stephen Herr <sherr@redhat.com> 2.0.11-32
 - 1138451 - add aarch64 provisioning support
 
