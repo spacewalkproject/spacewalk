@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 bb21db34c5b97e6cb4a912aa159547fdbc955d46
+-- oracle equivalent source sha1 5bb6820eb0e542bdd8cf74d4555a5edc44aeac28
 --
 -- Copyright (c) 2008--2014 Red Hat, Inc.
 --
@@ -693,7 +693,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         current_members_count numeric := 0;
 
     begin
-        select count(sc.server_id)
+        select count(distinct sc.server_id)
           into current_members_count
           from rhnServerChannel sc,
                rhnChannelFamilyMembers cfm,
