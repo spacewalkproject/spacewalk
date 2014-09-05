@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.9
+Version: 2.3.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri Sep 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.10-1
+- 1021057 - do not double-count systems subscribed to more than one channel
+  from the same channel family
+
 * Fri Aug 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.9-1
 - fix traceback when pushing rpms with archive size > 4GB
 
