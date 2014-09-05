@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.10
+Version:        2.3.11
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Sep 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.11-1
+- 1021057 - system can consume only one flex entitlement
+
 * Fri Aug 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.10-1
 - 1128735 - force character set and numerical separators to good known
   defaults.
