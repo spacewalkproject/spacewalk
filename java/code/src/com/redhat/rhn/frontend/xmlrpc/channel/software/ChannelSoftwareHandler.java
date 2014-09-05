@@ -86,7 +86,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -253,12 +252,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              $PackageDtoSerializer
      *      #array_end()
      */
-    public Object[] listAllPackages(User loggedInUser, String channelLabel,
+    public List<PackageDto> listAllPackages(User loggedInUser, String channelLabel,
             Date startDate, Date endDate) throws NoSuchChannelException {
 
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
-        List<PackageDto> pkgs = ChannelManager.listAllPackages(channel, startDate, endDate);
-        return pkgs.toArray();
+        return ChannelManager.listAllPackages(channel, startDate, endDate);
     }
 
     /**
@@ -281,7 +279,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              $PackageDtoSerializer
      *      #array_end()
      */
-    public Object[] listAllPackages(User loggedInUser, String channelLabel,
+    public List<PackageDto> listAllPackages(User loggedInUser, String channelLabel,
             Date startDate) throws NoSuchChannelException {
         return listAllPackages(loggedInUser, channelLabel, startDate, null);
     }
@@ -301,12 +299,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              $PackageDtoSerializer
      *      #array_end()
      */
-    public Object[] listAllPackages(User loggedInUser, String channelLabel)
+    public List<PackageDto> listAllPackages(User loggedInUser, String channelLabel)
         throws NoSuchChannelException {
 
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
-        List pkgs = ChannelManager.listAllPackages(channel);
-        return pkgs.toArray();
+        return ChannelManager.listAllPackages(channel);
     }
 
     /**
@@ -335,12 +332,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
     @Deprecated
-    public Object[] listAllPackages(User loggedInUser, String channelLabel,
+    public List<PackageDto> listAllPackages(User loggedInUser, String channelLabel,
             String startDate, String endDate) throws NoSuchChannelException {
 
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
-        List pkgs = ChannelManager.listAllPackages(channel, startDate, endDate);
-        return pkgs.toArray();
+        return ChannelManager.listAllPackages(channel, startDate, endDate);
     }
 
     /**
@@ -366,7 +362,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
     @Deprecated
-    public Object[] listAllPackages(User loggedInUser, String channelLabel,
+    public List<PackageDto> listAllPackages(User loggedInUser, String channelLabel,
             String startDate) throws NoSuchChannelException {
         return listAllPackages(loggedInUser, channelLabel, startDate, null);
     }
@@ -499,14 +495,13 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              $ChannelArchSerializer
      *          #array_end()
      */
-    public Object[] listArches(User loggedInUser) throws PermissionCheckFailureException {
+    public List<ChannelArch> listArches(User loggedInUser)
+            throws PermissionCheckFailureException {
         if (!loggedInUser.hasRole(RoleFactory.CHANNEL_ADMIN)) {
             throw new PermissionCheckFailureException();
         }
 
-        List arches = ChannelManager.getChannelArchitectures();
-
-        return arches.toArray();
+        return ChannelManager.getChannelArchitectures();
     }
 
     /**
@@ -625,7 +620,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
      *@xmlrpc.returntype #return_int_success()
      */
-    public int setDetails(User loggedInUser, Integer channelId, Map details) {
+    public int setDetails(User loggedInUser, Integer channelId, Map<String,
+            String> details) {
         Channel channel = lookupChannelById(loggedInUser, channelId.longValue());
 
         Set<String> validKeys = new HashSet<String>();
@@ -644,43 +640,43 @@ public class ChannelSoftwareHandler extends BaseHandler {
         UpdateChannelCommand ucc = new UpdateChannelCommand(loggedInUser, channel);
 
         if (details.containsKey("checksum_label")) {
-            ucc.setChecksumLabel((String) details.get("checksum_label"));
+            ucc.setChecksumLabel(details.get("checksum_label"));
         }
 
         if (details.containsKey("name")) {
-            ucc.setName((String) details.get("name"));
+            ucc.setName(details.get("name"));
         }
 
         if (details.containsKey("summary")) {
-            ucc.setSummary((String)details.get("summary"));
+            ucc.setSummary(details.get("summary"));
         }
 
         if (details.containsKey("description")) {
-            ucc.setDescription((String)details.get("description"));
+            ucc.setDescription(details.get("description"));
         }
 
         if (details.containsKey("maintainer_name")) {
-            ucc.setMaintainerName((String)details.get("maintainer_name"));
+            ucc.setMaintainerName(details.get("maintainer_name"));
         }
 
         if (details.containsKey("maintainer_email")) {
-            ucc.setMaintainerEmail((String)details.get("maintainer_email"));
+            ucc.setMaintainerEmail(details.get("maintainer_email"));
         }
 
         if (details.containsKey("maintainer_phone")) {
-            ucc.setMaintainerPhone((String)details.get("maintainer_phone"));
+            ucc.setMaintainerPhone(details.get("maintainer_phone"));
         }
 
         if (details.containsKey("gpg_key_url")) {
-            ucc.setGpgKeyUrl((String)details.get("gpg_key_url"));
+            ucc.setGpgKeyUrl(details.get("gpg_key_url"));
         }
 
         if (details.containsKey("gpg_key_id")) {
-            ucc.setGpgKeyId((String)details.get("gpg_key_id"));
+            ucc.setGpgKeyId(details.get("gpg_key_id"));
         }
 
         if (details.containsKey("gpg_key_fp")) {
-            ucc.setGpgKeyFp((String)details.get("gpg_key_fp"));
+            ucc.setGpgKeyFp(details.get("gpg_key_fp"));
         }
 
        ucc.update(channelId.longValue());
@@ -763,7 +759,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public int create(User loggedInUser, String label, String name,
             String summary, String archLabel, String parentLabel, String checksumType,
-            Map gpgKey)
+            Map<String, String> gpgKey)
         throws PermissionCheckFailureException, InvalidChannelLabelException,
                InvalidChannelNameException, InvalidParentChannelException {
 
@@ -778,9 +774,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ccc.setParentLabel(parentLabel);
         ccc.setUser(loggedInUser);
         ccc.setChecksumLabel(checksumType);
-        ccc.setGpgKeyUrl((String)gpgKey.get("url"));
-        ccc.setGpgKeyId((String)gpgKey.get("id"));
-        ccc.setGpgKeyFp((String)gpgKey.get("fingerprint"));
+        ccc.setGpgKeyUrl(gpgKey.get("url"));
+        ccc.setGpgKeyId(gpgKey.get("id"));
+        ccc.setGpgKeyFp(gpgKey.get("fingerprint"));
 
         return (ccc.create() != null) ? 1 : 0;
     }
@@ -833,7 +829,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         return create(loggedInUser, label, name,
                 summary, archLabel, parentLabel, checksumType,
-                new HashMap());
+                new HashMap<String, String>());
     }
 
     /**
@@ -1018,8 +1014,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     @Deprecated
-    public int setSystemChannels(User loggedInUser, Integer sid, List channelLabels)
-        throws FaultException {
+    public int setSystemChannels(User loggedInUser, Integer sid,
+            List<String> channelLabels) throws FaultException {
         Server server = XmlRpcSystemHelper.getInstance().lookupServer(loggedInUser, sid);
         List<Channel> channels = new ArrayList<Channel>();
         log.debug("setSystemChannels()");
@@ -1028,8 +1024,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         // and store in a list.
         Channel baseChannel = null;
         log.debug("Incoming channels:");
-        for (Iterator itr = channelLabels.iterator(); itr.hasNext();) {
-            String label = (String) itr.next();
+        for (String label : channelLabels) {
             Channel channel = lookupChannelByLabel(loggedInUser, label);
             log.debug("   " + channel.getLabel());
             if (!ChannelManager.verifyChannelSubscribe(loggedInUser, channel.getId())) {
@@ -1325,7 +1320,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *                                   add to the channel.")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int addPackages(User loggedInUser, String channelLabel, List packageIds)
+    public int addPackages(User loggedInUser, String channelLabel, List<Long> packageIds)
         throws FaultException {
         Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), channelLabel);
 
@@ -1373,7 +1368,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype  #return_int_success()
      */
     public int removeErrata(User loggedInUser, String channelLabel,
-            List errataNames, boolean removePackages) {
+            List<String> errataNames, boolean removePackages) {
 
         channelAdminPermCheck(loggedInUser);
 
@@ -1383,10 +1378,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new PermissionCheckFailureException();
         }
 
-        HashSet<Errata> errataToRemove = new HashSet();
+        HashSet<Errata> errataToRemove = new HashSet<Errata>();
 
-        for (Iterator itr = errataNames.iterator(); itr.hasNext();) {
-            Errata erratum = ErrataManager.lookupByAdvisory((String)itr.next());
+        for (String erratumName : errataNames) {
+            Errata erratum = ErrataManager.lookupByAdvisory(erratumName);
 
             if (erratum != null) {
                 errataToRemove.add(erratum);
@@ -1422,7 +1417,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
             ChannelManager.queueChannelChange(channel.getLabel(), "java::removeErrata",
                     loggedInUser.getLogin());
 
-            List<Long> cids = new ArrayList();
+            List<Long> cids = new ArrayList<Long>();
             cids.add(channel.getId());
             ErrataCacheManager.insertCacheForChannelPackagesAsync(cids, packagesToRemove);
         }
@@ -1449,8 +1444,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *                                   remove from the channel.")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int removePackages(User loggedInUser, String channelLabel, List packageIds)
-        throws FaultException {
+    public int removePackages(User loggedInUser, String channelLabel,
+            List<Long> packageIds) throws FaultException {
         Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), channelLabel);
 
         //Make sure the user is a channel admin for the given channel.
@@ -1525,11 +1520,12 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          $ErrataOverviewSerializer
      *      #array_end()
      */
-    public List listErrata(User loggedInUser, String channelLabel,
+    public List<ErrataOverview> listErrata(User loggedInUser, String channelLabel,
             Date startDate) throws NoSuchChannelException {
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
-        DataResult dr = ChannelManager.listErrata(channel, startDate, null, loggedInUser);
+        DataResult<ErrataOverview> dr = ChannelManager.listErrata(channel, startDate, null,
+                loggedInUser);
         dr.elaborate();
         return dr;
     }
@@ -1560,7 +1556,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
-        DataResult errata = ChannelManager.listErrata(channel, startDate, endDate,
+        DataResult<ErrataOverview> errata = ChannelManager.listErrata(channel, startDate,
+                endDate,
                 loggedInUser);
         errata.elaborate();
         return errata;
@@ -1736,7 +1733,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     private void scheduleErrataCacheUpdate(Org org, Channel channel, long delay) {
         SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
                                            "find_channel_in_task_queue");
-        Map inParams = new HashMap();
+        Map<String, Object> inParams = new HashMap<String, Object>();
 
         inParams.put("cid", channel.getId());
         DataResult dr = m.execute(inParams);
@@ -1747,7 +1744,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
             WriteMode w = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                                                          "insert_into_task_queue");
 
-            inParams = new HashMap();
+            inParams = new HashMap<String, Object>();
             inParams.put("org_id", org.getId());
             inParams.put("cid", channel.getId());
             inParams.put("task_data", "update_errata_cache_by_channel");
@@ -1758,7 +1755,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         else {
             WriteMode w = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                                                          "update_task_queue");
-            inParams = new HashMap();
+            inParams = new HashMap<String, Object>();
             inParams.put("earliest", new Timestamp(System.currentTimeMillis() + delay));
             inParams.put("cid", channel.getId());
 
@@ -1843,7 +1840,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     @Deprecated
-    public int subscribeSystem(User loggedInUser, Integer sid, List labels) {
+    public int subscribeSystem(User loggedInUser, Integer sid, List<String> labels) {
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
 
@@ -1854,11 +1851,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
 
         Channel base = null;
-        List<Integer> childChannelIds = new ArrayList();
+        List<Integer> childChannelIds = new ArrayList<Integer>();
 
-        for (Iterator itr = labels.iterator(); itr.hasNext();) {
-            String label = (String) itr.next();
-
+        for (String label : labels) {
             Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), label);
 
             if (base == null && channel.isBaseChannel()) {
@@ -1924,8 +1919,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param("boolean", "original_state")
      * @xmlrpc.returntype int the cloned channel ID
      */
-    public int clone(User loggedInUser, String originalLabel, Map channelDetails,
-            Boolean originalState) {
+    public int clone(User loggedInUser, String originalLabel,
+            Map<String, String> channelDetails, Boolean originalState) {
 
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
@@ -1945,12 +1940,12 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         channelAdminPermCheck(loggedInUser);
 
-        String name = (String) channelDetails.get("name");
-        String label = (String) channelDetails.get("label");
-        String parentLabel = (String) channelDetails.get("parent_label");
-        String archLabel = (String) channelDetails.get("arch_label");
-        String summary = (String) channelDetails.get("summary");
-        String description =  (String) channelDetails.get("description");
+        String name = channelDetails.get("name");
+        String label = channelDetails.get("label");
+        String parentLabel = channelDetails.get("parent_label");
+        String archLabel = channelDetails.get("arch_label");
+        String summary = channelDetails.get("summary");
+        String description = channelDetails.get("description");
 
         if (ChannelFactory.lookupByLabel(loggedInUser.getOrg(), label) != null) {
             throw new DuplicateChannelLabelException(label);
@@ -2070,9 +2065,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new PermissionCheckFailureException();
         }
 
-        Set<Errata> mergedErrata =
-            mergeErrataToChannel(loggedInUser, new HashSet(mergeFrom.getErratas()),
-                    mergeTo, mergeFrom);
+        Set<Errata> mergedErrata = mergeErrataToChannel(loggedInUser, mergeFrom
+                .getErratas(), mergeTo, mergeFrom);
 
         return mergedErrata.toArray();
     }
@@ -2114,8 +2108,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
         List<Errata> fromErrata = ErrataFactory.lookupByChannelBetweenDates(
                 loggedInUser.getOrg(), mergeFrom, startDate, endDate);
 
-        Set<Errata> mergedErrata =
-            mergeErrataToChannel(loggedInUser, new HashSet(fromErrata), mergeTo, mergeFrom);
+        Set<Errata> mergedErrata = mergeErrataToChannel(loggedInUser,
+                new HashSet<Errata>(fromErrata), mergeTo, mergeFrom);
 
         return mergedErrata.toArray();
     }
@@ -2142,7 +2136,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
     public Object[] mergeErrata(User loggedInUser, String mergeFromLabel,
-            String mergeToLabel, List errataNames) {
+            String mergeToLabel, List<String> errataNames) {
 
         channelAdminPermCheck(loggedInUser);
 
@@ -2153,12 +2147,12 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new PermissionCheckFailureException();
         }
 
-        HashSet<Errata> sourceErrata = new HashSet(mergeFrom.getErratas());
-        HashSet<Errata> errataToMerge = new HashSet();
+        Set<Errata> sourceErrata = mergeFrom.getErratas();
+        Set<Errata> errataToMerge = new HashSet<Errata>();
 
         // make sure our errata exist in the "from" channel
-        for (Iterator itr = errataNames.iterator(); itr.hasNext();) {
-            Errata toMerge = ErrataManager.lookupByAdvisory((String)itr.next());
+        for (String erratumName : errataNames) {
+            Errata toMerge = ErrataManager.lookupByAdvisory(erratumName);
 
             for (Errata erratum : sourceErrata) {
                 if (erratum.getAdvisoryName() == toMerge.getAdvisoryName()) {
@@ -2198,7 +2192,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     }
 
     private Set<Long> getErrataIds(Set<Errata> errata) {
-        Set<Long> ids = new HashSet();
+        Set<Long> ids = new HashSet<Long>();
         for (Errata erratum : errata) {
             ids.add(erratum.getId());
         }
@@ -2281,7 +2275,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     public int regenerateNeededCache(User loggedInUser, String channelLabel) {
         channelAdminPermCheck(loggedInUser);
         Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
-        List chanList = new ArrayList<Long>();
+        List<Long> chanList = new ArrayList<Long>();
         chanList.add(chan.getId());
         ErrataCacheManager.updateCacheForChannelsAsync(chanList);
         return 1;
@@ -2301,7 +2295,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public int regenerateNeededCache(User loggedInUser) {
         if (loggedInUser.hasRole(RoleFactory.SAT_ADMIN)) {
-            Set set = new HashSet();
+            Set<Channel> set = new HashSet<Channel>();
             set.addAll(ChannelFactory.listAllBaseChannels());
             ErrataCacheManager.updateCacheForChannelsAsync(set);
         }
@@ -2326,11 +2320,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public int regenerateYumCache(User loggedInUser, String channelLabel) {
         channelAdminPermCheck(loggedInUser);
-        Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
+        lookupChannelByLabel(loggedInUser, channelLabel);
         ChannelManager.queueChannelChange(channelLabel,
                 "api: regenerateYumCache", "api called");
         return 1;
-
     }
 
     /**
@@ -2394,14 +2387,13 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      **/
-    public List listUserRepos(User loggedInUser) {
+    public List<Map<String, Object>> listUserRepos(User loggedInUser) {
         List<ContentSource> result = ChannelFactory
                 .lookupContentSources(loggedInUser.getOrg());
 
-        List list = new ArrayList();
-        for (Iterator itr = result.iterator(); itr.hasNext();) {
-            ContentSource cs = (ContentSource) itr.next();
-            Map map = new HashMap();
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        for (ContentSource cs : result) {
+            Map<String, Object> map = new HashMap<String, Object>();
             map.put("id", cs.getId());
             map.put("label", cs.getLabel());
             map.put("sourceUrl", cs.getSourceUrl());
@@ -2851,7 +2843,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *  #struct_end()
      * @xmlrpc.returntype int sort order for new filter
      */
-    public int addRepoFilter(User loggedInUser, String label, Map filterIn) {
+    public int addRepoFilter(User loggedInUser, String label,
+            Map<String, String> filterIn) {
         Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
 
         if (!loggedInUser.hasRole(orgAdminRole)) {
@@ -2860,8 +2853,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         ContentSource cs = lookupContentSourceByLabel(label, loggedInUser.getOrg());
 
-        String flag = (String) filterIn.get("flag");
-        String filter = (String) filterIn.get("filter");
+        String flag = filterIn.get("flag");
+        String filter = filterIn.get("filter");
 
         if (!(flag.equals("+") || flag.equals("-"))) {
             throw new InvalidParameterException("flag must be + or -");
@@ -2901,17 +2894,19 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *  #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeRepoFilter(User loggedInUser, String label, Map filterIn) {
+    public int removeRepoFilter(User loggedInUser, String label,
+            Map<String, String> filterIn) {
         Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
 
         if (!loggedInUser.hasRole(orgAdminRole)) {
             throw new PermissionException("Only Org Admins can remove repo filters.");
         }
 
-        ContentSource cs = lookupContentSourceByLabel(label, loggedInUser.getOrg());
+        //TODO is this necessary?
+        lookupContentSourceByLabel(label, loggedInUser.getOrg());
 
-        String flag = (String) filterIn.get("flag");
-        String filter = (String) filterIn.get("filter");
+        String flag = filterIn.get("flag");
+        String filter = filterIn.get("filter");
 
         if (!(flag.equals("+") || flag.equals("-"))) {
             throw new InvalidParameterException("flag must be + or -");
@@ -2956,7 +2951,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *  #array_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setRepoFilters(User loggedInUser, String label, List<Map> filtersIn) {
+    public int setRepoFilters(User loggedInUser, String label,
+            List<Map<String, String>> filtersIn) {
         Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
 
         if (!loggedInUser.hasRole(orgAdminRole)) {
@@ -2965,12 +2961,12 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         ContentSource cs = lookupContentSourceByLabel(label, loggedInUser.getOrg());
 
-        List<ContentSourceFilter> filters = new ArrayList();
+        List<ContentSourceFilter> filters = new ArrayList<ContentSourceFilter>();
 
         int i = 1;
-        for (Map filterIn : filtersIn) {
-            String flag = (String) filterIn.get("flag");
-            String filter = (String) filterIn.get("filter");
+        for (Map<String, String> filterIn : filtersIn) {
+            String flag = filterIn.get("flag");
+            String filter = filterIn.get("filter");
 
             if (!(flag.equals("+") || flag.equals("-"))) {
                 throw new InvalidParameterException("flag must be + or -");

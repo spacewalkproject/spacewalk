@@ -40,6 +40,7 @@ import java.util.Set;
  * ChannelTest
  * @version $Rev$
  */
+@SuppressWarnings("deprecation")
 public class ChannelTest extends BaseTestCaseWithUser {
 
     private static Logger log = Logger.getLogger(ChannelTest.class);
@@ -92,7 +93,7 @@ public class ChannelTest extends BaseTestCaseWithUser {
         Channel c2 = ChannelFactoryTest.createTestChannel(user);
         assertFalse(c1.equals(c2));
         Channel c3 = ChannelFactory.lookupById(c1.getId());
-        Set testSet = new HashSet();
+        Set<Channel> testSet = new HashSet<Channel>();
         testSet.add(c1);
         testSet.add(c2);
         testSet.add(c3);

@@ -61,7 +61,7 @@ public abstract class BaseSystemPackagesAction extends RhnAction {
         User user = requestContext.getCurrentUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
-        Set sessionSet = SessionSetHelper.lookupAndBind(request, getDecl(sid));
+        Set<String> sessionSet = SessionSetHelper.lookupAndBind(request, getDecl(sid));
 
         //if its not submitted
         // ==> this is the first visit to this page

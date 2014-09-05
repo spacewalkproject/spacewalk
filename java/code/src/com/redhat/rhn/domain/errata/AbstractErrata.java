@@ -62,10 +62,10 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     private Boolean locallyModified;
     private Date lastModified;
     private Org org;
-    private Set bugs = new HashSet();
-    private Set files;
-    private Set keywords;
-    protected Set packages;
+    private Set<Bug> bugs = new HashSet<Bug>();
+    private Set<ErrataFile> files;
+    private Set<Keyword> keywords;
+    protected Set<Package> packages;
     private boolean selected;
     private String errataFrom;
 
@@ -408,10 +408,8 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      * {@inheritDoc}
      */
     public void removeBug(Long bugId) {
-        Iterator itr = getBugs().iterator();
         Bug deleteme = null; // the bug to delete
-        while (itr.hasNext()) {
-            Bug bug = (Bug) itr.next();
+        for (Bug bug : getBugs()) {
             if (bug.getId().equals(bugId)) {
                 deleteme = bug; // we found it!!!
                 break;
@@ -435,7 +433,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     /**
      * @return Returns the bugs.
      */
-    public Set getBugs() {
+    public Set<Bug> getBugs() {
         return bugs;
     }
 
@@ -452,7 +450,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      */
     public void addFile(ErrataFile fileIn) {
         if (this.files == null) {
-            this.files = new HashSet();
+            this.files = new HashSet<ErrataFile>();
         }
 
         this.files.add(fileIn);
@@ -464,10 +462,8 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      * @param fileId The id of the file to remove
      */
     public void removeFile(Long fileId) {
-        Iterator itr = this.files.iterator();
         ErrataFile deleteme = null; // the bug to delete
-        while (itr.hasNext()) {
-            ErrataFile file = (ErrataFile) itr.next();
+        for (ErrataFile file : this.files) {
             if (file.getId().equals(fileId)) {
                 deleteme = file; // we found it!!!
                 break;
@@ -480,14 +476,14 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     /**
      * @return Returns the files.
      */
-    public Set getFiles() {
+    public Set<ErrataFile> getFiles() {
         return this.files;
     }
 
     /**
      * @param f The files to set.
      */
-    public void setFiles(Set f) {
+    public void setFiles(Set<ErrataFile> f) {
         this.files = f;
     }
 
@@ -498,7 +494,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      */
     public void addKeyword(String keywordIn) {
         if (this.keywords == null) {
-            this.keywords = new HashSet();
+            this.keywords = new HashSet<Keyword>();
         }
         for (Keyword k : getKeywords()) {
             if (k.getKeyword().equals(keywordIn)) {
@@ -524,7 +520,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      */
     public void addKeyword(Keyword keywordIn) {
         if (this.keywords == null) {
-            this.keywords = new HashSet();
+            this.keywords = new HashSet<Keyword>();
         }
         // add keyword to set
         keywords.add(keywordIn);
@@ -541,8 +537,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
         if (this.keywords == null) {
             return false;
         }
-        for (Iterator i = this.keywords.iterator(); i.hasNext();) {
-            Keyword k = (Keyword) i.next();
+        for (Keyword k : this.keywords) {
             if (k.getKeyword().equals(keywordIn)) {
                 return true;
             }
@@ -560,7 +555,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     /**
      * @param k The keywords to set.
      */
-    public void setKeywords(Set k) {
+    public void setKeywords(Set<Keyword> k) {
         this.keywords = k;
     }
 
@@ -570,9 +565,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      * @return true if keyword was found
      */
     public boolean hasKeyword(String s) {
-         Iterator iter = this.keywords.iterator();
-         while (iter.hasNext()) {
-             Keyword k = (Keyword) iter.next();
+        for (Keyword k : this.keywords) {
              if (k.getKeyword().equals(s)) {
                return true;
              }
@@ -587,7 +580,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      */
     public void addPackage(Package packageIn) {
         if (this.packages == null) {
-            this.packages = new HashSet();
+            this.packages = new HashSet<Package>();
         }
         packages.add(packageIn);
     }
@@ -602,14 +595,14 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     /**
      * @return Returns the packages.
      */
-    public Set getPackages() {
+    public Set<Package> getPackages() {
         return packages;
     }
 
     /**
      * @param p The packages to set.
      */
-    public void setPackages(Set p) {
+    public void setPackages(Set<Package> p) {
         this.packages = p;
     }
 
@@ -660,7 +653,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
         if (this.getChannels() != null) {
             this.getChannels().clear();
         }
-        Iterator i = IteratorUtils.getIterator(this.getFiles());
+        Iterator<ErrataFile> i = IteratorUtils.getIterator(this.getFiles());
         while (i.hasNext()) {
             PublishedErrataFile pf = (PublishedErrataFile) i.next();
             pf.getChannels().clear();

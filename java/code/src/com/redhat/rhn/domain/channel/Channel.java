@@ -16,7 +16,6 @@ package com.redhat.rhn.domain.channel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -42,7 +41,7 @@ import com.redhat.rhn.manager.system.SystemManager;
  * Channel
  * @version $Rev$
  */
-public class Channel extends BaseDomainHelper implements Comparable {
+public class Channel extends BaseDomainHelper implements Comparable<Channel> {
 
     /**
      * Logger for this class
@@ -76,12 +75,12 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private ProductName productName;
     private Comps comps;
     private String summary;
-    private Set erratas = new HashSet();
-    private Set packages = new HashSet();
+    private Set<Errata> erratas = new HashSet<Errata>();
+    private Set<Package> packages = new HashSet<Package>();
     private Set<ContentSource> sources =  new HashSet<ContentSource>();
-    private Set channelFamilies = new HashSet();
-    private Set distChannelMaps = new HashSet();
-    private Set trustedOrgs = new HashSet();
+    private Set<ChannelFamily> channelFamilies = new HashSet<ChannelFamily>();
+    private Set<DistChannelMap> distChannelMaps = new HashSet<DistChannelMap>();
+    private Set<Org> trustedOrgs = new HashSet<Org>();
     private String maintainerName;
     private String maintainerEmail;
     private String maintainerPhone;
@@ -394,7 +393,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     /**
      * @return Returns the set of erratas for this channel.
      */
-    public Set getErratas() {
+    public Set<Errata> getErratas() {
         return erratas;
     }
 
@@ -402,7 +401,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * Sets the erratas set for this channel
      * @param erratasIn The set of erratas
      */
-    public void setErratas(Set erratasIn) {
+    public void setErratas(Set<Errata> erratasIn) {
         this.erratas = erratasIn;
     }
 
@@ -419,7 +418,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * @return Returns the set of packages for this channel.
      */
     @Deprecated
-    public Set getPackages() {
+    public Set<Package> getPackages() {
         return packages;
     }
 
@@ -446,7 +445,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * Sets the packages set for this channel
      * @param packagesIn The set of erratas
      */
-    public void setPackages(Set packagesIn) {
+    public void setPackages(Set<Package> packagesIn) {
         this.packages = packagesIn;
     }
 
@@ -500,7 +499,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     /**
      * @return Returns the set of channelFamiliess for this channel.
      */
-    public Set getChannelFamilies() {
+    public Set<ChannelFamily> getChannelFamilies() {
         return channelFamilies;
     }
 
@@ -508,7 +507,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * Sets the channelFamilies set for this channel
      * @param channelFamiliesIn The set of channelFamilies
      */
-    public void setChannelFamilies(Set channelFamiliesIn) {
+    public void setChannelFamilies(Set<ChannelFamily> channelFamiliesIn) {
         if (channelFamiliesIn.size() > 1) {
             throw new TooManyChannelFamiliesException(this.getId(),
                     "A channel can only have one channel family");
@@ -635,7 +634,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     /**
      * @param distChannelMapsIn The distChannelMaps to set.
      */
-    public void setDistChannelMaps(Set distChannelMapsIn) {
+    public void setDistChannelMaps(Set<DistChannelMap> distChannelMapsIn) {
         this.distChannelMaps = distChannelMapsIn;
     }
 
@@ -728,14 +727,14 @@ public class Channel extends BaseDomainHelper implements Comparable {
         if (isBaseChannel()) {
             return ChannelFactory.getAccessibleChildChannels(this, user);
         }
-        return Collections.EMPTY_LIST;
+        return new ArrayList<Channel>();
     }
 
     /**
      * {@inheritDoc}
      */
-    public int compareTo(Object o) {
-        return this.getName().compareTo(((Channel) o).getName());
+    public int compareTo(Channel o) {
+        return this.getName().compareTo(o.getName());
     }
 
     /**
