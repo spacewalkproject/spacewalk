@@ -4,7 +4,6 @@
   <rhn-tab name="package.jsp.menu.details" url="/rhn/software/packages/Details.do">
     <rhn-tab name="package.jsp.menu.overview" url="/rhn/software/packages/Details.do"/>
     <rhn-tab name="package.jsp.menu.deps" url="/rhn/software/packages/Dependencies.do"/>
-    <rhn-tab name="package.jsp.menu.map" url="/network/software/packages/package_map.pxt" acl="package_type_capable(package_map)"/>
     <rhn-tab name="package.jsp.menu.changelog" url="/rhn/software/packages/ChangeLog.do" acl="package_type_capable(change_log)"/>
     <rhn-tab name="package.jsp.menu.filelist" url="/rhn/software/packages/FileList.do" acl="package_type_capable(file_list)"/>
   </rhn-tab>
