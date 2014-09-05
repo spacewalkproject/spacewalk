@@ -287,6 +287,15 @@ def clear_channel(label):
         client.channel.software.removePackages(session, label, package_ids)
 
 
+def get_current_phase(source):
+    """
+    Get current phase from the source channel label.
+    """
+    for phase in phases:
+        if source.startswith(phase):
+            return phase
+
+
 def build_channel_labels(source):
     if options.archive:
         # prefix the existing channel with 'archive-YYYYMMDD-'
@@ -301,11 +310,8 @@ def build_channel_labels(source):
             sys.exit(1)
     elif options.promote:
         # get the phase label from the channel label
-        match = re.search('^(\w+)-', source)
-
-        if match:
-            current_phase = match.group(1)
-
+        current_phase = get_current_phase(source)
+        if current_phase:
             # Check to see if the source channel is in our phase list
             # if so, select the next label in phase list
             # otherwise, it's a base channel, use the first in list
