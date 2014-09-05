@@ -15,45 +15,21 @@
 package com.redhat.rhn.frontend.action.rhnpackage;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.security.PermissionException;
-import com.redhat.rhn.domain.rhnpackage.Package;
-import com.redhat.rhn.domain.rhnpackage.PackageFactory;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageFileDto;
 import com.redhat.rhn.frontend.listview.PageControl;
-import com.redhat.rhn.frontend.struts.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * ChannelPackagesAction
  * @version $Rev$
  */
-public class PackageFileListAction extends BaseListAction {
+public class PackageFileListAction extends BasePackageListAction {
     /** {@inheritDoc} */
     @Override
     protected DataResult<PackageFileDto> getDataResult(RequestContext rctx,
             PageControl pc) {
         long pid = rctx.getRequiredParam("pid");
         return PackageManager.packageFiles(pid);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected void processRequestAttributes(RequestContext rctxIn) {
-        HttpServletRequest request = rctxIn.getRequest();
-        User user = rctxIn.getCurrentUser();
-        long pid = rctxIn.getRequiredParam("pid");
-        Package pkg = PackageFactory.lookupByIdAndUser(pid, user);
-
-        // show permission error if pid is invalid like we did before
-        if (pkg == null) {
-            throw new PermissionException("Invalid pid");
-        }
-        request.setAttribute("pid", pid);
-        request.setAttribute("package_name", pkg.getFilename());
     }
 }

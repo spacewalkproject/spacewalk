@@ -2072,4 +2072,42 @@ ORDER BY 8
   </query>
 </mode>
 
+<mode name="obsoleting_packages">
+  <query params="pid, org_id">
+SELECT P2.id AS ID, PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '-' ||
+  PA.label AS NVREA, AC.channel_id, AC.channel_name, EP.errata_id, E.
+  advisory, E.advisory_type
+  FROM
+       rhnPackageArch PA,
+       rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageEVR PE2,
+       rhnPackage P2
+  LEFT JOIN rhnErrataPackage EP
+    ON P2.id = EP.package_id
+  LEFT JOIN rhnErrata E
+    ON E.id = EP.errata_id,
+       rhnAvailableChannels AC,
+       rhnChannelPackage CP2,
+       rhnChannelPackage CP1,
+       rhnPackage P1
+ WHERE 1=1
+   and p1.id = :pid
+   and p1.id = cp1.package_id
+   and cp1.channel_id = cp2.channel_id
+   AND AC.org_id = :org_id
+   and ac.channel_id = cp2.channel_id
+   and p1.name_id = p2.name_id
+   AND cp2.package_id = P2.id
+   AND p2.evr_id = PE.id
+   AND PE2.id = P1.evr_id
+   and pe.id != pe2.id
+   AND PE.evr >= PE2.evr
+-- after here is just for output
+   and p2.name_id = pn.id
+   and p2.package_arch_id = pa.id
+ORDER BY PE.evr DESC, AC.channel_name, E.issue_date
+  </query>
+</mode>
+
 </datasource_modes>

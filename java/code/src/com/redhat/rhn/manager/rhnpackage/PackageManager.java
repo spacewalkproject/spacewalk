@@ -270,6 +270,20 @@ public class PackageManager extends BaseManager {
     }
 
     /**
+     * Return information related to packages that are udpates to this one
+     * @param user The user in question
+     * @param pid The package in question
+     * @return A map of updating package information
+     */
+    public static DataResult<Map<String, Object>> obsoletingPackages(User user, Long pid) {
+        SelectMode m = ModeFactory.getMode("Package_queries", "obsoleting_packages");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("pid", pid);
+        params.put("org_id", user.getOrg().getId());
+        return m.execute(params);
+    }
+
+    /**
      * Returns the providing channels for a package that the given user has access to
      * @param user The user requesting the channels
      * @param pid The package in question
