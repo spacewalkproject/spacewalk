@@ -1,6 +1,6 @@
 diff -rupN cobbler-2.0.11.old/cobbler/item_distro.py cobbler-2.0.11/cobbler/item_distro.py
 --- cobbler-2.0.11.old/cobbler/item_distro.py	2014-09-03 13:39:05.560064177 -0400
-+++ cobbler-2.0.11/cobbler/item_distro.py	2014-09-03 13:44:52.280560094 -0400
++++ cobbler-2.0.11/cobbler/item_distro.py	2014-09-05 12:09:15.454147381 -0400
 @@ -105,7 +105,7 @@ FIELDS = [
     [ "kernel_options",{},0,"Kernel Options",True,"Ex: selinux=permissive",0,"dict"],
     [ "kernel_options_post",{},0,"Kernel Options (Post Install)",True,"Ex: clocksource=pit noapic",0,"dict"],
@@ -12,7 +12,7 @@ diff -rupN cobbler-2.0.11.old/cobbler/item_distro.py cobbler-2.0.11/cobbler/item
     [ "source_repos",[],0,"Source Repos", False,"",0,"list"],
 diff -rupN cobbler-2.0.11.old/cobbler/item_image.py cobbler-2.0.11/cobbler/item_image.py
 --- cobbler-2.0.11.old/cobbler/item_image.py	2014-09-03 13:39:05.564064206 -0400
-+++ cobbler-2.0.11/cobbler/item_image.py	2014-09-03 13:45:14.072716979 -0400
++++ cobbler-2.0.11/cobbler/item_image.py	2014-09-05 12:09:15.454147381 -0400
 @@ -32,7 +32,7 @@ from utils import _
  
  FIELDS = [
@@ -24,7 +24,7 @@ diff -rupN cobbler-2.0.11.old/cobbler/item_image.py cobbler-2.0.11/cobbler/item_
    ['ctime',0,0,"",False,"",0,"float"],
 diff -rupN cobbler-2.0.11.old/cobbler/item_repo.py cobbler-2.0.11/cobbler/item_repo.py
 --- cobbler-2.0.11.old/cobbler/item_repo.py	2014-09-03 13:39:05.566064220 -0400
-+++ cobbler-2.0.11/cobbler/item_repo.py	2014-09-03 13:52:05.019675453 -0400
++++ cobbler-2.0.11/cobbler/item_repo.py	2014-09-05 12:09:15.454147381 -0400
 @@ -30,7 +30,7 @@ import codes
  # this datastructure is described in great detail in item_distro.py -- read the comments there.
  
@@ -36,7 +36,7 @@ diff -rupN cobbler-2.0.11.old/cobbler/item_repo.py cobbler-2.0.11/cobbler/item_r
    ["ctime",0,0,"",False,"",0,"float"],
 diff -rupN cobbler-2.0.11.old/cobbler/pxegen.py cobbler-2.0.11/cobbler/pxegen.py
 --- cobbler-2.0.11.old/cobbler/pxegen.py	2014-09-03 13:39:05.566064220 -0400
-+++ cobbler-2.0.11/cobbler/pxegen.py	2014-09-04 13:56:43.082079618 -0400
++++ cobbler-2.0.11/cobbler/pxegen.py	2014-09-05 12:09:15.455147388 -0400
 @@ -114,6 +114,14 @@ class PXEGen:
          utils.copyfile_pattern('/var/lib/cobbler/loaders/yaboot', dst,
                  require_match=False, api=self.api, cache=False, logger=self.logger)
@@ -78,7 +78,7 @@ diff -rupN cobbler-2.0.11.old/cobbler/pxegen.py cobbler-2.0.11/cobbler/pxegen.py
 +                arm_contents = self.write_pxe_file(filename=None, system=None,
 +                    profile=profile, distro=distro,
 +                    arch=distro.arch, include_header=False)
-+                if grub_contents is not None:
++                if arm_contents is not None:
 +                    arm_menu_items = arm_menu_items + arm_contents + "\n"
 +                continue
              # xen distros can be ruled out as they won't boot
@@ -132,7 +132,7 @@ diff -rupN cobbler-2.0.11.old/cobbler/pxegen.py cobbler-2.0.11/cobbler/pxegen.py
              append_line = "append "
 diff -rupN cobbler-2.0.11.old/cobbler/utils.py cobbler-2.0.11/cobbler/utils.py
 --- cobbler-2.0.11.old/cobbler/utils.py	2014-09-03 13:39:05.561064184 -0400
-+++ cobbler-2.0.11/cobbler/utils.py	2014-09-03 13:43:02.327768526 -0400
++++ cobbler-2.0.11/cobbler/utils.py	2014-09-05 12:09:15.456147395 -0400
 @@ -1233,9 +1233,9 @@ def set_arch(self,arch,repo=False):
         arch = "i386"
  
@@ -145,16 +145,34 @@ diff -rupN cobbler-2.0.11.old/cobbler/utils.py cobbler-2.0.11/cobbler/utils.py
  
     if arch in valids:
         self.arch = arch
+diff -rupN cobbler-2.0.11.old/setup.py cobbler-2.0.11/setup.py
+--- cobbler-2.0.11.old/setup.py	2014-09-03 13:39:05.567064227 -0400
++++ cobbler-2.0.11/setup.py	2014-09-05 12:11:42.757219950 -0400
+@@ -266,11 +266,14 @@ if __name__ == "__main__":
+             (pxepath,  ['templates/pxesystem.template']),
+             (pxepath,  ['templates/pxesystem_s390x.template']),
+             (pxepath,  ['templates/pxeprofile_s390x.template']),
++            (pxepath,  ['templates/pxeprofile_arm.template']),
+             (pxepath,  ['templates/s390x_conf.template']),
+             (pxepath,  ['templates/s390x_parm.template']),
+             (pxepath,  ['templates/pxesystem_ia64.template']),
+             (pxepath,  ['templates/pxesystem_ppc.template']),
++            (pxepath,  ['templates/pxesystem_arm.template']),
+             (pxepath,  ['templates/pxeprofile.template']),
++            (pxepath,  ['templates/grub2default.template']),
+             (pxepath,  ['templates/pxelocal.template']),
+             (pxepath,  ['templates/pxelocal_ia64.template']),
+             (pxepath,  ['templates/pxelocal_s390x.template']),
 diff -rupN cobbler-2.0.11.old/templates/grub2default.template cobbler-2.0.11/templates/grub2default.template
 --- cobbler-2.0.11.old/templates/grub2default.template	1969-12-31 19:00:00.000000000 -0500
-+++ cobbler-2.0.11/templates/grub2default.template	2014-09-04 13:30:29.884606939 -0400
++++ cobbler-2.0.11/templates/grub2default.template	2014-09-05 12:09:15.456147395 -0400
 @@ -0,0 +1,3 @@
 +set timeout=-1
 +
 +$pxe_menu_items
 diff -rupN cobbler-2.0.11.old/templates/pxeprofile_arm.template cobbler-2.0.11/templates/pxeprofile_arm.template
 --- cobbler-2.0.11.old/templates/pxeprofile_arm.template	1969-12-31 19:00:00.000000000 -0500
-+++ cobbler-2.0.11/templates/pxeprofile_arm.template	2014-09-04 13:39:19.521465341 -0400
++++ cobbler-2.0.11/templates/pxeprofile_arm.template	2014-09-05 12:09:15.456147395 -0400
 @@ -0,0 +1,4 @@
 +menuentry "$profile_name" {
 +       linux (tftp)$kernel_path $kernel_options
@@ -162,7 +180,7 @@ diff -rupN cobbler-2.0.11.old/templates/pxeprofile_arm.template cobbler-2.0.11/t
 +}
 diff -rupN cobbler-2.0.11.old/templates/pxesystem_arm.template cobbler-2.0.11/templates/pxesystem_arm.template
 --- cobbler-2.0.11.old/templates/pxesystem_arm.template	1969-12-31 19:00:00.000000000 -0500
-+++ cobbler-2.0.11/templates/pxesystem_arm.template	2014-09-04 14:00:20.171651514 -0400
++++ cobbler-2.0.11/templates/pxesystem_arm.template	2014-09-05 12:09:15.456147395 -0400
 @@ -0,0 +1,6 @@
 +set defailt="0"
 +set timeout=1
