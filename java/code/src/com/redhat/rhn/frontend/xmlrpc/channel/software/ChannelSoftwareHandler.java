@@ -1979,22 +1979,22 @@ public class ChannelSoftwareHandler extends BaseHandler {
                 channelDetails.containsKey("gpg_fingerprint")) {
             // if one of the GPG information was set, use it
             if (channelDetails.get("gpg_key_url") == null) {
-                gpgUrl = (String) channelDetails.get("gpg_url");
+                gpgUrl = channelDetails.get("gpg_url");
             }
             else {
-                gpgUrl = (String) channelDetails.get("gpg_key_url");
+                gpgUrl = channelDetails.get("gpg_key_url");
             }
-            if ((String) channelDetails.get("gpg_key_id") == null) {
-                gpgId = (String) channelDetails.get("gpg_id");
+            if (channelDetails.get("gpg_key_id") == null) {
+                gpgId = channelDetails.get("gpg_id");
             }
             else {
-                gpgId = (String) channelDetails.get("gpg_key_id");
+                gpgId = channelDetails.get("gpg_key_id");
             }
             if (channelDetails.get("gpg_key_fp") == null) {
-                gpgFingerprint = (String) channelDetails.get("gpg_fingerprint");
+                gpgFingerprint = channelDetails.get("gpg_fingerprint");
             }
             else {
-                gpgFingerprint = (String) channelDetails.get("gpg_key_fp");
+                gpgFingerprint = channelDetails.get("gpg_key_fp");
             }
         }
         else {
