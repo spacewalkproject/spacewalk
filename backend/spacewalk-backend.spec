@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.11
+Version: 2.3.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Wed Sep 10 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.12-1
+- 1022484 - ask for new password twice
+
 * Fri Sep 05 2014 Jan Dobes 2.3.11-1
 - 1115007 - correct UTF8 config files from being marked as binary
 
