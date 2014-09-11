@@ -143,6 +143,11 @@ public class CobblerPowerSettingsUpdateCommand extends CobblerCommand {
                     return new ValidatorError(
                         "kickstart.powermanagement.unsupported_power_type");
                 }
+                if (message != null && message.contains(
+                        "Invalid characters found in input")) {
+                    log.error(message);
+                    return new ValidatorError("kickstart.powermanagement.invalid_chars");
+                }
             }
             throw e;
         }
