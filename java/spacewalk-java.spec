@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.123
+Version: 2.2.124
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 11 2014 Stephen Herr <sherr@redhat.com> 2.2.124-1
+- 1140859 - html-encode tomcat log to prevent cross-site scripting
+
 * Tue Jul 22 2014 Stephen Herr <sherr@redhat.com> 2.2.123-1
 - 1121659 - ssm config actions should show details for specific system in
   history
