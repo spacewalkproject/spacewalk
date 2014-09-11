@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.3.1
+Version:	2.3.2
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -87,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Sep 11 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.2-1
+- replace jakarta-commons-validator on RHEL7
+
 * Wed Aug 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.1-1
 - added obsoletes to force replacement of jakarta-common-* packages
 
