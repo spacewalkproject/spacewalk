@@ -14,20 +14,8 @@
 #
 
 import os
-try:
-    import hashlib
-except ImportError:
-    import sha
-    import md5
-    class hashlib:
-        @staticmethod
-        def new(checksum):
-            if checksum == 'sha1':
-                return sha.new()
-            elif checksum == 'md5':
-                return md5.new()
-            else:
-                raise ValueError, "Incompatible checksum type"
+# guaranteed to exist even on RHEL 5 because we now require python-hashlib
+import hashlib
 import re
 import shutil
 import pwd
@@ -172,8 +160,8 @@ def getContentChecksum(checksum_type, contents):
     engine.update(contents)
     return engine.hexdigest()
 
-def sha1_file(filename):
-    engine = hashlib.new('sha1')
+def sha256_file(filename):
+    engine = hashlib.new('sha256')
 
     fh = open(filename, "r")
     while 1:

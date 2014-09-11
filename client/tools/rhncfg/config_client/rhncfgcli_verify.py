@@ -278,9 +278,9 @@ class Handler(handler_base.HandlerBase):
             status = ["missing"]
 
         else:
-            src_sha1 = utils.sha1_file(src)
-            dst_sha1 = utils.sha1_file(dst)
-            if src_sha1 != dst_sha1:
+            src_sum = utils.sha256_file(src)
+            dst_sum = utils.sha256_file(dst)
+            if src_sum != dst_sum:
                 status.append('modified')
 
         return {

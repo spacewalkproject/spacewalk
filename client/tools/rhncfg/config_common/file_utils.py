@@ -79,6 +79,13 @@ class FileProcessor:
             if file_struct['checksum'] != utils.getContentChecksum(
                     file_struct['checksum_type'], contents):
                 raise Exception, "Corrupt file received: Content checksums do not match!"
+        elif 'md5sum' in file_struct:
+            if file_struct['md5sum'] != utils.getContentChecksum(
+                    'md5', contents):
+                raise Exception, "Corrupt file received: Content checksums do not match!"
+        else:
+            raise Exception, "Corrupt file received: missing checksum information!"
+
 
         fh = None
 

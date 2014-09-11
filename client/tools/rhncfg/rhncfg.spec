@@ -26,6 +26,9 @@ Requires: rhn-client-tools >= 1.0.0-51
 Requires: rhn-client-tools
 %endif
 %endif
+%if 0%{?rhel} && 0%{?rhel} <= 5
+Requires: python-hashlib
+%endif
 
 %if 0%{?suse_version}
 # provide rhn directories and no selinux on suse
