@@ -275,7 +275,7 @@ class ConfigFilesHandler(rhnHandler):
 
     def _push_contents(self, file):
 
-        checksum_type = 'md5'       # FIXME: this should be configuration option
+        checksum_type = 'sha256' # FIXME: this should be configuration option
 
         file['file_size'] = 0
         file['is_binary'] = 'N'
