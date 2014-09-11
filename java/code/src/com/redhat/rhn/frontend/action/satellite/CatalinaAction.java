@@ -19,6 +19,7 @@ import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -42,7 +43,8 @@ public class CatalinaAction extends RhnAction {
        String catalinaBase = System.getProperty("catalina.base");
 
        request.setAttribute("contents",
-               FileUtils.readStringFromFile(catalinaBase + "/logs/catalina.out"));
+               StringEscapeUtils.escapeHtml(FileUtils.readStringFromFile(
+                       catalinaBase + "/logs/catalina.out")));
 
        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
    }
