@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.11
+Version:        2.3.12
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Sep 11 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.12-1
+- RHEL7 contains PostgreSQL 9
+
 * Fri Sep 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.11-1
 - 1021057 - system can consume only one flex entitlement
 
