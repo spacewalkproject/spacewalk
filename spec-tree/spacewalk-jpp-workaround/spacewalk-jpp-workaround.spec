@@ -49,6 +49,10 @@ Requires:   apache-commons-logging
 Provides:   jakarta-commons-logging = 1.1.3
 Obsoletes:  jakarta-commons-logging < 1.1.3
 
+Requires:   apache-commons-validator
+Provides:   jakarta-commons-validator = 1.4.0
+Obsoletes:  jakarta-commons-validator < 1.4.0
+
 Requires:   javapackages-tools
 Provides:   jpackage-utils
 Obsoletes:  jpackage-utils >= 5.0.0
@@ -66,7 +70,7 @@ This package fulfills jpackage missing msv-msv dependency.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%if 0%{?fedora} == 19
+%if 0%{?fedora} == 19 || 0%{?rhel} == 7
 mkdir -p $RPM_BUILD_ROOT/usr/share/java
 ln -s apache-commons-validator.jar $RPM_BUILD_ROOT/usr/share/java/commons-validator.jar
 %endif
@@ -77,7 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%if 0%{?fedora} == 19
+%if 0%{?fedora} == 19 || 0%{?rhel} == 7
 /usr/share/java/commons-validator.jar
 %endif
 
