@@ -595,6 +595,9 @@ public class Channel extends BaseDomainHelper implements Comparable<Channel> {
      * {@inheritDoc}
      */
     public boolean equals(final Object other) {
+        if (other instanceof SelectableChannel) {
+            return this.equals(((SelectableChannel)other).getChannel());
+        }
         if (!(other instanceof Channel)) {
             return false;
         }

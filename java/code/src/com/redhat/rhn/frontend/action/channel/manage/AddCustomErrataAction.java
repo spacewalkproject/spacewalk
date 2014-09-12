@@ -146,6 +146,7 @@ public class AddCustomErrataAction extends RhnListAction {
 
         channelList = new ArrayList();
         sortChannelsAndChildify(channelSet, channelList, user, selectedChannelStr);
+        channelList.remove(currentChan);
         request.setAttribute(CHANNEL_LIST, channelList);
 
 
