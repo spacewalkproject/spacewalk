@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.168
+Version: 2.1.169
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 12 2014 Stephen Herr <sherr@redhat.com> 2.1.169-1
+- F19 needs apache-commons-validator, not jakarta
+
 * Thu Sep 11 2014 Stephen Herr <sherr@redhat.com> 2.1.168-1
 - 1140859 - html-encode tomcat log to prevent cross-site scripting
 
