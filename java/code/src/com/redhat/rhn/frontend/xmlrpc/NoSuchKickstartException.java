@@ -41,6 +41,16 @@ public class NoSuchKickstartException extends FaultException  {
         // begin member variable initialization
     }
 
+    /**
+     * Constructor
+     * @param label label of a missing kickstart
+     */
+    public NoSuchKickstartException(String label) {
+        super(2764 , "noSuchKickstart" , "The kickstart '" + label +
+                "' could not be found");
+        // begin member variable initialization
+    }
+
         /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
