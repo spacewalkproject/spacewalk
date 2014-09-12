@@ -109,12 +109,10 @@ Requires: spacewalk-java-lib
 Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
 %if 0%{?fedora} >= 20
-BuildRequires: apache-commons-validator
 BuildRequires: mvn(ant-contrib:ant-contrib)
 BuildRequires: javapackages-tools
 Requires:      javapackages-tools
 %else
-BuildRequires: jakarta-commons-validator
 BuildRequires: ant-contrib
 BuildRequires: ant-nodeps
 BuildRequires: jpackage-utils
@@ -123,10 +121,12 @@ Requires:      jpackage-utils
 Requires: cobbler >= 2.0.0
 Requires: dojo
 %if 0%{?fedora}
+BuildRequires: apache-commons-validator
 Requires:       apache-commons-io
 BuildRequires:  apache-commons-logging
 Requires:       apache-commons-logging
 %else
+BuildRequires: jakarta-commons-validator
 Requires:       jakarta-commons-io
 BuildRequires:  jakarta-commons-logging
 Requires:       jakarta-commons-logging
