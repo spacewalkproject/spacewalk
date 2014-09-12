@@ -19914,6 +19914,18 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/software/packages/NewVersions.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="installedsystems.jsp.title">
+        <source>Systems with Package</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/software/packages/InstalledSystems.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="installedsystems.jsp.summary">
+        <source>This package is installed on the following systems.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/software/packages/InstalledSystems.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="channel.edit.jsp.name">
         <source>Channel Name</source>
         <context-group name="ctx">

@@ -379,7 +379,7 @@ ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
 
 <mode name="systems_with_package" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="org_id, pid, user_id">
-SELECT  S.id, S.name
+SELECT  S.id, S.name, 1 as selectable
   FROM  rhnServerPackage SP, rhnPackage P, rhnServer S
  WHERE  S.org_id = :org_id
    AND  P.id = :pid
@@ -391,6 +391,7 @@ SELECT  S.id, S.name
 ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
 </mode>
 
 <mode name="systems_with_needed_package" class="com.redhat.rhn.frontend.dto.SystemOverview">

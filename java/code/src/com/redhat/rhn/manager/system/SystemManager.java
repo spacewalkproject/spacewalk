@@ -2441,7 +2441,7 @@ public class SystemManager extends BaseManager {
      * @param id the id of the package
      * @return  list of systemOverview objects
      */
-    public static List<SystemOverview> listSystemsWithPackage(User user, Long id) {
+    public static DataResult<SystemOverview> listSystemsWithPackage(User user, Long id) {
         SelectMode m = ModeFactory.getMode("System_queries",
                 "systems_with_package");
         Map<String, Object> params = new HashMap<String, Object>();
