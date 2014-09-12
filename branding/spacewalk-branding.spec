@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.1
+Version:    2.3.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -93,6 +93,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Sep 12 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.2-1
+- fixing images file permissions and removing unused image backup
+- updated links to proper sections in Satellite 5.6 documentation
+
 * Fri Aug 01 2014 Jan Dobes 2.3.1-1
 - sidenav should always have it's space
 - Bumping package versions for 2.3.
