@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.33
+Version: 2.3.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 12 2014 Tomas Lestach <tlestach@redhat.com> 2.3.34-1
+- display error messages in red
+- 1126303 - catch cobbler exception 'Invalid characters found in input'
+
 * Thu Sep 11 2014 Stephen Herr <sherr@redhat.com> 2.3.33-1
 - 1140859 - html-encode tomcat log to prevent cross-site scripting
 - 959567 - use sha256 checksums for config files instead of md5
