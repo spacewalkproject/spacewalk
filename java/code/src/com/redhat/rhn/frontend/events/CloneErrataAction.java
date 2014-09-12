@@ -19,7 +19,6 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
-import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.frontend.action.channel.manage.PublishErrataHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
@@ -63,7 +62,8 @@ public class CloneErrataAction
         for (Long eid : list) {
 
             Errata errata = ErrataFactory.lookupById(eid);
-            if (errata instanceof PublishedClonedErrata) {
+            // we merge custom errata directly (non Redhat and cloned)
+            if (errata.getOrg() != null) {
                 errata.addChannel(currChan);
                 ErrataCacheManager.insertCacheForChannelErrata(cids, errata);
                 errata.addChannelNotification(currChan, new Date());
