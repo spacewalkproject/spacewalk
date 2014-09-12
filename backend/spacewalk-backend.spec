@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.13
+Version: 2.3.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri Sep 12 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.14-1
+- Add /usr/share/rhn/config-defaults in spacewalk-debug
+- 1138275 - spacewalk-debug is not fully postgreSQL aware.
+
 * Thu Sep 11 2014 Stephen Herr <sherr@redhat.com> 2.3.13-1
 - 959567 - use sha256 checksums for config files instead of md5
 
