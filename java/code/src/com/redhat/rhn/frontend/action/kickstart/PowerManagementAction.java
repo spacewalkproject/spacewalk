@@ -131,8 +131,8 @@ public class PowerManagementAction extends RhnAction {
                     catch (XmlRpcException e) {
                         log.warn("Could not get power status from Cobbler for system " +
                             server.getId());
-                        addMessage(request,
-                            "kickstart.powermanagement.jsp.power_status_failed");
+                        createErrorMessage(request,
+                                "kickstart.powermanagement.jsp.power_status_failed", null);
                     }
                 }
             }
