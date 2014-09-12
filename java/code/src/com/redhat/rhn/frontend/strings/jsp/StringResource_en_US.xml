@@ -315,6 +315,9 @@
         <trans-unit id="lookup.jsp.title.system">
           <source>We're sorry, but the system could not be found.</source>
         </trans-unit>
+        <trans-unit id="lookup.jsp.title.crash">
+          <source>We're sorry, but the software crash could not be found.</source>
+        </trans-unit>
         <trans-unit id="lookup.default.title">
           <source>We're sorry, but a required data object could not be found.</source>
         </trans-unit>
@@ -375,6 +378,9 @@
         <trans-unit id="lookup.jsp.reason1.system">
           <source>The system requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         </trans-unit>
+        <trans-unit id="lookup.jsp.reason1.crash">
+          <source>The software crash requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
+        </trans-unit>
         <trans-unit id="lookup.default.reason1">
           <source>The required data object does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         </trans-unit>
@@ -411,6 +417,8 @@
         <trans-unit id="lookup.jsp.reason2.system">
           <source>You do not have permission to view this system.</source>
         </trans-unit>
+        <trans-unit id="lookup.jsp.reason2.crash">
+          <source>You do not have permission to view this software crash.</source>        </trans-unit>
         <trans-unit id="lookup.default.reason2">
           <source>You do not have permission to the required data object.</source>
         </trans-unit>

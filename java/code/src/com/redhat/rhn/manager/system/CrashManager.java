@@ -17,13 +17,13 @@ package com.redhat.rhn.manager.system;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.server.Crash;
 import com.redhat.rhn.domain.server.CrashFactory;
 import com.redhat.rhn.domain.server.CrashFile;
 import com.redhat.rhn.domain.server.CrashNote;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.xmlrpc.NoSuchCrashException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.manager.BaseManager;
 
@@ -44,7 +44,13 @@ public class CrashManager extends BaseManager {
     public static Crash lookupCrashByUserAndId(User user, Long crashId) {
         Crash crash = CrashFactory.lookupById(crashId);
         if (crash == null) {
-            throw new NoSuchCrashException();
+            LocalizationService ls = LocalizationService.getInstance();
+            LookupException e = new LookupException("Could not find crash " + crashId +
+                    " for user " + user.getId());
+            e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.crash"));
+            e.setLocalizedReason1(ls.getMessage("lookup.jsp.reason1.crash"));
+            e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.crash"));
+            throw e;
         }
 
         Long serverId = crash.getServer().getId();
