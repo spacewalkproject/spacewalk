@@ -290,7 +290,7 @@ if __name__ == '__main__':
     if not options.directory:
         print "Export directory has to be specified. Try --help:\n"
         parser.print_help()
-        exit(1)
+        sys.exit(1)
 
     initLOG(LOG_FILE, options.verbose or 0)
 
