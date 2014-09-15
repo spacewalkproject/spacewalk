@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 34%{?dist}
+Release: 35%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -468,6 +468,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Mon Sep 15 2014 Michael Mraka <michael.mraka@redhat.com> 2.0.11-35
+- 979966 - updated patch to match latest post_install_network_config version
+
 * Mon Sep 15 2014 Michael Mraka <michael.mraka@redhat.com> 2.0.11-34
 - 979966 - support modprobe.d on RHEL6
 
