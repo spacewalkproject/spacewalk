@@ -128,9 +128,7 @@ public class CobblerPowerSettingsUpdateCommand extends CobblerCommand {
             if (StringUtils.isNotBlank(powerPassword)) {
                 systemRecord.setPowerPassword(powerPassword);
             }
-            if (StringUtils.isNotBlank(powerId)) {
-                systemRecord.setPowerId(powerId);
-            }
+            systemRecord.setPowerId(powerId);
             systemRecord.save();
             log.debug("Settings saved for system " + sid);
         }
