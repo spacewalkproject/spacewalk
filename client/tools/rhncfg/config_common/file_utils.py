@@ -75,15 +75,20 @@ class FileProcessor:
         delim_start = file_struct['delim_start']
         delim_end = file_struct['delim_end']
 
-        if 'checksum' in file_struct and 'checksum_type' in file_struct:
+        if ('checksum' in file_struct
+                and 'checksum_type' in file_struct
+                and 'verify_contents' in file_struct
+                and file_struct['verify_contents']):
             if file_struct['checksum'] != utils.getContentChecksum(
                     file_struct['checksum_type'], contents):
                 raise Exception, "Corrupt file received: Content checksums do not match!"
-        elif 'md5sum' in file_struct:
+        elif ('md5sum' in file_struct and 'verify_contents' in file_struct
+                and file_struct['verify_contents']):
             if file_struct['md5sum'] != utils.getContentChecksum(
                     'md5', contents):
                 raise Exception, "Corrupt file received: Content checksums do not match!"
-        else:
+        elif ('verify_contents' in file_struct
+                and file_struct['verify_contents']):
             raise Exception, "Corrupt file received: missing checksum information!"
 
 

@@ -395,6 +395,7 @@ def create_key_list():
                     'md5sum',
                     'checksum_type',
                     'checksum',
+                    'verify_contents',
                     'file_contents',
                 ]
     #This dictionary associates each debug level (the key) with the index into key_list (the value) at which
@@ -405,7 +406,7 @@ def create_key_list():
                         2 : 6,
                         3 : 8,
                         4 : 10,
-                        5 : 14,
+                        5 : 15,
                    }
     curr_debug = get_debug_level()
     if curr_debug > 5:
