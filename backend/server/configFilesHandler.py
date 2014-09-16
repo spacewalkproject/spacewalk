@@ -20,6 +20,7 @@ import base64
 import os
 import xmlrpclib
 import sys
+import hashlib
 
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug
@@ -483,6 +484,7 @@ def format_file_results(row, server=None):
     encoding = ''
     contents = None
     contents = rhnSQL.read_lob(row['file_contents']) or ''
+    checksum = row['checksum'] or ''
 
     if server and (row['is_binary'] == 'N') and contents:
 
@@ -490,6 +492,10 @@ def format_file_results(row, server=None):
                                                start_delim=row['delim_start'],
                                                end_delim=row['delim_end'])
         contents = interpolator.interpolate(contents)
+        if row['checksum_type']:
+            checksummer = hashlib.new(row['checksum_type'])
+            checksummer.update(contents)
+            checksum = checksummer.hexdigest()
 
     if contents:
         client_caps = rhnCapability.get_client_capabilities()
@@ -507,7 +513,8 @@ def format_file_results(row, server=None):
         'file_contents' : contents,
         'symlink' : row['symlink'] or '',
         'checksum_type' : row['checksum_type'] or '',
-        'checksum'      : row['checksum'] or '',
+        'checksum'      : checksum,
+        'verify_contents' : True,
         'delim_start'   : row['delim_start'] or '',
         'delim_end'     : row['delim_end'] or '',
         'revision'      : row['revision'] or '',
