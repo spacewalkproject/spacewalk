@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.77
+Version: 5.10.78
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -122,6 +122,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Tue Sep 16 2014 Stephen Herr <sherr@redhat.com> 5.10.78-1
+- 1142337 - rhncfg throws exception when verifying config files with macros
+
 * Thu Sep 11 2014 Stephen Herr <sherr@redhat.com> 5.10.77-1
 - 1133652 - make rhncfg support sha256 and use it by default
 
