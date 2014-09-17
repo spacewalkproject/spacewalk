@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.7
+Version: 2.3.8
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Sep 17 2014 Stephen Herr <sherr@redhat.com> 2.3.8-1
+- 1138708, 1142110 - make child channel architecture check universal
+
 * Thu Sep 11 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.7-1
 - RHEL7 contains apache 2.4
 
