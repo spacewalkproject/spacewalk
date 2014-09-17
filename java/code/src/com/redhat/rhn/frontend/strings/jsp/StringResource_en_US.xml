@@ -14203,7 +14203,7 @@ You can, however, download this file, edit it locally on your computer, and uplo
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">
-You can't edit this file here because it is too large (files must be less than &lt;strong&gt;32K&lt;/strong&gt; to be editable in this form - this size can be set by @@PRODUCT_NAME@@ administrators via the java.config_file_edit_size option in /etc/rhn/rhn.conF).
+You can't edit this file here because it is too large (files must be less than &lt;strong&gt;32K&lt;/strong&gt; to be editable in this form - this size can be set by @@PRODUCT_NAME@@ administrators via the java.config_file_edit_size option in /etc/rhn/rhn.conf).
 You can, however, download this file, edit it locally on your computer, and upload your changes here.
           </context>
         </context-group>
