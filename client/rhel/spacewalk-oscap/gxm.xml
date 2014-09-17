@@ -24,15 +24,15 @@ Authors:
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
     <xsl:template match="/">
-	<xsl:apply-templates select="/*"/>
+        <xsl:apply-templates select="/*"/>
     </xsl:template>
 
     <xsl:template match="xsl:stylesheet">
-	<xsl:copy xmlns:xccdf_12="http://checklists.nist.gov/xccdf/1.2">
+        <xsl:copy xmlns:xccdf_12="http://checklists.nist.gov/xccdf/1.2">
             <xsl:copy-of select="document('')/xsl:stylesheet/namespace::*[local-name() = 'xccdf_12']"/>
-	    <xsl:apply-templates select="*|@*" mode="copy"/>
-	    <xsl:apply-templates select="*[not(local-name()='output')][not(@match='/')]" mode="flourish"/>
-	</xsl:copy>
+            <xsl:apply-templates select="*|@*" mode="copy"/>
+            <xsl:apply-templates select="*[not(local-name()='output')][not(@match='/')]" mode="flourish"/>
+        </xsl:copy>
     </xsl:template>
 
     <xsl:template match="@*|node()" mode="copy">
@@ -48,7 +48,7 @@ Authors:
     </xsl:template>
 
     <xsl:template match="@select|@match" mode="flourish">
-	<xsl:variable name="tmp" select="name()"/>
+        <xsl:variable name="tmp" select="name()"/>
         <xsl:attribute name="{$tmp}">
             <xsl:call-template name="string-replace-all">
                 <xsl:with-param name="text" select="." />
