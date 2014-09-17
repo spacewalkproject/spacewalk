@@ -60,7 +60,7 @@ Authors:
 
 
     <xsl:template name="string-replace-all">
-        <!-- Poor XSLT 1.0 does not know how to replase strings. -->
+        <!-- Poor XSLT 1.0 does not know how to replace strings. -->
         <xsl:param name="text" />
         <xsl:param name="replace" />
         <xsl:param name="by" />
