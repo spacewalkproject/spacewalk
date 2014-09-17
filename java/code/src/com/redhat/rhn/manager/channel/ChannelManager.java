@@ -2883,4 +2883,18 @@ public class ChannelManager extends BaseManager {
         Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
     }
+
+    /**
+     * @param parentArchLabel The channel arch label of the parent channel
+     * @return List of {'name': channel_arch_name, 'label': channel_arch_label}
+     *   for compatible child channel arches.
+     */
+    public static List<Map<String, String>> compatibleChildChannelArches(
+            String parentArchLabel) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+                "compatible_child_channel_arches");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("pa_label", parentArchLabel);
+        return m.execute(params);
+    }
 }

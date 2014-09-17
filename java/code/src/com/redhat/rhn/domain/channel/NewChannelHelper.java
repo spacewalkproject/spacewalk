@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.channel;
 
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
@@ -25,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -110,6 +112,18 @@ public class NewChannelHelper {
 
         if (parent != null) {
            cloned.setParentChannel(parent);
+            List<Map<String, String>> compatibleArches = ChannelManager
+                    .compatibleChildChannelArches(parent.getChannelArch().getLabel());
+            Set<String> compatibleArchLabels = new HashSet<String>();
+
+            for (Map<String, String> compatibleArch : compatibleArches) {
+                compatibleArchLabels.add(compatibleArch.get("label"));
+            }
+
+            if (!compatibleArchLabels.contains(arch.getLabel())) {
+                throw new IllegalArgumentException(
+                        "Incompatible parent and child channel architectures");
+            }
         }
         //must save and reload the object here, in order to further work with it
         ChannelFactory.save(cloned);

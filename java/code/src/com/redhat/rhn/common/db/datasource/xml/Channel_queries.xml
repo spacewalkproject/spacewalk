@@ -1110,4 +1110,16 @@ select c.id,
   </query>
 </mode>
 
+<mode name="compatible_child_channel_arches">
+  <query params="pa_label">
+select ca2.name, ca2.label
+  from rhnChannelArch ca1,
+       rhnChildChannelArchCompat ccac,
+       rhnChannelArch ca2
+ where ca1.id = ccac.parent_arch_id
+   and ca2.id = ccac.child_arch_id
+   and ca1.label = :pa_label
+  </query>
+</mode>
+
 </datasource_modes>

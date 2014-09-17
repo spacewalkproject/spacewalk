@@ -15,7 +15,24 @@
             <c:forEach items="${parentChannelChecksums}" var="parentChannel">
                     baseChannelChecksums["<c:out value="${parentChannel.key}" />"] = "<c:out value="${parentChannel.value}"/>";
             </c:forEach>
-                    document.getElementById("parentarch").value = baseChannelArches[document.getElementById("parent").value];
+                    var archCompatMap = {};
+            <c:forEach items="${archCompatMap}" var="archCompat">
+                    archCompatMap["<c:out value="${archCompat.key}" />"] = "<c:out value="${archCompat.value}"/>".split(",");
+            </c:forEach>
+            
+                    var parentArchLabel = baseChannelArches[document.getElementById("parent").value]
+                    if (!parentArchLabel) {
+                      parentArchLabel = "";
+                    }
+                    
+                    var archSelect = document.getElementById("parentarch");
+                    archSelect.options.length=0;
+                    for (i in archCompatMap[parentArchLabel]) {
+                      var arch = archCompatMap[parentArchLabel][i].split(":");
+                      archSelect.options[i]=new Option(arch[1], arch[0], arch[1] == parentArchLabel, arch[1] == parentArchLabel);
+                    }
+                    archSelect.value = parentArchLabel;
+                    
                     document.getElementById("checksum").value = baseChannelChecksums[document.getElementById("parent").value];
                 }
         </script>

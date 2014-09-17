@@ -773,43 +773,17 @@ sub channel_sync_prompt {
   return PXT::Utils->perform_substitutions($params{__block__}, \%s);
 }
 
-# This is the wrong way to do this! We should be selecting from an compatibility table instead!
 sub verify_arch_compat {
 	my $parent_arch = shift;
 	my $child_arch = shift;
-	
-	my $ia32 = 'IA-32';
-	my $ia64 = "IA-64";
-	my $sparc = "Sparc";
-	my $alpha = "Alpha";
-	my $s390 = "s390";
-	my $s390x = "s390x";
-	my $iSeries = "iSeries";
-	my $pSeries = "pSeries";
-	my $x86_64 = "x86_64";
-	my $ppc = "PPC";
-	my $sparc_solaris = "Sparc Solaris";
-	my $i386_solaris = "i386 Solaris";
-	my $aarch64 = "AArch64";
-	my $ppcle = "PPC64LE";
-	
-	my %compat_table = (
-	        $ia32 => {$ia32 => '1'},
-	        $ia64 => {$ia64 => '1', $ia32 => '1'},
-	        $sparc => {$sparc => '1',  $sparc_solaris => '1',  $i386_solaris => '1'},
-	        $alpha => {$alpha => '1'},
-	        $s390 => {$s390 => '1'},
-	        $s390x => {$s390 => '1',  $s390x => '1'},
-	        $iSeries => {$iSeries => '1', $pSeries => '1'},
-	        $pSeries => {$iSeries => '1', $pSeries => '1'},
-	        $x86_64 => {$x86_64 => '1', $ia32 => '1'},
-	        $ppc => {$ppc => '1'},
-	        $sparc_solaris => {$sparc => '1',  $sparc_solaris => '1',  $i386_solaris => '1'},
-	        $i386_solaris => {$sparc => '1',  $sparc_solaris => '1',  $i386_solaris => '1'},
-		$aarch64 => {$aarch64 => '1'},
-		$ppcle => {$ppcle => '1'}
-	    );
-	return $compat_table{$parent_arch}->{$child_arch};
+
+        my @compatible_arch_list = RHN::ChannelEditor->compatible_child_channel_arches($parent_arch);
+        foreach my $compatible_arch (@compatible_arch_list) {
+            if ($compatible_arch->{NAME} eq $child_arch) {
+                return 1;
+            }
+        }
+        return 0;
 }
 
 1;

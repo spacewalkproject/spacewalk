@@ -276,3 +276,4 @@ rhnXccdfTestresult             :: rhnServer rhnActionScap rhnXccdfBenchmark rhnX
 rhnXccdfRuleIdentMap           :: rhnXccdfRuleresult
 rhnISSSlaveOrgs                :: rhnISSSlave web_customer
 rhnISSMasterOrgs               :: rhnISSMaster web_customer
+rhnChildChannelArchCompat      :: rhnChannelArch

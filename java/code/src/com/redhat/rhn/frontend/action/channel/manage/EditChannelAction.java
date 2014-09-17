@@ -45,6 +45,7 @@ import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -54,6 +55,7 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -650,10 +652,30 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
         // base channel arches
         List<Map<String, String>> channelArches = new ArrayList<Map<String, String>>();
         List<ChannelArch> arches = ChannelManager.getChannelArchitectures();
+        List<String> allArchConstruct = new ArrayList<String>();
         for (ChannelArch arch : arches) {
             addOption(channelArches, arch.getName(), arch.getLabel());
+            allArchConstruct.add(arch.getLabel() + ":" + arch.getName());
         }
         ctx.getRequest().setAttribute("channelArches", channelArches);
+
+        Map<String, String> archCompatMap = new HashMap<String, String>();
+        Set<String> uniqueParentChannelArches = new HashSet<String>(parentChannelArches
+                .values());
+        for (String arch : uniqueParentChannelArches) {
+            List<Map<String, String>> compatibleArches = ChannelManager
+                    .compatibleChildChannelArches(arch);
+            List<String> mapConstruct = new ArrayList<String>();
+            for (Map<String, String> compatibleArch : compatibleArches) {
+                mapConstruct.add(compatibleArch.get("label") + ":" +
+                        compatibleArch.get("name"));
+            }
+            archCompatMap.put(arch, StringUtils.join(mapConstruct.toArray(), ","));
+        }
+        // empty string for when there is no parent, all arches are available
+        archCompatMap.put("", StringUtils.join(allArchConstruct.toArray(), ","));
+        ctx.getRequest().setAttribute("archCompatMap", archCompatMap);
+
         // set the list of yum supported checksums
         List<Map<String, String>> checksums = new ArrayList<Map<String, String>>();
         addOption(checksums, ls.getMessage("generic.jsp.none"), "");

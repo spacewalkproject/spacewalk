@@ -144,6 +144,37 @@ EOQ
   return @channels;
 }
 
+sub compatible_child_channel_arches {
+  my $self = shift;
+  my $parent_arch = shift;
+
+  my $dbh = RHN::DB->connect;
+
+  my $query;
+  my $sth;
+
+  $query = <<EOQ;
+select ca2.name, ca2.label
+  from rhnChannelArch ca1,
+       rhnChildChannelArchCompat ccac,
+       rhnChannelArch ca2
+ where ca1.id = ccac.parent_arch_id
+   and ca2.id = ccac.child_arch_id
+   and ca1.name = :parent_arch
+EOQ
+
+  $sth = $dbh->prepare($query);
+  $sth->execute_h(parent_arch => $parent_arch);
+
+  my @arches;
+
+  while (my $row = $sth->fetchrow_hashref) {
+    push @arches, $row;
+  }
+
+  return @arches;
+}
+
 sub add_channel_packages {
   my $class = shift;
   my $cid = shift;
