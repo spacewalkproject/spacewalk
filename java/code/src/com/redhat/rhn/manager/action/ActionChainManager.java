@@ -294,6 +294,25 @@ public class ActionChainManager {
      * Creates configuration actions from server-revision maps.
      * @param user the user scheduling actions
      * @param revisions maps servers to multiple revision IDs
+     * @param serverIds a set of server IDs
+     * @param type the type of configuration action
+     * @param earliest the earliest execution date
+     * @param actionChain the action chain or null
+     * @return scheduled actions
+     */
+    public static Set<Action> createConfigActions(User user,
+            Map<Long, Collection<Long>> revisions, Collection<Long> serverIds,
+            ActionType type, Date earliest, ActionChain actionChain) {
+
+            List <Server> servers = SystemManager.hydrateServerFromIds(serverIds, user);
+            return createConfigActionForServers(user, revisions, servers, type, earliest,
+                actionChain);
+    }
+
+    /**
+     * Creates configuration actions from server-revision maps.
+     * @param user the user scheduling actions
+     * @param revisions maps servers to multiple revision IDs
      * @param servers a set of server objects
      * @param type the type of configuration action
      * @param earliest the earliest execution date
@@ -301,7 +320,7 @@ public class ActionChainManager {
      * @return scheduled actions
      */
     public static Set<Action> createConfigActionForServers(User user,
-        Map<Server, Collection<Long>> revisions, Collection<Server> servers,
+        Map<Long, Collection<Long>> revisions, Collection<Server> servers,
         ActionType type, Date earliest, ActionChain actionChain) {
         Set<Action> result = new HashSet<Action>();
         if (actionChain == null) {
@@ -313,7 +332,7 @@ public class ActionChainManager {
                 ActionFactory.addServerToAction(server.getId(), action);
 
                 ActionManager.addConfigurationRevisionsToAction(user,
-                    revisions.get(server), action, server);
+                    revisions.get(server.getId()), action, server);
                 ActionFactory.save(action);
                 result.add(action);
             }
@@ -329,7 +348,7 @@ public class ActionChainManager {
                 ActionChainFactory.queueActionChainEntry(action, actionChain, server,
                     sortOrder);
                 ActionManager.addConfigurationRevisionsToAction(user,
-                    revisions.get(server), action, server);
+                    revisions.get(server.getId()), action, server);
                 ActionFactory.save(action);
                 result.add(action);
             }

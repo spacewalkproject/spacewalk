@@ -22,6 +22,7 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.Action;
@@ -47,9 +48,9 @@ import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
 import com.redhat.rhn.frontend.dto.ConfigGlobalDeployDto;
 import com.redhat.rhn.frontend.dto.ConfigRevisionDto;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
+import com.redhat.rhn.frontend.events.SsmConfigFilesEvent;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
-import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -65,6 +66,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -2182,18 +2184,24 @@ public class ConfigurationManager extends BaseManager {
         Map nameMap = mapFileToName(fileIds);
         Map fileMap = mapFileToRevId(fileIds);
 
-        // For all systems
+        List<Long> servers = new LinkedList<Long>();
+
         for (Iterator itr = systemIds.iterator(); itr.hasNext();) {
-            Long sysId = (Long)itr.next();
-            Set system = new HashSet();
-            system.add(sysId);
-            Set revs = new HashSet();
+            servers.add((Long)itr.next());
+        }
+
+        Map<Long, Collection<Long>> serverConfigMap =
+                new HashMap<Long, Collection<Long>>();
+        // For all systems
+        for (Long serverId : servers) {
+            Set<Long> revs = new HashSet();
             // For each revision....
             for (Iterator fItr = fileIds.iterator(); fItr.hasNext();) {
                 Long file = (Long)fItr.next();
                 Long rev = (Long)fileMap.get(file);
                 Long cfnid = (Long)nameMap.get(file);
-                Long deployableRev = getDeployableRevisionForFileName(cfnid, sysId);
+                Long deployableRev = getDeployableRevisionForFileName(
+                        cfnid, serverId);
                 revs.add(deployableRev);
                 if (rev.equals(deployableRev)) {
                     revSucceeded++;
@@ -2202,9 +2210,13 @@ public class ConfigurationManager extends BaseManager {
                     revOverridden++;
                 }
             }
-            ActionChainManager.createConfigActions(usr, revs, system,
-                ActionFactory.TYPE_CONFIGFILES_DEPLOY, datePicked, actionChain);
+            serverConfigMap.put(serverId, revs);
         }
+
+        SsmConfigFilesEvent event =
+                new SsmConfigFilesEvent(usr.getId(), serverConfigMap, servers,
+                        ActionFactory.TYPE_CONFIGFILES_DEPLOY, datePicked, actionChain);
+        MessageQueue.publish(event);
 
         Map m = new HashMap();
 

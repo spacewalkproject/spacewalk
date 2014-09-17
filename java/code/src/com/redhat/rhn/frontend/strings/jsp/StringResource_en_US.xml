@@ -13789,26 +13789,26 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         </context-group>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.success">
-        <source>1 revision-deploy successfully scheduled.</source>
+        <source>1 revision-deploy is being scheduled.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.success.chain">
-        <source>Action has been successfully added to Action Chain {0}.</source>
+        <source>Action is being added to Action Chain {0}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.successes">
-        <source>{0} revision-deploys successfully scheduled.</source>
+        <source>{0} revision-deploys are being scheduled, it may take several minutes for this to complete.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
           <context context-type="paramnotes">File-deploy successfully scheduled for 5 systems</context>
         </context-group>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.successes.chain">
-        <source>{0} actions have been successfully added to Action Chain {1}.</source>
+        <source>{0} actions are being added to Action Chain {1}, it may take several minutes for this to complete.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
           <context context-type="paramnotes">File-deploy successfully scheduled for 5 systems</context>

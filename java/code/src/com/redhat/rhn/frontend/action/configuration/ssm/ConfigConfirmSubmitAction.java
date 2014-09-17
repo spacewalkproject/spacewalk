@@ -15,19 +15,18 @@
 package com.redhat.rhn.frontend.action.configuration.ssm;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
 import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
+import com.redhat.rhn.frontend.events.SsmConfigFilesEvent;
 import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnListDispatchAction;
-import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -126,11 +125,10 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
 
         DataResult<ConfigSystemDto> systems = cm.listSystemsForConfigAction(user, null,
                 type.getLabel());
-        List<Server> servers = new LinkedList<Server>();
+        List<Long> servers = new LinkedList<Long>();
 
         for (ConfigSystemDto system : systems) {
-            servers.add((Server) HibernateFactory.getSession().get(Server.class,
-                system.getId()));
+            servers.add(system.getId());
         }
 
         RhnSet fileNames = RhnSetDecl.CONFIG_FILE_NAMES.get(user);
@@ -140,22 +138,24 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
         ActionChain actionChain = ActionChainHelper.readActionChain((DynaActionForm) form,
             user);
 
-        Map<Server, Collection<Long>> serverConfigMap =
-            new HashMap<Server, Collection<Long>>();
-        for (Server server : servers) {
+        Map<Long, Collection<Long>> serverConfigMap =
+            new HashMap<Long, Collection<Long>>();
+        for (Long serverId : servers) {
             Set<Long> revisions = new HashSet<Long>();
             for (Long cfnid : fileNames.getElementValues()) {
-                Long crid = cm.getDeployableRevisionForFileName(cfnid, server.getId());
+                Long crid = cm.getDeployableRevisionForFileName(cfnid, serverId);
                 //add to the set if this system has a deployable revision of this
                 //file name
                 if (crid != null) {
                     revisions.add(crid);
                 }
             }
-            serverConfigMap.put(server, revisions);
+            serverConfigMap.put(serverId, revisions);
         }
-        ActionChainManager.createConfigActionForServers(user, serverConfigMap, servers,
-            type, earliest, actionChain);
+        SsmConfigFilesEvent event =
+                new SsmConfigFilesEvent(user.getId(), serverConfigMap, servers,
+                        type, earliest, actionChain);
+        MessageQueue.publish(event);
 
         //create the message
         if (successes > 0) {

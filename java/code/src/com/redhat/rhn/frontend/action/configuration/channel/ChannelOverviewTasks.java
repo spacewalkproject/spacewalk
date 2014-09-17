@@ -16,17 +16,18 @@ package com.redhat.rhn.frontend.action.configuration.channel;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.common.messaging.MessageQueue;
+import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
+import com.redhat.rhn.frontend.events.SsmConfigFilesEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnSetHelper;
-import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -39,9 +40,13 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
+import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -164,21 +169,28 @@ public class ChannelOverviewTasks extends RhnAction {
             return;
         }
 
-        Set sids = new HashSet();
-        for (Iterator itr = systems.iterator(); itr.hasNext();) {
-            ConfigSystemDto csd = (ConfigSystemDto)itr.next();
-            sids.add(new Long(csd.getId().longValue()));
-        }
-
         Set crids = new HashSet();
         for (Iterator itr = revs.iterator(); itr.hasNext();) {
             ConfigFileDto cfd = (ConfigFileDto)itr.next();
             crids.add(new Long(cfd.getLatestConfigRevisionId().longValue()));
         }
 
+        Map<Long, Collection<Long>> serverConfigMap =
+                new HashMap<Long, Collection<Long>>();
+
+        List<Long> servers = new LinkedList<Long>();
+        for (Iterator itr = systems.iterator(); itr.hasNext();) {
+            ConfigSystemDto csd = (ConfigSystemDto)itr.next();
+            servers.add(csd.getId());
+            serverConfigMap.put(csd.getId(), crids);
+        }
+
         //create the action and then create the message to send the user.
-        Action action = ActionManager.createConfigDiffAction(usr, crids, sids);
-        makeMessage(action, req);
+        SsmConfigFilesEvent event =
+                new SsmConfigFilesEvent(usr.getId(), serverConfigMap, servers,
+                        ActionFactory.TYPE_CONFIGFILES_DIFF, new Date(), null);
+        MessageQueue.publish(event);
+        makeMessage(systems.size(), req);
     }
 
     protected Map makeParamMap(HttpServletRequest req) {
@@ -191,15 +203,10 @@ public class ChannelOverviewTasks extends RhnAction {
 
     // TODO: generalize and move this somewhere it can be used by other
     // action-producers!
-    private void makeMessage(Action action, HttpServletRequest request) {
-        if (action != null) {
-            //get how many servers this action was created for.
-            int successes = action.getServerActions().size();
+    private void makeMessage(int successes, HttpServletRequest request) {
+        if (successes > 0) {
             String number = LocalizationService.getInstance()
                     .formatNumber(new Integer(successes));
-
-            //build the url for the action we have created.
-            String url = "/rhn/schedule/ActionDetails.do?aid=" + action.getId();
 
             //create the success message
             ActionMessages msg = new ActionMessages();
@@ -211,9 +218,8 @@ public class ChannelOverviewTasks extends RhnAction {
                 key = "configdiff.schedule.success";
             }
 
-            Object[] args = new Object[2];
-            args[0] = StringEscapeUtils.escapeHtml(url);
-            args[1] = StringEscapeUtils.escapeHtml(number);
+            Object[] args = new Object[1];
+            args[0] = StringEscapeUtils.escapeHtml(number);
 
             //add in the success message
             msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(key, args));
