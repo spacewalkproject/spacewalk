@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.12
+Version:        2.3.13
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Sep 17 2014 Stephen Herr <sherr@redhat.com> 2.3.13-1
+- 1138708, 1142110 - make child channel architecture check universal
+
 * Thu Sep 11 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.12-1
 - RHEL7 contains PostgreSQL 9
 
