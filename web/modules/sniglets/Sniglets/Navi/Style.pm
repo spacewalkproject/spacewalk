@@ -231,7 +231,7 @@ sub link_style_active {
 package Sniglets::Navi::Style::spacewalk_main_nav;
 use base qw/Sniglets::Navi::Style::ul/;
 
-sub item_style_type { return 'id' }
+sub item_style_type { return 'class' }
 
 sub pre_item {
   my $self = shift;
@@ -267,7 +267,7 @@ sub post_item {
 
 
 sub pre_level {
-  return qq{<ul class="nav navbar-nav">};
+  return qq{<ul class="nav navbar-nav navbar-primary">};
 }
 
 sub post_level {

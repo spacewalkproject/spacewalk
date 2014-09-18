@@ -45,79 +45,79 @@
 </rhn:require>
 
 <c:choose>
-    <c:when test="${requestScope.anyListsSelected == 'true'}">
-      <div class="row-0">
-        <c:if test="${requestScope.tasks == 'y'}">
-            <div class="col-md-auto" id="tasks-pane" >
-                <script type="text/javascript">
-                  TasksRenderer.renderAsync(makeRendererHandler('tasks-pane', false));
-                </script>
-            </div>
-        </c:if>
-        <c:if test="${requestScope.inactiveSystems == 'y'}">
-            <div class="col-md-auto" id="inactive-systems-pane" >
-              <script type="text/javascript">
-                    InactiveSystemsRenderer.renderAsync(makeRendererHandler("inactive-systems-pane", false));
-                </script>
-            </div>
-        </c:if>
+  <c:when test="${requestScope.anyListsSelected == 'true'}">
+    <div class="row">
+      <c:if test="${requestScope.tasks == 'y'}">
+      <div class="col-md-6" id="tasks-pane" >
+        <script type="text/javascript">
+          TasksRenderer.renderAsync(makeRendererHandler('tasks-pane', false));
+        </script>
       </div>
-  	    <c:if test="${requestScope.criticalSystems == 'y'}">
-  		        <div id="critical-systems-pane" class="row">
-  		            <script type="text/javascript">
-		                CriticalSystemsRenderer.renderAsync(makeRendererHandler("critical-systems-pane", false));
-  		            </script>
-  		        </div>
-        </c:if>
+      </c:if>
+      <c:if test="${requestScope.inactiveSystems == 'y'}">
+      <div class="col-md-6" id="inactive-systems-pane" >
+        <script type="text/javascript">
+          InactiveSystemsRenderer.renderAsync(makeRendererHandler("inactive-systems-pane", false));
+        </script>
+      </div>
+      </c:if>
+    </div>
+    <div class="row">
+      <c:if test="${requestScope.criticalSystems == 'y'}">
+      <div id="critical-systems-pane" class="col-md-12">
+        <script type="text/javascript">
+          CriticalSystemsRenderer.renderAsync(makeRendererHandler("critical-systems-pane", false));
+        </script>
+      </div>
+      </c:if>
+      <c:if test="${requestScope.criticalProbes == 'y'}">
+      <div id="critical-probes-pane" class="col-md-12">
+        <script type="text/javascript">
+          CriticalProbesRenderer.renderAsync(makeRendererHandler("critical-probes-pane", false));
+        </script>
+      </div>
+      </c:if>
+      <c:if test="${requestScope.warningProbes == 'y'}">
+      <div id="warning-probes-pane" class="col-md-12">
+        <script type="text/javascript">
+          WarningProbesRenderer.renderAsync(makeRendererHandler("warning-probes-pane", false));
+        </script>
+      </div>
+      </c:if>
+      <c:if test="${requestScope.pendingActions =='y'}">
+      <div id="pending-actions-pane" class="col-md-12">
+        <script type="text/javascript">
+          PendingActionsRenderer.renderAsync(makeRendererHandler("pending-actions-pane", false));
+        </script>
+      </div>
+      </c:if>
+      <c:if test="${requestScope.latestErrata == 'y'}">
+      <div id="latest-errata-pane" class="col-md-12">
+        <script type="text/javascript">
+          LatestErrataRenderer.renderAsync(makeRendererHandler("latest-errata-pane", false));
+        </script>
+      </div>
+      </c:if>
+      <c:if test="${requestScope.systemGroupsWidget == 'y'}">
+      <div id="systems-groups-pane" class="col-md-12">
+        <script type="text/javascript">
+          SystemGroupsRenderer.renderAsync(makeRendererHandler("systems-groups-pane", false));
+        </script>
+      </div>
+      </c:if>
+      <c:if test="${requestScope.recentlyRegisteredSystems == 'y'}">
+      <div id="recently-registered-pane" class="col-md-12">
+        <script type="text/javascript">
+          RecentSystemsRenderer.renderAsync(makeRendererHandler("recently-registered-pane", false));
+        </script>
+      </div>
+      </c:if>
+    </div>
+  </c:when>
 
-        <c:if test="${requestScope.criticalProbes == 'y'}">
-            <div id="critical-probes-pane" class="row">
-                <script type="text/javascript">
-                    CriticalProbesRenderer.renderAsync(makeRendererHandler("critical-probes-pane", false));
-                </script>
-            </div>
-        </c:if>
-
-        <c:if test="${requestScope.warningProbes == 'y'}">
-            <div id="warning-probes-pane" class="row">
-                <script type="text/javascript">
-                    WarningProbesRenderer.renderAsync(makeRendererHandler("warning-probes-pane", false));
-                </script>
-            </div>
-        </c:if>
-        <c:if test="${requestScope.pendingActions =='y'}">
-            <div id="pending-actions-pane" class="row">
-                <script type="text/javascript">
-	                PendingActionsRenderer.renderAsync(makeRendererHandler("pending-actions-pane", false));
-                </script>
-            </div>
-        </c:if>
-        <c:if test="${requestScope.latestErrata == 'y'}">
-	        <div id="latest-errata-pane" class="row">
-	            <script type="text/javascript">
-		            LatestErrataRenderer.renderAsync(makeRendererHandler("latest-errata-pane", false));
-	            </script>
-	        </div>
-        </c:if>
-        <c:if test="${requestScope.systemGroupsWidget == 'y'}">
-            <div id="systems-groups-pane" class="row">
-                <script type="text/javascript">
-                    SystemGroupsRenderer.renderAsync(makeRendererHandler("systems-groups-pane", false));
-                </script>
-            </div>
-        </c:if>
-        <c:if test="${requestScope.recentlyRegisteredSystems == 'y'}">
-            <div id="recently-registered-pane" class="row">
-                <script>
-                    RecentSystemsRenderer.renderAsync(makeRendererHandler("recently-registered-pane", false));
-                </script>
-            </div>
-        </c:if>
-    </c:when>
-
-    <c:otherwise>
-  	    <bean:message key="yourrhn.jsp.nolists" />
-    </c:otherwise>
+  <c:otherwise>
+    <bean:message key="yourrhn.jsp.nolists" />
+  </c:otherwise>
 </c:choose>
 
 </body>
