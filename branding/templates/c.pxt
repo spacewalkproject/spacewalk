@@ -7,103 +7,80 @@
   <pxt-use class="Sniglets::Navi" />
   <pxt-use class="Sniglets::Header" />
 
-<html lang="en">
+<html>
   <pxt-include-late file="/templates/header.pxt" />
 
   <body>
-    <div class="spacewalk-top-wrap">
-      <header>
-        <div class="spacewalk-header-container">
-          <div id="logo" class="spacewalk-logo">
-            <a href="http://www.spacewalkproject.org/" title="Visit http://www.spacewalkproject.org/ for more information">
-              <img src="/img/logo_vendor.png" alt="Spacewalk project" id="rhLogo" />
-            </a>
-            <a href="/" title="Spacewalk homepage">
-              <img src="/img/logo_product.png" alt="Spacewalk" id="rhnLogo" accesskey="2"/>
-            </a>
-          </div>
-
-          <div class="spacewalk-header-links">
-            <ul class="nav nav-pills">
-              <li><a href="/rhn/account/LocalePreferences.do">English (change)</a></li>
-            </ul>
-            <ul class="nav nav-pills">
-              <li><a href="http://kbase.redhat.com/">Knowledgebase</a></li>
-              <li><a href="/help">Documentation</a></li>
-            </ul>
-
-            <rhn-display-login>
-            <ul class="nav nav-pills">
-              <li>
-                <a href="/rhn/account/UserDetails.do"><rhn-icon type="header-user"/>[login]</a>
-              </li>
-              <li class="hidden-sm hidden-xs hidden-md">
-                  <span class="spacewalk-header-non-link"><rhn-icon type="header-sitemap"/>[org]</span>
-              </li>
-              <li>
-                <a href="/rhn/account/UserPreferences.do"><rhn-icon type="header-preferences"/></a>
-              </li>
-              <li>
-                <a href="/rhn/Logout.do"><rhn-icon type="header-signout"/></a>
-              </li>
-            </ul>
-            </rhn-display-login>
-
-            <form name="form1" class="form-inline hidden-xs" role="form" action="/rhn/Search.do" method="post">
+    <nav class="navbar navbar-default navbar-pf" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://www.spacewalkproject.org/" title="Visit http://www.spacewalkproject.org/ for more information">
+          <img src="/img/logo_vendor.png" alt="Spacewalk project" id="rhLogo" />
+        </a>
+        <a class="navbar-brand" href="/" title="Spacewalk homepage">
+          <img src="/img/logo_product.png" alt="Spacewalk" id="rhnLogo" accesskey="2"/>
+        </a>
+      </div>
+      <div class="navbar-collapse navbar-collapse-1 collapse in">
+        <ul class="nav navbar-nav navbar-utility">
+          <li><a href="/rhn/account/LocalePreferences.do">English (change)</a></li>
+          <li><a href="https://access.redhat.com/knowledgebase">Knowledgebase</a></li>
+          <li><a href="/help">Documentation</a></li>
+          <rhn-display-login>
+          <li><a href="/rhn/account/UserDetails.do"><i class="fa fa-user"></i> [login]</a></li>
+          <li><a><i class="fa fa-sitemap"></i> [org]</a></li>
+          <li><a href="/rhn/account/UserPreferences.do"><i class="fa fa-cogs" title="Preferences"></i></a></li>
+          <li><a href="/rhn/Logout.do"><i class="fa fa-sign-out" title="Sign Out"></i></a></li>
+          </rhn-display-login>
+          <li class="search">
+            <form name="form1" class="form-inline" role="form" action="/rhn/Search.do">
+              <input type="hidden" name="csrf_token" value="5343521104902341802">
+              <input type="hidden" name="submitted" value="true" />
               <div class="form-group">
                 <select name="search_type" class="form-control input-sm">
-
-                    <option value="systems">Systems</option>
-
+                  <option value="systems">Systems</option>
                   <option value="packages">Packages</option>
                   <option value="errata">Errata</option>
                   <option value="docs">Documentation</option>
                 </select>
-              </div>
-              <div class="form-group">
                 <input type="search" class="form-control input-sm" name="search_string" maxlength="40" size="20" accesskey="4" autofocus="autofocus" placeholder="Search" />
-              </div>
-              <div class="form-group">
-                <input type="hidden" name="submitted" value="true" />
-                <button type="submit" class="btn btn-info input-sm">
-                  <rhn-icon type="header-search"/>
+                <button type="submit" class="btn btn-primary input-sm" id="search-btn">
+                  <i class="fa fa-search"></i>
                 </button>
               </div>
             </form>
-          </div>
-        </div>
+          </li>
+        </ul>
 
-        <nav class="navbar navbar-inverse spacewalk-main-nav" role="navigation">
-          <rhn-navi-nav depth="0" style="spacewalk-main-nav"/>
-          <pxt-include-late file="/network/components/status_bar/main.pxi" />
-        </nav>
+        <pxt-include-late file="/network/components/status_bar/main.pxi" />
+        <rhn-navi-nav depth="0" style="spacewalk-main-nav"/>
+    </nav>
 
-      </header>
-
-      <div class="spacewalk-main-column-layout">
-
-        <aside id="spacewalk-aside">
-          <grail-canvas mode="left_menu_canvas">
-            <rhn-navi-nav depth="1" style="sidenav"/>
-          </grail-canvas>
-          <grail-canvas mode="legend_canvas">
-          </grail-canvas>
-
-          <rhn-require acl="global_config(chat_enabled)">
-           <a href="http://webchat.freenode.net?channels=#spacewalk" target="_blank">
-             <img src="/img/chat.png" alt=""/>
-           </a>
-          </rhn-require>
-        </aside>
-
-        <section id="spacewalk-content">
-          <pxt-include-late file="/network/components/message_queues/site.pxi" />
-          <grail-early-canvas mode="main_canvas">
-          </grail-early-canvas>
-        </section>
-      </div>
-
+    <div class="spacewalk-main-column-layout">
+      <aside id="spacewalk-aside">
+        <grail-canvas mode="left_menu_canvas">
+          <rhn-navi-nav depth="1" style="sidenav"/>
+        </grail-canvas>
+        <grail-canvas mode="legend_canvas">
+        </grail-canvas>
+        <rhn-require acl="global_config(chat_enabled)">
+          <a href="http://webchat.freenode.net?channels=#spacewalk" target="_blank">
+            <img src="/img/chat.png" alt=""/>
+          </a>
+        </rhn-require>
+      </aside>
+      <section id="spacewalk-content">
+        <pxt-include-late file="/network/components/message_queues/site.pxi" />
+        <grail-early-canvas mode="main_canvas">
+        </grail-early-canvas>
+      </section>
     </div>
+
     <footer>
       <pxt-include-late file="/templates/footer.pxt" />
       <pxt-include-late file="/templates/profile.pxt" />

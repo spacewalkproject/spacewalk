@@ -8,22 +8,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html:html >
+<html:html>
   <head>
-	  <jsp:include page="layout_head.jsp" />
-	  <decorator:head />
+    <jsp:include page="layout_head.jsp" />
+    <decorator:head />
   </head>
   <body onload="<decorator:getProperty property="body.onload" />">
-   <div id="wrap">
-    <div id="top-wrap" class="wrap">
+    <nav class="navbar navbar-default navbar-pf" role="navigation">
       <jsp:include page="/WEB-INF/includes/header.jsp" />
-    </div>
-    <div id="bottom-wrap" class="wrap">
-    <div id="content">
+    </nav>
+    <div class="spacewalk-main-column-layout">
+      <aside id="spacewalk-aside">
+      </aside>
+      <section id="spacewalk-content">
         <decorator:body />
-      </div><!-- end content -->
+      </section>
+    </div>
+    <footer>
       <jsp:include page="/WEB-INF/includes/footer.jsp" />
-    </div><!-- end bottom-wrap -->
-   </div><!-- end wrap -->
+    </footer>
   </body>
 </html:html>

@@ -10,7 +10,7 @@
 <script type="text/javascript" src="/javascript/highlander.js"></script>
 </head>
 <body>
-  <rhn:toolbar base="h1" img="header-search"
+  <rhn:toolbar base="h1" icon="header-search"
                helpUrl="">
     <bean:message key="help.credentials.jsp.logininfo"/>
   </rhn:toolbar>
@@ -20,24 +20,33 @@
   <p><bean:message key="help.credentials.jsp.passwordtip"/></p>
 
   <html:form action="/help/ForgotCredentials.do">
-  <rhn:csrf />
-    <table class="details">
-      <tr><th><bean:message key="help.credentials.jsp.logininput"/></th>
-      <td>
-        <html:text property="username" name="username" value="${username}" />
-      </td>
-      </tr>
-      <tr><th><bean:message key="help.credentials.jsp.emailinput"/></th>
-      <td>
-        <html:text property="email" name="email" value="${email}" />
-      </td>
-      </tr>
-    </table>
-    <div align="right">
-      <hr />
-      <html:submit property="password_button">
-        <bean:message key="help.credentials.jsp.passwordbutton"/>
-      </html:submit>
+    <rhn:csrf />
+    <div class="search-choices panel panel-default">
+      <div class="search-choices-group panel-body">
+        <div class="form-group row">
+          <div class="col-md-2 text-right">
+            <label for="searchform"><bean:message key="help.credentials.jsp.logininput"/></label>
+          </div>
+          <div class="col-md-4">
+            <input type="text" name="username" accesskey="4" value="${username}" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-2 text-right">
+            <label><bean:message key="help.credentials.jsp.emailinput"/></label>
+          </div>
+          <div class="col-md-4">
+            <input type="text" name="email" accesskey="4" value="${email}" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+           <button type="submit" class="btn btn-success btn-sm" name="password_button">
+             <bean:message key="help.credentials.jsp.passwordbutton"/>
+          </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <input type="hidden" name="submitted" value="true" />
@@ -48,19 +57,25 @@
   <p><bean:message key="help.credentials.jsp.loginstip"/></p>
 
   <html:form action="/help/ForgotCredentials.do">
-  <rhn:csrf />
-    <table class="details">
-      <tr><th><bean:message key="help.credentials.jsp.emailinput"/></th>
-      <td>
-        <html:text property="email" name="email" value="${email}" />
-      </td>
-      </tr>
-    </table>
-    <div align="right">
-      <hr />
-      <html:submit property="login_button">
-        <bean:message key="help.credentials.jsp.loginbutton"/>
-      </html:submit>
+    <rhn:csrf />
+    <div class="search-choices panel panel-default">
+      <div class="search-choices-group panel-body">
+        <div class="form-group row">
+          <div class="col-md-2 text-right">
+            <label><bean:message key="help.credentials.jsp.emailinput"/></label>
+          </div>
+          <div class="col-md-4">
+            <input type="text" name="email" accesskey="4" value="${email}" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+           <button type="submit" class="btn btn-success btn-sm" name="login_button">
+             <bean:message key="help.credentials.jsp.loginbutton"/>
+          </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <input type="hidden" name="submitted" value="true" />
