@@ -15,6 +15,8 @@
 package com.redhat.rhn.frontend.action.rhnpackage;
 
 import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageSource;
@@ -35,8 +37,10 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -121,6 +125,12 @@ public class PackageDetailsAction extends RhnAction {
                    DownloadManager.getPackageSourceDownloadPath(pkg, src.get(0), user));
                 request.setAttribute("srpm_path", src.get(0).getFile());
             }
+
+            // remove references to channels we can't see
+            Set<Channel> channels = new HashSet<Channel>(pkg.getChannels());
+            channels.retainAll(ChannelFactory.getAccessibleChannelsByOrg(user.getOrg()
+                    .getId()));
+            request.setAttribute("channels", channels);
 
             request.setAttribute("pack", pkg);
             // description can be null.
