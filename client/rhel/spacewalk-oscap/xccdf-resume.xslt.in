@@ -35,6 +35,7 @@ Authors:
 
         <xsl:variable name="profileId" select="cdf:TestResult[1]/cdf:profile/@idref"/>
         <xsl:choose>
+            <xsl:when test="not($profileId)"/> <!-- Do not send profile element when scanning with 'default' profile. -->
             <xsl:when test="cdf:Profile[@id = $profileId]">
                 <xsl:apply-templates select="cdf:Profile[@id = $profileId]"/>
             </xsl:when>
