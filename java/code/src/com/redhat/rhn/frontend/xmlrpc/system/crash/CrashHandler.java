@@ -304,10 +304,14 @@ public class CrashHandler extends BaseHandler {
         }
 
         byte[] plainFile = new byte[(int) file.length()];
-        BufferedInputStream br = new BufferedInputStream(new FileInputStream(file));
+        FileInputStream fis = new FileInputStream(file);
+        BufferedInputStream br = new BufferedInputStream(fis);
         if (br.read(plainFile) != file.length()) {
             throw new CrashFileDownloadException("api.package.download.ioerror");
         }
+
+        fis.close();
+        br.close();
 
         return Base64.encodeBase64(plainFile);
     }

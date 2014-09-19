@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.crypto.NoSuchCryptoKeyException;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -65,6 +66,9 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
         for (Iterator it = descriptions.iterator(); it.hasNext();) {
             String description = (String)it.next();
             CryptoKey key = KickstartFactory.lookupCryptoKey(description, org);
+            if (key == null) {
+                throw new NoSuchCryptoKeyException(description);
+            }
             ksdata.addCryptoKey(key);
         }
     }

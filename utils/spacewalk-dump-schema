@@ -324,8 +324,10 @@ sub get_sequences {
 		!, 'sequence_name');
 		# Select last value of each sequence separately
 		foreach my $sequence (keys %{ $sequences }) {
-			my $last_value = $dbh->selectrow_array("select last_value from $sequence");
+			my ($last_value, $is_called) = $dbh->selectrow_array("select last_value, is_called from $sequence");
 			$sequences->{$sequence}{last_number} = $last_value;
+			# Logic value from PostgreSQL saying if current value is already used
+			$sequences->{$sequence}{is_called} = $is_called;
 		}
 	} else {
 		$sequences = $dbh->selectall_hashref(q!
@@ -449,7 +451,8 @@ sub process_sequences {
 		closedir DIR;
 	}
 	for (sort keys %$sequences) {
-		my $last_number = $sequences->{$_}{last_number} if ref $sequences->{$_};;
+		my $last_number = $sequences->{$_}{last_number} if ref $sequences->{$_};
+		my $is_called = $sequences->{$_}{is_called} if ref $sequences->{$_};
 		if (not $raw) {
 			my $exception = get_sequence_exception($_);
 			if (defined $exception) {
@@ -467,10 +470,13 @@ sub process_sequences {
 			}
 		}
 		$last_number = 1 if not defined $last_number;
+		$is_called = 0 if not defined $is_called;
 		if ($options->{db_backend_target} eq 'postgresql') {
-			print "select pg_catalog.setval('$_', $last_number, false);\n";
+			my $is_called_value = $is_called ? 'true' : 'false';
+			print "select pg_catalog.setval('$_', $last_number, $is_called_value);\n";
 		} else {
 			print "drop sequence $_;\n";
+			$last_number++ if $is_called;
 			print "create sequence $_ start with $last_number;\n";
 		}
 	}

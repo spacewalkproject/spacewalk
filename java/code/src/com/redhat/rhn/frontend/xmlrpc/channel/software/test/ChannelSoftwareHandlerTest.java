@@ -19,7 +19,6 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
@@ -33,6 +32,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
@@ -60,6 +60,7 @@ import java.util.Map;
  * ChannelSoftwareHandlerTest
  * @version $Rev$
  */
+@SuppressWarnings("deprecation")
 public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
 
     private ChannelSoftwareHandler handler = new ChannelSoftwareHandler();
@@ -72,13 +73,13 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         Package pkg1 = PackageTest.createTestPackage(admin.getOrg());
         Package pkg2 = PackageTest.createTestPackage(admin.getOrg());
 
-        List packages2add = new ArrayList();
+        List<Long> packages2add = new ArrayList<Long>();
         packages2add.add(pkg1.getId());
         packages2add.add(pkg2.getId());
 
-        assertEquals(0, channel.getPackages().size());
+        assertEquals(0, channel.getPackageCount());
         handler.addPackages(admin, channel.getLabel(), packages2add);
-        assertEquals(2, channel.getPackages().size());
+        assertEquals(2, channel.getPackageCount());
 
         Long bogusId = new Long(System.currentTimeMillis());
         packages2add.add(bogusId);
@@ -93,7 +94,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         }
 
         //Test remove packages
-        assertEquals(2, channel.getPackages().size());
+        assertEquals(2, channel.getPackageCount());
         try {
             handler.removePackages(admin, channel.getLabel(), packages2add);
             fail("should have gotten a permission check failure.");
@@ -107,7 +108,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         packages2add.add(pkg1.getId());
         assertEquals(2, packages2add.size()); // should have 2 entries for pkg1
         handler.removePackages(admin, channel.getLabel(), packages2add);
-        assertEquals(1, channel.getPackages().size());
+        assertEquals(1, channel.getPackageCount());
 
 
         // test for invalid package arches
@@ -223,7 +224,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         assertFalse(child2.isBaseChannel());
 
         ChannelSoftwareHandler csh = new ChannelSoftwareHandler();
-        List labels = new ArrayList();
+        List<String> labels = new ArrayList<String>();
         labels.add(child.getLabel());
         // adding base last to make sure the handler does the right
         // thing regardless of where the base channel is.
@@ -241,7 +242,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         assertNotNull(newBase);
         assertEquals(newBase.getLabel(), base.getLabel());
 
-        List nobase = new ArrayList();
+        List<String> nobase = new ArrayList<String>();
         nobase.add(child.getLabel());
         nobase.add(child2.getLabel());
 
@@ -261,7 +262,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         Channel c1 = ChannelFactoryTest.createTestChannel(admin);
         Server server = ServerFactoryTest.createTestServer(admin, true);
 
-        List channelsToSubscribe = new ArrayList();
+        List<String> channelsToSubscribe = new ArrayList<String>();
         channelsToSubscribe.add(c1.getLabel());
 
         assertEquals(0, server.getChannels().size());
@@ -275,7 +276,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
 
         Channel c2 = ChannelFactoryTest.createTestChannel(admin);
         assertFalse(c1.getLabel().equals(c2.getLabel()));
-        channelsToSubscribe = new ArrayList();
+        channelsToSubscribe = new ArrayList<String>();
         channelsToSubscribe.add(c2.getLabel());
         assertEquals(1, channelsToSubscribe.size());
         result = csh.setSystemChannels(admin,
@@ -288,7 +289,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         assertTrue(server.getChannels().contains(c2));
 
         //try to make it break
-        channelsToSubscribe = new ArrayList();
+        channelsToSubscribe = new ArrayList<String>();
         channelsToSubscribe.add(TestUtils.randomString());
         try {
             csh.setSystemChannels(admin,
@@ -310,7 +311,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         try {
 
             Channel c3 = ChannelFactoryTest.createTestChannel(admin);
-            List channels = new ArrayList();
+            List<String> channels = new ArrayList<String>();
             channels.add(c3.getLabel());
             assertEquals(1, channels.size());
 
@@ -394,23 +395,17 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
     public void testListArches() throws Exception {
         ChannelSoftwareHandler csh = new ChannelSoftwareHandler();
         addRole(admin, RoleFactory.CHANNEL_ADMIN);
-        Object[] arches = csh.listArches(admin);
+        List<ChannelArch> arches = csh.listArches(admin);
         assertNotNull(arches);
-        assertTrue(arches.length > 0);
-        for (int i = 0; i < arches.length; i++) {
-            assertEquals(ChannelArch.class, arches[i].getClass());
-        }
+        assertTrue(arches.size() > 0);
     }
 
     public void testListArchesPermissionError() {
         try {
             ChannelSoftwareHandler csh = new ChannelSoftwareHandler();
-            Object[] arches = csh.listArches(admin);
+            List<ChannelArch> arches = csh.listArches(admin);
             assertNotNull(arches);
-            assertTrue(arches.length > 0);
-            for (int i = 0; i < arches.length; i++) {
-                assertEquals(ChannelArch.class, arches[i].getClass());
-            }
+            assertTrue(arches.size() > 0);
         }
         catch (PermissionCheckFailureException e) {
             assertTrue(true);
@@ -706,7 +701,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         childChan.setParentChannel(baseChan);
 
 
-        List labels = new ArrayList();
+        List<String> labels = new ArrayList<String>();
         labels.add(baseChan.getLabel());
         labels.add(childChan.getLabel());
 
@@ -737,7 +732,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         original.addErrata(errata);
 
         String label = "test-clone-label";
-        Map details = new HashMap();
+        Map<String, String> details = new HashMap<String, String>();
         details.put("name", "test-clone");
         details.put("summary", "summary");
         details.put("label", label);
@@ -752,7 +747,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         // errata cloning is tested in CloneErrataActionTest
 
         // Test that we're actually creating a cloned channel:
-        ClonedChannel clone = (ClonedChannel)chan;
+        assertTrue(chan.isCloned());
     }
 
     /*
@@ -769,7 +764,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         original.addErrata(errata);
 
         String label = "test-clone-label-2";
-        Map details = new HashMap();
+        Map<String, String> details = new HashMap<String, String>();
         details.put("name", "test-clone2");
         details.put("summary", "summary2");
         details.put("label", label);
@@ -815,16 +810,17 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         Channel mergeFrom = ChannelFactoryTest.createTestChannel(admin);
         Channel mergeTo = ChannelFactoryTest.createTestChannel(admin);
 
-        List fromList = handler.listErrata(admin, mergeFrom.getLabel());
+        List<Map<String, Object>> fromList = handler
+                .listErrata(admin, mergeFrom.getLabel());
         assertEquals(fromList.size(), 0);
-        List toList = handler.listErrata(admin, mergeTo.getLabel());
+        List<Map<String, Object>> toList = handler.listErrata(admin, mergeTo.getLabel());
         assertEquals(toList.size(), 0);
 
-        Map errataInfo = new HashMap();
+        Map<String, String> errataInfo = new HashMap<String, String>();
         String advisoryName = TestUtils.randomString();
         errataInfo.put("synopsis", TestUtils.randomString());
         errataInfo.put("advisory_name", advisoryName);
-        errataInfo.put("advisory_release", new Integer(2));
+        errataInfo.put("advisory_release", "2");
         errataInfo.put("advisory_type", "Bug Fix Advisory");
         errataInfo.put("product", TestUtils.randomString());
         errataInfo.put("topic", TestUtils.randomString());
@@ -833,10 +829,10 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         errataInfo.put("references", TestUtils.randomString());
         errataInfo.put("notes", TestUtils.randomString());
 
-        ArrayList packages = new ArrayList();
-        ArrayList bugs = new ArrayList();
-        ArrayList keywords = new ArrayList();
-        ArrayList channels = new ArrayList();
+        List<Integer> packages = new ArrayList<Integer>();
+        List<Map<String, Object>> bugs = new ArrayList<Map<String, Object>>();
+        List<String> keywords = new ArrayList<String>();
+        List<String> channels = new ArrayList<String>();
         channels.add(mergeFrom.getLabel());
 
         Errata errata = errataHandler.create(admin, errataInfo,
@@ -858,16 +854,17 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         Channel mergeFrom = ChannelFactoryTest.createTestChannel(admin);
         Channel mergeTo = ChannelFactoryTest.createTestChannel(admin);
 
-        List fromList = handler.listErrata(admin, mergeFrom.getLabel());
+        List<Map<String, Object>> fromList = handler
+                .listErrata(admin, mergeFrom.getLabel());
         assertEquals(fromList.size(), 0);
-        List toList = handler.listErrata(admin, mergeTo.getLabel());
+        List<Map<String, Object>> toList = handler.listErrata(admin, mergeTo.getLabel());
         assertEquals(toList.size(), 0);
 
-        Map errataInfo = new HashMap();
+        Map<String, String> errataInfo = new HashMap<String, String>();
         String advisoryName = TestUtils.randomString();
         errataInfo.put("synopsis", TestUtils.randomString());
         errataInfo.put("advisory_name", advisoryName);
-        errataInfo.put("advisory_release", new Integer(2));
+        errataInfo.put("advisory_release", "2");
         errataInfo.put("advisory_type", "Bug Fix Advisory");
         errataInfo.put("product", TestUtils.randomString());
         errataInfo.put("topic", TestUtils.randomString());
@@ -876,10 +873,10 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         errataInfo.put("references", TestUtils.randomString());
         errataInfo.put("notes", TestUtils.randomString());
 
-        ArrayList packages = new ArrayList();
-        ArrayList bugs = new ArrayList();
-        ArrayList keywords = new ArrayList();
-        ArrayList channels = new ArrayList();
+        List<Integer> packages = new ArrayList<Integer>();
+        List<Map<String, Object>> bugs = new ArrayList<Map<String, Object>>();
+        List<String> keywords = new ArrayList<String>();
+        List<String> channels = new ArrayList<String>();
         channels.add(mergeFrom.getLabel());
 
         Errata errata = errataHandler.create(admin, errataInfo,
@@ -915,26 +912,26 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         String startDateStr = "2004-08-20 08:00:00";
         String endDateStr = "3004-08-20 08:00:00";
 
-        Object[] list = handler.listAllPackages(admin, chan.getLabel(),
+        List<PackageDto> list = handler.listAllPackages(admin, chan.getLabel(),
                 startDateStr);
-        assertTrue(list.length == 1);
+        assertTrue(list.size() == 1);
 
         list = handler.listAllPackages(admin, chan.getLabel(), startDateStr,
                 endDateStr);
-        assertTrue(list.length == 1);
+        assertTrue(list.size() == 1);
 
         list = handler.listAllPackages(admin, chan.getLabel());
-        assertTrue(list.length == 1);
+        assertTrue(list.size() == 1);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date startDate = sdf.parse(startDateStr);
         Date endDate = sdf.parse(endDateStr);
 
         list = handler.listAllPackages(admin, chan.getLabel(), startDate);
-        assertTrue(list.length == 1);
+        assertTrue(list.size() == 1);
 
         list = handler.listAllPackages(admin, chan.getLabel(), startDate,
                 endDate);
-        assertTrue(list.length == 1);
+        assertTrue(list.size() == 1);
     }
 }

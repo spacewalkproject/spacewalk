@@ -7,8 +7,8 @@ Summary: Bootloaders to make cobbler buildiso work
 Name: cobbler-loaders
 License: GPLv2+
 AutoReq: no
-Version: 1.0.2
-Release: 2%{?dist}
+Version: 1.0.3
+Release: 1%{?dist}
 Url: http://fedorahosted.org/cobbler
 Source0: cobbler-loaders-%{version}.tar.gz
 Group: Applications/System
@@ -57,6 +57,10 @@ rm -rf $RPM_BUILD_ROOT
 # yaboot: yaboot-1.3.14-41.el6.src.rpm
 
 %changelog
+* Thu Sep 04 2014 Stephen Herr <sherr@redhat.com> 1.0.3-1
+- 1138451 - add aarch64 provisioning support
+- fixed tito build warning
+
 * Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.0.2-2
 - Adding source information to cobbler-loaders
 

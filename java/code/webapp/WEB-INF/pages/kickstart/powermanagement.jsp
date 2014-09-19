@@ -11,7 +11,6 @@
 
 <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf"%>
-    <br />
 
     <rhn:toolbar base="h2" icon="header-power">
         <bean:message key="kickstart.powermanagement.jsp.heading" />

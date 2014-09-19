@@ -1,0 +1,190 @@
+diff -rupN cobbler-2.0.11.old/cobbler/item_distro.py cobbler-2.0.11/cobbler/item_distro.py
+--- cobbler-2.0.11.old/cobbler/item_distro.py	2014-09-03 13:39:05.560064177 -0400
++++ cobbler-2.0.11/cobbler/item_distro.py	2014-09-05 12:09:15.454147381 -0400
+@@ -105,7 +105,7 @@ FIELDS = [
+    [ "kernel_options",{},0,"Kernel Options",True,"Ex: selinux=permissive",0,"dict"],
+    [ "kernel_options_post",{},0,"Kernel Options (Post Install)",True,"Ex: clocksource=pit noapic",0,"dict"],
+    [ "ks_meta",{},0,"Kickstart Metadata",True,"Ex: dog=fang agent=86", 0,"dict"],
+-   [ "arch",'i386',0,"Architecture",True,"", ['i386','x86_64','ia64','ppc','s390'],"str"],
++   [ "arch",'i386',0,"Architecture",True,"", ['i386','x86_64','ia64','ppc','s390','aarch64','ppc64le'],"str"],
+    [ "breed",'redhat',0,"Breed",True,"What is the type of distribution?",codes.VALID_OS_BREEDS,"str"],
+    [ "os_version","generic26",0,"OS Version",True,"Needed for some virtualization optimizations",codes.get_all_os_versions(),"str"],
+    [ "source_repos",[],0,"Source Repos", False,"",0,"list"],
+diff -rupN cobbler-2.0.11.old/cobbler/item_image.py cobbler-2.0.11/cobbler/item_image.py
+--- cobbler-2.0.11.old/cobbler/item_image.py	2014-09-03 13:39:05.564064206 -0400
++++ cobbler-2.0.11/cobbler/item_image.py	2014-09-05 12:09:15.454147381 -0400
+@@ -32,7 +32,7 @@ from utils import _
+ 
+ FIELDS = [
+   ['name','',0,"Name",True,"",0,"str"],
+-  ['arch','i386',0,"Architecture",True,"",["i386","x86_64","ia64","s390","ppc"],"str"],
++  ['arch','i386',0,"Architecture",True,"",["i386","x86_64","ia64","s390","ppc",'aarch64','ppc64le'],"str"],
+   ['breed','redhat',0,"Breed",True,"",codes.VALID_OS_BREEDS,"str"],
+   ['comment','',0,"Comment",True,"Free form text description",0,"str"],
+   ['ctime',0,0,"",False,"",0,"float"],
+diff -rupN cobbler-2.0.11.old/cobbler/item_repo.py cobbler-2.0.11/cobbler/item_repo.py
+--- cobbler-2.0.11.old/cobbler/item_repo.py	2014-09-03 13:39:05.566064220 -0400
++++ cobbler-2.0.11/cobbler/item_repo.py	2014-09-05 12:09:15.454147381 -0400
+@@ -30,7 +30,7 @@ import codes
+ # this datastructure is described in great detail in item_distro.py -- read the comments there.
+ 
+ FIELDS = [
+-  ["arch","",0,"Arch",True,"ex: i386, x86_64",['i386','x86_64','ia64','ppc','s390', 'noarch', 'src'],"str"],
++  ["arch","",0,"Arch",True,"ex: i386, x86_64",['i386','x86_64','ia64','ppc','s390', 'aarch64', 'ppc64le', 'noarch', 'src'],"str"],
+   ["breed","",0,"Breed",True,"",codes.VALID_REPO_BREEDS,"str"],
+   ["comment","",0,"Comment",True,"Free form text description",0,"str"],
+   ["ctime",0,0,"",False,"",0,"float"],
+diff -rupN cobbler-2.0.11.old/cobbler/pxegen.py cobbler-2.0.11/cobbler/pxegen.py
+--- cobbler-2.0.11.old/cobbler/pxegen.py	2014-09-03 13:39:05.566064220 -0400
++++ cobbler-2.0.11/cobbler/pxegen.py	2014-09-05 12:09:15.455147388 -0400
+@@ -114,6 +114,14 @@ class PXEGen:
+         utils.copyfile_pattern('/var/lib/cobbler/loaders/yaboot', dst,
+                 require_match=False, api=self.api, cache=False, logger=self.logger)
+ 
++        # copy bootaa64.efi which we include for aarch64 targets
++        aa64bootloader = '/var/lib/cobbler/loaders/bootaa64.efi'
++        if os.path.exists(aa64bootloader):
++            if not os.path.exists(os.path.join(dst, 'aarch64')):
++                os.mkdir(os.path.join(dst, 'aarch64'))
++            utils.copyfile_pattern(aa64bootloader, os.path.join(dst, 'aarch64'),
++                require_match=False, api=self.api, cache=False, logger=self.logger)
++
+         try:
+             utils.copyfile_pattern('/usr/lib/syslinux/memdisk',
+                     dst, api=self.api, cache=False, logger=self.logger)
+@@ -311,6 +319,9 @@ class PXEGen:
+                 if os.path.lexists(f3):
+                     utils.rmfile(f3)
+                 os.symlink("../yaboot", f3)
++            elif working_arch == 'aarch64':
++                f2 = None
++                grub_path = os.path.join(self.bootloc, "aarch64", f1.upper())
+             else:
+                 continue 
+ 
+@@ -402,6 +413,7 @@ class PXEGen:
+         # the default menus:
+         pxe_menu_items = ""
+         grub_menu_items = ""
++        arm_menu_items = ""
+ 
+         # For now, profiles are the only items we want grub EFI boot menu entries for:
+         for profile in profile_list:
+@@ -409,6 +421,13 @@ class PXEGen:
+                # This profile has been excluded from the menu
+                continue
+             distro = profile.get_conceptual_parent()
++            if distro.arch == 'aarch64':
++                arm_contents = self.write_pxe_file(filename=None, system=None,
++                    profile=profile, distro=distro,
++                    arch=distro.arch, include_header=False)
++                if arm_contents is not None:
++                    arm_menu_items = arm_menu_items + arm_contents + "\n"
++                continue
+             # xen distros can be ruled out as they won't boot
+             if distro.name.find("-xen") != -1 or distro.arch not in ["i386", "x86_64"]:
+                 # can't PXE Xen
+@@ -460,6 +479,15 @@ class PXEGen:
+         self.templar.render(template_data, metadata, outfile, None)
+         template_src.close()
+ 
++        # Write the aarch64 menu:
++        metadata = { "pxe_menu_items" : arm_menu_items }
++        outfile = os.path.join(self.bootloc, "aarch64", "grub.cfg")
++        template_src = open(os.path.join(self.settings.pxe_template_dir,"grub2default.template"))
++        template_data = template_src.read()
++        self.templar.render(template_data, metadata, outfile, None)
++        template_src.close()
++
++
+     def write_memtest_pxe(self,filename):
+         """
+         Write a configuration file for memtest
+@@ -555,7 +583,10 @@ class PXEGen:
+         # choose a template
+         if system:
+             if format == "grub":
+-                template = os.path.join(self.settings.pxe_template_dir, "grubsystem.template")
++                if arch == 'aarch64':
++                    template = os.path.join(self.settings.pxe_template_dir,"pxesystem_arm.template")
++                else:
++                    template = os.path.join(self.settings.pxe_template_dir, "grubsystem.template")
+             else: # pxe
+                 if system.netboot_enabled:
+                     template = os.path.join(self.settings.pxe_template_dir,"pxesystem.template")
+@@ -598,6 +629,8 @@ class PXEGen:
+ 
+             if arch.startswith("s390"):
+                 template = os.path.join(self.settings.pxe_template_dir,"pxeprofile_s390x.template")
++            if arch.startswith("aarch64"):
++                template = os.path.join(self.settings.pxe_template_dir,"pxeprofile_arm.template")
+             elif format == "grub":
+                 template = os.path.join(self.settings.pxe_template_dir,"grubprofile.template")
+             else:
+@@ -614,7 +647,7 @@ class PXEGen:
+                 image, arch, kickstart_path)
+         metadata["kernel_options"] = kernel_options
+ 
+-        if metadata.has_key("initrd_path") and (not arch or arch not in ["ia64", "ppc", "ppc64"]):
++        if metadata.has_key("initrd_path") and (not arch or arch not in ["ia64", "ppc", "ppc64", "aarch64"]):
+             append_line = "append initrd=%s" % (metadata["initrd_path"])
+         else:
+             append_line = "append "
+diff -rupN cobbler-2.0.11.old/cobbler/utils.py cobbler-2.0.11/cobbler/utils.py
+--- cobbler-2.0.11.old/cobbler/utils.py	2014-09-03 13:39:05.561064184 -0400
++++ cobbler-2.0.11/cobbler/utils.py	2014-09-05 12:09:15.456147395 -0400
+@@ -1233,9 +1233,9 @@ def set_arch(self,arch,repo=False):
+        arch = "i386"
+ 
+    if repo:
+-       valids = [ "i386", "x86_64", "ia64", "ppc", "ppc64", "s390", "s390x", "noarch", "src" ]
++       valids = [ "i386", "x86_64", "ia64", "ppc", "ppc64", "s390", "s390x", "aarch64", "ppc64le", "noarch", "src" ]
+    else:
+-       valids = [ "i386", "x86_64", "ia64", "ppc", "ppc64", "s390", "s390x" ]
++       valids = [ "i386", "x86_64", "ia64", "ppc", "ppc64", "s390", "s390x", "aarch64", "ppc64le" ]
+ 
+    if arch in valids:
+        self.arch = arch
+diff -rupN cobbler-2.0.11.old/setup.py cobbler-2.0.11/setup.py
+--- cobbler-2.0.11.old/setup.py	2014-09-03 13:39:05.567064227 -0400
++++ cobbler-2.0.11/setup.py	2014-09-05 12:11:42.757219950 -0400
+@@ -266,11 +266,14 @@ if __name__ == "__main__":
+             (pxepath,  ['templates/pxesystem.template']),
+             (pxepath,  ['templates/pxesystem_s390x.template']),
+             (pxepath,  ['templates/pxeprofile_s390x.template']),
++            (pxepath,  ['templates/pxeprofile_arm.template']),
+             (pxepath,  ['templates/s390x_conf.template']),
+             (pxepath,  ['templates/s390x_parm.template']),
+             (pxepath,  ['templates/pxesystem_ia64.template']),
+             (pxepath,  ['templates/pxesystem_ppc.template']),
++            (pxepath,  ['templates/pxesystem_arm.template']),
+             (pxepath,  ['templates/pxeprofile.template']),
++            (pxepath,  ['templates/grub2default.template']),
+             (pxepath,  ['templates/pxelocal.template']),
+             (pxepath,  ['templates/pxelocal_ia64.template']),
+             (pxepath,  ['templates/pxelocal_s390x.template']),
+diff -rupN cobbler-2.0.11.old/templates/grub2default.template cobbler-2.0.11/templates/grub2default.template
+--- cobbler-2.0.11.old/templates/grub2default.template	1969-12-31 19:00:00.000000000 -0500
++++ cobbler-2.0.11/templates/grub2default.template	2014-09-05 12:09:15.456147395 -0400
+@@ -0,0 +1,3 @@
++set timeout=-1
++
++$pxe_menu_items
+diff -rupN cobbler-2.0.11.old/templates/pxeprofile_arm.template cobbler-2.0.11/templates/pxeprofile_arm.template
+--- cobbler-2.0.11.old/templates/pxeprofile_arm.template	1969-12-31 19:00:00.000000000 -0500
++++ cobbler-2.0.11/templates/pxeprofile_arm.template	2014-09-05 12:09:15.456147395 -0400
+@@ -0,0 +1,4 @@
++menuentry "$profile_name" {
++       linux (tftp)$kernel_path $kernel_options
++       initrd (tftp)$initrd_path
++}
+diff -rupN cobbler-2.0.11.old/templates/pxesystem_arm.template cobbler-2.0.11/templates/pxesystem_arm.template
+--- cobbler-2.0.11.old/templates/pxesystem_arm.template	1969-12-31 19:00:00.000000000 -0500
++++ cobbler-2.0.11/templates/pxesystem_arm.template	2014-09-05 12:09:15.456147395 -0400
+@@ -0,0 +1,6 @@
++set defailt="0"
++set timeout=1
++menuentry "$system_name" {
++       linux (tftp)$kernel_path $kernel_options
++       initrd (tftp)$initrd_path
++}

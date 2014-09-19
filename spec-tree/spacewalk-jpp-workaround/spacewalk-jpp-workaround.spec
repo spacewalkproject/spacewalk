@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.3.1
+Version:	2.3.2
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -49,6 +49,10 @@ Requires:   apache-commons-logging
 Provides:   jakarta-commons-logging = 1.1.3
 Obsoletes:  jakarta-commons-logging < 1.1.3
 
+Requires:   apache-commons-validator
+Provides:   jakarta-commons-validator = 1.4.0
+Obsoletes:  jakarta-commons-validator < 1.4.0
+
 Requires:   javapackages-tools
 Provides:   jpackage-utils
 Obsoletes:  jpackage-utils >= 5.0.0
@@ -66,7 +70,7 @@ This package fulfills jpackage missing msv-msv dependency.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%if 0%{?fedora} == 19
+%if 0%{?fedora} == 19 || 0%{?rhel} == 7
 mkdir -p $RPM_BUILD_ROOT/usr/share/java
 ln -s apache-commons-validator.jar $RPM_BUILD_ROOT/usr/share/java/commons-validator.jar
 %endif
@@ -77,12 +81,15 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%if 0%{?fedora} == 19
+%if 0%{?fedora} == 19 || 0%{?rhel} == 7
 /usr/share/java/commons-validator.jar
 %endif
 
 
 %changelog
+* Thu Sep 11 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.2-1
+- replace jakarta-commons-validator on RHEL7
+
 * Wed Aug 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.1-1
 - added obsoletes to force replacement of jakarta-common-* packages
 

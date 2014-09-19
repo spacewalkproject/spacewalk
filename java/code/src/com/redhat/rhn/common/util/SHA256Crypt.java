@@ -15,8 +15,11 @@
 
 package com.redhat.rhn.common.util;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import org.apache.commons.codec.binary.Hex;
 
 /**
  * SHA256Crypt
@@ -238,5 +241,43 @@ public class SHA256Crypt {
         }
 
         return generateEncodedKey(altResult, salt);
+    }
+
+    /**
+     * SHA256 and Hexify a string.  Take the input string, SHA256 encode it
+     * and then turn it into Hex.
+     * @param inputString you want SHA256hexed
+     * @return sha256hexed String.
+     */
+    public static String sha256Hex(String inputString) {
+        byte[] secretBytes;
+        try {
+            secretBytes = inputString.getBytes("UTF-8");
+
+        }
+        catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("UnsupportedEncodingException when" +
+                    " trying to convert a String into UTF-8.  This shouldn't happen.", e);
+        }
+        return sha256Hex(secretBytes);
+    }
+
+    /**
+     * SHA256 and Hexify an array of bytes.  Take the input array, SHA256 encodes it
+     * and then turns it into Hex.
+     * @param secretBytes you want sha256hexed
+     * @return sha256hexed String.
+     */
+    public static String sha256Hex(byte[] secretBytes) {
+        String retval = null;
+        // add secret
+        MessageDigest md;
+        md = getSHA256MD();
+        md.update(secretBytes);
+        // generate the digest
+        byte[] digest = md.digest();
+        // hexify this puppy
+        retval = new String(Hex.encodeHex(digest));
+        return retval;
     }
 }

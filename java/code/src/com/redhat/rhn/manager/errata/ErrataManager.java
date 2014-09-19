@@ -44,9 +44,11 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.manage.PublishErrataHelper;
+import com.redhat.rhn.frontend.dto.CVE;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.OwnedErrata;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.events.CloneErrataEvent;
@@ -1181,6 +1183,64 @@ public class ErrataManager extends BaseManager {
                 "Errata_queries",  "find_packages_for_errata_and_channel");
         return m.execute(params);
 
+    }
+
+    /**
+     * Finds the packages contained in an errata that apply to a channel
+     * @param channelId the channel to look in
+     * @param errataId the errata to look for packs with
+     * @return collection of PackageDto objects
+     */
+    public static DataResult<PackageDto> lookupPacksFromErrataForChannel(Long channelId,
+            Long errataId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("eid", errataId);
+        params.put("cid", channelId);
+        SelectMode m = ModeFactory.getMode("Errata_queries",
+                "find_packages_for_errata_and_channel_simple");
+        return m.execute(params);
+    }
+
+    /**
+     * Finds the bugs associated with an erratum
+     * @param erratumId the erratum to look for
+     * @return collection of Bug (dto) objects
+     */
+    public static DataResult<com.redhat.rhn.frontend.dto.Bug> lookupBugsForErratum(
+            Long erratumId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("eid", erratumId);
+        SelectMode m = ModeFactory.getMode("Errata_queries", "find_bugs_for_erratum");
+        return m.execute(params);
+    }
+
+    /**
+     * Finds the cves associated with an erratum
+     * @param erratumId the erratum to look for
+     * @return collection of cves (String)
+     */
+    public static DataResult<CVE> lookupCvesForErratum(Long erratumId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("eid", erratumId);
+        SelectMode m = ModeFactory.getMode("Errata_queries", "find_cves_for_erratum");
+        return m.execute(params);
+    }
+
+    /**
+     * Finds the keywords associated with an erratum
+     * @param erratumId the erratum to look for
+     * @return collection of keywords (String)
+     */
+    public static List<String> lookupKeywordsForErratum(Long erratumId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("eid", erratumId);
+        SelectMode m = ModeFactory.getMode("Errata_queries", "find_keywords_for_erratum");
+        List<Map<String, String>> results = m.execute(params);
+        List<String> ret = new ArrayList<String>();
+        for (Map<String, String> row : results) {
+            ret.add(row.get("keyword"));
+        }
+        return ret;
     }
 
     /**

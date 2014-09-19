@@ -1294,7 +1294,7 @@ ORDER BY  UPPER(COALESCE(SERVER_NAME, '(none)')), SERVER_ID
 <query name="system_config_files_with_diffs">
   SELECT ACR.server_id AS ID, count(*) AS config_files_with_differences
     FROM
-         (SELECT rSA.server_id, MAX(rA.id)
+         (SELECT rSA.server_id, MAX(rA.id) AS action_id
             FROM rhnAction rA
             JOIN rhnServerAction rSA
               ON rSA.action_id = rA.id
@@ -1310,7 +1310,7 @@ ORDER BY  UPPER(COALESCE(SERVER_NAME, '(none)')), SERVER_ID
     JOIN rhnActionConfigRevision ACR
       ON X.server_id = ACR.server_id
     JOIN rhnActionConfigRevisionResult ACRR
-      ON ACR.id = ACRR.action_config_revision_id
+      ON ACR.id = ACRR.action_config_revision_id and ACR.action_id = X.action_id
    WHERE ACR.failure_id is null
      AND ACRR.result is not null
 GROUP BY ACR.server_id

@@ -20,6 +20,7 @@ import base64
 import os
 import xmlrpclib
 import sys
+import hashlib
 
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug
@@ -275,7 +276,7 @@ class ConfigFilesHandler(rhnHandler):
 
     def _push_contents(self, file):
 
-        checksum_type = 'md5'       # FIXME: this should be configuration option
+        checksum_type = 'sha256' # FIXME: this should be configuration option
 
         file['file_size'] = 0
         file['is_binary'] = 'N'
@@ -303,10 +304,10 @@ class ConfigFilesHandler(rhnHandler):
             # XXX We may need a heuristic; this is what the web site does, and we
             # have to be consistent
             # XXX Yes this is iterating over a string
-            for c in file_contents:
-                if ord(c) > 127:
-                    file['is_binary'] = 'Y'
-                    break
+            try:
+                file_contents.decode('UTF-8')
+            except UnicodeDecodeError:
+                file['is_binary'] = 'Y'
 
         h = rhnSQL.prepare(self._query_content_lookup)
         h.execute(**file)
@@ -483,6 +484,7 @@ def format_file_results(row, server=None):
     encoding = ''
     contents = None
     contents = rhnSQL.read_lob(row['file_contents']) or ''
+    checksum = row['checksum'] or ''
 
     if server and (row['is_binary'] == 'N') and contents:
 
@@ -490,6 +492,10 @@ def format_file_results(row, server=None):
                                                start_delim=row['delim_start'],
                                                end_delim=row['delim_end'])
         contents = interpolator.interpolate(contents)
+        if row['checksum_type']:
+            checksummer = hashlib.new(row['checksum_type'])
+            checksummer.update(contents)
+            checksum = checksummer.hexdigest()
 
     if contents:
         client_caps = rhnCapability.get_client_capabilities()
@@ -507,7 +513,8 @@ def format_file_results(row, server=None):
         'file_contents' : contents,
         'symlink' : row['symlink'] or '',
         'checksum_type' : row['checksum_type'] or '',
-        'checksum'      : row['checksum'] or '',
+        'checksum'      : checksum,
+        'verify_contents' : True,
         'delim_start'   : row['delim_start'] or '',
         'delim_end'     : row['delim_end'] or '',
         'revision'      : row['revision'] or '',

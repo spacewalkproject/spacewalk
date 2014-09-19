@@ -140,10 +140,7 @@ public class ChannelPackagesAddAction extends ChannelPackagesBaseAction {
         //Add Red Hat Base Channels, and custom base channels to the list, and if one
         //      is selected, select it
         List<SelectableChannel> chanList = findChannels(user, scid);
-
-
-
-
+        chanList.remove(chan);
 
         RhnListSetHelper helper = new RhnListSetHelper(request);
 

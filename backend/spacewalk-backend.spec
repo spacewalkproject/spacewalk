@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.8
+Version: 2.3.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,29 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Tue Sep 16 2014 Stephen Herr <sherr@redhat.com> 2.3.15-1
+- 1142412 - backend should correctly checksum config files with macros in them
+
+* Fri Sep 12 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.14-1
+- Add /usr/share/rhn/config-defaults in spacewalk-debug
+- 1138275 - spacewalk-debug is not fully postgreSQL aware.
+
+* Thu Sep 11 2014 Stephen Herr <sherr@redhat.com> 2.3.13-1
+- 959567 - use sha256 checksums for config files instead of md5
+
+* Wed Sep 10 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.12-1
+- 1022484 - ask for new password twice
+
+* Fri Sep 05 2014 Jan Dobes 2.3.11-1
+- 1115007 - correct UTF8 config files from being marked as binary
+
+* Fri Sep 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.10-1
+- 1021057 - do not double-count systems subscribed to more than one channel
+  from the same channel family
+
+* Fri Aug 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.9-1
+- fix traceback when pushing rpms with archive size > 4GB
+
 * Tue Aug 19 2014 Stephen Herr <sherr@redhat.com> 2.3.8-1
 - 1119459 - queue server for errata cache update when package list changes
 

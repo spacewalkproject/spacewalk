@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.24
+Version: 2.3.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,65 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 18 2014 Stephen Herr <sherr@redhat.com> 2.3.39-1
+- 990998 - package details page should not list channels we can't see
+- 698241 - suppress unnecessary warnings in ks snippet
+- 1133634 - fix file descriptor leak in system.crash.getCrashFile
+
+* Wed Sep 17 2014 Stephen Herr <sherr@redhat.com> 2.3.38-1
+- 1138708, 1142110 - make child channel architecture check universal
+- fix typo
+- specify usage of java.config_file_edit_size option
+- 1142133 - throw LookupException instead of NoSuchCrashException
+
+* Mon Sep 15 2014 Stephen Herr <sherr@redhat.com> 2.3.37-1
+- 1126305 - add more documentation to Power Management page
+- 1126297 - power management - make system identifier clearable
+
+* Fri Sep 12 2014 Tomas Lestach <tlestach@redhat.com> 2.3.36-1
+- do not offer the channel itself within the channel list to add packages from
+- do not offer channel itself among the channel list to clone errata from
+- 1065998 - do not clone custom errata when merging
+
+* Fri Sep 12 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.35-1
+- 1057638 - check, whether referenced kickstart profice and crypto keys are
+  available
+
+* Fri Sep 12 2014 Tomas Lestach <tlestach@redhat.com> 2.3.34-1
+- display error messages in red
+- 1126303 - catch cobbler exception 'Invalid characters found in input'
+
+* Thu Sep 11 2014 Stephen Herr <sherr@redhat.com> 2.3.33-1
+- 1140859 - html-encode tomcat log to prevent cross-site scripting
+- 959567 - use sha256 checksums for config files instead of md5
+- 1140180 - re-set number of config file diffs correctly
+- remove unused variable assignement
+- remove unnecessary casts
+
+* Fri Sep 05 2014 Stephen Herr <sherr@redhat.com> 2.3.32-1
+- Checkstyle fixes
+
+* Fri Sep 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.31-1
+- 1138326 - improved ja translation of help menu
+
+* Thu Sep 04 2014 Stephen Herr <sherr@redhat.com> 2.3.30-1
+- 1138451 - add aarch64 provisioning support
+
+* Tue Sep 02 2014 Stephen Herr <sherr@redhat.com> 2.3.29-1
+- 1136526 - Fix installabe package list in system details
+
+* Tue Sep 02 2014 Jan Dobes 2.3.28-1
+- 1120847 - improving 'All Custom Channels' queries
+
+* Fri Aug 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.27-1
+- 1119447 - show package link if package is in database
+
+* Fri Aug 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.26-1
+- 1128825 - AKey package names separated by spaces.
+
+* Thu Aug 28 2014 Stephen Herr <sherr@redhat.com> 2.3.25-1
+- 1135073, 1132398 - repomd generation memory increases with channel size
+
 * Wed Aug 27 2014 Tomas Lestach <tlestach@redhat.com> 2.3.24-1
 - remove jasper2 validateXml attribute as it's causing troubles
 - improve spacing between UI elements

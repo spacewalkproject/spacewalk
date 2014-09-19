@@ -48,7 +48,7 @@
                         <bean:message key="package.jsp.availfrom"/>:
                     </label>
                     <div class="col-lg-6">
-                        <c:forEach items="${pack.channels}" var="channel">
+                        <c:forEach items="${channels}" var="channel">
                             <a href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">
                                 ${channel.name}
                             </a><br/>

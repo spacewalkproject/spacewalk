@@ -315,6 +315,9 @@
         <trans-unit id="lookup.jsp.title.system">
           <source>We're sorry, but the system could not be found.</source>
         </trans-unit>
+        <trans-unit id="lookup.jsp.title.crash">
+          <source>We're sorry, but the software crash could not be found.</source>
+        </trans-unit>
         <trans-unit id="lookup.default.title">
           <source>We're sorry, but a required data object could not be found.</source>
         </trans-unit>
@@ -375,6 +378,9 @@
         <trans-unit id="lookup.jsp.reason1.system">
           <source>The system requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         </trans-unit>
+        <trans-unit id="lookup.jsp.reason1.crash">
+          <source>The software crash requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
+        </trans-unit>
         <trans-unit id="lookup.default.reason1">
           <source>The required data object does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         </trans-unit>
@@ -411,6 +417,8 @@
         <trans-unit id="lookup.jsp.reason2.system">
           <source>You do not have permission to view this system.</source>
         </trans-unit>
+        <trans-unit id="lookup.jsp.reason2.crash">
+          <source>You do not have permission to view this software crash.</source>        </trans-unit>
         <trans-unit id="lookup.default.reason2">
           <source>You do not have permission to the required data object.</source>
         </trans-unit>
@@ -4771,15 +4779,59 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.powermanagement.configure">
           <source>&lt;a href="/rhn/systems/ssm/provisioning/PowerManagementConfiguration.do"&gt;Configure power management&lt;/a&gt;</source>
+          <context-group>
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+          </context-group>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.powermanagement.operations">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/PowerManagementOperations.do"&gt;power management operations&lt;/a&gt;</source>
+          <context-group>
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+          </context-group>
         </trans-unit>
       <trans-unit id="provisioning.powermanagement.ipmi_note">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; IPMI is the only power management type that has been tested and is supported, but others may work. To enable other power management types override the "java.power_management.types" option in rhn.conf.</source>
+        <context-group>
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="provisioning.powermanagement.address_note">
+        <source>The hostname or IP address of the power management server.</source>
+        <context-group>
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="provisioning.powermanagement.username_note">
+        <source>The username used to log in to the power management server.</source>
+        <context-group>
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="provisioning.powermanagement.password_note">
+        <source>The password used to log in to the power management server.</source>
+        <context-group>
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="provisioning.powermanagement.identifier_note">
+        <source>The identifier used to specify this system on the power management server. Optional because not all power managment types will need this field. This field can also be used to pass additional options to the "fence agent". For example, if you are using an IPMI server that requires the Lanplus protocol (and this system's identifier was "System") then you can set a System Identifier of "-P System" to instruct fence_ipmilan to use the Lanplus protocol for this system. See the fence agent's documentation for additional options.</source>
+        <context-group>
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="provisioning.powermanagement.security_warning">
         <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
+        <context-group>
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+        </context-group>
       </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>
@@ -14062,8 +14114,8 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="filedetails.add_details.jspf.md5">
-        <source>MD5 Sum:</source>
+      <trans-unit id="filedetails.add_details.jspf.checksum">
+        <source>Checksum:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
@@ -14145,13 +14197,13 @@ This is a binary file, and can not be displayed.
       </trans-unit>
       <trans-unit id="filedetails.contents.jspf.toolarge-edit">
         <source>
-You can't edit this file here because it is too large (files must be less than &lt;strong&gt;{0}&lt;/strong&gt; to be editable in this form).
+You can't edit this file here because it is too large (files must be less than &lt;strong&gt;{0}&lt;/strong&gt; to be editable in this form - this size can be set by @@PRODUCT_NAME@@ administrators via the java.config_file_edit_size option in /etc/rhn/rhn.conf).
 You can, however, download this file, edit it locally on your computer, and upload your changes here.
 </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">
-You can't edit this file here because it is too large (files must be less than &lt;strong&gt;32K&lt;/strong&gt; to be editable in this form).
+You can't edit this file here because it is too large (files must be less than &lt;strong&gt;32K&lt;/strong&gt; to be editable in this form - this size can be set by @@PRODUCT_NAME@@ administrators via the java.config_file_edit_size option in /etc/rhn/rhn.conf).
 You can, however, download this file, edit it locally on your computer, and upload your changes here.
           </context>
         </context-group>
@@ -16414,6 +16466,12 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
       </trans-unit>
       <trans-unit id="kickstart.powermanagement.unsupported_power_type">
         <source>Selected power management type is not supported by Cobbler. Please check your configuration.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.invalid_chars">
+        <source>Provided characters aren't supported by Cobbler. Please update your entry.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
         </context-group>

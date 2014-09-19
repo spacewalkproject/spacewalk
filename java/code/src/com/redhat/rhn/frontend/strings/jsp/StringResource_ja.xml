@@ -4570,6 +4570,19 @@ value for this entitlement, excluding the default organization's consumption.</s
         <source>Delete Errata</source>
         <target>エラータの削除</target>
       </trans-unit>
+      <trans-unit id="help.jsp.user.title">
+        <source>User Guide</source>
+        <target>Satellite User Guide</target>
+      </trans-unit>
+      <trans-unit id="help.jsp.user">
+        <source>Red Hat Satellite の利用・管理方法についての詳細が記載されています。</source>
+      </trans-unit>
+      <trans-unit id="help.jsp.start.title">
+        <source>Satellite Getting Started Guide</source>
+      </trans-unit>
+      <trans-unit id="help.jsp.start">
+        <source>Red Hat Satellite の基本的なセットアップと設定についての詳細が記載されています。</source>
+      </trans-unit>
       <trans-unit id="erratalist.jsp.cloneerrata">
         <source>Clone Errata</source>
         <target>エラータのクローン作成</target>

@@ -462,9 +462,7 @@ where snc.errata_id = :errata_id
    </query>
 </mode>
 
-<mode name="repomdgenerator_channel_packages"
-    class="com.redhat.rhn.frontend.dto.PackageDto">
-   <query params="channel_id">
+<query name="repomdgenerator_package_elab" class="com.redhat.rhn.frontend.dto.PackageDto">
   SELECT p.id, pn.name as name, pevr.epoch as epoch,
          pevr.version as version, pevr.release as release,
          p.summary, p.description, pa.label as arch_label,
@@ -474,7 +472,6 @@ where snc.errata_id = :errata_id
          cs.checksum, cs.checksum_type as checksum_type,
          prd.primary_xml as primary_xml, prd.filelist as filelist_xml, prd.other as other_xml
     FROM
-         rhnChannelPackage cp,
          rhnPackage p
             LEFT OUTER JOIN rhnPackageGroup pg ON p.package_group = pg.id
             LEFT OUTER JOIN rhnSourceRpm srpm  ON p.source_rpm_id = srpm.id
@@ -484,14 +481,24 @@ where snc.errata_id = :errata_id
          rhnPackageArch pa,
          rhnChecksumView cs
     WHERE
-         cp.package_id = p.id
-         AND p.name_id = pn.id
+         p.name_id = pn.id
          AND p.evr_id = pevr.id
          AND p.package_arch_id = pa.id
-         AND cp.channel_id = :channel_id
          AND p.checksum_id = cs.id
-    ORDER by 1
+         AND p.id IN (%s)
+</query>
+
+<mode name="repomdgenerator_channel_packages"
+    class="com.redhat.rhn.frontend.dto.PackageDto">
+   <query params="channel_id">
+  SELECT cp.package_id AS id
+    FROM
+         rhnChannelPackage cp
+    WHERE
+         cp.channel_id = :channel_id
+    ORDER by cp.package_id
    </query>
+   <elaborator name="repomdgenerator_package_elab" />
 </mode>
 
 <mode name="repomdgenerator_capability_files"

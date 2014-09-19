@@ -26,6 +26,10 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidGPGUrlException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParentChannelException;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -261,6 +265,27 @@ public class CreateChannelCommand {
         c.setDescription(description);
         c.setOrg(user.getOrg());
         c.setBaseDir("/dev/null");
+
+        // handles either parent id or label
+        setParentChannel(c, user, parentLabel, parentId);
+
+        // ensure child channel arch is compatible
+        Channel parent = c.getParentChannel();
+        if (parent != null) {
+            List<Map<String, String>> compatibleArches = ChannelManager
+                    .compatibleChildChannelArches(parent.getChannelArch().getLabel());
+            Set<String> compatibleArchLabels = new HashSet<String>();
+
+            for (Map<String, String> arch : compatibleArches) {
+                compatibleArchLabels.add(arch.get("label"));
+            }
+
+            if (!compatibleArchLabels.contains(ca.getLabel())) {
+                throw new IllegalArgumentException(
+                        "Incompatible parent and child channel architectures");
+            }
+        }
+
         c.setChannelArch(ca);
         c.setChecksumType(ct);
         c.setGPGKeyId(gpgKeyId);
@@ -271,9 +296,6 @@ public class CreateChannelCommand {
         c.setMaintainerEmail(maintainerEmail);
         c.setMaintainerPhone(maintainerPhone);
         c.setSupportPolicy(supportPolicy);
-
-        // handles either parent id or label
-        setParentChannel(c, user, parentLabel, parentId);
 
         c.addChannelFamily(user.getOrg().getPrivateChannelFamily());
 

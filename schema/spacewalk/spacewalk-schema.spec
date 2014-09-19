@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.9
+Version:        2.3.13
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -33,7 +33,7 @@ Oracle tablespace name conversions have NOT been applied.
 %setup -q
 
 %build
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 find . -name '*.91' | while read i ; do mv $i ${i%%.91} ; done
 %endif
 make -f Makefile.schema SCHEMA=%{name} VERSION=%{version} RELEASE=%{release}
@@ -71,6 +71,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Sep 17 2014 Stephen Herr <sherr@redhat.com> 2.3.13-1
+- 1138708, 1142110 - make child channel architecture check universal
+
+* Thu Sep 11 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.12-1
+- RHEL7 contains PostgreSQL 9
+
+* Fri Sep 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.11-1
+- 1021057 - system can consume only one flex entitlement
+
+* Fri Aug 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.10-1
+- 1128735 - force character set and numerical separators to good known
+  defaults.
+
 * Fri Aug 08 2014 Jan Dobes 2.3.9-1
 - adding missing upgrade
 

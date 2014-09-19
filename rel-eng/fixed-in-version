@@ -5,7 +5,7 @@
 #
 
 
-COMMIT=$1
+COMMIT=${1:-HEAD}
 
 GITROOT=$(pwd)/$(git rev-parse --show-cdup)
 CHANGED_FILES=$(git diff --name-only $COMMIT^..$COMMIT)

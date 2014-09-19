@@ -25,6 +25,14 @@ def print_help():
     print "\t-h, --help\tPrint this help message."
     print "\t-s, --stdin\tRead the password from standard input."
 
+def read_passwd(stdin, msg):
+    passwordIn = None
+    if stdin:
+        passwordIn = sys.stdin.readline().rstrip('\n')
+    else:
+        passwordIn = getpass.getpass(msg)
+    return passwordIn
+
 if __name__ == '__main__':
     if '-h' in sys.argv or '--help' in sys.argv:
         print_help()
@@ -54,12 +62,12 @@ if __name__ == '__main__':
         print "User %s is not a valid Satellite user." % userIn
         sys.exit(1)
 
-    passwordIn = None
+    passwordIn = read_passwd(stdin, "Password:")
+    passwordCheck = read_passwd(stdin, "Retype password:")
 
-    if stdin:
-        passwordIn = sys.stdin.readline().rstrip('\n')
-    else:
-        passwordIn = getpass.getpass()
+    if passwordIn != passwordCheck:
+        print "Sorry, passwords do not match."
+        sys.exit(1)
 
     if len(passwordIn) == 0:
         print "Empty password is not permitted."

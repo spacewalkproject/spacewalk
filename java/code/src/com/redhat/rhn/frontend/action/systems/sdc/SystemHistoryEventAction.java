@@ -46,7 +46,6 @@ public class SystemHistoryEventAction extends RhnAction {
                                  HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        Long sid = requestContext.getRequiredParam("sid");
         Server server = requestContext.lookupAndBindServer();
         Long aid = requestContext.getRequiredParam("aid");
 

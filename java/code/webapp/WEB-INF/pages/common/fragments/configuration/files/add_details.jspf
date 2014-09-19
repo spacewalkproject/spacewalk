@@ -9,7 +9,7 @@
         <div class="form-horizontal">
             <div class="form-group">
                 <label class="control-label col-md-3">
-                    <bean:message key="filedetails.add_details.jspf.md5" />
+                    <bean:message key="filedetails.add_details.jspf.checksum" />
                 </label>
                 <div class="col-sm-9 col-md-6">
                     <p class="form-control-static">${revision.configContent.checksum}</p>

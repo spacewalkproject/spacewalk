@@ -128,9 +128,7 @@ public class CobblerPowerSettingsUpdateCommand extends CobblerCommand {
             if (StringUtils.isNotBlank(powerPassword)) {
                 systemRecord.setPowerPassword(powerPassword);
             }
-            if (StringUtils.isNotBlank(powerId)) {
-                systemRecord.setPowerId(powerId);
-            }
+            systemRecord.setPowerId(powerId);
             systemRecord.save();
             log.debug("Settings saved for system " + sid);
         }
@@ -142,6 +140,11 @@ public class CobblerPowerSettingsUpdateCommand extends CobblerCommand {
                     log.error("Unsupported Cobbler power type " + powerType);
                     return new ValidatorError(
                         "kickstart.powermanagement.unsupported_power_type");
+                }
+                if (message != null && message.contains(
+                        "Invalid characters found in input")) {
+                    log.error(message);
+                    return new ValidatorError("kickstart.powermanagement.invalid_chars");
                 }
             }
             throw e;

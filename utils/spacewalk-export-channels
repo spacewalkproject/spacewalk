@@ -192,7 +192,9 @@ def cp_file(source, target):
 def pkg_nevra(pkg):
     # this NEVRA has to match
     # satellite_tools.reposync.ContentPackage.getNEVRA
-    epoch = pkg['epoch'] if pkg['epoch'] is not None else '0'
+    epoch = '0'
+    if pkg['epoch'] is not None:
+        epoch = pkg['epoch']
     return pkg['name'] + '-' + epoch + ':' + pkg['version'] + '-' + pkg['release'] + '.' + pkg['arch']
 
 
@@ -288,7 +290,7 @@ if __name__ == '__main__':
     if not options.directory:
         print "Export directory has to be specified. Try --help:\n"
         parser.print_help()
-        exit(1)
+        sys.exit(1)
 
     initLOG(LOG_FILE, options.verbose or 0)
 

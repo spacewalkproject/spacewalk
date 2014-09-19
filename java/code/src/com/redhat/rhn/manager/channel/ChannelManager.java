@@ -1269,6 +1269,22 @@ public class ChannelManager extends BaseManager {
 
 
     /**
+     * List the errata applicable to a channel (used for repomd generation)
+     * @param channelId channel whose errata are sought
+     * @return the errata applicable to a channel
+     */
+    public static DataResult<ErrataOverview> listErrataSimple(Long channelId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("cid", channelId);
+        SelectMode m = ModeFactory.getMode("Errata_queries", "simple_in_channel");
+
+        DataResult<ErrataOverview> dr = m.execute(params);
+        Map<String, Object> elabParams = new HashMap<String, Object>();
+        dr.setElaborationParams(elabParams);
+        return dr;
+    }
+
+    /**
      * List the errata applicable to a channel between start and end date
      * @deprecated Use appropriate listErrata
      * @param channel channel whose errata are sought
@@ -2441,6 +2457,7 @@ public class ChannelManager extends BaseManager {
 
         Map<String, Long> params = new HashMap<String, Long>();
         params.put("custom_cid", targetChannel.getId());
+        params.put("org_id", targetChannel.getOrg().getId());
 
         SelectMode m = ModeFactory.getMode(
                 "Errata_queries", mode);
@@ -2865,5 +2882,19 @@ public class ChannelManager extends BaseManager {
         params.put("csid", csid);
         Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m);
+    }
+
+    /**
+     * @param parentArchLabel The channel arch label of the parent channel
+     * @return List of {'name': channel_arch_name, 'label': channel_arch_label}
+     *   for compatible child channel arches.
+     */
+    public static List<Map<String, String>> compatibleChildChannelArches(
+            String parentArchLabel) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+                "compatible_child_channel_arches");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("pa_label", parentArchLabel);
+        return m.execute(params);
     }
 }

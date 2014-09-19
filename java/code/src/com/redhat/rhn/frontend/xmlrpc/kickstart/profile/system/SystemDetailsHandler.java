@@ -28,6 +28,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.FileListNotFoundException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidLocaleCodeException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchKickstartException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
 import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
@@ -466,6 +467,10 @@ public class SystemDetailsHandler extends BaseHandler {
         KickstartData data =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
                 org.getId());
+
+        if (data == null) {
+            throw new NoSuchKickstartException(kickstartLabel);
+        }
 
         // Associate the keys
         KickstartCryptoKeyCommand command =

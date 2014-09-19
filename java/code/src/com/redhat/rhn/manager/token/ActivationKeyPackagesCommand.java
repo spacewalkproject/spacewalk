@@ -96,6 +96,7 @@ public class ActivationKeyPackagesCommand {
             log.debug("parseAndUpdatePackages() : packagesIn: " + packagesIn);
         }
 
+        packagesIn = packagesIn.replaceAll("[\t\\s]+", NEWLINE);
         for (StringTokenizer strtok = new StringTokenizer(packagesIn, NEWLINE); strtok
                 .hasMoreTokens();) {
             String token = strtok.nextToken();

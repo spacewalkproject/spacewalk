@@ -32,6 +32,9 @@ public class ErrataOverview extends BaseDto {
     private String advisoryName;
     private String advisoryType;
     private String advisorySynopsis;
+    private String errataFrom;
+    private String description;
+    private Long advisoryRel;
     private Date updateDate;
     private Date issueDate;
     private Integer affectedSystemCount;
@@ -371,5 +374,47 @@ public class ErrataOverview extends BaseDto {
      */
     public void setLastModified(Date lastModifiedIn) {
         this.lastModified = lastModifiedIn;
+    }
+
+    /**
+     * @return Return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param descriptionIn the Description to set
+     */
+    public void setDescription(String descriptionIn) {
+        this.description = descriptionIn;
+    }
+
+    /**
+     * @return Returns the ErrataFrom.
+     */
+    public String getErrataFrom() {
+        return errataFrom;
+    }
+
+    /**
+     * @param errataFromIn the ErrataFrom to set
+     */
+    public void setErrataFrom(String errataFromIn) {
+        this.errataFrom = errataFromIn;
+    }
+
+    /**
+     * @return returns the AdvisoryRel
+     */
+    public Long getAdvisoryRel() {
+        return advisoryRel;
+    }
+
+    /**
+     * @param advisoryRelIn the AdvisoryRel to set
+     */
+    public void setAdvisoryRel(Long advisoryRelIn) {
+        this.advisoryRel = advisoryRelIn;
     }
 }
