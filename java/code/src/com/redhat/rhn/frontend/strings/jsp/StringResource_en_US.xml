@@ -6100,7 +6100,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
       </trans-unit>
-      </trans-unit>
       <!-- Monitoring General Config Page -->
       <trans-unit id="generalconfig.jsp.header1">
         <source>@@PRODUCT_NAME@@ Configuration - Monitoring</source>
