@@ -13,31 +13,33 @@
     <decorator:head />
   </head>
   <body onload="<decorator:getProperty property="body.onload" />">
-    <nav class="navbar navbar-default navbar-pf" role="navigation">
-      <jsp:include page="/WEB-INF/includes/header.jsp" />
-    </nav>
-    <div class="spacewalk-main-column-layout">
-      <aside id="spacewalk-aside">
-        <jsp:include page="/WEB-INF/includes/leftnav.jsp" />
-        <jsp:include page="/WEB-INF/includes/legends.jsp" />
-        <jsp:include page="/WEB-INF/includes/advertisements.jsp" />
-      </aside>
-      <section id="spacewalk-content">
-        <!-- Alerts and messages -->
-        <logic:messagesPresent>
-          <div class="alert alert-warning">
-            <ul>
-            <html:messages id="message">
-              <li><c:out value="${message}"/></li>
-            </html:messages>
-            </ul>
-          </div>
-        </logic:messagesPresent>
-        <html:messages id="message" message="true">
-          <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-        </html:messages>
-        <decorator:body />
-      </section>
+    <div class="spacewalk-top-wrap">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <jsp:include page="/WEB-INF/includes/header.jsp" />
+      </nav>
+      <div class="spacewalk-main-column-layout">
+        <aside id="spacewalk-aside">
+          <jsp:include page="/WEB-INF/includes/leftnav.jsp" />
+          <jsp:include page="/WEB-INF/includes/legends.jsp" />
+          <jsp:include page="/WEB-INF/includes/advertisements.jsp" />
+        </aside>
+        <section id="spacewalk-content">
+          <!-- Alerts and messages -->
+          <logic:messagesPresent>
+            <div class="alert alert-warning">
+              <ul>
+              <html:messages id="message">
+                <li><c:out value="${message}"/></li>
+              </html:messages>
+              </ul>
+            </div>
+          </logic:messagesPresent>
+          <html:messages id="message" message="true">
+            <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
+          </html:messages>
+          <decorator:body />
+        </section>
+      </div>
     </div>
     <footer>
       <jsp:include page="/WEB-INF/includes/footer.jsp" />
