@@ -523,16 +523,6 @@ sub row_callback {
   }
 
   $row->{MONITORING_ICON} = '';
-  if (RHN::Server->system_has_feature($row->{ID}, 'ftr_probes')) {
-    if (defined $row->{MONITORING_STATUS}) {
-      my $icon_data = Sniglets::Servers::system_monitoring_info($pxt->user, $row);
-
-      my $image = PXT::HTML->icon(-type => $icon_data->{icon},
-                                  -title => $icon_data->{status_str});
-
-      $row->{MONITORING_ICON} = PXT::HTML->link($icon_data->{system_link}, $image);
-    }
-  }
 
   if (not RHN::Server->system_has_feature($row->{ID}, 'ftr_errata_updates')) {
     $row->{TOTAL_ERRATA} = '';
