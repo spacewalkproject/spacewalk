@@ -95,7 +95,7 @@ public class KickstartFormatter {
 
     private static final String KSTREE =
         "# now copy from the ks-tree we saved in the non-chroot checkout" + NEWLINE +
-        "cp -fav /tmp/ks-tree-copy/* /" + NEWLINE +
+        "cp -fav /tmp/ks-tree-copy/* / 2>/dev/null" + NEWLINE +
         "rm -Rf /tmp/ks-tree-copy" + NEWLINE +
         "# --End " + Config.get().getString("web.product_name") + " command section--" +
         NEWLINE;
