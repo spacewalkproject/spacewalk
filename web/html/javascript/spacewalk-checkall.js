@@ -208,15 +208,16 @@ function updateSsmToolbarOpacity() {
 
   if (systemsSpan == 0){
 
-    $(".spacewalk-bar").animate({"opacity": "0"}, 300, function() {
+    $(".spacewalk-bar").animate({"opacity": "0"}, 0,
+    function() {
       /* stuff to do after animation is complete */
       $(this).hide();
     });
   }
   else{
 
-    $(".spacewalk-bar").animate({"opacity":"100"}, 300, 
-    function(){
+    $(".spacewalk-bar").animate({"opacity":"100"}, 0,
+    function() {
       /* stuff to do after animation is complete */
       $(this).show();
     });
