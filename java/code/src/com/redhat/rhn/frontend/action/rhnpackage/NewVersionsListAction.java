@@ -8,6 +8,10 @@ import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
+/**
+ * List newer versions of the given package
+ * @author sherr
+ */
 public class NewVersionsListAction extends BasePackageListAction {
     /**
      * list all packages updating the given package that the user can see

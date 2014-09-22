@@ -22,7 +22,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 
 import javax.servlet.http.HttpServletRequest;
 

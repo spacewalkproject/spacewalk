@@ -37,6 +37,10 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.domain.rhnpackage.Package;
 
+/**
+ * Confirm that you want to schedule package installation
+ * @author sherr
+ */
 public class TargetSystemsConfirmAction extends RhnAction {
 
     /** {@inheritDoc} */

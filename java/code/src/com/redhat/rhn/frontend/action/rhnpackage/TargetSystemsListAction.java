@@ -29,6 +29,10 @@ import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.domain.rhnpackage.Package;
 
+/**
+ * List systems the given package can be installed on
+ * @author sherr
+ */
 public class TargetSystemsListAction extends RhnAction {
 
     private final String LIST_NAME = "systemList";

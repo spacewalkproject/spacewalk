@@ -17,7 +17,6 @@ package com.redhat.rhn.common.security.acl.action;
 import com.redhat.rhn.common.security.acl.AclHandler;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
-import com.redhat.rhn.domain.action.ActionType;
 
 import java.util.Map;
 

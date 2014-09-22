@@ -26,6 +26,10 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.domain.rhnpackage.Package;
 
+/**
+ * List systems that the given package is installed on
+ * @author sherr
+ */
 public class InstalledSystemsListAction extends RhnAction {
 
     private final String LIST_NAME = "systemList";
