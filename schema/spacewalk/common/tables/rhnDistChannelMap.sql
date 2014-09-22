@@ -37,6 +37,3 @@ ENABLE ROW MOVEMENT
 
 CREATE SEQUENCE rhn_dcm_id_seq;
 
-ALTER TABLE rhnDistChannelMap
-    ADD CONSTRAINT rhn_dcm_release_caid_oid_uq UNIQUE (release, channel_arch_id, org_id);
-
