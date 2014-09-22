@@ -7856,6 +7856,23 @@
         <forward name="default" path="/WEB-INF/pages/rhnpackage/installedsystems.jsp" />
       </action>
 
+   <action path="/software/packages/TargetSystems"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.TargetSystemsListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/rhnpackage/targetsystems.jsp" />
+        <forward name="confirm" path="/software/packages/TargetSystemsConfirm.do" redirect="true" />
+      </action>
+
+   <action path="/software/packages/TargetSystemsConfirm"
+        scope="request"
+        name="datePickerForm"
+        type="com.redhat.rhn.frontend.action.rhnpackage.TargetSystemsConfirmAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/rhnpackage/targetsystemsconfirm.jsp" />
+        <forward name="confirm" path="/software/packages/Details.do" redirect="true" />
+      </action>
+
 
 <!-- Repo Sync -->
 

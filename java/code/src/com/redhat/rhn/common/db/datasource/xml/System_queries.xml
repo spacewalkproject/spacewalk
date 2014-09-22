@@ -394,6 +394,30 @@ ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   <elaborator name="entitlements"/>
 </mode>
 
+<mode name="potential_systems_for_package" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id, pid, user_id">
+SELECT  S.id, S.name, 1 as selectable
+  FROM  rhnPackage P, rhnChannelPackage CP, rhnServerChannel SC, rhnServer S
+ WHERE  S.org_id = :org_id
+   AND  SC.server_id = S.id
+   AND  SC.channel_id = CP.channel_id
+   AND  CP.package_id = :pid
+   AND  CP.package_id = P.id
+   AND  COALESCE((SELECT MAX(PE.evr)
+           FROM rhnServerPackage SP, rhnPackageEvr PE
+          WHERE SP.name_id = P.name_id
+            AND SP.server_id = S.id
+            AND SP.evr_id = PE.id), (EVR_T(NULL, '0', '0'))
+            )
+        &lt;
+        (SELECT EVR FROM rhnPackageEVR PE WHERE PE.id = P.evr_id)
+   AND    EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
+</mode>
+
 <mode name="systems_with_needed_package" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="org_id, pid, user_id">
 SELECT  S.ID

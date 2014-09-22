@@ -2449,7 +2449,24 @@ public class SystemManager extends BaseManager {
         params.put("org_id", user.getOrg().getId());
         params.put("pid", id);
         DataResult<SystemOverview> toReturn = m.execute(params);
-        //toReturn.elaborate();
+        return toReturn;
+    }
+
+    /**
+     * lists systems that can upgrade to the package id
+     * @param user the user doing the search
+     * @param id the id of the package
+     * @return  list of systemOverview objects
+     */
+    public static DataResult<SystemOverview> listPotentialSystemsForPackage(User user,
+            Long id) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "potential_systems_for_package");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        params.put("pid", id);
+        DataResult<SystemOverview> toReturn = m.execute(params);
         return toReturn;
     }
 
