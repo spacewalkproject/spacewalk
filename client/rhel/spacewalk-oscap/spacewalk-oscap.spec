@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	2.3.0
+Version:	2.3.1
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -47,6 +47,13 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Sep 22 2014 Matej Kollar <mkollar@redhat.com> 2.3.1-1
+- 1107841 - Avoid creating profile with empty id
+- Typo
+- Retab
+- Bumping package versions for 2.3.
+- Bumping package versions for 2.2.
+
 * Mon Jan 27 2014 Simon Lukasik <slukasik@redhat.com> 0.0.23-1
 - 1057647: Add tailoring support to the Spacewalk (OpenSCAP enabled) client
 
