@@ -25,8 +25,6 @@
     </title>
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
-    <link rel="stylesheet" href="/fonts/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="/fonts/font-spacewalk/css/spacewalk-font.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <rhn:require acl="is(development_environment)">
@@ -42,6 +40,9 @@
 
     <link rel="stylesheet" href="/javascript/select2/select2.css" />
     <link rel="stylesheet" href="/javascript/select2/select2-bootstrap.css" />
+
+    <link rel="stylesheet" href="/fonts/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="/fonts/font-spacewalk/css/spacewalk-font.css" />
 
     <script src="/javascript/jquery.js"></script>
     <script src="/javascript/bootstrap.js"></script>
