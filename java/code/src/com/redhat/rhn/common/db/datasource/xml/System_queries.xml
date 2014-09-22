@@ -392,6 +392,7 @@ ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="entitlements"/>
+  <elaborator name="system_config_files_with_diffs" />
 </mode>
 
 <mode name="potential_systems_for_package" class="com.redhat.rhn.frontend.dto.SystemOverview">
@@ -416,6 +417,7 @@ ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="entitlements"/>
+  <elaborator name="system_config_files_with_diffs" />
 </mode>
 
 <mode name="systems_with_needed_package" class="com.redhat.rhn.frontend.dto.SystemOverview">
