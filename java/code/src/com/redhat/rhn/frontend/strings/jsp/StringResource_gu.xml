@@ -10805,11 +10805,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>બધા સિસ્ટમ જૂથો જુઓ</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.nogroups">
-        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;તમારી પાસે કોઈ સિસ્ટમ જૂથો નથી.&lt;/strong&gt;&lt;p&gt;તમે &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;સિસ્ટમો &gt; સિસ્ટમ સેટ વ્યવસ્થાપક &gt; જૂથો &gt; નવું જૂથ બનાવો&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt; આગળ સિસ્ટમ જૂથ બનાવી શકો છો</target>
+        <target>&lt;strong&gt;તમારી પાસે કોઈ સિસ્ટમ જૂથો નથી.&lt;/strong&gt;&lt;p&gt;તમે &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;સિસ્ટમો &gt; સિસ્ટમ સેટ વ્યવસ્થાપક &gt; જૂથો &gt; નવું જૂથ બનાવો&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt; આગળ સિસ્ટમ જૂથ બનાવી શકો છો</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.scheduledactions">
         <source>Recently Scheduled Actions</source>

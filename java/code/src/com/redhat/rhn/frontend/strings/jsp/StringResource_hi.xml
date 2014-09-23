@@ -10805,11 +10805,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>सारे सिस्टम समूह देखें</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.nogroups">
-        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt; आपका कोई सिस्टम समूह नहीं है.&lt;/strong&gt;&lt;p&gt; आप सिस्टम समूह &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt; सिस्टम &gt; सिस्टम सेट प्रबंधक &gt; समूह &gt; नया समूह बनाएं &lt;/strong&gt;&lt;/a&gt;&lt;/p&gt; पर बना सकते हैं.</target>
+        <target>&lt;strong&gt; आपका कोई सिस्टम समूह नहीं है.&lt;/strong&gt;&lt;p&gt; आप सिस्टम समूह &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt; सिस्टम &gt; सिस्टम सेट प्रबंधक &gt; समूह &gt; नया समूह बनाएं &lt;/strong&gt;&lt;/a&gt;&lt;/p&gt; पर बना सकते हैं.</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.scheduledactions">
         <source>Recently Scheduled Actions</source>

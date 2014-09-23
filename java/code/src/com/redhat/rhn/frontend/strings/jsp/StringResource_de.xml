@@ -5071,8 +5071,8 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
           <target>Gruppen</target>
         </trans-unit>
         <trans-unit id="ssm.overview.groups.create">
-          <source>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;Create&lt;/a&gt; and &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;manage&lt;/a&gt; groups</source>
-          <target>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;Erstellen&lt;/a&gt; und &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;Verwalten&lt;/a&gt; von Gruppen</target>
+          <source>&lt;a href="/rhn/groups/EditGroup.do"&gt;Create&lt;/a&gt; and &lt;a href="/rhn/systems/SystemGroupList.do"&gt;manage&lt;/a&gt; groups</source>
+          <target>&lt;a href="/rhn/groups/EditGroup.do"&gt;Erstellen&lt;/a&gt; und &lt;a href="/rhn/systems/SystemGroupList.do"&gt;Verwalten&lt;/a&gt; von Gruppen</target>
         </trans-unit>
         <trans-unit id="ssm.overview.channels">
           <source>Channels</source>
@@ -11840,11 +11840,11 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
         <target>Alle Systemgruppen ansehen</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.nogroups">
-        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;Sie haben keine Systemgruppen. &lt;/strong&gt;&lt;p&gt;Sie können hier eine Systemgruppe erstellen &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systeme &gt; System Set Manager &gt; Gruppen &gt; Neue Gruppe erstellen&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</target>
+        <target>&lt;strong&gt;Sie haben keine Systemgruppen. &lt;/strong&gt;&lt;p&gt;Sie können hier eine Systemgruppe erstellen &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systeme &gt; System Set Manager &gt; Gruppen &gt; Neue Gruppe erstellen&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.scheduledactions">
         <source>Recently Scheduled Actions</source>

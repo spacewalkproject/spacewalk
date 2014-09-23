@@ -5068,8 +5068,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>Grupos</target>
         </trans-unit>
         <trans-unit id="ssm.overview.groups.create">
-          <source>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;Create&lt;/a&gt; and &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;manage&lt;/a&gt; groups</source>
-          <target>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;Criar&lt;/a&gt; e &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;gerenciar&lt;/a&gt; grupos</target>
+          <source>&lt;a href="/rhn/groups/EditGroup.do"&gt;Create&lt;/a&gt; and &lt;a href="/rhn/systems/SystemGroupList.do"&gt;manage&lt;/a&gt; groups</source>
+          <target>&lt;a href="/rhn/groups/EditGroup.do"&gt;Criar&lt;/a&gt; e &lt;a href="/rhn/systems/SystemGroupList.do"&gt;gerenciar&lt;/a&gt; grupos</target>
         </trans-unit>
         <trans-unit id="ssm.overview.channels">
           <source>Channels</source>
@@ -11831,11 +11831,11 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <target>Visualizar Todos os Grupos de Sistemas</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.nogroups">
-        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;Não há nenhum grupo de sistemas.&lt;/strong&gt;&lt;p&gt;Você pode criar um grupo de sistemas em &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Sistemas &gt; Gerenciador de Conjunto de Sistemas &gt; Grupos &gt; criar novo grupo&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</target>
+        <target>&lt;strong&gt;Não há nenhum grupo de sistemas.&lt;/strong&gt;&lt;p&gt;Você pode criar um grupo de sistemas em &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Sistemas &gt; Gerenciador de Conjunto de Sistemas &gt; Grupos &gt; criar novo grupo&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.scheduledactions">
         <source>Recently Scheduled Actions</source>

@@ -5067,8 +5067,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>群組</target>
         </trans-unit>
         <trans-unit id="ssm.overview.groups.create">
-          <source>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;Create&lt;/a&gt; and &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;manage&lt;/a&gt; groups</source>
-          <target>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;建立&lt;/a&gt;和&lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;管理&lt;/a&gt;群組</target>
+          <source>&lt;a href="/rhn/groups/EditGroup.do"&gt;Create&lt;/a&gt; and &lt;a href="/rhn/systems/SystemGroupList.do"&gt;manage&lt;/a&gt; groups</source>
+          <target>&lt;a href="/rhn/groups/EditGroup.do"&gt;建立&lt;/a&gt;和&lt;a href="/rhn/systems/SystemGroupList.do"&gt;管理&lt;/a&gt;群組</target>
         </trans-unit>
         <trans-unit id="ssm.overview.channels">
           <source>Channels</source>
@@ -11836,11 +11836,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>檢視所有的系統群組</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.nogroups">
-        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;您沒有任何系統群組。&lt;/strong&gt;&lt;p&gt;您可透過 &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;系統 &gt; 系統設定管理員 &gt; 群組 &gt; 建立新群組&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt; 來建立系統群組。</target>
+        <target>&lt;strong&gt;您沒有任何系統群組。&lt;/strong&gt;&lt;p&gt;您可透過 &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;系統 &gt; 系統設定管理員 &gt; 群組 &gt; 建立新群組&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt; 來建立系統群組。</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.scheduledactions">
         <source>Recently Scheduled Actions</source>

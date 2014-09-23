@@ -5070,8 +5070,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>组</target>
         </trans-unit>
         <trans-unit id="ssm.overview.groups.create">
-          <source>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;Create&lt;/a&gt; and &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;manage&lt;/a&gt; groups</source>
-          <target>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;创建&lt;/a&gt; and &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;管理&lt;/a&gt; 组</target>
+          <source>&lt;a href="/rhn/groups/EditGroup.do"&gt;Create&lt;/a&gt; and &lt;a href="/rhn/systems/SystemGroupList.do"&gt;manage&lt;/a&gt; groups</source>
+          <target>&lt;a href="/rhn/groups/EditGroup.do"&gt;创建&lt;/a&gt; and &lt;a href="/rhn/systems/SystemGroupList.do"&gt;管理&lt;/a&gt; 组</target>
         </trans-unit>
         <trans-unit id="ssm.overview.channels">
           <source>Channels</source>
@@ -11834,11 +11834,11 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <target>查看所有系统组群</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.nogroups">
-        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;您没有系统组群。&lt;/strong&gt;&lt;p&gt;您可以通过 &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;系统 &gt; 系统集合管理者 &gt; 组群 &gt; 创建新组群&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt; 来创建一个新组群。</target>
+        <target>&lt;strong&gt;您没有系统组群。&lt;/strong&gt;&lt;p&gt;您可以通过 &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;系统 &gt; 系统集合管理者 &gt; 组群 &gt; 创建新组群&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt; 来创建一个新组群。</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.scheduledactions">
         <source>Recently Scheduled Actions</source>
