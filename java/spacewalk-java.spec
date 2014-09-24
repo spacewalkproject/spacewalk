@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.40
+Version: 2.3.41
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Sep 24 2014 Tomas Lestach <tlestach@redhat.com> 2.3.41-1
+- do not offer errata to add to the channel that are already in there
+- Use IconTag
+
 * Mon Sep 22 2014 Stephen Herr <sherr@redhat.com> 2.3.40-1
 - 1028308 - suppress ks-tree-copy warning in ks-rhn-post.log
 
