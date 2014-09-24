@@ -26,6 +26,7 @@ import java.util.Properties;
 import com.redhat.satellite.search.config.Configuration;
 import com.redhat.satellite.search.config.ConfigException;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.Logger;
@@ -75,10 +76,10 @@ public class DatabaseManager {
             overrides.setProperty("db_name", "@" + overrides.getProperty("db_name"));
         } else {
             String dbHost = config.getString("db_host");
-            String dbPort = config.getString("db_port");
-            if (dbHost != null && dbHost.length() > 0) {
+            if (!StringUtils.isEmpty(dbHost)) {
                 String connectionUrl = "//" + dbHost;
-                if (dbPort != null && dbPort.length() > 0) {
+                String dbPort = config.getString("db_port");
+                if (!StringUtils.isEmpty(dbPort)) {
                     connectionUrl += ":" + dbPort;
                 }
                 connectionUrl += "/" + overrides.getProperty("db_name");
