@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.HandlerFactory;
 
+import org.apache.commons.lang.StringUtils;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
@@ -165,7 +166,8 @@ public class ApiHandler extends BaseHandler {
                 List<String> paramList = new ArrayList<String>();
                 String paramListString = "";
                 for (Type paramType : method.getParameterTypes()) {
-                    String paramTypeString = getType(paramType);
+                    String paramTypeString = getType(paramType,
+                            StringUtils.isEmpty(paramListString));
                     paramList.add(paramTypeString);
                     paramListString += "_" + paramTypeString;
                 }
@@ -176,7 +178,7 @@ public class ApiHandler extends BaseHandler {
                     exceptList.add(StringUtil.getClassNameNoPackage(exceptClass));
                 }
                 methodInfo.put("exceptions", exceptList);
-                methodInfo.put("return", getType(method.getReturnType()));
+                methodInfo.put("return", getType(method.getReturnType(), false));
 
                 String methodName = namespace + "." +
                                     methodInfo.get("name") + paramListString;
@@ -186,7 +188,7 @@ public class ApiHandler extends BaseHandler {
         return methods;
     }
 
-    private String getType(Type classType) {
+    private String getType(Type classType, boolean firstParam) {
         if (classType.equals(String.class)) {
             return "string";
         }
@@ -212,6 +214,10 @@ public class ApiHandler extends BaseHandler {
         }
         else if (classType.toString().contains("class [B")) {
             return "base64";
+        }
+        else if (classType.equals(com.redhat.rhn.domain.user.User.class) && firstParam) {
+            // this is a workaround needed due to ef911709..2765f023bd
+            return "string";
         }
         else {
             return "struct";
