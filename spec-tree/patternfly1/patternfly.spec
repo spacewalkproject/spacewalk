@@ -36,6 +36,9 @@ make %{?_smp_mflags} %{make_common_opts} install DESTDIR="%{buildroot}"
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Sep 24 2014 Tomas Kasparek <tkasparek@redhat.com> 1.0.5-1
+- new package built with tito
+
 * Fri Jun 20 2014 Greg Sheremeta <gshereme@redhat.com> - 1.0.3-1
 - Initial version.
 
