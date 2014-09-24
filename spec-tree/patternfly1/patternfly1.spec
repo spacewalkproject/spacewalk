@@ -11,7 +11,7 @@
 Name:		patternfly1
 Summary:	PatternFly open interface project and its dependencies
 Version:	1.0.5
-Release:	2%{?release_suffix}%{?dist}
+Release:	3%{?release_suffix}%{?dist}
 License:	ASL 2.0
 Group:      Applications/Internet
 URL:		https://github.com/patternfly/patternfly
@@ -37,6 +37,9 @@ make %{?_smp_mflags} %{make_common_opts} install DESTDIR="%{buildroot}"
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Sep 24 2014 Tomas Kasparek <tkasparek@redhat.com> 1.0.5-3
+- group should be present in the specfile
+
 * Wed Sep 24 2014 Tomas Kasparek <tkasparek@redhat.com> 1.0.5-2
 - rename specfile to match package name
 
