@@ -91,8 +91,8 @@ public class DatabaseManager {
                             trustStore + ". Path can be changed with java.ssl_truststore option.");
                     }
                     System.setProperty("javax.net.ssl.trustStore", trustStore);
-                    overrides.setProperty("db_name", connectionUrl);
                 }
+                overrides.setProperty("db_name", connectionUrl);
             }
         }
 
