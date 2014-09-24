@@ -11,7 +11,7 @@
 Name:		patternfly1
 Summary:	PatternFly open interface project and its dependencies
 Version:	1.0.5
-Release:	1%{?release_suffix}%{?dist}
+Release:	2%{?release_suffix}%{?dist}
 License:	ASL 2.0
 URL:		https://github.com/patternfly/patternfly
 Source:		patternfly-1.0.5.tar.gz
@@ -36,6 +36,9 @@ make %{?_smp_mflags} %{make_common_opts} install DESTDIR="%{buildroot}"
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Sep 24 2014 Tomas Kasparek <tkasparek@redhat.com> 1.0.5-2
+- rename specfile to match package name
+
 * Wed Sep 24 2014 Tomas Kasparek <tkasparek@redhat.com> 1.0.5-1
 - new package built with tito
 
