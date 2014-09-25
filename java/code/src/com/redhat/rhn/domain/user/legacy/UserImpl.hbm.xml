@@ -21,7 +21,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
                   insert="false" update="false"/>
-        <property name="readOnly" column="read_only" type="string"/>
+        <property name="readOnly" column="read_only" type="yes_no" not-null="true"/>
         <one-to-one name="personalInfo"
                     class="com.redhat.rhn.domain.user.legacy.PersonalInfo"
                     outer-join="true"

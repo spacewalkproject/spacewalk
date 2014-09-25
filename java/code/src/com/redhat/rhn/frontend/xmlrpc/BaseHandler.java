@@ -106,7 +106,7 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             if (!myClass.getName().endsWith("AuthHandler") &&
                 !myClass.getName().endsWith("SearchHandler")) {
                 params.set(0, getLoggedInUser((String)params.get(0)));
-                if (((User)params.get(0)).getReadOnlyBool()) {
+                if (((User)params.get(0)).isReadOnly()) {
                     if (!beanifiedMethod.matches(RO_REGEX)) {
                         throw new SecurityException("The " + beanifiedMethod +
                                 " API is not available to read-only API users");

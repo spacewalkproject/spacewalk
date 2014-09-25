@@ -461,7 +461,7 @@ public class UserManager extends BaseManager {
             else if (user.isDisabled()) {
                 exceptionType = "account.disabled";
             }
-            else if (user.getReadOnlyBool()) { // KEEP LAST!!
+            else if (user.isReadOnly()) { // KEEP LAST!!
                 exceptionType = "error.user_readonly";
             }
             else {

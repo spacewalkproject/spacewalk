@@ -58,7 +58,7 @@ public abstract class UserEditActionHelper extends RhnAction {
         }
 
         Boolean readOnly = form.get("readonly") != null ? true : false;
-        if (!targetUser.getReadOnlyBool()) {
+        if (!targetUser.isReadOnly()) {
             if (readOnly && targetUser.hasRole(RoleFactory.ORG_ADMIN) &&
                     targetUser.getOrg().numActiveOrgAdmins() < 2) {
                 errors.add(ActionMessages.GLOBAL_MESSAGE,

@@ -598,21 +598,10 @@ public interface User {
     /**
      * @return Returns whether user is readonly
      */
-    String getReadOnly();
-
-    /**
-     * @param readOnlyIn readOnly to set
-     */
-    void setReadOnly(String readOnlyIn);
-
-    /**
-     * @return Returns whether user is readonly
-     */
-    boolean getReadOnlyBool();
+    boolean isReadOnly();
 
     /**
      * @param readOnlyIn readOnly to set
      */
     void setReadOnly(boolean readOnlyIn);
-
 }
