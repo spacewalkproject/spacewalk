@@ -148,6 +148,11 @@ class Runner(jabber_lib.Runner):
 
         client_jids = self._get_client_jids()
         client_jids = map(lambda x: x[0], client_jids)
+
+        # self-healing no longer works correctly since we blow away jabberd's
+        # db on restart. Instead try to resubscribe jabberd to active jids manually.
+        c.subscribe_to_presence(client_jids)
+
         # Unsubscribe the dispatcher from any client jid that no longer exists
         self.cleanup_roster(c, client_jids)
 
