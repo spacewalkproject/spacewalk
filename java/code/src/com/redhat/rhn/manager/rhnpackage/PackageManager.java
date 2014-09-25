@@ -578,24 +578,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Get the list of  Package Names that match the passed in capability string.
-     *
-     * Example:  "rhn.kickstart.boot_image" for the list of auto kickstart rpms
-     * @param org making the request
-     * @param capabilityName to search for
-     * @return DataResult containing *just* the package name strings
-     */
-    public static DataResult packageNamesByCapability(Org org,
-            String capabilityName) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("org_id", org.getId());
-        params.put("cap_name", capabilityName);
-        SelectMode m = ModeFactory.getMode("Package_queries",
-                "name_by_provide");
-        return m.execute(params);
-    }
-
-    /**
      * Get the list of package names that match the passed in capability and channel.
      *
      * @param org making the request

@@ -411,19 +411,6 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         assertEquals(0, result);
     }
 
-    // This test only works if you have Channels syched to your sat
-    public void xxxxPackageNamesByCapability() throws Exception {
-
-        /*user.addRole(RoleFactory.ORG_ADMIN);
-        Channel c = ChannelFactoryTest.createTestChannel(user);
-        Package pak = addPackageToChannel(user, TestUtils.randomString(), c);
-        PackageCapability cap = PackageCapabilityTest.createTestCapability();*/
-        DataResult dr = PackageManager.packageNamesByCapability(user.getOrg(),
-                "rhn.kickstart.boot_image");
-        assertNotNull(dr);
-        assertTrue(dr.size() > 0);
-    }
-
     /**
      * Add the up2date package to a system and a channel.  Version
      * should be specified such as "2.9.0"

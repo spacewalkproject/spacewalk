@@ -362,32 +362,6 @@ ORDER BY UPPER(C.label)
   </query>
 </mode>
 
-<mode name="name_by_provide" class="com.redhat.rhn.frontend.dto.PackageListItem">
-  <query params="org_id, cap_name">
-select * from (
-SELECT DISTINCT PN.name
- FROM rhnPackageName PN,
-      rhnPackage P,
-      rhnPackageProvides PP,
-      rhnPackageCapability PC
-WHERE PC.name = :cap_name
-  AND PC.id = PP.capability_id
-  AND PP.package_id = P.id
-  AND (P.org_id = :org_id OR EXISTS (
-          SELECT  1
-            FROM  rhnChannelPackage CP,
-                  rhnChannelFamilyMembers CFM,
-                  rhnOrgChannelFamilyPermissions CFP
-           WHERE  CFP.org_id = :org_id
-             AND  CFP.channel_family_id = CFM.channel_family_id
-             AND  CFM.CHANNEL_ID = CP.channel_id
-             AND  CP.package_id = P.id))
-  AND P.name_id = PN.id
-) X
-ORDER BY UPPER(X.name)
-  </query>
-</mode>
-
 <mode name="name_by_provide_and_channel" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="channel_id, org_id, cap_name">
 select * from (

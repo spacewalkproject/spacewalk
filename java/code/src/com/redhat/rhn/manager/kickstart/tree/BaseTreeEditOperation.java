@@ -206,17 +206,6 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     }
 
     /**
-     * Get the list of autokickstart package names.
-     * @return List of String package names
-     */
-    public List getAutoKickstartPackageNames() {
-       List retval = PackageManager.
-           packageNamesByCapability(user.getOrg(), KICKSTART_CAPABILITY);
-       replaceLegacyPackageNames(retval);
-       return retval;
-    }
-
-    /**
      * Replace legacy package names with empty string for each PackageListItem
      * in the provided list.
      * @param packageListItems List of PackageListItems to be modified in place.
