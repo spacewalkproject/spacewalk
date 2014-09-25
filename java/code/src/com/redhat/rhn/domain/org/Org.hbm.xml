@@ -93,18 +93,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return-scalar type="long" column="user_id"/>
     SELECT ugm.user_id
      FROM rhnUserGroupMembers ugm
+     JOIN rhnwebcontactenabled wce on wce.id = ugm.user_id
     WHERE ugm.user_group_id = (SELECT id
                                  FROM rhnUserGroup
                                 WHERE org_id = :org_id
                                   AND group_type = (SELECT id FROM
           rhnUserGroupType WHERE label = 'org_admin'))
-      AND exists (select wc.id
-                    from rhnwebcontactenabled wc
-                   where wc.id = ugm.user_id)
-      AND exists (select wc.id
-                    from web_contact wc
-                   where wc.id = ugm.user_id
-                     and read_only = 'N')
+      AND wce.read_only = 'N'
      ORDER BY ugm.user_id
     </sql-query>
     <sql-query name="Org.numOfActiveUsers">
