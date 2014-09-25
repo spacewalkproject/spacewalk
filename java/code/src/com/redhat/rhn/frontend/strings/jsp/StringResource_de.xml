@@ -24129,7 +24129,7 @@ für einen angegebenen Channel aufgelistet wird.</target>
           In order to synchronize channel access-permissions from Master to Slave,
           each known Master organization must be mapped to a local organization in this @@PRODUCT_NAME@@ instance.
           On this page the administrator can accomplish this mapping.  Note that if a Master organization is not mapped,
-          channels that were restricted to that oragnization on the Master will be public in this @@PRODUCT_NAME@@ instance.
+          channels that were restricted to that organization on the Master will be public in this @@PRODUCT_NAME@@ instance.
           </source>
           <target>
           Um Kanal Zugangs-Berechtigungen von Master zum Slave zu synchronisieren,
