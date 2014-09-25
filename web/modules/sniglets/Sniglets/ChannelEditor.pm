@@ -601,7 +601,7 @@ sub channel_edit_form {
     $subs{channel_gpg_key_fp} = PXT::HTML->text(-name => 'channel_gpg_key_fp', -value => $subs{channel_gpg_key_fp}, -size => 60, -maxlength => 50);
   }
   if ($editable{channel_description}) {
-    $subs{channel_description} = PXT::HTML->textarea(-name => 'channel_description', -value => $subs{channel_description}, -rows => 6, -cols => 40, -wrap => 'VIRTUAL');
+    $subs{channel_description} = PXT::HTML->textarea(-name => 'channel_description', -value => $subs{channel_description}, -rows => 6, -cols => 40, -wrap => 'VIRTUAL', -class => 'form-control');
   }
 
   $block = PXT::Utils->perform_substitutions($block, \%subs);
