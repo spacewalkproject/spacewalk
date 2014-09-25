@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.41
+Version: 2.3.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 25 2014 Tomas Lestach <tlestach@redhat.com> 2.3.42-1
+- allow selecting users on the /rhn/users/DisabledList.do page
+- 1145478 - enhance Org.numOfOrgAdmins sql-query
+- 1145478 - change readOnly hbm type to yes_no
+- 1145478 - behave differently when the user was a readonly one before the
+  change
+- 1145186 - fix api.getApiCallList not to return 'struct' as the 1st parameter
+
 * Wed Sep 24 2014 Tomas Lestach <tlestach@redhat.com> 2.3.41-1
 - do not offer errata to add to the channel that are already in there
 - Use IconTag
