@@ -147,6 +147,7 @@ ORDER BY wce.login_uc
 SELECT wcd.id AS ID,
        wcd.login,
        wcd.login_uc,
+       1 as selectable,
      (select max(wccl_exists.date_completed)
             from rhnWebContactChangeLog   wccl_exists
               where wcd.id= wccl_exists.web_contact_id) as change_date,
