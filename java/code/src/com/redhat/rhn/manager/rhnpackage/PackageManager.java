@@ -578,25 +578,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Get the list of package names that match the passed in capability and channel.
-     *
-     * @param org making the request
-     * @param capabilityName to search for
-     * @param chan channel to search for
-     * @return DataResult containing *just* the package name strings
-     */
-    public static DataResult packageNamesByCapabilityAndChannel(Org org,
-            String capabilityName, Channel chan) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("org_id", org.getId());
-        params.put("cap_name", capabilityName);
-        params.put("channel_id", chan.getId());
-        SelectMode m = ModeFactory.getMode("Package_queries",
-                "name_by_provide_and_channel");
-        return m.execute(params);
-    }
-
-    /**
      * Compares an evr to another evr.
      * @param epoch1 Epoch 1
      * @param version1 Version 1

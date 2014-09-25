@@ -514,41 +514,6 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
                 BaseTreeEditOperation.KICKSTART_CAPABILITY);
     }
 
-    public void testPackageNamesByCapabilityAndChannel() throws Exception {
-        Channel channel1 = ChannelFactoryTest.createTestChannel(user);
-        addKickstartPackageToChannel(
-                ConfigDefaults.get().getKickstartPackageName(), channel1);
-
-        // Add a regular non-kickstart package as well:
-        PackageManagerTest.addPackageToChannel("Another package", channel1);
-
-        DataResult dr = PackageManager.packageNamesByCapabilityAndChannel(user.getOrg(),
-                BaseTreeEditOperation.KICKSTART_CAPABILITY, channel1);
-        assertNotNull(dr);
-        assertEquals(1, dr.size());
-        PackageListItem item = (PackageListItem)dr.get(0);
-        assertEquals(ConfigDefaults.get().getKickstartPackageName(), item.getName());
-    }
-
-    // Verify that packages with the given capability in other channels are not visible:
-    public void testPackageNamesByCapabilityAndChannelFiltering() throws Exception {
-        Channel channel1 = ChannelFactoryTest.createTestChannel(user);
-        addKickstartPackageToChannel(
-                ConfigDefaults.get().getKickstartPackageName(), channel1);
-
-        Channel channel2 = ChannelFactoryTest.createTestChannel(user);
-        addKickstartPackageToChannel(ConfigDefaults.get().
-                        getKickstartPackageName() + "2", channel2);
-
-        DataResult dr = PackageManager.packageNamesByCapabilityAndChannel(user.getOrg(),
-                BaseTreeEditOperation.KICKSTART_CAPABILITY, channel1);
-        assertNotNull(dr);
-
-        assertEquals(1, dr.size());
-        PackageListItem item = (PackageListItem)dr.get(0);
-        assertEquals(ConfigDefaults.get().getKickstartPackageName(), item.getName());
-    }
-
     public void testPackageNameOverview() {
         String packageName = "kernel";
         String[] channelarches = {"channel-ia32", "channel-x86_64"};
