@@ -207,13 +207,14 @@ public class UserManager extends BaseManager {
         if (userToDisable.isDisabled()) {
             return;
         }
+        if (!userToDisable.isReadOnly()) {
+            if (userToDisable.hasRole(RoleFactory.ORG_ADMIN) &&
+                userToDisable.getOrg().numActiveOrgAdmins() < 2) {
 
-        if (userToDisable.hasRole(RoleFactory.ORG_ADMIN) &&
-            userToDisable.getOrg().numActiveOrgAdmins() < 2) {
-
-            // Is user is the last active orgadmin in org on a satellite?
-            // bugzilla: 173542 removed org admin restriction for hosted.
-            throw new StateChangeException("userdisable.error.onlyuser");
+                // Is user is the last active orgadmin in org on a satellite?
+                // bugzilla: 173542 removed org admin restriction for hosted.
+                throw new StateChangeException("userdisable.error.onlyuser");
+            }
         }
 
         //If not deleting self, make sure userToDisable is a normal user and
@@ -314,15 +315,18 @@ public class UserManager extends BaseManager {
 
         log.debug("UserManager.updateUserRolesFromRoleLabels()");
 
-        // Make sure last org admin isn't trying to remove his own org admin role:
-        if (rolesToRemove.contains(ORG_ADMIN_LABEL)) {
-            if (usr.getOrg().numActiveOrgAdmins() <= 1) {
-                LocalizationService ls = LocalizationService.getInstance();
-                PermissionException pex = new PermissionException("Last org admin");
-                pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.removerole"));
-                pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.removerole",
-                        ls.getMessage(ORG_ADMIN_LABEL)));
-                throw pex;
+        if (!usr.isReadOnly()) {
+            // Make sure last org admin isn't trying to remove his own org admin role:
+            if (rolesToRemove.contains(ORG_ADMIN_LABEL)) {
+                if (usr.getOrg().numActiveOrgAdmins() <= 1) {
+                    LocalizationService ls = LocalizationService.getInstance();
+                    PermissionException pex = new PermissionException("Last org admin");
+                    pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.removerole"));
+                    pex.setLocalizedSummary(
+                            ls.getMessage("permission.jsp.summary.removerole",
+                            ls.getMessage(ORG_ADMIN_LABEL)));
+                    throw pex;
+                }
             }
         }
 

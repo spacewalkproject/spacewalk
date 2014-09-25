@@ -396,10 +396,12 @@ public class UserHandler extends BaseHandler {
          * isn't the last org_admin in the org trying to remove org_admin
          * status from himself.
          */
-        if (role.equals(RoleFactory.ORG_ADMIN.getLabel()) &&
-            target.hasRole(RoleFactory.ORG_ADMIN) &&
-            target.getOrg().numActiveOrgAdmins() <= 1) {
-                throw new PermissionCheckFailureException();
+        if (!target.isReadOnly()) {
+            if (role.equals(RoleFactory.ORG_ADMIN.getLabel()) &&
+                target.hasRole(RoleFactory.ORG_ADMIN) &&
+                target.getOrg().numActiveOrgAdmins() <= 1) {
+                    throw new PermissionCheckFailureException();
+            }
         }
 
         // Retrieve the role object corresponding to the role label passed in and
@@ -1151,14 +1153,16 @@ public class UserHandler extends BaseHandler {
         User targetUser = XmlRpcUserHelper.getInstance().lookupTargetUser(
                 loggedInUser, login);
 
-        if (readOnly && targetUser.hasRole(RoleFactory.ORG_ADMIN) &&
-                targetUser.getOrg().numActiveOrgAdmins() < 2) {
-            throw new InvalidOperationException("error.readonly_org_admin",
-                    targetUser.getOrg().getName());
-        }
-        if (readOnly && targetUser.hasRole(RoleFactory.SAT_ADMIN) &&
-                SatManager.getActiveSatAdmins().size() < 2) {
-            throw new InvalidOperationException("error.readonly_sat_admin");
+        if (!targetUser.isReadOnly()) {
+            if (readOnly && targetUser.hasRole(RoleFactory.ORG_ADMIN) &&
+                    targetUser.getOrg().numActiveOrgAdmins() < 2) {
+                throw new InvalidOperationException("error.readonly_org_admin",
+                        targetUser.getOrg().getName());
+            }
+            if (readOnly && targetUser.hasRole(RoleFactory.SAT_ADMIN) &&
+                    SatManager.getActiveSatAdmins().size() < 2) {
+                throw new InvalidOperationException("error.readonly_sat_admin");
+            }
         }
         targetUser.setReadOnly(readOnly);
         return 1;
