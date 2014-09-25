@@ -40,7 +40,6 @@
             </rhn-display-login>
             <li class="search">
               <form name="form1" class="form-inline" role="form" action="/rhn/Search.do">
-                <input type="hidden" name="csrf_token" value="5343521104902341802">
                 <input type="hidden" name="submitted" value="true" />
                 <div class="form-group">
                   <select name="search_type" class="form-control input-sm">
