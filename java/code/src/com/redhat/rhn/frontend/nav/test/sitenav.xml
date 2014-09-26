@@ -22,7 +22,7 @@
 		<rhn-tab name="Account" url="/newlogin/index.pxt">
 			<rhn-tab name="Create Account" url="/newlogin/index.pxt"/>
 			<rhn-tab name="Lookup Login/Password"
-				url="/help/forgot_password.pxt"/>
+				url="/rhn/help/ForgotCredentials.do"/>
 		</rhn-tab>
 		<rhn-tab name="Help" url="/rhn/help/index.do">
 			<rhn-tab name="Reference Guide" url="/help/basic/" />

@@ -602,7 +602,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              The page you requested, https://rhn.redhat.com/index.pxt, was not found.
+              The page you requested, https://rhn.redhat.com/rhn/YourRhn.do, was not found.
           </context>
         </context-group>
         <target>ਤੁਹਾਡੇ ਰਾਹੀਂ ਮੰਗਿਆ ਸਫ਼ਾ {0} ਨਹੀਂ ਮਿਲਿਆ ਹੈ।</target>
@@ -619,7 +619,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              If you followed a link to reach 'https://rhn.redhat.com/index.pxt,' the
+              If you followed a link to reach 'https://rhn.redhat.com/rhn/YourRhn.do,' the
               link may be incorrect or outdated.
           </context>
         </context-group>
@@ -630,7 +630,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              If you used a bookmark to reach 'https://rhn.redhat.com/index.pxt,' the
+              If you used a bookmark to reach 'https://rhn.redhat.com/rhn/YourRhn.do,' the
               page may have moved
           </context>
         </context-group>

@@ -123,11 +123,9 @@ public class ChannelFamilyFactory extends HibernateFactory {
             cfam.setLabel(label);
             cfam.setName(name);
 
-            // TODO: The productUrl should change to a java page, with
-            // a redirect from the old URL to the new, when we rewrite
-            // the page in question.
-
-            cfam.setProductUrl("org_channel_family.pxt");
+            // This is only really a thing for orgs we get from Hosted
+            cfam.setProductUrl("/rhn/software/channels/ChannelFamilyTree.do?cfid" +
+                    cfam.getId());
 
             ChannelFamilyFactory.save(cfam);
 
