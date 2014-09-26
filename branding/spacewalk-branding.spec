@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.2
+Version:    2.3.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -94,6 +94,14 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Sep 26 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.3-1
+- use PatternFly fonts
+- update spacewalk-branding to use patternfly
+- patternfly: removing hardcoded csrf token from pxt pages
+- patternfly: css files order fixed because of spacewalk specific icons
+- patternfly: fixing footer position
+- Integrating patternfly for more awesomeness...
+
 * Fri Sep 12 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.2-1
 - fixing images file permissions and removing unused image backup
 - updated links to proper sections in Satellite 5.6 documentation
