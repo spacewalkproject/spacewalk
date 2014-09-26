@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.14
+Version:        2.3.15
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Sep 26 2014 Tomas Lestach <tlestach@redhat.com> 2.3.15-1
+- 1145478 - enhance rhnWebContactEnabled view
+
 * Mon Sep 22 2014 Stephen Herr <sherr@redhat.com> 2.3.14-1
 - 1114687 - rhnDistChannelMap index needs to handle nulls on postgresql
 
