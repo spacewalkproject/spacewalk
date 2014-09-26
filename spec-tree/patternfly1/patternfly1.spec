@@ -11,7 +11,7 @@
 Name:		patternfly1
 Summary:	PatternFly open interface project and its dependencies
 Version:	1.0.5
-Release:	3%{?release_suffix}%{?dist}
+Release:	4%{?release_suffix}%{?dist}
 License:	ASL 2.0
 Group:      Applications/Internet
 URL:		https://github.com/patternfly/patternfly
@@ -38,6 +38,9 @@ cp -pR less/ %{buildroot}%{_datadir}/%{name}/less
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Sep 26 2014 Tomas Kasparek <tkasparek@redhat.com> 1.0.5-4
+- less files are also for Spacewalk purposes
+
 * Wed Sep 24 2014 Tomas Kasparek <tkasparek@redhat.com> 1.0.5-3
 - group should be present in the specfile
 
