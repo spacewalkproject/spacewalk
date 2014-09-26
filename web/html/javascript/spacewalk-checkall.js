@@ -199,29 +199,11 @@ function pageResponse(data) {
       dwr.util.setValue("pagination_selcount_top", resp.pagination);
       dwr.util.setValue("pagination_selcount_bottom", resp.pagination);
     }
-    updateSsmToolbarOpacity();
 }
 
 // the function we call to read the number of systems selected and hide/show the toolbar
 function updateSsmToolbarOpacity() {
-  var systemsSpan = $("#spacewalk-set-system_list-counter").text();
-
-  if (systemsSpan == 0){
-
-    $(".spacewalk-bar").animate({"opacity": "0"}, 0,
-    function() {
-      /* stuff to do after animation is complete */
-      $(this).hide();
-    });
-  }
-  else{
-
-    $(".spacewalk-bar").animate({"opacity":"100"}, 0,
-    function() {
-      /* stuff to do after animation is complete */
-      $(this).show();
-    });
-  }
+  $(".spacewalk-bar").animate({"opacity": "100"}, 0, function() {});
 }
 
 function sortColumn(sortByWidget, sortByValue, sortDirWidget, sortDirValue) {
