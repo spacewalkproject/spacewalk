@@ -46,6 +46,9 @@ public class ActionedSystem extends SystemOverview {
      * @return Returns the displayDate.
      */
     public String getDisplayDate() {
+        if (displayDate == null) {
+            return "";
+        }
         return LocalizationService.getInstance().formatDate(displayDate);
     }
 
