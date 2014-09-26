@@ -248,6 +248,9 @@ Requires: spacewalk-certs-tools
 Requires: spacewalk-admin >= 0.1.1-0
 Requires: python-gzipstream
 Requires: python-hashlib
+%if 0%{?fedora} || 0%{?rhel} > 6
+Requires: pyliblzma
+%endif
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler >= 2.0.0
