@@ -988,7 +988,7 @@
         <trans-unit id="Chat">
           <source>Chat</source>
           <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/help/about.pxt</context>
+            <context context-type="sourcefile">/rhn/help/about.do</context>
           </context-group>
         </trans-unit>
         <trans-unit id="Base Channels">

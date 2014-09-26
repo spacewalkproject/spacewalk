@@ -3,8 +3,8 @@
   <rhn-tab name="Sign In" url="/index.pxt" active-image="tab-sign_in-selected.gif" inactive-image="tab-sign_in.gif">
   </rhn-tab>
 
-  <rhn-tab name="About Spacewalk" url="/help/about.pxt" active-image="tab-about_rhn-selected.gif" inactive-image="tab-about_rhn.gif" >
-    <rhn-tab name="About Spacewalk" url="/help/about.pxt" />
+  <rhn-tab name="About Spacewalk" url="/rhn/help/about.do" active-image="tab-about_rhn-selected.gif" inactive-image="tab-about_rhn.gif" >
+    <rhn-tab name="About Spacewalk" url="/rhn/help/about.do" />
     <rhn-tab name="FAQ" url="/help/faq/" dynamic-children="Sniglets::HTML->faq_tabs"/>
     <rhn-tab name="Spacewalk Security" url="/legal/security.pxt" />
     <rhn-tab name="Account" url="/newlogin/index.pxt">

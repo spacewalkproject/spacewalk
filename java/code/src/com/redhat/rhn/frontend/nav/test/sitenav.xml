@@ -12,10 +12,10 @@
         <rhn-tab-url>/rhn/systems/entitlements/FlexGuests.do</rhn-tab-url>
         <rhn-tab-url>/rhn/systems/entitlements/EligibleFlexGuests.do</rhn-tab-url>
     </rhn-tab>
-	<rhn-tab name="About Spacewalk" url="/help/about.pxt"
+    <rhn-tab name="About Spacewalk" url="/rhn/help/about.do"
 		active-image="tab-about_rhn-selected.gif"
 		inactive-image="tab-about_rhn.gif" >
-		<rhn-tab name="About Spacewalk" url="/help/about.pxt" />
+		<rhn-tab name="About Spacewalk" url="/rhn/help/about.do" />
 		<rhn-tab name="FAQ" url="/help/faq/"
 			dynamic-children="Sniglets::HTML->faq_tabs"/>
 		<rhn-tab name="Spacewalk Security" url="/legal/security.pxt" />

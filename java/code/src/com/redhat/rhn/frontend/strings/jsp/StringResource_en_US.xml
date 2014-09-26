@@ -19376,6 +19376,114 @@ given channel.</source>
       <trans-unit id="help.jsp.chatlink">
         <source>Access &lt;a href="http://webchat.freenode.net?channels=#spacewalk" target="_blank"&gt;#spacewalk&lt;/a&gt; channel on IRC.</source>
       </trans-unit>
+      <trans-unit id="help.jsp.about.title">
+        <source>About @@PRODUCT_NAME@@</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.summary">
+        <source>@@PRODUCT_NAME@@ allows administrators to efficiently manage the systems on their network. Through a simple user interface, administrators can perform patch management, updates, monitoring, and maintenance. And because @@PRODUCT_NAME@@ is Web-based, it can be accessed from anywhere. @@PRODUCT_NAME@@ or Proxy server options provide advanced capabilities and the ability to get updates directly from Red Hat with even greater levels of security and reduced network bandwidth.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.modules">
+        <source>Modules</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.modulessummary">
+        <source>@@PRODUCT_NAME@@ currently offers three modules. Customers can purchase entitlements that allow their systems to be subscribed to the modules and receive @@PRODUCT_NAME@@ services and functionality. &lt;a href="http://www.redhat.com/software/rhn/purchase/" target="_blank"&gt;Learn more&lt;/a&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.update">
+        <source>Update Module</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.updatesummary">
+        <source>Complimentary with a subscription to RHEL, the Update Module allows you to easily install new updates to your system, receive priority errata notifications, ensure RPM dependency checking, and &lt;a href="http://www.redhat.com/rhn/rhndetails/update/" target="_blank"&gt;more&lt;/a&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.management">
+        <source>Management Module</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.managementsummary">
+        <source>The Management Module, which includes all the functionality of the Update Module, also gives you the ability to group your systems for easier maintenance, assign role-based permissions, schedule update actions, develop custom content channels (in conjunction with @@PRODUCT_NAME@@), and &lt;a href="http://www.redhat.com/rhn/rhndetails/management/" target="_blank"&gt;more&lt;/a&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.provisioning">
+        <source>Provisioning Module</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.provisioningsummary">
+        <source>The Provisioning Module, which includes all the functionality of the Management Module, provides the ability to manage kickstarts, manage and deploy configuration files, create snapshots of your systems over time and roll your systems back to those snapshots, and &lt;a href="http://www.redhat.com/rhn/rhndetails/provisioning/" target="_blank"&gt;more&lt;/a&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.architectures">
+        <source>Architectures</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.architecturessummary">
+        <source>@@PRODUCT_NAME@@ has three types of architectures:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.hosted">
+        <source>Hosted model</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.hostedsummary">
+        <source>The customer's indivdual systems connect with RHN via the internet and exchange packages and information with the central RHN servers.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.proxy">
+        <source>Proxy model</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.proxysummary">
+        <source>The customer's individual systems connect to a locally hosted (on the customer network) @@PRODUCT_NAME@@ Proxy. The Proxy aggregates all necessary data and performs some tasks locally, and also communicates via the internet with the central @@PRODUCT_NAME@@ servers. All information stored in the @@PRODUCT_NAME@@ database is kept on the @@PRODUCT_NAME@@ servers.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.satellite">
+        <source>@@PRODUCT_NAME@@ model</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="help.jsp.about.satellitesummary">
+        <source>All @@PRODUCT_NAME@@ functionality (system profiles, reporting data, application server, etc.) is stored locally on the customers network. The @@PRODUCT_NAME@@ Server connects with @@PRODUCT_NAME@@ over the internet only to download updates (other update methods are available). This model provides customers with the ability to take their @@PRODUCT_NAME@@ solution off the public internet if desired, and also allows for greater optimization and control of your systems.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/about</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="help.jsp.refguide">
         <source>@@PRODUCT_NAME@@ Reference Guide</source>
       </trans-unit>

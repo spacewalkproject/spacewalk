@@ -8028,6 +8028,12 @@
         <forward name="default" path="/WEB-INF/pages/help/helpindex.jsp"/>
     </action>
 
+    <action path="/help/about"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.help.ChatAction">
+        <forward name="default" path="/WEB-INF/pages/help/about.jsp"/>
+    </action>
+
     <!-- SSM Operations Log -->
     <action path="/ssm/ViewLog"
             type="com.redhat.rhn.frontend.action.ssm.ViewLogAction">
