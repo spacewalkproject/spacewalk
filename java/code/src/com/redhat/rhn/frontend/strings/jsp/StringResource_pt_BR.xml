@@ -5111,10 +5111,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Patch Clusters</source>
           <target>Reparar Clusters</target>
         </trans-unit>
-        <trans-unit id="ssm.overview.patch.clusters.install">
-          <source>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;Install&lt;/a&gt; patch clusters</source>
-          <target>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;Instalar&lt;/a&gt; reparar clusters</target>
-        </trans-unit>
         <trans-unit id="ssm.overview.provisioning.kickstart">
           <source>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; systems</source>
           <target>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; sistemas</target>

@@ -2814,7 +2814,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirm</context>
         </context-group>
-        <target>点击下面的 "确认" 按钮在下一次登录到 @@PRODUCT_NAME@@ 时恢复 &lt;a href="/network/systems/details/index.pxt?sid={3}"&gt;{0}&lt;/a&gt; 中列出的补丁。（上一次登录时间：&lt;b&gt;{1}&lt;/b&gt;；预期下一次检查时间：&lt;b&gt;{2}&lt;/b&gt;。）</target>
+	<target>点击下面的 "确认" 按钮在下一次登录到 @@PRODUCT_NAME@@ 时恢复 &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; 中列出的补丁。（上一次登录时间：&lt;b&gt;{1}&lt;/b&gt;；预期下一次检查时间：&lt;b&gt;{2}&lt;/b&gt;。）</target>
       </trans-unit>
       <trans-unit id="packagelist.confirmpatchsummary">
         <source>Click on the "confirm" button below to back out the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
@@ -2835,7 +2835,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirm</context>
         </context-group>
-        <target>点击下面的 "确认" 按钮在下一次登录到 @@PRODUCT_NAME@@ 时安装 &lt;a href="/network/systems/details/index.pxt?sid={3}"&gt;{0}&lt;/a&gt; 中列出的补丁。（上一次登录时间：&lt;b&gt;{1}&lt;/b&gt;；预期下一次检查时间：&lt;b&gt;{2}&lt;/b&gt;。）</target>
+	<target>点击下面的 "确认" 按钮在下一次登录到 @@PRODUCT_NAME@@ 时安装 &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; 中列出的补丁。（上一次登录时间：&lt;b&gt;{1}&lt;/b&gt;；预期下一次检查时间：&lt;b&gt;{2}&lt;/b&gt;。）</target>
       </trans-unit>
       <trans-unit id="packagelist.jsp.extrapackages">
         <source>Extra Packages</source>
@@ -5113,10 +5113,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Patch Clusters</source>
           <target>补丁群集</target>
         </trans-unit>
-        <trans-unit id="ssm.overview.patch.clusters.install">
-          <source>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;Install&lt;/a&gt; patch clusters</source>
-          <target>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;安装&lt;/a&gt; 补丁群集</target>
-        </trans-unit>
         <trans-unit id="ssm.overview.provisioning.kickstart">
           <source>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; systems</source>
           <target>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; 系统</target>
@@ -6683,7 +6679,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        <target>已经为 &lt;a href="/network/systems/details/index.pxt?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;调度&lt;/a&gt;了 {0} 软件包删除。</target>
+	<target>已经为 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;调度&lt;/a&gt;了 {0} 软件包删除。</target>
       </trans-unit>
       <trans-unit id="message.packageremovals">
         <source>{0} package removals have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
