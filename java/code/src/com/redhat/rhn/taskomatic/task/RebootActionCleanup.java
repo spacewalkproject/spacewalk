@@ -102,6 +102,7 @@ public class RebootActionCleanup extends RhnJavaJob {
         if (sa.getStatus().getName() != "Failed") {
             sa.setResultCode(-100L);
             sa.setResultMsg("Prerequisite failed");
+            sa.setCompletionTime(sa.getPickupTime());
             sa.setStatus(ActionFactory.STATUS_FAILED);
         }
 
