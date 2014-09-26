@@ -81,7 +81,7 @@ rm -rf %{buildroot}
 
 %pre
 
-%if 0%{?fedora} || 0%{rhel} >= 7
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %define min_uid 1000
 %else
 %define min_uid 500
