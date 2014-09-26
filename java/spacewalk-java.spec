@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.42
+Version: 2.3.43
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 26 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.43-1
+- checkstyle fix
+- patternfly: css files order fixed because of spacewalk specific icons
+- patternfly: fixing footer position
+- Integrating patternfly for more awesomeness...
+- packageNamesByCapabilityAndChannel: dead code removed
+- packageNamesByCapability: dead code removed
+
 * Thu Sep 25 2014 Tomas Lestach <tlestach@redhat.com> 2.3.42-1
 - allow selecting users on the /rhn/users/DisabledList.do page
 - 1145478 - enhance Org.numOfOrgAdmins sql-query
