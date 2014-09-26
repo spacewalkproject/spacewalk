@@ -23,6 +23,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -176,26 +177,31 @@ public class RepoDetailsAction extends RhnAction {
             form.set(SSL_CLIENT_KEY, getStringId(sslRepo.getClientKey()));
         }
         // Filters
-        String sfilters = new String();
-        String sflagSave = new String();
-        String sflag = new String();
-        String temp = new String();
+        // The goal here is to transform the db filter representation to
+        // something user-friendly.
+        String currentFlag = "";
+        String filterGroup = "";
+        List<ContentSourceFilter> filters = ChannelFactory
+                .lookupContentSourceFiltersById(repo.getId());
+        List<String> filterGroups = new ArrayList<String>();
 
-        List<ContentSourceFilter> lfilters =
-                 ChannelFactory.lookupContentSourceFiltersById(repo.getId());
-        for (Iterator<ContentSourceFilter> iter = lfilters.iterator(); iter.hasNext();) {
-            ContentSourceFilter filter = iter.next();
-            sflag = filter.getFlag();
-            if (sflagSave.equals(sflag)) {
-                temp = "," + filter.getFilter();
+        for (ContentSourceFilter filter : filters) {
+            String flag = filter.getFlag();
+            if (currentFlag.equals(flag)) {
+                filterGroup = filterGroup + "," + filter.getFilter();
             }
             else {
-                temp = " " + sflag + filter.getFilter();
-                sflagSave = sflag;
+                if (!filterGroup.isEmpty()) {
+                    filterGroups.add(filterGroup);
+                }
+                filterGroup = flag + filter.getFilter();
+                currentFlag = flag;
             }
-            sfilters = sfilters.concat(temp);
         }
-        form.set(FILTERS, sfilters);
+        // finally add the last one
+        filterGroups.add(filterGroup);
+
+        form.set(FILTERS, StringUtils.join(filterGroups.toArray(), ' '));
         bindRepo(request, repo);
     }
 
@@ -208,31 +214,44 @@ public class RepoDetailsAction extends RhnAction {
         request.setAttribute(REPO, repo);
     }
 
-    private  void processFilters(String sfilters,
-                                      List<ContentSourceFilter> lresult)
-                                      throws  InvalidParameterException {
-
-        if (!sfilters.isEmpty()) {
-            String[] lfilters = sfilters.split("\\s+");
-            char cflag;
-            int iOrder = 0;
-            for (int i = 0; i < lfilters.length; i++) {
-                cflag = lfilters[i].charAt(0);
-                if (cflag != '+' && cflag != '-') {
-                    throw new InvalidParameterException(
-                            "repos.jsp.filters.error");
+    private List<ContentSourceFilter> processFilters(String formFilters)
+            throws InvalidParameterException {
+        List<ContentSourceFilter> ret = new ArrayList<ContentSourceFilter>();
+        if (!formFilters.isEmpty()) {
+            // split on whitespace
+            String[] filters = formFilters.split("\\s+");
+            String flag = "";
+            int order = 0;
+            for (String filter : filters) {
+                if (filter.isEmpty()) {
+                    continue; // ignore whitespace at beginning of field
                 }
-                String[] lrpm = lfilters[i].substring(1).split(",");
-                for (int y = 0; y < lrpm.length; y++) {
+
+                if (filter.startsWith("+") || filter.startsWith("-")) {
+                    flag = filter.substring(0, 1);
+                    filter = filter.substring(1);
+                }
+                else if (flag.equals("")) {
+                    // the first filter must have a flag
+                    throw new InvalidParameterException("repos.jsp.filters.error");
+                }
+                // else assume the flag has not changed
+
+                String[] rpms = filter.split(",");
+                for (String rpm : rpms) {
+                    if (rpm.isEmpty()) {
+                        continue; // ignore extra commas or whitespace around commas
+                    }
                     ContentSourceFilter f = new ContentSourceFilter();
-                    f.setFlag(Character.toString(cflag));
-                    f.setFilter(lrpm[y]);
-                    f.setSortOrder(iOrder);
-                    lresult.add(f);
-                    iOrder++;
+                    f.setFlag(flag);
+                    f.setFilter(rpm);
+                    f.setSortOrder(order);
+                    ret.add(f);
+                    order++;
                 }
             }
         }
+        return ret;
     }
 
     private ContentSource submit(HttpServletRequest request, ActionErrors errors,
@@ -258,10 +277,8 @@ public class RepoDetailsAction extends RhnAction {
         repoCmd.setSslClientKeyId(parseIdFromForm(form, SSL_CLIENT_KEY));
 
         try {
-            List<ContentSourceFilter> lresult = new ArrayList<ContentSourceFilter>();
-
             // Process filters
-            processFilters(sfilters, lresult);
+            List<ContentSourceFilter> lresult = processFilters(sfilters);
 
             // Store Repo
             repoCmd.store();
