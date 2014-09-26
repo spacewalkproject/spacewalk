@@ -22,7 +22,7 @@ BuildArch:  noarch
 
 BuildRequires: java-devel >= 1.5.0
 BuildRequires: nodejs-less
-BuildRequires: bootstrap-less <= 3.0.0
+BuildRequires: patternfly1
 Requires:      httpd
 Requires:      bootstrap <= 3.0.0
 Requires:      bootstrap-datepicker
