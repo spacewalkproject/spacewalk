@@ -49,13 +49,14 @@ function movePrevious() {
     <rhn:toolbar base="h1" icon="header-kickstart"><bean:message key="kickstart.jsp.create.wizard.step.three"/></rhn:toolbar>
     <p><bean:message key="kickstart.jsp.create.wizard.third.heading1" /></p>
     <div class="panel panel-default">
+      <div class="panel-body">
       <ul class="list-group">
         <div class="row">
           <div class="col-sm-2">
             <rhn:required-field key="kickstart.root.password.jsp.label"/>:
           </div>
-          <div class="col-sm-10">
-            <html:password property="rootPassword" />
+          <div class="col-sm-4">
+            <html:password property="rootPassword" styleClass="form-control" />
           </div>
         </div>
       </ul>
@@ -64,11 +65,12 @@ function movePrevious() {
           <div class="col-sm-2">
           	<rhn:required-field key="kickstart.root.password.verify.jsp.label"/>:
           </div>
-          <div class="col-sm-10">
-          	<html:password property="rootPasswordConfirm" />
+          <div class="col-sm-4">
+          	<html:password property="rootPasswordConfirm" styleClass="form-control" />
           </div>
         </div>
       </ul>
+    </div>
     </div>
     <div align="right">
       <input type="button" value="<bean:message key='wizard.jsp.previous.step'/>" onclick="movePrevious();" class="btn btn-default" />
