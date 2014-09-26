@@ -32,7 +32,7 @@ make %{?_smp_mflags} %{make_common_opts}
 %install
 rm -rf "%{buildroot}"
 make %{?_smp_mflags} %{make_common_opts} install DESTDIR="%{buildroot}"
-cp -pR less/ %{buildroot}%{_datadir}/%{name}/less
+cp -pR less/ %{buildroot}%{_datadir}/%{name}/resources/less
 
 %files
 %{_datadir}/%{name}/
