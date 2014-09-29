@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.0
+Version:     2.3.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -75,6 +75,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Sun Sep 28 2014 Aron Parsons <aronparsons@gmail.com> 2.3.1-1
+- spacecmd: fix -p argument in distribution_update help
+
 * Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.11-1
 - fix copyright years
 
