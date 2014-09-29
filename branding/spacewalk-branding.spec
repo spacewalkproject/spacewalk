@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.3
+Version:    2.3.4
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Sep 29 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.4-1
+- branding should require patternfly
+
 * Fri Sep 26 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.3-1
 - use PatternFly fonts
 - update spacewalk-branding to use patternfly
