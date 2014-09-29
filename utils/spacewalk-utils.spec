@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.12
+Version:	2.3.13
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Sun Sep 28 2014 Aron Parsons <aronparsons@gmail.com> 2.3.13-1
+- spacewalk-manage-channel-lifecycle: put default phases in help output
+
 * Fri Sep 12 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.12-1
 - Allow use of "-" symbol in phase names, e.g. "foo-test" instead of "foo_test"
 - python2.4 compatibility
