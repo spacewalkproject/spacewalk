@@ -15,12 +15,16 @@
 package com.redhat.rhn.frontend.action.configuration.ssm;
 
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnListDispatchAction;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.manager.channel.MultipleChannelsWithPackageException;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -74,7 +78,15 @@ public class EnableSubmitAction extends RhnListDispatchAction {
         DynaActionForm form = (DynaActionForm) formIn;
         Date earliest = getStrutsDelegate().readDatePicker(form, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
-        ConfigurationManager.getInstance().enableSystems(set, user, earliest);
+        try {
+            ConfigurationManager.getInstance().enableSystems(set, user, earliest);
+        }
+        catch (MultipleChannelsWithPackageException e) {
+            ValidatorError verrors = new ValidatorError("config.multiple.channels");
+            ActionErrors errors = RhnValidationHelper.validatorErrorToActionErrors(verrors);
+            getStrutsDelegate().saveMessages(request, errors);
+            return mapping.findForward("default");
+        }
 
         return mapping.findForward("summary");
     }

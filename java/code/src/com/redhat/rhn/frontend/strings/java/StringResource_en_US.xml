@@ -8257,6 +8257,12 @@ tree will not be usable for kickstarting.
       <trans-unit id="help.credentials.loginssent">
         <source>Found login(s) sent to {0}.</source>
       </trans-unit>
+      <trans-unit id="config.multiple.channels">
+        <source>A selected system has multiple child channels available that contain the rhncfg package. You must manually subscribe to the child channel you want and then try this action again.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/TargetSystemsSubmit.do</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
