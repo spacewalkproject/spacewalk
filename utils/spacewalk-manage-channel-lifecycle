@@ -376,7 +376,7 @@ option_list = [
     Option('', '--no-children', help="don't operate on child channels",
            action='store_true'),
     Option('-P', '--phases', default = '',
-           help='comma-separated list of phases [default: %default]'),
+           help='comma-separated list of phases [default: dev,test,prod'),
     Option('-u', '--username', help='Spacewalk username'),
     Option('-p', '--password', help='Spacewalk password'),
     Option('-s', '--server',
