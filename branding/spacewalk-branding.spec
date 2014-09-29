@@ -32,6 +32,7 @@ Requires:      roboto >= 1.2
 Requires:      pwstrength-bootstrap
 Requires:      momentjs
 Requires:      jquery-ui
+Requires:      patternfly1
 Requires:      select2
 Requires:      select2-bootstrap-css
 
