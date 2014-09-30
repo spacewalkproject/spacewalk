@@ -26,9 +26,7 @@ from spacewalk.server import rhnLib
 from spacewalk.server import rhnSQL
 
 class Authentication(rhnHandler):
-    """ Simple authentication based on hostname and allowed_iss_slaves
-    variable in rhn_server_iss.conf
-    """
+    """ Simple authentication based on hostname and configured slaves """
     def __init__(self):
         log_debug(3)
         rhnHandler.__init__(self)
