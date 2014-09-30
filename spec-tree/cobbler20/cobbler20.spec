@@ -23,6 +23,7 @@ Patch9: cobbler-rhel7-variant.patch
 Patch10: cobbler-findks.patch
 Patch11: cobbler-arm-arch.patch
 Patch12: cobbler-modprobe-d.patch
+Patch13: fedora_os_entry.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -118,6 +119,7 @@ a XMLRPC API for integration with other applications.
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
+%patch13 -p1
 
 %build
 %{__python} setup.py build 
