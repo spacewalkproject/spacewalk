@@ -37,29 +37,23 @@
 
             </rl:list>
 
-            <div class="text-left">
-                <input type="checkbox"
-                      name="no-errata"
-                        id="no-errata"/>
-                <label class="col-lg-3 control-label">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="no-errata" id="no-errata"/>
                     <bean:message key="channel.manage.sync.noerrata.jsp"/>
                 </label>
             </div>
 
-            <div class="text-left">
-                <input type="checkbox"
-                 name="sync-kickstart"
-                   id="sync-kickstart"/>
-                <label class="col-lg-3 control-label">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="sync-kickstart" id="sync-kickstart"/>
                     <bean:message key="channel.manage.sync.synckickstart.jsp"/>
                 </label>
             </div>
 
-            <div class="text-left">
-               <input type="checkbox"
-                          name="fail"
-                           id="fail"/>
-               <label class="col-lg-3 control-label">
+            <div class="checkbox">
+               <label>
+                    <input type="checkbox" name="fail" id="fail"/>
                     <bean:message key="channel.manage.sync.fail.jsp"/>
                </label>
             </div>
