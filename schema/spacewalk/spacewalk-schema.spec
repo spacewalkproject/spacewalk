@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.15
+Version:        2.3.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Oct 02 2014 Stephen Herr <sherr@redhat.com> 2.3.16-1
+- 1148911 - add aarch64 server to noarch package mapping
+
 * Fri Sep 26 2014 Tomas Lestach <tlestach@redhat.com> 2.3.15-1
 - 1145478 - enhance rhnWebContactEnabled view
 
