@@ -9,6 +9,7 @@ description:
 
 columns:
 
+	org_id:i		Organization id
 	system_id:i		System identifier
 	hostname		Hostname, as reported by the system
 	ip_address		IPv4 address, as reported by the system
@@ -25,9 +26,10 @@ multival_columns:
 
 sql:
 
-	select system_id, hostname, ip_address, event_id, testresult_id, name, benchmark, benchmark_version,
+	select org_id, system_id, hostname, ip_address, event_id, testresult_id, name, benchmark, benchmark_version,
 		profile, profile_title, end_time from (
-	select rhnxccdftestresult.server_id as system_id,
+	select rhnserver.org_id as org_id,
+		rhnxccdftestresult.server_id as system_id,
 		rhnservernetwork.hostname as hostname,
 		trim(rhnservernetwork.ipaddr) as ip_address,
 		rhnactionscap.action_id as event_id,
@@ -39,7 +41,7 @@ sql:
 		rhnxccdfprofile.title as profile_title,
 		to_char(rhnxccdftestresult.end_time, 'YYYY-MM-DD HH24:MI:SS') as end_time
 	from rhnxccdftestresult, rhnactionscap, rhnxccdfbenchmark, rhnxccdfprofile,
-		rhnservernetwork
+		rhnservernetwork, rhnserver
 	where rhnxccdftestresult.action_scap_id = rhnactionscap.id
 		and rhnxccdftestresult.benchmark_id = rhnxccdfbenchmark.id
 		and rhnxccdftestresult.profile_id = rhnxccdfprofile.id
