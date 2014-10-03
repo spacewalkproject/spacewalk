@@ -5134,8 +5134,8 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
           <target>Actualizar &lt;a href="/rhn/systems/ssm/misc/Index.do#profiles"&gt;hardware/package profiles&lt;/a&gt; y &lt;a href="/rhn/systems/ssm/misc/Index.do#sysprefs"&gt;preferencias del sistema&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.customvalues">
-          <source>&lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;Set&lt;/a&gt; and &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;remove&lt;/a&gt; custom values for selected systems</source>
-          <target>&lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;Set&lt;/a&gt; and &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;retirar&lt;/a&gt; valores personalizados  para los sistemas  seleccionados.</target>
+          <source>&lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;Set and remove&lt;/a&gt; custom values for selected systems</source>
+          <target>&lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;Set and retirar&lt;/a&gt; valores personalizados  para los sistemas  seleccionados.</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.entitlements">
           <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#entitle"&gt;Add or Remove&lt;/a&gt; Add-On Entitlements</source>

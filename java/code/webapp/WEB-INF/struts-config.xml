@@ -4925,7 +4925,7 @@
                  redirect="true" />
     </action>
 
-        <action path="/systems/ssm/misc/Index"
+    <action path="/systems/ssm/misc/Index"
         scope="request"
         input="/WEB-INF/pages/ssm/systems/misc/index.jsp"
         type="com.redhat.rhn.frontend.action.ssm.MiscIndexAction"
@@ -4933,6 +4933,27 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/misc/index.jsp" />
+    </action>
+
+    <action path="/systems/ssm/misc/CustomValue"
+        scope="request"
+        input="/WEB-INF/pages/ssm/systems/misc/customvalue.jsp"
+        type="com.redhat.rhn.frontend.action.ssm.CustomValueAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/misc/customvalue.jsp" />
+    </action>
+
+   <action path="/systems/ssm/misc/SetCustomValue"
+        name="updateCustomDataForm"
+        scope="request"
+        input="/WEB-INF/pages/ssm/systems/misc/setcustomvalue.jsp"
+        parameter="dispatch"
+        type="com.redhat.rhn.frontend.action.ssm.CustomValueSetAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default" path="/WEB-INF/pages/ssm/systems/misc/setcustomvalue.jsp" />
+        <forward name="updated" path="/systems/ssm/misc/Index.do" redirect="true"/>
     </action>
 
     <action path="/systems/ssm/audit/ScheduleXccdf"

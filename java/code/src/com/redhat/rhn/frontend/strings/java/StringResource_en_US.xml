@@ -3296,6 +3296,20 @@ user before attempting to deactivate their account.</source>
                                              for workstation3.</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="message.bulkremovecustomdata">
+        <source>Value removed for &lt;strong&gt;{0}&lt;/strong&gt; from {1} systems.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/misc/CustomDataSet.do</context>
+          <context context-type="paramnotes">Value removed for <strong>custom-data-key</strong> from 2 systems.</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="message.bulksetcustomdata">
+        <source>Value set for &lt;strong&gt;{0}&lt;/strong&gt; for selected systems.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/misc/CustomDataSet.do</context>
+          <context context-type="paramnotes">Value set for <strong>custom-data-key</strong> for selected systems.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="General Config">
         <source>General Config</source>
         <context-group name="ctx">

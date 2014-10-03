@@ -3257,4 +3257,40 @@ public class SystemManager extends BaseManager {
         params.put("set_label", setLabel);
         return mode.execute(params, entitlements);
     }
+
+    /**
+     * Sets the custom info values for the systems in the set
+     * @param user the requesting user
+     * @param setLabel the set label
+     * @param keyLabel the label of the custom value key
+     * @param value the value to set for the custom value
+     */
+    public static void bulkSetCustomValue(User user, String setLabel, String keyLabel,
+            String value) {
+        CallableMode mode = ModeFactory.getCallableMode("System_queries",
+                "bulk_set_custom_values");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        params.put("key_label", keyLabel);
+        params.put("value", value);
+        mode.execute(params, new HashMap<String, Integer>());
+    }
+
+    /**
+     * Removes the custom info values from the systems in the set
+     * @param user the requesting user
+     * @param setLabel the set label
+     * @param keyId the id of the custom value key
+     * @return number of rows deleted
+     */
+    public static int bulkRemoveCustomValue(User user, String setLabel, Long keyId) {
+        WriteMode mode = ModeFactory.getWriteMode("System_queries",
+                "bulk_remove_custom_values");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        params.put("key_id", keyId);
+        return mode.executeUpdate(params);
+    }
 }

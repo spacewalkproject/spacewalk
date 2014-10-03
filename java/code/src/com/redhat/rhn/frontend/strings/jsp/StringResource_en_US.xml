@@ -4742,7 +4742,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Update &lt;a href="/rhn/systems/ssm/misc/Index.do#profiles"&gt;hardware/package profiles&lt;/a&gt; and &lt;a href="/rhn/systems/ssm/misc/Index.do#sysprefs"&gt;system preferences&lt;/a&gt;</source>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.customvalues">
-          <source>&lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;Set&lt;/a&gt; and &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;remove&lt;/a&gt; custom values for selected systems</source>
+          <source>&lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;Set and remove&lt;/a&gt; custom values for selected systems</source>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.entitlements">
           <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#entitle"&gt;Add or Remove&lt;/a&gt; Add-On Entitlements</source>
@@ -4976,6 +4976,27 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="ssm.misc.index.syspref.preference">
           <source>Preference</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.custom.title">
+          <source>Select Custom Info Key to modify</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.custom.summary">
+          <source>Please select the key for which you want to set or remove values.</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.setcustom.title">
+          <source>Set or Remove value for Custom Info Key</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.setcustom.summary">
+          <source>Enter the value you wish to be applied or remove any set values for this key on selected systems.</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.setcustom.provisioning">
+          <source>Caution: this will overwrite or remove all values for this key on selected systems with a Provisioning Entitlement.</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.setcustom.setvalues">
+          <source>Set Values</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.setcustom.removevalues">
+          <source>Remove Values</source>
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.header">
           <source>Reboot of the Systems</source>

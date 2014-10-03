@@ -5134,8 +5134,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>更新 &lt;a href="/rhn/systems/ssm/misc/Index.do#profiles"&gt;硬件/软件包侧写&lt;/a&gt; 和 &lt;a href="/rhn/systems/ssm/misc/Index.do#sysprefs"&gt;系统首选项&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.customvalues">
-          <source>&lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;Set&lt;/a&gt; and &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;remove&lt;/a&gt; custom values for selected systems</source>
-          <target>&lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;设置&lt;/a&gt; 和 &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;删除&lt;/a&gt;  所选系统的自定义值</target>
+          <source>&lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;Set and remove&lt;/a&gt; custom values for selected systems</source>
+          <target>&lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;设置 和 删除&lt;/a&gt;  所选系统的自定义值</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.entitlements">
           <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#entitle"&gt;Add or Remove&lt;/a&gt; Add-On Entitlements</source>

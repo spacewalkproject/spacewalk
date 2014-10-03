@@ -2353,4 +2353,19 @@ ORDER BY UPPER(COALESCE(X.SERVER_NAME, '(none)')), X.ID
         rhnServerEntitlementView.label IN (%s)
   </query>
 </mode>
+
+<write-mode name="bulk_remove_custom_values">
+  <query params="user_id, set_label, key_id">
+DELETE FROM rhnServerCustomDataValue
+      WHERE server_id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = :set_label)
+        AND rhn_server.system_service_level(server_id, 'provisioning') = 1
+        AND key_id = :key_id
+  </query>
+</write-mode>
+
+<callable-mode name="bulk_set_custom_values">
+    <query params="key_label, value, set_label, user_id">
+    { call rhn_server.bulk_set_custom_value(:key_label, :value, :set_label, :user_id) }
+    </query>
+</callable-mode>
 </datasource_modes>

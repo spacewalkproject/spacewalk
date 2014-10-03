@@ -12,13 +12,8 @@
 <a id="profiles">&#160;</a>
 <h2><bean:message key="ssm.misc.index.csi.header"/></h2>
 <div class="page-summary">
-<p><bean:message key="ssm.misc.index.csi.summary"/></p>
+  <p><a href="/rhn/systems/ssm/misc/CustomValue.do"><bean:message key="ssm.misc.index.csi.summary"/></a></p>
 </div>
-<ul>
-  <li><a href="/network/systems/ssm/misc/choose_value_to_set.pxt"><bean:message key="ssm.misc.index.csi.set"/></a></li>
-  <li><a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"><bean:message key="ssm.misc.index.csi.remove"/></a></li>
-</ul>
-<br />
 
 <a id="entitle">&#160;</a>
 <h2><bean:message key="ssm.misc.index.entitle.header"/></h2>
