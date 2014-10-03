@@ -135,6 +135,8 @@ class Repository:
             selinux_ctx = lgetfilecon(path)[1]
         except OSError:
             selinux_ctx = ''
+        if selinux_ctx == None:
+            selinux_ctx = ''
 
         ret['selinux_ctx'] = selinux_ctx
 
