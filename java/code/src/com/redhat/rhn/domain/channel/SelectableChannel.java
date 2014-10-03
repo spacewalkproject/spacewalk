@@ -16,6 +16,9 @@ package com.redhat.rhn.domain.channel;
 
 import com.redhat.rhn.frontend.struts.Selectable;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 /**
  * Wrapper class to enable Channels to be used and be selectable
  * SelectableChannel
@@ -130,6 +133,25 @@ public class SelectableChannel  implements Selectable, Comparable {
                getChannel().getName());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public boolean equals(final Object other) {
+        if (other instanceof Channel) {
+            return this.getChannel().equals(other);
+        }
+        if (!(other instanceof SelectableChannel)) {
+            return false;
+        }
+        SelectableChannel castOther = (SelectableChannel) other;
 
+        return new EqualsBuilder().append(getId(), castOther.getId()).isEquals();
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    public int hashCode() {
+        return new HashCodeBuilder().append(getId()).toHashCode();
+    }
 }
