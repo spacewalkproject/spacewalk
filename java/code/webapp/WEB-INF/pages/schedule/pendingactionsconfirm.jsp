@@ -88,7 +88,7 @@
 		 <div class="pull-right">
 		     <input type="submit"
                name="dispatch"
-               class="btn btn-default"
+               class="btn btn-danger"
                value='<bean:message key="actions.jsp.confirmcancelactions"/>'/>
          </div>
 	</rl:listset>

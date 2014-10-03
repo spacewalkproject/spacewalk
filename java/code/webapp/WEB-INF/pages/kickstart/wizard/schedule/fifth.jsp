@@ -82,8 +82,8 @@ function setContinue() {
         <bean:message key="kickstarts.jsp.diskwarning" />
     </p>
 
-    <input type="button" value="<bean:message key='sdc.channels.confirmNewBase.cancel' />" onclick="setStep('first');this.form.submit();" />
-    <input type="button" value="<bean:message key='errata.publish.packagepush.continue' />" onclick="setContinue();this.form.submit();" />
+    <input type="button" class="btn btn-default" value="<bean:message key='sdc.channels.confirmNewBase.cancel' />" onclick="setStep('first');this.form.submit();" />
+    <input type="button" class="btn btn-default" value="<bean:message key='errata.publish.packagepush.continue' />" onclick="setContinue();this.form.submit();" />
 </html:form>
 </body>
 </html>

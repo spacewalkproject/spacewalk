@@ -18,7 +18,7 @@
 
   <div class="text-right">
     </hr>
-    <html:submit property="schedule_button">
+    <html:submit styleClass="btn btn-success" property="schedule_button">
       <bean:message key="system.audit.confirmschedulexccdf.jsp.button"/>
     </html:submit>
   </div>

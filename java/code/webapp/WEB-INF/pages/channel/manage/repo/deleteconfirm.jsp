@@ -42,7 +42,7 @@
       <td></td>
       <rhn:submitted/>
       <input type="hidden" name="id" value="${requestScope.id}"/>
-      <td align="right"><input type=submit name="dispatch"
+      <td align="right"><input type="submit" class="btn btn-danger" name="dispatch"
        value="${rhn:localize('repos.jsp.delete.submit')}"/></td>
     </tr>
         </table>

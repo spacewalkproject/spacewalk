@@ -52,7 +52,7 @@
 
         <div class="text-right">
             <hr/>
-             <html:submit property="edit_button">
+             <html:submit styleClass="btn btn-danger" property="edit_button">
                 <bean:message key="schedule.delete.jsp.deleteschedule"/>
              </html:submit>
         </div>

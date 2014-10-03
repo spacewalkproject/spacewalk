@@ -55,7 +55,7 @@
 	<div class="text-right">
       <hr />
       <html:hidden property="dispatch" value="${rhn:localize('ssm.config.rank.jsp.apply')}"/>
-      <input type=submit name="dispatcher"
+      <input type="submit" name="dispatcher" class="btn btn-default"
 			value="${rhn:localize('ssm.config.rank.jsp.apply')}"
                    onclick="handle_ranking_dispatch('ranksWidget','rankedValues','channelRanksForm');"/>
     </div>

@@ -47,6 +47,7 @@
           <rhn:submitted/>
           <hr/>
           <input type="submit"
+                 class="btn btn-success"
                  name="dispatch"
                  value='<bean:message key="errata.edit.packages.confirm.confirm"/>'/>
       </div>

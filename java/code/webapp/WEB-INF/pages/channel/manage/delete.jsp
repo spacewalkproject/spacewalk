@@ -156,7 +156,7 @@
                     <div class="col-lg-offset-3 col-lg-6">
                         <c:choose>
                             <c:when test="${empty requestScope.disableDelete}">
-                                <html:submit property="delete_button" styleClass="btn btn-success">
+                                <html:submit property="delete_button" styleClass="btn btn-danger">
                                     <bean:message key="channel.delete.jsp.channelheader"/>
                                 </html:submit>
                             </c:when>

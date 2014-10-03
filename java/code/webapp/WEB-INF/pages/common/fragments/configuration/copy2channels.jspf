@@ -44,7 +44,7 @@
 	<c:if test = "${not empty requestScope.pageList}">
 		<hr />
 		<div class="text-right">
-			<input type="submit"
+			<input type="submit" class="btn btn-default"
 					name="dispatch"
 					value="${rhn:localize('copy2channels.jsp.doCopy')}"
 					/>

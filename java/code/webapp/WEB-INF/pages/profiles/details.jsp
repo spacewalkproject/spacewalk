@@ -38,7 +38,7 @@
 
     <div class="text-right">
         <hr />
-        <html:submit property="edit_button">
+        <html:submit styleClass="btn btn-success" property="edit_button">
             <bean:message key="button.update"/>
         </html:submit>
     </div>

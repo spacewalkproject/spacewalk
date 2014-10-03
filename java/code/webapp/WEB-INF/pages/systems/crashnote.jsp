@@ -63,10 +63,10 @@
         <div class="text-right">
             <c:choose>
                 <c:when test='${not empty cnid}'>
-                    <html:submit property="edit_button"><bean:message key="edit_note.jsp.update"/></html:submit>
+                    <html:submit styleClass="btn btn-success" property="edit_button"><bean:message key="edit_note.jsp.update"/></html:submit>
                 </c:when>
                 <c:otherwise>
-                    <html:submit property="create_button"><bean:message key="edit_note.jsp.create"/></html:submit>
+                    <html:submit styleClass="btn btn-success" property="create_button"><bean:message key="edit_note.jsp.create"/></html:submit>
                 </c:otherwise>
             </c:choose>
         </div>

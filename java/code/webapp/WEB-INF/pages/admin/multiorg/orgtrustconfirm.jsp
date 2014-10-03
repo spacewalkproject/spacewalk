@@ -55,8 +55,8 @@
      <rhn:submitted/>
      <input type="button"
                 value="${rhn:localize('org.trust.cancel')}"
-                onClick="location.href='${parentUrl}'" />
-     <input type="submit" name ="dispatch" value="${rhn:localize('confirm')}" />
+                onClick="location.href='${parentUrl}'" class="btn btn-default" />
+     <input type="submit" name ="dispatch" value="${rhn:localize('confirm')}" class="btn btn-default" />
    </div>
 </rl:listset>
 </body>

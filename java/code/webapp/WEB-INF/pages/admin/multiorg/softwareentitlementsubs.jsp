@@ -125,7 +125,7 @@
             headerkey="emptyspace.jsp"
             >
             <c:if test = "${current.maxPossibleAllocation > 0 || current.maxPossibleFlexAllocation > 0}">
-            	<html:submit onclick="this.form.orgClicked.value = '${current.org.id}';">
+            	<html:submit styleClass="btn btn-success" onclick="this.form.orgClicked.value = '${current.org.id}';">
                         <bean:message key="softwareEntitlementSubs.submit"/>
                     </html:submit>
             </c:if>

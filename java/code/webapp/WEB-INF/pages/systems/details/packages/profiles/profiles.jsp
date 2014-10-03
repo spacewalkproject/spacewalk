@@ -24,7 +24,7 @@
             <html:select property="profile">
                <html:options collection="profiles" property="value" labelProperty="label"/>
             </html:select>
-            <html:submit property="compareProfilesBtn">
+            <html:submit styleClass="btn btn-default" property="compareProfilesBtn">
                 <bean:message key="profile.jsp.compare"/>
             </html:submit>
         </c:when>
@@ -46,7 +46,7 @@
             <html:select property="server">
                <html:options collection="servers" property="value" labelProperty="label"/>
             </html:select>
-            <html:submit property="compareSystemsBtn">
+            <html:submit styleClass="btn btn-default" property="compareSystemsBtn">
                 <bean:message key="profile.jsp.compare"/>
             </html:submit>
         </c:when>
@@ -62,7 +62,7 @@
     <div class="form-horizontal">
         <div class="form-group">
             <div class="col-md-12">
-                <html:submit property="createBtn" styleClass="btn btn-default">
+                <html:submit property="createBtn" styleClass="btn btn-success">
                     <bean:message key="profile.jsp.createsystemprofile"/>
                 </html:submit>
             </div>

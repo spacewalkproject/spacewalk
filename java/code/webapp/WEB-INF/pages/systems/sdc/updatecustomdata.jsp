@@ -57,7 +57,7 @@
     <div class="text-right">
       <hr />
 
-      <input type="submit" name="UpdateKey" value="Update Key" />
+      <input type="submit" class="btn btn-success" name="UpdateKey" value="Update Key" />
 
       <rhn:submitted/>
     </div>

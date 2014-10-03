@@ -97,8 +97,8 @@
 				</c:when>
 				<c:otherwise><td></c:otherwise>
 			</c:choose>
-				<div style="display:none" id='div_confirm${current.value}'><input type="submit" name="btn${current.value}" value="${rhn:localize('ssm.delete.systems.confirmbutton')}"/></div>
-				<div id='div_del${current.value}'><input type="submit" name="delbtn${current.value}" value="${rhn:localize('Delete System Profile')}"
+				<div style="display:none" id='div_confirm${current.value}'><input type="submit" class="btn btn-danger" name="btn${current.value}" value="${rhn:localize('ssm.delete.systems.confirmbutton')}"/></div>
+				<div id='div_del${current.value}'><input type="submit" class="btn btn-danger" name="delbtn${current.value}" value="${rhn:localize('Delete System Profile')}"
 									 onclick="return handle_delete('div_del${current.value}','div_confirm${current.value}', this.form);"/></div>
 				</td>
 		</c:forEach>

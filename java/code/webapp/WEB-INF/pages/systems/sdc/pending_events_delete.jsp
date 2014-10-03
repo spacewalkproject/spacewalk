@@ -50,7 +50,7 @@
   <div align="right">
     <hr/>
     <input type="hidden" name="sid" value="${sid}" />
-    <input type="submit" name="dispatch" class="btn btn-default"
+    <input type="submit" name="dispatch" class="btn btn-danger"
       value='<bean:message key="system.event.pending.confirm"/>'/>
   </div>
   <rhn:submitted />

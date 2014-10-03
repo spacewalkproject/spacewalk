@@ -28,7 +28,7 @@
             <c:if test="${not empty requestScope.all}">
                 <div class="text-right">
                     <rhn:submitted />
-                    <input type="submit" name="dispatch" class="btn btn-success"
+                    <input type="submit" name="dispatch" class="btn btn-danger"
                            value='<bean:message key="iss.confirm.remove.masters"/>' />
                 </div>
             </c:if>

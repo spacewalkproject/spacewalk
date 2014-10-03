@@ -54,7 +54,7 @@
                     <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>
                     <html:hidden property="submitted" value="true"/>
                     <div class="text-right"><hr />
-                        <input type="submit" name="schedule_remote_command" value="<bean:message key='ssm.operations.provisioning.remotecommand.form.submit'/>">
+                        <input type="submit" class="btn btn-success" name="schedule_remote_command" value="<bean:message key='ssm.operations.provisioning.remotecommand.form.submit'/>">
                     </div>
                 </html:form>
 

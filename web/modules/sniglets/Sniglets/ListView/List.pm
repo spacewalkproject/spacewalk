@@ -586,18 +586,18 @@ sub render_select_buttons {
   unless ($set_acl_failed) {
     # only render the 'Update' button if a) there are selectable rows and b) there aren't any BRB's...
     if ($self->{__any_selectable_rows__}) {
-      $button_str .= qq(<input type="submit" name="add_to_selection" value="Update List"/> );
+      $button_str .= qq(<input type="submit" class="btn btn-default" name="add_to_selection" value="Update List"/> );
     }
 
     if ($self->allow_selections($pxt) and my $set = $self->{__set__}) {
         my $num_selected = $set->contents();
 
         if ($self->{__any_selectable_rows__}) {
-          $button_str .= qq(<input type="submit" name="select_all" value="Select All"/> );
+          $button_str .= qq(<input type="submit" class="btn btn-default" name="select_all" value="Select All"/> );
         }
 
         if ($num_selected) {
-          $button_str .= qq(<input type="submit" name="unselect_all" value="Unselect All"/> );
+          $button_str .= qq(<input type="submit" class="btn btn-default" name="unselect_all" value="Unselect All"/> );
         }
 
     }

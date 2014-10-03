@@ -33,7 +33,7 @@
             <hr/>
             <html:hidden property="crid" value="${crid}"/>
             <html:hidden property="sid" value="${sid}"/>
-            <html:submit property="delete_button">
+            <html:submit styleClass="btn btn-danger" property="delete_button">
                 <bean:message key="crashes.jsp.delete"/>
             </html:submit>
         </div>

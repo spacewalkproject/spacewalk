@@ -51,7 +51,7 @@
         <div class="text-right">
           <hr />
 
-          <input type="submit" name="RemoveValue" value="${rhn:localize('system.jsp.customdata.removevalue')}"  />
+          <input type="submit" class="btn btn-danger" name="RemoveValue" value="${rhn:localize('system.jsp.customdata.removevalue')}"  />
 
           <rhn:submitted/>
         </div>

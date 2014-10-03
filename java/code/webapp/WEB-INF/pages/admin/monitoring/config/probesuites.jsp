@@ -86,7 +86,7 @@
    <rhn:submitted/>
    <hr/>
 
-    <input type="submit"
+    <input type="submit" class="btn btn-danger"
 	name ="dispatch"
 	    value='<bean:message key="probesuites.jsp.deleteprobesuites"/>'/>
 	</div>

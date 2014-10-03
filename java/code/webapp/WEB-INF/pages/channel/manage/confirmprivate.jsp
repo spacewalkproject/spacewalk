@@ -52,10 +52,10 @@
    <hr/>
    <div class="text-right">
      <rhn:submitted/>
-     <input type="button"
+     <input type="button" class="btn btn-default"
                 value="${rhn:localize('org.trust.cancel')}"
                 onClick="location.href='${parentUrl}'" />
-     <input type="submit" name ="dispatch" value="${rhn:localize('confirm')}" />
+     <input type="submit" name ="dispatch" value="${rhn:localize('confirm')}" class="btn btn-success" />
    </div>
 
    <!-- need to pass along the form -->

@@ -45,7 +45,7 @@
 
 <p align="right">
   <input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='system.audit.listscap.jsp.diffbut'/>" ${empty pageList ? 'disabled' : ''} > &nbsp;
-  <input class="btn btn-success" type="submit" name="dispatch"  value="<bean:message key='system.audit.listscap.jsp.removebut'/>"
+  <input class="btn btn-danger" type="submit" name="dispatch"  value="<bean:message key='system.audit.listscap.jsp.removebut'/>"
     <c:choose>
       <c:when test="${empty pageList}">disabled</c:when>
     </c:choose>

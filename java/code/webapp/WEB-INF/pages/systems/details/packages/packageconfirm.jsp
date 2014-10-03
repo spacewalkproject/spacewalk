@@ -40,7 +40,7 @@
         <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>
         <div class="form-group">
             <div class="col-lg-offset-3 col-lg-6">
-                <input type="submit" name ="dispatch"
+                <input type="submit" name ="dispatch" class="btn btn-success"
                        value='<bean:message key="installconfirm.jsp.confirm"/>'/>
                 <input type="hidden" name="sid" value="${param.sid}" />
             </div>

@@ -23,7 +23,7 @@
         </div>
 
         <div class="text-right">
-            <button class="btn btn-primary" type="submit" name="DeleteKey" value="Delete Key">Delete Key</button>
+            <button class="btn btn-danger" type="submit" name="DeleteKey" value="Delete Key">Delete Key</button>
             <rhn:submitted/>
         </div>
       </form>

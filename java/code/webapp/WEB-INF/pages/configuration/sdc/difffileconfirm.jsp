@@ -45,7 +45,7 @@
         </jsp:include>
         <div class="text-right">
             <hr />
-            <html:submit property="dispatch">
+            <html:submit styleClass="btn btn-primary" property="dispatch">
                 <bean:message key="${button}" />
             </html:submit>
         </div>

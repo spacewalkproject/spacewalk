@@ -52,11 +52,11 @@
    <hr/>
    <div class="text-right">
      <rhn:submitted/>
-     <input type="button"
+     <input type="button" class="btn btn-default"
                 value="${rhn:localize('org.trust.cancel')}"
                 onClick="location.href='${parentUrl}'" />
-     <input type="submit" name ="deny" value="${rhn:localize('button.denyaccess.confirm')}" />
-     <input type="submit" name ="grant" value="${rhn:localize('button.grantaccess.confirm')}" />
+     <input type="submit" name ="deny" value="${rhn:localize('button.denyaccess.confirm')}" class="btn btn-danger" />
+     <input type="submit" name ="grant" value="${rhn:localize('button.grantaccess.confirm')}" class="btn btn-success" />
    </div>
 
    <!-- need to pass along the form -->

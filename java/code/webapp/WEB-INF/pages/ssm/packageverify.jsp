@@ -54,7 +54,7 @@
     <div class="text-right">
         <rhn:submitted/>
         <hr/>
-        <input class="btn btn-success"
+        <input class="btn btn-primary"
                type="submit"
                name="dispatch"
                value='<bean:message key="ssm.package.verify.select.confirm"/>'/>

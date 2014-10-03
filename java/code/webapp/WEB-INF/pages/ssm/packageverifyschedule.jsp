@@ -54,6 +54,7 @@
        <div class="form-group">
             <div class="col-lg-offset-3 col-lg-6">
                 <input type="submit"
+                       class="btn btn-primary"
                        name="dispatch"
                        value='<bean:message key="installconfirm.jsp.confirm"/>'/>
             </div>

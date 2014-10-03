@@ -40,7 +40,7 @@
 	</rl:list>
 	<hr />
 	<div class="text-right">
-		<input type="submit"
+		<input type="submit" class="btn btn-default"
 				name="dispatch"
 				value="${rhn:localize('copy2systems.jsp.doCopy')}"
 				/>
