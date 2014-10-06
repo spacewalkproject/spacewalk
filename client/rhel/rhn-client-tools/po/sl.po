@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
-# Rok Papez <rok.papez@lugos.si>, 2004,2012.
+# Miroslav Suchý <msuchy@redhat.com>, 2011
+# Rok Papez <rok.papez@lugos.si>, 2004,2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 10:36+0200\n"
-"PO-Revision-Date: 2013-02-06 09:40+0000\n"
-"Last-Translator: adelton <jpx-tx@adelton.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: sl\n"
+"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Slovenian (http://www.transifex.com/projects/p/spacewalk/"
+"language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
 
@@ -66,9 +67,8 @@ msgid "Make sure the network connection on this system is operational."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:339
-#, fuzzy
 msgid "There was an error communicating with Spacewalk server."
-msgstr "Napaka pri komunikaciji s strežnikom. Poročilo napake:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:340
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -271,11 +271,6 @@ msgid ""
 "parts of '%s' would be very helpful. Thanks!"
 msgstr ""
 
-#: ../src/up2date_client/config.py:154
-#, python-format
-msgid "%s was not found"
-msgstr ""
-
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr ""
@@ -295,105 +290,6 @@ msgstr ""
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:56
 msgid "Getting list of packages installed on the system"
 msgstr "Gradim seznam v sistemu nameščenih paketov"
-
-#: ../src/up2date_client/tui.py:134
-msgid "Spacewalk Location:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:135
-#: ../src/up2date_client/rhnreg_constants.py:84
-msgid "Login:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:313
-msgid "Error"
-msgstr "Napaka"
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "Strežnik je sporočil napako:\n"
-
-#. Navigation
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:312
-msgid "OK"
-msgstr "Naprej"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "Ime profila:"
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr "%s megabajtov"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "Težava pri pošiljanju profila strojne opreme:\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "Težava pri pošiljanju profila o strojni opremi."
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "Težava pri pošiljanju seznama paketov:\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "Težava pri pošiljanju seznama paketov."
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "Končaj"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr ""
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> med elementi   |  <Presl.> izbere   |  <F12> nasl. zaslon"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "Program za registracijo z RHN mora pognati root."
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
@@ -569,6 +465,11 @@ msgstr ""
 msgid "Red Hat Login:"
 msgstr ""
 
+#: ../src/up2date_client/rhnreg_constants.py:84
+#: ../src/up2date_client/tui.py:135
+msgid "Login:"
+msgstr ""
+
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
 msgstr "Geslo:"
@@ -626,15 +527,11 @@ msgid "Create Profile - Hardware"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
-"Ime profile je opisno ime, ki ga določite in s katerim boste prepoznali ta "
-"sistem na strani Red Hat Network. Po želji lahko vključite serijsko številko "
-"računalnika ali njegovo prepoznavno številko."
 
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid ""
@@ -708,9 +605,8 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:139
-#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr "Pošlji profil sistema v RHN (angl. Red Hat Network)."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:140
 msgid ""
@@ -723,9 +619,8 @@ msgstr ""
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:147
-#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr "Pošlji profil sistema v RHN (angl. Red Hat Network)."
+msgstr ""
 
 #. Finish Window
 #: ../src/up2date_client/rhnreg_constants.py:150
@@ -999,6 +894,17 @@ msgid ""
 "Are you sure you would like to continue?"
 msgstr ""
 
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:312
+#: ../src/up2date_client/tui.py:536
+msgid "OK"
+msgstr "Naprej"
+
+#: ../src/up2date_client/rhnreg_constants.py:313
+#: ../src/up2date_client/tui.py:536
+msgid "Error"
+msgstr "Napaka"
+
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
 msgstr "Naslednji"
@@ -1025,23 +931,23 @@ msgstr ""
 msgid "Press <space> to deselect the option."
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:819
+#: ../src/up2date_client/hardware.py:820
 msgid "Error reading cpu information:"
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:826
+#: ../src/up2date_client/hardware.py:827
 msgid "Error reading system memory information:"
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:836
+#: ../src/up2date_client/hardware.py:837
 msgid "Error reading networking information:"
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:857
+#: ../src/up2date_client/hardware.py:858
 msgid "Error reading install method information:"
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:865
+#: ../src/up2date_client/hardware.py:866
 msgid "Error reading network interface information:"
 msgstr ""
 
@@ -1061,10 +967,14 @@ msgstr ""
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "Sistema ni moč posodoboti dokler ni vezan na kanal."
 
+#: ../src/up2date_client/config.py:153
+#, python-format
+msgid "%s was not found"
+msgstr ""
+
 #: ../src/up2date_client/rhnreg.py:59
-#, fuzzy
 msgid "Warning: unable to enable rhnsd with systemd"
-msgstr "Opozorilo: rhnsd ni bilo moč omogočiti z chkconfig"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg.py:65
 msgid "Warning: unable to enable rhnsd with chkconfig"
@@ -1249,6 +1159,89 @@ msgid ""
 "not support"
 msgstr ""
 "Ta odjemalec zahteva, da strežnik podpira %s, kar pa trenutni strežnik ne zna"
+
+#: ../src/up2date_client/tui.py:134
+msgid "Spacewalk Location:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr "Strežnik je sporočil napako:\n"
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr "Ime profila:"
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr "%s megabajtov"
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr "Težava pri pošiljanju profila strojne opreme:\n"
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr "Težava pri pošiljanju profila o strojni opremi."
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr "Težava pri pošiljanju seznama paketov:\n"
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr "Težava pri pošiljanju seznama paketov."
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr "Končaj"
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> med elementi   |  <Presl.> izbere   |  <F12> nasl. zaslon"
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr "Program za registracijo z RHN mora pognati root."
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"

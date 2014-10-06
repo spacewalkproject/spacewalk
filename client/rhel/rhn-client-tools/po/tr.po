@@ -3,25 +3,26 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ismail ASCI <ismail.asci@gmail.com>, 2006.
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
-# Nilgün Belma Bugüner <nilgun@fide.org>, 2002.
-# Onuralp SEZER <thunderbirdtr@gmail.com>, 2012.
-# YILDIZ KARDEŞLER <turkishprogram@xposta.com>, 2004.
+# Irmak Bıçakçıgil <red.nihi@gmail.com>, 2013
+# Ismail ASCI <ismail.asci@gmail.com>, 2006
+# Miroslav Suchý <msuchy@redhat.com>, 2011
+# Nilgün Belma Bugüner <nilgun@fide.org>, 2002
+# Onuralp SEZER <thunderbirdtr@gmail.com>, 2012
+# YILDIZ KARDEŞLER <turkishprogram@xposta.com>, 2004
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 10:36+0200\n"
-"PO-Revision-Date: 2013-02-06 09:40+0000\n"
-"Last-Translator: adelton <jpx-tx@adelton.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/fedora/language/"
-"tr/)\n"
-"Language: tr\n"
+"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/projects/p/spacewalk/"
+"language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../src/up2date_client/rhnregGui.py:145
 #: ../src/up2date_client/rhnregGui.py:162
@@ -36,7 +37,7 @@ msgstr "Uyarı"
 
 #: ../src/up2date_client/rhnregGui.py:270
 msgid "There was an error while applying your choice."
-msgstr ""
+msgstr "Seçiminiz uygulanırken bir hata meydana geldi."
 
 #: ../src/up2date_client/rhnregGui.py:289
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -69,10 +70,8 @@ msgid "Make sure the network connection on this system is operational."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:339
-#, fuzzy
 msgid "There was an error communicating with Spacewalk server."
 msgstr ""
-"Kayıt sunucusu ile haberleşilirken ölümcül bir hata oluştu.  Hata iletisi:\n"
 
 #: ../src/up2date_client/rhnregGui.py:340
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -133,7 +132,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:711
 msgid "Registering System"
-msgstr ""
+msgstr "Sistem Kaydediliyor"
 
 #: ../src/up2date_client/rhnregGui.py:725
 #: ../src/up2date_client/rhnregGui.py:729
@@ -186,7 +185,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:812
 msgid "Problem sending package information."
-msgstr ""
+msgstr "Paket bilgisi gönderilirken hata meydana geldi."
 
 #: ../src/up2date_client/rhnregGui.py:843 ../src/up2date_client/tui.py:1051
 msgid ""
@@ -276,11 +275,6 @@ msgid ""
 "parts of '%s' would be very helpful. Thanks!"
 msgstr ""
 
-#: ../src/up2date_client/config.py:154
-#, python-format
-msgid "%s was not found"
-msgstr "%s bulanamadı"
-
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr ""
@@ -300,106 +294,6 @@ msgstr ""
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:56
 msgid "Getting list of packages installed on the system"
 msgstr "Sistemde kurulu paketlerin listesi alınıyor"
-
-#: ../src/up2date_client/tui.py:134
-msgid "Spacewalk Location:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:135
-#: ../src/up2date_client/rhnreg_constants.py:84
-msgid "Login:"
-msgstr "Giriş:"
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:313
-msgid "Error"
-msgstr "Hata"
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "Sunucu bir hata belirledi:\n"
-
-#. Navigation
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:312
-msgid "OK"
-msgstr "TAMAM"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "Profil adı:"
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr "%s megabayt"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "Donanım profili gönderilirken hata:\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "Donanım profili gönderilirken hata."
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "Paket listesi gönderme hatalı:\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "Paket listesi gönderilirken hata."
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "Bitir"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr ""
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> nesneler arasında geçiş  |  <Space> seçim  |  <F12> "
-"sonraki ekran"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "RHN kayıt programını root olarak çalıştırmalısınız."
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
@@ -437,9 +331,8 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:29
-#, fuzzy
 msgid "Attempting to contact the Spacewalk server."
-msgstr "Red Hat Ağ Sunucusuna bağlanmayı çalışıyor."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:30
 #, python-format
@@ -576,6 +469,11 @@ msgstr ""
 msgid "Red Hat Login:"
 msgstr "Red Hat Giriş:"
 
+#: ../src/up2date_client/rhnreg_constants.py:84
+#: ../src/up2date_client/tui.py:135
+msgid "Login:"
+msgstr "Giriş:"
+
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
 msgstr "Parola:"
@@ -602,7 +500,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid "Operating System version:"
-msgstr ""
+msgstr "İşletim Sistemi sürümü:"
 
 #: ../src/up2date_client/rhnreg_constants.py:94
 msgid " Minor Release: "
@@ -610,12 +508,12 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:95
 msgid "Limited Updates Only"
-msgstr ""
+msgstr "Sadece Sınırlı Güncelleştirmeler"
 
 #: ../src/up2date_client/rhnreg_constants.py:96
 #: ../data/rh_register.glade.h:151
 msgid "All available updates"
-msgstr ""
+msgstr "Tüm kullanılabilir güncelleştirmeler"
 
 #: ../src/up2date_client/rhnreg_constants.py:97
 msgid "Confirm operating system release selection"
@@ -633,15 +531,11 @@ msgid "Create Profile - Hardware"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
-"Bir profil adı sisteminizi Red Hat Ağı web sayfalarında tanıyabilmeniz için "
-"kullanacağınız bir isimdir. İsteğe bağlı olarak bir bilgisayar seri numarası "
-"veya kimlik numarası olabilir."
 
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid ""
@@ -684,7 +578,7 @@ msgstr "Paket Listesi Oluşturuluyor"
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:126
 msgid "*Email Address:"
-msgstr ""
+msgstr "*E-posta Adresi"
 
 #: ../src/up2date_client/rhnreg_constants.py:128
 #: ../data/rh_register.glade.h:125
@@ -699,7 +593,7 @@ msgstr "Up2date yeniden başlatılıyor"
 #: ../src/up2date_client/rhnreg_constants.py:130
 #: ../data/rh_register.glade.h:131
 msgid "Are you sure you would like to continue?"
-msgstr ""
+msgstr "Devam etmek istediğinize emin misiniz?"
 
 #: ../src/up2date_client/rhnreg_constants.py:132
 msgid ""
@@ -717,9 +611,8 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:139
-#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr "Profil Bilgisini Red Hat Ağına Gönder"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:140
 msgid ""
@@ -732,9 +625,8 @@ msgstr ""
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:147
-#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr "Profil Bilgisini Red Hat Ağına Gönder"
+msgstr ""
 
 #. Finish Window
 #: ../src/up2date_client/rhnreg_constants.py:150
@@ -1008,6 +900,17 @@ msgid ""
 "Are you sure you would like to continue?"
 msgstr ""
 
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:312
+#: ../src/up2date_client/tui.py:536
+msgid "OK"
+msgstr "TAMAM"
+
+#: ../src/up2date_client/rhnreg_constants.py:313
+#: ../src/up2date_client/tui.py:536
+msgid "Error"
+msgstr "Hata"
+
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
 msgstr "Sonraki"
@@ -1023,34 +926,34 @@ msgstr "İptal"
 #: ../src/up2date_client/rhnreg_constants.py:317
 #: ../data/rh_register.glade.h:110
 msgid "No, Cancel"
-msgstr ""
+msgstr "Hayır, İptal"
 
 #: ../src/up2date_client/rhnreg_constants.py:318
 #: ../data/rh_register.glade.h:112
 msgid "Yes, Continue"
-msgstr ""
+msgstr "Evet, Devam"
 
 #: ../src/up2date_client/rhnreg_constants.py:319
 msgid "Press <space> to deselect the option."
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:819
+#: ../src/up2date_client/hardware.py:820
 msgid "Error reading cpu information:"
 msgstr "Cpu bilgisi okuma hatası:"
 
-#: ../src/up2date_client/hardware.py:826
+#: ../src/up2date_client/hardware.py:827
 msgid "Error reading system memory information:"
 msgstr "Sistem bellek bilgisi okuma hatası:"
 
-#: ../src/up2date_client/hardware.py:836
+#: ../src/up2date_client/hardware.py:837
 msgid "Error reading networking information:"
 msgstr "Ağ bilgisi okuma hatası:"
 
-#: ../src/up2date_client/hardware.py:857
+#: ../src/up2date_client/hardware.py:858
 msgid "Error reading install method information:"
 msgstr "Kurulum metodu bilgisi okuma hatası:"
 
-#: ../src/up2date_client/hardware.py:865
+#: ../src/up2date_client/hardware.py:866
 msgid "Error reading network interface information:"
 msgstr "Ağ Arayüzü bilgisi okuma hatası:"
 
@@ -1070,10 +973,14 @@ msgstr ""
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "Sistem bir kanalla iliştirilene kadar güncellenmez"
 
+#: ../src/up2date_client/config.py:153
+#, python-format
+msgid "%s was not found"
+msgstr "%s bulanamadı"
+
 #: ../src/up2date_client/rhnreg.py:59
-#, fuzzy
 msgid "Warning: unable to enable rhnsd with systemd"
-msgstr "Uyarı: rhnsd chkconfig ile etkinleştirilemedi"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg.py:65
 msgid "Warning: unable to enable rhnsd with chkconfig"
@@ -1260,6 +1167,90 @@ msgid ""
 msgstr ""
 "İstemci için sunucunun %s desteği olması gerekiyor. fakat sunucunun buna "
 "desteği yok"
+
+#: ../src/up2date_client/tui.py:134
+msgid "Spacewalk Location:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr "Sunucu bir hata belirledi:\n"
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr "Profil adı:"
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr "%s megabayt"
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr "Donanım profili gönderilirken hata:\n"
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr "Donanım profili gönderilirken hata."
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr "Paket listesi gönderme hatalı:\n"
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr "Paket listesi gönderilirken hata."
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr "Bitir"
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> nesneler arasında geçiş  |  <Space> seçim  |  <F12> "
+"sonraki ekran"
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr "RHN kayıt programını root olarak çalıştırmalısınız."
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"
@@ -1779,7 +1770,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:64
 msgid "View Package Profile"
-msgstr ""
+msgstr "Paket Profilini Göster"
 
 #: ../data/rh_register.glade.h:65
 msgid "Send _hardware profile"
@@ -1835,7 +1826,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:80
 msgid "Management"
-msgstr ""
+msgstr "Yönetim"
 
 #: ../data/rh_register.glade.h:81
 msgid ""
@@ -1894,7 +1885,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:94
 msgid "Proxy Configuration"
-msgstr ""
+msgstr "Proxy Konfigürasyonu"
 
 #: ../data/rh_register.glade.h:95
 msgid "<b>HTTP Proxy</b>"

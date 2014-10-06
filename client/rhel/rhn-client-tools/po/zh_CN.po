@@ -3,29 +3,30 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Leah Liu <lliu@redhat.com>, 2010.
-# Leah Liu <weliu@redhat.com>, 2005-2006.
-# Lex Zhou <giftedcn@gmail.com>, 2012.
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
-# Sarah Smith <sarahs@redhat.com>, 2002.
-# Sarah Wang <sarahs@redhat.com>, 2003-2004.
-# Tommy He <lovenemesis@gmail.com>, 2012.
-# Tony Fu <tfu@redhat.com>, 2004,2006.
-# xiaofeng  <wasphin@gmail.com>, 2012.
-# Xi Huang <xhuang@redhat.com>, 2006.
-# Xi HUANG <xhuang@redhat.com>, 2007.
+# Leah Liu <lliu@redhat.com>, 2010
+# Leah Liu <weliu@redhat.com>, 2005-2006
+# Lex Zhou <giftedcn@gmail.com>, 2012
+# Miroslav Suchý <msuchy@redhat.com>, 2011
+# Sarah Smith <sarahs@redhat.com>, 2002
+# Sarah Wang <sarahs@redhat.com>, 2003-2004
+# Tommy He <lovenemesis@gmail.com>, 2012
+# Tony Fu <tfu@redhat.com>, 2004,2006
+# xiaofeng <wasphin@gmail.com>, 2012
+# Xi Huang <xhuang@redhat.com>, 2006
+# Xi HUANG <xhuang@redhat.com>, 2007
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 10:36+0200\n"
-"PO-Revision-Date: 2013-02-06 09:40+0000\n"
-"Last-Translator: adelton <jpx-tx@adelton.com>\n"
-"Language-Team: Chinese (China) <trans-zh_cn@lists.fedoraproject.org>\n"
-"Language: zh_CN\n"
+"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"PO-Revision-Date: 2014-01-14 15:04+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
+"spacewalk/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../src/up2date_client/rhnregGui.py:145
@@ -48,11 +49,10 @@ msgid "You specified an invalid protocol. Only https and http are allowed."
 msgstr "您指定了一个无效的协议。只允许使用 https 和 http。"
 
 #: ../src/up2date_client/rhnregGui.py:303
-#, fuzzy
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Spacewalk server."
-msgstr "不联络红帽网络服务器您将无法成功注册这个系统。"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:323
 msgid "Cannot contact selected server"
@@ -75,9 +75,8 @@ msgid "Make sure the network connection on this system is operational."
 msgstr "确认这个系统的网络连接可以正常工作。"
 
 #: ../src/up2date_client/rhnregGui.py:339
-#, fuzzy
 msgid "There was an error communicating with Spacewalk server."
-msgstr "在与红帽网络连接时出现错误。"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:340
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -88,10 +87,10 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr "您可能正在运行一个与服务器不兼容的客户端系统。"
 
 #: ../src/up2date_client/rhnregGui.py:375
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Spacewalk server:"
-msgstr "请输入您的 <b>%s</b> 红帽网络 Satellite 的帐户信息："
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:414
 msgid "You must enter a login."
@@ -284,11 +283,6 @@ msgstr ""
 "这个错误不应该发生。如果您希望帮助我们改进这个程序，请在 bugzilla.redhat.com "
 "上提交一个错误报告。请包括 '%s' 的相关部分。谢谢！"
 
-#: ../src/up2date_client/config.py:154
-#, python-format
-msgid "%s was not found"
-msgstr "没有找到 %s "
-
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr "错误：服务器不可用，请稍后再试。"
@@ -309,116 +303,14 @@ msgstr "由于负载过重，服务器拒绝连接"
 msgid "Getting list of packages installed on the system"
 msgstr "正在获取安装在您的系统上的软件包列表"
 
-#: ../src/up2date_client/tui.py:134
-#, fuzzy
-msgid "Spacewalk Location:"
-msgstr "红帽网络位置："
-
-#: ../src/up2date_client/tui.py:135
-#: ../src/up2date_client/rhnreg_constants.py:84
-msgid "Login:"
-msgstr "登录："
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr "系统 ID： "
-
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:313
-msgid "Error"
-msgstr "错误"
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "服务器提示发生错误：\n"
-
-#. Navigation
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:312
-msgid "OK"
-msgstr "确定"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr "在与注册服务器联络时出错：\n"
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "档案名称："
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr "版本："
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr "CPU 型号："
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr "主机名："
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr "CPU 速度："
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr "IP 地址："
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr "内存："
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr "%s MB"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "在发送硬件档案时出现问题：\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "发送硬件档案时出现问题。"
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "发送软件包列表时出现问题：\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "发送软件包列表时出现问题。"
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "结束"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr "您指定了一个无效的协议。"
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr "  <Tab>/<Alt-Tab> 在元素间切换  |  <Space> 选择  |  <F12> 下一屏幕"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "您必须以根用户（root）运行 RHN 注册程序。"
-
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
 msgstr "Copyright © 2006--2014 红帽公司，版权所有。"
 
 #. Satellite URL Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Enter your Red Hat Satellite URL."
 msgstr ""
-"请输入您的 %s 红帽网络 Satellite 的登录信息：\n"
-"\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:18
 msgid ""
@@ -436,9 +328,8 @@ msgid "SSL certificate:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
-#, fuzzy
 msgid "You must enter a valid Satellite URL."
-msgstr "您必须输入登录名。"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:25
 msgid ""
@@ -448,9 +339,8 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:29
-#, fuzzy
 msgid "Attempting to contact the Spacewalk server."
-msgstr "正在试图与红帽网络服务器联系。"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:30
 #, python-format
@@ -468,7 +358,6 @@ msgid "System Registration"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:36
-#, fuzzy
 msgid ""
 "This assistant will guide you through connecting your system to Red Hat "
 "Satellite to receive software updates, including security updates, to keep "
@@ -480,13 +369,6 @@ msgid ""
 " * The location of a Red Hat Satellite or Proxy\n"
 "\n"
 msgstr ""
-"这个程序会引导您通过把您的系统与红帽网络（RHN）相连来接收包括安全更新在内的软"
-"件更新。您此时需要以下配置：\n"
-"\n"
-" * 网络联接\n"
-" * 您的红帽登录和密码\n"
-" * 红帽网络 Satellite 服务器或代理服务器的位置（可选）\n"
-"\n"
 
 #. Why Register Window
 #: ../src/up2date_client/rhnreg_constants.py:49 ../data/rh_register.glade.h:5
@@ -498,11 +380,10 @@ msgid "Why Register"
 msgstr "为什么要注册"
 
 #: ../src/up2date_client/rhnreg_constants.py:51
-#, fuzzy
 msgid ""
 "Connecting your system to Red Hat Satellite allows you to take full "
 "advantage of the benefits of a paid subscription, including:"
-msgstr "把您的系统连接到红帽网络可以使您获得："
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:53
 msgid "Security & Updates:"
@@ -562,20 +443,16 @@ msgid "Software Update Not Set Up"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Satellite? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
-"您确认不希望将您的系统连接到红帽网络吗？您将无法获得红帽企业 Linux 订阅所提供"
-"的：\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:74
-#, fuzzy
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Satellite.\n"
-msgstr "不将您的系统与红帽网络相连，您将无法获得这些订阅所提供的益处。\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:76
 msgid "Take me back to the setup process."
@@ -603,6 +480,11 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Red Hat Login:"
 msgstr "红帽登录："
+
+#: ../src/up2date_client/rhnreg_constants.py:84
+#: ../src/up2date_client/tui.py:135
+msgid "Login:"
+msgstr "登录："
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
@@ -661,14 +543,11 @@ msgid "Create Profile - Hardware"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
-"档案名是您选择用来在 Red Hat 网络网页上识别该系统概要档案的描述性名称。另外，"
-"您也可以在名称里输入计算机序列号或识别号码。"
 
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid ""
@@ -739,12 +618,10 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:139
-#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr "把档案信息发送给红帽网络"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:140
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -752,16 +629,11 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
-"我们已经收集好了系统概要信息。\n"
-"\n"
-"点 \"下一步\"，把系统概要档案发送到红帽网络。点 \"取消\" 则不会发送任何信息。"
-"您可以稍后通过命令行输入 `rhn_register` 来运行注册程序。"
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:147
-#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr "把档案信息发送给红帽网络"
+msgstr ""
 
 #. Finish Window
 #: ../src/up2date_client/rhnreg_constants.py:150
@@ -770,7 +642,6 @@ msgid "Updates Configured"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:151
-#, fuzzy
 msgid ""
 "You may now run 'yum update' from this system's command line to get the "
 "latest software updates from Red Hat Satellite. You will need to run this "
@@ -780,11 +651,6 @@ msgid ""
 "are in chapter 6 of the RHN Reference Guide, available from the 'Help' "
 "button in the main Red Hat Network Satellite web interface.)"
 msgstr ""
-"您现在可以在这个系统的命令行中运行 'yum update' 来从红帽网络获得最新的软件更"
-"新。您需要定期地运行这个程序；或者您可以通过红帽网络网站界面进行配置来使您的"
-"系统自动获得软件更新（这被称为 'auto errata update'）。（具体的步骤可以在"
-"《RHN 参考指南》的第6章获得。您可以点红帽网络网站界面的“帮助”按钮来获得这个文"
-"档。）"
 
 #. Review Window
 #: ../src/up2date_client/rhnreg_constants.py:162 ../data/gui.glade.h:7
@@ -797,11 +663,11 @@ msgid "Please review the subscription details below:"
 msgstr "请查看订阅详情如下："
 
 #: ../src/up2date_client/rhnreg_constants.py:164
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Satellite."
-msgstr "安装号 %s 在这个系统与红帽网络初始连接时已经被激活。"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:166
 msgid ""
@@ -967,7 +833,7 @@ msgid "Fatal Error"
 msgstr "致命错误"
 
 #: ../src/up2date_client/rhnreg_constants.py:249
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "We can't contact the Red Hat Satellite.\n"
 "\n"
@@ -979,14 +845,6 @@ msgid ""
 "This system will not be able to successfully receive software updates from "
 "Red Hat without connecting to a Red Hat Satellite server"
 msgstr ""
-"我们无法与红帽网络服务器进行联系。\n"
-"\n"
-"请检测所提供的位置是否正确 - '%s' 正确吗？\n"
-"如果不正确，请改正后再重新尝试。\n"
-"\n"
-"请确认这个系统的网络连接可以正常工作。\n"
-"\n"
-"在没有连接到红帽网络服务器的情况下，这个系统将无法从红帽接收软件更新"
 
 #: ../src/up2date_client/rhnreg_constants.py:256
 #, python-format
@@ -1002,7 +860,7 @@ msgstr ""
 "服务器。"
 
 #: ../src/up2date_client/rhnreg_constants.py:264
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -1013,12 +871,6 @@ msgid ""
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
-"<b><span size=\"16000\">不兼容的证书文件</span></b>\n"
-"\n"
-"您所提供的证书 <b>%s</b> 与 <b>%s</b> 中的红帽网络服务器不兼容。您需要确认证"
-"书文件是否有效。您是否确信提供了正确的证书，并且证书文件没有损坏？\n"
-"\n"
-"请尝试使用另一个证书文件。"
 
 #: ../src/up2date_client/rhnreg_constants.py:272
 msgid ""
@@ -1090,6 +942,17 @@ msgstr ""
 "（您可以将其移动到更新的版本）。\n"
 "您确定要继续吗？"
 
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:312
+#: ../src/up2date_client/tui.py:536
+msgid "OK"
+msgstr "确定"
+
+#: ../src/up2date_client/rhnreg_constants.py:313
+#: ../src/up2date_client/tui.py:536
+msgid "Error"
+msgstr "错误"
+
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
 msgstr "下一步"
@@ -1116,23 +979,23 @@ msgstr "是，继续"
 msgid "Press <space> to deselect the option."
 msgstr "按 <空格键> 来取消选择该选项。"
 
-#: ../src/up2date_client/hardware.py:819
+#: ../src/up2date_client/hardware.py:820
 msgid "Error reading cpu information:"
 msgstr "读取 cpu 信息时出错："
 
-#: ../src/up2date_client/hardware.py:826
+#: ../src/up2date_client/hardware.py:827
 msgid "Error reading system memory information:"
 msgstr "读取系统内存信息时出错："
 
-#: ../src/up2date_client/hardware.py:836
+#: ../src/up2date_client/hardware.py:837
 msgid "Error reading networking information:"
 msgstr "读取联网信息时出错："
 
-#: ../src/up2date_client/hardware.py:857
+#: ../src/up2date_client/hardware.py:858
 msgid "Error reading install method information:"
 msgstr "读取安装方法信息时出错："
 
-#: ../src/up2date_client/hardware.py:865
+#: ../src/up2date_client/hardware.py:866
 msgid "Error reading network interface information:"
 msgstr "读取网络接口信息时出错："
 
@@ -1152,10 +1015,14 @@ msgstr "无法定位 SystemId"
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "该系统在和某频道关联前可能不会被更新。"
 
+#: ../src/up2date_client/config.py:153
+#, python-format
+msgid "%s was not found"
+msgstr "没有找到 %s "
+
 #: ../src/up2date_client/rhnreg.py:59
-#, fuzzy
 msgid "Warning: unable to enable rhnsd with systemd"
-msgstr "警告：无法使用 chkconfig 来启用 rhnsd"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg.py:65
 msgid "Warning: unable to enable rhnsd with chkconfig"
@@ -1220,7 +1087,6 @@ msgid "Network error: "
 msgstr "网络错误："
 
 #: ../src/up2date_client/up2dateErrors.py:292
-#, fuzzy
 msgid ""
 "\n"
 "    Your organization does not have enough Management entitlements to "
@@ -1242,18 +1108,6 @@ msgid ""
 "retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
-"\n"
-"    您的机构没有足够的管理授权在红帽网络中\n"
-"注册这个系统。请将此错误通知您的机构 管理员。\n"
-"    您的机构管理员释放现有授权或者购买额外授权后\n"
-"您就应该可以注册这个系统。您的机构管理员可登录到\n"
-"红帽网络并访问 RHN 中“您的 RHN”部分的“订阅管理”\n"
-"页面购买附加授权。\n"
-"    \n"
-"    通常导致此错误的原因是由于错误地将激活码设定\n"
-"为默认通用。如果将该帐户中\n"
-"的激活码设定为默认通用，您可以禁用这个密钥并重试\n"
-"即可不要求管理授权。"
 
 #: ../src/up2date_client/rhncli.py:70
 msgid "Show additional output"
@@ -1350,6 +1204,88 @@ msgid ""
 "This client requires the server to support %s, which the current server does "
 "not support"
 msgstr "该客户端要求服务器支持 %s，但是当前的服务器不支持"
+
+#: ../src/up2date_client/tui.py:134
+msgid "Spacewalk Location:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr "系统 ID： "
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr "服务器提示发生错误：\n"
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr "在与注册服务器联络时出错：\n"
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr "档案名称："
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr "版本："
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr "CPU 型号："
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr "主机名："
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr "CPU 速度："
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr "IP 地址："
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr "内存："
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr "%s MB"
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr "在发送硬件档案时出现问题：\n"
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr "发送硬件档案时出现问题。"
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr "发送软件包列表时出现问题：\n"
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr "发送软件包列表时出现问题。"
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr "结束"
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr "您指定了一个无效的协议。"
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr "  <Tab>/<Alt-Tab> 在元素间切换  |  <Space> 选择  |  <F12> 下一屏幕"
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr "您必须以根用户（root）运行 RHN 注册程序。"
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"
@@ -1620,7 +1556,6 @@ msgid ""
 msgstr "<b>您系统的网络连接没有正常工作。您的系统无法设置软件更新。</b>"
 
 #: ../data/rh_register.glade.h:2
-#, fuzzy
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -1629,11 +1564,6 @@ msgid ""
 "To keep your system updated, secure, and supported, please register this "
 "system at your earliest convenience."
 msgstr ""
-"如果没有连接到红帽网络服务器，这个系统将<b>不会</b>成功地从红帽接收软件更新，"
-"其中包括安全更新。\n"
-"\n"
-"要保持您的系统更新、安全并被支持，请尽快支持您的系统。您可以通过运行 <b>应用"
-"程序 > 系统工具</b> 菜单中的 <b>软件更新程序</b> 获得这个支持工具。"
 
 #: ../data/rh_register.glade.h:7
 msgid ""
@@ -1942,7 +1872,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:80
 msgid "Management"
-msgstr ""
+msgstr "管理"
 
 #: ../data/rh_register.glade.h:81
 msgid ""
@@ -1974,9 +1904,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:88
-#, fuzzy
 msgid "I have an <b>_SSL certificate</b> to communicate with Spacewalk:"
-msgstr "我有一个 <b>(_S)SSL 证书</b> 用来与红帽网络通讯："
+msgstr ""
 
 #: ../data/rh_register.glade.h:89
 msgid "Certificate _Location:"
@@ -2000,7 +1929,7 @@ msgstr "您的系统没有设置软件更新。"
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system."
-msgstr ""
+msgstr "您将无法收到系统的软件更新（包括安全更新）。"
 
 #: ../data/rh_register.glade.h:94
 msgid "Proxy Configuration"
@@ -2015,9 +1944,8 @@ msgid "I would like to connect via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:97
-#, fuzzy
 msgid "I would like to connect to Spacewalk via an _HTTP proxy."
-msgstr "我将通过(_H)HTTP 代理服务器来与红帽网络连接。"
+msgstr ""
 
 #: ../data/rh_register.glade.h:98
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
@@ -2128,9 +2056,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgid "<b>Spacewalk Location:</b>"
-msgstr "<b>红帽网络位置：</b>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 msgid "<b>Login:</b>"
@@ -2155,13 +2082,10 @@ msgid ""
 msgstr "通过基于证书的RHN技术，该系统已经在RHN上注册。"
 
 #: ../data/rh_register.glade.h:134
-#, fuzzy
 msgid ""
 "Your system is being registered again using RHN Classic technology. Red Hat "
 "recommends that customers only register once."
 msgstr ""
-"您使用的工具软件正尝试通过RHN传统技术重新注册。红帽公司推荐顾客在RHN上只注册"
-"一次（个别情况除外）。"
 
 #: ../data/rh_register.glade.h:135
 msgid ""
@@ -2278,16 +2202,14 @@ msgid "RHN Registration"
 msgstr "RHN 注册"
 
 #: ../rhn_register.desktop.in.h:2
-#, fuzzy
 msgid ""
 "Register for software updates from Spacewalk/Red Hat Satellite/Red Hat "
 "Network Classic"
-msgstr "在 Spacewalk/Satellite/红帽网络中注册软件更新"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
-msgstr "在 Spacewalk/Satellite/Red Hat 网络注册。"
+msgstr ""
 
 #~ msgid "Username: "
 #~ msgstr "用户名："

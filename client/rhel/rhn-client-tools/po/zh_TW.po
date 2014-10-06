@@ -3,26 +3,27 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ben Wu <hpwu@redhat.com>, 2002-2003.
-# Chester Cheng <ccheng@brisbane.redhat.com>, 2006.
-# Chester Cheng <ccheng@redhat.com>, 2004-2007.
-# Leah Liu <weliu@redhat.com>, 2005.
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
-# Waika Liu <wliu@redhat.com>, 2005.
-# Walter Cheuk <wwycheuk@gmail.com>, 2012.
-# Walter Cheuk <wwycheuk@netvigator.com>, 2005.
+# Ben Wu <hpwu@redhat.com>, 2002-2003
+# Chester Cheng <ccheng@brisbane.redhat.com>, 2006
+# Chester Cheng <ccheng@redhat.com>, 2004-2007
+# Leah Liu <weliu@redhat.com>, 2005
+# Miroslav Suchý <msuchy@redhat.com>, 2011
+# Waika Liu <wliu@redhat.com>, 2005
+# Walter Cheuk <wwycheuk@gmail.com>, 2012-2013
+# Walter Cheuk <wwycheuk@netvigator.com>, 2005
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 10:36+0200\n"
-"PO-Revision-Date: 2013-02-06 09:40+0000\n"
-"Last-Translator: adelton <jpx-tx@adelton.com>\n"
-"Language-Team: Chinese (Taiwan) <trans-zh_TW@lists.fedoraproject.org>\n"
-"Language: zh_TW\n"
+"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
+"spacewalk/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../src/up2date_client/rhnregGui.py:145
@@ -45,11 +46,10 @@ msgid "You specified an invalid protocol. Only https and http are allowed."
 msgstr "您指定了不合規定的通訊協定。請使用 https 或 http。"
 
 #: ../src/up2date_client/rhnregGui.py:303
-#, fuzzy
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Spacewalk server."
-msgstr "若不與 Red Hat Network 伺服器進行通訊，您將無法成功註冊這部系統。"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:323
 msgid "Cannot contact selected server"
@@ -72,9 +72,8 @@ msgid "Make sure the network connection on this system is operational."
 msgstr "請確定這台電腦可以連上網路。"
 
 #: ../src/up2date_client/rhnregGui.py:339
-#, fuzzy
 msgid "There was an error communicating with Spacewalk server."
-msgstr "連接 Red Hat Network 時發生錯誤。"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:340
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -85,10 +84,10 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr "可能您執行的用戶端與伺服器不相容。"
 
 #: ../src/up2date_client/rhnregGui.py:375
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Spacewalk server:"
-msgstr "請為您的 <b>%s</b> Red Hat Network 衛星伺服器，輸入帳號資訊："
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:414
 msgid "You must enter a login."
@@ -199,11 +198,11 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:897
 msgid "There was an error while installing the certificate."
-msgstr "安裝認證時發生了錯誤。"
+msgstr "安裝證書時發生了錯誤。"
 
 #: ../src/up2date_client/rhnregGui.py:923
 msgid "You must select a certificate."
-msgstr "必須選擇認證。"
+msgstr "必須選取證書。"
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -211,12 +210,12 @@ msgstr "必須選擇認證。"
 msgid ""
 "There was an SSL error. This could be because the file you picked was not a "
 "certificate file."
-msgstr "發生 SSL 錯誤。這可能是因為您選的檔案不是認證檔。"
+msgstr "發生 SSL 錯誤。這可能是因為您選的檔案不是證書檔。"
 
 #. TODO Provide better messages
 #: ../src/up2date_client/rhnregGui.py:960
 msgid "Something went wrong while installing the new certificate:\n"
-msgstr "安裝新認證時發生錯誤：\n"
+msgstr "安裝新證書時發生錯誤：\n"
 
 #: ../src/up2date_client/rhnregGui.py:1012
 #: ../src/up2date_client/rhnregGui.py:1013
@@ -278,11 +277,6 @@ msgstr ""
 "這錯誤不該發生。如果您願意幫助我們改善這程式，請透過 bugzilla.redhat.com 發送"
 "錯誤報告。請在其中包含相關的 %s，這會很有幫助。謝謝！"
 
-#: ../src/up2date_client/config.py:154
-#, python-format
-msgid "%s was not found"
-msgstr "找不到 %s"
-
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr "錯誤：伺服器無法使用。請稍後再嘗試。"
@@ -303,116 +297,14 @@ msgstr "由於負載太大，伺服器拒絕連線"
 msgid "Getting list of packages installed on the system"
 msgstr "取得已安裝在系統的套件清單"
 
-#: ../src/up2date_client/tui.py:134
-#, fuzzy
-msgid "Spacewalk Location:"
-msgstr "Red Hat Network 的位置："
-
-#: ../src/up2date_client/tui.py:135
-#: ../src/up2date_client/rhnreg_constants.py:84
-msgid "Login:"
-msgstr "登入名稱："
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr "系統 ID："
-
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:313
-msgid "Error"
-msgstr "錯誤"
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "伺服器指出有錯誤發生：\n"
-
-#. Navigation
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:312
-msgid "OK"
-msgstr "確定"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr "連接註冊伺服器時發生了錯誤：\n"
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "資料檔名稱："
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr "版本："
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr "處理器型號："
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr "主機名稱："
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr "處理器速度："
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr "IP 位址："
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr "記憶體："
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr "%s MB"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "傳送硬體資料檔發生問題：\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "傳送硬體資料檔發生問題。"
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "傳送套件清單發生問題：\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "傳送套件清單發生問題。"
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "完成"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr "指定了不合規定的通訊協定。"
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr "  <Tab>/<Alt-Tab> 移動游標  |  <Space> 選取  |  <F12> 下一個畫面"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "必須是 root 才能執行 RHN 註冊程式。"
-
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
 msgstr "版權所有 © 2006--2014 Red Hat, Inc. 保留所有權利。"
 
 #. Satellite URL Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Enter your Red Hat Satellite URL."
 msgstr ""
-"請為您的 %s Red Hat Network 衛星伺服器，輸入登入資訊：\n"
-"\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:18
 msgid ""
@@ -427,12 +319,11 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:23
 msgid "SSL certificate:"
-msgstr ""
+msgstr "SSL 證書："
 
 #: ../src/up2date_client/rhnreg_constants.py:24
-#, fuzzy
 msgid "You must enter a valid Satellite URL."
-msgstr "必須輸入登入帳號。"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:25
 msgid ""
@@ -442,9 +333,8 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:29
-#, fuzzy
 msgid "Attempting to contact the Spacewalk server."
-msgstr "無法連上 Red Hat Network 伺服器。"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:30
 #, python-format
@@ -462,7 +352,6 @@ msgid "System Registration"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:36
-#, fuzzy
 msgid ""
 "This assistant will guide you through connecting your system to Red Hat "
 "Satellite to receive software updates, including security updates, to keep "
@@ -474,13 +363,6 @@ msgid ""
 " * The location of a Red Hat Satellite or Proxy\n"
 "\n"
 msgstr ""
-"這助理程式會引領您將系統連上 Red Hat Network（RHN），收取軟理更新，包括安全性"
-"更新，好讓您的系統保持在受支援、相容的狀態。現在您需要以下：\n"
-"\n"
-" * 網路連線\n"
-" * 您的 Red Hat 登入帳號與密碼\n"
-" * Red Hat 衛星伺服器或代理伺服器的位置（可有可無）\n"
-"\n"
 
 #. Why Register Window
 #: ../src/up2date_client/rhnreg_constants.py:49 ../data/rh_register.glade.h:5
@@ -492,11 +374,10 @@ msgid "Why Register"
 msgstr "為什麼要註冊"
 
 #: ../src/up2date_client/rhnreg_constants.py:51
-#, fuzzy
 msgid ""
 "Connecting your system to Red Hat Satellite allows you to take full "
 "advantage of the benefits of a paid subscription, including:"
-msgstr "讓您的系統連上 Red Hat Network 能讓您享受完整的付費訂閱服務，包括："
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:53
 msgid "Security & Updates:"
@@ -560,20 +441,16 @@ msgid "Software Update Not Set Up"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Satellite? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
-"您確定不打算連上 Red Hat Network？您將會錯過 Red Hat Enterprise Linux 訂閱服"
-"務的好處：\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:74
-#, fuzzy
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Satellite.\n"
-msgstr "不向 Red Hat Network 註冊系統，您將無法享用到這些訂閱權利。\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:76
 msgid "Take me back to the setup process."
@@ -601,6 +478,11 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Red Hat Login:"
 msgstr "Red Hat 登入："
+
+#: ../src/up2date_client/rhnreg_constants.py:84
+#: ../src/up2date_client/tui.py:135
+msgid "Login:"
+msgstr "登入名稱："
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
@@ -659,14 +541,11 @@ msgid "Create Profile - Hardware"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
-"資料檔名稱是您選擇在 Red Hat Network 的網頁辨識這個系統資料檔的描述性名稱。 "
-"除此之外，您也可以使用個電腦序號或識別號碼。"
 
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid ""
@@ -737,12 +616,10 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:139
-#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr "傳送資料檔資訊到 Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:140
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -750,16 +627,11 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
-"我們已經為系統設定檔蒐集了資訊。\n"
-"\n"
-"請按下「下一步」，將這系統設定檔送至 Red Hat Network。請按下「取消」，則系統"
-"不會送出任何資訊。您可以在稍後於命令列中輸入「rhn_register」，執行註冊程式。"
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:147
-#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr "傳送資料檔到 Red Hat Network"
+msgstr ""
 
 #. Finish Window
 #: ../src/up2date_client/rhnreg_constants.py:150
@@ -768,7 +640,6 @@ msgid "Updates Configured"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:151
-#, fuzzy
 msgid ""
 "You may now run 'yum update' from this system's command line to get the "
 "latest software updates from Red Hat Satellite. You will need to run this "
@@ -778,11 +649,6 @@ msgid ""
 "are in chapter 6 of the RHN Reference Guide, available from the 'Help' "
 "button in the main Red Hat Network Satellite web interface.)"
 msgstr ""
-"您現在可以在系統的命令列中執行「yum update」，從 Red Hat Network 取得最新的軟"
-"體更新。請定期執行此程式，取得最新的更新檔。要不您也可以透過 Red Hat Network "
-"的網頁介面，配置這台系統自動取得軟體更新（稱為「自動勘誤更新」）。（詳情請參"
-"閱《RHN 參考指南》的第六章。本指南可以從 Red Hat Network 網頁介面的「求助」按"
-"鈕中取得。）"
 
 #. Review Window
 #: ../src/up2date_client/rhnreg_constants.py:162 ../data/gui.glade.h:7
@@ -795,11 +661,11 @@ msgid "Please review the subscription details below:"
 msgstr "請檢視以下的訂閱詳細資料："
 
 #: ../src/up2date_client/rhnreg_constants.py:164
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Satellite."
-msgstr "安裝號碼 %s 已經在系統第一次連到 Red Hat Network 時啟動。"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:166
 msgid ""
@@ -964,7 +830,7 @@ msgid "Fatal Error"
 msgstr "嚴重錯誤"
 
 #: ../src/up2date_client/rhnreg_constants.py:249
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "We can't contact the Red Hat Satellite.\n"
 "\n"
@@ -976,14 +842,6 @@ msgid ""
 "This system will not be able to successfully receive software updates from "
 "Red Hat without connecting to a Red Hat Satellite server"
 msgstr ""
-"我們無法連上 Red Hat Network 伺服器。\n"
-"\n"
-"請檢查所提供的位置 - 「%s」是否正確？\n"
-"若否，請修正後再試一次。\n"
-"\n"
-"請確定這台系統的網路連線處於運作狀態。\n"
-"\n"
-"在連上 Red Hat Network 伺服器之前，這系統無法成功地從 Red Hat 取得軟體更新"
 
 #: ../src/up2date_client/rhnreg_constants.py:256
 #, python-format
@@ -999,7 +857,7 @@ msgstr ""
 "次。"
 
 #: ../src/up2date_client/rhnreg_constants.py:264
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -1010,13 +868,6 @@ msgid ""
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
-"<b><span size=\"16000\">認證檔案不完整</span></b>\n"
-"\n"
-"您提供的認證 <b>%s</b> 與位於 <b>%s</b> 的 Red Hat Network 伺服器並不相容。請"
-"確認您提供了正確的認證檔。請問您是否提供了正確的認證，同時該認證檔並未損"
-"毀？\n"
-"\n"
-"請以不同的認證檔再試一次。"
 
 #: ../src/up2date_client/rhnreg_constants.py:272
 msgid ""
@@ -1025,9 +876,9 @@ msgid ""
 " The certificate is expired. Please ensure you have the correct  certificate "
 "and your system time is correct."
 msgstr ""
-"<b><span size=\"12000\">認證檔案不相容</span></b>\n"
+"<b><span size=\"12000\">證書檔不相容</span></b>\n"
 "\n"
-" 認證已失效。請確認您擁有正確的認證，以及您的系統時間是否正確。"
+" 證書已失效。請確定您擁有正確的證書，以及您的系統時間是否正確。"
 
 #: ../src/up2date_client/rhnreg_constants.py:276
 msgid ""
@@ -1088,6 +939,17 @@ msgstr ""
 "（您可轉換為較新的發行版。）\n"
 "您是否要繼續進行？"
 
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:312
+#: ../src/up2date_client/tui.py:536
+msgid "OK"
+msgstr "確定"
+
+#: ../src/up2date_client/rhnreg_constants.py:313
+#: ../src/up2date_client/tui.py:536
+msgid "Error"
+msgstr "錯誤"
+
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
 msgstr "下一步"
@@ -1114,23 +976,23 @@ msgstr "是的，請繼續"
 msgid "Press <space> to deselect the option."
 msgstr "請按下 <space> 取消選取選項。"
 
-#: ../src/up2date_client/hardware.py:819
+#: ../src/up2date_client/hardware.py:820
 msgid "Error reading cpu information:"
 msgstr "讀取處理器資訊時發生問題："
 
-#: ../src/up2date_client/hardware.py:826
+#: ../src/up2date_client/hardware.py:827
 msgid "Error reading system memory information:"
 msgstr "讀取系統記憶體資訊時發生錯誤："
 
-#: ../src/up2date_client/hardware.py:836
+#: ../src/up2date_client/hardware.py:837
 msgid "Error reading networking information:"
 msgstr "讀取網路資訊時發生問題："
 
-#: ../src/up2date_client/hardware.py:857
+#: ../src/up2date_client/hardware.py:858
 msgid "Error reading install method information:"
 msgstr "讀取安裝方法的資訊時發生問題："
 
-#: ../src/up2date_client/hardware.py:865
+#: ../src/up2date_client/hardware.py:866
 msgid "Error reading network interface information:"
 msgstr "讀取網路介面資訊時發生問題："
 
@@ -1150,10 +1012,14 @@ msgstr "找不到 SystemId"
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "在系統與一個頻道產生關聯前，該部系統將不會被更新。"
 
+#: ../src/up2date_client/config.py:153
+#, python-format
+msgid "%s was not found"
+msgstr "找不到 %s"
+
 #: ../src/up2date_client/rhnreg.py:59
-#, fuzzy
 msgid "Warning: unable to enable rhnsd with systemd"
-msgstr "警告： 無法使用 chkconfig 來啟用 rhnsd"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg.py:65
 msgid "Warning: unable to enable rhnsd with chkconfig"
@@ -1218,7 +1084,6 @@ msgid "Network error: "
 msgstr "網路錯誤："
 
 #: ../src/up2date_client/up2dateErrors.py:292
-#, fuzzy
 msgid ""
 "\n"
 "    Your organization does not have enough Management entitlements to "
@@ -1240,18 +1105,6 @@ msgid ""
 "retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
-"\n"
-"    您的組織沒有足夠的 Management 權利，以向 Red Hat Network 註冊\n"
-"    這部系統。有關於這項錯誤，請通知您的組織管理員。\n"
-"    當您的組織釋放既有權利，或購買額外權利時，您便可\n"
-"    註冊這部系統。您的組織管理員可透過\n"
-"    登入 Red Hat Network，並至 RHN 的「您的」部份中的訂閱管理\n"
-"    網頁，以購買額外的權利。\n"
-"    \n"
-"    一般產生這項錯誤碼的原因，是因為錯誤設置了\n"
-"    啟用金鑰，並且這組金鑰被設為了全域預設值。若將啟用金鑰設置在\n"
-"    一組帳號上為全域預設值，您可停用這組金鑰，並重新嘗試以避免\n"
-"    需要使用到 Management 權利。"
 
 #: ../src/up2date_client/rhncli.py:70
 msgid "Show additional output"
@@ -1350,6 +1203,88 @@ msgid ""
 "not support"
 msgstr "這個用戶端需要支援 %s 的伺服器，然而目前的伺服器並不支援"
 
+#: ../src/up2date_client/tui.py:134
+msgid "Spacewalk Location:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr "系統 ID："
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr "伺服器指出有錯誤發生：\n"
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr "連接註冊伺服器時發生了錯誤：\n"
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr "資料檔名稱："
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr "版本："
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr "處理器型號："
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr "主機名稱："
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr "處理器速度："
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr "IP 位址："
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr "記憶體："
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr "%s MB"
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr "傳送硬體資料檔發生問題：\n"
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr "傳送硬體資料檔發生問題。"
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr "傳送套件清單發生問題：\n"
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr "傳送套件清單發生問題。"
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr "完成"
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr "指定了不合規定的通訊協定。"
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr "  <Tab>/<Alt-Tab> 移動游標  |  <Space> 選取  |  <F12> 下一個畫面"
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr "必須是 root 才能執行 RHN 註冊程式。"
+
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"
 msgstr "完成(_F)"
@@ -1393,7 +1328,7 @@ msgstr "指定要做為伺服器的網址"
 
 #: ../src/bin/rhnreg_ks.py:56
 msgid "Specify a file to use as the ssl CA cert"
-msgstr "指定用作 ssl CA 認證的檔案"
+msgstr "指定用作 SSL CA 證書的檔案"
 
 #: ../src/bin/rhnreg_ks.py:58
 msgid "Specify an activation key"
@@ -1600,7 +1535,7 @@ msgstr "建立資料檔"
 
 #: ../data/gui.glade.h:8
 msgid "Provide a security certificate"
-msgstr "提供安全性認證"
+msgstr "提供安全性證書"
 
 #: ../data/progress.glade.h:1
 msgid "Sending Information"
@@ -1622,7 +1557,6 @@ msgstr ""
 "<b>您系統的網路連線並未啟動。您的系統現在無法設定，以取得軟體更新。</b>"
 
 #: ../data/rh_register.glade.h:2
-#, fuzzy
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -1631,10 +1565,6 @@ msgid ""
 "To keep your system updated, secure, and supported, please register this "
 "system at your earliest convenience."
 msgstr ""
-"如果系統不連上 Red Hat Network 伺服器的話，這部系統將<b>無法</b>由 Red Hat 成"
-"功地取得軟體更新，包括安全性更新。\n"
-"\n"
-"要讓您的系統保持在最新、最安全與受支援的狀態，請儘早註冊這台系統。"
 
 #: ../data/rh_register.glade.h:7
 msgid ""
@@ -1643,7 +1573,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:8
 msgid "Location:"
-msgstr ""
+msgstr "位置："
 
 #: ../data/rh_register.glade.h:9
 msgid "Example: https://satellite.example.com/XMLRPC"
@@ -1939,7 +1869,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:80
 msgid "Management"
-msgstr ""
+msgstr "管理"
 
 #: ../data/rh_register.glade.h:81
 msgid ""
@@ -1955,7 +1885,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:83
 msgid "Provide a Security Certificate"
-msgstr "提供安全性認證"
+msgstr "提供安全性證書"
 
 #: ../data/rh_register.glade.h:85
 #, no-c-format
@@ -1974,7 +1904,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:89
 msgid "Certificate _Location:"
-msgstr "認證位置(_L)："
+msgstr "證書位置(_L)："
 
 #: ../data/rh_register.glade.h:90
 msgid "Select A File"
@@ -2009,9 +1939,8 @@ msgid "I would like to connect via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:97
-#, fuzzy
 msgid "I would like to connect to Spacewalk via an _HTTP proxy."
-msgstr "我希望透過 _HTTP 代理伺服器連上 Red Hat Network。"
+msgstr ""
 
 #: ../data/rh_register.glade.h:98
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
@@ -2122,9 +2051,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgid "<b>Spacewalk Location:</b>"
-msgstr "<b>Red Hat Network 位置：</b>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 msgid "<b>Login:</b>"
@@ -2269,16 +2197,14 @@ msgid "RHN Registration"
 msgstr "RHN 註冊"
 
 #: ../rhn_register.desktop.in.h:2
-#, fuzzy
 msgid ""
 "Register for software updates from Spacewalk/Red Hat Satellite/Red Hat "
 "Network Classic"
-msgstr "註冊以取得來自於 Spacewalk/Satellite/Red Hat Network 的軟體更新"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
-msgstr "向 Spacewalk/Satellite/Red Hat Network 註冊。"
+msgstr ""
 
 #~ msgid "Username: "
 #~ msgstr "使用者名稱："

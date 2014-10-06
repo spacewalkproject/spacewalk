@@ -3,27 +3,28 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ayesha Akhtar <ayesha@ankur.org.bd>, 2012.
-# Mahay Alam Khan <mak@ankur.org.bd>, 2012.
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
-# Newton Baidya <newton@ankur.org.bd>, 2012.
-# Progga <progga@BengaLinux.Org>, 2004.
-# Robin Mehdee <robin@ankur.org.bd>, 2012.
-# Runa Bhattacharjee <runab@redhat.com>, 2004.
-# Salahuddin <salahuddin66@gmail.com>, 2004.
-# Samia Niamatullah <mailsamia2001@yahoo.com>, 2005.
+# Ayesha Akhtar <ayesha@ankur.org.bd>, 2012
+# Mahay Alam Khan <mak@ankur.org.bd>, 2012
+# Miroslav Suchý <msuchy@redhat.com>, 2011
+# newton <newton@ankur.org.bd>, 2012
+# Progga <progga@BengaLinux.Org>, 2004
+# Robin Mehdee <robin@ankur.org.bd>, 2012
+# runab <runab@redhat.com>, 2004
+# Salahuddin <salahuddin66@gmail.com>, 2004
+# Samia Niamatullah <mailsamia2001@yahoo.com>, 2005
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 10:36+0200\n"
-"PO-Revision-Date: 2013-02-06 09:40+0000\n"
-"Last-Translator: adelton <jpx-tx@adelton.com>\n"
-"Language-Team: Bengali <info@ankur.org.bd>\n"
-"Language: bn\n"
+"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"PO-Revision-Date: 2014-01-14 15:04+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Bengali (http://www.transifex.com/projects/p/spacewalk/"
+"language/bn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/up2date_client/rhnregGui.py:145
@@ -47,13 +48,10 @@ msgstr ""
 "আপনি একটি অকার্যকর প্রটোকল উল্লেখ করেছেন। শুধুমাত্র https ও http-র অনুমতি দেওয়া হয়।"
 
 #: ../src/up2date_client/rhnregGui.py:303
-#, fuzzy
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Spacewalk server."
 msgstr ""
-"একটি Red Hat Network সার্ভারের সাথে সংযোগ ব্যতীত আপনি সাফল্যের সাথে এই সিস্টেম "
-"নিবন্ধন করতে পারবেন না।"
 
 #: ../src/up2date_client/rhnregGui.py:323
 msgid "Cannot contact selected server"
@@ -78,9 +76,8 @@ msgid "Make sure the network connection on this system is operational."
 msgstr "নিশ্চিত করুন যে এই সিস্টেমের নেটওয়ার্ক সংযোগ কর্মক্ষম।"
 
 #: ../src/up2date_client/rhnregGui.py:339
-#, fuzzy
 msgid "There was an error communicating with Spacewalk server."
-msgstr "ত্রুটিজড়িত কারণে রেড হ্যাট নেটওয়ার্কের সঙ্গে যোগাযোগে সমস্যা হচ্ছে।"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:340
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -91,10 +88,10 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr "অপনি একটি ক্লায়েন্ট চালাতে পারেন যা একটি সার্ভারের সাথে বেমানান।"
 
 #: ../src/up2date_client/rhnregGui.py:375
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Spacewalk server:"
-msgstr "অনুগ্রহ করে হিসাবের তথ্য দিন <b>%s</b> রেড হ্যাট নেটওয়ার্ক সেটালাইটের জন্য:"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:414
 msgid "You must enter a login."
@@ -290,11 +287,6 @@ msgid ""
 "parts of '%s' would be very helpful. Thanks!"
 msgstr ""
 
-#: ../src/up2date_client/config.py:154
-#, python-format
-msgid "%s was not found"
-msgstr "%s পাওয়া যায়নি"
-
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr "ত্রুটি: সর্ভার বিদ্যমান নয়। অনুগ্রহপূর্বক পরে চেষ্টা করুন।"
@@ -315,115 +307,14 @@ msgstr "সার্ভারে অতিরিক্ত চাপের কা
 msgid "Getting list of packages installed on the system"
 msgstr "সিস্টেমে ইনস্টলকৃত প্যাকেজের তালিকা আহরণ করা হচ্ছে"
 
-#: ../src/up2date_client/tui.py:134
-#, fuzzy
-msgid "Spacewalk Location:"
-msgstr "রেড হ্যাট নেটওয়ার্কের অবস্থান:"
-
-#: ../src/up2date_client/tui.py:135
-#: ../src/up2date_client/rhnreg_constants.py:84
-msgid "Login:"
-msgstr "লগইন:"
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr "সিস্টেম ID:"
-
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:313
-msgid "Error"
-msgstr "সমস্যা"
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "সার্ভার একটি সমস্যা উল্লেখ করেছে:\n"
-
-#. Navigation
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:312
-msgid "OK"
-msgstr "ঠিক আছে"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr "নিবন্ধন সার্ভারের সঙ্গে যোগাযোগে একটি ত্রুটি ছিল:\n"
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "প্রোফাইলের নাম:"
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr "সংস্করণ:"
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr "সিপিইউ মডেল:"
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr "হোস্টের নাম:"
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr "সিপিইউ এর গতি:"
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr "IP এর ঠিকানা: "
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr "স্মৃতি:"
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr "%s মেগাবাইট"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "হার্ডওয়্যার প্রোফাইল প্রেরণে সমস্যা:\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "হার্ডওয়্যার প্রোফাইল প্রেরণে সমস্যা হয়েছে।"
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "প্যাকেজ তালিকা প্রেরণে সমস্যা:\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "প্যাকেজ তালিকা প্রেরণে সমস্যা হয়েছে।"
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "সম্পন্ন"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr "আপনি একটি অকার্যকর প্রটোকল উল্লেখ করেছিলেন।"
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> বস্তুর মধ্যে চলাচল  |  <Space> বাছাই করে  |  <F12> পরবর্তী পর্দা"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "RHN নিবন্ধন প্রোগ্রামটি root পরিচয় ব্যবহার করে চালাতে হবে।"
-
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
 msgstr "Copyright © 2006--2014 Red Hat, Inc. সমস্ত অধিকার সংরক্ষিত।"
 
 #. Satellite URL Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Enter your Red Hat Satellite URL."
-msgstr "আপনাকে অবশ্যই লগইন করতে হবে।"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
 msgid ""
@@ -441,9 +332,8 @@ msgid "SSL certificate:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
-#, fuzzy
 msgid "You must enter a valid Satellite URL."
-msgstr "আপনাকে অবশ্যই লগইন করতে হবে।"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:25
 msgid ""
@@ -453,9 +343,8 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:29
-#, fuzzy
 msgid "Attempting to contact the Spacewalk server."
-msgstr "Red Hat Network-সার্ভারের সাথে যোগাযোগ করার চেষ্টা করা হচ্ছে।"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:30
 #, python-format
@@ -496,13 +385,10 @@ msgid "Why Register"
 msgstr "নিবন্ধন করবেন কেন"
 
 #: ../src/up2date_client/rhnreg_constants.py:51
-#, fuzzy
 msgid ""
 "Connecting your system to Red Hat Satellite allows you to take full "
 "advantage of the benefits of a paid subscription, including:"
 msgstr ""
-"রেড হ্যাট নেটওয়ার্ক সিস্টেমে আপনার সিস্টেমের সংযুক্তকরন আপনাকে একটি প্রাপ্ত "
-"সাবস্ক্রিপশন সুবিধা সম্পূর্ণ সুবিধা দিবে, সাথে:"
 
 #: ../src/up2date_client/rhnreg_constants.py:53
 msgid "Security & Updates:"
@@ -568,22 +454,16 @@ msgid "Software Update Not Set Up"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Satellite? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
-"রেড হ্যাট নেটওয়ার্ক সিস্টেমে আপনার সিস্টেমের সংযুক্তকরন আপনাকে একটি প্রাপ্ত "
-"সাবস্ক্রিপশন সুবিধা সম্পূর্ণ সুবিধা দিবে, সাথে:"
 
 #: ../src/up2date_client/rhnreg_constants.py:74
-#, fuzzy
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Satellite.\n"
 msgstr ""
-"একটি Red Hat Network সার্ভারের সাথে সংযোগ ব্যতীত আপনি সাফল্যের সাথে এই সিস্টেম "
-"নিবন্ধন করতে পারবেন না।"
 
 #: ../src/up2date_client/rhnreg_constants.py:76
 msgid "Take me back to the setup process."
@@ -609,6 +489,11 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Red Hat Login:"
 msgstr "রেড হ্যাট লগইন:"
+
+#: ../src/up2date_client/rhnreg_constants.py:84
+#: ../src/up2date_client/tui.py:135
+msgid "Login:"
+msgstr "লগইন:"
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
@@ -667,16 +552,11 @@ msgid "Create Profile - Hardware"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
-"Red Hat নেটওয়ার্কের ওয়েব পেজে আপনার সিস্টেম প্রোফাইলকে সনাক্ত করার জন্য আপনার "
-"নির্বাচিত একটি বর্ণনামূলক নাম ব্যবহৃত হয়। এই\n"
-"নামটি হল প্রোফাইলের নাম।  এই নামের পরিবর্তে কম্পিউটারের সিরিয়াল নম্বর অথবা "
-"সনাক্তকরণ নম্বরও ব্যবহার করা যেতে পারে।"
 
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid ""
@@ -756,9 +636,8 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:139
-#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr "Red Hat নেটওয়ার্কে প্রোফাইল সম্বন্ধীয় তথ্য প্রেরণ করো"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:140
 msgid ""
@@ -771,9 +650,8 @@ msgstr ""
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:147
-#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr "প্রোফাইল সংক্রান্ত তথ্য Red Hat নেটওয়ার্কে প্রেরণ করা হচ্ছে"
+msgstr ""
 
 #. Finish Window
 #: ../src/up2date_client/rhnreg_constants.py:150
@@ -803,13 +681,11 @@ msgid "Please review the subscription details below:"
 msgstr "নিচে সাবস্ক্রিপশনের বিবরণ পর্যালোচনা করুন:"
 
 #: ../src/up2date_client/rhnreg_constants.py:164
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Satellite."
 msgstr ""
-"এই সিস্টেমে ব্যবহৃত Red Hat Network-র প্রারম্ভিক সংযোগের সময় ইনস্টলেশন নম্বর %s "
-"সক্রিয় হয়েছিল।"
 
 #: ../src/up2date_client/rhnreg_constants.py:166
 msgid ""
@@ -1051,6 +927,17 @@ msgid ""
 "Are you sure you would like to continue?"
 msgstr ""
 
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:312
+#: ../src/up2date_client/tui.py:536
+msgid "OK"
+msgstr "ঠিক আছে"
+
+#: ../src/up2date_client/rhnreg_constants.py:313
+#: ../src/up2date_client/tui.py:536
+msgid "Error"
+msgstr "সমস্যা"
+
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
 msgstr "পরবর্তী"
@@ -1077,23 +964,23 @@ msgstr "হ্যা, চালিয়ে যান"
 msgid "Press <space> to deselect the option."
 msgstr "অপশনটি থেকে সরিয়ে ফেলতে <space> চাপুন।"
 
-#: ../src/up2date_client/hardware.py:819
+#: ../src/up2date_client/hardware.py:820
 msgid "Error reading cpu information:"
 msgstr "cpu সংক্রান্ত তথ্য পড়তে সমস্যা হয়েছে:"
 
-#: ../src/up2date_client/hardware.py:826
+#: ../src/up2date_client/hardware.py:827
 msgid "Error reading system memory information:"
 msgstr "সিস্টেমের মেমরি সংক্রান্ত তথ্য পড়তে সমস্যা:"
 
-#: ../src/up2date_client/hardware.py:836
+#: ../src/up2date_client/hardware.py:837
 msgid "Error reading networking information:"
 msgstr "নেটওয়ার্ক সংক্রান্ত তথ্য পড়তে সমস্যা:"
 
-#: ../src/up2date_client/hardware.py:857
+#: ../src/up2date_client/hardware.py:858
 msgid "Error reading install method information:"
 msgstr "ইনস্টলেশন পদ্ধতি সংক্রান্ত তথ্য পড়তে সমস্যা:"
 
-#: ../src/up2date_client/hardware.py:865
+#: ../src/up2date_client/hardware.py:866
 msgid "Error reading network interface information:"
 msgstr "নেটওয়ার্ক ইন্টারফেস সংক্রান্ত তথ্য পড়তে সমস্যা:"
 
@@ -1113,10 +1000,14 @@ msgstr "systemid খুঁজে বের করতে ব্যর্থ"
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "একটি চ্যানেলের সাথে যুক্ত না হওয়া পর্যন্ত সিস্টেমটিকে পরিবর্ধিত নাও হতে পারে।"
 
+#: ../src/up2date_client/config.py:153
+#, python-format
+msgid "%s was not found"
+msgstr "%s পাওয়া যায়নি"
+
 #: ../src/up2date_client/rhnreg.py:59
-#, fuzzy
 msgid "Warning: unable to enable rhnsd with systemd"
-msgstr "সতর্কবাণী: chkconfig এর সাহায্যে rhnsd সক্রিয় করা যায়নি"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg.py:65
 msgid "Warning: unable to enable rhnsd with chkconfig"
@@ -1303,6 +1194,89 @@ msgid ""
 msgstr ""
 "এই ক্লায়েন্টের জন্য সার্ভারের দ্বারা %s-র সমর্থিত হওয়া আবশ্যক। বর্তমান সার্ভারে এটি "
 "সমর্থিত নয়।"
+
+#: ../src/up2date_client/tui.py:134
+msgid "Spacewalk Location:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr "সিস্টেম ID:"
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr "সার্ভার একটি সমস্যা উল্লেখ করেছে:\n"
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr "নিবন্ধন সার্ভারের সঙ্গে যোগাযোগে একটি ত্রুটি ছিল:\n"
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr "প্রোফাইলের নাম:"
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr "সংস্করণ:"
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr "সিপিইউ মডেল:"
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr "হোস্টের নাম:"
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr "সিপিইউ এর গতি:"
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr "IP এর ঠিকানা: "
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr "স্মৃতি:"
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr "%s মেগাবাইট"
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr "হার্ডওয়্যার প্রোফাইল প্রেরণে সমস্যা:\n"
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr "হার্ডওয়্যার প্রোফাইল প্রেরণে সমস্যা হয়েছে।"
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr "প্যাকেজ তালিকা প্রেরণে সমস্যা:\n"
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr "প্যাকেজ তালিকা প্রেরণে সমস্যা হয়েছে।"
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr "সম্পন্ন"
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr "আপনি একটি অকার্যকর প্রটোকল উল্লেখ করেছিলেন।"
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> বস্তুর মধ্যে চলাচল  |  <Space> বাছাই করে  |  <F12> পরবর্তী পর্দা"
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr "RHN নিবন্ধন প্রোগ্রামটি root পরিচয় ব্যবহার করে চালাতে হবে।"
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"
@@ -1919,10 +1893,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:88
-#, fuzzy
 msgid "I have an <b>_SSL certificate</b> to communicate with Spacewalk:"
 msgstr ""
-"আমার একটি <b>_SSL certificate</b> আছে রেড হ্যাট নেটওয়ার্কের সাথে যোগাযোগের জন্য:"
 
 #: ../data/rh_register.glade.h:89
 msgid "Certificate _Location:"
@@ -1949,6 +1921,8 @@ msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system."
 msgstr ""
+"আপনি এই সিস্টেমের জন্য সফটওয়্যার হালনাগাদ, সেই সাথে নিরাপত্তার হালনাগাদ গ্রহন "
+"করতে সক্ষম নন।"
 
 #: ../data/rh_register.glade.h:94
 msgid "Proxy Configuration"
@@ -1963,9 +1937,8 @@ msgid "I would like to connect via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:97
-#, fuzzy
 msgid "I would like to connect to Spacewalk via an _HTTP proxy."
-msgstr "আমি এইচটিটিপি প্রক্সির মাধ্যমে রেড হ্যাট নেটওয়ার্ক পছন্দ করতে পারি (_H)।"
+msgstr ""
 
 #: ../data/rh_register.glade.h:98
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
@@ -2074,9 +2047,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgid "<b>Spacewalk Location:</b>"
-msgstr "<b>রেড হ্যাট নেটওয়ার্কের অবস্থান:</b>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 msgid "<b>Login:</b>"
@@ -2103,14 +2075,10 @@ msgstr ""
 "নিবন্ধীকৃত হয়েছে।"
 
 #: ../data/rh_register.glade.h:134
-#, fuzzy
 msgid ""
 "Your system is being registered again using RHN Classic technology. Red Hat "
 "recommends that customers only register once."
 msgstr ""
-"টুল ব্যবহার করা হয় পুনরায় নিবন্ধিত RHN ক্লাসিক প্রযুক্তি সহযোগে প্রচেষ্টার ফলে। রেড "
-"হ্যাট দ্বারা গ্রাহকদের শুধুমাত্র আরএইচএন এর সাথে একবার নিবন্ধিত করুন (কিছু ক্ষেত্র "
-"ছাড়া)।"
 
 #: ../data/rh_register.glade.h:135
 msgid ""
@@ -2227,16 +2195,14 @@ msgid "RHN Registration"
 msgstr "RHN রেজিস্ট্রেশন"
 
 #: ../rhn_register.desktop.in.h:2
-#, fuzzy
 msgid ""
 "Register for software updates from Spacewalk/Red Hat Satellite/Red Hat "
 "Network Classic"
-msgstr "Spacewalk/Satellite/Red Hat Network থেকে সফটওয়্যার হালনাগাদ নিবন্ধন করুন"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
-msgstr "Spacewalk/Satellite/Red Hat Network তে নিবন্ধন করুন।"
+msgstr ""
 
 #~ msgid "Username: "
 #~ msgstr "ব্যবহারকারীর নাম:"

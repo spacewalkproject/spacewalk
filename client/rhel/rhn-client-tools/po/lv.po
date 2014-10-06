@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Gatis Kalnins <gatis.kalnins@metatrons.lv>, 2006.
+# Gatis Kalnins <gatis.kalnins@metatrons.lv>, 2006
+# Kristaps, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 10:36+0200\n"
-"PO-Revision-Date: 2012-11-20 08:42+0000\n"
-"Last-Translator: adelton <jpx-tx@adelton.com>\n"
-"Language-Team: Latvian (http://www.transifex.com/projects/p/fedora/language/"
-"lv/)\n"
-"Language: lv\n"
+"POT-Creation-Date: 2014-01-13 13:39+0100\n"
+"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Latvian (http://www.transifex.com/projects/p/spacewalk/"
+"language/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -29,7 +30,7 @@ msgstr ""
 #: ../src/up2date_client/rhnregGui.py:169
 #: ../src/up2date_client/rhnreg_constants.py:248
 msgid "Warning"
-msgstr ""
+msgstr "Brīdinājums"
 
 #: ../src/up2date_client/rhnregGui.py:270
 msgid "There was an error while applying your choice."
@@ -85,11 +86,11 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:414
 msgid "You must enter a login."
-msgstr ""
+msgstr "Jums jāievada lietotājvārds."
 
 #: ../src/up2date_client/rhnregGui.py:420
 msgid "You must enter a password."
-msgstr ""
+msgstr "Jums jāievada parole."
 
 #: ../src/up2date_client/rhnregGui.py:433
 msgid "There was an error while logging in."
@@ -127,7 +128,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:711
 msgid "Registering System"
-msgstr ""
+msgstr "Reģistrē sistēmu"
 
 #: ../src/up2date_client/rhnregGui.py:725
 #: ../src/up2date_client/rhnregGui.py:729
@@ -266,11 +267,6 @@ msgid ""
 "parts of '%s' would be very helpful. Thanks!"
 msgstr ""
 
-#: ../src/up2date_client/config.py:154
-#, python-format
-msgid "%s was not found"
-msgstr ""
-
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr ""
@@ -289,104 +285,6 @@ msgstr ""
 
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:56
 msgid "Getting list of packages installed on the system"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:134
-msgid "Spacewalk Location:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:135
-#: ../src/up2date_client/rhnreg_constants.py:84
-msgid "Login:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:313
-msgid "Error"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr ""
-
-#. Navigation
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:312
-msgid "OK"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr ""
-
-#: ../src/up2date_client/tui.py:797
-#, python-format
-msgid "%s megabytes"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr ""
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr ""
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr ""
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:14
@@ -473,15 +371,15 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:53
 msgid "Security & Updates:"
-msgstr ""
+msgstr "Drošība un atjauninājumi"
 
 #: ../src/up2date_client/rhnreg_constants.py:54
 msgid "Downloads & Upgrades:"
-msgstr ""
+msgstr "Lejuplādes un uzlabojumi"
 
 #: ../src/up2date_client/rhnreg_constants.py:55
 msgid "Support:"
-msgstr ""
+msgstr "Atbalsts:"
 
 #: ../src/up2date_client/rhnreg_constants.py:56
 msgid "Compliance:"
@@ -563,9 +461,14 @@ msgstr ""
 msgid "Red Hat Login:"
 msgstr ""
 
+#: ../src/up2date_client/rhnreg_constants.py:84
+#: ../src/up2date_client/tui.py:135
+msgid "Login:"
+msgstr "Lietotājvārds:"
+
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
-msgstr ""
+msgstr "Parole:"
 
 #: ../src/up2date_client/rhnreg_constants.py:86
 msgid ""
@@ -602,7 +505,7 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:96
 #: ../data/rh_register.glade.h:151
 msgid "All available updates"
-msgstr ""
+msgstr "Visi pieejamie atjauninājumi"
 
 #: ../src/up2date_client/rhnreg_constants.py:97
 msgid "Confirm operating system release selection"
@@ -662,7 +565,7 @@ msgstr ""
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:126
 msgid "*Email Address:"
-msgstr ""
+msgstr "*E-pasta adrese:"
 
 #: ../src/up2date_client/rhnreg_constants.py:128
 #: ../data/rh_register.glade.h:125
@@ -677,7 +580,7 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:130
 #: ../data/rh_register.glade.h:131
 msgid "Are you sure you would like to continue?"
-msgstr ""
+msgstr "Vai esat drošs, ka vēlaties turpināt?"
 
 #: ../src/up2date_client/rhnreg_constants.py:132
 msgid ""
@@ -984,59 +887,70 @@ msgid ""
 "Are you sure you would like to continue?"
 msgstr ""
 
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:312
+#: ../src/up2date_client/tui.py:536
+msgid "OK"
+msgstr "Labi"
+
+#: ../src/up2date_client/rhnreg_constants.py:313
+#: ../src/up2date_client/tui.py:536
+msgid "Error"
+msgstr "Kļūds"
+
 #: ../src/up2date_client/rhnreg_constants.py:314
 msgid "Next"
-msgstr ""
+msgstr "Nākamais"
 
 #: ../src/up2date_client/rhnreg_constants.py:315
 msgid "Back"
-msgstr ""
+msgstr "Atpakaļ"
 
 #: ../src/up2date_client/rhnreg_constants.py:316
 msgid "Cancel"
-msgstr ""
+msgstr "Atcelt"
 
 #: ../src/up2date_client/rhnreg_constants.py:317
 #: ../data/rh_register.glade.h:110
 msgid "No, Cancel"
-msgstr ""
+msgstr "Nē, atcelt"
 
 #: ../src/up2date_client/rhnreg_constants.py:318
 #: ../data/rh_register.glade.h:112
 msgid "Yes, Continue"
-msgstr ""
+msgstr "Jā, turpināt"
 
 #: ../src/up2date_client/rhnreg_constants.py:319
 msgid "Press <space> to deselect the option."
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:819
+#: ../src/up2date_client/hardware.py:820
 msgid "Error reading cpu information:"
-msgstr ""
+msgstr "Kļūda, nolasot CPU informāciju:"
 
-#: ../src/up2date_client/hardware.py:826
+#: ../src/up2date_client/hardware.py:827
 msgid "Error reading system memory information:"
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:836
+#: ../src/up2date_client/hardware.py:837
 msgid "Error reading networking information:"
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:857
+#: ../src/up2date_client/hardware.py:858
 msgid "Error reading install method information:"
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:865
+#: ../src/up2date_client/hardware.py:866
 msgid "Error reading network interface information:"
 msgstr ""
 
 #: ../src/up2date_client/messageWindow.py:98
 msgid "Error:"
-msgstr ""
+msgstr "Kļūda:"
 
 #: ../src/up2date_client/messageWindow.py:105
 msgid "Yes/No dialog:"
-msgstr ""
+msgstr "Jā/nē dialogs:"
 
 #: ../src/up2date_client/rhnChannel.py:96
 msgid "Unable to Locate SystemId"
@@ -1045,6 +959,11 @@ msgstr ""
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
 msgstr ""
+
+#: ../src/up2date_client/config.py:153
+#, python-format
+msgid "%s was not found"
+msgstr "%s netika atrasts"
 
 #: ../src/up2date_client/rhnreg.py:59
 msgid "Warning: unable to enable rhnsd with systemd"
@@ -1078,7 +997,7 @@ msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:125
 msgid "File Not Found: \n"
-msgstr ""
+msgstr "Datne nav atrasta:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:132
 msgid "Delay error from server.  The message was:\n"
@@ -1137,7 +1056,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhncli.py:70
 msgid "Show additional output"
-msgstr ""
+msgstr "Parādīt papildu izvadi"
 
 #: ../src/up2date_client/rhncli.py:72
 msgid "Specify an http proxy to use"
@@ -1229,13 +1148,95 @@ msgid ""
 "not support"
 msgstr ""
 
+#: ../src/up2date_client/tui.py:134
+msgid "Spacewalk Location:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:136
+msgid "System ID:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:536
+msgid "The server indicated an error:\n"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:540
+msgid "There was an error communicating with the registration server:\n"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:731
+msgid "Profile name:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+msgid "Version: "
+msgstr "Versija:"
+
+#: ../src/up2date_client/tui.py:760
+msgid "CPU model: "
+msgstr "CPU modelis:"
+
+#: ../src/up2date_client/tui.py:766
+msgid "Hostname: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:778
+msgid "CPU speed: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:784
+msgid "IP Address: "
+msgstr "IP adrese:"
+
+#: ../src/up2date_client/tui.py:793
+msgid "Memory: "
+msgstr "Atmiņa"
+
+#: ../src/up2date_client/tui.py:797
+#, python-format
+msgid "%s megabytes"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1020
+msgid "Problem sending hardware profile:\n"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1024
+msgid "Problem sending hardware profile."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending package list:\n"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1036
+msgid "Problem sending package list."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1089
+msgid "Finish"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1211
+msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1242
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1346
+msgid "You must run the RHN registration program as root."
+msgstr ""
+
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"
-msgstr ""
+msgstr "_Pabeigt"
 
 #: ../src/up2date_client/gui.py:316
 msgid "_Exit"
-msgstr ""
+msgstr "_Iziet"
 
 #: ../src/up2date_client/gui.py:317
 msgid "Software Updates Not Set Up"
@@ -1361,7 +1362,7 @@ msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:61
 msgid "subscribe to channel"
-msgstr ""
+msgstr "abonēt kanālu"
 
 #: ../src/bin/spacewalk-channel.py:63
 msgid "unsubscribe from channel"
@@ -1385,11 +1386,11 @@ msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:73
 msgid "your user name"
-msgstr ""
+msgstr "Jūsu lietotājvārds"
 
 #: ../src/bin/spacewalk-channel.py:75
 msgid "your password"
-msgstr ""
+msgstr "Jūsu parole"
 
 #: ../src/bin/spacewalk-channel.py:83
 msgid "ERROR: these arguments make no sense in this context (try --help)"
@@ -1467,7 +1468,7 @@ msgstr ""
 
 #: ../data/gui.glade.h:6
 msgid "Create Profile"
-msgstr ""
+msgstr "Izveidot profilu"
 
 #: ../data/gui.glade.h:8
 msgid "Provide a security certificate"
@@ -1508,11 +1509,11 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:8
 msgid "Location:"
-msgstr ""
+msgstr "Atrašanās vieta:"
 
 #: ../data/rh_register.glade.h:9
 msgid "Example: https://satellite.example.com/XMLRPC"
-msgstr ""
+msgstr "Piemērs https://satellite.example.com/XMLRPC"
 
 #: ../data/rh_register.glade.h:10
 msgid "satellite server location"
@@ -1520,7 +1521,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:11
 msgid "_Proxy Setup"
-msgstr ""
+msgstr "_Starpniekservera uzstādīšana"
 
 #: ../data/rh_register.glade.h:12
 msgid "Proxy Setup Button"
@@ -1540,11 +1541,11 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:17
 msgid "_Password:"
-msgstr ""
+msgstr "_Parole"
 
 #: ../data/rh_register.glade.h:18
 msgid "_Login:"
-msgstr ""
+msgstr "_Lietotājvārds"
 
 #: ../data/rh_register.glade.h:19
 msgid ""
@@ -1566,15 +1567,15 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:23
 msgid "IP Address:"
-msgstr ""
+msgstr "IP adrese:"
 
 #: ../data/rh_register.glade.h:24
 msgid "ERROR"
-msgstr ""
+msgstr "KĻŪDA"
 
 #: ../data/rh_register.glade.h:25
 msgid "CPU Model:"
-msgstr ""
+msgstr "CPU modelis:"
 
 #: ../data/rh_register.glade.h:26
 msgid "CPU Speed:"
@@ -1582,7 +1583,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:27
 msgid "Memory:"
-msgstr ""
+msgstr "Atmiņa:"
 
 #: ../data/rh_register.glade.h:28
 msgid "Hardware Profile"
@@ -1677,7 +1678,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:47
 msgid "•"
-msgstr ""
+msgstr "•"
 
 #: ../data/rh_register.glade.h:48
 msgid "installation number field"
@@ -1701,7 +1702,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:54
 msgid "Create profile"
-msgstr ""
+msgstr "Izveidot profilu"
 
 #: ../data/rh_register.glade.h:55
 msgid "<big><b>System Name</b></big>"
@@ -1719,7 +1720,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:58
 msgid "system name"
-msgstr ""
+msgstr "sistēmas nosaukums"
 
 #: ../data/rh_register.glade.h:59
 msgid "<big><b>Profile Data</b></big>"
@@ -1775,7 +1776,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:72
 msgid "Close"
-msgstr ""
+msgstr "Aizvērt"
 
 #: ../data/rh_register.glade.h:73
 msgid "<b>Security &amp; Updates:</b>"
@@ -1860,7 +1861,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:94
 msgid "Proxy Configuration"
-msgstr ""
+msgstr "Starpniekservera konfigurācija"
 
 #: ../data/rh_register.glade.h:95
 msgid "<b>HTTP Proxy</b>"
@@ -1945,7 +1946,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:117
 msgid "Are you Sure?"
-msgstr ""
+msgstr "Vai esat drošs?"
 
 #: ../data/rh_register.glade.h:118
 msgid "_Go Back and Register"
