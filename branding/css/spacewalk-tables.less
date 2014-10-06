@@ -107,27 +107,27 @@ th.descSort a:after {
 }
 
 .list-row-even td.sortedCol {
-	background-color: #d9edf7;
+	background-color: darken(#d9edf7, 3%) !important;
 }
 
 .list-row-odd td.sortedCol {
-background-color: darken(#d9edf7, 3%) !important;
+	background-color: #d9edf7 !important;
 }
 
 .list-row-even:hover td {
- background-color: darken(@gray-lighter, 10%);
-}
-
-.list-row-odd:hover td  {
 	background-color: darken(@gray-lighter, 13%) !important;
 }
 
+.list-row-odd:hover td  {
+	background-color: darken(@gray-lighter, 10%) !important;
+}
+
 .list-row-even:hover td.sortedCol {
-	background-color: darken(#d9edf7, 10%) !important;
+	background-color: darken(#d9edf7, 13%) !important;
 }
 
 .list-row-odd:hover td.sortedCol  {
-	background-color: darken(#d9edf7, 13%) !important;
+	background-color: darken(#d9edf7, 10%) !important;
 }
 
 .compare-list {
