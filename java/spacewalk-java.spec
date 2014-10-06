@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.49
+Version: 2.3.50
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 06 2014 Grant Gainey 2.3.50-1
+- 1148836 - DOn't schedule a remote-cmd if the system can't execute it
+- fix used icon
+- add some space under button
+- fix button indentation
+
 * Fri Oct 03 2014 Jan Dobes 2.3.49-1
 - style lot of buttons
 - making Channel.equals(SelectableChannel) symmetric
