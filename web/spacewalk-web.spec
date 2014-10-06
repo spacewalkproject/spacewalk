@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.10
+Version: 2.3.11
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Oct 06 2014 Jan Dobes 2.3.11-1
+- style lot of buttons
+- missing bootstrap class for textarea
+
 * Fri Sep 26 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.10-1
 - patternfly: don't hide SSM when no systems are selected
 - patternfly: fixed SSM animation duration
