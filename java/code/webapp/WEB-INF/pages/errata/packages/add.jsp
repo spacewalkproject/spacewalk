@@ -88,6 +88,7 @@
         </rl:list>
 
         <div class="text-right">
+            <hr />
             <rhn:submitted/>
             <button type="submit" name="dispatch" class="btn btn-primary" value="<bean:message key='errata.edit.packages.add.addpackages'/>">
                 <bean:message key="errata.edit.packages.add.addpackages"/>

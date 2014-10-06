@@ -88,13 +88,14 @@
 			</div>
 
 			<hr />
-			<p align="right">
+			<div class="text-right">
+                                <hr />
 				<input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='Clone Errata'/>"
 		            <c:choose>
 		                <c:when test="${totalSize < 1}">disabled</c:when>
 		            </c:choose>
 				>
-			</p>
+			</div>
 
 
 

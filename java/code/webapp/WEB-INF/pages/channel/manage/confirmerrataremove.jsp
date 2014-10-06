@@ -64,9 +64,10 @@
 
 			</rl:list>
 
-			<p align="right">
+			<div class="text-right">
+                        <hr />
 			<input class="btn btn-danger" type="submit" name="dispatch"  value="<bean:message key='channel.jsp.errata.confirmremove'/>">
-			</p>
+			</div>
      <rhn:submitted/>
      <input type="hidden" name="cid" value="${cid}">
 

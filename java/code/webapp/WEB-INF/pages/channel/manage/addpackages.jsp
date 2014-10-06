@@ -73,9 +73,10 @@
 			  </rl:list>
 
 
-  			<p align="right">
+  			<div class="text-right">
+                            <hr />
 			    <input type="submit" name="confirm" class="btn btn-default"  value="<bean:message key='channel.jsp.package.addbutton'/>" ${empty pageList ? 'disabled' : 'btn btn-default'} >
-			</p>
+			</div>
      <rhn:submitted/>
 </rl:listset>
 </body>

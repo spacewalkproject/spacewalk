@@ -71,9 +71,10 @@
 		</rl:list>
 		<rhn:submitted/>
 
-		  	<p align="right">
+		  	<div class="text-right">
+                                <hr />
 				<input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='confirm'/>" </input>
-			</p>
+			</div>
 
 
 </rl:listset>
