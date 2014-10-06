@@ -23,15 +23,15 @@ msgstr ""
 msgid "Notice"
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:155
-#: ../src/up2date_client/rhnregGui.py:169
-#: ../src/up2date_client/rhnreg_constants.py:248
+#: ../src/up2date_client/rhnregGui.py:164
+#: ../src/up2date_client/rhnregGui.py:178
+#: ../src/up2date_client/rhnreg_constants.py:261
 msgid "Warning"
-msgstr ""
+msgstr "正在准备……"
 
-#: ../src/up2date_client/rhnregGui.py:270
+#: ../src/up2date_client/rhnregGui.py:304
 msgid "There was an error while applying your choice."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误："
 
 #: ../src/up2date_client/rhnregGui.py:289
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -81,60 +81,59 @@ msgid ""
 "Please enter your account information for the <b>%s</b> Spacewalk server:"
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:414
+#: ../src/up2date_client/rhnregGui.py:487
 msgid "You must enter a login."
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
-#: ../src/up2date_client/rhnregGui.py:420
+#: ../src/up2date_client/rhnregGui.py:493
 msgid "You must enter a password."
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
-#: ../src/up2date_client/rhnregGui.py:433
+#: ../src/up2date_client/rhnregGui.py:526
 msgid "There was an error while logging in."
-msgstr ""
+msgstr "显示程序版本信息"
 
-#: ../src/up2date_client/rhnregGui.py:458
+#: ../src/up2date_client/rhnregGui.py:513
+#: ../src/up2date_client/rhnregGui.py:551
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
-msgstr ""
+msgstr "在与服务器联络时出现了一个致命错误。  错误讯息是：\n"
 
-#: ../src/up2date_client/rhnregGui.py:596
+#: ../src/up2date_client/rhnregGui.py:689
 msgid "There was an error while assembling information for the profile."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误："
 
-#: ../src/up2date_client/rhnregGui.py:617
+#: ../src/up2date_client/rhnregGui.py:710
 msgid "Error running hardware profile"
-msgstr ""
+msgstr "更新软件包档案……"
 
-#: ../src/up2date_client/rhnregGui.py:647
+#: ../src/up2date_client/rhnregGui.py:740
 msgid "There was an error while populating the profile."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误："
 
 #: ../src/up2date_client/rhnregGui.py:667
 msgid "You must choose a name for this profile."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:681
+#: ../src/up2date_client/rhnregGui.py:775
 msgid "There was an error while creating the profile."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误："
 
 #: ../src/up2date_client/rhnregGui.py:692
 msgid "Registering system and sending profile information.  Please wait."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:711
+#: ../src/up2date_client/rhnregGui.py:805
 msgid "Registering System"
-msgstr ""
+msgstr "显示程序版本信息"
 
-#: ../src/up2date_client/rhnregGui.py:725
-#: ../src/up2date_client/rhnregGui.py:729
-#: ../src/up2date_client/rhnregGui.py:733
-#: ../src/up2date_client/rhnregGui.py:736 ../src/up2date_client/tui.py:985
-#: ../src/up2date_client/tui.py:988 ../src/up2date_client/tui.py:991
-#: ../src/up2date_client/tui.py:994
+#: ../src/up2date_client/rhnregGui.py:819
+#: ../src/up2date_client/rhnregGui.py:823
+#: ../src/up2date_client/rhnregGui.py:827 ../src/up2date_client/tui.py:875
+#: ../src/up2date_client/tui.py:878 ../src/up2date_client/tui.py:881
 msgid "Problem registering system:\n"
-msgstr ""
+msgstr "显示程序版本信息\n"
 
 #: ../src/up2date_client/rhnregGui.py:739
 #, python-format
@@ -143,25 +142,25 @@ msgid ""
 "Please go back to the previous screen and fix it."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:749 ../src/up2date_client/tui.py:1000
+#: ../src/up2date_client/rhnregGui.py:840 ../src/up2date_client/tui.py:887
 msgid "Problem registering system."
-msgstr ""
+msgstr "显示程序版本信息"
 
-#: ../src/up2date_client/rhnregGui.py:759 ../src/up2date_client/tui.py:1005
+#: ../src/up2date_client/rhnregGui.py:850 ../src/up2date_client/tui.py:892
 msgid "Problem writing out system id to disk."
-msgstr ""
+msgstr "显示程序版本信息"
 
-#: ../src/up2date_client/rhnregGui.py:765
+#: ../src/up2date_client/rhnregGui.py:856
 msgid "There was a problem registering this system."
-msgstr ""
+msgstr "显示程序版本信息"
 
-#: ../src/up2date_client/rhnregGui.py:778
+#: ../src/up2date_client/rhnregGui.py:869
 msgid "Sending hardware information"
-msgstr ""
+msgstr "读取头出错"
 
-#: ../src/up2date_client/rhnregGui.py:783
+#: ../src/up2date_client/rhnregGui.py:874
 msgid "Problem sending hardware information."
-msgstr ""
+msgstr "读取头出错"
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -172,13 +171,13 @@ msgstr ""
 #. #            for pkg in packageList:
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
-#: ../src/up2date_client/rhnregGui.py:807
+#: ../src/up2date_client/rhnregGui.py:898
 msgid "Sending package information"
-msgstr ""
+msgstr "读取头出错"
 
-#: ../src/up2date_client/rhnregGui.py:812
+#: ../src/up2date_client/rhnregGui.py:903
 msgid "Problem sending package information."
-msgstr ""
+msgstr "获取软件包列表时出错"
 
 #: ../src/up2date_client/rhnregGui.py:843 ../src/up2date_client/tui.py:1051
 msgid ""
@@ -186,13 +185,13 @@ msgid ""
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:897
+#: ../src/up2date_client/rhnregGui.py:1019
 msgid "There was an error while installing the certificate."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误："
 
-#: ../src/up2date_client/rhnregGui.py:923
+#: ../src/up2date_client/rhnregGui.py:1045
 msgid "You must select a certificate."
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -213,9 +212,9 @@ msgstr ""
 msgid "unknown"
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:1118
+#: ../src/up2date_client/rhnregGui.py:1246
 msgid "There was an error getting the list of hardware."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误："
 
 #: ../src/up2date_client/rhnregGui.py:1130 ../src/up2date_client/tui.py:782
 #, python-format
@@ -227,21 +226,23 @@ msgstr ""
 msgid "%s MB"
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:1178
+#: ../src/up2date_client/rhnregGui.py:1306
 msgid "There was an error building the list of packages."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误："
 
-#: ../src/up2date_client/rhnregGui.py:1193
+#: ../src/up2date_client/rhnregGui.py:1321
 msgid "Package"
-msgstr ""
+msgstr "软件包名"
 
 #: ../src/up2date_client/rhnregGui.py:1198
 msgid "Arch"
 msgstr "体系"
 
-#: ../src/up2date_client/rhnregGui.py:1205
+#: ../src/up2date_client/rhnregGui.py:1333
 msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
+"Red Hat 更新代理正在建立一个在你的系统上\n"
+"安装的更新了的 RPM 软件包列表。  请稍候。"
 
 #: ../src/up2date_client/rhnregGui.py:1236
 msgid ""
@@ -251,12 +252,14 @@ msgstr ""
 "在载入你的配置时出现错误。  请确定\n"
 "你有对 /etc/sysconfig/rhn 的读取权限。"
 
-#: ../src/up2date_client/rhnregGui.py:1278
+#: ../src/up2date_client/rhnregGui.py:1406
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
 "you own %s."
 msgstr ""
+"在储存你的配置时出现了一个错误。请确定\n"
+"你拥有 %s。"
 
 #: ../src/up2date_client/rhnregGui.py:1308
 #, python-format
@@ -300,18 +303,18 @@ msgstr ""
 msgid "Login:"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:136
+#: ../src/up2date_client/tui.py:128
 msgid "System ID:"
-msgstr ""
+msgstr "用户名："
 
 #: ../src/up2date_client/tui.py:536
 #: ../src/up2date_client/rhnreg_constants.py:313
 msgid "Error"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:536
+#: ../src/up2date_client/tui.py:418
 msgid "The server indicated an error:\n"
-msgstr ""
+msgstr "出现了某种 I/O 错误：%s\n"
 
 #. Navigation
 #: ../src/up2date_client/tui.py:536
@@ -319,33 +322,33 @@ msgstr ""
 msgid "OK"
 msgstr "确定"
 
-#: ../src/up2date_client/tui.py:540
+#: ../src/up2date_client/tui.py:422
 msgid "There was an error communicating with the registration server:\n"
-msgstr ""
+msgstr "在与服务器联络时出现了一个致命错误。  错误讯息是：\n"
 
-#: ../src/up2date_client/tui.py:731
+#: ../src/up2date_client/tui.py:622
 msgid "Profile name:"
-msgstr ""
+msgstr "用户名："
 
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
+#: ../src/up2date_client/tui.py:644 ../src/up2date_client/tui.py:645
 msgid "Version: "
-msgstr ""
+msgstr "版本"
 
 #: ../src/up2date_client/tui.py:760
 msgid "CPU model: "
 msgstr ""
 
-#: ../src/up2date_client/tui.py:766
+#: ../src/up2date_client/tui.py:657
 msgid "Hostname: "
-msgstr ""
+msgstr "用户名："
 
 #: ../src/up2date_client/tui.py:778
 msgid "CPU speed: "
 msgstr ""
 
-#: ../src/up2date_client/tui.py:784
+#: ../src/up2date_client/tui.py:674
 msgid "IP Address: "
-msgstr ""
+msgstr "新添加："
 
 #: ../src/up2date_client/tui.py:793
 msgid "Memory: "
@@ -356,25 +359,25 @@ msgstr ""
 msgid "%s megabytes"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:1020
+#: ../src/up2date_client/tui.py:934
 msgid "Problem sending hardware profile:\n"
-msgstr ""
+msgstr "获取软件包列表时出错\n"
 
-#: ../src/up2date_client/tui.py:1024
+#: ../src/up2date_client/tui.py:938
 msgid "Problem sending hardware profile."
-msgstr ""
+msgstr "更新软件包档案……"
 
-#: ../src/up2date_client/tui.py:1033
+#: ../src/up2date_client/tui.py:947
 msgid "Problem sending package list:\n"
-msgstr ""
+msgstr "获取软件包列表时出错\n"
 
-#: ../src/up2date_client/tui.py:1036
+#: ../src/up2date_client/tui.py:950
 msgid "Problem sending package list."
-msgstr ""
+msgstr "获取软件包列表时出错"
 
-#: ../src/up2date_client/tui.py:1089
+#: ../src/up2date_client/tui.py:1012
 msgid "Finish"
-msgstr ""
+msgstr "全部结束"
 
 #: ../src/up2date_client/tui.py:1211
 msgid "You specified an invalid protocol."
@@ -385,9 +388,9 @@ msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:1346
+#: ../src/up2date_client/tui.py:1275
 msgid "You must run the RHN registration program as root."
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
@@ -439,9 +442,9 @@ msgid "A proxy was specified at %s."
 msgstr ""
 
 #. Start Window
-#: ../src/up2date_client/rhnreg_constants.py:35 ../data/gui.glade.h:1
+#: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:1
 msgid "System Registration"
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../src/up2date_client/rhnreg_constants.py:36
 msgid ""
@@ -517,9 +520,9 @@ msgid ""
 "privacy_statement.html"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:68
+#: ../src/up2date_client/rhnreg_constants.py:57
 msgid "Take me back to the registration"
-msgstr ""
+msgstr "软件包安装选项"
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:71
@@ -547,10 +550,12 @@ msgid "I'll register later."
 msgstr ""
 
 #. Info Window
-#: ../src/up2date_client/rhnreg_constants.py:80 ../data/gui.glade.h:4
-#: ../data/rh_register.glade.h:13
+#: ../src/up2date_client/rhnreg_constants.py:69
+#: ../src/firstboot/rhn_choose_server_gui.py:67
+#: ../src/firstboot/rhn_login_gui.py:42 ../src/firstboot/rhn_login_gui.py:43
+#: ../data/gui.glade.h:4 ../data/rh_register.glade.h:27
 msgid "Red Hat Account"
-msgstr ""
+msgstr "Red Hat 更新代理"
 
 #: ../src/up2date_client/rhnreg_constants.py:81
 #, python-format
@@ -559,9 +564,9 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:83
+#: ../src/up2date_client/rhnreg_constants.py:72
 msgid "Red Hat Login:"
-msgstr ""
+msgstr "Red Hat 更新代理"
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Password:"
@@ -577,9 +582,9 @@ msgstr ""
 msgid "Please enter a desired login."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:89
+#: ../src/up2date_client/rhnreg_constants.py:78
 msgid "Please enter and verify a password."
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:92 ../data/gui.glade.h:5
@@ -591,18 +596,18 @@ msgstr ""
 msgid "Operating System version:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:94
+#: ../src/up2date_client/rhnreg_constants.py:83
 msgid " Minor Release: "
-msgstr ""
+msgstr "发行"
 
 #: ../src/up2date_client/rhnreg_constants.py:95
 msgid "Limited Updates Only"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:96
-#: ../data/rh_register.glade.h:151
+#: ../src/up2date_client/rhnreg_constants.py:85
+#: ../data/rh_register.glade.h:184
 msgid "All available updates"
-msgstr ""
+msgstr "可用的软件包更新"
 
 #: ../src/up2date_client/rhnreg_constants.py:97
 msgid "Confirm operating system release selection"
@@ -615,9 +620,9 @@ msgid ""
 msgstr ""
 
 #. Hardware Window
-#: ../src/up2date_client/rhnreg_constants.py:103
+#: ../src/up2date_client/rhnreg_constants.py:92
 msgid "Create Profile - Hardware"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
@@ -637,9 +642,9 @@ msgid "Include the following information about hardware and network:"
 msgstr ""
 
 #. Packages Window
-#: ../src/up2date_client/rhnreg_constants.py:115
+#: ../src/up2date_client/rhnreg_constants.py:104
 msgid "Create Profile - Packages"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../src/up2date_client/rhnreg_constants.py:116
 msgid ""
@@ -647,22 +652,21 @@ msgid ""
 "relevant to this system."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:119
+#: ../src/up2date_client/rhnreg_constants.py:108
 msgid "Include RPM packages installed on this system in my System Profile"
-msgstr ""
+msgstr "正在获取安装在你的系统上的软件包列表"
 
 #: ../src/up2date_client/rhnreg_constants.py:121
 msgid "You may deselect individual packages by unchecking them below."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:123
+#: ../src/up2date_client/rhnreg_constants.py:112
 msgid "Building Package List"
-msgstr ""
+msgstr "正在检索软件包"
 
-#. Product Window
-#: ../src/up2date_client/rhnreg_constants.py:126
+#: ../src/up2date_client/rhnreg_constants.py:119
 msgid "*Email Address:"
-msgstr ""
+msgstr "新添加："
 
 #: ../src/up2date_client/rhnreg_constants.py:128
 #: ../data/rh_register.glade.h:125
@@ -730,9 +734,11 @@ msgid ""
 msgstr ""
 
 #. Review Window
-#: ../src/up2date_client/rhnreg_constants.py:162 ../data/gui.glade.h:7
+#: ../src/up2date_client/rhnreg_constants.py:157
+#: ../src/firstboot/rhn_review_gui.py:42 ../src/firstboot/rhn_review_gui.py:43
+#: ../data/gui.glade.h:7
 msgid "Review Subscription"
-msgstr ""
+msgstr "描述"
 
 #: ../src/up2date_client/rhnreg_constants.py:163
 #: ../data/rh_register.glade.h:53
@@ -752,9 +758,9 @@ msgid ""
 "services:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:168
+#: ../src/up2date_client/rhnreg_constants.py:163
 msgid "Software Channel Subscriptions:"
-msgstr ""
+msgstr "频道信息"
 
 #: ../src/up2date_client/rhnreg_constants.py:169
 msgid "This system will receive updates from the following software channels:"
@@ -996,10 +1002,10 @@ msgstr ""
 msgid "Cancel"
 msgstr "取消"
 
-#: ../src/up2date_client/rhnreg_constants.py:317
-#: ../data/rh_register.glade.h:110
+#: ../src/up2date_client/rhnreg_constants.py:327
+#: ../data/rh_register.glade.h:141
 msgid "No, Cancel"
-msgstr ""
+msgstr "取消"
 
 #: ../src/up2date_client/rhnreg_constants.py:318
 #: ../data/rh_register.glade.h:112
@@ -1010,25 +1016,25 @@ msgstr ""
 msgid "Press <space> to deselect the option."
 msgstr ""
 
-#: ../src/up2date_client/hardware.py:819
+#: ../src/up2date_client/hardware.py:805
 msgid "Error reading cpu information:"
-msgstr ""
+msgstr "显示程序版本信息"
 
-#: ../src/up2date_client/hardware.py:826
+#: ../src/up2date_client/hardware.py:812
 msgid "Error reading system memory information:"
-msgstr ""
+msgstr "显示程序版本信息"
 
-#: ../src/up2date_client/hardware.py:836
+#: ../src/up2date_client/hardware.py:822
 msgid "Error reading networking information:"
-msgstr ""
+msgstr "显示程序版本信息"
 
-#: ../src/up2date_client/hardware.py:857
+#: ../src/up2date_client/hardware.py:843
 msgid "Error reading install method information:"
-msgstr ""
+msgstr "显示程序版本信息"
 
-#: ../src/up2date_client/hardware.py:865
+#: ../src/up2date_client/hardware.py:851
 msgid "Error reading network interface information:"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/messageWindow.py:98
 msgid "Error:"
@@ -1068,13 +1074,13 @@ msgstr "RPM 错误。错误讯息是：\n"
 msgid "Password error. The message was:\n"
 msgstr "口令错误。错误讯息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:108
+#: ../src/up2date_client/up2dateErrors.py:84
 msgid "RPM dependency error. The message was:\n"
-msgstr ""
+msgstr "RPM 依赖关系错误。错误讯息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:118
+#: ../src/up2date_client/up2dateErrors.py:117
 msgid "Error communicating with server. The message was:\n"
-msgstr ""
+msgstr "在与服务器联络时出错。错误讯息是：\n"
 
 #: ../src/up2date_client/up2dateErrors.py:125
 msgid "File Not Found: \n"
@@ -1100,9 +1106,9 @@ msgid ""
 "    "
 msgstr ""
 
-#: ../src/up2date_client/up2dateErrors.py:194
+#: ../src/up2date_client/up2dateErrors.py:176
 msgid "The installation number is invalid"
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../src/up2date_client/up2dateErrors.py:197
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1157,10 +1163,10 @@ msgid ""
 "Aborted.\n"
 msgstr ""
 
-#: ../src/up2date_client/rhncli.py:101
+#: ../src/up2date_client/rhncli.py:89
 #, python-format
 msgid "An unexpected OS error occurred: %s\n"
-msgstr ""
+msgstr "发生了一个意外的 OS 错误：%s\n"
 
 #: ../src/up2date_client/rhncli.py:105
 msgid "A connection was attempted with a malformed URI.\n"
@@ -1171,15 +1177,15 @@ msgstr ""
 msgid "A connection was attempted with a malformed URI: %s.\n"
 msgstr ""
 
-#: ../src/up2date_client/rhncli.py:109
+#: ../src/up2date_client/rhncli.py:97
 #, python-format
 msgid "There was some sort of I/O error: %s\n"
-msgstr ""
+msgstr "出现了某种 I/O 错误：%s\n"
 
-#: ../src/up2date_client/rhncli.py:112
+#: ../src/up2date_client/rhncli.py:100
 #, python-format
 msgid "There was an SSL error: %s\n"
-msgstr ""
+msgstr "出现了某种 I/O 错误：%s\n"
 
 #: ../src/up2date_client/rhncli.py:113
 msgid ""
@@ -1187,15 +1193,15 @@ msgid ""
 "the time on this system is correct.\n"
 msgstr ""
 
-#: ../src/up2date_client/rhncli.py:120
+#: ../src/up2date_client/rhncli.py:108
 #, python-format
 msgid "There was a SSL crypto error: %s\n"
-msgstr ""
+msgstr "出现了某种 I/O 错误：%s\n"
 
-#: ../src/up2date_client/rhncli.py:124
+#: ../src/up2date_client/rhncli.py:112
 #, python-format
 msgid "There was an authentication error: %s\n"
-msgstr ""
+msgstr "出现了某种 I/O 错误：%s\n"
 
 #: ../src/up2date_client/rhncli.py:140
 #, python-format
@@ -1214,13 +1220,15 @@ msgid ""
 "Licensed under the terms of the GPLv2."
 msgstr ""
 
-#: ../src/up2date_client/rhncli.py:227
+#: ../src/up2date_client/rhncli.py:219
 msgid "An error has occurred:"
 msgstr ""
+"发生了一个意外的 OS 错误：\n"
+"%s"
 
-#: ../src/up2date_client/rhncli.py:235
+#: ../src/up2date_client/rhncli.py:227
 msgid "See /var/log/up2date for more information"
-msgstr ""
+msgstr "读取头出错"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -1231,19 +1239,19 @@ msgstr ""
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"
-msgstr ""
+msgstr "全部结束"
 
 #: ../src/up2date_client/gui.py:316
 msgid "_Exit"
-msgstr ""
+msgstr "编辑"
 
 #: ../src/up2date_client/gui.py:317
 msgid "Software Updates Not Set Up"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/gui.py:327
 msgid "You must run rhn_register as root."
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1349,7 +1357,7 @@ msgstr ""
 
 #: ../src/bin/rhn_register.py:37
 msgid "Do not attempt to use X"
-msgstr ""
+msgstr "不要试图使用 X"
 
 #: ../src/bin/spacewalk-channel.py:53
 msgid "ERROR: must be root to execute\n"
@@ -1451,11 +1459,11 @@ msgstr "更新软件包档案……"
 
 #: ../src/bin/rhn-profile-sync.py:46
 msgid "Updating hardware profile..."
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../src/bin/rhn-profile-sync.py:50
 msgid "Updating virtualization profile..."
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/gui.glade.h:2
 msgid "Set Up Software Updates"
@@ -1465,17 +1473,19 @@ msgstr ""
 msgid "Choose Service"
 msgstr ""
 
-#: ../data/gui.glade.h:6
+#: ../src/firstboot/rhn_login_gui.py:72
+#: ../src/firstboot/rhn_create_profile_gui.py:42
+#: ../src/firstboot/rhn_create_profile_gui.py:43 ../data/gui.glade.h:6
 msgid "Create Profile"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/gui.glade.h:8
 msgid "Provide a security certificate"
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../data/progress.glade.h:1
 msgid "Sending Information"
-msgstr ""
+msgstr "读取头出错"
 
 #: ../data/progress.glade.h:2
 msgid "progress bar"
@@ -1526,13 +1536,13 @@ msgstr ""
 msgid "Proxy Setup Button"
 msgstr ""
 
-#: ../data/rh_register.glade.h:14
+#: ../data/rh_register.glade.h:29
 msgid "Please enter your Red Hat account information:"
-msgstr ""
+msgstr "顾问信息"
 
-#: ../data/rh_register.glade.h:15
+#: ../data/rh_register.glade.h:32
 msgid "RHN login field"
-msgstr ""
+msgstr "Red Hat 更新代理"
 
 #: ../data/rh_register.glade.h:16
 msgid "RHN password field"
@@ -1552,9 +1562,9 @@ msgid ""
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
 
-#: ../data/rh_register.glade.h:20
+#: ../data/rh_register.glade.h:37
 msgid "Hardware Info"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:21
 msgid "Red Hat Linux Version:"
@@ -1641,9 +1651,9 @@ msgstr ""
 msgid "_No, I prefer to register at a later time."
 msgstr ""
 
-#: ../data/rh_register.glade.h:41
+#: ../data/rh_register.glade.h:65
 msgid "Link To Subscription"
-msgstr ""
+msgstr "描述"
 
 #: ../data/rh_register.glade.h:42
 msgid ""
@@ -1679,9 +1689,9 @@ msgstr ""
 msgid "•"
 msgstr ""
 
-#: ../data/rh_register.glade.h:48
+#: ../data/rh_register.glade.h:72
 msgid "installation number field"
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../data/rh_register.glade.h:49
 msgid "Installation _Number:"
@@ -1691,17 +1701,17 @@ msgstr ""
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
 msgstr ""
 
-#: ../data/rh_register.glade.h:51
+#: ../data/rh_register.glade.h:75
 msgid "_Activate a subscription now..."
-msgstr ""
+msgstr "描述"
 
 #: ../data/rh_register.glade.h:52
 msgid "Review system..."
 msgstr ""
 
-#: ../data/rh_register.glade.h:54
+#: ../data/rh_register.glade.h:78
 msgid "Create profile"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:55
 msgid "<big><b>System Name</b></big>"
@@ -1717,9 +1727,9 @@ msgstr ""
 msgid "System _Name:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:58
+#: ../data/rh_register.glade.h:83
 msgid "system name"
-msgstr ""
+msgstr "用户名："
 
 #: ../data/rh_register.glade.h:59
 msgid "<big><b>Profile Data</b></big>"
@@ -1735,33 +1745,33 @@ msgstr ""
 msgid "_View Hardware Profile ..."
 msgstr ""
 
-#: ../data/rh_register.glade.h:62
+#: ../data/rh_register.glade.h:88
 msgid "View Hardware Profile"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:63
 msgid "V_iew Package Profile ..."
 msgstr ""
 
-#: ../data/rh_register.glade.h:64
+#: ../data/rh_register.glade.h:90
 msgid "View Package Profile"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:65
 msgid "Send _hardware profile"
 msgstr ""
 
-#: ../data/rh_register.glade.h:66
+#: ../data/rh_register.glade.h:92
 msgid "Send hardware profile checkbox"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:67
 msgid "Send _package profile"
 msgstr ""
 
-#: ../data/rh_register.glade.h:68
+#: ../data/rh_register.glade.h:94
 msgid "Send package profile checkbox"
-msgstr ""
+msgstr "获取软件包列表时出错"
 
 #: ../data/rh_register.glade.h:70
 msgid ""
@@ -1773,9 +1783,9 @@ msgstr ""
 msgid "_Close"
 msgstr ""
 
-#: ../data/rh_register.glade.h:72
+#: ../data/rh_register.glade.h:99
 msgid "Close"
-msgstr ""
+msgstr "关闭"
 
 #: ../data/rh_register.glade.h:73
 msgid "<b>Security &amp; Updates:</b>"
@@ -1858,9 +1868,9 @@ msgid ""
 "for this system."
 msgstr ""
 
-#: ../data/rh_register.glade.h:94
+#: ../data/rh_register.glade.h:125
 msgid "Proxy Configuration"
-msgstr ""
+msgstr "Red Hat 网络配置"
 
 #: ../data/rh_register.glade.h:95
 msgid "<b>HTTP Proxy</b>"
@@ -1894,9 +1904,9 @@ msgstr ""
 msgid "Use Au_thentication with HTTP Proxy:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:103
+#: ../data/rh_register.glade.h:134
 msgid "Use Authentication with HTTP Proxy"
-msgstr ""
+msgstr "使用验证"
 
 #: ../data/rh_register.glade.h:104
 msgid "Proxy _Username:"
@@ -1910,9 +1920,9 @@ msgstr ""
 msgid "proxy user field"
 msgstr ""
 
-#: ../data/rh_register.glade.h:107
+#: ../data/rh_register.glade.h:138
 msgid "proxy password field"
-msgstr ""
+msgstr "口令："
 
 #: ../data/rh_register.glade.h:108
 msgid "Confirm operation system release selection"
@@ -1959,9 +1969,9 @@ msgstr ""
 msgid "Register _Later"
 msgstr ""
 
-#: ../data/rh_register.glade.h:121
+#: ../data/rh_register.glade.h:152
 msgid "Register Later"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../data/rh_register.glade.h:122
 msgid ""
@@ -2060,9 +2070,9 @@ msgstr ""
 msgid "_Minor release:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:148
+#: ../data/rh_register.glade.h:181
 msgid "Choose minor release"
-msgstr ""
+msgstr "发行"
 
 #: ../data/rh_register.glade.h:149
 msgid "       "
@@ -2122,7 +2132,7 @@ msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
 msgid "RHN Registration"
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../rhn_register.desktop.in.h:2
 msgid ""
@@ -2133,3 +2143,2052 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
 msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:131
+msgid "Automatic Subscription Activation"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:143
+msgid "Subscription Activation"
+msgstr "软件包信息"
+
+#: ../src/up2date_client/rhnregGui.py:342
+msgid ""
+"You will not be able to successfully register this system without contacting "
+"a Red Hat Network server."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:367
+#, fuzzy, python-format
+msgid "We could not contact Red Hat Network (%s)."
+msgstr "Red Hat 网络配置"
+
+#: ../src/up2date_client/rhnregGui.py:371
+msgid ""
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
+"can enter a Satellite or Proxy location instead."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:392
+msgid "There was an error communicating with Red Hat Network."
+msgstr "在与服务器联络时出现了一个致命错误。  错误讯息是："
+
+#: ../src/up2date_client/rhnregGui.py:438
+#, fuzzy, python-format
+msgid ""
+"Please enter your account information for the <b>%s</b> Red Hat Network "
+"Satellite:"
+msgstr "显示程序版本信息"
+
+#: ../src/up2date_client/rhnregGui.py:786
+msgid ""
+"Registering system and sending profile information to Red Hat.  Please wait."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:955
+#: ../src/up2date_client/rhnregGui.py:972 ../src/up2date_client/tui.py:906
+#: ../src/up2date_client/tui.py:920
+msgid "Problem registering personal information:\n"
+msgstr "显示程序版本信息\n"
+
+#: ../src/up2date_client/rhnregGui.py:960
+#: ../src/up2date_client/rhnregGui.py:977 ../src/up2date_client/tui.py:912
+#: ../src/up2date_client/tui.py:924
+msgid "Problem registering personal information"
+msgstr "显示程序版本信息"
+
+#: ../src/up2date_client/tui.py:126
+msgid "Red Hat Network Location:"
+msgstr "Red Hat 网络配置"
+
+#: ../src/up2date_client/rhnreg.py:71
+msgid "Warning: unable to run rhn_check"
+msgstr ""
+
+#: ../src/up2date_client/messageWindow.py:105
+msgid "Warning:"
+msgstr "正在准备……"
+
+#: ../src/up2date_client/messageWindow.py:112
+msgid "OK dialog:"
+msgstr ""
+
+#: ../src/up2date_client/messageWindow.py:127
+msgid "Question dialog:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:14
+msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
+msgstr ""
+
+#. Connect Window
+#: ../src/up2date_client/rhnreg_constants.py:17
+msgid "Attempting to contact the Red Hat Network server."
+msgstr "Red Hat 网络配置"
+
+#: ../src/up2date_client/rhnreg_constants.py:24
+msgid ""
+"This assistant will guide you through connecting your system to Red Hat "
+"Network (RHN) to receive software updates, including security updates, to "
+"keep your system supported and compliant.  You will need the following at "
+"this time:\n"
+"\n"
+" * A network connection\n"
+" * Your Red Hat Login & password\n"
+" * The location of a Red Hat Network Satellite or Proxy (optional)\n"
+"\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:39
+msgid ""
+"Connecting your system to Red Hat Network allows you to take full advantage "
+"of the benefits of a paid subscription, including:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:51
+msgid ""
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:61
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:63
+msgid ""
+"You will not be able to take advantage of these subscription privileges "
+"without connecting your system to Red Hat Network.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:93
+msgid ""
+"A Profile Name is a descriptive name that you choose to identify this System "
+"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"serial or identification number."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:110
+msgid "You may deselect individua\tl packages by unchecking them below."
+msgstr ""
+
+#. Product Window
+#: ../src/up2date_client/rhnreg_constants.py:115
+msgid ""
+"Please enter your login information for Red Hat Network (http://rhn.redhat."
+"com/):\n"
+"\n"
+msgstr "https://rhn.redhat.com\n"
+
+#: ../src/up2date_client/rhnreg_constants.py:117
+msgid ""
+"Tip: Forgot your login or password? Visit: https://www.redhat.com/wapps/sso/"
+"lostPassword.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:125
+msgid ""
+"This system has already been registered with RHN using RHN certficate-based "
+"technology.\n"
+"\n"
+"The tool you are using is attempting to re-register using RHN Classic "
+"technology. Red Hat recommends (except in a few cases) that customers only "
+"register with RHN once.\n"
+"\n"
+"To learn more about RHN registration and technologies please consult this "
+"Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
+msgstr ""
+
+#. Send Window
+#: ../src/up2date_client/rhnreg_constants.py:134
+msgid "Send Profile Information to Red Hat Network"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:135
+msgid ""
+"We are finished collecting information for the System Profile.\n"
+"\n"
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
+"\"Cancel\" and no information will be sent.  You can run the registration "
+"program later by typing `rhn_register` at the command line."
+msgstr ""
+
+#. Sending Window
+#: ../src/up2date_client/rhnreg_constants.py:142
+msgid "Sending Profile to Red Hat Network"
+msgstr "Red Hat 网络配置"
+
+#: ../src/up2date_client/rhnreg_constants.py:146
+msgid ""
+"You may now run 'yum update' from this system's command line to get the "
+"latest software updates from Red Hat Network. You will need to run this "
+"periodically to get the latest updates. Alternatively, you may configure "
+"this system for automatic software updates (also known as 'auto errata "
+"update') via the Red Hat Network web interface.  (Instructions for this are "
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
+"the main Red Hat Network web interface.)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:159
+#, fuzzy, python-format
+msgid ""
+"The installation number %s was activated during this system's initial "
+"connection to Red Hat Network."
+msgstr "Red Hat 网络配置"
+
+#: ../src/up2date_client/rhnreg_constants.py:164
+msgid ""
+"This system will receive updates from the following RHN Classic software "
+"channels:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:166
+msgid ""
+"Warning: Only installed product listed above will receive updates and "
+"support. If you would like to receive updates for additional products, "
+"please login to your satellite web interface and subscribe this system to "
+"the appropriate software channels. See Kbase articlefor more details. "
+"(http://kbase.redhat.com/faq/docs/DOC-11313)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:174
+msgid ""
+"Warning: Only installed products listed above will receive updates and "
+"support. If you would like to receive updates for additional products, "
+"please visit http://access.redhat.com/ and subscribe this system to the "
+"appropriate software channels. See Kbase article for more details. (http://"
+"kbase.redhat.com/faq/docs/DOC-11313)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:192
+msgid ""
+"This system was unable to subscribe to any software channels. Your system "
+"will not receive any software updates to keep it secure and supported. There "
+"are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface and subscribe "
+"this system to software channels via the software > software channels tab."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:203
+msgid "RHN Classic Service Level:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:204
+msgid ""
+"Depending on what RHN Classic modules are associated with a system, you'll "
+"enjoy different benefits. The following are the RHN Classic modules "
+"associated with this system:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:236
+msgid ""
+"This system was unable to be associated with any RHN service level modules. "
+"This system will not receive any software updates to keep it secure and "
+"supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface, delete the "
+"profile, and re-connect this system to Red Hat Network."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:248
+#, python-format
+msgid ""
+"Universal default activation key detected\n"
+"A universal default activation key was detected in your RHN Classic account. "
+"This means that a set of properties (software channel subscriptions, package "
+"installations, system group memberships, etc.) for your system's connection "
+"to RHN Classic have been determined by the activation key rather than your "
+"installation number.  You may also refer to the RHN Reference Guide, section "
+"6.4.6 for more details about activation keys (http://access.redhat.com/"
+"knowledge/docs/Red_Hat_Network/)\n"
+"Universal Default activation key: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:262
+#, python-format
+msgid ""
+"We can't contact the Red Hat Network Server.\n"
+"\n"
+"Double check the location provided - is '%s' correct?\n"
+"If not, you can correct it and try again.\n"
+"\n"
+"Make sure that the network connection on this system is operational.\n"
+"\n"
+"This system will not be able to successfully receive software updates from "
+"Red Hat without connecting to a Red Hat Network server"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:277
+#, python-format
+msgid ""
+"<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
+"\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
+"Network server at <b>%s</b>. You may want to double-check that you have "
+"provided a valid certificate file. Are you sure you have provided the "
+"correct certificate, and that the certificate file has not been corrupted?\n"
+"\n"
+"Please try again with a different certificate file."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:289
+msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:69
+msgid "There was a fatal error installing the package:\n"
+msgstr "在安装软件包时出现了一个致命错误：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:98
+msgid "RPM dependency error.  The message was:\n"
+msgstr "RPM 依赖关系错误。错误讯息是：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:109
+msgid "Package Skip List error.  The message was:\n"
+msgstr "软件包跳过列表错误。  错误讯息是：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:274
+msgid ""
+"\n"
+"    Your organization does not have enough Management entitlements to "
+"register this\n"
+"    system to Red Hat Network. Please notify your organization administrator "
+"of this error. \n"
+"    You should be able to register this system after your organization frees "
+"existing \n"
+"    or purchases additional entitlements. Additional entitlements may be "
+"purchased by your\n"
+"    organization administrator by logging into Red Hat Network and visiting\n"
+"    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
+"    \n"
+"    A common cause of this error code is due to having mistakenly setup an\n"
+"    Activation Key which is set as the universal default.  If an activation "
+"key is set\n"
+"    on the account as a universal default, you can disable this key and "
+"retry to avoid\n"
+"    requiring a Management entitlement."
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:200
+#, python-format
+msgid ""
+"%%prog (Red Hat Network Client Tools) %s\n"
+"Copyright (C) 1999--2010 Red Hat, Inc.\n"
+"Licensed under the terms of the GPLv2."
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_channel.py:39
+msgid "Select operating system release"
+msgstr ""
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:41
+#: ../src/firstboot/rhn_provide_certificate_gui.py:42
+#: ../src/firstboot/rhn_choose_server_gui.py:72
+msgid "Provide Certificate"
+msgstr ""
+
+#. the user doesn't want to provide a cert right now
+#. TODO write a message to disk like the other cases? need to decide
+#. how we want to do error handling in general.
+#: ../src/firstboot/rhn_provide_certificate_gui.py:57
+#: ../src/firstboot/rhn_start_gui.py:61 ../src/firstboot/rhn_finish_gui.py:42
+#: ../src/firstboot/rhn_finish_gui.py:43 ../src/firstboot/rhn_login_gui.py:57
+#: ../src/firstboot/rhn_create_profile_gui.py:58
+msgid "Finish Updates Setup"
+msgstr ""
+
+#: ../src/firstboot/rhn_login_gui.py:100
+#: ../src/firstboot/rhn_create_profile_gui.py:87
+msgid "There was a communication error with the server:"
+msgstr "在与服务器联络时出现了一个致命错误。  错误讯息是："
+
+#: ../src/firstboot/rhn_login_gui.py:102
+#: ../src/firstboot/rhn_create_profile_gui.py:89
+msgid "Would you like to go back and try again?"
+msgstr ""
+
+#: ../data/rh_register.glade.h:2
+msgid ""
+"This system will <b>not</b> be able to successfully receive software "
+"updates, including security updates, from Red Hat without connecting to a "
+"Red Hat Network server.\n"
+"\n"
+"To keep your system updated, secure, and supported, please register this "
+"system at your earliest convenience.\n"
+"\n"
+"You may access the RHN registration tool by running <b>RHN Registration</b> "
+"in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in "
+"the <b>System > Administration</b> menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:10
+msgctxt "yes"
+msgid "I'd like to register with:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:11
+msgid "I'd like to register with:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:12
+msgid ""
+"Red Hat Subscription Management offers improved management and tracking of "
+"subscriptions and access to content. It is the recommended and default "
+"registration option."
+msgstr ""
+
+#: ../data/rh_register.glade.h:13
+#, fuzzy
+msgctxt "yes"
+msgid "Red Hat Subscription Management"
+msgstr "描述"
+
+#: ../data/rh_register.glade.h:14
+msgid "Red Hat Subscription Management"
+msgstr "描述"
+
+#: ../data/rh_register.glade.h:15
+msgid ""
+"RHN Classic provides system-level support and management of Red Hat systems "
+"and networks. Red Hat Subscription Management is the recommended service to "
+"use, but RHN Classic is still available."
+msgstr ""
+
+#: ../data/rh_register.glade.h:16
+#, fuzzy
+msgctxt "yes"
+msgid "Red Hat Network (RHN) Classic"
+msgstr "Red Hat 网络配置"
+
+#: ../data/rh_register.glade.h:17
+msgid "Red Hat Network (RHN) Classic"
+msgstr "Red Hat 网络配置"
+
+#: ../data/rh_register.glade.h:18
+msgid ""
+"Satellite users have the benefits of RHN Classic without having to provide "
+"Internet access to connected systems. Proxy users enjoy reduced bandwidth "
+"requirements for RHN Classic and can deploy custom packages."
+msgstr ""
+
+#: ../data/rh_register.glade.h:19
+msgctxt "yes"
+msgid "An RHN Satellite or RHN Proxy"
+msgstr ""
+
+#: ../data/rh_register.glade.h:20
+msgid "An RHN Satellite or RHN Proxy"
+msgstr ""
+
+#: ../data/rh_register.glade.h:21
+msgctxt "yes"
+msgid "Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:28
+#, fuzzy
+msgctxt "yes"
+msgid "Please enter your Red Hat account information:"
+msgstr "顾问信息"
+
+#: ../data/rh_register.glade.h:30
+msgid ""
+"<small>Tip: Forgot your login or password? Look it up at http://red.ht/"
+"lost_password</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:31
+msgid ""
+"Tip: Forgot your login or password? Look it up at http://red.ht/lost_password"
+msgstr ""
+
+#: ../data/rh_register.glade.h:47
+#, fuzzy
+msgctxt "yes"
+msgid "Package Information"
+msgstr "软件包信息"
+
+#: ../data/rh_register.glade.h:49
+msgctxt "yes"
+msgid ""
+"This assistant will guide you through the process of registering your system "
+"with Red Hat to receive software updates and other benefits. You will need "
+"the following to register:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:51
+#, fuzzy
+msgid "• Your Red Hat Network or Red Hat Network Satellite login "
+msgstr "显示程序版本信息"
+
+#: ../data/rh_register.glade.h:52
+#, fuzzy
+msgid "• Your Red Hat account login"
+msgstr "Red Hat 更新代理"
+
+#: ../data/rh_register.glade.h:53
+msgid "Your Red Hat account login"
+msgstr "Red Hat 更新代理"
+
+#: ../data/rh_register.glade.h:54
+msgid "• A Red Hat subscription that covers your product"
+msgstr ""
+
+#: ../data/rh_register.glade.h:55
+msgid "A Red Hat subscription that covers your product"
+msgstr ""
+
+#: ../data/rh_register.glade.h:56
+msgid "• (optional) The address of an alternate service"
+msgstr ""
+
+#: ../data/rh_register.glade.h:57
+msgid "(optional) The address of an alternate service"
+msgstr ""
+
+#: ../data/rh_register.glade.h:58
+msgid "_More Info"
+msgstr "更新软件包档案……"
+
+#: ../data/rh_register.glade.h:59
+msgid "More Info"
+msgstr "更新软件包档案……"
+
+#: ../data/rh_register.glade.h:77
+msgctxt "yes"
+msgid "Please review the subscription details below:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:80
+msgctxt "yes"
+msgid ""
+"A recognizable name will help you identify this system in a management "
+"interface."
+msgstr ""
+
+#: ../data/rh_register.glade.h:85
+msgctxt "yes"
+msgid ""
+"Send us a profile of your current hardware and packages so we can determine "
+"what updates are available."
+msgstr ""
+
+#: ../data/rh_register.glade.h:96
+msgctxt "yes"
+msgid ""
+"Registering your system with Red Hat allows you to take full advantage of "
+"the benefits of a paid subscription, including:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:103
+msgctxt "yes"
+msgid ""
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases."
+msgstr ""
+
+#: ../data/rh_register.glade.h:105
+msgctxt "yes"
+msgid ""
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system."
+msgstr ""
+
+#: ../data/rh_register.glade.h:108
+msgctxt "yes"
+msgid ""
+"Manage subscriptions and systems registered to Customer Portal via access."
+"redhat.com or through one of our other subscription management services."
+msgstr ""
+
+#: ../data/rh_register.glade.h:113
+#, no-c-format
+msgid ""
+"A security certificate compatible with <b>%s</b> was not found on this "
+"system.\n"
+"\n"
+"A security certificate, using SSL technology, is necessary to ensure that "
+"data communicated between this system and Red Hat Network (including your "
+"login and password) is secure."
+msgstr ""
+
+#: ../data/rh_register.glade.h:116
+#, fuzzy
+msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
+msgstr "在与服务器联络时出现了一个致命错误。  错误讯息是："
+
+#: ../data/rh_register.glade.h:121
+msgid ""
+"You won't be able to receive software updates, including security updates, "
+"for this system.\n"
+"\n"
+"You may access the RHN registration tool by running <b>RHN Registration</b> "
+"or <b>Red Hat Subscription Manager</b> in the <b>System > Administration</b> "
+"menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in "
+"the <b>System > Administration</b> menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:128
+msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
+msgstr ""
+
+#: ../data/rh_register.glade.h:153
+msgctxt "yes"
+msgid ""
+"Are you sure you don't want to register your system with Red Hat? You'll "
+"miss out on the benefits of a Red Hat Enterprise Linux Subscription:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:156
+msgctxt "yes"
+msgid ""
+"You will not be able to take advantage of these benefits without registering."
+msgstr ""
+
+#: ../data/rh_register.glade.h:159
+msgctxt "yes"
+msgid "It appears this system has already been set up for software updates:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:160
+#, fuzzy
+msgid "<b>Red Hat Network Location:</b>"
+msgstr "Red Hat 网络配置"
+
+#: ../data/rh_register.glade.h:164
+msgctxt "yes"
+msgid "Are you sure you would like to continue?"
+msgstr ""
+
+#: ../data/rh_register.glade.h:167
+msgid ""
+"The tool you are using is attempting to re-register using RHN Classic "
+"technology. Red Hat recommends (except in a few cases) that customers only "
+"register with RHN once."
+msgstr ""
+
+#: ../data/rh_register.glade.h:189
+msgid ""
+"Alternate services include: CloudForms System Engine, Subscription Asset "
+"Manager, Red Hat Network (RHN) Satellite, and RHN Proxy."
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat 网络配置"
+
+#~ msgid "Enter you account information"
+#~ msgstr "顾问信息"
+
+#~ msgid "Create your system profile"
+#~ msgstr "更新软件包档案……"
+
+#~ msgid "<b>Compliance:</b>"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "Advanced Network Configuration"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "Advanced Network Configuration button"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "Advanced _Network Configuration ..."
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "Choose Channel"
+#~ msgstr "频道"
+
+#~ msgid "Enter Your Account Information"
+#~ msgstr "顾问信息"
+
+#~ msgid ""
+#~ "Please enter your account information for <b>Red Hat Network</b> (http://"
+#~ "rhn.redhat.com/)"
+#~ msgstr "https://rhn.redhat.com"
+
+#~ msgid "_Take me back to the registration"
+#~ msgstr "软件包安装选项"
+
+#~ msgid "_Take me back to the setup process."
+#~ msgstr "软件包安装选项"
+
+#~ msgid "• A name for your system's Red Hat Network profile"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "Disk error.  The message was:\n"
+#~ msgstr "磁盘错误。 错误讯息是：\n"
+
+#~ msgid "RPM package conflict error.  The message was:\n"
+#~ msgstr "RPM 软件包冲突错误。 错误讯息是：\n"
+
+#~ msgid "RPM file conflict error. The message was:\n"
+#~ msgstr "RPM 文件冲突错误。 错误讯息是：\n"
+
+#~ msgid "RPM  error. The message was:\n"
+#~ msgstr "RPM 错误。错误讯息是：\n"
+
+#~ msgid "File Skip List or config file overwrite error. The message was:\n"
+#~ msgstr "跳过的文件列表  或配置文件覆盖错误。错误讯息是：\n"
+
+#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
+#~ msgstr "无法删除软件包“%s”，它在 RemoveSkipList 列表中"
+
+#~ msgid "GPG is not installed properly."
+#~ msgstr "GPG 没有被正确安装。"
+
+#~ msgid ""
+#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
+#~ msgstr "GPG 钥匙圈不包括 Red Hat, Inc. 公共软件包签名钥匙"
+
+#~ msgid ""
+#~ "The package %s failed its gpg signature verification. This means the "
+#~ "package is corrupt."
+#~ msgstr "软件包 %s 的 GPG 签名校验失败。这意味着这个软件包被损坏。"
+
+#~ msgid "Package %s does not have a GPG signature.\n"
+#~ msgstr "软件包 %s 没有 GPG 签名。\n"
+
+#~ msgid "Package %s has a untrusted GPG signature.\n"
+#~ msgstr "软件包 %s 没有 GPG 签名。\n"
+
+#~ msgid "Package %s has a unknown GPG signature.\n"
+#~ msgstr "软件包 %s 没有 GPG 签名。\n"
+
+#~ msgid "yes|Hostname:"
+#~ msgstr "用户名："
+
+#~ msgid "yes|IP Address:"
+#~ msgstr "新添加："
+
+#~ msgid "yes|Installation _Number:"
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "yes|Package Information"
+#~ msgstr "软件包信息"
+
+#~ msgid "yes|Red Hat Network _Location:"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "yes|Use Au_thentication with HTTP Proxy:"
+#~ msgstr "使用验证"
+
+#~ msgid "yes|_Close"
+#~ msgstr "关闭"
+
+#~ msgid "yes|_No, Cancel"
+#~ msgstr "取消"
+
+#~ msgid "yes|_Password:"
+#~ msgstr "口令："
+
+#~ msgid "yes|_Take me back to the registration"
+#~ msgstr "软件包安装选项"
+
+#~ msgid "yes|label"
+#~ msgstr "label10"
+
+#~ msgid "Why connect to Red Hat Network?"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "Review the Red Hat Network Terms And Conditions"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "Create a New Login ..."
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "Create a new Red Hat login"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "*Desired Password:"
+#~ msgstr "口令："
+
+#~ msgid "*Confirm Password:"
+#~ msgstr "口令："
+
+#~ msgid "Please enter your first name."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "Please enter your last name."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "Please enter your email address."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "Please enter a valid email address."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "Please enter your country."
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "Please enter a longer password."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "Please enter a shorter password."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "You must select an organization."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "Access a subscription"
+#~ msgstr "描述"
+
+#~ msgid ""
+#~ "There was a problem logging in:\n"
+#~ "%s"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "There was problem logging in."
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "There was an error while getting the list of organizations."
+#~ msgstr "在安装软件包时出现了一个致命错误：\n"
+
+#~ msgid "You must enter an installation number."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "There was an error activating your number."
+#~ msgstr "在与服务器联络时出现了一个致命错误。  错误讯息是：\n"
+
+#~ msgid "There was an error retrieving the privacy statement."
+#~ msgstr "在安装软件包时出现了一个致命错误：\n"
+
+#~ msgid "You must enter an Installation Number that "
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "Problem registering login name:\n"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "Problem registering login name."
+#~ msgstr "显示程序版本信息"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Red Hat Network Location: "
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "Access Subscription"
+#~ msgstr "描述"
+
+#~ msgid "Connect to Red Hat Network"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "Choose a Red Hat Network server"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "Specify an email address"
+#~ msgstr "新添加："
+
+#~ msgid "Specify a installation number to use"
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "Important Registration Info"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "Registration information"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "Select organization"
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "Red Hat Privacy Statement"
+#~ msgstr "Red Hat 更新代理"
+
+#~ msgid "http://www.redhat.com/apps/support/"
+#~ msgstr "https://rhn.redhat.com"
+
+#~ msgid "Error reading hardware information:"
+#~ msgstr "读取头出错"
+
+#~ msgid "Error reading DMI information:"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "You must enter a user name."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "You must enter and verify a password."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid ""
+#~ "Problem registering login:\n"
+#~ "%s"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "Problem registering login."
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "Login Information:"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "Account Information:"
+#~ msgstr "顾问信息"
+
+#~ msgid "*First Name:"
+#~ msgstr "用户名："
+
+#~ msgid "*Last Name:"
+#~ msgstr "用户名："
+
+#~ msgid "*Company Name:"
+#~ msgstr "用户名："
+
+#~ msgid "Street Address:"
+#~ msgstr "新添加："
+
+#~ msgid "  Address 2:"
+#~ msgstr "新添加："
+
+#~ msgid "  Address:"
+#~ msgstr "新添加："
+
+#~ msgid "  Co_mpany Name:"
+#~ msgstr "用户名："
+
+#~ msgid "* C_onfirm password:  "
+#~ msgstr "口令："
+
+#~ msgid "* Desired _Password:"
+#~ msgstr "口令："
+
+#~ msgid "* Last _Name:"
+#~ msgstr "用户名："
+
+#~ msgid "* _Email Address: "
+#~ msgstr "新添加："
+
+#~ msgid "* _First Name:"
+#~ msgstr "用户名："
+
+#~ msgid "<b>Account Information:</b>"
+#~ msgstr "顾问信息"
+
+#~ msgid "<b>Login Information:</b>"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "Create a _New Login"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "France"
+#~ msgstr "取消"
+
+#~ msgid "Guinea"
+#~ msgstr "常规"
+
+#~ msgid "Guinea-Bissau"
+#~ msgstr "常规"
+
+#~ msgid "Guyana"
+#~ msgstr "常规"
+
+#~ msgid "Senegal"
+#~ msgstr "常规"
+
+#~ msgid "Ukraine"
+#~ msgstr "取消"
+
+#~ msgid "Viet Nam"
+#~ msgstr "用户名："
+
+#~ msgid ""
+#~ "\n"
+#~ "        Your system libraries do not support SSL (secure) connections.\n"
+#~ "        Any data that you send or receive from redhat.com will be\n"
+#~ "        transmitted in the clear.\n"
+#~ "        "
+#~ msgstr ""
+#~ "你的系统库不支持 SSL（安全）连接。  你发送的或是\n"
+#~ "从 redhat.com 收到的数据将不会被加密传输。\n"
+#~ "\n"
+
+#~ msgid "Continue anyway?"
+#~ msgstr "强行继续吗？"
+
+#~ msgid "reserved."
+#~ msgstr "正在检索："
+
+#~ msgid "We are attempting to contact the Red Hat "
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "and manage subscriptions "
+#~ msgstr "频道信息"
+
+#~ msgid "http://www.rhn.redhat.com/"
+#~ msgstr "https://rhn.redhat.com"
+
+#~ msgid ""
+#~ "your system to Red Hat Network.\n"
+#~ "\n"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid ""
+#~ "Hat Network (http://rhn.redhat.com):\n"
+#~ "\n"
+#~ msgstr "https://rhn.redhat.com"
+
+#~ msgid "Red Hat Network:"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "http://www.redhat.com/store/."
+#~ msgstr "https://rhn.redhat.com"
+
+#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
+#~ msgstr "更新与 Red Hat 网络上的这个系统档案相关联的软件包"
+
+#~ msgid "You can run the registration program later by "
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid ""
+#~ "http://www.redhat.com/store/.\n"
+#~ "(3) Activate a new "
+#~ msgstr "https://rhn.redhat.com"
+
+#~ msgid "re-connect this system to Red Hat Network."
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid ""
+#~ "We can't contact the Red Hat Network Server.\n"
+#~ "\n"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid ""
+#~ "If not, you can correct it and try again.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "请修改你的软件包选择，然后重试。"
+
+#~ msgid "Version: %s"
+#~ msgstr "版本"
+
+#~ msgid "Problem sending packages:\n"
+#~ msgstr "删除软件包失败：%s"
+
+#~ msgid "Problem sending packages."
+#~ msgstr "删除软件包失败：%s"
+
+#~ msgid "File Name/pattern"
+#~ msgstr "文件名/图案"
+
+#~ msgid "Config modified"
+#~ msgstr "配置被修改"
+
+#~ msgid "Dependencies should have already been resolved, but they are not."
+#~ msgstr "依赖关系应该已经被解决，但是它们还没有被解决。"
+
+#~ msgid "Failed running transaction of  packages: %s"
+#~ msgstr "安装软件包失败：%s "
+
+#~ msgid "You must enter a first name."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "You must a company name."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "You must a country."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "SSL Warning"
+#~ msgstr "正在准备……"
+
+#~ msgid ""
+#~ "Your system libraries do not support SSL (secure) connections.  Any data "
+#~ "that you send or receive from Red Hat Network will be transmitted in the "
+#~ "clear. Continue anyway?"
+#~ msgstr ""
+#~ "你的系统库不支持 SSL（安全）连接。  你发送的或是\n"
+#~ "从 redhat.com 收到的数据将不会被加密传输。\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "RHN Username: "
+#~ msgstr "用户名："
+
+#~ msgid "Error opening %s"
+#~ msgstr "打开 %s 时出错"
+
+#~ msgid "Installing"
+#~ msgstr "正在安装："
+
+#~ msgid "Installing %s"
+#~ msgstr "正在安装 %s"
+
+#~ msgid "Repackaging"
+#~ msgstr "正在准备……"
+
+#~ msgid "Preparing"
+#~ msgstr "正在准备……"
+
+#~ msgid "Retrieved."
+#~ msgstr "正在检索："
+
+#~ msgid ""
+#~ "The following packages were added to your selection to satisfy "
+#~ "dependencies:"
+#~ msgstr "下列软件包已被添加到你的选择中以便满足依赖关系："
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Release\n"
+#~ "--------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "名称                                    版本        发行版本\n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                          Version        Rel             "
+#~ "Channel     \n"
+#~ "----------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "名称                                    版本        发现版本     \n"
+#~ "----------------------------------------------------------"
+
+#~ msgid "No advisory information available\n"
+#~ msgstr "无可用的顾问信息。"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Rel     \n"
+#~ "----------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "名称                                    版本        发现版本     \n"
+#~ "----------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following Packages were marked to be skipped by your configuration:"
+#~ msgstr "下列软件包被你的配置标记为要跳过："
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Rel  Reason\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "名称                                    版本        发行原因\n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid "The following wildcards did not match any packages:"
+#~ msgstr "下列软件包被你的配置标记为要跳过："
+
+#~ msgid "The following groups did not match any packages:"
+#~ msgstr "下列软件包被你的配置标记为要跳过："
+
+#~ msgid "The following Packages are obsoleted by newer packages:"
+#~ msgstr "下列软件包被你的配置标记为要跳过："
+
+#~ msgid ""
+#~ "\n"
+#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "名称                                    版本        发行原因\n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following packages were not installed because they are obsoleted by "
+#~ "installed packages:"
+#~ msgstr "下列软件包被你的配置标记为要跳过："
+
+#~ msgid ""
+#~ "\n"
+#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "名称                                    版本        发行原因\n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following packages are not installed but available from Red Hat "
+#~ "Network:"
+#~ msgstr "下列软件包被你的配置标记为要跳过："
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Release  \n"
+#~ "--------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "名称                                    版本        发行版本\n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid "<b>RHN Username:</b>"
+#~ msgstr "用户名："
+
+#~ msgid "Create a _New Account"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "_Cancel"
+#~ msgstr "取消"
+
+#~ msgid "_Username:"
+#~ msgstr "用户名："
+
+#~ msgid "Provide a Red Hat login."
+#~ msgstr "Red Hat 更新代理"
+
+#~ msgid ""
+#~ "\n"
+#~ "    To solve all dependencies for the RPMs you have selected, The "
+#~ "following\n"
+#~ "    packages you have marked to exclude would have to be added to the "
+#~ "set:\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    要为你选择的 RPM 解决所有依赖关系，下列被你标为\n"
+#~ "    要不包括的软件包将必须要被添加到软件包集中：\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "    %-30.30s\t%-30.30s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "    %-30.30s\t%-30.30s\n"
+
+#~ msgid "Package Name"
+#~ msgstr "软件包名"
+
+#~ msgid "Reason For Skipping"
+#~ msgstr "跳过的原因"
+
+#~ msgid "Testing package set / solving RPM inter-dependencies"
+#~ msgstr "正在测试软件包集/正在解决 RPM 相互依赖关系"
+
+#~ msgid "Could not satisfy conflict dependencies."
+#~ msgstr "无法满足冲突的依赖关系。"
+
+#~ msgid ""
+#~ "The following packages were added to your selection to satisfy "
+#~ "dependencies:\n"
+#~ msgstr "下列软件包已被添加到你的选择中以便满足依赖关系："
+
+#~ msgid "Package                                Required by\n"
+#~ msgstr ""
+#~ "\n"
+#~ "名称                                    版本        发行版本\n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid "%-40.40s %s %s \n"
+#~ msgstr "%-40.40s 要求 %s\n"
+
+#~ msgid "%-40.40s %s %s\n"
+#~ msgstr "%-40.40s 要求 %s\n"
+
+#~ msgid "Don't know how to handle dependency sense \"%s\""
+#~ msgstr "不知道该怎么处理依赖关系的意思“%s”"
+
+#~ msgid ""
+#~ "%s\n"
+#~ "Unresolvable chain of dependencies:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s\n"
+#~ "不可解决的连锁依赖关系：\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "elilo options that are not supported by up2date are used in the default "
+#~ "elilo.conf. This file will not be modified. The options include:\n"
+#~ msgstr ""
+#~ "不被 up2date 支持的 elilo 选项在默认的 elilo.conf 被使用。这个文件将不会被"
+#~ "修改。 选项包括：\n"
+
+#~ msgid "Unable to run grubby correctly: the message was:\n"
+#~ msgstr "无法正确运行 grubby：错误讯息是：\n"
+
+#~ msgid "Red Hat Update Agent"
+#~ msgstr "Red Hat 更新代理"
+
+#~ msgid ""
+#~ "This software is distributed under the GPL\n"
+#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
+#~ "redhat.com/bugzilla/"
+#~ msgstr ""
+#~ "该软件是在 GPL 的条款下发行的。请想 Red Hat 错误跟踪系统报告错误： http://"
+#~ "bugzilla.redhat.com/bugzilla/"
+
+#~ msgid ""
+#~ "This software is distributed under the GPL.  Please Report bugs to Red "
+#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
+#~ msgstr ""
+#~ "该软件是在 GPL 的条款下发行的。请想 Red Hat 错误跟踪系统报告错误： http://"
+#~ "bugzilla.redhat.com/bugzilla/"
+
+#~ msgid "Version"
+#~ msgstr "版本"
+
+#~ msgid "Old Version"
+#~ msgstr "版本"
+
+#~ msgid "Size"
+#~ msgstr "大小"
+
+#~ msgid "Reason Skipped"
+#~ msgstr "跳过的原因"
+
+#~ msgid "Up2date - Privacy Information"
+#~ msgstr "软件包信息"
+
+#~ msgid "Up2date - Terms And Conditions"
+#~ msgstr "Red Hat 网络配置"
+
+#~ msgid "Up2date - Login Page"
+#~ msgstr "更新代理进程"
+
+#~ msgid "Up2date - Red Hat Network Information"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "Up2date - Product Information Page"
+#~ msgstr "软件包信息"
+
+#~ msgid "Up2date - Hardware Profile"
+#~ msgstr "更新软件包档案……"
+
+#~ msgid ""
+#~ "The Registration Wizard is building a list of RPM packages installed on "
+#~ "your system.  Please wait."
+#~ msgstr ""
+#~ "Red Hat 更新代理正在建立一个在你的系统上\n"
+#~ "安装的更新了的 RPM 软件包列表。  请稍候。"
+
+#~ msgid "No advisory information available."
+#~ msgstr "无可用的顾问信息。"
+
+#~ msgid ""
+#~ "Red Hat Update Agent is building a list of updated\n"
+#~ "RPM packages installed on your system.  Please wait."
+#~ msgstr ""
+#~ "Red Hat 更新代理正在建立一个在你的系统上\n"
+#~ "安装的更新了的 RPM 软件包列表。  请稍候。"
+
+#~ msgid "There was a fatal RPM error.  The message was:\n"
+#~ msgstr "出现了一个致命的 RPM 错误。  错误讯息是：\n"
+
+#~ msgid ""
+#~ "There was a fatal error communicating with the server.  The message was:\n"
+#~ msgstr "在与服务器联络时出现了一个致命错误。  错误讯息是：\n"
+
+#~ msgid ""
+#~ "An unexpected OS error occurred:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "发生了一个意外的 OS 错误：\n"
+#~ "%s"
+
+#~ msgid "Up2date - Skipped Packages"
+#~ msgstr "可用的软件包更新"
+
+#~ msgid "Up2date - Channels"
+#~ msgstr "频道"
+
+#~ msgid "Up2date - Package List"
+#~ msgstr "正在检索软件包"
+
+#~ msgid "There was a fatal RPM error. The message was:\n"
+#~ msgstr "出现了一个致命的 RPM 错误。错误讯息是：\n"
+
+#~ msgid "Your system is fully updated.  No new packages are needed."
+#~ msgstr "你的系统已经完全被更新了。 不需要任何新软件包。"
+
+#~ msgid "There was an RPM error.  The message was:\n"
+#~ msgstr "有一个 RPM 错误。错误讯息是：\n"
+
+#~ msgid "There was an RPM install error. The message was:\n"
+#~ msgstr "出现了一个 RPM 安装错误。错误消息是：\n"
+
+#~ msgid "There was a package dependency problem.  The message was:\n"
+#~ msgstr "出现了一个软件包依赖关系的问题。讯息是：\n"
+
+#~ msgid ""
+#~ "You must select at least one package.\n"
+#~ "If you do not wish to update any packages,\n"
+#~ "press the \"Cancel\" button to exit Update Agent."
+#~ msgstr ""
+#~ "你必须至少选择一个软件包。\n"
+#~ "如果你不想更新任何软件包，\n"
+#~ "按“取消”按钮来退出更新代理。"
+
+#~ msgid ""
+#~ "The total size of selected packages is %d kB, but\n"
+#~ "You only have %d kB of free space.\n"
+#~ "Please unselect some packages and continue."
+#~ msgstr ""
+#~ "选定的软件包的总计大小是 %d KB，\n"
+#~ "但是你只有 %d KB 空闲空间。\n"
+#~ "请取消某些软件包的选择再继续。"
+
+#~ msgid "Up2date - Available Packages"
+#~ msgstr "可用的软件包更新"
+
+#~ msgid "Up2date - Dependencies"
+#~ msgstr "频道"
+
+#~ msgid "Package already downloaded"
+#~ msgstr "软件包已经下载"
+
+#~ msgid ""
+#~ "Error while retrieving package %s.\n"
+#~ "The message was:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "在检索软件包 %s 时出错。\n"
+#~ "错误讯息是：\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "A fatal RPM error has occurred.  The message was:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "发生了一个致命的 RPM 错误。错误消息是：\n"
+#~ "%s"
+
+#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
+#~ msgstr "软件包 %s 没有 GPG 签名。  继续吗？"
+
+#~ msgid ""
+#~ "The package %s does not have a valid GPG signature.\n"
+#~ "It has been tampered with or corrupted.  Continue?"
+#~ msgstr ""
+#~ "软件包 %s 没有有效的 GPG 签名。\n"
+#~ "它被篡改了或被损坏了。继续吗？"
+
+#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
+#~ msgstr "软件包 %s 没有 GPG 签名。  继续吗？"
+
+#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
+#~ msgstr "软件包 %s 没有 GPG 签名。  继续吗？"
+
+#~ msgid "All finished.  Click \"Forward\" to continue."
+#~ msgstr "全部结束。点击“下一步”来继续。"
+
+#~ msgid "Up2date - Package Retrieval"
+#~ msgstr "软件包检索选项"
+
+#~ msgid "Repackaging..."
+#~ msgstr "正在准备……"
+
+#~ msgid "Installing..."
+#~ msgstr "正在安装："
+
+#~ msgid "Total Progress (repackaging):"
+#~ msgstr "总进程："
+
+#~ msgid "Total Progress:"
+#~ msgstr "总进程："
+
+#~ msgid "There was a fatal RPM install error. The message was:\n"
+#~ msgstr "出现了一个致命的 RPM 安装错误。  错误讯息是：\n"
+
+#~ msgid "Up2date - Package Installation"
+#~ msgstr "软件包安装选项"
+
+#~ msgid "Up2date - Finish Page"
+#~ msgstr "假设的结束页"
+
+#~ msgid "The Red Hat Update Agent has finished "
+#~ msgstr "Red Hat 更新代理已经结束了"
+
+#~ msgid ""
+#~ "retrieving\n"
+#~ " the following packages successfully:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "成功地检索\n"
+#~ "了下列软件包：\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "installing\n"
+#~ " the following packages successfully:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "成功地安装\n"
+#~ "了下列软件包：\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Because of your settings, these packages were only downloaded,\n"
+#~ "not installed.  If you wish to change your settings, please run the\n"
+#~ "\"up2date-config\" program."
+#~ msgstr ""
+#~ "\n"
+#~ "由于你的设置，这些软件包只被下载了，\n"
+#~ "而没有被安装。如果你想改变你的设置，\n"
+#~ "请运行“up2date-config”程序。"
+
+#~ msgid "Error installing lilo.conf  The message was:\n"
+#~ msgstr "安装 lilo.conf 时出错。错误讯息是：\n"
+
+#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
+#~ msgstr "回复到 lilo.conf 备份时出错。这个备份是：\n"
+
+#~ msgid "Error installing the new bootloader: \n"
+#~ msgstr "安装新的引导装载程序时出错：\n"
+
+#~ msgid "Error reading lilo.conf: The messages was:\n"
+#~ msgstr "读取 lilo.conf 出错：错误讯息是：\n"
+
+#~ msgid ""
+#~ "lilo options that are not supported by up2date are used in the default "
+#~ "lilo.conf. This file will not be modified. The options include:\n"
+#~ msgstr ""
+#~ "不被 up2date 支持的 lilo 选项在默认的 lilo.conf 被使用。这个文件将不会被修"
+#~ "改。选项包括：\n"
+
+#~ msgid "Pkg name/pattern"
+#~ msgstr "软件包名称/ 图案"
+
+#~ msgid "Fetching rpm headers"
+#~ msgstr "更新软件包档案……"
+
+#~ msgid "Fetching rpm header: %s-%s-%s"
+#~ msgstr "更新软件包档案……"
+
+#~ msgid "Removing packages marked to skip from list"
+#~ msgstr "从列表中删除标记为要跳过的软件包"
+
+#~ msgid "Available command line options:"
+#~ msgstr "可用的软件包更新"
+
+#~ msgid "Error getting available package list"
+#~ msgstr "获取软件包列表时出错"
+
+#~ msgid "You must enter your address."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "You must enter your zip/postal code."
+#~ msgstr "你必须作为根用户运行更新代理。"
+
+#~ msgid "Licensed under terms of the GPL."
+#~ msgstr "在 GPL 条款下的许可。"
+
+#~ msgid "cannot remove %s"
+#~ msgstr "无法删除 %s"
+
+#~ msgid "Error reading header"
+#~ msgstr "读取头出错"
+
+#~ msgid "Error parsing %s"
+#~ msgstr "打开 %s 时出错"
+
+#~ msgid "User name:"
+#~ msgstr "用户名："
+
+#~ msgid "First Name:"
+#~ msgstr "用户名："
+
+#~ msgid "*Address:"
+#~ msgstr "新添加："
+
+#~ msgid "Address:"
+#~ msgstr "新添加："
+
+#~ msgid "Address 2:"
+#~ msgstr "新添加："
+
+#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
+#~ msgstr "软件包 %s 没有 GPG 签名。  继续吗？"
+
+#~ msgid ""
+#~ "The package %s does not have a valid GPG signature.\n"
+#~ "It has been tampered with or corrupted.  Aborting..."
+#~ msgstr ""
+#~ "软件包 %s 没有有效的 GPG 签名。\n"
+#~ "它被篡改了或被损坏了。继续吗？"
+
+#~ msgid ""
+#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
+#~ msgstr "软件包 %s 没有 GPG 签名。  继续吗？"
+
+#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
+#~ msgstr "软件包 %s 没有 GPG 签名。  继续吗？"
+
+#~ msgid ""
+#~ "The storage directory %s could not be found, or was not\n"
+#~ "accessable."
+#~ msgstr ""
+#~ "找不到贮存目录 %s，或者它无法被访问。\n"
+#~ " "
+
+#~ msgid ""
+#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
+#~ "You must be registered.\n"
+#~ "\n"
+#~ "To register, run \"up2date --register\"."
+#~ msgstr ""
+#~ "你没有在 Red Hat 网络中登记。 要使用更新代理，\n"
+#~ "你必须要登记。\n"
+#~ "\n"
+#~ "若要登记，请运行“rhn_register”。"
+
+#~ msgid ""
+#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
+#~ "Without it, you will be unable to verify that packages Update Agent "
+#~ "downloads\n"
+#~ "are securely signed by Red Hat.\n"
+#~ "\n"
+#~ "Your Update Agent options specify that you want to use GPG."
+#~ msgstr ""
+#~ "你的 GPG 钥匙圈不包括 Red Hat, Inc. 公共软件包签名钥匙。\n"
+#~ "没有它，你将无法校验更新代理所下载的软件包是否被 Red Hat\n"
+#~ "安全地签名了。\n"
+#~ "\n"
+#~ "你的更新代理选项指定你想使用 GPG。\n"
+#~ "\n"
+#~ "要安装这个钥匙，作为根用户运行下面的命令：\n"
+#~ "\n"
+#~ "    /usr/bin/gpg %s --import /usr/share/rhn/RPM-GPG-KEY"
+
+#~ msgid ""
+#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
+#~ "Without it, you will be unable to verify that packages Update Agent "
+#~ "downloads\n"
+#~ "are securely signed by Red Hat.\n"
+#~ "\n"
+#~ "Your Update Agent options specify that you want to use GPG.\n"
+#~ "\n"
+#~ "To install the key, run the following as root:\n"
+#~ msgstr ""
+#~ "你的 GPG 钥匙圈不包括 Red Hat, Inc. 公共软件包签名钥匙。\n"
+#~ "没有它，你将无法校验更新代理所下载的软件包是否被 Red Hat\n"
+#~ "安全地签名了。\n"
+#~ "\n"
+#~ "你的更新代理选项指定你想使用 GPG。\n"
+#~ "\n"
+#~ "要安装这个钥匙，作为根用户运行下面的命令：\n"
+#~ "\n"
+#~ "    /usr/bin/gpg %s --import /usr/share/rhn/RPM-GPG-KEY"
+
+#~ msgid "Could not complete dependency resolution"
+#~ msgstr "无法完成对依赖关系的解决"
+
+#~ msgid "Name                                    Version        Release\n"
+#~ msgstr ""
+#~ "\n"
+#~ "名称                                    版本        发行版本\n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid "Test install failed because of package conflicts:\n"
+#~ msgstr "由于软件包冲突，测试安装失败了：\n"
+
+#~ msgid "Could not find header for %s"
+#~ msgstr "着不到 %s 的头"
+
+#~ msgid ""
+#~ "\n"
+#~ "When operating in command line mode, specifying package names as\n"
+#~ "arguments to the program will attempt to retrieve (and possibly\n"
+#~ "install, based on your configuration) those packages.  Version,\n"
+#~ "release, and architecture details will be determined by the Update\n"
+#~ "Agent automatically.\n"
+#~ msgstr ""
+#~ "在命令行模式中操作时，把软件包名指定为程序参数\n"
+#~ "会试图检索（有可能安装，依你的配置而定）那些软件包。\n"
+#~ "版本、发行版本、以及体系细节将会被更新代理自动\n"
+#~ "决定。"
+
+#~ msgid "configure Update Agent options"
+#~ msgstr "配置更新代理的选项"
+
+#~ msgid "download packages only, even if configuration says to install"
+#~ msgstr "只下载软件包，即便配置文件说要安装"
+
+#~ msgid "install packages, even if configuration says to download only"
+#~ msgstr "安装软件包，即便配置文件说要只下载"
+
+#~ msgid "Download src packages as well as binary rpms"
+#~ msgstr "下载源软件包以及二进制 RPM"
+
+#~ msgid "Do not download src packages (overrides config setting if set)"
+#~ msgstr "不要下载源软件包（如果设置了，取代配置设置）"
+
+#~ msgid "Specify a path where an alternate rpm db is found"
+#~ msgstr "指定一个可以发现另一个 RPM 数据库的路径"
+
+#~ msgid "Force package installation, overriding package and file skip list"
+#~ msgstr "强制软件包安装，取代软件包和文件跳过列表"
+
+#~ msgid "Only add packages to database, do not install to the filesystem"
+#~ msgstr "只将软件包添加到数据库中，不要把它们安装到文件系统中"
+
+#~ msgid "list packages available for retrieval"
+#~ msgstr "列举可用的软件包以便检索"
+
+#~ msgid "Briefly describe the options"
+#~ msgstr "简略描述选项"
+
+#~ msgid "colon separated path of directories to look in for packages"
+#~ msgstr "要在其中查询软件包的用冒号分隔的目录路径"
+
+#~ msgid "do not use GPG to check package signatures"
+#~ msgstr "不要使用 GPG 来检查软件包签名"
+
+#~ msgid ""
+#~ "up2date hardware profile associated with this System Profile on Red Hat "
+#~ "Network"
+#~ msgstr "更新与 Red Hat 网络上的这个系统档案相关联的软件包"
+
+#~ msgid "List all packages available for download"
+#~ msgstr "列举所有可下载的软件包"
+
+#~ msgid "List all packages available that are not currently installed"
+#~ msgstr "列举所有可下载的软件包"
+
+#~ msgid "List all the install components available to install"
+#~ msgstr "列举所有可下载的软件包"
+
+#~ msgid ""
+#~ "finds, downloads, and installs the packages needed to solve the list of "
+#~ "dependencies"
+#~ msgstr "搜寻、下载、并安装所需的软件包来解决这些依赖关系"
+
+#~ msgid "where to store temporary files / RPMs"
+#~ msgstr "储存临时文件或 RPM 的地方"
+
+#~ msgid "update system with all relevant packages"
+#~ msgstr "用所有相关的软件包更新系统"
+
+#~ msgid "show program version information"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "Show the channel names along with the package name where approriate"
+#~ msgstr "与软件包名称一起在恰当的地方显示频道名称"
+
+#~ msgid ""
+#~ "Show the packages which solve the comma separated list of dependencies"
+#~ msgstr "显示了解决用一列逗号分隔的依赖关系的软件包"
+
+#~ msgid "Specify which channels to use by channel label"
+#~ msgstr "指定哪些频道要被频道标签使用"
+
+#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
+#~ msgstr "显示 GPG 会被引发的标志（钥匙圈，等等）"
+
+#~ msgid "Do not download packages at all. For testing purposes"
+#~ msgstr "干脆不下载软件包。只用来测试"
+
+#~ msgid "Fetch the package specified without resolving dependencies"
+#~ msgstr "正在测试软件包集/正在解决 RPM 相互依赖关系"
+
+#~ msgid ""
+#~ "Fetch the source package for the specified package without resolving "
+#~ "dependencies"
+#~ msgstr "正在测试软件包集/正在解决 RPM 相互依赖关系"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Install key?"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "安装钥匙？"
+
+#~ msgid ""
+#~ "\n"
+#~ "                        Some sort of error occurred adding the Red Hat\n"
+#~ "                        GPG key to your keyring."
+#~ msgstr ""
+#~ "把 Red Hat GPG 钥匙添加到你的钥匙圈上时\n"
+#~ "出现某种错误。"
+
+#~ msgid "No packages were found that satisfy those dependencies."
+#~ msgstr "没有发现能满足这些依赖关系的软件包。"
+
+#~ msgid ""
+#~ "There was a fatal error communicating with the server. The message was:\n"
+#~ msgstr "在与服务器联络时出现了一个致命错误。  错误讯息是：\n"
+
+#~ msgid "There was a package dependency problem. The message was:\n"
+#~ msgstr "出现了一个软件包依赖关系的问题。讯息是：\n"
+
+#~ msgid "There was an error installing the packages. The message was:\n"
+#~ msgstr "在安装软件包时出现了一个致命错误：\n"
+
+#~ msgid "No interactive mode available"
+#~ msgstr "没有可用的互动模式"
+
+#~ msgid ""
+#~ "Please specify either -l, -u, --nox, or package names as command line "
+#~ "arguments."
+#~ msgstr "请把 -l, -u, --nox,或者软件包名指定为命令行参数。"
+
+#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
+#~ msgstr "无法打开 gui。尝试使用“--nox”作为一个选项"
+
+#~ msgid "The following packages are not available:"
+#~ msgstr "下列软件包被你的配置标记为要跳过："
+
+#~ msgid "The following packages you requested were not found:"
+#~ msgstr "下列软件包被你的配置标记为要跳过："
+
+#~ msgid "The following packages you requested are already updated:"
+#~ msgstr "没发现任何你要求的软件包，或者它们已经被更新了。"
+
+#~ msgid "..."
+#~ msgstr "……"
+
+#~ msgid "6.0"
+#~ msgstr "6.0"
+
+#~ msgid "6.1"
+#~ msgstr "6.1"
+
+#~ msgid "6.2"
+#~ msgstr "6.2"
+
+#~ msgid "7.0"
+#~ msgstr "7.0"
+
+#~ msgid "7.1"
+#~ msgstr "6.1"
+
+#~ msgid "7.2"
+#~ msgstr "6.2"
+
+#~ msgid "7.3"
+#~ msgstr "6.2"
+
+#~ msgid "8.0"
+#~ msgstr "7.0"
+
+#~ msgid "Add"
+#~ msgstr "添加"
+
+#~ msgid "Add new:"
+#~ msgstr "新添加："
+
+#~ msgid "After installation, keep binary packages on disk"
+#~ msgstr "安装后，把二进制软件包保留在磁盘上"
+
+#~ msgid "Do not install packages after retrieval"
+#~ msgstr "检索后不安装软件包"
+
+#~ msgid ""
+#~ "Do not upgrade packages when local configuration file has been modified"
+#~ msgstr "当本地配置文件被修改后不升级软件包"
+
+#~ msgid "Enter a path where you want downloaded packages to be stored."
+#~ msgstr "输入一个你想贮存下载的软件包的路径。"
+
+#~ msgid ""
+#~ "Enter the name of a file which you want to skip when determining which "
+#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
+#~ msgstr ""
+#~ "在决定你可以从哪些软件包中选择时，输入你想跳过的文件名。 允许使用通配符，"
+#~ "如“/boot/*”。"
+
+#~ msgid ""
+#~ "Enter the name of a package which you want to skip when determining which "
+#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
+#~ msgstr ""
+#~ "在决定你可以从哪些软件包中选择时，输入你想跳过的软件包名。允许使用通配符，"
+#~ "如“kernel*”。"
+
+#~ msgid "File Names to Skip"
+#~ msgstr "要跳过的文件名"
+
+#~ msgid "General"
+#~ msgstr "常规"
+
+#~ msgid ""
+#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
+#~ "e.g. squid.mysite.org:3128"
+#~ msgstr ""
+#~ "如果你需要一个 HTTP 代理，在此处输入它，格式为：主机：端口\n"
+#~ "如：squid.mysite.org:3128"
+
+#~ msgid ""
+#~ "If you need to override the automatically determined version of Red Hat "
+#~ "Linux, enter a version here, or choose from the predefined versions."
+#~ msgstr ""
+#~ "如果你需要取代被自动判定的 Red Hat Linux 版本，在此处输入版本， 或从事前定"
+#~ "义的版本中选择。"
+
+#~ msgid "Network Settings"
+#~ msgstr "网络设置"
+
+#~ msgid "Override version stored in System Profile:"
+#~ msgstr "取代储存在系统档案中版本："
+
+#~ msgid "Package Exceptions"
+#~ msgstr "软件包意外"
+
+#~ msgid "Package Installation Options"
+#~ msgstr "软件包安装选项"
+
+#~ msgid "Package Names to Skip"
+#~ msgstr "要跳过的软件包名"
+
+#~ msgid "Package Retrieval Options"
+#~ msgstr "软件包检索选项"
+
+#~ msgid "Package Verification Options"
+#~ msgstr "软件包检索选项"
+
+#~ msgid "Package storage directory:"
+#~ msgstr "软件包贮存区目录："
+
+#~ msgid "Remove"
+#~ msgstr "移除"
+
+#~ msgid "Retrieval / Installation"
+#~ msgstr "检索/安装"
+
+#~ msgid "Retrieve source RPM along with binary package"
+#~ msgstr "与二进制软件包一起检索源 RPM"
+
+#~ msgid "Use GPG to verify package integrity"
+#~ msgstr "使用 GPG 来校验软件包完整性"
+
+#~ msgid ""
+#~ "According to your preferences you have chosen not to automatically \n"
+#~ "update the above packages.  If you would like to override your settings\n"
+#~ "and include one of the above packages in the list of packages to "
+#~ "retrieve,\n"
+#~ "select its checkbox."
+#~ msgstr ""
+#~ "根据你的偏爱选择，你已选择了要不自动更新以上软件包。\n"
+#~ "如果你想取代这个设置，把以上软件包之一包括在要检索的\n"
+#~ "软件包列表中，选择它的查对箱。\n"
+#~ " "
+
+#~ msgid "All Finished"
+#~ msgstr "全部结束"
+
+#~ msgid "Available Package Installs"
+#~ msgstr "可用的软件包更新"
+
+#~ msgid "Channels"
+#~ msgstr "频道"
+
+#~ msgid "First name:"
+#~ msgstr "用户名："
+
+#~ msgid "IP address:"
+#~ msgstr "新添加："
+
+#~ msgid "Included information"
+#~ msgstr "频道信息"
+
+#~ msgid "Installing Packages"
+#~ msgstr "正在安装软件包"
+
+#~ msgid "Installing:"
+#~ msgstr "正在安装："
+
+#~ msgid "Last name:"
+#~ msgstr "用户名："
+
+#~ msgid "Name"
+#~ msgstr "名称"
+
+#~ msgid "Packages Flagged to be Skipped"
+#~ msgstr "要跳过的软件包标志"
+
+#~ msgid "Packages Required to Solve Dependencies"
+#~ msgstr "解决依赖关系所需的软件包"
+
+#~ msgid "Rel."
+#~ msgstr "发行版本"
+
+#~ msgid "Retrieving Packages"
+#~ msgstr "正在检索软件包"
+
+#~ msgid "Retrieving:"
+#~ msgstr "正在检索："
+
+#~ msgid "Select all packages"
+#~ msgstr "选择所有软件包"
+
+#~ msgid ""
+#~ "The following packages are required because some of the packages you\n"
+#~ "selected depend on them.  They will be added to your selected package set."
+#~ msgstr ""
+#~ "需要下列软件包，因为某些你选择的软件包依赖于它们。\n"
+#~ "它们会被添加到你选择的软件包集中。"
+
+#~ msgid ""
+#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
+#~ "your Red Hat Enterprise Linux system with the latest software\n"
+#~ "available from Red Hat Network.\n"
+#~ "\n"
+#~ "\n"
+#~ "To continue, click \"Forward.\"  To cancel without updating\n"
+#~ "anything, click \"Cancel.\""
+#~ msgstr ""
+#~ "这是 Red Hat 更新代理。它会协助你用 Red Hat 网络的\n"
+#~ "最新可用的软件为你的 Red Hat Linux 系统更新。\n"
+#~ "\n"
+#~ "\n"
+#~ "要继续，点击“下一步”\n"
+#~ "要不做任何更新而取消，点击“取消”。"
+
+#~ msgid ""
+#~ "To subscribe or unsubscribe from channels, or for\n"
+#~ "more information about the channels available, see:"
+#~ msgstr ""
+#~ "要从频道中订阅或取消订阅，\n"
+#~ "或者想知道可用频道的详情，请参见："
+
+#~ msgid "Total progress:"
+#~ msgstr "总进程："
+
+#~ msgid "Total size of selected packages to download:"
+#~ msgstr "选择要下载的软件包的总计大小："
+
+#~ msgid "Total size of selected packages:"
+#~ msgstr "选择要下载的软件包的总计大小："
+
+#~ msgid "Vermont"
+#~ msgstr "版本"
+
+#~ msgid "View Advisory"
+#~ msgstr "查看顾问"
+
+#~ msgid "Welcome to Red Hat Update Agent"
+#~ msgstr "欢迎使用 Red Hat 更新代理"
+
+#~ msgid ""
+#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
+#~ "to continue."
+#~ msgstr "你可以按“上一步”来修改你的软件包选择，或者“下一步”来继续。"
+
+#~ msgid "* First name:"
+#~ msgstr "用户名："
+
+#~ msgid "* Last name:"
+#~ msgstr "用户名："
+
+#~ msgid "sdfsdfsdfsdfProblem registering personal information"
+#~ msgstr "显示程序版本信息"
+
+#~ msgid "Password (confirm):"
+#~ msgstr "口令："
