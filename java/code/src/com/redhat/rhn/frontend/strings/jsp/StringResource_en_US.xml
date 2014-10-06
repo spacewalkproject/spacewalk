@@ -15927,6 +15927,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="ssm.operations.provisioning.remotecommand.nosystems">
           <source>No systems within this set are available to run remote commands.</source>
         </trans-unit>
+        <trans-unit id="ssm.operations.provisioning.remotecommand.no_script_run">
+          <source>You must enable Remote Command execution on the target system by installing the &lt;code&gt;rhncfg-actions&lt;/code&gt; RPM.</source>
+        </trans-unit>
         <trans-unit id="stringutil.scriptcheck.error.noshelldefined">
           <source>Script does not contain shell definition.</source>
         </trans-unit>

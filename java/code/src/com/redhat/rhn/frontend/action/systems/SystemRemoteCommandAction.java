@@ -289,6 +289,10 @@ public class SystemRemoteCommandAction extends RhnAction {
         // Default form values
         request.setAttribute("formData", new SystemRemoteCommandAction.FormData());
 
+        // Are we set up to allow remote-commands on SID?
+        request.setAttribute("has_script_run",
+                              SystemManager.clientCapable(server.getId(), "script.run"));
+
         // Process submit
         if (form.get(RhnAction.SUBMITTED) != null) {
             if (this.validate(form, errorMessages)) {
