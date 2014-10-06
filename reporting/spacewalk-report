@@ -17,276 +17,276 @@ import sys
 from spacewalk.common.rhnConfig import CFG, initCFG
 
 def systemExit(code, msgs=None):
-	""" exit with message and code """
-	if msgs:
-		if type(msgs) not in [type([]), type(())]:
-			msgs = (msgs, )
-		for msg in msgs:
-			sys.stderr.write(str(msg)+'\n')
-	sys.exit(code)
+    """ exit with message and code """
+    if msgs:
+        if type(msgs) not in [type([]), type(())]:
+            msgs = (msgs, )
+        for msg in msgs:
+            sys.stderr.write(str(msg)+'\n')
+    sys.exit(code)
 
 try:
-	import os
-	import csv
-	from optparse import Option, OptionParser
-	import re
-	import errno
+    import os
+    import csv
+    from optparse import Option, OptionParser
+    import re
+    import errno
 except KeyboardInterrupt:
-	systemExit(-1, "\nUser interrupted process.")
+    systemExit(-1, "\nUser interrupted process.")
 
 
 sys.path.append('/usr/share/spacewalk')
 import reports
 
 try:
-	from spacewalk.server import rhnSQL
+    from spacewalk.server import rhnSQL
 except KeyboardInterrupt:
-	systemExit(-1, "\nUser interrupted process.")
+    systemExit(-1, "\nUser interrupted process.")
 
 
 def processCommandline():
-	""" process the commandline """
-	optionsTable = [
-		Option('--multival-on-rows', action='store_true', dest='multivalonrows',
-			help='if there are multiple values for certain field, repeat the rows'),
-		Option('--multival-separator', action='store', dest='multivalseparator',
-			default=';',
-			help='if there are multiple values for certain field, separate them with this string' \
-				' (unless --multival-on-rows)'),
-		Option('--info', action='store_true',
-			help='print synopsis of the report in the list of report, or description of individual reports specified'),
-		Option('--list-fields', action='store_true',
-			dest='listfields',
-			help='list fields of the report instead of running the report'),
-		Option('--list-fields-info', action='store_true',
-			dest='listfieldsinfo',
-			help='as --list-fields but also prints description for each column'),
-		Option('--where-<column-id>', action='store', metavar='VALUE',
-			dest='_where_trap',
-			help='limit the output to records where column-id has value VALUE'),
-		Option('--like-<column-id>', action='store', metavar='VALUE',
+    """ process the commandline """
+    optionsTable = [
+        Option('--multival-on-rows', action='store_true', dest='multivalonrows',
+            help='if there are multiple values for certain field, repeat the rows'),
+        Option('--multival-separator', action='store', dest='multivalseparator',
+            default=';',
+            help='if there are multiple values for certain field, separate them with this string' \
+                ' (unless --multival-on-rows)'),
+        Option('--info', action='store_true',
+            help='print synopsis of the report in the list of report, or description of individual reports specified'),
+        Option('--list-fields', action='store_true',
+            dest='listfields',
+            help='list fields of the report instead of running the report'),
+        Option('--list-fields-info', action='store_true',
+            dest='listfieldsinfo',
+            help='as --list-fields but also prints description for each column'),
+        Option('--where-<column-id>', action='store', metavar='VALUE',
+            dest='_where_trap',
+            help='limit the output to records where column-id has value VALUE'),
+        Option('--like-<column-id>', action='store', metavar='VALUE',
       dest='_like_trap',
       help='limit the output to records where column-id has value like VALUE (string only)'),
-		Option('--timezone', action='store', type='str',
-			dest='timezone',
-			help='set timezone for all dates reported to custom one instead of UTC'),
-	]
+        Option('--timezone', action='store', type='str',
+            dest='timezone',
+            help='set timezone for all dates reported to custom one instead of UTC'),
+    ]
 
-	optionParser = OptionParser( \
-		usage="usage: %s [options] [report_name]" % sys.argv[0], \
-		option_list=optionsTable)
+    optionParser = OptionParser( \
+        usage="usage: %s [options] [report_name]" % sys.argv[0], \
+        option_list=optionsTable)
 
-	where = {}
-	where_like = []
-	like = False
-	i = 1
-	while i < len(sys.argv):
-		if sys.argv[i].startswith('--where-') or sys.argv[i].startswith('--like-'):
-			if sys.argv[i].startswith('--where-'):
-				o = sys.argv[i][len('--where-'):]
-				like = False
-			elif sys.argv[i].startswith('--like-'):
-				o = sys.argv[i][len('--like-'):]
-				like = True
-			try:
-				(k, v) = o.split('=', 1)
-				del sys.argv[i]
-				i -= 1
-			except ValueError:
-				# we couldn't split, which means there is no
-				# equal sign -- need to grab the next parameter
-				if i == len(sys.argv) - 1:
-					optionParser.error('option %s has to have a parameter' % sys.argv[i] )
-				k = o
-				del sys.argv[i]
-				v = sys.argv[i]
-				del sys.argv[i]
-				i -= 2
+    where = {}
+    where_like = []
+    like = False
+    i = 1
+    while i < len(sys.argv):
+        if sys.argv[i].startswith('--where-') or sys.argv[i].startswith('--like-'):
+            if sys.argv[i].startswith('--where-'):
+                o = sys.argv[i][len('--where-'):]
+                like = False
+            elif sys.argv[i].startswith('--like-'):
+                o = sys.argv[i][len('--like-'):]
+                like = True
+            try:
+                (k, v) = o.split('=', 1)
+                del sys.argv[i]
+                i -= 1
+            except ValueError:
+                # we couldn't split, which means there is no
+                # equal sign -- need to grab the next parameter
+                if i == len(sys.argv) - 1:
+                    optionParser.error('option %s has to have a parameter' % sys.argv[i] )
+                k = o
+                del sys.argv[i]
+                v = sys.argv[i]
+                del sys.argv[i]
+                i -= 2
 
-			if k == '<column-id>':
-				optionParser.error('use actual column-id in the --where-<column-id> parameter')
+            if k == '<column-id>':
+                optionParser.error('use actual column-id in the --where-<column-id> parameter')
 
-			k = k.replace('-', '_')
-			if where.has_key(k):
-				where[k].append(v)
-			else:
-				where[k] = [ v ]
-			if like:
-				where_like.append(k)
-		elif sys.argv[i].startswith('--where=') or sys.argv[i].startswith('--like='):
-			optionParser.error('no such option: %s' % sys.argv[i])
+            k = k.replace('-', '_')
+            if where.has_key(k):
+                where[k].append(v)
+            else:
+                where[k] = [ v ]
+            if like:
+                where_like.append(k)
+        elif sys.argv[i].startswith('--where=') or sys.argv[i].startswith('--like='):
+            optionParser.error('no such option: %s' % sys.argv[i])
 
-		i += 1
+        i += 1
 
-	options, args = optionParser.parse_args()
+    options, args = optionParser.parse_args()
 
-	sys.argv[1:] = args
+    sys.argv[1:] = args
 
-	if not options.timezone:
-		options.timezone = 'UTC'
+    if not options.timezone:
+        options.timezone = 'UTC'
 
-	return options, where, where_like
+    return options, where, where_like
 
 if __name__ == '__main__':
-	(options, where, where_like) = processCommandline()
-	initCFG('server.satellite')
+    (options, where, where_like) = processCommandline()
+    initCFG('server.satellite')
 
-	try:
-		if len(sys.argv) > 2:
-			systemExit(-5, 'Only one report name expected.')
-		if len(sys.argv) > 1:
-			report_name = sys.argv[1]
+    try:
+        if len(sys.argv) > 2:
+            systemExit(-5, 'Only one report name expected.')
+        if len(sys.argv) > 1:
+            report_name = sys.argv[1]
 
-			try:
-				report = reports.report(report_name)
-			except(reports.spacewalk_unknown_report):
-				systemExit(-4, 'Unknown report [%s].' % report_name)
+            try:
+                report = reports.report(report_name)
+            except(reports.spacewalk_unknown_report):
+                systemExit(-4, 'Unknown report [%s].' % report_name)
 
-			need_exit = None
-			if options.info:
-				if report.synopsis != None:
-					print report.synopsis
-				else:
-					print "No synopsis for report %s." % report_name
-				if report.description != None:
-					print
-					print report.description
-				need_exit = True
+            need_exit = None
+            if options.info:
+                if report.synopsis != None:
+                    print report.synopsis
+                else:
+                    print "No synopsis for report %s." % report_name
+                if report.description != None:
+                    print
+                    print report.description
+                need_exit = True
 
-			if options.listfields or options.listfieldsinfo:
-				if options.info:
-					print
-					print "Fields in the report:"
-					print
+            if options.listfields or options.listfieldsinfo:
+                if options.info:
+                    print
+                    print "Fields in the report:"
+                    print
 
-				for c in report.columns:
-					text = c
-					if options.info:
-						text = "    %s" % c
-					if options.listfieldsinfo and report.column_descriptions.has_key(c) :
-						text = "%s: %s" % ( text, report.column_descriptions[c] )
-					print text
-				need_exit = True
+                for c in report.columns:
+                    text = c
+                    if options.info:
+                        text = "    %s" % c
+                    if options.listfieldsinfo and report.column_descriptions.has_key(c) :
+                        text = "%s: %s" % ( text, report.column_descriptions[c] )
+                    print text
+                need_exit = True
 
-			if need_exit:
-				sys.exit(0)
+            if need_exit:
+                sys.exit(0)
 
-			the_sql_where = []
-			the_dict_where = {}
-			pi = 1
-			for k in where.keys():
-				if k not in report.columns:
-					systemExit(-6, 'Unknown column [%s] in report [%s].' % (k, report_name))
-				val = ''
-				for x in where[k]:
-					if report.column_types[k] == 'i' and not re.match('^[0-9]+$', x):
-						systemExit(-7, 'Column [%s] in report [%s] only accepts integer value.' % (k, report_name))
-					if val != '':
-						val = val + ', '
-					val = val + ":p%d" % pi
-					the_dict_where["p%d" % pi] = x
-					pi += 1
+            the_sql_where = []
+            the_dict_where = {}
+            pi = 1
+            for k in where.keys():
+                if k not in report.columns:
+                    systemExit(-6, 'Unknown column [%s] in report [%s].' % (k, report_name))
+                val = ''
+                for x in where[k]:
+                    if report.column_types[k] == 'i' and not re.match('^[0-9]+$', x):
+                        systemExit(-7, 'Column [%s] in report [%s] only accepts integer value.' % (k, report_name))
+                    if val != '':
+                        val = val + ', '
+                    val = val + ":p%d" % pi
+                    the_dict_where["p%d" % pi] = x
+                    pi += 1
 
-				if k in where_like:
-					clause = 'like'
-				else:
-					clause = 'in'
-				if k == 'group':
-					the_sql_where.append('"%s" %s ( %s )' % (k.upper(), clause, preval))
-				else:
-					the_sql_where.append('%s %s ( %s )' % (k, clause, val))
+                if k in where_like:
+                    clause = 'like'
+                else:
+                    clause = 'in'
+                if k == 'group':
+                    the_sql_where.append('"%s" %s ( %s )' % (k.upper(), clause, preval))
+                else:
+                    the_sql_where.append('%s %s ( %s )' % (k, clause, val))
 
-			rhnSQL.initDB()
+            rhnSQL.initDB()
 
-			writer = csv.writer(sys.stdout, lineterminator = "\n")
+            writer = csv.writer(sys.stdout, lineterminator = "\n")
 
-			the_sql = report.sql
+            the_sql = report.sql
 
-			if the_sql_where:
-				the_sql = the_sql.replace('-- where placeholder', 'where %s' % ' and '.join(the_sql_where))
+            if the_sql_where:
+                the_sql = the_sql.replace('-- where placeholder', 'where %s' % ' and '.join(the_sql_where))
 
-			if CFG.DB_BACKEND == 'oracle':
-				rhnSQL.execute('alter session set time_zone = \'%s\'' % options.timezone)
-			else:
-				tz = rhnSQL.prepare('set session timezone to :tz')
-				tz.execute(tz=options.timezone)
+            if CFG.DB_BACKEND == 'oracle':
+                rhnSQL.execute('alter session set time_zone = \'%s\'' % options.timezone)
+            else:
+                tz = rhnSQL.prepare('set session timezone to :tz')
+                tz.execute(tz=options.timezone)
 
-			h = rhnSQL.prepare(the_sql)
-			h.execute(**dict(report.params.items() + the_dict_where.items()))
+            h = rhnSQL.prepare(the_sql)
+            h.execute(**dict(report.params.items() + the_dict_where.items()))
 
-			db_columns = map(lambda x: x[0].lower(), h.description)
-			if db_columns != report.columns:
-				systemExit(-3, \
-					"Columns in report spec and in the database do not match:\nexpected %s\n     got %s" % ( report.columns, db_columns ))
-			writer.writerow(report.columns)
+            db_columns = map(lambda x: x[0].lower(), h.description)
+            if db_columns != report.columns:
+                systemExit(-3, \
+                    "Columns in report spec and in the database do not match:\nexpected %s\n     got %s" % ( report.columns, db_columns ))
+            writer.writerow(report.columns)
 
-			row = h.fetchone()
-			prevrow = None
-			outrow = None
-			multival_dupes = {}
-			while row != None:
-				if options.multivalonrows or not report.multival_column_names.keys():
-					writer.writerow(row)
-					row = h.fetchone()
-					continue
+            row = h.fetchone()
+            prevrow = None
+            outrow = None
+            multival_dupes = {}
+            while row != None:
+                if options.multivalonrows or not report.multival_column_names.keys():
+                    writer.writerow(row)
+                    row = h.fetchone()
+                    continue
 
-				if outrow != None:
-					for m in report.multival_columns_stop:
-						if prevrow[m] != row[m]:
-							writer.writerow(outrow)
-							outrow = None
-							break
+                if outrow != None:
+                    for m in report.multival_columns_stop:
+                        if prevrow[m] != row[m]:
+                            writer.writerow(outrow)
+                            outrow = None
+                            break
 
-				if outrow != None:
-					for m in report.multival_columns_reverted.keys():
-						if prevrow[m] != row[m]:
-							if not m in multival_dupes:
-								multival_dupes[m] = {}
-								# store the dupe value from previous row
-								multival_dupes[m][prevrow[m]] = 1
-							if not row[m] in multival_dupes[m]:
-								outrow[m] = str(outrow[m]) + options.multivalseparator + str(row[m])
-								multival_dupes[m][row[m]] = 1
-							else:
-								# check another multival
-								continue
+                if outrow != None:
+                    for m in report.multival_columns_reverted.keys():
+                        if prevrow[m] != row[m]:
+                            if not m in multival_dupes:
+                                multival_dupes[m] = {}
+                                # store the dupe value from previous row
+                                multival_dupes[m][prevrow[m]] = 1
+                            if not row[m] in multival_dupes[m]:
+                                outrow[m] = str(outrow[m]) + options.multivalseparator + str(row[m])
+                                multival_dupes[m][row[m]] = 1
+                            else:
+                                # check another multival
+                                continue
 
-				if outrow == None:
-					outrow = []
-					for x in row:
-						if x is None:
-							outrow.append(None)
-						else:
-							outrow.append(str(x))
-					multival_dupes = {}
+                if outrow == None:
+                    outrow = []
+                    for x in row:
+                        if x is None:
+                            outrow.append(None)
+                        else:
+                            outrow.append(str(x))
+                    multival_dupes = {}
 
-				prevrow = row
-				row = h.fetchone()
+                prevrow = row
+                row = h.fetchone()
 
-			if outrow != None:
-				writer.writerow(outrow)
-		else:
-			for report_name in sorted(reports.available_reports()):
-				if options.info:
-					synopsis = ''
-					try:
-						report = reports.report(report_name)
-						synopsis = report.synopsis
-					except:
-						None
-					print "%s: %s" % ( report_name, synopsis )
-				else:
-					print report_name
+            if outrow != None:
+                writer.writerow(outrow)
+        else:
+            for report_name in sorted(reports.available_reports()):
+                if options.info:
+                    synopsis = ''
+                    try:
+                        report = reports.report(report_name)
+                        synopsis = report.synopsis
+                    except:
+                        None
+                    print "%s: %s" % ( report_name, synopsis )
+                else:
+                    print report_name
 
-	except KeyboardInterrupt:
-		systemExit(-1, "\nUser interrupted process.")
-	except (rhnSQL.SQLError, rhnSQL.SQLSchemaError, rhnSQL.SQLConnectError), e:
-		# really a stub for better exception handling in the future.
-		sys.stderr.write("SQL error occurred, traceback follows...\n")
-		raise
-	except IOError, e:
-		if e.errno == errno.EPIPE:
-			sys.exit(0)
-		else:
-			raise
+    except KeyboardInterrupt:
+        systemExit(-1, "\nUser interrupted process.")
+    except (rhnSQL.SQLError, rhnSQL.SQLSchemaError, rhnSQL.SQLConnectError), e:
+        # really a stub for better exception handling in the future.
+        sys.stderr.write("SQL error occurred, traceback follows...\n")
+        raise
+    except IOError, e:
+        if e.errno == errno.EPIPE:
+            sys.exit(0)
+        else:
+            raise
 
