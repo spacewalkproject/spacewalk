@@ -62,6 +62,8 @@ def processCommandline():
         Option('--list-fields-info', action='store_true',
             dest='listfieldsinfo',
             help='as --list-fields but also prints description for each column'),
+        # This '<column-id>' is here just so optparse can generate nice help message,
+        # parsing logic is couple of lines lower...
         Option('--where-<column-id>', action='store', metavar='VALUE',
             dest='_where_trap',
             help='limit the output to records where column-id has value VALUE'),
