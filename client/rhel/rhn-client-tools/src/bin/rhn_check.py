@@ -39,6 +39,10 @@ _ = t.ugettext
 from OpenSSL import SSL
 sys.path.append("/usr/share/rhn/")
 
+# disable sgmlop module
+# it breaks rhn_check when loaded during xmlrpclib import
+sys.modules['sgmlop'] = None
+
 from up2date_client import getMethod
 from up2date_client import up2dateErrors
 from up2date_client import up2dateAuth
@@ -51,6 +55,7 @@ from up2date_client import rhncli, rhnserver
 
 from rhn import rhnLockfile
 import xmlrpclib
+del sys.modules['sgmlop']
 
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
