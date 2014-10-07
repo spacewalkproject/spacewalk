@@ -11040,7 +11040,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
       <trans-unit id="channels.overview.erratas">
-        <source>Erratas</source>
+        <source>Errata</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/RelevantChannels.do</context>
         </context-group>
@@ -20946,7 +20946,7 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="channel.manage.sync.noerrata.jsp">
-        <source>Do not sync erratas</source>
+        <source>Do not sync errata</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Sync.do</context>
         </context-group>
