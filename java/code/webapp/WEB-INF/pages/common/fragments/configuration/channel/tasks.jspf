@@ -21,7 +21,6 @@
             </li>
             <li class="list-group-item">
                 <a href="/rhn/configuration/channel/ChannelDeployTasks.do?ccid=${ccid}&amp;mode=all2all">
-                    <rhn:icon type="nav-bullet"/>
                     <bean:message key="channelOverview.jsp.tasks.deployAll2All" />
                 </a>
             </li>
