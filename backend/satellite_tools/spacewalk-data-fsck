@@ -211,7 +211,7 @@ def restore_file_path(file, row):
     log(0, "File %s%s successfully restored, new file path: %s" % (prefix, row['path'], new_path))
     return 0
 
-def check_disk_checksum(abs_path, checksum_type, checksum):
+def check_disk_checksum(abs_path, checksum_type, db_checksum):
     try:
         fp = file(abs_path ,'rb')
         h = checksum.getHashlibInstance(checksum_type, False)
@@ -221,9 +221,9 @@ def check_disk_checksum(abs_path, checksum_type, checksum):
     except:
         file_checksum = None
     ret = 0
-    if file_checksum != checksum:
+    if file_checksum != db_checksum:
         log(0, "File checksum mismatch: %s (%s: %s vs. %s)" %
-                 (abs_path, checksum_type, checksum, file_checksum))
+                 (abs_path, checksum_type, db_checksum, file_checksum))
         ret = 1
     return ret
 
