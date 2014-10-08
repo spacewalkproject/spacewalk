@@ -9459,7 +9459,7 @@ Please note that some manual configuration of these scripts may still be require
       </trans-unit>
       <trans-unit id="repos.jsp.label">
         <source>Label</source>
-        <target>Nome</target>
+        <target>Rótulo</target>
       </trans-unit>
       <trans-unit id="repos.jsp.button-sync">
         <source>Sync Now</source>
@@ -9985,7 +9985,7 @@ Você teria então que usar o $nome dentro do perfil para substituir no valor.</
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-        <target>Nome</target>
+        <target>Rótulo</target>
       </trans-unit>
       <trans-unit id="kickstart.jsp.lastchange">
         <source>Last Change</source>
@@ -11188,7 +11188,7 @@ Você teria então que usar o $nome dentro do perfil para substituir no valor.</
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>Nome</target>
+        <target>Rótulo</target>
       </trans-unit>
       <trans-unit id="preservation-form.jsp.files">
         <source>Files</source>
@@ -12420,7 +12420,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
         </context-group>
-        <target>Nome</target>
+        <target>Rótulo</target>
       </trans-unit>
       <trans-unit id="kickstart.jsp.create.wizard.kstree.label">
         <source>Kickstartable Tree</source>
@@ -13698,7 +13698,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
         </context-group>
-        <target>Nome</target>
+        <target>Rótulo</target>
       </trans-unit>
       <trans-unit id="globalconfiglist.jsp.files">
         <source>Files</source>
@@ -13783,14 +13783,14 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>Nome &lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target>
+        <target>Rótulo &lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.label">
         <source>Label:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>Nome:</target>
+        <target>Rótulo:</target>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.descr-edit">
         <source>Description&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>

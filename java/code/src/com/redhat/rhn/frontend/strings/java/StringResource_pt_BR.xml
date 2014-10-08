@@ -6377,7 +6377,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit.do</context>
         </context-group>
-        <target>Nome</target>
+        <target>Rótulo</target>
       </trans-unit>
       <trans-unit id="emptyselectionerror">
         <source>There was no selection. Please make your selection and try again.</source>
@@ -8691,7 +8691,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="filter.kickstart.label">
         <source>Label</source>
-        <target>Nome</target>
+        <target>Rótulo</target>
       </trans-unit>
       <trans-unit id="package.remove.cant.rollback">
         <source>One or more of the packages you have selected for removal below are not contained in
