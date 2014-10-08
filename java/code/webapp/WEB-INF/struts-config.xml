@@ -7376,7 +7376,7 @@
         name="channelOverviewForm"
         validate="false"
         scope="request"
-        input="/WEB-INF/pages/configuration/channelOverview.jsp"
+        input="/WEB-INF/pages/configuration/channel/channelOverview.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.ChannelOverviewAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
