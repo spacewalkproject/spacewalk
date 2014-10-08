@@ -14,47 +14,57 @@
         </div>
         <c:choose>
             <c:when test="${affectedSystemsCount > 0}">
-                <html:form action="/systems/ssm/provisioning/RemoteCommand" method="post">
+                <html:form styleClass="form-horizontal" action="/systems/ssm/provisioning/RemoteCommand" method="post">
                     <rhn:csrf />
-                    <table class="details" align="center" style="width: 50%;">
-                        <tbody>
-                            <tr>
-                                <th><bean:message key="ssm.operations.provisioning.remotecommand.form.uid.label"/><span class="required-form-field">*</span>:</th>
-                                <td><input type="text" name="uid" maxlength="32"
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><bean:message key="ssm.operations.provisioning.remotecommand.form.uid.label"/><span class="required-form-field">*</span>:</label>
+                                <div class="col-md-6">
+                                    <input type="text" name="uid" maxlength="32"
                                            value="<c:choose><c:when test="${fv.uid == null}">root</c:when><c:otherwise>${fv.uid}</c:otherwise></c:choose>"
-                                           size=""></td>
-                            </tr>
-                            <tr>
-                                <th><bean:message key="ssm.operations.provisioning.remotecommand.form.gid.label"/><span class="required-form-field">*</span>:</th>
-                                <td><input type="text" name="gid" maxlength="32"
+                                           size=""
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><bean:message key="ssm.operations.provisioning.remotecommand.form.gid.label"/><span class="required-form-field">*</span>:</label>
+                                <div class="col-md-6">
+                                    <input type="text" name="gid" maxlength="32"
                                            value="<c:choose><c:when test="${fv.gid == null}">root</c:when><c:otherwise>${fv.gid}</c:otherwise></c:choose>"
-                                           size=""></td>
-                            </tr>
-                            <tr>
-                                <th><bean:message key="ssm.operations.provisioning.remotecommand.form.timeout.label"/>:</th>
-                                <td><input type="text" name="timeout" maxlength=""
+                                           size=""
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><bean:message key="ssm.operations.provisioning.remotecommand.form.timeout.label"/>:</label>
+                                <div class="col-md-6">
+                                    <input type="text" name="timeout" maxlength=""
                                            value="<c:choose><c:when test="${fv.timeout == null}">600</c:when><c:otherwise>${fv.timeout}</c:otherwise></c:choose>"
-                                           size="6"></td>
-                            </tr>
-                            <tr>
-                                <th><bean:message key="ssm.operations.provisioning.remotecommand.form.lbl.label"/>:</th>
-                                <td><input type="text" id="lbl" name="lbl"
+                                           size="6"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><bean:message key="ssm.operations.provisioning.remotecommand.form.lbl.label"/>:</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="lbl" name="lbl"
                                            value="<c:if test="${fv.label != null}">${fv.label}</c:if>"
-                                           style="width: 100%;"></td>
-                            </tr>
-                            <tr>
-                                <th><bean:message key="ssm.operations.provisioning.remotecommand.form.script_body.label"/><span class="required-form-field">*</span>:</th>
-                                <td>
-                                    <textarea id="script_body" name="script_body" rows="8" wrap="off" style="width: 100%;"><c:choose><c:when test="${fv.script == null}">#!/bin/sh</c:when><c:otherwise>${fv.script}</c:otherwise></c:choose>
+                                           style="width: 100%;"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><bean:message key="ssm.operations.provisioning.remotecommand.form.script_body.label"/><span class="required-form-field">*</span>:</label>
+                                <div class="col-md-6">
+                                    <textarea id="script_body" name="script_body" rows="8" wrap="off" style="width: 100%;" class="form-control"><c:choose><c:when test="${fv.script == null}">#!/bin/sh</c:when><c:otherwise>${fv.script}</c:otherwise></c:choose>
 </textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                </div>
+                            </div>
                     <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>
                     <html:hidden property="submitted" value="true"/>
-                    <div class="text-right"><hr />
-                        <input type="submit" class="btn btn-success" name="schedule_remote_command" value="<bean:message key='ssm.operations.provisioning.remotecommand.form.submit'/>">
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-6">
+                            <input type="submit" class="btn btn-success" name="schedule_remote_command" value="<bean:message key='ssm.operations.provisioning.remotecommand.form.submit'/>">
+                        </div>
                     </div>
                 </html:form>
 
