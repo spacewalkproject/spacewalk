@@ -56,7 +56,7 @@ REPORT_TO_ORG = {
         'kickstart-scripts'   : 'org_id',
         'repositories'        : 'org_id',
         'system-groups'       : 'org_id',
-        'system-profiles'     : 'org_id',
+        'system-profiles'     : 'organization_id',
         'users'               : 'organization_id'
         }
 
