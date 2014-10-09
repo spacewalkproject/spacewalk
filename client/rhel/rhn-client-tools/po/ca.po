@@ -714,11 +714,6 @@ msgstr ""
 msgid "Attempting to contact the Spacewalk server."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:30
-#, python-format
-msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr ""
-
 #: ../src/up2date_client/rhnreg_constants.py:32
 #, python-format
 msgid "A proxy was specified at %s."
@@ -747,11 +742,6 @@ msgstr ""
 msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
-# Nota: "ja està" (el sistema) no "ja esteu" (vós)
-#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:69
-msgid "Why Register"
-msgstr "Ja està registrat"
-
 #: ../src/up2date_client/rhnreg_constants.py:51
 msgid ""
 "Connecting your system to Red Hat Satellite allows you to take full "
@@ -769,10 +759,6 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:55
 msgid "Support:"
 msgstr ""
-
-#: ../src/up2date_client/rhnreg_constants.py:56
-msgid "Compliance:"
-msgstr "Empresa:"
 
 #: ../src/up2date_client/rhnreg_constants.py:57
 msgid ""
