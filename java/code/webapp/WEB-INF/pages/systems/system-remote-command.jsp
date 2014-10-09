@@ -54,7 +54,7 @@
                             <bean:message key="ssm.operations.provisioning.remotecommand.form.lbl.label"/>:
                         </label>
                         <div class="col-lg-6">
-                            <input type="text" name="lbl" maxlength="10" class="form-control"
+                            <input type="text" name="lbl" class="form-control"
                                    value="${formData.label}" size="" id="fLblInput"/>
                         </div>
                     </div>
