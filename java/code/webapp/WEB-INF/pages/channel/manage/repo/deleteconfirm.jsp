@@ -13,41 +13,26 @@
 <h2><bean:message key="repos.jsp.delete.header2"/></h2>
 <p><bean:message key="repos.jsp.delete.summary"/></p>
 <p><rhn:warning key= "repos.jsp.delete.warning"/></p>
-<div>
-	<form method="post" action="/rhn/channels/manage/repos/RepoDelete.do">
+<form method="post" class="form-horizontal" action="/rhn/channels/manage/repos/RepoDelete.do">
     <rhn:csrf />
-<h2><bean:message key="repos.jsp.delete.info.header"/></h2>
-    <table class="details">
-    <tr>
-        <th>
-         <bean:message key="repos.jsp.create.label"/>
-        </th>
-        <td>
-			<c:out value="${label}"/></pre>
-       </td>
-    </tr>
-    <tr>
-      <th>
-       <bean:message key="repos.jsp.create.url"/>
-      </th>
-      <td>
-	    <c:out value="${url}"/></pre>
-      </td>
-    </tr>
-
-    </table>
-    <hr />
-    <table align="right">
-    <tr>
-      <td></td>
-      <rhn:submitted/>
-      <input type="hidden" name="id" value="${requestScope.id}"/>
-      <td align="right"><input type="submit" class="btn btn-danger" name="dispatch"
-       value="${rhn:localize('repos.jsp.delete.submit')}"/></td>
-    </tr>
-        </table>
-    </form>
-</div>
+    <h2><bean:message key="repos.jsp.delete.info.header"/></h2>
+    <div class="form-group">
+        <label class="col-lg-3 control-label"><bean:message key="repos.jsp.create.label"/></label>
+        <div class="col-lg-6"><c:out value="${label}"/></div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-3 control-label"><bean:message key="repos.jsp.create.url"/></label>
+        <div class="col-lg-6"><c:out value="${url}"/></div>
+    </div>
+    <rhn:submitted/>
+    <input type="hidden" name="id" value="${requestScope.id}"/>
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-6">
+            <input type="submit" class="btn btn-danger" name="dispatch"
+                   value="${rhn:localize('repos.jsp.delete.submit')}"/>
+        </div>
+    </div>
+</form>
 
 </body>
 </html>
