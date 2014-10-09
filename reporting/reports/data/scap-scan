@@ -46,6 +46,7 @@ sql:
 		and rhnxccdftestresult.benchmark_id = rhnxccdfbenchmark.id
 		and rhnxccdftestresult.profile_id = rhnxccdfprofile.id
 		and rhnxccdftestresult.server_id = rhnservernetwork.server_id
+		and rhnxccdftestresult.server_id = rhnserver.id
 	) X
 	-- where placeholder
 	order by system_id, event_id
