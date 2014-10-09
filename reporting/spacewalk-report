@@ -16,13 +16,14 @@
 import sys
 from spacewalk.common.rhnConfig import CFG, initCFG
 
+
 def systemExit(code, msgs=None):
     """ exit with message and code """
     if msgs:
         if type(msgs) not in [type([]), type(())]:
             msgs = (msgs, )
         for msg in msgs:
-            sys.stderr.write(str(msg)+'\n')
+            sys.stderr.write(str(msg) + '\n')
     sys.exit(code)
 
 try:
@@ -65,15 +66,15 @@ def processCommandline():
             dest='_where_trap',
             help='limit the output to records where column-id has value VALUE'),
         Option('--like-<column-id>', action='store', metavar='VALUE',
-      dest='_like_trap',
-      help='limit the output to records where column-id has value like VALUE (string only)'),
+            dest='_like_trap',
+            help='limit the output to records where column-id has value like VALUE (string only)'),
         Option('--timezone', action='store', type='str',
             dest='timezone',
             help='set timezone for all dates reported to custom one instead of UTC'),
     ]
 
-    optionParser = OptionParser( \
-        usage="usage: %s [options] [report_name]" % sys.argv[0], \
+    optionParser = OptionParser(
+        usage="usage: %s [options] [report_name]" % sys.argv[0],
         option_list=optionsTable)
 
     where = {}
@@ -96,7 +97,7 @@ def processCommandline():
                 # we couldn't split, which means there is no
                 # equal sign -- need to grab the next parameter
                 if i == len(sys.argv) - 1:
-                    optionParser.error('option %s has to have a parameter' % sys.argv[i] )
+                    optionParser.error('option %s has to have a parameter' % sys.argv[i])
                 k = o
                 del sys.argv[i]
                 v = sys.argv[i]
@@ -110,7 +111,7 @@ def processCommandline():
             if where.has_key(k):
                 where[k].append(v)
             else:
-                where[k] = [ v ]
+                where[k] = [v]
             if like:
                 where_like.append(k)
         elif sys.argv[i].startswith('--where=') or sys.argv[i].startswith('--like='):
@@ -144,11 +145,11 @@ if __name__ == '__main__':
 
             need_exit = None
             if options.info:
-                if report.synopsis != None:
+                if report.synopsis is not None:
                     print report.synopsis
                 else:
                     print "No synopsis for report %s." % report_name
-                if report.description != None:
+                if report.description is not None:
                     print
                     print report.description
                 need_exit = True
@@ -163,8 +164,8 @@ if __name__ == '__main__':
                     text = c
                     if options.info:
                         text = "    %s" % c
-                    if options.listfieldsinfo and report.column_descriptions.has_key(c) :
-                        text = "%s: %s" % ( text, report.column_descriptions[c] )
+                    if options.listfieldsinfo and report.column_descriptions.has_key(c):
+                        text = "%s: %s" % (text, report.column_descriptions[c])
                     print text
                 need_exit = True
 
@@ -198,7 +199,7 @@ if __name__ == '__main__':
 
             rhnSQL.initDB()
 
-            writer = csv.writer(sys.stdout, lineterminator = "\n")
+            writer = csv.writer(sys.stdout, lineterminator="\n")
 
             the_sql = report.sql
 
@@ -216,31 +217,31 @@ if __name__ == '__main__':
 
             db_columns = map(lambda x: x[0].lower(), h.description)
             if db_columns != report.columns:
-                systemExit(-3, \
-                    "Columns in report spec and in the database do not match:\nexpected %s\n     got %s" % ( report.columns, db_columns ))
+                systemExit(-3,
+                    "Columns in report spec and in the database do not match:\nexpected %s\n     got %s" % (report.columns, db_columns))
             writer.writerow(report.columns)
 
             row = h.fetchone()
             prevrow = None
             outrow = None
             multival_dupes = {}
-            while row != None:
+            while row is not None:
                 if options.multivalonrows or not report.multival_column_names.keys():
                     writer.writerow(row)
                     row = h.fetchone()
                     continue
 
-                if outrow != None:
+                if outrow is not None:
                     for m in report.multival_columns_stop:
                         if prevrow[m] != row[m]:
                             writer.writerow(outrow)
                             outrow = None
                             break
 
-                if outrow != None:
+                if outrow is not None:
                     for m in report.multival_columns_reverted.keys():
                         if prevrow[m] != row[m]:
-                            if not m in multival_dupes:
+                            if m not in multival_dupes:
                                 multival_dupes[m] = {}
                                 # store the dupe value from previous row
                                 multival_dupes[m][prevrow[m]] = 1
@@ -251,7 +252,7 @@ if __name__ == '__main__':
                                 # check another multival
                                 continue
 
-                if outrow == None:
+                if outrow is None:
                     outrow = []
                     for x in row:
                         if x is None:
@@ -263,7 +264,7 @@ if __name__ == '__main__':
                 prevrow = row
                 row = h.fetchone()
 
-            if outrow != None:
+            if outrow is not None:
                 writer.writerow(outrow)
         else:
             for report_name in sorted(reports.available_reports()):
@@ -274,7 +275,7 @@ if __name__ == '__main__':
                         synopsis = report.synopsis
                     except:
                         None
-                    print "%s: %s" % ( report_name, synopsis )
+                    print "%s: %s" % (report_name, synopsis)
                 else:
                     print report_name
 
