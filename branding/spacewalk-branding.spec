@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.4
+Version:    2.3.5
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Oct 09 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.5-1
+- fixing colors in lists
+
 * Mon Sep 29 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.4-1
 - branding should require patternfly
 
