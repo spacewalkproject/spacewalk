@@ -77,12 +77,12 @@ def processCommandline(argv):
         Option('--ne-where-<column-id>', action='store', metavar='VALUE',
             dest='_where_trap',
             help='limit the output to records where column-id has value not equal to VALUE'),
-        Option('--lt-where-<column-id>', action='store', metavar='VALUE',
+        Option('--le-where-<column-id>', action='store', metavar='VALUE',
             dest='_where_trap',
-            help='limit the output to records where column-id has value less than VALUE'),
-        Option('--gt-where-<column-id>', action='store', metavar='VALUE',
+            help='limit the output to records where column-id has value less than or equal to VALUE'),
+        Option('--ge-where-<column-id>', action='store', metavar='VALUE',
             dest='_where_trap',
-            help='limit the output to records where column-id has value greater than VALUE'),
+            help='limit the output to records where column-id has value greater than or equal to VALUE'),
         Option('--like-<column-id>', action='store', metavar='VALUE',
             dest='_like_trap',
             help='limit the output to records where column-id has value like VALUE (string only)'),
@@ -105,7 +105,7 @@ def processCommandline(argv):
         clause = None
         column = None
         rest = None
-        for x in ['where', 'ne-where', 'lt-where', 'gt-where', 'like']:
+        for x in ['where', 'ne-where', 'le-where', 'ge-where', 'like']:
             if argv[i].startswith("--%s-" % x):
                 clause, rest = getClause(x, argv[i])
                 break
@@ -211,10 +211,10 @@ if __name__ == '__main__':
                         conjunct = '"%s" in ( %s )' % (column, ", ".join(l))
                     elif clause == 'ne-where':
                         conjunct = '"%s" not in ( %s )' % (column, ", ".join(l))
-                    elif clause == 'lt-where':
-                        conjunct = " and ".join('"%s" < %s' % (column, v) for v in l)
-                    elif clause == 'gt-where':
-                        conjunct = " and ".join('"%s" > %s' % (column, v) for v in l)
+                    elif clause == 'le-where':
+                        conjunct = " and ".join('"%s" <= %s' % (column, v) for v in l)
+                    elif clause == 'ge-where':
+                        conjunct = " and ".join('"%s" >= %s' % (column, v) for v in l)
                     elif clause == 'like':
                         conjunct = " and ".join('"%s" like %s' % (column, v) for v in l)
                     else:
