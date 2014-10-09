@@ -137,7 +137,7 @@ msgstr ""
 #: ../src/up2date_client/tui.py:988 ../src/up2date_client/tui.py:991
 #: ../src/up2date_client/tui.py:994
 msgid "Problem registering system:\n"
-msgstr "Ada masalah saat mendaftarkan sistem:\\n"
+msgstr "Ada masalah saat mendaftarkan sistem:\n"
 
 #: ../src/up2date_client/rhnregGui.py:739
 #, python-format
