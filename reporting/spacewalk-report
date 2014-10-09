@@ -30,6 +30,7 @@ try:
     import os
     import csv
     from optparse import Option, OptionParser
+    from collections import defaultdict
     import re
     import errno
 except KeyboardInterrupt:
@@ -45,7 +46,13 @@ except KeyboardInterrupt:
     systemExit(-1, "\nUser interrupted process.")
 
 
-def processCommandline():
+def getClause(clause, word):
+    """ get clause and column from swith """
+    prefix = "--%s-" % clause
+    assert word.startswith(prefix), "%s is not prefix of %s" % (prefix, word)
+    return clause, word[len(prefix):]
+
+def processCommandline(argv):
     """ process the commandline """
     optionsTable = [
         Option('--multival-on-rows', action='store_true', dest='multivalonrows',
@@ -67,6 +74,15 @@ def processCommandline():
         Option('--where-<column-id>', action='store', metavar='VALUE',
             dest='_where_trap',
             help='limit the output to records where column-id has value VALUE'),
+        Option('--ne-where-<column-id>', action='store', metavar='VALUE',
+            dest='_where_trap',
+            help='limit the output to records where column-id has value not equal to VALUE'),
+        Option('--lt-where-<column-id>', action='store', metavar='VALUE',
+            dest='_where_trap',
+            help='limit the output to records where column-id has value less than VALUE'),
+        Option('--gt-where-<column-id>', action='store', metavar='VALUE',
+            dest='_where_trap',
+            help='limit the output to records where column-id has value greater than VALUE'),
         Option('--like-<column-id>', action='store', metavar='VALUE',
             dest='_like_trap',
             help='limit the output to records where column-id has value like VALUE (string only)'),
@@ -79,59 +95,59 @@ def processCommandline():
         usage="usage: %s [options] [report_name]" % sys.argv[0],
         option_list=optionsTable)
 
-    where = {}
-    where_like = []
-    like = False
-    i = 1
-    while i < len(sys.argv):
-        if sys.argv[i].startswith('--where-') or sys.argv[i].startswith('--like-'):
-            if sys.argv[i].startswith('--where-'):
-                o = sys.argv[i][len('--where-'):]
-                like = False
-            elif sys.argv[i].startswith('--like-'):
-                o = sys.argv[i][len('--like-'):]
-                like = True
-            try:
-                (k, v) = o.split('=', 1)
-                del sys.argv[i]
-                i -= 1
-            except ValueError:
-                # we couldn't split, which means there is no
-                # equal sign -- need to grab the next parameter
-                if i == len(sys.argv) - 1:
-                    optionParser.error('option %s has to have a parameter' % sys.argv[i])
-                k = o
-                del sys.argv[i]
-                v = sys.argv[i]
-                del sys.argv[i]
-                i -= 2
+    i = 0
+    unused = []
 
-            if k == '<column-id>':
-                optionParser.error('use actual column-id in the --where-<column-id> parameter')
+    # where[column][clause].append(value)
+    where = defaultdict(lambda: defaultdict(list))
 
-            k = k.replace('-', '_')
-            if where.has_key(k):
-                where[k].append(v)
-            else:
-                where[k] = [v]
-            if like:
-                where_like.append(k)
-        elif sys.argv[i].startswith('--where=') or sys.argv[i].startswith('--like='):
-            optionParser.error('no such option: %s' % sys.argv[i])
+    while i < len(argv):
+        clause = None
+        column = None
+        rest = None
+        for x in ['where', 'ne-where', 'lt-where', 'gt-where', 'like']:
+            if argv[i].startswith("--%s-" % x):
+                clause, rest = getClause(x, argv[i])
+                break
+            elif argv[i] == "--%s" % x or argv[i].startswith("--%s=" % x):
+                optionParser.error('no such option: %s' % argv[i])
+        else:
+            unused.append(argv[i])
+            i += 1
+            continue
+        try:
+            column, value = rest.split('=', 1)
+        except ValueError:
+            if i + 1 >= len(argv):
+                optionParser.error('option %s has to have a parameter' % argv[i])
+            column = rest
+            value = argv[i + 1]
+            i += 1
+        if column == '':
+            optionParser.error('<column-id> is required')
+        if column == '<column-id>':
+            optionParser.error('use actual column-id in the --where-<column-id> parameter')
+
+        column = column.replace('-', '_')
+
+        where[column][clause].append(value)
 
         i += 1
 
-    options, args = optionParser.parse_args()
+    options, args = optionParser.parse_args(unused)
 
     sys.argv[1:] = args
 
     if not options.timezone:
         options.timezone = 'UTC'
 
-    return options, where, where_like
+    # return dict rather than defaultdict to avoid confusion later on,
+    # even though they shall work the same way
+    return options, dict((k, dict(v)) for k, v in where.iteritems())
+
 
 if __name__ == '__main__':
-    (options, where, where_like) = processCommandline()
+    options, where = processCommandline(sys.argv[1:])
     initCFG('server.satellite')
 
     try:
@@ -166,7 +182,7 @@ if __name__ == '__main__':
                     text = c
                     if options.info:
                         text = "    %s" % c
-                    if options.listfieldsinfo and report.column_descriptions.has_key(c):
+                    if options.listfieldsinfo and c in report.column_descriptions:
                         text = "%s: %s" % (text, report.column_descriptions[c])
                     print text
                 need_exit = True
@@ -177,27 +193,34 @@ if __name__ == '__main__':
             the_sql_where = []
             the_dict_where = {}
             pi = 1
-            for k in where.keys():
-                if k not in report.columns:
-                    systemExit(-6, 'Unknown column [%s] in report [%s].' % (k, report_name))
-                val = ''
-                for x in where[k]:
-                    if report.column_types[k] == 'i' and not re.match('^[0-9]+$', x):
-                        systemExit(-7, 'Column [%s] in report [%s] only accepts integer value.' % (k, report_name))
-                    if val != '':
-                        val = val + ', '
-                    val = val + ":p%d" % pi
-                    the_dict_where["p%d" % pi] = x
-                    pi += 1
+            for column in where:
+                if column not in report.columns:
+                    systemExit(-6, 'Unknown column [%s] in report [%s].' % (column, report_name))
+                for v in (val for _, vals in where[column].iteritems() for val in vals):
+                    if report.column_types[column] == 'i' and not re.match('^[0-9]+$', v):
+                        systemExit(-7, 'Column [%s] in report [%s] only accepts integer value.' % (column, report_name))
 
-                if k in where_like:
-                    clause = 'like'
-                else:
-                    clause = 'in'
-                if k == 'group':
-                    the_sql_where.append('"%s" %s ( %s )' % (k.upper(), clause, preval))
-                else:
-                    the_sql_where.append('%s %s ( %s )' % (k, clause, val))
+                for clause, values in where[column].iteritems():
+                    l = []
+                    for v in values:
+                        l.append(':p%d' % pi)
+                        the_dict_where['p%d' % pi] = v
+                        pi += 1
+
+                    if clause == 'where':
+                        conjunct = '"%s" in ( %s )' % (column, ", ".join(l))
+                    elif clause == 'ne-where':
+                        conjunct = '"%s" not in ( %s )' % (column, ", ".join(l))
+                    elif clause == 'lt-where':
+                        conjunct = " and ".join('"%s" < %s' % (column, v) for v in l)
+                    elif clause == 'gt-where':
+                        conjunct = " and ".join('"%s" > %s' % (column, v) for v in l)
+                    elif clause == 'like':
+                        conjunct = " and ".join('"%s" like %s' % (column, v) for v in l)
+                    else:
+                        assert False, "Unsupported clause"
+
+                    the_sql_where.append(conjunct)
 
             rhnSQL.initDB()
 
