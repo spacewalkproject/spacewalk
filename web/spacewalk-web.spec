@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.11
+Version: 2.3.12
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Oct 09 2014 Jan Dobes 2.3.12-1
+- style perl local messages
+- style /network/software/channels/manage/edit.pxt
+
 * Mon Oct 06 2014 Jan Dobes 2.3.11-1
 - style lot of buttons
 - missing bootstrap class for textarea
