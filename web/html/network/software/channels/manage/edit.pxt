@@ -41,86 +41,83 @@
 
 <pxt-include-late file="/network/components/message_queues/local.pxi" />
 
-    <pxt-form method="POST">
-      <table class="details">
+    <pxt-form method="POST" class="form-horizontal">
 <rhn-require acl_mixins="RHN::Access::Channel" acl="not channel_exists();formvar_exists(clone_from)">
-        <tr>
-          <th>Clone From:</th>
-          <td>{clone_from_string}</td>
-        </tr>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Clone From:</label>
+          <div class="col-lg-6">{clone_from_string}</div>
+        </div>
 
-        <tr>
-          <th>Clone Type:</th>
-          <td>{clone_type_string}</td>
-        </tr>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Clone Type:</label>
+          <div class="col-lg-6">{clone_type_string}</div>
+        </div>
 
-        <tr>
-          <td colspan="2">&#160;</td>
-        </tr>
 </rhn-require>
 
 <rhn-require acl_mixins="RHN::Access::Channel" acl="channel_is_clone()">
-        <tr>
-          <th>Cloned From:</th>
-          <td>{clone_from_string}</td>
-        </tr>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Cloned From:</label>
+          <div class="col-lg-6">{clone_from_string}</div>
+        </div>
 </rhn-require>
 
-        <tr>
-          <th>Parent Channel:</th>
-          <td>{channel_parent}</td>
-        </tr>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Channel Name<span class="required-form-field">*</span>:</label>
+          <div class="col-lg-6">{channel_name}</div>
+        </div>
 
-        <tr>
-          <th>Channel Name<span class="required-form-field">*</span>:</th>
-          <td>{channel_name}<br/>Ex: Custom Channel</td>
-        </tr>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Channel Label<span class="required-form-field">*</span>:</label>
+          <div class="col-lg-6">{channel_label}</div>
+        </div>
 
-        <tr>
-          <th>Channel Label<span class="required-form-field">*</span>:</th>
-          <td>{channel_label}</td>
-        </tr>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Parent Channel:</label>
+          <div class="col-lg-6">{channel_parent}</div>
+        </div>
 
-        <tr>
-          <th>Architecture<span class="required-form-field">*</span>:</th>
-          <td>{channel_arch}</td>
-        </tr>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Architecture<span class="required-form-field">*</span>:</label>
+          <div class="col-lg-6">{channel_arch}</div>
+        </div>
 <rhn-require acl_mixins="RHN::Access::Channel" acl="channel_exists()">
-        <tr>
-          <th>Globally Subscribable:</th>
-          <td>{globally_subscribable_checkbox} {globally_subscribable_message}</td>
-        </tr>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Globally Subscribable:</label>
+          <div class="col-lg-6">{globally_subscribable_checkbox} {globally_subscribable_message}</div>
+        </div>
 </rhn-require>
-        <tr>
-          <th>Channel Package Summary:</th>
-          <td>{channel_package_summary}</td>
-        </tr>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Channel Package Summary:</label>
+          <div class="col-lg-6">{channel_package_summary}</div>
+        </div>
 
-        <tr>
-          <th>Channel Summary<span class="required-form-field">*</span>:</th>
-          <td>{channel_summary}</td>
-        </tr>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Channel Summary<span class="required-form-field">*</span>:</label>
+          <div class="col-lg-6">{channel_summary}</div>
+        </div>
 
-        <tr>
-          <th>GPG key URL:</th>
-          <td>{channel_gpg_key_url}</td>
-        </tr>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Channel Description:</label>
+          <div class="col-lg-6">{channel_description}</div>
+        </div>
 
-        <tr>
-          <th>GPG key ID:</th>
-          <td>{channel_gpg_key_id}<br />Ex: DB42A60E</td>
-        </tr>
+        <h2>Security: GPG</h2>
 
-        <tr>
-          <th>GPG key Fingerprint:</th>
-          <td>{channel_gpg_key_fp}<br />Ex: CA20 8686 2BD6 9DFC 65F6  ECC4 2191 80CD DB42 A60E</td>
-        </tr>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">GPG key URL:</label>
+          <div class="col-lg-6">{channel_gpg_key_url}</div>
+        </div>
 
-        <tr>
-          <th>Channel Description:</th>
-          <td>{channel_description}</td>
-        </tr>
-      </table>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">GPG key ID:</label>
+          <div class="col-lg-6">{channel_gpg_key_id}<span class="help-block">Example: DB42A60E</span></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-lg-3 control-label">GPG key Fingerprint:</label>
+          <div class="col-lg-6">{channel_gpg_key_fp}<span class="help-block">Example: CA20 8686 2BD6 9DFC 65F6  ECC4 2191 80CD DB42 A60E</span></div>
+        </div>
 
 <pxt-formvar>
       <input type="hidden" name="cid" value="{cid}" />
@@ -128,17 +125,19 @@
       <input type="hidden" name="clone_from" value="{formvar:clone_from}" />
       <input type="hidden" name="clone_type" value="{formvar:clone_type}" />
 </pxt-formvar>
-      <div align="right">
-        <hr />
+      <div class="form-group">
+       <div class="col-lg-offset-3 col-lg-6">
 
 	<rhn-if-var formvar="cid">
-	  <input type="submit" name="submit" value="Update Channel" />
+	  <input class="btn btn-success" type="submit" name="submit" value="Update Channel" />
 	</rhn-if-var>
 
 	<rhn-unless-var formvar="cid">
-	  <input type="submit" name="submit" value="Create Channel" />
+	  <input class="btn btn-success" type="submit" name="submit" value="Create Channel" />
 	</rhn-unless-var>
-       </div>        
+
+       </div>
+      </div>        
 
     </pxt-form>
 
