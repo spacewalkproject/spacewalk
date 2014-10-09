@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.52
+Version: 2.3.53
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 09 2014 Jan Dobes 2.3.53-1
+- improve look of /rhn/channels/manage/repos/RepoDelete page
+
 * Wed Oct 08 2014 Jan Dobes 2.3.52-1
 - style /rhn/systems/details/configuration/Overview page
 - remove redundant symbol
