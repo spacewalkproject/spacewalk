@@ -817,7 +817,7 @@ msgstr ""
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "بيانات الاشتراك لحساب: "
+msgstr "بيانات الاشتراك لحساب: \n\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Red Hat Login:"
