@@ -48,7 +48,9 @@
 	 			bound="false"
 	 			headerkey="actions.jsp.system"
 	 			sortattr="name">
-	 			<a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
+                <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
+                  <c:out value="${current.name}" escapeXml="true"/>
+                </a>
 	 		</rl:column>
 			<rl:column sortable="false"
 				bound="false"
