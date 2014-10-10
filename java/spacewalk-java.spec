@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.53
+Version: 2.3.54
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 10 2014 Tomas Lestach <tlestach@redhat.com> 2.3.54-1
+- fixing javascript injection on
+  /rhn/systems/details/configuration/addfiles/ImportFileConfirm.do page
+- fixing javascript injection on /rhn/errata/details/SystemsAffected.do page
+- 1020414 - Removed bogus label-limit from SDC Remote Cmd pg
+
 * Thu Oct 09 2014 Jan Dobes 2.3.53-1
 - improve look of /rhn/channels/manage/repos/RepoDelete page
 
