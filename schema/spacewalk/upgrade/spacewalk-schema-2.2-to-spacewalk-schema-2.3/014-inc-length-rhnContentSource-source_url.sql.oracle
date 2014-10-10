@@ -1,0 +1,1 @@
+alter table rhnContentSource MODIFY (source_url varchar2(2048));
