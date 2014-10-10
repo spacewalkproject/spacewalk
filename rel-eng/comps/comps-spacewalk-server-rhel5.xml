@@ -86,6 +86,7 @@
        <packagereq type="default">osa-dispatcher-selinux</packagereq>
        <packagereq type="default">oscache</packagereq>
        <packagereq type="default">oscache-manual</packagereq>
+       <packagereq type="default">patternfly1</packagereq>
        <packagereq type="default">perl-Class-Loader</packagereq>
        <packagereq type="default">perl-DateTime-TimeZone</packagereq>
        <packagereq type="default">perl-DBD-Oracle</packagereq>
