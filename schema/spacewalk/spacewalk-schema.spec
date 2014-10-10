@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.17
+Version:        2.3.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Oct 10 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.18-1
+- increase source_url column size to 2048
+
 * Wed Oct 08 2014 Tomas Lestach <tlestach@redhat.com> 2.3.17-1
 - use fedora18 as fedora kickstart type
 
