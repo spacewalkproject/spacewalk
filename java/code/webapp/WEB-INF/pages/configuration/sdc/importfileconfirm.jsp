@@ -18,7 +18,7 @@
   <div class="page-summary">
     <p>
     <bean:message key="sdcimportconfirm.jsp.summary"
-                  arg0="${system.name}"/>
+                  arg0="${fn:escapeXml(system.name)}"/>
     </p>
   </div>
 
