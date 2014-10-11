@@ -30,7 +30,6 @@ try:
     import os
     import csv
     from optparse import Option, OptionParser
-    from collections import defaultdict
     import re
     import errno
 except KeyboardInterrupt:
@@ -99,7 +98,7 @@ def processCommandline(argv):
     unused = []
 
     # where[column][clause].append(value)
-    where = defaultdict(lambda: defaultdict(list))
+    where = {}
 
     while i < len(argv):
         clause = None
@@ -130,7 +129,8 @@ def processCommandline(argv):
 
         column = column.replace('-', '_')
 
-        where[column][clause].append(value)
+        # where[column][clause].append(value)
+        where.setdefault(column, {}).setdefault(clause, []).append(value)
 
         i += 1
 
@@ -141,9 +141,7 @@ def processCommandline(argv):
     if not options.timezone:
         options.timezone = 'UTC'
 
-    # return dict rather than defaultdict to avoid confusion later on,
-    # even though they shall work the same way
-    return options, dict((k, dict(v)) for k, v in where.iteritems())
+    return options, where
 
 
 if __name__ == '__main__':
