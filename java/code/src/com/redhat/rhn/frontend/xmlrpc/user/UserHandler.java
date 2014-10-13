@@ -216,6 +216,8 @@ public class UserHandler extends BaseHandler {
             ret.put("enabled", Boolean.TRUE);
         }
         ret.put("use_pam", target.getUsePamAuthentication());
+        ret.put("read_only", target.isReadOnly());
+        ret.put("errata_notification", target.getEmailNotify() == 1);
 
         return ret;
     }
