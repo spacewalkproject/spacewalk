@@ -21,13 +21,19 @@ columns:
 	profile			Name of the xccdf profile
 	profile_title		Title of the xccdf profile
 	end_time		System time of finished scan
+	pass:i			Count of Pass results
+	fail:i			Count of Fail results
+	error:i			Count of Error results
+	notselected:i		Count of Notselected results
+	informational:i		Count of Informational results
+	other:i			Count of other results
 
 multival_columns:
 
 sql:
 
 	select org_id, system_id, hostname, ip_address, event_id, testresult_id, name, benchmark, benchmark_version,
-		profile, profile_title, end_time from (
+		profile, profile_title, end_time, pass, fail, error, notselected, informational, other from (
 	select rhnserver.org_id as org_id,
 		rhnxccdftestresult.server_id as system_id,
 		rhnservernetwork.hostname as hostname,
@@ -39,14 +45,24 @@ sql:
 		rhnxccdfbenchmark.version as benchmark_version,
 		rhnxccdfprofile.identifier as profile,
 		rhnxccdfprofile.title as profile_title,
-		to_char(rhnxccdftestresult.end_time, 'YYYY-MM-DD HH24:MI:SS') as end_time
+		to_char(rhnxccdftestresult.end_time, 'YYYY-MM-DD HH24:MI:SS') as end_time,
+		count(case label when 'pass' then 1 else null end) as pass,
+		count(case label when 'fail' then 1 else null end) as fail,
+		count(case label when 'error' then 1 else null end) as error,
+		count(case label when 'notselected' then 1 else null end) as notselected,
+		count(case label when 'informational' then 1 else null end) as informational,
+		count(case when label not in ('pass', 'fail', 'error', 'notselected', 'informational') then 1 else null end) as other
 	from rhnxccdftestresult, rhnactionscap, rhnxccdfbenchmark, rhnxccdfprofile,
-		rhnservernetwork, rhnserver
+		rhnservernetwork, rhnserver, rhnxccdfruleresult, rhnxccdfruleresulttype
 	where rhnxccdftestresult.action_scap_id = rhnactionscap.id
 		and rhnxccdftestresult.benchmark_id = rhnxccdfbenchmark.id
 		and rhnxccdftestresult.profile_id = rhnxccdfprofile.id
 		and rhnxccdftestresult.server_id = rhnservernetwork.server_id
 		and rhnxccdftestresult.server_id = rhnserver.id
+		and rhnxccdfruleresult.testresult_id = rhnxccdftestresult.id
+		and rhnxccdfruleresult.result_id = rhnxccdfruleresulttype.id
+	group by org_id, rhnxccdftestresult.server_id, hostname, trim(rhnservernetwork.ipaddr), rhnactionscap.action_id, rhnxccdftestresult.id, rhnxccdftestresult.identifier,
+		rhnxccdfbenchmark.identifier, rhnxccdfbenchmark.version, rhnxccdfprofile.identifier, rhnxccdfprofile.title, end_time
 	) X
 	-- where placeholder
 	order by system_id, event_id
