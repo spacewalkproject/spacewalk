@@ -46,25 +46,6 @@ public class OtherXmlWriter extends RepomdWriter {
     }
 
     /**
-     *
-     * @param channel channel info
-     * @return other.xml for given channel
-     * @throws Exception exception
-     */
-    public String getOtherXml(Channel channel) throws Exception {
-        begin(channel);
-
-        for (PackageDto pkgDto : TaskManager.getChannelPackageDtos(channel)) {
-            addPackage(pkgDto);
-        }
-
-        end();
-
-        return "";
-
-    }
-
-    /**
      * Start xml metadata generation
      * @param channel channel info
      */

@@ -47,25 +47,6 @@ public class FilelistsXmlWriter extends RepomdWriter {
     }
 
     /**
-     *
-     * @param channel channel info
-     * @return filelistxml for given channel
-     * @throws Exception exception
-     */
-    public String getFilelistsXml(Channel channel) throws Exception {
-        begin(channel);
-
-        for (PackageDto pkgDto : TaskManager.getChannelPackageDtos(channel)) {
-            addPackage(pkgDto);
-        }
-
-        end();
-
-        return "";
-
-    }
-
-    /**
      * end xml metadata generation
      */
     public void end() {

@@ -17,6 +17,7 @@ package com.redhat.rhn.taskomatic.task.repomd;
 import java.io.File;
 import java.util.Date;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.Channel;
@@ -79,7 +80,11 @@ public class DebRepositoryWriter extends RepositoryWriter {
 
         log.info("Generating new DEB repository for channel " + channel.getLabel());
         DebPackageWriter writer = new DebPackageWriter(channel, prefix);
-        for (PackageDto pkgDto : TaskManager.getChannelPackageDtos(channel)) {
+        // TODO: is it possible to make this batched to reduce memory requirements
+        // like in RpmReporsitoryWriter?
+        DataResult<PackageDto> packages = TaskManager.getChannelPackageDtos(channel);
+        packages.elaborate();
+        for (PackageDto pkgDto : packages) {
             writer.addPackage(pkgDto);
         }
         writer.generatePackagesGz();

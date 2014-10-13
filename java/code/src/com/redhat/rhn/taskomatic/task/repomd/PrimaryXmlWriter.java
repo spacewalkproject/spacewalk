@@ -48,24 +48,6 @@ public class PrimaryXmlWriter extends RepomdWriter {
     }
 
     /**
-     *
-     * @param channel channel info
-     * @return primaryXml for the given channel
-     * @throws Exception exception
-     */
-    public String getPrimaryXml(Channel channel) throws Exception {
-        begin(channel);
-
-        for (PackageDto pkgDto : TaskManager.getChannelPackageDtos(channel)) {
-            addPackage(pkgDto);
-        }
-
-        end();
-
-        return "";
-    }
-
-    /**
      * end xml metadata generation
      */
     public void end() {
