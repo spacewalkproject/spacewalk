@@ -12,7 +12,8 @@
 
             <c:if test="${not current.isBareMetal}">
       	       <a href="/rhn/systems/details/Overview.do?sid=${current.serverId}">
-      														         ${current.serverName}</a>
+                    <c:out value="${current.serverName}" escapeXml="true"/>
+               </a>
     		</c:if>
     		<c:if test="${current.isBareMetal}">
                 <c:if test="${current.clientIp != null}">
