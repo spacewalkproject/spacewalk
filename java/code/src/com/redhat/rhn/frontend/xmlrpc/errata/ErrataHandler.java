@@ -194,6 +194,7 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "advisoryName")
      * @xmlrpc.returntype
      *      #struct("erratum")
+     *          #prop("int", "id")
      *          #prop("string", "issue_date")
      *          #prop("string", "update_date")
      *          #prop_desc("string", "last_modified_date", "This date is only included for
