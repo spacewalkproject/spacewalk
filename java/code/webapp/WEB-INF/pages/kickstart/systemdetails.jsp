@@ -57,7 +57,6 @@ boolean staticIfDisabled = Boolean.valueOf(
     <rhn:csrf />
     <html:hidden property="ksid" />
     <html:hidden property="submitted" />
-    <h2><bean:message key="kickstart.systemdetails.jsp.header1"/></h2>
     <c:if test="${not ksdata.legacyKickstart}">
       <h2><bean:message key="kickstart.systemdetails.jsp.header2"/></h2>
       <table class="details">
