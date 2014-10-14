@@ -5,12 +5,8 @@
   <pxt-use class="Sniglets::Search" />
   <pxt-use class="Sniglets::Sets" />
 
-<div id="bar">
 
 <pxt-include file="/network/components/status_bar/ssm.pxi" />
-
-</div>
-<!-- close bar -->
 
 
 </pxt-passthrough>

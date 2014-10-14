@@ -4,19 +4,27 @@
 <pxt-use class="Sniglets::Lists" />
 <pxt-use class="Sniglets::HTML" />
 
-<div class="spacewalk-bar pull-right">
-  <rhn-require acl="user_authenticated(); org_entitlement(sw_mgr_enterprise)">
-    <span id="header_selcount">
-      <rhn-set-totals set="system_list" noun="system"/>
-      <!--span id="spacewalk-ssm-counter" class="badge">0</span>systems selected</span-->
-    </span>
+<rhn-require acl="user_authenticated(); org_entitlement(sw_mgr_enterprise)">
+<ul class="nav navbar-nav navbar-primary navbar-right spacewalk-bar">
+    <div class="btn-group">
+        <button id="header_selcount" class="btn btn-default btn-link disabled">
+            <rhn-set-totals set="system_list" noun="system"/>
+            <!--span id="spacewalk-ssm-counter" class="badge">0</span>systems selected</span-->
+        </button>
 
-    <a class="button" href="/rhn/ssm/index.do">
-      Manage
-    </a>
-    <rhn-return-link default="/network">
-      <a id="clear-btn" class="button" href="/rhn/systems/Overview.do?empty_set=true&amp;set_label=system_list&amp;return_url={return_url}">Clear</a>
-    </rhn-return-link>
-  </rhn-require>
-</div>
+        <a href="/rhn/ssm/index.do">
+            <button class="btn btn-primary" type="button">
+                Manage
+            </button>
+        </a>
+        <rhn-return-link default="/network">
+            <a id="clear-btn" href="/rhn/systems/Overview.do?empty_set=true&amp;set_label=system_list&amp;return_url={return_url}">
+                <button class="btn btn-danger" type="button">
+                    Clear
+                </button>
+            </a>
+        </rhn-return-link>
+    </div>
+</ul>
+</rhn-require>
 </pxt-passthrough>
