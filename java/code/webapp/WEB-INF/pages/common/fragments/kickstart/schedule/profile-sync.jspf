@@ -49,8 +49,10 @@
 			>
 			<c:forEach var="system" items="${form.syncSystems}">
 				<option
-				<c:if test="${system.id == form.targetServerProfile}">selected="selected"</c:if>
-				value='${system.id}'>${system.name}</option>
+				    <c:if test="${system.id == form.targetServerProfile}">selected="selected"</c:if>
+				    value='${system.id}'>
+                    <c:out value="${system.name}" escapeXml="true"/>
+                </option>
 			</c:forEach>
 		</select>
             <br /><br />
