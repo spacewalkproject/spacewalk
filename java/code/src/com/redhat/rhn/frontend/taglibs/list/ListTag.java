@@ -759,6 +759,8 @@ public class ListTag extends BodyTagSupport {
         if (isSortable()) {
             renderSortableHiddenFields();
         }
+        // close list
+        ListTagUtil.write(pageContext, "</div>");
         return BodyTagSupport.SKIP_BODY;
     }
 
