@@ -47,22 +47,16 @@ public class SsmErrataAction extends AbstractDatabaseAction {
             .getActionChainId());
 
         try {
-            ErrataManager.applyErrata(user,
-                                      event.getErrataIds(),
-                                      event.getEarliest(),
-                                      actionChain,
-                                      event.getServerIds());
+            ErrataManager.applyErrata(user, event.getErrataIds(), event.getEarliest(),
+                    actionChain, event.getServerIds());
         }
         catch (Exception e) {
-            SsmErrataAction.log.error("Error scheduling SSM errata for event: " + event, e);
+            log.error("Error scheduling SSM errata for event: " + event, e);
         }
         finally {
-            SsmOperationManager.completeOperation(
-                    user,
-                    SsmOperationManager.createOperation(user,
-                                                        "ssm.package.remove.operationname",
-                                                        RhnSetDecl.SYSTEMS.getLabel())
-            );
+            SsmOperationManager.completeOperation(user, SsmOperationManager
+                    .createOperation(user, "ssm.package.remove.operationname",
+                            RhnSetDecl.SYSTEMS.getLabel()));
         }
     }
 }
