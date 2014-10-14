@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.55
+Version: 2.3.56
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 14 2014 Tomas Lestach <tlestach@redhat.com> 2.3.56-1
+- fix javascript injection on /rhn/systems/details/kickstart/ScheduleWizard.do
+  page
+- 1150980 - add read_only and errata_notification to user.getDetails APIdoc
+- 1013672 - add id to errata.getDetails APIdoc
+- fixing javascript injection on /rhn/kickstart/KickstartOverview.do page
+- close forgotten div in lists
+
 * Mon Oct 13 2014 Stephen Herr <sherr@redhat.com> 2.3.55-1
 - 1132398 - fix debian repo generation and unused code cleanup
 - 1150980 - extend user.getDetails API
