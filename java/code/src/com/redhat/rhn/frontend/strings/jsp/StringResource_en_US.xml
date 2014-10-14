@@ -9891,7 +9891,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.config.mgmt.jsp.label">
-        <source>Enable @@PRODUCT_NAME@@&lt;br /&gt;Configuration&lt;br /&gt;Management</source>
+        <source>Enable @@PRODUCT_NAME@@ Configuration Management</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
@@ -9903,7 +9903,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.remote.cmd.jsp.label">
-        <source>Enable @@PRODUCT_NAME@@&lt;br /&gt;Remote&lt;br /&gt;Commands</source>
+        <source>Enable @@PRODUCT_NAME@@ Remote Commands</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
@@ -9915,13 +9915,13 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.root.password.jsp.label">
-        <source>New Root&lt;br /&gt;Password</source>
+        <source>New Root Password</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.root.password.verify.jsp.label">
-        <source>Verify New Root&lt;br /&gt;Password</source>
+        <source>Verify New Root Password</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>

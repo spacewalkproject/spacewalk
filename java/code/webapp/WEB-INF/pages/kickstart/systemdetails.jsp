@@ -53,64 +53,127 @@ boolean staticIfDisabled = Boolean.valueOf(
 
 
 <div>
-  <html:form method="post" action="/kickstart/SystemDetailsEdit.do">
+  <html:form method="post" action="/kickstart/SystemDetailsEdit.do" styleClass="form-horizontal">
     <rhn:csrf />
     <html:hidden property="ksid" />
     <html:hidden property="submitted" />
     <c:if test="${not ksdata.legacyKickstart}">
       <h2><bean:message key="kickstart.systemdetails.jsp.header2"/></h2>
-      <table class="details">
-        <tr>
-          <th><bean:message key="kickstart.selinux.jsp.label" />:</th>
-          <td>
-              <html:radio property="selinuxMode" value="enforcing" /><bean:message key="kickstart.selinux.enforce.policy.jsp.label" /><br />
-              <html:radio property="selinuxMode" value="permissive" /><bean:message key="kickstart.selinux.warn.policy.jsp.label" /><br />
-              <html:radio property="selinuxMode" value="disabled" /><bean:message key="kickstart.selinux.disable.policy.jsp.label" />
-          </td>
-        </tr>
-      </table>
+      <div class="form-group">
+        <label class="col-lg-3 control-label">
+          <bean:message key="kickstart.selinux.jsp.label" />:
+        </label>
+        <div class="col-lg-6">
+          <div class="radio">
+            <label>
+              <html:radio property="selinuxMode" value="enforcing" />
+              <bean:message key="kickstart.selinux.enforce.policy.jsp.label" />
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-offset-3 col-lg-6">
+          <div class="radio">
+            <label>
+              <html:radio property="selinuxMode" value="permissive" />
+              <bean:message key="kickstart.selinux.warn.policy.jsp.label" />
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-offset-3 col-lg-6">
+          <div class="radio">
+            <label>
+              <html:radio property="selinuxMode" value="disabled" />
+              <bean:message key="kickstart.selinux.disable.policy.jsp.label" />
+            </label>
+          </div>
+        </div>
+      </div>
     </c:if>
 
     <h2><bean:message key="kickstart.systemdetails.jsp.header3"/></h2>
-      <table class="details">
-       <tr>
-         <th><bean:message key="kickstart.config.mgmt.jsp.label" />:</th>
-         <td><html:checkbox property="configManagement" /><br />
-             <span class="small-text"><bean:message key="kickstart.config.mgmt.tip.jsp.label" /></span>
-         </td>
-       </tr>
-       <tr>
-         <th><bean:message key="kickstart.remote.cmd.jsp.label" />:</th>
-         <td><html:checkbox property="remoteCommands" /><br />
-             <span class="small-text"><bean:message key="kickstart.remote.cmd.tip.jsp.label" /></span>
-         </td>
-       </tr>
-		<tr>
-          <th><bean:message key="kickstart.registration.type.jsp.label" />:</th>
-          <td><bean:message key="kickstart.registration.type.jsp.message" />:<br />
-              <html:radio property="registrationType" value="reactivation" /><bean:message key="kickstart.registration.type.reactivation.jsp.label" /><br />
-              <html:radio property="registrationType" value="deletion" /><bean:message key="kickstart.registration.type.deletion.jsp.label" /><br />
-              <html:radio property="registrationType" value="none" /><bean:message key="kickstart.registration.type.none.jsp.label" />
-          </td>
-        </tr>
+    <div class="form-group">
+      <label class="col-lg-3 control-label">
+      <bean:message key="kickstart.config.mgmt.jsp.label" />:       </label>
+      </label>
+      <div class="col-lg-6">
+        <html:checkbox property="configManagement" />
+        <span class="help-block"><bean:message key="kickstart.config.mgmt.tip.jsp.label" /></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-3 control-label">
+        <bean:message key="kickstart.remote.cmd.jsp.label" />:
+      </label>
+      <div class="col-lg-6">
+        <html:checkbox property="remoteCommands"/>
+        <span class="help-block"><bean:message key="kickstart.remote.cmd.tip.jsp.label" /></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-3 control-label">
+        <bean:message key="kickstart.registration.type.jsp.label" />:
+      </label>
+      <div class="col-lg-6">
+        <bean:message key="kickstart.registration.type.jsp.message" />:
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-offset-3 col-lg-6">
+        <div class="radio">
+          <label>
+            <html:radio property="registrationType" value="reactivation" />
+            <bean:message key="kickstart.registration.type.reactivation.jsp.label" />
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-offset-3 col-lg-6">
+        <div class="radio">
+          <label>
+            <html:radio property="registrationType" value="deletion" />
+            <bean:message key="kickstart.registration.type.deletion.jsp.label" />
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-offset-3 col-lg-6">
+        <div class="radio">
+          <label>
+            <html:radio property="registrationType" value="none" />
+            <bean:message key="kickstart.registration.type.none.jsp.label" />
+          </label>
+        </div>
+      </div>
+    </div>
 
-      </table>
     <h2><bean:message key="kickstart.systemdetails.jsp.header4"/></h2>
-    <table class="details">
-      <tr>
-        <th><bean:message key="kickstart.root.password.jsp.label" />:</th>
-        <td><html:password property="rootPassword" maxlength="32" size="32" redisplay="false"/></td>
-      </tr>
-      <tr>
-        <th><bean:message key="kickstart.root.password.verify.jsp.label" />:</th>
-        <td><html:password property="rootPasswordConfirm" maxlength="32" size="32" redisplay="false"/></td>
-      </tr>
-      <tr>
-        <td align="right" colspan="2">
-            <input type="submit" class="btn btn-success" value="<bean:message key='kickstart.systemdetails.edit.submit.jsp.label'/>" />
-        </td>
-      </tr>
-    </table>
+    <div class="form-group">
+      <label class="col-lg-3 control-label">
+        <bean:message key="kickstart.root.password.jsp.label" />:
+      </label>
+      <div class="col-lg-6">
+        <html:password property="rootPassword" maxlength="32" size="32" redisplay="false" styleClass="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-3 control-label">
+        <bean:message key="kickstart.root.password.verify.jsp.label" />:
+      </label>
+      <div class="col-lg-6">
+        <html:password property="rootPasswordConfirm" maxlength="32" size="32" redisplay="false" styleClass="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-offset-3 col-lg-6">
+        <input type="submit" class="btn btn-success" value="<bean:message key='kickstart.systemdetails.edit.submit.jsp.label'/>" />
+      </div>
+    </div>
   </html:form>
 </div>
 </body>
