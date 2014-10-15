@@ -205,16 +205,23 @@ if __name__ == '__main__':
                         the_dict_where['p%d' % pi] = v
                         pi += 1
 
+                    # Column named "group" can be a little complicated...
+                    if column.lower() == 'group':
+                        if CFG.DB_BACKEND == 'oracle':
+                            column = '"%s"' % column.upper()
+                        else:
+                            column = '"%s"' % column.lower()
+
                     if clause == 'where':
-                        conjunct = '"%s" in ( %s )' % (column, ", ".join(l))
+                        conjunct = '%s in ( %s )' % (column, ", ".join(l))
                     elif clause == 'ne-where':
-                        conjunct = '"%s" not in ( %s )' % (column, ", ".join(l))
+                        conjunct = '%s not in ( %s )' % (column, ", ".join(l))
                     elif clause == 'le-where':
-                        conjunct = " and ".join('"%s" <= %s' % (column, v) for v in l)
+                        conjunct = " and ".join('%s <= %s' % (column, v) for v in l)
                     elif clause == 'ge-where':
-                        conjunct = " and ".join('"%s" >= %s' % (column, v) for v in l)
+                        conjunct = " and ".join('%s >= %s' % (column, v) for v in l)
                     elif clause == 'like':
-                        conjunct = " and ".join('"%s" like %s' % (column, v) for v in l)
+                        conjunct = " and ".join('%s like %s' % (column, v) for v in l)
                     else:
                         assert False, "Unsupported clause"
 
