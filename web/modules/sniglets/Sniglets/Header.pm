@@ -51,7 +51,7 @@ sub display_login {
     return $body;
   }
   else {
-    return "&#160;";
+    return "";
   }
 }
 

@@ -28,16 +28,15 @@
           </a>
         </div>
         <div class="navbar-collapse navbar-collapse-1 collapse in">
+          <rhn-display-login>
           <ul class="nav navbar-nav navbar-utility">
             <li><a href="/rhn/account/LocalePreferences.do">English (change)</a></li>
             <li><a href="https://access.redhat.com/knowledgebase">Knowledgebase</a></li>
             <li><a href="/help">Documentation</a></li>
-            <rhn-display-login>
             <li><a href="/rhn/account/UserDetails.do"><i class="fa fa-user"></i> [login]</a></li>
             <li><a><i class="fa fa-sitemap"></i> [org]</a></li>
             <li><a href="/rhn/account/UserPreferences.do"><i class="fa fa-cogs" title="Preferences"></i></a></li>
             <li><a href="/rhn/Logout.do"><i class="fa fa-sign-out" title="Sign Out"></i></a></li>
-            </rhn-display-login>
             <li class="search">
               <form name="form1" class="form-inline" role="form" action="/rhn/Search.do">
                 <input type="hidden" name="submitted" value="true" />
@@ -56,9 +55,10 @@
               </form>
             </li>
           </ul>
-
           <pxt-include-late file="/network/components/status_bar/main.pxi" />
+          </rhn-display-login>
           <rhn-navi-nav depth="0" style="spacewalk-main-nav"/>
+        </div>
       </nav>
 
       <div class="spacewalk-main-column-layout">
