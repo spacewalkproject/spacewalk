@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.5
+Version:    2.3.6
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Oct 15 2014 Jan Dobes 2.3.6-1
+- fixing path for font linking
+- underline links in all alert boxes
+
 * Thu Oct 09 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.5-1
 - fixing colors in lists
 
