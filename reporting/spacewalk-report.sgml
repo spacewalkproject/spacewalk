@@ -56,11 +56,11 @@ Generate reports from Spacewalk server in csv format
         <term>--info</term>
         <listitem>
             <para>When listing available reports, also print
-	    synopsis for each report.</para>
+            synopsis for each report.</para>
 
             <para>When used with report name specified, print
-	    synopsis and description for the report, instead
-	    of running the report.</para>
+            synopsis and description for the report, instead
+            of running the report.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -93,18 +93,18 @@ Generate reports from Spacewalk server in csv format
         <term>--list-fields-info</term>
         <listitem>
             <para>Instead of running the report, shows fields that the
-	    report has, one field name per line, and a description of
-	    that field.</para>
+            report has, one field name per line, and a description of
+            that field.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term>--where-<replaceable>column-id</replaceable>=<replaceable>VALUE</replaceable></term>
         <listitem>
             <para>Limit the output to records where column-id has value
-	    VALUE. It can be used multiple times -- for the same column
-	    it will select records where the column has any of the
-	    VALUEs. When different columns are specified, all of them
-	    have to meet the condition.</para>
+            VALUE. It can be used multiple times -- for the same column
+            it will select records where the column has any of the
+            VALUEs. When different columns are specified, all of them
+            have to meet the condition.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
