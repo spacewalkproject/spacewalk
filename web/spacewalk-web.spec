@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.13
+Version: 2.3.14
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Oct 15 2014 Jan Dobes 2.3.14-1
+- there is more to hide on unauthenticated pages
+
 * Tue Oct 14 2014 Jan Dobes 2.3.13-1
 - style SSM status bar
 
