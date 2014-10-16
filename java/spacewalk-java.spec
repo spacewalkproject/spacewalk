@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.58
+Version: 2.3.59
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 16 2014 Tomas Lestach <tlestach@redhat.com> 2.3.59-1
+- 1153651 - actually a File.separator should work better
+- 1153651 - slash needed when building paths
+
 * Thu Oct 16 2014 Tomas Lestach <tlestach@redhat.com> 2.3.58-1
 - accept lowercase gpg channel information
 - let javascript do the uppercase of gpg fields for the user
