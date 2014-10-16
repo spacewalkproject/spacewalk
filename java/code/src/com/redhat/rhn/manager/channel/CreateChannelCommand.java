@@ -445,19 +445,25 @@ public class CreateChannelCommand {
     }
 
     protected void verifyGpgInformation() {
-        if (gpgKeyId != null && !gpgKeyId.equals("") &&
-                !Pattern.compile(GPG_KEY_REGEX).matcher(gpgKeyId).find()) {
-            throw new InvalidGPGKeyException();
+        if (StringUtils.isNotEmpty(gpgKeyId)) {
+            gpgKeyId = gpgKeyId.toUpperCase();
+            if (!Pattern.compile(GPG_KEY_REGEX).matcher(gpgKeyId).find()) {
+                throw new InvalidGPGKeyException();
+            }
         }
 
-        if (gpgKeyFp != null && !gpgKeyFp.equals("") &&
-                !Pattern.compile(GPG_FP_REGEX).matcher(gpgKeyFp).find()) {
-            throw new InvalidGPGFingerprintException();
+        if (StringUtils.isNotEmpty(gpgKeyFp)) {
+            gpgKeyFp = gpgKeyFp.toUpperCase();
+            if (!Pattern.compile(GPG_FP_REGEX).matcher(gpgKeyFp).find()) {
+                throw new InvalidGPGFingerprintException();
+            }
         }
 
-        if (gpgKeyUrl != null && !gpgKeyUrl.equals("") &&
-                !Pattern.compile(GPG_URL_REGEX).matcher(gpgKeyUrl).find()) {
-            throw new InvalidGPGUrlException();
+        if (StringUtils.isNotEmpty(gpgKeyUrl)) {
+            gpgKeyUrl = gpgKeyUrl.toUpperCase();
+            if (!Pattern.compile(GPG_URL_REGEX).matcher(gpgKeyUrl).find()) {
+                throw new InvalidGPGUrlException();
+            }
         }
     }
 }
