@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.59
+Version: 2.3.60
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 16 2014 Stephen Herr <sherr@redhat.com> 2.3.60-1
+- 1153793 - set default kernel and initrd locations for ppc64le distros
+- 1153789 - prevent infinite loop when scheduling kickstart
+
 * Thu Oct 16 2014 Tomas Lestach <tlestach@redhat.com> 2.3.59-1
 - 1153651 - actually a File.separator should work better
 - 1153651 - slash needed when building paths
