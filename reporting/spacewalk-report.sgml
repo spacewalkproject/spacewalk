@@ -31,6 +31,18 @@ Generate reports from Spacewalk server in csv format
         <sbr>
         <group><arg>--list-fields</arg><arg>--list-fields-info</arg></group>
         <sbr>
+        <arg>--where-<replaceable>column-id</replaceable>=<replaceable>VALUE</replaceable></arg>
+        <sbr>
+        <arg>--ne-where-<replaceable>column-id</replaceable>=<replaceable>VALUE</replaceable></arg>
+        <sbr>
+        <arg>--le-where-<replaceable>column-id</replaceable>=<replaceable>VALUE</replaceable></arg>
+        <sbr>
+        <arg>--ge-where-<replaceable>column-id</replaceable>=<replaceable>VALUE</replaceable></arg>
+        <sbr>
+        <arg>--like-<replaceable>column-id</replaceable>=<replaceable>VALUE</replaceable></arg>
+        <sbr>
+        <arg>--timezone=<replaceable>VALUE</replaceable></arg>
+        <sbr>
         <arg choice='plain'><replaceable>report-name</replaceable></arg>
     </cmdsynopsis>
 </Synopsis>
@@ -103,6 +115,36 @@ Generate reports from Spacewalk server in csv format
             <para>Limit the output to records where column-id has value
             VALUE. It can be used multiple times -- for the same column
             it will select records where the column has any of the
+            VALUEs. When different columns are specified, all of them
+            have to meet the condition.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ne-where-<replaceable>column-id</replaceable>=<replaceable>VALUE</replaceable></term>
+        <listitem>
+            <para>Limit the output to records where column-id does not have value
+            VALUE. It can be used multiple times -- for the same column
+            it will select records where the column does not have any of the
+            VALUEs. When different columns are specified, all of them
+            have to meet the condition.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--le-where-<replaceable>column-id</replaceable>=<replaceable>VALUE</replaceable></term>
+        <listitem>
+            <para>Limit the output to records where column-id has value
+            less than or equal to VALUE. It can be used multiple times -- for the same column
+            it will select records where the column is less than or equal to all of the
+            VALUEs. When different columns are specified, all of them
+            have to meet the condition.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ge-where-<replaceable>column-id</replaceable>=<replaceable>VALUE</replaceable></term>
+        <listitem>
+            <para>Limit the output to records where column-id has value
+            greater than or equal to VALUE. It can be used multiple times -- for the same column
+            it will select records where the column is greater than or equal to all of the
             VALUEs. When different columns are specified, all of them
             have to meet the condition.</para>
         </listitem>
