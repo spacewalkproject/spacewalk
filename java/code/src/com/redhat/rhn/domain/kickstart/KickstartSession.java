@@ -447,7 +447,7 @@ public class KickstartSession {
         if (this.action != null) {
             Action parentAction = this.action;
             while (parentAction.getPrerequisite() != null) {
-                parentAction = this.action.getPrerequisite();
+                parentAction = parentAction.getPrerequisite();
             }
             if (this.currentServer() != null) {
                 ActionFactory.removeActionForSystem(
