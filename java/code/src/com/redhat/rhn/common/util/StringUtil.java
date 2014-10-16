@@ -15,6 +15,7 @@
 
 package com.redhat.rhn.common.util;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Arrays;
@@ -809,7 +810,7 @@ public class StringUtil {
      * @return the full path with no duplicate '/'s
      */
     public static String addPath(String originalPath, String toAdd) {
-        return FilenameUtils.normalize(originalPath + "/" + toAdd);
+        return FilenameUtils.normalize(originalPath + File.separator + toAdd);
     }
 
     /**
