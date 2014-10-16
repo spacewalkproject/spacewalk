@@ -272,7 +272,7 @@ public class KickstartableTree extends BaseDomainHelper {
         if (arch.equals("channel-s390") || arch.endsWith("channel-s390x")) {
             return StringUtil.addPath(getAbsolutePath(), "/images/kernel.img");
         }
-        else if (arch.equals("channel-ppc")) {
+        else if (arch.startsWith("channel-ppc")) {
             return StringUtil.addPath(getAbsolutePath(), "/ppc/ppc64/vmlinuz");
         }
         else if (this.installType.isSUSE()) {
@@ -308,7 +308,7 @@ public class KickstartableTree extends BaseDomainHelper {
             return new String[] {
                     StringUtil.addPath(getAbsolutePath(), "/images/initrd.img")};
         }
-        else if (arch.equals("channel-ppc")) {
+        else if (arch.startsWith("channel-ppc")) {
             return new String[] {
                     StringUtil.addPath(getAbsolutePath(), "/ppc/ppc64/ramdisk.image.gz"),
                     StringUtil.addPath(getAbsolutePath(), "/ppc/ppc64/initrd.img")};
