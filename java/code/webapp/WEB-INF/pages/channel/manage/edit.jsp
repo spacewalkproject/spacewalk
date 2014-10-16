@@ -309,7 +309,8 @@
                 <div class="col-lg-6">
                     <html:text property="gpg_key_id" maxlength="8" size="8"
                                styleClass="form-control"
-                               styleId="gpgkeyid"/>
+                               styleId="gpgkeyid"
+                               onchange="this.value = this.value.toUpperCase()"/>
                     <span class="help-block">Example: DB42A60E</span>
                 </div>
             </div>
@@ -320,7 +321,8 @@
                 <div class="col-lg-6">
                     <html:text property="gpg_key_fingerprint" maxlength="50" size="60"
                                styleClass="form-control"
-                               styleId="gpgkeyfingerprint"/>
+                               styleId="gpgkeyfingerprint"
+                               onchange="this.value = this.value.toUpperCase()"/>
                     <span class="help-block">Example: CA20 8686 2BD6 9DFC 65F6  ECC4 2191 80CD DB42 A60E</span>
                 </div>
             </div>
