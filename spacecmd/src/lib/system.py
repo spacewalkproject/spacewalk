@@ -958,9 +958,13 @@ def do_system_listupgrades(self, args):
         latest_packages = filter_latest_packages(packages, 'to_version', 'to_release', 'to_epoch')
 
         for package in sorted(latest_packages.values(), key=itemgetter('name')):
-            # listLatestUpgradablePackages doesn't give us the arch,
-            # so use the package ID to get that information
-            print self.get_package_name(package.get('to_package_id'))
+            print build_package_names({
+                'name': package['name'],
+                'version': package['to_version'],
+                'release': package['to_release'],
+                'epoch': package['to_epoch'],
+                'arch': package['to_arch']
+            })
 
 ####################
 
