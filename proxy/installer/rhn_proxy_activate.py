@@ -38,10 +38,10 @@ from up2date_client import config
 
 DEFAULT_WEBRPC_HANDLER_v3_x = '/rpc/api'
 
-def getSystemId():
+def getSystemId(cfg):
     """ returns content of systemid file """
 
-    path = "/etc/sysconfig/rhn/systemid"
+    path = cfg['systemIdPath']
     if not os.access(path, os.R_OK):
         return None
     return open(path, "r").read()
@@ -241,20 +241,20 @@ def resolveHostnamePort(hostnamePort=''):
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
 
-def activateProxy_api_v3_x(options):
+def activateProxy_api_v3_x(options, cfg):
     """ API version 3.*, 4.* - deactivate, then activate
     """
 
-    (errorCode, errorString) = _deactivateProxy_api_v3_x(options)
+    (errorCode, errorString) = _deactivateProxy_api_v3_x(options, cfg)
     if errorCode == 0:
-        (errorCode, errorString) = _activateProxy_api_v3_x(options)
+        (errorCode, errorString) = _activateProxy_api_v3_x(options, cfg)
     return (errorCode, errorString)
 
-def _deactivateProxy_api_v3_x(options):
+def _deactivateProxy_api_v3_x(options, cfg):
     """ Deactivate this machine as Proxy """
 
     s = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
-    systemid = getSystemId()
+    systemid = getSystemId(cfg)
 
     errorCode, errorString = 0, ''
 
@@ -295,14 +295,14 @@ def _deactivateProxy_api_v3_x(options):
             sys.stdout.write("Spacewalk Proxy successfully deactivated.\n")
     return (errorCode, errorString)
 
-def _activateProxy_api_v3_x(options):
+def _activateProxy_api_v3_x(options, cfg):
     """ Activate this machine as Proxy.
         Do not check if has been already activated. For such case
         use activateProxy_api_v3_x method instead.
     """
 
     s = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
-    systemid = getSystemId()
+    systemid = getSystemId(cfg)
 
     errorCode, errorString = 0, ''
     try:
@@ -332,14 +332,14 @@ def _activateProxy_api_v3_x(options):
             sys.stdout.write("Spacewalk Proxy successfully activated.\n")
     return (errorCode, errorString)
 
-def createMonitoringScout(options):
+def createMonitoringScout(options, cfg):
     """ Activate MonitoringScout.
         Just create record on parent.
         use activateProxy_api_v3_x method instead.
     """
 
     s = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
-    systemid = getSystemId()
+    systemid = getSystemId(cfg)
 
     errorCode, errorString = 0, ''
     try:
@@ -368,12 +368,12 @@ def createMonitoringScout(options):
             sys.stdout.write("Monitoring Scout successfully created.\n")
     return (errorCode, errorString)
 
-def activateProxy(options):
+def activateProxy(options, cfg):
     """ Activate proxy. Decide how to do it upon apiVersion. Currently we
         support only API v.3.1+. Support for 3.0 and older has been removed.
     """
     # errorCode == 0 means activated!
-    errorCode, errorString = activateProxy_api_v3_x(options)
+    errorCode, errorString = activateProxy_api_v3_x(options, cfg)
 
     if errorCode != 0:
         if not errorString:
@@ -381,11 +381,11 @@ def activateProxy(options):
         sys.stderr.write("\nThere was a problem activating the Spacewalk Proxy entitlement:\n%s\n" % errorString)
         sys.exit(abs(errorCode))
 
-def listAvailableProxyChannels(options):
+def listAvailableProxyChannels(options, cfg):
     """ return list of version available to this system """
 
     server = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
-    systemid = getSystemId()
+    systemid = getSystemId(cfg)
 
     errorCode, errorString = 0, ''
     channel_list = []
@@ -404,9 +404,8 @@ def listAvailableProxyChannels(options):
         if not options.quiet and channel_list:
             sys.stdout.write("\n".join(channel_list)+"\n")
 
-def processCommandline():
+def processCommandline(cfg):
 
-    cfg = config.initUp2dateConfig()
     up2date_cfg = dict(cfg.items())
 
     if type(up2date_cfg['serverURL']) is type([]):
@@ -516,7 +515,8 @@ def main():
         47     http proxy authentication failure
     """
 
-    options = processCommandline()
+    cfg = config.initUp2dateConfig()
+    options = processCommandline(cfg)
 
     if options.list_available_versions:
         resolveHostnamePort(options.http_proxy)
@@ -529,7 +529,7 @@ def main():
         resolveHostnamePort(options.http_proxy)
         if not options.http_proxy:
             resolveHostnamePort(options.server)
-        errorCode, errorString = createMonitoringScout(options)
+        errorCode, errorString = createMonitoringScout(options, cfg)
         if errorCode != 0:
             if not errorString:
                 errorString = ("An unknown error occurred. Consult with your Red Hat representative.\n")
@@ -563,10 +563,10 @@ def main():
         resolveHostnamePort(options.server)
 
     if options.deactivate:
-        _deactivateProxy_api_v3_x(options)
+        _deactivateProxy_api_v3_x(options, cfg)
     else:
         # ACTIVATE!!!!!!!!
-        activateProxy(options)
+        activateProxy(options, cfg)
 
     return 0
 
