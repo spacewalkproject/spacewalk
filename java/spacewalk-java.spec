@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.60
+Version: 2.3.61
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 17 2014 Jan Dobes 2.3.61-1
+- another list items count and selected items count texts style
+- improve style of navigation sub menu
+- separate list items count and selected items count texts
+- use fontawesome icon instead of image
+
 * Thu Oct 16 2014 Stephen Herr <sherr@redhat.com> 2.3.60-1
 - 1153793 - set default kernel and initrd locations for ppc64le distros
 - 1153789 - prevent infinite loop when scheduling kickstart
