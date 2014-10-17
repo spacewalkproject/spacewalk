@@ -126,6 +126,7 @@ public class IconTag extends TagSupport {
         icons.put("item-ssm-add", "fa fa-plus-circle");
         icons.put("item-ssm-del", "fa fa-minus-circle");
         icons.put("item-upload", "fa fa-upload");
+        icons.put("item-order", "fa fa-sort");
         icons.put("monitoring-crit",
                   "fa fa-1-5x spacewalk-icon-monitoring-down text-danger");
         icons.put("monitoring-ok", "fa fa-1-5x spacewalk-icon-monitoring-ok text-success");

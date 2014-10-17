@@ -13,7 +13,7 @@
                creationType="kickstartscript"
                miscUrl="/rhn/kickstart/KickstartScriptOrder.do?ksid=${ksdata.id}"
                miscText="toolbar.misc.kickstartscript"
-               miscImg="action-order.gif"
+               miscIcon="item-order"
                miscAlt="toolbar.misc.kickstartscriptalt"
                iconAlt="kickstarts.alt.img">
       <bean:message key="kickstartdetails.jsp.header1" arg0="${fn:escapeXml(ksdata.label)}"/>
