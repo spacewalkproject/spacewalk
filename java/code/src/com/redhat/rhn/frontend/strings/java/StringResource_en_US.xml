@@ -5910,6 +5910,12 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.schedule.ppc64lewarning">
+        <source>Warning: Kickstart Profile list includes PPC64LE profiles but they will not function properly unless your CPU is POWER8 or better.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.profile.default_session">
         <source>Default session activation key for profile {0}.</source>
         <context-group name="ctx">

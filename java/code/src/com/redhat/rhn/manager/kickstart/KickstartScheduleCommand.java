@@ -411,6 +411,16 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                     ChannelArch x86Arch = ChannelFactory.lookupArchByName("x86_64");
                     params.put("sec_arch_id", x86Arch.getId());
                 }
+                else if (arch.getName().equals("PPC")) {
+                    log.debug("    Adding ppc64le to search list.");
+                    ChannelArch ppc64le = ChannelFactory.lookupArchByName("PPC64LE");
+                    params.put("sec_arch_id", ppc64le.getId());
+                }
+                else if (arch.getName().equals("PPC64LE")) {
+                    log.debug("    Adding ppc to search list.");
+                    ChannelArch ppc = ChannelFactory.lookupArchByName("PPC");
+                    params.put("sec_arch_id", ppc.getId());
+                }
                 else {
                     params.put("sec_arch_id", arch.getId());
                 }

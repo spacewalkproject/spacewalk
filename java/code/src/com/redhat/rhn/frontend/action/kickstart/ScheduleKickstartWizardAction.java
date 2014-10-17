@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
@@ -416,6 +417,21 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                         profile.getId(), ctx.getRequest());
                 }
             }
+        }
+
+        // display a warning if displaying ppc64le profiles to a ppc system
+        if (system.getBaseChannel().getChannelArch().getLabel().equals("channel-ppc")) {
+            List<KickstartDto> profiles = helper.getDataSet();
+            for (KickstartDto profile : profiles) {
+                KickstartableTree tree = KickstartFactory.findTreeById(profile
+                        .getKstreeId(), user.getOrg().getId());
+                if (tree.getChannel().getChannelArch().getLabel()
+                        .equals("channel-ppc64le")) {
+                    addMessage(ctx.getRequest(), "kickstart.schedule.ppc64lewarning");
+                    break;
+                }
+            }
+
         }
 
         ActionForward retval = mapping.findForward("first");
