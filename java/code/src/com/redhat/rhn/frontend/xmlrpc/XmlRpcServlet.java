@@ -186,7 +186,9 @@ public class XmlRpcServlet extends HttpServlet {
             // wrap it in a ServletException and toss.
             ServletException e = new ServletException("Throwable from XmlRpc", t);
             t.printStackTrace();
-            e.initCause(t);
+            if (e.getCause() != t) {
+                e.initCause(t);
+            }
             throw e;
         }
     }
