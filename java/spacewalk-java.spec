@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.61
+Version: 2.3.62
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 17 2014 Stephen Herr <sherr@redhat.com> 2.3.62-1
+- 1154175 - Show ppc64le profiles to ppc systems
+- fix spelling error
+
 * Fri Oct 17 2014 Jan Dobes 2.3.61-1
 - another list items count and selected items count texts style
 - improve style of navigation sub menu
