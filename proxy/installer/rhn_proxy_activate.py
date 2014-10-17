@@ -522,7 +522,7 @@ def main():
         resolveHostnamePort(options.http_proxy)
         if not options.http_proxy:
             resolveHostnamePort(options.server)
-        listAvailableProxyChannels(options)
+        listAvailableProxyChannels(options, cfg)
         sys.exit(0)
 
     if options.enable_monitoring:
