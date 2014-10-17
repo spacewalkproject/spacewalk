@@ -1596,14 +1596,20 @@ public class ErrataManager extends BaseManager {
         Map<Long, Set<Long>> relevantErrataForServer = new HashMap<Long, Set<Long>>();
 
         for (Long serverId : serverIds) {
-            List<Errata> relevantErrataList =
+            List<Errata> relevantErrata =
                     SystemManager.unscheduledErrata(user, serverId, null);
             Set<Long> relevantErrataIds = new HashSet<Long>();
-            for (Errata e : relevantErrataList) {
-                // only count the errata if is requested _AND_
-                // part of the relevant erratas
-                if (errataIds.contains(e.getId())) {
-                    relevantErrataIds.add(e.getId());
+            for (Errata e : relevantErrata) {
+                relevantErrataIds.add(e.getId());
+            }
+
+            Set<Long> effectiveErrataIds = new HashSet<Long>();
+            for (Object errataIdObject : errataIds) {
+                // HACK: ugly conversion needed because in some cases errataIds contains
+                // Integers, in other cases Longs
+                Long errataId = ((Number) errataIdObject).longValue();
+                if (relevantErrataIds.contains(errataId)) {
+                    effectiveErrataIds.add(errataId);
                 }
                 else {
                     if (!onlyRelevant) {
@@ -1611,7 +1617,8 @@ public class ErrataManager extends BaseManager {
                     }
                 }
             }
-            relevantErrataForServer.put(serverId, relevantErrataIds);
+
+            relevantErrataForServer.put(serverId, effectiveErrataIds);
         }
 
         Map<Set<Long>, List<Long>> serversForErrataSet =
