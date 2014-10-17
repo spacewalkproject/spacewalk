@@ -561,10 +561,10 @@ public class ListDisplayTag extends ListDisplayTagBase {
 
         if ((set != null) && (!RhnSetDecl.SYSTEMS.getLabel().equals(set.getLabel()))) {
             if (top) {
-                out.append("<strong><span id=\"pagination_selcount_top\">");
+                out.append(" <strong><span id=\"pagination_selcount_top\">");
             }
             else {
-                out.append("<strong><span id=\"pagination_selcount_bottom\">");
+                out.append(" <strong><span id=\"pagination_selcount_bottom\">");
             }
             out.append(LocalizationService.getInstance()
                       .getMessage("message.numselected",
