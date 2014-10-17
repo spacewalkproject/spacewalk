@@ -59,7 +59,12 @@ public class DialognavRenderer extends Renderable {
         }
 
         HtmlTag ul = new HtmlTag("ul");
-        ul.setAttribute("class", "nav nav-tabs");
+        if (depth == 0) {
+            ul.setAttribute("class", "nav nav-tabs");
+        }
+        else {
+            ul.setAttribute("class", "nav nav-tabs nav-tabs-pf");
+        }
         sb.append(ul.renderOpenTag());
     }
 
