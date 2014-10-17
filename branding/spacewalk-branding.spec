@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.7
+Version:    2.3.8
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Oct 17 2014 Jan Dobes 2.3.8-1
+- indent bottom list control as well
+
 * Wed Oct 15 2014 Jan Dobes 2.3.7-1
 - there is more to hide on unauthenticated pages
 
