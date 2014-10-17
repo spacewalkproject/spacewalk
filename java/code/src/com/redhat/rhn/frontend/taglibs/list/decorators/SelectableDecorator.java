@@ -101,7 +101,7 @@ public class SelectableDecorator extends BaseListDecorator {
                     pageContext.getRequest());
             if (!RhnSetDecl.SYSTEMS.getLabel().equals(setName)) {
                 String msg = ls.getMessage("message.numselected", args);
-                ListTagUtil.write(pageContext, "<span id=\"");
+                ListTagUtil.write(pageContext, " <strong><span id=\"");
                 if (isHeader) {
                     ListTagUtil.write(pageContext, "pagination_selcount_top");
                 }
@@ -110,7 +110,7 @@ public class SelectableDecorator extends BaseListDecorator {
                 }
                 ListTagUtil.write(pageContext, "\">");
                 ListTagUtil.write(pageContext, msg);
-                ListTagUtil.write(pageContext, "</span>");
+                ListTagUtil.write(pageContext, "</span></strong>");
             }
         }
     }
