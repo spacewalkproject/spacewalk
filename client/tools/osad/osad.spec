@@ -207,9 +207,6 @@ rm -rf $RPM_BUILD_ROOT
 %pre
 %service_add_pre osad.service
 
-%postun
-%service_del_postun osad.service
-
 %endif
 
 %{!?systemd_post: %global systemd_post() if [ $1 -eq 1 ] ; then /usr/bin/systemctl enable %%{?*} >/dev/null 2>&1 || : ; fi; }
@@ -258,6 +255,10 @@ fi
 %postun
 %if 0%{?fedora}
 %systemd_postun_with_restart osad.service
+%else
+%if 0%{?suse_version} >= 1210
+%service_del_postun osad.service
+%endif
 %endif
 
 %if 0%{?suse_version} >= 1210
