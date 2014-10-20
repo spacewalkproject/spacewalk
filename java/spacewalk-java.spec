@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.62
+Version: 2.3.63
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 20 2014 Stephen Herr <sherr@redhat.com> 2.3.63-1
+- 1151005 - add package id to query results so webui can generate link
+- 1024118 - Remove bogus help-url/rhn-help/helpUrl links from all pages
+- do not re-init the exception cause with the same
+
 * Fri Oct 17 2014 Stephen Herr <sherr@redhat.com> 2.3.62-1
 - 1154175 - Show ppc64le profiles to ppc systems
 - fix spelling error
