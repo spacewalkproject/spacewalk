@@ -9,8 +9,6 @@ Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
-Summary: Command Line Installer of Spacewalk Proxy Server
-Group:    Applications/Internet
 Requires: rhncfg-client
 Requires: rhncfg
 Requires: rhncfg-management
