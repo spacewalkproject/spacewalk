@@ -1,0 +1,16 @@
+[Unit]
+Description=Spacewalk
+Requires=jabberd.service
+Requires=tomcat.service
+Requires=spacewalk-wait-for-tomcat.service
+Requires=apache2.service
+Requires=spacewalk-wait-for-jabberd.service
+Requires=osa-dispatcher.service
+Requires=Monitoring.service
+Requires=MonitoringScout.service
+Requires=rhn-search.service
+Requires=cobblerd.service
+Requires=taskomatic.service
+
+[Install]
+WantedBy=multi-user.target

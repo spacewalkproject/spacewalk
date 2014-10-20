@@ -1,0 +1,10 @@
+[Unit]
+Description=Spacewalk wait for tomcat
+After=tomcat.service
+Before=apache2.service
+ConditionPathExists=!/var/run/spacewalk-wait-for-tomcat-disable
+
+[Service]
+ExecStart=/usr/sbin/spacewalk-startup-helper wait-for-tomcat
+Type=oneshot
+RemainAfterExit=yes

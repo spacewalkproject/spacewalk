@@ -12,7 +12,7 @@ Requires: spacewalk-base
 Requires: perl(MIME::Base64)
 Requires: lsof
 BuildRequires: /usr/bin/pod2man
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} >= 1210
 BuildRequires: systemd
 %endif
 Obsoletes: satellite-utils < 5.3.0
@@ -20,6 +20,9 @@ Provides: satellite-utils = 5.3.0
 Obsoletes: rhn-satellite-admin < 5.3.0
 Provides: rhn-satellite-admin = 5.3.0
 BuildArch: noarch
+%if 0%{?suse_version}
+BuildRequires: spacewalk-config
+%endif
 
 %description
 Various utility scripts and data files for Spacewalk installations.
@@ -32,9 +35,13 @@ Various utility scripts and data files for Spacewalk installations.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} >= 1210
 mv -f spacewalk-service.systemd spacewalk-service
 make -f Makefile.admin install_systemd PREFIX=$RPM_BUILD_ROOT
+%if 0%{?suse_version} >= 1210
+install -m 644 spacewalk.target.SUSE $RPM_BUILD_ROOT%{_unitdir}/spacewalk.target
+install -m 644 spacewalk-wait-for-tomcat.service.SUSE $RPM_BUILD_ROOT%{_unitdir}/spacewalk-wait-for-tomcat.service
+%endif
 %endif
 make -f Makefile.admin install PREFIX=$RPM_BUILD_ROOT
 
@@ -75,7 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-deploy-ca-cert.pl.8*
 %{_mandir}/man8/rhn-install-ssl-cert.pl.8*
 %config(noreplace) %{_sysconfdir}/rhn/service-list
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} >= 1210
 %{_unitdir}/spacewalk.target
 %{_unitdir}/spacewalk-wait-for-tomcat.service
 %{_unitdir}/spacewalk-wait-for-jabberd.service
