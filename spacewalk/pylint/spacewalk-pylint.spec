@@ -10,7 +10,7 @@ Source0:	https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:	noarch
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} >= 1320
 Requires:	pylint > 1.1
 %else
 %if 0%{?rhel} > 6
@@ -50,6 +50,11 @@ sed -i '/disable=/ s/,bad-whitespace,unpacking-non-sequence,superfluous-parens,c
 %if 0%{?rhel} && 0%{?rhel} < 7
 # new checks in pylint 1.0
 sed -i '/disable=/ s/,C1001,W0121,useless-else-on-loop//g;' \
+        %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
+%endif
+%if 0%{?suse_version}
+# new checks in pylint 1.2
+sed -i '/disable=/ s/,bad-continuation//g;' \
         %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
 %endif
 mkdir -p %{buildroot}/%{_mandir}/man8
