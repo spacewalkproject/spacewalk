@@ -18,7 +18,7 @@
 @spacewalk-main:   	   @spacewalk-blue-2;
 @spacewalk-header:       url('../../img/spacewalk-header-background.png') repeat-x @gray;
 @spacewalk-footer:       #030303;
-@spacewalk-aside:        #eeeeee;
+@spacewalk-aside:        darken(@gray-lighter, 6%);
 
 // Colours for the menu in the first column on the left:
 @spacewalk-aside-border: darken(@spacewalk-aside, 10%);
@@ -26,16 +26,16 @@
 @spacewalk-aside-menu-hyperlink-hover: #555;
 
 /* aside menu colors */
-@spacewalk-list-menu:    @gray-lighter;
-@spacewalk-list-menu-active:    lighten(@spacewalk-list-menu, 4%);
-@spacewalk-list-menu-hover: lighten(@spacewalk-list-menu, 2%);
-@spacewalk-list-first-submenu:    darken(@spacewalk-list-menu, 8%);
-@spacewalk-list-first-submenu-active:    lighten(@spacewalk-list-first-submenu, 6%);
-@spacewalk-list-first-submenu-hover:    lighten(@spacewalk-list-first-submenu, 2%);
+@spacewalk-list-menu:    @spacewalk-aside;
+@spacewalk-list-menu-active:    lighten(@spacewalk-list-menu, 12%);
+@spacewalk-list-menu-hover: lighten(@spacewalk-list-menu, 8%);
+@spacewalk-list-first-submenu:    darken(@spacewalk-list-menu, 6%);
+@spacewalk-list-first-submenu-active:    lighten(@spacewalk-list-first-submenu, 14%);
+@spacewalk-list-first-submenu-hover:    lighten(@spacewalk-list-first-submenu, 8%);
 @spacewalk-list-first-submenu-last-line:    darken(@spacewalk-list-first-submenu, 8%);
-@spacewalk-list-second-submenu:    darken(@spacewalk-list-first-submenu, 5%);
-@spacewalk-list-second-submenu-active:    lighten(@spacewalk-list-second-submenu, 6%);
-@spacewalk-list-second-submenu-hover:    lighten(@spacewalk-list-second-submenu, 2%);
+@spacewalk-list-second-submenu:    darken(@spacewalk-list-first-submenu, 6%);
+@spacewalk-list-second-submenu-active:    lighten(@spacewalk-list-second-submenu, 18%);
+@spacewalk-list-second-submenu-hover:    lighten(@spacewalk-list-second-submenu, 8%);
 @spacewalk-list-second-submenu-last-line:    darken(@spacewalk-list-second-submenu, 8%);
 
 //Icons legend:
