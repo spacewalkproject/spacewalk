@@ -41,7 +41,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %{_prefix}/share/rhn/search/indexes/docs
-
+%if 0%{?suse_version}
+%dir %{_prefix}/share/rhn
+%dir %{_prefix}/share/rhn/search
+%dir %{_prefix}/share/rhn/search/indexes
+%endif
 
 %changelog
 * Thu Oct 15 2015 Jan Dobes 2.5.1-1
