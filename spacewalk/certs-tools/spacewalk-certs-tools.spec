@@ -1,3 +1,10 @@
+%if 0%{?suse_version}
+%global pub_bootstrap_dir /srv/www/htdocs/pub/bootstrap
+%else
+%global pub_bootstrap_dir /var/www/html/pub/bootstrap
+%endif
+%global rhnroot %{_datadir}/rhn
+
 Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
@@ -28,19 +35,25 @@ Provides:  rhns-certs-tools = 5.3.0
 This package contains tools to generate the SSL certificates required by 
 Spacewalk.
 
-%global rhnroot %{_datadir}/rhn
-
 %prep
 %setup -q
 
 %build
 #nothing to do here
 
+%if 0%{?suse_version}
+# we need to rewrite etc/httpd/conf => etc/apache2
+sed -i 's|etc/httpd/conf|etc/apache2|g' rhn_ssl_tool.py
+sed -i 's|etc/httpd/conf|etc/apache2|g' sslToolConfig.py
+sed -i 's|etc/httpd/conf|etc/apache2|g' sign.sh
+sed -i 's|etc/httpd/conf|etc/apache2|g' ssl-howto.txt
+%endif
+
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{rhnroot}/certs
 make -f Makefile.certs install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
-    MANDIR=%{_mandir}
+    MANDIR=%{_mandir} PUB_BOOTSTRAP_DIR=%{pub_bootstrap_dir}
 chmod 755 $RPM_BUILD_ROOT/%{rhnroot}/certs/{rhn_ssl_tool.py,client_config_update.py,rhn_bootstrap.py}
 
 %clean
@@ -58,7 +71,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_mandir}/man1/rhn-*.1*
 %doc LICENSE
 %doc ssl-howto-simple.txt ssl-howto.txt
-%{_var}/www/html/pub/bootstrap/client_config_update.py*
+%{pub_bootstrap_dir}/client_config_update.py*
+%if 0%{?suse_version}
+%dir %{rhnroot}
+%dir /srv/www/htdocs/pub
+%dir %{pub_bootstrap_dir}
+%endif
 
 %changelog
 * Wed Feb 03 2016 Jan Dobes 2.5.1-1
