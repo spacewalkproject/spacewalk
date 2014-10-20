@@ -41,6 +41,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/spacewalk/reports
 %{_mandir}/man8/spacewalk-report.8*
 %doc COPYING
+%if 0%{?suse_version}
+%dir %{_datadir}/spacewalk
+%endif
 
 %changelog
 * Fri Jun 10 2016 Jan Dobes 2.6.1-1
