@@ -62,10 +62,12 @@ Requires:       yum-utils
 # Requires:       jabberpy
 Obsoletes:      spacewalk-monitoring < 2.3
 
+%if 0%{?rhel} || 0%{?fedora}
 # SELinux
 Requires:       osa-dispatcher-selinux
 Requires:       spacewalk-selinux
 Obsoletes:      spacewalk-monitoring-selinux < 2.3
+%endif
 
 %if 0%{?rhel} == 5
 Requires:       jabberd-selinux
@@ -77,7 +79,11 @@ Requires:       selinux-policy-base >= 3.7.19-93
 
 Requires:       ace-editor >= 1.1.1
 
+%if 0%{?suse_version}
+Requires:       cobbler
+%else
 Requires:       cobbler20
+%endif
 
 %description common
 Spacewalk is a systems management application that will
@@ -157,6 +163,11 @@ rm -rf %{buildroot}
 
 %files common
 %{_sysconfdir}/spacewalk-release
+%if 0%{?suse_version}
+%dir %{_datadir}/spacewalk
+%dir %{_datadir}/spacewalk/setup
+%dir %{_datadir}/spacewalk/setup/defaults.d
+%endif
 
 %files oracle
 %{_datadir}/spacewalk/setup/defaults.d/oracle-backend.conf
