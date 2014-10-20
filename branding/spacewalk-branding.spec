@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.8
+Version:    2.3.9
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Oct 20 2014 Jan Dobes 2.3.9-1
+- slightly improve contrast of left menu
+
 * Fri Oct 17 2014 Jan Dobes 2.3.8-1
 - indent bottom list control as well
 
