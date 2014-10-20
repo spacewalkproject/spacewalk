@@ -19,6 +19,9 @@ BuildRequires:  /usr/bin/pod2man
 Requires:       %{sbinpath}/restorecon
 Obsoletes:      rhn-satellite-schema <= 5.1.0
 
+%if 0%{?suse_version}
+BuildRequires:  fdupes
+%endif
 
 %define rhnroot /etc/sysconfig/rhn/
 %define oracle %{rhnroot}/oracle
@@ -57,6 +60,10 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p spacewalk-schema-upgrade.1 $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p spacewalk-sql.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
+%if 0%{?suse_version}
+%fdupes %{buildroot}/%{rhnroot}
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -68,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/spacewalk-sql
 %{_mandir}/man1/spacewalk-schema-upgrade*
 %{_mandir}/man1/spacewalk-sql*
+%if 0%{?suse_version}
+%dir %{rhnroot}
+%endif
 
 %changelog
 * Mon Jun 13 2016 Jan Dobes 2.6.4-1
