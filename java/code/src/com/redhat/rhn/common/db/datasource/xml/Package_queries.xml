@@ -785,8 +785,8 @@ SELECT P.id, P.summary, PP.name as provider
 
 <mode name="system_available_packages"  class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
-select * from (
-SELECT  distinct pn.name AS NAME,
+select rp.id as package_id, x.* from (
+SELECT  pn.name AS NAME,
         pn.name || '-' || evr_t_as_vre_simple(full_list.evr) AS NVRE,
         pn.name || '-' || evr_t_as_vre_simple(full_list.evr) || '.' || full_list.arch_label AS NVREA,
         pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) || '|' || full_list.arch_id AS ID_COMBO,
@@ -810,14 +810,19 @@ SELECT  distinct pn.name AS NAME,
        GROUP BY  p.name_id, pa.label, pa.id
        ) full_list,
        rhnPackageName pn
-     INNER JOIN rhnPackage PKG ON pkg.name_id = pn.id
  WHERE  full_list.name_id = pn.id
    AND  NOT EXISTS (SELECT 1
                       FROM rhnServerPackage SP
                      WHERE SP.server_id = :sid
                        AND SP.name_id = full_list.name_id
                        AND (SP.package_arch_id = full_list.arch_id or SP.package_arch_id is null))
-) x
+) x, rhnPackage rp, rhnChannelPackage rcp, rhnServerChannel rsc
+where rp.name_id = x.name_id
+  and rp.evr_id = x.evr_id
+  and rp.package_arch_id = x.arch_id
+  and rp.id = rcp.package_id
+  and rcp.channel_id = rsc.channel_id
+  and rsc.server_id = :sid
 order by upper(name)
   </query>
 </mode>
