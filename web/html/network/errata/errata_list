@@ -12,7 +12,7 @@
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
 <rhn-pathinfo-list-mode type="errata">
-  <h1><img src="/img/rhn-icon-errata.gif"  /> {pinfo_list_name} <rhn-help href="1-sm-errata.jsp" />
+  <h1><img src="/img/rhn-icon-errata.gif"  /> {pinfo_list_name} 
   </h1>
 
   <rhn-listview class="Sniglets::ListView::ErrataList" mode="{pinfo_list_mode}">

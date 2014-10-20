@@ -11,7 +11,7 @@
 </head>
 <body>
 <rhn:toolbar base="h1" icon="header-system" imgAlt="system.common.systemAlt"
- helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-sstem-list-rregistered">
+ helpUrl="">
   <bean:message key="registeredlist.jsp.header"/>
 </rhn:toolbar>
 

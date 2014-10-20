@@ -9,7 +9,7 @@
 <html>
 <body>
 <rhn:toolbar base="h1" icon="header-system"
- helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#config-systems">
+ helpUrl="">
   <bean:message key="targetsystems.jsp.toolbar" />
 </rhn:toolbar>
 

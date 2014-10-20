@@ -12,7 +12,7 @@
 <rhn:toolbar base="h1" icon="header-monitoring"
 	creationUrl="ProbeSuiteProbeCreate.do?suite_id=${suite_id}"
 	creationType="probe"
-	helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-psuites">
+	helpUrl="">
 	<bean:message key="probes.jsp.header1" arg0="${probeSuite.suiteName}" />
 </rhn:toolbar>
 

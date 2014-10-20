@@ -9,7 +9,7 @@
 <html>
 <body>
 <rhn:toolbar base="h1" icon="header-configuration"
- helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-local">
+ helpUrl="">
   <bean:message key="localfilelist.jsp.toolbar"/>
 </rhn:toolbar>
 

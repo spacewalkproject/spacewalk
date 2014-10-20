@@ -10,7 +10,7 @@
 </head>
 <body>
 <rhn:toolbar base="h1" icon="header-system" imgAlt="system.common.systemAlt"
- helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-list-inact">
+ helpUrl="">
   <bean:message key="extrapackagessystemslist.jsp.header"/>
 </rhn:toolbar>
 

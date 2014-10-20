@@ -12,7 +12,7 @@
     <body>
         <rhn:toolbar base="h1"
                      icon="header-system"
-                     helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-systems-entitlements"
+                     helpUrl=""
                      imgAlt="channels.jsp.alt">
             <bean:message key="entitledsystems.jsp.header"/>
         </rhn:toolbar>

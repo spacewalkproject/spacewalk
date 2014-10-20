@@ -11,7 +11,7 @@
 </head>
 <body>
 <rhn:toolbar base="h1" icon="header-user"
- helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp">
+ helpUrl="">
   <bean:message key="userconfirm.jsp.header" />
 </rhn:toolbar>
 

@@ -33,7 +33,7 @@
 			<c:when test="${deleting}">
                 <rhn:toolbar base="h1"
                              icon="${fileIcon}"
-                             helpUrl="${helpUrl}"
+                             helpUrl=""
                              miscUrl="${downloadUrl}"
                              miscIcon="item-download"
                              miscText="filedetails.header.jspf.download">
@@ -42,7 +42,7 @@
 			</c:when>
 			<c:otherwise>
 				<rhn:toolbar base="h1" icon="${fileIcon}"
-					helpUrl="${helpUrl}"
+					helpUrl=""
 					deletionUrl="${deleteUrl}"
 					deletionType="configfile"
 					deletionAcl="config_channel_editable(${channel.id})"
@@ -59,13 +59,13 @@
 		<c:choose>
 			<c:when test="${deleting}">
 				<rhn:toolbar base="h1" icon="${dirIcon}"
-					helpUrl="${helpUrl}">
+					helpUrl="">
 					${toolbarText}
 				</rhn:toolbar>
 			</c:when>
 			<c:otherwise>
 				<rhn:toolbar base="h1" icon="${dirIcon}"
-					helpUrl="${helpUrl}"
+					helpUrl=""
 					deletionUrl="${deleteUrl}"
 					deletionType="configfile"
 					deletionAcl="config_channel_editable(${channel.id})"

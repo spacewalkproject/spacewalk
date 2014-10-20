@@ -15,7 +15,7 @@
 <body>
 
 <rhn:toolbar base="h1" icon="header-system" imgAlt="audit.jsp.alt"
- helpUrl="/rhn/help/reference/en-US/s2-sm-system-overview.jsp">
+ helpUrl="">
   <bean:message key="auditsearch.jsp.header"/>
 </rhn:toolbar>
 

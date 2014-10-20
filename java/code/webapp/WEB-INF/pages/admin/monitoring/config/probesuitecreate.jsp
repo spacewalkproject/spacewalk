@@ -10,7 +10,7 @@
     </head>
     <body>
         <rhn:toolbar base="h1" icon="header-system-groups"
-                     helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-psuites">
+                     helpUrl="">
             <bean:message key="probesuitecreate.jsp.header1" />
         </rhn:toolbar>
         <rhn:dialogmenu mindepth="0" maxdepth="1"

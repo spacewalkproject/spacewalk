@@ -1,6 +1,6 @@
 <rhn:toolbar base="h1" icon="header-channel"
              imgAlt="overview.jsp.alt"
-             helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp#s2-sm-channel-manage"
+             helpUrl=""
              deletionUrl="/rhn/channels/manage/Delete.do?cid=${cid}"
              deletionType="channel">
   <bean:message key="channel.edit.jsp.toolbar" arg0="${channel_name}"/>

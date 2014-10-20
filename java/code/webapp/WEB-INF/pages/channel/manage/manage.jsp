@@ -14,7 +14,7 @@
              cloneUrl="/network/software/channels/manage/clone.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_clone_actions"
              cloneType="channel"
              cloneAcl="user_role(channel_admin)"
-             helpUrl="/rhn/help/getting-started/en-US/sect-Getting_Started_Guide-Channel_Management-Creating_and_Managing_Custom_Channels.jsp"
+             helpUrl=""
         >
     <bean:message key="channels.manage.jsp.toolbar"/>
 </rhn:toolbar>

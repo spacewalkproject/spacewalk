@@ -15,7 +15,7 @@
 </c:if>
 
 <rhn:toolbar base="h1" icon="header-user"
- helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp#s3-sm-user-active-details"
+ helpUrl=""
  miscUrl="${url}"
  miscAcl="user_role(org_admin)"
  miscText="${text}"

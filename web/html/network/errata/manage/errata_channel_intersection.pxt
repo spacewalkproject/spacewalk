@@ -9,12 +9,12 @@
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
-    <h1>Erratum: <rhn-errata-advisory /> <rhn-help guide="getting-started" href="chap-Getting_Started_Guide-Errata_Management.jsp" /></h1>
+    <h1>Erratum: <rhn-errata-advisory /> </h1>
 
 <rhn-errata-details>
 <rhn-channel-details>
 
-    <div class="page-summary"> 
+    <div class="page-summary">
       <p>The channel <strong>{channel_name}</strong> has the following packages in common with <strong><rhn-errata-advisory/></strong>.  If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</p>
     </div>
 

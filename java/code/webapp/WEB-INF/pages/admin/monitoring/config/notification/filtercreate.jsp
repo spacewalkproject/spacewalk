@@ -10,7 +10,7 @@
     </head>
 <body>
 <rhn:toolbar base="h1" icon="header-system-groups"
-	           helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-notif">
+	           helpUrl="">
     <bean:message key="filtercreate.jsp.header1" />
   </rhn:toolbar>
 

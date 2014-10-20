@@ -18,7 +18,7 @@ function showFiltered() {
 
 <body onLoad="onLoadStuff(5); showFiltered();">
 <rhn:toolbar base="h1" icon="header-channel"
-             helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp" >
+             helpUrl="" >
   <bean:message key="channels.all.jsp.toolbar"/>
 </rhn:toolbar>
 
