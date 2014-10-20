@@ -1,5 +1,10 @@
 #!/bin/bash
 
+LSOF="/usr/sbin/lsof"
+if [ -x "/usr/bin/lsof" ]; then
+    LSOF="/usr/bin/lsof"
+fi
+
 wait_for_database() {
     RETRIES=10;
     while [ $RETRIES -gt 0 ]; do
@@ -20,7 +25,7 @@ wait_for_jabberd() {
     RETRIES=10
     while [ $RETRIES -gt 0 ]
     do
-        /usr/sbin/lsof -t -i :5222 > /dev/null && break
+        $LSOF -t -i :5222 > /dev/null && break
         ((RETRIES--))
         sleep 0.5
     done
@@ -33,16 +38,18 @@ elif [ -x /etc/init.d/tomcat6 ]; then
    TOMCAT_PID=$(cat /var/run/tomcat6.pid 2>/dev/null)
 elif [ -e /lib/systemd/system/tomcat.service ]; then
    TOMCAT_PID=$(systemctl show --property=MainPID tomcat.service | sed 's/^MainPID=0*//')
+elif [ -e /usr/lib/systemd/system/tomcat.service ]; then
+   TOMCAT_PID=$(systemctl show --property=MainPID tomcat.service | sed 's/^MainPID=0*//')
 else
    echo "No tomcat service found."
    exit 0;
 fi
 
-if [ -x /usr/sbin/lsof ]; then
+if [ -x $LSOF ]; then
     echo "Waiting for tomcat to be ready ..."
     while [ -n "$TOMCAT_PID" ] ; do
-        /usr/sbin/lsof -t -i TCP:8005 | grep "^$TOMCAT_PID$" > /dev/null \
-        && /usr/sbin/lsof -t -i TCP:8009 | grep "^$TOMCAT_PID$" > /dev/null \
+        $LSOF -t -i TCP:8005 | grep "^$TOMCAT_PID$" > /dev/null \
+        && $LSOF -t -i TCP:8009 | grep "^$TOMCAT_PID$" > /dev/null \
         && break
         sleep 1
     done
