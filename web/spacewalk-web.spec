@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.14
+Version: 2.3.15
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Oct 21 2014 Tomas Lestach <tlestach@redhat.com> 2.3.15-1
+- limit snapshot tag length to the DB field lenght
+- 1150526 - introduce a check for an empty snapshot tag for ssm
+- 1024118 - Remove bogus help-url/rhn-help/helpUrl links from all pages
+
 * Wed Oct 15 2014 Jan Dobes 2.3.14-1
 - there is more to hide on unauthenticated pages
 
