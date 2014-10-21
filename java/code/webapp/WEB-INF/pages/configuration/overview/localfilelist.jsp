@@ -13,28 +13,31 @@
   <bean:message key="localfilelist.jsp.toolbar"/>
 </rhn:toolbar>
 
-  <p><bean:message key="localfilelist.jsp.summary"/></p>
-
 <form method="post" role="form" name="rhn_list" action="/rhn/configuration/file/LocalConfigFileList.do">
   <rhn:csrf />
   <rhn:submitted />
-
-  <rhn:list pageList="${requestScope.pageList}" noDataText="localfilelist.jsp.noFiles">
-    <rhn:listdisplay filterBy="localfilelist.jsp.path">
-      <rhn:column header="localfilelist.jsp.path">
-        <cfg:file id="${current.id}"
-                  path="${current.path}"
-                  type="${current.type}" />
-      </rhn:column>
-
-      <rhn:column header="localfilelist.jsp.system"
-                  url="/rhn/systems/details/configuration/Overview.do?sid=${current.serverId}">
-         <rhn:icon type="header-system-physical" title="system.common.systemAlt" />
-    	  ${fn:escapeXml(current.serverName)}
-      </rhn:column>
-    </rhn:listdisplay>
-  </rhn:list>
-
+  <div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><bean:message key="localfilelist.jsp.summary"/></h4>
+    </div>
+    <div class="panel-body">
+      <rhn:list pageList="${requestScope.pageList}" noDataText="localfilelist.jsp.noFiles">
+        <rhn:listdisplay filterBy="localfilelist.jsp.path">
+          <rhn:column header="localfilelist.jsp.path">
+            <cfg:file id="${current.id}"
+                      path="${current.path}"
+                      type="${current.type}" />
+          </rhn:column>
+    
+          <rhn:column header="localfilelist.jsp.system"
+                      url="/rhn/systems/details/configuration/Overview.do?sid=${current.serverId}">
+             <rhn:icon type="header-system-physical" title="system.common.systemAlt" />
+        	  ${fn:escapeXml(current.serverName)}
+          </rhn:column>
+        </rhn:listdisplay>
+      </rhn:list>
+    </div>
+  </div>
 </form>
 
 </body>
