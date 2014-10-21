@@ -4,7 +4,9 @@
 # what is the backend top dir
 TOP	= ..
 
+APACHECONFDIR	= /etc/httpd/conf.d
+
 INSTALL_FILES	= $(wildcard *.conf)
-INSTALL_DEST	= /etc/httpd/conf.d
+INSTALL_DEST	= $(APACHECONFDIR)
 
 include $(TOP)/Makefile.defs

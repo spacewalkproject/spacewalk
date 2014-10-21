@@ -25,7 +25,7 @@ import select
 import stat
 import tempfile
 from spacewalk.common.checksum import getFileChecksum
-
+from spacewalk.common.rhnLib import isSUSE
 from spacewalk.common.usix import ListType, TupleType, MaxInt
 
 def cleanupAbsPath(path):
@@ -265,15 +265,25 @@ def makedirs(path,  mode=int('0755', 8), user=None, group=None):
             # Changing permissions failed; ignore the error
             sys.stderr.write("Changing owner for %s failed\n" % dirname)
 
-
-def createPath(path, user='apache', group='apache', chmod=int('0755', 8)):
+def createPath(path, user=None, group=None, chmod=int('0755', 8)):
     """advanced makedirs
 
     Will create the path if necessary.
     Will chmod, and chown that path properly.
+    Defaults for user/group to the apache user
 
     Uses the above makedirs() function.
     """
+    if isSUSE():
+        if user is None:
+            user = 'wwwrun'
+        if group is None:
+            group = 'www'
+    else:
+        if user is None:
+            user = 'apache'
+        if group is None:
+            group = 'apache'
 
     path = cleanupAbsPath(path)
     if not os.path.exists(path):
@@ -290,8 +300,13 @@ def createPath(path, user='apache', group='apache', chmod=int('0755', 8)):
             sys.stderr.write("Changing owner for %s failed\n" % path)
 
 
-def setPermsPath(path, user='apache', group='root', chmod=int('0750', 8)):
+def setPermsPath(path, user=None, group='root', chmod=int('0750', 8)):
     """chown user.group and set permissions to chmod"""
+    if isSUSE() and user is None:
+        user = 'wwwrun'
+    elif user is None:
+        user = 'apache'
+
     if not os.path.exists(path):
         raise OSError("*** ERROR: Path doesn't exist (can't set permissions): %s" % path)
 
