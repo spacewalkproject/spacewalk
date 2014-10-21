@@ -14,7 +14,7 @@
 # in this software or its documentation.
 #
 
-use Sys::Hostname;
+use Net::Domain;
 use Getopt::Long;
 
 use strict 'refs';
@@ -23,7 +23,7 @@ use warnings;
 my $verbose = 0;
 my $macros = '';
 my $help = 0;
-my %macros = ('hostname' => Sys::Hostname::hostname(),
+my %macros = ('hostname' => Net::Domain::hostfqdn(),
               'server_pem' => '/etc/pki/spacewalk/jabberd/server.pem',
               'localhost' => '127.0.0.1',
               'ipaddress' => '0.0.0.0');
