@@ -26,7 +26,26 @@ my $help = 0;
 my %macros = ('hostname' => Net::Domain::hostfqdn(),
               'server_pem' => '/etc/pki/spacewalk/jabberd/server.pem',
               'localhost' => '127.0.0.1',
+              'password'  => '',
               'ipaddress' => '0.0.0.0');
+
+sub generatePassword {
+    my $length = shift;
+    my $password = "";
+
+    my @pool = qw( a b c d e f g h i j k l m n o
+                   p q r s t u v w x y z - _ %
+                   A B C D E F G H I J K L M N O
+                   P Q R S T U V W X Y Z
+                   0 1 2 3 4 5 6 7 8 9 );
+    srand;
+    for (my $i=0; $i < $length ;$i++) {
+       $password .= $pool[int(rand(@pool))];
+    }
+    return $password;
+}
+
+$macros{'password'} = generatePassword(12);
 
 # Try to guess correct path to jabberd's server.pem
 my $q = `rpm -qf /etc/jabberd/server.pem 2> /dev/null`;
@@ -67,7 +86,7 @@ if ($macros) {
         }
 }
 
-foreach my $basename ('c2s', 's2s', 'sm', 'router') {
+foreach my $basename ('c2s', 's2s', 'sm', 'router', 'router-users') {
         my $configfile = "/etc/jabberd/$basename.xml";
         my $template = "/usr/share/spacewalk/setup/jabberd/$basename.xsl";
 

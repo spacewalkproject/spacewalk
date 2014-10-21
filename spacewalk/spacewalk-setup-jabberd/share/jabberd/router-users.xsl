@@ -8,13 +8,7 @@
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="/router/local/ip">
-    <xsl:copy>
-      <xsl:text>@ipaddress@</xsl:text>
-    </xsl:copy>
-</xsl:template>
-
-<xsl:template match="/router/local/secret">
+<xsl:template match="/users/user/secret">
     <xsl:copy>
       <xsl:text>@password@</xsl:text>
     </xsl:copy>

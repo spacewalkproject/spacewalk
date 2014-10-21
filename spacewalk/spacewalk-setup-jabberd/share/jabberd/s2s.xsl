@@ -14,6 +14,12 @@
   </xsl:copy>
 </xsl:template>
 
+<xsl:template match="/s2s/router/pass">
+  <xsl:copy>
+    <xsl:text>@password@</xsl:text>
+  </xsl:copy>
+</xsl:template>
+
 <xsl:template match="/s2s/local/ip">
   <xsl:copy>
      <xsl:text>@ipaddress@</xsl:text>

@@ -14,6 +14,12 @@
   </xsl:copy>
 </xsl:template>
 
+<xsl:template match="/sm/router/pass">
+  <xsl:copy>
+    <xsl:text>@password@</xsl:text>
+  </xsl:copy>
+</xsl:template>
+
 <xsl:template match="/sm/id">
   <xsl:copy>
   <xsl:text>@hostname@</xsl:text>
