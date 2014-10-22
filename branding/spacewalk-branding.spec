@@ -74,7 +74,7 @@ cp -pR setup  %{buildroot}%{_datadir}/spacewalk/
 cp -pR java-branding.jar %{buildroot}%{_datadir}/rhn/lib/
 ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/%{tomcat}/webapps/rhn/WEB-INF/lib/java-branding.jar
 cp -p conf/rhn_docs.conf %{buildroot}/%{_prefix}/share/rhn/config-defaults/rhn_docs.conf
-find %{_datadir}/patternfly1/resources/fonts/ -name 'OpenSans-*' -exec ln -s {} %{buildroot}%{_var}/www/html/fonts/ \;
+ln -s %{_datadir}/patternfly1/resources/fonts/* %{buildroot}%{_var}/www/html/fonts/
 
 %clean
 rm -rf %{buildroot}
