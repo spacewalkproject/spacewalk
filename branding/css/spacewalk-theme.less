@@ -784,3 +784,44 @@ div:not([class~="alert"]) i.fa {
         color: @spacewalk-red;
     }
 }
+
+// icons for alert boxes decoration
+.alert:before,
+.alert:after {
+  font-family: 'PatternFlyIcons-webfont';
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.alert-info:after {
+  content: "\e604";
+  color: #72767b;
+}
+
+.alert-success:after {
+  content: "\e602";
+  color: #57a81c;
+}
+
+.alert-warning:before {
+  content: "\e60c";
+  color: #eb7720;
+}
+
+.alert-warning:after {
+  content: "\e60d";
+  color: #fff;
+}
+
+.alert-danger:before {
+  content: "\e609";
+  color: #c90813;
+}
+
+.alert-danger:after {
+  content: "\e608";
+  color: #fff;
+}
