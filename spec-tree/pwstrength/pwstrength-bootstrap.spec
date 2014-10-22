@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global apachedocroot /srv/www/htdocs
+%else
+%global apachedocroot %{_var}/www/html
+%endif
+
 Name:           pwstrength-bootstrap
 Version:        1.0.2
 Release:        4%{?dist}
@@ -21,8 +27,8 @@ The jQuery Password Strength Meter is a plugin for Twitter Bootstrap that provid
 
 %install
 rm -rf %{buildroot}
-install -d -m 755 %{buildroot}%{_var}/www/html/javascript
-install -m 644 dist/pwstrength-bootstrap-%{version}.js %{buildroot}%{_var}/www/html/javascript
+install -d -m 755 %{buildroot}%{apachedocroot}/javascript
+install -m 644 dist/pwstrength-bootstrap-%{version}.js %{buildroot}%{apachedocroot}/javascript
 
 %clean
 rm -rf %{buildroot}
@@ -33,8 +39,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_var}/www/html/javascript
-%{_var}/www/html/javascript/*
+%{apachedocroot}/javascript
 
 %changelog
 * Wed Nov 04 2015 Jan Dobes 1.0.2-4
