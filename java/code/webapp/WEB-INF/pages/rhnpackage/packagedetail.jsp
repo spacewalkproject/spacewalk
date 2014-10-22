@@ -267,7 +267,7 @@
                             </div>
                         </c:if>
                         <c:if test="${srpm_url eq null}">
-                            <div alert="alert alert-warning"><bean:message key="package.jsp.unavailable"/></div>
+                            <bean:message key="package.jsp.unavailable"/>
                         </c:if>
                     </div>
                 </div>
