@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global apachedocroot /srv/www/htdocs
+%else
+%global apachedocroot %{_var}/www/html
+%endif
+
 Name:           bootstrap-datepicker
 Version:        1.3.0
 Release:        2%{?dist}
@@ -22,10 +28,10 @@ style.
 
 %install
 rm -rf %{buildroot}
-install -d -m 755 %{buildroot}%{_var}/www/html/css
-install -d -m 755 %{buildroot}%{_var}/www/html/javascript
-install -m 644 js/bootstrap-datepicker.js %{buildroot}%{_var}/www/html/javascript/
-install -m 644 css/datepicker3.css %{buildroot}%{_var}/www/html/css/bootstrap-datepicker.css 
+install -d -m 755 %{buildroot}%{apachedocroot}/css
+install -d -m 755 %{buildroot}%{apachedocroot}/javascript
+install -m 644 js/bootstrap-datepicker.js %{buildroot}%{apachedocroot}/javascript/
+install -m 644 css/datepicker3.css %{buildroot}%{apachedocroot}/css/bootstrap-datepicker.css
 
 %clean
 rm -rf %{buildroot}
@@ -33,9 +39,12 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_var}/www/html/css/*
-%{_var}/www/html/javascript/*
-
+%{apachedocroot}/css/*
+%{apachedocroot}/javascript/*
+%if 0%{?suse_version}
+%dir %{apachedocroot}/css
+%dir %{apachedocroot}/javascript
+%endif
 
 
 %changelog
