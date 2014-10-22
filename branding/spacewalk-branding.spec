@@ -1,10 +1,18 @@
 %if  0%{?rhel} && 0%{?rhel} < 6
-%global tomcat tomcat5
+%global tomcat_path %{_var}/lib/tomcat5
+%global wwwdocroot %{_var}/www/html
 %else
 %if 0%{?fedora} || 0%{?rhel} >= 7
-%global tomcat tomcat
+%global tomcat_path %{_var}/lib/tomcat
+%global wwwdocroot %{_var}/www/html
 %else
-%global tomcat tomcat6
+%if 0%{?suse_version}
+%global tomcat_path /srv/tomcat
+%global wwwdocroot /srv/www/htdocs
+%else
+%global tomcat_path %{_var}/lib/tomcat6
+%global wwwdocroot %{_var}/www/html
+%endif
 %endif
 %endif
 
@@ -35,6 +43,9 @@ Requires:      jquery-ui
 Requires:      patternfly1
 Requires:      select2
 Requires:      select2-bootstrap-css
+%if 0%{?suse_version}
+Requires(pre): tomcat
+%endif
 
 %description
 Spacewalk specific branding, CSS, and images.
@@ -62,47 +73,55 @@ lessc --include-path=/usr/share css/spacewalk.less > css/spacewalk.css
 
 %install
 rm -rf %{buildroot}
-install -d -m 755 %{buildroot}%{_var}/www/html
-install -d -m 755 %{buildroot}%{_var}/www/html/css
+install -d -m 755 %{buildroot}%{wwwdocroot}
+install -d -m 755 %{buildroot}%{wwwdocroot}/css
 install -d -m 755 %{buildroot}%{_datadir}/spacewalk
 install -d -m 755 %{buildroot}%{_datadir}/spacewalk/web
 install -d -m 755 %{buildroot}%{_datadir}/rhn/lib/
-install -d -m 755 %{buildroot}%{_var}/lib/%{tomcat}/webapps/rhn/WEB-INF/lib/
+install -d -m 755 %{buildroot}%{tomcat_path}/webapps/rhn/WEB-INF/lib/
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn
 install -d -m 755 %{buildroot}/%{_prefix}/share/rhn/config-defaults
-cp -pR css/* %{buildroot}/%{_var}/www/html/css
-cp -pR fonts %{buildroot}/%{_var}/www/html/
-cp -pR img %{buildroot}/%{_var}/www/html/
+cp -pR css/* %{buildroot}/%{wwwdocroot}/css
+cp -pR fonts %{buildroot}/%{wwwdocroot}/
+cp -pR img %{buildroot}/%{wwwdocroot}/
 # Appplication expects two favicon's for some reason, copy it so there's just
 # one in source:
-cp -p img/favicon.ico %{buildroot}/%{_var}/www/html/
+cp -p img/favicon.ico %{buildroot}/%{wwwdocroot}/
 cp -pR setup  %{buildroot}%{_datadir}/spacewalk/
 cp -pR java-branding.jar %{buildroot}%{_datadir}/rhn/lib/
-ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/%{tomcat}/webapps/rhn/WEB-INF/lib/java-branding.jar
+ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{tomcat_path}/webapps/rhn/WEB-INF/lib/java-branding.jar
 cp -p conf/rhn_docs.conf %{buildroot}/%{_prefix}/share/rhn/config-defaults/rhn_docs.conf
-ln -s %{_datadir}/patternfly1/resources/fonts/* %{buildroot}%{_var}/www/html/fonts/
+ln -s %{_datadir}/patternfly1/resources/fonts/* %{buildroot}%{wwwdocroot}/fonts/
 
 %clean
 rm -rf %{buildroot}
 
 
 %files
-%dir %{_var}/www/html/css
-%{_var}/www/html/css/*.css
-%dir %{_var}/www/html/fonts
-%{_var}/www/html/fonts/*
-%dir /%{_var}/www/html/img
-%{_var}/www/html/img/*
-%{_var}/www/html/favicon.ico
+%dir %{wwwdocroot}/css
+%{wwwdocroot}/css/*.css
+%dir %{wwwdocroot}/fonts
+%{wwwdocroot}/fonts/*
+%dir /%{wwwdocroot}/img
+%{wwwdocroot}/img/*
+%{wwwdocroot}/favicon.ico
 %{_datadir}/spacewalk/
 %{_datadir}/rhn/lib/java-branding.jar
-%{_var}/lib/%{tomcat}/webapps/rhn/WEB-INF/lib/java-branding.jar
+%{tomcat_path}/webapps/rhn/WEB-INF/lib/java-branding.jar
 %{_prefix}/share/rhn/config-defaults/rhn_docs.conf
 %doc LICENSE
+%if 0%{?suse_version}
+%attr(775,tomcat,tomcat) %dir %{tomcat_path}/webapps/rhn
+%attr(775,tomcat,tomcat) %dir %{tomcat_path}/webapps/rhn/WEB-INF
+%attr(775,tomcat,tomcat) %dir %{tomcat_path}/webapps/rhn/WEB-INF/lib/
+%dir %{_prefix}/share/rhn
+%dir %{_prefix}/share/rhn/lib
+%attr(755,root,www) %dir %{_prefix}/share/rhn/config-defaults
+%endif
 
 %files devel
 %defattr(-,root,root)
-%{_var}/www/html/css/*.less
+%{wwwdocroot}/css/*.less
 
 %changelog
 * Tue Dec 15 2015 Jan Dobes 2.5.2-1
