@@ -43,7 +43,7 @@ Provides:       libclntsh.so.%{soversion}.1%{?lib64} = %{icversion}
 Provides:       libociei.so%{?lib64}       = %{icversion}
 Provides:       ojdbc14                    = %{icversion}
 Obsoletes:      rhn-oracle-jdbc           <= 1.0
-Requires:       libstdc++.so.5%{?lib64}
+Requires:       libstdc++.so.6%{?lib64}
 
 %description
 Compatibility package so that perl-DBD-Oracle will install.
