@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global apachedocroot /srv/www/htdocs
+%else
+%global apachedocroot %{_var}/www/html
+%endif
+
 Name:           jquery-timepicker
 Version:        1.3.3
 Release:        1%{?dist}
@@ -21,10 +27,10 @@ A lightweight, customizable jQuery timepicker plugin inspired by Google Calendar
 
 %install
 rm -rf %{buildroot}
-install -d -m 755 %{buildroot}%{_var}/www/html/css
-install -d -m 755 %{buildroot}%{_var}/www/html/javascript
-install -m 644 jquery.timepicker.css %{buildroot}%{_var}/www/html/css/
-install -m 644 jquery.timepicker.js %{buildroot}%{_var}/www/html/javascript/
+install -d -m 755 %{buildroot}%{apachedocroot}/css
+install -d -m 755 %{buildroot}%{apachedocroot}/javascript
+install -m 644 jquery.timepicker.css %{buildroot}%{apachedocroot}/css/
+install -m 644 jquery.timepicker.js %{buildroot}%{apachedocroot}/javascript/
 
 %clean
 rm -rf %{buildroot}
@@ -32,9 +38,12 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_var}/www/html/css/*
-%{_var}/www/html/javascript/*
-
+%{apachedocroot}/css/*
+%{apachedocroot}/javascript/*
+%if 0%{?suse_version}
+%dir %{apachedocroot}/css
+%dir %{apachedocroot}/javascript
+%endif
 
 
 %changelog
