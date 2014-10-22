@@ -19,6 +19,7 @@ use Data::Dumper;
 use Getopt::Long;
 use Frontier::Client;
 use Term::ReadKey;
+use Scalar::Util qw(looks_like_number);
 
 #set defaults;
 my ($server, $user, $password)= ('', '', '');
@@ -75,8 +76,16 @@ while (my $param = shift @ARGV) {
                 $param = join('', <F>);
                 close F;
         } elsif ( $param =~ '%boolean:(.*)%') {
+                unless (looks_like_number($1)) {
+                    print "Invalid boolean value: $1\n";
+                    exit 3;
+                }
                 $param = $client->boolean($1);
         } elsif ( $param =~ '%integer:(.*)%') {
+                unless (looks_like_number($1)) {
+                    print "Invalid integer value: $1\n";
+                    exit 4;
+                }
                 $param = $client->int($1);
         } elsif ( $param =~ '%string:(.*)%') {
                 $param = $client->string($1);
