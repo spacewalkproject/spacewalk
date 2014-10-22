@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global apachedocroot /srv/www/htdocs
+%else
+%global apachedocroot %{_var}/www/html
+%endif
+
 Name:           jquery-ui
 Version:        1.10.4.custom
 Release:        2%{?dist}
@@ -9,6 +15,9 @@ URL:            http://jqueryui.com/
 # The source zip can be downloaded from the following URL:
 # http://jqueryui.com/download/#!version=1.10.4&components=1110000010000000000000000000000000&filename=%{name}-%{version}.zip
 Source0:        %{name}-%{version}.zip
+%if 0%{?suse_version}
+BuildRequires:  unzip
+%endif
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
@@ -22,8 +31,8 @@ jQuery UI is a curated set of user interface interactions, effects, widgets, and
 
 %install
 rm -rf %{buildroot}
-install -d -m 755 %{buildroot}%{_var}/www/html/javascript
-install -m 644 js/%{name}-%{version}.min.js %{buildroot}%{_var}/www/html/javascript/
+install -d -m 755 %{buildroot}%{apachedocroot}/javascript
+install -m 644 js/%{name}-%{version}.min.js %{buildroot}%{apachedocroot}/javascript/
 
 %clean
 rm -rf %{buildroot}
@@ -31,8 +40,10 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_var}/www/html/javascript/*
-
+%{apachedocroot}/javascript/*
+%if 0%{?suse_version}
+%dir %{apachedocroot}/javascript
+%endif
 
 
 %changelog
