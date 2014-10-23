@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.14
+Version:	2.3.15
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Oct 23 2014 Tomas Lestach <tlestach@redhat.com> 2.3.15-1
+- 1028933 - extending spacewalk-api man page with usage of boolean values
+
 * Wed Oct 22 2014 Tomas Lestach <tlestach@redhat.com> 2.3.14-1
 - 1028933 - detect invalid boolean/integer entries
 - 1150697 - teach spacewalk-export that system-profiles org is organization_id
