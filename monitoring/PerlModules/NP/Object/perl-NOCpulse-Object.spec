@@ -7,6 +7,8 @@ Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: perl(Config::IniFiles) perl(FreezeThaw) perl(NOCpulse::Debug) perl(ExtUtils::MakeMaker)
+Requires:     perl(FreezeThaw)
+Requires:     perl(Config::IniFiles)
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
