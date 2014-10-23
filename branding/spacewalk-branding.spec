@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.9
+Version:    2.3.10
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,13 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Oct 23 2014 Jan Dobes 2.3.10-1
+- decorate alert messages with patternfly icons
+- change style of alerts
+- actually link all patternfly fonts
+- style .spacewalk-list-footer-addons-extra to float-right like all the other
+  list-bottom-matter
+
 * Mon Oct 20 2014 Jan Dobes 2.3.9-1
 - slightly improve contrast of left menu
 
