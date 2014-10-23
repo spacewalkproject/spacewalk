@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.63
+Version: 2.3.64
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 23 2014 Jan Dobes 2.3.64-1
+- remove invalid div
+- Style tweak to fix /rhn/configuration/channel/ChannelSystems
+- Correct style-issue due to empty old-list-tag in /rhn/configuration/Overview
+- Correct style-issue due to empty old-list-tag in
+  /rhn/configuration/file/LocalConfigFileList
+- Correct style-issue due to empty old-list-tag in
+  /rhn/configuration/GlobalConfigFileList
+- style /rhn/configuration/file/DeleteFile
+- style /rhn/configuration/file/DeleteRevision
+
 * Mon Oct 20 2014 Stephen Herr <sherr@redhat.com> 2.3.63-1
 - 1151005 - add package id to query results so webui can generate link
 - 1024118 - Remove bogus help-url/rhn-help/helpUrl links from all pages
