@@ -142,10 +142,13 @@ def initDB(backend=None, host=None, port=None, username=None,
 #    except (KeyboardInterrupt, SystemExit):
 #        raise
     except SQLConnectError, e:
-        global __DB
-        global __DB2
-        del __DB
-        del __DB2
+        try:
+            global __DB
+            global __DB2
+            del __DB
+            del __DB2
+        except NameError:
+            pass
         raise e
     except:
         raise
