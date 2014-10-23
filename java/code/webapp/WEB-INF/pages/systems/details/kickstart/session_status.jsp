@@ -90,7 +90,7 @@
         ${ksession.packageFetchCount}
     </td>
   </tr>
-  <c:if test="${not failed}">
+  <c:if test="${not failed and not complete}">
   <tr>
     <th><bean:message key="kickstart.session_status.jsp.cancel_cancel" /></th>
     <td>
