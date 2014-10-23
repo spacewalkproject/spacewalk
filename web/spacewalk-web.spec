@@ -40,10 +40,17 @@ Group: Applications/Internet
 Summary: Programs needed to be installed on the RHN Web base classes
 Requires: spacewalk-pxt
 Provides: spacewalk(spacewalk-base) = %{version}-%{release}
-Requires: /usr/bin/sudo 
+Requires: /usr/bin/sudo
 Requires: webserver
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Requires: perl-Digest-SHA
+Requires: perl(Digest::SHA)
+Requires: perl(DateTime)
+Requires: perl(Frontier::Client)
+Requires: perl(LWP::UserAgent)
+Requires: perl(Mail::RFC822::Address)
+Requires: perl(Params::Validate)
+Requires: perl(URI)
+Requires: perl(XML::LibXML)
 Obsoletes: rhn-base < 5.3.0
 Provides: rhn-base = 5.3.0
 
@@ -60,6 +67,9 @@ Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes: rhn-base-minimal < 5.3.0
 Provides: rhn-base-minimal = 5.3.0
+Requires: perl(DBI)
+Requires: perl(Params::Validate)
+Requires: perl(Digest::HMAC_SHA1)
 
 %description -n spacewalk-base-minimal
 Independent Perl modules in the RHN:: name-space.
@@ -111,7 +121,13 @@ Requires: httpd
 Obsoletes: rhn-pxt < 5.3.0
 Provides:  rhn-pxt = 5.3.0
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-
+Requires:  perl(Apache2::Request)
+Requires:  perl(BSD::Resource)
+Requires:  perl(Cache::FileCache)
+Requires:  perl(Date::Parse)
+Requires:  perl(HTML::Entities)
+Requires:  perl(Params::Validate)
+Requires:  perl(URI)
 %description -n spacewalk-pxt
 This package is the core software of the new Spacewalk site.  It is responsible
 for HTML, XML, WML, HDML, and SOAP output of data.  It is more or less
@@ -124,7 +140,10 @@ Summary: PXT Tag handlers
 Obsoletes: rhn-sniglets < 5.3.0
 Provides:  rhn-sniglets = 5.3.0
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-
+Requires:  perl(Params::Validate)
+Requires:  perl(Mail::RFC822::Address)
+Requires:  perl(URI)
+Requires:  perl(XML::LibXML)
 %description -n spacewalk-sniglets
 This package contains the tag handlers for the PXT templates.
 
@@ -253,13 +272,13 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/Grail.pm
 %{perl_vendorlib}/Grail/
 
-%files -n spacewalk-pxt 
+%files -n spacewalk-pxt
 %{perl_vendorlib}/PXT.pm
 %{perl_vendorlib}/PXT/
 %exclude %{perl_vendorlib}/PXT/Config.pm
 %{_mandir}/man3/PXT::ApacheHandler.3pm.gz
 
-%files -n spacewalk-sniglets 
+%files -n spacewalk-sniglets
 %{perl_vendorlib}/Sniglets.pm
 %{perl_vendorlib}/Sniglets/
 
