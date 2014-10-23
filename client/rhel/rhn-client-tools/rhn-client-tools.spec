@@ -97,7 +97,9 @@ scheduled actions.
 %package -n rhn-setup
 Summary: Configure and register an RHN/Spacewalk client
 Group: System Environment/Base
+%if 0%{?fedora} || 0%{?rhel}
 Requires: usermode >= 1.36
+%endif
 Requires: %{name} = %{version}-%{release}
 Requires: rhnsd
 %if 0%{?rhel} == 5
@@ -121,8 +123,8 @@ Requires: pam >= 0.72
 Requires: python-gnome python-gtk
 %else
 Requires: pygtk2 pygtk2-libglade gnome-python2 gnome-python2-canvas
-%endif
 Requires: usermode-gtk
+%endif
 %if 0%{?fedora} || 0%{?rhel} > 5
 Requires: gnome-python2-gnome gnome-python2-bonobo
 Requires: liberation-sans-fonts
@@ -176,6 +178,8 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_*_*.*
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
 %if 0%{?suse_version}
 %suse_update_desktop_file -r rhn_register "Settings;System;SystemSetup;"
+# no usermod on SUSE
+rm -f $RPM_BUILD_ROOT%{_bindir}/rhn_register
 %endif
 
 %find_lang %{name}
@@ -285,8 +289,9 @@ make -f Makefile.rhn-client-tools test
 
 %config(noreplace) %{_sysconfdir}/security/console.apps/rhn_register
 %config(noreplace) %{_sysconfdir}/pam.d/rhn_register
-
+%if 0%{?fedora} || 0%{?rhel}
 %{_bindir}/rhn_register
+%endif
 %{_sbindir}/rhn_register
 %{_sbindir}/rhnreg_ks
 %{_sbindir}/spacewalk-channel
