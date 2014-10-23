@@ -10,7 +10,7 @@ forward_services() {
     ACTION="$1"
 
     for service in $SERVICES; do
-	if [ -e /etc/rc.d/init.d/$service ]; then
+	if [ -e /etc/init.d/$service -o -e /lib/systemd/system/$service.service ]; then
 	    /sbin/service $service $ACTION
 	    let RETVAL=$RETVAL+$?
 	fi
@@ -24,7 +24,7 @@ reverse_services() {
     ACTION="$1"
 
     for service in $(echo $SERVICES | tac -s" "); do
-	if [ -e /etc/rc.d/init.d/$service ]; then
+	if [ -e /etc/init.d/$service -o -e /lib/systemd/system/$service.service ]; then
 	    /sbin/service $service $ACTION
             let RETVAL=$RETVAL+$?
         fi
