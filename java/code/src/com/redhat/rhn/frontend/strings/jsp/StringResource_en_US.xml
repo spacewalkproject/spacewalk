@@ -864,7 +864,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="login.jsp.schemaupgraderequired">
-        <source>A schema upgrade is required. Please upgrade your schema at your earliest convenience to receive latest bugfixes and avoid potential problems.</source>
+        <source>A schema upgrade is required. Please upgrade your schema at your earliest convenience to receive latest bug fixes and avoid potential problems.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
           <context context-type="sourcefile">/rhn/ReLogin</context>
@@ -4372,7 +4372,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       </trans-unit>
       <trans-unit id="errata.create.jsp.instructions">
-        <source>Create new errata here.  Required items are marked with a (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</source>
+        <source>Create errata here.  Required items are marked with a (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/Create.do</context>
         </context-group>
@@ -5484,7 +5484,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       </trans-unit>
       <trans-unit id="systemcurrency.jsp.bug">
-        <source>Bugfixes</source>
+        <source>Bug Fixes</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
         </context-group>
@@ -8060,7 +8060,7 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
       </trans-unit>
       <trans-unit id="probes.index.jsp.noprobes">
-        <source>No probes assigned to this system.  Click the "create new probe" link above to add a Probe to this system.</source>
+        <source>No probes assigned to this system.  Click the "Create Probe" link above to add a Probe to this system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
         </context-group>
@@ -8138,7 +8138,7 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
         <!-- method-form.jsp.header2 -->
         <trans-unit id="method-create.jsp.header2">
-          <source>Create new Notification Method</source>
+          <source>Create Notification Method</source>
         </trans-unit>
         <trans-unit id="method-create.jsp.summary">
           <source>Fill out this form to create a new Notification Method.  Changes to Probes that use this new Method will require a Scout Config Push.</source>
@@ -8643,19 +8643,19 @@ Please note that some manual configuration of these scripts may still be require
         <source>The scheduling service appears down.  Please contact your Satellite administrator.</source>
       </trans-unit>
       <trans-unit id="toolbar.create.repos">
-        <source>create new repository</source>
+        <source>Create Repository</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channel/manage/repo/RepoList.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.delete.repos">
-        <source>delete repository</source>
+        <source>Delete Repository</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channel/manage/repo/RepoDetails.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="repos.jsp.toolbar">
-        <source>Create New Repository</source>
+        <source>Create Repository</source>
       </trans-unit>
       <trans-unit id="repos.jsp.header">
         <source>Repositories</source>
@@ -8760,7 +8760,7 @@ Please note that some manual configuration of these scripts may still be require
         <source>Define what @@PRODUCT_NAME@@ roles shall be assigned to externally authenticated users with specified group set.</source>
       </trans-unit>
       <trans-unit id="extgroup.jsp.create">
-        <source>Create New External Group</source>
+        <source>Create External Group</source>
       </trans-unit>
       <trans-unit id="extgroup.jsp.update">
         <source>Update External Group - {0}</source>
@@ -8784,7 +8784,7 @@ Please note that some manual configuration of these scripts may still be require
         <source>Define what System Groups shall be associated with the specified external group.</source>
       </trans-unit>
       <trans-unit id="distchannelmap.jsp.create">
-        <source>Create New Distribution Channel Map</source>
+        <source>Create Distribution Channel Map</source>
       </trans-unit>
       <trans-unit id="distchannelmap.jsp.update">
         <source>Update Distribution Channel Map</source>
@@ -8793,7 +8793,7 @@ Please note that some manual configuration of these scripts may still be require
         <source>Delete Distribution Channel Map</source>
       </trans-unit>
       <trans-unit id="distchannelmap.jsp.create.submit">
-        <source>Create New Mapping</source>
+        <source>Create Mapping</source>
       </trans-unit>
       <trans-unit id="distchannelmap.jsp.update.submit">
         <source>Update Mapping</source>
@@ -8829,13 +8829,13 @@ Please note that some manual configuration of these scripts may still be require
         <source>Default Distribution Channel Mappings cannot be deleted. They can only be overriden within every organization.</source>
       </trans-unit>
       <trans-unit id="toolbar.create.distchannelmap">
-        <source>create new distribution channel mapping</source>
+        <source>Create Distribution Channel Mapping</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channel/manage/repo/RepoList.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.delete.distchannelmap">
-        <source>delete distribution channel mapping</source>
+        <source>Delete Distribution Channel Mapping</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channel/manage/repo/RepoList.do</context>
         </context-group>
@@ -10024,7 +10024,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.create.keys">
-        <source>create new stored key/cert</source>
+        <source>Create Stored Key/Cert</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
@@ -10156,7 +10156,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="preservation_list.jsp.nokeys">
-        <source>There are currently no file preservation lists defined.  Click the "create new file preservation list" link above to create a new list.</source>
+        <source>There are currently no file preservation lists defined.  Click the "Create File Preservation List" link above to create a new list.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
@@ -10168,7 +10168,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.create.filelist">
-        <source>create new file preservation list</source>
+        <source>Create File Preservation List</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
@@ -10543,7 +10543,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Default kickstart snippets are not editable.</source>
         </trans-unit>
         <trans-unit id="toolbar.create.snippets">
-          <source>create new snippet</source>
+          <source>Create Snippet</source>
         </trans-unit>
         <trans-unit id="cobbler.snippet.name">
           <source>Snippet Name</source>
@@ -10591,7 +10591,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
         </trans-unit>
         <trans-unit id="snippetcreate.jsp.toolbar">
-          <source>Create New Snippet</source>
+          <source>Create Snippet</source>
         </trans-unit>
         <trans-unit id="snippetcreate.jsp.header2">
           <source>Create Snippet</source>
@@ -10679,7 +10679,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.criticalsystems.bugfixerrata">
-        <source>Bugfix Errata</source>
+        <source>Bug Fix Errata</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
@@ -10757,7 +10757,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.nogroups">
-        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
@@ -10967,7 +10967,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.tasks.manage_sat_orgs">
-        <source>Manage &lt;strong&gt;@@PRODUCT_NAME@@ Organizations&lt;/strong&gt;</source>
+        <source>Manage &lt;strong&gt;Organizations&lt;/strong&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
@@ -11139,10 +11139,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
       </trans-unit>
       <trans-unit id="toolbar.create.channel">
-        <source>create new channel</source>
+        <source>Create Channel</source>
       </trans-unit>
       <trans-unit id="toolbar.clone.channel">
-        <source>clone channel</source>
+        <source>Clone Channel</source>
       </trans-unit>
       <trans-unit id="kickstart.troubleshooting.jsp.header1">
         <source>Troubleshooting</source>
@@ -11359,13 +11359,13 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Activation Keys</source>
         </trans-unit>
         <trans-unit id="toolbar.create.activationkeys">
-          <source>create new key</source>
+          <source>Create Key</source>
         </trans-unit>
         <trans-unit id="toolbar.clone.activationkeys">
-          <source>clone key</source>
+          <source>Clone Key</source>
         </trans-unit>
         <trans-unit id="toolbar.delete.activationkeys">
-          <source>delete key</source>
+          <source>Delete Key</source>
         </trans-unit>
         <trans-unit id="activation-keys.common.alt">
           <source>Activation Key icon</source>
@@ -12394,7 +12394,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Remove Tags</source>
         </trans-unit>
         <trans-unit id="toolbar.create.snapshot">
-          <source>create new system tag</source>
+          <source>Create System Tag</source>
         </trans-unit>
         <trans-unit id="system.history.snapshot.tagDeleteHeader">
           <source>Confirm Snapshot Tag Removal</source>
@@ -12744,13 +12744,13 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.create.configchannel">
-        <source>create new config channel</source>
+        <source>Create Config Channel</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.create.org">
-        <source>create new organization</source>
+        <source>Create Organization</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
         </context-group>
@@ -13012,7 +13012,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.tasks.modifyCreate">
-        <source>Create new configuration file or directory</source>
+        <source>Create configuration file or directory</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
@@ -13359,7 +13359,7 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
       </trans-unit>
       <!-- create.jspf -->
       <trans-unit id="addfiles.jsp.create.jspf.title">
-        <source>Create New Configuration File</source>
+        <source>Create Configuration File</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
@@ -14629,7 +14629,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Upload File</source>
         </trans-unit>
         <trans-unit id="toolbar.create.revision">
-          <source>create new revision</source>
+          <source>Create Revision</source>
         </trans-unit>
         <trans-unit id="manage.jsp.success">
           <source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; successfully uploaded.</source>
@@ -16786,7 +16786,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
           <source>No kickstartable distributions available.</source>
         </trans-unit>
         <trans-unit id="kickstart.kickstartable_distro_create_new.jsp">
-          <source>create new distribution</source>
+          <source>Create Distribution</source>
         </trans-unit>
         <trans-unit id="kickstart.kickstartable_distributions.jsp">
           <source>Kickstartable Distributions</source>
@@ -17471,7 +17471,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <source>Security (Low)</source>
         </trans-unit>
         <trans-unit id="exportcolumn.bug">
-          <source>Bugfixes</source>
+          <source>Bug Fixes</source>
         </trans-unit>
         <trans-unit id="exportcolumn.enhancement">
           <source>Enhancements</source>
@@ -18215,7 +18215,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.create.crashnote">
-        <source>create new crash note</source>
+        <source>Create Crash Note</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
         </context-group>
@@ -18293,13 +18293,13 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.create.customdata">
-        <source>create new value</source>
+        <source>Create Value</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/details/CreateCustomData.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.delete.customdata">
-        <source>delete value</source>
+        <source>Delete Value</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/details/CreateCustomData.do</context>
         </context-group>
@@ -18667,13 +18667,13 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.create.note">
-        <source>create new note</source>
+        <source>Create Note</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/details/Note.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.delete.note">
-        <source>delete note</source>
+        <source>Delete Note</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/details/Note.do</context>
         </context-group>
@@ -19187,7 +19187,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       </trans-unit>
       <trans-unit id="orgcreate.jsp.title">
-        <source>Create New Organization</source>
+        <source>Create Organization</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgCreate.do</context>
         </context-group>
@@ -20439,13 +20439,13 @@ given channel.</source>
         <source>Last Checkin</source>
       </trans-unit>
       <trans-unit id="system.jsp.customkey.createlink">
-        <source>create new key</source>
+        <source>Create Key</source>
       </trans-unit>
       <trans-unit id="toolbar.create.customkey">
-        <source>create new key</source>
+        <source>Create Key</source>
       </trans-unit>
       <trans-unit id="toolbar.delete.customkey">
-        <source>delete key</source>
+        <source>Delete Key</source>
       </trans-unit>
       <trans-unit id="system.jsp.customkey.createtitle">
         <source>Create Custom Info Key</source>

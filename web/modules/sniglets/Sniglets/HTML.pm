@@ -137,7 +137,7 @@ sub creation_link {
   my %params = @_;
 
   my $icon = PXT::HTML->icon(-type => "item-add");
-  return qq{<a href="$params{url}">${icon}create new $params{type}</a>};
+  return qq{<a href="$params{url}">${icon}Create $params{type}</a>};
 }
 
 sub deletion_link {
@@ -145,7 +145,7 @@ sub deletion_link {
   my %params = @_;
 
   my $icon = PXT::HTML->icon(-type => "item-del");
-  return qq{<a href="$params{url}">${icon}delete $params{type}</a>};
+  return qq{<a href="$params{url}">${icon}Delete $params{type}</a>};
 }
 
 sub misc_link {
