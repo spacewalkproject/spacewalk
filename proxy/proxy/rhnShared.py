@@ -451,7 +451,7 @@ class SharedHandler:
 
         # read content if there is some or the size is unknown
         if (size > 0 or size == -1) and (toRequest.method != 'HEAD'):
-            tfile = SmartIO(max_mem_size=CFG.BUFFER_SIZE)
+            tfile = SmartIO(max_mem_size=CFG.MAX_MEM_FILE_SIZE)
             buf = fromResponse.read(CFG.BUFFER_SIZE)
             while buf:
                 try:
