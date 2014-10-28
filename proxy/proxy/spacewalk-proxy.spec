@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.3.0
+Version: 2.3.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,10 @@ fi
 
 
 %changelog
+* Tue Oct 28 2014 Stephen Herr <sherr@redhat.com> 2.3.1-1
+- 1158193 - configure proxy max memory file size separately from buffer_size
+- Bumping package versions for 2.3.
+
 * Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.10-1
 - fix copyright years
 
