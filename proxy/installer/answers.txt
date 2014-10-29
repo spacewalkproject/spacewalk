@@ -2,7 +2,7 @@
 # for full list of possible option see
 # man configure-proxy.sh
 
-VERSION=0.5
+#VERSION=0.5
 RHN_PARENT=your.spacewalk.org
 TRACEBACK_EMAIL=your@email.com
 SSL_EMAIL=$TRACEBACK_EMAIL
