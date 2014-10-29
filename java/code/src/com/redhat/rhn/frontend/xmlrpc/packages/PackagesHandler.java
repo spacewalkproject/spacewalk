@@ -507,6 +507,8 @@ public class PackagesHandler extends BaseHandler {
      * @throws IOException if there is an exception
 
      * @xmlrpc.doc Retrieve the package file associated with a package.
+     * (Consider using <a href ="#getPackageUrl">packages.getPackageUrl</a>
+     * for larger files.)
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "package_id")
      * @xmlrpc.returntype binary object - package file
