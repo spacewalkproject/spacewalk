@@ -5,12 +5,13 @@
 @gray-darker:            lighten(#000, 13.5%); // #222
 @gray-dark:              lighten(#000, 25%);   // #333
 @gray:                   lighten(#000, 50%); // #555
-@gray-light:             lighten(#000, 80%);   // #999
+@gray-light:             lighten(#000, 60%);   // #999
 @gray-lighter:           lighten(#000, 95%); // #eee
 
 @spacewalk-green:        #7ac142;
 @spacewalk-blue:         #4ea1ee;
 @spacewalk-blue-2:       #00aad4;
+@spacewalk-blue-3:       #4df7ff;
 @spacewalk-gold-yellow: #ffab47;
 @spacewalk-red:          #a81a1a;
 
@@ -18,20 +19,23 @@
 @spacewalk-main:   	   @spacewalk-blue-2;
 @spacewalk-header:       url('../../img/spacewalk-header-background.png') repeat-x @gray;
 @spacewalk-footer:       #030303;
-@spacewalk-aside:        darken(@gray-lighter, 6%);
+@spacewalk-aside:        @gray-light;
 
 // Colours for the menu in the first column on the left:
-@spacewalk-aside-border: darken(@spacewalk-aside, 10%);
-@spacewalk-aside-menu-hyperlink: #666;
-@spacewalk-aside-menu-hyperlink-hover: #555;
+@spacewalk-aside-border: lighten(@spacewalk-aside, 8%);
+@spacewalk-aside-first-submenu-hyperlink: #fff;
+@spacewalk-aside-first-submenu-hyperlink-hover: #fff;
+@spacewalk-aside-second-submenu-hyperlink: #444;
+@spacewalk-aside-second-submenu-hyperlink-hover: #444;
+@spacewalk-aside-menu-hyperlink-active: @spacewalk-blue-3;
 
 /* aside menu colors */
 @spacewalk-list-menu:    @spacewalk-aside;
-@spacewalk-list-menu-active:    lighten(@spacewalk-list-menu, 12%);
-@spacewalk-list-menu-hover: lighten(@spacewalk-list-menu, 8%);
-@spacewalk-list-first-submenu:    darken(@spacewalk-list-menu, 6%);
-@spacewalk-list-first-submenu-active:    lighten(@spacewalk-list-first-submenu, 14%);
-@spacewalk-list-first-submenu-hover:    lighten(@spacewalk-list-first-submenu, 8%);
+@spacewalk-list-menu-active:    darken(@spacewalk-list-menu, 15%);
+@spacewalk-list-menu-hover: darken(@spacewalk-list-menu, 10%);
+@spacewalk-list-first-submenu:    lighten(@spacewalk-list-menu, 25%);
+@spacewalk-list-first-submenu-active:    darken(@spacewalk-list-first-submenu, 40%);
+@spacewalk-list-first-submenu-hover:    darken(@spacewalk-list-first-submenu, 10%);
 @spacewalk-list-first-submenu-last-line:    darken(@spacewalk-list-first-submenu, 8%);
 @spacewalk-list-second-submenu:    darken(@spacewalk-list-first-submenu, 6%);
 @spacewalk-list-second-submenu-active:    lighten(@spacewalk-list-second-submenu, 18%);
@@ -39,7 +43,7 @@
 @spacewalk-list-second-submenu-last-line:    darken(@spacewalk-list-second-submenu, 8%);
 
 //Icons legend:
-@spacewalk-icon-legend:   lighten(@spacewalk-aside, 10%);
+@spacewalk-icon-legend:   lighten(@spacewalk-aside, 25%);
 @spacewalk-icon-legend-text: @text-color;
 
 /* Roboto variable: font variable to be applied in different text elements*/
