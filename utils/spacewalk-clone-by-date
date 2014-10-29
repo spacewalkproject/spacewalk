@@ -114,8 +114,10 @@ def merge_config(options):
             if type(channel_dict[key]) == type(""):
                 channel_dict[key] = [channel_dict[key]]
 
-    validate_list_dict("blacklist", options.blacklist)
-    validate_list_dict("removelist", options.removelist)
+    if options.blacklist:
+        validate_list_dict("blacklist", options.blacklist)
+    if options.removelist:
+        validate_list_dict("removelist", options.removelist)
 
     return options
 
