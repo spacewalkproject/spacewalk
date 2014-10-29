@@ -297,11 +297,15 @@ def parse_args():
         options.removelist = {"ALL":options.removelist.split(",")}
 
     if options.errata:
-        if options.to_date:
-            raise UserError("Cannot specify both --to_date and --errata.")
         options.errata = options.errata.split(',')
 
     options = merge_config(options)
+
+    if options.errata and options.to_date:
+        raise UserError("Cannot specify both --to_date and --errata.")
+
+    if options.errata and options.security_only:
+        raise UserError("Cannot specify both --security_only and --errata.")
 
     if options.channels == None or len(options.channels) == 0:
         raise UserError("No channels specified. See --help for details.")
