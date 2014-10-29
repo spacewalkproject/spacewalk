@@ -43,4 +43,8 @@
         </button>
     </div>
 
+    <rl:csv
+        name="errataList"
+        exportColumns="errataAdvisoryType,advisoryName,synopsisupdateDate"/>
+
 </rl:listset>
