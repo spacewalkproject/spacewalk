@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.15
+Version:	2.3.16
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Oct 29 2014 Stephen Herr <sherr@redhat.com> 2.3.16-1
+- 1158655 - fix error if blacklist / removelist not in scbd config file
+- 1015963 - improve error messaging in scbd about optinos that don't make sense
+
 * Thu Oct 23 2014 Tomas Lestach <tlestach@redhat.com> 2.3.15-1
 - 1028933 - extending spacewalk-api man page with usage of boolean values
 
