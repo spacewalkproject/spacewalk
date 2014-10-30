@@ -338,16 +338,6 @@ if ! /sbin/runuser nobody -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
     exit 1
 fi
 
-VERSION_FROM_PARENT=$(rhn-proxy-activate --server=$RHN_PARENT --list-available-versions 2>/dev/null|sort|tail -n1)
-VERSION_FROM_RPM=$(rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2)
-default_or_input "Proxy version to activate" VERSION ${VERSION_FROM_PARENT:-$VERSION_FROM_RPM}
-
-default_or_input "Traceback email" TRACEBACK_EMAIL ''
-
-default_or_input "Use SSL" USE_SSL 'Y/n'
-USE_SSL=$(yes_no $USE_SSL)
-
-
 default_or_input "HTTP Proxy" HTTP_PROXY ''
 
 if [ "$HTTP_PROXY" != "" ]; then
@@ -358,6 +348,21 @@ if [ "$HTTP_PROXY" != "" ]; then
         default_or_input "HTTP password" HTTP_PASSWORD ''
     fi
 fi
+
+VERSION_FROM_PARENT=$(rhn-proxy-activate --server=$RHN_PARENT \
+        --http-proxy="$HTTP_PROXY" \
+        --http-proxy-username="$HTTP_USERNAME" \
+        --http-proxy-password="$HTTP_PASSWORD" \
+        --ca-cert="$CA_CHAIN" \
+        --list-available-versions 2>/dev/null|sort|tail -n1)
+VERSION_FROM_RPM=$(rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2)
+default_or_input "Proxy version to activate" VERSION ${VERSION_FROM_PARENT:-$VERSION_FROM_RPM}
+
+default_or_input "Traceback email" TRACEBACK_EMAIL ''
+
+default_or_input "Use SSL" USE_SSL 'Y/n'
+USE_SSL=$(yes_no $USE_SSL)
+
 
 cat <<SSLCERT
 Regardless of whether you enabled SSL for the connection to the Spacewalk Parent
