@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.125
+Version: 2.2.126
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -777,6 +777,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 30 2014 Stephen Herr <sherr@redhat.com> 2.2.126-1
+- remove jasper2 validateXml attribute as it's causing troubles
+
 * Thu Oct 30 2014 Stephen Herr <sherr@redhat.com> 2.2.125-1
 - 1159053 - Fix two XSS flaws in Kickstart Snippets and List Attributes
 
