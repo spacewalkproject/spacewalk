@@ -351,15 +351,24 @@ public class DataSetManipulator {
 
         String sortKey = ListTagUtil.makeSortByLabel(uniqueName);
         String sortDirectionKey = ListTagUtil.makeSortDirLabel(uniqueName);
-        String sortAttribute = request.getParameter(sortKey);
-        String sortDir = request.getParameter(sortDirectionKey);
+        String sortAttribute = StringUtils.defaultString(request.getParameter(sortKey));
+        String sortDir = StringUtils.defaultString(request.getParameter(sortDirectionKey));
+        if (!sortDir.equals(RequestContext.SORT_ASC) &&
+                !sortDir.equals(RequestContext.SORT_DESC)) {
+            sortDir = ascending ? RequestContext.SORT_ASC : RequestContext.SORT_DESC;
+        }
         if (AlphaBarHelper.getInstance().isSelected(uniqueName, request)) {
             Collections.sort(dataset, new DynamicComparator(alphaCol,
                     RequestContext.SORT_ASC));
         }
         else if (!StringUtils.isBlank(sortAttribute)) {
-            Collections.sort(dataset, new DynamicComparator(sortAttribute,
-                    sortDir));
+            try {
+                Collections.sort(dataset, new DynamicComparator(sortAttribute, sortDir));
+            }
+            catch (IllegalArgumentException iae) {
+                Collections.sort(dataset, new DynamicComparator(defaultSortAttribute,
+                        sortDir));
+            }
         }
         else if (!StringUtils.isBlank(defaultSortAttribute)) {
             Collections.sort(dataset, new DynamicComparator(defaultSortAttribute,

@@ -28,6 +28,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.redhat.rhn.common.localization.LocalizationService;
@@ -812,16 +813,25 @@ public class ListTag extends BodyTagSupport {
         sortByInputTag.setAttribute("name", sortByLabel);
         sortByInputTag.setAttribute("id",
                 ListTagUtil.makeSortById(getUniqueName()));
-        sortByInputTag.setAttribute("value", StringUtils.defaultString(
-                pageContext.getRequest().getParameter(sortByLabel)));
+        sortByInputTag.setAttribute("value", StringEscapeUtils.escapeHtml(StringUtils
+                .defaultString(pageContext.getRequest().getParameter(sortByLabel))));
 
         HtmlTag sortByDirTag = new HtmlTag("input");
         sortByDirTag.setAttribute("type", "hidden");
         sortByDirTag.setAttribute("name", sortDirLabel);
         sortByDirTag.setAttribute("id", ListTagUtil.
                                         makeSortDirId(getUniqueName()));
-        sortByDirTag.setAttribute("value", StringUtils.defaultString(
-                pageContext.getRequest().getParameter(sortDirLabel)));
+        String dir = StringUtils.defaultString(pageContext.getRequest().getParameter(
+                sortDirLabel));
+        if (dir.equals(RequestContext.SORT_ASC)) {
+            sortByDirTag.setAttribute("value", RequestContext.SORT_ASC);
+        }
+        else if (dir.equals(RequestContext.SORT_DESC)) {
+            sortByDirTag.setAttribute("value", RequestContext.SORT_DESC);
+        }
+        else {
+            sortByDirTag.setAttribute("value", "");
+        }
 
         ListTagUtil.write(pageContext, sortByInputTag.render());
         ListTagUtil.write(pageContext, sortByDirTag.render());
