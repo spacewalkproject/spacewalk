@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.65
+Version: 2.3.66
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 30 2014 Tomas Lestach <tlestach@redhat.com> 2.3.66-1
+- let the links open in a new window/tab
+- 1003565 - extend packages.getPackage API documentation
+- Test fixes after rewording
+- fix typo in api doc
+- add csv export for /rhn/errata/manage/PublishedErrata.do
+- add csv output for /rhn/systems/details/packages/profiles/CompareSystems.do
+- minor updates to strings / wording
+
 * Fri Oct 24 2014 Tomas Lestach <tlestach@redhat.com> 2.3.65-1
 - do not allow to cancel the kickstart once completed
 - 796434 - [RFE] Add clone action to activation keys
