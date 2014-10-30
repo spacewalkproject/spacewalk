@@ -2016,7 +2016,7 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "serverId", "ID of system.")
-     * @xmlrpc.param #param_desc("string", "actionTyper", "Type of the action.")
+     * @xmlrpc.param #param_desc("string", "actionType", "Type of the action.")
      * @xmlrpc.returntype
      *  #array()
      *      #struct("action")
