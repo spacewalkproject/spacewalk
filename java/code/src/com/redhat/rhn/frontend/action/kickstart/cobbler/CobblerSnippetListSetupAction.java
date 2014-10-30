@@ -15,12 +15,15 @@
 package com.redhat.rhn.frontend.action.kickstart.cobbler;
 
 import com.redhat.rhn.common.util.DynamicComparator;
+import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSnippetLister;
 
@@ -28,6 +31,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,19 +57,28 @@ public class CobblerSnippetListSetupAction extends RhnAction {
         request.setAttribute(mapping.getParameter(), Boolean.TRUE);
         RequestContext context = new RequestContext(request);
         User user = context.getCurrentUser();
-        List<CobblerSnippet> result;
-        if (ALL.equals(mapping.getParameter())) {
-            result = CobblerSnippetLister.getInstance().list(user);
+        List<CobblerSnippet> result = new ArrayList<CobblerSnippet>();
+        try {
+            if (ALL.equals(mapping.getParameter())) {
+                result = CobblerSnippetLister.getInstance().list(user);
+            }
+            else if (RhnHelper.DEFAULT_FORWARD.equals(mapping.getParameter())) {
+                result = CobblerSnippetLister.getInstance().listDefault(user);
+            }
+            else if (CUSTOM.equals(mapping.getParameter())) {
+                result = CobblerSnippetLister.getInstance().listCustom(user);
+            }
+            else {
+                throw new BadParameterException("Invalid mapping parameter passed!! [" +
+                                                        mapping.getParameter() + "]");
+            }
         }
-        else if (RhnHelper.DEFAULT_FORWARD.equals(mapping.getParameter())) {
-            result = CobblerSnippetLister.getInstance().listDefault(user);
-        }
-        else if (CUSTOM.equals(mapping.getParameter())) {
-            result = CobblerSnippetLister.getInstance().listCustom(user);
-        }
-        else {
-            throw new BadParameterException("Invalid mapping parameter passed!! [" +
-                                                    mapping.getParameter() + "]");
+        catch (ValidatorException ve) {
+            List<ValidatorError> errors = ve.getResult().getErrors();
+            errors.add(new ValidatorError("cobbler.snippet.invalidfilename.details",
+                    CobblerSnippet.getPrefixFor(user.getOrg())));
+            getStrutsDelegate().saveMessages(request, errors, ve.getResult().getWarnings());
+            RhnValidationHelper.setFailedValidation(request);
         }
         Collections.sort(result, NAME_COMPARATOR);
         request.setAttribute(RequestContext.PAGE_LIST, result);

@@ -2013,9 +2013,15 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
       <trans-unit id="cobbler.snippet.invalidfilename.message">
-        <source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+        <source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/), quote (&quot;), ampersand (&amp;), or begin with a period(.)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Kickstart Profile Details pages.</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cobbler.snippet.invalidfilename.details">
+        <source>Delete or rename the offending snippet from {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Snippet Details pages.</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.delete.snippets">

@@ -318,7 +318,14 @@ public class ColumnTag extends BodyTagSupport {
             }
             return RequestContext.SORT_ASC;
         }
-        return sortDir;
+        else {
+            if (sortDir.equals(RequestContext.SORT_ASC)) {
+                return RequestContext.SORT_ASC;
+            }
+            else {
+                return RequestContext.SORT_DESC;
+            }
+        }
     }
 
     protected void renderUnbound() throws JspException {

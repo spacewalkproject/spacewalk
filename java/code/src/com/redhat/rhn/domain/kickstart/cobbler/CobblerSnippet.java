@@ -312,14 +312,17 @@ public class CobblerSnippet implements Comparable {
     private static void validateFileName(String name) {
         // file names can have no slashes/ can't be blan or
         // can't start with a period (for it'll mean its hidden)
-        if (StringUtils.isBlank(name) || name.contains("/") || name.startsWith(".")) {
+        // can't contain " to protect against xss
+        if (StringUtils.isBlank(name) || name.contains("/") || name.startsWith(".") ||
+                name.contains("\"") || name.contains("&")) {
             ValidatorException.raiseException("cobbler.snippet.invalidfilename.message");
         }
     }
 
     private static void validateCommonPath(File path) {
-        if (!path.exists() || path.isHidden() || !path.isFile() ||
-                              !isCommonPath(path)) {
+        if (!path.exists() || path.isHidden() || !path.isFile() || !isCommonPath(path) ||
+                path.getAbsolutePath().contains("\"") ||
+                path.getAbsolutePath().contains("&")) {
             ValidatorException.raiseException("cobbler.snippet.invalidfilename.message");
         }
     }
