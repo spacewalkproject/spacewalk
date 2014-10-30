@@ -141,8 +141,8 @@ public class PackagesSearchHandler extends BaseHandler {
      *
      * @xmlrpc.doc Advanced method to search lucene indexes with a passed in query written
      * in Lucene Query Parser syntax.<br/>
-     * Lucene Query Parser syntax is defined
-     * <a href="http://lucene.apache.org/java/3_5_0/queryparsersyntax.html">at
+     * Lucene Query Parser syntax is defined at
+     * <a href="http://lucene.apache.org/java/3_5_0/queryparsersyntax.html" target="_blank">
      * lucene.apache.org</a>.<br/>
      * Fields searchable for Packages:
      * name, epoch, version, release, arch, description, summary<br/>
@@ -182,8 +182,8 @@ public class PackagesSearchHandler extends BaseHandler {
      * @xmlrpc.doc Advanced method to search lucene indexes with a passed in query written
      * in Lucene Query Parser syntax, additionally this method will limit results to those
      * which are in the passed in channel label.<br/>
-     * Lucene Query Parser syntax is defined
-     * <a href="http://lucene.apache.org/java/3_5_0/queryparsersyntax.html">at
+     * Lucene Query Parser syntax is defined at
+     * <a href="http://lucene.apache.org/java/3_5_0/queryparsersyntax.html" target="_blank">
      * lucene.apache.org</a>.<br/>
      * Fields searchable for Packages:
      * name, epoch, version, release, arch, description, summary<br/>
@@ -246,8 +246,8 @@ public class PackagesSearchHandler extends BaseHandler {
      * @xmlrpc.doc Advanced method to search lucene indexes with a passed in query written
      * in Lucene Query Parser syntax, additionally this method will limit results to those
      * which are associated with a given activation key.<br/>
-     * Lucene Query Parser syntax is defined
-     * <a href="http://lucene.apache.org/java/3_5_0/queryparsersyntax.html">at
+     * Lucene Query Parser syntax is defined at
+     * <a href="http://lucene.apache.org/java/3_5_0/queryparsersyntax.html" target="_blank">
      * lucene.apache.org</a>.<br/>
      * Fields searchable for Packages:
      * name, epoch, version, release, arch, description, summary<br/>

@@ -675,7 +675,8 @@ public class ErrataHandler extends BaseHandler {
      * given advisoryName cannot be found
         throws FaultException {
      *
-     * @xmlrpc.doc Returns a list of <a href="http://www.cve.mitre.org/">CVE</a>s
+     * @xmlrpc.doc Returns a list of
+     * <a href="http://www.cve.mitre.org/" target="_blank">CVE</a>s
      * applicable to the erratum with the given advisory name. CVEs may be associated
      * only with published errata.
      * @xmlrpc.param #session_key()

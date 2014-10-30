@@ -2713,7 +2713,8 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.doc Returns a list of system IDs whose name matches
      *  the supplied regular expression(defined by
-     *  <a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/util/regex/Pattern.html">
+     *  <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/regex/Pattern.html"
+     *  target="_blank">
      * Java representation of regular expressions</a>)
      *
      * @xmlrpc.param #param("string", "sessionKey")
