@@ -20060,10 +20060,10 @@ As a Channel Administrator, you may change the base channels your systems are su
         <source>List Channel Patchsets</source>
       </trans-unit>
       <trans-unit id="toolbar.ssm.add">
-        <source>add to ssm</source>
+        <source>Add to SSM</source>
       </trans-unit>
       <trans-unit id="toolbar.ssm.remove">
-        <source>remove from ssm</source>
+        <source>Remove from SSM</source>
       </trans-unit>
       <trans-unit id="Clone">
         <source>Clone</source>
