@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.68
+Version: 2.3.69
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 31 2014 Grant Gainey 2.3.69-1
+- 1158639 - AccessChains belong to their creator, only
+
 * Fri Oct 31 2014 Tomas Lestach <tlestach@redhat.com> 2.3.68-1
 - 1009396 - fix javascript injection on the /rhn/groups/ProbesList.do page
 - 1009396 - fix javascript injection on the
