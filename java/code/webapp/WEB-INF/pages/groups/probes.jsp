@@ -45,7 +45,9 @@
         defaultsort="asc"
         filterattr="serverName">
 
-    <a href="/rhn/systems/details/probes/ProbesList.do?sid=${current.serverId}">${current.serverName}</a>
+    <a href="/rhn/systems/details/probes/ProbesList.do?sid=${current.serverId}">
+        <c:out value="${current.serverName}" escapeXml="true"/>
+    </a>
 
   </rl:column>
 
