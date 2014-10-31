@@ -48,7 +48,9 @@
             </c:if>
         </rhn:column>
         <rhn:column header="probesuitesystems.jsp.system">
-            <a href="/rhn/systems/details/probes/ProbesList.do?sid=${current.id}">${current.name}</a>
+            <a href="/rhn/systems/details/probes/ProbesList.do?sid=${current.id}">
+                <c:out value="${current.name}" escapeXml="true"/>
+            </a>
         </rhn:column>
       </rhn:listdisplay>
     </rhn:list>
