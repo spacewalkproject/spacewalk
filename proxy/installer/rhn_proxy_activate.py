@@ -22,6 +22,8 @@
     work with older Spacewalk Proxies.
 """
 
+# pylint: disable=E1101
+
 ## core lang imports
 import os
 import sys
