@@ -8906,7 +8906,7 @@ você não poderá retornar este sistema à este snapshot ou à qualquer outro.<
       </trans-unit>
       <trans-unit id="message.channeldeleted">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
-        <target>A chave de ativação &lt;strong&gt;{0}&lt;/strong&gt; foi removida.</target>
+        <target>O canal &lt;strong&gt;{0}&lt;/strong&gt; foi removido.</target>
       </trans-unit>
       <trans-unit id="message.channel.delete.systemssubscribed">
         <source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
