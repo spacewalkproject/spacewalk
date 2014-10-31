@@ -341,6 +341,12 @@
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
 
+        <form-bean name="tagSystemsForm"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="submitted"  type="java.lang.Boolean"/>
+            <form-property name="tag"  type="java.lang.String"/>
+        </form-bean>
+
         <form-bean name="errataPublishForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property type="java.lang.Long" name="eid"/>
@@ -8087,6 +8093,16 @@
     </action>
 
     <!-- Provisioning group -->
+    <action path="/systems/ssm/provisioning/TagSystems"
+            scope="request"
+            name="tagSystemsForm"
+            type="com.redhat.rhn.frontend.action.ssm.TagSystemsAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/provisioning-tag-systems.jsp"/>
+    </action>
+
     <action path="/systems/ssm/provisioning/RemoteCommand"
             scope="request"
             name="remoteCommandForm"

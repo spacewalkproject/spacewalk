@@ -867,6 +867,23 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
+     * Adds tag to snapshot for systems in set
+     * @param tagName Name of the tag
+     * @param setLabel set to find systems in
+     * @param user User making the request
+     */
+    public static void bulkAddTagToSnapshot(String tagName, String setLabel, User user) {
+        CallableMode m = ModeFactory.getCallableMode("System_queries",
+                "bulk_add_tag_to_snapshot");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("set_label", setLabel);
+        params.put("org_id", user.getOrg().getId());
+        params.put("tag_name", tagName);
+        params.put("user_id", user.getId());
+        m.execute(params, new HashMap<String, Integer>());
+    }
+
+    /**
      * Removes tag from system snapshot
      * @param serverId server id
      * @param tag snapshot tag

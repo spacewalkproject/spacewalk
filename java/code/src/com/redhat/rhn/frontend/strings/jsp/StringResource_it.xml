@@ -5118,8 +5118,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; dei sistemi</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.rollback">
-          <source>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</source>
-          <target>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Eseguire il tag&lt;/a&gt; dei sistemi per il &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;ripristino delle snapshot&lt;/a&gt;</target>
+          <source>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</source>
+          <target>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Eseguire il tag&lt;/a&gt; dei sistemi per il &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;ripristino delle snapshot&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>

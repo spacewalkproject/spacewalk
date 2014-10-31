@@ -69,7 +69,7 @@
 		<rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByProfile.do</rhn-tab-url>
 		<rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByIp.do</rhn-tab-url>
           </rhn-tab>
-          <rhn-tab name="Tag Systems" url="/network/systems/ssm/provisioning/tag_systems.pxt" />
+	  <rhn-tab name="Tag Systems" url="/rhn/systems/ssm/provisioning/TagSystems.do" />
           <rhn-tab name="Rollback" url="/network/systems/ssm/provisioning/rollback.pxt">
             <rhn-tab-url>/rhn/systems/ssm/provisioning/RollbackToTag.do</rhn-tab-url>
           </rhn-tab>

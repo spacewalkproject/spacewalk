@@ -5133,8 +5133,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>システムの &lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;キックスタート&lt;/a&gt; を行います</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.rollback">
-          <source>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</source>
-          <target>&lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;スナップショットのロールバック&lt;/a&gt; 用にシステムに &lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;タグ&lt;/a&gt; を付けます </target>
+          <source>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</source>
+          <target>&lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;スナップショットのロールバック&lt;/a&gt; 用にシステムに &lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;タグ&lt;/a&gt; を付けます </target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>

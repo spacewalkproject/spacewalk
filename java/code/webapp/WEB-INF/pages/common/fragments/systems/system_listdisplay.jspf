@@ -44,7 +44,7 @@
 		</rl:column>
 
 
-		<c:if test = "${empty extraPackagesMode}">
+		<c:if test = "${empty extraPackagesMode and empty noUpdates}">
 		<!--Updates Column -->
 		<rl:column sortable="false"
 				   bound="false"
@@ -113,7 +113,7 @@
 				</c:choose>
 			</rl:column>
 		</c:if>
-                <c:if test="${empty extraPackagesMode}">
+                <c:if test="${empty extraPackagesMode and empty noCrashes}">
                     <rl:column sortable="false"
                                bound="false"
                                headerkey="systemlist.jsp.crashes"

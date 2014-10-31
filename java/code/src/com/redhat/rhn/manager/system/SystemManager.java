@@ -3255,7 +3255,9 @@ public class SystemManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("set_label", setLabel);
-        return mode.execute(params, entitlements);
+        DataResult<SystemOverview> result = mode.execute(params, entitlements);
+        result.setElaborationParams(new HashMap<String, Object>());
+        return result;
     }
 
     /**

@@ -4674,7 +4674,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; systems</source>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.rollback">
-          <source>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</source>
+          <source>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</source>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
@@ -15152,6 +15152,22 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.provisioning.powermanagement.cobbler_error">
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
+        </trans-unit>
+        <!-- SSM Tag Systems -->
+        <trans-unit id="ssm.operations.provisioning.tagsystems.header">
+          <source>Tag Systems</source>
+        </trans-unit>
+        <trans-unit id="ssm.operations.provisioning.tagsystems.summary">
+          <source>The following systems will be tagged:</source>
+        </trans-unit>
+        <trans-unit id="ssm.operations.provisioning.tagsystems.label">
+          <source>Tag name:</source>
+        </trans-unit>
+        <trans-unit id="ssm.operations.provisioning.tagsystems.help">
+          <source>You may tag the most recent snapshots for the selected systems.</source>
+        </trans-unit>
+        <trans-unit id="ssm.operations.provisioning.tagsystems.button">
+          <source>Tag Current Snapshots</source>
         </trans-unit>
         <!-- SSM Remote Command Form Labels -->
         <trans-unit id="ssm.operations.provisioning.remotecommand.header">

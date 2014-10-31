@@ -1507,6 +1507,12 @@ SELECT id,
     </query>
 </callable-mode>
 
+<callable-mode name="bulk_add_tag_to_snapshot">
+    <query params="set_label, org_id, tag_name, user_id">
+    { call rhn_server.bulk_snapshot_tag(:org_id, :tag_name, :set_label, :user_id) }
+    </query>
+</callable-mode>
+
 <callable-mode name="remove_tag_from_snapshot">
     <query params="server_id, tag_id">
     { call rhn_server.tag_delete(:server_id, :tag_id) }
@@ -2352,6 +2358,8 @@ ORDER BY UPPER(COALESCE(X.SERVER_NAME, '(none)')), X.ID
         rhnSet.label = :set_label AND
         rhnServerEntitlementView.label IN (%s)
   </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements" />
 </mode>
 
 <write-mode name="bulk_remove_custom_values">
