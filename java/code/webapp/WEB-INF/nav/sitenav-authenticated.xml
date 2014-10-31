@@ -282,8 +282,6 @@
 
     <rhn-tab name="Spacewalk Configuration" acl="user_role(satellite_admin)" url="/rhn/admin/config/GeneralConfig.do">
       <rhn-tab-url>/rhn/admin/config/GeneralConfig.do</rhn-tab-url>
-      <rhn-tab-url>/internal/satellite/config/restart_required.pxt</rhn-tab-url>
-      <rhn-tab-url>/internal/satellite/config/restart_in_progress.pxt</rhn-tab-url>
        <rhn-tab name="General" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/config/GeneralConfig.do</rhn-tab-url>
       </rhn-tab>
