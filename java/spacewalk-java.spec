@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.67
+Version: 2.3.68
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 31 2014 Tomas Lestach <tlestach@redhat.com> 2.3.68-1
+- 1009396 - fix javascript injection on the /rhn/groups/ProbesList.do page
+- 1009396 - fix javascript injection on the
+  /rhn/monitoring/config/ProbeSuiteSystems.do page
+- 1156456 - fix Portuguese message.channeldeleted translation
+
 * Thu Oct 30 2014 Stephen Herr <sherr@redhat.com> 2.3.67-1
 - 1159053 - Fix two XSS flaws in Kickstart Snippets and List Attributes
 - uppercase the toolbar stuff
