@@ -18,11 +18,11 @@
 <rhn:list pageList="${requestScope.pageList}" noDataText="newversions.jsp.noversions">
   <rhn:listdisplay>
     <rhn:column header="newversions.jsp.newerversion">
-      <a href="/rhn/software/packages/Details.do?pid=${current.id}">${current.nvrea}</a>
+    <a href="/rhn/software/packages/Details.do?pid=${current.id}"><c:out value="${current.nvrea}" /></a>
     </rhn:column>
 
     <rhn:column header="newversions.jsp.providingchannel">
-      <a href="/rhn/channels/ChannelDetail.do?cid=${current.channel_id}">${current.channel_name}</a>
+    <a href="/rhn/channels/ChannelDetail.do?cid=${current.channel_id}"><c:out value="${current.channel_name}" /></a>
     </rhn:column>
 
     <rhn:column header="newversions.jsp.relatederrata">
@@ -36,7 +36,7 @@
         <c:if test="${current.advisory_type=='Product Enhancement Advisory'}">
           <rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
         </c:if>
-        <a href="/rhn/errata/details/Details.do?eid=${current.errata_id}">${current.advisory}</a>
+	<a href="/rhn/errata/details/Details.do?eid=${current.errata_id}"><c:out value="${current.advisory}" /></a>
       </c:if>
     </rhn:column>
 

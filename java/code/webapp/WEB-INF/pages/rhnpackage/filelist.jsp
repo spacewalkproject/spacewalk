@@ -20,19 +20,19 @@
 <rhn:list pageList="${requestScope.pageList}" noDataText="filelist.jsp.nofiles">
   <rhn:listdisplay>
     <rhn:column header="filelist.jsp.filename">
-            ${current.name}
+      <c:out value="${current.name}" />
     </rhn:column>
 
     <rhn:column header="filelist.jsp.checksum">
-            ${current.formattedChecksum}
+      <c:out value="${current.formattedChecksum}" />
     </rhn:column>
 
     <rhn:column header="filelist.jsp.lastmodified">
-            ${current.mtime}
+      <c:out value="${current.mtime}" />
     </rhn:column>
 
     <rhn:column header="filelist.jsp.size">
-            ${current.formattedSize}
+      <c:out value="${current.formattedSize}" />
     </rhn:column>
   </rhn:listdisplay>
 </rhn:list>

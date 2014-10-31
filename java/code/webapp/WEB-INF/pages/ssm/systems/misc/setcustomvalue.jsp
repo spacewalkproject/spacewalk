@@ -17,18 +17,18 @@
     <table class="table">
       <tr>
         <th><bean:message key="system.jsp.customkey.keylabel"/>:</th>
-        <td>${label}</td>
+	<td><c:out value="${label}" /></td>
       </tr>
 
       <tr>
         <th><bean:message key="system.jsp.customkey.description"/>:</th>
-        <td>${description}</td>
+	<td><c:out value="${description}" /></td>
       </tr>
 
       <tr>
         <th><bean:message key="system.jsp.customkey.value"/>:</th>
         <td>
-		<textarea wrap="virtual" rows="6" cols="50" name="value">${value}</textarea>
+          <textarea wrap="virtual" rows="6" cols="50" name="value"><c:out value="${value}" /></textarea>
         </td>
       </tr>
 

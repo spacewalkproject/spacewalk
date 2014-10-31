@@ -46,7 +46,7 @@
                            sortattr="lastModified"
                            headerkey="system.jsp.customkey.modified"
                           >
-                        ${current.lastModified}
+                       <c:out value="${current.lastModified}" />
                 </rl:column>
 
         </rl:list>
