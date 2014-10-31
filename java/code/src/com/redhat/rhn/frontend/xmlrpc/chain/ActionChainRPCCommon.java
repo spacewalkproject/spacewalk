@@ -1,6 +1,5 @@
 /**
  * Copyright (c) 2014 SUSE
- * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,18 +12,11 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+/**
+ * Copyright (c) 2014 Red Hat, Inc.
+ */
 
 package com.redhat.rhn.frontend.xmlrpc.chain;
-
-import com.redhat.rhn.domain.action.ActionChain;
-import com.redhat.rhn.domain.action.ActionChainFactory;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
-import com.redhat.rhn.manager.system.SystemManager;
-import com.redhat.rhn.domain.rhnpackage.Package;
-import com.redhat.rhn.frontend.xmlrpc.NoSuchActionChainException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +24,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.Transformer;
+
+import com.redhat.rhn.domain.action.ActionChain;
+import com.redhat.rhn.domain.action.ActionChainFactory;
+import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchActionChainException;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * Common mix-in for package resolving.
@@ -50,6 +52,7 @@ public class ActionChainRPCCommon {
          * @param value The object to be transformed, should be left unchanged.
          * @return The Long that corresponds with this Integer
          */
+        @Override
         public Long transform(Object value) {
             return value == null ? null : ((Integer) value).longValue();
         }
@@ -85,7 +88,8 @@ public class ActionChainRPCCommon {
 
     /**
      * Find an Action Chain by label.
-     * @param actionChainLabel Chaom label
+     * @param actionChainLabel Chaim label
+     * @param requestor user whose chain we're getting
      * @return Action Chain or throws NoSuchActionChainException.
      */
     public ActionChain getActionChainByLabel(User requestor, String actionChainLabel) {
