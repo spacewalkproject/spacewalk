@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2014 SUSE
+ * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,20 +15,21 @@
  */
 package com.redhat.rhn.domain.action;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.SystemOverview;
-
-import org.apache.log4j.Logger;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.log4j.Logger;
+import org.hibernate.ObjectNotFoundException;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 
 /**
  * Creates Action Chain related objects.
@@ -50,40 +52,67 @@ public class ActionChainFactory extends HibernateFactory {
 
     /**
      * Gets an action chain by label.
+     * @param requestor the user whose chain we're looking for
      * @param label the label
      * @return the Action Chain or null if not found
      */
-    public static ActionChain getActionChain(String label) {
+    public static ActionChain getActionChain(User requestor, String label) {
         log.debug("Looking up Action Chain with label " + label);
         return (ActionChain) getSession()
             .createCriteria(ActionChain.class)
             .add(Restrictions.eq("label", label))
+            .add(Restrictions.eq("user", requestor))
             .uniqueResult();
     }
 
     /**
      * Gets an Action Chain by id.
+     * @param requestor the user whose chain we're looking for
      * @param id the id
-     * @return the Action Chain or null if not found
+     * @return the Action Chain
+     * @throws ObjectNotFoundException if there is no such id accessible to the requestor
      */
-    public static ActionChain getActionChain(Long id) {
+    public static ActionChain getActionChain(User requestor, Long id)
+    throws ObjectNotFoundException {
         log.debug("Looking up Action Chain with id " + id);
         if (id == null) {
             return null;
         }
-        return (ActionChain) getSession().load(ActionChain.class, id);
+        ActionChain ac = (ActionChain) getSession()
+                        .createCriteria(ActionChain.class)
+                        .add(Restrictions.eq("id", id))
+                        .add(Restrictions.eq("user", requestor))
+                        .uniqueResult();
+        if (ac == null) {
+            throw new ObjectNotFoundException(ActionChain.class,
+                            "ActionChain Id " + id + " not found for User " + requestor.getLogin());
+        }
+        return ac;
     }
 
     /**
      * Gets an Action Chain Entry by id.
+     * @param requestor the user whose entry we're looking for
      * @param id the action chain entry id
-     * @return the Action Chain Entry or null if not found
+     * @return the Action Chain Entry
+     * @throws ObjectNotFoundException if there is no such id accessible to the requestor
      */
-    public static ActionChainEntry getActionChainEntry(Long id) {
+    public static ActionChainEntry getActionChainEntry(User requestor, Long id)
+    throws ObjectNotFoundException {
         if (id == null) {
             return null;
         }
-        return (ActionChainEntry) getSession().load(ActionChainEntry.class, id);
+        ActionChainEntry ace = (ActionChainEntry) getSession()
+                        .load(ActionChainEntry.class, id);
+
+        if (ace.getActionChain().getUser().getId().longValue() ==
+                        requestor.getId().longValue()) {
+            return ace;
+        }
+        else {
+            throw new ObjectNotFoundException(ActionChainEntry.class,
+            "ActionChainEntry Id " + id + " not found for User " + requestor.getLogin());
+        }
     }
 
     /**
@@ -109,7 +138,7 @@ public class ActionChainFactory extends HibernateFactory {
      * @return the action chain
      */
     public static ActionChain getOrCreateActionChain(String label, User user) {
-        ActionChain result = getActionChain(label);
+        ActionChain result = getActionChain(user, label);
 
         if (result != null) {
             return result;
@@ -198,25 +227,29 @@ public class ActionChainFactory extends HibernateFactory {
     }
 
     /**
-     * Gets all action chains.
+     * Gets all action chains for a user.
+     * @param requestor the user whose chains we're looking for
      * @return action chains
      */
     @SuppressWarnings("unchecked")
-    public static List<ActionChain> getActionChains() {
+    public static List<ActionChain> getActionChains(User requestor) {
         return getSession()
             .createCriteria(ActionChain.class)
+            .add(Restrictions.eq("user", requestor))
             .addOrder(Order.asc("label"))
             .list();
     }
 
     /**
      * Gets all action chains, by modification date.
+     * @param requestor the user whose chain we're looking for
      * @return action chains
      */
     @SuppressWarnings("unchecked")
-    public static List<ActionChain> getActionChainsByModificationDate() {
+    public static List<ActionChain> getActionChainsByModificationDate(User requestor) {
         return getSession()
             .createCriteria(ActionChain.class)
+            .add(Restrictions.eq("user", requestor))
             .addOrder(Order.desc("modified"))
             .list();
     }

@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2014 SUSE
+ * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -68,8 +69,9 @@ public class ActionChainEditAction extends RhnAction {
         HttpServletRequest request, HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext requestContext = new RequestContext(request);
-        ActionChain actionChain = ActionChainFactory.getActionChain(Long
-            .valueOf(request.getParameter(ACTION_CHAIN_ID_PARAMETER)));
+        ActionChain actionChain = ActionChainFactory.getActionChain(
+            requestContext.getCurrentUser(),
+            Long.valueOf(request.getParameter(ACTION_CHAIN_ID_PARAMETER)));
 
         if (isSubmitted(form)) {
             if (requestContext.wasDispatched("actionchain.jsp.delete")) {

@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2014 SUSE
+ * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -84,8 +85,9 @@ public class ActionChainHelper {
     public static void prepopulateActionChains(HttpServletRequest request) {
         log.debug("Prepopulating Action Chains");
         List<Map<String, String>> result = new LinkedList<Map<String, String>>();
+        User u = new RequestContext(request).getCurrentUser();
         List<ActionChain> actionChains = ActionChainFactory
-            .getActionChainsByModificationDate();
+            .getActionChainsByModificationDate(u);
 
         for (ActionChain actionChain : actionChains) {
             populateActionChain(result, actionChain.getLabel());

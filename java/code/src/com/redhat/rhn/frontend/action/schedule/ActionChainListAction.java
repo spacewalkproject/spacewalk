@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2014 SUSE
+ * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -56,6 +57,6 @@ public class ActionChainListAction extends RhnAction implements Listable<ActionC
      * {@inheritDoc}
      */
     public List<ActionChain> getResult(RequestContext context) {
-        return ActionChainFactory.getActionChains();
+        return ActionChainFactory.getActionChains(context.getCurrentUser());
     }
 }

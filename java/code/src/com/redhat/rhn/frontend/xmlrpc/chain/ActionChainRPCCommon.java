@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2014 SUSE
+ * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -87,8 +88,8 @@ public class ActionChainRPCCommon {
      * @param actionChainLabel Chaom label
      * @return Action Chain or throws NoSuchActionChainException.
      */
-    public ActionChain getActionChainByLabel(String actionChainLabel) {
-        ActionChain chain = ActionChainFactory.getActionChain(actionChainLabel);
+    public ActionChain getActionChainByLabel(User requestor, String actionChainLabel) {
+        ActionChain chain = ActionChainFactory.getActionChain(requestor, actionChainLabel);
         if (chain == null) {
             throw new NoSuchActionChainException(actionChainLabel);
         }

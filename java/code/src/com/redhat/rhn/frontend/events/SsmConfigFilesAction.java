@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,7 +38,7 @@ public class SsmConfigFilesAction extends AbstractDatabaseAction {
 
         User user = UserFactory.lookupById(event.getUserId());
         ActionChain actionChain = ActionChainFactory.getActionChain(
-                event.getActionChainId());
+                user, event.getActionChainId());
 
         try {
             ActionChainManager.createConfigActions(

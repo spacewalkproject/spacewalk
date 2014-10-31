@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2014 SUSE
+ * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,20 +15,6 @@
  */
 package com.redhat.rhn.domain.action.test;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.domain.action.Action;
-import com.redhat.rhn.domain.action.ActionChain;
-import com.redhat.rhn.domain.action.ActionChainEntry;
-import com.redhat.rhn.domain.action.ActionChainEntryGroup;
-import com.redhat.rhn.domain.action.ActionChainFactory;
-import com.redhat.rhn.domain.action.ActionFactory;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.test.ServerFactoryTest;
-import com.redhat.rhn.testing.BaseTestCaseWithUser;
-import com.redhat.rhn.testing.TestUtils;
-
-import org.hibernate.ObjectNotFoundException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -35,6 +22,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.hibernate.ObjectNotFoundException;
+
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
+import com.redhat.rhn.domain.action.ActionChainEntry;
+import com.redhat.rhn.domain.action.ActionChainEntryGroup;
+import com.redhat.rhn.domain.action.ActionChainFactory;
+import com.redhat.rhn.domain.action.ActionFactory;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.testing.BaseTestCaseWithUser;
+import com.redhat.rhn.testing.TestUtils;
+import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * @author Silvio Moioli <smoioli@suse.de>
@@ -50,12 +54,12 @@ public class ActionChainFactoryTest extends BaseTestCaseWithUser {
         ActionChain actionChain = ActionChainFactory.createActionChain(label, user);
         assertNotNull(actionChain);
 
-        ActionChain retrievedActionChain = ActionChainFactory.getActionChain(label);
+        ActionChain retrievedActionChain = ActionChainFactory.getActionChain(user, label);
         assertNotNull(retrievedActionChain);
         assertEquals(label, retrievedActionChain.getLabel());
         assertEquals(user, retrievedActionChain.getUser());
 
-        retrievedActionChain = ActionChainFactory.getActionChain(actionChain.getId());
+        retrievedActionChain = ActionChainFactory.getActionChain(user, actionChain.getId());
         assertNotNull(retrievedActionChain);
         assertEquals(label, retrievedActionChain.getLabel());
         assertEquals(user, retrievedActionChain.getUser());
@@ -80,13 +84,13 @@ public class ActionChainFactoryTest extends BaseTestCaseWithUser {
      * @throws Exception if something bad happens
      */
     public void testGetActionChains() throws Exception {
-        int previousSize = ActionChainFactory.getActionChains().size();
+        int previousSize = ActionChainFactory.getActionChains(user).size();
 
         ActionChainFactory.createActionChain(TestUtils.randomString(), user);
         ActionChainFactory.createActionChain(TestUtils.randomString(), user);
         ActionChainFactory.createActionChain(TestUtils.randomString(), user);
 
-        assertEquals(previousSize + 3, ActionChainFactory.getActionChains().size());
+        assertEquals(previousSize + 3, ActionChainFactory.getActionChains(user).size());
     }
 
     /**
@@ -95,13 +99,13 @@ public class ActionChainFactoryTest extends BaseTestCaseWithUser {
      */
     public void testGetOrCreateActionChain() throws Exception {
         String label = TestUtils.randomString();
-        ActionChain actionChain = ActionChainFactory.getActionChain(label);
+        ActionChain actionChain = ActionChainFactory.getActionChain(user, label);
         assertNull(actionChain);
 
         ActionChain newActionChain = ActionChainFactory.getOrCreateActionChain(label, user);
         assertNotNull(newActionChain);
 
-        ActionChain retrievedActionChain = ActionChainFactory.getActionChain(label);
+        ActionChain retrievedActionChain = ActionChainFactory.getActionChain(user, label);
         assertNotNull(retrievedActionChain);
     }
 
@@ -159,8 +163,8 @@ public class ActionChainFactoryTest extends BaseTestCaseWithUser {
 
         HibernateFactory.getSession().flush();
 
-        ActionChainEntry retrievedEntry = ActionChainFactory.getActionChainEntry(entry
-            .getId());
+        ActionChainEntry retrievedEntry = ActionChainFactory.getActionChainEntry(user,
+            entry.getId());
         assertEquals(entry.getServerId(), retrievedEntry.getServerId());
         assertEquals(entry.getSortOrder(), retrievedEntry.getSortOrder());
     }
@@ -359,12 +363,59 @@ public class ActionChainFactoryTest extends BaseTestCaseWithUser {
     }
 
     /**
+     * Tests that actionchains are only accessible to the user that created them
+     * @throws Exception if something bad happens
+     */
+    public void testPermissions() throws Exception {
+        Org otherOrg = UserTestUtils.createNewOrgFull("OtherOrg");
+        User other = UserTestUtils.createUser("otherAdmin", otherOrg.getId());
+
+        // Create the thing
+        ActionChain ac = ActionChainFactory.getOrCreateActionChain("chain1", user);
+        assertNotNull(ac);
+        Long acId = ac.getId();
+
+        // Can we find our own thing?
+        ac = ActionChainFactory.getActionChain(user, "chain1");
+        assertNotNull(ac);
+
+        // Can someone else find our thing by-label?
+        ac = ActionChainFactory.getActionChain(other, "chain1");
+        assertNull(ac);
+
+        // Can someone else find our thing by-id?
+        try {
+            ac = ActionChainFactory.getActionChain(other, acId);
+        }
+        catch (ObjectNotFoundException onfe) {
+            return;
+        }
+        catch (Throwable t) {
+            fail();
+        }
+
+        Action action = ActionFactory.createAction(ActionFactory.TYPE_ERRATA);
+        action.setOrg(user.getOrg());
+        Server server = ServerFactoryTest.createTestServer(user);
+        ac = ActionChainFactory.getActionChain(user, "chain1");
+        ActionChainEntry entry = ActionChainFactory.queueActionChainEntry(action,
+                        ac, server);
+
+        ActionChainEntry ace = ActionChainFactory.getActionChainEntry(user, entry.getId());
+        assertNotNull(ace);
+
+        ace = ActionChainFactory.getActionChainEntry(other, entry.getId());
+        assertNull(ace);
+    }
+
+    /**
      * Checks that an Action Chain does not exist anymore.
      * @param actionChain the Action Chain to check
      */
     public static void assertDeleted(ActionChain actionChain) {
         try {
-            ActionChainFactory.getActionChain(actionChain.getId());
+            ActionChain ac = ActionChainFactory.getActionChain(actionChain.getUser(),
+                            actionChain.getId());
             fail();
         }
         catch (ObjectNotFoundException e) {

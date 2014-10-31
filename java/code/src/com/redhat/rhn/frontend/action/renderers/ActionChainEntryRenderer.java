@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2014 SUSE
+ * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,17 +15,19 @@
  */
 package com.redhat.rhn.frontend.action.renderers;
 
-import com.redhat.rhn.domain.action.ActionChain;
-import com.redhat.rhn.domain.action.ActionChainFactory;
-
-import org.directwebremoting.WebContext;
-import org.directwebremoting.WebContextFactory;
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.directwebremoting.WebContext;
+import org.directwebremoting.WebContextFactory;
+
+import com.redhat.rhn.domain.action.ActionChain;
+import com.redhat.rhn.domain.action.ActionChainFactory;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
 
 /**
  * Renders a fragment with action chain entries.
@@ -45,8 +48,9 @@ public class ActionChainEntryRenderer {
         throws ServletException, IOException {
         WebContext webContext = WebContextFactory.get();
         HttpServletRequest request = webContext.getHttpServletRequest();
+        User u = new RequestContext(request).getCurrentUser();
 
-        ActionChain actionChain = ActionChainFactory.getActionChain(actionChainId);
+        ActionChain actionChain = ActionChainFactory.getActionChain(u, actionChainId);
         request.setAttribute("sortOrder", sortOrder);
         request.setAttribute("entries",
             ActionChainFactory.getActionChainEntries(actionChain, sortOrder));

@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2014 SUSE
+ * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -69,7 +70,7 @@ public class ActionChainHandler extends BaseHandler {
      */
     public List<Map<String, Object>> listChains(User loggedInUser) {
         List<Map<String, Object>> chains = new ArrayList<Map<String, Object>>();
-        for (ActionChain actionChain : ActionChainFactory.getActionChains()) {
+        for (ActionChain actionChain : ActionChainFactory.getActionChains(loggedInUser)) {
             Map<String, Object> info = new HashMap<String, Object>();
             info.put("label", actionChain.getLabel());
             info.put("entrycount", actionChain.getEntries().size());
@@ -105,7 +106,7 @@ public class ActionChainHandler extends BaseHandler {
     public List<Map<String, Object>> listChainActions(User loggedInUser,
                                                       String chainLabel) {
         List<Map<String, Object>> entries = new ArrayList<Map<String, Object>>();
-        ActionChain chain = this.acUtil.getActionChainByLabel(chainLabel);
+        ActionChain chain = this.acUtil.getActionChainByLabel(loggedInUser, chainLabel);
 
         if (chain.getEntries() != null && !chain.getEntries().isEmpty()) {
             for (ActionChainEntry entry : chain.getEntries()) {
@@ -145,7 +146,7 @@ public class ActionChainHandler extends BaseHandler {
     public Integer removeAction(User loggedInUser,
                                 String chainLabel,
                                 Integer actionId) {
-        ActionChain chain = this.acUtil.getActionChainByLabel(chainLabel);
+        ActionChain chain = this.acUtil.getActionChainByLabel(loggedInUser, chainLabel);
 
         for (ActionChainEntry entry : chain.getEntries()) {
             if (entry.getAction().getId().equals(Long.valueOf(actionId))) {
@@ -171,7 +172,8 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public Integer deleteChain(User loggedInUser, String chainLabel) {
-        ActionChainFactory.delete(this.acUtil.getActionChainByLabel(chainLabel));
+        ActionChainFactory.delete(
+                        this.acUtil.getActionChainByLabel(loggedInUser, chainLabel));
 
         return BaseHandler.VALID;
     }
@@ -194,7 +196,7 @@ public class ActionChainHandler extends BaseHandler {
             throw new InvalidParameterException("Chain label is missing");
         }
 
-        if (ActionChainFactory.getActionChain(chainLabel) != null) {
+        if (ActionChainFactory.getActionChain(loggedInUser, chainLabel) != null) {
             throw new InvalidParameterException(
                     "Another Action Chain with the same label already exists");
         }
@@ -223,7 +225,7 @@ public class ActionChainHandler extends BaseHandler {
                                    String chainLabel) {
         return ActionChainManager.scheduleRebootAction(
                 loggedInUser, this.acUtil.getServerById(serverId, loggedInUser),
-                new Date(), this.acUtil.getActionChainByLabel(chainLabel)
+                new Date(), this.acUtil.getActionChainByLabel(loggedInUser, chainLabel)
         ).getId().intValue();
     }
 
@@ -256,7 +258,8 @@ public class ActionChainHandler extends BaseHandler {
                 this.acUtil.getServerById(serverId, loggedInUser),
                 this.acUtil.resolvePackages(packages, loggedInUser),
                 new Date(),
-                this.acUtil.getActionChainByLabel(chainLabel)).getId().intValue();
+                this.acUtil.getActionChainByLabel(loggedInUser, chainLabel))
+                        .getId().intValue();
     }
 
     /**
@@ -286,7 +289,7 @@ public class ActionChainHandler extends BaseHandler {
         return ActionChainManager.schedulePackageInstall(loggedInUser,
                 this.acUtil.getServerById(serverId, loggedInUser),
                 this.acUtil.resolvePackages(packages, loggedInUser), new Date(),
-                this.acUtil.getActionChainByLabel(chainLabel)
+                this.acUtil.getActionChainByLabel(loggedInUser, chainLabel)
         ).getId().intValue();
     }
 
@@ -318,7 +321,7 @@ public class ActionChainHandler extends BaseHandler {
         Server server = this.acUtil.getServerById(serverId, loggedInUser);
         return ActionChainManager.schedulePackageVerify(
                 loggedInUser, server, this.acUtil.resolvePackages(packages, loggedInUser),
-                new Date(), this.acUtil.getActionChainByLabel(chainLabel)
+                new Date(), this.acUtil.getActionChainByLabel(loggedInUser, chainLabel)
         ).getId().intValue();
     }
 
@@ -351,7 +354,8 @@ public class ActionChainHandler extends BaseHandler {
         return ActionChainManager.schedulePackageUpgrade(
                 loggedInUser, server, this.acUtil.resolvePackages(packages, loggedInUser),
                 new Date(),
-                this.acUtil.getActionChainByLabel(chainLabel)).getId().intValue();
+                this.acUtil.getActionChainByLabel(loggedInUser, chainLabel))
+                    .getId().intValue();
     }
 
     /**
@@ -390,7 +394,7 @@ public class ActionChainHandler extends BaseHandler {
                         DatatypeConverter.parseBase64Binary(scriptBody)));
         return ActionChainManager.scheduleScriptRuns(
                 loggedInUser, systems, null, script, new Date(),
-                this.acUtil.getActionChainByLabel(chainLabel)
+                this.acUtil.getActionChainByLabel(loggedInUser, chainLabel)
         ).iterator().next().getId().intValue();
     }
 
@@ -410,7 +414,8 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public Integer scheduleChain(User loggedInUser, String chainLabel, Date date) {
-        ActionChainFactory.schedule(this.acUtil.getActionChainByLabel(chainLabel), date);
+        ActionChainFactory.schedule(
+                        this.acUtil.getActionChainByLabel(loggedInUser, chainLabel), date);
 
         return BaseHandler.VALID;
     }
@@ -447,7 +452,7 @@ public class ActionChainHandler extends BaseHandler {
                 CollectionUtils.collect(revisions,
                         new ActionChainRPCCommon.IntegerToLongTransformer()), server,
                 ActionFactory.TYPE_CONFIGFILES_DEPLOY,
-                new Date(), this.acUtil.getActionChainByLabel(chainLabel));
+                new Date(), this.acUtil.getActionChainByLabel(loggedInUser, chainLabel));
 
         return BaseHandler.VALID;
     }
@@ -480,12 +485,12 @@ public class ActionChainHandler extends BaseHandler {
             throw new InvalidParameterException("New label cannot be empty.");
         }
 
-        if (ActionChainFactory.getActionChain(newLabel) != null) {
+        if (ActionChainFactory.getActionChain(loggedInUser, newLabel) != null) {
             throw new InvalidParameterException(
                     "Another Action Chain with the same label already exists");
         }
 
-        this.acUtil.getActionChainByLabel(previousLabel).setLabel(newLabel);
+        this.acUtil.getActionChainByLabel(loggedInUser, previousLabel).setLabel(newLabel);
 
         return BaseHandler.VALID;
     }

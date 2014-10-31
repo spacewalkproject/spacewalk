@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2014 SUSE
+ * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -135,7 +136,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     public void testAcCreateActionChain() throws Exception {
         String chainName = TestUtils.randomString();
         Integer chainId = this.ach.createChain(this.admin, chainName);
-        ActionChain newActionChain = ActionChainFactory.getActionChain(chainName);
+        ActionChain newActionChain = ActionChainFactory.getActionChain(admin, chainName);
         assertNotNull(newActionChain);
         assertEquals(newActionChain.getId().longValue(), chainId.longValue());
     }
@@ -271,7 +272,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
             TestUtils.randomString()
         };
 
-        int previousChains = ActionChainFactory.getActionChains().size();
+        int previousChains = ActionChainFactory.getActionChains(this.admin).size();
         for (String label : labels) {
             ActionChainFactory.createActionChain(label, admin);
         }
@@ -280,7 +281,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         assertEquals(labels.length, chains.size() - previousChains);
 
         for (String label : labels) {
-            ActionChain chain = ActionChainFactory.getActionChain(label);
+            ActionChain chain = ActionChainFactory.getActionChain(this.admin, label);
             assertEquals(0, chain.getEntries().size());
         }
     }

@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2014 SUSE
+ * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -78,14 +79,14 @@ public class ActionChainHelperTest extends BaseTestCaseWithUser {
 
         List<Map<String, String>> result = new LinkedList<Map<String, String>>();
 
-        for (ActionChain actionChain : ActionChainFactory.getActionChains()) {
+        for (ActionChain actionChain : ActionChainFactory.getActionChains(user)) {
             Map<String, String> map = new HashMap<String, String>();
             map.put("id", actionChain.getLabel());
             map.put("text", actionChain.getLabel());
             result.add(map);
         }
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        MockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         String s = new JSONWriter().write(result);
         request.addExpectedSetAttribute(
             ActionChainHelper.EXISTING_ACTION_CHAINS_PROPERTY_NAME, s);

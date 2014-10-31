@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2013 SUSE
+ * Copyright (c) 2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -38,7 +39,7 @@ public class SsmSystemRebootAction extends AbstractDatabaseAction {
         SsmSystemRebootAction.log.debug("Scheduling systems reboot in SSM.");
         SsmSystemRebootEvent event = (SsmSystemRebootEvent) msg;
         User user = UserFactory.lookupById(event.getUserId());
-        ActionChain actionChain = ActionChainFactory.getActionChain(event
+        ActionChain actionChain = ActionChainFactory.getActionChain(user, event
             .getActionChainId());
 
         ActionChainManager.scheduleRebootActions(user, event.getServerIds(),
