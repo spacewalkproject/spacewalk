@@ -401,7 +401,11 @@ def gather(clear):
                   repoDir = "RHEL-%s/%s.%s/%s/%s/os/" % (version, version, update_num, release, arch)
                   fullDir = GATHER_DIR + repoDir
                   if not saveRpmList(fullDir +  release + "/listing", DATA_DIR + getFileName(version, update,release, arch)):
-                      saveRpmList(fullDir +  release + "/Packages/", DATA_DIR + getFileName(version, update,release, arch))
+		      if update_num < 6:
+			  sourceDir = fullDir +  release + "/Packages/"
+		      else:
+			  sourceDir = fullDir +  "/Packages/"
+                      saveRpmList(sourceDir, DATA_DIR + getFileName(version, update,release, arch))
                   #now lets handle the other repos:
                   for subrepo in subrepos:
                      saveRpmList(fullDir +  subrepo + "/listing", DATA_DIR + getFileName(version, update,release, arch, subrepo))
