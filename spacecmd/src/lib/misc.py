@@ -771,6 +771,9 @@ def expand_errata(self, args):
 
     self.generate_errata_cache()
 
+    if len(args) == 0:
+        return self.all_errata
+
     errata = []
     for item in args:
         if re.match('search:', item):

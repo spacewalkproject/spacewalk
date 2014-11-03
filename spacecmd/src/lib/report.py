@@ -140,6 +140,9 @@ def help_report_errata(self):
 def do_report_errata(self, args):
     (args, _options) = parse_arguments(args)
 
+    if len(args) == 0:
+        print 'All errata requested - this may take a few minutes, please be patient!'
+
     errata_list = self.expand_errata(args)
 
     report = {}
