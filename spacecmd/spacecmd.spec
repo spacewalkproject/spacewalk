@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.2
+Version:     2.3.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -76,6 +76,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Nov 03 2014 Grant Gainey 2.3.3-1
+- 1111680 - Teach spacecmd report_errata to process all-errata in the absence
+  of further args
+
 * Mon Nov 03 2014 Miroslav Suchý <msuchy@redhat.com> 2.3.2-1
 - add BR: python
 
