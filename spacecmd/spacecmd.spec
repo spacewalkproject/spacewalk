@@ -16,6 +16,7 @@ BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
 BuildRequires: spacewalk-pylint
+BuildRequires: python
 BuildRequires: python-devel
 BuildRequires: python-simplejson
 BuildRequires: rpm-python
