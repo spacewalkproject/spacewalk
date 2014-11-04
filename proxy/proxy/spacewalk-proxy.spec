@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.3.2
+Version: 2.3.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Tue Nov 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.3-1
+- 1158155 - fixed renaming of deb packages
+
 * Thu Oct 30 2014 Stephen Herr <sherr@redhat.com> 2.3.2-1
 - 1158644 - prevent infinite redirect if using spacewalk webui through proxy
 
