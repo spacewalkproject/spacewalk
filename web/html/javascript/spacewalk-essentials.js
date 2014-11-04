@@ -41,7 +41,7 @@ $(window).load(function () {
 
 // On window resize
 $(window).resize( function () {
-  $(".spacewalk-main-column-layout section").css("padding-bottom", "");
+  $(".spacewalk-main-column-layout aside").css("padding-bottom", "");
   columnHeight();
 });
 
@@ -50,11 +50,12 @@ function columnHeight() {
   //Only if the screen size is higher than the max-width set up in the Variables.less under the definition @screen-md: 
   //PLEASE: update this if you change the content of @screen-md
   if ($(document).width()>992) {
-    var sectionHeight = $(".spacewalk-main-column-layout section").outerHeight();
-  	var heightDoc = $(document).height();
+    var asideHeight = $(".spacewalk-main-column-layout aside").height();
+    var heightDoc = $(document).height();
     // Column heights should equal the document height minus the header height and footer height
-    var newHeight = heightDoc - 145 - sectionHeight + "px";
-    $(".spacewalk-main-column-layout section").css("padding-bottom", newHeight);
+    // header + footer height = 196px; extra 10px to have scrollbar always visible
+    var newHeight = heightDoc - asideHeight - 186 + "px";
+    $(".spacewalk-main-column-layout aside").css("padding-bottom", newHeight);
   };
 };
 
