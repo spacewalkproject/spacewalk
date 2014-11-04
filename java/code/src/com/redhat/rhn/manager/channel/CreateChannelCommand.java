@@ -14,6 +14,15 @@
  */
 package com.redhat.rhn.manager.channel;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -24,14 +33,6 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidGPGKeyException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidGPGUrlException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParentChannelException;
-import org.apache.commons.lang.StringUtils;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * CreateChannelCommand - command to create a new channel.
@@ -51,7 +52,7 @@ public class CreateChannelCommand {
     // we ignore case with the red hat regex
     protected static final String REDHAT_REGEX = "^(rhn|red\\s*hat)";
     protected static final String GPG_KEY_REGEX = "^[0-9A-F]{8}$";
-    protected static final String GPG_URL_REGEX = "^(https?|file)://.*?$";
+    protected static final String GPG_URL_REGEX = "^(HTTPS?|FILE)://.*?$";
     protected static final String GPG_FP_REGEX = "^(\\s*[0-9A-F]{4}\\s*){10}$";
     protected static final String WEB_CHANNEL_CREATED = "web.channel_created";
 
@@ -460,8 +461,9 @@ public class CreateChannelCommand {
         }
 
         if (StringUtils.isNotEmpty(gpgKeyUrl)) {
-            gpgKeyUrl = gpgKeyUrl.toUpperCase();
-            if (!Pattern.compile(GPG_URL_REGEX).matcher(gpgKeyUrl).find()) {
+            // file: URLs can be case-sensitive, can't blindly uppercase here
+            String tmp = gpgKeyUrl.toUpperCase();
+            if (!Pattern.compile(GPG_URL_REGEX).matcher(tmp).find()) {
                 throw new InvalidGPGUrlException();
             }
         }
