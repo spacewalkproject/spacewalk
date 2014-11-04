@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.15
+Version: 2.3.16
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Nov 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.16-1
+- minor updates to strings / wording
+
 * Tue Oct 21 2014 Tomas Lestach <tlestach@redhat.com> 2.3.15-1
 - limit snapshot tag length to the DB field lenght
 - 1150526 - introduce a check for an empty snapshot tag for ssm
