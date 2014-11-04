@@ -295,6 +295,7 @@ class Runner(jabber_lib.Runner):
             if ret['proxy_url'] is None:
                 ret['proxy_url'] = str(config.getProxySetting())
 
+            ret['enable_proxy_auth'] = 0
             enable_proxy_auth = self._config.get_option('enableProxyAuth')
             if enable_proxy_auth is None:
                 enable_proxy_auth = self.get_up2date_config()['enableProxyAuth']
