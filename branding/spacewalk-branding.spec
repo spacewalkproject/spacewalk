@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.11
+Version:    2.3.12
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Nov 04 2014 Jan Dobes 2.3.12-1
+- we don't actually need equal height columns there
+
 * Tue Nov 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.11-1
 - do not use list bullets in messages on centered login page
 
