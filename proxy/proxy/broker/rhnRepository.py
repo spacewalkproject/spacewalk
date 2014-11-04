@@ -86,6 +86,8 @@ class Repository(rhnRepository.Repository):
         # appropriate filename.
         if type(pkgFilename) == types.ListType:
             arch = pkgFilename[3]
+            # Not certain if anything is needed here for Debian, but since what I've tested
+            # works.   Leave it alone.
             if isSolarisArch(arch):
                 pkgFilename = "%s-%s-%s.%s.pkg" % \
                     (pkgFilename[0],
@@ -234,6 +236,8 @@ class Repository(rhnRepository.Repository):
             extension = "rpm"
             if isSolarisArch(arch):
                 extension = "pkg"
+            if isDebianArch(arch):
+                extension = "deb"
 
             filename = "%s-%s-%s.%s.%s" % (package[0], package[1],
                 package[2], package[4], extension)
@@ -388,6 +392,12 @@ def isSolarisArch(arch):
     """
     return arch.find("solaris") != -1
 
+def isDebianArch(arch):
+    """
+    Returns true if the given arch string represents a Debian architecture..
+    """
+    return arch[-4:] == "-deb"
+
 def computePackagePaths(nvrea, source=0, prepend="", checksum=None):
     """ Finds the appropriate paths, prepending something if necessary """
     paths = []
@@ -403,6 +413,8 @@ def computePackagePaths(nvrea, source=0, prepend="", checksum=None):
     extension = "rpm"
     if isSolarisArch(pkgarch):
         extension = "pkg"
+    if isDebianArch(pkgarch):
+        extension = "deb"
 
     version = nvrea[1]
     epoch = nvrea[3]
