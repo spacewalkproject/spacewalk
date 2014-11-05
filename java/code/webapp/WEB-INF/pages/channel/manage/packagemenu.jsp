@@ -29,7 +29,7 @@
       </li>
 
       <li>
-        <a href="/network/software/channels/manage/packages/compare/index.pxt?cid=${channel.id}">
+        <a href="/rhn/channels/manage/ChannelPackagesCompare.do?cid=${channel.id}">
 	  <bean:message key="channel.jsp.package.menu.compare"/>
 	</a>
       </li>
