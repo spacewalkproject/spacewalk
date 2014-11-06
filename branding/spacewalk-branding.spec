@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.12
+Version:    2.3.13
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Nov 06 2014 Jan Dobes 2.3.13-1
+- changing left navigation menu colors to be darker
+- collapse class should work on all screen widths
+
 * Tue Nov 04 2014 Jan Dobes 2.3.12-1
 - we don't actually need equal height columns there
 
