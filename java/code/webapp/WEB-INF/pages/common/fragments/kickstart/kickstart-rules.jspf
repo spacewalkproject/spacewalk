@@ -1,6 +1,4 @@
-<div class="alert alert-warning alert-dismissable">
-  <button type="button" class="close" data-dismiss="alert"
-    aria-hidden="true">&times;</button>
+<div class="alert alert-info">
 
   <p>
     <bean:message key="snippetcreate.jsp.kickstart_rules_pre" />
