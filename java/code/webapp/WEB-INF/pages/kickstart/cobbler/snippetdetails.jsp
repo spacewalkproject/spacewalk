@@ -9,6 +9,7 @@
 
 <html:html>
     <body>
+        <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-rules.jspf" %>
         <c:choose>
             <c:when test = "${not empty requestScope.create_mode}">
                 <rhn:toolbar base="h1" icon="header-info" imgAlt="info.alt.img">
@@ -100,7 +101,6 @@
          <div class="col-lg-6">
              <html:textarea property="contents" rows="24" cols="80"
                             styleId="contents" styleClass="form-control"/>
-             <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-rules.jspf" %>
          </div>
      </div>
 
