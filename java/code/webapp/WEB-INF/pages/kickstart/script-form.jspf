@@ -1,88 +1,74 @@
-      <table class="details">
-          <tr>
-            <td colspan="2">
-              <h2><bean:message key="kickstart.script.langheader"/></h2>
-            </td>
-          </tr>
-          <tr>
-              <th>
-                  <bean:message key="kickstart.script.language"/>
-              </th>
-              <td>
-                  <html:text property="language" maxlength="40" size="20" /><br/>
-                  <bean:message key="kickstart.script.tip1"/><br/>
-                  <bean:message key="kickstart.script.tip2"/><br/>
-              </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <h2><bean:message key="kickstart.script.scriptheader"/></h2>
-            </td>
-          </tr>
-          <tr>
-              <th>
-                  <rhn:required-field key="kickstart.script.scriptname"/>
-              </th>
-              <td>
-                  <html:text property="script_name" maxlength="40" size="20" /><br/>
-              </td>
-          </tr>
-          <tr>
-              <th>
-                  <rhn:required-field key="kickstart.script.contents"/>
-              </th>
-              <td>
-                  <textarea name="contents" rows="24" cols="80" id="contents"><bean:write name="kickstartScriptForm" property="contents" /></textarea>
-              </td>
-          </tr>
-          <tr>
-              <th></th>
-              <td>
-                <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-rules.jspf" %>
-              </td>
-          </tr>
-          <tr>
-              <th>
-                  <rhn:required-field key="kickstart.script.type"/>
-              </th>
-              <td>
-                <html:select property="type">
+      <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-rules.jspf" %>
+
+      <h2><bean:message key="kickstart.script.langheader"/></h2>
+      <div class="form-group">
+          <label class="col-lg-3 control-label">
+              <bean:message key="kickstart.script.language"/>
+          </label>
+          <div class="col-lg-6">
+              <html:text property="language" maxlength="40" size="20" styleClass="form-control"/>
+              <span class="help-block"><bean:message key="kickstart.script.tip1"/></span>
+              <span class="help-block"><bean:message key="kickstart.script.tip2"/></span>
+          </div>
+      </div>
+
+      <h2><bean:message key="kickstart.script.scriptheader"/></h2>
+      <div class="form-group">
+          <label class="col-lg-3 control-label">
+              <rhn:required-field key="kickstart.script.scriptname"/>
+          </label>
+          <div class="col-lg-6">
+              <html:text property="script_name" maxlength="40" size="20" styleClass="form-control"/>
+          </div>
+      </div>
+      <div class="form-group">
+          <label class="col-lg-3 control-label">
+              <rhn:required-field key="kickstart.script.contents"/>
+          </label>
+          <div class="col-lg-6">
+              <textarea name="contents" rows="24" cols="80" id="contents" class="form-control"><bean:write name="kickstartScriptForm" property="contents" /></textarea>
+          </div>
+      </div>
+      <div class="form-group">
+          <label class="col-lg-3 control-label">
+              <rhn:required-field key="kickstart.script.type"/>
+          </label>
+          <div class="col-lg-6">
+              <html:select property="type" styleClass="form-control">
                   <html:options collection="types"
-                            property="value"
-                            labelProperty="label" />
-                </html:select>
-                <br/>
-                <bean:message key="kickstart.script.tip3"/><br/>
-                <br/>
-              </td>
-          </tr>
-          <tr>
-              <th>
-                  <bean:message key="kickstart.script.nochroot"/>
-              </th>
-              <td>
-                  <html:checkbox  property="nochroot"  />
-              </td>
-          </tr>
-          <tr>
-              <th>
-                  <bean:message key="kickstart.script.erroronfail"/>
-              </th>
-              <td>
-                  <html:checkbox  property="erroronfail"  />
-              </td>
-          </tr>
-          <tr>
-              <th>
-                  <bean:message key="kickstart.script.template"/>
-              </th>
-              <td>
-                  <html:checkbox  property="template"  /><br/>
-                  <rhn:tooltip key="kickstart.script.template.tip"/>
-                  <br/>
-              </td>
-          </tr>
-          <tr>
-            <td align="right" colspan="2"><html:submit styleClass="btn btn-default"><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></td>
-          </tr>
-      </table>
+                                property="value"
+                                labelProperty="label" />
+              </html:select>
+              <span class="help-block"><bean:message key="kickstart.script.tip3"/></span>
+          </div>
+      </div>
+      <div class="form-group">
+          <label class="col-lg-3 control-label">
+              <bean:message key="kickstart.script.nochroot"/>
+          </label>
+          <div class="col-lg-6">
+              <html:checkbox  property="nochroot"/>
+          </div>
+      </div>
+      <div class="form-group">
+          <label class="col-lg-3 control-label">
+              <bean:message key="kickstart.script.erroronfail"/>
+          </label>
+          <div class="col-lg-6">
+              <html:checkbox  property="erroronfail"/>
+          </div>
+      </div>
+      <div class="form-group">
+          <label class="col-lg-3 control-label">
+              <bean:message key="kickstart.script.template"/>
+          </label>
+          <div class="col-lg-6">
+              <html:checkbox  property="template"/>
+              <span class="help-block"><rhn:tooltip key="kickstart.script.template.tip"/></span>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="col-lg-offset-3 col-lg-6">
+              <html:submit styleClass="btn btn-success"><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit>
+          </div>
+      </div>

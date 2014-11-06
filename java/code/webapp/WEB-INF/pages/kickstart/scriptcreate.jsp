@@ -21,7 +21,7 @@
   <p>
     <bean:message key="kickstart.script.summary"/>
   </p>
-    <html:form method="post" action="/kickstart/KickstartScriptCreate.do">
+    <html:form styleClass="form-horizontal" method="post" action="/kickstart/KickstartScriptCreate.do">
       <rhn:csrf />
       <%@ include file="script-form.jspf" %>
       <html:hidden property="ksid" value="${ksdata.id}"/>

@@ -28,7 +28,7 @@
     <bean:message key="kickstart.script.summary"/>
     <p>
 
-    <html:form method="POST" action="/kickstart/KickstartScriptEdit.do">
+    <html:form styleClass="form-horizontal" method="POST" action="/kickstart/KickstartScriptEdit.do">
       <rhn:csrf />
       <%@ include file="script-form.jspf" %>
       <html:hidden property="kssid" value="${kssid}"/>
