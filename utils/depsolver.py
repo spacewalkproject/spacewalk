@@ -40,6 +40,7 @@ except ImportError:
 log = logging.getLogger(__name__)
 
 CACHE_DIR = "/tmp/cache/yum"
+PERSIST_DIR = "/var/lib/yum"
 
 class DepSolver:
     def __init__(self, repos, pkgs_in=None):
@@ -62,6 +63,7 @@ class DepSolver:
             self.yrepo = yum.yumRepo.YumRepository(repo['id'])
             self.yrepo.baseurl = ["file://%s/" % str(repo['relative_path'])]
             self.yrepo.basecachedir = CACHE_DIR
+            self.yrepo.base_persistdir = PERSIST_DIR
             self._repostore.add(self.yrepo)
 
     def loadPackages(self):
