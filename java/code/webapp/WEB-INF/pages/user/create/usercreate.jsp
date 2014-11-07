@@ -72,7 +72,7 @@
               <script type="text/javascript" src="/javascript/pwstrength-bootstrap-1.0.2.js"></script>
               <script type="text/javascript" src="/javascript/spacewalk-pwstrength-handler.js"></script>
               <tr>
-                <td><label>Password strength:</label></td>
+                <td><label><bean:message key="help.credentials.jsp.passwordstrength"/>:</label></td>
                 <td>
                     <div id="pwstrenghtfield">
                       <!-- progress-bar will attach to this container -->
