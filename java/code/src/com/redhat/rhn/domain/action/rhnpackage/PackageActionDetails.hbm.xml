@@ -17,14 +17,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
   		<many-to-one
             name="evr"
             class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
-            column="evr_id"
-            cascade="save-update"/>
+            column="evr_id" />
 
 		<many-to-one
         	name="packageName"
             class="com.redhat.rhn.domain.rhnpackage.PackageName"
-            column="name_id"
-            cascade="all"/>
+            column="name_id" />
 
         <many-to-one
             name="arch"
