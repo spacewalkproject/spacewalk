@@ -75,6 +75,10 @@ A utility to create and manage channels at different update levels.
         <arg>--data=<replaceable>DATAFILE</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-N<replaceable>DEST_NAME</replaceable></arg>
+        <arg>--name=<replaceable>DEST_NAME</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--nossl</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -86,12 +90,12 @@ A utility to create and manage channels at different update levels.
 
 <RefSect1><Title>Description</Title>
 <para>
-spacewalk-create-channel is a command line utility for creating channels 
+spacewalk-create-channel is a command line utility for creating channels
 of different update levels on a Spacewalk or Satellite server.  For example,
 the script can create a channel with the exact package set of the Red Hat
 Enterprise Linux 5.3 release of all architectures for which it was released.
-It is written in python and utilizes the XML-RPC interface supplied by 
-the Spacewalk or Satellite server.  
+It is written in python and utilizes the XML-RPC interface supplied by
+the Spacewalk or Satellite server.
 </para>
 
 </RefSect1>
@@ -204,7 +208,7 @@ the Spacewalk or Satellite server.
 </RefSect1>
 
 <RefSect1><Title>Examples</Title>
-        <para>Creating a channel 'my-stable-channel' for RHEL 6 Server Gold x86_64: 
+        <para>Creating a channel 'my-stable-channel' for RHEL 6 Server Gold x86_64:
           <simplelist>
             <member><command>spacewalk-create-channel</command>  --user=admin --server=myserver.example.com --version=6 --update=gold --release=Server --arch=x86_64  --destChannel=my-stable-channel</member>
  	    <member><command>spacewalk-create-channel</command>  -l admin -s myserver.example.com  -D /usr/share/rhn/channel-data/6-gold-server-x86_64  -d my-stable-channel</member>
