@@ -70,7 +70,7 @@
 		<rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByIp.do</rhn-tab-url>
           </rhn-tab>
 	  <rhn-tab name="Tag Systems" url="/rhn/systems/ssm/provisioning/TagSystems.do" />
-          <rhn-tab name="Rollback" url="/network/systems/ssm/provisioning/rollback.pxt">
+          <rhn-tab name="Rollback" url="/rhn/systems/ssm/provisioning/Rollback.do">
             <rhn-tab-url>/rhn/systems/ssm/provisioning/RollbackToTag.do</rhn-tab-url>
           </rhn-tab>
           <rhn-tab name="Remote Command" url="/rhn/systems/ssm/provisioning/RemoteCommand.do">

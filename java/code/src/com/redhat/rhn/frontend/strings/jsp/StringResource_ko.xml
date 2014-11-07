@@ -5117,8 +5117,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>시스템 &lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;킥스타트&lt;/a&gt; </target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.rollback">
-          <source>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</source>
-          <target>&lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;스냅샷 롤백&lt;/a&gt; 용 시스템을 &lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;태그&lt;/a&gt;</target>
+          <source>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Tag&lt;/a&gt; systems for &lt;a href="/rhn/systems/ssm/provisioning/Rollback.do"&gt;snapshot rollback&lt;/a&gt;</source>
+          <target>&lt;a href="/rhn/systems/ssm/provisioning/Rollback.do"&gt;스냅샷 롤백&lt;/a&gt; 용 시스템을 &lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;태그&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>

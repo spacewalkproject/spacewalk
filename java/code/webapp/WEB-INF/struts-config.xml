@@ -3570,6 +3570,14 @@
                  path="/systems/Overview.do" redirect="true"/>
      </action>
 
+    <action path="/systems/ssm/provisioning/Rollback"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.ssm.RollbackAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/provisioning/rollback.jsp"/>
+    </action>
+
     <action path="/systems/ssm/provisioning/RollbackToTag"
         scope="request"
         type="com.redhat.rhn.frontend.action.ssm.RollbackToTagAction"
@@ -3577,6 +3585,7 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/provisioning/rollbacktotag.jsp"/>
+        <forward name="confirm" path="/systems/ssm/provisioning/Rollback.do" redirect="true"/>
     </action>
 
     <!--System Details Configuration -->

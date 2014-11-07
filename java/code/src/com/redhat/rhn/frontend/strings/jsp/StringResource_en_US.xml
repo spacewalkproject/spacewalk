@@ -71,6 +71,18 @@
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/RollbackToTag.do</context>
           </context-group>
         </trans-unit>
+        <trans-unit id="column.tagged-systems">
+          <source>Tagged Systems</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/Rollback.do</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="column.tag-created">
+          <source>Tag Created</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/Rollback.do</context>
+          </context-group>
+        </trans-unit>
       </group>
       <!-- Generic row labels. The intent is that these can be reused across multiple pages.-->
       <group>
@@ -4674,7 +4686,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; systems</source>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.rollback">
-          <source>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</source>
+          <source>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Tag&lt;/a&gt; systems for &lt;a href="/rhn/systems/ssm/provisioning/Rollback.do"&gt;snapshot rollback&lt;/a&gt;</source>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
@@ -8143,6 +8155,21 @@ Please note that some manual configuration of these scripts may still be require
         </trans-unit>
         <trans-unit id="ssm.kickstart.distro.cobbler-only.tooltip">
           <source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not the selected systems will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
+        </trans-unit>
+      </group>
+      <!-- SSM Rollback -->
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/Rollback.do</context>
+        </context-group>
+        <trans-unit id="ssm.provisioning.rollback.header">
+          <source>Rollback to Snapshot Tag</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.rollback.summary1">
+          <source>You may rollback provisioning-entitled, rollback-capable selected systems to a previous system snapshot marked with a tag.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.rollback.summary2">
+          <source>To rollback the systems, please click on the desired tag name below.</source>
         </trans-unit>
       </group>
       <!-- SSM Rollback to tag -->

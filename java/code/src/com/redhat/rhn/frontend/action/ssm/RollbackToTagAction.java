@@ -43,8 +43,6 @@ import javax.servlet.http.HttpServletResponse;
 public class RollbackToTagAction extends RhnAction implements Listable {
     protected static final String TAG_ID = "tag_id";
     protected static final String TAG_NAME = "tag_name";
-    protected static final String REDIR_PAGE =
-                                    "/network/systems/ssm/provisioning/rollback.pxt";
     /**
      * ${@inheritDoc}
      */
@@ -54,8 +52,7 @@ public class RollbackToTagAction extends RhnAction implements Listable {
         Long tagId = context.getRequiredParam(TAG_ID);
         if (context.wasDispatched("ssm.provisioning.rollbacktotag.rollback-button")) {
             rollback(context, tagId);
-            response.sendRedirect(REDIR_PAGE);
-            return null;
+            return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
         }
 
         SnapshotTag tag = ServerFactory.lookupSnapshotTagbyId(tagId);

@@ -25,11 +25,11 @@
     <rl:list styleclass="list" alphabarcolumn="server_name">
       <rl:decorator name="PageSizeDecorator" />
 
-      <rl:column headerkey="column.tag-name">
-        <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.server_name}</a>
+      <rl:column headerkey="column.name">
+        <a href="/rhn/systems/details/Overview.do?sid=${current.id}"><c:out value="${current.server_name}" /></a>
       </rl:column>
       <rl:column headerkey="column.reason">
-        <a href="/rhn/systems/details/history/snapshots/Index.do?sid=${current.id}&amp;ss_id=${current.snapshot_id}">${current.snapshot_reason}</a>
+        <a href="/rhn/systems/details/history/snapshots/Index.do?sid=${current.id}&amp;ss_id=${current.snapshot_id}"><c:out value="${current.snapshot_reason}" /></a>
       </rl:column>
       <rl:column headerkey="ssm.provisioning.rollbacktotag.datetagapplied">
         ${current.date_tag_applied}

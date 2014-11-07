@@ -3295,4 +3295,17 @@ public class SystemManager extends BaseManager {
         params.put("key_id", keyId);
         return mode.executeUpdate(params);
     }
+
+    /**
+     * Get a list of all tags that are applicable to entitled systems in the set
+     * @param user The user to check the system set for
+     * @return Maps of id, name, tagged_systems, and date_tag_created
+     */
+    public static DataResult<Map<String, Object>> listTagsForSystemsInSet(User user) {
+        SelectMode mode = ModeFactory.getMode("General_queries",
+                "tags_for_provisioning_entitled_in_set");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        return mode.execute(params);
+    }
 }

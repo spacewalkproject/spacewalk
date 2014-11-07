@@ -313,5 +313,38 @@ ORDER BY created DESC
   </query>
 </mode>
 
+<mode name="tags_for_provisioning_entitled_in_set">
+  <query params="user_id">
+select * from (
+SELECT DISTINCT T.id AS ID,
+       TN.name,
+       TO_CHAR(T.created, 'YYYY-MM-DD HH24:MI:SS') AS DATE_TAG_CREATED,
+       COUNT(DISTINCT SS.server_id) AS TAGGED_SYSTEMS
+  FROM rhnTagName TN,
+       rhnTag T,
+       rhnSnapshotTag STag,
+       rhnSnapshot SS,
+       rhnClientCapabilityName CCN,
+       rhnClientCapability CC,
+       rhnSet ST,
+       rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND ST.user_id = :user_id
+   AND ST.label = 'system_list'
+   AND USP.server_id = ST.element
+   AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+   AND USP.server_id = CC.server_id
+   AND CC.capability_name_id = CCN.id
+   AND CCN.name = 'packages.runTransaction'
+   AND USP.server_id = SS.server_id
+   AND SS.id = STag.snapshot_id
+   AND STag.tag_id = T.id
+   AND T.name_id = TN.id
+GROUP BY T.id, TN.name, T.created
+) S
+ORDER BY UPPER(name)
+  </query>
+</mode>
+
 </datasource_modes>
 
