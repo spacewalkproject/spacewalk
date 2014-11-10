@@ -84,7 +84,7 @@ public class ConfirmErrataAction extends RhnListAction {
         request.setAttribute("channel_name", currentChan.getName());
 
         request.setAttribute(CID, cid);
-        if (requestContext.wasDispatched("Clone Errata")) {
+        if (requestContext.wasDispatched("frontend.actions.channels.manager.add.submit")) {
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("cid", cid);
             return getStrutsDelegate().forwardParams(mapping.findForward("clone"), params);

@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.channel.manage;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -105,9 +106,21 @@ public class PublishErrataAction extends RhnListAction {
         ActionMessages msg = new ActionMessages();
         String[] params = {errataIds.size() + "", packageIds.size() + "",
                 currentChan.getName()};
-        msg.add(ActionMessages.GLOBAL_MESSAGE,
+        Errata anyErratum = null;
+        if (!errataIds.isEmpty()) {
+            Long any = errataIds.iterator().next();
+            anyErratum = ErrataManager.lookupErrata(any, user);
+        }
+        if (anyErratum != null && anyErratum.getOrg() != null) {
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
+                new ActionMessage("frontend.actions.channels.manager.addcustom.success",
+                        params));
+        }
+        else {
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("frontend.actions.channels.manager.add.success",
                         params));
+        }
 
         getStrutsDelegate().saveMessages(requestContext.getRequest(), msg);
 
