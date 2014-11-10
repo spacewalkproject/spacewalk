@@ -343,7 +343,11 @@ def parse_line(line):
                        'server.satellite.http_proxy_username': str,
                        'server.satellite.http_proxy_password': str,
                        'server.satellite.rhn_parent': str,
-                       'db_name': str}
+                       'db_name': str,
+                       'db_user': str,
+                       'db_password': str,
+                       'db_host': str,
+                       }
         val = val.strip()
 
         if converTable.get(key):
