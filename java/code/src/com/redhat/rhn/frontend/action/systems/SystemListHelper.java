@@ -59,7 +59,6 @@ public class SystemListHelper {
         HtmlTag url = new HtmlTag("a");
         IconTag i = new IconTag();
 
-        LocalizationService ls = LocalizationService.getInstance();
         if (next.getEntitlement() == null ||
             next.getEntitlement().isEmpty()) {
             i.setType("system-unknown");
@@ -70,14 +69,9 @@ public class SystemListHelper {
             }
         }
         else if (checkinOverdue(next)) {
-            //status = "awol";
-            url.setAttribute("href",
-                    "/rhn/help/reference/en-US/s1-sm-systems.jsp");
+            //status = "awol"
             i.setType("system-unknown");
             i.setTitle("systemlist.jsp.notcheckingin");
-            if (makeLinks) {
-                makeLinks = ConfigDefaults.get().isDocAvailable();
-            }
         }
         else if (SystemManager.isKickstarting(user,
                  new Long(next.getId().longValue()))) {
@@ -146,22 +140,8 @@ public class SystemListHelper {
         }
 
         if (next.getLocked().intValue() == 1) {
-            HtmlTag lockedUrl = new HtmlTag("a");
-
-            //status = "locked";
-            lockedUrl.setAttribute("href",
-                    "/rhn/help/reference/en-US/s1-sm-systems.jsp");
             IconTag lockedIcon = new IconTag("system-locked", "systemlist.jsp.locked");
-            if (makeLinks) {
-                makeLinks = ConfigDefaults.get().isDocAvailable();
-            }
-            if (makeLinks) {
-                lockedUrl.addBody(lockedIcon.render());
-                statusDisplay = statusDisplay + lockedUrl.render();
-            }
-            else {
-                statusDisplay = statusDisplay + lockedIcon.render();
-            }
+            statusDisplay = statusDisplay + lockedIcon.render();
         }
 
         next.setStatusDisplay(statusDisplay);
@@ -179,10 +159,8 @@ public class SystemListHelper {
     public static void setSystemStatusDisplay(User user, SystemCurrency next,
                                               boolean makeLinks) {
 
-        String message;
         HtmlTag url = new HtmlTag("a");
         HtmlTag img = new HtmlTag("img");
-        LocalizationService ls = LocalizationService.getInstance();
 
         url.addBody(img);
         String statusDisplay;

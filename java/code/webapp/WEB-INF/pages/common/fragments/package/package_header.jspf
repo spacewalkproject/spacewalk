@@ -1,9 +1,6 @@
-
-
 <rhn:toolbar base="h1" icon="header-package" imgAlt="package.jsp.alt">
-    <c:out value="${package_name}" escapeXml="true"/><a href="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp" target="_blank" class="help-title"><rhn:icon type="header-help" title="toolbar.jsp.helpicon.alt" /></a>
+    <c:out value="${package_name}" />
 </rhn:toolbar>
-
 
 <rhn:dialogmenu mindepth="0" maxdepth="1"
 		definition="/WEB-INF/nav/package_detail.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

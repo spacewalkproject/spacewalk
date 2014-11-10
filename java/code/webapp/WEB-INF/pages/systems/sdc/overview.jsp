@@ -19,9 +19,6 @@
         </c:when>
         <c:when test="${systemInactive}">
           <rhn:icon type="system-unknown" /> <bean:message key="sdc.details.overview.inactive1"/>
-          <c:if test="${documentation == 'true'}">
-            <bean:message key="sdc.details.overview.inactive2" arg0="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-list"/>
-          </c:if>
         </c:when>
         <c:when test="${hasUpdates}">
           <c:choose>
@@ -64,10 +61,10 @@
           <div class="col-md-6">
             <c:choose>
               <c:when test="${probeList[0].state == 'CRITICAL'}">
-                <rhn:icon type="monitoring-crit" />  <bean:message key="sdc.details.overview.probes.critical" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
+                <rhn:icon type="monitoring-crit" />  <bean:message key="sdc.details.overview.probes.critical" arg0="/rhn/help/reference/en-US/sect-Reference_Guide-Monitoring.jsp"/>
               </c:when>
               <c:otherwise>
-                <rhn:icon type="monitoring-warn" />  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
+                <rhn:icon type="monitoring-warn" />  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en-US/sect-Reference_Guide-Monitoring.jsp"/>
               </c:otherwise>
             </c:choose>
           </div>

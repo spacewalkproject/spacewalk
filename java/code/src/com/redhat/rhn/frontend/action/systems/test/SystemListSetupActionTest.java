@@ -14,6 +14,9 @@
  */
 package com.redhat.rhn.frontend.action.systems.test;
 
+import java.util.Date;
+import java.util.Iterator;
+
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -29,14 +32,12 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
-import java.util.Date;
-import java.util.Iterator;
-
 /**
  * SystemListSetupActionTest
  * @version $Rev$
  */
 public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/systems/SystemList");
@@ -68,10 +69,9 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
         String up2date = "<a><img src=\"/img/icon_up2date.gif\" title=\"" +
                          ls.getMessage("systemlist.jsp.up2date") + "\" alt=\"" +
                          ls.getMessage("systemlist.jsp.up2date") + "\" /></a>";
-        String awol = "<a href=\"/rhn/help/reference/en-US/s1-sm-systems.jsp" +
-                      "\"><i class=\"spacewalk-icon-unknown-system\" " + "\" " +
+        String awol = "<i class=\"spacewalk-icon-unknown-system\" " + "\" " +
                       "title=\"" + ls.getMessage("systemlist.jsp.notcheckingin") +
-                      "\" ></i></a>";
+                      "\" ></i>";
 
 
         //Page through all the systems because we don't know where our new system is

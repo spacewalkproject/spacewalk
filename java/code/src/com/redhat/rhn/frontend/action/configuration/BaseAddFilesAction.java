@@ -14,7 +14,16 @@
  */
 package com.redhat.rhn.frontend.action.configuration;
 
-import com.redhat.rhn.common.conf.ConfigDefaults;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
@@ -27,16 +36,6 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.configuration.ConfigFileBuilder;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * BaseAddFilesAction
  * @version $Rev$
@@ -47,6 +46,7 @@ public abstract class BaseAddFilesAction extends RhnAction {
     public static final String CSRF_TOKEN = "csrfToken";
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
 
@@ -58,7 +58,6 @@ public abstract class BaseAddFilesAction extends RhnAction {
                  StringUtil.displayFileSize(ConfigFile.getMaxFileSize()));
 
         request.setAttribute(CSRF_TOKEN, request.getSession().getAttribute("csrf_token"));
-        request.setAttribute("documentation", ConfigDefaults.get().isDocAvailable());
 
         if (isSubmitted(cff)) {
             ConfigChannel channel = getConfigChannel(request);

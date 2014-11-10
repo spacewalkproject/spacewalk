@@ -178,15 +178,6 @@
                           disabled = "${configFileForm.map.filetype == 'symlink'}" />
            </div>
        </div>
-       <c:if test="${documentation == 'true'}">
-           <div class="form-group">
-               <div class="col-lg-offset-3 col-lg-6">
-                   <span class="help-block">
-                       <bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/index.jsp" />
-                   </span>
-               </div>
-           </div>
-       </c:if>
        <div class="form-group" <c:if test="${configFileForm.map.filetype == 'symlink'}"> style="display:none"</c:if>>
            <label class="col-lg-3 control-label">
                <bean:message key="addfiles.create.jspf.content-name" />

@@ -47,9 +47,6 @@
                                 </rhn:require>
                             </div>
                         </div>
-                        <c:if test="${documentation == 'true'}">
-                            <span class="help-block"><bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp"/></span>
-                        </c:if>
                     </div>
                 </div>
             </div>

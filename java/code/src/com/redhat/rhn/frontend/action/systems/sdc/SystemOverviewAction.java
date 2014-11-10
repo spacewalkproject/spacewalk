@@ -14,7 +14,21 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
-import com.redhat.rhn.common.conf.ConfigDefaults;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
@@ -32,21 +46,6 @@ import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * SystemOverviewAction
@@ -126,7 +125,6 @@ public class SystemOverviewAction extends RhnAction {
         request.setAttribute("rebootRequired", Boolean.valueOf(rebootRequired));
         request.setAttribute("unentitled", Boolean.valueOf(s.getEntitlements().isEmpty()));
         request.setAttribute("systemInactive", Boolean.valueOf(s.isInactive()));
-        request.setAttribute("documentation", ConfigDefaults.get().isDocAvailable());
         request.setAttribute("criticalErrataCount", criticalErrataCount);
         request.setAttribute("nonCriticalErrataCount", nonCriticalErrataCount);
         request.setAttribute("upgradablePackagesCount", upgradablePackagesCount);
