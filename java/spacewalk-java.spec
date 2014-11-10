@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.73
+Version: 2.3.74
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 10 2014 Grant Gainey 2.3.74-1
+- 116206 - Removed remaining (?) support for context-sensitive-help
+- Commit 877f3308 should fix tasko OOM problems, so setting max mem to 1GB
+  and increaseing repodata workers back to 2
+- 1158750 - minor UI text updates
+
 * Fri Nov 07 2014 Tomas Lestach <tlestach@redhat.com> 2.3.73-1
 - 1134879 - we do not want to use cascade for evr and name attributes of
   PackageActionDetails
