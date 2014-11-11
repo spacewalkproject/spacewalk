@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.74
+Version: 2.3.75
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 11 2014 Tomas Lestach <tlestach@redhat.com> 2.3.75-1
+- remove @Override annotation from method that isn't overriden
+- remove unnecessarily nested 'else' statement
+- remove unnecessarily nested 'else' statement
+- remove unnecessarily nested 'else' statement
+- 1153010 - move verifyOrgExists method to BaseHandler as it is being called
+  from more handlers
+- Fix ActionChainSaveActionTest after Action Chains creator patch
+- 1065998 - adapt the page to adding/cloning errata
+- fix alignment and apply style class on /rhn/users/CreateUser page
+
 * Mon Nov 10 2014 Grant Gainey 2.3.74-1
 - 116206 - Removed remaining (?) support for context-sensitive-help
 - Commit 877f3308 should fix tasko OOM problems, so setting max mem to 1GB
