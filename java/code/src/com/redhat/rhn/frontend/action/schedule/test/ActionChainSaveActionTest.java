@@ -22,7 +22,9 @@ import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.action.schedule.ActionChainSaveAction;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
+import com.redhat.rhn.testing.RhnMockHttpServletRequest;
 import com.redhat.rhn.testing.TestUtils;
 
 import org.stringtree.json.JSONReader;
@@ -45,6 +47,9 @@ public class ActionChainSaveActionTest extends BaseTestCaseWithUser {
      */
     @SuppressWarnings("unchecked")
     public void testSave() throws Exception {
+        RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
+        user = new RequestContext(request).getCurrentUser();
+
         ActionChainSaveAction saveAction = new ActionChainSaveAction();
         String label = TestUtils.randomString();
         ActionChain actionChain = ActionChainFactory.createActionChain(label, user);
@@ -70,8 +75,9 @@ public class ActionChainSaveActionTest extends BaseTestCaseWithUser {
         List<Integer> reorderedSortOrders = new LinkedList<Integer>();
         reorderedSortOrders.add(2);
         reorderedSortOrders.add(1);
+
         String resultString = saveAction.save(actionChain.getId(), newLabel,
-            deletedEntries, deletedSortOrders, reorderedSortOrders);
+                deletedEntries, deletedSortOrders, reorderedSortOrders, request);
 
         Map<String, Object> result = (Map<String, Object>) new JSONReader()
             .read(resultString);

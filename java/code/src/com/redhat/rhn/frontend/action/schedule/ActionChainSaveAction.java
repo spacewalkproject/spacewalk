@@ -17,16 +17,6 @@
  */
 package com.redhat.rhn.frontend.action.schedule;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.directwebremoting.WebContextFactory;
-import org.stringtree.json.JSONWriter;
-
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionChainEntry;
@@ -34,6 +24,17 @@ import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
+
+import org.apache.log4j.Logger;
+import org.stringtree.json.JSONWriter;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Handles Ajax requests for the Action Chain Edit page.
@@ -57,15 +58,16 @@ public class ActionChainSaveAction {
      * @param deletedEntries list of deleted entries id
      * @param deletedSortOrders list of sort order values to delete
      * @param reorderedSortOrders non-deleted sort order numbers in new order
+     * @param request HTTP request object, filled automatically by DWR
      * @return a JSON object with a success field and a text field
      * @throws Exception if something goes wrong
      */
     public String save(Long actionChainId, String label, List<Long> deletedEntries,
-        List<Integer> deletedSortOrders, List<Integer> reorderedSortOrders)
-        throws Exception {
+            List<Integer> deletedSortOrders, List<Integer> reorderedSortOrders,
+            HttpServletRequest request)
+            throws Exception {
         try {
-            User u = new RequestContext(WebContextFactory.get().getHttpServletRequest())
-                .getCurrentUser();
+            User u = new RequestContext(request).getCurrentUser();
             ActionChain actionChain = ActionChainFactory.getActionChain(u, actionChainId);
 
             // input validation
