@@ -96,7 +96,7 @@ public class ActivationKeyCloneCommand {
             List<String> lcloneConfigChannels = new ArrayList<String>();
             for (Iterator<ConfigChannel> it = ak.getConfigChannelsFor(userIn)
                     .iterator(); it.hasNext();) {
-                lcloneConfigChannels.add(it.next().getName());
+                lcloneConfigChannels.add(it.next().getLabel());
             }
 
             List<String> lcak = new ArrayList<String>();
