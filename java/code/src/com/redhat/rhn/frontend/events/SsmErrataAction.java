@@ -34,7 +34,7 @@ import org.apache.log4j.Logger;
  * @author Bo Maryniuk
  */
 public class SsmErrataAction extends AbstractDatabaseAction {
-    private static Logger log = Logger.getLogger(SsmRemovePackagesAction.class);
+    private static Logger log = Logger.getLogger(SsmErrataAction.class);
 
     /** {@inheritDoc} */
     @Override
@@ -47,22 +47,16 @@ public class SsmErrataAction extends AbstractDatabaseAction {
             .getActionChainId());
 
         try {
-            ErrataManager.applyErrata(user,
-                                      event.getErrataIds(),
-                                      event.getEarliest(),
-                                      actionChain,
-                                      event.getServerIds());
+            ErrataManager.applyErrata(user, event.getErrataIds(), event.getEarliest(),
+                    actionChain, event.getServerIds());
         }
         catch (Exception e) {
-            SsmErrataAction.log.error("Error scheduling SSM errata for event: " + event, e);
+            log.error("Error scheduling SSM errata for event: " + event, e);
         }
         finally {
-            SsmOperationManager.completeOperation(
-                    user,
-                    SsmOperationManager.createOperation(user,
-                                                        "ssm.package.remove.operationname",
-                                                        RhnSetDecl.SYSTEMS.getLabel())
-            );
+            SsmOperationManager.completeOperation(user, SsmOperationManager
+                    .createOperation(user, "ssm.package.remove.operationname",
+                            RhnSetDecl.SYSTEMS.getLabel()));
         }
     }
 }
