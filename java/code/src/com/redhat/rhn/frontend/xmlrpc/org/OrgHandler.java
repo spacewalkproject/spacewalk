@@ -229,22 +229,6 @@ public class OrgHandler extends BaseHandler {
         return 1;
     }
 
-    /**
-     * Ensure the org exists
-     * @param orgId the org id to check
-     * @return the org
-     */
-    public static Org verifyOrgExists(Number orgId) {
-        if (orgId == null) {
-            throw new NoSuchOrgException("null Id");
-        }
-        Org org = OrgFactory.lookupById(orgId.longValue());
-        if (org == null) {
-            throw new NoSuchOrgException(orgId.toString());
-        }
-        return org;
-    }
-
     private Org verifyOrgExists(String name) {
         Org org = OrgFactory.lookupByName(name);
         if (org == null) {

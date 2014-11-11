@@ -36,8 +36,6 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidServerGroupException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchExternalGroupToRoleMapException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchExternalGroupToServerGroupMapException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
-import com.redhat.rhn.frontend.xmlrpc.org.OrgHandler;
-
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -180,7 +178,7 @@ public class UserExternalHandler extends BaseHandler {
         ensureSatAdmin(loggedInUser);
 
         if (defaultOrg != 0) {
-            OrgHandler.verifyOrgExists(defaultOrg);
+            verifyOrgExists(defaultOrg);
             SatConfigFactory.setSatConfigValue(SatConfigFactory.EXT_AUTH_DEFAULT_ORGID,
                     defaultOrg.toString());
         }

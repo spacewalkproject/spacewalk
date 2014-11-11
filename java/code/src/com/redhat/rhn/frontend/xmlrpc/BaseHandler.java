@@ -41,6 +41,7 @@ import com.redhat.rhn.common.translation.Translator;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.entitlement.Entitlement;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -380,6 +381,23 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             throw new PermissionCheckFailureException(OrgFactory.
                                 getEntitlementProvisioning());
         }
+    }
+
+
+    /**
+     * Ensure the org exists
+     * @param orgId the org id to check
+     * @return the org
+     */
+    protected Org verifyOrgExists(Number orgId) {
+        if (orgId == null) {
+            throw new NoSuchOrgException("null Id");
+        }
+        Org org = OrgFactory.lookupById(orgId.longValue());
+        if (org == null) {
+            throw new NoSuchOrgException(orgId.toString());
+        }
+        return org;
     }
 
     /**
