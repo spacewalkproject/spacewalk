@@ -2,10 +2,6 @@
 html, body {
 	height: 100%
 }
-header {
-	width: 100%;
-	background: url('../../img/spacewalk-header-background.png') repeat-x @gray;
-}
 footer {
 	padding: 1.2em 0;
 	background: #030303;
@@ -131,104 +127,6 @@ p {
 	overflow: hidden;
 	ul {
 		list-style: none;
-	}
-}
-
-
-header {
-	.spacewalk-header-container {
-	  margin: 0 1em;
-	}
-	/* undo the padding the grid columns give */
-	&#spacewalk-header {
-		padding-right: 0;
-		padding-left: 0
-	}
-	.spacewalk-logo {
-		padding-top: 1.4em;
-	}
-	.nav-pills {
-		display: inline-block;
-		border-radius: 0 0 4px 4px
-	}
-	.nav-pills li > a, .spacewalk-header-non-link {
-		padding: .3em 1em;
-		font-size: .85em;
-		color: #fff;
-		font-weight: normal;
-		letter-spacing: normal;
-	}
-	.nav-pills li > a:hover {
-		background: none;
-		text-decoration: underline;
-	}
-	ul.nav-pills:nth-child(1) {
-		background: #000;
-	}
-
-	ul.nav-pills:nth-child(2) {
-		background: #333;
-	}
-
-	ul.nav-pills:nth-child(3) {
-		background: #666;
-	}
-
-	ul.nav-pills:nth-child(2) li {
-		border-left: 1px #222 solid
-	}
-
-	ul.nav-pills:nth-child(3) li {
-		border-left: 1px #555 solid
-	}
-
-	ul.nav-pills li:first-child {
-		border-left: 0
-	}
-
-	.navbar-nav > li > a {
-		padding: .5em 1.2em;
-
-	}
-
-	.navbar-nav > li:hover {
-		background: @spacewalk-main;
-		.border-rounded(4px; 4px; 0; 0);
-	}
-
-	form input[type="search"] {
-		padding: 0px 10px;
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
-	}
-
-	.btn.btn-info.input-sm {
-		padding-top: 4px
-	}
-
-	/* reseting navbar styles for the main menu */
-	.spacewalk-main-nav {
-		margin: 0;
-		border-radius: 0
-	}
-
-	.navbar {
-		min-height: .5em;
-	}
-
-	/* Systems selector inside the main menu in the header */
-	#bar {
-		color: #fff;
-	}
-	#bar .spacewalk-bar {
-		padding: .5em 1.2em;
-		text-align: right;
-		display: none;
-	}
-	#bar .spacewalk-bar .badge {
-		margin-right: .5em;
-		background: @spacewalk-main
 	}
 }
 
