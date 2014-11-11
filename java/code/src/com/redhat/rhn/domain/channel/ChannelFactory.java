@@ -384,12 +384,11 @@ public class ChannelFactory extends HibernateFactory {
      * @return the Channel whose label matches the given label.
      */
     public static Channel lookupByLabel(Org org, String label) {
-        Session session = getSession();
-        Criteria c = session.createCriteria(Channel.class);
-        c.add(Restrictions.eq("label", label));
-        c.add(Restrictions.or(Restrictions.eq("org", org),
-                            Restrictions.isNull("org")));
-        return (Channel) c.uniqueResult();
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("label", label);
+        params.put("orgId", org.getId());
+        return (Channel) singleton.lookupObjectByNamedQuery("Channel.findByLabelAndOrgId",
+                params);
     }
 
     /**
