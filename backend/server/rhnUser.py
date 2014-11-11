@@ -79,8 +79,10 @@ class User:
         self.site['type'] = "M"
         self.site['notes'] = "Entry created by Spacewalk registration process"
 
-    def check_password(self, password):
+    def check_password(self, password, allow_read_only=False):
         """ simple check for a password that might become more complex sometime """
+        if not allow_read_only and is_user_read_only(self.contact["login"]):
+            raise rhnFault(702)
         good_pwd = str(self.contact["password"])
         if CFG.pam_auth_service:
             # a PAM service is defined
