@@ -112,10 +112,8 @@ public class ActionChainFactory extends HibernateFactory {
                         requestor.getId().longValue()) {
             return ace;
         }
-        else {
-            throw new ObjectNotFoundException(ActionChainEntry.class,
-            "ActionChainEntry Id " + id + " not found for User " + requestor.getLogin());
-        }
+        throw new ObjectNotFoundException(ActionChainEntry.class,
+        "ActionChainEntry Id " + id + " not found for User " + requestor.getLogin());
     }
 
     /**
