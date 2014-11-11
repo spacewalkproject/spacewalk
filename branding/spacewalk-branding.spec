@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.13
+Version:    2.3.14
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Nov 11 2014 Jan Dobes 2.3.14-1
+- remove unused styles
+- long lines are not visible (API doc)
+
 * Thu Nov 06 2014 Jan Dobes 2.3.13-1
 - changing left navigation menu colors to be darker
 - collapse class should work on all screen widths
