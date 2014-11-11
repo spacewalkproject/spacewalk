@@ -318,12 +318,10 @@ public class ColumnTag extends BodyTagSupport {
             }
             return RequestContext.SORT_ASC;
         }
-        else {
-            if (sortDir.equals(RequestContext.SORT_ASC)) {
-                return RequestContext.SORT_ASC;
-            }
-            return RequestContext.SORT_DESC;
+        if (sortDir.equals(RequestContext.SORT_ASC)) {
+            return RequestContext.SORT_ASC;
         }
+        return RequestContext.SORT_DESC;
     }
 
     protected void renderUnbound() throws JspException {
