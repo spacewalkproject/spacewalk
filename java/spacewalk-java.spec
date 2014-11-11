@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.75
+Version: 2.3.76
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 11 2014 Stephen Herr <sherr@redhat.com> 2.3.76-1
+- 1162862 - we should consider if text <> binary has changed for config files
+- 1162840 - all API methods should be able to find shared channels
+- ActionChainSaveActionTest: missing override annotation added
+- ActionChainHelperTest fix: use correct chain ordering
+- SsmErrataAction: correct logger usage
+- CreateChannelCommand imports organized
+- CreateChannelCommand imports organized
+
 * Tue Nov 11 2014 Tomas Lestach <tlestach@redhat.com> 2.3.75-1
 - remove @Override annotation from method that isn't overriden
 - remove unnecessarily nested 'else' statement
