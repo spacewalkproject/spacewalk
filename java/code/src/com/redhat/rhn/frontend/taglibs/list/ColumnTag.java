@@ -322,9 +322,7 @@ public class ColumnTag extends BodyTagSupport {
             if (sortDir.equals(RequestContext.SORT_ASC)) {
                 return RequestContext.SORT_ASC;
             }
-            else {
-                return RequestContext.SORT_DESC;
-            }
+            return RequestContext.SORT_DESC;
         }
     }
 
