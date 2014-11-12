@@ -449,6 +449,7 @@ public class ActionFactoryTest extends RhnBaseTestCase {
             PackageName name = new PackageName();
             name.setName(testname);
             d.setPackageName(name);
+            TestUtils.saveAndFlush(name);
 
             //create packageEvr
             PackageEvr evr = PackageEvrFactory.lookupOrCreatePackageEvr("" +
