@@ -23,7 +23,7 @@
 		Method Name:
 	    </label>
 	    <div class="col-sm-6">
-		<input type="text" size="30" name="method_email" value="" maxlength="50" class="form-control">
+		<input type="text" size="30" name="method_name" value="" maxlength="20" class="form-control">
             </div>
 	</div>
 	<div class="form-group">
