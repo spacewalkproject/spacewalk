@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.17
+Version: 2.3.18
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Nov 12 2014 Grant Gainey 2.3.18-1
+- 1150984 - fix form-field-name for create-notification
+
 * Tue Nov 04 2014 Jan Dobes 2.3.17-1
 - we don't actually need equal height columns there
 
