@@ -9,16 +9,16 @@
 <html>
     <head>
         <script language="javascript">
-        Event.observe(window, 'load',
+        jQuery(window).load(
             function() {
                 issueDateSearchOptions();
             });
 
         function issueDateSearchOptions() {
-            if ($("issueDateOptionsCheckBox").checked) {
-                Element.show("issueDateOptions");
+            if (document.getElementById("issueDateOptionsCheckBox").checked) {
+                $('#issueDateOptions').show();
             } else {
-                Element.hide("issueDateOptions");
+                $('#issueDateOptions').hide();
             }
         }
         </script>

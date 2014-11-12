@@ -6,7 +6,6 @@
 
 <html>
 <head>
-<script src="/javascript/prototype.js" type="text/javascript"> </script>
 <script src="/javascript/rank_options.js" type="text/javascript"> </script>
 </head>
 <body>

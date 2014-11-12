@@ -41,9 +41,9 @@ function refreshURL() {
     document.getElementById('saveScrollPosition').submit();
 }
 
-Event.observe(window, 'load', function() {
-    restoreScroll()
-    Event.observe(window, 'scroll', saveScroll);
-    setTimeout(refreshURL, 15000);
+jQuery(window).load(function() {
+	restoreScroll();
+	jQuery(window).scroll(saveScroll);
+	setTimeout(refreshURL, 15000);
 });
 
