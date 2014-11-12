@@ -15,6 +15,15 @@
 
 package com.redhat.rhn.frontend.action.channel;
 
+import java.util.Arrays;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.BaseSystemsAction;
@@ -24,15 +33,6 @@ import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.system.SystemManager;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import java.util.Arrays;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * EntitledSystemsSetupAction
@@ -54,6 +54,7 @@ public class EntitledSystemsSetupAction extends BaseSystemsAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest request, HttpServletResponse response) {
         RequestContext requestContext = new RequestContext(request);
@@ -67,6 +68,7 @@ public class EntitledSystemsSetupAction extends BaseSystemsAction {
         cfid = requestContext.getRequiredParam("cfam_id");
         ChannelOverview co = ChannelManager.getEntitlement(user.getOrg().getId(), cfid);
 
+        request.setAttribute("cfam_id", cfid);
         request.setAttribute("entitlementType", entitlementType);
         request.setAttribute("familyName", co.getName());
 
@@ -76,6 +78,7 @@ public class EntitledSystemsSetupAction extends BaseSystemsAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected DataResult<SystemOverview> getDataResult(User user, PageControl pc,
         ActionForm formIn) {
         return SystemManager.getEntitledSystems(cfid, user, entitlementType, pc);

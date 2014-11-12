@@ -36,6 +36,8 @@
         <rl:listset name="systemListSet" legend="system">
             <rhn:csrf />
             <rhn:submitted />
+            <input type="hidden" name="type" value='<c:out value="${entitlementType}" />' />
+            <input type="hidden" name="cfam_id" value='<c:out value="${cfam_id}" />' />
             <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
         </rl:listset>
     </body>
