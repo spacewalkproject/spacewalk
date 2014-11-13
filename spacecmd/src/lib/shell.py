@@ -221,8 +221,11 @@ class SpacewalkShell(Cmd):
         logging.debug(cmd + ": " + repr(cmdresult))
         if cmd:
             try:
-                for i in cmdresult:
-                    print i
+                if type(cmdresult).__name__ == 'str':
+                   print cmdresult
+                else:
+                   for i in cmdresult:
+                       print i
             except TypeError:
                 pass
 
