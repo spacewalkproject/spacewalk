@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.78
+Version: 2.3.79
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 13 2014 Stephen Herr <sherr@redhat.com> 2.3.79-1
+- 796434 - refreshing should not clone activation key again
+- 1156337 - use conf channel label instead of name
+- 1136491 - listActivationKeys should return empty list if no keys visible
+- 1037974 - make API listing system events by type work
+- cannot select code from disabled textarea in Firefox, use readonly editor
+
 * Wed Nov 12 2014 Stephen Herr <sherr@redhat.com> 2.3.78-1
 - 1151183 - clean up remnants of prototype.js, convert to jQuery
 - Fix tests broken by fix to 1134879, PackageName objects should be saved
