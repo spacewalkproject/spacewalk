@@ -1576,6 +1576,59 @@ def do_softwarechannel_diff(self, args):
 
 ####################
 
+def dump_softwarechannel_errata(self, name ):
+    errata = self.client.channel.software.listErrata(self.session, name )
+    result = []
+    for erratum in errata:
+        result.append( '%s %s' % (
+          erratum.get('advisory_name').ljust(14),
+          wrap(erratum.get('advisory_synopsis'), 50)[0]) )
+    result.sort()
+    return result
+
+def help_softwarechannel_errata_diff(self):
+    print 'softwarechannel_errata_diff: diff softwarechannel files'
+    print ''
+    print 'usage: softwarechannel_errata_diff SOURCE_CHANNEL TARGET_CHANNEL'
+
+def complete_softwarechannel_errata_diff(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
+    args = len(parts)
+
+    if args == 2:
+        return tab_completer(self.do_softwarechannel_list('', True), text)
+    if args == 3:
+        return tab_completer(self.do_softwarechannel_list('', True), text)
+    return []
+
+def do_softwarechannel_errata_diff(self, args):
+    options = []
+
+    (args, options) = parse_arguments(args, options)
+
+    if len(args) != 1 and len(args) != 2:
+        self.help_softwarechannel_errata_diff()
+        return
+
+    source_channel = args[0]
+    if not self.check_softwarechannel( source_channel ): return
+
+    target_channel = None
+    if len(args) == 2:
+        target_channel = args[1]
+    elif hasattr( self, "do_softwarechannel_getcorresponding" ):
+        # try to find the corresponding channel automatically
+        target_channel=self.do_softwarechannel_getcorresponding( source_channel)
+    if not self.check_softwarechannel( target_channel ): return
+
+    # softwarechannel do not contain references to other components,
+    # therefore there is no need to use replace dicts
+    source_data = self.dump_softwarechannel_errata(source_channel)
+    target_data = self.dump_softwarechannel_errata(target_channel)
+    return diff( source_data, target_data, source_channel, target_channel )
+
+####################
 
 def help_softwarechannel_sync(self):
     print 'softwarechannel_sync: '
@@ -1630,29 +1683,29 @@ def do_softwarechannel_sync(self, args):
                                                                    target_channel)
 
     # get the package IDs
-    source_package_ids = set()
+    source_ids = set()
     for package in source_packages:
         try:
-            source_package_ids.add(package['id'])
+            source_ids.add(package['id'])
         except KeyError:
             logging.error("failed to read key id")
             continue
 
-    target_package_ids = set()
+    target_ids = set()
     for package in target_packages:
         try:
-            target_package_ids.add(package['id'])
+            target_ids.add(package['id'])
         except KeyError:
             logging.error("failed to read key id")
             continue
 
     print "packages common in both channels:"
-    for i in (source_package_ids & target_package_ids):
-        print self.get_package_name(i)
+    for i in (source_ids & target_ids):
+        print self.get_package_name( i )
     print
 
     # check for packages only in the source channel
-    source_only = source_package_ids.difference(target_package_ids)
+    source_only = source_ids.difference(target_ids)
     if source_only:
         print 'packages to add to channel "' + target_channel + '":'
         for i in source_only:
@@ -1660,7 +1713,7 @@ def do_softwarechannel_sync(self, args):
         print
 
     # check for packages only in the target channel
-    target_only = target_package_ids.difference(source_package_ids)
+    target_only = target_ids.difference(source_package_ids)
     if target_only:
         print 'packages to remove from channel "' + target_channel + '":'
         for i in target_only:
@@ -1668,6 +1721,11 @@ def do_softwarechannel_sync(self, args):
         print
 
     if source_only or target_only:
+        print "summary:"
+        print "  " + source_channel + ": " + str(len( source_ids )).rjust(5), "packages"
+        print "  " + target_channel + ": " + str(len( target_ids )).rjust(5), "packages"
+        print "    add   ", str(len(source_only)).rjust(5), "packages to  ", target_channel
+        print "    remove", str(len(target_only)).rjust(5), "packages from", target_channel
         if not self.user_confirm('Perform these changes to channel ' + target_channel + ' [y/N]:'):
             return
 
@@ -1680,6 +1738,113 @@ def do_softwarechannel_sync(self, args):
 
 ####################
 
+def help_softwarechannel_errata_sync(self):
+    print 'softwarechannel_errata_sync: '
+    print 'sync errata of two software channels'
+    print ''
+    print 'usage: softwarechannel_errata_sync SOURCE_CHANNEL TARGET_CHANNEL'
+
+def complete_softwarechannel_errata_sync(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
+    args = len(parts)
+
+    if args == 2:
+        return tab_completer(self.do_softwarechannel_list('', True), text)
+    if args == 3:
+        return tab_completer(self.do_softwarechannel_list('', True), text)
+    return []
+
+def do_softwarechannel_errata_sync(self, args):
+    options = []
+
+    (args, options) = parse_arguments(args, options)
+
+    if len(args) != 1 and len(args) != 2:
+        self.help_softwarechannel_errata_sync()
+        return
+
+    source_channel = args[0]
+    if not self.check_softwarechannel( source_channel ): return
+
+    target_channel = None
+    if len(args) == 2:
+        target_channel = args[1]
+    elif hasattr( self, "do_softwarechannel_getcorresponding" ):
+        # try to find a corresponding channel name automatically
+        target_channel=self.do_softwarechannel_getcorresponding(source_channel)
+    if not self.check_softwarechannel( target_channel ): return
+
+    logging.info( "syncing errata from softwarechannel "+source_channel+" to "+target_channel )
+
+    source_errata = self.client.channel.software.listErrata( self.session, source_channel )
+    target_errata = self.client.channel.software.listErrata( self.session, target_channel )
+
+    # store unique errata data in a set
+    source_ids = set()
+    for erratum in source_errata:
+        try:
+            source_ids.add(erratum.get('advisory_name'))
+        except KeyError:
+            logging.error( "failed to read key id" )
+            continue
+
+    target_ids = set()
+    for erratum in target_errata:
+        try:
+            target_ids.add(erratum.get('advisory_name'))
+        except KeyError:
+            logging.error( "failed to read key id" )
+            continue
+
+    print "errata common in both channels:"
+    for i in ( source_ids & target_ids ):
+        print i
+    print
+
+    # check for errata only in the source channel
+    source_only = list(source_ids.difference(target_ids))
+    source_only.sort()
+    if source_only:
+        print 'errata to add to channel "' + target_channel + '":'
+        for i in source_only:
+            print i
+        print
+
+
+    # check for errata only in the target channel
+    target_only = list(target_ids.difference( source_ids ))
+    target_only.sort()
+    if target_only:
+        print 'errata to remove from channel "' + target_channel + '":'
+        for i in target_only:
+            print i
+        print
+
+    if source_only or target_only:
+        print "summary:"
+        print "  " + source_channel + ": " + str(len( source_ids )).rjust(5), "errata"
+        print "  " + target_channel + ": " + str(len( target_ids )).rjust(5), "errata"
+        print "    add   ", str(len(source_only)).rjust(5), "errata to  ", target_channel
+        print "    remove", str(len(target_only)).rjust(5), "errata from", target_channel
+
+        if not self.user_confirm('Perform these changes to channel ' + target_channel + ' [y/N]:'): return
+
+        for erratum in source_only:
+            print erratum
+            self.client.errata.publish(self.session, erratum, [target_channel])
+        # alternative:
+        # channel.software.mergeErrata: Merges all errata from one channel into another
+
+        # channel.software.removeErrata:
+        #    string channelLabel - target channel.
+        #    array:
+        #      string - advisoryName - name of an erratum to remove
+        #    boolean removePackages - True to remove packages from the channel
+        self.client.channel.software.removeErrata( self.session, target_channel,
+                target_only, False )
+
+####################
 
 def help_softwarechannel_syncrepos(self):
     print 'softwarechannel_syncrepos: '
