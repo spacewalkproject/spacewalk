@@ -2010,9 +2010,10 @@ public class SystemHandler extends BaseHandler {
      * @return Returns an array of maps representing a system
      * @since 10.8
      *
-     * @xmlrpc.doc List all system events for given server. This includes *all* events
-     * for the server since it was registered.  This may require the caller to
-     * filter the results to fetch the specific events they are looking for.
+     * @xmlrpc.doc List system events of the specified type for given server.
+     * "actionType" should be exactly the string returned in the action_type field
+     * from the listSystemEvents(sessionKey, serverId) method. For example,
+     * 'Package Install' or 'Initiate a kickstart for a virtual guest.'
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "serverId", "ID of system.")
@@ -2092,13 +2093,10 @@ public class SystemHandler extends BaseHandler {
 
         ActionType at = null;
         if (actionType != null) {
-                try {
-                    at = (ActionType) ActionFactory.class.getField(actionType)
-                            .get(new ActionType());
-                }
-                catch (Exception e) {
-                    at = null;
-                }
+            at = ActionFactory.lookupActionTypeByName(actionType);
+            if (at == null) {
+                throw new IllegalArgumentException("Action type not found: " + actionType);
+            }
         }
 
         for (ServerAction sAction : sActions) {
@@ -2107,7 +2105,7 @@ public class SystemHandler extends BaseHandler {
 
             Action action = sAction.getParentAction();
 
-            if (at != null && action.getActionType().equals(at)) {
+            if (at != null && !action.getActionType().equals(at)) {
                 continue;
             }
 

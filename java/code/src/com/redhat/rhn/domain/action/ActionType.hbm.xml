@@ -19,4 +19,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="ActionType.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.action.ActionType as t where t.label = :label]]>
     </query>
+
+    <query name="ActionType.findByName">
+        <![CDATA[from com.redhat.rhn.domain.action.ActionType as t where t.name = :name]]>
+    </query>
 </hibernate-mapping>

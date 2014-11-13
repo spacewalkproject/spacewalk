@@ -498,6 +498,19 @@ public class ActionFactory extends HibernateFactory {
     }
 
     /**
+     * Helper method to get a ActionType by name
+     * @param name the Action to lookup
+     * @return Returns the ActionType corresponding to name
+     * @throws Exception
+     */
+    public static ActionType lookupActionTypeByName(String name) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("name", name);
+        return (ActionType) singleton.lookupObjectByNamedQuery("ActionType.findByName",
+                params, true);
+    }
+
+    /**
      * Helper method to get a ActionStatus by Name
      * @param name the name of the status we want to lookup.
      * @return Returns the ActionStatus corresponding to name
