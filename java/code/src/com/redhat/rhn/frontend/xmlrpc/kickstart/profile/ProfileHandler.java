@@ -1392,12 +1392,12 @@ public class ProfileHandler extends BaseHandler {
      * @param loggedInUser The current user
      * @param ksLabel identifies the kickstart profile
      * @return Array of available OS repositories
-     * @xmlrpc.doc Lists all available OS repositories for a given kickstart profile.
+     * @xmlrpc.doc Lists all OS repositories associated with provided kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "ksLabel")
      * @xmlrpc.returntype #array_single("string", "repositoryLabel")
      */
-    public String[] getAvailableRepositories(User loggedInUser, String ksLabel) {
+    public String[] getRepositories(User loggedInUser, String ksLabel) {
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
         KickstartableTree ksTree = ksData.getKickstartDefaults().getKstree();
 
