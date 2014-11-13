@@ -195,7 +195,9 @@ class RepoSync(object):
 
                 if not self.no_errata:
                     self.import_updates(plugin, url)
-                if self.sync_kickstart:
+
+                # only for repos obtained from the DB
+                if self.sync_kickstart and repo_label:
                     try:
                         self.import_kickstart(plugin, url, repo_label)
                     except:
