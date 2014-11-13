@@ -170,7 +170,7 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
     <varlistentry>
         <term>--sync-kickstart</term>
         <listitem>
-            <para>Attempt to create kickstartable tree (distribution) if there is subdirectory images/pxeboot/ under repo's URL.</para>
+            <para>Attempt to create kickstartable tree (distribution) if there is subdirectory images/pxeboot/ under repo's URL. The option is ignored for repositories set from CLI via option [-u|--url].</para>
         </listitem>
     </varlistentry>
     <varlistentry>
