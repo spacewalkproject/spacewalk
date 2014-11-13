@@ -38,7 +38,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.action.kickstart.KickstartTreeUpdateType;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
-import com.redhat.rhn.frontend.struts.LabelValueEnabledBean;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
@@ -73,7 +72,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -1406,11 +1404,6 @@ public class ProfileHandler extends BaseHandler {
         if (ksTree != null && !ksTree.getInstallType().isRhel2() &&
                 !ksTree.getInstallType().isRhel3() &&
                 !ksTree.getInstallType().isRhel4()) {
-            List <LabelValueEnabledBean> repos = new LinkedList<LabelValueEnabledBean>();
-            for (RepoInfo repo : RepoInfo.getStandardRepos(ksTree)) {
-                repos.add(new LabelValueEnabledBean(repo.getName(), repo.getName(),
-                        !repo.isAvailable()));
-            }
             Set<RepoInfo> selected = ksData.getRepoInfos();
             String [] items = new String[selected.size()];
             int i = 0;
