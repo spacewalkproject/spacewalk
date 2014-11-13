@@ -839,9 +839,13 @@ public class ActivationKeyHandler extends BaseHandler {
     public List<ActivationKey> listActivationKeys(User loggedInUser) {
         List<ActivationKey> result = new ArrayList<ActivationKey>();
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
-        for (Iterator it = manager.findAll(loggedInUser).iterator(); it.hasNext();) {
-            ActivationKey key = (ActivationKey)it.next();
-            manager.validateCredentials(loggedInUser, null, key);
+        for (ActivationKey key : manager.findAll(loggedInUser)) {
+            try {
+                manager.validateCredentials(loggedInUser, null, key);
+            }
+            catch (LookupException e) {
+                continue; // skip keys in this org that this user can't see
+            }
             result.add(key);
         }
 
