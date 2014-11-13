@@ -67,6 +67,7 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 	spacewalk-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
 
 %files
+%defattr(-,root,root)
 %{_bindir}/spacecmd
 %{python_sitelib}/spacecmd/
 %ghost %config %{_sysconfdir}/spacecmd.conf
