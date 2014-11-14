@@ -1401,19 +1401,16 @@ public class ProfileHandler extends BaseHandler {
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
         KickstartableTree ksTree = ksData.getKickstartDefaults().getKstree();
 
+        List<String> items = new ArrayList<String>();
         if (ksTree != null && !ksTree.getInstallType().isRhel2() &&
                 !ksTree.getInstallType().isRhel3() &&
                 !ksTree.getInstallType().isRhel4()) {
             Set<RepoInfo> selected = ksData.getRepoInfos();
-            String [] items = new String[selected.size()];
-            int i = 0;
             for (RepoInfo repo : selected) {
-                items[i] = repo.getName();
-                i++;
+                items.add(repo.getName());
             }
-            return items;
         }
-        return null;
+        return (String[]) items.toArray(new String[]{});
     }
 
     /**
