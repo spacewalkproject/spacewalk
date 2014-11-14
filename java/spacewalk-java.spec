@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.80
+Version: 2.3.81
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 14 2014 Tomas Lestach <tlestach@redhat.com> 2.3.81-1
+- 801965 - config admin role required for the kickstart.profile.*Repositories
+  API calls
+- 801965 - introduce kickstart.profile.getAvailableRepositories API
+- 801965 - rename kickstart.profile.getAvailableRepositories to
+  kickstart.profile.getRepositories
+- 801965 - we cannot return 'null' in API
+- 801965 - remove redundant code
+
 * Thu Nov 13 2014 Grant Gainey 2.3.80-1
 - 1093669 - Fixed typo in column-names
 
