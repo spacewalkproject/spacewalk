@@ -1392,7 +1392,8 @@ public class ProfileHandler extends BaseHandler {
      * @param loggedInUser The current user
      * @param ksLabel identifies the kickstart profile
      * @return Array of available OS repositories for provided kickstart profile
-     * @xmlrpc.doc Lists available OS repositories to associate with the provided kickstart profile.
+     * @xmlrpc.doc Lists available OS repositories to associate with the provided
+     * kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "ksLabel")
      * @xmlrpc.returntype #array_single("string", "repositoryLabel")
