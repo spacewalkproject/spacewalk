@@ -1398,6 +1398,10 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype #array_single("string", "repositoryLabel")
      */
     public String[] getAvailableRepositories(User loggedInUser, String ksLabel) {
+        if (!loggedInUser.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionException(LocalizationService.getInstance()
+                    .getMessage("permission.configadmin.needed"));
+        }
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
         KickstartableTree ksTree = ksData.getKickstartDefaults().getKstree();
 
@@ -1420,6 +1424,10 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype #array_single("string", "repositoryLabel")
      */
     public String[] getRepositories(User loggedInUser, String ksLabel) {
+        if (!loggedInUser.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionException(LocalizationService.getInstance()
+                    .getMessage("permission.configadmin.needed"));
+        }
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
         KickstartableTree ksTree = ksData.getKickstartDefaults().getKstree();
 
@@ -1447,6 +1455,10 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int setRepositories(User loggedInUser, String ksLabel, List<String> reposIn) {
+        if (!loggedInUser.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionException(LocalizationService.getInstance()
+                    .getMessage("permission.configadmin.needed"));
+        }
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
 
         if (ksData.isRhel5OrGreater()) {
