@@ -2376,4 +2376,55 @@ DELETE FROM rhnServerCustomDataValue
     { call rhn_server.bulk_set_custom_value(:key_label, :value, :set_label, :user_id) }
     </query>
 </callable-mode>
+
+<callable-mode name="reset_user_system_preference_bulk">
+  <query params="user_id, pref">
+DELETE FROM rhnUserServerPrefs
+ WHERE user_id = :user_id
+   AND name = :pref
+   AND server_id IN
+       (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = 'system_list')
+  </query>
+</callable-mode>
+
+<callable-mode name="set_user_system_preference_bulk">
+  <query params="user_id, pref, value">
+INSERT INTO rhnUserServerPrefs
+(user_id, server_id, name, value)
+SELECT :user_id, element, :pref, :value FROM rhnSet WHERE user_id = :user_id AND label = 'system_list'
+  </query>
+</callable-mode>
+
+<callable-mode name="set_auto_update_bulk">
+  <query params="user_id, value">
+UPDATE rhnServer S
+   SET auto_update = :value
+ WHERE S.id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = 'system_list')
+   AND EXISTS (SELECT 1 FROM rhnEntitledServers WHERE id = S.id)
+  </query>
+</callable-mode>
+
+<mode name="unscheduled_relevant_to_system_set">
+  <query params="user_id">
+SELECT DISTINCT E.update_date, E.id
+  FROM rhnErrata E,
+       rhnServerNeededErrataCache SNEC,
+       rhnSet ST
+ WHERE ST.user_id = :user_id
+   AND ST.label = 'system_list'
+   AND ST.element = SNEC.server_id
+   AND SNEC.errata_id = E.id
+   AND NOT EXISTS (SELECT SA.server_id
+                     FROM rhnActionErrataUpdate AEU,
+                          rhnServerAction SA,
+                          rhnActionStatus AST
+                    WHERE SA.server_id = ST.element
+                      AND SA.status = AST.id
+                      AND AST.name IN('Queued', 'Picked Up')
+                      AND AEU.action_id = SA.action_id
+                      AND AEU.errata_id = E.id )
+ORDER BY E.update_date, E.id
+  </query>
+</mode>
+
 </datasource_modes>

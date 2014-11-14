@@ -76,6 +76,7 @@ import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.channel.MultipleChannelsWithPackageException;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemRemoveCommand;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
@@ -3307,5 +3308,70 @@ public class SystemManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         return mode.execute(params);
+    }
+
+    /**
+     * Set the vaules for the user system prefrence for all systems in the system set
+     * @param user The user
+     * @param preference The name of the preference to set
+     * @param value The value to set
+     * @param defaultIn The default value for the preference
+     */
+    public static void setUserSystemPreferenceBulk(User user, String preference,
+            Boolean value, Boolean defaultIn) {
+        CallableMode mode = ModeFactory.getCallableMode("System_queries",
+                "reset_user_system_preference_bulk");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("pref", preference);
+        mode.execute(params, new HashMap<String, Integer>());
+        // preference values have a default, only insert if not default
+        if (value != defaultIn) {
+            mode = ModeFactory.getCallableMode("System_queries",
+                    "set_user_system_preference_bulk");
+            params = new HashMap<String, Object>();
+            params.put("user_id", user.getId());
+            params.put("pref", preference);
+            params.put("value", value ? 1 : 0);
+            mode.execute(params, new HashMap<String, Integer>());
+        }
+    }
+
+    private static List<Long> errataIdsReleventToSystemSet(User user) {
+        SelectMode mode = ModeFactory.getMode("System_queries",
+                "unscheduled_relevant_to_system_set");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        List<Map<String, Object>> results = mode.execute(params);
+        List<Long> ret = new ArrayList<Long>();
+        for (Map<String, Object> result : results) {
+            ret.add((Long) result.get("id"));
+        }
+        return ret;
+    }
+
+    /**
+     * Set auto_update for all systems in the system set
+     * @param user The user
+     * @param value True if the servers should audo update
+     */
+    public static void setAutoUpdateBulk(User user, Boolean value) {
+        if (value) {
+            // schedule all existing applicable errata
+            List<SystemOverview> systems = inSet(user, "system_list");
+            List<Long> sids = new ArrayList<Long>();
+            for (SystemOverview system : systems) {
+                sids.add(system.getId());
+            }
+            List<Long> eids = errataIdsReleventToSystemSet(user);
+            java.util.Date earliest = new java.util.Date();
+            ErrataManager.applyErrata(user, eids, earliest, sids);
+        }
+        CallableMode mode = ModeFactory.getCallableMode("System_queries",
+                "set_auto_update_bulk");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("value", value ? "Y" : "N");
+        mode.execute(params, new HashMap<String, Integer>());
     }
 }

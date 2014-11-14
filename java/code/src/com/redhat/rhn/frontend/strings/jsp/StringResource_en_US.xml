@@ -4932,6 +4932,12 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.misc.index.csi.remove">
           <source>Remove a custom value from selected systems</source>
         </trans-unit>
+        <trans-unit id="ssm.misc.sysprefconfirm.header">
+          <source>Confirm System Preferences Changes</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.sysprefconfirm.summary">
+          <source>You have chosen to alter the following preferences for your selected systems.</source>
+        </trans-unit>
         <trans-unit id="ssm.misc.index.reboot.header">
           <source>Reboot Systems</source>
         </trans-unit>

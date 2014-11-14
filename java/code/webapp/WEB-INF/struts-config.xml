@@ -4948,6 +4948,20 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/misc/index.jsp" />
+        <forward name="confirm"
+                 path="/systems/ssm/misc/ConfirmSystemPreferences.do" />
+    </action>
+
+    <action path="/systems/ssm/misc/ConfirmSystemPreferences"
+        scope="request"
+        input="/WEB-INF/pages/ssm/systems/misc/confirmsystempreferences.jsp"
+        type="com.redhat.rhn.frontend.action.ssm.ConfirmSystemPreferencesAction"
+        name="ssmPreferencesForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/misc/confirmsystempreferences.jsp" />
+        <forward name="confirm" redirect="true"
+                 path="/systems/ssm/misc/Index.do" />
     </action>
 
     <action path="/systems/ssm/misc/CustomValue"
