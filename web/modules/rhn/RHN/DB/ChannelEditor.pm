@@ -745,32 +745,5 @@ EOQ
   return $exists;
 }
 
-sub clone_newest_package {
-  my $class = shift;
-  my %attr = validate(@_, {from_cid => 1, to_cid => 1});
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare(<<EOQ);
-DELETE FROM rhnChannelNewestPackage
-    WHERE channel_id = :to_cid
-EOQ
-
-  $sth->execute_h(to_cid => $attr{to_cid});
-
-  $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnChannelNewestPackage
-    ( channel_id, name_id, evr_id, package_id, package_arch_id )
-    ( SELECT :to_cid, name_id, evr_id, package_id, package_arch_id
-        FROM rhnChannelNewestPackage
-        WHERE channel_id = :from_cid
-    )
-EOQ
-
-  $sth->execute_h(from_cid => $attr{from_cid}, to_cid => $attr{to_cid});
-
-  return 1;
-}
-
 1;
 
