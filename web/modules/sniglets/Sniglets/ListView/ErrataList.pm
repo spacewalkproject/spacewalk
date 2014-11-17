@@ -542,7 +542,7 @@ sub potential_for_cloned_channel_cb {
     }
 
     RHN::ChannelEditor->schedule_errata_cache_update($pxt->user->org_id, $cid, 0);
-    RHN::ChannelEditor->clone_newest_package(-from_cid => $cloned_from, -to_cid => $cid);
+    RHN::Channel->refresh_newest_package_cache($cid, 'web.channel_manager');
 
     $transaction->nested_commit;
 
