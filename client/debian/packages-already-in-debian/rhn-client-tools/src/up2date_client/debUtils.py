@@ -34,12 +34,17 @@ def parseVRE(version):
         release = tmp[-1]
     return version, release, epoch
 
-def installTime(pkg_name):
+def installTime(pkg_name, pkg_arch):
     path = '/var/lib/dpkg/info/%s.list' % pkg_name
     if os.path.isfile(path):
        return os.path.getmtime(path)
     else:
-       return None
+       # multiarch packages may have the architecture in the name of the list file
+       path = '/var/lib/dpkg/info/%s:%s.list' %(pkg_name, pkg_arch)
+       if os.path.isfile(path):
+           return os.path.getmtime(path)
+       else:
+           return None
 
 #FIXME: Using Apt cache might not be an ultimate solution.
 # It could be better to parse /var/lib/dpkg/status manually.
@@ -70,7 +75,7 @@ def getInstalledPackageList(msgCallback = None, progressCallback = None,
             'version': version,
             'release': release,
             'arch': pkg.installed.architecture + '-deb',
-            'installtime': installTime(pkg.name)
+            'installtime': installTime(pkg.name, pkg.installed.architecture)
             }
         pkg_list.append(package)
 
