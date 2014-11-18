@@ -1013,15 +1013,15 @@ def process_token(server, server_arch, tokens_obj, virt_type = None):
 
     is_reactivation = rhnFlags.test('re_registration_token')
 
+    # channels
+    history["channels"] = token_channels(server, server_arch, tokens_obj)
+
     if is_reactivation:
         # If it's a re-registration, the server is already entitled
         history["entitlement"] = "Re-activation: keeping previous entitlement level"
     else:
         tokens_obj.entitle(server_id, history, virt_type)
 
-
-    # channels
-    history["channels"] = token_channels(server, server_arch, tokens_obj)
 
 
     is_provisioning_entitled = None
