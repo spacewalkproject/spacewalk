@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.83
+Version: 2.3.84
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 19 2014 Jan Dobes 2.3.84-1
+- do not show expanded menu on small screens on default
+- remove redundant navbar-collapse-1 class
+- hide items on smaller screens
+
 * Wed Nov 19 2014 Tomas Lestach <tlestach@redhat.com> 2.3.83-1
 - 1024090 - user does not need to be a channel admin to manage a channel
 - Channel package compare will fail if checking two unrelated channels when ch1
