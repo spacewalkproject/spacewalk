@@ -337,7 +337,7 @@ sub command_pg_online_backup {
   $cli->fatal("Error: Backup file $file already exists in $file.") if -f $file;
 
   print "Backing up to file $file.\n";
-  my $ret = system("/usr/bin/pg_dump", "--blobs", "--clean", "-Fc", "-v", "-Z7", "--file=$file", PXT::Config->get('db_name'));
+  my $ret = system(Dobby::CLI::MiscCommands->pg_version('binpath') . "/pg_dump", "--blobs", "--clean", "-Fc", "-v", "-Z7", "--file=$file", PXT::Config->get('db_name'));
   print "Backup complete.\n";
   return $ret;
 }
@@ -352,7 +352,8 @@ sub command_pg_restore {
   $cli->fatal("Error: This backup method works only with PostgreSQL.") unless ($backend eq 'postgresql');
 
   if ($command eq 'examine') {
-      my @info = qx{/usr/bin/pg_restore -l $file};
+      my $restore_command = Dobby::CLI::MiscCommands->pg_version('binpath') . qq{/pg_restore -l $file};
+      my @info = qx{$restore_command};
       @info = grep {m/^;  /} @info;
       print @info;
       return $?;
@@ -366,7 +367,7 @@ sub command_pg_restore {
   $EUID = $rec[2];
   $cli->fatal("Error: file $file is not readable by user $rec[0]") unless -r $file;
 
-  my $service_status = system('service ' . Dobby::CLI::MiscCommands->pg_version() . ' status >/dev/null 2>&1');
+  my $service_status = system('service ' . Dobby::CLI::MiscCommands->pg_version('service') . ' status >/dev/null 2>&1');
   $cli->fatal("PostgreSQL database is not running.\n"
              ."Run 'service postgresql start' to start it.") unless $service_status == 0;
 
@@ -403,10 +404,10 @@ sub command_pg_restore {
     $dbh->do("create schema public authorization postgres;");
   }
 
-  system('/usr/bin/droplang', 'plpgsql', PXT::Config->get('db_name'));
+  system(Dobby::CLI::MiscCommands->pg_version('binpath') . '/droplang', 'plpgsql', PXT::Config->get('db_name'));
 
   print "** Restoring from file $file.\n";
-  my $ret = system("/usr/bin/pg_restore", "-Fc", "--jobs=2", "--dbname=".PXT::Config->get('db_name'), $file );
+  my $ret = system(Dobby::CLI::MiscCommands->pg_version('binpath') . "/pg_restore", "-Fc", "--jobs=2", "--dbname=".PXT::Config->get('db_name'), $file );
   print "Restoration complete.\n";
   return $ret;
 }

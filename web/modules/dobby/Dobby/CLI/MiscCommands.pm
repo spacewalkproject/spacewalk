@@ -56,11 +56,19 @@ sub register_dobby_commands {
                       -handler => \&command_set_optimizer);
 }
 
+%pg_version = ();
 sub pg_version {
-  if (system("rpm -q postgresql92-postgresql-server >/dev/null 2>&1") == 0) {
-    return 'postgresql92-postgresql';
+  if (not %pg_version) {
+      if (system("rpm -q postgresql92-postgresql-server >/dev/null 2>&1") == 0) {
+          $pg_version{'service'} = 'postgresql92-postgresql';
+          $pg_version{'binpath'} = '/opt/rh/postgresql92/root/usr/bin';
+      } else {
+          $pg_version{'service'} = 'postgresql';
+          $pg_version{'binpath'} = '/usr/bin';
+      }
   }
-  return 'postgresql';
+  my ($key) = @_;
+  return $pg_settings{$key};
 }
 
 sub command_startstop {
@@ -76,7 +84,7 @@ sub command_startstop {
     }
     else {
       if ($backend eq 'postgresql') {
-        system("/sbin/service", pg_version(), "start");
+        system("/sbin/service", pg_version('service'), "start");
       } else {
         print "Starting database... ";
         $d->database_startup;
@@ -91,7 +99,7 @@ sub command_startstop {
     }
     else {
       if ($backend eq 'postgresql') {
-        system("/sbin/service", pg_version(), "stop");
+        system("/sbin/service", pg_version('service'), "stop");
       } else {
         print "Shutting down database";
         $d->listener_shutdown;
