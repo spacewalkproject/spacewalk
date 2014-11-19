@@ -369,7 +369,7 @@ sub command_pg_restore {
 
   my $service_status = system('service ' . Dobby::CLI::MiscCommands->pg_version('service') . ' status >/dev/null 2>&1');
   $cli->fatal("PostgreSQL database is not running.\n"
-             ."Run 'service postgresql start' to start it.") unless $service_status == 0;
+             ."Run 'service " . Dobby::CLI::MiscCommands->pg_version('service'). " start' to start it.") unless $service_status == 0;
 
   my $user = PXT::Config->get("db_user");
   my $password = PXT::Config->get("db_password");
@@ -385,7 +385,7 @@ sub command_pg_restore {
   my $is_active = (Dobby::Reporting->active_sessions_postgresql($dbh, $schema) > 1);
   if ($is_active) {
       $cli->fatal("There are running spacewalk services which are using database.\n"
-                . "Run 'spacewalk-service --exclude=postgresql stop' to stop them.");
+                . "Run 'spacewalk-service --exclude=" . Dobby::CLI::MiscCommands->pg_version('service') . " stop' to stop them.");
       exit 1;
   }
 
