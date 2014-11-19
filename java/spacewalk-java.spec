@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.82
+Version: 2.3.83
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 19 2014 Tomas Lestach <tlestach@redhat.com> 2.3.83-1
+- 1024090 - user does not need to be a channel admin to manage a channel
+- Channel package compare will fail if checking two unrelated channels when ch1
+  or ch2 is NULL.
+
 * Fri Nov 14 2014 Tomas Lestach <tlestach@redhat.com> 2.3.82-1
 - 801965 - checkstuyle fix
 
