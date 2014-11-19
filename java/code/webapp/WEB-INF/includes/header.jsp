@@ -24,7 +24,7 @@
   </a>
 </div>
 
-<div class="navbar-collapse collapse in">
+<div class="navbar-collapse collapse">
   <rhn:require acl="user_authenticated()">
     <ul class="nav navbar-nav navbar-utility">
       <li class="hidden-sm hidden-xs"><a href="/rhn/account/LocalePreferences.do"><c:out value="${rhnActiveLang}" /> (<bean:message key="header.jsp.change"/>)</a></li>

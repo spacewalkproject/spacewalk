@@ -27,7 +27,7 @@
             <img src="/img/logo_product.png" alt="Spacewalk" id="rhnLogo" accesskey="2"/>
           </a>
         </div>
-        <div class="navbar-collapse collapse in">
+        <div class="navbar-collapse collapse">
           <rhn-display-login>
           <ul class="nav navbar-nav navbar-utility">
             <li class="hidden-sm hidden-xs"><a href="/rhn/account/LocalePreferences.do">English (change)</a></li>
