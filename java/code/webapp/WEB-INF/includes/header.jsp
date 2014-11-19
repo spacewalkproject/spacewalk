@@ -10,7 +10,7 @@
 </c:if>
 
 <div class="navbar-header">
-  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
     <span class="sr-only">Toggle navigation</span>
     <span class="icon-bar"></span>
     <span class="icon-bar"></span>
@@ -24,7 +24,7 @@
   </a>
 </div>
 
-<div class="navbar-collapse navbar-collapse-1 collapse in">
+<div class="navbar-collapse collapse in">
   <rhn:require acl="user_authenticated()">
     <ul class="nav navbar-nav navbar-utility">
       <li class="hidden-sm hidden-xs"><a href="/rhn/account/LocalePreferences.do"><c:out value="${rhnActiveLang}" /> (<bean:message key="header.jsp.change"/>)</a></li>
