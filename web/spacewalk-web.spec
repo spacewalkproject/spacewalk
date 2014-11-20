@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.19
+Version: 2.3.20
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Nov 20 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.20-1
+- 1165057 - use scl wrapper for postgresql92 binaries
+- 1165070 - use correct service name
+
 * Wed Nov 12 2014 Stephen Herr <sherr@redhat.com> 2.3.19-1
 - 1151183 - clean up remnants of prototype.js, convert to jQuery
 
