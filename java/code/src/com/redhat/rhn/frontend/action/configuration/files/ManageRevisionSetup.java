@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.configuration.files;
 
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.config.ConfigFile;
@@ -34,6 +32,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 public class ManageRevisionSetup extends BaseSetListAction {
 
     public static final String CSRF_TOKEN = "csrfToken";
+    public static final String MAX_SIZE = "max_size";
 
     /**
      * {@inheritDoc}
@@ -43,11 +42,8 @@ public class ManageRevisionSetup extends BaseSetListAction {
     }
 
     protected void processRequestAttributes(RequestContext rctxIn) {
-        int max = Config.get().getInt(ConfigDefaults.CONFIG_REVISION_MAX_SIZE,
-                ConfigDefaults.DEFAULT_CONFIG_REVISION_MAX_SIZE);
-
-        rctxIn.getRequest().setAttribute("max_size",
-                StringUtil.displayFileSize(max));
+        rctxIn.getRequest().setAttribute(ManageRevisionSetup.MAX_SIZE,
+                 StringUtil.displayFileSize(ConfigFile.getMaxFileSize()));
         rctxIn.getRequest().setAttribute(CSRF_TOKEN,
             rctxIn.getRequest().getSession().getAttribute("csrf_token"));
         ConfigActionHelper.processRequestAttributes(rctxIn);
