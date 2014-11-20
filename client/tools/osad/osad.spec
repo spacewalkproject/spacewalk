@@ -223,7 +223,6 @@ rm -rf $RPM_BUILD_ROOT
 %else
 if [ -f %{_sysconfdir}/init.d/osad ]; then
     /sbin/chkconfig --add osad
-    %{__sysconfdir}/init.d/osad start
 fi
 if [ -f %{_unitdir}/osad.service ]; then
     %systemd_post osad.service
@@ -277,7 +276,6 @@ fi
 %else
 if [ -f %{_sysconfdir}/init.d/osa-dispatcher ]; then
     /sbin/chkconfig --add osa-dispatcher
-    %{_sysconfdir}/init.d/osa-dispatcher start
 fi
 %endif
 
