@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.85
+Version: 2.3.86
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 20 2014 Tomas Lestach <tlestach@redhat.com> 2.3.86-1
+- 1001018 - xml escape scripting language on
+  /rhn/kickstart/KickstartScriptDelete.do page
+
 * Thu Nov 20 2014 Tomas Lestach <tlestach@redhat.com> 2.3.85-1
 - 1001018 - xml escape script language on /rhn/kickstart/Scripts.do page
 
