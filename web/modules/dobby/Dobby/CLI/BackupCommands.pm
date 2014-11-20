@@ -333,11 +333,12 @@ sub command_pg_online_backup {
   my $cfg = new PXT::Config("dobby");
   my @rec = getpwnam($cfg->get("postgresql_user"));
   $EUID = $rec[2];
+  $UID = $rec[2];
   $cli->fatal("Error: $backup_dir is not a writable directory for user $rec[0].") unless -d $backup_dir and -w $backup_dir;
   $cli->fatal("Error: Backup file $file already exists in $file.") if -f $file;
 
   print "Backing up to file $file.\n";
-  my $ret = system(Dobby::CLI::MiscCommands->pg_version('binpath') . "/pg_dump", "--blobs", "--clean", "-Fc", "-v", "-Z7", "--file=$file", PXT::Config->get('db_name'));
+  my $ret = system(@{Dobby::CLI::MiscCommands::pg_version('pg_dump')}, "--blobs", "--clean", "-Fc", "-v", "-Z7", "--file=$file", PXT::Config->get('db_name'));
   print "Backup complete.\n";
   return $ret;
 }
@@ -352,7 +353,7 @@ sub command_pg_restore {
   $cli->fatal("Error: This backup method works only with PostgreSQL.") unless ($backend eq 'postgresql');
 
   if ($command eq 'examine') {
-      my $restore_command = Dobby::CLI::MiscCommands->pg_version('binpath') . qq{/pg_restore -l $file};
+      my $restore_command = join(' ', @{Dobby::CLI::MiscCommands::pg_version('pg_restore')}, '-l', $file);
       my @info = qx{$restore_command};
       @info = grep {m/^;  /} @info;
       print @info;
@@ -365,11 +366,12 @@ sub command_pg_restore {
   my $cfg = new PXT::Config("dobby");
   my @rec = getpwnam($cfg->get("postgresql_user"));
   $EUID = $rec[2];
+  $UID = $rec[2];
   $cli->fatal("Error: file $file is not readable by user $rec[0]") unless -r $file;
 
-  my $service_status = system('service ' . Dobby::CLI::MiscCommands->pg_version('service') . ' status >/dev/null 2>&1');
+  my $service_status = system('service ' . Dobby::CLI::MiscCommands::pg_version('service') . ' status >/dev/null 2>&1');
   $cli->fatal("PostgreSQL database is not running.\n"
-             ."Run 'service " . Dobby::CLI::MiscCommands->pg_version('service'). " start' to start it.") unless $service_status == 0;
+             ."Run 'service " . Dobby::CLI::MiscCommands::pg_version('service') . " start' to start it.") unless $service_status == 0;
 
   my $user = PXT::Config->get("db_user");
   my $password = PXT::Config->get("db_password");
@@ -385,7 +387,7 @@ sub command_pg_restore {
   my $is_active = (Dobby::Reporting->active_sessions_postgresql($dbh, $schema) > 1);
   if ($is_active) {
       $cli->fatal("There are running spacewalk services which are using database.\n"
-                . "Run 'spacewalk-service --exclude=" . Dobby::CLI::MiscCommands->pg_version('service') . " stop' to stop them.");
+                . "Run 'spacewalk-service --exclude=" . Dobby::CLI::MiscCommands::pg_version('service') . " stop' to stop them.");
       exit 1;
   }
 
@@ -404,10 +406,10 @@ sub command_pg_restore {
     $dbh->do("create schema public authorization postgres;");
   }
 
-  system(Dobby::CLI::MiscCommands->pg_version('binpath') . '/droplang', 'plpgsql', PXT::Config->get('db_name'));
+  system(@{Dobby::CLI::MiscCommands::pg_version('droplang')}, 'plpgsql', PXT::Config->get('db_name'));
 
   print "** Restoring from file $file.\n";
-  my $ret = system(Dobby::CLI::MiscCommands->pg_version('binpath') . "/pg_restore", "-Fc", "--jobs=2", "--dbname=".PXT::Config->get('db_name'), $file );
+  my $ret = system(@{Dobby::CLI::MiscCommands::pg_version('pg_restore')}, "-Fc", "--jobs=2", "--dbname=".PXT::Config->get('db_name'), $file );
   print "Restoration complete.\n";
   return $ret;
 }
