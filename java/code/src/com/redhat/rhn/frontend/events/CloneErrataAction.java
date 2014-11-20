@@ -92,9 +92,8 @@ public class CloneErrataAction
         }
         // Trigger channel repodata re-generation
         if (list.size() > 0) {
-            Channel current = msg.getChan();
-            current.setLastModified(new Date());
-            ChannelFactory.save(current);
+            currChan.setLastModified(new Date());
+            ChannelFactory.save(currChan);
             ChannelManager.queueChannelChange(currChan.getLabel(),
                     "java::cloneErrata", "Errata cloned");
         }
