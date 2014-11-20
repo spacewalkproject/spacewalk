@@ -72,7 +72,7 @@
             <rl:column bound="false"
                     sortable="false"
                     headerkey="kickstartscript.jsp.language">
-                ${current.prettyInterpreter}
+                <c:out value="${current.prettyInterpreter}" escapeXml="true" />
             </rl:column>
         </rl:list>
     </rl:listset>
