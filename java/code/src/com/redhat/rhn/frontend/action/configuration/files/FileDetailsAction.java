@@ -14,19 +14,10 @@
  */
 package com.redhat.rhn.frontend.action.configuration.files;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
@@ -37,6 +28,15 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.configuration.ConfigFileBuilder;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -94,6 +94,7 @@ public class FileDetailsAction extends RhnAction {
         cff.updateFromRevision(request, cr);
         setupRequestParams(context, cr);
         request.setAttribute("form", cff);
+        request.setAttribute("documentation", ConfigDefaults.get().isDocAvailable());
 
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
@@ -115,9 +116,7 @@ public class FileDetailsAction extends RhnAction {
             request.getSession().getAttribute("csrf_token"));
 
         request.setAttribute(MAX_SIZE,
-                StringUtil.displayFileSize(
-                        Config.get().getInt(ConfigDefaults.CONFIG_REVISION_MAX_SIZE,
-                                ConfigDefaults.DEFAULT_CONFIG_REVISION_MAX_SIZE)));
+                 StringUtil.displayFileSize(ConfigFile.getMaxFileSize()));
         request.setAttribute(MAX_EDIT_SIZE,
                 StringUtil.displayFileSize(ConfigFileForm.MAX_EDITABLE_SIZE));
         if (cr.isFile()) {
