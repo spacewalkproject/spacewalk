@@ -19822,14 +19822,14 @@ As a Channel Administrator, you may change the base channels your systems are su
           </context-group>
         </trans-unit>
         <trans-unit id="basesub.jsp.success">
-          <source>{0} systems successfully subscribed to channel '{1}'</source>
+          <source>{0} systems queued to subscribe to channel '{1}'</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/channel/ssm/BaseChannelSubscribe.do</context>
             <context context-type="paramnotes">27 systems successfully subscribed to channel 'Red Hat Enterprise Linux AS (v. 2.1 for i386)'</context>
           </context-group>
         </trans-unit>
         <trans-unit id="basesub.jsp.success-default">
-          <source>{0} systems successfully subscribed to the appropriate default base channel</source>
+          <source>{0} systems queued to subscribe to the appropriate default base channel</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/channel/ssm/BaseChannelSubscribe.do</context>
             <context context-type="paramnotes">27 systems successfully subscribed to the appropriate default base channel</context>
@@ -19847,20 +19847,6 @@ As a Channel Administrator, you may change the base channels your systems are su
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/channel/ssm/BaseChannelSubscribe.do</context>
             <context context-type="paramnotes">27 systems skipped while attempting to subscribe to the appropriate default base channel</context>
-          </context-group>
-        </trans-unit>
-        <trans-unit id="basesub.jsp.fail">
-          <source>{0} systems failed to subscribe to channel '{1}'</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/channel/ssm/BaseChannelSubscribe.do</context>
-            <context context-type="paramnotes">27 systems failed to subscribe to channel 'Red Hat Enterprise Linux AS (v. 2.1 for i386)'</context>
-          </context-group>
-        </trans-unit>
-        <trans-unit id="basesub.jsp.fail-default">
-          <source>{0} systems failed to subscribe to the appropriate base channel</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/channel/ssm/BaseChannelSubscribe.do</context>
-            <context context-type="paramnotes">27 systems failed to subscribe to the appropriate base channel</context>
           </context-group>
         </trans-unit>
         <trans-unit id="basesub.jsp.confirm.header">

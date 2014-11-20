@@ -8210,6 +8210,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="ssm.subscription.operation.label">
         <source>Channel Subscription Updates</source>
       </trans-unit>
+      <trans-unit id="ssm.base.subscription.operation.label">
+        <source>Base Channel Subscription Updates</source>
+      </trans-unit>
       <trans-unit id="kickstart.cobbler.distro.syncfail">
         <source>
 The following is a list of errors gathered while Spacewalk attempts to
