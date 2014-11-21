@@ -20,6 +20,7 @@
     <rhn:submitted />
         <c:if test="${not groups}">
     <a href="/rhn/systems/Overview.do?showgroups=true"> <div class="btn btn-default spacewalk-btn-margin-vertical"> <rhn:icon type="header-system-groups" /> <bean:message key="overview.jsp.systems"/> </div> </a>
+              <c:set var="noAddToSsm" value="1" />
               <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
         </c:if>
 
