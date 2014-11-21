@@ -77,6 +77,11 @@ sub post_item {
   return "</li>\n";
 }
 sub level_style {
+  my $self = shift;
+  my $level = shift;
+  if ($level > 0) {
+    return "nav-tabs-pf";
+  }
   return "";
 }
 sub link_style {
