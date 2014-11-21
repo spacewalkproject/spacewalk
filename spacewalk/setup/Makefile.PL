@@ -14,7 +14,8 @@ WriteMakefile(
                             'bin/spacewalk-setup-cobbler',
                             'bin/spacewalk-setup-tomcat',
                             'bin/spacewalk-setup-httpd',
-                            'bin/spacewalk-setup-sudoers'],
+                            'bin/spacewalk-setup-sudoers',
+                            'bin/spacewalk-setup-ipa-authentication'],
     PREREQ_PM => {
         'Test::More' => 0,
     },
