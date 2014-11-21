@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.3.3
+Version: 2.3.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Fri Nov 21 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.4-1
+- 1166045 - read systemid path from configuration
+
 * Tue Nov 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.3-1
 - 1158155 - fixed renaming of deb packages
 
