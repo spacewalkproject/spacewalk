@@ -233,14 +233,14 @@ class HTTPSProxyConnection(HTTPProxyConnection):
         self.putheader("User-Agent", self._user_agent)
 
 def idn_pune_to_unicode(hostname):
-    """ Convert Internationalized domain name from Pune encoding to Unicode """
+    """ Convert Internationalized domain name from Punycode (RFC3492) to Unicode """
     if hostname is None:
         return None
     else:
         return hostname.decode('idna')
 
 def idn_ascii_to_pune(hostname):
-    """ Convert domain name to Pune encoding. Hostname can be instance of string or Unicode """
+    """ Convert domain name to Punycode (RFC3492). Hostname can be instance of string or Unicode """
     if hostname is None:
         return None
     else:
