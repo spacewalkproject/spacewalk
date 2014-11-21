@@ -7,23 +7,11 @@
 
 <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
-    <br />
 
-    <div class="toolbar-h2">
-        <div class="toolbar">
-            <span class="toolbar">
-                <a href="/rhn/systems/details/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
-                    <rhn:icon type="item-del" title="toolbar.delete.crash" />
-                    <bean:message key="toolbar.delete.crash"/>
-                </a>
-            </span>
-        </div>
-        <rhn:icon type="header-crash" title="info.alt.img" />
+    <rhn:toolbar base="h2" icon="header-crash" iconAlt="info.alt.img">
         ${fn:escapeXml(crash.crash)}
-    </div>
+    </rhn:toolbar>
 
-    <br />
-    <br />
     <%@ include file="/WEB-INF/pages/common/fragments/systems/crash-header.jspf" %>
     <div class="page-summary">
       <p><bean:message key="details.crashnotes.delete.confirm"/></p>
@@ -47,7 +35,7 @@
 
         <hr/>
         <div class="text-right">
-            <html:submit styleClass="btn btn-default">
+            <html:submit styleClass="btn btn-danger">
                 <bean:message key="sdc.details.notes.delete"/>
             </html:submit>
         </div>
