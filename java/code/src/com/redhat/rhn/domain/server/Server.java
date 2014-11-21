@@ -1001,7 +1001,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Get the primary hostname for this server
-     * If hostname is IDN, it is decoded from Pune encoding
+     * If hostname is IDN, it is decoded from Puny encoding
      * @return Returns the primary hostname for this server
      */
     public String getDecodedHostname() {
@@ -1011,7 +1011,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Get the hostname aliases (cname records) for this server
-     * If hostname is IDN, it is decoded from Pune encoding
+     * If hostname is IDN, it is decoded from Puny encoding
      * @return Returns the primary hostname for this server
      */
     public List<String> getDecodedCnames() {
