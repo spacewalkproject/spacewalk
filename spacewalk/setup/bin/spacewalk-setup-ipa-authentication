@@ -1,0 +1,397 @@
+#!/usr/bin/perl
+
+# Enable the external authentication with the assumption that the
+# machine is IPA-enrolled and on the IPA server, HTTP/<the-spacewalk-fqdn>
+# service is created.
+#
+# https://fedorahosted.org/spacewalk/wiki/SpacewalkAndIPA
+
+use strict;
+use warnings FATAL => 'all';
+
+use Sys::Hostname ();
+use Getopt::Long ();
+use Spacewalk::Setup ();
+
+my $HTTP_KEYTAB = '/etc/httpd/conf/http.keytab';
+my $PAM_SERVICE = 'spacewalk';
+my $EXTERNAL_REPO;
+my $HELP;
+
+sub usage {
+	my $string = <<"EOF";
+Usage: $0 [OPTIONS]
+Enables external authentication for Spacewalk on IPA-enrolled machine.
+Options:
+	--http-keytab=path	Path to the http.keytab file.
+				Default is /etc/httpd/conf/http.keytab.
+	--pam-service=name	Name of the PAM service to configure.
+				Default is spacewalk.
+	--configure-ipa-repo	On RHEL/CentOS 7.0, external yum repo may be
+				needed to install some packages.
+				Unset by default.
+EOF
+	if (@_ and $_[0]) {
+		warn $string;
+		exit $_[0];
+	} else {
+		print $string;
+		exit;
+	}
+}
+
+sub write_file {
+	my ($file, $content) = @_;
+	local * FILE;
+	open FILE, '>', $file or die "Error writing [$file]: $!\n";
+	print FILE $content;
+	close FILE;
+}
+
+sub get_ini_file {
+	my $file = shift;
+	local * FILE;
+	open FILE, '<', $file or do {
+		warn "Error reading [$file]: $!\n";
+		return;
+	};
+	my $lines = [];
+	my $values = {};
+	my $section;
+	local $_;
+	while (<FILE>) {
+		my $line = [ $_ ];
+		if (/^\[(.+?)\]\s*$/) {
+			$section = $1;
+		}
+		push @$line, $section;
+		if (not /^\s*#/ and not /^\[/) {
+			chomp;
+			my ($key, $sep, $val) = /^(\w+)(\s*=\s*)(.*)/;
+			if (defined $val) {
+				push @$line, ($key, $val, $sep);
+				no warnings 'uninitialized';
+				$values->{$section}{$key} = $line;
+			}
+		}
+		push @$lines, $line;
+	}
+	close FILE;
+	return [ $lines, $values ];
+}
+
+sub save_ini_file {
+	my ($file, $data) = @_;
+	my $content = '';
+	for my $line (@{ $data->[0] }) {
+		if (defined $line->[4]) {
+			$content .= $line->[2] . $line->[4] . $line->[3] . "\n";
+		} else {
+			$content .= $line->[0];
+		}
+	}
+	write_file($file, $content);
+	$data->[2] = undef;
+}
+
+sub get_ini_line {
+	my ($data, $section, $key) = @_;
+	no warnings;
+	return $data->[1]{$section}{$key} if exists $data->[1]{$section}{$key};
+	undef
+}
+sub get_ini_value {
+	my ($data, $section, $key) = @_;
+	no warnings;
+	my $line = get_ini_line($data, $section, $key);
+	defined $line ? $line->[3] : undef;
+}
+sub set_ini_value {
+	my ($data, $section, $key, $value) = @_;
+	my $line = get_ini_line($data, $section, $key);
+	if (defined $line) {
+		$line->[3] = $value;
+	} else {
+		$line = [ "key = $value\n", $section, $key, $value, " = " ];
+		my $i = $#{$data->[0]};
+		while ($i >= 0) {
+			$i--;
+			if (defined $data->[0][$i][1] and $data->[0][$i][1] eq $section) {
+				splice @{ $data->[0] }, $i + 1, 0, $line;
+				last;
+			}
+		}
+		if ($i < 0) {
+			push @{ $data->[0] }, [ "\n" ];
+			push @{ $data->[0] }, [ "[$section]\n", $section ];
+			push @{ $data->[0] }, $line;
+		}
+		$data->[1]{$section}{$key} = $line;
+	}
+	$data->[2] = 1;
+}
+
+Getopt::Long::GetOptions(
+	'http-keytab=s' => \$HTTP_KEYTAB,
+	'pam-service=s' => \$PAM_SERVICE,
+	'configure-ipa-repo' => \$EXTERNAL_REPO,
+	'help' => \$HELP,
+) or usage(1);
+
+if ($HELP) {
+	usage();
+}
+
+my ($ipa_server, $ipa_realm);
+my $hostname = Sys::Hostname::hostname();
+if (-f '/etc/ipa/default.conf') {
+	my $ipa_default = get_ini_file('/etc/ipa/default.conf');
+	if (defined $ipa_default) {
+		$ipa_server = get_ini_value($ipa_default, 'global', 'server');
+		$ipa_realm = get_ini_value($ipa_default, 'global', 'realm');
+	}
+}
+my ($sssd_conf, $sssd_services);
+if (-f '/etc/sssd/sssd.conf') {
+	$sssd_conf = get_ini_file('/etc/sssd/sssd.conf');
+	$sssd_services = get_ini_value($sssd_conf, 'sssd', 'services');
+}
+
+if (grep { not defined $_ } ( $ipa_server, $ipa_realm, $sssd_services)) {
+	die "This host does not seem like it has been IPA-enrolled.\n";
+}
+
+if (not -f $HTTP_KEYTAB and not -x '/usr/sbin/ipa-getkeytab') {
+	die "Command [/usr/sbin/ipa-getkeytab] does not seem to exist, needed to fetch keytab.\n";
+}
+
+print "Enabling authentication against [$ipa_server].\n";
+
+if (not -f $HTTP_KEYTAB) {
+	print "Retrieving HTTP/ service keytab into [$HTTP_KEYTAB] ...\n";
+	if (system '/bin/bash', '-c', qq( KRB5CCNAME=KEYRING:session:get-http-service-keytab kinit -k \\
+		&& KRB5CCNAME=KEYRING:session:get-http-service-keytab /usr/sbin/ipa-getkeytab -s $ipa_server -k $HTTP_KEYTAB -p HTTP/$hostname \\
+		&& kdestroy -c KEYRING:session:get-http-service-keytab )) {
+		die "Failed to retrieve keytab.\n";
+	}
+	# print "Keytab retrieved.\n";
+} else {
+	print "Keytab: [$HTTP_KEYTAB] already exists, will not refetch.\n";
+	print "        Use [klist -kt $HTTP_KEYTAB] to verify its content.\n";
+}
+
+system 'chown', '--changes', 'apache', $HTTP_KEYTAB
+	and die "Error changing owner of the keytab.\n";
+system 'chmod', '--changes', '600', $HTTP_KEYTAB
+	and die "Error changing permissions of the keytab.\n";
+
+if (not -f "/etc/pam.d/$PAM_SERVICE") {
+	print "Configuring PAM service [$PAM_SERVICE].\n";
+	local * FILE;
+	open FILE, '>', "/etc/pam.d/$PAM_SERVICE" or die "Error writing [/etc/pam.d/$PAM_SERVICE]: $!\n";
+	print FILE <<'EOF';
+auth    required   pam_sss.so
+account required   pam_sss.so
+EOF
+	close FILE;
+} else {
+	print "PAM service: File [/etc/pam.d/$PAM_SERVICE], will not overwrite.\n";
+}
+
+my @PACKAGES = qw(
+	sssd-dbus
+	mod_auth_kerb
+	mod_authnz_pam
+	mod_lookup_identity
+	mod_intercept_form_submit
+);
+if (system(qq( rpm -q @PACKAGES 2> /dev/null > /dev/null ))) {
+	my $repo_file = '/etc/yum.repos.d/adelton-identity_demo-epel-7.repo';
+	if ($EXTERNAL_REPO) {
+		local * FILE;
+		open FILE, '>', $repo_file or die "Error writing [$repo_file]: $!\n";
+		print FILE <<'EOF';
+[adelton-identity_demo]
+name=Copr repo for identity_demo owned by adelton
+baseurl=http://copr-be.cloud.fedoraproject.org/results/adelton/identity_demo/epel-7-$basearch/
+skip_if_unavailable=True
+gpgcheck=0
+enabled=1
+EOF
+		close FILE;
+	}
+	print "Will install additional packages ...\n";
+	system qq( yum install -y @PACKAGES ) or exit 1;
+} else {
+	print "Packages: all needed packages are already installed.\n";
+}
+
+if (not $sssd_services =~ /\bifp\b/) {
+	set_ini_value($sssd_conf, 'sssd', 'services', "$sssd_services, ifp");
+}
+
+for my $domain (grep m!^domain/!, keys %{ $sssd_conf->[1]}) {
+	my $ldap_user_extra_attrs = get_ini_value($sssd_conf, $domain, 'ldap_user_extra_attrs');
+	for my $add (qw( email:mail firstname:givenname lastname:sn ou )) {
+		if (not defined $ldap_user_extra_attrs) {
+			$ldap_user_extra_attrs = $add;
+			set_ini_value($sssd_conf, $domain, 'ldap_user_extra_attrs', $ldap_user_extra_attrs);
+		} elsif (not $ldap_user_extra_attrs =~ /\b$add\b/) {
+			$ldap_user_extra_attrs .= ", $add";
+			set_ini_value($sssd_conf, $domain, 'ldap_user_extra_attrs', $ldap_user_extra_attrs);
+		}
+	}
+}
+
+my $allowed_uids = get_ini_value($sssd_conf, 'ifp', 'allowed_uids');
+for my $add (qw( apache root )) {
+	if (not defined $allowed_uids) {
+		$allowed_uids = $add;
+		set_ini_value($sssd_conf, 'ifp', 'allowed_uids', $allowed_uids);
+	} elsif (not $allowed_uids =~ /\b$add\b/) {
+		$allowed_uids .= ", $add";
+		set_ini_value($sssd_conf, 'ifp', 'allowed_uids', $allowed_uids);
+	}
+}
+
+my $user_attributes = get_ini_value($sssd_conf, 'ifp', 'user_attributes');
+for my $add ('+email', '+firstname', '+lastname', '+ou') {
+	if (not defined $user_attributes) {
+		$user_attributes = $add;
+		set_ini_value($sssd_conf, 'ifp', 'user_attributes', $user_attributes);
+	} elsif (not $user_attributes =~ /\Q$add\E\b/) {
+		$user_attributes .= ", $add";
+		set_ini_value($sssd_conf, 'ifp', 'user_attributes', $user_attributes);
+	}
+}
+
+if ($sssd_conf->[2]) {
+	Spacewalk::Setup::backup_file('/etc/sssd', 'sssd.conf');
+	save_ini_file('/etc/sssd/sssd.conf', $sssd_conf);
+	print "Updated sssd configuration.\n";
+	# system 'diff', '-u', $backup_file, '/etc/sssd/sssd.conf';
+}
+
+for my $b (qw( httpd_dbus_sssd allow_httpd_mod_auth_pam)) {
+	local * PIPE;
+	open PIPE, "getsebool $b |" or die "Error getting SELinux boolean [$b] value: $!.\n";
+	my $line = <PIPE>;
+	if (not defined $line) {
+		die "      Maybe you need to upgrade selinux-policy?\n";
+	} elsif ($line =~ /\boff$/) {
+		print "Turning SELinux boolean [$b] on ...\n";
+		system 'setsebool', '-P', $b, 'on' and die "Setting [$b] failed.\n";
+		print "        ... done.\n";
+	} else {
+		print "SELinux boolean [$b] is already on.\n";
+	}
+	close PIPE;
+}
+
+print "Configuring Apache modules.\n";
+
+write_file('/etc/httpd/conf.d/authnz_pam.conf', <<'EOF');
+LoadModule authnz_pam_module modules/mod_authnz_pam.so
+EOF
+
+write_file('/etc/httpd/conf.d/auth_kerb.conf', <<"EOF");
+LoadModule auth_kerb_module modules/mod_auth_kerb.so
+<Location /rhn/Login.do>
+  AuthType Kerberos
+  AuthName "Kerberos Login"
+  KrbMethodNegotiate On
+  KrbMethodK5Passwd Off
+  KrbAuthRealms $ipa_realm
+  Krb5KeyTab $HTTP_KEYTAB
+  KrbLocalUserMapping On
+  require pam-account $PAM_SERVICE
+  ErrorDocument 401 '<html><meta http-equiv="refresh" content="0; URL=/rhn/Login2.do"><body>Kerberos authentication did not pass.</body></html>'
+</Location>
+EOF
+
+write_file('/etc/httpd/conf.d/intercept_form_submit.conf', <<"EOF");
+LoadModule intercept_form_submit_module modules/mod_intercept_form_submit.so
+<LocationMatch ^/rhn/(Re)?LoginSubmit\.do>
+  InterceptFormPAMService $PAM_SERVICE
+  InterceptFormLogin username
+  InterceptFormPassword password
+</LocationMatch>
+EOF
+
+write_file('/etc/httpd/conf.d/lookup_identity.conf', <<'EOF');
+LoadModule lookup_identity_module modules/mod_lookup_identity.so
+<LocationMatch /rhn/(Re)?Login(Submit)?\.do>
+  LookupUserAttr email AJP_REMOTE_USER_EMAIL " "
+  LookupUserAttr firstname AJP_REMOTE_USER_FIRSTNAME
+  LookupUserAttr lastname AJP_REMOTE_USER_LASTNAME
+  LookupUserAttr ou AJP_REMOTE_USER_ORGUNIT
+  LookupUserGroupsIter AJP_REMOTE_USER_GROUP
+</LocationMatch>
+EOF
+
+my $tomcat_service;
+for my $tomcat_conf (glob "/etc/tomcat*/tomcat*.conf") {
+	($tomcat_service) = ($tomcat_conf =~ m!^/etc/(tomcat.+?)/!);
+	my $content;
+	local * FILE;
+	my $server_xml_file = "/etc/$tomcat_service/server.xml";
+	open FILE, '<', $server_xml_file or die "Error reading [$server_xml_file]: $!\n";
+	{
+		local $/ = undef;
+		$content = <FILE>;
+	}
+	close FILE;
+	my $new_content = qx{/usr/bin/xsltproc /usr/share/spacewalk/setup/server-external-authentication.xml.xsl $server_xml_file};
+	if (not defined $new_content or $new_content eq '') {
+		die "Failed to configure tomcat.\n";
+	}
+	if ($new_content ne $content) {
+		Spacewalk::Setup::backup_file("/etc/$tomcat_service", 'server.xml', '-swsave.ipa');
+		write_file($server_xml_file, $new_content);
+	}
+	last;
+}
+if (not defined $tomcat_service) {
+	die "Failed to determine the tomcat service.\n";
+}
+
+for my $service ( 'sssd', $tomcat_service, 'httpd' ) {
+	system 'service', $service, 'restart' and die "Failed to restart [$service].\n";
+}
+
+system '/usr/sbin/spacewalk-startup-helper wait-for-tomcat';
+
+print <<"EOF";
+Authentication against [$ipa_server] sucessfully enabled.
+As admin, at Admin > Users > External Authentication, select
+          Default organization to autopopulate new users into.
+EOF
+
+
+=pod
+
+=head1 NAME
+
+spacewalk-setup-ipa-authentication - enable external authentication
+
+=head1 SYNOPSIS
+
+spacewalk-setup-ipa-authentication [OPTIONS]
+spacewalk-setup-ipa-authentication --help
+
+=head1 DESCRIPTION
+
+Enables the external authentication with the assumption that the
+machine is IPA-enrolled and on the IPA server, HTTP/<the-spacewalk-fqdn>
+service is created.
+
+=head1 SEE ALSO
+
+https://fedorahosted.org/spacewalk/wiki/SpacewalkAndIPA, spacewalk-setup(8)
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2014 Jan Pazdziora
+Released under GNU General Public License, version 2 (GPLv2).
+
+=cut
