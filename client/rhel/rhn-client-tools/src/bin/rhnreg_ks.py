@@ -22,7 +22,7 @@
 
 import sys
 import os
-from rhn.connections import idn_pune_to_unicode
+from rhn.connections import idn_puny_to_unicode
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -192,7 +192,7 @@ class RegisterKsCli(rhncli.RhnCli):
                 ip6addr = hw.get('ipaddr6')
 
         if hostname:
-            profileName = idn_pune_to_unicode(hostname)
+            profileName = idn_puny_to_unicode(hostname)
         elif ipaddr:
             profileName = ipaddr
         elif ip6addr:
