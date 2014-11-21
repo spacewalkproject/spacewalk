@@ -19,7 +19,7 @@ import socket
 import string
 import SocketServer
 from random import choice
-from rhn.connections import idn_ascii_to_pune
+from rhn.connections import idn_ascii_to_puny
 from spacewalk.common.rhnLog import initLOG, log_debug, log_error
 from spacewalk.common.rhnConfig import initCFG, CFG
 from spacewalk.server import rhnSQL
@@ -117,7 +117,7 @@ class Runner(jabber_lib.Runner):
             self._password = self.create_dispatcher_password(32)
         self._resource = 'superclient'
         js = config.get('jabber_server')
-        self._jabber_servers = [ idn_ascii_to_pune(js) ]
+        self._jabber_servers = [ idn_ascii_to_puny(js) ]
 
     def fix_connection(self, c):
         "After setting up the connection, do whatever else is necessary"

@@ -238,14 +238,14 @@ class HTTPSProxyConnection(HTTPProxyConnection):
         # Add a User-Agent header
         self.putheader("User-Agent", self._user_agent)
 
-def idn_pune_to_unicode(hostname):
+def idn_puny_to_unicode(hostname):
     """ Convert Internationalized domain name from Punycode (RFC3492) to Unicode """
     if hostname is None:
         return None
     else:
         return hostname.decode('idna')
 
-def idn_ascii_to_pune(hostname):
+def idn_ascii_to_puny(hostname):
     """ Convert domain name to Punycode (RFC3492). Hostname can be instance of string or Unicode """
     if hostname is None:
         return None

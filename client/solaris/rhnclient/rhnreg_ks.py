@@ -21,7 +21,7 @@ import getopt
 import sys
 import os
 import string
-from rhn.connections import idn_pune_to_unicode
+from rhn.connections import idn_puny_to_unicode
 from spacewalk.common.rhnConfig import CFG, initCFG
 
 PREFIX="/"
@@ -120,7 +120,7 @@ def generateProfileName(hardwareList):
             ipaddr = hw.get('ipaddr')
 
     if hostname:
-        profileName = idn_pune_to_unicode(hostname)
+        profileName = idn_puny_to_unicode(hostname)
     else:
         if ipaddr:
             profileName = ipaddr

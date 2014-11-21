@@ -29,7 +29,7 @@ from spacewalk.server import rhnSQL, rhnImport
 from spacewalk.satellite_tools.disk_dumper.dumper import ClosedConnectionError
 from spacewalk.satellite_tools import constants
 
-from rhn.connections import idn_pune_to_unicode
+from rhn.connections import idn_puny_to_unicode
 
 
 class BaseApacheServer:
@@ -219,7 +219,7 @@ class ApacheServer(BaseApacheServer):
           from rhnISSSlave
          where slave = :hostname
            and enabled = 'Y'
-        """, hostname=idn_pune_to_unicode(remote_hostname))
+        """, hostname=idn_puny_to_unicode(remote_hostname))
         if not row:
             raise rhnFault(2004,
                            _('Server "%s" is not enabled for ISS.')

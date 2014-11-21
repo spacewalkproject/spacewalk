@@ -27,7 +27,7 @@ import exceptions
 import Queue
 import threading
 from optparse import Option, OptionParser
-from rhn.connections import idn_ascii_to_pune, idn_pune_to_unicode
+from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode
 
 import gettext
 translation = gettext.translation('spacewalk-backend-server', fallback=True)
@@ -372,9 +372,9 @@ def sendMail(forceEmail=0):
         if body:
             print _("+++ sending log as an email +++")
             headers = {
-                'Subject': _('RHN Management Satellite sync. report from %s') % idn_pune_to_unicode(os.uname()[1]),
+                'Subject': _('RHN Management Satellite sync. report from %s') % idn_puny_to_unicode(os.uname()[1]),
             }
-            sndr = "root@%s" % idn_pune_to_unicode(os.uname()[1])
+            sndr = "root@%s" % idn_puny_to_unicode(os.uname()[1])
             rhnMail.send(headers, body, sender=sndr)
         else:
             print _("+++ email requested, but there is nothing to send +++")
@@ -2192,17 +2192,17 @@ def processCommandline():
 
     CFG.set("ISS_Parent", getDbIssParent())
     CFG.set("TRACEBACK_MAIL", OPTIONS.traceback_mail or CFG.TRACEBACK_MAIL)
-    CFG.set("RHN_PARENT", idn_ascii_to_pune(OPTIONS.iss_parent or OPTIONS.server or
+    CFG.set("RHN_PARENT", idn_ascii_to_puny(OPTIONS.iss_parent or OPTIONS.server or
                                             CFG.ISS_PARENT or CFG.RHN_PARENT))
     if OPTIONS.server and not OPTIONS.iss_parent:
         # server option on comman line should override ISS parent from config
         CFG.set("ISS_PARENT", None)
     else:
-        CFG.set("ISS_PARENT", idn_ascii_to_pune(OPTIONS.iss_parent or CFG.ISS_PARENT))
+        CFG.set("ISS_PARENT", idn_ascii_to_puny(OPTIONS.iss_parent or CFG.ISS_PARENT))
         CFG.set("ISS_CA_CHAIN", OPTIONS.ca_cert or getDbCaChain(CFG.RHN_PARENT)
                 or CFG.CA_CHAIN)
 
-    CFG.set("HTTP_PROXY", idn_ascii_to_pune(OPTIONS.http_proxy or CFG.HTTP_PROXY))
+    CFG.set("HTTP_PROXY", idn_ascii_to_puny(OPTIONS.http_proxy or CFG.HTTP_PROXY))
     CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
     CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
     CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
