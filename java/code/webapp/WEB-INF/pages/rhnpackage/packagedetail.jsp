@@ -237,7 +237,7 @@
                         <c:if test="${url !=  null}">
                             <div class="input-group">
                                 <div class="form-control">${pack.file}</div>
-                                <span class="input-group-btn btn-lg">
+                                <span class="input-group-btn">
                                     <a class="btn btn-info" href="${url}">Download ${pack.packageSizeString}</a>
                                 </span>
                             </div>
