@@ -38,9 +38,13 @@ from spacewalk.common.rhnException import rhnFault
 from spacewalk.common import rhnCache
 from spacewalk.common.rhnTranslate import _
 
+sys.path.append('/usr/share/rhn')
+from up2date_client import config
 
 # To avoid doing unnecessary work, keep ProxyAuth object global
 __PROXY_AUTH = None
+UP2DATE_CONFIG = config.Config('/etc/sysconfig/rhn/up2date')
+
 def get_proxy_auth(hostname=None):
     global __PROXY_AUTH
     if not __PROXY_AUTH:
@@ -55,7 +59,7 @@ class ProxyAuth:
     __serverid = None
     __systemid = None
     __systemid_mtime = None
-    __systemid_filename = '/etc/sysconfig/rhn/systemid'
+    __systemid_filename = UP2DATE_CONFIG['systemIdPath']
 
     __nRetries = 3 # number of login retries
 

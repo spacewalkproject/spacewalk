@@ -510,8 +510,10 @@ if [ $MONITORING -eq 0 ]; then
 fi
 
 # systemid need to be readable by apache/proxy
-chown root:apache $SYSTEMID_PATH
-chmod 0640 $SYSTEMID_PATH
+for file in $SYSTEMID_PATH $UP2DATE_FILE; do
+    chown root:apache $file
+    chmod 0640 $file
+done
 
 #Setup the cobbler stuff, needed to use koan through a proxy
 PROTO="http";
