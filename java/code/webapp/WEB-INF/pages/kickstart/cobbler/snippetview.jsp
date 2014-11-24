@@ -4,7 +4,8 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
 <head>
-<%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
+<script language="javascript" type="text/javascript" src="/ace-editor/ace.js"></script>
+<script language="javascript" type="text/javascript" src="/ace-editor/ext-modelist.js"></script>
 </head>
 
 <html:html >

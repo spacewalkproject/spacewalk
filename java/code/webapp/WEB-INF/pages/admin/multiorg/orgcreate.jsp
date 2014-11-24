@@ -86,6 +86,11 @@
 
             <script type="text/javascript" src="/javascript/pwstrength-bootstrap-1.0.2.js"></script>
             <script type="text/javascript" src="/javascript/spacewalk-pwstrength-handler.js"></script>
+            <script type="text/javascript">
+function toggleAsterisk() {
+  $("[name='password-asterisk']").toggle()
+}
+            </script>
             <div class="form-group">
               <label class="col-lg-3 control-label"><bean:message key="help.credentials.jsp.passwordstrength"/>:</label>
                 <div class="col-lg-6" id="pwstrenghtfield">
@@ -101,7 +106,7 @@
                     <c:choose>
                         <c:when test="${displaypamcheckbox == 'true'}">
                             <label for="pam">
-                                <html:checkbox property="usepam" onclick="$(\"[name='password-asterisk']\").toggle()" styleId="pam"/>
+                                <html:checkbox property="usepam" onclick="toggleAsterisk()" styleId="pam"/>
                                 <bean:message key="usercreate.jsp.pam.instructions"/>
                             </label>
                             <span class="help-block">
@@ -177,7 +182,7 @@
         --%>
         <script language="javascript">
             var items = document.getElementsByName('password-asterisk');
-            if (document.orgCreateForm.usepam.checked == true) {
+            if (('undefined' !== typeof document.orgCreateForm.usepam) && (document.orgCreateForm.usepam.checked == true)) {
                 for (var i = 0; i < items.length; i++) {
                     items[i].style.display = "none";
                 }

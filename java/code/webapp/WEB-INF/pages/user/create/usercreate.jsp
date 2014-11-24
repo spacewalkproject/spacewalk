@@ -70,6 +70,11 @@
               </tr>
               <script type="text/javascript" src="/javascript/pwstrength-bootstrap-1.0.2.js"></script>
               <script type="text/javascript" src="/javascript/spacewalk-pwstrength-handler.js"></script>
+              <script type="text/javascript">
+function toggleAsterisk() {
+  $("[name='password-asterisk']").toggle()
+}
+              </script>
               <tr>
                 <td><label><bean:message key="help.credentials.jsp.passwordstrength"/>:</label></td>
                 <td>
@@ -84,7 +89,7 @@
                   <td>
                     <c:choose>
                       <c:when test="${displaypamcheckbox == 'true'}">
-                      <html:checkbox property="usepam" onclick="$(\"[name='password-asterisk']\").toggle()" styleId="pam"/>
+                      <html:checkbox property="usepam" onclick="toggleAsterisk()" styleId="pam"/>
                       <label for="pam"><bean:message key="usercreate.jsp.pam.instructions"/></label> <br/>
                       <strong><span>
                           <bean:message key="usercreate.jsp.pam.instructions.note"/>
