@@ -9067,25 +9067,25 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.postnetconn.bondname.jsp.label">
-        <source>Name</source>
+        <source>Bond interface name</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.postnetconn.bondinterfaces.jsp.label">
-        <source>Interfaces</source>
+        <source>Bond interfaces:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.postnetconn.bondoptions.jsp.label">
-        <source>Options</source>
+        <source>Bond interface options</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.postnetconn.bondoptionstip.jsp.label">
-        <source>Options is a space-separated list of any valid "bonding" kernel module options. Common options include mode=[0,1,2] (0 is round-robin, 1 is active-backup, 2 is balance-xor) and miimon=100</source>
+        <source>You can input a space-separated list of any valid "bonding" kernel module options. Common options include mode=[0,1,2] (0 is round-robin, 1 is active-backup, 2 is balance-xor) and miimon=100</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
@@ -9097,19 +9097,19 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.postnetconn.bondaddress.jsp.label">
-        <source>IP address:</source>
+        <source>IP address</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.postnetconn.bondnetmask.jsp.label">
-        <source>Netmask:</source>
+        <source>Netmask</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.postnetconn.bondgateway.jsp.label">
-        <source>Gateway:</source>
+        <source>Gateway</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
@@ -9121,7 +9121,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.postnetconn.bonddescription.jsp.label">
-        <source>Configure the bond:</source>
+        <source>Bond interface configuration</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
@@ -15872,16 +15872,16 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
           <source>Advanced Kickstart Configuration</source>
         </trans-unit>
         <trans-unit id="kickstart.schedule.kernel.options.distro">
-          <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;</source>
+          <source>As specified by Kickstart Distribution</source>
         </trans-unit>
         <trans-unit id="kickstart.schedule.kernel.options.profile">
-          <source>&lt;strong&gt;As specified by Kickstart Profile&lt;/strong&gt;</source>
+          <source>As specified by Kickstart Profile</source>
         </trans-unit>
         <trans-unit id="kickstart.schedule.kernel.options.custom.tip">
           <source>If you would not like any kernel options, select '{0}' and leave the form field blank.</source>
         </trans-unit>
         <trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
-          <source>Sync Package&lt;br /&gt;Profile</source>
+          <source>Sync Package Profile</source>
         </trans-unit>
         <trans-unit id="kickstart.schedule.sync.pkg.profile.option1.jsp">
           <source>With system's existing package profile</source>
@@ -16645,7 +16645,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.virt_bridge.example">
-        <source>(ex. xenbr0)</source>
+        <source>Example: xenbr0</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
@@ -16663,31 +16663,31 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.memory_allocation.header">
-        <source>Memory Allocation:</source>
+        <source>Memory Allocation</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="virtualization.provision.first.jsp.memory_allocation.message2">
-        <source>megabytes of {0} megabytes total memory on &lt;img src="/img/rhn-listicon-system.gif"&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;</source>
+      <trans-unit id="virtualization.provision.first.jsp.memory_allocation.message">
+        <source>Size in megabytes out of {0} total megabytes available on {1}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.virtual_cpus.header">
-        <source>Virtual CPUs:</source>
+        <source>Virtual CPUs</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="virtualization.provision.first.jsp.virtual_cpus.tip1">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; You may have up to {0} virtual CPUs on a virtual system.</source>
+      <trans-unit id="virtualization.provision.first.jsp.virtual_cpus.message">
+        <source>Number of virtual CPUs, up to {0}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.storage">
-        <source>Storage:</source>
+        <source>Storage</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
@@ -16698,14 +16698,8 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="virtualization.provision.first.jsp.storage.local.message1">
-        <source>Use the virtual host system's disk space: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="virtualization.provision.first.jsp.storage.local.gigabytes">
-        <source>gigabytes.</source>
+      <trans-unit id="virtualization.provision.first.jsp.storage.local.message">
+        <source>Size in gigabytes from the virtual host's disk space.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
