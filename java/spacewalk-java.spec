@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.88
+Version: 2.3.89
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 24 2014 Stephen Herr <sherr@redhat.com> 2.3.89-1
+- 920603 - fixing javascript errors
+- 1162862 - Config file url should update when you create new revision
+
 * Mon Nov 24 2014 Tomas Lestach <tlestach@redhat.com> 2.3.88-1
 - prevent ISE, when firstname a/o lastname weren't passed from IPA server
 
