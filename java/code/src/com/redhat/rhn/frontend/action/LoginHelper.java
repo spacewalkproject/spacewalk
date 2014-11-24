@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.action;
 
+import com.redhat.rhn.common.db.WrappedSQLException;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.common.SatConfigFactory;
@@ -141,22 +143,28 @@ public class LoginHelper {
                 }
                 if (newUserOrg != null) {
                     Set<ServerGroup> sgs = getSgsFromExtGroups(extGroups, newUserOrg);
-                    CreateUserCommand createCmd = new CreateUserCommand();
-                    createCmd.setLogin(remoteUserString);
-                    // set a password, that cannot really be used
-                    createCmd.setRawPassword(DEFAULT_KERB_USER_PASSWORD);
-                    createCmd.setFirstNames(firstname);
-                    createCmd.setLastName(lastname);
-                    createCmd.setEmail(email);
-                    createCmd.setOrg(newUserOrg);
-                    createCmd.setTemporaryRoles(roles);
-                    createCmd.setServerGroups(sgs);
-                    createCmd.validate();
-                    createCmd.storeNewUser();
-                    remoteUser = createCmd.getUser();
-                    log.warn("Externally authenticated login " + remoteUserString +
-                            " (" + firstname + " " + lastname + ") created in " +
-                            newUserOrg.getName() + ".");
+                    try {
+                        CreateUserCommand createCmd = new CreateUserCommand();
+                        createCmd.setLogin(remoteUserString);
+                        // set a password, that cannot really be used
+                        createCmd.setRawPassword(DEFAULT_KERB_USER_PASSWORD);
+                        createCmd.setFirstNames(firstname);
+                        createCmd.setLastName(lastname);
+                        createCmd.setEmail(email);
+                        createCmd.setOrg(newUserOrg);
+                        createCmd.setTemporaryRoles(roles);
+                        createCmd.setServerGroups(sgs);
+                        createCmd.validate();
+                        createCmd.storeNewUser();
+                        remoteUser = createCmd.getUser();
+                        log.warn("Externally authenticated login " + remoteUserString +
+                                " (" + firstname + " " + lastname + ") created in " +
+                                newUserOrg.getName() + ".");
+                    }
+                    catch (WrappedSQLException wse) {
+                        log.error("Creation of user failed with: " + wse.getMessage());
+                        HibernateFactory.rollbackTransaction();
+                    }
                 }
                 if (remoteUser != null &&
                         remoteUser.getPassword().equals(DEFAULT_KERB_USER_PASSWORD)) {
