@@ -7839,6 +7839,8 @@
                  path="/WEB-INF/pages/configuration/files/filedetails.jsp"/>
         <forward name="error"
                  path="/WEB-INF/pages/configuration/files/filedetails.jsp"/>
+        <forward name="success" redirect="true"
+                 path="/configuration/file/FileDetails.do"/>
     </action>
 
     <action path="/configuration/file/FileDownload"

@@ -81,6 +81,8 @@ public class FileDetailsAction extends RhnAction {
                 cr = builder.update(cff.toRevisedData(cr),
                         context.getCurrentUser(), cr.getConfigFile());
                 params.put("crid", cr.getId().toString());
+                return getStrutsDelegate().forwardParams(mapping.findForward("success"),
+                        params);
             }
             catch (ValidatorException ve) {
                 getStrutsDelegate().saveMessages(request, ve.getResult());
