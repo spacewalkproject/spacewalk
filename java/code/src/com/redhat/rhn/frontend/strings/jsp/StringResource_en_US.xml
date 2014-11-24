@@ -12303,11 +12303,14 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.history.snapshot.summary2">
           <source>Below are a list of snapshots of your system.  To rollback to a previous configuration, or to view the changes that would have if you rolled back, click the desired snapshot below.</source>
         </trans-unit>
+        <trans-unit id="system.history.snapshot.summary3">
+          <source>Note that snapshots are recorded after each change is performed. To undo the effects of an action, please click on a snapshot before the corresponding one in the list below.</source>
+        </trans-unit>
         <trans-unit id="system.history.snapshot.nosnapshot">
           <source>No system snapshots.</source>
         </trans-unit>
         <trans-unit id="system.history.snapshot.reason">
-          <source>Reason</source>
+          <source>Recorded after</source>
         </trans-unit>
         <trans-unit id="system.history.snapshot.timetaken">
           <source>Time Taken</source>

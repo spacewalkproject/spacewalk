@@ -15,6 +15,7 @@
 <div class="page-summary">
   <p><bean:message key="system.history.snapshot.summary1" /></p>
   <p><bean:message key="system.history.snapshot.summary2" /></p>
+  <p><bean:message key="system.history.snapshot.summary3" /></p>
 </div>
 
 <rl:listset name="eventSet" legend="system-history">
