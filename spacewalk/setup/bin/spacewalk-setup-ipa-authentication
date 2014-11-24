@@ -221,7 +221,7 @@ EOF
 		close FILE;
 	}
 	print "Will install additional packages ...\n";
-	system qq( yum install -y @PACKAGES ) or exit 1;
+	system qq( yum install -y @PACKAGES ) and exit 1;
 } else {
 	print "Packages: all needed packages are already installed.\n";
 }
