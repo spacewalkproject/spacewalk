@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.87
+Version: 2.3.88
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 24 2014 Tomas Lestach <tlestach@redhat.com> 2.3.88-1
+- prevent ISE, when firstname a/o lastname weren't passed from IPA server
+
 * Fri Nov 21 2014 Jan Dobes 2.3.87-1
 - fix button alignment
 - impove style of Software Crash pages
