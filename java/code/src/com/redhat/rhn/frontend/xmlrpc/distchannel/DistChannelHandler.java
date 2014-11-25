@@ -47,7 +47,7 @@ public class DistChannelHandler extends BaseHandler {
      * @xmlrpc.doc Lists the default distribution channel maps
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype
-     *   #array("dist channel map")
+     *   #array()
      *      $DistChannelMapSerializer
      *   #array_end()
      */
@@ -63,7 +63,7 @@ public class DistChannelHandler extends BaseHandler {
      * @xmlrpc.doc Lists distribution channel maps valid for the user's organization
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype
-     *   #array("dist channel map")
+     *   #array()
      *      $DistChannelMapSerializer
      *   #array_end()
      */
@@ -83,7 +83,7 @@ public class DistChannelHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.returntype
-     *   #array("dist channel map")
+     *   #array()
      *      $DistChannelMapSerializer
      *   #array_end()
      */
