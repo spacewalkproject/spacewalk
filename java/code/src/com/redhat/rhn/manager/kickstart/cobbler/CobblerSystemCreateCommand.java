@@ -331,6 +331,12 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             ksmeta.put(KickstartFormatter.KS_DISTRO, this.ksDistro);
         }
         rec.setKsMeta(ksmeta);
+        if (getServer().getHostname() != null) {
+            rec.setHostName(getServer().getHostname());
+        }
+        else if (getServer().getName() != null) {
+            rec.setHostName(getServer().getName());
+        }
         rec.setKernelOptions(kernelOptions);
         rec.setKernelPostOptions(postKernelOptions);
         try {
