@@ -38,7 +38,7 @@
 	    <label class="col-sm-2 control-label">
 		Message Format:
 	    </label>
-	    <div class="checkbox col-sm-6">
+	    <div class="col-sm-6">
 		<input type="checkbox" name="use_pager_type" value="1" checked="" />Short (Pager-Style) Messages
 	    </div>
 	</div>
