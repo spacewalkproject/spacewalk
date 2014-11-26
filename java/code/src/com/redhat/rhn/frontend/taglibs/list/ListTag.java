@@ -138,7 +138,6 @@ public class ListTag extends BodyTagSupport {
         ListDecorator dec = getDecorator(decName);
         if (dec != null) {
             getDecorators().add(dec);
-            dec.setCurrentList(this);
         }
     }
 
@@ -429,10 +428,6 @@ public class ListTag extends BodyTagSupport {
     private void doAfterBodyRenderTopAddons() throws JspException {
         ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
             ListCommand.TBL_ADDONS);
-
-        setupManipulator();
-        manip.sort();
-        pageData = manip.getPage();
 
         StringWriter topAlphaBarContent = new StringWriter();
         StringWriter topPaginationContent = new StringWriter();
@@ -773,7 +768,12 @@ public class ListTag extends BodyTagSupport {
 
         String listId = (getStyleId() != null) ? getStyleId() : getUniqueName();
 
+        setupManipulator();
+        manip.sort();
+        pageData = manip.getPage();
+
         for (ListDecorator dec : getDecorators()) {
+            dec.setCurrentList(this);
             dec.beforeList();
         }
 
