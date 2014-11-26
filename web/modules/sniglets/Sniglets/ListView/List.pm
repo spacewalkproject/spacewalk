@@ -667,10 +667,10 @@ sub render_pagination_buttons {
 
   # show buttons
   if ($lower != '1' || ($upper != $total)) {
-    $back_buttons_str = $self->render_pagination_button("First", "fa fa-angle-double-left", " |&lt; ", $back_status);
-    $back_buttons_str .= $self->render_pagination_button("Prev", "fa fa-angle-left", " &lt; ", $back_status);
-    $forward_buttons_str = $self->render_pagination_button("Next", "fa fa-angle-right", " &gt; ", $forward_status);
-    $forward_buttons_str .= $self->render_pagination_button("Last", "fa fa-angle-double-right", " &gt;| ", $forward_status);
+    $back_buttons_str = $self->render_pagination_button("First", "fa fa-angle-double-left", "First Page", $back_status);
+    $back_buttons_str .= $self->render_pagination_button("Prev", "fa fa-angle-left", "Previous Page", $back_status);
+    $forward_buttons_str = $self->render_pagination_button("Next", "fa fa-angle-right", "Next Page", $forward_status);
+    $forward_buttons_str .= $self->render_pagination_button("Last", "fa fa-angle-double-right", "Last Page", $forward_status);
   }
 
   my %subst;
@@ -698,9 +698,7 @@ sub render_pagination_button {
   }
 
   $ret = <<EOH;
-<button class="btn btn-default btn-xs" type="submit" name="$name" value="$text"$disabled>
-<i class="$icon_class" title="$text"></i>
-</button>
+<button class="btn btn-default btn-xs $icon_class" type="submit" name="$name" title="$text" value="$text"$disabled></button>
 EOH
   return $ret;
 }
