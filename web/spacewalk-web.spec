@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.23
+Version: 2.3.24
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Nov 27 2014 Tomas Lestach <tlestach@redhat.com> 2.3.24-1
+- 1168191 - s1-sm-systems.html does not exist any more
+
 * Thu Nov 27 2014 Jan Dobes 2.3.23-1
 - render empty tag instead of empty string for proper list buttons indentation
 
