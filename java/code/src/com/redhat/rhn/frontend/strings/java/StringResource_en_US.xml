@@ -8120,6 +8120,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="kickstart.cobbler.profile.notenoughmemory">
         <source>Red Hat Enterprise Linux 7 and higher guests require at least 1024 MB of memory.</source>
       </trans-unit>
+      <trans-unit id="kickstart.cobbler.profile.notenoughmemorysuse">
+        <source>SUSE Linux Enterprise Server guests require at least 512 MB of memory.</source>
+      </trans-unit>
       <trans-unit id="kickstart.cobbler.profile.invalidvirt">
         <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
       </trans-unit>

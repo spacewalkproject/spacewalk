@@ -58,7 +58,8 @@ public class KickstartInstallType extends BaseDomainHelper {
      */
     public boolean isRhel5OrGreater() {
         // we need to reverse logic here
-        return (!isRhel2() && !isRhel3() && !isRhel4() && !isFedora() && !isGeneric());
+        return (!isRhel2() && !isRhel3() && !isRhel4() && !isFedora() && !isGeneric() &&
+                !isSUSE());
     }
 
     /**

@@ -296,6 +296,10 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                 ValidatorException
                         .raiseException("kickstart.cobbler.profile.notenoughmemory");
             }
+            else if (ksdata.isSUSE() && virtMemory < 512) {
+                ValidatorException
+                        .raiseException("kickstart.cobbler.profile.notenoughmemorysuse");
+            }
         }
 
         CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
