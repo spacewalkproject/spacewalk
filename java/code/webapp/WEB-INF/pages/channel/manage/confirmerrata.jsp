@@ -11,99 +11,88 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 
-<br /><br />
-<bean:message key="channel.manage.errata.confirmmsg"/>
-<br /><br />
- <rl:listset name="packageConfirm">
-     <rhn:csrf />
-     <rhn:submitted />
-	 <input type="hidden" name="cid" value="${cid}">
+<p><bean:message key="channel.manage.errata.confirmmsg"/></p>
 
-			<div class="left-column">
-						<h2>Errata Summary:</h2>
-						<table class="details">
-							<tr>
-									<th><rhn:icon type="errata-bugfix" title="erratalist.jsp.bugadvisory" />
-										Bug Fix Advisory:
-									</th>
-									<td>${bug_count}</td>
-							</tr>
-							<tr>
-									<th><rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
-										Product Enhancement Advisory:
-									</th>
-									<td>${enhance_count}</td>
-							</tr>
-							<tr>
-									<th><rhn:icon type="errata-security" title="erratalist.jsp.securityadvisory" />
-										Security Advisory:
-									</th>
-									<td>${secure_count}</td>
-							</tr>
-							<tr>
-									<th>Total Errata:</th>
-									<td>${bug_count + enhance_count + secure_count}</td>
-							</tr>
-							<tr>
-								<td colspan="2" class="csv-download">
-									<rl:csv  name="errataList" dataset="errataList" exportColumns="advisory, advisorySynopsis, advisoryType, updateDate" />
-								</td>
-							</tr>
-						</table>
+<rl:listset name="packageConfirm">
+  <rhn:csrf />
+  <rhn:submitted />
+  <input type="hidden" name="cid" value="${cid}">
 
-			</div>
-			<div class="right-column">
-						<h2>Package Summary:</h2>
-						<table class="details">
+  <div class="row-0">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4><bean:message key="channel.manage.errata.confirm.erratasummary"/></h4>
+        </div>
+        <div class="panel-body">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="col-md-6">
+                <rhn:icon type="errata-bugfix"/>
+                <bean:message key="erratalist.jsp.bugadvisory"/>:
+              </label>
+              <div class="col-md-3">${bug_count}</div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-6">
+                <rhn:icon type="errata-enhance"/>
+                <bean:message key="erratalist.jsp.productenhancementadvisory"/>:
+              </label>
+              <div class="col-md-3">${enhance_count}</div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-6">
+                <rhn:icon type="errata-security"/>
+                <bean:message key="erratalist.jsp.securityadvisory"/>:
+              </label>
+              <div class="col-md-3">${secure_count}</div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-6"><bean:message key="channel.manage.errata.confirm.totalerrata"/>:</label>
+              <div class="col-md-3">${bug_count + enhance_count + secure_count}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <rl:csv  name="errataList" dataset="errataList" exportColumns="advisory, advisorySynopsis, advisoryType, updateDate" />
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4><bean:message key="channel.manage.errata.confirm.packagesummary"/></h4>
+        </div>
+        <div class="panel-body">
+          <div class="form-horizontal">
+            <c:forEach var="option" items="${arch_count}">
+              <div class="form-group">	
+                <label class="col-md-6">${option.name}</label>
+                <div class="col-md-3">${option.size}</div>
+              </div>
+            </c:forEach>
+            <div class="form-group">
+              <label class="col-md-6">
+                <bean:message key="channel.manage.errata.confirm.totalpackages"/>:
+              </label>
+              <div class="col-md-3">
+                ${totalSize}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <rl:csv  name="packageList" dataset="packageList" exportColumns="id,packageName,packageNvre,packageArch,summary" />
+    </div>
+  </div>
 
-									<c:forEach var="option" items="${arch_count}">
-										<tr>
-											<th>
-													${option.name}
-											</th>
-											<td>
-													${option.size}
-											</td>
-										</tr>
-									</c:forEach>
-									<tr>
-										<th>
-												Total Packages:
-										</th>
-										<td>
-												${totalSize}
-										</td>
-									</tr>
-									<tr>
-										<td colspan="2" class="csv-download">
-											<rl:csv  name="packageList" dataset="packageList" exportColumns="id,packageName,packageNvre,packageArch,summary" />
-										</td>
-									</tr>
-
-						</table>
-
-
-
-
-			</div>
-
-			<hr />
-			<div class="text-right">
-                                <hr />
-				<input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='frontend.actions.channels.manager.add.submit'/>"
-		            <c:choose>
-		                <c:when test="${totalSize < 1}">disabled</c:when>
-		            </c:choose>
-				>
-			</div>
-
-
-
-
-
-
-
- </rl:listset>
+  <div class="text-right">
+    <hr />
+    <input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='frontend.actions.channels.manager.add.submit'/>"
+      <c:choose>
+        <c:when test="${totalSize < 1}">disabled</c:when>
+      </c:choose>
+    >
+  </div>
+</rl:listset>
 
 
 </body>
