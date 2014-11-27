@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.92
+Version: 2.3.93
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 27 2014 Tomas Lestach <tlestach@redhat.com> 2.3.93-1
+- paginate before elaboration
+- remove duplicated line
+
 * Wed Nov 26 2014 Stephen Herr <sherr@redhat.com> 2.3.92-1
 - 1168328 - Make the base channel ssm action asynchronous
 - 1168292 - Commit after each system deletion to avoid deadlocks
