@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.93
+Version: 2.3.94
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 27 2014 Jan Dobes 2.3.94-1
+- style /rhn/channels/manage/errata/ConfirmErrataAdd page
+
 * Thu Nov 27 2014 Tomas Lestach <tlestach@redhat.com> 2.3.93-1
 - paginate before elaboration
 - remove duplicated line
