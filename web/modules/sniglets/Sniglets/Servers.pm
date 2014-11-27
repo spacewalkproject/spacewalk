@@ -137,7 +137,7 @@ sub system_locked_info {
     $ret->{status_class} = 'system-status-locked';
     $ret->{message} = 'more info';
     $ret->{link} = Sniglets::HTML::render_help_link(-user => $user,
-                                                   -href => 's1-sm-systems.html#S3-SM-SYSTEM-DETAILS');
+                                                   -href => 's1-sm-systems.jsp');
 
   }
   return $ret;
@@ -174,7 +174,7 @@ sub system_status_info {
     $ret->{status_class} = 'system-status-awol';
     $ret->{message} = 'more info';
     $ret->{link} = Sniglets::HTML::render_help_link(-user => $user,
-						    -href => 's1-sm-systems.html#S3-SM-SYSTEM-LIST-INACT');
+						    -href => 's1-sm-systems.jsp');
   }
   elsif ($data->{KICKSTART_SESSION_ID}) {
     $ret->{icon} = 'system-kickstarting';
