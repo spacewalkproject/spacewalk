@@ -69,10 +69,4 @@ sub row_callback {
   return $row;
 }
 
-# Overrides the List.pm implementation.  We don't want the alphabar to 
-# appear when displaying files.
-sub render_alphabar {
-    return '';
-}
-
 1;
