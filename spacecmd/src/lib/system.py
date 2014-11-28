@@ -3241,7 +3241,7 @@ def complete_system_show_packageversion(self, text, line, beg, end):
 
 
 def do_system_show_packageversion(self, args):
-    (args, options) = parse_arguments(args)
+    (args, _options) = parse_arguments(args)
 
 
     if re.match('ssm', args[0], re.I):
@@ -3253,14 +3253,15 @@ def do_system_show_packageversion(self, args):
     print "=============================================="
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id:
+            continue
 
-        instpkgs = self.client.system.listPackages(self.session,\
-                                                        system_id)
-        searchpkg= args[1]
+        instpkgs = self.client.system.listPackages(self.session, system_id)
+        searchpkg = args[1]
         for pkg in instpkgs:
             if  pkg.get('name') == searchpkg:
-                print "%s\t%s\t%s\t%s\t%s\t%s" % ( pkg.get('name'),pkg.get('version'),pkg.get('release'), pkg.get('epoch'), pkg.get('arch_label'), system)
+                print "%s\t%s\t%s\t%s\t%s\t%s" % ( pkg.get('name'), pkg.get('version'), pkg.get('release'),
+                        pkg.get('epoch'), pkg.get('arch_label'), system)
 
 
 # vim:ts=4:expandtab:
