@@ -35,7 +35,7 @@ from spacecmd.utils import *
 import xmlrpclib
 
 def print_schedule_summary(self, action_type, args):
-    (args, _options) = parse_arguments(args)
+    args = args.split() or []
 
     if len(args) > 0:
         begin_date = parse_time_input(args[0])
