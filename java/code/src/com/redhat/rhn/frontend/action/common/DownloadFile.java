@@ -110,6 +110,9 @@ public class DownloadFile extends DownloadAction {
             HttpServletResponse response) throws Exception {
 
         String url = RhnHelper.getParameterWithSpecialCharacters(request, "url");
+        if (url == null) {
+            return mapping.findForward("error");
+        }
         if (log.isDebugEnabled()) {
             log.debug("url : [" + url + "]");
         }
