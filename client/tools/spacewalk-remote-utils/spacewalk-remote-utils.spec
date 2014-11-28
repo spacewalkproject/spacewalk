@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     2.3.4
+Version:     2.3.5
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Red Hat Satellite or Spacewalk server remotely.
 
@@ -62,6 +62,10 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Fri Nov 28 2014 Tomas Lestach <tlestach@redhat.com> 2.3.5-1
+- 1161787 - Option "--name" of sw-create-channel is not documented correctly in
+  the man page.
+
 * Fri Nov 07 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.4-1
 - 1158840 - missing RHEL6.6 subrepos
 - 1158840 - compose subrepos don't contain listing in RHEL6.6
