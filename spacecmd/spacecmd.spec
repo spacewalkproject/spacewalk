@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.3
+Version:     2.3.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -76,6 +76,12 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Nov 28 2014 Tomas Lestach <tlestach@redhat.com> 2.3.4-1
+- add new function kickstart_getsoftwaredetails
+- Added feature to get installed packageversion of a system or systems managed
+  by ssm to spacecmd. Usage: spacecmd system_show_packageversion <SYSTEM>
+  <PACKAGE>
+
 * Mon Nov 03 2014 Grant Gainey 2.3.3-1
 - 1111680 - Teach spacecmd report_errata to process all-errata in the absence
   of further args
