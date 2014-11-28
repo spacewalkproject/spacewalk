@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.4
+Version:     2.3.5
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -76,6 +76,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Nov 28 2014 Tomas Lestach <tlestach@redhat.com> 2.3.5-1
+- address pylint complains
+
 * Fri Nov 28 2014 Tomas Lestach <tlestach@redhat.com> 2.3.4-1
 - add new function kickstart_getsoftwaredetails
 - Added feature to get installed packageversion of a system or systems managed
