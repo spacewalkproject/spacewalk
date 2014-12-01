@@ -77,13 +77,23 @@ p {
 	.make-row(0);
 	min-height: 100%;
 	aside {
+		.make-xs-column(0);
 		.make-md-column(2);
 	}
 	section {
+		.make-xs-column(12);
 		.make-md-column(10);
 	}
 }
 
+.spacewalk-main-column-layout .toggled {
+        aside {
+                .make-xs-column(4);
+        }
+        section {
+                .make-xs-column(10);
+        }
+}
 
 .spacewalk-main-column-layout {
 	/* override the grid row margin */
