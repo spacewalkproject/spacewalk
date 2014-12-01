@@ -6098,6 +6098,8 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstartips.jsp"/>
+        <forward name="raw_mode"
+                 path="/kickstart/KickstartIpRangeEditAdvanced.do" redirect="true"/>
     </action>
 
     <action path="/kickstart/KickstartIpRangeDelete"
