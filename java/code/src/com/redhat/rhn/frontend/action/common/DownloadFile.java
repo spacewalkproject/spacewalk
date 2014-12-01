@@ -28,6 +28,7 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartSessionState;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -256,11 +257,12 @@ public class DownloadFile extends DownloadAction {
             log.debug("Tree label to lookup: " + label);
         }
 
-        KickstartableTree tree;
+        KickstartableTree tree = null;
         if (orgId != null) {
-            tree = KickstartFactory.lookupKickstartTreeByLabel(label,
-                    OrgFactory.lookupById(orgId));
-
+            Org org = OrgFactory.lookupById(orgId);
+            if (org != null) {
+                tree = KickstartFactory.lookupKickstartTreeByLabel(label, org);
+            }
         }
         else if (ksession != null) {
             tree = ksession.getKstree();
