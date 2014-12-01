@@ -7,10 +7,6 @@
 
 <html>
 <head>
-    <!-- disables the enter key from submitting the form -->
-    <script type="text/javascript" language="JavaScript">
-      $(document).ready(disableEnterKey);
-    </script>
 </head>
 <body>
 <rhn:toolbar base="h1" icon="header-package" iconAlt="overview.jsp.alt"

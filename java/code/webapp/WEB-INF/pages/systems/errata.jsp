@@ -8,10 +8,6 @@
 <html>
 <head>
     <meta name="name" value="System Details" />
-    <!-- disables the enter key from submitting the form -->
-    <script type="text/javascript" language="JavaScript">
-      $(document).ready(disableEnterKey);
-    </script>
 </head>
 <body>
 
