@@ -241,7 +241,12 @@ public class DownloadFile extends DownloadAction {
         String label = map.get("label");
         Long orgId = null;
         if (map.containsKey("orgId")) {
-            orgId = Long.parseLong(map.get("orgId"));
+            try {
+                orgId = Long.parseLong(map.get("orgId"));
+            }
+            catch (NumberFormatException e) {
+                // Do nothing
+            }
         }
 
 
