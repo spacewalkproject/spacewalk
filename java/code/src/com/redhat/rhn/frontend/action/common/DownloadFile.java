@@ -187,32 +187,32 @@ public class DownloadFile extends DownloadAction {
         }
 
         String[] split = url.split("/");
-        if (split.length < 3) {
-            return null;
-        }
 
+        try {
+            int labelPos = 2;
+            if (split[2].equals("org")) {
+                ret.put("orgId",  split[3]);
+                labelPos = 4;
+            }
+            else if (split[2].equals("session")) {
+                ret.put("session", split[3]);
+                labelPos = 4;
+            }
+            else if (split[2].equals("child")) {
+                ret.put("child", split[3]);
+                labelPos = 4;
+            }
 
-        int labelPos = 2;
-        if (split[2].equals("org")) {
-            ret.put("orgId",  split[3]);
-            labelPos = 4;
+            ret.put("label", split[labelPos]);
+            String path = "";
+            for (int i = labelPos + 1; i < split.length; i++) {
+                path += "/" + split[i];
+            }
+            ret.put("path", path);
         }
-        else if (split[2].equals("session")) {
-            ret.put("session", split[3]);
-            labelPos = 4;
+        catch (ArrayIndexOutOfBoundsException e) {
+            // Just return what we have so far
         }
-        else if (split[2].equals("child")) {
-            ret.put("child", split[3]);
-            labelPos = 4;
-        }
-
-        ret.put("label", split[labelPos]);
-        String path = "";
-        for (int i = labelPos + 1; i < split.length; i++) {
-            path += "/" + split[i];
-        }
-        ret.put("path", path);
-
         return ret;
     }
 
