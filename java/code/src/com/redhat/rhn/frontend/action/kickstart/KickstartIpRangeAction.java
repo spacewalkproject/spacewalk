@@ -125,6 +125,13 @@ public class KickstartIpRangeAction extends RhnAction {
         }
         // display the ranges (if any), and allow user to add ranges (dynaform)
         else {
+            // Forward to the raw mode edit page in case this is an uploaded profile
+            if (ksData.isRawData() &&
+                    !mapping.getPath().equals("/kickstart/KickstartIpRangeEditAdvanced")) {
+                return getStrutsDelegate().forwardParam(mapping.findForward("raw_mode"),
+                        RequestContext.KICKSTART_ID, ksData.getId().toString());
+            }
+
             setupFormValues(form);
         }
 
