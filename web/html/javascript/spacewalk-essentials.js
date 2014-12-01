@@ -49,12 +49,14 @@ $(window).resize( function () {
 function columnHeight() {
   //Only if the screen size is higher than the max-width set up in the Variables.less under the definition @screen-md: 
   //PLEASE: update this if you change the content of @screen-md
+  if ($(document).width()>992) {
     var asideHeight = $(".spacewalk-main-column-layout aside").height();
     var heightDoc = $(document).height();
     // Column heights should equal the document height minus the header height and footer height
     // header + footer height = 196px; extra 10px to have scrollbar always visible
     var newHeight = heightDoc - asideHeight - 186 + "px";
     $(".spacewalk-main-column-layout aside").css("padding-bottom", newHeight);
+  };
 };
 
 // returns an object that can be passed to DWR renderer as a callback
