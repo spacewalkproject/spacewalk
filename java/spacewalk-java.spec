@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.95
+Version: 2.3.96
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 01 2014 Jan Dobes 2.3.96-1
+- too big space
+- there is no need to block enter key
+- Cobbler variables page ported to Bootstrap
+
 * Fri Nov 28 2014 Tomas Lestach <tlestach@redhat.com> 2.3.95-1
 - fix hibernate.NonUniqueObjectException on errata cloning
 - Download CSV button does not export all columns ("Base Channel" missing)
