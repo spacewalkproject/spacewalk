@@ -60,7 +60,7 @@ def printOrgFooter():
 
 
 def printChannelEnts(id):
-   query = "SELECT CFO.label, CFO.current_members, CFO.max_members,CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,(select count(*) from rhnServerChannel sc inner join rhnChannelFamilyMembers CFM on CFM.channel_id = sc.channel_id where CFM.channel_family_id = CFO.id) as subscribe_count FROM rhnChannelFamilyOverview CFO  WHERE CFO.org_id = %d  ORDER BY CFO.name ASC" % (id)
+   query = "SELECT CFO.label, CFO.current_members, CFO.max_members,CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,(select count(distinct sc.server_id) from rhnServerChannel sc inner join rhnChannelFamilyMembers CFM on CFM.channel_id = sc.channel_id where CFM.channel_family_id = CFO.id) as subscribe_count FROM rhnChannelFamilyOverview CFO  WHERE CFO.org_id = %d  ORDER BY CFO.name ASC" % (id)
    list = run_query(query)
    print("%35s %s %s %s %s %s" % ("Channel Entitelment", "Regular Used","Max Members","Flex Used","Flex Max Members","Subscribed Count"))
    print("%35s %s %s %s %s %s" % ("-------------------", "------------","-----------","---------","----------------","----------------"))
