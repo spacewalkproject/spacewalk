@@ -2087,7 +2087,7 @@ def import_kickstart_fromdetails(self, ksdetails):
     self.client.kickstart.profile.software.setSoftwareList(self.session, \
         ksdetails['label'], ksdetails['software_list'])
     self.client.kickstart.profile.setCustomOptions(self.session, \
-        ksdetails['label'], ksdetails['custom_opts'])
+        ksdetails['label'], map(lambda o: o['arguments'], ksdetails['custom_opts']))
     self.client.kickstart.profile.setVariables(self.session, \
         ksdetails['label'], ksdetails['variable_list'])
     self.client.kickstart.profile.system.setRegistrationType(self.session, \
