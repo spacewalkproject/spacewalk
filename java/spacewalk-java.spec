@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.96
+Version: 2.3.97
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Dec 02 2014 Tomas Lestach <tlestach@redhat.com> 2.3.97-1
+- remove WebList as it isn't referenced any more
+- remove SelectableWebList as it isn't referenced any more
+- remove WebRhnSet as it isn't referenced any more
+- remove WebSessionSet as it isn't referenced any more
+- adapt ListRemoveGroupsAction to the rewritten groups.jspf
+- adapt groups.jspf to the rewritten AddGroupsAction
+- rewrite AddGroupsAction
+- 1169480 - No ISE on provisioning page when no base channel
+
 * Mon Dec 01 2014 Jan Dobes 2.3.96-1
 - too big space
 - there is no need to block enter key
