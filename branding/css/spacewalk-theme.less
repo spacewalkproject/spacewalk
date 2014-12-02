@@ -77,10 +77,10 @@ p {
 	.make-row(0);
 	min-height: 100%;
 	aside {
-		.make-md-column(2);
+		.make-sm-column(2);
 	}
 	section {
-		.make-md-column(10);
+		.make-sm-column(10);
 	}
 }
 
@@ -738,4 +738,16 @@ code {
 
 .navbar-collapse {
   max-height: none;
+}
+
+.navbar-nav {
+  float: left;
+  margin: 0;
+}
+.navbar-nav > li {
+  float: left;
+}
+.navbar-nav > li > a {
+  padding-top: 16px;
+  padding-bottom: 16px;
 }

@@ -62,7 +62,7 @@
       </nav>
 
       <div class="spacewalk-main-column-layout">
-        <aside id="spacewalk-aside">
+        <aside id="spacewalk-aside" class="navbar-collapse collapse">
           <grail-canvas mode="left_menu_canvas">
             <rhn-navi-nav depth="1" style="sidenav"/>
           </grail-canvas>
