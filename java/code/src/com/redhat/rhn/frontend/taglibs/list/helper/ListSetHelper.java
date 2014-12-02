@@ -34,8 +34,6 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * This class could also be termed as
- * the base class for a SelectableWebList
  * Basically this guy serves as abstract base class to
  * List Tags that use sets (sessionset or rhnset), i.e.
  * selectable columns
