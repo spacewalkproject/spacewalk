@@ -32,15 +32,9 @@
 	<c:set var="nameStyle" value="first-column last-column"/>
 </rhn:require>
 
-<c:set var="pageList" value="${requestScope.all}" />
 <rl:listset name="groupListSet">
-<rhn:csrf />
-<c:choose>
-<c:when test="${not empty pageList}">
-	<rl:list dataset="pageList"
-         width="100%"
-         name="list"
-         emptykey="assignedgroups.jsp.nogroups"
+    <rhn:csrf />
+	<rl:list emptykey="assignedgroups.jsp.nogroups"
          alphabarcolumn="name">
  			<rl:decorator name="PageSizeDecorator"/>
 
@@ -59,6 +53,7 @@
 
 </div>
 <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
+<input type="hidden" name="sid" value="${system.id}" />
 <div class="text-right">
    <rhn:submitted/>
    <hr/>
@@ -68,14 +63,12 @@
 	    value='<bean:message key="${param.action_key}"/>'/>
 </div>
 </rhn:require>
-</c:when>
-<c:otherwise>
+<c:if test="${empty dataset}">
   <p><strong>
 <c:out value="${rhn:localizeMsgAnd2ndParam(param.empty_message_key,param.empty_message_arg0, param.empty_message_arg1)}" escapeXml="false"/>
   </strong> </p>
 </div>
-</c:otherwise>
-</c:choose>
+</c:if>
 </rl:listset>
 </body>
 </html>
