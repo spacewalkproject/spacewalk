@@ -57,8 +57,6 @@ public class ListRemoveGroupsAction extends BaseListAction implements Listable {
                 params.put(RequestContext.SID,
                         context.getRequiredParam(RequestContext.SID));
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
-        helper.setDataSetName(getDataSetName());
-        helper.setListName(getListName());
         helper.execute();
         if (helper.isDispatched()) {
             return handleDispatch(helper, mapping, formIn, request, response);
