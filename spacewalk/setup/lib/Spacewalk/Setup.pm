@@ -125,6 +125,7 @@ sub parse_options {
             "enable-tftp:s",
             "external-oracle",
             "external-postgresql",
+            "external-postgresql-over-ssl",
             "db-only",
             "rhn-http-proxy:s",
             "rhn-http-proxy-username:s",
@@ -134,7 +135,7 @@ sub parse_options {
 
   my $usage = loc("usage: %s %s\n",
 		  $0,
-		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>] [ --external-oracle | --external-postgresql ]" );
+		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>] [ --external-oracle | --external-postgresql [ --external-postgresql-over-ssl ] ]" );
 
   # Terminate if any errors were encountered parsing the command line args:
   my %opts;
@@ -932,6 +933,16 @@ sub postgresql_get_database_answers {
         -answer => \$answers->{'db-password'},
         -password => 1);
 
+    if ($opts->{'external-postgresql-over-ssl'}) {
+      $answers->{'db-ssl-enabled'} = '1';
+      ask(
+         -noninteractive => $opts->{"non-interactive"},
+         -question => "Path to CA certificate for connection to database",
+         -test => qr/\S+/,
+         -default => $ENV{HOME} . "/.postgresql/root.crt",
+         -answer => \$answers->{'db-ca-cert'});
+    }
+
     return;
 }
 
@@ -978,7 +989,14 @@ sub postgresql_setup_db {
         }
     }
 
-    write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password');
+    # Why is this code here?
+    write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password', 'db-ssl-enabled');
+
+    if ($opts->{'external-postgresql-over-ssl'}) {
+        system("spacewalk-setup-db-ssl-certificates", $answers->{'db-ca-cert'});
+        $ENV{PGSSLMODE}="verify-full";
+    }
+
     postgresql_populate_db($opts, $answers);
 
     if (is_db_migration($opts)) {
@@ -1971,6 +1989,11 @@ Assume the Red Hat Satellite installation uses an external Oracle database (Red 
 =item B<--external-postgresql>
 
 Assume the Red Hat Satellite installation uses an external PostgreSQL database (Red Hat Satellite only).
+
+=item B<--external-postgresql-over-ssl>
+
+When used, installation will assume that external PostgreSQL server allows only connections over SSL.
+This option is supposed to be used only in conjuction with B<--external-postgresql>.
 
 =item B<--managed-db>
 

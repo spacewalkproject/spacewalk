@@ -15,7 +15,8 @@ WriteMakefile(
                             'bin/spacewalk-setup-tomcat',
                             'bin/spacewalk-setup-httpd',
                             'bin/spacewalk-setup-sudoers',
-                            'bin/spacewalk-setup-ipa-authentication'],
+                            'bin/spacewalk-setup-ipa-authentication',
+                            'bin/spacewalk-setup-db-ssl-certificates'],
     PREREQ_PM => {
         'Test::More' => 0,
     },

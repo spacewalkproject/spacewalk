@@ -104,6 +104,7 @@ rm -rf %{buildroot}
 %{_bindir}/spacewalk-setup-tomcat
 %{_bindir}/spacewalk-setup-sudoers
 %{_bindir}/spacewalk-setup-ipa-authentication
+%{_bindir}/spacewalk-setup-db-ssl-certificates
 %{_bindir}/cobbler20-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
