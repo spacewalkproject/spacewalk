@@ -91,7 +91,19 @@ public class KickstartHandler extends BaseHandler {
 
     }
 
-
+    /**
+     * List kickstartable tree channels for the logged in user.
+     * @param loggedInUser The current user
+     * @return Array of Channel objects.
+     *
+     * @xmlrpc.doc List kickstartable tree channels for the logged in user.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype #array() $ChannelSerializer #array_end()
+     */
+    public List<Channel> listKickstartableTreeChannels(User loggedInUser) {
+        ensureConfigAdmin(loggedInUser);
+        return ChannelFactory.getKickstartableTreeChannels(loggedInUser.getOrg());
+    }
 
     /**
      * Import a kickstart profile into RHN. This method will maintain the
