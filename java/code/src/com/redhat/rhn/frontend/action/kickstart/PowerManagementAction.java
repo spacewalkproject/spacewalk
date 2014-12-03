@@ -90,49 +90,61 @@ public class PowerManagementAction extends RhnAction {
 
         if (context.isSubmitted()) {
             CobblerPowerSettingsUpdateCommand command = getPowerSettingsUpdateCommand(form,
-                user, server);
-
-            ValidatorError error = command.store();
-            if (error == null) {
-                log.debug("Power management settings saved for system " + sid);
-                if (context.wasDispatched("kickstart.powermanagement.jsp.save_only")) {
-                    addMessage(request, "kickstart.powermanagement.saved");
+                    user, server);
+            ValidatorError error;
+            if (context.wasDispatched(
+                    "kickstart.powermanagement.jsp.remove.cobblerprofile")) {
+                error = command.removeSystemProfile();
+                if (error == null) {
+                    log.debug("Cobbler system profile removed for system " + sid);
+                    addMessage(request, "kickstart.powermanagement.removed.cobblerprofile");
                 }
-                if (context.wasDispatched("kickstart.powermanagement.jsp.power_on")) {
-                    error = new CobblerPowerCommand(user, server, Operation.PowerOn)
-                        .store();
-                    if (error == null) {
-                        log.debug("Power on succeded for system " + sid);
-                        addMessage(request, "kickstart.powermanagement.powered_on");
-                    }
-                }
-                if (context.wasDispatched("kickstart.powermanagement.jsp.power_off")) {
-                    error = new CobblerPowerCommand(user, server, Operation.PowerOff)
-                        .store();
-                    if (error == null) {
-                        log.debug("Power off succeded for system " + sid);
-                        addMessage(request, "kickstart.powermanagement.powered_off");
-                    }
-                }
-                if (context.wasDispatched("kickstart.powermanagement.jsp.reboot")) {
-                    error = new CobblerPowerCommand(user, server, Operation.Reboot).store();
-                    if (error == null) {
-                        log.debug("Reboot succeded for system " + sid);
-                        addMessage(request, "kickstart.powermanagement.rebooted");
-                    }
-                }
-                if (context.wasDispatched(
-                    "kickstart.powermanagement.jsp.get_status")) {
-                    try {
-                        SystemRecord record = getSystemRecord(user, server);
-                        request.setAttribute(POWER_STATUS_ON, record.getPowerStatus());
+            }
+            else {
+                error = command.store();
+                if (error == null) {
+                    log.debug("Power management settings saved for system " + sid);
+                    if (context.wasDispatched("kickstart.powermanagement.jsp.save_only")) {
                         addMessage(request, "kickstart.powermanagement.saved");
                     }
-                    catch (XmlRpcException e) {
-                        log.warn("Could not get power status from Cobbler for system " +
-                            server.getId());
-                        createErrorMessage(request,
-                                "kickstart.powermanagement.jsp.power_status_failed", null);
+                    if (context.wasDispatched("kickstart.powermanagement.jsp.power_on")) {
+                        error = new CobblerPowerCommand(user, server, Operation.PowerOn)
+                            .store();
+                        if (error == null) {
+                            log.debug("Power on succeded for system " + sid);
+                            addMessage(request, "kickstart.powermanagement.powered_on");
+                        }
+                    }
+                    if (context.wasDispatched("kickstart.powermanagement.jsp.power_off")) {
+                        error = new CobblerPowerCommand(user, server, Operation.PowerOff)
+                            .store();
+                        if (error == null) {
+                            log.debug("Power off succeded for system " + sid);
+                            addMessage(request, "kickstart.powermanagement.powered_off");
+                        }
+                    }
+                    if (context.wasDispatched("kickstart.powermanagement.jsp.reboot")) {
+                        error = new CobblerPowerCommand(user, server, Operation.Reboot).
+                                store();
+                        if (error == null) {
+                            log.debug("Reboot succeded for system " + sid);
+                            addMessage(request, "kickstart.powermanagement.rebooted");
+                        }
+                    }
+                    if (context.wasDispatched(
+                        "kickstart.powermanagement.jsp.get_status")) {
+                        try {
+                            SystemRecord record = getSystemRecord(user, server);
+                            request.setAttribute(POWER_STATUS_ON, record.getPowerStatus());
+                            addMessage(request, "kickstart.powermanagement.saved");
+                        }
+                        catch (XmlRpcException e) {
+                            log.warn("Could not get power status from Cobbler for system " +
+                                server.getId());
+                            createErrorMessage(request,
+                                    "kickstart.powermanagement.jsp.power_status_failed",
+                                    null);
+                        }
                     }
                 }
             }

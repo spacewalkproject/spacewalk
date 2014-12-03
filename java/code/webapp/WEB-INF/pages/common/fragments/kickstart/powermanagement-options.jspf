@@ -20,9 +20,6 @@
 <div class="form-group">
   <label class="col-md-3 control-label" for="powerAddress">
     <bean:message key="kickstart.powermanagement.jsp.power_address" />
-    <c:if test="${showRequired}">
-      <rhn:required-field />
-    </c:if>
   </label>
   <div class="col-md-6">
     <html:text property="powerAddress" name="powerAddress"
@@ -37,9 +34,6 @@
 <div class="form-group">
   <label class="col-md-3 control-label" for="powerUsername">
     <bean:message key="kickstart.powermanagement.jsp.power_username" />
-    <c:if test="${showRequired}">
-      <rhn:required-field />
-    </c:if>
   </label>
   <div class="col-md-6">
     <html:text property="powerUsername" name="powerUsername"
@@ -54,9 +48,6 @@
 <div class="form-group">
   <label class="col-md-3 control-label" for="powerPassword">
     <bean:message key="kickstart.powermanagement.jsp.power_password" />
-    <c:if test="${showRequired}">
-      <rhn:required-field />
-    </c:if>
   </label>
   <div class="col-md-6">
     <html:password property="powerPassword" name="powerPassword"

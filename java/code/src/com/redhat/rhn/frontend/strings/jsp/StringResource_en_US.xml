@@ -16444,8 +16444,20 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
           <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.powermanagement.jsp.remove.cobblerprofile">
+        <source>Remove Cobbler System Profile</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.powermanagement.saved">
         <source>Power settings saved</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.powermanagement.removed.cobblerprofile">
+        <source>Cobbler system profile successfully removed</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
         </context-group>
