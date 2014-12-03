@@ -19,10 +19,10 @@
             <rhn:submitted />
 
             <div class="form-group">
-                <label class="col-lg-3 control-label" for="searchfor">
+                <label class="col-sm-3 control-label" for="searchfor">
                     <bean:message key="erratasearch.jsp.searchfor"/>
                 </label>
-                <div class="col-lg-6">
+                <div class="col-sm-6">
                     <div class="input-group">
                         <html:text property="search_string" styleClass="form-control"
                                    name="search_string" styleId="searchfor"
@@ -36,10 +36,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label" for="fieldtosearch">
+                <label class="col-sm-3 control-label" for="fieldtosearch">
                     <bean:message key="systemsearch.jsp.fieldtosearch"/>
                 </label>
-                <div class="col-lg-6">
+                <div class="col-sm-6">
                     <select name="view_mode" id="fieldtosearch" class="form-control">
                         <c:forEach items="${optGroupsKeys}" var="key">
                             <optgroup label="<bean:message key='${key}'/>">
@@ -59,37 +59,50 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label">
+                <label class="col-sm-3 control-label">
                     <bean:message key="systemsearch.jsp.wheretosearch"/>
                 </label>
-                <div class="col-lg-6">
+                <div class="col-sm-6">
+                    <div class="radio">
+                      <label for="whereToSearch-all">
                     <html:radio property="whereToSearch" value="all" styleId="whereToSearch-all"/>
-                    <label for="whereToSearch-all"><bean:message key="systemsearch.jsp.searchallsystems"/></label>
-                    <br/>
+                          <bean:message key="systemsearch.jsp.searchallsystems"/>
+                      </label>
+                    </div>
+                    <div class="radio">
+                        <label for="whereToSearch-system_list">
                     <html:radio property="whereToSearch" value="system_list" styleId="whereToSearch-system_list"/>
-                    <label for="whereToSearch-system_list"><bean:message key="systemsearch.jsp.searchSSM"/></label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="invertlabel" class="col-lg-3 control-label">
-                    <bean:message key="systemsearch.jsp.invertlabel"/>
-                </label>
-                <div class="col-lg-6">
-                    <div style="text-align: left">
-                        <html:checkbox property="invert" styleId="invertlabel">
-                            <label for="invertlabel"><bean:message key="systemsearch.jsp.invertdescription"/></label>
-                        </html:checkbox>
+                            <bean:message key="systemsearch.jsp.searchSSM"/>
+                        </label>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="fineGrainedlabel" class="col-lg-3 control-label">
+                <label for="invertlabel" class="col-sm-3 control-label">
+                    <bean:message key="systemsearch.jsp.invertlabel"/>
+                </label>
+                <div class="col-sm-6">
+                    <div class="checkbox">
+                        <label for="invertlabel">
+                        <html:checkbox property="invert" styleId="invertlabel">
+                                <bean:message key="systemsearch.jsp.invertdescription"/>
+                        </html:checkbox>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fineGrainedlabel" class="col-sm-3 control-label">
                     <bean:message key="systemsearch.jsp.finegrainedlabel"/>
                 </label>
-                <div class="col-lg-6">
+                <div class="col-sm-6">
+                    <div class="checkbox">
+                        <label for="fineGrainedlabel">
                     <html:checkbox property="fineGrained" styleId="fineGrainedlabel">
-                        <label for="fineGrainedlabel"><bean:message key="systemsearch.jsp.finegrained"/></label>
+                                <bean:message key="systemsearch.jsp.finegrained"/>
                     </html:checkbox>
+                        </label>
+                    </div>
                 </div>
             </div>
             <html:hidden property="submitted" value="true"/>
