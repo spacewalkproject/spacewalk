@@ -13,29 +13,30 @@
         </rhn:toolbar>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>${pageinstructions}</h4>
+                <h3 class="panel-title">${pageinstructions}</h3>
             </div>
             <div class="panel-body">
                 <html:form action="/account/ChangeEmailSubmit"
                            styleClass="form-horizontal">
                     <rhn:csrf />
                     <div class="form-group">
-                        <label class="col-lg-3 control-label">
+                        <label class="col-sm-3 control-label">
                             <bean:message key="channel.edit.jsp.emailaddress" />:
                         </label>
-                        <div class="col-lg-6">
+                        <div class="col-sm-6">
                             <html:text property="email"
                                        styleClass="form-control"
                                        maxlength="${emailLength}" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-offset-3 col-lg-6">
+                        <div class="col-sm-offset-3 col-sm-6">
                             <button type="submit" class="btn btn-success" value="${button_label}">
                                 ${button_label}
                             </button>
                         </div>
                     </div>
+
                 </html:form>
             </div>
         </div>
