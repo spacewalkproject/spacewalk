@@ -79,9 +79,6 @@ public class DocSearchSetupAction extends BaseSearchAction {
         else {
             request.setAttribute(RequestContext.PAGE_LIST, Collections.emptyList());
         }
-        if (isSubmitted(form)) {
-            return mapping.findForward("success");
-        }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 

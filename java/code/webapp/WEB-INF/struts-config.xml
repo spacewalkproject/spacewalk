@@ -8573,7 +8573,6 @@
         type="com.redhat.rhn.frontend.action.help.DocSearchSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/help/docsearch.jsp" />
-        <forward name="success" path="/help/Search.do" redirect="true"/>
     </action>
 
       <action path="/help/Chat"
