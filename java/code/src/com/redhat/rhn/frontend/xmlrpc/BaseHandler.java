@@ -28,6 +28,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
+import org.hibernate.HibernateException;
 
 import redstone.xmlrpc.XmlRpcFault;
 import redstone.xmlrpc.XmlRpcInvocationHandler;
@@ -36,6 +37,7 @@ import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.ClientCertificateDigester;
 import com.redhat.rhn.common.client.InvalidCertificateException;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.translation.Translator;
 import com.redhat.rhn.common.util.MethodUtil;
@@ -173,11 +175,24 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             throw new XmlRpcFault(-1, "unhandled internal exception");
         }
         catch (InvocationTargetException e) {
-
-
             Throwable t = e.getCause();
             log.error("Error calling method: ", e);
             log.error("Caused by: ", t);
+
+            /*
+             * HACK: this should really be handled by SessionFilter.doFilter,
+             * but unfortunately Redstone XMLRPC swallows our exceptions (see
+             * XmlRpcDispatcher.dispatch()). Thus doFilter will never be reached
+             * with exceptions, and will always COMMIT the transaction. To avoid
+             * committing changes after an Exception, roll back here.
+             */
+            try {
+                log.error("Rolling back transaction");
+                HibernateFactory.rollbackTransaction();
+            }
+            catch (HibernateException he) {
+                log.error("Additional error during rollback", he);
+            }
 
             // This works because FaultException extends XmlRpcFault, so
             // we are telling the XMLRPC library to send a fault to the client.
