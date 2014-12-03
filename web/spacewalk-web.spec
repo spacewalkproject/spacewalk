@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.24
+Version: 2.3.25
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Dec 03 2014 Grant Gainey 2.3.25-1
+- 1024118 - Perl context-help doesn't notice empty help-url strings
+- revert accidentaly pushed commits
+- padding on all widths
+
 * Thu Nov 27 2014 Tomas Lestach <tlestach@redhat.com> 2.3.24-1
 - 1168191 - s1-sm-systems.html does not exist any more
 
