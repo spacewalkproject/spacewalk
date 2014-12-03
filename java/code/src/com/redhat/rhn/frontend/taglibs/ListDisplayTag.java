@@ -460,7 +460,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
             page.append("&" + request.getQueryString());
         }
         IconTag i = new IconTag("item-download-csv");
-        out.println("<div class=\"spacewalk-csv-download\"><a href=\"" + page +
+        out.println("<div class=\"spacewalk-csv-download\"><a class=\"btn btn-link\" href=\"" + page +
               "\">" + i.render() +
               LocalizationService.getInstance().getMessage("listdisplay.csv") +
               "</a></div>");
