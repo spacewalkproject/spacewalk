@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.18
+Version:	2.3.19
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Dec 03 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.19-1
+- remove unnecessary brackets
+
 * Fri Nov 07 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.18-1
 - Updated spacewalk-common-channels.ini to include Oracle Linux 7
 - remove openSUSE 12.3 from spacewalk-common-channels
