@@ -353,7 +353,7 @@ END;
     SELECT rhn_install_org_satellites(ORG.id, RSC.recid, '1'),
            ORG.id as FIRST, RSC.recid as SECOND, '1' as THIRD
                 FROM web_customer ORG INNER JOIN rhn_sat_cluster RSC
-                ON ORG.id  = RSC.customer_id);
+                ON ORG.id  = RSC.customer_id;
     COMMIT;
 END;
 "
