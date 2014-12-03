@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -95,7 +95,7 @@ sub toolbar {
     $icon = PXT::HTML->icon(-type => $params{icon});
   }
 
-  if (defined $params{'help-url'}) {
+  if ($params{'help-url'}) {
     $help = rhn_help($pxt, (href => $params{'help-url'},
 			    guide => $params{'help-guide'}));
   }
@@ -311,9 +311,9 @@ sub rhn_autorefresh_widget {
   return $ret;
 }
 
-# Since we always want to return to the current page when we click "Clear", 
-# simply reconstruct the current url. There is no need to do anything more 
-# complicated then that. Additionally, the old way didn't work very well. 
+# Since we always want to return to the current page when we click "Clear",
+# simply reconstruct the current url. There is no need to do anything more
+# complicated then that. Additionally, the old way didn't work very well.
 # See BZs 825279 and 824879.
 sub return_link {
   my $pxt = shift;
