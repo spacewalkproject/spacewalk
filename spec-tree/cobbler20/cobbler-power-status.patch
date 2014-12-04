@@ -102,7 +102,7 @@ diff -rupN cobbler-2.0.11.old/cobbler/remote.py cobbler-2.0.11/cobbler/remote.py
 diff -rupN cobbler-2.0.11.old/templates/power_ipmilan.template cobbler-2.0.11/templates/power_ipmilan.template
 --- cobbler-2.0.11.old/templates/power_ipmilan.template	2011-04-20 08:40:48.000000000 -0400
 +++ cobbler-2.0.11/templates/power_ipmilan.template	2014-07-07 09:42:50.837225387 -0400
-@@ -1,2 +1,2 @@
- #use power_id to pass in additional options like -P, Use Lanplus
+@@ -1,2 +1 @@
+-#use power_id to pass in additional options like -P, Use Lanplus
 -fence_ipmilan -i "$power_address" $power_id -l "$power_user" -p "$power_pass" -o "$power_mode"
 +fence_ipmilan -a "$power_address" $power_id -l "$power_user" -p "$power_pass" -o "$power_mode"
