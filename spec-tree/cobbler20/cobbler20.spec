@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 37%{?dist}
+Release: 38%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -470,6 +470,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Thu Dec 04 2014 Stephen Herr <sherr@redhat.com> 2.0.11-38
+- 1162311 - cobbler template files need to not have comments
+
 * Wed Oct 08 2014 Tomas Lestach <tlestach@redhat.com> 2.0.11-37
 - use fedora18 as fedora kickstart type
 
