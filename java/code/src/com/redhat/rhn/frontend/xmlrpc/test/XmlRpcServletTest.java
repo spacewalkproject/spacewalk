@@ -15,6 +15,7 @@
 
 package com.redhat.rhn.frontend.xmlrpc.test;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.XmlRpcServlet;
@@ -44,6 +45,11 @@ public class XmlRpcServletTest extends MockObjectTestCase {
             TestCaseHelper.tearDownHelper();
             LoggingFactory.clearLogId();
         }
+    }
+
+    protected void tearDown() throws Exception {
+        HibernateFactory.closeSession();
+        super.tearDown();
     }
 
     public void doTest(String request, String expectedResponse)
