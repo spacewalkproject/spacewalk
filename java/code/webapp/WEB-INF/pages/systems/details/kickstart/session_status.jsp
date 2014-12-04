@@ -18,38 +18,19 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
-<div class="page-summary">
-<h2><bean:message key="kickstartdetails.jsp.header2"/></h2>
 
-<table class="details">
-  <tr>
-    <th><bean:message key="kickstartdetails.jsp.label" /></th>
-    <td><a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${ksdata.id}">${ksdata.label}</td>
-  </tr>
-  <tr>
-    <th><bean:message key="kickstart.session_status.jsp.activation" /></th>
-    <td>
-    <c:if test="${ksession.serverProfile != null}">
-        <bean:message key="kickstart.session_status.jsp.activation2" /><a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${ksdata.id}">${ksession.serverProfile.name}</a>
-    </c:if>
-    <c:if test="${ksession.serverProfile == null}">
-        <bean:message key="kickstart.session_status.jsp.activation_none" />
-    </c:if>
-    </td>
-  </tr>
-
-</table>
-</div>
-<div class="page-summary">
-<h2><bean:message key="kickstart.session_status.jsp.header2"/></h2>
 <p>
 <bean:message key="kickstart.session_status.jsp.summary2"/>
 </p>
-<table>
-  <tr>
-    <td>
 
-<table class="details">
+<div class="row-0">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><bean:message key="kickstart.session_status.jsp.header2"/></h4>
+      </div>
+
+<table class="table">
   <tr>
     <th><bean:message key="kickstart.session_status.jsp.next_action" /></th>
     <td>
@@ -100,53 +81,80 @@
   </c:if>
 </table>
 
-    </td>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><bean:message key="kickstartdetails.jsp.header2"/></h4>
+      </div>
+
+<table class="table">
+  <tr>
+    <th><bean:message key="kickstartdetails.jsp.label" /></th>
+    <td><a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${ksdata.id}">${ksdata.label}</td>
+  </tr>
+  <tr>
+    <th><bean:message key="kickstart.session_status.jsp.activation" /></th>
     <td>
+    <c:if test="${ksession.serverProfile != null}">
+        <bean:message key="kickstart.session_status.jsp.activation2" /><a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${ksdata.id}">${ksession.serverProfile.name}</a>
+    </c:if>
+    <c:if test="${ksession.serverProfile == null}">
+        <bean:message key="kickstart.session_status.jsp.activation_none" />
+    </c:if>
+    </td>
+  </tr>
+
+</table>
+
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><bean:message key="kickstart.session_status.jsp.progress"/></h4>
+      </div>
 
 <!-- SIDEBAR STATUS TABLE -->
-<table cellspacing="0"  cellpadding="0" class="half-table">
-<thead>
-<tr>
-  <th colspan="2" style="text-align: left;"><bean:message key="kickstart.session_status.jsp.progress" /></th></tr>
-</thead>
+<table class="table">
 <tr class="list-row-odd">
-  <td>
+  <td class="text-right">
     <c:if test="${created}">
       <rhn:icon type="system-ok" />
     </c:if>
   </td>
-  <td style="text-align: left;">
+  <td>
     <bean:message key="kickstart.session_status.jsp.status_initiate" />
   </tr>
 </tr>
 <tr class="list-row-even">
-  <td>
+  <td class="text-right">
     <c:if test="${restarted}">
       <rhn:icon type="system-ok" />
     </c:if>
   </td>
-  <td style="text-align: left;">
+  <td>
     <bean:message key="kickstart.session_status.jsp.status_reboot" />
   </tr>
 </tr>
 <tr class="list-row-odd">
-  <td>
+  <td class="text-right">
     <c:if test="${registered}">
       <rhn:icon type="system-ok" />
     </c:if>
   </td>
-  <td style="text-align: left;">
+  <td>
     <bean:message key="kickstart.session_status.jsp.status_register" />
   </tr>
 </tr>
 <c:if test="${ksession.serverProfile != null}">
   <tr class="list-row-even">
-    <td>
+    <td class="text-right">
       <c:if test="${package_synch_scheduled}">
         <rhn:icon type="system-ok" />
       </c:if>
     </td>
-    <td style="text-align: left;">
+    <td>
       <bean:message key="kickstart.session_status.jsp.status_profile" arg0="${ksession.serverProfile.id}" />
     </tr>
   </tr>
@@ -162,34 +170,33 @@
   </c:otherwise>
 </c:choose>
 <tr class="${nextstyle1}">
-  <td>
+  <td class="text-right">
     <c:if test="${configuration_deploy}">
       <rhn:icon type="system-ok" />
     </c:if>
   </td>
-  <td style="text-align: left;">
+  <td>
     <bean:message key="kickstart.session_status.jsp.status_config" />
   </tr>
 </tr>
 <c:if test="${not failed}">
   <tr class="${nextstyle2}">
-    <td>
+    <td class="text-right">
       <c:if test="${complete}">
         <rhn:icon type="system-ok" />
       </c:if>
     </td>
-    <td style="text-align: left;">
+    <td>
       <bean:message key="kickstart.session_status.jsp.status_complete" />
     </tr>
   </tr>
 </c:if>
 <c:if test="${failed}">
   <tr class="${nextstyle1}">
-    <td>
+    <td class="text-right">
         <rhn:icon type="system-crit" />
-
     </td>
-    <td style="text-align: left;">
+    <td>
       <bean:message key="kickstart.session_status.jsp.status_failed" />
     </tr>
   </tr>
@@ -197,9 +204,9 @@
 </table>
 <!-- END SIDE STATUS TABLE -->
 
-    </td>
-  </tr>
-</table>
+    </div>
+
+  </div>
 </div>
 <form id="saveScrollPosition" method="POST" action="/rhn/systems/details/kickstart/SessionStatus.do?sid=${requestScope.sid}">
     <rhn:csrf />
