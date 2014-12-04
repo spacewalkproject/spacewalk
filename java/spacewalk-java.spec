@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.97
+Version: 2.3.98
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Dec 04 2014 Jan Dobes 2.3.98-1
+- style /rhn/systems/details/kickstart/SessionStatus page
+
 * Tue Dec 02 2014 Tomas Lestach <tlestach@redhat.com> 2.3.97-1
 - remove WebList as it isn't referenced any more
 - remove SelectableWebList as it isn't referenced any more
