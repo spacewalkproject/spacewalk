@@ -116,19 +116,24 @@ public class CobblerPowerSettingsUpdateCommand extends CobblerCommand {
 
         try {
             log.debug("Setting Cobbler parameters for system " + sid);
-            if (StringUtils.isNotBlank(powerType)) {
+            if (powerType.equals(systemRecord.getPowerType())) {
                 systemRecord.setPowerType(powerType);
             }
-            if (StringUtils.isNotBlank(powerAddress)) {
+            if (powerAddress != null &&
+                    !powerAddress.equals(systemRecord.getPowerAddress())) {
                 systemRecord.setPowerAddress(powerAddress);
             }
-            if (StringUtils.isNotBlank(powerUsername)) {
+            if (powerUsername != null &&
+                    !powerUsername.equals(systemRecord.getPowerUsername())) {
                 systemRecord.setPowerUsername(powerUsername);
             }
-            if (StringUtils.isNotBlank(powerPassword)) {
+            if (powerPassword != null &&
+                    !powerPassword.equals(systemRecord.getPowerPassword())) {
                 systemRecord.setPowerPassword(powerPassword);
             }
-            systemRecord.setPowerId(powerId);
+            if (powerId != null && !powerId.equals(systemRecord.getPowerId())) {
+                systemRecord.setPowerId(powerId);
+            }
             systemRecord.save();
             log.debug("Settings saved for system " + sid);
         }
