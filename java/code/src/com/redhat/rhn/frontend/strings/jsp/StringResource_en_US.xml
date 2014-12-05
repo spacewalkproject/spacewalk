@@ -7449,7 +7449,7 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
       </trans-unit>
       <trans-unit id="schedulesync.jsp.pagesummary">
-        <source>This will synchronize, as closely as possible, {0} to have the package manifest of {1}.</source>
+        <source>This will add or remove packages to match as closely as possible for {0} to have the package profile of {1}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">NOTFILLEDOUT</context>
         </context-group>
