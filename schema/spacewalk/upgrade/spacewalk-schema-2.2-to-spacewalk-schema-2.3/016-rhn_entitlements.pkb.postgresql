@@ -1,0 +1,93 @@
+-- oracle equivalent source sha1 ab797660437488786027dcfd4b006a928a952df0
+--
+-- Copyright (c) 2008--2012 Red Hat, Inc.
+--
+-- This software is licensed to you under the GNU General Public License,
+-- version 2 (GPLv2). There is NO WARRANTY for this software, express or
+-- implied, including the implied warranties of MERCHANTABILITY or FITNESS
+-- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+-- along with this software; if not, see
+-- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+-- 
+-- Red Hat trademarks are not licensed under GPLv2. No permission is
+-- granted to use or replicate Red Hat trademarks that are incorporated
+-- in this software or its documentation. 
+--
+
+-- create schema rhn_entitlements;
+
+-- setup search_path so that these functions are created in appropriate schema.
+update pg_settings set setting = 'rhn_entitlements,' || setting where name = 'search_path';
+
+    -- *******************************************************************
+    -- PROCEDURE: prune_family
+    -- Unsubscribes servers consuming physical slots from the channel family 
+    --   that are over the org's limit.
+    -- Called by: set_family_count
+    -- *******************************************************************
+    create or replace function prune_family (
+        customer_id_in in numeric,
+        channel_family_id_in in numeric,
+        quantity_in in numeric,
+        flex_in in numeric
+    ) returns void
+as $$
+    declare
+        serverchannels cursor(tmp_quantity numeric, is_fve_in char) for
+            select  sc.server_id,
+                    sc.channel_id
+            from    rhnServerChannel sc,
+                    rhnChannelFamilyMembers cfm
+            where   1=1
+                and cfm.channel_family_id = channel_family_id_in
+                and cfm.channel_id = sc.channel_id
+                and server_id in (
+                       select server_id from (
+                            select  distinct rs.id as server_id
+                            from    
+                                    rhnServerChannel        rsc,
+                                    rhnChannelFamilyMembers rcfm,
+                                    rhnServer               rs
+                            where   1=1
+                                and rs.org_id = customer_id_in
+                                and rs.id = rsc.server_id
+                                and rsc.channel_id = rcfm.channel_id
+                                and rcfm.channel_family_id =  channel_family_id_in
+                                and rsc.is_fve = is_fve_in
+                                -- we only want to grab servers consuming
+                                -- physical slots.
+                                and exists (
+                                    select 1
+                                    from rhnChannelFamilyServerPhysical cfsp
+                                    where cfsp.server_id = rs.id
+                                    and cfsp.channel_family_id = 
+                                        channel_family_id_in
+                                    )
+                            ) Q
+                        order by server_id asc
+                        offset quantity_in
+                        );
+    begin
+        -- if we get a null customer_id, this is completely bogus.
+        if customer_id_in is null then
+            return;
+        end if;
+
+        for sc in serverchannels(quantity_in, 'N') loop
+            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id,
+                                                   1, 1, 0, 0);
+        end loop;
+
+        for sc in serverchannels(flex_in, 'Y') loop
+            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id,
+                                                   1, 1, 0, 0);
+        end loop;
+
+        perform rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
+    end$$
+language plpgsql;
+        
+
+
+-- restore the original setting
+update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_entitlements')+1) ) where name = 'search_path';
