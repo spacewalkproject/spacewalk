@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 6faf828b0838ec2be2d6922790d22f6f3c6a40b6
+-- oracle equivalent source sha1 ab797660437488786027dcfd4b006a928a952df0
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -1565,7 +1565,8 @@ as $$
                 and cfm.channel_family_id = channel_family_id_in
                 and cfm.channel_id = sc.channel_id
                 and server_id in (
-                            select  rs.id as server_id
+                       select server_id from (
+                            select  distinct rs.id as server_id
                             from    
                                     rhnServerChannel        rsc,
                                     rhnChannelFamilyMembers rcfm,
@@ -1585,8 +1586,9 @@ as $$
                                     and cfsp.channel_family_id = 
                                         channel_family_id_in
                                     )
-                            order by rcfm.modified asc
-                            offset quantity_in
+                            ) Q
+                        order by server_id asc
+                        offset quantity_in
                         );
     begin
         -- if we get a null customer_id, this is completely bogus.

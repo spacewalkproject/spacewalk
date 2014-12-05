@@ -1559,9 +1559,9 @@ is
                 and server_id in (
                     select    server_id
                       from    (
-                        select server_id, time, rownum row_number
+                        select server_id, rownum row_number
                         from    (
-                            select rs.id  server_id, rcfm.modified time
+                            select distinct rs.id  server_id
                             from    rhnServerChannel         rsc,
                                     rhnChannelFamilyMembers  rcfm,
                                     rhnServer                rs
@@ -1580,7 +1580,7 @@ is
                                     and cfsp.channel_family_id = 
                                         channel_family_id_in
                                     )
-                            order by time asc
+                            order by server_id asc
                         )
                     )
                     where row_number > tmp_quantity
