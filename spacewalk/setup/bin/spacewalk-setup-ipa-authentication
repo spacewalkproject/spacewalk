@@ -331,7 +331,7 @@ EOF
 
 my $tomcat_service;
 for my $tomcat_conf (glob "/etc/tomcat*/tomcat*.conf") {
-        ($tomcat_service) = ($tomcat_conf =~ m!^/etc/(tomcat.+?)/!);
+        ($tomcat_service) = ($tomcat_conf =~ m!^/etc/(tomcat.*)/!);
         my $content;
         local * FILE;
         my $server_xml_file = "/etc/$tomcat_service/server.xml";
