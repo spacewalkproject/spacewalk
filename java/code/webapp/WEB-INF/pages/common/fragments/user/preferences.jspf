@@ -19,7 +19,7 @@
   <div class="panel-body">
     <p><bean:message key="preferences.jsp.controlentry"/></p>
     <bean:message key="preferences.jsp.show"/>
-    <html:select property="pagesize">
+    <html:select property="pagesize" styleClass="form-control form-input-inline">
       <html:options collection="pagesizes"
       property="value"
       labelProperty="display" />
