@@ -34,7 +34,7 @@
 
     </rl:list>
 
-    <div class="text-right">
+    <div class="pull-left">
         <button type="submit"
                name="dispatch"
                class="btn btn-default">
