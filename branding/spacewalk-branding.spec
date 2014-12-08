@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.15
+Version:    2.3.16
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,16 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Dec 08 2014 Jan Dobes 2.3.16-1
+- remove unused code
+- slightly improve hideable menu
+- revert accidentaly pushed commits
+- test toggling
+- back
+- float left menu on smaller screens
+- test not making sidenav horizontal
+- test not making aside horizontal
+
 * Wed Nov 19 2014 Jan Dobes 2.3.15-1
 - do not show expanded menu on small screens on default
 - avoid white space under footer
