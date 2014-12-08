@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.26
+Version: 2.3.27
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -288,6 +288,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Dec 08 2014 Jan Dobes 2.3.27-1
+- generalize logic
+
 * Fri Dec 05 2014 Stephen Herr <sherr@redhat.com> 2.3.26-1
 - spacewalk-web: add Requires for used perl modules
 
