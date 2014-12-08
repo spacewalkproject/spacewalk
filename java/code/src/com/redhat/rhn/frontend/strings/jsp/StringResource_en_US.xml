@@ -17522,7 +17522,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <source>Total Crash Count</source>
         </trans-unit>
         <trans-unit id="exportcolumn.lastCrashReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
         </trans-unit>
         <trans-unit id="exportcolumn.crashCount">
           <source>Crash Count</source>
@@ -17531,7 +17531,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <source>Crash Component</source>
         </trans-unit>
         <trans-unit id="exportcolumn.lastReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
         </trans-unit>
       </group>
       <trans-unit id="virtualization.provision.first.jsp.no.profiles">
@@ -18079,7 +18079,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       </trans-unit>
       <trans-unit id="crashes.jsp.lastoccurence">
-        <source>Last Crash Occurence</source>
+        <source>Last Crash Occurrence</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SoftwareCrashesOverview.do</context>
         </context-group>

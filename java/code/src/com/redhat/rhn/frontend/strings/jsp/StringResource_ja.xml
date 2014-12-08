@@ -19024,7 +19024,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>クラッシュ数合計</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastCrashReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>最後のクラッシュの出現</target>
         </trans-unit>
         <trans-unit id="exportcolumn.crashCount">
@@ -19036,7 +19036,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>クラッシュコンポーネント</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>最後のクラッシュの出現</target>
         </trans-unit>
       </group>
@@ -19692,7 +19692,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>影響を受けるシステム数</target>
       </trans-unit>
       <trans-unit id="crashes.jsp.lastoccurence">
-        <source>Last Crash Occurence</source>
+        <source>Last Crash Occurrence</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SoftwareCrashesOverview.do</context>
         </context-group>

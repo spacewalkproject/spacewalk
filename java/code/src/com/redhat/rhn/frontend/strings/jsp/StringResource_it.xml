@@ -18978,7 +18978,7 @@ versione di Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
           <target>Conteggio crash totale</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastCrashReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>Verifica ultimo crash </target>
         </trans-unit>
         <trans-unit id="exportcolumn.crashCount">
@@ -18990,7 +18990,7 @@ versione di Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
           <target>Componente del crash</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>Verifica ultimo crash </target>
         </trans-unit>
       </group>
@@ -19646,7 +19646,7 @@ versione di Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
         <target>Conteggio sistemi interessati</target>
       </trans-unit>
       <trans-unit id="crashes.jsp.lastoccurence">
-        <source>Last Crash Occurence</source>
+        <source>Last Crash Occurrence</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SoftwareCrashesOverview.do</context>
         </context-group>

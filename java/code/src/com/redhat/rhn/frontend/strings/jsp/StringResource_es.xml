@@ -19008,7 +19008,7 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
           <target>Cuenta total de fallos</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastCrashReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>Ultimo incidente</target>
         </trans-unit>
         <trans-unit id="exportcolumn.crashCount">
@@ -19020,7 +19020,7 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
           <target>Componente de fallo</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>Ultimo incidente</target>
         </trans-unit>
       </group>
@@ -19676,7 +19676,7 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
         <target>Cuenta de sistemas afectados</target>
       </trans-unit>
       <trans-unit id="crashes.jsp.lastoccurence">
-        <source>Last Crash Occurence</source>
+        <source>Last Crash Occurrence</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SoftwareCrashesOverview.do</context>
         </context-group>

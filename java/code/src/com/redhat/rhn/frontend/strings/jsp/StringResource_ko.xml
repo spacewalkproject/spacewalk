@@ -18996,7 +18996,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>총 충돌 수</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastCrashReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>마지막 충돌 발생</target>
         </trans-unit>
         <trans-unit id="exportcolumn.crashCount">
@@ -19008,7 +19008,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>충돌 구성 요소 </target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>마지막 충돌 발생</target>
         </trans-unit>
       </group>
@@ -19664,7 +19664,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>영향을 받은 시스템 수 </target>
       </trans-unit>
       <trans-unit id="crashes.jsp.lastoccurence">
-        <source>Last Crash Occurence</source>
+        <source>Last Crash Occurrence</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SoftwareCrashesOverview.do</context>
         </context-group>
