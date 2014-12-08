@@ -7,53 +7,6 @@
 		min-height: 1px;
 	}
 }
-.sidenav-horizontal {
-	#sidenav {
-		a:before {
-			content: "";
-			margin: 0;
-		}
-		li {
-			display: inline-block;	
-			border-bottom:0;
-		}
-		ul li:last-child, ul>ul li:last-child, ul>ul>ul li:last-child {
-			border-bottom: 0;
-			-moz-box-shadow: 0px 0px 0px;
-			-webkit-box-shadow: 0px 0px 0px;
-			box-shadow: 0px 0px 0px;
-		}
-		li.active > a, li.active > a:hover, ul li:hover, ul li a:hover {
-			color: @spacewalk-aside-menu-hyperlink-active;
-			background: transparent;
-		}
-		/* first submenu */
-		ul>ul li {
-		    padding: 0 !important;
-		    background: transparent;
-		    border: 0px;
-		}
-		ul>ul {
-			border-top: 1px solid #ccc;
-			border-bottom: 1px solid #ccc;
-			background: @spacewalk-list-first-submenu;
-			padding: .2em 0;
-		}
-		ul>ul li.active,
-		ul>ul li.active:hover,
-		ul>ul li.active a,
-		ul>ul li.active a:hover {
-			background: transparent;
-		}
-		ul>ul li:hover, ul>ul li a:hover {
-			background: transparent;
-			color: @spacewalk-blue;
-		}
-		ul>ul li:last-child {
-			border-bottom: 0px;
-		}
-	}
-}
 //second logo of SPACEWALK
 .logoLetter {
 	.navbar-header a:nth-child(2) {
@@ -109,54 +62,9 @@
 		}
 	}
 }
-// main navigation bar hidden in small screens but with a button to make them visible again
-.menu-toggle-hide {
-	.main-menu-hor {
-		float: none;
-		width: 100%;
-		border-top: 1px solid #555;
-		margin: 0;
-		&.navbar-nav > li:hover {
-			.border-rounded(0;0;0;0);
-		}
-	}
-	.clear-responsive-btn {
-		.clearfix;
-	}
-}
-.main-menu-hor {
-	.pull-left;
-}
-.clear-responsive-btn{
-	clear: none;
-}
 
-// Button for the main menu
-.main-menu-mobile{
-	display: none;
-}
-.button-main-menu-vissible {
-	.main-menu-mobile {
-		display: inline-block;
-		border: 1px solid #444;
-		padding: 0 .4em;
-		margin: 5px 15px;
-		color: #555;
-		background: #000;
-		.border-rounded(4px; 4px; 4px; 4px);
-		&:before{
-			content: "\f0c9";
-			font-family: 'FontAwesome';
-			font-size: 1.3em
-		}
-		&:hover{
-			color: #444;
-		}
-	}
-}
 //classes that will take effect on tablets and mobiles screens
 @media (max-width: @screen-tablet) {
-	.sidenav-horizontal;
 	.aside-horizontal;
 	.header-responsive;
 	.columns-no-padding;
@@ -166,8 +74,6 @@
 @media (max-width: @screen-phone) {
 	.logoLetter;
 	.buttons-full-size;
-	.menu-toggle-hide;
-	.button-main-menu-vissible;
 }
 
 
