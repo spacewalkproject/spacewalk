@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.101
+Version: 2.3.102
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 08 2014 Tomas Lestach <tlestach@redhat.com> 2.3.102-1
+- 1169278 - fix typo: Occurence -> Occurrence
+- 1169345 - returning back removed file preservation related messages
+- 1151931 - returning back removed config related messages
+
 * Fri Dec 05 2014 Stephen Herr <sherr@redhat.com> 2.3.101-1
 - Fixing merge problem in test
 
