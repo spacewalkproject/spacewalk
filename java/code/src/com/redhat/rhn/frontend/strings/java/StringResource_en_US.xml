@@ -6723,6 +6723,18 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/system/details/kickstart/KickstartScriptEdit.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="file_lists.success">
+        <source>{0} File List(s) deleted.</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
+          </context-group>
+      </trans-unit>
+      <trans-unit id="file_lists.failure">
+        <source>{0} File List(s) could not be deleted.</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
+          </context-group>
+      </trans-unit>
       <trans-unit id="cobbler.powermanagement.poweron">
         <source>Power On</source>
       </trans-unit>
