@@ -24,6 +24,7 @@ Patch10: cobbler-findks.patch
 Patch11: cobbler-arm-arch.patch
 Patch12: cobbler-modprobe-d.patch
 Patch13: fedora_os_entry.patch
+Patch14: centos7-version.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -121,6 +122,7 @@ a XMLRPC API for integration with other applications.
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
+%patch14 -p0
 
 %build
 %{__python} setup.py build 
