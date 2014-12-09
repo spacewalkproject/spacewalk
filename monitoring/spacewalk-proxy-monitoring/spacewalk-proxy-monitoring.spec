@@ -72,20 +72,37 @@ rm -Rf $RPM_BUILD_ROOT
 #/etc/satname needs to be created on the proxy box, with the contents of '1'       
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
 mkdir -p $RPM_BUILD_ROOT/%{_sbindir}
-mkdir -p $RPM_BUILD_ROOT/%{_initrddir}
 
 ln -s /etc/rc.d/np.d/sysvStep $RPM_BUILD_ROOT/%{_sbindir}/MonitoringScout
 
 install satname $RPM_BUILD_ROOT%{_sysconfdir}/satname
+%if 0%{?fedora} || 0%{?suse_version} >= 1210
+mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
+install MonitoringScout.service $RPM_BUILD_ROOT%{_unitdir}
+%else
+mkdir -p $RPM_BUILD_ROOT/%{_initrddir}
 install MonitoringScout $RPM_BUILD_ROOT%{_initrddir}
+%endif
+
 
 %post
-/sbin/chkconfig --add MonitoringScout
+if [ -x /etc/init.d/MonitoringScout ] ; then
+    /sbin/chkconfig --add MonitoringScout
+fi
+if [ -r %{_unitdir}/MonitoringScout.service ] ; then
+    /usr/bin/systemctl enable MonitoringScout.service
+fi
 
 %preun
 if [ $1 = 0 ] ; then
-    /sbin/service MonitoringScout stop >/dev/null 2>&1
-    /sbin/chkconfig --del MonitoringScout
+    if [ -x /etc/init.d/MonitoringScout ] ; then
+        /sbin/service MonitoringScout stop >/dev/null 2>&1
+        /sbin/chkconfig --del MonitoringScout
+    fi
+    if [ -f %{_unitdir}/MonitoringScout.service ] ; then
+        /usr/bin/systemctl --no-reload disable MonitoringScout.service > /dev/null 2>&1 || :
+        /usr/bin/systemctl stop MonitoringScout.service > /dev/null 2>&1 || :
+    fi
 fi
 
 %clean
@@ -93,7 +110,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %config %{_sysconfdir}/satname
+%if 0%{?fedora} || 0%{?suse_version} >= 1210
+%{_unitdir}/*
+%else
 %{_initrddir}/*
+%endif
 %{_sbindir}/*
 %doc README
 
