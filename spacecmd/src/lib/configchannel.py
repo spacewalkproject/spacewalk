@@ -933,9 +933,7 @@ def export_configchannel_getdetails(self, channel):
             # i.e binary or non-xml encodable ascii files can be exported as
             # base64 encoded
             if not f.has_key('contents'):
-                if f['type'] == 'directory':
-                    f['contents'] = ''
-                else:
+                if f['type'] != 'directory':
                     if not self.check_api_version('11.1'):
                         logging.warning("File %s could not be exported " % f['path'] +\
                                             "with this API version(needs base64 encoding)")
