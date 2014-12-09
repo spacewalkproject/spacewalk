@@ -39,12 +39,19 @@ public class ChannelVersion {
             "Red Hat Enterprise Linux 5", "5");
     public static final ChannelVersion RHEL6 = new ChannelVersion(
             "Red Hat Enterprise Linux 6", "6");
+    public static final ChannelVersion RHEL7 = new ChannelVersion(
+            "Red Hat Enterprise Linux 7", "7");
 
     // Map releases to channel version constants. Anything not in this map
     // will be assumed to be legacy.
     public static final Map DIST_CHANNEL_MAP_TO_CHANNEL_VERSION = new HashMap();
 
     static {
+        DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("7Client", ChannelVersion.RHEL7);
+        DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("7ComputeNode", ChannelVersion.RHEL7);
+        DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("7Server", ChannelVersion.RHEL7);
+        DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("7Workstation", ChannelVersion.RHEL7);
+
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("6Client", ChannelVersion.RHEL6);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("6Server", ChannelVersion.RHEL6);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("6Workstation", ChannelVersion.RHEL6);
