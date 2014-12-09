@@ -15546,7 +15546,10 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Unsubscribe</source>
         </trans-unit>
         <trans-unit id="config_channels_to_unsubscribe.unsubscribe.success">
-          <source>{0} configuration channels were unsubscribed</source>
+          <source>{0} configuration channel(s) were unsubscribed.</source>
+        </trans-unit>
+        <trans-unit id="config_channels_to_unsubscribe.unsubscribe.failure">
+          <source>Failed to unsubscribe {0} configuration channel(s).</source>
         </trans-unit>
       </group>
       <!-- configuration/sdc/createfile.jsp  -->
