@@ -179,7 +179,7 @@
 	<c:if test = "${empty noCsv}">
 	<rl:csv dataset="pageList"
 	        name="systemList"
-	        exportColumns="name,id,securityErrata,bugErrata,enhancementErrata,outdatedPackages,lastCheckin,entitlement,channelLabels"/>
+	        exportColumns="name,id,securityErrata,bugErrata,enhancementErrata,outdatedPackages,lastCheckin,entitlementLevel,channelLabels"/>
 	</c:if>
     <rhn:csrf />
 	<rhn:submitted/>
