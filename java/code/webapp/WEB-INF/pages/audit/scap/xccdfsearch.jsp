@@ -33,22 +33,28 @@
                     <rhn:csrf/>
                     <table class="table">
                         <tr>
-                            <td><bean:message key="scapsearch.jsp.searchfor"/>:</td>
-                            <td>
-                                <div class="form-group">
+                            <td class="col-xs-3">
+                                <bean:message key="scapsearch.jsp.searchfor"/>:
+                            </td>
+                            <td class="col-xs-9">
+                                <div class="row-0">
+                                    <div class="col-sm-7">
+                                        <div class="input-group">
                                     <html:text property="search_string" styleClass="form-control" name="search_string"
                                                value="${search_string}" maxlength="100" accesskey="4"/>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-default btn-sm">
+                                            <div class="input-group-btn">
+                                                <button type="submit" class="btn btn-default">
                                         <rhn:icon type="header-search" />
                                         <bean:message key="button.search"/>
                                     </button>
                                 </div>
-                                <br/>
-                                <span class="small-text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <small>
                                     <bean:message key="scapsearch.jsp.whatsearch.tip"/>
-                                </span>
+                                </small>
                             </td>
                         </tr>
                         <tr>
@@ -61,35 +67,44 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr><td><bean:message key="systemsearch.jsp.wheretosearch"/></td>
+                        <tr>
+                            <td><bean:message key="systemsearch.jsp.wheretosearch"/></td>
                             <td>
-                                <div class="text-left">
+                                <div class="radio">
+                                    <label for="whereToSearch-all">
                                     <html:radio property="whereToSearch" value="all" styleId="whereToSearch-all"/>
-                                    <label for="whereToSearch-all"><bean:message key="systemsearch.jsp.searchallsystems"/></label>
+                                        <bean:message key="systemsearch.jsp.searchallsystems"/>
+                                    </label>
                                 </div>
-                                <div class="text-left">
+                                <div class="radio">
+                                    <label for="whereToSearch-system_list">
                                     <html:radio property="whereToSearch" value="system_list" styleId="whereToSearch-system_list"/>
-                                    <label for="whereToSearch-system_list"><bean:message key="systemsearch.jsp.searchSSM"/></label>
+                                        <bean:message key="systemsearch.jsp.searchSSM"/>
+                                    </label>
                                 </div>
                             </td>
                         </tr>
                         <tr><td><bean:message key="scapsearch.jsp.scan_date"/>:</td>
                             <td>
-                                <html:checkbox styleId="scanDateOptionsCheckBox" property="optionScanDateSearch" onclick="javascript:scanDateSearchOptions()">
+                                <div class="checkbox">
                                     <label for="scanDateOptionsCheckBox">
+                                        <html:checkbox styleId="scanDateOptionsCheckBox" property="optionScanDateSearch" onclick="javascript:scanDateSearchOptions()">
+                                        </html:checkbox>
                                         <bean:message key="scapsearch.jsp.search_by_scan_dates"/>
                                     </label>
-                                </html:checkbox>
+                                </div>
                                 </br>
                                 <div id="scanDateOptions" class="indent">
                                     <table>
-                                        <tr><td><bean:message key="scapsearch.jsp.start_date"/>:</td>
+                                        <tr>
+                                            <td><bean:message key="scapsearch.jsp.start_date"/>:</td>
                                             <td><jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
                                                     <jsp:param name="widget" value="start"/>
                                                 </jsp:include>
                                             </td>
                                         </tr>
-                                        <tr><td><bean:message key="scapsearch.jsp.end_date"/>:</td>
+                                        <tr>
+                                            <td><bean:message key="scapsearch.jsp.end_date"/>:</td>
                                             <td><jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
                                                     <jsp:param name="widget" value="end"/>
                                                 </jsp:include>
@@ -99,15 +114,20 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr><td><bean:message key="scapsearch.jsp.show_as"/>:</td>
+                        <tr>
+                            <td><bean:message key="scapsearch.jsp.show_as"/>:</td>
                             <td>
-                                <div class="text-left">
+                                <div class="radio">
+                                    <label for="show_as-rr">
                                     <html:radio property="show_as" value="rr" styleId="show_as-rr"/>
-                                    <label for="show_as-rr"><bean:message key="scapsearch.jsp.list_rr"/></label>
+                                        <bean:message key="scapsearch.jsp.list_rr"/>
+                                    </label>
                                 </div>
-                                <div class="text-left">
+                                <div class="radio">
+                                    <label for="show_as-tr">
                                     <html:radio property="show_as" value="tr" styleId="show_as-tr"/>
-                                    <label for="show_as-tr"><bean:message key="scapsearch.jsp.list_tr"/></label>
+                                        <bean:message key="scapsearch.jsp.list_tr"/>
+                                    </label>
                                 </div>
                             </td>
                         </tr>
