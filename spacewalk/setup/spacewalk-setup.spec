@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.3.1
+Version:        2.3.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -113,6 +113,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Dec 11 2014 Matej Kollar <mkollar@redhat.com> 2.3.2-1
+- 1020952 - Include SSL configuration in setup
+
 * Mon Nov 24 2014 Tomas Lestach <tlestach@redhat.com> 2.3.1-1
 - fix condition
 - add spacewalk-setup-ipa-authentication script to Makefile
