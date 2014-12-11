@@ -52,8 +52,8 @@ for user in list:<br />
 client.auth.logout(key)<br />
 </code>
 <p />
-Following code show how to use date-time parameters. This code will schedule
-immediatelly installation of package rhnlib-2.5.22.9.el6.noarch to system with
+The following code shows how to use date-time parameters. This code will schedule
+immediate installation of package rhnlib-2.5.22.9.el6.noarch to system with
 id 1000000001.
 <p />
 
@@ -82,7 +82,7 @@ client.auth.logout(key)<br />
 
 <p />
 <h3>Ruby example:</h3><br />
-Below is an example of the channel.listAllChannels API call. List of channal labels is printed.
+Below is an example of the channel.listAllChannels API call. List of channel labels is printed.
 <p />
 
 <code>
