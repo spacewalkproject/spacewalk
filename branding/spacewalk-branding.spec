@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.16
+Version:    2.3.17
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Dec 11 2014 Jan Dobes 2.3.17-1
+- add style for documentation navigation
+
 * Mon Dec 08 2014 Jan Dobes 2.3.16-1
 - remove unused code
 - slightly improve hideable menu
