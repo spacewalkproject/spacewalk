@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.3.5
+Version: 2.3.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Thu Dec 11 2014 Stephen Herr <sherr@redhat.com> 2.3.6-1
+- 1172738 - checkstyle fix
+
 * Thu Dec 11 2014 Stephen Herr <sherr@redhat.com> 2.3.5-1
 - 1172738 - empty base channels incompatible with pre-cache, fall back to
   Spacewalk
