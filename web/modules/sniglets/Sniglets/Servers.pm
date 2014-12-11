@@ -136,9 +136,6 @@ sub system_locked_info {
     $ret->{status_str} = 'System locked';
     $ret->{status_class} = 'system-status-locked';
     $ret->{message} = 'more info';
-    $ret->{link} = Sniglets::HTML::render_help_link(-user => $user,
-                                                   -href => 's1-sm-systems.jsp');
-
   }
   return $ret;
 }
@@ -173,8 +170,6 @@ sub system_status_info {
     $ret->{status_str} = 'System not checking in with R H N';
     $ret->{status_class} = 'system-status-awol';
     $ret->{message} = 'more info';
-    $ret->{link} = Sniglets::HTML::render_help_link(-user => $user,
-						    -href => 's1-sm-systems.jsp');
   }
   elsif ($data->{KICKSTART_SESSION_ID}) {
     $ret->{icon} = 'system-kickstarting';
@@ -793,7 +788,7 @@ sub package_action_command_cb {
 
   my $verb = $remote_command_modes{$mode}->{verb};
 
-  $pxt->push_message(site_info => 
+  $pxt->push_message(site_info =>
 		     "The remote command action was scheduled to run <strong>$order</strong> the package $verb action" . (scalar @actions == 1 ? '' : 's') . ".");
 
   if ($remote_command_modes{$mode}->{location} eq 'ssm') {

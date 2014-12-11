@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package PXT::HTML;
@@ -390,10 +390,10 @@ sub _format {
 
       my $buggy_utf8 = lc($1);
       # if default value is empy, leave it, so browser can override it
-      # but only if input it type of hidden, text, password or if type is 
+      # but only if input it type of hidden, text, password or if type is
       # not specified, which should be treated as text
-      next if (($buggy_utf8 eq 'value') and not ($e->{$key}) and 
-        (($elem_type =~ /type="?hidden"?/i) or ($elem_type =~ /type="?text"?/i) or 
+      next if (($buggy_utf8 eq 'value') and not ($e->{$key}) and
+        (($elem_type =~ /type="?hidden"?/i) or ($elem_type =~ /type="?text"?/i) or
         ($elem_type =~ /type="?password"?/i) or ($elem_type =~ /^input(\s*)?$/i)));
       $ret .= sprintf(' %s="%s"', $buggy_utf8, defined $e->{$key} ? $e->{$key} : '');
     }
@@ -428,7 +428,12 @@ sub link {
   $css_class = qq{ class="$css_class"} if $css_class;
   $target = qq{ target="$target"} if $target;
 
-  return sprintf qq{<a href="%s"$css_class$target>%s</a>}, $url, $label;
+  if ($url) {
+    return sprintf qq{<a href="%s"$css_class$target>%s</a>}, $url, $label;
+  } else {
+    return $label;
+  }
+
 }
 
 sub button {
