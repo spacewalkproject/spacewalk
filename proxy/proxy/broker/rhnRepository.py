@@ -96,9 +96,8 @@ class Repository(rhnRepository.Repository):
                      pkgFilename[3])
 
         if not mapping.has_key(pkgFilename):
-            log_error("Package not in mapping: %s" % pkgFilename)
-            raise rhnFault(17, _("Invalid RPM package requested: %s")
-                                 % pkgFilename)
+            log_debug(3, "Package not in mapping: %s" % pkgFilename)
+            raise NotLocalError
         # A list of possible file paths. Always a list, channel mappings are
         # cleared on package upgrade so we don't have to worry about the old
         # behavior of returning a string
