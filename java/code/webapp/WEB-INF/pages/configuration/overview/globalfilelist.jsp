@@ -16,10 +16,11 @@
   <rhn:csrf />
   <rhn:submitted />
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-        <h4><bean:message key="globalfilelist.jsp.summary"/> </h4>
+  <div class="alert alert-info">
+    <bean:message key="globalfilelist.jsp.summary"/>
     </div>
+
+  <div class="panel panel-default">
     <div class="panel-body">
       <rhn:list pageList="${requestScope.pageList}" noDataText="globalfilelist.jsp.noFiles">
         <rhn:listdisplay filterBy="globalfilelist.jsp.path">
@@ -61,7 +62,9 @@
         </rhn:listdisplay>
       </rhn:list>
     </div>
-    <div class="panel-footer"><bean:message key="globalfilelist.jsp.note"/></div>
+    <div class="panel-footer">
+      <bean:message key="globalfilelist.jsp.note"/>
+    </div>
   </div>
 </form>
 
