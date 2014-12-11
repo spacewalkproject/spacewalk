@@ -29,7 +29,7 @@ import xmlrpclib
 
 ## common imports
 from spacewalk.common.rhnLib import parseRPMName
-from spacewalk.common.rhnLog import log_debug, log_error
+from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common import rhnRepository
