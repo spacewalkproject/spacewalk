@@ -751,3 +751,93 @@ code {
   padding-top: 16px;
   padding-bottom: 16px;
 }
+
+/* documentation navigation */
+.docnav {
+  list-style: none;
+  padding: 0em;
+  position: relative;
+  width: 100%;
+  padding-bottom: 2em;
+  padding-top: 1em;
+  border-top: 1px dotted #ccc;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.docnav li {
+  display: inline;
+  font-size: .8em;
+}
+
+.docnav li.previous, .docnav li.next {
+  position: absolute;
+  top: 1em;
+}
+
+.docnav li.up, .docnav li.home {
+  margin: 0em 1.5em;
+}
+
+.docnav li.previous {
+  left: 0px;
+  text-align: left;
+}
+
+.docnav li.next {
+  right: 0px;
+  text-align: right;
+}
+
+.docnav li.previous strong, .docnav li.next strong {
+  height: 22px;
+  display: block;
+}
+
+.docnav li.next a strong {
+  font-size: 1.4em;
+  padding-top: 3px;
+  padding-bottom: 4px;
+}
+
+.docnav li.next a strong:after {
+  content: "\f0da";
+  font-family: 'FontAwesome';
+  margin-left: 0.5em;
+}
+
+.docnav li.previous a strong {
+  padding-top: 3px;
+  padding-bottom: 4px;
+  padding-right: 0.5em;
+  font-size: 1.4em;
+}
+
+.docnav li.previous a strong:before {
+  content: "\f0d9";
+  font-family: 'FontAwesome';
+  margin-right: 0.5em;
+}
+
+.docnav li.home a strong {
+  padding: 5px;
+  font-size: 1.4em;
+}
+
+.docnav li.home a strong:before {
+  content: "\f015";
+  font-family: 'FontAwesome';
+  margin-right: 0.5em;
+}
+
+.docnav li.up a strong {
+  padding: 5px;
+  font-size: 1.4em;
+}
+
+.docnav li.up a strong:before {
+  content: "\f0d8";
+  font-family: 'FontAwesome';
+  margin-right: 0.5em;
+}
+
