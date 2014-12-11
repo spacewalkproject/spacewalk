@@ -32,20 +32,18 @@
       <rhn:csrf />
       <%@ include file="/WEB-INF/pages/common/fragments/login_form.jspf" %>
     </html:form>
-
-    <c:if test="${empty login_banner}">
-        <div class="col-md-6 col-md-offset-3 text-left">
+    <div class="col-md-6 col-md-offset-3 text-left">
+    <c:set var="legal_note" scope="page" value="${rhn:getConfig('java.legal_note')}" />
+    <c:choose>
+      <c:when test="${! empty legal_note}">
+          <p><c:out value="${legal_note}" escapeXml="false" /></p>
+      </c:when>
+      <c:otherwise>
           <p><bean:message key="login.jsp.satbody2" /></p>
           <p><bean:message key="login.jsp.satbody3"/></p>
-        </div>
-    </c:if>
-
-    <c:set var="legal_note" scope="page" value="${rhn:getConfig('java.legal_note')}" />
-    <c:if test="${! empty legal_note}">
-      <p class="legal-note">
-        <small><c:out value="${legal_note}" escapeXml="false" /></small>
-      </p>
-    </c:if>
+      </c:otherwise>
+    </c:choose>
+    </div>
   </div>
 </c:if>
 
