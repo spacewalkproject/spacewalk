@@ -14,7 +14,7 @@
 <listitem>
   <para>array "$key"</para>
   <itemizedlist spacing="compact">
-    <listitem><para>$type $desc</para></listitem>
+    <listitem><para>$type - $desc</para></listitem>
   </itemizedlist>
 </listitem>
 #end
