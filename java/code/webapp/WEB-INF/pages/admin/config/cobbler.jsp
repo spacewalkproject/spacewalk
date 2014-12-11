@@ -30,7 +30,7 @@
                         <bean:message key="cobbler.jsp.sync"/>
                     </label>
                     <div class="col-lg-6">
-                        <input type="submit" class="btn btn-default" name="cobbler_sync" value="${rhn:localize('update')}" />
+            <input type="submit" class="btn btn-primary" name="cobbler_sync" value="${rhn:localize('update')}" />
                         <rhn:csrf />
                         <rhn:submitted/>
                     </div>
