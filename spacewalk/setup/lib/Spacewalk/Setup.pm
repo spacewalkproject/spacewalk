@@ -189,7 +189,7 @@ sub load_answer_file {
 
   my @files = ();
   foreach my $afile (glob(DEFAULT_ANSWER_FILE_GLOB)) {
-      push @files, $afile if not grep $afile, @skip;
+      push @files, $afile if not grep $_ eq $afile, @skip;
   }
   push @files, $options->{'answer-file'} if $options->{'answer-file'};
 
