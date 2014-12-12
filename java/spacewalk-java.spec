@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.106
+Version: 2.3.107
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Dec 12 2014 Tomas Lestach <tlestach@redhat.com> 2.3.107-1
+- remove empty trans-unit elements
+
 * Wed Dec 10 2014 Tomas Lestach <tlestach@redhat.com> 2.3.106-1
 - 1069155 - let system set manager csv contain add-on entitlements
 - extra space
