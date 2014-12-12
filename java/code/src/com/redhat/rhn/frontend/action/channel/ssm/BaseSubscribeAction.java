@@ -484,6 +484,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
         successes.clear();
         skipped.clear();
         List<ChannelActionDAO> actions = new ArrayList<ChannelActionDAO>();
+        Map<Long, Channel> channelMap = new HashMap<Long, Channel>();
 
         for (Long toId : chgs.keySet()) {
             successes.put(toId, new ArrayList<Long>());
@@ -496,13 +497,20 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
                     continue;
                 }
 
-                Channel c = null;
+                Long cid = null;
                 if (toId == -1L) {
-                    c = ChannelManager.guessServerBase(u, s);
+                    cid = ChannelManager.guessServerBase(u, s.getId());
                 }
                 else {
-                    c = ChannelManager.lookupByIdAndUser(toId, u);
+                    cid = toId;
                 }
+
+                // let's only hydrate the channel objects once
+                if (!channelMap.containsKey(cid)) {
+                    channelMap.put(cid, ChannelManager.lookupByIdAndUser(toId, u));
+                }
+
+                Channel c = channelMap.get(cid);
 
                 if (c == null) {
                     skip(toId, srvId, skipped);

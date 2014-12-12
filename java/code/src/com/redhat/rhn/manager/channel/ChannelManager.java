@@ -1792,22 +1792,33 @@ public class ChannelManager extends BaseManager {
      * @return Channel that could serve as a base-channel for the Server
      */
     public static Channel guessServerBase(User usr, Server s) {
-        // Figure out what this server's base OUGHT to be
-        CallableMode sbm = ModeFactory.getCallableMode(
-                "Channel_queries", "guess_server_base");
-        Map<String, Object> inParams = new HashMap<String, Object>();
-        inParams.put("server_id", s.getId());
-        Map<String, Integer> outParams = new HashMap<String, Integer>();
-        outParams.put("result", new Integer(Types.NUMERIC));
-        Map<String, Object> result = sbm.execute(inParams, outParams);
-
-        Long guessedId = (Long) result.get(("result"));
+        Long guessedId = guessServerBase(usr, s.getId());
 
         Channel c = null;
         if (guessedId != null) {
             c = ChannelFactory.lookupByIdAndUser(guessedId, usr);
         }
         return c;
+    }
+
+    /**
+     * For the specified server, make a best-guess effort at what its base-channel
+     * SHOULD be
+     * @param usr User asking the question
+     * @param sid Server id of interest
+     * @return Channel id
+     */
+    public static Long guessServerBase(User usr, Long sid) {
+        // Figure out what this server's base OUGHT to be
+        CallableMode sbm = ModeFactory.getCallableMode(
+                "Channel_queries", "guess_server_base");
+        Map<String, Object> inParams = new HashMap<String, Object>();
+        inParams.put("server_id", sid);
+        Map<String, Integer> outParams = new HashMap<String, Integer>();
+        outParams.put("result", new Integer(Types.NUMERIC));
+        Map<String, Object> result = sbm.execute(inParams, outParams);
+
+        return (Long) result.get(("result"));
     }
 
     /**

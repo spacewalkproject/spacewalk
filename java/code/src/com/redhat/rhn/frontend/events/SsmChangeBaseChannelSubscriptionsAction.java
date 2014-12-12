@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.events;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
@@ -74,6 +75,9 @@ public class SsmChangeBaseChannelSubscriptionsAction extends AbstractDatabaseAct
 
                 HibernateFactory.closeSession();
                 HibernateFactory.getSession();
+                // initialize logging
+                LoggingFactory.clearLogId();
+                LoggingFactory.setLogAuth(user.getId());
             }
         }
         catch (Exception e) {
