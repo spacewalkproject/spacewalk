@@ -50,7 +50,9 @@ if ((not grep $_ eq $options{db_backend}, @supported_backends)
 	die "The $0 can only work with Oracle or PostgreSQL database schema.\n";
 }
 
-$raw = 1 unless -d $DATA_DIR;
+if ((not -d $DATA_DIR) or ($options{db_backend} eq "postgresql"))  {
+  $raw = 1;
+}
 
 $ENV{NLS_LANG} = 'AMERICAN_AMERICA.UTF8';
 $ENV{NLS_DATE_FORMAT} = 'YYYY-MM-DD HH24:MI:SS';
