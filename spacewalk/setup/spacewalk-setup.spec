@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.3.2
+Version:        2.3.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -113,6 +113,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Dec 15 2014 Jan Dobes 2.3.3-1
+- 1172541 - do not use embedded db defaults if not installing embedded db
+- 1172541 - fix filtering files with defaults
+
 * Thu Dec 11 2014 Matej Kollar <mkollar@redhat.com> 2.3.2-1
 - 1020952 - Include SSL configuration in setup
 
