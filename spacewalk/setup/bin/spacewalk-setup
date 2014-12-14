@@ -45,7 +45,10 @@ use constant COBBLER_COMMAND => 'spacewalk-setup-cobbler';
 my %opts = Spacewalk::Setup::parse_options();
 
 my %answers = ();
-Spacewalk::Setup::load_answer_file(\%opts, \%answers, []);
+my @skip = ();
+push @skip, Spacewalk::Setup::EMBEDDED_DB_ANSWERS
+    if not Spacewalk::Setup::is_embedded_db(\%opts);
+Spacewalk::Setup::load_answer_file(\%opts, \%answers, \@skip);
 my $product_name = $answers{'product_name'} || 'Spacewalk';
 
 $answers{hostname} ||= Sys::Hostname::hostname;
