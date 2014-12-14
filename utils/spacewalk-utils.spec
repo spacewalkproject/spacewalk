@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.20
+Version:	2.3.21
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Dec 15 2014 Jan Dobes 2.3.21-1
+- 1171675 - we do not support postgresql to upgrade from
+
 * Wed Dec 10 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.20-1
 - added Fedora 21 channels
 
