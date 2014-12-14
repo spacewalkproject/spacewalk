@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.17
+Version:    2.3.18
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Dec 15 2014 Jan Dobes 2.3.18-1
+- style java.custom_header, java.custom_footer, java.login_banner,
+  java.legal_note parameters
+
 * Thu Dec 11 2014 Jan Dobes 2.3.17-1
 - add style for documentation navigation
 
