@@ -938,7 +938,7 @@ sub postgresql_get_database_answers {
       ask(
          -noninteractive => $opts->{"non-interactive"},
          -question => "Path to CA certificate for connection to database",
-         -test => qr/\S+/,
+         -test => sub { return (-f shift) },
          -default => $ENV{HOME} . "/.postgresql/root.crt",
          -answer => \$answers->{'db-ca-cert'});
     }
