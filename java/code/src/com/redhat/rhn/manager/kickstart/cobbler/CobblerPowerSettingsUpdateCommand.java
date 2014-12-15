@@ -137,7 +137,8 @@ public class CobblerPowerSettingsUpdateCommand extends CobblerCommand {
 
         try {
             log.debug("Setting Cobbler parameters for system " + sid);
-            if (powerType.equals(systemRecord.getPowerType())) {
+            if (powerType != null &&
+                    !powerType.equals(systemRecord.getPowerType())) {
                 systemRecord.setPowerType(powerType);
             }
             if (powerAddress != null &&
