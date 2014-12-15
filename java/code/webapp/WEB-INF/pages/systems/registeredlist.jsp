@@ -18,7 +18,7 @@
 <rl:listset name="registeredSystems" legend="system">
   <rhn:csrf />
   <bean:message key="registeredlist.jsp.view"/>
-  <select name="threshold" class="view-systems-registered">
+  <select name="threshold" class="view-systems-registered form-control">
                 <c:forEach var="option" items="${options}">
                         <c:choose>
                                 <c:when test="${recentlyRegisteredSystemsForm.map.threshold eq option.value}">
@@ -34,8 +34,8 @@
   <html:submit styleClass="btn btn-default">
     <bean:message key="cloneerrata.jsp.view"/>
   </html:submit>
+  <hr>
 <rhn:submitted/>
-<div class="full-width-wrapper" style="clear: both;">
         <rl:list
                 dataset="pageList"
                 name="systemList"
