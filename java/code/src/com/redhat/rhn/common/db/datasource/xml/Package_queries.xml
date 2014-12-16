@@ -794,8 +794,8 @@ SELECT  pn.name AS NAME,
         pn.id name_id,
         full_list.arch_id,
         lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) evr_id,
-        (full_list.evr).release,
-        (full_list.evr).version
+        (full_list.evr).release AS release,
+        (full_list.evr).version AS version
   FROM  (
          SELECT  p.name_id name_id, max(pe.evr) evr,
                  pa.label as arch_label, pa.id as arch_id
