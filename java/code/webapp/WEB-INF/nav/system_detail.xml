@@ -10,7 +10,7 @@
     <rhn-tab name="Remote Command" acl="system_feature(ftr_remote_command)">
       <rhn-tab-url>/rhn/systems/details/SystemRemoteCommand.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Connection" url="/network/systems/details/connection.pxt" acl="org_has_proxies()"/>
+    <rhn-tab name="Connection" url="/rhn/systems/details/Connection.do" acl="org_channel_family(rhn-proxy)"/>
     <rhn-tab name="Proxy" url="/network/systems/details/proxy.pxt" acl="user_role(org_admin); system_feature(ftr_proxy_capable) or system_is_proxy(); org_channel_family(rhn-proxy) or system_is_proxy(); child_channel_candidate(rhn-proxy) or system_is_proxy(); not system_is_satellite();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)">
       <rhn-tab name="Activation" url="/network/systems/details/proxy.pxt" />
       <rhn-tab name="Systems Using Proxy" url="/network/systems/details/proxy-clients.pxt" acl="system_is_proxy() "/>

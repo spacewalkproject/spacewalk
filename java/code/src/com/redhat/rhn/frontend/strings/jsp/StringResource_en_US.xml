@@ -17809,6 +17809,36 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="sdc.details.connection.header">
+        <source>Connection Path</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/Connection.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sdc.details.connection.summary1">
+        <source>Below is a list of the Proxy servers this system connects through to reach the primary server. The Proxy the system connects directly to, if any, is listed first on this list.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/Connection.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sdc.details.connection.summary2">
+        <source>This data is refreshed each time the system connects to @@PRODUCT_NAME@@.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/Connection.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sdc.details.connection.empty">
+        <source>This system connects directly and not through a Proxy.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/Connection.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sdc.details.connection.proxyorder">
+        <source>Proxy Order</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/Connection.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="sdc.details.hardware.swap">
         <source>Swap:</source>
         <context-group name="ctx">

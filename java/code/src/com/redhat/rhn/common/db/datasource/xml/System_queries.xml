@@ -1116,7 +1116,7 @@ SELECT SP.proxy_server_id ID, S.name, (SP.position + 1) AS position, SP.hostname
 ORDER BY SP.position
   </query>
   <elaborator name="system_overview"/>
-  <elaborator name="system_config_files_with_diffs" />
+  <elaborator name="entitlements" />
 </mode>
 
 <!--     TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS DISPLAY_DATE -->

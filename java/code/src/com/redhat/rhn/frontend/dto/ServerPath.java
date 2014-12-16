@@ -19,7 +19,7 @@ package com.redhat.rhn.frontend.dto;
  * ServerPath
  * @version $Rev: 76626 $
  */
-public class ServerPath {
+public class ServerPath extends SystemOverview {
 
     private Long id;
     private String name;

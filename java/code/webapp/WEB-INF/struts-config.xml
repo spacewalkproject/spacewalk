@@ -2875,6 +2875,16 @@
                  path="/systems/details/SystemHardware.do" redirect="true"/>
     </action>
 
+    <action path="/systems/details/Connection"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/connection.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SystemConnectionAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_channel_family(rhn-proxy)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/connection.jsp" />
+    </action>
+
     <action path="/systems/SystemCurrency"
         scope="request"
         name="systemCurrencyForm"
