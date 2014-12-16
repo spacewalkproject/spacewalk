@@ -484,11 +484,6 @@ public class ListDisplayTag extends ListDisplayTagBase {
         out.append(target.toString());
     }
 
-    @Override
-    protected void renderHeadExtraAddons(Writer out) throws IOException {
-        renderSetButtons(out);
-    }
-
     private void renderSetButtons(Writer out) throws IOException {
         StringBuilder buf = new StringBuilder();
         if (set != null) {
@@ -625,17 +620,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
             return;
         }
 
-        out.println("<div>");
-        if (getButton() != null && AclManager.hasAcl(getButtonAcl(),
-                (HttpServletRequest) pageContext.getRequest(), getMixins())) {
-
-            out.println("<button class=\"btn btn-default\"" +
-                        " type=\"submit\" name=\"dispatch\" value=\"" +
-                        LocalizationService.getInstance().getMessage(getButton()) +
-                        "\">" +
-                        LocalizationService.getInstance().getMessage(getButton()) +
-                        "</button>");
-        }
+        out.println("<div class=\"col-sm-12 text-right\">");
         if (getButton2() != null && AclManager.hasAcl(getButton2Acl(),
                 (HttpServletRequest) pageContext.getRequest(), getMixins())) {
 
@@ -646,7 +631,16 @@ public class ListDisplayTag extends ListDisplayTagBase {
                         LocalizationService.getInstance().getMessage(getButton2()) +
                         "</button>");
         }
+        if (getButton() != null && AclManager.hasAcl(getButtonAcl(),
+                (HttpServletRequest) pageContext.getRequest(), getMixins())) {
 
+            out.println("<button class=\"btn btn-primary\"" +
+                    " type=\"submit\" name=\"dispatch\" value=\"" +
+                    LocalizationService.getInstance().getMessage(getButton()) +
+                    "\">" +
+                    LocalizationService.getInstance().getMessage(getButton()) +
+                    "</button>");
+        }
         out.println("</div>");
     }
 
@@ -948,9 +942,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
             out.println("<div class=\"panel-footer\">");
             out.println("<div class=\"spacewalk-list-footer-addons\">");
             out.println("<div class=\"spacewalk-list-footer-addons-extra\">");
-            if (isPaging()) {
-                renderActionButtons(out);
-            }
+            renderSetButtons(out);
             out.println("</div>");
             out.println("<div class=\"spacewalk-list-reflinks\">");
             if (reflink != null) {
@@ -1015,6 +1007,11 @@ public class ListDisplayTag extends ListDisplayTagBase {
                 out.println("</span>");
             }
             out.println("</div>");
+            if (isPaging()) {
+                out.print("<div class=\"row-0\">\n");
+                renderActionButtons(out);
+                out.println("</div>");
+            }
             out.println("</div>");
 
             // close list
