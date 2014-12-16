@@ -989,7 +989,6 @@ sub postgresql_setup_db {
         }
     }
 
-    # Why is this code here?
     write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password', 'db-ssl-enabled');
 
     if ($opts->{'external-postgresql-over-ssl'}) {
@@ -1855,6 +1854,8 @@ sub update_monitoring_ack_enqueuer {
 }
 
 # Write subset of $answers to /etc/rhn/rhn.conf.
+# Config written here is used only for database population
+# and config will be later on replaced by one generated from templates.
 sub write_rhn_conf {
 	my $answers = shift;
 
