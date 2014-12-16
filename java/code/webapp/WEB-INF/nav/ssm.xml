@@ -97,9 +97,6 @@
             <rhn-tab name="ssm.misc.index.tabs.reboot" url="/rhn/systems/ssm/misc/RebootSystem.do" />
             <rhn-tab name="ssm.misc.index.tabs.delete" url="/rhn/systems/ssm/DeleteConfirm.do"/>
 	    <rhn-tab-url>/rhn/systems/ssm/misc/ConfirmSystemPreferences.do</rhn-tab-url>
-            <rhn-tab-url>/network/systems/ssm/misc/prof_conv_conf.pxt</rhn-tab-url>
             <rhn-tab-url>/rhn/systems/ssm/DeleteConfirm.do</rhn-tab-url>
-            <rhn-tab-url>/network/systems/ssm/misc/reboot_systems_conf.pxt</rhn-tab-url>
-            <rhn-tab-url>/network/systems/ssm/misc/upgrade_slot.pxt</rhn-tab-url>
 	</rhn-tab>
 </rhn-navi-tree>
