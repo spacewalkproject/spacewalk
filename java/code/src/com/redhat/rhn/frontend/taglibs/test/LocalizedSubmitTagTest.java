@@ -30,8 +30,7 @@ import javax.servlet.jsp.tagext.Tag;
  */
 public class LocalizedSubmitTagTest extends RhnBaseTestCase {
 
-    // TODO : Fix this so the build isnt broken
-    public void testTagOutput() {
+    public void testTagOutputDefault() {
         LocalizedSubmitTag ltag = new LocalizedSubmitTag();
         ltag.setValueKey("none.message");
         ltag.setTabindex("3");
@@ -41,7 +40,33 @@ public class LocalizedSubmitTagTest extends RhnBaseTestCase {
             // setup mock objects
             MockJspWriter out = (MockJspWriter)tth.getPageContext().getOut();
             out.setExpectedData("<input type=\"submit\"" +
-                " tabindex=\"3\" value=\"(none)\" class=\"btn btn-default\">");
+                " tabindex=\"3\" value=\"(none)\" class=\"btn btn-primary\">");
+            // ok let's test the tag
+            tth.assertDoStartTag(Tag.SKIP_BODY);
+            tth.assertDoEndTag(Tag.EVAL_PAGE);
+            out.verify();
+        }
+        catch (JspException e) {
+            fail(e.toString());
+        }
+        catch (Exception e1) {
+            e1.printStackTrace();
+            fail(e1.toString());
+        }
+    }
+
+    public void testTagOutputWithStyle() {
+        LocalizedSubmitTag ltag = new LocalizedSubmitTag();
+        ltag.setValueKey("none.message");
+        ltag.setTabindex("3");
+        ltag.setStyleClass("foo btn btn-danger");
+        try {
+            TagTestHelper tth = TagTestUtils.setupTagTest(ltag, null);
+            tth.getPageContext().getRequest();
+            // setup mock objects
+            MockJspWriter out = (MockJspWriter)tth.getPageContext().getOut();
+            out.setExpectedData("<input type=\"submit\"" +
+                    " tabindex=\"3\" value=\"(none)\" class=\"foo btn btn-danger\">");
             // ok let's test the tag
             tth.assertDoStartTag(Tag.SKIP_BODY);
             tth.assertDoEndTag(Tag.EVAL_PAGE);
