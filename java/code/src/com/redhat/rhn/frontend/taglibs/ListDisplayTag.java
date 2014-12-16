@@ -520,6 +520,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
         btn.setAttribute("class", "btn btn-default");
         btn.setAttribute("type", "submit");
         btn.setAttribute("name", name);
+        btn.setAttribute("value", ls.getMessage(label));
         btn.addBody(ls.getMessage(label));
         return btn;
 
