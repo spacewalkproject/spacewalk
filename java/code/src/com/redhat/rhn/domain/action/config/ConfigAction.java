@@ -20,7 +20,11 @@ import com.redhat.rhn.domain.action.ActionFormatter;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.html.HtmlTag;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -80,7 +84,7 @@ public class ConfigAction extends Action {
         retval.append("</br>");
         retval.append(ls.getMessage("system.event.configFiles"));
         retval.append("</br>");
-        for (ConfigRevisionAction rev : this.getConfigRevisionActions()) {
+        for (ConfigRevisionAction rev : this.getConfigRevisionActionsSorted()) {
             if (rev.getServer().equals(server)) {
                 HtmlTag a = new HtmlTag("a");
                 a.setAttribute("href", "/rhn/configuration/file/FileDetails.do?sid=" +
@@ -96,4 +100,23 @@ public class ConfigAction extends Action {
         return retval.toString();
     }
 
+    /**
+     * Sort the set of revision actions for their config file paths.
+     * @return sorted list of revision actions
+     */
+    protected List<ConfigRevisionAction> getConfigRevisionActionsSorted() {
+        List<ConfigRevisionAction> revisionActions = new ArrayList<ConfigRevisionAction>(
+                this.getConfigRevisionActions());
+        Collections.sort(revisionActions, new Comparator<ConfigRevisionAction>() {
+            @Override
+            public int compare(ConfigRevisionAction o1, ConfigRevisionAction o2) {
+                String p1 = o1.getConfigRevision().getConfigFile().
+                        getConfigFileName().getPath();
+                String p2 = o2.getConfigRevision().getConfigFile().
+                        getConfigFileName().getPath();
+                return p1.compareTo(p2);
+            }
+        });
+        return Collections.unmodifiableList(revisionActions);
+    }
 }

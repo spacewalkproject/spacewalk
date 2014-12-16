@@ -34,7 +34,7 @@ public class ConfigVerifyAction extends ConfigAction {
         retval.append("</br>");
         retval.append(ls.getMessage("system.event.configFiles"));
         retval.append("</br>");
-        for (ConfigRevisionAction rev : this.getConfigRevisionActions()) {
+        for (ConfigRevisionAction rev : this.getConfigRevisionActionsSorted()) {
             if (rev.getServer().equals(server)) {
                 HtmlTag a = new HtmlTag("a");
                 a.setAttribute("href", "/rhn/configuration/file/FileDetails.do?sid=" +
