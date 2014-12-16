@@ -21,8 +21,12 @@
 
 
 <p><bean:message key="activation-keys.jsp.para1"/></p>
-<h2><bean:message key="activation-key.jsp.universal-default"/></h2>
-<p><bean:message key="activation-keys.jsp.universal-default-text"/></p>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><bean:message key="activation-key.jsp.universal-default"/></h4>
+    </div>
+    <div class="panel-body">
+      <p><bean:message key="activation-keys.jsp.universal-default-text"/></p>
 <c:choose>
   <c:when test="${not empty requestScope['default']}">
   <table class="table">
@@ -89,13 +93,14 @@
 </table>
         </c:when>
    <c:otherwise>
-                <bean:message key="activation-keys.jsp.no-universal-default"/>
+                <div class="alert alert-info">
+                        <bean:message key="activation-keys.jsp.no-universal-default"/>
+                </div>
    </c:otherwise>
 </c:choose>
-
-</p>
-
-<h2><bean:message key="activation-keys.jsp.all-keys"/></h2>
+</div>
+</div>
+<h4><bean:message key="activation-keys.jsp.all-keys"/></h4>
 <p>
         <bean:message key="activation-keys.jsp.para2"/>
 </p>
