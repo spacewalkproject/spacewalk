@@ -50,9 +50,9 @@ public class LocalizedSubmitTag extends SubmitTag {
      */
     public String getStyleClass() {
         if (super.getStyleClass() != null) {
-            return (super.getStyleClass() + " btn btn-default");
+            return (super.getStyleClass());
         }
-        return "btn btn-default";
+        return "btn btn-primary";
     }
 
     /** {@inheritDoc}

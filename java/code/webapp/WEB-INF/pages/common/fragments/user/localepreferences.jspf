@@ -6,7 +6,7 @@
   </div>
   <div class="panel-body">
     <p><bean:message key="preferences.jsp.datestimes"/></p>
-    <div class="row-0">
+    <div class="form-group">
       <div class="col-md-2">
         <bean:message key="preferences.jsp.displaytimesas"/>
       </div>
@@ -16,6 +16,11 @@
           property="value"
           labelProperty="display" />
         </html:select>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <rhn:submit valueKey="preferences.jsp.submitvalue"/>
       </div>
     </div>
   </div>
