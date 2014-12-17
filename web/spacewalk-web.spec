@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.28
+Version: 2.3.29
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -288,6 +288,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.29-1
+- remove monitoring thing from web so we can run directly out of this branch
+
 * Thu Dec 11 2014 Grant Gainey 2.3.28-1
 - 1168191 - Remove vestige of ctxt-sensitive help, and teach PXT::HTML->link
   not to link when there is no url
