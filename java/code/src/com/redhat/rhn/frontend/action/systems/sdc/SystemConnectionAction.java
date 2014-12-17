@@ -60,6 +60,11 @@ public class SystemConnectionAction extends RhnAction implements Listable<Server
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
+    /**
+     * Get the list of server paths
+     * @param context the request context
+     * @return the list of server paths
+     */
     @Override
     public List<ServerPath> getResult(RequestContext context) {
         Long sid = context.getRequiredParam(RequestContext.SID);

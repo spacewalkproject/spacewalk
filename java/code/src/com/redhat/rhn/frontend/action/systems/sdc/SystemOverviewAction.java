@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.action.systems.sdc;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
