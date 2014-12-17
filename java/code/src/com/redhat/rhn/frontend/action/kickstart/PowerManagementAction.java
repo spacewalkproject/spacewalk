@@ -188,25 +188,12 @@ public class PowerManagementAction extends RhnAction {
      */
     public static CobblerPowerSettingsUpdateCommand getPowerSettingsUpdateCommandSSM(
             DynaActionForm form, User user, Server server) {
-        String addr = form.getString(POWER_ADDRESS);
-        String usr = form.getString(POWER_USERNAME);
-        String pass = form.getString(POWER_PASSWORD);
-        String id = form.getString(POWER_ID);
-        // In SSM and empty value means "do not change"
-        if (StringUtils.isBlank(addr)) {
-            addr = null;
-        }
-        if (StringUtils.isBlank(usr)) {
-            usr = null;
-        }
-        if (StringUtils.isBlank(pass)) {
-            pass = null;
-        }
-        if (StringUtils.isBlank(id)) {
-            id = null;
-        }
         return new CobblerPowerSettingsUpdateCommand(
-            user, server, form.getString(POWER_TYPE), addr, usr, pass, id);
+            user, server, form.getString(POWER_TYPE),
+            StringUtils.trimToNull(form.getString(POWER_ADDRESS)),
+            StringUtils.trimToNull(form.getString(POWER_USERNAME)),
+            StringUtils.trimToNull(form.getString(POWER_PASSWORD)),
+            StringUtils.trimToNull(form.getString(POWER_ID)));
     }
 
     /**
