@@ -413,14 +413,6 @@ is
 
          rhn_server.delete_from_servergroup(server_id_in, group_id);
 
-         if type_label_in = 'monitoring_entitled' then
-           DELETE
-             FROM rhn_probe
-            WHERE recid IN (SELECT probe_id
-                              FROM rhn_check_probe
-                             WHERE host_id = server_id_in);
-         end if;
-
          if is_virt = 1 and repoll_virt_guests = 1 then
            rhn_entitlements.repoll_virt_guest_entitlements(server_id_in);
          end if;
