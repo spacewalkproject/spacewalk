@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.21
+Version:	2.3.22
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.22-1
+- drop monitoring code and monitoring schema
+
 * Mon Dec 15 2014 Jan Dobes 2.3.21-1
 - 1171675 - we do not support postgresql to upgrade from
 
