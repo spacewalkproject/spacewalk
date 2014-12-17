@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.109
+Version: 2.3.110
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,38 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.110-1
+- fix checkstyle problems
+- Migrate sdc Connection page to java
+- remove old references to perl pages in ssm.xml that no longer exist
+- and one more reference
+- migrate SSM Misc System Preferences Confirm page to java
+- Revert "updating the test sitenav.xml with more recent content" I should make
+  sure this doesn't break test first
+- updating the test sitenav.xml with more recent content
+- migrate SSM Rollback page to java
+- Migrate SSM Tag Systems page to java
+- use c:out instead of bare references to avoid potential xss problems
+- removing references to perl restart pages that no longer exist
+- Migrating SSM Custom Value pages to java
+- a few more old pxt references to clean up
+- random cleanups, mostly getting rid of references to pxt pages
+- migrate about help page to java
+- updating old references to pxt pages from StringResources
+- make config column be correct for Installed Systems and Target Systems pages
+- Fix checkstyle errors
+- port package details Target Systems pages to java
+- fixing a couple of hard-to-track-down xml errors
+- Migrating 'systems with installed package' page to java
+- Port package 'new versions' page to java
+- Package maps are only a solaris feature, remove
+- Porting package file list page to java
+- Removing solaris support from spacewalk-java
+- drop monitoring code and monitoring schema
+- plus one more reference
+- A more complete removal of monitoring from spacewalk-java
+- take a giant ax to monitoring in spacewalk-java. work in progress
+
 * Tue Dec 16 2014 Tomas Lestach <tlestach@redhat.com> 2.3.109-1
 - 1174627 - make sure columns are named according to the dto attributes
 - Revert "don't show packages tab if activation key hasn't provisioning
