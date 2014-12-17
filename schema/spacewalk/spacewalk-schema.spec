@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.22
+Version:        2.3.23
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.23-1
+- Removing solaris tables
+- drop monitoring code and monitoring schema
+- removing monitoring from spacewalk-schema
+
 * Wed Dec 17 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.22-1
 - armv6hl could be present at the time of upgrade
 
