@@ -72,9 +72,9 @@ function movePrevious() {
         </div>
       </div>
       <div class="panel-footer text-center">
-        <input type="button" value="<bean:message key='wizard.jsp.previous.step'/> <bean:message key='wizard.jsp.previous.step'/>" onclick="movePrevious();" class="btn btn-default" />
+        <input type="button" value="<bean:message key='wizard.jsp.previous.step'/>" onclick="movePrevious();" class="btn btn-default" />
         &nbsp;&nbsp;
-        <input type="submit" value="<bean:message key='wizard.jsp.finish.step'/> <i class='fa fa-arrow-right'></i>" onclick="moveNext();" class="btn btn-primary" />
+        <input type="submit" value="<bean:message key='wizard.jsp.finish.step'/>" onclick="moveNext();" class="btn btn-primary" />
       </div>
     </div>
   </html:form>
