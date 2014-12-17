@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.24
+Version:        2.3.25
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.25-1
+- remove monitoring server group type
+- Fix upgrade schema script that drops monitoring tables
+
 * Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.24-1
 - fixing upgrade script ordering after perl-removal merge
 
