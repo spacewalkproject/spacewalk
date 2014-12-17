@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.21
+Version:        2.3.22
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Dec 17 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.22-1
+- armv6hl could be present at the time of upgrade
+
 * Fri Dec 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.21-1
 - 1021057 - renamed package upgrade scripts to .sql
 
