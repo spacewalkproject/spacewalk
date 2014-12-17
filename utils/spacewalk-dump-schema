@@ -14,10 +14,13 @@ Spacewalk::Setup::read_config($config_file, \%options);
 
 my @supported_backends = qw( oracle postgresql );
 
-my ($db, $user, $password, $from_backend, $to_backend, $raw);
+my ($db, $user, $password, $from_backend, $to_backend, $raw, $host, $port);
 
 sub usage {
-	print "$0: [--from=DB_BACKEND] [--to=DB_BACKEND] [--db=SID --user=USERNAME --password=PASSWORD] [ --help ]\n";
+	print "Usage:\n\n";
+	print "$0 [--from=oracle] [--to=DB_BACKEND] [--db=SID --user=USERNAME --password=PASSWORD]\n\n";
+	print "$0 [--from=postgresql] [--to=DB_BACKEND] [--db=DBNAME --host=HOSTNAME --port=PORT --user=USERNAME --password=PASSWORD]\n\n";
+	print "$0 [ --help ]\n\n";
 	if ($@) {
 		exit shift;
 	}
@@ -26,6 +29,8 @@ sub usage {
 
 Getopt::Long::GetOptions (
 	'db=s' => \$db,
+	'host=s' => \$host,
+	'port=s' => \$port,
 	'user=s' => \$user,
 	'password=s' => \$password,
         'from=s' => \$from_backend,
@@ -34,9 +39,9 @@ Getopt::Long::GetOptions (
 	'help' => \&usage,
 ) or exit 1;
 
-if (grep { defined $_ } $db, $user, $password) {
+if (grep { defined $_ } $db, $user, $password, $host, $port) {
 	# Some connect parameter was specified, let's use it as new connect info
-	@options{qw( db_name db_user db_password )} = ( $db, $user, $password );
+	@options{qw( db_name db_user db_password db_host db_port )} = ( $db, $user, $password, $host, $port );
 }
 
 # Setting input and output backend type from optional parameters, use defaultly Oracle to PostgreSQL if not sufficient data provided
@@ -61,12 +66,14 @@ $ENV{NLS_TIMESTAMP_TZ_FORMAT} = 'YYYY-MM-DD HH24:MI:SS.FF TZH:TZM';
 
 my $connection_string;
 if ($options{db_backend} eq 'postgresql') {
-	$connection_string = "dbi:Pg:dbname=";
+	$connection_string = "dbi:Pg:dbname=".$options{db_name};
+        $connection_string .= ";host=".$options{db_host} if $options{db_host};
+        $connection_string .= ";port=".$options{db_port} if $options{db_port};
 } else {
-	$connection_string = "dbi:Oracle:";
+	$connection_string = "dbi:Oracle:".$options{db_name};
 }
 
-my $dbh = DBI->connect($connection_string.$options{db_name}, $options{db_user}, $options{db_password}, {
+my $dbh = DBI->connect($connection_string, $options{db_user}, $options{db_password}, {
 	RaiseError => 1,
 	FetchHashKeyName => 'NAME_lc',
 	LongReadLen => 20_000_000,
@@ -746,8 +753,11 @@ spacewalk-dump-schema
 
 =head1 SYNOPSIS
 
-	spacewalk-dump-schema [--from=DB_BACKEND] [--to=DB_BACKEND]
+	spacewalk-dump-schema [--from=oracle] [--to=DB_BACKEND]
             [--db=SID --user=USERNAME --password=PASSWORD]
+
+	spacewalk-dump-schema [--from=postgresql] [--to=DB_BACKEND]
+            [--db=DBNAME --host=HOSTNAME --port=PORT --user=USERNAME --password=PASSWORD]
 
 	spacewalk-dump-schema --help
 
@@ -789,8 +799,11 @@ The exit value is 0 upon success, non-zero value upon error.
                         -U spaceuser spaceschema
 
 	spacewalk-dump-schema --to=oracle --db=spaceschema \
+		--host=localhost --port=5433 \
                 --user=spaceuser --password=o9k2HInsl \
                 | NLS_LANG=AMERICAN_AMERICA.UTF8 sqlplus spaceuser/spacepw@//localhost/XE
+
+	spacewalk-dump-schema --to=oracle > dump.sql
 
 =head1 AUTHOR
 
