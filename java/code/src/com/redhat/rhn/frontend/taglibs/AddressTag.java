@@ -204,7 +204,6 @@ public class AddressTag extends TagSupport {
 
                 result.append("</address>");
 
-                result.append("<p>");
                 result.append("<a ")
                       .append("class=\"btn btn-primary\"")
                       .append(" href=\"")
@@ -216,7 +215,6 @@ public class AddressTag extends TagSupport {
                       .append("\">")
                       .append(ls.getMessage("Edit this address"))
                       .append("</a>");
-                result.append("</p>");
             }
             else {
                 result.append("<div class=\"alert alert-info\">");
