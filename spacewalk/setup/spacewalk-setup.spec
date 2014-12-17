@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.3.4
+Version:        2.3.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -113,6 +113,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.5-1
+- drop monitoring code and monitoring schema
+- Useful comment
+
 * Tue Dec 16 2014 Matej Kollar <mkollar@redhat.com> 2.3.4-1
 - 1020952 -- Check for existence of cert file
 
