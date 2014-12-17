@@ -31,6 +31,7 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -163,17 +164,36 @@ public class PowerManagementAction extends RhnAction {
 
     /**
      * Returns a CobblerPowerSettingsUpdateCommand from form data.
+     * Empty form data means - clear the value in cobbler.
      * @param form the form
      * @param user currently logged in user
      * @param server server to update
      * @return the command
      */
     public static CobblerPowerSettingsUpdateCommand getPowerSettingsUpdateCommand(
-        DynaActionForm form, User user, Server server) {
+            DynaActionForm form, User user, Server server) {
         return new CobblerPowerSettingsUpdateCommand(
             user, server, form.getString(POWER_TYPE), form.getString(POWER_ADDRESS),
             form.getString(POWER_USERNAME), form.getString(POWER_PASSWORD),
             form.getString(POWER_ID));
+    }
+
+    /**
+     * Returns a CobblerPowerSettingsUpdateCommand from form data.
+     * With SSM empty form data means - do not change the value.
+     * @param form the form
+     * @param user currently logged in user
+     * @param server server to update
+     * @return the command
+     */
+    public static CobblerPowerSettingsUpdateCommand getPowerSettingsUpdateCommandSSM(
+            DynaActionForm form, User user, Server server) {
+        return new CobblerPowerSettingsUpdateCommand(
+            user, server, form.getString(POWER_TYPE),
+            StringUtils.trimToNull(form.getString(POWER_ADDRESS)),
+            StringUtils.trimToNull(form.getString(POWER_USERNAME)),
+            StringUtils.trimToNull(form.getString(POWER_PASSWORD)),
+            StringUtils.trimToNull(form.getString(POWER_ID)));
     }
 
     /**
