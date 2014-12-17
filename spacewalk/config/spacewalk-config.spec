@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.3.1
+Version: 2.3.2
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -105,6 +105,10 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.2-1
+- drop monitoring code and monitoring schema
+- 1170064 - equality is too strict
+
 * Thu Dec 11 2014 Matej Kollar <mkollar@redhat.com> 2.3.1-1
 - 1020952 - Include SSL configuration in setup
 - Bumping package versions for 2.3.
