@@ -15,10 +15,6 @@
 
 insert into rhnSGTypeBaseAddonCompat (base_id, addon_id)
 values (lookup_sg_type('enterprise_entitled'), 
-        lookup_sg_type('monitoring_entitled'));
-
-insert into rhnSGTypeBaseAddonCompat (base_id, addon_id)
-values (lookup_sg_type('enterprise_entitled'), 
         lookup_sg_type('provisioning_entitled'));
 
 insert into rhnSGTypeBaseAddonCompat (base_id, addon_id)

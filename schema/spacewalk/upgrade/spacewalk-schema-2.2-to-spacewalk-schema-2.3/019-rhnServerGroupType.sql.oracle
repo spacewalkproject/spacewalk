@@ -1,0 +1,9 @@
+alter trigger rhnservergroup_log_trig disable;
+delete from rhnServerGroup where group_type in
+       (select id from rhnServerGroupType where label = 'monitoring_entitled');
+alter trigger rhnservergroup_log_trig enable;
+delete from rhnSgTypeBaseAddOnCompat where addon_id in
+       (select id from rhnServerGroupType where label = 'monitoring_entitled');
+delete from rhnServerServerGroupArchCompat where server_group_type in
+       (select id from rhnServerGroupType where label = 'monitoring_entitled');
+delete from rhnServerGroupType where label = 'monitoring_entitled';
