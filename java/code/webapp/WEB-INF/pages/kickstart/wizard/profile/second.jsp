@@ -64,23 +64,31 @@ function movePrevious() {
     <p><bean:message key="kickstart.jsp.create.wizard.second.heading1" /></p>
     <div class="panel panel-default">
       <div class="panel-body">
-        <div class="list-group">
-          <div class="row">
-            <div class="col-sm-2">
-              <bean:message key="kickstart.jsp.create.wizard.default.download.location.label" />:
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <div class="radio">
+              <label>
+                <html:radio styleId="wizard-defaultdownloadon" property="defaultDownload" value="true" onclick="disableCtl('wizard-userdefdload');">
+                </html:radio>
+                <p>
+                  <strong>
+                    <bean:message key="kickstart.jsp.create.wizard.default.download.location.label" />:
+                  </strong>
+                </p>
+                <bean:write name="kickstartCreateWizardForm" property="defaultDownloadLocation" />
+              </label>
             </div>
-            <div class="col-sm-10">
-              <html:radio styleId="wizard-defaultdownloadon" property="defaultDownload" value="true" onclick="disableCtl('wizard-userdefdload');"><bean:write name="kickstartCreateWizardForm" property="defaultDownloadLocation" /></html:radio>
-            </div>
-          </div>
-        </div>
-        <div class="list-group">
-          <div class="row">
-            <div class="col-sm-2">
-              <bean:message key="kickstart.jsp.create.wizard.custom.download.location.label" />:
-            </div>
-            <div class="col-sm-10">
-              <html:radio styleId="wizard-defaultdownloadoff" property="defaultDownload" value="false" onclick="enableCtl('wizard-userdefdload');"><html:text property="userDefinedDownload" styleId="wizard-userdefdload" size="50" maxlength="512" /></html:radio>
+            <div class="radio">
+              <label>
+                <html:radio styleId="wizard-defaultdownloadoff" property="defaultDownload" value="false" onclick="enableCtl('wizard-userdefdload');">
+                </html:radio>
+                <p>
+                  <strong>
+                    <bean:message key="kickstart.jsp.create.wizard.custom.download.location.label" />:
+                  </strong>
+                </p>
+                <html:text property="userDefinedDownload" styleClass="form-control" styleId="wizard-userdefdload" size="50" maxlength="512" />
+              </label>
             </div>
           </div>
         </div>
