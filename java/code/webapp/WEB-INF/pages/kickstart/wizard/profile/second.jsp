@@ -48,8 +48,6 @@ function movePrevious() {
 </head>
 
 <body onload="setState();">
-<br />
-<div>
   <html:form method="post" action="/kickstart/CreateProfileWizard.do">
     <rhn:csrf />
     <rhn:submitted />
@@ -101,7 +99,6 @@ function movePrevious() {
     </div>
 
   </html:form>
-</div>
 </body>
 </html:html>
 
