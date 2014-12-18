@@ -277,7 +277,7 @@ sub setup_cobbler {
     # Cobbler 2.0 can use the old helper script
     system(COBBLER_20_COMMAND);
   } else {
-    system(COBBLER_COMMAND, '--verbose', '--macros', "hostname:$answers->{'hostname'}");
+    system(COBBLER_COMMAND, '--macros', "hostname:$answers->{'hostname'}");
 
     my $skip_rhnconf = 0;
     open(FILE, "<" . Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION);
