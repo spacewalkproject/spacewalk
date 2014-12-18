@@ -34,7 +34,7 @@ function movePrevious() {
 <body onload="setState();">
 <br />
 <div>
-  <html:form method="POST" action="/kickstart/CreateProfileWizard.do">
+  <html:form method="POST" styleClass="form-horizontal" action="/kickstart/CreateProfileWizard.do">
     <rhn:csrf />
     <rhn:submitted />
     <html:hidden property="wizardStep" styleId="wizard-curstep" />
@@ -50,24 +50,20 @@ function movePrevious() {
     <p><bean:message key="kickstart.jsp.create.wizard.third.heading1" /></p>
     <div class="panel panel-default">
       <div class="panel-body">
-        <div class="list-group">
-          <div class="row">
-            <div class="col-sm-2">
-              <rhn:required-field key="kickstart.root.password.jsp.label"/>:
-            </div>
-            <div class="col-sm-10">
-              <html:password property="rootPassword" />
-            </div>
+        <div class="form-group">
+          <div class="col-sm-2">
+            <rhn:required-field key="kickstart.root.password.jsp.label"/>:
+          </div>
+          <div class="col-sm-10">
+            <html:password property="rootPassword" styleClass="form-control" />
           </div>
         </div>
-        <div class="list-group">
-          <div class="row">
-            <div class="col-sm-2">
-              <rhn:required-field key="kickstart.root.password.verify.jsp.label"/>:
-            </div>
-            <div class="col-sm-10">
-              <html:password property="rootPasswordConfirm" />
-            </div>
+        <div class="form-group">
+          <div class="col-sm-2">
+            <rhn:required-field key="kickstart.root.password.verify.jsp.label"/>:
+          </div>
+          <div class="col-sm-10">
+            <html:password property="rootPasswordConfirm" styleClass="form-control" />
           </div>
         </div>
       </div>
