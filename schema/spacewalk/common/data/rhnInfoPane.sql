@@ -14,8 +14,6 @@
 --
 insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'tasks',null);
 insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'critical-systems',null);
-insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'critical-probes','show_monitoring();');
-insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'warning-probes','show_monitoring();');
 insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'system-groups-widget','org_entitlement(sw_mgr_enterprise);');
 insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'latest-errata',null);
 insert into RHNINFOPANE(ID,LABEL,ACL) values (sequence_nextval('rhn_info_pane_id_seq'),'inactive-systems',null);
