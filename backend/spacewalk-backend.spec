@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.28
+Version: 2.3.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.29-1
+- teach sat-sync to ignore monitoring entitlements for backwards compatibility
+
 * Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.28-1
 - Remove solaris support from backend
 - drop monitoring code and monitoring schema
