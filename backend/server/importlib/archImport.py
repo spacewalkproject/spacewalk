@@ -135,3 +135,9 @@ class ServerGroupServerArchCompatImport(BaseArchCompatImport):
     submit_method_name = 'processServerGroupServerArchCompatMap'
     virt_sub_level     = 'virt_sub_level'
 
+    # monitoring is no longer supported, ignore any monitoring info for
+    # backwards compatibility
+    def _postprocess(self):
+        self.batch[:] = [entry for entry in self.batch if not
+                entry[self.arches2_name] == 'monitoring_entitled']
+        BaseArchCompatImport._postprocess(self)

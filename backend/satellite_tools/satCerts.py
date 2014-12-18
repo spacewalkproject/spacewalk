@@ -377,6 +377,12 @@ def set_slots_from_cert(cert, testonly=False):
 
         db_label = slots.get_db_label()
 
+        # Monitoring entitlements are no longer supported.
+        # Ignore any information about monitoring entitlements for backwards
+        # compatibility.
+        if db_label == 'monitoring_entitled':
+            continue
+
         quantity = slots.get_quantity()
 
         # Do not pass along a NULL quantity - NULL for
