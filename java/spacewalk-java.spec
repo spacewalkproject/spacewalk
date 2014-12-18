@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.111
+Version: 2.3.112
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.112-1
+- don't add sync-probe taskomatic task, but handle upgrades that have it
+
 * Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.111-1
 - Adding copyright statements where they were missing
 
