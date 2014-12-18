@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.27
+Version:        2.3.28
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.28-1
+- Monitoring Panes on YourRHN no longer exist, remove schema references to them
+
 * Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.27-1
 - rhn_method_types table no longer exists, don't insert data into it
 
