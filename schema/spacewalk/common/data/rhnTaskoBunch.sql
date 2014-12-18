@@ -37,9 +37,6 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'compare-configs-bunch', 'Schedules a comparison of config files on all systems', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'sync-probe-bunch', 'Calls the synch probe state proc', null);
-
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'session-cleanup-bunch', 'Deletes expired rows from the PXTSessions table to keep it from growing too large', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)

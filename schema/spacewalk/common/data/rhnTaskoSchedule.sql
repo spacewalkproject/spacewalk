@@ -15,11 +15,6 @@
 
 -- Top of every minute
 INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
-    VALUES(sequence_nextval('rhn_tasko_schedule_id_seq'), 'sync-probe-default',
-        (SELECT id FROM rhnTaskoBunch WHERE name='sync-probe-bunch'),
-        current_timestamp, '0 * * * * ?');
-
-INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
     VALUES(sequence_nextval('rhn_tasko_schedule_id_seq'), 'errata-queue-default',
         (SELECT id FROM rhnTaskoBunch WHERE name='errata-queue-bunch'),
         current_timestamp, '0 * * * * ?');

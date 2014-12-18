@@ -60,9 +60,6 @@ INSERT INTO rhnTaskoTask (id, name, class)
          VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'compare-config-files', 'com.redhat.rhn.taskomatic.task.CompareConfigFilesTask');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'sync-probe-state', 'com.redhat.rhn.taskomatic.task.SynchProbeState');
-
-INSERT INTO rhnTaskoTask (id, name, class)
          VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'sat-cert-check', 'com.redhat.rhn.taskomatic.task.SatelliteCertificateCheck');
 
 INSERT INTO rhnTaskoTask (id, name, class)
