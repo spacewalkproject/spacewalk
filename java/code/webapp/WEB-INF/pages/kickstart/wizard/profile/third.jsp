@@ -32,8 +32,7 @@ function movePrevious() {
 </head>
 
 <body onload="setState();">
-<br />
-<div>
+
   <html:form method="POST" styleClass="form-horizontal" action="/kickstart/CreateProfileWizard.do">
     <rhn:csrf />
     <rhn:submitted />
@@ -75,7 +74,6 @@ function movePrevious() {
     </div>
   </html:form>
   </html>
-</div>
 </body>
 </html>
 
