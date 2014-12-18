@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.28
+Version:        2.3.29
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.29-1
+- don't add sync-probe taskomatic task, but handle upgrades that have it
+
 * Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.28-1
 - Monitoring Panes on YourRHN no longer exist, remove schema references to them
 
