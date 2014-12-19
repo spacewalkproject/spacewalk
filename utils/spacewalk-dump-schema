@@ -160,6 +160,27 @@ EXCEPTION
 END;
 /
 
+-- create temporary function
+CREATE OR REPLACE FUNCTION tmp_get_index_columns(tablespace_name_in IN VARCHAR, table_name_in IN VARCHAR, index_name_in IN VARCHAR) RETURN VARCHAR
+IS
+    index_columns varchar(4000);
+BEGIN
+    index_columns := '';
+    FOR rec IN (
+        SELECT mic.column_name
+        FROM tmp_migration_indexes mi, tmp_migration_index_columns mic
+        WHERE mi.index_name = mic.index_name
+            AND upper(mi.tablespace_name) = upper(tablespace_name_in)
+            AND upper(mi.table_name) = upper(table_name_in)
+            AND upper(mi.index_name) = upper(index_name_in)
+        ORDER BY mic.column_name
+    ) LOOP
+        index_columns := index_columns || ', ' || rec.column_name;
+    END LOOP;
+    RETURN LTRIM(index_columns, ', ');
+END tmp_get_index_columns;
+/
+
 -- save and drop unique indexes
 BEGIN
  FOR item IN (
@@ -239,17 +260,18 @@ print <<'EOS';
 -- recreate unique indexes
 BEGIN
  FOR item IN (
-SELECT mi.index_name, mi.table_name, mi.tablespace_name, LISTAGG ( mic.column_name, ', ' )
-  WITHIN GROUP ( ORDER BY mic.column_name ) index_columns
-  FROM tmp_migration_indexes mi, tmp_migration_index_columns mic
-WHERE mi.index_name = mic.index_name
-GROUP BY mi.index_name, mi.table_name, mi.tablespace_name
+SELECT index_name, table_name, tablespace_name,
+       tmp_get_index_columns(tablespace_name, table_name, index_name) index_columns
+  FROM tmp_migration_indexes
 )
  LOOP
     execute immediate 'create unique index ' || item.index_name || ' on ' || item.table_name || ' ( ' || item.index_columns || ' ) tablespace ' || item.tablespace_name;
  END LOOP;
 END;
 /
+
+-- drop temporary funxtion
+DROP FUNCTION tmp_get_index_columns;
 
 -- drop temporary tables
 drop table tmp_migration_indexes;
