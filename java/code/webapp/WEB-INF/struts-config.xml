@@ -2895,6 +2895,16 @@
                  path="/WEB-INF/pages/systems/sdc/proxy.jsp" />
     </action>
 
+    <action path="/systems/details/ProxyClients"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/proxyclients.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.ProxyClientsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_channel_family()"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/proxyclients.jsp" />
+    </action>
+
     <action path="/systems/SystemCurrency"
         scope="request"
         name="systemCurrencyForm"

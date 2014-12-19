@@ -2427,4 +2427,15 @@ ORDER BY E.update_date, E.id
   </query>
 </mode>
 
+<mode name="clients_through_proxy" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="sid">
+SELECT SP.server_id ID, S.name
+  FROM rhnServer S, rhnServerPath SP
+ WHERE SP.proxy_server_id = :sid
+   AND S.id = SP.server_id
+  </query>
+  <elaborator name="system_overview"/>
+  <elaborator name="entitlements"/>
+</mode>
+
 </datasource_modes>

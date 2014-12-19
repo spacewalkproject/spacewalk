@@ -17851,6 +17851,18 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/systems/details/Proxy.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="sdc.details.proxyclients.header">
+        <source>Proxy Clients</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/ProxyClients.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sdc.details.proxyclients.empty">
+        <source>No clients currently connect through this Proxy.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/ProxyClients.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="sdc.details.connection.proxyorder">
         <source>Proxy Order</source>
         <context-group name="ctx">
