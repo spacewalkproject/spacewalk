@@ -15,7 +15,7 @@
       <rhn-tab name="Activation" url="/rhn/systems/details/Proxy.do" />
       <rhn-tab name="Systems Using Proxy" url="/rhn/systems/details/ProxyClients.do" acl="system_is_proxy()"/>
     </rhn-tab>
-    <rhn-tab name="Reactivation" url="/network/systems/details/activation.pxt" acl="system_feature(ftr_agent_smith)"/>
+    <rhn-tab name="Reactivation" url="/rhn/systems/details/Activation.do" acl="system_feature(ftr_agent_smith)"/>
     <rhn-tab name="Hardware">
       <rhn-tab-url>/rhn/systems/details/SystemHardware.do</rhn-tab-url>
     </rhn-tab>

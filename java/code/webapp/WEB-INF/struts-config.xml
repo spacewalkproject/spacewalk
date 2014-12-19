@@ -1101,6 +1101,13 @@
       <form-property name="submitted" type="java.lang.Boolean" />
     </form-bean>
 
+    <form-bean name="reactivationKeyForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="delete" type="java.lang.String" />
+      <form-property name="generate" type="java.lang.String" />
+      <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
+
     <form-bean name="deployImageForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
       <form-property name="vcpus" type="java.lang.Long" />
@@ -2900,9 +2907,20 @@
         input="/WEB-INF/pages/systems/sdc/proxyclients.jsp"
         type="com.redhat.rhn.frontend.action.systems.sdc.ProxyClientsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_channel_family()"/>
+        <set-property property="acls" value="org_channel_family(rhn-proxy)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/sdc/proxyclients.jsp" />
+    </action>
+
+    <action path="/systems/details/Activation"
+        name="reactivationKeyForm"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/activation.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.ActivationAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="system_feature(ftr_agent_smith)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/activation.jsp" />
     </action>
 
     <action path="/systems/SystemCurrency"

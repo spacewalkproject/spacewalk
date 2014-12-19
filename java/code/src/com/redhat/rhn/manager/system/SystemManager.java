@@ -3378,7 +3378,6 @@ public class SystemManager extends BaseManager {
     /**
      * Returns list of client systems that connect through a proxy
      * @param sid System Id of the proxy to check.
-     * @param pc PageControl
      * @return list of SystemOverviews.
      */
     public static DataResult<SystemOverview> listClientsThroughProxy(Long sid) {

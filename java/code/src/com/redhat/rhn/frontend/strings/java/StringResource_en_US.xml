@@ -6992,6 +6992,12 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="sdc.activation.kickstarting">
+        <source>There is a kickstart session in progress for this system.  Modifying this activation key is likely to cause the system to fail to re-register when the kickstart session is complete.  Using this key manually could cause unintended side-effects.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/Activation.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="sdc.channels.edit.base_channel_updated">
         <source>System's Base Channel has been updated.</source>
         <context-group name="ctx">
