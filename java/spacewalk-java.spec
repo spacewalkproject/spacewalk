@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.112
+Version: 2.3.113
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Dec 19 2014 Stephen Herr <sherr@redhat.com> 2.3.113-1
+- migrate sdc Reactivation page to java
+- migrate sdc clients through proxy page to java
+- migrate sdc Proxy page to java
+
 * Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.112-1
 - don't add sync-probe taskomatic task, but handle upgrades that have it
 
