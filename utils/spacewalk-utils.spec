@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.23
+Version:	2.3.24
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Dec 19 2014 Tomas Lestach <tlestach@redhat.com> 2.3.24-1
+- 1175637 - make the sql Oracle 10g compatible
+
 * Wed Dec 17 2014 Jan Dobes 2.3.23-1
 - 1175398 - introduce --host and --port parameter for external PostgreSQL
 
