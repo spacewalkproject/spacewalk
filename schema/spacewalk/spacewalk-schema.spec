@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.29
+Version:        2.3.30
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Dec 19 2014 Stephen Herr <sherr@redhat.com> 2.3.30-1
+- add schema upgrade scripts to fix triggers on rhnServerNetwork
+
 * Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.29-1
 - don't add sync-probe taskomatic task, but handle upgrades that have it
 
