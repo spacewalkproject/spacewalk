@@ -3,9 +3,9 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
-<div class="form-group">
+<c:if test="${not empty regularKS}">
+  <div class="form-group">
     <label for="targetProfileType" class="col-sm-3 control-label"><bean:message key="kickstart.schedule.sync.pkg.profile.jsp" /></label>
-    <c:if test="${not empty regularKS}">
         <div class="col-sm-9">
             <div class="radio">
                 <label>
@@ -17,11 +17,10 @@
                 </label>
             </div>
         </div>
-    </c:if>
-</div>
+  </div>
 
-<div class="form-group">
-    <div class="<c:if test="${not empty regularKS}">col-sm-offset-3</c:if> col-sm-9">
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
         <div class="radio">
             <label>
                 <input type="radio" name="targetProfileType" value="package" id="syncPackage"
@@ -42,7 +41,35 @@
             </c:forEach>
         </select>
     </div>
-</div>
+  </div>
+</c:if>
+
+<c:if test="${empty regularKS}">
+  <div class="form-group">
+    <label for="targetProfileType" class="col-sm-3 control-label"><bean:message key="kickstart.schedule.sync.pkg.profile.jsp" /></label>
+    <div class="col-sm-9">
+        <div class="radio">
+            <label>
+                <input type="radio" name="targetProfileType" value="package" id="syncPackage"
+                    onclick="form.syncPackageSelect.disabled = false; form.syncSystemSelect.disabled = true;"
+                    <c:if test="${form.targetProfileType == 'package'}">checked="checked"</c:if>
+                    <c:if test="${syncPackageDisabled or empty form.syncPackages}">disabled="true"</c:if>
+                />
+                <bean:message key="kickstart.schedule.sync.pkg.profile.option2.jsp" />
+            </label>
+        </div>
+
+        <select name="targetProfile" id="syncPackageSelect"
+            <c:if test="${empty form.syncPackages}">hidden="true"</c:if>
+            <c:if test="${form.targetProfileType ne 'package'}">disabled="true"</c:if>
+        >
+            <c:forEach var="packagex" items="${form.syncPackages}">
+                <option <c:if test="${packagex.id == form.targetProfile}">selected="selected"</c:if> value='${packagex.id}'>${packagex.name}</option>
+            </c:forEach>
+        </select>
+    </div>
+  </div>
+</c:if>
 
 <div class="form-group">
     <c:if test="${empty noSystemProfile}">
