@@ -6986,6 +6986,12 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="channels.subscribers.updated">
+        <source>{0} channel subscriber(s) successfully updated.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/Subscribers.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="channels.managers.updated">
         <source>{0} channel manager(s) successfully updated.</source>
         <context-group name="ctx">

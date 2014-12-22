@@ -20984,6 +20984,18 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/Managers.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="channel.jsp.subscribers.header">
+        <source>Subscribers</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Subscribers.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.jsp.subscribers.message">
+        <source>Selected users may subscribe systems to this channel. Users with Admin Access (org admins or channel admins) may subscribe systems to any channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Subscribers.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="unknown.package">
         <source>Unknown Package</source>
         <context-group name="ctx">

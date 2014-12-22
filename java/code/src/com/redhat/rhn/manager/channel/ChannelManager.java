@@ -2882,6 +2882,16 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
+     * returns channel subscriber ids within the given org for a given channel
+     * @param org given organization
+     * @param channel channel
+     * @return list of channel subscriber ids
+     */
+    public static List<Long> listChannelSubscriberIdsForChannel(Org org, Channel channel) {
+        return ChannelFactory.listSubscriberIdsForChannel(org, channel.getId());
+    }
+
+    /**
      * @param csid content source (repository) ID
      * @param pc pageControl
      * @return List of channels associated to a content source (repository)

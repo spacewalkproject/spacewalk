@@ -7807,6 +7807,32 @@
                  path="/channels/manage/ChannelPackages.do" redirect="true" />
    </action>
 
+   <action path="/channels/Subscribers"
+        scope="request"
+        input="/WEB-INF/pages/channels/manage/subscribers.jsp"
+        type="com.redhat.rhn.frontend.action.channels.SubscribersAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(channel_admin) or user_can_admin_channel();"/>
+        <set-property property="mixins"
+              value="com.redhat.rhn.common.security.acl.ChannelAclHandler"/>
+        <forward name="default" path="/WEB-INF/pages/channels/manage/subscribers.jsp" />
+        <forward name="submitted"
+                 path="/channels/Subscribers.do" redirect="true"/>
+   </action>
+
+   <action path="/channels/manage/Subscribers"
+        scope="request"
+        input="/WEB-INF/pages/channels/manage/subscribers_manage.jsp"
+        type="com.redhat.rhn.frontend.action.channels.SubscribersAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(channel_admin) or user_can_admin_channel();"/>
+        <set-property property="mixins"
+              value="com.redhat.rhn.common.security.acl.ChannelAclHandler"/>
+        <forward name="default" path="/WEB-INF/pages/channels/manage/subscribers_manage.jsp" />
+        <forward name="submitted"
+                 path="/channels/manage/Subscribers.do" redirect="true"/>
+   </action>
+
    <action path="/channels/Managers"
         scope="request"
         input="/WEB-INF/pages/channels/manage/managers.jsp"
