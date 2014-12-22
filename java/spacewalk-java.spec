@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.113
+Version: 2.3.114
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 22 2014 Stephen Herr <sherr@redhat.com> 2.3.114-1
+- Port Channel Subscriber pages to java
+- minor style fix for virt-guest advanced options kickstart page
+- Port of the advanced kickstart options to TB3.
+- ErrataManager.applyErrata: raise exception even when there is no relevant
+  errata
+- Improve applyErrata algorithm to apply only relevant erratas. Testcase
+  included.
+- hasKeyword and containsKeyword are the same, but one crashes on null
+- 1176435 - make displaying package actions with multiple packages faster
+
 * Fri Dec 19 2014 Stephen Herr <sherr@redhat.com> 2.3.113-1
 - migrate sdc Reactivation page to java
 - migrate sdc clients through proxy page to java
