@@ -32,22 +32,8 @@ import java.util.Set;
  */
 public class PackageAction extends Action {
 
-    private Set details = new HashSet();
-    private Set <PackageActionDetails> affectedPackages;
-
-    /**
-     * @return packages affected by this action
-     */
-    public Set <PackageActionDetails> getAffectedPackages() {
-        return affectedPackages;
-    }
-
-    /**
-     * @param affectedPackagesIn affected packages to be set
-     */
-    public void setAffectedPackages(Set <PackageActionDetails> affectedPackagesIn) {
-        this.affectedPackages = affectedPackagesIn;
-    }
+    private static final long serialVersionUID = -6964115307447205711L;
+    private Set<PackageActionDetails> details = new HashSet<PackageActionDetails>();
 
     /**
      * Add a PackageActionDetails to the set of details
@@ -62,14 +48,14 @@ public class PackageAction extends Action {
     /**
      * @return Returns the details.
      */
-    public Set getDetails() {
+    public Set<PackageActionDetails> getDetails() {
         return details;
     }
 
     /**
      * @param d The details to set.
      */
-    public void setDetails(Set d) {
+    public void setDetails(Set<PackageActionDetails> d) {
         this.details = d;
     }
 
@@ -102,12 +88,10 @@ public class PackageAction extends Action {
             retval.append(ls.getMessage("system.event.packagesRemove"));
         }
         retval.append("</br><ul>");
-        for (PackageActionDetails pad : affectedPackages) {
+        for (PackageActionDetails pad : details) {
             retval.append("<li>");
-            Long evrId = pad.getEvr() != null ? pad.getEvr().getId() : null;
-            Long archId = pad.getArch() != null ? pad.getArch().getId() : null;
-            String nevra = PackageManager.buildPackageNevra(pad.getPackageName().getId(),
-                    evrId, archId);
+            String nevra = PackageManager.buildPackageNevra(pad.getPackageName(), pad
+                    .getEvr(), pad.getArch());
             retval.append(StringEscapeUtils.escapeHtml(nevra));
             retval.append("</li>");
         }

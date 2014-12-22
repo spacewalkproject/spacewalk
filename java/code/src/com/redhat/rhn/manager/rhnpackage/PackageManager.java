@@ -1508,24 +1508,41 @@ public class PackageManager extends BaseManager {
      * @return nevra
      */
     public static String buildPackageNevra(Long nameId, Long evrId, Long archId) {
-        String nevra = "";
+        PackageName pn = null;
+        PackageArch pa = null;
+        PackageEvr pevr = null;
         if (nameId != null) {
-            PackageName pn = PackageFactory.lookupPackageName(nameId);
-            nevra += pn.getName();
+            pn = PackageFactory.lookupPackageName(nameId);
             if (evrId != null) {
-                PackageEvr pevr = PackageEvrFactory.lookupPackageEvrById(evrId);
-                if (pevr != null) {
-                    nevra += "-" + pevr.getVersion() + "-" + pevr.getRelease();
-                    if (!StringUtils.isEmpty(pevr.getEpoch())) {
-                        nevra += ":" + pevr.getEpoch();
-                    }
-                }
+                pevr = PackageEvrFactory.lookupPackageEvrById(evrId);
             }
             if (archId != null) {
-                PackageArch pa = PackageFactory.lookupPackageArchById(archId);
-                if (pa != null) {
-                    nevra += "." + pa.getLabel();
+                pa = PackageFactory.lookupPackageArchById(archId);
+            }
+        }
+        return buildPackageNevra(pn, pevr, pa);
+    }
+
+    /**
+     * build package nevra out of the name, evr, arch identifiers
+     * @param name name
+     * @param evr evr
+     * @param arch arch
+     * @return nevra
+     */
+    public static String buildPackageNevra(PackageName name, PackageEvr evr,
+            PackageArch arch) {
+        String nevra = "";
+        if (name != null) {
+            nevra += name.getName();
+            if (evr != null) {
+                nevra += "-" + evr.getVersion() + "-" + evr.getRelease();
+                if (!StringUtils.isEmpty(evr.getEpoch())) {
+                    nevra += ":" + evr.getEpoch();
                 }
+            }
+            if (arch != null) {
+                nevra += "." + arch.getLabel();
             }
         }
         return nevra;

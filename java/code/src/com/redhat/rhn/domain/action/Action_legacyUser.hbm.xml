@@ -349,13 +349,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             name="com.redhat.rhn.domain.action.rhnpackage.PackageAction"
             discriminator-value="-2" lazy="true">
 
-            <set name="details" inverse="true" cascade="save-update">
+            <set name="details" lazy="true" inverse="true" cascade="save-update">
                 <key column="action_id"/>
                 <one-to-many class="com.redhat.rhn.domain.action.rhnpackage.PackageActionDetails" />
-            </set>
-            <set lazy="true" cascade="all" inverse="true" name="affectedPackages" >
-              <key column="action_id" />
-              <one-to-many class="com.redhat.rhn.domain.action.rhnpackage.PackageActionDetails" />
             </set>
 
             <subclass
