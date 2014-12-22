@@ -3828,7 +3828,7 @@ user before attempting to deactivate their account.</source>
           <context context-type="paramnotes">You have successfully scheduled a package profile refresh
                                              for workstation3.</context>
         </context-group>
-        <target>Você agendou uma &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;atualização do perfil do pacote&lt;/a&gt; para &lt;a href="/network/systems/details/index.pxt?sid={1}"&gt;{2}&lt;/a&gt; com sucesso.</target>
+	<target>Você agendou uma &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;atualização do perfil do pacote&lt;/a&gt; para &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt; com sucesso.</target>
       </trans-unit>
       <trans-unit id="Probe Suites">
         <source>Probe Suites</source>
