@@ -59,7 +59,6 @@ drop table rhn_sat_node purge;
 drop table rhn_sat_cluster purge;
 drop table rhn_command_target purge;
 drop table rhn_physical_location purge;
-drop table rhn_probe purge;
 drop table rhn_multi_scout_threshold purge;
 drop table rhn_satellite_state purge;
 drop table rhn_schedule_days purge;

@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 3e0052a7f860a9b426ddcb951fa04ada8b9c204f
+-- oracle equivalent source sha1 4b33d4295f75e2c54d59561ad740bde37b9b89e5
 
 drop function rhn_install_org_satellites(numeric, numeric, character varying);
 drop function rhn_prepare_install(character varying, numeric);
@@ -61,7 +61,6 @@ drop table rhn_sat_node;
 drop table rhn_sat_cluster;
 drop table rhn_command_target;
 drop table rhn_physical_location;
-drop table rhn_probe;
 drop table rhn_multi_scout_threshold;
 drop table rhn_satellite_state;
 drop table rhn_schedule_days;
