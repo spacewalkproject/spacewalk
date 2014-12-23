@@ -2110,4 +2110,58 @@ ORDER BY PE.evr DESC, AC.channel_name, E.issue_date
   </query>
 </mode>
 
+<mode name="channel_errata_intersection_unpublished">
+  <query params="eid, cid">
+SELECT P1.id,
+       PN.name AS NAME,
+       evr_t_as_vre_simple(PE1.evr) || '-' || PA.label AS ERRATA_VERSION,
+       evr_t_as_vre_simple(PE2.evr) || '-' || PA.label AS CHANNEL_VERSION
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE2,
+       rhnChannelNewestPackage CNP,
+       rhnPackageArch PA,
+       rhnPackageEVR PE1,
+       rhnPackage P1,
+       rhnErrataPackageTmp EP
+ WHERE 1=1
+   AND EP.errata_id = :eid
+   AND EP.package_id = P1.id
+   AND CNP.channel_id = :cid
+   AND P1.name_id = CNP.name_id
+   AND CNP.evr_id = PE2.id
+   AND P1.package_arch_id = CNP.package_arch_id
+   AND P1.evr_id = PE1.id
+   AND P1.name_id = PN.id
+   AND P1.package_arch_id = PA.id
+ORDER BY PN.name, evr_t_as_vre_simple(PE2.evr) || '-' || PA.label
+  </query>
+</mode>
+
+<mode name="channel_errata_intersection_published">
+  <query params="eid, cid">
+SELECT P1.id,
+       PN.name AS NAME,
+       evr_t_as_vre_simple(PE1.evr) || '-' || PA.label AS ERRATA_VERSION,
+       evr_t_as_vre_simple(PE2.evr) || '-' || PA.label AS CHANNEL_VERSION
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE2,
+       rhnChannelNewestPackage CNP,
+       rhnPackageArch PA,
+       rhnPackageEVR PE1,
+       rhnPackage P1,
+       rhnErrataPackage EP
+ WHERE 1=1
+   AND EP.errata_id = :eid
+   AND EP.package_id = P1.id
+   AND CNP.channel_id = :cid
+   AND P1.name_id = CNP.name_id
+   AND CNP.evr_id = PE2.id
+   AND P1.package_arch_id = CNP.package_arch_id
+   AND P1.evr_id = PE1.id
+   AND P1.name_id = PN.id
+   AND P1.package_arch_id = PA.id
+ORDER BY PN.name, evr_t_as_vre_simple(PE2.evr) || '-' || PA.label
+  </query>
+</mode>
+
 </datasource_modes>

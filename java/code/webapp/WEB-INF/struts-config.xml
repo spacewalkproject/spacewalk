@@ -2337,6 +2337,15 @@
              path="/WEB-INF/pages/errata/edit.jsp"/>
      </action>
 
+     <action path="/errata/manage/ErrataChannelIntersection"
+             scope="request"
+             input="/WEB-INF/pages/errata/erratachannelintersection.jsp"
+             type="com.redhat.rhn.frontend.action.errata.ErrataChannelIntersectionAction"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+         <set-property property="acls" value="user_role(channel_admin)"/>
+         <forward name="default" path="/WEB-INF/pages/errata/erratachannelintersection.jsp"/>
+     </action>
+
      <action path="/errata/manage/SelectChannels"
              name="errataPublishForm"
              scope="request"

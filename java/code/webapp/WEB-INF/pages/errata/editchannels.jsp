@@ -31,7 +31,7 @@
 
     <rhn:column header="errata.publish.relevantpackages">
         <c:if test="${current.relevantPackages > 0}">
-            <a href="/network/errata/manage/errata_channel_intersection.pxt?cid=<c:out value="${current.id}"/>&eid=<c:out value="${param.eid}"/>">
+            <a href="/rhn/errata/manage/ErrataChannelIntersection.do?cid=<c:out value="${current.id}"/>&eid=<c:out value="${param.eid}"/>">
         </c:if>
         <c:out value="${current.relevantPackages}"/>
         <c:if test="${current.relevantPackages > 0}">

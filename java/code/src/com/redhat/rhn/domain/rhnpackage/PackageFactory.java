@@ -533,4 +533,29 @@ public class PackageFactory extends HibernateFactory {
                 "channel_arch_and_org_access");
         return m.execute(params, packageIds);
     }
+
+    /**
+     * Returns package names that are shared between an erratum and a channel,
+     * with string representations of the versions in each.
+     * @param cid channel id
+     * @param eid errata id
+     * @param published whether the erratum is published or not
+     * @return list of maps, with keys of "name", "channel_version", and "errata_version"
+     */
+    public static List<Map<String, String>> getErrataChannelIntersection(Long cid,
+            Long eid, boolean published) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("cid", cid);
+        params.put("eid", eid);
+        SelectMode m = null;
+        if (published) {
+            m = ModeFactory.getMode("Package_queries",
+                    "channel_errata_intersection_published");
+        }
+        else {
+            m = ModeFactory.getMode("Package_queries",
+                    "channel_errata_intersection_unpublished");
+        }
+        return m.execute(params);
+    }
 }
