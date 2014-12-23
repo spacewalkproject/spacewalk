@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.31
+Version:        2.3.32
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Dec 23 2014 Stephen Herr <sherr@redhat.com> 2.3.32-1
+- Fixing duplicated 'drop rhn_probe' statement
+
 * Mon Dec 22 2014 Stephen Herr <sherr@redhat.com> 2.3.31-1
 - Fixing order of tables to be dropped
 
