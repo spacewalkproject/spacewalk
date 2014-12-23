@@ -86,17 +86,18 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
         RhnSet currentset = updateSet(request);
         RhnSetManager.store(currentset);
 
-        Map params = makeParamMap(formIn, request);
-        Map diffmap = new HashMap();
+        Map<String, Object> params = makeParamMap(formIn, request);
+        Map<RhnSetElement, String> diffmap = new HashMap<RhnSetElement, String>();
 
-        Iterator originalItems = getCurrentItemsIterator(new RequestContext(request));
+        Iterator<Identifiable> originalItems = getCurrentItemsIterator(new RequestContext(
+                request));
 
         if (log.isDebugEnabled()) {
             log.debug("current set  : " + currentset.getElements());
         }
 
         while (originalItems.hasNext()) {
-            Identifiable ido = (Identifiable) originalItems.next();
+            Identifiable ido = originalItems.next();
 
             if (log.isDebugEnabled()) {
                 log.debug("original item  : " + ido.getId());
@@ -107,12 +108,12 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
         }
 
 
-        Iterator currentIter = currentset.getElements().iterator();
-        ArrayList added = new ArrayList();
-        ArrayList removed = new ArrayList();
+        Iterator<RhnSetElement> currentIter = currentset.getElements().iterator();
+        ArrayList<RhnSetElement> added = new ArrayList<RhnSetElement>();
+        ArrayList<RhnSetElement> removed = new ArrayList<RhnSetElement>();
 
         while (currentIter.hasNext()) {
-            RhnSetElement elem = (RhnSetElement) currentIter.next();
+            RhnSetElement elem = currentIter.next();
             if (!diffmap.containsKey(elem)) {
                 added.add(elem);
             }
@@ -121,10 +122,10 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
             }
         }
 
-        Iterator mapIter = diffmap.keySet().iterator();
+        Iterator<RhnSetElement> mapIter = diffmap.keySet().iterator();
 
         while (mapIter.hasNext()) {
-            RhnSetElement elem = (RhnSetElement) mapIter.next();
+            RhnSetElement elem = mapIter.next();
             if (diffmap.get(elem) == "original") {
                 removed.add(elem);
             }
@@ -144,8 +145,8 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
                 RhnHelper.DEFAULT_FORWARD), params);
     }
 
-    protected void generateUserMessage(List added, List removed,
-                                       HttpServletRequest request) {
+    protected void generateUserMessage(List<RhnSetElement> added,
+            List<RhnSetElement> removed, HttpServletRequest request) {
         ActionMessages msg = new ActionMessages();
 
         if (!removed.isEmpty()) {
@@ -176,7 +177,7 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
      * @param elements The elements which were removed
      * @param request The request
      */
-    protected abstract void operateOnRemovedElements(List elements,
+    protected abstract void operateOnRemovedElements(List<RhnSetElement> elements,
                                                      HttpServletRequest request);
 
     /**
@@ -186,7 +187,7 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
      * @param elements The elements which were added
      * @param request The request
      */
-    protected abstract void operateOnAddedElements(List elements,
+    protected abstract void operateOnAddedElements(List<RhnSetElement> elements,
                                                    HttpServletRequest request);
 
     /**
@@ -207,6 +208,15 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
      * @param ctx to fetch info from
      * @return Iterator containing Identifiable objects.
      */
-    protected abstract Iterator getCurrentItemsIterator(RequestContext ctx);
+    protected abstract <T extends Identifiable> Iterator<T> getCurrentItemsIterator(
+            RequestContext ctx);
+
+    protected List<Long> getPrimaryElementIds(List<RhnSetElement> elements) {
+        List<Long> ret = new ArrayList<Long>();
+        for (RhnSetElement e : elements) {
+            ret.add(e.getElement());
+        }
+        return ret;
+    }
 
 }

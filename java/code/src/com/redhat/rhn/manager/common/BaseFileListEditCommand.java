@@ -106,9 +106,9 @@ public abstract class BaseFileListEditCommand extends BasePersistOperation {
             return "";  /**return null*/
         }
         StringBuilder names = new StringBuilder();
-        Iterator i = this.list.getFileNames().iterator();
+        Iterator<ConfigFileName> i = this.list.getFileNames().iterator();
         while (i.hasNext()) {
-            ConfigFileName cfn = (ConfigFileName) i.next();
+            ConfigFileName cfn = i.next();
             names.append(cfn.getPath());
 
             if (i.hasNext()) {

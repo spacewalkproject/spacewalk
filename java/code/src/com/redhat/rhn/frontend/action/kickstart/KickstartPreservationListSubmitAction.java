@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -53,7 +54,7 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
      *
      * {@inheritDoc}
      */
-    protected void operateOnRemovedElements(List elements,
+    protected void operateOnRemovedElements(List<RhnSetElement> elements,
                                             HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
 
@@ -62,11 +63,10 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
                     ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                     ctx.getCurrentUser());
 
-        ArrayList ids = new ArrayList();
-        Iterator i = elements.iterator();
+        ArrayList<Long> ids = new ArrayList<Long>();
 
-        while (i.hasNext()) {
-            ids.add(((RhnSetElement) i.next()).getElement());
+        for (RhnSetElement element : elements) {
+            ids.add(element.getElement());
         }
 
         cmd.removeFileListsByIds(ids);
@@ -79,7 +79,8 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
      *
      * {@inheritDoc}
      */
-    protected void operateOnAddedElements(List elements, HttpServletRequest request) {
+    protected void operateOnAddedElements(List<RhnSetElement> elements,
+            HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
 
         FilePreservationListsCommand cmd =
@@ -87,11 +88,10 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
                     ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                     ctx.getCurrentUser());
 
-        ArrayList ids = new ArrayList();
-        Iterator i = elements.iterator();
+        ArrayList<Long> ids = new ArrayList<Long>();
 
-        while (i.hasNext()) {
-            ids.add(((RhnSetElement) i.next()).getElement());
+        for (RhnSetElement element : elements) {
+            ids.add(element.getElement());
         }
 
         cmd.addFileListsByIds(ids);
@@ -118,7 +118,7 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
     /**
      * {@inheritDoc}
      */
-    protected Iterator getCurrentItemsIterator(RequestContext ctx) {
+    protected Iterator<FileList> getCurrentItemsIterator(RequestContext ctx) {
         FilePreservationListsCommand cmd =
             new FilePreservationListsCommand(
                     ctx.getRequiredParam(RequestContext.KICKSTART_ID),

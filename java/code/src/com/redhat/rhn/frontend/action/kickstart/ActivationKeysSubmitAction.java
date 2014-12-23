@@ -17,7 +17,9 @@ package com.redhat.rhn.frontend.action.kickstart;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
+import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.KickstartActivationKeysCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
@@ -26,7 +28,6 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn,
+    protected DataResult<ActivationKeyDto> getDataResult(User userIn,
                                        ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext rctx = new RequestContext(request);
@@ -57,7 +58,7 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
      *
      * {@inheritDoc}
      */
-    protected void operateOnRemovedElements(List elements,
+    protected void operateOnRemovedElements(List<RhnSetElement> elements,
                                             HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
 
@@ -68,12 +69,7 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
 
         // my @ids = map { $_->id() } @elements;
 
-        ArrayList ids = new ArrayList();
-        Iterator i = elements.iterator();
-
-        while (i.hasNext()) {
-            ids.add(((RhnSetElement) i.next()).getElement());
-        }
+        List<Long> ids = getPrimaryElementIds(elements);
 
         if (log.isDebugEnabled()) {
             log.debug("ids to remove: " + ids);
@@ -89,7 +85,8 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
      *
      * {@inheritDoc}
      */
-    protected void operateOnAddedElements(List elements, HttpServletRequest request) {
+    protected void operateOnAddedElements(List<RhnSetElement> elements,
+            HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
 
         KickstartActivationKeysCommand cmd =
@@ -99,12 +96,7 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
 
         // my @ids = map { $_->id() } @elements;
 
-        ArrayList ids = new ArrayList();
-        Iterator i = elements.iterator();
-
-        while (i.hasNext()) {
-            ids.add(((RhnSetElement) i.next()).getElement());
-        }
+        List<Long> ids = getPrimaryElementIds(elements);
 
         if (log.isDebugEnabled()) {
             log.debug("ids to add: " + ids);
@@ -131,7 +123,7 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
         map.put(UPDATE_METHOD, "operateOnDiff");
     }
 
-    protected Iterator getCurrentItemsIterator(RequestContext ctx) {
+    protected Iterator<Token> getCurrentItemsIterator(RequestContext ctx) {
         KickstartActivationKeysCommand cmd =
             new KickstartActivationKeysCommand(
                     ctx.getRequiredParam(RequestContext.KICKSTART_ID),
