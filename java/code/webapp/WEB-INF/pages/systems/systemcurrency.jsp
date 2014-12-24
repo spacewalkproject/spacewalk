@@ -22,7 +22,6 @@
 	<rl:list
 		dataset="pageList"
 		name="systemCurrencyList"
-		decorator="SelectableDecorator"
 		emptykey="nosystems.message"
 		alphabarcolumn="name"
 		filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemCurrencyFilter"
