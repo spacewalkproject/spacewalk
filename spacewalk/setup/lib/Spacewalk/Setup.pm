@@ -989,6 +989,7 @@ sub postgresql_setup_db {
         }
     }
 
+    my $populate_db = is_db_migration($opts);
     write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password', 'db-ssl-enabled');
 
     if ($opts->{'external-postgresql-over-ssl'}) {
@@ -996,7 +997,7 @@ sub postgresql_setup_db {
         $ENV{PGSSLMODE}="verify-full";
     }
 
-    postgresql_populate_db($opts, $answers);
+    postgresql_populate_db($opts, $answers, $populate_db);
 
     if (is_db_migration($opts)) {
         print loc("* Database: Starting Oracle to PostgreSQL database migration.\n");
@@ -1084,10 +1085,11 @@ EOQ
 sub postgresql_populate_db {
     my $opts = shift;
     my $answers = shift;
+    my $populate_db = shift;
 
     print Spacewalk::Setup::loc("** Database: Populating database.\n");
 
-    if ($opts->{"skip-db-population"} or ($opts->{'upgrade'} and not is_db_migration($opts))) {
+    if ($opts->{"skip-db-population"} or ($opts->{'upgrade'} and not is_db_migration($opts) and not $populate_db)) {
         print Spacewalk::Setup::loc("** Database: Skipping database population.\n");
         return 1;
     }
