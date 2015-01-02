@@ -816,6 +816,8 @@ class DMIInformation(Device):
         Device.__init__(self, fields, dict, mapping)
         # use our own sequence
         self.sequence = "rhn_server_dmi_id_seq"
+        self._autonull = ("vendor", "system", "product", "asset", "board",
+                          "bios_vendor", "bios_version", "bios_release")
         if not dict:
             return
 
