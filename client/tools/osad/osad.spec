@@ -53,7 +53,7 @@ Requires(preun): aaa_base
 # to make chkconfig test work during build
 BuildRequires: sysconfig syslog
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(post): systemd-sysv
@@ -147,7 +147,7 @@ make -f Makefile.osad all
 
 %if 0%{?include_selinux_package}
 %{__perl} -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' osa-dispatcher-selinux/%{modulename}.te
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 cat osa-dispatcher-selinux/%{modulename}.te.fedora17 >> osa-dispatcher-selinux/%{modulename}.te
 %endif
 for selinuxvariant in %{selinux_variants}
@@ -170,7 +170,7 @@ touch %{buildroot}%{_var}/log/rhn/osa-dispatcher.log
 sed -i 's/#LOGROTATE-3.8#//' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/osa-dispatcher
 %endif
 
-%if 0%{?fedora} || 0%{?suse_version} >= 1210
+%if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?rhel} >= 7
 rm $RPM_BUILD_ROOT/%{_initrddir}/osad
 rm $RPM_BUILD_ROOT/%{_initrddir}/osa-dispatcher
 mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
@@ -236,7 +236,7 @@ fi
 %service_del_preun osad.service
 %else
 if [ $1 = 0 ]; then
-    %if 0%{?fedora}
+    %if 0%{?fedora} || 0%{?rhel} >= 7
     %systemd_preun osad.service
     %else
     /sbin/service osad stop > /dev/null 2>&1
@@ -246,7 +246,7 @@ fi
 %endif
 
 %postun
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %systemd_postun_with_restart osad.service
 %else
 %if 0%{?suse_version} >= 1210
@@ -273,6 +273,16 @@ fi
 if [ -f %{_sysconfdir}/init.d/osa-dispatcher ]; then
     /sbin/chkconfig --add osa-dispatcher
 fi
+if [ -f %{_unitdir}/osa-dispatcher.service ]; then
+    %systemd_post osa-dispatcher.service
+    if [ "$1" = "2" ]; then
+        # upgrade from old init.d
+        if [ -L /etc/rc2.d/S86osa-dispatcher ]; then
+            /usr/bin/systemctl enable osa-dispatcher.service >/dev/null 2>&1
+        fi
+        rm -f /etc/rc?.d/[SK]??osa-dispatcher
+    fi
+fi
 %endif
 
 %preun -n osa-dispatcher
@@ -280,8 +290,12 @@ fi
 %service_del_preun osa-dispatcher.service
 %else
 if [ $1 = 0 ]; then
+    %if 0%{?fedora} || 0%{?rhel} >= 7
+    %systemd_preun osa-dispatcher.service
+    %else
     /sbin/service osa-dispatcher stop > /dev/null 2>&1
     /sbin/chkconfig --del osa-dispatcher
+    %endif
 fi
 %endif
 
@@ -331,7 +345,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/osad.conf
 %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 %config(noreplace) %{client_caps_dir}/*
-%if 0%{?fedora} || 0%{?suse_version} >= 1210
+%if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?rhel} >= 7
 %{_unitdir}/osad.service
 %else
 %attr(755,root,root) %{_initrddir}/osad
@@ -361,7 +375,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %dir %{_sysconfdir}/rhn/tns_admin
 %dir %{_sysconfdir}/rhn/tns_admin/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/rhn/tns_admin/osa-dispatcher/sqlnet.ora
-%if 0%{?fedora} || 0%{?suse_version} >= 1210
+%if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?rhel} >= 7
 %{_unitdir}/osa-dispatcher.service
 %else
 %attr(755,root,root) %{_initrddir}/osa-dispatcher
