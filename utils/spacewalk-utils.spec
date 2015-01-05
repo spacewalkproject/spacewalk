@@ -18,7 +18,7 @@ BuildRequires:  python
 BuildRequires: /usr/bin/pod2man
 %if 0%{?fedora} || 0%{?rhel} > 5
 # pylint check
-BuildRequires:  spacewalk-pylint
+BuildRequires:  spacewalk-pylint >= 2.2
 BuildRequires:  yum
 BuildRequires:  spacewalk-config
 BuildRequires:  spacewalk-backend >= 1.7.24
