@@ -13,7 +13,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 
-if [ $# -ne 1 ]; then
+if [ $# -ne 1 -o ! -f "$1" ]; then
     echo "usage: $0 <certificate>"
     exit 1
 fi

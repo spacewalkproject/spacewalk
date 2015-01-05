@@ -973,6 +973,11 @@ sub postgresql_setup_db {
     while (not $connected) {
         postgresql_get_database_answers($opts, $answers);
 
+        if ($opts->{'external-postgresql-over-ssl'}) {
+            system("spacewalk-setup-db-ssl-certificates", $answers->{'db-ca-cert'});
+            $ENV{PGSSLMODE}="verify-full";
+        }
+
         my $dbh;
 
         eval {
@@ -991,11 +996,6 @@ sub postgresql_setup_db {
 
     my $populate_db = is_db_migration($opts);
     write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password', 'db-ssl-enabled');
-
-    if ($opts->{'external-postgresql-over-ssl'}) {
-        system("spacewalk-setup-db-ssl-certificates", $answers->{'db-ca-cert'});
-        $ENV{PGSSLMODE}="verify-full";
-    }
 
     postgresql_populate_db($opts, $answers, $populate_db);
 
