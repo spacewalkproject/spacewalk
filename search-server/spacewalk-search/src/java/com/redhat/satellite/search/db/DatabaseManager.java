@@ -67,7 +67,7 @@ public class DatabaseManager {
         }
         Properties overrides = config.getNamespaceProperties("search");
 
-        String[] options = {"db_name", "db_password", "db_user"};
+        String[] options = {"db_host", "db_name", "db_password", "db_user"};
         for (String option : options) {
             overrides.setProperty(option, config.getString(option));
         }
