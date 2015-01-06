@@ -40,6 +40,7 @@ Requires: tftp-server
 %endif
 
 Requires: mod_wsgi
+Requires: syslinux
 
 Requires: createrepo
 %if 0%{?fedora}
