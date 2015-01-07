@@ -1799,18 +1799,17 @@ sub backup_file {
 # and config will be later on replaced by one generated from templates.
 sub write_rhn_conf {
 	my $answers = shift;
+	my %config = ();
 
-	my $rhnconf = DEFAULT_RHN_CONF_LOCATION;
-	local *RHNCONF;
-	open RHNCONF, '>', $rhnconf or die "Error writing [$rhnconf]: $!\n";
 	for my $n (@_) {
 		if (defined $answers->{$n}) {
 			my $name = $n;
 			$name =~ s!-!_!g;
-			print RHNCONF "$name = $answers->{$n}\n";
+			$config{$name} = $answers->{$n};
 		}
 	}
-	close RHNCONF;
+
+	write_config(\%config, DEFAULT_RHN_CONF_LOCATION);
 }
 
 =head1 DESCRIPTION
