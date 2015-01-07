@@ -967,7 +967,7 @@ sub populate_initial_configs {
       $rhnopt{$key} = $answers->{$key};
     }
   }
-  write_config( \%rhnopt,
+  Spacewalk::Setup::write_config( \%rhnopt,
 		'/var/lib/rhn/rhn-satellite-prep/etc/rhn/rhn.conf' );
 
     foreach my $opt_name (qw/session_swap_secret session_secret/) {
@@ -977,7 +977,7 @@ sub populate_initial_configs {
     }
 
   Spacewalk::Setup::generate_satcon_dict();
-  write_config(\%config_opts, Spacewalk::Setup::DEFAULT_SATCON_DICT);
+  Spacewalk::Setup::write_config(\%config_opts, Spacewalk::Setup::DEFAULT_SATCON_DICT);
 
   Spacewalk::Setup::satcon_deploy();
 
@@ -1043,22 +1043,6 @@ EOQ
   $dbh->disconnect();
 
   return;
-}
-
-sub write_config {
-  my $options = shift;
-  my $target = shift;
-
-  my @opt_strings = map { "--option=${_}=" . $options->{$_} } grep { defined $options->{$_} } keys %{$options};
-
-  Spacewalk::Setup::system_or_exit([ "/usr/bin/rhn-config-satellite.pl",
-		   "--target=$target",
-		   @opt_strings,
-		 ],
-		 29,
-		 'There was a problem setting initial configuration.');
-
-  return 1;
 }
 
 sub setup_monitoring {

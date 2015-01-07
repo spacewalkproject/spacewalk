@@ -182,6 +182,22 @@ sub read_config {
   return;
 }
 
+sub write_config {
+  my $options = shift;
+  my $target = shift;
+
+  my @opt_strings = map { "--option=${_}=" . $options->{$_} } grep { defined $options->{$_} } keys %{$options};
+
+  Spacewalk::Setup::system_or_exit([ "/usr/bin/rhn-config-satellite.pl",
+                   "--target=$target",
+                   @opt_strings,
+                 ],
+                 29,
+                 'There was a problem setting initial configuration.');
+
+  return 1;
+}
+
 sub load_answer_file {
   my $options = shift;
   my $answers = shift;
