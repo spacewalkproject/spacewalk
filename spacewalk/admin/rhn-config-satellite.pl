@@ -43,7 +43,15 @@ my %options = map { split(/=/,$_, 2) } @options;
 
 my $tmpfile = $target . ".bak.${PID}";
 
-open(TARGET, "< $target") or die "Could not open $target: $OS_ERROR";
+if (-e $target . ".orig") {
+  unlink($target . ".orig") or die "Could not remove $target to ${target}.orig prior to new backup: $OS_ERROR";
+}
+
+if (-e $target) {
+  link($target, $target . ".orig") or die "Could not rename $target to ${target}.orig: $OS_ERROR";
+  open(TARGET, "< $target") or die "Could not open $target: $OS_ERROR";
+}
+
 unlink $tmpfile if -e $tmpfile;
 umask 0027;
 open(TMP, "> $tmpfile") or die "Could not open $tmpfile for writing: $OS_ERROR";
@@ -95,10 +103,6 @@ foreach my $opt_name (keys %options) {
 close(TMP);
 close(TARGET);
 
-if (-e $target . ".orig") {
-    unlink($target . ".orig") or die "Could not remove $target to ${target}.orig prior to new backup: $OS_ERROR";
-}
-link($target, $target . ".orig") or die "Could not rename $target to ${target}.orig: $OS_ERROR";
 rename($tmpfile, $target) or die "Could not rename $tmpfile to $target: $OS_ERROR";;
 
 exit 0;
