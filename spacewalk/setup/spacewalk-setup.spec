@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.3.5
+Version:        2.3.6
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -113,6 +113,15 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Jan 07 2015 Jan Dobes 2.3.6-1
+- 1179374 - set more database specific values and move hibernate strings into
+  function
+- 1179374 - do not erase complete original configuration
+- 1179374 - move write_config function into module
+- 1020952 - Certificates need to set up sooner
+- remember to populate db
+- don't run spacewalk-setup-cobbler in verbose mode
+
 * Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.5-1
 - drop monitoring code and monitoring schema
 - Useful comment
