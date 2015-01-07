@@ -116,3 +116,11 @@ optional_policy(`
         allow httpd_t postgresql_var_run_t:dir search;
         allow httpd_t postgresql_var_run_t:sock_file write;
 ')
+
+optional_policy(`
+        gen_require(`
+                type cobbler_var_log_t;
+        ')
+        allow httpd_t cobbler_var_log_t:dir { search };
+')
+
