@@ -897,16 +897,7 @@ sub populate_initial_configs {
     }
 
     # Define some db specific settings:
-    my ($hibernate_dialect, $hibernate_driver, $hibernate_driver_proto);
-    if ($answers->{'db-backend'} eq 'oracle') {
-        $hibernate_dialect = "org.hibernate.dialect.Oracle10gDialect";
-        $hibernate_driver = "oracle.jdbc.driver.OracleDriver";
-        $hibernate_driver_proto = "jdbc:oracle:oci";
-    } elsif ($answers->{'db-backend'} eq 'postgresql') {
-        $hibernate_dialect = "org.hibernate.dialect.PostgreSQLDialect";
-        $hibernate_driver = "org.postgresql.Driver";
-        $hibernate_driver_proto = "jdbc:postgresql";
-    }
+    Spacewalk::Setup::set_hibernate_conf($answers);
 
   my %config_opts =
     (
@@ -927,9 +918,9 @@ sub populate_initial_configs {
      db_host => $answers->{'db-host'},
      db_port => $answers->{'db-port'},
      db_ssl_enabled => $answers->{'db-ssl-enabled'},
-     hibernate_dialect => $hibernate_dialect,
-     hibernate_driver => $hibernate_driver,
-     hibernate_driver_proto => $hibernate_driver_proto,
+     hibernate_dialect => $answers->{'hibernate.dialect'},
+     hibernate_driver => $answers->{'hibernate.connection.driver_class'},
+     hibernate_driver_proto => $answers->{'hibernate.connection.driver_proto'},
      traceback_mail => $answers->{'admin-email'},
      jabberDOThostname => $answers->{hostname},
      serverDOTsatelliteDOTca_chain => '/usr/share/rhn/RHNS-CA-CERT',

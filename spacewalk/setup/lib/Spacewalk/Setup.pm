@@ -1011,7 +1011,9 @@ sub postgresql_setup_db {
     }
 
     my $populate_db = is_db_migration($opts);
-    write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password', 'db-ssl-enabled');
+
+    set_hibernate_conf($answers);
+    write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password', 'db-ssl-enabled', 'hibernate.dialect', 'hibernate.connection.driver_class', 'hibernate.connection.driver_proto');
 
     postgresql_populate_db($opts, $answers, $populate_db);
 
@@ -1319,7 +1321,10 @@ sub oracle_setup_db {
     print loc("* Setting up database.\n");
     oracle_setup_db_connection($opts, $answers);
     oracle_test_db_settings($opts, $answers);
-    write_rhn_conf($answers, 'db-backend', 'db-name', 'db-user', 'db-password');
+
+    set_hibernate_conf($answers);
+    write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password', 'hibernate.dialect', 'hibernate.connection.driver_class', 'hibernate.connection.driver_proto');
+
     oracle_populate_db($opts, $answers);
 }
 
@@ -1810,6 +1815,21 @@ sub write_rhn_conf {
 	}
 
 	write_config(\%config, DEFAULT_RHN_CONF_LOCATION);
+}
+
+# Set hibernate strings into answers according to DB backend.
+sub set_hibernate_conf {
+    my $answers = shift;
+
+    if ($answers->{'db-backend'} eq 'oracle') {
+        $answers->{'hibernate.dialect'} = "org.hibernate.dialect.Oracle10gDialect";
+        $answers->{'hibernate.connection.driver_class'} = "oracle.jdbc.driver.OracleDriver";
+        $answers->{'hibernate.connection.driver_proto'} = "jdbc:oracle:oci";
+    } elsif ($answers->{'db-backend'} eq 'postgresql') {
+        $answers->{'hibernate.dialect'} = "org.hibernate.dialect.PostgreSQLDialect";
+        $answers->{'hibernate.connection.driver_class'} = "org.postgresql.Driver";
+        $answers->{'hibernate.connection.driver_proto'} = "jdbc:postgresql";
+    }
 }
 
 =head1 DESCRIPTION
