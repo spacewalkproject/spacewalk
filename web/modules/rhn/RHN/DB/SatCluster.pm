@@ -70,9 +70,9 @@ use constant INSTANCE_DEFAULTS => (
     sub [[field]] {
       my $self = shift;
       if (@_) {
-	if ("[[field]]" ne "recid") {
-	  $self->{":modified:"}->{[[field]]} = 1;
-	}
+        if ("[[field]]" ne "recid") {
+          $self->{":modified:"}->{[[field]]} = 1;
+        }
         $self->{__[[field]]__} = shift;
       }
       return $self->{__[[field]]__};
@@ -359,7 +359,7 @@ sub fetch_key {
 
 
   my $ds = new RHN::DataSource::Simple(-querybase => 'scout_queries',
-				       -mode => 'fetch_key');
+                                       -mode => 'fetch_key');
 
   my $data = $ds->execute_query(-sat_cluster_id => $sat_cluster_id);
 

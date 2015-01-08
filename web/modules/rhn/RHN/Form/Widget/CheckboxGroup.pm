@@ -85,9 +85,9 @@ sub render_option {
   my $selected = shift;
 
   my $ret = PXT::HTML->checkbox(-name => $self->label,
-				-value => $opt->{value} || '',
-				-checked => (grep { $_ eq $opt->{value} } @$selected) ? 1 : 0,
-			        -disabled => $opt->{disabled} ? 1 : 0);
+                                -value => $opt->{value} || '',
+                                -checked => (grep { $_ eq $opt->{value} } @$selected) ? 1 : 0,
+                                -disabled => $opt->{disabled} ? 1 : 0);
 
   $ret .= $opt->{label};
 

@@ -31,10 +31,10 @@ use RHN::Package ();
 use RHN::User ();
 
 my @pkg_fields = qw/
-		    id org_id name_id evr_id package_arch_id package_group rpm_version description
-		    summary package_size payload_size build_host build_time:longdate source_rpm_id
-		    vendor payload_format compat path header_sig copyright cookie last_modified:longdate
-		    /;
+                    id org_id name_id evr_id package_arch_id package_group rpm_version description
+                    summary package_size payload_size build_host build_time:longdate source_rpm_id
+                    vendor payload_format compat path header_sig copyright cookie last_modified:longdate
+                    /;
 my @arch_fields = qw { id name label arch_type_id};
 my @name_fields = qw { id name };
 my @evr_fields = qw { id epoch version release };
@@ -51,18 +51,18 @@ my $srpm = new RHN::DB::TableClass("rhnSourceRPM", "SRPM", "s_rpm", @srpm_fields
 my $csum = new RHN::DB::TableClass("rhnChecksum", "Csum", "checksum", @csum_fields);
 
 my $tc = $p->create_join([ $a, $n, $evr, $pg, $srpm, $csum ],{ "rhnPackage" => {
-									 "rhnPackage" => [ "ID", "ID" ],
-									 "rhnPackageArch" => ["PACKAGE_ARCH_ID", "ID" ],
-									 "rhnPackageName" => ["NAME_ID", "ID"],
-									 "rhnPackageEVR" => ["EVR_ID", "ID"],
-									 "rhnPackageGroup" => ["PACKAGE_GROUP", "ID"],
-									 "rhnSourceRPM" => ["SOURCE_RPM_ID", "ID"],
-									 "rhnChecksum" => ["CHECKSUM_ID", "ID"],
-									}
-						      },
-			 { rhnSourceRPM => "(+)",
-			   rhnPackageGroup => "(+)" }
-			);
+                                                                         "rhnPackage" => [ "ID", "ID" ],
+                                                                         "rhnPackageArch" => ["PACKAGE_ARCH_ID", "ID" ],
+                                                                         "rhnPackageName" => ["NAME_ID", "ID"],
+                                                                         "rhnPackageEVR" => ["EVR_ID", "ID"],
+                                                                         "rhnPackageGroup" => ["PACKAGE_GROUP", "ID"],
+                                                                         "rhnSourceRPM" => ["SOURCE_RPM_ID", "ID"],
+                                                                         "rhnChecksum" => ["CHECKSUM_ID", "ID"],
+                                                                        }
+                                                      },
+                         { rhnSourceRPM => "(+)",
+                           rhnPackageGroup => "(+)" }
+                        );
 
 # read only fields
 my %ro = map { $_ => 1 } $tc->column_names;

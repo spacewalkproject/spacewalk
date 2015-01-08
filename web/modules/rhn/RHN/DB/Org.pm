@@ -215,7 +215,7 @@ sub entitlement_data {
   my $ent_data = { };
 
   foreach my $level (qw/sw_mgr_entitled enterprise_entitled provisioning_entitled
-			monitoring_entitled/) {
+                        monitoring_entitled/) {
 
     my ($used, $max) = $self->entitlement_counts($level);
 

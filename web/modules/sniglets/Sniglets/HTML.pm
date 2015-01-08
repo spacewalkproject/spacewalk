@@ -70,8 +70,8 @@ sub rhn_checkable {
   PXT::Debug->log(7, "translated type:  $type");
 
   return PXT::HTML->$type(-name => $params{name},
-			  -value => $params{value},
-			  -checked => ($params{checked} ? 'checked="1"' : ''));
+                          -value => $params{value},
+                          -checked => ($params{checked} ? 'checked="1"' : ''));
 }
 
 sub toolbar {
@@ -97,7 +97,7 @@ sub toolbar {
 
   if ($params{'help-url'}) {
     $help = rhn_help($pxt, (href => $params{'help-url'},
-			    guide => $params{'help-guide'}));
+                            guide => $params{'help-guide'}));
   }
 
   my $mixins = [];
@@ -109,9 +109,9 @@ sub toolbar {
 
   if (defined $params{'misc-img'} and $acl->eval_acl($pxt, $params{'misc-acl'} || '')) {
       push @toolbar, misc_link($pxt, (url => $params{'misc-url'},
-				      img => $params{'misc-img'},
-				      alt => $params{'misc-alt'},
-				      text => $params{'misc-text'}));
+                                      img => $params{'misc-img'},
+                                      alt => $params{'misc-alt'},
+                                      text => $params{'misc-text'}));
   } elsif (defined $params{'misc-icon'} and $acl->eval_acl($pxt, $params{'misc-acl'} || '')) {
       push @toolbar, misc_link($pxt, (url => $params{'misc-url'},
               icon => $params{'misc-icon'},
@@ -169,10 +169,10 @@ sub rhn_help {
   my $href = $params{href} || '';
 
   return render_help_link(-user => $pxt->user,
-			  -guide => $guide,
-			  -href => $href,
+                          -guide => $guide,
+                          -href => $href,
                           -block => PXT::HTML->icon(-type => "header-help"),
-			  -satellite => $params{satellite});
+                          -satellite => $params{satellite});
 }
 
 sub render_help_link {
@@ -240,21 +240,21 @@ sub rhn_refresh_redirect {
 
 my %refresh_speeds =
   ( fast => [ [ 0, "None" ],
-	      [ 5, "5 seconds" ],
-	      [ 15, "15 seconds" ],
-	      [ 30, "30 seconds" ],
-	      [ 60, "1 minute" ],
-	      [ 120, "2 minutes" ],
-	      [ 300, "5 minutes" ],
-	      [ 600, "10 minutes" ],
-	    ],
+              [ 5, "5 seconds" ],
+              [ 15, "15 seconds" ],
+              [ 30, "30 seconds" ],
+              [ 60, "1 minute" ],
+              [ 120, "2 minutes" ],
+              [ 300, "5 minutes" ],
+              [ 600, "10 minutes" ],
+            ],
     slow => [ [ 0, "None" ],
-	      [ 60, "1 minute" ],
-	      [ 120, "2 minutes" ],
-	      [ 300, "5 minutes" ],
-	      [ 600, "10 minutes" ],
-	      [ 1800, "30 minutes" ],
-	    ],
+              [ 60, "1 minute" ],
+              [ 120, "2 minutes" ],
+              [ 300, "5 minutes" ],
+              [ 600, "10 minutes" ],
+              [ 1800, "30 minutes" ],
+            ],
   );
 sub rhn_autorefresh_widget {
   my $pxt = shift;

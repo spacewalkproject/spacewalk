@@ -41,7 +41,7 @@ sub parse_require_line {
 
         # Return non-empty string if there is an error in require_line, othewise
         # return empty string.
-	# acl could be any string, we check syntax in runtime
+        # acl could be any string, we check syntax in runtime
         return "";
 }
 

@@ -55,8 +55,8 @@ EOQ
   my %archmap;
   foreach my $arch (@archs) {
     $archmap{$arch->{ID}} = {LABEL => $arch->{LABEL},
-			      NAME  => $arch->{NAME},
-			      };
+                              NAME  => $arch->{NAME},
+                              };
   }
 
   return \%archmap;
@@ -358,32 +358,32 @@ sub clone_all_errata {
     my $owned_errata = $e_data->{OWNED_ERRATA};
 
 
-	#if there are no errata that have been cloned from this one, let's clone it
+        #if there are no errata that have been cloned from this one, let's clone it
     if (not defined $owned_errata) {
       $new_eid = RHN::ErrataEditor->clone_errata_fast($eid, $attr{org_id});
       push @eids, $new_eid;
     }
     #if there has only been one errata cloned from it, and it isn't modified or published
     elsif ( (scalar @{$owned_errata} == 1)
-	    and not $owned_errata->[0]->{LOCALLY_MODIFIED}
-	    and $owned_errata->[0]->{PUBLISHED} ) {
+            and not $owned_errata->[0]->{LOCALLY_MODIFIED}
+            and $owned_errata->[0]->{PUBLISHED} ) {
       push @eids, $owned_errata->[0]->{ID};
     }
     #else there are more than 1 errata (or none that are unmodified and published), so we need to figure out how to handle it
     else {
-    	my $found = 0;
-		foreach my $tmp_errata (@{$owned_errata}) {
-			if ( not $tmp_errata->{LOCALLY_MODIFIED} and $tmp_errata->{PUBLISHED}) {
-				push @eids, $tmp_errata->{ID};
-				$found = 1;
-				last;
-			}
-		}
-		#none of the multiple errata aren't modified or they are not published, so lets use the original errata
-		if (not $found) {
-			$new_eid = RHN::ErrataEditor->clone_errata_fast($eid, $attr{org_id});
+        my $found = 0;
+                foreach my $tmp_errata (@{$owned_errata}) {
+                        if ( not $tmp_errata->{LOCALLY_MODIFIED} and $tmp_errata->{PUBLISHED}) {
+                                push @eids, $tmp_errata->{ID};
+                                $found = 1;
+                                last;
+                        }
+                }
+                #none of the multiple errata aren't modified or they are not published, so lets use the original errata
+                if (not $found) {
+                        $new_eid = RHN::ErrataEditor->clone_errata_fast($eid, $attr{org_id});
                         push @eids, $new_eid;
-		}
+                }
        $special_handling++;
     }
   }
@@ -410,11 +410,11 @@ sub errata_migration_provider {
 
   my @owned_errata =
     sort { ( ($tcache{$b->{CREATED}} ||= str2time($b->{CREATED}))     # order by timestamp, cached, newest
-	     <=>                                                      # first, so the oldest cloned errata
-	     ($tcache{$a->{CREATED}} ||= str2time($a->{CREATED})) )   # is the one used.  If two errata share
-	   || ( $a->{ID} cmp $b->{ID} ) }                             # a timestamp, order by id, to get the one created first
+             <=>                                                      # first, so the oldest cloned errata
+             ($tcache{$a->{CREATED}} ||= str2time($a->{CREATED})) )   # is the one used.  If two errata share
+           || ( $a->{ID} cmp $b->{ID} ) }                             # a timestamp, order by id, to get the one created first
       grep { exists $_->{RELATIONSHIP} and $_->{RELATIONSHIP} eq 'cloned_from' } # filter out non-cloned errata
-	(@{$published_owned_errata}, @{$unpublished_owned_errata});
+        (@{$published_owned_errata}, @{$unpublished_owned_errata});
 
   my %clone_map;   # need a map to find the appropriate pre-existing errata for each Red Hat errata.
 
@@ -524,11 +524,11 @@ EOQ
 sub remove_errata_from_channel {
   my $class = shift;
   my %attr = validate_with( params => \@_,
-			    spec => {cid => { type => SCALAR },
-				     eids => { type => ARRAYREF },
-				     include_packages => { type => SCALAR },
-				    },
-			  );
+                            spec => {cid => { type => SCALAR },
+                                     eids => { type => ARRAYREF },
+                                     include_packages => { type => SCALAR },
+                                    },
+                          );
 
   my $dbh = RHN::DB->connect;
   my $query =<<EOQ;
@@ -582,12 +582,12 @@ EOQ
 sub add_errata_to_channel {
   my $class = shift;
   my %attr = validate_with( params => \@_,
-			    spec => {cid => { type => SCALAR },
-				     eids => { type => ARRAYREF },
-				     include_packages => { type => SCALAR,
-							   optional => 1},
-				    },
-			  );
+                            spec => {cid => { type => SCALAR },
+                                     eids => { type => ARRAYREF },
+                                     include_packages => { type => SCALAR,
+                                                           optional => 1},
+                                    },
+                          );
 
   my $dbh = RHN::DB->connect();
 
@@ -651,11 +651,11 @@ EOQ
 sub add_cloned_errata_to_channel {
   my $class = shift;
   my %attr = validate_with( params => \@_,
-			    spec => {to_cid => { type => SCALAR },
-				     from_cid => { type => SCALAR },
-				     eids => { type => ARRAYREF },
-				    },
-			  );
+                            spec => {to_cid => { type => SCALAR },
+                                     from_cid => { type => SCALAR },
+                                     eids => { type => ARRAYREF },
+                                    },
+                          );
 
   my $dbh = RHN::DB->connect();
 

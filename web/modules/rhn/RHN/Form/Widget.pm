@@ -24,24 +24,24 @@ use RHN::Form::Filter;
 use RHN::Form::Require;
 
 my %valid_types = (literal => 'Literal',
-		   text => 'Text',
-		   textarea => 'TextArea',
-		   select => 'Select',
-		   checkbox_group => 'CheckboxGroup',
-		   radio_group => 'RadiobuttonGroup',
-		   hidden => 'Hidden', submit => 'Submit',
-		   checkbox => 'Checkbox',
-		   file => 'File',
-		   );
+                   text => 'Text',
+                   textarea => 'TextArea',
+                   select => 'Select',
+                   checkbox_group => 'CheckboxGroup',
+                   radio_group => 'RadiobuttonGroup',
+                   hidden => 'Hidden', submit => 'Submit',
+                   checkbox => 'Checkbox',
+                   file => 'File',
+                   );
 
 my %valid_fields = (name => 'Anonymous Widget',
-		    label => undef,
-		    default => undef,
-		    filters => [],
-		    requires => [],
-		    errors => [],
-		    value => undef,
-		    acl => undef);
+                    label => undef,
+                    default => undef,
+                    filters => [],
+                    requires => [],
+                    errors => [],
+                    value => undef,
+                    acl => undef);
 
 sub valid_fields {
   my $self = shift;
@@ -207,7 +207,7 @@ sub set_value { # lets us set the value to 'undef'
       my $param = $req->{param};
 
       if (my $error = RHN::Form::Require->$rule($param, $val)) {
-	$self->add_error($error, $req->{param});
+        $self->add_error($error, $req->{param});
       }
     }
   }
@@ -294,17 +294,17 @@ sub add_require {
   if (ref $require eq 'HASH') {
     foreach my $label (keys %{$require}) {
       throw "No param for '$label' requirement on widget: " . $self->label
-	unless (defined $require->{$label});
+        unless (defined $require->{$label});
 
       push @{$self->{requires}}, {label => $label,
-				  rule => RHN::Form::Require->lookup_require($label),
- 				  param => $require->{$label}};
+                                  rule => RHN::Form::Require->lookup_require($label),
+                                  param => $require->{$label}};
     }
   }
   elsif ($param) {
     push @{$self->{requires}}, {label => $require,
-				rule => RHN::Form::Require->lookup_require($require),
-				param => $param};
+                                rule => RHN::Form::Require->lookup_require($require),
+                                param => $param};
   }
   else {
     throw "No param for '$require' requirement on widget: " . $self->label;
@@ -330,8 +330,8 @@ sub add_error {
   my $param = shift;
 
   my %attr = (widget_name => $self->name,
-	      widget_label => $self->label,
-	      param => $param);
+              widget_label => $self->label,
+              param => $param);
 
   $error = PXT::Utils->perform_substitutions($error, \%attr);
 

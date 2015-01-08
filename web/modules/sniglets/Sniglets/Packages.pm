@@ -212,10 +212,10 @@ sub package_details {
 
     $subst{package_solaris_patch_sets_containing_patch} = 
       join("<br/>\n",
-	   map { sprintf(q(<a href="/rhn/software/packages/Details.do?pid=%d">%s - %s</a>),
-			 $_->{ID}, $_->{NVRE}, $_->{SET_DATE})
-	       } @patch_patch_sets
-	  ) || $no_data;
+           map { sprintf(q(<a href="/rhn/software/packages/Details.do?pid=%d">%s - %s</a>),
+                         $_->{ID}, $_->{NVRE}, $_->{SET_DATE})
+               } @patch_patch_sets
+          ) || $no_data;
   }
   elsif ($package->isa('RHN::Package::SolarisPatchSet')) {
     $subst{"package_$_"} = PXT::Utils->escapeHTML($package->$_() || '') || $no_data
@@ -241,7 +241,7 @@ sub raw_pkgmap {
 
   unless ($pxt->user->verify_package_access($pid)) {
     die sprintf("User %s (%d) has no access to package '%s'",
-		$pxt->user->login, $pxt->user->id, $pid);
+                $pxt->user->login, $pxt->user->id, $pid);
   }
 
   # setting the content type and disposition forces most browsers to
@@ -273,7 +273,7 @@ sub raw_readme {
 
   unless ($pxt->user->verify_package_access($pid)) {
     die sprintf("User %s (%d) has no access to package '%s'",
-		$pxt->user->login, $pxt->user->id, $pid);
+                $pxt->user->login, $pxt->user->id, $pid);
   }
 
   # setting the content type and disposition forces most browsers to
@@ -315,15 +315,15 @@ sub sscd_confirm_package_upgrades_cb {
       my $actions_by_sid;
 
       foreach my $sid (keys %{$actions}) {
-	my @actions = map { RHN::Action->lookup(-id => $actions->{$sid}->{$_}->{action_id}) }
-	  keys %{$actions->{$sid}};
+        my @actions = map { RHN::Action->lookup(-id => $actions->{$sid}->{$_}->{action_id}) }
+          keys %{$actions->{$sid}};
 
-	for (my $i = 1; $i <= $#actions; $i++) {
-	  $actions[$i]->prerequisite($actions[$i - 1]->id);
-	  $actions[$i]->commit;
-	}
+        for (my $i = 1; $i <= $#actions; $i++) {
+          $actions[$i]->prerequisite($actions[$i - 1]->id);
+          $actions[$i]->commit;
+        }
 
-	$actions_by_sid->{$sid} = \@actions;
+        $actions_by_sid->{$sid} = \@actions;
       }
 
       return $actions_by_sid;
@@ -397,9 +397,9 @@ sub sscd_confirm_package_installations_cb {
     }
 
     my $actions = RHN::Scheduler->sscd_schedule_package_installations(-org_id => $pxt->user->org_id,
-								      -user_id => $pxt->user->id,
-								      -earliest => $earliest,
-								      -channel_id => $channel_id,
+                                                                      -user_id => $pxt->user->id,
+                                                                      -earliest => $earliest,
+                                                                      -channel_id => $channel_id,
                                                                       -label => $pkglbl);
     my $package_set = RHN::Set->lookup(-label => $pkglbl, -uid => $pxt->user->id);
     $package_set->empty;
@@ -465,16 +465,16 @@ sub build_upload_answerfile_form {
   my $mode = $pxt->dirty_param('mode');
 
   my $form = new RHN::Form::ParsedForm(name => "Answer File",
-				       label => 'answerfile_form',
-				       action => $attr{action},
-				       enctype => 'multipart/form-data',
-				      );
+                                       label => 'answerfile_form',
+                                       action => $attr{action},
+                                       enctype => 'multipart/form-data',
+                                      );
 
   $form->add_widget( new RHN::Form::Widget::TextArea(name => 'Answer File',
-						     label => 'answerfile_contents',
-						     rows => 24,
-						     cols => 80,
-						     default => '') );
+                                                     label => 'answerfile_contents',
+                                                     rows => 24,
+                                                     cols => 80,
+                                                     default => '') );
 
   if ($mode eq 'ssm_package_install_answer_files') {
     $form->add_widget(hidden => { name => 'sscd_confirm_package_installations', value => 1 });

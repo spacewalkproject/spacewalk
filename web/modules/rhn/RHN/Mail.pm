@@ -35,7 +35,7 @@ sub validate_allowed_recipients {
   if (@allowed_domains) {
     foreach my $recipient (map { split /,\s*/, $_ } @recipients) {
       unless (grep { $recipient =~ /.*\@$_>?/ } @allowed_domains ) {
-	return;
+        return;
       }
     }
   }
@@ -43,7 +43,7 @@ sub validate_allowed_recipients {
   if (@disallowed_domains) {
     foreach my $recipient (map { split /,\s*/, $_ } @recipients) {
       if (grep { $recipient =~ /.*\@$_>?/ } @disallowed_domains ) {
-	return;
+        return;
       }
     }
   }
@@ -54,17 +54,17 @@ sub validate_allowed_recipients {
 sub send {
   my $class = shift;
   my %params = validate(@_, {to => 1,
-			     subject => 1,
-			     body => 1,
-			     cc => 0,
-			     bcc => 0,
-			     headers => 0,
-			     from => 0,
-			     sendmail_from => 0,
-			     slow => 0,
-			     allow_all_domains => 0,
-			     no_default_headers => 0,
-			    });
+                             subject => 1,
+                             body => 1,
+                             cc => 0,
+                             bcc => 0,
+                             headers => 0,
+                             from => 0,
+                             sendmail_from => 0,
+                             slow => 0,
+                             allow_all_domains => 0,
+                             no_default_headers => 0,
+                            });
 
   my $headers = $params{headers};
 

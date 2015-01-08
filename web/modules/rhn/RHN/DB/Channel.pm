@@ -41,15 +41,15 @@ my $c = new RHN::DB::TableClass("rhnChannel", "C", "", @channel_fields);
 my $a = new RHN::DB::TableClass("rhnChannelArch", "CA", "arch", @arch_fields);
 
 my $j = $c->create_join(
-			[$a],
-			{
-			 "rhnChannel" =>
-			 {
-			  "rhnChannel" => ["ID","ID"],
-			  "rhnChannelArch" => ["CHANNEL_ARCH_ID","ID"]
-			 }
-			}
-		       );
+                        [$a],
+                        {
+                         "rhnChannel" =>
+                         {
+                          "rhnChannel" => ["ID","ID"],
+                          "rhnChannelArch" => ["CHANNEL_ARCH_ID","ID"]
+                         }
+                        }
+                       );
 
 # build some accessors
 foreach my $field ($j->method_names) {
@@ -275,8 +275,8 @@ sub subscribable_channels {
 
   my $ds = new RHN::DataSource::Channel(-mode => 'subscribable_channels');
   my $channels = $ds->execute_query(-server_id => $params{server_id},
-				    -user_id => $params{user_id},
-				    -base_channel_id => $params{base_channel_id});
+                                    -user_id => $params{user_id},
+                                    -base_channel_id => $params{base_channel_id});
 
   return @$channels;
 }

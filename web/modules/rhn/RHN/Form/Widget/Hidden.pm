@@ -28,7 +28,7 @@ sub render {
   my $self = shift;
 
   my $ret = PXT::HTML->hidden(-name => $self->name || $self->label,
-			      -value => $self->value || $self->default || '');
+                              -value => $self->value || $self->default || '');
 
   return $ret;
 }

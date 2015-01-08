@@ -53,8 +53,8 @@ sub render {
   my $self = shift;
 
   my $ret = PXT::HTML->file(-name => $self->label,
-			    -value => $self->value || $self->default || '',
-			    -accept => $self->accept);
+                            -value => $self->value || $self->default || '',
+                            -accept => $self->accept);
 
   return $ret;
 }

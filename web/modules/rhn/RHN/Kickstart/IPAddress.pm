@@ -130,9 +130,9 @@ sub _op_cmp {
   my ($ip1, $ip2) = validate_pos(@_, { isa => "RHN::Kickstart::IPAddress" }, { isa => "RHN::Kickstart::IPAddress" }, 0);
 
   return (  ($ip1->export == $ip2->export) ? 0
-	  : ($ip1->export > $ip2->export) ? 1
-	  : -1
-	 );
+          : ($ip1->export > $ip2->export) ? 1
+          : -1
+         );
 }
 
 1;

@@ -65,7 +65,7 @@ sub write_config {
   my @opt_strings = map { "--option=${_}=" . $options->{$_} } keys %{$options};
 
   my $ret = system("/usr/bin/sudo", "/usr/bin/rhn-config-satellite.pl",
-		   "--target=$target", @opt_strings);
+                   "--target=$target", @opt_strings);
 
   if ($ret) {
     throw 'There was a problem updating your configuration.  '

@@ -432,8 +432,8 @@ sub ora_instance_state {
   }
 
   my %states = (1033 => "MOUNTED",
-		1089 => "STOPPING",
-		1034 => "OFFLINE");
+                1089 => "STOPPING",
+                1034 => "OFFLINE");
 
   croak "Unknown error code $err " . RHN::DB->errstr if not exists $states{$err};
 
@@ -462,9 +462,9 @@ sub sysdba_connect_oracle {
   $ENV{ORACLE_HOME} = $self->config->get("oracle_home");
 
   my %params = (RaiseError => 1,
-		PrintError => 0,
-		AutoCommit => 0,
-		ora_session_mode => 2);  # ora_session_mode: OCI_SYSDBA
+                PrintError => 0,
+                AutoCommit => 0,
+                ora_session_mode => 2);  # ora_session_mode: OCI_SYSDBA
 
   my $dbi_str = "dbi:Oracle:";
 
@@ -486,9 +486,9 @@ sub sysdba_connect_oracle {
   };
 
   my $dbh = RHN::DB->direct_connect($dbi_str,
-				    $self->config->get("sysdba_username"),
-				    $self->config->get("sysdba_password"),
-				    \%params);
+                                    $self->config->get("sysdba_username"),
+                                    $self->config->get("sysdba_password"),
+                                    \%params);
 
   $self->{sysdbh} = $dbh;
   return $dbh;

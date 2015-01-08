@@ -40,12 +40,12 @@ sub new {
   die "no domain specified in constructor" unless defined $domain;
 
   my $self = bless { domain => $domain,
-		     config_defaults => {},
-		     config_trees => {},
-		     overrides => {},
-		     config_mtimes => {},
-		     last_local_configs => undef,
-		   }, $class;
+                     config_defaults => {},
+                     config_trees => {},
+                     overrides => {},
+                     config_mtimes => {},
+                     last_local_configs => undef,
+                   }, $class;
 
   $self->load_configs;
 
@@ -107,11 +107,11 @@ sub load_file {
       # for trees we care about
 
       if (exists $self->{config_defaults}->{$domain} and not exists $self->{config_defaults}->{$domain}->{$var}) {
-	# alas, this warning has to go.  I wish we could be more rigid
-	# in namespacing configs, but we cannot.  so we silently
-	# ignore this error that we once reported.  a tear, I shed.
+        # alas, this warning has to go.  I wish we could be more rigid
+        # in namespacing configs, but we cannot.  so we silently
+        # ignore this error that we once reported.  a tear, I shed.
 
-	# carp "config $domain.$var not in master config list in PXT::Config";
+        # carp "config $domain.$var not in master config list in PXT::Config";
       }
       $self->{config_trees}->{$domain}->{$var} = $val;
     }

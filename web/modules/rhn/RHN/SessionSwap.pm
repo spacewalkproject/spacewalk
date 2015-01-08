@@ -27,11 +27,11 @@ sub rhn_hmac_data {
   my $hmac_data = join("\0", @_);
 
   my $hmac_key = join("",
-		      PXT::Config->get('session_swap_secret_4'),
-		      PXT::Config->get('session_swap_secret_3'),
-		      PXT::Config->get('session_swap_secret_2'),
-		      PXT::Config->get('session_swap_secret_1')
-		  );
+                      PXT::Config->get('session_swap_secret_4'),
+                      PXT::Config->get('session_swap_secret_3'),
+                      PXT::Config->get('session_swap_secret_2'),
+                      PXT::Config->get('session_swap_secret_1')
+                  );
   return hmac_sha1_hex($hmac_data, $hmac_key);
 }
 

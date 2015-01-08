@@ -28,14 +28,14 @@ sub new {
   my %attr = @_;
 
   my $self = bless { name => 'Anonymous Form',
-		     label => 'anon_form',
-		     action => undef,
-		     method => 'POST',
-		     widgets => [],
-		     widgets_by_label => {},
-		     acl_mixins => [],
-		     enctype => "application/x-www-form-urlencoded",
-		   }, $class;
+                     label => 'anon_form',
+                     action => undef,
+                     method => 'POST',
+                     widgets => [],
+                     widgets_by_label => {},
+                     acl_mixins => [],
+                     enctype => "application/x-www-form-urlencoded",
+                   }, $class;
 
   foreach (@valid_fields) {
     if (exists $attr{$_}) {

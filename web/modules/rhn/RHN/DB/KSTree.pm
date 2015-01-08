@@ -98,7 +98,7 @@ EOQ
 sub create_tree {
   my $class = shift;
   my %params = validate(@_, { org_id => 0, tree_type => 0, boot_image => 0,
-			      label => 1, path => 1, channel_id => 1, install_type_label => 1 });
+                              label => 1, path => 1, channel_id => 1, install_type_label => 1 });
 
   $params{boot_image} ||= $params{label};
   $params{tree_type} ||= 'rhn-managed';

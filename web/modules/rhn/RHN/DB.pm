@@ -439,7 +439,7 @@ sub execute_h {
         }
       } elsif ($self->{Database}->{Driver}->{Name} eq 'Pg') {
         eval 'use DBD::Pg ()';
-	$attr->{pg_type} = DBD::Pg::PG_BYTEA();
+        $attr->{pg_type} = DBD::Pg::PG_BYTEA();
       }
       $v = $v->{value};
     }

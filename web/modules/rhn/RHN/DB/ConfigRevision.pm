@@ -28,9 +28,9 @@ use RHN::ConfigRevision ();
 our @ISA = qw/RHN::SimpleStruct/;
 
 our @core_fields = qw/id revision config_file_id config_content_id
-		      config_info_id delim_start delim_end created
-		      modified username groupname filemode latest_id latest path
-		      md5sum file_size org_id config_channel_id filetype selinux_ctx symlink_target_filename_id/;
+                      config_info_id delim_start delim_end created
+                      modified username groupname filemode latest_id latest path
+                      md5sum file_size org_id config_channel_id filetype selinux_ctx symlink_target_filename_id/;
 
 our @transient_fields = qw/__contents__ is_binary/;
 our @simple_struct_fields = (@core_fields, @transient_fields);
@@ -115,7 +115,7 @@ EOS
 
   my $ccid;
   $sth->execute_h(ccid => \$ccid, md5sum => $md5sum, file_size => length($contents),
-		  contents => $dbh->encode_blob($contents, "contents"), delim_start => $delim_start, delim_end => $delim_end);
+                  contents => $dbh->encode_blob($contents, "contents"), delim_start => $delim_start, delim_end => $delim_end);
 
   $dbh->commit;
   return $ccid;
@@ -164,8 +164,8 @@ sub commit {
   my $ciid;
   if ($ftype eq 'symlink') {
       $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode,
-	 ((defined $self->selinux_ctx && $self->selinux_ctx ne '')?$self->selinux_ctx:undef),
-	 $self->symlink_target_filename_id);
+         ((defined $self->selinux_ctx && $self->selinux_ctx ne '')?$self->selinux_ctx:undef),
+         $self->symlink_target_filename_id);
   }
   else {
     $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode,
@@ -192,10 +192,10 @@ EOS
 
   $self->revision($self->next_revision);
   $sth->execute_h(cfid => $self->config_file_id, ccid => $ccid, ciid => $ciid, crid => \$crid,
-		  revision => $self->revision, filetype => $cftid);
+                  revision => $self->revision, filetype => $cftid);
 
   $dbh->do_h("UPDATE rhnConfigFile SET latest_config_revision_id = :crid WHERE id = :cfid",
-	     crid => $crid, cfid => $self->config_file_id);
+             crid => $crid, cfid => $self->config_file_id);
 
   $self->commit_binary_flag($dbh);
 
@@ -210,7 +210,7 @@ sub commit_binary_flag {
   my $dbh = $tx || RHN::DB->connect;
 
   $dbh->do_h("UPDATE rhnConfigContent SET is_binary = :flag WHERE id = :ccid",
-	     ccid => $self->config_content_id, flag => $self->is_binary ? 'Y' : 'N');
+             ccid => $self->config_content_id, flag => $self->is_binary ? 'Y' : 'N');
 
   $dbh->commit unless $tx;
 }

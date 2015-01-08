@@ -38,11 +38,11 @@ sub list_of { return "files" }
 sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "package_files",
-			   -datasource => RHN::DataSource::General->new);
+                           -datasource => RHN::DataSource::General->new);
 
 
   Sniglets::ListView::List->add_mode(-mode => "configfiles_for_snapshot",
-			   -datasource => new RHN::DataSource::Simple(-querybase => "config_queries"));
+                           -datasource => new RHN::DataSource::Simple(-querybase => "config_queries"));
 }
 
 sub row_callback {

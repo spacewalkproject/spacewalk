@@ -31,13 +31,13 @@ my $t_table = new RHN::DB::TableClass("rhnTag", "T", "", @t_fields);
 my $tn_table = new RHN::DB::TableClass("rhnTagName", "TN", "", @tn_fields);
 
 my $j = $t_table->create_join([$tn_table],
-			      {
-			       "rhnTag" =>
-			       {
-				"rhnTag" => ["ID", "ID"],
-				"rhnTagName" => ["NAME_ID", "ID"],
-			       }
-			      });
+                              {
+                               "rhnTag" =>
+                               {
+                                "rhnTag" => ["ID", "ID"],
+                                "rhnTagName" => ["NAME_ID", "ID"],
+                               }
+                              });
 
 foreach my $field ($j->method_names) {
    my $sub = q {

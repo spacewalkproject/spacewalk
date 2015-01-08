@@ -39,8 +39,8 @@ sub new {
   }
 
   my $self = bless { name => $table_name, alias => $table_alias,
-		     columns => \@columns, prefix => $method_prefix,
-		     column_flags => \%column_flags }, $class;
+                     columns => \@columns, prefix => $method_prefix,
+                     column_flags => \%column_flags }, $class;
 
   my @meth = $self->method_names;
   my @cols = $self->column_names;
@@ -135,7 +135,7 @@ sub update_query {
   $ret .= "UPDATE $self->{name} $self->{alias}\nSET ";
   $ret .= join(", ", map { "$_ = " .  $self->type_to_placeholder($_) }
                map { ($remove_alias eq substr($_, 0, length($remove_alias))) ? substr($_, length($remove_alias)) : $_ }
-	       grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
+               grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
 
   $ret .= "\nWHERE ";
   return $ret;
@@ -155,7 +155,7 @@ sub insert_query {
     grep { exists $changed_fields{$_} } $self->column_names);
   $ret .= ") VALUES (";
   $ret .= join(", ", map { $self->type_to_placeholder($_) }
-	       grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
+               grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
   $ret .= ")";
 
   return $ret;

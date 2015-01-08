@@ -33,9 +33,9 @@ sub trap {
 
 sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "profile_overview",
-				     -datasource => new RHN::DataSource::Simple(-querybase => "profile_queries"));
+                                     -datasource => new RHN::DataSource::Simple(-querybase => "profile_queries"));
 
   Sniglets::ListView::List->add_mode(-mode => "profile_package_overview",
-				     -datasource => new RHN::DataSource::Simple(-querybase => "profile_queries"));
+                                     -datasource => new RHN::DataSource::Simple(-querybase => "profile_queries"));
 }
 

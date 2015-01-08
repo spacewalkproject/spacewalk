@@ -68,12 +68,12 @@ sub parse_cert {
     }
     else {
       if ($field_node->getFirstChild) {
-	my $value = $field_node->getFirstChild->getData;
+        my $value = $field_node->getFirstChild->getData;
 
-	push @fields, [ $name, $value ];
+        push @fields, [ $name, $value ];
       }
       else {
-	push @fields, [ $name, '' ];
+        push @fields, [ $name, '' ];
       }
     }
   }
@@ -138,12 +138,12 @@ sub as_checksum_string {
 
     if (defined $val) {
       if (ref $val) {
-	foreach my $val (sort { join("", sort %$a) cmp join("", sort %$b) } @$val) {
-	  $data .= "$field-" . join("-", map { $_, $val->{$_} } sort keys %$val) . "\n";
-	}
+        foreach my $val (sort { join("", sort %$a) cmp join("", sort %$b) } @$val) {
+          $data .= "$field-" . join("-", map { $_, $val->{$_} } sort keys %$val) . "\n";
+        }
       }
       else {
-	$data .= $field . "-" . $self->get_field($field) . "\n";
+        $data .= $field . "-" . $self->get_field($field) . "\n";
       }
     }
   }

@@ -45,16 +45,16 @@ my $s_table = new RHN::DB::TableClass("rhnSnapshot", "S", "", @s_fields);
 my $i_table = new RHN::DB::TableClass("rhnSnapshotInvalidReason", "IR", "invalid_reason", @i_fields);
 
 my $j = $s_table->create_join([$i_table],
-			      {
-			       "rhnSnapshot" =>
-			       {
-				"rhnSnapshot" => ["ID", "ID"],
-				"rhnSnapshotInvalidReason" => ["INVALID", "ID"],
-			       }
-			      },
-			     {
-			      rhnSnapshotInvalidReason => "(+)"
-			     });
+                              {
+                               "rhnSnapshot" =>
+                               {
+                                "rhnSnapshot" => ["ID", "ID"],
+                                "rhnSnapshotInvalidReason" => ["INVALID", "ID"],
+                               }
+                              },
+                             {
+                              rhnSnapshotInvalidReason => "(+)"
+                             });
 
 
 
@@ -124,9 +124,9 @@ sub lookup {
 sub add_tag_to_snapshot {
   my $class = shift;
   my %params = validate(@_, {org_id => 1,
-			     snapshot_id => 1,
-			     tag_name => 1,
-			     transaction => 0});
+                             snapshot_id => 1,
+                             tag_name => 1,
+                             transaction => 0});
 
   my $dbh = $params{transaction} || RHN::DB->connect;
 
@@ -140,19 +140,19 @@ sub add_tag_to_snapshot {
 sub bulk_snapshot_tag {
   my $class = shift;
   my %params = validate(@_, {user_id => 1,
-			     org_id => 1,
-			     set_label => 1,
-			     tag_name => 1,
-			     transaction => 0,
-			    });
+                             org_id => 1,
+                             set_label => 1,
+                             tag_name => 1,
+                             transaction => 0,
+                            });
 
   my $dbh = $params{transaction} || RHN::DB->connect;
   $dbh->call_procedure('rhn_server.bulk_snapshot_tag',
-		       $params{org_id},
-		       $params{tag_name},
-		       $params{set_label},
-		       $params{user_id},
-		      );
+                       $params{org_id},
+                       $params{tag_name},
+                       $params{set_label},
+                       $params{user_id},
+                      );
 
   $dbh->commit unless $params{transaction};
   return $dbh if $params{transaction};

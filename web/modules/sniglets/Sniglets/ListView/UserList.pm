@@ -39,24 +39,24 @@ sub list_of { return "users" }
 
 sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "group_admins",
-				     -datasource => RHN::DataSource::User->new,
-				     -provider => \&group_admin_provider,
-				     -action_callback => \&group_admin_cb);
+                                     -datasource => RHN::DataSource::User->new,
+                                     -provider => \&group_admin_provider,
+                                     -action_callback => \&group_admin_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "users_in_org",
-				     -datasource => RHN::DataSource::User->new);
+                                     -datasource => RHN::DataSource::User->new);
 
   Sniglets::ListView::List->add_mode(-mode => "support_users_in_org",
-				     -datasource => RHN::DataSource::User->new);
+                                     -datasource => RHN::DataSource::User->new);
 
   Sniglets::ListView::List->add_mode(-mode => "support_find_user",
-				     -datasource => RHN::DataSource::User->new,
-				     -provider => \&support_find_user_provider);
+                                     -datasource => RHN::DataSource::User->new,
+                                     -provider => \&support_find_user_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "channel_subscribers",
-				     -datasource => RHN::DataSource::User->new,
-				     -provider => \&channel_subscribers_provider,
-				     -action_callback => \&channel_subscribers_cb);
+                                     -datasource => RHN::DataSource::User->new,
+                                     -provider => \&channel_subscribers_provider,
+                                     -action_callback => \&channel_subscribers_cb);
 }
 
 sub row_callback {
@@ -126,9 +126,9 @@ sub group_admin_provider {
           $star = '*';
       }
       $row->{GROUP_ADMIN_CHECKBOX} =
-	PXT::HTML->checkbox(-name => 'user_' . $row->{ID} . '_is_admin',
-			    -value => 1,
-			    -checked => $row->{IS_ADMIN});
+        PXT::HTML->checkbox(-name => 'user_' . $row->{ID} . '_is_admin',
+                            -value => 1,
+                            -checked => $row->{IS_ADMIN});
       $row->{GROUP_ADMIN_CHECKBOX} .= $star;
     }
 

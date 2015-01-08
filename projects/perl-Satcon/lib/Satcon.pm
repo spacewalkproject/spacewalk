@@ -69,10 +69,10 @@ sub save_conf_file {
   foreach my $line (@{$self->{lines}}) {
     if (ref $line) {
       if ($line->[1]) {
-	print "$line->[0]=$line->[2]\n";
+        print "$line->[0]=$line->[2]\n";
       }
       else {
-	print "$line->[0]\[$line->[1]\]=$line->[2]\n";
+        print "$line->[0]\[$line->[1]\]=$line->[2]\n";
       }
     }
     else {

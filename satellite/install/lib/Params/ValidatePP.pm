@@ -65,13 +65,13 @@ sub validate_pos (\@@)
         # if the spec is bigger that's where we can start adding
         # defaults
         for ( my $x = $#p + 1; $x <= $#specs; $x++ )
-	{
+        {
             $p[$x] =
                 $specs[$x]->{default}
                     if ref $specs[$x] && exists $specs[$x]->{default};
-	}
+        }
 
-	return wantarray ? @p : \@p;
+        return wantarray ? @p : \@p;
     }
 
     # I'm too lazy to pass these around all over the place.
@@ -86,7 +86,7 @@ sub validate_pos (\@@)
                       ! ( exists $specs[$min]->{default} || $specs[$min]->{optional} ) :
                       $specs[$min] );
 
-	$min++;
+        $min++;
     }
 
     my $max = scalar @specs;
@@ -94,17 +94,17 @@ sub validate_pos (\@@)
     my $actual = scalar @p;
     unless ($actual >= $min && ( $options->{allow_extra} || $actual <= $max ) )
     {
-	my $minmax =
+        my $minmax =
             ( $options->{allow_extra} ?
               "at least $min" :
               ( $min != $max ? "$min - $max" : $max ) );
 
-	my $val = $options->{allow_extra} ? $min : $max;
-	$minmax .= $val != 1 ? ' were' : ' was';
+        my $val = $options->{allow_extra} ? $min : $max;
+        $minmax .= $val != 1 ? ' were' : ' was';
 
         my $called = _get_called();
 
-	$options->{on_fail}->
+        $options->{on_fail}->
             ( "$actual parameter" .
               ($actual != 1 ? 's' : '') .
               " " .
@@ -115,17 +115,17 @@ sub validate_pos (\@@)
     my $bigger = $#p > $#specs ? $#p : $#specs;
     foreach ( 0..$bigger )
     {
-	my $spec = $specs[$_];
+        my $spec = $specs[$_];
 
-	next unless ref $spec;
+        next unless ref $spec;
 
-	if ( $_ <= $#p )
-	{
-	    my $value = defined $p[$_] ? qq|"$p[$_]"| : 'undef';
-	    _validate_one_param( $p[$_], \@p, $spec, "Parameter #" . ($_ + 1) . " ($value)");
-	}
+        if ( $_ <= $#p )
+        {
+            my $value = defined $p[$_] ? qq|"$p[$_]"| : 'undef';
+            _validate_one_param( $p[$_], \@p, $spec, "Parameter #" . ($_ + 1) . " ($value)");
+        }
 
-	$p[$_] = $spec->{default} if $_ > $#p && exists $spec->{default};
+        $p[$_] = $spec->{default} if $_ > $#p && exists $spec->{default};
     }
 
     _validate_pos_depends(\@p, \@specs);
@@ -241,8 +241,8 @@ sub validate (\@$)
     }
     elsif ( $options->{ignore_case} || $options->{strip_leading} )
     {
-	$specs = _normalize_named($specs);
-	$p = _normalize_named($p);
+        $specs = _normalize_named($specs);
+        $p = _normalize_named($p);
     }
 
     if ($NO_VALIDATION)
@@ -290,14 +290,14 @@ sub validate (\@$)
     {
         my $called = _get_called();
 
-	if ( my @unmentioned = grep { ! exists $specs->{$_} } keys %$p )
-	{
-	    $options->{on_fail}->
+        if ( my @unmentioned = grep { ! exists $specs->{$_} } keys %$p )
+        {
+            $options->{on_fail}->
                 ( "The following parameter" . (@unmentioned > 1 ? 's were' : ' was') .
                   " passed in the call to $called but " .
                   (@unmentioned > 1 ? 'were' : 'was') .
                   " not listed in the validation options: @unmentioned\n" );
-	}
+        }
     }
 
     my @missing;
@@ -309,7 +309,7 @@ sub validate (\@$)
  OUTER:
     while ( my ($key, $spec) = each %$specs )
     {
-	if ( ! exists $p->{$key} &&
+        if ( ! exists $p->{$key} &&
              ( ref $spec
                ? ! (
                     do
@@ -336,22 +336,22 @@ sub validate (\@$)
            )
         {
             push @missing, $key;
-	}
+        }
         # Can't validate a non hashref spec beyond the presence or
         # absence of the parameter.
         elsif (ref $spec)
         {
-	    my $value = defined $p->{$key} ? qq|"$p->{$key}"| : 'undef';
-	    _validate_one_param( $p->{$key}, $p, $spec, "The '$key' parameter ($value)" );
-	}
+            my $value = defined $p->{$key} ? qq|"$p->{$key}"| : 'undef';
+            _validate_one_param( $p->{$key}, $p, $spec, "The '$key' parameter ($value)" );
+        }
     }
 
     if (@missing)
     {
         my $called = _get_called();
 
-	my $missing = join ', ', map {"'$_'"} @missing;
-	$options->{on_fail}->
+        my $missing = join ', ', map {"'$_'"} @missing;
+        $options->{on_fail}->
             ( "Mandatory parameter" .
               (@missing > 1 ? 's': '') .
               " $missing missing in call to $called\n" );
@@ -387,14 +387,14 @@ sub validate_with
 
     if ( UNIVERSAL::isa( $p{spec}, 'ARRAY' ) )
     {
-	return validate_pos( @{ $p{params} }, @{ $p{spec} } );
+        return validate_pos( @{ $p{params} }, @{ $p{spec} } );
     }
     else
     {
         # intentionally ignore the prototype because this contains
         # either an array or hash reference, and validate() will
         # handle either one properly
-	return &validate( $p{params}, $p{spec} );
+        return &validate( $p{params}, $p{spec} );
     }
 }
 
@@ -436,12 +436,12 @@ sub _normalize_named
 
     if ( $options->{strip_leading} )
     {
-	foreach my $key (keys %h)
-	{
-	    my $new;
-	    ($new = $key) =~ s/^\Q$options->{strip_leading}\E//;
-	    $h{$new} = delete $h{$key};
-	}
+        foreach my $key (keys %h)
+        {
+            my $new;
+            ($new = $key) =~ s/^\Q$options->{strip_leading}\E//;
+            $h{$new} = delete $h{$key};
+        }
     }
 
     return \%h;
@@ -472,20 +472,20 @@ sub _validate_one_param
             $options->{on_fail}->($msg);
         }
 
-	unless ( _get_type($value) & $spec->{type} )
-	{
+        unless ( _get_type($value) & $spec->{type} )
+        {
             my $type = _get_type($value);
 
-	    my @is = _typemask_to_strings($type);
-	    my @allowed = _typemask_to_strings($spec->{type});
-	    my $article = $is[0] =~ /^[aeiou]/i ? 'an' : 'a';
+            my @is = _typemask_to_strings($type);
+            my @allowed = _typemask_to_strings($spec->{type});
+            my $article = $is[0] =~ /^[aeiou]/i ? 'an' : 'a';
 
             my $called = _get_called(1);
 
-	    $options->{on_fail}->
+            $options->{on_fail}->
                 ( "$id to $called was $article '@is', which " .
                   "is not one of the allowed types: @allowed\n" );
-	}
+        }
     }
 
     # short-circuit for common case
@@ -494,34 +494,34 @@ sub _validate_one_param
 
     if ( exists $spec->{isa} )
     {
-	foreach ( ref $spec->{isa} ? @{ $spec->{isa} } : $spec->{isa} )
-	{
-	    unless ( eval { $value->isa($_) } )
-	    {
-		my $is = ref $value ? ref $value : 'plain scalar';
-		my $article1 = $_ =~ /^[aeiou]/i ? 'an' : 'a';
-		my $article2 = $is =~ /^[aeiou]/i ? 'an' : 'a';
+        foreach ( ref $spec->{isa} ? @{ $spec->{isa} } : $spec->{isa} )
+        {
+            unless ( eval { $value->isa($_) } )
+            {
+                my $is = ref $value ? ref $value : 'plain scalar';
+                my $article1 = $_ =~ /^[aeiou]/i ? 'an' : 'a';
+                my $article2 = $is =~ /^[aeiou]/i ? 'an' : 'a';
 
                 my $called = _get_called(1);
 
-		$options->{on_fail}->
+                $options->{on_fail}->
                     ( "$id to $called was not $article1 '$_' " .
                       "(it is $article2 $is)\n" );
-	    }
-	}
+            }
+        }
     }
 
     if ( exists $spec->{can} )
     {
-	foreach ( ref $spec->{can} ? @{ $spec->{can} } : $spec->{can} )
-	{
+        foreach ( ref $spec->{can} ? @{ $spec->{can} } : $spec->{can} )
+        {
             unless ( eval { $value->can($_) } )
             {
                 my $called = _get_called(1);
 
                 $options->{on_fail}->( "$id to $called does not have the method: '$_'\n" );
             }
-	}
+        }
     }
 
     if ( $spec->{callbacks} )
@@ -535,8 +535,8 @@ sub _validate_one_param
         }
 
 
-	foreach ( keys %{ $spec->{callbacks} } )
-	{
+        foreach ( keys %{ $spec->{callbacks} } )
+        {
             unless ( UNIVERSAL::isa( $spec->{callbacks}{$_}, 'CODE' ) )
             {
                 my $called = _get_called(1);
@@ -550,7 +550,7 @@ sub _validate_one_param
 
                 $options->{on_fail}->( "$id to $called did not pass the '$_' callback\n" );
             }
-	}
+        }
     }
 
     if ( exists $spec->{regex} )
@@ -568,92 +568,92 @@ sub _validate_one_param
     # if it UNIVERSAL::isa the string on the left then its the type on
     # the right
     my %isas = ( 'ARRAY'  => ARRAYREF,
-		 'HASH'   => HASHREF,
-		 'CODE'   => CODEREF,
-		 'GLOB'   => GLOBREF,
-		 'SCALAR' => SCALARREF,
-	       );
+                 'HASH'   => HASHREF,
+                 'CODE'   => CODEREF,
+                 'GLOB'   => GLOBREF,
+                 'SCALAR' => SCALARREF,
+               );
     my %simple_refs = map { $_ => 1 } keys %isas;
 
     sub _get_type
     {
-	return UNDEF unless defined $_[0];
+        return UNDEF unless defined $_[0];
 
-	my $ref = ref $_[0];
-	unless ($ref)
-	{
-	    # catches things like:  my $fh = do { local *FH; };
-	    return GLOB if UNIVERSAL::isa( \$_[0], 'GLOB' );
-	    return SCALAR;
-	}
+        my $ref = ref $_[0];
+        unless ($ref)
+        {
+            # catches things like:  my $fh = do { local *FH; };
+            return GLOB if UNIVERSAL::isa( \$_[0], 'GLOB' );
+            return SCALAR;
+        }
 
-	return $isas{$ref} if $simple_refs{$ref};
+        return $isas{$ref} if $simple_refs{$ref};
 
-	foreach ( keys %isas )
-	{
-	    return $isas{$_} | OBJECT if UNIVERSAL::isa( $_[0], $_ );
-	}
+        foreach ( keys %isas )
+        {
+            return $isas{$_} | OBJECT if UNIVERSAL::isa( $_[0], $_ );
+        }
 
-	# I really hope this never happens.
-	return UNKNOWN;
+        # I really hope this never happens.
+        return UNKNOWN;
     }
 }
 
 {
     my %type_to_string = ( SCALAR()    => 'scalar',
-			   ARRAYREF()  => 'arrayref',
-			   HASHREF()   => 'hashref',
-			   CODEREF()   => 'coderef',
-			   GLOB()      => 'glob',
-			   GLOBREF()   => 'globref',
-			   SCALARREF() => 'scalarref',
-			   UNDEF()     => 'undef',
-			   OBJECT()    => 'object',
-			   UNKNOWN()   => 'unknown',
-			 );
+                           ARRAYREF()  => 'arrayref',
+                           HASHREF()   => 'hashref',
+                           CODEREF()   => 'coderef',
+                           GLOB()      => 'glob',
+                           GLOBREF()   => 'globref',
+                           SCALARREF() => 'scalarref',
+                           UNDEF()     => 'undef',
+                           OBJECT()    => 'object',
+                           UNKNOWN()   => 'unknown',
+                         );
 
     sub _typemask_to_strings
     {
-	my $mask = shift;
+        my $mask = shift;
 
-	my @types;
-	foreach ( SCALAR, ARRAYREF, HASHREF, CODEREF, GLOB, GLOBREF,
+        my @types;
+        foreach ( SCALAR, ARRAYREF, HASHREF, CODEREF, GLOB, GLOBREF,
                   SCALARREF, UNDEF, OBJECT, UNKNOWN )
-	{
-	    push @types, $type_to_string{$_} if $mask & $_;
-	}
-	return @types ? @types : ('unknown');
+        {
+            push @types, $type_to_string{$_} if $mask & $_;
+        }
+        return @types ? @types : ('unknown');
     }
 }
 
 {
     my %defaults = ( ignore_case   => 0,
-		     strip_leading => 0,
-		     allow_extra   => 0,
-		     on_fail       => sub { require Carp;
+                     strip_leading => 0,
+                     allow_extra   => 0,
+                     on_fail       => sub { require Carp;
                                             Carp::confess($_[0]) },
-		     stack_skip    => 1,
+                     stack_skip    => 1,
                      normalize_keys => undef,
-		   );
+                   );
 
     *set_options = \&validation_options;
     sub validation_options
     {
-	my %opts = @_;
+        my %opts = @_;
 
-	my $caller = caller;
+        my $caller = caller;
 
-	foreach ( keys %defaults )
-	{
-	    $opts{$_} = $defaults{$_} unless exists $opts{$_};
-	}
+        foreach ( keys %defaults )
+        {
+            $opts{$_} = $defaults{$_} unless exists $opts{$_};
+        }
 
-	$OPTIONS{$caller} = \%opts;
+        $OPTIONS{$caller} = \%opts;
     }
 
     sub _get_options
     {
-	my ( $caller, %override ) = @_;
+        my ( $caller, %override ) = @_;
 
         if ( %override )
         {

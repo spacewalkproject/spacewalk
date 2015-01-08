@@ -47,7 +47,7 @@ sub child_channel_candidate {
   throw 'system_channel acl test called with no sid param' unless $sid;
 
   my @channel_infos = RHN::Server->child_channel_candidates(-server_id => $sid,
-							    -channel_family_label => $family);
+                                                            -channel_family_label => $family);
   return 0 unless @channel_infos;
 
   return 1;

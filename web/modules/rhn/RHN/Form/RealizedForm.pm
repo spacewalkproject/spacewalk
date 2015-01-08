@@ -30,9 +30,9 @@ sub render {
   my $template = shift;
 
   my $html = $template->form_header(PXT::HTML->form_start(-method => $self->method,
-							  -action => $self->action,
-							  -name => $self->label,
-							  -enctype => $self->enctype));
+                                                          -action => $self->action,
+                                                          -name => $self->label,
+                                                          -enctype => $self->enctype));
 
   $html .= $template->rows_header($self->name);
 
@@ -56,7 +56,7 @@ sub render {
   }
 
   push @hidden, new RHN::Form::Widget::Hidden(label => 'formvar_hmac',
-					      value => $self->compute_hmac);
+                                              value => $self->compute_hmac);
 
   $html .= $template->rows_footer;
 

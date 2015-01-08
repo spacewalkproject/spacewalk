@@ -197,16 +197,16 @@ sub channel_edit_cb {
   
   #bugzilla  175845 - restrict child channels arches
   if($new_channel and $parent_id){
-	  my $parent_channel = RHN::Channel->lookup(-id => $parent_id);
-	  my $archmap = RHN::ChannelEditor->channel_base_arch_map;
-	  	
-	  my $parent_arch = $archmap->{$parent_channel->channel_arch_id}->{NAME};
-	  my $child_arch = $archmap->{$pxt->dirty_param("channel_arch")}->{NAME};
-	  
-	  if(verify_arch_compat($parent_arch, $child_arch) == 0){
-	  	$pxt->push_message(local_alert => "The child channel arch $child_arch is not compatible with a parent channel arch of $parent_arch");
-	  	$errors++;
-	  }
+          my $parent_channel = RHN::Channel->lookup(-id => $parent_id);
+          my $archmap = RHN::ChannelEditor->channel_base_arch_map;
+                
+          my $parent_arch = $archmap->{$parent_channel->channel_arch_id}->{NAME};
+          my $child_arch = $archmap->{$pxt->dirty_param("channel_arch")}->{NAME};
+          
+          if(verify_arch_compat($parent_arch, $child_arch) == 0){
+                $pxt->push_message(local_alert => "The child channel arch $child_arch is not compatible with a parent channel arch of $parent_arch");
+                $errors++;
+          }
    }
 
   return if $errors;
@@ -257,18 +257,18 @@ sub channel_edit_cb {
       $channel->commit();
 
       if ($clone_from) {
-	if ($clone_type eq 'current') {
-	  RHN::ChannelEditor->clone_channel_packages($clone_from, $channel->id);
-	  my ($data, $special_handling) = RHN::ChannelEditor->clone_all_errata(-from_cid => $clone_from, -to_cid => $channel->id, -org_id => $pxt->user->org_id);
-	}
-	elsif ($clone_type eq 'original') {
-	  RHN::ChannelEditor->clone_original_channel_packages($clone_from, $channel->id);
-	}
-	elsif ($clone_type eq 'select_errata') {
-	  RHN::ChannelEditor->clone_original_channel_packages($clone_from, $channel->id);
-	}
+        if ($clone_type eq 'current') {
+          RHN::ChannelEditor->clone_channel_packages($clone_from, $channel->id);
+          my ($data, $special_handling) = RHN::ChannelEditor->clone_all_errata(-from_cid => $clone_from, -to_cid => $channel->id, -org_id => $pxt->user->org_id);
+        }
+        elsif ($clone_type eq 'original') {
+          RHN::ChannelEditor->clone_original_channel_packages($clone_from, $channel->id);
+        }
+        elsif ($clone_type eq 'select_errata') {
+          RHN::ChannelEditor->clone_original_channel_packages($clone_from, $channel->id);
+        }
 
-	$channel->set_cloned_from($clone_from);
+        $channel->set_cloned_from($clone_from);
       }
 
       #adopt the channel into the user's org's channelfamily
@@ -288,23 +288,23 @@ sub channel_edit_cb {
       my $E = $@;
 
       if ($E->constraint_value eq '"RHNCHANNEL"."LABEL"') {
-	$pxt->push_message(local_alert => 'Channel label must be non-empty');
-	return;
+        $pxt->push_message(local_alert => 'Channel label must be non-empty');
+        return;
       }
       elsif ($E->constraint_value eq 'RHN_CHANNEL_LABEL_UQ') {
-	$pxt->push_message(local_alert => 'That channel label already exists in our database.  Please choose another.');
-	return;
+        $pxt->push_message(local_alert => 'That channel label already exists in our database.  Please choose another.');
+        return;
       }
       elsif ($E->constraint_value eq '"RHNCHANNEL"."SUMMARY"') {
-	$pxt->push_message(local_alert => 'Channel summary must not be empty');
-	return;
+        $pxt->push_message(local_alert => 'Channel summary must not be empty');
+        return;
       }
       elsif ($E->constraint_value eq 'RHN_CHANNEL_NAME_UQ') {
-	$pxt->push_message(local_alert => 'That channel name already exists in our database.  Please choose another.');
-	return;
+        $pxt->push_message(local_alert => 'That channel name already exists in our database.  Please choose another.');
+        return;
       }
       else {
-	throw $E;
+        throw $E;
       }
     } else {
       die $@;
@@ -358,13 +358,13 @@ sub populate_channel_list {
   my @base_channel_list = RHN::ChannelEditor->base_channels_visible_to_org($org_id);
   foreach my $base (@base_channel_list) {
     push (@channel_list, { NAME => $base->{NAME}, 
-		    ID => $base->{ID}, 
-		    DEPTH => 1});
+                    ID => $base->{ID}, 
+                    DEPTH => 1});
     my @child_channel_list = RHN::ChannelEditor->child_channels_visible_to_org_from_base($org_id, $base->{ID});
     foreach my $child (@child_channel_list) {
       push (@channel_list, { NAME => $child->{NAME},
-		      ID => $child->{ID},
-		      DEPTH => 2});
+                      ID => $child->{ID},
+                      DEPTH => 2});
     }
   }
 
@@ -387,20 +387,20 @@ sub build_clone_channel_details_form {
   die "illegal clone id" unless $pxt->user->verify_channel_access($clone_id);
 
   my $form = new RHN::Form::ParsedForm(name => 'Clone Channel Details',
-				       label => 'clone_channel_details',
-				       action => $attr{action},
-				      );
+                                       label => 'clone_channel_details',
+                                       action => $attr{action},
+                                      );
 
   my $channel_selectbox = new RHN::Form::Widget::Select(name => 'Clone From',
-							label => 'clone_from');
+                                                        label => 'clone_from');
 
   foreach my $opt (@channel_list) {
     $channel_selectbox->add_option( {value => $opt->{ID},
-				     label => ( $opt->{DEPTH} == 1
-						? $opt->{NAME}
-						: '&#160;&#160;' . $opt->{NAME}),
-				     optgroup => $opt->{OPTGROUP} ? 1 : 0
-				    } );
+                                     label => ( $opt->{DEPTH} == 1
+                                                ? $opt->{NAME}
+                                                : '&#160;&#160;' . $opt->{NAME}),
+                                     optgroup => $opt->{OPTGROUP} ? 1 : 0
+                                    } );
   }
 
   if ($clone_id) {
@@ -408,14 +408,14 @@ sub build_clone_channel_details_form {
   }
 
   my $type_radiogroup = new RHN::Form::Widget::RadiobuttonGroup(name => 'Clone',
-								label => 'clone_type');
+                                                                label => 'clone_type');
 
   $type_radiogroup->add_option( {value => 'current',
-				 label => 'Current state of the channel (all errata)'} );
+                                 label => 'Current state of the channel (all errata)'} );
   $type_radiogroup->add_option( {value => 'original',
-				 label => 'Original state of the channel (no errata)'} );
+                                 label => 'Original state of the channel (no errata)'} );
   $type_radiogroup->add_option( {value => 'select_errata',
-				 label => 'Select errata'} );
+                                 label => 'Select errata'} );
 
   my $clone_type = $pxt->dirty_param('clone_type') || 'current';
 
@@ -502,9 +502,9 @@ sub channel_edit_form {
   $subs{channel_gpg_key_fp} = $pxt->dirty_param('channel_gpg_key_fp') || '';
 
   %editable = map { $_ => 1 } qw/channel_name channel_summary
-				 channel_description channel_label channel_arch channel_parent
-				 channel_gpg_key_url channel_gpg_key_fp
-				 channel_gpg_key_id/;
+                                 channel_description channel_label channel_arch channel_parent
+                                 channel_gpg_key_url channel_gpg_key_fp
+                                 channel_gpg_key_id/;
 
   if (my $clone_from_cid = $pxt->dirty_param('clone_from')) {
     my $clone_from_channel = RHN::Channel->lookup(-id => $clone_from_cid);
@@ -512,17 +512,17 @@ sub channel_edit_form {
 
     my $clone_type = $pxt->dirty_param('clone_type') || '';
     $subs{clone_type_string} = $clone_type eq 'current'
-	? 'Current state of the channel'
-	  : ($clone_type eq 'original')
-	    ? 'Original channel with no updates'
-	      : 'Select errata';
+        ? 'Current state of the channel'
+          : ($clone_type eq 'original')
+            ? 'Original channel with no updates'
+              : 'Select errata';
 
     if ($clone_from_channel->parent_channel) {
-	$subs{channel_parent} = RHN::ChannelEditor->likely_parent($pxt->user->org_id, $clone_from_channel->id);
+        $subs{channel_parent} = RHN::ChannelEditor->likely_parent($pxt->user->org_id, $clone_from_channel->id);
     }
     else {
-	$subs{channel_parent} = 'None';
-	delete $editable{channel_parent};
+        $subs{channel_parent} = 'None';
+        delete $editable{channel_parent};
     }
 
     my $name_prefix = 'Clone of ';
@@ -530,9 +530,9 @@ sub channel_edit_form {
     my $number = 1;
 
     while (RHN::ChannelEditor->label_exists($label_prefix . $clone_from_channel->label)) {
-	$number++;
-	$name_prefix = "Clone ${number} of ";
-	$label_prefix = "clone-${number}-";
+        $number++;
+        $name_prefix = "Clone ${number} of ";
+        $label_prefix = "clone-${number}-";
     }
 
     $subs{channel_arch} ||= $clone_from_channel->channel_arch_id;
@@ -553,8 +553,8 @@ sub channel_edit_form {
   if (exists $editable{channel_arch}) {
     $subs{channel_arch} =
       PXT::HTML->select(-name => 'channel_arch',
-			-class => 'form-control',
-			-options => [ map { [ $archmap->{$_}->{NAME}, $_, $_ == $subs{channel_arch} ] } @arch_order ]);
+                        -class => 'form-control',
+                        -options => [ map { [ $archmap->{$_}->{NAME}, $_, $_ == $subs{channel_arch} ] } @arch_order ]);
   }
   else {
     $subs{channel_arch} = $archmap->{$subs{channel_arch}}->{NAME};
@@ -571,16 +571,16 @@ sub channel_edit_form {
 
     foreach my $chan (@channel_list) {
       if ($chan->{ID} == $parent_id) {
-	$chan->{SELECTED} = 1;
+        $chan->{SELECTED} = 1;
       }
     }
 
     $subs{channel_parent} = PXT::HTML->select(-name => 'channel_parent',
-					      -class => 'form-control',
-					      -options => [ [ "None", "", 1 ],
-							    map { [ $_->{NAME}, $_->{ID}, $_->{SELECTED} ] }
-							    sort { $a->{NAME} cmp $b->{NAME} }
-							    @channel_list ]);
+                                              -class => 'form-control',
+                                              -options => [ [ "None", "", 1 ],
+                                                            map { [ $_->{NAME}, $_->{ID}, $_->{SELECTED} ] }
+                                                            sort { $a->{NAME} cmp $b->{NAME} }
+                                                            @channel_list ]);
   }
 
   if ($editable{channel_label}) {
@@ -656,17 +656,17 @@ sub channel_select_options {
     @rh_channels = grep { $perm_map{$_->[1]} } @rh_channels;
 
     push @channel_list, ([ 'My Channels', 'my_channels', 'optgroup' ],
-			   @org_channels,
-			   [ 'Red Hat Channels', 'redhat_channels', 'optgroup' ],
-			   @rh_channels);
+                           @org_channels,
+                           [ 'Red Hat Channels', 'redhat_channels', 'optgroup' ],
+                           @rh_channels);
   }
   elsif ($mode eq 'compare_channels') {
     my @additional_channels_hash = populate_channel_list($pxt->user->org_id);
     my @additional_channels = ();
     foreach my $tmp_channel (@additional_channels_hash) {
       push (@additional_channels, [$tmp_channel->{DEPTH} == 1 ?
-		      $tmp_channel->{NAME} : '&#160;&#160;' . $tmp_channel->{NAME}, 
-		      'channel_' . $tmp_channel->{ID}]);
+                      $tmp_channel->{NAME} : '&#160;&#160;' . $tmp_channel->{NAME}, 
+                      'channel_' . $tmp_channel->{ID}]);
     }
 
     @additional_channels = grep { $perm_map{$_->[1]} } @additional_channels;
@@ -678,8 +678,8 @@ sub channel_select_options {
 
     my @org_channels = RHN::Channel->channels_owned_by_org($pxt->user->org_id);
     @org_channels = grep {     $perm_map{$_->[1]}
-			   and $_->[1] =~ /channel_(\d+)/
-			   and RHN::Channel->channel_type_capable($1, 'errata') } @org_channels;
+                           and $_->[1] =~ /channel_(\d+)/
+                           and RHN::Channel->channel_type_capable($1, 'errata') } @org_channels;
 
     push @channel_list, @org_channels;
   }
@@ -695,8 +695,8 @@ sub channel_select_options {
 
     my @cloned_channels = RHN::Channel->cloned_channels_owned_by_org($pxt->user->org_id);
     @cloned_channels = grep {     $perm_map{$_->[1]}
- 		              and $_->[1] =~ /channel_(\d+)/
-		              and RHN::Channel->channel_type_capable($1, 'errata') } @cloned_channels;
+                              and $_->[1] =~ /channel_(\d+)/
+                              and RHN::Channel->channel_type_capable($1, 'errata') } @cloned_channels;
     push @channel_list, @cloned_channels;
   }
 
@@ -717,7 +717,7 @@ sub channel_select_options {
   }
 
   return PXT::HTML->select(-name => 'view_channel',
-			   -options => \@options);
+                           -options => \@options);
 }
 
 sub if_package_list_modified {
@@ -761,22 +761,22 @@ sub channel_sync_prompt {
   $source = RHN::Channel->lookup(-id => $source_id);
 
   my %s = (target_channel => sprintf("<strong>%s</strong>", $target->label),
-	   source_channel => sprintf("<strong>%s</strong>", $source->label));
+           source_channel => sprintf("<strong>%s</strong>", $source->label));
 
   #only clear if sync_type is not set, otherwise we clear the set on pagination
   if (!$pxt->dirty_param("sync_type")) {
-	# Clear the packages for merge set to remove any old selections:
-	my $set = RHN::Set->lookup(-label => 'packages_for_merge', -uid => $pxt->user->id);
-	$set->empty;
-	$set->commit;
+        # Clear the packages for merge set to remove any old selections:
+        my $set = RHN::Set->lookup(-label => 'packages_for_merge', -uid => $pxt->user->id);
+        $set->empty;
+        $set->commit;
   }
 
   return PXT::Utils->perform_substitutions($params{__block__}, \%s);
 }
 
 sub verify_arch_compat {
-	my $parent_arch = shift;
-	my $child_arch = shift;
+        my $parent_arch = shift;
+        my $child_arch = shift;
 
         my @compatible_arch_list = RHN::ChannelEditor->compatible_child_channel_arches($parent_arch);
         foreach my $compatible_arch (@compatible_arch_list) {

@@ -27,24 +27,24 @@ sub register_dobby_commands {
   my $cli = shift;
 
   $cli->register_mode(-command => "stop",
-		      -description => "Stop the database instance of Red Hat Satellite",
-		      -handler => \&command_startstop);
+                      -description => "Stop the database instance of Red Hat Satellite",
+                      -handler => \&command_startstop);
   $cli->register_mode(-command => "start",
-		      -description => "Start the database instance of Red Hat Satellite",
-		      -handler => \&command_startstop);
+                      -description => "Start the database instance of Red Hat Satellite",
+                      -handler => \&command_startstop);
 
   $cli->register_mode(-command => "status",
-		      -description => "Show database status",
-		      -handler => \&command_status);
+                      -description => "Show database status",
+                      -handler => \&command_status);
   $cli->register_mode(-command => "report",
-		      -description => "Show database space report",
-		      -handler => \&command_report);
+                      -description => "Show database space report",
+                      -handler => \&command_report);
   $cli->register_mode(-command => "tablesizes",
-		      -description => "Show space report for each table",
-		      -handler => \&command_tablesizes);
+                      -description => "Show space report for each table",
+                      -handler => \&command_tablesizes);
   $cli->register_mode(-command => "report-stats",
-		      -description => "Show tables with stale or empty statistics",
-		      -handler => \&command_reportstats);
+                      -description => "Show tables with stale or empty statistics",
+                      -handler => \&command_reportstats);
   $cli->register_mode(-command => "reset-password",
                       -description => "Reset the user password and unlock account",
                       -handler => \&command_resetpassword);

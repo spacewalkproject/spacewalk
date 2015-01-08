@@ -20,10 +20,10 @@ use strict;
 use RHN::Exception qw/throw/;
 
 my %filters = (text => \&text_filter,
-	       password => \&password_filter,
-	       valid_option_filter => \&valid_option_filter,
-	       remove_blanks => \&remove_blanks_filter,
-	      );
+               password => \&password_filter,
+               valid_option_filter => \&valid_option_filter,
+               remove_blanks => \&remove_blanks_filter,
+              );
 
 sub text_filter {
   my $widget = shift;

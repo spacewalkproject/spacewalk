@@ -86,7 +86,7 @@ sub schedule_action_interface {
   $subst{date_selection} = date_pickbox($pxt);
 
   $subst{button} = PXT::HTML->submit(-name => $params{action},
-				     -value => $params{label});
+                                     -value => $params{label});
   $subst{button} .= PXT::HTML->hidden(-name => 'pxt:trap', -value => $params{callback});
   my $passthrough = $params{passthrough};
 
@@ -123,11 +123,11 @@ sub reschedule_form_if_failed_action {
       my $prereq_action = RHN::Action->lookup(-id => $prereq);
 
       unless ($prereq_action->get_server_status($sid) eq 'Completed') {
-	my $prior_action = PXT::HTML->link2(text => 'prior action',
-					    url => "/rhn/systems/details/history/Event.do?sid=$sid&amp;aid=$prereq",
-					   );
+        my $prior_action = PXT::HTML->link2(text => 'prior action',
+                                            url => "/rhn/systems/details/history/Event.do?sid=$sid&amp;aid=$prereq",
+                                           );
 
-	$reschedule_text = "This action requires the successful completion of a $prior_action before it can be rescheduled."
+        $reschedule_text = "This action requires the successful completion of a $prior_action before it can be rescheduled."
       }
     }
 
@@ -155,9 +155,9 @@ sub date_pickbox {
   my $date;
   if ($params{'preserve'}) {
     my $epoch = Sniglets::ServerActions->parse_date_pickbox($pxt,
-							    prefix    => $prefix,
-							    long_date => 0,
-							   );
+                                                            prefix    => $prefix,
+                                                            long_date => 0,
+                                                           );
     $epoch ||= time;
     $date = new RHN::Date(epoch => $epoch, user => $pxt->user);
   }
@@ -180,8 +180,8 @@ sub date_pickbox {
   }
 
   $ret .= PXT::HTML->select(-name => "${prefix}month",
-			    -size => 1,
-			    -options => [ @month_list ]);
+                            -size => 1,
+                            -options => [ @month_list ]);
 
   my @days = map { [ $_, $_, 0] } 1..31;
 
@@ -198,8 +198,8 @@ sub date_pickbox {
   }
 
   $ret .= PXT::HTML->select(-name => "${prefix}day",
-			    -size => 1,
-			    -options => [@days]);
+                            -size => 1,
+                            -options => [@days]);
 
   my $cur_yr = $date->year;
 
@@ -214,9 +214,9 @@ sub date_pickbox {
   $years[0]->[2] = 1;
 
   $ret .= PXT::HTML->select(-name => "${prefix}year",
-			    -size => 1,
-			    -options => [ @years ],
-			   );
+                            -size => 1,
+                            -options => [ @years ],
+                           );
 
   $ret .= '&#160;';
 
@@ -230,9 +230,9 @@ sub date_pickbox {
   unshift @hours, ['Hour', '', 1] if $blank;
 
   $ret .= PXT::HTML->select(-name => "${prefix}hour",
-			    -size => 1,
-			    -options => \@hours,
-			   );
+                            -size => 1,
+                            -options => \@hours,
+                           );
 
   $ret .= ':';
 
@@ -245,16 +245,16 @@ sub date_pickbox {
   unshift @minutes, ['Minute', '', 1] if $blank;
 
   $ret .= PXT::HTML->select(-name => "${prefix}minute",
-			    -size => 1,
-			    -options => \@minutes,
-			   );
+                            -size => 1,
+                            -options => \@minutes,
+                           );
 
   my $pm = $date->hour > 11 ? 1 : 0;
 
   $ret .= PXT::HTML->select(-name => "${prefix}am_pm",
-			    -size => 1,
-			    -options => [ [ 'AM', 'AM', $pm ? 0 : 1 ],
-					  [ 'PM', 'PM', $pm ? 1 : 0 ] ]);
+                            -size => 1,
+                            -options => [ [ 'AM', 'AM', $pm ? 0 : 1 ],
+                                          [ 'PM', 'PM', $pm ? 1 : 0 ] ]);
 
   $ret .= " " . $pxt->user->get_tz_str;
 
@@ -292,12 +292,12 @@ sub parse_date_pickbox {
   }
 
   my $scheduled_time = RHN::Date->construct(year => $pxt->dirty_param("${prefix}year"),
-					    month => $pxt->dirty_param("${prefix}month"),
-					    day => $pxt->dirty_param("${prefix}day"),
-					    hour => $hour,
-					    minute => $pxt->dirty_param("${prefix}minute"),
-					    second => 0,
-					    time_zone => $pxt->user->get_timezone);
+                                            month => $pxt->dirty_param("${prefix}month"),
+                                            day => $pxt->dirty_param("${prefix}day"),
+                                            hour => $hour,
+                                            minute => $pxt->dirty_param("${prefix}minute"),
+                                            second => 0,
+                                            time_zone => $pxt->user->get_timezone);
 
   if ($long_date) {
     return $scheduled_time->local_long_date;
@@ -320,10 +320,10 @@ sub server_set_errata_set_actions_cb {
 
   if ($pxt->dirty_param('schedule_errata_updates')) {
     RHN::Scheduler->schedule_errata_updates_for_systems(-org_id => $pxt->user->org_id,
-							-user_id => $pxt->user->id,
-							-earliest => $earliest_date,
-							-server_set => $system_set,
-							-errata_set => $errata_set);
+                                                        -user_id => $pxt->user->id,
+                                                        -earliest => $earliest_date,
+                                                        -server_set => $system_set,
+                                                        -errata_set => $errata_set);
 
   } else {
     croak "No valid actions selected!";
@@ -352,7 +352,7 @@ sub reschedule_action_cb {
   #my $earliest_date = Sniglets::ServerActions->parse_date_pickbox($pxt);
   my $server_id = $pxt->param('sid');
   RHN::Scheduler->reschedule_action(-action_id => $action_id, -org_id => $pxt->user->org_id,
-				    -user_id => $pxt->user->id, -server_id => $server_id, -server_set => undef);
+                                    -user_id => $pxt->user->id, -server_id => $server_id, -server_set => undef);
 
 
   if (!$server_id) {

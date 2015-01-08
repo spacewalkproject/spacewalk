@@ -50,8 +50,8 @@ sub run_complex_query {
     @query_params{keys %param_map} = values %param_map;
 
     push @ret, @{ $self->run_query(-body => $query_body,
-				   -params => \%query_params,
-				   -transaction => $params{-transaction}) };
+                                   -params => \%query_params,
+                                   -transaction => $params{-transaction}) };
   }
 
   return \@ret;
@@ -130,8 +130,8 @@ sub parse {
     my $multiple = $query->getAttribute('multiple') || 'f';
     my $body = $query->getFirstChild->nodeValue;
     $query_data->{$name} = {params => [ split /,\s*/, $params ],
-			    multiple => uc($multiple),
-			    body   => $body };
+                            multiple => uc($multiple),
+                            body   => $body };
   }
 
   my @modes = $root->findnodes('mode');
@@ -147,17 +147,17 @@ sub parse {
 
     if ($qname) {
       throw "Attempt to assign non-existent query '$qname' to mode '$name'"
-	unless (exists $query_data->{$qname});
+        unless (exists $query_data->{$qname});
 
       $mode_data->{$name}->{query} = $query_data->{$qname};
     }
     else {
       my $params = $data_query->getAttribute('params');
       my $body = join("",
-		      map { $_->nodeValue } grep { $_->nodeType == XML_TEXT_NODE } $data_query->childNodes);
+                      map { $_->nodeValue } grep { $_->nodeType == XML_TEXT_NODE } $data_query->childNodes);
 
       $mode_data->{$name}->{query} = {params => [ split /,\s*/, $params || "" ],
-				      body   => $body };
+                                      body   => $body };
     }
 
     $mode_data->{$name}->{elaborators} = [];
@@ -166,19 +166,19 @@ sub parse {
       my $qname = $elab_query->getAttribute('name');
 
       if ($qname) {
-	throw "Attempt to assign non-existent query '$qname' as elaborator for mode '$name'"
-	  unless (exists $query_data->{$qname});
+        throw "Attempt to assign non-existent query '$qname' as elaborator for mode '$name'"
+          unless (exists $query_data->{$qname});
 
-	push @{$mode_data->{$name}->{elaborators}}, $query_data->{$qname};
+        push @{$mode_data->{$name}->{elaborators}}, $query_data->{$qname};
       }
       else {
-	my $params = $elab_query->getAttribute('params') || '';
-	my $multiple = $elab_query->getAttribute('multiple') || 'f';
-	my $body = $elab_query->getFirstChild->nodeValue;
+        my $params = $elab_query->getAttribute('params') || '';
+        my $multiple = $elab_query->getAttribute('multiple') || 'f';
+        my $body = $elab_query->getFirstChild->nodeValue;
 
-	push @{$mode_data->{$name}->{elaborators}}, {params => [ split /,\s*/, $params ],
-						     multiple => uc($multiple),
-						     body   => $body };
+        push @{$mode_data->{$name}->{elaborators}}, {params => [ split /,\s*/, $params ],
+                                                     multiple => uc($multiple),
+                                                     body   => $body };
       }
     }
   }

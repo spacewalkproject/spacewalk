@@ -119,8 +119,8 @@ sub configfile_copy_files_cb {
 
   if ($file_count) {
     $pxt->push_message(site_info =>
-		       sprintf('<strong>%s</strong> file%s copied to %s.',
-			       $file_count, $file_count == 1 ? '' : 's', $success_target_string));
+                       sprintf('<strong>%s</strong> file%s copied to %s.',
+                               $file_count, $file_count == 1 ? '' : 's', $success_target_string));
   }
 
   $pxt->redirect($pxt->dirty_param('success_redirect'), @redir_params);

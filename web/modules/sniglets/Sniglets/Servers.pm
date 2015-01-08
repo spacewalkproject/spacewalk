@@ -101,7 +101,7 @@ sub proxy_entitlement_form {
 
     $subs{version} = $version;
 
-  	$subs{proxy_message} = "This machine is currently a licensed Red Hat Satellite Proxy (v$version).";
+        $subs{proxy_message} = "This machine is currently a licensed Red Hat Satellite Proxy (v$version).";
   } else {
     $subs{proxy_message} = "<div class=\"alert alert-danger\">WebUI Spacewalk Proxy installer is obsoleted since version 5.3. Please use command line installer from package spacewalk-proxy-installer.</div>";
   }
@@ -273,14 +273,14 @@ sub server_history_event_details {
 }
 
 my @user_server_prefs = ( { name => 'receive_notifications',
-			    label => 'Receive Notifications of Updates/Errata' },
-			  { name => 'include_in_daily_summary',
-			    label => 'Include system in Daily Summary'},
-			);
+                            label => 'Receive Notifications of Updates/Errata' },
+                          { name => 'include_in_daily_summary',
+                            label => 'Include system in Daily Summary'},
+                        );
 
 my @server_prefs = ( { name => 'auto_update',
-		       label => 'Automatic application of relevant errata' },
-		   );
+                       label => 'Automatic application of relevant errata' },
+                   );
 
 sub tri_state_system_pref_list {
   my $pxt = shift;
@@ -379,15 +379,15 @@ sub server_prefs_form_cb {
       # if we're setting auto errata updates == Y, then auto upgrade all selected systems
       if ($pref->{name} eq 'auto_update' and $action eq 'Yes') {
 
-	my $system_set = new RHN::DB::Set 'system_list', $pxt->user->id;
+        my $system_set = new RHN::DB::Set 'system_list', $pxt->user->id;
 
-	RHN::Scheduler->schedule_all_errata_for_systems(-earliest => RHN::Date->now_long_date,
-							-org_id => $pxt->user->org_id,
-							-user_id => $pxt->user->id,
-							-server_set => $system_set,
-						       );
+        RHN::Scheduler->schedule_all_errata_for_systems(-earliest => RHN::Date->now_long_date,
+                                                        -org_id => $pxt->user->org_id,
+                                                        -user_id => $pxt->user->id,
+                                                        -server_set => $system_set,
+                                                       );
 
-	push @extra_messages, "Selected systems will be fully updated in accordance with new Auto Errata Update setting.";
+        push @extra_messages, "Selected systems will be fully updated in accordance with new Auto Errata Update setting.";
       }
 
       RHN::Server->change_pref_bulk($set, $pref->{name}, $action eq 'Yes' ? 1 : 0);
@@ -427,9 +427,9 @@ sub build_system_activation_key_form {
   die "No system id" unless $sid;
 
   my $form = new RHN::Form::ParsedForm(name => 'System Activation Key',
-				       label => 'system_activation_key',
-				       action => $attr{action},
-				      );
+                                       label => 'system_activation_key',
+                                       action => $attr{action},
+                                      );
 
   my $system = RHN::Server->lookup(-id => $sid);
   my $token;
@@ -502,35 +502,35 @@ sub remote_command_form {
 }
 
 my %remote_command_modes = (
-			    system_action => { type => 'standalone',
-					       location => 'sdc',
-					       verb => 'Install',
-					     },
-			    package_install => { type => 'package',
-						 location => 'sdc',
-						 verb => 'Install',
-					       },
-			    package_remove => { type => 'package',
-						location => 'sdc',
-						verb => 'Remove',
-					      },
-			    ssm => { type => 'standalone',
-				     location => 'ssm',
-				     verb => 'Install',
-				   },
-			    ssm_package_install => { type => 'package',
-						     location => 'ssm',
-						     verb => 'Install',
-					       },
-			    ssm_package_upgrade => { type => 'package',
-						     location => 'ssm',
-						     verb => 'Upgrade',
-					       },
-			    ssm_package_remove => { type => 'package',
-						    location => 'ssm',
-						    verb => 'Remove',
-						  },
-			   );
+                            system_action => { type => 'standalone',
+                                               location => 'sdc',
+                                               verb => 'Install',
+                                             },
+                            package_install => { type => 'package',
+                                                 location => 'sdc',
+                                                 verb => 'Install',
+                                               },
+                            package_remove => { type => 'package',
+                                                location => 'sdc',
+                                                verb => 'Remove',
+                                              },
+                            ssm => { type => 'standalone',
+                                     location => 'ssm',
+                                     verb => 'Install',
+                                   },
+                            ssm_package_install => { type => 'package',
+                                                     location => 'ssm',
+                                                     verb => 'Install',
+                                               },
+                            ssm_package_upgrade => { type => 'package',
+                                                     location => 'ssm',
+                                                     verb => 'Upgrade',
+                                               },
+                            ssm_package_remove => { type => 'package',
+                                                    location => 'ssm',
+                                                    verb => 'Remove',
+                                                  },
+                           );
 
 sub build_remote_command_form {
   my $pxt = shift;
@@ -540,57 +540,57 @@ sub build_remote_command_form {
   my $mode = $attr{mode} || $pxt->dirty_param('mode') || 'system_action';
 
   my $form = new RHN::Form::ParsedForm(name => 'Remote Command',
-				       label => 'remote_command_form',
-				       action => $attr{action},
-				      );
+                                       label => 'remote_command_form',
+                                       action => $attr{action},
+                                      );
 
   if ($remote_command_modes{$mode}->{type} eq 'package') {
     $form->add_widget(radio_group => { name => 'Run',
-				       label => 'run_script',
-				       value => 'before',
-				       options => [ { value => 'before', label => 'Before package action' },
-						    { value => 'after', label => 'After package action' },
-						  ],
-				     });
+                                       label => 'run_script',
+                                       value => 'before',
+                                       options => [ { value => 'before', label => 'Before package action' },
+                                                    { value => 'after', label => 'After package action' },
+                                                  ],
+                                     });
   }
 
   $form->add_widget(text => { name => 'Run as user',
-			      label => 'username',
-			      default => 'root',
-			      maxlength => 32,
-			      requires => { response => 1 },
-			    } );
+                              label => 'username',
+                              default => 'root',
+                              maxlength => 32,
+                              requires => { response => 1 },
+                            } );
 
   $form->add_widget(text => { name => 'Run as group',
-			      label => 'group',
-			      default => 'root',
-			      maxlength => 32,
-			      requires => { response => 1 },
-			    } );
+                              label => 'group',
+                              default => 'root',
+                              maxlength => 32,
+                              requires => { response => 1 },
+                            } );
 
   $form->add_widget(text => { name => 'Timeout (seconds)',
-			      label => 'timeout',
-			      default => '600',
-			      mexlenth => 16,
-			      size => 6,
-			    } );
+                              label => 'timeout',
+                              default => '600',
+                              mexlenth => 16,
+                              size => 6,
+                            } );
 
   $form->add_widget(textarea => { name => 'Script',
-				  label => 'script',
-				  rows => 8,
-				  cols => 80,
+                                  label => 'script',
+                                  rows => 8,
+                                  cols => 80,
                                   wrap => 'off',
-				  default => "#!/bin/sh\n",
-				  requires => { response => 1 },
-				});
+                                  default => "#!/bin/sh\n",
+                                  requires => { response => 1 },
+                                });
 
   $form->add_widget(hidden => { label => 'mode', value => $mode });
 
   my $sched_img = PXT::HTML->img(-src => '/img/rhn-icon-schedule.gif', -alt => 'Date Selection');
   my $sched_widget =
     new RHN::Form::Widget::Literal(label => 'pickbox',
-				   name => 'Schedule no sooner than',
-				   value => $sched_img . Sniglets::ServerActions::date_pickbox($pxt));
+                                   name => 'Schedule no sooner than',
+                                   value => $sched_img . Sniglets::ServerActions::date_pickbox($pxt));
 
   if ($remote_command_modes{$mode}->{type} eq 'package'
       and $remote_command_modes{$mode}->{location} eq 'sdc') {
@@ -602,7 +602,7 @@ sub build_remote_command_form {
     $form->add_widget(submit => { label => 'Schedule Package Install', name => 'schedule_remote_command' });
   }
   elsif ($remote_command_modes{$mode}->{type} eq 'package'
-	 and $remote_command_modes{$mode}->{location} eq 'ssm') {
+         and $remote_command_modes{$mode}->{location} eq 'ssm') {
     $form->add_widget(hidden => { label => 'pxt:trap', value => 'rhn:package-action-command-cb' });
 
     $form->add_widget($sched_widget);
@@ -610,7 +610,7 @@ sub build_remote_command_form {
     $form->add_widget(submit => { label => 'Schedule Remote Command', name => 'schedule_remote_command' });
   }
   elsif ($remote_command_modes{$mode}->{type} eq 'standalone'
-	 and $remote_command_modes{$mode}->{location} eq 'sdc') {
+         and $remote_command_modes{$mode}->{location} eq 'sdc') {
     die "No system id" unless $sid;
 
     $form->add_widget(hidden => { label => 'pxt:trap', value => 'rhn:remote-command-cb' });
@@ -619,7 +619,7 @@ sub build_remote_command_form {
     $form->add_widget(submit => { label => 'Schedule Remote Command', name => 'schedule_remote_command' });
   }
   elsif ($remote_command_modes{$mode}->{type} eq 'standalone'
-	 and $remote_command_modes{$mode}->{location} eq 'ssm') {
+         and $remote_command_modes{$mode}->{location} eq 'ssm') {
 
     #$form->add_widget(hidden => { label => 'pxt:trap', value => 'rhn:remote-command-ssm-cb' });
     $form->add_widget($sched_widget);
@@ -678,15 +678,15 @@ sub remote_command_cb {
   my $earliest_date = Sniglets::ServerActions->parse_date_pickbox($pxt);
 
   my $action_id = RHN::Scheduler->schedule_remote_command(-org_id => $pxt->user->org_id,
-							  -user_id => $pxt->user->id,
-							  -earliest => $earliest_date,
-							  -server_id => $sid,
-							  -action_name => undef,
-							  -script => $script,
-							  -username => $username,
-							  -group => $group,
-							  -timeout => $timeout,
-							 );
+                                                          -user_id => $pxt->user->id,
+                                                          -earliest => $earliest_date,
+                                                          -server_id => $sid,
+                                                          -action_name => undef,
+                                                          -script => $script,
+                                                          -username => $username,
+                                                          -group => $group,
+                                                          -timeout => $timeout,
+                                                         );
 
   my $system = RHN::Server->lookup(-id => $sid);
 
@@ -756,16 +756,16 @@ sub package_action_command_cb {
 
   if (@actions) {
     $cmd_aid = RHN::Scheduler->schedule_remote_command(-org_id => $pxt->user->org_id,
-							  -user_id => $pxt->user->id,
-							  -earliest => $earliest_date,
-							  -server_id => $sid,
-							  -server_set => $system_set,
-							  -action_name => undef,
-							  -script => $script,
-							  -username => $username,
-							  -group => $group,
-							  -timeout => $timeout,
-							 );
+                                                          -user_id => $pxt->user->id,
+                                                          -earliest => $earliest_date,
+                                                          -server_id => $sid,
+                                                          -server_set => $system_set,
+                                                          -action_name => undef,
+                                                          -script => $script,
+                                                          -username => $username,
+                                                          -group => $group,
+                                                          -timeout => $timeout,
+                                                         );
 
     schedule_action_prereq($order, $cmd_aid, @actions);
 
@@ -773,15 +773,15 @@ sub package_action_command_cb {
   else {
     foreach my $server_id (keys %{$actions_by_sid}) {
       $cmd_aid = RHN::Scheduler->schedule_remote_command(-org_id => $pxt->user->org_id,
-							    -user_id => $pxt->user->id,
-							    -earliest => $earliest_date,
-							    -server_id => $server_id,
-							    -action_name => undef,
-							    -script => $script,
-							    -username => $username,
-							    -group => $group,
-							    -timeout => $timeout,
-							   );
+                                                            -user_id => $pxt->user->id,
+                                                            -earliest => $earliest_date,
+                                                            -server_id => $server_id,
+                                                            -action_name => undef,
+                                                            -script => $script,
+                                                            -username => $username,
+                                                            -group => $group,
+                                                            -timeout => $timeout,
+                                                           );
       schedule_action_prereq($order, $cmd_aid, @{$actions_by_sid->{$server_id}});
     }
   }
@@ -789,7 +789,7 @@ sub package_action_command_cb {
   my $verb = $remote_command_modes{$mode}->{verb};
 
   $pxt->push_message(site_info =>
-		     "The remote command action was scheduled to run <strong>$order</strong> the package $verb action" . (scalar @actions == 1 ? '' : 's') . ".");
+                     "The remote command action was scheduled to run <strong>$order</strong> the package $verb action" . (scalar @actions == 1 ? '' : 's') . ".");
 
   if ($remote_command_modes{$mode}->{location} eq 'ssm') {
     $pxt->redirect('/network/systems/ssm/packages/index.pxt');

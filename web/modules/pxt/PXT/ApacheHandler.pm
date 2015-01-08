@@ -108,7 +108,7 @@ sub handler {
     my $threshold = PXT::Config->get('page_timing_threshold');
     if ($threshold && ($now[0] - $then[0]) > $threshold) {
       warn sprintf "[timing] slow rendering of page '%s': %.4f seconds (%.4f user/%.4f sys)\n",
-	$r->uri, ($now[0] - $then[0]), ($now[1] - $then[1]), ($now[2] - $then[2]);
+        $r->uri, ($now[0] - $then[0]), ($now[1] - $then[1]), ($now[2] - $then[2]);
     }
   }
 
@@ -126,19 +126,19 @@ sub handler {
 
     if ($request->session_touched) {
       eval {
-	$request->session->serialize;
+        $request->session->serialize;
 
-	$r->headers_out->add('Set-Cookie' => $_->as_string)
-	  foreach $request->cookie_jar;
+        $r->headers_out->add('Set-Cookie' => $_->as_string)
+          foreach $request->cookie_jar;
       };
       if ($@) {
-	if (catchable($@)) {
-	  warn $@->as_string;
-	}
-	else {
-	  die $@;
-	}
-	return SERVER_ERROR;
+        if (catchable($@)) {
+          warn $@->as_string;
+        }
+        else {
+          die $@;
+        }
+        return SERVER_ERROR;
       }
     }
   }
@@ -153,7 +153,7 @@ sub handler {
 
     if (not $r->header_only) {
       if (PXT::Config->get("enable_i18n")) {
-	$file_contents = RHN::I18N->translate($file_contents);
+        $file_contents = RHN::I18N->translate($file_contents);
       }
 
       # Turn on byte pragma to get correct content length, and then turn it back off.
@@ -235,7 +235,7 @@ sub handle_redirect {
       $request->session->serialize;
 
       $r->err_headers_out->add('Set-Cookie' => $_->as_string)
-	foreach $request->cookie_jar;
+        foreach $request->cookie_jar;
     }
   }
 

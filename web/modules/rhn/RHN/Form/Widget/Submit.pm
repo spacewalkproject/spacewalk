@@ -28,7 +28,7 @@ sub render {
   my $self = shift;
 
   my $ret = PXT::HTML->submit(-name => $self->name,
-			      -value =>  $self->value || $self->label || $self->default || '');
+                              -value =>  $self->value || $self->label || $self->default || '');
 
   return $ret;
 }

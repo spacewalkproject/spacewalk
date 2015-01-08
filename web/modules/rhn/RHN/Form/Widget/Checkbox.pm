@@ -24,7 +24,7 @@ use RHN::Form::Widget;
 our @ISA = qw/RHN::Form::Widget/;
 
 my %valid_fields = (disabled => undef,
-		    checked => undef,
+                    checked => undef,
                     auto_submit => undef);
 
 sub valid_fields { return (shift->SUPER::valid_fields(), %valid_fields) }
@@ -80,10 +80,10 @@ sub render {
   my @auto_submit = $self->{auto_submit} ? (-onClick => 'this.form.submit()') : ();
 
   my $ret = PXT::HTML->checkbox(-name => $self->label,
-				-value => $self->value || $self->default || '',
-				-disabled => $self->disabled,
-				-checked => $self->checked,
-				@auto_submit);
+                                -value => $self->value || $self->default || '',
+                                -disabled => $self->disabled,
+                                -checked => $self->checked,
+                                @auto_submit);
 
   return $ret;
 }

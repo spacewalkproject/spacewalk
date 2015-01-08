@@ -34,12 +34,12 @@ my $spt = new RHN::DB::TableClass("rhnSolarisPatch", "SP", "solaris", @solaris_p
 my $sptt = new RHN::DB::TableClass("rhnSolarisPatchType", "SPT", "solaris_pt", @solaris_patch_type_fields);
 
 my $tc = $spt->create_join([ $sptt ],
-			   { "rhnSolarisPatch" => {
-						   "rhnSolarisPatch" => [ "PACKAGE_ID", "PACKAGE_ID" ],
-						   "rhnSolarisPatchType" => [ "PATCH_TYPE", "ID" ],
-						  }
-			   }
-			  );
+                           { "rhnSolarisPatch" => {
+                                                   "rhnSolarisPatch" => [ "PACKAGE_ID", "PACKAGE_ID" ],
+                                                   "rhnSolarisPatchType" => [ "PATCH_TYPE", "ID" ],
+                                                  }
+                           }
+                          );
 
 sub _init {
   my $self = shift;
@@ -62,7 +62,7 @@ sub _init {
   if ($package_id) {
     unless ($package_id == $self->id) {
       die "rhnSolarisPatch.package_id != rhnPackage.id when looking up package '"
-	. $self->id . "' (" . join (',', ($package_id, @columns)) . ")";
+        . $self->id . "' (" . join (',', ($package_id, @columns)) . ")";
     }
 
     $self->$_(shift @columns) foreach $tc->method_names;

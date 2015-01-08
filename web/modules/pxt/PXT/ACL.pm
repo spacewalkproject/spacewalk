@@ -82,12 +82,12 @@ sub eval_acl {
     for my $statement (@statements) {
       my ($negated, $function, $params);
       if ($statement =~ /^(not +)?(.*)\((.*)\)$/) {
-	$negated = $1 ? 1 : 0;
-	$function = $2;
-	$params = $3;
+        $negated = $1 ? 1 : 0;
+        $function = $2;
+        $params = $3;
       }
       else {
-	die "Could not parse acl statement '$statement';"
+        die "Could not parse acl statement '$statement';"
       }
 
       $result = $self->acl($function)->($object, $params);

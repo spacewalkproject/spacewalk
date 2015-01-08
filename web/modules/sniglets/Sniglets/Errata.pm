@@ -48,21 +48,21 @@ sub register_callbacks {
 
 
 my %e_icons = ('Security Advisory' => { image => '/img/rhn-icon-security.gif',
-					white => '/img/wrh_security-white.gif',
-					grey => '/img/wrh_security-grey.gif',
-					alt => 'Security Advisory' },
-	     'Enhancement Advisory' => { image => '/img/rhn-icon-enhancement.gif',
-					 white => "/img/wrh_feature-white.gif",
-					 grey => "/img/wrh_feature-grey.gif",
-					 alt => "Enhancement Advisory" },
-	     'Product Enhancement Advisory' => { image => '/img/rhn-icon-enhancement.gif',
-						 white => "/img/wrh_feature-white.gif",
-						 grey => "/img/wrh_feature-grey.gif",
-						 alt => "Enhancement Advisory" },
-	      'Bug Fix Advisory' => { image => '/img/rhn-icon-bug.gif',
-				      white => "/img/wrh_bug-white.gif",
-				      grey => "/img/wrh_bug-grey.gif",
-				      alt => "Bug Fix Advisory" } );
+                                        white => '/img/wrh_security-white.gif',
+                                        grey => '/img/wrh_security-grey.gif',
+                                        alt => 'Security Advisory' },
+             'Enhancement Advisory' => { image => '/img/rhn-icon-enhancement.gif',
+                                         white => "/img/wrh_feature-white.gif",
+                                         grey => "/img/wrh_feature-grey.gif",
+                                         alt => "Enhancement Advisory" },
+             'Product Enhancement Advisory' => { image => '/img/rhn-icon-enhancement.gif',
+                                                 white => "/img/wrh_feature-white.gif",
+                                                 grey => "/img/wrh_feature-grey.gif",
+                                                 alt => "Enhancement Advisory" },
+              'Bug Fix Advisory' => { image => '/img/rhn-icon-bug.gif',
+                                      white => "/img/wrh_bug-white.gif",
+                                      grey => "/img/wrh_bug-grey.gif",
+                                      alt => "Bug Fix Advisory" } );
 
 
 sub errata_name {
@@ -115,8 +115,8 @@ sub errata_details {
     }
 
     my @errata = RHN::Errata->find_by_advisory(-type => $type,
-					       -version => $version,
-					       -release => $release);
+                                               -version => $version,
+                                               -release => $release);
 
     if ($release and @errata > 1) {
       die "specific errata $advisory asked for, but returned multiple (@errata)";
@@ -146,9 +146,9 @@ sub errata_details {
   if (exists $e_icons{$e->advisory_type}) {
     my $data = $e_icons{$e->advisory_type};
     $icon = PXT::HTML->img(-src => $data->{image},
-			   -alt => $data->{alt},
-			   -title => $data->{alt},
-			   -class => 'errata-details');
+                           -alt => $data->{alt},
+                           -title => $data->{alt},
+                           -class => 'errata-details');
     $icon_file = $data->{image};
   }
 

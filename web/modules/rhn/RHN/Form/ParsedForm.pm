@@ -29,11 +29,11 @@ sub realize {
   my $class = shift || 'RHN::Form::RealizedForm';
 
   my $rform = new $class(name => $self->name,
-			 label => $self->label,
-			 action => $self->action,
-			 method => $self->method,
-			 enctype => $self->enctype,
-			 widgets => [ $self->clone_widgets ] );
+                         label => $self->label,
+                         action => $self->action,
+                         method => $self->method,
+                         enctype => $self->enctype,
+                         widgets => [ $self->clone_widgets ] );
 
   return $rform;
 }
@@ -42,11 +42,11 @@ sub prepare_response {
   my $self = shift;
 
   my $rform = new RHN::Form::Response(name => $self->name,
-				      label => $self->label,
-				      action => $self->action,
-				      method => $self->method,
-				      enctype => $self->enctype,
-				      widgets => [ $self->clone_widgets ] );
+                                      label => $self->label,
+                                      action => $self->action,
+                                      method => $self->method,
+                                      enctype => $self->enctype,
+                                      widgets => [ $self->clone_widgets ] );
 
   return $rform;
 }

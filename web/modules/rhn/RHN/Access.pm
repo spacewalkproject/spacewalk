@@ -188,7 +188,7 @@ sub system_feature_acl_test {
 
   if (RHN::Entitlements->feature_type($feature) eq 'monitoring') {
     return 0 unless ($pxt->user->org->has_entitlement('rhn_monitor')
-		     and check_monitoring($pxt->user));
+                     and check_monitoring($pxt->user));
   }
 
   return $server->has_feature($feature);

@@ -93,7 +93,7 @@ sub gunzip_copy {
 
     if ($write) {
       print OUT $block
-	or die "write to $dst: $!\n";
+        or die "write to $dst: $!\n";
     }
   }
 

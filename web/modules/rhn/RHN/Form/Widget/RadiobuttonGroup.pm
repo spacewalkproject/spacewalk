@@ -81,9 +81,9 @@ sub render_option {
   }
 
   my $ret = PXT::HTML->radio_button(-name => $self->label,
-				    -value => $opt->{value} || '',
-				    -checked => ($opt->{value} eq $selected),
-				    %extra_options);
+                                    -value => $opt->{value} || '',
+                                    -checked => ($opt->{value} eq $selected),
+                                    %extra_options);
 
   $ret .= $opt->{label};
   return $ret;

@@ -53,66 +53,66 @@ sub list_of { return "errata" }
 sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "errata_search_results",
-			   -datasource => new RHN::DataSource::Simple(-querybase => "errata_search_elaborators"),
-			   -provider => \&errata_search_results_provider);
+                           -datasource => new RHN::DataSource::Simple(-querybase => "errata_search_elaborators"),
+                           -provider => \&errata_search_results_provider);
 
 
   Sniglets::ListView::List->add_mode(-mode => "relevant_errata",
-			   -datasource => RHN::DataSource::Errata->new);
+                           -datasource => RHN::DataSource::Errata->new);
 
   Sniglets::ListView::List->add_mode(-mode => "all_errata",
-			   -datasource => RHN::DataSource::Errata->new);
+                           -datasource => RHN::DataSource::Errata->new);
 
   Sniglets::ListView::List->add_mode(-mode => "relevant_to_system_set",
-			   -datasource => RHN::DataSource::Errata->new);
+                           -datasource => RHN::DataSource::Errata->new);
 
   Sniglets::ListView::List->add_mode(-mode => "relevant_to_system",
-			   -datasource => RHN::DataSource::Errata->new,
-			   -provider => \&relevant_to_system_provider);
+                           -datasource => RHN::DataSource::Errata->new,
+                           -provider => \&relevant_to_system_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "unscheduled_relevant_to_system",
-			   -datasource => RHN::DataSource::Errata->new,
-			   -action_callback => \&apply_unscheduled_errata);
+                           -datasource => RHN::DataSource::Errata->new,
+                           -action_callback => \&apply_unscheduled_errata);
 
   Sniglets::ListView::List->add_mode(-mode => "relevant_to_channel",
-			   -datasource => RHN::DataSource::Errata->new);
+                           -datasource => RHN::DataSource::Errata->new);
 
   Sniglets::ListView::List->add_mode(-mode => "relevant_to_group",
-			   -datasource => RHN::DataSource::Errata->new);
+                           -datasource => RHN::DataSource::Errata->new);
 
   Sniglets::ListView::List->add_mode(-mode => "in_set",
-			   -datasource => RHN::DataSource::Errata->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Errata->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "unpublished_in_set",
-			   -datasource => RHN::DataSource::Errata->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Errata->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "in_set_relevant_to_system_set",
-			   -datasource => RHN::DataSource::Errata->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Errata->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "published_owned_errata",
-			   -datasource => RHN::DataSource::Errata->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Errata->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "unpublished_owned_errata",
-			   -datasource => RHN::DataSource::Errata->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Errata->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "clonable_errata_list",
-  		           -datasource => RHN::DataSource::Errata->new,
+                           -datasource => RHN::DataSource::Errata->new,
                            -provider => \&clonable_errata_list_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "relevant_to_progenitor",
-  		           -datasource => RHN::DataSource::Errata->new,
+                           -datasource => RHN::DataSource::Errata->new,
                            -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "owned_by_org_potential_for_channel",
-  		           -datasource => RHN::DataSource::Errata->new);
+                           -datasource => RHN::DataSource::Errata->new);
 
   Sniglets::ListView::List->add_mode(-mode => "potential_for_cloned_channel",
-  		           -datasource => RHN::DataSource::Errata->new,
+                           -datasource => RHN::DataSource::Errata->new,
                            -provider => \&potential_for_cloned_channel_provider,
                            -action_callback => \&potential_for_cloned_channel_cb);
 }
@@ -143,7 +143,7 @@ sub errata_search_results_provider {
   if (defined $self->listview()) { # don't run this in callback - no listview
     foreach my $col (@{$self->listview->columns}) {
       if ($col->label eq 'matching_field') {
-	$col->name($search->label_to_column_name($mode));
+        $col->name($search->label_to_column_name($mode));
       }
     }
   }
@@ -180,7 +180,7 @@ sub row_callback {
 
   if (exists $row->{ADVISORY_LAST_UPDATED}) {
     my $date = new RHN::Date(string => $row->{ADVISORY_LAST_UPDATED},
-			     user => $pxt->user);
+                             user => $pxt->user);
     $row->{ADVISORY_LAST_UPDATED} = $date->short_date();
   }
 
@@ -233,14 +233,14 @@ sub apply_unscheduled_errata {
 
     my $earliest_date = RHN::Date->now_long_date;
     my $count = RHN::Scheduler->schedule_all_errata_updates_for_system(-org_id => $pxt->user->org_id,
-								       -user_id => $pxt->user->id,
-								       -earliest => $earliest_date,
-								       -server_id => $sid);
+                                                                       -user_id => $pxt->user->id,
+                                                                       -earliest => $earliest_date,
+                                                                       -server_id => $sid);
 
     $pxt->push_message(site_info => sprintf('Scheduled <b>%d</b> errata update%s for <strong>%s</strong>.',
-					    $count,
-					    $count == 1 ? '' : 's',
-					    PXT::Utils->escapeHTML($system->name)));
+                                            $count,
+                                            $count == 1 ? '' : 's',
+                                            PXT::Utils->escapeHTML($system->name)));
 
   }
 
@@ -257,7 +257,7 @@ sub relevant_to_system_provider {
     my $stat = $row->{__data__}->[0];
     if ($stat) {
       if ($stat->{STATUS} eq 'Queued') {
-	$stat->{STATUS} = 'Pending';
+        $stat->{STATUS} = 'Pending';
       }
       $row->{STATUS} = PXT::HTML->link('/rhn/schedule/ActionDetails.do?aid=' . $stat->{ACTION_ID}, $stat->{STATUS});
     }
@@ -305,14 +305,14 @@ sub clonable_errata_list_provider {
   foreach my $row (@{$data}) {
     $row->{RELATED_CHANNELS} =
       join "<br />\n",
-	map { PXT::HTML->link('/rhn/channels/manage/Manage.do?cid=' . $_->{CHANNEL_ID},
-			      $_->{CHANNEL_NAME}) } @{$row->{__data__} };
+        map { PXT::HTML->link('/rhn/channels/manage/Manage.do?cid=' . $_->{CHANNEL_ID},
+                              $_->{CHANNEL_NAME}) } @{$row->{__data__} };
     $row->{CLONED} = $row->{ALREADY_CLONED} ? 'Yes' : 'No';
   }
 
   return (data => $data,
-	  alphabar => $alphabar,
-	  all_ids => $all_ids);
+          alphabar => $alphabar,
+          all_ids => $all_ids);
 }
 
 sub potential_for_cloned_channel_provider {
@@ -355,10 +355,10 @@ sub potential_for_cloned_channel_provider {
       $default_action ||= 'merge_' . $ranked[0]->{ID};
 
       $row->{OWNED_ERRATA_LIST} = join("<br/>\n", map { PXT::HTML->link('/rhn/errata/manage/Edit.do?eid=' . $_->{ID},$_->{ADVISORY_NAME}) . ' (' .
-						        ($_->{PUBLISHED} ? '+pub' : '-pub') . ', ' .
-						        ($_->{LOCALLY_MODIFIED} ? '+mod' : '-mod') . ')' } @owned);
+                                                        ($_->{PUBLISHED} ? '+pub' : '-pub') . ', ' .
+                                                        ($_->{LOCALLY_MODIFIED} ? '+mod' : '-mod') . ')' } @owned);
       push(@options, map { { label => 'Merge w/' . $_->{ADVISORY_NAME},
-			     value => 'merge_' . $_->{ID} } } @owned);
+                             value => 'merge_' . $_->{ID} } } @owned);
 
     }
     else {
@@ -368,31 +368,31 @@ sub potential_for_cloned_channel_provider {
     my ($adv, $adv_name) = RHN::DB::ErrataEditor::find_next_advisory($row->{ADVISORY}, $row->{ADVISORY_NAME}, $row->{ID});
 
     push(@options, ( { label => "Clone as ${adv_name}",
-		       value => 'clone_new' },
-		     { label => 'Do Nothing',
-		       value => 'noop' } ) );
+                       value => 'clone_new' },
+                     { label => 'Do Nothing',
+                       value => 'noop' } ) );
 
     $default_action ||= 'clone_new';
 
     my $select_widget = new RHN::Form::Widget::Select(name => 'errata_' . $row->{ID} . '_action',
-						      options => \@options,
-						      default => $default_action);
+                                                      options => \@options,
+                                                      default => $default_action);
 
     if (defined $actions{$row->{ID}} and not $selected_action) {
       my $val = $actions{$row->{ID}};
       if ($val > 0) {
-	$selected_action = 'merge_' . $val;
+        $selected_action = 'merge_' . $val;
       }
       elsif ($val == 0) {
-	$selected_action = 'clone_new';
+        $selected_action = 'clone_new';
       }
       elsif ($val == -1) {
-	$selected_action = 'noop';
+        $selected_action = 'noop';
       }
     }
 
     my $on_page_widget = new RHN::Form::Widget::Hidden(name => 'errata_on_page',
-						       value => $row->{ID});
+                                                       value => $row->{ID});
 
     if ($selected_action) {
       $select_widget->value($selected_action);
@@ -408,7 +408,7 @@ sub potential_for_cloned_channel_provider {
 
   foreach my $id (@{$all_ids}) {
     my $all_errata_widget = new RHN::Form::Widget::Hidden(name => 'all_errata',
-							  value => $id);
+                                                          value => $id);
     $all_errata_html .= $all_errata_widget->render;
   }
 
@@ -417,8 +417,8 @@ sub potential_for_cloned_channel_provider {
   }
 
   return (data => $data,
-	  all_ids => $all_ids,
-	  alphabar => $alphabar);
+          all_ids => $all_ids,
+          alphabar => $alphabar);
 }
 
 sub potential_for_cloned_channel_cb {
@@ -466,8 +466,8 @@ sub potential_for_cloned_channel_cb {
     if (defined $action) {
       $set->add( [$eid, $action] );
     }
-     elsif (not exists $set_as_hash{$eid}) { 	 
-       $set->add($eid); 	 
+     elsif (not exists $set_as_hash{$eid}) {     
+       $set->add($eid);          
      }
   }
 
@@ -491,36 +491,36 @@ sub potential_for_cloned_channel_cb {
       my $target_eid = $set_as_hash{$eid};
 
       if (not defined $target_eid) { # not specified, need to find the correct default...
-	my $owned = RHN::ErrataEditor->find_clones_of_errata(-eid => $eid, -org_id => $pxt->user->org_id);
-	my @ranked = sort compare_owned_errata @{$owned};
+        my $owned = RHN::ErrataEditor->find_clones_of_errata(-eid => $eid, -org_id => $pxt->user->org_id);
+        my @ranked = sort compare_owned_errata @{$owned};
 
-	if (@ranked) {
-	  $target_eid = $ranked[0]->{ID};
-	}
-	else {
-	  $target_eid = 0;
-	}
+        if (@ranked) {
+          $target_eid = $ranked[0]->{ID};
+        }
+        else {
+          $target_eid = 0;
+        }
      }
 
       next if $target_eid == -1; # noop
 
       if ($target_eid) { # merge with existing errata
-	my $target_errata = RHN::ErrataTmp->lookup_managed_errata(-id => $target_eid);
+        my $target_errata = RHN::ErrataTmp->lookup_managed_errata(-id => $target_eid);
 
-	if ($target_errata->isa('RHN::ErrataTmp')) {
-	  $target_eid = RHN::ErrataEditor->publish_errata($target_errata);
-	  $publish_count++;
-	}
-	else {
-	  $merge_count++;
-	}
-	undef $target_errata; #don't use this anymore, it might not exist.
+        if ($target_errata->isa('RHN::ErrataTmp')) {
+          $target_eid = RHN::ErrataEditor->publish_errata($target_errata);
+          $publish_count++;
+        }
+        else {
+          $merge_count++;
+        }
+        undef $target_errata; #don't use this anymore, it might not exist.
 
         push @eids, $target_eid;
       }
       else { # create new errata
-	$clone_count++;
-	$new_eid = RHN::ErrataEditor->clone_errata_fast($eid, $pxt->user->org_id);
+        $clone_count++;
+        $new_eid = RHN::ErrataEditor->clone_errata_fast($eid, $pxt->user->org_id);
         push @eids, $new_eid;
       }
     }
@@ -576,19 +576,19 @@ sub apply_errata_cb {
 
   my $earliest_date = RHN::Date->now_long_date;
   my @action_ids = RHN::Scheduler->schedule_errata_updates_for_system(-org_id => $pxt->user->org_id,
-								      -user_id => $pxt->user->id,
-								      -earliest => $earliest_date,
-								      -errata_set => $errata_set,
-								      -server_id => $sid);
+                                                                      -user_id => $pxt->user->id,
+                                                                      -earliest => $earliest_date,
+                                                                      -errata_set => $errata_set,
+                                                                      -server_id => $sid);
 
   my $system = RHN::Server->lookup(-id => $sid);
 
   my $errata_count = scalar $errata_set->contents;
   $pxt->push_message(site_info => sprintf('<strong>%d</strong> errata update%s been scheduled for <a href="/rhn/systems/details/Overview.do?sid=%d"><strong>%s</strong></a>.',
-					  $errata_count,
-					  $errata_count == 1 ? ' has' : 's have',
-					  $sid,
-					  PXT::Utils->escapeHTML($system->name) ));
+                                          $errata_count,
+                                          $errata_count == 1 ? ' has' : 's have',
+                                          $sid,
+                                          PXT::Utils->escapeHTML($system->name) ));
 
   $errata_set->empty;
   $errata_set->commit;

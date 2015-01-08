@@ -73,8 +73,8 @@ sub status {
   my $self = shift;
 
   my %stats = (total => 0,
-	       errors => 0,
-	       answered => 0);
+               errors => 0,
+               answered => 0);
 
   foreach my $widget ($self->widgets) {
     next unless $widget->editable;

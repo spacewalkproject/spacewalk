@@ -29,8 +29,8 @@ sub new {
   my $self = bless { executable_name => $exec_name }, $class;
 
   $self->register_mode(-command => "help",
-		       -description => "Display command summary",
-		       -handler => \&Dobby::CLI::command_help);
+                       -description => "Display command summary",
+                       -handler => \&Dobby::CLI::command_help);
 
   return $self;
 }

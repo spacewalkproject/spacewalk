@@ -38,14 +38,14 @@ sub table_map {
   my $class = shift;
 
   my %table = (rhnErrata             => 'rhnErrataTmp',
-	       rhnErrataKeyword      => 'rhnErrataKeywordTmp',
-	       rhnErrataBugList      => 'rhnErrataBugListTmp',
-	       rhnErrataPackage      => 'rhnErrataPackageTmp',
-	       rhnErrataCloned       => 'rhnErrataClonedTmp',
-	       rhnErrataFile         => 'rhnErrataFileTmp',
-	       rhnErrataFilePackage  => 'rhnErrataFilePackageTmp',
-	       rhnErrataFileChannel  => 'rhnErrataFileChannelTmp',
-	      );
+               rhnErrataKeyword      => 'rhnErrataKeywordTmp',
+               rhnErrataBugList      => 'rhnErrataBugListTmp',
+               rhnErrataPackage      => 'rhnErrataPackageTmp',
+               rhnErrataCloned       => 'rhnErrataClonedTmp',
+               rhnErrataFile         => 'rhnErrataFileTmp',
+               rhnErrataFilePackage  => 'rhnErrataFilePackageTmp',
+               rhnErrataFileChannel  => 'rhnErrataFileChannelTmp',
+              );
 
     return ($table{$_[0]} || $_);
 }

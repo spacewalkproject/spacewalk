@@ -26,7 +26,7 @@ sub assign_set_to_group {
   my $class = shift;
   my $set = shift;
   my $sgid = shift;
-  die "Invalid format for sgid $sgid" if $sgid =~ /\D/;	# contain nondigit? die
+  die "Invalid format for sgid $sgid" if $sgid =~ /\D/; # contain nondigit? die
 
   my $dbh = RHN::DB->connect();
   $dbh->call_procedure('rhn_server.insert_set_into_servergroup', $sgid, $set->uid, $set->label);

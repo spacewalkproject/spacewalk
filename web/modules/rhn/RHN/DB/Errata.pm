@@ -378,8 +378,8 @@ EOQ
 
   $sth = $dbh->prepare($query);
   $sth->execute_h(errata_id => $self->id,
-		  org_id => $org_id,
-		 );
+                  org_id => $org_id,
+                 );
 
   my @ret;
 
@@ -737,20 +737,20 @@ EOQ
     $row->{PATH} =~ s|^redhat/linux/||;
 
     $ef_insert_sth->execute_h(id => $row->{ID},
-			      eid => $self->id,
-			      type => $row->{TYPE_ID},
-			      md5sum => $row->{MD5SUM},
-			      filename => $row->{PATH});
+                              eid => $self->id,
+                              type => $row->{TYPE_ID},
+                              md5sum => $row->{MD5SUM},
+                              filename => $row->{PATH});
 
     $efp_insert_sth->execute_h(ef_id => $row->{ID},
-			       pid => $row->{PACKAGE_ID});
+                               pid => $row->{PACKAGE_ID});
 
     $channel_select_sth->execute_h(pid => $row->{PACKAGE_ID},
-				   eid => $self->id);
+                                   eid => $self->id);
 
     while (my $channel = $channel_select_sth->fetchrow_hashref) {
       $efc_insert_sth->execute_h(ef_id => $row->{ID},
-				 cid => $channel->{ID});
+                                 cid => $channel->{ID});
     }
   }
 

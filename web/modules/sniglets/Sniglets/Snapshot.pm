@@ -55,11 +55,11 @@ sub add_system_tag_bulk_cb {
 
   eval {
     $transaction = RHN::SystemSnapshot->bulk_snapshot_tag(user_id => $pxt->user->id,
-							  org_id => $pxt->user->org_id,
-							  set_label => 'system_list',
-							  tag_name => $tagname,
-							  transaction => $transaction,
-							 );
+                                                          org_id => $pxt->user->org_id,
+                                                          set_label => 'system_list',
+                                                          tag_name => $tagname,
+                                                          transaction => $transaction,
+                                                         );
   };
 
   if ($@) {

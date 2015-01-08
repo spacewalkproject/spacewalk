@@ -102,8 +102,8 @@ sub form_start {
 }
 
 #hidden(
-#	-name => foo,
-#	-value => foo);
+#       -name => foo,
+#       -value => foo);
 sub hidden {
   my $class = shift;
   my %e = @_;
@@ -117,11 +117,11 @@ sub hidden {
 }
 
 #text(
-#	-name => foo,
-#	-value => foo,
+#       -name => foo,
+#       -value => foo,
 # -placeholder => foo,
-#	-maxlength => 30,
-#	-size => 15);
+#       -maxlength => 30,
+#       -size => 15);
 sub text{
   my $class = shift;
   my %e = @_;
@@ -134,9 +134,9 @@ sub text{
 }
 
 #file(
-#	-name => foo,
-#	-value => foo,
-#	-accept => 'text/plain');
+#       -name => foo,
+#       -value => foo,
+#       -accept => 'text/plain');
 sub file {
   my $class = shift;
   my %e = @_;
@@ -149,10 +149,10 @@ sub file {
 }
 
 #password(
-#	-name => foo,
-#	-value => foo,
-#	-size => 12,
-#	-maxlength -> 30);
+#       -name => foo,
+#       -value => foo,
+#       -size => 12,
+#       -maxlength -> 30);
 sub password {
   my $class = shift;
   my %e = @_;
@@ -165,11 +165,11 @@ sub password {
 }
 
 #textarea(
-#	-name => foo,
-#	-value => foo,
-#	-rows => 12,
-#	-cols => 60,
-#	-wrap => 'VIRTUAL');
+#       -name => foo,
+#       -value => foo,
+#       -rows => 12,
+#       -cols => 60,
+#       -wrap => 'VIRTUAL');
 sub textarea {
   my $class = shift;
   my %e = @_;
@@ -185,8 +185,8 @@ sub textarea {
 }
 
 #submit(
-#	-name => foo,
-#	-value => "Click Me");
+#       -name => foo,
+#       -value => "Click Me");
 sub submit {
   my $class = shift;
   my %e = @_;
@@ -207,8 +207,8 @@ sub submit {
 }
 
 #reset(
-#	-name => foo,
-#	-value => "Reset Form");
+#       -name => foo,
+#       -value => "Reset Form");
 sub reset {
   my $class = shift;
   my %e = @_;
@@ -223,9 +223,9 @@ sub reset {
 
 # create a single checkbox
 # checkbox(
-#	-name => 'foo',
-#	-value => 'bar',
-#	-checked => ( 1 || on || yes || checked ) box will be checked
+#       -name => 'foo',
+#       -value => 'bar',
+#       -checked => ( 1 || on || yes || checked ) box will be checked
 sub checkbox {
   my $class = shift;
   my %e = @_;
@@ -251,8 +251,8 @@ sub checkbox {
 }
 
 #radio_group(
-#	-name => foo,
-#	-buttons => [ [label, value, checked], [label, value, checked], ... ]
+#       -name => foo,
+#       -buttons => [ [label, value, checked], [label, value, checked], ... ]
 sub radio_group {
   my $class = shift;
   my %e = @_;
@@ -303,10 +303,10 @@ sub radio_button {
 }
 
 #select(
-#	-name => foo,
-#	-size => 1,
-#	-multiple => 1,
-#	-options => [ [label, value, selected],[label, value, selected], ...]);
+#       -name => foo,
+#       -size => 1,
+#       -multiple => 1,
+#       -options => [ [label, value, selected],[label, value, selected], ...]);
 #
 sub select {
   my $class = shift;
@@ -344,7 +344,7 @@ sub select {
 
      if ($optgroup) {
        if ($in_optgroup) { # close the last one
-	 $ret .= "</optgroup>\n";
+         $ret .= "</optgroup>\n";
        }
        $in_optgroup = 1;
 
@@ -482,8 +482,8 @@ sub link2 {
     my $p = $params{params};
     $url .=
       join("&amp;",
-	   map { sprintf q{%s=%s}, PXT::Utils->escapeURI($_), PXT::Utils->escapeURI($p->{$_}) }
-	   sort keys %{$p});
+           map { sprintf q{%s=%s}, PXT::Utils->escapeURI($_), PXT::Utils->escapeURI($p->{$_}) }
+           sort keys %{$p});
   }
 
   $inside{href} = $url;
@@ -491,7 +491,7 @@ sub link2 {
   return
     sprintf qq{<a %s>%s</a>},
       join(" ", map { sprintf q{%s="%s"}, $_, $inside{$_} } keys %inside),
-	$label;
+        $label;
 }
 
 sub img {

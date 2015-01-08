@@ -39,9 +39,9 @@ sub set_totals {
 
       return sprintf(qq{<span id="spacewalk-set-%s-counter" class="badge">%s</span>%s%s selected},
          $params{set},
-		     $sets{$params{set}} || "0",
-		     $params{noun},
-		     ((not exists $sets{$params{set}}) || $sets{$params{set}} > 1) ? "s" : "");
+                     $sets{$params{set}} || "0",
+                     $params{noun},
+                     ((not exists $sets{$params{set}}) || $sets{$params{set}} > 1) ? "s" : "");
     }
     else {
       return sprintf(qq{<span id="spacewalk-set-%s-counter" class="badge">%s</span>},

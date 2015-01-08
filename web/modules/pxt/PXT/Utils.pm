@@ -90,10 +90,10 @@ sub paginate_variables {
   my ($upper, $lower, $total, $page_size) = @_;
 
   my ($prev_lower, $prev_upper) = ($lower - $page_size,
-				   $lower - 1);
+                                   $lower - 1);
 
   my ($next_lower, $next_upper) = ($upper + 1,
-				   $upper + $page_size);
+                                   $upper + $page_size);
 
   my ($first_lower, $first_upper) = (1, $page_size);
 

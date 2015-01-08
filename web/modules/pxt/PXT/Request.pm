@@ -48,15 +48,15 @@ sub new {
   my $session = shift;
 
   my $self = bless { apache => $apache,
-		     apr => $apache_request,
-		     cookies => $cookies,
-		     session => $session,
-		     context => { },
+                     apr => $apache_request,
+                     cookies => $cookies,
+                     session => $session,
+                     context => { },
                      no_cache => 1,
-		     cleansed_params => { },
-		     failed_params => { },
-		     use_sessions => 1,
-		   }, $class;
+                     cleansed_params => { },
+                     failed_params => { },
+                     use_sessions => 1,
+                   }, $class;
 
   return $self;
 }
@@ -149,12 +149,12 @@ sub message_tag_handler {
 # straight through to the main Apache request object
 
 my @passthrough = (qw/uri method the_request filename path_info hostname/,
-		   qw/headers_in headers_out main/,
-		   qw/get_remote_host connection dir_config no_cache/,
-		   qw/content_type server_root_relative document_root/,
-		   qw/is_initial_req print parsed_uri args/,
-		   qw/sendfile log_error status internal_redirect protocol/,
-		  );
+                   qw/headers_in headers_out main/,
+                   qw/get_remote_host connection dir_config no_cache/,
+                   qw/content_type server_root_relative document_root/,
+                   qw/is_initial_req print parsed_uri args/,
+                   qw/sendfile log_error status internal_redirect protocol/,
+                  );
 
 foreach my $pt (@passthrough) {
   no strict "subs";
@@ -303,11 +303,11 @@ sub param {
     if (defined $self->{apr}->param($var) and not exists $self->{cleansed_params}->{$var}) {
 
       if (exists $self->{failed_params}->{$var}) {
-	cluck "Formvar '$var' failed permissions check - " . $self->{failed_params}->{$var};
-	$self->redirect('/errors/permission.pxt');
+        cluck "Formvar '$var' failed permissions check - " . $self->{failed_params}->{$var};
+        $self->redirect('/errors/permission.pxt');
       }
       else {
-	warn "Access to formvar '$var' not allowed: formvar not cleansed - ", join(", ", caller);
+        warn "Access to formvar '$var' not allowed: formvar not cleansed - ", join(", ", caller);
       }
     }
 
@@ -417,20 +417,20 @@ sub cookie_jar {
 
   if ($self->session->can_persist) {
     PXT::Debug->log(2, sprintf("Generating session cookie for user: '%s', " .
-			       "session name: '%s', value: '%s', expire: '%s'.",
-			       $self->user ? $self->user->id() : 'none',
-			       $self->session_cookie_name,
-			       $self->session->key,
-			       $timeout || 'never'));
+                               "session name: '%s', value: '%s', expire: '%s'.",
+                               $self->user ? $self->user->id() : 'none',
+                               $self->session_cookie_name,
+                               $self->session->key,
+                               $timeout || 'never'));
 
     my $session_cookie = new Apache2::Cookie $self->{apr},
       -name => $self->session_cookie_name,
-	-value => $self->session->key,
-	  #-domain => PXT::Config->get("base_domain"),
-	  # Don't set the cookie's domain, as it will cause issues since we aren't setting it in the java stack
-	    @expire,
-	      @secure,
-		-path => "/";
+        -value => $self->session->key,
+          #-domain => PXT::Config->get("base_domain"),
+          # Don't set the cookie's domain, as it will cause issues since we aren't setting it in the java stack
+            @expire,
+              @secure,
+                -path => "/";
 
     push @ret, $session_cookie;
   }
@@ -741,15 +741,15 @@ sub use_sessions {
     $self->{use_sessions} = $use_sessions;
     if (not $use_sessions) {
       PXT::Debug->log(2, sprintf("Disabling sessions for path: '%s', user: '%s'",
-				 $self->uri,
-				 $self->user ? $self->user->id() : 'none'));
+                                 $self->uri,
+                                 $self->user ? $self->user->id() : 'none'));
     }
   }
 
   if (not $self->{use_sessions}) {
     PXT::Debug->log(2, sprintf("NOT using sessions for path '%s', user: '%s'",
-				 $self->uri,
-				 $self->user ? $self->user->id() : 'none'));
+                                 $self->uri,
+                                 $self->user ? $self->user->id() : 'none'));
   }
 
   return $self->{use_sessions};

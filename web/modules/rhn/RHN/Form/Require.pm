@@ -22,17 +22,17 @@ use RHN::Exception qw/throw/;
 use Mail::RFC822::Address;
 
 my %requires = ('response' => \&response,
-		'min-length' => \&min_length,
-		'max-length' => \&max_length,
-	        'valid-email' => \&valid_email,
-	        'valid-multi-email' => \&valid_multi_email,
-	        'label' => \&valid_label,
-	        'numeric' => \&numeric,
-		'regexp' => \&regexp,
-		fqdn => \&fqdn,
-		'fqdn-and-port' => \&fqdn_and_port,
-		'valid-ip' => \&valid_ip,
-	       );
+                'min-length' => \&min_length,
+                'max-length' => \&max_length,
+                'valid-email' => \&valid_email,
+                'valid-multi-email' => \&valid_multi_email,
+                'label' => \&valid_label,
+                'numeric' => \&numeric,
+                'regexp' => \&regexp,
+                fqdn => \&fqdn,
+                'fqdn-and-port' => \&fqdn_and_port,
+                'valid-ip' => \&valid_ip,
+               );
 
 # Require a response of some sort.
 sub response {
@@ -170,7 +170,7 @@ sub valid_ip {
 
   return "<strong>$text</strong> does not appear to be a valid ip address."
     unless (scalar @parts == 4 and scalar @parts == scalar @non_empty_parts
-	    and (not @out_of_range_parts) and ($parts[3] != 0));
+            and (not @out_of_range_parts) and ($parts[3] != 0));
 
   return 0;
 }

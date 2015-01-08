@@ -34,9 +34,9 @@ sub new {
     unless $label and $uid;
 
   my $self = bless { label => $label,
-		     uid => $uid,
-		     contents => { },
-		   }, $class;
+                     uid => $uid,
+                     contents => { },
+                   }, $class;
 
   $self->_reload;
 
@@ -299,10 +299,10 @@ DELETE FROM
  WHERE user_id = :user_id
    AND label = :set_label
    AND EXISTS (SELECT 1
-	         FROM web_contact WC, rhnUserGroupmembers UGM, rhnUserGroup UG, rhnUserGroupType UGT
+                 FROM web_contact WC, rhnUserGroupmembers UGM, rhnUserGroup UG, rhnUserGroupType UGT
                 WHERE WC.id = S.element
                   AND UG.org_id = WC.org_id
-	          AND UGM.user_group_id = UG.id
+                  AND UGM.user_group_id = UG.id
                   AND UGM.user_id = WC.id
                   AND UG.group_type = UGT.id
                   AND UGT.label = :role_label)

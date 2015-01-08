@@ -40,12 +40,12 @@ sub list_of { return "scouts" }
 
 sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "scouts_for_org",
-				     -datasource => new RHN::DataSource::Simple(-querybase => "scout_queries"),
-				     -action_callback => \&push_config_cb);
-				     
+                                     -datasource => new RHN::DataSource::Simple(-querybase => "scout_queries"),
+                                     -action_callback => \&push_config_cb);
+                                     
   Sniglets::ListView::List->add_mode(-mode => "scouts_all",
-				     -datasource => new RHN::DataSource::Simple(-querybase => "scout_queries"),
-				     -action_callback => \&push_config_cb);				     
+                                     -datasource => new RHN::DataSource::Simple(-querybase => "scout_queries"),
+                                     -action_callback => \&push_config_cb);                                  
 }
 
 sub row_callback {
@@ -93,12 +93,12 @@ sub get_config_status_icon {
   my $status = shift;
 
   my %status_icon_map = ( OK => "/img/configureScoutOK.gif",
-			  PENDING   => "/img/configureScoutPending.gif",
-			  WARNING   => "/img/configureScoutWarning.gif",
-			  EXPIRED   => "/img/configureScoutError.gif",
-			  ERROR     => "/img/configureScoutError.gif",
+                          PENDING   => "/img/configureScoutPending.gif",
+                          WARNING   => "/img/configureScoutWarning.gif",
+                          EXPIRED   => "/img/configureScoutError.gif",
+                          ERROR     => "/img/configureScoutError.gif",
                           NEEDED    => "/img/configureScout.gif"
-	       	         );
+                         );
 
   my $icon = $status_icon_map{uc($status)};
 

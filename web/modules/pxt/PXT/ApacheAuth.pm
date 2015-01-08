@@ -54,15 +54,15 @@ sub handler {
 
     if (defined $session->uid and $session->uid > 0) {
       eval {
-	$username = RHN::User->find_username_fast($session->uid);
+        $username = RHN::User->find_username_fast($session->uid);
       };
 
       if ($@ and catchable($@)) {
-	warn "User lookup failed: $@";
-	return AUTH_REQUIRED;
+        warn "User lookup failed: $@";
+        return AUTH_REQUIRED;
       }
       elsif ($@) {
-	die $@;
+        die $@;
       }
     }
     $user_id = $session->uid;
@@ -75,7 +75,7 @@ sub handler {
     my $destination = $r->uri;
 
     if ($r->args) {
-	$destination .= "?" . $r->args;
+        $destination .= "?" . $r->args;
     }
     $destination = PXT::Utils->escapeURI($destination);
 

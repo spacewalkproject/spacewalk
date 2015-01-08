@@ -24,7 +24,7 @@ use RHN::Form::Widget;
 our @ISA = qw/RHN::Form::Widget/;
 
 my %valid_fields = (size => undef,
-		    maxlength => undef);
+                    maxlength => undef);
 
 sub valid_fields { return (shift->SUPER::valid_fields(), %valid_fields) }
 
@@ -66,9 +66,9 @@ sub render {
   my $value = defined $self->value ? $self->value : defined $self->default ? $self->default : '';
 
   my $ret = PXT::HTML->text(-name => $self->label,
-			    -value => $value,
-			    -maxlength => $self->maxlength,
-			    -size => $self->size);
+                            -value => $value,
+                            -maxlength => $self->maxlength,
+                            -size => $self->size);
 
   return $ret;
 }

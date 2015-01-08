@@ -115,10 +115,10 @@ my $j = $s_table->create_join(
             "rhnRam" => ["ID","SERVER_ID"],
             "rhnCpu" => ["ID", "SERVER_ID"],
             "rhnServerArch" => ["SERVER_ARCH_ID", "ID" ],
-	    "rhnServerLocation" => ["ID","SERVER_ID"],
-	    "rhnServerDMI" => ["ID", "SERVER_ID"],
-	    "rhnProxyInfo" => ["ID", "SERVER_ID"],
-	    "rhnSatelliteInfo" => ["ID", "SERVER_ID"],
+            "rhnServerLocation" => ["ID","SERVER_ID"],
+            "rhnServerDMI" => ["ID", "SERVER_ID"],
+            "rhnProxyInfo" => ["ID", "SERVER_ID"],
+            "rhnSatelliteInfo" => ["ID", "SERVER_ID"],
          }
    },
    { rhnRam => "(+)",
@@ -278,10 +278,10 @@ EOQ
 
 
   $transaction = RHN::SystemSnapshot->add_tag_to_snapshot(org_id => $self->org_id,
-							  snapshot_id => $snapshot_id,
-							  tag_name => $tagname,
-							  transaction => $dbh,
-							 );
+                                                          snapshot_id => $snapshot_id,
+                                                          tag_name => $tagname,
+                                                          transaction => $dbh,
+                                                         );
 
   unless ($transaction) {
     $dbh->commit;
@@ -354,7 +354,7 @@ sub system_list_count {
   
   my $sth = $dbh->prepare(<<EOS);
 SELECT count(*) from rhnSet
-	 where label = 'system_list'
+         where label = 'system_list'
    AND user_id = :user_id
 EOS
 
@@ -571,8 +571,8 @@ sub commit {
       $sth->finish;
 
       if (not $exists) {
-	my $sth = $dbh->prepare("INSERT INTO rhnServerLocation (id, server_id) VALUES (sequence_nextval('rhn_server_loc_id_seq'), ?)");
-	$sth->execute($self->id);
+        my $sth = $dbh->prepare("INSERT INTO rhnServerLocation (id, server_id) VALUES (sequence_nextval('rhn_server_loc_id_seq'), ?)");
+        $sth->execute($self->id);
       }
     }
 
@@ -606,7 +606,7 @@ sub entitlements {
   }
 
   my $ds = new RHN::DataSource::Simple (-querybase => 'General_queries',
-					-mode => 'system_entitlements');
+                                        -mode => 'system_entitlements');
 
   return @{$ds->execute_query(-sid => $id)};
 }
@@ -632,7 +632,7 @@ sub server_has_entitlement {
     unless RHN::Entitlements->is_valid_entitlement($target_entitlement);
 
   my $ds = new RHN::DataSource::Simple (-querybase => 'General_queries',
-					-mode => 'system_entitlements');
+                                        -mode => 'system_entitlements');
 
   my @entitlements = @{$ds->execute_query(-sid => $sid)};
 
@@ -641,7 +641,7 @@ sub server_has_entitlement {
 
 sub valid_system_features {
   my $ds = new RHN::DataSource::Simple (-querybase => 'General_queries',
-					-mode => 'valid_system_features');
+                                        -mode => 'valid_system_features');
 
   return @{$ds->execute_query()};
 }
@@ -658,7 +658,7 @@ sub features {
   my $self = shift;
 
   my $ds = new RHN::DataSource::Simple (-querybase => 'General_queries',
-					-mode => 'system_features');
+                                        -mode => 'system_features');
 
   return @{$ds->execute_query(-sid => $self->id)};
 }
@@ -688,7 +688,7 @@ sub system_has_feature {
     unless is_valid_feature($target_feature);
 
   my $ds = new RHN::DataSource::Simple (-querybase => 'General_queries',
-					-mode => 'system_has_feature');
+                                        -mode => 'system_has_feature');
   my $data = $ds->execute_query(-sid => $sid, -feature => $target_feature);
 
   return (@{$data} ? 1 : 0);
@@ -1158,9 +1158,9 @@ EOS
 sub set_normal_config_channels {
   my $class = shift;
   my %params = validate(@_, {server_ids => 1,
-			     config_channel_ids => 1,
-			     transaction => 0,
-			    });
+                             config_channel_ids => 1,
+                             transaction => 0,
+                            });
 
   my $dbh = $params{transaction} || RHN::DB->connect;
 
@@ -1256,9 +1256,9 @@ sub systems_subscribed_to_channel {
 
   my $ds = new RHN::DataSource::System(-mode => 'systems_subscribed_to_channel');
   return @{ $ds->execute_query(-org_id => $params{org_id},
-			       -cid => $params{cid},
-			       -user_id => $params{user_id},
-			      ) };
+                               -cid => $params{cid},
+                               -user_id => $params{user_id},
+                              ) };
 }
 
 sub packaging_type {
@@ -1432,7 +1432,7 @@ sub sat_clusters_for_system {
   throw "No server id" unless $sid;
 
   my $ds = new RHN::DataSource::Simple (-querybase => 'General_queries',
-					-mode => 'sat_clusters_for_system');
+                                        -mode => 'sat_clusters_for_system');
   my $data = $ds->execute_full(-sid => $sid);
 
   return @{$data};

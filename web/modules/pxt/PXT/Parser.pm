@@ -28,8 +28,8 @@ sub new {
   my $class = shift;
 
   my $self = bless { tag_handlers => [ ],
-		     callbacks => [ ],
-		   }, $class;
+                     callbacks => [ ],
+                   }, $class;
 
   return $self;
 }
@@ -76,7 +76,7 @@ sub expand_tags {
 
     if ($threshold && ($now[0] - $then[0]) > $threshold) {
       warn sprintf "[timing] slow expansion of tag '%s': %.4f seconds (%.4f user/%.4f sys)\n",
-	$tag, ($now[0] - $then[0]), ($now[1] - $then[1]), ($now[2] - $then[2]);
+        $tag, ($now[0] - $then[0]), ($now[1] - $then[1]), ($now[2] - $then[2]);
     }
   }
 }
@@ -116,7 +116,7 @@ sub expand_tag {
       # is the '>' preceded by a '/', forming a '/>' ?
       my $has_children = 1;
       if (substr($$dataref, $end - 1, 1) eq '/') {
-	$has_children = 0;
+        $has_children = 0;
       }
 
       $close_tag = index $$dataref, "</$tag>", $end;
@@ -124,7 +124,7 @@ sub expand_tag {
       # ... continued from above.  does it have children, but no close
       # tag?  oops
       if ($close_tag < 0 and $has_children) {
-	die "PXT::Parser->expand_tag: '$tag' is childless but not of form <$tag ... />";
+        die "PXT::Parser->expand_tag: '$tag' is childless but not of form <$tag ... />";
       }
     }
     $actual_tag = substr $$dataref, $start + 1, $end - $start - 1;
@@ -135,17 +135,17 @@ sub expand_tag {
       my $val;
 
       if (ref $handler eq 'ARRAY') {
-	$val = $handler->[0]->(@params, __function_params__ => [ @{$handler}[1..$#$handler] ], %attrs);
+        $val = $handler->[0]->(@params, __function_params__ => [ @{$handler}[1..$#$handler] ], %attrs);
       }
       else {
-	$val = $handler->(@params, %attrs);
+        $val = $handler->(@params, %attrs);
       }
       if (not defined $val) {
-	$val = '';
+        $val = '';
       }
 
       PXT::Utils->untaint(\$val)
-	  if Scalar::Util::tainted($val);
+          if Scalar::Util::tainted($val);
 
       substr($$dataref, $start, $end - $start + 1) = $val;
     }
@@ -153,19 +153,19 @@ sub expand_tag {
       my $val;
 
       if (ref $handler eq 'ARRAY') {
-	$val = $handler->[0]->(@params, __function_params__ => [ @{$handler}[1..$#$handler] ],
-			       %attrs, __block__ => substr($$dataref, $end + 1, $close_tag - $end - 1));
+        $val = $handler->[0]->(@params, __function_params__ => [ @{$handler}[1..$#$handler] ],
+                               %attrs, __block__ => substr($$dataref, $end + 1, $close_tag - $end - 1));
       }
       else {
-	$val = $handler->(@params, %attrs,
-			  __block__ => substr($$dataref, $end + 1, $close_tag - $end - 1));
+        $val = $handler->(@params, %attrs,
+                          __block__ => substr($$dataref, $end + 1, $close_tag - $end - 1));
       }
       if (not defined $val) {
-	$val = '';
+        $val = '';
       }
 
       PXT::Utils->untaint(\$val)
-	  if Scalar::Util::tainted($val);
+          if Scalar::Util::tainted($val);
 
       substr ($$dataref, $start, $close_tag + length("</$tag>") - $start) = $val || '';
     }

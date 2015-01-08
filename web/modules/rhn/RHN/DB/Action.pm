@@ -37,13 +37,13 @@ my $at = new RHN::DB::TableClass("rhnActionType", "AT", "action_type", @action_t
 my $as = new RHN::DB::TableClass("rhnActionScript", "A_S", "script", @action_script_fields);
 
 my $tc = $a->create_join([ $ao, $at, $as ],{ "rhnAction" => { "rhnAction" => [ "ID", "ID" ],
-						    "rhnActionOverview" => ["ID", "ACTION_ID" ],
-						    "rhnActionType" => ["ACTION_TYPE", "ID"],
-						    "rhnActionScript" => ["ID", "ACTION_ID" ],
-							    }
-					   },
-			 { rhnActionScript => "(+)" }
-			);
+                                                    "rhnActionOverview" => ["ID", "ACTION_ID" ],
+                                                    "rhnActionType" => ["ACTION_TYPE", "ID"],
+                                                    "rhnActionScript" => ["ID", "ACTION_ID" ],
+                                                            }
+                                           },
+                         { rhnActionScript => "(+)" }
+                        );
 
 sub script_server_results {
   my $self = shift;
@@ -66,8 +66,8 @@ SELECT ASR.output,
 EOQ
   $sth = $dbh->prepare($query);
   $sth->execute_h(action_id => $self->id,
-		  server_id => $server_id,
-		 );
+                  server_id => $server_id,
+                 );
 
   my $results = $sth->fetchrow_hashref_copy;
   $sth->finish;
@@ -96,8 +96,8 @@ SELECT 1
 EOQ
   $sth = $dbh->prepare($query);
   $sth->execute_h(action_type_id => $self->action_type_id,
-		  generic_type => $generic_type,
-		 );
+                  generic_type => $generic_type,
+                 );
 
   my $is_type = $sth->fetchrow;
   $sth->finish;

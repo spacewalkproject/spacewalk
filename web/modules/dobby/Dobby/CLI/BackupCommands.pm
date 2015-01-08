@@ -34,17 +34,17 @@ sub register_dobby_commands {
   my $cli = shift;
 
   $cli->register_mode(-command => "backup",
-		      -description => "Backup the database instance of Red Hat Satellite",
-		      -handler => \&command_backup);
+                      -description => "Backup the database instance of Red Hat Satellite",
+                      -handler => \&command_backup);
   $cli->register_mode(-command => "restore",
-		      -description => "Restore the database instance of Red Hat Satellite from backup",
-		      -handler => \&command_restore);
+                      -description => "Restore the database instance of Red Hat Satellite from backup",
+                      -handler => \&command_restore);
   $cli->register_mode(-command => "verify",
-		      -description => "Verify an database instance of Red Hat Satellite backup",
-		      -handler => \&command_restore);
+                      -description => "Verify an database instance of Red Hat Satellite backup",
+                      -handler => \&command_restore);
   $cli->register_mode(-command => "examine",
-		      -description => "Display information about a database instance of Red Hat Satellite backup",
-		      -handler => \&command_restore);
+                      -description => "Display information about a database instance of Red Hat Satellite backup",
+                      -handler => \&command_restore);
   $cli->register_mode(-command => "online-backup",
           -description => "Perform online backup of Red Hat Satellite database (PostgreSQL only)",
           -handler => \&command_pg_online_backup);
@@ -229,10 +229,10 @@ sub command_restore {
 
       printf " -> %s...", $tmpdst;
       if (not $missing) {
-	$digest = eval { Dobby::Files->gunzip_copy($src, $tmpdst, $uid, $gid) };
-	if (not defined $digest and $@) {
-	  $err_msg = $@;
-	}
+        $digest = eval { Dobby::Files->gunzip_copy($src, $tmpdst, $uid, $gid) };
+        if (not defined $digest and $@) {
+          $err_msg = $@;
+        }
       }
 
       $seen_files{+$dst} = 1;
@@ -257,10 +257,10 @@ sub command_restore {
     }
     else {
       if (defined $digest) {
-	print " done.  Checksum verified.\n";
+        print " done.  Checksum verified.\n";
       }
       else {
-	print "\n";
+        print "\n";
       }
     }
   }
@@ -276,7 +276,7 @@ sub command_restore {
     else {
       print "Extraction and verification complete, renaming files... ";
       for my $entry (@rename_queue) {
-	rename $entry->[0] => $entry->[1] or warn "Rename $entry->[0] => $entry->[1] error: $!";
+        rename $entry->[0] => $entry->[1] or warn "Rename $entry->[0] => $entry->[1] error: $!";
         system("/sbin/restorecon", $entry->[1]);
 
       }
@@ -289,7 +289,7 @@ sub command_restore {
       for my $ret (@existing_files) {
         next unless $ret;
         my ($file, $rel_dir) = @{$ret};
-	next if exists $seen_files{+$file};
+        next if exists $seen_files{+$file};
 
         if (-d $file) {
           rmdir $file or warn "Error removing $file: $!";

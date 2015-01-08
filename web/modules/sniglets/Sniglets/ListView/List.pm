@@ -41,17 +41,17 @@ sub new {
   my $root;
 
   my $self = bless { __listview__ => undef,
-		     __mode__ => undef,
-		     __datasource__ => undef,
-		     __alphabar_column__ => '',
-		     __filter_string__ => '',
-		     __filter_type__ => 'text',
-		     __filter_options__ => { },
-		     __style__ => undef,
-		     __lower__ => undef,
-		     __upper__ => undef,
-		     __acl_mixins__ => undef,
-		   }, $class;
+                     __mode__ => undef,
+                     __datasource__ => undef,
+                     __alphabar_column__ => '',
+                     __filter_string__ => '',
+                     __filter_type__ => 'text',
+                     __filter_options__ => { },
+                     __style__ => undef,
+                     __lower__ => undef,
+                     __upper__ => undef,
+                     __acl_mixins__ => undef,
+                   }, $class;
 
   $attr{-style} ||= 'standard'; # always set a style
 
@@ -233,10 +233,10 @@ sub add_mode {
   }
 
   $mode_data->{$mode_hash{-mode}} = {__name__ => $mode_hash{-mode},
-				     __provider__ => $mode_hash{-provider} || \&Sniglets::ListView::List::default_provider,
-				     __action_callback__ => $mode_hash{-action_callback},
-				     __datasource__ => $mode_hash{-datasource},
-				    };
+                                     __provider__ => $mode_hash{-provider} || \&Sniglets::ListView::List::default_provider,
+                                     __action_callback__ => $mode_hash{-action_callback},
+                                     __datasource__ => $mode_hash{-datasource},
+                                    };
 }
 
 #given a pxt object and a list of params, return a list of -param, values pairs.
@@ -318,7 +318,7 @@ sub callback {
     if ($pxt->dirty_param('select_all')) {
       my %results = $mode->{__provider__}->($self, $pxt);
       unless (exists $results{all_ids} and exists $results{data}) {
-	throw "Provider for mode did not provide all_ids and data: " . Data::Dumper->Dump([$mode]);
+        throw "Provider for mode did not provide all_ids and data: " . Data::Dumper->Dump([$mode]);
       }
 
       $set->add(@{$results{all_ids}});
@@ -338,31 +338,31 @@ sub callback {
       # intersect set with what is on the page for what was selected before
       my %previously_selected;
       foreach my $old_selection (@set_contents) {
-	$previously_selected{$old_selection} = 1 if (exists $on_page{$old_selection});
+        $previously_selected{$old_selection} = 1 if (exists $on_page{$old_selection});
       }
 
       my @removed;
       my @added;
       foreach my $id (keys %on_page) {
-	push @removed, $id if ($previously_selected{$id} && !$selected{$id});
-	push @added, $id if (!$previously_selected{$id} && $selected{$id});
+        push @removed, $id if ($previously_selected{$id} && !$selected{$id});
+        push @added, $id if (!$previously_selected{$id} && $selected{$id});
       }
 
       $set->remove(@removed) if (@removed);
       $set->add(@added) if (@added);
 
       if (@removed or @added) {
-	$set->commit;
-	$self->clean_set($set, $pxt->user, \%vars);
+        $set->commit;
+        $self->clean_set($set, $pxt->user, \%vars);
 
-	$self->set_new_members_cb(@added) if (@added);
-	$self->set_removed_members_cb(@removed) if (@removed);
+        $self->set_new_members_cb(@added) if (@added);
+        $self->set_removed_members_cb(@removed) if (@removed);
       }
     }
 
     if ($action{label}) {
       if (! $set->contents) { # set is empty
-	%action = $self->empty_set_action_cb($pxt, %action);
+        %action = $self->empty_set_action_cb($pxt, %action);
       }
     }
   } # if (my $set_label = ...)
@@ -399,7 +399,7 @@ sub callback {
     $vars{filter_string} = $pxt->dirty_param('filter_value');
 
     if (defined $pxt->dirty_param('prev_filter_value') and
-	$pxt->dirty_param('prev_filter_value') ne $pxt->dirty_param('filter_value')) {
+        $pxt->dirty_param('prev_filter_value') ne $pxt->dirty_param('filter_value')) {
       $vars{lower} = 1;
       $vars{upper} = $pxt->user->preferred_page_size;
     }
@@ -413,7 +413,7 @@ sub callback {
      foreach my $mess_param (@mess_params){
         if (defined $pxt->dirty_param($mess_param)) {
             $vars{$mess_param} = $pxt->passthrough_param($mess_param);
-	}
+        }
      }
   }
 
@@ -456,7 +456,7 @@ sub formvars {
     }
     elsif ($formvar->type eq 'propagate') {
       $ret{$formvar->name} = $pxt->passthrough_param($formvar->name)
-	if defined $pxt->passthrough_param($formvar->name);
+        if defined $pxt->passthrough_param($formvar->name);
     }
     else {
       die "unknown formvar type: " . $formvar->type;
@@ -553,10 +553,10 @@ sub render_filterbox {
   }
   elsif ($self->filter_type eq 'select') {
     $ret .= PXT::HTML->select(-name => 'filter_value',
-			      -size => 1,
-			      -options => [ [ '--all--', '', not $self->filter_string ],
-					    map { [ $_, $_, $_ eq ($self->filter_string || '') ] }
-					      keys %{$self->filter_options} ] );
+                              -size => 1,
+                              -options => [ [ '--all--', '', not $self->filter_string ],
+                                            map { [ $_, $_, $_ eq ($self->filter_string || '') ] }
+                                              keys %{$self->filter_options} ] );
     $ret .= PXT::HTML->hidden(-name => 'prev_filter_value', -value => PXT::Utils->escapeHTML($self->filter_string || ''));
   }
   else {
@@ -723,7 +723,7 @@ sub render_rows_header {
 
     foreach my $attrib (qw/width align nowrap/) {
       if ($col->$attrib()) {
-	push @attribs, $attrib . '="' . $col->$attrib() . '"';
+        push @attribs, $attrib . '="' . $col->$attrib() . '"';
       }
     }
 
@@ -794,11 +794,11 @@ sub render_action_items {
     $any_rendered = 1;
 
     $ret .= PXT::HTML->submit(-name => "list_action_label_$label",
-			      -value => $action->name,
-			      ($class ? (-class => $class) : () )
-			     ) . "\n";
+                              -value => $action->name,
+                              ($class ? (-class => $class) : () )
+                             ) . "\n";
     $ret .= PXT::HTML->hidden(-name => "list_action_url_$label",
-			      -value => $url) . "\n";
+                              -value => $url) . "\n";
   }
 
   if ($any_rendered) {
@@ -852,12 +852,12 @@ sub render_checkbox {
   }
   else {
     $checkbox = PXT::HTML->checkbox(-name => 'items_selected',
-				    -value => $params{row}->{ID},
-				    -checked => $params{checked},
-				    -onClick => "checkbox_clicked(this, '$set_label')");
+                                    -value => $params{row}->{ID},
+                                    -checked => $params{checked},
+                                    -onClick => "checkbox_clicked(this, '$set_label')");
 
     $checkbox .= PXT::HTML->hidden(-name => 'items_on_page',
-				   -value => $params{row}->{ID});
+                                   -value => $params{row}->{ID});
 
   }
 
@@ -902,14 +902,14 @@ sub render {
   my %acl_failures;
   foreach my $col (@columns) {
     $col_hash{$col->name} = { label => $col->label,
-			      width => $col->width,
-			      align => $col->align,
-			      nowrap => $col->nowrap,
-			    };
+                              width => $col->width,
+                              align => $col->align,
+                              nowrap => $col->nowrap,
+                            };
 
     if ($col->acl) {
       $acl_failures{$col->name} = 1
-	unless $acl_parser->eval_acl($pxt, $col->acl);
+        unless $acl_parser->eval_acl($pxt, $col->acl);
     }
   }
 
@@ -1006,9 +1006,9 @@ sub render {
     if (scalar @{$results{all_ids}} > $pxt->user->preferred_page_size) {
 
       $alphabar_content = $self->render_alphabar_content($results{alphabar},
-					 $pxt->user->preferred_page_size,
-					 $pxt->uri,
-					 $self->formvars($pxt));
+                                         $pxt->user->preferred_page_size,
+                                         $pxt->uri,
+                                         $self->formvars($pxt));
 
     }
 
@@ -1066,18 +1066,18 @@ sub render {
       my $checked = $self->{__set__}->contains($row->{ID});
 
       if ($self->is_row_selectable($pxt, $row)) {
-	$self->{__any_selectable_rows__} = 1;
+        $self->{__any_selectable_rows__} = 1;
 
-	$checkbox_html = $self->render_checkbox(-row => $row, -checked => $checked, -pxt => $pxt);
+        $checkbox_html = $self->render_checkbox(-row => $row, -checked => $checked, -pxt => $pxt);
 
-	if ($checked) {
-	  $checkboxes_checked++;
-	}
+        if ($checked) {
+          $checkboxes_checked++;
+        }
 
-	$checkboxes_on_page++;
+        $checkboxes_on_page++;
       }
       else {
-	$checkbox_html = $self->render_checkbox(-row => $row, -checked => $checked, -blank => 1, -pxt => $pxt);
+        $checkbox_html = $self->render_checkbox(-row => $row, -checked => $checked, -blank => 1, -pxt => $pxt);
       }
 
       $current_col_index++;
@@ -1096,99 +1096,99 @@ sub render {
       next if exists $acl_failures{$col->name};
 
       if ($col_name ne 'Select') {
-	my $label = $col->label;
+        my $label = $col->label;
 
-	# if the row doesn't have the value, but it is the special
-	# multiple row per id result type, test the first of the multiple results
-	# for the value.  if it exists, string 'em together.
-	if (not exists $row->{uc $label} and defined $row->{__data__}) {
+        # if the row doesn't have the value, but it is the special
+        # multiple row per id result type, test the first of the multiple results
+        # for the value.  if it exists, string 'em together.
+        if (not exists $row->{uc $label} and defined $row->{__data__}) {
 
-	  PXT::Debug->log(7, "trying to find data to string together for $label...");
+          PXT::Debug->log(7, "trying to find data to string together for $label...");
 
-	  if ($row->{__data__}->[0]->{uc $label}) {
+          if ($row->{__data__}->[0]->{uc $label}) {
 
-	    $row->{uc $label} = '';
-	    foreach my $value (map {$_->{uc $label}} @{$row->{__data__}}) {
-	      my $escaped_value = PXT::Utils->escapeHTML($value);
-	      $row->{uc $label} .= "$escaped_value<br />\n";
-	    }
+            $row->{uc $label} = '';
+            foreach my $value (map {$_->{uc $label}} @{$row->{__data__}}) {
+              my $escaped_value = PXT::Utils->escapeHTML($value);
+              $row->{uc $label} .= "$escaped_value<br />\n";
+            }
 
-	    PXT::Debug->log(7, "figured out $label:  " . $row->{uc $label});
-	  }
-	  else {
-	    die "failed to find data named '$label', elaborator query might have failed to return any results";
-	  }
-	}
+            PXT::Debug->log(7, "figured out $label:  " . $row->{uc $label});
+          }
+          else {
+            die "failed to find data named '$label', elaborator query might have failed to return any results";
+          }
+        }
 
-	if (not defined $col->content and not exists $row->{uc $label}) {
-	  throw sprintf("Provider for '%s' failed to provide column '%s'\nRow data:  %s",
-			$mode->{__name__}, uc($label), Data::Dumper->Dump([$row]) );
-	}
-	elsif (defined $col->content and exists $row->{uc $label}) {
-	  throw sprintf("Provider for '%s' provided a column that has static content '%s'\nRow data:  %s",
-			$mode->{__name__}, uc($label), Data::Dumper->Dump([$row]) );
-	}
+        if (not defined $col->content and not exists $row->{uc $label}) {
+          throw sprintf("Provider for '%s' failed to provide column '%s'\nRow data:  %s",
+                        $mode->{__name__}, uc($label), Data::Dumper->Dump([$row]) );
+        }
+        elsif (defined $col->content and exists $row->{uc $label}) {
+          throw sprintf("Provider for '%s' provided a column that has static content '%s'\nRow data:  %s",
+                        $mode->{__name__}, uc($label), Data::Dumper->Dump([$row]) );
+        }
 
-	if (defined $col->content) {
-	  $row->{uc $label} = $col->content;
-	}
+        if (defined $col->content) {
+          $row->{uc $label} = $col->content;
+        }
 
-	$row->{uc $label} = sprintf "%s%s%s",
-	  $col->pre_content || '',
-	    (defined $row->{uc $label} ? $row->{uc $label} : ''),
-	      $col->post_content || '';
-	my $col_data = defined $row->{uc $label} ? $row->{uc $label} : '';
+        $row->{uc $label} = sprintf "%s%s%s",
+          $col->pre_content || '',
+            (defined $row->{uc $label} ? $row->{uc $label} : ''),
+              $col->post_content || '';
+        my $col_data = defined $row->{uc $label} ? $row->{uc $label} : '';
 
-	if ($col->is_date()) {
+        if ($col->is_date()) {
     my $formatted = $pxt->user->convert_time($col_data);
     my $isotime = $pxt->user->convert_time($col_data, "%FT%T%z");
     $col_data = $self->render_date($pxt, $col, $isotime, $formatted);
-	}
+        }
 
 
-	if ($col->htmlify) { #HTML already escaped in 'escape_row'
-	  $col_data = PXT::HTML->htmlify_text_no_escape($col_data);
-	}
+        if ($col->htmlify) { #HTML already escaped in 'escape_row'
+          $col_data = PXT::HTML->htmlify_text_no_escape($col_data);
+        }
 
-	# figure out if we need to hyperlink the column's data...
-	my $url = $col->url;
+        # figure out if we need to hyperlink the column's data...
+        my $url = $col->url;
 
-	if ($url) {
-	  $col_data = $self->render_url($pxt, $url, $row, uc($label));
-	}
+        if ($url) {
+          $col_data = $self->render_url($pxt, $url, $row, uc($label));
+        }
 
-	my ($width_str, $align_str, $nowrap_str, $class_str) = ('', '', '', '');
+        my ($width_str, $align_str, $nowrap_str, $class_str) = ('', '', '', '');
 
-	# sometimes there is no header row to be in charge of widths
- 	if (my $width = $col->width) {
- 	  $width_str = sprintf(' width="%s"', $width);
- 	}
-	my $col_align = $col->align;
+        # sometimes there is no header row to be in charge of widths
+        if (my $width = $col->width) {
+          $width_str = sprintf(' width="%s"', $width);
+        }
+        my $col_align = $col->align;
 
-	if ($col_align) {
-	  $align_str = sprintf(' align="%s"', $col_align);
-	}
+        if ($col_align) {
+          $align_str = sprintf(' align="%s"', $col_align);
+        }
 
-	if ($col->nowrap) {
-	  $nowrap_str = sprintf(' nowrap="%s"', $col->nowrap);
-	}
+        if ($col->nowrap) {
+          $nowrap_str = sprintf(' nowrap="%s"', $col->nowrap);
+        }
 
-	# custom td classes for first and last in row, sorta useful
-	if ($current_col_index == 0) {
-	  $class_str = ' class="first-column"';
-	}
-	elsif ($current_col_index == ($num_rendered_columns - 1)) {
-	  $class_str = ' class="last-column"';
-	}
+        # custom td classes for first and last in row, sorta useful
+        if ($current_col_index == 0) {
+          $class_str = ' class="first-column"';
+        }
+        elsif ($current_col_index == ($num_rendered_columns - 1)) {
+          $class_str = ' class="last-column"';
+        }
 
-	$col_html =~ s/\{align_str\}/$align_str/g;
-	$col_html =~ s/\{width_str\}/$width_str/g;
-	$col_html =~ s/\{class_str\}/$class_str/g;
-	$col_html =~ s/\{nowrap_str\}/$nowrap_str/g;
-	$col_html =~ s/\{col_data\}/$col_data/g;
-	$columns .= $col_html;
+        $col_html =~ s/\{align_str\}/$align_str/g;
+        $col_html =~ s/\{width_str\}/$width_str/g;
+        $col_html =~ s/\{class_str\}/$class_str/g;
+        $col_html =~ s/\{nowrap_str\}/$nowrap_str/g;
+        $col_html =~ s/\{col_data\}/$col_data/g;
+        $columns .= $col_html;
 
-	$current_col_index++;
+        $current_col_index++;
       }
     }
 
@@ -1249,8 +1249,8 @@ sub default_provider {
   }
 
   return (data => $data,
-	  all_ids => $all_ids,
-	  alphabar => $alphabar);
+          all_ids => $all_ids,
+          alphabar => $alphabar);
 }
 
 sub escape_row {
@@ -1259,12 +1259,12 @@ sub escape_row {
   foreach my $key (keys %$row) {
     if (ref $row->{$key} eq 'ARRAY') {
       foreach my $subrow (@{$row->{$key}}) {
-	if (ref $subrow eq 'HASH') {
-	  escape_row($subrow);
-	}
-	else {
-	  $subrow = PXT::Utils->escapeHTML($subrow);
-	}
+        if (ref $subrow eq 'HASH') {
+          escape_row($subrow);
+        }
+        else {
+          $subrow = PXT::Utils->escapeHTML($subrow);
+        }
       }
     }
     elsif (defined $row->{$key}) {

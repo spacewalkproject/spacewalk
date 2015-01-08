@@ -29,10 +29,10 @@ Params::Validate::validation_options(strip_leading => "-");
 sub new {
   my $class = shift;
   my %params = validate(@_, { min => { optional => 0 },
-			      max => { optional => 0 },
-			      ksid => { optional => 1 },
-			      org_id => { optional => 1 },
-			    } );
+                              max => { optional => 0 },
+                              ksid => { optional => 1 },
+                              org_id => { optional => 1 },
+                            } );
 
   my ($min, $max) = @params{qw/min max/};
 

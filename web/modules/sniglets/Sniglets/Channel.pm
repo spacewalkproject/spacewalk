@@ -114,7 +114,7 @@ sub channel_details {
 
   if ($subst{systems_subscribed} > 0) {
     $subst{systems_link} = sprintf('<a href="%s?cid=%d">%d</a>',
-					 $systems_link, $channel->id, $subst{systems_subscribed} );
+                                         $systems_link, $channel->id, $subst{systems_subscribed} );
   }
   else {
     $subst{systems_link} = '0';
@@ -122,7 +122,7 @@ sub channel_details {
 
   if ($subst{channel_applicable_package_count} > 0) {
     $subst{packages_link} = sprintf('<a href="%s?cid=%d">%d</a>',
-					 $packages_link, $channel->id, $subst{channel_applicable_package_count} );
+                                         $packages_link, $channel->id, $subst{channel_applicable_package_count} );
   }
   else {
     $subst{packages_link} = '0';
@@ -150,8 +150,8 @@ sub globally_subscribable_checkbox {
 
   my $subscribable_checkbox =
     new RHN::Form::Widget::Checkbox(name => 'globally_subscribable',
-				    value => 1,
-				    checked => $current_status);
+                                    value => 1,
+                                    checked => $current_status);
 
   my $submit_html = RHN::Form::Widget::Submit->new(name => 'Update')->render;
 

@@ -51,7 +51,7 @@ sub _init {
   if ($package_id) {
     unless ($package_id == $self->id) {
       die "rhnSolarisPackage.package_id != rhnPackage.id when looking up package '"
-	. $self->id . "' (" . join (',', ($package_id, @columns)) . ")";
+        . $self->id . "' (" . join (',', ($package_id, @columns)) . ")";
     }
 
     $self->$_(shift @columns) foreach $spt->method_names;

@@ -42,7 +42,7 @@ my $j = $ns_table->create_join(
          {
             "rhnConfigChannel" => ["ID","ID"],
             "rhnConfigChannelType" => ["CONFCHAN_TYPE_ID","ID"],
-	  }
+          }
     });
 
 

@@ -50,157 +50,157 @@ sub list_of { return "packages" }
 sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "package_search_results",
-			   -datasource => new RHN::DataSource::Simple(-querybase => "package_search_elaborators"),
-			   -provider => \&package_search_results_provider);
+                           -datasource => new RHN::DataSource::Simple(-querybase => "package_search_elaborators"),
+                           -provider => \&package_search_results_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "package_removal_failures",
-			   -datasource => RHN::DataSource::Package->new,
-			   -provider => \&package_removal_failures_provider);
+                           -datasource => RHN::DataSource::Package->new,
+                           -provider => \&package_removal_failures_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "package_verification_results",
-				     -datasource => RHN::DataSource::Package->new,
-				     -provider => \&package_verification_results_provider);
+                                     -datasource => RHN::DataSource::Package->new,
+                                     -provider => \&package_verification_results_provider);
 
 
   Sniglets::ListView::List->add_mode(-mode => "patches_from_server_set",
-			   -datasource => RHN::DataSource::Package->new,
- 			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "packages_from_server_set",
-			   -datasource => RHN::DataSource::Package->new,
- 			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "verify_packages_from_server_set",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "packages_in_channel",
                            -provider => \&packages_in_channel_provider, 
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "patches_in_channel",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "patchsets_in_channel",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "packages_in_errata",
-			   -datasource => RHN::DataSource::Package->new,
-			   -provider => \&packages_in_errata_provider,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -provider => \&packages_in_errata_provider,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "latest_packages_in_channel",
                            -provider => \&latest_packages_in_channel_provider,
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "latest_patches_in_channel",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "latest_patchsets_in_channel",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "ssm_packages_for_upgrade",
-			   -datasource => RHN::DataSource::Package->new,
-			   -provider => \&ssm_packages_for_upgrade_provider,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -provider => \&ssm_packages_for_upgrade_provider,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "packages_in_set",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "package_ids_in_set",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "patch_ids_in_set",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "patchset_ids_in_set",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
    Sniglets::ListView::List->add_mode(-mode => "packages_owned_by_org",
- 			   -datasource => RHN::DataSource::Package->new,
- 			   -provider => \&packages_owned_by_org_provider);
+                           -datasource => RHN::DataSource::Package->new,
+                           -provider => \&packages_owned_by_org_provider);
 
    Sniglets::ListView::List->add_mode(-mode => "packages_available_to_channel",
- 			   -datasource => RHN::DataSource::Package->new,
- 			   -provider => \&packages_available_to_channel_provider,
- 			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -provider => \&packages_available_to_channel_provider,
+                           -action_callback => \&default_callback);
 
    Sniglets::ListView::List->add_mode(-mode => "patches_available_to_channel",
- 			   -datasource => RHN::DataSource::Package->new,
- 			   -provider => \&patches_available_to_channel_provider,
- 			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -provider => \&patches_available_to_channel_provider,
+                           -action_callback => \&default_callback);
 
    Sniglets::ListView::List->add_mode(-mode => "patchsets_available_to_channel",
- 			   -datasource => RHN::DataSource::Package->new,
- 			   -provider => \&patchsets_available_to_channel_provider,
- 			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -provider => \&patchsets_available_to_channel_provider,
+                           -action_callback => \&default_callback);
 
    Sniglets::ListView::List->add_mode(-mode => "packages_available_to_errata",
- 			   -datasource => RHN::DataSource::Package->new,
- 			   -provider => \&packages_available_to_errata_provider,
- 			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -provider => \&packages_available_to_errata_provider,
+                           -action_callback => \&default_callback);
 
    Sniglets::ListView::List->add_mode(-mode => "obsoleting_packages",
- 			   -datasource => RHN::DataSource::Package->new,
- 			   -provider => \&obsoleting_packages_provider,
- 			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -provider => \&obsoleting_packages_provider,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "system_package_list",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "in_set",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "packages_associated_with_action",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "channel_errata_comparison",
-			   -datasource => RHN::DataSource::Package->new,
-			   -provider => \&channel_errata_comparison_provider,     
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -provider => \&channel_errata_comparison_provider,     
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "channel_errata_intersection",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Package->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "package_download_for_system_arch_select",
-			   -datasource => RHN::DataSource::Package->new,
+                           -datasource => RHN::DataSource::Package->new,
                            -provider => \&package_download_for_system_arch_select_provider,
-			   -action_callback => \&default_callback);
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "patches_for_package",
-				     -datasource => RHN::DataSource::Package->new,
-				     -provider => \&patches_for_package_provider,
-				     -action_callback => \&default_callback,
-				     );
+                                     -datasource => RHN::DataSource::Package->new,
+                                     -provider => \&patches_for_package_provider,
+                                     -action_callback => \&default_callback,
+                                     );
 
   Sniglets::ListView::List->add_mode(-mode => "packages_for_patch",
-				     -datasource => RHN::DataSource::Package->new,
-				     -action_callback => \&default_callback,
-				     );
+                                     -datasource => RHN::DataSource::Package->new,
+                                     -action_callback => \&default_callback,
+                                     );
 
   Sniglets::ListView::List->add_mode(-mode => "patchsets_for_patch",
-				     -datasource => RHN::DataSource::Package->new,
-				     -action_callback => \&default_callback,
-				     );
+                                     -datasource => RHN::DataSource::Package->new,
+                                     -action_callback => \&default_callback,
+                                     );
 
   Sniglets::ListView::List->add_mode(-mode => "patches_for_patchset",
-				     -datasource => RHN::DataSource::Package->new,
-				     -action_callback => \&default_callback,
-				     );
+                                     -datasource => RHN::DataSource::Package->new,
+                                     -action_callback => \&default_callback,
+                                     );
 }
 
 sub default_callback {
@@ -296,10 +296,10 @@ sub package_verification_results_provider {
     for my $tuple (@column_message_map) {
       my ($col, $lab) = @$tuple;
       if ($row->{+uc $col} eq 'Y') {
-	push @differs, $lab;
+        push @differs, $lab;
       }
       if ($row->{+uc $col} eq '?') {
-	push @differs, $lab . " (?)";
+        push @differs, $lab . " (?)";
       }
     }
 
@@ -462,17 +462,17 @@ sub packages_available_to_channel_provider {
     }
     else {
       if (exists $row->{PACKAGE_CHANNELS} && ref $row->{PACKAGE_CHANNELS} eq 'ARRAY') {
-	$row->{PACKAGE_CHANNELS} = join("<br />\n", @{$row->{PACKAGE_CHANNELS}});
+        $row->{PACKAGE_CHANNELS} = join("<br />\n", @{$row->{PACKAGE_CHANNELS}});
       }
       else {
-	$row->{PACKAGE_CHANNELS} = '(none)';
+        $row->{PACKAGE_CHANNELS} = '(none)';
       }
     }
   }
 
   return (data => $data,
-	  alphabar => $alphabar,
-	  all_ids => $all_ids);
+          alphabar => $alphabar,
+          all_ids => $all_ids);
 }
 
 sub patches_available_to_channel_provider {
@@ -522,17 +522,17 @@ sub patches_available_to_channel_provider {
     }
     else {
       if (exists $row->{PACKAGE_CHANNELS} && ref $row->{PACKAGE_CHANNELS} eq 'ARRAY') {
-	$row->{PACKAGE_CHANNELS} = join("<br />\n", @{$row->{PACKAGE_CHANNELS}});
+        $row->{PACKAGE_CHANNELS} = join("<br />\n", @{$row->{PACKAGE_CHANNELS}});
       }
       else {
-	$row->{PACKAGE_CHANNELS} = '(none)';
+        $row->{PACKAGE_CHANNELS} = '(none)';
       }
     }
   }
 
   return (data => $data,
-	  alphabar => $alphabar,
-	  all_ids => $all_ids);
+          alphabar => $alphabar,
+          all_ids => $all_ids);
 }
 
 sub patchsets_available_to_channel_provider {
@@ -582,17 +582,17 @@ sub patchsets_available_to_channel_provider {
     }
     else {
       if (exists $row->{PACKAGE_CHANNELS} && ref $row->{PACKAGE_CHANNELS} eq 'ARRAY') {
-	$row->{PACKAGE_CHANNELS} = join("<br />\n", @{$row->{PACKAGE_CHANNELS}});
+        $row->{PACKAGE_CHANNELS} = join("<br />\n", @{$row->{PACKAGE_CHANNELS}});
       }
       else {
-	$row->{PACKAGE_CHANNELS} = '(none)';
+        $row->{PACKAGE_CHANNELS} = '(none)';
       }
     }
   }
 
   return (data => $data,
-	  alphabar => $alphabar,
-	  all_ids => $all_ids);
+          alphabar => $alphabar,
+          all_ids => $all_ids);
 }
 
 sub packages_available_to_errata_provider {
@@ -658,17 +658,17 @@ sub packages_available_to_errata_provider {
     }
     else {
       if (exists $row->{PACKAGE_CHANNELS} && ref $row->{PACKAGE_CHANNELS} eq 'ARRAY') {
-	$row->{PACKAGE_CHANNELS} = join("<br />\n", @{$row->{PACKAGE_CHANNELS}});
+        $row->{PACKAGE_CHANNELS} = join("<br />\n", @{$row->{PACKAGE_CHANNELS}});
       }
       else {
-	$row->{PACKAGE_CHANNELS} = '(none)';
+        $row->{PACKAGE_CHANNELS} = '(none)';
       }
     }
   }
 
   return (data => $data,
-	  alphabar => $alphabar,
-	  all_ids => $all_ids);
+          alphabar => $alphabar,
+          all_ids => $all_ids);
 }
 
 sub channel_errata_comparison_provider {
@@ -756,17 +756,17 @@ sub packages_owned_by_org_provider {
     }
     else {
       if (exists $row->{PACKAGE_CHANNELS} && ref $row->{PACKAGE_CHANNELS} eq 'ARRAY') {
-	$row->{PACKAGE_CHANNELS} = join("<br />\n", @{$row->{PACKAGE_CHANNELS}});
+        $row->{PACKAGE_CHANNELS} = join("<br />\n", @{$row->{PACKAGE_CHANNELS}});
       }
       else {
-	$row->{PACKAGE_CHANNELS} = '(none)';
+        $row->{PACKAGE_CHANNELS} = '(none)';
       }
     }
   }
 
   return (data => $data,
-	  alphabar => $alphabar,
-	  all_ids => $all_ids);
+          alphabar => $alphabar,
+          all_ids => $all_ids);
 }
 
 sub ssm_packages_for_upgrade_provider {
@@ -827,8 +827,8 @@ sub package_download_for_system_arch_select_provider {
   }
 
   return (data => $data,
-	  all_ids => $all_ids,
-	  alphabar => $alphabar);
+          all_ids => $all_ids,
+          alphabar => $alphabar);
 }
 
 sub delete_packages_cb {
@@ -870,14 +870,14 @@ EOQ
 
   foreach my $cid (@channels) {
     my $channel = RHN::Channel->lookup(-id => $cid);
-	$rrqh->execute_h(label => $channel->label);
+        $rrqh->execute_h(label => $channel->label);
   }
   
 
   my $channel_count = scalar(@channels);
   $pxt->push_message(site_info => sprintf("<strong>%d</strong> package%s deleted from <strong>%d</strong> channel%s.",
-					  $count, $count == 1 ? '' : 's',
-					  $channel_count, $channel_count == 1 ? '' : 's'));
+                                          $count, $count == 1 ? '' : 's',
+                                          $channel_count, $channel_count == 1 ? '' : 's'));
 
 # Now, update the latest package cache
   foreach my $cid (@channels) {
@@ -900,12 +900,12 @@ sub remove_packages_cb {
   my $earliest_date = RHN::Date->now_long_date;
   my $actions_scheduled =
     RHN::Scheduler->schedule_system_package_action(-org_id => $pxt->user->org_id,
-						   -user_id => $pxt->user->id,
-						   -earliest => $earliest_date,
-						   -sid => $sid,
-						   -id_combos => [ $package_set->contents ],
-						   -action_type => 'remove',
-						  );
+                                                   -user_id => $pxt->user->id,
+                                                   -earliest => $earliest_date,
+                                                   -sid => $sid,
+                                                   -id_combos => [ $package_set->contents ],
+                                                   -action_type => 'remove',
+                                                  );
 
   my $system = RHN::Server->lookup(-id => $sid);
 
@@ -914,9 +914,9 @@ sub remove_packages_cb {
   foreach my $action_id (keys %{$actions_scheduled}) {
     my $package_count = scalar @{$actions_scheduled->{$action_id}};
     $pxt->push_message(site_info => 
-		       sprintf('<strong>%d</strong> package removal%s been <a href="/rhn/schedule/ActionDetails.do?aid=%d">scheduled</a> for <a href="/rhn/systems/details/Overview.do?sid=%d"><strong>%s</strong></a>.',
-			     $package_count, $package_count == 1 ? ' has' : 's have', $action_id,
-			     $sid, PXT::Utils->escapeHTML($system->name)));
+                       sprintf('<strong>%d</strong> package removal%s been <a href="/rhn/schedule/ActionDetails.do?aid=%d">scheduled</a> for <a href="/rhn/systems/details/Overview.do?sid=%d"><strong>%s</strong></a>.',
+                             $package_count, $package_count == 1 ? ' has' : 's have', $action_id,
+                             $sid, PXT::Utils->escapeHTML($system->name)));
   }
 
   $package_set->empty;
@@ -939,7 +939,7 @@ sub check_action_file_upload_status {
     my $redir;
 
     if ($mode eq 'ssm_package_install_remote_command'
-	or $mode eq 'ssm_package_install_answer_files') {
+        or $mode eq 'ssm_package_install_answer_files') {
       $redir = sprintf(
       '/network/systems/ssm/packages/upload_answer_file.pxt?cid=%d&set_label=%s&id_combo=%s&mode=%s',
       $pxt->param('cid'),
@@ -961,8 +961,8 @@ sub check_action_file_upload_status {
   }
   elsif (grep { $mode eq $_ }
       qw/ssm_package_install_answer_files
-	 ssm_package_install_remote_command
-	 confirm_package_install/) {
+         ssm_package_install_remote_command
+         confirm_package_install/) {
   # noop
   }
   else {
@@ -1000,12 +1000,12 @@ sub install_packages_cb {
   my $earliest_date = RHN::Date->now_long_date;
   my $actions_scheduled =
     RHN::Scheduler->schedule_system_package_action(-org_id => $pxt->user->org_id,
-						   -user_id => $pxt->user->id,
-						   -earliest => $earliest_date,
-						   -sid => $sid,
-						   -id_combos => [ $package_set->contents ],
-						   -action_type => 'install',
-						  );
+                                                   -user_id => $pxt->user->id,
+                                                   -earliest => $earliest_date,
+                                                   -sid => $sid,
+                                                   -id_combos => [ $package_set->contents ],
+                                                   -action_type => 'install',
+                                                  );
 
   if (RHN::Server->system_profile_capable($sid, 'deploy_answer_file')) {
     foreach my $action_id (keys %{$actions_scheduled}) {
@@ -1041,9 +1041,9 @@ sub install_packages_cb {
   foreach my $action_id (keys %{$actions_scheduled}) {
     my $package_count = scalar @{$actions_scheduled->{$action_id}};
     $pxt->push_message(site_info =>
-		       sprintf('<strong>%d</strong> package install%s been <a href="/rhn/schedule/ActionDetails.do?aid=%d">scheduled</a> for <a href="/rhn/systems/details/Overview.do?sid=%d"><strong>%s</strong></a>.',
-			       $package_count, $package_count == 1 ? ' has' : 's have', $action_id,
-			       $sid, PXT::Utils->escapeHTML($system->name)));
+                       sprintf('<strong>%d</strong> package install%s been <a href="/rhn/schedule/ActionDetails.do?aid=%d">scheduled</a> for <a href="/rhn/systems/details/Overview.do?sid=%d"><strong>%s</strong></a>.',
+                               $package_count, $package_count == 1 ? ' has' : 's have', $action_id,
+                               $sid, PXT::Utils->escapeHTML($system->name)));
   }
 
   $package_set->empty;
@@ -1089,8 +1089,8 @@ sub package_install_remote_command_cb {
 }
 
 my %adv_icon = ('Bug Fix Advisory' => 'errata-bugfix',
-		 'Product Enhancement Advisory' => 'errata-enhance',
-		 'Security Advisory' => 'errata-security');
+                 'Product Enhancement Advisory' => 'errata-enhance',
+                 'Security Advisory' => 'errata-security');
 
 sub obsoleting_packages_provider {
   my $self = shift;
@@ -1119,9 +1119,9 @@ sub patches_for_package_provider {
     if (exists $row->{__data__} && ref $row->{__data__} eq 'ARRAY') {
       $row->{PATCH_SET_URLS} = join("<br />\n",
         map { PXT::HTML->link("/rhn/software/packages/Details.do?pid=" . $_->{PATCH_SET_ID},
-			      $_->{PATCH_SET_SUMMARY})
-  	    } @{$row->{__data__}}
-				   );
+                              $_->{PATCH_SET_SUMMARY})
+            } @{$row->{__data__}}
+                                   );
     }
     else {
       $row->{PATCH_SET_URLS} = '(none)';
@@ -1138,8 +1138,8 @@ sub row_callback {
 
   if ($self->{__mode__}->{__name__} eq "ssm_packages_for_upgrade" and $row->{ADVISORY}) {
     $row->{ADVISORY} = PXT::HTML->img(-src => '/img/wrh-' . lc ((split /[\s]/, $row->{ADVISORY_TYPE})[0]) . '.gif',
-				      -alt => $row->{ADVISORY_TYPE},
-				      -title => $row->{ADVISORY_TYPE}) . ' &#160;' . $row->{ADVISORY};
+                                      -alt => $row->{ADVISORY_TYPE},
+                                      -title => $row->{ADVISORY_TYPE}) . ' &#160;' . $row->{ADVISORY};
   }
   elsif (($self->{__mode__}->{__name__} eq "packages_from_server_set") || 
          ($self->{__mode__}->{__name__} eq "verify_packages_from_server_set" ) ||
@@ -1212,8 +1212,8 @@ sub remove_patches_from_channel_cb {
   RHN::Channel->refresh_newest_package_cache($channel->id, 'web.channel_manager');
 
   $pxt->push_message(site_info => sprintf("<strong>%d</strong> patch%s removed from channel <strong>%s</strong>.",
-					  $count, $count == 1 ? '' : 'es',
-					  $channel->name));
+                                          $count, $count == 1 ? '' : 'es',
+                                          $channel->name));
 
   return 1;
 }
@@ -1239,8 +1239,8 @@ sub add_patches_to_channel_cb {
   RHN::Channel->refresh_newest_package_cache($channel->id, 'web.channel_manager');
 
   $pxt->push_message(site_info => sprintf("<strong>%d</strong> patch%s added to channel <strong>%s</strong>.",
-					  $count, $count == 1 ? '' : 'es',
-					  $channel->name));
+                                          $count, $count == 1 ? '' : 'es',
+                                          $channel->name));
 
   return 1;
 }
@@ -1266,8 +1266,8 @@ sub add_patchsets_to_channel_cb {
   RHN::Channel->refresh_newest_package_cache($channel->id, 'web.channel_manager');
 
   $pxt->push_message(site_info => sprintf("<strong>%d</strong> patchset%s added to channel <strong>%s</strong>.",
-					  $count, $count == 1 ? '' : 's',
-					  $channel->name));
+                                          $count, $count == 1 ? '' : 's',
+                                          $channel->name));
 
   return 1;
 }
@@ -1288,8 +1288,8 @@ sub is_row_selectable {
     my $cid = $pxt->param('cid');
 
     my $pid = RHN::Package->guestimate_package_id(-server_id => $sid,
-						  -channel_id => $cid,
-						  -name_id => $name_id, -evr_id => $evr_id);
+                                                  -channel_id => $cid,
+                                                  -name_id => $name_id, -evr_id => $evr_id);
 
     return 0 unless ($pid and RHN::Package->package_type_capable($pid, 'deploy_answer_file'));
   }
@@ -1298,7 +1298,7 @@ sub is_row_selectable {
     my ($name_id, $evr_id) = split(/\|/, $id_combo);
 
     my $pid = RHN::Package->guestimate_package_id(-server_id => $pxt->param('sid'),
-						  -name_id => $name_id, -evr_id => $evr_id);
+                                                  -name_id => $name_id, -evr_id => $evr_id);
 
     return 1 unless $pid;
     return 0 unless (RHN::Package->package_type_capable($pid, 'remove'));
@@ -1323,8 +1323,8 @@ sub clean_set {
       my ($name_id, $evr_id) = @{$id_combo};
 
       my $pid = RHN::Package->guestimate_package_id(-server_id => $formvars->{sid},
-						    -channel_id => $formvars->{cid},
-						    -name_id => $name_id, -evr_id => $evr_id);
+                                                    -channel_id => $formvars->{cid},
+                                                    -name_id => $name_id, -evr_id => $evr_id);
 
       next unless ($pid);
 
@@ -1338,7 +1338,7 @@ sub clean_set {
       my ($name_id, $evr_id) = @{$id_combo};
 
       my $pid = RHN::Package->guestimate_package_id(-server_id => $formvars->{sid},
-						    -name_id => $name_id, -evr_id => $evr_id);
+                                                    -name_id => $name_id, -evr_id => $evr_id);
 
       next unless ($pid);
 

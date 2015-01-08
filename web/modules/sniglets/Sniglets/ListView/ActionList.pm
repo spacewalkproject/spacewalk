@@ -39,33 +39,33 @@ sub list_of { return "actions" }
 sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "system_events_history",
-			   -datasource => RHN::DataSource::Action->new,
-			   -provider => \&system_history_provider);
+                           -datasource => RHN::DataSource::Action->new,
+                           -provider => \&system_history_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "events_in_set",
-			   -datasource => RHN::DataSource::Action->new,
-			   -provider => \&system_history_provider,
-			   -action_callback => \&events_in_set_cb);
+                           -datasource => RHN::DataSource::Action->new,
+                           -provider => \&system_history_provider,
+                           -action_callback => \&events_in_set_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "system_events_pending",
-			   -datasource => RHN::DataSource::Action->new,
-			   -provider => \&system_history_provider);
+                           -datasource => RHN::DataSource::Action->new,
+                           -provider => \&system_history_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "supported_system_history",
-			   -datasource => RHN::DataSource::Action->new,
-			   -provider => \&system_history_provider);
+                           -datasource => RHN::DataSource::Action->new,
+                           -provider => \&system_history_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "pending_action_list",
-			   -datasource => RHN::DataSource::Action->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Action->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "completed_action_list",
-			   -datasource => RHN::DataSource::Action->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Action->new,
+                           -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "failed_action_list",
-			   -datasource => RHN::DataSource::Action->new,
-			   -action_callback => \&default_callback);
+                           -datasource => RHN::DataSource::Action->new,
+                           -action_callback => \&default_callback);
 
 }
 
@@ -118,13 +118,13 @@ sub system_history_provider {
     if (defined $event->{HISTORY_TYPE}) {
 
       if ($history_type_icons{$event->{HISTORY_TYPE}}) {
-	$event->{HISTORY_TYPE} = PXT::HTML->icon(
+        $event->{HISTORY_TYPE} = PXT::HTML->icon(
                                 -type => $history_type_icons{$event->{HISTORY_TYPE}},
                                 -title => $event->{HISTORY_TYPE_NAME});
       }
       else {
-	PXT::Debug->log(2,"no icon for scheduled action type?!  type:  " . $event->{HISTORY_TYPE});
-	$event->{HISTORY_TYPE} = PXT::HTML->icon(-type => "event-type-system",
+        PXT::Debug->log(2,"no icon for scheduled action type?!  type:  " . $event->{HISTORY_TYPE});
+        $event->{HISTORY_TYPE} = PXT::HTML->icon(-type => "event-type-system",
                                                  -title => "System Event");
       }
     }
@@ -206,9 +206,9 @@ sub default_callback {
 
 
 my %status_count_lookup = (Queued => 'IN_PROGRESS_COUNT',
-			   'Picked Up' => 'IN_PROGRESS_COUNT',
-			   Completed => 'SUCCESSFUL_COUNT',
-			   Failed => 'FAILED_COUNT');
+                           'Picked Up' => 'IN_PROGRESS_COUNT',
+                           Completed => 'SUCCESSFUL_COUNT',
+                           Failed => 'FAILED_COUNT');
 sub row_callback {
   my $self = shift;
   my $row = shift;

@@ -33,13 +33,13 @@ sub trap {
 
 sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "custom_info_keys",
-			   -datasource => RHN::DataSource::CustomInfo->new,
-			   -provider => \&custom_info_keys_provider);
+                           -datasource => RHN::DataSource::CustomInfo->new,
+                           -provider => \&custom_info_keys_provider);
 
 
   Sniglets::ListView::List->add_mode(-mode => "custom_info_keys_sans_value_for_system",
-			   -datasource => RHN::DataSource::CustomInfo->new,
-			   -provider => \&custom_info_keys_provider);
+                           -datasource => RHN::DataSource::CustomInfo->new,
+                           -provider => \&custom_info_keys_provider);
 
 }
 

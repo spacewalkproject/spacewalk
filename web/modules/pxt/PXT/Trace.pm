@@ -151,7 +151,7 @@ sub AUTOLOAD {
     }
     else {
       if (@_) {
-	$self->{$method} = [ @_ ];
+        $self->{$method} = [ @_ ];
       }
       return @{$self->{$method} || []};
     }

@@ -47,17 +47,17 @@ use RHN::Exception qw/throw/;
 my @contact_fields = qw/ID ORG_ID LOGIN LOGIN_UC PASSWORD ORACLE_CONTACT_ID IGNORE_FLAG/;
 
 my @pi_fields = (qw/PREFIX FIRST_NAMES LAST_NAME GENQUAL PARENT_COMPANY COMPANY TITLE/,
-		 qw/PHONE FAX EMAIL PIN CREATED:longdate MODIFIED FIRST_NAMES_OL LAST_NAME_OL GENQUAL_OL/,
-		 qw/PARENT_COMPANY_OL COMPANY_OL TITLE_OL/,
-		 qw/WEB_USER_ID/
-		);
+                 qw/PHONE FAX EMAIL PIN CREATED:longdate MODIFIED FIRST_NAMES_OL LAST_NAME_OL GENQUAL_OL/,
+                 qw/PARENT_COMPANY_OL COMPANY_OL TITLE_OL/,
+                 qw/WEB_USER_ID/
+                );
 
 my @contact_info_fields = (qw/WEB_USER_ID EMAIL MAIL CALL FAX/);
 
 my @site_fields = (qw/ID WEB_USER_ID EMAIL ALT_FIRST_NAMES ALT_LAST_NAME ADDRESS1 ADDRESS2 ADDRESS3 CITY/,
-		   qw/STATE ZIP COUNTRY PHONE FAX URL IS_PO_BOX TYPE ORACLE_SITE_ID NOTES CREATED/,
-		   qw/MODIFIED ADDRESS4 ALT_FIRST_NAMES_OL ALT_LAST_NAME_OL ADDRESS1_OL ADDRESS2_OL/,
-		   qw/ADDRESS3_OL CITY_OL STATE_OL ZIP_OL/);
+                   qw/STATE ZIP COUNTRY PHONE FAX URL IS_PO_BOX TYPE ORACLE_SITE_ID NOTES CREATED/,
+                   qw/MODIFIED ADDRESS4 ALT_FIRST_NAMES_OL ALT_LAST_NAME_OL ADDRESS1_OL ADDRESS2_OL/,
+                   qw/ADDRESS3_OL CITY_OL STATE_OL ZIP_OL/);
 
 my $o = new RHN::DB::TableClass("web_contact", "U", "", @contact_fields);
 my $p = new RHN::DB::TableClass("WEB_USER_PERSONAL_INFO", "P", "", @pi_fields);
@@ -66,9 +66,9 @@ my $s = new RHN::DB::TableClass("WEB_USER_SITE_INFO", "S", "site", @site_fields)
 
 
 my $j = $o->create_join([ $p, $c ], { "web_contact" => { "web_contact" => [ "ID", "ID" ],
-						     "rhnOrganization" => [ "org_id", "ID" ],
-						     "WEB_USER_PERSONAL_INFO" => [ "ID", "WEB_USER_ID" ],
-						     "WEB_USER_CONTACT_PERMISSION" => [ "ID", "WEB_USER_ID" ] } });
+                                                     "rhnOrganization" => [ "org_id", "ID" ],
+                                                     "WEB_USER_PERSONAL_INFO" => [ "ID", "WEB_USER_ID" ],
+                                                     "WEB_USER_CONTACT_PERMISSION" => [ "ID", "WEB_USER_ID" ] } });
 
 my %method_criteria =
   (login => qr//,
@@ -166,7 +166,7 @@ EOQ
   if (exists $roles{org_admin}) {
     for my $role ($ret->org->available_roles) {
       if (exists $implied{$role}) {
-	$roles{$role} = 1;
+        $roles{$role} = 1;
       }
     }
   }
@@ -183,8 +183,8 @@ sub cleanse_sets {
 
   # server sets
   my @server_sets = (qw/system_list entitled_system_list inprogress_system_list removable_system_list/,
-		     qw/remove_systems_list system_search system_search_prev target_systems target_systems_list/,
-		    );
+                     qw/remove_systems_list system_search system_search_prev target_systems target_systems_list/,
+                    );
   my $dbh = RHN::DB->connect();
   my $label_inset = join(", ", map { ":$_" } @server_sets);
   my $query = <<EOQ;
@@ -280,7 +280,7 @@ foreach my $field ($j->method_names) {
       my $self = shift;
       if (@_ and "[[field]]" ne "id" and !("[[field]]"=~ m/web_user_id/)) {
         my $value = shift;
-	# die "RHN::DB::User->[[field]] fails criteria" unless $value =~ $method_criteria{[[field]]};
+        # die "RHN::DB::User->[[field]] fails criteria" unless $value =~ $method_criteria{[[field]]};
         $self->{":modified:"}->{[[field]]} = 1;
         $self->{__[[field]]__} = $value;
       }
@@ -1023,14 +1023,14 @@ sub verify_channel_role {
 
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);
-	select rhn_channel.user_role_check(:cid, :user_id, :role) from dual
+        select rhn_channel.user_role_check(:cid, :user_id, :role) from dual
 EOQ
   # channel_id is always > 0 because rhn_channel_id_seq starts at 101
   # so next ternary operator is safe way to turn '' to NULL
   my $result = $sth->execute_h(cid => ($channel_id ? $channel_id : undef),
-		  user_id => $self->id,
-		  role => $role,
-		);
+                  user_id => $self->id,
+                  role => $role,
+                );
 
   return $result;
 }

@@ -30,12 +30,12 @@ sub new {
   my %params = @_;
 
   my $self = bless { label => '',
-		     id_pool => 1,
-		     route_nodes => [],
-		     formvars => [],
-		     title_depth => 0,
-		     acl_parser => undef,
-		     }, $class;
+                     id_pool => 1,
+                     route_nodes => [],
+                     formvars => [],
+                     title_depth => 0,
+                     acl_parser => undef,
+                     }, $class;
 
   if ($params{acl_mixins}) {
     $params{acl_mixins} = [ split(/,\s*/, $params{acl_mixins}) ];
@@ -212,7 +212,7 @@ sub active_node {
       # return the deepest node in the tree
       my $choice = $nodes[0];
       for my $candidate (@nodes) {
-	$choice = $candidate if $candidate->node_depth > $choice->node_depth;
+        $choice = $candidate if $candidate->node_depth > $choice->node_depth;
       }
 
       return $choice;
@@ -223,15 +223,15 @@ sub active_node {
       my $directory = File::Spec->catfile(@dirs[0 .. $end]);
 
       if (exists $self->{node_dir_map}->{$directory}) {
-	my @nodes = @{$self->{node_dir_map}->{$directory}};
+        my @nodes = @{$self->{node_dir_map}->{$directory}};
 
-	# return the deepest node in the tree
-	my $choice = $nodes[0];
-	for my $candidate (@nodes) {
-	  $choice = $candidate if $candidate->node_depth > $choice->node_depth;
-	}
+        # return the deepest node in the tree
+        my $choice = $nodes[0];
+        for my $candidate (@nodes) {
+          $choice = $candidate if $candidate->node_depth > $choice->node_depth;
+        }
 
-	return $choice;
+        return $choice;
       }
     }
   }

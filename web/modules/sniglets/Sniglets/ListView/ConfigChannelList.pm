@@ -39,24 +39,24 @@ sub list_of { return "namespaces" }
 sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "namespaces_visible_to_org",
-			   -datasource => RHN::DataSource::ConfigChannel->new,
-			   -provider => \&namespaces_visible_to_org_provider,
-			   -action_callback => \&namespaces_visible_to_org_cb);
+                           -datasource => RHN::DataSource::ConfigChannel->new,
+                           -provider => \&namespaces_visible_to_org_provider,
+                           -action_callback => \&namespaces_visible_to_org_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "namespaces_for_system",
-			   -datasource => RHN::DataSource::ConfigChannel->new);
+                           -datasource => RHN::DataSource::ConfigChannel->new);
 
   Sniglets::ListView::List->add_mode(-mode => "rank_namespaces_for_system",
-			   -datasource => RHN::DataSource::ConfigChannel->new);
+                           -datasource => RHN::DataSource::ConfigChannel->new);
 
   Sniglets::ListView::List->add_mode(-mode => "namespaces_for_snapshot",
-			   -datasource => RHN::DataSource::ConfigChannel->new);
+                           -datasource => RHN::DataSource::ConfigChannel->new);
 
   Sniglets::ListView::List->add_mode(-mode => "available_namespaces_for_system",
-			   -datasource => RHN::DataSource::ConfigChannel->new);
+                           -datasource => RHN::DataSource::ConfigChannel->new);
 
   Sniglets::ListView::List->add_mode(-mode => "namespaces_with_filename",
-			   -datasource => RHN::DataSource::ConfigChannel->new);
+                           -datasource => RHN::DataSource::ConfigChannel->new);
 }
 
 
@@ -79,12 +79,12 @@ sub namespaces_visible_to_org_provider {
       my $alt_cr = $cr->find_alternate_in_namespace($row->{ID});
 
       if ($alt_cr) {
-	$row->{CURRENT_FILE_VERSION} = ($alt_cr->{ID} == $cr->id) ? '(this file)'
+        $row->{CURRENT_FILE_VERSION} = ($alt_cr->{ID} == $cr->id) ? '(this file)'
 
-	  : PXT::HTML->link('/rhn/configuration/file/FileDetails.do?crid=' . $alt_cr->{ID}, 'revision ' . $alt_cr->{REVISION});
+          : PXT::HTML->link('/rhn/configuration/file/FileDetails.do?crid=' . $alt_cr->{ID}, 'revision ' . $alt_cr->{REVISION});
       }
       else {
-	$row->{CURRENT_FILE_VERSION} = '(none)';
+        $row->{CURRENT_FILE_VERSION} = '(none)';
       }
 
     }
