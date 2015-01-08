@@ -43,7 +43,7 @@ def getServer(refreshCallback=None):
 # signed by one of these CA.
     ca = cfg["sslCACert"]
     if type(ca) == type(""):
-    	ca = [ca]
+        ca = [ca]
 
     rhns_ca_certs = ca or ["%s/usr/share/rhn/RHNS-CA-CERT" % config.PREFIX]
     if cfg["enableProxy"]:
@@ -169,8 +169,8 @@ def doCall(method, *args, **kwargs):
             # serverURL is just pointing somewhere random they will
             # get a 0 for errcode and will raise a CommunicationError
             if abs(errCode) == 17:
-		#in this case, the args are the package string, so lets try to
-		# build a useful error message
+                #in this case, the args are the package string, so lets try to
+                # build a useful error message
                 if type(args[0]) == type([]):
                     pkg = args[0]
                 else:
@@ -180,8 +180,8 @@ def doCall(method, *args, **kwargs):
                     pkgName = "%s-%s-%s.%s" % (pkg[0], pkg[1], pkg[2], pkg[4])
                 else:
                     pkgName = pkg
-		msg = "File Not Found: %s\n%s" % (pkgName, errMsg)
-		log.log_me(msg)
+                msg = "File Not Found: %s\n%s" % (pkgName, errMsg)
+                log.log_me(msg)
                 raise rhnErrors.FileNotFoundError(msg)
 
             if not reset:

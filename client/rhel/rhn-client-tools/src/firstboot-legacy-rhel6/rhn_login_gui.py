@@ -97,7 +97,7 @@ class FirstbootLoginPage(rhnregGui.LoginPage):
     def fatalError(self, error, wrap=1):
         msg = _("There was a communication error with the server:") \
             + "\n\n" + error + "\n\n" \
-	    + _("Would you like to go back and try again?")
+            + _("Would you like to go back and try again?")
         dlg = messageWindow.YesNoDialog(msg)
         ret = dlg.getrc()
         if not ret:

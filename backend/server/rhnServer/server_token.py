@@ -538,7 +538,7 @@ class ActivationTokens:
     def get_server_id(self):
         if not self:
             return None
-	# We can have only one re-activation key
+        # We can have only one re-activation key
         for token in self.tokens:
             server_id = token.get('server_id')
             if server_id:

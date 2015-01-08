@@ -16,17 +16,17 @@ for k,v  in tabs.iteritems():
 
 rhnSQL.initDB()
 h = rhnSQL.prepare("""select table_name, column_name, data_type, data_length
-	from user_tab_columns""")
+        from user_tab_columns""")
 h.execute()
 rows = h.fetchall_dict()
 
 # 'translate' oracle type to DBtypes
 ora2py = {
-	'NUMBER': 	'DBint',
-	'DATE': 	'DBdateTime',
-	'VARCHAR2': 	'DBstring',
-	'CHAR': 	'DBstring',
-	'BLOB': 	'DBblob',
+        'NUMBER':       'DBint',
+        'DATE':         'DBdateTime',
+        'VARCHAR2':     'DBstring',
+        'CHAR':         'DBstring',
+        'BLOB':         'DBblob',
 }
 
 for i in rows:

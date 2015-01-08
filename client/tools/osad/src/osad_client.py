@@ -181,8 +181,8 @@ class Client(jabber_lib.JabberClient):
             jabber_lib.NS_RHN_MESSAGE_RESPONSE_CHECKIN)
 
         command = self._config.get('rhn_check_command')
-	# rhn_check now checks for multiple instances,
-	# lets use that directly
+        # rhn_check now checks for multiple instances,
+        # lets use that directly
         if command is None:
             args = [ "/usr/sbin/rhn_check" ]
         else:

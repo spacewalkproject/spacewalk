@@ -48,8 +48,8 @@ def ask_yes_no(question, default_val = None):
     return ans.lower() == 'y'
 
 def gen_template(template, answers, output):
-	t = Template(file=template, searchList=answers)
-	open(output,"w").write(t.respond())
+        t = Template(file=template, searchList=answers)
+        open(output,"w").write(t.respond())
 
 def main():
     answers = dict(loadFile(DEFAULTS))
@@ -73,7 +73,7 @@ def main():
                       rhnConfig._CONFIG_FILE))
     system("cobbler sync")
 
-    
+
 if __name__=="__main__":
     main()
 
@@ -86,7 +86,7 @@ cobbler-setup
 
 =head1 SYNOPSIS
 
-	cobbler-setup
+        cobbler-setup
 
 =head1 DESCRIPTION
 

@@ -122,7 +122,7 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
             'requires'  : headerSource.rpmRequires,
             'conflicts' : headerSource.rpmConflicts,
             'obsoletes' : headerSource.rpmObsoletes,
-	    'suggests'  : headerSource.rpmSuggests,
+            'suggests'  : headerSource.rpmSuggests,
             'recommends': headerSource.rpmRecommends,
             'breaks'    : headerSource.rpmBreaks,
             'predepends': headerSource.rpmPredepends,

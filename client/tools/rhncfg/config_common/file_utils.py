@@ -44,7 +44,7 @@ class FileProcessor:
         # Older servers will not return directories; if filetype is missing,
         # assume file
 
-    	if file_struct.get('filetype') == 'directory':
+        if file_struct.get('filetype') == 'directory':
             return None, None
 
         if directory:

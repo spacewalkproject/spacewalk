@@ -553,7 +553,7 @@ class KickstartableTree(Information):
 class ProductName(Information):
     attributeTypes = {
         'label'             : StringType,
-	'name'              : StringType,
+        'name'              : StringType,
     }
 
 
@@ -731,7 +731,7 @@ class IncompatibleArchError(ImportException):
 
 class InvalidSeverityError(ImportException):
     def __init__(self, *rest):
-	ImportException.__init__(self, rest)
+        ImportException.__init__(self, rest)
 
 class TransactionError(ImportException):
     def __init__(self, *rest):

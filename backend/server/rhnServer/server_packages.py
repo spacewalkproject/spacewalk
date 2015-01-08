@@ -241,7 +241,7 @@ class Packages:
             update_errata_cache(sysid)
 
         # if provisioning box, and there was an actual delta, snapshot
-	ents = check_entitlement(sysid)
+        ents = check_entitlement(sysid)
         if commits and ents.has_key("provisioning_entitled"):
             snapshot_server(sysid, "Package profile changed")
 

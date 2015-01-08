@@ -51,7 +51,7 @@ def parseRPMFilename(pkgFilename):
     OUT: [n,e,v,r, arch].
     """
     if type(pkgFilename) != type(''):
-	raise rhnFault(21, str(pkgFilename)) # Invalid arg.
+        raise rhnFault(21, str(pkgFilename)) # Invalid arg.
 
     pkgFilename = os.path.basename(pkgFilename)
 
@@ -61,11 +61,11 @@ def parseRPMFilename(pkgFilename):
 
     # 'rpm' at end?
     if string.lower(pkg[-1]) not in ['rpm', 'deb']:
-	raise rhnFault(21, 'neither an rpm nor a deb package name: %s' % pkgFilename)
+        raise rhnFault(21, 'neither an rpm nor a deb package name: %s' % pkgFilename)
 
     # Valid architecture next?
     if check_package_arch(pkg[-2]) is None:
-	raise rhnFault(21, 'Incompatible architecture found: %s' % pkg[-2])
+        raise rhnFault(21, 'Incompatible architecture found: %s' % pkg[-2])
 
     _arch = pkg[-2]
 

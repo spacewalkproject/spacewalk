@@ -332,7 +332,7 @@ class Runner:
         return None
 
     # def _step_srpms(self):
-    # 	return self.syncer.download_srpms()
+    #   return self.syncer.download_srpms()
 
     def _step_download_errata(self):
         return self.syncer.download_errata()
@@ -1268,7 +1268,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
             self._channel_kickstarts[chn] = \
-			sorted(set(channel_obj['kickstartable_trees'])
+                        sorted(set(channel_obj['kickstartable_trees'])
                                - already_seen_kickstarts)
             already_seen_kickstarts.update(self._channel_kickstarts[chn])
 
@@ -1664,7 +1664,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                     ['last_modified']):
                 # not in the cache
                 raise Exception(_("Package Not Found in Cache, Clear the Cache to \
-		                 Regenerate it."))
+                                 Regenerate it."))
             batch.append(package)
         return batch
 

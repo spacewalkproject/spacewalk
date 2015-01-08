@@ -64,8 +64,8 @@ def verifyPackages(packages):
                 del(keywords[key])
 
         headers = installedHeaderByKeyword(**keywords)
-	if len(headers) == 0:
-	    missing_packages.append(package)
+        if len(headers) == 0:
+            missing_packages.append(package)
 
         for header in headers:
             epoch = header['epoch']

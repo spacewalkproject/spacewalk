@@ -12,7 +12,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-# states.py					- Abbreviations for countries.
+# states.py                                     - Abbreviations for countries.
 #-----------------------------------------------------------------------------
 
 

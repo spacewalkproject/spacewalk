@@ -27,8 +27,8 @@ cfg = config.initUp2dateConfig()
 
 # the config file should have this, but the above is just in case
 if cfg.has_key("systemIdPath"):
-	SYSID_FILE=cfg['systemIdPath']
-	SYSID_BU_FILE="%s.save" % SYSID_FILE
+        SYSID_FILE=cfg['systemIdPath']
+        SYSID_BU_FILE="%s.save" % SYSID_FILE
 
 # Where do we keep the CA certificate for RHNS?
 # The servers we're talking to need to have their certs
@@ -139,11 +139,11 @@ def writeSystemId(systemId):
         return 0
 
     if os.access(SYSID_FILE, os.F_OK):
-	# already have systemid file there; let's back it up
-	try:
-	    os.rename(SYSID_FILE, SYSID_BU_FILE)
-	except:
-	    return 0
+        # already have systemid file there; let's back it up
+        try:
+            os.rename(SYSID_FILE, SYSID_BU_FILE)
+        except:
+            return 0
 
     f = open(SYSID_FILE, "w")
     f.write(systemId)
@@ -288,7 +288,7 @@ def registerSystem(username = None, password = None,
 
     auth_dict =  { "profile_name" : profileName,
                    "os_release" : rhnUtils.getVersion(),
-		   "release_name" : rhnUtils.getOSRelease(),
+                   "release_name" : rhnUtils.getOSRelease(),
                    "architecture" : rhnUtils.getArch() };
 
     # dict of other bits to send up

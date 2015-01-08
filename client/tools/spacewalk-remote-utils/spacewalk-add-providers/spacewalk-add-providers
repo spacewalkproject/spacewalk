@@ -24,7 +24,7 @@ else:
     level = logging.INFO
 
 logging.basicConfig(level = level, format = '%(levelname)s: %(message)s')
-        
+
 # warn the user that they're in test mode
 if options.test:
     logging.info('TEST MODE: no providers will be added to the server')
@@ -64,9 +64,9 @@ for key_file in args:
     # read the key's provider and ID
     try:
         ctx = gpgme.Context()
-    
+
         result = ctx.import_(open(key_file, 'rb'))
-    
+
         for key in ctx.keylist():
             provider_name = key.uids[0].name
             key_id = key.subkeys[0].keyid.lower()
@@ -77,14 +77,14 @@ for key_file in args:
         if options.debug: logging.exception(e)
         logging.error('Failed to read the key: %s' % key_file)
         continue
-    
+
     try:
         logging.info('Adding %s as %s' % (key_id, provider_name))
 
         if options.test: continue
-    
-        client.packages.provider.associateKey(session, 
-                                              provider_name, 
+
+        client.packages.provider.associateKey(session,
+                                              provider_name,
                                               key_id,
                                               'gpg')
     except Exception, e:

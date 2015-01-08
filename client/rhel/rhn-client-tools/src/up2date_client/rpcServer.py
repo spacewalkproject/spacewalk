@@ -256,8 +256,8 @@ def doCall(method, *args, **kwargs):
             # serverURL is just pointing somewhere random they will
             # get a 0 for errcode and will raise a CommunicationError
             if abs(errCode) == 17:
-		#in this case, the args are the package string, so lets try to
-		# build a useful error message
+                #in this case, the args are the package string, so lets try to
+                # build a useful error message
                 if type(args[0]) == type([]):
                     pkg = args[0]
                 else:

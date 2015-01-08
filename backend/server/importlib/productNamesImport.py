@@ -30,8 +30,8 @@ class ProductNamesImport(Import):
     def submit(self):
         try:
             self.backend.processProductNames(self.batch)
-	except:
-	    self.backend.rollback()
-	    raise
+        except:
+            self.backend.rollback()
+            raise
         self.backend.commit()
 

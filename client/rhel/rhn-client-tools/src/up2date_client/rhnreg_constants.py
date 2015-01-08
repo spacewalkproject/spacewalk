@@ -130,10 +130,10 @@ SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up fo
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
 RHSM_SYSTEM_ALREADY_REGISTERED = _("This system has already been registered using Red Hat Subscription Management.\n\n"
-				"Your system is being registered again using Red Hat Satellite"
-				" or Red Hat Satellite Proxy technology. Red Hat recommends that customers only register once.\n\n"
-				"To learn more about RHN Classic/Red Hat Satellite registration and technologies please consult this"
-				" Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563")
+                                "Your system is being registered again using Red Hat Satellite"
+                                " or Red Hat Satellite Proxy technology. Red Hat recommends that customers only register once.\n\n"
+                                "To learn more about RHN Classic/Red Hat Satellite registration and technologies please consult this"
+                                " Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563")
 
 # Send Window
 SEND_WINDOW      = _("Send Profile Information to Red Hat Satellite")
@@ -176,12 +176,12 @@ CHANNELS_SAT_WARNING    = _("Warning: Only installed product listed above will r
                             "software channels. See Kbase article "
                             "for more details. "
                             "(http://kbase.redhat.com/faq/docs/DOC-11313)")
-YUM_PLUGIN_WARNING		= _("Warning: yum-rhn-plugin is not present, could not enable it.\n"
-							"Automatic updates will not work.")
+YUM_PLUGIN_WARNING              = _("Warning: yum-rhn-plugin is not present, could not enable it.\n"
+                                                        "Automatic updates will not work.")
 YUM_PLUGIN_CONF_CHANGED = _("Note: yum-rhn-plugin has been enabled.")
-YUM_PLUGIN_CONF_ERROR	= _("Warning: An error occurred during enabling yum-rhn-plugin.\n"
-							"yum-rhn-plugin is not enabled.\n"
-							"Automatic updates will not work.")
+YUM_PLUGIN_CONF_ERROR   = _("Warning: An error occurred during enabling yum-rhn-plugin.\n"
+                                                        "yum-rhn-plugin is not enabled.\n"
+                                                        "Automatic updates will not work.")
 FAILED_CHANNELS         = _("You were unable to be subscribed to the following "
                             "software channels because there were insufficient "
                             "subscriptions available in your account:")

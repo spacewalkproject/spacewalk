@@ -25,11 +25,11 @@ GATHER_DIR = "/mnt/engarchive2/released/"
 
 versions = ( "7", "6", "5", "4", "3", "2.1" );
 releases = ( "AS", "ES", "WS", "Server", "Client", "Desktop", "Appliance",
-		"ComputeNode", "WebServer", "Workstation");
+                "ComputeNode", "WebServer", "Workstation");
 arches = ( "i386",  "ia64",  "ppc",  "s390",  "s390x",  "x86_64", "ppc64");
 updates = ("GOLD", "U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9", "U10", "U11" );
 subrepos = ("VT", "Cluster", "ClusterStorage", "Workstation", "ResilientStorage",
-		"ScalableFileSystem", "LoadBalancer", "HighAvailability"); #RHEL 5 yum repos on the discs
+                "ScalableFileSystem", "LoadBalancer", "HighAvailability"); #RHEL 5 yum repos on the discs
 extras = ("Extras", "Supplementary"); #things shipped on other cds
 
 
@@ -120,7 +120,7 @@ def main():
    if password == None:
       password = getpass.getpass()
    #even though this is supposed to be an int already, in RHEL4's python it isn't
-   bundleSize = int(options.bundle) 
+   bundleSize = int(options.bundle)
 
    #did you provide a data file?  If not we need all the information
    if options.data == None:
@@ -136,7 +136,7 @@ def main():
    else:
       filename = os.path.basename(options.data)
       fullpath = options.data
-      version, release, update, arch, extra = parseDataFilename(filename)   
+      version, release, update, arch, extra = parseDataFilename(filename)
 
    ssl = options.ssl
    clear = options.clear_channel
@@ -159,7 +159,7 @@ def main():
 
    if (srcChanLabel == None):
       print "You have not specified a source channel, we will try to determine it from inputs"
-      srcChanLabel = findSrcChan(version, release, arch, extra) 
+      srcChanLabel = findSrcChan(version, release, arch, extra)
    srcChanLabel = srcChanLabel.lower()
 
    print("Trying with source channel: " + srcChanLabel)
@@ -181,14 +181,14 @@ def main():
    skiplist = []
    if options.skiplist:
       skiplist = read_skip_list(options.skiplist)
-  
+
    populate(client, auth, srcChanLabel, newChannelLabel, newChannelName, filename, parent, clear, skiplist=skiplist)
 
 
 def populate(client, auth, srcChannel, newChannel, newChannelName, filename, parent, clear, skiplist=[]):
-     
+
    chanList = client.channel.listSoftwareChannels(auth)
-  
+
    src_id = None
    src_label = None
    new_id = None
@@ -201,7 +201,7 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
          arch_label = getChannelAttr(chan, 'arch')
       elif label == newChannel:
          new_label = getChannelAttr(chan, 'label')
-    
+
    if src_label == None:
       print("Error: Source Channel '" + srcChannel + "' could not be found.")
       sys.exit(1)
@@ -221,20 +221,20 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
    else:
       print("Reusing " + newChannel+ " as destination channel")
    existing_packs = client.channel.software.listAllPackages(auth, srcChannel)
-   
+
 
    if clear:
-      clearChannel(newChannel, existing_packs, client, auth)  
-   
-   #strip new lines 
+      clearChannel(newChannel, existing_packs, client, auth)
+
+   #strip new lines
    fileList = map(str.strip, open(DATA_DIR_RHN + filename).readlines())
    fileList.sort()
    pack_num = 0
    skip_num = 0
    ids_to_add = []
 
-   print(str(len(fileList)) + " packages in source file to push.")  
-   
+   print(str(len(fileList)) + " packages in source file to push.")
+
    #for each filename, go through the src package list and find the package id
    for rpm in fileList:
       nvre_to_push = splitFilename(rpm)
@@ -260,7 +260,7 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
       del ids_to_add[:bundleSize]
       print '%s\r' % ' '*20,
       sys.stdout.flush()
-      
+
 
    print("Successfully pushed " + str(pack_num) + " packages out of "+ str(len(fileList)))
 
@@ -306,7 +306,7 @@ def splitFilename(filename):
    together = '.'.join(per[:-2]) + '-' + per[-2]
 #   return together.split('-')
    return together
-   
+
 
 
 def getAttr(map, base, attribute):
@@ -329,12 +329,12 @@ def parseDataFilename(file):
    file = file.lower()
    split = string.split(file, '-')
    if len(split) == 4:
-      return (split[0], split[2], split[1], split[3], None) 
+      return (split[0], split[2], split[1], split[3], None)
    else:
       return (split[0], split[2], split[1], split[3], split[4])
 
 def findSrcChan(version, release, arch, extra = None):
-   low_release = release.lower() 
+   low_release = release.lower()
 
    if version == "2.1":
       if low_release == "as":
@@ -372,16 +372,16 @@ def gather(clear):
          for release in releases:
             for arch in arches:
                if float(version) <= 4:
-                  repoDir = "RHEL-%s/%s/%s/%s/tree/" % (version, update, release, arch)  
+                  repoDir = "RHEL-%s/%s/%s/%s/tree/" % (version, update, release, arch)
                   fullDir = GATHER_DIR + repoDir
                   saveRpmList(fullDir +  "RedHat/RPMS/", DATA_DIR + getFileName(version, update,release, arch))
                   #save extras
                   suppl = extras[0]
                   repoDir = "RHEL-%s-%s/%s/%s/%s/tree/" % (version, suppl, update, release, arch)
-                  fullDir = GATHER_DIR + repoDir 
+                  fullDir = GATHER_DIR + repoDir
                   saveRpmList(fullDir +  "RedHat/RPMS/", DATA_DIR + getFileName(version, update,release, arch, suppl))
                elif float(version) == 5:
-                  repoDir = "RHEL-%s-%s/%s/%s/os/" % (version, release, update, arch) 
+                  repoDir = "RHEL-%s-%s/%s/%s/os/" % (version, release, update, arch)
                   fullDir = GATHER_DIR + repoDir
                   saveRpmList(fullDir +  release + "/", DATA_DIR + getFileName(version, update,release, arch))
                   #now lets handle the other repos:
@@ -401,19 +401,19 @@ def gather(clear):
                   repoDir = "RHEL-%s/%s.%s/%s/%s/os/" % (version, version, update_num, release, arch)
                   fullDir = GATHER_DIR + repoDir
                   if not saveRpmList(fullDir +  release + "/listing", DATA_DIR + getFileName(version, update,release, arch)):
-		      if update_num < 6:
-			  sourceDir = fullDir +  release + "/Packages/"
-		      else:
-			  sourceDir = fullDir +  "/Packages/"
+                      if update_num < 6:
+                          sourceDir = fullDir +  release + "/Packages/"
+                      else:
+                          sourceDir = fullDir +  "/Packages/"
                       saveRpmList(sourceDir, DATA_DIR + getFileName(version, update,release, arch))
                   #now lets handle the other repos:
                   for subrepo in subrepos:
                       if not saveRpmList(fullDir +  subrepo + "/listing", DATA_DIR + getFileName(version, update,release, arch, subrepo)):
-			  saveRpmList(fullDir +  subrepo, DATA_DIR + getFileName(version, update,release, arch, subrepo))
+                          saveRpmList(fullDir +  subrepo, DATA_DIR + getFileName(version, update,release, arch, subrepo))
                   #do supplementary
                   suppl = extras[1]
                   fullDir = GATHER_DIR + "RHEL-%s-%s/%s.%s/%s/%s/os/Packages/" % (version, suppl, version, update_num, release, arch)
-                  saveRpmList(fullDir + "/", DATA_DIR + getFileName(version, update,release, arch, suppl)) 
+                  saveRpmList(fullDir + "/", DATA_DIR + getFileName(version, update,release, arch, suppl))
 
                   #do optional
                   fullDir = GATHER_DIR + "RHEL-%s/%s.%s/%s/optional/%s/os/" % (version, version, update_num, release, arch)

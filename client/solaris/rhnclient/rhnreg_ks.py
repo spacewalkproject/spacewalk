@@ -136,9 +136,9 @@ def generateProfileName(hardwareList):
 
 def runRhnCheck():
     if rhnReg.cfg.has_key("rhnCheckPath"):
-	rhncheck = rhnReg.cfg['rhnCheckPath']
+        rhncheck = rhnReg.cfg['rhnCheckPath']
     else:
-	rhncheck = os.path.normpath("%s/usr/sbin/rhn_check" % PREFIX)
+        rhncheck = os.path.normpath("%s/usr/sbin/rhn_check" % PREFIX)
     os.system(rhncheck)
 
 
@@ -239,7 +239,7 @@ def main(arglist=[]):
             save_cfg = 1
         if opt[0] == "--proxy":
             rhnReg.cfg.set("httpProxy", opt[1])
-	    rhnReg.cfg.set("enableProxy", 1)
+            rhnReg.cfg.set("enableProxy", 1)
             save_cfg = 1
         if opt[0] == "--proxyUser":
             rhnReg.cfg.set("proxyUser", opt[1])

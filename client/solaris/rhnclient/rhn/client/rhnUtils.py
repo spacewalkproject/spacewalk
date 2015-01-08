@@ -50,7 +50,7 @@ def getPackageSearchPath():
         for path in paths:
             fullpath = os.path.normpath(os.path.abspath(os.path.expanduser(path)))
             fullpaths.append(fullpath)
-    	dir_list = dir_list + fullpaths
+        dir_list = dir_list + fullpaths
     return dir_list
 
 def pkgToString(pkg):
@@ -62,7 +62,7 @@ def pkgToStringArch(pkg):
 def pkglistToString(pkgs):
     packages = "("
     for pkg in pkgs:
-	packages = packages + pkgToString(pkg) + ","
+        packages = packages + pkgToString(pkg) + ","
     packages = packages + ")"
     return packages
 
@@ -300,7 +300,7 @@ def touchTimeStamp():
 # Parses the URL and fill in missing pieces with sensible defaults
 def fix_url(url, scheme='http', path='/XMLRPC'):
     if url == None:
-	return url
+        return url
     uscheme, netloc, upath, params, query, fragment = urlparse.urlparse(url)
     if not netloc:
         # No schema - trying to patch it up ourselves?

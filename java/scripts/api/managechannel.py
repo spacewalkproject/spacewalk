@@ -18,9 +18,9 @@ SUFFIX_HASH = {'prad03' : '03', 'prad02' : '02'}
 
 CHANNEL_INFO = {'label' : 'channel-',
                 'name'  : 'channel-',
-		'summary' : 'dummy channel',
-		'archLabel' : 'channel-ia32',
-		'parentLabel' : ''}
+                'summary' : 'dummy channel',
+                'archLabel' : 'channel-ia32',
+                'parentLabel' : ''}
 
 PKG_CONTENT_DIR = '/tmp/upload/'
 
@@ -33,7 +33,7 @@ def getKeys(users):
     keylist = {}
     for login,password in users.items():
         sessionkey = client.auth.login(login, password)
-	keylist[login] = sessionkey
+        keylist[login] = sessionkey
     return keylist
 
 def createChannels(keylist, info):
@@ -43,16 +43,16 @@ def createChannels(keylist, info):
     channel_list = {}
     for login,key in keylist.items():
         # create channel under each org
-	# Channel label,name should be unique
-	label = info['label'] + SUFFIX_HASH[login]
-	name  = info['name']  + SUFFIX_HASH[login]
-	try:
-	    print "Creating Channel: ",label
+        # Channel label,name should be unique
+        label = info['label'] + SUFFIX_HASH[login]
+        name  = info['name']  + SUFFIX_HASH[login]
+        try:
+            print "Creating Channel: ",label
             client.channel.software.create(key, label, name, \
-	                            info['summary'], info['archLabel'], \
-		                    info['parentLabel'])
-	except xmlrpclib.Fault, e:
-	    print e
+                                    info['summary'], info['archLabel'], \
+                                    info['parentLabel'])
+        except xmlrpclib.Fault, e:
+            print e
         channel_list[login] = label
     return channel_list
 
@@ -65,7 +65,7 @@ def pushContent(users, channels):
         push_cmd = 'rhnpush --server=%s/APP --username=%s --password=%s \
                     --dir=%s --channel=%s -vvvv --tolerant --nosig' % \
                    (SATELLITE_HOST, login, password, PKG_CONTENT_DIR, \
-	            channels[login])
+                    channels[login])
         os.system(push_cmd)
 
 def main():

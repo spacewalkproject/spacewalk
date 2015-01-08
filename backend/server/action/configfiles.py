@@ -123,8 +123,8 @@ _query_get_files = rhnSQL.Statement("""
            ci.username,
            ci.groupname,
            ci.filemode,
-	       cft.label,
-	       ci.selinux_ctx,
+               cft.label,
+               ci.selinux_ctx,
            case
                 when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
                 else ''
@@ -140,7 +140,7 @@ _query_get_files = rhnSQL.Statement("""
         on cr.config_content_id = ccont.id
       left join rhnChecksumView c
         on ccont.checksum_id = c.id,
-	   rhnConfigFileType cft,
+           rhnConfigFileType cft,
            rhnActionConfigRevision acr
      where acr.server_id = :server_id
        and acr.action_id = :action_id

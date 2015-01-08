@@ -164,7 +164,7 @@ class RHNServer:
                 raise
         return out
 
-    def setGroup(self, groupname, join=1): 
+    def setGroup(self, groupname, join=1):
         for c in self.listGroups():
             if c['system_group_name'] == groupname:
                 sgid=c['sgid']
@@ -275,15 +275,15 @@ def main():
 
     if options.listgrp is True:
         for c in myserver.listGroups():
-            print c['system_group_name']    
+            print c['system_group_name']
     if options.listsrv is True:
         for c in myserver.listUserSystems():
-            print c['name']    
+            print c['name']
     if options.list_act_keys is True:
         for c in myserver.listActivationKeys():
             #do not list re-activation keys
             if not re.search("re-activation", c['description']):
-                print c['key'] 
+                print c['key']
     if options.provguest:
         try:
             (srv, gname, pname, mem, vcpus, storage) = options.provguest.split(':')

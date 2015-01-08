@@ -372,8 +372,8 @@ class Registration(rhnHandler):
                     parse_smbios(data['smbios'])
 
         if tokens_obj.forget_rereg_token:
-	    # At this point we retained the server with re-activation
-	    # let the stacked activation keys do their magic
+            # At this point we retained the server with re-activation
+            # let the stacked activation keys do their magic
             tokens_obj.is_rereg_token = 0
             rhnFlags.set("re_registration_token", 0)
 

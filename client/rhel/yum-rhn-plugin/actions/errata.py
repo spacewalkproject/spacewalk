@@ -47,12 +47,12 @@ def update(errataidlist, cache_only=None):
     if len(packagelist[0]) > 4:
         # Newer sats send down arch, filter using name+arch
         for p in packagelist:
-	    if current_packages_with_arch.has_key(p[0]+p[4]):
-	        u[p[0]+p[4]] = p
-	    elif current_packages_with_arch.has_key(p[0]+"noarch"):
-	        u[p[0]+p[4]] = p
-	    elif p[4] == "noarch" and current_packages.has_key(p[0]):
-	        u[p[0]] = p
+            if current_packages_with_arch.has_key(p[0]+p[4]):
+                u[p[0]+p[4]] = p
+            elif current_packages_with_arch.has_key(p[0]+"noarch"):
+                u[p[0]+p[4]] = p
+            elif p[4] == "noarch" and current_packages.has_key(p[0]):
+                u[p[0]] = p
     else:
         # 5.2 and older sats + hosted dont send arch
         for p in packagelist:
@@ -66,21 +66,21 @@ def update(errataidlist, cache_only=None):
     packagelist = map(lambda a: u[a], u.keys())
 
     if packagelist == []:
-	data = {}
-	data['version'] = "0"
-	data['name'] = "errata.update.no_packages"
-	data['erratas'] = errataidlist
+        data = {}
+        data['version'] = "0"
+        data['name'] = "errata.update.no_packages"
+        data['erratas'] = errataidlist
 
-	return (39,
-		"No packages from that errata are available",
-		data)
+        return (39,
+                "No packages from that errata are available",
+                data)
 
     return packages.update(packagelist, cache_only)
 
 
 def main():
-	print update([23423423])
+        print update([23423423])
 
 
 if __name__ == "__main__":
-	main()
+        main()

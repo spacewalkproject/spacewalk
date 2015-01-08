@@ -93,9 +93,9 @@ def main():
         process_changelog()
 
 _get_path_query = """
-	select id, checksum_type, checksum, path, epoch, new_path
-	from (
-		select rhnPackage.id,
+        select id, checksum_type, checksum, path, epoch, new_path
+        from (
+                select rhnPackage.id,
                        rhnChecksumView.checksum_type,
                        rhnChecksumView.checksum,
                        rhnPackage.path,
@@ -103,21 +103,21 @@ _get_path_query = """
                         case when rhnPackage.org_id is null then 'NULL'
                              else rhnPackage.org_id || '' end
                         || '/' || substr(rhnChecksumView.checksum, 1, 3)
-			|| '/' || rhnPackageName.name
-			|| '/' || case when rhnPackageEvr.epoch is null then ''
+                        || '/' || rhnPackageName.name
+                        || '/' || case when rhnPackageEvr.epoch is null then ''
                                        else rhnPackageEvr.epoch || ':' end
                         || rhnPackageEvr.version || '-' || rhnPackageEvr.release
-			|| '/' || rhnPackageArch.label
-			|| '/' || rhnChecksumView.checksum
-			|| substr(rhnPackage.path, instr(rhnPackage.path, '/', -1))
-			as new_path
-		from rhnPackage, rhnPackagename, rhnPackageEvr, rhnPackageArch, rhnChecksumView
-		where rhnPackage.name_id = rhnPackageName.id
-			and rhnPackage.evr_id = rhnPackageEvr.id
-			and rhnPackage.package_arch_id = rhnPackageArch.id
+                        || '/' || rhnPackageArch.label
+                        || '/' || rhnChecksumView.checksum
+                        || substr(rhnPackage.path, instr(rhnPackage.path, '/', -1))
+                        as new_path
+                from rhnPackage, rhnPackagename, rhnPackageEvr, rhnPackageArch, rhnChecksumView
+                where rhnPackage.name_id = rhnPackageName.id
+                        and rhnPackage.evr_id = rhnPackageEvr.id
+                        and rhnPackage.package_arch_id = rhnPackageArch.id
                         and rhnPackage.checksum_id = rhnChecksumView.id
-		) X
-	where '/' || new_path <> nvl(substr(path, -length(new_path) - 1), 'x')
+                ) X
+        where '/' || new_path <> nvl(substr(path, -length(new_path) - 1), 'x')
 """
 
 _update_pkg_path_query = """
@@ -465,8 +465,8 @@ package_name_query = """
 
 package_repodata_delete = """
     delete
-	  from rhnPackageRepoData
-	 where package_id = :pid
+          from rhnPackageRepoData
+         where package_id = :pid
 """
 
 def process_package_files():

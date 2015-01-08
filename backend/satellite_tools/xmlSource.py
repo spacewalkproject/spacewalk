@@ -819,7 +819,7 @@ class KickstartableTreeItem(BaseItem):
         'install-type-label'        : 'install_type_label',
         'kstree-type-name'          : 'kstree_type_name',
         'install-type-name'         : 'install_type_name',
-	'last-modified'             : 'last_modified',
+        'last-modified'             : 'last_modified',
     }
 addItem(KickstartableTreeItem)
 

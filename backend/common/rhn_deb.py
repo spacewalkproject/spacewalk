@@ -58,10 +58,10 @@ class deb_Header:
                                  ('provides', 'Provides'),
                                  ('conflicts', 'Conflicts'),
                                  ('obsoletes', 'Replaces'),
-				 ('recommends', 'Recommends'),
-				 ('suggests', 'Suggests'),
-				 ('breaks', 'Breaks'),
-				 ('predepends', 'Pre-Depends'),
+                                 ('recommends', 'Recommends'),
+                                 ('suggests', 'Suggests'),
+                                 ('breaks', 'Breaks'),
+                                 ('predepends', 'Pre-Depends'),
                                  ('payload_size', 'Installed-Size')]:
                 if debcontrol.has_key(deb_k):
                     self.hdr[hdr_k] = debcontrol.get_as_string(deb_k)

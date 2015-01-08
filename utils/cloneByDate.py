@@ -978,7 +978,7 @@ class UserError(Exception):
 class UserRepoError(UserError):
     def __init__(self, label, yum_error=None):
         msg = ("Unable to read repository information.\n"
-	            + "Please verify repodata has been generated in "
+                    + "Please verify repodata has been generated in "
                 + "/var/cache/rhn/repodata/%s." % label)
         if yum_error:
             msg += "\nError from yum: %s" % yum_error

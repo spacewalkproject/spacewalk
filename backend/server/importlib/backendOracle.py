@@ -110,7 +110,7 @@ class OracleBackend(Backend):
             attribute   = 'enhances',
             map         = { 'sense' : 'flags', },
         ),
-	Table('rhnPackageBreaks',
+        Table('rhnPackageBreaks',
             fields      = {
                 'package_id'    : DBint(),
                 'capability_id' : DBint(),
@@ -120,7 +120,7 @@ class OracleBackend(Backend):
             attribute   = 'breaks',
             map         = { 'sense' : 'flags', },
         ),
-	Table('rhnPackagePredepends',
+        Table('rhnPackagePredepends',
             fields      = {
                 'package_id'    : DBint(),
                 'capability_id' : DBint(),
@@ -235,7 +235,7 @@ class OracleBackend(Backend):
                 'notes'         : DBstring(4000),
                 'refers_to'     : DBstring(4000),
                 'org_id'        : DBint(),
-		'locally_modified' : DBstring(1),
+                'locally_modified' : DBstring(1),
                 'severity_id'   : DBint(),
                 'errata_from'   : DBstring(127),
                 # We will treat issue_date and update_date as regular dates

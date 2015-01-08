@@ -13,7 +13,7 @@ test_clientCaps_d = "etc-sysconfig-rhn/clientCaps.d"
 
 class TestClientCaps(unittest.TestCase):
     def setUp(self):
-	self.__setupData()
+        self.__setupData()
 
     def __setupData(self):
         self.caps1 = {"packages.runTransaction":{'version':1, 'value':1},

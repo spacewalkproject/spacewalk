@@ -236,16 +236,16 @@ if [ ! -z "$ORG_GPG_KEY" ] ; then
     echo
     echo "* importing organizational GPG key"
     for GPG_KEY in $(echo "$ORG_GPG_KEY" | tr "," " "); do
-	rm -f ${GPG_KEY}
-	$FETCH ${HTTPS_PUB_DIRECTORY}/${GPG_KEY}
-	# get the major version of up2date
-	# this will also work for RHEL 5 and systems where no up2date is installed
-	res=$(LC_ALL=C rpm -q --queryformat '%{version}' up2date | sed -e 's/\..*//g')
-	if [ "x$res" == "x2" ] ; then
-	    gpg $(up2date --gpg-flags) --import $GPG_KEY
-	else
-	    rpm --import $GPG_KEY
-	fi
+        rm -f ${GPG_KEY}
+        $FETCH ${HTTPS_PUB_DIRECTORY}/${GPG_KEY}
+        # get the major version of up2date
+        # this will also work for RHEL 5 and systems where no up2date is installed
+        res=$(LC_ALL=C rpm -q --queryformat '%{version}' up2date | sed -e 's/\..*//g')
+        if [ "x$res" == "x2" ] ; then
+            gpg $(up2date --gpg-flags) --import $GPG_KEY
+        else
+            rpm --import $GPG_KEY
+        fi
     done
 fi
 
@@ -299,9 +299,9 @@ if [ $ALLOW_CONFIG_ACTIONS -eq 1 ] ; then
     else
         echo "Error setting permissions for configuration management."
         echo "    Please ensure that the activation key subscribes the"
-	if [ "$INSTALLER" == zypper ] ; then
-	    echo "    system to the tools channel and zypper install/update rhncfg-actions."
-	elif [ "$INSTALLER" == yum ] ; then
+        if [ "$INSTALLER" == zypper ] ; then
+            echo "    system to the tools channel and zypper install/update rhncfg-actions."
+        elif [ "$INSTALLER" == yum ] ; then
             echo "    system to the tools channel and yum updates rhncfg-actions."
         else
             echo "    system to the tools channel and up2dates rhncfg-actions."
@@ -333,8 +333,8 @@ if [ $ALLOW_REMOTE_COMMANDS -eq 1 ] ; then
         echo "Error setting permissions for remote commands."
         echo "    Please ensure that the activation key subscribes the"
         if [ "$INSTALLER" == zypper ] ; then
-	    echo "    system to the tools channel and zypper updates rhncfg-actions."
-	elif [ "$INSTALLER" == yum ] ; then
+            echo "    system to the tools channel and zypper updates rhncfg-actions."
+        elif [ "$INSTALLER" == yum ] ; then
             echo "    system to the tools channel and yum updates rhncfg-actions."
         else
             echo "    system to the tools channel and up2dates rhncfg-actions."

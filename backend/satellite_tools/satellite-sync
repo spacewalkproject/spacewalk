@@ -85,7 +85,7 @@ def repr_str(e):
     """
 
     s = ''
-    
+
     hasReprYN = hasattr(e, '__repr__')
     hasStrYN = hasattr(e, '__str__')
 

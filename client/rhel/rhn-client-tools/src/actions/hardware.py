@@ -40,7 +40,7 @@ def refresh_list(cache_only=None):
     return (0, "hardware list refreshed", {})
 
 def main():
-	print refresh_list()
+        print refresh_list()
 
 if __name__ == "__main__":
-	main()
+        main()

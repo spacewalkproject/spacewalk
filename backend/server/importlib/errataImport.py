@@ -297,11 +297,11 @@ class ErrataImport(GenericPackageImport):
     def _fix_erratum_severity(self, erratum):
         """sets the severity-id to insert into rhnErrata
         """
-	# Re-check for severity, it could be a RHBA or RHEA
-	# If RHBA/RHEA severity is irrelevant and posibly
-	# not included or it could not be hosted
+        # Re-check for severity, it could be a RHBA or RHEA
+        # If RHBA/RHEA severity is irrelevant and posibly
+        # not included or it could not be hosted
         if erratum.has_key('security_impact'):
-	    erratum['severity_id'] = self.backend.lookupErrataSeverityId(erratum)
+            erratum['severity_id'] = self.backend.lookupErrataSeverityId(erratum)
 
     def _fix_erratum_oval_info(self, erratum):
         """

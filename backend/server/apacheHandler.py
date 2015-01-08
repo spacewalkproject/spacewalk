@@ -92,11 +92,11 @@ class apacheHandler(apacheSession):
             client_caps = filter(None,
                 map(string.strip, string.split(client_caps, ","))
             )
-	    rhnCapability.set_client_capabilities(client_caps)
+            rhnCapability.set_client_capabilities(client_caps)
 
         #Enabling the input header flags associated with the redirects/newer clients
-	redirect_support_flags = ['X-RHN-Redirect', 'X-RHN-Transport-Capability']
-	for flag in redirect_support_flags:
+        redirect_support_flags = ['X-RHN-Redirect', 'X-RHN-Transport-Capability']
+        for flag in redirect_support_flags:
             if req.headers_in.has_key( flag ):
                 rhnFlags.set(flag, str(req.headers_in[flag]) )
 

@@ -8,7 +8,7 @@ setup(name = "@NAME@",
       version = "@VERSION@",
       description = "Python libraries for the Spacewalk project",
       long_description = """\
-rhnlib is a collection of python modules used by the 
+rhnlib is a collection of python modules used by the
 Spacewalk (http://spacewalk.redhat.com) software.""",
 
       author = 'Mihai Ibanescu',

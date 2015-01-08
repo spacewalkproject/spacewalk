@@ -48,12 +48,12 @@ class DeployTransaction:
         self.transaction_root = transaction_root
 
         self.files = []
-	self.dirs  = []
-	self.symlinks = []
-	self.new_dirs = []
+        self.dirs  = []
+        self.symlinks = []
+        self.new_dirs = []
         self.backup_by_path = {}
         self.newtemp_by_path = {}
-	self.changed_dir_info = {}
+        self.changed_dir_info = {}
 
         self.deployment_cb = None
 
@@ -77,18 +77,18 @@ class DeployTransaction:
             if os.path.isfile(path) or os.path.islink(path):
                 new_path = self._generate_backup_path(path)
                 log_debug(6, "renaming %s to backup %s ..." % (path, new_path))
-	        # os.renames will fail if the path and the new_path are on different partitions
-	    	# need to make sure to handle it if we catch a 'OSError: [Errno 18] Invalid cross-device link'
-		try:
-		    log_debug(9, "trying to use os.renames")
+                # os.renames will fail if the path and the new_path are on different partitions
+                # need to make sure to handle it if we catch a 'OSError: [Errno 18] Invalid cross-device link'
+                try:
+                    log_debug(9, "trying to use os.renames")
                     oumask = os.umask(022)
                     os.renames(path, new_path)
                     os.umask(oumask)
-		except OSError, e:
-		    if e.errno == 18:
-			log_debug(9, "os.renames failed, using shutil functions")
-			path_dir, path_file = os.path.split(path)
-			new_path_dir, new_path_file = os.path.split(new_path)
+                except OSError, e:
+                    if e.errno == 18:
+                        log_debug(9, "os.renames failed, using shutil functions")
+                        path_dir, path_file = os.path.split(path)
+                        new_path_dir, new_path_file = os.path.split(new_path)
                         if os.path.isdir(new_path_dir):
                             if os.path.islink(path):
                                 log_debug(9, "copying symlink %s to %s"% (path,new_path_dir))
@@ -100,12 +100,12 @@ class DeployTransaction:
                             else:
                                 log_debug(9, "backup directory %s exists, copying %s to it" % (new_path_dir, new_path_file))
                                 shutil.copy(path, new_path)
-			else:
-			    log_debug(9, "backup directory does not exist, creating the tree now")
-                	    shutil.copytree(path_dir, new_path_dir, symlinks=0)
-                	    shutil.copy(path, new_path)
-		    else:
-		    	raise
+                        else:
+                            log_debug(9, "backup directory does not exist, creating the tree now")
+                            shutil.copytree(path_dir, new_path_dir, symlinks=0)
+                            shutil.copy(path, new_path)
+                    else:
+                        raise
                 self.backup_by_path[path] = new_path
                 log_debug(9, "backed up to %s" % new_path)
             else:
@@ -191,26 +191,26 @@ class DeployTransaction:
         return path
 
     def add_preprocessed(self, dest_path, processed_file_path, file_info, dirs_created, strict_ownership=1):
-	"""preprocess the file if needed, and add the entry to the correct list"""
+        """preprocess the file if needed, and add the entry to the correct list"""
         dest_path = self._normalize_path_to_root(dest_path)
-	log_debug(3, "preprocessing entry")
+        log_debug(3, "preprocessing entry")
 
-	# If we get any dirs that were created by mkdir_p, add them here
-	if dirs_created:
-	    self.new_dirs.extend(dirs_created)
+        # If we get any dirs that were created by mkdir_p, add them here
+        if dirs_created:
+            self.new_dirs.extend(dirs_created)
 
-	# If the file is a directory, don't do all the file related work
+        # If the file is a directory, don't do all the file related work
         # Older servers will not return directories; if filetype is missing,
         # assume file
-	if file_info.get('filetype') == 'directory':
-		self.dirs.append(file_info)
-	else:
-        	self._chown_chmod_chcon(processed_file_path, dest_path, file_info, strict_ownership=strict_ownership)
+        if file_info.get('filetype') == 'directory':
+                self.dirs.append(file_info)
+        else:
+                self._chown_chmod_chcon(processed_file_path, dest_path, file_info, strict_ownership=strict_ownership)
 
-        	if self.newtemp_by_path.has_key(dest_path):
-            	    raise DuplicateDeployment("Error:  %s already added to transaction" % dest_path)
+                if self.newtemp_by_path.has_key(dest_path):
+                    raise DuplicateDeployment("Error:  %s already added to transaction" % dest_path)
 
-        	self.newtemp_by_path[dest_path] = processed_file_path
+                self.newtemp_by_path[dest_path] = processed_file_path
 
     def add(self, file_info):
         """add a file to the deploy transaction"""
@@ -222,11 +222,11 @@ class DeployTransaction:
 
         # Older servers will not return directories; if filetype is missing,
         # assume file
-	if file_info.get('filetype') == 'directory':
-	    self.dirs.append(file_info)
-	elif file_info.get('filetype') == 'symlink':
-	    self.files.append(file_info)
-	else:
+        if file_info.get('filetype') == 'directory':
+            self.dirs.append(file_info)
+        elif file_info.get('filetype') == 'symlink':
+            self.files.append(file_info)
+        else:
             self.files.append(file_info)
 
 
@@ -237,40 +237,40 @@ class DeployTransaction:
         # restore old file from backup asap
         for path in self.backup_by_path.keys():
             log_debug(6, "restoring %s from %s ..." % (path, self.backup_by_path[path]))
-	    # os.rename will fail if the backup file and the old file are on different partitions
-	    # need to make sure to handle it if we catch a 'OSError: [Errno 18] Invalid cross-device link'
-	    try:
+            # os.rename will fail if the backup file and the old file are on different partitions
+            # need to make sure to handle it if we catch a 'OSError: [Errno 18] Invalid cross-device link'
+            try:
                 os.rename(self.backup_by_path[path], path)
-	    except OSError, e:
+            except OSError, e:
                 if e.errno == 18:
-		    log_debug(9, "os.rename failed, using shutil.copy")
-		    shutil.copy(self.backup_by_path[path], path)
-		else:
-		    raise
+                    log_debug(9, "os.rename failed, using shutil.copy")
+                    shutil.copy(self.backup_by_path[path], path)
+                else:
+                    raise
             log_debug(9, "%s restored" % path)
 
-	# remove the temp files that we created
+        # remove the temp files that we created
         for tmp_file_path in self.newtemp_by_path.values():
             log_debug(6, "removing tmp file %s ..." % tmp_file_path)
             os.unlink(tmp_file_path)
             log_debug(9, "tmp file removed")
 
-	#revert the owner/perms of any directories that we changed
+        #revert the owner/perms of any directories that we changed
         for d, val in self.changed_dir_info.items():
             log_debug(6, "reverting owner and perms of %s" % d)
             self._chown_chmod_chcon(d, d, val)
             log_debug(9, "directory reverted")
 
-	#remove any directories created by either mkdir_p or in the deploy
+        #remove any directories created by either mkdir_p or in the deploy
         self.new_dirs.reverse()
-	for i in range(len(self.new_dirs)):
-	    remove_dir = self.new_dirs[i]
-	    log_debug(6, "removing directory %s that was created during transaction ..." % remove_dir)
-	    if os.path.islink(remove_dir) == True:
-		os.remove(remove_dir)
-	    else:
-		os.rmdir(remove_dir)
-	    log_debug(9, "directory removed")
+        for i in range(len(self.new_dirs)):
+            remove_dir = self.new_dirs[i]
+            log_debug(6, "removing directory %s that was created during transaction ..." % remove_dir)
+            if os.path.islink(remove_dir) == True:
+                os.remove(remove_dir)
+            else:
+                os.rmdir(remove_dir)
+            log_debug(9, "directory removed")
 
         log_debug(3, "rollback successful")
 
@@ -281,12 +281,12 @@ class DeployTransaction:
         log_debug(3, "deploying transaction")
 
         for dep_file in self.files:
-	    if dep_file['filetype'] == 'symlink':
-		self.symlinks.append(dep_file)
+            if dep_file['filetype'] == 'symlink':
+                self.symlinks.append(dep_file)
 
         # 0. handle any dirs we need to create first
         #    a) if the dir exists, then just change the mode and owners,
-        #	else create it and then make sure the mode and owners are correct.
+        #       else create it and then make sure the mode and owners are correct.
         #    b) if there are files, then continue
         # 1. write new version (tmp)
         #    a)  if anything breaks, remove all tmp versions and error out
@@ -300,13 +300,13 @@ class DeployTransaction:
 
         try:
 
-	    # 0.
-	    if self.dirs:
-		for directory in self.dirs:
-		    dirname = directory['path']
-		    dirmode = directory['filemode']
-		    if os.path.isfile(dirname):
-			raise cfg_exceptions.DirectoryEntryIsFile(dirname)
+            # 0.
+            if self.dirs:
+                for directory in self.dirs:
+                    dirname = directory['path']
+                    dirmode = directory['filemode']
+                    if os.path.isfile(dirname):
+                        raise cfg_exceptions.DirectoryEntryIsFile(dirname)
                     if os.path.isdir(dirname):
                         s = os.stat(dirname)
                         entry = { 'filemode': "%o" % (s[0] & 07777),
@@ -319,21 +319,21 @@ class DeployTransaction:
                         self._chown_chmod_chcon(dirname, dirname, directory)
                     else:
                         log_debug(3, "directory not found, creating: %s" % dirname)
-			dirs_created = utils.mkdir_p(dirname, None, self.symlinks, self.files)
+                        dirs_created = utils.mkdir_p(dirname, None, self.symlinks, self.files)
                         self.new_dirs.extend(dirs_created)
                         self._chown_chmod_chcon(dirname, dirname, directory)
                     if self.deployment_cb:
                         self.deployment_cb(dirname)
 
             log_debug(6, "changed_dir_info: %s" % self.changed_dir_info)
-	    log_debug(4, "new_dirs: ", self.new_dirs)
+            log_debug(4, "new_dirs: ", self.new_dirs)
 
 
-	    if not self.newtemp_by_path and not self.files:
-		log_debug(4, "directory creation complete, no files found to create")
-		return
-	    else:
-		log_debug(4, "done with directory creation, moving on to files")
+            if not self.newtemp_by_path and not self.files:
+                log_debug(4, "directory creation complete, no files found to create")
+                return
+            else:
+                log_debug(4, "done with directory creation, moving on to files")
 
             # 1.
             for dep_file in self.files:
@@ -346,12 +346,12 @@ class DeployTransaction:
                 # which ones are created... then i could clean created
                 # dirs on rollback
                 (directory, filename) = os.path.split(path)
-		if os.path.isdir(path) and not os.path.islink(path):
-		    raise cfg_exceptions.FileEntryIsDirectory(path)
+                if os.path.isdir(path) and not os.path.islink(path):
+                    raise cfg_exceptions.FileEntryIsDirectory(path)
                 if not os.path.exists(directory):# and os.path.isdir(directory):
                     log_debug(7, "creating directories for %s ..." % directory)
                     dirs_created = utils.mkdir_p(directory, None, self.symlinks, self.files)
-		    self.new_dirs.extend(dirs_created)
+                    self.new_dirs.extend(dirs_created)
                     log_debug(7, "directories created and added to list for rollback")
 
                 # write the new contents to a tmp file, and store the path of the
@@ -369,12 +369,12 @@ class DeployTransaction:
 
             # 2.
             for path in paths:
-		if os.path.isdir(path) and not os.path.islink(path):
-		    raise cfg_exceptions.FileEntryIsDirectory(path)
-		else:
+                if os.path.isdir(path) and not os.path.islink(path):
+                    raise cfg_exceptions.FileEntryIsDirectory(path)
+                else:
                     self._rename_to_backup(path)
                     if self.backup_by_path.has_key(path):
-                    	log_debug(9, "backup file %s written" % self.backup_by_path[path])
+                        log_debug(9, "backup file %s written" % self.backup_by_path[path])
 
             # 3.
             paths.sort(key = lambda s: string.count(s, os.path.sep))

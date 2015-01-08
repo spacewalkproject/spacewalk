@@ -343,7 +343,7 @@ class SqlPackageMapper:
         where
            po.package_id = :package_id
            and po.capability_id = pc.id
-	union all
+        union all
         select
            'breaks',
            brks.sense,
@@ -355,7 +355,7 @@ class SqlPackageMapper:
         where
            brks.package_id = :package_id
            and brks.capability_id = pc.id
-	union all
+        union all
         select
            'predepends',
            pdep.sense,

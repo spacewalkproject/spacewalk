@@ -140,12 +140,12 @@ group by org, slot_name
 
 _query_get_family_counts = rhnSQL.Statement("""
 select org, label,
-	sum(current_members) as current_members,
-	sum(max_members) as max_members,
-	sum(fve_current_members) as fve_current_members,
-	sum(fve_max_members) as fve_max_members,
-	sum(physical_count) as physical_count,
-	sum(virtual_count) as virtual_count
+        sum(current_members) as current_members,
+        sum(max_members) as max_members,
+        sum(fve_current_members) as fve_current_members,
+        sum(fve_max_members) as fve_max_members,
+        sum(physical_count) as physical_count,
+        sum(virtual_count) as virtual_count
 from (
         select case when CFO.org_id = :base_org_id then 'base' else 'other' end as org,
         CFO.label,
@@ -249,11 +249,11 @@ def set_slots_from_cert(cert, testonly=False):
             families[entry['label']] = { 'base' : ( 0, 0, 0, 0, 0, 0 ), 'other' : ( 0, 0, 0, 0, 0, 0 ) }
 
         families[entry['label']][entry['org']] = [ entry[i] for i in ( 'current_members',
-							'max_members',
-							'fve_current_members',
-							'fve_max_members',
-							'physical_count',
-							'virtual_count'
+                                                        'max_members',
+                                                        'fve_current_members',
+                                                        'fve_max_members',
+                                                        'physical_count',
+                                                        'virtual_count'
                                                  )]
 
     for cf in cert.channel_families:
@@ -400,14 +400,14 @@ def set_slots_from_cert(cert, testonly=False):
 
         if sys_ent_total_max.has_key(db_label) and \
             sys_ent_total_max[db_label] is not None:
-	    # Do the math only if the slot already exists
+            # Do the math only if the slot already exists
             if sys_ent_total_max[db_label] > int(quantity):
-	        # If cert count is lower than existing db slot
+                # If cert count is lower than existing db slot
                 purge_count = sys_ent_total_max[db_label] - int(quantity)
                 quantity = sys_ent_counts[(db_label, 1)] - purge_count
 
             else:
-	        # If cert is higher take the extra count and add to max
+                # If cert is higher take the extra count and add to max
                 quantity = sys_ent_counts[(db_label, 1)] + \
                             (int(quantity) - sys_ent_total_max[db_label])
 

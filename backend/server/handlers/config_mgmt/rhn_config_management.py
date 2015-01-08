@@ -26,7 +26,7 @@ from spacewalk.common.fileutils import f_date, ostr_to_sym
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def __init__(self):
         log_debug(3)
-	configFilesHandler.ConfigFilesHandler.__init__(self)
+        configFilesHandler.ConfigFilesHandler.__init__(self)
         self.functions.update({
             'management.get_file'       : 'management_get_file',
             'management.list_config_channels'   : 'management_list_channels',
@@ -252,8 +252,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                ci.username,
                ci.groupname,
                ci.filemode,
-	       cft.label,
-	       ci.selinux_ctx,
+               cft.label,
+               ci.selinux_ctx,
            case
                 when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
                 else ''
@@ -266,14 +266,14 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
           left join rhnChecksumView c
             on ccont.checksum_id = c.id,
                rhnConfigFile cf,
-	       rhnConfigFileType cft
+               rhnConfigFileType cft
          where cf.config_channel_id = cc.id
            and cc.label = :config_channel
            and cc.org_id = :org_id
            and cf.config_file_name_id = lookup_config_filename(:path)
            and cr.config_file_id = cf.id
            and cr.config_info_id = ci.id
-	   and cr.config_file_type_id = cft.id
+           and cr.config_file_type_id = cft.id
     """
     _query_get_file_latest = rhnSQL.Statement(_query_get_file + """
            and cf.latest_config_revision_id = cr.id

@@ -32,9 +32,9 @@ class rpmPackage(IncompletePackage):
         # Ignoring these tags
         'last_modified'     : None,
         # We set them differently
-	'checksum'          : None,
-	'checksum_type'     : None,
-	'checksum_list'     : None,
+        'checksum'          : None,
+        'checksum_type'     : None,
+        'checksum_list'     : None,
         'sigchecksum'       : None,
         'sigchecksum_type'  : None,
     }
@@ -58,7 +58,7 @@ class rpmPackage(IncompletePackage):
                 if type(val) in (IntType, LongType):
                     # A UNIX timestamp
                     val = gmtime(val)
-	    if f == 'payload_size':
+            if f == 'payload_size':
                 if val is None:
                     # use longarchivesize header field for rpms with archive > 4GB
                     if ('longarchivesize' in header) and (header['longarchivesize'] > 0):

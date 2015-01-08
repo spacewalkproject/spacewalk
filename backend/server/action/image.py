@@ -27,7 +27,7 @@ def deploy(serverId, actionId, dry_run=0):
         select aid.mem_kb, aid.vcpus, aid.bridge_device,aid.download_url,
                aid.proxy_server, aid.proxy_user, aid.proxy_pass
           from rhnActionImageDeploy aid
-	   where aid.action_id = :action_id"""
+           where aid.action_id = :action_id"""
     h = rhnSQL.prepare(statement)
     h.execute(action_id = actionId)
     row = h.fetchone_dict()

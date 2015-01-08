@@ -18,10 +18,10 @@
 #
 # Generate and maintain SSL keys & certs. One can also build RPMs in the RHN
 # product context.
-# 
+#
 # NOTE: this tool is geared for RHN product usage, but can be used outside of
 # that context to some degree.
-# 
+#
 # Author: Todd Warner <taw@redhat.com>
 #
 

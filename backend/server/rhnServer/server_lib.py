@@ -244,9 +244,9 @@ def check_entitlement(server_id):
     ents = {}
 
     if rows:
-	    for row in rows:
-	        ents[row['label']] = row['label']
-	    return ents
+            for row in rows:
+                ents[row['label']] = row['label']
+            return ents
 
     # Empty dictionary - will act as False
     return ents

@@ -17,7 +17,7 @@ class TestConfig(unittest.TestCase):
         # in this stuff, we get weird stuff existing, so restore
         # a config first, then change anything test specifc
         testutils.restoreConfig()
-	self.__setupData()
+        self.__setupData()
 
     def __setupData(self):
         pass
@@ -79,11 +79,11 @@ class TestConfig(unittest.TestCase):
         assert cfg2['blippy12345'] == None
 
     def testConfigRuntimeStoreNoDir(self):
-	"Verify that saving a file into a non existent dir works"
-	# bugzilla: 125179
-	cfg = config.initUp2dateConfig(test_up2date)
-	cfg['blippy321'] = "blumblim"
-	cfg.save()
+        "Verify that saving a file into a non existent dir works"
+        # bugzilla: 125179
+        cfg = config.initUp2dateConfig(test_up2date)
+        cfg['blippy321'] = "blumblim"
+        cfg.save()
 
     def testConfigKeysReturnsAList(self):
         "Verify that Config.keys() returns a list"

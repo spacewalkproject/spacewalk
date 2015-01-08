@@ -86,22 +86,22 @@ def read_cpuinfo():
 
         rev=int(release.split(".")[1])
 
-        if model_ver[:2] == "31":	# 31x
+        if model_ver[:2] == "31":       # 31x
             arch="m68000 "
-        elif model_ver[:1] == "3":	# 3xx
+        elif model_ver[:1] == "3":      # 3xx
             arch="m68k "
-        elif model_ver[:1] == "4":	# 4xx
+        elif model_ver[:1] == "4":      # 4xx
             arch="m68k"
-        else:			# 6xx, 7xx, 8xx
+        else:                   # 6xx, 7xx, 8xx
             if rev > 10:
                 stdout = os.popen("getconf SC_CPU_VERSION")
                 ret=stdout.read()
                 stdout.close()
                 cpu_ver=int(ret)
 
-		# On some HP systems, HW_CPU_SUPP_BITS returns 32/64.
-		# Since this information doesn't appear to be used
-		# anyway, we'll ignore it for now.
+                # On some HP systems, HW_CPU_SUPP_BITS returns 32/64.
+                # Since this information doesn't appear to be used
+                # anyway, we'll ignore it for now.
                 #stdout = os.popen("getconf HW_CPU_SUPP_BITS")
                 #ret=stdout.read()
                 #stdout.close()
@@ -112,11 +112,11 @@ def read_cpuinfo():
                 stdout.close()
                 kernel_bits=int(ret)
 
-                if cpu_ver == 523:	# CPU_PA_RISC1_0
+                if cpu_ver == 523:      # CPU_PA_RISC1_0
                     arch="hppa1.0"
-                elif cpu_ver == 528:	# CPU_PA_RISC1_1
+                elif cpu_ver == 528:    # CPU_PA_RISC1_1
                     arch="hppa1.1"
-                elif cpu_ver == 532: 	# CPU_PA_RISC2_0
+                elif cpu_ver == 532:    # CPU_PA_RISC2_0
                     if kernel_bits == 32:
                         arch="hppa2.0n"
                     elif kernel_bits == 64:
@@ -446,7 +446,7 @@ def read_network():
 
 
     if netdict['hostname'] == 'localhost.localdomain' or \
-	netdict['ipaddr'] == "127.0.0.1":
+        netdict['ipaddr'] == "127.0.0.1":
         hostname, ipaddr = findHostByRoute()
         netdict['hostname'] = hostname
         netdict['ipaddr'] = ipaddr

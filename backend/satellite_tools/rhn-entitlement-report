@@ -28,7 +28,7 @@ def printAcrossSatelliteUsage():
 #This prints summary displayed on https://satellite.fqdn/rhn/admin/multiorg/SystemEntitlements.do and https://satellite.fqdn/rhn/admin/multiorg/SoftwareEntitlements.do which is Channel and Entitlement usage across all organizations
 
    print ("Software Channel Entitlements Across " + PRODUCT_NAME + " :")
-   query = "SELECT cfo.label,SUM(cfo.max_members) as total,SUM(cfo.current_members) as used,(SELECT (cfo2.max_members) - (cfo2.current_members) FROM rhnChannelFamilyOverview cfo2 WHERE cfo2.label = cfo.label AND cfo2.org_id = 1) as available,SUM(cfo.fve_max_members) as total_flex,SUM(cfo.fve_current_members) as used_flex,(SELECT (cfo2.fve_max_members) - (cfo2.fve_current_members) FROM rhnChannelFamilyOverview cfo2 WHERE cfo2.label = cfo.label AND cfo2.org_id = 1) as available_flex FROM rhnChannelFamilyOverview cfo WHERE cfo.max_members is not null and (cfo.current_members !=0 or cfo.fve_current_members!=0) GROUP BY cfo.label, cfo.name HAVING (SUM(cfo.max_members) is not null) ORDER by cfo.name DESC" 
+   query = "SELECT cfo.label,SUM(cfo.max_members) as total,SUM(cfo.current_members) as used,(SELECT (cfo2.max_members) - (cfo2.current_members) FROM rhnChannelFamilyOverview cfo2 WHERE cfo2.label = cfo.label AND cfo2.org_id = 1) as available,SUM(cfo.fve_max_members) as total_flex,SUM(cfo.fve_current_members) as used_flex,(SELECT (cfo2.fve_max_members) - (cfo2.fve_current_members) FROM rhnChannelFamilyOverview cfo2 WHERE cfo2.label = cfo.label AND cfo2.org_id = 1) as available_flex FROM rhnChannelFamilyOverview cfo WHERE cfo.max_members is not null and (cfo.current_members !=0 or cfo.fve_current_members!=0) GROUP BY cfo.label, cfo.name HAVING (SUM(cfo.max_members) is not null) ORDER by cfo.name DESC"
    list = run_query(query)
    if list == None:
       print("")
@@ -78,7 +78,7 @@ def printSystemEnts(id):
    print("%35s %s %s" % ("------------------", "----","-----------"))
    query = """select T.label, G.current_members,G.max_members
                  from rhnServerGroup G inner join rhnServerGroupType T  on G.group_type = T.id
-		 where org_id = %d order by T.label """ % (id)
+                 where org_id = %d order by T.label """ % (id)
    list = run_query(query)
    for item in list:
          print("%35s %3s %8s" % (item['label'], str(item['current_members']),str(item['max_members'])))

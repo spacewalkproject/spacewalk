@@ -36,7 +36,7 @@ def getArchitecture():
     result = {"pentium": "i386",
               "sparc64": "sparc",
               "ppc": "powerpc",
-              "mipseb":	"mips",
+              "mipseb": "mips",
               "shel": "sh"}.get(arch)
     if result:
         return result

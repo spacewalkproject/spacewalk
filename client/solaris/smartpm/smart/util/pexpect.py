@@ -686,8 +686,8 @@ class spawn:
             else:
                 raise
         except TIMEOUT:
-	    self.before = incoming
-	    self.after = TIMEOUT
+            self.before = incoming
+            self.after = TIMEOUT
             if TIMEOUT in pattern_list:
                 #self.buffer = ''
                 return pattern_list.index(TIMEOUT)
@@ -741,16 +741,16 @@ class spawn:
                 incoming = incoming + c
 
         except EOF:
-	    self.before = incoming
-	    self.after = EOF
+            self.before = incoming
+            self.after = EOF
             if EOF in pattern_list:
                 #self.buffer = ''
                 return pattern_list.index(EOF)
             else:
                 raise
         except TIMEOUT:
-	    self.before = incoming
-	    self.after = TIMEOUT
+            self.before = incoming
+            self.after = TIMEOUT
             if TIMEOUT in pattern_list:
                 #self.buffer = ''
                 return pattern_list.index(TIMEOUT)

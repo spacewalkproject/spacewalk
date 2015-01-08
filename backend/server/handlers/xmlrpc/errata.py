@@ -224,8 +224,8 @@ class Errata(rhnHandler):
 
         for package in packages:
             if package['name'] is not None:
-		if package['epoch'] is None:
-		   package['epoch'] = ""
+                if package['epoch'] is None:
+                   package['epoch'] = ""
 
                 pkg_arch = ''
                 if multiarch:

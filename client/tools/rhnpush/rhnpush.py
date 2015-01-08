@@ -528,7 +528,7 @@ class UploadClass(uploadLib.UploadClass):
             'packages' : pkg_hash,
             'channels' : self.channels,
             'org_id'   : orgid,
-	    'force'    : self.options.force or 0
+            'force'    : self.options.force or 0
             }
         # rpc call to get checksum info for all the packages to be uploaded
         if not self.options.source:
@@ -631,9 +631,9 @@ class UploadClass(uploadLib.UploadClass):
             try:
                 data = rpclib.xmlrpclib.loads(msgstr)
             except:
-	        # Raise the exception instead of silently dying
+                # Raise the exception instead of silently dying
                 raise uploadLib.UploadError("Error pushing %s: %s (%s)" %
-		            (package, msgstr, status)), None, sys.exc_info()[2]
+                            (package, msgstr, status)), None, sys.exc_info()[2]
             (diff_dict, ), methodname = data
             del methodname
             diff_level = diff_dict['level']

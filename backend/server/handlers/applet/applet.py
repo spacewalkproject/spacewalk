@@ -207,18 +207,18 @@ class Applet(rhnHandler):
             rhnPackageEVR pe,
             rhnChannelNewestPackage cnp
         left join
-	    (	select	sq_e.id as errata_id,
-			sq_e.synopsis as errata_synopsis,
-			sq_e.advisory as errata_advisory,
-			sq_ep.package_id
-		from
-			rhnErrata sq_e,
-			rhnErrataPackage sq_ep,
-			rhnChannelErrata sq_ce
-		where	sq_ce.errata_id = sq_ep.errata_id
-			and sq_ce.errata_id = sq_e.id
-			and sq_ce.channel_id in ( %s )
-	    ) e_sq
+            (   select  sq_e.id as errata_id,
+                        sq_e.synopsis as errata_synopsis,
+                        sq_e.advisory as errata_advisory,
+                        sq_ep.package_id
+                from
+                        rhnErrata sq_e,
+                        rhnErrataPackage sq_ep,
+                        rhnChannelErrata sq_ce
+                where   sq_ce.errata_id = sq_ep.errata_id
+                        and sq_ce.errata_id = sq_e.id
+                        and sq_ce.channel_id in ( %s )
+            ) e_sq
           on cnp.package_id = e_sq.package_id
         where
             cnp.channel_id in ( %s )

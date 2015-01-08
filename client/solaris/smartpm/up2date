@@ -66,14 +66,14 @@ def parse_options(argv):
                           examples=EXAMPLES,
                           version="up2date %s" % up2date_version)
     #parser.disable_interspersed_args()
-    
+
     parser.add_option("-a", "--admin", action="store", dest="admin",
                       help=_("specify the admin file to use instead of the default"))
     parser.add_option("--channel", action="append", metavar=_("<channel>"),
                       help=_("Specify which channels to use by channel label"))
     parser.add_option("--get", action="store_true",
                       help=_("Fetch the package specified without resolving dependencies"))
-    parser.add_option("--global-zone", action="store_true", 
+    parser.add_option("--global-zone", action="store_true",
                       metavar=_("<global-zone>"),
                       help=_("Installs all packages in the global zone only. (Solaris 10 only; this overrides the default behavior of installing in all zones)."))
     parser.add_option("--hardware", action="store_true",
@@ -127,8 +127,8 @@ def parse_options(argv):
     # Set the command action
     opts.command = {"action": ""}
     for param in ("list", "packages", "hardware", "showall",
-                  "show_available", "show_orphans", 
-                  "show_channels", "installall", "get"): 
+                  "show_available", "show_orphans",
+                  "show_channels", "installall", "get"):
         if getattr(opts, param, None):
             if param == "show_channels" and \
                 (opts.command["action"] == "showall" or opts.command["action"] == "show_available"):
@@ -140,8 +140,8 @@ def parse_options(argv):
             opts.command["action"] = param
 
     # Set the command run-time options
-    for param in ("act_native", "show_channels", "channel", "global_zone", 
-                  "proxy", "proxyUser", "proxyPassword", "admin", 
+    for param in ("act_native", "show_channels", "channel", "global_zone",
+                  "proxy", "proxyUser", "proxyPassword", "admin",
                   "response"):
         if getattr(opts, param, None):
             opts.command[param] = getattr(opts, param)
@@ -149,12 +149,12 @@ def parse_options(argv):
     # Make sure filenames are valid
     if (opts.admin):
         if (not os.path.exists(opts.admin)):
-	    print "Error: The admin file", opts.admin, "doesn't exist."
+        print "Error: The admin file", opts.admin, "doesn't exist."
             sys.exit(1)
 
     if (opts.response):
         if (not os.path.exists(opts.response)):
-	    print "Error: The response file", opts.response, "doesn't exist."
+        print "Error: The response file", opts.response, "doesn't exist."
             sys.exit(1)
 
 

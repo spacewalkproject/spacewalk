@@ -25,7 +25,7 @@ from spacewalk.server.rhnHandler import rhnHandler
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def __init__(self):
         log_debug(3)
-	configFilesHandler.ConfigFilesHandler.__init__(self)
+        configFilesHandler.ConfigFilesHandler.__init__(self)
         self.functions.update({
             'client.list_config_channels'   : 'client_list_channels',
             # XXX1
@@ -184,9 +184,9 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                ci.username,
                ci.groupname,
                ci.filemode,
-	       cft.label,
-	       cct.priority,
-	       ci.selinux_ctx,
+               cft.label,
+               cct.priority,
+               ci.selinux_ctx,
            case
                 when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
                 else ''
@@ -204,8 +204,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             on cr.config_content_id = c.id,
                rhnServerConfigChannel scc,
                rhnConfigFile cf,
-	       rhnConfigFileType cft,
-	       rhnConfigChannelType cct
+               rhnConfigFileType cft,
+               rhnConfigChannelType cct
          where scc.server_id = :server_id
            and scc.config_channel_id = cc.id
            and cf.config_channel_id = cc.id
@@ -213,8 +213,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cr.config_file_id = cf.id
            and cr.config_info_id = ci.id
            and cf.latest_config_revision_id = cr.id
-	   and cr.config_file_type_id = cft.id
-	   and cct.id = cc.confchan_type_id
+           and cr.config_file_type_id = cft.id
+           and cct.id = cc.confchan_type_id
          order by cct.priority, scc.position
     """)
 

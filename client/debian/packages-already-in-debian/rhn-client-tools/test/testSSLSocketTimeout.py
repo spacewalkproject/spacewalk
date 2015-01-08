@@ -13,7 +13,7 @@ def write(blip):
 
 class TestSomething(unittest.TestCase):
     def setUp(self):
-	self.__setupData()
+        self.__setupData()
 
     def __setupData(self):
         pass

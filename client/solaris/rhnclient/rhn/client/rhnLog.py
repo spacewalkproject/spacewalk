@@ -23,7 +23,7 @@ class Log:
 
     def log_me(self, *args):
         self.log_info = "[%s] %s" % (time.ctime(time.time()), self.app)
-	s = ""
+        s = ""
         for i in args:
             s = s + "%s" % (i,)
         self.write_log(s)

@@ -14,7 +14,7 @@ test_up2date = "etc-sysconfig-rhn/up2date"
 
 class TestGetSystemID(unittest.TestCase):
     def setUp(self):
-	self.__setupData()
+        self.__setupData()
         self.cfg = config.initUp2dateConfig(test_up2date)
         self.sysid = self.cfg['systemIdPath']
 
@@ -38,7 +38,7 @@ class TestGetSystemID(unittest.TestCase):
 
 class TestMaybeUpdateVersion(unittest.TestCase):
     def setUp(self):
-	self.__setupData()
+        self.__setupData()
         import testutils
         testutils.setupConfig("8.0-workstation-i386-1")
         self.cfg = config.initUp2dateConfig(test_up2date)
