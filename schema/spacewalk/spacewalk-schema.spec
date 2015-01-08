@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.32
+Version:        2.3.33
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jan 08 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.33-1
+- arm related sutff can be present in db before upgrade
+- don't instert values that can be already present
+- some values can be insterted multiple times - don't do that
+- some values can be already present at the time of upgrade
+
 * Tue Dec 23 2014 Stephen Herr <sherr@redhat.com> 2.3.32-1
 - Fixing duplicated 'drop rhn_probe' statement
 
