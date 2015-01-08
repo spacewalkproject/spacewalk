@@ -20,13 +20,13 @@ import org.picocontainer.defaults.DefaultPicoContainer;
 /**
  * Runs a PicoContainer instance in a separate thread
  * to prevent the main process from exiting
- * 
+ *
  * @version $Rev$
  */
 class ContainerRunner implements Runnable {
-    
+
     private DefaultPicoContainer container;
-    
+
     /**
      * Constructor
      * @param containerIn PicoContainer instance to use
@@ -34,7 +34,7 @@ class ContainerRunner implements Runnable {
     ContainerRunner(DefaultPicoContainer containerIn) {
         container = containerIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -50,7 +50,7 @@ class ContainerRunner implements Runnable {
             container.stop();
         }
     }
-    
+
     /**
      * Stop the thread
      */

@@ -29,9 +29,9 @@ import junit.framework.TestCase;
  * @version $Rev$
  */
 public class ConfigurationTest extends TestCase {
-    
+
     private Configuration config;
-    
+
     @Override
     protected void setUp() throws Exception {
         StringBuilder builder = new StringBuilder();
@@ -46,7 +46,7 @@ public class ConfigurationTest extends TestCase {
         StringReader sr = new StringReader(builder.toString());
         config = new Configuration(new BufferedReader(sr));
     }
-    
+
     public void testGetValue() {
         assertEquals("bar", config.getString("foo", "bar"));
         assertEquals(
@@ -55,7 +55,7 @@ public class ConfigurationTest extends TestCase {
         assertNull(config.getString(null, null));
         assertEquals("", config.getString(null, ""));
     }
-    
+
     public void testGetValueAsInt() {
         assertEquals(2828, config.getInt("search.rpc_port"));
         assertEquals(2828, config.getInt("search.rpc_port", 0));
@@ -69,7 +69,7 @@ public class ConfigurationTest extends TestCase {
             // expected
         }
     }
-    
+
     public void testGetValuesAsMap() {
         assertNull(config.getMap("search.notthere"));
         assertNull(config.getMap(null));
@@ -78,18 +78,18 @@ public class ConfigurationTest extends TestCase {
         assertNotNull(map);
         assertEquals("com.redhat.satellite.search.rpc.handlers.IndexHandler",
                 map.get("index"));
-        
+
         map = config.getMap("search.rpc_port");
         assertNotNull(map);
         assertTrue(map.keySet().isEmpty());
     }
-    
+
     public void testGetValues() {
         assertNotNull(config.getList("search.notthere"));
         assertTrue(config.getList("search.notthere").isEmpty());
         assertNotNull(config.getList(null));
         assertTrue(config.getList(null).isEmpty());
-        
+
         List<String> list = config.getList("search.list");
         assertNotNull(list);
         assertEquals(3, list.size());
@@ -97,18 +97,18 @@ public class ConfigurationTest extends TestCase {
         assertEquals("item2", list.get(1));
         assertEquals(" item3", list.get(2));
     }
-    
+
     public void testTranslation() {
         assertNull(config.getString("db_user"));
         assertEquals("rhnsat", config.getString("search.connection.username"));
     }
-    
+
     public void testGetBoolean() {
         assertTrue(config.getBoolean("search.boolean"));
         config.setBoolean("search.boolean", "false");
         assertFalse(config.getBoolean("search.boolean"));
     }
-    
+
     public void testGetDefaultConfig() {
         String confDir = System.getProperty("rhn.config.dir");
         if (confDir == null || "".equals(confDir)) {
@@ -117,20 +117,20 @@ public class ConfigurationTest extends TestCase {
         assertEquals(confDir + "/rhn.conf",
                      Configuration.getDefaultConfigFilePath());
     }
-    
+
     public void testSetString() {
         config.setString("search.stringvalue", "foobar");
         assertEquals("foobar", config.getString("search.stringvalue"));
     }
-    
+
     public void testGetDouble() {
         config.setString("search.double", ".30");
         assertEquals(0.0, config.getDouble("better.not.be.a.double"));
         assertEquals(.30, config.getDouble("search.double"));
-        
+
         config.setString("search.double", "30");
         assertEquals(30.0, config.getDouble("search.double"));
-        
+
         config.setString("search.double", "");
         assertEquals(0.0, config.getDouble("search.double"));
     }

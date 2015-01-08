@@ -140,14 +140,14 @@ public class IndexSystemsTask extends GenericIndexTask {
     protected String getQueryUpdateLastRecord() {
         return "updateLastServer";
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String getUniqueFieldId() {
         return "id";
     }
-    
+
     /**
      * {@inheritDoc}
      */

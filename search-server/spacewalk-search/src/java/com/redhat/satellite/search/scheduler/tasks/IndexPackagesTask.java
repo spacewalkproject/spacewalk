@@ -40,7 +40,7 @@ import java.util.Map;
 
 /**
  * Task to index package information
- * 
+ *
  * @version $Rev$
  */
 public class IndexPackagesTask implements Job {
@@ -60,7 +60,7 @@ public class IndexPackagesTask implements Job {
         try {
             if (System.getProperties().get("isTesting") != null) {
                 cleanLastPackage(databaseManager);
-            }                    
+            }
             List<RhnPackage> packages = getPackages(databaseManager);
             int count = 0;
             log.info("found [" + packages.size() + "] packages to index");
@@ -83,7 +83,7 @@ public class IndexPackagesTask implements Job {
             throw new JobExecutionException(e);
         }
     }
-    
+
     private void cleanLastPackage(DatabaseManager databaseManager) throws SQLException {
         WriteQuery query = null;
         try {
@@ -94,8 +94,8 @@ public class IndexPackagesTask implements Job {
             query.close();
         }
     }
-    
-    private void indexPackage(IndexManager indexManager, RhnPackage pkg) 
+
+    private void indexPackage(IndexManager indexManager, RhnPackage pkg)
             throws IndexingException {
         Map<String, String> attrs = new HashMap<String, String>();
         attrs.put("name", pkg.getName());
@@ -110,8 +110,8 @@ public class IndexPackagesTask implements Job {
         Document doc = pdb.buildDocument(new Long(pkg.getId()), attrs);
         indexManager.addToIndex("package", doc, lang);
     }
-    
-    private void updateLastPackageId(DatabaseManager databaseManager, 
+
+    private void updateLastPackageId(DatabaseManager databaseManager,
             Long packageId) throws SQLException {
         WriteQuery updateQuery = databaseManager.getWriterQuery("updateLastPackage");
         WriteQuery insertQuery = databaseManager.getWriterQuery("createLastPackage");
@@ -136,8 +136,8 @@ public class IndexPackagesTask implements Job {
             }
         }
     }
-    
-    private List<RhnPackage> getPackages(DatabaseManager databaseManager) 
+
+    private List<RhnPackage> getPackages(DatabaseManager databaseManager)
             throws SQLException {
         List<RhnPackage> retval = null;
         Query<Long> query = databaseManager.getQuery("getLastPackageId");

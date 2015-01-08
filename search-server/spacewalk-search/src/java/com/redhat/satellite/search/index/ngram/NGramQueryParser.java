@@ -31,11 +31,11 @@ import org.apache.log4j.Logger;
 /**
  * NGramQueryParser
  * Creates a custom query parser of ngram-tokenized search terms
- * 
+ *
  * @version $Rev$
  */
 public class NGramQueryParser extends QueryParser {
-    
+
     private static Logger log = Logger.getLogger(NGramQueryParser.class);
     private boolean useMust = false;
     /**
@@ -53,7 +53,7 @@ public class NGramQueryParser extends QueryParser {
         this.setDateResolution(DateTools.Resolution.DAY);
         this.useMust = useMustIn;
     }
-    
+
     /**
      * Constructor
      * @param f field name
@@ -80,7 +80,7 @@ public class NGramQueryParser extends QueryParser {
         useMust = value;
     }
 
-    protected Query getFieldQuery(String defaultField, 
+    protected Query getFieldQuery(String defaultField,
             String queryText) throws ParseException {
         Query orig = super.getFieldQuery(defaultField, queryText);
         if (!(orig instanceof PhraseQuery)) {
@@ -88,15 +88,15 @@ public class NGramQueryParser extends QueryParser {
             return orig;
         }
         /**
-         * A ngram when parsed will become a series of smaller search terms, 
-         * these terms are grouped together into a PhraseQuery.  We are taking 
-         * that PhraseQuery and breaking out each ngram term then combining all 
+         * A ngram when parsed will become a series of smaller search terms,
+         * these terms are grouped together into a PhraseQuery.  We are taking
+         * that PhraseQuery and breaking out each ngram term then combining all
          * ngrams together to form a BooleanQuery.
          */
         PhraseQuery pq = (PhraseQuery)orig;
         return new NGramQuery(pq, useMust);
     }
-    
+
     /**
      *
      * @param field
@@ -109,11 +109,11 @@ public class NGramQueryParser extends QueryParser {
         }
         return false;
     }
-    /** 
+    /**
      * This will look to see if "part1" or "part2" are strings of all digits,
-     * if they are, then they will be converted to a lexicographically safe string 
+     * if they are, then they will be converted to a lexicographically safe string
      * representation, then passed into the inherited getRangeQuery().  This is needed when
-     * comparing something like "4" to be less than "10". 
+     * comparing something like "4" to be less than "10".
      * If the strings don't fit the pattern of all digits, then they get passed through
      * to the inherited getRangeQuery().
      */
@@ -143,7 +143,7 @@ public class NGramQueryParser extends QueryParser {
                 log.debug("NGramQueryParser.getRangeQuery() Converted " + part1 + " to " +
                     newPart1 + ", Converted " + part2 + " to " + newPart2);
             }
-        } 
+        }
         return super.getRangeQuery(field, newPart1, newPart2, inclusive);
     }
 }

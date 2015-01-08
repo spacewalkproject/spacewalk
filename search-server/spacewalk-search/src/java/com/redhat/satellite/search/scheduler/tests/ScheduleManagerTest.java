@@ -17,7 +17,7 @@ public class ScheduleManagerTest extends BaseTestCase {
     protected Class[] getComponentClasses() {
         return TestUtil.buildComponentsList(ScheduleManager.class);
     }
-    
+
     public void testIndexing() throws IndexingException, QueryParseException {
         try {
             Thread.sleep(30000);
@@ -31,7 +31,7 @@ public class ScheduleManagerTest extends BaseTestCase {
             return;
         }
     }
-    
+
     public void testTriggerIndexTask() {
         ScheduleManager sm = new ScheduleManager(null, null);
         assertTrue(sm.triggerIndexTask(BuilderFactory.ERRATA_TYPE));

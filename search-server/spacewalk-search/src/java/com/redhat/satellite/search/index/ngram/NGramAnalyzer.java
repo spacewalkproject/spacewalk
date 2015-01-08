@@ -28,7 +28,7 @@ import java.io.Reader;
 /**
  * NGramAnalyzer
  * A ngram will take a term and break it up into a series of smaller
- * permutations of different letter combinations. 
+ * permutations of different letter combinations.
  * @version $Rev$
  */
 public class NGramAnalyzer extends Analyzer {
@@ -36,7 +36,7 @@ public class NGramAnalyzer extends Analyzer {
     protected int min_ngram;
     //Controls maximum size ngram to construct
     protected int max_ngram;
-    
+
   /**
    * Constructor
    * @param min min length of ngram to generate
@@ -48,14 +48,14 @@ public class NGramAnalyzer extends Analyzer {
         max_ngram = max;
     }
     /**
-     * Constructs a pre populated 
+     * Constructs a pre populated
      * @param reader contains data to parse
      * @return TokenStream of ngrams
      */
     public TokenStream tokenStream(Reader reader) {
         return tokenStream(null, reader);
     }
-    
+
     /**
      * @param fieldName ignored param
      * @param reader contains data to parse

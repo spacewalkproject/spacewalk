@@ -53,7 +53,7 @@ public class ErrataDocumentBuilderTest extends TestCase {
         metadata.put("lastModified", "LastModified");
         metadata.put("severityId", new Long(1).toString());
         metadata.put("name", "Advisory");
-        
+
         DocumentBuilder db = BuilderFactory.getBuilder(BuilderFactory.ERRATA_TYPE);
         assertTrue(db instanceof ErrataDocumentBuilder);
         Document doc = db.buildDocument(new Long(10), metadata);

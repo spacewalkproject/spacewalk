@@ -43,7 +43,7 @@ public class Result {
     }
 
     /**
-     * Constructs a pre populated 
+     * Constructs a pre populated
      * @param r rank
      * @param idIn package id
      * @param nameIn package name
@@ -54,7 +54,7 @@ public class Result {
         name = nameIn;
         score = scoreIn;
     }
-    
+
     /**
      * Sets the rank
      * @param rankIn rank
@@ -85,7 +85,7 @@ public class Result {
     public String getId() {
         return id;
     }
-    
+
     /**
      * Sets the name
      * @param nameIn name
@@ -99,7 +99,7 @@ public class Result {
      */
     public String getName() {
         return name;
-    }    
+    }
 
     /**
      * Sets the score from lucene

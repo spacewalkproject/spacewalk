@@ -44,7 +44,7 @@ public class NGramTestSetup extends TestCase {
 
     protected RAMDirectory ngramDir;
     protected RAMDirectory stanDir;
-    
+
     protected double score_threshold = .10;
     protected int min_ngram = 1;
     protected int max_ngram = 5;

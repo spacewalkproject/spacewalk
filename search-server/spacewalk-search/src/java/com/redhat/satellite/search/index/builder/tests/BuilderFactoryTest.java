@@ -34,19 +34,19 @@ public class BuilderFactoryTest extends TestCase {
         assertNotNull(db);
         assertEquals(db.getClass(), ErrataDocumentBuilder.class);
     }
-    
+
     public void testGetBuilderPackageType() {
         DocumentBuilder db = BuilderFactory.getBuilder(BuilderFactory.PACKAGES_TYPE);
         assertNotNull(db);
         assertEquals(db.getClass(), PackageDocumentBuilder.class);
     }
-    
+
     public void testGetBuilderServerType() {
         DocumentBuilder db = BuilderFactory.getBuilder(BuilderFactory.SERVER_TYPE);
         assertNotNull(db);
         assertEquals(db.getClass(), ServerDocumentBuilder.class);
     }
-    
+
     public void testGetBuilderInvalid() {
         try {
             BuilderFactory.getBuilder(null);
@@ -55,7 +55,7 @@ public class BuilderFactoryTest extends TestCase {
         catch(UnsupportedOperationException uoe) {
             assertTrue(true);
         }
-        
+
         try {
             BuilderFactory.getBuilder("foobar");
             fail("getBuilder should have thrown exception with null type");

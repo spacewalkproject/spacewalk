@@ -40,11 +40,11 @@ public class PackageDocumentBuilderTest extends TestCase {
         metadata.put("description", "Description");
         metadata.put("summary", "Summary");
         metadata.put("arch", "Arch");
-        
+
         DocumentBuilder db = BuilderFactory.getBuilder(BuilderFactory.PACKAGES_TYPE);
         assertTrue(db instanceof PackageDocumentBuilder);
         Document doc = db.buildDocument(new Long(10), metadata);
-        
+
         assertNotNull(doc);
         assertEquals(doc.getField("id").stringValue(), new Long(10).toString());
         assertEquals(doc.getField("name").stringValue(), "Name");

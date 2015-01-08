@@ -37,7 +37,7 @@ public class Errata {
     private String created;
     private String modified;
     private String lastModified;
-    
+
     /**
      * Returns a string representation of the errata
      * @return string representation of the errata
@@ -115,7 +115,7 @@ public class Errata {
 
     /**
      * Returns advisory type
-     * @return advisory type 
+     * @return advisory type
      */
     public String getAdvisoryType() {
         return advisoryType;

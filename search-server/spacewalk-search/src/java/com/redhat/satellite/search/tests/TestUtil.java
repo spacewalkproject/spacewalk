@@ -19,7 +19,7 @@ public class TestUtil {
     private TestUtil() {
 
     }
-    
+
     @SuppressWarnings("unchecked")
     public static DefaultPicoContainer buildContainer(Class[] components) throws IOException {
         Configuration config = makeConfiguration();
@@ -30,13 +30,13 @@ public class TestUtil {
         }
         return container;
     }
-    
+
     @SuppressWarnings("unchecked")
     public static Class[] buildComponentsList(Class component) {
         Class[] arg = {component};
         return buildComponentsList(arg);
     }
-    
+
     @SuppressWarnings("unchecked")
     public static Class[] buildComponentsList(Class[] components) {
         List<Class>accum = new ArrayList<Class>();
@@ -44,8 +44,8 @@ public class TestUtil {
             processComponent(components[x], accum);
         }
         Class[] retval = new Class[accum.size()];
-        accum.toArray(retval);        
-        return retval;        
+        accum.toArray(retval);
+        return retval;
     }
 
     public static Configuration makeConfiguration() throws IOException {
@@ -56,7 +56,7 @@ public class TestUtil {
         builder.append("search.rpc_port=").append(generatePortNumber()).append("\n");
         builder.append("search.rpc_handlers=");
         builder.append("index:com.redhat.satellite.search.rpc.handlers.IndexHandler\n\n");
-        
+
         // see if we overrode any properties in test.properties
         File f = new File("src/config/test.properties");
         if (f.exists()) {
@@ -106,10 +106,10 @@ public class TestUtil {
         }
         return accum;
     }
-    
+
     private static boolean isCandidate(String className) {
         boolean retval = true;
-        if (className.startsWith("java.") || className.startsWith("javax.") || 
+        if (className.startsWith("java.") || className.startsWith("javax.") ||
                 className.startsWith("com.sun.")) {
             retval = false;
         }

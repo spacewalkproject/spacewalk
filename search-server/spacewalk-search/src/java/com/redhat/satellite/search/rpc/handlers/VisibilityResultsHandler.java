@@ -26,15 +26,15 @@ import java.util.List;
 /**
  * Cheesy class for screening hit results based
  * on user's security context
- * 
+ *
  * @version $Rev $
  */
 class VisibilityResultsHandler implements ResultHandler {
     private static Logger log = Logger
             .getLogger(VisibilityResultsHandler.class);
     private List<String> results = new ArrayList<String>();
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
@@ -42,7 +42,7 @@ class VisibilityResultsHandler implements ResultHandler {
         long id = rs.getLong(1);
         results.add(String.valueOf(id));
     }
-    
+
     /**
      * Getter for accumulated results
      * @return results

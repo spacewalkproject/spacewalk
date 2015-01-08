@@ -37,9 +37,9 @@ public class MatchingField {
     protected Object[] terms;
     protected String query;
     protected Map<String, Boolean> needNumberToolsAdjust;
-    
+
     /**
-     * 
+     *
      * @param queryIn  query used in search
      * @param docIn   document results returned as a match
      * @param termsIn terms from a parsed query
@@ -61,9 +61,9 @@ public class MatchingField {
         needNumberToolsAdjust.put("ram", true);
         needNumberToolsAdjust.put("swap", true);
     }
-    
+
     /**
-     * 
+     *
      * @return field name most responsible for this document being a match
      */
     public String getFieldName() {
@@ -72,9 +72,9 @@ public class MatchingField {
         }
         return getFirstFieldName(query);
     }
-    
+
     /**
-     * 
+     *
      * @return value most responsible for this document being a match
      */
     public String getFieldValue() {
@@ -87,19 +87,19 @@ public class MatchingField {
                 sb.append(o + ", ");
             }
             sb.append("]");
-            log.info("Unable to get matchingFieldValue for field : " + fieldName + 
+            log.info("Unable to get matchingFieldValue for field : " + fieldName +
                     " with query: " + query + ", and terms = " + sb.toString());
             log.info("Document = " + doc);
             return "";
         }
-        String value = f.stringValue(); 
+        String value = f.stringValue();
         if (needNumberToolsAdjust.containsKey(fieldName)) {
             Long temp = NumberTools.stringToLong(value);
             value = temp.toString();
         }
         return value;
     }
-    
+
     /**
      *
      * @param queryIn

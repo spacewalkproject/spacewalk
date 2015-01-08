@@ -7,7 +7,7 @@ import org.picocontainer.defaults.DefaultPicoContainer;
 import junit.framework.TestCase;
 
 public abstract class BaseTestCase extends TestCase {
-    
+
     protected DefaultPicoContainer container;
 
     @Override
@@ -21,12 +21,12 @@ public abstract class BaseTestCase extends TestCase {
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
-        Configuration config = (Configuration) 
+        Configuration config = (Configuration)
             container.getComponentInstanceOfType(Configuration.class);
-        TestUtil.cleanupDirectories(config); 
+        TestUtil.cleanupDirectories(config);
         container.stop();
     }
-    
+
     @SuppressWarnings("unchecked")
     protected abstract Class[] getComponentClasses();
 

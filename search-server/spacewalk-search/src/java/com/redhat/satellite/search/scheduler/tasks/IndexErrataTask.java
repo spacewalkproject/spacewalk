@@ -58,7 +58,7 @@ public class IndexErrataTask implements Job {
             (IndexManager)jobData.get("indexManager");
 
         try {
-              
+
             List<Errata> errata = getErrata(databaseManager);
             int count = 0;
             log.info("found [" + errata.size() + "] errata to index");
@@ -112,7 +112,7 @@ public class IndexErrataTask implements Job {
             }
         }
     }
-    
+
     /**
      * @param indexManager
      * @param current
@@ -139,18 +139,18 @@ public class IndexErrataTask implements Job {
         attrs.put("modified", errata.getModified());
         attrs.put("lastModified", errata.getLastModified());
         attrs.put("name", errata.getAdvisory());
-        
+
         log.info("Indexing errata: " + errata.getId() + ": " + attrs.toString());
         DocumentBuilder edb = BuilderFactory.getBuilder(BuilderFactory.ERRATA_TYPE);
         Document doc = edb.buildDocument(new Long(errata.getId()), attrs);
         indexManager.addToIndex("errata", doc, lang);
     }
-    
+
     /**
      * @param databaseManager
      * @return
      */
-    private List<Errata> getErrata(DatabaseManager databaseManager) 
+    private List<Errata> getErrata(DatabaseManager databaseManager)
         throws SQLException {
 
         List<Errata> retval = null;

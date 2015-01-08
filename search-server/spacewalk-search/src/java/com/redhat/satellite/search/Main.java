@@ -28,17 +28,17 @@ import org.tanukisoftware.wrapper.WrapperManager;
 
 /**
  * Entry point for the Tanuki daemon wrapper
- * 
+ *
  * @version $Rev$
  */
 public class Main implements WrapperListener {
-    
+
     private static Logger log = Logger.getLogger(Main.class);
     private static final Class[] COMPONENTS = {DatabaseManager.class,
                                                IndexManager.class,
                                                RpcServer.class,
                                                ScheduleManager.class};
-    
+
     private DefaultPicoContainer container;
     private ContainerRunner runner;
 
@@ -69,12 +69,12 @@ public class Main implements WrapperListener {
     /**
      * {@inheritDoc}
      */
-    public int stop(int arg) { 
+    public int stop(int arg) {
         log.info("Stopping Main");
         runner.stop();
         return 0;
     }
-    
+
     /**
      * Main entry point
      * @param argv  command-line args

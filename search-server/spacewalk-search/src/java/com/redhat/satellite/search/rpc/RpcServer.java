@@ -39,7 +39,7 @@ import simple.http.connect.ConnectionFactory;
 
 /**
  * Manages the embedded webserver and configures the XML-RPC runtime
- * 
+ *
  * @version $Rev$
  */
 public class RpcServer implements Startable {
@@ -52,10 +52,10 @@ public class RpcServer implements Startable {
     private IndexManager indexManager;
     private DatabaseManager databaseManager;
     private ScheduleManager scheduleManager;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param config
      *            dependency
      * @param idxManager
@@ -63,7 +63,7 @@ public class RpcServer implements Startable {
      * @throws UnknownHostException
      *             if config contains bad rpc_address
      */
-    public RpcServer(Configuration config, IndexManager idxManager, 
+    public RpcServer(Configuration config, IndexManager idxManager,
             DatabaseManager dbManager, ScheduleManager schedMgr) throws
                 UnknownHostException {
         listenPort = config.getInt("search.rpc_port", 2828);
@@ -111,11 +111,11 @@ public class RpcServer implements Startable {
             throw new RuntimeException(e);
         }
     }
-        
+
 
     /**
      * Stops the server
-     * 
+     *
      * @throws IOException
      */
     public void stop() {

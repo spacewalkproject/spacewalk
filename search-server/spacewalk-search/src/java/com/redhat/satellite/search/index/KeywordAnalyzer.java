@@ -26,7 +26,7 @@ import org.apache.lucene.analysis.CharTokenizer;
  * KeywordAnalyzer
  * Used to retain all characters associated with a search term.  Basically
  * use this if you don't want the search term to be tokenized.
- *  
+ *
  * @version $Rev$
  */
 public class KeywordAnalyzer extends Analyzer {

@@ -62,24 +62,24 @@ public class IndexManagerTest extends BaseTestCase {
 
 
     public void StillNeedsWork_testQueryDocs()
-    	throws IOException, IndexingException, QueryParseException {
+        throws IOException, IndexingException, QueryParseException {
 
-    	Configuration config = TestUtil.makeConfiguration();
-    	config.setString("search.index_work_dir", "/var/lib/rhn/search/indexes/");
-    	IndexManager indexMgr = new IndexManager(config);
-    	//
-	// TODO: Revisit how docs data gets injected for testing.
-    	// Currently relying on docs data to already exist for now.
-    	//
-    	System.out.println("We are expecting nutch to have been run previously, " +
-    			"and the index files to be copied to "+ config.getString("search.index_work_dir") +
-			BuilderFactory.DOCS_TYPE);
+        Configuration config = TestUtil.makeConfiguration();
+        config.setString("search.index_work_dir", "/var/lib/rhn/search/indexes/");
+        IndexManager indexMgr = new IndexManager(config);
+        //
+        // TODO: Revisit how docs data gets injected for testing.
+        // Currently relying on docs data to already exist for now.
+        //
+        System.out.println("We are expecting nutch to have been run previously, " +
+                        "and the index files to be copied to "+ config.getString("search.index_work_dir") +
+                        BuilderFactory.DOCS_TYPE);
 
-	String index = BuilderFactory.DOCS_TYPE;
-    	String query = new String("redhat");
-	List<Result> results = indexMgr.search(index, query, "en");
-    	System.out.println("Number of results returned is " + results.size());
-    	assertTrue(results.size() >= 1);
+        String index = BuilderFactory.DOCS_TYPE;
+        String query = new String("redhat");
+        List<Result> results = indexMgr.search(index, query, "en");
+        System.out.println("Number of results returned is " + results.size());
+        assertTrue(results.size() >= 1);
 
     }
 

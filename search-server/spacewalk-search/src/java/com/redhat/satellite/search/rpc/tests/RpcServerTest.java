@@ -10,7 +10,7 @@ public class RpcServerTest extends BaseTestCase {
     protected Class[] getComponentClasses() {
         return TestUtil.buildComponentsList(RpcServer.class);
     }
-    
+
     public void testStopServer() {
         RpcServer server = (RpcServer)
             container.getComponentInstanceOfType(RpcServer.class);
