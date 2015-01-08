@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -169,8 +169,8 @@ EOQ
   $self->commit_defaults($dbh);
 
   #commit interpreter pre/post scripts if interpreter script and interpreter cli supplied
-  $self->commit_int_script('pre', $dbh)  if ( $self->interpreter_pre_script && $self->interpreter_pre_val ); 
-  $self->commit_int_script('post', $dbh) if ( $self->interpreter_post_script && $self->interpreter_post_val ); 
+  $self->commit_int_script('pre', $dbh)  if ( $self->interpreter_pre_script && $self->interpreter_pre_val );
+  $self->commit_int_script('post', $dbh) if ( $self->interpreter_post_script && $self->interpreter_post_val );
 
 # commands and packages:
 
@@ -312,7 +312,7 @@ EOQ
     $sth = $dbh->prepare(<<EOQ);
 INSERT
   INTO rhnKickstartDefaults
-       (kickstart_id, kstree_id, server_profile_id, 
+       (kickstart_id, kstree_id, server_profile_id,
         cfg_management_flag, remote_command_flag)
 VALUES (:id, :kstree_id, :server_profile_id, :cfg_management_flag,
         :remote_command_flag)
@@ -342,11 +342,11 @@ sub commit_int_script {
   my $existing;  # update/insert mode
 
   $sth = $dbh->prepare(<<EOQ);
-SELECT 1 
-  FROM   rhnKickstartScript 
+SELECT 1
+  FROM   rhnKickstartScript
   WHERE  1=1
   AND    kickstart_id = :ksid
-  AND    script_type = :stype 
+  AND    script_type = :stype
 EOQ
 
   $sth->execute_h(ksid => $self->id
@@ -357,8 +357,8 @@ EOQ
   if ($existing) { #update record, already existing
     $sth = $dbh->prepare(<<EOQ);
 UPDATE rhnKickstartScript
-   SET interpreter = :interpreter 
-       , data = :script_data 
+   SET interpreter = :interpreter
+       , data = :script_data
        , modified = sysdate
    WHERE 1=1
    AND   kickstart_id = :ksid
@@ -389,16 +389,16 @@ INSERT
 EOQ
 
     $sth->execute_h(ksid => $self->id
-                                , position    => $position_order 
+                                , position    => $position_order
                     , stype       => $stype
-                    , interpreter => $interpreter_value 
+                    , interpreter => $interpreter_value
                     , script_data  => $dbh->encode_blob($interpreter_script, 'data') );
 
   } # end of insert
 
   $dbh->commit;
 
-}   # end of sub 
+}   # end of sub
 
 sub lookup {
   my $class = shift;
@@ -564,14 +564,14 @@ EOQ
   $query =<<EOQ;
 SELECT script_type
        , interpreter
-       , data 
+       , data
 FROM   rhnKickstartScript
-WHERE  1=1 
+WHERE  1=1
 AND    kickstart_id = :id
 EOQ
-  
+
   $sth = $dbh->prepare($query);
-  $sth->execute_h(id => $ks->id);  
+  $sth->execute_h(id => $ks->id);
 
   while (my ($type, $inter, $inter_data) = $sth->fetchrow) {
     if ($type eq 'pre') {
@@ -582,7 +582,7 @@ EOQ
           $ks->interpreter_post_script($inter_data);
       $ks->interpreter_post_val($inter);
     }
-  } 
+  }
 
   return $ks;
 }

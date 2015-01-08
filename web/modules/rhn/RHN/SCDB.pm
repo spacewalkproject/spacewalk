@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::SCDB;
@@ -36,7 +36,7 @@ use constant INSTANCE_DEFAULTS => (
 );
 
 
-# 
+#
 # Note:  'fetch' could possibly be a class method, as there is little
 #         config data.
 #
@@ -174,7 +174,7 @@ RHN::SCDB - State Change Database (SCDB) access
 
 =head1 DESCRIPTION
 
-RHN::SCDB provides read-only access to the monitoring 
+RHN::SCDB provides read-only access to the monitoring
 State Change Database (SCDB).
 
 =head1 METHODS
@@ -190,7 +190,7 @@ of the SCDB web interface.
 
 Fetches SCDB data.  Required parameters include the probe ID
 ('probe_id') and a time range in Unix epoch format ('start' ..
-'end').   Returns a list of lists, each element of which is a 
+'end').   Returns a list of lists, each element of which is a
 [time, state, message] tuple.
 
 =back

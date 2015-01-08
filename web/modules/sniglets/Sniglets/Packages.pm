@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -106,7 +106,7 @@ sub package_dependencies {
           $dep_list .= '&gt;';
         } elsif ($dep->[2] & 2) {
           $dep_list .= '&lt;';
-        } 
+        }
         if ($dep->[2] & 8) {
           $dep_list .= '=';
         }
@@ -210,7 +210,7 @@ sub package_details {
 
     my @patch_patch_sets = $package->patch_sets;
 
-    $subst{package_solaris_patch_sets_containing_patch} = 
+    $subst{package_solaris_patch_sets_containing_patch} =
       join("<br/>\n",
            map { sprintf(q(<a href="/rhn/software/packages/Details.do?pid=%d">%s - %s</a>),
                          $_->{ID}, $_->{NVRE}, $_->{SET_DATE})
@@ -340,7 +340,7 @@ sub sscd_confirm_package_removals_cb {
 
   if ($pxt->dirty_param('sscd_confirm_package_removals') || $pxt->dirty_param('sscd_confirm_patch_removals')) {
     my $earliest = Sniglets::ServerActions->parse_date_pickbox($pxt);
-    
+
     my $pkglbl = 'sscd_removable_package_list';
     $pkglbl =~ s/package/patch/ if $pxt->dirty_param('sscd_confirm_patch_removals');
 
@@ -375,8 +375,8 @@ sub sscd_confirm_package_installations_cb {
   my $pxt = shift;
   my $mode = $pxt->dirty_param('mode') || '';
 
-  if ($pxt->dirty_param('sscd_confirm_package_installations') or 
-      $pxt->dirty_param('sscd_confirm_patch_installations') or 
+  if ($pxt->dirty_param('sscd_confirm_package_installations') or
+      $pxt->dirty_param('sscd_confirm_patch_installations') or
       $pxt->dirty_param('sscd_confirm_patchset_installations') ) {
 
     my $earliest = Sniglets::ServerActions->parse_date_pickbox($pxt);
@@ -390,7 +390,7 @@ sub sscd_confirm_package_installations_cb {
     if ( $pxt->dirty_param('sscd_confirm_patch_installations') ) {
       $pkgtype = 'Patch';
       $pkglbl =  'patch_installable_list';
-    } 
+    }
     elsif ( $pxt->dirty_param('sscd_confirm_patchset_installations') ) {
       $pkgtype = 'Patch Cluster';
       $pkglbl =  'patchset_installable_list';

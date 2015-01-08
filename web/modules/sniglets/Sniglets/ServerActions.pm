@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -348,7 +348,7 @@ sub reschedule_action_cb {
   my $action = RHN::Action->lookup(-id => $action_id);
   my $action_name = $action->name;
   $action_name = $action->action_type_name;
-  
+
   #my $earliest_date = Sniglets::ServerActions->parse_date_pickbox($pxt);
   my $server_id = $pxt->param('sid');
   RHN::Scheduler->reschedule_action(-action_id => $action_id, -org_id => $pxt->user->org_id,

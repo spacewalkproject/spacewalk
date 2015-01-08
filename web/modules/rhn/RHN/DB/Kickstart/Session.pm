@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -91,7 +91,7 @@ sub new {
   my $class = shift;
   my $self = $class->create;
   my %params = validate(@_, {kickstart_id => 0, kickstart_mode => 0, kstree_id => 0, org_id => 1, old_server_id => 0,
-                             new_server_id => 0, server_profile_id => 0, action_id => 0, scheduler => 0 
+                             new_server_id => 0, server_profile_id => 0, action_id => 0, scheduler => 0
                  });
 
   foreach my $attr (keys %params) {

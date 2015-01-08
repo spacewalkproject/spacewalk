@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::DB::SatCluster;
@@ -36,7 +36,7 @@ our $VERSION = (split(/s+/, q$Id$, 4))[2];
 use constant INSTANCE_DEFAULTS => (
 );
 
-# 
+#
 # Notes:
 #   - TARGET_TYPE should always be 'CLUSTER'.
 #   - PHYSICAL_LOCATION_ID should always be 1.
@@ -47,7 +47,7 @@ use constant INSTANCE_DEFAULTS => (
 #   - RECID should be an RHN server ID (RHNSERVER.ID); CUSTOMER_ID should
 #     be that server's ORG_ID.  (Note that RECID must be provided, not
 #     created.)
-#     
+#
 
 # Development notes:
 #  - I'm thinking we don't need a SatNode.pm.  This module will
@@ -147,7 +147,7 @@ sub create_new {
     }
   }
 
-  # Fetch two IDs from RHN_COMMAND_TARGET_RECID_SEQ to act 
+  # Fetch two IDs from RHN_COMMAND_TARGET_RECID_SEQ to act
   # as the sat_cluster recid and sat_node recid
   $sql = q{
     SELECT sequence_nextval('RHN_COMMAND_TARGET_RECID_SEQ')
@@ -382,7 +382,7 @@ RHN::DB::SatCluster - Monitoring scout clusters ("sat clusters")
 =head1 SYNOPSIS
 
   use RHN::DB::SatCluster;
-  
+
   <<INSERT SAMPLE CODE HERE>>
 
 =head1 DESCRIPTION

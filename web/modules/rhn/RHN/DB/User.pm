@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -161,7 +161,7 @@ EOQ
   # role stack if it isn't there already.  This same mechanism can be used
   # any time we want the org_admin role to imply another role.
 
-  my %implied = map { $_ => 1 } 
+  my %implied = map { $_ => 1 }
       qw/channel_admin config_admin system_group_admin activation_key_admin monitoring_admin/;
   if (exists $roles{org_admin}) {
     for my $role ($ret->org->available_roles) {
@@ -1194,7 +1194,7 @@ sub verify_contact_group_access {
 SELECT 1
   FROM rhn_contact_groups CG
  WHERE CG.recid = ?
-   AND CG.customer_id = ? 
+   AND CG.customer_id = ?
 EOW
 
     foreach my $cg_id (@cg_ids) {
@@ -1403,9 +1403,9 @@ sub access_to_servergroup {
   my $self = shift;
   my $sgid = shift;
 
-  my $dbh = RHN::DB->connect; 
+  my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOS);
-SELECT DISTINCT SG.id 
+SELECT DISTINCT SG.id
   FROM rhnServerGroup SG, rhnUserManagedServerGroups UMSG
  WHERE UMSG.user_id = :user_id
    AND UMSG.server_group_id = :sg_id
@@ -1498,7 +1498,7 @@ EOQ
 }
 
 ##
- # Sees if user exists in rhnWebContactDisabled view. 
+ # Sees if user exists in rhnWebContactDisabled view.
  # If so, return true(1). Otherwise, the user is an active
  # user so return false(0).
 ##

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -69,7 +69,7 @@ my @c_fields = (qw/ID SERVER_ID CPU_ARCH_ID BOGOMIPS CACHE FAMILY/,
 
 # fields in the rhnServerArch table
 # One weird thing:  the arch in the rhnCpu table can be differnent
-# than the one in the rhnServer table.  This is either a bug, or 
+# than the one in the rhnServer table.  This is either a bug, or
 # we're simply setting the rhnCpu.arch field to be the minimum value
 # for that family of processors.  We should *really* figure out why
 # this is happening...
@@ -197,7 +197,7 @@ sub is_virtual {
 sub is_virtual_host {
   my $self = shift;
 
-  if (defined $self-> virtual_host_details() || 
+  if (defined $self-> virtual_host_details() ||
         ($self -> has_entitlement("virtualization_host") ||
          $self -> has_entitlement("virtualization_host_platform"))) {
     return 1;
@@ -351,7 +351,7 @@ sub system_list_count {
   my $class = shift;
   my $user_id = shift;
   my $dbh = RHN::DB->connect;
-  
+
   my $sth = $dbh->prepare(<<EOS);
 SELECT count(*) from rhnSet
          where label = 'system_list'
@@ -1056,7 +1056,7 @@ sub unscheduled_errata {
   throw "no user id" unless $user_id;
 
   my $ds = new RHN::DataSource::Errata;
-  $ds->mode('unqueued_relevant_to_system'); 
+  $ds->mode('unqueued_relevant_to_system');
 # Not 'unscheduled' because the system details 'Pending' page does not
 # show 'Picked Up' actions - they are on the history page
 
@@ -1465,22 +1465,22 @@ sub virtual_host_details {
 
   my $dbh = RHN::DB->connect();
   my $sth = $dbh->prepare(<<EOQ);
-SELECT VI.id, 
-       VI.host_system_id, 
-       VI.UUID, 
-       VII.memory_size_k, 
-       VII.vcpus, 
-       VIT.name as TYPE_NAME, 
-       VIT.label AS TYPE_LABEL, 
-       VIS.name AS STATE_NAME, 
-       VIS.label AS STATE_LABEL, 
-       S.name AS HOST_SYSTEM_NAME 
+SELECT VI.id,
+       VI.host_system_id,
+       VI.UUID,
+       VII.memory_size_k,
+       VII.vcpus,
+       VIT.name as TYPE_NAME,
+       VIT.label AS TYPE_LABEL,
+       VIS.name AS STATE_NAME,
+       VIS.label AS STATE_LABEL,
+       S.name AS HOST_SYSTEM_NAME
 FROM rhnVirtualInstance VI
     inner join rhnVirtualInstanceInfo VII on VII.instance_id = VI.id
-    inner join rhnVirtualInstanceType VIT on VIT.id = VII.instance_type 
+    inner join rhnVirtualInstanceType VIT on VIT.id = VII.instance_type
     inner join rhnVirtualInstanceState VIS on VIS.id = VII.state
     inner join rhnServer S on VI.host_system_id = S.id
-WHERE 
+WHERE
     VI.host_system_id = :sid
 EOQ
 

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::DB::Scheduler;
@@ -596,7 +596,7 @@ sub sscd_schedule_package_installations {
   my %actions;
 
   # figure out what all the different actions we're going to need to create are...
-  if (($label eq 'patch_installable_list') or 
+  if (($label eq 'patch_installable_list') or
       ($label eq 'patchset_installable_list')) {
         # for patch and package we get in rhnSet.element rhnPackage.name_id
         # and in element_two is evr

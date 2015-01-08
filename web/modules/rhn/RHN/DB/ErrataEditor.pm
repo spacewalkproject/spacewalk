@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -104,7 +104,7 @@ DELETE FROM rhnErrataKeywordTmp
 EOQ
   $sth = $dbh->prepare($query);
   $sth->execute_h(temp_eid => $temp_eid);
-  
+
   $query =<<EOQ;
 INSERT
   INTO rhnErrataCloned
@@ -279,7 +279,7 @@ INSERT
 EOQ
   $sth = $dbh->prepare($query);
   $sth->execute_h(new_eid => $new_eid, old_eid => $old_eid);
-  
+
   $query =<<EOQ;
 INSERT
   INTO rhnErrataClonedTmp
@@ -290,7 +290,7 @@ EOQ
 
   $sth = $dbh->prepare($query);
   $sth->execute_h(new_eid => $new_eid, old_eid => $old_eid);
-  
+
 
   return ($new_eid);
 }

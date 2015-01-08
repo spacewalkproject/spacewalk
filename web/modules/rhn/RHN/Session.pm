@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::Session;
@@ -206,7 +206,7 @@ sub serialize {
 
 =head1 NAME
 
-RHN::Session 
+RHN::Session
 
 Database session handling for the RHN used internally by PXT. This class
 does not handle cookies directly. Sessions are stored into the database under the table
@@ -229,7 +229,7 @@ hash structure (see Storable and $session->set and $session->get)
 
 =back
 
-=head1 SYNOPSIS 
+=head1 SYNOPSIS
 
 use RHN::Session;
 

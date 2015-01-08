@@ -80,7 +80,7 @@ sub command_extend {
     return 1;
   }
 
-  
+
   print "Extending $ts... ";
   my $fn = next_filename($cli, $file);
   my $size = $bytes / 1024;
@@ -127,7 +127,7 @@ sub gather_stats {
     print "Error: The database must be running to gather statistics.\n";
     return 1;
   }
-    
+
   print "Gathering statistics...\n";
   print "WARNING: this may be a very slow process.\n";
   if($backend eq 'postgresql') {

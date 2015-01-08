@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use RHN::Exception;
@@ -91,18 +91,18 @@ sub configfile_copy_files_cb {
       # check to see if we are over quota, if so let user know
       if ($@) {
         my $E = $@;
-                                                                                                                        
+
         $transaction->nested_rollback;
-                                                                                                                        
+
         die $E unless (ref $E and $E->isa('RHN::Exception'));
-                                                                                                                        
+
         if ($E->is_rhn_exception('not_enough_quota')) {
           $pxt->push_message(local_alert => 'Insufficient available quota for the specified action!');
         }
         else {
           throw $E;
         }
-                                                                                                                        
+
         return;
       }
     }

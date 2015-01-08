@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -194,15 +194,15 @@ sub channel_edit_cb {
       $errors++;
     }
   }
-  
+
   #bugzilla  175845 - restrict child channels arches
   if($new_channel and $parent_id){
           my $parent_channel = RHN::Channel->lookup(-id => $parent_id);
           my $archmap = RHN::ChannelEditor->channel_base_arch_map;
-                
+
           my $parent_arch = $archmap->{$parent_channel->channel_arch_id}->{NAME};
           my $child_arch = $archmap->{$pxt->dirty_param("channel_arch")}->{NAME};
-          
+
           if(verify_arch_compat($parent_arch, $child_arch) == 0){
                 $pxt->push_message(local_alert => "The child channel arch $child_arch is not compatible with a parent channel arch of $parent_arch");
                 $errors++;
@@ -357,8 +357,8 @@ sub populate_channel_list {
   my @channel_list = ();
   my @base_channel_list = RHN::ChannelEditor->base_channels_visible_to_org($org_id);
   foreach my $base (@base_channel_list) {
-    push (@channel_list, { NAME => $base->{NAME}, 
-                    ID => $base->{ID}, 
+    push (@channel_list, { NAME => $base->{NAME},
+                    ID => $base->{ID},
                     DEPTH => 1});
     my @child_channel_list = RHN::ChannelEditor->child_channels_visible_to_org_from_base($org_id, $base->{ID});
     foreach my $child (@child_channel_list) {
@@ -665,7 +665,7 @@ sub channel_select_options {
     my @additional_channels = ();
     foreach my $tmp_channel (@additional_channels_hash) {
       push (@additional_channels, [$tmp_channel->{DEPTH} == 1 ?
-                      $tmp_channel->{NAME} : '&#160;&#160;' . $tmp_channel->{NAME}, 
+                      $tmp_channel->{NAME} : '&#160;&#160;' . $tmp_channel->{NAME},
                       'channel_' . $tmp_channel->{ID}]);
     }
 

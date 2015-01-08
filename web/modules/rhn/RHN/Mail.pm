@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::Mail;
@@ -86,7 +86,7 @@ sub send {
   $header{From} = $from;
   $header{To} = delete $params{to};
   $header{Cc} = delete $params{cc};
-  
+
   $header{Subject} = delete $params{subject};
 
   # set up rest of the headers and make sure we're not doing something naughty w/ any of them...
@@ -120,7 +120,7 @@ sub send {
 
   $output .= "From: $header{From}\n";
   $output .= "Subject: $header{Subject}\n";
-  
+
   delete @header{qw/To Cc Bcc From Subject/};
 
   $output .= "$_: $header{$_}\n" foreach keys %header;
@@ -142,7 +142,7 @@ sub send {
   $ENV{PATH} = "/bin:/usr/bin";
 
   my $command = join(' ', @command);
-  
+
   open SM, "|$command"
     or die "Can't spawn sendmail: $!";
 

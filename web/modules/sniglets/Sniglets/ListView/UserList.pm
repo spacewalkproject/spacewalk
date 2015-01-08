@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package Sniglets::ListView::UserList;
@@ -75,11 +75,11 @@ sub row_callback {
   if (exists $row->{LAST_LOGGED_IN} and $row->{LAST_LOGGED_IN}) {
     $row->{LAST_LOGGED_IN} = $pxt->user->convert_time($row->{LAST_LOGGED_IN}, "%F %r %Z");
   }
-  
+
   if (exists $row->{ID}) { #See if user is disabled and add it to the row info
     my $user = RHN::User->lookup(-id => $row->{ID});
     #Mark user either disabled or active
-    $row->{DISABLED} = "Active";    
+    $row->{DISABLED} = "Active";
     if ($user->is_disabled()) {
       $row->{DISABLED} = "Disabled";
     }
@@ -239,7 +239,7 @@ sub update_channel_roles {
   }
 
   my @blessed_users = $user->org->users_in_org_with_channel_role(-cid => $cid, -role => $attr{role});
- 
+
   my $set = RHN::Set->lookup(-label => $attr{set_label}, -uid => $user->id);
   my @new_users = $set->contents;
 
@@ -247,10 +247,10 @@ sub update_channel_roles {
   my %seen = ();
   @seen{@new_users} = (); #lookup table
 
-  # determine blessed users who are not new users and remove manage role 
+  # determine blessed users who are not new users and remove manage role
   for my $item (@blessed_users) { push ( @remove_users, $item ) unless exists $seen{$item}; }
   $user->org->remove_channel_permissions(-uids => \@remove_users, -cid => $cid, -role => $attr{role});
- 
+
   # reset new users role that are selected
   $user->org->reset_channel_permissions(-uids => \@new_users, -cid => $cid, -role => $attr{role});
 

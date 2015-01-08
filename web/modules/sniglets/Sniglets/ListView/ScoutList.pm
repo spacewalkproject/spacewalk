@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -42,10 +42,10 @@ sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "scouts_for_org",
                                      -datasource => new RHN::DataSource::Simple(-querybase => "scout_queries"),
                                      -action_callback => \&push_config_cb);
-                                     
+
   Sniglets::ListView::List->add_mode(-mode => "scouts_all",
                                      -datasource => new RHN::DataSource::Simple(-querybase => "scout_queries"),
-                                     -action_callback => \&push_config_cb);                                  
+                                     -action_callback => \&push_config_cb);
 }
 
 sub row_callback {

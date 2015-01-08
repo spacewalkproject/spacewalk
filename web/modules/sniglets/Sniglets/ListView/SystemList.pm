@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -252,26 +252,26 @@ sub add_systems_to_namespace_cb {
     my $ccid = $pxt->param('ccid');
     throw "No config channel."
       unless $ccid;
-   
+
     my $cc = RHN::ConfigChannel->lookup(-id => $ccid);
-   
+
     my $set_label = $pxt->dirty_param('set_label') || 'target_systems';
-   
+
     my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-   
+
     my @systems = $set->contents;
 
     throw sprintf('user (%d) does not have access to one or more systems: (%s)', $pxt->user->id, join(', ', @systems))
       unless $pxt->user->verify_system_access(@systems);
-   
+
     foreach my $sid ( @systems ) {
       my @local_channel_ids = ();
       my @global_channel_ids = ();
-   
+
       my $server = RHN::Server->lookup(-id => $sid);
-   
+
       my @existing_config_channels = $server->config_channels;
-   
+
       # while gathering channel ids, separate local config channel;s
       # from global config channels
       foreach my $chan (@existing_config_channels) {
@@ -283,7 +283,7 @@ sub add_systems_to_namespace_cb {
           push @global_channel_ids, $chan->{ID};
         }
       }
-   
+
       # highest rank (this config channel overrides all others)
       if ($label eq 'hi_rank') {
         unshift @global_channel_ids, $ccid
@@ -292,34 +292,34 @@ sub add_systems_to_namespace_cb {
       elsif ($label eq 'lo_rank') {
         push @global_channel_ids, $ccid
       }
-   
-      # assemble config channels to finall array 
+
+      # assemble config channels to finall array
       my @new_channel_ids = @local_channel_ids;
       push @new_channel_ids, @global_channel_ids;
-   
+
       unless ($pxt->user->verify_config_channel_access(@new_channel_ids)) {
         $pxt->redirect("/errors/permission.pxt");
       }
-   
-   
+
+
       # do the deed
       RHN::Server->set_normal_config_channels(-server_ids => [$sid],
                                               -config_channel_ids => [@new_channel_ids],
                                              );
-   
-       
+
+
     }
-   
+
     RHN::Server->snapshot_set(-reason => "Config channel alteration",
                               -set_label => $set_label,
                               -user_id => $pxt->user->id,
                              );
-   
+
     $pxt->push_message(site_info => sprintf("<strong>%d</strong> system%s added to <strong>%s</strong> config channel with %s rank.", scalar(@systems), (scalar(@systems) == 1 ? '' : 's'), PXT::Utils->escapeHTML($cc->name), ($label eq 'hi_rank' ? 'highest' : 'lowest')));
-   
+
     $set->empty;
     $set->commit;
-   
+
   }
 
 
@@ -335,7 +335,7 @@ sub selected_systems_installed_package_provider {
 
   PXT::Debug->log(7, "name_id == $name_id, evr_id = $evr_id");
 
-  my %ret = $self->default_provider($pxt, 
+  my %ret = $self->default_provider($pxt,
               -name_id => $name_id, -evr_id => $evr_id);
 
   return (%ret);
@@ -392,7 +392,7 @@ sub system_set_remove_packages_conf_provider {
   my $self = shift;
   my $pxt = shift;
 
-  my %ret = $self->default_provider($pxt, 
+  my %ret = $self->default_provider($pxt,
               -package_set_label => 'sscd_removable_package_list');
 
   my $server_id = $pxt->param('sid') || '';
@@ -442,7 +442,7 @@ sub system_set_remove_patches_conf_provider {
   my $self = shift;
   my $pxt = shift;
 
-  my %ret = $self->default_provider($pxt, 
+  my %ret = $self->default_provider($pxt,
               -package_set_label => 'sscd_removable_patch_list');
 
   foreach my $row (@{$ret{data}}) {
@@ -456,20 +456,20 @@ sub system_set_verify_packages_conf_provider {
   my $self = shift;
   my $pxt = shift;
 
-  my %ret = $self->default_provider($pxt, 
+  my %ret = $self->default_provider($pxt,
               -package_set_label => 'sscd_verify_package_list');
   my $server_id = $pxt->param('sid') || '';
   foreach my $row (@{$ret{data}}) {
     my $num_packages = scalar @{$row->{NVRE}}; #list at most 6 packages
-    if ( $num_packages > 6 && ( $server_id ne $row->{ID} ) ) { #give user option to expand 
-      $row->{NVRES_TO_VERIFY} = 
-            join("<br />\n", @{$row->{NVRE}}[0..5], 
+    if ( $num_packages > 6 && ( $server_id ne $row->{ID} ) ) { #give user option to expand
+      $row->{NVRES_TO_VERIFY} =
+            join("<br />\n", @{$row->{NVRE}}[0..5],
             "<a href=\"verify_conf.pxt?sid=$row->{ID}\">[expand package list]</a>
              <b>($num_packages total packages)</b>");
     }
     else {
       $row->{NVRES_TO_VERIFY} = "<a href=\"verify_conf.pxt\">[collapse package list]</a><br/>\n"
-        if $server_id eq $row->{ID}; #give user option to collapse list 
+        if $server_id eq $row->{ID}; #give user option to collapse list
       $row->{NVRES_TO_VERIFY} .= join("<br />\n", @{$row->{NVRE}});
     }
   }

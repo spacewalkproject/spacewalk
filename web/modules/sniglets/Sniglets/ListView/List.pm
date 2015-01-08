@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -167,13 +167,13 @@ sub style {
   my $style = shift;
 
   if (defined $style) {
-    #used for systems selected javascript 
+    #used for systems selected javascript
     if ($self->listview) {
       $self->{__style__} = new Sniglets::ListView::Style($style, $self->listview->set_label);
     }
     else {
       $self->{__style__} = new Sniglets::ListView::Style($style);
-    } 
+    }
   }
 
   return $self->{__style__};
@@ -604,7 +604,7 @@ sub render_select_buttons {
     if ($self->{__any_selectable_rows__}) {
       $button_str = qq(<span class="list-selection-buttons">) . $button_str . qq(</span>) ;
     }
-    
+
   }
 
   $block = PXT::Utils->perform_substitutions($block, {control_area => $button_str});
@@ -1048,14 +1048,14 @@ sub render {
     my $html = $row_template;
 
     $self->incr_row_counter($row, $pxt);
-    
+
     # If we're displaying a list that has disabled set in it (like a user list),
     # display the correct css
     if (exists $row->{DISABLED} and $row->{DISABLED} eq 'Disabled') {
       $html =~ s/\{row-class\}/$self->row_counter() % 2 ? $row_class_odd . "-disabled" : $row_class_even . "-disabled"/eg
     }
     else {
-      $html =~ s/\{row-class\}/$self->row_counter() % 2 ? $row_class_odd : $row_class_even/eg; 
+      $html =~ s/\{row-class\}/$self->row_counter() % 2 ? $row_class_odd : $row_class_even/eg;
     }
 
     my $checkbox_html = '';

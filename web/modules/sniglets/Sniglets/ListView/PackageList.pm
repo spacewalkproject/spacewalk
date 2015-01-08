@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -75,7 +75,7 @@ sub _register_modes {
                            -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "packages_in_channel",
-                           -provider => \&packages_in_channel_provider, 
+                           -provider => \&packages_in_channel_provider,
                            -datasource => RHN::DataSource::Package->new,
                            -action_callback => \&default_callback);
 
@@ -169,7 +169,7 @@ sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "channel_errata_comparison",
                            -datasource => RHN::DataSource::Package->new,
-                           -provider => \&channel_errata_comparison_provider,     
+                           -provider => \&channel_errata_comparison_provider,
                            -action_callback => \&default_callback);
 
   Sniglets::ListView::List->add_mode(-mode => "channel_errata_intersection",
@@ -408,7 +408,7 @@ sub packages_available_to_channel_provider {
 
   my $mode = $pxt->param('view_channel') || '';
   # capture if we are working w/solaris channel
-  my $solpkgmode = $channel->is_solaris();  
+  my $solpkgmode = $channel->is_solaris();
 
   if ($mode eq 'no_channels') {
     if( $solpkgmode ) {
@@ -416,7 +416,7 @@ sub packages_available_to_channel_provider {
     }
     else {
       $ds->mode('unused_packages_available_to_channel');
-    } 
+    }
     $params{-org_id} = $pxt->user->org_id;
     $params{-cid} = $cid;
   }
@@ -858,10 +858,10 @@ sub delete_packages_cb {
 
   $set->empty;
   $set->commit;
-  
+
   my $dbh = RHN::DB->connect();
   my $rrqh = $dbh->prepare(<<EOQ);
-INSERT 
+INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
 VALUES (sequence_nextval('rhn_repo_regen_queue_id_seq'),
@@ -872,7 +872,7 @@ EOQ
     my $channel = RHN::Channel->lookup(-id => $cid);
         $rrqh->execute_h(label => $channel->label);
   }
-  
+
 
   my $channel_count = scalar(@channels);
   $pxt->push_message(site_info => sprintf("<strong>%d</strong> package%s deleted from <strong>%d</strong> channel%s.",
@@ -913,7 +913,7 @@ sub remove_packages_cb {
 
   foreach my $action_id (keys %{$actions_scheduled}) {
     my $package_count = scalar @{$actions_scheduled->{$action_id}};
-    $pxt->push_message(site_info => 
+    $pxt->push_message(site_info =>
                        sprintf('<strong>%d</strong> package removal%s been <a href="/rhn/schedule/ActionDetails.do?aid=%d">scheduled</a> for <a href="/rhn/systems/details/Overview.do?sid=%d"><strong>%s</strong></a>.',
                              $package_count, $package_count == 1 ? ' has' : 's have', $action_id,
                              $sid, PXT::Utils->escapeHTML($system->name)));
@@ -1141,7 +1141,7 @@ sub row_callback {
                                       -alt => $row->{ADVISORY_TYPE},
                                       -title => $row->{ADVISORY_TYPE}) . ' &#160;' . $row->{ADVISORY};
   }
-  elsif (($self->{__mode__}->{__name__} eq "packages_from_server_set") || 
+  elsif (($self->{__mode__}->{__name__} eq "packages_from_server_set") ||
          ($self->{__mode__}->{__name__} eq "verify_packages_from_server_set" ) ||
          ($self->{__mode__}->{__name__} eq "patches_from_server_set")) {
 
