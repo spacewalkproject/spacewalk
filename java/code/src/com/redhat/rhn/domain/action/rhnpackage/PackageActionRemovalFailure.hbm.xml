@@ -3,26 +3,26 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.action.rhnpackage.PackageActionRemovalFailure"
+        <class name="com.redhat.rhn.domain.action.rhnpackage.PackageActionRemovalFailure"
            table="rhnActionPackageRemovalFailure" >
-		<composite-id>
+                <composite-id>
             <key-many-to-one
                 name="server"
                 class="com.redhat.rhn.domain.server.Server"
-            	column="server_id"/>
+                column="server_id"/>
 
             <key-many-to-one
-	           	name="action"
-	            class="com.redhat.rhn.domain.action.Action"
-	            column="action_id"/>
+                        name="action"
+                    class="com.redhat.rhn.domain.action.Action"
+                    column="action_id"/>
 
             <key-many-to-one
-           	 	name="packageName"
-            	class="com.redhat.rhn.domain.rhnpackage.PackageName"
-            	column="name_id"/>
+                        name="packageName"
+                class="com.redhat.rhn.domain.rhnpackage.PackageName"
+                column="name_id"/>
         </composite-id>
-		
-		<property name="flags" type="long" column="flags"/>
+
+                <property name="flags" type="long" column="flags"/>
         <property name="sense" type="long" column="sense"/>
 
         <many-to-one
@@ -40,10 +40,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             class="com.redhat.rhn.domain.rhnpackage.PackageName"
             column="suggested"/>
 
-	</class>
+        </class>
     <query name="PackageActionRemovalFailure.findByKey">
         <![CDATA[from com.redhat.rhn.domain.action.rhnpackage.PackageActionRemovalFailure
-        		   as p
+                           as p
                 where p.server = :server
                   and p.action = :action
                   and p.packageName = :packageName]]>

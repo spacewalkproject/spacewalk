@@ -434,7 +434,7 @@ SELECT P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS nvrea,
        PP.name AS provider
   FROM rhnPackage P inner join
-  	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
        rhnPackageName PN on P.name_id = PN.id inner join
        rhnPackageEVR PE on P.evr_id = PE.id  inner join
        rhnChannelPackage CP on P.id = CP.package_id left join
@@ -1286,7 +1286,7 @@ SELECT P.id, PE.epoch, PE.version, PE.release
   <query params="path">
     INSERT INTO rhnPackageFileDeleteQueue
       (select :path ,current_timestamp from dual  where not exists
-	(select path from rhnPackageFileDeleteQueue where path = :path))
+        (select path from rhnPackageFileDeleteQueue where path = :path))
   </query>
 </write-mode>
 
@@ -1475,20 +1475,20 @@ ORDER BY CHANNEL_NAME DESC, EVR DESC
 SELECT distinct P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
-  	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-	   rhnPackageName PN on P.name_id = PN.id inner join
-	   rhnPackageEVR PE on P.evr_id = PE.id inner join
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageName PN on P.name_id = PN.id inner join
+           rhnPackageEVR PE on P.evr_id = PE.id inner join
        rhnChannelPackage CP on CP.package_id = P.id  inner join
        rhnChannelPackageArchCompat CPAC on CPAC.package_arch_id = P.package_arch_id inner join
        rhnChannelArch CA2 on CPAC.channel_arch_id = CA2.id inner join
        rhnChannel C2 on C2.channel_arch_id = CA2.id
  WHERE  CP.channel_id = :scid and
-		C2.id = :cid  and
-		P.id not in (
-			select CP2.package_id
+                C2.id = :cid  and
+                P.id not in (
+                        select CP2.package_id
             from rhnChannelPackage CP2
-			where CP2.channel_id = :cid
-		)
+                        where CP2.channel_id = :cid
+                )
   </query>
     <elaborator name="package_details" />
 </mode>
@@ -1498,19 +1498,19 @@ SELECT distinct P.id AS ID,
 SELECT distinct P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
-  	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-	   rhnPackageName PN on P.name_id = PN.id inner join
-	   rhnPackageEVR PE on P.evr_id = PE.id
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageName PN on P.name_id = PN.id inner join
+           rhnPackageEVR PE on P.evr_id = PE.id
  WHERE  P.org_id = :org_id and
-		not exists (
-			select P.id
+                not exists (
+                        select P.id
             from rhnChannelPackage CP2 inner join
              rhnPackage P2 on CP2.package_id = P2.id
- 			where CP2.channel_id = :cid and
- 				P2.name_id = PN.id and
- 				P2.evr_id = PE.id and
- 				P2.package_arch_id = PA.id
- 		)
+                        where CP2.channel_id = :cid and
+                                P2.name_id = PN.id and
+                                P2.evr_id = PE.id and
+                                P2.package_arch_id = PA.id
+                )
   </query>
     <elaborator name="package_details" />
 </mode>
@@ -1521,21 +1521,21 @@ SELECT distinct P.id AS ID,
 SELECT distinct P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
-  	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-	   rhnPackageName PN on P.name_id = PN.id inner join
-  	   rhnPackageEVR PE on P.evr_id = PE.id left join
-  	   rhnChannelPackage CP on P.id = CP.package_id
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageName PN on P.name_id = PN.id inner join
+           rhnPackageEVR PE on P.evr_id = PE.id left join
+           rhnChannelPackage CP on P.id = CP.package_id
  WHERE  (P.org_id = :org_id) and
- 		CP.channel_id is null and
-		not exists (
-			select P.id
+                CP.channel_id is null and
+                not exists (
+                        select P.id
             from rhnChannelPackage CP2 inner join
              rhnPackage P2 on CP2.package_id = P2.id
- 			where CP2.channel_id = :cid and
- 				P2.name_id = PN.id and
- 				P2.evr_id = PE.id and
- 				P2.package_arch_id = PA.id
- 		)
+                        where CP2.channel_id = :cid and
+                                P2.name_id = PN.id and
+                                P2.evr_id = PE.id and
+                                P2.package_arch_id = PA.id
+                )
   </query>
     <elaborator name="package_details" />
 </mode>
@@ -1546,12 +1546,12 @@ SELECT distinct P.id AS ID,
 SELECT distinct P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
-	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-	   rhnPackageName PN on P.name_id = PN.id inner join
-	   rhnPackageEVR PE on P.evr_id = PE.id left join
-	   rhnChannelPackage CP on CP.package_id = P.id
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageName PN on P.name_id = PN.id inner join
+           rhnPackageEVR PE on P.evr_id = PE.id left join
+           rhnChannelPackage CP on CP.package_id = P.id
  WHERE  P.org_id = :org_id and
-		CP.package_id is null
+                CP.package_id is null
   </query>
     <elaborator name="package_details" />
 </mode>
@@ -1562,9 +1562,9 @@ SELECT distinct P.id AS ID,
 SELECT distinct P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
-	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-	   rhnPackageName PN on P.name_id = PN.id inner join
-	   rhnPackageEVR PE on P.evr_id = PE.id
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageName PN on P.name_id = PN.id inner join
+           rhnPackageEVR PE on P.evr_id = PE.id
  WHERE  P.org_id = :org_id
   </query>
     <elaborator name="package_details" />
@@ -1577,12 +1577,12 @@ SELECT distinct P.id AS ID,
 SELECT distinct P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
-	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-	   rhnPackageName PN on P.name_id = PN.id inner join
-	   rhnPackageEVR PE on P.evr_id = PE.id left join
-	   rhnChannelPackage CP on P.id = CP.package_id
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageName PN on P.name_id = PN.id inner join
+           rhnPackageEVR PE on P.evr_id = PE.id left join
+           rhnChannelPackage CP on P.id = CP.package_id
  WHERE  (P.org_id = :org_id) and
-		CP.channel_id = :cid
+                CP.channel_id = :cid
   </query>
     <elaborator name="package_details" />
     <elaborator name="package_channels" />
@@ -1628,14 +1628,14 @@ SELECT distinct P.id AS ID,
 
 <mode name="guestimate_package_by_channel" >
   <query params="cid, nameId, evrId">
-	SELECT P.id
-	  FROM rhnPackage P,
-	       rhnChannelPackage CP
-	 WHERE CP.channel_id = :cid
-	   AND P.id = CP.package_id
-	   AND P.name_id = :nameId
-	   AND P.evr_id = :evrId
-	ORDER BY P.package_arch_id
+        SELECT P.id
+          FROM rhnPackage P,
+               rhnChannelPackage CP
+         WHERE CP.channel_id = :cid
+           AND P.id = CP.package_id
+           AND P.name_id = :nameId
+           AND P.evr_id = :evrId
+        ORDER BY P.package_arch_id
   </query>
 </mode>
 
@@ -1712,34 +1712,34 @@ ORDER BY P.package_arch_id DESC
 
 <write-mode name="insert_primary_xml">
    <query params="pid, xml">
-	update rhnPackageRepodata
-		set primary_xml = :xml
-	where package_id = :pid
+        update rhnPackageRepodata
+                set primary_xml = :xml
+        where package_id = :pid
    </query>
 </write-mode>
 
 <write-mode name="insert_filelist_xml">
    <query params="pid, xml">
-	update rhnPackageRepodata
-		set filelist = :xml
-	where package_id = :pid
+        update rhnPackageRepodata
+                set filelist = :xml
+        where package_id = :pid
    </query>
 </write-mode>
 
 <write-mode name="insert_other_xml">
    <query params="pid, xml">
-	update rhnPackageRepodata
-		set other = :xml
-	where package_id = :pid
+        update rhnPackageRepodata
+                set other = :xml
+        where package_id = :pid
    </query>
 </write-mode>
 
 <write-mode name="create_repo_entrys">
    <query params="cid">
-	insert into rhnPackageRepodata (package_id)
-		(select cp.package_id as id from rhnChannelPackage cp left join rhnPackageRepoData rd on cp.package_id = rd.package_id
-			where cp.channel_id = :cid
-			  and rd.package_id is null)
+        insert into rhnPackageRepodata (package_id)
+                (select cp.package_id as id from rhnChannelPackage cp left join rhnPackageRepoData rd on cp.package_id = rd.package_id
+                        where cp.channel_id = :cid
+                          and rd.package_id is null)
    </query>
 </write-mode>
 

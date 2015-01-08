@@ -77,16 +77,16 @@ WHERE  org.id != :org_id
 
 <mode name="get_total_entitlement_counts" class="com.redhat.rhn.frontend.dto.SystemEntitlementsDto">
   <query> SELECT   sgt.id as id,
-		sgt.label as label,
+                sgt.label as label,
             SUM(sg.max_members) as total,
             SUM(sg.current_members) as used,
             (SELECT (sg2.max_members) - (sg2.current_members)
              FROM rhnServerGroup sg2
-		inner join  rhnServerGroupType sgt2 on sg2.group_type = sgt2.id
-	         WHERE sg2.org_ID = 1
-	         AND sgt2.label = sgt.label) as available
+                inner join  rhnServerGroupType sgt2 on sg2.group_type = sgt2.id
+                 WHERE sg2.org_ID = 1
+                 AND sgt2.label = sgt.label) as available
    FROM     rhnServerGroup sg
-				inner join rhnServerGroupType sgt on sgt.id = sg.group_type
+                                inner join rhnServerGroupType sgt on sgt.id = sg.group_type
    WHERE    sgt.label != 'sw_mgr_entitled'
 GROUP BY sgt.label, sgt.id
 ORDER BY sgt.label
@@ -110,7 +110,7 @@ SELECT      wc.name as name,
    WHERE    1=1
    AND      sgt.id = sg.group_type
    AND      sgt.label = :label
-   AND 	    sg.max_members != 0
+   AND      sg.max_members != 0
    AND      wc.id = sg.org_id
 ORDER BY wc.name
   </query>

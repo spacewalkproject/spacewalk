@@ -3,17 +3,17 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.action.server.ServerAction"
-		   table="rhnServerAction" >
+        <class name="com.redhat.rhn.domain.action.server.ServerAction"
+                   table="rhnServerAction" >
 
         <composite-id>
-			<key-property name="serverId" column="server_id"/>
+                        <key-property name="serverId" column="server_id"/>
             <key-many-to-one
                  name="parentAction"
                  class="com.redhat.rhn.domain.action.Action"
                  column="action_id"/>
         </composite-id>
-		
+
         <property name="resultCode" column="result_code" type="long" />
         <property name="resultMsg" column="result_msg" type="string" length="1024" />
         <property name="pickupTime" column="pickup_time" type="timestamp" />
@@ -24,24 +24,24 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <many-to-one name="status"
             class="com.redhat.rhn.domain.action.ActionStatus"
             column="status" />
-		
-		<!-- we do this so that we don't have to load the whole server object as a key which is very expensive
-				this is the reason for insert="false" update="false" -->
-	    <many-to-one
+
+                <!-- we do this so that we don't have to load the whole server object as a key which is very expensive
+                                this is the reason for insert="false" update="false" -->
+            <many-to-one
             name="server"
             class="com.redhat.rhn.domain.server.Server"
             column="server_id" insert="false" update="false"/>
 
-	</class>
-	<query name="ServerAction.findPendingKickstartsForServer">
-	   <![CDATA[from com.redhat.rhn.domain.action.server.ServerAction as sa where sa.server.id = :serverId and sa.parentAction.actionType.label = :label
-	                and status in ( 0, 1 )]]>
-	</query>
-	
-	<query name="ServerAction.findByServer">
-	   <![CDATA[from com.redhat.rhn.domain.action.server.ServerAction as sa where sa.server = :server
-	                ]]>
-	</query>
+        </class>
+        <query name="ServerAction.findPendingKickstartsForServer">
+           <![CDATA[from com.redhat.rhn.domain.action.server.ServerAction as sa where sa.server.id = :serverId and sa.parentAction.actionType.label = :label
+                        and status in ( 0, 1 )]]>
+        </query>
+
+        <query name="ServerAction.findByServer">
+           <![CDATA[from com.redhat.rhn.domain.action.server.ServerAction as sa where sa.server = :server
+                        ]]>
+        </query>
 
         <query name="ServerAction.findByServerAndAction">
            <![CDATA[from com.redhat.rhn.domain.action.server.ServerAction as sa
@@ -50,7 +50,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </query>
 
     <query name="ServerAction.deleteByParentActions"><![CDATA[
-   		delete ServerAction sa where sa.parentAction in (:actions)
+                delete ServerAction sa where sa.parentAction in (:actions)
     ]]></query>
-	
+
 </hibernate-mapping>

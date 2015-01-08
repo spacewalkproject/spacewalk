@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="###CLASSNAME###" 
+    <class name="###CLASSNAME###"
         table="###TABLE###" >
         <id name="id" type="long" column="ID">
             <meta attribute="scope-set">protected</meta>

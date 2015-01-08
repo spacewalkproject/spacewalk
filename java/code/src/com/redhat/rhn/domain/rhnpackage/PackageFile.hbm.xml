@@ -6,14 +6,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <class name="com.redhat.rhn.domain.rhnpackage.PackageFile"
         table="rhnPackageFile">
 
-	   <composite-id>
+           <composite-id>
           <key-many-to-one name="pack"
                 class="com.redhat.rhn.domain.rhnpackage.Package"
                 column="package_id" />
           <key-many-to-one name="capability"
                 class="com.redhat.rhn.domain.rhnpackage.PackageCapability"
                 column="capability_id"/>
-	    </composite-id>
+            </composite-id>
 
 
         <property name="device"     type="long"   column="device"/>
@@ -24,12 +24,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="rdev"     type="long"   column="rdev"/>
         <property name="fileSize"     type="long"   column="file_size"/>
         <property name="mtime" type="date" column="mtime"/>
-		<property name="linkTo" type="string" column="linkto"/>
+                <property name="linkTo" type="string" column="linkto"/>
         <property name="flags"     type="long"   column="flags"/>
         <property name="verifyFlags"     type="long"   column="verifyflags"/>
         <property name="lang" type="string" column="lang"/>
 
-	<property name="created" column="created" type="timestamp"
+        <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>

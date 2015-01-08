@@ -13,10 +13,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">rhn_org_entitlement_type_id_seq</param>
             </generator>
         </id>
-		<property name="label" column="label" type="string" length="32" />
-		<property name="name" column="name" type="string" length="64" />
-		<property name="created" column="created" type="timestamp" insert="false" update="false" />
-		<property name="modified" column="modified" type="timestamp" insert="false" update="false" />
+                <property name="label" column="label" type="string" length="32" />
+                <property name="name" column="name" type="string" length="64" />
+                <property name="created" column="created" type="timestamp" insert="false" update="false" />
+                <property name="modified" column="modified" type="timestamp" insert="false" update="false" />
 
     </class>
     <query name="OrgEntitlementType.findByLabel">

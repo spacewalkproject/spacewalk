@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rhn-navi-tree label="configchannel_nav" invisible="1" formvar="ccid" title-depth="1"
                acl_mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-	<rhn-tab name="configchannel.nav.overview">
-		<rhn-tab-url>/rhn/configuration/ChannelOverview.do</rhn-tab-url>
-	</rhn-tab>
-	<rhn-tab name="configchannel.nav.list" url="/rhn/configuration/ChannelFiles.do"
-	         acl="config_channel_has_files()">
-		<rhn-tab-url>/rhn/configuration/ChannelFiles.do</rhn-tab-url>
-		<rhn-tab-url>/rhn/configuration/channel/Copy2Systems.do</rhn-tab-url>
-		<rhn-tab-url>/rhn/configuration/channel/Copy2Channels.do</rhn-tab-url>
-		<rhn-tab-url>/configuration/channel/ChannelSystems.do</rhn-tab-url>
-		<rhn-tab-url>/configuration/channel/ChannelSystemsSubmit.do</rhn-tab-url>
-	</rhn-tab>
-	<rhn-tab name="configchannel.nav.add" url="/rhn/configuration/ChannelUploadFiles.do"
-	         acl="config_channel_editable()">
-		<rhn-tab name="configchannel.nav.add.upload" url="/rhn/configuration/ChannelUploadFiles.do"/>
-		<rhn-tab name="configchannel.nav.add.import" url="/rhn/configuration/ChannelImportFiles.do"/>
-		<rhn-tab name="configchannel.nav.add.create" url="/rhn/configuration/ChannelCreateFiles.do"/>
-	</rhn-tab>
-	<rhn-tab name="configchannel.nav.deploy" url="/rhn/configuration/channel/ChooseFiles.do"
-	         acl="config_channel_has_systems(); config_channel_has_files(); not config_channel_type(server_import)">
-		<rhn-tab-url>/rhn/configuration/channel/ChooseFiles.do</rhn-tab-url>
-		<rhn-tab-url>/rhn/configuration/channel/ChooseSystems.do</rhn-tab-url>
-		<rhn-tab-url>/rhn/configuration/channel/DeployConfirm.do</rhn-tab-url>
-	</rhn-tab>
-	<rhn-tab name="configchannel.nav.systems" url="/rhn/configuration/channel/ChannelSystems.do"
-	         acl="config_channel_type(normal)">
-		<rhn-tab name="configchannel.nav.systems.subscribed" url="/rhn/configuration/channel/ChannelSystems.do"/>
-		<rhn-tab name="configchannel.nav.systems.target" url="/rhn/configuration/channel/TargetSystems.do"
-		         acl="user_role(config_admin)" />
-	</rhn-tab>
+        <rhn-tab name="configchannel.nav.overview">
+                <rhn-tab-url>/rhn/configuration/ChannelOverview.do</rhn-tab-url>
+        </rhn-tab>
+        <rhn-tab name="configchannel.nav.list" url="/rhn/configuration/ChannelFiles.do"
+                 acl="config_channel_has_files()">
+                <rhn-tab-url>/rhn/configuration/ChannelFiles.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/configuration/channel/Copy2Systems.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/configuration/channel/Copy2Channels.do</rhn-tab-url>
+                <rhn-tab-url>/configuration/channel/ChannelSystems.do</rhn-tab-url>
+                <rhn-tab-url>/configuration/channel/ChannelSystemsSubmit.do</rhn-tab-url>
+        </rhn-tab>
+        <rhn-tab name="configchannel.nav.add" url="/rhn/configuration/ChannelUploadFiles.do"
+                 acl="config_channel_editable()">
+                <rhn-tab name="configchannel.nav.add.upload" url="/rhn/configuration/ChannelUploadFiles.do"/>
+                <rhn-tab name="configchannel.nav.add.import" url="/rhn/configuration/ChannelImportFiles.do"/>
+                <rhn-tab name="configchannel.nav.add.create" url="/rhn/configuration/ChannelCreateFiles.do"/>
+        </rhn-tab>
+        <rhn-tab name="configchannel.nav.deploy" url="/rhn/configuration/channel/ChooseFiles.do"
+                 acl="config_channel_has_systems(); config_channel_has_files(); not config_channel_type(server_import)">
+                <rhn-tab-url>/rhn/configuration/channel/ChooseFiles.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/configuration/channel/ChooseSystems.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/configuration/channel/DeployConfirm.do</rhn-tab-url>
+        </rhn-tab>
+        <rhn-tab name="configchannel.nav.systems" url="/rhn/configuration/channel/ChannelSystems.do"
+                 acl="config_channel_type(normal)">
+                <rhn-tab name="configchannel.nav.systems.subscribed" url="/rhn/configuration/channel/ChannelSystems.do"/>
+                <rhn-tab name="configchannel.nav.systems.target" url="/rhn/configuration/channel/TargetSystems.do"
+                         acl="user_role(config_admin)" />
+        </rhn-tab>
 </rhn-navi-tree>

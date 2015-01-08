@@ -29,10 +29,10 @@
          c.label as channel_label,
          KS.ks_type as kickstart_type
     FROM rhnKickstartDefaults KSD
-    	 inner join rhnKSData KS on KSD.kickstart_id = KS.id
-    	 inner join rhnKickstartableTree KT on KSD.kstree_id = KT.id
-    	 left join rhnKickstartVirtualizationType KVT on KVT.id = KSD.virtualization_type
-	 inner join rhnChannel C on KT.channel_id = C.id
+         inner join rhnKSData KS on KSD.kickstart_id = KS.id
+         inner join rhnKickstartableTree KT on KSD.kstree_id = KT.id
+         left join rhnKickstartVirtualizationType KVT on KVT.id = KSD.virtualization_type
+         inner join rhnChannel C on KT.channel_id = C.id
    WHERE KS.org_id = :org_id
      AND KS.active = 'Y'
      AND ( C.channel_arch_id = :prim_arch_id OR C.channel_arch_id = :sec_arch_id )
@@ -265,10 +265,10 @@ ORDER BY RT.note, RT.id
   <query params="ksid">
   SELECT KTZ.id,
          KTZ.name,
-	 KTZ.label
+         KTZ.label
     FROM rhnKickstartTimezone KTZ,
          rhnKickstartDefaults KSD,
-	 rhnKickstartableTree KST
+         rhnKickstartableTree KST
    WHERE KSD.kickstart_id = :ksid
      AND KST.id = KSD.kstree_id
      AND KTZ.install_type = KST.install_type
@@ -287,7 +287,7 @@ SELECT max_members, current_members FROM rhnServerGroup sg, rhnServerGroupType s
 
 <write-mode name="update_activation_key">
   <query params="old_key, new_key">
-  	update rhnActivationKey set token = :new_key where token = :old_key
+        update rhnActivationKey set token = :new_key where token = :old_key
   </query>
 </write-mode>
 

@@ -2,36 +2,36 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration><settings>
-		<setting name="cacheEnabled" value="true"/>
-			<setting name="lazyLoadingEnabled" value="true"/>
-			</settings>
-	<typeAliases>
-		</typeAliases>
+                <setting name="cacheEnabled" value="true"/>
+                        <setting name="lazyLoadingEnabled" value="true"/>
+                        </settings>
+        <typeAliases>
+                </typeAliases>
 
-	<typeHandlers>
-		</typeHandlers>
+        <typeHandlers>
+                </typeHandlers>
 
-	<environments default="default">
-		<environment id="default">
-			<transactionManager type="JDBC" />
-				<dataSource type="com.redhat.satellite.search.config.translator.C3P0DataSourceFactory">
-						<property name="driverClass" value="${search.connection.driver_class}"/>
-						<property name="jdbcUrl" value="${search.connection.driver_proto}:${db_name}"/>
-						<property name="user" value="${db_user}"/>
-						<property name="password" value="${db_password}"/>
+        <environments default="default">
+                <environment id="default">
+                        <transactionManager type="JDBC" />
+                                <dataSource type="com.redhat.satellite.search.config.translator.C3P0DataSourceFactory">
+                                                <property name="driverClass" value="${search.connection.driver_class}"/>
+                                                <property name="jdbcUrl" value="${search.connection.driver_proto}:${db_name}"/>
+                                                <property name="user" value="${db_user}"/>
+                                                <property name="password" value="${db_password}"/>
                         <property name="connectionCustomizerClassName" value="com.redhat.satellite.search.config.translator.RhnConnectionCustomizer" />
-					</dataSource>
-				</environment>
-		</environments>
+                                        </dataSource>
+                                </environment>
+                </environments>
 
-	<mappers>
-		<mapper resource="com/redhat/satellite/search/db/package.xml"/>
-			<mapper resource="com/redhat/satellite/search/db/errata.xml"/>
-			<mapper resource="com/redhat/satellite/search/db/server.xml"/>
-			<mapper resource="com/redhat/satellite/search/db/errata_handler.xml"/>
-			<mapper resource="com/redhat/satellite/search/db/hwdevice.xml"/>
-			<mapper resource="com/redhat/satellite/search/db/snapshot_tag.xml"/>
-			<mapper resource="com/redhat/satellite/search/db/server_custom_info.xml"/>
-			<mapper resource="com/redhat/satellite/search/db/xccdf_ident.xml"/>
-			</mappers>
-	</configuration>
+        <mappers>
+                <mapper resource="com/redhat/satellite/search/db/package.xml"/>
+                        <mapper resource="com/redhat/satellite/search/db/errata.xml"/>
+                        <mapper resource="com/redhat/satellite/search/db/server.xml"/>
+                        <mapper resource="com/redhat/satellite/search/db/errata_handler.xml"/>
+                        <mapper resource="com/redhat/satellite/search/db/hwdevice.xml"/>
+                        <mapper resource="com/redhat/satellite/search/db/snapshot_tag.xml"/>
+                        <mapper resource="com/redhat/satellite/search/db/server_custom_info.xml"/>
+                        <mapper resource="com/redhat/satellite/search/db/xccdf_ident.xml"/>
+                        </mappers>
+        </configuration>

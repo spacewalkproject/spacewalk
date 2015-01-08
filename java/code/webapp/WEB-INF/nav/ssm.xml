@@ -24,7 +24,7 @@
             </rhn-tab>
    </rhn-tab>
 
-	<rhn-tab name="Channels">
+        <rhn-tab name="Channels">
             <rhn-tab-url>/rhn/channel/ssm/ChildSubscriptions.do</rhn-tab-url>
             <rhn-tab name="Base Channels">
                 <rhn-tab-url>/rhn/channel/ssm/BaseChannelSubscribe.do</rhn-tab-url>
@@ -33,43 +33,43 @@
                 <rhn-tab-url>/rhn/channel/ssm/ChildSubscriptions.do</rhn-tab-url>
                 <rhn-tab-url>/rhn/channel/ssm/ChildSubscriptionsConfirm.do</rhn-tab-url>
             </rhn-tab>
-	</rhn-tab>
+        </rhn-tab>
 
-	<rhn-tab name="ssm.nav.config" url="/rhn/systems/ssm/config/Deploy.do"
-	         acl="org_entitlement(rhn_provisioning)">
-	  <rhn-tab-directory>/rhn/systems/ssm/config</rhn-tab-directory>
-	  <rhn-tab name="ssm.nav.config.deploy" url="/rhn/systems/ssm/config/Deploy.do">
-	    <rhn-tab-url>/rhn/systems/ssm/config/DeploySubmit.do</rhn-tab-url>
-	    <rhn-tab-url>/rhn/systems/ssm/config/DeployConfirm.do</rhn-tab-url>
-	    <rhn-tab-url>/rhn/systems/ssm/config/DeployConfirmSubmit.do</rhn-tab-url>
-	  </rhn-tab>
-	  <rhn-tab name="ssm.nav.config.diff" url="/rhn/systems/ssm/config/Diff.do">
-	    <rhn-tab-url>/rhn/systems/ssm/config/DiffSubmit.do</rhn-tab-url>
-	    <rhn-tab-url>/rhn/systems/ssm/config/DiffConfirm.do</rhn-tab-url>
-	    <rhn-tab-url>/rhn/systems/ssm/config/DiffConfirmSubmit.do</rhn-tab-url>
-	  </rhn-tab>
-	  <rhn-tab name="ssm.nav.config.subscribe" url="/rhn/systems/ssm/config/Subscribe.do"
-	           acl="user_role(config_admin)">
+        <rhn-tab name="ssm.nav.config" url="/rhn/systems/ssm/config/Deploy.do"
+                 acl="org_entitlement(rhn_provisioning)">
+          <rhn-tab-directory>/rhn/systems/ssm/config</rhn-tab-directory>
+          <rhn-tab name="ssm.nav.config.deploy" url="/rhn/systems/ssm/config/Deploy.do">
+            <rhn-tab-url>/rhn/systems/ssm/config/DeploySubmit.do</rhn-tab-url>
+            <rhn-tab-url>/rhn/systems/ssm/config/DeployConfirm.do</rhn-tab-url>
+            <rhn-tab-url>/rhn/systems/ssm/config/DeployConfirmSubmit.do</rhn-tab-url>
+          </rhn-tab>
+          <rhn-tab name="ssm.nav.config.diff" url="/rhn/systems/ssm/config/Diff.do">
+            <rhn-tab-url>/rhn/systems/ssm/config/DiffSubmit.do</rhn-tab-url>
+            <rhn-tab-url>/rhn/systems/ssm/config/DiffConfirm.do</rhn-tab-url>
+            <rhn-tab-url>/rhn/systems/ssm/config/DiffConfirmSubmit.do</rhn-tab-url>
+          </rhn-tab>
+          <rhn-tab name="ssm.nav.config.subscribe" url="/rhn/systems/ssm/config/Subscribe.do"
+                   acl="user_role(config_admin)">
         <rhn-tab-url>/rhn/systems/ssm/config/SubscribeSubmit.do</rhn-tab-url>
-	    <rhn-tab-url>/rhn/systems/ssm/config/Rank.do</rhn-tab-url>
-	    <rhn-tab-url>/rhn/systems/ssm/config/SubscribeConfirm.do</rhn-tab-url>
-	  </rhn-tab>
-	  <rhn-tab name="ssm.nav.config.unsubscribe" url="/rhn/systems/ssm/config/Unsubscribe.do">
+            <rhn-tab-url>/rhn/systems/ssm/config/Rank.do</rhn-tab-url>
+            <rhn-tab-url>/rhn/systems/ssm/config/SubscribeConfirm.do</rhn-tab-url>
+          </rhn-tab>
+          <rhn-tab name="ssm.nav.config.unsubscribe" url="/rhn/systems/ssm/config/Unsubscribe.do">
         <rhn-tab-url>/rhn/systems/ssm/config/UnsubscribeSubmit.do</rhn-tab-url>
-	    <rhn-tab-url>/rhn/systems/ssm/config/UnsubscribeConfirm.do</rhn-tab-url>
-	  </rhn-tab>
-	  <rhn-tab name="ssm.nav.config.enable" url="/rhn/systems/ssm/config/Enable.do">
-	    <rhn-tab-url>/rhn/systems/ssm/config/EnableSubmit.do</rhn-tab-url>
-	    <rhn-tab-url>/rhn/systems/ssm/config/EnableSummary.do</rhn-tab-url>
-	  </rhn-tab>
-	</rhn-tab>
+            <rhn-tab-url>/rhn/systems/ssm/config/UnsubscribeConfirm.do</rhn-tab-url>
+          </rhn-tab>
+          <rhn-tab name="ssm.nav.config.enable" url="/rhn/systems/ssm/config/Enable.do">
+            <rhn-tab-url>/rhn/systems/ssm/config/EnableSubmit.do</rhn-tab-url>
+            <rhn-tab-url>/rhn/systems/ssm/config/EnableSummary.do</rhn-tab-url>
+          </rhn-tab>
+        </rhn-tab>
 
         <rhn-tab name="Provisioning" acl="org_entitlement(rhn_provisioning)" url="/rhn/systems/ssm/kickstart/KickstartableSystems.do">
           <rhn-tab name="Kickstart" url="/rhn/systems/ssm/kickstart/KickstartableSystems.do" >
-		<rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByProfile.do</rhn-tab-url>
-		<rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByIp.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByProfile.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByIp.do</rhn-tab-url>
           </rhn-tab>
-	  <rhn-tab name="Tag Systems" url="/rhn/systems/ssm/provisioning/TagSystems.do" />
+          <rhn-tab name="Tag Systems" url="/rhn/systems/ssm/provisioning/TagSystems.do" />
           <rhn-tab name="Rollback" url="/rhn/systems/ssm/provisioning/Rollback.do">
             <rhn-tab-url>/rhn/systems/ssm/provisioning/RollbackToTag.do</rhn-tab-url>
           </rhn-tab>
@@ -84,19 +84,19 @@
           </rhn-tab>
         </rhn-tab>
 
-	<rhn-tab name="Audit">
-		<rhn-tab-url>/rhn/systems/ssm/audit/ScheduleXccdf.do</rhn-tab-url>
-		<rhn-tab-url>/rhn/systems/ssm/audit/ScheduleXccdfSubmit.do</rhn-tab-url>
-	</rhn-tab>
+        <rhn-tab name="Audit">
+                <rhn-tab-url>/rhn/systems/ssm/audit/ScheduleXccdf.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/systems/ssm/audit/ScheduleXccdfSubmit.do</rhn-tab-url>
+        </rhn-tab>
 
-	<rhn-tab name="Misc" url="/rhn/systems/ssm/misc/Index.do">
+        <rhn-tab name="Misc" url="/rhn/systems/ssm/misc/Index.do">
             <rhn-tab name="ssm.misc.index.tabs.hardware" url="/rhn/systems/ssm/misc/HardwareRefresh.do"/>
             <rhn-tab name="ssm.misc.index.tabs.software" url="/rhn/systems/ssm/misc/SoftwareRefresh.do"/>
             <rhn-tab name="ssm.misc.index.tabs.migrate" url="/rhn/systems/ssm/MigrateSystems.do"/>
             <rhn-tab name="ssm.misc.index.tabs.lockunlock" url="/rhn/systems/ssm/misc/LockUnlockSystem.do"/>
             <rhn-tab name="ssm.misc.index.tabs.reboot" url="/rhn/systems/ssm/misc/RebootSystem.do" />
             <rhn-tab name="ssm.misc.index.tabs.delete" url="/rhn/systems/ssm/DeleteConfirm.do"/>
-	    <rhn-tab-url>/rhn/systems/ssm/misc/ConfirmSystemPreferences.do</rhn-tab-url>
+            <rhn-tab-url>/rhn/systems/ssm/misc/ConfirmSystemPreferences.do</rhn-tab-url>
             <rhn-tab-url>/rhn/systems/ssm/DeleteConfirm.do</rhn-tab-url>
-	</rhn-tab>
+        </rhn-tab>
 </rhn-navi-tree>

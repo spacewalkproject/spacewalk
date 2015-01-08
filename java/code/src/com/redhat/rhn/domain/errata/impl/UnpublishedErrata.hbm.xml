@@ -63,8 +63,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="package_id"/>
         </set>
         <set name="cves" lazy="true" cascade="save-update" table="rhnErrataCve">
-		<key column="errata_id"/>
-		<many-to-many column="cve_id" class="com.redhat.rhn.domain.errata.Cve" />
+                <key column="errata_id"/>
+                <many-to-many column="cve_id" class="com.redhat.rhn.domain.errata.Cve" />
         </set>
         <joined-subclass
                 name="com.redhat.rhn.domain.errata.impl.UnpublishedClonedErrata"
@@ -83,8 +83,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                  where e.advisory = :advisory]]>
     </query>
     <query name="UnpublishedClonedErrata.findByOriginal">
-    	<![CDATA[from com.redhat.rhn.domain.errata.impl.UnpublishedClonedErrata as c
-    	         where c.original = :original
-    	         and c.org = :org]]>
+        <![CDATA[from com.redhat.rhn.domain.errata.impl.UnpublishedClonedErrata as c
+                 where c.original = :original
+                 and c.org = :org]]>
     </query>
 </hibernate-mapping>

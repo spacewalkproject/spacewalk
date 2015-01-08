@@ -20,9 +20,9 @@ DELETE
 <write-mode name="add_channel_packages">
   <query params="cid">
   INSERT INTO rhnChannelPackage (channel_id, package_id)
-      select :cid, P.id from rhnPackage P 
+      select :cid, P.id from rhnPackage P
       where P.id in (%s) and
-      		P.id not in (select package_id from rhnChannelPackage where channel_id = :cid)
+                P.id not in (select package_id from rhnChannelPackage where channel_id = :cid)
   </query>
 </write-mode>
 
@@ -79,8 +79,8 @@ DELETE
   FROM rhnChannelPackage CP
   where CP.channel_id = :cid
   and  CP.package_id in ( select EP.package_id from
-							rhnErrataPackage EP
-							where EP.errata_id in (%s))
+                                                        rhnErrataPackage EP
+                                                        where EP.errata_id in (%s))
   </query>
 </write-mode>
 
@@ -90,7 +90,7 @@ DELETE
 INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
-VALUES (null,			-- the id is set by trigger on rhnRepoRegenQueue
+VALUES (null,                   -- the id is set by trigger on rhnRepoRegenQueue
         :label, :client, :reason, 'N', 'N', current_timestamp, current_timestamp, current_timestamp)
   </query>
 </write-mode>
@@ -224,12 +224,12 @@ ORDER BY UPPER(C.name)
 <mode name="channel_entitlements" class="com.redhat.rhn.frontend.dto.ChannelOverview">
   <query params="org_id">
 SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url,
-		CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
-		(select count(distinct s.id)
-		    from rhnServerChannel sc
-		         inner join rhnChannelFamilyMembers CFM on CFM.channel_id = sc.channel_id
-		         inner join rhnServer s on s.id = sc.server_id
-		     where CFM.channel_family_id = CFO.id and s.org_id = cfo.org_id) as subscribe_count
+                CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
+                (select count(distinct s.id)
+                    from rhnServerChannel sc
+                         inner join rhnChannelFamilyMembers CFM on CFM.channel_id = sc.channel_id
+                         inner join rhnServer s on s.id = sc.server_id
+                     where CFM.channel_family_id = CFO.id and s.org_id = cfo.org_id) as subscribe_count
   FROM rhnChannelFamilyOverview CFO
  WHERE CFO.org_id = :org_id
  ORDER BY CFO.name ASC
@@ -239,19 +239,19 @@ SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.ha
 <mode name="channel_entitlements_for_all_m_orgs" class="com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto">
   <query params="">
 SELECT MAX(cfo.id) as id,
-		cfo.label,
+                cfo.label,
        cfo.name,
        SUM(cfo.max_members) as total,
        SUM(cfo.current_members) as used,
        (SELECT (cfo2.max_members) - (cfo2.current_members)
-		       FROM rhnChannelFamilyOverview cfo2
-       			WHERE cfo2.label = cfo.label
-       			AND cfo2.org_id = 1) as available,
+                       FROM rhnChannelFamilyOverview cfo2
+                        WHERE cfo2.label = cfo.label
+                        AND cfo2.org_id = 1) as available,
        SUM(cfo.fve_max_members) as total_flex,
        SUM(cfo.fve_current_members) as used_flex,
        (SELECT (cfo2.fve_max_members) - (cfo2.fve_current_members)
-		       FROM rhnChannelFamilyOverview cfo2
-       			WHERE cfo2.label = cfo.label AND cfo2.org_id = 1) as available_flex
+                       FROM rhnChannelFamilyOverview cfo2
+                        WHERE cfo2.label = cfo.label AND cfo2.org_id = 1) as available_flex
 FROM rhnChannelFamilyOverview cfo
 WHERE cfo.max_members is not null
 GROUP BY cfo.label, cfo.name
@@ -275,8 +275,8 @@ CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
 <mode name="channel_entitlement_for_all_orgs" class="com.redhat.rhn.frontend.dto.ChannelOverview">
   <query params="entitlement_id">
 SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_members,
-			CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
-		 CFO.has_subscription, CFO.url
+                        CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
+                 CFO.has_subscription, CFO.url
   FROM rhnChannelFamilyOverview CFO
  WHERE CFO.id = :entitlement_id
  AND CFO.org_id in (SELECT ID FROM WEB_CUSTOMER)
@@ -285,24 +285,24 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 </mode>
 
 <mode name="all_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
-	<query params="user_id">
-	select Distinct C.id,
-		   C.name,
-		   C.label as channel_label,
-		   C.parent_channel as parent_id,
-			(SELECT COUNT(P.package_id)
-			  FROM rhnChannelPackage P
-			  WHERE P.channel_id = C.id
-			        ) AS package_count,
+        <query params="user_id">
+        select Distinct C.id,
+                   C.name,
+                   C.label as channel_label,
+                   C.parent_channel as parent_id,
+                        (SELECT COUNT(P.package_id)
+                          FROM rhnChannelPackage P
+                          WHERE P.channel_id = C.id
+                                ) AS package_count,
          C.org_id,
          (select org.name
             from web_customer org
             where org.id = C.org_id) as org_name,
          CA.name as arch_name
-	from rhnChannel C inner join
-	 rhnUserChannel UC on UC.channel_id = C.id
+        from rhnChannel C inner join
+         rhnUserChannel UC on UC.channel_id = C.id
         inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
-	 where UC.user_id = :user_id
+         where UC.user_id = :user_id
     </query>
       <elaborator name="visible_server_count"/>
       <elaborator name="channel_errata_count"/>
@@ -333,7 +333,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 </mode>
 
 <mode name="popular_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
-	<query params="user_id, server_count">
+        <query params="user_id, server_count">
    select Distinct C.id,
          C.name,
          C.parent_channel as parent_id,
@@ -347,22 +347,22 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
             from web_customer org
             where org.id = C.org_id) as org_name,
          CA.name as arch_name
-	 from rhnChannel C inner join
-	 rhnUserChannel UC on UC.channel_id = C.id
+         from rhnChannel C inner join
+         rhnUserChannel UC on UC.channel_id = C.id
          inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
-	 where UC.user_id = :user_id  AND
-		   :server_count &lt;=
-	 	   ( select count(SC.server_id)
-				from rhnServerChannel SC
-				where  SC.channel_id = C.id
-				AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = SC.server_id)
-			)
+         where UC.user_id = :user_id  AND
+                   :server_count &lt;=
+                   ( select count(SC.server_id)
+                                from rhnServerChannel SC
+                                where  SC.channel_id = C.id
+                                AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = SC.server_id)
+                        )
     </query>
       <elaborator name="visible_server_count"/>
 </mode>
 
 <mode name="retired_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
-	<query params="user_id">
+        <query params="user_id">
    select Distinct C.id,
          C.name,
          C.parent_channel as parent_id,
@@ -376,11 +376,11 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
             from web_customer org
             where org.id = C.org_id) as org_name,
          CA.name as arch_name
-	from rhnChannel C inner join
-	 rhnUserChannel UC on UC.channel_id = C.id
+        from rhnChannel C inner join
+         rhnUserChannel UC on UC.channel_id = C.id
         inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
-	 where UC.user_id = :user_id  and
-	 C.end_of_life &lt; current_timestamp
+         where UC.user_id = :user_id  and
+         C.end_of_life &lt; current_timestamp
     </query>
       <elaborator name="visible_server_count"/>
 </mode>
@@ -388,17 +388,17 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 
 
 <mode name="vendor_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
-	<query params="user_id">
-	select Distinct C.id,
-		   C.name,
-		   C.parent_channel as parent_id,
-		   C.label as channel_label,
-			(SELECT COUNT(P.package_id)
-			  FROM rhnChannelPackage P
-			  WHERE P.channel_id = C.id
-			        ) AS package_count,
+        <query params="user_id">
+        select Distinct C.id,
+                   C.name,
+                   C.parent_channel as parent_id,
+                   C.label as channel_label,
+                        (SELECT COUNT(P.package_id)
+                          FROM rhnChannelPackage P
+                          WHERE P.channel_id = C.id
+                                ) AS package_count,
                    CA.name as arch_name
-	from rhnChannel C inner join
+        from rhnChannel C inner join
          rhnUserChannel UC ON UC.channel_id = C.id
                           AND UC.user_id = :user_id inner join
          rhnChannelArch CA ON CA.ID  = C.channel_arch_id
@@ -408,20 +408,20 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 </mode>
 
 <mode name="my_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
-	<query params="user_id, org_id">
-	select Distinct C.id,
-		   C.name,
-		   C.org_id,
-		  WC.name as org_name,
-		   C.parent_channel as parent_id,
-		   C.label as channel_label,
-			(SELECT COUNT(P.package_id)
-			  FROM rhnChannelPackage P
-			  WHERE P.channel_id = C.id
-			        ) AS package_count,
+        <query params="user_id, org_id">
+        select Distinct C.id,
+                   C.name,
+                   C.org_id,
+                  WC.name as org_name,
+                   C.parent_channel as parent_id,
+                   C.label as channel_label,
+                        (SELECT COUNT(P.package_id)
+                          FROM rhnChannelPackage P
+                          WHERE P.channel_id = C.id
+                                ) AS package_count,
                    CA.name as arch_name
-	from rhnChannel C inner join
-	 rhnUserChannel UC ON UC.channel_id = C.id
+        from rhnChannel C inner join
+         rhnUserChannel UC ON UC.channel_id = C.id
                           AND UC.user_id = :user_id
                           AND C.org_id = :org_id inner join
          rhnChannelArch CA ON CA.ID  = C.channel_arch_id inner join
@@ -431,16 +431,16 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 </mode>
 
 <mode name="trust_channel_consume" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
-	<query params="org_id, org_id2, user_id">
-	SELECT DISTINCT V.id,
-	       V.name,
-	        0 as accessible,
+        <query params="org_id, org_id2, user_id">
+        SELECT DISTINCT V.id,
+               V.name,
+                0 as accessible,
                V.parent_channel as parent_id,
                (SELECT COUNT(P.package_id)
                 FROM rhnChannelPackage P
                 WHERE P.channel_id = V.id
                ) AS package_count
-	FROM   rhnSharedChannelView V inner join
+        FROM   rhnSharedChannelView V inner join
          rhnUserChannel UC on UC.channel_id = V.id
         where 1=1
         and v.org_trust_id = :org_id
@@ -899,56 +899,56 @@ SELECT  DISTINCT CP.channel_id as id
 <mode name="children_in_set" class="com.redhat.rhn.frontend.dto.ChildChannelDto">
   <query params="user_id">
 select distinct id, name, label, 1 subscribed, parent_id  from (
-select 	c.id,
-		c.name,
-		c.label,
-		c.parent_channel AS parent_id
+select  c.id,
+                c.name,
+                c.label,
+                c.parent_channel AS parent_id
 from
-		rhnChannelFamilyMembers cfm,
-		rhnChannelFamily cf,
-		rhnServerChannelArchCompat scac,
-		rhnServer s,
-		rhnChannel c,
-		rhnServerChannel sc,
-		rhnUserServerPerms usp,
-		rhnSet st
-where	1=1
-	and st.user_id = :user_id
-	and st.label = 'system_list'
-	and st.element = s.id
-	and usp.user_id = :user_id
-	and st.element = usp.server_id
-	and st.element = sc.server_id
-	and sc.channel_id = c.parent_channel
-	and s.server_arch_id = scac.server_arch_id
-	and scac.channel_arch_id = c.channel_arch_id
-	and c.id = cfm.channel_id
-	and cfm.channel_family_id = cf.id
-	and cf.label not in ('rhn-satellite','rhn-proxy')
-	and rhn_channel.user_role_check(c.id, :user_id, 'subscribe')=1
+                rhnChannelFamilyMembers cfm,
+                rhnChannelFamily cf,
+                rhnServerChannelArchCompat scac,
+                rhnServer s,
+                rhnChannel c,
+                rhnServerChannel sc,
+                rhnUserServerPerms usp,
+                rhnSet st
+where   1=1
+        and st.user_id = :user_id
+        and st.label = 'system_list'
+        and st.element = s.id
+        and usp.user_id = :user_id
+        and st.element = usp.server_id
+        and st.element = sc.server_id
+        and sc.channel_id = c.parent_channel
+        and s.server_arch_id = scac.server_arch_id
+        and scac.channel_arch_id = c.channel_arch_id
+        and c.id = cfm.channel_id
+        and cfm.channel_family_id = cf.id
+        and cf.label not in ('rhn-satellite','rhn-proxy')
+        and rhn_channel.user_role_check(c.id, :user_id, 'subscribe')=1
 union all
-select	c.id,
-		c.name,
-		c.label,
-		c.parent_channel AS parent_id
+select  c.id,
+                c.name,
+                c.label,
+                c.parent_channel AS parent_id
 from
-		rhnUserServerPerms usp,
-		rhnChannelFamily cf,
-		rhnChannelFamilyMembers cfm,
-		rhnChannel c,
-		rhnServerChannel sc,
-		rhnSet st
-where	st.user_id = :user_id
-	and st.label = 'system_list'
-	and st.element = sc.server_id
-	and sc.channel_id = c.id
-	and c.parent_channel is not null
-	and c.id = cfm.channel_id
-	and cfm.channel_family_id = cf.id
-	and cf.label not in ('rhn-satellite','rhn-proxy')
-	and rhn_channel.user_role_check(cfm.channel_id,:user_id,'subscribe')=1
-	and usp.user_id = :user_id
-	and st.element = usp.server_id
+                rhnUserServerPerms usp,
+                rhnChannelFamily cf,
+                rhnChannelFamilyMembers cfm,
+                rhnChannel c,
+                rhnServerChannel sc,
+                rhnSet st
+where   st.user_id = :user_id
+        and st.label = 'system_list'
+        and st.element = sc.server_id
+        and sc.channel_id = c.id
+        and c.parent_channel is not null
+        and c.id = cfm.channel_id
+        and cfm.channel_family_id = cf.id
+        and cf.label not in ('rhn-satellite','rhn-proxy')
+        and rhn_channel.user_role_check(cfm.channel_id,:user_id,'subscribe')=1
+        and usp.user_id = :user_id
+        and st.element = usp.server_id
 ) U
   </query>
 </mode>
@@ -971,19 +971,19 @@ GROUP BY C.id, C.name
 <mode name="channel_errata_packages" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="eid, cid">
   SELECT  P.id, CS.checksum, CS.checksum_type as checksum_type,
-	   PN.name || '-' || PE.version
-	       || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
-	       || '-' || PA.label as name
-	from  rhnPackage P inner join
-		  rhnChannelPackage CP on P.id = CP.package_id  inner join
-		  rhnErrataPackage EP on EP.package_id = CP.package_id inner join
-		  rhnPackageName PN on P.name_id = PN.id inner join
-		  rhnPackageEvr PE on  P.evr_id = PE.id inner join
-		  rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           PN.name || '-' || PE.version
+               || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
+               || '-' || PA.label as name
+        from  rhnPackage P inner join
+                  rhnChannelPackage CP on P.id = CP.package_id  inner join
+                  rhnErrataPackage EP on EP.package_id = CP.package_id inner join
+                  rhnPackageName PN on P.name_id = PN.id inner join
+                  rhnPackageEvr PE on  P.evr_id = PE.id inner join
+                  rhnPackageArch PA on P.package_arch_id = PA.id inner join
       rhnChecksumView CS on P.checksum_id = CS.id
-	where CP.channel_id = :cid
-	  and EP.errata_id = :eid
-	ORDER by name
+        where CP.channel_id = :cid
+          and EP.errata_id = :eid
+        ORDER by name
   </query>
 </mode>
 
@@ -1012,14 +1012,14 @@ GROUP BY C.id, C.name
 
 <mode name="ssm_systems_for_child_unsubscription">
   <query params="set_label, uid">
-	select  S.id, C.id as channel_id, S.name, C.name as channel_name
-	   from rhnServer S inner join
-	       rhnServerChannel SC on SC.server_id = S.id  inner join
-	       rhnChannel C on C.id = SC.channel_id inner join
-	       rhnSet rset on rset.element = S.id
-	   where SC.channel_id in (%s)
-	       and  rset.user_id = :uid
-	       and  rset.label = :set_label
+        select  S.id, C.id as channel_id, S.name, C.name as channel_name
+           from rhnServer S inner join
+               rhnServerChannel SC on SC.server_id = S.id  inner join
+               rhnChannel C on C.id = SC.channel_id inner join
+               rhnSet rset on rset.element = S.id
+           where SC.channel_id in (%s)
+               and  rset.user_id = :uid
+               and  rset.label = :set_label
   </query>
 </mode>
 

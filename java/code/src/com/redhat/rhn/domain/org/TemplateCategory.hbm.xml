@@ -13,9 +13,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_TEMPLATE_CAT_ID_SEQ</param>
             </generator>
         </id>
-		<property name="label" column="label" type="string" length="64" />
-		<property name="description" column="description" type="string" length="512" />
-		<property name="created" column="created" type="timestamp" insert="false" update="false" />
-		<property name="modified" column="modified" type="timestamp" insert="false" update="false" />
+                <property name="label" column="label" type="string" length="64" />
+                <property name="description" column="description" type="string" length="512" />
+                <property name="created" column="created" type="timestamp" insert="false" update="false" />
+                <property name="modified" column="modified" type="timestamp" insert="false" update="false" />
     </class>
 </hibernate-mapping>

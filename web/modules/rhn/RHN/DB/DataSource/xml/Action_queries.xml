@@ -79,7 +79,7 @@ SELECT SA.action_id AS ID,
                AType.label AS history_type,
                AType.name AS history_type_name,
                A.prerequisite AS prereq_aid,
-	       A.name AS action_name
+               A.name AS action_name
           FROM rhnActionType AType,
                rhnActionStatus AStat,
                rhnAction A LEFT OUTER JOIN
@@ -114,7 +114,7 @@ SELECT EVENT_ID, TO_CHAR(CREATED, 'YYYY-MM-DD HH24:MI:SS') CREATED, SUMMARY
                rhnActionStatus AStat,
                rhnAction A
           LEFT JOIN web_contact U
-	    ON U.id = A.scheduler,
+            ON U.id = A.scheduler,
                rhnServerAction SA
          WHERE SA.server_id = :support_sid
            AND SA.action_id = A.id
@@ -141,7 +141,7 @@ SELECT  DISTINCT UAO.id AS ID,
         TO_CHAR(UAO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS EARLIEST,
         UAO.type_name,
         (CASE UAO.action_name WHEN NULL THEN UAO.type_name ELSE UAO.action_name END) AS ACTION_NAME,
-	UAO.scheduler
+        UAO.scheduler
   FROM  rhnUserActionOverview UAO
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
@@ -161,7 +161,7 @@ SELECT  DISTINCT UAO.id AS ID,
         TO_CHAR(UAO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS EARLIEST,
         UAO.type_name,
         (CASE UAO.action_name WHEN NULL THEN UAO.type_name ELSE UAO.action_name END) AS ACTION_NAME,
-	UAO.scheduler
+        UAO.scheduler
   FROM  rhnUserActionOverview UAO
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id

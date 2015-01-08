@@ -31,9 +31,9 @@
       <rhn-tab-directory>/rhn/help/getting-started</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="API" url="/rhn/apidoc/index.jsp">
-    	<rhn-tab name="Overview" url="/rhn/apidoc/index.jsp">
-			<rhn-tab-directory>/rhn/apidoc</rhn-tab-directory>
-		</rhn-tab>
+        <rhn-tab name="Overview" url="/rhn/apidoc/index.jsp">
+                        <rhn-tab-directory>/rhn/apidoc</rhn-tab-directory>
+                </rhn-tab>
         <rhn-tab name="FAQs" url="/rhn/apidoc/faqs.jsp" />
         <rhn-tab name="Sample Scripts" url="/rhn/apidoc/scripts.jsp" />
     </rhn-tab>

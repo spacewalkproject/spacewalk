@@ -6,20 +6,20 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <class name="com.redhat.rhn.domain.action.kickstart.KickstartActionDetails"
         table="rhnActionKickstart" >
 
-		<id name="id" type="long" column="id">
-			<meta attribute="scope-set">protected</meta>
-			<generator class="sequence">
+                <id name="id" type="long" column="id">
+                        <meta attribute="scope-set">protected</meta>
+                        <generator class="sequence">
                 <param name="sequence">RHN_ACTIONKS_ID_SEQ</param>
             </generator>
-		</id>
+                </id>
         <property name="appendString" type="string" column="append_string"/>
         <property name="kickstartHost" type="string" column="kickstart_host"/>
         <property name="staticDevice" type="string" column="static_device"/>
         <property name="cobblerSystemName" type="string" column="cobbler_system_name"/>
 
-		<many-to-one name="parentAction" column="action_id"
-			class="com.redhat.rhn.domain.action.Action" outer-join="true"
-			not-null="true" insert="true" update="false" />
+                <many-to-one name="parentAction" column="action_id"
+                        class="com.redhat.rhn.domain.action.Action" outer-join="true"
+                        not-null="true" insert="true" update="false" />
 
         <set name="fileLists" table="RHNACTIONKICKSTARTFILELIST" lazy="true">
             <key column="action_ks_id"/>

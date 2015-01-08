@@ -130,7 +130,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <many-to-one name="packageArch"
                      class="com.redhat.rhn.domain.rhnpackage.PackageArch"
                      column="package_arch_id"
-            		 cascade="none"/>
+                         cascade="none"/>
 
 
 
@@ -138,8 +138,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
    <query name="Package.findOtherArches">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.Package as p
-        	where p.packageName = :name and
-        	  p.packageEvr = :evr and p.packageArch != :arch]]>
+                where p.packageName = :name and
+                  p.packageEvr = :evr and p.packageArch != :arch]]>
     </query>
 
 
@@ -153,21 +153,21 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
     <query name="Package.listOrphans">
-    	<![CDATA[ select p
-    		from com.redhat.rhn.domain.rhnpackage.Package as p
-		where p.org = :org and p.channels is empty
-    	]]>
+        <![CDATA[ select p
+                from com.redhat.rhn.domain.rhnpackage.Package as p
+                where p.org = :org and p.channels is empty
+        ]]>
     </query>
 
     <query name="Package.lookupByNevra">
-    	<![CDATA[ select p
-    		from com.redhat.rhn.domain.rhnpackage.Package as p
-    		where p.packageArch = :arch and
-    		p.packageName.name = :name and
-			p.packageEvr.release = :release and
-			p.packageEvr.version = :version and
-			(p.org is null or p.org = :org)
-    	]]>
+        <![CDATA[ select p
+                from com.redhat.rhn.domain.rhnpackage.Package as p
+                where p.packageArch = :arch and
+                p.packageName.name = :name and
+                        p.packageEvr.release = :release and
+                        p.packageEvr.version = :version and
+                        (p.org is null or p.org = :org)
+        ]]>
     </query>
 
 </hibernate-mapping>

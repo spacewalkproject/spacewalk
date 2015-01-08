@@ -16,8 +16,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
 
     <query name="KickstartSession.findPendingForActions"><![CDATA[
-   		from KickstartSession s
-			where
+                from KickstartSession s
+                        where
                 (s.oldServer in (:servers) or
                 s.newServer in (:servers))
             and s.action in (:actions_to_delete)

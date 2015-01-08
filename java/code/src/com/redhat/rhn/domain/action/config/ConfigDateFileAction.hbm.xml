@@ -3,12 +3,12 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class
-		name="com.redhat.rhn.domain.action.config.ConfigDateFileAction"
-		table="rhnActionConfigDateFile" >
-		
-		<composite-id unsaved-value="any">
-		    <key-property
+        <class
+                name="com.redhat.rhn.domain.action.config.ConfigDateFileAction"
+                table="rhnActionConfigDateFile" >
+
+                <composite-id unsaved-value="any">
+                    <key-property
                 name="fileName"
                 type="string"
                 length="512"
@@ -23,5 +23,5 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="fileType" column="file_type" type="string" length="1" />
         <property name="created" column="created" type="timestamp" insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp" insert="false" update="false"/>
-	</class>
+        </class>
 </hibernate-mapping>

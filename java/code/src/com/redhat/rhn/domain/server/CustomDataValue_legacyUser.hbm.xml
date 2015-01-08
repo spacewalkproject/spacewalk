@@ -3,11 +3,11 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.server.CustomDataValue"
-		   table="rhnServerCustomDataValue" >
+        <class name="com.redhat.rhn.domain.server.CustomDataValue"
+                   table="rhnServerCustomDataValue" >
 
         <composite-id unsaved-value="any">
-		    <key-many-to-one
+                    <key-many-to-one
                 name="server"
                 class="com.redhat.rhn.domain.server.Server"
                 column="server_id"/>
@@ -29,12 +29,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
                   insert="false" update="false"/>
-	</class>
-	<query name="CustomDataValue.findByServerAndKey">
+        </class>
+        <query name="CustomDataValue.findByServerAndKey">
         <![CDATA[from com.redhat.rhn.domain.server.CustomDataValue as c
                 where c.server = :server
                   and c.key = :key]]>
-	</query>
+        </query>
         <query name="CustomDataValue.findByKey">
             <![CDATA[from com.redhat.rhn.domain.server.CustomDataValue as c
                      where c.key = :key]]>

@@ -15,26 +15,26 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="totalMemory" column="MEMORY_SIZE_K" type="long"/>
         <property name="numberOfCPUs" column="VCPUS" type="integer"/>
         <property name="created" column="CREATED" type="timestamp" insert="false" update="false"/>
-    	<property name="modified" column="MODIFIED" type="timestamp" insert="false" update="false"/>
-    	
-    	<one-to-one name="parent"
-    	            class="com.redhat.rhn.domain.server.VirtualInstance"
-    	            constrained="true"/>
+        <property name="modified" column="MODIFIED" type="timestamp" insert="false" update="false"/>
 
-    	<many-to-one name="type"
-    	             class="com.redhat.rhn.domain.server.VirtualInstanceType"
-    	             column="instance_type"
-    	             not-null="true"
-	             cascade="none"
-	             update="false"
-    	             lazy="false"/>
-    	
-    	<many-to-one name="state"
-    	             class="com.redhat.rhn.domain.server.VirtualInstanceState"
-    	             column="state"
-    	             not-null="true"
-	             cascade="none"
-	             update="false"
-    	             lazy="false"/>
+        <one-to-one name="parent"
+                    class="com.redhat.rhn.domain.server.VirtualInstance"
+                    constrained="true"/>
+
+        <many-to-one name="type"
+                     class="com.redhat.rhn.domain.server.VirtualInstanceType"
+                     column="instance_type"
+                     not-null="true"
+                     cascade="none"
+                     update="false"
+                     lazy="false"/>
+
+        <many-to-one name="state"
+                     class="com.redhat.rhn.domain.server.VirtualInstanceState"
+                     column="state"
+                     not-null="true"
+                     cascade="none"
+                     update="false"
+                     lazy="false"/>
     </class>
 </hibernate-mapping>

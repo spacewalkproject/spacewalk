@@ -3,51 +3,51 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.channel.ChannelFamily"
-		table="rhnChannelFamily">
+        <class name="com.redhat.rhn.domain.channel.ChannelFamily"
+                table="rhnChannelFamily">
 
-		<id name="id" type="long" column="id">
-			<meta attribute="scope-set">protected</meta>
-			<generator class="sequence">
-				<param name="sequence">RHN_CHANNEL_FAMILY_ID_SEQ</param>
-			</generator>
-		</id>
+                <id name="id" type="long" column="id">
+                        <meta attribute="scope-set">protected</meta>
+                        <generator class="sequence">
+                                <param name="sequence">RHN_CHANNEL_FAMILY_ID_SEQ</param>
+                        </generator>
+                </id>
 
-		<property name="name" type="string" column="name" />
-		<property name="label" type="string" column="label" />
-		<property name="productUrl" type="string" column="product_url" />
+                <property name="name" type="string" column="name" />
+                <property name="label" type="string" column="label" />
+                <property name="productUrl" type="string" column="product_url" />
 
-		<property name="created" column="created" type="timestamp"
-			insert="false" update="false" />
-		<property name="modified" column="modified" type="timestamp"
-			insert="false" update="false" />
+                <property name="created" column="created" type="timestamp"
+                        insert="false" update="false" />
+                <property name="modified" column="modified" type="timestamp"
+                        insert="false" update="false" />
 
-		<many-to-one name="org" cascade="none"
-			class="com.redhat.rhn.domain.org.Org" column="org_id" />
+                <many-to-one name="org" cascade="none"
+                        class="com.redhat.rhn.domain.org.Org" column="org_id" />
 
-		<set name="channels" lazy="true" table="rhnChannelFamilyMembers"
-			cascade="save-update" inverse="true">
-			<key column="channel_family_id" />
-			<many-to-many class="com.redhat.rhn.domain.channel.Channel"
-				column="channel_id" />
-		</set>
+                <set name="channels" lazy="true" table="rhnChannelFamilyMembers"
+                        cascade="save-update" inverse="true">
+                        <key column="channel_family_id" />
+                        <many-to-many class="com.redhat.rhn.domain.channel.Channel"
+                                column="channel_id" />
+                </set>
 
-		<set name="virtSubscriptionLevels" lazy="true"
-			table="rhnChannelFamilyVirtSubLevel" cascade="save-update">
-			<key column="channel_family_id" />
-			<many-to-many
-				class="com.redhat.rhn.domain.common.VirtSubscriptionLevel"
-				column="VIRT_SUB_LEVEL_ID" />
-		</set>
+                <set name="virtSubscriptionLevels" lazy="true"
+                        table="rhnChannelFamilyVirtSubLevel" cascade="save-update">
+                        <key column="channel_family_id" />
+                        <many-to-many
+                                class="com.redhat.rhn.domain.common.VirtSubscriptionLevel"
+                                column="VIRT_SUB_LEVEL_ID" />
+                </set>
 
         <set name="privateChannelFamilies" inverse="true" cascade="delete">
             <key column="channel_family_id"/>
             <one-to-many class="com.redhat.rhn.domain.channel.PrivateChannelFamily"/>
         </set>
 
-	</class>
+        </class>
 
-	<query name="ChannelFamily.findByOrgId">
-		<![CDATA[from com.redhat.rhn.domain.channel.ChannelFamily as cfam where cfam.org.id = :orgId]]>
-	</query>
+        <query name="ChannelFamily.findByOrgId">
+                <![CDATA[from com.redhat.rhn.domain.channel.ChannelFamily as cfam where cfam.org.id = :orgId]]>
+        </query>
 </hibernate-mapping>

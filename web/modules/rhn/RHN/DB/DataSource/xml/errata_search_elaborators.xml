@@ -32,7 +32,7 @@
 </mode>
 
 <query name="default_search_query" params="user_id">
-SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.synopsis AS ADVISORY_SYNOPSIS, 
+SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.synopsis AS ADVISORY_SYNOPSIS,
         TO_CHAR(E.update_date, 'YYYY-MM-DD') AS ADVISORY_LAST_UPDATED
   FROM  rhnErrata E,
         rhnSet RS

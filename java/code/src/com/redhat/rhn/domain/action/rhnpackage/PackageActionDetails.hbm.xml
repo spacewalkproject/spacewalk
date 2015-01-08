@@ -5,22 +5,22 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 <hibernate-mapping>
     <class name="com.redhat.rhn.domain.action.rhnpackage.PackageActionDetails"
         table="rhnActionPackage" >
-		<id name="packageId" type="long" column="id">
-			<meta attribute="scope-set">protected</meta>
-			<generator class="sequence">
+                <id name="packageId" type="long" column="id">
+                        <meta attribute="scope-set">protected</meta>
+                        <generator class="sequence">
                 <param name="sequence">RHN_ACT_P_ID_SEQ</param>
             </generator>
-		</id>
+                </id>
 
         <property name="parameter" type="string" column="parameter"/>
 
-  		<many-to-one
+                <many-to-one
             name="evr"
             class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
             column="evr_id" />
 
-		<many-to-one
-        	name="packageName"
+                <many-to-one
+                name="packageName"
             class="com.redhat.rhn.domain.rhnpackage.PackageName"
             column="name_id" />
 
@@ -29,11 +29,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             class="com.redhat.rhn.domain.rhnpackage.PackageArch"
             column="package_arch_id"/>
 
-		<many-to-one
+                <many-to-one
             name="parentAction"
-		column="action_id"
-		    class="com.redhat.rhn.domain.action.rhnpackage.PackageAction"
-			not-null="true"/>
+                column="action_id"
+                    class="com.redhat.rhn.domain.action.rhnpackage.PackageAction"
+                        not-null="true"/>
 
         <set name="results" inverse="true" cascade="save-update">
             <key column="action_package_id"/>

@@ -48,7 +48,7 @@ ORDER BY WC.login, CM.method_name
 -->
 <mode name="contact_groups">
   <query params="method_id">
-SELECT CG.recid, 
+SELECT CG.recid,
        CG.contact_group_name,
        CG.customer_id,
        CG.strategy_id,

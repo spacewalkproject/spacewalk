@@ -32,11 +32,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <query name="PackageKey.findByKey">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey as p
-        		where p.key = :key]]>
+                        where p.key = :key]]>
     </query>
 
     <query name="PackageKey.listKeys">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey]]>    	
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey]]>
     </query>
 
 

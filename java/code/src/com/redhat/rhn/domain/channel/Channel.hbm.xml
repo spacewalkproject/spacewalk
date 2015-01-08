@@ -61,7 +61,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             column="parent_channel"/>
 
         <set name="channelFamilies" lazy="true" table="rhnChannelFamilyMembers"
-	     cascade="save-update">
+             cascade="save-update">
             <key column="channel_id"/>
             <many-to-many
                 class="com.redhat.rhn.domain.channel.ChannelFamily"
@@ -131,9 +131,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
     <query name="Channel.findRedHatBaseChannels">
-	<![CDATA[
-		from com.redhat.rhn.domain.channel.Channel as c where c.org is null
-    						and parentChannel is null order by c.name]]>
+        <![CDATA[
+                from com.redhat.rhn.domain.channel.Channel as c where c.org is null
+                                                and parentChannel is null order by c.name]]>
     </query>
 
     <sql-query name="Channel.findCompatCustomBaseChsSSMNoBase">
@@ -263,7 +263,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
 
     <sql-query name="Channel.findCustomBaseChannels">
-    	<![CDATA[SELECT {c.*}
+        <![CDATA[SELECT {c.*}
                 FROM rhnUserChannel uc,
                     rhnChannel {c} left outer join rhnChannelCloned c_1_
                     ON c.id = c_1_.id
@@ -271,8 +271,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                     AND uc.user_id = :user_id
                     AND c.org_id is not null
                     AND uc.role = 'subscribe'
-    				AND c.parent_channel is null
-    		    order by C.name]]>						
+                                AND c.parent_channel is null
+                    order by C.name]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
     <sql-query name="Channel.findSubscribableBaseChannels">
@@ -304,9 +304,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
    <query name="Channel.listAllChildren">
-	<![CDATA[
-    			from com.redhat.rhn.domain.channel.Channel as c where c.parentChannel = :parent
-    						]]>						
+        <![CDATA[
+                        from com.redhat.rhn.domain.channel.Channel as c where c.parentChannel = :parent
+                                                ]]>
     </query>
 
     <sql-query name="Channel.findByIdAndUserId">
@@ -369,7 +369,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                     on ep.package_id = cp.package_id
                  where cp.channel_id = :cid
                    and ep.errata_id in (:eids)
-				   ]]>
+                                   ]]>
     </sql-query>
 
 
@@ -393,10 +393,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
    <sql-query name="Channel.accessibleChildChannels">
         <![CDATA[SELECT {c.*}
-					FROM rhnChannel c
-				LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
-		        where  parent_channel = :cid AND
-					rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1]]>
+                                        FROM rhnChannel c
+                                LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
+                        where  parent_channel = :cid AND
+                                        rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
 
@@ -498,13 +498,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return-scalar column="id" type="long"/>
     </sql-query>
 
-	<query name="Channel.lookupOriginal">
-    	<![CDATA[ select c.original
-    			from com.redhat.rhn.domain.channel.ClonedChannel as c where c = :clone
-    						]]>						
+        <query name="Channel.lookupOriginal">
+        <![CDATA[ select c.original
+                        from com.redhat.rhn.domain.channel.ClonedChannel as c where c = :clone
+                                                ]]>
     </query>
     <query name="Channel.findChannelArchLabelsSyncdChannels">
-    	<![CDATA[select distinct c.channelArch.label from com.redhat.rhn.domain.channel.Channel as c]]>
+        <![CDATA[select distinct c.channelArch.label from com.redhat.rhn.domain.channel.Channel as c]]>
     </query>
 
 </hibernate-mapping>

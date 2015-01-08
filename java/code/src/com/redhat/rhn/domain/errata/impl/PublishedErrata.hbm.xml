@@ -48,8 +48,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 class="com.redhat.rhn.domain.errata.impl.PublishedBug"/>
         </set>
         <set name="cves" lazy="true" cascade="save-update" table="rhnErrataCve">
-        	<key column="errata_id"/>
-        	<many-to-many column="cve_id" class="com.redhat.rhn.domain.errata.Cve" />
+                <key column="errata_id"/>
+                <many-to-many column="cve_id" class="com.redhat.rhn.domain.errata.Cve" />
         </set>
         <set name="files" lazy="true" inverse="true" order-by="id asc"
             cascade="all">
@@ -125,9 +125,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     ]]>
     </query>
     <query name="PublishedClonedErrata.findByOriginal">
-    	<![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedClonedErrata as c
-  	         where c.original = :original
-  	         and c.org = :org]]>
+        <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedClonedErrata as c
+                 where c.original = :original
+                 and c.org = :org]]>
     </query>
     <query name="PublishedErrata.findByAdvisory">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
@@ -135,10 +135,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     <query name="PublishedErrata.lookupSortedByChannel">
         <![CDATA[select e
-        		from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
-                where :channel in elements(e.channels) 	and
+                        from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
+                where :channel in elements(e.channels)  and
                        ( e.org = :org or e.org is null )
-			order by e.issueDate
+                        order by e.issueDate
                 ]]>
     </query>
     <query name="PublishedErrata.lookupByChannelBetweenDates">

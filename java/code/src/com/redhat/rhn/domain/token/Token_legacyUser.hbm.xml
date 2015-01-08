@@ -31,13 +31,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="server_group_type_id"/>
         </set>
 
-	    <set name="channels" table="rhnRegTokenChannels">
+            <set name="channels" table="rhnRegTokenChannels">
             <key column="token_id"/>
             <many-to-many class="com.redhat.rhn.domain.channel.Channel"
                 column="channel_id"/>
         </set>
 
-	    <set name="serverGroups" table="rhnRegTokenGroups">
+            <set name="serverGroups" table="rhnRegTokenGroups">
             <key column="token_id"/>
             <many-to-many class="com.redhat.rhn.domain.server.ServerGroup"
                 column="server_group_id"/>
@@ -48,7 +48,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.token.TokenPackage"/>
         </set>
 
-	    <set name="activatedServers" table="rhnServerTokenRegs">
+            <set name="activatedServers" table="rhnServerTokenRegs">
             <key column="token_id"/>
             <many-to-many class="com.redhat.rhn.domain.server.Server"
                 column="server_id"/>
@@ -57,7 +57,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <list  name="configChannels" lazy="true" table="rhnRegTokenConfigChannels"
          collection-type="com.redhat.rhn.common.hibernate.ForceRecreationListType">
              <key column="token_id"/>
-	            <list-index column="position" base="1"/>
+                    <list-index column="position" base="1"/>
             <many-to-many class="com.redhat.rhn.domain.config.ConfigChannel"
                 column="config_channel_id"/>
         </list>

@@ -191,7 +191,7 @@
        <rhn-tab-directory>/rhn/monitoring/</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Scout Config Push" acl="show_monitoring();" url="/network/monitoring/scout/index.pxt" >
-		<rhn-tab-url>/network/monitoring/scout/index.pxt</rhn-tab-url>
+                <rhn-tab-url>/network/monitoring/scout/index.pxt</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Notification" url="/rhn/monitoring/config/notification/Methods.do">
       <rhn-tab-url>rhn/monitoring/config/notification/NotificationMethods.do</rhn-tab-url>
@@ -251,9 +251,9 @@
       <rhn-tab name="Restart" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/config/Restart.do</rhn-tab-url>
       </rhn-tab>
-	  <rhn-tab name="Cobbler" acl="user_role(satellite_admin)">
-	    <rhn-tab-url>/rhn/admin/config/Cobbler.do</rhn-tab-url>
-	  </rhn-tab>
+          <rhn-tab name="Cobbler" acl="user_role(satellite_admin)">
+            <rhn-tab-url>/rhn/admin/config/Cobbler.do</rhn-tab-url>
+          </rhn-tab>
     </rhn-tab>
     <rhn-tab name="Task Engine Status" acl="user_role(satellite_admin)" url="/rhn/admin/TaskStatus.do">
     </rhn-tab>
@@ -283,7 +283,7 @@
     </rhn-tab>
     <rhn-tab name="API" url="/rhn/apidoc/index.jsp" />
     <rhn-tab name="Search" url="/rhn/help/Search.do" />
-	<rhn-tab name="Chat" url="/rhn/help/Chat.do" />
+        <rhn-tab name="Chat" url="/rhn/help/Chat.do" />
   </rhn-tab>
 
 </rhn-navi-tree>

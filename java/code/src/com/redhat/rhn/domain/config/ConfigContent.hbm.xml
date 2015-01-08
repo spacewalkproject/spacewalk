@@ -3,26 +3,26 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.config.ConfigContent"
-		table="rhnConfigContent" >
-		<id name="id" type="long" column="id">
-			<meta attribute="scope-set">protected</meta>
-			<generator class="sequence">
-				<param name="sequence">rhn_confcontent_id_seq</param>
-			</generator>
-		</id>
-		<property name="contents" column="contents" type="binary" />
-		<property name="fileSize" column="file_size" type="long" />
-		<property name="binary" column="is_binary" type="yes_no" />
+        <class name="com.redhat.rhn.domain.config.ConfigContent"
+                table="rhnConfigContent" >
+                <id name="id" type="long" column="id">
+                        <meta attribute="scope-set">protected</meta>
+                        <generator class="sequence">
+                                <param name="sequence">rhn_confcontent_id_seq</param>
+                        </generator>
+                </id>
+                <property name="contents" column="contents" type="binary" />
+                <property name="fileSize" column="file_size" type="long" />
+                <property name="binary" column="is_binary" type="yes_no" />
         <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
-		<property name="delimStart" column="delim_start" type="string"
-			length="16" />
-		<property name="delimEnd" column="delim_end" type="string" length="16"
-			/>		
-		<many-to-one name="checksum" class="com.redhat.rhn.domain.common.Checksum"
+                <property name="delimStart" column="delim_start" type="string"
+                        length="16" />
+                <property name="delimEnd" column="delim_end" type="string" length="16"
+                        />
+                <many-to-one name="checksum" class="com.redhat.rhn.domain.common.Checksum"
             column="checksum_id" />
-	</class>
+        </class>
 </hibernate-mapping>

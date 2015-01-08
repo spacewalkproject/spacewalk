@@ -57,8 +57,8 @@ SELECT ugm.user_id
   SELECT  DISTINCT WC.id, WC.login_uc,UI.last_logged_in
 
     FROM  web_contact WC
-    	inner join rhnSet ST on ST.element = WC.id
-	    inner join rhnUserInfo UI on UI.user_id = wc.id
+        inner join rhnSet ST on ST.element = WC.id
+            inner join rhnUserInfo UI on UI.user_id = wc.id
    WHERE  ST.user_id = :user_id
      AND  ST.label = :set_label
 ORDER BY  WC.login_uc
@@ -74,7 +74,7 @@ SELECT wc.id AS ID,
        wc.org_id,
        UI.last_logged_in
   FROM web_contact wc
-	  inner join rhnUserInfo UI on UI.user_id = wc.id
+          inner join rhnUserInfo UI on UI.user_id = wc.id
  WHERE wc.org_id = :org_id
 ORDER BY wc.login_uc
   </query>
@@ -135,7 +135,7 @@ SELECT wce.id AS ID,
        wce.login_uc,
        UI.last_logged_in
   FROM rhnWebContactEnabled wce
-  	inner join rhnUserInfo UI on UI.user_id = wce.id
+        inner join rhnUserInfo UI on UI.user_id = wce.id
  WHERE wce.org_id = :org_id
 ORDER BY wce.login_uc
   </query>
@@ -151,9 +151,9 @@ SELECT wcd.id AS ID,
      (select max(wccl_exists.date_completed)
             from rhnWebContactChangeLog   wccl_exists
               where wcd.id= wccl_exists.web_contact_id) as change_date,
-	  UI.last_logged_in
+          UI.last_logged_in
   FROM rhnWebContactDisabled wcd
-  		inner join rhnUserInfo UI on UI.user_id = wcd.id
+                inner join rhnUserInfo UI on UI.user_id = wcd.id
   WHERE wcd.org_id = :org_id
 ORDER BY wcd.login_uc
   </query>
@@ -311,5 +311,5 @@ SELECT count(id) as user_count
   FROM web_contact
   </query>
 </mode>
-	
+
 </datasource_modes>

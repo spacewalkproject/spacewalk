@@ -71,27 +71,27 @@
                 DELETE FROM rhnIndexerWork where object_type = 'server'
    </delete>
    <insert id="createLastServer" parameterType="java.util.Map">
-		INSERT INTO rhnIndexerWork values ('server', #{id}, #{last_modified})
-	</insert>
-	<update id="updateLastServer" parameterType="java.util.Map">
-		UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'server'
-	</update>
-	<select id="getLastServerId" resultType="java.lang.Long">
-		SELECT last_id from rhnIndexerWork where object_type='server'
-	</select>
-	<select id="getLastServerIndexRun" resultType="java.util.Date">
+                INSERT INTO rhnIndexerWork values ('server', #{id}, #{last_modified})
+        </insert>
+        <update id="updateLastServer" parameterType="java.util.Map">
+                UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'server'
+        </update>
+        <select id="getLastServerId" resultType="java.lang.Long">
+                SELECT last_id from rhnIndexerWork where object_type='server'
+        </select>
+        <select id="getLastServerIndexRun" resultType="java.util.Date">
         SELECT last_modified from rhnIndexerWork where object_type='server'
     </select>
-	<select id="verifyServerVisibility" resultType="string">
+        <select id="verifyServerVisibility" resultType="string">
         SELECT usp.server_id
         FROM rhnUserServerPerms usp
             INNER JOIN pxtsessions ps ON ps.web_user_id = usp.user_id
         WHERE ps.id = #{session_id}
         AND usp.server_id IN
-		 <foreach collection="id_list" item="item" separator="," close=")" open="(">
-		    #{item}
-		</foreach>
-	</select>   		   
+                 <foreach collection="id_list" item="item" separator="," close=")" open="(">
+                    #{item}
+                </foreach>
+        </select>
     <select id="maxServerId" resultType="java.lang.Long">
         SELECT MAX(ID)
           FROM rhnServer

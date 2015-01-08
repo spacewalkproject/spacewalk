@@ -16,10 +16,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="label" type="string" column="label"/>
 
         <property name="created" column="created"
-        	not-null="true" type="timestamp" insert="false" update="false"/>
+                not-null="true" type="timestamp" insert="false" update="false"/>
         <property name="modified" column="modified"
-        	not-null="true" type="timestamp" insert="false" update="false"/>
-        	
+                not-null="true" type="timestamp" insert="false" update="false"/>
+
         <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
             column="org_id"/>
 
@@ -27,7 +27,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
              order-by="created">
           <key column="file_list_id"/>
           <many-to-many column="config_file_name_id"
-          	class="com.redhat.rhn.domain.config.ConfigFileName" />
+                class="com.redhat.rhn.domain.config.ConfigFileName" />
         </bag>
 
 

@@ -1,13 +1,13 @@
 <datasource_modes>
 
 <query name="visible_to_user_overview_fast" params="org_id, user_id">
-		SELECT
+                SELECT
          G.ID AS ID, G.NAME AS NAME,
 
-	          (SELECT COUNT(*) FROM rhnUserManagedServerGroups UMSG WHERE UMSG.server_group_id = G.id)
+                  (SELECT COUNT(*) FROM rhnUserManagedServerGroups UMSG WHERE UMSG.server_group_id = G.id)
          AS GROUP_ADMINS,
 
-		(SELECT COUNT(*) FROM rhnServerGroupMembers SGM WHERE SGM.server_group_id = G.id
+                (SELECT COUNT(*) FROM rhnServerGroupMembers SGM WHERE SGM.server_group_id = G.id
                  AND EXISTS ( SELECT 1
                               FROM rhnServerFeaturesView SFV
                               WHERE SFV.server_id = SGM.server_id
@@ -34,10 +34,10 @@
 
   <query name="errata_count">
            SELECT
-           	 sgm.server_group_id AS ID,
-		 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Security Advisory') AS SECURITY_ERRATA,
-		 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Bug Fix Advisory') AS BUG_ERRATA,
-           	 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Product Enhancement Advisory') AS ENHANCEMENT_ERRATA
+                 sgm.server_group_id AS ID,
+                 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Security Advisory') AS SECURITY_ERRATA,
+                 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Bug Fix Advisory') AS BUG_ERRATA,
+                 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Product Enhancement Advisory') AS ENHANCEMENT_ERRATA
             FROM
                  rhnServerNeededPackageCache SNPC,
                  rhnServerGroupMembers SGM,
@@ -65,14 +65,14 @@ ORDER BY UPPER(NAME)
 
 
 <mode name="is_visible">
-	<query  params="sgid, user_id">
-		SELECT 1
-		  FROM rhnServerGroup SG
-				inner join rhnUserManagedServerGroups UMSG on UMSG.server_group_id = SG.id
-		 WHERE UMSG.user_id = :user_id
-		   AND UMSG.SERVER_GROUP_ID = :sgid
-		   AND SG.group_type IS NULL
-	</query>
+        <query  params="sgid, user_id">
+                SELECT 1
+                  FROM rhnServerGroup SG
+                                inner join rhnUserManagedServerGroups UMSG on UMSG.server_group_id = SG.id
+                 WHERE UMSG.user_id = :user_id
+                   AND UMSG.SERVER_GROUP_ID = :sgid
+                   AND SG.group_type IS NULL
+        </query>
 </mode>
 
 

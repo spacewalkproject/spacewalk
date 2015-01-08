@@ -1,5 +1,5 @@
 <project name="build-utils.xml">
-  <!-- 
+  <!--
     creates symlinks for jpackage jars
     requires: jpackage-utils
     other: requires rpms of the jars specified to be installed
@@ -7,7 +7,7 @@
   <macrodef name="jpackage-deps">
     <attribute name="jars" />
     <attribute name="dir" />
- 
+
     <sequential>
       <echo message="Symlinking @{jars}" />
       <exec executable="build-jar-repository" failonerror="true" >
@@ -18,7 +18,7 @@
     </sequential>
   </macrodef>
 
-  <!-- 
+  <!--
     creates symlinks for jars downloaded from the ivy repository
     requires: ivy jpackage rpm
               ivy.xml
@@ -29,7 +29,7 @@
     <attribute name="libdir" />
     <attribute name="jars" />
     <attribute name="dir" />
- 
+
     <sequential>
       <exec executable="${rhn-home}/scripts/build-jar-dir" failonerror="true" >
         <arg value="-s" />
@@ -60,7 +60,7 @@ Running @{banner} ...
       <!-- forkmode requires using Ant 1.6.2.  If you don't have
            1.6.2, remove forkmode attribute -->
       <junit forkmode="once" fork="yes" printsummary="off" showoutput="yes"
-             haltonfailure="${halt-tests-on-failure}" 
+             haltonfailure="${halt-tests-on-failure}"
              failureproperty="junit_test_failure" maxmemory="256m">
         <!-- kind of hokey, but we need a property for the DataSourceParser
              test to work.  This keeps people from breaking until we move
@@ -86,7 +86,7 @@ Running @{banner} ...
     </sequential>
   </macrodef>
 
-  <!-- 
+  <!--
     copies srcfiles to destfile and filters it.
     requires: none
     other: none

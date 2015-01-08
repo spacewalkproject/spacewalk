@@ -56,7 +56,7 @@ ORDER BY UPPER(SC.description)
 
 <!--
 - if date executed is null then it's either expired or pending.
-- treat the case where the date is past the expiration as expired, otherwise pending 
+- treat the case where the date is past the expiration as expired, otherwise pending
 - if date executed is not null then an exit status of '0' is OK, '1' is warning, otherwise "error"
 -->
 <query name="config_push_status" params="org_id">
@@ -108,15 +108,15 @@ SELECT 1 AS PUSH_NEEDED,
       AND CQE.netsaint_id = SC.recid
       AND SC.customer_id = :org_id
       AND command_id=1
-  ) last_push, 
+  ) last_push,
   ( SELECT count(*) CNT
-    FROM   rhn_deployed_probe 
+    FROM   rhn_deployed_probe
     WHERE  recid NOT IN (SELECT recid FROM rhn_probe
-      WHERE probe_type = 'check') 
+      WHERE probe_type = 'check')
   ) undeployed_probes
-  WHERE last_push.push_date &lt; last_update.cluster_last_update 
+  WHERE last_push.push_date &lt; last_update.cluster_last_update
   OR last_push.push_date &lt; last_update.node_last_update
-  OR last_push.push_date &lt; last_update.probe_last_update 
+  OR last_push.push_date &lt; last_update.probe_last_update
   OR undeployed_probes.cnt &gt; 0
 </query>
 
@@ -167,15 +167,15 @@ SELECT 1 AS PUSH_NEEDED,
       WHERE CQE.instance_id = CQI.recid
       AND CQE.netsaint_id = SC.recid
       AND command_id=1
-  ) last_push, 
+  ) last_push,
   ( SELECT count(*) CNT
-    FROM   rhn_deployed_probe 
+    FROM   rhn_deployed_probe
     WHERE  recid NOT IN (SELECT recid FROM rhn_probe
-      WHERE probe_type = 'check') 
+      WHERE probe_type = 'check')
   ) undeployed_probes
-  WHERE last_push.push_date &lt; last_update.cluster_last_update 
+  WHERE last_push.push_date &lt; last_update.cluster_last_update
   OR last_push.push_date &lt; last_update.node_last_update
-  OR last_push.push_date &lt; last_update.probe_last_update 
+  OR last_push.push_date &lt; last_update.probe_last_update
   OR undeployed_probes.cnt &gt; 0
 </query>
 

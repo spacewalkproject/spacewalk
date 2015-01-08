@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.user.legacy.UserImpl"
+        <class name="com.redhat.rhn.domain.user.legacy.UserImpl"
            table="WEB_CONTACT">
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -51,11 +51,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.user.StateChange" />
         </set>
         <set name = "hiddenPanes"
-		table="RHNUSERINFOPANE"
-		lazy="true"
-		cascade="all">
-		<key column="user_id"/>
-		<many-to-many class ="com.redhat.rhn.domain.user.Pane" column="pane_id"/>
+                table="RHNUSERINFOPANE"
+                lazy="true"
+                cascade="all">
+                <key column="user_id"/>
+                <many-to-many class ="com.redhat.rhn.domain.user.Pane" column="pane_id"/>
         </set>
         <set name="associatedServerGroups" lazy="true" table="rhnUserServerGroupPerms"
             cascade="save-update" inverse="true">

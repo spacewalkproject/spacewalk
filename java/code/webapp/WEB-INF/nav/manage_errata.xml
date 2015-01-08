@@ -29,7 +29,7 @@
             </rhn-tab-url>
             <rhn-tab-url>
                 /rhn/errata/manage/AddPackagesConfirm.do
-			</rhn-tab-url>
+                        </rhn-tab-url>
         </rhn-tab>
     </rhn-tab>
 

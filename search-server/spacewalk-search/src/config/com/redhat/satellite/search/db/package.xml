@@ -11,7 +11,7 @@
            pe.release as release,
            pa.label as arch,
            p.description as description,
-           p.summary as summary          
+           p.summary as summary
          FROM rhnPackage p,
               rhnPackageName pn,
               rhnPackageEVR pe,
@@ -45,14 +45,14 @@
                 DELETE FROM rhnIndexerWork where object_type = 'package'
    </delete>
    <insert id="createLastPackage" parameterType="java.util.Map">
-		INSERT INTO rhnIndexerWork values ('package', #{id}, #{last_modified})
-	</insert>
-	<update id="updateLastPackage" parameterType="java.util.Map">
-		UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'package'
-	</update>
-	<select id="getLastPackageId" resultType="java.lang.Long">
-		SELECT last_id from rhnIndexerWork where object_type='package'
-	</select>
+                INSERT INTO rhnIndexerWork values ('package', #{id}, #{last_modified})
+        </insert>
+        <update id="updateLastPackage" parameterType="java.util.Map">
+                UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'package'
+        </update>
+        <select id="getLastPackageId" resultType="java.lang.Long">
+                SELECT last_id from rhnIndexerWork where object_type='package'
+        </select>
    <select id="maxPackageId" resultType="java.lang.Long">
       SELECT MAX(ID)
         FROM rhnPackage
