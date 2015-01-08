@@ -36,26 +36,26 @@ my ($sat_host, $sat_user, $sat_passwd) = ('127.0.0.1', 'admin', 'password');
 
 # i.e. 7 critical errata will cause the critical errata column to be yellow
 my %Thresholds = (
-	'red_crit' => 10,
-	'yel_crit' => 5,
-	'red_imp'  => 15,
-	'yel_imp'  => 7,
-	'red_mod'  => 20,
-	'yel_mod'  => 10,
-	'red_low'  => 25,
-	'yel_low'  => 12,
-	'red_bug'  => 20,
-	'yel_bug'  => 10,
+        'red_crit' => 10,
+        'yel_crit' => 5,
+        'red_imp'  => 15,
+        'yel_imp'  => 7,
+        'red_mod'  => 20,
+        'yel_mod'  => 10,
+        'red_low'  => 25,
+        'yel_low'  => 12,
+        'red_bug'  => 20,
+        'yel_bug'  => 10,
 );
 
 # These are the multiplier values
 my %Formula = (
-	'crit' => 20,
-	'imp'  => 15,
-	'mod'  => 10,
-	'low'  => 5,
-	'bug'  => 3,
-	'enh'  => 1,
+        'crit' => 20,
+        'imp'  => 15,
+        'mod'  => 10,
+        'low'  => 5,
+        'bug'  => 3,
+        'enh'  => 1,
 );
 
 my %Errata;
@@ -82,8 +82,8 @@ print $cgi->start_html(
 my ($count, $data) = (0, "");
 my $return = processForm();
 if ($return) {
-	printForm();
-	print $data;
+        printForm();
+        print $data;
         print "<p>$count hosts examined</p>\n";
 }
 print $cgi->end_html(), "\n";

@@ -90,7 +90,7 @@ Backups take several minutes; the first backup will be a good indicator of how l
 
 =item B<examine DIRNAME>
 
-Examines the contents of a backup directory.  Quicker than B<verify>, this command returns the timestamp of backup creation and reports on its contents, noting any missing files. 
+Examines the contents of a backup directory.  Quicker than B<verify>, this command returns the timestamp of backup creation and reports on its contents, noting any missing files.
 
 =item B<extend TABLESPACE>
 

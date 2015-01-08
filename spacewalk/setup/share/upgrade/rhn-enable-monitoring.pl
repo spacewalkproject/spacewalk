@@ -23,13 +23,13 @@ use RHN::Utils;
 
 my %opts = ();
 my @valid_opts = (
-		  "enable-scout",
-		  "admin-email:s",
-		  "mail-mx:s",
-		  "mail-domain:s",
-		  "hostname:s",
-		  "help",
-		 );
+                  "enable-scout",
+                  "admin-email:s",
+                  "mail-mx:s",
+                  "mail-domain:s",
+                  "hostname:s",
+                  "help",
+                 );
 
 my $usage = "usage: $0 [ --enable-scout ] [ --admin-email=<email_address> ] [ --mail-mx=<mail_mx> ]"
   . " [ --mail-domain=<mail_domain> ] [ --hostname=<override_hostname> ]"
@@ -54,10 +54,10 @@ unless ($scout_shared_key) {
   my $ip_addr = RHN::Utils::find_ip_address($hostname);
   my $org_id = RHN::SatInstall->get_satellite_org_id();
   my $sc = new RHN::SatCluster(customer_id => $org_id,
-			       description => 'RHN Monitoring Satellite',
-			       last_update_user => 'installer',
-			       vip => $ip_addr,
-			      );
+                               description => 'RHN Monitoring Satellite',
+                               last_update_user => 'installer',
+                               vip => $ip_addr,
+                              );
 
   eval {
     $sc->create_new();
@@ -89,7 +89,7 @@ $config_opts{monitoringDOTsmonDOTtestfqdn} = 'localhost';
 $config_opts{monitoringDOTscout_shared_key} = $scout_shared_key;
 
 RHN::SatInstall->write_config(\%config_opts,
-			      '/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf');
+                              '/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf');
 
 print "Deploying config\n";
 

@@ -24,7 +24,7 @@ use English;
 $ENV{PATH} = '/bin:/usr/bin';
 
 my $usage = "usage: $0 --source=<source_file> --target=<target_file> "
-	. "--tablespace-name=<tablespace> [ --help ]\n";
+        . "--tablespace-name=<tablespace> [ --help ]\n";
 
 my $source = '';
 my $target = '';
@@ -32,15 +32,15 @@ my $tablespace_name = '';
 my $help = '';
 
 GetOptions("source=s" => \$source, "target=s" => \$target,
-		 "tablespace-name=s" => \$tablespace_name, "help" => \$help) or die $usage;
+                 "tablespace-name=s" => \$tablespace_name, "help" => \$help) or die $usage;
 
 if ($help or not ($source and $target and $tablespace_name)) {
-	die $usage;
+        die $usage;
 }
 
 my $backend = 'oracle';
 if ($source =~ m!/postgres(ql)?/!) {
-	$backend = 'postgresql';
+        $backend = 'postgresql';
 }
 
 open(SOURCE, "< $source") or die "Could not open $source: $OS_ERROR";
@@ -53,24 +53,24 @@ my $exception_dir;
 my %exception_files;
 my @exception_queue = ( '' );
 while (@exception_queue) {
-	my $d = shift @exception_queue;
-	if ($d ne '') {
-		$d .= '/';
-	}
-	my $full_path = "$exception_dir/$d";
-	if (-d $full_path) {
-		if (opendir DIR, $full_path) {
-			for (sort readdir DIR) {
-				next if /^\.\.?$/;
-				if (-d "$full_path$_") {
-					push @exception_queue, "$d$_";
-				} else {
-					$exception_files{"$d$_"} = 1;
-				}
-			}
-			closedir DIR;
-		}
-	}
+        my $d = shift @exception_queue;
+        if ($d ne '') {
+                $d .= '/';
+        }
+        my $full_path = "$exception_dir/$d";
+        if (-d $full_path) {
+                if (opendir DIR, $full_path) {
+                        for (sort readdir DIR) {
+                                next if /^\.\.?$/;
+                                if (-d "$full_path$_") {
+                                        push @exception_queue, "$d$_";
+                                } else {
+                                        $exception_files{"$d$_"} = 1;
+                                }
+                        }
+                        closedir DIR;
+                }
+        }
 }
 
 my $marker_re = qr/^-- Source: (.+?)$|^select '(.+?)' sql_file from dual;$/;
@@ -78,43 +78,43 @@ my $line;
 
 my %exception_seen;
 while ($line = <SOURCE>) {
-	if ($line =~ $marker_re) {
-		my $filename = $1;
-		if (not defined $filename) {
-			$filename = $2;
-			$filename =~ s!^.+/([^/]+/[^/]+)$!$1!;
-		}
-		my $full_file = undef;
-		if (exists $exception_files{"$filename.$backend"}) {
-			$full_file = "$exception_dir/$filename.$backend";
-		} elsif (exists $exception_files{$filename}) {
-			$full_file = "$exception_dir/$filename";
-		}
-		if (defined $full_file) {
-			for my $e ( '', '.oracle', '.postgresql' ) {
-				$exception_seen{"$filename$e"}++ if exists $exception_files{"$filename$e"};
-			}
-			open OVERRIDE, $full_file or die "Error reading file [$full_file]: $!\n";
-			print TARGET "-- Source: $subdir_name/$filename\n\n";
-			while (<OVERRIDE>) {
-				s/\[\[.*\]\]/$tablespace_name/g;
-				s/__.*__/$tablespace_name/g;
-				print TARGET $_;
-			}
-			close OVERRIDE;
-			while ($line = <SOURCE>) {
-				if ($line =~ $marker_re) {
-					last;
-				}
-			}
-			print TARGET "\n";
-			redo;
-		}
-	}
-	$line =~ s/\[\[.*\]\]/$tablespace_name/g;
-	$line =~ s/__.*__/$tablespace_name/g;
+        if ($line =~ $marker_re) {
+                my $filename = $1;
+                if (not defined $filename) {
+                        $filename = $2;
+                        $filename =~ s!^.+/([^/]+/[^/]+)$!$1!;
+                }
+                my $full_file = undef;
+                if (exists $exception_files{"$filename.$backend"}) {
+                        $full_file = "$exception_dir/$filename.$backend";
+                } elsif (exists $exception_files{$filename}) {
+                        $full_file = "$exception_dir/$filename";
+                }
+                if (defined $full_file) {
+                        for my $e ( '', '.oracle', '.postgresql' ) {
+                                $exception_seen{"$filename$e"}++ if exists $exception_files{"$filename$e"};
+                        }
+                        open OVERRIDE, $full_file or die "Error reading file [$full_file]: $!\n";
+                        print TARGET "-- Source: $subdir_name/$filename\n\n";
+                        while (<OVERRIDE>) {
+                                s/\[\[.*\]\]/$tablespace_name/g;
+                                s/__.*__/$tablespace_name/g;
+                                print TARGET $_;
+                        }
+                        close OVERRIDE;
+                        while ($line = <SOURCE>) {
+                                if ($line =~ $marker_re) {
+                                        last;
+                                }
+                        }
+                        print TARGET "\n";
+                        redo;
+                }
+        }
+        $line =~ s/\[\[.*\]\]/$tablespace_name/g;
+        $line =~ s/__.*__/$tablespace_name/g;
 
-	print TARGET $line;
+        print TARGET $line;
 }
 
 close(SOURCE);
@@ -122,25 +122,25 @@ close(TARGET);
 
 my $error = 0;
 for (sort keys %exception_seen) {
-	if ($exception_seen{$_} > 1) {
-		warn "Schema source [$source] loaded override [$_] more than once.\n";
-		$error = 1;
-	}
+        if ($exception_seen{$_} > 1) {
+                warn "Schema source [$source] loaded override [$_] more than once.\n";
+                $error = 1;
+        }
 }
 for (sort keys %exception_files) {
-	if (not exists $exception_seen{$_}) {
-		warn "Schema source [$source] did not use override [$_].\n";
-		$error = 1;
-	}
+        if (not exists $exception_seen{$_}) {
+                warn "Schema source [$source] did not use override [$_].\n";
+                $error = 1;
+        }
 }
 
 system('/usr/sbin/selinuxenabled');
 if ($? >> 8 == 0) {
         if (-x '/usr/sbin/restorecon') {
-		system('/usr/sbin/restorecon', '-F', $target);
-	} elsif (-x '/sbin/restorecon') {
-		system('/sbin/restorecon', '-F', $target);
-	}
+                system('/usr/sbin/restorecon', '-F', $target);
+        } elsif (-x '/sbin/restorecon') {
+                system('/sbin/restorecon', '-F', $target);
+        }
 }
 
 exit $error;

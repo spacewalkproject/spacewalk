@@ -10,7 +10,7 @@ my $cookie = $ARGV[1];
 my $threads = $ARGV[2];
 
 #set std out to host
-$| = 1; 
+$| = 1;
 
 if ($server eq "" || $cookie eq "" || $threads eq "") {
     print "Usage: ./lwload.pl  [servername] [cookie value from logged in browser] [threads]\n";
@@ -56,7 +56,7 @@ sub loop_pages {
         #    die "expected id:\n$id\n$output\n";
         #}
         #$output = hit_page("https://$server/rhn/errata/details/Details.do?eid=2790", $cookie);
-        $cnt++;        
+        $cnt++;
     }
 }
 
@@ -64,7 +64,7 @@ sub hit_page {
     my $url = shift;
     my $cookie = shift;
     my $header = HTTP::Headers->new;
-    $header->header("Cookie" => $cookie); 
+    $header->header("Cookie" => $cookie);
     my $ua = LWP::UserAgent->new;
     $ua->timeout(100);
     my $response = $ua->get($url, "Cookie" => $cookie);
@@ -98,6 +98,6 @@ sub get_sessionid_from_cookies {
         @temp = split("=", $temp[1]);
         $session_id = $temp[1];
     }
-  }  
+  }
   return $session_id;
 }

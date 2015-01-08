@@ -14,10 +14,10 @@ $version = (split /\s*:\s*/, $version)[-1];
 
 die "No version or name from $file" unless $version;
 
-WriteMakefile('NAME'	 => "PXT",
-	      'VERSION'  => $version,
-	      'LIBS'	 => [''], # e.g., '-lm'
-	      'DEFINE'	 => '',	# e.g., '-DHAVE_SOMETHING'
-	      'INC'	 => '',	# e.g., '-I/usr/include/other'
-	      'MAKEFILE' => "Makefile.perl", #the name of the output Makefile file
+WriteMakefile('NAME'     => "PXT",
+              'VERSION'  => $version,
+              'LIBS'     => [''], # e.g., '-lm'
+              'DEFINE'   => '', # e.g., '-DHAVE_SOMETHING'
+              'INC'      => '', # e.g., '-I/usr/include/other'
+              'MAKEFILE' => "Makefile.perl", #the name of the output Makefile file
 );

@@ -42,7 +42,7 @@ unless (-d $ssl_dir) {
 }
 
 my @files_to_cat = (File::Spec->catfile($ssl_dir, 'server.crt'),
-		    File::Spec->catfile($ssl_dir, 'server.key'));
+                    File::Spec->catfile($ssl_dir, 'server.key'));
 
 my @content;
 

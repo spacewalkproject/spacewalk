@@ -61,7 +61,7 @@ run_channel_tests($conn, $session);
 run_channel_software_tests($conn, $session);
 run_errata_tests($conn, $session);
 run_package_tests($conn, $session);
-run_user_subscribable_tests($conn, $session); 
+run_user_subscribable_tests($conn, $session);
 run_user_tests($conn, $session);
 #run_proxy_tests($conn, $session);
 #run_satellite_tests($conn, $session);
@@ -258,11 +258,11 @@ sub run_channel_software_tests {
                 }
         }
     }
-   
+
     #
     # Let's create a channel
     #
-    eval { 
+    eval {
         # see if the channel's there, if it is delete it.
         $rc = $conn->call('channel.software.get_details', $session, 'jesusr-api-test-label');
         $rc = $conn->call('channel.software.delete', $session, 'jesusr-api-test-label');
@@ -397,11 +397,11 @@ sub run_channel_tests {
                 assertEquals(
                     'Red Hat Enterprise Linux AS (v. 4 for 32-bit x86)',
                     $item->{'channel_name'});
-                assertEquals('IA-32', 
+                assertEquals('IA-32',
                     $item->{'channel_arch'});
-                assertEquals('', 
+                assertEquals('',
                     $item->{'channel_parent_label'});
-                assertEquals('', 
+                assertEquals('',
                     $item->{'channel_end_of_life'});
             }
 
@@ -566,7 +566,7 @@ sub run_user_tests {
     $newlname = 'Nugent';
     $newemail = 'tnugent@redhat.com';
 
-    my $createResult = $conn->call('user.create', $session, $newuname, $newpass, 
+    my $createResult = $conn->call('user.create', $session, $newuname, $newpass,
                                $newfname, $newlname, $newemail);
     print "Create User result: $createResult\n";
 

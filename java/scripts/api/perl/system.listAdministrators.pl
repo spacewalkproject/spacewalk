@@ -21,11 +21,11 @@ my $system = 1000010052;
 my $channels = $client->call('system.listAdministrators', $session, $system);
 
 foreach my $channel (@$channels) {
-	print "USER:\n";
-	print $channel->{'id'}; 	
-	print "\n"; 
-	print $channel->{'login'}."\n";
-	print $channel->{'login_uc'}."\n\n";
+        print "USER:\n";
+        print $channel->{'id'};
+        print "\n";
+        print $channel->{'login'}."\n";
+        print $channel->{'login_uc'}."\n\n";
 }
 
 

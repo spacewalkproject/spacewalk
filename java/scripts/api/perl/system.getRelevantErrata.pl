@@ -21,7 +21,7 @@ my $system = 1000010050;
 my $channels = $client->call('system.getRelevantErrata', $session, $system);
 
 foreach my $channel (@$channels) {
-	print $channel->{'advisory_synopsis'}."\n";
+        print $channel->{'advisory_synopsis'}."\n";
 }
 
 

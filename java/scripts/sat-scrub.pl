@@ -18,7 +18,7 @@ remove_test_users($conn, $session);
 remove_test_systems($conn, $session);
 
 #ok, we may have left some crap since we skip the user/system
-#when the session invalidates. so, run again and pick up any 
+#when the session invalidates. so, run again and pick up any
 #stragglers (I know, I suck) :(
 remove_test_users($conn, $session);
 remove_test_systems($conn, $session);
@@ -105,7 +105,7 @@ sub remove_test_users {
           }
         }
     }
-   
+
     print "$deleted_users users were deleted.\n";
     if (scalar(@not_deleted)) {
         print "Users NOT removed: ";

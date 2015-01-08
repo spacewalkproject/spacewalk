@@ -51,55 +51,55 @@ while (<>) {
 #    in later autoconf (2.14.1) there is no CONFIG_FILES= line,
 #    but instead the (2) directly follow (1)
         if (/^\s*ac_max_sed_([a-z]+).*=\s*([0-9]+)/ ) {
-	    $flag = 1;
-	    if ($1 eq 'lines') {
-                # lets hope its different with 2141, 
+            $flag = 1;
+            if ($1 eq 'lines') {
+                # lets hope its different with 2141,
                 # wasn't able to verify that
               if ($2 eq '48') {
                 $ac_version = 250;
               }
               else {
-	        $ac_version = 2141;
+                $ac_version = 2141;
               }
-	    } elsif ($1 eq 'cmds') {
-	        $ac_version = 213;
-	    }
-	    # hmm, we don't know the autoconf version, but we try anyway
-	} else {
-	    print;
-	}
+            } elsif ($1 eq 'cmds') {
+                $ac_version = 213;
+            }
+            # hmm, we don't know the autoconf version, but we try anyway
+        } else {
+            print;
+        }
     } elsif ($flag == 1) {
         if (/^\s*CONFIG_FILES=/ && ($ac_version != 250)) {
-	     print;
-	     $flag = 2;
-	} elsif (/^\s*for\s+ac_file\s+in\s+.*CONFIG_FILES/ ) {
-	     $flag = 3;
-	}
+             print;
+             $flag = 2;
+        } elsif (/^\s*for\s+ac_file\s+in\s+.*CONFIG_FILES/ ) {
+             $flag = 3;
+        }
     } elsif ($flag == 2) {
 # 2. begins with: "for ac_file in.*CONFIG_FILES"  (the next 'for' after (1))
 #    end with: "rm -f conftest.s\*"
 # on autoconf 250, it ends with '# CONFIG_HEADER section'
 #
-# gg: if a post-processing commands section is found first, 
+# gg: if a post-processing commands section is found first,
 #    stop there and insert a new loop to honour the case/esac.
 # (pattern: /^\s+#\sRun the commands associated with the file./)
 
-	if (/^\s*for\s+ac_file\s+in\s+.*CONFIG_FILES/ ) {
-	    $flag = 3;
-	} else {
-	    print;
-	}
+        if (/^\s*for\s+ac_file\s+in\s+.*CONFIG_FILES/ ) {
+            $flag = 3;
+        } else {
+            print;
+        }
     } elsif ($flag == 3) {
         if (/^\s*rm\s+-f\s+conftest/ ) {
-	    $flag = 4;
-	    &insert_main_loop();
-	} elsif (/^\s*rm\s+-f\s+.*ac_cs_root/ ) {
-	    $flag = 4;
-	    &insert_main_loop();
-	    #die "hhhhhhh";
-	    if ($ac_version != 2141) {
-	        print STDERR "hmm, don't know autoconf version\n";
-	    }
+            $flag = 4;
+            &insert_main_loop();
+        } elsif (/^\s*rm\s+-f\s+.*ac_cs_root/ ) {
+            $flag = 4;
+            &insert_main_loop();
+            #die "hhhhhhh";
+            if ($ac_version != 2141) {
+                print STDERR "hmm, don't know autoconf version\n";
+            }
         } elsif (/^\#\s*CONFIG_(HEADER|COMMANDS) section.*|^\s+#\s(Run) the commands associated/) {
           $flag = 4;
           my $commands = defined $2;
@@ -108,9 +108,9 @@ while (<>) {
           if($ac_version != 250) {
             print STDERR "hmm, something went wrong :-(\n";
           }
-	} elsif (/VPATH/ ) {
-	    $vpath_seen = 1;
-	}
+        } elsif (/VPATH/ ) {
+            $vpath_seen = 1;
+        }
     }
 }
 
@@ -135,7 +135,7 @@ EOF
     if ($vpath_seen) {
         print <<EOF;
         # VPATH subst was seen in original config.status main loop
-  echo '/^[ 	]*VPATH[ 	]*=[^:]*\$/d' >>\$tmp/subs.sed
+  echo '/^[     ]*VPATH[        ]*=[^:]*\$/d' >>\$tmp/subs.sed
 EOF
       }
   print <<EOF;
@@ -165,7 +165,7 @@ EOF
     if ($vpath_seen) {
       print <<EOF;
 # VPATH subst was seen in original config.status main loop
-echo '/^[ 	]*VPATH[ 	]*=[^:]*\$/d' >> \$ac_cs_root.subs
+echo '/^[       ]*VPATH[        ]*=[^:]*\$/d' >> \$ac_cs_root.subs
 EOF
     }
     print <<EOF;

@@ -63,10 +63,10 @@ if ($opts{clear}) {
 
 if (not $tree) {
   $tree = RHN::KSTree->create_tree(-label => $opts{label},
-				   -path => File::Spec->catfile("rhn/kickstart", $opts{label}),
-				   -channel_id => $cid,
-				   -install_type_label => $opts{install_type},
-				   -tree_type => $opts{tree_type});
+                                   -path => File::Spec->catfile("rhn/kickstart", $opts{label}),
+                                   -channel_id => $cid,
+                                   -install_type_label => $opts{install_type},
+                                   -tree_type => $opts{tree_type});
 }
 else {
   warn "Tree '$opts{label}' already exists, adding files to it...\n";
@@ -91,8 +91,8 @@ for my $file (@files) {
 
     my ($size, $mtime) = (stat($fullpath))[7, 9];
     my $file_struct = { RELATIVE_FILENAME => $file, FILE_SIZE => $size,
-			LAST_MODIFIED => strftime("%Y-%m-%d %H:%M:%S", localtime $mtime),
-		      };
+                        LAST_MODIFIED => strftime("%Y-%m-%d %H:%M:%S", localtime $mtime),
+                      };
 
     $file_struct->{MD5SUM} = compute_md5sum($fullpath);
 

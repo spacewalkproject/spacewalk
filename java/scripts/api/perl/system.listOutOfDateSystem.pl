@@ -20,9 +20,9 @@ my $session = $client->call('auth.login',$user, $pass);
 my $channels = $client->call('system.listOutOfDateSystems', $session);
 
 foreach my $channel (@$channels) {
-	print "$channel->{'system_name'}:";
-	print $channel->{'sid'}; 	
-	print "\n"; 
+        print "$channel->{'system_name'}:";
+        print $channel->{'sid'};
+        print "\n";
 }
 
 

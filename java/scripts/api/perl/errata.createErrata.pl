@@ -41,7 +41,7 @@ $publish=$client->boolean(0);
 
 my $errata = $client->call('errata.create', $session, $synopsis, $advisoryName, $advisoryRelease, $advisoryType, $product, $topic, $description, $solution, $references,$notes, @bugs, @keywords, @packageIds, @channels , $publish);
 
-	print "ERRATA: ";
-	print "$errata->{'advisory_name'}: ";
-	print $errata->{'id'}; 	
-	print "\n"; 
+        print "ERRATA: ";
+        print "$errata->{'advisory_name'}: ";
+        print $errata->{'id'};
+        print "\n";

@@ -69,7 +69,7 @@ if (not $opts{"skip-logfile-init"}) {
 if (Spacewalk::Setup::have_selinux()) {
     print Spacewalk::Setup::loc("* Setting up SELinux..\n");
     Spacewalk::Setup::system_or_exit(['/usr/sbin/spacewalk-selinux-enable', ''], 42,
-	       'Could not enable selinux policy.');
+               'Could not enable selinux policy.');
 }
 
 if ($opts{"run-cobbler"}) {
@@ -134,8 +134,8 @@ setup_admin_email(\%opts, \%answers, \%rhnOptions);
 print Spacewalk::Setup::loc("* Performing initial configuration.\n");
 my $config_opts = populate_initial_configs(\%opts, \%answers);
 mkdir_mount_points($config_opts->{'mount_point'},
-	$config_opts->{'mount_point'} . '/redhat',
-	$config_opts->{'kickstart_mount_point'});
+        $config_opts->{'mount_point'} . '/redhat',
+        $config_opts->{'kickstart_mount_point'});
 setup_sudoers();
 
 print Spacewalk::Setup::loc("* Activating $product_name.\n");
@@ -173,7 +173,7 @@ if ($opts{'upgrade'}) {
 } else {
   print Spacewalk::Setup::loc("* Restarting services.\n");
   Spacewalk::Setup::system_or_exit(['/usr/sbin/spacewalk-service', 'restart'], 40,
-	       'Could not restart spacewalk services.');
+               'Could not restart spacewalk services.');
   wait_for_tomcat($answers{hostname}) or exit 56;
   print Spacewalk::Setup::loc("Installation complete.\n");
   print Spacewalk::Setup::loc("Visit https://%s to create the $product_name administrator account.\n", $answers{hostname});
@@ -187,13 +187,13 @@ sub choose_database_schema {
     my $answers = shift;
 
     my %is_valid_schema = (
-	'oracle' => 1,
-	'postgresql' => 1,
-	);
+        'oracle' => 1,
+        'postgresql' => 1,
+        );
 
     my $question = "Choose your database backend ("
-	. join(", ", sort(keys(%is_valid_schema)))
-	. ")";
+        . join(", ", sort(keys(%is_valid_schema)))
+        . ")";
 
     Spacewalk::Setup::ask(
             -noninteractive => $opts{"non-interactive"},
@@ -207,63 +207,63 @@ sub choose_database_schema {
 }
 
 sub remove_old_jvm {
-	my $opts = shift;
-	my $answers = shift;
+        my $opts = shift;
+        my $answers = shift;
 
-	return unless (($opts{"upgrade"}) and ($product_name =~ /Satellite/));
+        return unless (($opts{"upgrade"}) and ($product_name =~ /Satellite/));
 
-	my $jvm_list = Spacewalk::Setup::SHARED_DIR . "/old-jvm-list";
+        my $jvm_list = Spacewalk::Setup::SHARED_DIR . "/old-jvm-list";
 
-	local *F;
-	open F, $jvm_list or die "Error opening [$jvm_list]: $!\n";
-	my @jvms = <F>;
-	close F;
-	chomp @jvms;
+        local *F;
+        open F, $jvm_list or die "Error opening [$jvm_list]: $!\n";
+        my @jvms = <F>;
+        close F;
+        chomp @jvms;
 
-	my $remove;
+        my $remove;
 
-	foreach my $jvm (@jvms) {
-		system("rpm -q $jvm >& /dev/null");
-		$remove .= " $jvm" unless $? >> 8;
-	}
+        foreach my $jvm (@jvms) {
+                system("rpm -q $jvm >& /dev/null");
+                $remove .= " $jvm" unless $? >> 8;
+        }
 
-	if ($remove) {
-		print Spacewalk::Setup::loc("Setup found following old java packages:\n");
-		foreach my $p (split (" ", $remove)) {
-			print Spacewalk::Setup::loc("\t$p\n");
-		}
-	} else {
-		return;
-	}
+        if ($remove) {
+                print Spacewalk::Setup::loc("Setup found following old java packages:\n");
+                foreach my $p (split (" ", $remove)) {
+                        print Spacewalk::Setup::loc("\t$p\n");
+                }
+        } else {
+                return;
+        }
 
-	Spacewalk::Setup::ask(
-		-noninteractive => $opts{"non-interactive"},
-		-question => "Should setup remove these packages",
-		-test => sub { my $text = shift; return $text =~ /^[YyNn]/ },
-		-answer => \$answers->{"remove-old-jvm"},
+        Spacewalk::Setup::ask(
+                -noninteractive => $opts{"non-interactive"},
+                -question => "Should setup remove these packages",
+                -test => sub { my $text = shift; return $text =~ /^[YyNn]/ },
+                -answer => \$answers->{"remove-old-jvm"},
                 -default => 'Y',
-	);
-	unless ( $answers->{"remove-old-jvm"} =~ /^[Yy]/ ) {
-		print Spacewalk::Setup::loc("** Skipping removal of old java packages.\n");
-		return;
-	}
+        );
+        unless ( $answers->{"remove-old-jvm"} =~ /^[Yy]/ ) {
+                print Spacewalk::Setup::loc("** Skipping removal of old java packages.\n");
+                return;
+        }
 
-	my $result = `rpm -e $remove 2>&1`;
-	if ($? >> 8) {
-		print Spacewalk::Setup::loc("** Error occurred while removing the packages:\n");
-		print Spacewalk::Setup::loc($result);
-	}
+        my $result = `rpm -e $remove 2>&1`;
+        if ($? >> 8) {
+                print Spacewalk::Setup::loc("** Error occurred while removing the packages:\n");
+                print Spacewalk::Setup::loc($result);
+        }
 }
 
 sub remove_tomcat_cache {
-	my $opts = shift;
+        my $opts = shift;
 
-	return unless ($opts->{'upgrade'});
+        return unless ($opts->{'upgrade'});
 
-	my @dirs = glob "/var/cache/tomcat?/work";
-	if (scalar @dirs > 0) {
-		system("rm -rf /var/cache/tomcat?/work/* > /dev/null 2>&1");
-	}
+        my @dirs = glob "/var/cache/tomcat?/work";
+        if (scalar @dirs > 0) {
+                system("rm -rf /var/cache/tomcat?/work/* > /dev/null 2>&1");
+        }
 }
 
 sub setup_cobbler {
@@ -442,7 +442,7 @@ sub setup_tomcat {
   my $answers = shift;
 
   Spacewalk::Setup::system_or_exit(['/usr/bin/spacewalk-setup-tomcat', ''], 43,
-	       'Could not setup tomcat.');
+               'Could not setup tomcat.');
   return;
 }
 
@@ -473,17 +473,17 @@ sub setup_ssl_certs {
       Spacewalk::Setup::ask(
         -noninteractive => $opts{"non-interactive"},
         -question => "CA certificate password",
-	  -test => \&valid_ssl_cert_password,
-	  -answer => \$password_1,
-	  -password => 1,
+          -test => \&valid_ssl_cert_password,
+          -answer => \$password_1,
+          -password => 1,
          );
 
       Spacewalk::Setup::ask(
         -noninteractive => $opts{"non-interactive"},
           -question => "Re-enter CA certificate password",
-	  -test => \&valid_ssl_cert_password,
-	  -answer => \$password_2,
-	  -password => 1,
+          -test => \&valid_ssl_cert_password,
+          -answer => \$password_2,
+          -password => 1,
          );
     } until (passwords_match($password_1, $password_2));
 
@@ -494,7 +494,7 @@ sub setup_ssl_certs {
       -noninteractive => $opts{"non-interactive"},
       -question => "Organization",
       -test => sub { my $text = shift;
-		     return $text =~ /\S/ && length($text) <= 128 },
+                     return $text =~ /\S/ && length($text) <= 128 },
       -answer => \$answers->{"ssl-set-org"},
      );
 
@@ -513,7 +513,7 @@ sub setup_ssl_certs {
       -noninteractive => $opts{"non-interactive"},
       -question => 'Email Address',
       -test => sub { my $text = shift;
-		     valid_multiple_email($text) && length($text) <= 128 },
+                     valid_multiple_email($text) && length($text) <= 128 },
       -default => $answers->{'admin-email'},
       -answer => \$answers->{'ssl-set-email'},
      );
@@ -522,7 +522,7 @@ sub setup_ssl_certs {
       -noninteractive => $opts{"non-interactive"},
       -question => 'City',
       -test => sub { my $text = shift;
-		     $text =~ /\S+/ && length($text) < 128 },
+                     $text =~ /\S+/ && length($text) < 128 },
       -answer => \$answers->{'ssl-set-city'},
      );
 
@@ -530,21 +530,21 @@ sub setup_ssl_certs {
       -noninteractive => $opts{"non-interactive"},
       -question => 'State',
       -test => sub { my $text = shift;
-		     length($text) > 0 && length($text) < 128 },
+                     length($text) > 0 && length($text) < 128 },
       -answer => \$answers->{'ssl-set-state'},
      );
 
   my ($by_code, $by_name) = valid_cert_countries($answers);
 
   while (not $answers->{'ssl-set-country'}
-	 or not (exists $by_code->{$answers->{'ssl-set-country'}}
-		 or exists $by_name->{$answers->{'ssl-set-country'}})) {
+         or not (exists $by_code->{$answers->{'ssl-set-country'}}
+                 or exists $by_name->{$answers->{'ssl-set-country'}})) {
     Spacewalk::Setup::ask(
         -noninteractive => $opts{"non-interactive"},
         -question => 'Country code (Examples: "US", "JP", "IN", or type "?" to see a list)',
-	-test => sub { my $text = shift;
-		       exists $by_code->{$text} or exists $by_name->{$text} or $text eq '?' },
-	-answer => \$answers->{'ssl-set-country'},
+        -test => sub { my $text = shift;
+                       exists $by_code->{$text} or exists $by_name->{$text} or $text eq '?' },
+        -answer => \$answers->{'ssl-set-country'},
        );
 
     if ($answers->{'ssl-set-country'} eq '?') {
@@ -576,43 +576,43 @@ sub setup_ssl_certs {
   print Spacewalk::Setup::loc("** SSL: Generating CA certificate.\n");
 
   generate_ca_cert(-dir => $answers->{'ssl-dir'},
-		   -password => $answers->{'ssl-password'},
-		   '-set-country' => $answers->{'ssl-set-country'},
-		   '-set-state' => $answers->{'ssl-set-state'},
-		   '-set-city' => $answers->{'ssl-set-city'},
-		   '-set-org' => $answers->{'ssl-set-org'},
-		   '-set-org-unit' => $answers->{'ssl-set-org-unit'},
-		   '-set-common-name' => $answers->{'ssl-set-common-name'},
-		   '-cert-expiration' => $answers->{'ssl-ca-cert-expiration'},
-		  );
+                   -password => $answers->{'ssl-password'},
+                   '-set-country' => $answers->{'ssl-set-country'},
+                   '-set-state' => $answers->{'ssl-set-state'},
+                   '-set-city' => $answers->{'ssl-set-city'},
+                   '-set-org' => $answers->{'ssl-set-org'},
+                   '-set-org-unit' => $answers->{'ssl-set-org-unit'},
+                   '-set-common-name' => $answers->{'ssl-set-common-name'},
+                   '-cert-expiration' => $answers->{'ssl-ca-cert-expiration'},
+                  );
 
   print Spacewalk::Setup::loc("** SSL: Deploying CA certificate.\n");
 
   deploy_ca_cert("-source-dir" => $answers->{'ssl-dir'},
-		 "-target-dir" => '/var/www/html/pub');
+                 "-target-dir" => '/var/www/html/pub');
 
   print Spacewalk::Setup::loc("** SSL: Generating server certificate.\n");
 
   generate_server_cert(-dir => $answers->{'ssl-dir'},
-		       -password => $answers->{'ssl-password'},
-		       '-set-country' => $answers->{'ssl-set-country'},
-		       '-set-state' => $answers->{'ssl-set-state'},
-		       '-set-city' => $answers->{'ssl-set-city'},
-		       '-set-org' => $answers->{'ssl-set-org'},
-		       '-set-org-unit' => $answers->{'ssl-set-org-unit'},
-		       '-cert-expiration' => $answers->{'ssl-server-cert-expiration'},
-		       '-set-email' => $answers->{'ssl-set-email'},
-		       '-set-hostname' => $answers->{'hostname'},
-		      );
+                       -password => $answers->{'ssl-password'},
+                       '-set-country' => $answers->{'ssl-set-country'},
+                       '-set-state' => $answers->{'ssl-set-state'},
+                       '-set-city' => $answers->{'ssl-set-city'},
+                       '-set-org' => $answers->{'ssl-set-org'},
+                       '-set-org-unit' => $answers->{'ssl-set-org-unit'},
+                       '-cert-expiration' => $answers->{'ssl-server-cert-expiration'},
+                       '-set-email' => $answers->{'ssl-set-email'},
+                       '-set-hostname' => $answers->{'hostname'},
+                      );
 
   print Spacewalk::Setup::loc("** SSL: Storing SSL certificates.\n");
 
   install_server_cert(-dir => $answers->{'ssl-dir'},
-		      -system => $system_name);
+                      -system => $system_name);
 
   Spacewalk::Setup::generate_server_pem(-ssl_dir => $answers->{'ssl-dir'},
-		      -system => $system_name,
-		      -out_file => '/etc/pki/spacewalk/jabberd/server.pem');
+                      -system => $system_name,
+                      -out_file => '/etc/pki/spacewalk/jabberd/server.pem');
 
   store_ssl_cert(-ssl_dir => $answers->{'ssl-dir'});
 }
@@ -628,16 +628,16 @@ sub print_country_list {
 }
 sub generate_ca_cert {
   my %params = validate(@_, {
-			     dir => 1,
-			     password => 1,
-			     'set-country' => 1,
-			     'set-state' => 1,
-			     'set-city' => 1,
-			     'set-org' => 1,
-			     'set-org-unit' => 1,
-			     'set-common-name' => 0,
-			     'cert-expiration' => 1, # In years
-			    });
+                             dir => 1,
+                             password => 1,
+                             'set-country' => 1,
+                             'set-state' => 1,
+                             'set-city' => 1,
+                             'set-org' => 1,
+                             'set-org-unit' => 1,
+                             'set-common-name' => 0,
+                             'cert-expiration' => 1, # In years
+                            });
 
   $params{'cert-expiration'} *= 365;
 
@@ -656,17 +656,17 @@ sub generate_ca_cert {
 
 sub generate_server_cert {
   my %params = validate(@_, {
-			     dir => 1,
-			     password => 1,
-			     'set-country' => 1,
-			     'set-state' => 1,
-			     'set-city' => 1,
-			     'set-org' => 1,
-			     'set-org-unit' => 1,
-			     'cert-expiration' => 1,
-			     'set-email' => 1,
-			     'set-hostname' => 1,
-			    });
+                             dir => 1,
+                             password => 1,
+                             'set-country' => 1,
+                             'set-state' => 1,
+                             'set-city' => 1,
+                             'set-org' => 1,
+                             'set-org-unit' => 1,
+                             'cert-expiration' => 1,
+                             'set-email' => 1,
+                             'set-hostname' => 1,
+                            });
 
   $params{'cert-expiration'} *= 365;
 
@@ -685,7 +685,7 @@ sub generate_server_cert {
 
 sub deploy_ca_cert {
   my %params = validate(@_, { "source-dir" => 1,
-			      "target-dir" => 1 });
+                              "target-dir" => 1 });
 
   my @opts;
 
@@ -700,7 +700,7 @@ sub deploy_ca_cert {
 
 sub install_server_cert {
   my %params = validate(@_, { dir => 1,
-			      system => 1 });
+                              system => 1 });
 
   my @opts;
 
@@ -713,24 +713,24 @@ sub install_server_cert {
 
 sub store_ssl_cert {
   my %params = validate(@_, { ssl_dir => 1,
-			      ca_cert => { default => DEFAULT_CA_CERT_NAME },
-			    });
+                              ca_cert => { default => DEFAULT_CA_CERT_NAME },
+                            });
 
 
   my $cert_path = File::Spec->catfile($params{ssl_dir}, $params{ca_cert});
   my @opts = ("--ca-cert=${cert_path}");
 
   Spacewalk::Setup::system_or_exit(['/usr/bin/rhn-ssl-dbstore', @opts], 39,
-		 "There was a problem storing the SSL certificate.");
+                 "There was a problem storing the SSL certificate.");
 
   return;
 }
 
 sub satellite_activate {
   my %params = validate(@_, { filename => 1,
-			      sanity_only => 0,
-			      disconnected => 0,
-			    });
+                              sanity_only => 0,
+                              disconnected => 0,
+                            });
 
   my @args = ('--rhn-cert', $params{filename});
 
@@ -748,24 +748,24 @@ sub satellite_activate {
   }
 
   my $ret = Spacewalk::Setup::system_debug('/usr/bin/rhn-satellite-activate',
-		   @args);
+                   @args);
 
   my %retcodes = (
-		  10 => 'Could not parse certificate file',
-		  11 => 'Certificate expired',
-		  12 => "Unknown $product_name version",
-		  20 => 'Remote activation failure',
-		  30 => 'Local activation failure',
-		  40 => 'Channel population failure',
-		  80 => 'No management entitlements remaining',
-		  82 => "$product_name channel not found",
-		  83 => "No $product_name channel entitlements remaining",
-		  84 => "Invalid $product_name certificate",
-		  85 => 'Unknown activation error',
-		  86 => "$product_name has no base channel on parent server",
-		  87 => "No $product_name channel available for this version",
-		  127 => 'Unhandled error',
-		 );
+                  10 => 'Could not parse certificate file',
+                  11 => 'Certificate expired',
+                  12 => "Unknown $product_name version",
+                  20 => 'Remote activation failure',
+                  30 => 'Local activation failure',
+                  40 => 'Channel population failure',
+                  80 => 'No management entitlements remaining',
+                  82 => "$product_name channel not found",
+                  83 => "No $product_name channel entitlements remaining",
+                  84 => "Invalid $product_name certificate",
+                  85 => 'Unknown activation error',
+                  86 => "$product_name has no base channel on parent server",
+                  87 => "No $product_name channel available for this version",
+                  127 => 'Unhandled error',
+                 );
 
   if ($ret) {
     my $exit_value = $? >> 8;
@@ -850,13 +850,13 @@ sub load_satellite_certificate {
     print Spacewalk::Setup::loc("** Verifying certificate locally.\n");
 
     satellite_activate(-filename => $answers->{'satellite-cert-file'},
-		       -sanity_only => 1,
-		      );
+                       -sanity_only => 1,
+                      );
 
     print Spacewalk::Setup::loc("** Activating $product_name.\n");
 
     satellite_activate(-filename => $answers->{'satellite-cert-file'},
-		       %activate_options);
+                       %activate_options);
   };
 
   if ($@) {
@@ -959,7 +959,7 @@ sub populate_initial_configs {
     }
   }
   Spacewalk::Setup::write_config( \%rhnopt,
-		'/var/lib/rhn/rhn-satellite-prep/etc/rhn/rhn.conf' );
+                '/var/lib/rhn/rhn-satellite-prep/etc/rhn/rhn.conf' );
 
     foreach my $opt_name (qw/session_swap_secret session_secret/) {
         foreach my $i (1 .. 4) {
@@ -987,7 +987,7 @@ sub populate_final_configs {
   my $answers = shift;
 
   Spacewalk::Setup::satcon_deploy(-tree => '/var/lib/rhn/rhn-satellite-prep/etc/rhn',
-		-dest => '/etc/rhn');
+                -dest => '/etc/rhn');
 
   return;
 }
@@ -1285,12 +1285,12 @@ sub parse_cert {
     }
     else {
       if ($field_node->getFirstChild) {
-	my $value = $field_node->getFirstChild->getData;
+        my $value = $field_node->getFirstChild->getData;
 
-	push @fields, [ $name, $value ];
+        push @fields, [ $name, $value ];
       }
       else {
-	push @fields, [ $name, '' ];
+        push @fields, [ $name, '' ];
       }
     }
   }

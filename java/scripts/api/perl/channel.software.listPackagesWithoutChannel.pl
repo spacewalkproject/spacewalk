@@ -21,10 +21,10 @@ my $system = 1000232075;
 my $packages = $client->call('channel.software.listPackagesWithoutChannel', $session);
 
 foreach my $package (@$packages) {
-	print $package->{'package_name'}."-"; 	
-	print $package->{'package_version'}."-";
-	print $package->{'package_release'};
-	print "\n"; 
+        print $package->{'package_name'}."-";
+        print $package->{'package_version'}."-";
+        print $package->{'package_release'};
+        print "\n";
 }
 
 

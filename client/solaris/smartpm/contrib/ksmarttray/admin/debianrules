@@ -7,36 +7,36 @@ use Cwd;
 $origPwd = `pwd`;
 chomp $origPwd;
 
-$kde_confdir		=	"/etc/kde3";
-$kde_prefix		=	"/usr";
-$kde_bindir		=	"$kde_prefix/bin";
-$kde_includedir		=	"$kde_prefix/include/kde";
-$kde_libdir		=	"$kde_prefix/lib";
-$kde_cgidir		=	"$kde_prefix/lib/cgi-bin";
-$kde_moduledir		=	"$kde_prefix/lib/kde3";
-$kde_appsdir		=	"$kde_prefix/share/applnk";
-$kde_datadir		=	"$kde_prefix/share/apps";
-$kde_htmldir		=	"$kde_prefix/share/doc/kde/HTML";
-$kde_icondir		=	"$kde_prefix/share/icons";
-$kde_locale		=	"$kde_prefix/share/locale";
-$kde_mimedir		=	"$kde_prefix/share/mimelnk";
-$kde_servicesdir	=	"$kde_prefix/share/services";
-$kde_servicetypesdir	=	"$kde_prefix/share/servicetypes";
-$kde_sounddir		=	"$kde_prefix/share/sounds";
-$kde_templatesdir	=	"$kde_prefix/share/templates";
-$kde_wallpaperdir	=	"$kde_prefix/share/wallpapers";
+$kde_confdir            =       "/etc/kde3";
+$kde_prefix             =       "/usr";
+$kde_bindir             =       "$kde_prefix/bin";
+$kde_includedir         =       "$kde_prefix/include/kde";
+$kde_libdir             =       "$kde_prefix/lib";
+$kde_cgidir             =       "$kde_prefix/lib/cgi-bin";
+$kde_moduledir          =       "$kde_prefix/lib/kde3";
+$kde_appsdir            =       "$kde_prefix/share/applnk";
+$kde_datadir            =       "$kde_prefix/share/apps";
+$kde_htmldir            =       "$kde_prefix/share/doc/kde/HTML";
+$kde_icondir            =       "$kde_prefix/share/icons";
+$kde_locale             =       "$kde_prefix/share/locale";
+$kde_mimedir            =       "$kde_prefix/share/mimelnk";
+$kde_servicesdir        =       "$kde_prefix/share/services";
+$kde_servicetypesdir    =       "$kde_prefix/share/servicetypes";
+$kde_sounddir           =       "$kde_prefix/share/sounds";
+$kde_templatesdir       =       "$kde_prefix/share/templates";
+$kde_wallpaperdir       =       "$kde_prefix/share/wallpapers";
 
-$mandir			=	"$kde_prefix/share/man";
-$infodir		=	"$kde_prefix/share/info";
-$sysconfdir		=	"/etc";
+$mandir                 =       "$kde_prefix/share/man";
+$infodir                =       "$kde_prefix/share/info";
+$sysconfdir             =       "/etc";
 
-$QTDIR			=	"/usr/share/qt3";
-$IDL			=	"$kde_bindir/cuteidl";
-$DCOPIDL		=	"$kde_bindir/dcopidl";
-$DCOPIDL2CPP		=	"$kde_bindir/dcopidl2cpp";
-$KDB2HTML		=	"$kde_bindir/kdb2html";
-$MCOPIDL		=	"$kde_bindir/mcopidl";
-$ARTSCCONFIG		=	"$kde_bindir/artsc-config";
+$QTDIR                  =       "/usr/share/qt3";
+$IDL                    =       "$kde_bindir/cuteidl";
+$DCOPIDL                =       "$kde_bindir/dcopidl";
+$DCOPIDL2CPP            =       "$kde_bindir/dcopidl2cpp";
+$KDB2HTML               =       "$kde_bindir/kdb2html";
+$MCOPIDL                =       "$kde_bindir/mcopidl";
+$ARTSCCONFIG            =       "$kde_bindir/artsc-config";
 
 if (defined $ENV{DEB_BUILD_OPTIONS} &&
     $ENV{DEB_BUILD_OPTIONS} =~ /\bdebug\b/) {
@@ -47,9 +47,9 @@ else {
   $enable_debug="--disable-debug";
   if (defined $ENV{DEB_BUILD_OPTIONS} &&
               $ENV{DEB_BUILD_OPTIONS} =~ /\bfinal\b/) {
-	  $enable_final="--enable-final";
+          $enable_final="--enable-final";
   } else {
-	  $enable_final="";
+          $enable_final="";
   }
 }
 
@@ -94,26 +94,26 @@ if (@ARGV && $ARGV[0] eq 'echodirs') {
 }
 
 if (@ARGV && $ARGV[0] eq 'echoglobals') {
-	print STDOUT "[Directories]\n";
-	print STDOUT "dir_config=$kde_confdir\n";
-	print STDOUT "dir_tmp=/tmp\n";
-	print STDOUT "dir_socket=/tmp\n";
-	print STDOUT "dir_exe=$kde_bindir\n";
-	print STDOUT "dir_lib=$kde_libdir\n";
-	print STDOUT "dir_cgi=$kde_cgidir\n";
-	print STDOUT "dir_module=$kde_moduledir\n";
-	print STDOUT "dir_apps=$kde_appsdir\n";
-	print STDOUT "dir_data=$kde_datadir\n";
-	print STDOUT "dir_html=$kde_htmldir\n";
-	print STDOUT "dir_icon=$kde_icondir\n";
-	print STDOUT "dir_locale=$kde_locale\n";
-	print STDOUT "dir_mime=$kde_mimedir\n";
-	print STDOUT "dir_services=$kde_servicesdir\n";
-	print STDOUT "dir_servicetypes=$kde_servicetypesdir\n";
-	print STDOUT "dir_sound=$kde_sounddir\n";
-	print STDOUT "dir_templates=$kde_templatesdir\n";
-	print STDOUT "dir_wallpaper=$kde_wallpaperdir\n";
-	print STDOUT "[General]\n";
-	print STDOUT "TerminalApplication=x-terminal-emulator\n";
-	exit
+        print STDOUT "[Directories]\n";
+        print STDOUT "dir_config=$kde_confdir\n";
+        print STDOUT "dir_tmp=/tmp\n";
+        print STDOUT "dir_socket=/tmp\n";
+        print STDOUT "dir_exe=$kde_bindir\n";
+        print STDOUT "dir_lib=$kde_libdir\n";
+        print STDOUT "dir_cgi=$kde_cgidir\n";
+        print STDOUT "dir_module=$kde_moduledir\n";
+        print STDOUT "dir_apps=$kde_appsdir\n";
+        print STDOUT "dir_data=$kde_datadir\n";
+        print STDOUT "dir_html=$kde_htmldir\n";
+        print STDOUT "dir_icon=$kde_icondir\n";
+        print STDOUT "dir_locale=$kde_locale\n";
+        print STDOUT "dir_mime=$kde_mimedir\n";
+        print STDOUT "dir_services=$kde_servicesdir\n";
+        print STDOUT "dir_servicetypes=$kde_servicetypesdir\n";
+        print STDOUT "dir_sound=$kde_sounddir\n";
+        print STDOUT "dir_templates=$kde_templatesdir\n";
+        print STDOUT "dir_wallpaper=$kde_wallpaperdir\n";
+        print STDOUT "[General]\n";
+        print STDOUT "TerminalApplication=x-terminal-emulator\n";
+        exit
 }

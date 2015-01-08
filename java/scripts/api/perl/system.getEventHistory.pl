@@ -21,11 +21,11 @@ my $system = 1000010052;
 my $channels = $client->call('system.getEventHistory', $session, $system);
 
 foreach my $channel (@$channels) {
-	$date = $channel->{'completed'};
-	print $channel->{'summary'}; 	
-	print " - ".$date->value;
-	print " - ".$channel->{'details'};
-	print "\n"; 
+        $date = $channel->{'completed'};
+        print $channel->{'summary'};
+        print " - ".$date->value;
+        print " - ".$channel->{'details'};
+        print "\n";
 }
 
 

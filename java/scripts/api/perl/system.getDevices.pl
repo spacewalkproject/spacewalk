@@ -25,10 +25,10 @@ my $devices = $client->call('system.getDevices', $session, $system);
 print "\n\nDEVICES\n------------------------\n";
 @device_fields = ("device", "device_class", "driver", "description", ,"bus", "pcitype");
 foreach $device  (@$devices){
-	print "\nDevice:\n";
-	foreach $field (@device_fields){
-		print("$field - $device->{$field}\n");
-	}
+        print "\nDevice:\n";
+        foreach $field (@device_fields){
+                print("$field - $device->{$field}\n");
+        }
 }
 
 

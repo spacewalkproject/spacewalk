@@ -97,7 +97,7 @@ foreach my $opt_name (keys %options) {
     my $line = "$opt_name=$options{$opt_name}\n\n";
     print TMP "#option generated from rhn-config-satellite.pl\n";
     print TMP $line;
-    
+
 }
 
 close(TMP);

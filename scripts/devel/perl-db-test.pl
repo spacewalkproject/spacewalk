@@ -17,7 +17,7 @@ sub dbtest() {
 
   $query = <<EOQ;
 SELECT COUNT(*)
-FROM web_contact where ID <> ? 
+FROM web_contact where ID <> ?
 EOQ
 
   $sth = $dbh->prepare($query);

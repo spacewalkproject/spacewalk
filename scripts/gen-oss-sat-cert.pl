@@ -38,13 +38,13 @@ sub passphrase_prompt {
 }
 
 my $usage = "Usage: $0 --orgid <org_id> --owner <owner_name> --signer <signer> --no-passphrase --output <dest> --expires <when> --slots <num> [ --provisioning-slots <num> ] [ --channel-family label=n ] [ --satellite-version X.Y ]";
-GetOptions("output=s" => \$filename, "orgid=n" => \$org_id, 
-	   "owner=s" => \$owner, "signer=s" => \$signer, 
+GetOptions("output=s" => \$filename, "orgid=n" => \$org_id,
+           "owner=s" => \$owner, "signer=s" => \$signer,
            "no-passphrase" => \$no_passphrase,
-	   "expires=s" => \$expires, "slots=n" => \$slots, "provisioning-slots=n" => \$provisioning_slots,
-	   "channel-family=n" => \%channel_families,
-	   "generation=s" => \$generation,
-	   "resign=s" => \$resign, "satellite-version=s" => \$sat_version) or die $usage;
+           "expires=s" => \$expires, "slots=n" => \$slots, "provisioning-slots=n" => \$provisioning_slots,
+           "channel-family=n" => \%channel_families,
+           "generation=s" => \$generation,
+           "resign=s" => \$resign, "satellite-version=s" => \$sat_version) or die $usage;
 
 $filename = $resign if $resign and not $filename;
 
@@ -62,7 +62,7 @@ if ($resign) {
   (undef, $cert) = RHN::SatelliteCert->parse_cert($data);
   $cert->set_field(issued => strftime("%Y-%m-%d %H:%M:%S", localtime
                          Date::Parse::str2time($cert->get_field('issued'))));
-  $cert->set_field(expires => strftime("%Y-%m-%d %H:%M:%S", localtime 
+  $cert->set_field(expires => strftime("%Y-%m-%d %H:%M:%S", localtime
                          Date::Parse::str2time($cert->get_field('expires'))));
   die "Error parsing satellite cert" unless $cert;
 }
@@ -71,9 +71,9 @@ else {
 
   $cert->set_field(product => "RHN-SATELLITE-001");
   $cert->set_field(owner => $owner);
-  $cert->set_field(issued => strftime("%Y-%m-%d %H:%M:%S", 
+  $cert->set_field(issued => strftime("%Y-%m-%d %H:%M:%S",
                                       localtime time));
-  $cert->set_field(expires => strftime("%Y-%m-%d %H:%M:%S", localtime 
+  $cert->set_field(expires => strftime("%Y-%m-%d %H:%M:%S", localtime
                                        Date::Parse::str2time($expires)));
   $cert->set_field(slots => $slots);
   $cert->set_field('provisioning-slots' => $provisioning_slots)

@@ -19,7 +19,7 @@ sub rmrf()
   if (-d _) {
     if (opendir (DIR, $fn)) {
       for my $efn (grep (!/^\.\.?$/, readdir (DIR))) {
-	&rmrf ($fn."/".$efn);
+        &rmrf ($fn."/".$efn);
       }
       closedir (DIR);
       rmdir ($fn);

@@ -9,41 +9,41 @@ use Getopt::Long ();
 use Cwd 'abs_path';
 
 sub usage {
-	die "Usage: $0 [-i | [ OPTIONS ] [sql-file-to-use.sql | - ]]\n    where possible OPTIONS are\n        --verbose\n        --select-mode or --select-mode-direct\n";
+        die "Usage: $0 [-i | [ OPTIONS ] [sql-file-to-use.sql | - ]]\n    where possible OPTIONS are\n        --verbose\n        --select-mode or --select-mode-direct\n";
 }
 
 my ($verbose, $select_mode, $select_direct, $interactive);
 if (not Getopt::Long::GetOptions(
-	'verbose' => \$verbose,
-	'select-mode' => \$select_mode,
-	'select-mode-direct' => \$select_direct,
-	'interactive' => \$interactive,
-	)) {
-	usage();
+        'verbose' => \$verbose,
+        'select-mode' => \$select_mode,
+        'select-mode-direct' => \$select_direct,
+        'interactive' => \$interactive,
+        )) {
+        usage();
 }
 
 if ($interactive and ($select_direct or $select_mode)) {
-	warn "Option --interactive cannot be used with --select-* options.\n";
-	usage();
+        warn "Option --interactive cannot be used with --select-* options.\n";
+        usage();
 }
 if ($select_mode and $select_direct) {
-	warn "Options --select-mode and --select-mode-direct are exclusive.\n";
-	usage();
+        warn "Options --select-mode and --select-mode-direct are exclusive.\n";
+        usage();
 }
 
 if ($interactive) {
-	if (@ARGV) {
-		warn "In interactive mode, no input file is expected.\n";
-		usage();
-	}
+        if (@ARGV) {
+                warn "In interactive mode, no input file is expected.\n";
+                usage();
+        }
 } elsif (@ARGV != 1) {
-	usage();
+        usage();
 }
 
 my $config_file = Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
 
 if (not -e $config_file) {
-	die "The config file [$config_file] does not seem to exist. Was Spacewalk configured yet?\n";
+        die "The config file [$config_file] does not seem to exist. Was Spacewalk configured yet?\n";
 }
 
 my %options;
@@ -51,98 +51,98 @@ Spacewalk::Setup::read_config($config_file, \%options);
 
 my @missing;
 for my $n (qw( db_backend db_name db_user db_password )) {
-	if (not defined $options{$n}) {
-		push @missing, "Config file [$config_file] does not seem to have $n set.\n";
-	}
+        if (not defined $options{$n}) {
+                push @missing, "Config file [$config_file] does not seem to have $n set.\n";
+        }
 }
 if (@missing) {
-	die join '', @missing;
+        die join '', @missing;
 }
 
 my $filename = $ARGV[0];
 if (defined $filename and $filename ne '-') {
-	$filename = abs_path($filename);
+        $filename = abs_path($filename);
 }
 
 chdir '/';
 
 my ($pid, $wfh, $rfh);
 if ($options{db_backend} eq 'oracle') {
-	my @silent_option = ( $interactive ? () : '-S' );
-	my @command = ( 'sqlplus', @silent_option, qq!$options{db_user}/"$options{db_password}"\@$options{db_name}!);
-	if ($interactive and -x '/usr/bin/rlwrap') {
-		unshift @command, '/usr/bin/rlwrap';
-	}
-	if ($verbose) {
-		print STDERR "Running: @command\n";
-	}
-	if ($interactive) {
-		exec(@command) or die "young\n";
-	}
-	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
-	print $wfh <<'EOF';
+        my @silent_option = ( $interactive ? () : '-S' );
+        my @command = ( 'sqlplus', @silent_option, qq!$options{db_user}/"$options{db_password}"\@$options{db_name}!);
+        if ($interactive and -x '/usr/bin/rlwrap') {
+                unshift @command, '/usr/bin/rlwrap';
+        }
+        if ($verbose) {
+                print STDERR "Running: @command\n";
+        }
+        if ($interactive) {
+                exec(@command) or die "young\n";
+        }
+        $pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
+        print $wfh <<'EOF';
 whenever oserror exit failure
 whenever sqlerror exit sql.sqlcode
 set linesize 4000
 set pagesize 50000
 EOF
-	if ($filename eq '-') {
-		print { $wfh } <>;
-	} else {
-		print $wfh "\@$filename\n";
-	}
-	close $wfh;
+        if ($filename eq '-') {
+                print { $wfh } <>;
+        } else {
+                print $wfh "\@$filename\n";
+        }
+        close $wfh;
 } elsif ($options{db_backend} eq 'postgresql') {
-	my @command = ( 'psql', '-U', $options{db_user}, '-d', $options{db_name});
-	if (defined $options{db_host} and $options{db_host}) {
-		push @command, '-h', $options{db_host};
-		if (defined $options{db_port} and $options{db_port}) {
-			push @command, '-p', $options{db_port};
-		}
-	}
-	if (not $interactive) {
-		push @command, ( '-v', 'ON_ERROR_STOP=ON', '-f', $filename );
-	}
-	$ENV{PGPASSWORD} = $options{db_password};
-	if ($verbose) {
-		print STDERR "Running: @command\n";
-	}
-	if ($interactive) {
-		exec(@command) or die "young\n";
-	}
-	$ENV{PGOPTIONS} = '--client-min-messages=error -c standard_conforming_strings=on';
-	if ($filename eq '-') {
-		$wfh = '<&STDIN';
-	}
-	if ($select_direct) {
-		exec(@command) or die "young\n";
-	} else {
-		$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
-	}
-	close $wfh;
+        my @command = ( 'psql', '-U', $options{db_user}, '-d', $options{db_name});
+        if (defined $options{db_host} and $options{db_host}) {
+                push @command, '-h', $options{db_host};
+                if (defined $options{db_port} and $options{db_port}) {
+                        push @command, '-p', $options{db_port};
+                }
+        }
+        if (not $interactive) {
+                push @command, ( '-v', 'ON_ERROR_STOP=ON', '-f', $filename );
+        }
+        $ENV{PGPASSWORD} = $options{db_password};
+        if ($verbose) {
+                print STDERR "Running: @command\n";
+        }
+        if ($interactive) {
+                exec(@command) or die "young\n";
+        }
+        $ENV{PGOPTIONS} = '--client-min-messages=error -c standard_conforming_strings=on';
+        if ($filename eq '-') {
+                $wfh = '<&STDIN';
+        }
+        if ($select_direct) {
+                exec(@command) or die "young\n";
+        } else {
+                $pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
+        }
+        close $wfh;
 } else {
-	die "The config file [$config_file] specifies unknown db_backend [$options{db_backend}] \n";
+        die "The config file [$config_file] specifies unknown db_backend [$options{db_backend}] \n";
 }
 
 if ($select_direct) {
-	$| = 1;
+        $| = 1;
 }
 my @out;
 while (<$rfh>) {
-	if ($select_direct) {
-		print;
-	} else {
-		push @out, $_;
-	}
+        if ($select_direct) {
+                print;
+        } else {
+                push @out, $_;
+        }
 }
 close $rfh;
 waitpid $pid, 0;
 if ($?) {
-	my $ret = $? >> 8;
-	print STDERR @out;
-	exit $ret;
+        my $ret = $? >> 8;
+        print STDERR @out;
+        exit $ret;
 } elsif ($select_mode) {
-	print @out;
+        print @out;
 }
 exit;
 

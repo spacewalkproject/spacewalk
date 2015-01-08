@@ -26,10 +26,10 @@ my $advisory = "RHBA-2007:0485";
 my $return = $client->call('errata.cloneErrata', $session, $channel, @array);
 
 foreach my $errata (@$return) {
-	print "ERRATA: ";
-	print "$errata->{'advisory_name'}:";
-	print $errata->{'id'}; 	
-	print "\n"; 
+        print "ERRATA: ";
+        print "$errata->{'advisory_name'}:";
+        print $errata->{'id'};
+        print "\n";
 }
 
 

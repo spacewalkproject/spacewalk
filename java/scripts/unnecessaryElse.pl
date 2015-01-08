@@ -4,7 +4,7 @@
 # this script as:
 #    ./unusedLocal.pl file_name
 # The file_name argument is a file with the format:
-# 
+#
 # filename directory line ###
 
 my @args = shift;
@@ -36,7 +36,7 @@ while ($line = pop @lines) {
     splice(@newFile, $lineNum - 1, 1);
     my $i = -1;
     my $numOpen = 1;
-    while (1) { 
+    while (1) {
         my $oldline = @newFile[$lineNum + $i];
         if ($oldline =~ /\s*}/) {
             $numOpen--;

@@ -17,31 +17,31 @@ my @supported_backends = qw( oracle postgresql );
 my ($db, $user, $password, $from_backend, $to_backend, $raw, $host, $port);
 
 sub usage {
-	print "Usage:\n\n";
-	print "$0 [--from=oracle] [--to=DB_BACKEND] [--db=SID --user=USERNAME --password=PASSWORD]\n\n";
-	print "$0 [--from=postgresql] [--to=DB_BACKEND] [--db=DBNAME --host=HOSTNAME --port=PORT --user=USERNAME --password=PASSWORD]\n\n";
-	print "$0 [ --help ]\n\n";
-	if ($@) {
-		exit shift;
-	}
-	exit;
+        print "Usage:\n\n";
+        print "$0 [--from=oracle] [--to=DB_BACKEND] [--db=SID --user=USERNAME --password=PASSWORD]\n\n";
+        print "$0 [--from=postgresql] [--to=DB_BACKEND] [--db=DBNAME --host=HOSTNAME --port=PORT --user=USERNAME --password=PASSWORD]\n\n";
+        print "$0 [ --help ]\n\n";
+        if ($@) {
+                exit shift;
+        }
+        exit;
 }
 
 Getopt::Long::GetOptions (
-	'db=s' => \$db,
-	'host=s' => \$host,
-	'port=s' => \$port,
-	'user=s' => \$user,
-	'password=s' => \$password,
+        'db=s' => \$db,
+        'host=s' => \$host,
+        'port=s' => \$port,
+        'user=s' => \$user,
+        'password=s' => \$password,
         'from=s' => \$from_backend,
         'to=s' => \$to_backend,
-	'raw' => \$raw,
-	'help' => \&usage,
+        'raw' => \$raw,
+        'help' => \&usage,
 ) or exit 1;
 
 if (grep { defined $_ } $db, $user, $password, $host, $port) {
-	# Some connect parameter was specified, let's use it as new connect info
-	@options{qw( db_name db_user db_password db_host db_port )} = ( $db, $user, $password, $host, $port );
+        # Some connect parameter was specified, let's use it as new connect info
+        @options{qw( db_name db_user db_password db_host db_port )} = ( $db, $user, $password, $host, $port );
 }
 
 # Setting input and output backend type from optional parameters, use defaultly Oracle to PostgreSQL if not sufficient data provided
@@ -52,7 +52,7 @@ $options{db_backend_target} = defined $to_backend ? $to_backend : "postgresql";
 # Check if both backends are valid
 if ((not grep $_ eq $options{db_backend}, @supported_backends)
   or (not grep $_ eq $options{db_backend_target}, @supported_backends)) {
-	die "The $0 can only work with Oracle or PostgreSQL database schema.\n";
+        die "The $0 can only work with Oracle or PostgreSQL database schema.\n";
 }
 
 if ((not -d $DATA_DIR) or ($options{db_backend} eq "postgresql"))  {
@@ -66,24 +66,24 @@ $ENV{NLS_TIMESTAMP_TZ_FORMAT} = 'YYYY-MM-DD HH24:MI:SS.FF TZH:TZM';
 
 my $connection_string;
 if ($options{db_backend} eq 'postgresql') {
-	$connection_string = "dbi:Pg:dbname=".$options{db_name};
+        $connection_string = "dbi:Pg:dbname=".$options{db_name};
         $connection_string .= ";host=".$options{db_host} if $options{db_host};
         $connection_string .= ";port=".$options{db_port} if $options{db_port};
 } else {
-	$connection_string = "dbi:Oracle:".$options{db_name};
+        $connection_string = "dbi:Oracle:".$options{db_name};
 }
 
 my $dbh = DBI->connect($connection_string, $options{db_user}, $options{db_password}, {
-	RaiseError => 1,
-	FetchHashKeyName => 'NAME_lc',
-	LongReadLen => 20_000_000,
-	LongTruncOk => 0,
-	AutoCommit => 0,
-	pg_enable_utf8 => 1,
+        RaiseError => 1,
+        FetchHashKeyName => 'NAME_lc',
+        LongReadLen => 20_000_000,
+        LongTruncOk => 0,
+        AutoCommit => 0,
+        pg_enable_utf8 => 1,
 });
 
 $SIG{'PIPE'} = sub {
-	die "SIGPIPE received.\n";
+        die "SIGPIPE received.\n";
 };
 
 process_scripts($dbh, 'pre', \%options);
@@ -114,7 +114,7 @@ SET DEFINE OFF;
 -- disable constraints
 BEGIN
  FOR item IN (
-select uc.owner, uc.table_name, uc.constraint_name 
+select uc.owner, uc.table_name, uc.constraint_name
   from user_constraints uc, user_tables ut
 where uc.table_name = ut.table_name and
       uc.status = 'ENABLED'
@@ -224,18 +224,18 @@ my $SEQ = 1;
 process_tables($dbh, \%options);
 process_sequences($dbh, \%options);
 if (not $raw) {
-	my $dist = `rpm -qf --qf '%{release}\n' /etc/sysconfig/rhn/schema-dump`;
-	chomp $dist;
-	$dist =~ s/^.+(\.[^\.]+)$/$1/;
-	for my $file (sort < $DATA_DIR/sql/* >) {
-		local *FILE;
-		open FILE, '<', $file or die "Error reading [$file]: $!\n";
-		while (<FILE>) {
-			s/\@\@DIST\@\@/$dist/;
-			print;
-		}
-		close FILE;
-	}
+        my $dist = `rpm -qf --qf '%{release}\n' /etc/sysconfig/rhn/schema-dump`;
+        chomp $dist;
+        $dist =~ s/^.+(\.[^\.]+)$/$1/;
+        for my $file (sort < $DATA_DIR/sql/* >) {
+                local *FILE;
+                open FILE, '<', $file or die "Error reading [$file]: $!\n";
+                while (<FILE>) {
+                        s/\@\@DIST\@\@/$dist/;
+                        print;
+                }
+                close FILE;
+        }
 }
 
 if ($options{db_backend_target} eq 'postgresql') {
@@ -310,459 +310,459 @@ EOS
 exit 0;
 
 END {
-	return if (not defined $dbh);
+        return if (not defined $dbh);
 
-	process_scripts($dbh, 'post', \%options);
-	$dbh->disconnect();
+        process_scripts($dbh, 'post', \%options);
+        $dbh->disconnect();
 }
 
 sub get_tables {
-	my $dbh = shift;
-	my $db_backend = shift;
-	my $db_user = shift;
+        my $dbh = shift;
+        my $db_backend = shift;
+        my $db_user = shift;
 
-	my $tables;
-	if ($db_backend eq 'postgresql') {
-		$tables = $dbh->selectall_hashref(q!
-                	select lower(tablename) table_name
-                	from pg_catalog.pg_tables
-                	where tableowner = ?
-			and tablename not in ('dual')
-                	order by table_name
-        	!, 'table_name', {}, $db_user);
-	} else {
-		$tables = $dbh->selectall_hashref(q!
-                	select lower(table_name) table_name
-                	from user_tables
-                	where table_name not in ('PLAN_TABLE', 'PLAN_TABLE_9I') -- plan_table is not part of our schema
-                	order by table_name
-        	!, 'table_name');
-	}
-	return $tables;
+        my $tables;
+        if ($db_backend eq 'postgresql') {
+                $tables = $dbh->selectall_hashref(q!
+                        select lower(tablename) table_name
+                        from pg_catalog.pg_tables
+                        where tableowner = ?
+                        and tablename not in ('dual')
+                        order by table_name
+                !, 'table_name', {}, $db_user);
+        } else {
+                $tables = $dbh->selectall_hashref(q!
+                        select lower(table_name) table_name
+                        from user_tables
+                        where table_name not in ('PLAN_TABLE', 'PLAN_TABLE_9I') -- plan_table is not part of our schema
+                        order by table_name
+                !, 'table_name');
+        }
+        return $tables;
 }
 
 sub get_sequences {
-	my $dbh = shift;
-	my $db_backend = shift;
+        my $dbh = shift;
+        my $db_backend = shift;
 
-	my $sequences;
-	if ($db_backend eq 'postgresql') {
-		$sequences = $dbh->selectall_hashref(q!
-			select lower(c.relname) sequence_name
-                	from pg_class c
-                	where c.relkind = 'S'
-                	order by sequence_name
-		!, 'sequence_name');
-		# Select last value of each sequence separately
-		foreach my $sequence (keys %{ $sequences }) {
-			my ($last_value, $is_called) = $dbh->selectrow_array("select last_value, is_called from $sequence");
-			$sequences->{$sequence}{last_number} = $last_value;
-			# Logic value from PostgreSQL saying if current value is already used
-			$sequences->{$sequence}{is_called} = $is_called;
-		}
-	} else {
-		$sequences = $dbh->selectall_hashref(q!
-                	select lower(sequence_name) sequence_name, last_number
-                	from user_sequences
-                	order by sequence_name
-        	!, 'sequence_name');
-	}
-	return $sequences;
+        my $sequences;
+        if ($db_backend eq 'postgresql') {
+                $sequences = $dbh->selectall_hashref(q!
+                        select lower(c.relname) sequence_name
+                        from pg_class c
+                        where c.relkind = 'S'
+                        order by sequence_name
+                !, 'sequence_name');
+                # Select last value of each sequence separately
+                foreach my $sequence (keys %{ $sequences }) {
+                        my ($last_value, $is_called) = $dbh->selectrow_array("select last_value, is_called from $sequence");
+                        $sequences->{$sequence}{last_number} = $last_value;
+                        # Logic value from PostgreSQL saying if current value is already used
+                        $sequences->{$sequence}{is_called} = $is_called;
+                }
+        } else {
+                $sequences = $dbh->selectall_hashref(q!
+                        select lower(sequence_name) sequence_name, last_number
+                        from user_sequences
+                        order by sequence_name
+                !, 'sequence_name');
+        }
+        return $sequences;
 }
 
 sub get_table_scripts {
-	my $filename = shift;
+        my $filename = shift;
 
-	return if (not -f $filename);
+        return if (not -f $filename);
 
-	local $_;
-	local *FILE;
-	open FILE, '<', $filename or die "Error reading [$filename]: $!\n";
-	my $data = {};
-	my $key;
-	my $text;
-	while (<FILE>) {
-		chomp;
-		if (/^\s*$/) {
-			push @{$data->{$key}}, $text if ($text);
-			$text = '';
-		} elsif (/^\s/) {
-			$text .= $_;
-		} else {
-			$key = join ',', sort split /,/, $_;
-			$data->{$key} = ();
-		}
-	}
-	push @{$data->{$key}}, $text if ($text);
-	close FILE;
-	return $data;
+        local $_;
+        local *FILE;
+        open FILE, '<', $filename or die "Error reading [$filename]: $!\n";
+        my $data = {};
+        my $key;
+        my $text;
+        while (<FILE>) {
+                chomp;
+                if (/^\s*$/) {
+                        push @{$data->{$key}}, $text if ($text);
+                        $text = '';
+                } elsif (/^\s/) {
+                        $text .= $_;
+                } else {
+                        $key = join ',', sort split /,/, $_;
+                        $data->{$key} = ();
+                }
+        }
+        push @{$data->{$key}}, $text if ($text);
+        close FILE;
+        return $data;
 }
 
 sub process_scripts {
-	my $dbh = shift;
-	my $stage = shift;
-	my $options = shift;
+        my $dbh = shift;
+        my $stage = shift;
+        my $options = shift;
 
-	return if ($raw or not -d "$DATA_DIR/$stage");
+        return if ($raw or not -d "$DATA_DIR/$stage");
 
-	my $tables = get_tables($dbh, $options->{db_backend}, $options->{db_user});
+        my $tables = get_tables($dbh, $options->{db_backend}, $options->{db_user});
 
-	my %scripts;
-	{
-		local *DIR;
-		opendir DIR, "$DATA_DIR/$stage" or die "Error reading [$DATA_DIR/$stage]: $!\n";
-		while (defined($_ = readdir DIR)) {
-			next if /^\.\.?$/ or not exists $tables->{$_};
-			$scripts{$_} = get_table_scripts("$DATA_DIR/$stage/$_");
-		}
-		closedir DIR;
-	}
+        my %scripts;
+        {
+                local *DIR;
+                opendir DIR, "$DATA_DIR/$stage" or die "Error reading [$DATA_DIR/$stage]: $!\n";
+                while (defined($_ = readdir DIR)) {
+                        next if /^\.\.?$/ or not exists $tables->{$_};
+                        $scripts{$_} = get_table_scripts("$DATA_DIR/$stage/$_");
+                }
+                closedir DIR;
+        }
 
-	foreach my $table (keys %scripts) {
-		next if (not defined $tables->{$table});
+        foreach my $table (keys %scripts) {
+                next if (not defined $tables->{$table});
 
-		my $sth = eval {
-			local $dbh->{PrintError} = 0;
-			$dbh->prepare("select * from $table");
-		};
+                my $sth = eval {
+                        local $dbh->{PrintError} = 0;
+                        $dbh->prepare("select * from $table");
+                };
 
-		my $columns;
-		if (defined $sth and not $@) {
-			$sth->execute();
-			my $row = $sth->fetchrow_arrayref();
-			$columns = join ',', sort @{$sth->{NAME_lc}};
-		} else {
-			die $@ if (not $DBI::err == 942);
-		}
+                my $columns;
+                if (defined $sth and not $@) {
+                        $sth->execute();
+                        my $row = $sth->fetchrow_arrayref();
+                        $columns = join ',', sort @{$sth->{NAME_lc}};
+                } else {
+                        die $@ if (not $DBI::err == 942);
+                }
 
-		next if (not exists $scripts{$table}{$columns});
+                next if (not exists $scripts{$table}{$columns});
 
-		foreach my $script (@{$scripts{$table}{$columns}}) {
-			$sth = $dbh->prepare($script);
-			$sth->execute();
-			$dbh->commit();
-		}
-	}
+                foreach my $script (@{$scripts{$table}{$columns}}) {
+                        $sth = $dbh->prepare($script);
+                        $sth->execute();
+                        $dbh->commit();
+                }
+        }
 }
 
 sub get_sequence_exception {
-	local $_;
-	my $name = shift;
-	my $file = "$DATA_DIR/sequences/$name";
-	if (not -f $file) {
-		return;
-	}
-	local *EXCEPTION;
-	open EXCEPTION, '<', $file or die "Error reading [$file]: $!\n";
-	my $data = '';
-	while (<EXCEPTION>) {
-		if (/^skip\s*$/) {
-			close EXCEPTION;
-			return 'skip';
-		}
-		$data .= $_;
-	}
-	close EXCEPTION;
-	return $data;
+        local $_;
+        my $name = shift;
+        my $file = "$DATA_DIR/sequences/$name";
+        if (not -f $file) {
+                return;
+        }
+        local *EXCEPTION;
+        open EXCEPTION, '<', $file or die "Error reading [$file]: $!\n";
+        my $data = '';
+        while (<EXCEPTION>) {
+                if (/^skip\s*$/) {
+                        close EXCEPTION;
+                        return 'skip';
+                }
+                $data .= $_;
+        }
+        close EXCEPTION;
+        return $data;
 }
 
 sub process_sequences {
-	my $dbh = shift;
-	my $options = shift;
+        my $dbh = shift;
+        my $options = shift;
 
-	my $sequences = get_sequences($dbh, $options->{db_backend});
+        my $sequences = get_sequences($dbh, $options->{db_backend});
 
-	if (not $raw and -d "$DATA_DIR/sequences") {
-		local *DIR;
-		opendir DIR, "$DATA_DIR/sequences" or die "Error reading [$DATA_DIR/sequences]: $!\n";
-		while (defined($_ = readdir DIR)) {
-			next if /^\.\.?$/;
-			$sequences->{$_} = 'missing' if not exists $sequences->{$_};
-		}
-		closedir DIR;
-	}
-	for (sort keys %$sequences) {
-		my $last_number = $sequences->{$_}{last_number} if ref $sequences->{$_};
-		my $is_called = $sequences->{$_}{is_called} if ref $sequences->{$_};
-		if (not $raw) {
-			my $exception = get_sequence_exception($_);
-			if (defined $exception) {
-				if ($exception =~ /^missing sequence/) {
-					if ($sequences->{$_} eq 'missing') {
-						$last_number = $SEQ;
-					}
-				} elsif ($exception eq 'skip') {
-					print "-- Skipping $_\n";
-					next;
-				} else {
-					print "select pg_catalog.setval('$_', ( $exception )::bigint);\n";
-					next;
-				}
-			}
-		}
-		$last_number = 1 if not defined $last_number;
-		$is_called = 0 if not defined $is_called;
-		if ($options->{db_backend_target} eq 'postgresql') {
-			my $is_called_value = $is_called ? 'true' : 'false';
-			print "select pg_catalog.setval('$_', $last_number, $is_called_value);\n";
-		} else {
-			print "drop sequence $_;\n";
-			$last_number++ if $is_called;
-			print "create sequence $_ start with $last_number;\n";
-		}
-	}
+        if (not $raw and -d "$DATA_DIR/sequences") {
+                local *DIR;
+                opendir DIR, "$DATA_DIR/sequences" or die "Error reading [$DATA_DIR/sequences]: $!\n";
+                while (defined($_ = readdir DIR)) {
+                        next if /^\.\.?$/;
+                        $sequences->{$_} = 'missing' if not exists $sequences->{$_};
+                }
+                closedir DIR;
+        }
+        for (sort keys %$sequences) {
+                my $last_number = $sequences->{$_}{last_number} if ref $sequences->{$_};
+                my $is_called = $sequences->{$_}{is_called} if ref $sequences->{$_};
+                if (not $raw) {
+                        my $exception = get_sequence_exception($_);
+                        if (defined $exception) {
+                                if ($exception =~ /^missing sequence/) {
+                                        if ($sequences->{$_} eq 'missing') {
+                                                $last_number = $SEQ;
+                                        }
+                                } elsif ($exception eq 'skip') {
+                                        print "-- Skipping $_\n";
+                                        next;
+                                } else {
+                                        print "select pg_catalog.setval('$_', ( $exception )::bigint);\n";
+                                        next;
+                                }
+                        }
+                }
+                $last_number = 1 if not defined $last_number;
+                $is_called = 0 if not defined $is_called;
+                if ($options->{db_backend_target} eq 'postgresql') {
+                        my $is_called_value = $is_called ? 'true' : 'false';
+                        print "select pg_catalog.setval('$_', $last_number, $is_called_value);\n";
+                } else {
+                        print "drop sequence $_;\n";
+                        $last_number++ if $is_called;
+                        print "create sequence $_ start with $last_number;\n";
+                }
+        }
 }
 
 sub get_table_exception {
-	local $_;
-	my $name = shift;
-	my $file = "$DATA_DIR/tables/$name";
-	if (not -f $file) {
-		return;
-	}
-	local *EXCEPTION;
-	open EXCEPTION, '<', $file or die "Error reading [$file]: $!\n";
-	my $data = {};
-	my $key;
-	while (<EXCEPTION>) {
-		if (/^skip\s*$/) {
-			close EXCEPTION;
-			return 'skip';
-		}
-		if (/^\s/) {
-			$data->{$key} .= $_;
-		} else {
-			chomp;
-			$key = join ',', sort split /,/, $_;
-		}
-	}
-	close EXCEPTION;
-	return $data;
+        local $_;
+        my $name = shift;
+        my $file = "$DATA_DIR/tables/$name";
+        if (not -f $file) {
+                return;
+        }
+        local *EXCEPTION;
+        open EXCEPTION, '<', $file or die "Error reading [$file]: $!\n";
+        my $data = {};
+        my $key;
+        while (<EXCEPTION>) {
+                if (/^skip\s*$/) {
+                        close EXCEPTION;
+                        return 'skip';
+                }
+                if (/^\s/) {
+                        $data->{$key} .= $_;
+                } else {
+                        chomp;
+                        $key = join ',', sort split /,/, $_;
+                }
+        }
+        close EXCEPTION;
+        return $data;
 }
 
 sub process_tables {
-	my $dbh = shift;
-	my $options = shift;
+        my $dbh = shift;
+        my $options = shift;
 
-	my $tables = get_tables($dbh, $options->{db_backend}, $options->{db_user});
+        my $tables = get_tables($dbh, $options->{db_backend}, $options->{db_user});
 
-	if (not $raw and -d "$DATA_DIR/tables") {
-		local *DIR;
-		opendir DIR, "$DATA_DIR/tables" or die "Error reading [$DATA_DIR/tables]: $!\n";
-		while (defined($_ = readdir DIR)) {
-			next if /^\.\.?$/;
-			$tables->{$_} = 'missing' if not exists $tables->{$_};
-		}
-		closedir DIR;
-	}
-	my %exceptions;
-	for (sort keys %$tables) {
-		if (not $raw) {
-			my $exception = get_table_exception($_);
-			if (defined $exception) {
-				$exceptions{$_} = $exception;
-				if ($tables->{$_} eq 'missing'
-					and ref $exceptions{$_}) {
-					if (exists $exceptions{$_}{'missing table'}) {
-						$exceptions{$_} = { 'missing table' => $exceptions{$_}{'missing table'} };
-					} else {
-						$exception = $exceptions{$_} = 'skip';
-					}
-				}
-				if ($exception eq 'skip') {
-					print "-- Skipping $_\n";
-					next;
-				}
-			}
-		}
+        if (not $raw and -d "$DATA_DIR/tables") {
+                local *DIR;
+                opendir DIR, "$DATA_DIR/tables" or die "Error reading [$DATA_DIR/tables]: $!\n";
+                while (defined($_ = readdir DIR)) {
+                        next if /^\.\.?$/;
+                        $tables->{$_} = 'missing' if not exists $tables->{$_};
+                }
+                closedir DIR;
+        }
+        my %exceptions;
+        for (sort keys %$tables) {
+                if (not $raw) {
+                        my $exception = get_table_exception($_);
+                        if (defined $exception) {
+                                $exceptions{$_} = $exception;
+                                if ($tables->{$_} eq 'missing'
+                                        and ref $exceptions{$_}) {
+                                        if (exists $exceptions{$_}{'missing table'}) {
+                                                $exceptions{$_} = { 'missing table' => $exceptions{$_}{'missing table'} };
+                                        } else {
+                                                $exception = $exceptions{$_} = 'skip';
+                                        }
+                                }
+                                if ($exception eq 'skip') {
+                                        print "-- Skipping $_\n";
+                                        next;
+                                }
+                        }
+                }
 
-		if ($options->{db_backend_target} eq 'postgresql') {
-			print "alter table $_ disable trigger all;\n";
-			print "alter table $_ set (autovacuum_enabled = false);\n";
-		} else {
-			print "alter table $_ disable all triggers;\n";
-			print "alter table $_ nologging;\n";
-		}
-	}
-	for (sort keys %$tables) {
-		if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
-			next;
-		}
-		print "delete from $_;\n";
-	}
-	for (sort keys %$tables) {
-		if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
-			next;
-		}
-		next if /^qrtz_/;		# skip the quartz tables, they get regenerated anyway
-		process_table($dbh, $_, $exceptions{$_}, $options->{db_backend_target});
-	}
-	for (sort keys %$tables) {
-		if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
-			next;
-		}
-		if ($options->{db_backend_target} eq 'postgresql') {
-			print "alter table $_ enable trigger all;\n";
-			print "alter table $_ set (autovacuum_enabled = true);\n";
-		} else {
-			print "alter table $_ enable all triggers;\n";
-			if (uc($_) ne 'RHNORGERRATACACHEQUEUE' and uc($_) ne 'RHNSET') {
-				print "alter table $_ logging;\n";
-			}
-		}
-	}
+                if ($options->{db_backend_target} eq 'postgresql') {
+                        print "alter table $_ disable trigger all;\n";
+                        print "alter table $_ set (autovacuum_enabled = false);\n";
+                } else {
+                        print "alter table $_ disable all triggers;\n";
+                        print "alter table $_ nologging;\n";
+                }
+        }
+        for (sort keys %$tables) {
+                if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
+                        next;
+                }
+                print "delete from $_;\n";
+        }
+        for (sort keys %$tables) {
+                if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
+                        next;
+                }
+                next if /^qrtz_/;               # skip the quartz tables, they get regenerated anyway
+                process_table($dbh, $_, $exceptions{$_}, $options->{db_backend_target});
+        }
+        for (sort keys %$tables) {
+                if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
+                        next;
+                }
+                if ($options->{db_backend_target} eq 'postgresql') {
+                        print "alter table $_ enable trigger all;\n";
+                        print "alter table $_ set (autovacuum_enabled = true);\n";
+                } else {
+                        print "alter table $_ enable all triggers;\n";
+                        if (uc($_) ne 'RHNORGERRATACACHEQUEUE' and uc($_) ne 'RHNSET') {
+                                print "alter table $_ logging;\n";
+                        }
+                }
+        }
 }
 
 sub process_table {
-	my ($dbh, $table, $exception, $target_backend) = @_;
-	my ($row, $names, $the_names);
-	my $sth = eval {
-		local $dbh->{PrintError} = 0;
-		$dbh->prepare("select * from $table");
-	};
-	my $sorted_the_names = '';
-	if (defined $sth and not $@) {
-		$sth->execute();
-		$row = $sth->fetchrow_arrayref();
-		$names = $sth->{NAME_lc};
-		$the_names = join ',', @$names;
-		$sorted_the_names = join ',', sort @$names;
-	} else {
-		if (not $DBI::err == 942) {
-			die $@;
-		}
-		$sorted_the_names = $the_names = 'missing table';
-	}
-	if (ref $exception) {
-		if (exists $exception->{$sorted_the_names}) {
-			$sth = $dbh->prepare($exception->{$sorted_the_names});
-			$sth->execute();
-			$row = $sth->fetchrow_arrayref();
-			$names = $sth->{NAME_lc};
-			print "-- Original columns for $table: $the_names\n";
-			$the_names = join ',', @$names;
-		}
-	}
-	my @use_rowids = ();
-	for (my $i = 0; $i < @$names; $i++) {
-		if ($names->[$i] =~ s/^rowid_//) {
-			$use_rowids[$i] = 1;
-		}
-	}
-	if (@use_rowids) {
-		$the_names = join ',', @$names;
-	}
-	my $types = $sth->{TYPE};
-	my @types;
-	for (my $i = 0; $i < @$types; $i++) {
-		my $type = eval { $dbh->type_info($types->[$i])->{TYPE_NAME} };
-		push @types, ( defined $type ? $type : 'unknown' );
-	}
-	print "-- Types for $table: @types\n";
-	# Copy from stdin only in PostgreSQL
-	if ($target_backend eq 'postgresql') {
-		print qq!copy $table($the_names) from stdin;\n!;
-	}
-	while ($row) {
-		my $line = '';
-		my @blobs_names = ();
-		my @blobs = ();
-		if ($target_backend eq 'oracle') {
-			$line = $line . "insert into $table values (";
-		}
-		for (my $i = 0; $i < @$row; $i++) {
-			if ($target_backend eq 'postgresql') {
-				$line = $line . "\t" if $i;
-			} else {
-				$line = $line . ",\n" if $i;
-			}
-			if (defined $use_rowids[$i]) {
-				if (not defined $ROWIDS{$row->[$i]}) {
-					$SEQ++;
-					$ROWIDS{$row->[$i]} = $SEQ;
-				}
-				$line = $line . $ROWIDS{$row->[$i]};
-			} elsif (defined $row->[$i]) {
-				# create array from (a,b,c) string - custom types selected from PG
-				if ($types[$i] eq 'unknown' and $row->[$i] =~ s/^\((.*)\)$/$1/) {
-					$row->[$i] = [ split(/,/, $row->[$i]) ];
-				}
-				if (ref $row->[$i] and ref $row->[$i] eq 'ARRAY') {	# user types
-					no warnings 'uninitialized';
-					my @r = @{$row->[$i]};
-					map { s/,/\\\\,/g; } @r;
-					if ($target_backend eq 'postgresql') {
-						$row->[$i] = "(@{[ join ',', @r ]})";
-					} else {
-						$row->[$i] = "('@{[ join '\',\'', @r ]}')";
-						# guess type name from column name (column name evr -> type evr_t), not clever but we use only one custom type anyway
-						$row->[$i] = $names->[$i] . '_t' . $row->[$i];
-					}
-				} elsif ($types[$i] eq 'unknown' or $types[$i] eq 'BLOB' or $types[$i] eq 'bytea') {	# blobs
-					if ($target_backend eq 'postgresql') {
-						$row->[$i] =~ s!(.)! sprintf "\\\\%03o", ord($1) !seg;
-					} else {
-						$row->[$i] =~ s!(.)! sprintf "%02x", ord($1) !seg;
-						push @blobs_names, $names->[$i];
-						push @blobs, $row->[$i];
-						# Save variable name referencing to procedure variable
-						$row->[$i] = $names->[$i];
-					}
-				# convert timestamp to Oracle statement
-				} elsif ($types[$i] =~ /^timestamp/i and $target_backend eq 'oracle') {
-					$row->[$i] = "to_timestamp_tz('" . $row->[$i] . "')";
-				} else {
-					utf8::encode($row->[$i]);
-					if ($target_backend eq 'postgresql') {
-						$row->[$i] =~ s!([\x00-\x1f\x5c])! sprintf "\\x%02x", ord($1) !seg;
-					} else {
-						# Split long inputs to multiple lines
-						$row->[$i] =~ s/(.{2000})/$1'||\n');\n/g;
-						# Close data in apostrophes due to insert into statement
-						$row->[$i] =~ s/'/''/g;
+        my ($dbh, $table, $exception, $target_backend) = @_;
+        my ($row, $names, $the_names);
+        my $sth = eval {
+                local $dbh->{PrintError} = 0;
+                $dbh->prepare("select * from $table");
+        };
+        my $sorted_the_names = '';
+        if (defined $sth and not $@) {
+                $sth->execute();
+                $row = $sth->fetchrow_arrayref();
+                $names = $sth->{NAME_lc};
+                $the_names = join ',', @$names;
+                $sorted_the_names = join ',', sort @$names;
+        } else {
+                if (not $DBI::err == 942) {
+                        die $@;
+                }
+                $sorted_the_names = $the_names = 'missing table';
+        }
+        if (ref $exception) {
+                if (exists $exception->{$sorted_the_names}) {
+                        $sth = $dbh->prepare($exception->{$sorted_the_names});
+                        $sth->execute();
+                        $row = $sth->fetchrow_arrayref();
+                        $names = $sth->{NAME_lc};
+                        print "-- Original columns for $table: $the_names\n";
+                        $the_names = join ',', @$names;
+                }
+        }
+        my @use_rowids = ();
+        for (my $i = 0; $i < @$names; $i++) {
+                if ($names->[$i] =~ s/^rowid_//) {
+                        $use_rowids[$i] = 1;
+                }
+        }
+        if (@use_rowids) {
+                $the_names = join ',', @$names;
+        }
+        my $types = $sth->{TYPE};
+        my @types;
+        for (my $i = 0; $i < @$types; $i++) {
+                my $type = eval { $dbh->type_info($types->[$i])->{TYPE_NAME} };
+                push @types, ( defined $type ? $type : 'unknown' );
+        }
+        print "-- Types for $table: @types\n";
+        # Copy from stdin only in PostgreSQL
+        if ($target_backend eq 'postgresql') {
+                print qq!copy $table($the_names) from stdin;\n!;
+        }
+        while ($row) {
+                my $line = '';
+                my @blobs_names = ();
+                my @blobs = ();
+                if ($target_backend eq 'oracle') {
+                        $line = $line . "insert into $table values (";
+                }
+                for (my $i = 0; $i < @$row; $i++) {
+                        if ($target_backend eq 'postgresql') {
+                                $line = $line . "\t" if $i;
+                        } else {
+                                $line = $line . ",\n" if $i;
+                        }
+                        if (defined $use_rowids[$i]) {
+                                if (not defined $ROWIDS{$row->[$i]}) {
+                                        $SEQ++;
+                                        $ROWIDS{$row->[$i]} = $SEQ;
+                                }
+                                $line = $line . $ROWIDS{$row->[$i]};
+                        } elsif (defined $row->[$i]) {
+                                # create array from (a,b,c) string - custom types selected from PG
+                                if ($types[$i] eq 'unknown' and $row->[$i] =~ s/^\((.*)\)$/$1/) {
+                                        $row->[$i] = [ split(/,/, $row->[$i]) ];
+                                }
+                                if (ref $row->[$i] and ref $row->[$i] eq 'ARRAY') {     # user types
+                                        no warnings 'uninitialized';
+                                        my @r = @{$row->[$i]};
+                                        map { s/,/\\\\,/g; } @r;
+                                        if ($target_backend eq 'postgresql') {
+                                                $row->[$i] = "(@{[ join ',', @r ]})";
+                                        } else {
+                                                $row->[$i] = "('@{[ join '\',\'', @r ]}')";
+                                                # guess type name from column name (column name evr -> type evr_t), not clever but we use only one custom type anyway
+                                                $row->[$i] = $names->[$i] . '_t' . $row->[$i];
+                                        }
+                                } elsif ($types[$i] eq 'unknown' or $types[$i] eq 'BLOB' or $types[$i] eq 'bytea') {    # blobs
+                                        if ($target_backend eq 'postgresql') {
+                                                $row->[$i] =~ s!(.)! sprintf "\\\\%03o", ord($1) !seg;
+                                        } else {
+                                                $row->[$i] =~ s!(.)! sprintf "%02x", ord($1) !seg;
+                                                push @blobs_names, $names->[$i];
+                                                push @blobs, $row->[$i];
+                                                # Save variable name referencing to procedure variable
+                                                $row->[$i] = $names->[$i];
+                                        }
+                                # convert timestamp to Oracle statement
+                                } elsif ($types[$i] =~ /^timestamp/i and $target_backend eq 'oracle') {
+                                        $row->[$i] = "to_timestamp_tz('" . $row->[$i] . "')";
+                                } else {
+                                        utf8::encode($row->[$i]);
+                                        if ($target_backend eq 'postgresql') {
+                                                $row->[$i] =~ s!([\x00-\x1f\x5c])! sprintf "\\x%02x", ord($1) !seg;
+                                        } else {
+                                                # Split long inputs to multiple lines
+                                                $row->[$i] =~ s/(.{2000})/$1'||\n');\n/g;
+                                                # Close data in apostrophes due to insert into statement
+                                                $row->[$i] =~ s/'/''/g;
                                                 $row->[$i] = "'" . $row->[$i] . "'";
-						$row->[$i] =~ s!([\x00-\x1f\x5c])! sprintf "'||chr(%02d)||\n'", ord($1) !seg;
-					}
-					utf8::decode($row->[$i]);
-				}
-				$line = $line . $row->[$i];
-			} else {
-				if ($target_backend eq 'postgresql') {
-					$line = $line . '\N';
-				} else {
-					$line = $line . "''";
-				}
-			}
-		}
-		if ($target_backend eq 'postgresql') {
-			$line = $line . "\n";
-		} else {
-			$line = $line . ");\n";
-		}
-		# Inserting BLOB(s) into Oracle, need to wrap insert statement in procedure due to SQLPlus length limits
-		if (@blobs_names) {
-			my $prefix = "declare\n";
-			for (my $i = 0; $i < @blobs_names; $i++) {
-				$prefix = $prefix . $blobs_names[$i] . " blob;\n";
-			}
-			$prefix = $prefix . "begin\n";
-			for (my $i = 0; $i < @blobs_names; $i++) {
-				$prefix = $prefix . "dbms_lob.createtemporary($blobs_names[$i], true);\n";
-				# Split BLOB to multiple lines
-				$blobs[$i] =~ s/(.{1,2000})/dbms_lob.append($blobs_names[$i], to_blob('$1'));\n/g;
-				$prefix = $prefix . $blobs[$i] . "\n";
-			}
-			$line = $prefix . $line;
-			# End procedure and execute
-			$line = $line . "end;\n/\n";
-		}
+                                                $row->[$i] =~ s!([\x00-\x1f\x5c])! sprintf "'||chr(%02d)||\n'", ord($1) !seg;
+                                        }
+                                        utf8::decode($row->[$i]);
+                                }
+                                $line = $line . $row->[$i];
+                        } else {
+                                if ($target_backend eq 'postgresql') {
+                                        $line = $line . '\N';
+                                } else {
+                                        $line = $line . "''";
+                                }
+                        }
+                }
+                if ($target_backend eq 'postgresql') {
+                        $line = $line . "\n";
+                } else {
+                        $line = $line . ");\n";
+                }
+                # Inserting BLOB(s) into Oracle, need to wrap insert statement in procedure due to SQLPlus length limits
+                if (@blobs_names) {
+                        my $prefix = "declare\n";
+                        for (my $i = 0; $i < @blobs_names; $i++) {
+                                $prefix = $prefix . $blobs_names[$i] . " blob;\n";
+                        }
+                        $prefix = $prefix . "begin\n";
+                        for (my $i = 0; $i < @blobs_names; $i++) {
+                                $prefix = $prefix . "dbms_lob.createtemporary($blobs_names[$i], true);\n";
+                                # Split BLOB to multiple lines
+                                $blobs[$i] =~ s/(.{1,2000})/dbms_lob.append($blobs_names[$i], to_blob('$1'));\n/g;
+                                $prefix = $prefix . $blobs[$i] . "\n";
+                        }
+                        $line = $prefix . $line;
+                        # End procedure and execute
+                        $line = $line . "end;\n/\n";
+                }
 
-		print $line;
-		$row = $sth->fetchrow_arrayref();
-	}
-	if ($target_backend eq 'postgresql') {
-		print "\\.\n";
-	}
+                print $line;
+                $row = $sth->fetchrow_arrayref();
+        }
+        if ($target_backend eq 'postgresql') {
+                print "\\.\n";
+        }
 }
 
 1;
@@ -775,13 +775,13 @@ spacewalk-dump-schema
 
 =head1 SYNOPSIS
 
-	spacewalk-dump-schema [--from=oracle] [--to=DB_BACKEND]
+        spacewalk-dump-schema [--from=oracle] [--to=DB_BACKEND]
             [--db=SID --user=USERNAME --password=PASSWORD]
 
-	spacewalk-dump-schema [--from=postgresql] [--to=DB_BACKEND]
+        spacewalk-dump-schema [--from=postgresql] [--to=DB_BACKEND]
             [--db=DBNAME --host=HOSTNAME --port=PORT --user=USERNAME --password=PASSWORD]
 
-	spacewalk-dump-schema --help
+        spacewalk-dump-schema --help
 
 =head1 DESCRIPTION
 
@@ -810,22 +810,22 @@ The exit value is 0 upon success, non-zero value upon error.
 
 =head1 EXAMPLE
 
-	spacewalk-dump-schema --db=xe \
-		--user=spacewalk --password=o9k2HInsl \
-		| PGPASSWORD=o9k2HInsl psql -h localhost \
-			-U spaceuser spaceschema
-
-	spacewalk-dump-schema --from=oracle --to=postgresql --db=xe \
+        spacewalk-dump-schema --db=xe \
                 --user=spacewalk --password=o9k2HInsl \
                 | PGPASSWORD=o9k2HInsl psql -h localhost \
                         -U spaceuser spaceschema
 
-	spacewalk-dump-schema --to=oracle --db=spaceschema \
-		--host=localhost --port=5433 \
+        spacewalk-dump-schema --from=oracle --to=postgresql --db=xe \
+                --user=spacewalk --password=o9k2HInsl \
+                | PGPASSWORD=o9k2HInsl psql -h localhost \
+                        -U spaceuser spaceschema
+
+        spacewalk-dump-schema --to=oracle --db=spaceschema \
+                --host=localhost --port=5433 \
                 --user=spaceuser --password=o9k2HInsl \
                 | NLS_LANG=AMERICAN_AMERICA.UTF8 sqlplus spaceuser/spacepw@//localhost/XE
 
-	spacewalk-dump-schema --to=oracle > dump.sql
+        spacewalk-dump-schema --to=oracle > dump.sql
 
 =head1 AUTHOR
 

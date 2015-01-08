@@ -3,12 +3,12 @@
 # (c) 2004, Red Hat, Inc
 # All rights reserved
 #
-# Simple util to spit out 
+# Simple util to spit out
 
   my $query = <<EOF;
         <trans-unit id="##ID##">
           <source>##SOURCE##</source>
-        </trans-unit>     
+        </trans-unit>
 EOF
 
 print <<EOF
@@ -21,14 +21,14 @@ EOF
     ;
 while (<>) {
     my $line = $_;
-    
+
     #if ($line =~ m/^\#/) { next; }
     $line =~ s/\n//g;
     $line =~ s/"//g;
     my @nameval = split (",",$line);
     my $name = $nameval[-2];
     my $value = $nameval[-1];
-    
+
     #print "Name: $name\n";
     #print "Value: $value\n";
 
