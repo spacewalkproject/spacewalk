@@ -8,7 +8,7 @@
 <html>
 <body>
 <rhn:toolbar base="h1" icon="header-action"
-  			   imgAlt="actions.jsp.imgAlt"
+                           imgAlt="actions.jsp.imgAlt"
                helpUrl="">
     <bean:message key="pendingactions.jsp.pending_actions"/>
   </rhn:toolbar>
@@ -17,19 +17,19 @@
     <bean:message key="pendingactions.jsp.summary"/>
   </p>
 
-	<rl:listset name="pendingList">
+        <rl:listset name="pendingList">
   <rhn:csrf />
 
-	<rl:list emptykey="pendingactions.jsp.nogroups" styleclass="list">
-		<%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/listdisplay-new.jspf" %>
-	</rl:list>
-		<rhn:submitted/>
-		  <div class="pull-right">
-		    <input type="submit"
+        <rl:list emptykey="pendingactions.jsp.nogroups" styleclass="list">
+                <%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/listdisplay-new.jspf" %>
+        </rl:list>
+                <rhn:submitted/>
+                  <div class="pull-right">
+                    <input type="submit"
                name="dispatch"
                class="btn btn-default"
                value='<bean:message key="actions.jsp.cancelactions"/>'/>
       </div>
-	</rl:listset>
+        </rl:listset>
 </body>
 </html>

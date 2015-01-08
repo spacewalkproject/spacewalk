@@ -15,11 +15,11 @@
     </h2>
 
 <ul>
-	<li> <a href="/rhn/channels/manage/errata/ListRemove.do?cid=${cid}"> <bean:message key="list.jsp.errata.listremove"/></a> </li>
-	<li> <a href="/rhn/channels/manage/errata/Add.do?cid=${cid}"> <bean:message key="list.jsp.errata.add"/> </a> </li>
-	<rhn:require acl="channel_is_clone()" mixins="com.redhat.rhn.common.security.acl.ChannelAclHandler">
-		<li> <a href="/network/software/channels/manage/errata/clone.pxt?pxt:trap=rhn:empty_set&set_label=errata_clone_actions&cid=${cid}"> <bean:message key="list.jsp.errata.clone"/> </a> </li>
-	</rhn:require>
+        <li> <a href="/rhn/channels/manage/errata/ListRemove.do?cid=${cid}"> <bean:message key="list.jsp.errata.listremove"/></a> </li>
+        <li> <a href="/rhn/channels/manage/errata/Add.do?cid=${cid}"> <bean:message key="list.jsp.errata.add"/> </a> </li>
+        <rhn:require acl="channel_is_clone()" mixins="com.redhat.rhn.common.security.acl.ChannelAclHandler">
+                <li> <a href="/network/software/channels/manage/errata/clone.pxt?pxt:trap=rhn:empty_set&set_label=errata_clone_actions&cid=${cid}"> <bean:message key="list.jsp.errata.clone"/> </a> </li>
+        </rhn:require>
 </u>
 
 

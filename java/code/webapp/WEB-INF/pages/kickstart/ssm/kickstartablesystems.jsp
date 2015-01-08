@@ -18,30 +18,30 @@
 
 <rl:listset name="systemListSet" legend="system">
     <rhn:csrf />
-	<rl:list
-		emptykey="nosystems.message"
-		alphabarcolumn="name"
-		filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter"
-		>
-	    <rl:decorator name="ElaborationDecorator"/>
-		<rl:decorator name="PageSizeDecorator"/>
+        <rl:list
+                emptykey="nosystems.message"
+                alphabarcolumn="name"
+                filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter"
+                >
+            <rl:decorator name="ElaborationDecorator"/>
+                <rl:decorator name="PageSizeDecorator"/>
 
-		<rl:column sortable="true"
-				   bound="false"
-		           headerkey="systemlist.jsp.system"
-		           sortattr="name"
-		           defaultsort="asc">
-			<%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
-		</rl:column>
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="systemlist.jsp.system"
+                           sortattr="name"
+                           defaultsort="asc">
+                        <%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
+                </rl:column>
 
-		<!-- Base Channel Column -->
-		<rl:column sortable="false"
-				   bound="false"
-		           headerkey="systemlist.jsp.channel"
+                <!-- Base Channel Column -->
+                <rl:column sortable="false"
+                                   bound="false"
+                           headerkey="systemlist.jsp.channel"
  >
            <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
-		</rl:column>
-	</rl:list>
+                </rl:column>
+        </rl:list>
 
 <c:if test="${empty disableSystems}">
     <h2>

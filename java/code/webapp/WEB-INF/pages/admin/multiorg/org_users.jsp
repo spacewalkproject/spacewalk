@@ -54,46 +54,46 @@
          filter="com.redhat.rhn.frontend.action.multiorg.UserListFilter"
          emptykey="org.jsp.noUsers">
 
-	<!-- Organization name column -->
-	<rl:column bound="false"
-	           sortable="true"
-	           headerkey="username.nopunc.displayname"
-	           sortattr="login">
-	    <c:choose>
-	      <c:when test="${canModify == 1}">
+        <!-- Organization name column -->
+        <rl:column bound="false"
+                   sortable="true"
+                   headerkey="username.nopunc.displayname"
+                   sortattr="login">
+            <c:choose>
+              <c:when test="${canModify == 1}">
 <c:out value="<a href=\"/rhn/users/UserDetails.do?uid=${current.id}\">${current.login}</a>" escapeXml="false" />
-	      </c:when>
-	      <c:otherwise>
-	  ${current.login}
-	      </c:otherwise>
-		</c:choose>
+              </c:when>
+              <c:otherwise>
+          ${current.login}
+              </c:otherwise>
+                </c:choose>
 
-	</rl:column>
-	<rl:column bound="false"
-	           headerkey="multiorg.jsp.email"
-			>
-		<c:out value="${current.address}" />
-	</rl:column>
-	<rl:column bound="false"
-	           sortable="false"
-	           headerkey="realname.displayname"
-	           attr="userLastName">
-		<c:out value="${current.userDisplayName}" escapeXml="false" />
-	</rl:column>
-	<rl:column bound="false"
-	           sortable="false"
-	           headerkey="orgadmin.displayname"
-	           attr="orgAdmin">
-	    <c:choose>
-	      <c:when test="${current.orgAdmin == 1}">
-	        <rhn:icon type="item-enabled" />
-	      </c:when>
-	      <c:otherwise>
-	        <rhn:icon type="item-disabled" />
-	      </c:otherwise>
-		</c:choose>
+        </rl:column>
+        <rl:column bound="false"
+                   headerkey="multiorg.jsp.email"
+                        >
+                <c:out value="${current.address}" />
+        </rl:column>
+        <rl:column bound="false"
+                   sortable="false"
+                   headerkey="realname.displayname"
+                   attr="userLastName">
+                <c:out value="${current.userDisplayName}" escapeXml="false" />
+        </rl:column>
+        <rl:column bound="false"
+                   sortable="false"
+                   headerkey="orgadmin.displayname"
+                   attr="orgAdmin">
+            <c:choose>
+              <c:when test="${current.orgAdmin == 1}">
+                <rhn:icon type="item-enabled" />
+              </c:when>
+              <c:otherwise>
+                <rhn:icon type="item-disabled" />
+              </c:otherwise>
+                </c:choose>
 
-	</rl:column>
+        </rl:column>
 </rl:list>
 
 </rl:listset>

@@ -27,25 +27,25 @@
 </jsp:include>
 
 
-		  <rl:list dataset="pageList" name="packageList"
-		  decorator="SelectableDecorator"
-					emptykey="channel.jsp.package.addemptylist"
-					alphabarcolumn="nvrea"
-					 filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter"
-					>
+                  <rl:list dataset="pageList" name="packageList"
+                  decorator="SelectableDecorator"
+                                        emptykey="channel.jsp.package.addemptylist"
+                                        alphabarcolumn="nvrea"
+                                         filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter"
+                                        >
 
-				<rl:decorator name="ElaborationDecorator"/>
-				<rl:decorator name="PageSizeDecorator"/>
+                                <rl:decorator name="ElaborationDecorator"/>
+                                <rl:decorator name="PageSizeDecorator"/>
 
-				<rl:selectablecolumn value="${current.selectionKey}"
-					selected="${current.selected}"/>
+                                <rl:selectablecolumn value="${current.selectionKey}"
+                                        selected="${current.selected}"/>
 
 
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="download.jsp.package"
                            sortattr="nvrea"
-					defaultsort="asc"
+                                        defaultsort="asc"
                            >
 
                         <a href="/rhn/software/packages/Details.do?pid=${current.id}">${current.nvrea}</a>
@@ -57,12 +57,12 @@
                            headerkey="channel.jsp.manage.package.channels"
                           >
                           <c:if test="${empty current.packageChannels}">
-				(<bean:message key="channel.jsp.manage.package.none"/>)
+                                (<bean:message key="channel.jsp.manage.package.none"/>)
                           </c:if>
 
                           <c:forEach var="channel" items="${current.packageChannels}">
-				${channel}
-				<BR>
+                                ${channel}
+                                <BR>
                           </c:forEach>
 
                 </rl:column>
@@ -74,11 +74,11 @@
                         ${current.provider}
                 </rl:column>
 
-			  </rl:list>
+                          </rl:list>
 
-			<div class="text-right">
+                        <div class="text-right">
                             <input type="submit" name="confirm" value="<bean:message key='channel.jsp.manage.package.delete'/>" ${empty pageList ? 'class="btn" disabled' : 'class="btn btn-default"'} >
-			</div>
+                        </div>
      <rhn:submitted/>
 </rl:listset>
 </body>

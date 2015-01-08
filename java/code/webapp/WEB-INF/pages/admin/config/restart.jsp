@@ -6,9 +6,9 @@
 <html:html >
 
 <head>
-	<c:if test="${requestScope.restart == 'true'}">
-	    <script src="/javascript/restart.js" type="text/javascript"> </script>
-	</c:if>
+        <c:if test="${requestScope.restart == 'true'}">
+            <script src="/javascript/restart.js" type="text/javascript"> </script>
+        </c:if>
 </head>
 <body  <c:if test="${requestScope.restart == 'true'}">onload="checkConnection(${requestScope.restartDelay})"</c:if> >
     <rhn:toolbar base="h1" icon="header-info" imgAlt="info.alt.img">

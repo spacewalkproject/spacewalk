@@ -15,11 +15,11 @@
 <h2><bean:message key="system.audit.listscap.jsp.overview"/></h2>
 
 <c:choose>
-	<c:when test="${not requestScope.scapEnabled}">
-		<p><bean:message key="system.audit.listscap.jsp.missing"
-			arg0="${requiredPackage}"/></p>
-		<br/>
-	</c:when>
+        <c:when test="${not requestScope.scapEnabled}">
+                <p><bean:message key="system.audit.listscap.jsp.missing"
+                        arg0="${requiredPackage}"/></p>
+                <br/>
+        </c:when>
 </c:choose>
 
 <%@ include file="/WEB-INF/pages/common/fragments/audit/scap-list.jspf" %>

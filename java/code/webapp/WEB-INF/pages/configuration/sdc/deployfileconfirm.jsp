@@ -19,12 +19,12 @@
   <div class="page-summary">
     <p>
     <bean:message key="sdcdeployconfirm.jsp.summary"
-		  arg0="${fn:escapeXml(system.name)}"/>
+                  arg0="${fn:escapeXml(system.name)}"/>
     </p>
   </div>
 
 <html:form method="post"
-		action="/systems/details/configuration/DeployFileConfirmSubmit.do?sid=${system.id}">
+                action="/systems/details/configuration/DeployFileConfirmSubmit.do?sid=${system.id}">
     <rhn:csrf />
     <c:set var="button" value="sdcdeployconfirm.jsp.schedule" />
 

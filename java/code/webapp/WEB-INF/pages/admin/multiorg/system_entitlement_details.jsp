@@ -8,12 +8,12 @@
 </head>
 <body>
 <rhn:toolbar base="h1" icon="header-system"
-	miscUrl="${url}"
-	miscAcl="user_role(org_admin)"
-	miscText="${text}"
-	miscImg="${img}"
-	miscAlt="${text}"
-	imgAlt="users.jsp.imgAlt">
+        miscUrl="${url}"
+        miscAcl="user_role(org_admin)"
+        miscText="${text}"
+        miscImg="${img}"
+        miscAlt="${text}"
+        imgAlt="users.jsp.imgAlt">
 <bean:message key="sys_entitlements.${name}"/>
 </rhn:toolbar>
 

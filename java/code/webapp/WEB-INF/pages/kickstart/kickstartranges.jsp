@@ -21,8 +21,8 @@
         <rhn:csrf />
         <rhn:submitted />
 
-    	<rl:list dataset="pageList"
-    	         name="ipList"
+        <rl:list dataset="pageList"
+                 name="ipList"
                 emptykey="iprange.emptylist"
                   filter="com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter">
 

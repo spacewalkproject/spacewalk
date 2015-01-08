@@ -7,7 +7,7 @@
 <html>
 <body>
 <rhn:toolbar base="h1" icon="header-taskomatic"
-	           helpUrl="">
+                   helpUrl="">
     <bean:message key="task.status.title"/>
   </rhn:toolbar>
 
@@ -28,17 +28,17 @@
       <table class="table table-striped">
         <tbody>
         <c:forEach items="${list}" var="item">
-      		<tr>
-      			<td>
-      				<bean:message key="${item.name}"/>:
-      			</td>
-      			<td>
-      				<c:out value="${item.start_time}"/>
-      			</td>
-      			<td>
-      				<c:out value="${item.status}"/>
-      			</td>
-      		</tr>
+                <tr>
+                        <td>
+                                <bean:message key="${item.name}"/>:
+                        </td>
+                        <td>
+                                <c:out value="${item.start_time}"/>
+                        </td>
+                        <td>
+                                <c:out value="${item.status}"/>
+                        </td>
+                </tr>
         </c:forEach>
         </tbody>
       </table>

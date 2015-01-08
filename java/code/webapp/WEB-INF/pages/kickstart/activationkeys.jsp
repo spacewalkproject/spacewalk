@@ -27,14 +27,14 @@
 
   <rhn:listdisplay   set="${requestScope.set}" hiddenvars="${requestScope.newset}">
 
-	    <rhn:set value="${current.id}" />
+            <rhn:set value="${current.id}" />
         <rhn:column header="kickstart.activationkeys.jsp.description">
-			<rhn:require acl="user_role(activation_key_admin)">
-            	<a href="/rhn/activationkeys/Edit.do?tid=${current.id}">${current.note}</a>
-   			</rhn:require>
-   			<rhn:require acl="not user_role(activation_key_admin)">
-   				${current.note}
-			</rhn:require>
+                        <rhn:require acl="user_role(activation_key_admin)">
+                <a href="/rhn/activationkeys/Edit.do?tid=${current.id}">${current.note}</a>
+                        </rhn:require>
+                        <rhn:require acl="not user_role(activation_key_admin)">
+                                ${current.note}
+                        </rhn:require>
         </rhn:column>
         <rhn:column header="kickstart.activationkeys.jsp.key">
             ${current.token}

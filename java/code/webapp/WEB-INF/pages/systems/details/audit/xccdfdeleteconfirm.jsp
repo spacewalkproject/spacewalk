@@ -15,34 +15,34 @@
 <h2><bean:message key="system.audit.xccdfdeleteconfirm.jsp.overview"/></h2>
 
 <rl:listset name="xccdfScans">
-	<rhn:csrf/>
-	<input type="hidden" name="sid" value="${param.sid}">
+        <rhn:csrf/>
+        <input type="hidden" name="sid" value="${param.sid}">
 
-	<rl:list dataset="pageList" name="xccdfScans">
-		<rl:decorator name="ElaborationDecorator"/>
+        <rl:list dataset="pageList" name="xccdfScans">
+                <rl:decorator name="ElaborationDecorator"/>
 
-		<%@ include file="/WEB-INF/pages/common/fragments/audit/scap-list-columns.jspf" %>
+                <%@ include file="/WEB-INF/pages/common/fragments/audit/scap-list-columns.jspf" %>
 
-		<rl:column headerkey="system.audit.xccdfdeleteconfirm.jsp.deletable">
-			<c:choose>
-				<c:when test="${current.deletable}">
-					<rhn:icon type="item-enabled" />
-				</c:when>
-				<c:otherwise>
-					<rhn:icon type="item-disabled" />
-				</c:otherwise>
-			</c:choose>
-		</rl:column>
-	</rl:list>
+                <rl:column headerkey="system.audit.xccdfdeleteconfirm.jsp.deletable">
+                        <c:choose>
+                                <c:when test="${current.deletable}">
+                                        <rhn:icon type="item-enabled" />
+                                </c:when>
+                                <c:otherwise>
+                                        <rhn:icon type="item-disabled" />
+                                </c:otherwise>
+                        </c:choose>
+                </rl:column>
+        </rl:list>
 
-	<div class="text-right">
+        <div class="text-right">
                 <hr />
-		<input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='confirm.jsp.confirm'/>">
-	</div>
+                <input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='confirm.jsp.confirm'/>">
+        </div>
 </rl:listset>
 
 <span class="small-text">
-	<bean:message key="system.audit.xccdfdeleteconfirm.jsp.tip"/>
+        <bean:message key="system.audit.xccdfdeleteconfirm.jsp.tip"/>
 </span>
 </body>
 </html>

@@ -20,14 +20,14 @@ imgAlt="users.jsp.imgAlt">
 
 
 <c:choose>
-	<c:when test = "${orgCount > 1}">
-		<c:set var = "countstyle" value= ""/>
-		<c:set var = "usagestyle" value = "last-column"/>
-	</c:when>
-	<c:otherwise>
-		<c:set var = "countstyle" value= "last-column"/>
-		<c:set var = "usagestyle" value = ""/>
-	</c:otherwise>
+        <c:when test = "${orgCount > 1}">
+                <c:set var = "countstyle" value= ""/>
+                <c:set var = "usagestyle" value = "last-column"/>
+        </c:when>
+        <c:otherwise>
+                <c:set var = "countstyle" value= "last-column"/>
+                <c:set var = "usagestyle" value = ""/>
+        </c:otherwise>
 </c:choose>
 
 
@@ -64,11 +64,11 @@ imgAlt="users.jsp.imgAlt">
             >
             <c:choose>
             <c:when test="${empty current.allocated or current.allocated == 0}">
-				<bean:message key="None Allocated"/>
+                                <bean:message key="None Allocated"/>
             </c:when>
-			<c:otherwise>
-				<bean:message key="sys_entitlements.usagedata" arg0="${current.used}" arg1="${current.allocated}" arg2="${current.ratio}"/>
-			</c:otherwise>
+                        <c:otherwise>
+                                <bean:message key="sys_entitlements.usagedata" arg0="${current.used}" arg1="${current.allocated}" arg2="${current.ratio}"/>
+                        </c:otherwise>
             </c:choose>
         </rl:column>
         </c:if>

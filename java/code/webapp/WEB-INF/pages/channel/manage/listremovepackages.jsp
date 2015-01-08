@@ -22,19 +22,19 @@
 <rhn:csrf />
 <input type="hidden" name="cid" value="${cid}" />
 
-	<rl:list dataset="pageList"
-			name="packageList"
-			decorator="SelectableDecorator"
-			emptykey="package.jsp.emptylist"
-			alphabarcolumn="nvrea"
-			filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter" >
+        <rl:list dataset="pageList"
+                        name="packageList"
+                        decorator="SelectableDecorator"
+                        emptykey="package.jsp.emptylist"
+                        alphabarcolumn="nvrea"
+                        filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter" >
 
 
-			<rl:decorator name="PageSizeDecorator"/>
+                        <rl:decorator name="PageSizeDecorator"/>
 
-		    <rl:selectablecolumn value="${current.id}"
-								selected="${current.selected}"
-								disabled="${not current.selectable}"/>
+                    <rl:selectablecolumn value="${current.id}"
+                                                                selected="${current.selected}"
+                                                                disabled="${not current.selectable}"/>
 
 
 
@@ -42,7 +42,7 @@
                                    bound="false"
                            headerkey="download.jsp.package"
                            sortattr="nvrea"
-					defaultsort="asc"
+                                        defaultsort="asc"
                            >
 
                         <a href="/rhn/software/packages/Details.do?pid=${current.id}">${current.nvrea}</a>
@@ -63,16 +63,16 @@
                         ${current.provider}
                 </rl:column>
 
-	</rl:list>
-	<rl:csv dataset="pageList"
-		        name="packageList"
-		        exportColumns="id, nvrea, provider" />
-	<div class="text-right">
-	  <hr />
-		<input type="submit" name="confirm" class="btn btn-default"
-				value="<bean:message key='channel.jsp.package.removebutton'/>" />
-	</div>
-		<rhn:submitted/>
+        </rl:list>
+        <rl:csv dataset="pageList"
+                        name="packageList"
+                        exportColumns="id, nvrea, provider" />
+        <div class="text-right">
+          <hr />
+                <input type="submit" name="confirm" class="btn btn-default"
+                                value="<bean:message key='channel.jsp.package.removebutton'/>" />
+        </div>
+                <rhn:submitted/>
 
 
 </rl:listset>

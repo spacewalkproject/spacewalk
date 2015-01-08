@@ -30,29 +30,29 @@ function showFiltered() {
 <form method="post" name="rhn_list" action="/rhn/software/channels/Popular.do">
         <rhn:csrf />
         <rhn:submitted />
-    	<table class="table">
-    		<th>
-    			<bean:message key="channels.popular.jsp.label0" />:
-    		</th>
-    		<td>
-			<bean:message key="channels.popular.jsp.label1" />
-			<select name="server_count" >
-		         <c:forEach var="parameter" items="${counts}">
-					<option value="<c:out value='${parameter.count}' />"
-						<c:if test="${parameter.selected}">
-							selected
-						</c:if>
-					>
-						<c:out value='${parameter.count}' />
-					</option>
-		         </c:forEach>
-			</select>
-			<bean:message key="channels.popular.jsp.label2" />
-			<INPUT type="submit" class="btn btn-default" value="<bean:message key='channels.popular.jsp.button'/>">
-			</td>
-		</table>
-		<br/>
-	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_multiorg.jspf" %>
+        <table class="table">
+                <th>
+                        <bean:message key="channels.popular.jsp.label0" />:
+                </th>
+                <td>
+                        <bean:message key="channels.popular.jsp.label1" />
+                        <select name="server_count" >
+                         <c:forEach var="parameter" items="${counts}">
+                                        <option value="<c:out value='${parameter.count}' />"
+                                                <c:if test="${parameter.selected}">
+                                                        selected
+                                                </c:if>
+                                        >
+                                                <c:out value='${parameter.count}' />
+                                        </option>
+                         </c:forEach>
+                        </select>
+                        <bean:message key="channels.popular.jsp.label2" />
+                        <INPUT type="submit" class="btn btn-default" value="<bean:message key='channels.popular.jsp.button'/>">
+                        </td>
+                </table>
+                <br/>
+        <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_multiorg.jspf" %>
 </form>
 
 </body>

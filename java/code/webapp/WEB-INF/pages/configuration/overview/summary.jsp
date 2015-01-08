@@ -19,7 +19,7 @@
   </p>
 
 <form method="post" role="form" name="rhn_list"
-	action="/rhn/configuration/system/Summary.do">
+        action="/rhn/configuration/system/Summary.do">
   <rhn:csrf />
   <rhn:submitted />
   <%@ include file="/WEB-INF/pages/common/fragments/configuration/enablesummary.jspf" %>

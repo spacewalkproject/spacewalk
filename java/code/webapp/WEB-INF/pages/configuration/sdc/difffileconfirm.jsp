@@ -25,7 +25,7 @@
   </div>
 
 <html:form method="post"
-		action="/systems/details/configuration/DiffFileConfirmSubmit.do?sid=${system.id}">
+                action="/systems/details/configuration/DiffFileConfirmSubmit.do?sid=${system.id}">
     <rhn:csrf />
     <c:set var="button" value="sdcdiffconfirm.jsp.schedule" />
 

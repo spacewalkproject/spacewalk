@@ -25,18 +25,18 @@
 
 <input type="hidden" name="cid" value="${cid}" />
 
-	<rl:list
-			decorator="SelectableDecorator"
-			emptykey="systemlist.jsp.nosystems"
-			alphabarcolumn="name"
-			filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter" >
+        <rl:list
+                        decorator="SelectableDecorator"
+                        emptykey="systemlist.jsp.nosystems"
+                        alphabarcolumn="name"
+                        filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter" >
 
-			<rl:decorator name="ElaborationDecorator"/>
-			<rl:decorator name="PageSizeDecorator"/>
+                        <rl:decorator name="ElaborationDecorator"/>
+                        <rl:decorator name="PageSizeDecorator"/>
 
-		    <rl:selectablecolumn value="${current.id}"
-								selected="${current.selected}"
-								disabled="${not current.selectable}"/>
+                    <rl:selectablecolumn value="${current.id}"
+                                                                selected="${current.selected}"
+                                                                disabled="${not current.selectable}"/>
 
 
 
@@ -44,37 +44,37 @@
                                    bound="false"
                            headerkey="actions.jsp.system"
                            sortattr="name"
-							defaultsort="asc"
+                                                        defaultsort="asc"
                            >
                         <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
-                        	<c:out value="${current.name}" />
+                                <c:out value="${current.name}" />
                         </a>
                 </rl:column>
 
-			<!-- Base Channel Column -->
-			<rl:column sortable="false"
-					   bound="false"
-			           headerkey="systemlist.jsp.channel"  >
-	           <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
-			</rl:column>
+                        <!-- Base Channel Column -->
+                        <rl:column sortable="false"
+                                           bound="false"
+                                   headerkey="systemlist.jsp.channel"  >
+                   <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
+                        </rl:column>
 
-			<!-- Entitlement Column -->
-			<rl:column sortable="false"
-					   bound="false"
-			           headerkey="systemlist.jsp.entitlement"
-			           styleclass="center"
-			           headerclass="thin-column">
-	                      <c:out value="${current.entitlementLevel}" escapeXml="false"/>
-			</rl:column>
+                        <!-- Entitlement Column -->
+                        <rl:column sortable="false"
+                                           bound="false"
+                                   headerkey="systemlist.jsp.entitlement"
+                                   styleclass="center"
+                                   headerclass="thin-column">
+                              <c:out value="${current.entitlementLevel}" escapeXml="false"/>
+                        </rl:column>
 
 
-		</rl:list>
-		<rhn:submitted/>
+                </rl:list>
+                <rhn:submitted/>
 
-		  	<div class="text-right">
+                        <div class="text-right">
                                 <hr />
-				<input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='confirm'/>" </input>
-			</div>
+                                <input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='confirm'/>" </input>
+                        </div>
 
 
 </rl:listset>

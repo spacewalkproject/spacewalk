@@ -24,7 +24,7 @@ function showFiltered() {
 <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tabs.jspf" %>
 
 <p>
-	<bean:message key="channels.retired.jsp.header1" />
+        <bean:message key="channels.retired.jsp.header1" />
 </p>
 
 
@@ -32,7 +32,7 @@ function showFiltered() {
 <form method="post" name="rhn_list" action="/rhn/software/channels/Retired.do">
     <rhn:csrf />
     <rhn:submitted />
-	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_multiorg.jspf" %>
+        <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_multiorg.jspf" %>
 </form>
 
 </body>

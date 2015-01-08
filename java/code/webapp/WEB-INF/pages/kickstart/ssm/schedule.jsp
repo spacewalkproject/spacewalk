@@ -26,11 +26,11 @@
     <div class="page-summary">
     <p>
 
-	    <c:if test="${empty requestScope.isIP}">
-	        <bean:message key="ssm.kickstart.schedule.heading2.text.jsp" />
+            <c:if test="${empty requestScope.isIP}">
+                <bean:message key="ssm.kickstart.schedule.heading2.text.jsp" />
         </c:if>
-	    <c:if test="${not empty requestScope.isIP}">
-	        <bean:message key="ssm.kickstart.schedule.ip.heading2.text.jsp" />
+            <c:if test="${not empty requestScope.isIP}">
+                <bean:message key="ssm.kickstart.schedule.ip.heading2.text.jsp" />
         </c:if>
 
     </p>
@@ -47,33 +47,33 @@
 
 <rl:listset name="form">
         <rhn:csrf />
-		<c:if test="${empty requestScope.isIP}">
-		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-list.jspf" %>
-		</c:if>
-		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/proxy-options.jspf" %>
-		<br/>
+                <c:if test="${empty requestScope.isIP}">
+                <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-list.jspf" %>
+                </c:if>
+                <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/proxy-options.jspf" %>
+                <br/>
 
 <h2><rhn:icon type="header-kickstart" /><bean:message key="kickstart.schedule.heading4.jsp" /></h2>
-		<table class="details">
-		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/network-options.jspf" %>
+                <table class="details">
+                <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/network-options.jspf" %>
       <tr>
         <th width="10%"><bean:message key="kickstartdetails.jsp.kernel_options" />:</th>
         <td>
         <input type="radio" name="kernelParamsType" value="distro" onclick="form.kernelParamsId.disabled = true;"
-			<c:if test="${empty form.kernelParamsType or form.kernelParamsType == 'distro'}">checked="checked"</c:if>
-			 />
+                        <c:if test="${empty form.kernelParamsType or form.kernelParamsType == 'distro'}">checked="checked"</c:if>
+                         />
               <bean:message key="kickstart.schedule.kernel.options.distro"/>
         <br /><br />
-		  <input type="radio" name="kernelParamsType" value="profile"
-				<c:if test="${form.kernelParamsType == 'profile'}">checked="checked"</c:if>
-					onclick="form.kernelParamsId.disabled = true;" />
+                  <input type="radio" name="kernelParamsType" value="profile"
+                                <c:if test="${form.kernelParamsType == 'profile'}">checked="checked"</c:if>
+                                        onclick="form.kernelParamsId.disabled = true;" />
               <bean:message key="kickstart.schedule.kernel.options.profile"/>
 
           <br /><br />
 
-		  <input type="radio" name="kernelParamsType" value="custom"
-					<c:if test="${form.kernelParamsType == 'custom'}">checked="checked"</c:if>
-					onclick="form.kernelParamsId.disabled = false;" />
+                  <input type="radio" name="kernelParamsType" value="custom"
+                                        <c:if test="${form.kernelParamsType == 'custom'}">checked="checked"</c:if>
+                                        onclick="form.kernelParamsId.disabled = false;" />
               <strong><bean:message key="Custom" /></strong>: &nbsp;&nbsp;
               <input type="text" name="kernelParams" value="${form.kernelParams}"
               <c:if test="${form.kernelParamsType ne 'custom'}">disabled= "true"</c:if>
@@ -84,20 +84,20 @@
       <tr>
         <th width="10%"><bean:message key="kickstartdetails.jsp.post_kernel_options" />:</th>
         <td>
-		  <input type="radio" name="postKernelParamsType" value="distro" onclick="form.postKernelParamsId.disabled = true;"
-				<c:if test="${empty form.postKernelParamsType or form.postKernelParamsType == 'distro'}">checked="checked"</c:if>
-			/>
-				<bean:message key="kickstart.schedule.kernel.options.distro"/>
+                  <input type="radio" name="postKernelParamsType" value="distro" onclick="form.postKernelParamsId.disabled = true;"
+                                <c:if test="${empty form.postKernelParamsType or form.postKernelParamsType == 'distro'}">checked="checked"</c:if>
+                        />
+                                <bean:message key="kickstart.schedule.kernel.options.distro"/>
           <br /><br />
 
-		  <input type="radio" name="postKernelParamsType" value="profile" onclick="form.postKernelParamsId.disabled = true;"
-					<c:if test="${form.postKernelParamsType == 'profile'}">checked="checked"</c:if>
-					/>
+                  <input type="radio" name="postKernelParamsType" value="profile" onclick="form.postKernelParamsId.disabled = true;"
+                                        <c:if test="${form.postKernelParamsType == 'profile'}">checked="checked"</c:if>
+                                        />
               <bean:message key="kickstart.schedule.kernel.options.profile"/><br /><br />
 
-		  <input type="radio" name="postKernelParamsType" value="custom" onclick="form.postKernelParamsId.disabled = false;"
-		  <c:if test="${form.postKernelParamsType == 'custom'}">checked="checked"</c:if>
-		  />
+                  <input type="radio" name="postKernelParamsType" value="custom" onclick="form.postKernelParamsId.disabled = false;"
+                  <c:if test="${form.postKernelParamsType == 'custom'}">checked="checked"</c:if>
+                  />
               <strong><bean:message key="Custom" /></strong>: &nbsp;&nbsp;
               <input type="text" name="postKernelParams" value="${form.postKernelParams}"
               <c:if test="${form.postKernelParamsType ne 'custom'}">disabled= "true"</c:if>
@@ -108,12 +108,12 @@
       </tr>
 
       <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-sync.jspf" %>
-		</table>
+                </table>
 
-		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/schedule-options.jspf" %>
-	  <p>
-	    <bean:message key="kickstarts.jsp.diskwarningssm" />
-	  </p>
+                <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/schedule-options.jspf" %>
+          <p>
+            <bean:message key="kickstarts.jsp.diskwarningssm" />
+          </p>
 <div class="text-right">
 <hr />
 <input class="btn btn-default" type="submit" name="dispatch" value="${rhn:localize('kickstart.schedule.button2.jsp')}"/>

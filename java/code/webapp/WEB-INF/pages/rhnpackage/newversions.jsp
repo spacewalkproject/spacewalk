@@ -36,7 +36,7 @@
         <c:if test="${current.advisory_type=='Product Enhancement Advisory'}">
           <rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
         </c:if>
-	<a href="/rhn/errata/details/Details.do?eid=${current.errata_id}"><c:out value="${current.advisory}" /></a>
+        <a href="/rhn/errata/details/Details.do?eid=${current.errata_id}"><c:out value="${current.advisory}" /></a>
       </c:if>
     </rhn:column>
 

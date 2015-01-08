@@ -32,7 +32,7 @@
             <a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid=${ksdata.id}">(<bean:message key="kickstartdetails.jsp.changeos"/>)</a></div>
       </div>
 
-		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/virtoptions.jspf" %>
+                <%@ include file="/WEB-INF/pages/common/fragments/kickstart/virtoptions.jspf" %>
 
       <div class="form-group">
           <label class="col-lg-3 control-label"><bean:message key="kickstartdetails.jsp.active"/></label>
@@ -81,11 +81,11 @@
     </c:when>
     <c:otherwise>
     <p><bean:message key="kickstartdetails.invalid.jsp.summary"/>
-		<bean:message key="kickstartdetails.invalid.jsp.summary-option1"
-				 arg0="${ksdata.tree.label}"
-				 arg1="/rhn/kickstart/TreeEdit.do?kstid=${ksdata.tree.id}"/></p>
+                <bean:message key="kickstartdetails.invalid.jsp.summary-option1"
+                                 arg0="${ksdata.tree.label}"
+                                 arg1="/rhn/kickstart/TreeEdit.do?kstid=${ksdata.tree.id}"/></p>
         <p><bean:message key="kickstartdetails.invalid.jsp.summary-option2"
-				arg0="/rhn/kickstart/KickstartSoftwareEdit.do?ksid=${ksdata.id}"/></p>
+                                arg0="/rhn/kickstart/KickstartSoftwareEdit.do?ksid=${ksdata.id}"/></p>
     </c:otherwise>
     </c:choose>
 </div>

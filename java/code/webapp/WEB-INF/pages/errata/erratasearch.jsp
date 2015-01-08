@@ -61,9 +61,9 @@
                 <div class="row-0">
                   <div class="col-md-5">
                     <html:select property="view_mode" styleClass="form-control input-sm">
-  	                <html:options collection="searchOptions"
-  	                             property="value"
-  	                             labelProperty="display" />
+                        <html:options collection="searchOptions"
+                                     property="value"
+                                     labelProperty="display" />
                     </html:select>
                   </div>
                   <span class="col-md-7">
@@ -166,15 +166,15 @@
 
       <rl:column bound="false" sortable="true" sortattr="securityAdvisory"
         headerkey="erratalist.jsp.type">
-		<c:if test="${current.securityAdvisory}">
-		  <rhn:icon type="errata-security" />
-		</c:if>
-		<c:if test="${current.bugFix}">
-		  <rhn:icon type="errata-bugfix" />
-		</c:if>
-		<c:if test="${current.productEnhancement}">
-		  <rhn:icon type="errata-enhance" />
-		</c:if>
+                <c:if test="${current.securityAdvisory}">
+                  <rhn:icon type="errata-security" />
+                </c:if>
+                <c:if test="${current.bugFix}">
+                  <rhn:icon type="errata-bugfix" />
+                </c:if>
+                <c:if test="${current.productEnhancement}">
+                  <rhn:icon type="errata-enhance" />
+                </c:if>
       </rl:column>
 
       <rl:column bound="false" sortable="true" sortattr="advisoryName" headerkey="erratalist.jsp.advisory">

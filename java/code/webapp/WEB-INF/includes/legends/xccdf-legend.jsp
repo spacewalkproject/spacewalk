@@ -5,22 +5,22 @@
 <h4><bean:message key="system.audit.listscap.jsp.legend"/></h4>
 <ul>
 <li><bean:message key="system.audit.listscap.jsp.pass.abb"/> -
-	<bean:message key="system.audit.listscap.jsp.pass"/></li>
+        <bean:message key="system.audit.listscap.jsp.pass"/></li>
 <li><bean:message key="system.audit.listscap.jsp.fail.abb"/> -
-	<bean:message key="system.audit.listscap.jsp.fail"/></li>
+        <bean:message key="system.audit.listscap.jsp.fail"/></li>
 <li><bean:message key="system.audit.listscap.jsp.error.abb"/> -
-	<bean:message key="system.audit.listscap.jsp.error"/></li>
+        <bean:message key="system.audit.listscap.jsp.error"/></li>
 <li><bean:message key="system.audit.listscap.jsp.unknown.abb"/> -
-	<bean:message key="system.audit.listscap.jsp.unknown"/></li>
+        <bean:message key="system.audit.listscap.jsp.unknown"/></li>
 <li><bean:message key="system.audit.listscap.jsp.notapplicable.abb"/> -
-	<bean:message key="system.audit.listscap.jsp.notapplicable"/></li>
+        <bean:message key="system.audit.listscap.jsp.notapplicable"/></li>
 <li><bean:message key="system.audit.listscap.jsp.notchecked.abb"/> -
-	<bean:message key="system.audit.listscap.jsp.notchecked"/></li>
+        <bean:message key="system.audit.listscap.jsp.notchecked"/></li>
 <li><bean:message key="system.audit.listscap.jsp.notselected.abb"/> -
-	<bean:message key="system.audit.listscap.jsp.notselected"/></li>
+        <bean:message key="system.audit.listscap.jsp.notselected"/></li>
 <li><bean:message key="system.audit.listscap.jsp.informational.abb"/> -
-	<bean:message key="system.audit.listscap.jsp.informational"/></li>
+        <bean:message key="system.audit.listscap.jsp.informational"/></li>
 <li><bean:message key="system.audit.listscap.jsp.fixed.abb"/> -
-	<bean:message key="system.audit.listscap.jsp.fixed"/></li>
+        <bean:message key="system.audit.listscap.jsp.fixed"/></li>
 </ul>
 </div>

@@ -9,8 +9,8 @@
 </head>
 <body>
 <rhn:toolbar base="h1" icon="header-errata"
-	           helpUrl=""
-	           deletionUrl="/rhn/errata/Delete.do?eid=${param.eid}"
+                   helpUrl=""
+                   deletionUrl="/rhn/errata/Delete.do?eid=${param.eid}"
                deletionType="errata">
     <bean:message key="errata.edit.toolbar"/> <c:out value="${advisory}" />
   </rhn:toolbar>

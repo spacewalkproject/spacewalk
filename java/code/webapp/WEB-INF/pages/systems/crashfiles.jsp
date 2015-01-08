@@ -32,7 +32,7 @@
         <rl:column headerkey="crashes.jsp.filename" bound="false"
             sortattr="filename"
             sortable="true"
-			defaultsort="asc"
+                        defaultsort="asc"
             filterattr="filename">
             <c:if test="${current.isUploaded}">
                 <a href="${current.downloadPath}">

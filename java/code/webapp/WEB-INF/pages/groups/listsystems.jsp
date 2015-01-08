@@ -10,9 +10,9 @@
  </rhn:require>
 
 <c:import url="/WEB-INF/pages/common/fragments/groups/systems.jspf">
-	<c:param name = "title_key" value="Systems"/>
-	<c:param name = "summary_key" value="${summary_key}"/>
-	<c:param name = "summary_arg0" value="${summary_arg0}"/>
-	<c:param name = "action_key" value="systemgroup.systems.remove"/>
+        <c:param name = "title_key" value="Systems"/>
+        <c:param name = "summary_key" value="${summary_key}"/>
+        <c:param name = "summary_arg0" value="${summary_arg0}"/>
+        <c:param name = "action_key" value="systemgroup.systems.remove"/>
 </c:import>
 

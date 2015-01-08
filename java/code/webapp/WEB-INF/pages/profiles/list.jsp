@@ -9,8 +9,8 @@
 <body>
 <rhn:toolbar base="h1"
     icon="header-package"
-	imgAlt="profile.list.header.alt">
-	<bean:message key="profile.list.header" />
+        imgAlt="profile.list.header.alt">
+        <bean:message key="profile.list.header" />
 </rhn:toolbar>
 <div class="page-summary">
     <p><bean:message key="profile.list.summary"/></p>
@@ -28,7 +28,7 @@
 
         <rl:column headerkey="column.name" bound="false">
             <a href="/rhn/profiles/Details.do?prid=${current.id}">
-		        ${current.name}</a>
+                        ${current.name}</a>
         </rl:column>
 
         <rl:column headerkey="column.basechannel">

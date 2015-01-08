@@ -23,23 +23,23 @@
 
 <input type="hidden" name="cid" value="${cid}" />
 
-	<rl:list dataset="pageList"
-			name="packageList"
-			emptykey="schedulesync.jsp.nopackagesselected"
-			alphabarcolumn="nvrea"
-			filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter" >
+        <rl:list dataset="pageList"
+                        name="packageList"
+                        emptykey="schedulesync.jsp.nopackagesselected"
+                        alphabarcolumn="nvrea"
+                        filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter" >
 
 
-			 <rl:decorator name="ElaborationDecorator"/>
+                         <rl:decorator name="ElaborationDecorator"/>
 
-			<rl:decorator name="PageSizeDecorator"/>
+                        <rl:decorator name="PageSizeDecorator"/>
 
 
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="download.jsp.package"
                            sortattr="nvrea"
-					defaultsort="asc"
+                                        defaultsort="asc"
                            >
 
                         <a href="/rhn/software/packages/Details.do?pid=${current.id}">${current.nvrea}</a>
@@ -60,15 +60,15 @@
                         ${current.provider}
                 </rl:column>
 
-	</rl:list>
-	<rl:csv dataset="pageList"
-		        name="packageList"
-		        exportColumns="id, nvrea, summary, provider" />
-	<div class="text-right">
-	  <hr />
-		<input type="submit" name="confirm" class="btn btn-default" value="<bean:message key='channel.jsp.package.addconfirmbutton'/>" />
-	</div>
-		<rhn:submitted/>
+        </rl:list>
+        <rl:csv dataset="pageList"
+                        name="packageList"
+                        exportColumns="id, nvrea, summary, provider" />
+        <div class="text-right">
+          <hr />
+                <input type="submit" name="confirm" class="btn btn-default" value="<bean:message key='channel.jsp.package.addconfirmbutton'/>" />
+        </div>
+                <rhn:submitted/>
 
 
 </rl:listset>

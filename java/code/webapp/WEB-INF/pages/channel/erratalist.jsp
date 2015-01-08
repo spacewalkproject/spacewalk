@@ -18,8 +18,8 @@
 
     <input type="hidden" name="cid" value="${cid}" />
 
-    	<rl:list dataset="pageList"
-    	         name="errataList"
+        <rl:list dataset="pageList"
+                 name="errataList"
                 emptykey="channel.jsp.errata.emptylist"
                 filter="com.redhat.rhn.frontend.action.channel.manage.ErrataFilter">
 
@@ -28,15 +28,15 @@
                                    bound="false"
                            headerkey="erratalist.jsp.type">
 
-							<c:if test="${current.securityAdvisory}">
-					            <rhn:icon type="errata-security" title="erratalist.jsp.securityadvisory" />
-					        </c:if>
-					        <c:if test="${current.bugFix}">
-					            <rhn:icon type="errata-bugfix" title="erratalist.jsp.bugadvisory" />
-					        </c:if>
-					        <c:if test="${current.productEnhancement}">
-					            <rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
-					        </c:if>
+                                                        <c:if test="${current.securityAdvisory}">
+                                                    <rhn:icon type="errata-security" title="erratalist.jsp.securityadvisory" />
+                                                </c:if>
+                                                <c:if test="${current.bugFix}">
+                                                    <rhn:icon type="errata-bugfix" title="erratalist.jsp.bugadvisory" />
+                                                </c:if>
+                                                <c:if test="${current.productEnhancement}">
+                                                    <rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
+                                                </c:if>
 
                 </rl:column>
 
@@ -46,7 +46,7 @@
                            headerkey="erratalist.jsp.advisory"
                           >
                         <a href="/rhn/errata/details/Details.do?eid=${current.id}">
-                        	<c:out value="${current.advisory}" />
+                                <c:out value="${current.advisory}" />
                         </a>
                 </rl:column>
 
@@ -71,9 +71,9 @@
 
         </rl:list>
 
-	<rl:csv dataset="pageList"
-		        name="packageList"
-		        exportColumns="id, advisory, advisoryType, advisorySynopsis, updateDate" />
+        <rl:csv dataset="pageList"
+                        name="packageList"
+                        exportColumns="id, advisory, advisoryType, advisorySynopsis, updateDate" />
 
     </rl:listset>
 

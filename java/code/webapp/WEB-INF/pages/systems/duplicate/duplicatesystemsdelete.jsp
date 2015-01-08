@@ -26,20 +26,20 @@
     <rl:decorator name="ElaborationDecorator"/>
     <rl:decorator name="PageSizeDecorator"/>
 
-	<!-- Name Column -->
-	<rl:column sortable="true"
+        <!-- Name Column -->
+        <rl:column sortable="true"
         bound="false"
-		headerkey="systemlist.jsp.system"
-		sortattr="name"
-		defaultsort="asc">
+                headerkey="systemlist.jsp.system"
+                sortattr="name"
+                defaultsort="asc">
             <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
                 <c:out value="${current.name}" escapeXml="true" />
             </a>
-	</rl:column>
-	<rl:column sortable="false"
-		attr="lastCheckin"
-		bound="true"
-		headerkey="systemlist.jsp.last_checked_in"
+        </rl:column>
+        <rl:column sortable="false"
+                attr="lastCheckin"
+                bound="true"
+                headerkey="systemlist.jsp.last_checked_in"
  />
 </rl:list>
 

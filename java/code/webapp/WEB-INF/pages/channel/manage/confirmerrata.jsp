@@ -64,7 +64,7 @@
         <div class="panel-body">
           <div class="form-horizontal">
             <c:forEach var="option" items="${arch_count}">
-              <div class="form-group">	
+              <div class="form-group">
                 <label class="col-md-6">${option.name}</label>
                 <div class="col-md-3">${option.size}</div>
               </div>

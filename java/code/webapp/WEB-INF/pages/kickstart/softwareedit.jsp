@@ -76,11 +76,11 @@ function clickNewestTree() {
                   <c:choose>
                     <c:when test="${empty nochildchannels}">
                       <c:forEach items="${avail_child_channels}" var="child">
-						   <input name="child_channels" value="${child.id}" type="checkbox" id="${child.id}"
-                      		<c:if test="${not empty stored_child_channels[child.id]}">checked=1</c:if>
-                      		/>
+                                                   <input name="child_channels" value="${child.id}" type="checkbox" id="${child.id}"
+                                <c:if test="${not empty stored_child_channels[child.id]}">checked=1</c:if>
+                                />
                        <label for="${child.id}">${child.label}</label><br/>
-					</c:forEach>
+                                        </c:forEach>
                     </c:when>
                     <c:otherwise>
                       <br /><b><bean:message key="softwareedit.jsp.nochildchannels" /></b><br />
@@ -132,14 +132,14 @@ function clickNewestTree() {
           <tr>
             <th><bean:message key="softwareedit.jsp.url" />:</th>
             <td>
-            	<c:choose>
-	            	<c:when test="${nourl == null}">
-	                	<b><bean:write name="kickstartSoftwareForm" property="url" /></b><br /><br />
-					</c:when>
-					<c:otherwise>
-						<b><bean:message key="kickstart.edit.software.nofiles.jsp" /></b>
-					</c:otherwise>
-				</c:choose>
+                <c:choose>
+                        <c:when test="${nourl == null}">
+                                <b><bean:write name="kickstartSoftwareForm" property="url" /></b><br /><br />
+                                        </c:when>
+                                        <c:otherwise>
+                                                <b><bean:message key="kickstart.edit.software.nofiles.jsp" /></b>
+                                        </c:otherwise>
+                                </c:choose>
             </td>
           </tr>
           <c:if test = "${not empty kickstartSoftwareForm.map.possibleRepos}">
@@ -148,11 +148,11 @@ function clickNewestTree() {
             <td>
 
       <c:forEach items="${kickstartSoftwareForm.map.possibleRepos}" var="item">
-    		<html:multibox property="selectedRepos" disabled="${item.disabled}"
-    						value = "${item.value}" styleId="type_${item.value}"/>
-			<label for="type_${item.value}"><c:out value="${item.label}"/></label>
-    		<br />
-    	</c:forEach>
+                <html:multibox property="selectedRepos" disabled="${item.disabled}"
+                                                value = "${item.value}" styleId="type_${item.value}"/>
+                        <label for="type_${item.value}"><c:out value="${item.label}"/></label>
+                <br />
+        </c:forEach>
     <br/><rhn:tooltip key="softwareedit.jsp.repos-tooltip"/>
             </td>
           </tr>
@@ -165,7 +165,7 @@ function clickNewestTree() {
       <html:hidden property="ksid" value="${ksdata.id}"/>
       <html:hidden property="submitted" value="true" styleId="editFormSubmitted"/>
       <html:hidden property="fieldChanged" value="" styleId="fieldChanged" />
-	</br>
+        </br>
 
     </html:form>
 </div>

@@ -23,27 +23,27 @@
 <rl:listset name="groupSet">
     <rhn:csrf />
 
-	<rl:list dataset="pageList" name="groupList" decorator="SelectableDecorator"
-	     emptykey="grouplist.jsp.nogroups"
-			 filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemGroupFilter">
+        <rl:list dataset="pageList" name="groupList" decorator="SelectableDecorator"
+             emptykey="grouplist.jsp.nogroups"
+                         filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemGroupFilter">
 
 
  <rl:selectablecolumn value="${current.id}"
-					selected="${current.selected}"/>
+                                        selected="${current.selected}"/>
 
-		<rl:column sortable="true"
-					headerkey="assignedgroups.jsp.group"
-					sortattr="name">
+                <rl:column sortable="true"
+                                        headerkey="assignedgroups.jsp.group"
+                                        sortattr="name">
 
-		<c:out value="<a href=\"/rhn/groups/GroupDetail.do?sgid=${current.id}\">${current.name}</a>" escapeXml="false" />
-	    </rl:column>
+                <c:out value="<a href=\"/rhn/groups/GroupDetail.do?sgid=${current.id}\">${current.name}</a>" escapeXml="false" />
+            </rl:column>
 
-		<rl:column sortable="true"
-					headerkey="grouplist.jsp.systems"
-					sortattr="serverCount">
+                <rl:column sortable="true"
+                                        headerkey="grouplist.jsp.systems"
+                                        sortattr="serverCount">
 
-						<c:out value="<a href=\"/rhn/groups/ListRemoveSystems.do?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
-	    </rl:column>
+                                                <c:out value="<a href=\"/rhn/groups/ListRemoveSystems.do?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
+            </rl:column>
 
 
 
@@ -61,7 +61,7 @@
   <input type="hidden" name="uid" value="${user.id}" />
   <input type="hidden" name="formvars" value="uid" />
 
-  	<rhn:submitted/>
+        <rhn:submitted/>
 </rl:listset>
 
 

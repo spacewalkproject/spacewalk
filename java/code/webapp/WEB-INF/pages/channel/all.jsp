@@ -25,7 +25,7 @@ function showFiltered() {
 <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tabs.jspf" %>
 
 <p>
-	<bean:message key="channels.all.jsp.header1" />
+        <bean:message key="channels.all.jsp.header1" />
 </p>
 
 <form method="post" role="form" name="rhn_list" action="/rhn/software/channels/All.do">

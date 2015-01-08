@@ -21,20 +21,20 @@
 
 <input type="hidden" name="cid" value="${cid}" />
 
-	<rl:list dataset="pageList"
-			name="systemList"
-			decorator="SelectableDecorator"
-			emptykey="systemlist.jsp.nosystems"
-			alphabarcolumn="name"
-			filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter" >
+        <rl:list dataset="pageList"
+                        name="systemList"
+                        decorator="SelectableDecorator"
+                        emptykey="systemlist.jsp.nosystems"
+                        alphabarcolumn="name"
+                        filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter" >
 
 
-			<rl:decorator name="ElaborationDecorator"/>
-			<rl:decorator name="PageSizeDecorator"/>
+                        <rl:decorator name="ElaborationDecorator"/>
+                        <rl:decorator name="PageSizeDecorator"/>
 
-		    <rl:selectablecolumn value="${current.id}"
-								selected="${current.selected}"
-								disabled="${not current.selectable}"/>
+                    <rl:selectablecolumn value="${current.id}"
+                                                                selected="${current.selected}"
+                                                                disabled="${not current.selectable}"/>
 
 
 
@@ -42,11 +42,11 @@
                                    bound="false"
                            headerkey="actions.jsp.system"
                            sortattr="name"
-					defaultsort="asc"
+                                        defaultsort="asc"
                            >
 
                         <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
-                        	<c:out value="${current.name}" />
+                                <c:out value="${current.name}" />
                         </a>
                 </rl:column>
 
@@ -59,12 +59,12 @@
                 </rl:column>
 
 
-	</rl:list>
-	<rl:csv dataset="pageList"
-		        name="systemList"
-		        exportColumns="id, name,entitlementLevel" />
+        </rl:list>
+        <rl:csv dataset="pageList"
+                        name="systemList"
+                        exportColumns="id, name,entitlementLevel" />
 
-		<rhn:submitted/>
+                <rhn:submitted/>
 
 
 </rl:listset>

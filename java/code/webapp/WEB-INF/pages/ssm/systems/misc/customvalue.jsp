@@ -15,8 +15,8 @@
 
     <rl:listset name="keySet">
     <rhn:csrf />
-	<rl:list dataset="pageList"
-	         name="keyList"
+        <rl:list dataset="pageList"
+                 name="keyList"
                 emptykey="system.jsp.customkey.empty"
                 alphabarcolumn="label"
                 filter="com.redhat.rhn.frontend.taglibs.list.filters.CustomKeyOverviewFilter">
@@ -26,7 +26,7 @@
                                    bound="false"
                            headerkey="system.jsp.customkey.keylabel"
                            sortattr="label"
-					defaultsort="asc">
+                                        defaultsort="asc">
 
                         <a href="/rhn/systems/ssm/misc/SetCustomValue.do?cikid=${current.id}">
                         <c:out value="${current.label}" />

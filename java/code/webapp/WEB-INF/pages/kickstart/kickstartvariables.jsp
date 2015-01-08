@@ -6,7 +6,7 @@
 <html:html >
 <body>
 <rhn:require acl="is_ks_raw(${ksid})" mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
-	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/advanced/header.jspf"%>
+        <%@ include file="/WEB-INF/pages/common/fragments/kickstart/advanced/header.jspf"%>
  </rhn:require>
 
 
@@ -14,15 +14,15 @@
   <rhn:require acl="is_ks_not_raw(${ksid})" mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-	  <rhn:dialogmenu mindepth="0" maxdepth="1"
-	    definition="/WEB-INF/nav/kickstart_details.xml"
-	    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+          <rhn:dialogmenu mindepth="0" maxdepth="1"
+            definition="/WEB-INF/nav/kickstart_details.xml"
+            renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
   </rhn:require>
 <c:import url="/WEB-INF/pages/common/fragments/kickstart/cobbler-variables.jspf">
-	<c:param name = "post_url" value="/kickstart/EditVariables.do"/>
-	<c:param name = "name" value="ksid"/>
-	<c:param name = "value" value="${param.ksid}"/>
+        <c:param name = "post_url" value="/kickstart/EditVariables.do"/>
+        <c:param name = "name" value="ksid"/>
+        <c:param name = "value" value="${param.ksid}"/>
 </c:import>
 </body>
 </html:html>

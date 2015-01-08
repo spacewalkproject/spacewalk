@@ -10,72 +10,72 @@
 
 <rl:listset name="registeredSystemsSet">
     <rhn:csrf />
-	<!-- Start of active users list -->
-	<rl:list dataset="recentlyRegisteredSystemsList"
-	         width="100%"
-	         name="systemsList"
-	         title="${rhn:localize('yourrhn.jsp.recentlyregistered')}"
-	         styleclass="list list-doubleheader"
-	         hidepagenums="true"
-	         emptykey="yourrhn.jsp.recentlyregistered.none"
-	 		 >
-		<rl:column bound="true"
-		           headerkey="systemlist.jsp.status"
-		           attr="statusDisplay"/>
-		<rl:column bound="false"
-		           headerkey="systemlist.jsp.system"
-		           >
-		<a href="/rhn/systems/details/Overview.do?sid=${current.id}">
-		<c:out value="${current.serverName}"/></a>
-		</rl:column>
+        <!-- Start of active users list -->
+        <rl:list dataset="recentlyRegisteredSystemsList"
+                 width="100%"
+                 name="systemsList"
+                 title="${rhn:localize('yourrhn.jsp.recentlyregistered')}"
+                 styleclass="list list-doubleheader"
+                 hidepagenums="true"
+                 emptykey="yourrhn.jsp.recentlyregistered.none"
+                         >
+                <rl:column bound="true"
+                           headerkey="systemlist.jsp.status"
+                           attr="statusDisplay"/>
+                <rl:column bound="false"
+                           headerkey="systemlist.jsp.system"
+                           >
+                <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
+                <c:out value="${current.serverName}"/></a>
+                </rl:column>
 
-		<rl:column bound="false"
-		           headerkey="systemlist.jsp.channel"
-		           >
-			<c:choose>
-	    		<c:when test="${current.channelId == null}">
-	        		<bean:message key="none.message"/>
-	        	</c:when>
-	        	<c:otherwise>
-	        		<a href="/rhn/channels/ChannelDetail.do?cid=${current.channelId}">
-	        			<c:out value = "${current.channelLabels}"/>
-	        		</a>
-	        	</c:otherwise>
-	        </c:choose>
-		</rl:column>
+                <rl:column bound="false"
+                           headerkey="systemlist.jsp.channel"
+                           >
+                        <c:choose>
+                        <c:when test="${current.channelId == null}">
+                                <bean:message key="none.message"/>
+                        </c:when>
+                        <c:otherwise>
+                                <a href="/rhn/channels/ChannelDetail.do?cid=${current.channelId}">
+                                        <c:out value = "${current.channelLabels}"/>
+                                </a>
+                        </c:otherwise>
+                </c:choose>
+                </rl:column>
 
-		<rl:column bound="false"
-		           headerkey="registeredlist.jsp.date"
-		           >
-			<fmt:formatDate value="${current.created}" type="both" dateStyle="short" timeStyle="long"/>
-		</rl:column>
+                <rl:column bound="false"
+                           headerkey="registeredlist.jsp.date"
+                           >
+                        <fmt:formatDate value="${current.created}" type="both" dateStyle="short" timeStyle="long"/>
+                </rl:column>
 
-		<rl:column bound="false"
-		           headerkey="registeredlist.jsp.user"
-		           >
-	          <c:choose>
-	            <c:when test="${current.creatorName != null}">
-	               <rhn:icon type="header-user" title="yourrhn.jsp.user.alt" />
-	              <c:out value="${current.creatorName}"/>
-	        </c:when>
-		    <c:otherwise>
-	              <bean:message key="Unknown" />
-	            </c:otherwise>
-	          </c:choose>
-		</rl:column>
+                <rl:column bound="false"
+                           headerkey="registeredlist.jsp.user"
+                           >
+                  <c:choose>
+                    <c:when test="${current.creatorName != null}">
+                       <rhn:icon type="header-user" title="yourrhn.jsp.user.alt" />
+                      <c:out value="${current.creatorName}"/>
+                </c:when>
+                    <c:otherwise>
+                      <bean:message key="Unknown" />
+                    </c:otherwise>
+                  </c:choose>
+                </rl:column>
 
-		<rl:column bound="true"
-		           headerkey="systemlist.jsp.entitlement"
-		           attr="entitlementLevel"/>
+                <rl:column bound="true"
+                           headerkey="systemlist.jsp.entitlement"
+                           attr="entitlementLevel"/>
 </rl:list>
   <span class="full-width-note-left">
-  	${paginationMessage}
+        ${paginationMessage}
   </span>
 
   <span class="full-width-note-right">
-  	<a href="/rhn/systems/Registered.do">
-  		<bean:message key="yourrhn.jsp.recentlyregistered.all" />
-  	</a>
+        <a href="/rhn/systems/Registered.do">
+                <bean:message key="yourrhn.jsp.recentlyregistered.all" />
+        </a>
   </span>
 
 </rl:listset>

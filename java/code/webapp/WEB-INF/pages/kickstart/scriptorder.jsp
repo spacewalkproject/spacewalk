@@ -44,39 +44,39 @@
             <td style="width:40%;">
               <c:if test="${empty kickstartScriptOrderForm.map.preScripts}">
               <html:select name="kickstartScriptOrderForm"
-	             property="selectedPre"
-	             disabled="true"
-	             size="15" styleId="preRanksWidget" style="width:100%;">
+                     property="selectedPre"
+                     disabled="true"
+                     size="15" styleId="preRanksWidget" style="width:100%;">
                 <html:optionsCollection name="kickstartScriptOrderForm"
-	                        property="preScripts"/>
+                                property="preScripts"/>
               </html:select>
               </c:if>
               <c:if test="${not empty kickstartScriptOrderForm.map.preScripts}">
               <html:select name="kickstartScriptOrderForm"
-	             property="selectedPre"
-	             size="15" styleId="preRanksWidget" style="width:100%;">
+                     property="selectedPre"
+                     size="15" styleId="preRanksWidget" style="width:100%;">
                 <html:optionsCollection name="kickstartScriptOrderForm"
-	                        property="preScripts"/>
+                                property="preScripts"/>
               </html:select>
               </c:if>
             </td>
             <td valign="top">
               <table>
-	            <tr>
+                    <tr>
                   <td><html:image src="/img/button-up.gif"
                     altKey="ssm.config.rank.jsp.up"
                     property="dispatch"
                     value="up"
                     onclick="return move_selected_up('preRanksWidget');"
                     styleClass="button"/>
-	            </td></tr>
-	            <tr>
-	            <td><html:image src="/img/button-down.gif"
-	                altKey="ssm.config.rank.jsp.down"
-	                property="dispatch"
-	                value="down"
-	                onclick="return move_selected_down('preRanksWidget');"
-	                styleClass="button"/>
+                    </td></tr>
+                    <tr>
+                    <td><html:image src="/img/button-down.gif"
+                        altKey="ssm.config.rank.jsp.down"
+                        property="dispatch"
+                        value="down"
+                        onclick="return move_selected_down('preRanksWidget');"
+                        styleClass="button"/>
                 </td></tr>
               </table>
               <rhn:noscript/>
@@ -84,39 +84,39 @@
             <td style="width:40%;">
               <c:if test="${empty kickstartScriptOrderForm.map.postScripts}">
               <html:select name ="kickstartScriptOrderForm"
-	             property="selectedPost"
-	             disabled="true"
-	             size="15" styleId="postRanksWidget" style="width:100%;">
+                     property="selectedPost"
+                     disabled="true"
+                     size="15" styleId="postRanksWidget" style="width:100%;">
                 <html:optionsCollection name="kickstartScriptOrderForm"
-	                        property="postScripts"/>
+                                property="postScripts"/>
               </html:select>
               </c:if>
               <c:if test="${not empty kickstartScriptOrderForm.map.postScripts}">
               <html:select name ="kickstartScriptOrderForm"
-	             property="selectedPost"
-	             size="15" styleId="postRanksWidget" style="width:100%;">
+                     property="selectedPost"
+                     size="15" styleId="postRanksWidget" style="width:100%;">
                 <html:optionsCollection name="kickstartScriptOrderForm"
-	                        property="postScripts"/>
+                                property="postScripts"/>
               </html:select>
               </c:if>
             </td>
             <td valign="top">
               <table>
-	            <tr>
+                    <tr>
                   <td><html:image src="/img/button-up.gif"
                     altKey="ssm.config.rank.jsp.up"
                     property="dispatch"
                     value="up"
                     onclick="return move_selected_up('postRanksWidget');"
                     styleClass="button"/>
-	            </td></tr>
-	            <tr>
-	            <td><html:image src="/img/button-down.gif"
-	                altKey="ssm.config.rank.jsp.down"
-	                property="dispatch"
-	                value="down"
-	                onclick="return move_selected_down('postRanksWidget');"
-	                styleClass="button"/>
+                    </td></tr>
+                    <tr>
+                    <td><html:image src="/img/button-down.gif"
+                        altKey="ssm.config.rank.jsp.down"
+                        property="dispatch"
+                        value="down"
+                        onclick="return move_selected_down('postRanksWidget');"
+                        styleClass="button"/>
                 </td></tr>
               </table>
               <rhn:noscript/>
@@ -130,7 +130,7 @@
       <html:hidden name="kickstartScriptOrderForm" property="rankedPostValues" styleId="rankedPostValues"/>
       <div align="right">
             <input type="submit" name="dispatcher" class="btn btn-success"
-			value="${rhn:localize('kickstartscript.order.update')}"
+                        value="${rhn:localize('kickstartscript.order.update')}"
                    onclick="handle_ranking('preRanksWidget','rankedPreValues','kickstartScriptOrderForm'); handle_ranking_dispatch('postRanksWidget','rankedPostValues','kickstartScriptOrderForm');"/>
       </div>
     </html:form>

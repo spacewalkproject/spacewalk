@@ -71,7 +71,7 @@
         <!-- Adding recent events -->
         <div class="panel panel-default">
             <div class="panel-heading">
-		<h4><bean:message key="sdc.config.header.recent-events"/></h4>
+                <h4><bean:message key="sdc.config.header.recent-events"/></h4>
             </div>
             <div class="panel-body">
                 <div class="form-horizontal">

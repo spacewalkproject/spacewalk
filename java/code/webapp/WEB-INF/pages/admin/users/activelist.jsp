@@ -28,46 +28,46 @@
          name="userList"
          styleclass="list"
          emptykey="activelist.jsp.noUsers"
- 		 alphabarcolumn="userLogin">
+                 alphabarcolumn="userLogin">
 
-	<!-- User name column -->
-	<rl:column bound="false"
-	           sortable="true"
-	           headerkey="username.nopunc.displayname"
-	           attr="userLogin"
-	           filterattr="login">
-		<c:out value="<a href=\"/rhn/users/UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
-	</rl:column>
+        <!-- User name column -->
+        <rl:column bound="false"
+                   sortable="true"
+                   headerkey="username.nopunc.displayname"
+                   attr="userLogin"
+                   filterattr="login">
+                <c:out value="<a href=\"/rhn/users/UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
+        </rl:column>
 
-	<!-- Real name column -->
-	<rl:column bound="false"
-	           sortable="true"
-	           headerkey="realname.displayname"
-	           sortattr="userLastName">
-		<c:out value="${current.userLastName}, ${current.userFirstName}" />
-	</rl:column>
+        <!-- Real name column -->
+        <rl:column bound="false"
+                   sortable="true"
+                   headerkey="realname.displayname"
+                   sortattr="userLastName">
+                <c:out value="${current.userLastName}, ${current.userFirstName}" />
+        </rl:column>
 
-	<!--  Roles column -->
-	<rl:column attr="roleNames"
-	           bound="true"
-	           sortable="true"
-	           headerkey="userdetails.jsp.roles"
-	            />
+        <!--  Roles column -->
+        <rl:column attr="roleNames"
+                   bound="true"
+                   sortable="true"
+                   headerkey="userdetails.jsp.roles"
+                    />
 
-	<!-- Last logged in column -->
+        <!-- Last logged in column -->
     <rl:column attr="lastLoggedIn"
-			   sortattr="lastLoggedInDate"
-	           bound="false"
-	           sortable="true"
-	           headerkey="userdetails.jsp.lastsign">
+                           sortattr="lastLoggedInDate"
+                   bound="false"
+                   sortable="true"
+                   headerkey="userdetails.jsp.lastsign">
         <rhn:formatDate humanStyle="from" value="${current.lastLoggedInDate}"
                        type="both" dateStyle="short" timeStyle="long"/>
     </rl:column>
 
 </rl:list>
 <rl:csv dataset="pageList"
-	name="userList"
-	exportColumns="userLogin,userLastName,userFirstName,email,roleNames,lastLoggedIn"/>
+        name="userList"
+        exportColumns="userLogin,userLastName,userFirstName,email,roleNames,lastLoggedIn"/>
 </rl:listset>
 </body>
 </html>

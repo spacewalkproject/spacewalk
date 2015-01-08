@@ -23,17 +23,17 @@
   </div>
 
 <html:form method="post"
-		action="/systems/details/configuration/addfiles/ImportFileConfirmSubmit.do?sid=${system.id}">
+                action="/systems/details/configuration/addfiles/ImportFileConfirmSubmit.do?sid=${system.id}">
   <rhn:csrf />
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="sdcimportconfirm.jsp.noFiles">
 
       <rhn:listdisplay>
         <rhn:column header="sdcimportconfirm.jsp.filename">
-			${current.path}
-      	</rhn:column>
+                        ${current.path}
+        </rhn:column>
 
-      	<rhn:column header="sdcimportconfirm.jsp.channel"
+        <rhn:column header="sdcimportconfirm.jsp.channel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}"
                   renderUrl="${not empty current.configChannelType}">
           <c:choose>
@@ -42,7 +42,7 @@
             </c:when>
             <c:when test="${current.configChannelType == 'normal'}">
               <rhn:icon type="header-channel" title="config.common.globalAlt" />
-    	      ${current.channelNameDisplay}
+              ${current.channelNameDisplay}
             </c:when>
             <c:when test="${current.configChannelType == 'local_override'}">
               <rhn:icon type="header-system-physical" title="config.common.localAlt" />

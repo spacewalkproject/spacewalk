@@ -27,7 +27,7 @@
   </div>
 
 <html:form method="post"
-		action="/systems/details/configuration/addfiles/ImportFileSubmit.do?sid=${system.id}">
+                action="/systems/details/configuration/addfiles/ImportFileSubmit.do?sid=${system.id}">
   <rhn:csrf />
 
   <h2><bean:message key="sdcimportfile.jsp.new"/></h2>
@@ -54,14 +54,14 @@
         <rhn:set value="${current.id}"/>
 
         <rhn:column header="sdcimportfile.jsp.filename"
-			url="/rhn/configuration/file/FileDetails.do?crid=${current.configRevisionId}&cfid=${current.configFileId}">
-			${current.path}
-      	</rhn:column>
+                        url="/rhn/configuration/file/FileDetails.do?crid=${current.configRevisionId}&cfid=${current.configFileId}">
+                        ${current.path}
+        </rhn:column>
 
-      	<rhn:column header="sdcimportfile.jsp.channel">
-			<cfg:channel id="${current.configChannelId}"   name="${current.channelNameDisplay}"
-						 type="${current.configChannelType}"/>
-      	</rhn:column>
+        <rhn:column header="sdcimportfile.jsp.channel">
+                        <cfg:channel id="${current.configChannelId}"   name="${current.channelNameDisplay}"
+                                                 type="${current.configChannelType}"/>
+        </rhn:column>
 
       </rhn:listdisplay>
   </rhn:list>

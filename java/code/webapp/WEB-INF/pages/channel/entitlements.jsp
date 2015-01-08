@@ -48,13 +48,13 @@
         </c:if>
     </rl:column>
 
-    <rl:column headerkey="entitlements.jsp.available" 	>
-    	<c:if test="${current.orgId == null}">
-	        ${current.maxMembers - current.currentMembers}
-	    </c:if>
-    	<c:if test="${current.orgId != null}">
-	        Unlimited
-	    </c:if>
+    <rl:column headerkey="entitlements.jsp.available"   >
+        <c:if test="${current.orgId == null}">
+                ${current.maxMembers - current.currentMembers}
+            </c:if>
+        <c:if test="${current.orgId != null}">
+                Unlimited
+            </c:if>
     </rl:column>
 
     <rl:column headerkey="entitlements.jsp.subscribed_flex" sortattr="currentFlex">
@@ -67,12 +67,12 @@
     </rl:column>
 
     <rl:column headerkey="entitlements.jsp.avaible_flex" >
-	<c:if test="${current.orgId == null}">
-	        ${current.maxFlex - current.currentFlex}
-	    </c:if>
-	<c:if test="${current.orgId != null}">
-	        Unlimited
-	    </c:if>
+        <c:if test="${current.orgId == null}">
+                ${current.maxFlex - current.currentFlex}
+            </c:if>
+        <c:if test="${current.orgId != null}">
+                Unlimited
+            </c:if>
     </rl:column>
 
     <rl:column headerkey="entitlements.jsp.subscribed" sortattr="subscribeCount">

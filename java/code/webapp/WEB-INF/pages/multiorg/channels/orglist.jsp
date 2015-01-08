@@ -24,40 +24,40 @@
 <h2><bean:message key="channel.edit.jsp.orgaccess.header"/></h2>
 </p>
 <p>
-	<bean:message key="channel.edit.jsp.orgaccess.summary" arg0="${channel_name}"/>
+        <bean:message key="channel.edit.jsp.orgaccess.summary" arg0="${channel_name}"/>
 </p>
 
 <rl:listset name="orgChannelProtectionSet">
     <rhn:csrf />
     <html:hidden property="cid" value="${param.cid}"/>
 
-	<!-- Start of Files list -->
-	<rl:list dataset="dataset"
-	         name="list"
-	         decorator="SelectableDecorator"
+        <!-- Start of Files list -->
+        <rl:list dataset="dataset"
+                 name="list"
+                 decorator="SelectableDecorator"
              width="100%"
              emptykey = "org.channels.trusted.protection"
-	         >
+                 >
 
       <rl:selectablecolumn value="${current.selectionKey}"
-						selected="${current.selected}"/>
-		<!-- Organization column -->
-		<rl:column  headerkey="general.jsp.org.tbl.header1" filterattr="name">
-		   ${current.name}
-		</rl:column>
+                                                selected="${current.selected}"/>
+                <!-- Organization column -->
+                <rl:column  headerkey="general.jsp.org.tbl.header1" filterattr="name">
+                   ${current.name}
+                </rl:column>
 
-		<!-- Subscribed Systems column -->
-		<rl:column bound="true"
-		           headerkey="org.channel.subscribed.systems"
-		           attr="systems"/>
-	</rl:list>
+                <!-- Subscribed Systems column -->
+                <rl:column bound="true"
+                           headerkey="org.channel.subscribed.systems"
+                           attr="systems"/>
+        </rl:list>
 <hr/>
 <c:if test="${not empty requestScope.dataset}">
 <div class="text-right">
    <rhn:submitted/>
     <input type="submit" class="btn btn-success"
-		name ="dispatch"
-    	value="${rhn:localize('orgchannel.jsp.submit')}"/>
+                name ="dispatch"
+        value="${rhn:localize('orgchannel.jsp.submit')}"/>
 </div>
 </c:if>
 </rl:listset>

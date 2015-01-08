@@ -17,26 +17,26 @@
  <table class="details">
 
 
- 	<tr>
-	 	<th>
-			<a href="/rhn/channels/manage/errata/AddRedHatErrata.do?cid=${cid}">
-					<bean:message key="channel.manage.errata.addredhaterrata"/>   </a><Br>
-		</th>
-		<td> <bean:message key="channel.manage.errata.addredhaterratamsg"/>   </td>
-	 </tr>
-	 <tr>
-	 	<th>
-			<a href="/rhn/channels/manage/errata/AddCustomErrata.do?cid=${cid}">
-			<bean:message key="channel.manage.errata.addcustomerrata"/></a>
-		</th>
-		<td><bean:message key="channel.manage.errata.addcustomerratamsg"/>  </td>
-  	 </tr>
-  	 <tr>
-  	 	<th><a href="/rhn/errata/manage/Create.do">
-  	 				<bean:message key="channel.manage.errata.createerrata"/></a>
-  	 	</th>
-  	 	<td><bean:message key="channel.manage.errata.createerratamsg"/></td>
-  	 </tr>
+        <tr>
+                <th>
+                        <a href="/rhn/channels/manage/errata/AddRedHatErrata.do?cid=${cid}">
+                                        <bean:message key="channel.manage.errata.addredhaterrata"/>   </a><Br>
+                </th>
+                <td> <bean:message key="channel.manage.errata.addredhaterratamsg"/>   </td>
+         </tr>
+         <tr>
+                <th>
+                        <a href="/rhn/channels/manage/errata/AddCustomErrata.do?cid=${cid}">
+                        <bean:message key="channel.manage.errata.addcustomerrata"/></a>
+                </th>
+                <td><bean:message key="channel.manage.errata.addcustomerratamsg"/>  </td>
+         </tr>
+         <tr>
+                <th><a href="/rhn/errata/manage/Create.do">
+                                        <bean:message key="channel.manage.errata.createerrata"/></a>
+                </th>
+                <td><bean:message key="channel.manage.errata.createerratamsg"/></td>
+         </tr>
  </table>
 
 

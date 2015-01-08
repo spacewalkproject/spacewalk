@@ -7,7 +7,7 @@
 <html>
 <body>
 <rhn:toolbar base="h1" icon="header-info" imgAlt="info.alt.img">
-	<c:out value="${requestScope.label}"/>
+        <c:out value="${requestScope.label}"/>
 </rhn:toolbar>
 
 <h2><bean:message key="repos.jsp.delete.header2"/></h2>

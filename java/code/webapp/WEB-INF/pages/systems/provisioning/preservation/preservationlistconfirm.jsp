@@ -11,7 +11,7 @@
     <bean:message key="preservation_list.jsp.toolbar"/>
 </rhn:toolbar>
 
-	<h2>
+        <h2>
       <bean:message key="preservationlistdeleteconfirm.jsp.header2" />
     </h2>
 
@@ -22,11 +22,11 @@
       <rhn:csrf />
       <rhn:list pageList="${requestScope.pageList}"
        noDataText="preservation_list_delete.jsp.noneselected">
-        	<rhn:listdisplay button="preservation_list.jsp.deletelist">
-          		<rhn:column header="preservation_list.jsp.description">
+                <rhn:listdisplay button="preservation_list.jsp.deletelist">
+                        <rhn:column header="preservation_list.jsp.description">
     <A HREF="PreservationListEdit.do?file_list_id=${current.id}">${current.label}</A>
-          		</rhn:column>
-			</rhn:listdisplay>
+                        </rhn:column>
+                        </rhn:listdisplay>
       </rhn:list>
     </form>
 

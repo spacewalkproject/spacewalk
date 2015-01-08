@@ -24,8 +24,8 @@
     <rhn:submitted />
 
 
-	<rl:list dataset="pageList"
-	         name="keyList"
+        <rl:list dataset="pageList"
+                 name="keyList"
                 emptykey="system.jsp.customkey.empty"
                 alphabarcolumn="label"
                 filter="com.redhat.rhn.frontend.taglibs.list.filters.CustomKeyOverviewFilter">
@@ -35,7 +35,7 @@
                                    bound="false"
                            headerkey="system.jsp.customkey.keylabel"
                            sortattr="label"
-					defaultsort="asc">
+                                        defaultsort="asc">
 
                         <a href="/rhn/systems/customdata/UpdateCustomKey.do?cikid=${current.id}">
                         <c:out value="${current.label}" />
@@ -71,9 +71,9 @@
 
         </rl:list>
 
-	<rl:csv dataset="pageList"
-		        name="keyList"
-		        exportColumns="id, label, description, serverCount, lastModified" />
+        <rl:csv dataset="pageList"
+                        name="keyList"
+                        exportColumns="id, label, description, serverCount, lastModified" />
 
     </rl:listset>
 

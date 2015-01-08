@@ -24,26 +24,26 @@
          filter="com.redhat.rhn.frontend.action.multiorg.OrgListFilter"
          emptykey="orglist.jsp.noOrgs">
 
-	<!-- Organization name column -->
-	<rl:column bound="false"
-	           sortable="true"
-	           headerkey="org.nopunc.displayname"
-	           sortattr="name">
-		<c:out value="<a href=\"/rhn/admin/multiorg/OrgDetails.do?oid=${current.id}\">${current.name}</a>" escapeXml="false" />
-		<c:if test="${current.id == 1}">*</c:if>
-	</rl:column>
-	<rl:column bound="false"
-	           sortable="true"
-	           headerkey="systems.nopunc.displayname"
-	           attr="systems">
-		<c:out value="${current.systems}" />
-	</rl:column>
-	<rl:column bound="false"
-	           sortable="true"
-	           headerkey="users.nopunc.displayname"
-	           attr="users">
-		<c:out value="<a href=\"/rhn/admin/multiorg/OrgUsers.do?oid=${current.id}\">${current.users}</a>" escapeXml="false" />
-	</rl:column>
+        <!-- Organization name column -->
+        <rl:column bound="false"
+                   sortable="true"
+                   headerkey="org.nopunc.displayname"
+                   sortattr="name">
+                <c:out value="<a href=\"/rhn/admin/multiorg/OrgDetails.do?oid=${current.id}\">${current.name}</a>" escapeXml="false" />
+                <c:if test="${current.id == 1}">*</c:if>
+        </rl:column>
+        <rl:column bound="false"
+                   sortable="true"
+                   headerkey="systems.nopunc.displayname"
+                   attr="systems">
+                <c:out value="${current.systems}" />
+        </rl:column>
+        <rl:column bound="false"
+                   sortable="true"
+                   headerkey="users.nopunc.displayname"
+                   attr="users">
+                <c:out value="<a href=\"/rhn/admin/multiorg/OrgUsers.do?oid=${current.id}\">${current.users}</a>" escapeXml="false" />
+        </rl:column>
    <rl:column bound="false"
               sortable="true"
               headerkey="org.trust.trusts"

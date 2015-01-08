@@ -8,7 +8,7 @@
 <html>
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
-	  <h2>
+          <h2>
       <rhn:icon type="header-snapshot" title="snapshot"/>
       <bean:message key="ssm.operations.provisioning.tagsystems.header"/>
     </h2>

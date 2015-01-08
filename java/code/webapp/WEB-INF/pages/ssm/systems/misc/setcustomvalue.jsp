@@ -17,12 +17,12 @@
     <table class="table">
       <tr>
         <th><bean:message key="system.jsp.customkey.keylabel"/>:</th>
-	<td><c:out value="${label}" /></td>
+        <td><c:out value="${label}" /></td>
       </tr>
 
       <tr>
         <th><bean:message key="system.jsp.customkey.description"/>:</th>
-	<td><c:out value="${description}" /></td>
+        <td><c:out value="${description}" /></td>
       </tr>
 
       <tr>

@@ -10,10 +10,10 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/manage_header.jspf" %>
 <form method="post" name="rhn_list"
-	action="/rhn/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}">
+        action="/rhn/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}">
     <rhn:csrf />
-	<rhn:list pageList="${requestScope.pageList}"
-	          noDataText="manage.jsp.noRevisions">
+        <rhn:list pageList="${requestScope.pageList}"
+                  noDataText="manage.jsp.noRevisions">
 
       <rhn:listdisplay set="${requestScope.set}"
                        button="manage.jsp.delete"
@@ -21,27 +21,27 @@
                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
         <rhn:require acl="config_channel_editable(${channel.id})"
                      mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-	 	  <rhn:set value="${current.id}"/>
-	 	</rhn:require>
+                  <rhn:set value="${current.id}"/>
+                </rhn:require>
 
-		<rhn:column header="manage.jsp.name">
-			<a href="/rhn/configuration/file/FileDetails.do?crid=${current.id}&amp;cfid=${file.id}">
-			  <cfg:file nolink="true" id="${file.id}" revisionId="${current.id}"  path="${file.configFileName.path}" type="${file.latestConfigRevision.configFileType.label}" />
-			  <bean:message key="manage.jsp.revision"
-			                arg0="${current.revisionNumber}"/>
-			</a>
-      	</rhn:column>
+                <rhn:column header="manage.jsp.name">
+                        <a href="/rhn/configuration/file/FileDetails.do?crid=${current.id}&amp;cfid=${file.id}">
+                          <cfg:file nolink="true" id="${file.id}" revisionId="${current.id}"  path="${file.configFileName.path}" type="${file.latestConfigRevision.configFileType.label}" />
+                          <bean:message key="manage.jsp.revision"
+                                        arg0="${current.revisionNumber}"/>
+                        </a>
+        </rhn:column>
 
-      	<rhn:require acl="is_file()"
-      	             mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+        <rhn:require acl="is_file()"
+                     mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
           <rhn:column header="manage.jsp.size">
-      	    ${current.sizeDisplay}
+            ${current.sizeDisplay}
           </rhn:column>
-      	</rhn:require>
+        </rhn:require>
 
-      	<rhn:column header="manage.jsp.creation">
-      	    ${current.createdDisplay}
-      	</rhn:column>
+        <rhn:column header="manage.jsp.creation">
+            ${current.createdDisplay}
+        </rhn:column>
       </rhn:listdisplay>
     </rhn:list>
 </form>

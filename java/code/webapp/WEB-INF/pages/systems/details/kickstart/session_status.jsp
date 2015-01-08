@@ -9,10 +9,10 @@
 <head>
     <meta name="name" value="System Details" />
     <style type="text/css">
-	    .details td, .details th { white-space: nowrap; }
+            .details td, .details th { white-space: nowrap; }
     </style>
     <c:if test="${not failed and not complete}">
-	<script type="text/javascript" src="/javascript/rememberScroll.js"> </script>
+        <script type="text/javascript" src="/javascript/rememberScroll.js"> </script>
     </c:if>
 </head>
 <body>
@@ -211,8 +211,8 @@
 <form id="saveScrollPosition" method="POST" action="/rhn/systems/details/kickstart/SessionStatus.do?sid=${requestScope.sid}">
     <rhn:csrf />
     <rhn:submitted />
-	<input id="scrollPosX" type="hidden" name="xPosition" value="${requestScope.scrollX}" />
-	<input id="scrollPosY" type="hidden" name="yPosition" value="${requestScope.scrollY}" />
+        <input id="scrollPosX" type="hidden" name="xPosition" value="${requestScope.scrollX}" />
+        <input id="scrollPosY" type="hidden" name="yPosition" value="${requestScope.scrollY}" />
 </form>
 
 </body>

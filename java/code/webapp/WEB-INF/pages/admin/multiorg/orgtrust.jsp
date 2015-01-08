@@ -45,9 +45,9 @@
             <a href="OrgDetails.do?oid=${current.org.id}"> ${current.org.name} </a>
       </rl:column>
       <rl:column
-	         bound="false"
-	         sortable="false"
-	         headerkey="org.trust.trusts">
+                 bound="false"
+                 sortable="false"
+                 headerkey="org.trust.trusts">
         ${current.numTrusted}
       </rl:column>
    </rl:list>

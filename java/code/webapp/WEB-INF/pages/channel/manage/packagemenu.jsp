@@ -18,8 +18,8 @@
     <ul>
       <li>
         <a href="/rhn/channels/manage/ChannelPackages.do?cid=${channel.id}">
-	  <bean:message key="channel.jsp.package.menu.list"/>
-	</a>
+          <bean:message key="channel.jsp.package.menu.list"/>
+        </a>
       </li>
 
       <li>
@@ -30,8 +30,8 @@
 
       <li>
         <a href="/rhn/channels/manage/ChannelPackagesCompare.do?cid=${channel.id}">
-	  <bean:message key="channel.jsp.package.menu.compare"/>
-	</a>
+          <bean:message key="channel.jsp.package.menu.compare"/>
+        </a>
       </li>
 
     </ul>

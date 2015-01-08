@@ -25,29 +25,29 @@
 <rl:listset name="packageListSet">
     <rhn:csrf />
     <rhn:submitted />
-	<rl:list dataset="pageList"
+        <rl:list dataset="pageList"
          width="100%"
          name="packageList"
          emptykey="packagelist.jsp.nopackages"
          alphabarcolumn="nvrea">
- 			<rl:decorator name="PageSizeDecorator"/>
- 			<rl:decorator name="ElaborationDecorator"/>
- 		<rl:decorator name="SelectableDecorator"/>
-	 		<rl:selectablecolumn value="${current.selectionKey}"
-	 			selected="${current.selected}"
-	 			disabled="${not current.selectable}"/>
+                        <rl:decorator name="PageSizeDecorator"/>
+                        <rl:decorator name="ElaborationDecorator"/>
+                <rl:decorator name="SelectableDecorator"/>
+                        <rl:selectablecolumn value="${current.selectionKey}"
+                                selected="${current.selected}"
+                                disabled="${not current.selectable}"/>
 
-		  <rl:column headerkey="upgradable.jsp.latest" bound="false"
-			sortattr="nvrea"
-			sortable="true" filterattr="nvrea">
+                  <rl:column headerkey="upgradable.jsp.latest" bound="false"
+                        sortattr="nvrea"
+                        sortable="true" filterattr="nvrea">
 
-		      <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
-		        ${current.nvrea}</a>
-		  </rl:column>
+                      <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
+                        ${current.nvrea}</a>
+                  </rl:column>
 
-		  <rl:column headerkey="upgradable.jsp.installed" bound="false">
-		      ${current.installedPackage}
-		  </rl:column>
+                  <rl:column headerkey="upgradable.jsp.installed" bound="false">
+                      ${current.installedPackage}
+                  </rl:column>
 
     <rl:column headerkey="upgradable.jsp.errata">
       <c:forEach items="${current.errata}" var="errata">

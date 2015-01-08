@@ -25,25 +25,25 @@
     <jsp:param name="option_orphan_packages" value="true"/>
 </jsp:include>
 
-		  <rl:list dataset="pageList" name="packageList"
-		  decorator="SelectableDecorator"
-		  			emptykey="channel.jsp.package.addemptylist"
-		  			alphabarcolumn="nvrea"
-		  			 filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter"
-		  			>
+                  <rl:list dataset="pageList" name="packageList"
+                  decorator="SelectableDecorator"
+                                        emptykey="channel.jsp.package.addemptylist"
+                                        alphabarcolumn="nvrea"
+                                         filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter"
+                                        >
 
-		  		<rl:decorator name="ElaborationDecorator"/>
-		  		<rl:decorator name="PageSizeDecorator"/>
+                                <rl:decorator name="ElaborationDecorator"/>
+                                <rl:decorator name="PageSizeDecorator"/>
 
-				<rl:selectablecolumn value="${current.selectionKey}"
-					selected="${current.selected}"/>
+                                <rl:selectablecolumn value="${current.selectionKey}"
+                                        selected="${current.selected}"/>
 
 
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="download.jsp.package"
                            sortattr="nvrea"
-					defaultsort="asc"
+                                        defaultsort="asc"
                            >
 
                         <a href="/rhn/software/packages/Details.do?pid=${current.id}">${current.nvrea}</a>
@@ -66,13 +66,13 @@
 
 
 
-			  </rl:list>
+                          </rl:list>
 
 
-  			<div class="text-right">
+                        <div class="text-right">
                             <hr />
-			    <input type="submit" name="confirm" class="btn btn-default"  value="<bean:message key='channel.jsp.package.addbutton'/>" ${empty pageList ? 'disabled' : 'btn btn-default'} >
-			</div>
+                            <input type="submit" name="confirm" class="btn btn-default"  value="<bean:message key='channel.jsp.package.addbutton'/>" ${empty pageList ? 'disabled' : 'btn btn-default'} >
+                        </div>
      <rhn:submitted/>
 </rl:listset>
 </body>

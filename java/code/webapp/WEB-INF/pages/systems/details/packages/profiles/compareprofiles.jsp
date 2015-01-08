@@ -22,15 +22,15 @@
     <rl:listset name="compareListSet">
         <rhn:csrf />
 
-	    <rl:list dataset="pageList"
+            <rl:list dataset="pageList"
             width="100%"
             name="compareList"
             emptykey="compare.jsp.nodifferences">
 
             <rl:decorator name="SelectableDecorator"/>
             <rl:selectablecolumn value="${current.selectionKey}"
-	 			selected="${current.selected}"
-	 			disabled="${not current.selectable}"/>
+                                selected="${current.selected}"
+                                disabled="${not current.selectable}"/>
 
             <rl:column headerkey="compare.jsp.package" bound="false" filterattr="name">
                 ${current.name}
