@@ -32,24 +32,24 @@
 
         <c:if test="${empty regularKS}">
             <!-- Store guest provisioning info  -->
-	        <input type="hidden" name="memoryAllocation" value="${form.memoryAllocation}" />
-	        <input type="hidden" name="virtualCpus" value="${form.virtualCpus}" />
-	        <input type="hidden" name="localStorageGigabytes" value="${form.localStorageGigabytes}" />
-	        <input type="hidden" name="diskPath" value="${form.diskPath}" />
+                <input type="hidden" name="memoryAllocation" value="${form.memoryAllocation}" />
+                <input type="hidden" name="virtualCpus" value="${form.virtualCpus}" />
+                <input type="hidden" name="localStorageGigabytes" value="${form.localStorageGigabytes}" />
+                <input type="hidden" name="diskPath" value="${form.diskPath}" />
             <input type="hidden" name="macAddress" value="${form.macAddress}" />
         </c:if>
-		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/proxy-options.jspf" %>
+                <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/proxy-options.jspf" %>
 
         <c:if test="${requestScope.hasProfiles == 'true'}">
-		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/schedule-options.jspf" %>
+                <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/schedule-options.jspf" %>
           <table width="100%">
             <tr>
               <td align="right">
               <c:if test="${not empty regularKS}">
                 <input type="button" class="btn btn-default"
-			value="<bean:message key='kickstart.schedule.button0.jsp'/>"
-			onclick="setStep('fourth');this.form.submit();" />
-			  </c:if>
+                        value="<bean:message key='kickstart.schedule.button0.jsp'/>"
+                        onclick="setStep('fourth');this.form.submit();" />
+                          </c:if>
                 <input type="button" class="btn btn-default" value="<bean:message key='kickstart.schedule.button1.jsp'/>" onclick="setStep('second');this.form.submit();" />
                 <input type="button" class="btn btn-default" value="<bean:message key='kickstart.schedule.button2.jsp'/>" onclick="setStep('third');this.form.submit();" />
               </td>

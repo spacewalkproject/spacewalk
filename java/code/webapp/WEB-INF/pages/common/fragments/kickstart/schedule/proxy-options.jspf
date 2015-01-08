@@ -6,8 +6,8 @@
 <script type="text/javascript">
 // clear all input fields in given radio group
 function clearChecked(radioGroup) {
-	var i = radioGroup.length;
-	while (i--) radioGroup[i].checked = false;
+        var i = radioGroup.length;
+        while (i--) radioGroup[i].checked = false;
 }
 
 //-->
@@ -24,29 +24,29 @@ function clearChecked(radioGroup) {
 
         </c:choose>
         <p>
-		<c:forEach var="proxy" items="${proxies}">
-			<input type="radio"  name="proxyHost" id="x${proxy.value}"
-			<c:if test="${empty proxy.value}">
-			    checked="checked"
-			</c:if>
-			<c:choose>
-				<c:when test="${proxy.value == param.proxyHost}">checked</c:when>
-			</c:choose>
+                <c:forEach var="proxy" items="${proxies}">
+                        <input type="radio"  name="proxyHost" id="x${proxy.value}"
+                        <c:if test="${empty proxy.value}">
+                            checked="checked"
+                        </c:if>
+                        <c:choose>
+                                <c:when test="${proxy.value == param.proxyHost}">checked</c:when>
+                        </c:choose>
             onclick="clearChecked(this.form.proxyHostCname)"
-			value='${proxy.value}'/> <label for="x${proxy.value}">${proxy.label}</label><br />
+                        value='${proxy.value}'/> <label for="x${proxy.value}">${proxy.label}</label><br />
             <c:choose>
             <c:when test="${not empty proxy.value}">
-				<c:set var="property" value="${proxy.value}" />
-	        <c:forEach var="cname" items="${cnames[property]}">
-					<img src="/img/channel_child_node.gif" />
-					<input type="radio"  name="proxyHostCname" id="${cname}"
-						value='${cname}'
-						onclick="clearChecked(this.form.proxyHost)"
-						/><label for="${cname}">${cname}</label><br />
-				</c:forEach>
-			</c:when>
-			</c:choose>
-		</c:forEach>
+                                <c:set var="property" value="${proxy.value}" />
+                <c:forEach var="cname" items="${cnames[property]}">
+                                        <img src="/img/channel_child_node.gif" />
+                                        <input type="radio"  name="proxyHostCname" id="${cname}"
+                                                value='${cname}'
+                                                onclick="clearChecked(this.form.proxyHost)"
+                                                /><label for="${cname}">${cname}</label><br />
+                                </c:forEach>
+                        </c:when>
+                        </c:choose>
+                </c:forEach>
         <br />
         <bean:message key="kickstart.schedule.tip.proxy.jsp"/>
         </p>

@@ -1,47 +1,47 @@
 <h2 style="clear: both;"><bean:message key="kickstart.jsp.scheduled"/></h2>
 
 <rl:list dataset="sysToBeKickstarted"
-			 emptykey="kickstartoverview.jsp.noscheduledtobeks"
-			 name="pendingKSList"
-			 width="100%">
+                         emptykey="kickstartoverview.jsp.noscheduledtobeks"
+                         name="pendingKSList"
+                         width="100%">
 
-	<rl:column bound="false"
-				sortable="false"
-				headerkey="kickstart.jsp.system"
-				headerclass="thin-column">
+        <rl:column bound="false"
+                                sortable="false"
+                                headerkey="kickstart.jsp.system"
+                                headerclass="thin-column">
 
             <c:if test="${not current.isBareMetal}">
-      	       <a href="/rhn/systems/details/Overview.do?sid=${current.serverId}">
+               <a href="/rhn/systems/details/Overview.do?sid=${current.serverId}">
                     <c:out value="${current.serverName}" escapeXml="true"/>
                </a>
-    		</c:if>
-    		<c:if test="${current.isBareMetal}">
+                </c:if>
+                <c:if test="${current.isBareMetal}">
                 <c:if test="${current.clientIp != null}">
                     ${current.clientIp}
                 </c:if>
                 <c:if test="${current.clientIp == null}">
-    			    <bean:message key="kickstart.jsp.unregistered"/>
+                            <bean:message key="kickstart.jsp.unregistered"/>
                 </c:if>
-    		</c:if>
-   	</rl:column>
+                </c:if>
+        </rl:column>
 
-  	<rl:column bound="false"
-				sortable="false"
-				headerkey="kickstart.jsp.status">
-        	 <c:if test="${not current.isBareMetal}">
-      	       <a href="/rhn/systems/details/kickstart/SessionStatus.do?sid=${current.serverId}">
-      	                                                      ${current.description}</a>
-    		</c:if>
-    		<c:if test="${current.isBareMetal}">
-    			${current.description}
-    		</c:if>
+        <rl:column bound="false"
+                                sortable="false"
+                                headerkey="kickstart.jsp.status">
+                 <c:if test="${not current.isBareMetal}">
+               <a href="/rhn/systems/details/kickstart/SessionStatus.do?sid=${current.serverId}">
+                                                              ${current.description}</a>
+                </c:if>
+                <c:if test="${current.isBareMetal}">
+                        ${current.description}
+                </c:if>
        </rl:column>
 
-  	<rl:column bound="false"
-				sortable="false"
-				headerkey="kickstart.jsp.lastchange"
-				>
-       		${current.elapsedTimeAfterModify}
+        <rl:column bound="false"
+                                sortable="false"
+                                headerkey="kickstart.jsp.lastchange"
+                                >
+                ${current.elapsedTimeAfterModify}
     </rl:column>
 
 

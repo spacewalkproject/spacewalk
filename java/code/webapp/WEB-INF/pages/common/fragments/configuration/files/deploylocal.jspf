@@ -1,44 +1,44 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 
 <bean:message key="deploylocal.jspf.local" arg0="${revision.revision}"
-	arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&crid=${revision.id}"
-	arg2="${system}" arg3="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" />
+        arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&crid=${revision.id}"
+        arg2="${system}" arg3="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" />
 <h2><bean:message key="deploy.jsp.filedetails" /></h2>
   <html:form
-	action="/configuration/file/RevisionDeploy.do?cfid=${cfid}&crid=${crid}">
+        action="/configuration/file/RevisionDeploy.do?cfid=${cfid}&crid=${crid}">
     <rhn:csrf />
-	<html:hidden property="submitted" value="true"/>
-	<table class="details">
-		<tr>
-			<th><bean:message key="deploy.jsp.deploy-name" /></th>
-			<td><bean:message key="deploy.jsp.deploy" arg0="${revision.revision}"
-				arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&crid=${revision.id}"
-				arg2="${system}"
-				arg3="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" /></td>
-		</tr>
-		<tr>
-			<th><bean:message key="deploy.jsp.latest-name" /></th>
-			<td><c:choose>
-				<c:when test="${not empty lastDeploy}">
-					<bean:message key="deploy.jsp.latest"
-						arg0="${lastDeploy.configRevision.revision}"
-						arg1="/rhn/configuration/file/FileDetails.do?cfid=${lastDeploy.fileId}&crid=${lastDeploy.revId}"
-						arg2="${lastDeploy.channel.displayName}"
-						arg3="/rhn/configuration/ChannelOverview.do?ccid=${lastDeploy.channel.id}" />
-					<br />
-					<span class="small-text"><bean:message key="deploylocal.jspf.tip.latest"
-						arg0="/rhn/configuration/file/CompareRevision.do?cfid=${file.id}&crid=${revision.id}" /></span>
-				</c:when>
-				<c:otherwise>
-					<bean:message key="deploy.jsp.latest-never" />
-				</c:otherwise>
-			</c:choose></td>
-		</tr>
-	</table>
-	<div class="small-text"><bean:message key="deploylocal.jspf.tip.local"
-		arg0="/rhn/configuration/file/CopyFileCentral.do?cfid=${file.id}&crid=${revision.id}" /></div>
-	<c:choose>
-		<c:when test="${requestScope.deployable}">
+        <html:hidden property="submitted" value="true"/>
+        <table class="details">
+                <tr>
+                        <th><bean:message key="deploy.jsp.deploy-name" /></th>
+                        <td><bean:message key="deploy.jsp.deploy" arg0="${revision.revision}"
+                                arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&crid=${revision.id}"
+                                arg2="${system}"
+                                arg3="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" /></td>
+                </tr>
+                <tr>
+                        <th><bean:message key="deploy.jsp.latest-name" /></th>
+                        <td><c:choose>
+                                <c:when test="${not empty lastDeploy}">
+                                        <bean:message key="deploy.jsp.latest"
+                                                arg0="${lastDeploy.configRevision.revision}"
+                                                arg1="/rhn/configuration/file/FileDetails.do?cfid=${lastDeploy.fileId}&crid=${lastDeploy.revId}"
+                                                arg2="${lastDeploy.channel.displayName}"
+                                                arg3="/rhn/configuration/ChannelOverview.do?ccid=${lastDeploy.channel.id}" />
+                                        <br />
+                                        <span class="small-text"><bean:message key="deploylocal.jspf.tip.latest"
+                                                arg0="/rhn/configuration/file/CompareRevision.do?cfid=${file.id}&crid=${revision.id}" /></span>
+                                </c:when>
+                                <c:otherwise>
+                                        <bean:message key="deploy.jsp.latest-never" />
+                                </c:otherwise>
+                        </c:choose></td>
+                </tr>
+        </table>
+        <div class="small-text"><bean:message key="deploylocal.jspf.tip.local"
+                arg0="/rhn/configuration/file/CopyFileCentral.do?cfid=${file.id}&crid=${revision.id}" /></div>
+        <c:choose>
+                <c:when test="${requestScope.deployable}">
     <p><bean:message key="deploy.jsp.widgetsummary" /></p>
     <jsp:include page="/WEB-INF/pages/common/fragments/datepicker-with-label.jsp">
         <jsp:param name="widget" value="date" />
@@ -48,13 +48,13 @@
     <div class="text-right"><html:submit styleClass="btn btn-default" property="dispatch">
     <bean:message key="deploy.jsp.deploybutton" />
   </html:submit></div>
-		</c:when>
-		<c:otherwise>
-	            <p><strong><bean:message key="system.sdc.missing.config_deploy1"/></strong></p>
-	            <p><strong><bean:message key="system.sdc.missing.config_deploy2"
-	            		arg0="/rhn/configuration/system/TargetSystems.do"
-	            		arg1="${rhn:localize('targetsystems.jsp.toolbar')}"
-	            		arg2="${rhn:localize('targetsystems.jsp.enable')}"/></strong></p>
-		</c:otherwise>
-	</c:choose>
+                </c:when>
+                <c:otherwise>
+                    <p><strong><bean:message key="system.sdc.missing.config_deploy1"/></strong></p>
+                    <p><strong><bean:message key="system.sdc.missing.config_deploy2"
+                                arg0="/rhn/configuration/system/TargetSystems.do"
+                                arg1="${rhn:localize('targetsystems.jsp.toolbar')}"
+                                arg2="${rhn:localize('targetsystems.jsp.enable')}"/></strong></p>
+                </c:otherwise>
+        </c:choose>
 </html:form>

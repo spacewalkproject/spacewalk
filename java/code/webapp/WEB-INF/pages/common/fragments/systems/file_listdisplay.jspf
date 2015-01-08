@@ -1,6 +1,6 @@
 <rhn:listdisplay set="${requestScope.set}" button="preservation_list.jsp.deletelist">
           <rhn:set value="${current.id}" />
           <rhn:column header="preservation_list.jsp.description" style="text-align: left;">
-           	<a href="PreservationListEdit.do?file_list_id=${current.id}">${current.label}</a>
+                <a href="PreservationListEdit.do?file_list_id=${current.id}">${current.label}</a>
           </rhn:column>
 </rhn:listdisplay>

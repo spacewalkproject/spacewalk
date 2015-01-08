@@ -1,26 +1,26 @@
 <!-- create file to channel  -->
 <%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
-	<html:hidden property="submitted" value="true"/>
-	<html:hidden property="binary"/>
-	<script type="text/javascript">
-		function toggleElement(row) {
-		if (row.style.display == '') {
-			 row.style.display = 'none';
-		}
-		else {
-		 row.style.display = '';
-		 }
-	}
+        <html:hidden property="submitted" value="true"/>
+        <html:hidden property="binary"/>
+        <script type="text/javascript">
+                function toggleElement(row) {
+                if (row.style.display == '') {
+                         row.style.display = 'none';
+                }
+                else {
+                 row.style.display = '';
+                 }
+        }
 
 
-	function pageToggleRows(linkId, ids){
-		for (var i = 0 ; i < ids.length; i++) {
-			toggleElement(document.getElementById(ids[i]));
-		}
-		toggleElement(document.getElementById(linkId + 'Show'));
-		toggleElement(document.getElementById(linkId + 'Hide'));
-	}
-	</script>
+        function pageToggleRows(linkId, ids){
+                for (var i = 0 ; i < ids.length; i++) {
+                        toggleElement(document.getElementById(ids[i]));
+                }
+                toggleElement(document.getElementById(linkId + 'Show'));
+                toggleElement(document.getElementById(linkId + 'Hide'));
+        }
+        </script>
         <div class="form-group">
             <label class="col-lg-3 control-label">
                 <bean:message key="addfiles.jsp.type-name" />
@@ -40,7 +40,7 @@
                 </div>
                 <div class="checkbox">
                     <label>
-			<html:radio property="filetype" value="symlink" styleId="symlink_radio" />
+                        <html:radio property="filetype" value="symlink" styleId="symlink_radio" />
                         <bean:message key="addfiles.jsp.type.symlink" />
                     </label>
                 </div>

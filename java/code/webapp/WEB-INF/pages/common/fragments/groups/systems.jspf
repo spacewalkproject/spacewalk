@@ -34,8 +34,8 @@
    <hr/>
     <input type="submit"
       class="btn btn-default"
-    	name ="dispatch"
-	    value='<bean:message key="${param.action_key}"/>'/>
+        name ="dispatch"
+            value='<bean:message key="${param.action_key}"/>'/>
 </div>
 </rhn:require>
 </c:if>

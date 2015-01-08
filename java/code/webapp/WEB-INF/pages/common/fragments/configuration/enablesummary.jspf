@@ -3,7 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
 <rhn:list pageList="${requestScope.pageList}"
-	          noDataText="summary.jsp.noActions">
+                  noDataText="summary.jsp.noActions">
   <rhn:listdisplay>
 
     <rhn:column header="summary.jsp.status">
@@ -15,9 +15,9 @@
       </c:if>
     </rhn:column>
 
-	<rhn:column header="system.common.systemName"
-	  url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-	  <rhn:icon type="header-system" /> ${current.name}
+        <rhn:column header="system.common.systemName"
+          url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
+          <rhn:icon type="header-system" /> ${current.name}
     </rhn:column>
 
     <rhn:column header="summary.jsp.error">

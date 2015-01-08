@@ -11,5 +11,5 @@
   <bean:message key="kickstartdetails.jsp.header1" arg0="${fn:escapeXml(ksdata.label)}"/>
 </rhn:toolbar>
 <rhn:dialogmenu mindepth="0" maxdepth="1"
-	definition="/WEB-INF/nav/kickstart_raw_mode.xml"
-	renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+        definition="/WEB-INF/nav/kickstart_raw_mode.xml"
+        renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

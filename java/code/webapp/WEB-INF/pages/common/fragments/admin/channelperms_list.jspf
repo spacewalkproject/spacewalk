@@ -1,6 +1,6 @@
 <rhn:list pageList="${requestScope.pageList}" noDataText="channelperms.jsp.noChannels">
   <rhn:listdisplay filterBy="channelperms.jsp.channelname" button="channelperms.jsp.submitpermissions">
-	<rhn:column header="channelperms.jsp.permission" width="5%">
+        <rhn:column header="channelperms.jsp.permission" width="5%">
         <c:if test="${userIsChannelAdmin}">
             <rhn:icon type="item-enabled" title="channelperms.jsp.permAdmin" />
         </c:if>

@@ -4,29 +4,29 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-		<rl:list width="100%" emptykey = "kickstart.schedule.no.profiles.jsp" alphabarcolumn="label">
-			<rl:decorator name = "PageSizeDecorator"/>
-		<rl:radiocolumn value="${current.cobblerId}"/>
-		<rl:column headerkey="kickstartranges.jsp.profile" filterattr="label" sortable="true" sortattr="label">
-			<a href="${current.cobblerUrl}">${fn:escapeXml(current.label)}</a>
-		</rl:column>
+                <rl:list width="100%" emptykey = "kickstart.schedule.no.profiles.jsp" alphabarcolumn="label">
+                        <rl:decorator name = "PageSizeDecorator"/>
+                <rl:radiocolumn value="${current.cobblerId}"/>
+                <rl:column headerkey="kickstartranges.jsp.profile" filterattr="label" sortable="true" sortattr="label">
+                        <a href="${current.cobblerUrl}">${fn:escapeXml(current.label)}</a>
+                </rl:column>
 
-		<rl:column headerkey="kickstart.distro.label.jsp"  sortable="true" sortattr="treeLabel">
-			<c:out value="${current.treeLabel}"/>
-		</rl:column>
+                <rl:column headerkey="kickstart.distro.label.jsp"  sortable="true" sortattr="treeLabel">
+                        <c:out value="${current.treeLabel}"/>
+                </rl:column>
 
-		<rl:column headerkey="kickstart.distro.sw_managed.jsp" sortable="true" sortattr="cobbler">
-			<c:choose>
-	                    <c:when test="${current.cobbler}">
-				<rhn:icon type="action-failed" />
-	                    </c:when>
-						<c:otherwise>
-							<rhn:icon type="action-ok" />
-			</c:otherwise>
+                <rl:column headerkey="kickstart.distro.sw_managed.jsp" sortable="true" sortattr="cobbler">
+                        <c:choose>
+                            <c:when test="${current.cobbler}">
+                                <rhn:icon type="action-failed" />
+                            </c:when>
+                                                <c:otherwise>
+                                                        <rhn:icon type="action-ok" />
+                        </c:otherwise>
                     </c:choose>
-		</rl:column>
-	</rl:list>
-	<c:choose>
-		<c:when test="${not empty cobbler_only_tooltip}"><rhn:tooltip>* - <bean:message key="${cobbler_only_tooltip}"/></rhn:tooltip> </c:when>
-		<c:otherwise><rhn:tooltip>* - <bean:message key="kickstart.distro.cobbler-only.tooltip"/></rhn:tooltip> </c:otherwise>
-	</c:choose>
+                </rl:column>
+        </rl:list>
+        <c:choose>
+                <c:when test="${not empty cobbler_only_tooltip}"><rhn:tooltip>* - <bean:message key="${cobbler_only_tooltip}"/></rhn:tooltip> </c:when>
+                <c:otherwise><rhn:tooltip>* - <bean:message key="kickstart.distro.cobbler-only.tooltip"/></rhn:tooltip> </c:otherwise>
+        </c:choose>

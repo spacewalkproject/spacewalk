@@ -4,10 +4,10 @@
 
 <rhn:toolbar base="h1"
     icon="header-package"
-	imgAlt="profile.list.header.alt"
-	deletionUrl="/rhn/profiles/Delete.do?prid=${param.prid}"
-	deletionType="profile">
-	<bean:message key="profile.details.toolbar"/> <c:out value="${requestScope.profile.name}" />
+        imgAlt="profile.list.header.alt"
+        deletionUrl="/rhn/profiles/Delete.do?prid=${param.prid}"
+        deletionType="profile">
+        <bean:message key="profile.details.toolbar"/> <c:out value="${requestScope.profile.name}" />
 </rhn:toolbar>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/profile.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

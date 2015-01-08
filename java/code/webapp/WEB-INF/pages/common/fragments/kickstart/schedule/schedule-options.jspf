@@ -7,14 +7,14 @@
             <bean:message key="kickstart.schedule.heading3.jsp" />
           </h2>
           <c:choose>
-          	<c:when test="${empty param.scheduleAsap or param.scheduleAsap == 'true'}">
-          	<c:set var="byAsap" value="checked=&quot;checked&quot;"/>
-          	<c:set var="byDate" value=""/>
-          	</c:when>
-          	<c:otherwise>
-          	<c:set var="byDate" value="checked=&quot;checked&quot;"/>
-          	<c:set var="byAsap" value=""/>
-          	</c:otherwise>
+                <c:when test="${empty param.scheduleAsap or param.scheduleAsap == 'true'}">
+                <c:set var="byAsap" value="checked=&quot;checked&quot;"/>
+                <c:set var="byDate" value=""/>
+                </c:when>
+                <c:otherwise>
+                <c:set var="byDate" value="checked=&quot;checked&quot;"/>
+                <c:set var="byAsap" value=""/>
+                </c:otherwise>
           </c:choose>
 
           <jsp:include page="/WEB-INF/pages/common/fragments/datepicker-with-label.jsp">

@@ -1,47 +1,47 @@
 <rl:listset name="xccdfScans" legend="xccdf">
-	<rhn:csrf />
-	<input type="hidden" name="sid" value="${param.sid}">
+        <rhn:csrf />
+        <input type="hidden" name="sid" value="${param.sid}">
 
-	<rl:list emptykey="system.audit.listscap.jsp.noscans" dataset="pageList" name="xccdfScans">
-		<rl:decorator name="ElaborationDecorator"/>
-		<rl:decorator name="SelectableDecorator"/>
-		<rl:selectablecolumn value="${current.xid}" selected="${current.selected}" disabled="${not current.selectable}"/>
+        <rl:list emptykey="system.audit.listscap.jsp.noscans" dataset="pageList" name="xccdfScans">
+                <rl:decorator name="ElaborationDecorator"/>
+                <rl:decorator name="SelectableDecorator"/>
+                <rl:selectablecolumn value="${current.xid}" selected="${current.selected}" disabled="${not current.selectable}"/>
 
-		<%@ include file="/WEB-INF/pages/common/fragments/audit/scap-list-columns.jspf" %>
+                <%@ include file="/WEB-INF/pages/common/fragments/audit/scap-list-columns.jspf" %>
 
-		<rl:column headerkey="system.audit.listscap.jsp.pass.abb">
-			${current.pass}
-		</rl:column>
-		<rl:column headerkey="system.audit.listscap.jsp.fail.abb">
-			${current.fail}
-		</rl:column>
-		<rl:column headerkey="system.audit.listscap.jsp.error.abb">
-			${current.error}
-		</rl:column>
-		<rl:column headerkey="system.audit.listscap.jsp.unknown.abb">
-			${current.unknown}
-		</rl:column>
-		<rl:column headerkey="system.audit.listscap.jsp.notapplicable.abb">
-			${current.notapplicable}
-		</rl:column>
-		<rl:column headerkey="system.audit.listscap.jsp.notchecked.abb">
-			${current.notchecked}
-		</rl:column>
-		<rl:column headerkey="system.audit.listscap.jsp.notselected.abb">
-			${current.notselected}
-		</rl:column>
-		<rl:column headerkey="system.audit.listscap.jsp.informational.abb">
-			${current.informational}
-		</rl:column>
-		<rl:column headerkey="system.audit.listscap.jsp.fixed.abb">
-			${current.fixed}
-		</rl:column>
-		<rl:column headerkey="system.audit.listscap.jsp.total">
-			${current.sum}
-		</rl:column>
-	</rl:list>
-	<rl:csv name="xccdfScans" dataset="pageList"
-	exportColumns="xid,testResult,completed,pass,fail,error,unknown,notapplicable,notchecked,notselected,informational,fixed,sum"/>
+                <rl:column headerkey="system.audit.listscap.jsp.pass.abb">
+                        ${current.pass}
+                </rl:column>
+                <rl:column headerkey="system.audit.listscap.jsp.fail.abb">
+                        ${current.fail}
+                </rl:column>
+                <rl:column headerkey="system.audit.listscap.jsp.error.abb">
+                        ${current.error}
+                </rl:column>
+                <rl:column headerkey="system.audit.listscap.jsp.unknown.abb">
+                        ${current.unknown}
+                </rl:column>
+                <rl:column headerkey="system.audit.listscap.jsp.notapplicable.abb">
+                        ${current.notapplicable}
+                </rl:column>
+                <rl:column headerkey="system.audit.listscap.jsp.notchecked.abb">
+                        ${current.notchecked}
+                </rl:column>
+                <rl:column headerkey="system.audit.listscap.jsp.notselected.abb">
+                        ${current.notselected}
+                </rl:column>
+                <rl:column headerkey="system.audit.listscap.jsp.informational.abb">
+                        ${current.informational}
+                </rl:column>
+                <rl:column headerkey="system.audit.listscap.jsp.fixed.abb">
+                        ${current.fixed}
+                </rl:column>
+                <rl:column headerkey="system.audit.listscap.jsp.total">
+                        ${current.sum}
+                </rl:column>
+        </rl:list>
+        <rl:csv name="xccdfScans" dataset="pageList"
+        exportColumns="xid,testResult,completed,pass,fail,error,unknown,notapplicable,notchecked,notselected,informational,fixed,sum"/>
 
 <div class="text-right">
   <hr />

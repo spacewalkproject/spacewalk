@@ -8,95 +8,95 @@
 
 
 <rl:list dataset="pageList"
-		name="groupList"
-		decorator="SelectableDecorator"
-		emptykey="assignedgroups.jsp.nogroups"
-		alphabarcolumn="name"
+                name="groupList"
+                decorator="SelectableDecorator"
+                emptykey="assignedgroups.jsp.nogroups"
+                alphabarcolumn="name"
         filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemGroupFilter">
 
-		<rl:decorator name="ElaborationDecorator"/>
-  		<rl:decorator name="PageSizeDecorator"/>
+                <rl:decorator name="ElaborationDecorator"/>
+                <rl:decorator name="PageSizeDecorator"/>
 
-  	    <rl:selectablecolumn value="${current.id}"
-	 						selected="${current.selected}"
-	 						disabled="${not current.selectable}"/>
+            <rl:selectablecolumn value="${current.id}"
+                                                        selected="${current.selected}"
+                                                        disabled="${not current.selectable}"/>
 
-  	   	<!--Updates Column -->
-		<rl:column sortable="false"
-				   bound="false"
-		           headerkey="grouplist.jsp.status"
-		           styleclass="center"
-		           headerclass="thin-column">
+                <!--Updates Column -->
+                <rl:column sortable="false"
+                                   bound="false"
+                           headerkey="grouplist.jsp.status"
+                           styleclass="center"
+                           headerclass="thin-column">
 
                       <c:out value="<a href=\"/rhn/groups/ListErrata.do?sgid=${current.id}\">"  escapeXml="false"/>
 
-	              <c:choose>
-			        <c:when test="${current.mostSevereErrata == 'Security Advisory'}">
-			          <rhn:icon type="system-crit" title="grouplist.jsp.security" />
-			        </c:when>
-			        <c:when test="${current.mostSevereErrata == 'Bug Fix Advisory' or current.mostSevereErrata == 'Product Enhancement Advisory'}">
-			          <rhn:icon type="system-warn" title="grouplist.jsp.updates" />
-			        </c:when>
-			        <c:otherwise>
-			          <rhn:icon type="system-ok" title="grouplist.jsp.noerrata" />
-			        </c:otherwise>
-			      </c:choose>
+                      <c:choose>
+                                <c:when test="${current.mostSevereErrata == 'Security Advisory'}">
+                                  <rhn:icon type="system-crit" title="grouplist.jsp.security" />
+                                </c:when>
+                                <c:when test="${current.mostSevereErrata == 'Bug Fix Advisory' or current.mostSevereErrata == 'Product Enhancement Advisory'}">
+                                  <rhn:icon type="system-warn" title="grouplist.jsp.updates" />
+                                </c:when>
+                                <c:otherwise>
+                                  <rhn:icon type="system-ok" title="grouplist.jsp.noerrata" />
+                                </c:otherwise>
+                              </c:choose>
 
-			    <c:out value="</a>"  escapeXml="false" />
-		</rl:column>
-
-
-  	   <!--Name Column -->
-		<rl:column sortable="true"
-				   bound="false"
-		           headerkey="grouplist.jsp.name"
-		           sortattr="name">
-			<c:out value="<a href=\"/rhn/groups/GroupDetail.do?sgid=${current.id}\">" escapeXml="false" />
-			<c:out value="${current.name}" escapeXml="true" />
-			<c:out value="</a>" escapeXml="false" />
-		</rl:column>
+                            <c:out value="</a>"  escapeXml="false" />
+                </rl:column>
 
 
-		<!--Systems Column -->
-		<rl:column sortable="true"
-				   sortattr="serverCount"
-				   bound="false"
-		           headerkey="grouplist.jsp.systems"
-		           styleclass="center"
-		           headerclass="thin-column">
-		        <c:choose>
-		    		<c:when test="${(current.serverCount) < 1}">
-		        		<c:out value="${current.serverCount}" />
-		        	</c:when>
-		        	<c:otherwise>
-						<c:out value="<a href=\"/rhn/groups/ListRemoveSystems.do?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
-		        	</c:otherwise>
-		        </c:choose>
-		</rl:column>
+           <!--Name Column -->
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="grouplist.jsp.name"
+                           sortattr="name">
+                        <c:out value="<a href=\"/rhn/groups/GroupDetail.do?sgid=${current.id}\">" escapeXml="false" />
+                        <c:out value="${current.name}" escapeXml="true" />
+                        <c:out value="</a>" escapeXml="false" />
+                </rl:column>
 
 
-    	   <!--USE in SSM  Column -->
-		<rl:column sortable="false"
-				   bound="false"
-		           headerkey="grouplist.jsp.use"
-		           styleclass="center"
-		           headerclass="center">
+                <!--Systems Column -->
+                <rl:column sortable="true"
+                                   sortattr="serverCount"
+                                   bound="false"
+                           headerkey="grouplist.jsp.systems"
+                           styleclass="center"
+                           headerclass="thin-column">
+                        <c:choose>
+                                <c:when test="${(current.serverCount) < 1}">
+                                        <c:out value="${current.serverCount}" />
+                                </c:when>
+                                <c:otherwise>
+                                                <c:out value="<a href=\"/rhn/groups/ListRemoveSystems.do?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
+                                </c:otherwise>
+                        </c:choose>
+                </rl:column>
+
+
+           <!--USE in SSM  Column -->
+                <rl:column sortable="false"
+                                   bound="false"
+                           headerkey="grouplist.jsp.use"
+                           styleclass="center"
+                           headerclass="center">
 
 
                                 <c:out value="<a class=\"link-button\" href=\"/rhn/systems/WorkWithGroup.do?sgid=${current.id}\">
-  				${rhn:localize('grouplist.jsp.use')}</a>"  escapeXml="false" />
+                                ${rhn:localize('grouplist.jsp.use')}</a>"  escapeXml="false" />
 
-		</rl:column>
+                </rl:column>
 
 
 
 </rl:list>
 <rl:csv dataset="pageList"
-	        name="groupList"
-	        exportColumns="id, name, groupAdmins, serverCount" />
+                name="groupList"
+                exportColumns="id, name, groupAdmins, serverCount" />
 <div class="text-right">
   <hr />
-	<input class="btn btn-default" type="submit" name="union" value="${rhn:localize('grouplist.jsp.union')}" />
-	<input class="btn btn-default" type="submit" name="intersection" value="${rhn:localize('grouplist.jsp.intersection')}" />
+        <input class="btn btn-default" type="submit" name="union" value="${rhn:localize('grouplist.jsp.union')}" />
+        <input class="btn btn-default" type="submit" name="intersection" value="${rhn:localize('grouplist.jsp.intersection')}" />
 </div>
-	<rhn:submitted/>
+        <rhn:submitted/>

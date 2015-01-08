@@ -3,4 +3,4 @@
 </rhn:toolbar>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1"
-		definition="/WEB-INF/nav/package_detail.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+                definition="/WEB-INF/nav/package_detail.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

@@ -1,17 +1,17 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <rhn:toolbar base="h1" icon="header-activation-key"
-			imgAlt="activation-keys.common.alt"
-			helpUrl=""
+                        imgAlt="activation-keys.common.alt"
+                        helpUrl=""
 
-			deletionUrl="/rhn/activationkeys/Delete.do?tid=${param.tid}"
- 			deletionType="activationkeys"
- 			deletionAcl = "user_role(activation_key_admin)"
+                        deletionUrl="/rhn/activationkeys/Delete.do?tid=${param.tid}"
+                        deletionType="activationkeys"
+                        deletionAcl = "user_role(activation_key_admin)"
                         cloneUrl="/rhn/activationkeys/Clone.do?tid=${param.tid}"
                         cloneType="activationkeys"
                         cloneAcl = "user_role(activation_key_admin)">
 <c:out value="${requestScope.description}"/>
 </rhn:toolbar>
-	<rhn:dialogmenu mindepth="0" maxdepth="1"
-	definition="/WEB-INF/nav/activation_key.xml"
-	renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+        <rhn:dialogmenu mindepth="0" maxdepth="1"
+        definition="/WEB-INF/nav/activation_key.xml"
+        renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

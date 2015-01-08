@@ -1,6 +1,6 @@
    <rhn:set value="${current.id}" />
 
-	<rhn:column header="errata.edit.packages.add.package">
+        <rhn:column header="errata.edit.packages.add.package">
         <a href="/rhn/software/packages/Details.do?pid=${current.id}">
           ${current.packageNvre}
         </a>
