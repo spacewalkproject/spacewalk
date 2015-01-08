@@ -2453,7 +2453,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Command group names:
-			rhn_command_groups.description -&gt; rhn_command_groups.description</note>
+      rhn_command_groups.description -&gt; rhn_command_groups.description</note>
         <trans-unit id="All">
           <source>All</source>
         </trans-unit>
@@ -2493,7 +2493,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Command names:
-			rhn_command.description -&gt; rhn_command.description</note>
+      rhn_command.description -&gt; rhn_command.description</note>
         <trans-unit id="Active Sessions">
           <source>Active Sessions</source>
         </trans-unit>

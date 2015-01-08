@@ -480,7 +480,7 @@ Thank you for using @@PRODUCT_NAME@@.
 
 
 Gracias por usar @@PRODUCT_NAME@@.
---el equipo de @@PRODUCT_NAME@@ 
+--el equipo de @@PRODUCT_NAME@@
 </target>
       </trans-unit>
       <trans-unit id="email.satellitecert.satbodyend">

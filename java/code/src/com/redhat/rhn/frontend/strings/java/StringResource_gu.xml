@@ -8193,11 +8193,11 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="package.remove.cant.rollback">
         <source>One or more of the packages you have selected for removal below are not contained in
-			a software channel that this system is subscribed to.  If you choose to continue with the removal
-			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
+                        a software channel that this system is subscribed to.  If you choose to continue with the removal
+                        you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
         <target>નીચે દૂર કરવા માટે તમે પસંદ કરેલ છે તે પેકેજોનાં એક અથવા વધારે સોફ્ટવેર ચેનલમાં
-			 સમાવેલ નથી કે જે આ સિસ્ટમ તેમાં ઉમેદવારી થયેલ છે.  જો તમે હટાવવા સાથે તમે ચાલુ રાખવાનું પસંદ કરતા હોય તો
-			 તમે આ સ્નેપશોટ અથવા કોઇપણ પહેલાનાં સ્નેપશોટમાં આ સિસ્ટમને પાછુ મેળવવા સક્ષમ હશો નહિં.</target>
+                         સમાવેલ નથી કે જે આ સિસ્ટમ તેમાં ઉમેદવારી થયેલ છે.  જો તમે હટાવવા સાથે તમે ચાલુ રાખવાનું પસંદ કરતા હોય તો
+                         તમે આ સ્નેપશોટ અથવા કોઇપણ પહેલાનાં સ્નેપશોટમાં આ સિસ્ટમને પાછુ મેળવવા સક્ષમ હશો નહિં.</target>
       </trans-unit>
       <trans-unit id="list.filter.iprange">
         <source>Single Ip Address</source>

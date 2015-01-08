@@ -8711,8 +8711,8 @@ Follow this url to see the full list of inactive systems:
             a software channel that this system is subscribed to.  If you choose to continue with the removal
             you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
         <target>削除のために選択した以下の 1 つまたは複数のパッケージは、このシステムがサブスクライブする
-			ソフトウェアチャンネルに含まれないものがあります。削除を実行すると、このシステムをこのスナップショットや以前のスナップショットに
-			ロールバックすることができなくなります。</target>
+                        ソフトウェアチャンネルに含まれないものがあります。削除を実行すると、このシステムをこのスナップショットや以前のスナップショットに
+                        ロールバックすることができなくなります。</target>
       </trans-unit>
       <trans-unit id="list.filter.iprange">
         <source>Single Ip Address</source>

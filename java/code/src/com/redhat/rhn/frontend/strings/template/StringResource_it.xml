@@ -260,7 +260,7 @@ package profile for that server is out of date. In that case you should run
 ---------------------
 Elenco sistemi interessati
 ---------------------
-Questo Errata Advisory può essere applicato ai sistemi di seguito elencati. Se questo errata non interessa uno dei sistemi presenti nell'elenco, è possibile che il profilo del pacchetto non risulti essere aggiornato. In tal caso eseguire 
+Questo Errata Advisory può essere applicato ai sistemi di seguito elencati. Se questo errata non interessa uno dei sistemi presenti nell'elenco, è possibile che il profilo del pacchetto non risulti essere aggiornato. In tal caso eseguire
 'up2date -p' (RHEL 4 e versioni meno recenti) o 'rhn-profile-sync' (RHEL 5 e versioni più recenti) come utente root sul sistema in questione per ricaricare il profilo software.
     </target>
         </trans-unit>
@@ -315,7 +315,7 @@ Release    Arch       Nome Profilo
 
 È possibile risolvere gli errori di seguito riportati con questo avviso in due modi:
 
-     - selezionare il nome del server facendo clic sul nome dall'elenco disponibile nella seguente posizione e programmare un 
+     - selezionare il nome del server facendo clic sul nome dall'elenco disponibile nella seguente posizione e programmare un
        errata update:
            {1}
 
@@ -353,7 +353,7 @@ e navigare da "Panoramica" / "Il tuo Account" alla scheda delle "Preferenze".
 
         URL: {0}
 
-È possibile altresì abilitare/disabilitare le notifiche in base al sistema selezionando un sistema desiderato da "Elenco sistemi". Dalla visuale singola selezionare la scheda 
+È possibile altresì abilitare/disabilitare le notifiche in base al sistema selezionando un sistema desiderato da "Elenco sistemi". Dalla visuale singola selezionare la scheda
 "Dettagli".
 
 {1}
@@ -414,7 +414,7 @@ Questa email verrà inviata ogni qualvolta:
 Come disabilitare questa email:
 ----------------------
 
-Per disabilitare l'email consultare la pagina delle Preferenze su 
+Per disabilitare l'email consultare la pagina delle Preferenze su
 https://{4}/rhn/account/UserPreferences.do
 
 

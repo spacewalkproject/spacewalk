@@ -3687,7 +3687,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target>
                 /rhn/errata/manage/AddPackagesConfirm.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacotes adicionados à 	 errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacotes adicionados à   errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.add.success.singular">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; package added to errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3696,7 +3696,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target>
                 /rhn/errata/manage/AddPackagesConfirm.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacote adicionado à 	 errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacote adicionado à     errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.remove.success.plural">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; packages removed from errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -6063,7 +6063,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Create a system group using the form provided. Note that the group will be empty until systems are joined to it. Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
           <target>Cria um grupo de sistemas utilizando a forma fornecida. Note que o grupo estará vazio até que sistemas sejam unificados à ele. Entradas marcadas com um asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) são  &lt;strong&gt;obrigatórias&lt;/strong&gt;.
 
-	</target>
+        </target>
         </trans-unit>
         <trans-unit id="systemgroup.create.requiredfield">
           <source>Required Field</source>
@@ -12849,7 +12849,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <source>Are you certain you want to delete this key? &lt;strong&gt;All systems' values for this key will be deleted as well.&lt;/strong&gt;</source>
           <target>Você tem certeza de que deseja remover esta chave? &lt;strong&gt;Todos os valores do sistema para esta chave também serão removidos.&lt;/strong&gt;
 
-	
+
 </target>
         </trans-unit>
       </group>

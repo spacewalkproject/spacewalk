@@ -1868,7 +1868,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
-        <target>Il suddetto utente è l'ultimo Organization Administrator e pertanto non può essere rimosso	    dal ruolo di Organization Administrator.</target>
+        <target>Il suddetto utente è l'ultimo Organization Administrator e pertanto non può essere rimosso          dal ruolo di Organization Administrator.</target>
       </trans-unit>
       <trans-unit id="satadmin.jsp.error.lastsatadmin">
         <source>The user {0} is the last @@PRODUCT_NAME@@ Administrator and cannot be removed from the @@PRODUCT_NAME@@ Administrator role.</source>
@@ -3687,7 +3687,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/AddPackagesConfirm.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetti aggiunti a 	    errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetti aggiunti a       errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.add.success.singular">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; package added to errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3696,7 +3696,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/AddPackagesConfirm.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetto aggiunto a 	    errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetto aggiunto a       errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.remove.success.plural">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; packages removed from errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3705,7 +3705,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetti rimossi da 	    errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetti rimossi da       errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.remove.success.singular">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; package removed from errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3714,7 +3714,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetto rimosso da 	    errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetto rimosso da       errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.overview.jsp.summary">
         <source>The following errata apply to at least one system to which you have administrative access.</source>
@@ -6968,14 +6968,14 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
         </context-group>
-        <target>Ciò cancellerà il probe in modo &lt;strong&gt;permanente&lt;/strong&gt; da questo sistema, e 	 rimuoverà, dal database, tutti i dati sulle Modifiche dello Stato e sulla Serie di tempi, associati con questo probe.</target>
+        <target>Ciò cancellerà il probe in modo &lt;strong&gt;permanente&lt;/strong&gt; da questo sistema, e     rimuoverà, dal database, tutti i dati sulle Modifiche dello Stato e sulla Serie di tempi, associati con questo probe.</target>
       </trans-unit>
       <trans-unit id="probdelete.jsp.p2">
         <source>If you are uncertain about performing this action, please &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt;review the details&lt;/a&gt; for this probe.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
         </context-group>
-        <target>Se non siete sicuri su come eseguire questa azione, 	  vi preghiamo di &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt;ricontrollare le informazioni&lt;/a&gt; riguardanti questo probe.</target>
+        <target>Se non siete sicuri su come eseguire questa azione,       vi preghiamo di &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt;ricontrollare le informazioni&lt;/a&gt; riguardanti questo probe.</target>
       </trans-unit>
       <trans-unit id="probdelete.jsp.p3">
         <source>Otherwise, confirm the immediate deletion of this system probe by clicking the button below.</source>
@@ -8795,7 +8795,7 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
         </context-group>
-        <target>Se siete &lt;strong&gt;certi&lt;/strong&gt; di eseguire questo processo, potrete applicare l'errata 	    il prima possibile, oppure non prima del periodo specificato:</target>
+        <target>Se siete &lt;strong&gt;certi&lt;/strong&gt; di eseguire questo processo, potrete applicare l'errata         il prima possibile, oppure non prima del periodo specificato:</target>
       </trans-unit>
       <trans-unit id="systemgroups.admins.updated">
         <source>Admin list for system group {0} updated.</source>
@@ -21375,7 +21375,7 @@ per l'organizzazione (ad esclusione dell'organizzazione satellite predefinita) s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
-        <target>Siete sicuri di voler rimuovere il rapporto fidato elencato qui di seguito? Sono presenti alcuni sistemi nell'organizzazione {0} che eseguono la sottoscrizione al contenuto delle organizzazioni con le quali desiderate rimuovere il rapporto di fiducia. Questo processo potrebbe interessare indirettamente i suddetti sistemi. Per esempio, i sistemi potrebbero non essere più in grado di ricevere aggiornamenti sulla sicurezza relativi al contenuto forniti attraverso questo rapporto di fiducia. 
+        <target>Siete sicuri di voler rimuovere il rapporto fidato elencato qui di seguito? Sono presenti alcuni sistemi nell'organizzazione {0} che eseguono la sottoscrizione al contenuto delle organizzazioni con le quali desiderate rimuovere il rapporto di fiducia. Questo processo potrebbe interessare indirettamente i suddetti sistemi. Per esempio, i sistemi potrebbero non essere più in grado di ricevere aggiornamenti sulla sicurezza relativi al contenuto forniti attraverso questo rapporto di fiducia.
 &lt;p/&gt;
 Controllare nuovamente le modifiche che state apportando prima di confermare la rimozione.</target>
       </trans-unit>
@@ -22689,7 +22689,7 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
         <target>&lt;strong&gt; Suggerimento:&lt;/strong&gt;
-          sha1 offre una gamma di compatibilità maggiore con i client. sha-256 offre una maggiore sicurezza ma 
+          sha1 offre una gamma di compatibilità maggiore con i client. sha-256 offre una maggiore sicurezza ma
           è compatibile solo con client più nuovi: Fedora 11 e versioni più recenti, o Enterprise Linux 6 e versioni più recenti.
          </target>
       </trans-unit>

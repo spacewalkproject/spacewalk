@@ -10442,7 +10442,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
         <target>Откорректируйте настройки дистрибутива (&lt;strong&gt;{0}&lt;/strong&gt;)  на странице &lt;a href = "{1}"&gt;свойств дистрибутива&lt;/a&gt;.
 
-	</target>
+        </target>
       </trans-unit>
       <trans-unit id="kickstartdetails.invalid.jsp.summary-option2">
         <source> Alternatively you may associate a different distribution to this kickstart profile by visiting the &lt;a href = "{0}"&gt;Kickstart Operating System Details&lt;/a&gt; page.</source>
@@ -21393,7 +21393,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         <target>
             Удалить доверенные организации? Организация {0} содержит системы,
             которые получают содержимое из удаляемых организаций.
-            Это может привести к тому, что системы перестанут получать 
+            Это может привести к тому, что системы перестанут получать
             важные обновления безопасности.
             &lt;p/&gt;
             Еще раз проверьте изменения, прежде чем подтвердить удаление.</target>
@@ -21411,7 +21411,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         <target>
             Ниже перечислены системы, которые будут затронуты при удалении
             доверенной связи между &lt;b&gt;{0}&lt;/b&gt; и &lt;b&gt;{1}&lt;/b&gt;.
-            Это может привести к тому, что системы перестанут получать 
+            Это может привести к тому, что системы перестанут получать
             важные обновления безопасности.</target>
       </trans-unit>
       <trans-unit id="org.trust.org">
@@ -22712,7 +22712,7 @@ given channel.</source>
         </context-group>
         <target>&lt;strong&gt; Подсказка.&lt;/strong&gt;
           SHA1 обеспечивает высокую совместимость с клиентами.
-          SHA-256 гарантирует улучшенную защиту, но совместим 
+          SHA-256 гарантирует улучшенную защиту, но совместим
           только с новыми клиентами, начиная с Fedora 11 и Red Hat Enterprise Linux 6.</target>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.summary">
@@ -22917,7 +22917,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>Удаление канала скажется на доверенных организациях, 
+        <target>Удаление канала скажется на доверенных организациях,
 системы которых подписаны на канал {0}.</target>
       </trans-unit>
       <trans-unit id="channel.delete.jsp.orgsaffected">
@@ -22943,7 +22943,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>Удалите подписку систем из доверенной организации на канал {0}. 
+        <target>Удалите подписку систем из доверенной организации на канал {0}.
 Подписанные системы потеряют доступ к пакетам этого канала.</target>
       </trans-unit>
       <trans-unit id="generic.jsp.none">

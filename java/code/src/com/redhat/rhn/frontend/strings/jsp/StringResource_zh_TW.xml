@@ -3687,7 +3687,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/AddPackagesConfirm.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; 套件已經新增至	    勘誤 &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 套件已經新增至     勘誤 &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.add.success.singular">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; package added to errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3696,7 +3696,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/AddPackagesConfirm.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; 套件已經新增至	    勘誤 &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 套件已經新增至     勘誤 &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.remove.success.plural">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; packages removed from errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3705,7 +3705,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; 套件已經自	    勘誤 &lt;strong&gt;{1}&lt;/strong&gt; 中移除</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 套件已經自         勘誤 &lt;strong&gt;{1}&lt;/strong&gt; 中移除</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.remove.success.singular">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; package removed from errata &lt;strong&gt;{1}&lt;/strong&gt;</source>

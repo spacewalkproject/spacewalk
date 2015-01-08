@@ -14745,7 +14745,7 @@ You may grant provisioning entitlements _here_.
           <context context-type="paramnotes">You can deploy the latest revision (_Revision 7_) of this file to _zanarkand.boston.redhat.com_ - this file is part of that system's locally-managed config channel.</context>
         </context-group>
         <target>
-	このファイルの最新リビジョン (&lt;a href="{1}"&gt;リビジョン {0}&lt;/a&gt;) を &lt;a href="{3}"&gt;{2}&lt;/a&gt; にデプロイできます。このファイルはシステムのローカルで管理された設定チャンネルの一部です
+        このファイルの最新リビジョン (&lt;a href="{1}"&gt;リビジョン {0}&lt;/a&gt;) を &lt;a href="{3}"&gt;{2}&lt;/a&gt; にデプロイできます。このファイルはシステムのローカルで管理された設定チャンネルの一部です
 </target>
       </trans-unit>
       <trans-unit id="deploy.jsp.filedetails">
@@ -21672,7 +21672,7 @@ As a Channel Administrator, you may change the base channels your systems are su
 チャンネル管理者として、システムがサブスクライブしているベースチャンネルを変更できます。有効なチャンネルは、組織によって作成されたチャンネルか、または使用しているオペレーティングシステムのバージョンとプロセッサタイプのデフォルトの Red Hat ベースチャンネルのいずれかです。システムはすべてのチャンネルからサブスクライブが中止され、新しいベースチャンネルにサブスクライブされます。
 &lt;p/&gt;
 &lt;strong&gt;この操作は、システムで利用可能なパッケージとエラータに重大な影響が与えることがあるため、注意して実行する必要があります。&lt;/strong&gt;
-	</target>
+        </target>
         </trans-unit>
         <trans-unit id="basesub.jsp.custom-channels">
           <source>Custom Channels</source>
@@ -22168,7 +22168,7 @@ given channel.</source>
         <source>This page allows you to join an IRC chat room for discussions with other users
                 of @@PRODUCT_NAME@@.</source>
         <target>他のユーザーとディスカッションができる IRC チャットルームへはこのページから参加できます。
-				 @@PRODUCT_NAME@@</target>
+                                 @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="help.jsp.chatlink">
         <source>Access &lt;a href="http://webchat.freenode.net?channels=#spacewalk" target="_blank"&gt;#spacewalk&lt;/a&gt; channel on IRC.</source>
@@ -22266,7 +22266,7 @@ given channel.</source>
         <source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.
         </source>
         <target>このチャンネルから削除するよう選択したパッケージの一覧を以下に示します。このチャンネルからパッケージを削除しても、サブスクライブしているシステムまたは適用可能なエラータには影響が出ません。
-		</target>
+                </target>
       </trans-unit>
       <trans-unit id="channel.jsp.details.title">
         <source>Details
@@ -22278,7 +22278,7 @@ given channel.</source>
         <source>{0} package(s) removed from channel {1}
         </source>
         <target>{0} パッケージがチャンネル {1} から削除されました
-		</target>
+                </target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.removebutton">
         <source>Confirm Removal</source>
@@ -22340,7 +22340,7 @@ given channel.</source>
         <source>{0} package(s) added to channel {1}
         </source>
         <target>{0} パッケージがチャンネル {1} に追加されました
-		</target>
+                </target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addbutton">
         <source>Add Package(s)</source>
@@ -22360,7 +22360,7 @@ given channel.</source>
             Only packages of a compatible arch will be shown</source>
         <target>このチャンネルに追加できるパッケージの一覧を以下に示します。「チャンネル」選択ボックスを使用すると利用可能な一連のパッケージを制限できます。このチャンネルにパッケージを追加するには、ここでパッケージを選択し、下にある「パッケージの追加」をクリックします。
 
-			互換性のあるアーキテクチャーのパッケージのみが表示されます。</target>
+                        互換性のあるアーキテクチャーのパッケージのみが表示されます。</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.add.confirm.title">
         <source>Confirm Package Addition</source>
@@ -22370,7 +22370,7 @@ given channel.</source>
         <source>Below is the list of packages which you have selected to add to this channel. Adding a package to this channel does not automatically affect the systems which are subscribed to it, or the errata which are applicable to it.
         </source>
         <target>以下に、このチャンネルを追加するよう選択したパッケージの一覧を示します。このチャンネルにパッケージを追加しても、サブスクライブされたシステムまたは適用できるエラータは影響を受けません。
-		</target>
+                </target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addtitle">
         <source>Add Packages</source>
@@ -22514,7 +22514,7 @@ given channel.</source>
             This process can take several seconds. Be patient and do not click the button below more than once.</source>
         <target>本当にこれらのパッケージを削除しますか?
 
-			この処理は数秒かかることがあります。下のボタンを 1 回だけクリックし、しばらくお待ちください。</target>
+                        この処理は数秒かかることがあります。下のボタンを 1 回だけクリックし、しばらくお待ちください。</target>
       </trans-unit>
       <trans-unit id="baddownload.jsp.title">
         <source>File Download Failed</source>
@@ -23691,7 +23691,7 @@ given channel.</source>
         <source>The following errata were cloned from errata that have since been updated.
            This page will allow you to synchronize your cloned errata to that of its original.</source>
         <target>次のエラータのクローンは、更新されたエラータから作成されました。
-		   このページでは、クローンが作成されたエラータを元の状態に同期できます。</target>
+                   このページでは、クローンが作成されたエラータを元の状態に同期できます。</target>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.sync.note">
         <source>Packages that were omitted as part of the original cloning process will be included here.</source>
