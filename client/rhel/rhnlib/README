@@ -8,11 +8,11 @@ This library is distributed under the terms of the GNU Public License (GPL).
 
 0. HISTORY
 
-Traditionally, rhn used a patched version of Fredrik Lundh's xmlrpclib, 
-shipped with Red Hat 6.2, 7.0, 7.1, 7.2 and 7.3 in a package called 
+Traditionally, rhn used a patched version of Fredrik Lundh's xmlrpclib,
+shipped with Red Hat 6.2, 7.0, 7.1, 7.2 and 7.3 in a package called
 python-xmlrpc.
 
-The additions included improved transport objects (proxy support, a 
+The additions included improved transport objects (proxy support, a
 better SSL framework, encodings and transfers), most of them part of a module
 called cgiwrap.
 

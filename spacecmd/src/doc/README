@@ -83,7 +83,7 @@ spacecmd> report_ipaddresses
 System   Hostname                IP
 ------   --------                --
 dns01    dns01.dmz.example.com   192.168.254.53
-www01    www01.dmz.example.com   192.168.254.80 
+www01    www01.dmz.example.com   192.168.254.80
 ztest    ztest.test.example.com  192.168.42.111
 
 spacecmd> report_kernels

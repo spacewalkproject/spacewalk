@@ -1,7 +1,7 @@
 Satcon
 ===================
 
-This is framework for reading configuration files templates 
+This is framework for reading configuration files templates
 in format:
 key[prompt]=question
 key=value
@@ -17,7 +17,7 @@ To install this module type the following:
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2008 Red Hat, Inc. 
+Copyright (C) 2008 Red Hat, Inc.
 
 This software is licensed to you under the GNU General Public License,
 version 2 (GPLv2). There is NO WARRANTY for this software, express or

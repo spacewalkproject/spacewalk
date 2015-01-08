@@ -1,5 +1,5 @@
 spacewalk-create-channel
- 	by Justin Sherrill (jsherril@redhat.com)
+        by Justin Sherrill (jsherril@redhat.com)
 
 This script can create a channel to a specific update level (i.e. RHEL4u3) or upgrade an existing channel to a higher update level on an Red Hat Satellite or Spacewalk server.
 
@@ -33,7 +33,7 @@ kernel-smp
 bash
 
 then simply pass the  '--skiplist=skiplist.txt' option when running the command.  All packages from the specified release will
-	be copied to the channel except for those in the skip list.
+        be copied to the channel except for those in the skip list.
 
 
 In addition to the script, you should find in this package:
@@ -62,7 +62,7 @@ Changelog:
 - added --skiplist option for a package skiplist
 
 03/06/09 - 2.0-beta
-- Rewrite in python, supporting command line arguments.  
+- Rewrite in python, supporting command line arguments.
 - Now support clearing channel (with --clear) before pushing packages
 - Can now specify the src channel if you don't want to the script to figure it out
 - Can now just specify the data file instead of version, release, arch, etc..

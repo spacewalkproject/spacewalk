@@ -1,6 +1,6 @@
 Create channel from system script
-	by Justin Sherrill (jsherril@redhat.com)
+        by Justin Sherrill (jsherril@redhat.com)
 
-This script takes in a package list of a system (from a sysreport for example) and creates a base channel from it. 
+This script takes in a package list of a system (from a sysreport for example) and creates a base channel from it.
 
 For help, simply run ./create-channel-from-system.pl --help
