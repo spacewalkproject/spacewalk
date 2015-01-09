@@ -38,6 +38,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidGPGKeyException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidGPGUrlException;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.channel.CloneChannelCommand;
 import com.redhat.rhn.manager.channel.CreateChannelCommand;
 import com.redhat.rhn.manager.channel.InvalidGPGFingerprintException;
 import com.redhat.rhn.manager.channel.UpdateChannelCommand;
@@ -70,7 +71,30 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
-
+    public static final String GPG_FINGERPRINT = "gpg_key_fingerprint";
+    public static final String GPG_KEY = "gpg_key_id";
+    public static final String GPG_URL = "gpg_key_url";
+    public static final String SUPPORT_POLICY = "support_policy";
+    public static final String ORG_SHARING = "org_sharing";
+    public static final String MAINT_PHONE = "maintainer_phone";
+    public static final String MAINT_EMAIL = "maintainer_email";
+    public static final String MAINT_NAME = "maintainer_name";
+    public static final String SUBSCRIPTIONS = "per_user_subscriptions";
+    public static final String NAME = "name";
+    public static final String LABEL = "label";
+    public static final String PARENT = "parent";
+    public static final String ARCH = "arch";
+    public static final String ARCH_NAME = "arch_name";
+    public static final String CHECKSUM = "checksum";
+    public static final String SUMMARY = "summary";
+    public static final String DESCRIPTION = "description";
+    public static final String CLONE_TYPE = "clone_type";
+    public static final String ORIGINAL_ID = "original_id";
+    public static final String ORIGINAL_NAME = "original_name";
+    public static final String CHANNEL_NAME = "channel_name";
+    public static final String CHANNEL_LABEL = "channel_label";
+    public static final String CHANNEL_ARCH = "channel_arch";
+    public static final String CHANNEL_ARCH_LABEL = "channel_arch_label";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -82,6 +106,7 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
         DynaActionForm form = (DynaActionForm)formIn;
         Map<String, Object> params = makeParamMap(request);
         RequestContext ctx = new RequestContext(request);
+        boolean cloneSelect = false;
 
         // keep the cid
         if (ctx.hasParam("cid")) {
@@ -95,16 +120,31 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
                     request.getParameterMap());
         }
 
-        if (ctx.hasParam("create_button")) {
+        if (ctx.hasParam("clone_button")) {
+            Long cid = clone(form, errors, ctx);
+            params.put("cid", cid);
+            if (errors.isEmpty()) {
+                String[] msgParams = new String[2];
+                msgParams[0] = form.getString(NAME);
+                msgParams[1] = form.getString(ORIGINAL_NAME);
+                createMessage(request, "message.channelcloned", msgParams);
+                if (form.getString(CLONE_TYPE).equals("select")) {
+                    cloneSelect = true;
+                    createSuccessMessage(request, "message.cloneselect", form
+                            .getString(ORIGINAL_NAME));
+                }
+            }
+        }
+        else if (ctx.hasParam("create_button")) {
             Long cid = create(form, errors, ctx);
             params.put("cid", cid);
             if (errors.isEmpty()) {
-                createSuccessMessage(request, "message.channelcreated",
-                    form.getString("name"));
+                createSuccessMessage(request, "message.channelcreated", form
+                        .getString(NAME));
             }
         }
         else if (ctx.hasParam("edit_button")) {
-            String sharing = (String) form.get("org_sharing");
+            String sharing = (String) form.get(ORG_SHARING);
 
             if (hasSharingChanged(form, ctx) && ("private".equals(sharing) ||
                     "protected".equals(sharing))) {
@@ -119,20 +159,20 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
                 helper.setListName(getListName());
                 // ignore the return
                 helper.execute();
-                request.setAttribute("channel_name", form.getString("name"));
+                request.setAttribute(CHANNEL_NAME, form.getString(NAME));
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward(sharing), params);
             }
 
             edit(form, errors, ctx);
             if (errors.isEmpty()) {
-                createSuccessMessage(request, "message.channelupdated",
-                    form.getString("name"));
+                createSuccessMessage(request, "message.channelupdated", form
+                        .getString(NAME));
             }
 
 
             //did they enable per user subscriptions?
-            String sub = (String)form.get("per_user_subscriptions");
+            String sub = (String) form.get(SUBSCRIPTIONS);
             if (!sub.equals("all")) {
                  addMessage(request, "message.channelsubscribers");
             }
@@ -141,37 +181,40 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
         else if (ctx.hasParam(RequestContext.DISPATCH)) {
             makePrivate(form, errors, ctx);
             if (errors.isEmpty()) {
-                createSuccessMessage(request, "message.channelupdated",
-                    form.getString("name"));
+                createSuccessMessage(request, "message.channelupdated", form
+                        .getString(NAME));
             }
         }
         else if (ctx.hasParam("deny")) {
             deny(form, errors, ctx);
             if (errors.isEmpty()) {
-                createSuccessMessage(request, "message.channelupdated",
-                    form.getString("name"));
+                createSuccessMessage(request, "message.channelupdated", form
+                        .getString(NAME));
             }
         }
         else if (ctx.hasParam("grant")) {
             grant(form, errors, ctx);
             if (errors.isEmpty()) {
-                createSuccessMessage(request, "message.channelupdated",
-                    form.getString("name"));
+                createSuccessMessage(request, "message.channelupdated", form
+                        .getString(NAME));
             }
         }
         if (!errors.isEmpty()) {
-            request.setAttribute("channel_label", form.get("label"));
-            request.setAttribute("channel_name", form.getString("name"));
-            request.setAttribute("channel_arch", form.get("arch_name"));
-            request.setAttribute("channel_arch_label", form.get("arch"));
-            request.setAttribute("checksum", form.get("checksum"));
+            request.setAttribute(CHANNEL_LABEL, form.get(LABEL));
+            request.setAttribute(CHANNEL_NAME, form.getString(NAME));
+            request.setAttribute(CHANNEL_ARCH, form.get(ARCH_NAME));
+            request.setAttribute(CHANNEL_ARCH_LABEL, form.get(ARCH));
+            request.setAttribute(CHECKSUM, form.get(CHECKSUM));
             addErrors(request, errors);
-            prepDropdowns(new RequestContext(request));
+            prepDropdowns(new RequestContext(request), null);
             return getStrutsDelegate().forwardParams(
                     mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     params);
         }
 
+        if (cloneSelect) {
+            return getStrutsDelegate().forwardParams(mapping.findForward("select"), params);
+        }
         return getStrutsDelegate().forwardParams(
                 mapping.findForward("success"), params);
     }
@@ -187,7 +230,7 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
     private boolean hasSharingChanged(DynaActionForm form, RequestContext ctx) {
         Long cid = ctx.getParamAsLong("cid");
         Channel c = ChannelFactory.lookupByIdAndUser(cid, ctx.getCurrentUser());
-        return !c.getAccess().equals(form.get("org_sharing"));
+        return !c.getAccess().equals(form.get(ORG_SHARING));
     }
 
     /**
@@ -200,29 +243,23 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
      */
     private void formToAttributes(HttpServletRequest request,
                                   DynaActionForm form) {
-        request.setAttribute("name", form.get("name"));
-        request.setAttribute("label", form.get("label"));
-        request.setAttribute("parent", form.get("parent"));
-        request.setAttribute("arch", form.get("arch"));
-        request.setAttribute("checksum", form.get("checksum"));
-        request.setAttribute("arch_name", form.get("arch_name"));
-        request.setAttribute("summary", form.get("summary"));
-        request.setAttribute("description", form.get("description"));
-        request.setAttribute("maintainer_name",
-                form.get("maintainer_name"));
-        request.setAttribute("maintainer_email",
-                form.get("maintainer_email"));
-        request.setAttribute("maintainer_phone",
-                form.get("maintainer_phone"));
-        request.setAttribute("support_policy",
-                form.get("support_policy"));
-        request.setAttribute("per_user_subscriptions",
-                form.get("per_user_subscriptions"));
-        request.setAttribute("org_sharing", form.get("org_sharing"));
-        request.setAttribute("gpg_key_url", form.get("gpg_key_url"));
-        request.setAttribute("gpg_key_id", form.get("gpg_key_id"));
-        request.setAttribute("gpg_key_fingerprint",
-                form.get("gpg_key_fingerprint"));
+        request.setAttribute(NAME, form.get(NAME));
+        request.setAttribute(LABEL, form.get(LABEL));
+        request.setAttribute(PARENT, form.get(PARENT));
+        request.setAttribute(ARCH, form.get(ARCH));
+        request.setAttribute(CHECKSUM, form.get(CHECKSUM));
+        request.setAttribute(ARCH_NAME, form.get(ARCH_NAME));
+        request.setAttribute(SUMMARY, form.get(SUMMARY));
+        request.setAttribute(DESCRIPTION, form.get(DESCRIPTION));
+        request.setAttribute(MAINT_NAME, form.get(MAINT_NAME));
+        request.setAttribute(MAINT_EMAIL, form.get(MAINT_EMAIL));
+        request.setAttribute(MAINT_PHONE, form.get(MAINT_PHONE));
+        request.setAttribute(SUPPORT_POLICY, form.get(SUPPORT_POLICY));
+        request.setAttribute(SUBSCRIPTIONS, form.get(SUBSCRIPTIONS));
+        request.setAttribute(ORG_SHARING, form.get(ORG_SHARING));
+        request.setAttribute(GPG_URL, form.get(GPG_URL));
+        request.setAttribute(GPG_KEY, form.get(GPG_KEY));
+        request.setAttribute(GPG_FINGERPRINT, form.get(GPG_FINGERPRINT));
     }
 
     /**
@@ -328,23 +365,23 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
         // why can't I just pass in a dictionary? sigh, there are
         // times where python would make this SOOOO much easier.
         UpdateChannelCommand ucc = new UpdateChannelCommand();
-        ucc.setArchLabel((String)form.get("arch"));
-        ucc.setChecksumLabel((String)form.get("checksum"));
-        ucc.setLabel((String)form.get("label"));
-        ucc.setName((String)form.get("name"));
-        ucc.setSummary((String)form.get("summary"));
-        ucc.setDescription((String)form.get("description"));
+        ucc.setArchLabel((String) form.get(ARCH));
+        ucc.setChecksumLabel((String) form.get(CHECKSUM));
+        ucc.setLabel((String) form.get(LABEL));
+        ucc.setName((String) form.get(NAME));
+        ucc.setSummary((String) form.get(SUMMARY));
+        ucc.setDescription((String) form.get(DESCRIPTION));
         ucc.setUser(loggedInUser);
-        ucc.setGpgKeyId((String)form.get("gpg_key_id"));
-        ucc.setGpgKeyUrl((String)form.get("gpg_key_url"));
-        ucc.setGpgKeyFp((String)form.get("gpg_key_fingerprint"));
-        ucc.setMaintainerName((String)form.get("maintainer_name"));
-        ucc.setMaintainerEmail((String)form.get("maintainer_email"));
-        ucc.setMaintainerPhone((String)form.get("maintainer_phone"));
-        ucc.setSupportPolicy((String)form.get("support_policy"));
-        ucc.setAccess((String)form.get("org_sharing"));
+        ucc.setGpgKeyId((String) form.get(GPG_KEY));
+        ucc.setGpgKeyUrl((String) form.get(GPG_URL));
+        ucc.setGpgKeyFp((String) form.get(GPG_FINGERPRINT));
+        ucc.setMaintainerName((String) form.get(MAINT_NAME));
+        ucc.setMaintainerEmail((String) form.get(MAINT_EMAIL));
+        ucc.setMaintainerPhone((String) form.get(MAINT_PHONE));
+        ucc.setSupportPolicy((String) form.get(SUPPORT_POLICY));
+        ucc.setAccess((String) form.get(ORG_SHARING));
 
-        String parent = (String)form.get("parent");
+        String parent = (String) form.get(PARENT);
         if (parent == null || parent.equals("")) {
             ucc.setParentId(null);
         }
@@ -354,7 +391,7 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
 
         try {
             updated = ucc.update(ctx.getParamAsLong("cid"));
-            String sharing = (String)form.get("per_user_subscriptions");
+            String sharing = (String) form.get(SUBSCRIPTIONS);
             updated.setGloballySubscribable((sharing != null) &&
                     ("all".equals(sharing)), loggedInUser.getOrg());
             updated = (Channel) ChannelFactory.reload(updated);
@@ -387,63 +424,50 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
         return updated;
     }
 
-    private Long create(DynaActionForm form,
-                        ActionErrors errors,
-                        RequestContext ctx) {
-
-        User loggedInUser = ctx.getCurrentUser();
-        Long cid = null;
-
-        // handle submission
-        // why can't I just pass in a dictionary? sigh, there are
-        // times where python would make this SOOOO much easier.
-        CreateChannelCommand ccc = new CreateChannelCommand();
-        ccc.setArchLabel((String)form.get("arch"));
-        ccc.setChecksumLabel((String)form.get("checksum"));
-        ccc.setLabel((String)form.get("label"));
-        ccc.setName((String)form.get("name"));
-        ccc.setSummary((String)form.get("summary"));
-        ccc.setDescription(StringUtil.nullIfEmpty((String)form.get("description")));
-        ccc.setParentLabel(null);
-        ccc.setUser(loggedInUser);
-        ccc.setGpgKeyId(StringUtil.nullIfEmpty((String)form.get("gpg_key_id")));
-        ccc.setGpgKeyUrl(StringUtil.nullIfEmpty((String)form.get("gpg_key_url")));
-        ccc.setGpgKeyFp(StringUtil.nullIfEmpty((String)form.get("gpg_key_fingerprint")));
-        ccc.setMaintainerName(StringUtil.nullIfEmpty((String)form.get("maintainer_name")));
-        ccc.setMaintainerEmail(StringUtil.nullIfEmpty(
-                (String)form.get("maintainer_email")));
-        ccc.setMaintainerPhone(StringUtil.nullIfEmpty(
-                (String)form.get("maintainer_phone")));
-        ccc.setSupportPolicy(StringUtil.nullIfEmpty((String)form.get("support_policy")));
-        ccc.setAccess((String)form.get("org_sharing"));
-
-        String parent = (String)form.get("parent");
-        if (parent == null || parent.equals("")) {
-            ccc.setParentId(null);
+    private Long createChannelHelper(CreateChannelCommand command, DynaActionForm form,
+            ActionErrors errors, RequestContext ctx) {
+        User user = ctx.getCurrentUser();
+        String parentString = form.getString(PARENT);
+        Long parentId = null;
+        if (parentString != null && !StringUtils.isEmpty(parentString)) {
+            parentId = Long.valueOf(parentString);
         }
-        else {
-            ccc.setParentId(Long.valueOf(parent));
-        }
+
+        command.setName(form.getString(NAME));
+        command.setLabel(form.getString(LABEL));
+        command.setSummary(form.getString(SUMMARY));
+        command.setDescription(StringUtil.nullIfEmpty(form.getString(DESCRIPTION)));
+        command.setArchLabel(form.getString(ARCH));
+        command.setChecksumLabel(form.getString(CHECKSUM));
+        command.setGpgKeyFp(StringUtil.nullIfEmpty(form.getString(GPG_FINGERPRINT)));
+        command.setGpgKeyId(StringUtil.nullIfEmpty(form.getString(GPG_KEY)));
+        command.setGpgKeyUrl(StringUtil.nullIfEmpty(form.getString(GPG_URL)));
+        command.setParentId(parentId);
+        command.setUser(user);
+        command.setMaintainerName(StringUtil.nullIfEmpty(form.getString(MAINT_NAME)));
+        command.setMaintainerEmail(StringUtil.nullIfEmpty(form.getString(MAINT_EMAIL)));
+        command.setMaintainerPhone(StringUtil.nullIfEmpty(form.getString(MAINT_PHONE)));
+        command.setSupportPolicy(StringUtil.nullIfEmpty(form.getString(SUPPORT_POLICY)));
+        command.setAccess(form.getString(ORG_SHARING));
+        String sharing = form.getString(SUBSCRIPTIONS);
+        command.setGloballySubscribable((sharing != null) && ("all".equals(sharing)));
+
 
         try {
-            Channel c = ccc.create();
-            String sharing = (String)form.get("per_user_subscriptions");
-            c.setGloballySubscribable((sharing != null) &&
-                    ("all".equals(sharing)), loggedInUser.getOrg());
-            c = (Channel) ChannelFactory.reload(c);
-            cid = c.getId();
+            Channel c = command.create();
+            return c.getId();
         }
         catch (InvalidGPGFingerprintException borg) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidgpgfp"));
+            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    "edit.channel.invalidgpgfp"));
         }
         catch (InvalidGPGKeyException dukat) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidgpgkey"));
+            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    "edit.channel.invalidgpgkey"));
         }
         catch (InvalidGPGUrlException khan) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidgpgurl"));
+            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    "edit.channel.invalidgpgurl"));
         }
         catch (InvalidChannelNameException ferengi) {
             handleChannelNameException(errors, ferengi);
@@ -452,11 +476,30 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
             handleChannelLabelException(errors, q);
         }
         catch (IllegalArgumentException iae) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage(iae.getMessage()));
+            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(iae.getMessage()));
+        }
+        return null;
+    }
+
+    private Long clone(DynaActionForm form, ActionErrors errors, RequestContext ctx) {
+        User user = ctx.getCurrentUser();
+        Channel original = ChannelManager.lookupByIdAndUser((Long) form.get(ORIGINAL_ID),
+                user);
+
+        boolean originalState = true;
+        if (form.getString(CLONE_TYPE).equals("current")) {
+            originalState = false;
         }
 
-        return cid;
+        CloneChannelCommand command = new CloneChannelCommand(originalState, original);
+        return createChannelHelper(command, form, errors, ctx);
+    }
+
+    private Long create(DynaActionForm form,
+                        ActionErrors errors,
+                        RequestContext ctx) {
+        CreateChannelCommand ccc = new CreateChannelCommand();
+        return createChannelHelper(ccc, form, errors, ctx);
     }
 
     private void handleChannelNameException(ActionErrors errors,
@@ -539,9 +582,47 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
         }
     }
 
-    private void setupForm(HttpServletRequest request, DynaActionForm form) {
+    /**
+     * Set up things required for edit.jsp to render correctly
+     * @param request the request
+     * @param form the form
+     * @param c the channel
+     */
+    public static void setupFormHelper(HttpServletRequest request, DynaActionForm form,
+            Channel c) {
+        form.set(SUMMARY, c.getSummary());
+        form.set(DESCRIPTION, c.getDescription());
+        form.set(ORG_SHARING, c.getAccess());
+        form.set(GPG_URL, c.getGPGKeyUrl());
+        form.set(GPG_KEY, c.getGPGKeyId());
+        form.set(GPG_FINGERPRINT, c.getGPGKeyFp());
+        form.set(MAINT_NAME, c.getMaintainerName());
+        form.set(MAINT_PHONE, c.getMaintainerPhone());
+        form.set(MAINT_EMAIL, c.getMaintainerEmail());
+        form.set(SUPPORT_POLICY, c.getSupportPolicy());
+        if (c.getChecksumTypeLabel() == null) {
+            form.set(CHECKSUM, null);
+        }
+        else {
+            form.set(CHECKSUM, c.getChecksumTypeLabel());
+        }
+
+        if (c.getParentChannel() != null) {
+            request.setAttribute("parent_name", c.getParentChannel().getName());
+            request.setAttribute("parent_id", c.getParentChannel().getId());
+        }
+        else {
+            request.setAttribute("parent_name", LocalizationService.getInstance()
+                    .getMessage("generic.jsp.none"));
+        }
+
+        request.setAttribute(CHANNEL_ARCH, c.getChannelArch().getName());
+        request.setAttribute(CHANNEL_ARCH_LABEL, c.getChannelArch().getLabel());
+    }
+
+    private static void setupForm(HttpServletRequest request, DynaActionForm form) {
         RequestContext ctx = new RequestContext(request);
-        prepDropdowns(ctx);
+        prepDropdowns(ctx, null);
         Long cid = ctx.getParamAsLong("cid");
 
         if (cid != null) {
@@ -551,41 +632,9 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
                 throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
             }
 
-            form.set("name", c.getName());
-            form.set("summary", c.getSummary());
-            form.set("description", c.getDescription());
-            form.set("org_sharing", c.getAccess());
-            form.set("gpg_key_url", c.getGPGKeyUrl());
-            form.set("gpg_key_id", c.getGPGKeyId());
-            form.set("gpg_key_fingerprint", c.getGPGKeyFp());
-            form.set("maintainer_name", c.getMaintainerName());
-            form.set("maintainer_phone", c.getMaintainerPhone());
-            form.set("maintainer_email", c.getMaintainerEmail());
-            form.set("support_policy", c.getSupportPolicy());
-            if (c.getChecksumTypeLabel() == null) {
-                form.set("checksum", null);
-            }
-            else {
-                form.set("checksum", c.getChecksumTypeLabel());
-            }
-            if (c.isGloballySubscribable(ctx.getCurrentUser().getOrg())) {
-                form.set("per_user_subscriptions", "all");
-            }
-            else {
-                form.set("per_user_subscriptions", "selected");
-            }
-
-            if (c.getParentChannel() != null) {
-                request.setAttribute("parent_name",
-                                     c.getParentChannel().getName());
-                request.setAttribute("parent_id",
-                                     c.getParentChannel().getId());
-            }
-            else {
-                request.setAttribute("parent_name",
-                    LocalizationService.getInstance()
-                                       .getMessage("generic.jsp.none"));
-            }
+            form.set(NAME, c.getName());
+            request.setAttribute(CHANNEL_LABEL, c.getLabel());
+            request.setAttribute(CHANNEL_NAME, c.getName());
 
             if (c.getSources().isEmpty()) {
                 request.setAttribute("last_sync", "");
@@ -605,25 +654,33 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
                 }
 
             }
+            if (c.isGloballySubscribable(ctx.getCurrentUser().getOrg())) {
+                form.set(SUBSCRIPTIONS, "all");
+            }
+            else {
+                form.set(SUBSCRIPTIONS, "selected");
+            }
 
-            request.setAttribute("channel_label", c.getLabel());
-            request.setAttribute("channel_name", c.getName());
-            request.setAttribute("channel_arch", c.getChannelArch().getName());
-            request.setAttribute("channel_arch_label", c.getChannelArch().getLabel());
+            setupFormHelper(request, form, c);
 
         }
         else {
             // default settings
             String channelName = LocalizationService.getInstance()
               .getMessage("frontend.actions.channels.manager.create");
-            request.setAttribute("channel_name", channelName);
-            form.set("org_sharing", "private");
-            form.set("per_user_subscriptions", "all");
-            form.set("checksum", "sha1");
+            request.setAttribute(CHANNEL_NAME, channelName);
+            form.set(ORG_SHARING, "private");
+            form.set(SUBSCRIPTIONS, "all");
+            form.set(CHECKSUM, "sha1");
         }
     }
 
-    private void prepDropdowns(RequestContext ctx) {
+    /**
+     * prep the dropdown menues for the edit page
+     * @param ctx request context for this request
+     * @param original original channel if cloning, null otherwise
+     */
+    public static void prepDropdowns(RequestContext ctx, Channel original) {
         User loggedInUser = ctx.getCurrentUser();
         // populate parent base channels
         List<Map<String, String>> baseChannels = new ArrayList<Map<String, String>>();
@@ -631,9 +688,22 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
                         loggedInUser);
 
         LocalizationService ls = LocalizationService.getInstance();
-        addOption(baseChannels, ls.getMessage("generic.jsp.none"), "");
-        for (Channel c : bases) {
-            addOption(baseChannels, c.getName(), c.getId().toString());
+
+        // if cloning a base channel "None" should be the only option for parents
+        // if cloning a child channel "None" should not be an option
+        // if not cloning everything should be an option
+        if (original == null || original.isBaseChannel()) {
+            addOption(baseChannels, ls.getMessage("generic.jsp.none"), "");
+        }
+        if (original == null || !original.isBaseChannel()) {
+            for (Channel c : bases) {
+                addOption(baseChannels, c.getName(), c.getId().toString());
+            }
+            // if cloning a child channel, make a guess as to who the parent should be
+            if (original != null) {
+                ctx.getRequest().setAttribute("defaultParent",
+                        ChannelManager.likelyParentId(original, loggedInUser.getOrg()));
+            }
         }
         ctx.getRequest().setAttribute("parentChannels", baseChannels);
 
@@ -667,8 +737,8 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
                     .compatibleChildChannelArches(arch);
             List<String> mapConstruct = new ArrayList<String>();
             for (Map<String, String> compatibleArch : compatibleArches) {
-                mapConstruct.add(compatibleArch.get("label") + ":" +
-                        compatibleArch.get("name"));
+                mapConstruct
+                        .add(compatibleArch.get(LABEL) + ":" + compatibleArch.get(NAME));
             }
             archCompatMap.put(arch, StringUtils.join(mapConstruct.toArray(), ","));
         }
@@ -692,9 +762,10 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
      * @param key resource bundle key used as the display value.
      * @param value value to be submitted with form.
      */
-    private void addOption(List<Map<String, String>> options, String key, String value) {
+    private static void addOption(List<Map<String, String>> options, String key,
+            String value) {
         Map<String, String> selection = new HashMap<String, String>();
-        selection.put("label", key);
+        selection.put(LABEL, key);
         selection.put("value", value);
         options.add(selection);
     }

@@ -27,6 +27,7 @@ import com.redhat.rhn.domain.errata.Keyword;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
 import java.util.HashSet;
@@ -61,6 +62,25 @@ public class PublishErrataHelper {
         }
     }
 
+    /**
+     * Hibernate was way too slow if cloning lots of errata. This does all the hard stuff
+     * directly in the db using mode queries.
+     * @param eid Id of the original erratum to clone
+     * @param org Org to clone into
+     * @return Id of the cloned erratum
+     */
+    public static Long cloneErrataFaster(Long eid, Org org) {
+        ErrataOverview original = ErrataFactory.getOverviewById(eid);
+
+        String advisorySuffix = getSuffix(original.getAdvisory(), original.isCloned());
+        String nameSuffix = getSuffix(original.getAdvisoryName(), original.isCloned());
+        String prefix = findNextPrefix(advisorySuffix, nameSuffix);
+
+        ErrataOverview clone = ErrataFactory.cloneErratum(original.getId(), prefix +
+                advisorySuffix, prefix + nameSuffix, org.getId());
+        return clone.getId();
+    }
+
 
     /**
      * Clones an errata Similarly to ErrataFactory.createClone, but creates a published
@@ -70,11 +90,12 @@ public class PublishErrataHelper {
      * @param org the org to clone it for
      * @return The cloned (and published) errata
      */
+    @Deprecated
     public static Errata cloneErrataFast(Errata original, Org  org) {
 
         Errata clone = new PublishedClonedErrata();
 
-
+        setUniqueAdvisoryCloneName(original, clone);
         clone.setAdvisoryType(original.getAdvisoryType());
         clone.setProduct(original.getProduct());
         clone.setDescription(original.getDescription());
@@ -85,7 +106,6 @@ public class PublishErrataHelper {
         clone.setUpdateDate(original.getUpdateDate());
         clone.setNotes(original.getNotes());
         clone.setRefersTo(original.getRefersTo());
-        clone.setAdvisoryName(original.getAdvisoryName());
         clone.setAdvisoryRel(original.getAdvisoryRel());
         clone.setLocallyModified(original.getLocallyModified());
         clone.setLastModified(original.getLastModified());
@@ -108,7 +128,6 @@ public class PublishErrataHelper {
            clone.addBug(bClone);
         }
 
-        setUniqueAdvisoryCloneName(original, clone);
         ((PublishedClonedErrata) clone).setOriginal(original);
         clone.setOrg(org);
         ErrataFactory.save(clone);
@@ -124,72 +143,65 @@ public class PublishErrataHelper {
      * @param clone cloned erratum
      */
     public static void setUniqueAdvisoryCloneName(Errata original, Errata clone) {
-        String clonedAdvisory, clonedAdvisoryName;
+        String advisorySuffix = getSuffix(original.getAdvisory(), original.isCloned());
+        String nameSuffix = getSuffix(original.getAdvisoryName(), original.isCloned());
+        String prefix = findNextPrefix(advisorySuffix, nameSuffix);
 
-        if (!original.isCloned()) {
-            if (original.getAdvisory().startsWith(REDHAT_ERRATA_PREFIX)) {
+        clone.setAdvisoryName(prefix + nameSuffix);
+        clone.setAdvisory(prefix + advisorySuffix);
+    }
+
+    private static String getSuffix(String in, boolean isCloned) {
+        String suffix = null;
+        if (!isCloned) {
+            if (in.startsWith(REDHAT_ERRATA_PREFIX)) {
                 // RHBA-1234:1234 -> CL-BA-1234:1234
-                clonedAdvisory = DEFAULT_ERRATA_CLONE_PREFIX +
-                        original.getAdvisory().substring(
-                                REDHAT_ERRATA_PREFIX.length());
-                clonedAdvisoryName = DEFAULT_ERRATA_CLONE_PREFIX +
-                        original.getAdvisoryName().substring(
-                                REDHAT_ERRATA_PREFIX.length());
+                suffix = in.substring(REDHAT_ERRATA_PREFIX.length());
             }
             else {
                 // CUSTOM-ERRATA -> CL-CUSTOM-ERRATA
-                clonedAdvisory = DEFAULT_ERRATA_CLONE_PREFIX +
-                        original.getAdvisory();
-                clonedAdvisoryName = DEFAULT_ERRATA_CLONE_PREFIX +
-                        original.getAdvisoryName();
+                suffix = in;
             }
         }
         else {
             // increment CL -> CM only advisories with 3rd char '-'
-            if ('-' == original.getAdvisory().charAt(2) &&
-                    '-' == original.getAdvisoryName().charAt(2)) {
-                clonedAdvisory = new String(original.getAdvisory());
-                clonedAdvisoryName = new String(original.getAdvisoryName());
+            if ('-' == in.charAt(2)) {
+                suffix = in.substring(3);
             }
             else {
-                clonedAdvisory = DEFAULT_ERRATA_CLONE_PREFIX +
-                        original.getAdvisory();
-                clonedAdvisoryName = DEFAULT_ERRATA_CLONE_PREFIX +
-                        original.getAdvisoryName();
+                suffix = in;
             }
         }
 
+        return suffix;
+    }
+
+    private static String findNextPrefix(String advisoryLike, String nameLike) {
+        Set<String> advisories = ErrataFactory.listAdvisoriesEndingWith(advisoryLike);
+        Set<String> advisoryNames = ErrataFactory.listAdvisoryNamesEndingWith(nameLike);
+
         boolean unusedNameFound = false;
+        String prefix = DEFAULT_ERRATA_CLONE_PREFIX;
 
         while (!unusedNameFound) {
-            Errata advisoryNameMatch = ErrataFactory.lookupByAdvisory(
-                    clonedAdvisoryName);
-            Errata advisoryMatch = ErrataFactory.lookupByAdvisoryId(clonedAdvisory);
-
-            if ((advisoryNameMatch == null) && (advisoryMatch == null)) {
+            if (!advisories.contains(prefix + advisoryLike) &&
+                    !advisoryNames.contains(prefix + nameLike)) {
                 unusedNameFound = true;
             }
             else {
                 // use the advisory prefix for both - advisory and advisory_name
-                char c1 = clonedAdvisory.charAt(1);
+                char c1 = prefix.charAt(1);
                 if ('Z' == c1) {
-                    char c0next = (char) (clonedAdvisory.charAt(0) + 1);
-                    clonedAdvisory = "" + c0next + 'A' +
-                            clonedAdvisory.substring(2);
-                    clonedAdvisoryName = "" + c0next + 'A' +
-                            clonedAdvisoryName.substring(2);
+                    char c0next = (char) (prefix.charAt(0) + 1);
+                    prefix = "" + c0next + 'A' + prefix.substring(2);
                 }
                 else {
                     char c1next = (char) (c1 + 1);
-                    clonedAdvisory = "" + clonedAdvisory.charAt(0) + c1next +
-                            clonedAdvisory.substring(2);
-                    clonedAdvisoryName = "" + clonedAdvisoryName.charAt(0) +
-                            c1next + clonedAdvisoryName.substring(2);
+                    prefix = "" + prefix.charAt(0) + c1next + prefix.substring(2);
                 }
             }
         }
 
-        clone.setAdvisoryName(clonedAdvisoryName);
-        clone.setAdvisory(clonedAdvisory);
+        return prefix;
     }
 }

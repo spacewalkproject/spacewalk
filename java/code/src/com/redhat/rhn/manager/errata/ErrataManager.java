@@ -1368,8 +1368,25 @@ public class ErrataManager extends BaseManager {
      * clone in the case of a clone of a clone)
      * @return an array of Errata that have been published
      */
-    public static Object[] cloneErrataApi(Channel chan, List<Errata> errata,
+    public static Object[] cloneErrataApi(Channel chan, Collection<Errata> errata,
             User user, boolean inheritPackages) {
+        return cloneErrataApi(chan, errata, user, inheritPackages, true);
+    }
+
+    /**
+     * Clone errata to a channel
+     * @param chan the channel
+     * @param errata list of errata ids
+     * @param user the user doing the push
+     * @param inheritPackages inherit packages from the original bug (instaed of the
+     * clone in the case of a clone of a clone)
+     * @param performPostActions true (default) if you want to refresh newest package
+     * cache and schedule repomd regeneration. False only if you're going to do those
+     * things yourself.
+     * @return an array of Errata that have been published
+     */
+    public static Object[] cloneErrataApi(Channel chan, Collection<Errata> errata,
+            User user, boolean inheritPackages, boolean performPostActions) {
         List<Errata> errataToPublish = new ArrayList<Errata>();
         // For each errata look up existing clones, or manually clone it
         for (Errata toClone : errata) {
@@ -1389,12 +1406,58 @@ public class ErrataManager extends BaseManager {
             }
         }
 
-        List<Errata> published = ErrataFactory.publishToChannel(
-                errataToPublish, chan, user, inheritPackages);
+        List<Errata> published = ErrataFactory.publishToChannel(errataToPublish, chan,
+                user, inheritPackages, performPostActions);
         for (Errata e : published) {
             ErrataFactory.save(e);
         }
         return published.toArray();
+    }
+
+    /**
+     * Clone errata as necessary and link cloned errata with new channel.
+     * Warning: this does not clone packages or schedule channel repomd regeneration.
+     * You must do that yourself!
+     * @param fromCid id of old channel
+     * @param toCid id of channel to clone into
+     * @param user the requesting user
+     */
+    public static void cloneChannelErrata(Long fromCid, Long toCid, User user) {
+        List<Long> toClone = ErrataFactory
+                .relevantToOneChannelButNotAnother(fromCid, toCid);
+        List<OwnedErrata> owned = ErrataFactory
+                .listPublishedOwnedUnmodifiedClonedErrata(user.getOrg().getId());
+        List<Long> eids = new ArrayList<Long>();
+
+        // add published, cloned, owned errata to mapping. we want the oldest owned
+        // clone to reuse. listPublishedOwnedUnmodifiedClonedErrata orders by created,
+        // so we just add the first one we come across to the mapping and skip others
+        Map<Long, OwnedErrata> eidToClone = new HashMap<Long, OwnedErrata>();
+        for (OwnedErrata erratum : owned) {
+            if (!eidToClone.containsKey(erratum.getFromErrataId())) {
+                eidToClone.put(erratum.getFromErrataId(), erratum);
+            }
+            // add self id mapping too in case we are cloning the clone
+            if (!eidToClone.containsKey(erratum.getId())) {
+                eidToClone.put(erratum.getId(), erratum);
+            }
+        }
+
+        for (Long eid : toClone) {
+            if (!eidToClone.containsKey(eid)) {
+                // no published owned clones yet, lets make our own
+                // hibernate was too slow, had to rewrite in mode queries
+                Long cloneId = PublishErrataHelper.cloneErrataFaster(eid, user.getOrg());
+                eids.add(cloneId);
+
+            }
+            else {
+                // we have one already, reuse it
+                eids.add(eidToClone.get(eid).getId());
+            }
+        }
+
+        ChannelFactory.addClonedErrataToChannel(eids, toCid);
     }
 
     /**

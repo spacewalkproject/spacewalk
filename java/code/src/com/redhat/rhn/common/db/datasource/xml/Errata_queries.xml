@@ -356,7 +356,7 @@ SELECT DISTINCT E.id,
 </mode>
 
 <query name="simple_errata_overview" class="com.redhat.rhn.frontend.dto.ErrataOverview">
-select e.id, e.advisory_name, e.advisory_type, e.advisory_rel, e.synopsis as advisory_synopsis,
+select e.id, e.advisory, e.advisory_name, e.advisory_type, e.advisory_rel, e.synopsis as advisory_synopsis,
        e.description, e.issue_date, e.update_date, e.errata_from
   from rhnErrata e
  where e.id in (%s)
@@ -837,6 +837,19 @@ ORDER BY E.update_date, E.id
   <elaborator name="errata_overview" />
 </mode>
 
+<mode name="published_owned_unmodified_cloned_errata" class="com.redhat.rhn.frontend.dto.OwnedErrata">
+  <query params="org_id">
+  SELECT E.id,
+         EC.original_id AS from_errata_id
+    FROM rhnErrata E,
+         rhnErrataCloned EC
+   WHERE E.id = EC.id
+     AND E.org_id = :org_id
+     AND E.locally_modified is null
+order by e.created
+  </query>
+</mode>
+
 <mode name="published_owned_errata" class="com.redhat.rhn.frontend.dto.OwnedErrata">
   <query params="org_id">
   SELECT E.id, E.advisory, E.advisory_type, E.advisory_name, E.synopsis,
@@ -860,6 +873,26 @@ ORDER BY  E.update_date DESC, E.id
     FROM rhnErrataTmp E
    WHERE E.org_id = :org_id
 ORDER BY  E.update_date DESC, E.id
+  </query>
+</mode>
+
+<mode name="relevant_to_one_channel_but_not_another">
+  <query params="from_cid, to_cid">
+SELECT DISTINCT E.id
+  FROM rhnErrata E,
+       rhnChannelErrata CE
+ WHERE CE.channel_id = :from_cid
+   AND CE.errata_id = E.id
+   AND NOT EXISTS (SELECT 1
+                     FROM rhnChannelErrata CE2,
+                          rhnErrataCloned EC
+                    WHERE CE2.channel_id = :to_cid
+                      AND EC.original_id = CE.errata_id
+                      AND EC.id = CE2.errata_id)
+   AND NOT EXISTS  (select 1
+                  from  rhnChannelErrata CE3
+                 where CE3.channel_id = :to_cid
+                       AND CE3.errata_id = E.id)
   </query>
 </mode>
 
@@ -1448,6 +1481,134 @@ WHERE  E.id IN (%s)
 AND    E.id = EC.errata_id
 AND    EC.cve_id = C.id
 </query>
+
+<mode name="advisories_ending_with">
+  <query params="ending">
+SELECT  E.advisory
+  FROM  rhnErrata E
+ WHERE  E.advisory like :ending
+UNION
+SELECT  ET.advisory
+  FROM  rhnErrataTmp ET
+ WHERE  ET.advisory like :ending
+  </query>
+</mode>
+
+<mode name="advisory_names_ending_with">
+  <query params="ending">
+SELECT  E.advisory_name
+  FROM  rhnErrata E
+ WHERE  E.advisory_name like :ending
+UNION
+SELECT  ET.advisory_name
+  FROM  rhnErrataTmp ET
+ WHERE  ET.advisory_name like :ending
+  </query>
+</mode>
+
+<query name="cloned_errata_elaborator" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+SELECT e.id, ec.original_id AS from_errata_id, 'cloned_from' as RELATIONSHIP
+  FROM rhnErrata e
+  LEFT JOIN rhnErrataCloned ec ON e.id = ec.id
+ WHERE e.id in (%s)
+</query>
+
+<mode name="overview_by_id" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+  <query params="eid">
+SELECT e.id
+  FROM rhnErrata e
+ WHERE e.id = :eid
+  </query>
+  <elaborator name="simple_errata_overview" />
+  <elaborator name="cloned_errata_elaborator" />
+</mode>
+
+<mode name="overview_by_advisory" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+  <query params="advisory">
+SELECT id
+  FROM rhnErrata
+ WHERE advisory = :advisory
+  </query>
+  <elaborator name="simple_errata_overview" />
+</mode>
+
+<write-mode name="clone_erratum">
+  <query params="eid, advisory, name, org_id">
+INSERT INTO rhnErrata
+(id, advisory, advisory_type, advisory_name, advisory_rel, product, description, synopsis,
+topic, solution, issue_date, update_date, refers_to, notes, org_id, locally_modified, errata_from,
+severity_id, last_modified)
+(SELECT sequence_nextval('rhn_errata_id_seq'), :advisory, e.advisory_type, :name,
+        e.advisory_rel, e.product, e.description, e.synopsis, e.topic, e.solution,
+        e.issue_date, e.update_date, e.refers_to, e.notes, :org_id, e.locally_modified,
+        e.errata_from, e.severity_id, e.last_modified
+   FROM rhnErrata e
+  WHERE e.id = :eid)
+  </query>
+</write-mode>
+
+<write-mode name="set_original">
+  <query params="original_id, clone_id">
+INSERT INTO rhnErrataCloned (id, original_id)
+VALUES (:clone_id, :original_id)
+  </query>
+</write-mode>
+
+<write-mode name="clone_bugs">
+  <query params="original_id, clone_id">
+INSERT INTO rhnErrataBugList
+(errata_id, bug_id, summary, href)
+(SELECT :clone_id,
+        ebl.bug_id,
+        ebl.summary,
+        ebl.href
+   FROM rhnErrataBugList ebl
+  WHERE ebl.errata_id = :original_id)
+  </query>
+</write-mode>
+
+<write-mode name="clone_keywords">
+  <query params="original_id, clone_id">
+INSERT INTO rhnErrataKeyword
+(errata_id, keyword)
+(SELECT :clone_id,
+        ek.keyword
+   FROM rhnErrataKeyword ek
+  WHERE ek.errata_id = :original_id)
+  </query>
+</write-mode>
+
+<write-mode name="clone_packages">
+  <query params="original_id, clone_id">
+INSERT INTO rhnErrataPackage
+(errata_id, package_id)
+(SELECT :clone_id,
+        ep.package_id
+   FROM rhnErrataPackage ep
+  WHERE ep.errata_id = :original_id)
+  </query>
+</write-mode>
+
+<write-mode name="clone_cves">
+  <query params="original_id, clone_id">
+INSERT INTO rhnErrataCve
+(errata_id, cve_id)
+(SELECT :clone_id,
+        ec.cve_id
+   FROM rhnErrataCVE ec
+  WHERE ec.errata_id = :original_id)
+  </query>
+</write-mode>
+
+<write-mode name="clone_files">
+  <query params="original_id, clone_id">
+INSERT INTO rhnErrataFile
+(id, errata_id, type, checksum_id, filename)
+(SELECT sequence_nextval('rhn_erratafile_id_seq'), :clone_id, EF.type, EF.checksum_id, EF.filename
+   FROM rhnErrataFile EF
+  WHERE EF.errata_id = :original_id)
+  </query>
+</write-mode>
 
 </datasource_modes>
 

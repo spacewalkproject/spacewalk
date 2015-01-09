@@ -704,6 +704,59 @@ public class ChannelManager extends BaseManager {
         return channel;
     }
 
+    /**
+     * list of base channels visible to the org
+     * @param org Org to check
+     * @return List of Base ChannelOverviews visible to the org
+     */
+    public static List<ChannelOverview> listBaseChannelsForOrg(Org org) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "list_base_channels_for_org");
+        Map<String, Long> params = new HashMap<String, Long>();
+        params.put("org_id", org.getId());
+        return m.execute(params);
+    }
+
+    /**
+     * list of child channels visible to the org for a given base channel
+     * @param org Org to check
+     * @param baseId Cid of the base channel
+     * @return List of Child ChannelOverviews visible to the org
+     */
+    public static List<ChannelOverview>
+            listChildChannelsForOrgAndBase(Org org, Long baseId) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+                "list_child_channels_for_org_and_base");
+        Map<String, Long> params = new HashMap<String, Long>();
+        params.put("org_id", org.getId());
+        params.put("base_id", baseId);
+        return m.execute(params);
+    }
+
+    /**
+     * returns a list of channel ids that the user can subscribe to
+     * @param user User to check
+     * @return List of all channel ids that are subscribable for this user
+     */
+    public static Set<Long> subscribableChannelIdsForUser(User user) {
+        Set<Long> ret = new HashSet<Long>();
+
+        //Setup items for the query
+        SelectMode m = ModeFactory.getMode("Channel_queries", "user_subscribe_perms");
+        Map<String, Long> params = new HashMap<String, Long>();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+
+        //Execute the query
+        DataResult<ChannelPerms> subscribable = m.execute(params);
+
+        for (ChannelPerms perm : subscribable) {
+            if (perm.isHasPerm()) {
+                ret.add(perm.getId());
+            }
+        }
+
+        return ret;
+    }
 
     /**
      * channelsForUser returns a list containing the names of the channels
@@ -2917,5 +2970,62 @@ public class ChannelManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pa_label", parentArchLabel);
         return m.execute(params);
+    }
+
+    /**
+     * Clone the original channel packages from one channel to another
+     * @param fromCid The original channel's id
+     * @param toCid The cloned channel's id
+     * @return 1 if successfull
+     */
+    public static int cloneOriginalChannelPackages(Long fromCid, Long toCid) {
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries",
+                "clone_original_channel_packages");
+        Map<String, Long> params = new HashMap<String, Long>();
+        params.put("from", fromCid);
+        params.put("to", toCid);
+        return m.executeUpdate(params);
+    }
+
+    /**
+     * Clone all channel packages from one channel to another
+     * @param fromCid The original channel's id
+     * @param toCid The cloned channel's id
+     * @return 1 if successfull
+     */
+    public static int cloneChannelPackages(Long fromCid, Long toCid) {
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries", "clone_channel_packages");
+        Map<String, Long> params = new HashMap<String, Long>();
+        params.put("from", fromCid);
+        params.put("to", toCid);
+        return m.executeUpdate(params);
+    }
+
+    /**
+     * Return the channel id of the "most likely" parent if we're cloning this
+     * channel. "Most likely" is determined by:
+     *   1) See if the org owns a clone of the original channel's parent
+     *     1.a) if multiple choose most recently modified
+     *   2) Else return the original channel's parent id
+     * Returns null if original is not a child channel
+     * @param original Original channel that we are cloning
+     * @param org Org to look for clones in
+     * @return channel id of most likely parent
+     */
+    public static Long likelyParentId(Channel original, Org org) {
+        if (original.isBaseChannel()) {
+            return null;
+        }
+        SelectMode m = ModeFactory.getMode("Channel_queries", "likely_parent");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("cid", original.getId());
+        params.put("org_id", org.getId());
+        List<Map<String, Object>> result = m.execute(params);
+
+        if (result.size() != 0) {
+            return (Long) result.get(0).get("id");
+        }
+
+        return original.getParentChannel().getId();
     }
 }

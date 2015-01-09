@@ -42,15 +42,50 @@
                      deletionType="software.channel">
             <bean:message key="channel.edit.jsp.toolbar" arg0="${channel_name}"/>
         </rhn:toolbar>
-        <rhn:dialogmenu mindepth="0" maxdepth="1"
-                        definition="/WEB-INF/nav/manage_channel.xml"
-                        renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+
+        <c:if test='${not empty param.cid}'>
+            <rhn:dialogmenu mindepth="0" maxdepth="1"
+                            definition="/WEB-INF/nav/manage_channel.xml"
+                            renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+        </c:if>
+
         <html:form action="/channels/manage/Edit" styleClass="form-horizontal">
             <rhn:csrf />
             <h2><bean:message key="channel.edit.jsp.basicchanneldetails"/></h2>
             <div class="page-summary">
                 <bean:message key="channel.edit.jsp.introparagraph"/>
             </div>
+            <c:if test="${not empty clone_type}">
+                <div class="form-group">
+                    <label for="original_name" class="col-lg-3 control-label">
+                        <bean:message key="channel.clone.clonefrom"/>:
+                    </label>
+                    <div class="col-lg-6">
+                        <c:out value="${original_name}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="clone_type" class="col-lg-3 control-label">
+                        <bean:message key="channel.clone.clonetype"/>:
+                    </label>
+                    <div class="col-lg-6">
+                        <c:choose>
+                            <c:when test='${clone_type eq "current"}'>
+                                <bean:message key="channel.clone.current"/>
+                            </c:when>
+                            <c:when test='${clone_type eq "original"}'>
+                                <bean:message key="channel.clone.original"/>
+                            </c:when>
+                            <c:when test='${clone_type eq "select"}'>
+                                <bean:message key="channel.clone.select"/>
+                            </c:when>
+                        </c:choose>
+                    </div>
+                </div>
+                <html:hidden property="original_name" value="${original_name}" />
+                <html:hidden property="original_id" value="${original_id}" />
+                <html:hidden property="clone_type" value="${clone_type}" />
+            </c:if>
             <div class="form-group">
                 <label for="name" class="col-lg-3 control-label">
                     <rhn:required-field key="channel.edit.jsp.name"/>:
@@ -90,6 +125,7 @@
                         <c:when test='${empty param.cid}'>
                             <html:select property="parent" styleId="parent"
                                          styleClass="form-control"
+                                         value="${defaultParent}"
                                          onchange="setChildChannelArchChecksum()">
                                 <html:options collection="parentChannels"
                                               property="value"
@@ -114,6 +150,7 @@
                         <c:when test='${empty param.cid}'>
                             <html:select property="arch"
                                          styleClass="form-control"
+                                         value="${channel_arch_label}"
                                          styleId="parentarch">
                                 <html:options collection="channelArches"
                                               property="value"
@@ -329,15 +366,24 @@
             <div class="form-group">
                 <div class="col-lg-offset-3 col-lg-6">
                     <c:choose>
-                        <c:when test='${empty param.cid}'>
-                            <html:submit property="create_button" styleClass="btn btn-success">
-                                <bean:message key="channel.edit.jsp.createchannel"/>
+                        <c:when test="${not empty clone_type}">
+                            <html:submit property="clone_button" styleClass="btn btn-success">
+                                <bean:message key="channel.clone.button"/>
                             </html:submit>
                         </c:when>
                         <c:otherwise>
-                            <html:submit property="edit_button" styleClass="btn btn-success">
-                                <bean:message key="channel.edit.jsp.editchannel"/>
-                            </html:submit>
+                            <c:choose>
+                                <c:when test='${empty param.cid}'>
+                                    <html:submit property="create_button" styleClass="btn btn-success">
+                                        <bean:message key="channel.edit.jsp.createchannel"/>
+                                    </html:submit>
+                                </c:when>
+                                <c:otherwise>
+                                    <html:submit property="edit_button" styleClass="btn btn-success">
+                                        <bean:message key="channel.edit.jsp.editchannel"/>
+                                    </html:submit>
+                                </c:otherwise>
+                            </c:choose>
                         </c:otherwise>
                     </c:choose>
                 </div>

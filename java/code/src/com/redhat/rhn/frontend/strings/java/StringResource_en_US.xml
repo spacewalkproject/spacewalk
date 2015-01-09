@@ -7898,6 +7898,12 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="message.channelcreated">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
       </trans-unit>
+      <trans-unit id="message.channelcloned">
+        <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; cloned from channel &lt;strong&gt;{1}&lt;/strong&gt;.</source>
+      </trans-unit>
+      <trans-unit id="message.cloneselect">
+        <source>You may now wish to clone the errata associated with &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+      </trans-unit>
       <trans-unit id="message.channeldeleted">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
       </trans-unit>

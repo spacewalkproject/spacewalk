@@ -21,6 +21,7 @@ import com.redhat.rhn.common.db.DatabaseException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.domain.channel.Channel;
@@ -41,6 +42,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.manage.PublishErrataHelper;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.ErrataPackageFile;
+import com.redhat.rhn.frontend.dto.OwnedErrata;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -233,7 +235,6 @@ public class ErrataFactory extends HibernateFactory {
         return published;
     }
 
-
     /**
      * Takes a published or unpublished errata and publishes to a channel, creating
      *      all of the correct ErrataFile* entries.  This method does push packages to
@@ -247,6 +248,25 @@ public class ErrataFactory extends HibernateFactory {
      */
     public static List<Errata> publishToChannel(List<Errata> errataList, Channel chan,
             User user, boolean inheritPackages) {
+        return publishToChannel(errataList, chan, user, inheritPackages, true);
+    }
+
+    /**
+     * Takes a published or unpublished errata and publishes to a channel, creating
+     *      all of the correct ErrataFile* entries.  This method does push packages to
+     *      the appropriate channel. (Appropriate as defined as the channel previously
+     *      having a package with the same name).
+     * @param errataList list of errata to publish
+     * @param chan channel to publish it into.
+     * @param user the user doing the pushing
+     * @param inheritPackages include only original channel packages
+     * @param performPostActions true (default) if you want to refresh newest package
+     * cache and schedule repomd regeneration. False only if you're going to do those
+     * things yourself.
+     * @return the published errata
+     */
+    public static List<Errata> publishToChannel(List<Errata> errataList, Channel chan,
+            User user, boolean inheritPackages, boolean performPostActions) {
         List<com.redhat.rhn.domain.errata.Errata> toReturn = new ArrayList<Errata>();
         for (Errata errata : errataList) {
             if (!errata.isPublished()) {
@@ -286,11 +306,11 @@ public class ErrataFactory extends HibernateFactory {
             Errata e = publishErrataPackagesToChannel(errata, chan, user, packagesToPush);
             toReturn.add(e);
         }
-        postPublishActions(chan, user);
+        if (performPostActions) {
+            postPublishActions(chan, user);
+        }
         return toReturn;
     }
-
-
 
     /**
      * Publish an errata to a channel but only push a small set of packages
@@ -302,8 +322,8 @@ public class ErrataFactory extends HibernateFactory {
      * @param packages the packages to push
      * @return the published errata
      */
-    public static Errata publishToChannel(Errata errata, Channel chan,
-            User user, Set<Package> packages) {
+    public static Errata publishToChannel(Errata errata, Channel chan, User user,
+            Set<Package> packages) {
         if (!errata.isPublished()) {
             errata = publish(errata);
         }
@@ -1139,6 +1159,164 @@ public class ErrataFactory extends HibernateFactory {
                 new HashMap(), ids, "list");
     }
 
+    /**
+     * Get list of errata ids that are in one channel but not another
+     * @param fromCid errata are in this channel
+     * @param toCid but not in this one
+     * @return list of errata ids
+     */
+    public static List<Long> relevantToOneChannelButNotAnother(Long fromCid,
+            Long toCid) {
+        SelectMode mode = ModeFactory.getMode("Errata_queries",
+                "relevant_to_one_channel_but_not_another");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("from_cid", fromCid);
+        params.put("to_cid", toCid);
+        List<Map<String, Object>> results = mode.execute(params);
+        List<Long> ret = new ArrayList<Long>();
+        for (Map<String, Object> result : results) {
+            ret.add((Long) result.get("id"));
+        }
+        return ret;
+    }
+
+    /**
+     * List all owned, published, unmodified, cloned errata in an org. Useful when cloning
+     * channels.
+     * @param orgId Org id to look for
+     * @return List of OwnedErrata
+     */
+    public static DataResult<OwnedErrata> listPublishedOwnedUnmodifiedClonedErrata(
+            Long orgId) {
+        SelectMode mode = ModeFactory.getMode("Errata_queries",
+                "published_owned_unmodified_cloned_errata");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org_id", orgId);
+        DataResult<OwnedErrata> results = mode.execute(params);
+        return results;
+    }
+
+    /**
+     * Get all advisory strings (published or unpublished) that end in the given string.
+     * Useful when cloning errata.
+     * @param ending String ending of the advisory
+     * @return Set of existing advisories
+     */
+    public static Set<String> listAdvisoriesEndingWith(String ending) {
+        SelectMode mode = ModeFactory.getMode("Errata_queries", "advisories_ending_with");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("ending", "'%" + ending + "'");
+        List<Map<String, Object>> results = mode.execute(params);
+        Set<String> ret = new HashSet<String>();
+        for (Map<String, Object> result : results) {
+            ret.add((String) result.get("advisory"));
+        }
+        return ret;
+    }
+
+    /**
+     * Get all advisory names (published or unpublished) that end in the given string.
+     * Useful when cloning errata.
+     * @param ending String ending of the advisory
+     * @return Set of existing advisory names
+     */
+    public static Set<String> listAdvisoryNamesEndingWith(String ending) {
+        SelectMode mode = ModeFactory.getMode("Errata_queries",
+                "advisory_names_ending_with");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("ending", "'%" + ending + "'");
+        List<Map<String, Object>> results = mode.execute(params);
+        Set<String> ret = new HashSet<String>();
+        for (Map<String, Object> result : results) {
+            ret.add((String) result.get("advisory_name"));
+        }
+        return ret;
+    }
+
+    /**
+     * Get ErrataOverview by errata id
+     * @param eid errata id
+     * @return ErrataOverview object
+     */
+    public static ErrataOverview getOverviewById(Long eid) {
+        SelectMode mode = ModeFactory.getMode("Errata_queries", "overview_by_id");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("eid", eid);
+        DataResult<ErrataOverview> results = mode.execute(params);
+        if (results.size() == 0) {
+            return null;
+        }
+        results.elaborate();
+        return results.get(0);
+    }
+
+    /**
+     * Get ErrataOverview by advisory
+     * @param advisory the advisory
+     * @return ErrataOverview object
+     */
+    public static ErrataOverview getOverviewByAdvisory(String advisory) {
+        SelectMode mode = ModeFactory.getMode("Errata_queries", "overview_by_advisory");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("advisory", advisory);
+        DataResult<ErrataOverview> results = mode.execute(params);
+        if (results.size() == 0) {
+            return null;
+        }
+        results.elaborate();
+        return results.get(0);
+    }
+
+    /**
+     * Clone an erratum in the db. Will fill contents of rhnErrata, rhnErrataCloned,
+     * rhnErrataBugList, rhnErrataPackage, rhnErrataKeyword, and rhnErrataCVE. Basically
+     * do everything that PublishErrataHelper.cloneErrataFast does, but much, much faster.
+     * @param originalEid erratum id to clone from
+     * @param advisory unique advisory
+     * @param advisoryName unique name
+     * @param orgId org id to clone into
+     * @return ErrataOverview for the cloned erratum
+     */
+    public static ErrataOverview cloneErratum(Long originalEid, String advisory,
+            String advisoryName, Long orgId) {
+        WriteMode m = ModeFactory.getWriteMode("Errata_queries", "clone_erratum");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("eid", originalEid);
+        params.put("advisory", advisory);
+        params.put("name", advisoryName);
+        params.put("org_id", orgId);
+        m.executeUpdate(params);
+        ErrataOverview clone = getOverviewByAdvisory(advisory);
+
+        // set original
+        m = ModeFactory.getWriteMode("Errata_queries", "set_original");
+        params = new HashMap<String, Object>();
+        params.put("original_id", originalEid);
+        params.put("clone_id", clone.getId());
+        m.executeUpdate(params);
+
+        // clone bugs
+        m = ModeFactory.getWriteMode("Errata_queries", "clone_bugs");
+        m.executeUpdate(params);
+
+        // clone keywords
+        m = ModeFactory.getWriteMode("Errata_queries", "clone_keywords");
+        m.executeUpdate(params);
+
+        // clone packages
+        m = ModeFactory.getWriteMode("Errata_queries", "clone_packages");
+        m.executeUpdate(params);
+
+        // clone cves
+        m = ModeFactory.getWriteMode("Errata_queries", "clone_cves");
+        m.executeUpdate(params);
+
+        // clone files
+        m = ModeFactory.getWriteMode("Errata_queries", "clone_files");
+        m.executeUpdate(params);
+
+        return clone;
+    }
 
 }
 

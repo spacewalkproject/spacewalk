@@ -841,6 +841,9 @@
             <form-property name="gpg_key_id" type="java.lang.String" />
             <form-property name="gpg_key_fingerprint" type="java.lang.String" />
             <form-property name="checksum" type="java.lang.String" />
+            <form-property name="clone_type" type="java.lang.String" />
+            <form-property name="original_name" type="java.lang.String" />
+            <form-property name="original_id" type="java.lang.Long" />
             <form-property name="no_paren_scrub" type="java.lang.String" initial="name, support_policy, summary, description, maintainer_phone, maintainer_name"/>
         </form-bean>
 
@@ -7746,6 +7749,17 @@
       <forward name="protected"
                path="/WEB-INF/pages/channel/manage/confirmprotected.jsp" />
       <forward name="success" path="/channels/manage/Edit.do" redirect="true" />
+      <forward name="select" path="/channels/manage/errata/Clone.do" redirect="true" />
+   </action>
+
+   <action path="/channels/manage/Clone"
+           scope="request"
+           name="channelEditForm"
+           type="com.redhat.rhn.frontend.action.channel.manage.CloneChannelAction"
+           className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <forward name="default" path="/WEB-INF/pages/channel/manage/clone.jsp" />
+      <forward name="success" path="/WEB-INF/pages/channel/manage/edit.jsp" />
    </action>
 
    <action path="/channels/manage/ChannelPackagesRemove"

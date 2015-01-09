@@ -14,13 +14,18 @@
  */
 package com.redhat.rhn.domain.channel;
 
+import com.redhat.rhn.domain.common.ChecksumType;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.channel.InvalidGPGFingerprintException;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidGPGKeyException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidGPGUrlException;
+
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Date;
@@ -37,6 +42,7 @@ import java.util.regex.Pattern;
  * Class to help in cloning a channel
  * @version $Rev$
  */
+@Deprecated
 public class NewChannelHelper {
 
     //required
@@ -53,6 +59,12 @@ public class NewChannelHelper {
     private String gpgFingerprint;
     private String description;
     private ProductName productName;
+    private String maintainerName;
+    private String maintainerEmail;
+    private String maintainerPhone;
+    private String supportPolicy;
+    private String access;
+    private ChecksumType checksumType;
 
     /**
      * Creates a cloned channel based off the info contained within this object
@@ -62,6 +74,7 @@ public class NewChannelHelper {
      * @param toClone the channel to clone
      * @return the cloned channel
      */
+    @Deprecated
     public Channel clone(boolean originalState, Channel toClone) {
 
         if (!verifyName(name)) {
@@ -81,18 +94,15 @@ public class NewChannelHelper {
         }
 
         if (gpgFingerprint != null && !verifyGpgFingerprint(gpgFingerprint)) {
-             throw new InvalidChannelParameter("GPG Fingerprint", "The GPG fingerprint " +
-                    "must be of form 'CA20 8686 2BD6 9DFC 65F6 ECC4 2191 80CD DB42 A60E'");
+            throw new InvalidGPGFingerprintException();
         }
 
         if (gpgUrl != null && !verifyGpgUrl(gpgUrl)) {
-            throw new InvalidChannelParameter("GPG Url", "The GPG URL must be a" +
-                    " valid URL");
+            throw new InvalidGPGUrlException();
         }
 
         if (gpgId != null && !verifyGpgId(gpgId)) {
-            throw new InvalidChannelParameter("GPG Id", "The GPG id must be of form " +
-                    "'DB42A60E'");
+            throw new InvalidGPGKeyException();
         }
 
         ClonedChannel cloned = new ClonedChannel();
@@ -109,6 +119,12 @@ public class NewChannelHelper {
         cloned.setBaseDir("/dev/null");  //this is how the perl code did it
         cloned.setOriginal(toClone);
         cloned.setProductName(productName);
+        cloned.setMaintainerName(maintainerName);
+        cloned.setMaintainerEmail(maintainerEmail);
+        cloned.setMaintainerPhone(maintainerPhone);
+        cloned.setSupportPolicy(supportPolicy);
+        cloned.setAccess(access);
+        cloned.setChecksumType(checksumType);
 
         if (parent != null) {
            cloned.setParentChannel(parent);
@@ -328,7 +344,88 @@ public class NewChannelHelper {
         this.user = userIn;
     }
 
+    /**
+     * @return the maintainer name
+     */
+    public String getMaintainerName() {
+        return maintainerName;
+    }
 
+    /**
+     * @param maintainerNameIn the maintainer name to set
+     */
+    public void setMaintainerName(String maintainerNameIn) {
+        this.maintainerName = maintainerNameIn;
+    }
 
+    /**
+     * @return the maintainer email
+     */
+    public String getMaintainerEmail() {
+        return maintainerEmail;
+    }
+
+    /**
+     * @param maintainerEmailIn the maintainer email to set
+     */
+    public void setMaintainerEmail(String maintainerEmailIn) {
+        this.maintainerEmail = maintainerEmailIn;
+    }
+
+    /**
+     * @return the maintainer phone
+     */
+    public String getMaintainerPhone() {
+        return maintainerPhone;
+    }
+
+    /**
+     * @param maintainerPhoneIn the maintainer phone to set
+     */
+    public void setMaintainerPhone(String maintainerPhoneIn) {
+        this.maintainerPhone = maintainerPhoneIn;
+    }
+
+    /**
+     * @return the support policy
+     */
+    public String getSupportPolicy() {
+        return supportPolicy;
+    }
+
+    /**
+     * @param supportPolicyIn the support policy to set
+     */
+    public void setSupportPolicy(String supportPolicyIn) {
+        this.supportPolicy = supportPolicyIn;
+    }
+
+    /**
+     * @return the access
+     */
+    public String getAccess() {
+        return access;
+    }
+
+    /**
+     * @param accessIn the access to set
+     */
+    public void setAccess(String accessIn) {
+        this.access = accessIn;
+    }
+
+    /**
+     * @return the checksum type
+     */
+    public ChecksumType getChecksumType() {
+        return checksumType;
+    }
+
+    /**
+     * @param checksumTypeIn the checksum type to set
+     */
+    public void setChecksumType(ChecksumType checksumTypeIn) {
+        this.checksumType = checksumTypeIn;
+    }
 
 }

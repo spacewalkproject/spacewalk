@@ -172,6 +172,26 @@ ORDER BY C.parent_channel NULLS LAST, UPPER(C.name)
   </query>
 </mode>
 
+<mode name="list_base_channels_for_org" class="com.redhat.rhn.frontend.dto.ChannelOverview">
+  <query params="org_id">
+SELECT id, name
+  FROM rhnChannel
+ WHERE (org_id = :org_id OR org_id is NULL)
+   AND parent_channel is NULL
+ ORDER BY name
+  </query>
+</mode>
+
+<mode name="list_child_channels_for_org_and_base" class="com.redhat.rhn.frontend.dto.ChannelOverview">
+  <query params="base_id, org_id">
+SELECT id, name
+  FROM rhnChannel
+ WHERE (org_id = :org_id OR org_id is NULL)
+   AND parent_channel = :base_id
+ ORDER BY name
+  </query>
+</mode>
+
 <mode name="user_subscribe_perms" class="com.redhat.rhn.frontend.dto.ChannelPerms">
   <query params="user_id, org_id">
 SELECT AC.channel_id AS ID,
@@ -1128,6 +1148,58 @@ select ca2.name, ca2.label
  where ca1.id = ccac.parent_arch_id
    and ca2.id = ccac.child_arch_id
    and ca1.label = :pa_label
+  </query>
+</mode>
+
+<write-mode name="clone_original_channel_packages">
+  <query params="from, to">
+INSERT INTO rhnChannelPackage
+(package_id, channel_id)
+(SELECT DISTINCT cp.package_id, CAST(:to as INT)
+            FROM rhnChannelPackage cp
+            LEFT OUTER JOIN (
+                    SELECT ep.package_id, ep.errata_id
+                    FROM rhnChannelErrata ce
+                    JOIN rhnErrataPackage ep ON ep.errata_id = ce.errata_id
+                    WHERE ce.channel_id = :from) e ON cp.package_id = e.package_id
+            WHERE cp.channel_id = :from
+            AND e.errata_id IS NULL)
+  </query>
+</write-mode>
+
+<write-mode name="clone_channel_packages">
+  <query params="from, to">
+INSERT INTO rhnChannelPackage
+(channel_id, package_id)
+(SELECT :to, CP.package_id
+   FROM rhnChannelPackage CP,
+        rhnPackage P,
+        rhnChannelPackageArchCompat CPAC,
+        rhnChannel C
+  WHERE CP.channel_id = :from
+    AND C.id = :to
+    AND P.id = CP.package_id
+    AND CPAC.channel_arch_id = C.channel_arch_id
+    AND CPAC.package_arch_id = P.package_arch_id)
+  </query>
+</write-mode>
+
+<write-mode name="add_cloned_erratum_to_channel">
+  <query params="eid, cid">
+INSERT INTO rhnChannelErrata
+       (errata_id, channel_id)
+VALUES (:eid, :cid)
+  </query>
+</write-mode>
+
+<mode name="likely_parent">
+  <query params="org_id, cid">
+  SELECT CC.id
+    FROM rhnChannelCloned CC, rhnChannel C
+   WHERE CC.original_id = C.parent_channel
+     AND C.id = :cid
+     AND EXISTS (SELECT 1 FROM rhnChannelPermissions CP WHERE CP.channel_id = CC.id AND CP.org_id = :org_id)
+ORDER BY CC.modified DESC
   </query>
 </mode>
 
