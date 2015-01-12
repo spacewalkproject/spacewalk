@@ -316,7 +316,8 @@ class DeployTransaction:
                                 }
                         self.changed_dir_info[dirname] = entry
                         log_debug(3, "directory found, chowning and chmoding to %s as needed: %s" % (dirmode, dirname))
-                        self._chown_chmod_chcon(dirname, dirname, directory)
+                        normpath = self._normalize_path_to_root(dirname)
+                        self._chown_chmod_chcon(normpath, normpath, directory)
                     else:
                         log_debug(3, "directory not found, creating: %s" % dirname)
                         dirs_created = utils.mkdir_p(dirname, None, self.symlinks, self.files)

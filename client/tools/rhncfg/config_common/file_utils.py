@@ -45,7 +45,9 @@ class FileProcessor:
         # assume file
 
         if file_struct.get('filetype') == 'directory':
-            return None, None
+            fullpath = directory + file_struct['path']
+            dirs_created = utils.mkdir_p(fullpath)
+            return fullpath, dirs_created
 
         if directory:
             directory += os.path.split(file_struct['path'])[0]

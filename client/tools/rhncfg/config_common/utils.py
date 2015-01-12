@@ -85,7 +85,7 @@ def mkdir_p(path, mode=None, symlinks=None, allfiles=None):
     the 'path' is a directory, and return the list of directories that were
     made as a result
     """
-    if not mode:
+    if mode is None:
         mode = 0700
     dirs_created = []
 
