@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.116
+Version: 2.3.117
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.117-1
+- Getting rid of trailing spaces in translations
+- Getting rid of trailing spaces in XML
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of trailing spaces in Perl
+- Getting rid of Tabs in Java JSPF
+- Getting rid of Tabs in Java JSP
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+- allow Copyright 2015
+- clean up some type safety warnings
+- Whitespace fixes
+
 * Tue Dec 23 2014 Stephen Herr <sherr@redhat.com> 2.3.116-1
 - checkstyle fix
 - Clean up some static references to pxt pages in nav tests
