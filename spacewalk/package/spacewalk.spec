@@ -64,16 +64,8 @@ Requires:       yum-utils
 # Requires:       osa-dispatcher
 # Requires:       jabberpy
 
-# Monitoring packages
-Requires:       spacewalk-monitoring
-
-# Solaris
-# Requires:       rhn-solaris-bootstrap
-# Requires:       rhn_solaris_bootstrap_5_1_0_3
-
 # SELinux
 Requires:       osa-dispatcher-selinux
-Requires:       spacewalk-monitoring-selinux
 Requires:       spacewalk-selinux
 
 %if 0%{?rhel} == 5
@@ -109,8 +101,6 @@ Requires: spacewalk-java-oracle
 Requires: perl(DBD::Oracle)
 Requires: cx_Oracle
 Requires: spacewalk-backend-sql-oracle
-Requires: NOCpulsePlugins-Oracle
-Requires: perl-NOCpulse-Probe-Oracle
 Requires: quartz-oracle
 Requires: oracle-instantclient-selinux
 Requires: oracle-instantclient-sqlplus-selinux
