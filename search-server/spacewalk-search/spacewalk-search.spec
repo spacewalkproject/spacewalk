@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.2
+Version: 2.3.3
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -202,6 +202,10 @@ fi
 %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.3-1
+- Getting rid of trailing spaces in XML
+- Getting rid of trailing spaces in Java
+
 * Wed Sep 24 2014 Tomas Lestach <tlestach@redhat.com> 2.3.2-1
 - use StringUtils for checking non-empty values
 - 1085033 - set newly constructed "db_name" even if db_ssl_enabled is disabled
