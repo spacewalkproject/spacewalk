@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.3.0
+Version:        2.3.1
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -51,6 +51,10 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/*
 
 %changelog
+* Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.1-1
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+- Bumping package versions for 2.3.
+
 * Fri May 02 2014 Stephen Herr <sherr@redhat.com> 2.2.2-1
 - 1093845 - automatically select utf8 for db character encoding
 
