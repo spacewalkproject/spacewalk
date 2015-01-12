@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.29
+Version: 2.3.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.30-1
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of trailing spaces in Perl
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
 * Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.29-1
 - teach sat-sync to ignore monitoring entitlements for backwards compatibility
 
