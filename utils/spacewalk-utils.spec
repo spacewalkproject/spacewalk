@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.24
+Version:	2.3.25
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.25-1
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of trailing spaces in Perl
+
 * Fri Dec 19 2014 Tomas Lestach <tlestach@redhat.com> 2.3.24-1
 - 1175637 - make the sql Oracle 10g compatible
 
