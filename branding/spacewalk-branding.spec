@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.18
+Version:    2.3.19
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.19-1
+- Getting rid of trailing spaces in Java
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
 * Mon Dec 15 2014 Jan Dobes 2.3.18-1
 - style java.custom_header, java.custom_footer, java.login_banner,
   java.legal_note parameters
