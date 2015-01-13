@@ -32,6 +32,7 @@ sys.path.append("/usr/share/rhn/")
 import up2date_client.up2dateAuth
 import up2date_client.config
 import up2date_client.rhnChannel
+import up2date_client.rhnPackageInfo
 from up2date_client import up2dateErrors
 
 STORED_CHANNELS_NAME = '_spacewalk.json'
@@ -44,7 +45,8 @@ NOT_SUBSCRIBED_ERROR = _("This system is not subscribed to any channels.")
 NO_SYSTEM_ID_ERROR   = _("SystemId could not be acquired.")
 USE_RHNREGISTER      = _("You can use rhn_register to register.")
 UPDATES_FROM_SPACEWALK = _("This system is receiving updates from Spacewalk server.")
-GPG_KEY_REJECTED     =  _("For security reasons packages from Spacewalk based repositories can be verified only with locally installed gpg keys. GPG key '%s' has been rejected.")
+GPG_KEY_REJECTED     = _("For security reasons packages from Spacewalk based repositories can be verified only with locally installed gpg keys. GPG key '%s' has been rejected.")
+PROFILE_NOT_SENT     = _("Package profile information could not be sent.")
 
 
 class Spacewalk(dnf.Plugin):
@@ -58,6 +60,8 @@ class Spacewalk(dnf.Plugin):
         self.stored_channels_path = os.path.join(self.base.conf.persistdir,
                                                  STORED_CHANNELS_NAME)
         self.connected_to_spacewalk = False
+        self.timeout = 300
+        self.up2date_cfg = {}
         self.conf = dnf.conf.Conf()
         self.read_config(self.conf, PLUGIN_CONF)
         logger.debug('initialized Spacewalk plugin')
@@ -71,7 +75,7 @@ class Spacewalk(dnf.Plugin):
         force_http = 0
         proxy_url = None
         # set timeout according to config once BZ#1175466 is fixed
-        timeout = 300
+        #self.timeout = 300
         import pdb; pdb.set_trace()
         cached_channels = self._read_channels_file()
         if not self.cli.demands.sack_activation:
@@ -79,12 +83,12 @@ class Spacewalk(dnf.Plugin):
             enabled_channels = cached_channels
         else:
             # setup proxy according to up2date
-            up2date_cfg = up2date_client.config.initUp2dateConfig()
-            sslcacert = get_ssl_ca_cert(up2date_cfg)
-            force_http = up2date_cfg['useNoSSLForPackages'],
+            self.up2date_cfg = up2date_client.config.initUp2dateConfig()
+            sslcacert = get_ssl_ca_cert(self.up2date_cfg)
+            force_http = self.up2date_cfg['useNoSSLForPackages'],
 
             try:
-                login_info = up2date_client.up2dateAuth.getLoginInfo(timeout=timeout)
+                login_info = up2date_client.up2dateAuth.getLoginInfo(timeout=self.timeout)
             except up2dateErrors.RhnServerException as e:
                 logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED,
                                            unicode(e))
@@ -97,7 +101,7 @@ class Spacewalk(dnf.Plugin):
 
             try:
                 svrChannels = up2date_client.rhnChannel.getChannelDetails(
-                                                              timeout=timeout)
+                                                              timeout=self.timeout)
             except up2dateErrors.CommunicationError as e:
                 logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED,
                                            unicode(e))
@@ -128,7 +132,7 @@ class Spacewalk(dnf.Plugin):
             repo = SpacewalkRepo(channel_dict, {
                                     'cachedir'  : self.base.conf.cachedir,
                                     'proxy'     : proxy_url,
-                                    'timeout'   : timeout,
+                                    'timeout'   : self.timeout,
                                     'sslcacert' : sslcacert,
                                     'force_http': force_http,
                                     'cached_version' : cached_version,
@@ -137,6 +141,22 @@ class Spacewalk(dnf.Plugin):
 
         # DEBUG
         logger.debug(enabled_channels)
+
+    def transaction(self):
+	""" Update system's profile after transaction. """
+        import pdb; pdb.set_trace()
+        if not self.connected_to_spacewalk:
+            # not connected so nothing to do here
+            return
+	if self.up2date_cfg['writeChangesToLog'] == 1:
+            delta = self._make_package_delta()
+            up2date_client.rhnPackageInfo.logDeltaPackages(delta)
+        try:
+            up2date_client.rhnPackageInfo.updatePackageProfile(
+                                                        timeout=self.timeout)
+        except up2dateErrors.RhnServerException as e:
+            logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, PROFILE_NOT_SENT,
+                                       unicode(e))
 
 
     def _read_channels_file(self):
@@ -153,6 +173,15 @@ class Spacewalk(dnf.Plugin):
     def _write_channels_file(self, var):
         with open(self.stored_channels_path, "w") as channels_file:
             json.dump(var, channels_file, indent=4)
+
+    def _make_package_delta(self):
+        delta = {'added'  : [(p.name, p.version, p. release, p.epoch, p.arch)
+                                for p in self.base.transaction.install_set],
+                 'removed': [(p.name, p.version, p. release, p.epoch, p.arch)
+                                for p in self.base.transaction.remove_set],
+                }
+        return delta
+
 
 class  SpacewalkRepo(dnf.repo.Repo):
     """
@@ -189,13 +218,6 @@ class  SpacewalkRepo(dnf.repo.Repo):
         self.force_http = opts.get('force_http')
 
         self.enable()
-
-    def summary_dict(self):
-        return {
-                'name':    self.name,
-                'baseurl': self.baseurl,
-                'gpgkey':  self.gpgkey,
-                }
 
 
 # FIXME
