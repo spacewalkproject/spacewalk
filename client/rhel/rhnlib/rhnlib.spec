@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.72
+Version: 2.5.73
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Tue Jan 13 2015 Matej Kollar <mkollar@redhat.com> 2.5.73-1
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
 * Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.5.72-1
 - fix copyright years
 
