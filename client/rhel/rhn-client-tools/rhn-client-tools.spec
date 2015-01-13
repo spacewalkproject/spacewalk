@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.3.6
+Version: 2.3.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -370,6 +370,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Jan 13 2015 Matej Kollar <mkollar@redhat.com> 2.3.7-1
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
 * Mon Dec 22 2014 Stephen Herr <sherr@redhat.com> 2.3.6-1
 - rhn-client-tools: no usermod on SUSE
 
