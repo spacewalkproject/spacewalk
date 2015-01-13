@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.3.6
+Version:        2.3.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -113,6 +113,12 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Jan 13 2015 Matej Kollar <mkollar@redhat.com> 2.3.7-1
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of trailing spaces in Perl
+- Getting rid of Tabs in Perl
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
 * Wed Jan 07 2015 Jan Dobes 2.3.6-1
 - 1179374 - set more database specific values and move hibernate strings into
   function
