@@ -1,9 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 # a fairly simple script to merge a given tree into an existing,
 # bootable ramdisk.  a new ramdisk is created since space may be an
 # issue (especially if we start letting people put their own files in
 # here to preserve across the install).
+
+set -e
 
 unset LANG
 
@@ -14,14 +16,8 @@ SOURCE_INITRD=$1
 DEST_INITRD=$2
 USER_TREE=$3
 
-# Make sure we get the full pathnames.
-
-SOURCE_INITRD=`(cd \`dirname $SOURCE_INITRD\` ; pwd)`/`basename $SOURCE_INITRD`
-DEST_INITRD=`(cd \`dirname $DEST_INITRD\` ; pwd)`/`basename $DEST_INITRD`
-USER_TREE=`(cd $USER_TREE ; pwd)`
-
 fatal() {
-    err=$1; shift; echo "$*"; exit $err
+    err=$1; shift; >&2 echo "$*"; exit $err
 }
 
 usage() {
@@ -49,16 +45,20 @@ get_initrd_type() {
         INITRD_TYPE=$INITRD_TYPE_CPIO
     elif file $UNCOMPRESSED_INITRD | grep ext2 > /dev/null 2>&1 ; then
         INITRD_TYPE=$INITRD_TYPE_EXT2
+    else
+        fatal 9 "Cannot get initrd type"
     fi
 
-    return $INITRD_TYPE
+    echo $INITRD_TYPE
 }
 
 uncompress_rd() {
     local COMPRESSED_INITRD=$1
     local UNCOMPRESSED_INITRD=$2
     if ! zcat $COMPRESSED_INITRD > $UNCOMPRESSED_INITRD 2> /dev/null; then
-        xzcat $COMPRESSED_INITRD > $UNCOMPRESSED_INITRD
+        if ! xzcat $COMPRESSED_INITRD > $UNCOMPRESSED_INITRD 2> /dev/null; then
+          fatal 9 "Error uncompressing $COMPRESSED_INITRD"
+        fi
     fi
 }
 
@@ -68,8 +68,7 @@ expand_rd() {
     local UNCOMPRESSED_INITRD=$1
     local TARGET_TREE=$2
 
-    get_initrd_type $UNCOMPRESSED_SOURCE_INITRD
-    local INITRD_TYPE=$?
+    local INITRD_TYPE=$(get_initrd_type $UNCOMPRESSED_SOURCE_INITRD)
 
     mkdir -p $TARGET_TREE
 
@@ -111,7 +110,7 @@ create_rd() {
         mkdir $TARGET_MOUNTED
         mount -o loop $TARGET_INITRD $TARGET_MOUNTED || \
             fatal 6 "mount of dest image"
-        tarcp $EXISTING_TREE $TARGET_MOUNTED
+        tarcp $EXISTING_TREE $TARGET_MOUNTED || fatal 9 "Error while extracting archive to final destination"
         umount $TARGET_MOUNTED
 
     elif [ $INITRD_TYPE -eq $INITRD_TYPE_CPIO ] ; then
@@ -145,8 +144,11 @@ estimate_merged_rd_size() {
     local ORIG_SIZE=$(du -s -b $SOURCE_TREE | cut -f 1)
     local MERGED_SIZE=$(du -s -b $MERGED_TREE | cut -f 1)
     local DELTA="$(($MERGED_SIZE - $ORIG_SIZE))"
-    zcat $SOURCE_INITRD >& /dev/null && local ORIG_RD_SIZE=$(zcat $SOURCE_INITRD | wc -c)
-    xzcat $SOURCE_INITRD >& /dev/null && local ORIG_RD_SIZE=$(xzcat $SOURCE_INITRD | wc -c)
+    if ! zcat $SOURCE_INITRD >& /dev/null && local ORIG_RD_SIZE=$(zcat $SOURCE_INITRD | wc -c); then
+      if ! xzcat $SOURCE_INITRD >& /dev/null && local ORIG_RD_SIZE=$(xzcat $SOURCE_INITRD | wc -c); then
+        fatal 9 "Unable to estimate merge size"
+      fi
+    fi
     local MERGED_RD_SIZE="$(( 12 * ($ORIG_RD_SIZE + $DELTA) / 10 ))"
 
     eval "$RESULT_ASSN=\"$MERGED_RD_SIZE\""
@@ -158,15 +160,25 @@ remove_tree() {
     # The tree may or may not be mounted, depending on the type of initrd
     # that was used to create it.
 
-    umount $TREE_TO_REMOVE > /dev/null 2>&1
+    # Force 'true' even when umount exits with an error to not block the
+    # execution of the script (see set -e at the top of the file).
+    # The script forces the umount even when mount has not been used.
+    umount $TREE_TO_REMOVE > /dev/null 2>&1 || true
     rm -rf $TREE_TO_REMOVE
 }
 
 ################################ Main #########################################
 
-[ -e "$SOURCE_INITRD" ] || usage
+[ -e "$SOURCE_INITRD" ] || fatal 1 "Cannot find initrd $SOURCE_INITRD"
+[ -d "$(dirname $DEST_INITRD)" ] || fatal 1 "Cannot find final destination dir: $(dirname $DEST_INITRD)"
+[ -d "$USER_TREE" ] || fatal 1 "Cannot find user tree: $USER_TREE"
 
-[ -d "$USER_TREE" ] || usage
+# Make sure we get the full pathnames.
+
+SOURCE_INITRD=`(cd \`dirname $SOURCE_INITRD\` ; pwd)`/`basename $SOURCE_INITRD`
+DEST_INITRD=`(cd \`dirname $DEST_INITRD\` ; pwd)`/`basename $DEST_INITRD`
+USER_TREE=`(cd $USER_TREE ; pwd)`
+
 
 TEMP_DIR=$(mktemp -d /tmp/mergerd.XXXXXX)
 [ -d $TEMP_DIR ] || fatal 2 "mktemp failed"
@@ -192,8 +204,7 @@ tarcp $USER_TREE $MERGED_TREE || fatal 5 "copy of merge tree into rd"
 # Determine the type of the initrd and create a new one.
 
 estimate_merged_rd_size $SOURCE_TREE $MERGED_TREE ESTIMATED_SIZE
-get_initrd_type $UNCOMPRESSED_SOURCE_INITRD
-SOURCE_INITRD_TYPE=$?
+SOURCE_INITRD_TYPE=$(get_initrd_type $UNCOMPRESSED_SOURCE_INITRD)
 create_rd $SOURCE_INITRD_TYPE         \
           $UNCOMPRESSED_MERGED_INITRD \
           $MERGED_TREE                \
