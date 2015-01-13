@@ -39,6 +39,8 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -575,26 +577,14 @@ public class Org extends BaseDomainHelper {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+    public boolean equals(Object other) {
+        if (!(other instanceof Org)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Org other = (Org) obj;
-        if (getId() == null) {
-            if (other.getId() != null) {
-                return false;
-            }
-        }
-        else if (!getId().equals(other.getId())) {
-            return false;
-        }
-        return true;
+        Org otherOrg = (Org) other;
+        return new EqualsBuilder()
+            .append(getName(), otherOrg.getName())
+            .isEquals();
     }
 
     /**
@@ -602,9 +592,8 @@ public class Org extends BaseDomainHelper {
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        return result;
+        return new HashCodeBuilder()
+            .append(getName())
+            .toHashCode();
     }
 }
