@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.117
+Version: 2.3.118
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 14 2015 Stephen Herr <sherr@redhat.com> 2.3.118-1
+- migrate clone channel page from perl -> java
+- Use Hibernate-friendly equals() and hashCode() in Org
+
 * Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.117-1
 - Getting rid of trailing spaces in translations
 - Getting rid of trailing spaces in XML
