@@ -40,6 +40,8 @@ import java.util.regex.Pattern;
  *
  * NewChannelHelper
  * Class to help in cloning a channel
+ * @deprecated This class is deprecated by the CloneChannelCommand class.
+ * Use that instead.
  * @version $Rev$
  */
 @Deprecated
@@ -72,6 +74,7 @@ public class NewChannelHelper {
      * @param originalState if false clone all packages and errata, if true
      *      only clone the original packages and no errata
      * @param toClone the channel to clone
+     * @deprecated This function is deprecated by CloneChannelCommand.create()
      * @return the cloned channel
      */
     @Deprecated

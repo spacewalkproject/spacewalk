@@ -88,6 +88,7 @@ public class PublishErrataHelper {
      *       then copying all the data to 4 tables
      * @param original the original errata to clone
      * @param org the org to clone it for
+     * @deprecated this function is deprecated by cloneErrataFaster
      * @return The cloned (and published) errata
      */
     @Deprecated
