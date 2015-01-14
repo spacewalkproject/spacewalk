@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.3.6
+Version: 2.3.7
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -95,6 +95,9 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 2.3.7-1
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
 * Fri Nov 28 2014 Tomas Lestach <tlestach@redhat.com> 2.3.6-1
 - spacewalk-proxy-installer: remove duplicate Summary and Group entries
 
