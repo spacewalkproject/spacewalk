@@ -9,7 +9,7 @@
 %endif
 
 Name:		python-hwdata
-Version:	2.3.0
+Version:	2.3.1
 Release:	1%{?dist}
 Summary:	Python bindings to hwdata package
 BuildArch:  noarch
@@ -85,6 +85,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 2.3.1-1
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+- Bumping package versions for 2.3.
+- Bumping package versions for 2.2.
+
 * Wed Dec 04 2013 Miroslav Suchý <msuchy@redhat.com> 1.10.1-1
 - create python3-hwdata subpackage
 - Bumping package versions for 1.9
