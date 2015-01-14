@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.0
+Version: 2.3.1
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -57,6 +57,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 2.3.1-1
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+- Bumping package versions for 2.3.
+
 * Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.1-1
 - fix copyright years
 - Bumping package versions for 2.2.
