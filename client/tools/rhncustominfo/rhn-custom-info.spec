@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.26
+Version: 5.4.27
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 5.4.27-1
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
 * Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 5.4.26-1
 - fix copyright years
 
