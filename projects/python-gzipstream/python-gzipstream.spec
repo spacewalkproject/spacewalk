@@ -4,7 +4,7 @@
 
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
-Version: 2.3.0
+Version: 2.3.1
 Release: 1%{?dist}
 URL:        https://fedorahosted.org/spacewalk/wiki/Projects/python-gzipstream
 Source0:    https://fedorahosted.org/releases/s/p/spacewalk/python-gzipstream-%{version}.tar.gz
@@ -40,6 +40,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Jan 15 2015 Matej Kollar <mkollar@redhat.com> 2.3.1-1
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+- Bumping package versions for 2.3.
+- Bumping package versions for 2.2.
+
 * Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.2-1
 - updating copyright years
 
