@@ -188,6 +188,7 @@
 
   <rhn-tab name="Events">
     <rhn-tab-url>/rhn/systems/details/history/Pending.do</rhn-tab-url>
+    <rhn-tab-url>/rhn/systems/details/history/Event.do</rhn-tab-url>
     <rhn-tab name="Pending">
       <rhn-tab-url>/rhn/systems/details/history/Pending.do</rhn-tab-url>
     </rhn-tab>
