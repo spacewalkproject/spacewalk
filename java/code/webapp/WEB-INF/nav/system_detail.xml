@@ -156,8 +156,10 @@
         <rhn-tab-url>/rhn/systems/details/history/snapshots/SnapshotTagCreate.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="Snapshot Tags" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting)" url="/rhn/systems/details/history/snapshots/Tags.do" />
-
+    <rhn-tab name="Snapshot Tags" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting)">
+        <rhn-tab-url>/rhn/systems/details/history/snapshots/Tags.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/history/snapshots/TagCreate.do</rhn-tab-url>
+    </rhn-tab>
   </rhn-tab>
 
   <rhn-tab name="Groups" acl="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin)" url="/rhn/systems/details/groups/ListRemove.do">
