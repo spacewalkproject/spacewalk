@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.25
+Version:	2.3.26
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.26-1
+- Fix wrong package dependency using yum without priorities
+
 * Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.25-1
 - Getting rid of Tabs and trailing spaces in Python
 - Getting rid of trailing spaces in Perl
