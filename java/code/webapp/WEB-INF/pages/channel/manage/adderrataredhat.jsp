@@ -88,55 +88,7 @@
 
    <c:choose>
                 <c:when test="${pageList != null}">
-
-                  <rl:list dataset="pageList" name="errata"   decorator="SelectableDecorator"
-                                        emptykey = "channel.manage.errata.noerrata"
-                                        filter="com.redhat.rhn.frontend.action.channel.manage.ErrataFilter">
-                                <rl:decorator name="ElaborationDecorator"/>
-                                <rl:decorator name="PageSizeDecorator"/>
-
-                                <rl:selectablecolumn value="${current.selectionKey}"
-                                        selected="${current.selected}"/>
-
-                                <rl:column sortable="true"
-                                   headerkey="exportcolumn.errataAdvisoryType"
-                                   sortattr="advisoryType"
-                                    styleclass="center"
-                                   headerclass="thin-column">
-                                                                <c:if test="${current.securityAdvisory}">
-                                                                    <rhn:icon type="errata-security" title="erratalist.jsp.securityadvisory" />
-                                                                </c:if>
-                                                                <c:if test="${current.bugFix}">
-                                                                    <rhn:icon type="errata-bugfix" title="erratalist.jsp.bugadvisory" />
-                                                                </c:if>
-                                                                <c:if test="${current.productEnhancement}">
-                                                                    <rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
-                                                                </c:if>
-                                </rl:column>
-
-
-
-                                <rl:column sortable="true"
-                                           headerkey="erratalist.jsp.advisory"
-                                           sortattr="advisory">
-                                      <a href="/rhn/errata/details/Details.do?eid=${current.id}">
-                                      <c:out value="${current.advisory}"/>
-                                      </a>
-                                </rl:column>
-
-                                <rl:column sortable="true"
-                                           headerkey="erratalist.jsp.synopsis"
-                                           sortattr="advisorySynopsis">
-                                      <c:out value="${current.advisorySynopsis}"/>
-                                </rl:column>
-                                <rl:column sortable="true"
-                                           headerkey="channel.manage.errata.updatedate"
-                                           sortattr="updateDateObj">
-                                      <c:out value="${current.updateDate}"/>
-                                </rl:column>
-
-                          </rl:list>
-
+                    <%@ include file="/WEB-INF/pages/common/fragments/errata/selectableerratalist.jspf" %>
   </c:when>
 </c:choose>
 

@@ -52,11 +52,9 @@ public class ConfirmErrataAction extends RhnListAction {
 
     private static final String CID = "cid";
 
-    private static final String CHECKED = "assoc_checked";
-
     private static final String MULTI_ARCH = "multi_arch";
 
-    private static final String SELECTED_CHANNEL = "selected_channel";
+    public static final String SELECTED_CHANNEL = "selected_channel";
     private static final String ARCH_COUNT = "arch_count";
     private static final String BUG_COUNT = "bug_count";
     private static final String ENHANCE_COUNT = "enhance_count";
@@ -76,7 +74,6 @@ public class ConfirmErrataAction extends RhnListAction {
         User user =  requestContext.getCurrentUser();
         Long cid = Long.parseLong(request.getParameter(CID));
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid, user);
-        boolean packageAssoc = request.getParameter(CHECKED) != null;
 
         PublishErrataHelper.checkPermissions(user, cid);
 
@@ -145,19 +142,21 @@ public class ConfirmErrataAction extends RhnListAction {
 
         storePackagesInSet(user, validList, currentChan);
 
-        Map<String, HashMap> archMap = new HashMap();
+        Map<String, HashMap<String, Object>> archMap =
+                new HashMap<String, HashMap<String, Object>>();
         for (PackageOverview pack : validList) {
             if (archMap.get(pack.getPackageArch()) == null) {
-                archMap.put(pack.getPackageArch(), new HashMap());
+                archMap.put(pack.getPackageArch(), new HashMap<String, Object>());
                 archMap.get(pack.getPackageArch()).put("size", 0);
                 archMap.get(pack.getPackageArch()).put("name", pack.getPackageArch());
             }
-            Map arch =   archMap.get(pack.getPackageArch());
+            Map<String, Object> arch = archMap.get(pack.getPackageArch());
             arch.put("size",  ((Integer) arch.get("size")).intValue() + 1);
         }
 
         request.setAttribute("packageList", validList);
-        request.setAttribute(ARCH_COUNT, new ArrayList(archMap.values()));
+        request.setAttribute(ARCH_COUNT, new ArrayList<Map<String, Object>>(archMap
+                .values()));
         request.setAttribute("totalSize", validList.size());
 
 

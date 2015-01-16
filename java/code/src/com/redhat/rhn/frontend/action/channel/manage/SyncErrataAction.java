@@ -43,6 +43,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SyncErrataAction extends RhnAction implements Listable<ErrataOverview> {
 
+    private static final String EMPTY_KEY = "channel.jsp.errata.sync.listempty";
+
     /**
      *
      * {@inheritDoc}
@@ -68,6 +70,9 @@ public class SyncErrataAction extends RhnAction implements Listable<ErrataOvervi
 
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
                 RhnSetDecl.ERRATA_TO_SYNC.createCustom(chan.getId()));
+
+        request.setAttribute("emptyKey", EMPTY_KEY);
+        request.setAttribute("editUrl", "true");
 
         helper.execute();
         if (helper.isDispatched()) {

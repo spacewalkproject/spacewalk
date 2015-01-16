@@ -4711,56 +4711,56 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.powermanagement.configure">
           <source>&lt;a href="/rhn/systems/ssm/provisioning/PowerManagementConfiguration.do"&gt;Configure power management&lt;/a&gt;</source>
-          <context-group>
+          <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
           </context-group>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.powermanagement.operations">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/PowerManagementOperations.do"&gt;power management operations&lt;/a&gt;</source>
-          <context-group>
+          <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
           </context-group>
         </trans-unit>
       <trans-unit id="provisioning.powermanagement.ipmi_note">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; IPMI is the only power management type that has been tested and is supported, but others may work. To enable other power management types override the "java.power_management.types" option in rhn.conf.</source>
-        <context-group>
+        <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
           <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
         </context-group>
       </trans-unit>
       <trans-unit id="provisioning.powermanagement.address_note">
         <source>The hostname or IP address of the power management server.</source>
-        <context-group>
+        <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
           <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
         </context-group>
       </trans-unit>
       <trans-unit id="provisioning.powermanagement.username_note">
         <source>The username used to log in to the power management server.</source>
-        <context-group>
+        <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
           <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
         </context-group>
       </trans-unit>
       <trans-unit id="provisioning.powermanagement.password_note">
         <source>The password used to log in to the power management server.</source>
-        <context-group>
+        <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
           <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
         </context-group>
       </trans-unit>
       <trans-unit id="provisioning.powermanagement.identifier_note">
         <source>The identifier used to specify this system on the power management server. Optional because not all power managment types will need this field. This field can also be used to pass additional options to the "fence agent". For example, if you are using an IPMI server that requires the Lanplus protocol (and this system's identifier was "System") then you can set a System Identifier of "-P System" to instruct fence_ipmilan to use the Lanplus protocol for this system. See the fence agent's documentation for additional options.</source>
-        <context-group>
+        <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
           <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
         </context-group>
       </trans-unit>
       <trans-unit id="provisioning.powermanagement.security_warning">
         <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
-        <context-group>
+        <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
           <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
         </context-group>
@@ -19884,6 +19884,33 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.emptylist">
         <source>This channel contains no errata.</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.clone.title">
+        <source>Clone Errata</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.clone.summary">
+        <source>Below is the list of the errata which apply to the original channel, but have not yet been cloned into your channel.</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.clone.empty">
+        <source>No uncloned errata.</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.clone.owned">
+        <source>Owned Errata</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.clone.action">
+        <source>Action</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.clone.merge">
+        <source>Merge with existing</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.clone.clone">
+        <source>Clone as new</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.clone.nothing">
+        <source>Do Nothing</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.clone.button">
+        <source>Clone Errata</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.list">
         <source>Channel Packages.</source>

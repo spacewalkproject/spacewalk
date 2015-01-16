@@ -84,7 +84,6 @@ public class CloneChannelCommand extends CreateChannelCommand {
         c.setGPGKeyUrl(gpgKeyUrl);
         c.setGPGKeyFp(gpgKeyFp);
         c.setAccess(access);
-        c.setGloballySubscribable(globallySubscribable, user.getOrg());
         c.setMaintainerName(maintainerName);
         c.setMaintainerEmail(maintainerEmail);
         c.setMaintainerPhone(maintainerPhone);

@@ -7578,6 +7578,15 @@
       <forward name="default" path="/WEB-INF/pages/channel/manage/add.jsp" />
     </action>
 
+    <action path="/channels/manage/errata/Clone"
+        scope="request"
+        input="/WEB-INF/pages/channel/manage/errataclone.jsp"
+        type="com.redhat.rhn.frontend.action.channel.manage.ErrataCloneAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/errataclone.jsp" />
+      <forward name="submit" path="/channels/manage/errata/ConfirmErrata.do" redirect="true"/>
+    </action>
+
     <action path="/channels/manage/errata/ListRemove"
         scope="request"
         input="/WEB-INF/pages/channel/manage/errataremove.jsp"
@@ -7605,7 +7614,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="postRequiredIfSubmitted" value="true" />
       <forward name="default" path="/WEB-INF/pages/channel/manage/adderrataredhat.jsp" />
-      <forward name="submit" path="/channels/manage/errata/ConfirmErrataAdd.do"  redirect="true"/>
+      <forward name="submit" path="/channels/manage/errata/ConfirmErrata.do"  redirect="true"/>
       </action>
 
       <action path="/channels/manage/errata/AddCustomErrata"
@@ -7615,10 +7624,10 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="postRequiredIfSubmitted" value="true" />
       <forward name="default" path="/WEB-INF/pages/channel/manage/addcustomerrata.jsp" />
-      <forward name="submit" path="/channels/manage/errata/ConfirmErrataAdd.do" redirect="true"/>
+      <forward name="submit" path="/channels/manage/errata/ConfirmErrata.do" redirect="true"/>
       </action>
 
-      <action path="/channels/manage/errata/ConfirmErrataAdd"
+      <action path="/channels/manage/errata/ConfirmErrata"
         scope="request"
         input="/WEB-INF/pages/channel/manage/confirmerrata.jsp"
         type="com.redhat.rhn.frontend.action.channel.manage.ConfirmErrataAction"
@@ -7632,7 +7641,7 @@
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.manage.PublishErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-       <forward name="default" path="/channels/manage/errata/Add.do" />
+       <forward name="default" path="/channels/manage/errata/ListRemove.do" redirect="true"/>
       </action>
 
 

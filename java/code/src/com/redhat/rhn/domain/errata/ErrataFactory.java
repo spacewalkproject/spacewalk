@@ -1163,21 +1163,17 @@ public class ErrataFactory extends HibernateFactory {
      * Get list of errata ids that are in one channel but not another
      * @param fromCid errata are in this channel
      * @param toCid but not in this one
-     * @return list of errata ids
+     * @return list of errata overviews
      */
-    public static List<Long> relevantToOneChannelButNotAnother(Long fromCid,
-            Long toCid) {
+    public static DataResult<ErrataOverview> relevantToOneChannelButNotAnother(
+            Long fromCid, Long toCid) {
         SelectMode mode = ModeFactory.getMode("Errata_queries",
                 "relevant_to_one_channel_but_not_another");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("from_cid", fromCid);
         params.put("to_cid", toCid);
-        List<Map<String, Object>> results = mode.execute(params);
-        List<Long> ret = new ArrayList<Long>();
-        for (Map<String, Object> result : results) {
-            ret.add((Long) result.get("id"));
-        }
-        return ret;
+        DataResult<ErrataOverview> results = mode.execute(params);
+        return results;
     }
 
     /**

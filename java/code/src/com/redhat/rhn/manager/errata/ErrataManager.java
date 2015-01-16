@@ -1423,8 +1423,21 @@ public class ErrataManager extends BaseManager {
      * @param user the requesting user
      */
     public static void cloneChannelErrata(Long fromCid, Long toCid, User user) {
-        List<Long> toClone = ErrataFactory
+        List<ErrataOverview> toClone = ErrataFactory
                 .relevantToOneChannelButNotAnother(fromCid, toCid);
+        cloneChannelErrata(toClone, toCid, user);
+    }
+
+    /**
+     * Clone errata as necessary and link cloned errata with new channel.
+     * Warning: this does not clone packages or schedule channel repomd regeneration.
+     * You must do that yourself!
+     * @param toClone List of ErrataOverview to clone
+     * @param toCid Channel id to clone them into
+     * @param user the requesting user
+     */
+    public static void cloneChannelErrata(List<ErrataOverview> toClone, Long toCid,
+            User user) {
         List<OwnedErrata> owned = ErrataFactory
                 .listPublishedOwnedUnmodifiedClonedErrata(user.getOrg().getId());
         List<Long> eids = new ArrayList<Long>();
@@ -1443,17 +1456,18 @@ public class ErrataManager extends BaseManager {
             }
         }
 
-        for (Long eid : toClone) {
-            if (!eidToClone.containsKey(eid)) {
+        for (ErrataOverview erratum : toClone) {
+            if (!eidToClone.containsKey(erratum.getId())) {
                 // no published owned clones yet, lets make our own
                 // hibernate was too slow, had to rewrite in mode queries
-                Long cloneId = PublishErrataHelper.cloneErrataFaster(eid, user.getOrg());
+                Long cloneId = PublishErrataHelper.cloneErrataFaster(erratum.getId(), user
+                        .getOrg());
                 eids.add(cloneId);
 
             }
             else {
                 // we have one already, reuse it
-                eids.add(eidToClone.get(eid).getId());
+                eids.add(eidToClone.get(erratum.getId()).getId());
             }
         }
 

@@ -16,9 +16,9 @@ package com.redhat.rhn.frontend.action.channel.manage;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
@@ -76,13 +76,14 @@ public class PublishErrataAction extends RhnListAction {
             log.debug("Set in Publish: "  +  packageSet.size());
         }
 
-        Set<Long> errataIds = RhnSetDecl.setForChannelErrata(currentChan).get(
-                user).getElementValues();
-
-        ErrataManager.publishErrataToChannelAsync(currentChan, errataIds, user);
-
-        //ErrataManager.publishErrataToChannel(currentChan, errataIds, user);
-
+        // used to schedule an asynchronous action to clone errata because it was
+        // so slow. Is much faster now, just do inline.
+        //Set<Long> errataIds = RhnSetDecl.setForChannelErrata(currentChan).get(
+        //        user).getElementValues();
+        //ErrataManager.publishErrataToChannelAsync(currentChan, errataIds, user);
+        List<ErrataOverview> errata = ErrataManager.lookupErrataListFromSet(user,
+                RhnSetDecl.setForChannelErrata(currentChan).get(user).getLabel());
+        ErrataManager.cloneChannelErrata(errata, currentChan.getId(), user);
 
         List<Long> pidList = new ArrayList<Long>();
         pidList.addAll(packageIds);
@@ -104,23 +105,10 @@ public class PublishErrataAction extends RhnListAction {
         request.setAttribute("cid", cid);
 
         ActionMessages msg = new ActionMessages();
-        String[] params = {errataIds.size() + "", packageIds.size() + "",
+        String[] params = { errata.size() + "", packageIds.size() + "",
                 currentChan.getName()};
-        Errata anyErratum = null;
-        if (!errataIds.isEmpty()) {
-            Long any = errataIds.iterator().next();
-            anyErratum = ErrataManager.lookupErrata(any, user);
-        }
-        if (anyErratum != null && anyErratum.getOrg() != null) {
-            msg.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage("frontend.actions.channels.manager.addcustom.success",
-                        params));
-        }
-        else {
-            msg.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage("frontend.actions.channels.manager.add.success",
-                        params));
-        }
+        msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                "frontend.actions.channels.manager.add.success", params));
 
         getStrutsDelegate().saveMessages(requestContext.getRequest(), msg);
 

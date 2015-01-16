@@ -292,7 +292,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
                 FormFile file = (FormFile) get(REV_UPLOAD);
                 try {
                     data = new BinaryFileData(new BufferedInputStream(
-                                file.getInputStream()), file.getFileSize());
+                            file.getInputStream()), file.getFileSize());
                 }
                 catch (IOException e) {
                     String msg = "Unable to read the uploaded binary file stream";
