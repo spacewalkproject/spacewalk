@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.30
+Version: 2.3.31
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -288,6 +288,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Jan 16 2015 Stephen Herr <sherr@redhat.com> 2.3.31-1
+- fix rhnChannelNewestPackage table by using refresh_newest_package function
+  again
+- Remove unused clone_newest_package function
+
 * Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.30-1
 - Getting rid of trailing spaces in XML
 - Getting rid of trailing spaces in Perl
