@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.3.7
+Version:        2.3.8
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -113,6 +113,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.8-1
+- Fix configuration of tomcat-service for CentOS7. Tomcat7 on CentOS7 uses
+  /etc/tomcat/server.xml. Adjust regex to match.
+
 * Tue Jan 13 2015 Matej Kollar <mkollar@redhat.com> 2.3.7-1
 - Getting rid of Tabs and trailing spaces in Python
 - Getting rid of trailing spaces in Perl
