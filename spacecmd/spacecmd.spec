@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.7
+Version:     2.3.8
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -76,6 +76,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.8-1
+- spacecmd: fix listupgrades
+
 * Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.7-1
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
 
