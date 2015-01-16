@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.122
+Version: 2.3.123
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 16 2015 Grant Gainey 2.3.123-1
+- bnc#901927: Remove custom file size calculation
+- Need to wrap the InputStream in order to support mark/reset so the binary
+  upload won't crash anymore
+
 * Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.122-1
 - Remove "Select All" button from system currency report
 
