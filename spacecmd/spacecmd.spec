@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.9
+Version:     2.3.10
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -76,6 +76,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Jan 16 2015 Grant Gainey 2.3.10-1
+- First custom_opts has no 'arguments' - protect against it
+- fix call of setCustomOptions()
+
 * Fri Jan 16 2015 Grant Gainey 2.3.9-1
 - Fix spacecmd schedule listing for negative deltas
 
