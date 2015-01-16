@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.121
+Version: 2.3.122
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.122-1
+- Remove "Select All" button from system currency report
+
 * Fri Jan 16 2015 Matej Kollar <mkollar@redhat.com> 2.3.121-1
 - Remove "Add Selected to SSM" from SSM system overview page
 - Remove "Add Selected to SSM" from system overview page
