@@ -303,7 +303,7 @@ class DeployTransaction:
             # 0.
             if self.dirs:
                 for directory in self.dirs:
-                    dirname = directory['path']
+                    dirname = self._normalize_path_to_root(directory['path'])
                     dirmode = directory['filemode']
                     if os.path.isfile(dirname):
                         raise cfg_exceptions.DirectoryEntryIsFile(dirname)
@@ -316,8 +316,7 @@ class DeployTransaction:
                                 }
                         self.changed_dir_info[dirname] = entry
                         log_debug(3, "directory found, chowning and chmoding to %s as needed: %s" % (dirmode, dirname))
-                        normpath = self._normalize_path_to_root(dirname)
-                        self._chown_chmod_chcon(normpath, normpath, directory)
+                        self._chown_chmod_chcon(dirname, dirname, directory)
                     else:
                         log_debug(3, "directory not found, creating: %s" % dirname)
                         dirs_created = utils.mkdir_p(dirname, None, self.symlinks, self.files)
