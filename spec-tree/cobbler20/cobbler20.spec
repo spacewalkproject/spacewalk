@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 40%{?dist}
+Release: 41%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -470,6 +470,10 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Mon Jan 19 2015 Tomas Lestach <tlestach@redhat.com> 2.0.11-41
+- adapt cobbler20 for fc21
+- 1136538 - support while loop syntax for Cheetah templates
+
 * Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.0.11-40
 - Make cobbler20 require syslinux. Upstream versions require it, too. This
   fixes BZ#988329
