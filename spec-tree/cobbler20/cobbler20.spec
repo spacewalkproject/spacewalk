@@ -56,7 +56,7 @@ Requires: python-cheetah
 Requires: python-devel
 Requires: python-netaddr
 Requires: python-simplejson
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} < 21
 BuildRequires: python-setuptools-devel
 %else
 BuildRequires: python-setuptools
@@ -372,10 +372,9 @@ BuildRequires: python-devel
 %{!?pyver: %define pyver %(%{__python} -c "import sys ; print sys.version[:3]")}
 Requires: python(abi) >= %{pyver}
 %endif
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} < 21
 BuildRequires: python-setuptools-devel
-%endif
-%if 0%{?rhel} >= 4
+%else
 BuildRequires: python-setuptools
 %endif
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -445,7 +444,7 @@ Requires: mod_python
 %{!?pyver: %define pyver %(%{__python} -c "import sys ; print sys.version[:3]")}
 Requires: python(abi) >= %{pyver}
 %endif
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} < 21
 BuildRequires: python-setuptools-devel
 %else
 BuildRequires: python-setuptools
