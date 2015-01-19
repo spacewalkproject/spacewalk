@@ -23399,7 +23399,7 @@ sha1은 클라이언트와의 폭넓은 호환성을 제공합니다. sha-256은
         </target>
       </trans-unit>
       <trans-unit id="toolbar.delete.software.channel">
-        <source>delete software channel</source>
+        <source>Delete software channel</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
@@ -23427,7 +23427,7 @@ sha1은 클라이언트와의 폭넓은 호환성을 제공합니다. sha-256은
         <target>검색 </target>
       </trans-unit>
       <trans-unit id="toolbar.delete.channel">
-        <source>delete software channel</source>
+        <source>Delete software channel</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata//Add.do</context>
         </context-group>
