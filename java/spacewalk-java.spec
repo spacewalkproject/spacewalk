@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.123
+Version: 2.3.124
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 19 2015 Grant Gainey 2.3.124-1
+- 1156299, CVE-2014-7811 - Fixed reported XSS issues  *
+  /rhn/systems/details/Overview.do?sid= , Description  *
+  /rhn/groups/GroupDetail.do?sgid= , Name, Description  *
+  /rhn/users/UserList.do, /rhn/users/DisabledList.do - first/last name  *
+  /rhn/systems/details/history/Event.do?sid= , SCAP param/action
+
 * Fri Jan 16 2015 Grant Gainey 2.3.123-1
 - bnc#901927: Remove custom file size calculation
 - Need to wrap the InputStream in order to support mark/reset so the binary
