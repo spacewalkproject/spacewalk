@@ -87,11 +87,11 @@
 <table class="table">
   <tr>
     <th><bean:message key="systemgroup.details.name"/></th>
-    <td>${name}</td>
+    <td><c:out value="${name}" /></td>
   </tr>
   <tr>
     <th valign="top"><bean:message key="systemgroup.details.description"/></th>
-    <td>${description}</td>
+    <td><c:out value="${description}" /></td>
   </tr>
 </table>
 </div>

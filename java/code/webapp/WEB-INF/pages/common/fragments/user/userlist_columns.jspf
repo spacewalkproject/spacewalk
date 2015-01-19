@@ -4,9 +4,7 @@
         sortable="true"
         headerkey="realname.displayname"
         sortattr="userLastName">
-
-        <c:out value="${current.userLastName}, ${current.userFirstName}" escapeXml="false" />
-
+        <c:out value="${current.userLastName}, ${current.userFirstName}" />
 </rl:column>
 
 <rl:column bound="true"

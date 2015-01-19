@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.domain.action.scap;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.server.Server;
@@ -49,11 +51,11 @@ public class ScapAction extends Action {
         StringBuilder retval = new StringBuilder();
         retval.append("</br>");
         retval.append(ls.getMessage("system.event.scapPath"));
-        retval.append(scapActionDetails.getPath());
+        retval.append(StringEscapeUtils.escapeHtml(scapActionDetails.getPath()));
         retval.append("</br>");
         retval.append(ls.getMessage("system.event.scapParams"));
         retval.append(scapActionDetails.getParameters() == null ? "" :
-            scapActionDetails.getParametersContents());
+            StringEscapeUtils.escapeHtml(scapActionDetails.getParametersContents()));
         if (this.getSuccessfulCount() > 0) {
             retval.append("</br>");
             retval.append("<a href=\"/rhn/systems/details/audit/XccdfDetails.do?sid=" +

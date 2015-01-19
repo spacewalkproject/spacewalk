@@ -24,6 +24,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -69,7 +70,8 @@ public class SystemOverviewAction extends RhnAction {
         String description = null;
 
         if (s.getDescription() != null) {
-            description = new String(s.getDescription()).replaceAll("\\n", "<br/>");
+            description = StringEscapeUtils.escapeHtml(s.getDescription())
+                .replaceAll("\\n", "<br/>");
         }
 
         // System Channels
