@@ -99,6 +99,9 @@ public class CloneChannelCommand extends CreateChannelCommand {
         ChannelFactory.save(c);
         c = (ClonedChannel) ChannelFactory.reload(c);
 
+        // This ends up being a mode query call so need to save first to get channel id
+        c.setGloballySubscribable(globallySubscribable, user.getOrg());
+
         if (originalState) {
             // original packages only, no errata
             ChannelManager.cloneOriginalChannelPackages(original.getId(), c.getId());
