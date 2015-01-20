@@ -286,7 +286,6 @@ public class CreateChannelCommand {
         c.setGPGKeyUrl(gpgKeyUrl);
         c.setGPGKeyFp(gpgKeyFp);
         c.setAccess(access);
-        c.setGloballySubscribable(globallySubscribable, user.getOrg());
         c.setMaintainerName(maintainerName);
         c.setMaintainerEmail(maintainerEmail);
         c.setMaintainerPhone(maintainerPhone);
@@ -296,6 +295,9 @@ public class CreateChannelCommand {
 
         // need to save before calling stored proc below
         ChannelFactory.save(c);
+
+        // this ends up being a mode query call, must have saved the channel to get an id
+        c.setGloballySubscribable(globallySubscribable, user.getOrg());
 
         ChannelManager.queueChannelChange(c.getLabel(), "createchannel", "createchannel");
         ChannelFactory.refreshNewestPackageCache(c, WEB_CHANNEL_CREATED);
