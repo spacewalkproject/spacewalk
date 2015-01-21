@@ -338,7 +338,7 @@
           </tr>
           <tr>
             <td><bean:message key="sdc.details.overview.description"/></td>
-            <td><c:out value="${description}"escapeXml="false"/></td> <!-- already html-escaped in backend -->
+            <td><c:out value="${description}" escapeXml="false"/></td> <!-- already html-escaped in backend -->
           </tr>
           <tr>
             <td><bean:message key="sdc.details.overview.location"/></td>
