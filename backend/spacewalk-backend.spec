@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.30
+Version: 2.3.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Wed Jan 21 2015 Matej Kollar <mkollar@redhat.com> 2.3.31-1
+- Old Pylint workaround
+- Fix Pylint on Fedora 21: manual fixes
+- Fix Pylint on Fedora 21: autopep8
+
 * Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.30-1
 - Getting rid of Tabs and trailing spaces in Python
 - Getting rid of trailing spaces in Perl
