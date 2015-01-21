@@ -13,8 +13,8 @@
 # in this software or its documentation.
 #
 #
-#The configuration file parser for the rhnpush utility.
-#The majority of this code is taken from rhncfg/config_common/local_config.py
+# The configuration file parser for the rhnpush utility.
+# The majority of this code is taken from rhncfg/config_common/local_config.py
 #
 # 11/11/2004 John Wregglesworth
 #
@@ -22,51 +22,53 @@
 import sys
 import ConfigParser
 
-#Class that contains the options read in from the config file.
-#Uses a ConfigParser to create a dictionary of the configuration options.
-#That dictionary is then used to add instance variables to the object dynamically.
+# Class that contains the options read in from the config file.
+# Uses a ConfigParser to create a dictionary of the configuration options.
+# That dictionary is then used to add instance variables to the object dynamically.
+
+
 class rhnpushConfigParser:
     # pylint: disable=W0201
     _instance = None
 
     def __init__(self, filename=None, ensure_consistency=False):
 
-        #Defaults that are used if the ensure_consistency parameter of the constructor is true
-        #and the config file that is being read is missing some values.
+        # Defaults that are used if the ensure_consistency parameter of the constructor is true
+        # and the config file that is being read is missing some values.
         self.options_defaults = {
-                                'newest'            :   '0',
-                                'usage'             :   '0',
-                                'header'            :   '0',
-                                'test'              :   '0',
-                                'nullorg'           :   '0',
-                                'source'            :   '0',
-                                'stdin'             :   '0',
-                                'verbose'           :   '0',
-                                'force'             :   '0',
-                                'nosig'             :   '0',
-                                'list'              :   '0',
-                                'exclude'           :   '',
-                                'files'             :   '',
-                                'orgid'             :   '',
-                                'reldir'            :   '',
-                                'count'             :   '',
-                                'dir'               :   '',
-                                'server'            :   'http://rhn.redhat.com/APP',
-                                'channel'           :   '',
-                                'cache_lifetime'    :   '600',
-                                'new_cache'         :   '0',
-                                'extended_test'     :   '0',
-                                'no_session_caching'     :   '0',
-                                'proxy'             :   '',
-                                'tolerant'          :   '0',
-                                'ca_chain'          :   '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT',
+            'newest':   '0',
+            'usage':   '0',
+            'header':   '0',
+            'test':   '0',
+            'nullorg':   '0',
+            'source':   '0',
+            'stdin':   '0',
+            'verbose':   '0',
+            'force':   '0',
+            'nosig':   '0',
+            'list':   '0',
+            'exclude':   '',
+            'files':   '',
+            'orgid':   '',
+            'reldir':   '',
+            'count':   '',
+            'dir':   '',
+            'server':   'http://rhn.redhat.com/APP',
+            'channel':   '',
+            'cache_lifetime':   '600',
+                                'new_cache':   '0',
+                                'extended_test':   '0',
+                                'no_session_caching':   '0',
+                                'proxy':   '',
+                                'tolerant':   '0',
+                                'ca_chain':   '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT',
 
-                                }
+        }
 
-        #Used to parse the config file.
+        # Used to parse the config file.
         self.settings = ConfigParser.ConfigParser()
 
-        #use options from the rhnpush section.
+        # use options from the rhnpush section.
         self.section = "rhnpush"
 
         self.username = None
@@ -76,11 +78,11 @@ class rhnpushConfigParser:
             self.filename = filename
             self._read_config_files()
 
-        #Take all of the options read from the configuration file and add them as attributes
+        # Take all of the options read from the configuration file and add them as attributes
         #(instance variables, member variables, whatever) of this object.
         self._add_config_as_attr(ensure_consistency=ensure_consistency)
 
-    #Use the ConfigParser to read in the configuration file.
+    # Use the ConfigParser to read in the configuration file.
     def _read_config_files(self):
         try:
             self.settings.read([self.filename])
@@ -95,10 +97,9 @@ class rhnpushConfigParser:
             print "Config File Error: line %s, file %s: %s" % (e.lineno, e.filename, e)
             sys.exit(1)
 
-
-    #Returns an option read in from the configuration files and specified by the string variable option.
-    #This function can probably be safely removed, since all configuration options become attributes
-    #of an instantiation of this class.
+    # Returns an option read in from the configuration files and specified by the string variable option.
+    # This function can probably be safely removed, since all configuration options become attributes
+    # of an instantiation of this class.
     def get_option(self, option):
         try:
             return self.settings.get(self.section, option)
@@ -106,18 +107,18 @@ class rhnpushConfigParser:
             print "Option/Section Error: line %s, file %s: %s" % (e.lineno, e.filename, e)
             sys.exit(1)
 
-    #Returns the keys of the attributes of the object.
+    # Returns the keys of the attributes of the object.
     def keys(self):
         return self.__dict__.keys()
 
-    #Returns the keys of the options read in from the configuration files.
+    # Returns the keys of the options read in from the configuration files.
     def _keys(self):
         if self.settings.has_section(self.section):
             return self.settings.options(self.section)
         else:
             return ()
 
-    #Returns an option read in from the configuration files.
+    # Returns an option read in from the configuration files.
     def __getitem__(self, item):
         return self.get_option(item)
 
@@ -130,14 +131,13 @@ class rhnpushConfigParser:
     def __setitem__(self, item):
         pass
 
-    #Takes all of the configuration options read in by the ConfigParser and makes them attributes of the object.
+    # Takes all of the configuration options read in by the ConfigParser and makes them attributes of the object.
     def _add_config_as_attr(self, ensure_consistency=False):
         for k in self._keys():
             self.__dict__[k] = self.settings.get(self.section, k)
 
-        #ensuring consistency only checks for missing configuration option.
+        # ensuring consistency only checks for missing configuration option.
         if ensure_consistency:
             for thiskey in self.options_defaults.keys():
                 if not self.__dict__.has_key(thiskey):
                     self.__dict__[thiskey] = self.options_defaults[thiskey]
-

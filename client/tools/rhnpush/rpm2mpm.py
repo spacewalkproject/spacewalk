@@ -19,6 +19,7 @@ from types import ListType, TupleType
 
 from spacewalk.common import rhn_rpm, rhn_mpm
 
+
 def main():
     packages = sys.argv[1:]
     if not packages:
@@ -40,18 +41,20 @@ def main():
         except:
             raise
 
+
 def _compute_filename(hdr):
     return '%s-%s.%s.mpm' % (hdr['name'], hdr['version'], hdr['arch'])
 
+
 def rpm_to_mpm(header, file_stream):
     tag_map = {
-        'package_group' : 'group',
-        'rpm_version'   : 'rpmversion',
-        'payload_size'  : 'archivesize',
+        'package_group': 'group',
+        'rpm_version': 'rpmversion',
+        'payload_size': 'archivesize',
         'payload_format': 'payloadformat',
-        'build_host'    : 'buildhost',
-        'build_time'    : 'buildtime',
-        'source_rpm'    : 'sourcerpm',
+        'build_host': 'buildhost',
+        'build_time': 'buildtime',
+        'source_rpm': 'sourcerpm',
     }
 
     tags = [
@@ -113,22 +116,23 @@ def rpm_to_mpm(header, file_stream):
 
     return p
 
+
 def _extract_files(header):
     tag_maps = {
-        'name'      : 'filenames',
-        'device'    : 'filedevices',
-        'inode'     : 'fileinodes',
-        'file_mode' : 'filemodes',
-        'username'  : 'fileusername',
-        'groupname' : 'filegroupname',
-        'rdev'      : 'filerdevs',
-        'file_size' : 'filesizes',
-        'mtime'     : 'filemtimes',
-        'md5'       : 'filemd5s',
-        'linkto'    : 'filelinktos',
-        'flags'     : 'fileflags',
-        'verifyflags' : 'fileverifyflags',
-        'lang'      : 'filelangs',
+        'name': 'filenames',
+        'device': 'filedevices',
+        'inode': 'fileinodes',
+        'file_mode': 'filemodes',
+        'username': 'fileusername',
+        'groupname': 'filegroupname',
+        'rdev': 'filerdevs',
+        'file_size': 'filesizes',
+        'mtime': 'filemtimes',
+        'md5': 'filemd5s',
+        'linkto': 'filelinktos',
+        'flags': 'fileflags',
+        'verifyflags': 'fileverifyflags',
+        'lang': 'filelangs',
     }
     files = _extract_array_fields(header, tag_maps)
     # Munge the mtime
@@ -136,49 +140,55 @@ def _extract_files(header):
         f['mtime'] = gmtime(f['mtime'])
     return files
 
+
 def _extract_rpm_provides(header):
     tag_maps = {
-        'name'      : 'provides',
-        'version'   : 'provideversion',
-        'flags'     : 'provideflags',
+        'name': 'provides',
+        'version': 'provideversion',
+        'flags': 'provideflags',
     }
     return _extract_array_fields(header, tag_maps)
+
 
 def _extract_rpm_requires(header):
     tag_maps = {
-        'name'      : 'requirename',
-        'version'   : 'requireversion',
-        'flags'     : 'requireflags',
+        'name': 'requirename',
+        'version': 'requireversion',
+        'flags': 'requireflags',
     }
     return _extract_array_fields(header, tag_maps)
+
 
 def _extract_rpm_conflicts(header):
     tag_maps = {
-        'name'      : 'conflictname',
-        'version'   : 'conflictversion',
-        'flags'     : 'conflictflags',
+        'name': 'conflictname',
+        'version': 'conflictversion',
+        'flags': 'conflictflags',
     }
     return _extract_array_fields(header, tag_maps)
+
 
 def _extract_rpm_obsoletes(header):
     tag_maps = {
-        'name'      : 'obsoletename',
-        'version'   : 'obsoleteversion',
-        'flags'     : 'obsoleteflags',
+        'name': 'obsoletename',
+        'version': 'obsoleteversion',
+        'flags': 'obsoleteflags',
     }
     return _extract_array_fields(header, tag_maps)
 
+
 def _extract_rpm_changelog(header):
     tag_maps = {
-        'name'      : 'changelogname',
-        'text'      : 'changelogtext',
-        'time'      : 'changelogtime',
+        'name': 'changelogname',
+        'text': 'changelogtext',
+        'time': 'changelogtime',
     }
     cl = _extract_array_fields(header, tag_maps)
     # Munge the changelog time
     for c in cl:
         c['time'] = gmtime(c['time'])
     return cl
+
 
 def _extract_array_fields(header, tag_maps):
     # First determine the number of entries

@@ -37,7 +37,7 @@ _temp_files = []
 
 _dep_regex = re.compile(r"(?P<code>[PIR]) +(?P<name>[^ \t]+)")
 _arch_ver_regex = re.compile(r"^ *(?:\((?P<arch>[a-zA-Z0-9]+)\))?"
-                         r" *(?P<ver>[^,]+)(,[ \t\S]*REV=(?P<rev>[^,\s]+))?")
+                             r" *(?P<ver>[^,]+)(,[ \t\S]*REV=(?P<rev>[^,\s]+))?")
 _ver_regex = re.compile(r"(?P<ver>[^,]+)(,[ \t\S]*REV=(?P<rev>[^,\s]+))?")
 _illegal_ver_regex = re.compile(r"[/\\\?\*:\|\"'<>\~\$\(\)[\]{}&=\s,]")
 
@@ -52,83 +52,88 @@ _months = [
 
 _solaris_header_fields = {
     # fields required to be overwritten
-    'name'          : None,
-    'summary'       : None,
-    'description'   : None,
-    'package_name'  : None,
-    'package_group' : 'NoGroup',
-    'package_size'  : 0,
-    'pkginfo'       : '',
-    'pkgmap'        : '',
-    'intonly'       : 'N',
-    'sigmd5'        : None,
-    'arch'          : 'sparc-solaris',
-    'version'       : None,
+    'name': None,
+    'summary': None,
+    'description': None,
+    'package_name': None,
+    'package_group': 'NoGroup',
+    'package_size': 0,
+    'pkginfo': '',
+    'pkgmap': '',
+    'intonly': 'N',
+    'sigmd5': None,
+    'arch': 'sparc-solaris',
+    'version': None,
     # fields with acceptable default values
-    'epoch'         : None,
-    'release'       : 1,
-    'provides'      : [],
-    'obsoletes'     : [],
-    'requires'      : [],
-    'conflicts'     : [],
-    'package_type'  : 'solaris',
-    'vendor'        : '(unknown)',
-    'build_time'    : time.strftime("%Y-%m-%d %H:%M:%S"),
-    'build_host'    : socket.gethostname(),
-    'sigsize'       : 0,
+    'epoch': None,
+    'release': 1,
+    'provides': [],
+    'obsoletes': [],
+    'requires': [],
+    'conflicts': [],
+    'package_type': 'solaris',
+    'vendor': '(unknown)',
+    'build_time': time.strftime("%Y-%m-%d %H:%M:%S"),
+    'build_host': socket.gethostname(),
+    'sigsize': 0,
     'payload_format': None,
-    'payload_size'  : None,
-    'cookie'        : None,
-    'license'       : None,
-    'sourcerpm'     : None,
-    'rpm_version'   : None,
+    'payload_size': None,
+    'cookie': None,
+    'license': None,
+    'sourcerpm': None,
+    'rpm_version': None,
 }
 
 # XXX I currently don't know where to glean this information
 _valid_patch_types = {
-    'general'       : 1,
-    'kernel'        : 2,
-    'restricted'    : 3,
-    'point'         : 4,
-    'temporary'     : 5,
-    'nonstandard'   : 6,
+    'general': 1,
+    'kernel': 2,
+    'restricted': 3,
+    'point': 4,
+    'temporary': 5,
+    'nonstandard': 6,
 }
 
 _solaris_patch_header_fields = {
-    'summary'       : 'Solaris Patch',
-    'package_group' : 'Patches',
-    'arch'          : 'solaris-patch',
-    'patch_type'    : _valid_patch_types['general'],
-    'date'          : None,
-    'solaris_rel'   : None,
-    'sunos_rel'     : None,
-    'target_arch'   : None,
-    'readme'        : None,
-    'packages'      : [],
+    'summary': 'Solaris Patch',
+    'package_group': 'Patches',
+    'arch': 'solaris-patch',
+    'patch_type': _valid_patch_types['general'],
+    'date': None,
+    'solaris_rel': None,
+    'sunos_rel': None,
+    'target_arch': None,
+    'readme': None,
+    'packages': [],
 }
 
 _solaris_patch_set_header_fields = {
-    'summary'       : 'Solaris Patch Cluster',
-    'package_group' : 'Patch Clusters',
-    'arch'          : 'solaris-patch-cluster',
-    'date'          : None,
-    'readme'        : None,
-    'patches'       : [],
+    'summary': 'Solaris Patch Cluster',
+    'package_group': 'Patch Clusters',
+    'arch': 'solaris-patch-cluster',
+    'date': None,
+    'readme': None,
+    'patches': [],
 }
 
 # exceptions -------------------------------------------------------------
 
+
 class MPMInputError(Exception):
+
     """Exception raised for invalid input for conversion to mpm"""
     pass
 
+
 class PStampParseException(Exception):
+
     """Exception raised when the PSTAMP field cannot be parsed."""
     pass
 
 # command line options ---------------------------------------------------
 
 options = None
+
 
 def _parse_options():
 
@@ -138,13 +143,13 @@ def _parse_options():
     oparser = optparse.OptionParser(usage=usage, version=version)
 
     oparser.add_option("-?", "--usage", action="store_true", dest="USAGE",
-                      help="print program usage and exit")
+                       help="print program usage and exit")
     oparser.add_option("--tempdir", action="store", dest="TEMPDIR",
-                      default="/tmp/", help="temporary directory to work from")
+                       default="/tmp/", help="temporary directory to work from")
     oparser.add_option("--select-arch", action="store", dest="ARCH",
-                      help="select architecture (i386 or sparc) for multi-arch packages")
+                       help="select architecture (i386 or sparc) for multi-arch packages")
     oparser.add_option("--no-cleanup", action="store_false", dest="CLEANUP",
-                      default=True, help=optparse.SUPPRESS_HELP)
+                       default=True, help=optparse.SUPPRESS_HELP)
 
     global options
     options, args = oparser.parse_args()
@@ -175,6 +180,7 @@ def _parse_options():
     return args
 
 # run --------------------------------------------------------------------
+
 
 def _run(archives=sys.argv[1:]):
 
@@ -214,7 +220,6 @@ def _run(archives=sys.argv[1:]):
                     write_mpm(pkg_mpm)
                     _close_mpm(pkg_mpm)
 
-
             # don't know what the hell the customer is trying to run this on
             else:
                 raise MPMInputError("'%s' does not appear to contain Solaris content")
@@ -233,19 +238,22 @@ def _run(archives=sys.argv[1:]):
 
 # This is not a good way to do this, but it will suffice for now.
 # pylint: disable=W0212
+
+
 def _close_mpm(mpm):
     if hasattr(mpm, "payload_stream") and mpm.payload_stream:
         mpm.payload_stream.close()
 
+
 def _is_patch_set_archive(archive_parser):
     """[internal] Returns true iff the parser contains a patch set archive"""
     return (archive_parser.contains("installcluster")
-         or archive_parser.contains("install_cluster"))
+            or archive_parser.contains("install_cluster"))
 
 
 def _is_patch_archive(archive_parser):
     """[internal] Returns true iff the parser contains a patch archive"""
-    patch_name = os.path.basename(archive_parser._archive_dir) # hack
+    patch_name = os.path.basename(archive_parser._archive_dir)  # hack
     readme = "README.%s" % patch_name
     return archive_parser.contains(readme)
 
@@ -258,6 +266,7 @@ def _is_package_archive(archive_parser):
     return archive_parser.contains("pkginfo")
 
 # mpm object creation ----------------------------------------------------
+
 
 def create_patch_set_mpm(archive_parser, archive):
     """Create an mpm package from a parser holding a patch set archive"""
@@ -279,7 +288,6 @@ def create_patch_set_mpm(archive_parser, archive):
         readme = archive_parser.read(p_name + ".README")
     assert readme is not None, "Couldn't fine README file for %s" % p_name
 
-
     # provides fields: date, summary, and description
     dct = parse_cluster_readme(readme)
     header.update(dct)
@@ -297,7 +305,7 @@ def create_patch_set_mpm(archive_parser, archive):
         patch = patches[i]
         name = patch.split('-')
         header['patches'].append({'name': "patch-solaris-" + name[0],
-                                 'version': name[1], 'patch_order': i+1})
+                                  'version': name[1], 'patch_order': i + 1})
 
         # arch info is put into each patch's readme, so parse the first one
         if i == 0:
@@ -458,6 +466,7 @@ def create_pkg_mpm(archive_parser, prefix=""):
 
 # pkg mpm creation -------------------------------------------------------
 
+
 def parse_pkginfo(pkginfo_str):
     """Parse a package pkginfo file and return the name, summary, etc"""
 
@@ -503,6 +512,8 @@ def parse_pkginfo(pkginfo_str):
 #
 #    header['release'] <-- release + [ "_PSTAMP_" + pstamp ]
 #
+
+
 def compose_pstamp_and_release(header):
 
     release_part = ''
@@ -525,6 +536,7 @@ def compose_pstamp_and_release(header):
 
     return release_part + pstamp_part
 
+
 def _sanitize_string(s):
     """Replaces all non-alphanumeric chars with an underscore and returns the
        result.
@@ -545,6 +557,7 @@ def _sanitize_string(s):
         result += '_'
 
     return result
+
 
 def _sanitize_string_version(s):
     """Replaces all none-valid version chars with an underscore and returns the
@@ -567,6 +580,7 @@ def _sanitize_string_version(s):
 
     return result
 
+
 def parse_depends(depends_str):
     """Parse the dependency info for a solaris package"""
 
@@ -577,10 +591,10 @@ def parse_depends(depends_str):
            'obsoletes': [],
            'provides': []}
 
-    pkg_dict = {'name'     : None,
-                'version'  : None,
-                'release'  : 1,
-                'flags'    : 0}
+    pkg_dict = {'name': None,
+                'version': None,
+                'release': 1,
+                'flags': 0}
 
     for i in range(0, len(lines)):
         line = lines[i]
@@ -619,8 +633,8 @@ def _parse_dep_lookahead(index, lines):
     """Look one line ahead for version and release info while parsing package
     depends"""
 
-    if index+1 < len(lines):
-        match = _arch_ver_regex.match(lines[index+1])
+    if index + 1 < len(lines):
+        match = _arch_ver_regex.match(lines[index + 1])
 
         if match:
             version = match.group("ver")
@@ -634,9 +648,9 @@ def _parse_dep_lookahead(index, lines):
 def provide_self(header):
     """Figure out the info needed to put a package into its provides list"""
 
-    dct = {'name'      : None,
-           'version'   : None,
-           'flags'     : 8,}
+    dct = {'name': None,
+           'version': None,
+           'flags': 8, }
 
     dct['name'] = header['name']
     dct['version'] = header['version']
@@ -646,8 +660,9 @@ def provide_self(header):
     header['provides'].insert(0, dct)
 
     if header.has_key('release'):
-        header['provides'].insert(1, {'name' : dct['name'], 'flags' : 8,
-                  'version' : "%s-%s" % (header['version'], header['release'])})
+        header['provides'].insert(1, {'name': dct['name'], 'flags': 8,
+                                      'version': "%s-%s" % (header['version'], header['release'])})
+
 
 def md5sum_for_stream(data_stream):
     """Calcualte the md5sum for a datastream and return it in a utf8 friendly
@@ -655,6 +670,7 @@ def md5sum_for_stream(data_stream):
     return checksum.getFileChecksum('md5', file_obj=data_stream)
 
 # patch set mpm creation -------------------------------------------------
+
 
 def parse_cluster_readme(readme_string):
     """Parse the README file for the summary, date and description"""
@@ -673,6 +689,7 @@ def parse_cluster_readme(readme_string):
     return dct
 
 # patch mpm creation -----------------------------------------------------
+
 
 def parse_patch_readme(readme_string):
     """Parse the patch readme and return a dict containing fields: date,
@@ -756,12 +773,12 @@ def parse_patch_pkginfo(pkginfo_string):
     dct = _translate_dict(trans_dict, parse_dict)
 
     # get the package info for this pkginfo file
-    pkg_dict = {'name'      : None,
-                'epoch'     : None,
-                'version'   : None,
-                'pstamp'    : None,
-                'release'   : '1',
-                'arch'      : None,}
+    pkg_dict = {'name': None,
+                'epoch': None,
+                'version': None,
+                'pstamp': None,
+                'release': '1',
+                'arch': None, }
 
     pkg_dict['name'] = dct['name']
     # Some package names have extensions which are derived from their arch.
@@ -815,9 +832,9 @@ def patch_list(patch_str, sense):
         print "Unsupported patch list expression:", patch_str
         return []
 
-    dct = {'name'      : None,
-           'version'   : None,
-           'flags'     : sense}
+    dct = {'name': None,
+           'version': None,
+           'flags': sense}
 
     patches = []
     l = patch_str.split()
@@ -851,8 +868,8 @@ def _unique_list_of_dicts(list_):
     list_.sort()
 
     i = 0
-    while i < len(list_)-1:
-        if list_[i] == list_[i+1]:
+    while i < len(list_) - 1:
+        if list_[i] == list_[i + 1]:
             del list_[i]
             continue
         i += 1
@@ -876,6 +893,7 @@ def write_mpm(mpm):
     outstream.close()
 
 # utilities --------------------------------------------------------------
+
 
 def _translate_dict(trans_dict, parse_dict):
     """Translate parse dict entries according to a translation dict"""
@@ -927,6 +945,7 @@ def _normalize_arch(arch):
     assert arch in ("i386", "sparc", "noarch"), "Unknown arch %s" % arch
 
     return arch
+
 
 def _compute_pkg_name_extension(arch):
     # First, figure out if the arch contains a '.'.  If not, return an empty
@@ -1092,10 +1111,10 @@ def _line_val(s, delim):
 
 # main -------------------------------------------------------------------
 
+
 def main():
     args = _parse_options()
     return _run(args)
 
 if __name__ == '__main__':
     sys.exit(main() or 0)
-

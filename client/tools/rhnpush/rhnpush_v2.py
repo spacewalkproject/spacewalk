@@ -21,8 +21,10 @@ import base64
 
 import connection
 
+
 class PackageUpload(connection.PackageUpload):
     user_agent = "rhnpush"
+
     def set_auth(self, username, password):
         auth_vals = self.encode_values([username, password])
         self.headers["%s-%s" % (self.header_prefix, "Auth")] = auth_vals
@@ -58,10 +60,11 @@ class PackageUpload(connection.PackageUpload):
             start = start + line_len
         return result
 
+
 class PingPackageUpload(connection.PackageUpload):
     user_agent = "rhnpush-ping"
 
     def ping(self):
         self.send_http("GET")
-        #return the header info as well to check for capabilities.
+        # return the header info as well to check for capabilities.
         return self._response.status, self._response.reason, self._response.msg

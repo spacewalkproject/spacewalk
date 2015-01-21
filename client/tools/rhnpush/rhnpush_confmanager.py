@@ -18,7 +18,9 @@ import utils
 import sys
 import os
 
-class  ConfManager:
+
+class ConfManager:
+
     def __init__(self, optionparser, store_true_list):
         sysdir = '/etc/sysconfig/rhn'
         homedir = utils.get_home_dir()
@@ -31,27 +33,26 @@ class  ConfManager:
         self.cfgFileList = [deffile, regfile, cwdfile]
         self.defaultconfig = rhnpush_config.rhnpushConfigParser(ensure_consistency=True)
 
-        #Get a reference to the object containing command-line options
+        # Get a reference to the object containing command-line options
         self.cmdconfig = optionparser
         self.store_true_list = store_true_list
 
-    #Change the files options of the self.userconfig
-    #Change the exclude options of the self.userconfig
+    # Change the files options of the self.userconfig
+    # Change the exclude options of the self.userconfig
     def _files_to_list(self):
-        #Change the files options to lists.
+        # Change the files options to lists.
         if (self.defaultconfig.__dict__.has_key('files') and
-            not type(self.defaultconfig.files) == type([])):
+                not type(self.defaultconfig.files) == type([])):
             self.defaultconfig.files = [x.strip() for x in
-                                           self.defaultconfig.files.split(',')]
+                                        self.defaultconfig.files.split(',')]
 
-        #Change the exclude options to list.
+        # Change the exclude options to list.
         if (self.defaultconfig.__dict__.has_key('exclude') and
-            not type(self.defaultconfig.__dict__['exclude']) == type([])):
+                not type(self.defaultconfig.__dict__['exclude']) == type([])):
             self.defaultconfig.exclude = [x.strip() for x in
-                                             self.defaultconfig.exclude.split(',')]
+                                          self.defaultconfig.exclude.split(',')]
 
-
-    #Changes every option in config that is also in store_true_list that is set to '0' to None
+    # Changes every option in config that is also in store_true_list that is set to '0' to None
     def get_config(self):
         for f in self.cfgFileList:
             if os.access(f, os.F_OK):
@@ -63,28 +64,28 @@ class  ConfManager:
 
         self._files_to_list()
 
-        #Change the channel string into a list of strings.
+        # Change the channel string into a list of strings.
         # pylint: disable=E1103
         if not self.defaultconfig.channel:
-            #if no channel then make it null array instead of
-            #an empty string array from of size 1 [''] .
+            # if no channel then make it null array instead of
+            # an empty string array from of size 1 [''] .
             self.defaultconfig.channel = []
         else:
             self.defaultconfig.channel = [x.strip() for x in
-                                             self.defaultconfig.channel.split(',')]
+                                          self.defaultconfig.channel.split(',')]
 
-        #Get the command line arguments. These take precedence over the other settings
+        # Get the command line arguments. These take precedence over the other settings
         argoptions, files = self.cmdconfig.parse_args()
 
-        #Makes self.defaultconfig compatible with argoptions by changing all '0' value attributes to None.
+        # Makes self.defaultconfig compatible with argoptions by changing all '0' value attributes to None.
         _zero_to_none(self.defaultconfig, self.store_true_list)
 
-        #If verbose isn't set at the command-line, it automatically gets set to zero. If it's at zero, change it to
-        #None so the settings in the config files take precedence.
+        # If verbose isn't set at the command-line, it automatically gets set to zero. If it's at zero, change it to
+        # None so the settings in the config files take precedence.
         if argoptions.verbose == 0:
             argoptions.verbose = None
 
-        #Orgid, count, cache_lifetime, and verbose all need to be integers, just like in argoptions.
+        # Orgid, count, cache_lifetime, and verbose all need to be integers, just like in argoptions.
         if self.defaultconfig.orgid:
             self.defaultconfig.orgid = int(self.defaultconfig.orgid)
 
@@ -97,14 +98,15 @@ class  ConfManager:
         if self.defaultconfig.verbose:
             self.defaultconfig.verbose = int(self.defaultconfig.verbose)
 
-        #Copy the settings in argoptions into self.defaultconfig.
+        # Copy the settings in argoptions into self.defaultconfig.
         self.defaultconfig, argoptions = utils.make_common_attr_equal(self.defaultconfig, argoptions)
 
-        #Make sure files is in the correct format.
+        # Make sure files is in the correct format.
         if self.defaultconfig.files != files:
             self.defaultconfig.files = files
 
         return self.defaultconfig
+
 
 def _zero_to_none(config, store_true_list):
     for opt in config.keys():

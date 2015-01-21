@@ -26,11 +26,15 @@ from rhn import connections, rpclib
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 from utils import tupleify_urlparse
 
+
 class ConnectionError(Exception):
     pass
 
 # pylint: disable=R0902
+
+
 class BaseConnection:
+
     def __init__(self, uri, proxy=None):
         self._scheme, (self._host, self._port), self._path = parse_url(uri)[:3]
 
@@ -51,11 +55,11 @@ class BaseConnection:
             raise ValueError("Unsupported scheme", self._scheme)
         if self._proxy_host:
             params = {
-                'host'      : self._host,
-                'port'      : self._port,
-                'proxy'     : "%s:%s" % (self._proxy_host, self._proxy_port),
-                'username'  : self._proxy_username,
-                'password'  : self._proxy_password,
+                'host': self._host,
+                'port': self._port,
+                'proxy': "%s:%s" % (self._proxy_host, self._proxy_port),
+                'username': self._proxy_username,
+                'password': self._proxy_password,
             }
             if self._scheme == 'http':
                 return connections.HTTPProxyConnection(**params)
@@ -65,18 +69,17 @@ class BaseConnection:
             if self._scheme == 'http':
                 return connections.HTTPConnection(self._host, self._port)
             return connections.HTTPSConnection(self._host, self._port,
-                trusted_certs=self._trusted_certs)
+                                               trusted_certs=self._trusted_certs)
 
     def connect(self):
         self._connection = self.get_connection()
         self._connection.connect()
 
-
     def putrequest(self, method, url=None, skip_host=0):
         if url is None:
             url = self._path
         return self._connection.putrequest(method, url=url,
-            skip_host=skip_host)
+                                           skip_host=skip_host)
 
     def __getattr__(self, name):
         return getattr(self._connection, name)
@@ -85,6 +88,7 @@ class BaseConnection:
 class PackageUpload:
     header_prefix = "X-RHN-Upload"
     user_agent = "rhn-package-upload"
+
     def __init__(self, url, proxy=None):
         self.connection = BaseConnection(url, proxy)
         self.headers = {}
@@ -190,7 +194,7 @@ class PackageUpload:
         self.packaging = a_pkg.header.packaging
 
         nvra = [self.package_name, self.package_version, self.package_release,
-            self.package_arch]
+                self.package_arch]
 
         if isinstance(nvra[3], IntType):
             # Old rpm format
@@ -243,8 +247,8 @@ class PackageUpload:
             return status, errstring
         data = self._response.read()
         if status == 403:
-            #In this case Authentication is no longer valid on server
-            #client needs to re-authenticate itself.
+            # In this case Authentication is no longer valid on server
+            # client needs to re-authenticate itself.
             errstring = self.get_error_message(self._resp_headers)
             return status, errstring
         if status == 500:
@@ -262,14 +266,15 @@ class PackageUpload:
         text = base64.decodestring(text)
         return text
 
+
 def parse_url(url, scheme="http", path='/'):
     _scheme, netloc, _path, params, query, fragment = tupleify_urlparse(
-            urlparse.urlparse(url))
+        urlparse.urlparse(url))
     if not netloc:
         # No scheme - trying to patch it up ourselves?
         url = scheme + "://" + url
         _scheme, netloc, _path, params, query, fragment = tupleify_urlparse(
-                urlparse.urlparse(url))
+            urlparse.urlparse(url))
 
     if not netloc:
         # XXX
