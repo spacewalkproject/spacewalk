@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.126
+Version: 2.3.127
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 21 2015 Stephen Herr <sherr@redhat.com> 2.3.127-1
+- fixing error '...requires that an attribute name is preceded by whitespace'
+
 * Wed Jan 21 2015 Tomas Lestach <tlestach@redhat.com> 2.3.126-1
 - fixing checkstyle issue
 
