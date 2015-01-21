@@ -97,11 +97,13 @@ def do_softwarechannel_list(self, args, doreturn=False):
         if len(labels):
             if (options.verbose):
                 for l in sorted(labels):
-                    details = self.client.channel.software.getDetails(self.session, l)
+                    details = self.client.channel.software.getDetails(
+                        self.session, l)
                     print "%s : %s" % (l, details['summary'])
                     if (options.tree):
                         for c in self.list_child_channels(parent=l):
-                            cdetails = self.client.channel.software.getDetails(self.session, c)
+                            cdetails = self.client.channel.software.getDetails(
+                                self.session, c)
                             print " |-%s : %s" % (c, cdetails['summary'])
             else:
                 for l in sorted(labels):
@@ -285,7 +287,7 @@ def filter_latest_packages(pkglist):
     latest = {}
     for p in pkglist:
         tuplekey = p['name'], p['arch_label']
-        if not latest.has_key(tuplekey):
+        if tuplekey not in latest:
             latest[tuplekey] = p
         else:
             # Already have this package, is p newer?
@@ -492,7 +494,8 @@ def do_softwarechannel_delete(self, args):
     channels = args
 
     # find all matching channels
-    to_delete = filter_results(self.do_softwarechannel_list('', True), channels)
+    to_delete = filter_results(
+        self.do_softwarechannel_list('', True), channels)
 
     if not len(to_delete):
         return
@@ -878,13 +881,16 @@ def do_softwarechannel_clonetree(self, args):
                                                                  ch)
             if srcdetails['gpg_key_url']:
                 details['gpg_url'] = srcdetails['gpg_key_url']
-                logging.debug("copying gpg_key_url=%s" % srcdetails['gpg_key_url'])
+                logging.debug(
+                    "copying gpg_key_url=%s" % srcdetails['gpg_key_url'])
             if srcdetails['gpg_key_id']:
                 details['gpg_id'] = srcdetails['gpg_key_id']
-                logging.debug("copying gpg_key_id=%s" % srcdetails['gpg_key_id'])
+                logging.debug(
+                    "copying gpg_key_id=%s" % srcdetails['gpg_key_id'])
             if srcdetails['gpg_key_fp']:
                 details['gpg_fingerprint'] = srcdetails['gpg_key_fp']
-                logging.debug("copying gpg_key_fp=%s" % srcdetails['gpg_key_fp'])
+                logging.debug(
+                    "copying gpg_key_fp=%s" % srcdetails['gpg_key_fp'])
 
         if options.gpg_id:
             details['gpg_id'] = options.gpg_id
@@ -1352,7 +1358,8 @@ def do_softwarechannel_adderrata(self, args):
         print
         print 'Packages'
         print '--------'
-        print '\n'.join(sorted([self.get_package_name(p) for p in package_ids]))
+        print '\n'.join(
+            sorted([self.get_package_name(p) for p in package_ids]))
 
         print
     print 'Total Errata:   %s' % str(len(errata)).rjust(3)
@@ -1408,7 +1415,8 @@ def do_softwarechannel_getorgaccess(self, args):
 
     for channel in channels:
         logging.debug("Getting org-access for channel %s" % channel)
-        sharing = self.client.channel.access.getOrgSharing(self.session, channel)
+        sharing = self.client.channel.access.getOrgSharing(
+            self.session, channel)
         print "%s : %s" % (channel, sharing)
 
 ####################
@@ -1444,11 +1452,15 @@ def do_softwarechannel_setorgaccess(self, args):
         # If they just specify a channel and --enable/--disable
         # this implies public/private access
         if (options.enable):
-            logging.info("Making org sharing public for channel : %s " % channel)
-            self.client.channel.access.setOrgSharing(self.session, channel, 'public')
+            logging.info(
+                "Making org sharing public for channel : %s " % channel)
+            self.client.channel.access.setOrgSharing(
+                self.session, channel, 'public')
         elif (options.disable):
-            logging.info("Making org sharing private for channel : %s " % channel)
-            self.client.channel.access.setOrgSharing(self.session, channel, 'private')
+            logging.info(
+                "Making org sharing private for channel : %s " % channel)
+            self.client.channel.access.setOrgSharing(
+                self.session, channel, 'private')
         else:
             self.help_softwarechannel_setorgaccess()
             return
@@ -1519,7 +1531,8 @@ def dump_softwarechannel(self, name, replacedict=None, excludes=None):
     excludes = excludes or []
     content = self.do_softwarechannel_listallpackages(name, doreturn=True)
 
-    content = get_normalized_text(content, replacedict=replacedict, excludes=excludes)
+    content = get_normalized_text(
+        content, replacedict=replacedict, excludes=excludes)
 
     return content
 
@@ -1563,7 +1576,8 @@ def do_softwarechannel_diff(self, args):
         target_channel = args[1]
     elif hasattr(self, "do_softwarechannel_getcorresponding"):
         # can a corresponding channel name be found automatically?
-        target_channel = self.do_softwarechannel_getcorresponding(source_channel)
+        target_channel = self.do_softwarechannel_getcorresponding(
+            source_channel)
     if not self.check_softwarechannel(target_channel):
         return
 
@@ -1576,24 +1590,28 @@ def do_softwarechannel_diff(self, args):
 
 ####################
 
-def dump_softwarechannel_errata(self, name ):
-    errata = self.client.channel.software.listErrata(self.session, name )
+
+def dump_softwarechannel_errata(self, name):
+    errata = self.client.channel.software.listErrata(self.session, name)
     result = []
     for erratum in errata:
-        result.append( '%s %s' % (
-          erratum.get('advisory_name').ljust(14),
-          wrap(erratum.get('advisory_synopsis'), 50)[0]) )
+        result.append('%s %s' % (
+                      erratum.get('advisory_name').ljust(14),
+                      wrap(erratum.get('advisory_synopsis'), 50)[0]))
     result.sort()
     return result
+
 
 def help_softwarechannel_errata_diff(self):
     print 'softwarechannel_errata_diff: diff softwarechannel files'
     print ''
     print 'usage: softwarechannel_errata_diff SOURCE_CHANNEL TARGET_CHANNEL'
 
+
 def complete_softwarechannel_errata_diff(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
     args = len(parts)
 
     if args == 2:
@@ -1601,6 +1619,7 @@ def complete_softwarechannel_errata_diff(self, text, line, beg, end):
     if args == 3:
         return tab_completer(self.do_softwarechannel_list('', True), text)
     return []
+
 
 def do_softwarechannel_errata_diff(self, args):
     options = []
@@ -1612,23 +1631,27 @@ def do_softwarechannel_errata_diff(self, args):
         return
 
     source_channel = args[0]
-    if not self.check_softwarechannel( source_channel ): return
+    if not self.check_softwarechannel(source_channel):
+        return
 
     target_channel = None
     if len(args) == 2:
         target_channel = args[1]
-    elif hasattr( self, "do_softwarechannel_getcorresponding" ):
+    elif hasattr(self, "do_softwarechannel_getcorresponding"):
         # try to find the corresponding channel automatically
-        target_channel=self.do_softwarechannel_getcorresponding( source_channel)
-    if not self.check_softwarechannel( target_channel ): return
+        target_channel = self.do_softwarechannel_getcorresponding(
+            source_channel)
+    if not self.check_softwarechannel(target_channel):
+        return
 
     # softwarechannel do not contain references to other components,
     # therefore there is no need to use replace dicts
     source_data = self.dump_softwarechannel_errata(source_channel)
     target_data = self.dump_softwarechannel_errata(target_channel)
-    return diff( source_data, target_data, source_channel, target_channel )
+    return diff(source_data, target_data, source_channel, target_channel)
 
 ####################
+
 
 def help_softwarechannel_sync(self):
     print 'softwarechannel_sync: '
@@ -1668,19 +1691,23 @@ def do_softwarechannel_sync(self, args):
         target_channel = args[1]
     elif hasattr(self, "do_softwarechannel_getcorresponding"):
         # can a corresponding channel name be found automatically?
-        target_channel = self.do_softwarechannel_getcorresponding(source_channel)
+        target_channel = self.do_softwarechannel_getcorresponding(
+            source_channel)
     if not self.check_softwarechannel(target_channel):
         return
 
-    logging.info("syncing packages from softwarechannel " + source_channel + " to " + target_channel)
+    logging.info("syncing packages from softwarechannel " +
+                 source_channel + " to " + target_channel)
 
     # use API call instead of spacecmd function
     # to get detailed infos about the packages
     # and not just there names
-    source_packages = self.client.channel.software.listAllPackages(self.session,
-                                                                   source_channel)
-    target_packages = self.client.channel.software.listAllPackages(self.session,
-                                                                   target_channel)
+    source_packages = self.client.channel.software.listAllPackages(
+        self.session,
+        source_channel)
+    target_packages = self.client.channel.software.listAllPackages(
+        self.session,
+        target_channel)
 
     # get the package IDs
     source_ids = set()
@@ -1701,7 +1728,7 @@ def do_softwarechannel_sync(self, args):
 
     print "packages common in both channels:"
     for i in (source_ids & target_ids):
-        print self.get_package_name( i )
+        print self.get_package_name(i)
     print
 
     # check for packages only in the source channel
@@ -1722,10 +1749,14 @@ def do_softwarechannel_sync(self, args):
 
     if source_only or target_only:
         print "summary:"
-        print "  " + source_channel + ": " + str(len( source_ids )).rjust(5), "packages"
-        print "  " + target_channel + ": " + str(len( target_ids )).rjust(5), "packages"
-        print "    add   ", str(len(source_only)).rjust(5), "packages to  ", target_channel
-        print "    remove", str(len(target_only)).rjust(5), "packages from", target_channel
+        print "  " + source_channel + ": " + str(len(source_ids)
+                                                 ).rjust(5), "packages"
+        print "  " + target_channel + ": " + str(len(target_ids)
+                                                 ).rjust(5), "packages"
+        print "    add   ", str(
+            len(source_only)).rjust(5), "packages to  ", target_channel
+        print "    remove", str(
+            len(target_only)).rjust(5), "packages from", target_channel
         if not self.user_confirm('Perform these changes to channel ' + target_channel + ' [y/N]:'):
             return
 
@@ -1738,15 +1769,18 @@ def do_softwarechannel_sync(self, args):
 
 ####################
 
+
 def help_softwarechannel_errata_sync(self):
     print 'softwarechannel_errata_sync: '
     print 'sync errata of two software channels'
     print ''
     print 'usage: softwarechannel_errata_sync SOURCE_CHANNEL TARGET_CHANNEL'
 
+
 def complete_softwarechannel_errata_sync(self, text, line, beg, end):
     parts = shlex.split(line)
-    if line[-1] == ' ': parts.append('')
+    if line[-1] == ' ':
+        parts.append('')
     args = len(parts)
 
     if args == 2:
@@ -1754,6 +1788,7 @@ def complete_softwarechannel_errata_sync(self, text, line, beg, end):
     if args == 3:
         return tab_completer(self.do_softwarechannel_list('', True), text)
     return []
+
 
 def do_softwarechannel_errata_sync(self, args):
     options = []
@@ -1765,20 +1800,26 @@ def do_softwarechannel_errata_sync(self, args):
         return
 
     source_channel = args[0]
-    if not self.check_softwarechannel( source_channel ): return
+    if not self.check_softwarechannel(source_channel):
+        return
 
     target_channel = None
     if len(args) == 2:
         target_channel = args[1]
-    elif hasattr( self, "do_softwarechannel_getcorresponding" ):
+    elif hasattr(self, "do_softwarechannel_getcorresponding"):
         # try to find a corresponding channel name automatically
-        target_channel=self.do_softwarechannel_getcorresponding(source_channel)
-    if not self.check_softwarechannel( target_channel ): return
+        target_channel = self.do_softwarechannel_getcorresponding(
+            source_channel)
+    if not self.check_softwarechannel(target_channel):
+        return
 
-    logging.info( "syncing errata from softwarechannel "+source_channel+" to "+target_channel )
+    logging.info("syncing errata from softwarechannel "+source_channel +
+                 " to "+target_channel)
 
-    source_errata = self.client.channel.software.listErrata( self.session, source_channel )
-    target_errata = self.client.channel.software.listErrata( self.session, target_channel )
+    source_errata = self.client.channel.software.listErrata(
+        self.session, source_channel)
+    target_errata = self.client.channel.software.listErrata(
+        self.session, target_channel)
 
     # store unique errata data in a set
     source_ids = set()
@@ -1786,7 +1827,7 @@ def do_softwarechannel_errata_sync(self, args):
         try:
             source_ids.add(erratum.get('advisory_name'))
         except KeyError:
-            logging.error( "failed to read key id" )
+            logging.error("failed to read key id")
             continue
 
     target_ids = set()
@@ -1794,11 +1835,11 @@ def do_softwarechannel_errata_sync(self, args):
         try:
             target_ids.add(erratum.get('advisory_name'))
         except KeyError:
-            logging.error( "failed to read key id" )
+            logging.error("failed to read key id")
             continue
 
     print "errata common in both channels:"
-    for i in ( source_ids & target_ids ):
+    for i in (source_ids & target_ids):
         print i
     print
 
@@ -1811,9 +1852,8 @@ def do_softwarechannel_errata_sync(self, args):
             print i
         print
 
-
     # check for errata only in the target channel
-    target_only = list(target_ids.difference( source_ids ))
+    target_only = list(target_ids.difference(source_ids))
     target_only.sort()
     if target_only:
         print 'errata to remove from channel "' + target_channel + '":'
@@ -1823,12 +1863,17 @@ def do_softwarechannel_errata_sync(self, args):
 
     if source_only or target_only:
         print "summary:"
-        print "  " + source_channel + ": " + str(len( source_ids )).rjust(5), "errata"
-        print "  " + target_channel + ": " + str(len( target_ids )).rjust(5), "errata"
-        print "    add   ", str(len(source_only)).rjust(5), "errata to  ", target_channel
-        print "    remove", str(len(target_only)).rjust(5), "errata from", target_channel
+        print "  " + source_channel + ": " + str(len(source_ids)
+                                                 ).rjust(5), "errata"
+        print "  " + target_channel + ": " + str(len(target_ids)
+                                                 ).rjust(5), "errata"
+        print "    add   ", str(
+            len(source_only)).rjust(5), "errata to  ", target_channel
+        print "    remove", str(
+            len(target_only)).rjust(5), "errata from", target_channel
 
-        if not self.user_confirm('Perform these changes to channel ' + target_channel + ' [y/N]:'): return
+        if not self.user_confirm('Perform these changes to channel ' + target_channel + ' [y/N]:'):
+            return
 
         for erratum in source_only:
             print erratum
@@ -1841,10 +1886,11 @@ def do_softwarechannel_errata_sync(self, args):
         #    array:
         #      string - advisoryName - name of an erratum to remove
         #    boolean removePackages - True to remove packages from the channel
-        self.client.channel.software.removeErrata( self.session, target_channel,
-                target_only, False )
+        self.client.channel.software.removeErrata(self.session, target_channel,
+                                                  target_only, False)
 
 ####################
+
 
 def help_softwarechannel_syncrepos(self):
     print 'softwarechannel_syncrepos: '
@@ -2012,11 +2058,14 @@ def do_softwarechannel_mirrorpackages(self, args):
             self.client.channel.software.listAllPackages(self.session, channel)
     else:
         packages = \
-            self.client.channel.software.listLatestPackages(self.session, channel)
+            self.client.channel.software.listLatestPackages(
+                self.session, channel)
 
     for package in packages:
-        package_url = self.client.packages.getPackageUrl(self.session, package['id'])
-        package_file = self.client.packages.getDetails(self.session, package['id']).get('file')
+        package_url = self.client.packages.getPackageUrl(
+            self.session, package['id'])
+        package_file = self.client.packages.getDetails(
+            self.session, package['id']).get('file')
         if os.path.isfile(package_file):
             print "Skipping", package_file
         else:
@@ -2024,10 +2073,12 @@ def do_softwarechannel_mirrorpackages(self, args):
             try:
                 urllib.urlretrieve(package_url, package_file)
             except urllib.ContentTooShortError:
-                logging.error("Received package %s from channel %s is broken. Content is too short",
-                              package_file, channel)
+                logging.error(
+                    "Received package %s from channel %s is broken. Content is too short",
+                    package_file, channel)
             except IOError:
-                logging.error("Could not fetch package %s from channel %s" % (package_file, channel))
+                logging.error("Could not fetch package %s from channel %s" %
+                              (package_file, channel))
 
 
 # vim:ts=4:expandtab:
