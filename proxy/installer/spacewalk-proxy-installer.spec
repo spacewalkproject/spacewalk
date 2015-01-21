@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.3.7
+Version: 2.3.8
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -95,6 +95,9 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Wed Jan 21 2015 Matej Kollar <mkollar@redhat.com> 2.3.8-1
+- Fix Pylint on Fedora 21
+
 * Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 2.3.7-1
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
 
