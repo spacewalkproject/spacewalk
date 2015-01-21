@@ -55,13 +55,13 @@ class rhnpushConfigParser:
             'dir':   '',
             'server':   'http://rhn.redhat.com/APP',
             'channel':   '',
-            'cache_lifetime':   '600',
-                                'new_cache':   '0',
-                                'extended_test':   '0',
-                                'no_session_caching':   '0',
-                                'proxy':   '',
-                                'tolerant':   '0',
-                                'ca_chain':   '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT',
+            'cache_lifetime': '600',
+            'new_cache':   '0',
+            'extended_test':   '0',
+            'no_session_caching':   '0',
+            'proxy':   '',
+            'tolerant':   '0',
+            'ca_chain':   '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT',
 
         }
 
