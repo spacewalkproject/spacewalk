@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.124
+Version: 2.3.125
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jan 20 2015 Stephen Herr <sherr@redhat.com> 2.3.125-1
+- Fix ISE when cloning a channel that is not globally subscribable
+- Fix ISE if creating a channel that is not globally subscribable
+
 * Mon Jan 19 2015 Grant Gainey 2.3.124-1
 - 1156299, CVE-2014-7811 - Fixed reported XSS issues  *
   /rhn/systems/details/Overview.do?sid= , Description  *
