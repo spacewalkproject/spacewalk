@@ -25,7 +25,7 @@
 %endif
 
 Name: spacewalk-java
-Summary: Spacewalk Java site packages
+Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
 Version: 2.3.128
@@ -35,9 +35,6 @@ Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.ta
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 ExcludeArch: ia64
-
-Summary: Java web application files for Spacewalk
-Group: Applications/Internet
 
 Requires: bcel
 Requires: c3p0 >= 0.9.1
