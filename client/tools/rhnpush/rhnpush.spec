@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.82
+Version:       5.5.83
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -75,6 +75,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Wed Jan 21 2015 Matej Kollar <mkollar@redhat.com> 5.5.83-1
+- Fix Pylint on Fedora 21: manual fixes
+- Fix Pylint on Fedora 21: autopep8
+
 * Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 5.5.82-1
 - Getting rid of Tabs and trailing spaces in Python
 
