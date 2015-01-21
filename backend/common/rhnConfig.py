@@ -349,8 +349,7 @@ def parse_line(line):
                        'db_name': str,
                        'db_user': str,
                        'db_password': str,
-                       'db_host': str,
-                       }
+                       'db_host': str}
         val = val.strip()
 
         if converTable.get(key):

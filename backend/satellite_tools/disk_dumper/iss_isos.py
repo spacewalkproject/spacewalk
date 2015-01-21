@@ -20,8 +20,7 @@ def create_isos(mountpoint, outdir, prefix, lower_limit=None, upper_limit=None, 
     opts = ["--mountpoint=%s" % mountpoint,
             "--file-prefix=%s" % prefix,
             "--output=%s" % outdir,
-            "--type=%s" % iso_type,
-            ]
+            "--type=%s" % iso_type]
 
     if lower_limit is not None:
         opts.append("-v%s-%s" % (lower_limit, upper_limit))

@@ -368,8 +368,7 @@ class RepoSync(object):
                                                         epoch,
                                                         param_dict['version'],
                                                         param_dict['release'],
-                                                        param_dict['arch']
-                                                        ))
+                                                        param_dict['arch']))
                     continue
 
                 newpkgs = []

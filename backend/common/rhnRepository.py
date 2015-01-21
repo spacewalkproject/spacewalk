@@ -142,8 +142,7 @@ class Repository(RPC_Base):
         pkg = pkgFilename.split('.')
         # Basic sanity checks:
         if pkg[-1] not in ["hdr", 'rpm']:
-            raise rhnFault(21, "'%s' not a valid RPM header name"
-                               % pkgFilename)
+            raise rhnFault(21, "'%s' not a valid RPM header name" % pkgFilename)
 
         pkgFilename = ".".join(pkg[:-1]) + '.rpm'
         filePath = self.getPackagePath(pkgFilename)
@@ -185,7 +184,7 @@ class Repository(RPC_Base):
                 s = os.stat(filePath)
             except:
                 raise rhnFault(17, "Unable to read package %s"
-                                   % os.path.basename(filePath)), None, sys.exc_info()[2]
+                               % os.path.basename(filePath)), None, sys.exc_info()[2]
 
         lastModified = s[stat.ST_MTIME]
         del s  # XXX: not neccessary?
@@ -238,7 +237,7 @@ class Repository(RPC_Base):
         log_debug(3, filePath)
         if not filePath:
             raise rhnFault(17, "While looking for file: `%s'"
-                               % os.path.basename(filePath))
+                           % os.path.basename(filePath))
         try:
             s = os.stat(filePath)
         except:

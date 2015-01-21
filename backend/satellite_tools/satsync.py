@@ -204,7 +204,7 @@ class Runner:
                 log(-1, ['', messages.syncer_error % e.faultString], )
                 sys.exit(9)
 
-        except Exception, e:
+        except Exception, e:  # pylint: disable=broad-except
             log(-1, ['', messages.syncer_error % e], )
             sys.exit(10)
 
@@ -287,7 +287,7 @@ class Runner:
         except xmlWireSource.rpclib.xmlrpclib.Fault, e:
             log(-1, messages.failed_step % (step_name, e.faultString))
             return 1
-        except Exception, e:
+        except Exception, e:  # pylint: disable=broad-except
             log(-1, messages.failed_step % (step_name, e))
             return 1
         return ret
@@ -511,15 +511,15 @@ class Syncer:
         except KeyboardInterrupt:
             log(-1, _('*** SYSTEM INTERRUPT CALLED ***'), stream=sys.stderr)
             raise
-        except (FatalParseException, ParseException, Exception), e:
+        except (FatalParseException, ParseException, Exception), e:  # pylint: disable=broad-except
             # nuke the container batch upon error!
             self.containerHandler.clear()
             msg = ''
             if isinstance(e, FatalParseException):
                 msg = (_('ERROR: fatal parser exception occurred ') +
                        _('(line: %s, col: %s msg: %s)') % (
-                    e.getLineNumber(), e.getColumnNumber(),
-                    e._msg))
+                           e.getLineNumber(), e.getColumnNumber(),
+                           e._msg))
             elif isinstance(e, ParseException):
                 msg = (_('ERROR: parser exception occurred: %s') % (e))
             elif isinstance(e, exceptions.SystemExit):
@@ -1090,9 +1090,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             for pid in pids:
                 # XXX Catch errors
                 if (not package_collection.has_package(pid)
-                    or package_collection.get_package(pid)['last_modified']
-                        != short_package_collection.get_package(pid)
-                        ['last_modified']):
+                        or package_collection.get_package(pid)['last_modified']
+                        != short_package_collection.get_package(pid)['last_modified']):
                     # not in the cache
                     mp.append(pid)
 
@@ -1313,7 +1312,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 f.write_file(stream)
                 break  # inner for
             except FileCreationError, e:
-                msg = e[0]
+                msg = e.args[0]
                 log2disk(-1, _("Unable to save file %s: %s") % (path,
                                                                 msg))
                 # Try again
@@ -1939,7 +1938,7 @@ class ThreadDownload(threading.Thread):
                     rpmManip.write_file(stream)
                     break  # inner for
                 except FileCreationError, e:
-                    msg = e[0]
+                    msg = e.args[0]
                     log2disk(-1, _("Unable to save file %s: %s") % (
                         rpmManip.full_path, msg))
                     # Try again
@@ -2108,7 +2107,8 @@ def processCommandline():
         Option('-c', '--channel',             action='append',
                help=_('process data for this channel only')),
         Option('--consider-full',       action='store_true',
-               help=_('disk dump will be considered to be a full export; see "man satellite-sync" for more information.')),
+               help=_('disk dump will be considered to be a full export; '
+                      'see "man satellite-sync" for more information.')),
         Option('--include-custom-channels',       action='store_true',
                help=_('existing custom channels will also be synced (unless -c is used)')),
         Option('--debug-level',         action='store',
@@ -2117,7 +2117,7 @@ def processCommandline():
                help=_("requested version of XML dump (default: %s)") % constants.PROTOCOL_VERSION),
         Option('--email',               action='store_true',
                help=_('e-mail a report of what was synced/imported')),
-        Option('--force-all-errata',  action='store_true',
+        Option('--force-all-errata',    action='store_true',
                help=_('forcibly process all (not a diff of) errata metadata')),
         Option('--force-all-packages',  action='store_true',
                help=_('forcibly process all (not a diff of) package metadata')),
@@ -2127,13 +2127,13 @@ def processCommandline():
                help=_('alternative http proxy username')),
         Option('--http-proxy-password', action='store',
                help=_('alternative http proxy password')),
-        Option('--iss-parent',             action='store',
+        Option('--iss-parent',          action='store',
                help=_('parent satellite to import content from')),
-        Option('-l', '--list-channels',       action='store_true',
+        Option('-l', '--list-channels', action='store_true',
                help=_('list all available channels and exit')),
-        Option('--list-error-codes',         action='store_true',
+        Option('--list-error-codes',    action='store_true',
                help=_("help on all error codes satellite-sync returns")),
-        Option('-m', '--mount-point',         action='store',
+        Option('-m', '--mount-point',   action='store',
                help=_('source mount point for import - disk update only')),
         Option('--no-errata',           action='store_true',
                help=_('do not process errata data')),
@@ -2145,14 +2145,14 @@ def processCommandline():
                help=_('do not download, or process any RPMs')),
         Option('--no-ssl',              action='store_true',
                help=_('turn off SSL (not recommended)')),
-        Option('--orgid',                  action='store',
+        Option('--orgid',               action='store',
                help=_('org to which the sync imports data. defaults to the admin account')),
         Option('-p', '--print-configuration', action='store_true',
                help=_('print the configuration and exit')),
         Option('--rhn-cert',            action='store',
                help=_('satellite certificate to import ') +
                _('(use with --mount-point only)')),
-        Option('-s', '--server',              action='store',
+        Option('-s', '--server',        action='store',
                help=_('alternative server with which to connect (hostname)')),
         Option('--step',                action='store',
                help=_('synchronize to this step (man satellite-sync for more info)')),
@@ -2160,11 +2160,12 @@ def processCommandline():
                help=_("DEBUG ONLY: alternative path to digital system id")),
         Option('--traceback-mail',      action='store',
                help=_('alternative email address(es) for sync output (--email option)')),
-        Option('--keep-rpms',      action='store_true',
+        Option('--keep-rpms',           action='store_true',
                help=_('do not remove rpms when importing from local dump')),
-        Option('--master',      action='store',
+        Option('--master',              action='store',
                help=_('the fully qualified domain name of the master Satellite. '
-                      + 'Valid with --mount-point only. Required if you want to import org data and channel permissions.')),
+                      'Valid with --mount-point only. '
+                      'Required if you want to import org data and channel permissions.')),
     ]
     optionParser = OptionParser(option_list=optionsTable)
     global OPTIONS
@@ -2215,7 +2216,8 @@ def processCommandline():
                 raise RhnSyncException, "exception will be caught", sys.exc_info()[2]
         except KeyboardInterrupt, e:
             raise
-        except:
+        # pylint: disable=broad-except
+        except Exception:
             msg = [_("ERROR: --debug-level takes an in integer value within the range %s.")
                    % repr(tuple(range(debugRange + 1))),
                    _("  0  - little logging/messaging."),
@@ -2316,8 +2318,7 @@ def processCommandline():
                     "no_kickstarts": 'no-kickstarts',
                     "force_all_packages": 'force-all-packages',
                     "force_all_errata": 'force-all-errata',
-                    'no_ssl': 'no-ssl',
-                    }
+                    'no_ssl': 'no-ssl'}
 
     for oa in otherActions.keys():
         if getattr(OPTIONS, oa):
@@ -2441,7 +2442,7 @@ if __name__ == '__main__':
         sys.exit(Runner().main() or 0)
     except (KeyboardInterrupt, SystemExit), ex:
         sys.exit(ex)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         from spacewalk.common.rhnTB import fetchTraceback
         tb = 'TRACEBACK: ' + fetchTraceback(with_locals=1)
         log2disk(-1, tb)

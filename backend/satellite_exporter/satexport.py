@@ -41,6 +41,7 @@ class BaseApacheServer:
         self._cleanup()
 
     def headerParserHandler(self, req):
+        # pylint: disable=W0201
         log_setreq(req)
         self.start_time = time.time()
         # init configuration options with proper component
@@ -116,7 +117,7 @@ class BaseApacheServer:
             # The error code most likely doesn't matter, the client won't see
             # it anyway
             return apache.HTTP_NOT_ACCEPTABLE
-        except:
+        except Exception:  # pylint: disable=broad-except
             Traceback("satexport._wrapper", req=req)
             return apache.HTTP_INTERNAL_SERVER_ERROR
         return ret

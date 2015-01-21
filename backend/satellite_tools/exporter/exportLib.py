@@ -275,8 +275,7 @@ class ChannelTrustedOrgsDumper(BaseDumper):
 
     def dump_subelement(self, data):
         d = EmptyDumper(self._writer, 'rhn-channel-trusted-org',
-                        attributes={'org-id': data['org_trust_id'],
-                                    })
+                        attributes={'org-id': data['org_trust_id']})
         d.dump()
 
 
@@ -347,8 +346,7 @@ class _ChannelDumper(BaseRowDumper):
             arr.append(SimpleDumper(self._writer, k, self._row[v]))
 
         arr.append(SimpleDumper(self._writer, 'rhn-channel-last-modified',
-                                _dbtime2timestamp(self._row['last_modified']))
-                   )
+                                _dbtime2timestamp(self._row['last_modified'])))
         channel_product_details = self._get_channel_product_details()
         arr.append(SimpleDumper(self._writer, 'rhn-channel-product-name',
                                 channel_product_details[0]))
@@ -360,8 +358,7 @@ class _ChannelDumper(BaseRowDumper):
         comp_last_modified = self._channel_comps_last_modified()
         if comp_last_modified != None:
             arr.append(SimpleDumper(self._writer, 'rhn-channel-comps-last-modified',
-                                    _dbtime2timestamp(comp_last_modified[0]))
-                       )
+                                    _dbtime2timestamp(comp_last_modified[0])))
 
         h = rhnSQL.prepare(self._query_get_channel_trusts)
         h.execute(channel_id=channel_id)
@@ -868,26 +865,16 @@ class _PackageDumper(BaseRowDumper):
 
         # Dependency information
         mappings = [
-            ['rhnPackageRequires',   'rhn-package-requires',
-                'rhn-package-requires-entry'],
-            ['rhnPackageProvides',   'rhn-package-provides',
-                'rhn-package-provides-entry'],
-            ['rhnPackageConflicts',   'rhn-package-conflicts',
-                'rhn-package-conflicts-entry'],
-            ['rhnPackageObsoletes',   'rhn-package-obsoletes',
-                'rhn-package-obsoletes-entry'],
-            ['rhnPackageRecommends',  'rhn-package-recommends',
-                'rhn-package-recommends-entry'],
-            ['rhnPackageSuggests',  'rhn-package-suggests',
-                'rhn-package-suggests-entry'],
-            ['rhnPackageSupplements',  'rhn-package-supplements',
-                'rhn-package-supplements-entry'],
-            ['rhnPackageEnhances',  'rhn-package-enhances',
-                'rhn-package-enhances-entry'],
-            ['rhnPackageBreaks',  'rhn-package-breaks',
-                'rhn-package-breaks-entry'],
-            ['rhnPackagePredepends',  'rhn-package-predepends',
-                'rhn-package-predepends-entry'],
+            ['rhnPackageRequires',    'rhn-package-requires',    'rhn-package-requires-entry'],
+            ['rhnPackageProvides',    'rhn-package-provides',    'rhn-package-provides-entry'],
+            ['rhnPackageConflicts',   'rhn-package-conflicts',   'rhn-package-conflicts-entry'],
+            ['rhnPackageObsoletes',   'rhn-package-obsoletes',   'rhn-package-obsoletes-entry'],
+            ['rhnPackageRecommends',  'rhn-package-recommends',  'rhn-package-recommends-entry'],
+            ['rhnPackageSuggests',    'rhn-package-suggests',    'rhn-package-suggests-entry'],
+            ['rhnPackageSupplements', 'rhn-package-supplements', 'rhn-package-supplements-entry'],
+            ['rhnPackageEnhances',    'rhn-package-enhances',    'rhn-package-enhances-entry'],
+            ['rhnPackageBreaks',      'rhn-package-breaks',      'rhn-package-breaks-entry'],
+            ['rhnPackagePredepends',  'rhn-package-predepends',  'rhn-package-predepends-entry'],
         ]
         for table_name, container_name, entry_name in mappings:
             h = rhnSQL.prepare("""

@@ -147,7 +147,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
             self.__parser.parse(self.__stream)
         except (KeyboardInterrupt, SystemExit):
             raise
-        except Exception:
+        except Exception:  # pylint: disable=broad-except
             Traceback(ostream=sys.stderr, with_locals=1)
             if stream is not None:
                 stream.close()

@@ -255,8 +255,7 @@ def import_channels(channels, orgid=None, master=None):
                     trusts.append(trust)
             c_obj['trust_list'] = trusts
 
-        syncLib.log(6, "Syncing Channel %s to Org %s " %
-                       (c_obj['label'], c_obj['org_id']))
+        syncLib.log(6, "Syncing Channel %s to Org %s " % (c_obj['label'], c_obj['org_id']))
         batch.append(c_obj)
 
     importer = channelImport.ChannelImport(batch, my_backend)

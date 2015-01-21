@@ -167,7 +167,7 @@ class BaseWireSource:
             except rpclib.xmlrpclib.Fault, e:
                 lastErrorMsg = e.faultString
                 break
-            except Exception, e:
+            except Exception, e:  # pylint: disable=broad-except
                 p = tuple(['<the systemid>'] + list(params[1:]))
                 lastErrorMsg = 'ERROR: server.%s%s: %s' % (method, p, e)
                 log2(-1, 2, lastErrorMsg, stream=sys.stderr)
@@ -319,7 +319,7 @@ class AuthWireSource(XMLRPCWireSource):
         elif authYN == None:
             log(-1, '   --- An error occurred upon authentication of this satellite -- '
                     'review the pertinent log file (%s) and/or alert RHN at rhn-satellite@redhat.com.' % CFG.LOG_FILE,
-                    stream=sys.stderr)
+                stream=sys.stderr)
             sys.exit(-1)
         elif authYN == 0:
             log(-1, '   --- This server is not an entitled satellite.', stream=sys.stderr)

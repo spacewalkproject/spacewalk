@@ -167,21 +167,15 @@ class XML_Dumper:
     def dump_arches(self, rpm_arch_type_only=0):
         log_debug(2)
         writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer,
-                                 exportLib.ChannelArchesDumper(writer,
-                                                               rpm_arch_type_only=rpm_arch_type_only),
-                                 exportLib.PackageArchesDumper(writer,
-                                                               rpm_arch_type_only=rpm_arch_type_only),
-                                 exportLib.ServerArchesDumper(writer,
-                                                              rpm_arch_type_only=rpm_arch_type_only),
-                                 exportLib.CPUArchesDumper(writer),
-                                 exportLib.ServerPackageArchCompatDumper(writer,
-                                                                         rpm_arch_type_only=rpm_arch_type_only),
-                                 exportLib.ServerChannelArchCompatDumper(writer,
-                                                                         rpm_arch_type_only=rpm_arch_type_only),
-                                 exportLib.ChannelPackageArchCompatDumper(writer,
-                                                                          rpm_arch_type_only=rpm_arch_type_only),
-                                 )
+        dumper = SatelliteDumper(
+            writer,
+            exportLib.ChannelArchesDumper(writer, rpm_arch_type_only=rpm_arch_type_only),
+            exportLib.PackageArchesDumper(writer, rpm_arch_type_only=rpm_arch_type_only),
+            exportLib.ServerArchesDumper(writer, rpm_arch_type_only=rpm_arch_type_only),
+            exportLib.CPUArchesDumper(writer),
+            exportLib.ServerPackageArchCompatDumper(writer, rpm_arch_type_only=rpm_arch_type_only),
+            exportLib.ServerChannelArchCompatDumper(writer, rpm_arch_type_only=rpm_arch_type_only),
+            exportLib.ChannelPackageArchCompatDumper(writer, rpm_arch_type_only=rpm_arch_type_only))
         dumper.dump()
         writer.flush()
         log_debug(4, "OK")

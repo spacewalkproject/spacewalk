@@ -63,7 +63,7 @@ class NoFreeEntitlementsError(Exception):
         self.message = ("Error: You do not have enough unused %s entitlements in the base org. "
                         + "You will need at least %s free entitlements, based on your current consumption. "
                         + "Please un-entitle the remaining systems for the activation to proceed.") % (
-            self.label, self.quantity)
+                            self.label, self.quantity)
         self.args = [self.message]
 
 
@@ -265,8 +265,7 @@ def set_slots_from_cert(cert, testonly=False):
                                                                      'fve_current_members',
                                                                      'fve_max_members',
                                                                      'physical_count',
-                                                                     'virtual_count'
-                                                                     )]
+                                                                     'virtual_count')]
 
     for cf in cert.channel_families:
         if not families.has_key(cf.name):
@@ -425,7 +424,7 @@ def set_slots_from_cert(cert, testonly=False):
             # Set the counts now
             activate_system_entitlement(org_id, db_label, quantity)
         except rhnSQL.sql_base.SQLSchemaError, e:
-            if e[0] == 20290:
+            if e.args[0] == 20290:
                 free_count = sys_ent_counts[(db_label, 1)] - quantity
                 raise NoFreeEntitlementsError(db_label, free_count), None, sys.exc_info()[2]
             else:
