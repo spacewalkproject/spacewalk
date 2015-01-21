@@ -204,7 +204,7 @@ class Runner:
                 log(-1, ['', messages.syncer_error % e.faultString], )
                 sys.exit(9)
 
-        except Exception, e:  # pylint: disable=broad-except
+        except Exception, e:  # pylint: disable=E0012, W0703
             log(-1, ['', messages.syncer_error % e], )
             sys.exit(10)
 
@@ -287,7 +287,7 @@ class Runner:
         except xmlWireSource.rpclib.xmlrpclib.Fault, e:
             log(-1, messages.failed_step % (step_name, e.faultString))
             return 1
-        except Exception, e:  # pylint: disable=broad-except
+        except Exception, e:  # pylint: disable=E0012, W0703
             log(-1, messages.failed_step % (step_name, e))
             return 1
         return ret
@@ -511,7 +511,7 @@ class Syncer:
         except KeyboardInterrupt:
             log(-1, _('*** SYSTEM INTERRUPT CALLED ***'), stream=sys.stderr)
             raise
-        except (FatalParseException, ParseException, Exception), e:  # pylint: disable=broad-except
+        except (FatalParseException, ParseException, Exception), e:  # pylint: disable=E0012, W0703
             # nuke the container batch upon error!
             self.containerHandler.clear()
             msg = ''
@@ -2216,7 +2216,7 @@ def processCommandline():
                 raise RhnSyncException, "exception will be caught", sys.exc_info()[2]
         except KeyboardInterrupt, e:
             raise
-        # pylint: disable=broad-except
+        # pylint: disable=E0012, W0703
         except Exception:
             msg = [_("ERROR: --debug-level takes an in integer value within the range %s.")
                    % repr(tuple(range(debugRange + 1))),
@@ -2442,7 +2442,7 @@ if __name__ == '__main__':
         sys.exit(Runner().main() or 0)
     except (KeyboardInterrupt, SystemExit), ex:
         sys.exit(ex)
-    except Exception:  # pylint: disable=broad-except
+    except Exception:  # pylint: disable=E0012, W0703
         from spacewalk.common.rhnTB import fetchTraceback
         tb = 'TRACEBACK: ' + fetchTraceback(with_locals=1)
         log2disk(-1, tb)

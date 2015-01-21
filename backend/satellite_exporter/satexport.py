@@ -117,7 +117,7 @@ class BaseApacheServer:
             # The error code most likely doesn't matter, the client won't see
             # it anyway
             return apache.HTTP_NOT_ACCEPTABLE
-        except Exception:  # pylint: disable=broad-except
+        except Exception:  # pylint: disable=E0012, W0703
             Traceback("satexport._wrapper", req=req)
             return apache.HTTP_INTERNAL_SERVER_ERROR
         return ret

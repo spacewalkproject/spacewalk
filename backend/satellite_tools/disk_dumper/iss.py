@@ -1381,7 +1381,7 @@ class ExporterMain:
 
             sys.exit(-1)
 
-        except Exception, e:  # pylint: disable=broad-except
+        except Exception, e:  # pylint: disable=E0012, W0703
             # This should catch the vast majority of errors that aren't ISSErrors
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)

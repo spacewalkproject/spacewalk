@@ -106,7 +106,7 @@ def log2disk(level, msg, cleanYN=0, notimeYN=0):
             log_clean(level=level, msg=_prepLogMsg(m, cleanYN, notimeYN))
         except (KeyboardInterrupt, SystemExit):
             raise
-        except Exception, e:  # pylint: disable=broad-except
+        except Exception, e:  # pylint: disable=E0012, W0703
             sys.stderr.write('ERROR: upon attempt to write to log file: %s' % e)
 
 

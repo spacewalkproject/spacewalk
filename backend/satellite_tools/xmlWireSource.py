@@ -167,7 +167,7 @@ class BaseWireSource:
             except rpclib.xmlrpclib.Fault, e:
                 lastErrorMsg = e.faultString
                 break
-            except Exception, e:  # pylint: disable=broad-except
+            except Exception, e:  # pylint: disable=E0012, W0703
                 p = tuple(['<the systemid>'] + list(params[1:]))
                 lastErrorMsg = 'ERROR: server.%s%s: %s' % (method, p, e)
                 log2(-1, 2, lastErrorMsg, stream=sys.stderr)
