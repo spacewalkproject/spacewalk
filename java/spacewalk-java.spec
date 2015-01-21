@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.127
+Version: 2.3.128
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 21 2015 Stephen Herr <sherr@redhat.com> 2.3.128-1
+- Port Errata Clone page from perl -> java Make nav link to java channel clone
+  and errata clone pages Also make various clone errata jsps share common list
+
 * Wed Jan 21 2015 Stephen Herr <sherr@redhat.com> 2.3.127-1
 - fixing error '...requires that an attribute name is preceded by whitespace'
 
