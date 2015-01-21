@@ -29,6 +29,7 @@ _query_lookup_interval = rhnSQL.Statement("""
      where action_id = :action_id
 """)
 
+
 def configure(serverId, actionId, dry_run=0):
     log_debug(3, dry_run)
     h = rhnSQL.prepare(_query_lookup_interval)
@@ -36,6 +37,6 @@ def configure(serverId, actionId, dry_run=0):
     row = h.fetchone_dict()
     if not row:
         raise rhnException("rhnsd reconfig action scheduled, but no entries "
-            "in rhnActionDaemonConfig found")
+                           "in rhnActionDaemonConfig found")
     # Format: (interval, restart)
     return (row['interval'], row['restart'])

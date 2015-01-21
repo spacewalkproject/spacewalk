@@ -18,7 +18,9 @@
 import xmlrpclib
 from spacewalk.common.rhnLog import log_error
 
+
 class SearchNotify:
+
     def __init__(self, host="127.0.0.1", port="2828"):
         self.addr = "http://%s:%s" % (host, port)
 
@@ -27,8 +29,8 @@ class SearchNotify:
             client = xmlrpclib.ServerProxy(self.addr)
             result = client.admin.updateIndex(indexName)
         except Exception, e:
-            log_error("Failed to notify search service located at %s to update %s indexes" \
-                    % (self.addr, indexName), e)
+            log_error("Failed to notify search service located at %s to update %s indexes"
+                      % (self.addr, indexName), e)
             return False
         return result
 

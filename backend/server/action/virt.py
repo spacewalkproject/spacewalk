@@ -18,17 +18,17 @@ from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnLib import InvalidAction
 
-__rhnexport__ = [   'refresh',
-                    'shutdown',
-                    'reboot',
-                    'resume',
-                    'start',
-                    'schedulePoller',
-                    'suspend',
-                    'destroy',
-                    'setMemory',
-                    'setVCPUs'
-                ]
+__rhnexport__ = ['refresh',
+                 'shutdown',
+                 'reboot',
+                 'resume',
+                 'start',
+                 'schedulePoller',
+                 'suspend',
+                 'destroy',
+                 'setMemory',
+                 'setVCPUs'
+                 ]
 
 ###########################################################################
 # SQL Queries for each virtualization action type.
@@ -113,13 +113,19 @@ _query_schedulePoller = rhnSQL.Statement("""
 # Functions that return the correct parameters that the actions are
 # called with. They all take in the server_id and action_id as params.
 ##########################################################################
+
+
 class NoUUIDException(Exception):
+
     def __init__(self):
         Exception.__init__(self)
 
+
 class NoRowFoundException(Exception):
+
     def __init__(self):
         Exception.__init__(self)
+
 
 def _get_uuid(query_str, action_id):
     log_debug(3)
@@ -137,7 +143,9 @@ def _get_uuid(query_str, action_id):
     uuid = row['uuid']
     return uuid
 
-#Returns an empty tuple, since the virt.refresh action has no params.
+# Returns an empty tuple, since the virt.refresh action has no params.
+
+
 def refresh(server_id, action_id, dry_run=0):
     log_debug(3, dry_run)
 
@@ -148,13 +156,15 @@ def refresh(server_id, action_id, dry_run=0):
     if not row:
         raise NoRowFoundException()
 
-    #Sanity check. If this doesn't pass then something is definitely screwed up.
+    # Sanity check. If this doesn't pass then something is definitely screwed up.
     if not row['action_id']:
         raise InvalidAction("Refresh action is missing an action_id.")
 
     return ()
 
-#Returns a uuid
+# Returns a uuid
+
+
 def action(action_name, query, server_id, action_id, dry_run=0):
     log_debug(3, action_name, dry_run)
     try:
@@ -162,28 +172,37 @@ def action(action_name, query, server_id, action_id, dry_run=0):
     except NoRowFoundException:
         raise InvalidAction("No %s actions found." % action_name.lower()), None, sys.exc_info()[2]
     except NoUUIDException:
-        raise InvalidAction("%s action %s has no uuid associated with it." % (action_name, str(action_id))), None, sys.exc_info()[2]
+        raise InvalidAction("%s action %s has no uuid associated with it." %
+                            (action_name, str(action_id))), None, sys.exc_info()[2]
     return (uuid,)
+
 
 def start(server_id, action_id, dry_run=0):
     return action("Start", _query_start, server_id, action_id, dry_run=0)
 
+
 def shutdown(server_id, action_id, dry_run=0):
     return action("Shutdown", _query_shutdown, server_id, action_id, dry_run=0)
+
 
 def suspend(server_id, action_id, dry_run=0):
     return action("Suspend", _query_suspend, server_id, action_id, dry_run=0)
 
+
 def resume(server_id, action_id, dry_run=0):
     return action("Resume", _query_resume, server_id, action_id, dry_run=0)
+
 
 def reboot(server_id, action_id, dry_run=0):
     return action("Reboot", _query_reboot, server_id, action_id, dry_run=0)
 
+
 def destroy(server_id, action_id, dry_run=0):
     return action("Destroy", _query_destroy, server_id, action_id, dry_run=0)
 
-#Returns a uuid and the amount of memory to allocate to the domain.
+# Returns a uuid and the amount of memory to allocate to the domain.
+
+
 def setMemory(server_id, action_id, dry_run=0):
     log_debug(3, dry_run)
 
@@ -205,7 +224,9 @@ def setMemory(server_id, action_id, dry_run=0):
 
     return (uuid, memory)
 
-#Returns a uuid and the amount of VCPUs to allocate to the domain.
+# Returns a uuid and the amount of VCPUs to allocate to the domain.
+
+
 def setVCPUs(server_id, action_id, dry_run=0):
     log_debug(3, dry_run)
 
@@ -219,7 +240,7 @@ def setVCPUs(server_id, action_id, dry_run=0):
     return row['uuid'], row['vcpu']
 
 
-#Returns the minute, hour, dom, month, and dow to call schedulePoller with.
+# Returns the minute, hour, dom, month, and dow to call schedulePoller with.
 def schedulePoller(server_id, action_id, dry_run=0):
     log_debug(3, dry_run)
 
@@ -246,4 +267,3 @@ def schedulePoller(server_id, action_id, dry_run=0):
         raise InvalidAction("schedulePoller action %s has no day of the week associated with it." % str(action_id))
 
     return (row['minute'], row['hour'], row['dom'], row['month'], row['dow'])
-

@@ -62,12 +62,12 @@ def _verifyProxyAuthToken(auth_token):
     if len(token) < 5:
         # Bad auth information; decline any action
         log_debug(4, "incomplete proxy authentication token: %s"
-          % auth_token)
+                  % auth_token)
         headers['X-RHN-Proxy-Auth-Error'] = '%s:%s' % (
             1003, _("incomplete proxy authentication token: %s") % auth_token)
         if not hostname_is_ip_address:
             headers['X-RHN-Proxy-Auth-Origin'] = hostname
-        raise rhnFault(1003) # Invalid session key
+        raise rhnFault(1003)  # Invalid session key
 
     log_debug(5, "proxy auth token: %s,  hostname: %s"
                  % (repr(token), hostname or 'n/a'))
@@ -78,15 +78,15 @@ def _verifyProxyAuthToken(auth_token):
 
     if computed != signature:
         log_error("Proxy signature failed: proxy id='%s', proxy user='%s'" %
-            (proxyId, proxyUser))
+                  (proxyId, proxyUser))
         log_debug(4, "Sent proxy signature %s does not match ours %s." % (
             signature, computed))
         headers['X-RHN-Proxy-Auth-Error'] = '%s:%s' % (
             1003, _("Sent proxy signature %s does not match ours %s.") % (
-            signature, computed))
+                signature, computed))
         if not hostname_is_ip_address:
             headers['X-RHN-Proxy-Auth-Origin'] = hostname
-        raise rhnFault(1003) # Invalid session key
+        raise rhnFault(1003)  # Invalid session key
 
     # Convert the expiration/time to floats:
     rhnServerTime = float(rhnServerTime)
@@ -94,10 +94,10 @@ def _verifyProxyAuthToken(auth_token):
 
     if rhnServerTime + expireOffset < time.time():
         log_debug(4, "Expired proxy authentication token")
-        headers['X-RHN-Proxy-Auth-Error']  = '%s:%s' % (1004, "Expired")
+        headers['X-RHN-Proxy-Auth-Error'] = '%s:%s' % (1004, "Expired")
         if not hostname_is_ip_address:
             headers['X-RHN-Proxy-Auth-Origin'] = hostname
-        raise rhnFault(1004) # Expired client authentication token
+        raise rhnFault(1004)  # Expired client authentication token
 
     log_debug(4, "Proxy auth OK: sigs match; not an expired token")
     return 1
@@ -118,7 +118,7 @@ def auth_proxy():
         log_debug(4, "declined proxy authentication")
         headers['X-RHN-Proxy-Auth-Error'] = '%s:%s' % (
             1003, _("declined proxy authentication"))
-        raise rhnFault(1003) # Invalid session key
+        raise rhnFault(1003)  # Invalid session key
 
     # NOTE:
     #   - < v3.1 RHN proxies send only 1 token in this header
@@ -161,11 +161,11 @@ def auth_client():
                          "incomplete header info.")
             return 0
 
-    clientId       = token['X-RHN-Server-Id']
-    username       = token['X-RHN-Auth-User-Id']
-    signature      = token['X-RHN-Auth']
-    rhnServerTime  = token['X-RHN-Auth-Server-Time']
-    expireOffset   = token['X-RHN-Auth-Expire-Offset']
+    clientId = token['X-RHN-Server-Id']
+    username = token['X-RHN-Auth-User-Id']
+    signature = token['X-RHN-Auth']
+    rhnServerTime = token['X-RHN-Auth-Server-Time']
+    expireOffset = token['X-RHN-Auth-Expire-Offset']
 
     computed = computeSignature(CFG.SECRET_KEY, clientId, username,
                                 rhnServerTime, expireOffset)
@@ -184,4 +184,3 @@ def auth_client():
 
     log_debug(4, "Client auth OK")
     return 1
-

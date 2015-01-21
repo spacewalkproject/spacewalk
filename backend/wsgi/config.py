@@ -16,5 +16,6 @@
 
 from wsgi import wsgiHandler
 
+
 def application(environ, start_response):
-    return wsgiHandler.handle(environ, start_response, "config","server.config-management")
+    return wsgiHandler.handle(environ, start_response, "config", "server.config-management")

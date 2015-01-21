@@ -23,8 +23,10 @@ from spacewalk.satellite_tools import constants
 
 __version__ = "0.1"
 
+
 class Transport(rpclib.transports.Transport):
     user_agent = "satellite-sync/%s" % __version__
+
     def __init__(self, timeout=None):
         if timeout:
             rpclib.transports.Transport.__init__(self, timeout=timeout)
@@ -58,7 +60,7 @@ class Transport(rpclib.transports.Transport):
 
         # XXX application/octet-stream should go away
         if content_type in ('application/xml', 'application/octet-stream',
-                'application/x-rpm'):
+                            'application/x-rpm'):
             f = rpclib.transports.File(fd)
             # Explanation copied from the base class' method (rhn.transports):
             # Set the File's close method to the connection's
@@ -71,11 +73,14 @@ class Transport(rpclib.transports.Transport):
         connection.close()
         raise Exception, "Unknown response type", content_type
 
+
 class SafeTransport(rpclib.transports.SafeTransport, Transport):
     _process_response = Transport._process_response
 
+
 class ProxyTransport(rpclib.transports.ProxyTransport, Transport):
     _process_response = Transport._process_response
+
 
 class SafeProxyTransport(rpclib.transports.SafeProxyTransport, Transport):
     _process_response = Transport._process_response
@@ -90,45 +95,53 @@ class _Server(rpclib.Server):
     def use_CA_chain(self, ca_chain=None):
         pass
 
+
 class StreamConnection(_Server):
+
     def __init__(self, uri, proxy=None, username=None, password=None,
-                refreshCallback=None, xml_dump_version=constants.PROTOCOL_VERSION,
-                timeout=None):
+                 refreshCallback=None, xml_dump_version=constants.PROTOCOL_VERSION,
+                 timeout=None):
         _Server.__init__(self, uri, proxy=proxy, username=username,
-                password=password, refreshCallback=refreshCallback, timeout=timeout)
+                         password=password, refreshCallback=refreshCallback, timeout=timeout)
         self.add_header("X-RHN-Satellite-XML-Dump-Version", xml_dump_version)
 
+
 class GETServer(rpclib.GETServer):
+
     """ class rpclib.GETServer with overriden default transports classes """
     _transport_class = Transport
     _transport_class_https = SafeTransport
     _transport_class_proxy = ProxyTransport
     _transport_class_https_proxy = SafeProxyTransport
+
     def __init__(self, uri, transport=None, proxy=None, username=None,
-            password=None, client_version=2, headers=None, refreshCallback=None,
-            progressCallback=None, xml_dump_version=constants.PROTOCOL_VERSION,
-            timeout=None):
+                 password=None, client_version=2, headers=None, refreshCallback=None,
+                 progressCallback=None, xml_dump_version=constants.PROTOCOL_VERSION,
+                 timeout=None):
         if headers is None:
             headers = {}
         rpclib.GETServer.__init__(self, uri,
-            transport=transport,
-            proxy=proxy,
-            username=username,
-            password=password,
-            client_version=client_version,
-            headers=headers,
-            refreshCallback=refreshCallback,
-            timeout=timeout)
+                                  transport=transport,
+                                  proxy=proxy,
+                                  username=username,
+                                  password=password,
+                                  client_version=client_version,
+                                  headers=headers,
+                                  refreshCallback=refreshCallback,
+                                  timeout=timeout)
         self.add_header("X-RHN-Satellite-XML-Dump-Version", xml_dump_version)
 
     def use_CA_chain(self, ca_chain=None):
         pass
 
+
 class CompressedStream:
+
     """
     GzipStream will not close the connection by itself, so we have to keep the
     underlying stream around
     """
+
     def __init__(self, stream):
         def noop():
             pass

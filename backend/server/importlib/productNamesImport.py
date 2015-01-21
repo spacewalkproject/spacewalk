@@ -17,7 +17,9 @@
 
 from importLib import Import
 
+
 class ProductNamesImport(Import):
+
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
 
@@ -34,4 +36,3 @@ class ProductNamesImport(Import):
             self.backend.rollback()
             raise
         self.backend.commit()
-

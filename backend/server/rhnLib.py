@@ -27,6 +27,7 @@ from spacewalk.common.rhnException import rhnFault
 # architecture work
 from rhnMapping import check_package_arch
 
+
 def computeSignature(*fields):
     # Init the hash
     m = hashlib.new('sha256')
@@ -51,7 +52,7 @@ def parseRPMFilename(pkgFilename):
     OUT: [n,e,v,r, arch].
     """
     if type(pkgFilename) != type(''):
-        raise rhnFault(21, str(pkgFilename)) # Invalid arg.
+        raise rhnFault(21, str(pkgFilename))  # Invalid arg.
 
     pkgFilename = os.path.basename(pkgFilename)
 
@@ -74,10 +75,12 @@ def parseRPMFilename(pkgFilename):
     ret = list(parseRPMName(pkg))
     if ret:
         ret.append(_arch)
-    return  ret
+    return ret
 
 # XXX TBD where to place this function - it has to be accessible from several
 # places
+
+
 def normalize_server_arch(arch):
     log_debug(4, 'server arch', arch)
 
@@ -93,19 +96,26 @@ def normalize_server_arch(arch):
     arch = arch + suffix
     return arch
 
+
 class InvalidAction(Exception):
+
     """ An error class to signal when we can not handle an action """
     pass
 
+
 class EmptyAction(Exception):
+
     """ An error class that signals that we encountered an internal error
         trying to handle an action through no fault of the client
     """
     pass
 
+
 class ShadowAction(Exception):
+
     """ An error class for actions that should not get to the client """
     pass
+
 
 def transpose_to_hash(arr, column_names):
     """ Handy function to transpose an array from row-based to column-based,
@@ -120,7 +130,7 @@ def transpose_to_hash(arr, column_names):
         if len(r) != colnum:
             raise Exception(
                 "Mismatching number of columns: expected %s, got %s; %s" % (
-                colnum, len(r), r))
+                    colnum, len(r), r))
         for i in range(len(r)):
             result[i].append(r[i])
 
@@ -131,8 +141,9 @@ def transpose_to_hash(arr, column_names):
 
     return rh
 
+
 def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
-        package_type='rpm', checksum_type=None, checksum=None):
+                     package_type='rpm', checksum_type=None, checksum=None):
     """ Computes a package path, optionally prepending a prefix
         The path will look like
         <prefix>/<org_id>/checksum[:3]/n/e:v-r/a/checksum/n-v-r.a.rpm if not omit_epoch
@@ -152,12 +163,12 @@ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
         org = org_id
 
     if not omit_epoch and epoch not in [None, '']:
-            version = str(epoch) + ':' + version
+        version = str(epoch) + ':' + version
     # normpath sanitizes the path (removing duplicated / and such)
     template = os.path.normpath(prepend +
-                               "/%s/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s")
+                                "/%s/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s")
     return template % (org, checksum[:3], name, version, release, dirarch, checksum,
-        name, nevra[2], release, pkgarch, package_type)
+                       name, nevra[2], release, pkgarch, package_type)
 
 
 # bug #161989
@@ -167,20 +178,23 @@ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
 # This enables us to append an arbitrary file name that is not restricted to the
 # form: name-version-release.arch.type
 def get_package_path_without_package_name(nevra, org_id, prepend="",
-        checksum_type=None, checksum=None):
+                                          checksum_type=None, checksum=None):
     """return a package path without the package name appended"""
     return os.path.dirname(get_package_path(nevra, org_id, prepend=prepend,
-        checksum_type=checksum_type, checksum=checksum))
+                                            checksum_type=checksum_type, checksum=checksum))
 
 
 class CallableObj:
+
     """ Generic callable object """
+
     def __init__(self, name, func):
         self.func = func
         self.name = name
 
     def __call__(self, *args, **kwargs):
         return self.func(self.name, *args, **kwargs)
+
 
 def make_evr(nvre, source=False):
     """ IN: 'e:name-version-release' or 'name-version-release:e'
@@ -195,8 +209,7 @@ def make_evr(nvre, source=False):
 
     nvr_parts = nvr.rsplit("-", 2)
     if len(nvr_parts) != 3:
-        raise rhnFault(err_code = 21, err_text = \
-                       "NVRE is missing name, version, or release.")
+        raise rhnFault(err_code=21, err_text="NVRE is missing name, version, or release.")
 
     result = dict(zip(["name", "version", "release"], nvr_parts))
     result["epoch"] = epoch
@@ -206,9 +219,11 @@ def make_evr(nvre, source=False):
 
     return result
 
+
 def _is_secure_path(path):
     path = posixpath.normpath(path)
     return not (path.startswith('/') or path.startswith('../'))
+
 
 def get_crash_path(org_id, system_id, crash):
     """For a given org_id, system_id and crash, return relative path to a crash directory."""
@@ -220,6 +235,7 @@ def get_crash_path(org_id, system_id, crash):
     else:
         return None
 
+
 def get_crashfile_path(org_id, system_id, crash, filename):
     """For a given org_id, system_id, crash and filename, return relative path to a crash file."""
     path = os.path.join(get_crash_path(org_id, system_id, crash), filename)
@@ -229,11 +245,13 @@ def get_crashfile_path(org_id, system_id, crash, filename):
     else:
         return None
 
+
 def get_action_path(org_id, system_id, action_id):
     """For a given org_id, system_id, and action_id, return relative path to a store directory."""
     path = os.path.join('systems', str(org_id), str(system_id), 'actions', str(action_id))
     if _is_secure_path(path):
-       return path
+        return path
+
 
 def get_actionfile_path(org_id, system_id, action_id, filename):
     """For a given org_id, system_id, action_id, and file, return relative path to a file."""

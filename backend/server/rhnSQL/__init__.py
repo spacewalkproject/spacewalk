@@ -71,6 +71,7 @@ def __init__DB(backend, host, port, username, password, database, sslmode, sslro
     __DB.connect()
     return 0
 
+
 def __init__DB2(backend, host, port, username, password, database, sslmode, sslrootcert):
     """
     Establish and check the connection so we can wrap it and handle
@@ -89,7 +90,7 @@ def __init__DB2(backend, host, port, username, password, database, sslmode, sslr
         del my_db
 
     if __DB2.is_connected_to(backend, host, port, username, password,
-                            database, sslmode, sslrootcert):
+                             database, sslmode, sslrootcert):
         __DB2.check_connection()
         return
 
@@ -100,6 +101,7 @@ def __init__DB2(backend, host, port, username, password, database, sslmode, sslr
         host, port, username, password, database, sslmode, sslrootcert)
     __DB2.connect()
     return 0
+
 
 def initDB(backend=None, host=None, port=None, username=None,
            password=None, database=None, sslmode=None, sslrootcert=None):
@@ -153,9 +155,10 @@ def initDB(backend=None, host=None, port=None, username=None,
     except:
         raise
         #e_type, e_value = sys.exc_info()[:2]
-        #raise rhnException("Could not initialize Oracle database connection",
+        # raise rhnException("Could not initialize Oracle database connection",
         #                   str(e_type), str(e_value))
     return 0
+
 
 def __closeDB2():
     global __DB2
@@ -175,6 +178,8 @@ def __closeDB2():
     return
 
 # close the database
+
+
 def closeDB():
     global __DB
     try:
@@ -199,6 +204,7 @@ def __test_DB():
     except NameError:
         raise SystemError("Not connected to any database!"), None, sys.exc_info()[2]
 
+
 def __test_DB2():
     global __DB2
     try:
@@ -207,6 +213,8 @@ def __test_DB2():
         raise SystemError("Not connected to secondary database!"), None, sys.exc_info()[2]
 
 # wrapper for a Procedure callable class
+
+
 def Procedure(name):
     db = __test_DB()
     return db.procedure(name)
@@ -252,19 +260,23 @@ def prepare(sql, blob_map=None):
         sql = sql.statement
     return db.prepare(sql, blob_map=blob_map)
 
+
 def prepare_secondary(sql, blob_map=None):
     db = __test_DB2()
     if isinstance(sql, Statement):
         sql = sql.statement
     return db.prepare(sql, blob_map=blob_map)
 
+
 def execute(sql, *args, **kwargs):
     db = __test_DB()
     return db.execute(sql, *args, **kwargs)
 
+
 def execute_secondary(sql, *args, **kwargs):
     db = __test_DB2()
     return db.execute(sql, *args, **kwargs)
+
 
 def fetchall_dict(sql, *args, **kwargs):
     h = prepare(sql)
@@ -282,9 +294,11 @@ def commit():
     db = __test_DB()
     return db.commit()
 
+
 def commit_secondary():
     db = __test_DB2()
     return db.commit()
+
 
 def rollback(name=None):
     db = __test_DB()
@@ -354,12 +368,14 @@ class _Callable(object):
 
 
 class _Procedure(_Callable):
+
     def __init__(self, name):
         _Callable.__init__(self, name)
         self._implementor = Procedure
 
 
 class _Function(_Callable):
+
     def __init__(self, name):
         _Callable.__init__(self, name)
         self._implementor = Function

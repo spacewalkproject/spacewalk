@@ -15,12 +15,13 @@
 
 from spacewalk.satellite_tools import geniso
 
+
 def create_isos(mountpoint, outdir, prefix, lower_limit=None, upper_limit=None, copy_iso_dir=None, iso_type=None):
-    opts = [ "--mountpoint=%s" % mountpoint,
-             "--file-prefix=%s" % prefix,
-             "--output=%s" % outdir,
-             "--type=%s" % iso_type,
-           ]
+    opts = ["--mountpoint=%s" % mountpoint,
+            "--file-prefix=%s" % prefix,
+            "--output=%s" % outdir,
+            "--type=%s" % iso_type,
+            ]
 
     if lower_limit is not None:
         opts.append("-v%s-%s" % (lower_limit, upper_limit))
@@ -29,4 +30,3 @@ def create_isos(mountpoint, outdir, prefix, lower_limit=None, upper_limit=None, 
         opts.append("--copy-iso-dir=%s" % copy_iso_dir)
 
     geniso.main(opts)
-

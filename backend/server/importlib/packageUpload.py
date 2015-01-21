@@ -28,6 +28,7 @@ from spacewalk.server.importlib.importLib import Collection
 from spacewalk.server.importlib.packageImport import packageImporter
 from spacewalk.server.importlib.errataCache import schedule_errata_cache_update
 
+
 def uploadPackages(info, source=0, force=0, caller=None):
     log_debug(4, source, force, caller)
     batch = Collection()
@@ -71,14 +72,15 @@ def uploadPackages(info, source=0, force=0, caller=None):
         # makes sense only for binary packages
         schedule_errata_cache_update(importer.affected_channels)
         taskomatic.add_to_repodata_queue_for_channel_package_subscription(
-                importer.affected_channels, batch, caller)
+            importer.affected_channels, batch, caller)
         rhnSQL.commit()
 
     return _formatStatus(uploaded), _formatStatus(newpkgs)
 
+
 def __processPackage(package, org_id, channels, source):
     log_debug(4, org_id, channels, source)
-    if 'md5sum' in package: # for old rhnpush compatibility
+    if 'md5sum' in package:  # for old rhnpush compatibility
         package['checksum_type'] = 'md5'
         package['checksum'] = package['md5sum']
         del(package['md5sum'])
@@ -107,8 +109,9 @@ def __processPackage(package, org_id, channels, source):
     checksum_type = package['checksum_type']
     checksum = package['checksum']
     p = createPackage(header, packageSize, checksum_type, checksum, relpath, org_id,
-        header_start, header_end, channels)
+                      header_start, header_end, channels)
     return p
+
 
 def _formatStatus(status):
     objlist = []
@@ -153,15 +156,17 @@ def _dump(object):
     return str(object)
 
 
-
 def listChannelsSource(channelList):
     return _listChannels(channelList, True, False)
+
 
 def listChannels(channelList):
     return _listChannels(channelList, False, False)
 
+
 def listChannelsChecksum(channelList):
     return _listChannels(channelList, False, True)
+
 
 def _listChannels(channelList, is_source, include_checksums):
     # Lists the packages from these channels
@@ -179,7 +184,7 @@ def _listChannels(channelList, is_source, include_checksums):
         else:
             if include_checksums:
                 packageList = rhnChannel.list_packages_checksum_sql(
-                        c_info['id'])
+                    c_info['id'])
             else:
                 packageList = rhnChannel.list_packages_sql(c_info['id'])
         for p in packageList:
@@ -192,7 +197,7 @@ def _listChannels(channelList, is_source, include_checksums):
             else:
                 if include_checksums:
                     rez.append([p[0], p[1], p[2], p[3], p[4], p[6], p[7],
-                        channel])
+                                channel])
                 else:
                     rez.append([p[0], p[1], p[2], p[3], p[4], channel])
     return rez

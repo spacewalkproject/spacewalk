@@ -24,7 +24,9 @@ from auth import Authentication
 
 
 class Certificate(Authentication):
+
     """ Downloads the satellite cert """
+
     def __init__(self):
         log_debug(3)
         Authentication.__init__(self)

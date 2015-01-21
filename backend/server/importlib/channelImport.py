@@ -20,7 +20,9 @@ from importLib import Import, InvalidArchError, \
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.satellite_tools.syncLib import log
 
+
 class ChannelImport(Import):
+
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
         self.arches = {}
@@ -53,10 +55,10 @@ class ChannelImport(Import):
             for release in channel['release']:
                 self.arches[release['channel_arch']] = None
         if not channel.has_key('receiving_updates') or channel['receiving_updates'] is None:
-           channel['receiving_updates'] = 'N'
+            channel['receiving_updates'] = 'N'
         # Yum repo checksum type
         if (channel['checksum_type']
-            and channel['checksum_type'] not in self.checksum_types):
+                and channel['checksum_type'] not in self.checksum_types):
             self.checksum_types[channel['checksum_type']] = None
 
         # bug #528227
@@ -65,11 +67,11 @@ class ChannelImport(Import):
             org_id = self.backend.lookupChannelOrg(channel['label'])
 
             if org_id and int(channel['org_id']) != org_id['org_id']:
-                log(1, "WARNING: Channel %s is already present in orgid %s." % \
+                log(1, "WARNING: Channel %s is already present in orgid %s." %
                     (channel['label'], org_id['org_id']))
-                log(1, "         Running synchronization will move the channel to orgid %s." % \
+                log(1, "         Running synchronization will move the channel to orgid %s." %
                     channel['org_id'])
-                log(1,'')
+                log(1, '')
 
     def fix(self):
         self.backend.lookupChannelArches(self.arches)
@@ -95,7 +97,7 @@ class ChannelImport(Import):
 
         if channel.has_key('product_name'):
             channel['product_name_id'] = self.backend.lookupProductNames(
-                                                 channel['product_name'])
+                channel['product_name'])
         families = []
         for family in channel['families']:
             # Link back the channel to families
@@ -106,12 +108,12 @@ class ChannelImport(Import):
                 raise InvalidChannelFamilyError(family['label'])
 
             families.append({
-                'channel_family_id' : self.families[family['label']]
+                'channel_family_id': self.families[family['label']]
             })
         channel['families'] = families
         # Dists
         self.__postprocessChannelMaps(channel, 'dists')
-        #release
+        # release
         self.__postprocessChannelMaps(channel, 'release')
 
     def __postprocessChannelMaps(self, channel, map):
@@ -141,8 +143,8 @@ class ChannelImport(Import):
                             and self.backend.orgTrustExists(
                             channel['org_id'], trust['org_trust_id'])):
                         channel_trusts.append(
-                                {'channel-label': channel['label'],
-                                'org-id': trust['org_trust_id']})
+                            {'channel-label': channel['label'],
+                             'org-id': trust['org_trust_id']})
             parent = channel['parent_channel']
             if not parent:
                 nullParentBatch.append(channel)
@@ -184,8 +186,8 @@ class ChannelImport(Import):
             else:
                 parentChannels[k] = v['id']
         if missingParents:
-            raise MissingParentChannelError(missingParents, "Invalid import (this parent needs to be imported?) %s" % missingParents)
-
+            raise MissingParentChannelError(
+                missingParents, "Invalid import (this parent needs to be imported?) %s" % missingParents)
 
         # Fix up the parent channels
         for channel in nonNullParentBatch:
@@ -214,14 +216,16 @@ class ChannelImport(Import):
                 continue
 
             if (channel.has_key('channel_product') and channel['channel_product']) \
-                or (channel.has_key('product_name') and channel['product_name']):
+                    or (channel.has_key('product_name') and channel['product_name']):
                 self.backend.processChannelProduct(channel)
 
         # Sometimes we may want to turn commits off
         if self.will_commit:
             self.backend.commit()
 
+
 class ChannelFamilyImport(Import):
+
     def preprocess(self):
         if CFG.ISS_PARENT:
             # Filter out private channel families from ISS syncs
@@ -265,7 +269,9 @@ class ChannelFamilyImport(Import):
                 new_batch.append(cf)
         self.batch = new_batch
 
+
 class ChannelFamilyPermissionsImport(Import):
+
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
         self.channel_families = {}
@@ -298,7 +304,9 @@ class ChannelFamilyPermissionsImport(Import):
         if self.will_commit:
             self.backend.commit()
 
+
 class DistChannelMapImport(Import):
+
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
         self.arches = {}
@@ -321,12 +329,12 @@ class DistChannelMapImport(Import):
                 # Invalid arch
                 dcm.ignored = 1
                 raise InvalidArchError(dcm['arch'],
-                    "Invalid dist_channel_map arch %s" % dcm['arch'])
+                                       "Invalid dist_channel_map arch %s" % dcm['arch'])
             channel = self.channels[dcm['channel']]
             if channel is None:
                 dcm.ignored = 1
                 raise InvalidChannelError(dcm['channel'],
-                    "Invalid dist_channel_map channel %s" % dcm['channel'])
+                                          "Invalid dist_channel_map channel %s" % dcm['channel'])
             dcm['arch'] = arch
             dcm['channel_id'] = channel['id']
             dcm['org_id'] = None
@@ -351,16 +359,16 @@ if __name__ == '__main__':
         batch = Collection()
         dcms = [
             {
-                'os'        : 'Red Hat Linux',
-                'release'   : '7.2',
-                'arch'      : 'i386',
-                'channel'   : 'redhat-linux-i386-7.2',
+                'os': 'Red Hat Linux',
+                'release': '7.2',
+                'arch': 'i386',
+                'channel': 'redhat-linux-i386-7.2',
             },
             {
-                'os'        : 'Red Hat Linux',
-                'release'   : '6.2',
-                'arch'      : 'i386',
-                'channel'   : 'redhat-linux-i386-6.2',
+                'os': 'Red Hat Linux',
+                'release': '6.2',
+                'arch': 'i386',
+                'channel': 'redhat-linux-i386-6.2',
             },
         ]
 
@@ -377,14 +385,14 @@ if __name__ == '__main__':
         batch = Collection()
         families = [
             {
-                'name'      : 'Cisco Linux',
-                'label'     : 'cisco',
-                'product_url'   : 'http://www.redhat.com/products/ADSFASDFASDF',
+                'name': 'Cisco Linux',
+                'label': 'cisco',
+                'product_url': 'http://www.redhat.com/products/ADSFASDFASDF',
             },
             {
-                'name'      : 'Misa Linux',
-                'label'     : 'misa',
-                'product_url'   : 'http://people.redhat.com/misa/ASDFASDFASDF',
+                'name': 'Misa Linux',
+                'label': 'misa',
+                'product_url': 'http://people.redhat.com/misa/ASDFASDFASDF',
             },
         ]
         for fam in families:

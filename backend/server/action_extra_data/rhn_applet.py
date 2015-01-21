@@ -20,5 +20,7 @@ from spacewalk.common.rhnLog import log_debug
 __rhnexport__ = ['use_satellite']
 
 # noop
+
+
 def use_satellite(server_id, action_id, data={}):
     log_debug(3, action_id)

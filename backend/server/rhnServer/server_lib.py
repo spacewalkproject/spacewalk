@@ -34,10 +34,12 @@ from spacewalk.server import rhnSQL
 class rhnSystemEntitlementException(rhnException):
     pass
 
+
 class rhnNoSystemEntitlementsException(rhnSystemEntitlementException):
     pass
 
-def getServerID(server, fields = []):
+
+def getServerID(server, fields=[]):
     """ Given a textual digitalid (old style or new style) or simply an ID
         try to search in the database and return the numeric id (thus doing
         validation in case you pass a numeric ID already)
@@ -52,14 +54,14 @@ def getServerID(server, fields = []):
         return reduce(lambda a, b: a and b in "0123456789", s, 1)
 
     log_debug(4, server, fields)
-    if not type(server) in [ type(""), type(0) ]:
+    if not type(server) in [type(""), type(0)]:
         return None
 
     if type(server) == type(0):
-        search_id = server # will search by number
-    elif server[:7] == "SERVER-": # old style certificate
+        search_id = server  # will search by number
+    elif server[:7] == "SERVER-":  # old style certificate
         search_id = server
-    elif server[:3] == "ID-": # new style id, extract the numeric id
+    elif server[:3] == "ID-":  # new style id, extract the numeric id
         tmp_id = server[3:]
         if not tmp_id or check_chars(tmp_id) == 0:
             # invalid certificate, after ID- we have non numbers
@@ -85,7 +87,7 @@ def getServerID(server, fields = []):
     # look at the fields
     fields = map(string.lower, fields)
     for k in fields:
-        if k == "id": # already there
+        if k == "id":  # already there
             continue
         if k == 'arch':
             archdb = ", rhnServerArch sa"
@@ -101,14 +103,14 @@ def getServerID(server, fields = []):
         select s.id %s from rhnServer s %s
         where s.id = :p1 %s
         """ % (xfields, archdb, archjoin))
-    else: # string
+    else:  # string
         h = rhnSQL.prepare("""
         select s.id %s from rhnServer s %s
         where s.digital_server_id = :p1 %s
         """ % (xfields, archdb, archjoin))
-    h.execute(p1 = search_id)
+    h.execute(p1=search_id)
     row = h.fetchone_dict()
-    if row is None or row["id"] is None: # not found
+    if row is None or row["id"] is None:  # not found
         return None
     return row
 
@@ -125,7 +127,7 @@ def getServerSecret(server):
 # Server Class Helper functions
 ###############################
 
-def __create_server_group(group_label, org_id, maxnum = ''):
+def __create_server_group(group_label, org_id, maxnum=''):
     """ create the initial server groups for a new server """
     # Add this new server to the pending group
     h = rhnSQL.prepare("""
@@ -135,7 +137,7 @@ def __create_server_group(group_label, org_id, maxnum = ''):
                             where label = :group_label )
     and sg.org_id = :org_id
     """)
-    h.execute(org_id = org_id, group_label = group_label)
+    h.execute(org_id=org_id, group_label=group_label)
     data = h.fetchone_dict()
     if not data:
         # create the requested group
@@ -150,8 +152,8 @@ def __create_server_group(group_label, org_id, maxnum = ''):
         from rhnServerGroupType sgt
         where sgt.label = :group_label
         """)
-        rownum = h.execute(new_id = ret_id, org_id = org_id,
-                  group_label = group_label, maxnum = str(maxnum))
+        rownum = h.execute(new_id=ret_id, org_id=org_id,
+                           group_label=group_label, maxnum=str(maxnum))
         if rownum == 0:
             # No rows were created, probably invalid label
             raise rhnException("Could not create new group for org=`%s'"
@@ -168,7 +170,7 @@ def join_server_group(server_id, server_group_id):
     server_group_id = str(server_group_id)
 
     insert_call = rhnSQL.Function("rhn_server.insert_into_servergroup_maybe",
-        rhnSQL.types.NUMBER())
+                                  rhnSQL.types.NUMBER())
     ret = insert_call(server_id, server_group_id)
     # return the number of rows inserted - feel free to ignore
     return ret
@@ -184,7 +186,7 @@ def create_server_setup(server_id, org_id):
     insert into rhnServerInfo (server_id, checkin, checkin_counter)
                        values (:server_id, current_timestamp, :checkin_counter)
     """)
-    h.execute(server_id = server_id, checkin_counter = 0)
+    h.execute(server_id=server_id, checkin_counter=0)
 
     # make sure we create the sw_mgr_entitled server group
     # bugzilla #203973 No longer grant the free demo entitlement
@@ -204,13 +206,15 @@ def checkin(server_id, commit=1):
     set checkin = current_timestamp, checkin_counter = checkin_counter + 1
     where server_id = :server_id
     """)
-    h.execute(server_id = server_id)
+    h.execute(server_id=server_id)
     if commit:
         rhnSQL.commit()
     return 1
 
+
 def set_qos(server_id):
     pass
+
 
 def throttle(server):
     """ throttle - limits access to free users if a throttle file exists
@@ -219,41 +223,46 @@ def throttle(server):
     #server_id = server['id']
     #log_debug(3, server_id)
     #
-    ## Are we throttling?
+    # Are we throttling?
     #throttlefile = "/usr/share/rhn/throttle"
-    #if not os.path.exists(throttlefile):
+    # if not os.path.exists(throttlefile):
     #    # We don't throttle anybody
     #    return
     return
+
 
 def join_rhn(org_id):
     """ Stub """
     return
 
+
 def snapshot_server(server_id, reason):
     if CFG.ENABLE_SNAPSHOTS:
-       return rhnSQL.Procedure("rhn_server.snapshot_server")(server_id, reason)
+        return rhnSQL.Procedure("rhn_server.snapshot_server")(server_id, reason)
 
 
 def check_entitlement(server_id):
     h = rhnSQL.prepare("""select server_id, label from rhnServerEntitlementView where server_id = :server_id""")
-    h.execute(server_id = server_id)
+    h.execute(server_id=server_id)
 
-    # if I read the old code correctly, this should do about the same thing. Basically "entitled? yay/nay" -akl.  UPDATE 12/08/06: akl says "nay".  It's official
+    # if I read the old code correctly, this should do about the same thing.
+    # Basically "entitled? yay/nay" -akl.  UPDATE 12/08/06: akl says "nay".
+    # It's official
     rows = h.fetchall_dict()
     ents = {}
 
     if rows:
-            for row in rows:
-                ents[row['label']] = row['label']
-            return ents
+        for row in rows:
+            ents[row['label']] = row['label']
+        return ents
 
     # Empty dictionary - will act as False
     return ents
 
+
 def entitlement_grants_service(entitlement, service):
     egs = rhnSQL.Function("rhn_entitlements.entitlement_grants_service",
-        rhnSQL.types.STRING())
+                          rhnSQL.types.STRING())
     return egs(entitlement, service)
 
 # Push client related
@@ -273,6 +282,8 @@ _query_insert_push_client_registration = rhnSQL.Statement("""
         values (sequence_nextval('rhn_pclient_id_seq'), :server_id_in, :name_in,
             :shared_key_in, :state_id_in)
 """)
+
+
 def update_push_client_registration(server_id):
     # Generate a new a new client name and shared key
     client_name = generate_random_string(16)
@@ -284,11 +295,11 @@ def update_push_client_registration(server_id):
 
     h = rhnSQL.prepare(_query_update_push_client_registration)
     rowcount = h.execute(server_id_in=server_id, name_in=client_name,
-        shared_key_in=shared_key, state_id_in=state_id)
+                         shared_key_in=shared_key, state_id_in=state_id)
     if not rowcount:
         h = rhnSQL.prepare(_query_insert_push_client_registration)
         h.execute(server_id_in=server_id, name_in=client_name,
-            shared_key_in=shared_key, state_id_in=state_id)
+                  shared_key_in=shared_key, state_id_in=state_id)
 
     # Get the server's (database) time
     # XXX
@@ -311,6 +322,7 @@ _query_update_push_client_jid = rhnSQL.Statement("""
      where server_id = :server_id
 """)
 
+
 def update_push_client_jid(server_id, jid):
     h1 = rhnSQL.prepare(_query_delete_duplicate_client_jids)
     h1.execute(server_id=server_id, jid=jid)
@@ -318,6 +330,7 @@ def update_push_client_jid(server_id, jid):
     h2.execute(server_id=server_id, jid=jid)
     rhnSQL.commit()
     return jid
+
 
 def generate_random_string(length=20):
     if not length:

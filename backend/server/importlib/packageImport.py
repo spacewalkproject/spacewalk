@@ -27,7 +27,9 @@ from spacewalk.common.rhnConfig import CFG
 from spacewalk.server import taskomatic
 from spacewalk.server.rhnServer import server_packages
 
+
 class ChannelPackageSubscription(GenericPackageImport):
+
     def __init__(self, batch, backend, caller=None, strict=0, repogen=True):
         # If strict, the set of packages that was passed in will be the only
         # one in the channels - everything else will be unlinked
@@ -54,7 +56,7 @@ class ChannelPackageSubscription(GenericPackageImport):
                 package['checksums'] = {package['checksum_type']: package['checksum']}
             if not isinstance(package, IncompletePackage):
                 raise TypeError("Expected an IncompletePackage instance, "
-                    "got %s" % package.__class__.__name__)
+                                "got %s" % package.__class__.__name__)
             self._processPackage(package)
 
     def fix(self):
@@ -123,7 +125,7 @@ class ChannelPackageSubscription(GenericPackageImport):
         self.backend.lookupPackages(self.batch, self.checksums)
         try:
             affected_channels = self.backend.subscribeToChannels(self.batch,
-                strict=self._strict_subscription)
+                                                                 strict=self._strict_subscription)
         except:
             self.backend.rollback()
             raise
@@ -136,7 +138,7 @@ class ChannelPackageSubscription(GenericPackageImport):
             # update bigger batch at once
             name_ids = []
         self.backend.update_newest_package_cache(caller=self.caller,
-            affected_channels=self.affected_channel_packages, name_ids=name_ids)
+                                                 affected_channels=self.affected_channel_packages, name_ids=name_ids)
         # Now that channel is updated, schedule the repo generation
         if self.repogen:
             taskomatic.add_to_repodata_queue_for_channel_package_subscription(
@@ -178,7 +180,7 @@ class ChannelPackageSubscription(GenericPackageImport):
                 # Unknown channel
                 sourcePackage.ignored = 1
                 raise InvalidChannelError(channel,
-                    "Unsupported channel %s" % schannelName)
+                                          "Unsupported channel %s" % schannelName)
             # Check channel-package compatibility
             charch = channel['channel_arch_id']
             archCompat = self.channel_package_arch_compat[charch]
@@ -186,15 +188,15 @@ class ChannelPackageSubscription(GenericPackageImport):
                 # Invalid architecture
                 sourcePackage.ignored = 1
                 raise InvalidArchError(charch,
-                    "Invalid channel architecture %s" % charch)
+                                       "Invalid channel architecture %s" % charch)
 
             # Now check if the source package's arch is compatible with the
             # current channel
             if not archCompat.has_key(sourcePackage['package_arch_id']):
                 sourcePackage.ignored = 1
                 raise IncompatibleArchError(sourcePackage.arch, charch,
-                    "Package arch %s incompatible with channel %s" %
-                        (sourcePackage.arch, schannelName))
+                                            "Package arch %s incompatible with channel %s" %
+                                            (sourcePackage.arch, schannelName))
 
             dpHash[channel['id']] = schannelName
 
@@ -202,9 +204,10 @@ class ChannelPackageSubscription(GenericPackageImport):
 
 
 class PackageImport(ChannelPackageSubscription):
+
     def __init__(self, batch, backend, caller=None, update_last_modified=0):
         ChannelPackageSubscription.__init__(self, batch, backend,
-            caller=caller)
+                                            caller=caller)
         self.ignoreUploaded = 1
         self._update_last_modified = update_last_modified
         self.capabilities = {}
@@ -237,7 +240,7 @@ class PackageImport(ChannelPackageSubscription):
             depList = package[tag]
             if type(depList) != type([]):
                 sys.stderr.write("!!! packageImport.PackageImport._processPackage: "
-                                 "erronous depList for '%s', converting to []\n"%tag)
+                                 "erronous depList for '%s', converting to []\n" % tag)
                 depList = []
             for dep in depList:
                 nv = []
@@ -304,10 +307,10 @@ class PackageImport(ChannelPackageSubscription):
             upload_force = 0.5
         try:
             self.backend.processPackages(self.batch,
-                uploadForce=upload_force,
-                forceVerify=self.forceVerify,
-                ignoreUploaded=self.ignoreUploaded,
-                transactional=self.transactional)
+                                         uploadForce=upload_force,
+                                         forceVerify=self.forceVerify,
+                                         ignoreUploaded=self.ignoreUploaded,
+                                         transactional=self.transactional)
             self._import_signatures()
         except:
             # Oops
@@ -330,9 +333,9 @@ class PackageImport(ChannelPackageSubscription):
 
         name_ids = [pkg['name_id'] for pkg in self.batch]
         self.backend.update_newest_package_cache(caller=self.caller,
-            affected_channels=self.affected_channel_packages, name_ids=name_ids)
+                                                 affected_channels=self.affected_channel_packages, name_ids=name_ids)
         taskomatic.add_to_repodata_queue_for_channel_package_subscription(
-                self.affected_channels, self.batch, self.caller)
+            self.affected_channels, self.batch, self.caller)
         self.backend.commit()
 
     def __postprocess(self):
@@ -369,7 +372,7 @@ class PackageImport(ChannelPackageSubscription):
 
     def _comparePackages(self, package1, package2):
         if (package1['checksum_type'] == package2['checksum_type']
-            and package1['checksum'] == package2['checksum']):
+                and package1['checksum'] == package2['checksum']):
             return
         # XXX Handle this better
         raise Exception("Different packages in the same batch")
@@ -380,14 +383,14 @@ class PackageImport(ChannelPackageSubscription):
             object.id = object.first_package.id
 
     def _import_signatures(self):
-       for package in self.batch:
-           # skip missing files and mpm packages
-           if package['path'] and not isinstance(package, mpmBinaryPackage):
-               full_path = os.path.join(CFG.MOUNT_POINT, package['path'])
-               if os.path.exists(full_path):
-                   header = rhn_pkg.get_package_header(filename=full_path)
-                   server_packages.processPackageKeyAssociations(header,
-                                   package['checksum_type'], package['checksum'])
+        for package in self.batch:
+            # skip missing files and mpm packages
+            if package['path'] and not isinstance(package, mpmBinaryPackage):
+                full_path = os.path.join(CFG.MOUNT_POINT, package['path'])
+                if os.path.exists(full_path):
+                    header = rhn_pkg.get_package_header(filename=full_path)
+                    server_packages.processPackageKeyAssociations(header,
+                                                                  package['checksum_type'], package['checksum'])
 
     def _fix_encoding(self, text):
         if text is None:
@@ -399,6 +402,7 @@ class PackageImport(ChannelPackageSubscription):
 
 
 class SourcePackageImport(Import):
+
     def __init__(self, batch, backend, caller=None, update_last_modified=0):
         Import.__init__(self, batch, backend)
         self._update_last_modified = update_last_modified
@@ -437,10 +441,10 @@ class SourcePackageImport(Import):
             upload_force = 0.5
         try:
             self.backend.processSourcePackages(self.batch,
-                uploadForce=upload_force,
-                forceVerify=self.forceVerify,
-                ignoreUploaded=self.ignoreUploaded,
-                transactional=self.transactional)
+                                               uploadForce=upload_force,
+                                               forceVerify=self.forceVerify,
+                                               ignoreUploaded=self.ignoreUploaded,
+                                               transactional=self.transactional)
         except:
             # Oops
             self.backend.rollback()
@@ -455,10 +459,9 @@ class SourcePackageImport(Import):
                     p.diff = None
                     # Leave p.diff_result in place
 
-
     def _comparePackages(self, package1, package2):
         if (package1['checksum_type'] == package2['checksum_type']
-            and package1['checksum'] == package2['checksum']):
+                and package1['checksum'] == package2['checksum']):
             return
         # XXX Handle this better
         raise Exception("Different packages in the same batch")
@@ -512,4 +515,3 @@ def packageImporter(batch, backend, source=0, caller=None):
     if source:
         return SourcePackageImport(batch, backend, caller=caller)
     return PackageImport(batch, backend, caller=caller)
-

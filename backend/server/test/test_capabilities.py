@@ -32,6 +32,7 @@ from rhn import rpclib
 from spacewalk.server import rhnSQL, rhnServer, rhnCapability
 from spacewalk.common.rhnConfig import ConfigParserError
 
+
 def main():
     if len(sys.argv) == 1:
         server_name = 'xmlrpc.rhn.webdev.redhat.com'
@@ -60,11 +61,11 @@ def main():
     s.registration.new_user(username, password, email)
 
     data = {
-       'os_release'     : '9',
-       'architecture'   : 'athlon-redhat-linux',
-       'profile_name'   : 'Test profile for %s' % username,
-       'username'       : username,
-       'password'       : password,
+        'os_release': '9',
+        'architecture': 'athlon-redhat-linux',
+        'profile_name': 'Test profile for %s' % username,
+        'username': username,
+        'password': password,
     }
     systemid = s.registration.new_system(data)
 

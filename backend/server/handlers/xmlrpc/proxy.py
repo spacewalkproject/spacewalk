@@ -32,7 +32,10 @@ from spacewalk.server import rhnServer, rhnSQL, apacheAuth, rhnPackage, rhnChann
 
 # a class that provides additional authentication support for the
 # proxy functions
+
+
 class rhnProxyHandler(rhnHandler):
+
     def __init__(self):
         rhnHandler.__init__(self)
 
@@ -52,14 +55,14 @@ class rhnProxyHandler(rhnHandler):
         from rhnProxyInfo pi
         where pi.server_id = :server_id
         """)
-        h.execute(server_id = self.server_id)
+        h.execute(server_id=self.server_id)
         row = h.fetchone_dict()
         if not row:
             # we require entitlement for this functionality
             log_error("Server not entitled for Proxy", self.server_id)
             raise rhnFault(1002, _(
                 'Spacewalk Proxy service not enabled for server profile: "%s"')
-                           % server.server["name"])
+                % server.server["name"])
         # we're fine...
         return server
 
@@ -98,7 +101,9 @@ class rhnProxyHandler(rhnHandler):
 
 
 class Proxy(rhnProxyHandler):
+
     """ this is the XML-RPC receiver for proxy calls """
+
     def __init__(self):
         log_debug(3)
         rhnProxyHandler.__init__(self)
@@ -116,7 +121,7 @@ class Proxy(rhnProxyHandler):
         log_debug(3, package, channel)
         server = self.auth_client(auth_token)
         return rhnPackage.package_source_in_channel(self.server_id,
-            package, channel)
+                                                    package, channel)
 
     def login(self, system_id):
         """ Login routine for the proxy
@@ -213,7 +218,7 @@ class Proxy(rhnProxyHandler):
         ret = rhnChannel.getChannelInfoForTinyUrl(tinyurl)
         if not ret or not 'url' in ret or len(ret['url'].split('/')) != 6:
             raise rhnFault(40,
-                    "could not find any data on tiny url '%s'" % tinyurl)
+                           "could not find any data on tiny url '%s'" % tinyurl)
 
         # tiny urls are always for kickstart sessions
         args = ret['url'].split('/')
@@ -236,6 +241,5 @@ class Proxy(rhnProxyHandler):
     def __getKickstart(self, kickstart, ret):
         if not ret:
             raise rhnFault(40,
-                    "could not find any data on kickstart '%s'" % kickstart)
+                           "could not find any data on kickstart '%s'" % kickstart)
         return ret
-

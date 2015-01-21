@@ -34,7 +34,9 @@ from spacewalk.server.rhnServer import server_kickstart
 
 import getMethod
 
+
 class Queue(rhnHandler):
+
     """ XMLRPC queue functions that we will provide for the outside world. """
 
     def __init__(self):
@@ -48,8 +50,8 @@ class Queue(rhnHandler):
         # XXX I am not proud of this. There should be a generic way to map
         # the client's error codes into success status codes
         self.action_type_completed_codes = {
-            'errata.update' : {
-                39  : None,
+            'errata.update': {
+                39: None,
             },
         }
 
@@ -66,7 +68,7 @@ class Queue(rhnHandler):
             xml = xmlrpclib.dumps(("hardware",), methodname="client.refresh")
         elif method == 'packages.refresh_list':
             xml = xmlrpclib.dumps(("rpmlist",), methodname="client.refresh")
-        else: # Unrecognized, skip
+        else:  # Unrecognized, skip
             raise InvalidAction("Action method %s unsupported by "
                                 "Update Agent Client" % method)
         # all good
@@ -95,9 +97,9 @@ class Queue(rhnHandler):
         xmlblob = xmlrpclib.dumps(result, methodname=action['method'])
         log_debug(5, "returning xmlblob for action", xmlblob)
         return {
-            'id'        : action['id'],
-            'action'    : xmlblob,
-            'version'   : action['version'],
+            'id': action['id'],
+            'action': xmlblob,
+            'version': action['version'],
         }
 
     def __update_status(self, status):
@@ -133,13 +135,12 @@ class Queue(rhnHandler):
                     pass
                 else:
                     last_boot = time.time() - uptime
-                    if abs(last_boot-self.server.server["last_boot"]) > 5:
+                    if abs(last_boot - self.server.server["last_boot"]) > 5:
                         self.server.server["last_boot"] = last_boot
                         self.__set_reboot_action_to_succcess()
 
         # this is smart enough to do a NOOP if nothing changed.
         self.server.server.save()
-
 
     def __set_reboot_action_to_succcess(self):
         h = rhnSQL.prepare("""
@@ -173,8 +174,8 @@ class Queue(rhnHandler):
         for f_action_id in f_action_ids:
             # Invalidate any kickstart session that depends on this action
             server_kickstart.update_kickstart_session(self.server_id,
-                f_action_id, action_status=3, kickstart_state='failed',
-                next_action_type=None)
+                                                      f_action_id, action_status=3, kickstart_state='failed',
+                                                      next_action_type=None)
         return f_action_ids
 
     def _invalidate_failed_prereq_actions(self):
@@ -276,7 +277,7 @@ class Queue(rhnHandler):
     """)
 
     # Probably we need to figure out if we really need to split these two.
-    def get(self, system_id, version = 1, status = {}):
+    def get(self, system_id, version=1, status={}):
         # Authenticate the system certificate
         if CFG.DISABLE_CHECKINS:
             self.update_checkin = 0
@@ -322,7 +323,7 @@ class Queue(rhnHandler):
 
             # Okay, got an action
             action = h.fetchone_dict()
-            if not action: # No actions available; bail out
+            if not action:  # No actions available; bail out
                 # Don't forget the commit at the end...
                 ret = ""
                 break
@@ -333,15 +334,15 @@ class Queue(rhnHandler):
                 log_debug(4, "Action %s picked up too many times" % action_id)
                 # We've run out of pickup attempts for this action...
                 self.__update_action(action_id, status=3,
-                    message="This action has been picked up multiple times "
-                    "without a successful transaction; "
-                    "this action is now failed for this system.")
+                                     message="This action has been picked up multiple times "
+                                     "without a successful transaction; "
+                                     "this action is now failed for this system.")
                 # Invalidate actions that depend on this one
                 self._invalidate_child_actions(action_id)
                 # keep looking for a good action to process...
                 continue
 
-            if server_locked and action['unlocked_only']== 'Y':
+            if server_locked and action['unlocked_only'] == 'Y':
                 # This action is locked
                 log_debug(4, "server id %s locked for action id %s" % (
                     self.server_id, action_id))
@@ -352,7 +353,7 @@ class Queue(rhnHandler):
                     ret = self.__getV1(action)
                 else:
                     ret = self.__getV2(action)
-            except ShadowAction, e: # Action the client should not see
+            except ShadowAction, e:  # Action the client should not see
                 # Make sure we re-execute the query, so we pick up whatever
                 # extra actions were added
                 should_execute = 1
@@ -360,7 +361,7 @@ class Queue(rhnHandler):
                 log_debug(4, "Shadow Action", text)
                 self.__update_action(action['id'], 2, 0, text)
                 continue
-            except InvalidAction, e: # This is an invalid action
+            except InvalidAction, e:  # This is an invalid action
                 # Update its status so it won't bother us again
                 text = e.args[0]
                 log_debug(4, "Invalid Action", text)
@@ -373,7 +374,7 @@ class Queue(rhnHandler):
                 log_error("Can not process action data", action, e.args)
                 ret = ""
                 break
-            else: # all fine
+            else:  # all fine
                 # Update the status of the action
                 h = rhnSQL.prepare("""
                 update rhnServerAction
@@ -383,8 +384,8 @@ class Queue(rhnHandler):
                 where action_id = :action_id
                   and server_id = :server_id
                 """)
-                h.execute(action_id = action["id"], server_id = self.server_id,
-                          tries = action["remaining_tries"])
+                h.execute(action_id=action["id"], server_id=self.server_id,
+                          tries=action["remaining_tries"])
                 break
 
         # commit all changes
@@ -422,7 +423,7 @@ class Queue(rhnHandler):
             except ValueError:
                 log_error("Invalid action_id", action_id)
                 raise rhnFault(30, _("Invalid action value type %s (%s)") %
-                    (action_id, type(action_id))), None, sys.exc_info()[2]
+                               (action_id, type(action_id))), None, sys.exc_info()[2]
         # Authenticate the system certificate
         self.auth_system(system_id)
         log_debug(1, self.server_id, action_id, result)
@@ -441,7 +442,7 @@ class Queue(rhnHandler):
                and a.id = :action_id
                and a.action_type = at.id
         """)
-        h.execute(server_id = self.server_id, action_id = action_id)
+        h.execute(server_id=self.server_id, action_id=action_id)
         row = h.fetchone_dict()
         if not row:
             log_error("Server %s does not own action %s" % (
@@ -453,8 +454,8 @@ class Queue(rhnHandler):
         trigger_snapshot = (row['trigger_snapshot'] == 'Y')
 
         if data.has_key('missing_packages'):
-            missing_packages = "Missing-Packages: %s" % str( \
-                                data['missing_packages'])
+            missing_packages = "Missing-Packages: %s" % str(
+                data['missing_packages'])
             rmsg = "%s %s" % (message, missing_packages)
         elif data.has_key('koan'):
             rmsg = "%s: %s" % (message, data['koan'])
@@ -471,7 +472,7 @@ class Queue(rhnHandler):
             if result.has_key("faultString"):
                 rmsg = result["faultString"] + str(data)
         if type(rcode) in [type({}), type(()), type([])] \
-               or type(rcode) is not IntType:
+                or type(rcode) is not IntType:
             rmsg = "%s [%s]" % (str(message), str(rcode))
             rcode = -1
         # map to db codes.
@@ -496,7 +497,7 @@ class Queue(rhnHandler):
         rhnFlags.set('action_status', status)
 
         self.process_extra_data(self.server_id, action_id, data=data,
-            action_type=action_type)
+                                action_type=action_type)
 
         # commit, because nobody else will
         rhnSQL.commit()
@@ -526,7 +527,7 @@ class Queue(rhnHandler):
         return 2
 
     def process_extra_data(self, server_id, action_id, data={},
-            action_type=None):
+                           action_type=None):
         log_debug(4, server_id, action_id, action_type)
 
         if not action_type:
@@ -539,7 +540,7 @@ class Queue(rhnHandler):
         except getMethod.GetMethodException:
             Traceback("queue.get V2")
             raise EmptyAction("Could not get a valid method for %s" %
-                action_type), None, sys.exc_info()[2]
+                              action_type), None, sys.exc_info()[2]
         # Call the method
         result = method(self.server_id, action_id, data=data)
         return result
@@ -558,13 +559,13 @@ class Queue(rhnHandler):
             r.server_id = :server_id
         and r.status in (0, 1)
         """)
-        h.execute(server_id = self.server_id)
+        h.execute(server_id=self.server_id)
         data = h.fetchone_dict()
         if data is None:
             return 0
         return data["id"]
 
-    ### PRIVATE methods
+    # PRIVATE methods
 
     def __reboot_in_progress(self):
         """check for a reboot action for this server in status Picked Up"""
@@ -577,19 +578,19 @@ class Queue(rhnHandler):
              where sa.server_id = :server_id
                and sa.status = 1 -- Picked Up
         """)
-        h.execute(server_id = self.server_id)
+        h.execute(server_id=self.server_id)
         ret = h.fetchone_dict() or None
         if ret:
             return True
         return False
 
     def __update_action(self, action_id, status,
-                           resultCode = None, message = ""):
+                        resultCode=None, message=""):
         """ Update the status of an action. """
         log_debug(4, action_id, status, resultCode, message)
         rhnAction.update_server_action(server_id=self.server_id,
-            action_id=action_id, status=status,
-            result_code=resultCode, result_message=message)
+                                       action_id=action_id, status=status,
+                                       result_code=resultCode, result_message=message)
         return 0
 
     def __errataUpdate(self, actionId):
@@ -637,7 +638,7 @@ class Queue(rhnHandler):
             pn.id = pl.name_id
         """
         h = rhnSQL.prepare(sql)
-        h.execute(action_id = actionId, server_id = self.server_id)
+        h.execute(action_id=actionId, server_id=self.server_id)
 
         packages = []
         while 1:
@@ -719,7 +720,7 @@ class Queue(rhnHandler):
         ) pkglist
         """
         h = rhnSQL.prepare(statement)
-        h.execute(action_id = actionId, server_id = self.server_id)
+        h.execute(action_id=actionId, server_id=self.server_id)
         ret = h.fetchall_dict() or []
         packages = []
         for p in ret:
@@ -737,4 +738,3 @@ if __name__ == "__main__":
     q = Queue()
     sys.exit(-1)
 #-----------------------------------------------------------------------------
-

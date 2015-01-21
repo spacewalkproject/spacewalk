@@ -25,5 +25,5 @@ while 1:
     ret = p(1000102174)
     print counter, ret
     counter = counter + 1
-    #if counter > 700:
+    # if counter > 700:
     #    time.sleep(.5)

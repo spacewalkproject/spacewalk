@@ -19,11 +19,13 @@ import sys
 from spacewalk.common.rhnConfig import initCFG, CFG
 from spacewalk.server import rhnSQL, rhnUser
 
+
 def print_help():
     print "Usage: satpasswd [OPTIONS] user\n"
     print "Options:"
     print "\t-h, --help\tPrint this help message."
     print "\t-s, --stdin\tRead the password from standard input."
+
 
 def read_passwd(stdin, msg):
     passwordIn = None

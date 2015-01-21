@@ -18,7 +18,9 @@
 
 from spacewalk.server import apacheRequest
 
+
 class GetHandler(apacheRequest.GetHandler):
+
     """ handles the GET requests
                 Inherit the behaviour from the parent class
         """

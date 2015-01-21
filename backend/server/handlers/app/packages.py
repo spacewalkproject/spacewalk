@@ -39,18 +39,19 @@ from spacewalk.server.importlib.packageUpload import uploadPackages, listChannel
 from spacewalk.server.importlib.userAuth import UserAuth
 from spacewalk.server.importlib.errataCache import schedule_errata_cache_update
 
-#12/22/05 wregglej 173287
-#I made a decent number of changes to this file to implement session authentication.
-#One of the requirements for this was to maintain backwards compatibility, so older
-#versions of rhnpush can still talk to a newer satellite. This meant that I had to
-#add new versions of each XMLRPC call that did authentication by sessions rather than
-#username/password. I noticed that the only real difference between the two was the
-#authentication scheme that the functions used, so rather than copy-n-paste a bunch of code,
-#I separated the functionality from the authentication and just pass a authentication object
-#to the function that actually does stuff.
+# 12/22/05 wregglej 173287
+# I made a decent number of changes to this file to implement session authentication.
+# One of the requirements for this was to maintain backwards compatibility, so older
+# versions of rhnpush can still talk to a newer satellite. This meant that I had to
+# add new versions of each XMLRPC call that did authentication by sessions rather than
+# username/password. I noticed that the only real difference between the two was the
+# authentication scheme that the functions used, so rather than copy-n-paste a bunch of code,
+# I separated the functionality from the authentication and just pass a authentication object
+# to the function that actually does stuff.
 
 
 class Packages(RPC_Base):
+
     def __init__(self):
         log_debug(3)
         RPC_Base.__init__(self)
@@ -113,7 +114,7 @@ class Packages(RPC_Base):
         if info.has_key('force'):
             force = info['force']
         return uploadPackages(info, force=force,
-            caller="server.app.uploadPackageInfo")
+                              caller="server.app.uploadPackageInfo")
 
     def uploadSourcePackageInfo(self, username, password, info):
         """ Upload a collection of source packages. """
@@ -133,8 +134,7 @@ class Packages(RPC_Base):
         if info.has_key('force'):
             force = info['force']
         return uploadPackages(info, source=1, force=force,
-            caller="server.app.uploadSourcePackageInfo")
-
+                              caller="server.app.uploadSourcePackageInfo")
 
     def listChannelSource(self, channelList, username, password):
         log_debug(5, channelList, username)
@@ -150,7 +150,6 @@ class Packages(RPC_Base):
         authobj.authzChannels(channelList)
         ret = listChannelsSource(channelList)
         return ret
-
 
     def listChannel(self, channelList, username, password):
         """ List packages of a specified channel. """
@@ -207,7 +206,7 @@ class Packages(RPC_Base):
     def test_login(self, username, password):
         log_debug(5, username)
         try:
-            authobj = auth( username, password )
+            authobj = auth(username, password)
         except:
             return 0
         return 1
@@ -221,7 +220,6 @@ class Packages(RPC_Base):
         """ rhnpush's --extended-test will call this function. """
         log_debug(5, "testing check session")
         return self.check_session(session)
-
 
     ###listMissingSourcePackages###
     def listMissingSourcePackages(self, channelList, username, password):
@@ -295,8 +293,8 @@ class Packages(RPC_Base):
         authobj.authzChannels(channelList)
 
         # Have to turn the channel list into a list of Channel objects
-        channelList = map(lambda x: Channel().populate({'label' : x}),
-            channelList)
+        channelList = map(lambda x: Channel().populate({'label': x}),
+                          channelList)
 
         # Since we're dealing with superusers, we allow them to change the org
         # id
@@ -324,7 +322,7 @@ class Packages(RPC_Base):
                 # Source package - no reason to continue
                 continue
             _checksum_sql_filter = ""
-            if 'md5sum' in package: # for old rhnpush compatibility
+            if 'md5sum' in package:  # for old rhnpush compatibility
                 package['checksum_type'] = 'md5'
                 package['checksum'] = package['md5sum']
 
@@ -343,8 +341,8 @@ class Packages(RPC_Base):
                 exec_args.update({'checksum_type': package['checksum_type'],
                                   'checksum':      package['checksum']})
 
-            h = rhnSQL.prepare(self._get_pkg_info_query % \
-                                _checksum_sql_filter)
+            h = rhnSQL.prepare(self._get_pkg_info_query %
+                               _checksum_sql_filter)
             h.execute(**exec_args)
             row = h.fetchone_dict()
 
@@ -368,14 +366,14 @@ class Packages(RPC_Base):
         affected_channels = importer.affected_channels
 
         log_debug(3, "Computing errata cache for systems affected by channels",
-            affected_channels)
+                  affected_channels)
 
         schedule_errata_cache_update(affected_channels)
         rhnSQL.commit()
 
         return 0
 
-    def getAnyChecksum(self, info, username = None, password = None, session = None, is_source = 0):
+    def getAnyChecksum(self, info, username=None, password=None, session=None, is_source=0):
         """ returns checksum info of available packages
             also does an existance check on the filesystem.
         """
@@ -387,9 +385,9 @@ class Packages(RPC_Base):
         orgid = info.get('org_id')
 
         if orgid == 'null':
-            null_org=1
+            null_org = 1
         else:
-            null_org=None
+            null_org = None
 
         if not session:
             org_id, force = rhnPackageUpload.authenticate(username, password,
@@ -412,7 +410,7 @@ class Packages(RPC_Base):
         return ret
 
     def getPackageChecksum(self, username, password, info):
-        return self.getAnyChecksum(info, username = username, password = password)
+        return self.getAnyChecksum(info, username=username, password=password)
 
     def getPackageMD5sum(self, username, password, info):
         """ bug#177762 gives md5sum info of available packages.
@@ -421,16 +419,16 @@ class Packages(RPC_Base):
         log_debug(3)
         self._MD5sum2Checksum_info(info)
         return self._Checksum2MD5sum_list(
-                    self.getPackageChecksum(username, password, info))
+            self.getPackageChecksum(username, password, info))
 
     def getPackageChecksumBySession(self, session_string, info):
-        return self.getAnyChecksum(info, session = session_string)
+        return self.getAnyChecksum(info, session=session_string)
 
     def getPackageMD5sumBySession(self, session_string, info):
         log_debug(3)
         self._MD5sum2Checksum_info(info)
         return self._Checksum2MD5sum_list(
-                    self.getPackageChecksumBySession(session_string, info))
+            self.getPackageChecksumBySession(session_string, info))
 
     _get_pkg_info_query = """
         select
@@ -484,7 +482,7 @@ class Packages(RPC_Base):
                 'pkg_rel':      str(pkg_info['release']),
                 'pkg_arch':     pkg_info['arch'],
                 'orgid':       org_id,
-                    }
+            }
 
             _checksum_sql_filter = ""
             if pkg_info.has_key('checksum') and CFG.ENABLE_NVREA:
@@ -543,22 +541,22 @@ class Packages(RPC_Base):
         return row_list
 
     def getSourcePackageChecksum(self, username, password, info):
-        return self.getAnyChecksum(info, username = username, password = password, is_source = 1)
+        return self.getAnyChecksum(info, username=username, password=password, is_source=1)
 
     def getSourcePackageMD5sum(self, username, password, info):
         log_debug(3)
         self._MD5sum2Checksum_info(info)
         return self._Checksum2MD5sum_list(
-                    self.getSourcePackageChecksum(username, password, info))
+            self.getSourcePackageChecksum(username, password, info))
 
     def getSourcePackageChecksumBySession(self, session_string, info):
-        return self.getAnyChecksum(info, session = session_string, is_source = 1)
+        return self.getAnyChecksum(info, session=session_string, is_source=1)
 
     def getSourcePackageMD5sumBySession(self, session_string, info):
         log_debug(3)
         self._MD5sum2Checksum_info(info)
         return self._Checksum2MD5sum_list(
-                    self.getSourcePackageChecksumBySession(session_string, info))
+            self.getSourcePackageChecksumBySession(session_string, info))
 
     def _getSourcePackageChecksum(self, org_id, pkg_infos):
         """ Gives checksum info of available source packages.
@@ -588,14 +586,16 @@ class Packages(RPC_Base):
         row_list = {}
         for pkg in pkg_infos.keys():
             row_list[pkg] = self._get_package_checksum(h,
-                                        {'name':pkg, 'orgid': org_id})
+                                                       {'name': pkg, 'orgid': org_id})
         return row_list
+
 
 def auth(login, password):
     """ Authorize this user. """
     authobj = UserAuth()
     authobj.auth(login, password)
     return authobj
+
 
 def auth_session(session_string):
     """ Authenticate based on a session. """

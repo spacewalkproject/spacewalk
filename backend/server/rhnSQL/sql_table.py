@@ -27,6 +27,7 @@ import sql_lib
 
 # A class to handle row updates transparently
 class RowData(UserDictCase):
+
     def __init__(self, dict, db, sql, rowid, cache=None):
         UserDictCase.__init__(self, dict)
         if not isinstance(db, sql_base.Database):
@@ -60,6 +61,7 @@ class RowData(UserDictCase):
 #
 # Some day we'll figure out how to reduce confusion...
 class Table:
+
     def __init__(self, db, table, hashid, cache=False):
         if not table or not isinstance(table, str):
             raise rhnException("First argument needs to be a table name",

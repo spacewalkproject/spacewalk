@@ -23,13 +23,15 @@ import unittest
 
 from spacewalk.server.rhnSQL.driver_postgresql import convert_named_query_params
 
+
 class RhnSQLTests(unittest.TestCase):
+
     """ Pure unit tests for components of rhnSQL. """
 
     def test_convert_named_query_params(self):
         query = "INSERT INTO people(id, name, phone) VALUES(:id, :name, :phone)"
         expected_query = \
-                "INSERT INTO people(id, name, phone) VALUES(%(id)s, %(name)s, %(phone)s)"
+            "INSERT INTO people(id, name, phone) VALUES(%(id)s, %(name)s, %(phone)s)"
 
         new_query = convert_named_query_params(query)
         self.assertEquals(expected_query, new_query)
@@ -43,7 +45,7 @@ class RhnSQLTests(unittest.TestCase):
     def test_convert_named_params_multiple_uses(self):
         query = "INSERT INTO people(a, b, c, d) VALUES(:a, :b, :a, :b)"
         expected_query = \
-                "INSERT INTO people(a, b, c, d) VALUES(%(a)s, %(b)s, %(a)s, %(b)s)"
+            "INSERT INTO people(a, b, c, d) VALUES(%(a)s, %(b)s, %(a)s, %(b)s)"
 
         new_query = convert_named_query_params(query)
         self.assertEquals(expected_query, new_query)

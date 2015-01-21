@@ -38,10 +38,10 @@ class Tests(unittest.TestCase):
 
     def setUp(self):
         rhnSQL.initDB(
-            backend  = "oracle",
-            username = DB_SETTINGS["user"],
-            password = DB_SETTINGS["password"],
-            database = DB_SETTINGS["database"]
+            backend="oracle",
+            username=DB_SETTINGS["user"],
+            password=DB_SETTINGS["password"],
+            database=DB_SETTINGS["database"]
         )
         rhnSQL.clear_log_id()
 
@@ -61,20 +61,20 @@ class Tests(unittest.TestCase):
         groups.sort()
 
         channels = ['rhn-tools-rhel-2.1-as-i386',
-                'rhn-tools-rhel-2.1-es-i386', 'rhn-tools-rhel-2.1-ws-i386']
+                    'rhn-tools-rhel-2.1-es-i386', 'rhn-tools-rhel-2.1-ws-i386']
         channels.sort()
 
         token_user_id = u.getid()
         token_org_id = org_id
         token_entitlement_level = {
-            'provisioning_entitled' : None,
-            'enterprise_entitled'   : None,
+            'provisioning_entitled': None,
+            'enterprise_entitled': None,
         }
         token_note = "Test activation key %d" % int(time.time())
 
         a = misc_functions.create_activation_key(org_id=token_org_id,
-            user_id=token_user_id, entitlement_level=token_entitlement_level,
-            note=token_note, groups=groups, channels=channels)
+                                                 user_id=token_user_id, entitlement_level=token_entitlement_level,
+                                                 note=token_note, groups=groups, channels=channels)
 
         token = a.get_token()
 
@@ -100,12 +100,12 @@ class Tests(unittest.TestCase):
     def test_exception_token_channels_1(self):
         a = rhnActivationKey.ActivationKey()
         self.assertRaises(rhnActivationKey.InvalidChannelError, a.set_channels,
-            ["a"])
+                          ["a"])
 
     def test_exception_token_entitlement_level_1(self):
         a = rhnActivationKey.ActivationKey()
         self.assertRaises(rhnActivationKey.InvalidEntitlementError,
-            a.set_entitlement_level, {'a' : None})
+                          a.set_entitlement_level, {'a': None})
 
 if __name__ == '__main__':
     sys.exit(unittest.main() or 0)

@@ -15,17 +15,15 @@
 
 # global module imports
 from apacheHandler import apacheHandler
-apache_server       = apacheHandler()
+apache_server = apacheHandler()
 HeaderParserHandler = apache_server.headerParserHandler
-Handler             = apache_server.handler
-CleanupHandler      = apache_server.cleanupHandler
-LogHandler          = apache_server.logHandler
+Handler = apache_server.handler
+CleanupHandler = apache_server.cleanupHandler
+LogHandler = apache_server.logHandler
 
 
-### Instantiate external entry points:
+# Instantiate external entry points:
 #HeaderParserHandler = HandlerWrap("headerParserHandler", init=1)
 #Handler             = HandlerWrap("handler")
 #CleanupHandler      = HandlerWrap("cleanupHandler")
 #LogHandler          = HandlerWrap("logHandler")
-
-

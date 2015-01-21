@@ -18,6 +18,7 @@ from spacewalk.common import rhnFlags
 from spacewalk.common.rhnConfig import initCFG
 from spacewalk.server import rhnSQL, rhnChannel, rhnServer, rhnUser
 
+
 def test_server_search(use_key=0):
     if use_key:
         user = None
@@ -43,7 +44,7 @@ if __name__ == "__main__":
 
     print rhnChannel.get_server_channel_mappings(1000102174, release='2.1AS')
     print rhnChannel.get_server_channel_mappings(1000102174, release='2.1AS',
-        user_id=2825619, none_ok=1)
+                                                 user_id=2825619, none_ok=1)
 
     print rhnChannel.channels_for_release_arch('2.1AS', 'athlon-redhat-linux')
     print rhnChannel.channels_for_release_arch('2.1AS', 'athlon-redhat-linux', user_id=575937)
@@ -60,13 +61,13 @@ if __name__ == "__main__":
     ret = rhnChannel.list_packages(channel)
     print "Took %.2f seconds to list %d packages in %s" % (
         time.time() - start, len(ret), channel)
-    #pprint.pprint(ret)
+    # pprint.pprint(ret)
 
     start = time.time()
     ret = rhnChannel.list_obsoletes(channel)
     print "Took %.2f seconds to list %d obsoletes in %s" % (
         time.time() - start, len(ret), channel)
-    #pprint.pprint(ret)
+    # pprint.pprint(ret)
 
     server_id = 1002156837
     channels = rhnChannel.channels_for_server(server_id)

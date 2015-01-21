@@ -29,9 +29,9 @@ if os.getuid() != 0:
     sys.exit(8)
 
 try:
-    from rhn import rhnLockfile    #new place for rhnLockfile
+    from rhn import rhnLockfile  # new place for rhnLockfile
 except:
-    from spacewalk.common import rhnLockfile #old place for rhnLockfile
+    from spacewalk.common import rhnLockfile  # old place for rhnLockfile
 
 from spacewalk.satellite_tools.progress_bar import ProgressBar
 from spacewalk.common.rhnLog import initLOG, log_debug, log_error
@@ -50,22 +50,23 @@ options_table = [
            help="Delete this channel and its child channels (can be present multiple times)"),
     Option("-u", "--unsubscribe",   action="store_true",
            help="Unsubscribe systems registered to the specified channels"),
-    Option(      "--justdb",        action="store_true",
-                 help="Delete only from the database, do not remove files from disk"),
-    Option(      "--force",         action="store_true",
-                 help="Remove the channel packages from any other channels too (Not Recommended)"),
+    Option("--justdb",        action="store_true",
+           help="Delete only from the database, do not remove files from disk"),
+    Option("--force",         action="store_true",
+           help="Remove the channel packages from any other channels too (Not Recommended)"),
     Option("-p", "--skip-packages", action="store_true",
            help="Do not remove package metadata or packages from the filesystem (Not Recommended)"),
-    Option(      "--skip-kickstart-trees", action="store_true",
+    Option("--skip-kickstart-trees", action="store_true",
            help="Do not remove kickstart trees from the filesystem (Not Recommended)."),
-    Option(      "--just-kickstart-trees", action="store_true",
+    Option("--just-kickstart-trees", action="store_true",
            help="Remove only the kickstart trees for the channels specified."),
-    Option(      "--skip-channels", action="store_true",
+    Option("--skip-channels", action="store_true",
            help="Remove only packages from channel not the channel itself."),
 ]
 
 LOCK = []
 LOCK_DIR = '/var/run'
+
 
 def main():
 
@@ -84,12 +85,12 @@ def main():
         sys.stderr.write("Nothing to do\n")
         sys.exit(0)
 
-    if  not options.list:
+    if not options.list:
         for command in ['spacewalk-remove-channel', 'satellite-sync',
-                    'spacewalk-repo-sync']:
+                        'spacewalk-repo-sync']:
             try:
                 LOCK.append(rhnLockfile.Lockfile(
-                                os.path.join(LOCK_DIR, "%s.pid" % command)))
+                    os.path.join(LOCK_DIR, "%s.pid" % command)))
             except rhnLockfile.LockfileLockedException:
                 print("ERROR: An instance of %s is running, exiting." % command)
                 sys.exit(-1)
@@ -111,7 +112,6 @@ def main():
                 print "\t" + sub
         sys.exit(0)
 
-
     # Verify if the channel is valid
     channels = {}
     for channel in options.channel:
@@ -119,7 +119,7 @@ def main():
 
     for parent in options.channel_with_children:
         if dict_parents.has_key(parent):
-            channels[parent]= None
+            channels[parent] = None
             for ch in dict_parents[parent]:
                 channels[ch] = None
         else:
@@ -143,7 +143,7 @@ def main():
                     child_test_fail = True
                     children.append(subch)
             if children:
-                print "Error: cannot remove channel %s: subchannel(s) exist: " %(
+                print "Error: cannot remove channel %s: subchannel(s) exist: " % (
                     channel)
                 for child in children:
                     print "\t\t\t" + child
@@ -152,12 +152,11 @@ def main():
         sys.exit(-1)
 
     if not options.skip_channels and not options.just_kickstart_trees:
-       if __serverCheck(channels.keys(), options.unsubscribe):
-           sys.exit(-1)
+        if __serverCheck(channels.keys(), options.unsubscribe):
+            sys.exit(-1)
 
-       if __kickstartCheck(channels.keys()):
-           sys.exit(-1)
-
+        if __kickstartCheck(channels.keys()):
+            sys.exit(-1)
 
     try:
         delete_channels(channels.keys(), force=options.force,
@@ -171,6 +170,7 @@ def main():
     rhnSQL.commit()
     releaseLOCK()
     return 0
+
 
 def __serverCheck(labels, unsubscribe):
     sql = """
@@ -188,9 +188,8 @@ def __serverCheck(labels, unsubscribe):
     if not list:
         return 0
 
-
     if unsubscribe:
-        return  __unsubscribeServers(labels)
+        return __unsubscribeServers(labels)
 
     print("\nCurrently there are systems subscribed to one or more of the specified channels.")
     print("If you would like to automatically unsubscribe these systems, simply use the --unsubscribe flag.\n")
@@ -199,7 +198,7 @@ def __serverCheck(labels, unsubscribe):
     print 'org_id'.ljust(8),
     print 'id'.ljust(14),
     print('name')
-    print ("-"*32)
+    print ("-" * 32)
     for map in list:
         print str(map['org_id']).ljust(8),
         print str(map['id']).ljust(14),
@@ -268,7 +267,7 @@ def __kickstartCheck(labels):
           "Please remove these or change their associated base channel.\n")
     print('org_id'.ljust(8)),
     print('label')
-    print("-"*20)
+    print("-" * 20)
     for map in list:
         print str(map['org_id']).ljust(8),
         print(map['label'])
@@ -322,7 +321,6 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_chan
     if not justdb and not skip_packages and not just_kickstart_trees:
         _delete_files(rpms_paths + srpms_paths)
 
-
     # Get the channel ids
     h = rhnSQL.prepare("""
         select id, parent_channel
@@ -357,10 +355,10 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_chan
     """
     for e in indirect_tables:
         args = {
-            'table_1'       : e[0],
-            'channel_field' : e[1],
-            'table_2'       : e[2],
-            'link_field'    : e[3],
+            'table_1': e[0],
+            'channel_field': e[1],
+            'table_2': e[2],
+            'link_field': e[3],
         }
         h = rhnSQL.prepare(query % args)
         h.executemany(channel_id=channel_ids)
@@ -425,9 +423,9 @@ def list_packages(channelLabels, sources=0, force=0):
         query = templ % ("", bind_params)
     else:
         if CFG.DB_BACKEND == 'oracle':
-            minus_op = 'MINUS' # ORA syntax
+            minus_op = 'MINUS'  # ORA syntax
         else:
-            minus_op = 'EXCEPT' # ANSI syntax
+            minus_op = 'EXCEPT'  # ANSI syntax
         query = """
             %s
             %s
@@ -436,10 +434,11 @@ def list_packages(channelLabels, sources=0, force=0):
                 templ % ("", bind_params),
                 minus_op,
                 templ % ("not", bind_params),
-            )
+        )
     h = rhnSQL.prepare(query)
     h.execute(**params)
     return map(lambda x: x['id'], h.fetchall_dict() or [])
+
 
 def _templ_rpms():
     "Returns a template for querying rpms"
@@ -449,6 +448,7 @@ def _templ_rpms():
         from rhnChannel c, rhnChannelPackage cp
         where c.label %s in (%s)
         and cp.channel_id = c.id"""
+
 
 def _templ_srpms():
     "Returns a template for querying srpms"
@@ -465,6 +465,7 @@ def _templ_srpms():
             and p.source_rpm_id = ps.source_rpm_id
             and ((p.org_id is null and ps.org_id is null) or
                 p.org_id = ps.org_id)"""
+
 
 def _delete_srpms(srcPackageIds):
     """Blow away rhnPackageSource and rhnFile entries.
@@ -483,6 +484,7 @@ def _delete_srpms(srcPackageIds):
     log_debug(2, "Successfully deleted %s/%s source package ids" % (
         count, len(srcPackageIds)))
 
+
 def _delete_rpms(packageIds):
     if not packageIds:
         return
@@ -499,6 +501,7 @@ def _delete_rpms(packageIds):
         pb.addTo(group)
         pb.printIncrement()
     pb.printComplete()
+
 
 def _delete_rpm_group(packageIds):
 
@@ -534,6 +537,7 @@ def _delete_rpm_group(packageIds):
         log_error("No such package id %s" % str(packageIds))
     rhnSQL.commit()
 
+
 def _delete_files(relpaths):
     for relpath in relpaths:
         path = os.path.join(CFG.MOUNT_POINT, relpath)
@@ -541,6 +545,7 @@ def _delete_files(relpaths):
             log_debug(1, "Not removing %s: no such file" % path)
             continue
         unlink_package_file(path)
+
 
 def _bind_many(l):
     h = {}
@@ -550,6 +555,7 @@ def _bind_many(l):
         h[key] = l[i]
         lr.append(':' + key)
     return h, lr
+
 
 def _get_package_paths(package_ids, sources=0):
     if sources:
@@ -568,6 +574,7 @@ def _get_package_paths(package_ids, sources=0):
         pdict[row['path']] = None
 
     return pdict.keys()
+
 
 def _delete_ks_files(channel_labels):
     sql = """
@@ -604,7 +611,6 @@ def releaseLOCK():
         lock.release()
 
 
-
 if __name__ == '__main__':
     try:
         sys.exit(main() or 0)
@@ -621,4 +627,3 @@ if __name__ == '__main__':
         import traceback
         traceback.print_exc()
         sys.exit(-1)
-

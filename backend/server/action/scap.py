@@ -19,6 +19,7 @@ from spacewalk.server.rhnLib import InvalidAction
 
 __rhnexport__ = ['xccdf_eval']
 
+
 def xccdf_eval(server_id, action_id, dry_run=0):
     log_debug(3)
     statement = """
@@ -30,13 +31,14 @@ def xccdf_eval(server_id, action_id, dry_run=0):
     d = h.fetchone_dict()
     if not d:
         raise InvalidAction("scap.xccdf_eval: Unknown action id "
-            "%s for server %s" % (action_id, server_id))
+                            "%s for server %s" % (action_id, server_id))
     return ({
         'path': d['path'],
         'id': action_id,
         'file_size': _scap_file_limit(server_id),
         'params': rhnSQL.read_lob(d['parameters']) or ''
-        },)
+    },)
+
 
 def _scap_file_limit(server_id):
     statement = """

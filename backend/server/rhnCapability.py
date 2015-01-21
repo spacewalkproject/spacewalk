@@ -25,6 +25,8 @@ from spacewalk.common.rhnLog import log_debug
 import rhnSQL
 
 # Globally store the parsed capabilities in rhnFlags
+
+
 def set_client_capabilities(capabilities):
     if not capabilities:
         # No capabilities presented; don't set the global flag
@@ -44,15 +46,17 @@ def set_client_capabilities(capabilities):
         value = string.strip(dict['value'])
 
         caps[name] = {
-            'version'   : version,
-            'value'     : value,
+            'version': version,
+            'value': value,
         }
 
     rhnFlags.set('client-capabilities', caps)
     log_debug(4, "Client capabilities", caps)
 
+
 def get_client_capabilities():
     return rhnFlags.get('client-capabilities')
+
 
 def update_client_capabilities(server_id):
     caps = get_client_capabilities()
@@ -69,10 +73,9 @@ def update_client_capabilities(server_id):
         and cc.capability_name_id = ccn.id
     """)
 
-
-    updates = {'server_id' : [], 'capability_name_id' : [], 'version' : []}
-    deletes = {'server_id' : [], 'capability_name_id' : []}
-    inserts = {'server_id' : [], 'capability' : [], 'version' : []}
+    updates = {'server_id': [], 'capability_name_id': [], 'version': []}
+    deletes = {'server_id': [], 'capability_name_id': []}
+    inserts = {'server_id': [], 'capability': [], 'version': []}
 
     h.execute(server_id=server_id)
     while 1:
@@ -139,6 +142,7 @@ def update_client_capabilities(server_id):
     # work
     rhnSQL.commit()
 
+
 def set_server_capabilities():
     try:
         _set_server_capabilities()
@@ -149,28 +153,29 @@ def set_server_capabilities():
         # Try again
         _set_server_capabilities()
 
+
 def _set_server_capabilities():
     # XXX Will have to figure out how to define this
     capabilities = {
-        'registration.register_osad'            : {'version' : 1, 'value' : 1},
-        'registration.finish_message'           : {'version' : 1, 'value' : 1},
-        'registration.remaining_subscriptions'  : {'version' : 1, 'value' : 1},
-        'registration.update_contact_info'      : {'version' : 1, 'value' : 1},
-        'registration.delta_packages'           : {'version' : 1, 'value' : 1},
-        'registration.extended_update_support'  : {'version' : 1, 'value' : 1},
-        'registration.smbios'                   : {'version' : 1, 'value' : 1},
-        'registration.update_systemid'          : {'version' : 1, 'value' : 1},
-        'applet.has_base_channel'               : {'version' : 1, 'value' : 1},
-        'xmlrpc.login.extra_data'               : {'version' : 1, 'value' : 1},
-        'rhncfg.content.base64_decode'          : {'version' : 1, 'value' : 1},
-        'rhncfg.filetype.directory'             : {'version' : 1, 'value' : 1},
-        'xmlrpc.packages.extended_profile'      : {'version' : '1-2', 'value' : 1},
-        'xmlrpc.packages.checksums'             : {'version' : 1, 'value' : 1},
-        'xmlrpc.errata.patch_names'             : {'version' : 1, 'value' : 1},
-        'staging_content'                       : {'version' : 1, 'value' : 1},
-        'ipv6'                                  : {'version' : 1, 'value' : 1},
-        'abrt'                                  : {'version' : 1, 'value' : 1},
-        'cpu_sockets'                           : {'version' : 1, 'value' : 1},
+        'registration.register_osad': {'version': 1, 'value': 1},
+        'registration.finish_message': {'version': 1, 'value': 1},
+        'registration.remaining_subscriptions': {'version': 1, 'value': 1},
+        'registration.update_contact_info': {'version': 1, 'value': 1},
+        'registration.delta_packages': {'version': 1, 'value': 1},
+        'registration.extended_update_support': {'version': 1, 'value': 1},
+        'registration.smbios': {'version': 1, 'value': 1},
+        'registration.update_systemid': {'version': 1, 'value': 1},
+        'applet.has_base_channel': {'version': 1, 'value': 1},
+        'xmlrpc.login.extra_data': {'version': 1, 'value': 1},
+        'rhncfg.content.base64_decode': {'version': 1, 'value': 1},
+        'rhncfg.filetype.directory': {'version': 1, 'value': 1},
+        'xmlrpc.packages.extended_profile': {'version': '1-2', 'value': 1},
+        'xmlrpc.packages.checksums': {'version': 1, 'value': 1},
+        'xmlrpc.errata.patch_names': {'version': 1, 'value': 1},
+        'staging_content': {'version': 1, 'value': 1},
+        'ipv6': {'version': 1, 'value': 1},
+        'abrt': {'version': 1, 'value': 1},
+        'cpu_sockets': {'version': 1, 'value': 1},
     }
     l = []
     for name, hashval in capabilities.items():

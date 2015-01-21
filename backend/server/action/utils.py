@@ -16,16 +16,21 @@ from spacewalk.server import rhnSQL, rhnAction
 from spacewalk.server.rhnDependency import find_package_with_arch
 from spacewalk.server.rhnChannel import channels_for_server
 
+
 class PackageNotFound(Exception):
     pass
+
 
 class NoActionInfo(Exception):
     pass
 
+
 class SubscribedChannel:
+
     """
         SubscribedChannel represents a channel to which the server is subscribed.
     """
+
     def __init__(self, server_id, channel_lookup_string):
         """
             Constructor.
@@ -54,9 +59,9 @@ class SubscribedChannel:
         """
         subscribed_channels = channels_for_server(self.server_id)
 
-        #Our tools channels all start with "rhn-tools", which seems
-        #to be the only way to reliably tell one channel from the other
-        #automagically.
+        # Our tools channels all start with "rhn-tools", which seems
+        # to be the only way to reliably tell one channel from the other
+        # automagically.
         self.found_tools_channel = False
         for channel_info in subscribed_channels:
             label_position = channel_info['label'].find(self.channel_lookup_string)
@@ -92,10 +97,12 @@ class SubscribedChannel:
 
 
 class ChannelPackage:
+
     """
         Represents a package contained in a channel that the server is
         subscribed to.
     """
+
     def __init__(self, server_id, package_name):
         """
             Constructor.
@@ -130,12 +137,12 @@ class ChannelPackage:
             "Private" function that retrieves info about the package.
             Populates self.package_info, self.id, self.version, self.release, and self.epoch.
         """
-        #Get info on the package we want to install.
+        # Get info on the package we want to install.
         possible_packages = find_package_with_arch(self.server_id, [self.package_name])
 
-        #There's a possibility, however slight, that more than one package
-        #may be returned by find_by_packages. If that's the case, we only
-        #want the info about package_name.
+        # There's a possibility, however slight, that more than one package
+        # may be returned by find_by_packages. If that's the case, we only
+        # want the info about package_name.
         package_info = None
         if possible_packages.has_key(self.package_name):
             for package in possible_packages[self.package_name]:
@@ -264,10 +271,12 @@ class ChannelPackage:
 
 
 class PackageInstallScheduler:
+
     """
         Class responsible for scheduling package installs. Can
         only be used inside actions during a kickstart.
     """
+
     def __init__(self, server_id, this_action_id, package):
         """
             Constructor.
@@ -278,7 +287,7 @@ class PackageInstallScheduler:
         """
         self.server_id = server_id
         self.package = package
-        self.this_action_id =  this_action_id
+        self.this_action_id = this_action_id
         self.new_action_id = None
 
     def _get_action_info(self, action_id):
@@ -303,13 +312,13 @@ class PackageInstallScheduler:
         org_id, scheduler = self._get_action_info(self.this_action_id)
 
         self.new_action_id = rhnAction.schedule_server_action(
-                            self.server_id,
-                            action_type="packages.update",
-                            action_name="Scheduling install of RHN's virtualization host packages.",
-                            delta_time=0,
-                            scheduler=scheduler,
-                            org_id=org_id
-                        )
+            self.server_id,
+            action_type="packages.update",
+            action_name="Scheduling install of RHN's virtualization host packages.",
+            delta_time=0,
+            scheduler=scheduler,
+            org_id=org_id
+        )
 
         self._add_package_to_install_action(self.new_action_id)
 

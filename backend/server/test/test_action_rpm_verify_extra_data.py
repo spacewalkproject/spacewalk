@@ -31,7 +31,7 @@ rhnSQL.initDB("rhnuser/rhnuser@webdev")
 
 try:
     packages.verify(system_id, action_id, {
-        'verify_info' : [
+        'verify_info': [
             [['up2date', '2.9.1', '1.2.1AS', '', 'i386'], [
                 'SM5..UGT c /etc/sysconfig/rhn/up2date',
                 '..?..... c /etc/sysconfig/rhn/up2date-keyring.gpg',
@@ -80,4 +80,3 @@ except:
     raise
 
 rhnSQL.commit()
-

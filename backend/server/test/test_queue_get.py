@@ -30,5 +30,5 @@ else:
 
     q._invalidate_failed_prereq_actions()
 
-#rhnSQL.rollback()
+# rhnSQL.rollback()
 rhnSQL.commit()

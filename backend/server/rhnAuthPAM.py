@@ -22,6 +22,7 @@ from spacewalk.common.rhnException import rhnException
 __username = None
 __password = None
 
+
 def __pam_conv(auth, query_list):
     global __username, __password
     # Build a list of responses to be passed back to PAM
@@ -39,6 +40,7 @@ def __pam_conv(auth, query_list):
             return None
 
     return resp
+
 
 def check_password(username, password, service):
     global __username, __password

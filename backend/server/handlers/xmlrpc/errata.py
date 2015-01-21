@@ -26,14 +26,17 @@ from spacewalk.common.rhnException import rhnFault
 from spacewalk.server.rhnHandler import rhnHandler
 from spacewalk.server import rhnSQL, rhnCapability
 
+
 class Errata(rhnHandler):
+
     """ Errata class --- retrieve (via xmlrpc) package errata. """
+
     def __init__(self):
         rhnHandler.__init__(self)
         # Exposed Errata functions:
         self.functions = []
         self.functions.append('GetByPackage')      # Clients v1-
-        self.functions.append('getPackageErratum') # Clients v2+
+        self.functions.append('getPackageErratum')  # Clients v2+
         self.functions.append('getErrataInfo')     # clients v2+
         self.functions.append('getErrataNamesById')
 
@@ -46,7 +49,7 @@ class Errata(rhnHandler):
                  (ie, newer packages are available). We also limit the scope
                  for a particular osRel.
         """
-        if type(pkg) == type(''): # Old client support.
+        if type(pkg) == type(''):  # Old client support.
             pkg = parseRPMName(pkg)
         log_debug(1, pkg, osRel)
         # Stuff the action in the headers:
@@ -57,8 +60,8 @@ class Errata(rhnHandler):
         if type(pkg[0]) != type(''):
             log_error("Invalid package name: %s %s" % (type(pkg[0]), pkg[0]))
             raise rhnFault(30, _("Expected a package name, not: %s") % pkg[0])
-        #bug#186996:adding synopsis field to advisory info
-        #client side changes are needed to access this data.
+        # bug#186996:adding synopsis field to advisory info
+        # client side changes are needed to access this data.
         h = rhnSQL.prepare("""
             select distinct
                     e.id            errata_id,
@@ -94,7 +97,7 @@ class Errata(rhnHandler):
                 -- and get the erratum
                 and e.id = ce.errata_id
         """)
-        h.execute(name = pkg[0], dist = str(osRel))
+        h.execute(name=pkg[0], dist=str(osRel))
         return self._sanitize_result(h)
 
     def getPackageErratum(self, system_id, pkg):
@@ -121,8 +124,8 @@ class Errata(rhnHandler):
             epoch = None
 
         # XXX: also, should arch/size/channel ever be used?
-        #bug#186996:adding synopsis field to errata info
-        #client side changes are needed to access this data.
+        # bug#186996:adding synopsis field to errata info
+        # client side changes are needed to access this data.
         h = rhnSQL.prepare("""
         select distinct
             e.id            errata_id,
@@ -152,9 +155,9 @@ class Errata(rhnHandler):
         -- and the server has to be subscribed to the channel
         and cp.channel_id = sc.channel_id
         and sc.server_id = :server_id
-        """) # " emacs sucks
-        h.execute(name = name, ver = ver, rel = rel, epoch = epoch,
-                  server_id = str(self.server_id))
+        """)  # " emacs sucks
+        h.execute(name=name, ver=ver, rel=rel, epoch=epoch,
+                  server_id=str(self.server_id))
         return self._sanitize_result(h)
 
     def _sanitize_result(self, h):
@@ -180,11 +183,11 @@ class Errata(rhnHandler):
         log_debug(1, self.server_id, errata_id)
 
         client_caps = rhnCapability.get_client_capabilities()
-        log_debug(3,"Client Capabilities", client_caps)
+        log_debug(3, "Client Capabilities", client_caps)
         multiarch = 0
         cap_info = None
         if client_caps and client_caps.has_key('packages.update'):
-            cap_info =  client_caps['packages.update']
+            cap_info = client_caps['packages.update']
         if cap_info and cap_info['version'] > 1:
             multiarch = 1
 
@@ -215,7 +218,7 @@ class Errata(rhnHandler):
         """
 
         h = rhnSQL.prepare(statement)
-        h.execute(errata_id = errata_id, server_id = self.server_id)
+        h.execute(errata_id=errata_id, server_id=self.server_id)
 
         packages = h.fetchall_dict()
         ret = []
@@ -225,7 +228,7 @@ class Errata(rhnHandler):
         for package in packages:
             if package['name'] is not None:
                 if package['epoch'] is None:
-                   package['epoch'] = ""
+                    package['epoch'] = ""
 
                 pkg_arch = ''
                 if multiarch:
@@ -296,6 +299,6 @@ def _bind_list(elems):
 #-----------------------------------------------------------------------------
 if __name__ == "__main__":
     print "You can not run this module by itself"
-    import sys; sys.exit(-1)
+    import sys
+    sys.exit(-1)
 #-----------------------------------------------------------------------------
-

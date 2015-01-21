@@ -49,6 +49,7 @@ _query_mtime_upload_paths = rhnSQL.Statement("""
      where action_id = :action_id
 """)
 
+
 def mtime_upload(server_id, action_id, dry_run=0):
     log_debug(3)
 
@@ -98,13 +99,16 @@ def upload(server_id, action_id, dry_run=0):
 
     return action_id, files
 
+
 def deploy(server_id, action_id, dry_run=0):
     log_debug(3)
     return _get_files(server_id, action_id)
 
+
 def verify(server_id, action_id, dry_run=0):
     log_debug(3)
     return _get_files(server_id, action_id)
+
 
 def diff(server_id, action_id, dry_run=0):
     log_debug(3)
@@ -154,6 +158,7 @@ _query_get_files = rhnSQL.Statement("""
        and cr.config_file_type_id = cft.id
 """)
 
+
 def _get_files(server_id, action_id):
     h = rhnSQL.prepare(_query_get_files)
     h.execute(action_id=action_id, server_id=server_id)
@@ -168,6 +173,6 @@ def _get_files(server_id, action_id):
         files.append(format_file_results(row, server=server))
 
     result = {
-        'files'         : files,
+        'files': files,
     }
     return result

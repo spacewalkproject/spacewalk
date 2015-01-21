@@ -31,6 +31,7 @@ from syncLib import log, log2, RhnSyncException
 
 from rhn import rpclib
 
+
 class BaseWireSource:
 
     """ Base object for wire-commo to RHN for delivery of XML/RPMS. """
@@ -58,10 +59,10 @@ class BaseWireSource:
         """ http[s]://BLAHBLAHBLAH/ACKACK --> http[s]://BLAHBLAHBLAH """
 
         if not url:
-            url = CFG.RHN_PARENT # the default
+            url = CFG.RHN_PARENT  # the default
         # just make the url complete.
         hostname = rhnLib.parseUrl(url or '')[1]
-        hostname = hostname.split(':')[0] # just in case
+        hostname = hostname.split(':')[0]  # just in case
         if self.sslYN:
             url = 'https://' + hostname
         else:
@@ -81,7 +82,7 @@ class BaseWireSource:
 
         self._set_connection_params(handler, url)
 
-        url = '%s%s' % (url, handler) # url is properly set up now.
+        url = '%s%s' % (url, handler)  # url is properly set up now.
 
         serverObj = self._set_connection(url)
         self._set_ssl_trusted_certs(serverObj)
@@ -105,8 +106,8 @@ class BaseWireSource:
         "Instantiates a connection object"
 
         serverObj = connection.StreamConnection(url, proxy=CFG.HTTP_PROXY,
-            username=CFG.HTTP_PROXY_USERNAME, password=CFG.HTTP_PROXY_PASSWORD,
-            xml_dump_version=self.xml_dump_version, timeout=CFG.timeout)
+                                                username=CFG.HTTP_PROXY_USERNAME, password=CFG.HTTP_PROXY_PASSWORD,
+                                                xml_dump_version=self.xml_dump_version, timeout=CFG.timeout)
         BaseWireSource.serverObj = serverObj
         return serverObj
 
@@ -184,6 +185,7 @@ class BaseWireSource:
         else:
             self.server_handler = CFG.RHN_METADATA_HANDLER
 
+
 class MetadataWireSource(BaseWireSource):
 
     """retrieve specific xml stream through xmlrpc interface."""
@@ -209,7 +211,6 @@ class MetadataWireSource(BaseWireSource):
         "retrieve xml stream for the product names data"
         self._prepare()
         return self._openSocketStream("dump.product_names", (self.systemid,))
-
 
     def getChannelFamilyXmlStream(self):
         """retrieve xml stream for channel family data."""
@@ -238,8 +239,7 @@ class MetadataWireSource(BaseWireSource):
         label and the last modified timestamp of the channel"""
         self._prepare()
         return self._openSocketStream("dump.channel_packages_short",
-            (self.systemid, channel, last_modified))
-
+                                      (self.systemid, channel, last_modified))
 
     def getPackageXmlStream(self, packageIds):
         """retrieve xml stream for package data given a
@@ -262,11 +262,11 @@ class MetadataWireSource(BaseWireSource):
         "retrieve xml stream for kickstart trees"
         self._prepare()
         return self._openSocketStream("dump.kickstartable_trees",
-            (self.systemid, ksLabels))
+                                      (self.systemid, ksLabels))
 
     def getComps(self, channel):
         return self._openSocketStream("dump.get_comps",
-            (self.systemid, channel))
+                                      (self.systemid, channel))
 
     def getRpm(self, nvrea, channel):
         release = nvrea[2]
@@ -274,15 +274,16 @@ class MetadataWireSource(BaseWireSource):
         if epoch:
             release = "%s:%s" % (release, epoch)
         package_name = "%s-%s-%s.%s.rpm" % (nvrea[0], nvrea[1], release,
-            nvrea[4])
+                                            nvrea[4])
         self._prepare()
         return self._openSocketStream("dump.get_rpm",
-            (self.systemid, package_name, channel))
+                                      (self.systemid, package_name, channel))
 
     def getKickstartFile(self, ks_label, relative_path):
         self._prepare()
         return self._openSocketStream("dump.get_ks_file",
-            (self.systemid, ks_label, relative_path))
+                                      (self.systemid, ks_label, relative_path))
+
 
 class XMLRPCWireSource(BaseWireSource):
 
@@ -341,7 +342,9 @@ class CertWireSource(XMLRPCWireSource):
             sys.exit(-1)
         return cert
 
+
 class RPCGetWireSource(BaseWireSource):
+
     "Class to retrieve various files via authenticated GET requests"
     get_server_obj = None
     login_token = None
@@ -369,8 +372,8 @@ class RPCGetWireSource(BaseWireSource):
         self._set_login_token(self._login())
         url = self.url + self.handler
         get_server_obj = connection.GETServer(url, proxy=CFG.HTTP_PROXY,
-            username=CFG.HTTP_PROXY_USERNAME, password=CFG.HTTP_PROXY_PASSWORD,
-            headers=self.login_token, timeout=CFG.timeout)
+                                              username=CFG.HTTP_PROXY_USERNAME, password=CFG.HTTP_PROXY_PASSWORD,
+                                              headers=self.login_token, timeout=CFG.timeout)
         # Add SSL trusted cert
         self._set_ssl_trusted_certs(get_server_obj)
         self._set_rpc_server(get_server_obj)
@@ -438,12 +441,12 @@ class RPCGetWireSource(BaseWireSource):
         if epoch:
             release = "%s:%s" % (release, epoch)
         package_name = "%s-%s-%s.%s.rpm" % (nvrea[0], nvrea[1], release,
-            nvrea[4])
+                                            nvrea[4])
         return self._rpc_call("getPackage", (channel, package_name))
 
     def getKickstartFileStream(self, channel, ks_tree_label, relative_path):
         return self._rpc_call("getKickstartFile", (channel, ks_tree_label,
-            relative_path))
+                                                   relative_path))
 
     def getCompsFileStream(self, channel):
         return self._rpc_call("repodata", (channel, 'comps.xml'))

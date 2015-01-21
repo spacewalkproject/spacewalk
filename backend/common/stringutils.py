@@ -22,6 +22,7 @@ def to_unicode(obj):
     else:
         return obj
 
+
 def to_string(obj):
     if type(obj) == UnicodeType:
         return obj.encode('utf8')

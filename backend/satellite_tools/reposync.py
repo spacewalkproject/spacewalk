@@ -33,16 +33,18 @@ from spacewalk.server import taskomatic
 
 
 default_log_location = '/var/log/rhn/reposync/'
-relative_comps_dir   = 'rhn/comps'
+relative_comps_dir = 'rhn/comps'
 default_hash = 'sha256'
+
 
 def set_filter_opt(option, opt_str, value, parser):
     # pylint: disable=W0613
-    if opt_str in [ '--include', '-i']:
+    if opt_str in ['--include', '-i']:
         f_type = '+'
     else:
         f_type = '-'
     parser.values.filters.append((f_type, re.split(r'[,\s]+', value)))
+
 
 def getChannelRepo():
 
@@ -67,6 +69,7 @@ def getChannelRepo():
         items[row['label']] += [row['source_url']]
 
     return items
+
 
 def getParentsChilds(b_only_custom=False):
 
@@ -99,6 +102,7 @@ def getParentsChilds(b_only_custom=False):
 
     return d_parents
 
+
 def getCustomChannels():
 
     d_parents = getParentsChilds(True)
@@ -109,7 +113,9 @@ def getCustomChannels():
 
     return l_custom_ch
 
+
 class RepoSync(object):
+
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  quiet=False, filters=None, no_errata=False, sync_kickstart=False):
         self.regen = False
@@ -125,7 +131,7 @@ class RepoSync(object):
         # setup logging
         log_filename = channel_label + '.log'
         rhnLog.initLOG(default_log_location + log_filename)
-        #os.fchown isn't in 2.4 :/
+        # os.fchown isn't in 2.4 :/
         os.system("chgrp apache " + default_log_location + log_filename)
 
         self.log_msg("\nSync started: %s" % (time.asctime(time.localtime())))
@@ -209,7 +215,6 @@ class RepoSync(object):
         self.print_msg("Sync completed.")
         self.print_msg("Total time: %s" % str(total_time).split('.')[0])
 
-
     def update_date(self):
         """ Updates the last sync time"""
         h = rhnSQL.prepare( """update rhnChannel set LAST_SYNCED = current_timestamp
@@ -234,12 +239,12 @@ class RepoSync(object):
         if groupsfile:
             basename = os.path.basename(groupsfile)
             self.print_msg("Repo %s has comps file %s." % (url, basename))
-            relativedir =  os.path.join(relative_comps_dir, self.channel_label)
-            absdir =  os.path.join(CFG.MOUNT_POINT, relativedir)
+            relativedir = os.path.join(relative_comps_dir, self.channel_label)
+            absdir = os.path.join(CFG.MOUNT_POINT, relativedir)
             if not os.path.exists(absdir):
                 os.makedirs(absdir)
             relativepath = os.path.join(relativedir, basename)
-            abspath =  os.path.join(absdir, basename)
+            abspath = os.path.join(absdir, basename)
             for suffix in ['.gz', '.bz']:
                 if basename.endswith(suffix):
                     abspath = abspath.rstrip(suffix)
@@ -270,55 +275,55 @@ class RepoSync(object):
         batch = []
         skipped_updates = 0
         typemap = {
-                  'security'    : 'Security Advisory',
-                  'recommended' : 'Bug Fix Advisory',
-                  'bugfix'      : 'Bug Fix Advisory',
-                  'optional'    : 'Product Enhancement Advisory',
-                  'feature'     : 'Product Enhancement Advisory',
-                  'enhancement' : 'Product Enhancement Advisory'
-                  }
+            'security': 'Security Advisory',
+            'recommended': 'Bug Fix Advisory',
+            'bugfix': 'Bug Fix Advisory',
+            'optional': 'Product Enhancement Advisory',
+            'feature': 'Product Enhancement Advisory',
+            'enhancement': 'Product Enhancement Advisory'
+        }
         for notice in notices:
             notice = self.fix_notice(notice)
             existing_errata = self.get_errata(notice['update_id'])
 
             e = Erratum()
-            e['errata_from']   = notice['from']
-            e['advisory']      = notice['update_id']
+            e['errata_from'] = notice['from']
+            e['advisory'] = notice['update_id']
             e['advisory_name'] = notice['update_id']
-            e['advisory_rel']  = notice['version']
+            e['advisory_rel'] = notice['version']
             e['advisory_type'] = typemap.get(notice['type'], 'Product Enhancement Advisory')
-            e['product']       = notice['release'] or 'Unknown'
-            e['description']   = notice['description']
-            e['synopsis']      = notice['title'] or notice['update_id']
+            e['product'] = notice['release'] or 'Unknown'
+            e['description'] = notice['description']
+            e['synopsis'] = notice['title'] or notice['update_id']
             if (notice['type'] == 'security' and notice['severity'] and
-                not e['synopsis'].startswith(notice['severity'] + ': ')):
+                    not e['synopsis'].startswith(notice['severity'] + ': ')):
                 e['synopsis'] = notice['severity'] + ': ' + e['synopsis']
-            e['topic']         = ' '
-            e['solution']      = ' '
-            e['issue_date']    = self._to_db_date(notice['issued'])
+            e['topic'] = ' '
+            e['solution'] = ' '
+            e['issue_date'] = self._to_db_date(notice['issued'])
             if notice['updated']:
-                e['update_date']   = self._to_db_date(notice['updated'])
+                e['update_date'] = self._to_db_date(notice['updated'])
             else:
-                e['update_date']   = self._to_db_date(notice['issued'])
-            e['org_id']        = self.channel['org_id']
-            e['notes']         = ''
-            e['refers_to']     = ''
-            e['channels']      = []
-            e['packages']      = []
-            e['files']         = []
+                e['update_date'] = self._to_db_date(notice['issued'])
+            e['org_id'] = self.channel['org_id']
+            e['notes'] = ''
+            e['refers_to'] = ''
+            e['channels'] = []
+            e['packages'] = []
+            e['files'] = []
             if existing_errata:
                 e['channels'] = existing_errata['channels']
                 e['packages'] = existing_errata['packages']
-            e['channels'].append({'label':self.channel_label})
+            e['channels'].append({'label': self.channel_label})
 
             for pkg in notice['pkglist'][0]['packages']:
                 param_dict = {
-                             'name'          : pkg['name'],
-                             'version'       : pkg['version'],
-                             'release'       : pkg['release'],
-                             'arch'          : pkg['arch'],
-                             'channel_id'    : int(self.channel['id']),
-                             }
+                    'name': pkg['name'],
+                    'version': pkg['version'],
+                    'release': pkg['release'],
+                    'arch': pkg['arch'],
+                    'channel_id': int(self.channel['id']),
+                }
                 if pkg['epoch'] == '0':
                     epochStatement = "(pevr.epoch is NULL or pevr.epoch = '0')"
                 elif pkg['epoch'] is None or pkg['epoch'] == '':
@@ -376,7 +381,7 @@ class RepoSync(object):
                 package['epoch'] = cs['epoch']
                 package['org_id'] = self.channel['org_id']
 
-                package['checksums'] = {cs['checksum_type'] : cs['checksum']}
+                package['checksums'] = {cs['checksum_type']: cs['checksum']}
                 package['checksum_type'] = cs['checksum_type']
                 package['checksum'] = cs['checksum']
 
@@ -392,11 +397,11 @@ class RepoSync(object):
             e['keywords'] = []
             if notice['reboot_suggested']:
                 kw = Keyword()
-                kw.populate({'keyword':'reboot_suggested'})
+                kw.populate({'keyword': 'reboot_suggested'})
                 e['keywords'].append(kw)
             if notice['restart_suggested']:
                 kw = Keyword()
-                kw.populate({'keyword':'restart_suggested'})
+                kw.populate({'keyword': 'restart_suggested'})
                 e['keywords'].append(kw)
             e['bugs'] = []
             e['cve'] = []
@@ -407,7 +412,7 @@ class RepoSync(object):
                     for bz in bzs:
                         if bz['id'] not in tmp:
                             bug = Bug()
-                            bug.populate({'bug_id' : bz['id'], 'summary' : bz['title'], 'href' : bz['href']})
+                            bug.populate({'bug_id': bz['id'], 'summary': bz['title'], 'href': bz['href']})
                             e['bugs'].append(bug)
                             tmp[bz['id']] = None
                 cves = [r for r in notice['references'] if r['type'] == 'cve']
@@ -435,10 +440,10 @@ class RepoSync(object):
                       from rhnContentSourceFilter
                      where source_id = :source_id
                      order by sort_order """)
-            h.execute(source_id = source_id)
+            h.execute(source_id=source_id)
             filter_data = h.fetchall_dict() or []
             filters = [(row['flag'], re.split(r'[,\s]+', row['filter']))
-                                                         for row in filter_data]
+                       for row in filter_data]
         else:
             filters = self.filters
 
@@ -455,15 +460,15 @@ class RepoSync(object):
             self.channel['org_id'] = None
         for pack in packages:
             db_pack = rhnPackage.get_info_for_package(
-                   [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
-                   channel_id, self.channel['org_id'])
+                [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
+                channel_id, self.channel['org_id'])
 
             to_download = True
-            to_link     = True
+            to_link = True
             if db_pack['path']:
                 pack.path = os.path.join(CFG.MOUNT_POINT, db_pack['path'])
                 if self.match_package_checksum(pack.path,
-                                pack.checksum_type, pack.checksum):
+                                               pack.checksum_type, pack.checksum):
                     # package is already on disk
                     to_download = False
                     if db_pack['channel_id'] == channel_id:
@@ -482,7 +487,7 @@ class RepoSync(object):
             return
         else:
             self.print_msg("Packages already synced:      %5d" %
-                                                  (num_passed - num_to_process))
+                           (num_passed - num_to_process))
             self.print_msg("Packages to sync:             %5d" % num_to_process)
 
         self.regen = True
@@ -498,7 +503,7 @@ class RepoSync(object):
             localpath = None
             # pylint: disable=W0703
             try:
-                self.print_msg("%d/%d : %s" % (index+1, num_to_process, pack.getNVREA()))
+                self.print_msg("%d/%d : %s" % (index + 1, num_to_process, pack.getNVREA()))
                 if to_download:
                     pack.path = localpath = plug.get_package(pack)
                 pack.load_checksum_from_header()
@@ -518,19 +523,19 @@ class RepoSync(object):
 
         self.print_msg("Linking packages to channel.")
         import_batch = [self.associate_package(pack)
-                                for (pack, to_download, to_link) in to_process
-                                        if to_link]
+                        for (pack, to_download, to_link) in to_process
+                        if to_link]
         backend = SQLBackend()
         caller = "server.app.yumreposync"
         importer = ChannelPackageSubscription(import_batch,
-                        backend, caller=caller, repogen=False)
+                                              backend, caller=caller, repogen=False)
         importer.run()
         backend.commit()
 
     @staticmethod
     def match_package_checksum(abspath, checksum_type, checksum):
         if (os.path.exists(abspath) and
-            getFileChecksum(checksum_type, filename=abspath) == checksum):
+                getFileChecksum(checksum_type, filename=abspath) == checksum):
             return 1
         return 0
 
@@ -542,8 +547,8 @@ class RepoSync(object):
         package['arch'] = pack.arch
         package['checksum'] = pack.a_pkg.checksum
         package['checksum_type'] = pack.a_pkg.checksum_type
-        package['channels']  = [{'label':self.channel_label,
-                                 'id':self.channel['id']}]
+        package['channels'] = [{'label': self.channel_label,
+                                'id': self.channel['id']}]
         package['org_id'] = self.channel['org_id']
         # use epoch from file header because createrepo puts epoch="0" to
         # primary.xml even for packages with epoch=''
@@ -591,7 +596,7 @@ class RepoSync(object):
         else:
             # we expect to get ISO formated date
             ret = date
-        return ret[:19] #return 1st 19 letters of date, therefore preventing ORA-01830 caused by fractions of seconds
+        return ret[:19]  # return 1st 19 letters of date, therefore preventing ORA-01830 caused by fractions of seconds
 
     @staticmethod
     def fix_notice(notice):
@@ -602,13 +607,13 @@ class RepoSync(object):
                 new_version = (new_version + int(n)) * 100
             try:
                 notice['version'] = new_version / 100
-            except TypeError: # yum in RHEL5 does not have __setitem__
+            except TypeError:  # yum in RHEL5 does not have __setitem__
                 notice._md['version'] = new_version / 100
         if notice['from'] and "suse" in notice['from'].lower():
             # suse style; we need to append the version to id
             try:
                 notice['update_id'] = notice['update_id'] + '-' + notice['version']
-            except TypeError: # yum in RHEL5 does not have __setitem__
+            except TypeError:  # yum in RHEL5 does not have __setitem__
                 notice._md['update_id'] = notice['update_id'] + '-' + notice['version']
         return notice
 
@@ -659,7 +664,7 @@ class RepoSync(object):
             ipackage = IncompletePackage().populate(pkg)
             ipackage['epoch'] = pkg.get('epoch', '')
 
-            ipackage['checksums'] = {ipackage['checksum_type'] : ipackage['checksum']}
+            ipackage['checksums'] = {ipackage['checksum_type']: ipackage['checksum']}
             ret['packages'].append(ipackage)
 
         return ret
@@ -677,7 +682,7 @@ class RepoSync(object):
             select id
             from rhnKickstartableTree
             where org_id = :org_id and channel_id = :channel_id and label = :label
-            """, org_id = self.channel['org_id'], channel_id = self.channel['id'], label = repo_label):
+            """, org_id=self.channel['org_id'], channel_id=self.channel['id'], label=repo_label):
             print "Kickstartable tree %s already synced." % repo_label
             return
 
@@ -685,7 +690,7 @@ class RepoSync(object):
             select sequence_nextval('rhn_kstree_id_seq') as id from dual
             """)
         ks_id = row['id']
-        ks_path = 'rhn/kickstart/%s/%s' % ( self.channel['org_id'], repo_label )
+        ks_path = 'rhn/kickstart/%s/%s' % (self.channel['org_id'], repo_label)
 
         row = rhnSQL.execute("""
             insert into rhnKickstartableTree (id, org_id, label, base_path, channel_id,
@@ -694,14 +699,14 @@ class RepoSync(object):
                         ( select id from rhnKSTreeType where label = 'externally-managed'),
                         ( select id from rhnKSInstallType where label = 'generic_rpm'),
                         current_timestamp, current_timestamp, current_timestamp)
-            """, id = ks_id, org_id = self.channel['org_id'], label = repo_label,
-                base_path = os.path.join(CFG.MOUNT_POINT, ks_path), channel_id = self.channel['id'])
+            """, id=ks_id, org_id=self.channel['org_id'], label=repo_label,
+                             base_path=os.path.join(CFG.MOUNT_POINT, ks_path), channel_id=self.channel['id'])
 
         insert_h = rhnSQL.prepare("""
             insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created, modified)
             values (:id, :path, lookup_checksum('sha256', :checksum), :st_size, epoch_seconds_to_timestamp_tz(:st_time), current_timestamp, current_timestamp)
             """)
-        dirs = [ '' ]
+        dirs = ['']
         while len(dirs) > 0:
             d = dirs.pop(0)
             v = None
@@ -714,7 +719,7 @@ class RepoSync(object):
 
             for s in (m.group(1) for m in re.finditer(r'(?i)<a href="(.+?)"', v)):
                 if (re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s)
-                    or re.match(r'[a-zA-Z]+:', s) or re.search(r'\.rpm$', s)):
+                        or re.match(r'[a-zA-Z]+:', s) or re.search(r'\.rpm$', s)):
                     continue
                 if re.search(r'/$', s):
                     dirs.append(d + s)
@@ -726,7 +731,7 @@ class RepoSync(object):
                     print "Retrieving %s" % d + s
                     plug.get_file(d + s, os.path.join(CFG.MOUNT_POINT, ks_path))
                 st = os.stat(local_path)
-                insert_h.execute(id = ks_id, path = d + s, checksum = getFileChecksum('sha256', local_path),
-                                 st_size = st.st_size, st_time = st.st_mtime)
+                insert_h.execute(id=ks_id, path=d + s, checksum=getFileChecksum('sha256', local_path),
+                                 st_size=st.st_size, st_time=st.st_mtime)
 
         rhnSQL.commit()

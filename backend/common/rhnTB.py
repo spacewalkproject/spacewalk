@@ -38,7 +38,8 @@ hostname = socket.gethostname()
 # avoid a huge flood of mail requests.
 QUIET_MAIL = None
 
-def print_env(fd = sys.stderr):
+
+def print_env(fd=sys.stderr):
     """ Dump the environment. """
     dct = os.environ
     fd.write("\nEnvironment for PID=%d on exception:\n" % os.getpid())
@@ -48,7 +49,7 @@ def print_env(fd = sys.stderr):
         fd.write("%s = %s\n" % (to_string(k), to_string(dct[k])))
 
 
-def print_locals(fd = sys.stderr, tb = None):
+def print_locals(fd=sys.stderr, tb=None):
     """ Dump a listing of all local variables and their value for better debugging
         chance.
     """
@@ -86,7 +87,7 @@ def print_locals(fd = sys.stderr, tb = None):
         fd.write("\n")
 
 
-def print_req(req, fd = sys.stderr):
+def print_req(req, fd=sys.stderr):
     """ get some debugging information about the current exception for sending
         out when we raise an exception
     """
@@ -103,8 +104,8 @@ def print_req(req, fd = sys.stderr):
     return 0
 
 
-def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
-              extra = None, severity="notification", with_locals=0):
+def Traceback(method=None, req=None, mail=1, ostream=sys.stderr,
+              extra=None, severity="notification", with_locals=0):
     """ Reports an traceback error and optionally sends mail about it.
         NOTE: extra = extra text information.
     """
@@ -119,7 +120,7 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
 
         if QUIET_MAIL < 0:
             QUIET_MAIL = 0
-        if QUIET_MAIL == 0: # make sure we don't mail
+        if QUIET_MAIL == 0:  # make sure we don't mail
             mail = 0
 
     e_type = sys.exc_info()[:2][0]
@@ -164,18 +165,18 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
             fr = to[0].strip()
             to = ', '.join([x.strip() for x in to])
         headers = {
-            "Subject" : "%s TRACEBACK from %s" % (PRODUCT_NAME, unicode_hostname),
-            "From"    : "%s <%s>" % (hostname, fr),
-            "To"      : to,
-            "X-RHN-Traceback-Severity"  : severity,
-            "Content-Type" : 'text/plain; charset="utf-8"',
+            "Subject": "%s TRACEBACK from %s" % (PRODUCT_NAME, unicode_hostname),
+            "From": "%s <%s>" % (hostname, fr),
+            "To": to,
+            "X-RHN-Traceback-Severity": severity,
+            "Content-Type": 'text/plain; charset="utf-8"',
 
-            }
+        }
         QUIET_MAIL = QUIET_MAIL - 1     # count it no matter what
 
         outstring = to_string(exc.getvalue())
 
-        #5/18/05 wregglej - 151158 Go through every string in the security list
+        # 5/18/05 wregglej - 151158 Go through every string in the security list
         # and censor it out of the debug information.
         outstring = censor_string(outstring)
 
@@ -192,19 +193,23 @@ def fetchTraceback(method=None, req=None, extra=None, with_locals=0):
               severity=None, with_locals=with_locals)
     return exc.getvalue()
 
+
 def exitWithTraceback(e, msg, exitnum, mail=0):
     tbOut = StringIO()
     Traceback(mail, ostream=tbOut, with_locals=1)
     log_error(-1, _('ERROR: %s %s: %s') %
-        (e.__class__.__name__, msg, e))
+              (e.__class__.__name__, msg, e))
     log_error(-1, _('TRACEBACK: %s') % tbOut.getvalue())
     sys.exit(exitnum)
 
+
 class SecurityList:
+
     """ The SecurityList is a list of strings that are censored out of a debug email.
         Right now it's only used for censoring traceback emails.
     """
     _flag_string = "security-list"
+
     def __init__(self):
         # We store the security list in the global flags. This way, we don't
         # have to worry about clearing it up.
@@ -220,21 +225,23 @@ class SecurityList:
     def check(self, obj):
         return obj in self.sec
 
+
 def get_seclist():
     """ Returns the list of strings to be censored. """
     return SecurityList().sec
+
 
 def censor_string(strval):
     """ Remove all instances of the strings in seclist.sec from strval """
     censorlist = get_seclist()
     for c in censorlist:
-        #Censor it with a fixed length string. This way the length of the hidden string isn't revealed.
+        # Censor it with a fixed length string. This way the length of the hidden string isn't revealed.
         strval = strval.replace(c, "<CENSORED!>")
     return strval
+
 
 def add_to_seclist(obj):
     """ Adds a string to seclist.sec, but only if it's not already there. """
     seclist = SecurityList()
     if not seclist.check(obj):
         seclist.add(obj)
-

@@ -20,14 +20,16 @@ from spacewalk.common.rhnLog import log_debug
 # the "exposed" functions
 __rhnexport__ = ['get', 'update', ]
 
+
 def get(server_id, action_id, data={}):
     if not data:
         return
     log_debug(2, "action_error.up2date_config.get: Should do something "
-        "useful with this data", server_id, action_id, data)
+              "useful with this data", server_id, action_id, data)
+
 
 def update(server_id, action_id, data={}):
     if not data:
         return
     log_debug(2, "action_error.up2date_config.update: Should do something "
-        "useful with this data", server_id, action_id, data)
+              "useful with this data", server_id, action_id, data)

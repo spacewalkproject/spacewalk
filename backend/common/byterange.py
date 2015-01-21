@@ -25,7 +25,9 @@ from spacewalk.common.rhnException import rhnException
 
 # Parses the HTTP header value and stores in the flags  a list of (start, end)
 # tuples that are more pythonic than the RFC semantics
-def parse_byteranges(byterange_header, file_size = None):
+
+
+def parse_byteranges(byterange_header, file_size=None):
     log_debug(4, "Parsing byte range", byterange_header)
     regexp = re.compile(r"^bytes\s*=\s*(.*)$")
     mo = regexp.match(byterange_header)
@@ -85,12 +87,14 @@ def parse_byteranges(byterange_header, file_size = None):
     log_debug(4, "Request byterange", byteranges)
     return byteranges
 
+
 def _str2int(val):
     val = val.strip()
     if val is "":
         return None
 
     return int(val)
+
 
 def get_content_range(start, end, total_length=None):
     if total_length is None:
@@ -99,8 +103,10 @@ def get_content_range(start, end, total_length=None):
     content_range = "bytes %d-%d/%s" % (start, end, total_length)
     return content_range
 
+
 class InvalidByteRangeException(rhnException):
     pass
+
 
 class UnsatisfyableByteRangeException(rhnException):
     pass

@@ -46,6 +46,7 @@ ORACLE_TYPE_MAPPING = [
 
 
 class Cursor(sql_base.Cursor):
+
     """
     Wrapper that should just transform Oracle specific exceptions into
     something generic from sql_base.
@@ -317,9 +318,9 @@ class Procedure(sql_base.Procedure):
     def _munge_arg(self, val):
         for sqltype, db_specific_type in self._type_mapping:
             if isinstance(val, sqltype):
-              var = self.cursor.var(db_specific_type, val.size)
-              var.setvalue(0, val.get_value())
-              return var
+                var = self.cursor.var(db_specific_type, val.size)
+                var.setvalue(0, val.get_value())
+                return var
 
         # XXX
         return val.get_value()
@@ -337,7 +338,7 @@ class Procedure(sql_base.Procedure):
                     ret_type_mapped = True
                     break
             if not ret_type_mapped:
-              raise Exception("Unknown type", ret_type)
+                raise Exception("Unknown type", ret_type)
 
         if ret_type:
             return self.cursor.callfunc(self.name, ret_type, args)
@@ -346,6 +347,7 @@ class Procedure(sql_base.Procedure):
 
 
 class Function(Procedure):
+
     def __init__(self, name, proc, ret_type):
         Procedure.__init__(self, name, proc)
         self.ret_type = ret_type
@@ -395,7 +397,7 @@ class Database(sql_base.Database):
             ret = self._get_oracle_error_info(e)
             if isinstance(ret, types.StringType):
                 raise sql_base.SQLConnectError(self.dbtxt, -1,
-                    "Unable to connect to database", ret), None, sys.exc_info()[2]
+                                               "Unable to connect to database", ret), None, sys.exc_info()[2]
             (errno, errmsg) = ret[:2]
             log_error("Connection attempt failed", errno, errmsg)
             if reconnect:
@@ -410,7 +412,7 @@ class Database(sql_base.Database):
             # else, this is a reconnect attempt
             raise sql_base.SQLConnectError(*(
                 [self.dbtxt, errno, errmsg,
-                "Attempting Re-Connect to the database failed", ] + ret[2:])), None, sys.exc_info()[2]
+                 "Attempting Re-Connect to the database failed", ] + ret[2:])), None, sys.exc_info()[2]
         dbh_id = id(self.dbh)
         # Reset the statement cache for this database connection
         self._cursor_class._cursor_cache[dbh_id] = {}
@@ -458,10 +460,10 @@ class Database(sql_base.Database):
     def prepare(self, sql, force=0, blob_map=None):
         # Abuse the map calls to get rid of SQL comments and extra spaces
         sql = string.join(filter(lambda a: len(a),
-            map(string.strip,
-                map(lambda a: (a + " ")[:string.find(a, '--')],
-                    string.split(sql, "\n")))),
-            " ")
+                                 map(string.strip,
+                                     map(lambda a: (a + " ")[:string.find(a, '--')],
+                                         string.split(sql, "\n")))),
+                          " ")
         if blob_map:
             col_list = []
             bind_list = []

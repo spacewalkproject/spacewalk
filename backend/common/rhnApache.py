@@ -30,7 +30,9 @@ from rhn.UserDictCase import UserDictCase
 from rhnLog import log_debug, log_error, log_setreq
 from rhnTranslate import cat
 
+
 class rhnApache:
+
     """ Shared rhnApache class: rhnApache classes in proxy and server inherit
         this class.
 
@@ -120,7 +122,7 @@ class rhnApache:
 
         # Make sure the client version gets set in the headers.
         rhnFlags.get('outputTransportOptions')[clientVersionHeader] = str(
-                     self.clientVersion)
+            self.clientVersion)
         return apache.OK
 
     def _set_proxy_info(self, req):
@@ -130,7 +132,7 @@ class rhnApache:
             self.proxyVersion = req.headers_in[proxyVersion]
         # Make sure the proxy version gets set in the headers.
         rhnFlags.get('outputTransportOptions')[proxyVersion] = str(
-                     self.proxyVersion)
+            self.proxyVersion)
         # Make sure the proxy auth-token gets set in global flags.
         if req.headers_in.has_key('X-RHN-Proxy-Auth'):
             rhnFlags.set('X-RHN-Proxy-Auth',
@@ -246,7 +248,7 @@ class rhnApache:
             # This has to be here, or else we blow-up.
             return None
         prefix = "x-rhn-auth"
-        tokenKeys = [ x for x in headers.keys() if x[:len(prefix)].lower() == prefix]
+        tokenKeys = [x for x in headers.keys() if x[:len(prefix)].lower() == prefix]
         for k in tokenKeys:
             token[k] = headers[k]
 

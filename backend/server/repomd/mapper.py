@@ -100,13 +100,13 @@ class ChannelMapper:
 
     def last_modified(self, channel_id):
         """ Get the last_modified field for the provided channel_id. """
-        self.last_modified_sql.execute(channel_id = channel_id)
+        self.last_modified_sql.execute(channel_id=channel_id)
         return self.last_modified_sql.fetchone()[0]
 
     def get_channel(self, channel_id):
         """ Load the channel with id channel_id and its packages. """
 
-        self.channel_details_sql.execute(channel_id = channel_id)
+        self.channel_details_sql.execute(channel_id=channel_id)
         details = self.channel_details_sql.fetchone()
 
         channel = domain.Channel(channel_id)
@@ -115,7 +115,7 @@ class ChannelMapper:
         channel.name = details[1]
         channel.checksum_type = details[2]
 
-        self.channel_sql.execute(channel_id = channel_id)
+        self.channel_sql.execute(channel_id=channel_id)
         package_ids = self.channel_sql.fetchall()
 
         channel.num_packages = len(package_ids)
@@ -123,13 +123,13 @@ class ChannelMapper:
 
         channel.errata = self._erratum_generator(channel_id)
 
-        self.comps_id_sql.execute(channel_id = channel_id)
+        self.comps_id_sql.execute(channel_id=channel_id)
         comps_id = self.comps_id_sql.fetchone()
 
         if comps_id:
             channel.comps = self.comps_mapper.get_comps(comps_id[0])
 
-        self.cloned_from_id_sql.execute(channel_id = channel_id)
+        self.cloned_from_id_sql.execute(channel_id=channel_id)
         cloned_row = self.cloned_from_id_sql.fetchone()
         if cloned_row is not None:
             channel.cloned_from_id = cloned_row[0]
@@ -144,7 +144,7 @@ class ChannelMapper:
             yield pkg
 
     def _erratum_generator(self, channel_id):
-        self.errata_id_sql.execute(channel_id = channel_id)
+        self.errata_id_sql.execute(channel_id=channel_id)
         erratum_ids = self.errata_id_sql.fetchall()
 
         for erratum_id in erratum_ids:
@@ -188,6 +188,7 @@ class CachedPackageMapper:
             self.cache.set(cache_key, package, last_modified)
 
         return package
+
 
 class SqlPackageMapper:
 
@@ -389,7 +390,7 @@ class SqlPackageMapper:
 
     def last_modified(self, package_id):
         """ Get the last_modified date on the package with id package_id. """
-        self.last_modified_sql.execute(package_id = package_id)
+        self.last_modified_sql.execute(package_id=package_id)
         return self.last_modified_sql.fetchone()[0]
 
     def get_package(self, package_id):
@@ -415,7 +416,7 @@ class SqlPackageMapper:
 
     def _fill_package_details(self, package):
         """ Load the packages basic details (summary, description, etc). """
-        self.details_sql.execute(package_id = package.id)
+        self.details_sql.execute(package_id=package.id)
         pkg = self.details_sql.fetchone()
 
         package.name = pkg[0]
@@ -446,7 +447,7 @@ class SqlPackageMapper:
 
     def _fill_package_prco(self, package):
         """ Load the package's provides, requires, conflicts, obsoletes. """
-        self.prco_sql.execute(package_id = package.id)
+        self.prco_sql.execute(package_id=package.id)
         deps = self.prco_sql.fetchall() or []
 
         for item in deps:
@@ -468,8 +469,8 @@ class SqlPackageMapper:
                     epoch = vertup[0]
                     version = vertup[1]
 
-            dep = {'name' : string_to_unicode(item[2]), 'flag' : relation,
-                'version' : version, 'release' : release, 'epoch' : epoch}
+            dep = {'name': string_to_unicode(item[2]), 'flag': relation,
+                   'version': version, 'release': release, 'epoch': epoch}
 
             if item[0] == "provides":
                 package.provides.append(dep)
@@ -520,7 +521,7 @@ class SqlPackageMapper:
 
     def _fill_package_filelist(self, package):
         """ Load the package's list of files. """
-        self.filelist_sql.execute(package_id = package.id)
+        self.filelist_sql.execute(package_id=package.id)
         files = self.filelist_sql.fetchall() or []
 
         for file_dict in files:
@@ -529,15 +530,15 @@ class SqlPackageMapper:
     def _fill_package_other(self, package):
         """ Load the package's changelog info. """
 
-        self.other_sql.execute(package_id = package.id)
+        self.other_sql.execute(package_id=package.id)
         log_data = self.other_sql.fetchall() or []
 
         for data in log_data:
 
             date = oratimestamp_to_sinceepoch(data[2])
 
-            chglog = {'author' : string_to_unicode(data[0]), 'date' : date,
-                      'text' : string_to_unicode(data[1])}
+            chglog = {'author': string_to_unicode(data[0]), 'date': date,
+                      'text': string_to_unicode(data[1])}
             package.changelog.append(chglog)
 
 
@@ -646,7 +647,7 @@ class SqlErratumMapper:
 
     def last_modified(self, erratum_id):
         """ Get the last_modified field for the provided erratum_id. """
-        self.last_modified_sql.execute(erratum_id = erratum_id)
+        self.last_modified_sql.execute(erratum_id=erratum_id)
         return self.last_modified_sql.fetchone()[0]
 
     def get_erratum(self, erratum_id):
@@ -663,7 +664,7 @@ class SqlErratumMapper:
         return erratum
 
     def _fill_erratum_details(self, erratum):
-        self.erratum_details_sql.execute(erratum_id = erratum.id)
+        self.erratum_details_sql.execute(erratum_id=erratum.id)
         ertm = self.erratum_details_sql.fetchone()
 
         erratum.readable_id = ertm[0]
@@ -685,21 +686,21 @@ class SqlErratumMapper:
         erratum.updated = ertm[7]
 
     def _fill_erratum_bz_references(self, erratum):
-        self.erratum_bzs_sql.execute(erratum_id = erratum.id)
+        self.erratum_bzs_sql.execute(erratum_id=erratum.id)
         bz_refs = self.erratum_bzs_sql.fetchall_dict()
 
         if bz_refs:
             erratum.bz_references = bz_refs
 
     def _fill_erratum_cve_references(self, erratum):
-        self.erratum_cves_sql.execute(erratum_id = erratum.id)
+        self.erratum_cves_sql.execute(erratum_id=erratum.id)
         cve_refs = self.erratum_cves_sql.fetchall()
 
         for cve_ref in cve_refs:
             erratum.cve_references.append(cve_ref[0])
 
     def _fill_erratum_packages(self, erratum):
-        self.erratum_packages_sql.execute(erratum_id = erratum.id)
+        self.erratum_packages_sql.execute(erratum_id=erratum.id)
         pkgs = self.erratum_packages_sql.fetchall()
 
         for pkg in pkgs:
@@ -721,7 +722,7 @@ class SqlCompsMapper:
         """)
 
     def get_comps(self, comps_id):
-        self.comps_sql.execute(comps_id = comps_id)
+        self.comps_sql.execute(comps_id=comps_id)
         comps_row = self.comps_sql.fetchone()
         filename = os.path.join(CFG.mount_point, comps_row[0])
         return domain.Comps(comps_id, filename)
@@ -755,7 +756,8 @@ def get_erratum_mapper(package_mapper):
 
 def oratimestamp_to_sinceepoch(ts):
     return time.mktime((ts.year, ts.month, ts.day, ts.hour, ts.minute,
-        ts.second, 0, 0, -1))
+                        ts.second, 0, 0, -1))
+
 
 def string_to_unicode(text):
     if text is None:
@@ -763,7 +765,7 @@ def string_to_unicode(text):
     if isinstance(text, unicode):
         return text
 
-    #First try a bunch of encodings in strict mode
+    # First try a bunch of encodings in strict mode
     encodings = ['ascii', 'iso-8859-1', 'iso-8859-15', 'iso-8859-2']
     for encoding in encodings:
         try:

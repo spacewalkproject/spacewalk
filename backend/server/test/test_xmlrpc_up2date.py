@@ -18,22 +18,22 @@ from spacewalk.server import rhnSQL
 import unittest
 from TestServer import TestServer
 
-def make_nvre_dict( epoch, version, release ):
+
+def make_nvre_dict(epoch, version, release):
     return {
-        'epoch'     :   epoch,
-        'version'   :   version,
-        'release'   :   release
+        'epoch':   epoch,
+        'version':   version,
+        'release':   release
     }
 
 
 class SolveDependenciesTestCase(unittest.TestCase):
-    #this class assumes that:
+    # this class assumes that:
     # mozilla-1.3.1-0.dag.rhel3.i386.rpm
     # mozilla-1.5-2.rhfc1.dag.i386.rpm
     # mozilla-1.6-0.rhfc1.dag.i386.rpm
     # mozilla-1.7.1-1.1.el3.test.i386.rpm
     # are all available in self.directory.
-
 
     def setUp(self):
         self.directory = '/home/devel/wregglej/testrpms'
@@ -44,43 +44,43 @@ class SolveDependenciesTestCase(unittest.TestCase):
         self.myserver.upload_packages(self.directory)
         self.up2date = self.myserver.getUp2date()
         self.sysid = self.myserver.getSystemId()
-        self.sd2 = self.up2date.solveDependencies_v2    #returns arch info
-        self.sd4 = self.up2date.solveDependencies_v4    #returns arch info, has better filtering
+        self.sd2 = self.up2date.solveDependencies_v2  # returns arch info
+        self.sd4 = self.up2date.solveDependencies_v4  # returns arch info, has better filtering
 
     def tearDown(self):
         rhnSQL.rollback()
 
-    def testGetArchSd2( self ):
-        ret = self.sd2( self.sysid, [self.filename] )
-        assert len( ret[self.filename][0] ) == 5
+    def testGetArchSd2(self):
+        ret = self.sd2(self.sysid, [self.filename])
+        assert len(ret[self.filename][0]) == 5
 
-    def testGetArchSd4( self ):
-        ret = self.sd4( self.sysid, [self.filename] )
-        assert len( ret[self.filename][0] ) == 5
+    def testGetArchSd4(self):
+        ret = self.sd4(self.sysid, [self.filename])
+        assert len(ret[self.filename][0]) == 5
 
-    def testArchTypeSd2( self ):
-        ret = self.sd2( self.sysid, [self.filename] )
-        assert type( ret[self.filename][0][4] ) == type('a')
+    def testArchTypeSd2(self):
+        ret = self.sd2(self.sysid, [self.filename])
+        assert type(ret[self.filename][0][4]) == type('a')
 
-    def testArchTypeSd4( self ):
-        ret = self.sd4( self.sysid, [self.filename] )
-        assert type( ret[self.filename][0][4] ) == type('a')
+    def testArchTypeSd4(self):
+        ret = self.sd4(self.sysid, [self.filename])
+        assert type(ret[self.filename][0][4]) == type('a')
 
-    def testArchValueSd2( self ):
-        ret = self.sd2( self.sysid, [self.filename] )
+    def testArchValueSd2(self):
+        ret = self.sd2(self.sysid, [self.filename])
         assert ret[self.filename][0][4] == 'i386'
 
-    def testArchValueSd4( self ):
-        ret = self.sd4( self.sysid, [self.filename] )
+    def testArchValueSd4(self):
+        ret = self.sd4(self.sysid, [self.filename])
         assert ret[self.filename][0][4] == 'i386'
 
-    def testAllTrueSd4( self ):
-        ret = self.sd4( self.sysid, [self.filename], all = 1 )
-        assert len( ret[self.filename]) > 1
+    def testAllTrueSd4(self):
+        ret = self.sd4(self.sysid, [self.filename], all=1)
+        assert len(ret[self.filename]) > 1
 
-    def testAllFalseSd4( self ):
-        ret = self.sd4( self.sysid, [self.filename], all = 0 )
-        assert len( ret[self.filename] ) == 1
+    def testAllFalseSd4(self):
+        ret = self.sd4(self.sysid, [self.filename], all=0)
+        assert len(ret[self.filename]) == 1
 
 if __name__ == "__main__":
     unittest.main()

@@ -15,21 +15,22 @@ import misc_functions
 
 DB_SETTINGS = misc_functions.db_settings("oracle")
 
+
 class Tests1(unittest.TestCase):
 
     def setUp(self):
         self.table_name = "misatest_%d" % os.getpid()
         rhnSQL.initDB(
-            backend  = "oracle",
-            username = DB_SETTINGS["user"],
-            password = DB_SETTINGS["password"],
-            database = DB_SETTINGS["database"]
+            backend="oracle",
+            username=DB_SETTINGS["user"],
+            password=DB_SETTINGS["password"],
+            database=DB_SETTINGS["database"]
         )
         self._cleanup()
         rhnSQL.clear_log_id()
 
         rhnSQL.execute("create table %s (id int, val varchar2(10))" %
-            self.table_name)
+                       self.table_name)
         rhnSQL.commit()
 
     def _cleanup(self):
@@ -51,7 +52,7 @@ class Tests1(unittest.TestCase):
     def test_function_1(self):
         "Tests function calls"
         p = rhnSQL.Function("logging.get_log_id",
-            rhnSQL.types.NUMBER())
+                            rhnSQL.types.NUMBER())
         ret = p()
         self.failUnless(isinstance(ret, types.FloatType))
 
@@ -89,7 +90,7 @@ class Tests1(unittest.TestCase):
         rhnSQL.execute("create table %s (id int)" % table_name)
         tables = self._list_tables()
         self.failUnless(string.upper(table_name) in tables,
-            "Table %s not created" % table_name)
+                        "Table %s not created" % table_name)
         rhnSQL.execute("drop table %s" % table_name)
 
     def test_ddl_2(self):
@@ -101,35 +102,34 @@ class Tests1(unittest.TestCase):
         """Tests row counts"""
         table_name = "misatest"
         try:
-          tables = self._list_tables()
-          if not table_name in tables:
-            rhnSQL.execute("create table %s (id int, value int)" % table_name)
-          else:
-            rhnSQL.execute("delete from %s" % table_name)
+            tables = self._list_tables()
+            if not table_name in tables:
+                rhnSQL.execute("create table %s (id int, value int)" % table_name)
+            else:
+                rhnSQL.execute("delete from %s" % table_name)
 
-          insert_statement = rhnSQL.Statement(
-              "insert into %s values (:item_id, :value)" % table_name
-          )
-          h = rhnSQL.prepare(insert_statement)
-          ret = h.execute(item_id = 1, value = 2)
-          self.assertEqual(ret, 1)
-          ret = h.execute(item_id = 2, value = 2)
-          self.assertEqual(ret, 1)
+            insert_statement = rhnSQL.Statement(
+                "insert into %s values (:item_id, :value)" % table_name
+            )
+            h = rhnSQL.prepare(insert_statement)
+            ret = h.execute(item_id=1, value=2)
+            self.assertEqual(ret, 1)
+            ret = h.execute(item_id=2, value=2)
+            self.assertEqual(ret, 1)
 
-          delete_statement = rhnSQL.Statement("delete from %s" % table_name)
-          h = rhnSQL.prepare(delete_statement)
-          ret = h.execute()
-          self.assertEqual(ret, 2)
-          rhnSQL.commit()
+            delete_statement = rhnSQL.Statement("delete from %s" % table_name)
+            h = rhnSQL.prepare(delete_statement)
+            ret = h.execute()
+            self.assertEqual(ret, 2)
+            rhnSQL.commit()
         finally:
-          rhnSQL.execute("drop table %s" % table_name)
+            rhnSQL.execute("drop table %s" % table_name)
 
     def _list_tables(self):
         h = rhnSQL.prepare("select table_name from user_tables")
         h.execute()
         return map(lambda x: string.upper(x['table_name']), h.fetchall_dict()
-            or [])
+                   or [])
 
 if __name__ == '__main__':
     unittest.main()
-

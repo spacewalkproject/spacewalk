@@ -29,10 +29,13 @@ from spacewalk.common.fileutils import createPath, setPermsPath
 import messages
 
 EMAIL_LOG = None
+
+
 def initEMAIL_LOG(reinit=0):
     global EMAIL_LOG
     if EMAIL_LOG is None or reinit:
         EMAIL_LOG = StringIO()
+
 
 def dumpEMAIL_LOG():
     if EMAIL_LOG is not None:
@@ -41,29 +44,35 @@ def dumpEMAIL_LOG():
 
 
 class RhnSyncException(Exception):
+
     """General exception handler for all sync activity."""
     pass
 
+
 class ReprocessingNeeded(Exception):
+
     """Exception raised when a contition has been hit that would require a new
     run of the sync process"""
     pass
 
-## logging functions:
-## log levels rule of thumb:
-##  0  - no logging, yet no feedback either
-##  1  - minimal logging/feedback
-##  2  - normal level of logging/feedback
-##  3  - a bit much
+# logging functions:
+# log levels rule of thumb:
+# 0  - no logging, yet no feedback either
+# 1  - minimal logging/feedback
+# 2  - normal level of logging/feedback
+# 3  - a bit much
 ##  4+ - excessive
+
 
 def _timeString1():
     """time string as: "2002/11/18 12:56:34" """
     return log_time()
 
+
 def _timeString2():
     """time string as: "12:56:34" """
     return time.strftime("%H:%M:%S", time.localtime(time.time()))
+
 
 def _prepLogMsg(msg, cleanYN=0, notimeYN=0, shortYN=0):
     """prepare formating of message for logging.
@@ -75,15 +84,16 @@ def _prepLogMsg(msg, cleanYN=0, notimeYN=0, shortYN=0):
     if not cleanYN:
         if shortYN:
             if notimeYN:
-                msg = '%s %s' % (' '*len(_timeString2()), msg)
+                msg = '%s %s' % (' ' * len(_timeString2()), msg)
             else:
                 msg = '%s %s' % (_timeString2(), msg)
         else:
             if notimeYN:
-                msg = '%s %s' % (' '*len(_timeString1()), msg)
+                msg = '%s %s' % (' ' * len(_timeString1()), msg)
             else:
                 msg = '%s %s' % (_timeString1(), msg)
     return msg
+
 
 def log2disk(level, msg, cleanYN=0, notimeYN=0):
     """Log to a log file.
@@ -97,7 +107,8 @@ def log2disk(level, msg, cleanYN=0, notimeYN=0):
         except (KeyboardInterrupt, SystemExit):
             raise
         except Exception, e:
-            sys.stderr.write('ERROR: upon attempt to write to log file: %s' %e)
+            sys.stderr.write('ERROR: upon attempt to write to log file: %s' % e)
+
 
 def log2stream(level, msg, cleanYN, notimeYN, stream):
     """Log to a specified stream.
@@ -110,12 +121,14 @@ def log2stream(level, msg, cleanYN, notimeYN, stream):
             stream.write(_prepLogMsg(m, cleanYN, notimeYN, shortYN=1) + '\n')
         stream.flush()
 
+
 def log2email(level, msg, cleanYN=0, notimeYN=0):
     """ Log to the email log.
         Arguments: see def _prepLogMsg(...) above.
     """
     if EMAIL_LOG is not None:
         log2stream(level, msg, cleanYN, notimeYN, EMAIL_LOG)
+
 
 def log2stderr(level, msg, cleanYN=0, notimeYN=0):
     """Log to standard error
@@ -124,12 +137,14 @@ def log2stderr(level, msg, cleanYN=0, notimeYN=0):
     log2email(level, msg, cleanYN, notimeYN)
     log2stream(level, msg, cleanYN, notimeYN, sys.stderr)
 
+
 def log2stdout(level, msg, cleanYN=0, notimeYN=0):
     """Log to standard out
     Arguments: see def _prepLogMsg(...) above.
     """
     log2email(level, msg, cleanYN, notimeYN)
     log2stream(level, msg, cleanYN, notimeYN, sys.stdout)
+
 
 def log2(levelDisk, levelStream, msg, cleanYN=0, notimeYN=0, stream=sys.stdout):
     """Log to disk and some stream --- differing log levels.
@@ -143,17 +158,22 @@ def log2(levelDisk, levelStream, msg, cleanYN=0, notimeYN=0, stream=sys.stdout):
     else:
         log2stream(levelStream, msg, cleanYN, notimeYN, stream=stream)
 
+
 def log(level, msg, cleanYN=0, notimeYN=0, stream=sys.stdout):
     """Log to disk and some stream --- share same log level.
     Arguments: see def _prepLogMsg(...) above.
     """
     log2(level, level, msg, cleanYN, notimeYN, stream=stream)
 
+
 class FileCreationError(Exception):
     pass
 
+
 class FileManip:
+
     "Generic file manipulation class"
+
     def __init__(self, relative_path, timestamp, file_size):
         self.relative_path = relative_path
         self.timestamp = rhnLib.timestamp(timestamp)
@@ -168,26 +188,26 @@ class FileManip:
         createPath(dirname)
         stat = os.statvfs(dirname)
 
-        f_bsize = stat[0] # file system block size
+        f_bsize = stat[0]  # file system block size
         # misa: it's kind of icky whether to use f_bfree (free blocks) or
         # f_bavail (free blocks for non-root). f_bavail is more correct, since
         # you don't want to have the system out of disk space because of
         # satsync; but people would get confused when looking at the output of
         # df
-        f_bavail = stat[4] # # free blocks
+        f_bavail = stat[4]  # free blocks
         freespace = f_bsize * float(f_bavail)
         if self.file_size != None and self.file_size > freespace:
-            msg = messages.not_enough_diskspace % (freespace/1024)
+            msg = messages.not_enough_diskspace % (freespace / 1024)
             log(-1, msg, stream=sys.stderr)
-            #pkilambi: As the metadata download does'nt check for unfetched rpms
-            #abort the sync when it runs out of disc space
+            # pkilambi: As the metadata download does'nt check for unfetched rpms
+            # abort the sync when it runs out of disc space
             sys.exit(-1)
             #raise FileCreationError(msg)
-        if freespace < 5000*1024: # arbitrary
-            msg = messages.not_enough_diskspace % (freespace/1024)
+        if freespace < 5000 * 1024:  # arbitrary
+            msg = messages.not_enough_diskspace % (freespace / 1024)
             log(-1, msg, stream=sys.stderr)
-            #pkilambi: As the metadata download does'nt check for unfetched rpms
-            #abort the sync when it runs out of disc space
+            # pkilambi: As the metadata download does'nt check for unfetched rpms
+            # abort the sync when it runs out of disc space
             sys.exit(-1)
             #raise FileCreationError(msg)
 
@@ -219,7 +239,7 @@ class FileManip:
         if self.file_size != None and self.file_size != l_file_size:
             # Something bad happened
             msg = "Error: expected %s bytes, got %s bytes" % (self.file_size,
-                l_file_size)
+                                                              l_file_size)
             log(-1, msg, stream=sys.stderr)
             # Try not to leave garbage around
             try:
@@ -243,10 +263,9 @@ class RpmManip(FileManip):
 
     def __init__(self, pdict, path):
         FileManip.__init__(self, relative_path=path,
-            timestamp=pdict['last_modified'], file_size=pdict['package_size'])
+                           timestamp=pdict['last_modified'], file_size=pdict['package_size'])
         self.pdict = pdict
 
     def nvrea(self):
         return tuple([self.pdict[x] for x in
-            ['name', 'version', 'release', 'epoch', 'arch']])
-
+                      ['name', 'version', 'release', 'epoch', 'arch']])

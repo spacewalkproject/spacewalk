@@ -26,12 +26,13 @@ from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTB import Traceback
 from spacewalk.server import rhnSQL
 
-def kudzu_mapping(dict = None):
+
+def kudzu_mapping(dict=None):
     """ this is a class we use to get the mapping for a kudzu entry """
     # This is the generic mapping we need
     mapping = {
-        'desc'        : 'description',
-        }
+        'desc': 'description',
+    }
     # error handling if we get passed weird stuff.
     if not dict:
         return mapping
@@ -45,117 +46,118 @@ def kudzu_mapping(dict = None):
     extra = {}
     if hw_bus == "ddc":
         extra = {
-            "id" : None,
-            "horizsyncmin"   : "prop1",
-            "horizsyncmax"   : "prop2",
-            "vertrefreshmin" : "prop3",
-            "vertrefreshmax" : "prop4",
-            "modes" : None,
-            "mem" : None,
-            }
+            "id": None,
+            "horizsyncmin": "prop1",
+            "horizsyncmax": "prop2",
+            "vertrefreshmin": "prop3",
+            "vertrefreshmax": "prop4",
+            "modes": None,
+            "mem": None,
+        }
     elif hw_bus == "ide":
         extra = {
-            "physical"    : "prop1",
-            "logical"     : "prop2",
-            }
+            "physical": "prop1",
+            "logical": "prop2",
+        }
     elif hw_bus in ["isapnp", "isa"]:
         extra = {
-            "pdeviceid" : "prop1",
-            "deviceid"  : "prop2",
-            "compat"    : "prop3",
-            "native"    : None,
-            "active"    : None,
-            "cardnum"   : None, # XXX: fix me
-            "logdev"    : "prop4",
-            "io"        : "prop2",
-            "irq"       : "prop1",
-            "dma"       : "prop3",
-            "mem"       : "prop4",
-            }
+            "pdeviceid": "prop1",
+            "deviceid": "prop2",
+            "compat": "prop3",
+            "native": None,
+            "active": None,
+            "cardnum": None,  # XXX: fix me
+            "logdev": "prop4",
+            "io": "prop2",
+            "irq": "prop1",
+            "dma": "prop3",
+            "mem": "prop4",
+        }
     elif hw_bus == "keyboard":
         extra = {}
     elif hw_bus == "psaux":
         extra = {}
     elif hw_bus == "parallel":
         extra = {
-            'pnpmfr'      : 'prop1',
-            'pnpdesc'     : 'prop2',
-            'pnpmodel'    : 'prop3',
-            'pnpmodes'    : 'prop4',
-            'pinfo'       : None,
-            'pinfo.xres'  : None,
-            'pinfo.yres'  : None,
-            'pinfo.color' : None,
-            'pinfo.ascii' : None,
-            }
+            'pnpmfr': 'prop1',
+            'pnpdesc': 'prop2',
+            'pnpmodel': 'prop3',
+            'pnpmodes': 'prop4',
+            'pinfo': None,
+            'pinfo.xres': None,
+            'pinfo.yres': None,
+            'pinfo.color': None,
+            'pinfo.ascii': None,
+        }
     elif hw_bus == "pci":
         extra = {
-            'vendorid'    : 'prop1',
-            'deviceid'    : 'prop2',
-            'subvendorid' : 'prop3',
-            'subdeviceid' : 'prop4',
-            'network.hwaddr'    : None,
-            'pcibus'      : None,
-            'pcidev'      : None,
-            'pcifn'       : None,
-            'pcidom'      : None,
+            'vendorid': 'prop1',
+            'deviceid': 'prop2',
+            'subvendorid': 'prop3',
+            'subdeviceid': 'prop4',
+            'network.hwaddr': None,
+            'pcibus': None,
+            'pcidev': None,
+            'pcifn': None,
+            'pcidom': None,
         }
     elif hw_bus == "sbus":
         extra = {
-            "monitor" : "prop1",
-            "width"   : "prop2",
-            "height"  : "prop3",
-            "freq"    : "prop4",
-            }
+            "monitor": "prop1",
+            "width": "prop2",
+            "height": "prop3",
+            "freq": "prop4",
+        }
     elif hw_bus == "scsi":
         extra = {
-            'host'        : 'prop1',
-            'id'          : 'prop2',
-            'channel'     : 'prop3',
-            'lun'         : 'prop4',
-            'generic'     : None,
-            }
+            'host': 'prop1',
+            'id': 'prop2',
+            'channel': 'prop3',
+            'lun': 'prop4',
+            'generic': None,
+        }
     elif hw_bus == "serial":
         extra = {
-            'pnpmfr'      : 'prop1',
-            'pnpdesc'     : 'prop2',
-            'pnpmodel'    : 'prop3',
-            'pnpcompat'   : "prop4",
-            }
+            'pnpmfr': 'prop1',
+            'pnpdesc': 'prop2',
+            'pnpmodel': 'prop3',
+            'pnpcompat': "prop4",
+        }
     elif hw_bus == "usb":
         extra = {
-            "vendorid"          : "prop1",
-            "deviceid"          : "prop2",
-            "usbclass"          : "prop3",
-            "usbbus"            : "prop4",
-            "usblevel"          : "pciType",
-            "usbdev"            : None,
-            "usbprod"           : None,
-            "usbsubclass"       : None,
-            "usbprotocol"       : None,
-            "usbport"           : None,
-            "usbmfr"            : None,
-            "productname"       : None,
-            "productrevision"   : None,
-            'network.hwaddr'    : None,
-            }
+            "vendorid": "prop1",
+            "deviceid": "prop2",
+            "usbclass": "prop3",
+            "usbbus": "prop4",
+            "usblevel": "pciType",
+            "usbdev": None,
+            "usbprod": None,
+            "usbsubclass": None,
+            "usbprotocol": None,
+            "usbport": None,
+            "usbmfr": None,
+            "productname": None,
+            "productrevision": None,
+            'network.hwaddr': None,
+        }
     elif hw_bus == "firewire":
         extra = {
-            'vendorid'    : 'prop1',
-            'deviceid'    : 'prop2',
-            'subvendorid' : 'prop3',
-            'subdeviceid' : 'prop4',
-            }
+            'vendorid': 'prop1',
+            'deviceid': 'prop2',
+            'subvendorid': 'prop3',
+            'subdeviceid': 'prop4',
+        }
     elif hw_bus == 'pcmcia':
         extra = {
-            'vendorid'      : 'prop1',
-            'deviceid'      : 'prop2',
-            'function'      : 'prop3',
-            'slot'          : 'prop4',
-            'network.hwaddr'    : None,
+            'vendorid': 'prop1',
+            'deviceid': 'prop2',
+            'function': 'prop3',
+            'slot': 'prop4',
+            'network.hwaddr': None,
         }
     mapping.update(extra)
     return mapping
+
 
 def cleanse_ip_addr(ip_addr):
     """ Cleans up things like 127.00.00.01 """
@@ -169,28 +171,34 @@ def cleanse_ip_addr(ip_addr):
     arr = ip_addr.split('.')
     # lstrip will remove all leading zeros; if multiple zeros are present, it
     # would remove too much, hence the or '0' here.
-    return '.'.join([ x.lstrip('0') or '0' for x in arr ])
+    return '.'.join([x.lstrip('0') or '0' for x in arr])
+
 
 class GenericDevice:
+
     """ A generic device class """
     table = "override-GenericDevice"
+
     def __init__(self):
         self.id = 0
-        self.status = 1 # just added
+        self.status = 1  # just added
         self.data = {}
         # default to the hardware seq...
         self.sequence = "rhn_hw_dev_id_seq"
         self._autonull = ("description", "board")
+
     def getid(self):
         if self.id == 0:
             self.id = rhnSQL.Sequence(self.sequence)()
         return self.id
+
     def must_save(self):
-        if self.id == 0 and self.status == 2: # deleted new item
+        if self.id == 0 and self.status == 2:  # deleted new item
             return 0
-        if self.status == 0: # original item, unchanged
+        if self.status == 0:  # original item, unchanged
             return 0
         return 1
+
     def save(self, sysid):
         """ save data in the rhnDevice table """
         log_debug(4, self.table, self.status, self.data)
@@ -211,8 +219,9 @@ class GenericDevice:
                 del self.data[k]
         self.data["server_id"] = sysid
         t[devid] = self.data
-        self.status = 0 # now it is saved
+        self.status = 0  # now it is saved
         return 0
+
     def reload(self, devid):
         """ reload from rhnDevice table based on devid """
         if not devid:
@@ -227,7 +236,8 @@ class GenericDevice:
         self.id = devid
         self.status = 0
         return 0
-    def _null_columns(self, params, names = ()):
+
+    def _null_columns(self, params, names=()):
         """ Method searches for empty string in params dict with names
             defined in names list and replaces them with None value which
             is translated to NULL in SQL.
@@ -241,7 +251,9 @@ class GenericDevice:
                 if name in param and param[name] == '':
                     param[name] = None
 
+
 class Device(GenericDevice):
+
     """ This is the base Device class that supports instantiation from a
         dictionarry. the __init__ takes the dictionary as its argument,
         together with a list of valid fields to recognize and with a mapping
@@ -251,7 +263,8 @@ class Device(GenericDevice):
         table. The mapping allows transformation from whatever comes in to
         valid fields in the table Looks complicated but it isn't -- gafton
     """
-    def __init__(self, fields, dict = None, mapping = None):
+
+    def __init__(self, fields, dict=None, mapping=None):
         GenericDevice.__init__(self)
         x = {}
         for k in fields:
@@ -306,9 +319,11 @@ class Device(GenericDevice):
 
 
 class HardwareDevice(Device):
+
     """ A more specific device based on the Device class """
     table = "rhnDevice"
-    def __init__(self, dict = None):
+
+    def __init__(self, dict=None):
         fields = ['class', 'bus', 'device', 'driver', 'detached',
                   'description', 'pcitype', 'prop1', 'prop2',
                   'prop3', 'prop4']
@@ -319,38 +334,41 @@ class HardwareDevice(Device):
         # use the hardware id sequencer
         self.sequence = "rhn_hw_dev_id_seq"
 
+
 class CPUDevice(Device):
+
     """ A class for handling CPU - mirrors the rhnCPU structure """
     table = "rhnCPU"
-    def __init__(self, dict = None):
+
+    def __init__(self, dict=None):
         fields = ['cpu_arch_id',  'architecture', 'bogomips', 'cache',
                   'family', 'mhz', 'stepping', 'flags', 'model',
                   'version', 'vendor', 'nrcpu', 'acpiVersion',
                   'apic', 'apmVersion', 'chipset', 'nrsocket']
         mapping = {
-            "bogomips" : "bogomips",
-            "cache" : "cache",
-            "model" : "model",
-            "platform" : "architecture",
-            "type" : "vendor",
-            "model_rev" : "stepping",
-            "model_number" : "family",
-            "model_ver" : "version",
-            "model_version" : "version",
-            "speed" : "mhz",
-            "count" : "nrcpu",
-            "socket_count" : "nrsocket",
-            "other" : "flags",
-            "desc" : None,
-            'class' : None,
-            }
+            "bogomips": "bogomips",
+            "cache": "cache",
+            "model": "model",
+            "platform": "architecture",
+            "type": "vendor",
+            "model_rev": "stepping",
+            "model_number": "family",
+            "model_ver": "version",
+            "model_version": "version",
+            "speed": "mhz",
+            "count": "nrcpu",
+            "socket_count": "nrsocket",
+            "other": "flags",
+            "desc": None,
+            'class': None,
+        }
         # now instantiate this class
         Device.__init__(self, fields, dict, mapping)
         self.sequence = "rhn_cpu_id_seq"
         if not dict:
             return
         if self.data.get("cpu_arch_id") is not None:
-            return # all fine, we have the arch
+            return  # all fine, we have the arch
         # if we don't have an architecture, guess it
         if not self.data.has_key("architecture"):
             log_error("hash does not have a platform member: %s" % dict)
@@ -363,7 +381,7 @@ class CPUDevice(Device):
             raise AttributeError, "Invalid architecture for CPU: `%s'" % arch
         self.data["cpu_arch_id"] = row["id"]
         del self.data["architecture"]
-        if self.data.has_key("nrcpu"): # make sure this is a number
+        if self.data.has_key("nrcpu"):  # make sure this is a number
             try:
                 self.data["nrcpu"] = int(self.data["nrcpu"])
             except:
@@ -371,12 +389,15 @@ class CPUDevice(Device):
             if self.data["nrcpu"] == 0:
                 self.data["nrcpu"] = 1
 
+
 class NetworkInformation(Device):
+
     """ This is a wrapper class for the Network Information (rhnServerNetwork) """
     table = "rhnServerNetwork"
-    def __init__(self, dict = None):
+
+    def __init__(self, dict=None):
         fields = ["hostname", "ipaddr", "ip6addr"]
-        mapping = { 'class' : None }
+        mapping = {'class': None}
         Device.__init__(self, fields, dict, mapping)
         self._autonull = ('ipaddr', 'ip6addr')
         # use our own sequence
@@ -388,15 +409,16 @@ class NetworkInformation(Device):
 
 class NetIfaceInformation(Device):
     key_mapping = {
-        'hwaddr'    : 'hw_addr',
-        'module'    : 'module',
+        'hwaddr': 'hw_addr',
+        'module': 'module',
     }
+
     def __init__(self, dict=None):
         log_debug(4, dict)
         self.ifaces = {}
         self.db_ifaces = []
         # parameters which are not allowed to be empty and set to NULL
-        self._autonull = ('hw_addr','module')
+        self._autonull = ('hw_addr', 'module')
         if not dict:
             return
         for name, info in dict.items():
@@ -405,7 +427,7 @@ class NetIfaceInformation(Device):
                 continue
             if not isinstance(info, type({})):
                 raise rhnFault(53, "Unexpected format for interface %s" %
-                    name)
+                               name)
             vdict = {}
             for key, mapping in self.key_mapping.items():
                 # Look at the mapping first; if not found, look for the key
@@ -415,11 +437,12 @@ class NetIfaceInformation(Device):
                     k = key
                 if not info.has_key(k):
                     raise rhnFault(53, "Unable to find required field %s"
-                            % key)
+                                   % key)
                 val = info[k]
                 vdict[mapping] = val
             if 'ipaddr' in info and info['ipaddr']:
-                vdict['ipv4'] = NetIfaceAddress4([{'ipaddr': info['ipaddr'], 'broadcast': info['broadcast'], 'netmask': info['netmask']}])
+                vdict['ipv4'] = NetIfaceAddress4(
+                    [{'ipaddr': info['ipaddr'], 'broadcast': info['broadcast'], 'netmask': info['netmask']}])
             if 'ipv6' in info and info['ipv6']:
                 vdict['ipv6'] = NetIfaceAddress6(info["ipv6"])
             self.ifaces[name] = vdict
@@ -428,8 +451,8 @@ class NetIfaceInformation(Device):
         return "<%s Class at %d: %s>\n" % (
             self.__class__.__name__,
             id(self), {
-            "self.ifaces" : self.ifaces,
-            "self.db_ifaces" : self.db_ifaces,
+                "self.ifaces": self.ifaces,
+                "self.db_ifaces": self.db_ifaces,
             })
     __repr__ = __str__
 
@@ -448,7 +471,7 @@ class NetIfaceInformation(Device):
             name = iface['name']
             if not self.ifaces.has_key(name):
                 # To be deleted
-                deletes.append({'server_id' : server_id, 'name' : name})
+                deletes.append({'server_id': server_id, 'name': name})
                 continue
 
             uploaded_iface = ifaces[name].copy()
@@ -456,7 +479,7 @@ class NetIfaceInformation(Device):
             if _hash_eq(uploaded_iface, iface):
                 # Same value
                 continue
-            uploaded_iface.update({'name' : name, 'server_id' : server_id})
+            uploaded_iface.update({'name': name, 'server_id': server_id})
             if 'ipv4' in uploaded_iface:
                 del(uploaded_iface['ipv4'])
             if 'ipv6' in uploaded_iface:
@@ -555,7 +578,7 @@ class NetIfaceInformation(Device):
             row = h.fetchone_dict()
             if not row:
                 break
-            hval = { 'primary_id' : row['id'], 'name' : row['name'], 'server_id' : server_id }
+            hval = {'primary_id': row['id'], 'name': row['name'], 'server_id': server_id}
             for key in self.key_mapping.values():
                 hval[key] = row[key]
             hval['ipv4'] = NetIfaceAddress4()
@@ -567,26 +590,28 @@ class NetIfaceInformation(Device):
         self.status = 0
         return 0
 
+
 class NetIfaceAddress(Device):
     key_mapping = {
-        'netmask'    : 'netmask',
-        'address'    : 'address',
+        'netmask': 'netmask',
+        'address': 'address',
     }
-    unique = ['address'] # to be overriden by child
-    table = 'rhnServerNetAddress' # to be overriden by child
+    unique = ['address']  # to be overriden by child
+    table = 'rhnServerNetAddress'  # to be overriden by child
+
     def __init__(self, list_ifaces=None):
         log_debug(4, list_ifaces)
         self.ifaces = {}
         self.db_ifaces = []
         # parameters which are not allowed to be empty and set to NULL
-        self._autonull = ('address','netmask')
+        self._autonull = ('address', 'netmask')
         self.sequence = "rhn_srv_net_iface_id_seq"
         if not list_ifaces:
             return
         for info in list_ifaces:
             if not isinstance(info, type({})):
                 raise rhnFault(53, "Unexpected format for interface %s" %
-                    info)
+                               info)
             vdict = {}
             for key, mapping in self.key_mapping.items():
                 # Look at the mapping first; if not found, look for the key
@@ -596,7 +621,7 @@ class NetIfaceAddress(Device):
                     k = key
                 if not info.has_key(k):
                     raise rhnFault(53, "Unable to find required field %s"
-                            % (key))
+                                   % (key))
                 val = info[k]
                 if mapping in ['ip_addr', 'netmask', 'broadcast', 'address']:
                     # bugzilla: 129840 kudzu (rhpl) will sometimes pad octets
@@ -609,8 +634,8 @@ class NetIfaceAddress(Device):
         return "<%s Class at %d: %s>\n" % (
             self.__class__.__name__,
             id(self), {
-            "self.ifaces" : self.ifaces,
-            "self.db_ifaces" : self.db_ifaces,
+                "self.ifaces": self.ifaces,
+                "self.db_ifaces": self.db_ifaces,
             })
     __repr__ = __str__
 
@@ -642,7 +667,7 @@ class NetIfaceAddress(Device):
             if _hash_eq(uploaded_iface, iface):
                 # Same value
                 continue
-            uploaded_iface.update({'interface_id' : interface_id})
+            uploaded_iface.update({'interface_id': interface_id})
             updates.append(uploaded_iface)
 
         # Everything else in self.ifaces has to be inserted
@@ -710,7 +735,7 @@ class NetIfaceAddress(Device):
             row = h.fetchone_dict()
             if not row:
                 break
-            hval = { 'interface_id' : row['interface_id']}
+            hval = {'interface_id': row['interface_id']}
             for key in self.key_mapping.values():
                 hval[key] = row[key]
             self.db_ifaces.append(hval)
@@ -718,28 +743,34 @@ class NetIfaceAddress(Device):
         self.status = 0
         return 0
 
+
 class NetIfaceAddress6(NetIfaceAddress):
+
     """ IPv6 Network interface """
     key_mapping = {
-        'netmask' : 'netmask',
-        'addr'    : 'address',
-        'scope'   : 'scope',
+        'netmask': 'netmask',
+        'addr': 'address',
+        'scope': 'scope',
     }
     table = 'rhnServerNetAddress6'
     unique = ['interface_id', 'address', 'scope']
+
     def __init__(self, addr_dict=None):
         NetIfaceAddress.__init__(self, addr_dict)
         self._autonull = ('address', 'netmask', 'scope')
 
+
 class NetIfaceAddress4(NetIfaceAddress):
+
     """ IPv4 Network interface """
     key_mapping = {
-        'netmask'   : 'netmask',
-        'ipaddr'    : 'address',
-        'broadcast' : 'broadcast',
+        'netmask': 'netmask',
+        'ipaddr': 'address',
+        'broadcast': 'broadcast',
     }
     table = 'rhnServerNetAddress4'
     unique = ['interface_id']
+
     def __init__(self, addr_dict=None):
         NetIfaceAddress.__init__(self, addr_dict)
         self._autonull = ('address', 'netmask', 'broadcast')
@@ -758,6 +789,7 @@ def _hash_eq(h1, h2):
             return 0
     return 1
 
+
 def _dml(statement, params):
     log_debug(5, params)
     if not params:
@@ -766,6 +798,7 @@ def _dml(statement, params):
     rowcount = statement.executemany(**params)
     log_debug(5, "Affected rows", rowcount)
     return rowcount
+
 
 def _transpose(hasharr):
     """ Transpose the array of hashes into a hash of arrays """
@@ -785,12 +818,15 @@ def _transpose(hasharr):
 
     return result
 
+
 class MemoryInformation(Device):
+
     """ Memory information """
     table = "rhnRAM"
-    def __init__(self, dict = None):
+
+    def __init__(self, dict=None):
         fields = ["ram", "swap"]
-        mapping = { "class" : None }
+        mapping = {"class": None}
         Device.__init__(self, fields, dict, mapping)
         # use our own sequence
         self.sequence = "rhn_ram_id_seq"
@@ -806,13 +842,16 @@ class MemoryInformation(Device):
             if self.data[k][-1] == 'L':
                 self.data[k] = self.data[k][:-1]
 
+
 class DMIInformation(Device):
+
     """ DMI information """
     table = "rhnServerDMI"
-    def __init__(self, dict = None):
+
+    def __init__(self, dict=None):
         fields = ["vendor", "system", "product", "asset", "board",
                   "bios_vendor", "bios_version", "bios_release"]
-        mapping = { "class" : None }
+        mapping = {"class": None}
         Device.__init__(self, fields, dict, mapping)
         # use our own sequence
         self.sequence = "rhn_server_dmi_id_seq"
@@ -825,22 +864,28 @@ class DMIInformation(Device):
             if value and isinstance(value, type("")):
                 self.data[key] = value[:256]
 
+
 class InstallInformation(Device):
+
     """ Install information """
     table = "rhnServerInstallInfo"
-    def __init__(self, dict = None):
+
+    def __init__(self, dict=None):
         fields = ['install_method', 'iso_status', 'mediasum']
         mapping = {
-            'class'         : None,
-            'installmethod' : 'install_method',
-            'isostatus'     : 'iso_status',
-            'mediasum'      : 'mediasum',
+            'class': None,
+            'installmethod': 'install_method',
+            'isostatus': 'iso_status',
+            'mediasum': 'mediasum',
         }
         Device.__init__(self, fields, dict, mapping)
         self.sequence = 'rhn_server_install_info_id_seq'
 
+
 class Hardware:
+
     """ Support for the hardware items """
+
     def __init__(self):
         self.__hardware = {}
         self.__loaded = 0
@@ -906,8 +951,7 @@ class Hardware:
         self.__changed = 1
         return 0
 
-
-    def delete_hardware(self, sysid = None):
+    def delete_hardware(self, sysid=None):
         """ This function deletes all hardware. """
         log_debug(4, sysid)
         if not self.__loaded:
@@ -920,20 +964,20 @@ class Hardware:
 
         for device_type in hardware.keys():
             for hw in hardware[device_type]:
-                hw.status = 2 # deleted
+                hw.status = 2  # deleted
 
             # filter out the hardware that was just added and then
             # deleted before saving
             hardware[device_type] = filter(lambda a:
-                not (a.status == 2 and hasattr(a, "id") and a.id == 0),
-                hardware[device_type])
+                                           not (a.status == 2 and hasattr(a, "id") and a.id == 0),
+                                           hardware[device_type])
         return 0
 
     def save_hardware_byid(self, sysid):
         """Save the hardware list """
         log_debug(3, sysid, "changed = %s" % self.__changed)
         hardware = self.__hardware
-        if hardware == {}: # nothing loaded
+        if hardware == {}:  # nothing loaded
             return 0
         if not self.__changed:
             return 0
@@ -949,7 +993,7 @@ class Hardware:
             self.__hardware[DevClass] = []
 
         h = rhnSQL.prepare("select id from %s where server_id = :sysid" % DevClass.table)
-        h.execute(sysid = sysid)
+        h.execute(sysid=sysid)
         rows = h.fetchall_dict() or []
 
         for device in rows:
@@ -963,7 +1007,7 @@ class Hardware:
         log_debug(4, sysid)
         if not sysid:
             return -1
-        self.__hardware = {} # discard what was already loaded
+        self.__hardware = {}  # discard what was already loaded
         # load from all hardware databases
         self.__load_from_db(HardwareDevice, sysid)
         self.__load_from_db(CPUDevice, sysid)

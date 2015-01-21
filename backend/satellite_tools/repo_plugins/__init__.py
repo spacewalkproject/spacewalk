@@ -17,6 +17,7 @@ from spacewalk.common import rhn_pkg
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnPackageUpload
 
+
 class ContentPackage:
 
     def __init__(self):
@@ -24,7 +25,7 @@ class ContentPackage:
         self.checksum_type = None
         self.checksum = None
 
-        #unique ID that can be used by plugin
+        # unique ID that can be used by plugin
         self.unique_id = None
 
         self.name = None
@@ -67,9 +68,9 @@ class ContentPackage:
 
     def upload_package(self, channel):
         rel_package_path = rhnPackageUpload.relative_path_from_header(
-                self.a_pkg.header, channel['org_id'],
-                self.a_pkg.checksum_type, self.a_pkg.checksum)
+            self.a_pkg.header, channel['org_id'],
+            self.a_pkg.checksum_type, self.a_pkg.checksum)
         _unused = rhnPackageUpload.push_package(self.a_pkg,
-                force=False,
-                relative_path=rel_package_path,
-                org_id=channel['org_id'])
+                                                force=False,
+                                                relative_path=rel_package_path,
+                                                org_id=channel['org_id'])

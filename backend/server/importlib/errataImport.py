@@ -19,7 +19,9 @@
 from spacewalk.common.rhnException import rhnFault
 from importLib import GenericPackageImport
 
+
 class ErrataImport(GenericPackageImport):
+
     def __init__(self, batch, backend, queue_timeout=600):
         GenericPackageImport.__init__(self, batch, backend)
         # A composite key of the name, evr, arch plus org_id
@@ -90,7 +92,7 @@ class ErrataImport(GenericPackageImport):
             # the oval data from an oval-enabled dump.
             elif f['file_type'] == 'OVAL':
                 erratum['files'].remove(f)
-            #elif f['file_type'] == 'SRPM':
+            # elif f['file_type'] == 'SRPM':
             #    # XXX misa: do something here
             #    pass
 
@@ -98,7 +100,6 @@ class ErrataImport(GenericPackageImport):
         for f in (erratum['files'] or []):
             for channel_name in (f.get('channel_list') or []):
                 self.channels[channel_name] = None
-
 
     def fix(self):
         self.backend.lookupChannels(self.channels)
@@ -124,16 +125,15 @@ class ErrataImport(GenericPackageImport):
             self._fix_erratum_channels(erratum)
             self._fix_erratum_packages_lookup(erratum)
             self._fix_erratum_file_packages(erratum)
-            #fix severity stuff
+            # fix severity stuff
             self._fix_erratum_severity(erratum)
-            #fix oval info to populate the relevant dbtables
+            # fix oval info to populate the relevant dbtables
             self._fix_erratum_oval_info(erratum)
 
         self.backend.lookupPackages(self.packages.values(), self.checksums, self.ignoreMissing)
         for erratum in self.batch:
             self._fix_erratum_packages(erratum)
             self._fix_erratum_file_channels(erratum)
-
 
     def _fixCVE(self):
         # Look up and insert the missing CVE's
@@ -145,7 +145,7 @@ class ErrataImport(GenericPackageImport):
             cves = []
             for cve in erratum['cve']:
                 entry = {
-                    'cve_id'    : self.cve[cve],
+                    'cve_id': self.cve[cve],
                 }
                 cves.append(entry)
             erratum['cve'] = cves
@@ -165,7 +165,7 @@ class ErrataImport(GenericPackageImport):
                 if package_id is not None:
                     pkg = {
                         'errata_file_id': file_id,
-                        'package_id'    : package_id,
+                        'package_id': package_id,
                     }
                     if file_type == 'RPM':
                         rpm_files.append(pkg)
@@ -174,22 +174,22 @@ class ErrataImport(GenericPackageImport):
                     elif file_type == 'OVAL':
                         pkg = {
                             'errata_id': file_id,
-                            'filename' : file['filename'],
-                            }
+                            'filename': file['filename'],
+                        }
                         oval_files.append(pkg)
                 for channel_id in file['channels']:
                     channel_files.append({
-                        'errata_file_id'    : file_id,
-                        'channel_id'        : channel_id,
+                        'errata_file_id': file_id,
+                        'channel_id': channel_id,
                     })
         self.backend._do_diff(rpm_files, 'rhnErrataFilePackage',
-            ['errata_file_id', 'package_id'], [])
+                              ['errata_file_id', 'package_id'], [])
         self.backend._do_diff(srpm_files, 'rhnErrataFilePackageSource',
-            ['errata_file_id', 'package_id'], [])
+                              ['errata_file_id', 'package_id'], [])
         self.backend._do_diff(channel_files, 'rhnErrataFileChannel',
-            ['errata_file_id', 'channel_id'], [])
+                              ['errata_file_id', 'channel_id'], [])
         self.backend._do_diff(oval_files, 'rhnErrataFile',
-            ['errata_id', 'filename'], [])
+                              ['errata_id', 'filename'], [])
 
     def submit(self):
         try:
@@ -201,7 +201,6 @@ class ErrataImport(GenericPackageImport):
             self.backend.rollback()
             raise
         self.backend.commit()
-
 
     def _fix_erratum_channels(self, erratum):
         # Fix the erratum's channels
@@ -220,9 +219,8 @@ class ErrataImport(GenericPackageImport):
 
             channels[channel['id']] = None
 
-        erratum['channels'] = map(lambda x: {'channel_id' : x},
-            channels.keys())
-
+        erratum['channels'] = map(lambda x: {'channel_id': x},
+                                  channels.keys())
 
     def _fix_erratum_packages_lookup(self, erratum):
         # To make the packages unique
@@ -250,7 +248,6 @@ class ErrataImport(GenericPackageImport):
 
         erratum['packages'] = packageHash
 
-
     def _fix_erratum_file_packages(self, erratum):
         for ef in erratum['files']:
             ef['checksum_id'] = self.checksums[(ef['checksum_type'], ef['checksum'])]
@@ -260,7 +257,6 @@ class ErrataImport(GenericPackageImport):
                     continue
                 self._postprocessPackageNEVRA(package)
             # XXX fix source rpms
-
 
     def _fix_erratum_packages(self, erratum):
         pkgs = []
@@ -273,7 +269,7 @@ class ErrataImport(GenericPackageImport):
             if package.ignored:
                 # Ignore this package
                 continue
-            pkgs.append({'package_id' : package.id})
+            pkgs.append({'package_id': package.id})
 
         erratum['packages'] = pkgs
 
@@ -321,7 +317,7 @@ class ErrataImport(GenericPackageImport):
                     raise Exception("Unknown file type %s" % eft)
                 oval_file['type'] = self.file_types[eft]
 
-            #XXX: stubs incase we need to associate them to channels/packages
+            # XXX: stubs incase we need to associate them to channels/packages
             oval_file['channel_list'] = []
             oval_file['channels'] = []
             oval_file['package_id'] = None
@@ -329,8 +325,8 @@ class ErrataImport(GenericPackageImport):
             if not os.path.isfile(oval_file['filename']):
                 # Don't bother to copy the package
                 raise rhnFault(47,
-                    "Oval file %s not found on the server. " % oval_file['filename'],
-                    explain=0)
+                               "Oval file %s not found on the server. " % oval_file['filename'],
+                               explain=0)
 
             # add the oval info into the files field to get
             # populated into db
@@ -339,7 +335,8 @@ class ErrataImport(GenericPackageImport):
 
 def get_nevrao(package):
     return map(lambda x, d=package: d[x],
-        ['name', 'epoch', 'version', 'release', 'arch', 'org_id'])
+               ['name', 'epoch', 'version', 'release', 'arch', 'org_id'])
+
 
 def has_suffix(s, suffix):
     return s[-len(suffix):] == suffix

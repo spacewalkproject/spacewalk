@@ -16,6 +16,8 @@
 from spacewalk.server import rhnSQL
 
 # checks if an arch is for real
+
+
 def check_package_arch(name):
     name = str(name)
     if name is None or len(name) == 0:
@@ -32,4 +34,3 @@ if __name__ == '__main__':
     """
     rhnSQL.initDB()
     print check_package_arch('i386')
-

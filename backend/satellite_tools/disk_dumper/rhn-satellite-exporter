@@ -36,8 +36,8 @@ if __name__ == "__main__":
     try:
         main = iss.ExporterMain()
     except iss.ISSError, isserror:
-        #I have the tb get generated in the function that the the error occurred in to minimize
-        #the amount of extra crap that shows up in it.
+        # I have the tb get generated in the function that the the error occurred in to minimize
+        # the amount of extra crap that shows up in it.
         tb = isserror.tb
         msg = isserror.msg
         log2stderr(-1, isserror.msg)
@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
     except Exception, e:
         log2stderr(-1, "Unhandled Error: %s" % (e.__class__.__name__,))
-        #If we get here we want the traceback, even if it's got some useless junk added to it.
+        # If we get here we want the traceback, even if it's got some useless junk added to it.
         tbout = cStringIO.StringIO()
         Traceback(mail=0, ostream=tbout, with_locals=0)
         log2email(-1, tbout.getvalue())
@@ -85,4 +85,3 @@ if __name__ == "__main__":
             iss.print_report()
 
         sys.exit(-1)
-

@@ -17,7 +17,8 @@
 
 __F = {}
 
-def set(name, value = 1):
+
+def set(name, value=1):
     """
     set value
     """
@@ -28,6 +29,7 @@ def set(name, value = 1):
     name = name.lower()
     __F[name] = value
     return None
+
 
 def get(name):
     """

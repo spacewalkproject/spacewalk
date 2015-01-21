@@ -18,6 +18,7 @@ import time
 import types
 import urlparse
 
+
 def setHeaderValue(mp_table, name, values):
     """
     Function that correctly sets headers in an Apache-like table
@@ -34,7 +35,7 @@ def setHeaderValue(mp_table, name, values):
 
 
 rfc822_days = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
-rfc822_mons = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', \
+rfc822_mons = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
 
 
@@ -61,13 +62,13 @@ def rfc822time(arg):
 
     # Now, the arg must be a float.
 
-    (tm_year, tm_mon, tm_mday, tm_hour, tm_min, \
-         tm_sec, tm_wday, _tm_yday_, _tm_isdst_) = time.gmtime(arg)
+    (tm_year, tm_mon, tm_mday, tm_hour, tm_min,
+     tm_sec, tm_wday, _tm_yday_, _tm_isdst_) = time.gmtime(arg)
 
     return \
         "%s, %02d %s %04d %02d:%02d:%02d %s" % \
-            (rfc822_days[tm_wday], tm_mday, rfc822_mons[tm_mon - 1], tm_year, \
-             tm_hour, tm_min, tm_sec, "GMT")
+        (rfc822_days[tm_wday], tm_mday, rfc822_mons[tm_mon - 1], tm_year,
+         tm_hour, tm_min, tm_sec, "GMT")
 
 
 def timestamp(s):
@@ -148,11 +149,13 @@ def hash_object_id(object_id, factor):
     num_id = object_id.split('-')[-1]
     # get last 'factor' numbers
     num_id = num_id[-factor:]
-    return num_id.rjust(factor,'0')
+    return num_id.rjust(factor, '0')
 
 
 # reg exp for splitting package names.
 re_rpmName = re.compile("^(.*)-([^-]*)-([^-]*)$")
+
+
 def parseRPMName(pkgName):
     """ IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
         OUT: Four strings (in a tuple): name, epoch, version, release.
@@ -163,9 +166,7 @@ def parseRPMName(pkgName):
     n, v, r = reg.group(1, 2, 3)
     e = None
     ind = r.find(':')
-    if ind >= 0: # epoch found
-        e = r[ind+1:]
+    if ind >= 0:  # epoch found
+        e = r[ind + 1:]
         r = r[0:ind]
     return str(n), e, str(v), str(r)
-
-

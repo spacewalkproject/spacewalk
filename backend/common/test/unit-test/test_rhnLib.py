@@ -23,6 +23,7 @@ from spacewalk.common import rhnLib
 
 TIMEZONE_SHIFT = time.timezone / 3600
 
+
 class Tests(unittest.TestCase):
     # pylint: disable=R0904
 
@@ -63,19 +64,17 @@ class Tests(unittest.TestCase):
 
     def testParseUrl(self):
         self.assertEquals(('', '', '', '', '', ''),
-                rhnLib.parseUrl(''))
+                          rhnLib.parseUrl(''))
         self.assertEquals(('', 'somehostname', '', '', '', ''),
-                rhnLib.parseUrl('somehostname'))
+                          rhnLib.parseUrl('somehostname'))
         self.assertEquals(('http', 'somehostname', '', '', '', ''),
-                rhnLib.parseUrl('http://somehostname'))
+                          rhnLib.parseUrl('http://somehostname'))
         self.assertEquals(('https', 'somehostname', '', '', '', ''),
-                rhnLib.parseUrl('https://somehostname'))
+                          rhnLib.parseUrl('https://somehostname'))
         self.assertEquals(('https', 'somehostname:123', '', '', '', ''),
-                rhnLib.parseUrl('https://somehostname:123'))
+                          rhnLib.parseUrl('https://somehostname:123'))
         self.assertEquals(('https', 'somehostname:123', '/ABCDE', '', '', ''),
-                rhnLib.parseUrl('https://somehostname:123/ABCDE'))
+                          rhnLib.parseUrl('https://somehostname:123/ABCDE'))
 
 if __name__ == '__main__':
     sys.exit(unittest.main() or 0)
-
-

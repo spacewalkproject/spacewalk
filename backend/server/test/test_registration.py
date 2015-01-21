@@ -23,10 +23,10 @@ initDB('rhnuser/rhnuser@webdev')
 r = registration.Registration()
 
 data = {
-    'os_release'    : '8.0',
-    'profile_name'  : 'test local',
-    'architecture'  : 'i686',
-    'token'         : '382c712e94b2505f6070f011e8ec1a7e',
+    'os_release': '8.0',
+    'profile_name': 'test local',
+    'architecture': 'i686',
+    'token': '382c712e94b2505f6070f011e8ec1a7e',
 }
 
 open("/tmp/rereg-systemid", "w+").write(r.new_system(data))

@@ -26,14 +26,15 @@ import misc_functions
 
 DB_SETTINGS = misc_functions.db_settings("oracle")
 
+
 class Tests(unittest.TestCase):
 
     def setUp(self):
         rhnSQL.initDB(
-            backend  = "oracle",
-            username = DB_SETTINGS["user"],
-            password = DB_SETTINGS["password"],
-            database = DB_SETTINGS["database"]
+            backend="oracle",
+            username=DB_SETTINGS["user"],
+            password=DB_SETTINGS["password"],
+            database=DB_SETTINGS["database"]
         )
         rhnSQL.clear_log_id()
 
@@ -131,7 +132,7 @@ class Tests(unittest.TestCase):
 
     def test_list_channel_families_1(self):
         """Tests rhnChannel.list_channel_families"""
-        channel_families =  rhnChannel.list_channel_families()
+        channel_families = rhnChannel.list_channel_families()
         self.failUnless(len(channel_families) > 0)
 
     def test_list_channels_1(self):
@@ -151,7 +152,7 @@ class Tests(unittest.TestCase):
             method(v)
         c.save()
 
-        channels =  rhnChannel.list_channels(pattern="rhn-unittest-%")
+        channels = rhnChannel.list_channels(pattern="rhn-unittest-%")
         self.failUnless(len(channels) > 0)
 
     def _new_channel_dict(self, **kwargs):
@@ -171,22 +172,22 @@ class Tests(unittest.TestCase):
             org_id = misc_functions.create_new_org()
 
         vdict = {
-            'label'             : label,
-            'name'              : kwargs.get('name') or label,
-            'summary'           : kwargs.get('summary') or label,
-            'description'       : kwargs.get('description') or label,
-            'basedir'           : kwargs.get('basedir') or '/',
-            'channel_arch'      : kwargs.get('channel_arch') or 'channel-x86_64',
-            'channel_families'  : [ kwargs.get('channel_family') or label ],
-            'org_id'            : org_id,
-            'gpg_key_url'       : kwargs.get('gpg_key_url'),
-            'gpg_key_id'        : kwargs.get('gpg_key_id'),
-            'gpg_key_fp'        : kwargs.get('gpg_key_fp'),
-            'end_of_life'       : kwargs.get('end_of_life'),
-            'dists'             : [{
-                                    'release'   : release,
-                                    'os'        : os,
-                                }],
+            'label': label,
+            'name': kwargs.get('name') or label,
+            'summary': kwargs.get('summary') or label,
+            'description': kwargs.get('description') or label,
+            'basedir': kwargs.get('basedir') or '/',
+            'channel_arch': kwargs.get('channel_arch') or 'channel-x86_64',
+            'channel_families': [kwargs.get('channel_family') or label],
+            'org_id': org_id,
+            'gpg_key_url': kwargs.get('gpg_key_url'),
+            'gpg_key_id': kwargs.get('gpg_key_id'),
+            'gpg_key_fp': kwargs.get('gpg_key_fp'),
+            'end_of_life': kwargs.get('end_of_life'),
+            'dists': [{
+                'release': release,
+                'os': os,
+            }],
         }
         return vdict
 
@@ -202,9 +203,9 @@ class Tests(unittest.TestCase):
         product_url = kwargs.get('product_url') or 'http://rhn.redhat.com'
 
         vdict = {
-            'label'             : label,
-            'name'              : kwargs.get('name') or label,
-            'product_url'       : product_url,
+            'label': label,
+            'name': kwargs.get('name') or label,
+            'product_url': product_url,
         }
         return vdict
 

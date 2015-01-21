@@ -31,6 +31,7 @@ if topdir not in sys.path:
 
 from spacewalk.common import rhnTranslate
 
+
 class Tests(unittest.TestCase):
     # pylint: disable=R0904
 
@@ -159,4 +160,3 @@ class Tests(unittest.TestCase):
 
 if __name__ == '__main__':
     sys.exit(unittest.main() or 0)
-

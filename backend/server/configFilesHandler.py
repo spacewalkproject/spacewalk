@@ -37,48 +37,64 @@ from spacewalk.server.config_common.templated_document import ServerTemplatedDoc
 import rhnSession
 
 # Exceptions
+
+
 class BaseConfigFileError(Exception):
+
     def __init__(self, args):
         Exception.__init__(self, *args)
 
+
 class ConfigFileError(BaseConfigFileError):
+
     def __init__(self, file, *args):
         BaseConfigFileError.__init__(self, args)
         self.file = file
 
+
 class ConfigFileExistsError(ConfigFileError):
     pass
+
 
 class ConfigFileVersionMismatchError(ConfigFileError):
     pass
 
+
 class ConfigFileMissingDelimError(ConfigFileError):
     pass
+
 
 class ConfigFileMissingInfoError(ConfigFileError):
     pass
 
+
 class ConfigFileMissingContentError(ConfigFileError):
     pass
+
 
 class ConfigFileTooLargeError(ConfigFileError):
     pass
 
+
 class ConfigFileExceedsQuota(ConfigFileError):
     pass
+
 
 class ConfigFilePathIncomplete(ConfigFileError):
     pass
 
 # Base handler class
+
+
 class ConfigFilesHandler(rhnHandler):
+
     def __init__(self):
         log_debug(3)
         rhnHandler.__init__(self)
         self.functions = {
-            'rhn_login'         : 'login',
-            'test_session'      : 'test_session',
-            'max_upload_fsize'  : 'max_upload_file_size',
+            'rhn_login': 'login',
+            'test_session': 'test_session',
+            'max_upload_fsize': 'max_upload_file_size',
         }
         self.org_id = None
 
@@ -121,8 +137,8 @@ class ConfigFilesHandler(rhnHandler):
     # Helper functions
     def _get_delimiters(self):
         return {
-            'delim_start'   : CFG.config_delim_start,
-            'delim_end'     : CFG.config_delim_end,
+            'delim_start': CFG.config_delim_start,
+            'delim_end': CFG.config_delim_end,
         }
 
     def _validate_session(self, session):
@@ -154,6 +170,7 @@ class ConfigFilesHandler(rhnHandler):
              and mcf.config_file_name_id = cf.config_file_name_id
       )
     """)
+
     def _push_file(self, config_channel_id, file):
         if not file:
             # Nothing to do
@@ -216,7 +233,7 @@ class ConfigFilesHandler(rhnHandler):
             self._push_revision(file)
         except rhnSQL.SQLSchemaError, e:
             log_debug(4, "schema error", e)
-            rhnSQL.rollback() # blow away the contents that got inserted
+            rhnSQL.rollback()  # blow away the contents that got inserted
             if e.errno == 20267:
                 # ORA-20267: (not_enough_quota) - Insufficient available quota
                 # for the specified action
@@ -254,7 +271,6 @@ class ConfigFilesHandler(rhnHandler):
                            (e.file.get('path'), self._get_maximum_file_size()),
                            explain=0), None, sys.exc_info()[2]
 
-
         rhnSQL.commit()
         return result
 
@@ -276,7 +292,7 @@ class ConfigFilesHandler(rhnHandler):
 
     def _push_contents(self, file):
 
-        checksum_type = 'sha256' # FIXME: this should be configuration option
+        checksum_type = 'sha256'  # FIXME: this should be configuration option
 
         file['file_size'] = 0
         file['is_binary'] = 'N'
@@ -452,7 +468,7 @@ class ConfigFilesHandler(rhnHandler):
 
     def _add_author(self, file, author):
         h = rhnSQL.prepare(self._query_update_revision_add_author)
-        h.execute(user_id = author.getid(), rev_id = file['config_revision_id'])
+        h.execute(user_id=author.getid(), rev_id=file['config_revision_id'])
 
     _query_update_config_file = rhnSQL.Statement("""
         update rhnConfigFile
@@ -508,21 +524,21 @@ def format_file_results(row, server=None):
         m_date = ''
 
     return {
-        'path'          : row['path'],
+        'path': row['path'],
         'config_channel': row['config_channel'],
-        'file_contents' : contents,
-        'symlink' : row['symlink'] or '',
-        'checksum_type' : row['checksum_type'] or '',
-        'checksum'      : checksum,
-        'verify_contents' : True,
-        'delim_start'   : row['delim_start'] or '',
-        'delim_end'     : row['delim_end'] or '',
-        'revision'      : row['revision'] or '',
-        'username'      : row['username'] or '',
-        'groupname'     : row['groupname'] or '',
-        'filemode'      : row['filemode'] or '',
-        'encoding'      : encoding or '',
-        'filetype'      : row['label'],
-        'selinux_ctx'   : row['selinux_ctx'] or '',
-        'modified'      : m_date,
+        'file_contents': contents,
+        'symlink': row['symlink'] or '',
+        'checksum_type': row['checksum_type'] or '',
+        'checksum': checksum,
+        'verify_contents': True,
+        'delim_start': row['delim_start'] or '',
+        'delim_end': row['delim_end'] or '',
+        'revision': row['revision'] or '',
+        'username': row['username'] or '',
+        'groupname': row['groupname'] or '',
+        'filemode': row['filemode'] or '',
+        'encoding': encoding or '',
+        'filetype': row['label'],
+        'selinux_ctx': row['selinux_ctx'] or '',
+        'modified': m_date,
     }

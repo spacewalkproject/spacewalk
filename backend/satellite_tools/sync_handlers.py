@@ -23,15 +23,18 @@ from spacewalk.server.importlib import channelImport, packageImport, errataImpor
     kickstartImport, importLib
 import diskImportLib
 import xmlSource
-import string # pylint: disable=W0402
+import string  # pylint: disable=W0402
 import syncCache
 import syncLib
 
 DEFAULT_ORG = 1
 
 # Singleton-like
+
+
 class BaseCollection:
     _shared_state = {}
+
     def __init__(self):
         self.__dict__ = self._shared_state
         if not self._shared_state.keys():
@@ -82,8 +85,11 @@ class BaseCollection:
         self.__init__()
 
 # Singleton-like
+
+
 class ChannelCollection:
     _shared_state = {}
+
     def __init__(self):
         self.__dict__ = self._shared_state
         if not self._shared_state.keys():
@@ -98,7 +104,7 @@ class ChannelCollection:
         channel_last_modified = channel_object['last_modified']
         last_modified = _to_timestamp(channel_last_modified)
         self._cache.cache_set(channel_label, channel_object,
-            timestamp=last_modified)
+                              timestamp=last_modified)
         t = (channel_label, last_modified)
         self._channels.append(t)
         channel_parent = channel_object.get('parent_channel')
@@ -161,6 +167,8 @@ class ChannelCollection:
         self.__init__()
 
 # pylint: disable=W0232
+
+
 class SyncHandlerContainer:
     collection = object
 
@@ -183,10 +191,12 @@ class SyncHandlerContainer:
         # Not much to do here...
         pass
 
+
 def get_sync_handler(container):
     handler = xmlSource.SatelliteDispatchHandler()
     handler.set_container(container)
     return handler
+
 
 class ChannelContainer(SyncHandlerContainer, xmlSource.ChannelContainer):
     collection = ChannelCollection
@@ -194,6 +204,7 @@ class ChannelContainer(SyncHandlerContainer, xmlSource.ChannelContainer):
 
 def get_channel_handler():
     return get_sync_handler(ChannelContainer())
+
 
 def import_channels(channels, orgid=None, master=None):
     collection = ChannelCollection()
@@ -217,13 +228,13 @@ def import_channels(channels, orgid=None, master=None):
         # requested org's channel-family.
         # TODO: Move these checks somewhere more appropriate
         if not orgid and c_obj['org_id'] is not None:
-            #If the src org is not present default to org 1
+            # If the src org is not present default to org 1
             orgid = DEFAULT_ORG
         if orgid is not None and c_obj['org_id'] is not None and \
-            c_obj['org_id'] != orgid:
-            #If we know the master this is coming from and the master org
-            #has been mapped to a local org, transform org_id to the local
-            #org_id. Otherwise just put it in the default org.
+                c_obj['org_id'] != orgid:
+            # If we know the master this is coming from and the master org
+            # has been mapped to a local org, transform org_id to the local
+            # org_id. Otherwise just put it in the default org.
             if (org_map and c_obj['org_id'] in org_map.keys()
                     and org_map[c_obj['org_id']]):
                 c_obj['org_id'] = org_map[c_obj['org_id']]
@@ -233,7 +244,7 @@ def import_channels(channels, orgid=None, master=None):
                     del(c_obj['trust_list'])
             for family in c_obj['families']:
                 family['label'] = 'private-channel-family-' + \
-                                           str(c_obj['org_id'])
+                    str(c_obj['org_id'])
         # If there's a trust list on the channel, transform the org ids to
         # the local ones
         if c_obj.has_key('trust_list') and c_obj['trust_list']:
@@ -244,7 +255,7 @@ def import_channels(channels, orgid=None, master=None):
                     trusts.append(trust)
             c_obj['trust_list'] = trusts
 
-        syncLib.log(6, "Syncing Channel %s to Org %s " % \
+        syncLib.log(6, "Syncing Channel %s to Org %s " %
                        (c_obj['label'], c_obj['org_id']))
         batch.append(c_obj)
 
@@ -255,8 +266,11 @@ def import_channels(channels, orgid=None, master=None):
     return importer
 
 # Singleton-like
+
+
 class ShortPackageCollection:
     _shared_state = {}
+
     def __init__(self):
         self.__dict__ = self._shared_state
         if not self._shared_state.keys():
@@ -283,8 +297,10 @@ class ShortPackageCollection:
         self._shared_state.clear()
         self.__init__()
 
+
 class ShortPackageContainer(SyncHandlerContainer, xmlSource.IncompletePackageContainer):
     collection = ShortPackageCollection
+
 
 def get_short_package_handler():
     return get_sync_handler(ShortPackageContainer())
@@ -299,8 +315,10 @@ class PackageCollection(ShortPackageCollection):
     def get_package_timestamp(self, package_id):
         raise NotImplementedError
 
+
 class PackageContainer(SyncHandlerContainer, xmlSource.PackageContainer):
     collection = PackageCollection
+
 
 def get_package_handler():
     return get_sync_handler(PackageContainer())
@@ -313,15 +331,20 @@ class SourcePackageCollection(ShortPackageCollection):
     def _init_cache(self):
         self._cache = syncCache.SourcePackageCache()
 
+
 class SourcePackageContainer(SyncHandlerContainer, xmlSource.SourcePackageContainer):
     collection = SourcePackageCollection
+
 
 def get_source_package_handler():
     return get_sync_handler(SourcePackageContainer())
 
 # Singleton-like
+
+
 class ErrataCollection:
     _shared_state = {}
+
     def __init__(self):
         self.__dict__ = self._shared_state
         if not self._shared_state.keys():
@@ -360,8 +383,10 @@ class ErrataCollection:
         self._shared_state.clear()
         self.__init__()
 
+
 class ErrataContainer(SyncHandlerContainer, xmlSource.ErrataContainer):
     collection = ErrataCollection
+
 
 def get_errata_handler():
     return get_sync_handler(ErrataContainer())
@@ -379,11 +404,14 @@ class KickstartableTreesCollection(BaseCollection):
     def _get_item_timestamp(self, item):
         return None
 
+
 class KickstartableTreesContainer(SyncHandlerContainer, xmlSource.KickstartableTreesContainer):
     collection = KickstartableTreesCollection
 
+
 def get_kickstarts_handler():
     return get_sync_handler(KickstartableTreesContainer())
+
 
 def import_packages(batch, sources=0):
     importer = packageImport.PackageImport(batch, diskImportLib.get_backend(), sources)
@@ -392,13 +420,15 @@ def import_packages(batch, sources=0):
     importer.status()
     return importer
 
+
 def link_channel_packages(batch, strict=1):
     importer = packageImport.ChannelPackageSubscription(batch,
-        diskImportLib.get_backend(),
-        caller="satsync.linkPackagesToChannels", strict=strict)
+                                                        diskImportLib.get_backend(),
+                                                        caller="satsync.linkPackagesToChannels", strict=strict)
     importer.run()
     importer.status()
     return importer
+
 
 def import_errata(batch):
     importer = errataImport.ErrataImport(batch, diskImportLib.get_backend())
@@ -407,12 +437,14 @@ def import_errata(batch):
     importer.status()
     return importer
 
+
 def import_kickstarts(batch):
     importer = kickstartImport.KickstartableTreeImport(batch,
-        diskImportLib.get_backend())
+                                                       diskImportLib.get_backend())
     importer.run()
     importer.status()
     return importer
+
 
 def _to_timestamp(t):
     if isinstance(t, types.IntType):
@@ -426,6 +458,8 @@ def _to_timestamp(t):
     return last_modified
 
 # Generic container handler
+
+
 class ContainerHandler:
 
     """generate and set container XML handlers"""
@@ -447,13 +481,13 @@ class ContainerHandler:
         self.setOrgContainer(master_label, create_orgs)
 
     def __del__(self):
-        self.handler.close() # kill the circular reference.
+        self.handler.close()  # kill the circular reference.
 
     def close(self):
-        self.handler.close() # kill the circular reference.
+        self.handler.close()  # kill the circular reference.
 
     def clear(self):
-        self.handler.clear() # clear the batch
+        self.handler.clear()  # clear the batch
 
     # basic functionality:
     def process(self, stream):
@@ -468,30 +502,40 @@ class ContainerHandler:
     # set arch containers:
     def setServerArchContainer(self):
         self.handler.set_container(diskImportLib.ServerArchContainer())
+
     def setPackageArchContainer(self):
         self.handler.set_container(diskImportLib.PackageArchContainer())
+
     def setChannelArchContainer(self):
         self.handler.set_container(diskImportLib.ChannelArchContainer())
+
     def setCPUArchContainer(self):
         self.handler.set_container(diskImportLib.CPUArchContainer())
+
     def setServerPackageArchContainer(self):
         self.handler.set_container(diskImportLib.ServerPackageArchCompatContainer())
+
     def setServerChannelArchContainer(self):
         self.handler.set_container(diskImportLib.ServerChannelArchCompatContainer())
+
     def setServerGroupServerArchContainer(self):
         self.handler.set_container(diskImportLib.ServerGroupServerArchCompatContainer())
+
     def setChannelPackageArchContainer(self):
         self.handler.set_container(ChannelPackageArchCompatContainer())
     # set all other containers:
+
     def setChannelFamilyContainer(self):
         self.handler.set_container(ChannelFamilyContainer())
+
     def setProductNamesContainer(self):
         self.handler.set_container(diskImportLib.ProductNamesContainer())
+
     def setOrgContainer(self, master_label, create_orgs):
         # pylint: disable=E1101,E1103
         self.handler.set_container(diskImportLib.OrgContainer())
         self.handler.get_container('rhn-orgs').set_master_and_create_org_args(
-                master_label, create_orgs)
+            master_label, create_orgs)
 
 #
 # more containers
@@ -499,9 +543,11 @@ class ContainerHandler:
 # NOTE: we use *most* the Arch Containers from diskImportLib.py
 #       this one is used simply to print out the arches.
 
+
 class ChannelPackageArchCompatContainer(diskImportLib.ChannelPackageArchCompatContainer):
 
     arches = {}
+
     def endItemCallback(self):
         diskImportLib.ChannelPackageArchCompatContainer.endItemCallback(self)
         if not self.batch:
@@ -518,6 +564,7 @@ class ChannelPackageArchCompatContainer(diskImportLib.ChannelPackageArchCompatCo
 
 
 class ChannelFamilyContainer(xmlSource.ChannelFamilyContainer):
+
     def endItemCallback(self):
         xmlSource.ChannelFamilyContainer.endItemCallback(self)
         if not self.batch:
@@ -530,8 +577,9 @@ class ChannelFamilyContainer(xmlSource.ChannelFamilyContainer):
         self.batch = []
 
         importer = channelImport.ChannelFamilyImport(batch,
-            diskImportLib.get_backend())
+                                                     diskImportLib.get_backend())
         importer.run()
+
 
 def populate_channel_family_permissions(cert):
     # Find channel families that we have imported
@@ -568,7 +616,7 @@ def populate_channel_family_permissions(cert):
         if flex is not None:
             flex = int(flex)
 
-        #we subtract flex from quantity since flex count is included
+        # we subtract flex from quantity since flex count is included
         #   in the full quantity for backwards compatibility
         cert_chfam_hash[cf.name] = [quant - flex, flex]
 
@@ -602,7 +650,6 @@ def populate_channel_family_permissions(cert):
             cfps[(cf_name, org_id)] = max_tuple
             _old_max_tuple = None
 
-
     sum_max_values = compute_sum_max_members(cfps)
     for (cf_name, org_id), (max_members, max_flex) in cfps.items():
         if org_id == 1:
@@ -621,14 +668,14 @@ def populate_channel_family_permissions(cert):
             (sum_max_mem, sum_max_flex) = sum_max_values[cf_name]
             if cert_max_value >= sum_max_mem:
                 cfps[(cf_name, 1)][0] = max_members + \
-                                  (cert_max_value - sum_max_mem)
+                    (cert_max_value - sum_max_mem)
             else:
                 purge_count = sum_max_mem - cert_max_value
                 cfps[(cf_name, 1)][0] = max_members - purge_count
 
             if cert_max_flex >= sum_max_flex:
                 cfps[(cf_name, 1)][1] = max_flex +\
-                                  (cert_max_flex - sum_max_flex)
+                    (cert_max_flex - sum_max_flex)
             else:
                 # lowering entitlements
                 flex_purge_count = sum_max_flex - cert_max_flex
@@ -636,12 +683,11 @@ def populate_channel_family_permissions(cert):
 
     # Cleanup left out suborgs
     for (cf_name, org_id), max_list in cfps.items():
-        if cfps.has_key((cf_name, 1)) and cfps[(cf_name, 1)] == None: #is None:
+        if cfps.has_key((cf_name, 1)) and cfps[(cf_name, 1)] == None:  # is None:
             cfps[(cf_name, org_id)] = None
 
-
     batch = []
-    for (cf_name, org_id), max_list  in cfps.items():
+    for (cf_name, org_id), max_list in cfps.items():
         if max_list is None:
             max_members = None
             max_flex = None
@@ -649,16 +695,17 @@ def populate_channel_family_permissions(cert):
             (max_members, max_flex) = max_list
         cfperm = importLib.ChannelFamilyPermissions()
         batch.append(cfperm.populate({
-            'channel_family'    : cf_name,
-            'org_id'            : org_id,
-            'max_members'       : max_members,
-            'max_flex'          : max_flex,
+            'channel_family': cf_name,
+            'org_id': org_id,
+            'max_members': max_members,
+            'max_flex': max_flex,
         }))
 
     importer = channelImport.ChannelFamilyPermissionsImport(batch,
-        diskImportLib.get_backend())
+                                                            diskImportLib.get_backend())
     importer.will_commit = 0
     importer.run()
+
 
 def compute_sum_max_members(cfps):
     """If a channel family appears multiple times for each org, comgine them"""
@@ -679,6 +726,8 @@ _query_fetch_existing_channel_families = rhnSQL.Statement("""
     select label
      from rhnChannelFamily cf
 """)
+
+
 def _fetch_existing_channel_families():
     h = rhnSQL.prepare(_query_fetch_existing_channel_families)
     h.execute()
@@ -702,6 +751,8 @@ _query_fetch_channel_family_permissions = rhnSQL.Statement("""
       from rhnChannelFamilyPermissions cfp, rhnChannelFamily cf
      where cfp.channel_family_id = cf.id
 """)
+
+
 def _fetch_channel_family_permissions():
     # rhnChannelFamilyPermissions is a view, but it should be safe to use
     # it for a simple join
@@ -716,6 +767,7 @@ _query_purge_private_channel_families = rhnSQL.Statement("""
         where org_id is null
           and label like '%private%'
 """)
+
 
 def purge_extra_channel_families():
     # Get rid of the extra channel families
@@ -734,6 +786,8 @@ _query_private_families = rhnSQL.Statement("""
     from rhnPrivateChannelFamily
     order by channel_family_id, org_id
 """)
+
+
 def update_channel_family_counts():
     update_family_counts_proc = rhnSQL.Procedure("rhn_channel.update_family_counts")
     h = rhnSQL.prepare(_query_private_families)
@@ -745,5 +799,3 @@ def update_channel_family_counts():
         update_family_counts_proc(row['channel_family_id'], row['org_id'])
 
     rhnSQL.commit()
-
-

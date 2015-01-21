@@ -33,7 +33,9 @@ from spacewalk.server import rhnChannel, rhnPackage, taskomatic, rhnSQL
 from rhnServer import server_lib
 from repomd import repository
 
+
 class Repository(rhnRepository.Repository):
+
     """ Cache class to perform RHN server file system and DB actions.
 
     This class gets all data from the file system and oracle.
@@ -47,7 +49,8 @@ class Repository(rhnRepository.Repository):
     The dependency solving code is not handled in this repository -
     all the code we need is already in xmlrpc/up2date
     """
-    def __init__(self, channelName = None, server_id = None, username = None):
+
+    def __init__(self, channelName=None, server_id=None, username=None):
         """Initialize the class, setting channel name and server
 
         ID, that serial number (w/o ID-), if necessary.
@@ -232,7 +235,7 @@ class Repository(rhnRepository.Repository):
         if file_name in ["repomd.xml", "comps.xml"]:
             content_type = "text/xml"
         elif file_name not in ["primary.xml.gz", "other.xml.gz",
-                "filelists.xml.gz", "updateinfo.xml.gz", "Packages.gz"]:
+                               "filelists.xml.gz", "updateinfo.xml.gz", "Packages.gz"]:
             log_debug(2, "Unknown repomd file requested: %s" % file_name)
             raise rhnFault(6)
 
@@ -249,7 +252,7 @@ class Repository(rhnRepository.Repository):
             # For file not found, queue up a regen, and return 404
             if e.errno == 2 and file_name != "comps.xml":
                 taskomatic.add_to_repodata_queue(self.channelName,
-                        "repodata request", file_name, bypass_filters=True)
+                                                 "repodata request", file_name, bypass_filters=True)
                 rhnSQL.commit()
                 # This returns 404 to the client
                 raise rhnFault(6), None, sys.exc_info()[2]
@@ -265,8 +268,8 @@ class Repository(rhnRepository.Repository):
         except AttributeError:
             pass
 
-        log_debug(4, "Using taskomatic for repomd generation: %s" \
-                % use_taskomatic)
+        log_debug(4, "Using taskomatic for repomd generation: %s"
+                  % use_taskomatic)
 
         if use_taskomatic:
             return self._repodata_taskomatic(file_name)
@@ -287,24 +290,23 @@ class Repository(rhnRepository.Repository):
         """
 
         log_debug(2, pkgFilename, redirect_capable)
-        #check for re-direct check flag from header to issue package
-        #request from client in order to avoid failover loops.
+        # check for re-direct check flag from header to issue package
+        # request from client in order to avoid failover loops.
         skip_redirect = rhnFlags.get('x-rhn-redirect')
-        log_debug(3,"check flag for X-RHN-REDIRECT  ::",skip_redirect)
+        log_debug(3, "check flag for X-RHN-REDIRECT  ::", skip_redirect)
 
-        #get the redirect and local paths
+        # get the redirect and local paths
         remotepath, localpath = self.getAllPackagePaths(pkgFilename)
 
-        #check for redirect conditions and fail over checks
+        # check for redirect conditions and fail over checks
         if redirect_capable and not CFG.SATELLITE and not skip_redirect \
-            and remotepath is not None:
+                and remotepath is not None:
             self.redirect_location = remotepath
             # We've set self.redirect_location, we're done here
-            #we throw a redirectException in _getFile method.
+            # we throw a redirectException in _getFile method.
             return None
             # Package cannot be served from the edge, we serve it ourselves
         return localpath
-
 
     def _getFile(self, path):
         """
@@ -314,24 +316,23 @@ class Repository(rhnRepository.Repository):
             raise redirectException(self.redirect_location)
         return rhnRepository.Repository._getFile(self, path)
 
-    def getAllPackagePaths(self,pkgFilename):
+    def getAllPackagePaths(self, pkgFilename):
         """
         retrives the package location if edge network location available
         and its local path.
         """
         log_debug(3, pkgFilename)
         return rhnPackage.get_all_package_paths(self.server_id, pkgFilename,
-            self.channelName)
+                                                self.channelName)
 
     def getSourcePackagePath(self, pkgFilename):
         """ Retrieves package source path
             Overloads getSourcePackagePath in common/rhnRepository.
         """
         return rhnPackage.get_source_package_path(self.server_id, pkgFilename,
-            self.channelName)
+                                                  self.channelName)
 
-
-    ### Private methods
+    # Private methods
 
     def __check_channel(self, version):
         """ check if the current channel version matches that of the client """
@@ -361,7 +362,7 @@ class Repository(rhnRepository.Repository):
         log_debug(3, filePath)
         if not CFG.CACHE_PACKAGE_HEADERS:
             return rhnRepository.Repository._getHeaderFromFile(self, filePath,
-                stat_info=stat_info)
+                                                               stat_info=stat_info)
         # Ignore stat_info for now - nobody sets it anyway
         stat_info = None
         try:
@@ -374,19 +375,19 @@ class Repository(rhnRepository.Repository):
         # OK, file exists, check the cache
         cache_key = os.path.normpath("headers/" + filePath)
         header = rhnCache.get(cache_key, modified=lastModified, raw=1,
-            compressed=1)
+                              compressed=1)
         if header:
             # We're good to go
             log_debug(2, "Header cache HIT for %s" % filePath)
             extra_headers = {
-                'X-RHN-Package-Header' : os.path.basename(filePath),
+                'X-RHN-Package-Header': os.path.basename(filePath),
             }
             self._set_last_modified(lastModified, extra_headers=extra_headers)
             return header
         log_debug(3, "Header cache MISS for %s" % filePath)
         header = rhnRepository.Repository._getHeaderFromFile(self, filePath,
-            stat_info=stat_info)
+                                                             stat_info=stat_info)
         if header:
             rhnCache.set(cache_key, header, modified=lastModified, raw=1,
-                compressed=1)
+                         compressed=1)
         return header

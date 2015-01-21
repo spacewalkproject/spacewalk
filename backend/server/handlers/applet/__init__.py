@@ -21,7 +21,7 @@ __all__ = []
 import applet
 
 rpcClasses = {
-    "applet"            : applet.Applet,
-    }
+    "applet": applet.Applet,
+}
 
 getHandler = None

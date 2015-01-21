@@ -16,6 +16,7 @@
 #   Domain Classes for generating repository metadata from RHN info.
 #
 
+
 class Channel:
 
     """ A pure data object representing an RHN Channel. """
@@ -104,6 +105,7 @@ class Erratum:
         # With something that keeps the concepts seperate.
         self.package_ids = []
         self.packages = []
+
 
 class Comps:
 

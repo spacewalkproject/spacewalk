@@ -30,11 +30,14 @@ from rhnLib import rfc822time
 from rhnException import rhnException, rhnFault, rhnNotFound
 from RPC_Base import RPC_Base
 
+
 class Repository(RPC_Base):
+
     """ Shared repository class, inherited by both the proxy and server specific
         Repository classes.
     """
-    def __init__(self, channelName = None):
+
+    def __init__(self, channelName=None):
         log_debug(2, channelName)
         RPC_Base.__init__(self)
         self.channelName = channelName
@@ -96,7 +99,7 @@ class Repository(RPC_Base):
             # Must be a client.  We'll determine the redirect capability via
             # the x-rhn-transport-capability header instead.
             transport_cap = rhnFlags.get('x-rhn-transport-capability')
-            if transport_cap :
+            if transport_cap:
                 transport_cap_list = transport_cap.split('=')
                 redirectsSupported = transport_cap_list[0] == 'follow-redirects' and transport_cap_list[1] >= 2
 
@@ -104,7 +107,7 @@ class Repository(RPC_Base):
             log_debug(3, "Client supports redirects.")
             filePath = self.getPackagePath(pkg_spec, 1)
         else:
-            #older clients just return the hosted url and download the package
+            # older clients just return the hosted url and download the package
             filePath = self.getPackagePath(pkg_spec)
 
         return self._getFile(filePath)
@@ -123,7 +126,7 @@ class Repository(RPC_Base):
         log_debug(3, pkgFilename)
         # Sanity check:
         l = pkgFilename.split('.')
-        #6/23/05 wregglej 154248, Don't mangle the filename if it's a nosrc package.
+        # 6/23/05 wregglej 154248, Don't mangle the filename if it's a nosrc package.
         if l[-2] != "nosrc":
             l[-2] = 'src'
         pkgFilename = '.'.join(l)
@@ -185,7 +188,7 @@ class Repository(RPC_Base):
                                    % os.path.basename(filePath)), None, sys.exc_info()[2]
 
         lastModified = s[stat.ST_MTIME]
-        del s # XXX: not neccessary?
+        del s  # XXX: not neccessary?
 
         # Get the package header from the file
         # since we stat()ed the file, we know it's there already
@@ -197,7 +200,7 @@ class Repository(RPC_Base):
         stringIO = cStringIO.StringIO()
         # Put the result in stringIO
         stringIO.write(h.unload())
-        del h # XXX: not neccessary?
+        del h  # XXX: not neccessary?
 
         pkgFilename = os.path.basename(filePath)
         pkg = pkgFilename.split('.')
@@ -205,7 +208,7 @@ class Repository(RPC_Base):
         pkg[-1] = "hdr"
         pkgFilename = ".".join(pkg)
         extra_headers = {
-            'X-RHN-Package-Header' : pkgFilename,
+            'X-RHN-Package-Header': pkgFilename,
         }
         self._set_last_modified(lastModified, extra_headers=extra_headers)
         rhnFlags.set("AlreadyEncoded", 1)

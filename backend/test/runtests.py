@@ -33,12 +33,11 @@ sys.path.insert(0, '../../client/rhel/rhnlib')
 import rhnsqltests
 
 
-
 def suite():
     # Append all test suites here:
     return unittest.TestSuite((
         rhnsqltests.suite(),
-   ))
+    ))
 
 if __name__ == "__main__":
     try:

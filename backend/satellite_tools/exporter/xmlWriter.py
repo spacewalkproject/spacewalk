@@ -19,7 +19,9 @@
 import re
 import sys
 
+
 class XMLWriter:
+
     """
     XML writer, UTF-8 aware
     """
@@ -35,6 +37,7 @@ class XMLWriter:
         '"': '&quot;',
         "'": '&apos;',
     }
+
     def __init__(self, stream=sys.stdout, skip_xml_decl=0):
         self.tag_stack = []
         self.stream = stream
@@ -44,12 +47,12 @@ class XMLWriter:
     def open_tag(self, name, attributes=None, namespace=None):
         "Opens a tag with the specified attributes"
         return self._open_tag(None, name, attributes=attributes,
-            namespace=namespace)
+                              namespace=namespace)
 
     def empty_tag(self, name, attributes=None, namespace=None):
         "Writes an empty tag with the specified attributes"
         return self._open_tag(1, name, attributes=attributes,
-            namespace=namespace)
+                              namespace=namespace)
 
     # Now the function that does most of the work for open_tag and empty_tag
     def _open_tag(self, empty, name, attributes=None, namespace=None):
@@ -85,7 +88,7 @@ class XMLWriter:
 
         if self.tag_stack[-1] != name:
             raise Exception, "Could not close tag %s if not opened before" \
-                    % name
+                % name
         self.tag_stack.pop()
 
         self.stream.write("</")
@@ -113,7 +116,7 @@ class XMLWriter:
         c = match_object.group()
         if self._escaped_chars.has_key(c):
             return self._escaped_chars[c]
-        #return "&#%d;" % ord(c)
+        # return "&#%d;" % ord(c)
         return '?'
 
     def flush(self):
@@ -124,12 +127,11 @@ if __name__ == '__main__':
     writer = XMLWriter()
     writer.open_tag(weirdtag)
     writer.open_tag("message")
-    writer.open_tag("text", attributes={'from' : 'Trond Eivind Glomsrød', 'to' : "Bernhard Rosenkr)Bänzer"})
+    writer.open_tag("text", attributes={'from': 'Trond Eivind Glomsrød', 'to': "Bernhard Rosenkr)Bänzer"})
     writer.data("String with \"quotes\", 'apostroph', Trond Eivind Glomsrød\n  and Bernhard Rosenkr)Bänzer")
     r = re.compile("(&|<|>|'|\"|[^\x09\x0a\x0d\x20-\xFF])")
     writer.close_tag("text")
     writer.close_tag("message")
-    writer.empty_tag("yahoo", attributes={'abc' : 1})
+    writer.empty_tag("yahoo", attributes={'abc': 1})
     writer.close_tag(weirdtag)
     print
-

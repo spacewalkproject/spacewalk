@@ -40,13 +40,14 @@ _query_copy_revs_from_shadow_action = rhnSQL.Statement("""
        and server_id = :server_id
 """)
 
+
 def schedule_deploy(server_id, action_id, dry_run=0):
     log_debug(2, server_id, action_id)
     s = rhnServer.search(server_id)
 
     # Schedule an rhncfg install
     new_action_id = server_kickstart.schedule_rhncfg_install(server_id,
-        action_id, scheduler=None)
+                                                             action_id, scheduler=None)
 
     new_action_id_2 = rhnAction.schedule_server_action(
         server_id,
@@ -55,12 +56,12 @@ def schedule_deploy(server_id, action_id, dry_run=0):
         delta_time=0, scheduler=None,
         org_id=s.server['org_id'],
         prerequisite=new_action_id,
-        )
+    )
 
     if (not dry_run):
         h = rhnSQL.prepare(_query_copy_revs_from_shadow_action)
         h.execute(action_id=action_id, new_action_id=new_action_id_2,
-            server_id=server_id)
+                  server_id=server_id)
     else:
         log_debug(4, "dry run requested")
 
@@ -79,7 +80,7 @@ def schedule_pkg_install(server_id, action_id, dry_run=0):
         action_name="Activation Key Package Auto-Install",
         delta_time=0, scheduler=None,
         org_id=s.server['org_id'],
-        )
+    )
 
     if (not dry_run):
         h = rhnSQL.prepare(_query_copy_pkgs_from_shadow_action)

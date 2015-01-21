@@ -22,6 +22,7 @@ from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL, apacheAuth
 
+
 def store_client_route(server_id):
     """ Stores the route the client took to get to hosted or the Satellite """
 
@@ -46,7 +47,6 @@ def store_client_route(server_id):
     oldRouteTuples = []
     for oldRouteDict in oldRoute:
         oldRouteTuples.append((str(oldRouteDict['proxy_server_id']), oldRouteDict['hostname']))
-
 
     # code block if there *is* routing info in the headers
     # NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py
@@ -106,8 +106,8 @@ def store_client_route(server_id):
         counter = counter + 1
 
     log_debug(5, server_ids, proxy_ids, positions,
-        proxy_hostnames)
+              proxy_hostnames)
     h.executemany(server_id=server_ids, proxy_server_id=proxy_ids,
-        position=positions, hostname=proxy_hostnames)
+                  position=positions, hostname=proxy_hostnames)
 
     rhnSQL.commit()

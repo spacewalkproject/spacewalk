@@ -28,7 +28,7 @@ _query_initiate = rhnSQL.Statement("""
      where ak.action_id = :action_id
 """)
 
-_query_file_list_initiate= rhnSQL.Statement("""
+_query_file_list_initiate = rhnSQL.Statement("""
     select distinct rcfn.path
       from rhnActionKickstartFileList akfl,
            rhnFileListMembers rflm,
@@ -39,6 +39,7 @@ _query_file_list_initiate= rhnSQL.Statement("""
        and akfl.action_ks_id = ak.id
        and ak.action_id = :action_id
 """)
+
 
 def initiate(server_id, action_id, dry_run=0):
     log_debug(3)
@@ -52,7 +53,7 @@ def initiate(server_id, action_id, dry_run=0):
     kickstart_host = row['kickstart_host']
     system_record = row['cobbler_system_name']
     if system_record == None:
-       system_record = ''
+        system_record = ''
     if not boot_image:
         raise InvalidAction("Boot image missing")
     if not kickstart_host:
@@ -64,13 +65,14 @@ def initiate(server_id, action_id, dry_run=0):
 
     return (kickstart_host, boot_image, append_string, static_device, system_record, files)
 
+
 def schedule_sync(server_id, action_id, dry_run=0):
     log_debug(3, server_id, action_id)
     if dry_run:
         raise ShadowAction("dry run requested - skipping")
 
     kickstart_session_id = server_kickstart.get_kickstart_session_id(server_id,
-        action_id)
+                                                                     action_id)
 
     if kickstart_session_id is None:
         raise InvalidAction("Could not find kickstart session ID")
@@ -79,7 +81,7 @@ def schedule_sync(server_id, action_id, dry_run=0):
     deploy_configs = (row['deploy_configs'] == 'Y')
 
     ks_package_profile = server_kickstart.get_kisckstart_session_package_profile(kickstart_session_id)
-    #if the session doesn't have a pkg profile, try from the ks profile itself
+    # if the session doesn't have a pkg profile, try from the ks profile itself
     if not ks_package_profile:
         ks_package_profile = server_kickstart.get_kickstart_profile_package_profile(kickstart_session_id)
 
@@ -94,14 +96,14 @@ def schedule_sync(server_id, action_id, dry_run=0):
             server_profile = None
 
         server_kickstart.schedule_config_deploy(server_id,
-            action_id, kickstart_session_id, server_profile=server_profile)
+                                                action_id, kickstart_session_id, server_profile=server_profile)
         raise ShadowAction("Package sync not scheduled, missing kickstart "
-            "package profile; proceeding with configfiles.deploy")
+                           "package profile; proceeding with configfiles.deploy")
 
     server_profile = server_kickstart.get_server_package_profile(server_id)
 
     installs, removes = server_packages.package_delta(server_profile,
-        ks_package_profile)
+                                                      ks_package_profile)
 
     if not (installs or removes):
         log_debug(4, "No packages to be installed/removed")
@@ -109,11 +111,11 @@ def schedule_sync(server_id, action_id, dry_run=0):
             server_profile = None
 
         server_kickstart.schedule_config_deploy(server_id,
-            action_id, kickstart_session_id, server_profile=None)
+                                                action_id, kickstart_session_id, server_profile=None)
         raise ShadowAction("Package sync not scheduled, nothing to do")
 
     log_debug(4, "Scheduling kickstart delta")
     server_kickstart.schedule_kickstart_delta(server_id,
-        kickstart_session_id, installs, removes)
+                                              kickstart_session_id, installs, removes)
 
     raise ShadowAction("Package sync scheduled")

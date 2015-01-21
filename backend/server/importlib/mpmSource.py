@@ -34,11 +34,11 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
             del tagMap[t]
 
     def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,
-            channels=[]):
+                 channels=[]):
 
         # call to base class method
         headerSource.rpmBinaryPackage.populate(self, header, size, checksum_type, checksum, path,
-            org_id, channels)
+                                               org_id, channels)
 
         srpm = self.get('source_rpm', '')
         if srpm == '':
@@ -60,14 +60,14 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
 
     def _populateDependencyInformation(self, header):
         mapping = {
-            'provides'  : headerSource.rpmProvides,
-            'requires'  : headerSource.rpmRequires,
-            'conflicts' : headerSource.rpmConflicts,
-            'obsoletes' : headerSource.rpmObsoletes,
+            'provides': headerSource.rpmProvides,
+            'requires': headerSource.rpmRequires,
+            'conflicts': headerSource.rpmConflicts,
+            'obsoletes': headerSource.rpmObsoletes,
             'recommends': headerSource.rpmRecommends,
             'supplements': headerSource.rpmSupplements,
-            'enhances'  : headerSource.rpmEnhances,
-            'suggests'  : headerSource.rpmSuggests,
+            'enhances': headerSource.rpmEnhances,
+            'suggests': headerSource.rpmSuggests,
         }
 
         for k, dclass in mapping.items():
@@ -97,19 +97,20 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
 
 # top-level package object creation --------------------------------------
 
+
 def create_package(header, size, checksum_type, checksum, relpath, org_id, header_start=None,
-    header_end=None, channels=[]):
+                   header_end=None, channels=[]):
     if header.packaging == 'rpm':
         return headerSource.createPackage(header, size=size,
-            checksum_type=checksum_type, checksum=checksum,
-            relpath=relpath, org_id=org_id, header_start=header_start,
-            header_end=header_end, channels=channels)
+                                          checksum_type=checksum_type, checksum=checksum,
+                                          relpath=relpath, org_id=org_id, header_start=header_start,
+                                          header_end=header_end, channels=channels)
     if header.packaging == 'deb':
         return debPackage.debBinaryPackage(header, size=size, checksum_type=checksum_type, checksum=checksum, path=relpath,
-            org_id=org_id, channels=channels)
+                                           org_id=org_id, channels=channels)
     if header.is_source:
         raise NotImplementedError()
     p = mpmBinaryPackage()
     p.populate(header, size=size, checksum_type=checksum_type, checksum=checksum, path=relpath,
-        org_id=org_id, channels=channels)
+               org_id=org_id, channels=channels)
     return p

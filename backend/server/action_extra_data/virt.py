@@ -17,44 +17,55 @@ from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug
 
 
-__rhnexport__ = [   'schedulePoller',
-                    'reboot',
-                    'resume',
-                    'start',
-                    'suspend',
-                    'shutdown',
-                    'destroy',
-                    'setMemory',
-                    'setVCPUs'
-                ]
+__rhnexport__ = ['schedulePoller',
+                 'reboot',
+                 'resume',
+                 'start',
+                 'suspend',
+                 'shutdown',
+                 'destroy',
+                 'setMemory',
+                 'setVCPUs'
+                 ]
+
+
 def _do_nothing(server_id, action_id):
     log_debug(4, action_id)
     action_status = rhnFlags.get('action_status')
     log_debug(4, "Action ID: %s, Action Status: %s" % (str(action_id), str(action_status)))
 
+
 def schedulePoller(server_id, action_id, data={}):
     _do_nothing(server_id, action_id)
+
 
 def reboot(server_id, action_id, data={}):
     _do_nothing(server_id, action_id)
 
+
 def resume(server_id, action_id, data={}):
     _do_nothing(server_id, action_id)
+
 
 def start(server_id, action_id, data={}):
     _do_nothing(server_id, action_id)
 
+
 def suspend(server_id, action_id, data={}):
     _do_nothing(server_id, action_id)
+
 
 def shutdown(server_id, action_id, data={}):
     _do_nothing(server_id, action_id)
 
+
 def destroy(server_id, action_id, data={}):
     _do_nothing(server_id, action_id)
 
+
 def setMemory(server_id, action_id, data={}):
     _do_nothing(server_id, action_id)
+
 
 def setVCPUs(server_id, action_id, data={}):
     _do_nothing(server_id, action_id)

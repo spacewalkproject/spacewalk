@@ -40,19 +40,19 @@ verbose = 0
 
 options_table = [
     Option("--update-package-files", action="store_true",
-        help="Update package files (bugs #659348, #652852)"),
+           help="Update package files (bugs #659348, #652852)"),
     Option("--update-sha256", action="store_true",
-        help="Update SHA-256 capable packages"),
+           help="Update SHA-256 capable packages"),
     Option("--update-filer", action="store_true",
-        help="Convert filer structure"),
+           help="Convert filer structure"),
     Option("--update-kstrees", action="store_true",
-        help="Fix kickstart trees permissions"),
+           help="Fix kickstart trees permissions"),
     Option("--update-changelog", action="store_true",
-        help="Fix incorrectly encoded package changelog data"),
+           help="Fix incorrectly encoded package changelog data"),
     Option("-v", "--verbose", action="count",
-        help="Increase verbosity"),
+           help="Increase verbosity"),
     Option("--debug", action="store_true",
-        help="Log the debug information to a log file"),
+           help="Log the debug information to a log file"),
 ]
 
 
@@ -126,6 +126,7 @@ _update_pkg_path_query = """
     where id = :the_id
 """
 
+
 def process_package_data():
     if debug:
         log = rhnLog('/var/log/rhn/update-packages.log', 5)
@@ -141,7 +142,7 @@ def process_package_data():
         return
     if verbose:
         print "Processing %s packages" % len(paths)
-    pb = ProgressBar(prompt='standby: ', endTag=' - Complete!', \
+    pb = ProgressBar(prompt='standby: ', endTag=' - Complete!',
                      finalSize=len(paths), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
     skip_list = []
@@ -155,13 +156,13 @@ def process_package_data():
         # pylint: disable=W0703
         try:
             nevra = parseRPMFilename(old_path_nvrea[-1])
-            if nevra[1] in [ None, '']:
+            if nevra[1] in [None, '']:
                 nevra[1] = path['epoch']
         except Exception:
             # probably not an rpm skip
             if debug:
-                log.writeMessage("Skipping: %s Not a valid rpm" \
-                                  % old_path_nvrea[-1])
+                log.writeMessage("Skipping: %s Not a valid rpm"
+                                 % old_path_nvrea[-1])
             continue
         old_abs_path = os.path.join(CFG.MOUNT_POINT, path['path'])
 
@@ -171,9 +172,9 @@ def process_package_data():
                                     checksum=checksum)
         new_abs_path = os.path.join(CFG.MOUNT_POINT, new_path)
 
-        bad_abs_path = os.path.join(CFG.MOUNT_POINT, \
-                   get_package_path(nevra, org_id, prepend=old_path_nvrea[0],
-                             omit_epoch = True, checksum=checksum))
+        bad_abs_path = os.path.join(CFG.MOUNT_POINT,
+                                    get_package_path(nevra, org_id, prepend=old_path_nvrea[0],
+                                                     omit_epoch=True, checksum=checksum))
 
         if not os.path.exists(old_abs_path):
             if os.path.exists(new_abs_path):
@@ -187,7 +188,7 @@ def process_package_data():
             else:
                 skip_list.append(old_abs_path)
                 if debug:
-                    log.writeMessage("Missing path %s for package %d" % ( old_abs_path, path['id']))
+                    log.writeMessage("Missing path %s for package %d" % (old_abs_path, path['id']))
                 continue
 
         # pylint: disable=W0703
@@ -206,8 +207,8 @@ def process_package_data():
             new_abs_dir = os.path.dirname(new_abs_path)
             # relocate the package on the filer
             if debug:
-                log.writeMessage("Relocating %s to %s on filer" \
-                           % (old_abs_path, new_abs_path))
+                log.writeMessage("Relocating %s to %s on filer"
+                                 % (old_abs_path, new_abs_path))
             if not os.path.isdir(new_abs_dir):
                 os.makedirs(new_abs_dir)
             shutil.move(old_abs_path, new_abs_path)
@@ -217,15 +218,15 @@ def process_package_data():
             os.chmod(new_abs_path, 0644)
 
         # Update the db paths
-        _update_package_path.execute(the_id= path['id'], \
-                             new_path = new_path )
+        _update_package_path.execute(the_id=path['id'],
+                                     new_path=new_path)
         if debug:
-            log.writeMessage("query Executed: update rhnPackage %d to %s" \
-                               % ( path['id'], new_path ))
+            log.writeMessage("query Executed: update rhnPackage %d to %s"
+                             % (path['id'], new_path))
         # Process gpg key ids
         server_packages.processPackageKeyAssociations(hdr, checksum_type, checksum)
         if debug:
-            log.writeMessage("gpg key info updated from %s" % new_abs_path )
+            log.writeMessage("gpg key info updated from %s" % new_abs_path)
         i = i + 1
         # we need to break the transaction to smaller pieces
         if i % 1000 == 0:
@@ -239,6 +240,7 @@ def process_package_data():
     if len(new_ok_list) > 0 and verbose:
         print " There were %s packages found in the correct location" % len(new_ok_list)
     return
+
 
 def process_kickstart_trees():
     for root, _dirs, files in os.walk(CFG.MOUNT_POINT + "/rhn/"):
@@ -298,6 +300,7 @@ begin
 end;
 """
 
+
 def process_sha256_packages():
     if debug:
         log = rhnLog('/var/log/rhn/update-packages.log', 5)
@@ -316,7 +319,7 @@ def process_sha256_packages():
     if verbose:
         print "Processing %s SHA256 capable packages" % len(packages)
 
-    pb = ProgressBar(prompt='standby: ', endTag=' - Complete!', \
+    pb = ProgressBar(prompt='standby: ', endTag=' - Complete!',
                      finalSize=len(packages), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
 
@@ -332,7 +335,7 @@ def process_sha256_packages():
             log.writeMessage("Processing package: %s" % old_abs_path)
         temp_file = open(old_abs_path, 'rb')
         header, _payload_stream, _header_start, _header_end = \
-                rhnPackageUpload.load_package(temp_file)
+            rhnPackageUpload.load_package(temp_file)
         checksum_type = header.checksum_type()
         checksum = getFileChecksum(checksum_type, file_obj=temp_file)
 
@@ -378,7 +381,7 @@ def process_sha256_packages():
 
         # Update checksum of every single file in a package
         for i, f in enumerate(header['filenames']):
-            csum  = header['filemd5s'][i]
+            csum = header['filemd5s'][i]
 
             # Do not update checksums for directories & links
             if not csum:
@@ -469,12 +472,13 @@ package_repodata_delete = """
          where package_id = :pid
 """
 
+
 def process_package_files():
     def parse_header(header):
         checksum_type = rhn_rpm.RPM_Header(header).checksum_type()
         return mpmSource.create_package(header, size=0,
-            checksum_type=checksum_type, checksum=None, relpath=None,
-            org_id=None, header_start=None, header_end=None, channels=[])
+                                        checksum_type=checksum_type, checksum=None, relpath=None,
+                                        org_id=None, header_start=None, header_end=None, channels=[])
 
     package_name_h = rhnSQL.prepare(package_name_query)
 
@@ -499,7 +503,7 @@ def process_package_files():
 
     while (True):
         row = package_query_h.fetchone_dict()
-        if not row: # No more packages in DB to process
+        if not row:  # No more packages in DB to process
             break
 
         package_path = os.path.join(CFG.MOUNT_POINT, row['path'])
@@ -523,35 +527,35 @@ def process_package_files():
             # Number of package files on disk and in the DB do not match
             # (possibly a bug #652852). We have to correct them one by one.
             package_capabilities_h.execute(pid=row['id'])
-            pkg_caps = {} # file-name : capabilities dictionary
+            pkg_caps = {}  # file-name : capabilities dictionary
             for cap in package_capabilities_h.fetchall_dict() or []:
                 pkg_caps[cap['name']] = cap
 
             for f in parse_header(hdr)['files']:
                 if pkg_caps.has_key(f['name']):
-                    continue # The package files exists in the DB
+                    continue  # The package files exists in the DB
 
                 # Insert the missing package file into DB
                 insert_packagefile_h.execute(pid=row['id'], name=f['name'],
-                    ctype=f['checksum_type'], csum=f['checksum'], device=f['device'],
-                    inode=f['inode'], file_mode=f['file_mode'], username=f['username'],
-                    groupname=f['groupname'], rdev=f['rdev'], file_size=f['file_size'],
-                    mtime=f['mtime'], linkto=f['linkto'], flags=f['flags'],
-                    verifyflags=f['verifyflags'], lang=f['lang'])
+                                             ctype=f['checksum_type'], csum=f['checksum'], device=f['device'],
+                                             inode=f['inode'], file_mode=f['file_mode'], username=f['username'],
+                                             groupname=f['groupname'], rdev=f['rdev'], file_size=f['file_size'],
+                                             mtime=f['mtime'], linkto=f['linkto'], flags=f['flags'],
+                                             verifyflags=f['verifyflags'], lang=f['lang'])
                 pkg_updates += 1
 
             if debug and pkg_updates:
-                log.writeMessage("Package id: %s, name: %s, %s files inserted" % \
-                    (row['id'], package_name(row['id']), pkg_updates))
+                log.writeMessage("Package id: %s, name: %s, %s files inserted" %
+                                 (row['id'], package_name(row['id']), pkg_updates))
         elif row['nonnullcsums'] == 0:
             # All package files in the DB have null checksum (possibly a bug #659348)
             package_capabilities_h.execute(pid=row['id'])
-            pkg_caps = {} # file-name : capabilities dictionary
+            pkg_caps = {}  # file-name : capabilities dictionary
             for cap in package_capabilities_h.fetchall_dict() or []:
                 pkg_caps[cap['name']] = cap
 
             for f in parse_header(hdr)['files']:
-                if f['checksum'] == '': # Convert empty string (symlinks) to None to match w/ Oracle returns
+                if f['checksum'] == '':  # Convert empty string (symlinks) to None to match w/ Oracle returns
                     f['checksum'] = None
 
                 caps = pkg_caps[f['name']]
@@ -559,18 +563,19 @@ def process_package_files():
                 if not caps['checksum'] == f['checksum']:
                     # Package file exists, but its checksum in the DB is incorrect
                     update_packagefile_checksum_h.execute(ctype=f['checksum_type'], csum=f['checksum'],
-                        pid=caps['package_id'], cid=caps['capability_id'])
+                                                          pid=caps['package_id'], cid=caps['capability_id'])
                     pkg_updates += 1
 
             if debug and pkg_updates:
-                log.writeMessage("Package id: %s, name: %s, %s checksums updated" % \
-                    (row['id'], package_name(row['id']), pkg_updates))
+                log.writeMessage("Package id: %s, name: %s, %s checksums updated" %
+                                 (row['id'], package_name(row['id']), pkg_updates))
 
         if pkg_updates:
             log.writeMessage("Package id: %s, purging rhnPackageRepoData" % row['id'])
             delete_package_repodata(row['id'])
 
-        rhnSQL.commit() # End of a package
+        rhnSQL.commit()  # End of a package
+
 
 def process_changelog():
     def convert(u):
@@ -606,7 +611,6 @@ def process_changelog():
     if debug:
         log = rhnLog('/var/log/rhn/update-packages.log', 5)
 
-
     query_count = rhnSQL.prepare(_non_ascii_changelog_data_count)
     query_count.execute()
     nrows = query_count.fetchall_dict()[0]['cnt']
@@ -624,7 +628,7 @@ def process_changelog():
     if verbose:
         print "Processing %s non-ASCII changelog entries" % nrows
 
-    pb = ProgressBar(prompt='standby: ', endTag=' - Complete!', \
+    pb = ProgressBar(prompt='standby: ', endTag=' - Complete!',
                      finalSize=nrows, finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
 
@@ -633,7 +637,7 @@ def process_changelog():
 
     while (True):
         row = query.fetchone_dict()
-        if not row: # No more packages in DB to process
+        if not row:  # No more packages in DB to process
             break
 
         pb.addTo(1)
@@ -656,7 +660,6 @@ def process_changelog():
             if debug and verbose:
                 log.writeMessage("Fixing record %s: text: '%s'" % (row['id'], row['text']))
             update_text.execute(id=row['id'], text=text_fixed)
-
 
         rhnSQL.commit()
 

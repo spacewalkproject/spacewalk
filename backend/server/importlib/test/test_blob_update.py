@@ -32,20 +32,21 @@ from spacewalk.server import rhnSQL
 from spacewalk.server.importlib.backendLib import Table, DBblob, DBint, TableUpdate, \
     TableInsert
 
+
 def main():
     rhnSQL.initDB()
 
     blob_values1 = [
         # Regular update
-        [ 1, 1,     'value 11', 'value 12', 1],
-        [ 2, 1,     'value 21', 'value 22', 2 ],
+        [1, 1,     'value 11', 'value 12', 1],
+        [2, 1,     'value 21', 'value 22', 2],
         # Update with one of the primary keys being None
-        [ 3, None,  'value 31', 'value 32', 3 ],
-        [ 4, None,  'value 41', 'value 42', 4 ],
+        [3, None,  'value 31', 'value 32', 3],
+        [4, None,  'value 41', 'value 42', 4],
         # Test for writing an empty string into the blob
-        [ 5, 5,     '',         'value 52', 5 ],
+        [5, 5,     '',         'value 52', 5],
         # Test for writing a shorter string into the blob
-        [ 6, 6,     'value 61', 'value 62', 6 ],
+        [6, 6,     'value 61', 'value 62', 6],
     ]
     newval1_1 = 'new value 11'
     newval1_2 = 'new value 12'
@@ -65,17 +66,17 @@ def main():
     blob_values2[5][2:5] = [newval6_1, newval6_2, 4]
 
     test_blob_update = Table("test_blob_update",
-        fields = {
-            'id1'   : DBint(),
-            'id2'   : DBint(),
-            'val1'  : DBblob(),
-            'val2'  : DBblob(),
-            'nval'  : DBint(),
-        },
-        # Setting the nullable column to be the first one, to force a specific codepath
-        pk = ['id2', 'id1'],
-        nullable = ['id2'],
-    )
+                             fields={
+                                 'id1': DBint(),
+                                 'id2': DBint(),
+                                 'val1': DBblob(),
+                                 'val2': DBblob(),
+                                 'nval': DBint(),
+                             },
+                             # Setting the nullable column to be the first one, to force a specific codepath
+                             pk=['id2', 'id1'],
+                             nullable=['id2'],
+                             )
 
     fields = ['id1', 'id2', 'val1', 'val2', 'nval']
     setup(test_blob_update, blob_values1, fields)
@@ -92,6 +93,7 @@ def main():
 
     print "Updates test"
     verify(blob_values2)
+
 
 def _build_update_hash(fields, blob_values, rows):
     values = {}
@@ -122,6 +124,7 @@ def setup(table, blob_values, fields):
     t.query(hash_values)
     rhnSQL.commit()
 
+
 def verify(blob_values):
     q = """
         select val1, val2 from test_blob_update where id1 = :id1 and %s
@@ -131,7 +134,7 @@ def verify(blob_values):
         i2 = v[1]
         v1 = v[2]
         v2 = v[3]
-        hval = {'id1' : i1}
+        hval = {'id1': i1}
         if i2 is None:
             s = "id2 is null"
         else:

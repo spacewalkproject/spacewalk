@@ -22,7 +22,9 @@ import time
 import unittest
 from spacewalk.common import rhnLib
 
+
 class Tests(unittest.TestCase):
+
     def _test_timestamp_1(self):
         # Start with some timestamp, and verify that
         # timestamp(strftime(t)) is # t
@@ -44,7 +46,7 @@ class Tests(unittest.TestCase):
         t = int(t)
         tstr = self._str(t)
         t2 = int(rhnLib.timestamp(tstr))
-        return (t+dstshift == t2), t, tstr, t2
+        return (t + dstshift == t2), t, tstr, t2
 
     def _test_timestamp_2(self):
         y = 1969
@@ -73,4 +75,3 @@ class Tests(unittest.TestCase):
 
 if __name__ == '__main__':
     sys.exit(unittest.main() or 0)
-

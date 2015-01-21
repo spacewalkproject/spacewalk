@@ -21,6 +21,7 @@ from spacewalk.server import rhnSQL
 
 __rhnexport__ = ['xccdf_eval']
 
+
 def xccdf_eval(server_id, action_id, data={}):
     log_debug(3)
     h = rhnSQL.prepare(_query_clear_tresult)
@@ -41,9 +42,9 @@ def xccdf_eval(server_id, action_id, data={}):
         return
     if len(profiles) != 1 or len(testresults) != 1:
         log_error('Scap report containst multiple results',
-            len(profiles), len(testresults))
+                  len(profiles), len(testresults))
     _process_testresult(testresults[0], server_id, action_id, benchmark,
-        profiles[0], data['errors'])
+                        profiles[0], data['errors'])
 
 
 def _process_testresult(tr, server_id, action_id, benchmark, profile, errors):
@@ -53,26 +54,27 @@ def _process_testresult(tr, server_id, action_id, benchmark, profile, errors):
 
     h = rhnSQL.prepare(_query_insert_tresult, blob_map={'errors': 'errors'})
     h.execute(server_id=server_id,
-        action_id=action_id,
-        bench_id=_truncate(benchmark.getAttribute('id'), 120),
-        bench_version=_truncate(benchmark.getAttribute('version'), 80),
-        profile_id=profile.getAttribute('id'),
-        profile_title=_truncate(profile.getAttribute('title'), 120),
-        identifier=_truncate(tr.getAttribute('id'), 120),
-        start_time=start_time.replace('T',' '),
-        end_time=tr.getAttribute('end-time').replace('T', ' '),
-        errors=errors
-        )
+              action_id=action_id,
+              bench_id=_truncate(benchmark.getAttribute('id'), 120),
+              bench_version=_truncate(benchmark.getAttribute('version'), 80),
+              profile_id=profile.getAttribute('id'),
+              profile_title=_truncate(profile.getAttribute('title'), 120),
+              identifier=_truncate(tr.getAttribute('id'), 120),
+              start_time=start_time.replace('T', ' '),
+              end_time=tr.getAttribute('end-time').replace('T', ' '),
+              errors=errors
+              )
     h = rhnSQL.prepare(_query_get_tresult)
     h.execute(server_id=server_id, action_id=action_id)
     testresult_id = h.fetchone()[0]
     if not _process_ruleresults(testresult_id, tr):
         h = rhnSQL.prepare(_query_update_errors, blob_map={'errors': 'errors'})
         h.execute(testresult_id=testresult_id,
-            errors=errors +
-            '\nSome text strings were truncated when saving to the database.')
+                  errors=errors +
+                  '\nSome text strings were truncated when saving to the database.')
 
 truncated = False
+
 
 def _process_ruleresults(testresult_id, tr):
     global truncated
@@ -92,24 +94,28 @@ def _process_ruleresults(testresult_id, tr):
     _store_idents(inserts)
     return not truncated
 
+
 def _truncate(string, max_len):
     global truncated
     if len(string) > max_len:
         truncated = True
-        return string[:max_len-3] + "..."
+        return string[:max_len - 3] + "..."
     return string
+
 
 def _create_rresult(testresult_id, result_label):
     rr_id = rhnSQL.Sequence("rhn_xccdf_rresult_id_seq")()
     h = rhnSQL.prepare(_query_insert_rresult)
     h.execute(rr_id=rr_id, testresult_id=testresult_id,
-            result_label=result_label)
+              result_label=result_label)
     return rr_id
+
 
 def _store_idents(data):
     h = rhnSQL.prepare(_query_insert_identmap)
     rowcount = h.execute_bulk(data)
     log_debug(5, "Inserted xccdf_ruleresults rows:", rowcount)
+
 
 def _get_text(node):
     rc = []
@@ -118,7 +124,9 @@ def _get_text(node):
             rc.append(node.data)
     return ''.join(rc)
 
+
 class _dummyDefaultProfile:
+
     def getAttribute(self, name):
         if name == 'id':
             return 'None'
@@ -194,4 +202,3 @@ update rhnXccdfTestresult
 set errors = :errors
 where id = :testresult_id
 """)
-

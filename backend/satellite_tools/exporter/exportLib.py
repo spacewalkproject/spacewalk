@@ -20,7 +20,9 @@ from spacewalk.common import rhnLib
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL
 
+
 class ArrayIterator:
+
     def __init__(self, arr):
         self._arr = arr
         if self._arr:
@@ -41,8 +43,10 @@ class ArrayIterator:
             self._pos = None
         return self._arr[i]
 
+
 class BaseDumper:
     # tag_name has to be set in subclasses
+
     def __init__(self, writer, data_iterator=None):
         self._writer = writer
         self._attributes = {}
@@ -106,6 +110,7 @@ class BaseDumper:
 
 
 class EmptyDumper(BaseDumper):
+
     def __init__(self, writer, tag_name, attributes=None):
         self.tag_name = tag_name
         self.attributes = attributes or {}
@@ -114,7 +119,9 @@ class EmptyDumper(BaseDumper):
     def dump(self):
         self._writer.empty_tag(self.tag_name, attributes=self.attributes)
 
+
 class SimpleDumper(BaseDumper):
+
     def __init__(self, writer, tag_name, value, max_value_bytes=None):
         self.tag_name = tag_name
         self._value = value
@@ -133,11 +140,14 @@ class SimpleDumper(BaseDumper):
 
 
 class BaseRowDumper(BaseDumper):
+
     def __init__(self, writer, row):
         BaseDumper.__init__(self, writer)
         self._row = row
 
+
 class BaseChecksumRowDumper(BaseRowDumper):
+
     def set_iterator(self):
         # checksums
         checksum_arr = [{'type':  self._row['checksum_type'],
@@ -145,8 +155,10 @@ class BaseChecksumRowDumper(BaseRowDumper):
         arr = [_ChecksumDumper(self._writer, data_iterator=ArrayIterator(checksum_arr))]
         return ArrayIterator(arr)
 
+
 class BaseQueryDumper(BaseDumper):
     iterator_query = None
+
     def set_iterator(self):
         if self._iterator:
             return self._iterator
@@ -154,16 +166,20 @@ class BaseQueryDumper(BaseDumper):
         h.execute()
         return h
 
+
 class BaseSubelementDumper(BaseDumper):
     # pylint: disable=E1101
     subelement_dumper_class = object
+
     def dump_subelement(self, data):
         d = self.subelement_dumper_class(self._writer, data)
         d.dump()
 
 ####
 
+
 class ExportTypeDumper(BaseDumper):
+
     def __init__(self, writer, start_date=None, end_date=None):
         if start_date:
             self.type = 'incremental'
@@ -189,6 +205,7 @@ class ExportTypeDumper(BaseDumper):
             self._writer.stream.write(self.end_date)
             self._writer.close_tag('export-end-date')
 
+
 class SatelliteDumper(BaseDumper):
     tag_name = 'rhn-satellite'
 
@@ -198,20 +215,22 @@ class SatelliteDumper(BaseDumper):
 
     def set_attributes(self):
         return {
-            'version'   : 'x.y',
+            'version': 'x.y',
         }
 
     def set_iterator(self):
         return ArrayIterator(self._dumpers)
+
 
 class _OrgTrustDumper(BaseDumper):
     tag_name = 'rhn-org-trusts'
 
     def dump_subelement(self, data):
         c = EmptyDumper(self._writer, 'rhn-org-trust', attributes={
-                'org-id' : data['org_trust_id'],
+            'org-id': data['org_trust_id'],
         })
         c.dump()
+
 
 class _OrgDumper(BaseDumper):
     tag_name = 'rhn-org'
@@ -234,10 +253,11 @@ class _OrgDumper(BaseDumper):
 
     def set_attributes(self):
         attributes = {
-            'id'            : self.org['id'],
-            'name'          : self.org['name'],
+            'id': self.org['id'],
+            'name': self.org['name'],
         }
         return attributes
+
 
 class OrgsDumper(BaseDumper):
     tag_name = 'rhn-orgs'
@@ -249,14 +269,16 @@ class OrgsDumper(BaseDumper):
         org = _OrgDumper(self._writer, data)
         org.dump()
 
+
 class ChannelTrustedOrgsDumper(BaseDumper):
     tag_name = 'rhn-channel-trusted-orgs'
 
     def dump_subelement(self, data):
         d = EmptyDumper(self._writer, 'rhn-channel-trusted-org',
-                attributes={'org-id' : data['org_trust_id'],
-        })
+                        attributes={'org-id': data['org_trust_id'],
+                                    })
         d.dump()
+
 
 class _ChannelDumper(BaseRowDumper):
     tag_name = 'rhn-channel'
@@ -279,14 +301,14 @@ class _ChannelDumper(BaseRowDumper):
         ks_trees = self._get_kickstartable_trees()
 
         return {
-            'channel-id'    : 'rhn-channel-%s' % channel_id,
-            'label'         : self._row['label'],
-            'org_id'        : self._row['org_id'] or "",
-            'channel-arch'  : self._row['channel_arch'],
-            'packages'      : ' '.join(packages),
-            'channel-errata' : ' '.join(errata),
-            'kickstartable-trees'   : ' '.join(ks_trees),
-            'sharing'       : self._row['channel_access'],
+            'channel-id': 'rhn-channel-%s' % channel_id,
+            'label': self._row['label'],
+            'org_id': self._row['org_id'] or "",
+            'channel-arch': self._row['channel_arch'],
+            'packages': ' '.join(packages),
+            'channel-errata': ' '.join(errata),
+            'kickstartable-trees': ' '.join(ks_trees),
+            'sharing': self._row['channel_access'],
         }
 
     _query_channel_families = rhnSQL.Statement("""
@@ -325,21 +347,21 @@ class _ChannelDumper(BaseRowDumper):
             arr.append(SimpleDumper(self._writer, k, self._row[v]))
 
         arr.append(SimpleDumper(self._writer, 'rhn-channel-last-modified',
-            _dbtime2timestamp(self._row['last_modified']))
-        )
+                                _dbtime2timestamp(self._row['last_modified']))
+                   )
         channel_product_details = self._get_channel_product_details()
         arr.append(SimpleDumper(self._writer, 'rhn-channel-product-name',
-            channel_product_details[0]))
+                                channel_product_details[0]))
         arr.append(SimpleDumper(self._writer, 'rhn-channel-product-version',
-            channel_product_details[1]))
+                                channel_product_details[1]))
         arr.append(SimpleDumper(self._writer, 'rhn-channel-product-beta',
-            channel_product_details[2]))
+                                channel_product_details[2]))
 
         comp_last_modified = self._channel_comps_last_modified()
         if comp_last_modified != None:
             arr.append(SimpleDumper(self._writer, 'rhn-channel-comps-last-modified',
-                _dbtime2timestamp(comp_last_modified[0]))
-            )
+                                    _dbtime2timestamp(comp_last_modified[0]))
+                       )
 
         h = rhnSQL.prepare(self._query_get_channel_trusts)
         h.execute(channel_id=channel_id)
@@ -348,7 +370,7 @@ class _ChannelDumper(BaseRowDumper):
         h = rhnSQL.prepare(self._query_channel_families)
         h.execute(channel_id=channel_id)
         arr.append(ChannelFamiliesDumper(self._writer, data_iterator=h,
-            ignore_subelements=1))
+                                         ignore_subelements=1))
 
         h = rhnSQL.prepare(self._query_dist_channel_map)
         h.execute(channel_id=channel_id)
@@ -432,17 +454,16 @@ class _ChannelDumper(BaseRowDumper):
             )
      """)
 
-
     # Things that can be overwriten in subclasses
     def _get_package_ids(self):
         if self.start_date and self.whole_errata:
             return self._get_ids(self._query_pkgids_by_date_whole_errata,
-                             self._query_get_pkgids_by_rhndate_whole_errata,
-                             self._query_get_package_ids)
+                                 self._query_get_pkgids_by_rhndate_whole_errata,
+                                 self._query_get_package_ids)
         else:
             return self._get_ids(self._query_get_package_ids_by_date_limits,
-                             self._query_get_package_ids_by_rhndate_limits,
-                             self._query_get_package_ids)
+                                 self._query_get_package_ids_by_rhndate_limits,
+                                 self._query_get_package_ids)
 
     def _get_ids(self, query_with_limit, query_with_rhnlimit, query_no_limits):
         query_args = {'channel_id': self._row['id']}
@@ -471,6 +492,7 @@ class _ChannelDumper(BaseRowDumper):
                p.org_id = ps.org_id)
            and ps.source_rpm_id = sr.id
     """)
+
     def _get_cursor_source_packages(self):
         channel_id = self._row['id']
 
@@ -570,6 +592,7 @@ class _ChannelDumper(BaseRowDumper):
         h.execute(channel_id=channel_id)
         return h.fetchone()
 
+
 class ChannelsDumper(BaseSubelementDumper):
     tag_name = 'rhn-channels'
     subelement_dumper_class = _ChannelDumper
@@ -612,20 +635,20 @@ class ChannelDumper(_ChannelDumper):
             arr.append(SimpleDumper(self._writer, k, self._row[v]))
 
         #channel_id = self._row['id']
-        ## Add EUS info
+        # Add EUS info
         #h = rhnSQL.prepare(self._query_release_channel_map)
-        #h.execute(channel_id=channel_id)
+        # h.execute(channel_id=channel_id)
         #arr.append(ReleaseDumper(self._writer, h))
         return arrayiterator
 
-#class ReleaseDumper(BaseDumper):
+# class ReleaseDumper(BaseDumper):
 #    tag_name = 'rhn-release'
 #
 #    def dump_subelement(self, data):
 #        d = _ReleaseDumper(self._writer, data)
 #        d.dump()
 #
-#class _ReleaseDumper(BaseRowDumper):
+# class _ReleaseDumper(BaseRowDumper):
 #    tag_name = 'rhn-release'
 #
 #    def set_attributes(self):
@@ -637,14 +660,17 @@ class ChannelDumper(_ChannelDumper):
 #            'is-default'  : self._row['is_default'],
 #        }
 
+
 class _ChannelSourcePackageDumper(BaseRowDumper):
     tag_name = 'source-package'
+
     def set_attributes(self):
         return {
-            'id'            : 'rhn-source-package-%s' % self._row['id'],
-            'source-rpm'    : self._row['source_rpm'],
-            'last-modified' : _dbtime2timestamp(self._row['last_modified']),
+            'id': 'rhn-source-package-%s' % self._row['id'],
+            'source-rpm': self._row['source_rpm'],
+            'last-modified': _dbtime2timestamp(self._row['last_modified']),
         }
+
 
 class ChannelSourcePackagesDumper(BaseSubelementDumper):
     # Dumps the erratum id and the last modified for an erratum in this
@@ -652,14 +678,17 @@ class ChannelSourcePackagesDumper(BaseSubelementDumper):
     tag_name = 'source-packages'
     subelement_dumper_class = _ChannelSourcePackageDumper
 
+
 class _ChannelErratumDumper(BaseRowDumper):
     tag_name = 'erratum'
+
     def set_attributes(self):
         return {
-            'id'            : 'rhn-erratum-%s' % self._row['id'],
-            'advisory-name' : self._row['advisory_name'],
-            'last-modified' : _dbtime2timestamp(self._row['last_modified']),
+            'id': 'rhn-erratum-%s' % self._row['id'],
+            'advisory-name': self._row['advisory_name'],
+            'last-modified': _dbtime2timestamp(self._row['last_modified']),
         }
+
 
 class ChannelErrataDumper(BaseSubelementDumper):
     # Dumps the erratum id and the last modified for an erratum in this
@@ -667,26 +696,29 @@ class ChannelErrataDumper(BaseSubelementDumper):
     tag_name = 'rhn-channel-errata'
     subelement_dumper_class = _ChannelErratumDumper
 
+
 class _DistDumper(BaseRowDumper):
     tag_name = 'rhn-dist'
 
     def set_attributes(self):
         return {
-            'os'            : self._row['os'],
-            'release'       : self._row['release'],
-            'channel-arch'  : self._row['channel_arch'],
+            'os': self._row['os'],
+            'release': self._row['release'],
+            'channel-arch': self._row['channel_arch'],
         }
+
 
 class DistsDumper(BaseSubelementDumper):
     tag_name = 'rhn-dists'
     subelement_dumper_class = _DistDumper
+
 
 class ChannelFamiliesDumper(BaseQueryDumper):
     tag_name = 'rhn-channel-families'
     iterator_query = 'select cf.* from rhnChannelFamily'
 
     def __init__(self, writer, data_iterator=None, ignore_subelements=0,
-            null_max_members=1, virt_filter=0):
+                 null_max_members=1, virt_filter=0):
         BaseQueryDumper.__init__(self, writer, data_iterator=data_iterator)
         self._ignore_subelements = ignore_subelements
         self._null_max_members = null_max_members
@@ -694,8 +726,8 @@ class ChannelFamiliesDumper(BaseQueryDumper):
 
     def dump_subelement(self, data):
         cf = _ChannelFamilyDumper(self._writer, data,
-            ignore_subelements=self._ignore_subelements,
-            null_max_members=self._null_max_members, virt_filter=self.virt_filter)
+                                  ignore_subelements=self._ignore_subelements,
+                                  null_max_members=self._null_max_members, virt_filter=self.virt_filter)
         cf.dump()
 
 
@@ -707,7 +739,7 @@ class _ChannelFamilyDumper(BaseRowDumper):
         self._ignore_subelements = ignore_subelements
         self._null_max_members = null_max_members
 
-        self._virt_filter      = virt_filter
+        self._virt_filter = virt_filter
 
     _query_cf_virt_sublevel = """
         select vsl.label, vsl.name
@@ -716,6 +748,7 @@ class _ChannelFamilyDumper(BaseRowDumper):
          where cfvsl.channel_family_id = :channel_family_id
            and cfvsl.virt_sub_level_id = vsl.id
     """
+
     def set_iterator(self):
         if self._ignore_subelements:
             return None
@@ -737,6 +770,7 @@ class _ChannelFamilyDumper(BaseRowDumper):
          where cfm.channel_family_id = :channel_family_id
            and cfm.channel_id = c.id
     """)
+
     def set_attributes(self):
         # Get all channels that are part of this channel family
         h = rhnSQL.prepare(self._query_get_channel_family_channels)
@@ -758,8 +792,8 @@ class _ChannelFamilyDumper(BaseRowDumper):
             cf_vsl_name = ','.join(vsl_name)
 
         attributes = {
-            'id'            : "rhn-channel-family-%s" % channel_family_id,
-            'label'         : self._row['label'],
+            'id': "rhn-channel-family-%s" % channel_family_id,
+            'label': self._row['label'],
             'channel-labels': ' '.join(channels),
         }
         if not self._virt_filter and cf_virt_data != []:
@@ -776,21 +810,23 @@ class _ChannelFamilyDumper(BaseRowDumper):
         return attributes
 
 ##
+
+
 class _PackageDumper(BaseRowDumper):
     tag_name = 'rhn-package'
 
     def set_attributes(self):
         attrs = ["name", "version", "release", "package_arch",
-            "package_group", "rpm_version", "package_size", "payload_size",
-            "installed_size", "build_host", "source_rpm", "payload_format",
-            "compat"]
+                 "package_group", "rpm_version", "package_size", "payload_size",
+                 "installed_size", "build_host", "source_rpm", "payload_format",
+                 "compat"]
         attr_dict = {
-            'id'            : "rhn-package-%s" % self._row['id'],
-            'org_id'        : self._row['org_id'] or "",
-            'epoch'         : self._row['epoch'] or "",
-            'cookie'        : self._row['cookie'] or "",
-            'build-time'    : _dbtime2timestamp(self._row['build_time']),
-            'last-modified' : _dbtime2timestamp(self._row['last_modified']),
+            'id': "rhn-package-%s" % self._row['id'],
+            'org_id': self._row['org_id'] or "",
+            'epoch': self._row['epoch'] or "",
+            'cookie': self._row['cookie'] or "",
+            'build-time': _dbtime2timestamp(self._row['build_time']),
+            'last-modified': _dbtime2timestamp(self._row['last_modified']),
         }
         for attr in attrs:
             attr_dict[attr.replace('_', '-')] = self._row[attr]
@@ -818,7 +854,7 @@ class _PackageDumper(BaseRowDumper):
         checksum_arr = [{'type':  self._row['checksum_type'],
                          'value': self._row['checksum']}]
         arr.append(_ChecksumDumper(self._writer,
-                        data_iterator=ArrayIterator(checksum_arr)))
+                                   data_iterator=ArrayIterator(checksum_arr)))
 
         h = rhnSQL.prepare("""
             select
@@ -827,7 +863,7 @@ class _PackageDumper(BaseRowDumper):
             from rhnPackageChangeLog
             where package_id = :package_id
         """)
-        h.execute(package_id = self._row['id'])
+        h.execute(package_id=self._row['id'])
         arr.append(_ChangelogDumper(self._writer, data_iterator=h))
 
         # Dependency information
@@ -852,7 +888,7 @@ class _PackageDumper(BaseRowDumper):
                 'rhn-package-breaks-entry'],
             ['rhnPackagePredepends',  'rhn-package-predepends',
                 'rhn-package-predepends-entry'],
-       ]
+        ]
         for table_name, container_name, entry_name in mappings:
             h = rhnSQL.prepare("""
                 select pc.name, pc.version, pd.sense
@@ -860,10 +896,10 @@ class _PackageDumper(BaseRowDumper):
                 where pd.capability_id = pc.id
                 and pd.package_id = :package_id
             """ % table_name)
-            h.execute(package_id = self._row['id'])
+            h.execute(package_id=self._row['id'])
             arr.append(_DependencyDumper(self._writer, data_iterator=h,
-                container_name=container_name,
-                entry_name=entry_name))
+                                         container_name=container_name,
+                                         entry_name=entry_name))
 
         # Files
         h = rhnSQL.prepare("""
@@ -884,42 +920,51 @@ class _PackageDumper(BaseRowDumper):
         arr.append(_PackageFilesDumper(self._writer, data_iterator=h))
         return ArrayIterator(arr)
 
+
 class PackagesDumper(BaseSubelementDumper, BaseQueryDumper):
     tag_name = 'rhn-packages'
     subelement_dumper_class = _PackageDumper
+
     def set_iterator(self):
         return BaseQueryDumper.set_iterator(self)
 
 ##
+
+
 class ShortPackageEntryDumper(BaseChecksumRowDumper):
     tag_name = 'rhn-package-short'
 
     def set_attributes(self):
         attr = {
-            'id'            : "rhn-package-%s" % self._row['id'],
-            'name'          : self._row['name'],
-            'version'       : self._row['version'],
-            'release'       : self._row['release'],
-            'epoch'         : self._row['epoch'] or "",
-            'package-arch'  : self._row['package_arch'],
-            'package-size'  : self._row['package_size'],
-            'last-modified' : _dbtime2timestamp(self._row['last_modified']),
-            'org-id'        : self._row['org_id'] or "",
+            'id': "rhn-package-%s" % self._row['id'],
+            'name': self._row['name'],
+            'version': self._row['version'],
+            'release': self._row['release'],
+            'epoch': self._row['epoch'] or "",
+            'package-arch': self._row['package_arch'],
+            'package-size': self._row['package_size'],
+            'last-modified': _dbtime2timestamp(self._row['last_modified']),
+            'org-id': self._row['org_id'] or "",
         }
         if self._row['checksum_type'] == 'md5':
             # compatibility with older satellite
             attr['md5sum'] = self._row['checksum']
         return attr
 
+
 class ShortPackagesDumper(BaseSubelementDumper, BaseQueryDumper):
     tag_name = 'rhn-packages-short'
     subelement_dumper_class = ShortPackageEntryDumper
+
     def set_iterator(self):
         return BaseQueryDumper.set_iterator(self)
 
 ##
+
+
 class SourcePackagesDumper(BaseQueryDumper):
     tag_name = 'rhn-source-packages'
+
     def dump_subelement(self, data):
         attributes = {}
         attrs = [
@@ -933,21 +978,25 @@ class SourcePackagesDumper(BaseQueryDumper):
         attributes['build-time'] = _dbtime2timestamp(data['build_time'])
         attributes['last-modified'] = _dbtime2timestamp(data['last_modified'])
         d = EmptyDumper(self._writer, 'rhn-source-package',
-            attributes=attributes)
+                        attributes=attributes)
         d.dump()
 
 ##
+
+
 class _ChecksumDumper(BaseDumper):
     tag_name = 'checksums'
 
     def dump_subelement(self, data):
         c = EmptyDumper(self._writer, 'checksum', attributes={
-                'type' : data['type'],
-                'value': data['value'],
+            'type': data['type'],
+            'value': data['value'],
         })
         c.dump()
 
 ##
+
+
 class _ChangelogEntryDumper(BaseRowDumper):
     tag_name = 'rhn-package-changelog-entry'
 
@@ -961,16 +1010,20 @@ class _ChangelogEntryDumper(BaseRowDumper):
             arr.append(SimpleDumper(self._writer, k, self._row[v]))
 
         arr.append(SimpleDumper(self._writer, 'rhn-package-changelog-entry-time',
-            _dbtime2timestamp(self._row['time'])))
+                                _dbtime2timestamp(self._row['time'])))
 
         return ArrayIterator(arr)
+
 
 class _ChangelogDumper(BaseSubelementDumper):
     tag_name = 'rhn-package-changelog'
     subelement_dumper_class = _ChangelogEntryDumper
 
 ##
+
+
 class _DependencyDumper(BaseDumper):
+
     def __init__(self, writer, data_iterator, container_name, entry_name):
         self.tag_name = container_name
         self.entry_name = entry_name
@@ -978,13 +1031,15 @@ class _DependencyDumper(BaseDumper):
 
     def dump_subelement(self, data):
         d = EmptyDumper(self._writer, self.entry_name, attributes={
-            'name'      : data['name'],
-            'version'   : data['version'] or "",
-            'sense'     : data['sense'],
+            'name': data['name'],
+            'version': data['version'] or "",
+            'sense': data['sense'],
         })
         d.dump()
 
-## Files
+# Files
+
+
 class _PackageFilesDumper(BaseDumper):
     tag_name = 'rhn-package-files'
 
@@ -999,10 +1054,12 @@ class _PackageFilesDumper(BaseDumper):
         data['linkto'] = data['linkto'] or ""
         data['lang'] = data['lang'] or ""
         d = EmptyDumper(self._writer, 'rhn-package-file',
-            attributes=data)
+                        attributes=data)
         d.dump()
 
-## Errata
+# Errata
+
+
 class _ErratumDumper(BaseRowDumper):
     tag_name = 'rhn-erratum'
 
@@ -1023,7 +1080,7 @@ class _ErratumDumper(BaseRowDumper):
         """)
         h.execute(errata_id=self._row['id'])
         packages = ["rhn-package-%s" % x['package_id'] for x in
-            h.fetchall_dict() or []]
+                    h.fetchall_dict() or []]
 
         h = rhnSQL.prepare("""
             select c.name cve
@@ -1035,12 +1092,12 @@ class _ErratumDumper(BaseRowDumper):
         cves = [x['cve'] for x in h.fetchall_dict() or []]
 
         return {
-            'id'        : 'rhn-erratum-%s' % self._row['id'],
-            'org_id'    : self._row['org_id'] or "",
-            'advisory'  : self._row['advisory'],
-            'channels'  : ' '.join(channels),
-            'packages'  : ' '.join(packages),
-            'cve-names' : ' '.join(cves),
+            'id': 'rhn-erratum-%s' % self._row['id'],
+            'org_id': self._row['org_id'] or "",
+            'advisory': self._row['advisory'],
+            'channels': ' '.join(channels),
+            'packages': ' '.join(packages),
+            'cve-names': ' '.join(cves),
         }
 
     type_id_column = ""
@@ -1064,11 +1121,11 @@ class _ErratumDumper(BaseRowDumper):
         for k, v, b in mappings:
             arr.append(SimpleDumper(self._writer, k, self._row[v] or "", b))
         arr.append(SimpleDumper(self._writer, 'rhn-erratum-issue-date',
-            _dbtime2timestamp(self._row['issue_date'])))
+                                _dbtime2timestamp(self._row['issue_date'])))
         arr.append(SimpleDumper(self._writer, 'rhn-erratum-update-date',
-            _dbtime2timestamp(self._row['update_date'])))
+                                _dbtime2timestamp(self._row['update_date'])))
         arr.append(SimpleDumper(self._writer, 'rhn-erratum-last-modified',
-            _dbtime2timestamp(self._row['last_modified'])))
+                                _dbtime2timestamp(self._row['last_modified'])))
 
         h = rhnSQL.prepare("""
             select keyword
@@ -1103,6 +1160,7 @@ class _ErratumDumper(BaseRowDumper):
 
         return ArrayIterator(arr)
 
+
 class ErrataDumper(BaseSubelementDumper):
     tag_name = 'rhn-errata'
     subelement_dumper_class = _ErratumDumper
@@ -1112,12 +1170,14 @@ class ErrataDumper(BaseSubelementDumper):
             return self._iterator
         raise NotImplementedError, "To be overridden in a child class"
 
+
 class _ErratumKeywordDumper(BaseDumper):
     tag_name = 'rhn-erratum-keywords'
 
     def dump_subelement(self, data):
         d = SimpleDumper(self._writer, 'rhn-erratum-keyword', data['keyword'])
         d.dump()
+
 
 class _ErratumBugDumper(BaseRowDumper):
     tag_name = 'rhn-erratum-bug'
@@ -1126,22 +1186,24 @@ class _ErratumBugDumper(BaseRowDumper):
         arr = [
             SimpleDumper(self._writer, 'rhn-erratum-bug-id', self._row['bug_id']),
             SimpleDumper(self._writer, 'rhn-erratum-bug-summary',
-                self._row['summary'] or ""),
+                         self._row['summary'] or ""),
             SimpleDumper(self._writer, 'rhn-erratum-bug-href', self._row['href']),
         ]
         return ArrayIterator(arr)
 
+
 class _ErratumBuglistDumper(BaseSubelementDumper):
     tag_name = 'rhn-erratum-bugs'
     subelement_dumper_class = _ErratumBugDumper
+
 
 class _ErratumFileEntryDumper(BaseChecksumRowDumper):
     tag_name = 'rhn-erratum-file'
 
     def set_attributes(self):
         attributes = {
-            'filename'  : self._row['filename'][:4000],
-            'type'      : self._row['type'],
+            'filename': self._row['filename'][:4000],
+            'type': self._row['type'],
         }
         if self._row['checksum_type'] == 'md5':
             attributes['md5sum'] = self._row['checksum']
@@ -1170,11 +1232,14 @@ class _ErratumFileEntryDumper(BaseChecksumRowDumper):
                 attributes['source-package'] = 'rhn-package-source-%s' % package_id
         return attributes
 
+
 class _ErratumFilesDumper(BaseSubelementDumper):
     tag_name = 'rhn-erratum-files'
     subelement_dumper_class = _ErratumFileEntryDumper
 
 # Arches
+
+
 class BaseArchesDumper(BaseDumper):
     table_name = 'foo'
     subelement_tag = 'foo'
@@ -1189,16 +1254,18 @@ class BaseArchesDumper(BaseDumper):
 
     def dump_subelement(self, data):
         attributes = {
-            'id'            : "%s-id-%s" % (self.subelement_tag, data['id']),
-            'label'         : data['label'],
-            'name'          : data['name'],
+            'id': "%s-id-%s" % (self.subelement_tag, data['id']),
+            'label': data['label'],
+            'name': data['name'],
         }
         EmptyDumper(self._writer, self.subelement_tag, attributes).dump()
 
+
 class RestrictedArchesDumper(BaseArchesDumper):
+
     def __init__(self, writer, data_iterator=None, rpm_arch_type_only=0):
         BaseArchesDumper.__init__(self, writer=writer,
-            data_iterator=data_iterator)
+                                  data_iterator=data_iterator)
         self.rpm_arch_type_only = rpm_arch_type_only
 
     def set_iterator(self):
@@ -1219,13 +1286,14 @@ class RestrictedArchesDumper(BaseArchesDumper):
 
     def dump_subelement(self, data):
         attributes = {
-            'id'            : "%s-id-%s" % (self.subelement_tag, data['id']),
-            'label'         : data['label'],
-            'name'          : data['name'],
-            'arch-type-label'   : data['arch_type_label'],
-            'arch-type-name'    : data['arch_type_name'],
+            'id': "%s-id-%s" % (self.subelement_tag, data['id']),
+            'label': data['label'],
+            'name': data['name'],
+            'arch-type-label': data['arch_type_label'],
+            'arch-type-name': data['arch_type_name'],
         }
         EmptyDumper(self._writer, self.subelement_tag, attributes).dump()
+
 
 class ChannelArchesDumper(RestrictedArchesDumper):
     tag_name = 'rhn-channel-arches'
@@ -1250,6 +1318,7 @@ class CPUArchesDumper(BaseArchesDumper):
     subelement_tag = 'rhn-cpu-arch'
     table_name = 'rhnCPUArch'
 
+
 class RestrictedArchCompatDumper(BaseArchesDumper):
     _query_rpm_arch_type_only = ""
     _query_arch_type_all = ""
@@ -1257,7 +1326,7 @@ class RestrictedArchCompatDumper(BaseArchesDumper):
 
     def __init__(self, writer, data_iterator=None, rpm_arch_type_only=0, virt_filter=0):
         BaseArchesDumper.__init__(self, writer=writer,
-            data_iterator=data_iterator)
+                                  data_iterator=data_iterator)
         self.rpm_arch_type_only = rpm_arch_type_only
         self.virt_filter = virt_filter
 
@@ -1282,6 +1351,7 @@ class RestrictedArchCompatDumper(BaseArchesDumper):
 
     def dump_subelement(self, data):
         EmptyDumper(self._writer, self._subelement_tag, data).dump()
+
 
 class ServerPackageArchCompatDumper(RestrictedArchCompatDumper):
     tag_name = 'rhn-server-package-arch-compatibility-map'
@@ -1319,7 +1389,6 @@ class ServerPackageArchCompatDumper(RestrictedArchCompatDumper):
 class ServerChannelArchCompatDumper(RestrictedArchCompatDumper):
     tag_name = 'rhn-server-channel-arch-compatibility-map'
     _subelement_tag = 'rhn-server-channel-arch-compat'
-
 
     _query_rpm_arch_type_only = rhnSQL.Statement("""
         select sa.label "server-arch",
@@ -1419,13 +1488,16 @@ class ServerGroupTypeServerArchCompatDumper(RestrictedArchCompatDumper):
            %s
     """
 
+
 class BlacklistObsoletesDumper(BaseDumper):
     tag_name = 'rhn-blacklist-obsoletes'
+
     def dump(self):
         note = """\n<!-- This file is intentionally left empty.
      Older Satellites and Spacewalks require this file to exist in the dump. -->\n"""
         self._writer.stream.write(note)
         self._writer.empty_tag(self.tag_name)
+
 
 class _KickstartableTreeDumper(BaseRowDumper):
     tag_name = 'rhn-kickstartable-tree'
@@ -1452,6 +1524,7 @@ class _KickstartableTreeDumper(BaseRowDumper):
         h.execute(kstree_id=kstree_id)
         return ArrayIterator([_KickstartFilesDumper(self._writer, h)])
 
+
 class KickstartableTreesDumper(BaseSubelementDumper, BaseQueryDumper):
     tag_name = 'rhn-kickstartable-trees'
     subelement_dumper_class = _KickstartableTreeDumper
@@ -1475,8 +1548,10 @@ class KickstartableTreesDumper(BaseSubelementDumper, BaseQueryDumper):
                and kit.id = kt.install_type
                and kt.org_id is NULL
         """
+
     def set_iterator(self):
         return BaseQueryDumper.set_iterator(self)
+
 
 class _KickstartFileEntryDumper(BaseChecksumRowDumper):
     tag_name = 'rhn-kickstart-file'
@@ -1484,16 +1559,18 @@ class _KickstartFileEntryDumper(BaseChecksumRowDumper):
     def set_attributes(self):
         attr = {
             'relative-path': self._row['relative_filename'],
-            'file-size'    : self._row['file_size'],
+            'file-size': self._row['file_size'],
             'last-modified': _dbtime2timestamp(self._row['last-modified']),
         }
         if self._row['checksum_type'] == 'md5':
             attr['md5sum'] = self._row['checksum']
         return attr
 
+
 class _KickstartFilesDumper(BaseSubelementDumper):
     tag_name = 'rhn-kickstart-files'
     subelement_dumper_class = _KickstartFileEntryDumper
+
 
 def _dbtime2timestamp(val):
     return int(rhnLib.timestamp(val))
@@ -1505,4 +1582,3 @@ class ProductNamesDumper(BaseDumper):
 
     def dump_subelement(self, data):
         EmptyDumper(self._writer, 'rhn-product-name', data).dump()
-

@@ -20,14 +20,18 @@
 
 SERVER_RETURN = 0
 
+
 def log_error(*_args):
     pass
+
 
 def make_table(*_args):
     pass
 
+
 def parse_qs(*_args):
     pass
+
 
 def parse_qsl(*_args):
     pass

@@ -18,7 +18,9 @@
 
 from importLib import KickstartableTree, Import
 
+
 class KickstartableTreeImport(Import):
+
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
 
@@ -73,8 +75,6 @@ class KickstartableTreeImport(Import):
             for f in ent['files']:
                 f['checksum_id'] = self.checksums[(f['checksum_type'], f['checksum'])]
 
-
     def submit(self):
         self.backend.processKickstartTrees(self.batch)
         self.backend.commit()
-

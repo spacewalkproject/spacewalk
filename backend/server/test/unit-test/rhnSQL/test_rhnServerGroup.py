@@ -32,14 +32,15 @@ import misc_functions
 
 DB_SETTINGS = misc_functions.db_settings("oracle")
 
+
 class Tests(unittest.TestCase):
 
     def setUp(self):
         rhnSQL.initDB(
-            backend  = "oracle",
-            username = DB_SETTINGS["user"],
-            password = DB_SETTINGS["password"],
-            database = DB_SETTINGS["database"]
+            backend="oracle",
+            username=DB_SETTINGS["user"],
+            password=DB_SETTINGS["password"],
+            database=DB_SETTINGS["database"]
         )
         rhnSQL.clear_log_id()
 
@@ -69,12 +70,12 @@ class Tests(unittest.TestCase):
     def test_exception_user_missing_1(self):
         params = misc_functions.build_server_group_params(org_id="no such user")
         self.assertRaises(rhnServerGroup.InvalidUserError,
-            misc_functions.create_server_group, params)
+                          misc_functions.create_server_group, params)
 
     def test_exception_org_missing_1(self):
         params = misc_functions.build_server_group_params(org_id=-1)
         self.assertRaises(rhnServerGroup.InvalidOrgError,
-            misc_functions.create_server_group, params)
+                          misc_functions.create_server_group, params)
 
 
 if __name__ == '__main__':

@@ -24,6 +24,7 @@ from spacewalk.server.rhnServer.server_hardware import NetIfaceInformation
 
 RHN_PREFIX = 'rhn.system.'
 
+
 def var_interp_prep(server):
     # make sure we have the necessary data in the server obj
     server.reload_hardware_byid(server.getid())
@@ -45,20 +46,20 @@ class ServerTemplatedDocument(TemplatedDocument):
     def set_functions(self):
         self.functions.clear()
         self.functions.update({
-            RHN_PREFIX + 'sid'            : self.sid,
-            RHN_PREFIX + 'profile_name'   : self.profile_name,
-            RHN_PREFIX + 'description'    : self.description,
-            RHN_PREFIX + 'hostname'       : self.hostname,
-            RHN_PREFIX + 'ip_address'     : self.ipaddr,
-            RHN_PREFIX + 'ip6_address'    : self.ip6addr,
-            RHN_PREFIX + 'custom_info'    : self.custom_info,
-            RHN_PREFIX + 'net_interface.ip_address'         : self.net_intf_ipaddr,
-            RHN_PREFIX + 'net_interface.netmask'            : self.net_intf_netmask,
-            RHN_PREFIX + 'net_interface.broadcast'          : self.net_intf_broadcast,
-            RHN_PREFIX + 'net_interface.hardware_address'   : self.net_intf_hwaddr,
-            RHN_PREFIX + 'net_interface.driver_module'      : self.net_intf_module,
-            RHN_PREFIX + 'net_interface.ip6_address'        : self.net_intf_ip6addr,
-            RHN_PREFIX + 'net_interface.ip6_netmask'        : self.net_intf_ip6netmask,
+            RHN_PREFIX + 'sid': self.sid,
+            RHN_PREFIX + 'profile_name': self.profile_name,
+            RHN_PREFIX + 'description': self.description,
+            RHN_PREFIX + 'hostname': self.hostname,
+            RHN_PREFIX + 'ip_address': self.ipaddr,
+            RHN_PREFIX + 'ip6_address': self.ip6addr,
+            RHN_PREFIX + 'custom_info': self.custom_info,
+            RHN_PREFIX + 'net_interface.ip_address': self.net_intf_ipaddr,
+            RHN_PREFIX + 'net_interface.netmask': self.net_intf_netmask,
+            RHN_PREFIX + 'net_interface.broadcast': self.net_intf_broadcast,
+            RHN_PREFIX + 'net_interface.hardware_address': self.net_intf_hwaddr,
+            RHN_PREFIX + 'net_interface.driver_module': self.net_intf_module,
+            RHN_PREFIX + 'net_interface.ip6_address': self.net_intf_ip6addr,
+            RHN_PREFIX + 'net_interface.ip6_netmask': self.net_intf_ip6netmask,
         })
 
     #######################
@@ -103,7 +104,6 @@ class ServerTemplatedDocument(TemplatedDocument):
 
         return None
 
-
     def _interface_info(self, interface_name):
         infos = self.server.hardware_by_class(NetIfaceInformation)
         if infos:
@@ -115,8 +115,6 @@ class ServerTemplatedDocument(TemplatedDocument):
             if iface['name'] == interface_name:
                 return iface
         return None
-
-
 
     def net_intf_ipaddr(self, interface_name):
         ipv4 = self._get_interface_info_attr(interface_name, 'ipv4')

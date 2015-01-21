@@ -38,10 +38,10 @@ def parse_args():
                       help="server hostname to use, defaults to localhost",
                       default="localhost")
     parser.add_option("-d", action="store", type="string", dest="date",
-                      help="date to schedule the conversion for, defaults to now, " + \
+                      help="date to schedule the conversion for, defaults to now, " +
                            "format: %Y-%m-%d %H:%M:%S (e.g. 2014-10-30 19:30:00)")
     parser.add_option("-o", action="store", type="string", dest="output",
-                      help="output file in csv format to store the details about all " + \
+                      help="output file in csv format to store the details about all " +
                            "scheduled actions, use '-' for stdout")
 
     return parser.parse_args()
@@ -224,7 +224,7 @@ if __name__ == '__main__':
     else:
         csv_file = open(options.output, "w+")
 
-    csv_writer = csv.writer(csv_file, lineterminator = "\n")
+    csv_writer = csv.writer(csv_file, lineterminator="\n")
     csv_writer.writerow(['action_id', 'system_id', 'action_description', 'scheduled_date'])
 
     # Install / update spacewalk-client-cert on the selected systems
@@ -232,9 +232,9 @@ if __name__ == '__main__':
         for i in latest_available_packages:
             pkg = i['package']
             action_id = client.system.schedule_package_install(key,
-                            i['id'],            # system id
-                            pkg['id'],          # package id
-                            scheduled_date)     # earliest date
+                                                               i['id'],            # system id
+                                                               pkg['id'],          # package id
+                                                               scheduled_date)     # earliest date
 
             pkg_string = None
             if pkg['epoch']:
@@ -245,9 +245,9 @@ if __name__ == '__main__':
                                               pkg['release'], pkg['arch'])
 
             csv_writer.writerow([action_id,
-                i['id'],
-                "Installation of %s package on system %s" % (pkg_string, i['id']),
-                options.date])
+                                 i['id'],
+                                 "Installation of %s package on system %s" % (pkg_string, i['id']),
+                                 options.date])
 
     # Schedule the certificate update
     if options.update_certificates:
@@ -255,14 +255,14 @@ if __name__ == '__main__':
             try:
                 action_id = client.system.schedule_certificate_update(key, system_id, scheduled_date)
             except xmlrpclib.Fault, e:
-                sys.stderr.write("Error scheduling certificate update on %s: %s\n" % \
+                sys.stderr.write("Error scheduling certificate update on %s: %s\n" %
                                  (system_id, e.faultString))
                 sys.exit(1)
             # write the actions to csv
             csv_writer.writerow([action_id,
-                system_id,
-                "Certificate update on %s" % system_id,
-                options.date])
+                                 system_id,
+                                 "Certificate update on %s" % system_id,
+                                 options.date])
 
     if options.output != "-":
         csv_file.close()

@@ -16,8 +16,10 @@ from spacewalk.common.rhnLog import log_debug
 
 __rhnexport__ = ['schedule_virt_host_pkg_install', 'add_tools_channel']
 
+
 def schedule_virt_host_pkg_install(server_id, action_id, data={}):
     log_debug(3, action_id)
+
 
 def add_tools_channel(server_id, action_id, data={}):
     log_debug(3, action_id)

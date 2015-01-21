@@ -25,6 +25,7 @@ import sql_lib
 
 
 class Row(UserDictCase):
+
     """ This class allows one to work with the columns of a particular row in a more
         convenient manner (ie, using a disctionary interface). It allows for the row
         data to be loaded and saved and is generally easier to use than the Table

@@ -58,7 +58,7 @@ class SequenceServer:
         nevermorethan = nevermorethan or self.NEVER_MORE_THAN
 
         self.seq = seq
-        self.chunksize = min(max(len(seq)/divisor, neverlessthan),
+        self.chunksize = min(max(len(seq) / divisor, neverlessthan),
                              nevermorethan)
         self.oneYN = 0
         self.alwaysOneYN = 0
@@ -88,5 +88,3 @@ class SequenceServer:
 
     def doneYN(self):
         return not self.seq
-
-

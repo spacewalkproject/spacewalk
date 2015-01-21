@@ -36,16 +36,17 @@ import dbtests
 config = ConfigParser()
 config.read(os.path.dirname(os.path.abspath(__file__)) + "/db_settings.ini")
 
-USER     = config.get('oracle', 'user')
+USER = config.get('oracle', 'user')
 PASSWORD = config.get('oracle', 'password')
 DATABASE = config.get('oracle', 'database')
 
 rhnSQL.initDB(backend="oracle", username=USER,
-        password=PASSWORD, database=DATABASE)
+              password=PASSWORD, database=DATABASE)
 
 # Re-initialize to test re-use of connections:
 rhnSQL.initDB(backend="oracle", username=USER,
-        password=PASSWORD, database=DATABASE)
+              password=PASSWORD, database=DATABASE)
+
 
 class OracleDatabaseTests(dbtests.RhnSQLDatabaseTests):
     QUERY_CREATE_TABLE = """
@@ -77,6 +78,7 @@ END;
         cursor.execute()
 
         dbtests.RhnSQLDatabaseTests.tearDown(self)
+
 
 def suite():
     s = unittest.TestSuite()
