@@ -34,6 +34,7 @@ from operator import itemgetter
 from spacecmd.utils import *
 import xmlrpclib
 
+
 def print_schedule_summary(self, action_type, args):
     args = args.split() or []
 
@@ -78,7 +79,7 @@ def print_schedule_summary(self, action_type, args):
     print 'ID      Date                 C    F    P     Action'
     print '--      ----                ---  ---  ---    ------'
 
-    for action in sorted(actions, key=itemgetter('id'), reverse = True):
+    for action in sorted(actions, key=itemgetter('id'), reverse=True):
         if begin_date:
             if action.get('earliest') < begin_date:
                 continue
@@ -119,16 +120,19 @@ def print_schedule_summary(self, action_type, args):
 
 ####################
 
+
 def help_schedule_cancel(self):
     print 'schedule_cancel: Cancel a scheduled action'
     print 'usage: schedule_cancel ID|* ...'
 
+
 def complete_schedule_cancel(self, text, line, beg, end):
     try:
         actions = self.client.schedule.listInProgressActions(self.session)
-        return tab_completer([ str(a.get('id')) for a in actions ], text)
+        return tab_completer([str(a.get('id')) for a in actions], text)
     except xmlrpclib.Fault:
         return []
+
 
 def do_schedule_cancel(self, args):
     (args, _options) = parse_arguments(args)
@@ -143,7 +147,7 @@ def do_schedule_cancel(self, args):
             return
 
         actions = self.client.schedule.listInProgressActions(self.session)
-        strings = [ a.get('id') for a in actions ]
+        strings = [a.get('id') for a in actions]
     else:
         strings = args
 
@@ -165,16 +169,19 @@ def do_schedule_cancel(self, args):
 
 ####################
 
+
 def help_schedule_reschedule(self):
     print 'schedule_reschedule: Reschedule failed actions'
     print 'usage: schedule_reschedule ID|* ...'
 
+
 def complete_schedule_reschedule(self, text, line, beg, end):
     try:
         actions = self.client.schedule.listFailedActions(self.session)
-        return tab_completer([ str(a.get('id')) for a in actions ], text)
+        return tab_completer([str(a.get('id')) for a in actions], text)
     except xmlrpclib.Fault:
         return []
+
 
 def do_schedule_reschedule(self, args):
     (args, _options) = parse_arguments(args)
@@ -184,7 +191,7 @@ def do_schedule_reschedule(self, args):
         return
 
     failed_actions = self.client.schedule.listFailedActions(self.session)
-    failed_actions = [ a.get('id') for a in failed_actions ]
+    failed_actions = [a.get('id') for a in failed_actions]
 
     to_reschedule = []
 
@@ -217,9 +224,11 @@ def do_schedule_reschedule(self, args):
 
 ####################
 
+
 def help_schedule_details(self):
     print 'schedule_details: Show the details of a scheduled action'
     print 'usage: schedule_details ID'
+
 
 def do_schedule_details(self, args):
     (args, _options) = parse_arguments(args)
@@ -289,9 +298,11 @@ def do_schedule_details(self, args):
 
 ####################
 
+
 def help_schedule_getoutput(self):
     print 'schedule_getoutput: Show the output from an action'
     print 'usage: schedule_getoutput ID'
+
 
 def do_schedule_getoutput(self, args):
     (args, _options) = parse_arguments(args)
@@ -361,16 +372,19 @@ def do_schedule_getoutput(self, args):
 
 ####################
 
+
 def help_schedule_listpending(self):
     print 'schedule_listpending: List pending actions'
     print 'usage: schedule_listpending [BEGINDATE] [ENDDATE]'
     print
     print self.HELP_TIME_OPTS
 
+
 def do_schedule_listpending(self, args):
     return self.print_schedule_summary('pending', args)
 
 ####################
+
 
 def help_schedule_listcompleted(self):
     print 'schedule_listcompleted: List completed actions'
@@ -378,10 +392,12 @@ def help_schedule_listcompleted(self):
     print
     print self.HELP_TIME_OPTS
 
+
 def do_schedule_listcompleted(self, args):
     return self.print_schedule_summary('completed', args)
 
 ####################
+
 
 def help_schedule_listfailed(self):
     print 'schedule_listfailed: List failed actions'
@@ -389,10 +405,12 @@ def help_schedule_listfailed(self):
     print
     print self.HELP_TIME_OPTS
 
+
 def do_schedule_listfailed(self, args):
     return self.print_schedule_summary('failed', args)
 
 ####################
+
 
 def help_schedule_listarchived(self):
     print 'schedule_listarchived: List archived actions'
@@ -400,16 +418,19 @@ def help_schedule_listarchived(self):
     print
     print self.HELP_TIME_OPTS
 
+
 def do_schedule_listarchived(self, args):
     return self.print_schedule_summary('archived', args)
 
 ####################
+
 
 def help_schedule_list(self):
     print 'schedule_list: List all actions'
     print 'usage: schedule_list [BEGINDATE] [ENDDATE]'
     print
     print self.HELP_TIME_OPTS
+
 
 def do_schedule_list(self, args):
     return self.print_schedule_summary('all', args)

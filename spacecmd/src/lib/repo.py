@@ -35,11 +35,13 @@ from spacecmd.utils import *
 import shlex
 import xmlrpclib
 
+
 def help_repo_list(self):
     print 'repo_list: List all available user repos'
     print 'usage: repo_list'
 
-def do_repo_list(self, args, doreturn = False):
+
+def do_repo_list(self, args, doreturn=False):
     repos = self.client.channel.software.listUserRepos(self.session)
     repos = [c.get('label') for c in repos]
 
@@ -51,12 +53,15 @@ def do_repo_list(self, args, doreturn = False):
 
 ####################
 
+
 def help_repo_details(self):
     print 'repo_details: Show the details of a user repo'
     print 'usage: repo_details <repo ...>'
 
+
 def complete_repo_details(self, text, line, beg, end):
     return tab_completer(self.do_repo_list('', True), text)
+
 
 def do_repo_details(self, args):
     (args, _options) = parse_arguments(args)
@@ -71,8 +76,8 @@ def do_repo_details(self, args):
     add_separator = False
 
     for repo in repos:
-        details = self.client.channel.software.getRepoDetails(\
-                                    self.session, repo)
+        details = self.client.channel.software.getRepoDetails(
+            self.session, repo)
 
         if add_separator:
             print self.SEPARATOR
@@ -84,12 +89,15 @@ def do_repo_details(self, args):
 
 ####################
 
+
 def help_repo_listfilters(self):
     print 'repo_listfilters: Show the filters for a user repo'
     print 'usage: repo_listfilters repo'
 
+
 def complete_repo_listfilters(self, text, line, beg, end):
     return tab_completer(self.do_repo_list('', True), text)
+
 
 def do_repo_listfilters(self, args):
     (args, _options) = parse_arguments(args)
@@ -106,14 +114,17 @@ def do_repo_listfilters(self, args):
 
 ####################
 
+
 def help_repo_addfilters(self):
     print 'repo_addfilters: Add filters for a user repo'
     print 'usage: repo_addfilters repo <filter ...>'
 
+
 def complete_repo_addfilters(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
         return tab_completer(self.do_repo_list('', True),
-                                  text)
+                             text)
+
 
 def do_repo_addfilters(self, args):
     # arguments can start with -, so don't parse arguments in the normal way
@@ -135,17 +146,20 @@ def do_repo_addfilters(self, args):
 
         self.client.channel.software.addRepoFilter(self.session,
                                                    repo,
-                                                   {'filter' : repofilter,
-                                                    'flag' : flag})
+                                                   {'filter': repofilter,
+                                                    'flag': flag})
 
 ####################
+
 
 def help_repo_removefilters(self):
     print 'repo_removefilters: Add filters for a user repo'
     print 'usage: repo_removefilters repo <filter ...>'
 
+
 def complete_repo_removefilters(self, text, line, beg, end):
     return tab_completer(self.do_repo_remove('', True), text)
+
 
 def do_repo_removefilters(self, args):
     # arguments can start with -, so don't parse arguments in the normal way
@@ -166,18 +180,21 @@ def do_repo_removefilters(self, args):
             return
 
         self.client.channel.software.removeRepoFilter(self.session,
-                                                   repo,
-                                                   {'filter' : repofilter,
-                                                    'flag' : flag})
+                                                      repo,
+                                                      {'filter': repofilter,
+                                                       'flag': flag})
 
 ####################
+
 
 def help_repo_setfilters(self):
     print 'repo_setfilters: Set the filters for a user repo'
     print 'usage: repo_setfilters repo <filter ...>'
 
+
 def complete_repo_setfilters(self, text, line, beg, end):
     return tab_completer(self.do_repo_set('', True), text)
+
 
 def do_repo_setfilters(self, args):
     # arguments can start with -, so don't parse arguments in the normal way
@@ -199,18 +216,21 @@ def do_repo_setfilters(self, args):
             logging.error('Each filter must start with + or -')
             return
 
-        filters.append({'filter' : repofilter, 'flag' : flag})
+        filters.append({'filter': repofilter, 'flag': flag})
 
     self.client.channel.software.setRepoFilters(self.session, repo, filters)
 
 ####################
 
+
 def help_repo_clearfilters(self):
     print 'repo_clearfilters: Clears the filters for a user repo'
     print 'usage: repo_clearfilters repo'
 
+
 def complete_repo_clearfilters(self, text, line, beg, end):
     return tab_completer(self.do_repo_clear('', True), text)
+
 
 def do_repo_clearfilters(self, args):
     (args, _options) = parse_arguments(args)
@@ -224,12 +244,15 @@ def do_repo_clearfilters(self, args):
 
 ####################
 
+
 def help_repo_delete(self):
     print 'repo_delete: Delete a user repo'
     print 'usage: repo_delete <repo ...>'
 
+
 def complete_repo_delete(self, text, line, beg, end):
     return tab_completer(self.do_repo_list('', True), text)
+
 
 def do_repo_delete(self, args):
     (args, _options) = parse_arguments(args)
@@ -254,6 +277,7 @@ def do_repo_delete(self, args):
 
 ####################
 
+
 def help_repo_create(self):
     print 'repo_create: Create a user repository'
     print '''usage: repo_create [options]
@@ -262,15 +286,16 @@ options:
   -n NAME
   -u URL'''
 
+
 def do_repo_create(self, args):
-    options = [ Option('-n', '--name', action='store'),
-                Option('-u', '--url', action='store') ]
+    options = [Option('-n', '--name', action='store'),
+               Option('-u', '--url', action='store')]
 
     (args, options) = parse_arguments(args, options)
 
     if is_interactive(options):
-        options.name = prompt_user('Name:', noblank = True)
-        options.url = prompt_user('URL:', noblank = True)
+        options.name = prompt_user('Name:', noblank=True)
+        options.url = prompt_user('URL:', noblank=True)
     else:
         if not options.name:
             logging.error('A name is required')
@@ -287,14 +312,17 @@ def do_repo_create(self, args):
 
 ####################
 
+
 def help_repo_rename(self):
     print 'repo_rename: Rename a user repository'
     print 'usage: repo_rename OLDNAME NEWNAME'
 
+
 def complete_repo_rename(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
         return tab_completer(self.do_repo_list('', True),
-                                  text)
+                             text)
+
 
 def do_repo_rename(self, args):
     (args, _options) = parse_arguments(args)
@@ -316,14 +344,17 @@ def do_repo_rename(self, args):
 
 ####################
 
+
 def help_repo_updateurl(self):
     print 'repo_updateurl: Change the URL of a user repository'
     print 'usage: repo_updateurl <repo> <url>'
 
+
 def complete_repo_updateurl(self, text, line, beg, end):
     if len(line.split(' ')) == 2:
         return tab_completer(self.do_repo_list('', True),
-                                  text)
+                             text)
+
 
 def do_repo_updateurl(self, args):
     (args, _options) = parse_arguments(args)

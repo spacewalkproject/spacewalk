@@ -32,12 +32,15 @@
 
 from spacecmd.utils import *
 
+
 def help_scap_listxccdfscans(self):
     print 'scap_listxccdfscans: Return a list of finished OpenSCAP scans for given systems'
     print 'usage: scap_listxccdfscans <SYSTEMS>'
 
+
 def complete_system_scap_listxccdfscans(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_scap_listxccdfscans(self, args):
     (args, _options) = parse_arguments(args)
@@ -74,9 +77,11 @@ def do_scap_listxccdfscans(self, args):
 
 ####################
 
+
 def help_scap_getxccdfscanruleresults(self):
     print 'scap_getxccdfscanruleresults: Return a full list of RuleResults for given OpenSCAP XCCDF scan'
     print 'usage: scap_getxccdfscanruleresults <XID>'
+
 
 def do_scap_getxccdfscanruleresults(self, args):
     (args, _options) = parse_arguments(args)
@@ -104,9 +109,11 @@ def do_scap_getxccdfscanruleresults(self, args):
 
 ####################
 
+
 def help_scap_getxccdfscandetails(self):
     print 'scap_getxccdfscandetails: Get details of given OpenSCAP XCCDF scan'
     print 'usage: scap_getxccdfscandetails <XID>'
+
 
 def do_scap_getxccdfscandetails(self, args):
     (args, _options) = parse_arguments(args)
@@ -141,6 +148,7 @@ def do_scap_getxccdfscandetails(self, args):
 
 ####################
 
+
 def help_scap_schedulexccdfscan(self):
     print 'scap_schedulexccdfscan: Schedule Scap XCCDF scan'
     print 'usage: scap_schedulexccdfscan PATH_TO_XCCDF_FILE XCCDF_OPTIONS SYSTEMS'
@@ -148,6 +156,7 @@ def help_scap_schedulexccdfscan(self):
     print 'Example:'
     print '> scap_schedulexccdfscan \'/usr/share/openscap/scap-security-xccdf.xml\'' + \
           ' \'profile Web-Default\' system-scap.example.com'
+
 
 def do_scap_schedulexccdfscan(self, args):
     (args, _options) = parse_arguments(args)

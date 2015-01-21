@@ -32,9 +32,11 @@
 from operator import itemgetter
 from spacecmd.utils import *
 
+
 def help_report_entitlements(self):
     print 'report_entitlements: Show the current entitlement usage'
     print 'usage: report_entitlements'
+
 
 def do_report_entitlements(self, args):
     entitlements = self.client.satellite.listEntitlements(self.session)
@@ -43,24 +45,26 @@ def do_report_entitlements(self, args):
     print '------'
     for e in entitlements.get('system'):
         print '%s: %i/%i' % (
-              e.get('label'),
-              e.get('used_slots'),
-              e.get('total_slots'))
+            e.get('label'),
+            e.get('used_slots'),
+            e.get('total_slots'))
 
     print
     print 'Channel'
     print '-------'
     for e in entitlements.get('channel'):
         print '%s: %i/%i' % (
-              e.get('label'),
-              e.get('used_slots'),
-              e.get('total_slots'))
+            e.get('label'),
+            e.get('used_slots'),
+            e.get('total_slots'))
 
 ####################
+
 
 def help_report_inactivesystems(self):
     print 'report_inactivesystems: List all inactive systems'
     print 'usage: report_inactivesystems [DAYS]'
+
 
 def do_report_inactivesystems(self, args):
     (args, _options) = parse_arguments(args)
@@ -79,7 +83,7 @@ def do_report_inactivesystems(self, args):
         systems = self.client.system.listInactiveSystems(self.session)
 
     if len(systems):
-        max_size = max_length([ s.get('name') for s in systems ])
+        max_size = max_length([s.get('name') for s in systems])
 
         print '%s  %s' % ('System'.ljust(max_size), 'Last Checkin')
         print ('-' * max_size) + '  ------------'
@@ -90,14 +94,16 @@ def do_report_inactivesystems(self, args):
 
 ####################
 
+
 def help_report_outofdatesystems(self):
     print 'report_outofdatesystems: List all out-of-date systems'
     print 'usage: report_outofdatesystems'
 
+
 def do_report_outofdatesystems(self, args):
     systems = self.client.system.listOutOfDateSystems(self.session)
 
-    max_size = max_length([ s.get('name') for s in systems ])
+    max_size = max_length([s.get('name') for s in systems])
 
     report = {}
     for system in systems:
@@ -119,24 +125,29 @@ def do_report_outofdatesystems(self, args):
 
 ####################
 
+
 def help_report_ungroupedsystems(self):
     print 'report_ungroupedsystems: List all ungrouped systems'
     print 'usage: report_ungroupedsystems'
 
+
 def do_report_ungroupedsystems(self, args):
     systems = self.client.system.listUngroupedSystems(self.session)
-    systems = [ s.get('name') for s in systems ]
+    systems = [s.get('name') for s in systems]
 
     if len(systems):
         print '\n'.join(sorted(systems))
 
 ####################
 
+
 def help_report_errata(self):
     print 'report_errata: List all errata and how many systems they affect'
     print 'usage: report_errata [ERRATA|search:XXX ...]'
 
-#XXX: performance is terrible due to all the API calls
+# XXX: performance is terrible due to all the API calls
+
+
 def do_report_errata(self, args):
     (args, _options) = parse_arguments(args)
 
@@ -155,7 +166,7 @@ def do_report_errata(self, args):
         if num_affected:
             report[erratum] = num_affected
 
-    #XXX: max(list, key=len) in >2.5
+    # XXX: max(list, key=len) in >2.5
     max_size = 0
     for e in report.keys():
         size = len(e)
@@ -171,11 +182,13 @@ def do_report_errata(self, args):
 
 ####################
 
+
 def help_report_ipaddresses(self):
     print 'report_network: List the hostname and IP of each system'
     print 'usage: report_network [<SYSTEMS>]'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def do_report_ipaddresses(self, args):
     (args, _options) = parse_arguments(args)
@@ -193,10 +206,10 @@ def do_report_ipaddresses(self, args):
     for system in systems:
         system_id = self.get_system_id(system)
         network = self.client.system.getNetwork(self.session, system_id)
-        report[system] = {'hostname' : network.get('hostname'),
-                          'ip'       : network.get('ip') }
+        report[system] = {'hostname': network.get('hostname'),
+                          'ip': network.get('ip')}
 
-    #XXX: max(list, key=len) in >2.5
+    # XXX: max(list, key=len) in >2.5
     system_max_size = 0
     for s in report.keys():
         size = len(s)
@@ -208,7 +221,6 @@ def do_report_ipaddresses(self, args):
         size = len(h)
         if size > hostname_max_size:
             hostname_max_size = size
-
 
     if len(report):
         print '%s  %s  IP' % ('System'.ljust(system_max_size),
@@ -225,11 +237,13 @@ def do_report_ipaddresses(self, args):
 
 ####################
 
+
 def help_report_kernels(self):
     print 'report_network: List the running kernel of each system'
     print 'usage: report_network [<SYSTEMS>]'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def do_report_kernels(self, args):
     (args, _options) = parse_arguments(args)
@@ -249,7 +263,7 @@ def do_report_kernels(self, args):
         kernel = self.client.system.getRunningKernel(self.session, system_id)
         report[system] = kernel
 
-    #XXX: max(list, key=len) in >2.5
+    # XXX: max(list, key=len) in >2.5
     system_max_size = 0
     for s in report.keys():
         size = len(s)
@@ -266,9 +280,11 @@ def do_report_kernels(self, args):
 
 ####################
 
+
 def help_report_duplicates(self):
     print 'report_duplicates: List duplicate system profiles'
     print 'usage: report_duplicates'
+
 
 def do_report_duplicates(self, args):
     add_separator = False

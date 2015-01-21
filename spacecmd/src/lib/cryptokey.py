@@ -30,6 +30,7 @@ import xmlrpclib
 from optparse import Option
 from spacecmd.utils import *
 
+
 def help_cryptokey_create(self):
     print 'cryptokey_create: Create a cryptographic key'
     print '''usage: cryptokey_create [options]
@@ -39,10 +40,11 @@ options:
   -d DESCRIPTION
   -f KEY_FILE'''
 
+
 def do_cryptokey_create(self, args):
-    options = [ Option('-t', '--type', action='store'),
-                Option('-d', '--description', action='store'),
-                Option('-f', '--file', action='store') ]
+    options = [Option('-t', '--type', action='store'),
+               Option('-d', '--description', action='store'),
+               Option('-f', '--file', action='store')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -54,7 +56,7 @@ def do_cryptokey_create(self, args):
             options.description = prompt_user('Description:')
 
         if self.user_confirm('Read an existing file [y/N]:',
-                             nospacer = True, ignore_yes = True):
+                             nospacer=True, ignore_yes=True):
             options.file = prompt_user('File:')
         else:
             options.contents = editor(delete=True)
@@ -91,14 +93,17 @@ def do_cryptokey_create(self, args):
 
 ####################
 
+
 def help_cryptokey_delete(self):
     print 'cryptokey_delete: Delete a cryptographic key'
     print 'usage: cryptokey_delete NAME'
 
+
 def complete_cryptokey_delete(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
         return tab_completer(self.do_cryptokey_list('', True),
-                                  text)
+                             text)
+
 
 def do_cryptokey_delete(self, args):
     (args, _options) = parse_arguments(args)
@@ -109,8 +114,8 @@ def do_cryptokey_delete(self, args):
 
     # allow globbing of cryptokey names
     keys = filter_results(self.do_cryptokey_list('', True), args)
-    logging.debug("cryptokey_delete called with args %s, keys=%s" % \
-        (args, keys))
+    logging.debug("cryptokey_delete called with args %s, keys=%s" %
+                  (args, keys))
 
     if not len(keys):
         logging.error("No keys matched argument %s" % args)
@@ -125,11 +130,13 @@ def do_cryptokey_delete(self, args):
 
 ####################
 
+
 def help_cryptokey_list(self):
     print 'cryptokey_list: List all cryptographic keys (SSL, GPG)'
     print 'usage: cryptokey_list'
 
-def do_cryptokey_list(self, args, doreturn = False):
+
+def do_cryptokey_list(self, args, doreturn=False):
     keys = self.client.kickstart.keys.listAllKeys(self.session)
     keys = [k.get('description') for k in keys]
 
@@ -141,12 +148,15 @@ def do_cryptokey_list(self, args, doreturn = False):
 
 ####################
 
+
 def help_cryptokey_details(self):
     print 'cryptokey_details: Show the contents of a cryptographic key'
     print 'usage: cryptokey_details KEY ...'
 
+
 def complete_cryptokey_details(self, text, line, beg, end):
     return tab_completer(self.do_cryptokey_list('', True), text)
+
 
 def do_cryptokey_details(self, args):
     (args, _options) = parse_arguments(args)
@@ -157,8 +167,8 @@ def do_cryptokey_details(self, args):
 
     # allow globbing of cryptokey names
     keys = filter_results(self.do_cryptokey_list('', True), args)
-    logging.debug("cryptokey_details called with args %s, keys=%s" % \
-        (args, keys))
+    logging.debug("cryptokey_details called with args %s, keys=%s" %
+                  (args, keys))
 
     if not len(keys):
         logging.error("No keys matched argument %s" % args)

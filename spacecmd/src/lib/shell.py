@@ -32,17 +32,24 @@
 # use of exec
 # pylint: disable=W0122
 
-import atexit, logging, os, readline, re, shlex, sys
+import atexit
+import logging
+import os
+import readline
+import re
+import shlex
+import sys
 from cmd import Cmd
 from spacecmd.utils import *
 
+
 class SpacewalkShell(Cmd):
-    __module_list = [ 'activationkey', 'configchannel', 'cryptokey',
-                      'custominfo', 'distribution', 'errata',
-                      'filepreservation', 'group', 'kickstart',
-                      'misc', 'org', 'package', 'repo', 'report', 'schedule',
-                      'snippet', 'softwarechannel', 'ssm', 'api',
-                      'system', 'user', 'utils', 'scap' ]
+    __module_list = ['activationkey', 'configchannel', 'cryptokey',
+                     'custominfo', 'distribution', 'errata',
+                     'filepreservation', 'group', 'kickstart',
+                     'misc', 'org', 'package', 'repo', 'report', 'schedule',
+                     'snippet', 'softwarechannel', 'ssm', 'api',
+                     'system', 'user', 'utils', 'scap']
 
     # a SyntaxError is thrown if we don't wrap this in an 'exec'
     for module in __module_list:
@@ -105,7 +112,6 @@ class SpacewalkShell(Cmd):
             # pylint: disable=W0702
             pass
 
-
     # handle shell exits and history substitution
     def precmd(self, line):
         # disable too-many-return-statements warning
@@ -163,7 +169,7 @@ class SpacewalkShell(Cmd):
         if command[1] == '!':
             # repeat the last command
             line = readline.get_history_item(
-                       readline.get_current_history_length())
+                readline.get_current_history_length())
 
             if line:
                 history_match = True

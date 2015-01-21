@@ -51,9 +51,9 @@ examples:
 
 
 def do_api(self, args):
-    options = [ Option('-A', '--args', default=''),
-                Option('-F', '--format', default=''),
-                Option('-o', '--output', default='') ]
+    options = [Option('-A', '--args', default=''),
+               Option('-F', '--format', default=''),
+               Option('-o', '--output', default='')]
 
     (args, options) = parse_arguments(args, options)
 

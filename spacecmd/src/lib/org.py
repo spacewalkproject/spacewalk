@@ -35,7 +35,8 @@ from operator import itemgetter
 from optparse import Option
 from spacecmd.utils import *
 
-_PREFIXES = [ 'Dr.', 'Mr.', 'Miss', 'Mrs.', 'Ms.' ]
+_PREFIXES = ['Dr.', 'Mr.', 'Miss', 'Mrs.', 'Ms.']
+
 
 def help_org_create(self):
     print 'org_create: Create an organization'
@@ -51,30 +52,31 @@ options:
   -p PASSWORD
   --pam enable PAM authentication''' % ', '.join(_PREFIXES)
 
+
 def do_org_create(self, args):
-    options = [ Option('-n', '--org-name', action='store'),
-                Option('-u', '--username', action='store'),
-                Option('-P', '--prefix', action='store'),
-                Option('-f', '--first-name', action='store'),
-                Option('-l', '--last-name', action='store'),
-                Option('-e', '--email', action='store'),
-                Option('-p', '--password', action='store'),
-                Option('', '--pam', action='store_true') ]
+    options = [Option('-n', '--org-name', action='store'),
+               Option('-u', '--username', action='store'),
+               Option('-P', '--prefix', action='store'),
+               Option('-f', '--first-name', action='store'),
+               Option('-l', '--last-name', action='store'),
+               Option('-e', '--email', action='store'),
+               Option('-p', '--password', action='store'),
+               Option('', '--pam', action='store_true')]
 
     (args, options) = parse_arguments(args, options)
 
     if is_interactive(options):
-        options.org_name = prompt_user('Organization Name:', noblank = True)
-        options.username = prompt_user('Username:', noblank = True)
+        options.org_name = prompt_user('Organization Name:', noblank=True)
+        options.username = prompt_user('Username:', noblank=True)
         options.prefix = prompt_user('Prefix (%s):' % ', '.join(_PREFIXES),
-                                     noblank = True)
-        options.first_name = prompt_user('First Name:', noblank = True)
-        options.last_name = prompt_user('Last Name:', noblank = True)
-        options.email = prompt_user('Email:', noblank = True)
+                                     noblank=True)
+        options.first_name = prompt_user('First Name:', noblank=True)
+        options.last_name = prompt_user('Last Name:', noblank=True)
+        options.email = prompt_user('Email:', noblank=True)
         options.pam = self.user_confirm('PAM Authentication [y/N]:',
-                                        nospacer = True,
-                                        integer = False,
-                                        ignore_yes = True)
+                                        nospacer=True,
+                                        integer=False,
+                                        ignore_yes=True)
 
         options.password = ''
         while options.password == '':
@@ -133,12 +135,15 @@ def do_org_create(self, args):
 
 ####################
 
+
 def help_org_delete(self):
     print 'org_delete: Delete an organization'
     print 'usage: org_delete NAME'
 
+
 def complete_org_delete(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
+
 
 def do_org_delete(self, args):
     (args, _options) = parse_arguments(args)
@@ -155,12 +160,15 @@ def do_org_delete(self, args):
 
 ####################
 
+
 def help_org_rename(self):
     print 'org_rename: Rename an organization'
     print 'usage: org_rename OLDNAME NEWNAME'
 
+
 def complete_org_rename(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
+
 
 def do_org_rename(self, args):
     (args, _options) = parse_arguments(args)
@@ -176,12 +184,15 @@ def do_org_rename(self, args):
 
 ####################
 
+
 def help_org_addtrust(self):
     print 'org_addtrust: Add a trust between two organizations'
     print 'usage: org_addtrust YOUR_ORG ORG_TO_TRUST'
 
+
 def complete_org_addtrust(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
+
 
 def do_org_addtrust(self, args):
     (args, _options) = parse_arguments(args)
@@ -197,12 +208,15 @@ def do_org_addtrust(self, args):
 
 ####################
 
+
 def help_org_removetrust(self):
     print 'org_removetrust: Remove a trust between two organizations'
     print 'usage: org_removetrust YOUR_ORG TRUSTED_ORG'
 
+
 def complete_org_removetrust(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
+
 
 def do_org_removetrust(self, args):
     (args, _options) = parse_arguments(args)
@@ -222,7 +236,7 @@ def do_org_removetrust(self, args):
     print '----------------'
 
     if len(systems):
-        print '\n'.join(sorted( [s.get('systemName') for s in systems] ))
+        print '\n'.join(sorted([s.get('systemName') for s in systems]))
     else:
         print 'None'
 
@@ -235,12 +249,15 @@ def do_org_removetrust(self, args):
 
 ####################
 
+
 def help_org_trustdetails(self):
     print 'org_trustdetails: Show the details of an organizational trust'
     print 'usage: org_trustdetails TRUSTED_ORG'
 
+
 def complete_org_trustdetails(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
+
 
 def do_org_trustdetails(self, args):
     (args, _options) = parse_arguments(args)
@@ -264,22 +281,24 @@ def do_org_trustdetails(self, args):
     print 'Channels Consumed'
     print '-----------------'
     if len(consumed):
-        print '\n'.join(sorted( [c.get('name') for c in consumed] ))
+        print '\n'.join(sorted([c.get('name') for c in consumed]))
 
     print
 
     print 'Channels Provided'
     print '-----------------'
     if len(provided):
-        print '\n'.join(sorted( [c.get('name') for c in provided] ))
+        print '\n'.join(sorted([c.get('name') for c in provided]))
 
 ####################
+
 
 def help_org_list(self):
     print 'org_list: List all organizations'
     print 'usage: org_list'
 
-def do_org_list(self, args, doreturn = False):
+
+def do_org_list(self, args, doreturn=False):
     orgs = self.client.org.listOrgs(self.session)
     orgs = [o.get('name') for o in orgs]
 
@@ -291,12 +310,15 @@ def do_org_list(self, args, doreturn = False):
 
 ####################
 
+
 def help_org_listtrusts(self):
     print "org_listtrusts: List an organization's trusts"
     print 'usage: org_listtrusts NAME'
 
+
 def complete_org_listtrusts(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
+
 
 def do_org_listtrusts(self, args):
     (args, _options) = parse_arguments(args)
@@ -309,18 +331,21 @@ def do_org_listtrusts(self, args):
 
     trusts = self.client.org.trusts.listTrusts(self.session, org_id)
 
-    for trust in sorted(trusts, key = itemgetter('orgName')):
+    for trust in sorted(trusts, key=itemgetter('orgName')):
         if trust.get('trustEnabled'):
             print trust.get('orgName')
 
 ####################
 
+
 def help_org_listusers(self):
     print "org_listusers: List an organization's users"
     print 'usage: org_listusers NAME'
 
+
 def complete_org_listusers(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
+
 
 def do_org_listusers(self, args):
     (args, _options) = parse_arguments(args)
@@ -333,16 +358,19 @@ def do_org_listusers(self, args):
 
     users = self.client.org.listUsers(self.session, org_id)
 
-    print '\n'.join( sorted([ u.get('login') for u in users ]) )
+    print '\n'.join(sorted([u.get('login') for u in users]))
 
 ####################
+
 
 def help_org_details(self):
     print 'org_details: Show the details of an organization'
     print 'usage: org_details NAME'
 
+
 def complete_org_details(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
+
 
 def do_org_details(self, args):
     (args, _options) = parse_arguments(args)
@@ -372,13 +400,16 @@ def do_org_details(self, args):
 
 ####################
 
+
 def help_org_listsoftwareentitlements(self):
     print "org_listsoftwareentitlements: List an organization's software",
     print "entitlements"
     print 'usage: org_listsoftwareentitlements NAME'
 
+
 def complete_org_listsoftwareentitlements(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
+
 
 def do_org_listsoftwareentitlements(self, args):
     (args, _options) = parse_arguments(args)
@@ -392,19 +423,21 @@ def do_org_listsoftwareentitlements(self, args):
     entitlements = self.client.org.listSoftwareEntitlementsForOrg(self.session,
                                                                   org_id)
 
-    for e in sorted(entitlements, key = itemgetter('label')):
+    for e in sorted(entitlements, key=itemgetter('label')):
         if e.get('allocated') > 0:
             print '%s: %i/%i' % (
-                  e.get('label'),
-                  e.get('used'),
-                  e.get('allocated'))
+                e.get('label'),
+                e.get('used'),
+                e.get('allocated'))
 
 ####################
+
 
 def help_org_setsoftwareentitlements(self):
     print "org_setsoftwareentitlements: Sets an organization's software",
     print "entitlements"
     print 'usage: org_setsoftwareentitlements ORG ENTITLEMENT VALUE'
+
 
 def complete_org_setsoftwareentitlements(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -415,8 +448,9 @@ def complete_org_setsoftwareentitlements(self, text, line, beg, end):
         return tab_completer(self.do_org_list('', True), text)
     elif len(parts) == 3:
         entitlements = self.client.satellite.listEntitlements(self.session)
-        items = sorted([ e.get('label') for e in entitlements.get('channel') ])
+        items = sorted([e.get('label') for e in entitlements.get('channel')])
         return tab_completer(items, parts[-1])
+
 
 def do_org_setsoftwareentitlements(self, args):
     (args, _options) = parse_arguments(args)
@@ -438,13 +472,16 @@ def do_org_setsoftwareentitlements(self, args):
 
 ####################
 
+
 def help_org_listsystementitlements(self):
     print "org_listsystementitlements: List an organization's system",
     print "entitlements"
     print 'usage: org_listsystementitlements NAME'
 
+
 def complete_org_listsystementitlements(self, text, line, beg, end):
     return tab_completer(self.do_org_list('', True), text)
+
 
 def do_org_listsystementitlements(self, args):
     (args, _options) = parse_arguments(args)
@@ -458,19 +495,21 @@ def do_org_listsystementitlements(self, args):
     entitlements = self.client.org.listSystemEntitlementsForOrg(self.session,
                                                                 org_id)
 
-    for e in sorted(entitlements, key = itemgetter('label')):
+    for e in sorted(entitlements, key=itemgetter('label')):
         if e.get('allocated') > 0:
             print '%s: %i/%i' % (
-                  e.get('label'),
-                  e.get('used'),
-                  e.get('allocated'))
+                e.get('label'),
+                e.get('used'),
+                e.get('allocated'))
 
 ####################
+
 
 def help_org_setsystementitlements(self):
     print "org_setsystementitlements: Sets an organization's system",
     print "entitlements"
     print 'usage: org_setsystementitlements ORG ENTITLEMENT VALUE'
+
 
 def complete_org_setsystementitlements(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -481,8 +520,9 @@ def complete_org_setsystementitlements(self, text, line, beg, end):
         return tab_completer(self.do_org_list('', True), text)
     elif len(parts) == 3:
         entitlements = self.client.satellite.listEntitlements(self.session)
-        items = sorted([ e.get('label') for e in entitlements.get('system') ])
+        items = sorted([e.get('label') for e in entitlements.get('system')])
         return tab_completer(items, parts[-1])
+
 
 def do_org_setsystementitlements(self, args):
     (args, _options) = parse_arguments(args)

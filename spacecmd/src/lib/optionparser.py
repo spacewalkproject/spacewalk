@@ -33,6 +33,9 @@ from optparse import OptionParser
 # optparse by default will exit when there is an error.  when spacecmd
 # is in an interactive shell, we don't want to exit.  instead, just
 # raise an exception that will printed for the user to read.
+
+
 class SpacecmdOptionParser(OptionParser):
+
     def error(self, msg):
         raise Exception(msg)

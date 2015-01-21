@@ -36,6 +36,7 @@ from optparse import Option
 from spacecmd.utils import *
 import xmlrpclib
 
+
 def help_user_create(self):
     print 'user_create: Create an user'
     print '''usage: user_create [options]
@@ -48,25 +49,26 @@ options:
   -p PASSWORD
   --pam enable PAM authentication'''
 
+
 def do_user_create(self, args):
-    options = [ Option('-u', '--username', action='store'),
-                Option('-f', '--first-name', action='store'),
-                Option('-l', '--last-name', action='store'),
-                Option('-e', '--email', action='store'),
-                Option('-p', '--password', action='store'),
-                Option('', '--pam', action='store_true') ]
+    options = [Option('-u', '--username', action='store'),
+               Option('-f', '--first-name', action='store'),
+               Option('-l', '--last-name', action='store'),
+               Option('-e', '--email', action='store'),
+               Option('-p', '--password', action='store'),
+               Option('', '--pam', action='store_true')]
 
     (args, options) = parse_arguments(args, options)
 
     if is_interactive(options):
-        options.username = prompt_user('Username:', noblank = True)
-        options.first_name = prompt_user('First Name:', noblank = True)
-        options.last_name = prompt_user('Last Name:', noblank = True)
-        options.email = prompt_user('Email:', noblank = True)
+        options.username = prompt_user('Username:', noblank=True)
+        options.first_name = prompt_user('First Name:', noblank=True)
+        options.last_name = prompt_user('Last Name:', noblank=True)
+        options.email = prompt_user('Email:', noblank=True)
         options.pam = self.user_confirm('PAM Authentication [y/N]:',
-                                        nospacer = True,
-                                        integer = True,
-                                        ignore_yes = True)
+                                        nospacer=True,
+                                        integer=True,
+                                        ignore_yes=True)
 
         options.password = ''
         while options.password == '':
@@ -120,12 +122,15 @@ def do_user_create(self, args):
 
 ####################
 
+
 def help_user_delete(self):
     print 'user_delete: Delete an user'
     print 'usage: user_delete NAME'
 
+
 def complete_user_delete(self, text, line, beg, end):
     return tab_completer(self.do_user_list('', True), text)
+
 
 def do_user_delete(self, args):
     (args, _options) = parse_arguments(args)
@@ -141,12 +146,15 @@ def do_user_delete(self, args):
 
 ####################
 
+
 def help_user_disable(self):
     print 'user_disable: Disable an user account'
     print 'usage: user_disable NAME'
 
+
 def complete_user_disable(self, text, line, beg, end):
     return tab_completer(self.do_user_list('', True), text)
+
 
 def do_user_disable(self, args):
     (args, _options) = parse_arguments(args)
@@ -161,12 +169,15 @@ def do_user_disable(self, args):
 
 ####################
 
+
 def help_user_enable(self):
     print 'user_enable: Enable an user account'
     print 'usage: user_enable NAME'
 
+
 def complete_user_enable(self, text, line, beg, end):
     return tab_completer(self.do_user_list('', True), text)
+
 
 def do_user_enable(self, args):
     (args, _options) = parse_arguments(args)
@@ -181,11 +192,13 @@ def do_user_enable(self, args):
 
 ####################
 
+
 def help_user_list(self):
     print 'user_list: List all users'
     print 'usage: user_list'
 
-def do_user_list(self, args, doreturn = False):
+
+def do_user_list(self, args, doreturn=False):
     users = self.client.user.listUsers(self.session)
     users = [u.get('login') for u in users]
 
@@ -197,11 +210,13 @@ def do_user_list(self, args, doreturn = False):
 
 ####################
 
+
 def help_user_listavailableroles(self):
     print 'user_list: List all available roles for users'
     print 'usage: user_listavailableroles'
 
-def do_user_listavailableroles(self, args, doreturn = False):
+
+def do_user_listavailableroles(self, args, doreturn=False):
     roles = self.client.user.listAssignableRoles(self.session)
 
     if doreturn:
@@ -212,9 +227,11 @@ def do_user_listavailableroles(self, args, doreturn = False):
 
 ####################
 
+
 def help_user_addrole(self):
     print 'user_addrole: Add a role to an user account'
     print 'usage: user_addrole USER ROLE'
+
 
 def complete_user_addrole(self, text, line, beg, end):
     parts = line.split(' ')
@@ -223,7 +240,8 @@ def complete_user_addrole(self, text, line, beg, end):
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) == 3:
         return tab_completer(self.do_user_listavailableroles('', True),
-                                  text)
+                             text)
+
 
 def do_user_addrole(self, args):
     (args, _options) = parse_arguments(args)
@@ -239,9 +257,11 @@ def do_user_addrole(self, args):
 
 ####################
 
+
 def help_user_removerole(self):
     print 'user_removerole: Remove a role from an user account'
     print 'usage: user_removerole USER ROLE'
+
 
 def complete_user_removerole(self, text, line, beg, end):
     parts = line.split(' ')
@@ -252,6 +272,7 @@ def complete_user_removerole(self, text, line, beg, end):
         # only list the roles currently assigned to this user
         roles = self.client.user.listRoles(self.session, parts[1])
         return tab_completer(roles, text)
+
 
 def do_user_removerole(self, args):
     (args, _options) = parse_arguments(args)
@@ -267,12 +288,15 @@ def do_user_removerole(self, args):
 
 ####################
 
+
 def help_user_details(self):
     print 'user_details: Show the details of an user'
     print 'usage: user_details USER ...'
 
+
 def complete_user_details(self, text, line, beg, end):
     return tab_completer(self.do_user_list('', True), text)
+
 
 def do_user_details(self, args):
     (args, _options) = parse_arguments(args)
@@ -291,7 +315,7 @@ def do_user_details(self, args):
 
             groups = \
                 self.client.user.listAssignedSystemGroups(self.session,
-                                                                user)
+                                                          user)
 
             default_groups = \
                 self.client.user.listDefaultSystemGroups(self.session,
@@ -337,9 +361,11 @@ def do_user_details(self, args):
 
 ####################
 
+
 def help_user_addgroup(self):
     print 'user_addgroup: Add a group to an user account'
     print 'usage: user_addgroup USER <GROUP ...>'
+
 
 def complete_user_addgroup(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -350,6 +376,7 @@ def complete_user_addgroup(self, text, line, beg, end):
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
         return tab_completer(self.do_group_list('', True), parts[-1])
+
 
 def do_user_addgroup(self, args):
     (args, _options) = parse_arguments(args)
@@ -368,9 +395,11 @@ def do_user_addgroup(self, args):
 
 ####################
 
+
 def help_user_adddefaultgroup(self):
     print 'user_adddefaultgroup: Add a default group to an user account'
     print 'usage: user_adddefaultgroup USER <GROUP ...>'
+
 
 def complete_user_adddefaultgroup(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -381,6 +410,7 @@ def complete_user_adddefaultgroup(self, text, line, beg, end):
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
         return tab_completer(self.do_group_list('', True), parts[-1])
+
 
 def do_user_adddefaultgroup(self, args):
     (args, _options) = parse_arguments(args)
@@ -398,9 +428,11 @@ def do_user_adddefaultgroup(self, args):
 
 ####################
 
+
 def help_user_removegroup(self):
     print 'user_removegroup: Remove a group to an user account'
     print 'usage: user_removegroup USER <GROUP ...>'
+
 
 def complete_user_removegroup(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -413,7 +445,8 @@ def complete_user_removegroup(self, text, line, beg, end):
         # only list the groups currently assigned to this user
         groups = self.client.user.listAssignedSystemGroups(self.session,
                                                            parts[1])
-        return tab_completer([ g.get('name') for g in groups ], parts[-1])
+        return tab_completer([g.get('name') for g in groups], parts[-1])
+
 
 def do_user_removegroup(self, args):
     (args, _options) = parse_arguments(args)
@@ -432,10 +465,12 @@ def do_user_removegroup(self, args):
 
 ####################
 
+
 def help_user_removedefaultgroup(self):
     print 'user_removedefaultgroup: Remove a default group from an ' + \
           'user account'
     print 'usage: user_removedefaultgroup USER <GROUP ...>'
+
 
 def complete_user_removedefaultgroup(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -448,7 +483,8 @@ def complete_user_removedefaultgroup(self, text, line, beg, end):
         # only list the groups currently assigned to this user
         groups = self.client.user.listDefaultSystemGroups(self.session,
                                                           parts[1])
-        return tab_completer([ g.get('name') for g in groups ], parts[-1])
+        return tab_completer([g.get('name') for g in groups], parts[-1])
+
 
 def do_user_removedefaultgroup(self, args):
     (args, _options) = parse_arguments(args)
@@ -466,9 +502,11 @@ def do_user_removedefaultgroup(self, args):
 
 ####################
 
+
 def help_user_setfirstname(self):
     print 'user_setfirstname: Set an user accounts first name field'
     print 'usage: user_setfirstname USER FIRST_NAME'
+
 
 def complete_user_setfirstname(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -480,6 +518,7 @@ def complete_user_setfirstname(self, text, line, beg, end):
     elif len(parts) > 2:
         return
 
+
 def do_user_setfirstname(self, args):
     (args, _options) = parse_arguments(args)
 
@@ -488,15 +527,17 @@ def do_user_setfirstname(self, args):
         return
 
     user = args.pop(0)
-    details = { 'first_name' : args.pop(0) }
+    details = {'first_name': args.pop(0)}
 
     self.client.user.setDetails(self.session, user, details)
 
 ####################
 
+
 def help_user_setlastname(self):
     print 'user_setlastname: Set an user accounts last name field'
     print 'usage: user_setlastname USER LAST_NAME'
+
 
 def complete_user_setlastname(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -508,6 +549,7 @@ def complete_user_setlastname(self, text, line, beg, end):
     elif len(parts) > 2:
         return
 
+
 def do_user_setlastname(self, args):
     (args, _options) = parse_arguments(args)
 
@@ -516,15 +558,17 @@ def do_user_setlastname(self, args):
         return
 
     user = args.pop(0)
-    details = { 'last_name' : args.pop(0) }
+    details = {'last_name': args.pop(0)}
 
     self.client.user.setDetails(self.session, user, details)
 
 ####################
 
+
 def help_user_setemail(self):
     print 'user_setemail: Set an user accounts email field'
     print 'usage: user_setemail USER EMAIL'
+
 
 def complete_user_setemail(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -536,6 +580,7 @@ def complete_user_setemail(self, text, line, beg, end):
     elif len(parts) > 2:
         return
 
+
 def do_user_setemail(self, args):
     (args, _options) = parse_arguments(args)
 
@@ -544,15 +589,17 @@ def do_user_setemail(self, args):
         return
 
     user = args.pop(0)
-    details = { 'email' : args.pop(0) }
+    details = {'email': args.pop(0)}
 
     self.client.user.setDetails(self.session, user, details)
 
 ####################
 
+
 def help_user_setprefix(self):
     print 'user_setprefix: Set an user accounts name prefix field'
     print 'usage: user_setprefix USER PREFIX'
+
 
 def complete_user_setprefix(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -563,6 +610,7 @@ def complete_user_setprefix(self, text, line, beg, end):
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
         return
+
 
 def do_user_setprefix(self, args):
     (args, _options) = parse_arguments(args)
@@ -577,17 +625,19 @@ def do_user_setprefix(self, args):
         # spacewalk requires a space to clear the prefix but the
         # space seems to be stripped when submitted to the API gateway
         # attempts to use %x20 and \u0020 (among others) also fail
-        details = { 'prefix' : ' ' }
+        details = {'prefix': ' '}
     else:
-        details = { 'prefix' : args.pop(0) }
+        details = {'prefix': args.pop(0)}
 
     self.client.user.setDetails(self.session, user, details)
 
 ####################
 
+
 def help_user_setpassword(self):
     print 'user_setpassword: Set an user accounts name prefix field'
     print 'usage: user_setpassword USER PASSWORD'
+
 
 def complete_user_setpassword(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -599,6 +649,7 @@ def complete_user_setpassword(self, text, line, beg, end):
     elif len(parts) > 2:
         return
 
+
 def do_user_setpassword(self, args):
     (args, _options) = parse_arguments(args)
 
@@ -607,7 +658,7 @@ def do_user_setpassword(self, args):
         return
 
     user = args.pop(0)
-    details = { 'password' : args.pop(0) }
+    details = {'password': args.pop(0)}
 
     self.client.user.setDetails(self.session, user, details)
 
