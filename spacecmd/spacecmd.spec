@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.11
+Version:     2.3.12
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -76,6 +76,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Jan 21 2015 Matej Kollar <mkollar@redhat.com> 2.3.12-1
+- Pylint fix for Fedora 21
+
 * Fri Jan 16 2015 Grant Gainey 2.3.11-1
 - fix configchannel export - do not create 'contents' key for directories
 
