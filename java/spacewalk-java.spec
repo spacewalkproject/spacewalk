@@ -660,7 +660,7 @@ fi
 %{jardir}/jdom.jar
 %{jardir}/jpam.jar
 %{jardir}/jta.jar
-%{jardir}/log4j.jar
+%{jardir}/log4j*.jar
 
 %if 0%{?fedora}
 %{jardir}/mchange-commons.jar
