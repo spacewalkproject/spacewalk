@@ -31,7 +31,7 @@ class MakeEvrTestCase(unittest.TestCase):
 
     def testEvr3(self):
         ret = self.make_evr('testcase1-0-0')
-        assert ret['epoch'] == None and ret['name'] == 'testcase1' and ret['version'] == '0' and ret['release'] == '0'
+        assert ret['epoch'] is None and ret['name'] == 'testcase1' and ret['version'] == '0' and ret['release'] == '0'
 
     def testEvr4(self):
         ret = self.make_evr('100000000000000000:a.b.c.d.e.f.g.h.i.j.k.l-m.n.o.p.q.r.s.t.u.v-w.x.y.z')

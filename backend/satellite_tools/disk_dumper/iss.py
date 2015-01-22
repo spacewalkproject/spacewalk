@@ -237,7 +237,7 @@ class Dumper(dumper.XML_Dumper):
                 channel_comps_sth.execute(channel_id=ch_info[0]['channel_id'])
                 comps_info = channel_comps_sth.fetchone_dict()
 
-                if comps_info != None:
+                if comps_info is not None:
                     self.channel_comps[ch_info[0]['channel_id']] = comps_info['relative_filename']
 
             # For list of channel families, we want to also list those relevant for channels

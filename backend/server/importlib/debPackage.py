@@ -130,7 +130,7 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
         for k, dclass in mapping.items():
             l = []
             values = header[k]
-            if values != None:
+            if values is not None:
                 val = string.join(values.split(), "")  # remove whitespaces
                 val = val.split(',')  # split packages
                 i = 0

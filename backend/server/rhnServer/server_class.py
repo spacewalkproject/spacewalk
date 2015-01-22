@@ -490,7 +490,7 @@ class Server(ServerWrapper):
         if commit:
             rhnSQL.commit()
 
-       # Save this record in the database
+    # Save this record in the database
     def __save(self, channel):
         if self.server.real:
             server_id = self.server["id"]

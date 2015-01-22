@@ -682,7 +682,7 @@ def populate_channel_family_permissions(cert):
 
     # Cleanup left out suborgs
     for (cf_name, org_id), max_list in cfps.items():
-        if cfps.has_key((cf_name, 1)) and cfps[(cf_name, 1)] == None:  # is None:
+        if cfps.has_key((cf_name, 1)) and cfps[(cf_name, 1)] is None:
             cfps[(cf_name, org_id)] = None
 
     batch = []

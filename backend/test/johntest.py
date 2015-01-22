@@ -90,7 +90,7 @@ class Test:
 
     def reserve_user(self, username, password):
         ret = None
-        if username != None and password != None:
+        if username is not None and password is not None:
             s = self._connect()
             sysid = self._get_sysid()
             ret = s.registration.reserve_user(username, password)

@@ -60,7 +60,7 @@ class WsgiRequest:
         self.status = str(self.status)
         if status is not None:
             self.status = str(status)
-        if len(self.status) == 0 or self.status == None:
+        if len(self.status) == 0 or self.status is None:
             self.status = "200"
         elif self.status.startswith("500"):
             for i in self.err_headers_out.items():

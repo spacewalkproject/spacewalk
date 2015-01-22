@@ -146,7 +146,7 @@ class TemplatedDocument(BaseTemplatedDocument):
 
         result = f(*params)
 
-        if result == None:
+        if result is None:
             if defval:
                 return defval
             return ''

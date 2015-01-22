@@ -52,7 +52,7 @@ def initiate(server_id, action_id, dry_run=0):
     static_device = row['static_device'] or ""
     kickstart_host = row['kickstart_host']
     system_record = row['cobbler_system_name']
-    if system_record == None:
+    if system_record is None:
         system_record = ''
     if not boot_image:
         raise InvalidAction("Boot image missing")

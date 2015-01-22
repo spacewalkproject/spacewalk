@@ -207,7 +207,7 @@ class SolveDependenciesTestCase(unittest.TestCase):
     def testMakeEvr2(self):
         nlimitstr = 'mozilla-1.5-2.rhfc1.dag'
         nlimit = rhnDependency.make_evr(nlimitstr)
-        assert nlimit['epoch'] == None and\
+        assert nlimit['epoch'] is None and\
             nlimit['name'] == 'mozilla' and\
             nlimit['version'] == '1.5' and\
             nlimit['release'] == '2.rhfc1.dag'

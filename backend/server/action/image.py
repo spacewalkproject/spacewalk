@@ -39,7 +39,7 @@ def deploy(serverId, actionId, dry_run=0):
                             "%s and server %s" % (actionId, serverId))
 
     for key in ['download_url', 'proxy_server', 'proxy_user', 'proxy_pass', 'bridge_device']:
-        if row[key] == None:
+        if row[key] is None:
             row[key] = ""
 
     params = {

@@ -95,7 +95,7 @@ class ServerTemplatedDocument(TemplatedDocument):
             return None
 
     def custom_info(self, key):
-        if self.server.custom_info == None:
+        if self.server.custom_info is None:
             log_debug(4, "no custom info", self.server)
             raise "didn't load custom info"
 

@@ -370,7 +370,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all=0, limit_operat
 
         package_list.reverse()
         # Use the limit* parameters to filter out packages you don't want.
-        if limit_operator != None and limit != None:
+        if limit_operator is not None and limit is not None:
             keep_list = []
 
             try:
@@ -391,7 +391,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all=0, limit_operat
 
         list_of_tuples = []
         for p in package_list:
-            if p['epoch'] == None:
+            if p['epoch'] is None:
                 p['epoch'] = ""
 
             entry = []
@@ -514,7 +514,7 @@ def solve_dependencies(server_id, deps, version, nvre=None):
             continue
 
         for p in rs:
-            if p['epoch'] == None:
+            if p['epoch'] is None:
                 p['epoch'] = ""
             entry = []
             map(lambda f, e=entry, p=p: e.append(p[f]), nvre)

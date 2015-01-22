@@ -128,7 +128,7 @@ def _invalidate_action_recursive(server_id, action_id, h, h_child):
         a_ids += child_ids
     h.execute(server_id=server_id, action_id=action_id)
     s_row = h.fetchone_dict()
-    if s_row and s_row['status'] <> 3:
+    if s_row and s_row['status'] != 3:
         # not already failed
         c_action_id = s_row['action_id']
         a_ids.append(c_action_id)

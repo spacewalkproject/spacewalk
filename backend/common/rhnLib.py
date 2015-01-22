@@ -161,7 +161,7 @@ def parseRPMName(pkgName):
         OUT: Four strings (in a tuple): name, epoch, version, release.
     """
     reg = re_rpmName.match(pkgName)
-    if reg == None:
+    if reg is None:
         return None, None, None, None
     n, v, r = reg.group(1, 2, 3)
     e = None

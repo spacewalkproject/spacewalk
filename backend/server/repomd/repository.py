@@ -187,7 +187,7 @@ class Repository(object):
 
     def __get_channel(self):
         """ Late binding for the channel. """
-        if self._channel == None:
+        if self._channel is None:
             channel_mapper = mapper.get_channel_mapper()
             self._channel = channel_mapper.get_channel(self.channel_id)
         return self._channel

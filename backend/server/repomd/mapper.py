@@ -422,7 +422,7 @@ class SqlPackageMapper:
         package.name = pkg[0]
         package.version = pkg[1]
         package.release = pkg[2]
-        if pkg[3] != None:
+        if pkg[3] is not None:
             package.epoch = pkg[3]
         package.arch = pkg[4]
 

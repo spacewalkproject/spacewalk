@@ -356,7 +356,7 @@ class _ChannelDumper(BaseRowDumper):
                                 channel_product_details[2]))
 
         comp_last_modified = self._channel_comps_last_modified()
-        if comp_last_modified != None:
+        if comp_last_modified is not None:
             arr.append(SimpleDumper(self._writer, 'rhn-channel-comps-last-modified',
                                     _dbtime2timestamp(comp_last_modified[0])))
 

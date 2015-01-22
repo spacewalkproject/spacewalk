@@ -38,7 +38,7 @@ def hash_validate(data, *keylist):
         if not data.has_key(k):
             return 0
         l = data[k]
-        if l == None:
+        if l is None:
             return 0
         if type(l) == type("") and len(l) == 0:
             return 0

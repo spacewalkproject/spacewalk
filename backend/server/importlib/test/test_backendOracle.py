@@ -41,7 +41,7 @@ for i in rows:
             if not isinstance(t, eval(ora2py[i['data_type']])):
                 print "%s.%s:  %s vs. %s" % (i['table_name'],
                                              i['column_name'], i['data_type'], t.__class__)
-            elif isinstance(t, DBstring) and t.limit <> i['data_length']:
+            elif isinstance(t, DBstring) and t.limit != i['data_length']:
                 # for VARCHAR2/DBstring check also size
                 print "%s.%s: DBstring(%d) vs. VARCHAR2(%s)" % (
                     i['table_name'], i['column_name'], t.limit, i['data_length'])

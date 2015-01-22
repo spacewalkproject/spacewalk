@@ -98,7 +98,7 @@ def delete_guests(server_id):
         guest_id = row['virtual_system_id']
         log_debug(4, 'Deleting guest server: %s' % guest_id)
         try:
-            if guest_id != None:
+            if guest_id is not None:
                 delete_server(guest_id)
         except rhnSQL.SQLError:
             log_error("Error deleting server: %s" % guest_id)

@@ -217,7 +217,7 @@ class RepoSync(object):
 
     def update_date(self):
         """ Updates the last sync time"""
-        h = rhnSQL.prepare( """update rhnChannel set LAST_SYNCED = current_timestamp
+        h = rhnSQL.prepare("""update rhnChannel set LAST_SYNCED = current_timestamp
                              where label = :channel""")
         h.execute(channel=self.channel['label'])
 
