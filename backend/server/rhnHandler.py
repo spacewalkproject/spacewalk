@@ -80,7 +80,7 @@ class rhnHandler(RPC_Base):
                     % server.server["name"])
 
         # Kind of poking where we shouldn't, but what the hell
-        if self.load_user and not self.user is None:
+        if self.load_user and self.user is not None:
             self.user = server.user.username
         else:
             self.user = None

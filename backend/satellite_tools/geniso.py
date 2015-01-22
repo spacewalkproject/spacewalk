@@ -163,7 +163,7 @@ def main(arglist):
         fd = os.popen(cmd, "r")
         print fd.read()
 
-        if not options.copy_iso_dir is None:
+        if options.copy_iso_dir is not None:
             copy_iso_path = os.path.join(options.copy_iso_dir, os.path.basename(os.path.dirname(filename)))
             if not os.path.exists(copy_iso_path):
                 os.mkdir(copy_iso_path)

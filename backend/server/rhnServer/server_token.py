@@ -416,7 +416,7 @@ def token_config_channels(server, tokens_obj):
             deployment = 1
         for c in channels:
             config_channel_id = c['config_channel_id']
-            if not c['config_channel_id']  in current_channels and\
+            if not c['config_channel_id'] in current_channels and\
                     not config_channels_hash.has_key(config_channel_id):
                 position = len(current_channels) + len(config_channels) + 1
                 # Update the position in the queue

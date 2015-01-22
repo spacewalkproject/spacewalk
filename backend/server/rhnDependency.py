@@ -127,7 +127,7 @@ and p.package_arch_id = pa.id
 """
 # QUERY PROVIDES
 # sql query for solving a dep as a provide
-__provides_sql  = """
+__provides_sql = """
 select  distinct
     pn.name,
     (pe.evr).version as version,
@@ -173,7 +173,7 @@ and pe.evr = (
     )
 """
 
-__provides_all_sql  = """
+__provides_all_sql = """
 select  distinct
     pn.name,
     (pe.evr).version as version,

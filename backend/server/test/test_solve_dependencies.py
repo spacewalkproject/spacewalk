@@ -128,7 +128,7 @@ class SolveDependenciesTestCase(unittest.TestCase):
                                            [self.filename],
                                            2,
                                            all=1)
-        if not pack is None:
+        if pack is not None:
             assert 1
         else:
             assert 0
@@ -273,7 +273,7 @@ class SolveDependenciesTestCase(unittest.TestCase):
 
     def testUp2dateObj(self):
         pack = self.up2date.solveDependencies(self.myserver.getSystemId(), [self.filename])
-        if not pack is None:
+        if pack is not None:
             assert 1
         else:
             assert 0

@@ -678,10 +678,10 @@ class RepoSync(object):
             return
 
         if rhnSQL.fetchone_dict("""
-            select id
-            from rhnKickstartableTree
-            where org_id = :org_id and channel_id = :channel_id and label = :label
-            """, org_id=self.channel['org_id'], channel_id=self.channel['id'], label=repo_label):
+                select id
+                from rhnKickstartableTree
+                where org_id = :org_id and channel_id = :channel_id and label = :label
+                """, org_id=self.channel['org_id'], channel_id=self.channel['id'], label=repo_label):
             print "Kickstartable tree %s already synced." % repo_label
             return
 
