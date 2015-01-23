@@ -198,8 +198,7 @@ class apacheHandler(rhnApache):
         # Remove it, and place it in the X-RHN-EffectiveURI header.
 
         req.headers_in[HEADER_EFFECTIVE_URI] = req.headers_in[HEADER_ACTUAL_URI]
-        log_debug(3, "Reverting to old URI: %s"
-                     % req.headers_in[HEADER_ACTUAL_URI])
+        log_debug(3, "Reverting to old URI: %s" % req.headers_in[HEADER_ACTUAL_URI])
 
         return apache.OK
 
@@ -535,7 +534,7 @@ class apacheHandler(rhnApache):
                           extra="Error \"%s\" encoding response = %s" % (e, response),
                           severity="notification")
                 return apache.HTTP_INTERNAL_SERVER_ERROR
-            except:
+            except Exception:  # pylint: disable=E0012, W0703
                 # Uncaught exception; signal the error
                 Traceback("apacheHandler.response", req,
                           severity="unhandled")
@@ -600,8 +599,7 @@ class apacheHandler(rhnApache):
             except OSError:
                 break
             else:
-                log_error("Reaped child process %d with status %d" % (
-                          pid, status))
+                log_error("Reaped child process %d with status %d" % (pid, status))
         ret = rhnApache.cleanupHandler(self, req)
         return ret
 

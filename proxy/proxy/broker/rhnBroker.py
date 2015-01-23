@@ -223,8 +223,7 @@ class BrokerHandler(SharedHandler):
 
         _oto = rhnFlags.get('outputTransportOptions')
         if _oto.has_key('X-RHN-Proxy-Auth'):
-            log_debug(5, '    (auth token prior): %s'
-                         % repr(_oto['X-RHN-Proxy-Auth']))
+            log_debug(5, '    (auth token prior): %s' % repr(_oto['X-RHN-Proxy-Auth']))
             tokens = _oto['X-RHN-Proxy-Auth'].split(',')
 
         # list of tokens to be pushed into the headers.
@@ -264,8 +263,7 @@ class BrokerHandler(SharedHandler):
             # If a proxy other than this one needs to update its auth token
             # pass the error on up to it
             if (respHeaders.has_key('X-RHN-Proxy-Auth-Origin') and
-                respHeaders['X-RHN-Proxy-Auth-Origin']
-                    != self.proxyAuth.hostname):
+                    respHeaders['X-RHN-Proxy-Auth-Origin'] != self.proxyAuth.hostname):
                 break
 
             # Expired/invalid auth token; go through the loop once again

@@ -343,16 +343,16 @@ class SharedHandler:
                 k = k.replace('_', '-')
             if not (k.lower()[:2] == 'x-' or
                     k.lower() in [  # all but 'host'
-                    'accept', 'accept-charset', 'accept-encoding', 'accept-language',
-                    'accept-ranges', 'age', 'allow', 'authorization', 'cache-control',
-                    'connection', 'content-encoding', 'content-language', 'content-length',
-                    'content-location', 'content-md5', 'content-range', 'content-type',
-                    'date', 'etag', 'expect', 'expires', 'from', 'if-match',
-                    'if-modified-since', 'if-none-match', 'if-range', 'if-unmodified-since',
-                    'last-modified', 'location', 'max-forwards', 'pragma', 'proxy-authenticate',
-                    'proxy-authorization', 'range', 'referer', 'retry-after', 'server',
-                    'te', 'trailer', 'transfer-encoding', 'upgrade', 'user-agent', 'vary',
-                    'via', 'warning', 'www-authenticate']):
+                        'accept', 'accept-charset', 'accept-encoding', 'accept-language',
+                        'accept-ranges', 'age', 'allow', 'authorization', 'cache-control',
+                        'connection', 'content-encoding', 'content-language', 'content-length',
+                        'content-location', 'content-md5', 'content-range', 'content-type',
+                        'date', 'etag', 'expect', 'expires', 'from', 'if-match',
+                        'if-modified-since', 'if-none-match', 'if-range', 'if-unmodified-since',
+                        'last-modified', 'location', 'max-forwards', 'pragma', 'proxy-authenticate',
+                        'proxy-authorization', 'range', 'referer', 'retry-after', 'server',
+                        'te', 'trailer', 'transfer-encoding', 'upgrade', 'user-agent', 'vary',
+                        'via', 'warning', 'www-authenticate']):
                 # filter out header we don't want to send
                 continue
             if type(vals) not in (ListType, TupleType):

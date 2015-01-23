@@ -161,8 +161,8 @@ class RedirectHandler(SharedHandler):
                 # to perform the request.
 
                 log_debug(1, "Redirection failed; retries exhausted.  "
-                             "Failing over.  Code=",
-                             redirectStatus)
+                          "Failing over.  Code=",
+                          redirectStatus)
                 redirectStatus = self.__redirectFailover()
 
             return SharedHandler._handleServerResponse(self, redirectStatus)
@@ -218,10 +218,10 @@ class RedirectHandler(SharedHandler):
 
             retriesLeft = retriesLeft - 1
             log_debug(1, "Redirection failed; trying again.  "
-                         "Retries left=",
-                         retriesLeft,
-                         "Code=",
-                         redirectStatus)
+                      "Retries left=",
+                      retriesLeft,
+                      "Code=",
+                      redirectStatus)
 
             # Pop the current response context and restore the state to
             # the last successful response.  The acts of remove the current
@@ -319,7 +319,7 @@ class RedirectHandler(SharedHandler):
             Traceback(mail=0)
             return apache.HTTP_SERVICE_UNAVAILABLE
         log_debug(4, "Connected to 3rd party server:",
-                     connection.sock.getpeername())
+                  connection.sock.getpeername())
 
         # Put the request out on the wire.
 
@@ -347,8 +347,8 @@ class RedirectHandler(SharedHandler):
                 if hdr.lower().startswith("x-rhn"):
                     connection.putheader(hdr, self.req.headers_in[hdr])
                     log_debug(4, "Passing request header: ",
-                                 hdr,
-                                 self.req.headers_in[hdr])
+                              hdr,
+                              self.req.headers_in[hdr])
 
             connection.endheaders()
 
@@ -380,7 +380,7 @@ class RedirectHandler(SharedHandler):
         self.responseContext.setHeaders(response.msg)
 
         log_debug(4, "Response headers: ",
-                     self.responseContext.getHeaders().items())
+                  self.responseContext.getHeaders().items())
         log_debug(4, "Got redirect response.  Status=", response.status)
 
         # Return the HTTP status to the caller.
@@ -402,7 +402,7 @@ class RedirectHandler(SharedHandler):
         headers[rhnConstants.HEADER_RHN_REDIRECT] = '0'
 
         log_debug(4, "Added X-RHN-Redirect header to outputTransportOptions:",
-                     headers)
+                  headers)
 
         # Reset the existing connection and reconnect to the RHN parent server.
 

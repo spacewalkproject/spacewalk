@@ -308,7 +308,7 @@ problems, isn't running, or the token is somehow corrupt.
                 raise rhnFault(1000,
                                _("Spacewalk Proxy error (during proxy login). "
                                  "Please contact your system administrator.")), None, sys.exc_info()[2]
-            except Exception, e:
+            except Exception, e:  # pylint: disable=E0012, W0703
                 token = None
                 log_error("Unhandled exception", e)
                 Traceback(mail=0)
