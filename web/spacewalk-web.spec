@@ -217,7 +217,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Package.pm
 %{perl_vendorlib}/RHN/Package/
 %{perl_vendorlib}/RHN/Profile.pm
-%{perl_vendorlib}/RHN/SCDB.pm
 %{perl_vendorlib}/RHN/SatCluster.pm
 %{perl_vendorlib}/RHN/SatInstall.pm
 %{perl_vendorlib}/RHN/SatelliteCert.pm
@@ -230,7 +229,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Set.pm
 %{perl_vendorlib}/RHN/StoredMessage.pm
 %{perl_vendorlib}/RHN/SystemSnapshot.pm
-%{perl_vendorlib}/RHN/TSDB.pm
 %{perl_vendorlib}/RHN/Tag.pm
 %{perl_vendorlib}/RHN/Token.pm
 %{perl_vendorlib}/RHN/User.pm
@@ -241,10 +239,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/RHN::DB::ContactMethod.3pm.gz
 %{_mandir}/man3/RHN::DB::SatCluster.3pm.gz
 %{_mandir}/man3/RHN::DB::ServerGroup.3pm.gz
-%{_mandir}/man3/RHN::SCDB.3pm.gz
 %{_mandir}/man3/RHN::SatCluster.3pm.gz
 %{_mandir}/man3/RHN::Session.3pm.gz
-%{_mandir}/man3/RHN::TSDB.3pm.gz
 
 %files -n spacewalk-base-minimal
 %dir %{perl_vendorlib}/RHN
