@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.129
+Version: 2.3.130
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -772,6 +772,25 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 23 2015 Stephen Herr <sherr@redhat.com> 2.3.130-1
+- Fix "Select All" buttons display on rhn:list, make consistent with new
+  rl:list
+- Fix missing submit parameter for "Select All"
+- Sort filelist in configfile.compare event history alphabetically
+- add getSSMPowerSettingsUpdateCommand() to keep the values on empty form data
+- fix setting powermanagement values
+- Add missing dash to docbook apidoc macro
+- Update the example scripts section for docbook output
+- Update the title page for docbook output
+- Fix xmlrpc.doc for the "system" namespace
+- Fix grammar and typos in API code example descriptions
+- Set cobbler hostname variable when calling system.createSystemRecord
+- parseDistUrl needs to return null if it can't parse the url
+- Fix NPE on GET /rhn/common/DownloadFile.do
+- Avoid NumberFormatException in case of invalid URL
+- Lookup kickstart tree only when org is found
+- Avoid ArrayIndexOutOfBoundsException with invalid URLs
+
 * Fri Jan 23 2015 Tomas Lestach <tlestach@redhat.com> 2.3.129-1
 - link log4j-1.jar if available (for fc12)
 - removing duplicate Summary and Group
