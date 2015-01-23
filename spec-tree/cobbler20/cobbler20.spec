@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 41%{?dist}
+Release: 42%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -472,6 +472,10 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Fri Jan 23 2015 Stephen Herr <sherr@redhat.com> 2.0.11-42
+- Make cobbler detect os version for CentOS 7 Taken from upstream:
+  https://github.com/cobbler/cobbler/pull/1021
+
 * Mon Jan 19 2015 Tomas Lestach <tlestach@redhat.com> 2.0.11-41
 - adapt cobbler20 for fc21
 - 1136538 - support while loop syntax for Cheetah templates
