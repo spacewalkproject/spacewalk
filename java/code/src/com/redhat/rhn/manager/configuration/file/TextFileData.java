@@ -152,6 +152,7 @@ public class TextFileData extends ConfigFileData {
         if (!super.matchesRevision(cRevision)) {
             return Boolean.FALSE;
         }
-        return getContents().equals(cRevision.getConfigContent().getContentsString());
+        return (isBinary() == cRevision.getConfigContent().isBinary()) &&
+                getContents().equals(cRevision.getConfigContent().getContentsString());
     }
 }
