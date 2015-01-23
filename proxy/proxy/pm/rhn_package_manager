@@ -6,7 +6,8 @@
 LIBPATH = "/usr/share/rhn"
 
 if __name__ == '__main__':
-    import sys, os
+    import sys
+    import os
 
     if os.getuid() != 0:
         sys.stderr.write('ERROR: must be root to execute\n')
@@ -27,4 +28,3 @@ if __name__ == '__main__':
         rhn_package_manager.main()
     except SystemExit, e:
         sys.exit(e.code)
-

@@ -38,7 +38,9 @@ from spacewalk.common.rhnTranslate import _
 import rhnConstants
 from responseContext import ResponseContext
 
+
 class SharedHandler:
+
     """ Shared handler class (between rhnBroker and rhnRedirect.
         *** only inherited ***
     """
@@ -123,30 +125,30 @@ class SharedHandler:
             log_error("Error opening connection", self.rhnParent, e)
             Traceback(mail=0)
             raise rhnFault(1000,
-              _("Spacewalk Proxy could not successfully connect its RHN parent. "
-                "Please contact your system administrator.")), None, sys.exc_info()[2]
+                           _("Spacewalk Proxy could not successfully connect its RHN parent. "
+                             "Please contact your system administrator.")), None, sys.exc_info()[2]
 
         # At this point the server should be okay
         log_debug(3, "Connected to parent: %s " % self.rhnParent)
         if self.httpProxy:
             if self.httpProxyUsername:
                 log_debug(3, "HTTP proxy info: %s %s/<password>" % (
-                  self.httpProxy, self.httpProxyUsername))
+                    self.httpProxy, self.httpProxyUsername))
             else:
                 log_debug(3, "HTTP proxy info: %s" % self.httpProxy)
         else:
             log_debug(3, "HTTP proxy info: not using an HTTP proxy")
         peer = self.responseContext.getConnection().sock.getpeername()
         log_debug(4, "Other connection info: %s:%s%s" %
-            (peer[0], peer[1], self.uri))
+                  (peer[0], peer[1], self.uri))
 
     def _create_connection(self):
         """ Returns a Connection object """
         scheme, host, port, _uri = self._parse_url(self.rhnParent)
         # Build the list of params
         params = {
-            'host'  :   host,
-            'port'  :   port,
+            'host':   host,
+            'port':   port,
         }
         if CFG.has_key('timeout'):
             params['timeout'] = CFG.TIMEOUT
@@ -155,7 +157,7 @@ class SharedHandler:
             params['username'] = self.httpProxyUsername
             params['password'] = self.httpProxyPassword
         if scheme == 'https' and self.caChain:
-            params['trusted_certs'] = [self.caChain,]
+            params['trusted_certs'] = [self.caChain, ]
 
         # Now select the right class
         if self.httpProxy:
@@ -194,7 +196,7 @@ class SharedHandler:
         # We add path_info to the put (GET, CONNECT, HEAD, PUT, POST) request.
         log_debug(2, self.req.method, self.uri)
         self.responseContext.getConnection().putrequest(self.req.method,
-                                                             self.uri)
+                                                        self.uri)
 
         # Send the headers, the body and expect a response
         try:
@@ -236,7 +238,7 @@ class SharedHandler:
             if headers is not None:
                 for k in headers.keys():
                     rhnLib.setHeaderValue(self.req.err_headers_out, k,
-                        self._get_header(k))
+                                          self._get_header(k))
             else:
                 log_error('WARNING? - no incoming headers found!')
             # And that's that
@@ -248,7 +250,7 @@ class SharedHandler:
             # apache.HTTP_OK becomes apache.OK.
             return apache.OK
 
-    def _get_header(self, k, headerObj = None):
+    def _get_header(self, k, headerObj=None):
         if headerObj is None:
             headerObj = self.responseContext.getHeaders()
 
@@ -266,7 +268,6 @@ class SharedHandler:
                 continue
             ret.append(header[hlen:].strip())
         return ret
-
 
     def _clientCommo(self, status=apache.OK):
         """ Handler part 3
@@ -339,19 +340,19 @@ class SharedHandler:
                     pass
             if k.lower() in ['content_length', 'content_type']:
                 # mod_wsgi modifies incoming headers so we have to transform them back
-                k = k.replace('_','-')
+                k = k.replace('_', '-')
             if not (k.lower()[:2] == 'x-' or
-                    k.lower() in [ #all but 'host'
-                            'accept', 'accept-charset', 'accept-encoding', 'accept-language',
-                            'accept-ranges', 'age', 'allow', 'authorization', 'cache-control',
-                            'connection', 'content-encoding', 'content-language', 'content-length',
-                            'content-location', 'content-md5', 'content-range', 'content-type',
-                            'date', 'etag', 'expect', 'expires', 'from', 'if-match',
-                            'if-modified-since', 'if-none-match', 'if-range', 'if-unmodified-since',
-                            'last-modified', 'location', 'max-forwards', 'pragma', 'proxy-authenticate',
-                            'proxy-authorization', 'range', 'referer', 'retry-after', 'server',
-                            'te', 'trailer', 'transfer-encoding', 'upgrade', 'user-agent', 'vary',
-                            'via', 'warning', 'www-authenticate']):
+                    k.lower() in [  # all but 'host'
+                    'accept', 'accept-charset', 'accept-encoding', 'accept-language',
+                    'accept-ranges', 'age', 'allow', 'authorization', 'cache-control',
+                    'connection', 'content-encoding', 'content-language', 'content-length',
+                    'content-location', 'content-md5', 'content-range', 'content-type',
+                    'date', 'etag', 'expect', 'expires', 'from', 'if-match',
+                    'if-modified-since', 'if-none-match', 'if-range', 'if-unmodified-since',
+                    'last-modified', 'location', 'max-forwards', 'pragma', 'proxy-authenticate',
+                    'proxy-authorization', 'range', 'referer', 'retry-after', 'server',
+                    'te', 'trailer', 'transfer-encoding', 'upgrade', 'user-agent', 'vary',
+                    'via', 'warning', 'www-authenticate']):
                 # filter out header we don't want to send
                 continue
             if type(vals) not in (ListType, TupleType):
@@ -464,4 +465,3 @@ class SharedHandler:
                 toRequest.output = toRequest.headers_in['wsgi.file_wrapper'](tfile, CFG.BUFFER_SIZE)
             else:
                 toRequest.output = iter(lambda: tfile.read(CFG.BUFFER_SIZE), '')
-

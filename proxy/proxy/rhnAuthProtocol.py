@@ -23,6 +23,7 @@ from xmlrpclib import dumps, loads
 
 
 class CommunicationError(Exception):
+
     def __init__(self, faultCode, faultString, *params):
         Exception.__init__(self)
         self.faultCode = faultCode
@@ -32,7 +33,7 @@ class CommunicationError(Exception):
 
 def readSocket(fd, n):
     """ Reads exactly n bytes from the file descriptor fd (if possible) """
-    result = "" # The result
+    result = ""  # The result
     while n > 0:
         buff = fd.read(n)
         if not buff:
@@ -64,7 +65,7 @@ def recv(rfile):
     if len(buff) != n:
         # Incomplete read
         raise CommunicationError(0,
-            "Expected %d bytes; got only %d" % (n, len(buff)))
+                                 "Expected %d bytes; got only %d" % (n, len(buff)))
 
     n,  = struct.unpack("!L", buff)
 
@@ -76,7 +77,6 @@ def recv(rfile):
     if len(buff) != n:
         # Incomplete read
         raise CommunicationError(0,
-            "Expected %d bytes; got only %d" % (n, len(buff)))
+                                 "Expected %d bytes; got only %d" % (n, len(buff)))
 
     return loads(buff)
-

@@ -39,6 +39,7 @@ from spacewalk.common.rhnLib import setHeaderValue
 from proxy.rhnProxyAuth import get_proxy_auth
 from spacewalk.common import byterange
 
+
 def getComponentType(req):
     """
         Are we a 'proxy.broker' or a 'proxy.redirect'.
@@ -60,7 +61,7 @@ def getComponentType(req):
     # is it the same box?
     try:
         log_debug(4, "last_visited", last_visited, "; proxy server id",
-            proxy_server_id)
+                  proxy_server_id)
     # pylint: disable=W0702
     except:
         # pylint: disable=W0702
@@ -72,7 +73,9 @@ def getComponentType(req):
 
     return COMPONENT_BROKER
 
+
 class apacheHandler(rhnApache):
+
     """ Main apache entry point for the proxy. """
     _lang_catalog = "proxy"
 
@@ -187,7 +190,7 @@ class apacheHandler(rhnApache):
         # request.
 
         if not req.headers_in or not req.headers_in.has_key(HEADER_ACTUAL_URI):
-            log_error("Kickstart request header did not include '%s'" \
+            log_error("Kickstart request header did not include '%s'"
                       % HEADER_ACTUAL_URI)
             return apache.DECLINED
 
@@ -195,7 +198,7 @@ class apacheHandler(rhnApache):
         # Remove it, and place it in the X-RHN-EffectiveURI header.
 
         req.headers_in[HEADER_EFFECTIVE_URI] = req.headers_in[HEADER_ACTUAL_URI]
-        log_debug(3, "Reverting to old URI: %s" \
+        log_debug(3, "Reverting to old URI: %s"
                      % req.headers_in[HEADER_ACTUAL_URI])
 
         return apache.OK
@@ -227,7 +230,7 @@ class apacheHandler(rhnApache):
             # old BZ 158236 behavior.  In order to be as robust as possible,
             # we won't fail here.
 
-            log_error('HEAD req - Could not create connection to %s://%s:%s' \
+            log_error('HEAD req - Could not create connection to %s://%s:%s'
                       % (scheme, host, str(port)))
             return (apache.OK, None)
 
@@ -239,7 +242,7 @@ class apacheHandler(rhnApache):
 
         hdrs = UserDictCase()
         for k in req.headers_in.keys():
-            if k.lower() != 'range': # we want checksum of whole file
+            if k.lower() != 'range':  # we want checksum of whole file
                 hdrs[k] = req.headers_in[k]
 
         log_debug(9, "Using existing headers_in", hdrs)
@@ -255,7 +258,7 @@ class apacheHandler(rhnApache):
         if (response.status != apache.HTTP_OK) and (response.status != apache.HTTP_PARTIAL_CONTENT):
             # Something bad happened.  Return back back to the client.
 
-            log_debug(1, "HEAD req - Received error code in reponse: %s" \
+            log_debug(1, "HEAD req - Received error code in reponse: %s"
                       % (str(response.status)))
             return (response.status, None)
 
@@ -318,8 +321,8 @@ class apacheHandler(rhnApache):
 
     @staticmethod
     def _createConnection(host, port, scheme):
-        params = { 'host' : host,
-                   'port' : port }
+        params = {'host': host,
+                  'port': port}
 
         if CFG.has_key('timeout'):
             params['timeout'] = CFG.TIMEOUT
@@ -401,7 +404,7 @@ class apacheHandler(rhnApache):
             try:
                 range_start, range_end = \
                     byterange.parse_byteranges(req.headers_in["Range"],
-                        file_size)
+                                               file_size)
                 response_size = range_end - range_start
                 req.headers_out["Content-Range"] = \
                     byterange.get_content_range(range_start, range_end, file_size)
@@ -420,8 +423,6 @@ class apacheHandler(rhnApache):
             except byterange.UnsatisfyableByteRangeException:
                 pass
 
-
-
         req.headers_out["Content-Length"] = str(response_size)
 
         # if we loaded this from a real fd, set it as the X-Replace-Content
@@ -432,7 +433,7 @@ class apacheHandler(rhnApache):
             req.headers_out["X-Package-FileName"] = response.name
 
         xrepcon = req.headers_in.has_key("X-Replace-Content-Active") \
-                  and rhnFlags.test("Download-Accelerator-Path")
+            and rhnFlags.test("Download-Accelerator-Path")
         if xrepcon:
             fpath = rhnFlags.get("Download-Accelerator-Path")
             log_debug(1, "Serving file %s" % fpath)
@@ -515,10 +516,10 @@ class apacheHandler(rhnApache):
             log_debug(4, "Compression on for client version", self.clientVersion)
             if self.clientVersion > 0:
                 output.set_transport_flags(output.TRANSFER_BINARY,
-                                     output.ENCODE_ZLIB)
-            else: # original clients had the binary transport support broken
+                                           output.ENCODE_ZLIB)
+            else:  # original clients had the binary transport support broken
                 output.set_transport_flags(output.TRANSFER_BASE64,
-                                     output.ENCODE_ZLIB)
+                                           output.ENCODE_ZLIB)
 
         # We simply add the transport options to the output headers
         output.headers.update(rhnFlags.get('outputTransportOptions').dict())
@@ -531,13 +532,13 @@ class apacheHandler(rhnApache):
             except TypeError, e:
                 log_debug(-1, "Error \"%s\" encoding response = %s" % (e, response))
                 Traceback("apacheHandler.response", req,
-                    extra="Error \"%s\" encoding response = %s" % (e, response),
-                    severity="notification")
+                          extra="Error \"%s\" encoding response = %s" % (e, response),
+                          severity="notification")
                 return apache.HTTP_INTERNAL_SERVER_ERROR
             except:
                 # Uncaught exception; signal the error
                 Traceback("apacheHandler.response", req,
-                    severity="unhandled")
+                          severity="unhandled")
                 return apache.HTTP_INTERNAL_SERVER_ERROR
 
         # we're about done here, patch up the headers
@@ -553,7 +554,7 @@ class apacheHandler(rhnApache):
         if CFG.DEBUG == 4:
             # I wrap this in an "if" so we don't parse a large file for no reason.
             log_debug(4, "The response: %s[...SNIP (for sanity) SNIP...]%s" %
-                (response[:100], response[-100:]))
+                      (response[:100], response[-100:]))
         elif CFG.DEBUG >= 5:
             # if you absolutely must have that whole response in the log file
             log_debug(5, "The response: %s" % response)
@@ -605,4 +606,3 @@ class apacheHandler(rhnApache):
         return ret
 
 # =============================================================================
-

@@ -19,10 +19,12 @@
 # the proxy's response state in the event of redirects.
 
 CXT_RESP_HEADERS = 'headers'
-CXT_RESP_BODYFD  = 'bodyFd'
-CXT_CONNECTION   = 'connection'
+CXT_RESP_BODYFD = 'bodyFd'
+CXT_CONNECTION = 'connection'
+
 
 class ResponseContext:
+
     """ This class provides a response context for use by the proxy broker
         and redirect components.  This context provides a stackable set of
         response, header, and connection sets which can be used to easily maintain
@@ -103,12 +105,12 @@ class ResponseContext:
         return self._contextStack[-1]
 
     @staticmethod
-    def _createContext(responseHeaders = None,
-                       responseBodyFd  = None,
-                       connection      = None):
-        return { CXT_RESP_HEADERS : responseHeaders,
-                 CXT_RESP_BODYFD  : responseBodyFd,
-                 CXT_CONNECTION   : connection       }
+    def _createContext(responseHeaders=None,
+                       responseBodyFd=None,
+                       connection=None):
+        return {CXT_RESP_HEADERS: responseHeaders,
+                CXT_RESP_BODYFD: responseBodyFd,
+                CXT_CONNECTION: connection}
 
 
 ###############################################################################
@@ -137,4 +139,3 @@ if __name__ == "__main__":
 
     respContext.add()
     print "add    | context = " + str(respContext)
-

@@ -33,7 +33,10 @@ from proxy import rhnConstants
 from rhn import connections
 
 # Main apache entry point for the proxy.
+
+
 class RedirectHandler(SharedHandler):
+
     """ Spacewalk Proxy SSL Redirect specific handler code called by rhnApache.
 
         Workflow is:
@@ -83,7 +86,7 @@ class RedirectHandler(SharedHandler):
         _oto = rhnFlags.get('outputTransportOptions')
         _oto['X-Forwarded-For'] = _oto['X-RHN-IP-Path']
 
-        self.rhnParent = self.rhnParent or '' # paranoid
+        self.rhnParent = self.rhnParent or ''  # paranoid
 
         log_debug(4, 'Connecting to parent...')
         self._connectToParent()  # part 1
@@ -129,9 +132,8 @@ class RedirectHandler(SharedHandler):
                             server_name = last_auth.split(':')[-1]
                             log_debug(1, "Redirecting to SSL version of login page")
                             rhnLib.setHeaderValue(self.req.headers_out, 'Location',
-                                "https://%s%s" % (server_name, m.group(1)))
+                                                  "https://%s%s" % (server_name, m.group(1)))
                             return apache.HTTP_MOVED_PERMANENTLY
-
 
             redirectStatus = self.__redirectToNextLocation()
 
@@ -144,7 +146,7 @@ class RedirectHandler(SharedHandler):
             # We'll keep redirecting until we've received HTTP_OK or an error.
 
             while redirectStatus == apache.HTTP_MOVED_PERMANENTLY or \
-                  redirectStatus == apache.HTTP_MOVED_TEMPORARILY:
+                    redirectStatus == apache.HTTP_MOVED_TEMPORARILY:
 
                 # We've been told to redirect again.  We'll pass a special
                 # argument to ensure that if we end up back at the server, we
@@ -158,8 +160,8 @@ class RedirectHandler(SharedHandler):
                 # We must have run out of retry attempts.  Fail over to Hosted
                 # to perform the request.
 
-                log_debug(1, "Redirection failed; retries exhausted.  " \
-                             "Failing over.  Code=",                    \
+                log_debug(1, "Redirection failed; retries exhausted.  "
+                             "Failing over.  Code=",
                              redirectStatus)
                 redirectStatus = self.__redirectFailover()
 
@@ -169,7 +171,7 @@ class RedirectHandler(SharedHandler):
             # Otherwise, revert to default behavior.
             return SharedHandler._handleServerResponse(self, status)
 
-    def __redirectToNextLocation(self, loopProtection = False):
+    def __redirectToNextLocation(self, loopProtection=False):
         """ This function will perform a redirection to the next location, as
             specified in the last response's "Location" header. This function will
             return an actual HTTP response status code.  If successful, it will
@@ -209,16 +211,16 @@ class RedirectHandler(SharedHandler):
 
         redirectStatus = self.__redirectToNextLocationNoRetry(loopProtection)
         while redirectStatus != apache.HTTP_OK                and \
-              redirectStatus != apache.HTTP_PARTIAL_CONTENT   and \
-              redirectStatus != apache.HTTP_MOVED_PERMANENTLY and \
-              redirectStatus != apache.HTTP_MOVED_TEMPORARILY and \
-              retriesLeft > 0:
+                redirectStatus != apache.HTTP_PARTIAL_CONTENT   and \
+                redirectStatus != apache.HTTP_MOVED_PERMANENTLY and \
+                redirectStatus != apache.HTTP_MOVED_TEMPORARILY and \
+                retriesLeft > 0:
 
             retriesLeft = retriesLeft - 1
-            log_debug(1, "Redirection failed; trying again.  " \
-                         "Retries left=",                      \
-                         retriesLeft,                          \
-                         "Code=",                              \
+            log_debug(1, "Redirection failed; trying again.  "
+                         "Retries left=",
+                         retriesLeft,
+                         "Code=",
                          redirectStatus)
 
             # Pop the current response context and restore the state to
@@ -232,7 +234,7 @@ class RedirectHandler(SharedHandler):
 
         return redirectStatus
 
-    def __redirectToNextLocationNoRetry(self, loopProtection = False):
+    def __redirectToNextLocationNoRetry(self, loopProtection=False):
         """ This function will perform a redirection to the next location, as
             specified in the last response's "Location" header. This function will
             return an actual HTTP response status code.  If successful, it will
@@ -269,7 +271,7 @@ class RedirectHandler(SharedHandler):
 
         if not redirectLocation or len(redirectLocation) == 0:
             log_error("  No redirect location specified!")
-            Traceback(mail = 0)
+            Traceback(mail=0)
             return apache.HTTP_INTERNAL_SERVER_ERROR
 
         # The _get_header function returns the value as a list.  There should
@@ -291,8 +293,8 @@ class RedirectHandler(SharedHandler):
         # so.
 
         params = {
-            'host'  :   host,
-            'port'  :   port,
+            'host':   host,
+            'port':   port,
         }
         if CFG.has_key('timeout'):
             params['timeout'] = CFG.TIMEOUT
@@ -314,7 +316,7 @@ class RedirectHandler(SharedHandler):
             connection.connect()
         except socket.error, e:
             log_error("Error opening redirect connection", redirectLocation, e)
-            Traceback(mail = 0)
+            Traceback(mail=0)
             return apache.HTTP_SERVICE_UNAVAILABLE
         log_debug(4, "Connected to 3rd party server:",
                      connection.sock.getpeername())
@@ -356,7 +358,7 @@ class RedirectHandler(SharedHandler):
             log_error("Redirect connection reset by peer.",
                       redirectLocation,
                       ioe)
-            Traceback(mail = 0)
+            Traceback(mail=0)
 
             # The connection is saved in the current response context, and
             # will be closed when the caller pops the context.
@@ -365,7 +367,7 @@ class RedirectHandler(SharedHandler):
         except socket.error, se:
             # Some socket error occurred.  Possibly a read error.
             log_error("Redirect request failed.", redirectLocation, se)
-            Traceback(mail = 0)
+            Traceback(mail=0)
 
             # The connection is saved in the current response context, and
             # will be closed when the caller pops the context.
@@ -399,7 +401,7 @@ class RedirectHandler(SharedHandler):
         headers = rhnFlags.get('outputTransportOptions')
         headers[rhnConstants.HEADER_RHN_REDIRECT] = '0'
 
-        log_debug(4, "Added X-RHN-Redirect header to outputTransportOptions:", \
+        log_debug(4, "Added X-RHN-Redirect header to outputTransportOptions:",
                      headers)
 
         # Reset the existing connection and reconnect to the RHN parent server.
@@ -422,4 +424,3 @@ class RedirectHandler(SharedHandler):
         return status
 
 #===============================================================================
-

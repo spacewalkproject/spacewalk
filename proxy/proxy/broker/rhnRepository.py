@@ -49,12 +49,13 @@ class NotLocalError(Exception):
 
 class Repository(rhnRepository.Repository):
     # pylint: disable=R0902
+
     """ Proxy local package repository lookup and manipulation code. """
 
     def __init__(self,
-      channelName, channelVersion, clientInfo,
-      rhnParent=None, rhnParentXMLRPC=None, httpProxy=None, httpProxyUsername=None,
-      httpProxyPassword=None, caChain=None):
+                 channelName, channelVersion, clientInfo,
+                 rhnParent=None, rhnParentXMLRPC=None, httpProxy=None, httpProxyUsername=None,
+                 httpProxyPassword=None, caChain=None):
 
         log_debug(3, channelName)
         rhnRepository.Repository.__init__(self, channelName)
@@ -111,7 +112,6 @@ class Repository(rhnRepository.Repository):
         log_debug(4, "Package not found locally: %s" % pkgFilename)
         raise NotLocalError(filePaths[0], pkgFilename)
 
-
     def getSourcePackagePath(self, pkgFilename):
         """ OVERLOADS getSourcePackagePath in common/rhnRepository.
             snag src.rpm and nosrc.rpm from local repo, after ensuring
@@ -121,7 +121,7 @@ class Repository(rhnRepository.Repository):
         log_debug(3, pkgFilename)
         if pkgFilename[-8:] != '.src.rpm' and pkgFilename[-10:] != '.nosrc.rpm':
             raise rhnFault(17, _("Invalid SRPM package requested: %s")
-                                 % pkgFilename)
+                           % pkgFilename)
 
         # Connect to the server to get an authorization for downloading this
         # package
@@ -133,13 +133,13 @@ class Repository(rhnRepository.Repository):
 
         try:
             retval = server.proxy.package_source_in_channel(
-                        pkgFilename, self.channelName, self.clientInfo)
+                pkgFilename, self.channelName, self.clientInfo)
         except xmlrpclib.Fault, e:
             raise rhnFault(1000,
-                    _("Error retrieving source package: %s") % str(e)), None, sys.exc_info()[2]
+                           _("Error retrieving source package: %s") % str(e)), None, sys.exc_info()[2]
         if not retval:
             raise rhnFault(17, _("Invalid SRPM package requested: %s")
-                                 % pkgFilename)
+                           % pkgFilename)
 
         if pkgFilename[-8:] != '.src.rpm':
             # We already know the filename ends in .src.rpm
@@ -207,12 +207,12 @@ class Repository(rhnRepository.Repository):
     def _listPackages(self):
         """ Generates a list of objects by calling the function """
         server = rpclib.GETServer(self.rhnParentXMLRPC, proxy=self.httpProxy,
-            username=self.httpProxyUsername, password=self.httpProxyPassword,
-            headers=self.clientInfo)
+                                  username=self.httpProxyUsername, password=self.httpProxyPassword,
+                                  headers=self.clientInfo)
         if self.caChain:
             server.add_trusted_cert(self.caChain)
         return server.listAllPackagesChecksum(self.channelName,
-                self.channelVersion)
+                                              self.channelVersion)
 
     def __channelPackageMapping(self):
         """ fetch package list on behalf of the client """
@@ -225,7 +225,7 @@ class Repository(rhnRepository.Repository):
         except xmlrpclib.ProtocolError, e:
             errcode, errmsg = rpclib.reportError(e.headers)
             raise rhnFault(1000, "SpacewalkProxy error (xmlrpclib.ProtocolError): "
-                    "errode=%s; errmsg=%s" % (errcode, errmsg)), None, sys.exc_info()[2]
+                           "errode=%s; errmsg=%s" % (errcode, errmsg)), None, sys.exc_info()[2]
 
         # Hash the list
         _hash = {}
@@ -239,29 +239,31 @@ class Repository(rhnRepository.Repository):
                 extension = "deb"
 
             filename = "%s-%s-%s.%s.%s" % (package[0], package[1],
-                package[2], package[4], extension)
+                                           package[2], package[4], extension)
             # if the package contains checksum info
             if len(package) > 6:
                 filePaths = computePackagePaths(package, source=0,
-                        prepend=PREFIX, checksum=package[7])
+                                                prepend=PREFIX, checksum=package[7])
             else:
                 filePaths = computePackagePaths(package, source=0,
-                        prepend=PREFIX)
+                                                prepend=PREFIX)
             _hash[filename] = filePaths
 
         if CFG.DEBUG > 4:
             log_debug(5, "Mapping: %s[...snip snip...]%s" % (str(_hash)[:40], str(_hash)[-40:]))
         return cPickle.dumps(_hash, 1)
 
+
 class KickstartRepository(Repository):
+
     """ Kickstarts always end up pointing to a channel that they're getting
     rpms from. Lookup what channel that is and then just use the regular
     repository """
 
     def __init__(self, kickstart, clientInfo, rhnParent=None,
-            rhnParentXMLRPC=None, httpProxy=None, httpProxyUsername=None,
-            httpProxyPassword=None, caChain=None, orgId=None, child=None,
-            session=None, systemId=None):
+                 rhnParentXMLRPC=None, httpProxy=None, httpProxyUsername=None,
+                 httpProxyPassword=None, caChain=None, orgId=None, child=None,
+                 session=None, systemId=None):
         log_debug(3, kickstart)
 
         self.systemId = systemId
@@ -274,16 +276,16 @@ class KickstartRepository(Repository):
         # we have no equievanet to the channel version for kickstarts,
         # expire the cache after an hour
         fileName = "kickstart_mapping:%s-%s-%s-%s:" % (str(kickstart),
-                str(orgId), str(child), str(session))
+                                                       str(orgId), str(child), str(session))
 
         mapping = self._lookupKickstart(fileName, rhnParentXMLRPC, httpProxy,
-                httpProxyUsername, httpProxyPassword, caChain)
+                                        httpProxyUsername, httpProxyPassword, caChain)
         Repository.__init__(self, mapping['channel'], mapping['version'],
-                clientInfo, rhnParent, rhnParentXMLRPC, httpProxy,
-                httpProxyUsername, httpProxyPassword, caChain)
+                            clientInfo, rhnParent, rhnParentXMLRPC, httpProxy,
+                            httpProxyUsername, httpProxyPassword, caChain)
 
     def _lookupKickstart(self, fileName, rhnParentXMLRPC, httpProxy,
-            httpProxyUsername, httpProxyPassword, caChain):
+                         httpProxyUsername, httpProxyPassword, caChain):
         fileDir = self._getPkgListDir()
         filePath = "%s/%s-1" % (fileDir, fileName)
         mapping = None
@@ -299,14 +301,14 @@ class KickstartRepository(Repository):
             # to auth. Instead this is something the Proxy has to be able to
             # do, so read the serverid and send that up.
             server = rpclib.Server(rhnParentXMLRPC, proxy=httpProxy,
-                    username=httpProxyUsername, password=httpProxyPassword)
+                                   username=httpProxyUsername, password=httpProxyPassword)
             if caChain:
                 server.add_trusted_cert(caChain)
             try:
                 response = self._getMapping(server)
-                mapping =  {'channel': str(response['label']),
-                            'version': str(response['last_modified']),
-                            'expires': int(time.time()) + 3600} #1 hour from now
+                mapping = {'channel': str(response['label']),
+                           'version': str(response['last_modified']),
+                           'expires': int(time.time()) + 3600}  # 1 hour from now
             except Exception:
                 # something went wrong. Punt, we just won't serve this request
                 # locally
@@ -323,7 +325,7 @@ class KickstartRepository(Repository):
         # to auth. Instead this is something the Proxy has to be able to do,
         # so read the serverid and send that up.
         server = rpclib.Server(self.rhnParentXMLRPC, proxy=self.httpProxy,
-            username=self.httpProxyUsername, password=self.httpProxyPassword)
+                               username=self.httpProxyUsername, password=self.httpProxyPassword)
         if self.caChain:
             server.add_trusted_cert(self.caChain)
         # Versionless package listing from Server. This saves us from erroring
@@ -336,7 +338,7 @@ class KickstartRepository(Repository):
         # regular Repository it'll get replace with the same info but newer
         # version in filename.
         return server.proxy.listAllPackagesKickstart(self.channelName,
-                self.systemId)
+                                                     self.systemId)
 
     def _getMapping(self, server):
         """ Generate a hash that tells us what channel this
@@ -344,19 +346,21 @@ class KickstartRepository(Repository):
         so expire the cached file after an hour."""
         if self.ks_orgId:
             return server.proxy.getKickstartOrgChannel(self.kickstart,
-                    self.ks_orgId, self.systemId)
+                                                       self.ks_orgId, self.systemId)
         elif self.ks_session:
             return server.proxy.getKickstartSessionChannel(self.kickstart,
-                    self.ks_session, self.systemId)
+                                                           self.ks_session, self.systemId)
         elif self.ks_child:
             return server.proxy.getKickstartChildChannel(self.kickstart,
-                    self.ks_child, self.systemId)
+                                                         self.ks_child, self.systemId)
         else:
             return server.proxy.getKickstartChannel(self.kickstart,
-                    self.systemId)
+                                                    self.systemId)
+
 
 class TinyUrlRepository(KickstartRepository):
     # pylint: disable=W0233,W0231
+
     """ TinyURL kickstarts have actually already made a HEAD request up to the
     Satellite to to get the checksum for the rpm, however we can't just use
     that data because the epoch information is not in the filename so we'd
@@ -364,8 +368,8 @@ class TinyUrlRepository(KickstartRepository):
     for non-tiny-urlified kickstarts and look up what channel it maps to."""
 
     def __init__(self, tinyurl, clientInfo, rhnParent=None,
-            rhnParentXMLRPC=None, httpProxy=None, httpProxyUsername=None,
-            httpProxyPassword=None, caChain=None, systemId=None):
+                 rhnParentXMLRPC=None, httpProxy=None, httpProxyUsername=None,
+                 httpProxyPassword=None, caChain=None, systemId=None):
         log_debug(3, tinyurl)
 
         self.systemId = systemId
@@ -377,13 +381,14 @@ class TinyUrlRepository(KickstartRepository):
         fileName = "tinyurl_mapping:%s:" % (str(tinyurl))
 
         mapping = self._lookupKickstart(fileName, rhnParentXMLRPC, httpProxy,
-                httpProxyUsername, httpProxyPassword, caChain)
+                                        httpProxyUsername, httpProxyPassword, caChain)
         Repository.__init__(self, mapping['channel'], mapping['version'],
-                clientInfo, rhnParent, rhnParentXMLRPC, httpProxy,
-                httpProxyUsername, httpProxyPassword, caChain)
+                            clientInfo, rhnParent, rhnParentXMLRPC, httpProxy,
+                            httpProxyUsername, httpProxyPassword, caChain)
 
     def _getMapping(self, server):
         return server.proxy.getTinyUrlChannel(self.tinyurl, self.systemId)
+
 
 def isSolarisArch(arch):
     """
@@ -391,11 +396,13 @@ def isSolarisArch(arch):
     """
     return arch.find("solaris") != -1
 
+
 def isDebianArch(arch):
     """
     Returns true if the given arch string represents a Debian architecture..
     """
     return arch[-4:] == "-deb"
+
 
 def computePackagePaths(nvrea, source=0, prepend="", checksum=None):
     """ Finds the appropriate paths, prepending something if necessary """
@@ -428,13 +435,14 @@ def computePackagePaths(nvrea, source=0, prepend="", checksum=None):
         checksum_template = prepend + "/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s"
         checksum_template = '/'.join(filter(truth, checksum_template.split('/')))
         paths.append(checksum_template % (checksum[:3], name, version, release,
-            dirarch, checksum, name, nvrea[1], release, pkgarch, extension))
+                                          dirarch, checksum, name, nvrea[1], release, pkgarch, extension))
     template = prepend + "/%s/%s-%s/%s/%s-%s-%s.%s.%s"
     # Sanitize the path: remove duplicated /
     template = '/'.join(filter(truth, template.split('/')))
     paths.append(template % (name, version, release, dirarch, name, nvrea[1],
-        release, pkgarch, extension))
+                             release, pkgarch, extension))
     return paths
+
 
 def cache(stringObject, directory, filename, version):
     """ Caches stringObject into a file and removes older files """
@@ -451,7 +459,7 @@ def cache(stringObject, directory, filename, version):
         # Try to create this new file
         try:
             fd = os.open(tempfile, os.O_WRONLY | os.O_CREAT | os.O_EXCL,
-                0644)
+                         0644)
         except OSError, e:
             if e.errno == 17:
                 # File exists; give it another try
@@ -477,4 +485,3 @@ def cache(stringObject, directory, filename, version):
         if _file < filePath:
             # Older than this
             os.unlink(_file)
-

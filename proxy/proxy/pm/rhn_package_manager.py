@@ -57,38 +57,38 @@ PREFIX = 'rhn'
 def main():
     # Initialize a command-line processing object with a table of options
     optionsTable = [
-        Option('-v','--verbose',   action='count',      help='Increase verbosity'),
-        Option('-d','--dir',       action='store',      help='Process packages from this directory'),
-        Option('-L','--cache-locally', action='store_true',
-            help='Locally cache packages so that Proxy will not ever need to '
-            + 'download them. Changes nothing on the upstream server.'),
-        Option('-e','--from-export', action='store', dest='export_location',
-            help='Process packages from this channel export. Can only be used '
-            + 'with --cache-locally or --copyonly.'),
-        Option('-c','--channel',   action='append',
-            help='Channel to operate on. When used with --from-export '
-            + 'specifies channels to cache rpms for, else specifies channels '
-            + 'that we will be pushing into.'),
-        Option('-n','--count',     action='store',      help='Process this number of headers per call', type='int'),
-        Option('-l','--list',      action='store_true', help='Only list the specified channels'),
-        Option('-s','--sync',      action='store_true', help='Check if in sync with the server'),
-        Option('-p','--printconf', action='store_true', help='Print the configuration and exit'),
-        Option('-X','--exclude',   action="append",     help="Exclude packages that match this glob expression"),
-        Option(     '--newest',    action='store_true', help='Only push the files that are newer than the server ones'),
-        Option(     '--stdin',     action='store_true', help='Read the package names from stdin'),
-        Option(     '--nosig',     action='store_true', help="Push unsigned packages"),
-        Option(     '--username',  action='store',      help='Use this username to connect to RHN'),
-        Option(     '--password',  action='store',      help='Use this password to connect to RHN'),
-        Option(     '--source',    action='store_true', help='Upload source package headers'),
-        Option(     '--dontcopy',  action='store_true', help='Do not copy packages to the local directory'),
-        Option(     '--copyonly',  action='store_true',
-            help="Only copy packages; don't reimport. Same as --cache-locally"),
-        Option(     '--test',      action='store_true', help='Only print the packages to be pushed'),
-        Option('-N','--new-cache',  action='store_true', help='Create a new username/password cache'),
-        Option(     '--no-ssl',    action='store_true', help='Turn off SSL (not recommended).'),
-        Option(     '--no-session-caching',  action='store_true',
-            help='Disables session-token authentication.'),
-        Option('-?','--usage',     action='store_true', help="Briefly describe the options"),
+        Option('-v', '--verbose',   action='count',      help='Increase verbosity'),
+        Option('-d', '--dir',       action='store',      help='Process packages from this directory'),
+        Option('-L', '--cache-locally', action='store_true',
+               help='Locally cache packages so that Proxy will not ever need to '
+               + 'download them. Changes nothing on the upstream server.'),
+        Option('-e', '--from-export', action='store', dest='export_location',
+               help='Process packages from this channel export. Can only be used '
+               + 'with --cache-locally or --copyonly.'),
+        Option('-c', '--channel',   action='append',
+               help='Channel to operate on. When used with --from-export '
+               + 'specifies channels to cache rpms for, else specifies channels '
+               + 'that we will be pushing into.'),
+        Option('-n', '--count',     action='store',      help='Process this number of headers per call', type='int'),
+        Option('-l', '--list',      action='store_true', help='Only list the specified channels'),
+        Option('-s', '--sync',      action='store_true', help='Check if in sync with the server'),
+        Option('-p', '--printconf', action='store_true', help='Print the configuration and exit'),
+        Option('-X', '--exclude',   action="append",     help="Exclude packages that match this glob expression"),
+        Option('--newest',    action='store_true', help='Only push the files that are newer than the server ones'),
+        Option('--stdin',     action='store_true', help='Read the package names from stdin'),
+        Option('--nosig',     action='store_true', help="Push unsigned packages"),
+        Option('--username',  action='store',      help='Use this username to connect to RHN'),
+        Option('--password',  action='store',      help='Use this password to connect to RHN'),
+        Option('--source',    action='store_true', help='Upload source package headers'),
+        Option('--dontcopy',  action='store_true', help='Do not copy packages to the local directory'),
+        Option('--copyonly',  action='store_true',
+               help="Only copy packages; don't reimport. Same as --cache-locally"),
+        Option('--test',      action='store_true', help='Only print the packages to be pushed'),
+        Option('-N', '--new-cache',  action='store_true', help='Create a new username/password cache'),
+        Option('--no-ssl',    action='store_true', help='Turn off SSL (not recommended).'),
+        Option('--no-session-caching',  action='store_true',
+               help='Disables session-token authentication.'),
+        Option('-?', '--usage',     action='store_true', help="Briefly describe the options"),
     ]
     # Process the command line arguments
     optionParser = OptionParser(option_list=optionsTable, usage="USAGE: %prog [OPTION] [<package>]")
@@ -121,7 +121,7 @@ def main():
     if options.export_location:
         if not options.copyonly:
             upload.die(0, "--from-export can only be used with --cache-locally"
-                    + " or --copyonly")
+                       + " or --copyonly")
         if options.source:
             upload.die(0, "--from-export cannot be used with --source")
         upload.from_export()
@@ -163,7 +163,8 @@ def main():
 
 class UploadClass(uploadLib.UploadClass):
     # pylint: disable=R0904,W0221
-    def setURL(self, path = '/APP'):
+
+    def setURL(self, path='/APP'):
         # overloaded for uploadlib.py
         if not CFG.RHN_PARENT:
             self.die(-1, "rhn_parent not set in the configuration file")
@@ -195,12 +196,12 @@ class UploadClass(uploadLib.UploadClass):
             return
         # else...
         self.warn(2, "Getting only files in these channels",
-                self.options.channel)
+                  self.options.channel)
         # Read the channel xml and add only packages that are in these channels
         package_set = set([])
         for channel in self.options.channel:
             xml_path = os.path.join(export_dir, "channels", channel,
-                    "channel.xml.gz")
+                                    "channel.xml.gz")
             if not os.access(xml_path, os.R_OK):
                 self.warn(0, "Could not find metadata for channel %s, skipping..." % channel)
                 print "Could not find metadata for channel %s, skipping..." % channel
@@ -209,7 +210,7 @@ class UploadClass(uploadLib.UploadClass):
             # will only ever be the one
             dom_channel = dom.getElementsByTagName('rhn-channel')[0]
             package_set.update(dom_channel.attributes['packages']
-                    .value.encode('ascii','ignore').split())
+                               .value.encode('ascii', 'ignore').split())
         # Try to find relevent packages in the export
         for hash_dir in uploadLib.listdir(os.path.join(export_dir, "rpms")):
             for rpm in uploadLib.listdir(hash_dir):
@@ -287,7 +288,7 @@ class UploadClass(uploadLib.UploadClass):
             packagePaths = computePackagePaths(package, 0, PREFIX, checksum)
             for packagePath in packagePaths:
                 packagePath = "%s/%s" % (CFG.PKG_DIR, packagePath)
-                if  os.path.isfile(packagePath):
+                if os.path.isfile(packagePath):
                     found = True
                     break
             if not found:
@@ -314,7 +315,7 @@ class UploadClass(uploadLib.UploadClass):
             checksum = None
         # Copy file to the prefered path
         packagePath = computePackagePaths(package, self.options.source,
-                PREFIX, checksum)[0]
+                                          PREFIX, checksum)[0]
         packagePath = "%s/%s" % (CFG.PKG_DIR, packagePath)
         destdir = os.path.dirname(packagePath)
         if not os.path.isdir(destdir):
@@ -351,11 +352,11 @@ class UploadClass(uploadLib.UploadClass):
 
         for filename in self.files:
             fileinfo = self._processFile(filename,
-                                    relativeDir=self.relativeDir,
-                                    source=self.options.source,
-                                    nosig=self.options.nosig)
+                                         relativeDir=self.relativeDir,
+                                         source=self.options.source,
+                                         nosig=self.options.nosig)
             self.processPackage(fileinfo['nvrea'], filename,
-                    fileinfo['checksum'])
+                                fileinfo['checksum'])
 
 
 def rpmPackageName(p):
@@ -366,4 +367,3 @@ if __name__ == '__main__':
         main()
     except SystemExit, se:
         sys.exit(se.code)
-
