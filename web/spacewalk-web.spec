@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.31
+Version: 2.3.32
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -284,6 +284,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Jan 23 2015 Tomas Lestach <tlestach@redhat.com> 2.3.32-1
+- removing unused monitoring related SCDB and TSDB
+
 * Fri Jan 16 2015 Stephen Herr <sherr@redhat.com> 2.3.31-1
 - fix rhnChannelNewestPackage table by using refresh_newest_package function
   again
