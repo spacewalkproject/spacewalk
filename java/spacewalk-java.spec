@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.128
+Version: 2.3.129
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -772,6 +772,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 23 2015 Tomas Lestach <tlestach@redhat.com> 2.3.129-1
+- link log4j-1.jar if available (for fc12)
+- removing duplicate Summary and Group
+- 1179765 - directories and symlinks cannot be binary
+
 * Wed Jan 21 2015 Stephen Herr <sherr@redhat.com> 2.3.128-1
 - Port Errata Clone page from perl -> java Make nav link to java channel clone
   and errata clone pages Also make various clone errata jsps share common list
