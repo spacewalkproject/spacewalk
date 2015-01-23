@@ -215,7 +215,7 @@ public class DownloadFile extends DownloadAction {
             ret.put("path", path);
         }
         catch (ArrayIndexOutOfBoundsException e) {
-            // Just return what we have so far
+            return null;
         }
         return ret;
     }
