@@ -1,0 +1,190 @@
+#!/usr/bin/python
+#
+# Utility for archiving information from a running Spacewalk/Satellite5 system
+# prior to a final shutdown.
+#
+# Copyright (c) 2015 Red Hat, Inc.
+#
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+"""
+spacewalk-final-archive - a tool for archiving data from an existing Spacewalk/Satellite-5
+instance prior to final shutdown.
+"""
+
+import logging
+import os
+import sys
+
+from optparse import OptionParser
+from subprocess import Popen, call
+
+DEFAULT_ARCHIVE_DIR = '/tmp/spacewalk-final'
+ARCHIVE_ROOT = 'archive'
+DB_DIR = 'db_backup'
+DB_NAME = 'DBBACKUP'
+REPORTS_DIR = 'reports'
+EXPORT_DIR = 'export'
+DEBUG_DIR = 'debug'
+ARCHIVE_NAME = 'final-archive.tar.bz2'
+
+
+def setupOptions():
+    usage = 'usage: %prog [options]'
+    parser = OptionParser(usage=usage)
+    parser.add_option('--dir', action='store', dest='archive_dir',
+            metavar='DIR', default=DEFAULT_ARCHIVE_DIR,
+            help='Specify directory to store the final archive into (will be created if not found) - defaults to ' + DEFAULT_ARCHIVE_DIR)
+
+    parser.add_option('--no-db', action='store_true', dest='skip_db',
+            default=False, help='Do not archive a database backup')
+    parser.add_option('--no-reports', action='store_true', dest='skip_reports',
+            default=False, help='Do not archive space-report output')
+    parser.add_option('--no-debug', action='store_true', dest='skip_debug',
+            default=False, help='Do not archive spacewalk-debug output')
+    parser.add_option(
+        '--no-transition', action='store_true', dest='skip_transition',
+            default=False, help='Do not archive spacewalk-export output')
+    parser.add_option('--clean', action='store_true', dest='clean',
+            default=False, help='How do I clean up from previous runs?')
+
+    return parser
+
+
+def setupLogging(opt):
+    logging.basicConfig(
+        level=logging.INFO, format='%(levelname)s: %(message)s')
+    return
+
+
+def setupOutputDir(options):
+    if not os.path.isdir(options.archive_dir):
+        os.mkdir(options.archive_dir, 0700)
+
+    if not os.path.isdir(options.archive_dir + '/' + ARCHIVE_ROOT):
+        os.mkdir(options.archive_dir + '/' + ARCHIVE_ROOT, 0700)
+
+    # db-dir needs to be writeable by postgres
+    if not os.path.isdir(options.archive_dir + '/' + ARCHIVE_ROOT + '/' + DB_DIR):
+        os.mkdir(options.archive_dir + '/' + ARCHIVE_ROOT + '/' + DB_DIR, 0707)
+
+    if not os.path.isdir(options.archive_dir + '/' + ARCHIVE_ROOT + '/' + REPORTS_DIR):
+        os.mkdir(
+            options.archive_dir + '/' + ARCHIVE_ROOT + '/' + REPORTS_DIR, 0700)
+
+    if not os.path.isdir(options.archive_dir + '/' + ARCHIVE_ROOT + '/' + EXPORT_DIR):
+        os.mkdir(
+            options.archive_dir + '/' + ARCHIVE_ROOT + '/' + EXPORT_DIR, 0700)
+
+    if not os.path.isdir(options.archive_dir + '/' + ARCHIVE_ROOT + '/' + DEBUG_DIR):
+        os.mkdir(
+            options.archive_dir + '/' + ARCHIVE_ROOT + '/' + DEBUG_DIR, 0700)
+
+
+def _issueReport(options, reportname):
+    report_file = '%s/%s/%s/%s.csv' % (
+        options.archive_dir, ARCHIVE_ROOT, REPORTS_DIR, reportname)
+    call(['/usr/bin/spacewalk-report', reportname], stdout=open(
+        report_file, 'w'))
+    return report_file
+
+
+def archiveDb(options):
+    db_file = '%s/%s/%s/%s' % (options.archive_dir, ARCHIVE_ROOT, DB_DIR, DB_NAME)
+    call(['/usr/bin/db-control', 'online-backup', db_file)
+
+def archiveReports(options):
+    reports = Popen('/usr/bin/spacewalk-report', stdout=PIPE)
+    for a_report in reports.stdout:
+        _issueReport(options, a_report)
+
+def archiveDebug(options):
+    dbg_dir = '%s/%s/%s' % (options.archive_dir, ARCHIVE_ROOT, DEBUG_DIR)
+    call(['/usr/bin/spacewalk-debug', '--dir', dbg_dir)
+
+def archiveTransition(options):
+    transition_dir = '%s/%s/%s' % (options.archive_dir, ARCHIVE_ROOT, TRANSITION_DIR)
+    call(['/usr/bin/spacewalk-export', '--dir', transition_dir)
+
+def packageArchive(options):
+    logging.info('...preparing to archive...')
+    call(['/bin/tar', '-c', '-j',
+        '--owner', 'apache', '--group', 'apache',
+        '-C', options.archive_dir,
+        '-f', '%s/%s' % (options.archive_dir, ARCHIVE_NAME),
+        options.archive_dir + '/' + ARCHIVE_ROOT])
+    logging.info(
+        'Archive created at %s/%s' % (options.archive_dir, ARCHIVE_NAME))
+
+def cleanup(options):
+    logging.info('To clean up, issue the following command:')
+    logging.info('sudo rm -rf %s' % (options.archive_dir))
+    logging.info('NOTE:  No, I will not do it for you!')
+    return
+
+def checkSuperUser():
+    if os.geteuid() != 0:
+        print "You must be root to run this!"
+        sys.exit(1)
+
+if __name__ == '__main__':
+    parser = setupOptions()
+    (options, args) = parser.parse_args()
+    setupLogging(options)
+
+    checkSuperUser()
+
+    if (options.clean):
+        cleanup(options)
+        sys.exit(0)
+
+    setupOutputDir(options)
+
+    archived_something = False
+
+    if options.skip_db:
+        logging.info('Skipping database...')
+    else:
+        logging.info('Archiving database...')
+        archiveDb(options)
+        archived_something = True;
+
+    if options.skip_reports:
+        logging.info('Skipping reports...')
+    else:
+        logging.info('Archiving reports...')
+        archiveReports(options)
+        archived_something = True;
+
+    if options.skip_debug:
+        logging.info('Skipping debug...')
+    else:
+        logging.info('Archiving debug...')
+        archiveDebug(options)
+        archived_something = True;
+
+    if options.skip_transition:
+        logging.info('Skipping transition-export...')
+    else:
+        logging.info('Archiving transition-export...')
+        archiveTransition(options)
+        archived_something = True;
+
+    if !archived_something:
+        logging.info('...all output skipped - exiting.')
+        sys.exit(0)
+
+    packageArchive(options)
+
+# vim:ts=4:expandtab:
