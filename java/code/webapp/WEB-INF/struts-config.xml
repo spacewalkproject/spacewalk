@@ -7245,7 +7245,7 @@
         type="com.redhat.rhn.frontend.action.configuration.files.ManageRevisionSubmit"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequired" value="true" />
-        <forward name="default"
+        <forward name="default" redirect="true"
                  path="/configuration/file/ManageRevision.do"/>
         <forward name="deletedfile" redirect="true"
                  path="/configuration/ChannelFiles.do" />

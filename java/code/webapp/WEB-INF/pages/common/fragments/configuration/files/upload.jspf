@@ -1,19 +1,25 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn"%>
 
+<a name="upload"></a>
 <h3><bean:message key="contents.jspf.upload"/></h3>
+<p>
+<bean:message key="manage.jsp.uploadsummary" arg0="${max_size}"/>
+</p>
 <html:form styleClass="form-inline" method="post"
         action="/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}&csrf_token=${csrfToken}"
 enctype="multipart/form-data">
     <rhn:csrf />
 
-    <label class="control-label">
-        <bean:message key="manage.jsp.uploadtab"/>
-    </label>
-    <html:file property="cffUpload" size="30"/>
+    <table class="details">
+        <tr>
+            <th><bean:message key="manage.jsp.uploadtab"/></th>
+            <td><html:file property="cffUpload" /></td>
+        </tr>
+    </table>
     <div class="text-right">
-        <button type="submit" name="dispatch" class="btn btn-default">
-            <rhn:icon type="item-upload"/>
+        <hr />
+        <html:submit styleClass="btn btn-default" property="dispatch">
             <bean:message key="manage.jsp.uploadbutton"/>
-        </button>
+        </html:submit>
     </div>
 </html:form>

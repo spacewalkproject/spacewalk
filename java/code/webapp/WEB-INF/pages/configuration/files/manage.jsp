@@ -48,29 +48,7 @@
 
 <rhn:require acl="is_file();config_channel_editable(${channel.id})"
              mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-<a name="upload"></a>
-<h2><bean:message key="manage.jsp.upload"/></h2>
-<p>
-<bean:message key="manage.jsp.uploadsummary" arg0="${max_size}"/>
-</p>
-
-<html:form method="post" action="/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}&csrf_token=${csrfToken}"
-           enctype="multipart/form-data">
-  <rhn:csrf />
-  <table class="details">
-    <tr>
-      <th><bean:message key="manage.jsp.uploadtab"/></th>
-      <td><html:file property="cffUpload" /></td>
-    </tr>
-  </table>
-
-  <div class="text-right">
-    <hr />
-    <html:submit styleClass="btn btn-default" property="dispatch">
-        <bean:message key="manage.jsp.uploadbutton"/>
-    </html:submit>
-  </div>
-</html:form>
+    <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/upload.jspf" %>
 </rhn:require>
 
 </body>

@@ -97,6 +97,8 @@ public class FileDetailsAction extends RhnAction {
         setupRequestParams(context, cr);
         request.setAttribute("form", cff);
         request.setAttribute("documentation", ConfigDefaults.get().isDocAvailable());
+        request.setAttribute(ManageRevisionSetup.MAX_SIZE, StringUtil
+                .displayFileSize(ConfigFile.getMaxFileSize()));
 
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
