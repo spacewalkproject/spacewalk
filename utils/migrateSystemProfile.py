@@ -26,22 +26,22 @@ DEBUG = 0
 
 options_table = [
     Option("-v", "--verbose",       action="count",
-        help="Increase verbosity"),
+           help="Increase verbosity"),
     Option("-u", "--username",       action="store",
-        help="Satellite/Org Admin username"),
+           help="Satellite/Org Admin username"),
     Option("-p", "--password",       action="store",
-        help="Satellite/Org Admin password"),
+           help="Satellite/Org Admin password"),
     Option("--satellite",       action="store",
-        help="Satellite server to run migration"),
+           help="Satellite server to run migration"),
     Option("--systemId",               action="append",
-        help="client system to migrate"),
+           help="client system to migrate"),
     Option("--to-org-id",          action="store",
-        help="Destination Org ID"),
+           help="Destination Org ID"),
     Option("--csv",                action="store",
-        help="CSV File to process"),
+           help="CSV File to process"),
 ]
 
-_csv_fields = [ 'systemId', 'to-org-id' ]
+_csv_fields = ['systemId', 'to-org-id']
 
 
 def main():
@@ -82,8 +82,8 @@ def main():
 
         migrate_data = [[options.systemId, to_org_id]]
 
-    username, password = getUsernamePassword(options.username, \
-                            options.password)
+    username, password = getUsernamePassword(options.username,
+                                             options.password)
 
     sessionKey = xmlrpc_login(client, username, password)
 
@@ -105,6 +105,7 @@ def main():
         print "Migration Completed successfully"
     xmlrpc_logout(client, sessionKey)
 
+
 def migrate_system(key, newOrgId, server_ids):
     """
     Call to migrate given system to new org
@@ -118,6 +119,7 @@ def migrate_system(key, newOrgId, server_ids):
         sys.exit(-1)
 
     return
+
 
 def lookup_server(key, from_org_id):
     # Get the org id
@@ -137,6 +139,7 @@ def lookup_server(key, from_org_id):
 
     return rows
 
+
 def read_csv_file(csv_file):
     """
      Parse the fields in the given csv
@@ -147,7 +150,7 @@ def read_csv_file(csv_file):
     reader = csv.reader(f_csv)
     for data in reader:
         if len(data) != len(_csv_fields):
-            sys.stderr.write("Invalid Data.Skipping line .. \n" \
+            sys.stderr.write("Invalid Data.Skipping line .. \n"
                              % data)
             continue
         csv_data.append(data)

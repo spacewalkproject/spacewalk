@@ -32,6 +32,7 @@ import ConfigParser
 
 
 class Config(object):
+
     """
     Configuration parser with defaults handling.
     """
@@ -59,7 +60,6 @@ class Config(object):
 
         return self._cfg.get(section, option)
 
-
     def set(self, section, option, value):
         if not self._cfg.has_section(section):
             self._cfg.add_section(section)
@@ -73,7 +73,7 @@ class Config(object):
         self._cfg.read(self.path)
 
     def sections(self):
-        return filter(lambda i:i != self.default_section, self._cfg.sections())
+        return filter(lambda i: i != self.default_section, self._cfg.sections())
 
 
 CONF_DIR = os.path.expanduser("~/.spacewalk-manage-channel-lifecycle")
@@ -81,6 +81,7 @@ USER_CONF_FILE = os.path.join(CONF_DIR, "settings.conf")
 SESSION_CACHE = os.path.join(CONF_DIR, "session")
 
 ##############################################################################
+
 
 def setup_config(config):
     """
@@ -120,7 +121,7 @@ def parse_enumerated(data):
     """
     items = []
     if data:
-        items = filter(None, map(lambda i:i.strip(), data.split(",")))
+        items = filter(None, map(lambda i: i.strip(), data.split(",")))
 
     return items
 
@@ -170,13 +171,16 @@ def print_channel_tree():
             print
     print
 
-def channel_exists(channel, quiet = False):
+
+def channel_exists(channel, quiet=False):
     try:
         client.channel.software.getDetails(session, channel)
         return True
     except xmlrpclib.Fault, e:
-        if options.debug: logging.exception(e)
-        if not quiet: logging.error('Channel %s does not exist' % channel)
+        if options.debug:
+            logging.exception(e)
+        if not quiet:
+            logging.error('Channel %s does not exist' % channel)
         return False
 
 
@@ -189,7 +193,7 @@ def merge_channels(source_label, dest_label):
     if options.exclude_channel:
         for pattern in options.exclude_channel:
             if source_label == pattern:
-                logging.info('Skipping %s due to an exclude filter' \
+                logging.info('Skipping %s due to an exclude filter'
                              % source_label)
                 return
 
@@ -197,7 +201,7 @@ def merge_channels(source_label, dest_label):
     if options.clear_channel or options.rollback:
         clear_channel(dest_label)
 
-    logging.info('Merging packages from %s into %s' % \
+    logging.info('Merging packages from %s into %s' %
                  (source_label, dest_label))
 
     if not options.dry_run:
@@ -209,7 +213,8 @@ def merge_channels(source_label, dest_label):
 
             logging.info('Added %i packages' % len(packages))
         except xmlrpclib.Fault, e:
-            if options.debug: logging.exception(e)
+            if options.debug:
+                logging.exception(e)
             logging.error('Failed to merge packages')
 
             if options.tolerant:
@@ -229,7 +234,8 @@ def merge_channels(source_label, dest_label):
 
                 logging.info('Added %i errata' % len(errata))
             except xmlrpclib.Fault, e:
-                if options.debug: logging.exception(e)
+                if options.debug:
+                    logging.exception(e)
                 logging.error('Failed to merge errata')
 
                 if options.tolerant:
@@ -244,7 +250,7 @@ def clone_channel(source_label, details):
     if options.exclude_channel:
         for pattern in options.exclude_channel:
             if source_label == pattern:
-                logging.info('Skipping %s due to an exclude filter' \
+                logging.info('Skipping %s due to an exclude filter'
                              % source_label)
                 return
 
@@ -255,7 +261,8 @@ def clone_channel(source_label, details):
         try:
             client.channel.software.clone(session, source_label, details, False)
         except xmlrpclib.Fault, e:
-            if options.debug: logging.exception(e)
+            if options.debug:
+                logging.exception(e)
             logging.error('Failed to clone channel')
 
             if options.tolerant:
@@ -271,19 +278,20 @@ def clear_channel(label):
         # attempt to clear the errata from the channel
         try:
             all_errata = client.channel.software.listErrata(session, label)
-            errata_names = [ e.get('advisory_name') for e in all_errata ]
+            errata_names = [e.get('advisory_name') for e in all_errata]
             client.channel.software.removeErrata(session,
                                                  label,
                                                  errata_names,
                                                  False)
         except xmlrpclib.Fault, e:
-            if options.debug: logging.exception(e)
+            if options.debug:
+                logging.exception(e)
             logging.warning('Failed to clear errata from %s' % label)
 
     if not options.dry_run:
         logging.info('Clearing all packages from %s' % label)
         all_packages = client.channel.software.listAllPackages(session, label)
-        package_ids = [ p.get('id') for p in all_packages ]
+        package_ids = [p.get('id') for p in all_packages]
         client.channel.software.removePackages(session, label, package_ids)
 
 
@@ -304,8 +312,8 @@ def build_channel_labels(source):
     elif options.init:
         destination = '%s-%s' % (phases[0], source)
 
-        if channel_exists(destination, quiet = True):
-            logging.error('%s already exists.  Use --promote instead.' \
+        if channel_exists(destination, quiet=True):
+            logging.error('%s already exists.  Use --promote instead.'
                           % destination)
             sys.exit(1)
     elif options.promote:
@@ -335,7 +343,7 @@ def build_channel_labels(source):
 
 ##############################################################################
 
-usage='''usage: %prog [options]
+usage = '''usage: %prog [options]
 
 Create a 'dev' channel based on the latest packages:
 spacewalk-manage-channel-lifecycle -c rhel-x86_64-server-6 --init
@@ -369,13 +377,13 @@ option_list = [
     Option('-C', '--clear-channel',
            help='clear all packages/errata from the channel before merging',
            action='store_true'),
-    Option('-x', '--exclude-channel', help = 'skip these channels',
+    Option('-x', '--exclude-channel', help='skip these channels',
            action='append'),
     Option('', '--no-errata', help="don't merge errata data with --promote",
            action='store_true'),
     Option('', '--no-children', help="don't operate on child channels",
            action='store_true'),
-    Option('-P', '--phases', default = '',
+    Option('-P', '--phases', default='',
            help='comma-separated list of phases [default: dev,test,prod'),
     Option('-u', '--username', help='Spacewalk username'),
     Option('-p', '--password', help='Spacewalk password'),
@@ -388,7 +396,7 @@ option_list = [
     Option('-d', '--debug', help='enable debug logging', action='count')
 ]
 
-parser = OptionParser(option_list = option_list, usage = usage)
+parser = OptionParser(option_list=option_list, usage=usage)
 (options, args) = parser.parse_args()
 
 if options.debug:
@@ -396,7 +404,7 @@ if options.debug:
 else:
     level = logging.INFO
 
-logging.basicConfig(level = level, format='%(levelname)s: %(message)s')
+logging.basicConfig(level=level, format='%(levelname)s: %(message)s')
 
 options.workflow = options.workflow or Config.SECTION_GENERAL
 config = Config(USER_CONF_FILE)
@@ -421,9 +429,9 @@ if options.list_workflows:
     sys.exit(0)
 
 # sanity check
-if not (options.init or options.promote or options.archive or options.rollback \
+if not (options.init or options.promote or options.archive or options.rollback
         or options.list_channels):
-    logging.error("You must provide an action " + \
+    logging.error("You must provide an action " +
                   "(--init/--promote/--archive/--rollback/--list-channels)")
     sys.exit(1)
 elif not options.list_channels and not options.channel:
@@ -437,8 +445,8 @@ phases = parse_enumerated(options.phases or config.get(options.workflow,
 
 # update exclude channel option
 options.exclude_channel = options.exclude_channel or \
-                          parse_enumerated(config.get(options.workflow,
-                                                      Config.OPT_EXCLUDE_CHNL, ""))
+    parse_enumerated(config.get(options.workflow,
+                                Config.OPT_EXCLUDE_CHNL, ""))
 
 if len(phases) < 2:
     logging.error('You must define at least 2 phases')
@@ -452,7 +460,7 @@ else:
 
 # connect to the server
 client = xmlrpclib.Server('https://%s/rpc/api' % options.server,
-                          verbose = xmlrpc_debug)
+                          verbose=xmlrpc_debug)
 
 session = None
 
@@ -463,14 +471,16 @@ if os.path.exists(SESSION_CACHE):
         session = fh.readline()
         fh.close()
     except IOError, e:
-        if options.debug: logging.exception(e)
+        if options.debug:
+            logging.exception(e)
         logging.debug('Failed to read session cache')
 
     # validate the session
     try:
         client.channel.listMyChannels(session)
     except xmlrpclib.Fault, e:
-        if options.debug: logging.exception(e)
+        if options.debug:
+            logging.exception(e)
         logging.warning('Existing session is invalid')
         session = None
 
@@ -490,7 +500,8 @@ if not session:
     try:
         session = client.auth.login(options.username, options.password)
     except xmlrpclib.Fault, e:
-        if options.debug: logging.exception(e)
+        if options.debug:
+            logging.exception(e)
         logging.error('Failed to log into %s' % options.server)
         sys.exit(1)
 
@@ -500,15 +511,17 @@ if not session:
         fh.write(session)
         fh.close()
     except IOError, e:
-        if options.debug: logging.exception(e)
+        if options.debug:
+            logging.exception(e)
         logging.warning('Failed to write session cache')
 
 # list all of the channels once
 try:
     all_channels = client.channel.listSoftwareChannels(session)
-    all_channel_labels = [ c.get('label') for c in all_channels ]
+    all_channel_labels = [c.get('label') for c in all_channels]
 except xmlrpclib.Fault, e:
-    if options.debug: logging.exception(e)
+    if options.debug:
+        logging.exception(e)
     logging.error('Could not retrieve the list of software channels')
     sys.exit(1)
 
@@ -536,9 +549,9 @@ if parent_dest in all_channel_labels:
     merge_channels(parent_source, parent_dest)
 else:
     # channel doesn't exist, clone it from the original
-    details = { 'label'   : parent_dest,
-                'name'    : parent_dest,
-                'summary' : parent_dest }
+    details = {'label': parent_dest,
+               'name': parent_dest,
+               'summary': parent_dest}
 
     clone_channel(parent_source, details)
 
@@ -559,10 +572,10 @@ if not options.no_children:
         if child_dest in all_channel_labels:
             merge_channels(child_source, child_dest)
         else:
-            details = { 'label'        : child_dest,
-                        'name'         : child_dest,
-                        'summary'      : child_dest,
-                        'parent_label' : parent_dest }
+            details = {'label': child_dest,
+                       'name': child_dest,
+                       'summary': child_dest,
+                       'parent_label': parent_dest}
 
             clone_channel(child_source, details)
 

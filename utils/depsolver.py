@@ -42,15 +42,17 @@ log = logging.getLogger(__name__)
 CACHE_DIR = "/tmp/cache/yum"
 PERSIST_DIR = "/var/lib/yum"
 
+
 class DepSolver:
+
     def __init__(self, repos, pkgs_in=None):
         self.pkgs = pkgs_in or []
         self.repos = repos
         self._repostore = RepoStorage(self)
-        self.cleanup() #call cleanup before and after, to ensure no stale metadata
+        self.cleanup()  # call cleanup before and after, to ensure no stale metadata
         self.setup()
         self.loadPackages()
-        self.yrepo =  None
+        self.yrepo = None
 
     def setPackages(self, pkgs_in):
         self.pkgs = pkgs_in
@@ -138,7 +140,7 @@ class DepSolver:
 
         print("Solving Dependencies (%i): " % len(pkgs))
         pb = ProgressBar(prompt='', endTag=' - complete',
-                     finalSize=len(pkgs), finalBarLength=40, stream=sys.stdout)
+                         finalSize=len(pkgs), finalBarLength=40, stream=sys.stdout)
         pb.printAll(1)
 
         for pkg in pkgs:
@@ -217,8 +219,8 @@ if __name__ == '__main__':
     if len(sys.argv) < 3:
         print "USAGE: python depsolver.py <repoid> <repodata_path> <pkgname1> <pkgname2> ....<pkgnameN>"
         sys.exit(0)
-    arg_repo = {'id' : sys.argv[1],
-            'relative_path' : sys.argv[2],} #path to where repodata is located
+    arg_repo = {'id': sys.argv[1],
+                'relative_path': sys.argv[2], }  # path to where repodata is located
     arg_pkgs = sys.argv[3:]
     dsolve = DepSolver([arg_repo], arg_pkgs)
     deplist = dsolve.getDependencylist()

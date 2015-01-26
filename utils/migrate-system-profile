@@ -23,6 +23,8 @@ if __name__ != '__main__':
     raise ImportError, "module cannot be imported"
 
 import sys
+
+
 def systemExit(code, msgs=None):
     "Exit with a code and optional message(s). Saved a few lines of code."
 
@@ -30,7 +32,7 @@ def systemExit(code, msgs=None):
         if type(msgs) not in [type([]), type(())]:
             msgs = (msgs, )
         for msg in msgs:
-            sys.stderr.write(str(msg)+'\n')
+            sys.stderr.write(str(msg) + '\n')
     sys.exit(code)
 
 _LIBPATH = "/usr/share/rhn"
@@ -63,6 +65,7 @@ except ImportError, e:
     systemExit(2, "Unable to find migrate server tool.\n"
                   "Error: %s" % e)
 
+
 def releaseLOCK():
     global LOCK
     if LOCK:
@@ -85,4 +88,3 @@ if __name__ == '__main__':
         sys.exit(abs(main() or 0))
     except KeyboardInterrupt:
         systemExit(0, "\nUser interrupted process.")
-

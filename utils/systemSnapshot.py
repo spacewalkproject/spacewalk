@@ -27,32 +27,33 @@ client = None
 
 options_table = [
     Option("-v", "--verbose",        action="count",
-        help="Increase verbosity"),
+           help="Increase verbosity"),
     Option("-u", "--username",       action="store",
-        help="Username"),
+           help="Username"),
     Option("-p", "--password",       action="store",
-        help="Password"),
+           help="Password"),
     Option("-d", "--delete",         action="count",
-        help="Delete snapshots."),
+           help="Delete snapshots."),
     Option("-l", "--list",           action="count",
-        help="List snapshot summary."),
+           help="List snapshot summary."),
     Option("-L", "--long-list",           action="count",
-        help="Display comprehensive snapshot list."),
+           help="Display comprehensive snapshot list."),
     Option("-a", "--all",            action="count",
-        help="Include all snapshots based on criteria provided."),
+           help="Include all snapshots based on criteria provided."),
     Option("--start-date",           action="store",
-        help="Include only snapshots taken on or after this date.  Must be in the format 'YYYYMMDDHH24MISS'."),
+           help="Include only snapshots taken on or after this date.  Must be in the format 'YYYYMMDDHH24MISS'."),
     Option("--end-date",             action="store",
-        help="Include only snapshots taken on or before this date. Must be in the format 'YYYYMMDDHH24MISS'."),
+           help="Include only snapshots taken on or before this date. Must be in the format 'YYYYMMDDHH24MISS'."),
     Option("--satellite",            action="store",
-        help="Server."),
+           help="Server."),
     Option("--system-id",            action="append",
-        help="System Id."),
+           help="System Id."),
     Option("--snapshot-id",          action="append",
-        help="Snapshot Id."),
+           help="Snapshot Id."),
 ]
 
 options = None
+
 
 def main():
 
@@ -71,16 +72,16 @@ def main():
 
     client = xmlrpclib.Server(satellite_url, verbose=0)
 
-    username, password = getUsernamePassword(options.username, \
-                            options.password)
+    username, password = getUsernamePassword(options.username,
+                                             options.password)
 
     sessionKey = xmlrpc_login(client, username, password, options.verbose)
 
     if options.all:
 
         if options.start_date and options.end_date:
-            deleteAllBetweenDates(sessionKey, options.start_date, \
-                options.end_date)
+            deleteAllBetweenDates(sessionKey, options.start_date,
+                                  options.end_date)
 
         elif options.start_date:
             deleteAllAfterDate(sessionKey, options.start_date)
@@ -91,12 +92,12 @@ def main():
     elif options.system_id:
 
         if options.start_date and options.end_date:
-            deleteBySystemBetweenDates(sessionKey, options.system_id, \
-                options.start_date, options.end_date)
+            deleteBySystemBetweenDates(sessionKey, options.system_id,
+                                       options.start_date, options.end_date)
 
         elif options.start_date:
-            deleteBySystemAfterDate(sessionKey, options.system_id, \
-                options.start_date)
+            deleteBySystemAfterDate(sessionKey, options.system_id,
+                                    options.start_date)
 
         else:
             deleteBySystem(sessionKey, options.system_id)
@@ -110,6 +111,7 @@ def main():
 
     xmlrpc_logout(client, sessionKey, options.verbose)
 
+
 def deleteAllBetweenDates(sessionKey, startDate, endDate):
     """
      Delete all snapshots where the snapshot was created either on or between
@@ -122,17 +124,17 @@ def deleteAllBetweenDates(sessionKey, startDate, endDate):
 
     for system in systems:
 
-        snapshots = client.system.provisioning.snapshot.listSnapshots( \
-                    sessionKey, system.get('id'), {"startDate":startDate, \
-                    "endDate":endDate})
+        snapshots = client.system.provisioning.snapshot.listSnapshots(
+            sessionKey, system.get('id'), {"startDate": startDate,
+                                           "endDate": endDate})
 
         if options.list:
             listSnapshots(system.get('id'), snapshots)
         elif options.long_list:
             listSnapshotsLong(system.get('id'), snapshots)
         else:
-            client.system.provisioning.snapshot.deleteSnapshots(sessionKey, \
-                {"startDate":startDate, "endDate":endDate})
+            client.system.provisioning.snapshot.deleteSnapshots(sessionKey,
+                                                                {"startDate": startDate, "endDate": endDate})
 
 
 def deleteAllAfterDate(sessionKey, startDate):
@@ -147,16 +149,16 @@ def deleteAllAfterDate(sessionKey, startDate):
 
     for system in systems:
 
-        snapshots = client.system.provisioning.snapshot.listSnapshots( \
-                    sessionKey, system.get('id'), {"startDate":startDate})
+        snapshots = client.system.provisioning.snapshot.listSnapshots(
+            sessionKey, system.get('id'), {"startDate": startDate})
 
         if options.list:
             listSnapshots(system.get('id'), snapshots)
         elif options.long_list:
             listSnapshotsLong(system.get('id'), snapshots)
         else:
-            client.system.provisioning.snapshot.deleteSnapshots(sessionKey, \
-                {"startDate":startDate})
+            client.system.provisioning.snapshot.deleteSnapshots(sessionKey,
+                                                                {"startDate": startDate})
 
 
 def deleteAll(sessionKey):
@@ -170,16 +172,16 @@ def deleteAll(sessionKey):
 
     for system in systems:
 
-        snapshots = client.system.provisioning.snapshot.listSnapshots( \
-                    sessionKey, system.get('id'), {})
+        snapshots = client.system.provisioning.snapshot.listSnapshots(
+            sessionKey, system.get('id'), {})
 
         if options.list:
             listSnapshots(system.get('id'), snapshots)
         elif options.long_list:
             listSnapshotsLong(system.get('id'), snapshots)
         else:
-            client.system.provisioning.snapshot.deleteSnapshots(sessionKey, \
-                {})
+            client.system.provisioning.snapshot.deleteSnapshots(sessionKey,
+                                                                {})
 
 
 def deleteBySystemBetweenDates(sessionKey, systemIds, startDate, endDate):
@@ -194,18 +196,18 @@ def deleteBySystemBetweenDates(sessionKey, systemIds, startDate, endDate):
         systemId = int(systemId)
 
         try:
-            snapshots = client.system.provisioning.snapshot.listSnapshots( \
-                        sessionKey, systemId, {"startDate":startDate, \
-                        "endDate":endDate})
+            snapshots = client.system.provisioning.snapshot.listSnapshots(
+                sessionKey, systemId, {"startDate": startDate,
+                                       "endDate": endDate})
 
             if options.list:
                 listSnapshots(systemId, snapshots)
             elif options.long_list:
                 listSnapshotsLong(systemId, snapshots)
             else:
-                client.system.provisioning.snapshot.deleteSnapshots( \
-                    sessionKey, systemId, \
-                    {"startDate":startDate, "endDate":endDate})
+                client.system.provisioning.snapshot.deleteSnapshots(
+                    sessionKey, systemId,
+                    {"startDate": startDate, "endDate": endDate})
 
         except xmlrpclib.Fault, e:
             # print an error and go to the next system
@@ -224,16 +226,16 @@ def deleteBySystemAfterDate(sessionKey, systemIds, startDate):
         systemId = int(systemId)
 
         try:
-            snapshots = client.system.provisioning.snapshot.listSnapshots( \
-                        sessionKey, systemId, {"startDate":startDate})
+            snapshots = client.system.provisioning.snapshot.listSnapshots(
+                sessionKey, systemId, {"startDate": startDate})
 
             if options.list:
                 listSnapshots(systemId, snapshots)
             elif options.long_list:
                 listSnapshotsLong(systemId, snapshots)
             else:
-                client.system.provisioning.snapshot.deleteSnapshots( \
-                    sessionKey, systemId, {"startDate":startDate})
+                client.system.provisioning.snapshot.deleteSnapshots(
+                    sessionKey, systemId, {"startDate": startDate})
 
         except xmlrpclib.Fault, e:
             # print an error and go to the next system
@@ -251,15 +253,15 @@ def deleteBySystem(sessionKey, systemIds):
         systemId = int(systemId)
 
         try:
-            snapshots = client.system.provisioning.snapshot.listSnapshots( \
-                        sessionKey, systemId, {})
+            snapshots = client.system.provisioning.snapshot.listSnapshots(
+                sessionKey, systemId, {})
 
             if options.list:
                 listSnapshots(systemId, snapshots)
             elif options.long_list:
                 listSnapshotsLong(systemId, snapshots)
             else:
-                client.system.provisioning.snapshot.deleteSnapshots( \
+                client.system.provisioning.snapshot.deleteSnapshots(
                     sessionKey, systemId, {})
 
         except xmlrpclib.Fault, e:
@@ -282,8 +284,8 @@ def deleteBySnapshotId(sessionKey, snapshotIds):
                 print "snapshotId: ", snapshotId
 
             else:
-                client.system.provisioning.snapshot.deleteSnapshot(sessionKey, \
-                    int(snapshotId))
+                client.system.provisioning.snapshot.deleteSnapshot(sessionKey,
+                                                                   int(snapshotId))
 
         except xmlrpclib.Fault, e:
             # print an error and go to the next system
@@ -306,7 +308,7 @@ def listSnapshots(systemId, snapshots):
         newest = snapshots[0].get('created')
         newest = datetime(*(strptime(newest.value, "%Y%m%dT%H:%M:%S")[0:6]))
 
-        oldest = snapshots[len(snapshots)-1].get('created')
+        oldest = snapshots[len(snapshots) - 1].get('created')
         oldest = datetime(*(strptime(oldest.value, "%Y%m%dT%H:%M:%S")[0:6]))
 
         print "systemId: %d, snapshots: %d, oldest: %s, newest: %s"  \
@@ -319,9 +321,9 @@ def listSnapshotsLong(systemId, snapshots):
     """
     for snapshot in snapshots:
         print "systemId: %d, snapshotId: %d, created: %s, reason: %s" % \
-            (systemId, \
-             snapshot['id'], \
-             datetime(*(strptime(snapshot['created'].value, "%Y%m%dT%H:%M:%S")[0:6])), \
+            (systemId,
+             snapshot['id'],
+             datetime(*(strptime(snapshot['created'].value, "%Y%m%dT%H:%M:%S")[0:6])),
              snapshot['reason'])
 
 
