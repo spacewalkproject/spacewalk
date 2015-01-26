@@ -374,10 +374,11 @@ def build_package_names(packages):
 def print_errata_summary(erratum):
     # Workaround - recent spacewalk lacks the "date" key
     # on some listErrata calls
-    if erratum.has_key('date'):
-        date_parts = erratum.get('date').split()
-    else:
-        date_parts = erratum.get('issue_date').split()
+    if erratum.get('date') is None:
+        erratum['date'] = erratum.get('issue_date')
+    if erratum['date'] is None:
+        erratum['date'] = "no_date"
+    date_parts = erratum['date'].split()
 
     if len(date_parts) > 1:
         erratum['date'] = date_parts[0]
