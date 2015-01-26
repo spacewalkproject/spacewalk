@@ -65,7 +65,6 @@ public class SystemConnectionAction extends RhnAction implements Listable<Server
      * @param context the request context
      * @return the list of server paths
      */
-    @Override
     public List<ServerPath> getResult(RequestContext context) {
         Long sid = context.getRequiredParam(RequestContext.SID);
         DataResult<ServerPath> proxies = SystemManager.getConnectionPath(sid);

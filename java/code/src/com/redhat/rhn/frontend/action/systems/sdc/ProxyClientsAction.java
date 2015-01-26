@@ -65,7 +65,6 @@ public class ProxyClientsAction extends RhnAction implements Listable<SystemOver
      * @param context the request context
      * @return the list of client systems
      */
-    @Override
     public List<SystemOverview> getResult(RequestContext context) {
         Long sid = context.getRequiredParam(RequestContext.SID);
         DataResult<SystemOverview> clients = SystemManager.listClientsThroughProxy(sid);
