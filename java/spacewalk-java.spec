@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.130
+Version: 2.3.131
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -772,6 +772,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 26 2015 Tomas Lestach <tlestach@redhat.com> 2.3.131-1
+- remove nonlinux (solaris) entitlement
+- prevent NPE on activationkeys/Edit.do page
+- removing @Override annotations for methods that aren't overriden
+
 * Fri Jan 23 2015 Stephen Herr <sherr@redhat.com> 2.3.130-1
 - Fix "Select All" buttons display on rhn:list, make consistent with new
   rl:list
