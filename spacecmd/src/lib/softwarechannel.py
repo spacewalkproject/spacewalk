@@ -1596,8 +1596,8 @@ def dump_softwarechannel_errata(self, name):
     result = []
     for erratum in errata:
         result.append('%s %s' % (
-                      erratum.get('advisory_name').ljust(14),
-                      wrap(erratum.get('advisory_synopsis'), 50)[0]))
+            erratum.get('advisory_name').ljust(14),
+            wrap(erratum.get('advisory_synopsis'), 50)[0]))
     result.sort()
     return result
 
@@ -1749,10 +1749,8 @@ def do_softwarechannel_sync(self, args):
 
     if source_only or target_only:
         print "summary:"
-        print "  " + source_channel + ": " + str(len(source_ids)
-                                                 ).rjust(5), "packages"
-        print "  " + target_channel + ": " + str(len(target_ids)
-                                                 ).rjust(5), "packages"
+        print "  " + source_channel + ": " + str(len(source_ids)).rjust(5), "packages"
+        print "  " + target_channel + ": " + str(len(target_ids)).rjust(5), "packages"
         print "    add   ", str(
             len(source_only)).rjust(5), "packages to  ", target_channel
         print "    remove", str(
@@ -1863,10 +1861,8 @@ def do_softwarechannel_errata_sync(self, args):
 
     if source_only or target_only:
         print "summary:"
-        print "  " + source_channel + ": " + str(len(source_ids)
-                                                 ).rjust(5), "errata"
-        print "  " + target_channel + ": " + str(len(target_ids)
-                                                 ).rjust(5), "errata"
+        print "  " + source_channel + ": " + str(len(source_ids)).rjust(5), "errata"
+        print "  " + target_channel + ": " + str(len(target_ids)).rjust(5), "errata"
         print "    add   ", str(
             len(source_only)).rjust(5), "errata to  ", target_channel
         print "    remove", str(
