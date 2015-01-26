@@ -492,8 +492,10 @@ public class Org extends BaseDomainHelper {
             ServerGroupType sgt = i.next().getGroupType();
 
             if (!sgt.isBase()) {
-                addonEntitlements.add(EntitlementManager.getByName(sgt
-                        .getLabel()));
+                Entitlement ent = EntitlementManager.getByName(sgt.getLabel());
+                if (ent != null) {
+                    addonEntitlements.add(ent);
+                }
             }
         }
 
