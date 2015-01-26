@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.12
+Version:     2.3.13
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -77,6 +77,16 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Jan 26 2015 Matej Kollar <mkollar@redhat.com> 2.3.13-1
+- Forgotten substitution?
+- Fix Pylint on Fedora 21: manual fixes
+- Fix Pylint on Fedora 21: autopep8
+- 1180233 - More corner cases for errata summary printing
+- Let pep8 do its thing to clean up some code
+- spacecmd: added softwarechannel_errata functions
+- spacecmd: cleanup string handling
+- spacecmd: add defattr
+
 * Wed Jan 21 2015 Matej Kollar <mkollar@redhat.com> 2.3.12-1
 - Pylint fix for Fedora 21
 
