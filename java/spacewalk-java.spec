@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.131
+Version: 2.3.132
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -772,6 +772,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 26 2015 Stephen Herr <sherr@redhat.com> 2.3.132-1
+- 1180581 - make config file upload on FileDetails work
+
 * Mon Jan 26 2015 Tomas Lestach <tlestach@redhat.com> 2.3.131-1
 - remove nonlinux (solaris) entitlement
 - prevent NPE on activationkeys/Edit.do page
