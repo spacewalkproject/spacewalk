@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.26
+Version:	2.3.27
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Jan 26 2015 Matej Kollar <mkollar@redhat.com> 2.3.27-1
+- Fix Pylint on Fedora 21: autopep8
+
 * Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.26-1
 - Fix wrong package dependency using yum without priorities
 
