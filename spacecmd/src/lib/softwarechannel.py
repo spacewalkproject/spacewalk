@@ -1740,7 +1740,7 @@ def do_softwarechannel_sync(self, args):
         print
 
     # check for packages only in the target channel
-    target_only = target_ids.difference(source_package_ids)
+    target_only = target_ids.difference(source_ids)
     if target_only:
         print 'packages to remove from channel "' + target_channel + '":'
         for i in target_only:
