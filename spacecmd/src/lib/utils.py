@@ -749,8 +749,10 @@ def get_normalized_text(text, replacedict=None, excludes=None):
                     logging.debug("excluding line: " + line)
     return normalized_text
 
+
 def diff(source_data, target_data, source_channel, target_channel):
-    return list( unified_diff( source_data, target_data, source_channel, target_channel ) )
+    return list(unified_diff(source_data, target_data, source_channel, target_channel))
+
 
 def file_needs_b64_enc(self, contents):
     """Used to check if files (config files primarily) need base64 encoding

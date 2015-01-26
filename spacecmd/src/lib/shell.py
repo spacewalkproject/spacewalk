@@ -222,10 +222,10 @@ class SpacewalkShell(Cmd):
         if cmd:
             try:
                 if type(cmdresult).__name__ == 'str':
-                   print cmdresult
+                    print cmdresult
                 else:
-                   for i in cmdresult:
-                       print i
+                    for i in cmdresult:
+                        print i
             except TypeError:
                 pass
 

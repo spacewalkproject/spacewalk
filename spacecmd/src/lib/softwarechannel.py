@@ -1813,8 +1813,8 @@ def do_softwarechannel_errata_sync(self, args):
     if not self.check_softwarechannel(target_channel):
         return
 
-    logging.info("syncing errata from softwarechannel "+source_channel +
-                 " to "+target_channel)
+    logging.info("syncing errata from softwarechannel " + source_channel +
+                 " to " + target_channel)
 
     source_errata = self.client.channel.software.listErrata(
         self.session, source_channel)
