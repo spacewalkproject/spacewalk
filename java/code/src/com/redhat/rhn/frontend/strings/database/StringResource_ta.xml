@@ -82,10 +82,6 @@
           <source>Monitoring</source>
           <target>கண்காணித்தல்</target>
         </trans-unit>
-        <trans-unit id="nonlinux_entitled">
-          <source>Non-Linux</source>
-          <target>லினக்ஸ்-அல்லாத</target>
-        </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
           <target>வாய்ப்பளித்தல்</target>

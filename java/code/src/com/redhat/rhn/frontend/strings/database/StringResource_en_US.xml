@@ -72,9 +72,6 @@
         <trans-unit id="monitoring_entitled">
           <source>Monitoring</source>
         </trans-unit>
-        <trans-unit id="nonlinux_entitled">
-          <source>Non-Linux</source>
-        </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
         </trans-unit>

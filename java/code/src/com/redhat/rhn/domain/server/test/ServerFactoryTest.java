@@ -14,18 +14,6 @@
  */
 package com.redhat.rhn.domain.server.test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.collections.CollectionUtils;
-
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -79,6 +67,18 @@ import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
+import org.apache.commons.collections.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * ServerFactoryTest
  * @version $Rev$
@@ -91,6 +91,7 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
     public static final int TYPE_SERVER_VIRTUAL = 3;
     public static final String RUNNING_KERNEL = "2.6.9-55.EL";
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         server = createTestServer(user);
@@ -441,11 +442,11 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
         // Add two different entitlements.
 
         SystemManager.entitleServer(s, EntitlementManager.PROVISIONING);
-        SystemManager.entitleServer(s, EntitlementManager.NONLINUX);
+        SystemManager.entitleServer(s, EntitlementManager.VIRTUALIZATION);
 
         // Check the last entitlement we added.
 
-        assertTrue(s.hasEntitlement(EntitlementManager.NONLINUX));
+        assertTrue(s.hasEntitlement(EntitlementManager.VIRTUALIZATION));
 
     }
 

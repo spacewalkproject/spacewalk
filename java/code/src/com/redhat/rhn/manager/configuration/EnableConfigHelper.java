@@ -158,13 +158,8 @@ public class EnableConfigHelper {
         }
 
         //remember what entitlements they had so we can put them back if we fail.
-        boolean hadNonlinux = false;
         boolean hadUpdate = false;
-        if (SystemManager.hasEntitlement(sid, EntitlementManager.NONLINUX)) {
-            hadNonlinux = true;
-            SystemManager.removeServerEntitlement(sid, EntitlementManager.NONLINUX);
-        }
-        else if (SystemManager.hasEntitlement(sid, EntitlementManager.UPDATE)) {
+        if (SystemManager.hasEntitlement(sid, EntitlementManager.UPDATE)) {
             hadUpdate = true;
             SystemManager.removeServerEntitlement(sid, EntitlementManager.UPDATE);
         }
@@ -190,10 +185,7 @@ public class EnableConfigHelper {
 
 
         //Something went wrong,  revert changes!!
-        if (hadNonlinux) {
-            SystemManager.entitleServer(org, sid, EntitlementManager.NONLINUX);
-        }
-        else if (hadUpdate) {
+        if (hadUpdate) {
             SystemManager.entitleServer(org, sid, EntitlementManager.UPDATE);
         }
         return false;

@@ -82,10 +82,6 @@
           <source>Monitoring</source>
           <target>Überwachung</target>
         </trans-unit>
-        <trans-unit id="nonlinux_entitled">
-          <source>Non-Linux</source>
-          <target>Nicht-Linux</target>
-        </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
           <target>Provisioning</target>

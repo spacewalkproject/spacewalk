@@ -82,10 +82,6 @@
           <source>Monitoring</source>
           <target>મોનીટરીંગ</target>
         </trans-unit>
-        <trans-unit id="nonlinux_entitled">
-          <source>Non-Linux</source>
-          <target>બિન-Linux</target>
-        </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
           <target>બચાવ</target>
