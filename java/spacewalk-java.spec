@@ -623,7 +623,7 @@ fi
 # and wildcards (except non-symlink velocity)
 %{jardir}/antlr.jar
 %{jardir}/bcel.jar
-%{jardir}/c3p0.jar
+%{jardir}/c3p0*.jar
 %{jardir}/cglib.jar
 %{jardir}/commons-beanutils.jar
 %{jardir}/commons-cli.jar
@@ -637,17 +637,17 @@ fi
 %{jardir}/commons-lang.jar
 %{jardir}/commons-logging.jar
 %{jardir}/*commons-validator.jar
-%{jardir}/concurrent.jar
+%{jardir}/concurrent*.jar
 %{jardir}/dom4j.jar
 %{jardir}/dwr.jar
 %{jardir}/hibernate3*
 %if 0%{?fedora}
 %{jardir}/ehcache-core.jar
 %{jardir}/*_hibernate-commons-annotations.jar
-%{jardir}/hibernate-jpa-2.0-api.jar
+%{jardir}/hibernate-jpa-2.0-api*.jar
 %{jardir}/javassist.jar
 %{jardir}/slf4j_api.jar
-%{jardir}/slf4j_log4j12.jar
+%{jardir}/slf4j_log4j12*.jar
 %{jardir}/mchange-commons.jar
 %{_javadir}/mchange-commons.jar
 %{_javadir}/jboss-logging.jar
@@ -655,7 +655,7 @@ fi
 %endif
 %{jardir}/jaf.jar
 %{jardir}/javamail.jar
-%{jardir}/jcommon.jar
+%{jardir}/jcommon*.jar
 %{jardir}/jdom.jar
 %{jardir}/jpam.jar
 %{jardir}/jta.jar
