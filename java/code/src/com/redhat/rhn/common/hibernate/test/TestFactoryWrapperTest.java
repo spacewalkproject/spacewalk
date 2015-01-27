@@ -138,7 +138,7 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
     public void testLotsOfTransactions() throws Exception {
 
         for (int i = 0; i < 20; i++) {
-            SelectMode m = ModeFactory.getMode("test_queries", "get_debug_log");
+            SelectMode m = ModeFactory.getMode("test_queries", "get_test_users");
             m.execute(new HashMap());
             HibernateFactory.commitTransaction();
             HibernateFactory.closeSession();
