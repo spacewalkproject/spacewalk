@@ -160,6 +160,12 @@ def setupOutputDir(options):
 # Did we get an orgs-list? If so, return an array of --where entries
 
 
+def _my_call(*args, **kwargs):
+    rc = call(*args, **kwargs)
+    if rc:
+        logging.error('Error response from %s : [%s]' % (args[0][0], rc))
+    return rc
+
 def _generateWhere(options, reportname):
     where = []
 
@@ -175,11 +181,10 @@ def _issueReport(options, reportname):
     where_clause = _generateWhere(options, reportname)
     logging.debug('...WHERE = %s' % where_clause)
     if len(where_clause) == 0:
-        call(['/usr/bin/spacewalk-report', reportname],
-             stdout=open(report_file, 'w'))
+        _my_call(['/usr/bin/spacewalk-report', reportname], stdout=open(report_file, 'w'))
     else:
-        call(['/usr/bin/spacewalk-report'] + where_clause + [reportname],
-             stdout=open(report_file, 'w'))
+        _my_call(['/usr/bin/spacewalk-report'] + where_clause + [reportname],
+                stdout=open(report_file, 'w'))
     return report_file
 
 
@@ -205,8 +210,7 @@ def channelsDump(options):
     channel_export_dir = options.export_dir + '/' + REPORTS_DIR + '/' + 'CHANNELS'
     if not os.path.isdir(channel_export_dir):
         os.mkdir(channel_export_dir, 0700)
-    call(['/usr/bin/spacewalk-export-channels', '-d', channel_export_dir,
-          '-f', 'FORCE'] + extra_args)
+    _my_call(['/usr/bin/spacewalk-export-channels', '-d', channel_export_dir, '-f', 'FORCE'] + extra_args)
     return
 
 
@@ -258,15 +262,15 @@ def repositoriesDump(options):
                 logging.info('...storing file-repo %s into %s' % (repo_loc, repo_tarname))
                 # Tar it up into the export-dir
                 if options.debug:
-                    call(['/bin/tar', '-c', '-v', '-z',
-                          '-C', repo_dir,
-                          '-f', '%s/%s/%s' % (options.export_dir, REPORTS_DIR, repo_tarname),
-                          repo_basename])
+                    _my_call(['/bin/tar', '-c', '-v', '-z',
+                            '-C', repo_dir,
+                            '-f', '%s/%s/%s' % (options.export_dir, REPORTS_DIR, repo_tarname),
+                            repo_basename])
                 else:
-                    call(['/bin/tar', '-c', '-z',
-                          '-C', repo_dir,
-                          '-f', '%s/%s/%s' % (options.export_dir, REPORTS_DIR, repo_tarname),
-                          repo_basename])
+                    _my_call(['/bin/tar', '-c', '-z',
+                            '-C', repo_dir,
+                            '-f', '%s/%s/%s' % (options.export_dir, REPORTS_DIR, repo_tarname),
+                            repo_basename])
         handle.close()
     return
 
@@ -285,19 +289,25 @@ def configfileslatestDump(options):
 
 def prepareExport(options):
     if options.debug:
-        call(['/bin/tar', '-c', '-v', '-z',
+        rc = _my_call(['/bin/tar', '-c', '-v', '-z',
               '--owner', 'apache', '--group', 'apache',
               '-C', options.export_dir,
               '-f', '%s/%s' % (options.export_dir, options.export_package),
               REPORTS_DIR])
     else:
-        call(['/bin/tar', '-c', '-z',
+        rc = _my_call(['/bin/tar', '-c', '-z',
               '--owner', 'apache', '--group', 'apache',
               '-C', options.export_dir,
               '-f', '%s/%s' % (options.export_dir, options.export_package),
               REPORTS_DIR])
-    logging.info('Export-file created at %s/%s' % (options.export_dir,
-                                                   options.export_package))
+
+    if rc:
+        logging.error('Error attempting to create export-file at %s/%s' %
+                (options.export_dir, options.export_package))
+        sys.exit(1)
+    else:
+        logging.info('Export-file created at %s/%s' %
+                (options.export_dir, options.export_package))
 
 
 def cleanup(options):
