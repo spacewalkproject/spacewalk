@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.27
+Version:	2.3.28
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,12 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Jan 27 2015 Grant Gainey 2.3.28-1
+- 1177089 - Don't try to use 'createrepo --no-database' if createrepo doesn't
+  know it
+- 1162160 - Teach spacewalk-export to notice errors, teach spacewalk-export-
+  channels to stop throwing them
+
 * Mon Jan 26 2015 Matej Kollar <mkollar@redhat.com> 2.3.27-1
 - Fix Pylint on Fedora 21: autopep8
 
