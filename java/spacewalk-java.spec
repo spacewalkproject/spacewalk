@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.132
+Version: 2.3.133
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -766,6 +766,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jan 27 2015 Tomas Lestach <tlestach@redhat.com> 2.3.133-1
+- fedora21 packages install the jars to custom directories
+- unify fedora specific files
+- fedora21 uses only the log4j-1 compatibility package
+
 * Mon Jan 26 2015 Stephen Herr <sherr@redhat.com> 2.3.132-1
 - 1180581 - make config file upload on FileDetails work
 
