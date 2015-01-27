@@ -648,8 +648,7 @@ fi
 %{jardir}/javassist.jar
 %{jardir}/slf4j_api.jar
 %{jardir}/slf4j_log4j12.jar
-%endif
-%if 0%{?fedora}
+%{jardir}/mchange-commons.jar
 %{_javadir}/mchange-commons.jar
 %{_javadir}/jboss-logging.jar
 %{jardir}/*jboss-logging.jar
@@ -661,11 +660,6 @@ fi
 %{jardir}/jpam.jar
 %{jardir}/jta.jar
 %{jardir}/log4j*.jar
-
-%if 0%{?fedora}
-%{jardir}/mchange-commons.jar
-%endif
-
 %{jardir}/oro.jar
 %{jardir}/oscache.jar
 %{jardir}/quartz.jar
