@@ -451,7 +451,8 @@ rm -rf $RPM_BUILD_ROOT
 # on Fedora 19 some jars are named differently
 %if 0%{?fedora}
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
-ln -s -f %{_javadir}/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
+[[ -f %{_javadir}/mchange-commons-java.jar ]] && ln -s -f %{_javadir}/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
+[[ -f %{_javadir}/mchange-commons/mchange-commons-java.jar ]] && ln -s -f %{_javadir}/mchange-commons/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
 ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/jboss-logging.jar
 %endif
 
