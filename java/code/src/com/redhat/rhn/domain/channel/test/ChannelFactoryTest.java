@@ -114,7 +114,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
     }
 
     public static Channel createTestChannel(Org org, ChannelFamily cfam) throws Exception {
-        String label = "ChannelLabel" + TestUtils.randomString();
+        String label = "channellabel" + TestUtils.randomString().toLowerCase();
         String basedir = "TestChannel basedir";
         String name = "ChannelName" + TestUtils.randomString();
         String summary = "TestChannel summary";
