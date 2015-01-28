@@ -146,5 +146,3 @@ class DebUpgrades(DebDepends,Upgrades):
         return checkdep(prv.version, self.relation, self.version)
 
 class DebConflicts(DebDepends,Conflicts): pass
-
-# vim:ts=4:sw=4:et

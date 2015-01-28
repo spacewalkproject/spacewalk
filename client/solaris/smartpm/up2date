@@ -149,12 +149,12 @@ def parse_options(argv):
     # Make sure filenames are valid
     if (opts.admin):
         if (not os.path.exists(opts.admin)):
-        print "Error: The admin file", opts.admin, "doesn't exist."
+            print "Error: The admin file", opts.admin, "doesn't exist."
             sys.exit(1)
 
     if (opts.response):
         if (not os.path.exists(opts.response)):
-        print "Error: The response file", opts.response, "doesn't exist."
+            print "Error: The response file", opts.response, "doesn't exist."
             sys.exit(1)
 
 
@@ -241,5 +241,3 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-
-# vim:ts=4:sw=4:et
