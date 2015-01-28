@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.13
+Version:     2.3.14
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -77,6 +77,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Jan 28 2015 Matej Kollar <mkollar@redhat.com> 2.3.14-1
+- Setting ts=4 is wrong
+
 * Mon Jan 26 2015 Matej Kollar <mkollar@redhat.com> 2.3.13-1
 - Forgotten substitution?
 - Fix Pylint on Fedora 21: manual fixes
