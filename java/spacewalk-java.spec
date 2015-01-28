@@ -454,6 +454,13 @@ mkdir -p $RPM_BUILD_ROOT%{_javadir}
 [[ -f %{_javadir}/mchange-commons-java.jar ]] && ln -s -f %{_javadir}/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
 [[ -f %{_javadir}/mchange-commons/mchange-commons-java.jar ]] && ln -s -f %{_javadir}/mchange-commons/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
 ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/jboss-logging.jar
+# create missing symlinks on fedora21
+%if 0%{?fedora} >= 21
+ ln -s -f %{_javadir}/hibernate-jpa-2.0-api/hibernate-jpa-2.0-api.jar $RPM_BUILD_ROOT%{_javadir}/hibernate-jpa-2.0-api.jar
+ ln -s -f %{_javadir}/c3p0/c3p0.jar $RPM_BUILD_ROOT%{_javadir}/c3p0.jar
+ ln -s -f %{_javadir}/concurent/cconcurent.jar $RPM_BUILD_ROOT%{_javadir}/concurent.jar
+%endif
+
 %endif
 
 %if  0%{?rhel} && 0%{?rhel} < 6
@@ -660,6 +667,13 @@ fi
 %{_javadir}/mchange-commons.jar
 %{_javadir}/jboss-logging.jar
 %{jardir}/*jboss-logging.jar
+
+%if 0%{?fedora} >= 21
+%{_javadir}/c3p0.jar
+%{_javadir}/concurent.jar
+%{_javadir}/hibernate-jpa-2.0-api.jar
+%endif
+
 %endif
 %{jardir}/jaf.jar
 %{jardir}/javamail.jar
