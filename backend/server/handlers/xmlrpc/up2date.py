@@ -26,6 +26,7 @@ from spacewalk.common import rhnFlags, rhn_rpm
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
+from spacewalk.common.rhnTB import add_to_seclist
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server.rhnLib import computeSignature
 from spacewalk.server.rhnHandler import rhnHandler
@@ -158,6 +159,7 @@ class Up2date(rhnHandler):
 
     def subscribeChannels(self, system_id, channelNames, username, passwd):
         """ Clients v2+ """
+        add_to_seclist(passwd)
         log_debug(5, system_id, channelNames, username, passwd)
         # Authenticate the system certificate
         self.auth_system('subscribeChannel', system_id)
@@ -174,6 +176,7 @@ class Up2date(rhnHandler):
 
     def unsubscribeChannels(self, system_id, channelNames, username, passwd):
         """ Clients v2+ """
+        add_to_seclist(passwd)
         log_debug(3)
         # Authenticate the system certificate
         self.auth_system('unsubscribeChannel', system_id)
