@@ -4565,7 +4565,7 @@ public class SystemHandler extends BaseHandler {
      * @param sid the host system id
      * @return list of VirtualSystemOverview objects
      *
-     * @xmlrpc.doc Lists the virtual guests for agiven virtual host
+     * @xmlrpc.doc Lists the virtual guests for a given virtual host
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "sid", "the virtual host's id")
      * @xmlrpc.returntype
