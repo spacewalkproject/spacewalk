@@ -415,6 +415,3 @@ initctagfile(void)
     Py_INCREF(&TagFile_Type);
     PyModule_AddObject(m, "TagFile", (PyObject *)&TagFile_Type);
 }
-
-/* vim:ts=4:sw=4:et
-*/

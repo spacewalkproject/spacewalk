@@ -153,5 +153,3 @@ def createInterface(name, ctrl, command=None, argv=None):
 
 def getImagePath(name, _dirname=os.path.dirname(_images__file__)):
     return os.path.join(_dirname, name+".png")
-
-# vim:ts=4:sw=4:et

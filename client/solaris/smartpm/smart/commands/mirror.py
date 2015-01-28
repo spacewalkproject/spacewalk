@@ -209,5 +209,3 @@ def main(ctrl, opts):
         penalities.sort()
         for penality, url in penalities:
             print "%s %d" % (url, penality)
-
-# vim:ts=4:sw=4:et

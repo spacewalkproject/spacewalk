@@ -263,5 +263,3 @@ void KSmartTray::toggleBlink()
         sysTray.setPixmap(sysTray.loadIcon("ksmarttray"));
     blinkFlag = !blinkFlag;
 }
-
-// vim:ts=4:sw=4:et

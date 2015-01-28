@@ -101,5 +101,3 @@ def dumpLoops():
 
 if __name__ == "__main__":
     dumpLoops()
-
-# vim:ts=4:sw=4:et

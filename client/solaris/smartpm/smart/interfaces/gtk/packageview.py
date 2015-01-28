@@ -412,5 +412,3 @@ class GtkPackageView(gtk.Alignment):
             self.emit("package_selected", None)
 
 gobject.type_register(GtkPackageView)
-
-# vim:ts=4:sw=4:et

@@ -91,5 +91,3 @@ def main(ctrl, opts):
         iface.showStatus(_("Channels have %d new packages%s")
                          % (len(newpackages), info))
     return int(failed)
-
-# vim:ts=4:sw=4:et

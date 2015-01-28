@@ -333,7 +333,3 @@ def pathTupleToString(path):
         else:
             result.append(str(elem).replace(".", "\."))
     return ".".join(result)
-
-
-# vim:ts=4:sw=4:et
-

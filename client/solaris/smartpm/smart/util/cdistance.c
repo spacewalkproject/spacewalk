@@ -250,6 +250,3 @@ initcdistance(void)
     PyObject *m;
     m = Py_InitModule3("cdistance", cdistance_methods, "");
 }
-
-/* vim:ts=4:sw=4:et
-*/

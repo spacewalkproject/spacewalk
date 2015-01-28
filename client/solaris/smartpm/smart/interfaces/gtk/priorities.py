@@ -448,6 +448,3 @@ class GtkSinglePriority(object):
             sysconf.remove(("package-priorities", pkg.name))
         else:
             sysconf.set(("package-priorities", pkg.name), priority)
-
-
-# vim:ts=4:sw=4:et

@@ -183,5 +183,3 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-
-# vim:ts=4:sw=4:et

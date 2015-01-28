@@ -346,5 +346,3 @@ def getControl(filename):
         else:
             file.seek(int(size), 1)
     return None
-
-# vim:ts=4:sw=4:et

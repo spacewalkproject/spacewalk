@@ -142,5 +142,3 @@ def main(ctrl, opts):
             else:
                 raise Error, _("Argument is not a file nor url: %s") % arg
         ctrl.downloadURLs(urls, _("URLs"), targetdir=opts.target)
-
-# vim:ts=4:sw=4:et

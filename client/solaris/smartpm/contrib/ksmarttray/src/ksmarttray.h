@@ -66,7 +66,7 @@ class KSmartTray : public QObject
         StateChecking,
         StateUpgrading,
     };
-    
+
     State state;
     QString lastKnownStatus;
     bool updateFailed;
@@ -103,8 +103,6 @@ class KSmartTray : public QObject
     void runUpgrades();
 
     public:
-    
+
     KSmartTray();
 };
-
-// vim:ts=4:sw=4:et

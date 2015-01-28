@@ -3319,6 +3319,3 @@ initccache(void)
                                            NULL, NULL);
     PyModule_AddObject(m, "StateVersionError", StateVersionError);
 }
-
-/* vim:ts=4:sw=4:et
-*/

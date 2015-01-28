@@ -93,5 +93,3 @@ def main(ctrl, opts):
 
     return not checkPackages(cache, pkgs, report=True,
                              all=opts.all, uninstalled=opts.uninstalled)
-
-# vim:ts=4:sw=4:et

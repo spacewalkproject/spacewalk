@@ -90,5 +90,3 @@ class SSH:
     def exists(self, file):
         status, output = self.ssh("/bin/ls -ld %s" % file, noerror=1)
         return (status == 0)
-
-# vim:ts=4:sw=4:et

@@ -74,6 +74,3 @@ initrpmhelper(void)
     PyObject *m;
     m = Py_InitModule3("rpmhelper", rpmhelper_methods, "");
 }
-
-/* vim:ts=4:sw=4:et
-*/

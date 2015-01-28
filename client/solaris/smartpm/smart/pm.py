@@ -24,5 +24,3 @@ class PackageManager:
 
     def commit(self, changeset, pkgpaths):
         pass
-
-# vim:ts=4:sw=4:et

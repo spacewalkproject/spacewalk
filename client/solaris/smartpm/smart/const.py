@@ -76,5 +76,3 @@ else:
     DATADIR     = "/var/lib/smart/"
 USERDATADIR = "~/.smart/"
 CONFFILE    = "config"
-
-# vim:ts=4:sw=4:et

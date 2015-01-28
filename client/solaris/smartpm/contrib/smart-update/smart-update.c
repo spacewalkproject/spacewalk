@@ -54,6 +54,3 @@ int main(int argc, char *argv[], char *envp[])
     perror("error: Unable to execute smart");
     return 1;
 }
-
-/* vim:ts=4:sw=4:et
-*/

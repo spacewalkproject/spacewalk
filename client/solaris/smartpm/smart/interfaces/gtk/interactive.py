@@ -832,6 +832,3 @@ class GtkInteractiveInterface(GtkInterface):
         self._pv.setPackages(groups, changeset, keepstate=True)
 
         self.setBusy(False)
-
-
-# vim:ts=4:sw=4:et

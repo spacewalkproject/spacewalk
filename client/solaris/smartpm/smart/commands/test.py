@@ -41,5 +41,3 @@ def main(ctrl, opts):
         import user
     except ImportError:
         pass
-
-# vim:ts=4:sw=4:et

@@ -378,5 +378,3 @@ class GtkPackageInfo(gtk.Alignment):
         self._relations.setPackages(relations, self._changeset)
 
 gobject.type_register(GtkPackageInfo)
-
-# vim:ts=4:sw=4:et

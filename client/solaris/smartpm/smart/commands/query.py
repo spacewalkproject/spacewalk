@@ -786,5 +786,3 @@ class PrologOutput(NullOutput):
         self.showPackage(prvpkg)
         self.showProvides(prvpkg, prv)
         self.add("conflictedby('%s', '%s')." % (prv, cnf))
-
-# vim:ts=4:sw=4:et

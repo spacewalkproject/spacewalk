@@ -149,5 +149,3 @@ for i in range(256):
         ORDER[c] = i+256
 
 from cdebver import *
-
-# vim:ts=4:sw=4

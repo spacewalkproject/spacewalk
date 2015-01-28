@@ -30,6 +30,3 @@ def create(ctrl, command=None, argv=None):
     #else:
     #    from smart.interfaces.up2date.interactive import TextInteractiveInterface
     #    return TextInteractiveInterface(ctrl)
-
-# vim:ts=4:sw=4:et
-

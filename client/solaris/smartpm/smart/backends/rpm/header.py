@@ -720,5 +720,3 @@ def createFileChannel(filename):
     return None
 
 hooks.register("create-file-channel", createFileChannel)
-
-# vim:ts=4:sw=4:et

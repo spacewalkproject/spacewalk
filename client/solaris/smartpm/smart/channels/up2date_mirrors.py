@@ -70,5 +70,3 @@ def create(alias, data):
                                  data["name"],
                                  data["manual"],
                                  data["removable"])
-
-# vim:ts=4:sw=4:et

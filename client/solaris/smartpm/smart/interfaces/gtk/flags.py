@@ -455,5 +455,3 @@ class TargetCreator(object):
         self._window.hide()
 
         return target
-
-# vim:ts=4:sw=4:et

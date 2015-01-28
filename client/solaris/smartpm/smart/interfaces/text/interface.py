@@ -192,5 +192,3 @@ class TextInterface(Interface):
         if confirm:
             return self.askYesNo(_("Confirm changes?"), True)
         return True
-
-# vim:ts=4:sw=4:et

@@ -85,5 +85,3 @@ class SolarisDepends(Depends):
 class SolarisUpgrades(SolarisDepends,Upgrades): pass
 
 class SolarisConflicts(SolarisDepends,Conflicts): pass
-
-# vim:ts=4:sw=4:et

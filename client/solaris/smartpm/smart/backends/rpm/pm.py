@@ -303,5 +303,3 @@ class RPMCallback:
             else:
                 self.prog.setSubDone(subkey)
             self.prog.show()
-
-# vim:ts=4:sw=4:et
