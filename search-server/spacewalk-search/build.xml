@@ -1,5 +1,6 @@
 <project name="search-server" basedir="." default="all">
     <import file="buildconf/build-utils.xml" />
+    <import file="buildconf/build-props.xml" />
 
     <property file="build.properties" />
 
