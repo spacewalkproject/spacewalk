@@ -1009,5 +1009,3 @@ def load_config_section(self, section):
         config_debug['password'] = "*" * len(config_debug['password'])
 
     logging.debug('Current Configuration: %s', config_debug)
-
-# vim:ts=4:expandtab:

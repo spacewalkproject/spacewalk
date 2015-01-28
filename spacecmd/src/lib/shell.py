@@ -233,5 +233,3 @@ class SpacewalkShell(Cmd):
     def postcmd(self, cmdresult, cmd):
         SpacewalkShell.print_result(cmdresult, cmd)
         self.prompt = re.sub('##', str(len(self.ssm)), self.prompt_template)
-
-# vim:ts=4:expandtab:

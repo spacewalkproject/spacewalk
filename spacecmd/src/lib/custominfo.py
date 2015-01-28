@@ -186,5 +186,3 @@ def do_custominfo_updatekey(self, args):
     self.client.system.custominfo.updateKey(self.session,
                                             key,
                                             description)
-
-# vim:ts=4:expandtab:

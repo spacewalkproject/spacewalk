@@ -149,5 +149,3 @@ def do_filepreservation_details(self, args):
                                                           name)
 
     print '\n'.join(sorted(details.get('file_names')))
-
-# vim:ts=4:expandtab:

@@ -774,5 +774,3 @@ def file_needs_b64_enc(self, contents):
         import string
         translate_table = string.maketrans("", "")
         return float(len(contents.translate(translate_table, text_characters))) / len(contents) > 0.3
-
-# vim:ts=4:expandtab:

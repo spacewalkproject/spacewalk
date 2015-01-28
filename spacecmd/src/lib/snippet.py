@@ -201,5 +201,3 @@ def do_snippet_delete(self, args):
 
     if self.user_confirm('Remove this snippet [y/N]:'):
         self.client.kickstart.snippet.delete(self.session, snippet)
-
-# vim:ts=4:expandtab:

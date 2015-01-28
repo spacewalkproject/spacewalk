@@ -181,5 +181,3 @@ def do_scap_schedulexccdfscan(self, args):
             continue
 
         self.client.system.scap.scheduleXccdfScan(self.session, system_id, path, param)
-
-# vim:ts=4:expandtab:

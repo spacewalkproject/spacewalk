@@ -187,5 +187,3 @@ if __name__ == '__main__':
                     logging.exception(detail)
                 else:
                     logging.error(detail)
-
-# vim:ts=4:expandtab:

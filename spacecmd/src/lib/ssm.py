@@ -208,5 +208,3 @@ def do_ssm_clear(self, args):
 
     # save the SSM for use between sessions
     save_cache(self.ssm_cache_file, self.ssm)
-
-# vim:ts=4:expandtab:

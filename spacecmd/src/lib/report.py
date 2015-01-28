@@ -373,5 +373,3 @@ def do_report_duplicates(self, args):
 
                 if len(dupes_by_hostname) > 1:
                     print
-
-# vim:ts=4:expandtab:

@@ -2075,6 +2075,3 @@ def do_softwarechannel_mirrorpackages(self, args):
             except IOError:
                 logging.error("Could not fetch package %s from channel %s" %
                               (package_file, channel))
-
-
-# vim:ts=4:expandtab:

@@ -284,5 +284,3 @@ def complete_distribution_update(self, text, line, beg, end):
 
 def do_distribution_update(self, args):
     return self.do_distribution_create(args, update=True)
-
-# vim:ts=4:expandtab:

@@ -193,5 +193,3 @@ def do_cryptokey_details(self, args):
 
         print
         print details.get('content')
-
-# vim:ts=4:expandtab:

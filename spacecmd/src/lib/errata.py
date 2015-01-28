@@ -532,5 +532,3 @@ def do_errata_search(self, args, doreturn=False):
                 map(print_errata_summary, sorted(errata, reverse=True))
         else:
             return []
-
-# vim:ts=4:expandtab:

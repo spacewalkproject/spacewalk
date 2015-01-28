@@ -99,6 +99,3 @@ def do_api(self, args):
     except xmlrpclib.Fault:
         if (output != sys.stdout):
             output.close()
-
-
-# vim:ts=4:expandtab:

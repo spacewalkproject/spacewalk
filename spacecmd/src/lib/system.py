@@ -3422,6 +3422,3 @@ def do_system_show_packageversion(self, args):
             if pkg.get('name') == searchpkg:
                 print "%s\t%s\t%s\t%s\t%s\t%s" % (pkg.get('name'), pkg.get('version'), pkg.get('release'),
                                                   pkg.get('epoch'), pkg.get('arch_label'), system)
-
-
-# vim:ts=4:expandtab:

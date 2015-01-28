@@ -2550,5 +2550,3 @@ def do_kickstart_getsoftwaredetails(self, args):
             print "noBase:          %s" % software_details.get("noBase")
             print "ignoreMissing:   %s" % software_details.get("ignoreMissing")
             print
-
-# vim:ts=4:expandtab:

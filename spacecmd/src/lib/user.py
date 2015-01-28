@@ -661,6 +661,3 @@ def do_user_setpassword(self, args):
     details = {'password': args.pop(0)}
 
     self.client.user.setDetails(self.session, user, details)
-
-
-# vim:ts=4:expandtab:
