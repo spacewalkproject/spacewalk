@@ -195,9 +195,9 @@ public class AccessTest extends BaseTestCaseWithUser {
                 .getServerGroupTypeProvisioningEntitled());
         context.put("sid", new String[] {s.getId().toString()});
         boolean rc = acl.evalAcl(context, "system_feature(ftr_kickstart)");
-        assertFalse(rc);
-        rc = acl.evalAcl(context, "not system_feature(ftr_kickstart)");
         assertTrue(rc);
+        rc = acl.evalAcl(context, "not system_feature(ftr_kickstart)");
+        assertFalse(rc);
     }
 
     public void testAclSystemHasManagementEntitlement() throws Exception {
