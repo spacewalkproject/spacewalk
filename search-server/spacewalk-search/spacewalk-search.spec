@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.3
+Version: 2.3.4
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -205,6 +205,10 @@ fi
 %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Wed Jan 28 2015 Tomas Lestach <tlestach@redhat.com> 2.3.4-1
+- link the compatibility log4j jar on fc21
+- move jpackage.jars to a separate file
+
 * Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.3-1
 - Getting rid of trailing spaces in XML
 - Getting rid of trailing spaces in Java
