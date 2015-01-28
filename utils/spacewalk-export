@@ -352,5 +352,3 @@ if __name__ == '__main__':
             logging.debug('SKIPPING ' + entity)
 
     prepareExport(options)
-
-# vim:ts=4:expandtab:

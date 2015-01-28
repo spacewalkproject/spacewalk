@@ -578,5 +578,3 @@ if not options.no_children:
                        'parent_label': parent_dest}
 
             clone_channel(child_source, details)
-
-# vim:ts=4:expandtab:

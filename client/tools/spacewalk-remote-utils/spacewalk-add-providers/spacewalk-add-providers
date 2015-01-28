@@ -91,5 +91,3 @@ for key_file in args:
         if options.debug: logging.exception(e)
         logging.error('Failed to add the key to the server: %s' % key_file)
         continue
-
-# vim:ts=4:expandtab:
