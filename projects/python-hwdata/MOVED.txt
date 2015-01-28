@@ -1,0 +1,2 @@
+package moved to new upstream location:
+  https://github.com/xsuchy/python-hwdata
