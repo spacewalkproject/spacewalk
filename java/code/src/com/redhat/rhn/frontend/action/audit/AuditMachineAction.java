@@ -113,5 +113,3 @@ public class AuditMachineAction extends RhnAction implements Listable {
             context.getParam("machine", false));
     }
 }
-
-// vim: ts=4:expandtab

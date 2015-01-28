@@ -91,5 +91,3 @@ public class AuditMachineDto extends BaseDto implements Comparable<AuditMachineD
         return getName().compareTo(other.getName());
     }
 }
-
-// vim: ts=4:expandtab

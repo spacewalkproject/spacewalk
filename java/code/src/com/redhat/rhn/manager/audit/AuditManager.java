@@ -454,5 +454,3 @@ public class AuditManager /* extends BaseManager */ {
         return events;
     }
 }
-
-// vim: ts=4:expandtab

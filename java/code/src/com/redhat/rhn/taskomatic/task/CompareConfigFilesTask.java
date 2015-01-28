@@ -91,5 +91,3 @@ public class CompareConfigFilesTask extends RhnJavaJob {
         }
     }
 }
-
-// vim: ts=4:expandtab
