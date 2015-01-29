@@ -20,7 +20,7 @@ Requires:       oracle-instantclient-basic = %{icversion}
 Requires:       oracle-instantclient-sqlplus = %{icversion}
 %define soversion 10
 %else
-%define icversion 11.2.0.3.0
+%define icversion 11.2.0
 %define icdir 11.2
 Requires:       oracle-instantclient11.2-basic = %{icversion}
 Requires:       oracle-instantclient11.2-sqlplus = %{icversion}
