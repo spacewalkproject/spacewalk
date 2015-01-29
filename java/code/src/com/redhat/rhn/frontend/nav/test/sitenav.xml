@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rhn-navi-tree xmlns:xi="http://www.w3.org/2001/XInclude" label="sitenav_unauth" title-depth="0" acl_mixins="com.redhat.rhn.common.security.acl.test.MixinTestHandler">
-  <rhn-tab name="Sign In" url="/" active-image="tab-sign_in-selected.gif" inactive-image="tab-sign_in.gif">
+  <rhn-tab name="Sign In" url="/rhn/Login.do" active-image="tab-sign_in-selected.gif" inactive-image="tab-sign_in.gif">
   </rhn-tab>
 
   <rhn-tab name="Subscription Management" url="/rhn/systems/SystemEntitlements.do">
