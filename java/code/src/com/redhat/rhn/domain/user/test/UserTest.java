@@ -18,6 +18,7 @@ package com.redhat.rhn.domain.user.test;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.MD5Crypt;
+import com.redhat.rhn.common.util.SHA256Crypt;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -128,7 +129,7 @@ public class UserTest extends RhnBaseTestCase {
         usr.setPassword(foo);
         boolean encrypt = Config.get().getBoolean(ConfigDefaults.WEB_ENCRYPTED_PASSWORDS);
         if (encrypt) {
-            assertEquals(MD5Crypt.crypt("foo", usr.getPassword()), usr.getPassword());
+            assertEquals(SHA256Crypt.crypt("foo", usr.getPassword()), usr.getPassword());
         }
         else {
             assertEquals(foo, usr.getPassword());
