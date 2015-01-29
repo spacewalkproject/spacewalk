@@ -18,7 +18,7 @@
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version: 5.1.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: Python Software Foundation License
 Group: Development/Libraries
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE.txt README.txt BUILD.txt HISTORY.txt html samples test
 
 %changelog
+* Thu Jan 29 2015 Tomas Lestach <tlestach@redhat.com> 5.1.2-5
+- we need to use the exact oracle instantclient version
+
 * Thu Jan 29 2015 Tomas Lestach <tlestach@redhat.com> 5.1.2-4
 - do not require exact version of oracle instantclient
 - fixed tito build warning
