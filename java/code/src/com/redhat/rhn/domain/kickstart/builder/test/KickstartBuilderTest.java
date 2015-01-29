@@ -179,8 +179,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartData ksData = createBareKickstartData();
         builder.buildCommands(ksData, lines, tree, null);
         KickstartCommand rootpw = ksData.getCommand("rootpw");
-        assertTrue(rootpw.getArguments().indexOf("--iscrypted") < 0);
-        assertTrue(rootpw.getArguments().startsWith("$1$"));
+        assertTrue(rootpw.getArguments().startsWith("--iscrypted $5$"));
     }
 
     public void testBuildPackages() throws Exception {
