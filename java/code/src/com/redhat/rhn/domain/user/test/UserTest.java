@@ -212,6 +212,8 @@ public class UserTest extends RhnBaseTestCase {
             role.setName("Role " + i);
 
             org.addRole(role);
+            TestUtils.saveAndFlush(role);
+
             usr.addPermanentRole(role);
         }
 
