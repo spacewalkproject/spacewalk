@@ -1,7 +1,7 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
 Version: 1.62
-Release: 2%{?dist}
+Release: 3%{?dist}
 License:  GPL+ or Artistic
 Group: Development/Libraries
 Source0: DBD-Oracle-%{version}.tar.gz
@@ -60,6 +60,9 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 29 2015 Tomas Lestach <tlestach@redhat.com> 1.62-3
+- we need to use the exact oracle instantclient version
+
 * Thu Jan 29 2015 Tomas Lestach <tlestach@redhat.com> 1.62-2
 - do not require exact version of oracle instantclient
 - fixed tito build warning
