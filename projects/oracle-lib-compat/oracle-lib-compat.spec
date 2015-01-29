@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        11.2.0.10
+Version:        11.2.0.11
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
@@ -105,6 +105,9 @@ find %{_prefix}/lib/oracle/%{icdir} \
         | xargs execstack -c
 
 %changelog
+* Thu Jan 29 2015 Tomas Lestach <tlestach@redhat.com> 11.2.0.11-1
+- do not require exact version of oracle instantclient
+
 * Wed Oct 22 2014 Michael Mraka <michael.mraka@redhat.com> 11.2.0.10-1
 - oracle-instantclient11.2 requires libstdc++.so.6
 
