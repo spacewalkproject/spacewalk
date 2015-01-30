@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.83
+Version:       5.5.84
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -75,6 +75,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Fri Jan 30 2015 Matej Kollar <mkollar@redhat.com> 5.5.84-1
+- Remove unnecessary pylint disabling...
+
 * Wed Jan 21 2015 Matej Kollar <mkollar@redhat.com> 5.5.83-1
 - Fix Pylint on Fedora 21: manual fixes
 - Fix Pylint on Fedora 21: autopep8
