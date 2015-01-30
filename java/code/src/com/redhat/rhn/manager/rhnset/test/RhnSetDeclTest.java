@@ -52,7 +52,7 @@ public class RhnSetDeclTest extends RhnBaseTestCase {
         user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
         Server s = ServerFactoryTest.createTestServer(user, true);
-        testBadAndGoodIds(RhnSetDecl.VIRTUAL_SYSTEMS, s.getId());
+        testBadAndGoodIds(RhnSetDecl.SYSTEMS_AFFECTED, s.getId());
     }
 
     private void testBadAndGoodIds(RhnSetDecl declIn, Long goodId) throws Exception {
