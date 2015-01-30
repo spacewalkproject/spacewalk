@@ -23373,7 +23373,7 @@ Sono necessari sia l'etichetta che il nome del canale. Essi devono avere almeno 
         </target>
       </trans-unit>
       <trans-unit id="toolbar.delete.software.channel">
-        <source>delete software channel</source>
+        <source>Delete software channel</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
@@ -23401,7 +23401,7 @@ Sono necessari sia l'etichetta che il nome del canale. Essi devono avere almeno 
         <target>Cerca</target>
       </trans-unit>
       <trans-unit id="toolbar.delete.channel">
-        <source>delete software channel</source>
+        <source>Delete software channel</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata//Add.do</context>
         </context-group>

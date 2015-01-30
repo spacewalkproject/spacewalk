@@ -20898,7 +20898,7 @@ given channel.</source>
         <target/>
       </trans-unit>
       <trans-unit id="toolbar.delete.software.channel">
-        <source>delete software channel</source>
+        <source>Delete software channel</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
@@ -20926,7 +20926,7 @@ given channel.</source>
         <target>தேடுதல்</target>
       </trans-unit>
       <trans-unit id="toolbar.delete.channel">
-        <source>delete software channel</source>
+        <source>Delete software channel</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata//Add.do</context>
         </context-group>
