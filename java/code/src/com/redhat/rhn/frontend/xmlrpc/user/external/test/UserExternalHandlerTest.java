@@ -90,7 +90,7 @@ public class UserExternalHandlerTest extends BaseHandlerTestCase {
         //if we set just two roles all others should be deleted
         handler.setExternalGroupRoles(satAdmin, name, roles);
         group = handler.getExternalGroupToRoleMap(satAdmin, name);
-        assertTrue(group.getRoles().size() == 2);
+        assertEquals(1, group.getRoles().size());
 
         //regular user can't delete
         int success = -1;
