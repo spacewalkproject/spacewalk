@@ -58,6 +58,8 @@ public class CloneErrataAction
         Collection<Long> list = msg.getErrata();
         List<Long> cids = new ArrayList<Long>();
         cids.add(currChan.getId());
+        // let's avoid deadlocks please
+        ChannelFactory.lock(currChan);
 
         for (Long eid : list) {
 
