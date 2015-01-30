@@ -40,7 +40,7 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </group>
         <sbr>
         <group>
-        <arg>-g<replaceable>CONF_FILEe</replaceable></arg>
+        <arg>-g<replaceable>CONF_FILE</replaceable></arg>
         <arg>--config=<replaceable>CONF_FILE</replaceable></arg>
         </group>
         <sbr>
@@ -127,13 +127,13 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
     <varlistentry>
         <term>-u<replaceable>URL</replaceable>, --url=<replaceable>URL</replaceable></term>
         <listitem>
-            <para>The repository URL.  Any protocol supported by yum is supported including http://, nfs://, file://. Can be used multiple times in order more than one repository to be assigned to a channel.(Optional)</para>
+            <para>The repository URL.  Any protocol supported by yum is supported including http://, nfs://, file://. Can be used multiple times in order for more than one repository to be assigned to a channel.(Optional)</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term>-l, --list</term>
         <listitem>
-            <para>List the custom channels with the assosiated repositories.</para>
+            <para>List the custom channels with the associated repositories.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -195,40 +195,40 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
 
 <refsect1><title>Examples</title>
 <simplelist>
-        <member>List all custom channels and the repositories assigned to them.</member>
-        <member><command>spacewalk-repo-sync --list </command></member>
-        <member>Synchronize single channel to all repositories assigned to it via WebUI or API.</member>
-        <member><command>spacewalk-repo-sync --channel custom-channel</command></member>
-        <member>Synchronize single channel to a repository specified on the command line.</member>
-        <member><command>spacewalk-repo-sync -c custom-channel --url=http://example.com/yum-repo/</command></member>
-        <member>Synchronize single channel to a local repository specified on the command line.</member>
-        <member><command>spacewalk-repo-sync -c custom-channel --url=file:///var/share/localrepo/</command></member>
-        <member>Synchronize single channel to a repository(mirror list) specified on the command line.</member>
-        <member><command>spacewalk-repo-sync -c custom-channel --url=http://example.com/mirrorlist.xml/</command></member>
-        <member>Synchronize single channel to more than one repository specified on the command line.</member>
-        <member><command>spacewalk-repo-sync -c custom-channel --url=http://example.com/yum-repo/ --url=http://example.com/yum-repo_2/</command></member>
-        <member>Synchronize parent channel and all its chiled channels. All channeles must have repository assigned via WebUI or API.</member>
-        <member><command>spacewalk-repo-sync -p parent-channel </command></member>
-        <member><command>spacewalk-repo-sync -c custom-channel --url=http://example.com/yum-repo/ -p parent-channel </command></member>
-        <member>Synchronize channels specified in configuration file.</member>
-        <member><command>spacewalk-repo-sync --config example.conf</command></member>
-        <member><command>spacewalk-repo-sync --config example.conf -c custom-channel --url=http://example.com/yum-repo/ -p parent-channel --fail</command></member>
-<member>Example configuration file.</member>
-<member>
- <command>
-{<sbr>
- "no_errata":false,<sbr>
- "sync_kickstart":false,<sbr>
- "quiet":false,<sbr>
- "fail":true,<sbr>
- "dry_run":false,<sbr>
- "channel":{"chann_1":["http://ex.rh.com/repo1","http://ex.rh.com/repo2"],"chann_2":[]},<sbr>
- "parent_channel":["parent_1","parent_2"]<sbr>
-}<sbr>
- </command>
-</member>
-        <member>In order just to test the configuration use option --dry-run.</member>
-        <member><command>spacewalk-repo-sync --config example.conf --dry-run</command></member>
+    <member>List all custom channels and the repositories assigned to them.</member>
+    <member><command>spacewalk-repo-sync --list </command></member>
+    <member>Synchronize single channel to all repositories assigned to it via WebUI or API.</member>
+    <member><command>spacewalk-repo-sync --channel custom-channel</command></member>
+    <member>Synchronize single channel to a repository specified on the command line.</member>
+    <member><command>spacewalk-repo-sync -c custom-channel --url=http://example.com/yum-repo/</command></member>
+    <member>Synchronize single channel to a local repository specified on the command line.</member>
+    <member><command>spacewalk-repo-sync -c custom-channel --url=file:///var/share/localrepo/</command></member>
+    <member>Synchronize single channel to a repository(mirror list) specified on the command line.</member>
+    <member><command>spacewalk-repo-sync -c custom-channel --url=http://example.com/mirrorlist.xml/</command></member>
+    <member>Synchronize single channel to more than one repository specified on the command line.</member>
+    <member><command>spacewalk-repo-sync -c custom-channel --url=http://example.com/yum-repo/ --url=http://example.com/yum-repo_2/</command></member>
+    <member>Synchronize parent channel and all its child channels. All channels must have repository assigned via WebUI or API.</member>
+    <member><command>spacewalk-repo-sync -p parent-channel </command></member>
+    <member><command>spacewalk-repo-sync -c custom-channel --url=http://example.com/yum-repo/ -p parent-channel </command></member>
+    <member>Synchronize channels specified in configuration file.</member>
+    <member><command>spacewalk-repo-sync --config example.conf</command></member>
+    <member><command>spacewalk-repo-sync --config example.conf -c custom-channel --url=http://example.com/yum-repo/ -p parent-channel --fail</command></member>
+    <member>Example configuration file.</member>
+    <member>
+        <msgtext><programlisting>
+{
+ "no_errata":false,
+ "sync_kickstart":false,
+ "quiet":false,
+ "fail":true,
+ "dry_run":false,
+ "channel":{"chann_1":["http://example.com/repo1","http://example.com/repo2"],"chann_2":[]},
+ "parent_channel":["parent_1","parent_2"]
+}
+        </programlisting></msgtext>
+    </member>
+    <member>In order just to test the configuration use option --dry-run.</member>
+    <member><command>spacewalk-repo-sync --config example.conf --dry-run</command></member>
 </simplelist>
 </refsect1>
 

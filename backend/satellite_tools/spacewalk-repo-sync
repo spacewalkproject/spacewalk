@@ -82,7 +82,7 @@ def main():
                       dest='dry_run',
                       help='Test run. No sync takes place.')
     parser.add_option('-g', '--config', action='store', dest='config',
-		       help='Configuration file')
+               help='Configuration file')
     parser.add_option('-t', '--type', action='store', dest='repo_type',
                       help='The type of repo, currently only "yum" and "uln" are supported',
                       default='yum')
@@ -131,7 +131,7 @@ def main():
     clear_interrupted_downloads()
 
     if not options.channel_label and not options.parent_label and not options.config:
-        systemExit(1, "--channel, --parent-channel or --config must be specifed. must be specified")
+        systemExit(1, "--channel, --parent-channel or --config must be specifed.")
 
     if options.config:
         try:
@@ -140,12 +140,12 @@ def main():
             config_file = re.sub(r'\s', '', config_file)
             config = json.load(StringIO.StringIO(config_file))
 
-        except:
-            systemExit(1, "Configuration file is invalid, please check syntax.")
+        except Exception as e:
+            systemExit(1, "Configuration file is invalid, please check syntax. Error [%s]" % e )
 
         for key in l_params:
-		    if config.has_key(key) and not getattr(options, key):
-		        setattr(options, key, config[key])
+            if config.has_key(key) and not getattr(options, key):
+                setattr(options, key, config[key])
 
         # Channels
         if config.has_key('channel'):
