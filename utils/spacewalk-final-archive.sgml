@@ -1,0 +1,131 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN"
+>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-final-archive</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 0.1</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-final-archive</command></RefName>
+<RefPurpose>
+Utility for archiving as much exportable data as available from a running instance
+</RefPurpose>
+</RefNameDiv>
+
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spacewalk-final-archive</command>
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--dir=<replaceable>DIR</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-db</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-reports</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-debug</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-transition</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--clean</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-h</arg>
+        <arg>--help</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+
+<RefSect1><Title>Description</Title>
+  <para>
+      <emphasis>spacewalk-final-archive</emphasis> archives as much exportable data as is available from a running spacewalk system
+  </para>
+
+  <para>
+      This tool leverages a number of existing spacewalk utilities, including <emphasis>db-control</emphasis>, <emphasis>spacewalk-report</emphasis>, <emphasis>spacewalk-debug</emphasis>, and <emphasis>spacewalk-export</emphasis>, to collect their output into a specified location and gather it into one compressed file that can be easily stored elsewhere as an archive of the 'final' state of the spacewalk system.
+  </para>
+
+  <para>
+      Individual tools' output can be skipped if desired.
+  </para>
+</RefSect1>
+
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+    <varlistentry>
+        <term>--dir=<replaceable>DIR</replaceable></term>
+        <listitem>
+            <para>Specify directory to store results (will be created if not found) - defaults to /tmp/spacewalk-final
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term> --no-db</term>
+        <listitem>
+            <para>Do not gather the output of <emphasis>db-control backup</emphasis>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term> --no-reports</term>
+        <listitem>
+            <para>Do not gather the output of all <emphasis>spacewalk-report</emphasis>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term> --no-debug</term>
+        <listitem>
+            <para>Do not gather the output of <emphasis>spacewalk-debug</emphasis>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term> --no-transition</term>
+        <listitem>
+            <para>Do not gather the output of <emphasis>spacewalk-export</emphasis>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--clean</term>
+        <listitem>
+           <para>Describes how to clean up from previous runs. This does <emphasis>not</emphasis> execute the command, leaving it to the user to decide whether issuing an 'rm -rf' command as root is a good idea.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+
+<RefSect1><Title>Examples</Title>
+<example>
+    <title>Archive all entities to the default location (/tmp/spacewalk-final)</title>
+  <para>spacewalk-final-archive</para>
+</example>
+<example>
+  <title>Archive only the database and spacewalk-debug output, using directory /tmp/arch as a destination</title>
+  <para>spacewalk-final-archive --dir=/tmp/arch --no-reports --no-transition</para>
+</example>
+</RefSect1>
+
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Grant Gainey<email>ggainey@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</refentry>
