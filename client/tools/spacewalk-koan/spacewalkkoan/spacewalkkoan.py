@@ -101,6 +101,12 @@ def getSystemId():
         return None
     return open(path, "r").read()
 
+def getInitrdPath():
+    path = '/boot/initrd.img'
+    if os.access(path + "_koan", os.R_OK):
+        return path + "_koan"
+    return path
+
 def update_static_device_records(kickstart_host, static_device):
     client = xmlrpclib.Server("https://" + kickstart_host + "/rpc/api")
     data = {"gateway" : find_gateway(static_device),\
@@ -183,7 +189,7 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
         return (1, "Kickstart failed. Koan error.", error_messages)
 
     # Now process preserve_files if there are any
-    initrd = '/boot/initrd.img'
+    initrd = getInitrdPath()
     if preserve_files:
         ret = create_new_rd(initrd, preserve_files)
         if ret:
