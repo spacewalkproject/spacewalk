@@ -28,14 +28,14 @@ import os
 import sys
 
 from optparse import OptionParser
-from subprocess import Popen, call
+from subprocess import Popen, call, PIPE
 
 DEFAULT_ARCHIVE_DIR = '/tmp/spacewalk-final'
 ARCHIVE_ROOT = 'archive'
 DB_DIR = 'db_backup'
 DB_NAME = 'DBBACKUP'
 REPORTS_DIR = 'reports'
-EXPORT_DIR = 'export'
+TRANSITION_DIR = 'transition'
 DEBUG_DIR = 'debug'
 ARCHIVE_NAME = 'final-archive.tar.bz2'
 
@@ -70,26 +70,31 @@ def setupLogging(opt):
 
 def setupOutputDir(options):
     if not os.path.isdir(options.archive_dir):
-        os.mkdir(options.archive_dir, 0700)
+        os.mkdir(options.archive_dir)
+        os.chmod(options.archive_dir, 0777)
 
-    if not os.path.isdir(options.archive_dir + '/' + ARCHIVE_ROOT):
-        os.mkdir(options.archive_dir + '/' + ARCHIVE_ROOT, 0700)
+    arch_root = '%s/%s' % (options.archive_dir, ARCHIVE_ROOT)
+    if not os.path.isdir(arch_root):
+        os.mkdir(arch_root)
+        os.chmod(arch_root, 0777)
 
     # db-dir needs to be writeable by postgres
-    if not os.path.isdir(options.archive_dir + '/' + ARCHIVE_ROOT + '/' + DB_DIR):
-        os.mkdir(options.archive_dir + '/' + ARCHIVE_ROOT + '/' + DB_DIR, 0707)
+    db_path = '%s/%s' % (arch_root, DB_DIR)
+    if not os.path.isdir(db_path):
+        os.mkdir(db_path)
+        os.chmod(db_path, 0777)
 
-    if not os.path.isdir(options.archive_dir + '/' + ARCHIVE_ROOT + '/' + REPORTS_DIR):
-        os.mkdir(
-            options.archive_dir + '/' + ARCHIVE_ROOT + '/' + REPORTS_DIR, 0700)
+    report_path = '%s/%s' % (arch_root, REPORTS_DIR)
+    if not os.path.isdir(report_path):
+        os.mkdir(report_path)
 
-    if not os.path.isdir(options.archive_dir + '/' + ARCHIVE_ROOT + '/' + EXPORT_DIR):
-        os.mkdir(
-            options.archive_dir + '/' + ARCHIVE_ROOT + '/' + EXPORT_DIR, 0700)
+    transition_path = '%s/%s' % (arch_root, TRANSITION_DIR)
+    if not os.path.isdir(transition_path):
+        os.mkdir(transition_path)
 
-    if not os.path.isdir(options.archive_dir + '/' + ARCHIVE_ROOT + '/' + DEBUG_DIR):
-        os.mkdir(
-            options.archive_dir + '/' + ARCHIVE_ROOT + '/' + DEBUG_DIR, 0700)
+    debug_path = '%s/%s' % (arch_root, DEBUG_DIR)
+    if not os.path.isdir(debug_path):
+        os.mkdir(debug_path)
 
 
 def _issueReport(options, reportname):
@@ -102,28 +107,27 @@ def _issueReport(options, reportname):
 
 def archiveDb(options):
     db_file = '%s/%s/%s/%s' % (options.archive_dir, ARCHIVE_ROOT, DB_DIR, DB_NAME)
-    call(['/usr/bin/db-control', 'online-backup', db_file)
+    call(['/usr/bin/db-control', 'online-backup', db_file])
 
 def archiveReports(options):
     reports = Popen('/usr/bin/spacewalk-report', stdout=PIPE)
     for a_report in reports.stdout:
-        _issueReport(options, a_report)
+        _issueReport(options, a_report.strip())
 
 def archiveDebug(options):
     dbg_dir = '%s/%s/%s' % (options.archive_dir, ARCHIVE_ROOT, DEBUG_DIR)
-    call(['/usr/bin/spacewalk-debug', '--dir', dbg_dir)
+    call(['/usr/bin/spacewalk-debug', '--dir', dbg_dir])
 
 def archiveTransition(options):
     transition_dir = '%s/%s/%s' % (options.archive_dir, ARCHIVE_ROOT, TRANSITION_DIR)
-    call(['/usr/bin/spacewalk-export', '--dir', transition_dir)
+    call(['/usr/bin/spacewalk-export', '--export-dir', transition_dir])
 
 def packageArchive(options):
     logging.info('...preparing to archive...')
     call(['/bin/tar', '-c', '-j',
-        '--owner', 'apache', '--group', 'apache',
         '-C', options.archive_dir,
         '-f', '%s/%s' % (options.archive_dir, ARCHIVE_NAME),
-        options.archive_dir + '/' + ARCHIVE_ROOT])
+        ARCHIVE_ROOT])
     logging.info(
         'Archive created at %s/%s' % (options.archive_dir, ARCHIVE_NAME))
 
@@ -181,7 +185,7 @@ if __name__ == '__main__':
         archiveTransition(options)
         archived_something = True;
 
-    if !archived_something:
+    if not archived_something:
         logging.info('...all output skipped - exiting.')
         sys.exit(0)
 
