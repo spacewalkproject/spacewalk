@@ -134,8 +134,9 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
     public final void testRedirectoToLoginForwardsRequest() throws Exception {
         setUpRedirectToLogin();
 
-        mockResponse.expects(once()).method("sendRedirect").with(
-                new Constraint[] {eq("/rhn/Login.do")}).will(returnValue(null));
+        mockResponse.expects(once()).method("sendRedirect").with(new Constraint[] {
+            eq("/rhn/Login.do?url_bounce=/rhn/YourRhn.do&request_method=POST") }
+        ).will(returnValue(null));
 
         mockRequest.stubs().method("getParameterNames").will(
 returnValue(new Vector<String>().elements()));
@@ -155,8 +156,11 @@ returnValue(new Vector<String>().elements()));
         createRequestURIWithParams(requestParamNames,
                 requestParamValues);
 
-        mockResponse.expects(once()).method("sendRedirect").with(
-                new Constraint[] {eq("/rhn/Login.do")}).will(returnValue(null));
+        mockResponse.expects(once()).method("sendRedirect").with(new Constraint[] {
+            eq("/rhn/Login.do?url_bounce=/rhn/YourRhn.do?question=param+1+%3D+%27" +
+               "Who+is+the+one%3F%27&answer=param+2+%3D+%27Neo+is+the+one%21%27&" +
+               "request_method=POST")}
+        ).will(returnValue(null));
 
         runRedirectToLoginTest();
     }
