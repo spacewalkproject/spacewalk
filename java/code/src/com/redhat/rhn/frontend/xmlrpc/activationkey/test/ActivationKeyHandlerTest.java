@@ -286,7 +286,7 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
                 KEY_USAGE_LIMIT, entitlements, Boolean.FALSE);
         ActivationKey activationKey = ActivationKeyManager.getInstance()
                                                     .lookupByKey(newKey, admin);
-        assertEquals(3, activationKey.getEntitlements().size());
+        assertEquals(2, activationKey.getEntitlements().size());
         assertTrue(keyHasEntitlement(activationKey,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled()));
         assertTrue(keyHasEntitlement(activationKey,
@@ -298,7 +298,7 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
                 .getServerGroupTypeVirtualizationEntitled();
         keyHandler.addEntitlements(admin, newKey,
                 buildEntitlementsList(new String[] { virtualization.getLabel() }));
-        assertEquals(4, activationKey.getEntitlements().size());
+        assertEquals(3, activationKey.getEntitlements().size());
         assertTrue(keyHasEntitlement(activationKey, virtualization));
     }
 
