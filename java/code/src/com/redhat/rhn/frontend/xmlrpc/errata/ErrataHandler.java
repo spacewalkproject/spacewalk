@@ -1178,7 +1178,7 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.returntype
      *      $ErrataSerializer
      */
-    public Errata create(User loggedInUser, Map<String, String> errataInfo,
+    public Errata create(User loggedInUser, Map<String, Object> errataInfo,
             List<Map<String, Object>> bugs, List<String> keywords,
             List<Integer> packageIds, boolean publish, List<String> channelLabels)
             throws InvalidChannelRoleException {
@@ -1222,12 +1222,12 @@ public class ErrataHandler extends BaseHandler {
         }
         String advisoryType = (String) getRequiredAttribute(errataInfo, "advisory_type");
         String product = (String) getRequiredAttribute(errataInfo, "product");
-        String errataFrom = errataInfo.get("errataFrom");
+        String errataFrom = (String) errataInfo.get("errataFrom");
         String topic = (String) getRequiredAttribute(errataInfo, "topic");
         String description = (String) getRequiredAttribute(errataInfo, "description");
         String solution = (String) getRequiredAttribute(errataInfo, "solution");
-        String references = errataInfo.get("references");
-        String notes = errataInfo.get("notes");
+        String references = (String) errataInfo.get("references");
+        String notes = (String) errataInfo.get("notes");
 
         Errata newErrata = ErrataManager.lookupByAdvisory(advisoryName);
         if (newErrata != null) {
