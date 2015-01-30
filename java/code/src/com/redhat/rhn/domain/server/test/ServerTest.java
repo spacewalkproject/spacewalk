@@ -85,7 +85,7 @@ public class ServerTest extends BaseTestCaseWithUser {
         assertTrue(host.isEntitlementAllowed(EntitlementManager.VIRTUALIZATION_PLATFORM));
 
         assertNotNull(host.getValidAddonEntitlementsForServer());
-        assertEquals(4, host.getValidAddonEntitlementsForServer().size());
+        assertEquals(3, host.getValidAddonEntitlementsForServer().size());
 
     }
 
