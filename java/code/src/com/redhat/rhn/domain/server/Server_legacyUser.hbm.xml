@@ -251,8 +251,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
 
     <sql-query name="Server.findUngrouped">
-            <![CDATA[select {S.*}
-                                        from rhnServer {S}
+            <![CDATA[select S.*
+                                        from rhnServer S
                                      left outer join  rhnSatelliteInfo S_2_ on S.id = S_2_.server_id
                                      left outer join  rhnProxyInfo S_3_ on S.id = S_3_.server_id
 
