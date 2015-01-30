@@ -300,8 +300,12 @@ class Registration(rhnHandler):
                 # Update the arch - it may have changed; we know the field was
                 # provided for us
                 newserv.set_arch(architecture)
-                newserv.user = rhnUser.User("", "")
-                newserv.user.reload(newserv.server['creator_id'])
+                # if no creator_id use the activation key owner, else keep
+                if not newserv.server['creator_id']:
+                    newserv.user = user
+                else:
+                    newserv.user = rhnUser.User("", "")
+                    newserv.user.reload(newserv.server['creator_id'])
                 # Generate a new secret for this server
                 newserv.gen_secret()
                 # Get rid of the old package profile - it's bogus in this case
