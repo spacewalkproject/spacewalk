@@ -14,27 +14,29 @@
  */
 package com.redhat.rhn.frontend.events.test;
 
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
-import com.redhat.rhn.domain.rhnpackage.Package;
-import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.events.CloneErrataAction;
 import com.redhat.rhn.frontend.events.CloneErrataEvent;
 import com.redhat.rhn.manager.channel.CloneChannelCommand;
-import com.redhat.rhn.taskomatic.task.repomd.ChannelRepodataDriver;
+import com.redhat.rhn.taskomatic.task.TaskConstants;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
- * @author Silvio Moioli <smoioli@suse.de>
+ * Tests {@link CloneErrataAction}.
  */
 public class CloneErrataActionTest extends BaseTestCaseWithUser {
 
@@ -58,10 +60,8 @@ public class CloneErrataActionTest extends BaseTestCaseWithUser {
     public void testDoExecute() throws Exception {
         // setup a channel with an errata
         Channel original = ChannelFactoryTest.createTestChannel(admin);
-        Package pack = PackageTest.createTestPackage(admin.getOrg());
         final Errata errata =
                 ErrataFactoryTest.createTestPublishedErrata(admin.getOrg().getId());
-        original.addPackage(pack);
         original.addErrata(errata);
 
         // clone it
@@ -73,19 +73,32 @@ public class CloneErrataActionTest extends BaseTestCaseWithUser {
         helper.setSummary(original.getSummary());
         Channel cloned = helper.create();
 
-        // check cloned channel has no errata and no repository metadata
+        // check cloned channel has no errata and repository metadata
         // generation was scheduled
         assertEquals(0, cloned.getErrataCount());
-        assertEquals(0, new ChannelRepodataDriver().getCandidates().size());
+        assertEquals(1, countActiveRepomdTasks(cloned.getLabel()));
 
         // run CloneErrataAction
         Collection<Long> errataIds = new LinkedList<Long>() { { add(errata.getId()); } };
         CloneErrataEvent event = new CloneErrataEvent(cloned, errataIds, user);
         new CloneErrataAction().doExecute(event);
 
-        // new errata should be in cloned channel, repository metadata
+        // new errata should be in cloned channel, new repository metadata
         // generation scheduled
         assertEquals(1, cloned.getErrataCount());
-        assertEquals(1, new ChannelRepodataDriver().getCandidates().size());
+        assertEquals(2, countActiveRepomdTasks(cloned.getLabel()));
+    }
+
+    /**
+     * Count the active repomd tasks for a given channel.
+     * @param label the channel label to process
+     * @return the count of repomd tasks
+     */
+    private int countActiveRepomdTasks(String label) {
+        SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME,
+            TaskConstants.TASK_QUERY_REPOMD_CANDIDATES_DETAILS_QUERY);
+        Map<Object, Object> params = new HashMap<Object, Object>();
+        params.put("channel_label", label);
+        return selector.execute(params).size();
     }
 }
