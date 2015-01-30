@@ -64,7 +64,7 @@ public class KickstartPartitionActionTest extends RhnPostMockStrutsTestCase {
         assertNotNull(formval);
         assertTrue(formval.length() > 0);
         assertEquals(data, formval);
-        String[] keys = {"kickstart.partition.success"};
+        String[] keys = {"kickstart.partition.success", "kickstart.software.changeencryption"};
         verifyActionMessages(keys);
         assertNotNull(ksdata.getPartitionData());
         assertEquals(data, ksdata.getPartitionData());
@@ -89,7 +89,7 @@ public class KickstartPartitionActionTest extends RhnPostMockStrutsTestCase {
         assertNotNull(ksdata.getPartitionData());
         assertEquals(data, ksdata.getPartitionData());
 
-        String[] keys = {"kickstart.partition.success"};
+        String[] keys = {"kickstart.partition.success", "kickstart.software.changeencryption"};
         verifyActionMessages(keys);
     }
 
