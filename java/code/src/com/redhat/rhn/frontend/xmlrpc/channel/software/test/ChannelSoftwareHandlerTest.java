@@ -816,11 +816,11 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         List<Map<String, Object>> toList = handler.listErrata(admin, mergeTo.getLabel());
         assertEquals(toList.size(), 0);
 
-        Map<String, String> errataInfo = new HashMap<String, String>();
+        Map<String, Object> errataInfo = new HashMap<String, Object>();
         String advisoryName = TestUtils.randomString();
         errataInfo.put("synopsis", TestUtils.randomString());
         errataInfo.put("advisory_name", advisoryName);
-        errataInfo.put("advisory_release", "2");
+        errataInfo.put("advisory_release", 2);
         errataInfo.put("advisory_type", "Bug Fix Advisory");
         errataInfo.put("product", TestUtils.randomString());
         errataInfo.put("topic", TestUtils.randomString());
@@ -860,11 +860,11 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         List<Map<String, Object>> toList = handler.listErrata(admin, mergeTo.getLabel());
         assertEquals(toList.size(), 0);
 
-        Map<String, String> errataInfo = new HashMap<String, String>();
+        Map<String, Object> errataInfo = new HashMap<String, Object>();
         String advisoryName = TestUtils.randomString();
         errataInfo.put("synopsis", TestUtils.randomString());
         errataInfo.put("advisory_name", advisoryName);
-        errataInfo.put("advisory_release", "2");
+        errataInfo.put("advisory_release", 2);
         errataInfo.put("advisory_type", "Bug Fix Advisory");
         errataInfo.put("product", TestUtils.randomString());
         errataInfo.put("topic", TestUtils.randomString());
