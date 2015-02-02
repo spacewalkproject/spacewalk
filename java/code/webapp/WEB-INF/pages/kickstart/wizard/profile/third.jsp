@@ -63,7 +63,7 @@ function movePrevious() {
       <ul class="list-group">
         <div class="row">
           <div class="col-sm-2">
-                <rhn:required-field key="kickstart.root.password.verify.jsp.label"/>:
+          	<rhn:required-field key="kickstart.root.password.verify.jsp.label"/>:
           </div>
           <div class="col-sm-4">
                 <html:password property="rootPasswordConfirm" styleClass="form-control" />
