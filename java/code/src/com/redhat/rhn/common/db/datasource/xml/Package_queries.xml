@@ -785,7 +785,9 @@ SELECT P.id, P.summary, PP.name as provider
 
 <mode name="system_available_packages"  class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
-  SELECT rp.id AS package_id, not_installed.*
+    SELECT
+      rp.id AS package_id,
+      not_installed.*
     FROM
       (
         SELECT
