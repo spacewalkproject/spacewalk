@@ -785,20 +785,20 @@ SELECT P.id, P.summary, PP.name as provider
 
 <mode name="system_available_packages"  class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
-  SELECT rp.id AS package_id, x.*
+  SELECT rp.id AS package_id, not_installed.*
     FROM
       (
         SELECT
           pn.name AS NAME,
-          pn.name || '-' || evr_t_as_vre_simple(full_list.evr) AS NVRE,
-          pn.name || '-' || evr_t_as_vre_simple(full_list.evr) || '.' || full_list.arch_label AS NVREA,
-          pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) || '|' || full_list.arch_id AS ID_COMBO,
-          full_list.arch_label AS ARCH,
+          pn.name || '-' || evr_t_as_vre_simple(latest.evr) AS NVRE,
+          pn.name || '-' || evr_t_as_vre_simple(latest.evr) || '.' || latest.arch_label AS NVREA,
+          pn.id || '|' || lookup_evr((latest.evr).epoch, (latest.evr).version, (latest.evr).release) || '|' || latest.arch_id AS ID_COMBO,
+          latest.arch_label AS ARCH,
           pn.id AS name_id,
-          full_list.arch_id,
-          lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) AS evr_id,
-          (full_list.evr).release AS release,
-          (full_list.evr).version AS version
+          latest.arch_id,
+          lookup_evr((latest.evr).epoch, (latest.evr).version, (latest.evr).release) AS evr_id,
+          (latest.evr).release AS release,
+          (latest.evr).version AS version
         FROM
           (
             SELECT
@@ -818,19 +818,19 @@ SELECT P.id, P.summary, PP.name as provider
               p.name_id,
               pa.label,
               pa.id
-          ) full_list
-            JOIN rhnPackageName pn ON pn.id = full_list.name_id
+          ) latest
+            JOIN rhnPackageName pn ON pn.id = latest.name_id
         WHERE NOT EXISTS (
           SELECT 1
           FROM rhnServerPackage SP
           WHERE SP.server_id = :sid
-            AND SP.name_id = full_list.name_id
-            AND (SP.package_arch_id = full_list.arch_id OR SP.package_arch_id IS NULL)
+            AND SP.name_id = latest.name_id
+            AND (SP.package_arch_id = latest.arch_id OR SP.package_arch_id IS NULL)
         )
-      ) x
-        JOIN rhnPackage rp ON rp.name_id = x.name_id
-          AND rp.evr_id = x.evr_id
-          AND rp.package_arch_id = x.arch_id
+      ) not_installed
+        JOIN rhnPackage rp ON rp.name_id = not_installed.name_id
+          AND rp.evr_id = not_installed.evr_id
+          AND rp.package_arch_id = not_installed.arch_id
         JOIN rhnChannelPackage rcp ON rcp.package_id = rp.id
         JOIN rhnServerChannel rsc ON rsc.channel_id = rcp.channel_id
     WHERE rsc.server_id = :sid
