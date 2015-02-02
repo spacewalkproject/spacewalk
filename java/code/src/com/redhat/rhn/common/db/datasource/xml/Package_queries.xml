@@ -794,16 +794,16 @@ SELECT P.id, P.summary, PP.name as provider
           pn.name || '-' || evr_t_as_vre_simple(full_list.evr) || '.' || full_list.arch_label AS NVREA,
           pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) || '|' || full_list.arch_id AS ID_COMBO,
           full_list.arch_label AS ARCH,
-          pn.id name_id,
+          pn.id AS name_id,
           full_list.arch_id,
-          lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) evr_id,
+          lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) AS evr_id,
           (full_list.evr).release AS release,
           (full_list.evr).version AS version
         FROM
           (
             SELECT
-              p.name_id name_id,
-              max(pe.evr) evr,
+              p.name_id AS name_id,
+              max(pe.evr) AS evr,
               pa.label AS arch_label,
               pa.id AS arch_id
             FROM
