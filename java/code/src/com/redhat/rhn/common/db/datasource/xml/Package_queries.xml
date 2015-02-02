@@ -807,42 +807,33 @@ SELECT P.id, P.summary, PP.name as provider
               pa.label AS arch_label,
               pa.id AS arch_id
             FROM
-              rhnPackageEVR PE,
-              rhnPackage P,
-              rhnChannelPackage CP,
-              rhnServerChannel SC,
-              rhnPackageArch PA
+              rhnPackageEVR PE
+                JOIN rhnPackage p ON p.evr_id = pe.id
+                JOIN rhnChannelPackage cp ON cp.package_id = p.id
+                JOIN rhnServerChannel sc ON sc.channel_id = cp.channel_id
+                JOIN rhnPackageArch pa ON pa.id = p.package_arch_id
             WHERE
               sc.server_id = :sid
-                AND sc.channel_id = cp.channel_id
-                AND cp.package_id = p.id
-                AND p.evr_id = pe.id
-                AND p.package_arch_id = pa.id
             GROUP BY
               p.name_id,
               pa.label,
               pa.id
-          ) full_list,
-          rhnPackageName pn
-        WHERE
-          full_list.name_id = pn.id
-            AND NOT EXISTS (
-              SELECT 1
-              FROM rhnServerPackage SP
-              WHERE SP.server_id = :sid
-                AND SP.name_id = full_list.name_id
-                AND (SP.package_arch_id = full_list.arch_id OR SP.package_arch_id IS NULL)
-            )
-      ) x,
-      rhnPackage rp,
-      rhnChannelPackage rcp,
-      rhnServerChannel rsc
-    WHERE rp.name_id = x.name_id
-      AND rp.evr_id = x.evr_id
-      AND rp.package_arch_id = x.arch_id
-      AND rp.id = rcp.package_id
-      AND rcp.channel_id = rsc.channel_id
-      AND rsc.server_id = :sid
+          ) full_list
+            JOIN rhnPackageName pn ON pn.id = full_list.name_id
+        WHERE NOT EXISTS (
+          SELECT 1
+          FROM rhnServerPackage SP
+          WHERE SP.server_id = :sid
+            AND SP.name_id = full_list.name_id
+            AND (SP.package_arch_id = full_list.arch_id OR SP.package_arch_id IS NULL)
+        )
+      ) x
+        JOIN rhnPackage rp ON rp.name_id = x.name_id
+          AND rp.evr_id = x.evr_id
+          AND rp.package_arch_id = x.arch_id
+        JOIN rhnChannelPackage rcp ON rcp.package_id = rp.id
+        JOIN rhnServerChannel rsc ON rsc.channel_id = rcp.channel_id
+    WHERE rsc.server_id = :sid
     ORDER BY UPPER(name)
   </query>
 </mode>
