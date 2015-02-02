@@ -785,45 +785,65 @@ SELECT P.id, P.summary, PP.name as provider
 
 <mode name="system_available_packages"  class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
-SELECT rp.id AS package_id, x.* FROM (
-SELECT  pn.name AS NAME,
-        pn.name || '-' || evr_t_as_vre_simple(full_list.evr) AS NVRE,
-        pn.name || '-' || evr_t_as_vre_simple(full_list.evr) || '.' || full_list.arch_label AS NVREA,
-        pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) || '|' || full_list.arch_id AS ID_COMBO,
-        full_list.arch_label AS ARCH,
-        pn.id name_id,
-        full_list.arch_id,
-        lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) evr_id,
-        (full_list.evr).release AS release,
-        (full_list.evr).version AS version
-  FROM  (
-         SELECT  p.name_id name_id, max(pe.evr) evr,
-                 pa.label AS arch_label, pa.id AS arch_id
-           FROM  rhnPackageEVR PE, rhnPackage P,
-                 rhnChannelPackage CP, rhnServerChannel SC,
-                 rhnPackageArch PA
-          WHERE  sc.server_id = :sid
-            AND  sc.channel_id = cp.channel_id
-            AND  cp.package_id = p.id
-            AND  p.evr_id = pe.id
-            AND  p.package_arch_id = pa.id
-       GROUP BY  p.name_id, pa.label, pa.id
-       ) full_list,
-       rhnPackageName pn
- WHERE  full_list.name_id = pn.id
-   AND  NOT EXISTS (SELECT 1
-                      FROM rhnServerPackage SP
-                     WHERE SP.server_id = :sid
-                       AND SP.name_id = full_list.name_id
-                       AND (SP.package_arch_id = full_list.arch_id OR SP.package_arch_id IS NULL))
-) x, rhnPackage rp, rhnChannelPackage rcp, rhnServerChannel rsc
-WHERE rp.name_id = x.name_id
-  AND rp.evr_id = x.evr_id
-  AND rp.package_arch_id = x.arch_id
-  AND rp.id = rcp.package_id
-  AND rcp.channel_id = rsc.channel_id
-  AND rsc.server_id = :sid
-ORDER BY UPPER(name)
+  SELECT rp.id AS package_id, x.*
+    FROM
+      (
+        SELECT
+          pn.name AS NAME,
+          pn.name || '-' || evr_t_as_vre_simple(full_list.evr) AS NVRE,
+          pn.name || '-' || evr_t_as_vre_simple(full_list.evr) || '.' || full_list.arch_label AS NVREA,
+          pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) || '|' || full_list.arch_id AS ID_COMBO,
+          full_list.arch_label AS ARCH,
+          pn.id name_id,
+          full_list.arch_id,
+          lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) evr_id,
+          (full_list.evr).release AS release,
+          (full_list.evr).version AS version
+        FROM
+          (
+            SELECT
+              p.name_id name_id,
+              max(pe.evr) evr,
+              pa.label AS arch_label,
+              pa.id AS arch_id
+            FROM
+              rhnPackageEVR PE,
+              rhnPackage P,
+              rhnChannelPackage CP,
+              rhnServerChannel SC,
+              rhnPackageArch PA
+            WHERE
+              sc.server_id = :sid
+                AND sc.channel_id = cp.channel_id
+                AND cp.package_id = p.id
+                AND p.evr_id = pe.id
+                AND p.package_arch_id = pa.id
+            GROUP BY
+              p.name_id,
+              pa.label,
+              pa.id
+          ) full_list,
+          rhnPackageName pn
+        WHERE
+          full_list.name_id = pn.id
+            AND NOT EXISTS (
+              SELECT 1
+              FROM rhnServerPackage SP
+              WHERE SP.server_id = :sid
+                AND SP.name_id = full_list.name_id
+                AND (SP.package_arch_id = full_list.arch_id OR SP.package_arch_id IS NULL)
+            )
+      ) x,
+      rhnPackage rp,
+      rhnChannelPackage rcp,
+      rhnServerChannel rsc
+    WHERE rp.name_id = x.name_id
+      AND rp.evr_id = x.evr_id
+      AND rp.package_arch_id = x.arch_id
+      AND rp.id = rcp.package_id
+      AND rcp.channel_id = rsc.channel_id
+      AND rsc.server_id = :sid
+    ORDER BY UPPER(name)
   </query>
 </mode>
 
