@@ -71,7 +71,7 @@ import config
 import OpenSSL
 import up2dateLog
 from rhn import rpclib
-from rhn.connections import idn_pune_to_unicode
+from rhn.connections import idn_puny_to_unicode
 import rhnreg_constants
 
 cfg = config.initUp2dateConfig()
@@ -1220,7 +1220,7 @@ class HardwareDialog:
             elif hw['class'] == 'NETINFO':
                 label = self.hwXml.get_widget("hostnameLabel")
                 try:
-                    label.set_text(idn_pune_to_unicode(hw['hostname']))
+                    label.set_text(idn_puny_to_unicode(hw['hostname']))
                 except:
                     pass
                 label = self.hwXml.get_widget("ipLabel")

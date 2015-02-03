@@ -14,7 +14,7 @@ import os
 import sys
 import locale
 from urlparse import urlsplit, urlunsplit
-from rhn.connections import idn_ascii_to_pune, idn_pune_to_unicode
+from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -286,7 +286,7 @@ class Config:
 
 def getProxySetting():
     """ returns proxy string in format hostname:port
-    hostname is converted to Pune encoding if needed
+    hostname is converted to Punycode (RFC3492) if needed
     """
     cfg = initUp2dateConfig()
     proxy = None
@@ -296,20 +296,20 @@ def getProxySetting():
         if proxyHost[:7] == "http://":
             proxyHost = proxyHost[7:]
         parts = proxyHost.split(':')
-        parts[0] = idn_ascii_to_pune(parts[0])
+        parts[0] = idn_ascii_to_puny(parts[0])
         proxy = ':'.join(parts)
 
     return proxy
 
-def convert_url_to_pune(url):
-    """ returns url where hostname is converted to Pune encoding """
+def convert_url_to_puny(url):
+    """ returns url where hostname is converted to Punycode (RFC3492) """
     s = urlsplit(url)
-    return urlunsplit((s[0], idn_ascii_to_pune(s[1]), s[2], s[3], s[4])).encode('utf-8')
+    return urlunsplit((s[0], idn_ascii_to_puny(s[1]), s[2], s[3], s[4])).encode('utf-8')
 
-def convert_url_from_pune(url):
-    """ returns url where hostname is converted from Pune encoding. Returns unicode string. """
+def convert_url_from_puny(url):
+    """ returns url where hostname is converted from Punycode (RFC3492). Returns unicode string. """
     s = urlsplit(url)
-    return unicode(urlunsplit((s[0], idn_pune_to_unicode(s[1]), s[2], s[3], s[4])))
+    return unicode(urlunsplit((s[0], idn_puny_to_unicode(s[1]), s[2], s[3], s[4])))
 
 def getServerlURL():
     """ return list of serverURL from config
@@ -320,9 +320,9 @@ def getServerlURL():
     # serverURL may be a list in the config file, so by default, grab the
     # first element.
     if type(cfg['serverURL']) == type([]):
-        return map(convert_url_to_pune, cfg['serverURL'])
+        return map(convert_url_to_puny, cfg['serverURL'])
     else:
-        return [convert_url_to_pune(cfg['serverURL'])]
+        return [convert_url_to_puny(cfg['serverURL'])]
 
 def setServerURL(serverURL):
     """ Set serverURL in config """

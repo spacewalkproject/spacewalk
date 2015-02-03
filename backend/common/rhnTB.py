@@ -19,7 +19,7 @@ import sys
 import time
 import traceback
 from StringIO import StringIO
-from rhn.connections import idn_pune_to_unicode
+from rhn.connections import idn_puny_to_unicode
 
 from rhnConfig import CFG, PRODUCT_NAME
 from rhnLog import log_error
@@ -127,7 +127,7 @@ def Traceback(method=None, req=None, mail=1, ostream=sys.stderr,
     t = time.ctime(time.time())
     exc = StringIO()
 
-    unicode_hostname = idn_pune_to_unicode(hostname)
+    unicode_hostname = idn_puny_to_unicode(hostname)
     exc.write("Exception reported from %s\nTime: %s\n" % (to_string(unicode_hostname), t))
     exc.write("Exception type %s\n" % to_string(e_type))
     if method:

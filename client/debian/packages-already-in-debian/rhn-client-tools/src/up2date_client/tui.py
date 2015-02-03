@@ -31,10 +31,10 @@ import up2dateUtils
 import pkgUtils
 import up2dateLog
 import config
-from config import convert_url_from_pune
+from config import convert_url_from_puny
 import up2dateAuth
 from rhn import rpclib
-from rhn.connections import idn_pune_to_unicode
+from rhn.connections import idn_puny_to_unicode
 
 from rhnreg_constants import *
 
@@ -124,7 +124,7 @@ class AlreadyRegisteredWindow:
 
         tb = snack.Textbox(size[0]-30, size[1]-20,
                             (SYSTEM_ALREADY_REGISTERED + "\n\n"
-                            + _("Red Hat Network Location:") + " " + convert_url_from_pune(self.tui.serverURL) + "\n"
+                            + _("Red Hat Network Location:") + " " + convert_url_from_puny(self.tui.serverURL) + "\n"
                             + _("Login:") + " " + oldUsername + "\n"
                             + _("System ID:") + " " + oldsystemId + "\n\n"
                             + SYSTEM_ALREADY_REGISTERED_CONT + "\n").encode('utf-8'),
@@ -196,7 +196,7 @@ class ConnectWindow:
         self.tui = tui
         size = snack._snack.size()
 
-        self.server = convert_url_from_pune(self.tui.serverURL)
+        self.server = convert_url_from_puny(self.tui.serverURL)
 
         fixed_server_url = rhnreg.makeNiceServerUrl(self.server)
 
@@ -342,7 +342,7 @@ class InfoWindow:
 
         # Satellite
         if self.tui.serverType == 'satellite':
-            decoded_server = convert_url_from_pune(self.server)
+            decoded_server = convert_url_from_puny(self.server)
             url = self.server
             if decoded_server != self.server:
                 url += " (%s)" % decoded_server
@@ -663,7 +663,7 @@ class HardwareWindow:
 
         for hw in tui.hardware:
             if hw['class'] == 'NETINFO':
-                unicode_hostname = idn_pune_to_unicode(hw['hostname'])
+                unicode_hostname = idn_puny_to_unicode(hw['hostname'])
                 hardware_text += unicode_hostname + "\n"
 
                 if tui.profileName != "":
