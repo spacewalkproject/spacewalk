@@ -1,10 +1,10 @@
 # Makefile for the rhnpush module
 #
 
-INSTALL         = install -D -p --verbose 
-INSTALL_BIN     = $(INSTALL) -m 755 
-INSTALL_DIR     = $(INSTALL) -m 755 -d 
-INSTALL_DATA    = $(INSTALL) -m 644 
+INSTALL         = install -D -p --verbose
+INSTALL_BIN     = $(INSTALL) -m 755
+INSTALL_DIR     = $(INSTALL) -m 755 -d
+INSTALL_DATA    = $(INSTALL) -m 644
 
 SUBDIR		= rhnpush
 FILES		= rhnpush rhnpush_v2 uploadLib __init__ connection \
@@ -34,7 +34,7 @@ EXTRA_DIRS = $(MANDIR)/man8 $(BINDIR) $(RHN_CONF_DIR)
 install-conf : $(RHNPUSHRC)
 	$(INSTALL_DATA) $(RHNPUSHRC) $(PREFIX)$(RHN_CONF_DIR)/$(RHNPUSHRC)
 
-rhnpush.inst : rhnpush rhnpush.new 
+rhnpush.inst : rhnpush rhnpush.new
 	$(INSTALL_BIN) rhnpush.new $(PREFIX)$(BINDIR)/rhnpush
 	rm -f rhnpush.new
 

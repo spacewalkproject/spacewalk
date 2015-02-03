@@ -20,7 +20,7 @@ Utility to push binary and source RPMs into an RHN channel.
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>rhnpush</command> 
+        <command>rhnpush</command>
         <arg>options <replaceable>...</replaceable></arg>
         <arg>-v</arg> <arg>--verbose</arg>
     </cmdsynopsis>
@@ -136,10 +136,10 @@ Utility to push binary and source RPMs into an RHN channel.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-c<replaceable>CHANNEL_LABEL</replaceable>, 
+        <term>-c<replaceable>CHANNEL_LABEL</replaceable>,
             --channel=<replaceable>CHANNEL_LABEL</replaceable></term>
         <listitem>
-            <para>process data for this specific channel (specified by label) 
+            <para>process data for this specific channel (specified by label)
             only.
             NOTE: the channel's *label* is NOT the same as the channel's
             *name*.</para>
@@ -211,7 +211,7 @@ Utility to push binary and source RPMs into an RHN channel.
     <varlistentry>
         <term>--tolerant</term>
         <listitem>
-            <para>If rhnpush errors while uploading a package, continue attempting 
+            <para>If rhnpush errors while uploading a package, continue attempting
             to push the rest of the packages.</para>
         </listitem>
     </varlistentry>
@@ -226,10 +226,10 @@ Utility to push binary and source RPMs into an RHN channel.
         <listitem>
             <para>push only the packages that are newer than those on the
             server.</para>
-            <para>Please note that source RPMs are special in that their 
-            versions are never compared. Therefore, using this option with 
-            &RHNPUSH; will upload source RPMs for the specified channels only 
-            if they were not previously uploaded, and binaries built from 
+            <para>Please note that source RPMs are special in that their
+            versions are never compared. Therefore, using this option with
+            &RHNPUSH; will upload source RPMs for the specified channels only
+            if they were not previously uploaded, and binaries built from
             them exist in those channels.</para>
             <para>In other words, you have to upload a binary rpm before being
             able to use <emphasis>--newest</emphasis> with its source rpm.
@@ -285,7 +285,7 @@ Utility to push binary and source RPMs into an RHN channel.
         <listitem>
             <para>This option disabled session token authentication. Useful if you want to push to two or more different servers.</para>
         </listitem>
-    </varlistentry> 
+    </varlistentry>
     <varlistentry>
         <term>--extended-test</term>
         <listitem>
@@ -311,30 +311,30 @@ Utility to push binary and source RPMs into an RHN channel.
 <simplelist>
     <member>
 Rhnpush has three configuration files called /etc/sysconfig/rhn/rhnpushrc, ~/.rhnpushrc, and ./.rhnpushrc.
-    </member> 
+    </member>
     <member>
 /etc/sysconfig/rhn/rhnpushrc is the system-wide default settings for rhnpush.
-    </member> 
+    </member>
     <member>
 ~/.rhnpushrc is the user-specific settings that override the system-wide settings.
     </member>
     <member>
 ./.rhnpushrc controls the directory specific settings that override the user-specific and system-specific settings.
-    </member> 
-    <member>
-/etc/sysconfig/rhn/rhnpushrc must be present for rhnpush to function correctly. If it is missing, rhnpush will attempt to use a series of default settings stored internally as a replacement. ~/.rhnpushrc and ./.rhnpushrc are not required to be present, but will be used if they are present. They are not created automatically by rhnpush. 
     </member>
     <member>
-Rhnpush uses a cache, stored at ~/.rhnpushcache, to temporarily hold the username and password for a user. 
+/etc/sysconfig/rhn/rhnpushrc must be present for rhnpush to function correctly. If it is missing, rhnpush will attempt to use a series of default settings stored internally as a replacement. ~/.rhnpushrc and ./.rhnpushrc are not required to be present, but will be used if they are present. They are not created automatically by rhnpush.
     </member>
     <member>
-If the cache is missing, it will be created by rhnpush. 
+Rhnpush uses a cache, stored at ~/.rhnpushcache, to temporarily hold the username and password for a user.
     </member>
     <member>
-If the cache is present and not too old, the usename-password combo will be used as a convenience for the user. 
+If the cache is missing, it will be created by rhnpush.
     </member>
     <member>
-The amount of time a cache lasts is configurable in any of the three configuration files. 
+If the cache is present and not too old, the usename-password combo will be used as a convenience for the user.
+    </member>
+    <member>
+The amount of time a cache lasts is configurable in any of the three configuration files.
     </member>
     <member>
 If your username/password combination gets messed up you have two options. One, you can wait until the cache expires, which takes minutes by default. Two, you can use the --new_cache option to force rhnpush to let you reenter your username/password.

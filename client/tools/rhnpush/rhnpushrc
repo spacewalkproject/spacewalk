@@ -2,67 +2,67 @@
 [rhnpush]
 
 #Only push the packages that are newer than those on the server
-newest			=	0	
+newest			=	0
 
 #Briefly describe the options
-usage			=	0	
+usage			=	0
 
 #Upload only the header(s)
 header			=	0
-	
-#Only print the packages that would otherwise have been pushed
-test			=	0	
 
-#Use the null org id											
-nullorg			=	0	
+#Only print the packages that would otherwise have been pushed
+test			=	0
+
+#Use the null org id
+nullorg			=	0
 
 #Upload source package information
-source			=	0	
+source			=	0
 
 #Read the package names from stdin
-stdin			=	0	
+stdin			=	0
 
 #Increase verbosity
-verbose			=	0		
+verbose			=	0
 
 #Force the package upload (overwrites if already uploaded)
-force			=	0		
+force			=	0
 
 #Push unsigned packages
-nosig			=	0	
+nosig			=	0
 
 #Only list the specified channels
-list			=	0	
+list			=	0
 
 #Exclude the packages that match this glob expression
-exclude			=			
+exclude			=
 
 
-files			=	
+files			=
 
 #Organization ID
-orgid			=		
+orgid			=
 
 #Relative directory to associate with the package
-reldir			=		
+reldir			=
 
 #Process this number of headers per call
-count			=		
+count			=
 
 #Process packages from this directory
-dir				=	
+dir				=
 
 #Push to this server (http[s]://<hostname>/APP)
 server 			=	https://localhost/APP
 
-#Manage this channel(s)										
-channel			=	
-										
+#Manage this channel(s)
+channel			=
+
 #Determines how long the cache will last, in seconds
 cache_lifetime 	=	600
-	
+
 #Reset the cache
-new_cache		=	0	
+new_cache		=	0
 
 #Run the extended version of the test
 extended_test   =   0

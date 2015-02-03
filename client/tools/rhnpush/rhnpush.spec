@@ -29,8 +29,8 @@ BuildRequires:  spacewalk-backend-libs > 1.8.33
 Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
 
 %description
-rhnpush uploads package headers to the Spacewalk or Red Hat Satellite 
-servers intospecified channels and allows for several other channel 
+rhnpush uploads package headers to the Spacewalk or Red Hat Satellite
+servers intospecified channels and allows for several other channel
 management operations relevant to controlling what packages are available
 perchannel.
 
@@ -364,7 +364,7 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 - removed dead code
 
 * Thu Jul 08 2010 Justin Sherrill <jsherril@redhat.com> 5.5.3-1
-- set default server for rhnpush to localhost instead of 
+- set default server for rhnpush to localhost instead of
   rhn.redhat.com (jsherril@redhat.com)
 
 * Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 5.5.2-1

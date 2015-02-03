@@ -37,8 +37,8 @@
   <RefSect1><Title>Description</Title>
 
     <para>
-      <emphasis>solaris2mpm</emphasis> creates mpm archives from Solaris package, patch, 
-      and patch cluster archives that can be pushed into managed channels on a 
+      <emphasis>solaris2mpm</emphasis> creates mpm archives from Solaris package, patch,
+      and patch cluster archives that can be pushed into managed channels on a
       &RHNSAT;. Refer to the Red Hat Satellite documentation for further reference on managed
       channels.
     </para>
@@ -80,12 +80,12 @@
   <RefSect1><Title>Notes on using solaris2mpm</Title>
     <simplelist>
       <member>
-        solaris2mpm is a command line utility for for creating mpm archives from Solaris 
+        solaris2mpm is a command line utility for for creating mpm archives from Solaris
         package, patch, patch cluster archives.
-      </member> 
+      </member>
       <member>
-        mpm archives are format-neutral archives that attach the original archive as a 
-        payload onto a header that describes the contents of the original archive in a 
+        mpm archives are format-neutral archives that attach the original archive as a
+        payload onto a header that describes the contents of the original archive in a
         manner that is meaningful to Spacewalk.
       </member>
       <member>
@@ -98,17 +98,17 @@
       <member>zip archives: used for patch and patch cluster archives</member>
       <member>compressed tar archives: used for older patch cluster archives</member>
       <member>
-        In order to handle these multiple types of archives, the following commands must 
-        be installed on the system which is running the solaris2mpm command: pkgtrans, 
+        In order to handle these multiple types of archives, the following commands must
+        be installed on the system which is running the solaris2mpm command: pkgtrans,
         gunzip, zip, uncompress, and tar.
       </member>
       <member>
-        Running solaris2mpm on a package or patch cluster will create a single mpm 
-        archive. Running solaris2mpm on a patch cluster will create a mpm archive for 
-        every patch contained in the patch cluster as well as an mpm archive for the 
-        patch cluster itself. The patch cluster mpm must be pushed into a managed channel 
-        either with all of the patch mpms that are created with it or after the patch 
-        mpms. It cannot be pushed before the patch mpms, as the patch cluster mpm will 
+        Running solaris2mpm on a package or patch cluster will create a single mpm
+        archive. Running solaris2mpm on a patch cluster will create a mpm archive for
+        every patch contained in the patch cluster as well as an mpm archive for the
+        patch cluster itself. The patch cluster mpm must be pushed into a managed channel
+        either with all of the patch mpms that are created with it or after the patch
+        mpms. It cannot be pushed before the patch mpms, as the patch cluster mpm will
         contain references to the patch mpms that must be maintained by the &RHNSAT;.
       </member>
     </simplelist>
