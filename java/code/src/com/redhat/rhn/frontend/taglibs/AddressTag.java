@@ -152,11 +152,6 @@ public class AddressTag extends TagSupport {
     public int doStartTag() throws JspException {
 
         JspWriter out = null;
-        // TODO mmccune - determine if we should use a more expanded tagset
-        // style system as found in the addresses.pxt/address_list.pxi.
-        // This is a bit more inline Java->HTML than I like.  Hard to re-arrange
-        // the layout if necessary.  Perhaps an expanded taglib vs one big tag
-        // that does all the work.
         try {
             out = pageContext.getOut();
             LocalizationService ls = LocalizationService.getInstance();

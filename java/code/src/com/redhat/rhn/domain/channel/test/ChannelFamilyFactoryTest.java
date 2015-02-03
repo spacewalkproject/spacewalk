@@ -82,7 +82,6 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
         assertEquals("private-channel-family-" + org.getId(), orgfam.getLabel());
         assertEquals(org.getName() + " (" + org.getId() + ") Channel Family",
                     orgfam.getName());
-        assertEquals("org_channel_family.pxt", orgfam.getProductUrl());
         assertEquals(org.getId(), orgfam.getOrg().getId());
 
         ChannelFamily orgfam2 = ChannelFamilyFactory.lookupOrCreatePrivateFamily(org);

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -44,17 +44,17 @@ my %entitlement_feature_map =
   ( none => { },
     sw_mgr_entitled => { map { $_ => 1 } (keys %updates_features) },
     enterprise_entitled => { map { $_ => 1 } (keys %updates_features,
-					      keys %management_features) },
+                                              keys %management_features) },
     provisioning_entitled => { map { $_ => 1 } (keys %updates_features,
-						keys %management_features,
-						keys %provisioning_features,
+                                                keys %management_features,
+                                                keys %provisioning_features,
 # When we add monitoring entitlements back for systems, remove this line:
-					        keys %monitoring_features) },
+                                                keys %monitoring_features) },
     monitoring_entitled => { map { $_ => 1 } (keys %monitoring_features) },
     nonlinux_entitled => { map { $_ => 1 } (keys %updates_features,
-					    keys %management_features,
-					    keys %provisioning_features,
-					    keys %nonlinux_features) },
+                                            keys %management_features,
+                                            keys %provisioning_features,
+                                            keys %nonlinux_features) },
   );
 
 # What type of feature is this?  Management, provisioning, monitoring, etc.

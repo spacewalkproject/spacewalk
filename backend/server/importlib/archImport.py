@@ -18,6 +18,7 @@
 
 from importLib import Import
 
+
 class ArchImport(Import):
     backend_method = ''
 
@@ -26,10 +27,13 @@ class ArchImport(Import):
         meth(self.batch)
         self.backend.commit()
 
+
 class CPUArchImport(ArchImport):
     backend_method = 'processCPUArches'
 
+
 class TypedArchImport(ArchImport):
+
     def preprocess(self):
         self.arch_types = {}
         for item in self.batch:
@@ -42,14 +46,18 @@ class TypedArchImport(ArchImport):
         for item in self.batch:
             item['arch_type_id'] = self.arch_types[item['arch-type-label']]
 
+
 class ChannelArchImport(TypedArchImport):
     backend_method = 'processChannelArches'
+
 
 class PackageArchImport(TypedArchImport):
     backend_method = 'processPackageArches'
 
+
 class ServerArchImport(TypedArchImport):
     backend_method = 'processServerArches'
+
 
 class BaseArchCompatImport(Import):
     # Things that have to be overridden in subclasses
@@ -60,6 +68,7 @@ class BaseArchCompatImport(Import):
     arches1_field_name = ''
     arches2_field_name = ''
     submit_method_name = ''
+
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
         self.arches1 = {}
@@ -97,6 +106,7 @@ class BaseArchCompatImport(Import):
         self.backend.processSGTVirtSubLevel(self.batch)
         self.backend.commit()
 
+
 class ServerPackageArchCompatImport(BaseArchCompatImport):
     arches1_lookup_method_name = 'lookupServerArches'
     arches2_lookup_method_name = 'lookupPackageArches'
@@ -106,6 +116,7 @@ class ServerPackageArchCompatImport(BaseArchCompatImport):
     arches2_field_name = 'package_arch_id'
     submit_method_name = 'processServerPackageArchCompatMap'
 
+
 class ServerChannelArchCompatImport(BaseArchCompatImport):
     arches1_lookup_method_name = 'lookupServerArches'
     arches2_lookup_method_name = 'lookupChannelArches'
@@ -114,6 +125,7 @@ class ServerChannelArchCompatImport(BaseArchCompatImport):
     arches1_field_name = 'server_arch_id'
     arches2_field_name = 'channel_arch_id'
     submit_method_name = 'processServerChannelArchCompatMap'
+
 
 class ChannelPackageArchCompatImport(BaseArchCompatImport):
     arches1_lookup_method_name = 'lookupChannelArches'
@@ -133,5 +145,11 @@ class ServerGroupServerArchCompatImport(BaseArchCompatImport):
     arches1_field_name = 'server_arch_id'
     arches2_field_name = 'server_group_type'
     submit_method_name = 'processServerGroupServerArchCompatMap'
-    virt_sub_level     = 'virt_sub_level'
+    virt_sub_level = 'virt_sub_level'
 
+    # monitoring is no longer supported, ignore any monitoring info for
+    # backwards compatibility
+    def _postprocess(self):
+        self.batch[:] = [entry for entry in self.batch if not
+                         entry[self.arches2_name] == 'monitoring_entitled']
+        BaseArchCompatImport._postprocess(self)

@@ -6,31 +6,25 @@
 <html>
 <head>
 <c:if test="${requestScope.inactiveSystems == 'y'}">
-	<script type="text/javascript" src="/rhn/dwr/interface/InactiveSystemsRenderer.js"></script>
+        <script type="text/javascript" src="/rhn/dwr/interface/InactiveSystemsRenderer.js"></script>
 </c:if>
 <c:if test="${requestScope.tasks == 'y'}">
-	<script type="text/javascript" src="/rhn/dwr/interface/TasksRenderer.js"></script>
+        <script type="text/javascript" src="/rhn/dwr/interface/TasksRenderer.js"></script>
 </c:if>
 <c:if test="${requestScope.recentlyRegisteredSystems == 'y'}">
-	<script type="text/javascript" src="/rhn/dwr/interface/RecentSystemsRenderer.js"></script>
+        <script type="text/javascript" src="/rhn/dwr/interface/RecentSystemsRenderer.js"></script>
 </c:if>
 <c:if test="${requestScope.latestErrata == 'y'}">
-	<script type="text/javascript" src="/rhn/dwr/interface/LatestErrataRenderer.js"></script>
+        <script type="text/javascript" src="/rhn/dwr/interface/LatestErrataRenderer.js"></script>
 </c:if>
 <c:if test="${requestScope.criticalSystems == 'y'}">
-	<script type="text/javascript" src="/rhn/dwr/interface/CriticalSystemsRenderer.js"></script>
-</c:if>
-<c:if test="${requestScope.criticalProbes == 'y'}">
-	<script type="text/javascript" src="/rhn/dwr/interface/CriticalProbesRenderer.js"></script>
-</c:if>
-<c:if test="${requestScope.warningProbes == 'y'}">
-	<script type="text/javascript" src="/rhn/dwr/interface/WarningProbesRenderer.js"></script>
+        <script type="text/javascript" src="/rhn/dwr/interface/CriticalSystemsRenderer.js"></script>
 </c:if>
 <c:if test="${requestScope.pendingActions =='y'}">
-	<script type="text/javascript" src="/rhn/dwr/interface/PendingActionsRenderer.js"></script>
+        <script type="text/javascript" src="/rhn/dwr/interface/PendingActionsRenderer.js"></script>
 </c:if>
 <c:if test="${requestScope.systemGroupsWidget == 'y'}">
-	<script type="text/javascript" src="/rhn/dwr/interface/SystemGroupsRenderer.js"></script>
+        <script type="text/javascript" src="/rhn/dwr/interface/SystemGroupsRenderer.js"></script>
 </c:if>
 
 </head>
@@ -67,20 +61,6 @@
       <div id="critical-systems-pane" class="col-md-12">
         <script type="text/javascript">
           CriticalSystemsRenderer.renderAsync(makeRendererHandler("critical-systems-pane", false));
-        </script>
-      </div>
-      </c:if>
-      <c:if test="${requestScope.criticalProbes == 'y'}">
-      <div id="critical-probes-pane" class="col-md-12">
-        <script type="text/javascript">
-          CriticalProbesRenderer.renderAsync(makeRendererHandler("critical-probes-pane", false));
-        </script>
-      </div>
-      </c:if>
-      <c:if test="${requestScope.warningProbes == 'y'}">
-      <div id="warning-probes-pane" class="col-md-12">
-        <script type="text/javascript">
-          WarningProbesRenderer.renderAsync(makeRendererHandler("warning-probes-pane", false));
         </script>
       </div>
       </c:if>

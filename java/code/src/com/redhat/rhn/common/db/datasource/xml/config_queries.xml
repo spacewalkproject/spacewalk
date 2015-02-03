@@ -16,106 +16,106 @@ SELECT CR.revision AS revision, CR.id as id
 <mode name="lookup_id_by_label_org_channel_type">
   <query params="cc_label, org_id, cct_label">
 SELECT cc.id from rhnConfigChannel cc
-		inner join rhnConfigChannelTYpe cct on cct.ID = cc.confchan_type_id
-		where cct.label = :cct_label
-		and cc.label = :cc_label
-		and cc.org_id = :org_id
+                inner join rhnConfigChannelTYpe cct on cct.ID = cc.confchan_type_id
+                where cct.label = :cct_label
+                and cc.label = :cc_label
+                and cc.org_id = :org_id
 
   </query>
 </mode>
 
 
 <!-- returns the count of all the locally managed file paths in a system
-	that are aacessible to the user-->
+        that are aacessible to the user-->
 <mode name ="count_locally_managed_file_paths">
-	<query params = "sid, user_id, cct_label">
-		select file_type, count(file_type) as count from (
-		SELECT  CFT.label as file_type
-		  FROM rhnConfigChannelType CCT
-		        INNER JOIN rhnConfigChannel CC ON CCT.ID = CC.confchan_type_id
-		        INNER JOIN rhnConfigFile CF ON CF.config_channel_id = CC.id
-		        INNER JOIN rhnServerConfigChannel SCC ON SCC.config_channel_id = CF.config_channel_id
-		        INNER JOIN rhnUserServerPerms USP ON USP.server_id = SCC.server_id
-		        INNER JOIN rhnConfigRevision CR ON CF.id = CR.config_file_id
-		        INNER JOIN rhnConfigFileType CFT ON CR.CONFIG_FILE_TYPE_ID = CFT.ID
-		 WHERE SCC.server_id = :sid
-		    AND CF.latest_config_revision_id = CR.id
-		   AND CCT.label   = :cct_label
-		   AND USP.user_id = :user_id
+        <query params = "sid, user_id, cct_label">
+                select file_type, count(file_type) as count from (
+                SELECT  CFT.label as file_type
+                  FROM rhnConfigChannelType CCT
+                        INNER JOIN rhnConfigChannel CC ON CCT.ID = CC.confchan_type_id
+                        INNER JOIN rhnConfigFile CF ON CF.config_channel_id = CC.id
+                        INNER JOIN rhnServerConfigChannel SCC ON SCC.config_channel_id = CF.config_channel_id
+                        INNER JOIN rhnUserServerPerms USP ON USP.server_id = SCC.server_id
+                        INNER JOIN rhnConfigRevision CR ON CF.id = CR.config_file_id
+                        INNER JOIN rhnConfigFileType CFT ON CR.CONFIG_FILE_TYPE_ID = CFT.ID
+                 WHERE SCC.server_id = :sid
+                    AND CF.latest_config_revision_id = CR.id
+                   AND CCT.label   = :cct_label
+                   AND USP.user_id = :user_id
          AND rhn_config_channel.get_user_file_access(CF.id, :user_id) = 1) subselect
-		   GROUP by file_type
-	</query>
+                   GROUP by file_type
+        </query>
 </mode>
 
 <!-- returns the list of all the centrally managed file paths in a system
-	that are accessible to the user including, the duplicates-->
+        that are accessible to the user including, the duplicates-->
 <mode name ="centrally_managed_file_paths">
-	<query params = "sid, user_id">
-		SELECT CFN.path, CFT.label as file_type
-		  FROM rhnConfigChannelType CCT
-		        INNER JOIN rhnConfigChannel CC ON CCT.ID = CC.confchan_type_id
-		        INNER JOIN rhnConfigFile CF ON CF.config_channel_id = CC.id
-		        INNER JOIN rhnServerConfigChannel SCC ON SCC.config_channel_id = CF.config_channel_id
-		        INNER JOIN rhnUserServerPerms USP ON USP.server_id = SCC.server_id
-		        INNER JOIN rhnConfigRevision CR ON CF.id = CR.config_file_id
-		        INNER JOIN rhnConfigFileName CFN ON CF.config_file_name_id = CFN.id
-		        INNER JOIN rhnConfigFileType CFT ON CR.CONFIG_FILE_TYPE_ID = CFT.ID
-		 WHERE SCC.server_id = :sid
-		 	AND USP.user_id = :user_id
-		    AND CF.latest_config_revision_id = CR.id
-		   AND CCT.label   = 'normal'
-		   AND rhn_config_channel.get_user_file_access(CF.id, :user_id) = 1
-		ORDER BY CCT.priority, SCC.position
-	</query>
+        <query params = "sid, user_id">
+                SELECT CFN.path, CFT.label as file_type
+                  FROM rhnConfigChannelType CCT
+                        INNER JOIN rhnConfigChannel CC ON CCT.ID = CC.confchan_type_id
+                        INNER JOIN rhnConfigFile CF ON CF.config_channel_id = CC.id
+                        INNER JOIN rhnServerConfigChannel SCC ON SCC.config_channel_id = CF.config_channel_id
+                        INNER JOIN rhnUserServerPerms USP ON USP.server_id = SCC.server_id
+                        INNER JOIN rhnConfigRevision CR ON CF.id = CR.config_file_id
+                        INNER JOIN rhnConfigFileName CFN ON CF.config_file_name_id = CFN.id
+                        INNER JOIN rhnConfigFileType CFT ON CR.CONFIG_FILE_TYPE_ID = CFT.ID
+                 WHERE SCC.server_id = :sid
+                        AND USP.user_id = :user_id
+                    AND CF.latest_config_revision_id = CR.id
+                   AND CCT.label   = 'normal'
+                   AND rhn_config_channel.get_user_file_access(CF.id, :user_id) = 1
+                ORDER BY CCT.priority, SCC.position
+        </query>
 </mode>
 
 <!-- returns the list of all the centrally Deployable file paths in a system
-	subtracting  paths that are in local overrides from the original list
-	that are accessible to the user, including the duplicates-->
+        subtracting  paths that are in local overrides from the original list
+        that are accessible to the user, including the duplicates-->
 <mode name ="centrally_deployable_file_paths">
-	<query params = "sid,user_id">
-		SELECT CFN.path, CFT.label as file_type
-		  FROM rhnConfigChannelType CCT
-		        INNER JOIN rhnConfigChannel CC ON CCT.ID = CC.confchan_type_id
-		        INNER JOIN rhnConfigFile CF ON CF.config_channel_id = CC.id
-		        INNER JOIN rhnServerConfigChannel SCC ON SCC.config_channel_id = CF.config_channel_id
-  		        INNER JOIN rhnUserServerPerms USP ON USP.server_id = SCC.server_id
-		        INNER JOIN rhnConfigRevision CR ON CF.id = CR.config_file_id
-		        INNER JOIN rhnConfigFileName CFN ON CF.config_file_name_id = CFN.id
-		        INNER JOIN rhnConfigFileType CFT ON CR.CONFIG_FILE_TYPE_ID = CFT.ID
-		 WHERE SCC.server_id = :sid
-		   AND rhn_config_channel.get_user_file_access(CF.id, :user_id) = 1
- 		 	AND USP.user_id = :user_id
-		    AND CF.latest_config_revision_id = CR.id
-		   AND CCT.label = 'normal'
-		   AND CFN.path NOT IN
-		   	(SELECT CFN1.path
-		   			  FROM rhnConfigChannelType CCT1
-		             INNER JOIN rhnConfigChannel CC1 ON CCT1.ID = CC1.confchan_type_id
-		     	     INNER JOIN rhnConfigFile CF1 ON CF1.config_channel_id = CC1.id
-		        	 INNER JOIN rhnServerConfigChannel SCC1 ON SCC1.config_channel_id = CF1.config_channel_id
-	 		        INNER JOIN rhnConfigRevision CR1 ON CF1.id = CR1.config_file_id
-			        INNER JOIN rhnConfigFileName CFN1 ON CF1.config_file_name_id = CFN1.id
-	   			 WHERE SCC1.server_id = :sid
-    		    	AND CF1.latest_config_revision_id = CR1.id
-			   		AND CCT1.label = 'local_override'
-		) ORDER BY CCT.priority, SCC.position
-	</query>
+        <query params = "sid,user_id">
+                SELECT CFN.path, CFT.label as file_type
+                  FROM rhnConfigChannelType CCT
+                        INNER JOIN rhnConfigChannel CC ON CCT.ID = CC.confchan_type_id
+                        INNER JOIN rhnConfigFile CF ON CF.config_channel_id = CC.id
+                        INNER JOIN rhnServerConfigChannel SCC ON SCC.config_channel_id = CF.config_channel_id
+                        INNER JOIN rhnUserServerPerms USP ON USP.server_id = SCC.server_id
+                        INNER JOIN rhnConfigRevision CR ON CF.id = CR.config_file_id
+                        INNER JOIN rhnConfigFileName CFN ON CF.config_file_name_id = CFN.id
+                        INNER JOIN rhnConfigFileType CFT ON CR.CONFIG_FILE_TYPE_ID = CFT.ID
+                 WHERE SCC.server_id = :sid
+                   AND rhn_config_channel.get_user_file_access(CF.id, :user_id) = 1
+                        AND USP.user_id = :user_id
+                    AND CF.latest_config_revision_id = CR.id
+                   AND CCT.label = 'normal'
+                   AND CFN.path NOT IN
+                        (SELECT CFN1.path
+                                          FROM rhnConfigChannelType CCT1
+                             INNER JOIN rhnConfigChannel CC1 ON CCT1.ID = CC1.confchan_type_id
+                             INNER JOIN rhnConfigFile CF1 ON CF1.config_channel_id = CC1.id
+                                 INNER JOIN rhnServerConfigChannel SCC1 ON SCC1.config_channel_id = CF1.config_channel_id
+                                INNER JOIN rhnConfigRevision CR1 ON CF1.id = CR1.config_file_id
+                                INNER JOIN rhnConfigFileName CFN1 ON CF1.config_file_name_id = CFN1.id
+                                 WHERE SCC1.server_id = :sid
+                        AND CF1.latest_config_revision_id = CR1.id
+                                        AND CCT1.label = 'local_override'
+                ) ORDER BY CCT.priority, SCC.position
+        </query>
 </mode>
 
 <!-- returns a count of config file paths  (files & directories)
 the were associated to a scheduled action on a server-->
 <mode name ="count_paths_in_action">
-	<query params = "sid,aid">
-		select file_type, count(file_type) as count from (
-	        SELECT  CFT.label as file_type
-	                from rhnActionConfigRevision rac
-	                INNER JOIN rhnConfigRevision cr on  rac.CONFIG_REVISION_ID = cr.ID
-	                INNER JOIN rhnConfigFileType cft ON cr.CONFIG_FILE_TYPE_ID = cft.ID
-	        where
-	            rac.server_id = :sid and
-	            rac.action_id  = :aid
-	    ) subselect GROUP BY file_type
+        <query params = "sid,aid">
+                select file_type, count(file_type) as count from (
+                SELECT  CFT.label as file_type
+                        from rhnActionConfigRevision rac
+                        INNER JOIN rhnConfigRevision cr on  rac.CONFIG_REVISION_ID = cr.ID
+                        INNER JOIN rhnConfigFileType cft ON cr.CONFIG_FILE_TYPE_ID = cft.ID
+                where
+                    rac.server_id = :sid and
+                    rac.action_id  = :aid
+            ) subselect GROUP BY file_type
     </query>
 </mode>
 
@@ -123,17 +123,17 @@ the were associated to a scheduled action on a server-->
 <!-- returns the count of config files that were
 successfully compared in a scheduled diff action on a server-->
 <mode name ="count_successfully_compared_paths">
-	<query params = "sid,aid">
-		select file_type, count(file_type) as count from (
-	        SELECT  CFT.label as file_type
-	                from rhnActionConfigRevision acr
-	                INNER JOIN rhnConfigRevision cr on  acr.CONFIG_REVISION_ID = cr.ID
-	                INNER JOIN rhnConfigFileType cft ON cr.CONFIG_FILE_TYPE_ID = cft.ID
-	        where
-	            acr.server_id = :sid and
-	            acr.action_id  = :aid and
-	            acr.failure_id is null
-	    ) subselect GROUP BY file_type
+        <query params = "sid,aid">
+                select file_type, count(file_type) as count from (
+                SELECT  CFT.label as file_type
+                        from rhnActionConfigRevision acr
+                        INNER JOIN rhnConfigRevision cr on  acr.CONFIG_REVISION_ID = cr.ID
+                        INNER JOIN rhnConfigFileType cft ON cr.CONFIG_FILE_TYPE_ID = cft.ID
+                where
+                    acr.server_id = :sid and
+                    acr.action_id  = :aid and
+                    acr.failure_id is null
+            ) subselect GROUP BY file_type
     </query>
 </mode>
 
@@ -143,19 +143,19 @@ successfully compared AND actually differed from the files
 on the server in a scheduled diff action on a server-->
 
 <mode name ="count_differing_paths">
-	<query params = "sid,aid">
-		select file_type, count(file_type) as count from (
-	        SELECT  CFT.label as file_type
+        <query params = "sid,aid">
+                select file_type, count(file_type) as count from (
+                SELECT  CFT.label as file_type
              from rhnActionConfigRevision acr
                  INNER JOIN rhnConfigRevision cr on  acr.CONFIG_REVISION_ID = cr.ID
                  INNER JOIN rhnConfigFileType cft ON cr.CONFIG_FILE_TYPE_ID = cft.ID
                  INNER JOIN rhnActionConfigRevisionResult acrr on  acr.id = acrr.action_config_revision_id
-	    where
-       		acr.server_id = :sid and
-		    acr.action_id  = :aid and
-	   	    acr.failure_id is null and
-       		acrr.result is not null
-	    ) subselect GROUP BY file_type
+            where
+                acr.server_id = :sid and
+                    acr.action_id  = :aid and
+                    acr.failure_id is null and
+                acrr.result is not null
+            ) subselect GROUP BY file_type
     </query>
 </mode>
 
@@ -185,8 +185,8 @@ to the SDC View/Modify files page -->
         CF.id as config_file_id,
         CR.REVISION as config_revision,
         CR.ID as config_revision_id,
- 		CC.id as config_channel_id,
- 		cft.Label as config_file_type,
+                CC.id as config_channel_id,
+                cft.Label as config_file_type,
         :channel_type as config_channel_type
         FROM rhnConfigRevision CR
               INNER JOIN rhnConfigFile CF ON CF.latest_config_revision_id = CR.id
@@ -194,32 +194,32 @@ to the SDC View/Modify files page -->
               INNER JOIN rhnConfigChannel CC ON CC.id = SCC.config_channel_id
               INNER JOIN rhnConfigChannelType CCT ON CC.confchan_type_id = CCT.id
               INNER JOIN rhnConfigFileName CFN ON CF.config_file_name_id = CFN.id
-	          INNER JOIN rhnConfigFileType cft ON cft.id = cr.config_file_type_id
+                  INNER JOIN rhnConfigFileType cft ON cft.id = cr.config_file_type_id
               WHERE
-	             SCC.server_id = :sid
-	             AND CFN.id in (%s)
-	             AND CCT.label = 'normal'
-	             AND SCC.server_id = :sid
-	             AND SCC.position = ( SELECT  min(SCC.position)
-	                                  FROM  rhnServerConfigChannel SCC
-	                                  INNER JOIN rhnConfigFile CF ON CF.config_channel_id = SCC.config_channel_id
-	                                  INNER JOIN rhnConfigChannel CC ON CC.id = SCC.config_channel_id
-	                                  INNER JOIN rhnConfigChannelType CCT ON CC.confchan_type_id = CCT.id
-	                                  WHERE
-	                                    SCC.server_id = :sid
-	                                    AND  CF.config_file_name_id = CFN.id
-	                                    AND CCT.label = 'normal'
-	                                   )
+                     SCC.server_id = :sid
+                     AND CFN.id in (%s)
+                     AND CCT.label = 'normal'
+                     AND SCC.server_id = :sid
+                     AND SCC.position = ( SELECT  min(SCC.position)
+                                          FROM  rhnServerConfigChannel SCC
+                                          INNER JOIN rhnConfigFile CF ON CF.config_channel_id = SCC.config_channel_id
+                                          INNER JOIN rhnConfigChannel CC ON CC.id = SCC.config_channel_id
+                                          INNER JOIN rhnConfigChannelType CCT ON CC.confchan_type_id = CCT.id
+                                          WHERE
+                                            SCC.server_id = :sid
+                                            AND  CF.config_file_name_id = CFN.id
+                                            AND CCT.label = 'normal'
+                                           )
 </query>
 
 
 <query name="fill_local_config_details" params="sid, channel_type">
  SELECT CFN.id as id,
-	 CF.id as local_config_file_id,
- 		CR.REVISION  as local_revision,
+         CF.id as local_config_file_id,
+                CR.REVISION  as local_revision,
         CR.ID as local_revision_id,
- 		CC.id as local_config_channel_id,
- 		cft.label as local_config_file_type,
+                CC.id as local_config_channel_id,
+                cft.label as local_config_file_type,
         :channel_type as config_channel_type
     FROM rhnConfigRevision CR
         INNER JOIN rhnConfigFile CF ON CF.latest_config_revision_id = CR.id
@@ -237,32 +237,32 @@ to the SDC View/Modify files page -->
 
 <mode name="central_managed_files_for_sdc" class="com.redhat.rhn.frontend.dto.ConfigFileNameDto">
   <query name="find_file_name_ids_and_paths" params="user_id, sid, channel_type"/>
-	<!-- This one gets the Central revision stuff  -->
-	<elaborator name="fill_central_config_details" params="sid, channel_type"/>
-	<!-- This one gets the local revision -->
-	<elaborator name="fill_local_config_details" params="sid, channel_type"/>
+        <!-- This one gets the Central revision stuff  -->
+        <elaborator name="fill_central_config_details" params="sid, channel_type"/>
+        <!-- This one gets the local revision -->
+        <elaborator name="fill_local_config_details" params="sid, channel_type"/>
 </mode>
 
 <mode name="local_managed_files_for_sdc" class="com.redhat.rhn.frontend.dto.LocalConfigFileNameDto">
   <query name="find_file_name_ids_and_paths" params="user_id, sid, channel_type"/>
-	<!-- This one gets the Central revision stuff  -->
-	<elaborator name="fill_central_config_details" params="sid, channel_type"/>
-	<!-- This one gets the local revision -->
-	<elaborator name="fill_local_config_details" params="sid, channel_type"/>
+        <!-- This one gets the Central revision stuff  -->
+        <elaborator name="fill_central_config_details" params="sid, channel_type"/>
+        <!-- This one gets the local revision -->
+        <elaborator name="fill_local_config_details" params="sid, channel_type"/>
 </mode>
 
 
 <mode name="sandbox_managed_files_for_sdc" class="com.redhat.rhn.frontend.dto.ConfigFileNameDto">
     <query name="find_file_name_ids_and_paths" params="user_id, sid, channel_type"/>
     <elaborator params="sid, channel_type">
-    	SELECT CF.config_file_name_id as id,
-    					CF.id as config_file_id,
-    					 cr.revision as config_revision,
-    					 cr.id as config_revision_id,
-    					 cft.label as config_file_type,
-    					 cr.modified as last_modified_date,
-    					 :channel_type as config_channel_type
-    		from rhnConfigRevision CR
+        SELECT CF.config_file_name_id as id,
+                                        CF.id as config_file_id,
+                                         cr.revision as config_revision,
+                                         cr.id as config_revision_id,
+                                         cft.label as config_file_type,
+                                         cr.modified as last_modified_date,
+                                         :channel_type as config_channel_type
+                from rhnConfigRevision CR
                  INNER JOIN rhnConfigFile CF ON CF.latest_config_revision_id = CR.id
                  INNER JOIN rhnServerConfigChannel SCC ON CF.config_channel_id = SCC.config_channel_id
                  INNER JOIN rhnConfigChannel CC ON CC.id = SCC.config_channel_id
@@ -271,7 +271,7 @@ to the SDC View/Modify files page -->
                 WHERE
                   CCT.label = 'server_import'
                   AND SCC.server_id = :sid
-				  AND  CF.config_file_name_id  in (%s)
+                                  AND  CF.config_file_name_id  in (%s)
     </elaborator>
 </mode>
 
@@ -342,19 +342,19 @@ SELECT S.id,
 <mode name="non_config_managed_systems" class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
   <query params="user_id">
   SELECT  S.id, S.name,
-  			'N' as capable
+                        'N' as capable
     FROM  rhnServer S
-    		inner join rhnUserServerPerms USP on USP.server_id = S.id
+                inner join rhnUserServerPerms USP on USP.server_id = S.id
    WHERE  USP.user_id = :user_id
      AND  NOT EXISTS
-     		 (select 1 FROM  rhnClientCapability CC
-            		inner join  rhnClientCapabilityName CCN on CC.capability_name_id = CCN.id
-            		inner join rhnServerFeaturesView SFV on SFV.server_id = CC.server_id
-			where
-				CC.server_id = S.id and
-				CCN.name LIKE 'configfiles%' AND
-            			SFV.label = 'ftr_config')
-	ORDER BY  S.name
+                 (select 1 FROM  rhnClientCapability CC
+                        inner join  rhnClientCapabilityName CCN on CC.capability_name_id = CCN.id
+                        inner join rhnServerFeaturesView SFV on SFV.server_id = CC.server_id
+                        where
+                                CC.server_id = S.id and
+                                CCN.name LIKE 'configfiles%' AND
+                                SFV.label = 'ftr_config')
+        ORDER BY  S.name
   </query>
   <elaborator name="non_managed_elaborator" />
 </mode>
@@ -362,23 +362,23 @@ SELECT S.id,
 <mode name="non_config_managed_systems_in_set" class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
   <query params="user_id, set">
   SELECT  S.id, S.name,
-  			'N' as capable
+                        'N' as capable
     FROM  rhnUserServerPerms USP
-    			inner join  rhnSet ST on ST.user_id = USP.user_id and ST.element = USP.server_id
-    			inner join rhnServer S on USP.server_id = S.id
+                        inner join  rhnSet ST on ST.user_id = USP.user_id and ST.element = USP.server_id
+                        inner join rhnServer S on USP.server_id = S.id
    WHERE  ST.user_id = :user_id
      AND  ST.label = :set
      AND  NOT EXISTS ( select 1 FROM  rhnClientCapability CC
-            		inner join  rhnClientCapabilityName CCN on CC.capability_name_id = CCN.id
-            		inner join rhnServerFeaturesView SFV on SFV.server_id = CC.server_id
-			where CC.server_id = S.id and CCN.name LIKE 'configfiles%' AND
-            			SFV.label = 'ftr_config')
+                        inner join  rhnClientCapabilityName CCN on CC.capability_name_id = CCN.id
+                        inner join rhnServerFeaturesView SFV on SFV.server_id = CC.server_id
+                        where CC.server_id = S.id and CCN.name LIKE 'configfiles%' AND
+                                SFV.label = 'ftr_config')
 ORDER BY  S.name
   </query>
   <elaborator name="non_managed_elaborator" />
 </mode>
 
-	<query name="non_managed_elaborator">
+        <query name="non_managed_elaborator">
 SELECT  S.id,
         case when (SELECT  DISTINCT 1
                  FROM  rhnServerGroup SG, rhnServerGroupMembers SGM, rhnServerGroupType SGT
@@ -456,11 +456,11 @@ ORDER BY  S.name
   <query params="user_id, sid">
   SELECT  count(CC.server_id) as count
     FROM  rhnClientCapability CC
-		inner join  rhnClientCapabilityName CCN on CC.capability_name_id = CCN.id
+                inner join  rhnClientCapabilityName CCN on CC.capability_name_id = CCN.id
             inner join rhnUserServerPerms USP on  CC.server_id = USP.server_id
    WHERE  USP.user_id = :user_id
-			AND CC.server_id = :sid
-   			AND CCN.name LIKE 'configfiles%'
+                        AND CC.server_id = :sid
+                        AND CCN.name LIKE 'configfiles%'
   </query>
 </mode>
 
@@ -468,9 +468,9 @@ ORDER BY  S.name
 <mode name="latest_files_in_namespace" class="com.redhat.rhn.frontend.dto.ConfigFileDto">
   <query params="ccid,user_id">
 SELECT CF.id,
-	   CF.latest_config_revision_id,
+           CF.latest_config_revision_id,
        CFN.path,
-	   CR.revision AS latest_config_revision,
+           CR.revision AS latest_config_revision,
        coalesce(CCon.modified, CR.modified) as modified,
        CFT.label as type
   FROM rhnConfigFileName CFN,
@@ -491,17 +491,17 @@ ORDER BY CFN.path
 <mode name="latest_files_in_namespace_set" class="com.redhat.rhn.frontend.dto.ConfigFileDto">
   <query params="user_id,ccid,set_label">
 SELECT CF.id,
-	   CF.latest_config_revision_id,
+           CF.latest_config_revision_id,
        CFN.path,
        CR.revision AS latest_config_revision,
        coalesce(CCon.modified, CR.modified) as modified,
-	   CFT.label as type
+           CFT.label as type
        FROM rhnConfigFileName CFN,
        rhnConfigFile CF,
        rhnConfigRevision CR LEFT OUTER JOIN rhnConfigContent CCon
        ON CR.config_content_id = CCon.id,
-	   rhnSet ST,
-	   rhnConfigFileType CFT
+           rhnSet ST,
+           rhnConfigFileType CFT
  WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
    AND ST.user_id = :user_id
    AND ST.label = :set_label
@@ -530,13 +530,13 @@ ORDER BY CR.revision DESC
 </mode>
 
 <mode name="configfile_revisions_size">
-	<query params="cfid, user_id">
+        <query params="cfid, user_id">
 SELECT SUM(coalesce(CCon.file_size, 0)) AS total_file_size
 FROM rhnConfigRevision CR LEFT OUTER JOIN rhnConfigContent CCon
 ON CR.config_content_id = CCon.id
 WHERE rhn_config_channel.get_user_file_access(:cfid, :user_id) = 1
    AND CR.config_file_id = :cfid
-	</query>
+        </query>
 </mode>
 
 <mode name="configfiles_for_ssm" class="com.redhat.rhn.frontend.dto.ConfigFileNameDto">
@@ -598,13 +598,13 @@ SELECT CFN.id, count(DISTINCT SCC.server_id) AS system_count
   <query params="user_id, system_set_label, name_set_label, feature">
 SELECT  S.id, S.name, count(DISTINCT CF.config_file_name_id) AS config_file_count
   FROM  rhnServer S
-  		inner join rhnSet ST on ST.element = S.id
-  		inner join rhnServerConfigChannel SCC on S.id = SCC.server_id
-  		inner join rhnConfigFile CF on SCC.config_channel_id = CF.config_channel_id
-  		inner join rhnSet STX on CF.config_file_name_id = STX.element
-  		inner join rhnUserServerPerms USP on S.id = USP.server_id
-  		inner join rhnClientCapability CC on cc.server_id = S.id
-		inner join rhnClientCapabilityName CCN on  CC.capability_name_id = CCN.id
+                inner join rhnSet ST on ST.element = S.id
+                inner join rhnServerConfigChannel SCC on S.id = SCC.server_id
+                inner join rhnConfigFile CF on SCC.config_channel_id = CF.config_channel_id
+                inner join rhnSet STX on CF.config_file_name_id = STX.element
+                inner join rhnUserServerPerms USP on S.id = USP.server_id
+                inner join rhnClientCapability CC on cc.server_id = S.id
+                inner join rhnClientCapabilityName CCN on  CC.capability_name_id = CCN.id
  WHERE  ST.user_id = :user_id
    AND  ST.label = :system_set_label
    AND  USP.user_id = :user_id
@@ -768,23 +768,23 @@ SELECT  count(CF.id) AS count
 
 <!-- Given a cfg-file-name and a system-id, return all successful deploy actions for files with that name -->
 <mode name="successful_deploys_for" class="com.redhat.rhn.frontend.dto.LastDeployDto">
-	<query params="cfnid, sid, user_id">
-SELECT 	CF.id AS file_id,
-		CR.id AS rev_id,
-		SA.completion_time AS when,
-		CC.id AS whence_id,
-		WC.login AS who
+        <query params="cfnid, sid, user_id">
+SELECT  CF.id AS file_id,
+                CR.id AS rev_id,
+                SA.completion_time AS when,
+                CC.id AS whence_id,
+                WC.login AS who
 FROM    rhnAction A,
-		rhnActionType AT,
-		rhnActionConfigRevision ACR,
-		rhnConfigChannel CC,
-		rhnConfigRevision CR,
-		rhnConfigFile CF,
-		rhNConfigFileName CFN,
-		rhnActionStatus RAS,
+                rhnActionType AT,
+                rhnActionConfigRevision ACR,
+                rhnConfigChannel CC,
+                rhnConfigRevision CR,
+                rhnConfigFile CF,
+                rhNConfigFileName CFN,
+                rhnActionStatus RAS,
         rhnServerAction SA,
-		rhnUserServerPerms USP,
-		web_contact WC
+                rhnUserServerPerms USP,
+                web_contact WC
 WHERE USP.user_id = :user_id
   AND USP.server_id = :sid
   AND ACR.server_id = :sid
@@ -801,7 +801,7 @@ WHERE USP.user_id = :user_id
   AND RAS.name = 'Completed'
   AND A.scheduler = WC.id
 ORDER BY SA.completion_time DESC
-	</query>
+        </query>
 </mode>
 
 <mode name="recent_config_deploy_actions_for_user_oracle" class="com.redhat.rhn.frontend.dto.ServerActionDto">
@@ -893,12 +893,12 @@ where rownum &lt;= :num
 </mode>
 
 <mode name="systems_subscribed_to_channel">
-	<query params="ccid, user_id">
+        <query params="ccid, user_id">
 SELECT COUNT(*) AS num_systems
  FROM rhnserverconfigchannel SCC
  WHERE SCC.config_channel_id = :ccid
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = SCC.server_id)
-	</query>
+        </query>
 </mode>
 
 <mode name="ssm_systems_for_subscribe" class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
@@ -925,32 +925,32 @@ SELECT  S.id,
 </mode>
 
 <mode name="systems_subscribed_by_date"  class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
-	<query params="ccid, user_id">
+        <query params="ccid, user_id">
 SELECT S.id,
-	   S.name,
-	   SCC.modified
+           S.name,
+           SCC.modified
  FROM rhnserverconfigchannel SCC,
-	  rhnserver S
+          rhnserver S
  WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
    AND SCC.config_channel_id = :ccid
    AND S.id = SCC.server_id
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = SCC.server_id)
  ORDER BY SCC.modified DESC
-	</query>
+        </query>
 </mode>
 
 <mode name="files_in_channel">
-	<query params="ccid, filetype, user_id">
+        <query params="ccid, filetype, user_id">
 SELECT COUNT(CF.id) AS num_files
  FROM rhnconfigfile CF,
-	  rhnconfigrevision CR,
-	  rhnconfigfiletype CFT
+          rhnconfigrevision CR,
+          rhnconfigfiletype CFT
  WHERE CF.config_channel_id = :ccid
    AND CF.latest_config_revision_id = CR.id
    AND CR.config_file_type_id = CFT.id
    AND CFT.label = :filetype
    AND rhn_config_channel.get_user_file_access(CF.id, :user_id) = 1
-	</query>
+        </query>
 </mode>
 
 <mode name="files_by_date"  class="com.redhat.rhn.frontend.dto.ConfigFileDto">
@@ -1000,7 +1000,7 @@ ORDER BY modified DESC
   SELECT  CR.revision AS revision_number, CR.id, CR.created
     FROM  rhnConfigRevision CR
    WHERE  rhn_config_channel.get_user_file_access(:cfid, :user_id) = 1
-	 AND  CR.config_file_id = :cfid
+         AND  CR.config_file_id = :cfid
      AND  CR.id != :crid
 ORDER BY  CR.revision DESC
   </query>
@@ -1080,8 +1080,8 @@ SELECT  CF.id, CR.modified,
   <query name="find_systems" params="user_id">
   SELECT  DISTINCT S.name, S.id
     FROM  rhnServer S
-    	inner join rhnUserServerPerms USP on USP.server_id = S.id
-    	inner join rhnServerFeaturesView SFV on SFV.server_id = s.id
+        inner join rhnUserServerPerms USP on USP.server_id = S.id
+        inner join rhnServerFeaturesView SFV on SFV.server_id = s.id
    WHERE  USP.user_id = :user_id
      AND  S.id = USP.server_id
      AND SFV.label = 'ftr_config'
@@ -1089,19 +1089,19 @@ ORDER BY  S.name
   </query>
 
 <mode name="systems_for_copy" class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
-	<query name="find_systems"></query>
-	<elaborator params="cfnid,label">
+        <query name="find_systems"></query>
+        <elaborator params="cfnid,label">
 SELECT  S.id,
-		CC.id AS config_channel_id,
+                CC.id AS config_channel_id,
         CF.id AS config_file_id,
         CR.id AS config_revision_id,
-		CR.revision AS config_revision
+                CR.revision AS config_revision
   FROM  rhnConfigChannel CC,
-		rhnConfigChannelType CCT,
-		rhnConfigRevision CR,
-		rhnConfigFile CF,
-		rhnServer S,
-		rhnServerConfigChannel SCC
+                rhnConfigChannelType CCT,
+                rhnConfigRevision CR,
+                rhnConfigFile CF,
+                rhnServer S,
+                rhnServerConfigChannel SCC
  WHERE  S.id IN (%s)
    AND  SCC.server_id = S.id
    AND  CC.id = SCC.config_channel_id
@@ -1114,7 +1114,7 @@ SELECT  S.id,
 </mode>
 
 <mode name="list_available_systems" class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
-	<query name="find_systems"></query>
+        <query name="find_systems"></query>
 </mode>
 
 <mode name="systems_for_diff" class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
@@ -1525,9 +1525,9 @@ SELECT  SCC.server_id AS id,
   <query params="sid, user_id, channel_set_label">
 SELECT  CC.name, CC.id
   FROM  rhnConfigChannel CC,
-	    rhnSet ST,
+            rhnSet ST,
         rhnServerConfigChannel SCC,
-	    rhnUserServerPerms USP
+            rhnUserServerPerms USP
  WHERE  USP.server_id = :sid
    AND  USP.user_id = :user_id
    AND  ST.user_id = :user_id
@@ -1571,24 +1571,24 @@ SELECT  SCC.config_channel_id AS id,
 </mode>
 
 <!--
-	Find all the config-files and their ids and channel-names and channel-ids
-	where channel-id != ccid
+        Find all the config-files and their ids and channel-names and channel-ids
+        where channel-id != ccid
 -->
 <mode name="config_files_not_in_channel" class="com.redhat.rhn.frontend.dto.ConfigFileDto">
   <query params="ccid, user_id, orgid">
 SELECT CF.id,
-	   CC.ID as config_channel_id,
-	   CC.NAME as config_channel_name,
-	   CFN.PATH,
-	   CR.MODIFIED,
-	   CCT.label AS config_channel_type,
-	   CFT.label AS type
+           CC.ID as config_channel_id,
+           CC.NAME as config_channel_name,
+           CFN.PATH,
+           CR.MODIFIED,
+           CCT.label AS config_channel_type,
+           CFT.label AS type
 FROM  rhnconfigchannel CC,
-	  rhnconfigfile CF,
-	  rhnconfigchanneltype CCT,
-	  rhnconfigfilename CFN,
-	  rhnconfigrevision CR,
-	  rhnconfigfiletype CFT
+          rhnconfigfile CF,
+          rhnconfigchanneltype CCT,
+          rhnconfigfilename CFN,
+          rhnconfigrevision CR,
+          rhnconfigfiletype CFT
 WHERE CCT.id = CC.confchan_type_id
   AND CFT.id = CR.config_file_type_id
   AND CC.ORG_ID = :orgid
@@ -1600,186 +1600,186 @@ WHERE CCT.id = CC.confchan_type_id
   </query>
 </mode>
 
-	<!--
-		List all systems (ID, NAME) in a specified channel, along with the number of
-		Channel files that the system overrides (OVERRIDDEN_COUNT) and the number of channel
-		files that the system has outranked (OUTRANKED_COUNT) of the last successful deploy
-	-->
+        <!--
+                List all systems (ID, NAME) in a specified channel, along with the number of
+                Channel files that the system overrides (OVERRIDDEN_COUNT) and the number of channel
+                files that the system has outranked (OUTRANKED_COUNT) of the last successful deploy
+        -->
 <mode name="systems_in_channel_info" class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
-	<query params="user_id,ccid">
-		SELECT S.ID, S.NAME
-		  FROM rhnServer S,
-		       rhnServerConfigChannel SCC,
-        	   rhnUserServerPerms USP
-		 WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
-		   AND SCC.config_channel_id = :ccid
-		   AND S.id = SCC.server_id
-   		   AND USP.server_id = S.id
-		   AND USP.user_id = :user_id
-		 ORDER BY S.NAME
-	</query>
-	<elaborator params="ccid">
+        <query params="user_id,ccid">
+                SELECT S.ID, S.NAME
+                  FROM rhnServer S,
+                       rhnServerConfigChannel SCC,
+                   rhnUserServerPerms USP
+                 WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
+                   AND SCC.config_channel_id = :ccid
+                   AND S.id = SCC.server_id
+                   AND USP.server_id = S.id
+                   AND USP.user_id = :user_id
+                 ORDER BY S.NAME
+        </query>
+        <elaborator params="ccid">
         SELECT S.ID,
             COALESCE((
-				SELECT COUNT(DISTINCT CFN2.id)
-				FROM rhnConfigChannel CC2, rhnConfigChannelType CCT2, rhnServerConfigChannel SCC2,
-					 rhnConfigFile cf2, rhnConfigFileName cfn2,
-					 rhnConfigChannel CC,  rhnServerConfigChannel SCC,
-					 rhnConfigFile cf, rhnConfigFileName cfn
-				WHERE SCC2.server_id = S.ID
-				  AND scc.server_id = S.ID
-				  AND cc.id = :ccid
-				  AND cf.config_channel_id = cc.id
-				  AND cfn.id = cf.config_file_name_id
-				  AND CC2.id = SCC2.config_channel_id
-				  AND CC2.confchan_type_id = CCT2.id
-				  AND CCT2.label = 'local_override'
-				  AND CF2.config_channel_Id = CC2.id
-				  AND CFN2.id = CF2.config_file_name_id
-				  AND cfn.id = cfn2.id
-			 ), 0) overridden_count,
-			COALESCE((
-				SELECT COUNT(DISTINCT CFN.id)
-				  FROM rhnConfigChannel CC,
-					   rhnConfigFile cf,
-			 		   rhnConfigFileName cfn,
+                                SELECT COUNT(DISTINCT CFN2.id)
+                                FROM rhnConfigChannel CC2, rhnConfigChannelType CCT2, rhnServerConfigChannel SCC2,
+                                         rhnConfigFile cf2, rhnConfigFileName cfn2,
+                                         rhnConfigChannel CC,  rhnServerConfigChannel SCC,
+                                         rhnConfigFile cf, rhnConfigFileName cfn
+                                WHERE SCC2.server_id = S.ID
+                                  AND scc.server_id = S.ID
+                                  AND cc.id = :ccid
+                                  AND cf.config_channel_id = cc.id
+                                  AND cfn.id = cf.config_file_name_id
+                                  AND CC2.id = SCC2.config_channel_id
+                                  AND CC2.confchan_type_id = CCT2.id
+                                  AND CCT2.label = 'local_override'
+                                  AND CF2.config_channel_Id = CC2.id
+                                  AND CFN2.id = CF2.config_file_name_id
+                                  AND cfn.id = cfn2.id
+                         ), 0) overridden_count,
+                        COALESCE((
+                                SELECT COUNT(DISTINCT CFN.id)
+                                  FROM rhnConfigChannel CC,
+                                           rhnConfigFile cf,
+                                           rhnConfigFileName cfn,
                        rhnServerConfigChannel SCC,
-					   rhnConfigChannel CC2,
+                                           rhnConfigChannel CC2,
                        rhnServerConfigChannel SCC2,
                        rhnConfigFile cf2
-				 WHERE cfn.id = cf.config_file_name_id
-				   AND cf.config_channel_id = cc.id
-		           AND cc.id = :ccid
-		           AND scc.server_id = s.id
-		           AND scc.config_channel_id = cc.id
-		           AND scc2.server_id = s.id
-		           AND scc2.config_channel_id != cc.id
-		           AND scc2.position &lt; scc.position
-		           AND cf2.config_file_name_id = cfn.id
-		           AND cf2.config_channel_id = cc2.id
-		           AND cc2.id = scc2.config_channel_id
-			),0) outranked_count
-		FROM rhnServer S
-		WHERE S.ID IN (%s)
-	</elaborator>
+                                 WHERE cfn.id = cf.config_file_name_id
+                                   AND cf.config_channel_id = cc.id
+                           AND cc.id = :ccid
+                           AND scc.server_id = s.id
+                           AND scc.config_channel_id = cc.id
+                           AND scc2.server_id = s.id
+                           AND scc2.config_channel_id != cc.id
+                           AND scc2.position &lt; scc.position
+                           AND cf2.config_file_name_id = cfn.id
+                           AND cf2.config_channel_id = cc2.id
+                           AND cc2.id = scc2.config_channel_id
+                        ),0) outranked_count
+                FROM rhnServer S
+                WHERE S.ID IN (%s)
+        </elaborator>
 </mode>
 
-	<!--
-		List all systems (ID, NAME) in a specified channel, along with the number of
-		Channel files that the system overrides (OVERRIDDEN_COUNT) and the number of channel
-		files that the system has outranked (OUTRANKED_COUNT) of the last successful deploy,
-		LIMITED BY the specified SET
-	-->
+        <!--
+                List all systems (ID, NAME) in a specified channel, along with the number of
+                Channel files that the system overrides (OVERRIDDEN_COUNT) and the number of channel
+                files that the system has outranked (OUTRANKED_COUNT) of the last successful deploy,
+                LIMITED BY the specified SET
+        -->
 <mode name="systems_in_channel_info_set" class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
-	<query params="user_id,ccid,set_label">
-		SELECT S.ID, S.NAME
-		  FROM rhnServer S,
-			   rhnSet ST,
-		       rhnServerConfigChannel SCC,
-        	   rhnUserServerPerms USP
-		 WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
-		   AND SCC.config_channel_id = :ccid
-		   AND S.id = SCC.server_id
-		   AND ST.user_id = :user_id
-   		   AND ST.label = :set_label
-		   AND ST.element = S.id
-   		   AND USP.server_id = S.id
-		   AND USP.user_id = :user_id
-	  ORDER BY S.NAME
-	</query>
-	<elaborator params="ccid">
-		SELECT S.ID,
-               COALESCE((
-				SELECT COUNT(DISTINCT CFN2.id)
-				  FROM rhnConfigChannel CC2, rhnConfigChannelType CCT2, rhnServerConfigChannel SCC2,
-			 		   rhnConfigFile cf2, rhnConfigFileName cfn2,
-			 		   rhnConfigChannel CC,  rhnServerConfigChannel SCC,
-			 		   rhnConfigFile cf, rhnConfigFileName cfn
-				 WHERE SCC2.server_id = S.ID
-				   AND scc.server_id = S.ID
-				   AND cc.id = :ccid
-				   AND cf.config_channel_id = cc.id
-				   AND cfn.id = cf.config_file_name_id
-				   AND CC2.id = SCC2.config_channel_id
-				   AND CC2.confchan_type_id = CCT2.id
-				   AND CCT2.label = 'local_override'
-				   AND CF2.config_channel_Id = CC2.id
-				   AND CFN2.id = CF2.config_file_name_id
-				   AND cfn.id = cfn2.id
-         	   ), 0) overridden_count,
-			   COALESCE((
-				SELECT COUNT(DISTINCT CFN.id)
-				  FROM rhnConfigChannel CC,
-					   rhnConfigFile cf,
-			 		   rhnConfigFileName cfn,
+        <query params="user_id,ccid,set_label">
+                SELECT S.ID, S.NAME
+                  FROM rhnServer S,
+                           rhnSet ST,
                        rhnServerConfigChannel SCC,
-					   rhnConfigChannel CC2,
+                   rhnUserServerPerms USP
+                 WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
+                   AND SCC.config_channel_id = :ccid
+                   AND S.id = SCC.server_id
+                   AND ST.user_id = :user_id
+                   AND ST.label = :set_label
+                   AND ST.element = S.id
+                   AND USP.server_id = S.id
+                   AND USP.user_id = :user_id
+          ORDER BY S.NAME
+        </query>
+        <elaborator params="ccid">
+                SELECT S.ID,
+               COALESCE((
+                                SELECT COUNT(DISTINCT CFN2.id)
+                                  FROM rhnConfigChannel CC2, rhnConfigChannelType CCT2, rhnServerConfigChannel SCC2,
+                                           rhnConfigFile cf2, rhnConfigFileName cfn2,
+                                           rhnConfigChannel CC,  rhnServerConfigChannel SCC,
+                                           rhnConfigFile cf, rhnConfigFileName cfn
+                                 WHERE SCC2.server_id = S.ID
+                                   AND scc.server_id = S.ID
+                                   AND cc.id = :ccid
+                                   AND cf.config_channel_id = cc.id
+                                   AND cfn.id = cf.config_file_name_id
+                                   AND CC2.id = SCC2.config_channel_id
+                                   AND CC2.confchan_type_id = CCT2.id
+                                   AND CCT2.label = 'local_override'
+                                   AND CF2.config_channel_Id = CC2.id
+                                   AND CFN2.id = CF2.config_file_name_id
+                                   AND cfn.id = cfn2.id
+                   ), 0) overridden_count,
+                           COALESCE((
+                                SELECT COUNT(DISTINCT CFN.id)
+                                  FROM rhnConfigChannel CC,
+                                           rhnConfigFile cf,
+                                           rhnConfigFileName cfn,
+                       rhnServerConfigChannel SCC,
+                                           rhnConfigChannel CC2,
                        rhnServerConfigChannel SCC2,
                        rhnConfigFile cf2
-				 WHERE cfn.id = cf.config_file_name_id
-				   AND cf.config_channel_id = cc.id
-		           AND cc.id = :ccid
-		           AND scc.server_id = s.id
-		           AND scc.config_channel_id = cc.id
-		           AND scc2.server_id = s.id
-		           AND scc2.config_channel_id != cc.id
-		           AND scc2.position &lt; scc.position
-		           AND cf2.config_file_name_id = cfn.id
-		           AND cf2.config_channel_id = cc2.id
-		           AND cc2.id = scc2.config_channel_id
-				),0) outranked_count
-		  FROM rhnServer S
-		 WHERE S.ID IN (%s)
-	</elaborator>
+                                 WHERE cfn.id = cf.config_file_name_id
+                                   AND cf.config_channel_id = cc.id
+                           AND cc.id = :ccid
+                           AND scc.server_id = s.id
+                           AND scc.config_channel_id = cc.id
+                           AND scc2.server_id = s.id
+                           AND scc2.config_channel_id != cc.id
+                           AND scc2.position &lt; scc.position
+                           AND cf2.config_file_name_id = cfn.id
+                           AND cf2.config_channel_id = cc2.id
+                           AND cc2.id = scc2.config_channel_id
+                                ),0) outranked_count
+                  FROM rhnServer S
+                 WHERE S.ID IN (%s)
+        </elaborator>
 </mode>
 
-	<!--
-		List all systems (NAME, ID) from the specified channel.  For each system, list the
-		most-recent succcessful deploy action of a file with the specified filename-id
-		(REV_ID).  For each system, show how many
-		global-overrides there are of the specified file-name (OUTRANKED_COUNT), and how
-		many local overrides there are of the specified filename (OVERRIDEN_COUNT)
-	-->
+        <!--
+                List all systems (NAME, ID) from the specified channel.  For each system, list the
+                most-recent succcessful deploy action of a file with the specified filename-id
+                (REV_ID).  For each system, show how many
+                global-overrides there are of the specified file-name (OUTRANKED_COUNT), and how
+                many local overrides there are of the specified filename (OVERRIDEN_COUNT)
+        -->
 <mode name="global_file_deploy_info"
-		class="com.redhat.rhn.frontend.dto.ConfigGlobalDeployDto">
-	<query params="ccid, cfnid, user_id">
-		SELECT S.ID, S.NAME,
+                class="com.redhat.rhn.frontend.dto.ConfigGlobalDeployDto">
+        <query params="ccid, cfnid, user_id">
+                SELECT S.ID, S.NAME,
              ( SELECT count( CF2.id )
-			    FROM rhnConfigChannel CC2
-            	     inner join rhnConfigChannelType CCT2 on CC2.confchan_type_id = CCT2.id
-                	 inner join rhnServerConfigChannel SCC2 on CC2.id = SCC2.config_channel_id
-	                 inner join rhnConfigFile CF2 on CF2.config_channel_Id = CC2.id
-    	        WHERE SCC2.server_id = S.id
-           			  AND CCT2.label = 'local_override'
-		              AND CF2.config_file_name_id = :cfnid) as OVERRIDE_COUNT,
+                            FROM rhnConfigChannel CC2
+                     inner join rhnConfigChannelType CCT2 on CC2.confchan_type_id = CCT2.id
+                         inner join rhnServerConfigChannel SCC2 on CC2.id = SCC2.config_channel_id
+                         inner join rhnConfigFile CF2 on CF2.config_channel_Id = CC2.id
+                WHERE SCC2.server_id = S.id
+                                  AND CCT2.label = 'local_override'
+                              AND CF2.config_file_name_id = :cfnid) as OVERRIDE_COUNT,
               (SELECT count(CC2.id)
                 FROM rhnConfigChannel CC2
-    	             inner join rhnConfigChannelType CCT2 on CC2.confchan_type_id = CCT2.id
-        	         inner join rhnServerConfigChannel SCC2 on CC2.id = SCC2.config_channel_id
-            	     inner join rhnConfigFile CF2 on CF2.config_channel_Id = CC2.id
+                     inner join rhnConfigChannelType CCT2 on CC2.confchan_type_id = CCT2.id
+                         inner join rhnServerConfigChannel SCC2 on CC2.id = SCC2.config_channel_id
+                     inner join rhnConfigFile CF2 on CF2.config_channel_Id = CC2.id
                      inner join rhnServerConfigChannel SCC on SCC.server_id = SCC2.server_id
-	                 inner join rhnConfigChannel CC on CC.id = SCC.config_channel_id and CC.confchan_type_id = CCT2.id
+                         inner join rhnConfigChannel CC on CC.id = SCC.config_channel_id and CC.confchan_type_id = CCT2.id
                   inner join rhnConfigFile CF on CF.config_channel_Id = CC.id AND CF.config_file_name_id = CF2.config_file_name_id
             WHERE SCC2.server_id = S.ID
-			          AND SCC.position &lt; SCC2.position
-					  AND CC2.id =:ccid
-					  AND CCT2.label = 'normal'
+                                  AND SCC.position &lt; SCC2.position
+                                          AND CC2.id =:ccid
+                                          AND CCT2.label = 'normal'
                  AND CF2.config_file_name_id = :cfnid) as OUTRANKED_COUNT,
             COALESCE((select 1 from rhnClientCapability CCap
-            				inner join rhnClientCapabilityName CCN on  CCap.capability_name_id = CCN.id
-            		where  CCN.name = 'configfiles.deploy'
-            			AND  CCap.server_id = S.id
-				AND EXISTS (select 1 from rhnServerFeaturesView SFV
-            					where SFV.server_id = s.id	AND SFV.label = 'ftr_config')
-            		),0) as DEPLOYABLE
-		  FROM rhnServer S
-		       inner join rhnServerConfigChannel SCC on S.id = SCC.server_id
-			   inner join rhnUserServerPerms USP on USP.server_id = S.id
-		 WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
-		   AND SCC.config_channel_id = :ccid
-		   AND USP.user_id = :user_id
-		 ORDER BY S.NAME
-	</query>
+                                        inner join rhnClientCapabilityName CCN on  CCap.capability_name_id = CCN.id
+                        where  CCN.name = 'configfiles.deploy'
+                                AND  CCap.server_id = S.id
+                                AND EXISTS (select 1 from rhnServerFeaturesView SFV
+                                                where SFV.server_id = s.id      AND SFV.label = 'ftr_config')
+                        ),0) as DEPLOYABLE
+                  FROM rhnServer S
+                       inner join rhnServerConfigChannel SCC on S.id = SCC.server_id
+                           inner join rhnUserServerPerms USP on USP.server_id = S.id
+                 WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
+                   AND SCC.config_channel_id = :ccid
+                   AND USP.user_id = :user_id
+                 ORDER BY S.NAME
+        </query>
 
 
 
@@ -1787,67 +1787,67 @@ WHERE CCT.id = CC.confchan_type_id
 
 
 
-	<!-- no elaborator. The counts are decided in the driving query because
-	     they are needed for select all.  bleah -->
+        <!-- no elaborator. The counts are decided in the driving query because
+             they are needed for select all.  bleah -->
 </mode>
 
-	<!--
-		Like the above query, but limited by the systems that appear in the set
-		identified by "system_set_label"
-	-->
+        <!--
+                Like the above query, but limited by the systems that appear in the set
+                identified by "system_set_label"
+        -->
 <mode name="global_file_deploy_set_info"
-		class="com.redhat.rhn.frontend.dto.ConfigGlobalDeployDto">
-	<query params="ccid,set_label,user_id">
-		SELECT S.ID, S.NAME
-		  FROM rhnServer S
-		       inner join rhnServerConfigChannel SCC on S.id = SCC.server_id
-			   inner join rhnSet ST on ST.element = S.id
-	           inner join rhnClientCapability CCap on CCap.server_id = S.id
-	           inner join rhnClientCapabilityName CCN on  CCap.capability_name_id = CCN.id
-	           inner join rhnServerFeaturesView SFV on SFV.server_id = s.id
-		 WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
-		   AND ST.user_id = :user_id
-   		   AND ST.label = :set_label
-		   AND SCC.config_channel_id = :ccid
-     	   AND CCN.name = 'configfiles.deploy'
+                class="com.redhat.rhn.frontend.dto.ConfigGlobalDeployDto">
+        <query params="ccid,set_label,user_id">
+                SELECT S.ID, S.NAME
+                  FROM rhnServer S
+                       inner join rhnServerConfigChannel SCC on S.id = SCC.server_id
+                           inner join rhnSet ST on ST.element = S.id
+                   inner join rhnClientCapability CCap on CCap.server_id = S.id
+                   inner join rhnClientCapabilityName CCN on  CCap.capability_name_id = CCN.id
+                   inner join rhnServerFeaturesView SFV on SFV.server_id = s.id
+                 WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
+                   AND ST.user_id = :user_id
+                   AND ST.label = :set_label
+                   AND SCC.config_channel_id = :ccid
+           AND CCN.name = 'configfiles.deploy'
            AND SFV.label = 'ftr_config'
-		 ORDER BY S.NAME
-	</query>
-	<elaborator params="cfnid,ccid">
-	SELECT S.ID,
-	     ( SELECT count( CF2.id )
-		    FROM rhnConfigChannel CC2
-	    	     inner join rhnConfigChannelType CCT2 on CC2.confchan_type_id = CCT2.id
-	        	 inner join rhnServerConfigChannel SCC2 on CC2.id = SCC2.config_channel_id
-	             inner join rhnConfigFile CF2 on CF2.config_channel_Id = CC2.id
-	        WHERE SCC2.server_id = S.id
-	   			  AND CCT2.label = 'local_override'
-	              AND CF2.config_file_name_id = :cfnid) as OVERRIDE_COUNT,
+                 ORDER BY S.NAME
+        </query>
+        <elaborator params="cfnid,ccid">
+        SELECT S.ID,
+             ( SELECT count( CF2.id )
+                    FROM rhnConfigChannel CC2
+                     inner join rhnConfigChannelType CCT2 on CC2.confchan_type_id = CCT2.id
+                         inner join rhnServerConfigChannel SCC2 on CC2.id = SCC2.config_channel_id
+                     inner join rhnConfigFile CF2 on CF2.config_channel_Id = CC2.id
+                WHERE SCC2.server_id = S.id
+                                  AND CCT2.label = 'local_override'
+                      AND CF2.config_file_name_id = :cfnid) as OVERRIDE_COUNT,
 
-	      (SELECT count(CC2.id)
-	        FROM rhnConfigChannel CC2
-	             inner join rhnConfigChannelType CCT2 on CC2.confchan_type_id = CCT2.id
-		         inner join rhnServerConfigChannel SCC2 on CC2.id = SCC2.config_channel_id
-	    	     inner join rhnConfigFile CF2 on CF2.config_channel_Id = CC2.id
-	             inner join rhnServerConfigChannel SCC on SCC.server_id = SCC2.server_id
-	             inner join rhnConfigChannel CC on CC.id = SCC.config_channel_id and CC.confchan_type_id = CCT2.id
-			WHERE SCC2.server_id = S.ID
-		          AND SCC.position &lt; SCC2.position
-				  AND CC2.id =:ccid
-				  AND CCT2.label = 'normal'
-				  AND CF2.config_file_name_id = :cfnid) as OUTRANKED_COUNT
-	FROM rhnServer S
-	WHERE S.ID IN (%s)
-	</elaborator>
+              (SELECT count(CC2.id)
+                FROM rhnConfigChannel CC2
+                     inner join rhnConfigChannelType CCT2 on CC2.confchan_type_id = CCT2.id
+                         inner join rhnServerConfigChannel SCC2 on CC2.id = SCC2.config_channel_id
+                     inner join rhnConfigFile CF2 on CF2.config_channel_Id = CC2.id
+                     inner join rhnServerConfigChannel SCC on SCC.server_id = SCC2.server_id
+                     inner join rhnConfigChannel CC on CC.id = SCC.config_channel_id and CC.confchan_type_id = CCT2.id
+                        WHERE SCC2.server_id = S.ID
+                          AND SCC.position &lt; SCC2.position
+                                  AND CC2.id =:ccid
+                                  AND CCT2.label = 'normal'
+                                  AND CF2.config_file_name_id = :cfnid) as OUTRANKED_COUNT
+        FROM rhnServer S
+        WHERE S.ID IN (%s)
+        </elaborator>
 </mode>
 
 
-	<!--
-		List all cfg-managed systems that the user has access to, that are -not-
-		already subscribed to the channel
-	-->
+        <!--
+                List all cfg-managed systems that the user has access to, that are -not-
+                already subscribed to the channel
+        -->
 <mode name="managed_systems_not_in_channel" class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
-  	<query params="ccid,user_id">
+        <query params="ccid,user_id">
 SELECT * FROM (
 SELECT  DISTINCT S.id,
                  S.name
@@ -1857,18 +1857,18 @@ SELECT  DISTINCT S.id,
             inner join rhnClientCapabilityName CCN on  CCap.capability_name_id = CCN.id
             inner join rhnServerFeaturesView SFV on SFV.server_id = s.id
    WHERE  rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
-	 AND  USP.user_id = :user_id
+         AND  USP.user_id = :user_id
      AND  CCN.name LIKE 'configfiles%'
      AND SFV.label = 'ftr_config'
      AND  NOT EXISTS(
-		  SELECT 1
-		    FROM rhnServerConfigChannel SCC
-		   WHERE SCC.server_id = S.id
-		     AND SCC.config_channel_id =:ccid
-		  )
+                  SELECT 1
+                    FROM rhnServerConfigChannel SCC
+                   WHERE SCC.server_id = S.id
+                     AND SCC.config_channel_id =:ccid
+                  )
 ) X
 ORDER BY UPPER(COALESCE(X.name, '(none)'))
-	</query>
+        </query>
 </mode>
 
 <!-- list all the global config channels for a system.  Used in sdc. -->
@@ -1928,7 +1928,7 @@ SELECT  CC.id, CC.label,
                                              AND  CC.confchan_type_id = CCT.id
                                              AND  CCT.label = 'local_override' ) ,
                                         ( SELECT  SCCX.config_channel_id
-         	                                   FROM  rhnServerConfigChannel SCCX, rhnConfigFile CF
+                                                   FROM  rhnServerConfigChannel SCCX, rhnConfigFile CF
                                            WHERE  CF.config_file_name_id = CFNX.id
                                              AND  CF.config_channel_id = SCCX.config_channel_id
                                              AND  SCCX.server_id = :sid
@@ -1947,11 +1947,11 @@ SELECT  CC.id, CC.label,
 <mode name="overview_config_channels_for_act_key" class="com.redhat.rhn.frontend.dto.ConfigChannelDto">
   <query params="org_id, user_id, tid">
 SELECT CC.id, CC.name, CC.label, CCT.label as type,
-		rhn_config_channel.get_user_chan_access(CC.id, :user_id) as can_access,
-		tcc.position as position
+                rhn_config_channel.get_user_chan_access(CC.id, :user_id) as can_access,
+                tcc.position as position
   FROM rhnConfigChannelType CCT
-  	  INNER JOIN rhnConfigChannel CC ON CC.confchan_type_id = CCT.id
-	  INNER JOIN rhnRegTokenConfigChannels tcc On CC.id = tcc.CONFIG_CHANNEL_ID
+          INNER JOIN rhnConfigChannel CC ON CC.confchan_type_id = CCT.id
+          INNER JOIN rhnRegTokenConfigChannels tcc On CC.id = tcc.CONFIG_CHANNEL_ID
  WHERE CC.org_id = :org_id
    AND CCT.label IN ('normal')
    AND tcc.token_id = :tid
@@ -1962,16 +1962,16 @@ ORDER BY tcc.position
 
 
 <mode name="overview_config_channels_for_act_key_subscriptions"
-				class="com.redhat.rhn.frontend.dto.ConfigChannelDto">
+                                class="com.redhat.rhn.frontend.dto.ConfigChannelDto">
   <query params="org_id, user_id, tid">
 SELECT CC.id, CC.name, CC.label, CCT.label as type,
-		rhn_config_channel.get_user_chan_access(CC.id, :user_id) as can_access
+                rhn_config_channel.get_user_chan_access(CC.id, :user_id) as can_access
   FROM rhnConfigChannelType CCT
-  	  INNER JOIN rhnConfigChannel CC ON CC.confchan_type_id = CCT.id
+          INNER JOIN rhnConfigChannel CC ON CC.confchan_type_id = CCT.id
  WHERE CC.org_id = :org_id
    AND CCT.label IN ('normal')
    AND NOT EXISTS (select 1 from rhnRegTokenConfigChannels tcc where
-   					CC.id = tcc.CONFIG_CHANNEL_ID AND tcc.token_id = :tid)
+                                        CC.id = tcc.CONFIG_CHANNEL_ID AND tcc.token_id = :tid)
  order by cc.name
   </query>
   <elaborator name="elaborator_config_channel_file_dir_count"/>
@@ -1981,7 +1981,7 @@ SELECT CC.id, CC.name, CC.label, CCT.label as type,
   <query params="org_id, user_id">
 SELECT CC.id, CC.name, CC.label, CCT.label as type
   FROM rhnConfigChannelType CCT
-  	  INNER JOIN rhnConfigChannel CC ON CC.confchan_type_id = CCT.id
+          INNER JOIN rhnConfigChannel CC ON CC.confchan_type_id = CCT.id
  WHERE CC.org_id = :org_id
    AND CCT.label IN ('normal')
    AND rhn_config_channel.get_user_chan_access(CC.id, :user_id) = 1
@@ -2048,7 +2048,7 @@ SELECT CC.id AS ID,
 </query>
 
 <mode name="config_channels_for_system_subscriptions"
-    	class="com.redhat.rhn.frontend.dto.ConfigChannelDto">
+        class="com.redhat.rhn.frontend.dto.ConfigChannelDto">
   <query params="org_id, user_id, sid">
 SELECT CC.id,
        CC.name,
@@ -2222,13 +2222,13 @@ SELECT  CC.id,
      AND  CC.confchan_type_id = CCT.id
      AND  CCT.label = :type
      AND  CC.id != :ccid
-	 AND  rhn_config_channel.get_user_chan_access(CC.id, :user_id) = 1
+         AND  rhn_config_channel.get_user_chan_access(CC.id, :user_id) = 1
 ORDER BY  name
 </query>
 
 <!-- Return just channel info -->
 <mode name="other_channels" class="com.redhat.rhn.frontend.dto.ConfigChannelDto">
-	<query name="find_other_channels"></query>
+        <query name="find_other_channels"></query>
   <elaborator name="elaborator_config_channel_system_count" params="user_id"/>
   <elaborator name="elaborator_config_channel_file_dir_count"/>
 </mode>

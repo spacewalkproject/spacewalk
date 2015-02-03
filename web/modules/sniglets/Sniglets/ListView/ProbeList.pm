@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -37,22 +37,22 @@ sub list_of { return "probes" }
 
 sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "system_probes",
-				     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
+                                     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
   Sniglets::ListView::List->add_mode(-mode => "system_groups_probes",
                                      -datasource => RHN::DataSource::Probe->new,
                                      -provider => \&system_groups_probes_provider);
   Sniglets::ListView::List->add_mode(-mode => "ok_system_probes",
-				     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
+                                     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
   Sniglets::ListView::List->add_mode(-mode => "warning_system_probes",
-				     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
+                                     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
   Sniglets::ListView::List->add_mode(-mode => "critical_system_probes",
-				     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
+                                     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
   Sniglets::ListView::List->add_mode(-mode => "unknown_system_probes",
-				     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
+                                     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
   Sniglets::ListView::List->add_mode(-mode => "pending_system_probes",
-				     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
+                                     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
   Sniglets::ListView::List->add_mode(-mode => "all_system_probes",
-				     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
+                                     -datasource => new RHN::DataSource::Simple(-querybase => "probe_queries"));
   Sniglets::ListView::List->add_mode(-mode => "probes_for_contact_method",
                                      -datasource => RHN::DataSource::Probe->new,
                                      -provider => \&probes_for_method_provider);
@@ -92,11 +92,11 @@ sub row_callback {
   # Fill in the details for the state icon row.
   if (exists $row->{PROBE_STATE}) {
       if (not defined $row->{PROBE_STATE}) {
-	  $row->{PROBE_STATE} = 'PENDING';
+          $row->{PROBE_STATE} = 'PENDING';
       }
       $row->{PROBE_STATE_ICON} = PXT::HTML->img(-src => $self->get_probe_state_icon($row->{PROBE_STATE}),
-					     -alt => ucfirst(lc($row->{PROBE_STATE})),
-					     -title => ucfirst(lc($row->{PROBE_STATE})));
+                                             -alt => ucfirst(lc($row->{PROBE_STATE})),
+                                             -title => ucfirst(lc($row->{PROBE_STATE})));
   }
   return $row;
 }

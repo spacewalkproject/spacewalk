@@ -36,7 +36,7 @@ def getArchitecture():
     result = {"pentium": "i386",
               "sparc64": "sparc",
               "ppc": "powerpc",
-              "mipseb":	"mips",
+              "mipseb": "mips",
               "shel": "sh"}.get(arch)
     if result:
         return result
@@ -146,5 +146,3 @@ class DebUpgrades(DebDepends,Upgrades):
         return checkdep(prv.version, self.relation, self.version)
 
 class DebConflicts(DebDepends,Conflicts): pass
-
-# vim:ts=4:sw=4:et

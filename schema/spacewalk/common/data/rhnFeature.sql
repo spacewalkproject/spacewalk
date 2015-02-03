@@ -79,12 +79,6 @@ insert into rhnFeature (id, label, name, created, modified)
 values (sequence_nextval('rhn_feature_seq'), 'ftr_remote_command', 'Execute Remote Command',
         current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)
-values (sequence_nextval('rhn_feature_seq'), 'ftr_schedule_probe', 'Schedule Probe',
-        current_timestamp, current_timestamp);
-insert into rhnFeature (id, label, name, created, modified)
-values (sequence_nextval('rhn_feature_seq'), 'ftr_probes', 'Probes',
-        current_timestamp, current_timestamp);
-insert into rhnFeature (id, label, name, created, modified)
 values (sequence_nextval('rhn_feature_seq'), 'ftr_nonlinux_support', 'Non-Linux Support',
         current_timestamp, current_timestamp);
 insert into rhnFeature (id, label, name, created, modified)

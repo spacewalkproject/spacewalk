@@ -656,7 +656,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              The page you requested, https://rhn.redhat.com/index.pxt, was not found.
+              The page you requested, https://rhn.redhat.com/rhn/YourRhn.do, was not found.
           </context>
         </context-group>
         <target>没有找到您所要求的页 {0}。 </target>
@@ -673,7 +673,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              If you followed a link to reach 'https://rhn.redhat.com/index.pxt,' the
+              If you followed a link to reach 'https://rhn.redhat.com/rhn/YourRhn.do,' the
               link may be incorrect or outdated.
           </context>
         </context-group>
@@ -684,7 +684,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              If you used a bookmark to reach 'https://rhn.redhat.com/index.pxt,' the
+              If you used a bookmark to reach 'https://rhn.redhat.com/rhn/YourRhn.do,' the
               page may have moved
           </context>
         </context-group>
@@ -2814,7 +2814,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirm</context>
         </context-group>
-        <target>点击下面的 "确认" 按钮在下一次登录到 @@PRODUCT_NAME@@ 时恢复 &lt;a href="/network/systems/details/index.pxt?sid={3}"&gt;{0}&lt;/a&gt; 中列出的补丁。（上一次登录时间：&lt;b&gt;{1}&lt;/b&gt;；预期下一次检查时间：&lt;b&gt;{2}&lt;/b&gt;。）</target>
+        <target>点击下面的 "确认" 按钮在下一次登录到 @@PRODUCT_NAME@@ 时恢复 &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; 中列出的补丁。（上一次登录时间：&lt;b&gt;{1}&lt;/b&gt;；预期下一次检查时间：&lt;b&gt;{2}&lt;/b&gt;。）</target>
       </trans-unit>
       <trans-unit id="packagelist.confirmpatchsummary">
         <source>Click on the "confirm" button below to back out the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
@@ -2835,7 +2835,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirm</context>
         </context-group>
-        <target>点击下面的 "确认" 按钮在下一次登录到 @@PRODUCT_NAME@@ 时安装 &lt;a href="/network/systems/details/index.pxt?sid={3}"&gt;{0}&lt;/a&gt; 中列出的补丁。（上一次登录时间：&lt;b&gt;{1}&lt;/b&gt;；预期下一次检查时间：&lt;b&gt;{2}&lt;/b&gt;。）</target>
+        <target>点击下面的 "确认" 按钮在下一次登录到 @@PRODUCT_NAME@@ 时安装 &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; 中列出的补丁。（上一次登录时间：&lt;b&gt;{1}&lt;/b&gt;；预期下一次检查时间：&lt;b&gt;{2}&lt;/b&gt;。）</target>
       </trans-unit>
       <trans-unit id="packagelist.jsp.extrapackages">
         <source>Extra Packages</source>
@@ -5070,8 +5070,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>组</target>
         </trans-unit>
         <trans-unit id="ssm.overview.groups.create">
-          <source>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;Create&lt;/a&gt; and &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;manage&lt;/a&gt; groups</source>
-          <target>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;创建&lt;/a&gt; and &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;管理&lt;/a&gt; 组</target>
+          <source>&lt;a href="/rhn/groups/EditGroup.do"&gt;Create&lt;/a&gt; and &lt;a href="/rhn/systems/SystemGroupList.do"&gt;manage&lt;/a&gt; groups</source>
+          <target>&lt;a href="/rhn/groups/EditGroup.do"&gt;创建&lt;/a&gt; and &lt;a href="/rhn/systems/SystemGroupList.do"&gt;管理&lt;/a&gt; 组</target>
         </trans-unit>
         <trans-unit id="ssm.overview.channels">
           <source>Channels</source>
@@ -5113,17 +5113,13 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Patch Clusters</source>
           <target>补丁群集</target>
         </trans-unit>
-        <trans-unit id="ssm.overview.patch.clusters.install">
-          <source>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;Install&lt;/a&gt; patch clusters</source>
-          <target>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;安装&lt;/a&gt; 补丁群集</target>
-        </trans-unit>
         <trans-unit id="ssm.overview.provisioning.kickstart">
           <source>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; systems</source>
           <target>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; 系统</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.rollback">
-          <source>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</source>
-          <target>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;标签&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;快照&lt;/a&gt;</target>
+          <source>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Tag&lt;/a&gt; systems for &lt;a href="/rhn/systems/ssm/provisioning/Rollback.do"&gt;snapshot rollback&lt;/a&gt;</source>
+          <target>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;标签&lt;/a&gt; systems for &lt;a href="/rhn/systems/ssm/provisioning/Rollback.do"&gt;快照&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
@@ -5138,8 +5134,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>更新 &lt;a href="/rhn/systems/ssm/misc/Index.do#profiles"&gt;硬件/软件包侧写&lt;/a&gt; 和 &lt;a href="/rhn/systems/ssm/misc/Index.do#sysprefs"&gt;系统首选项&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.customvalues">
-          <source>&lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;Set&lt;/a&gt; and &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;remove&lt;/a&gt; custom values for selected systems</source>
-          <target>&lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;设置&lt;/a&gt; 和 &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;删除&lt;/a&gt;  所选系统的自定义值</target>
+          <source>&lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;Set and remove&lt;/a&gt; custom values for selected systems</source>
+          <target>&lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;设置 和 删除&lt;/a&gt;  所选系统的自定义值</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.entitlements">
           <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#entitle"&gt;Add or Remove&lt;/a&gt; Add-On Entitlements</source>
@@ -6683,7 +6679,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        <target>已经为 &lt;a href="/network/systems/details/index.pxt?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;调度&lt;/a&gt;了 {0} 软件包删除。</target>
+        <target>已经为 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;调度&lt;/a&gt;了 {0} 软件包删除。</target>
       </trans-unit>
       <trans-unit id="message.packageremovals">
         <source>{0} package removals have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -11834,11 +11830,11 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <target>查看所有系统组群</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.nogroups">
-        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;您没有系统组群。&lt;/strong&gt;&lt;p&gt;您可以通过 &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;系统 &gt; 系统集合管理者 &gt; 组群 &gt; 创建新组群&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt; 来创建一个新组群。</target>
+        <target>&lt;strong&gt;您没有系统组群。&lt;/strong&gt;&lt;p&gt;您可以通过 &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;系统 &gt; 系统集合管理者 &gt; 组群 &gt; 创建新组群&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt; 来创建一个新组群。</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.scheduledactions">
         <source>Recently Scheduled Actions</source>
@@ -19002,7 +18998,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>崩溃数总计</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastCrashReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>上次崩溃</target>
         </trans-unit>
         <trans-unit id="exportcolumn.crashCount">
@@ -19014,7 +19010,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>崩溃组件</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>上次崩溃</target>
         </trans-unit>
       </group>
@@ -19670,7 +19666,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>受影响的系统计数</target>
       </trans-unit>
       <trans-unit id="crashes.jsp.lastoccurence">
-        <source>Last Crash Occurence</source>
+        <source>Last Crash Occurrence</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SoftwareCrashesOverview.do</context>
         </context-group>

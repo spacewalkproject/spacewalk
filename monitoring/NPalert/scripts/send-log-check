@@ -1,6 +1,0 @@
-#!/bin/bash
-## REMOTE PROGRAM CHECK SCRIPT FOR MONITORING THE NOTIFICATION SUBSYSTEM
-
-NOTIFICATION_LOG_DIR=`/usr/bin/npConfigValue notification log_dir`
-/usr/bin/log-remote-check --expr 'Started Send' --lines 10000 --mins 15 --warn 1000 --crit 2000 $NOTIFICATION_LOG_DIR/notifier.log
-exit $?

@@ -25,8 +25,11 @@ from spacewalk.server.rhnHandler import rhnHandler
 from spacewalk.server import rhnLib
 from spacewalk.server import rhnSQL
 
+
 class Authentication(rhnHandler):
+
     """ Simple authentication based on hostname and configured slaves """
+
     def __init__(self):
         log_debug(3)
         rhnHandler.__init__(self)
@@ -41,10 +44,10 @@ class Authentication(rhnHandler):
             raise rhnFault(2005, _('ISS is disabled on this satellite.'))
 
         if not rhnSQL.fetchone_dict("select 1 from rhnISSSlave where slave = :hostname and enabled = 'Y'",
-            hostname = idn_puny_to_unicode(self.remote_hostname)):
+                                    hostname=idn_puny_to_unicode(self.remote_hostname)):
             raise rhnFault(2004,
-              _('Server "%s" is not enabled for ISS.')
-                % self.remote_hostname)
+                           _('Server "%s" is not enabled for ISS.')
+                           % self.remote_hostname)
         return self.remote_hostname
 
     def check(self, system_id_ignored):
@@ -79,19 +82,18 @@ class Authentication(rhnHandler):
         rhnServerTime = str(time.time())
         expireOffset = str(CFG.SATELLITE_AUTH_TIMEOUT)
         signature = rhnLib.computeSignature(CFG.SECRET_KEY,
-                                     self.remote_hostname,
-                                     rhnServerTime,
-                                     expireOffset)
+                                            self.remote_hostname,
+                                            rhnServerTime,
+                                            expireOffset)
 
         loginDict = {
-                'X-RHN-Server-Hostname'     : self.remote_hostname,
-                'X-RHN-Auth'                : signature,
-                'X-RHN-Auth-Server-Time'    : rhnServerTime,
-                'X-RHN-Auth-Expire-Offset'  : expireOffset,
-                }
+            'X-RHN-Server-Hostname': self.remote_hostname,
+            'X-RHN-Auth': signature,
+            'X-RHN-Auth-Server-Time': rhnServerTime,
+            'X-RHN-Auth-Expire-Offset': expireOffset,
+        }
 
         # XXX This request is not proxy-cacheable
         log_debug(5, "loginDict", loginDict)
 
         return loginDict
-

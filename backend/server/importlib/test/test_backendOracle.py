@@ -10,23 +10,23 @@ tabs = OracleBackend.tables
 utabs = {}
 
 # convert table names to uppercase
-for k,v  in tabs.iteritems():
-   utabs[k.upper()] = v
+for k, v in tabs.iteritems():
+    utabs[k.upper()] = v
 
 
 rhnSQL.initDB()
 h = rhnSQL.prepare("""select table_name, column_name, data_type, data_length
-	from user_tab_columns""")
+        from user_tab_columns""")
 h.execute()
 rows = h.fetchall_dict()
 
 # 'translate' oracle type to DBtypes
 ora2py = {
-	'NUMBER': 	'DBint',
-	'DATE': 	'DBdateTime',
-	'VARCHAR2': 	'DBstring',
-	'CHAR': 	'DBstring',
-	'BLOB': 	'DBblob',
+    'NUMBER':       'DBint',
+    'DATE':         'DBdateTime',
+    'VARCHAR2':     'DBstring',
+    'CHAR':         'DBstring',
+    'BLOB':         'DBblob',
 }
 
 for i in rows:
@@ -39,13 +39,11 @@ for i in rows:
 
             # check column type
             if not isinstance(t, eval(ora2py[i['data_type']])):
-                print "%s.%s:  %s vs. %s" % ( i['table_name'],
-                    i['column_name'], i['data_type'], t.__class__)
-            elif isinstance(t, DBstring) and t.limit <> i['data_length']:
+                print "%s.%s:  %s vs. %s" % (i['table_name'],
+                                             i['column_name'], i['data_type'], t.__class__)
+            elif isinstance(t, DBstring) and t.limit != i['data_length']:
                 # for VARCHAR2/DBstring check also size
                 print "%s.%s: DBstring(%d) vs. VARCHAR2(%s)" % (
-                     i['table_name'], i['column_name'], t.limit, i['data_length'])
+                    i['table_name'], i['column_name'], t.limit, i['data_length'])
             else:
-                print "%s.%s: OK" % ( i['table_name'], i['column_name'])
-
-
+                print "%s.%s: OK" % (i['table_name'], i['column_name'])

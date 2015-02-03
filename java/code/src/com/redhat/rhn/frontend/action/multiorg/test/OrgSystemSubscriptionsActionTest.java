@@ -36,14 +36,12 @@ public class OrgSystemSubscriptionsActionTest extends RhnPostMockStrutsTestCase 
         assertTrue(getActualForward().contains("oid=" + user.getOrg().getId()));
         assertNotNull(request.getAttribute("org"));
         assertNotNull(request.getAttribute(EntitlementManager.ENTERPRISE_ENTITLED));
-        assertNotNull(request.getAttribute(EntitlementManager.MONITORING_ENTITLED));
         assertNotNull(request.getAttribute(EntitlementManager.PROVISIONING_ENTITLED));
         assertNotNull(request.getAttribute(EntitlementManager.VIRTUALIZATION_ENTITLED));
         assertNotNull(request.getAttribute(EntitlementManager.
                 VIRTUALIZATION_PLATFORM_ENTITLED));
         DynaActionForm af = (DynaActionForm) getActionForm();
         assertNotNull(af.get(EntitlementManager.ENTERPRISE_ENTITLED));
-        assertNotNull(af.get(EntitlementManager.MONITORING_ENTITLED));
         assertNotNull(af.get(EntitlementManager.PROVISIONING_ENTITLED));
         assertNotNull(af.get(EntitlementManager.VIRTUALIZATION_ENTITLED));
     }
@@ -56,8 +54,6 @@ public class OrgSystemSubscriptionsActionTest extends RhnPostMockStrutsTestCase 
         addRequestParameter(RequestContext.ORG_ID, user.getOrg().getId().toString());
         addRequestParameter(EntitlementManager.ENTERPRISE_ENTITLED,
                 new Long(1).toString());
-        addRequestParameter(EntitlementManager.MONITORING_ENTITLED,
-                new Long(0).toString());
         addRequestParameter(EntitlementManager.PROVISIONING_ENTITLED,
                 new Long(0).toString());
         addRequestParameter(EntitlementManager.VIRTUALIZATION_ENTITLED,

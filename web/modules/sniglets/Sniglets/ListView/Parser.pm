@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package Sniglets::ListView::Parser;
@@ -48,8 +48,8 @@ sub parse {
     elsif ($xml_node->nodeName eq 'empty_list_message') {
       my @text_nodes = $xml_node->childNodes;
       if (@text_nodes != 1) {
-	warn "empty_list_message element must have exactly one child element: " . $xml_node->toString;
-	next;
+        warn "empty_list_message element must have exactly one child element: " . $xml_node->toString;
+        next;
       }
 
       $lv->empty_list_message($text_nodes[0]->getData);
@@ -58,7 +58,7 @@ sub parse {
       my $set_label = $xml_node->getAttribute('label');
       my $set_acl = $xml_node->getAttribute('acl');
       die "<set> child tag encountered in <rhn-listview> without label"
-	unless $set_label;
+        unless $set_label;
 
       $lv->set_label($set_label);
       $lv->set_acl($set_acl);
@@ -97,7 +97,7 @@ sub process_formvars {
     if ($type eq 'literal') {
       my @text_nodes = $var_node->childNodes;
       die "var section named '$formvar' should only have one child node."
-	unless (@text_nodes == 1);
+        unless (@text_nodes == 1);
 
       $formvar->value($text_nodes[0]->getData);
     }

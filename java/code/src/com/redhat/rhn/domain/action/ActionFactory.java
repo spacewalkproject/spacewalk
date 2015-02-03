@@ -39,9 +39,6 @@ import com.redhat.rhn.domain.action.scap.ScapAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
 import com.redhat.rhn.domain.action.server.ServerAction;
-import com.redhat.rhn.domain.action.solaris.SolarisPackagePatchClusterInstallAction;
-import com.redhat.rhn.domain.action.solaris.SolarisPackagePatchInstallAction;
-import com.redhat.rhn.domain.action.solaris.SolarisPackagePatchRemoveAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationDestroyAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationRebootAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationResumeAction;
@@ -328,9 +325,7 @@ public class ActionFactory extends HibernateFactory {
                 typeIn.equals(TYPE_PACKAGES_REMOVE) ||
                 typeIn.equals(TYPE_PACKAGES_RUNTRANSACTION) ||
                 typeIn.equals(TYPE_PACKAGES_UPDATE) ||
-                typeIn.equals(TYPE_PACKAGES_VERIFY) ||
-                typeIn.equals(TYPE_SOLARISPKGS_REMOVE) ||
-                typeIn.equals(TYPE_SOLARISPKGS_INSTALL)) {
+ typeIn.equals(TYPE_PACKAGES_VERIFY)) {
             retval = new PackageAction();
         }
         else if (typeIn.equals(TYPE_CONFIGFILES_MTIME_UPLOAD)) {
@@ -348,15 +343,6 @@ public class ActionFactory extends HibernateFactory {
         }
         else if (typeIn.equals(TYPE_DAEMON_CONFIG)) {
             retval = new DaemonConfigAction();
-        }
-        else if (typeIn.equals(TYPE_SOLARISPKGS_PATCHREMOVE)) {
-            retval = new SolarisPackagePatchRemoveAction();
-        }
-        else if (typeIn.equals(TYPE_SOLARISPKGS_PATCHINSTALL)) {
-            retval = new SolarisPackagePatchInstallAction();
-        }
-        else if (typeIn.equals(TYPE_SOLARISPKGS_PATCHCLUSTERINSTALL)) {
-            retval = new SolarisPackagePatchClusterInstallAction();
         }
         else if (typeIn.equals(TYPE_VIRTUALIZATION_SHUTDOWN)) {
             retval = new VirtualizationShutdownAction();
@@ -495,6 +481,19 @@ public class ActionFactory extends HibernateFactory {
         params.put("label", label);
         return (ActionType)
                 singleton.lookupObjectByNamedQuery("ActionType.findByLabel", params, true);
+    }
+
+    /**
+     * Helper method to get a ActionType by name
+     * @param name the Action to lookup
+     * @return Returns the ActionType corresponding to name
+     * @throws Exception
+     */
+    public static ActionType lookupActionTypeByName(String name) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("name", name);
+        return (ActionType) singleton.lookupObjectByNamedQuery("ActionType.findByName",
+                params, true);
     }
 
     /**
@@ -891,52 +890,10 @@ public class ActionFactory extends HibernateFactory {
             lookupActionTypeByLabel("configfiles.mtime_upload");
 
     /**
-     * The constant representing "Solaris Package Install" [ID:24]
-     */
-    public static final ActionType TYPE_SOLARISPKGS_INSTALL =
-            lookupActionTypeByLabel("solarispkgs.install");
-
-    /**
-     * The constant representing "Solaris Package Removal". [ID:25]
-     */
-    public static final ActionType TYPE_SOLARISPKGS_REMOVE =
-            lookupActionTypeByLabel("solarispkgs.remove");
-
-    /**
-     * The constant representing "Solaris Patch Install" [ID:26]
-     */
-    public static final ActionType TYPE_SOLARISPKGS_PATCHINSTALL =
-            lookupActionTypeByLabel("solarispkgs.patchInstall");
-
-    /**
-     * The constant representing "Solaris Patch Removal" [ID:27]
-     */
-    public static final ActionType TYPE_SOLARISPKGS_PATCHREMOVE =
-            lookupActionTypeByLabel("solarispkgs.patchRemove");
-
-    /**
-     * The constant representing "Solaris Patch Cluster Install" [ID:28]
-     */
-    public static final ActionType TYPE_SOLARISPKGS_PATCHCLUSTERINSTALL =
-            lookupActionTypeByLabel("solarispkgs.patchClusterInstall");
-
-    /**
-     * The constant representing "Solaris Patch Cluster Removal" [ID:29]
-     */
-    public static final ActionType TYPE_SOLARISPKGS_PATCHCLUSTERREMOVE =
-            lookupActionTypeByLabel("solarispkgs.patchClusterRemove");
-
-    /**
      * The constant representing "Run an arbitrary script".  [ID:30]
      */
     public static final ActionType TYPE_SCRIPT_RUN =
             lookupActionTypeByLabel("script.run");
-
-    /**
-     * The constant representing "Solaris Package List Refresh". [ID:31]
-     */
-    public static final ActionType TYPE_SOLARISPKGS_REFRESH_LIST =
-            lookupActionTypeByLabel("solarispkgs.refresh_list");
 
     /**
      * The constant representing "RHN Daemon Configuration".  [ID:32]

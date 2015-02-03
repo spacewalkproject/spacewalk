@@ -26,7 +26,9 @@ except ImportError:
     import md5
     import sha
     from Crypto.Hash import SHA256 as sha256
+
     class hashlib(object):
+
         @staticmethod
         def new(checksum):
             if checksum == 'md5':
@@ -38,6 +40,7 @@ except ImportError:
             else:
                 raise ValueError, "Incompatible checksum type"
 
+
 def getHashlibInstance(hash_type, used_for_security):
     """Get an instance of a hashlib object.
     """
@@ -45,6 +48,7 @@ def getHashlibInstance(hash_type, used_for_security):
         return hashlib.new(hash_type, usedforsecurity=used_for_security)
     else:
         return hashlib.new(hash_type)
+
 
 def getFileChecksum(hashtype, filename=None, fd=None, file_obj=None, buffer_size=None, used_for_security=False):
     """ Compute a file's checksum
@@ -79,6 +83,7 @@ def getFileChecksum(hashtype, filename=None, fd=None, file_obj=None, buffer_size
     else:
         f.close()
     return m.hexdigest()
+
 
 def getStringChecksum(hashtype, s):
     """ compute checksum of an arbitrary string """

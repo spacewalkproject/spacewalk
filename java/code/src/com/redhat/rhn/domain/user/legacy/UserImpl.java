@@ -84,9 +84,6 @@ public class UserImpl extends BaseDomainHelper implements User {
     // Keep track of whether the user used to be an org admin
     private Boolean wasOrgAdmin;
 
-    // Set of com.redhat.rhn.monitoring.notification.Method instances
-    private Set notificationMethods;
-
     /**
      * Create a new empty user
      */
@@ -711,20 +708,6 @@ public class UserImpl extends BaseDomainHelper implements User {
     /** {@inheritDoc} */
     public void setTimeZone(RhnTimeZone timeZoneIn) {
         this.userInfo.setTimeZone(timeZoneIn);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Set getNotificationMethods() {
-        return this.notificationMethods;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void setNotificationMethods(Set methodsIn) {
-        this.notificationMethods = methodsIn;
     }
 
 

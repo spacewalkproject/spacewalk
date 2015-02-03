@@ -125,7 +125,7 @@
                     <rl:column bound="false" sortable="true" sortattr="name" headerkey="systemsearch.jsp.systemname">
                         <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
                             <rhn:highlight tag="strong" text="${search_string}">
-                                ${current.serverName}
+                                <c:out value="${current.serverName}" escapeXml="true"/>
                             </rhn:highlight>
                         </a>
                     </rl:column>

@@ -19,12 +19,12 @@
   <rl:listset name="errata_list_set">
           <rhn:csrf />
 
-		  <rl:list
-					emptykey="channel.jsp.errata.listempty"
-					alphabarcolumn="advisory" >
+                  <rl:list
+                                        emptykey="channel.jsp.errata.listempty"
+                                        alphabarcolumn="advisory" >
 
-				<rl:decorator name="ElaborationDecorator"/>
-				<rl:decorator name="PageSizeDecorator"/>
+                                <rl:decorator name="ElaborationDecorator"/>
+                                <rl:decorator name="PageSizeDecorator"/>
 
 
                  <rl:column sortable="true"
@@ -62,12 +62,12 @@
                 </rl:column>
 
 
-			</rl:list>
+                        </rl:list>
 
-			<div class="text-right">
+                        <div class="text-right">
                         <hr />
-			<input class="btn btn-danger" type="submit" name="dispatch"  value="<bean:message key='channel.jsp.errata.confirmremove'/>">
-			</div>
+                        <input class="btn btn-danger" type="submit" name="dispatch"  value="<bean:message key='channel.jsp.errata.confirmremove'/>">
+                        </div>
      <rhn:submitted/>
      <input type="hidden" name="cid" value="${cid}">
 

@@ -153,5 +153,3 @@ def main(ctrl, opts, reloadchannels=True):
             for entry in info.getPathList():
                 print "", entry
         print
-
-# vim:ts=4:sw=4:et

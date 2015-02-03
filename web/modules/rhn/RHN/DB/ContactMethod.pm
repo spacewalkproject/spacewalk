@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::DB::ContactMethod;
@@ -212,7 +212,7 @@ sub commit {
     # adjust the query to update last_update_date
     $query =~ s/\((.*)\) VALUES \((.*)\)/\($1, last_update_date\) VALUES \($2, CURRENT_TIMESTAMP\)/;
   }
-  
+
   my $sth = $dbh->prepare($query);
 
   # build a list of method names for the modified fields
@@ -363,10 +363,10 @@ sub get_method_type_info {
 
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);
-SELECT recid as method_type_id, 
-       notification_format_id as method_format_id, 
+SELECT recid as method_type_id,
+       notification_format_id as method_format_id,
        (
-SELECT notification_format_id 
+SELECT notification_format_id
   FROM rhn_method_types
   WHERE method_type_name = :group_type
        ) AS group_format_id,
@@ -377,7 +377,7 @@ SELECT recid
    AND ack_completed = :ack_completed
        ) AS strategy_id
   FROM rhn_method_types
- WHERE method_type_name = :method_type              
+ WHERE method_type_name = :method_type
 EOQ
 
   $sth->execute_h(%query_params);
@@ -390,7 +390,7 @@ EOQ
            strategy_id => $strategy_id };
 }
 
-        
+
 1;
 
 
@@ -402,7 +402,7 @@ RHN::DB::ContactMethod - Notification Methods for alerts from monitoring
 =head1 SYNOPSIS
 
   use RHN::DB::ContactMethod;
-  
+
   <<INSERT SAMPLE CODE HERE>>
 
 =head1 DESCRIPTION

@@ -172,5 +172,3 @@ def main(ctrl, opts, policy = None):
             ctrl.commitTransactionStepped(trans, confirm=confirm)
         else:
             ctrl.commitTransaction(trans, confirm=confirm)
-
-# vim:ts=4:sw=4:et

@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.22
+Version: 2.3.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -448,6 +448,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # the cache
 %attr(755,apache,apache) %dir %{_var}/cache/rhn
+%attr(755,root,root) %dir %{_var}/cache/rhn/satsync
 # config files
 %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server.conf
 # main httpd config
@@ -649,6 +650,44 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Wed Jan 28 2015 Matej Kollar <mkollar@redhat.com> 2.3.33-1
+- 1005772 - Add appropriate(?) censorship
+
+* Thu Jan 22 2015 Matej Kollar <mkollar@redhat.com> 2.3.32-1
+- More pep8
+- Some more pep8 while we are at it
+
+* Wed Jan 21 2015 Matej Kollar <mkollar@redhat.com> 2.3.31-1
+- Old Pylint workaround
+- Fix Pylint on Fedora 21: manual fixes
+- Fix Pylint on Fedora 21: autopep8
+
+* Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.30-1
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of trailing spaces in Perl
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
+* Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.29-1
+- teach sat-sync to ignore monitoring entitlements for backwards compatibility
+
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.28-1
+- Remove solaris support from backend
+- drop monitoring code and monitoring schema
+
+* Mon Dec 08 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.27-1
+- 1170616 - create (and label) /var/cache/rhn/satsync
+
+* Tue Dec 02 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.25-1
+- 1021057 - fixed double-counting of systems subscribed to more than one
+  channel
+
+* Tue Nov 18 2014 Stephen Herr <sherr@redhat.com> 2.3.24-1
+- 1122626 - different registration paths should lock tables in the same order
+  This could potentially cause deadlocks
+
+* Thu Nov 13 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.23-1
+- 1150010 - deny read-only user from accessing XMLRPC API
+
 * Mon Nov 10 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.22-1
 - 1162107 - sanitize db_* config values
 

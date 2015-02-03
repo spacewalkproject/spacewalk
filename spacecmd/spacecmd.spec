@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.3
+Version:     2.3.14
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -67,6 +67,7 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 	spacewalk-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
 
 %files
+%defattr(-,root,root)
 %{_bindir}/spacecmd
 %{python_sitelib}/spacecmd/
 %ghost %config %{_sysconfdir}/spacecmd.conf
@@ -76,6 +77,50 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Jan 28 2015 Matej Kollar <mkollar@redhat.com> 2.3.14-1
+- Setting ts=4 is wrong
+
+* Mon Jan 26 2015 Matej Kollar <mkollar@redhat.com> 2.3.13-1
+- Forgotten substitution?
+- Fix Pylint on Fedora 21: manual fixes
+- Fix Pylint on Fedora 21: autopep8
+- 1180233 - More corner cases for errata summary printing
+- Let pep8 do its thing to clean up some code
+- spacecmd: added softwarechannel_errata functions
+- spacecmd: cleanup string handling
+- spacecmd: add defattr
+
+* Wed Jan 21 2015 Matej Kollar <mkollar@redhat.com> 2.3.12-1
+- Pylint fix for Fedora 21
+
+* Fri Jan 16 2015 Grant Gainey 2.3.11-1
+- fix configchannel export - do not create 'contents' key for directories
+
+* Fri Jan 16 2015 Grant Gainey 2.3.10-1
+- First custom_opts has no 'arguments' - protect against it
+- fix call of setCustomOptions()
+
+* Fri Jan 16 2015 Grant Gainey 2.3.9-1
+- Fix spacecmd schedule listing for negative deltas
+
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.8-1
+- spacecmd: fix listupgrades
+
+* Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.7-1
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
+* Fri Dec 05 2014 Stephen Herr <sherr@redhat.com> 2.3.6-1
+- Consider all kickstartable tree channels when listing distributions
+
+* Fri Nov 28 2014 Tomas Lestach <tlestach@redhat.com> 2.3.5-1
+- address pylint complains
+
+* Fri Nov 28 2014 Tomas Lestach <tlestach@redhat.com> 2.3.4-1
+- add new function kickstart_getsoftwaredetails
+- Added feature to get installed packageversion of a system or systems managed
+  by ssm to spacecmd. Usage: spacecmd system_show_packageversion <SYSTEM>
+  <PACKAGE>
+
 * Mon Nov 03 2014 Grant Gainey 2.3.3-1
 - 1111680 - Teach spacecmd report_errata to process all-errata in the absence
   of further args

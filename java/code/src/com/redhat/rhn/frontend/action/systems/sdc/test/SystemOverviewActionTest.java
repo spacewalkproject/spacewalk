@@ -106,11 +106,6 @@ public class SystemOverviewActionTest extends RhnMockStrutsTestCase {
         assertEquals(request.getAttribute("unentitled"), Boolean.FALSE);
     }
 
-    public void testNoProbes() throws Exception {
-        actionPerform();
-        assertEquals(request.getAttribute("probeListEmpty"), Boolean.TRUE);
-    }
-
     public void testLockSystem() throws Exception {
         request.addParameter("lock", "1");
         actionPerform();

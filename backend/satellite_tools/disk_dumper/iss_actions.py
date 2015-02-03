@@ -15,26 +15,28 @@
 
 import sys
 
+
 class ActionDeps:
+
     def __init__(self, options):
-        #self.step_precedence contains the dependencies among the export steps.
+        # self.step_precedence contains the dependencies among the export steps.
         self.step_precedence = {
-            'orgs'                      : [''],
-            'packages'                  : [''],
-            'source-packages'           : [''],
-            'errata'                    : [''],
-            'kickstarts'                : [''],
-            'rpms'                      : [''],
-#            'srpms'                     : ['channels'],
-            'channels'                  : ['channel-families'],
-            'channel-families'          : ['blacklists'],
-            'blacklists'                : ['arches'],
-            'short'                     : ['channels'],
-            'arches'                    : ['arches-extra'],
-            'arches-extra'              : [''],
+            'orgs': [''],
+            'packages': [''],
+            'source-packages': [''],
+            'errata': [''],
+            'kickstarts': [''],
+            'rpms': [''],
+            #            'srpms'                     : ['channels'],
+            'channels': ['channel-families'],
+            'channel-families': ['blacklists'],
+            'blacklists': ['arches'],
+            'short': ['channels'],
+            'arches': ['arches-extra'],
+            'arches-extra': [''],
         }
 
-        #self.step_hierarchy lists the export steps in the order they need to be run.
+        # self.step_hierarchy lists the export steps in the order they need to be run.
         self.step_hierarchy = [
             'orgs',
             'channel-families',
@@ -49,7 +51,7 @@ class ActionDeps:
             'kickstarts',
         ]
         self.options = options
-        self.action_dict = { 'blacklists' : 0 }
+        self.action_dict = {'blacklists': 0}
 
     def list_steps(self):
         print "LIST OF STEPS:"
@@ -57,29 +59,28 @@ class ActionDeps:
             print step
         sys.exit(0)
 
-
-    #Contains the logic for the --step option
+    # Contains the logic for the --step option
     def handle_step_option(self):
-        #If the user didn't use --step, set the last step to the end of self.step_hierarchy.
+        # If the user didn't use --step, set the last step to the end of self.step_hierarchy.
         if not self.options.step:
             self.options.step = self.step_hierarchy[-1]
 
-        #Make sure that the step entered by the user is actually a step.
+        # Make sure that the step entered by the user is actually a step.
         if self.options.step not in self.step_hierarchy:
             sys.stderr.write("Error: '%s' is not a valid step.\n" % self.options.step)
             sys.exit(-1)
 
-        #Turn on all of the steps up to the option set as self.options.step.
+        # Turn on all of the steps up to the option set as self.options.step.
         for step in self.step_hierarchy:
             self.action_dict[step] = 1
             if step == self.options.step:
                 break
 
-        #This will set the rest of the steps to 0.
+        # This will set the rest of the steps to 0.
         for step in self.step_hierarchy:
             self.action_dict[step] = self.action_dict.has_key(step)
 
-    #Handles the logic for the --no-rpms, --no-packages, --no-errata, --no-kickstarts, and --list-channels.
+    # Handles the logic for the --no-rpms, --no-packages, --no-errata, --no-kickstarts, and --list-channels.
     def handle_options(self):
 
         if self.options.list_steps:
@@ -106,13 +107,13 @@ class ActionDeps:
             self.action_dict['arches'] = 0
             self.action_dict['channel-families'] = 1
 
-    #This method uses self.step_precendence to figure out if a step needs to be turned off.
+    # This method uses self.step_precendence to figure out if a step needs to be turned off.
     def turn_off_dep_steps(self, step):
         for dependent in self.step_precedence[step]:
             if self.action_dict.has_key(dependent):
                 self.action_dict[dependent] = 0
 
-    #This method will call turn_off_dep_steps if the step is off or not present in self.action_dict.
+    # This method will call turn_off_dep_steps if the step is off or not present in self.action_dict.
     def handle_step_dependents(self):
         for step in self.step_hierarchy:
             if self.action_dict.has_key(step):
@@ -121,7 +122,7 @@ class ActionDeps:
             else:
                 self.turn_off_dep_steps(step)
 
-    #This will return the step_hierarchy and the action_dict.
+    # This will return the step_hierarchy and the action_dict.
     def get_actions(self):
         self.handle_step_option()
         self.handle_options()
@@ -133,5 +134,3 @@ if __name__ == "__main__":
     a = iss_ui.UI()
     b = ActionDeps(a)
     print b.get_actions()
-
-

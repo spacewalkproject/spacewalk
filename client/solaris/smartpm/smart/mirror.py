@@ -165,5 +165,3 @@ class MirrorItem(object):
         else:
             self._current = None
             return None
-
-# vim:ts=4:sw=4:et

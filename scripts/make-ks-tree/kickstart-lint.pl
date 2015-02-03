@@ -76,11 +76,11 @@ for my $path (@ARGV) {
       find(sub {$_ eq $filename and $found_in_lookaside = 1; }, $lookaside);
 
       if ($found_in_lookaside) {
-	printf "Found: %s (lookaside %s)\n", $File::Find::name, $lookaside
-	  if $verbose;
+        printf "Found: %s (lookaside %s)\n", $File::Find::name, $lookaside
+          if $verbose;
       }
       else {
-	print "Not found: $path\n";
+        print "Not found: $path\n";
       }
     }
     else {

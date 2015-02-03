@@ -26,7 +26,9 @@ import sys
 from types import ClassType
 from distutils.sysconfig import get_python_lib
 
+
 class GetMethodException(Exception):
+
     """Exception class"""
     pass
 
@@ -101,13 +103,13 @@ def getMethod(methodName, baseClass):
                 raise GetMethodException("Class %s has no attribute %s" % (
                     string.join(methodNameComps[:index], '.'), comp))
             className = getattr(className, comp)
-            #print type(className)
+            # print type(className)
             continue
         # A file or method
         # We look for the special __rhnexport__ array
         if not hasattr(className, '__rhnexport__'):
-            raise GetMethodException("Class %s is not RHN-compliant" % \
-                string.join(methodNameComps[:index], '.'))
+            raise GetMethodException("Class %s is not RHN-compliant" %
+                                     string.join(methodNameComps[:index], '.'))
         export = getattr(className, '__rhnexport__')
         if comp not in export:
             raise GetMethodException("Class %s does not export '%s'" % (
@@ -116,7 +118,7 @@ def getMethod(methodName, baseClass):
         if type(className) is ClassType:
             # Try to instantiate it
             className = className()
-        #print type(className)
+        # print type(className)
 
     return className
 
@@ -141,8 +143,7 @@ if __name__ == '__main__':
             method = getMethod(m, 'Actions')
         except GetMethodException, e:
             print "Error getting the method %s: %s" % (m,
-                string.join(map(str, e.args)))
+                                                       string.join(map(str, e.args)))
         else:
             method()
 #-----------------------------------------------------------------------------
-

@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<rhn-navi-tree label="filters" invisible="1" title-depth="1">
-  <rhn-tab name="Active Filters" url="/rhn/monitoring/config/notification/ActiveFilters.do"/>
-  <rhn-tab name="Expired Filters" url="/rhn/monitoring/config/notification/ExpiredFilters.do" />
-</rhn-navi-tree>

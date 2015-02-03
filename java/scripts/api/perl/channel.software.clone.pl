@@ -32,7 +32,7 @@ $map->{'summary'} = "SUMMARY";
 
 my $dmi = $client->call('channel.software.clone', $session, $org_label, $map, $client->boolean(1) );
 
- 
+
 
 
 

@@ -39,8 +39,8 @@ def cleanupAbsPath(path):
     if path is None:
         return None
     return os.path.abspath(
-             os.path.expanduser(
-               os.path.expandvars(path)))
+        os.path.expanduser(
+            os.path.expandvars(path)))
 
 
 def cleanupNormPath(path, dotYN=0):
@@ -53,8 +53,8 @@ def cleanupNormPath(path, dotYN=0):
     if path is None:
         return None
     path = os.path.normpath(
-             os.path.expanduser(
-               os.path.expandvars(path)))
+        os.path.expanduser(
+            os.path.expandvars(path)))
     if dotYN and not (path and path[0] == '/'):
         dirs = path.split('/')
         if dirs[:1] not in (['.'], ['..']):
@@ -84,14 +84,14 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
     if not filepath or type(filepath) != type(''):
         raise ValueError("filepath '%s' is not a valid arguement" % filepath)
     if type(depth) != type(0) or depth < -1 \
-      or depth > sys.maxint-1 or depth == 0:
+            or depth > sys.maxint - 1 or depth == 0:
         raise ValueError("depth must fall within range "
-                         "[-1, 1...%s]" % (sys.maxint-1))
+                         "[-1, 1...%s]" % (sys.maxint - 1))
 
     # force verbosity to be a numeric value
     verbosity = verbosity or 0
     if type(verbosity) != type(0) or verbosity < -1 \
-      or verbosity > sys.maxint-1:
+            or verbosity > sys.maxint - 1:
         raise ValueError('invalid verbosity value: %s' % (verbosity))
 
     filepath = cleanupAbsPath(filepath)
@@ -101,7 +101,6 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
     pathNSuffix = filepath + suffix
     pathNSuffix1 = pathNSuffix + '1'
 
-
     if verbosity > 1:
         sys.stderr.write("Working dir: %s\n"
                          % os.path.dirname(pathNSuffix))
@@ -109,9 +108,9 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
     # is there anything to do? (existence, then size, then checksum)
     checksum_type = 'sha1'
     if os.path.exists(pathNSuffix1) and os.path.isfile(pathNSuffix1) \
-      and os.stat(filepath)[6] == os.stat(pathNSuffix1)[6] \
-      and getFileChecksum(checksum_type, filepath) == \
-          getFileChecksum(checksum_type, pathNSuffix1):
+            and os.stat(filepath)[6] == os.stat(pathNSuffix1)[6] \
+            and getFileChecksum(checksum_type, filepath) == \
+            getFileChecksum(checksum_type, pathNSuffix1):
         # nothing to do
         if verbosity:
             sys.stderr.write("File '%s' is identical to its rotation. "
@@ -120,21 +119,21 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
 
     # find last in series (of rotations):
     last = 0
-    while os.path.exists('%s%d' % (pathNSuffix, last+1)):
-        last = last+1
+    while os.path.exists('%s%d' % (pathNSuffix, last + 1)):
+        last = last + 1
 
     # percolate renames:
     for i in range(last, 0, -1):
-        os.rename('%s%d' % (pathNSuffix, i), '%s%d' % (pathNSuffix, i+1))
+        os.rename('%s%d' % (pathNSuffix, i), '%s%d' % (pathNSuffix, i + 1))
         if verbosity > 1:
             filename = os.path.basename(pathNSuffix)
             sys.stderr.write("Moving file: %s%d --> %s%d\n" % (filename, i,
-                                                               filename, i+1))
+                                                               filename, i + 1))
 
     # blow away excess rotations:
     if depth != -1:
-        last = last+1
-        for i in range(depth+1, last+1):
+        last = last + 1
+        for i in range(depth + 1, last + 1):
             path = '%s%d' % (pathNSuffix, i)
             os.unlink(path)
             if verbosity:
@@ -171,15 +170,15 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
         cmd = map(str, cmd)
     # pylint: disable=E1101
     c = subprocess.Popen(cmd, bufsize=0, stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                close_fds=True, shell=(not cmd_is_list))
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                         close_fds=True, shell=(not cmd_is_list))
 
     # We don't write to the child process
     c.stdin.close()
 
     # Create two temporary streams to hold the info from stdout and stderr
-    child_out = tempfile.TemporaryFile(prefix = '/tmp/my-popen-', mode = 'r+b')
-    child_err = tempfile.TemporaryFile(prefix = '/tmp/my-popen-', mode = 'r+b')
+    child_out = tempfile.TemporaryFile(prefix='/tmp/my-popen-', mode='r+b')
+    child_err = tempfile.TemporaryFile(prefix='/tmp/my-popen-', mode='r+b')
 
     # Map the input file descriptor with the temporary (output) one
     fd_mappings = [(c.stdout, child_out), (c.stderr, child_err)]
@@ -230,6 +229,7 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
 
     return exitcode, child_out, child_err
 
+
 def makedirs(path,  mode=0755, user=None, group=None):
     "makedirs function that also changes the owners"
 
@@ -255,7 +255,7 @@ def makedirs(path,  mode=0755, user=None, group=None):
         try:
             os.mkdir(dirname, mode)
         except OSError, e:
-            if e.errno != 17: # File exists
+            if e.errno != 17:  # File exists
                 raise
             # Ignore the error
         try:
@@ -263,6 +263,7 @@ def makedirs(path,  mode=0755, user=None, group=None):
         except OSError:
             # Changing permissions failed; ignore the error
             sys.stderr.write("Changing owner for %s failed\n" % dirname)
+
 
 def createPath(path, user='apache', group='apache', chmod=0755):
     """advanced makedirs
@@ -311,7 +312,9 @@ def setPermsPath(path, user='apache', group='root', chmod=0750):
         os.chown(path, uid, gid)
     os.chmod(path, chmod)
 
+
 class GecosCache:
+
     "Cache getpwnam() and getgrnam() calls"
     __shared_data = {}
 
@@ -352,6 +355,7 @@ class GecosCache:
         self.__shared_data.clear()
         self.__init__()
 
+
 def getUidGid(user=None, group=None):
     "return uid, gid given user and group"
 
@@ -376,15 +380,17 @@ def getUidGid(user=None, group=None):
 # Duplicated in client/tools/rhncfg/config_common/file_utils.py to remove dependency
 # requirement. If making changes make them there too.
 FILETYPE2CHAR = {
-    'file'      : '-',
-    'directory' : 'd',
-    'symlink'   : 'l',
-    'chardev'   : 'c',
-    'blockdev'  : 'b',
+    'file': '-',
+    'directory': 'd',
+    'symlink': 'l',
+    'chardev': 'c',
+    'blockdev': 'b',
 }
 
 # Duplicated in client/tools/rhncfg/config_common/file_utils.py to remove dependency
 # requirement. If making changes make them there too.
+
+
 def _ifelse(cond, thenval, elseval):
     if cond:
         return thenval
@@ -393,6 +399,8 @@ def _ifelse(cond, thenval, elseval):
 
 # Duplicated in client/tools/rhncfg/config_common/file_utils.py to remove dependency
 # requirement. If making changes make them there too.
+
+
 def ostr_to_sym(octstr, ftype):
     """ Convert filemode in octets (like '644') to string like "ls -l" ("-rwxrw-rw-")
         ftype is one of: file, directory, symlink, chardev, blockdev.
@@ -420,16 +428,20 @@ def ostr_to_sym(octstr, ftype):
 
 # Duplicated in client/tools/rhncfg/config_common/file_utils.py to remove dependency
 # requirement. If making changes make them there too.
+
+
 def f_date(dbiDate):
     return "%04d-%02d-%02d %02d:%02d:%02d" % (dbiDate.year, dbiDate.month,
-        dbiDate.day, dbiDate.hour, dbiDate.minute, dbiDate.second)
+                                              dbiDate.day, dbiDate.hour, dbiDate.minute, dbiDate.second)
 
 
 class payload:
+
     """ this class implements simple file like object usable for reading payload
         from rpm, mpm, etc.
         it skips first 'skip' bytes of header
     """
+
     def __init__(self, filename, skip=0):
         self.fileobj = open(filename, 'r')
         self.skip = skip
@@ -458,6 +470,7 @@ class payload:
 
     def __getattr__(self, x):
         return getattr(self.fileobj, x)
+
 
 def decompress_open(filename, mode='r'):
     file_obj = None

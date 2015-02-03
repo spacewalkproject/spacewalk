@@ -16,18 +16,17 @@
 
 from wsgi import wsgiRequest
 
+
 def handle(environ, start_response, server, component_type, servertype="spacewalk.server.apacheServer"):
-    #wsgi seems to capitalize incoming headers and add HTTP- to the front :/
+    # wsgi seems to capitalize incoming headers and add HTTP- to the front :/
     # so we strip out the first 5 letters, and transform it into what we want.
-    replacements = {'_':'-', 'Rhn':'RHN', 'Md5Sum':'MD5sum', 'Xml':'XML', 'Actualuri': 'ActualURI'}
+    replacements = {'_': '-', 'Rhn': 'RHN', 'Md5Sum': 'MD5sum', 'Xml': 'XML', 'Actualuri': 'ActualURI'}
     for key in environ.keys():
         if key[:5] == "HTTP_":
             new_key = key[5:].title()
             for k, v in replacements.iteritems():
                 new_key = new_key.replace(k, v)
             environ[new_key] = environ[key]
-
-
 
     req = wsgiRequest.WsgiRequest(environ, start_response)
     req.set_option("SERVER", server)
@@ -50,7 +49,7 @@ def handle(environ, start_response, server, component_type, servertype="spacewal
     if not req.sent_header:
         req.send_http_header(status=ret)
 
-    #exporter doesn't have a logHandler
+    # exporter doesn't have a logHandler
     if servertype != 'spacewalk.satellite_exporter.satexport':
         logServ = get_handle(servertype, "LogHandler")
         logServ(req)
@@ -59,7 +58,7 @@ def handle(environ, start_response, server, component_type, servertype="spacewal
 
     return req.output
 
+
 def get_handle(servertype, name):
     handler_module = __import__(servertype, globals(), locals(), [servertype.split('.')[-1]])
     return getattr(handler_module, name)
-

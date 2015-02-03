@@ -38,22 +38,8 @@ rhnSGTypeBaseAddonCompat         :: data/rhnServerGroupType
 rhnSGTypeVirtSubLevel            :: lookup_virt_sub_level \
                                     data/rhnServerGroupType \
                                     data/rhnVirtSubLevel
-rhn_command                      :: data/rhn_command_groups \
-                                    data/rhn_command_class \
-                                    data/rhn_command_requirements
-rhn_command_parameter            :: data/rhn_semantic_data_type \
-                                    data/rhn_widget \
-                                    data/rhn_command \
-                                    data/rhn_semantic_data_type
-rhn_command_param_threshold      :: data/rhn_command \
-                                    data/rhn_metrics \
-                                    data/rhn_threshold_type
 rhn_config_parameter             :: data/rhn_config_group \
                                     data/rhn_config_security_type
-rhn_metrics                      :: data/rhn_command_class data/rhn_units
-rhn_os_commands_xref             :: data/rhn_command data/rhn_os
-rhn_schedules                    :: data/rhn_schedule_types
-rhn_units                        :: data/rhn_quanta
 rhnVersionInfo                   :: lookup_functions
 
 rhnArchTypeActions         :: data/rhnArchType data/rhnActionType
@@ -61,6 +47,4 @@ rhnKickstartTimezone       :: data/rhnKSInstallType
 rhnTaskoSchedule           :: rhnTaskoBunch
 rhnTaskoTemplate           :: rhnTaskoBunch rhnTaskoTask
 rhnTemplateString          :: data/rhnTemplateCategory
-rhn_schedule_days          :: data/rhn_schedules
-
 

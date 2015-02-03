@@ -656,7 +656,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              The page you requested, https://rhn.redhat.com/index.pxt, was not found.
+              The page you requested, https://rhn.redhat.com/rhn/YourRhn.do, was not found.
           </context>
         </context-group>
         <target>요청하신 {0} 페이지를 찾을 수 없습니다.</target>
@@ -673,7 +673,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              If you followed a link to reach 'https://rhn.redhat.com/index.pxt,' the
+              If you followed a link to reach 'https://rhn.redhat.com/rhn/YourRhn.do,' the
               link may be incorrect or outdated.
           </context>
         </context-group>
@@ -684,7 +684,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              If you used a bookmark to reach 'https://rhn.redhat.com/index.pxt,' the
+              If you used a bookmark to reach 'https://rhn.redhat.com/rhn/YourRhn.do,' the
               page may have moved
           </context>
         </context-group>
@@ -1868,7 +1868,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
-        <target>이 사용자는 마지막 조직 관리자로서 조직 관리자 역할에서	삭제할 수 없습니다. </target>
+        <target>이 사용자는 마지막 조직 관리자로서 조직 관리자 역할에서 삭제할 수 없습니다. </target>
       </trans-unit>
       <trans-unit id="satadmin.jsp.error.lastsatadmin">
         <source>The user {0} is the last @@PRODUCT_NAME@@ Administrator and cannot be removed from the @@PRODUCT_NAME@@ Administrator role.</source>
@@ -3687,7 +3687,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/AddPackagesConfirm.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{1}&lt;/strong&gt; 에라타에 	  &lt;strong&gt;{0}&lt;/strong&gt; 패키지가 추가되었습니다.</target>
+        <target>&lt;strong&gt;{1}&lt;/strong&gt; 에라타에         &lt;strong&gt;{0}&lt;/strong&gt; 패키지가 추가되었습니다.</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.add.success.singular">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; package added to errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3696,7 +3696,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/AddPackagesConfirm.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{1}&lt;/strong&gt; 에라타에 	  &lt;strong&gt;{0}&lt;/strong&gt; 패키지가 추가되었습니다.</target>
+        <target>&lt;strong&gt;{1}&lt;/strong&gt; 에라타에         &lt;strong&gt;{0}&lt;/strong&gt; 패키지가 추가되었습니다.</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.remove.success.plural">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; packages removed from errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3705,7 +3705,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{1}&lt;/strong&gt; 에라타에서 	  &lt;strong&gt;{0}&lt;/strong&gt; 패키지가 삭제되었습니다.</target>
+        <target>&lt;strong&gt;{1}&lt;/strong&gt; 에라타에서       &lt;strong&gt;{0}&lt;/strong&gt; 패키지가 삭제되었습니다.</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.remove.success.singular">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; package removed from errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3714,7 +3714,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{1}&lt;/strong&gt; 에라타에서 	  &lt;strong&gt;{0}&lt;/strong&gt; 패키지가 삭제되었습니다.</target>
+        <target>&lt;strong&gt;{1}&lt;/strong&gt; 에라타에서       &lt;strong&gt;{0}&lt;/strong&gt; 패키지가 삭제되었습니다.</target>
       </trans-unit>
       <trans-unit id="errata.overview.jsp.summary">
         <source>The following errata apply to at least one system to which you have administrative access.</source>
@@ -5069,8 +5069,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>그룹 </target>
         </trans-unit>
         <trans-unit id="ssm.overview.groups.create">
-          <source>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;Create&lt;/a&gt; and &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;manage&lt;/a&gt; groups</source>
-          <target>그룹 &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;생성&lt;/a&gt; 및 &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;관리&lt;/a&gt;  </target>
+          <source>&lt;a href="/rhn/groups/EditGroup.do"&gt;Create&lt;/a&gt; and &lt;a href="/rhn/systems/SystemGroupList.do"&gt;manage&lt;/a&gt; groups</source>
+          <target>그룹 &lt;a href="/rhn/groups/EditGroup.do"&gt;생성&lt;/a&gt; 및 &lt;a href="/rhn/systems/SystemGroupList.do"&gt;관리&lt;/a&gt;  </target>
         </trans-unit>
         <trans-unit id="ssm.overview.channels">
           <source>Channels</source>
@@ -5112,17 +5112,13 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Patch Clusters</source>
           <target>패치 클러스터 </target>
         </trans-unit>
-        <trans-unit id="ssm.overview.patch.clusters.install">
-          <source>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;Install&lt;/a&gt; patch clusters</source>
-          <target>패치 클러스터 &lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;설치&lt;/a&gt;</target>
-        </trans-unit>
         <trans-unit id="ssm.overview.provisioning.kickstart">
           <source>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; systems</source>
           <target>시스템 &lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;킥스타트&lt;/a&gt; </target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.rollback">
-          <source>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</source>
-          <target>&lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;스냅샷 롤백&lt;/a&gt; 용 시스템을 &lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;태그&lt;/a&gt;</target>
+          <source>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Tag&lt;/a&gt; systems for &lt;a href="/rhn/systems/ssm/provisioning/Rollback.do"&gt;snapshot rollback&lt;/a&gt;</source>
+          <target>&lt;a href="/rhn/systems/ssm/provisioning/Rollback.do"&gt;스냅샷 롤백&lt;/a&gt; 용 시스템을 &lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;태그&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
@@ -5137,8 +5133,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>&lt;a href="/rhn/systems/ssm/misc/Index.do#profiles"&gt;하드웨어/패키지 프로파일&lt;/a&gt; 및 &lt;a href="/rhn/systems/ssm/misc/Index.do#sysprefs"&gt;시스템 설정&lt;/a&gt; 업데이트 </target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.customvalues">
-          <source>&lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;Set&lt;/a&gt; and &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;remove&lt;/a&gt; custom values for selected systems</source>
-          <target>선택한 시스템의 사용자 정의 값 &lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;설정&lt;/a&gt; 및 &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;삭제&lt;/a&gt;</target>
+          <source>&lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;Set and remove&lt;/a&gt; custom values for selected systems</source>
+          <target>선택한 시스템의 사용자 정의 값 &lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;설정 및 삭제&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.entitlements">
           <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#entitle"&gt;Add or Remove&lt;/a&gt; Add-On Entitlements</source>
@@ -6971,7 +6967,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
         </context-group>
-        <target>이 시스템에서 프로브가 &lt;strong&gt;영구히&lt;/strong&gt; 삭제될 것이며, 	 데이터베이스에서 이 프로브와 관련된 모든 시간 시리즈와 상태 변경 정보가 삭제될 것입니다.</target>
+        <target>이 시스템에서 프로브가 &lt;strong&gt;영구히&lt;/strong&gt; 삭제될 것이며,        데이터베이스에서 이 프로브와 관련된 모든 시간 시리즈와 상태 변경 정보가 삭제될 것입니다.</target>
       </trans-unit>
       <trans-unit id="probdelete.jsp.p2">
         <source>If you are uncertain about performing this action, please &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt;review the details&lt;/a&gt; for this probe.</source>
@@ -7758,9 +7754,9 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/admin/multiorg/SatRoleConfirm</context>
         </context-group>
-        <target>정말로 귀하의 로그인에서 "@@PRODUCT_NAME@@ 관리자" 역할을 삭제하시겠습니까? 
+        <target>정말로 귀하의 로그인에서 "@@PRODUCT_NAME@@ 관리자" 역할을 삭제하시겠습니까?
 삭제할 경우 이 역할을 다시 얻으려면 다른 satellite 관리자에게 문의하셔야 합니다.
-로그인에서 이 역할을 제거하면 @@PRODUCT_NAME@@ 설정 도구 및 조직 관리 도구로 
+로그인에서 이 역할을 제거하면 @@PRODUCT_NAME@@ 설정 도구 및 조직 관리 도구로
 더이상 액세스할 수 없게 됩니다.
 </target>
       </trans-unit>
@@ -9023,11 +9019,11 @@ organization.
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
         <target>조직은 @@PRODUCT_NAME@@을 사용하여 관리하는 모든 것 즉 일련의 시스템,
-시스템 그룹, 소프트웨어 채널, 서브스크립션, 인타이틀먼트, 킥스타트 프로파일, 활성키, 
-설정 채널 및 파일, 사용자 등을 구분하는데 사용됩니다. 각 조직은 최소 하나의 
-조직 관리자에 의해 관리되고 전체 @@PRODUCT_NAME@@은 @@PRODUCT_NAME@@ 관리자에 
-의해 관리됩니다. 여러 조직을 갖는 하나의 @@PRODUCT_NAME@@에 있는 조직은 
-하나의 조직을 갖는 여러 @@PRODUCT_NAME@@에 있는 
+시스템 그룹, 소프트웨어 채널, 서브스크립션, 인타이틀먼트, 킥스타트 프로파일, 활성키,
+설정 채널 및 파일, 사용자 등을 구분하는데 사용됩니다. 각 조직은 최소 하나의
+조직 관리자에 의해 관리되고 전체 @@PRODUCT_NAME@@은 @@PRODUCT_NAME@@ 관리자에
+의해 관리됩니다. 여러 조직을 갖는 하나의 @@PRODUCT_NAME@@에 있는 조직은
+하나의 조직을 갖는 여러 @@PRODUCT_NAME@@에 있는
 조직과 유사하게 작동합니다.
 </target>
       </trans-unit>
@@ -11831,11 +11827,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>전체 시스템 그룹 보기</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.nogroups">
-        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;시스템 그룹이 없습니다.&lt;/strong&gt;&lt;p&gt;&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt; 시스템 &gt; 시스템 세트 관리자 &gt; 그룹 &gt; 새로운 그룹 생성 &lt;/strong&gt;&lt;/a&gt; 에서 시스템 그룹을 생성하실 수 있습니다.&lt;/p&gt;</target>
+        <target>&lt;strong&gt;시스템 그룹이 없습니다.&lt;/strong&gt;&lt;p&gt;&lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt; 시스템 &gt; 시스템 세트 관리자 &gt; 그룹 &gt; 새로운 그룹 생성 &lt;/strong&gt;&lt;/a&gt; 에서 시스템 그룹을 생성하실 수 있습니다.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.scheduledactions">
         <source>Recently Scheduled Actions</source>
@@ -18996,7 +18992,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>총 충돌 수</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastCrashReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>마지막 충돌 발생</target>
         </trans-unit>
         <trans-unit id="exportcolumn.crashCount">
@@ -19008,7 +19004,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>충돌 구성 요소 </target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>마지막 충돌 발생</target>
         </trans-unit>
       </group>
@@ -19664,7 +19660,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>영향을 받은 시스템 수 </target>
       </trans-unit>
       <trans-unit id="crashes.jsp.lastoccurence">
-        <source>Last Crash Occurence</source>
+        <source>Last Crash Occurrence</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SoftwareCrashesOverview.do</context>
         </context-group>
@@ -21384,7 +21380,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
         <target>
           아래에서 체크 표시가된 조직은 {0} 조직의 신뢰할 수 있는 조직입니다. 이는 이 두 조직 사이에서
-          컨텐트 공유 및 시스템 전환이 가능하다는 것을 의미합니다. 신뢰할 수 있는 조직을 추가하려면 
+          컨텐트 공유 및 시스템 전환이 가능하다는 것을 의미합니다. 신뢰할 수 있는 조직을 추가하려면
           조직 옆에 있는 체크 상자에 표시하고 (또는 체크 표시를 해제하여 신뢰하는 조직을 제거) "신뢰 상태 수정" 버튼을 클릭합니다.</target>
       </trans-unit>
       <trans-unit id="org.trust.confirm.summary">
@@ -21400,10 +21396,10 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
         <target>
-정말로 아래에 나열된 신뢰 조직을 삭제하시겠습니까? 삭제하려고 하는 신뢰 조직에 의해 
-제공된 컨텐트에 등록된  {0} 조직에 시스템이 있습니다. 이는 시스템에 나쁜 영향을 
-미칠 수 있습니다. 예를 들어, 이러한 시스템은 신뢰를 통해 제공되는 컨텐트에 대한 
-보안 업데이트를 더 이상 받지 못 할 수 있습니다. 
+정말로 아래에 나열된 신뢰 조직을 삭제하시겠습니까? 삭제하려고 하는 신뢰 조직에 의해
+제공된 컨텐트에 등록된  {0} 조직에 시스템이 있습니다. 이는 시스템에 나쁜 영향을
+미칠 수 있습니다. 예를 들어, 이러한 시스템은 신뢰를 통해 제공되는 컨텐트에 대한
+보안 업데이트를 더 이상 받지 못 할 수 있습니다.
             &lt;p/&gt;
 신뢰 상태를 삭제하기 전 변경 사항을 확인하십시오.</target>
       </trans-unit>
@@ -21418,8 +21414,8 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
         <target>
-&lt;b&gt;{0}&lt;/b&gt; 조직과 &lt;b&gt;{1}&lt;/b&gt; 조직 간의 신뢰 관계를 제거하면 다음에 나열된 
-시스템에 영향을 줍니다. 이러한 신뢰 관계를 제거하면 이러한 시스템에 나쁜 영향을 줍니다. 
+&lt;b&gt;{0}&lt;/b&gt; 조직과 &lt;b&gt;{1}&lt;/b&gt; 조직 간의 신뢰 관계를 제거하면 다음에 나열된
+시스템에 영향을 줍니다. 이러한 신뢰 관계를 제거하면 이러한 시스템에 나쁜 영향을 줍니다.
 예를 들어 이러한 시스템은 신뢰를 통해 제공되는 컨텐트의 보안 업데이트를 더 이상 받지 못 할 수 있습니다.</target>
       </trans-unit>
       <trans-unit id="org.trust.org">
@@ -22882,11 +22878,11 @@ sha1은 클라이언트와의 폭넓은 호환성을 제공합니다. sha-256은
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>정말로 이 채널을 삭제하시겠습니까? 채널에 있는 패키지는 채널에서 삭제되지만 
-서버에 남아 있게 됩니다. 채널 삭제 후 패키지를 삭제하는 옵션을 선택할 수 있습니다. 
-채널 관련 에라타는 더 이상 채널에 연결되지 않고 분리될 수 있습니다. 
-채널이 자식 채널을 갖는 경우 이는 삭제할 수 없습니다. 자식 채널을 먼저 
-삭제해야 합니다. 채널에 킥스타트 배포판이 있는 경우 이를 삭제할 수 없습니다. 
+        <target>정말로 이 채널을 삭제하시겠습니까? 채널에 있는 패키지는 채널에서 삭제되지만
+서버에 남아 있게 됩니다. 채널 삭제 후 패키지를 삭제하는 옵션을 선택할 수 있습니다.
+채널 관련 에라타는 더 이상 채널에 연결되지 않고 분리될 수 있습니다.
+채널이 자식 채널을 갖는 경우 이는 삭제할 수 없습니다. 자식 채널을 먼저
+삭제해야 합니다. 채널에 킥스타트 배포판이 있는 경우 이를 삭제할 수 없습니다.
 킥스타트 배포판을 채널에서 연결 해제하거나 이를 먼저 삭제해야 합니다.</target>
       </trans-unit>
       <trans-unit id="channel.delete.jsp.arch">
@@ -22949,7 +22945,7 @@ sha1은 클라이언트와의 폭넓은 호환성을 제공합니다. sha-256은
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>{0} 채널에 등록된 모든 신뢰할 수 있는 조직 시스템을 등록 취소합니다. 
+        <target>{0} 채널에 등록된 모든 신뢰할 수 있는 조직 시스템을 등록 취소합니다.
 등록된 시스템은 이 채널에 지정된 패키지로 액세스할 수 없게 됩니다.</target>
       </trans-unit>
       <trans-unit id="generic.jsp.none">
@@ -22979,7 +22975,7 @@ sha1은 클라이언트와의 폭넓은 호환성을 제공합니다. sha-256은
         <target>이 페이지에서 소프트웨어 채널을 생성하거나 편집합니다.        &lt;p/&gt;
 부모 채널이 '없음'으로 설정되어 있는 경우 채널은 기본 채널이 됩니다.
 그렇제 않으면 채널은 지정된 채널의 자식 채널이 됩니다.       &lt;p/&gt; 채널 이름과 레이블이 필요합니다. 채널 이름과 레이블은 각각 최소 6 자 이상이
-되어야 합니다. 레이블은 문자로 시작해야 하며, 소문자, 하이픈 ('-'), 마침표 ('.'), 
+되어야 합니다. 레이블은 문자로 시작해야 하며, 소문자, 하이픈 ('-'), 마침표 ('.'),
 밑줄 ('_'), 숫자로만 지정할 수 있습니다. 채널 이름에는 공백과 슬래시 ('/')도 지정할 수 있습니다.
         &lt;p/&gt;
 채널 요약도 필요합니다. </target>

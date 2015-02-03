@@ -11,22 +11,22 @@
 
 <body onLoad="onLoadStuff(3); showAllRows();">
 <rhn:toolbar base="h1" icon="header-channel" imgAlt="channels.jsp.alt">
-	${requestScope.familyName}
+        ${requestScope.familyName}
 </rhn:toolbar>
 
 <p>
-	<bean:message key="entitlements.tree.description1" arg0="${requestScope.familyName}" />
+        <bean:message key="entitlements.tree.description1" arg0="${requestScope.familyName}" />
 </p>
 
 <p>
-	<bean:message key="entitlements.tree.description2" />
+        <bean:message key="entitlements.tree.description2" />
 </p>
 
 <form method="post" name="rhn_list" action="/rhn/software/channels/ChannelFamilyTree.do">
     <rhn:csrf />
     <rhn:submitted />
-	<input type="hidden" name="cfid" value="${cfid}">
-	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>
+        <input type="hidden" name="cfid" value="${cfid}">
+        <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>
 </form>
 
 </body>

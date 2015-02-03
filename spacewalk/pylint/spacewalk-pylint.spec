@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.3.1
+Version:	2.3.2
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -67,6 +67,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 2.3.2-1
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
 * Fri Aug 01 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.1-1
 - disable reporting cyclic imports
 

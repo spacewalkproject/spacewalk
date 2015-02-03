@@ -28,6 +28,7 @@ _query_action_script = rhnSQL.Statement("""
      where action_id = :action_id
 """)
 
+
 def run(server_id, action_id, dry_run=0):
     log_debug(3, dry_run)
 
@@ -45,6 +46,5 @@ def run(server_id, action_id, dry_run=0):
         data['script'] = rhnSQL.read_lob(info['script']) or ''
         # used to make the resulting times make some sense in the db
         data['now'] = info['now']
-
 
     return action_id, data

@@ -16,27 +16,30 @@
 import os
 import pwd
 
+
 def get_home_dir():
     userid = os.getuid()
     info = pwd.getpwuid(userid)
     return info[5]
 
-#If Object1 and Object2 have any common attributes, set the attribute in Object1
-#to the value of the attribute in Object2. Does not make functions or variables starting with '_' equivalent.
+# If Object1 and Object2 have any common attributes, set the attribute in Object1
+# to the value of the attribute in Object2. Does not make functions or variables starting with '_' equivalent.
+
+
 def make_common_attr_equal(object1, object2):
 
-    #Go through every attribute in object1
+    # Go through every attribute in object1
     for attr in object1.__dict__.keys():
 
-        #Make sure that the attribute name doesn't begin with "_"
+        # Make sure that the attribute name doesn't begin with "_"
         if len(attr) < 1 or attr[0] == "_":
             continue
 
-        #Make sure that object2 has the attribute as well. and that it's not equal to ''.
+        # Make sure that object2 has the attribute as well. and that it's not equal to ''.
         if not object2.__dict__.has_key(attr) or object2.__dict__[attr] == '':
             continue
 
-        #Make sure the attributes are the same type OR that the attribute in object1 is None.
+        # Make sure the attributes are the same type OR that the attribute in object1 is None.
         if type(object1.__dict__[attr]) == type(object2.__dict__[attr]) or type(object1.__dict__[attr]) == type(None):
             if object1.__dict__[attr] != object2.__dict__[attr]:
                 object1.__dict__[attr] = object2.__dict__[attr]
@@ -49,6 +52,8 @@ def make_common_attr_equal(object1, object2):
 
 # Pylint is too stupid to understand subclasses of tuples apparently.
 # This is just to make it shut up.
+
+
 def tupleify_urlparse(urlparse_object):
     if hasattr(urlparse_object, 'scheme'):
         scheme = urlparse_object.scheme
@@ -68,13 +73,15 @@ def tupleify_urlparse(urlparse_object):
     return scheme, netloc, path, params, query, fragment
 
 if __name__ == "__main__":
-#This is just for testing purposes.
-# pylint: disable=R0903
+    # This is just for testing purposes.
+    # pylint: disable=R0903
     class class1:
+
         def __init__(self):
             self.a = "aaaa"
 
     class class2:
+
         def __init__(self):
             self.a = 1
 

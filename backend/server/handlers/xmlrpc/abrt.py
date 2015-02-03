@@ -111,7 +111,9 @@ select crashfile_upload_enabled
  where org_id = :org_id
 """
 
+
 class Abrt(rhnHandler):
+
     def __init__(self):
         rhnHandler.__init__(self)
         self.functions.append('create_crash')
@@ -133,7 +135,7 @@ class Abrt(rhnHandler):
 
     def _get_crash_id(self, server_id, crash):
         h = rhnSQL.prepare(_query_get_crash)
-        h.execute(server_id = self.server_id, crash = crash)
+        h.execute(server_id=self.server_id, crash=crash)
         r = h.fetchall_dict()
 
         if (r is None):
@@ -155,11 +157,11 @@ class Abrt(rhnHandler):
 
             h = rhnSQL.prepare(_query_update_pkg_data1)
             r = h.execute(
-                crash_id = crash_id,
-                pkg_name = n,
-                pkg_epoch = e,
-                pkg_version = v,
-                pkg_release = r)
+                crash_id=crash_id,
+                pkg_name=n,
+                pkg_epoch=e,
+                pkg_version=v,
+                pkg_release=r)
             rhnSQL.commit()
 
             return r
@@ -170,36 +172,36 @@ class Abrt(rhnHandler):
 
         h = rhnSQL.prepare(_query_update_pkg_data2)
         r = h.execute(
-            crash_id = crash_id,
-            pkg_name = pkg_data['pkg_name'],
-            pkg_epoch = pkg_data['pkg_epoch'],
-            pkg_version = pkg_data['pkg_version'],
-            pkg_release = pkg_data['pkg_release'],
-            pkg_arch = pkg_data['pkg_arch'])
+            crash_id=crash_id,
+            pkg_name=pkg_data['pkg_name'],
+            pkg_epoch=pkg_data['pkg_epoch'],
+            pkg_version=pkg_data['pkg_version'],
+            pkg_release=pkg_data['pkg_release'],
+            pkg_arch=pkg_data['pkg_arch'])
         rhnSQL.commit()
 
         return r
 
     def _get_crashfile_sizelimit(self):
         h = rhnSQL.prepare(_query_get_crashfile_sizelimit)
-        h.execute(org_id = self.server.server['org_id'])
+        h.execute(org_id=self.server.server['org_id'])
         return h.fetchall_dict()[0]['crash_file_sizelimit']
 
     def _set_crashfile_upload_flag(self, server_id, crash_id, filename, path, filesize):
         h = rhnSQL.prepare(_query_set_crashfile_upload_flag)
         r = h.execute(
-            server_id = server_id,
-            crash_id = crash_id,
-            filename = filename,
-            path = path,
-            filesize = filesize)
+            server_id=server_id,
+            crash_id=crash_id,
+            filename=filename,
+            path=path,
+            filesize=filesize)
         rhnSQL.commit()
 
         return r
 
     def _is_crash_reporting_enabled(self, org_id):
         h = rhnSQL.prepare(_query_get_crash_reporting_settings)
-        h.execute(org_id = org_id)
+        h.execute(org_id=org_id)
         r = h.fetchall_dict()
 
         if (r[0]['crash_reporting_enabled'] == 'Y'):
@@ -209,7 +211,7 @@ class Abrt(rhnHandler):
 
     def _is_crashfile_uploading_enabled(self, org_id):
         h = rhnSQL.prepare(_query_get_crashfile_upload_settings)
-        h.execute(org_id = org_id)
+        h.execute(org_id=org_id)
         r = h.fetchall_dict()
 
         if (r[0]['crashfile_upload_enabled'] == 'Y'):
@@ -248,11 +250,11 @@ class Abrt(rhnHandler):
 
             h = rhnSQL.prepare(_query_create_crash)
             h.execute(
-                server_id = self.server_id,
-                crash = crash_data['crash'],
-                path = crash_data['path'],
-                crash_count = crash_data['count'],
-                storage_path = server_crash_dir)
+                server_id=self.server_id,
+                crash=crash_data['crash'],
+                path=crash_data['path'],
+                crash_count=crash_data['count'],
+                storage_path=server_crash_dir)
             rhnSQL.commit()
             self._update_package_data(self._get_crash_id(self.server_id, crash_data['crash']), pkg_data)
             return 1
@@ -295,7 +297,7 @@ class Abrt(rhnHandler):
             raise rhnFault(5005, "Invalid crash name: %s" % crash)
 
         # Create or update the crash file record in DB
-        self._create_or_update_crash_file(self.server_id, crash_id, crash_file['filename'], \
+        self._create_or_update_crash_file(self.server_id, crash_id, crash_file['filename'],
                                           crash_file['path'], crash_file['filesize'])
         rhnSQL.commit()
 
@@ -309,8 +311,8 @@ class Abrt(rhnHandler):
         if (claimed_filesize > sizelimit or filesize > sizelimit) and sizelimit != 0:
             if filesize == 0:
                 filesize = claimed_filesize
-            log_debug(1, "The file [%s] size (%s bytes) is more than allowed (%s bytes), skipping." \
-                % (crash_file['path'], filesize, sizelimit))
+            log_debug(1, "The file [%s] size (%s bytes) is more than allowed (%s bytes), skipping."
+                      % (crash_file['path'], filesize, sizelimit))
             return 0
         absolute_dir = os.path.join(CFG.MOUNT_POINT, server_crash_dir)
         absolute_file = os.path.join(absolute_dir, crash_file['filename'])
@@ -327,7 +329,7 @@ class Abrt(rhnHandler):
         f.write(filecontent)
         f.close()
 
-        self._set_crashfile_upload_flag(self.server_id, crash_id, crash_file['filename'], \
+        self._set_crashfile_upload_flag(self.server_id, crash_id, crash_file['filename'],
                                         crash_file['path'], crash_file['filesize'])
 
         if crash_file['filename'] in self.watched_items:
@@ -336,7 +338,7 @@ class Abrt(rhnHandler):
                 filecontent = filecontent.strip()
             st = rhnSQL.Statement(_query_update_watched_items % crash_file['filename'])
             h = rhnSQL.prepare(st)
-            h.execute(filecontent = filecontent, crash_id = crash_id)
+            h.execute(filecontent=filecontent, crash_id=crash_id)
             rhnSQL.commit()
 
         return 1
@@ -354,9 +356,9 @@ class Abrt(rhnHandler):
 
         h = rhnSQL.prepare(_query_update_crash_count)
         r = h.execute(
-            crash_count = crash_count,
-            server_id = self.server_id,
-            crash = crash)
+            crash_count=crash_count,
+            server_id=self.server_id,
+            crash=crash)
         rhnSQL.commit()
 
         if r == 0:

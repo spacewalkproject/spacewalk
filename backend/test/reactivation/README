@@ -1,4 +1,4 @@
 2004/05/20 jjb@redhat.com
-Currently this directory contains test scripts for bug 122534. 
+Currently this directory contains test scripts for bug 122534.
 Please read the comments in reactivationTest.py for instructions on how to run
 the test.

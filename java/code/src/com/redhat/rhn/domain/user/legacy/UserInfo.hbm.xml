@@ -22,9 +22,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="csvSeparator" column="csv_separator" type="char" />
 
         <many-to-one name="timeZone" column="timezone_id"
-			class="com.redhat.rhn.domain.user.RhnTimeZone" cascade="none" />
+                        class="com.redhat.rhn.domain.user.RhnTimeZone" cascade="none" />
 
-		<one-to-one name="user"
+                <one-to-one name="user"
                     class="com.redhat.rhn.domain.user.legacy.UserImpl"
                     constrained="true" />
     </class>

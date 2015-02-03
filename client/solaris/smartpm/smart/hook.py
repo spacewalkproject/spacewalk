@@ -56,5 +56,3 @@ class Hooks:
                     if val == -1:
                         break
         return ret
-
-# vim:ts=4:sw=4:et

@@ -15,7 +15,7 @@ public class KeywordAnalyzerTest extends TestCase {
         StringReader sr = new StringReader(originalValue);
         TokenStream ts = ka.tokenStream("ignoredField", sr);
         assertTrue("Text Should be Untouched", new String(ts.next().termBuffer()).trim().
-        		compareTo(originalValue) == 0);
+                        compareTo(originalValue) == 0);
         assertTrue("Token should be null", ts.next() == null);
     }
     public void testBasicParse() throws Exception {

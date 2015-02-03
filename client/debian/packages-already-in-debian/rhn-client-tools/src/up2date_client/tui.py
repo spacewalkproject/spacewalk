@@ -471,7 +471,7 @@ class OSReleaseWindow:
             raise WindowSkipException()
 
         self.available_channels = rhnreg.getAvailableChannels(
-	                tui.userName, tui.password)
+                        tui.userName, tui.password)
         if len(self.available_channels['channels']) < 1:
             log.log_debug("No available EUS channels, skipping OSReleaseWindow")
             raise WindowSkipException()
@@ -503,7 +503,7 @@ class OSReleaseWindow:
         toplevel.add(self.sublabel, 0, 2, anchorLeft = 1)
 
         self.channelList = snack.Listbox(self.size[1]-22, 1,
-	                         width = self.size[0]-10)
+                                 width = self.size[0]-10)
         toplevel.add(self.channelList, 0, 3)
 
         for key, value in sorted(self.available_channels['channels'].items(), key=lambda a:a[0]):
@@ -571,7 +571,7 @@ class OSReleaseWindow:
         if later_release:
             msgbox = snack.ButtonChoiceWindow(self.screen, title,
                            CONFIRM_OS_WARNING.encode('utf-8') % self.channelList.current(),
-			   buttons =[OK.encode('utf-8'), CANCEL.encode('utf-8')])
+                           buttons =[OK.encode('utf-8'), CANCEL.encode('utf-8')])
             return msgbox
 
         if self.all_updates_button.selected() or later_release:

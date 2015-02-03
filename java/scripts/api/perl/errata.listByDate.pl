@@ -26,10 +26,10 @@ my $advisory = "RHBA-2007:0485";
 my $return = $client->call('errata.listByDate', $session, $channel);
 
 foreach my $errata (@$return) {
-	print "ERRATA: ";
-	print "$errata->{'advisory_name'}:";
-	print $errata->{'date'}->value; 	
-	print "\n"; 
+        print "ERRATA: ";
+        print "$errata->{'advisory_name'}:";
+        print $errata->{'date'}->value;
+        print "\n";
 }
 
 

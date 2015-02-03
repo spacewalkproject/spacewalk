@@ -4,7 +4,7 @@
 # this script as:
 #    ./unreadField.pl file_name
 # The file_name argument is a file with the format:
-# 
+#
 # filename directory line ###
 
 my @args = shift;

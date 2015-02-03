@@ -28,7 +28,7 @@ import org.apache.lucene.store.Directory;
 
 public class NGramQueryParserTest extends NGramTestSetup {
 
-	private static Logger log = Logger.getLogger(NGramQueryParserTest.class);
+        private static Logger log = Logger.getLogger(NGramQueryParserTest.class);
 
     public NGramQueryParserTest() {
         super();

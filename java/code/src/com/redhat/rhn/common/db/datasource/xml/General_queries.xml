@@ -29,10 +29,10 @@
          c.label as channel_label,
          KS.ks_type as kickstart_type
     FROM rhnKickstartDefaults KSD
-    	 inner join rhnKSData KS on KSD.kickstart_id = KS.id
-    	 inner join rhnKickstartableTree KT on KSD.kstree_id = KT.id
-    	 left join rhnKickstartVirtualizationType KVT on KVT.id = KSD.virtualization_type
-	 inner join rhnChannel C on KT.channel_id = C.id
+         inner join rhnKSData KS on KSD.kickstart_id = KS.id
+         inner join rhnKickstartableTree KT on KSD.kstree_id = KT.id
+         left join rhnKickstartVirtualizationType KVT on KVT.id = KSD.virtualization_type
+         inner join rhnChannel C on KT.channel_id = C.id
    WHERE KS.org_id = :org_id
      AND KS.active = 'Y'
      AND ( C.channel_arch_id = :prim_arch_id OR C.channel_arch_id = :sec_arch_id )
@@ -265,10 +265,10 @@ ORDER BY RT.note, RT.id
   <query params="ksid">
   SELECT KTZ.id,
          KTZ.name,
-	 KTZ.label
+         KTZ.label
     FROM rhnKickstartTimezone KTZ,
          rhnKickstartDefaults KSD,
-	 rhnKickstartableTree KST
+         rhnKickstartableTree KST
    WHERE KSD.kickstart_id = :ksid
      AND KST.id = KSD.kstree_id
      AND KTZ.install_type = KST.install_type
@@ -287,7 +287,7 @@ SELECT max_members, current_members FROM rhnServerGroup sg, rhnServerGroupType s
 
 <write-mode name="update_activation_key">
   <query params="old_key, new_key">
-  	update rhnActivationKey set token = :new_key where token = :old_key
+        update rhnActivationKey set token = :new_key where token = :old_key
   </query>
 </write-mode>
 
@@ -310,6 +310,39 @@ SELECT SS.id,
   FROM rhnSnapshot SS
  WHERE SS.server_id = :sid
 ORDER BY created DESC
+  </query>
+</mode>
+
+<mode name="tags_for_provisioning_entitled_in_set">
+  <query params="user_id">
+select * from (
+SELECT DISTINCT T.id AS ID,
+       TN.name,
+       TO_CHAR(T.created, 'YYYY-MM-DD HH24:MI:SS') AS DATE_TAG_CREATED,
+       COUNT(DISTINCT SS.server_id) AS TAGGED_SYSTEMS
+  FROM rhnTagName TN,
+       rhnTag T,
+       rhnSnapshotTag STag,
+       rhnSnapshot SS,
+       rhnClientCapabilityName CCN,
+       rhnClientCapability CC,
+       rhnSet ST,
+       rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND ST.user_id = :user_id
+   AND ST.label = 'system_list'
+   AND USP.server_id = ST.element
+   AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+   AND USP.server_id = CC.server_id
+   AND CC.capability_name_id = CCN.id
+   AND CCN.name = 'packages.runTransaction'
+   AND USP.server_id = SS.server_id
+   AND SS.id = STag.snapshot_id
+   AND STag.tag_id = T.id
+   AND T.name_id = TN.id
+GROUP BY T.id, TN.name, T.created
+) S
+ORDER BY UPPER(name)
   </query>
 </mode>
 

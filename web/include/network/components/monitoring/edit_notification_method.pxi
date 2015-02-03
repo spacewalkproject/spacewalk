@@ -5,11 +5,14 @@
 <pxt-use class="Sniglets::Users" />
 <pxt-use class="Sniglets::ContactMethod" />
 
-<h2>Notification Method Details</h2>
-
 <pxt-formvar>
 
-<div class="toolbar pull-right"><rhn-deletion-link url="delete_confirm.pxt?cmid={formvar:cmid}" type="method" /></div>
+<div class="spacewalk-toolbar-h2">
+  <div class="spacewalk-toolbar">
+    <rhn-deletion-link url="delete_confirm.pxt?cmid={formvar:cmid}" type="method" />
+  </div>
+  <h2>Notification Method Details</h2>
+</div>
 <div class="page-summary">
   <p>Edit this notification method using the form provided.</p>
 </div>
@@ -20,28 +23,36 @@
 
 <rhn-contact-method-edit-form>
 
-      <table class="details">
-        <tr>
-          <th>Method Name:</th>
-          <td><input type="text" size="30" name="method_name" value="{method_name}" maxlength="20" class="form-control" /></td>
-        </tr>
-        <tr>
-          <th>Email:</th>
-          <td><input type="text" size="30" name="method_email" value="{method_email}" maxlength="50" class="form-control" /></td>
-        </tr>
-        <tr>
-          <th>Message Format:</th>
-          <td>
-	    <rhn-checkable type="checkbox" name="use_pager_type" value="1" checked="{use_pager_type}" />Short (Pager-Style) Messages
-          </td>
-        </tr>
-      </table>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">
+                Method Name:
+            </label>
+            <div class="col-sm-6">
+                <input type="text" size="30" name="method_name" value="{method_name}" maxlength="20" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">
+                Email:
+            </label>
+            <div class="col-sm-6">
+                <input type="text" size="30" name="method_email" value="{method_email}" maxlength="50" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">
+                Message Format:
+            </label>
+            <div class="col-sm-6">
+                <input type="checkbox" name="use_pager_type" value="1" checked="{use_pager_type}" />Short (Pager-Style) Messages
+            </div>
+        </div>
 
-      <div align="right">
+      <div class="pull-right">
         <hr />
         <input type="hidden" name="pxt:trap" value="rhn:contact-method-edit-cb" />
         <input type="hidden" name="redirect_to" value="index.pxt?uid={uid}" />
-        <input class="btn btn-default" type="submit" name="update_method" value="Update Method" />
+        <input class="btn btn-success" type="submit" name="update_method" value="Update Method" />
         <pxt-hidden name="uid" />
         <pxt-hidden name="cmid" />
       </div>

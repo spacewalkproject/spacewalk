@@ -13,7 +13,7 @@
 # in this software or its documentation.
 #
 
-## language imports
+# language imports
 import os
 import sys
 import time
@@ -29,7 +29,7 @@ except ImportError:
     class TimeoutException(Exception):
         pass
 
-## common, server imports
+# common, server imports
 from spacewalk.common import rhnTB, rhnLib, fileutils
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
 from spacewalk.common.rhnTranslate import _
@@ -38,7 +38,7 @@ from spacewalk.server.rhnServer import satellite_cert
 
 import tempfile
 
-## local imports
+# local imports
 import sync_handlers
 import satCerts
 
@@ -51,7 +51,9 @@ DEFAULT_CONFIG_FILE = "/etc/rhn/rhn.conf"
 
 
 class CaCertInsertionError(Exception):
+
     "raise when fail to insert CA cert into the local database"
+
 
 def openGzippedFile(filename):
     """ Open a file for reading. File may or may not be a gzipped file.
@@ -88,8 +90,8 @@ def getXmlrpcServer(server, handler, proxy, proxyUser, proxyPass,
         uri = 'http://' + _uri
 
     s = rpclib.Server(uri, refreshCallback=None,
-                         proxy=proxy, username=proxyUser, password=proxyPass,
-                         timeout=CFG.timeout)
+                      proxy=proxy, username=proxyUser, password=proxyPass,
+                      timeout=CFG.timeout)
     if sslYN and sslCertPath:
         if not os.access(sslCertPath, os.R_OK):
             sys.stderr.write("SSL CA Cert inaccessible: '%s'\n" % sslCertPath)
@@ -100,6 +102,7 @@ def getXmlrpcServer(server, handler, proxy, proxyUser, proxyPass,
 
 
 class RHNCertGeneralSanityException(Exception):
+
     "general failure"
 
 
@@ -111,7 +114,7 @@ def validateSatCert(certFilename, verbosity=0):
 
     # copy cert to temp location (it may be gzipped which validate-sat-cert.pl
     # doesn't like).
-    fd, certTmpFile = tempfile.mkstemp(prefix = DEFAULT_RHN_CERT_LOCATION + '-')
+    fd, certTmpFile = tempfile.mkstemp(prefix=DEFAULT_RHN_CERT_LOCATION + '-')
     fo = os.fdopen(fd, 'wb')
     fo.write(openGzippedFile(certFilename).read().strip())
     fo.flush()
@@ -166,19 +169,21 @@ def prepRhnCert(options):
         except (IOError, OSError), e:
             msg = _('ERROR: "%s" (specified in commandline)\n'
                     'could not be opened and read:\n%s') % (options.rhn_cert, str(e))
-            sys.stderr.write(msg+'\n')
+            sys.stderr.write(msg + '\n')
             raise
         cert = cert.strip()
         try:
             writeRhnCert(options, cert)
         except (IOError, OSError), e:
             msg = _('ERROR: "%s" could not be opened\nand/or written to:\n%s') % (DEFAULT_RHN_CERT_LOCATION, str(e))
-            sys.stderr.write(msg+'\n')
+            sys.stderr.write(msg + '\n')
             raise
 
 
 class RHNCertLocalActivationException(Exception):
+
     "general local activate failure exception"
+
 
 def activateSatellite_local(options):
     """ o validate (i.e., verify) an Red Hat Satellite
@@ -199,29 +204,30 @@ def activateSatellite_local(options):
         satCerts.storeRhnCert(cert, check_generation=1, check_version=not(options.ignore_version_mismatch))
     except satellite_cert.ParseException:
         raise RHNCertLocalActivationException(
-          'RHN Entitlement Certificate failed to validate - '
-          'failed sanity parse.'), None, sys.exc_info()[2]
+            'RHN Entitlement Certificate failed to validate - '
+            'failed sanity parse.'), None, sys.exc_info()[2]
     except satCerts.CertGenerationMismatchError:
         raise RHNCertLocalActivationException(
             'RHN Entitlement Certificate cannot be imported - '
             'mismatching generation.'), None, sys.exc_info()[2]
     except satCerts.CertVersionMismatchError, e:
         raise RHNCertLocalActivationException(
-            'RHN Entitlement Certificate cannot be imported - ' + str(e) \
-            + '\nIf you are trying to upgrade the Satellite server, please see the upgrade documentation ' \
-            + 'located here /etc/sysconfig/rhn/satellite-upgrade/README  (as part of the rhn-upgrade package).  ' \
-            + 'WARNING: If you want to skip this check, please use --ignore-version-mismatch, ' \
-            + 'but doing so may cause issues (including malfunction of the Satellite software).  ' \
+            'RHN Entitlement Certificate cannot be imported - ' + str(e)
+            + '\nIf you are trying to upgrade the Satellite server, please see the upgrade documentation '
+            + 'located here /etc/sysconfig/rhn/satellite-upgrade/README  (as part of the rhn-upgrade package).  '
+            + 'WARNING: If you want to skip this check, please use --ignore-version-mismatch, '
+            + 'but doing so may cause issues (including malfunction of the Satellite software).  '
             + 'Only skip the test if instructed to do so by a support technician.'), None, sys.exc_info()[2]
     except satCerts.NoFreeEntitlementsError, e:
         sys.stderr.write(e.message + '\n')
         sys.exit(1)
     except Exception:
         raise RHNCertLocalActivationException(
-          'RHN Entitlement Certificate failed to validate: \n'
-          '%s' % rhnTB.fetchTraceback()), None, sys.exc_info()[2]
+            'RHN Entitlement Certificate failed to validate: \n'
+            '%s' % rhnTB.fetchTraceback()), None, sys.exc_info()[2]
 
     return 0
+
 
 def localUpdateChannels():
     cert = open(DEFAULT_RHN_CERT_LOCATION).read()
@@ -235,24 +241,48 @@ def localUpdateChannels():
 
 
 class RHNCertRemoteActivationException(Exception):
+
     "general remote activate failure exception"
 
+
 class RHNCertRemoteNoManagementSlotsException(Exception):
+
     "no_management_slots fault 1020"
+
+
 class RHNCertRemoteSatelliteAlreadyActivatedException(Exception):
+
     "satellite_already_activated fault 1021 - we exit with code 0 if this happens"
+
+
 class RHNCertRemoteNoAccessToSatChannelException(Exception):
+
     "no_access_to_sat_channel fault 1022"
+
+
 class RHNCertRemoteInsufficientChannelEntitlementsException(Exception):
+
     "insufficient_channel_entitlements fault 1023"
+
+
 class RHNCertRemoteInvalidSatCertificateException(Exception):
+
     "invalid_sat_certificate fault 1024"
+
+
 class RHNCertRemoteSatelliteNotActivatedException(Exception):
+
     """ satellite_not_activated fault 1025 - if we get this as a final result,
         something bad happened """
+
+
 class RHNCertRemoteSatelliteNoBaseChannelException(Exception):
+
     "satellite_no_base_channel fault 1026"
+
+
 class RHNCertNoSatChanForVersion(Exception):
+
     "no_sat_chan_for_version fault 2"
 
 
@@ -278,7 +308,7 @@ def activateSatellite_remote(options):
     if not os.path.exists(options.systemid):
         msg = ("ERROR: Server not registered? No systemid: %s"
                % options.systemid)
-        sys.stderr.write(msg+"\n")
+        sys.stderr.write(msg + "\n")
         raise RHNCertRemoteSatelliteAlreadyActivatedException(msg)
     systemid = open(options.systemid, 'rb').read()
     rhn_cert = openGzippedFile(options.rhn_cert).read()
@@ -317,9 +347,9 @@ def activateSatellite_remote(options):
             raise RHNCertRemoteActivationException('%s' % f), None, sys.exc_info()[2]
 
         if not oldApiYN \
-          and (abs(f.faultCode) in range(1020, 1039+1)
-               or f.faultString in (no_sat_chan_for_version,
-                                    no_sat_chan_for_version1)):
+            and (abs(f.faultCode) in range(1020, 1039 + 1)
+                 or f.faultString in (no_sat_chan_for_version,
+                                      no_sat_chan_for_version1)):
             if abs(f.faultCode) == 1020:
                 # 1020 results in "no_management_slots"
                 print "NOTE: no management slots found on the hosted account."
@@ -376,6 +406,7 @@ attempted activation."""
 
 
 class PopulateChannelFamiliesException(Exception):
+
     "general failure when populating channel families"
 
 
@@ -394,7 +425,7 @@ def populateChannelFamilies(options):
             args.extend(['--http-proxy-username', options.http_proxy_username])
             if options.http_proxy_password:
                 args.extend(['--http-proxy-password',
-                    options.http_proxy_password])
+                             options.http_proxy_password])
 
     # use a ca cert with satellite-sync
     if options.ca_cert:
@@ -425,7 +456,7 @@ def expiredYN(certPath):
         returns either "" or the date of expiration.
     """
 
-    ## open cert
+    # open cert
     try:
         fo = open(certPath, 'rb')
     except IOError:
@@ -435,13 +466,13 @@ def expiredYN(certPath):
     cert = fo.read().strip()
     fo.close()
 
-    ## parse it and snag "expires"
+    # parse it and snag "expires"
     sc = satellite_cert.SatelliteCert()
     sc.load(cert)
     # note the correction for timezone
     # pylint: disable=E1101
     try:
-        expires = time.mktime(time.strptime(sc.expires, sc.datesFormat_cert))-time.timezone
+        expires = time.mktime(time.strptime(sc.expires, sc.datesFormat_cert)) - time.timezone
     except ValueError:
         sys.stderr.write("""\
 ERROR: can't seem to parse the expires field in the RHN Certificate.
@@ -459,21 +490,21 @@ ERROR: can't seem to parse the expires field in the RHN Certificate.
 def processCommandline():
     options = [
         Option('--systemid',     action='store',      help='(FOR TESTING ONLY) alternative systemid path/filename. '
-                                                         + 'The system default is used if not specified.'),
+               + 'The system default is used if not specified.'),
         Option('--rhn-cert',     action='store',      help='new RHN certificate path/filename (default is'
-                                                         + ' %s - the saved RHN cert).' % DEFAULT_RHN_CERT_LOCATION),
+               + ' %s - the saved RHN cert).' % DEFAULT_RHN_CERT_LOCATION),
         Option('--no-ssl',       action='store_true', help='(FOR TESTING ONLY) disables SSL'),
         Option('--sanity-only',  action='store_true', help="confirm certificate sanity. Does not activate"
-                                                         + "the Red Hat Satellite locally or remotely."),
+               + "the Red Hat Satellite locally or remotely."),
         Option('--disconnected', action='store_true', help="activate locally, but not on remote RHN servers,"),
         Option('--ignore-expiration', action='store_true', help='execute regardless of the expiration'
-                                                         + 'of the RHN Certificate (not recommended).'),
+               + 'of the RHN Certificate (not recommended).'),
         Option('--ignore-version-mismatch', action='store_true', help='execute regardless of version '
-                                                         + 'mismatch of existing and new certificate.'),
-        Option('-v','--verbose', action='count',      help='be verbose '
-                                                         + '(accumulable: -vvv means "be *really* verbose").'),
-        Option(     '--dump-version', action='store', help="requested version of XML dump"),
-              ]
+               + 'mismatch of existing and new certificate.'),
+        Option('-v', '--verbose', action='count',      help='be verbose '
+               + '(accumulable: -vvv means "be *really* verbose").'),
+        Option('--dump-version', action='store', help="requested version of XML dump"),
+    ]
 
     options, args = OptionParser(option_list=options).parse_args()
 
@@ -653,4 +684,3 @@ if __name__ == "__main__":
                      '           calling program.\n')
     sys.exit(abs(main() or 0))
 #===============================================================================
-

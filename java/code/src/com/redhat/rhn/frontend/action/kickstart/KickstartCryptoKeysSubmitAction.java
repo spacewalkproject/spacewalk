@@ -25,7 +25,6 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import org.apache.struts.action.ActionForm;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,16 +41,12 @@ public class KickstartCryptoKeysSubmitAction extends BaseKickstartListSubmitActi
     /**
      * {@inheritDoc}
      */
-    protected void operateOnRemovedElements(List elements,
+    protected void operateOnRemovedElements(List<RhnSetElement> elements,
             HttpServletRequest request) {
         RequestContext rctx = new RequestContext(request);
         KickstartCryptoKeyCommand cmd = new KickstartCryptoKeyCommand(
                 rctx.getRequiredParam(RequestContext.KICKSTART_ID), rctx.getCurrentUser());
-        List ids = new LinkedList();
-        for (int i = 0; i < elements.size(); i++) {
-            ids.add(((RhnSetElement) elements.get(i)).getElement());
-        }
-        cmd.removeKeysById(ids);
+        cmd.removeKeysById(getPrimaryElementIds(elements));
         cmd.store();
 
     }
@@ -59,16 +54,12 @@ public class KickstartCryptoKeysSubmitAction extends BaseKickstartListSubmitActi
     /**
      * {@inheritDoc}
      */
-    protected void operateOnAddedElements(List elements,
+    protected void operateOnAddedElements(List<RhnSetElement> elements,
             HttpServletRequest request) {
         RequestContext rctx = new RequestContext(request);
         KickstartCryptoKeyCommand cmd = new KickstartCryptoKeyCommand(
                 rctx.getRequiredParam(RequestContext.KICKSTART_ID), rctx.getCurrentUser());
-        List ids = new LinkedList();
-        for (int i = 0; i < elements.size(); i++) {
-            ids.add(((RhnSetElement) elements.get(i)).getElement());
-        }
-        cmd.addKeysByIds(ids);
+        cmd.addKeysByIds(getPrimaryElementIds(elements));
         cmd.store();
     }
 

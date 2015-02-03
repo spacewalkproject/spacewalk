@@ -141,8 +141,6 @@ public class UserEditActionTest extends RhnBaseTestCase {
             User user) {
         request.setupAddParameter("uid", user.getId().toString());
         request.setupAddParameter("disabledRoles", "");
-        request.setupAddParameter("role_" + RoleFactory.MONITORING_ADMIN.getLabel(),
-                (String)null);
         request.setupAddParameter("role_" + RoleFactory.ORG_ADMIN.getLabel(),
                 (String)null);
         request.setupAddParameter("role_" + RoleFactory.CHANNEL_ADMIN.getLabel(),

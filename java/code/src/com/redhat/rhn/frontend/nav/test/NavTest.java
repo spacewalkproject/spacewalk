@@ -64,11 +64,11 @@ public class NavTest extends RhnBaseTestCase {
 
         NavTreeIndex nti = new NavTreeIndex(nt);
 
-        String testPath = "/help/release-notes/rhn-release-notes-2.5.0.html";
+        String testPath = "/rhn/help/index.do";
         nti.computeActiveNodes(testPath, null);
 
         NavNode bestNode = nti.getBestNode();
-        assertEquals(bestNode.getName(), "2.5.0");
+        assertEquals(bestNode.getName(), "Help Desk");
         assertEquals(bestNode.getPrimaryURL(), testPath);
 
         log.info("Index Duration: " +
@@ -132,14 +132,14 @@ public class NavTest extends RhnBaseTestCase {
 
         NavTreeIndex nti = new NavTreeIndex(nt);
 
-        String testPath = "SOMEUNKNOWNURLTHATHASNOMAPPING.html";
-        String lastPath = "/help/release-notes/rhn-release-notes-2.5.0.html";
+        String testPath = "/SOMEUNKNOWNURLTHATHASNOMAPPING.html";
+        String lastPath = "/rhn/systems/SystemEntitlements.do";
         // Here we want to make sure our "Best Node" is what is used in the last
         // path.
         String activePath = nti.computeActiveNodes(testPath, lastPath);
 
         NavNode bestNode = nti.getBestNode();
-        assertEquals(bestNode.getName(), "2.5.0");
+        assertEquals(bestNode.getName(), "Subscription Management");
         assertEquals(bestNode.getPrimaryURL(), lastPath);
         assertEquals(bestNode.getPrimaryURL(), activePath);
     }
@@ -149,11 +149,11 @@ public class NavTest extends RhnBaseTestCase {
             NavDigester.buildTree(TestUtils.findTestData("sitenav.xml"));
 
         NavTreeIndex nti = new NavTreeIndex(nt);
-        String lastPath = "/rhn/systems/details/probes/ProbeDetails.do";
-        String curPath = "/rhn/monitoring/config/ProbeSuiteProbeEdit.do";
+        String lastPath = "/rhn/systems/SystemGroupList.do";
+        String curPath = "/rhn/systems/entitlements/GuestUnlimitedHosts.do";
         nti.computeActiveNodes(curPath, lastPath);
         NavNode bestNode = nti.getBestNode();
-        assertEquals("/rhn/monitoring/config/ProbeSuites.do", bestNode.getPrimaryURL());
+        assertEquals("/rhn/systems/SystemEntitlements.do", bestNode.getPrimaryURL());
     }
 
     public void testMatchByDir() throws Exception {
@@ -161,9 +161,9 @@ public class NavTest extends RhnBaseTestCase {
             NavDigester.buildTree(TestUtils.findTestData("sitenav.xml"));
 
         NavTreeIndex nti = new NavTreeIndex(nt);
-        nti.computeActiveNodes("/rhn/by/directory", "");
+        nti.computeActiveNodes("/rhn/help/satellite", "");
         NavNode bestNode = nti.getBestNode();
-        assertEquals("/rhn/by/directory/index.jsp", bestNode.getPrimaryURL());
+        assertEquals("/rhn/help/dispatcher/install_guide", bestNode.getPrimaryURL());
     }
 }
 

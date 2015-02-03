@@ -12,13 +12,8 @@
 <a id="profiles">&#160;</a>
 <h2><bean:message key="ssm.misc.index.csi.header"/></h2>
 <div class="page-summary">
-<p><bean:message key="ssm.misc.index.csi.summary"/></p>
+  <p><a href="/rhn/systems/ssm/misc/CustomValue.do"><bean:message key="ssm.misc.index.csi.summary"/></a></p>
 </div>
-<ul>
-  <li><a href="/network/systems/ssm/misc/choose_value_to_set.pxt"><bean:message key="ssm.misc.index.csi.set"/></a></li>
-  <li><a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"><bean:message key="ssm.misc.index.csi.remove"/></a></li>
-</ul>
-<br />
 
 <a id="entitle">&#160;</a>
 <h2><bean:message key="ssm.misc.index.entitle.header"/></h2>
@@ -33,7 +28,9 @@
 <p><bean:message key="ssm.misc.index.syspref.summary"/></p>
 </div>
 
-<form action="/network/systems/ssm/misc/change_sys_pref_conf.pxt" method="post">
+<form action="/rhn/systems/ssm/misc/Index.do" method="post">
+  <rhn:csrf />
+  <rhn:submitted />
 
   <table width="96%" cellspacing="0" cellpadding="0" class="list" align="center">
     <thead>
@@ -47,24 +44,24 @@
 
     <tr class="list-row-odd">
       <td><bean:message key="ssm.misc.index.syspref.notify"/></td>
-      <td align="center"><input type="radio" name="receive_notifications" value="set" /></td>
-      <td align="center"><input type="radio" name="receive_notifications" value="unset" /></td>
+      <td align="center"><input type="radio" name="notify" value="yes" /></td>
+      <td align="center"><input type="radio" name="notify" value="no" /></td>
 
-      <td align="center"><input type="radio" name="receive_notifications" value="do_nothing" checked="1" /></td>
+      <td align="center"><input type="radio" name="notify" value="no_change" checked="1" /></td>
     </tr>
 
     <tr class="list-row-even">
       <td><bean:message key="ssm.misc.index.syspref.dailysummary"/></td>
-      <td align="center"><input type="radio" name="include_in_daily_summary" value="set" /></td>
-      <td align="center"><input type="radio" name="include_in_daily_summary" value="unset" /></td>
-      <td align="center"><input type="radio" name="include_in_daily_summary" value="do_nothing" checked="1" /></td>
+      <td align="center"><input type="radio" name="summary" value="yes" /></td>
+      <td align="center"><input type="radio" name="summary" value="no" /></td>
+      <td align="center"><input type="radio" name="summary" value="no_change" checked="1" /></td>
     </tr>
 
     <tr class="list-row-odd">
       <td><bean:message key="ssm.misc.index.syspref.update"/></td>
-      <td align="center"><input type="radio" name="auto_update" value="set" /></td>
-      <td align="center"><input type="radio" name="auto_update" value="unset" /></td>
-      <td align="center"><input type="radio" name="auto_update" value="do_nothing" checked="1" /></td>
+      <td align="center"><input type="radio" name="update" value="yes" /></td>
+      <td align="center"><input type="radio" name="update" value="no" /></td>
+      <td align="center"><input type="radio" name="update" value="no_change" checked="1" /></td>
     </tr>
 
   </table>
@@ -73,8 +70,6 @@
     <hr />
 
     <input class="btn btn-default" type="submit" name="sscd_change_system_prefs" value="<bean:message key='ssm.misc.index.syspref.changepreferences'/>" />
-    <input type="hidden" name="do_nothing_redir" value="landing.pxt" />
-    <input type="hidden" name="pxt:trap" value="rhn:ssm_change_system_prefs_cb" />
   </div>
 
 </form>

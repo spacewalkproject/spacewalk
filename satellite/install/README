@@ -15,8 +15,8 @@ INSTALLATION METHODS - BASIC USAGE
 
 There are two methods of installing Satellite.
 
-1) You may run the 'install.pl' script, which will prompt you for answers to 
-several questions necessary for configuring Satellite. You can do this by simply 
+1) You may run the 'install.pl' script, which will prompt you for answers to
+several questions necessary for configuring Satellite. You can do this by simply
 typing (as root):
 
    ./install.pl
@@ -35,7 +35,7 @@ you can run the installer like so:
 
    ./install.pl --answer-file=<filename>
 
-Where <filename> is the location of the answerfile, for example, 
+Where <filename> is the location of the answerfile, for example,
 '/tmp/answers.txt'.
 
 This installation method is useful if you would like to install multiple
@@ -73,7 +73,7 @@ Documentation
 Full Satellite documentation in PDF and HTML formats is provided at:
 
    http://www.redhat.com/docs/manuals/satellite/
-   
+
 Of particular interest would be the Installation Guide.
 
 Customer Service

@@ -7,15 +7,11 @@
 
 <html>
 <head>
-    <!-- disables the enter key from submitting the form -->
-    <script type="text/javascript" language="JavaScript">
-      $(document).ready(disableEnterKey);
-    </script>
 </head>
 <body>
 
 <rhn:toolbar base="h1" icon="header-errata" iconAlt="errata.common.errataAlt"
-	           helpUrl="">
+                   helpUrl="">
     <bean:message key="errata.edit.toolbar"/> <c:out value="${advisory}" />
   </rhn:toolbar>
 

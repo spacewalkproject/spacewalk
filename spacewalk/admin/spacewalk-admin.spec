@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 2.3.0
+Version: 2.3.3
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -90,6 +90,18 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.3-1
+- remove Monitoring and MonitoringScout from spacewalk.target and spacewalk-
+  service
+
+* Tue Jan 13 2015 Matej Kollar <mkollar@redhat.com> 2.3.2-1
+- Getting rid of trailing spaces in Perl
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
+* Wed Jan 07 2015 Jan Dobes 2.3.1-1
+- 1179374 - do not crash if rhn.conf does not exist
+- Bumping package versions for 2.3.
+
 * Fri Jul 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.7-1
 - we need to call restorecon with full path
 

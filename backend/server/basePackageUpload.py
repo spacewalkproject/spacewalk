@@ -21,6 +21,7 @@ from spacewalk.common.rhnException import rhnFault
 
 
 class BasePackageUpload:
+
     def __init__(self, req):
         self.header_prefix = "X-RHN-Upload"
         self.error_header_prefix = 'X-RHN-Upload-Error'
@@ -46,7 +47,7 @@ class BasePackageUpload:
         # Initialize the logging
         log_debug(3, "Method", req.method)
 
-        #Header string. This is what the Auth-Session field will look like in the header.
+        # Header string. This is what the Auth-Session field will look like in the header.
         session_header = "%s-%s" % (self.header_prefix, "Auth-Session")
 
         # legacy rhnpush sends File-MD5sum; translate it into File-Checksum
@@ -54,22 +55,22 @@ class BasePackageUpload:
         if req.headers_in.has_key(md5sum_header):
             req.headers_in["%s-%s" % (self.header_prefix, "File-Checksum-Type")] = 'md5'
             req.headers_in["%s-%s" % (self.header_prefix, "File-Checksum")] = \
-                        req.headers_in[md5sum_header]
+                req.headers_in[md5sum_header]
 
         for f in self.required_fields:
             hf = "%s-%s" % (self.header_prefix, f)
             if not req.headers_in.has_key(hf):
-                #If the current field is Auth and Auth-Session field isn't present, something is wrong.
+                # If the current field is Auth and Auth-Session field isn't present, something is wrong.
                 if f == "Auth" and not req.headers_in.has_key(session_header):
                     log_debug(4, "Required field %s missing" % f)
                     raise rhnFault(500, f)
 
-                #The current field is Auth and the Auth-Session field is present, so everything is good.
+                # The current field is Auth and the Auth-Session field is present, so everything is good.
                 elif f == "Auth" and req.headers_in.has_key(session_header):
                     self.field_data["Auth-Session"] = req.headers_in[session_header]
                     continue
 
-                #The current field being looked for isn't the Auth field and it's missing, so something is wrong.
+                # The current field being looked for isn't the Auth field and it's missing, so something is wrong.
                 else:
                     log_debug(4, "Required field %s missing" % f)
                     raise rhnFault(500, f)
@@ -86,13 +87,14 @@ class BasePackageUpload:
         self.package_arch = self.field_data["Package-Arch"]
         self.file_checksum_type = self.field_data["File-Checksum-Type"]
         self.file_checksum = self.field_data["File-Checksum"]
-        #4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
+        # 4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
         self.is_source = (self.package_arch == 'src' or self.package_arch == 'nosrc')
         return apache.OK
 
     def handler(self, req):
         log_debug(3, "Method", req.method)
         return apache.OK
+
     def cleanupHandler(self, req):
         return apache.OK
 

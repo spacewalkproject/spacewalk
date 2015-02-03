@@ -29,6 +29,8 @@ from apacheRequest import apacheGET, apachePOST, HandlerNotFoundError
 import rhnCapability
 
 # a lame timer function for pretty logs
+
+
 def timer(last):
     if not last:
         return 0
@@ -37,14 +39,18 @@ def timer(last):
 
 
 class apacheSession(rhnApache):
+
     """ a class that extends rhnApache with several support functions used
      by the main handler class. This class deals with the processing of
      the request and setup for the real action handled in the
      apacheHandler class below. """
     _lang_catalog = "server"
 
+
 class apacheHandler(apacheSession):
+
     """ main Apache XMLRPC point of entry for the server """
+
     def __init__(self):
         # First call the inherited constructor:
         apacheSession.__init__(self)
@@ -58,7 +64,7 @@ class apacheHandler(apacheSession):
     def headerParserHandler(self, req):
 
         log_setreq(req)
-        ##We need to init CFG and Logging
+        # We need to init CFG and Logging
         options = req.get_options()
         # if we are initializing out of a <Location> handler don't
         # freak out
@@ -88,17 +94,17 @@ class apacheHandler(apacheSession):
         # Store client capabilities
         client_cap_header = 'X-RHN-Client-Capability'
         if req.headers_in.has_key(client_cap_header):
-            client_caps =  req.headers_in[client_cap_header]
+            client_caps = req.headers_in[client_cap_header]
             client_caps = filter(None,
-                map(string.strip, string.split(client_caps, ","))
-            )
-	    rhnCapability.set_client_capabilities(client_caps)
+                                 map(string.strip, string.split(client_caps, ","))
+                                 )
+            rhnCapability.set_client_capabilities(client_caps)
 
-        #Enabling the input header flags associated with the redirects/newer clients
-	redirect_support_flags = ['X-RHN-Redirect', 'X-RHN-Transport-Capability']
-	for flag in redirect_support_flags:
-            if req.headers_in.has_key( flag ):
-                rhnFlags.set(flag, str(req.headers_in[flag]) )
+        # Enabling the input header flags associated with the redirects/newer clients
+        redirect_support_flags = ['X-RHN-Redirect', 'X-RHN-Transport-Capability']
+        for flag in redirect_support_flags:
+            if req.headers_in.has_key(flag):
+                rhnFlags.set(flag, str(req.headers_in[flag]))
 
         return apache.OK
 
@@ -114,7 +120,7 @@ class apacheHandler(apacheSession):
                 self._req_processor = apacheGET(self.clientVersion, req)
             except HandlerNotFoundError, e:
                 log_error("Unable to handle GET request for server %s" %
-                    (e.args[0], ))
+                          (e.args[0], ))
                 return apache.HTTP_METHOD_NOT_ALLOWED
             token = self._setSessionToken(req.headers_in)
             if token is None:
@@ -167,7 +173,6 @@ class apacheHandler(apacheSession):
                 req.send_http_header()
                 return apache.OK
 
-
         # Try to authenticate the proxy if it this request passed
         # through a proxy.
         if self.proxyVersion:
@@ -202,7 +207,6 @@ class apacheHandler(apacheSession):
         log_debug(4, "Leave with return value", ret)
         return ret
 
-
     def cleanupHandler(self, req):
         """ Clean up stuff before we close down the session when we are called
         from apacheServer.Cleanup() """
@@ -219,4 +223,3 @@ class apacheHandler(apacheSession):
                           pid, status))
         ret = apacheSession.cleanupHandler(self, req)
         return ret
-

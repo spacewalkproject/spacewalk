@@ -49,11 +49,11 @@
         </c:set>
 
         <c:choose>
-        	<c:when test="${current.overriddenCount == 0}">
-        	  <bean:message key="none.message"/>
-        	</c:when>
-        	<c:otherwise>
-		  <bean:message key="managedsystems.jsp.local"
+                <c:when test="${current.overriddenCount == 0}">
+                  <bean:message key="none.message"/>
+                </c:when>
+                <c:otherwise>
+                  <bean:message key="managedsystems.jsp.local"
                       arg0="/rhn/systems/details/configuration/ViewModifyLocalPaths.do?sid=${current.id}"
                       arg1="${requestScope.locfiles}" arg2="${requestScope.overs}"/>
             </c:otherwise>
@@ -78,11 +78,11 @@
           </c:if>
         </c:set>
         <c:choose>
-        	<c:when test="${current.globalFileCount == 0}">
-        	  <bean:message key="none.message"/>
-        	</c:when>
-        	<c:otherwise>
-		  <bean:message key="managedsystems.jsp.global"
+                <c:when test="${current.globalFileCount == 0}">
+                  <bean:message key="none.message"/>
+                </c:when>
+                <c:otherwise>
+                  <bean:message key="managedsystems.jsp.global"
                       arg0="${requestScope.globfiles}"
                       arg1="/rhn/systems/details/configuration/ConfigChannelList.do?sid=${current.id}"
                       arg2="${requestScope.confchan}"/>

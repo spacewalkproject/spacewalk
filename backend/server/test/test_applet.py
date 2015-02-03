@@ -19,6 +19,6 @@ server = "coyote.devel.redhat.com"
 
 s = rpclib.Server("http://%s/APPLET" % server)
 
-#print s.applet.poll_status()
+# print s.applet.poll_status()
 print s.applet.poll_packages('2.1AS', 'i386')
 print s.applet.poll_packages('8.0', 'i386')

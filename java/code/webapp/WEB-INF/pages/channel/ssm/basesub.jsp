@@ -20,67 +20,67 @@
     <rhn:csrf />
     <html:hidden property="submitted" value="true"/>
 
-	<!-- Start of active users list -->
-	<rl:list dataset="baselist"
+        <!-- Start of active users list -->
+        <rl:list dataset="baselist"
          width="100%"
          name="baselist"
          styleclass="list"
          emptykey="basesub.jsp.noSystems">
 
-	<rl:column bound="false"
-	           sortable="true"
-	           headerkey="basesub.jsp.channelname"
-	           sortattr="name"
-	           >
-	    <c:if test="${current.id > 0}">
+        <rl:column bound="false"
+                   sortable="true"
+                   headerkey="basesub.jsp.channelname"
+                   sortattr="name"
+                   >
+            <c:if test="${current.id > 0}">
           <a href="/rhn/channels/ChannelDetail.do?cid=${current.id}">
             <c:out value="${current.name}" escapeXml="true" />
           </a>
-	    </c:if>
-	    <c:if test="${current.id <= 0}">
+            </c:if>
+            <c:if test="${current.id <= 0}">
           <c:out value="${current.name}" escapeXml="true" />
-	    </c:if>
+            </c:if>
     </rl:column>
 
     <rl:column bound="false"
-	           sortable="false"
-	           headerkey="basesub.jsp.systemCount">
-	    <c:if test="${current.id > 0}">
+                   sortable="false"
+                   headerkey="basesub.jsp.systemCount">
+            <c:if test="${current.id > 0}">
           <a href="/rhn/channels/ChannelSubscribers.do?cid=${current.id}">${current.systemCount}</a>
-	    </c:if>
-	    <c:if test="${current.id <= 0}">
+            </c:if>
+            <c:if test="${current.id <= 0}">
           ${current.systemCount}
-	    </c:if>
+            </c:if>
     </rl:column>
 
     <rl:column bound="false"
-	           sortable="false"
-	           headerkey="basesub.jsp.options">
+                   sortable="false"
+                   headerkey="basesub.jsp.options">
         <select name="base-for-${current.id}" size="5">
-        	<option value="__no_change__" selected><bean:message key="basesub.jsp.no-channel-change"/></option>
-        	<c:if test="${not empty current.allowedCustomChannels}">
-        	  <optgroup label='<bean:message key="basesub.jsp.rhn-channels"/>' />
-        	</c:if>
+                <option value="__no_change__" selected><bean:message key="basesub.jsp.no-channel-change"/></option>
+                <c:if test="${not empty current.allowedCustomChannels}">
+                  <optgroup label='<bean:message key="basesub.jsp.rhn-channels"/>' />
+                </c:if>
             <option value="-1"><bean:message key="basesub.jsp.default-channel"/></option>
-        	  <c:forEach items="${current.allowedBaseChannels}" var="chan">
-        		<option value="${chan.id}"><c:out value="${chan.name}" /></option>
-        	  </c:forEach>
-        	<c:if test="${not empty current.allowedCustomChannels}">
-        	  </optgroup>
-        	</c:if>
-        	<c:if test="${not empty current.allowedCustomChannels}">
-        	  <optgroup label='<bean:message key="basesub.jsp.custom-channels"/>' />
-        	  <c:forEach items="${current.allowedCustomChannels}" var="chan">
-        		<option value="${chan.id}"><c:out value="${chan.name}" /></option>
-        	  </c:forEach>
-        	  </optgroup>
-        	</c:if>
+                  <c:forEach items="${current.allowedBaseChannels}" var="chan">
+                        <option value="${chan.id}"><c:out value="${chan.name}" /></option>
+                  </c:forEach>
+                <c:if test="${not empty current.allowedCustomChannels}">
+                  </optgroup>
+                </c:if>
+                <c:if test="${not empty current.allowedCustomChannels}">
+                  <optgroup label='<bean:message key="basesub.jsp.custom-channels"/>' />
+                  <c:forEach items="${current.allowedCustomChannels}" var="chan">
+                        <option value="${chan.id}"><c:out value="${chan.name}" /></option>
+                  </c:forEach>
+                  </optgroup>
+                </c:if>
         </select>
     </rl:column>
 
-  	</rl:list>
-	<hr />
-	<div class="text-right"><html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="basesub.jsp.confirmSubscriptions"/></html:submit></div>
+        </rl:list>
+        <hr />
+        <div class="text-right"><html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="basesub.jsp.confirmSubscriptions"/></html:submit></div>
   </rl:listset>
 </body>
 </html>

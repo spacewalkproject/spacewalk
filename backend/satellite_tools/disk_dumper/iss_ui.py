@@ -16,70 +16,73 @@
 from optparse import OptionParser, Option
 from spacewalk.common.rhnConfig import PRODUCT_NAME
 
-#Not strictly necessary, but makes them easier to type
+# Not strictly necessary, but makes them easier to type
 option_parser = OptionParser
 option = Option
 
 # pylint: disable=R0903
+
+
 class UI:
+
     def __init__(self):
-        self.optiontable =  [
+        self.optiontable = [
             option("-d",    "--dir",                    action="store",
-                help="This is the directory that the information that you want to sync gets dumped in."),
-            option(         "--hard-links",             action="store_true",        default=0,
-                help="Exported RPM and kickstart are hard linked to original files."),
-            option(         "--list-channels",          action="store_true",    default=0,
-                help="List all of the channels that can be exported."),
-            option(         "--list-steps",             action="store_true",    default=0,
-                help="List all of the steps that rhn-satellite-exporter takes while exporting data."
+                   help="This is the directory that the information that you want to sync gets dumped in."),
+            option("--hard-links",             action="store_true",        default=0,
+                   help="Exported RPM and kickstart are hard linked to original files."),
+            option("--list-channels",          action="store_true",    default=0,
+                   help="List all of the channels that can be exported."),
+            option("--list-steps",             action="store_true",    default=0,
+                   help="List all of the steps that rhn-satellite-exporter takes while exporting data."
                    + " These can be used as values for --step"),
             option("-c",    "--channel",                action="append",
-                help="Include this channel in the export."),
+                   help="Include this channel in the export."),
             option("-a",    "--all-channels",            action="store_true",    default=0,
-                help="Export all channels."),
-	    option(         "--start-date",             action="store",
-	        help="The start date limit that the last modified dates are compared against. "
+                   help="Export all channels."),
+            option("--start-date",             action="store",
+                   help="The start date limit that the last modified dates are compared against. "
                    + "Should be in the format 'YYYYMMDDHH24MISS'."),
-	    option(         "--end-date",                action="store",
-	        help="The end date limit that the last modified dates are compared against. "
+            option("--end-date",                action="store",
+                   help="The end date limit that the last modified dates are compared against. "
                    + "Should be in the format 'YYYYMMDDHH24MISS'."),
-	    option(         "--use-rhn-date",            action="store_true",
-	        help="Limit exported packages according to the date when they appeared at Red Hat Network."),
-	    option(         "--use-sync-date",            action="store_true",
-	        help="Limit exported packages according to the date they where pulled into %s." % PRODUCT_NAME),
-        option(         "--whole-errata",            action="store_true",
-            help="Always include package if it belongs to errata which is withing start/end-date range."),
-	    option(         "--make-isos",               action="store",
-	        help="Create channel dump isos a directory called satellite-isos. Usage: --make-isos=cd or dvd"),
+            option("--use-rhn-date",            action="store_true",
+                   help="Limit exported packages according to the date when they appeared at Red Hat Network."),
+            option("--use-sync-date",            action="store_true",
+                   help="Limit exported packages according to the date they where pulled into %s." % PRODUCT_NAME),
+            option("--whole-errata",            action="store_true",
+                   help="Always include package if it belongs to errata which is withing start/end-date range."),
+            option("--make-isos",               action="store",
+                   help="Create channel dump isos a directory called satellite-isos. Usage: --make-isos=cd or dvd"),
             option("-p",    "--print-configuration",    action="store_true",    default=0,
-                help="Print the configuration and exit."),
-            option(         "--print-report",           action="store_true",    default=0,
-                help="Print the report to the terminal when the export is complete."),
-            option(         "--step",                   action="store",
-                help="Export only up to this step."),
-            option(         "--no-rpms",                action="store_true",
-                help="Do not export RPMs."),
-            option(         "--no-packages",            action="store_true",
-                help="Do not export package metadata."),
-            option(         "--no-errata",              action="store_true",
-                help="Do not export errata data."),
-            option(         "--no-kickstarts",          action="store_true",
-                help="Do not export kickstart data."),
-            option(         "--debug-level",            action="store",
-                help="Set the debug level to this value. Overrides the value in rhn.conf."),
-             option("-v",   "--verbose",                action="store_true",
-                help="Set debug level to 3. Overrides the value in rhn.conf.."),
-            option(         "--email",                  action="store_true",
-                help="Email a report of what was exported."),
-            option(         "--traceback-mail",        action="store",
-                help="Alternative email address for --email."),
-            option(         "--all-orgs",        action="store_true",
-                help="Export all orgs."),
+                   help="Print the configuration and exit."),
+            option("--print-report",           action="store_true",    default=0,
+                   help="Print the report to the terminal when the export is complete."),
+            option("--step",                   action="store",
+                   help="Export only up to this step."),
+            option("--no-rpms",                action="store_true",
+                   help="Do not export RPMs."),
+            option("--no-packages",            action="store_true",
+                   help="Do not export package metadata."),
+            option("--no-errata",              action="store_true",
+                   help="Do not export errata data."),
+            option("--no-kickstarts",          action="store_true",
+                   help="Do not export kickstart data."),
+            option("--debug-level",            action="store",
+                   help="Set the debug level to this value. Overrides the value in rhn.conf."),
+            option("-v",   "--verbose",                action="store_true",
+                   help="Set debug level to 3. Overrides the value in rhn.conf.."),
+            option("--email",                  action="store_true",
+                   help="Email a report of what was exported."),
+            option("--traceback-mail",        action="store",
+                   help="Alternative email address for --email."),
+            option("--all-orgs",        action="store_true",
+                   help="Export all orgs."),
             option("-o",         "--org",        action="append",
-                help="Include the org with this id in the export."),
-            option(         "--list-orgs",        action="store_true",
-                help="List all orgs that can be exported"),
-                            ]
+                   help="Include the org with this id in the export."),
+            option("--list-orgs",        action="store_true",
+                   help="List all orgs that can be exported"),
+        ]
         self.optionparser = option_parser(option_list=self.optiontable)
         self.options, self.args = self.optionparser.parse_args()
         if self.options.verbose and not self.options.debug_level:

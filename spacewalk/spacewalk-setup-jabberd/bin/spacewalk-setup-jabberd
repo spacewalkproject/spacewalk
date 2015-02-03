@@ -32,18 +32,18 @@ my %macros = ('hostname' => Sys::Hostname::hostname(),
 my $q = `rpm -qf /etc/jabberd/server.pem 2> /dev/null`;
 chomp $q;
 if ($q =~ /^rhn-(org-)?httpd-ssl-key-pair/) {
-	$macros{'server_pem'} = '/etc/jabberd/server.pem';
+        $macros{'server_pem'} = '/etc/jabberd/server.pem';
 }
 
 my $if_inet6 = "/proc/net/if_inet6";
 if (-f $if_inet6) {
-	local *F;
-	open F, $if_inet6 or die "Error opening $if_inet6: $!\n";
-	if (defined <F>) {
-		$macros{'localhost'} = '::1';
-		$macros{'ipaddress'} = '::';
-	}
-	close F;
+        local *F;
+        open F, $if_inet6 or die "Error opening $if_inet6: $!\n";
+        if (defined <F>) {
+                $macros{'localhost'} = '::1';
+                $macros{'ipaddress'} = '::';
+        }
+        close F;
 }
 
 my $usage = <<EOHELP;
@@ -56,54 +56,54 @@ EOHELP
 
 GetOptions("macros:s" => \$macros, "verbose" => \$verbose, "help" => \$help) or die $usage;
 if ($help) {
-	print $usage;
-	exit 0;
+        print $usage;
+        exit 0;
 }
 
 if ($macros) {
-	foreach my $i (split(/,/, $macros, 0)) {
-		my ($key, $value) = split(/:/, $i, 3);
-		$macros{$key} = $value;
-	}
+        foreach my $i (split(/,/, $macros, 0)) {
+                my ($key, $value) = split(/:/, $i, 3);
+                $macros{$key} = $value;
+        }
 }
 
 foreach my $basename ('c2s', 's2s', 'sm', 'router') {
-	my $configfile = "/etc/jabberd/$basename.xml";
-	my $template = "/usr/share/spacewalk/setup/jabberd/$basename.xsl";
+        my $configfile = "/etc/jabberd/$basename.xml";
+        my $template = "/usr/share/spacewalk/setup/jabberd/$basename.xsl";
 
-	{
-		local $/ = undef;
+        {
+                local $/ = undef;
 
-		local *F;
-		open F, $configfile or die "Error opening $configfile: $!\n";
-		my $original = <F>;
-		close F;
+                local *F;
+                open F, $configfile or die "Error opening $configfile: $!\n";
+                my $original = <F>;
+                close F;
 
-		print "Calling /usr/bin/xsltproc $template $configfile...\n" if $verbose;
-		my $transformed = `/usr/bin/xsltproc $template $configfile`;
-		die "There was an error running xsltproc\n" if $?;
+                print "Calling /usr/bin/xsltproc $template $configfile...\n" if $verbose;
+                my $transformed = `/usr/bin/xsltproc $template $configfile`;
+                die "There was an error running xsltproc\n" if $?;
 
-		for my $key (keys %macros) {
-			$transformed =~ s/\@$key\@/$macros{$key}/mg;
-		}
+                for my $key (keys %macros) {
+                        $transformed =~ s/\@$key\@/$macros{$key}/mg;
+                }
 
-		if ($transformed ne $original) {
-			print "$configfile has been backed up to $configfile-swsave\n" if $verbose;
-			system('cp', '-p', '--backup=numbered', $configfile, "$configfile-swsave");
+                if ($transformed ne $original) {
+                        print "$configfile has been backed up to $configfile-swsave\n" if $verbose;
+                        system('cp', '-p', '--backup=numbered', $configfile, "$configfile-swsave");
 
-			my @statistics = stat($configfile);
+                        my @statistics = stat($configfile);
 
-			open F, ">$configfile";
-			print F $transformed;
-			close F;
+                        open F, ">$configfile";
+                        print F $transformed;
+                        close F;
 
-			chown $statistics[4], $statistics[5], $configfile;
-			chmod 0640, $configfile;
-		}
-		elsif ($verbose) {
-			print " No changes were made\n";
-		}
-	}
+                        chown $statistics[4], $statistics[5], $configfile;
+                        chmod 0640, $configfile;
+                }
+                elsif ($verbose) {
+                        print " No changes were made\n";
+                }
+        }
 
 }
 

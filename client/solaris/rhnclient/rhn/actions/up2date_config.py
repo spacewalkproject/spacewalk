@@ -29,7 +29,7 @@ def update(configdict):
     if cfg['disallowConfChanges']:
         skipParams = cfg['disallowConfChanges']
     else:
-	skipParams = []
+        skipParams = []
     for param in configdict.keys():
         # dont touch params in the skip params list
         if param in skipParams:

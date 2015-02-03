@@ -38,7 +38,7 @@ class makeAttempts(Thread):
         while i < 100 and not self.term:  # Make few attempts
             try:
                 dict = self.server.up2date.login(systemid);
-	    except Exception, e:
+            except Exception, e:
                 if (str(e) == "(4, 'Interrupted system call')"):
                     pass
                 else:

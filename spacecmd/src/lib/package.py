@@ -32,12 +32,15 @@
 from spacecmd.utils import *
 import xmlrpclib
 
+
 def help_package_details(self):
     print 'package_details: Show the details of a software package'
     print 'usage: package_details PACKAGE ...'
 
+
 def complete_package_details(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
+
 
 def do_package_details(self, args):
     (args, _options) = parse_arguments(args)
@@ -100,6 +103,7 @@ def do_package_details(self, args):
 
 ####################
 
+
 def help_package_search(self):
     print 'package_search: Find packages that meet the given criteria'
     print 'usage: package_search NAME|QUERY'
@@ -111,7 +115,8 @@ def help_package_search(self):
           'description, summary'
     print 'Example: name:kernel AND version:2.6.18 AND -description:devel'
 
-def do_package_search(self, args, doreturn = False):
+
+def do_package_search(self, args, doreturn=False):
     if not len(args):
         self.help_package_search()
         return
@@ -136,7 +141,7 @@ def do_package_search(self, args, doreturn = False):
         # the APIs for searching; this is done because the fuzzy
         # search on the server gives a lot of garbage back
         packages = filter_results(self.get_package_names(True),
-                                  [ args ], search = True)
+                                  [args], search=True)
 
     if doreturn:
         return packages
@@ -146,12 +151,15 @@ def do_package_search(self, args, doreturn = False):
 
 ####################
 
+
 def help_package_remove(self):
     print 'package_remove: Remove a package from Satellite'
     print 'usage: package_remove PACKAGE ...'
 
+
 def complete_package_remove(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
+
 
 def do_package_remove(self, args):
     (args, _options) = parse_arguments(args)
@@ -186,13 +194,15 @@ def do_package_remove(self, args):
 
 ####################
 
+
 def help_package_listorphans(self):
     print 'package_listorphans: List packages that are not in a channel'
     print 'usage: package_listorphans'
 
-def do_package_listorphans(self, args, doreturn = False):
-    packages = self.client.channel.software.listPackagesWithoutChannel(\
-                                            self.session)
+
+def do_package_listorphans(self, args, doreturn=False):
+    packages = self.client.channel.software.listPackagesWithoutChannel(
+        self.session)
 
     packages = build_package_names(packages)
 
@@ -204,9 +214,11 @@ def do_package_listorphans(self, args, doreturn = False):
 
 ####################
 
+
 def help_package_removeorphans(self):
     print 'package_removeorphans: Remove packages that are not in a channel'
     print 'usage: package_removeorphans'
+
 
 def do_package_removeorphans(self, args):
     packages = \
@@ -231,13 +243,16 @@ def do_package_removeorphans(self, args):
 
 ####################
 
+
 def help_package_listinstalledsystems(self):
     print 'package_listinstalledsystems: List the systems with a package ' + \
           'installed'
     print 'usage: package_listinstalledsystems PACKAGE ...'
 
+
 def complete_package_listinstalledsystems(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
+
 
 def do_package_listinstalledsystems(self, args):
     (args, _options) = parse_arguments(args)
@@ -270,16 +285,19 @@ def do_package_listinstalledsystems(self, args):
         print '-' * len(package)
 
         if len(systems):
-            print '\n'.join(sorted([ s.get('name') for s in systems ]))
+            print '\n'.join(sorted([s.get('name') for s in systems]))
 
 ####################
+
 
 def help_package_listerrata(self):
     print 'package_listerrata: List the errata that provide this package'
     print 'usage: package_listerrata PACKAGE ...'
 
+
 def complete_package_listerrata(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
+
 
 def do_package_listerrata(self, args):
     (args, _options) = parse_arguments(args)
@@ -311,13 +329,15 @@ def do_package_listerrata(self, args):
             print '-' * len(package)
 
             if len(errata):
-                print '\n'.join(sorted([ e.get('advisory') for e in errata ]))
+                print '\n'.join(sorted([e.get('advisory') for e in errata]))
 
 ####################
+
 
 def help_package_listdependencies(self):
     print 'package_listdependencies: List the dependencies for a package'
     print 'usage: package_listdependencies PACKAGE'
+
 
 def do_package_listdependencies(self, args):
     (args, _options) = parse_arguments(args)
@@ -353,5 +373,3 @@ def do_package_listdependencies(self, args):
                 print 'Dependency: %s Type: %s Modifier: %s' % \
                       (dep['dependency'], dep['dependency_type'], dep['dependency_modifier'])
             print self.SEPARATOR
-
-# vim:ts=4:expandtab:

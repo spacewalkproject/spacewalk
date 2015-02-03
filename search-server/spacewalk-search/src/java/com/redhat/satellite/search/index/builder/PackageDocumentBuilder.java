@@ -34,12 +34,12 @@ public class PackageDocumentBuilder implements DocumentBuilder {
         Document doc = new Document();
         doc.add(new Field("id", objId.toString(), Field.Store.YES,
                 Field.Index.UN_TOKENIZED));
-        
+
         for (Iterator<String> iter = metadata.keySet().iterator(); iter
                 .hasNext();) {
             Field.Store store = Field.Store.YES;
             Field.Index tokenize = Field.Index.TOKENIZED;
-            
+
             String name = iter.next();
             String value = metadata.get(name);
             if (name.equals("name")) {
@@ -50,7 +50,7 @@ public class PackageDocumentBuilder implements DocumentBuilder {
                     name.equals("epoch")) {
                 tokenize = Field.Index.UN_TOKENIZED;
             }
-            
+
             doc.add(new Field(name, String.valueOf(value), store,
                     tokenize));
         }

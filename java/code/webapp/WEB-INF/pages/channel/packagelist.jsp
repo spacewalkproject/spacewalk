@@ -18,8 +18,8 @@
 
     <input type="hidden" name="cid" value="${cid}" />
 
-    	<rl:list dataset="pageList"
-    	         name="packageList"
+        <rl:list dataset="pageList"
+                 name="packageList"
                 emptykey="package.jsp.emptylist"
                 alphabarcolumn="nvrea"
                   filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter">
@@ -30,7 +30,7 @@
                                    bound="false"
                            headerkey="download.jsp.package"
                            sortattr="nvrea"
-					defaultsort="asc">
+                                        defaultsort="asc">
 
                         <a href="/rhn/software/packages/Details.do?pid=${current.id}">${current.nvrea}</a>
                 </rl:column>
@@ -53,9 +53,9 @@
 
         </rl:list>
 
-	<rl:csv dataset="pageList"
-		        name="packageList"
-		        exportColumns="id, nvrea, provider" />
+        <rl:csv dataset="pageList"
+                        name="packageList"
+                        exportColumns="id, nvrea, provider" />
 
     </rl:listset>
 

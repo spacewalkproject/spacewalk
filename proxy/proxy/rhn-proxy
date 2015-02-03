@@ -10,7 +10,7 @@ forward_services() {
     ACTION="$1"
 
     for service in $SERVICES; do
-	if [ -e /etc/rc.d/init.d/$service ]; then
+	if [ -e /etc/init.d/$service -o -e /lib/systemd/system/$service.service ]; then
 	    /sbin/service $service $ACTION
 	    let RETVAL=$RETVAL+$?
 	fi
@@ -24,7 +24,7 @@ reverse_services() {
     ACTION="$1"
 
     for service in $(echo $SERVICES | tac -s" "); do
-	if [ -e /etc/rc.d/init.d/$service ]; then
+	if [ -e /etc/init.d/$service -o -e /lib/systemd/system/$service.service ]; then
 	    /sbin/service $service $ACTION
             let RETVAL=$RETVAL+$?
         fi
@@ -38,16 +38,14 @@ start() {
         echo "Starting rhn-proxy..."
 	forward_services start
 	echo "Done."
-
-        [ $RETVAL = 0 ] && touch /var/lock/subsys/rhn-proxy
+        return 0
 }
 
 stop() {
         echo "Shutting down rhn-proxy..."
 	reverse_services stop
 	echo "Done."
-
-        [ $RETVAL = 0 ] && rm -f /var/lock/subsys/rhn-proxy
+        return 0
 }
 
 restart() {
@@ -72,14 +70,10 @@ case "$1" in
         restart
         ;;
     condrestart)
-        if [ -f /var/lock/subsys/rhn-proxy ]; then
-            stop
-            start
-            RETVAL=$?
-        fi
+        restart
         ;;
     *)
-        echo "Usage: rhn-proxy {start|stop|status|restart|condrestart}"
+        echo "Usage: rhn-proxy {start|stop|status|restart}"
         exit 1
         ;;
 esac

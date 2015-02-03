@@ -26,7 +26,8 @@ public class InvalidGPGFingerprintException extends FaultException {
      * Constructor
      */
     public InvalidGPGFingerprintException() {
-        super(1209, "invalidGpgFingerprint", "Invalid GPG Fingerpring");
+        super(1209, "invalidGpgFingerprint", "The GPG fingerprint " +
+                "must be of form 'CA20 8686 2BD6 9DFC 65F6 ECC4 2191 80CD DB42 A60E'");
     }
 
     /**
@@ -37,6 +38,7 @@ public class InvalidGPGFingerprintException extends FaultException {
      * unknown.)
      */
     public InvalidGPGFingerprintException(Throwable cause) {
-        super(1209, "invalidGpgFingerprint", "Invalid GPG Fingerpring", cause);
+        super(1209, "invalidGpgFingerprint", "The GPG fingerprint must be of " +
+                "form 'CA20 8686 2BD6 9DFC 65F6 ECC4 2191 80CD DB42 A60E'", cause);
     }
 }

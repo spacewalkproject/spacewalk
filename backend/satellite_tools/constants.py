@@ -46,4 +46,3 @@ VIRT_SUPPORTED_VERSION = 3.1
 #    added short package dumps per channel
 # * Version 3.0 2005-01-13
 #    required major version change for channel family merging (#136525)
-

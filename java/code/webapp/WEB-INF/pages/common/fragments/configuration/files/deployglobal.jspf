@@ -11,91 +11,91 @@
                type="${channel.configChannelType.label}" />
 </c:set>
 <bean:message key="deployglobal.jspf.note"
-	arg0="${revision.revision}"
-	arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&amp;crid=${revision.id}"
-	arg2="${beanarg}" />
+        arg0="${revision.revision}"
+        arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&amp;crid=${revision.id}"
+        arg2="${beanarg}" />
 
 <html:form
-	action="/configuration/file/GlobalRevisionDeploySubmit.do?ccid=${ccid}&amp;cfid=${cfid}&amp;crid=${crid}">
+        action="/configuration/file/GlobalRevisionDeploySubmit.do?ccid=${ccid}&amp;cfid=${cfid}&amp;crid=${crid}">
     <rhn:csrf />
-	<html:hidden property="submitted" value="true" />
+        <html:hidden property="submitted" value="true" />
 
-	<rhn:list pageList="${requestScope.pageList}"
-		noDataText="globalDeploy.jsp.noSystems">
+        <rhn:list pageList="${requestScope.pageList}"
+                noDataText="globalDeploy.jsp.noSystems">
 
-		<rhn:listdisplay filterBy="system.common.systemName" set="${requestScope.set}">
-      		<rhn:set value="${current.id}" disabled="${not current.selectable}"/>
-			<rhn:column header="globaldeploy.jsp.systemName-header">
-        	  <a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}"><rhn:icon type="header-system" /> ${fn:escapeXml(current.name)} </a><c:if test="${not current.deployable}">*</c:if>
-    		</rhn:column>
+                <rhn:listdisplay filterBy="system.common.systemName" set="${requestScope.set}">
+                <rhn:set value="${current.id}" disabled="${not current.selectable}"/>
+                        <rhn:column header="globaldeploy.jsp.systemName-header">
+                  <a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}"><rhn:icon type="header-system" /> ${fn:escapeXml(current.name)} </a><c:if test="${not current.deployable}">*</c:if>
+                </rhn:column>
 
-			<rhn:column header="globaldeploy.jsp.overridden-header">
-				<c:choose>
-					<c:when test="${(current.outrankedCount <= 0) && (current.overrideCount <= 0)}">
-						<bean:message key="globaldeploy.jsp.overridden-none"/>
-					</c:when>
-					<c:otherwise>
-						<c:if test="${current.outrankedCount == 1}">
-							<bean:message key="globaldeploy.jsp.outranked-number"
-								arg0="${current.outrankedCount}"
-								arg1="/rhn/systems/details/configuration/RankChannels.do?sid=${current.id}"/><br />
-						</c:if>
-						<c:if test="${current.outrankedCount > 1}">
-							<bean:message key="globaldeploy.jsp.outranked-numbers"
-								arg0="${current.outrankedCount}"
-								arg1="/rhn/systems/details/configuration/RankChannels.do?sid=${current.id}"/><br />
-						</c:if>
-						<c:if test="${current.overrideCount > 0}">
-							<bean:message key="globaldeploy.jsp.override-number"
-								arg0="${current.overrideCount}"
-								arg1="/rhn/systems/details/configuration/ViewModifyLocalPaths.do?sid=${current.id}"/>
-						</c:if>
-					</c:otherwise>
-				</c:choose>
-    		</rhn:column>
-		</rhn:listdisplay>
-	</rhn:list>
-	<br/>
+                        <rhn:column header="globaldeploy.jsp.overridden-header">
+                                <c:choose>
+                                        <c:when test="${(current.outrankedCount <= 0) && (current.overrideCount <= 0)}">
+                                                <bean:message key="globaldeploy.jsp.overridden-none"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                                <c:if test="${current.outrankedCount == 1}">
+                                                        <bean:message key="globaldeploy.jsp.outranked-number"
+                                                                arg0="${current.outrankedCount}"
+                                                                arg1="/rhn/systems/details/configuration/RankChannels.do?sid=${current.id}"/><br />
+                                                </c:if>
+                                                <c:if test="${current.outrankedCount > 1}">
+                                                        <bean:message key="globaldeploy.jsp.outranked-numbers"
+                                                                arg0="${current.outrankedCount}"
+                                                                arg1="/rhn/systems/details/configuration/RankChannels.do?sid=${current.id}"/><br />
+                                                </c:if>
+                                                <c:if test="${current.overrideCount > 0}">
+                                                        <bean:message key="globaldeploy.jsp.override-number"
+                                                                arg0="${current.overrideCount}"
+                                                                arg1="/rhn/systems/details/configuration/ViewModifyLocalPaths.do?sid=${current.id}"/>
+                                                </c:if>
+                                        </c:otherwise>
+                                </c:choose>
+                </rhn:column>
+                </rhn:listdisplay>
+        </rhn:list>
+        <br/>
 
-	<div class="small-text">*  <bean:message key="deployglobal.jspf.not_deployable"
-	           		arg0="/rhn/configuration/system/TargetSystems.do"
-	            		arg1="${rhn:localize('targetsystems.jsp.toolbar')}"
-	            		arg2="${rhn:localize('targetsystems.jsp.enable')}"/>
-	</div>
-	<br />
-	<div class="small-text"><bean:message key="deploy.jsp.tip.global-1" /></div>
-	<br />
-	<div class="small-text">
-	  <%--
-	       There are three possible texts for this tip.
-	       One for a normal user, one for a config admin, and one for
-	       an org admin.
-	   --%>
+        <div class="small-text">*  <bean:message key="deployglobal.jspf.not_deployable"
+                                arg0="/rhn/configuration/system/TargetSystems.do"
+                                arg1="${rhn:localize('targetsystems.jsp.toolbar')}"
+                                arg2="${rhn:localize('targetsystems.jsp.enable')}"/>
+        </div>
+        <br />
+        <div class="small-text"><bean:message key="deploy.jsp.tip.global-1" /></div>
+        <br />
+        <div class="small-text">
+          <%--
+               There are three possible texts for this tip.
+               One for a normal user, one for a config admin, and one for
+               an org admin.
+           --%>
 
-	  <c:set var="tipbeanarg" scope="request">
-	      <a href="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}">
-	        ${channel.displayName}
-	      </a>
-	    </c:set>
-	  <rhn:require acl="not user_role(config_admin)">
-	    <bean:message key="deployglobal.jspf.tip.needadmin"
-	      arg0="${rhn:localize('config_admin')}"
-	      arg1="${tipbeanarg}" />
-	  </rhn:require>
-	  <%-- Org admins will get both of the following --%>
-	  <rhn:require acl="user_role(config_admin)">
-	    <bean:message key="deployglobal.jspf.tip.configadmin"
-	      arg0="${tipbeanarg}"
+          <c:set var="tipbeanarg" scope="request">
+              <a href="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}">
+                ${channel.displayName}
+              </a>
+            </c:set>
+          <rhn:require acl="not user_role(config_admin)">
+            <bean:message key="deployglobal.jspf.tip.needadmin"
+              arg0="${rhn:localize('config_admin')}"
+              arg1="${tipbeanarg}" />
+          </rhn:require>
+          <%-- Org admins will get both of the following --%>
+          <rhn:require acl="user_role(config_admin)">
+            <bean:message key="deployglobal.jspf.tip.configadmin"
+              arg0="${tipbeanarg}"
           arg1="/rhn/configuration/channel/TargetSystems.do?ccid=${channel.id}" />
-	  </rhn:require>
-	  <rhn:require acl="user_role(org_admin)">
-	    <bean:message key="deployglobal.jspf.tip.orgadmin"
-	      arg0="/rhn/systems/SystemEntitlements.do" />
-	  </rhn:require>
+          </rhn:require>
+          <rhn:require acl="user_role(org_admin)">
+            <bean:message key="deployglobal.jspf.tip.orgadmin"
+              arg0="/rhn/systems/SystemEntitlements.do" />
+          </rhn:require>
     </div>
-	<hr />
-	<div class="text-right">
-	  <html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="deploy.jsp.deploybutton" /></html:submit>
-	</div>
+        <hr />
+        <div class="text-right">
+          <html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="deploy.jsp.deploybutton" /></html:submit>
+        </div>
 
 </html:form>

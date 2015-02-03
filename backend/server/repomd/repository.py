@@ -38,17 +38,18 @@ from spacewalk.server import rhnChannel
 CHUNK_SIZE = 1048576
 
 comps_mapping = {
-    'rhel-x86_64-client-5' : 'rhn/kickstart/ks-rhel-x86_64-client-5/Client/repodata/comps-rhel5-client-core.xml',
-    'rhel-x86_64-client-vt-5' : 'rhn/kickstart/ks-rhel-x86_64-client-5/VT/repodata/comps-rhel5-vt.xml',
-    'rhel-x86_64-client-workstation-5' : 'rhn/kickstart/ks-rhel-x86_64-client-5/Workstation/repodata/comps-rhel5-client-workstation.xml',
-    'rhel-x86_64-server-5' : 'rhn/kickstart/ks-rhel-x86_64-server-5/Server/repodata/comps-rhel5-server-core.xml',
-    'rhel-x86_64-server-vt-5' : 'rhn/kickstart/ks-rhel-x86_64-server-5/VT/repodata/comps-rhel5-vt.xml',
-    'rhel-x86_64-server-cluster-5' : 'rhn/kickstart/ks-rhel-x86_64-server-5/Cluster/repodata/comps-rhel5-cluster.xml',
-    'rhel-x86_64-server-cluster-storage-5' : 'rhn/kickstart/ks-rhel-x86_64-server-5/ClusterStorage/repodata/comps-rhel5-cluster-st.xml',
+    'rhel-x86_64-client-5': 'rhn/kickstart/ks-rhel-x86_64-client-5/Client/repodata/comps-rhel5-client-core.xml',
+    'rhel-x86_64-client-vt-5': 'rhn/kickstart/ks-rhel-x86_64-client-5/VT/repodata/comps-rhel5-vt.xml',
+    'rhel-x86_64-client-workstation-5': 'rhn/kickstart/ks-rhel-x86_64-client-5/Workstation/repodata/comps-rhel5-client-workstation.xml',
+    'rhel-x86_64-server-5': 'rhn/kickstart/ks-rhel-x86_64-server-5/Server/repodata/comps-rhel5-server-core.xml',
+    'rhel-x86_64-server-vt-5': 'rhn/kickstart/ks-rhel-x86_64-server-5/VT/repodata/comps-rhel5-vt.xml',
+    'rhel-x86_64-server-cluster-5': 'rhn/kickstart/ks-rhel-x86_64-server-5/Cluster/repodata/comps-rhel5-cluster.xml',
+    'rhel-x86_64-server-cluster-storage-5': 'rhn/kickstart/ks-rhel-x86_64-server-5/ClusterStorage/repodata/comps-rhel5-cluster-st.xml',
 }
 for k in comps_mapping.keys():
     for arch in ('i386', 'ia64', 's390x', 'ppc'):
         comps_mapping[k.replace('x86_64', arch)] = comps_mapping[k].replace('x86_64', arch)
+
 
 class Repository(object):
 
@@ -114,7 +115,7 @@ class Repository(object):
 
         if not ret:
             viewobj = self.get_cache_view(self.updateinfo_prefix,
-                view.UpdateinfoView)
+                                          view.UpdateinfoView)
 
             viewobj.write_updateinfo()
             viewobj.fileobj.close()
@@ -161,12 +162,12 @@ class Repository(object):
             return comps_view.get_file()
         elif comps_mapping.has_key(self.channel.label):
             comps_view = view.CompsView(Comps(None,
-                os.path.join(CFG.mount_point, comps_mapping[self.channel.label])))
+                                              os.path.join(CFG.mount_point, comps_mapping[self.channel.label])))
             return comps_view.get_file()
         else:
             if self.channel.cloned_from_id is not None:
-                log_debug(1, "No comps and no comps_mapping for [%s] cloned from [%s] trying to get comps from the original one." \
-                          % ( self.channel.id, self.channel.cloned_from_id ))
+                log_debug(1, "No comps and no comps_mapping for [%s] cloned from [%s] trying to get comps from the original one."
+                          % (self.channel.id, self.channel.cloned_from_id))
                 cloned_from_channel = rhnChannel.Channel().load_by_id(self.channel.cloned_from_id)
                 cloned_from_channel_label = cloned_from_channel._row['label']
                 return Repository(rhnChannel.channel_info(cloned_from_channel_label)).get_comps_file()
@@ -186,7 +187,7 @@ class Repository(object):
 
     def __get_channel(self):
         """ Late binding for the channel. """
-        if self._channel == None:
+        if self._channel is None:
             channel_mapper = mapper.get_channel_mapper()
             self._channel = channel_mapper.get_channel(self.channel_id)
         return self._channel
@@ -230,13 +231,13 @@ class CompressedRepository:
 
     def __get_compressed_file(self, uncompressed_file):
         string_file = StringIO.StringIO()
-        gzip_file = NoTimeStampGzipFile(mode = "wb", fileobj = string_file)
+        gzip_file = NoTimeStampGzipFile(mode="wb", fileobj=string_file)
 
         shutil.copyfileobj(uncompressed_file, gzip_file)
 
         gzip_file.close()
 
-        string_file.seek(0,0)
+        string_file.seek(0, 0)
 
         return string_file
 
@@ -254,19 +255,19 @@ class CachedRepository:
     def get_primary_xml_file(self):
         """ Return the cached primary metadata file, if it exists. """
         return self._cached(self.primary_prefix,
-            self.repository.get_primary_xml_file)
+                            self.repository.get_primary_xml_file)
 
     def get_other_xml_file(self):
         return self._cached(self.other_prefix,
-            self.repository.get_other_xml_file)
+                            self.repository.get_other_xml_file)
 
     def get_filelists_xml_file(self):
         return self._cached(self.filelists_prefix,
-            self.repository.get_filelists_xml_file)
+                            self.repository.get_filelists_xml_file)
 
     def get_updateinfo_xml_file(self):
         return self._cached(self.updateinfo_prefix,
-            self.repository.get_updateinfo_xml_file)
+                            self.repository.get_updateinfo_xml_file)
 
     def _cached(self, cache_prefix, fallback_method):
         """
@@ -319,7 +320,7 @@ class MetadataRepository:
         if not ret:
             # We need the time in seconds since the epoch for the xml file.
             timestamp = int(time.mktime(time.strptime(self.last_modified,
-                "%Y%m%d%H%M%S")))
+                                                      "%Y%m%d%H%M%S")))
 
             to_generate = []
 
@@ -333,20 +334,20 @@ class MetadataRepository:
             self.repository.generate_files(to_generate)
 
             primary = self.__compute_checksums(timestamp,
-                self.repository.get_primary_xml_file(),
-                self.compressed_repository.get_primary_xml_file())
+                                               self.repository.get_primary_xml_file(),
+                                               self.compressed_repository.get_primary_xml_file())
 
             filelists = self.__compute_checksums(timestamp,
-                self.repository.get_filelists_xml_file(),
-                self.compressed_repository.get_filelists_xml_file())
+                                                 self.repository.get_filelists_xml_file(),
+                                                 self.compressed_repository.get_filelists_xml_file())
 
             other = self.__compute_checksums(timestamp,
-                self.repository.get_other_xml_file(),
-                self.compressed_repository.get_other_xml_file())
+                                             self.repository.get_other_xml_file(),
+                                             self.compressed_repository.get_other_xml_file())
 
             updateinfo = self.__compute_checksums(timestamp,
-                self.repository.get_updateinfo_xml_file(),
-                self.compressed_repository.get_updateinfo_xml_file())
+                                                  self.repository.get_updateinfo_xml_file(),
+                                                  self.compressed_repository.get_updateinfo_xml_file())
 
             # Comps might not exist on disc
             comps = None
@@ -358,10 +359,9 @@ class MetadataRepository:
             if comps_file:
                 comps = self.__compute_open_checksum(timestamp, comps_file)
 
-
             ret = self.cache.set_file(cache_entry, self.last_modified)
             repomd_view = view.RepoView(primary, filelists, other, updateinfo,
-                comps, ret, self.__get_checksumtype())
+                                        comps, ret, self.__get_checksumtype())
 
             repomd_view.write_repomd()
             ret.close()

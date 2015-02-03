@@ -26,24 +26,24 @@
 <rl:listset name="userConfirmListSet">
     <rhn:csrf />
     <rhn:submitted />
-	<rl:list dataset="pageList"
+        <rl:list dataset="pageList"
          width="100%"
          name="userConfirmList"
          styleclass="list"
- 		 alphabarcolumn="userLogin">
-		<rl:decorator name="PageSizeDecorator"/>
-		<%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
+                 alphabarcolumn="userLogin">
+                <rl:decorator name="PageSizeDecorator"/>
+                <%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
 
- 	</rl:list>
+        </rl:list>
 
- 	<rl:csv dataset="pageList"
-		name="userConfirmList"
-		exportColumns="userLogin,userLastName,userFirstName,roleNames,lastLoggedIn"/>
+        <rl:csv dataset="pageList"
+                name="userConfirmList"
+                exportColumns="userLogin,userLastName,userFirstName,roleNames,lastLoggedIn"/>
 
-	<div class="text-right">
-    	<hr />
+        <div class="text-right">
+        <hr />
         <input class="btn btn-default" type="submit" name="dispatch" value="<bean:message key='userconfirm.jsp.confirm'/>" />
-	</div>
+        </div>
 
 </rl:listset>
 

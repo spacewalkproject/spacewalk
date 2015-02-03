@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package Sniglets::Snapshot;
@@ -55,11 +55,11 @@ sub add_system_tag_bulk_cb {
 
   eval {
     $transaction = RHN::SystemSnapshot->bulk_snapshot_tag(user_id => $pxt->user->id,
-							  org_id => $pxt->user->org_id,
-							  set_label => 'system_list',
-							  tag_name => $tagname,
-							  transaction => $transaction,
-							 );
+                                                          org_id => $pxt->user->org_id,
+                                                          set_label => 'system_list',
+                                                          tag_name => $tagname,
+                                                          transaction => $transaction,
+                                                         );
   };
 
   if ($@) {

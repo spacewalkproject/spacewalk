@@ -37,14 +37,15 @@ from optparse import Option
 from xml.parsers.expat import ExpatError
 from spacecmd.utils import *
 
-__PKG_COMPARISONS = { 0 : 'Same',
-                      1 : 'Only here',
-                      2 : 'Newer here',
-                      3 : 'Only there',
-                      4 : 'Newer there' }
+__PKG_COMPARISONS = {0: 'Same',
+                     1: 'Only here',
+                     2: 'Newer here',
+                     3: 'Only there',
+                     4: 'Newer there'}
+
 
 def print_package_comparison(self, results):
-    max_name  = max_length(map(itemgetter('package_name'), results), minimum=7)
+    max_name = max_length(map(itemgetter('package_name'), results), minimum=7)
 
     # sometimes 'this_system' or 'other_system' can be None
     tmp_this = []
@@ -53,23 +54,23 @@ def print_package_comparison(self, results):
         tmp_this.append(str(item.get('this_system')))
         tmp_other.append(str(item.get('other_system')))
 
-    max_this  = max_length(tmp_this, minimum=11)
+    max_this = max_length(tmp_this, minimum=11)
     max_other = max_length(tmp_other, minimum=12)
 
     max_comparison = 10
 
     # print headers
     print '%s  %s  %s  %s' % (
-            'Package'.ljust(max_name),
-            'This System'.ljust(max_this),
-            'Other System'.ljust(max_other),
-            'Difference'.ljust(max_comparison))
+        'Package'.ljust(max_name),
+        'This System'.ljust(max_this),
+        'Other System'.ljust(max_other),
+        'Difference'.ljust(max_comparison))
 
     print '%s  %s  %s  %s' % (
-            '-' * max_name,
-            '-' * max_this,
-            '-' * max_other,
-            '-' * max_comparison)
+        '-' * max_name,
+        '-' * max_this,
+        '-' * max_other,
+        '-' * max_comparison)
 
     for item in results:
         # don't show packages that are the same
@@ -77,12 +78,13 @@ def print_package_comparison(self, results):
             continue
 
         print '%s  %s  %s  %s' % (
-              item.get('package_name').ljust(max_name),
-              str(item.get('this_system')).ljust(max_this),
-              str(item.get('other_system')).ljust(max_other),
-              __PKG_COMPARISONS[item.get('comparison')])
+            item.get('package_name').ljust(max_name),
+            str(item.get('this_system')).ljust(max_this),
+            str(item.get('other_system')).ljust(max_other),
+            __PKG_COMPARISONS[item.get('comparison')])
 
 ####################
+
 
 def manipulate_child_channels(self, args, remove=False):
     (args, _options) = parse_arguments(args)
@@ -146,11 +148,13 @@ def manipulate_child_channels(self, args, remove=False):
 
 ####################
 
+
 def help_system_list(self):
     print 'system_list: List all system profiles'
     print 'usage: system_list'
 
-def do_system_list(self, args, doreturn = False):
+
+def do_system_list(self, args, doreturn=False):
     if doreturn:
         return self.get_system_names()
     else:
@@ -159,14 +163,17 @@ def do_system_list(self, args, doreturn = False):
 
 ####################
 
+
 def help_system_reboot(self):
     print 'system_reboot: Reboot a system'
     print 'usage: system_reboot <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_reboot(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_reboot(self, args):
     (args, _options) = parse_arguments(args)
@@ -201,6 +208,7 @@ def do_system_reboot(self, args):
 
 ####################
 
+
 def help_system_search(self):
     print 'system_search: List systems that match the given criteria'
     print 'usage: system_search QUERY'
@@ -212,7 +220,8 @@ def help_system_search(self):
     print '> system_search device:vmware'
     print '> system_search ip:192.168.82'
 
-def do_system_search(self, args, doreturn = False):
+
+def do_system_search(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
     if len(args) != 1:
@@ -243,8 +252,8 @@ def do_system_search(self, args, doreturn = False):
     elif field == 'id':
         # build an array of key/value pairs from our local system cache
         self.generate_system_cache()
-        results = [ {'id' : k, 'name' : self.all_systems[k] } \
-                    for k in self.all_systems ]
+        results = [{'id': k, 'name': self.all_systems[k]}
+                   for k in self.all_systems]
         key = 'id'
     elif field == 'ip':
         results = self.client.system.search.ip(self.session, value)
@@ -279,7 +288,7 @@ def do_system_search(self, args, doreturn = False):
             if len(s.get('name')) > max_size:
                 max_size = len(s.get('name'))
 
-            systems.append( (s.get('name'), s.get(key)) )
+            systems.append((s.get('name'), s.get(key)))
 
     if doreturn:
         return [s[0] for s in systems]
@@ -293,6 +302,7 @@ def do_system_search(self, args, doreturn = False):
                                       str(s[1]).strip())
 
 ####################
+
 
 def help_system_runscript(self):
     print 'system_runscript: Schedule a script to run on the list of'
@@ -310,15 +320,17 @@ options:
     print
     print self.HELP_TIME_OPTS
 
+
 def complete_system_runscript(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
+
 def do_system_runscript(self, args):
-    options = [ Option('-u', '--user', action='store'),
-                Option('-g', '--group', action='store'),
-                Option('-t', '--timeout', action='store'),
-                Option('-s', '--start-time', action='store'),
-                Option('-f', '--file', action='store') ]
+    options = [Option('-u', '--user', action='store'),
+               Option('-g', '--group', action='store'),
+               Option('-t', '--timeout', action='store'),
+               Option('-s', '--start-time', action='store'),
+               Option('-f', '--file', action='store')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -337,12 +349,12 @@ def do_system_runscript(self, args):
         return
 
     if is_interactive(options):
-        options.user  = prompt_user('User [root]:')
+        options.user = prompt_user('User [root]:')
         options.group = prompt_user('Group [root]:')
 
         # defaults
         if not options.user:
-            options.user  = 'root'
+            options.user = 'root'
         if not options.group:
             options.group = 'root'
 
@@ -420,7 +432,7 @@ def do_system_runscript(self, args):
         logging.debug('Scheduling all systems for the same action')
 
         # schedule all systems for the same action
-        system_ids = [ self.get_system_id(s) for s in systems ]
+        system_ids = [self.get_system_id(s) for s in systems]
 
         action_id = self.client.system.scheduleScriptRun(self.session,
                                                          system_ids,
@@ -467,14 +479,17 @@ def do_system_runscript(self, args):
 
 ####################
 
+
 def help_system_listhardware(self):
     print 'system_listhardware: List the hardware details of a system'
     print 'usage: system_listhardware <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_listhardware(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_listhardware(self, args):
     (args, _options) = parse_arguments(args)
@@ -585,18 +600,20 @@ def do_system_listhardware(self, args):
                 count += 1
 
                 print 'Description: %s' % (
-                         wrap(device.get('description'), 60)[0])
+                    wrap(device.get('description'), 60)[0])
                 print 'Driver:      %s' % device.get('driver')
                 print 'Class:       %s' % device.get('device_class')
                 print 'Bus:         %s' % device.get('bus')
 
 ####################
 
+
 def help_system_installpackage(self):
     print 'system_installpackage: Install a package on a system'
     print 'usage: system_installpackage <SYSTEMS> <PACKAGE ...>'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_installpackage(self, text, line, beg, end):
     parts = line.split(' ')
@@ -605,6 +622,7 @@ def complete_system_installpackage(self, text, line, beg, end):
         return self.tab_complete_systems(text)
     elif len(parts) > 2:
         return tab_completer(self.get_package_names(), text)
+
 
 def do_system_installpackage(self, args):
     (args, _options) = parse_arguments(args)
@@ -651,9 +669,9 @@ def do_system_installpackage(self, args):
                 # add this package to the system's queue
                 jobs[system_id].append(system.get('package').get('id'))
     else:
-        #XXX: Satellite 5.3 compatibility
+        # XXX: Satellite 5.3 compatibility
         for system_id in system_ids:
-            logging.debug('Getting available packages for %s' % \
+            logging.debug('Getting available packages for %s' %
                           self.get_system_name(system_id))
 
             avail_packages = \
@@ -692,7 +710,7 @@ def do_system_installpackage(self, args):
     if len(warnings):
         print
     for system_id in warnings:
-        logging.warning('%s does not have access to all requested packages' % \
+        logging.warning('%s does not have access to all requested packages' %
                         self.get_system_name(system_id))
 
     if not self.user_confirm('Install these packages [y/N]:'):
@@ -716,11 +734,13 @@ def do_system_installpackage(self, args):
 
 ####################
 
+
 def help_system_removepackage(self):
     print 'system_removepackage: Remove a package from a system'
     print 'usage: system_removepackage <SYSTEMS> <PACKAGE ...>'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_removepackage(self, text, line, beg, end):
     parts = line.split(' ')
@@ -729,6 +749,7 @@ def complete_system_removepackage(self, text, line, beg, end):
         return self.tab_complete_systems(text)
     elif len(parts) > 2:
         return tab_completer(self.get_package_names(), text)
+
 
 def do_system_removepackage(self, args):
     (args, _options) = parse_arguments(args)
@@ -811,11 +832,13 @@ def do_system_removepackage(self, args):
 
 ####################
 
+
 def help_system_upgradepackage(self):
     print 'system_upgradepackage: Upgrade a package on a system'
     print 'usage: system_upgradepackage <SYSTEMS> <PACKAGE ...>|*'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_upgradepackage(self, text, line, beg, end):
     parts = line.split(' ')
@@ -824,6 +847,7 @@ def complete_system_upgradepackage(self, text, line, beg, end):
         return self.tab_complete_systems(text)
     elif len(parts) > 2:
         return tab_completer(self.get_package_names(), text)
+
 
 def do_system_upgradepackage(self, args):
     (args, _options) = parse_arguments(args)
@@ -857,7 +881,7 @@ def do_system_upgradepackage(self, args):
                                                             system_id)
 
         if len(packages):
-            package_ids = [ p.get('to_package_id') for p in packages ]
+            package_ids = [p.get('to_package_id') for p in packages]
             jobs[system] = package_ids
         else:
             logging.warning('No upgrades available for %s' % system)
@@ -910,14 +934,17 @@ def do_system_upgradepackage(self, args):
 
 ####################
 
+
 def help_system_listupgrades(self):
     print 'system_listupgrades: List the available upgrades for a system'
     print 'usage: system_listupgrades <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_listupgrades(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_listupgrades(self, args):
     (args, _options) = parse_arguments(args)
@@ -958,11 +985,16 @@ def do_system_listupgrades(self, args):
         latest_packages = filter_latest_packages(packages, 'to_version', 'to_release', 'to_epoch')
 
         for package in sorted(latest_packages.values(), key=itemgetter('name')):
-            # listLatestUpgradablePackages doesn't give us the arch,
-            # so use the package ID to get that information
-            print self.get_package_name(package.get('to_package_id'))
+            print build_package_names({
+                'name': package['name'],
+                'version': package['to_version'],
+                'release': package['to_release'],
+                'epoch': package['to_epoch'],
+                'arch': package['to_arch']
+            })
 
 ####################
+
 
 def help_system_listinstalledpackages(self):
     print 'system_listinstalledpackages: List the installed packages on a'
@@ -971,8 +1003,10 @@ def help_system_listinstalledpackages(self):
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_listinstalledpackages(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_listinstalledpackages(self, args):
     (args, _options) = parse_arguments(args)
@@ -1009,14 +1043,17 @@ def do_system_listinstalledpackages(self, args):
 
 ####################
 
+
 def help_system_listconfigchannels(self):
     print 'system_listconfigchannels: List the config channels of a system'
     print 'usage: system_listconfigchannels <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_listconfigchannels(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_listconfigchannels(self, args):
     (args, _options) = parse_arguments(args)
@@ -1049,37 +1086,39 @@ def do_system_listconfigchannels(self, args):
             channels = self.client.system.config.listChannels(self.session,
                                                               system_id)
         except xmlrpclib.Fault:
-            logging.warning('%s does not support configuration channels' % \
+            logging.warning('%s does not support configuration channels' %
                             system)
             continue
 
-        print '\n'.join([ c.get('label') for c in channels ])
+        print '\n'.join([c.get('label') for c in channels])
 
 ####################
+
 
 def print_configfiles(self, quiet, filelist):
 
     # Figure out correct indentation to allow pretty table output
-    max_path  = max_length([f['path'] for f in filelist], minimum=10)
-    max_type  = max_length(["file", "directory", "symlink"], minimum=10)
+    max_path = max_length([f['path'] for f in filelist], minimum=10)
+    max_type = max_length(["file", "directory", "symlink"], minimum=10)
     max_label = max_length([f['channel_label'] for f in filelist], minimum=15)
 
     # print header when not in quiet mode
     if not quiet:
         print '%s  %s  %s' % (
-                'path'.ljust(max_path),
-                'type'.ljust(max_type),
-                'label/type'.ljust(max_label))
+            'path'.ljust(max_path),
+            'type'.ljust(max_type),
+            'label/type'.ljust(max_label))
 
         print '%s  %s  %s' % (
-                '-' * max_path,
-                '-' * max_type,
-                '-' * max_label)
+            '-' * max_path,
+            '-' * max_type,
+            '-' * max_label)
 
     for f in filelist:
-        print '%s  %s  %s' % (f['path'].ljust(max_path), \
-                              f['type'].ljust(max_type), \
+        print '%s  %s  %s' % (f['path'].ljust(max_path),
+                              f['type'].ljust(max_type),
                               f['channel_label'].ljust(max_label))
+
 
 def help_system_listconfigfiles(self):
     print 'system_listconfigfiles: List the managed config files of a system'
@@ -1092,14 +1131,16 @@ options:
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_listconfigfiles(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
+
 def do_system_listconfigfiles(self, args):
-    options = [ Option('-s', '--sandbox', action='store_true'),
-                Option('-l', '--local', action='store_true'),
-                Option('-c', '--central', action='store_true'),
-                Option('-q', '--quiet', action='store_true') ]
+    options = [Option('-s', '--sandbox', action='store_true'),
+               Option('-l', '--local', action='store_true'),
+               Option('-c', '--central', action='store_true'),
+               Option('-q', '--quiet', action='store_true')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -1136,12 +1177,12 @@ def do_system_listconfigfiles(self, args):
         try:
             # Pass 0 for system-sandbox files
             # Pass 1 for locally managed or centrally managed
-            files = self.client.system.config.listFiles(self.session, \
-                                                              system_id, 0)
-            files += self.client.system.config.listFiles(self.session, \
-                                                              system_id, 1)
+            files = self.client.system.config.listFiles(self.session,
+                                                        system_id, 0)
+            files += self.client.system.config.listFiles(self.session,
+                                                         system_id, 1)
         except xmlrpclib.Fault:
-            logging.warning('%s does not support configuration channels' % \
+            logging.warning('%s does not support configuration channels' %
                             system)
             continue
 
@@ -1164,13 +1205,14 @@ def do_system_listconfigfiles(self, args):
                     toprint.append(f)
 
             else:
-                logging.error("Error, unexpected channel type label %s" %\
-                    f['channel_type']['label'])
+                logging.error("Error, unexpected channel type label %s" %
+                              f['channel_type']['label'])
                 return
 
         self.print_configfiles(options.quiet, toprint)
 
 ####################
+
 
 def help_system_addconfigfile(self):
     print 'system_addconfigfile: Create a configuration file'
@@ -1199,23 +1241,25 @@ options:
   detect files which require this, but you may need to explicitly specify.
 '''
 
+
 def complete_system_addconfigfile(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
+
 def do_system_addconfigfile(self, args, update_path=''):
-    options = [ Option('-S', '--sandbox', action='store_true'),
-                Option('-L', '--local', action='store_true'),
-                Option('-p', '--path', action='store'),
-                Option('-o', '--owner', action='store'),
-                Option('-g', '--group', action='store'),
-                Option('-m', '--mode', action='store'),
-                Option('-x', '--selinux-ctx', action='store'),
-                Option('-t', '--target-path', action='store'),
-                Option('-f', '--file', action='store'),
-                Option('-r', '--revision', action='store'),
-                Option('-s', '--symlink', action='store_true'),
-                Option('-b', '--binary', action='store_true'),
-                Option('-d', '--directory', action='store_true') ]
+    options = [Option('-S', '--sandbox', action='store_true'),
+               Option('-L', '--local', action='store_true'),
+               Option('-p', '--path', action='store'),
+               Option('-o', '--owner', action='store'),
+               Option('-g', '--group', action='store'),
+               Option('-m', '--mode', action='store'),
+               Option('-x', '--selinux-ctx', action='store'),
+               Option('-t', '--target-path', action='store'),
+               Option('-f', '--file', action='store'),
+               Option('-r', '--revision', action='store'),
+               Option('-s', '--symlink', action='store_true'),
+               Option('-b', '--binary', action='store_true'),
+               Option('-d', '--directory', action='store_true')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -1234,21 +1278,21 @@ def do_system_addconfigfile(self, args, update_path=''):
                 print '\n'.join(sorted(self.do_system_list('', True)))
                 print
 
-                options.system = prompt_user('Select:', noblank = True)
+                options.system = prompt_user('Select:', noblank=True)
 
                 # ensure the user enters a valid system
                 if options.system in self.do_system_list('', True):
                     break
                 else:
                     print
-                    logging.warning('%s is not a valid system' % \
+                    logging.warning('%s is not a valid system' %
                                     options.system)
                     print
 
         if update_path:
             options.path = update_path
         else:
-            options.path = prompt_user('Path:', noblank = True)
+            options.path = prompt_user('Path:', noblank=True)
 
         while not options.local and not options.sandbox:
             answer = prompt_user('System-Sandbox or Locally-Managed? [S/L]:')
@@ -1281,26 +1325,27 @@ def do_system_addconfigfile(self, args, update_path=''):
 
     # check if this file already exists
     try:
-        file_info = self.client.system.config.lookupFileInfo(self.session, \
-            system_id, [ options.path ], localopt)
+        file_info = self.client.system.config.lookupFileInfo(self.session,
+                                                             system_id, [options.path], localopt)
         if file_info:
             logging.debug("Found existing file_info %s" % file_info)
     except xmlrpclib.Fault:
-        logging.debug("No existing file information found for %s" % \
-            options.path)
+        logging.debug("No existing file information found for %s" %
+                      options.path)
 
     file_info = self.configfile_getinfo(args, options, file_info, interactive)
 
     if self.user_confirm():
         if options.symlink:
             self.client.system.config.createOrUpdateSymlink(self.session,
-                system_id, options.path, file_info, localopt)
+                                                            system_id, options.path, file_info, localopt)
         else:
             self.client.system.config.createOrUpdatePath(self.session,
-                system_id, options.path, options.directory, file_info,
-                localopt)
+                                                         system_id, options.path, options.directory, file_info,
+                                                         localopt)
 
 ####################
+
 
 def help_system_addconfigchannels(self):
     print 'system_addconfigchannels: Add config channels to a system'
@@ -1312,6 +1357,7 @@ options:
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_addconfigchannels(self, text, line, beg, end):
     parts = line.split(' ')
 
@@ -1319,11 +1365,12 @@ def complete_system_addconfigchannels(self, text, line, beg, end):
         return self.tab_complete_systems(text)
     elif len(parts) > 2:
         return tab_completer(self.do_configchannel_list('', True),
-                                  text)
+                             text)
+
 
 def do_system_addconfigchannels(self, args):
-    options = [ Option('-t', '--top', action='store_true'),
-                Option('-b', '--bottom', action='store_true') ]
+    options = [Option('-t', '--top', action='store_true'),
+               Option('-b', '--bottom', action='store_true')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -1352,7 +1399,7 @@ def do_system_addconfigchannels(self, args):
         else:
             options.top = True
 
-    system_ids = [ self.get_system_id(s) for s in systems ]
+    system_ids = [self.get_system_id(s) for s in systems]
 
     self.client.system.config.addChannels(self.session,
                                           system_ids,
@@ -1361,12 +1408,14 @@ def do_system_addconfigchannels(self, args):
 
 ####################
 
+
 def help_system_removeconfigchannels(self):
     print 'system_removeconfigchannels: Remove config channels from a ' \
           'system'
     print 'usage: system_removeconfigchannels <SYSTEMS> <CHANNEL ...>'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_removeconfigchannels(self, text, line, beg, end):
     parts = line.split(' ')
@@ -1375,7 +1424,8 @@ def complete_system_removeconfigchannels(self, text, line, beg, end):
         return self.tab_complete_systems(text)
     elif len(parts) > 2:
         return tab_completer(self.do_configchannel_list('', True),
-                                  text)
+                             text)
+
 
 def do_system_removeconfigchannels(self, args):
     (args, _options) = parse_arguments(args)
@@ -1393,13 +1443,14 @@ def do_system_removeconfigchannels(self, args):
 
     channels = args
 
-    system_ids = [ self.get_system_id(s) for s in systems ]
+    system_ids = [self.get_system_id(s) for s in systems]
 
     self.client.system.config.removeChannels(self.session,
                                              system_ids,
                                              channels)
 
 ####################
+
 
 def help_system_setconfigchannelorder(self):
     print 'system_setconfigchannelorder: Set the ranked order of ' \
@@ -1408,8 +1459,10 @@ def help_system_setconfigchannelorder(self):
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_setconfigchannelorder(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_setconfigchannelorder(self, args):
     (args, _options) = parse_arguments(args)
@@ -1429,7 +1482,7 @@ def do_system_setconfigchannelorder(self, args):
     system_id = self.get_system_id(systems[0])
     new_channels = self.client.system.config.listChannels(self.session,
                                                           system_id)
-    new_channels = [ c.get('label') for c in new_channels ]
+    new_channels = [c.get('label') for c in new_channels]
 
     # call an interface for the user to make selections
     all_channels = self.do_configchannel_list('', True)
@@ -1444,13 +1497,14 @@ def do_system_setconfigchannelorder(self, args):
     if not self.user_confirm():
         return
 
-    system_ids = [ self.get_system_id(s) for s in systems ]
+    system_ids = [self.get_system_id(s) for s in systems]
 
     self.client.system.config.setChannels(self.session,
                                           system_ids,
                                           new_channels)
 
 ####################
+
 
 def help_system_deployconfigfiles(self):
     print 'system_deployconfigfiles: Deploy all configuration files for ' \
@@ -1459,8 +1513,10 @@ def help_system_deployconfigfiles(self):
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_deployconfigfiles(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_deployconfigfiles(self, args):
     (args, _options) = parse_arguments(args)
@@ -1486,7 +1542,7 @@ def do_system_deployconfigfiles(self, args):
     if not self.user_confirm(message):
         return
 
-    system_ids = [ self.get_system_id(s) for s in systems ]
+    system_ids = [self.get_system_id(s) for s in systems]
 
     action_time = parse_time_input('now')
 
@@ -1498,14 +1554,17 @@ def do_system_deployconfigfiles(self, args):
 
 ####################
 
+
 def help_system_delete(self):
     print 'system_delete: Delete a system profile'
     print 'usage: system_delete <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_delete(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_delete(self, args):
     (args, _options) = parse_arguments(args)
@@ -1535,7 +1594,7 @@ def do_system_delete(self, args):
         return
 
     # make the column the right size
-    colsize = max_length([ self.get_system_name(s) for s in system_ids ])
+    colsize = max_length([self.get_system_name(s) for s in system_ids])
     if colsize < 7:
         colsize = 7
 
@@ -1555,7 +1614,7 @@ def do_system_delete(self, args):
     logging.info('Deleted %i system(s)', len(system_ids))
 
     # regenerate the system name cache
-    self.generate_system_cache(True, delay = 1)
+    self.generate_system_cache(True, delay=1)
 
     # remove these systems from the SSM
     for s in systems:
@@ -1564,14 +1623,17 @@ def do_system_delete(self, args):
 
 ####################
 
+
 def help_system_lock(self):
     print 'system_lock: Lock a system'
     print 'usage: system_lock <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_lock(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_lock(self, args):
     (args, _options) = parse_arguments(args)
@@ -1595,14 +1657,17 @@ def do_system_lock(self, args):
 
 ####################
 
+
 def help_system_unlock(self):
     print 'system_unlock: Unlock a system'
     print 'usage: system_unlock <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_unlock(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_unlock(self, args):
     (args, _options) = parse_arguments(args)
@@ -1626,13 +1691,16 @@ def do_system_unlock(self, args):
 
 ####################
 
+
 def help_system_rename(self):
     print 'system_rename: Rename a system profile'
     print 'usage: system_rename OLDNAME NEWNAME'
 
+
 def complete_system_rename(self, text, line, beg, end):
     if len(line.split(' ')) == 2:
         return tab_completer(self.get_system_names(), text)
+
 
 def do_system_rename(self, args):
     (args, _options) = parse_arguments(args)
@@ -1665,14 +1733,17 @@ def do_system_rename(self, args):
 
 ####################
 
+
 def help_system_listcustomvalues(self):
     print 'system_listcustomvalues: List the custom values for a system'
     print 'usage: system_listcustomvalues <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_listcustomvalues(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_listcustomvalues(self, args):
     (args, _options) = parse_arguments(args)
@@ -1710,11 +1781,13 @@ def do_system_listcustomvalues(self, args):
 
 ####################
 
+
 def help_system_addcustomvalue(self):
     print 'system_addcustomvalue: Set a custom value for a system'
     print 'usage: system_addcustomvalue KEY VALUE <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_addcustomvalue(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -1726,6 +1799,7 @@ def complete_system_addcustomvalue(self, text, line, beg, end):
     elif len(parts) >= 4:
         return self.tab_complete_systems(text)
 
+
 def do_system_addcustomvalue(self, args):
     if not isinstance(args, list):
         (args, _options) = parse_arguments(args)
@@ -1734,7 +1808,7 @@ def do_system_addcustomvalue(self, args):
         self.help_system_addcustomvalue()
         return
 
-    key   = args[0]
+    key = args[0]
     value = args[1]
 
     # use the systems listed in the SSM
@@ -1750,15 +1824,17 @@ def do_system_addcustomvalue(self, args):
 
         self.client.system.setCustomValues(self.session,
                                            system_id,
-                                           {key : value})
+                                           {key: value})
 
 ####################
+
 
 def help_system_updatecustomvalue(self):
     print 'system_updatecustomvalue: Update a custom value for a system'
     print 'usage: system_updatecustomvalue KEY VALUE <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_updatecustomvalue(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -1769,6 +1845,7 @@ def complete_system_updatecustomvalue(self, text, line, beg, end):
         return tab_completer(self.do_custominfo_listkeys('', True), text)
     elif len(parts) >= 4:
         return self.tab_complete_systems(text)
+
 
 def do_system_updatecustomvalue(self, args):
     (args, _options) = parse_arguments(args)
@@ -1781,11 +1858,13 @@ def do_system_updatecustomvalue(self, args):
 
 ####################
 
+
 def help_system_removecustomvalues(self):
     print 'system_removecustomvalues: Remove a custom value for a system'
     print 'usage: system_removecustomvalues <SYSTEMS> <KEY ...>'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_removecustomvalues(self, text, line, beg, end):
     parts = line.split(' ')
@@ -1794,7 +1873,8 @@ def complete_system_removecustomvalues(self, text, line, beg, end):
         return self.tab_complete_systems(text)
     elif len(parts) == 3:
         return tab_completer(self.do_custominfo_listkeys('', True),
-                                  text)
+                             text)
+
 
 def do_system_removecustomvalues(self, args):
     (args, _options) = parse_arguments(args)
@@ -1825,6 +1905,7 @@ def do_system_removecustomvalues(self, args):
 
 ####################
 
+
 def help_system_addnote(self):
     print 'system_addnote: Set a note for a system'
     print '''usage: system_addnote <SYSTEM> [options]
@@ -1835,12 +1916,14 @@ options:
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_addnote(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
+
 def do_system_addnote(self, args):
-    options = [ Option('-s', '--subject', action='store'),
-                Option('-b', '--body', action='store') ]
+    options = [Option('-s', '--subject', action='store'),
+               Option('-b', '--body', action='store')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -1855,10 +1938,10 @@ def do_system_addnote(self, args):
         systems = self.expand_systems(args)
 
     if is_interactive(options):
-        options.subject = prompt_user('Subject of the Note:', noblank = True)
+        options.subject = prompt_user('Subject of the Note:', noblank=True)
 
         message = 'Note Body (ctrl-D to finish):'
-        options.body = prompt_user(message, noblank = True, multiline = True)
+        options.body = prompt_user(message, noblank=True, multiline=True)
     else:
         if not options.subject:
             logging.error('A subject is required')
@@ -1880,14 +1963,17 @@ def do_system_addnote(self, args):
 
 ####################
 
+
 def help_system_deletenotes(self):
     print 'system_deletenotes: Delete notes from a system'
     print 'usage: system_deletenotes <SYSTEM> <ID|*>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_deletenotes(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_deletenotes(self, args):
     (args, _options) = parse_arguments(args)
@@ -1929,14 +2015,17 @@ def do_system_deletenotes(self, args):
 
 ####################
 
+
 def help_system_listnotes(self):
     print 'system_listnotes: List the available notes for a system'
     print 'usage: system_listnotes <SYSTEM>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_listnotes(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_listnotes(self, args):
     (args, _options) = parse_arguments(args)
@@ -1975,17 +2064,20 @@ def do_system_listnotes(self, args):
 
 ####################
 
+
 def help_system_setbasechannel(self):
     print "system_setbasechannel: Set a system's base software channel"
     print 'usage: system_setbasechannel <SYSTEMS> CHANNEL'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_setbasechannel(self, text, line, beg, end):
     if len(line.split(' ')) == 2:
         return self.tab_complete_systems(text)
     elif len(line.split(' ')) == 3:
         return tab_completer(self.list_base_channels(), text)
+
 
 def do_system_setbasechannel(self, args):
     (args, _options) = parse_arguments(args)
@@ -2034,14 +2126,17 @@ def do_system_setbasechannel(self, args):
 
 ####################
 
+
 def help_system_listbasechannel(self):
     print 'system_listbasechannel: List the base channel for a system'
     print 'usage: system_listbasechannel <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_listbasechannel(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_listbasechannel(self, args):
     (args, _options) = parse_arguments(args)
@@ -2078,14 +2173,17 @@ def do_system_listbasechannel(self, args):
 
 ####################
 
+
 def help_system_listchildchannels(self):
     print 'system_listchildchannels: List the child channels for a system'
     print 'usage: system_listchildchannels <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_listchildchannels(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_listchildchannels(self, args):
     (args, _options) = parse_arguments(args)
@@ -2118,15 +2216,17 @@ def do_system_listchildchannels(self, args):
             self.client.system.listSubscribedChildChannels(self.session,
                                                            system_id)
 
-        print '\n'.join(sorted([ c.get('label') for c in channels ]))
+        print '\n'.join(sorted([c.get('label') for c in channels]))
 
 ####################
+
 
 def help_system_addchildchannels(self):
     print "system_addchildchannels: Add child channels to a system"
     print 'usage: system_addchildchannels <SYSTEMS> <CHANNEL ...>'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_addchildchannels(self, text, line, beg, end):
     parts = line.split(' ')
@@ -2136,10 +2236,12 @@ def complete_system_addchildchannels(self, text, line, beg, end):
     elif len(parts) > 2:
         return tab_completer(self.list_child_channels(), text)
 
+
 def do_system_addchildchannels(self, args):
     self.manipulate_child_channels(args)
 
 ####################
+
 
 def help_system_listcrashedsystems(self):
     print "system_listcrashedsystems: List all systems that have experienced a crash and reported by spacewalk-abrt"
@@ -2159,6 +2261,7 @@ def do_system_listcrashedsystems(self, args):
 
 ######
 
+
 def help_system_deletecrashes(self):
     print 'system_deletecrashes: Delete crashes reported by spacewalk-abrt.'
     print 'usage: Delete all crashes for all systems    : system_deletecrashes [--verbose]'
@@ -2171,15 +2274,16 @@ def print_msg(string_msg, flag_verbose):
     if flag_verbose:
         print string_msg
 
+
 def do_system_deletecrashes(self, args):
-    options = [ Option('-i', '--sysid', action='store'),
-                Option('-c', '--crashid', action='store'),
-                Option('-v', '--verbose', action='store_true') ]
+    options = [Option('-i', '--sysid', action='store'),
+               Option('-c', '--crashid', action='store'),
+               Option('-v', '--verbose', action='store_true')]
 
     (args, options) = parse_arguments(args, options)
 
     if options.crashid:
-        print_msg ("Deleting crash with id %s." % options.crashid, options.verbose)
+        print_msg("Deleting crash with id %s." % options.crashid, options.verbose)
         self.client.system.crash.deleteCrash(self.session, int(options.crashid))
         return
 
@@ -2187,7 +2291,7 @@ def do_system_deletecrashes(self, args):
     if options.sysid:
         sys_id.append(options.sysid)
         prompt_string = "Deleting all crashes from system with systemid %s [y/N]:" % options.sysid
-    else: # all systems
+    else:  # all systems
         prompt_string = 'Deleting all crashes from all systems [y/N]:'
         systems = self.client.system.listUserSystems(self.session)
         for s in systems:
@@ -2205,14 +2309,16 @@ def do_system_deletecrashes(self, args):
 
 #######
 
+
 def help_system_listcrashesbysystem(self):
     print 'system_listcrashesbysystem: List all reported crashes for a system.'
     print 'usage: system_listcrashesbysystem -i sys_id'
     print
 
+
 def do_system_listcrashesbysystem(self, args):
 
-    options = [ Option('-i', '--sysid', action='store')]
+    options = [Option('-i', '--sysid', action='store')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -2238,10 +2344,11 @@ def help_system_getcrashfiles(self):
     print 'usage: system_getcrashfiles -c crash_id [--dest_folder=/tmp/crash_files] [--verbose]'
     print
 
+
 def do_system_getcrashfiles(self, args):
-    options = [ Option('-c', '--crashid', action='store'),
-                Option('-d', '--dest_folder', action='store'),
-                Option('-v', '--verbose', action='store_true') ]
+    options = [Option('-c', '--crashid', action='store'),
+               Option('-d', '--dest_folder', action='store'),
+               Option('-v', '--verbose', action='store_true')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -2267,7 +2374,7 @@ def do_system_getcrashfiles(self, args):
 
     for f in l_files:
         file_url = self.client.system.crash.getCrashFileUrl(self.session, f['id'])
-        os.system("wget  --directory-prefix=%s --tries=1 --no-check-certificate %s %s" % ( \
+        os.system("wget  --directory-prefix=%s --tries=1 --no-check-certificate %s %s" % (
             options.dest_folder,
             file_url,
             options.verbose))
@@ -2278,11 +2385,13 @@ def do_system_getcrashfiles(self, args):
 
 ####################
 
+
 def help_system_removechildchannels(self):
     print "system_removechildchannels: Remove child channels from a system"
     print 'usage: system_removechildchannels <SYSTEMS> <CHANNEL ...>'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_removechildchannels(self, text, line, beg, end):
     parts = line.split(' ')
@@ -2292,10 +2401,12 @@ def complete_system_removechildchannels(self, text, line, beg, end):
     elif len(parts) > 2:
         return tab_completer(self.list_child_channels(), text)
 
+
 def do_system_removechildchannels(self, args):
     self.manipulate_child_channels(args, True)
 
 ####################
+
 
 def help_system_details(self):
     print 'system_details: Show the details of a system profile'
@@ -2303,8 +2414,10 @@ def help_system_details(self):
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_details(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_details(self, args, short=False):
     (args, _options) = parse_arguments(args)
@@ -2431,14 +2544,17 @@ def do_system_details(self, args, short=False):
 
 ####################
 
+
 def help_system_listerrata(self):
     print 'system_listerrata: List available errata for a system'
     print 'usage: system_listerrata <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_listerrata(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_listerrata(self, args):
     (args, _options) = parse_arguments(args)
@@ -2475,11 +2591,13 @@ def do_system_listerrata(self, args):
 
 ####################
 
+
 def help_system_applyerrata(self):
     print 'system_applyerrata: Apply errata to a system'
     print 'usage: system_applyerrata <SYSTEMS> [ERRATA|search:XXX ...]'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_applyerrata(self, text, line, beg, end):
     parts = line.split(' ')
@@ -2488,6 +2606,7 @@ def complete_system_applyerrata(self, text, line, beg, end):
         return self.tab_complete_systems(text)
     elif len(parts) > 2:
         return self.tab_complete_errata(text)
+
 
 def do_system_applyerrata(self, args):
     (args, _options) = parse_arguments(args)
@@ -2513,14 +2632,17 @@ def do_system_applyerrata(self, args):
 
 ####################
 
+
 def help_system_listevents(self):
     print 'system_listevents: List the event history for a system'
     print 'usage: system_listevents <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_listevents(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_listevents(self, args):
     (args, _options) = parse_arguments(args)
@@ -2559,14 +2681,17 @@ def do_system_listevents(self, args):
 
 ####################
 
+
 def help_system_listentitlements(self):
     print 'system_listentitlements: List the entitlements for a system'
     print 'usage: system_listentitlements <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_listentitlements(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_listentitlements(self, args):
     (args, _options) = parse_arguments(args)
@@ -2602,11 +2727,13 @@ def do_system_listentitlements(self, args):
 
 ####################
 
+
 def help_system_addentitlements(self):
     print 'system_addentitlements: Add entitlements to a system'
     print 'usage: system_addentitlements <SYSTEMS> ENTITLEMENT'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_addentitlements(self, text, line, beg, end):
     parts = line.split(' ')
@@ -2615,6 +2742,7 @@ def complete_system_addentitlements(self, text, line, beg, end):
         return self.tab_complete_systems(text)
     else:
         return tab_completer(self.ENTITLEMENTS, text)
+
 
 def do_system_addentitlements(self, args):
     (args, _options) = parse_arguments(args)
@@ -2647,11 +2775,13 @@ def do_system_addentitlements(self, args):
 
 ####################
 
+
 def help_system_removeentitlement(self):
     print 'system_removeentitlement: Remove an entitlement from a system'
     print 'usage: system_removeentitlement <SYSTEMS> ENTITLEMENT'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_removeentitlement(self, text, line, beg, end):
     parts = line.split(' ')
@@ -2660,6 +2790,7 @@ def complete_system_removeentitlement(self, text, line, beg, end):
         return self.tab_complete_systems(text)
     else:
         return tab_completer(self.ENTITLEMENTS, text)
+
 
 def do_system_removeentitlement(self, args):
     (args, _options) = parse_arguments(args)
@@ -2692,13 +2823,15 @@ def do_system_removeentitlement(self, args):
 
 ####################
 
+
 def help_system_listpackageprofiles(self):
     print 'system_listpackageprofiles: List all package profiles'
     print 'usage: system_listpackageprofiles'
 
-def do_system_listpackageprofiles(self, args, doreturn = False):
+
+def do_system_listpackageprofiles(self, args, doreturn=False):
     profiles = self.client.system.listPackageProfiles(self.session)
-    profiles = [ p.get('name') for p in profiles ]
+    profiles = [p.get('name') for p in profiles]
 
     if doreturn:
         return profiles
@@ -2708,9 +2841,11 @@ def do_system_listpackageprofiles(self, args, doreturn = False):
 
 ####################
 
+
 def help_system_deletepackageprofile(self):
     print 'system_deletepackageprofile: Delete a package profile'
     print 'usage: system_deletepackageprofile PROFILE'
+
 
 def complete_system_deletepackageprofile(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -2718,8 +2853,9 @@ def complete_system_deletepackageprofile(self, text, line, beg, end):
         parts.append('')
 
     if len(parts) == 2:
-        return self.tab_complete_systems(\
-                   self.do_system_listpackageprofiles('', True), text)
+        return self.tab_complete_systems(
+            self.do_system_listpackageprofiles('', True), text)
+
 
 def do_system_deletepackageprofile(self, args):
     (args, _options) = parse_arguments(args)
@@ -2748,6 +2884,7 @@ def do_system_deletepackageprofile(self, args):
 
 ####################
 
+
 def help_system_createpackageprofile(self):
     print 'system_createpackageprofile: Create a package profile'
     print '''usage: system_createpackageprofile SYSTEM [options]
@@ -2756,15 +2893,17 @@ options:
   -n NAME
   -d DESCRIPTION'''
 
+
 def complete_system_createpackageprofile(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
         return self.tab_complete_systems(text)
 
+
 def do_system_createpackageprofile(self, args):
-    options = [ Option('-n', '--name', action='store'),
-                Option('-d', '--description', action='store') ]
+    options = [Option('-n', '--name', action='store'),
+               Option('-d', '--description', action='store')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -2777,8 +2916,8 @@ def do_system_createpackageprofile(self, args):
         return
 
     if is_interactive(options):
-        options.name = prompt_user('Profile Label:', noblank = True)
-        options.description = prompt_user('Description:', multiline = True)
+        options.name = prompt_user('Profile Label:', noblank=True)
+        options.description = prompt_user('Description:', multiline=True)
     else:
         if not options.name:
             logging.error('A profile name is required')
@@ -2797,12 +2936,14 @@ def do_system_createpackageprofile(self, args):
 
 ####################
 
+
 def help_system_comparepackageprofile(self):
     print 'system_comparepackageprofile: Compare a system against a ' + \
           'package profile'
     print 'usage: system_comparepackageprofile <SYSTEMS> PROFILE'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_system_comparepackageprofile(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -2812,8 +2953,9 @@ def complete_system_comparepackageprofile(self, text, line, beg, end):
     if len(parts) == 2:
         return self.tab_complete_systems(text)
     elif len(parts) > 2:
-        return self.tab_complete_systems(\
-                   self.do_system_listpackageprofiles('', True), parts[-1])
+        return self.tab_complete_systems(
+            self.do_system_listpackageprofiles('', True), parts[-1])
+
 
 def do_system_comparepackageprofile(self, args):
     (args, _options) = parse_arguments(args)
@@ -2851,12 +2993,15 @@ def do_system_comparepackageprofile(self, args):
 
 ####################
 
+
 def help_system_comparepackages(self):
     print 'system_comparepackages: Compare the packages between two systems'
     print 'usage: system_comparepackages SOME_SYSTEM ANOTHER_SYSTEM'
 
+
 def complete_system_comparepackages(self, text, line, beg, end):
     return tab_completer(self.get_system_names(), text)
+
 
 def do_system_comparepackages(self, args):
     (args, _options) = parse_arguments(args)
@@ -2876,12 +3021,15 @@ def do_system_comparepackages(self, args):
 
 ####################
 
+
 def help_system_syncpackages(self):
     print 'system_syncpackages: Sync packages between two systems'
     print 'usage: system_syncpackages SOURCE TARGET'
 
+
 def complete_system_syncpackages(self, text, line, beg, end):
     return tab_completer(self.get_system_names(), text)
+
 
 def do_system_syncpackages(self, args):
     (args, _options) = parse_arguments(args)
@@ -2927,8 +3075,9 @@ def do_system_syncpackages(self, args):
                                                       start_time)
 ####################
 
-def filter_latest_packages(pkglist, version_key = 'version',
-                           release_key = 'release', epoch_key = 'epoch'):
+
+def filter_latest_packages(pkglist, version_key='version',
+                           release_key='release', epoch_key='epoch'):
     # Returns a dict, indexed by a compound (tuple) key based on
     # arch and name, so we can store the latest version of each package
     # for each arch.  This approach avoids nested loops :)
@@ -2941,8 +3090,8 @@ def filter_latest_packages(pkglist, version_key = 'version',
             p['arch'] = re.sub('AMD64', 'x86_64', p['arch'])
             tuplekey = p['name'], p['arch']
         else:
-            logging.error("Failed to filter package list, package %s" % p \
-                + "found with no arch or arch_label")
+            logging.error("Failed to filter package list, package %s" % p
+                          + "found with no arch or arch_label")
             return None
         if not latest.has_key(tuplekey):
             latest[tuplekey] = p
@@ -2953,8 +3102,9 @@ def filter_latest_packages(pkglist, version_key = 'version',
 
     return latest
 
-def print_comparison_withchannel(self, channelnewer, systemnewer, \
-                                        channelmissing, channel_latest):
+
+def print_comparison_withchannel(self, channelnewer, systemnewer,
+                                 channelmissing, channel_latest):
 
     # Figure out correct indentation to allow pretty table output
     results = channelnewer + systemnewer + channelmissing
@@ -2975,23 +3125,23 @@ def print_comparison_withchannel(self, channelnewer, systemnewer, \
             version_string = "%(version)s-%(release)s" % channel_latest[key]
             tmp_channel.append(version_string)
 
-    max_name  = max_length(tmp_names, minimum=7)
-    max_system  = max_length(tmp_system, minimum=11)
+    max_name = max_length(tmp_names, minimum=7)
+    max_system = max_length(tmp_system, minimum=11)
     max_channel = max_length(tmp_channel, minimum=15)
     max_comparison = 25
 
     # print headers
     print '%s  %s  %s  %s' % (
-            'Package'.ljust(max_name),
-            'System Version'.ljust(max_system),
-            'Channel Version'.ljust(max_channel),
-            'Difference'.ljust(max_comparison))
+        'Package'.ljust(max_name),
+        'System Version'.ljust(max_system),
+        'Channel Version'.ljust(max_channel),
+        'Difference'.ljust(max_comparison))
 
     print '%s  %s  %s  %s' % (
-            '-' * max_name,
-            '-' * max_system,
-            '-' * max_channel,
-            '-' * max_comparison)
+        '-' * max_name,
+        '-' * max_system,
+        '-' * max_channel,
+        '-' * max_comparison)
 
     # Then print the packages
     for item in channelnewer:
@@ -3003,10 +3153,10 @@ def print_comparison_withchannel(self, channelnewer, systemnewer, \
         else:
             channel_version = '-'
         print '%s  %s  %s  %s' % (
-              name_string.ljust(max_name),
-              version_string.ljust(max_system),
-              channel_version.ljust(max_channel),
-              "Channel_newer_than_system".ljust(max_comparison))
+            name_string.ljust(max_name),
+            version_string.ljust(max_system),
+            channel_version.ljust(max_channel),
+            "Channel_newer_than_system".ljust(max_comparison))
     for item in systemnewer:
         name_string = "%(name)s.%(arch)s" % item
         version_string = "%(version)s-%(release)s" % item
@@ -3016,19 +3166,19 @@ def print_comparison_withchannel(self, channelnewer, systemnewer, \
         else:
             channel_version = '-'
         print '%s  %s  %s  %s' % (
-              name_string.ljust(max_name),
-              version_string.ljust(max_system),
-              channel_version.ljust(max_channel),
-              "System_newer_than_channel".ljust(max_comparison))
+            name_string.ljust(max_name),
+            version_string.ljust(max_system),
+            channel_version.ljust(max_channel),
+            "System_newer_than_channel".ljust(max_comparison))
     for item in channelmissing:
         name_string = "%(name)s.%(arch)s" % item
         version_string = "%(version)s-%(release)s" % item
         channel_version = '-'
         print '%s  %s  %s  %s' % (
-              name_string.ljust(max_name),
-              version_string.ljust(max_system),
-              channel_version.ljust(max_channel),
-              "Missing_in_channel".ljust(max_comparison))
+            name_string.ljust(max_name),
+            version_string.ljust(max_system),
+            channel_version.ljust(max_channel),
+            "Missing_in_channel".ljust(max_comparison))
 
 
 def help_system_comparewithchannel(self):
@@ -3044,12 +3194,14 @@ def help_system_comparewithchannel(self):
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_comparewithchannel(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
+
 def do_system_comparewithchannel(self, args):
 
-    options = [ Option('-c', '--channel', action='store') ]
+    options = [Option('-c', '--channel', action='store')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -3069,42 +3221,42 @@ def do_system_comparewithchannel(self, args):
         if not system_id:
             continue
 
-        instpkgs = self.client.system.listPackages(self.session, \
-                                                        system_id)
-        logging.debug("Got %d packages installed in system %s" % \
-            (len(instpkgs), system))
+        instpkgs = self.client.system.listPackages(self.session,
+                                                   system_id)
+        logging.debug("Got %d packages installed in system %s" %
+                      (len(instpkgs), system))
         # We need to filter to get only the latest installed packages,
         # because multiple versions (e.g kernel) can be installed
         packages = filter_latest_packages(instpkgs)
-        logging.debug("Got latest %d packages installed in system %s" % \
-            (len(packages.keys()), system))
+        logging.debug("Got latest %d packages installed in system %s" %
+                      (len(packages.keys()), system))
 
         channels = []
         if options.channel:
             # User specified a specific channel, check it exists
             allch = self.client.channel.listSoftwareChannels(self.session)
-            allch_labels = [ c['label'] for c in allch ]
+            allch_labels = [c['label'] for c in allch]
             if not options.channel in allch_labels:
                 logging.error("Specified channel does not exist")
                 self.help_system_comparewithchannel()
                 return
-            channels = [ options.channel ]
+            channels = [options.channel]
             logging.debug("User specified channel %s" % options.channel)
         else:
             # No specified channel, so we create a list of all channels the
             # system is subscribed to
-            basech = self.client.system.getSubscribedBaseChannel(self.session, \
-                                                                    system_id)
+            basech = self.client.system.getSubscribedBaseChannel(self.session,
+                                                                 system_id)
             if not basech:
-                logging.error("system %s is not subscribed to any channel!" \
-                                                                     % system)
-                logging.error("Please subscribe to a channel, or specify a" + \
-                    "channel to compare with")
+                logging.error("system %s is not subscribed to any channel!"
+                              % system)
+                logging.error("Please subscribe to a channel, or specify a" +
+                              "channel to compare with")
                 return
             logging.debug("base channel %s for %s" % (basech['name'], system))
-            childch = self.client.system.listSubscribedChildChannels( \
-                                                    self.session, system_id)
-            channels = [ basech['label'] ]
+            childch = self.client.system.listSubscribedChildChannels(
+                self.session, system_id)
+            channels = [basech['label']]
             for c in childch:
                 channels.append(c['label'])
 
@@ -3149,10 +3301,11 @@ def do_system_comparewithchannel(self, args):
                     channelnewer.append(syspkg)
             else:
                 channelmissing.append(syspkg)
-        self.print_comparison_withchannel(channelnewer, systemnewer, \
-                                            channelmissing, latestpkgs)
+        self.print_comparison_withchannel(channelnewer, systemnewer,
+                                          channelmissing, latestpkgs)
 
 ####################
+
 
 def help_system_schedulehardwarerefresh(self):
     print 'system_schedulehardwarerefresh: Schedule a hardware refresh ' + \
@@ -3161,8 +3314,10 @@ def help_system_schedulehardwarerefresh(self):
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_schedulehardwarerefresh(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_schedulehardwarerefresh(self, args):
     (args, _options) = parse_arguments(args)
@@ -3190,6 +3345,7 @@ def do_system_schedulehardwarerefresh(self, args):
 
 ####################
 
+
 def help_system_schedulepackagerefresh(self):
     print 'system_schedulepackagerefresh: Schedule a software package ' + \
           'refresh for a system'
@@ -3197,8 +3353,10 @@ def help_system_schedulepackagerefresh(self):
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_system_schedulepackagerefresh(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_system_schedulepackagerefresh(self, args):
     (args, _options) = parse_arguments(args)
@@ -3224,4 +3382,43 @@ def do_system_schedulepackagerefresh(self, args):
                                                   system_id,
                                                   action_time)
 
-# vim:ts=4:expandtab:
+####################
+
+
+def help_system_show_packageversion(self):
+    print 'system_show_packageversion: Shows version of installed package on given system(s)'
+    print 'usage: system_show_packageversion <SYSTEM> <PACKAGE>'
+    print
+    print self.HELP_SYSTEM_OPTS
+
+
+def complete_system_show_packageversion(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) == 2:
+        return self.tab_complete_systems(text)
+    else:
+        return tab_completer(self.get_package_names(), text)
+
+
+def do_system_show_packageversion(self, args):
+    (args, _options) = parse_arguments(args)
+
+    if re.match('ssm', args[0], re.I):
+        systems = self.ssm.keys()
+    else:
+        systems = self.expand_systems(args)
+
+    print "Package\tVersion\tRelease\tEpoch\tArch\tSystem"
+    print "=============================================="
+    for system in sorted(systems):
+        system_id = self.get_system_id(system)
+        if not system_id:
+            continue
+
+        instpkgs = self.client.system.listPackages(self.session, system_id)
+        searchpkg = args[1]
+        for pkg in instpkgs:
+            if pkg.get('name') == searchpkg:
+                print "%s\t%s\t%s\t%s\t%s\t%s" % (pkg.get('name'), pkg.get('version'), pkg.get('release'),
+                                                  pkg.get('epoch'), pkg.get('arch_label'), system)

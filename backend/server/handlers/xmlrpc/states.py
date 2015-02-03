@@ -15,81 +15,81 @@
 
 
 states_to_abbr = {
-    'Alabama':'AL',
-    'Alaska':'AK',
-    'Arizona':'AZ',
-    'Arkansas':'AR',
-    'California':'CA',
-    'Colorado':'CO',
-    'Connecticut':'CT',
-    'Delaware':'DE',
-    'District of Columbia':'DC',
-    'Florida':'FL',
-    'Georgia':'GA',
-    'Hawaii':'HA',
-    'Idaho':'ID',
-    'Illinois':'IL',
-    'Indiana':'IN',
-    'Iowa':'IA',
-    'Kansas':'KS',
-    'Kentucky':'KY',
-    'Louisiana':'LA',
-    'Maine':'ME',
-    'Maryland':'MD',
-    'Massachusetts':'MA',
-    'Michigan':'MI',
-    'Minnesota':'MI',
-    'Mississippi':'MS',
-    'Missouri':'MO',
-    'Montana':'MT',
-    'Nebraska':'NE',
-    'Nevada':'NV',
-    'New Hampshire':'NH',
-    'New Jersey':'NJ',
-    'New Mexico':'NM',
-    'New York':'NY',
-    'North Carolina':'NC',
-    'North Dakota':'ND',
-    'Ohio':'OH',
-    'Oklahoma':'OK',
-    'Oregon':'OR',
-    'Pennsylvania':'PA',
-    'Rhode Island':'RI',
-    'South Carolina':'SC',
-    'South Dakota':'SD',
-    'Tennessee':'TN',
-    'Texas':'TX',
-    'Utah':'UT',
-    'Vermont':'VT',
-    'Virginia':'VA',
-    'Washington':'WA',
-    'West Virginia':'WV',
-    'Wisconsin':'WI',
-    'Wyoming':'WY',
-    'American Samoa':'AS',
-    'Armed Forces(AA)':'AA',
-    'Armed Forces(AE)':'AE',
-    'Armed Forces(AP)':'AP',
-    'Guam':'GU',
-    'Marshall Islands':'MH',
-    'Micronesia':'FM',
-    'Northern Marianas':'MP',
-    'Palau':'PW',
-    'Puerto Rico':'PR',
-    'Trust Territories':'TT',
-    'Virgin Islands':'VI' }
+    'Alabama': 'AL',
+    'Alaska': 'AK',
+    'Arizona': 'AZ',
+    'Arkansas': 'AR',
+    'California': 'CA',
+    'Colorado': 'CO',
+    'Connecticut': 'CT',
+    'Delaware': 'DE',
+    'District of Columbia': 'DC',
+    'Florida': 'FL',
+    'Georgia': 'GA',
+    'Hawaii': 'HA',
+    'Idaho': 'ID',
+    'Illinois': 'IL',
+    'Indiana': 'IN',
+    'Iowa': 'IA',
+    'Kansas': 'KS',
+    'Kentucky': 'KY',
+    'Louisiana': 'LA',
+    'Maine': 'ME',
+    'Maryland': 'MD',
+    'Massachusetts': 'MA',
+    'Michigan': 'MI',
+    'Minnesota': 'MI',
+    'Mississippi': 'MS',
+    'Missouri': 'MO',
+    'Montana': 'MT',
+    'Nebraska': 'NE',
+    'Nevada': 'NV',
+    'New Hampshire': 'NH',
+    'New Jersey': 'NJ',
+    'New Mexico': 'NM',
+    'New York': 'NY',
+    'North Carolina': 'NC',
+    'North Dakota': 'ND',
+    'Ohio': 'OH',
+    'Oklahoma': 'OK',
+    'Oregon': 'OR',
+    'Pennsylvania': 'PA',
+    'Rhode Island': 'RI',
+    'South Carolina': 'SC',
+    'South Dakota': 'SD',
+    'Tennessee': 'TN',
+    'Texas': 'TX',
+    'Utah': 'UT',
+    'Vermont': 'VT',
+    'Virginia': 'VA',
+    'Washington': 'WA',
+    'West Virginia': 'WV',
+    'Wisconsin': 'WI',
+    'Wyoming': 'WY',
+    'American Samoa': 'AS',
+    'Armed Forces(AA)': 'AA',
+    'Armed Forces(AE)': 'AE',
+    'Armed Forces(AP)': 'AP',
+    'Guam': 'GU',
+    'Marshall Islands': 'MH',
+    'Micronesia': 'FM',
+    'Northern Marianas': 'MP',
+    'Palau': 'PW',
+    'Puerto Rico': 'PR',
+    'Trust Territories': 'TT',
+    'Virgin Islands': 'VI'}
 
-#British Columbia
-#Manitoba
-#New Brunswick
-#Newfoundland
-#Northwest Territory
-#Nova Scotia
-#Ontario
-#Prince Edward Island
-#Quebec
-#Saskatchewan
-#Yukon Territory
+# British Columbia
+# Manitoba
+# New Brunswick
+# Newfoundland
+# Northwest Territory
+# Nova Scotia
+# Ontario
+# Prince Edward Island
+# Quebec
+# Saskatchewan
+# Yukon Territory
 
 
 #-----------------------------------------------------------------------------
@@ -98,4 +98,3 @@ if __name__ == "__main__":
     import sys
     sys.exit(-1)
 #-----------------------------------------------------------------------------
-

@@ -33,7 +33,7 @@ print $dmi->{'bios_release'}."\n";
 print $dmi->{'bios_version'}."\n";
 print $dmi->{'bios_vendor'}."\n";
 print "\n";
- 
+
 
 
 

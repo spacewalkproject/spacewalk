@@ -106,7 +106,7 @@ def merge_config(options):
     # channel tree to a list of channel trees, which is what the rest of the
     # code expects
     if type(options.channels) == dict:
-        options.channels =  [options.channels]
+        options.channels = [options.channels]
 
     for channel_dict in options.channels:
         for key in channel_dict.keys():
@@ -120,7 +120,6 @@ def merge_config(options):
         validate_list_dict("removelist", options.removelist)
 
     return options
-
 
 
 def validate_list_dict(name, pkg_dict):
@@ -145,6 +144,8 @@ def validate_list_dict(name, pkg_dict):
 #  "rhel-i386-servr-5" : ["my-rhel-clone"],
 #  'rhel-child': ['clone-child', 'clone name', 'clone summary', 'clone description']
 #  }]
+
+
 def transform_arg_channels(chan_list):
     to_ret = {}
     for channel in chan_list:
@@ -158,7 +159,10 @@ def transform_arg_channels(chan_list):
 # the option to be '--channels src_label dest_label' and then pass that on
 # back to optparse, which will process correctly. Life will be much easier
 # when we no longer support RHEL 5 and can migrate to argparse.
+
+
 class HackedOptionParser(OptionParser):
+
     def _process_long_opt(self, rargs, values):
         if '=' in rargs[0]:
             arg = rargs.pop(0)
@@ -166,6 +170,7 @@ class HackedOptionParser(OptionParser):
             rargs.insert(0, next_arg)
             rargs.insert(0, opt)
         OptionParser._process_long_opt(self, rargs, values)
+
 
 def vararg_callback(option, opt_str, value, parser):
     assert value is None
@@ -187,81 +192,82 @@ def vararg_callback(option, opt_str, value, parser):
     else:
         curr_value.append(value)
 
+
 def parse_args():
     parser = HackedOptionParser()
     parser.add_option("-c", "--config", dest="config",
-            help="Config file specifying options")
+                      help="Config file specifying options")
     parser.add_option("-u", "--username", dest="username", help="Username")
     parser.add_option("-p", "--password", dest="password", help="Password")
     parser.add_option("-s", "--server", dest="server",
-            help="Server URL to use for api connections (defaults to "
-            + "https://localhost/rpc/api)",
-            default="https://localhost/rpc/api")
+                      help="Server URL to use for api connections (defaults to "
+                      + "https://localhost/rpc/api)",
+                      default="https://localhost/rpc/api")
     parser.add_option("-l", "--channels", dest="channels", action="callback",
-            callback=vararg_callback, help="Original channel and clone "
-            + "channel labels space separated, with optional channel name and "
-            + "summary following (e.g. --channels=rhel-i386-server-5 "
-            + "myCloneLabel [myName [mySummary [myDescription]]]).  Can be specified "
-            + "multiple times.")
+                      callback=vararg_callback, help="Original channel and clone "
+                      + "channel labels space separated, with optional channel name and "
+                      + "summary following (e.g. --channels=rhel-i386-server-5 "
+                      + "myCloneLabel [myName [mySummary [myDescription]]]).  Can be specified "
+                      + "multiple times.")
     parser.add_option("-b", "--blacklist", dest="blacklist",
-            help="Comma separated list of package names (or regular "
-            + "expressions) to exclude from cloned errata (Only added "
-            + "packages will be considered).")
+                      help="Comma separated list of package names (or regular "
+                      + "expressions) to exclude from cloned errata (Only added "
+                      + "packages will be considered).")
     parser.add_option("-r", "--removelist", dest="removelist",
-            help="Comma separated list of package names (or regular "
-            + "expressions) to remove from destination channel (All packages "
-            + "are available for removal).")
+                      help="Comma separated list of package names (or regular "
+                      + "expressions) to remove from destination channel (All packages "
+                      + "are available for removal).")
     parser.add_option("-d", "--to_date", dest="to_date",
-            help="Clone errata to the specified date (YYYY-MM-DD). "
-            + "If omitted will assume no errata.")
+                      help="Clone errata to the specified date (YYYY-MM-DD). "
+                      + "If omitted will assume no errata.")
     parser.add_option("-y", "--assumeyes", dest='assumeyes',
-            action='store_true',
-            help="Assume yes for any prompts (unattended).")
+                      action='store_true',
+                      help="Assume yes for any prompts (unattended).")
     parser.add_option("-m", "--sample-config", dest='sample',
-            action='store_true',
-            help="Print a sample full configuration file and exit.")
+                      action='store_true',
+                      help="Print a sample full configuration file and exit.")
     parser.add_option("-k", "--skip_depsolve", dest='skip_depsolve',
-            action='store_true',
-            help="Skip all dependency solving (Not recommended).")
+                      action='store_true',
+                      help="Skip all dependency solving (Not recommended).")
     parser.add_option("-v", "--validate", dest='validate', action='store_true',
-            help="Run repoclosure on the set of specified repositories.")
+                      help="Run repoclosure on the set of specified repositories.")
     parser.add_option("-g", "--background", dest='background',
-            action='store_true', help="Clone the errata in the background. "
-            + "Prompt will return quicker; before cloning is finished.")
+                      action='store_true', help="Clone the errata in the background. "
+                      + "Prompt will return quicker; before cloning is finished.")
     parser.add_option("-o", "--security_only", dest='security_only',
-            action='store_true',
-            help="Only clone security errata (and their dependencies).")
+                      action='store_true',
+                      help="Only clone security errata (and their dependencies).")
     parser.add_option("-e", "--errata", dest='errata', action='store',
-            help="Only clone errata in this comma separated list (and "
-            + "dependencies unless paired with --skip_depsolve) (e.g. "
-            + "--errata=RHSA-2014:0043,RHBA-2014:0085).")
+                      help="Only clone errata in this comma separated list (and "
+                      + "dependencies unless paired with --skip_depsolve) (e.g. "
+                      + "--errata=RHSA-2014:0043,RHBA-2014:0085).")
     parser.add_option("-a", "--parents", dest="parents", action='callback',
-            callback=vararg_callback, help="Already existing channel that "
-            + "will be used as parent of child channels cloned this session. "
-            + "No changes will be made to this channel unless dependency "
-            + "resolution requires it. Source parent is optional, will "
-            + "be looked up if not provided (eg. --parents [src_parent] "
-            + "dest_parent)")
+                      callback=vararg_callback, help="Already existing channel that "
+                      + "will be used as parent of child channels cloned this session. "
+                      + "No changes will be made to this channel unless dependency "
+                      + "resolution requires it. Source parent is optional, will "
+                      + "be looked up if not provided (eg. --parents [src_parent] "
+                      + "dest_parent)")
     parser.add_option("-z", "--use-update-date", dest="use_update_date",
-            action='store_true', help="While cloning errata by date, clone "
-            + "all errata that have last been updated on or before the date "
-            + "provided by to_date. If omitted will use issue date of errata "
-            + "(default).")
+                      action='store_true', help="While cloning errata by date, clone "
+                      + "all errata that have last been updated on or before the date "
+                      + "provided by to_date. If omitted will use issue date of errata "
+                      + "(default).")
     parser.add_option("-n", "--no-errata-sync", dest="no_errata_sync",
-            action='store_true', help="Do not automatically sychronize the "
-            + "package list of cloned errata with their originals. This may "
-            + "make spacewalk-clone-by-date have unexpected results if the "
-            + "original errata have been updated (e.g.: syncing another "
-            + "architecture for a channel) since the cloned errata were "
-            + "created. If omitted we will synchronize the cloned errata "
-            + "with the originals to ensure the expected packages are "
-            + "included (default).")
-    parser.add_option("-j", "--dry-run", dest="dry_run",action='store_true',
-            help="Creates a file for each pair of channels in the working "
-            + "directory that comprises the list of erratas that are to be cloned. "
-            + "No actual errata cloning takes place. "
-            + "Warning: If some of the destination channels do not exist, "
-            + "they will be created with the original package set.")
+                      action='store_true', help="Do not automatically sychronize the "
+                      + "package list of cloned errata with their originals. This may "
+                      + "make spacewalk-clone-by-date have unexpected results if the "
+                      + "original errata have been updated (e.g.: syncing another "
+                      + "architecture for a channel) since the cloned errata were "
+                      + "created. If omitted we will synchronize the cloned errata "
+                      + "with the originals to ensure the expected packages are "
+                      + "included (default).")
+    parser.add_option("-j", "--dry-run", dest="dry_run", action='store_true',
+                      help="Creates a file for each pair of channels in the working "
+                      + "directory that comprises the list of erratas that are to be cloned. "
+                      + "No actual errata cloning takes place. "
+                      + "Warning: If some of the destination channels do not exist, "
+                      + "they will be created with the original package set.")
 
     (options, args) = parser.parse_args()
 
@@ -280,7 +286,7 @@ def parse_args():
         for channel_group in options.channels:
             if (len(channel_group) < 2 or len(channel_group) > 5):
                 raise UserError("The -l / --channels option requires two to "
-                        + "five arguments")
+                                + "five arguments")
 
     if options.sample:
         print SAMPLE_CONFIG
@@ -293,10 +299,10 @@ def parse_args():
         raise UserError("Cannot specify both --parents and --config.")
 
     if options.blacklist:
-        options.blacklist = {"ALL":options.blacklist.split(",")}
+        options.blacklist = {"ALL": options.blacklist.split(",")}
 
     if options.removelist:
-        options.removelist = {"ALL":options.removelist.split(",")}
+        options.removelist = {"ALL": options.removelist.split(",")}
 
     if options.errata:
         options.errata = options.errata.split(',')
@@ -334,7 +340,7 @@ def parse_args():
             errata_list.append(errata.strip())
         options.errata = errata_list
     for option in [getattr(options, 'blacklist', None),
-            getattr(options, 'removelist', None)]:
+                   getattr(options, 'removelist', None)]:
         if option:
             for key in option.keys()[:]:
                 if key != key.strip():
@@ -373,17 +379,18 @@ def parse_time(time_str):
      We need to use datetime, but python 2.4 does not support strptime(),
      so we have to parse ourselves
     """
-    if re.match('[0-9]{4}-[0-9]{2}-[0-9]{2}',time_str):
+    if re.match('[0-9]{4}-[0-9]{2}-[0-9]{2}', time_str):
         try:
             split = time_str.split("-")
             date = datetime.datetime(int(split[0]), int(split[1]),
-                    int(split[2]))
+                                     int(split[2]))
         except:
             raise UserError("Invalid date (%s)" % time_str)
         return date
     else:
         raise UserError("Invalid date format (%s), expected YYYY-MM-DD" %
-                time_str)
+                        time_str)
+
 
 def systemExit(code, msgs=None):
     """
@@ -393,12 +400,13 @@ def systemExit(code, msgs=None):
         if type(msgs) not in [type([]), type(())]:
             msgs = (msgs, )
         for msg in msgs:
-            sys.stderr.write(str(msg)+'\n')
+            sys.stderr.write(str(msg) + '\n')
     sys.exit(code)
+
 
 def main():
     try:
-        args = parse_args();
+        args = parse_args()
         return cloneByDate.main(args)
     except KeyboardInterrupt:
         systemExit(0, "\nUser interrupted process.")

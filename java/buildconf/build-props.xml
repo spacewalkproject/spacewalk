@@ -2,7 +2,7 @@
   <property name="rhn-home" location="." />
 
   <property environment="env" />
-  
+
   <property file="${user.home}/.rhn.properties" />
   <property name="custom.log4j" location="${user.home}/.log4j.properties" />
   <property name="src.dir" location="${rhn-home}/code" />
@@ -35,7 +35,7 @@
   <!-- IVY Properties -->
   <property name="ivyserver" value="http://sherr.fedorapeople.org" />
   <property name="ivy.log.module.when.found" value="false"/>
-  <property name="ivy.log.resolved.revision" value="false"/>  
+  <property name="ivy.log.resolved.revision" value="false"/>
 
   <!-- END IVY Properties -->
   <property name="rhn.war" value="${build.dir}/webapp/rhnjava.war"/>
@@ -64,6 +64,10 @@
     <available file="/usr/share/java/apache-commons-validator.jar" />
   </condition>
 
+  <condition property="log4j-jars" value="log4j-1" else="log4j">
+    <available file="/usr/share/java/log4j-1.jar" />
+  </condition>
+
   <property name="hibernate3.2deps" value="hibernate3"/>
 
   <property name="hibernate3.6deps" value="hibernate3/hibernate-ehcache-3 hibernate3/hibernate-c3p0-3 hibernate3/hibernate-core-3 ${hibernate-commons-annotations} slf4j/api jboss-logging javassist slf4j/log4j12 ehcache-core hibernate-jpa-2.0-api"/>
@@ -87,7 +91,7 @@
              commons-collections commons-digester commons-discovery
              commons-el commons-fileupload commons-io commons-lang commons-logging ${commons-validator} ${hibernate}
              mailapi smtp jdom jpam ${jmock-jars}
-             log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars} ${tomcat-jars}
+             ${log4j-jars} oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars} ${tomcat-jars}
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
              ${jfreechart} taglibs-core logdriver quartz dwr slf4j-api slf4j-log4j12
              concurrent velocity simple-core  mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3 strutstest" />
@@ -95,12 +99,12 @@
   <!-- deps needed for testing, but required to build -->
   <property name="test.build.jar.dependencies"
       value="junit
-             log4j
+             ${log4j-jars}
              regexp ${jmock-jars} postgresql-jdbc" />
 
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
-             log4j 
+             ${log4j-jars}
              regexp ${jmock-jars} ${jfreechart}
              postgresql-jdbc" />
 
@@ -121,7 +125,7 @@
   <!-- =================== RPM build, use jpackage syntax ======================= -->
   <!-- property name="install.test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
-             log4j mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
+             ${log4j-jars} mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
              regexp ${jmock-jars} strutstest" / -->
 
   <property name="install.build.jar.dependencies"
@@ -134,11 +138,11 @@
              xml-commons-apis ${install.common.jar.dependencies}" />
 
   <property name="install.common.jar.dependencies"
-      value="bcel cglib commons-beanutils commons-cli commons-codec 
+      value="bcel cglib commons-beanutils commons-cli commons-codec
              commons-collections commons-digester commons-discovery
              commons-el commons-fileupload commons-io commons-lang commons-logging ${commons-validator} ${hibernate}
              ${tomcat-jars} javamail jdom jpam dwr
-             log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars}
+             ${log4j-jars} oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars}
              jcommon stringtree-json postgresql-jdbc
              ${jfreechart} taglibs-core quartz
              concurrent simple-core simple-xml susestudio-java-client" />
@@ -150,7 +154,7 @@
              commons-lang commons-logging
              ${commons-validator} concurrent dom4j ${hibernate} jta
              jaf ${jasper-jars} javamail jcommon jdom ${other-jars}
-             ${jfreechart} ${tomcat-jars} jpam log4j redstone-xmlrpc-client redstone-xmlrpc
+             ${jfreechart} ${tomcat-jars} jpam ${log4j-jars} redstone-xmlrpc-client redstone-xmlrpc
              oro oscache quartz stringtree-json sitemesh ${struts-jars} taglibs-core
              taglibs-standard tanukiwrapper postgresql-jdbc simple-xml susestudio-java-client
              xalan-j2 xerces-j2 xml-commons-apis simple-core" />
@@ -172,7 +176,7 @@
     <fileset dir="${build.lib.dir}">
       <include name="*.jar" />
     </fileset>
-	<pathelement location="${build.dir}/classes/"/>
+        <pathelement location="${build.dir}/classes/"/>
   </path>
 
   <path id="alljars">

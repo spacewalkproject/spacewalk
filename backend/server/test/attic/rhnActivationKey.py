@@ -22,16 +22,21 @@ import types
 
 from spacewalk.server import rhnSQL
 
+
 class InvalidTokenError(Exception):
     pass
+
 
 class InvalidChannelError(Exception):
     pass
 
+
 class InvalidEntitlementError(Exception):
     pass
 
+
 class ActivationKey:
+
     def __init__(self):
         self._row_reg_token = None
         self._row_activ_key = None
@@ -60,6 +65,7 @@ class ActivationKey:
           from rhnRegTokenGroups rtsg
          where rtsg.token_id = :token_id
     """)
+
     def _load_server_groups(self):
         # Get groups
         h = rhnSQL.prepare(self._query_fetch_server_groups)
@@ -80,6 +86,7 @@ class ActivationKey:
          where rtc.token_id = :token_id
            and rtc.channel_id = c.id
     """)
+
     def _load_channels(self):
         # Get groups
         h = rhnSQL.prepare(self._query_fetch_channels)
@@ -147,6 +154,7 @@ class ActivationKey:
          where rte.reg_token_id = :reg_token_id
            and rte.server_group_type_id = sgt.id
     """)
+
     def get_entitlement_level(self):
         reg_token_id = self._row_reg_token['id']
         h = rhnSQL.prepare(self._query_get_reg_token_entitlements)
@@ -180,7 +188,6 @@ class ActivationKey:
         if not row:
             raise InvalidEntitlementError(entitlement_level)
         return row['id']
-
 
     def generate_token(self):
         s = hashlib.new('sha1')
@@ -234,6 +241,7 @@ class ActivationKey:
                (reg_token_id, server_group_type_id)
         values (:reg_token_id, :server_group_type_id)
     """)
+
     def _store_entitlements(self, entitlements):
         # entitlements: hash keyed on the entitlement id
         if not entitlements:
@@ -241,14 +249,14 @@ class ActivationKey:
         entitlements = entitlements.keys()
 
         reg_token_id = self._row_reg_token['id']
-        reg_token_ids = [ reg_token_id ] * len(entitlements)
+        reg_token_ids = [reg_token_id] * len(entitlements)
 
         h = rhnSQL.prepare(self._query_delete_reg_token_entitlements)
         h.execute(reg_token_id=reg_token_id)
 
         h = rhnSQL.prepare(self._query_insert_reg_token_entitlements)
         h.executemany(reg_token_id=reg_token_ids,
-            server_group_type_id=entitlements)
+                      server_group_type_id=entitlements)
 
     _query_delete_groups = rhnSQL.Statement("""
         delete from rhnRegTokenGroups
@@ -265,14 +273,14 @@ class ActivationKey:
         token_id = self._row_reg_token['id']
 
         inserts, deletes = self._diff_hashes(db_server_groups,
-            self._server_groups)
+                                             self._server_groups)
 
         if deletes:
-            token_ids = [ token_id ] * len(deletes)
+            token_ids = [token_id] * len(deletes)
             h = rhnSQL.prepare(self._query_delete_groups)
             h.executemany(token_id=token_ids, server_group_id=deletes)
         if inserts:
-            token_ids = [ token_id ] * len(inserts)
+            token_ids = [token_id] * len(inserts)
             h = rhnSQL.prepare(self._query_insert_groups)
             h.executemany(token_id=token_ids, server_group_id=inserts)
 
@@ -285,19 +293,20 @@ class ActivationKey:
         insert into rhnRegTokenChannels(token_id, channel_id)
         values (:token_id, :channel_id)
     """)
+
     def _store_channels(self):
         db_channels = self._load_channels()
         token_id = self._row_reg_token['id']
 
         inserts, deletes = self._diff_hashes(db_channels,
-            self._channels)
+                                             self._channels)
 
         if deletes:
-            token_ids = [ token_id ] * len(deletes)
+            token_ids = [token_id] * len(deletes)
             h = rhnSQL.prepare(self._query_delete_channels)
             h.executemany(token_id=token_ids, channel_id=deletes)
         if inserts:
-            token_ids = [ token_id ] * len(inserts)
+            token_ids = [token_id] * len(inserts)
             h = rhnSQL.prepare(self._query_insert_channels)
             h.executemany(token_id=token_ids, channel_id=inserts)
 
@@ -322,6 +331,7 @@ class ActivationKey:
 
 
 class CallableObj:
+
     def __init__(self, name, func):
         self.func = func
         self.name = name

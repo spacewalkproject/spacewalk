@@ -223,5 +223,3 @@ class GtkChanges(object):
         self._window.hide()
 
         return self._result
-
-# vim:ts=4:sw=4:et

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.config.ConfigFileType" table="RHNCONFIGFILETYPE">
-	<id column="ID" name="id" type="long">
-		<generator class="native"/>
-	</id>
-	<property column="LABEL" length="64" name="label" not-null="true" type="string"/>
-	<property column="NAME" length="256" name="name" not-null="true" type="string"/>
-	<property column="CREATED" length="7" name="created" not-null="true" type="timestamp"/>
-	<property column="MODIFIED" length="7" name="modified" not-null="true" type="timestamp"/>
+        <class name="com.redhat.rhn.domain.config.ConfigFileType" table="RHNCONFIGFILETYPE">
+        <id column="ID" name="id" type="long">
+                <generator class="native"/>
+        </id>
+        <property column="LABEL" length="64" name="label" not-null="true" type="string"/>
+        <property column="NAME" length="256" name="name" not-null="true" type="string"/>
+        <property column="CREATED" length="7" name="created" not-null="true" type="timestamp"/>
+        <property column="MODIFIED" length="7" name="modified" not-null="true" type="timestamp"/>
 </class>
 <query name="ConfigFileType.findByLabel">
-	<![CDATA[from com.redhat.rhn.domain.config.ConfigFileType as s where s.label = :label]]>
+        <![CDATA[from com.redhat.rhn.domain.config.ConfigFileType as s where s.label = :label]]>
 </query>
 </hibernate-mapping>

@@ -28,7 +28,7 @@ from spacewalk.common.rhnConfig import CFG
 from spacewalk.common import byterange
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault, rhnNotFound,\
-        redirectException #to catch redirect exception
+    redirectException  # to catch redirect exception
 from spacewalk.common.rhnTranslate import _
 from spacewalk.common.rhnLib import setHeaderValue
 from spacewalk.common.rhnTB import Traceback
@@ -41,7 +41,10 @@ import rhnCapability
 import apacheAuth
 
 # Exceptions
+
+
 class UnknownXML(Exception):
+
     def __init__(self, value):
         Exception.__init__(self)
         self.__value = value
@@ -50,11 +53,15 @@ class UnknownXML(Exception):
         return _("Invalid request received (%s).") % self.__value
     __str__ = __repr__
 
+
 class HandlerNotFoundError(Exception):
     pass
 
 # base class for requests
+
+
 class apacheRequest:
+
     def __init__(self, client_version, req):
         self.client = client_version
         self.req = req
@@ -79,7 +86,7 @@ class apacheRequest:
 
     def _setup_servers(self):
         self.servers = rhnImport.load("server/handlers",
-            interface_signature='rpcClasses')
+                                      interface_signature='rpcClasses')
 
     # return a reference to a method name. The method in the base
     def method_ref(self, method):
@@ -93,11 +100,11 @@ class apacheRequest:
             # Make sure the applet doesn't see the message
             if method == 'applet.poll_status':
                 return self.response({
-                    'checkin_interval' : 3600,
-                    'server_status' : 'normal'
+                    'checkin_interval': 3600,
+                    'server_status': 'normal'
                 })
             if method == 'applet.poll_packages':
-                return self.response({ 'use_cached_copy' : 1 })
+                return self.response({'use_cached_copy': 1})
 
             # Fetch global message being sent to clients if applicable.
             msg = open(CFG.MESSAGE_TO_ALL).read()
@@ -130,14 +137,14 @@ class apacheRequest:
                 "While running '%s': caught\n%s : %s\n") % (
                 method, e_type, e_value))
             Traceback(method, self.req,
-                extra="Response sent back to the caller:\n%s\n" % (
-                    response.faultString,),
-                severity="notification")
+                      extra="Response sent back to the caller:\n%s\n" % (
+                          response.faultString,),
+                      severity="notification")
         except rhnNotFound, e:
             return apache.HTTP_NOT_FOUND
-        #pkilambi:catch exception if redirect
+        # pkilambi:catch exception if redirect
         except redirectException, re:
-            log_debug(3,"redirect exception caught",re.path)
+            log_debug(3, "redirect exception caught", re.path)
             response = re.path
 
         except rhnFault, f:
@@ -155,7 +162,7 @@ class apacheRequest:
                 rhnSQL.rollback()
                 # generate the traceback report
                 Traceback(method, self.req,
-                          extra = "SQL Error generated: %s" % e,
+                          extra="SQL Error generated: %s" % e,
                           severity="schema")
                 return apache.HTTP_INTERNAL_SERVER_ERROR
             response = f.getxml()
@@ -207,9 +214,9 @@ class apacheRequest:
 
         # find out the size of the file
         if response.length == 0:
-            response.file_obj.seek(0,2)
+            response.file_obj.seek(0, 2)
             file_size = response.file_obj.tell()
-            response.file_obj.seek(0,0)
+            response.file_obj.seek(0, 0)
         else:
             file_size = response.length
 
@@ -221,7 +228,7 @@ class apacheRequest:
             try:
                 range_start, range_end = \
                     byterange.parse_byteranges(self.req.headers_in["Range"],
-                        file_size)
+                                               file_size)
                 response_size = range_end - range_start
                 self.req.headers_out["Content-Range"] = \
                     byterange.get_content_range(range_start, range_end, file_size)
@@ -240,8 +247,6 @@ class apacheRequest:
             except byterange.UnsatisfyableByteRangeException:
                 pass
 
-
-
         self.req.headers_out["Content-Length"] = str(response_size)
 
         # if we loaded this from a real fd, set it as the X-Replace-Content
@@ -252,7 +257,7 @@ class apacheRequest:
             self.req.headers_out["X-Package-FileName"] = response.name
 
         xrepcon = self.req.headers_in.has_key("X-Replace-Content-Active") \
-                  and rhnFlags.test("Download-Accelerator-Path")
+            and rhnFlags.test("Download-Accelerator-Path")
         if xrepcon:
             fpath = rhnFlags.get("Download-Accelerator-Path")
             log_debug(1, "Serving file %s" % fpath)
@@ -266,32 +271,32 @@ class apacheRequest:
         self.req.send_http_header()
 
         if self.req.headers_in.has_key("Range"):
-	    # and the file
-	    read = 0
-	    while read < response_size:
-		# We check the size here in case we're not asked for the entire file.
-		if (read + CFG.BUFFER_SIZE > response_size):
-		    to_read = read + CFG.BUFFER_SIZE - response_size
-		else:
-		    to_read = CFG.BUFFER_SIZE
-		buf = response.read(CFG.BUFFER_SIZE)
-		if not buf:
-		    break
-		try:
-		    self.req.write(buf)
-		    read = read + CFG.BUFFER_SIZE
-		except IOError:
-		    if xrepcon:
-			# We're talking to a proxy, so don't bother to report
-			# a SIGPIPE
-			break
-		    return apache.HTTP_BAD_REQUEST
-	    response.close()
+            # and the file
+            read = 0
+            while read < response_size:
+                # We check the size here in case we're not asked for the entire file.
+                if (read + CFG.BUFFER_SIZE > response_size):
+                    to_read = read + CFG.BUFFER_SIZE - response_size
+                else:
+                    to_read = CFG.BUFFER_SIZE
+                buf = response.read(CFG.BUFFER_SIZE)
+                if not buf:
+                    break
+                try:
+                    self.req.write(buf)
+                    read = read + CFG.BUFFER_SIZE
+                except IOError:
+                    if xrepcon:
+                        # We're talking to a proxy, so don't bother to report
+                        # a SIGPIPE
+                        break
+                    return apache.HTTP_BAD_REQUEST
+            response.close()
         else:
             if 'wsgi.file_wrapper' in self.req.headers_in:
-		self.req.output = self.req.headers_in['wsgi.file_wrapper'](response, CFG.BUFFER_SIZE)
-	    else:
-		self.req.output = iter(lambda: response.read(CFG.BUFFER_SIZE), '')
+                self.req.output = self.req.headers_in['wsgi.file_wrapper'](response, CFG.BUFFER_SIZE)
+            else:
+                self.req.output = iter(lambda: response.read(CFG.BUFFER_SIZE), '')
 
         return success_response
 
@@ -331,10 +336,10 @@ class apacheRequest:
             log_debug(4, "Compression on for client version", self.client)
             if self.client > 0:
                 output.set_transport_flags(output.TRANSFER_BINARY,
-                                     output.ENCODE_ZLIB)
-            else: # original clients had the binary transport support broken
+                                           output.ENCODE_ZLIB)
+            else:  # original clients had the binary transport support broken
                 output.set_transport_flags(output.TRANSFER_BASE64,
-                                     output.ENCODE_ZLIB)
+                                           output.ENCODE_ZLIB)
 
         # We simply add the transport options to the output headers
         output.headers.update(rhnFlags.get('outputTransportOptions').dict())
@@ -343,17 +348,17 @@ class apacheRequest:
             # Normalize the response
             response = self.normalize(response)
             try:
-                response = xmlrpclib.dumps(response, methodresponse = 1)
+                response = xmlrpclib.dumps(response, methodresponse=1)
             except TypeError, e:
                 log_debug(4, "Error \"%s\" encoding response = %s" % (e, response))
                 Traceback("apacheHandler.response", self.req,
-                    extra="Error \"%s\" encoding response = %s" % (e, response),
-                    severity="notification")
+                          extra="Error \"%s\" encoding response = %s" % (e, response),
+                          severity="notification")
                 return apache.HTTP_INTERNAL_SERVER_ERROR
             except:
                 # Uncaught exception; signal the error
                 Traceback("apacheHandler.response", self.req,
-                    severity="unhandled")
+                          severity="unhandled")
                 return apache.HTTP_INTERNAL_SERVER_ERROR
 
         # we're about done here, patch up the headers
@@ -366,7 +371,7 @@ class apacheRequest:
             else:
                 setHeaderValue(self.req.headers_out, k, v)
 
-	if 5 <= CFG.DEBUG < 10:
+        if 5 <= CFG.DEBUG < 10:
             log_debug(5, "The response: %s[...SNIP (for sanity) SNIP...]%s" % (response[:100], response[-100:]))
         elif CFG.DEBUG >= 10:
             # if you absolutely must have that whole response in the log file
@@ -393,8 +398,11 @@ class apacheRequest:
         return apacheAuth.auth_proxy()
 
 # handles the POST requests
+
+
 class apachePOST(apacheRequest):
     # Decode the request. Returns a tuple of (params, methodName).
+
     def decode(self, data):
         try:
             self.parser.feed(data)
@@ -435,7 +443,7 @@ class apachePOST(apacheRequest):
             raise UnknownXML(method)
 
         log_debug(4, "Class name: %s; function name: %s" % (classname,
-            funcname))
+                                                            funcname))
         c = classes.get(classname)
         if c is None:
             raise UnknownXML("class %s.%s is not defined (function = %s)" % (
@@ -459,7 +467,7 @@ class apachePOST(apacheRequest):
         # like an fd
         try:
             fd = self.input.decode(self.req)
-        except IOError: # client timed out
+        except IOError:  # client timed out
             return apache.HTTP_BAD_REQUEST
 
         # Read the data from the request
@@ -483,7 +491,9 @@ class apachePOST(apacheRequest):
         # make the actual function call and return the result
         return self.call_function(method, params)
 
+
 class apacheGET:
+
     def __init__(self, client_version, req):
         # extract the server we're talking to and the root directory
         # from the request configuration options
@@ -491,7 +501,7 @@ class apacheGET:
         self.server = req_config["SERVER"]
         # XXX: some day we're going to trust the timestamp stuff...
         self.handler_classes = rhnImport.load("server/handlers",
-            interface_signature='getHandler')
+                                              interface_signature='getHandler')
         log_debug(3, "Handler classes", self.handler_classes)
 
         self.handler = None
@@ -508,8 +518,10 @@ class apacheGET:
     def __getattr__(self, name):
         return getattr(self.handler, name)
 
+
 class GetHandler(apacheRequest):
     # we require our own init since we depend on a channel
+
     def __init__(self, client_version, req):
         apacheRequest.__init__(self, client_version, req)
         self.channel = None
@@ -572,7 +584,7 @@ class GetHandler(apacheRequest):
     # send the response out for the GET requests
     def response(self, response):
         log_debug(3)
-        #pkilambi:if redirectException caught returns path(<str>)
+        # pkilambi:if redirectException caught returns path(<str>)
         if isinstance(response, str):
             method, params = self._get_method_params()
             if method == "getPackage":
@@ -592,11 +604,11 @@ class GetHandler(apacheRequest):
             self.req.err_headers_out["X-RHN-Fault-Code"] = \
                 str(response.faultCode)
             faultString = string.strip(base64.encodestring(
-                    response.faultString))
+                response.faultString))
             # Split the faultString into multiple lines
             for line in string.split(faultString, '\n'):
                 self.req.err_headers_out.add("X-RHN-Fault-String",
-                    string.strip(line))
+                                             string.strip(line))
             # And then send all the other things
             for k, v in rhnFlags.get('outputTransportOptions').items():
                 setHeaderValue(self.req.err_headers_out, k, v)
@@ -610,17 +622,17 @@ class GetHandler(apacheRequest):
         # and jump into the base handler
         return apacheRequest.response(self, response)
 
-    #pkilambi: redirect request back to client with edge network url
-    def redirect( self, req, url, temporary=1 ):
-        log_debug(3,"url input to redirect is ",url)
+    # pkilambi: redirect request back to client with edge network url
+    def redirect(self, req, url, temporary=1):
+        log_debug(3, "url input to redirect is ", url)
         if req.sent_bodyct:
             raise IOError, "Cannot redirect after headers have already been sent."
 
-        #akamize the url with the new tokengen before sending the redirect response
+        # akamize the url with the new tokengen before sending the redirect response
         import tokengen.Generator
         arl = tokengen.Generator.generate_auth_url(url)
         req.headers_out["Location"] = arl
-        log_debug(3,"Akamized url to redirect is ",arl)
+        log_debug(3, "Akamized url to redirect is ", arl)
         if temporary:
             req.status = apache.HTTP_MOVED_TEMPORARILY
         else:

@@ -44,8 +44,8 @@
           </a>
           <bean:message key="virtuallist.jsp.hoststatus" arg0="${current.countActiveInstances}" arg1="${current.countTotalInstances}"/>
           <c:if test="${current.virtEntitlement != null}">
-	          (<a href="/rhn/systems/details/virtualization/VirtualGuestsList.do?sid=${current.hostSystemId}"><bean:message key="virtuallist.jsp.viewall"/></a>)
-	       </c:if>
+                  (<a href="/rhn/systems/details/virtualization/VirtualGuestsList.do?sid=${current.hostSystemId}"><bean:message key="virtuallist.jsp.viewall"/></a>)
+               </c:if>
         </rhn:column>
       </c:when>
       <c:when test="${current.isVirtualHost}">
@@ -65,14 +65,14 @@
             <c:when test="${current.virtualSystemId == null}">
               <c:out value="${current.name}" escapeXml="true" />
             </c:when>
-	        <c:when test="${current.accessible}">
-	          <a href="/rhn/systems/details/Overview.do?sid=${current.virtualSystemId}">
+                <c:when test="${current.accessible}">
+                  <a href="/rhn/systems/details/Overview.do?sid=${current.virtualSystemId}">
                 <c:out value="${current.serverName}" escapeXml="true" />
-	          </a>
-	        </c:when>
-	        <c:otherwise>
+                  </a>
+                </c:when>
+                <c:otherwise>
               <c:out value="${current.serverName}" escapeXml="true" />
-	        </c:otherwise>
+                </c:otherwise>
           </c:choose>
         </rhn:column>
 
@@ -86,19 +86,19 @@
         </rhn:column>
 
         <rhn:column header="virtuallist.jsp.channel">
-    		<c:choose>
-        		<c:when test="${current.channelId == null}">
-            		<bean:message key="none.message"/>
-            	</c:when>
-		        <c:when test="${current.subscribable}">
-		                    <a href="/rhn/channels/ChannelDetail.do?cid=${current.channelId}">
-		            ${current.channelLabels}
-		          </a>
-			        </c:when>
-			        <c:otherwise>
-			            ${current.channelLabels}
-			        </c:otherwise>
-		      </c:choose>
+                <c:choose>
+                        <c:when test="${current.channelId == null}">
+                        <bean:message key="none.message"/>
+                </c:when>
+                        <c:when test="${current.subscribable}">
+                                    <a href="/rhn/channels/ChannelDetail.do?cid=${current.channelId}">
+                            ${current.channelLabels}
+                          </a>
+                                </c:when>
+                                <c:otherwise>
+                                    ${current.channelLabels}
+                                </c:otherwise>
+                      </c:choose>
         </rhn:column>
 
       </c:otherwise>

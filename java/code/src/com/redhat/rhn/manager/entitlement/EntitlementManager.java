@@ -19,8 +19,6 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.ManagementEntitlement;
-import com.redhat.rhn.domain.entitlement.MonitoringEntitlement;
-import com.redhat.rhn.domain.entitlement.NonLinuxEntitlement;
 import com.redhat.rhn.domain.entitlement.ProvisioningEntitlement;
 import com.redhat.rhn.domain.entitlement.UpdateEntitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
@@ -55,8 +53,6 @@ public class EntitlementManager extends BaseManager {
     public static final Entitlement UPDATE = new UpdateEntitlement();
     public static final Entitlement MANAGEMENT = new ManagementEntitlement();
     public static final Entitlement PROVISIONING = new ProvisioningEntitlement();
-    public static final Entitlement MONITORING = new MonitoringEntitlement();
-    public static final Entitlement NONLINUX = new NonLinuxEntitlement();
     public static final Entitlement VIRTUALIZATION = new VirtualizationEntitlement();
     public static final Entitlement VIRTUALIZATION_PLATFORM =
         new VirtualizationPlatformEntitlement();
@@ -65,8 +61,6 @@ public class EntitlementManager extends BaseManager {
     public static final String SW_MGR_ENTITLED = "sw_mgr_entitled";
     public static final String ENTERPRISE_ENTITLED = "enterprise_entitled";
     public static final String PROVISIONING_ENTITLED = "provisioning_entitled";
-    public static final String NONLINUX_ENTITLED = "nonlinux_entitled";
-    public static final String MONITORING_ENTITLED = "monitoring_entitled";
     public static final String VIRTUALIZATION_ENTITLED = "virtualization_host";
     public static final String VIRTUALIZATION_PLATFORM_ENTITLED
         = "virtualization_host_platform";
@@ -75,7 +69,6 @@ public class EntitlementManager extends BaseManager {
     private static final Set <Entitlement> BASE_ENTITLEMENTS;
     static {
         ADDON_ENTITLEMENTS = new LinkedHashSet<Entitlement>();
-        ADDON_ENTITLEMENTS.add(MONITORING);
         ADDON_ENTITLEMENTS.add(PROVISIONING);
         ADDON_ENTITLEMENTS.add(VIRTUALIZATION);
         ADDON_ENTITLEMENTS.add(VIRTUALIZATION_PLATFORM);
@@ -98,12 +91,6 @@ public class EntitlementManager extends BaseManager {
         }
         else if (PROVISIONING_ENTITLED.equals(name)) {
             return PROVISIONING;
-        }
-        else if (NONLINUX_ENTITLED.equals(name)) {
-            return NONLINUX;
-        }
-        else if (MONITORING_ENTITLED.equals(name)) {
-            return MONITORING;
         }
         else if (VIRTUALIZATION_ENTITLED.equals(name)) {
             return VIRTUALIZATION;

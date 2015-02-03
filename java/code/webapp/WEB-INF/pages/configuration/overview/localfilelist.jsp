@@ -28,11 +28,11 @@
                       path="${current.path}"
                       type="${current.type}" />
           </rhn:column>
-    
+
           <rhn:column header="localfilelist.jsp.system"
                       url="/rhn/systems/details/configuration/Overview.do?sid=${current.serverId}">
              <rhn:icon type="header-system-physical" title="system.common.systemAlt" />
-        	  ${fn:escapeXml(current.serverName)}
+                  ${fn:escapeXml(current.serverName)}
           </rhn:column>
         </rhn:listdisplay>
       </rhn:list>

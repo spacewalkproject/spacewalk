@@ -131,7 +131,7 @@ def solinstall(adminfile, path, pkg, prog=None):
 
         if rhnoptions.hasOption("response") and \
             rhnoptions.getOption("response"):
-		responsefile = rhnoptions.getOption("response")
+                responsefile = rhnoptions.getOption("response")
                 template += " -r %s" % (responsefile)
 
         template += " -n -d %s %s"
@@ -177,8 +177,8 @@ class SolarisPackageManager(PackageManager):
 
         if rhnoptions.hasOption("admin") and \
             rhnoptions.getOption("admin"):
-		adminfile = rhnoptions.getOption("admin")
-	else:
+                adminfile = rhnoptions.getOption("admin")
+        else:
             adminfile = sysconf.get("solaris-adminfile", "/var/sadm/install/admin/default")
 
         # Compute upgrade packages
@@ -271,5 +271,3 @@ class SolarisPackageManager(PackageManager):
 
         prog.setDone()
         prog.stop()
-
-# vim:ts=4:sw=4:et

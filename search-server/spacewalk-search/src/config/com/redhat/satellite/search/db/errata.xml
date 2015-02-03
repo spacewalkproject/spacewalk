@@ -4,23 +4,23 @@
 <mapper namespace="errata">
    <select id="listErrataFromId" parameterType="long" resultType="com.redhat.satellite.search.db.models.Errata">
          SELECT
-			e.id,
-			e.advisory,
-			e.advisory_type as advisoryType,
-			e.advisory_name as advisoryName,
-			e.advisory_rel as advisoryRel,
-			e.product,
-			e.description,
-			e.synopsis,
-			e.topic,
-			e.solution,
-			e.issue_date as issueDate,
-			e.update_date as updateDate,
-			e.notes,
-			e.org_id,
-			e.created,
-			e.modified,
-			e.last_modified as lastModified
+                        e.id,
+                        e.advisory,
+                        e.advisory_type as advisoryType,
+                        e.advisory_name as advisoryName,
+                        e.advisory_rel as advisoryRel,
+                        e.product,
+                        e.description,
+                        e.synopsis,
+                        e.topic,
+                        e.solution,
+                        e.issue_date as issueDate,
+                        e.update_date as updateDate,
+                        e.notes,
+                        e.org_id,
+                        e.created,
+                        e.modified,
+                        e.last_modified as lastModified
          FROM rhnErrata e
          WHERE e.id &gt; #{id}
          ORDER by e.id ASC
@@ -29,14 +29,14 @@
                 DELETE FROM rhnIndexerWork where object_type = 'errata'
    </delete>
    <insert id="createLastErrata" parameterType="java.util.Map">
-		INSERT INTO rhnIndexerWork values ('errata', #{id}, #{last_modified})
-	</insert>
-	<update id="updateLastErrata" parameterType="java.util.Map">
-		UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'errata'
-	</update>
-	<select id="getLastErrataId" resultType="java.lang.Long">
-		SELECT last_id from rhnIndexerWork where object_type='errata'
-	</select>
+                INSERT INTO rhnIndexerWork values ('errata', #{id}, #{last_modified})
+        </insert>
+        <update id="updateLastErrata" parameterType="java.util.Map">
+                UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'errata'
+        </update>
+        <select id="getLastErrataId" resultType="java.lang.Long">
+                SELECT last_id from rhnIndexerWork where object_type='errata'
+        </select>
     <select id="maxErrataId" resultType="java.lang.Long">
         SELECT MAX(ID)
           FROM rhnErrata

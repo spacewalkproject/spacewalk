@@ -21,8 +21,8 @@ def write(blip):
 class TestGetAllPkgInfo(unittest.TestCase):
     def __allPkgs(self, count, multilib=None, arch1=None, arch2=None):
         self.allPkgs = []
-	if not arch1:
-	    arch1 = "noarch"
+        if not arch1:
+            arch1 = "noarch"
         for i in range(count):
             if multilib:
                 self.allPkgs.append(["a%04d" % i, '1.0', '1', '', arch1])

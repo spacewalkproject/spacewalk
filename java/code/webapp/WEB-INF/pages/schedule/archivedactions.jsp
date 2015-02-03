@@ -10,7 +10,7 @@
 <body>
 
   <rhn:toolbar base="h1" icon="header-action"
-  			   imgAlt="actions.jsp.imgAlt"
+                           imgAlt="actions.jsp.imgAlt"
                helpUrl="">
     <bean:message key="archivedactions.jsp.archived_actions"/>
   </rhn:toolbar>
@@ -19,21 +19,21 @@
     <bean:message key="archivedactions.jsp.summary"/>
     </p>
 
-	<rl:listset name="failedList">
+        <rl:listset name="failedList">
         <rhn:csrf />
-		<rl:list emptykey="archivedactions.jsp.nogroups" styleclass="list">
+                <rl:list emptykey="archivedactions.jsp.nogroups" styleclass="list">
 
-			<%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/listdisplay-new.jspf" %>
+                        <%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/listdisplay-new.jspf" %>
 
-		</rl:list>
-		<rhn:submitted/>
-		 <div class="text-right">
-		     <input type="submit"
+                </rl:list>
+                <rhn:submitted/>
+                 <div class="text-right">
+                     <input type="submit"
                name="dispatch"
                class="btn btn-default"
                value='<bean:message key="actions.jsp.deleteactions"/>'/>
          </div>
-	</rl:listset>
+        </rl:listset>
 
 </body>
 </html>

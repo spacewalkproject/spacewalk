@@ -26,13 +26,17 @@ from spacewalk.common.rhnConfig import CFG
 
 import rhnSQL
 
+
 class InvalidSessionError(Exception):
     pass
+
 
 class ExpiredSessionError(Exception):
     pass
 
+
 class Session:
+
     def __init__(self, session_id=None):
         self.session_id = session_id
         self.expires = None
@@ -49,7 +53,7 @@ class Session:
     def _get_secrets(self):
         # Reads the four secrets from the config file
         return map(lambda x, cfg=CFG: getattr(cfg, 'session_secret_%s' % x),
-            range(1, 5))
+                   range(1, 5))
 
     def get_secrets(self):
         # Validates the secrets from the config file
@@ -67,7 +71,7 @@ class Session:
 
         ctx = hashlib.new('sha256')
         ctx.update(string.join(secrets[:2] + [str(self.session_id)] +
-            secrets[2:], ':'))
+                               secrets[2:], ':'))
 
         return string.join(map(lambda a: "%02x" % ord(a), ctx.digest()), '')
 
@@ -117,10 +121,9 @@ class Session:
                     delete from pxtSessions where id = :session_id
             """)
             h.execute(session_id=self.session_id)
-            rhnSQL.commit();
+            rhnSQL.commit()
 
         raise ExpiredSessionError("Session not found")
-
 
     def save(self):
         expires = int(time.time()) + self.duration
@@ -131,11 +134,13 @@ class Session:
         """)
         h.execute(id=self.session_id, web_user_id=self.uid,
                   expires=expires, value='RHNAPP')
-        rhnSQL.commit();
+        rhnSQL.commit()
         return self
+
 
 def load(session_string):
     return Session().load(session_string)
+
 
 def generate(web_user_id=None, duration=None):
     return Session().generate(web_user_id=web_user_id, duration=duration).save()

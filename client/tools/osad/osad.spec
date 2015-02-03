@@ -17,7 +17,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.47
+Version: 5.11.52
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -202,16 +202,6 @@ install -p -m 755 osa-dispatcher-selinux/osa-dispatcher-selinux-enable %{buildro
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%if 0%{?suse_version} >= 1210
-
-%pre
-%service_add_pre osad.service
-
-%postun
-%service_del_postun osad.service
-
-%endif
-
 %{!?systemd_post: %global systemd_post() if [ $1 -eq 1 ] ; then /usr/bin/systemctl enable %%{?*} >/dev/null 2>&1 || : ; fi; }
 %{!?systemd_preun: %global systemd_preun() if [ $1 -eq 0 ] ; then /usr/bin/systemctl --no-reload disable %%{?*} > /dev/null 2>&1 || : ; /usr/bin/systemctl stop %%{?*} >/dev/null 2>&1 || : ; fi; }
 %{!?systemd_postun_with_restart: %global systemd_postun_with_restart() /usr/bin/systemctl daemon-reload >/dev/null 2>&1 || : ; if [ $1 -ge 1 ] ; then /usr/bin/systemctl try-restart %%{?*} >/dev/null 2>&1 || : ; fi; }
@@ -258,9 +248,15 @@ fi
 %postun
 %if 0%{?fedora}
 %systemd_postun_with_restart osad.service
+%else
+%if 0%{?suse_version} >= 1210
+%service_del_postun osad.service
+%endif
 %endif
 
 %if 0%{?suse_version} >= 1210
+%pre
+%service_add_pre osad.service
 
 %pre -n osa-dispatcher
 %service_add_pre osa-dispatcher.service
@@ -392,6 +388,22 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 5.11.52-1
+- move %%pre section down and eliminate an %%if
+
+* Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 5.11.51-1
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
+* Fri Dec 05 2014 Stephen Herr <sherr@redhat.com> 5.11.50-1
+- fix osad postun section
+
+* Thu Nov 20 2014 Tomas Kasparek <tkasparek@redhat.com> 5.11.49-1
+- Revert "autostart osad after package installation"
+
+* Wed Nov 12 2014 Tomas Kasparek <tkasparek@redhat.com> 5.11.48-1
+- autostart osad after package installation
+
 * Tue Nov 04 2014 Stephen Herr <sherr@redhat.com> 5.11.47-1
 - 1117343 - fix osad through unauthenticated proxy case
 

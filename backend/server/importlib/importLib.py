@@ -27,15 +27,19 @@ from spacewalk.common.fileutils import createPath, setPermsPath
 from spacewalk.common.rhnConfig import CFG
 
 # no-op class, used to define the type of an attribute
+
+
 class DateType:
     pass
 
 
 # An Item is just an extension for a dictionary
 class Item(UserDict):
+
     """
     First level object, that stores information in a hash-like structure
     """
+
     def __init__(self, attributes=None):
         UserDict.__init__(self, attributes)
 
@@ -45,14 +49,18 @@ class Item(UserDict):
 
     def __repr__(self):
         return "[<%s instance; attributes=%s]" % (str(self.__class__),
-            str(self.data))
+                                                  str(self.data))
 
 # BaseInformation is an Item with a couple of other features (an id, an ignored
 # flag, diff information)
+
+
 class BaseInformation(Item):
+
     """
     Second level object. It may contain composite items as attributes
     """
+
     def __init__(self, dict=None):
         Item.__init__(self, dict)
         # Initialize attributes
@@ -70,18 +78,23 @@ class BaseInformation(Item):
 
     def toDict(self):
         dict = {
-            'ignored'   : not not self.ignored,
-            'diff'      : self.diff.toDict(),
+            'ignored': not not self.ignored,
+            'diff': self.diff.toDict(),
         }
         return dict
 
 # This class is handy for reducing code duplication
+
+
 class Information(BaseInformation):
     attributeTypes = {}
+
     def __init__(self):
         BaseInformation.__init__(self, self.attributeTypes)
 
 # Function that validates the insertion of items in a Collection
+
+
 def validateInformation(obj):
     if not isinstance(obj, BaseInformation):
         if isinstance(obj, InstanceType):
@@ -93,6 +106,7 @@ def validateInformation(obj):
 
 # A list with the needed functions to validate what gets put in it
 class Collection(UserList):
+
     def __init__(self, list=None):
         if list:
             for obj in list:
@@ -135,182 +149,196 @@ class Collection(UserList):
 
     def __repr__(self):
         return "[<%s instance; items=%s]" % (str(self.__class__),
-            str(self.data))
+                                             str(self.data))
 
 
 # Import classes
 # XXX makes sense to put this in a different file
 class ChannelFamily(Information):
     attributeTypes = {
-        'name'              : StringType,
-        'label'             : StringType,
-        'product_url'       : StringType,
-        'channels'          : [StringType],
+        'name': StringType,
+        'label': StringType,
+        'product_url': StringType,
+        'channels': [StringType],
     }
+
 
 class ChannelFamilyPermissions(Information):
     attributeTypes = {
-        'channel_family'    : StringType,
-        'org_id'            : IntType,
-        'max_members'       : IntType,
-        'max_flex'          : IntType,
+        'channel_family': StringType,
+        'org_id': IntType,
+        'max_members': IntType,
+        'max_flex': IntType,
     }
+
 
 class DistChannelMap(Information):
     attributeTypes = {
-        'os'                : StringType,
-        'release'           : StringType,
-        'channel_arch'      : StringType,
-        'channel'           : StringType,
-        'org_id'            : IntType,
+        'os': StringType,
+        'release': StringType,
+        'channel_arch': StringType,
+        'channel': StringType,
+        'org_id': IntType,
     }
+
 
 class ReleaseChannelMap(Information):
     attributeTypes = {
-        'product'           : StringType,
-        'version'           : StringType,
-        'release'           : StringType,
-        'channel_arch_id'   : IntType,
-        'channel_id'        : IntType
+        'product': StringType,
+        'version': StringType,
+        'release': StringType,
+        'channel_arch_id': IntType,
+        'channel_id': IntType
     }
 
 
 class ChannelErratum(Information):
     attributeTypes = {
-        'id'                : StringType,
-        'advisory_name'     : StringType,
-        'last_modified'     : DateType,
+        'id': StringType,
+        'advisory_name': StringType,
+        'last_modified': DateType,
     }
+
 
 class IncompleteSourcePackage(Information):
     attributeTypes = {
-        'id'                : StringType,
-        'source_rpm'        : StringType,
-        'last_modified'     : DateType,
+        'id': StringType,
+        'source_rpm': StringType,
+        'last_modified': DateType,
     }
+
 
 class ChannelTrust(Information):
     attributeTypes = {
-        'org_trust_id'      : IntType,
+        'org_trust_id': IntType,
     }
+
 
 class Channel(Information):
     attributeTypes = {
-        'label'             : StringType,
-        'org_id'            : IntType,
-        'channel_arch'      : StringType,
-        'parent_channel'    : StringType,
-        'name'              : StringType,
-        'summary'           : StringType,
-        'description'       : StringType,
-        'last_modified'     : DateType,
-        'comps_last_modified' : DateType,
-        'gpg_key_url'       : StringType,
-        'product_name_id'   : IntType,
+        'label': StringType,
+        'org_id': IntType,
+        'channel_arch': StringType,
+        'parent_channel': StringType,
+        'name': StringType,
+        'summary': StringType,
+        'description': StringType,
+        'last_modified': DateType,
+        'comps_last_modified': DateType,
+        'gpg_key_url': StringType,
+        'product_name_id': IntType,
         'channel_product_id': IntType,
-        'receiving_updates' : StringType,
-        'checksum_type'     : StringType,       # xml dumps >= 3.5
-        'channel_access'    : StringType,
+        'receiving_updates': StringType,
+        'checksum_type': StringType,       # xml dumps >= 3.5
+        'channel_access': StringType,
         # XXX Not really useful stuff
-        'basedir'           : StringType,
-        'product_name'      : StringType,
-        'product_version'   : StringType,
-        'product_beta'      : StringType,
+        'basedir': StringType,
+        'product_name': StringType,
+        'product_version': StringType,
+        'product_beta': StringType,
         # Families this channel is subscribed to
-        'families'          : [ChannelFamily],
-        'packages'          : [StringType],
-        'source_packages'   : [IncompleteSourcePackage],
-        'all-packages'      : [StringType],
-        'dists'             : [DistChannelMap],
-        'release'           : [ReleaseChannelMap],
-        'errata'            : [StringType],
-        'errata_timestamps' : [ChannelErratum],
-        'kickstartable_trees'   : [StringType],
-        'trust_list'         : [ChannelTrust],
-        'export-type'        : StringType,
-        'export-end-date'    : StringType,
-        'export-start-date'  : StringType,
+        'families': [ChannelFamily],
+        'packages': [StringType],
+        'source_packages': [IncompleteSourcePackage],
+        'all-packages': [StringType],
+        'dists': [DistChannelMap],
+        'release': [ReleaseChannelMap],
+        'errata': [StringType],
+        'errata_timestamps': [ChannelErratum],
+        'kickstartable_trees': [StringType],
+        'trust_list': [ChannelTrust],
+        'export-type': StringType,
+        'export-end-date': StringType,
+        'export-start-date': StringType,
     }
+
 
 class OrgTrust(Information):
     attributeTypes = {
-        'org_id'            : IntType,
+        'org_id': IntType,
     }
+
 
 class Org(Information):
     attributeTypes = {
-        'id'                : IntType,
-        'name'              : StringType,
-        'org_trust_ids'     : [OrgTrust],
+        'id': IntType,
+        'name': StringType,
+        'org_trust_ids': [OrgTrust],
     }
+
 
 class File(Item):
     attributeTypes = {
-        'name'              : StringType,
-        'device'            : IntType,
-        'inode'             : IntType,
-        'file_mode'         : IntType,
-        'username'          : StringType,
-        'groupname'         : StringType,
-        'rdev'              : IntType,
-        'file_size'         : IntType,
-        'mtime'             : DateType,
-        'linkto'            : StringType,
-        'flags'             : IntType,
-        'verifyflags'       : IntType,
-        'lang'              : StringType,
-        'checksum'          : StringType,
-        'checksum_type'     : StringType,
+        'name': StringType,
+        'device': IntType,
+        'inode': IntType,
+        'file_mode': IntType,
+        'username': StringType,
+        'groupname': StringType,
+        'rdev': IntType,
+        'file_size': IntType,
+        'mtime': DateType,
+        'linkto': StringType,
+        'flags': IntType,
+        'verifyflags': IntType,
+        'lang': StringType,
+        'checksum': StringType,
+        'checksum_type': StringType,
     }
+
     def __init__(self):
         Item.__init__(self, self.attributeTypes)
 
 
 class Dependency(Item):
     attributeTypes = {
-        'name'              : StringType,
-        'version'           : StringType,
-        'flags'             : IntType,
+        'name': StringType,
+        'version': StringType,
+        'flags': IntType,
     }
+
     def __init__(self):
         Item.__init__(self, self.attributeTypes)
 
 
 class ChangeLog(Item):
     attributeTypes = {
-        'name'              : StringType,
-        'text'              : StringType,
-        'time'              : DateType,
+        'name': StringType,
+        'text': StringType,
+        'time': DateType,
     }
+
     def __init__(self):
         Item.__init__(self, self.attributeTypes)
 
 
 class Checksum(Item):
     attributeTypes = {
-        'type'              : StringType,
-        'value'             : StringType,
+        'type': StringType,
+        'value': StringType,
     }
+
     def __init__(self):
         Item.__init__(self, self.attributeTypes)
 
 
 class IncompletePackage(BaseInformation):
     attributeTypes = {
-        'package_id'        : StringType, # RH db id
-        'name'              : StringType,
-        'epoch'             : StringType,
-        'version'           : StringType,
-        'release'           : StringType,
-        'arch'              : StringType,
-        'org_id'            : IntType,
-        'package_size'      : IntType,
-        'last_modified'     : DateType,
-        'md5sum'            : StringType,       # xml dumps < 3.5
+        'package_id': StringType,  # RH db id
+        'name': StringType,
+        'epoch': StringType,
+        'version': StringType,
+        'release': StringType,
+        'arch': StringType,
+        'org_id': IntType,
+        'package_size': IntType,
+        'last_modified': DateType,
+        'md5sum': StringType,       # xml dumps < 3.5
         # These attributes are lists of objects
-        'channels'          : [StringType],
-        'checksum_list'     : [Checksum],
+        'channels': [StringType],
+        'checksum_list': [Checksum],
     }
+
     def __init__(self):
         BaseInformation.__init__(self, IncompletePackage.attributeTypes)
         self.name = None
@@ -336,52 +364,55 @@ class IncompletePackage(BaseInformation):
 
     def short_str(self):
         return "%s-%s-%s.%s.rpm" % (self.name, self.evr[1], self.evr[2],
-            self.arch)
+                                    self.arch)
+
 
 class Package(IncompletePackage):
+
     """
     A package is a hash of attributes
     """
     attributeTypes = {
-        'description'       : StringType,
-        'summary'           : StringType,
-        'license'           : StringType,
-        'package_group'     : StringType,
-        'rpm_version'       : StringType,
-        'payload_size'      : IntType,
-        'installed_size'    : IntType,
-        'payload_format'    : StringType,
-        'build_host'        : StringType,
-        'build_time'        : DateType,
-        'cookie'            : StringType,
-        'vendor'            : StringType,
-        'source_rpm'        : StringType,
-        'package_size'      : IntType,
-        'last_modified'     : DateType,
-        'sigpgp'            : StringType,
-        'siggpg'            : StringType,
-        'sigsize'           : IntType,
-        'header_start'      : IntType,
-        'header_end'        : IntType,
-        'path'              : StringType,
-        'md5sum'            : StringType,       # xml dumps < 3.5
-        'sigmd5'            : StringType,
+        'description': StringType,
+        'summary': StringType,
+        'license': StringType,
+        'package_group': StringType,
+        'rpm_version': StringType,
+        'payload_size': IntType,
+        'installed_size': IntType,
+        'payload_format': StringType,
+        'build_host': StringType,
+        'build_time': DateType,
+        'cookie': StringType,
+        'vendor': StringType,
+        'source_rpm': StringType,
+        'package_size': IntType,
+        'last_modified': DateType,
+        'sigpgp': StringType,
+        'siggpg': StringType,
+        'sigsize': IntType,
+        'header_start': IntType,
+        'header_end': IntType,
+        'path': StringType,
+        'md5sum': StringType,       # xml dumps < 3.5
+        'sigmd5': StringType,
         # These attributes are lists of objects
-        'files'             : [File],
-        'requires'          : [Dependency],
-        'provides'          : [Dependency],
-        'conflicts'         : [Dependency],
-        'obsoletes'         : [Dependency],
-        'recommends'        : [Dependency],
-        'supplements'       : [Dependency],
-        'enhances'          : [Dependency],
-        'suggests'          : [Dependency],
-        'breaks'            : [Dependency],
-        'predepends'        : [Dependency],
-        'changelog'         : [ChangeLog],
-        'channels'          : [StringType],
-        'checksum_list'     : [Checksum],
+        'files': [File],
+        'requires': [Dependency],
+        'provides': [Dependency],
+        'conflicts': [Dependency],
+        'obsoletes': [Dependency],
+        'recommends': [Dependency],
+        'supplements': [Dependency],
+        'enhances': [Dependency],
+        'suggests': [Dependency],
+        'breaks': [Dependency],
+        'predepends': [Dependency],
+        'changelog': [ChangeLog],
+        'channels': [StringType],
+        'checksum_list': [Checksum],
     }
+
     def __init__(self):
         # Inherit from IncompletePackage
         IncompletePackage.__init__(self)
@@ -392,23 +423,24 @@ class Package(IncompletePackage):
 
 class SourcePackage(IncompletePackage):
     attributeTypes = {
-        'package_group'     : StringType,
-        'rpm_version'       : StringType,
-        'source_rpm'        : StringType,
-        'payload_size'      : IntType,
-        'payload_format'    : StringType,
-        'build_host'        : StringType,
-        'build_time'        : DateType,
-        'vendor'            : StringType,
-        'cookie'            : StringType,
-        'package_size'      : IntType,
-        'path'              : StringType,
-        'last_modified'     : DateType,
+        'package_group': StringType,
+        'rpm_version': StringType,
+        'source_rpm': StringType,
+        'payload_size': IntType,
+        'payload_format': StringType,
+        'build_host': StringType,
+        'build_time': DateType,
+        'vendor': StringType,
+        'cookie': StringType,
+        'package_size': IntType,
+        'path': StringType,
+        'last_modified': DateType,
         # these attributes are mutualy exclusive
-        'md5sum'            : StringType,       # xml dumps < 3.5
-        'sigmd5'            : StringType,       # xml dumps < 3.5 and rpms
-        'checksum_list'     : [Checksum],
+        'md5sum': StringType,       # xml dumps < 3.5
+        'sigmd5': StringType,       # xml dumps < 3.5 and rpms
+        'checksum_list': [Checksum],
     }
+
     def __init__(self):
         # Inherit from IncompletePackage
         IncompletePackage.__init__(self)
@@ -423,63 +455,64 @@ class SourcePackage(IncompletePackage):
 
 class Bug(Information):
     attributeTypes = {
-        'bug_id'        : StringType,
-        'summary'       : StringType,
-        'href'          : StringType,
+        'bug_id': StringType,
+        'summary': StringType,
+        'href': StringType,
     }
 
 
 class ErrataFile(Information):
     attributeTypes = {
-        'filename'          : StringType,
-        'file_type'         : StringType,
-        'channel_list'      : [StringType],
-        'package_id'        : IntType,
+        'filename': StringType,
+        'file_type': StringType,
+        'channel_list': [StringType],
+        'package_id': IntType,
         # these attributes are mutualy exclusive
-        'md5sum'            : StringType,       # xml dumps < 3.5
-        'checksum_list'     : [Checksum],
+        'md5sum': StringType,       # xml dumps < 3.5
+        'checksum_list': [Checksum],
     }
 
 
 class Keyword(Information):
     attributeTypes = {
-        'keyword'           : StringType,
+        'keyword': StringType,
     }
 
 
 class Erratum(Information):
     attributeTypes = {
-        'advisory'          : StringType,
-        'advisory_name'     : StringType,
-        'advisory_rel'      : IntType,
-        'advisory_type'     : StringType,
-        'product'           : StringType,
-        'description'       : StringType,
-        'synopsis'          : StringType,
-        'topic'             : StringType,
-        'solution'          : StringType,
-        'issue_date'        : DateType,
-        'update_date'       : DateType,
-        'last_modified'     : DateType,
-        'notes'             : StringType,
-        'org_id'            : IntType,
-        'refers_to'         : StringType,
+        'advisory': StringType,
+        'advisory_name': StringType,
+        'advisory_rel': IntType,
+        'advisory_type': StringType,
+        'product': StringType,
+        'description': StringType,
+        'synopsis': StringType,
+        'topic': StringType,
+        'solution': StringType,
+        'issue_date': DateType,
+        'update_date': DateType,
+        'last_modified': DateType,
+        'notes': StringType,
+        'org_id': IntType,
+        'refers_to': StringType,
         # These attributes are lists of objects
-        'channels'          : [Channel],
-        'packages'          : [IncompletePackage],
-        'files'             : [ErrataFile],
-        'keywords'          : [Keyword],
-        'bugs'              : [Bug],
-        'cve'               : [StringType],
-        'errata_from'       : StringType,
+        'channels': [Channel],
+        'packages': [IncompletePackage],
+        'files': [ErrataFile],
+        'keywords': [Keyword],
+        'bugs': [Bug],
+        'cve': [StringType],
+        'errata_from': StringType,
     }
 
 
 class BaseArch(Information):
     attributeTypes = {
-        'label'     : StringType,
-        'name'      : StringType,
+        'label': StringType,
+        'name': StringType,
     }
+
 
 class CPUArch(BaseArch):
     pass
@@ -488,128 +521,95 @@ class CPUArch(BaseArch):
 class BaseTypedArch(BaseArch):
     attributeTypes = BaseArch.attributeTypes.copy()
     attributeTypes.update({
-        'arch-type-label'   : StringType,
-        'arch-type-name'    : StringType,
+        'arch-type-label': StringType,
+        'arch-type-name': StringType,
     })
+
 
 class ServerArch(BaseTypedArch):
     pass
 
+
 class PackageArch(BaseTypedArch):
     pass
+
 
 class ChannelArch(BaseTypedArch):
     pass
 
+
 class ServerPackageArchCompat(Information):
     attributeTypes = {
-        'server-arch'   : StringType,
-        'package-arch'  : StringType,
-        'preference'    : IntType,
+        'server-arch': StringType,
+        'package-arch': StringType,
+        'preference': IntType,
     }
+
 
 class ServerChannelArchCompat(Information):
     attributeTypes = {
-        'server-arch'   : StringType,
-        'channel-arch'  : StringType,
+        'server-arch': StringType,
+        'channel-arch': StringType,
     }
+
 
 class ChannelPackageArchCompat(Information):
     attributeTypes = {
-        'channel-arch'  : StringType,
-        'package-arch'  : StringType,
+        'channel-arch': StringType,
+        'package-arch': StringType,
     }
+
 
 class ServerGroupServerArchCompat(Information):
     attributeTypes = {
-        'server-arch'       : StringType,
-        'server-group-type' : StringType,
+        'server-arch': StringType,
+        'server-group-type': StringType,
     }
+
 
 class KickstartFile(Information):
     attributeTypes = {
-        'relative_path' : StringType,
-        'last_modified' : DateType,
-        'file_size'     : IntType,
-        'md5sum'            : StringType,       # xml dumps < 3.5
-        'checksum_list'     : [Checksum],
+        'relative_path': StringType,
+        'last_modified': DateType,
+        'file_size': IntType,
+        'md5sum': StringType,       # xml dumps < 3.5
+        'checksum_list': [Checksum],
     }
+
 
 class KickstartableTree(Information):
     attributeTypes = {
-        'label'             : StringType,
-        'base_path'         : StringType,
-        'channel'           : StringType,
-        'boot_image'        : StringType,
-        'kstree_type_label' : StringType,
-        'install_type_name' : StringType,
-        'kstree_type_label' : StringType,
-        'install_type_name' : StringType,
-        'org_id'            : IntType,
-        'last_modified'     : DateType,
-        'files'             : [ KickstartFile ],
+        'label': StringType,
+        'base_path': StringType,
+        'channel': StringType,
+        'boot_image': StringType,
+        'kstree_type_label': StringType,
+        'install_type_name': StringType,
+        'kstree_type_label': StringType,
+        'install_type_name': StringType,
+        'org_id': IntType,
+        'last_modified': DateType,
+        'files': [KickstartFile],
     }
+
 
 class ProductName(Information):
     attributeTypes = {
-        'label'             : StringType,
-	'name'              : StringType,
-    }
-
-class SolarisPatchInfo(Information):
-    # Object attribute name -> Object attribute type mapping
-    attributeTypes = {
-        'package_id'    : IntType,
-        'solaris_release': StringType,
-        'sunos_release' : StringType,
-        'patch_type'    : IntType,
-        'readme'        : StringType,
-        'patchinfo'     : StringType,
-    }
-
-
-class SolarisPatchPackagesInfo(Information):
-    attributeTypes = {
-        'patch_id'      : IntType,
-        'package_nevra_id': IntType,
-    }
-
-
-class SolarisPatchSetMember(Information):
-    attributeTypes = {
-        'patch_id'      : IntType,
-        'patch_set_id'  : IntType,
-    }
-
-
-class SolarisPatchSetInfo(Information):
-    attributeTypes = {
-        'package_id'    : IntType,
-        'readme'        : StringType,
-        'set_date'      : DateType,
-        'members'       : [ SolarisPatchSetMember ],
-    }
-
-
-class SolarisPackageInfo(Information):
-    attributeTypes = {
-        'package_id'    : IntType,
-        'category'      : StringType,
-        'pkginfo'       : StringType,
-        'pkgmap'        : StringType,
-        'intonly'       : StringType,
+        'label': StringType,
+        'name': StringType,
     }
 
 
 # Generic error object
 class Error(Information):
     attributeTypes = {
-        'error'             : StringType,
+        'error': StringType,
     }
 
 
 # Base import class
 class Import:
+
     def __init__(self, batch, backend):
         self.batch = batch
         self.backend = backend
@@ -675,6 +675,7 @@ class Import:
 
 # Any package processing import class
 class GenericPackageImport(Import):
+
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
         # Packages have to be pre-processed
@@ -709,7 +710,7 @@ class GenericPackageImport(Import):
             # Unsupported arch
             package.ignored = 1
             raise InvalidArchError(package.arch,
-                "Unknown arch %s" % package.arch)
+                                   "Unknown arch %s" % package.arch)
 
 #        package['package_arch_id'] = arch
 #        package['name_id'] = self.names[package.name]
@@ -725,64 +726,84 @@ class GenericPackageImport(Import):
         package['checksum_id'] = self.checksums[(package['checksum_type'], package['checksum'])]
 
 # Exceptions
+
+
 class ImportException(Exception):
+
     def __init__(self, arglist):
         Exception.__init__(self, *arglist)
 
+
 class AlreadyUploadedError(ImportException):
+
     def __init__(self, object, *rest):
         ImportException.__init__(self, rest)
         self.object = object
 
+
 class FileConflictError(AlreadyUploadedError):
     pass
 
+
 class InvalidPackageError(ImportException):
+
     def __init__(self, package, *rest):
         ImportException.__init__(self, rest)
         self.package = package
 
 
 class InvalidArchError(ImportException):
+
     def __init__(self, arch, *rest):
         ImportException.__init__(self, rest)
         self.arch = arch
 
 
 class InvalidChannelError(ImportException):
+
     def __init__(self, channel, *rest):
         ImportException.__init__(self, rest)
         self.channel = channel
 
 
 class MissingParentChannelError(ImportException):
+
     def __init__(self, channel, *rest):
         ImportException.__init__(self, rest)
         self.channel = channel
 
 
 class InvalidChannelFamilyError(ImportException):
+
     def __init__(self, channel_family, *rest):
         ImportException.__init__(self, rest)
         self.channel_family = channel_family
 
 
 class IncompatibleArchError(ImportException):
+
     def __init__(self, arch1, arch2, *rest):
         ImportException.__init__(self, rest)
         self.arch1 = arch1
         self.arch2 = arch2
 
+
 class InvalidSeverityError(ImportException):
+
     def __init__(self, *rest):
-	ImportException.__init__(self, rest)
+        ImportException.__init__(self, rest)
+
 
 class TransactionError(ImportException):
+
     def __init__(self, *rest):
         ImportException.__init__(self, rest)
 
 # Class that stores diff information
+
+
 class Diff(UserList):
+
     def __init__(self):
         UserList.__init__(self)
         self.level = 0
@@ -797,8 +818,8 @@ class Diff(UserList):
         for item in self:
             l.append(removeNone(item))
         return {
-            'level' : self.level,
-            'diff'  : l,
+            'level': self.level,
+            'diff': l,
         }
 
 
@@ -838,9 +859,9 @@ def move_package(filename, basedir, relpath, checksum_type, checksum, force=None
     # If so, it is stored in CFG.MOUNT_POINT and we have to move it
     # If not, the repository is local to the server, so the rpm should be copied
     if filename.startswith(CFG.MOUNT_POINT):
-       shutil.move(filename, packagePath)
+        shutil.move(filename, packagePath)
     else:
-       shutil.copy(filename, packagePath)
+        shutil.copy(filename, packagePath)
 
     # set the path perms readable by all users
     os.chmod(packagePath, 0644)
@@ -848,12 +869,15 @@ def move_package(filename, basedir, relpath, checksum_type, checksum, force=None
 
 # Returns a list of containing nevra for the given RPM header
 NEVRA_TAGS = ['name', 'epoch', 'version', 'release', 'arch']
+
+
 def get_nevra(header):
     # Get nevra
     nevra = []
     for tag in NEVRA_TAGS:
         nevra.append(header[tag])
     return nevra
+
 
 def get_nevra_dict(header):
     # Get nevra

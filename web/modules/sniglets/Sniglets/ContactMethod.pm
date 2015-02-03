@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -84,7 +84,7 @@ sub contact_method_edit_form {
   my $cmid = $pxt->param('cmid');
 
   my $cmethod = RHN::ContactMethod->lookup( recid => $cmid);
-  
+
   my %subs;
   $subs{method_name} = $cmethod->method_name;
 
@@ -114,7 +114,7 @@ sub contact_method_edit_cb {
 
   # note that in this case we are also creating/editing a contact group behind the
   # scenes whose only member is the contact method being created/edited.
-  
+
   if ($cmid) { # editing existing contact method
     $cmethod = RHN::ContactMethod->lookup( recid => $cmid);
 
@@ -122,7 +122,7 @@ sub contact_method_edit_cb {
     # one contact method per group at this point.
     my $cgroups = $cmethod->contact_groups;
     $cgroup = $cgroups->[0];
-    
+
   }
   else { # creating a new contact method.
     $cmethod = RHN::ContactMethod->create;
@@ -141,12 +141,12 @@ sub contact_method_edit_cb {
       $pxt->push_message(local_alert => 'Both the method name and Email are required for contact methods.');
       return;
   }
-  
+
   if (check_method_name($name, $cmid)) {
       $pxt->push_message(local_alert => 'Method name in use, please choose another.');
       return;
   }
-  
+
   # make sure that the e-mail address conforms with address semantics.
   if (not Mail::RFC822::Address::valid($email)) {
       $pxt->push_message(local_alert =>'Email address is not valid.');
@@ -240,7 +240,7 @@ sub contact_method_edit_cb {
 sub check_method_name {
   my $name = shift;
   my $id = shift;
-  
+
   my $dbh = RHN::DB->connect;
   my ($sth, $query);
 

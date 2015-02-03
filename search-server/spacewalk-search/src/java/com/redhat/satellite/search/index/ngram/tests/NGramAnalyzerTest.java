@@ -24,13 +24,13 @@ import org.apache.log4j.Logger;
 import java.io.StringReader;
 
 public class NGramAnalyzerTest extends NGramTestSetup {
-	
-	private static Logger log = Logger.getLogger(NGramAnalyzerTest.class);
-	
+
+        private static Logger log = Logger.getLogger(NGramAnalyzerTest.class);
+
     public NGramAnalyzerTest() {
         super();
     }
-    
+
     public void testTokenStream() throws Exception {
         NGramAnalyzer nga = new NGramAnalyzer(min_ngram, max_ngram);
         TokenStream ngrams = nga.tokenStream(new StringReader("aspell"));
@@ -39,11 +39,11 @@ public class NGramAnalyzerTest extends NGramTestSetup {
         while ((token = ngrams.next()) != null) {
             result += new String(token.termBuffer()).trim() + ",";
         }
-        log.info("Created a ngram token stream, this is what it looks like: " 
+        log.info("Created a ngram token stream, this is what it looks like: "
                 + result);
-        
+
         assertTrue("testTokenStream", result.compareTo("a,s,p,e,l,l,as,sp,pe," +
                 "el,ll,asp,spe,pel,ell,aspe,spel,pell,aspel,spell,") == 0);
-        
+
     }
 }

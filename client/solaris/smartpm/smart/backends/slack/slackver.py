@@ -103,5 +103,3 @@ def vercmppart(a, b):
         return -1
     else:
         return 1
-
-# vim:ts=4:sw=4

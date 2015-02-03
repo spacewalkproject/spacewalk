@@ -61,10 +61,10 @@
         </rl:column>
 
         <rl:column headerkey="lastModified" bound="false"
-			styleclass="thin-column"
+                        styleclass="thin-column"
             sortattr="modifiedObject"
             sortable="true"
-			defaultsort="desc">
+                        defaultsort="desc">
             ${current.modified}
         </rl:column>
     </rl:list>

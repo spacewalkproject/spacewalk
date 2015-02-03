@@ -26,8 +26,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                      column="server_profile_id" />
 
         <many-to-one name="virtualizationType"
-		     class="com.redhat.rhn.domain.kickstart.KickstartVirtualizationType"
-		     cascade="none" column="virtualization_type"/>
+                     class="com.redhat.rhn.domain.kickstart.KickstartVirtualizationType"
+                     cascade="none" column="virtualization_type"/>
 
         <property name="cfgManagementFlag" column="cfg_management_flag" not-null="true" type="yes_no" />
         <property name="remoteCommandFlag" column="remote_command_flag" not-null="true" type="yes_no" />

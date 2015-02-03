@@ -28,14 +28,14 @@ import abrt
 import scap
 
 rpcClasses = {
-    "registration"      : registration.Registration,
-    "up2date"           : up2date.Up2date,
-    "queue"             : queue.Queue,
-    "errata"            : errata.Errata,
-    "proxy"             : proxy.Proxy,
-    "servers"           : up2date.Servers,
-    "abrt"              : abrt.Abrt,
-    "scap"              : scap.Scap,
-    }
+    "registration": registration.Registration,
+    "up2date": up2date.Up2date,
+    "queue": queue.Queue,
+    "errata": errata.Errata,
+    "proxy": proxy.Proxy,
+    "servers": up2date.Servers,
+    "abrt": abrt.Abrt,
+    "scap": scap.Scap,
+}
 
 getHandler = get_handler.GetHandler

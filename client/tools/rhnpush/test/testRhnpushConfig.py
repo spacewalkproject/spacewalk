@@ -19,6 +19,7 @@ import unittest
 
 # pylint: disable=W0212,E1101,R0904
 class RhnConfigTestCase(unittest.TestCase):
+
     def setUp(self):
         self.userconfig = rhnpush_config.rhnpushConfigParser('.rhnpushrc')
         self.defaultconfig = rhnpush_config.rhnpushConfigParser('/etc/sysconfig/rhn/rhnpushrc')

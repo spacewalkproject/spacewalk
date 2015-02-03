@@ -16,6 +16,7 @@
 import os
 from spacewalk.common import checksum
 
+
 def get_package_header(filename=None, file_obj=None, fd=None):
     # pylint: disable=E1103
     if filename is not None:
@@ -40,6 +41,7 @@ def get_package_header(filename=None, file_obj=None, fd=None):
         stream.close()
     return a_pkg.header
 
+
 def package_from_stream(stream, packaging):
     if packaging == 'deb':
         import rhn_deb
@@ -54,6 +56,7 @@ def package_from_stream(stream, packaging):
         a_pkg = None
     return a_pkg
 
+
 def package_from_filename(filename):
     if filename.endswith('.deb'):
         packaging = 'deb'
@@ -67,10 +70,13 @@ def package_from_filename(filename):
 BUFFER_SIZE = 16384
 DEFAULT_CHECKSUM_TYPE = 'md5'
 
+
 class A_Package:
+
     """virtual class that implements shared methods for RPM/MPM/DEB package object"""
     # pylint: disable=R0902
-    def __init__(self, input_stream = None):
+
+    def __init__(self, input_stream=None):
         self.header = None
         self.header_start = 0
         self.header_end = 0
@@ -124,6 +130,7 @@ class A_Package:
             ret = ret + buf
             amt = amt - len(buf)
         return ret
+
 
 class InvalidPackageError(Exception):
     pass

@@ -30,6 +30,4 @@ $answers{'db-password'} = PXT::Config->get('db_password');
 
 $opts{'upgrade'} = 1;
 
-Spacewalk::Setup::update_monitoring_scout(\%opts, \%answers);
-  
 1;

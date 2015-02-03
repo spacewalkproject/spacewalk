@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -55,8 +55,8 @@ EOQ
   my %archmap;
   foreach my $arch (@archs) {
     $archmap{$arch->{ID}} = {LABEL => $arch->{LABEL},
-			      NAME  => $arch->{NAME},
-			      };
+                              NAME  => $arch->{NAME},
+                              };
   }
 
   return \%archmap;
@@ -95,7 +95,7 @@ sub base_channels_visible_to_org {
   my $sth;
 
   $query = <<EOQ;
-SELECT NAME, ID 
+SELECT NAME, ID
   FROM rhnChannel
  WHERE (org_id = :org_id OR org_id is NULL)
    AND parent_channel is NULL
@@ -125,7 +125,7 @@ sub child_channels_visible_to_org_from_base {
   my $sth;
 
   $query = <<EOQ;
-SELECT NAME, ID 
+SELECT NAME, ID
   FROM rhnChannel
  WHERE (org_id = :org_id OR org_id is NULL)
    AND parent_channel = :parent_channel
@@ -210,14 +210,14 @@ EOQ
   }
 
   $sth = $dbh->prepare(<<EOQ);
-INSERT 
+INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
 VALUES (sequence_nextval('rhn_repo_regen_queue_id_seq'),
         :label, 'perl-web::add_channel_packages', NULL, 'N', 'N', current_timestamp, current_timestamp, current_timestamp)
 EOQ
 
-  my $channel = RHN::Channel->lookup(-id => $cid); 
+  my $channel = RHN::Channel->lookup(-id => $cid);
   $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $cid);
@@ -249,14 +249,14 @@ EOQ
   }
 
   $sth = $dbh->prepare(<<EOQ);
-INSERT 
+INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
 VALUES (sequence_nextval('rhn_repo_regen_queue_id_seq'),
         :label, 'perl-web::remove_channel_packages', NULL, 'N', 'N', current_timestamp, current_timestamp, current_timestamp)
 EOQ
 
-  my $channel = RHN::Channel->lookup(-id => $cid); 
+  my $channel = RHN::Channel->lookup(-id => $cid);
   $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $cid);
@@ -290,14 +290,14 @@ EOQ
   $sth->execute_h(to_cid => $to_cid, from_cid => $from_cid);
 
   $sth = $dbh->prepare(<<EOQ);
-INSERT 
+INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
 VALUES (null,
         :label, 'perl-web::clone_channel_packages', NULL, 'N', 'N', current_timestamp, current_timestamp, current_timestamp)
 EOQ
 
-  my $channel = RHN::Channel->lookup(-id => $to_cid); 
+  my $channel = RHN::Channel->lookup(-id => $to_cid);
   $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $to_cid);
@@ -328,14 +328,14 @@ EOQ
   $sth->execute_h(to_cid => $to_cid, from_cid => $from_cid);
 
   $sth = $dbh->prepare(<<EOQ);
-INSERT 
+INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
 VALUES (sequence_nextval('rhn_repo_regen_queue_id_seq'),
         :label, 'perl-web::clone_original_channel_packages', NULL, 'N', 'N', current_timestamp, current_timestamp, current_timestamp)
 EOQ
 
-  my $channel = RHN::Channel->lookup(-id => $to_cid); 
+  my $channel = RHN::Channel->lookup(-id => $to_cid);
   $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $to_cid);
@@ -358,32 +358,32 @@ sub clone_all_errata {
     my $owned_errata = $e_data->{OWNED_ERRATA};
 
 
-	#if there are no errata that have been cloned from this one, let's clone it
+        #if there are no errata that have been cloned from this one, let's clone it
     if (not defined $owned_errata) {
       $new_eid = RHN::ErrataEditor->clone_errata_fast($eid, $attr{org_id});
       push @eids, $new_eid;
     }
     #if there has only been one errata cloned from it, and it isn't modified or published
     elsif ( (scalar @{$owned_errata} == 1)
-	    and not $owned_errata->[0]->{LOCALLY_MODIFIED}
-	    and $owned_errata->[0]->{PUBLISHED} ) {
+            and not $owned_errata->[0]->{LOCALLY_MODIFIED}
+            and $owned_errata->[0]->{PUBLISHED} ) {
       push @eids, $owned_errata->[0]->{ID};
     }
     #else there are more than 1 errata (or none that are unmodified and published), so we need to figure out how to handle it
     else {
-    	my $found = 0;
-		foreach my $tmp_errata (@{$owned_errata}) {
-			if ( not $tmp_errata->{LOCALLY_MODIFIED} and $tmp_errata->{PUBLISHED}) {
-				push @eids, $tmp_errata->{ID};
-				$found = 1;
-				last;
-			}
-		}
-		#none of the multiple errata aren't modified or they are not published, so lets use the original errata
-		if (not $found) {
-			$new_eid = RHN::ErrataEditor->clone_errata_fast($eid, $attr{org_id});
+        my $found = 0;
+                foreach my $tmp_errata (@{$owned_errata}) {
+                        if ( not $tmp_errata->{LOCALLY_MODIFIED} and $tmp_errata->{PUBLISHED}) {
+                                push @eids, $tmp_errata->{ID};
+                                $found = 1;
+                                last;
+                        }
+                }
+                #none of the multiple errata aren't modified or they are not published, so lets use the original errata
+                if (not $found) {
+                        $new_eid = RHN::ErrataEditor->clone_errata_fast($eid, $attr{org_id});
                         push @eids, $new_eid;
-		}
+                }
        $special_handling++;
     }
   }
@@ -410,11 +410,11 @@ sub errata_migration_provider {
 
   my @owned_errata =
     sort { ( ($tcache{$b->{CREATED}} ||= str2time($b->{CREATED}))     # order by timestamp, cached, newest
-	     <=>                                                      # first, so the oldest cloned errata
-	     ($tcache{$a->{CREATED}} ||= str2time($a->{CREATED})) )   # is the one used.  If two errata share
-	   || ( $a->{ID} cmp $b->{ID} ) }                             # a timestamp, order by id, to get the one created first
+             <=>                                                      # first, so the oldest cloned errata
+             ($tcache{$a->{CREATED}} ||= str2time($a->{CREATED})) )   # is the one used.  If two errata share
+           || ( $a->{ID} cmp $b->{ID} ) }                             # a timestamp, order by id, to get the one created first
       grep { exists $_->{RELATIONSHIP} and $_->{RELATIONSHIP} eq 'cloned_from' } # filter out non-cloned errata
-	(@{$published_owned_errata}, @{$unpublished_owned_errata});
+        (@{$published_owned_errata}, @{$unpublished_owned_errata});
 
   my %clone_map;   # need a map to find the appropriate pre-existing errata for each Red Hat errata.
 
@@ -524,11 +524,11 @@ EOQ
 sub remove_errata_from_channel {
   my $class = shift;
   my %attr = validate_with( params => \@_,
-			    spec => {cid => { type => SCALAR },
-				     eids => { type => ARRAYREF },
-				     include_packages => { type => SCALAR },
-				    },
-			  );
+                            spec => {cid => { type => SCALAR },
+                                     eids => { type => ARRAYREF },
+                                     include_packages => { type => SCALAR },
+                                    },
+                          );
 
   my $dbh = RHN::DB->connect;
   my $query =<<EOQ;
@@ -562,14 +562,14 @@ EOQ
   }
 
   $sth = $dbh->prepare(<<EOQ);
-INSERT 
+INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
 VALUES (sequence_nextval('rhn_repo_regen_queue_id_seq'),
         :label, 'perl-web::remove_errata_from_channel', NULL, 'N', 'N', sysdate, sysdate, sysdate)
 EOQ
 
-  my $channel = RHN::Channel->lookup(-id => $attr{cid}); 
+  my $channel = RHN::Channel->lookup(-id => $attr{cid});
   $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $attr{cid});
@@ -582,12 +582,12 @@ EOQ
 sub add_errata_to_channel {
   my $class = shift;
   my %attr = validate_with( params => \@_,
-			    spec => {cid => { type => SCALAR },
-				     eids => { type => ARRAYREF },
-				     include_packages => { type => SCALAR,
-							   optional => 1},
-				    },
-			  );
+                            spec => {cid => { type => SCALAR },
+                                     eids => { type => ARRAYREF },
+                                     include_packages => { type => SCALAR,
+                                                           optional => 1},
+                                    },
+                          );
 
   my $dbh = RHN::DB->connect();
 
@@ -631,14 +631,14 @@ EOQ
   $sth->finish;
 
   $sth = $dbh->prepare(<<EOQ);
-INSERT 
+INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
 VALUES (sequence_nextval('rhn_repo_regen_queue_id_seq'),
         :label, 'perl-web::add_errata_to_channel', NULL, 'N', 'N', sysdate, sysdate, sysdate)
 EOQ
 
-  my $channel = RHN::Channel->lookup(-id => $attr{cid}); 
+  my $channel = RHN::Channel->lookup(-id => $attr{cid});
   $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $attr{cid});
@@ -651,11 +651,11 @@ EOQ
 sub add_cloned_errata_to_channel {
   my $class = shift;
   my %attr = validate_with( params => \@_,
-			    spec => {to_cid => { type => SCALAR },
-				     from_cid => { type => SCALAR },
-				     eids => { type => ARRAYREF },
-				    },
-			  );
+                            spec => {to_cid => { type => SCALAR },
+                                     from_cid => { type => SCALAR },
+                                     eids => { type => ARRAYREF },
+                                    },
+                          );
 
   my $dbh = RHN::DB->connect();
 
@@ -707,14 +707,14 @@ EOQ
   $sth->finish;
 
   $sth = $dbh->prepare(<<EOQ);
-INSERT 
+INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
 VALUES (sequence_nextval('rhn_repo_regen_queue_id_seq'),
         :label, 'perl-web::add_cloned_errata_to_channel', NULL, 'N', 'N', current_timestamp, current_timestamp, current_timestamp)
 EOQ
 
-  my $channel = RHN::Channel->lookup(-id => $attr{to_cid}); 
+  my $channel = RHN::Channel->lookup(-id => $attr{to_cid});
   $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $attr{to_cid});
@@ -743,33 +743,6 @@ EOQ
   $sth->finish;
 
   return $exists;
-}
-
-sub clone_newest_package {
-  my $class = shift;
-  my %attr = validate(@_, {from_cid => 1, to_cid => 1});
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare(<<EOQ);
-DELETE FROM rhnChannelNewestPackage
-    WHERE channel_id = :to_cid
-EOQ
-
-  $sth->execute_h(to_cid => $attr{to_cid});
-
-  $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnChannelNewestPackage
-    ( channel_id, name_id, evr_id, package_id, package_arch_id )
-    ( SELECT :to_cid, name_id, evr_id, package_id, package_arch_id
-        FROM rhnChannelNewestPackage
-        WHERE channel_id = :from_cid
-    )
-EOQ
-
-  $sth->execute_h(from_cid => $attr{from_cid}, to_cid => $attr{to_cid});
-
-  return 1;
 }
 
 1;

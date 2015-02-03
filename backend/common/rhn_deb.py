@@ -27,8 +27,11 @@ from rhn_pkg import A_Package, InvalidPackageError
 
 DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
+
 class deb_Header:
+
     "Wrapper class for an deb header - we need to store a flag is_source"
+
     def __init__(self, stream):
         self.packaging = 'deb'
         self.signatures = []
@@ -58,10 +61,10 @@ class deb_Header:
                                  ('provides', 'Provides'),
                                  ('conflicts', 'Conflicts'),
                                  ('obsoletes', 'Replaces'),
-				 ('recommends', 'Recommends'),
-				 ('suggests', 'Suggests'),
-				 ('breaks', 'Breaks'),
-				 ('predepends', 'Pre-Depends'),
+                                 ('recommends', 'Recommends'),
+                                 ('suggests', 'Suggests'),
+                                 ('breaks', 'Breaks'),
+                                 ('predepends', 'Pre-Depends'),
                                  ('payload_size', 'Installed-Size')]:
                 if debcontrol.has_key(deb_k):
                     self.hdr[hdr_k] = debcontrol.get_as_string(deb_k)
@@ -103,8 +106,10 @@ class deb_Header:
     def __len__(self):
         return len(self.hdr)
 
+
 class DEB_Package(A_Package):
-    def __init__(self, input_stream = None):
+
+    def __init__(self, input_stream=None):
         A_Package.__init__(self, input_stream)
         self.header_data = tempfile.NamedTemporaryFile()
         self.checksum_type = DEB_CHECKSUM_TYPE

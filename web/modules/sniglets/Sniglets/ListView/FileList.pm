@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -38,11 +38,11 @@ sub list_of { return "files" }
 sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "package_files",
-			   -datasource => RHN::DataSource::General->new);
+                           -datasource => RHN::DataSource::General->new);
 
 
   Sniglets::ListView::List->add_mode(-mode => "configfiles_for_snapshot",
-			   -datasource => new RHN::DataSource::Simple(-querybase => "config_queries"));
+                           -datasource => new RHN::DataSource::Simple(-querybase => "config_queries"));
 }
 
 sub row_callback {
@@ -67,12 +67,6 @@ sub row_callback {
     }
   }
   return $row;
-}
-
-# Overrides the List.pm implementation.  We don't want the alphabar to 
-# appear when displaying files.
-sub render_alphabar {
-    return '';
 }
 
 1;

@@ -137,12 +137,3 @@ insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
 values (lookup_sg_type('provisioning_entitled'), lookup_feature_type('ftr_remote_command'),
         current_timestamp,current_timestamp);
 
-insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
-                                       created, modified)
-values (lookup_sg_type('monitoring_entitled'), lookup_feature_type('ftr_schedule_probe'),
-        current_timestamp,current_timestamp);
-insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id,
-                                       created, modified)
-values (lookup_sg_type('monitoring_entitled'), lookup_feature_type('ftr_probes'),
-        current_timestamp,current_timestamp);
-

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -41,15 +41,15 @@ my $c = new RHN::DB::TableClass("rhnChannel", "C", "", @channel_fields);
 my $a = new RHN::DB::TableClass("rhnChannelArch", "CA", "arch", @arch_fields);
 
 my $j = $c->create_join(
-			[$a],
-			{
-			 "rhnChannel" =>
-			 {
-			  "rhnChannel" => ["ID","ID"],
-			  "rhnChannelArch" => ["CHANNEL_ARCH_ID","ID"]
-			 }
-			}
-		       );
+                        [$a],
+                        {
+                         "rhnChannel" =>
+                         {
+                          "rhnChannel" => ["ID","ID"],
+                          "rhnChannelArch" => ["CHANNEL_ARCH_ID","ID"]
+                         }
+                        }
+                       );
 
 # build some accessors
 foreach my $field ($j->method_names) {
@@ -141,7 +141,7 @@ EOQ
 
 sub is_protected {
   my $self = shift;
-  return ($self->channel_access() eq 'protected') ? 1 : 0; 
+  return ($self->channel_access() eq 'protected') ? 1 : 0;
 }
 
 sub parent {
@@ -275,8 +275,8 @@ sub subscribable_channels {
 
   my $ds = new RHN::DataSource::Channel(-mode => 'subscribable_channels');
   my $channels = $ds->execute_query(-server_id => $params{server_id},
-				    -user_id => $params{user_id},
-				    -base_channel_id => $params{base_channel_id});
+                                    -user_id => $params{user_id},
+                                    -base_channel_id => $params{base_channel_id});
 
   return @$channels;
 }
@@ -782,7 +782,7 @@ EOQ
   $sth->execute_h(%attr, cid => $self->id);
 
   $sth = $dbh->prepare(<<EOQ);
-INSERT 
+INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
 VALUES (sequence_nextval('rhn_repo_regen_queue_id_seq'),
@@ -808,8 +808,8 @@ sub add_packages_in_set {
 INSERT
   INTO rhnChannelPackage
        (channel_id, package_id)
-       SELECT :cid, S.element 
-         FROM rhnSet S 
+       SELECT :cid, S.element
+         FROM rhnSet S
         WHERE S.user_id = :user_id
           AND S.label = :set_label
           AND NOT EXISTS (SELECT 1 FROM rhnChannelPackage CP2 WHERE CP2.channel_id = :cid AND CP2.package_id = S.element)
@@ -818,7 +818,7 @@ EOQ
   $sth->execute_h(%attr, cid => $self->id);
 
   $sth = $dbh->prepare(<<EOQ);
-INSERT 
+INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
 VALUES (sequence_nextval('rhn_repo_regen_queue_id_seq'),
@@ -868,7 +868,7 @@ EOQ
 }
 
 sub is_solaris {
- my $self = shift; 
+ my $self = shift;
  return ($self->packaging_type() eq 'sysv-solaris') ? 1 : 0;
 }
 

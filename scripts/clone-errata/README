@@ -6,9 +6,9 @@ The script self-documents as much as possible.  Typical usage
 would be something like this:
 
 rhn-clone-errata.py -f /root/.rhnscript \
-		    -c rhel-x86_64-server-6 \
-		    -b `date +"\%Y\%m\%d" -d "-1 week"` \
-		    -i
+                    -c rhel-x86_64-server-6 \
+                    -b `date +"\%Y\%m\%d" -d "-1 week"` \
+                    -i
 
 usage: rhn-clone-errata.py [options]
 
@@ -36,13 +36,13 @@ options:
   -e EDATE, --end-date=EDATE
                         Ending Date: ie. "19001231" (defaults to TODAY)
   -i, --publish         Publish Errata (into destination channels)
-  -I, --ignoremissing	Default behavior is to skip errata for which
-			there are missing packages, this option
-			allows the errata to be created without
-			packages that it should have.
+  -I, --ignoremissing   Default behavior is to skip errata for which
+                        there are missing packages, this option
+                        allows the errata to be created without
+                        packages that it should have.
   -A, --sync-all-channels
-			This option clones errata for all channels
-			configured in the config file.
+                        This option clones errata for all channels
+                        configured in the config file.
   -x PROXY, --proxy=PROXY
                         Proxy server and port to use (e.g.
                         proxy.company.com:3128)
@@ -58,14 +58,14 @@ options:
 
 2011/09/06 - Andy Speagle
 
-	I'm presently working on adding in support for CVEs
-	but am running into an issue.  Probably done in
-	version 1.6 ...
+        I'm presently working on adding in support for CVEs
+        but am running into an issue.  Probably done in
+        version 1.6 ...
 
 2011/11/17 - Andy speagle
 
-	Default behavior of how errata with missing packages
-	are handled has been changed.  If an errata is missing
-	packages, the script will now, by default, skip creating
-	that errata.  You can use "-I" to ignore missing packages
-	and continue creating the errata.
+        Default behavior of how errata with missing packages
+        are handled has been changed.  If an errata is missing
+        packages, the script will now, by default, skip creating
+        that errata.  You can use "-I" to ignore missing packages
+        and continue creating the errata.

@@ -21,52 +21,52 @@
 <rl:listset name="disabledUserListSet">
     <rhn:csrf />
     <rhn:submitted />
-	<rl:list dataset="pageList"
+        <rl:list dataset="pageList"
          width="100%"
          name="disabledUserList"
          decorator="SelectableDecorator"
          filter="com.redhat.rhn.frontend.action.multiorg.UserListFilter"
          styleclass="list"
          emptykey="disabledlist.jsp.noUsers"
- 		 alphabarcolumn="userLogin">
+                 alphabarcolumn="userLogin">
 
- 		<rl:selectablecolumn value="${current.id}"
-	 		selected="${current.selected}"
-	 		disabled="${not current.selectable}"/>
+                <rl:selectablecolumn value="${current.id}"
+                        selected="${current.selected}"
+                        disabled="${not current.selectable}"/>
 
-		<rl:column bound="false"
-			sortable="true"
-			headerkey="username.nopunc.displayname"
-			sortattr="userLogin">
-			<c:out value="<a href=\"UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
-		</rl:column>
+                <rl:column bound="false"
+                        sortable="true"
+                        headerkey="username.nopunc.displayname"
+                        sortattr="userLogin">
+                        <c:out value="<a href=\"UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
+                </rl:column>
 
 
-		<rl:decorator name="PageSizeDecorator"/>
+                <rl:decorator name="PageSizeDecorator"/>
 
- 		<%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
+                <%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
 
-		<rl:column
-	    	headerkey="disabledlist.jsp.disabledBy">
-	     	<c:out value="${current.changedByFirstName} ${current.changedByLastName}" escapeXml="false"/>
-	    </rl:column>
+            <rl:column
+                headerkey="disabledlist.jsp.disabledBy">
+                <c:out value="${current.changedByFirstName} ${current.changedByLastName}" />
+            </rl:column>
 
-	    <rl:column headerkey="disabledlist.jsp.disabledOn"
-	    	bound="true"
-	    	attr="changeDateString"
-	    	sortattr="changeDate"/>
+            <rl:column headerkey="disabledlist.jsp.disabledOn"
+                bound="true"
+                attr="changeDateString"
+                sortattr="changeDate"/>
 
- 	</rl:list>
- 	<div class="row">
- 		<div class="col-md-6 text-left">
- 			<input type="submit" class="btn btn-success" name="dispatch" value="<bean:message key='disabledlist.jsp.reactivate'/>" />
- 		</div>
- 		<div class="col-md-6 text-right">
- 			<rl:csv dataset="pageList"
-				name="disabledUserList"
-				exportColumns="userLogin,userLastName,userFirstName,email,roleNames,lastLoggedIn,changedByFirstName,changedByLastName,changeDate"/>
- 		</div>
- 	</div>
+        </rl:list>
+        <div class="row">
+                <div class="col-md-6 text-left">
+                        <input type="submit" class="btn btn-success" name="dispatch" value="<bean:message key='disabledlist.jsp.reactivate'/>" />
+                </div>
+                <div class="col-md-6 text-right">
+                        <rl:csv dataset="pageList"
+                                name="disabledUserList"
+                                exportColumns="userLogin,userLastName,userFirstName,email,roleNames,lastLoggedIn,changedByFirstName,changedByLastName,changeDate"/>
+                </div>
+        </div>
 
 </rl:listset>
 

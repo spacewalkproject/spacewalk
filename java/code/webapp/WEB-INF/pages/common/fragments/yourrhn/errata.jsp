@@ -6,12 +6,12 @@
   <c:when test="${requestScope.showErrata == 'true'}">
 <form method="post" name="rhn_list" action="/YourRhn.do">
     <rhn:list pageList="${requestScope.errataSecurityfixList}"
-    		  noDataText="${requestScope.errataEmpty}"
-    		  formatMessage="false">
-  <rhn:listdisplay 	set="${requestScope.set}"
-					paging="false"
-  					type="list"
-  					description="yourrhn.jsp.relevanterrata.description">
+                  noDataText="${requestScope.errataEmpty}"
+                  formatMessage="false">
+  <rhn:listdisplay      set="${requestScope.set}"
+                                        paging="false"
+                                        type="list"
+                                        description="yourrhn.jsp.relevanterrata.description">
 
     <rhn:column header="yourrhn.jsp.securityerrata">
         <rhn:icon type="errata-security" title="errata-legend.jsp.security" />
@@ -34,9 +34,9 @@
   </rhn:listdisplay>
   <span class="full-width-note-right">
     <a href="/rhn/errata/AllErrata.do" >
-      	<bean:message key="yourrhn.jsp.allerrata" />
+        <bean:message key="yourrhn.jsp.allerrata" />
     </a>  |  <a href="/rhn/errata/RelevantErrata.do" >
-    	<bean:message key="yourrhn.jsp.allrelevanterrata" />
+        <bean:message key="yourrhn.jsp.allrelevanterrata" />
     </a>
   </span>
 

@@ -149,19 +149,19 @@
         ]
     };
 
-    document.observe("dom:loaded", function() {
+    jQuery(function() {
         for(var autype in resultFilter) {
             // the '<' below is okay because of the ![CDATA[ above
             for(var idx = 0; idx < resultFilter[autype].length; idx++) {
                 for(var key in resultFilter[autype][idx]) {
                     if (!resultFilter[autype][idx][key]) {
-                        $$("div[name=kv_" + autype + "_" + key + "]").each(function(node) {
+                        $("div[name=kv_" + autype + "_" + key + "]").each(function(index, node) {
                             node.style.borderBottom = "thin dashed black";
                             node.style.borderRight = "thin dashed black";
                             //node.style.textDecoration = "underline";
                             //node.style.fontStyle = "italic";
-                            node.writeAttribute("hideme", "true");
-                            node.hide();
+                            node.setAttribute("hideme", "true");
+                            jQuery(node).hide();
                         });
                     }
                 }
@@ -171,24 +171,26 @@
         var hideStr = "[-] Hide";
         var showStr = "[+] Show all";
 
-        function toggleKV(event) {
+        function toggleKV() {
             if (this.innerHTML == showStr) { // show all elements!
-                this.update(hideStr);
-                this.siblings().invoke("show");
+                this.firstChild.data = hideStr;
+                jQuery(this).siblings().show();
             }
             else { // hide the previously hidden ones
-                this.update(showStr);
-                this.siblings().findAll(function(s) {
-                    return s.readAttribute("hideme") == "true";
-                }).invoke("hide");
+                this.firstChild.data = showStr;
+                jQuery(this).siblings().each(function(index,s) {
+                    js = jQuery(s);
+                    if (js.attr("hideme") == "true") {
+                        js.hide();
+                    }
+                });
             }
-            event.stop();
         }
 
-        $$("span[name=audit_kv]").each(function(node) {
-            var aElem = new Element("a", { href: "#" }).update(showStr);
-            Event.observe(aElem, "click", toggleKV);
-            Element.insert(node, aElem);
+        $("span[name=audit_kv]").each(function(index, node) {
+            var aElem = $( "<a href='javascript:void(0);'>" + showStr + "</a>" );
+            aElem.click(toggleKV);
+            aElem.appendTo(node);
         });
     });
 //]]>

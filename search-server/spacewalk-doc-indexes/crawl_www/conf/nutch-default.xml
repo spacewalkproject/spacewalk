@@ -54,11 +54,11 @@
 
   NOTE: You should also check other related properties:
 
-	http.robots.agents
-	http.agent.description
-	http.agent.url
-	http.agent.email
-	http.agent.version
+        http.robots.agents
+        http.agent.description
+        http.agent.url
+        http.agent.email
+        http.agent.version
 
   and set their values appropriately.
 

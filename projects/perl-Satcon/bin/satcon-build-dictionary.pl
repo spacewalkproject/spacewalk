@@ -28,7 +28,7 @@ my $close = '@@';
 my $help = '';
 
 GetOptions("tree=s" => \$sourcedir, "target:s" => \$target,
-	   "start-delim:s" => \$open, "end-delim:s" => \$close) or die $usage;
+           "start-delim:s" => \$open, "end-delim:s" => \$close) or die $usage;
 
 die $usage unless $sourcedir;
 

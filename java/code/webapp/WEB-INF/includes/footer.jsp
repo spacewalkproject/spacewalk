@@ -11,7 +11,9 @@
   <p><%@ include file="/WEB-INF/pages/common/fragments/bugzilla.jspf" %></p>
   <c:set var="custom_footer" scope="page" value="${rhn:getConfig('java.custom_footer')}" />
   <c:if test="${! empty custom_footer}">
-      <p><c:out value="${custom_footer}" escapeXml="false" /></p>
+    <div class="custom-text">
+      <c:out value="${custom_footer}" escapeXml="false" />
+    </div>
   </c:if>
 </div>
 <div>

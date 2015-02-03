@@ -7,10 +7,6 @@
 
 <html>
 <head>
-    <!-- disables the enter key from submitting the form -->
-    <script type="text/javascript" language="JavaScript">
-      $(document).ready(disableEnterKey);
-    </script>
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
@@ -23,29 +19,29 @@
 
 
 <table class="details" width="80%">
-	<tr><bean:message key="channel.manage.errata.redhatmsg" /><br /><br /></tr>
+        <tr><bean:message key="channel.manage.errata.redhatmsg" /><br /><br /></tr>
 
-	 <tr>
-  		<th>Package Association:</th>
-  		<td>
-			   <input type="checkbox" name="assoc_checked"   <c:if test="${assoc_checked}">checked </c:if>  >
-			   			   <bean:message key="channel.manage.errata.packageassocmsg" />
-		 </td>
+         <tr>
+                <th>Package Association:</th>
+                <td>
+                           <input type="checkbox" name="assoc_checked"   <c:if test="${assoc_checked}">checked </c:if>  >
+                                                   <bean:message key="channel.manage.errata.packageassocmsg" />
+                 </td>
    </tr>
 
-	<tr><th width="10%">Channel Version: </th>
-	<td width="40%">
+        <tr><th width="10%">Channel Version: </th>
+        <td width="40%">
 
 <c:if test="${selected_version != null}">
-	<input type="hidden" name="selected_version_old"  value="${selected_version}">
+        <input type="hidden" name="selected_version_old"  value="${selected_version}">
 </c:if>
 
 
   <select name="selected_version">
-   		<c:forEach var="option" items="${version_list}">
-   					<option value="${option.version}" <c:if test="${option.selected eq true}">selected = "selected"</c:if>>${option.name}</option>
-		</c:forEach>
-		</optgroup>
+                <c:forEach var="option" items="${version_list}">
+                                        <option value="${option.version}" <c:if test="${option.selected eq true}">selected = "selected"</c:if>>${option.name}</option>
+                </c:forEach>
+                </optgroup>
   </select>
 
   </td>
@@ -59,95 +55,47 @@
 <input type="hidden" name="selected_channel_old"  value="${selected_channel}">
 </c:if>
 
-		<c:if test="${channel_list != null}">
+                <c:if test="${channel_list != null}">
 
-			  <tr> <th width="10%">Channel:</th><td width="40%">
-			  <select name="selected_channel">
-				    <optgroup>
-			   		<c:forEach var="option" items="${channel_list}">
-			   			<c:choose>
-			   				<c:when test="${option.baseChannel}">
-			   				    </optgroup>
-			   					<option value="${option.id}"  <c:if test="${option.selected eq true}">selected = "selected"</c:if>    >${option.name}	</option>
-			   					<optgroup>
-			   				</c:when>
-			   				<c:otherwise>
-								<option value="${option.id}"   <c:if test="${option.selected eq true}">selected = "selected"</c:if> >${option.name}</option>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					</optgroup>
-			  </select>
+                          <tr> <th width="10%">Channel:</th><td width="40%">
+                          <select name="selected_channel">
+                                    <optgroup>
+                                        <c:forEach var="option" items="${channel_list}">
+                                                <c:choose>
+                                                        <c:when test="${option.baseChannel}">
+                                                            </optgroup>
+                                                                <option value="${option.id}"  <c:if test="${option.selected eq true}">selected = "selected"</c:if>    >${option.name}   </option>
+                                                                <optgroup>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                                <option value="${option.id}"   <c:if test="${option.selected eq true}">selected = "selected"</c:if> >${option.name}</option>
+                                                        </c:otherwise>
+                                                </c:choose>
+                                        </c:forEach>
+                                        </optgroup>
+                          </select>
 
-			  </td>
-			   		  <td>
-							  <input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='frontend.actions.channels.manager.add.viewErrata'/>">
-		  			  </td>
-		  	     </tr>
-		  </c:if>
+                          </td>
+                                          <td>
+                                                          <input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='frontend.actions.channels.manager.add.viewErrata'/>">
+                                          </td>
+                             </tr>
+                  </c:if>
 
 
   </table>
   <br /><br />
 
    <c:choose>
-   		<c:when test="${pageList != null}">
-
-		  <rl:list dataset="pageList" name="errata"   decorator="SelectableDecorator"
-		  			emptykey = "channel.manage.errata.noerrata"
-		  			filter="com.redhat.rhn.frontend.action.channel.manage.ErrataFilter">
-		  		<rl:decorator name="ElaborationDecorator"/>
-		  		<rl:decorator name="PageSizeDecorator"/>
-
-				<rl:selectablecolumn value="${current.selectionKey}"
-					selected="${current.selected}"/>
-
-				<rl:column sortable="true"
-			           headerkey="exportcolumn.errataAdvisoryType"
-			           sortattr="advisoryType"
-			            styleclass="center"
-		           	   headerclass="thin-column">
-							        <c:if test="${current.securityAdvisory}">
-							            <rhn:icon type="errata-security" title="erratalist.jsp.securityadvisory" />
-							        </c:if>
-							        <c:if test="${current.bugFix}">
-							            <rhn:icon type="errata-bugfix" title="erratalist.jsp.bugadvisory" />
-							        </c:if>
-							        <c:if test="${current.productEnhancement}">
-							            <rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
-							        </c:if>
-				</rl:column>
-
-
-
-				<rl:column sortable="true"
-				           headerkey="erratalist.jsp.advisory"
-				           sortattr="advisory">
-		                      <a href="/rhn/errata/details/Details.do?eid=${current.id}">
-		                      <c:out value="${current.advisory}"/>
-		                      </a>
-				</rl:column>
-
-				<rl:column sortable="true"
-				           headerkey="erratalist.jsp.synopsis"
-				           sortattr="advisorySynopsis">
-		                      <c:out value="${current.advisorySynopsis}"/>
-				</rl:column>
-				<rl:column sortable="true"
-				           headerkey="channel.manage.errata.updatedate"
-				           sortattr="updateDateObj">
-		                      <c:out value="${current.updateDate}"/>
-				</rl:column>
-
-			  </rl:list>
-
+                <c:when test="${pageList != null}">
+                    <%@ include file="/WEB-INF/pages/common/fragments/errata/selectableerratalist.jspf" %>
   </c:when>
 </c:choose>
 
-  			<div class="text-right">
+                        <div class="text-right">
                         <hr />
-			<input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='frontend.actions.channels.manager.add.submit'/>" ${empty pageList ? 'disabled' : ''} >
-			</div>
+                        <input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='frontend.actions.channels.manager.add.submit'/>" ${empty pageList ? 'disabled' : ''} >
+                        </div>
      <rhn:submitted/>
 </rl:listset>
 </body>

@@ -229,28 +229,28 @@ on the interface in use and on the intended goal.
 
 The following command would install the `foobar` package, for instance::
 
-	smart install foobar
+        smart install foobar
 
 While the following command would install the `foobar` package, but with
 graphic output::
 
-	smart --gui install foobar
+        smart --gui install foobar
 
 To open the graphic interface in interactive mode, one may simply run::
 
-	smart --gui
+        smart --gui
 
 Similarly, the following command would open the shell interface::
 
-	smart --shell
+        smart --shell
 
 Extensive help is available for all commands, by using the `--help`
 switch::
 
-	smart --help
-	smart install --help
-	smart channel --help
-	...
+        smart --help
+        smart install --help
+        smart channel --help
+        ...
 
 --------------
 Building Smart
@@ -260,31 +260,31 @@ Dependencies
 ------------
 
 :Core:
-	Smart is written in Python, with some core modules rewritten as
-	C extensions for memory savings and performance gains. With that
-	in mind, the core system of Smart depends on Python 2.3 or
-	higher, and a C compiler to build the extensions.
+        Smart is written in Python, with some core modules rewritten as
+        C extensions for memory savings and performance gains. With that
+        in mind, the core system of Smart depends on Python 2.3 or
+        higher, and a C compiler to build the extensions.
 
 :Graphic Interface:
-	The graphic interface depends on `pygtk` 2.4 or higher.
+        The graphic interface depends on `pygtk` 2.4 or higher.
 
 :RPM backend:
-	The RPM backend depends on the Python `rpm` module of RPM 4.4 or
-	higher, due to a limitation which was present in previous versions
-	of the `ts.dbMatch()` method, and the availability of the
-	`readHeaderFromFD()` function.
+        The RPM backend depends on the Python `rpm` module of RPM 4.4 or
+        higher, due to a limitation which was present in previous versions
+        of the `ts.dbMatch()` method, and the availability of the
+        `readHeaderFromFD()` function.
 
-	In the `contrib/patches/` subdirectory there are patches for
-	previous RPM versions including the missing functionality. There
-	are also pre-packaged binary versions which include the patched
-	module without requiring changes in other tools.
+        In the `contrib/patches/` subdirectory there are patches for
+        previous RPM versions including the missing functionality. There
+        are also pre-packaged binary versions which include the patched
+        module without requiring changes in other tools.
 
 :DPKG backend:
-	There are no extra dependencies besides DPKG itself.
+        There are no extra dependencies besides DPKG itself.
 
 :Slackware backend:
-	There are no extra dependencies besides the packaging scripts
-	`installpkg`, `upgradepkg` and `removepkg`.
+        There are no extra dependencies besides the packaging scripts
+        `installpkg`, `upgradepkg` and `removepkg`.
 
 ------------
 Case Studies
@@ -316,12 +316,12 @@ The problem starts when an installation of `xscreensaver` is tried::
   requested an impossible situation or if you are using the unstable
   distribution that some required packages have not yet been created
   or been moved out of Incoming.
-  
+
   Since you only requested a single operation it is extremely likely that
   the package is simply not installable and a bug report against
   that package should be filed.
   The following information may help to resolve the situation:
-  
+
   The following packages have unmet dependencies:
     xscreensaver: Depends: libglade-2.0.so.0
                   Depends: libxml2.so.2
@@ -337,12 +337,12 @@ The error shown makes the user belive that `libglade-2.0.so.0` and
  requested an impossible situation or if you are using the unstable
  distribution that some required packages have not yet been created
  or been moved out of Incoming.
- 
+
  Since you only requested a single operation it is extremely likely that
  the package is simply not installable and a bug report against
  that package should be filed.
  The following information may help to resolve the situation:
- 
+
  The following packages have unmet dependencies:
    libxml2: Depends: glibc-iconv but it is not going to be installed
  E: Broken packages
@@ -356,12 +356,12 @@ Another misguiding error message. Let's go further::
  requested an impossible situation or if you are using the unstable
  distribution that some required packages have not yet been created
  or been moved out of Incoming.
- 
+
  Since you only requested a single operation it is extremely likely that
  the package is simply not installable and a bug report against
  that package should be filed.
  The following information may help to resolve the situation:
- 
+
  The following packages have unmet dependencies:
    glibc-iconv: Depends: glibc-gconvdata (= 2.3.3) but 1:2.3.2-586_1cl is to be installed
  E: Broken packages
@@ -391,12 +391,12 @@ expected result is obtained::
 
  [root@damien:/root] smart install xscreensaver
  Updating cache...              ######################################## [100%]
- 
+
  Computing transaction...
- 
+
  Downgrading packages (1):
    glibc-gconvdata-0:2.3.3-69473cl.i386
- 
+
  Installed packages (4):
    glibc-iconv-0:2.3.3-69473cl.i386
    libglade2-2.4.0-68154cl.i386
@@ -464,11 +464,11 @@ First, let's see how YUM deals with the problem::
   BCD-1.0-1cl.i386.rpm      100% |=========================| 1.0 kB    00:00
   ---> Package BCD.i386 0:1.0-1cl set to be installed
   --> Running transaction check
-  
+
   Dependencies Resolved
   Transaction Listing:
     Install: A.i386 0:1.0-1cl
-  
+
   Performing the following to resolve dependencies:
     Install: B.i386 0:1.0-1cl
     Install: BCD.i386 0:1.0-1cl
@@ -501,14 +501,14 @@ Now, let's see how Smart would solve the problem::
 
   [root@burma ~]% smart install A
   Updating cache...               ######################################## [100%]
-  
+
   Computing transaction...
-  
+
   Installed packages (2):
     A-1.0-1cl@i386     BCD-1.0-1cl@i386
-  
+
   2.7kb of package files are needed.
-  
+
   Confirm changes (Y/n)?
 
 Smart correctly selected only `BCD`, since it's necessary anyway, and
@@ -549,12 +549,12 @@ What happens when forcing APT to install `A`::
   requested an impossible situation or if you are using the unstable
   distribution that some required packages have not yet been created
   or been moved out of Incoming.
-  
+
   Since you only requested a single operation it is extremely likely that
   the package is simply not installable and a bug report against
   that package should be filed.
   The following information may help to resolve the situation:
-  
+
   The following packages have unmet dependencies:
     A: Depends: B but it is not installable
   E: Broken packages
@@ -597,14 +597,14 @@ Now, let's see how Smart would behave in the same situation::
   [root@burma ~]% smart upgrade
   Loading cache...
   Updating cache...               ######################################## [100%]
-  
+
   Computing transaction...
-  
+
   Upgrading packages (1):
     A-1.5-1cl@i386
-  
+
   1.3kb of package files are needed.
-  
+
   Confirm changes (Y/n)?
 
 Smart correctly selects the intermediate version 1.5, which is the
@@ -642,17 +642,17 @@ Let's see Smart in the same situation::
   [root@burma ~]% smart upgrade
   Loading cache...
   Updating cache...               ######################################## [100%]
-  
+
   Computing transaction...
-  
+
   Upgrading packages (1):
     B-2.0-1cl@i386
-  
+
   Installed packages (1):
     C-2.0-1cl@i386
-  
+
   2.6kB of package files are needed.
-  
+
   Confirm changes (Y/n)?
 
 Smart correctly selected package `C` for installation as a viable
@@ -667,68 +667,68 @@ This is the credit section, where people and institutions that
 have somehow contributed to the project are mentioned.
 
 :Conectiva, Inc.:
-	Conectiva has funded Smart development as the author's employer.
+        Conectiva has funded Smart development as the author's employer.
 
 :Wanderlei Cavassin:
-	Conectiva's research & development coordinator, who belived
-	the project was viable and encouraged the author to work on it.
+        Conectiva's research & development coordinator, who belived
+        the project was viable and encouraged the author to work on it.
 
 :Ednilson Miura & Herton Ronaldo Krzesinski:
-	Conectiva employees, helped setting up many distributions
-	for tests whenever necessary.
+        Conectiva employees, helped setting up many distributions
+        for tests whenever necessary.
 
 :Andreas Hasenack:
-	Conectiva employee, helped as being the first brave pre-alpha
-	tester, and contributed with many ideas, discussions, etc.
+        Conectiva employee, helped as being the first brave pre-alpha
+        tester, and contributed with many ideas, discussions, etc.
 
 :Arnaldo Carvalho de Melo:
-	Conectiva board member, helped with the "channel of mirrors" idea
-	and by encouraging the author to build a generic channel
-	information method.
+        Conectiva board member, helped with the "channel of mirrors" idea
+        and by encouraging the author to build a generic channel
+        information method.
 
 :Others @ Conectiva:
-	Many other people in Conectiva helped with ideas and
-	alpha-testing in general during the pre-release period of
-	Smart development.
+        Many other people in Conectiva helped with ideas and
+        alpha-testing in general during the pre-release period of
+        Smart development.
 
 :Guilerme Manika & Ruda Moura:
-	Ancient Conectiva employees, now board members of the Haxent company,
-	helped by testing Smart extensively in Fedora, reporting many
-	bugs and suggesting changes. They have also created the Smart
-	FAQ_.
+        Ancient Conectiva employees, now board members of the Haxent company,
+        helped by testing Smart extensively in Fedora, reporting many
+        bugs and suggesting changes. They have also created the Smart
+        FAQ_.
 
 :APT-RPM & Debian:
-	Experience on packaging and ideas for a better framework were
-	developed while the author of Smart worked as the `APT-RPM`
-	maintainer.
+        Experience on packaging and ideas for a better framework were
+        developed while the author of Smart worked as the `APT-RPM`
+        maintainer.
 
 :Jeff Johnson:
-	Maintainer of the `RPM` software, employed by RedHat, Inc.
-	contributed as being the RPM maintainer itself, and in
-	many discussions regarding packaging theory in general.
+        Maintainer of the `RPM` software, employed by RedHat, Inc.
+        contributed as being the RPM maintainer itself, and in
+        many discussions regarding packaging theory in general.
 
 :Seth Vidal:
-	YUM author, and member of the Duke University, contributed
-	to Smart with the development of the XML `MetaData` repository
-	format and discussions about it.
+        YUM author, and member of the Duke University, contributed
+        to Smart with the development of the XML `MetaData` repository
+        format and discussions about it.
 
 :Michael Vogt:
-	Co-maintainer of the Synaptic project (*the* maintainer, lately),
-	contributed by discussing ideas that could be/were implemented
-	in Synaptic, and ended up being adopted by Smart as well.
+        Co-maintainer of the Synaptic project (*the* maintainer, lately),
+        contributed by discussing ideas that could be/were implemented
+        in Synaptic, and ended up being adopted by Smart as well.
 
 :Sebastian Heinlein:
-	Author of the package icons for Synaptic, that were mercilessly
-	stolen to be used in Smart's graphic interface.
+        Author of the package icons for Synaptic, that were mercilessly
+        stolen to be used in Smart's graphic interface.
 
 :TaQ/PiterPunk at #slackware-br:
-	These guys helped Smart development by explaining details of
-	Slackware practices regarding packaging.
+        These guys helped Smart development by explaining details of
+        Slackware practices regarding packaging.
 
 :Matt Zimmerman:
-	Debian/Ubuntu developer and co-maintainer of the APT software,
-	helped by shining some light regarding details of the `DPKG`
-	pre-depends ordering expectations.
+        Debian/Ubuntu developer and co-maintainer of the APT software,
+        helped by shining some light regarding details of the `DPKG`
+        pre-depends ordering expectations.
 
 .. _FAQ: http://zorked.net/smart/FAQ.html
 

@@ -9,12 +9,12 @@
 </head>
 <body>
 <rhn:toolbar base="h1" icon="header-channel"
-	miscUrl="${url}"
-	miscAcl="user_role(org_admin)"
-	miscText="${text}"
-	miscImg="${img}"
-	miscAlt="${text}"
-	imgAlt="users.jsp.imgAlt">
+        miscUrl="${url}"
+        miscAcl="user_role(org_admin)"
+        miscText="${text}"
+        miscImg="${img}"
+        miscAlt="${text}"
+        imgAlt="users.jsp.imgAlt">
     ${entitlementName}
 </rhn:toolbar>
 
@@ -37,14 +37,14 @@
             sortable="false"
             headerkey="softwareEntitlementDetails.header.channelName">
 
-            <rhn:require	acl="can_access_channel(${current.id});" >
-	               <a href="/rhn/channels/ChannelDetail.do?cid=${current.id}">
-	                	${current.name}
-			</a>
+            <rhn:require        acl="can_access_channel(${current.id});" >
+                       <a href="/rhn/channels/ChannelDetail.do?cid=${current.id}">
+                                ${current.name}
+                        </a>
             </rhn:require>
 
-            <rhn:require	acl="not can_access_channel(${current.id});" >
-				${current.name}
+            <rhn:require        acl="not can_access_channel(${current.id});" >
+                                ${current.name}
             </rhn:require>
 
         </rl:column>
@@ -53,14 +53,14 @@
             sortable="false"
             attr="packageCount"
             headerkey="softwareEntitlementDetails.header.packages">
-            <rhn:require	acl="can_access_channel(${current.id});" >
-	               <a href="/rhn/channels/ChannelPackages.do?cid=${current.id}">
-	                	${current.packageCount}
-			</a>
+            <rhn:require        acl="can_access_channel(${current.id});" >
+                       <a href="/rhn/channels/ChannelPackages.do?cid=${current.id}">
+                                ${current.packageCount}
+                        </a>
             </rhn:require>
 
-            <rhn:require	acl="not can_access_channel(${current.id});" >
-				${current.packageCount}
+            <rhn:require        acl="not can_access_channel(${current.id});" >
+                                ${current.packageCount}
             </rhn:require>
         </rl:column>
 

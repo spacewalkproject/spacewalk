@@ -28,6 +28,7 @@ from spacewalk.server.importlib import archImport
 from spacewalk.server.importlib import productNamesImport
 from spacewalk.server.importlib import orgImport
 
+
 class Backend:
     __backend = None
 
@@ -42,10 +43,14 @@ class Backend:
         return Backend.__backend
 
 # get_backend() returns a shared instance of an Oracle backend
+
+
 def get_backend():
     return Backend().get_backend()
 
 # Functions for dumping packages
+
+
 def rpmsPath(obj_id, mountPoint, sources=0):
     # returns the package path (for exporter/importer only)
     # not to be confused with where the package lands on the satellite itself.
@@ -58,6 +63,7 @@ def rpmsPath(obj_id, mountPoint, sources=0):
 
 # pylint: disable=W0232
 class diskImportLibContainer:
+
     """virtual class - redefines endContainerCallback"""
     # pylint: disable=E1101,E0203,W0201
     # this class has no __init__ for the purpose
@@ -71,8 +77,10 @@ class diskImportLibContainer:
         importer.run()
         self.batch = []
 
+
 class OrgContainer(xmlSource.OrgContainer):
     importer_class = orgImport.OrgImport
+
     def __init__(self):
         xmlSource.OrgContainer.__init__(self)
         self.master_label = None
@@ -84,43 +92,55 @@ class OrgContainer(xmlSource.OrgContainer):
 
     def endContainerCallback(self):
         importer = self.importer_class(self.batch, get_backend(),
-                self.master_label, self.create_orgs)
+                                       self.master_label, self.create_orgs)
         importer.run()
         self.batch = []
 
+
 class ProductNamesContainer(diskImportLibContainer, xmlSource.ProductNamesContainer):
     importer_class = productNamesImport.ProductNamesImport
+
     def endContainerCallback(self):
         if not self.batch:
             return
         diskImportLibContainer.endContainerCallback(self)
 
+
 class ChannelArchContainer(diskImportLibContainer, xmlSource.ChannelArchContainer):
     importer_class = archImport.ChannelArchImport
+
 
 class PackageArchContainer(diskImportLibContainer, xmlSource.PackageArchContainer):
     importer_class = archImport.PackageArchImport
 
+
 class ServerArchContainer(diskImportLibContainer, xmlSource.ServerArchContainer):
     importer_class = archImport.ServerArchImport
+
 
 class CPUArchContainer(diskImportLibContainer, xmlSource.CPUArchContainer):
     importer_class = archImport.CPUArchImport
 
+
 class ServerPackageArchCompatContainer(diskImportLibContainer, xmlSource.ServerPackageArchCompatContainer):
     importer_class = archImport.ServerPackageArchCompatImport
+
 
 class ServerChannelArchCompatContainer(diskImportLibContainer, xmlSource.ServerChannelArchCompatContainer):
     importer_class = archImport.ServerChannelArchCompatImport
 
+
 class ChannelPackageArchCompatContainer(diskImportLibContainer, xmlSource.ChannelPackageArchCompatContainer):
     importer_class = archImport.ChannelPackageArchCompatImport
+
 
 class ServerGroupServerArchCompatContainer(diskImportLibContainer, xmlSource.ServerGroupServerArchCompatContainer):
     importer_class = archImport.ServerGroupServerArchCompatImport
 
+
 class ChannelFamilyContainer(diskImportLibContainer, xmlSource.ChannelFamilyContainer):
     importer_class = ChannelFamilyImport
+
 
 class ChannelContainer(diskImportLibContainer, xmlSource.ChannelContainer):
     importer_class = ChannelImport
@@ -129,6 +149,6 @@ class ChannelContainer(diskImportLibContainer, xmlSource.ChannelContainer):
 class PackageContainer(diskImportLibContainer, xmlSource.PackageContainer):
     importer_class = PackageImport
 
+
 class SourcePackageContainer(diskImportLibContainer, xmlSource.SourcePackageContainer):
     importer_class = SourcePackageImport
-

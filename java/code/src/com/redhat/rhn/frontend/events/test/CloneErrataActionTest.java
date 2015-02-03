@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.events.test;
 
 import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.NewChannelHelper;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
@@ -25,6 +24,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.events.CloneErrataAction;
 import com.redhat.rhn.frontend.events.CloneErrataEvent;
+import com.redhat.rhn.manager.channel.CloneChannelCommand;
 import com.redhat.rhn.taskomatic.task.repomd.ChannelRepodataDriver;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
@@ -65,13 +65,13 @@ public class CloneErrataActionTest extends BaseTestCaseWithUser {
         original.addErrata(errata);
 
         // clone it
-        NewChannelHelper helper = new NewChannelHelper();
+        CloneChannelCommand helper = new CloneChannelCommand(true, original);
         helper.setName("Test Clone of " + original.getName());
-        helper.setArch(original.getChannelArch());
+        helper.setArchLabel(original.getChannelArch().getLabel());
         helper.setLabel("test-clone-of-" + original.getLabel());
         helper.setUser(admin);
         helper.setSummary(original.getSummary());
-        Channel cloned = helper.clone(true, original);
+        Channel cloned = helper.create();
 
         // check cloned channel has no errata and no repository metadata
         // generation was scheduled

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::Session;
@@ -59,12 +59,12 @@ sub generate_session_key {
   my $id = shift;
 
   my $chaff = join(":",
-		   PXT::Config->get('session_secret_1'),
-		   PXT::Config->get('session_secret_2'),
-		   $id,
-		   PXT::Config->get('session_secret_3'),
-		   PXT::Config->get('session_secret_4')
-		  );
+                   PXT::Config->get('session_secret_1'),
+                   PXT::Config->get('session_secret_2'),
+                   $id,
+                   PXT::Config->get('session_secret_3'),
+                   PXT::Config->get('session_secret_4')
+                  );
 
   my $ret = Digest::SHA::sha256_hex($chaff);
 
@@ -169,8 +169,8 @@ sub serialize {
 
   my $tmpvalue = freeze($self->{__values__});
   my ($web_user_id, $value, $expires) = ($self->{__uid__},
-					 MIME::Base64::encode($tmpvalue),
-					 time + $duration);
+                                         MIME::Base64::encode($tmpvalue),
+                                         time + $duration);
   my $dbh = RHN::DB->soft_connect();
 
   # no-op, no database, can't save transient session
@@ -196,17 +196,17 @@ sub serialize {
   }
 }
 
-#	my $session_cookie = new Apache::Cookie $r,
-#	  -name => "pxt_session",
-#	    -value => $request->session->key,
-#	      -expires => PXT::Config->get("session_cookie_lifetime") || "+20m",
-#		-domain => PXT::Config->get("base_domain");
+#       my $session_cookie = new Apache::Cookie $r,
+#         -name => "pxt_session",
+#           -value => $request->session->key,
+#             -expires => PXT::Config->get("session_cookie_lifetime") || "+20m",
+#               -domain => PXT::Config->get("base_domain");
 
 1;
 
 =head1 NAME
 
-RHN::Session 
+RHN::Session
 
 Database session handling for the RHN used internally by PXT. This class
 does not handle cookies directly. Sessions are stored into the database under the table
@@ -229,7 +229,7 @@ hash structure (see Storable and $session->set and $session->get)
 
 =back
 
-=head1 SYNOPSIS 
+=head1 SYNOPSIS
 
 use RHN::Session;
 

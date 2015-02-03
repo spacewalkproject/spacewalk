@@ -26,21 +26,22 @@ from types import ListType, TupleType, IntType, LongType, StringType
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.stringutils import to_string
 
+
 class rpmPackage(IncompletePackage):
     # Various mappings
     tagMap = {
         # Ignoring these tags
-        'last_modified'     : None,
+        'last_modified': None,
         # We set them differently
-	'checksum'          : None,
-	'checksum_type'     : None,
-	'checksum_list'     : None,
-        'sigchecksum'       : None,
-        'sigchecksum_type'  : None,
+        'checksum': None,
+        'checksum_type': None,
+        'checksum_list': None,
+        'sigchecksum': None,
+        'sigchecksum_type': None,
     }
 
     def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,
-        header_start=None, header_end=None, channels=[]):
+                 header_start=None, header_end=None, channels=[]):
 
         # XXX is seems to me that this is the place that 'source_rpm' is getting
         # set
@@ -58,7 +59,7 @@ class rpmPackage(IncompletePackage):
                 if type(val) in (IntType, LongType):
                     # A UNIX timestamp
                     val = gmtime(val)
-	    if f == 'payload_size':
+            if f == 'payload_size':
                 if val is None:
                     # use longarchivesize header field for rpms with archive > 4GB
                     if ('longarchivesize' in header) and (header['longarchivesize'] > 0):
@@ -80,17 +81,17 @@ class rpmPackage(IncompletePackage):
         self['package_size'] = size
         self['checksum_type'] = checksum_type
         self['checksum'] = checksum
-        self['checksums'] = {checksum_type:checksum}
+        self['checksums'] = {checksum_type: checksum}
         self['path'] = path
         self['org_id'] = org_id
         self['header_start'] = header_start
         self['header_end'] = header_end
         self['last_modified'] = localtime(time.time())
         if 'sigmd5' in self:
-           if self['sigmd5']:
-               self['sigchecksum_type'] = 'md5'
-               self['sigchecksum'] = self['sigmd5']
-           del(self['sigmd5'])
+            if self['sigmd5']:
+                self['sigchecksum_type'] = 'md5'
+                self['sigchecksum'] = self['sigmd5']
+            del(self['sigmd5'])
 
         # Fix some of the information up
         vendor = self['vendor']
@@ -103,50 +104,51 @@ class rpmPackage(IncompletePackage):
             self['payload_size'] = 0
         return self
 
+
 class rpmBinaryPackage(Package, rpmPackage):
     # Various mappings
     tagMap = rpmPackage.tagMap.copy()
     tagMap.update({
-        'package_group' : 'group',
-        'rpm_version'   : 'rpmversion',
-        'payload_size'  : 'archivesize',
+        'package_group': 'group',
+        'rpm_version': 'rpmversion',
+        'payload_size': 'archivesize',
         'installed_size': 'size',
         'payload_format': 'payloadformat',
-        'build_host'    : 'buildhost',
-        'build_time'    : 'buildtime',
-        'source_rpm'    : 'sourcerpm',
+        'build_host': 'buildhost',
+        'build_time': 'buildtime',
+        'source_rpm': 'sourcerpm',
         # Arrays: require a different mapping
-        'requires'      : None,
-        'provides'      : None,
-        'conflicts'     : None,
-        'obsoletes'     : None,
-        'suggests'      : None,
-        'supplements'   : None,
-        'enhances'      : None,
-        'recommends'    : None,
-        'breaks'        : None,
-        'predepends'    : None,
-        'files'         : None,
-        'changelog'     : None,
-        'channels'      : None,
+        'requires': None,
+        'provides': None,
+        'conflicts': None,
+        'obsoletes': None,
+        'suggests': None,
+        'supplements': None,
+        'enhances': None,
+        'recommends': None,
+        'breaks': None,
+        'predepends': None,
+        'files': None,
+        'changelog': None,
+        'channels': None,
         # We set them differently
-        'package_size'  : None,
-        'org_id'        : None,
-        'md5sum'        : None,
-        'path'          : None,
-        'header_start'  : None,
-        'header_end'    : None,
+        'package_size': None,
+        'org_id': None,
+        'md5sum': None,
+        'path': None,
+        'header_start': None,
+        'header_end': None,
         # Unsupported
-        'sigpgp'        : None,
-        'siggpg'        : None,
-        'package_id'    : None,
+        'sigpgp': None,
+        'siggpg': None,
+        'package_id': None,
     })
 
     def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,
-             header_start=None, header_end=None, channels=[]):
+                 header_start=None, header_end=None, channels=[]):
 
         rpmPackage.populate(self, header, size, checksum_type, checksum, path, org_id,
-            header_start, header_end)
+                            header_start, header_end)
 
         # workaround for bug in rpm-python <= 4.4.2.3-27.el5 (BZ# 783451)
         self['package_group'] = self['package_group'].rstrip()
@@ -164,15 +166,15 @@ class rpmBinaryPackage(Package, rpmPackage):
 
     def _populateDependencyInformation(self, header):
         mapping = {
-            'provides'  : rpmProvides,
-            'requires'  : rpmRequires,
-            'conflicts' : rpmConflicts,
-            'obsoletes' : rpmObsoletes,
-            'supplements' : rpmSupplements,
-            'enhances'  : rpmEnhances,
-            'suggests'  : rpmSuggests,
+            'provides': rpmProvides,
+            'requires': rpmRequires,
+            'conflicts': rpmConflicts,
+            'obsoletes': rpmObsoletes,
+            'supplements': rpmSupplements,
+            'enhances': rpmEnhances,
+            'suggests': rpmSuggests,
             'recommends': rpmRecommends,
-            'breaks'    : rpmBreaks,
+            'breaks': rpmBreaks,
             'predepends': rpmPredepends,
         }
         for k, v in mapping.items():
@@ -184,7 +186,7 @@ class rpmBinaryPackage(Package, rpmPackage):
     def _populateChannels(self, channels):
         l = []
         for channel in channels:
-            dict = {'label' : channel}
+            dict = {'label': channel}
             obj = Channel()
             obj.populate(dict)
             l.append(obj)
@@ -253,27 +255,28 @@ class rpmBinaryPackage(Package, rpmPackage):
 class rpmSourcePackage(SourcePackage, rpmPackage):
     tagMap = rpmPackage.tagMap.copy()
     tagMap.update({
-        'package_group' : 'group',
-        'rpm_version'   : 'rpmversion',
-        'payload_size'  : 'archivesize',
-        'build_host'    : 'buildhost',
-        'build_time'    : 'buildtime',
-        'source_rpm'    : 'sourcerpm',
+        'package_group': 'group',
+        'rpm_version': 'rpmversion',
+        'payload_size': 'archivesize',
+        'build_host': 'buildhost',
+        'build_time': 'buildtime',
+        'source_rpm': 'sourcerpm',
         # Arrays: require a different mapping
         # We set them differently
-        'package_size'  : None,
-        'org_id'        : None,
-        'md5sum'        : None,
-        'path'          : None,
+        'package_size': None,
+        'org_id': None,
+        'md5sum': None,
+        'path': None,
         # Unsupported
         'payload_format': None,
-        'channels'      : None,
-        'package_id'    : None,
+        'channels': None,
+        'package_id': None,
     })
+
     def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,
-        header_start=None, header_end=None, channels=[]):
+                 header_start=None, header_end=None, channels=[]):
         rpmPackage.populate(self, header, size, checksum_type, checksum, path, org_id,
-            header_start, header_end)
+                            header_start, header_end)
         nvr = []
         # workaround for bug in rpm-python <= 4.4.2.3-27.el5 (BZ# 783451)
         self['package_group'] = self['package_group'].rstrip()
@@ -281,7 +284,8 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
         for tag in ['name', 'version', 'release']:
             nvr.append(header[tag])
 
-        #5/13/05 wregglej - 154248 If 1051 is in the list of keys in the header, the package is a nosrc package and needs to be saved as such.
+        # 5/13/05 wregglej - 154248 If 1051 is in the list of keys in the header,
+        # the package is a nosrc package and needs to be saved as such.
         if 1051 in header.keys():
             self['source_rpm'] = "%s-%s-%s.nosrc.rpm" % tuple(nvr)
         else:
@@ -292,25 +296,27 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
         self['sigchecksum'] = string.join(
             map(lambda x: "%02x" % ord(x), self['sigchecksum']), '')
 
+
 class rpmFile(File, ChangeLog):
     # Mapping from the attribute's names to rpm tags
     tagMap = {
-        'name'      : 'filenames',
-        'device'    : 'filedevices',
-        'inode'     : 'fileinodes',
-        'file_mode' : 'filemodes',
-        'username'  : 'fileusername',
-        'groupname' : 'filegroupname',
-        'rdev'      : 'filerdevs',
-        'file_size' : 'filesizes',
-        'mtime'     : 'filemtimes',
-        'filedigest'  : 'filemd5s',     # FILEMD5S is a pre-rpm4.6 name for FILEDIGESTS
-                                        # we have to use it for compatibility reason
-        'linkto'    : 'filelinktos',
-        'flags'     : 'fileflags',
-        'verifyflags' : 'fileverifyflags',
-        'lang'      : 'filelangs',
+        'name': 'filenames',
+        'device': 'filedevices',
+        'inode': 'fileinodes',
+        'file_mode': 'filemodes',
+        'username': 'fileusername',
+        'groupname': 'filegroupname',
+        'rdev': 'filerdevs',
+        'file_size': 'filesizes',
+        'mtime': 'filemtimes',
+        'filedigest': 'filemd5s',     # FILEMD5S is a pre-rpm4.6 name for FILEDIGESTS
+        # we have to use it for compatibility reason
+        'linkto': 'filelinktos',
+        'flags': 'fileflags',
+        'verifyflags': 'fileverifyflags',
+        'lang': 'filelangs',
     }
+
     def populate(self, hash):
         ChangeLog.populate(self, hash)
         # Fix the time
@@ -322,92 +328,102 @@ class rpmFile(File, ChangeLog):
             self['checksum'] = self['filedigest']
             del(self['filedigest'])
 
+
 class rpmProvides(Dependency):
     # More mappings
     tagMap = {
-        'name'      : 'provides',
-        'version'   : 'provideversion',
-        'flags'     : 'provideflags',
+        'name': 'provides',
+        'version': 'provideversion',
+        'flags': 'provideflags',
     }
+
 
 class rpmRequires(Dependency):
     # More mappings
     tagMap = {
-        'name'      : 'requirename',
-        'version'   : 'requireversion',
-        'flags'     : 'requireflags',
+        'name': 'requirename',
+        'version': 'requireversion',
+        'flags': 'requireflags',
     }
+
 
 class rpmSuggests(Dependency):
     # More mappings
     tagMap = {
-        'name'      : 1156, #'suggestsname',
-        'version'   : 1157, #'suggestsversion',
-        'flags'     : 1158, #'suggestsflags',
+        'name': 1156,  # 'suggestsname',
+        'version': 1157,  # 'suggestsversion',
+        'flags': 1158,  # 'suggestsflags',
     }
+
 
 class rpmRecommends(Dependency):
     # More mappings
     tagMap = {
-        'name'      : 1156, #'suggestsname',
-        'version'   : 1157, #'suggestsversion',
-        'flags'     : 1158, #'suggestsflags',
+        'name': 1156,  # 'suggestsname',
+        'version': 1157,  # 'suggestsversion',
+        'flags': 1158,  # 'suggestsflags',
     }
+
 
 class rpmSupplements(Dependency):
     # More mappings
     tagMap = {
-        'name'      : 1159, #'enhancesname',
-        'version'   : 1160, #'enhancesversion',
-        'flags'     : 1161, #'enhancesflags',
+        'name': 1159,  # 'enhancesname',
+        'version': 1160,  # 'enhancesversion',
+        'flags': 1161,  # 'enhancesflags',
     }
+
 
 class rpmEnhances(Dependency):
     # More mappings
     tagMap = {
-        'name'      : 1159, #'enhancesname',
-        'version'   : 1160, #'enhancesversion',
-        'flags'     : 1161, #'enhancesflags',
+        'name': 1159,  # 'enhancesname',
+        'version': 1160,  # 'enhancesversion',
+        'flags': 1161,  # 'enhancesflags',
     }
+
 
 class rpmConflicts(Dependency):
     # More mappings
     tagMap = {
-        'name'      : 'conflictname',
-        'version'   : 'conflictversion',
-        'flags'     : 'conflictflags',
+        'name': 'conflictname',
+        'version': 'conflictversion',
+        'flags': 'conflictflags',
     }
+
 
 class rpmObsoletes(Dependency):
     # More mappings
     tagMap = {
-        'name'      : 'obsoletename',
-        'version'   : 'obsoleteversion',
-        'flags'     : 'obsoleteflags',
+        'name': 'obsoletename',
+        'version': 'obsoleteversion',
+        'flags': 'obsoleteflags',
     }
+
 
 class rpmBreaks(Dependency):
     # More mappings
     tagMap = {
-        'name'      :  1159, #'enhancesname'
-        'version'   :  1160, #'enhancesversion'
-        'flags'     :  1161, #'enhancesflags'
+        'name':  1159,  # 'enhancesname'
+        'version':  1160,  # 'enhancesversion'
+        'flags':  1161,  # 'enhancesflags'
     }
+
 
 class rpmPredepends(Dependency):
     # More mappings
     tagMap = {
-        'name'      :  1159, #'enhancesname'
-        'version'   :  1160, #'enhancesversion'
-        'flags'     :  1161, #'enhancesflags'
+        'name':  1159,  # 'enhancesname'
+        'version':  1160,  # 'enhancesversion'
+        'flags':  1161,  # 'enhancesflags'
     }
 
 
 class rpmChangeLog(ChangeLog):
     tagMap = {
-        'name'  : 'changelogname',
-        'text'  : 'changelogtext',
-        'time'  : 'changelogtime',
+        'name': 'changelogname',
+        'text': 'changelogtext',
+        'time': 'changelogtime',
     }
 
     def populate(self, hash):
@@ -425,15 +441,17 @@ class rpmChangeLog(ChangeLog):
             except UnicodeDecodeError:
                 self[i] = unicode(self[i], "iso-8859-1")
 
+
 def sanitizeList(l):
     if l is None:
-         return []
+        return []
     if type(l) in (ListType, TupleType):
         return l
     return [l]
 
+
 def createPackage(header, size, checksum_type, checksum, relpath, org_id, header_start,
-    header_end, channels):
+                  header_end, channels):
     """
     Returns a populated instance of rpmBinaryPackage or rpmSourcePackage
     """
@@ -448,6 +466,5 @@ def createPackage(header, size, checksum_type, checksum, relpath, org_id, header
     # to expand correctly
     header.hdr.fullFilelist()
     p.populate(header, size, checksum_type, checksum, relpath, org_id, header_start, header_end,
-        channels)
+               channels)
     return p
-

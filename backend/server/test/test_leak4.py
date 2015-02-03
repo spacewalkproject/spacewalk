@@ -36,7 +36,6 @@ while i < 10000:
         vmrss = l[12][10:-1]
         f.close()
         write("%d %.3f vsz: %s rss: %s \n" % (i, time.time() - start, vmsize,
-            vmrss))
+                                              vmrss))
     i = i + 1
 #    time.sleep(.01)
-

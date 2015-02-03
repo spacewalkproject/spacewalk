@@ -492,7 +492,3 @@ class RHNSolarisGreedyPolicyInstall(RHNSolarisPolicyInstall):
         # Do not peanlize for bringing in extra packages
         # BZ: #428490
         return 0
-
-
-# vim:ts=4:sw=4:et
-

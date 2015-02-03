@@ -24,18 +24,18 @@ $systems = $return->{'system'};
 $channels = $return->{'channel'};
 
 foreach $channel (@$channels) {
-	print $channel->{'name'}." ";
-	print $channel->{'used_slots'}." ";
-	print $channel->{'free_slots'}." ";
-	print $channel->{'total_slots'};
-	print "\n";
+        print $channel->{'name'}." ";
+        print $channel->{'used_slots'}." ";
+        print $channel->{'free_slots'}." ";
+        print $channel->{'total_slots'};
+        print "\n";
 }
 
 print "\n\n";
 
 foreach $channel (@$systems) {
-     
-	print $channel->{'name'}." ";
+
+        print $channel->{'name'}." ";
         print $channel->{'used_slots'}." ";
         print $channel->{'free_slots'}." ";
         print $channel->{'total_slots'};

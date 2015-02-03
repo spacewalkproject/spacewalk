@@ -17,7 +17,6 @@ package com.redhat.rhn.common.security.acl.action;
 import com.redhat.rhn.common.security.acl.AclHandler;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
-import com.redhat.rhn.domain.action.ActionType;
 
 import java.util.Map;
 
@@ -51,26 +50,5 @@ public class ActionAclHandler implements AclHandler {
         Action action = ActionFactory.lookupById(aid);
 
         return ActionFactory.checkActionArchType(action, params[0]);
-    }
-
-    /**
-     * Returns true if there is an action with the given id that
-     * is one of four action types associated with solaris patches
-     * @param ctx Context Map
-     * @param params Parameters not used
-     * @return true is patch action type; false otherwise
-     */
-    public boolean aclActionTypePatch(Object ctx, String[] params) {
-        Map map = (Map) ctx;
-        String said = (String) map.get("aid");
-        Long aid = new Long(said);
-        ActionType type = ActionFactory.lookupById(aid).getActionType();
-        if (type.equals(ActionFactory.TYPE_SOLARISPKGS_PATCHREMOVE) ||
-                type.equals(ActionFactory.TYPE_SOLARISPKGS_PATCHINSTALL) ||
-                type.equals(ActionFactory.TYPE_SOLARISPKGS_PATCHCLUSTERINSTALL) ||
-                type.equals(ActionFactory.TYPE_SOLARISPKGS_PATCHCLUSTERREMOVE)) {
-            return true;
-        }
-        return false;
     }
 }

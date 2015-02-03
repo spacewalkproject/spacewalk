@@ -120,10 +120,10 @@ spacewalk-api interact with the Spacewalk server and expose its API layer.
 FUNCTION is api method you wish to call and is followed by its parameters.
 There is few special substitution available:
 
-%session% 
+%session%
         Is replaced with sessionid. If you use --nologin option, then it is replaced by empty string.
 
-%file:/some/file% 
+%file:/some/file%
         Is replaced by content of given file.
 
 %boolean:value%
@@ -162,7 +162,7 @@ There is few special substitution available:
 
 =head1 AUTHOR
 
-Miroslav Suchý <msuchy@redhat.com> 
+Miroslav Suchý <msuchy@redhat.com>
 
 =head1 COPYRIGHT AND LICENSE
 

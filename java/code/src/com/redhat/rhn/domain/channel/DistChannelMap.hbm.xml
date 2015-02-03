@@ -25,7 +25,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <many-to-one name="channel"
             class="com.redhat.rhn.domain.channel.Channel"
             column="channel_id" />
-		
+
     </class>
 
     <query name="DistChannelMap.listAll">

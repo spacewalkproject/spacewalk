@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <rhn-navi-tree label="system_detail" invisible="1" formvar="sid ss_id" title-depth="1"
-    acl_mixins="com.redhat.rhn.common.security.acl.SystemAclHandler,com.redhat.rhn.common.security.acl.MonitoringAclHandler">
+    acl_mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
   <rhn-tab name="Details" url="/rhn/systems/details/Overview.do">
     <rhn-tab name="Overview">
-	  <rhn-tab-url>/rhn/systems/details/Overview.do</rhn-tab-url>
+          <rhn-tab-url>/rhn/systems/details/Overview.do</rhn-tab-url>
           <rhn-tab-url>/rhn/systems/details/RebootSystem.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Properties" url="/rhn/systems/details/Edit.do" />
     <rhn-tab name="Remote Command" acl="system_feature(ftr_remote_command)">
       <rhn-tab-url>/rhn/systems/details/SystemRemoteCommand.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Connection" url="/network/systems/details/connection.pxt" acl="org_has_proxies()"/>
-    <rhn-tab name="Proxy" url="/network/systems/details/proxy.pxt" acl="user_role(org_admin); system_feature(ftr_proxy_capable) or system_is_proxy(); org_channel_family(rhn-proxy) or system_is_proxy(); child_channel_candidate(rhn-proxy) or system_is_proxy(); not system_is_satellite(); not is_solaris();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)">
-      <rhn-tab name="Activation" url="/network/systems/details/proxy.pxt" />
-      <rhn-tab name="Systems Using Proxy" url="/network/systems/details/proxy-clients.pxt" acl="system_is_proxy() "/>
+    <rhn-tab name="Connection" url="/rhn/systems/details/Connection.do" acl="org_channel_family(rhn-proxy)"/>
+    <rhn-tab name="Proxy" url="/rhn/systems/details/Proxy.do" acl="user_role(org_admin); system_feature(ftr_proxy_capable) or system_is_proxy(); org_channel_family(rhn-proxy) or system_is_proxy(); child_channel_candidate(rhn-proxy) or system_is_proxy(); not system_is_satellite();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)">
+      <rhn-tab name="Activation" url="/rhn/systems/details/Proxy.do" />
+      <rhn-tab name="Systems Using Proxy" url="/rhn/systems/details/ProxyClients.do" acl="system_is_proxy()"/>
     </rhn-tab>
-    <rhn-tab name="Reactivation" url="/network/systems/details/activation.pxt" acl="system_feature(ftr_agent_smith)"/>
+    <rhn-tab name="Reactivation" url="/rhn/systems/details/Activation.do" acl="system_feature(ftr_agent_smith)"/>
     <rhn-tab name="Hardware">
       <rhn-tab-url>/rhn/systems/details/SystemHardware.do</rhn-tab-url>
     </rhn-tab>
@@ -31,25 +31,9 @@
 
   <rhn-tab name="Software" url="/rhn/systems/details/packages/Packages.do">
 
-    <rhn-tab name="Errata" acl="system_feature(ftr_errata_updates); not is_solaris()">
+    <rhn-tab name="Errata" acl="system_feature(ftr_errata_updates)">
       <rhn-tab-url>/rhn/systems/details/ErrataList.do</rhn-tab-url>
       <rhn-tab-url>/rhn/systems/details/ErrataConfirm.do</rhn-tab-url>
-    </rhn-tab>
-
-    <rhn-tab name="Patches" acl="is_solaris()">
-      <rhn-tab-url>/rhn/systems/details/packages/patches/PatchList.do</rhn-tab-url>
-      <rhn-tab name="List / Remove">
-        <rhn-tab-url>/rhn/systems/details/packages/patches/PatchList.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/systems/details/packages/patches/PatchListConfirm.do</rhn-tab-url>
-      </rhn-tab>
-      <rhn-tab name="Install">
-        <rhn-tab-url>/rhn/systems/details/packages/patches/PatchInstall.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/systems/details/packages/patches/PatchInstallConfirm.do</rhn-tab-url>
-      </rhn-tab>
-    </rhn-tab>
-    <rhn-tab name="Patch Clusters" acl="is_solaris()">
-      <rhn-tab-url>/rhn/systems/details/packages/patchsets/PatchSetList.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/systems/details/packages/patchsets/InstallPatchSet.do</rhn-tab-url>
     </rhn-tab>
 
     <rhn-tab name="Packages">
@@ -111,16 +95,16 @@
         <rhn-tab name="nav.sdc.config.sandbox_managed_files" url="/rhn/systems/details/configuration/ViewModifySandboxPaths.do"/>
     </rhn-tab>
 
-	<rhn-tab name="configchannel.nav.add" url="/rhn/systems/details/configuration/addfiles/UploadFile.do">
-		<rhn-tab name="configchannel.nav.add.upload" url="/rhn/systems/details/configuration/addfiles/UploadFile.do"/>
+        <rhn-tab name="configchannel.nav.add" url="/rhn/systems/details/configuration/addfiles/UploadFile.do">
+                <rhn-tab name="configchannel.nav.add.upload" url="/rhn/systems/details/configuration/addfiles/UploadFile.do"/>
         <rhn-tab name="configchannel.nav.add.import" acl ="client_capable(configfiles.upload)"  url="/rhn/systems/details/configuration/addfiles/ImportFile.do">
-			<rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileSubmit.do</rhn-tab-url>
+                        <rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileSubmit.do</rhn-tab-url>
             <rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileConfirm.do</rhn-tab-url>
             <rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileConfirmSubmit.do</rhn-tab-url>
 
-		</rhn-tab>
-		<rhn-tab name="configchannel.nav.add.create" url="/rhn/systems/details/configuration/addfiles/CreateFile.do"/>
-	</rhn-tab>
+                </rhn-tab>
+                <rhn-tab name="configchannel.nav.add.create" url="/rhn/systems/details/configuration/addfiles/CreateFile.do"/>
+        </rhn-tab>
 
     <rhn-tab name="configchannel.nav.deploy" acl ="client_capable(configfiles.deploy)" url="/rhn/systems/details/configuration/DeployFile.do">
          <rhn-tab-url>/rhn/systems/details/configuration/DeployFileSubmit.do</rhn-tab-url>
@@ -129,7 +113,7 @@
     </rhn-tab>
 
     <rhn-tab name="nav.sdc.config.compare_files" acl ="client_capable(configfiles.diff)" url="/rhn/systems/details/configuration/DiffFile.do">
- 	     <rhn-tab-url>/rhn/systems/details/configuration/DiffFileSubmit.do</rhn-tab-url>
+             <rhn-tab-url>/rhn/systems/details/configuration/DiffFileSubmit.do</rhn-tab-url>
          <rhn-tab-url>/rhn/systems/details/configuration/DiffFileConfirm.do</rhn-tab-url>
          <rhn-tab-url>/rhn/systems/details/configuration/DiffFileConfirmSubmit.do</rhn-tab-url>
     </rhn-tab>
@@ -140,15 +124,15 @@
              <rhn-tab-url>/rhn/systems/details/configuration/ConfigChannelListUnsubscribeSubmit.do</rhn-tab-url>
         </rhn-tab>
         <rhn-tab name="nav.sdc.config.subscribe_channels" url="/rhn/systems/details/configuration/SubscriptionsSetup.do">
-        	<rhn-tab-url>/rhn/systems/details/configuration/SubscriptionsSubmit.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/systems/details/configuration/SubscriptionsSubmit.do</rhn-tab-url>
         </rhn-tab>
         <rhn-tab name="nav.sdc.config.rank_channels" url="/rhn/systems/details/configuration/RankChannels.do"/>
     </rhn-tab>
   </rhn-tab>
 
-  <rhn-tab name="Provisioning" acl="not is_solaris();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)" url="/rhn/systems/details/kickstart/ScheduleWizard.do">
+  <rhn-tab name="Provisioning" acl="system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)" url="/rhn/systems/details/kickstart/ScheduleWizard.do">
 
-    <rhn-tab name="Kickstart" url="/rhn/systems/details/kickstart/ScheduleWizard.do" acl="system_feature(ftr_kickstart); not is_solaris()">
+    <rhn-tab name="Kickstart" url="/rhn/systems/details/kickstart/ScheduleWizard.do" acl="system_feature(ftr_kickstart)">
       <rhn-tab-directory>/rhn/systems/details/kickstart</rhn-tab-directory>
       <rhn-tab name="Session Status" url="/rhn/systems/details/kickstart/SessionStatus.do" acl="system_kickstart_session_exists()">
         <rhn-tab-url>/rhn/systems/details/kickstart/SessionCancel.do</rhn-tab-url>
@@ -159,7 +143,7 @@
 
     <rhn-tab name="Power Management" url="/rhn/systems/details/kickstart/PowerManagement.do" acl="system_feature(ftr_kickstart)" node-id="power_management" />
 
-    <rhn-tab name="Snapshots" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/rhn/systems/details/history/snapshots/Index.do" showChildrenIfActive="0">
+    <rhn-tab name="Snapshots" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting)" url="/rhn/systems/details/history/snapshots/Index.do" showChildrenIfActive="0">
       <rhn-tab name="Rollback" url="/rhn/systems/details/history/snapshots/Rollback.do" />
       <rhn-tab name="Groups" url="/rhn/systems/details/history/snapshots/Groups.do" />
       <rhn-tab name="Channels" url="/rhn/systems/details/history/snapshots/Channels.do" />
@@ -172,18 +156,10 @@
         <rhn-tab-url>/rhn/systems/details/history/snapshots/SnapshotTagCreate.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="Snapshot Tags" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/rhn/systems/details/history/snapshots/Tags.do" />
-
-  </rhn-tab>
-
-  <rhn-tab name="Monitoring" acl="show_monitoring(); system_feature(ftr_probes)">
-    <rhn-tab-directory>/rhn/systems/details/probes</rhn-tab-directory>
-    <rhn-tab-url>/rhn/systems/details/probes/ProbesList.do</rhn-tab-url>
-    <rhn-tab-url>/rhn/systems/details/probes/ProbeDetails.do</rhn-tab-url>
-    <rhn-tab-url>/rhn/systems/details/probes/ProbeEdit.do</rhn-tab-url>
-    <rhn-tab-url>/rhn/systems/details/probes/ProbeDelete.do</rhn-tab-url>
-    <rhn-tab-url>/network/systems/details/probes/create.pxt</rhn-tab-url>
-    <rhn-tab-url>/network/systems/details/probes/delete_conf.pxt</rhn-tab-url>
+    <rhn-tab name="Snapshot Tags" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting)">
+        <rhn-tab-url>/rhn/systems/details/history/snapshots/Tags.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/history/snapshots/TagCreate.do</rhn-tab-url>
+    </rhn-tab>
   </rhn-tab>
 
   <rhn-tab name="Groups" acl="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin)" url="/rhn/systems/details/groups/ListRemove.do">
@@ -214,6 +190,7 @@
 
   <rhn-tab name="Events">
     <rhn-tab-url>/rhn/systems/details/history/Pending.do</rhn-tab-url>
+    <rhn-tab-url>/rhn/systems/details/history/Event.do</rhn-tab-url>
     <rhn-tab name="Pending">
       <rhn-tab-url>/rhn/systems/details/history/Pending.do</rhn-tab-url>
     </rhn-tab>

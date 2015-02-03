@@ -38,9 +38,14 @@ from spacewalk.common.rhnException import rhnFault
 from spacewalk.common import rhnCache
 from spacewalk.common.rhnTranslate import _
 
+sys.path.append('/usr/share/rhn')
+from up2date_client import config
 
 # To avoid doing unnecessary work, keep ProxyAuth object global
 __PROXY_AUTH = None
+UP2DATE_CONFIG = config.Config('/etc/sysconfig/rhn/up2date')
+
+
 def get_proxy_auth(hostname=None):
     global __PROXY_AUTH
     if not __PROXY_AUTH:
@@ -55,9 +60,9 @@ class ProxyAuth:
     __serverid = None
     __systemid = None
     __systemid_mtime = None
-    __systemid_filename = '/etc/sysconfig/rhn/systemid'
+    __systemid_filename = UP2DATE_CONFIG['systemIdPath']
 
-    __nRetries = 3 # number of login retries
+    __nRetries = 3  # number of login retries
 
     hostname = None
 
@@ -73,8 +78,8 @@ class ProxyAuth:
         if not os.access(ProxyAuth.__systemid_filename, os.R_OK):
             log_error("unable to access %s" % ProxyAuth.__systemid_filename)
             raise rhnFault(1000,
-                      _("Spacewalk Proxy error (Spacewalk Proxy systemid has wrong permissions?). "
-                        "Please contact your system administrator."))
+                           _("Spacewalk Proxy error (Spacewalk Proxy systemid has wrong permissions?). "
+                             "Please contact your system administrator."))
 
         mtime = None
         try:
@@ -82,14 +87,14 @@ class ProxyAuth:
         except IOError, e:
             log_error("unable to stat %s: %s" % (ProxyAuth.__systemid_filename, repr(e)))
             raise rhnFault(1000,
-                      _("Spacewalk Proxy error (Spacewalk Proxy systemid has wrong permissions?). "
-                        "Please contact your system administrator.")), None, sys.exc_info()[2]
+                           _("Spacewalk Proxy error (Spacewalk Proxy systemid has wrong permissions?). "
+                             "Please contact your system administrator.")), None, sys.exc_info()[2]
 
         if not self.__systemid_mtime:
             ProxyAuth.__systemid_mtime = mtime
 
         if self.__systemid_mtime == mtime \
-        and self.__systemid and self.__serverid:
+                and self.__systemid and self.__serverid:
             # nothing to do
             return 0
 
@@ -99,15 +104,15 @@ class ProxyAuth:
         except IOError, e:
             log_error("unable to read %s" % ProxyAuth.__systemid_filename)
             raise rhnFault(1000,
-                      _("Spacewalk Proxy error (Spacewalk Proxy systemid has wrong permissions?). "
-                        "Please contact your system administrator.")), None, sys.exc_info()[2]
+                           _("Spacewalk Proxy error (Spacewalk Proxy systemid has wrong permissions?). "
+                             "Please contact your system administrator.")), None, sys.exc_info()[2]
 
         # get serverid
         sysid, _cruft = xmlrpclib.loads(ProxyAuth.__systemid)
         ProxyAuth.__serverid = sysid[0]['system_id'][3:]
 
-        log_debug(7, 'SystemId: "%s[...snip  snip...]%s"' \
-          % (ProxyAuth.__systemid[:20], ProxyAuth.__systemid[-20:]))
+        log_debug(7, 'SystemId: "%s[...snip  snip...]%s"'
+                  % (ProxyAuth.__systemid[:20], ProxyAuth.__systemid[-20:]))
         log_debug(7, 'ServerId: %s' % ProxyAuth.__serverid)
 
         # ids were updated
@@ -159,8 +164,8 @@ problems, isn't running, or the token is somehow corrupt.
 """) % self.__serverid
             Traceback("ProxyAuth.set_cached_token", extra=text)
             raise rhnFault(1000,
-                      _("Spacewalk Proxy error (auth caching issue). "
-                        "Please contact your system administrator.")), None, sys.exc_info()[2]
+                           _("Spacewalk Proxy error (auth caching issue). "
+                             "Please contact your system administrator.")), None, sys.exc_info()[2]
         log_debug(4, "successfully returning")
         return token
 
@@ -250,7 +255,7 @@ problems, isn't running, or the token is somehow corrupt.
                         s.connect((httpProxy, int(httpProxyPort)))
                     except socket.error, e:
                         error = ['socket.error', 'HTTP Proxy not running? '
-                                           '(%s) %s' % (CFG.HTTP_PROXY, e)]
+                                 '(%s) %s' % (CFG.HTTP_PROXY, e)]
                         # rather big problem: http proxy not running.
                         log_error("*** ERROR ***: %s" % error[1])
                         Traceback(mail=0)
@@ -301,9 +306,9 @@ problems, isn't running, or the token is somehow corrupt.
                 # And raise a Proxy Error - the server made its point loud and
                 # clear
                 raise rhnFault(1000,
-                          _("Spacewalk Proxy error (during proxy login). "
-                            "Please contact your system administrator.")), None, sys.exc_info()[2]
-            except Exception, e:
+                               _("Spacewalk Proxy error (during proxy login). "
+                                 "Please contact your system administrator.")), None, sys.exc_info()[2]
+            except Exception, e:  # pylint: disable=E0012, W0703
                 token = None
                 log_error("Unhandled exception", e)
                 Traceback(mail=0)
@@ -316,12 +321,12 @@ problems, isn't running, or the token is somehow corrupt.
             if error:
                 if error[0] in ('xmlrpclib.ProtocolError', 'socket.error', 'socket'):
                     raise rhnFault(1000,
-                                _("Spacewalk Proxy error (error: %s). "
-                                  "Please contact your system administrator.") % error[0])
+                                   _("Spacewalk Proxy error (error: %s). "
+                                     "Please contact your system administrator.") % error[0])
                 if error[0] in ('rhn.SSL.SSL.Error', 'socket.sslerror'):
                     raise rhnFault(1000,
-                                _("Spacewalk Proxy error (SSL issues? Error: %s). "
-                                  "Please contact your system administrator.") % error[0])
+                                   _("Spacewalk Proxy error (SSL issues? Error: %s). "
+                                     "Please contact your system administrator.") % error[0])
                 else:
                     raise rhnFault(1002, err_text='%s' % e)
             else:
@@ -346,9 +351,9 @@ problems, isn't running, or the token is somehow corrupt.
         url = CFG.RHN_PARENT or ''
         url = parseUrl(url)[1].split(':')[0]
         if CFG.USE_SSL:
-            url = 'https://' + url  + '/XMLRPC'
+            url = 'https://' + url + '/XMLRPC'
         else:
-            url = 'http://' + url  + '/XMLRPC'
+            url = 'http://' + url + '/XMLRPC'
         log_debug(3, 'server url: %s' % url)
 
         if CFG.HTTP_PROXY:
@@ -362,9 +367,9 @@ problems, isn't running, or the token is somehow corrupt.
             if not os.access(CFG.CA_CHAIN, os.R_OK):
                 log_error('ERROR: missing or cannot access (for ca_chain): %s' % CFG.CA_CHAIN)
                 raise rhnFault(1000,
-                          _("Spacewalk Proxy error (file access issues). "
-                            "Please contact your system administrator. "
-                            "Please refer to Spacewalk Proxy logs."))
+                               _("Spacewalk Proxy error (file access issues). "
+                                 "Please contact your system administrator. "
+                                 "Please refer to Spacewalk Proxy logs."))
             serverObj.add_trusted_cert(CFG.CA_CHAIN)
         serverObj.add_header('X-RHN-Client-Version', 2)
         return serverObj
@@ -375,6 +380,7 @@ problems, isn't running, or the token is somehow corrupt.
     def getProxyServerId(self):
         return self.__serverid
 
+
 def get_auth_shelf():
     if CFG.USE_LOCAL_AUTH:
         return AuthLocalBackend()
@@ -382,8 +388,10 @@ def get_auth_shelf():
     port = int(port)
     return rhnAuthCacheClient.Shelf((server, port))
 
+
 class AuthLocalBackend:
     _cache_prefix = "proxy-auth"
+
     def __init__(self):
         pass
 
@@ -413,4 +421,3 @@ class AuthLocalBackend:
         pass
 
 # ==============================================================================
-

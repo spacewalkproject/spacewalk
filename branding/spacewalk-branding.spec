@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.14
+Version:    2.3.19
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,40 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.19-1
+- Getting rid of trailing spaces in Java
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
+* Mon Dec 15 2014 Jan Dobes 2.3.18-1
+- style java.custom_header, java.custom_footer, java.login_banner,
+  java.legal_note parameters
+
+* Thu Dec 11 2014 Jan Dobes 2.3.17-1
+- add style for documentation navigation
+
+* Mon Dec 08 2014 Jan Dobes 2.3.16-1
+- remove unused code
+- slightly improve hideable menu
+- revert accidentaly pushed commits
+- test toggling
+- back
+- float left menu on smaller screens
+- test not making sidenav horizontal
+- test not making aside horizontal
+
+* Wed Nov 19 2014 Jan Dobes 2.3.15-1
+- do not show expanded menu on small screens on default
+- avoid white space under footer
+- do not restrict collapsable menu height
+- remove redundant navbar-collapse-1 class
+- spread all buttons
+- make navbar-utility line 100%% wide on small screens
+- display navbar-utility items in single line even on tiny screen
+- fix color
+- shrink header images
+- remove unused responsive rule
+- hide items on smaller screens
+
 * Tue Nov 11 2014 Jan Dobes 2.3.14-1
 - remove unused styles
 - long lines are not visible (API doc)

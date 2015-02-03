@@ -23,6 +23,8 @@ from rhn.connections import idn_puny_to_unicode
 from stringutils import to_string
 
 # check if the headers have the minimum required fields
+
+
 def __check_headers(h):
     if type(h) != type({}) or not hasattr(h, "has_key"):
         # does not look like a dictionary
@@ -45,7 +47,9 @@ def __check_headers(h):
     return [h, toaddrs]
 
 # check the headers for sanity cases and send the mail
-def send(headers, body, sender = None):
+
+
+def send(headers, body, sender=None):
     (headers, toaddrs) = __check_headers(headers)
     if sender is None:
         sender = headers["From"]

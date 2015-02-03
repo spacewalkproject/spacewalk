@@ -11,15 +11,12 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-  <br/>
   <rhn:toolbar base="h2" icon="header-crash" iconAlt="info.alt.img"
                deletionUrl="SoftwareCrashDelete.do?crid=${crid}&sid=${sid}"
                deletionType="crash">
     ${fn:escapeXml(crash.crash)}
   </rhn:toolbar>
 
-<br />
-<br />
 <%@ include file="/WEB-INF/pages/common/fragments/systems/crash-header.jspf" %>
 
 <rl:listset name="crashFileList">
@@ -35,7 +32,7 @@
         <rl:column headerkey="crashes.jsp.filename" bound="false"
             sortattr="filename"
             sortable="true"
-			defaultsort="asc"
+                        defaultsort="asc"
             filterattr="filename">
             <c:if test="${current.isUploaded}">
                 <a href="${current.downloadPath}">

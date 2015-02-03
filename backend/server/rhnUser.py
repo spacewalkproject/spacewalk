@@ -29,8 +29,11 @@ from spacewalk.common.rhnTranslate import _
 import rhnSQL
 import rhnSession
 
+
 class User:
+
     """ Main User class """
+
     def __init__(self, username, password):
         # compatibilty with the rest of the code
         self.username = username
@@ -56,19 +59,21 @@ class User:
         """ init web_user_personal_info """
         # web_user_personal_info
         self.info = rhnSQL.Row("web_user_personal_info",
-                                         "web_user_id")
-        self.info['first_names'] =  "Valued"
+                               "web_user_id")
+        self.info['first_names'] = "Valued"
         self.info['last_name'] = "Customer"
         self.info['prefix'] = "Mr."
+
     def __init_perms(self):
         """ init web_user_contact_permission """
         # web_user_contact_permission
         self.perms = rhnSQL.Row("web_user_contact_permission",
-                                          "web_user_id")
+                                "web_user_id")
         self.perms["email"] = "Y"
         self.perms["mail"] = "Y"
         self.perms["call"] = "Y"
         self.perms["fax"] = "Y"
+
     def __init_site(self):
         """ init web_user_site_info """
         # web_user_site_info
@@ -79,8 +84,10 @@ class User:
         self.site['type'] = "M"
         self.site['notes'] = "Entry created by Spacewalk registration process"
 
-    def check_password(self, password):
+    def check_password(self, password, allow_read_only=False):
         """ simple check for a password that might become more complex sometime """
+        if not allow_read_only and is_user_read_only(self.contact["login"]):
+            raise rhnFault(702)
         good_pwd = str(self.contact["password"])
         if CFG.pam_auth_service:
             # a PAM service is defined
@@ -101,12 +108,12 @@ class User:
             if not data:
                 # This should not happen
                 raise rhnException("No entry found for user %s" %
-                    self.contact["login"])
+                                   self.contact["login"])
             if data['use_pam_authentication'] == 'Y':
                 # use PAM
                 import rhnAuthPAM
                 return rhnAuthPAM.check_password(self.contact["login"],
-                    password, CFG.pam_auth_service)
+                                                 password, CFG.pam_auth_service)
         # If the entry in rhnUserInfo is 'N', perform regular authentication
         ret = check_password(password, good_pwd)
         if ret and CFG.encrypted_passwords and self.contact['password'].find('$1$') == 0:
@@ -126,22 +133,27 @@ class User:
     def getid(self):
         if not self.contact.has_key("id"):
             userid = rhnSQL.Sequence("web_contact_id_seq")()
-            self.contact.data["id"] = userid # kind of illegal, but hey!
+            self.contact.data["id"] = userid  # kind of illegal, but hey!
         else:
             userid = self.contact["id"]
         return userid
 
     def set_contact_perm(self, name, value):
         """ handling of contact permissions """
-        if not name: return -1
+        if not name:
+            return -1
         n = name.lower()
         v = 'N'
         if value:
             v = 'Y'
-        if n == "contact_phone":   self.perms["call"] = v
-        elif n == "contact_mail":  self.perms["mail"] = v
-        elif n == "contact_email": self.perms["email"] = v
-        elif n == "contact_fax":   self.perms["fax"] = v
+        if n == "contact_phone":
+            self.perms["call"] = v
+        elif n == "contact_mail":
+            self.perms["mail"] = v
+        elif n == "contact_email":
+            self.perms["email"] = v
+        elif n == "contact_fax":
+            self.perms["fax"] = v
         return 0
 
     def set_info(self, name, value):
@@ -150,10 +162,10 @@ class User:
         # translation from what the client send us to real names of the fields
         # in the tables.
         mapping = {
-            "first_name" : "first_names",
-            "position"   : "title",
-            "title"      : "prefix"
-            }
+            "first_name": "first_names",
+            "position": "title",
+            "title": "prefix"
+        }
         if not name:
             return -1
         name = name.lower()
@@ -167,7 +179,7 @@ class User:
         if name in mapping.keys():
             name = mapping[name]
         # Some fields can not have null string values
-        if name in ["first_names", "last_name", "prefix", # personal_info
+        if name in ["first_names", "last_name", "prefix",  # personal_info
                     "address1", "city", "country"]:       # site_info
             # we require something of it
             if len(str(value)) == 0:
@@ -181,14 +193,14 @@ class User:
             values = ["Mr.", "Mrs.", "Ms.", "Dr.", "Hr.", "Sr.", " "]
             # Now populate a dictinary of valid values
             valids = UserDictCase()
-            for v in values: # initialize from good values, with and w/o the dot
+            for v in values:  # initialize from good values, with and w/o the dot
                 valids[v] = v
                 valids[v[:-1]] = v
             # commonly encountered values
             valids["Miss"] = "Miss"
             valids["Herr"] = "Hr."
             valids["Sig."] = "Sr."
-            valids["Sir"]  = "Mr."
+            valids["Sir"] = "Mr."
             # Now check it out
             if valids.has_key(value):
                 self.info["prefix"] = valids[value]
@@ -215,7 +227,7 @@ class User:
             else:
                 self.site[name] = value[:128]
                 changed = 1
-        elif name in ["state"]: # stupid people put stupid things in here too
+        elif name in ["state"]:  # stupid people put stupid things in here too
             self.site[name] = value[:60]
             changed = 1
         if not changed:
@@ -255,7 +267,7 @@ class User:
             self.__init_perms()
         # The site info is trickier, we need to find it first
         if not self.site.load_sql("web_user_id = :userid and type = 'M'",
-                                  { "userid" : user_id }):
+                                  {"userid": user_id}):
             self.__init_site()
         # Fix the username
         self.username = self.contact['login']
@@ -267,7 +279,6 @@ class User:
 
         self.session = rhnSession.generate(web_user_id=self.getid())
         return self.session
-
 
 
 def auth_username_password(username, password):
@@ -297,6 +308,7 @@ def session_reload(session_string):
         raise rhnFault(10)
     return u
 
+
 def get_user_id(username):
     """ search for an userid """
     username = str(username)
@@ -310,11 +322,12 @@ def get_user_id(username):
         return data["id"]
     return None
 
+
 def search(user):
     """ search the database for a user """
     log_debug(3, user)
     userid = get_user_id(user)
-    if not userid: # no user found
+    if not userid:  # no user found
         return None
     ret = User(user, "")
     if not ret.reload(userid) == 0:
@@ -322,6 +335,7 @@ def search(user):
         # we can not realy say that the entry does not exist...
         raise rhnFault(10)
     return ret
+
 
 def is_user_disabled(user):
     log_debug(3, user)
@@ -335,6 +349,7 @@ def is_user_disabled(user):
     if row:
         return 1
     return 0
+
 
 def is_user_read_only(user):
     log_debug(3, user)
@@ -350,9 +365,11 @@ def is_user_read_only(user):
         return 1
     return 0
 
+
 def reserve_user(username, password):
     """ create a reservation record """
     return __reserve_user_db(username, password)
+
 
 def __reserve_user_db(user, password):
     encrypted_password = CFG.encrypted_passwords
@@ -398,7 +415,7 @@ def __reserve_user_db(user, password):
         return -2
 
     validate_new_username(user)
-    log_debug(3, "calling validate_new_password" )
+    log_debug(3, "calling validate_new_password")
     validate_new_password(password)
 
     # this is not reserved either, register it
@@ -416,9 +433,11 @@ def __reserve_user_db(user, password):
     # all should be dandy
     return 0
 
+
 def new_user(username, password, email, org_id, org_password):
     """ create a new user account """
     return __new_user_db(username, password, email, org_id, org_password)
+
 
 def __new_user_db(username, password, email, org_id, org_password):
     encrypted_password = CFG.encrypted_passwords
@@ -444,7 +463,7 @@ def __new_user_db(username, password, email, org_id, org_password):
         """)
         h.execute(username=username)
         data = h.fetchone_dict()
-        if not data: # nope, not reserved either
+        if not data:  # nope, not reserved either
             raise rhnFault(1, _("Username `%s' has not been reserved") % username)
     else:
         pre_existing_user = 1
@@ -488,10 +507,10 @@ def check_user_password(username, password):
         raise rhnFault(12)
     if len(username) < CFG.MIN_USER_LEN:
         raise rhnFault(13, _("username should be at least %d characters")
-                             % CFG.MIN_USER_LEN)
+                       % CFG.MIN_USER_LEN)
     if len(username) > CFG.MAX_USER_LEN:
         raise rhnFault(700, _("username should be less than %d characters")
-                              % CFG.MAX_USER_LEN)
+                       % CFG.MAX_USER_LEN)
     username = username[:CFG.MAX_USER_LEN]
 
     # Invalid characters
@@ -502,12 +521,13 @@ def check_user_password(username, password):
     if tmp is not None:
         pos = tmp.regs[0]
         raise rhnFault(15, _("username = `%s', invalid character `%s'") % (
-            username, username[pos[1]-1]))
+            username, username[pos[1] - 1]))
 
     # use new password validation method
     validate_new_password(password)
 
     return username, password
+
 
 def check_email(email):
     """ Do some minimal checks on the e-mail address """
@@ -520,9 +540,10 @@ def check_email(email):
 
     if len(email) > CFG.MAX_EMAIL_LEN:
         raise rhnFault(100, _("Please limit your e-mail address to %s chars") %
-            CFG.MAX_EMAIL_LEN)
+                       CFG.MAX_EMAIL_LEN)
     # XXX More to come (check the format is indeed foo@bar.baz
     return email
+
 
 def check_password(key, pwd1):
     """ Validates the given key against the current or old password
@@ -543,21 +564,21 @@ def check_password(key, pwd1):
 
     if not encrypted_password:
         # Unencrypted passwords
-        if key == pwd1: # good password
+        if key == pwd1:  # good password
             return 1
         log_debug(4, "Unencrypted password doesn't match")
-        return 0 # Invalid
+        return 0  # Invalid
 
     # Crypted passwords in the database
     if pwd1.find("$5") == 0:    # SHA-256 encrypted password
         if pwd1 == encrypt_password(key, pwd1, 'SHA-256'):
             return 1
-    elif pwd1.find("$1$") == 0: # MD5 encrypted password
+    elif pwd1.find("$1$") == 0:  # MD5 encrypted password
         if pwd1 == encrypt_password(key, pwd1, 'MD5'):
             return 1
 
     log_debug(4, "Encrypted password doesn't match")
-    return 0 # invalid
+    return 0  # invalid
 
 
 def encrypt_password(key, salt=None, method='SHA-256'):
@@ -585,6 +606,7 @@ def encrypt_password(key, salt=None, method='SHA-256'):
     salt = str(salt)
     return crypt.crypt(key, salt)
 
+
 def validate_new_password(password):
     """ Perform all the checks required for new passwords """
     log_debug(3, "Entered validate_new_password")
@@ -599,10 +621,10 @@ def validate_new_password(password):
         raise rhnFault(12)
     if len(password) < CFG.MIN_PASSWD_LEN:
         raise rhnFault(14, _("password must be at least %d characters")
-                           % CFG.MIN_PASSWD_LEN)
+                       % CFG.MIN_PASSWD_LEN)
     if len(password) > CFG.MAX_PASSWD_LEN:
         raise rhnFault(701, _("Password must be shorter than %d characters")
-                            % CFG.MAX_PASSWD_LEN)
+                       % CFG.MAX_PASSWD_LEN)
 
     password = password[:CFG.MAX_PASSWD_LEN]
     invalid_re = re.compile(
@@ -619,7 +641,7 @@ def validate_new_password(password):
     if tmp is not None:
         pos = tmp.regs[0]
         raise rhnFault(15,
-            _("password contains character `%s'") % password[pos[1]-1])
+                       _("password contains character `%s'") % password[pos[1] - 1])
 
 
 def validate_new_username(username):
@@ -627,15 +649,15 @@ def validate_new_username(username):
     log_debug(3)
     if len(username) < CFG.MIN_NEW_USER_LEN:
         raise rhnFault(13, _("username should be at least %d characters long")
-                             % CFG.MIN_NEW_USER_LEN)
+                       % CFG.MIN_NEW_USER_LEN)
 
     disallowed_suffixes = CFG.DISALLOWED_SUFFIXES or []
     if not isinstance(disallowed_suffixes, type([])):
-        disallowed_suffixes = [ disallowed_suffixes ]
+        disallowed_suffixes = [disallowed_suffixes]
 
     log_debug(4, "Disallowed suffixes", disallowed_suffixes)
 
     for suffix in disallowed_suffixes:
         if username[-len(suffix):].upper() == suffix.upper():
             raise rhnFault(106, _("Cannot register usernames ending with %s") %
-                suffix)
+                           suffix)

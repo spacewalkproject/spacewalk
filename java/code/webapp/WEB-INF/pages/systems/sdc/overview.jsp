@@ -55,34 +55,6 @@
           </div>
         </div>
       </c:if>
-
-      <c:if test="${probeListEmpty != 'true'}">
-        <div class="row-0">
-          <div class="col-md-6">
-            <c:choose>
-              <c:when test="${probeList[0].state == 'CRITICAL'}">
-                <rhn:icon type="monitoring-crit" />  <bean:message key="sdc.details.overview.probes.critical" arg0="/rhn/help/reference/en-US/sect-Reference_Guide-Monitoring.jsp"/>
-              </c:when>
-              <c:otherwise>
-                <rhn:icon type="monitoring-warn" />  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en-US/sect-Reference_Guide-Monitoring.jsp"/>
-              </c:otherwise>
-            </c:choose>
-          </div>
-          <div class="col-md-6">
-            <c:forEach items="${probeList}" var="probe">
-              <c:choose>
-                <c:when test="${probe.state == 'CRITICAL'}">
-                  <rhn:icon type="monitoring-crit" />
-                </c:when>
-                <c:otherwise>
-                  <rhn:icon type="monitoring-warn" />
-                </c:otherwise>
-              </c:choose>
-              <a href="/rhn/systems/details/probes/ProbeDetails.do?sid=${system.id}&probe_id=${probe.id}">${probe.description}</a><br/>
-            </c:forEach>
-          </div>
-        </div>
-      </c:if>
     </div>
   </div>
 
@@ -137,7 +109,7 @@
           <c:if test="${system.virtualGuest}">
             <tr>
               <td><bean:message key="sdc.details.overview.virtualization"/></td>
-              <td>${system.virtualInstance.type.name}</td>
+              <td><c:out value="${system.virtualInstance.type.name}"/></td>
             </tr>
             <tr>
               <td><bean:message key="sdc.details.overview.uuid"/></td>
@@ -209,7 +181,7 @@
           <c:if test="${system.baseChannel != null}">
             <ul class="channel-list">
             <li>
-              <a href="/rhn/channels/ChannelDetail.do?cid=${baseChannel['id']}">${baseChannel['name']}</a>
+              <a href="/rhn/channels/ChannelDetail.do?cid=${baseChannel['id']}"><c:out value="${baseChannel['name']}" /></a>
               <c:if test="${baseChannel['is_fve'] == 'Y'}">
                 &nbsp;(Flex)
               </c:if>
@@ -217,7 +189,7 @@
 
             <c:forEach items="${childChannels}" var="childChannel">
             <li class="child-channel">
-              <a href="/rhn/channels/ChannelDetail.do?cid=${childChannel['id']}">${childChannel['name']}</a>
+              <a href="/rhn/channels/ChannelDetail.do?cid=${childChannel['id']}"><c:out value="${childChannel['name']}" /></a>
               <c:if test="${childChannel['is_fve'] == 'Y'}">
                 &nbsp;(Flex)
               </c:if>
@@ -323,7 +295,7 @@
               </c:when>
               <c:otherwise>
                 <c:forEach items="${system.entitlements}" var="entitlement">
-                 [${entitlement.humanReadableLabel}]
+                 [<c:out value="${entitlement.humanReadableLabel}" />]
                 </c:forEach>
                </c:otherwise>
             </c:choose>
@@ -366,7 +338,7 @@
           </tr>
           <tr>
             <td><bean:message key="sdc.details.overview.description"/></td>
-            <td>${description}</td>
+            <td><c:out value="${description}" escapeXml="false"/></td> <!-- already html-escaped in backend -->
           </tr>
           <tr>
             <td><bean:message key="sdc.details.overview.location"/></td>

@@ -198,5 +198,3 @@ class URPMISynthesisLoader(Loader):
                 requires = ()
                 conflicts = ()
                 obsoletes = ()
-
-# vim:ts=4:sw=4:et

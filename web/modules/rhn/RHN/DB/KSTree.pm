@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -98,7 +98,7 @@ EOQ
 sub create_tree {
   my $class = shift;
   my %params = validate(@_, { org_id => 0, tree_type => 0, boot_image => 0,
-			      label => 1, path => 1, channel_id => 1, install_type_label => 1 });
+                              label => 1, path => 1, channel_id => 1, install_type_label => 1 });
 
   $params{boot_image} ||= $params{label};
   $params{tree_type} ||= 'rhn-managed';

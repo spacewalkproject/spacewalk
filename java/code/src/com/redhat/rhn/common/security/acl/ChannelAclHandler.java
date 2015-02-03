@@ -131,20 +131,6 @@ public class ChannelAclHandler extends BaseHandler {
     }
 
     /**
-     * Does the channel handle the specified type of packaging? (??)
-     * @param ctx request context (user, cid)
-     * @param params check parameters [sysv-solaris]
-     * @return true if allowed, false else
-     */
-    public boolean aclChannelPackagingType(Object ctx, String[] params) {
-        Map ctxMap = (Map)ctx;
-        User usr = (User)ctxMap.get(USER);
-        Channel chan = getChannel(usr, ctxMap);
-        String archType = chan.getChannelArch().getArchType().getLabel();
-        return archType.equals(params[0]);
-    }
-
-    /**
      * Can the channel be subscribed to?
      * @param ctx request context (user, cid)
      * @param params check parameters

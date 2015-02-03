@@ -46,8 +46,13 @@
                         value="<bean:message key="kickstart.powermanagement.jsp.save_only"/>">
                         <bean:message key="kickstart.powermanagement.jsp.save_only" />
                     </button>
+                    <button type="submit" name="dispatch" class="btn btn-default"
+                        value="<bean:message key="kickstart.powermanagement.jsp.remove.cobblerprofile"/>">
+                        <bean:message key="kickstart.powermanagement.jsp.remove.cobblerprofile" />
+                    </button>
                 </div>
             </div>
+            <rhn:csrf />
         </html:form>
     </c:if>
 </body>

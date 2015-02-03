@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.3.5
+Version: 2.3.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -97,7 +97,9 @@ scheduled actions.
 %package -n rhn-setup
 Summary: Configure and register an RHN/Spacewalk client
 Group: System Environment/Base
+%if 0%{?fedora} || 0%{?rhel}
 Requires: usermode >= 1.36
+%endif
 Requires: %{name} = %{version}-%{release}
 Requires: rhnsd
 %if 0%{?rhel} == 5
@@ -121,8 +123,8 @@ Requires: pam >= 0.72
 Requires: python-gnome python-gtk
 %else
 Requires: pygtk2 pygtk2-libglade gnome-python2 gnome-python2-canvas
-%endif
 Requires: usermode-gtk
+%endif
 %if 0%{?fedora} || 0%{?rhel} > 5
 Requires: gnome-python2-gnome gnome-python2-bonobo
 Requires: liberation-sans-fonts
@@ -176,6 +178,8 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_*_*.*
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
 %if 0%{?suse_version}
 %suse_update_desktop_file -r rhn_register "Settings;System;SystemSetup;"
+# no usermod on SUSE
+rm -f $RPM_BUILD_ROOT%{_bindir}/rhn_register
 %endif
 
 %find_lang %{name}
@@ -285,8 +289,9 @@ make -f Makefile.rhn-client-tools test
 
 %config(noreplace) %{_sysconfdir}/security/console.apps/rhn_register
 %config(noreplace) %{_sysconfdir}/pam.d/rhn_register
-
+%if 0%{?fedora} || 0%{?rhel}
 %{_bindir}/rhn_register
+%endif
 %{_sbindir}/rhn_register
 %{_sbindir}/rhnreg_ks
 %{_sbindir}/spacewalk-channel
@@ -365,6 +370,13 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Jan 13 2015 Matej Kollar <mkollar@redhat.com> 2.3.7-1
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
+* Mon Dec 22 2014 Stephen Herr <sherr@redhat.com> 2.3.6-1
+- rhn-client-tools: no usermod on SUSE
+
 * Thu Oct 09 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.5-1
 - fixed translations
 

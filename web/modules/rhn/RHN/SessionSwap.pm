@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::SessionSwap;
@@ -27,11 +27,11 @@ sub rhn_hmac_data {
   my $hmac_data = join("\0", @_);
 
   my $hmac_key = join("",
-		      PXT::Config->get('session_swap_secret_4'),
-		      PXT::Config->get('session_swap_secret_3'),
-		      PXT::Config->get('session_swap_secret_2'),
-		      PXT::Config->get('session_swap_secret_1')
-		  );
+                      PXT::Config->get('session_swap_secret_4'),
+                      PXT::Config->get('session_swap_secret_3'),
+                      PXT::Config->get('session_swap_secret_2'),
+                      PXT::Config->get('session_swap_secret_1')
+                  );
   return hmac_sha1_hex($hmac_data, $hmac_key);
 }
 

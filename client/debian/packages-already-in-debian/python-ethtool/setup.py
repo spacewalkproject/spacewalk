@@ -7,7 +7,7 @@ import sys
 version = '0.7'
 
 ethtool = Extension('ethtool',
-		    sources = ['python-ethtool/ethtool.c',
+                    sources = ['python-ethtool/ethtool.c',
                                'python-ethtool/etherinfo.c', 'python-ethtool/etherinfo_obj.c'])
 
 def pkgconfig(pkg):

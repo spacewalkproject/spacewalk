@@ -98,7 +98,7 @@ SELECT DISTINCT E.id, E.update_date
  WHERE EXISTS (SELECT server_id FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = :sid)
    AND SNEC.server_id = :sid
    AND SNEC.errata_id = E.id
-   AND NOT EXISTS (SELECT SA.server_id 
+   AND NOT EXISTS (SELECT SA.server_id
                      FROM rhnActionErrataUpdate AEU,
                           rhnServerAction SA,
                           rhnActionStatus AST
@@ -120,7 +120,7 @@ SELECT DISTINCT E.id, E.update_date
  WHERE EXISTS (SELECT server_id FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = :sid)
    AND SNEC.server_id = :sid
    AND SNEC.errata_id = E.id
-   AND NOT EXISTS (SELECT SA.server_id 
+   AND NOT EXISTS (SELECT SA.server_id
                      FROM rhnActionErrataUpdate AEU,
                           rhnServerAction SA,
                           rhnActionStatus AST
@@ -144,7 +144,7 @@ SELECT DISTINCT E.id, E.update_date
    AND ST.label = :set_label
    AND ST.element = SNEC.server_id
    AND SNEC.errata_id = E.id
-   AND NOT EXISTS (SELECT SA.server_id 
+   AND NOT EXISTS (SELECT SA.server_id
                      FROM rhnActionErrataUpdate AEU,
                           rhnServerAction SA,
                           rhnActionStatus AST
@@ -166,7 +166,7 @@ SELECT DISTINCT E.id,
                 TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS ISSUE_DATE,
                 TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS LONG_UPDATE_DATE,
                 E.update_date,
-		E.synopsis,
+                E.synopsis,
                 E.advisory_type,
                 E.last_modified AS LAST_MODIFIED_SHORT,
                 TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
@@ -188,10 +188,10 @@ SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.advisory_type, E.synopsi
    AND CE.errata_id = E.id
    AND NOT EXISTS (SELECT 1
                      FROM rhnChannelErrata CE2,
-		          rhnErrataCloned EC
+                          rhnErrataCloned EC
                     WHERE CE2.channel_id = :cid_2
-		      AND EC.original_id = CE.errata_id
-		      AND EC.id = CE2.errata_id)
+                      AND EC.original_id = CE.errata_id
+                      AND EC.id = CE2.errata_id)
    AND NOT EXISTS  (select 1
                   from  rhnChannelErrata CE3
                  where CE3.channel_id = :cid_2
@@ -354,7 +354,7 @@ SELECT E.id, E.update_date
  WHERE E.org_id = :org_id
    AND not exists (SELECT 1
                      FROM rhnChannelErrata CE
-                    WHERE CE.channel_id = :cid 
+                    WHERE CE.channel_id = :cid
                       AND CE.errata_id = E.id)
 ORDER BY E.update_date DESC, E.id
   </query>
@@ -378,9 +378,9 @@ ORDER BY E.update_date DESC, E.id
      AND CC.original_id = CE.channel_id
 ORDER BY CE.errata_id, C.name
 </query>
-    
+
 <query name="errata_overview" params="user_id">
-SELECT  E.id, 
+SELECT  E.id,
         E.advisory,
         E.advisory_name,
         E.advisory_type,
@@ -391,7 +391,7 @@ SELECT  E.id,
       WHERE  USP.user_id = :user_id
         AND  USP.server_id = S.ID
         AND  S.id = SNEC.server_id
-	AND  EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = SNEC.server_id AND SFV.label = 'ftr_errata_updates')
+        AND  EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = SNEC.server_id AND SFV.label = 'ftr_errata_updates')
         AND  SNEC.errata_id = E.id) AS AFFECTED_SYSTEM_COUNT
   FROM  rhnErrata E
  WHERE  E.id IN (%s)

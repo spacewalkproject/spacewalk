@@ -21,26 +21,25 @@
 
 # HTTP Headers
 
-HEADER_ACTUAL_URI      = 'X-RHN-ActualURI'
-HEADER_EFFECTIVE_URI   = 'X-RHN-EffectiveURI'
-HEADER_CHECKSUM        = 'X-RHN-Checksum'
-HEADER_LOCATION        = 'Location'
-HEADER_CONTENT_LENGTH  = 'Content-Length'
-HEADER_RHN_REDIRECT    = 'X-RHN-Redirect'
-HEADER_RHN_ORIG_LOC    = 'X-RHN-OriginalLocation'
+HEADER_ACTUAL_URI = 'X-RHN-ActualURI'
+HEADER_EFFECTIVE_URI = 'X-RHN-EffectiveURI'
+HEADER_CHECKSUM = 'X-RHN-Checksum'
+HEADER_LOCATION = 'Location'
+HEADER_CONTENT_LENGTH = 'Content-Length'
+HEADER_RHN_REDIRECT = 'X-RHN-Redirect'
+HEADER_RHN_ORIG_LOC = 'X-RHN-OriginalLocation'
 
 # HTTP Schemes
 
-SCHEME_HTTP            = 'http'
-SCHEME_HTTPS           = 'https'
+SCHEME_HTTP = 'http'
+SCHEME_HTTPS = 'https'
 
 # These help us match URIs when kickstarting through a Proxy.
 
-URI_PREFIX_KS          = '/ty/'
+URI_PREFIX_KS = '/ty/'
 URI_PREFIX_KS_CHECKSUM = '/ty-cksm/'
 
 # Component Constants
 
-COMPONENT_BROKER       = 'proxy.broker'
-COMPONENT_REDIRECT     = 'proxy.redirect'
-
+COMPONENT_BROKER = 'proxy.broker'
+COMPONENT_REDIRECT = 'proxy.redirect'

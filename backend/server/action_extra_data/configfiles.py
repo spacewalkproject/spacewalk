@@ -38,6 +38,7 @@ _query_mark_upload_files = rhnSQL.Statement("""
        and config_file_name_id = lookup_config_filename(:path)
 """)
 
+
 def upload(server_id, action_id, data={}):
     log_debug(3)
 
@@ -56,9 +57,9 @@ def upload(server_id, action_id, data={}):
     # We don't do execute_bulk here, since we want to know if each update has
     # actually touched a row
 
-    reason_map = {'missing_files'   : 'missing',
-                  'files_too_large' : 'too_big',
-                  'quota_failed'    : 'insufficient_quota',
+    reason_map = {'missing_files': 'missing',
+                  'files_too_large': 'too_big',
+                  'quota_failed': 'insufficient_quota',
                   }
 
     for reason in reason_map.keys():
@@ -80,7 +81,6 @@ def upload(server_id, action_id, data={}):
                           (path, server_id, action_id))
 
 
-
 _query_any_action_config_filenames = rhnSQL.Statement("""
     select config_file_name_id
       from rhnActionConfigFileName
@@ -96,6 +96,8 @@ _query_create_action_config_filename = rhnSQL.Statement("""
     insert into rhnActionConfigFileName (action_id, config_file_name_id, server_id)
     values (:action_id, lookup_config_filename(:path), :server_id)
 """)
+
+
 def mtime_upload(server_id, action_id, data={}):
     # at this point in time, no rhnActionConfigFileName entries exist, because
     # we didn't know them at schedule time...  go ahead and create them now, and then
@@ -123,13 +125,12 @@ def mtime_upload(server_id, action_id, data={}):
 
     h = rhnSQL.prepare(_query_create_action_config_filename)
     h.execute_bulk({
-        'action_id' : [action_id] * num_paths,
-        'server_id' : [server_id] * num_paths,
-        'path' : paths,
-        })
+        'action_id': [action_id] * num_paths,
+        'server_id': [server_id] * num_paths,
+        'path': paths,
+    })
 
     upload(server_id, action_id, data)
-
 
 
 def deploy(server_id, action_id, data={}):
@@ -137,9 +138,10 @@ def deploy(server_id, action_id, data={}):
 
     action_status = rhnFlags.get('action_status')
     server_kickstart.update_kickstart_session(server_id,
-            action_id, action_status, kickstart_state='complete',
-            next_action_type=None)
+                                              action_id, action_status, kickstart_state='complete',
+                                              next_action_type=None)
     return
+
 
 def diff(server_id, action_id, data={}):
     log_debug(3)
@@ -164,6 +166,7 @@ _query_reset_diff_errors = rhnSQL.Statement("""
        and action_id = :action_id
 """)
 
+
 def _reset_diff_errors(server_id, action_id):
     h = rhnSQL.prepare(_query_reset_diff_errors)
     h.execute(server_id=server_id, action_id=action_id)
@@ -186,6 +189,7 @@ _query_mark_failed_diff_files = rhnSQL.Statement("""
      where id = :action_config_revision_id
 """)
 
+
 def _mark_missing_diff_files(server_id, action_id, missing_files):
     if not missing_files:
         # Nothing to do
@@ -203,8 +207,8 @@ def _mark_missing_diff_files(server_id, action_id, missing_files):
         if hash.has_key(path):
             # This shouldn't really happen
             log_error("Duplicate path for diff "
-                "(scheduler did not resolve config files? %s, %s" %
-                (hash[path], action_config_revision_id))
+                      "(scheduler did not resolve config files? %s, %s" %
+                      (hash[path], action_config_revision_id))
         else:
             hash[path] = action_config_revision_id
 
@@ -212,7 +216,7 @@ def _mark_missing_diff_files(server_id, action_id, missing_files):
     for path in missing_files:
         if not hash.has_key(path):
             log_error("Client reports missing a file "
-                 "that was not scheduled for diff? %s" % path)
+                      "that was not scheduled for diff? %s" % path)
             continue
         ids.append(hash[path])
     if not ids:
@@ -224,15 +228,16 @@ def _mark_missing_diff_files(server_id, action_id, missing_files):
 
     h = rhnSQL.prepare(_query_mark_failed_diff_files)
     h.execute_bulk({
-        'action_config_revision_id' : ids,
-        'failure_id'                : failure_ids,
+        'action_config_revision_id': ids,
+        'failure_id': failure_ids,
     })
+
 
 def _process_diffs(server_id, action_id, diffs):
     _disable_old_diffs(server_id)
     for file_path, diff in diffs.items():
         action_config_revision_id = _lookup_action_revision_id(server_id,
-            action_id, file_path)
+                                                               action_id, file_path)
         if action_config_revision_id is None:
             log_error(
                 "Missing config file for action id %s, server id %s, path %s"
@@ -250,6 +255,7 @@ _query_lookup_action_revision_id = rhnSQL.Statement("""
        and cf.config_file_name_id = lookup_config_filename(:path)
 """)
 
+
 def _lookup_action_revision_id(server_id, action_id, path):
     h = rhnSQL.prepare(_query_lookup_action_revision_id)
     h.execute(server_id=server_id, action_id=action_id, path=path)
@@ -263,6 +269,8 @@ _query_add_result_diff = rhnSQL.Statement("""
            (action_config_revision_id, result)
     values (:action_config_revision_id, :result)
 """)
+
+
 def _add_result(action_config_revision_id, diff):
 
     log_debug(4, action_config_revision_id, diff)
@@ -289,6 +297,7 @@ _query_delete_old_diffs = rhnSQL.Statement("""
      where action_config_revision_id = :action_config_revision_id
 """)
 
+
 def _disable_old_diffs(server_id):
     h = rhnSQL.prepare(_query_lookup_old_diffs)
     h.execute(server_id=server_id)
@@ -298,4 +307,4 @@ def _disable_old_diffs(server_id):
         return
 
     h = rhnSQL.prepare(_query_delete_old_diffs)
-    h.execute_bulk({'action_config_revision_id' : old_acr_ids})
+    h.execute_bulk({'action_config_revision_id': old_acr_ids})

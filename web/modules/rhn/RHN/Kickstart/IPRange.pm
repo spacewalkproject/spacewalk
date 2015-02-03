@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -29,10 +29,10 @@ Params::Validate::validation_options(strip_leading => "-");
 sub new {
   my $class = shift;
   my %params = validate(@_, { min => { optional => 0 },
-			      max => { optional => 0 },
-			      ksid => { optional => 1 },
-			      org_id => { optional => 1 },
-			    } );
+                              max => { optional => 0 },
+                              ksid => { optional => 1 },
+                              org_id => { optional => 1 },
+                            } );
 
   my ($min, $max) = @params{qw/min max/};
 

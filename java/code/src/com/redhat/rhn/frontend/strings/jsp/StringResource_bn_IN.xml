@@ -602,7 +602,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              The page you requested, https://rhn.redhat.com/index.pxt, was not found.
+              The page you requested, https://rhn.redhat.com/rhn/YourRhn.do, was not found.
           </context>
         </context-group>
         <target>আপনার অনুরোধ করা পৃষ্ঠা, {0}, পাওয়া যায়নি।</target>
@@ -619,7 +619,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              If you followed a link to reach 'https://rhn.redhat.com/index.pxt,' the
+              If you followed a link to reach 'https://rhn.redhat.com/rhn/YourRhn.do,' the
               link may be incorrect or outdated.
           </context>
         </context-group>
@@ -630,7 +630,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              If you used a bookmark to reach 'https://rhn.redhat.com/index.pxt,' the
+              If you used a bookmark to reach 'https://rhn.redhat.com/rhn/YourRhn.do,' the
               page may have moved
           </context>
         </context-group>
@@ -3584,7 +3584,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/AddPackagesConfirm.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt;-টি প্যাকেজ 	 &lt;strong&gt;{1}&lt;/strong&gt; ত্রুটি-বিচ্যুতির মধ্যে অন্তর্ভুক্ত করা হয়েছে</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt;-টি প্যাকেজ          &lt;strong&gt;{1}&lt;/strong&gt; ত্রুটি-বিচ্যুতির মধ্যে অন্তর্ভুক্ত করা হয়েছে</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.add.success.singular">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; package added to errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3593,7 +3593,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/AddPackagesConfirm.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt;-টি প্যাকেজ 	 &lt;strong&gt;{1}&lt;/strong&gt; ত্রুটি-বিচ্যুতির মধ্যে অন্তর্ভুক্ত করা হয়েছে</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt;-টি প্যাকেজ          &lt;strong&gt;{1}&lt;/strong&gt; ত্রুটি-বিচ্যুতির মধ্যে অন্তর্ভুক্ত করা হয়েছে</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.remove.success.plural">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; packages removed from errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3602,7 +3602,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt;-টি প্যাকেজ 	 &lt;strong&gt;{1}&lt;/strong&gt; ত্রুটি-বিচ্যুতি থেকে অপসারণ করা হয়েছে</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt;-টি প্যাকেজ          &lt;strong&gt;{1}&lt;/strong&gt; ত্রুটি-বিচ্যুতি থেকে অপসারণ করা হয়েছে</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.remove.success.singular">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; package removed from errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3611,7 +3611,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt;-টি প্যাকেজ 	 &lt;strong&gt;{1}&lt;/strong&gt; ত্রুটি-বিচ্যুতি থেকে অপসারণ করা হয়েছে</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt;-টি প্যাকেজ          &lt;strong&gt;{1}&lt;/strong&gt; ত্রুটি-বিচ্যুতি থেকে অপসারণ করা হয়েছে</target>
       </trans-unit>
       <trans-unit id="affectedsystems.jsp.summary">
         <source>Below is a list of systems affected by this erratum.</source>
@@ -6273,14 +6273,14 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
         </context-group>
-        <target>এর ফলে এই সিস্টেম থেকে &lt;strong&gt;স্থায়ীরূপে&lt;/strong&gt; অনুসন্ধানটি মুছে ফেলা হবে। 	 পাশাপাশি অনুসন্ধানটির সাথে যুক্ত Time Series এবং State Change তথ্য ডাটাবেস থেকে মুছে ফেলা হবে।</target>
+        <target>এর ফলে এই সিস্টেম থেকে &lt;strong&gt;স্থায়ীরূপে&lt;/strong&gt; অনুসন্ধানটি মুছে ফেলা হবে।    পাশাপাশি অনুসন্ধানটির সাথে যুক্ত Time Series এবং State Change তথ্য ডাটাবেস থেকে মুছে ফেলা হবে।</target>
       </trans-unit>
       <trans-unit id="probdelete.jsp.p2">
         <source>If you are uncertain about performing this action, please &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt;review the details&lt;/a&gt; for this probe.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
         </context-group>
-        <target>এই কর্ম সঞ্চালন সম্বন্ধে নিশ্চিত না হলে 	 অনুগ্রহ করে এই অনুসন্ধান সম্পর্কিত &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt;বিষয় পর্যালোচনা করুন&lt;/a&gt;।</target>
+        <target>এই কর্ম সঞ্চালন সম্বন্ধে নিশ্চিত না হলে     অনুগ্রহ করে এই অনুসন্ধান সম্পর্কিত &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt;বিষয় পর্যালোচনা করুন&lt;/a&gt;।</target>
       </trans-unit>
       <trans-unit id="probdelete.jsp.p3">
         <source>Otherwise, confirm the immediate deletion of this system probe by clicking the button below.</source>
@@ -8976,12 +8976,12 @@ Please note that some manual configuration of these scripts may still be require
       </trans-unit>
       <trans-unit id="kickstart.variable.jsp.summary">
         <source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
-				You would then use $name within the profile to substitute in the value.</source>
+                                You would then use $name within the profile to substitute in the value.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
         <target>kickstart ভেরিয়েবল ব্যবহার করে kickstart প্রোফাইলের মধ্যে মান পরিবর্তন করা যাবে।  নতুন ভেরিয়েবল ধার্য করার জন্য 'নাম=মান' বিন্যাসে নিম্নলিখিত বাক্স প্রয়োজনীয় তথ্য সংযোজন করুন।
-				প্রোফাইলের মধ্যে $name প্রয়োগ করে সংশ্লিষ্ট মান স্থাপন করা যাবে।</target>
+                                প্রোফাইলের মধ্যে $name প্রয়োগ করে সংশ্লিষ্ট মান স্থাপন করা যাবে।</target>
       </trans-unit>
       <trans-unit id="kickstarttree.variable.jsp.summary">
         <source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
@@ -10804,11 +10804,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>সমস্ত সিস্টেম দল প্রদর্শন</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.nogroups">
-        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt; আপনার কোনো সিস্টেম দল উপস্থিত নেই।&lt;/strong&gt;&lt;p&gt; আপনি &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;-এ নতুন সিস্টেম দল নির্মাণ করতে পারবেন।&lt;/p&gt;</target>
+        <target>&lt;strong&gt; আপনার কোনো সিস্টেম দল উপস্থিত নেই।&lt;/strong&gt;&lt;p&gt; আপনি &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;-এ নতুন সিস্টেম দল নির্মাণ করতে পারবেন।&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.scheduledactions">
         <source>Recently Scheduled Actions</source>
@@ -13120,7 +13120,7 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
           <context context-type="paramnotes">
 Tip: If you would like to deploy this file to a system not in this list, request a Configuration Administrator to subscribe the system to the _ConfigChan3_ configuration channel, then return to this screen.
-		  </context>
+                  </context>
         </context-group>
         <target>&lt;strong&gt;উপদেশ:&lt;/strong&gt; তালিকায় অনুপস্থিত কোনো সিস্টেমে এই ফাইলটি স্থাপন করার জন্য {0}-কে সিস্টেমটি {1} কনফিগারেশন চ্যানেলে সাবস্ক্রাইব করার অনুরোধ জানান ও এর পরে এই পর্দায় প্রত্যাবর্তন করুন।</target>
       </trans-unit>
@@ -13130,7 +13130,7 @@ Tip: If you would like to deploy this file to a system not in this list, request
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
           <context context-type="paramnotes">
 Tip: If you would like to deploy this file to a system not in this list, you'll need to first subscribe that system to the _Configgy_ configuration channel using the _'Target Systems' tab_ for that channel, then return to this screen.  Also, note that the target system must have provisioning entitlements.
-		  </context>
+                  </context>
         </context-group>
         <target>&lt;strong&gt;উপদেশ:&lt;/strong&gt; তালিকায় অনুপস্থিত সিস্টেমে এই ফাইলটি স্থাপন করতে ইচ্ছুক হলে সিস্টেমটি প্রথমে {0} কনফিগারেশন চ্যানেলে সাবস্ক্রাইব করা আবশ্যক। এর জন্য সংশ্লিষ্ট চ্যানেলের &lt;a href="{1}"&gt;'উদ্দিষ্ট সিস্টেম' ট্যাব&lt;/a&gt; ব্যবহার করুন ও এর পরে এই পর্দায় প্রত্যাবর্তন করুন।  উল্লেখ্য, উদ্দিষ্ট সিস্টেমের ক্ষেত্রে প্রভিশনিং এনটাইটেলমেন্টও উপস্থিত থাকা আবশ্যক।</target>
       </trans-unit>
@@ -13147,7 +13147,7 @@ Tip: If you would like to deploy this file to a system not in this list, you'll 
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
           <context context-type="paramnotes">
 You may grant provisioning entitlements _here_.
-		  </context>
+                  </context>
         </context-group>
         <target>&lt;a href="{0}"&gt;এই স্থান&lt;/a&gt; থেকে provisioning এনটাইটেলমেন্ট বিতরণ করা যাবে।</target>
       </trans-unit>
@@ -13176,7 +13176,7 @@ You may grant provisioning entitlements _here_.
       </trans-unit>
       <trans-unit id="deploylocal.jspf.local">
         <source>
-	You can deploy the latest revision (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) of this file to &lt;a href="{3}"&gt;{2}&lt;/a&gt; - this file is part of that system's locally-managed config channel.
+        You can deploy the latest revision (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) of this file to &lt;a href="{3}"&gt;{2}&lt;/a&gt; - this file is part of that system's locally-managed config channel.
 </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
@@ -13274,9 +13274,9 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeploy.do</context>
           <context context-type="paramnotes">
-		You can deploy the latest revision of this file (_Revision 7_) of this file to any of the systems subscribed to this file's
-		centrally-managed configuration channel, _@@PRODUCT_NAME@@Config_; below is a list of systems you may deploy this file to.
-		  </context>
+                You can deploy the latest revision of this file (_Revision 7_) of this file to any of the systems subscribed to this file's
+                centrally-managed configuration channel, _@@PRODUCT_NAME@@Config_; below is a list of systems you may deploy this file to.
+                  </context>
         </context-group>
         <target/>
       </trans-unit>
@@ -13457,8 +13457,8 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
           <context context-type="paramnotes">
-		    Revision 7 of /etc/sysconfig/rhn/up2date from channel _@@PRODUCT_NAME@@Config_
-		  </context>
+                    Revision 7 of /etc/sysconfig/rhn/up2date from channel _@@PRODUCT_NAME@@Config_
+                  </context>
         </context-group>
         <target>&lt;a href="{3}"&gt;{2}&lt;/a&gt; চ্যানেল থেকে প্রাপ্ত {0}-র {1} পরিমার্জিত সংস্করণ</target>
       </trans-unit>
@@ -13489,8 +13489,8 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
           <context context-type="paramnotes">
-				&lt;strong&gt;Tip:&lt;/strong&gt; Please note that the maximum allowed size for configuration files is &lt;strong&gt;128K&lt;/strong&gt;.
-			</context>
+                                &lt;strong&gt;Tip:&lt;/strong&gt; Please note that the maximum allowed size for configuration files is &lt;strong&gt;128K&lt;/strong&gt;.
+                        </context>
         </context-group>
         <target>&lt;strong&gt;উপদেশ:&lt;/strong&gt; উল্লেখ্য কনফিগারেশন ফাইলের জন্য সর্বাধিক অনুমোদিত মাপ হল &lt;strong&gt;{0}&lt;/strong&gt;।</target>
       </trans-unit>
@@ -13557,8 +13557,8 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">
-			  Error "Invalid I/O Operation" attempting to download file /etc/sysconfig/rhn/up2date
-		  </context>
+                          Error "Invalid I/O Operation" attempting to download file /etc/sysconfig/rhn/up2date
+                  </context>
         </context-group>
         <target>ত্রুটি "{0}" ফাইল {1} ডাউনলোড প্রচেষ্টাকালে</target>
       </trans-unit>
@@ -13817,7 +13817,7 @@ You can, however, download this file, edit it locally on your computer, and uplo
           <context context-type="paramnotes">
 You can't edit this file here because it is too large (files must be less than &lt;strong&gt;32K&lt;/strong&gt; to be editable in this form).
 You can, however, download this file, edit it locally on your computer, and upload your changes here.
-		  </context>
+                  </context>
         </context-group>
         <target/>
       </trans-unit>
@@ -13831,7 +13831,7 @@ You can, however, download this file.
           <context context-type="paramnotes">
 This file is too large to display here. (files must be less than &lt;strong&gt;32K&lt;/strong&gt; to be displayed).
 You can, however, download this file.
-		  </context>
+                  </context>
         </context-group>
         <target/>
       </trans-unit>
@@ -13850,7 +13850,7 @@ You can, however, download this file.
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">
 _Download /etc/sysconfig/rhn/up2date_ (Revision 7, 96 bytes)
-		  </context>
+                  </context>
         </context-group>
         <target/>
       </trans-unit>
@@ -13952,8 +13952,8 @@ any of these revisions.  Are you sure you want to do this?</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/ManageRevisions.do</context>
           <context context-type="paramnotes">
-			  File /etc/sig successfully deleted
-		  </context>
+                          File /etc/sig successfully deleted
+                  </context>
         </context-group>
         <target>{0} ফাইল সাফল্যের সাথে মুছে ফেলা হয়েছে।</target>
       </trans-unit>
@@ -17692,7 +17692,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/details/Overview.do</context>
           <context context-type="paramnotes">{0} - Ping status, will be either online or offline
-		                                   This string will be followed by a date in a localized format</context>
+                                                   This string will be followed by a date in a localized format</context>
         </context-group>
         <target>{0} তারিখে</target>
       </trans-unit>
@@ -18411,7 +18411,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 
 
 
-	</group>
+        </group>
       <!-- download-ISOs pages -->
       <group>
         <!-- common -->
@@ -19554,7 +19554,7 @@ Below is a list of channels in your organization.
 As a Channel Administrator, you may change the base channels your systems are subscribed to. Valid channels are either channels created by your organization, or the default Red Hat base channel for your operating system version and processor type. Systems will be unsubscribed from all channels, and subscribed to their new base channels.
 &lt;p/&gt;
 &lt;strong&gt;This operation can have a dramatic effect on the packages and errata available to the systems, and should be used with caution.&lt;/strong&gt;
-	</source>
+        </source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/channel/ssm/BaseChannelSubscribe.do</context>
           </context-group>
@@ -20136,17 +20136,17 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.remove">
         <source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.
-		</source>
+                </source>
         <target/>
       </trans-unit>
       <trans-unit id="channel.jsp.details.title">
         <source>Details
-		</source>
+                </source>
         <target/>
       </trans-unit>
       <trans-unit id="channel.jsp.package.removesuccess">
         <source>{0} package(s) removed from channel {1}
-		</source>
+                </source>
         <target/>
       </trans-unit>
       <trans-unit id="channel.jsp.package.removebutton">
@@ -20183,7 +20183,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addsuccess">
         <source>{0} package(s) added to channel {1}
-		</source>
+                </source>
         <target/>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addbutton">
@@ -20201,10 +20201,10 @@ given channel.</source>
       <trans-unit id="channel.jsp.package.addmessage">
         <source>Below is the list of packages you can add to this channel. The "Channel" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
 
-			Only packages of a compatible arch will be shown</source>
+                        Only packages of a compatible arch will be shown</source>
         <target>নিম্নলিখিত তালিকায় উল্লিখিত প্যাকেজগুলি এই চ্যানেলের মধ্যে যোগ করা সম্ভব। "চ্যানেল" নির্বাচন বাক্সের সাহায্যে আপনি উপলব্ধ প্যাকেজের সংখ্যা সীমাবদ্ধ করতে সক্ষম হবেন। এই চ্যানেলের মধ্যে প্যাকেজ যোগ করতে হলে সেগুলি নির্বাচন করে নীচে
 
-			অবস্থিত 'প্যাকেজ যোগ করুন' ক্লিক করুন।</target>
+                        অবস্থিত 'প্যাকেজ যোগ করুন' ক্লিক করুন।</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.add.confirm.title">
         <source>Confirm Package Addition</source>
@@ -20212,7 +20212,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.add.confirm.msg">
         <source>Below is the list of packages which you have selected to add to this channel. Adding a package to this channel does not automatically affect the systems which are subscribed to it, or the errata which are applicable to it.
-		</source>
+                </source>
         <target/>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addtitle">
@@ -20310,10 +20310,10 @@ given channel.</source>
       <trans-unit id="channel.jsp.manage.package.remove.message">
         <source>Are you certain you want to delete these packages?
 
-			This process can take several seconds. Be patient and do not click the button below more than once.</source>
+                        This process can take several seconds. Be patient and do not click the button below more than once.</source>
         <target>আপনি কি নিশ্চিতরূপে এই প্যাকেজগুলি মুছে ফেলতে ইচ্ছুক?
 
-			এই প্রক্রিয়া সমাপ্ত হলে বেশ কিছু সেকেন্ড ব্যয় হতে পারে। অনুগ্রহ করে অপেক্ষা করুন ও নীচের বাটনটি একবারের বেশি ক্লিক করবেন না।</target>
+                        এই প্রক্রিয়া সমাপ্ত হলে বেশ কিছু সেকেন্ড ব্যয় হতে পারে। অনুগ্রহ করে অপেক্ষা করুন ও নীচের বাটনটি একবারের বেশি ক্লিক করবেন না।</target>
       </trans-unit>
       <trans-unit id="baddownload.jsp.title">
         <source>File Download Failed</source>
@@ -21079,7 +21079,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.sync.message">
         <source>The following errata were cloned from errata that have since been updated.
-		   This page will allow you to syncronize your cloned errata to that of its original.</source>
+                   This page will allow you to syncronize your cloned errata to that of its original.</source>
         <target/>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.sync.note">

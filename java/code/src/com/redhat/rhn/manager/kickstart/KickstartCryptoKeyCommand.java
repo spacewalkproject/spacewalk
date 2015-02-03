@@ -20,8 +20,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.crypto.NoSuchCryptoKeyException;
 
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -46,10 +45,8 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
      * based on the Long IDs passed in on the list.
      * @param ids to add
      */
-    public void addKeysByIds(List ids) {
-        Iterator i = ids.iterator();
-        while (i.hasNext()) {
-            Long id = (Long) i.next();
+    public void addKeysByIds(List<Long> ids) {
+        for (Long id : ids) {
             CryptoKey key = KickstartFactory.lookupCryptoKeyById(id, this.user.getOrg());
             ksdata.addCryptoKey(key);
         }
@@ -62,9 +59,8 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
      * @param descriptions identifies all of the keys to associate
      * @param org          org in which the keys are located
      */
-    public void addKeysByDescriptionAndOrg(List descriptions, Org org) {
-        for (Iterator it = descriptions.iterator(); it.hasNext();) {
-            String description = (String)it.next();
+    public void addKeysByDescriptionAndOrg(List<String> descriptions, Org org) {
+        for (String description : descriptions) {
             CryptoKey key = KickstartFactory.lookupCryptoKey(description, org);
             if (key == null) {
                 throw new NoSuchCryptoKeyException(description);
@@ -80,9 +76,8 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
      * @param descriptions identifies all of the keys to associate
      * @param org          org in which the keys are located
      */
-    public void removeKeysByDescriptionAndOrg(List descriptions, Org org) {
-        for (Iterator it = descriptions.iterator(); it.hasNext();) {
-            String description = (String)it.next();
+    public void removeKeysByDescriptionAndOrg(List<String> descriptions, Org org) {
+        for (String description : descriptions) {
             CryptoKey key = KickstartFactory.lookupCryptoKey(description, org);
             ksdata.removeCryptoKey(key);
         }
@@ -93,10 +88,8 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
      * in a List of Long ids.
      * @param ids List of Long crypto key  IDs.
      */
-    public void removeKeysById(List ids) {
-        Iterator i = ids.iterator();
-        while (i.hasNext()) {
-            Long id = (Long) i.next();
+    public void removeKeysById(List<Long> ids) {
+        for (Long id : ids) {
             CryptoKey key = KickstartFactory.lookupCryptoKeyById(id, this.user.getOrg());
             ksdata.removeCryptoKey(key);
         }
@@ -107,11 +100,11 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
      * EMPTY_SET if null/undefined.
      * @return Set of CryptoKeys
      */
-    public Set getCryptoKeys() {
+    public Set<CryptoKey> getCryptoKeys() {
         if (ksdata.getCryptoKeys() != null) {
             return ksdata.getCryptoKeys();
         }
-        return Collections.EMPTY_SET;
+        return new HashSet<CryptoKey>();
     }
 
 }

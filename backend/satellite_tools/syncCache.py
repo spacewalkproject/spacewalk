@@ -12,7 +12,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-#Mechanism to persistently cache sync info (mostly post-parsed(XML)
+# Mechanism to persistently cache sync info (mostly post-parsed(XML)
 #    package objects).
 #
 
@@ -27,8 +27,10 @@ from spacewalk.common.rhnLib import hash_object_id
 # NOTE: this is a python 2.2-ism
 __all__ = []
 
+
 class BaseCache:
     _compressed = 1
+
     def __init__(self):
         # Kind of kludgy - this may have weird side-effects if called from
         # within the server code
@@ -38,13 +40,13 @@ class BaseCache:
         # Get the key
         key = self._get_key(object_id)
         return rhnCache.get(key, modified=timestamp, raw=0,
-            compressed=self._compressed)
+                            compressed=self._compressed)
 
     def cache_set(self, object_id, value, timestamp=None):
         # Get the key
         key = self._get_key(object_id)
         return rhnCache.set(key, value, modified=timestamp, raw=0,
-            compressed=self._compressed)
+                            compressed=self._compressed)
 
     def cache_has_key(self, object_id, timestamp=None):
         # Get the key
@@ -54,42 +56,53 @@ class BaseCache:
     def _get_key(self, object_id):
         raise NotImplementedError()
 
+
 class ChannelCache(BaseCache):
+
     def _get_key(self, object_id):
         return os.path.join("satsync", "channels", str(object_id))
 
+
 class BasePackageCache(BaseCache):
     _subdir = "__unknown__"
+
     def _get_key(self, object_id):
         hash_val = hash_object_id(object_id, 2)
         return os.path.join("satsync", self._subdir, hash_val, str(object_id))
+
 
 class ShortPackageCache(BasePackageCache):
     _subdir = "short-packages"
     _compressed = 0
 
+
 class PackageCache(BasePackageCache):
     _subdir = "packages"
+
 
 class SourcePackageCache(BasePackageCache):
     _subdir = "source-packages"
 
+
 class ErratumCache(BaseCache):
     _subdir = "errata"
+
     def _get_key(self, object_id):
         hash_val = hash_object_id(object_id, 1)
         return os.path.join("satsync", self._subdir, hash_val, str(object_id))
 
+
 class KickstartableTreesCache(BaseCache):
     _subdir = "kickstartable-trees"
+
     def _get_key(self, object_id):
         return os.path.normpath(os.path.join("satsync", self._subdir,
-            object_id))
+                                             object_id))
 
 if __name__ == '__main__':
     from spacewalk.common.rhnConfig import initCFG
     initCFG("server.satellite")
     c = PackageCache()
     pid = 'package-12345'
-    c.cache_set(pid, {'a' : 1, 'b' : 2})
+    c.cache_set(pid, {'a': 1, 'b': 2})
     print c.cache_get(pid)

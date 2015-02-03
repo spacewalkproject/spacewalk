@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 # errata - DB layer
@@ -378,8 +378,8 @@ EOQ
 
   $sth = $dbh->prepare($query);
   $sth->execute_h(errata_id => $self->id,
-		  org_id => $org_id,
-		 );
+                  org_id => $org_id,
+                 );
 
   my @ret;
 
@@ -737,20 +737,20 @@ EOQ
     $row->{PATH} =~ s|^redhat/linux/||;
 
     $ef_insert_sth->execute_h(id => $row->{ID},
-			      eid => $self->id,
-			      type => $row->{TYPE_ID},
-			      md5sum => $row->{MD5SUM},
-			      filename => $row->{PATH});
+                              eid => $self->id,
+                              type => $row->{TYPE_ID},
+                              md5sum => $row->{MD5SUM},
+                              filename => $row->{PATH});
 
     $efp_insert_sth->execute_h(ef_id => $row->{ID},
-			       pid => $row->{PACKAGE_ID});
+                               pid => $row->{PACKAGE_ID});
 
     $channel_select_sth->execute_h(pid => $row->{PACKAGE_ID},
-				   eid => $self->id);
+                                   eid => $self->id);
 
     while (my $channel = $channel_select_sth->fetchrow_hashref) {
       $efc_insert_sth->execute_h(ef_id => $row->{ID},
-				 cid => $channel->{ID});
+                                 cid => $channel->{ID});
     }
   }
 

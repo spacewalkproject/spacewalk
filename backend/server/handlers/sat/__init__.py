@@ -16,11 +16,12 @@
 
 __all__ = []
 
-import auth, cert
+import auth
+import cert
 
 rpcClasses = {
-        'authentication'    :   auth.Authentication,
-        'certificate'       :   cert.Certificate,
-    }
+    'authentication':   auth.Authentication,
+    'certificate':   cert.Certificate,
+}
 
 getHandler = None

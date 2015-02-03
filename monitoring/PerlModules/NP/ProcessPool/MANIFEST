@@ -1,8 +1,0 @@
-Makefile.PL
-MANIFEST
-Process.pm
-ProcessPool.pm
-README
-test.pl
-test/tst-ppool.pl 
-

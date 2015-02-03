@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -31,119 +31,119 @@ use RHN::Kickstart::Volgroups;
 use RHN::Kickstart::Password;
 
 my %valid_commands = (autostep => { optional => 1,
-				    args => 0,
-				  },
-		      auth => { optional => 0,
-			        args => 1,
-			      },
-		      bootloader => { optional => 0,
-				      args => 1,
-				    },
-		      cdrom => { optional => 1,
-			         args => 0,
-			       },
-		      clearpart => { optional => 1,
-				     args => 1,
-				   },
-		      device => { optional => 1,
-				  args => 1,
-				},
-		      deviceprobe => { optional => 1,
-				       args => 0,
-				     },
-		      driverdisk => { optional => 1,
-				      args => 1,
-				    },
-		      firewall => { optional => 1,
-				    args => 1,
-				  },
-		      harddrive => { optional => 1,
-				     args => 1,
-				   },
-		      install => { optional => 1,
-				   args => 0,
-				 },
-		      interactive => { optional => 1,
-				       args => 0,
-				     },
-		      keyboard => { optional => 0,
-				    args => 1,
-				  },
-		      lang => { optional => 0,
-			        args => 1,
-			      },
-		      langsupport => { optional => 0,
-				       args => 1,
-				     },
-		      lilocheck => { optional => 1,
-				     args => 0,
-				   },
-		      mouse => { optional => 0,
-			         args => 1,
-			       },
-		      network => { optional => 1,
-				   args => 1,
-				 },
-		      nfs => { optional => 1,
-			       args => 1,
-			     },
-		      partitions => { optional => 1,
-				      isa => 'RHN::Kickstart::Partitions',
-				      args => 1,
-				    },
-		      volgroups => { optional => 1,
-				    isa => 'RHN::Kickstart::Volgroups',
-				    args => 1,
-				  },
-		      logvols => { optional => 1,
-				  isa => 'RHN::Kickstart::Logvols',
-				  args => 1,
-				},
-		      raids => { optional => 1,
-				 isa => 'RHN::Kickstart::Raids',
-				 args => 1,
-			      },
-		      include => { optional => 1,
-				 isa => 'RHN::Kickstart::Include',
-				 args => 1,
-			      },
-		      key => { optional => 1,
-				 args => 1,
-			      },			      
-		      reboot => { optional => 1,
-				  args => 0,
-				},
-		      repo => { optional => 1,
-				  args => 2,
-				},				
-		      rootpw => { optional => 0,
-				  args => 1,
-				},
-		      selinux => { optional => 1,
-				   args => 1,
-				 },
-		      skipx => { optional => 1,
-			         args => 0,
-			       },
-		      text => { optional => 1,
-			        args => 0,
-			      },
-		      timezone => { optional => 0,
-				    args => 1,
-				  },
-		      upgrade => { optional => 1,
-				   args => 0,
-				 },
-		      url => { optional => 1,
-			       args => 1,
-			     },
-		      xconfig => { optional => 1,
-				   args => 1,
-				 },
-		      zerombr => { optional => 1,
-				   args => 1,
-				 },
-		     );
+                                    args => 0,
+                                  },
+                      auth => { optional => 0,
+                                args => 1,
+                              },
+                      bootloader => { optional => 0,
+                                      args => 1,
+                                    },
+                      cdrom => { optional => 1,
+                                 args => 0,
+                               },
+                      clearpart => { optional => 1,
+                                     args => 1,
+                                   },
+                      device => { optional => 1,
+                                  args => 1,
+                                },
+                      deviceprobe => { optional => 1,
+                                       args => 0,
+                                     },
+                      driverdisk => { optional => 1,
+                                      args => 1,
+                                    },
+                      firewall => { optional => 1,
+                                    args => 1,
+                                  },
+                      harddrive => { optional => 1,
+                                     args => 1,
+                                   },
+                      install => { optional => 1,
+                                   args => 0,
+                                 },
+                      interactive => { optional => 1,
+                                       args => 0,
+                                     },
+                      keyboard => { optional => 0,
+                                    args => 1,
+                                  },
+                      lang => { optional => 0,
+                                args => 1,
+                              },
+                      langsupport => { optional => 0,
+                                       args => 1,
+                                     },
+                      lilocheck => { optional => 1,
+                                     args => 0,
+                                   },
+                      mouse => { optional => 0,
+                                 args => 1,
+                               },
+                      network => { optional => 1,
+                                   args => 1,
+                                 },
+                      nfs => { optional => 1,
+                               args => 1,
+                             },
+                      partitions => { optional => 1,
+                                      isa => 'RHN::Kickstart::Partitions',
+                                      args => 1,
+                                    },
+                      volgroups => { optional => 1,
+                                    isa => 'RHN::Kickstart::Volgroups',
+                                    args => 1,
+                                  },
+                      logvols => { optional => 1,
+                                  isa => 'RHN::Kickstart::Logvols',
+                                  args => 1,
+                                },
+                      raids => { optional => 1,
+                                 isa => 'RHN::Kickstart::Raids',
+                                 args => 1,
+                              },
+                      include => { optional => 1,
+                                 isa => 'RHN::Kickstart::Include',
+                                 args => 1,
+                              },
+                      key => { optional => 1,
+                                 args => 1,
+                              },
+                      reboot => { optional => 1,
+                                  args => 0,
+                                },
+                      repo => { optional => 1,
+                                  args => 2,
+                                },
+                      rootpw => { optional => 0,
+                                  args => 1,
+                                },
+                      selinux => { optional => 1,
+                                   args => 1,
+                                 },
+                      skipx => { optional => 1,
+                                 args => 0,
+                               },
+                      text => { optional => 1,
+                                args => 0,
+                              },
+                      timezone => { optional => 0,
+                                    args => 1,
+                                  },
+                      upgrade => { optional => 1,
+                                   args => 0,
+                                 },
+                      url => { optional => 1,
+                               args => 1,
+                             },
+                      xconfig => { optional => 1,
+                                   args => 1,
+                                 },
+                      zerombr => { optional => 1,
+                                   args => 1,
+                                 },
+                     );
 
 our @simple_struct_fields = keys %valid_commands;
 
@@ -174,7 +174,7 @@ sub rootpw {
   if ($word) {
     if (ref $word ne 'RHN::Kickstart::Password') {
       if (ref $word eq 'ARRAY') {
-	($word) = $word->[0];
+        ($word) = $word->[0];
       }
       $word = RHN::Kickstart::Password->new($word);
     }
@@ -199,7 +199,7 @@ sub render {
     my $value = $self->render_command($field);
     if ($value) {
       unless (grep { $field eq $_ } qw/rootpw partitions raids volgroups logvols include/) {
-	$value = $field . " " . $value;
+        $value = $field . " " . $value;
       }
     }
     elsif (defined $value) {
@@ -256,10 +256,10 @@ sub export {
 
     if (not ref $value) {
       if ($value) {
-	push @ret, [$field, $value];
+        push @ret, [$field, $value];
       }
       else {
-	push @ret, [$field, undef];
+        push @ret, [$field, undef];
       }
     }
     elsif (ref $value eq 'ARRAY') {
@@ -268,7 +268,7 @@ sub export {
     elsif ($value->can('export')) {
       my @rows = $value->export;
       foreach my $row ($value->export) {
-	push @ret, [ $field, $row ];
+        push @ret, [ $field, $row ];
       }
     }
     else {
@@ -288,7 +288,7 @@ sub set {
   @args = grep { $_ !~ qr/$field/ } @args;
 
   $self->$field(\@args);
-  
+
   return;
 }
 

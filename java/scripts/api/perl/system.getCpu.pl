@@ -33,7 +33,7 @@ print $dmi->{'vendor'}."\n";
 print $dmi->{'arch_name'}."\n";
 print $dmi->{'stepping'}."\n";
 print "\n";
- 
+
 
 
 

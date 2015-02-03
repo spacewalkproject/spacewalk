@@ -16,19 +16,22 @@
 
 import types
 
+
 class RequestedChannels:
+
     """Bookkeeping of the state of various channels
     Argument to constructor is the list of requested channels
     """
     # Simplify the getters/setters/resetters
     __lists = [
-        '_requested_imported', # requested and previously imported
-        '_requested_new', # requested and NOT previously imported
-        '_requested_channels', # Union of the above two
-        '_not_requested', # not requested but available channels
-        '_end_of_service', # requested, once available, but no longer supported
-        '_typos', # requested, but probably a typo
+        '_requested_imported',  # requested and previously imported
+        '_requested_new',  # requested and NOT previously imported
+        '_requested_channels',  # Union of the above two
+        '_not_requested',  # not requested but available channels
+        '_end_of_service',  # requested, once available, but no longer supported
+        '_typos',  # requested, but probably a typo
     ]
+
     def __init__(self, requested=()):
         # All the requested channels
         self._requested = {}
@@ -152,8 +155,10 @@ class RequestedChannels:
             return Method(name[5:], self._reset)
         raise AttributeError(name)
 
+
 class Method:
     # pylint: disable=R0903
+
     def __init__(self, name, func):
         self._func = func
         self._name = name
@@ -163,6 +168,7 @@ class Method:
 
 # Test functions
 
+
 def _verify_expectations(c, expectations):
     for k, expected in expectations.items():
         method_name = 'get' + k
@@ -171,7 +177,7 @@ def _verify_expectations(c, expectations):
             print "ok: %s = %s" % (method_name, expected)
         else:
             print "FAILED: %s: expected %s, got %s" % (method_name, expected,
-                val)
+                                                       val)
 
 
 def test1(requested, available, imported, expectations):
@@ -186,6 +192,7 @@ def test1(requested, available, imported, expectations):
     c.compute()
     _verify_expectations(c, expectations)
 
+
 def test2(requested, available, imported, expectations):
     c = RequestedChannels(requested)
     # Available channels
@@ -196,17 +203,18 @@ def test2(requested, available, imported, expectations):
     c.compute()
     _verify_expectations(c, expectations)
 
+
 def test():
     requested = ['a', 'b', 'c', 'd']
     available = ['a', 'd', 'e', 'f']
     imported = ['d', 'e', 'h']
     expectations = {
-        '_requested_imported'   : ['d'],
-        '_requested_new'        : ['a'],
-        '_not_requested'        : ['e', 'f'],
-        '_end_of_service'       : ['h'],
-        '_typos'                : ['b', 'c'],
-        '_requested_channels'   : ['a', 'd'],
+        '_requested_imported': ['d'],
+        '_requested_new': ['a'],
+        '_not_requested': ['e', 'f'],
+        '_end_of_service': ['h'],
+        '_typos': ['b', 'c'],
+        '_requested_channels': ['a', 'd'],
     }
     print "Running test1"
     test1(requested, available, imported, expectations)

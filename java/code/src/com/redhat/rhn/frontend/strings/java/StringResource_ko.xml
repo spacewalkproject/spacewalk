@@ -2087,24 +2087,24 @@ available for this kickstart profile to function properly.
 &lt;p&gt;이 문제를 해결하려면 다음 사항을 확인하십시오:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-이 킥스타트 프로파일의 기본 채널에 대한 'rhn-tools' 자식 소프트웨어 채널을 
+이 킥스타트 프로파일의 기본 채널에 대한 'rhn-tools' 자식 소프트웨어 채널을
 조직에서 사용할 수 있습니까? 사용할 수 없는 경우 @@PRODUCT_NAME@@ 관리자로 부터
-'rhn-tools' 소프트웨어 채널의 인타이틀먼트를 요청해야 합니다. 
+'rhn-tools' 소프트웨어 채널의 인타이틀먼트를 요청해야 합니다.
 &lt;/li&gt;
 &lt;li&gt;
 이 킥스타트 프로파일의 기본 채널에 대한 'rhn-tools' 자식 채널을 @@PRODUCT_NAME@@에서
 사용할 수 있는지 확인하십시오. 사용할 수 없는 경우 satellite 관리자에게 문의하여
-rhn-tools 채널의 satellite 동기화를 요청하고 다시 시도해야 
-합니다.  
+rhn-tools 채널의 satellite 동기화를 요청하고 다시 시도해야
+합니다.
 &lt;/li&gt;
 &lt;li&gt;
-이 킥스타트에 해당하는 rhn-kickstart* 패키지를 킥스타트의 기본 채널의 
-'rhn-tools' 채널에서 사용할 수 있는지 확인하십시오 사용할 수 없는 경우, 
-킥스타트 프로파일이 올바르게 작동하도록 하기 위해 이를 사용 가능하게 해야 합니다. 
+이 킥스타트에 해당하는 rhn-kickstart* 패키지를 킥스타트의 기본 채널의
+'rhn-tools' 채널에서 사용할 수 있는지 확인하십시오 사용할 수 없는 경우,
+킥스타트 프로파일이 올바르게 작동하도록 하기 위해 이를 사용 가능하게 해야 합니다.
 &lt;/li&gt;
 &lt;li&gt;
-위에 나열된 패키지를 킥스타트의 기본 채널에서 사용할 수 있습니까? 사용할 수 없는 경우 킥스타트 프로파일이 올바르게 
-작동하도록 하기 위해 이를 사용 가능하게 해야 합니다.  
+위에 나열된 패키지를 킥스타트의 기본 채널에서 사용할 수 있습니까? 사용할 수 없는 경우 킥스타트 프로파일이 올바르게
+작동하도록 하기 위해 이를 사용 가능하게 해야 합니다.
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
@@ -9120,8 +9120,8 @@ for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.
         </source>
         <target>
-Spacewalk이 킥스타트 배포판을 Spacewalk에서 Cobbler로 
-동기화하려고 할 때 수집된 오류 목록은 다음과 같습니다. 이러한 
+Spacewalk이 킥스타트 배포판을 Spacewalk에서 Cobbler로
+동기화하려고 할 때 수집된 오류 목록은 다음과 같습니다. 이러한
 오류는시스템의 킥스타트 배포판을 사용하기 위해 수정해야 합니다:
 
 {0}
@@ -9132,7 +9132,7 @@ Spacewalk이 킥스타트 배포판을 Spacewalk에서 Cobbler로
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
-이러한 오류를 해결하지 않으면 킥스타트 트리를 킥스타트에 
+이러한 오류를 해결하지 않으면 킥스타트 트리를 킥스타트에
 사용할 수 없게 됩니다.
         </target>
       </trans-unit>

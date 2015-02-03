@@ -45,7 +45,7 @@ while (1 == 1) {
 sub loop_pages {
     my $cnt = 0;
     while (1 == 1) {
-        
+
         my $output = hit_page("https://$server/help/about.pxt");
         $output = hit_page("https://$server/rhn/Login.do");
         #$output = hit_page("https://$server/rhn/schedule/PendingActions.do");
@@ -56,7 +56,7 @@ sub loop_pages {
         #    die "expected id:\n$id\n$output\n";
         #}
         #$output = hit_page("https://$server/rhn/errata/details/Details.do?eid=2790", $cookie);
-        $cnt++;        
+        $cnt++;
     }
 }
 
@@ -95,8 +95,8 @@ sub get_userid_from_cookies {
         $user_id = $temp[1];
         #print "ID: $user_id\n";
     }
-  }  
-  
+  }
+
   return $user_id;
 }
 
@@ -114,6 +114,6 @@ sub get_sessionid_from_cookies {
         @temp = split("=", $temp[1]);
         $session_id = $temp[1];
     }
-  }  
+  }
   return $session_id;
 }

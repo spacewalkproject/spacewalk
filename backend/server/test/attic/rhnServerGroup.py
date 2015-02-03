@@ -19,16 +19,21 @@ import types
 
 from spacewalk.server import rhnSQL, rhnUser
 
+
 class InvalidUserError(Exception):
     pass
+
 
 class InvalidOrgError(Exception):
     pass
 
+
 class InvalidServerGroupError(Exception):
     pass
 
+
 class ServerGroup:
+
     def __init__(self):
         self._row_server_group = None
 
@@ -38,6 +43,7 @@ class ServerGroup:
          where org_id = :org_id
            and name = :name
     """)
+
     def load(self, org_id, name):
         org_id = self._lookup_org_id(org_id)
         h = rhnSQL.prepare(self._query_lookup)
@@ -95,7 +101,9 @@ class ServerGroup:
             return CallableObj(name[4:], self._set)
         raise AttributeError(name)
 
+
 class CallableObj:
+
     def __init__(self, name, func):
         self.func = func
         self.name = name
@@ -103,12 +111,13 @@ class CallableObj:
     def __call__(self, *args, **kwargs):
         return self.func(self.name, *args, **kwargs)
 
+
 def create_new_org(username, password):
     f = rhnSQL.Procedure('create_new_org')
 
     username = rhnSQL.types.STRING(username)
     password = rhnSQL.types.STRING(password)
-    ncl      = rhnSQL.types.NUMBER
+    ncl = rhnSQL.types.NUMBER
 
     ret = f(username, password, ncl())
     return int(ret[2])

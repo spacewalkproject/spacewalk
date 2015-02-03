@@ -7,14 +7,14 @@
 <html>
     <head>
         <script language="javascript">
-            Event.observe(window, 'load', function() {
+            jQuery(window).load(function() {
                 scanDateSearchOptions();
             });
             function scanDateSearchOptions() {
-                if ($("scanDateOptionsCheckBox").checked) {
-                    Element.show("scanDateOptions");
+                if (document.getElementById("scanDateOptionsCheckBox").checked) {
+                    jQuery("#scanDateOptions").show();
                 } else {
-                    Element.hide("scanDateOptions");
+                    jQuery("#scanDateOptions").hide();
                 }
             }
         </script>

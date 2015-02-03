@@ -9,9 +9,9 @@ create-api-test - creates python xmlrpc api testcase
 dumpnavtree.sh - dumps the nav tree given a nav*.xml file
 gen-eclipse.py - generates eclipse .classpath file (should be renamed)
 jarsearch.sh - searches a directory of jars for a specific class
-java-create-page.pl - 
-java-map-hibernate-table.pl - 
-java-xliff-csv.pl - 
+java-create-page.pl -
+java-map-hibernate-table.pl -
+java-xliff-csv.pl -
 loadnouser.pl - multithreaded load test for rhn with NO user
 lwload.pl - multithreaded load test for rhn
 maketar.sh - creates a tarball of the rhn-java code for use in building
@@ -20,7 +20,7 @@ refreshi18n.sh -  ???
 refreshRHNdocs.sh -  ???
 sat-scrub.pl - scrubs a satellite test db
 slocc.sh - counts lines of code, comments, and prints their ratios
-taskomatic - 
+taskomatic -
 unnecessaryElse.pl - removes unnecessary else blocks from java files.
 unreadField.pl - removes unused private member varialbes from java files.
 unusedLocal.pl - removes unused local variables from java files.

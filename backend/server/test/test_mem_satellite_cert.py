@@ -16,11 +16,13 @@ import sys
 from spacewalk.common import rhn_memusage
 from spacewalk.server.rhnServer import satellite_cert
 
+
 def main():
     for i in range(1000):
         if not (i % 100):
             print rhn_memusage.mem_usage()
         test()
+
 
 def test():
     c = satellite_cert.SatelliteCert()

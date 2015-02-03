@@ -888,8 +888,8 @@ Generating the web server's SSL key set and CA SSL public certificate archive:
 
     if ret or not os.path.exists(tarballFilepath):
         raise GenServerTarException(
-	  "CA SSL public certificate & web server's SSL key set tar archive\n"
-	  "generation failed:\n%s\n%s" % (out, err))
+          "CA SSL public certificate & web server's SSL key set tar archive\n"
+          "generation failed:\n%s\n%s" % (out, err))
     if verbosity > 2:
         if out:
             print "STDOUT:", out

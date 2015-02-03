@@ -1,69 +1,69 @@
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"	prefix="decorator"%>
-<%@ taglib uri="http://struts.apache.org/tags-html"	prefix="html"%>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator"%>
+<%@ taglib uri="http://struts.apache.org/tags-html"     prefix="html"%>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:choose>
-	<c:when test="${file.latestConfigRevision.directory}">
-		<c:choose>
-			<c:when test="${deleting}">
-				<rhn:toolbar base="h1" img="/img/folder-config.png" imgAlt="config.common.dirAlt"
-					helpUrl="">
-					<bean:message key="filedetails.manage_header.jspf.label"
-						arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${channel.displayName}"
-						arg2="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}" />
-				</rhn:toolbar>
-			</c:when>
-			<c:otherwise>
-				<rhn:toolbar base="h1" img="/img/folder-config.png" imgAlt="config.common.dirAlt"
-					helpUrl=""
-					deletionUrl="/rhn/configuration/file/DeleteFile.do?cfid=${file.id}"
-					deletionType="deletefile"
-					deletionAcl="config_channel_editable(${channel.id})"
-					aclMixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-					<bean:message key="filedetails.manage_header.jspf.label"
-						arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${channel.displayName}"
-						arg2="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}" />
-				</rhn:toolbar>
-			</c:otherwise>
-		</c:choose>
-	</c:when>
-	<c:otherwise>
-		<c:choose>
-			<c:when test="${deleting}">
-				<rhn:toolbar base="h1" icon="header-configuration" imgAlt="config.common.fileAlt"
-					helpUrl=""
-					miscUrl="/rhn/configuration/file/FileDownload.do?crid=${file.latestConfigRevision.id}&amp;cfid=${file.id}"
-					miscIcon="item-download"
-					miscText="filedetails.header.jspf.download_latest"
-					miscAlt="filedetails.header.jspf.download_latest"
-					aclMixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-					<bean:message key="filedetails.manage_header.jspf.label"
-						arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${channel.displayName}"
-						arg2="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}" />
-				</rhn:toolbar>
-			</c:when>
-			<c:otherwise>
-				<rhn:toolbar base="h1" icon="header-configuration" imgAlt="config.common.fileAlt"
-					helpUrl=""
-					deletionUrl="/rhn/configuration/file/DeleteFile.do?cfid=${file.id}"
-					deletionType="deletefile"
-					deletionAcl="config_channel_editable(${channel.id})"
-					miscUrl="/rhn/configuration/file/FileDownload.do?crid=${file.latestConfigRevision.id}&amp;cfid=${file.id}"
-					miscIcon="item-download"
-					miscText="filedetails.header.jspf.download_latest"
-					miscAlt="filedetails.header.jspf.download_latest"
-					aclMixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-					<bean:message key="filedetails.manage_header.jspf.label"
-						arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${channel.displayName}"
-						arg2="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}" />
-				</rhn:toolbar>
-			</c:otherwise>
-		</c:choose>
-	</c:otherwise>
+        <c:when test="${file.latestConfigRevision.directory}">
+                <c:choose>
+                        <c:when test="${deleting}">
+                                <rhn:toolbar base="h1" img="/img/folder-config.png" imgAlt="config.common.dirAlt"
+                                        helpUrl="">
+                                        <bean:message key="filedetails.manage_header.jspf.label"
+                                                arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${channel.displayName}"
+                                                arg2="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}" />
+                                </rhn:toolbar>
+                        </c:when>
+                        <c:otherwise>
+                                <rhn:toolbar base="h1" img="/img/folder-config.png" imgAlt="config.common.dirAlt"
+                                        helpUrl=""
+                                        deletionUrl="/rhn/configuration/file/DeleteFile.do?cfid=${file.id}"
+                                        deletionType="deletefile"
+                                        deletionAcl="config_channel_editable(${channel.id})"
+                                        aclMixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                                        <bean:message key="filedetails.manage_header.jspf.label"
+                                                arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${channel.displayName}"
+                                                arg2="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}" />
+                                </rhn:toolbar>
+                        </c:otherwise>
+                </c:choose>
+        </c:when>
+        <c:otherwise>
+                <c:choose>
+                        <c:when test="${deleting}">
+                                <rhn:toolbar base="h1" icon="header-configuration" imgAlt="config.common.fileAlt"
+                                        helpUrl=""
+                                        miscUrl="/rhn/configuration/file/FileDownload.do?crid=${file.latestConfigRevision.id}&amp;cfid=${file.id}"
+                                        miscIcon="item-download"
+                                        miscText="filedetails.header.jspf.download_latest"
+                                        miscAlt="filedetails.header.jspf.download_latest"
+                                        aclMixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                                        <bean:message key="filedetails.manage_header.jspf.label"
+                                                arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${channel.displayName}"
+                                                arg2="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}" />
+                                </rhn:toolbar>
+                        </c:when>
+                        <c:otherwise>
+                                <rhn:toolbar base="h1" icon="header-configuration" imgAlt="config.common.fileAlt"
+                                        helpUrl=""
+                                        deletionUrl="/rhn/configuration/file/DeleteFile.do?cfid=${file.id}"
+                                        deletionType="deletefile"
+                                        deletionAcl="config_channel_editable(${channel.id})"
+                                        miscUrl="/rhn/configuration/file/FileDownload.do?crid=${file.latestConfigRevision.id}&amp;cfid=${file.id}"
+                                        miscIcon="item-download"
+                                        miscText="filedetails.header.jspf.download_latest"
+                                        miscAlt="filedetails.header.jspf.download_latest"
+                                        aclMixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                                        <bean:message key="filedetails.manage_header.jspf.label"
+                                                arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${channel.displayName}"
+                                                arg2="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}" />
+                                </rhn:toolbar>
+                        </c:otherwise>
+                </c:choose>
+        </c:otherwise>
 </c:choose>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1"
-	definition="/WEB-INF/nav/configfile_detail.xml"
-	renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+        definition="/WEB-INF/nav/configfile_detail.xml"
+        renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

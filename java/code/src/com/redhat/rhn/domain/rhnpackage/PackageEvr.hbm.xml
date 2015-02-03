@@ -21,6 +21,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <query name="PackageEvr.findById">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageEvr as p
-        		where p.id = :id]]>
+                        where p.id = :id]]>
     </query>
 </hibernate-mapping>

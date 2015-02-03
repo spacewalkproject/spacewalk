@@ -656,7 +656,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              The page you requested, https://rhn.redhat.com/index.pxt, was not found.
+              The page you requested, https://rhn.redhat.com/rhn/YourRhn.do, was not found.
           </context>
         </context-group>
         <target>Запрошенная страница {0} не найдена.</target>
@@ -673,7 +673,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              If you followed a link to reach 'https://rhn.redhat.com/index.pxt,' the
+              If you followed a link to reach 'https://rhn.redhat.com/rhn/YourRhn.do,' the
               link may be incorrect or outdated.
           </context>
         </context-group>
@@ -684,7 +684,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              If you used a bookmark to reach 'https://rhn.redhat.com/index.pxt,' the
+              If you used a bookmark to reach 'https://rhn.redhat.com/rhn/YourRhn.do,' the
               page may have moved
           </context>
         </context-group>
@@ -5067,8 +5067,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>Группы</target>
         </trans-unit>
         <trans-unit id="ssm.overview.groups.create">
-          <source>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;Create&lt;/a&gt; and &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;manage&lt;/a&gt; groups</source>
-          <target>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;Создание&lt;/a&gt; и &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;управление&lt;/a&gt; группами.</target>
+          <source>&lt;a href="/rhn/groups/EditGroup.do"&gt;Create&lt;/a&gt; and &lt;a href="/rhn/systems/SystemGroupList.do"&gt;manage&lt;/a&gt; groups</source>
+          <target>&lt;a href="/rhn/groups/EditGroup.do"&gt;Создание&lt;/a&gt; и &lt;a href="/rhn/systems/SystemGroupList.do"&gt;управление&lt;/a&gt; группами.</target>
         </trans-unit>
         <trans-unit id="ssm.overview.channels">
           <source>Channels</source>
@@ -5110,17 +5110,13 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Patch Clusters</source>
           <target>Блоки исправлений</target>
         </trans-unit>
-        <trans-unit id="ssm.overview.patch.clusters.install">
-          <source>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;Install&lt;/a&gt; patch clusters</source>
-          <target>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;Установить&lt;/a&gt; блоки исправлений</target>
-        </trans-unit>
         <trans-unit id="ssm.overview.provisioning.kickstart">
           <source>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; systems</source>
           <target>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Кикстарт&lt;/a&gt; систем</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.rollback">
-          <source>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</source>
-          <target>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Создание тегов&lt;/a&gt; для &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;восстановления из снимка&lt;/a&gt;</target>
+          <source>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Tag&lt;/a&gt; systems for &lt;a href="/rhn/systems/ssm/provisioning/Rollback.do"&gt;snapshot rollback&lt;/a&gt;</source>
+          <target>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Создание тегов&lt;/a&gt; для &lt;a href="/rhn/systems/ssm/provisioning/Rollback.do"&gt;восстановления из снимка&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
@@ -5135,8 +5131,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>Обновление &lt;a href="/rhn/systems/ssm/misc/Index.do#profiles"&gt;профилей&lt;/a&gt; и &lt;a href="/rhn/systems/ssm/misc/Index.do#sysprefs"&gt;системных настроек&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.customvalues">
-          <source>&lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;Set&lt;/a&gt; and &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;remove&lt;/a&gt; custom values for selected systems</source>
-          <target>&lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;Настройка&lt;/a&gt; и &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;удаление&lt;/a&gt; значений для выбранных систем</target>
+          <source>&lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;Set and remove&lt;/a&gt; custom values for selected systems</source>
+          <target>&lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;Настройка и удаление&lt;/a&gt; значений для выбранных систем</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.entitlements">
           <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#entitle"&gt;Add or Remove&lt;/a&gt; Add-On Entitlements</source>
@@ -10446,7 +10442,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
         <target>Откорректируйте настройки дистрибутива (&lt;strong&gt;{0}&lt;/strong&gt;)  на странице &lt;a href = "{1}"&gt;свойств дистрибутива&lt;/a&gt;.
 
-	</target>
+        </target>
       </trans-unit>
       <trans-unit id="kickstartdetails.invalid.jsp.summary-option2">
         <source> Alternatively you may associate a different distribution to this kickstart profile by visiting the &lt;a href = "{0}"&gt;Kickstart Operating System Details&lt;/a&gt; page.</source>
@@ -11822,11 +11818,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>Просмотр всех системных групп</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.nogroups">
-        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;У вас нет системных групп.&lt;/strong&gt;&lt;p&gt; Системные группы могут быть созданы через &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Системы &gt; Менеджер наборов систем &gt; Группы &gt; Создать группу&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</target>
+        <target>&lt;strong&gt;У вас нет системных групп.&lt;/strong&gt;&lt;p&gt; Системные группы могут быть созданы через &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Системы &gt; Менеджер наборов систем &gt; Группы &gt; Создать группу&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.scheduledactions">
         <source>Recently Scheduled Actions</source>
@@ -18990,7 +18986,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>Всего</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastCrashReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>Последний сбой</target>
         </trans-unit>
         <trans-unit id="exportcolumn.crashCount">
@@ -19002,7 +18998,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>Компонент</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>Последний сбой</target>
         </trans-unit>
       </group>
@@ -19658,7 +19654,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>Затронуто систем</target>
       </trans-unit>
       <trans-unit id="crashes.jsp.lastoccurence">
-        <source>Last Crash Occurence</source>
+        <source>Last Crash Occurrence</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SoftwareCrashesOverview.do</context>
         </context-group>
@@ -21397,7 +21393,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         <target>
             Удалить доверенные организации? Организация {0} содержит системы,
             которые получают содержимое из удаляемых организаций.
-            Это может привести к тому, что системы перестанут получать 
+            Это может привести к тому, что системы перестанут получать
             важные обновления безопасности.
             &lt;p/&gt;
             Еще раз проверьте изменения, прежде чем подтвердить удаление.</target>
@@ -21415,7 +21411,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         <target>
             Ниже перечислены системы, которые будут затронуты при удалении
             доверенной связи между &lt;b&gt;{0}&lt;/b&gt; и &lt;b&gt;{1}&lt;/b&gt;.
-            Это может привести к тому, что системы перестанут получать 
+            Это может привести к тому, что системы перестанут получать
             важные обновления безопасности.</target>
       </trans-unit>
       <trans-unit id="org.trust.org">
@@ -22716,7 +22712,7 @@ given channel.</source>
         </context-group>
         <target>&lt;strong&gt; Подсказка.&lt;/strong&gt;
           SHA1 обеспечивает высокую совместимость с клиентами.
-          SHA-256 гарантирует улучшенную защиту, но совместим 
+          SHA-256 гарантирует улучшенную защиту, но совместим
           только с новыми клиентами, начиная с Fedora 11 и Red Hat Enterprise Linux 6.</target>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.summary">
@@ -22921,7 +22917,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>Удаление канала скажется на доверенных организациях, 
+        <target>Удаление канала скажется на доверенных организациях,
 системы которых подписаны на канал {0}.</target>
       </trans-unit>
       <trans-unit id="channel.delete.jsp.orgsaffected">
@@ -22947,7 +22943,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>Удалите подписку систем из доверенной организации на канал {0}. 
+        <target>Удалите подписку систем из доверенной организации на канал {0}.
 Подписанные системы потеряют доступ к пакетам этого канала.</target>
       </trans-unit>
       <trans-unit id="generic.jsp.none">

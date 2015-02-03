@@ -11,7 +11,7 @@
              creationUrl="/rhn/channels/manage/Edit.do"
              creationType="channel"
              creationAcl="user_role(channel_admin)"
-             cloneUrl="/network/software/channels/manage/clone.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_clone_actions"
+             cloneUrl="/rhn/channels/manage/Clone.do"
              cloneType="channel"
              cloneAcl="user_role(channel_admin)"
              helpUrl=""

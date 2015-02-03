@@ -185,5 +185,3 @@ class SlackSiteLoader(SlackLoader):
                 total += 1
         file.close()
         return total
-
-# vim:ts=4:sw=4:et

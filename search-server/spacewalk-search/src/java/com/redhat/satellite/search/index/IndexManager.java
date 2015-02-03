@@ -81,7 +81,7 @@ public class IndexManager {
     // Name conflict with our Configuration class and Hadoop's
     private org.apache.hadoop.conf.Configuration nutchConf;
     private Map<String, String> docLocaleLookUp = new TreeMap<String, String>
-    												(String.CASE_INSENSITIVE_ORDER);
+                                                                                                (String.CASE_INSENSITIVE_ORDER);
     private Map<String, FetchedSegments> docSegments;
     /**
      * Constructor
@@ -818,7 +818,7 @@ public class IndexManager {
             nutchAnalyzerFactory = new AnalyzerFactory(nutchConf);
             FileSystem fs = FileSystem.get(nutchConf);
             docSegments = new TreeMap<String, FetchedSegments>
-            							(String.CASE_INSENSITIVE_ORDER);
+                                                                (String.CASE_INSENSITIVE_ORDER);
             for (String key : docLocaleLookUp.keySet()) {
                 String segmentsDir = indexWorkDir + File.separator +
                     getDocIndexPath(key) + File.separator + "segments";

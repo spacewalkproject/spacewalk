@@ -459,6 +459,3 @@ class XMLFileListsParser(object):
             iface.error(_("Error parsing %s: %s") %
                         (self._loader._filelistsname, unicode(e)))
         file.close()
-
-
-# vim:ts=4:sw=4:et

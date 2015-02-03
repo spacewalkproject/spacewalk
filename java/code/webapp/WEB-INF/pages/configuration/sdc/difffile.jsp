@@ -27,8 +27,8 @@
   </div>
 
 <form method="post"
-		name="rhn_list"
-		action="/rhn/systems/details/configuration/DiffFileSubmit.do?sid=${system.id}">
+                name="rhn_list"
+                action="/rhn/systems/details/configuration/DiffFileSubmit.do?sid=${system.id}">
     <rhn:csrf />
     <c:set var="button" value="sdcdifffile.jsp.confirm" />
     <%@ include file="/WEB-INF/pages/common/fragments/configuration/sdc/configfile_list.jspf" %>

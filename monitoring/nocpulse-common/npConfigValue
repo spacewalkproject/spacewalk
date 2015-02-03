@@ -1,4 +1,0 @@
-#!/usr/bin/perl
-use NOCpulse::Config;
-$config = new NOCpulse::Config;
-print $config->get($ARGV[0],$ARGV[1])."\n";

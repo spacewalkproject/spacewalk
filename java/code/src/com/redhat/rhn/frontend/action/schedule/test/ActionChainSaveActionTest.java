@@ -92,7 +92,6 @@ public class ActionChainSaveActionTest extends BaseTestCaseWithUser {
         List<ActionChainEntry> sortedEntries = new LinkedList<ActionChainEntry>();
         sortedEntries.addAll(entries);
         Collections.sort(sortedEntries, new Comparator<ActionChainEntry>() {
-            @Override
             public int compare(ActionChainEntry entry1, ActionChainEntry entry2) {
                 return entry1.getId().compareTo(entry2.getId());
             }

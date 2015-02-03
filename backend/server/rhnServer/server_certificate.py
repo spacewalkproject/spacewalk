@@ -29,12 +29,13 @@ from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.stringutils import to_string
 from server_lib import getServerSecret
 
+
 def gen_secret():
     """ Generate a secret """
     seed = repr(time.time())
     sum = hashlib.new('sha256', seed)
     # feed some random numbers
-    for k in range(1, random.randint(5,15)):
+    for k in range(1, random.randint(5, 15)):
         sum.update(repr(random.random()))
     sum.update(socket.gethostname())
     ret = ""
@@ -43,8 +44,11 @@ def gen_secret():
     del sum
     return ret
 
+
 class Checksum:
+
     """ Functions for handling system_id strings """
+
     def __init__(self, secret, *args, **kwargs):
         algo = 'sha256'
         if 'algo' in kwargs:
@@ -52,6 +56,7 @@ class Checksum:
         self.sum = hashlib.new(algo, secret)
         if len(args) > 0:
             self.feed(*args)
+
     def feed(self, arg):
         #sys.stderr.write("arg = %s, type = %s\n" % (arg, type(arg)))
         if type(arg) == type(()) or type(arg) == type([]):
@@ -61,6 +66,7 @@ class Checksum:
             if type(arg) == type(0):
                 arg = str(arg)
             self.sum.update(to_string(arg))
+
     def __repr__(self):
         t = ""
         for i in self.sum.digest()[:]:
@@ -68,10 +74,12 @@ class Checksum:
         return t
     __str__ = __repr__
 
+
 class Certificate:
+
     """ Main certificate class """
-    CheckSumFields = [ "username", "os_release", "operating_system",
-                       "architecture", "system_id", "type" ]
+    CheckSumFields = ["username", "os_release", "operating_system",
+                      "architecture", "system_id", "type"]
 
     def __init__(self):
         """ init data
@@ -97,7 +105,7 @@ class Certificate:
         if name in Certificate.CheckSumFields:
             if name not in self.__fields:
                 self.__fields.append(name)
-        else: # non essential, take None values as ""
+        else:  # non essential, take None values as ""
             if value is None:
                 self.attrs[name] = ""
         return 0
@@ -117,7 +125,7 @@ class Certificate:
             x = xmlrpclib.dumps((dump,))
         except TypeError, e:
             log_error("Could not marshall certificate for %s" % dump)
-            e.args = e.args + (dump,) # Carry on the information for the exception reporting
+            e.args = e.args + (dump,)  # Carry on the information for the exception reporting
             raise
         return '<?xml version="1.0"?>\n%s' % x
 
@@ -196,12 +204,12 @@ class Certificate:
         log_debug(4)
         # check for anonymous
         if self.attrs.has_key('type') and self.attrs['type'] \
-        and string.upper(self.attrs['type']) == "ANONYMOUS":
+                and string.upper(self.attrs['type']) == "ANONYMOUS":
             raise rhnFault(28, """
             You need to re-register your system with Red Hat Satellite.
             Previously you have chosen to skip the creation of a system profile
             with Red Hat Satellite and this trial feature is no longer available now.
-            """) # we don't support anonymous anymore
+            """)  # we don't support anonymous anymore
         # now we have a real server. Get its secret
         sid = self.attrs["system_id"]
         secret = getServerSecret(sid)

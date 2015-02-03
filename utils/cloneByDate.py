@@ -52,6 +52,7 @@ except ImportError:
 
 LOG_LOCATION = '/var/log/rhn/errata-clone.log'
 
+
 def confirm(txt, options):
     if not options.assumeyes:
         response = raw_input(txt)
@@ -74,15 +75,16 @@ def validate(channel_labels):
 
     cmd = ["repoclosure"]
     for label, path in tmp_dirs.items():
-        cmd.append("--repofrompath=%s,%s" %(label, path))
+        cmd.append("--repofrompath=%s,%s" % (label, path))
         cmd.append("--repoid=%s" % (label))
     subprocess.call(cmd)
 
     for tmp in tmp_dirs.values():
         shutil.rmtree(tmp, True)
 
+
 def repodata(label):
-    return "%s/rhn/repodata/%s" % ( CFG.REPOMD_CACHE_MOUNT_POINT, label)
+    return "%s/rhn/repodata/%s" % (CFG.REPOMD_CACHE_MOUNT_POINT, label)
 
 
 def create_repodata_link(src_path, dst_path):
@@ -96,9 +98,11 @@ def create_repodata_link(src_path, dst_path):
         # create the link
         os.symlink(src_path, dst_path)
 
+
 def remove_repodata_link(link_path):
     if os.path.exists(link_path):
         return os.unlink(link_path)
+
 
 def diff_packages(old, new):
     old_hash = {}
@@ -127,7 +131,6 @@ def main(options):
     log_debug(0, "Started spacewalk-clone-by-date")
     log_clean(0, pprint.pformat(cleansed))
 
-
     print "Reading repository information."
     if options.use_update_date:
         options.use_update_date = 'update_date'
@@ -150,7 +153,7 @@ def main(options):
                     print ("Channel %s is not a cloned channel." % options.parents[0])
                     sys.exit(1)
                 print "Looking up the original channel for %s, %s found" % (
-                        options.parents[0], src_parent)
+                    options.parents[0], src_parent)
                 options.parents = [src_parent] + options.parents
             # options.parents is only set by command line, this must be the
             # only channel tree
@@ -185,12 +188,12 @@ def main(options):
                 # This is the options.parents equivalent for config files.
                 # Add channels to parents option and remove from channels.
                 if ('existing-parent-do-not-modify' in dest_channel
-                       and dest_channel['existing-parent-do-not-modify']):
+                        and dest_channel['existing-parent-do-not-modify']):
                     parents = [src_channel, label]
                     del channel_list[src_channel]
-                else: # else tranform channel_list entry to the list format
+                else:  # else tranform channel_list entry to the list format
                     channel_list[src_channel] = [label, name, summary,
-                            description]
+                                                 description]
 
         # before we start make sure we can get repodata for all channels
         # involved.
@@ -211,31 +214,28 @@ def main(options):
                 channel_errata = set(xmlrpc.list_errata(channel))
                 if len(errata - channel_errata) != 0:
                     print ("Error: all errata specified with --errata must "
-                            + "exist in every original channel cloned in "
-                            + "this operation.")
+                           + "exist in every original channel cloned in "
+                           + "this operation.")
                     print ("Channel %s does not contain these errata: %s" %
-                            (channel, errata - channel_errata))
+                           (channel, errata - channel_errata))
                     sys.exit(1)
 
-
         tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db,
-                options.to_date, options.blacklist,
-                options.removelist, options.background,
-                options.security_only, options.use_update_date,
-                options.no_errata_sync, errata, parents)
+                                        options.to_date, options.blacklist,
+                                        options.removelist, options.background,
+                                        options.security_only, options.use_update_date,
+                                        options.no_errata_sync, errata, parents)
 
         cloners.append(tree_cloner)
         needed_channels += tree_cloner.needing_create().values()
 
-
     if options.validate:
         if len(needed_channels) > 0:
             raise UserError("Cannot validate channels that do not exist %s" %
-                    ', '.join(map(str, needed_channels)))
+                            ', '.join(map(str, needed_channels)))
         for channel_list in options.channels:
             validate(channel_list.values())
         return
-
 
     if len(needed_channels) > 0:
         print "\nBy continuing the following channels will be created: "
@@ -253,7 +253,7 @@ def main(options):
             separator = "|"
             d_errata = tree_cloner.get_errata_to_clone()
             now = datetime.datetime.now()
-            for ch in  d_errata:
+            for ch in d_errata:
                 log_file = ch + "_" + now.strftime("%Y-%m-%d-%H:%M")
                 print "# Log file: " + log_file
                 fh = open(log_file, 'w')
@@ -284,6 +284,7 @@ def main(options):
 
 
 class ChannelTreeCloner:
+
     """Usage:
         a = ChannelTreeCloner(channel_hash, xmlrpc, db, to_date, blacklist,
             removelist, detached, security_only, use_update_date,
@@ -293,9 +294,10 @@ class ChannelTreeCloner:
         a.clone()
          """
     # pylint: disable=R0902
+
     def __init__(self, channels, remote_api, db_api, to_date, blacklist,
-            removelist, detached, security_only, use_update_date,
-            no_errata_sync, errata, parents = None):
+                 removelist, detached, security_only, use_update_date,
+                 no_errata_sync, errata, parents=None):
         self.remote_api = remote_api
         self.db_api = db_api
         self.channel_map = channels
@@ -327,7 +329,6 @@ class ChannelTreeCloner:
                                    self.no_errata_sync, errata)
             self.cloners.append(cloner)
 
-
     def needing_create(self):
         """
         returns a trimmed down version of channel_map where the
@@ -339,9 +340,9 @@ class ChannelTreeCloner:
             if (self.dest_parent not in existing
                     or self.src_parent not in existing):
                 raise UserError("Channels specified with --parents must"
-                        + " already exist.\nIf you want to clone the"
-                        + " parent channels too simply add another"
-                        + " --channels option.")
+                                + " already exist.\nIf you want to clone the"
+                                + " parent channels too simply add another"
+                                + " --channels option.")
         for src, dest in self.channel_map.items():
             if dest[0] not in existing:
                 to_create[src] = dest[0]
@@ -367,14 +368,14 @@ class ChannelTreeCloner:
             dest_parent = [self.dest_parent]
         else:
             dest_parent = self.channel_map[self.src_parent]
-        nvreas  = []
+        nvreas = []
 
         #clone the destination parent if it doesn't exist
         if dest_parent[0] in to_create.values():
             self.remote_api.clone_channel(self.src_parent, dest_parent, None)
             del to_create[self.src_parent]
             cloner = self.find_cloner(self.src_parent)
-            nvreas += [ pkg['nvrea'] for pkg in
+            nvreas += [pkg['nvrea'] for pkg in
                        cloner.reset_new_pkgs().values()]
         #clone the children
         for cloner in self.cloners:
@@ -382,25 +383,24 @@ class ChannelTreeCloner:
                 dest = self.channel_map[cloner.src_label()]
                 self.remote_api.clone_channel(cloner.src_label(),
                                               dest, dest_parent[0])
-                nvreas += [ pkg['nvrea'] for pkg in
+                nvreas += [pkg['nvrea'] for pkg in
                            cloner.reset_new_pkgs().values()]
 
         #dep solve all added packages with the parent channel
         if not skip_depsolve:
             self.dep_solve(nvreas, labels=(to_create.keys()
-                    + [self.src_parent]))
-
+                                           + [self.src_parent]))
 
     def validate_source_channels(self):
         self.channel_details = self.remote_api.channel_details(
-                                       self.channel_map, values=False)
+            self.channel_map, values=False)
         if not self.src_parent:
             self.src_parent = self.find_parent(self.channel_map.keys())
         self.validate_children(self.src_parent, self.channel_map.keys())
 
     def validate_dest_channels(self):
         self.channel_details = self.remote_api.channel_details(
-                self.channel_map)
+            self.channel_map)
         if not self.dest_parent:
             self.dest_parent = self.find_parent(self.channel_map.values())
         self.validate_children(self.dest_parent, self.channel_map.values())
@@ -414,10 +414,10 @@ class ChannelTreeCloner:
                 if (self.channel_details[channel]['parent_channel_label']
                         != parent):
                     raise UserError(("Child channel '%s' is not a child of "
-                            + "parent channel '%s'. If you are using --config "
-                            + "ensure you have not specified "
-                            + "existing-parent-do-not-modify on a child "
-                            + "channel.") % (channel, parent))
+                                     + "parent channel '%s'. If you are using --config "
+                                     + "ensure you have not specified "
+                                     + "existing-parent-do-not-modify on a child "
+                                     + "channel.") % (channel, parent))
 
     def find_parent(self, label_list):
         found_list = []
@@ -430,7 +430,7 @@ class ChannelTreeCloner:
             raise UserError("Parent Channel not specified.")
         if len(found_list) > 1:
             raise UserError("Multiple parent channels specified within the "
-                    + "same channel tree.")
+                            + "same channel tree.")
         return found_list[0]
 
     def ordered_labels(self):
@@ -451,7 +451,7 @@ class ChannelTreeCloner:
         d_result = {}
         for cloner in self.cloners:
             d_result[cloner.src_label() + "_to_" + cloner.dest_label()] = \
-            cloner.get_errata_to_clone()
+                cloner.get_errata_to_clone()
         return d_result
 
     def pre_summary(self):
@@ -466,17 +466,16 @@ class ChannelTreeCloner:
             added_pkgs += pkg_diff
             log_clean(0, "")
             log_clean(0, "%i packages were added to %s as a result of clone:"
-                    % (len(pkg_diff), cloner.dest_label()))
+                      % (len(pkg_diff), cloner.dest_label()))
             log_clean(0, "\n".join([pkg['nvrea'] for pkg in pkg_diff]))
         if len(added_pkgs) > 0 and not skip_depsolve:
             self.dep_solve([pkg['nvrea'] for pkg in added_pkgs])
 
-
     def dep_solve(self, nvrea_list, labels=None):
         if not labels:
             labels = self.channel_map.keys()
-        repos = [{"id":label, "relative_path":repodata(label)}
-                for label in labels]
+        repos = [{"id": label, "relative_path": repodata(label)}
+                 for label in labels]
 
         print "Copying repodata, please wait."
 
@@ -507,12 +506,12 @@ class ChannelTreeCloner:
 
     def process_deps(self, deps):
         needed_list = dict((channel[0], [])
-                for channel in self.channel_map.values())
+                           for channel in self.channel_map.values())
         unsolved_deps = []
 
         print('Processing Dependencies:')
         pb = ProgressBar(prompt="", endTag=' - complete',
-                     finalSize=len(deps), finalBarLength=40, stream=sys.stdout)
+                         finalSize=len(deps), finalBarLength=40, stream=sys.stdout)
         pb.printAll(1)
 
         #loop through all the deps and find any that don't exist in the
@@ -525,7 +524,7 @@ class ChannelTreeCloner:
                 for cloner in self.cloners:
                     exists_from = cloner.src_pkg_exist(solved_list)
                     exists_to = cloner.dest_pkg_exist(solved_list)
-                    if  exists_from and not exists_to:
+                    if exists_from and not exists_to:
                         #grab oldest package
                         needed_list[cloner.dest_label()].append(solved_list[0])
                     elif exists_from:
@@ -553,10 +552,12 @@ class ChannelTreeCloner:
             if self.blacklist:
                 cloner.remove_blacklisted(self.blacklist)
 
+
 class ChannelCloner:
     # pylint: disable=R0902
+
     def __init__(self, from_label, to_label, to_date, remote_api, db_api,
-            detached, security_only, use_update_date, no_errata_sync, errata):
+                 detached, security_only, use_update_date, no_errata_sync, errata):
         self.remote_api = remote_api
         self.db_api = db_api
         self.from_label = from_label
@@ -585,27 +586,25 @@ class ChannelCloner:
 
     def pkg_diff(self):
         return diff_packages(self.old_pkg_hash.values(),
-                self.new_pkg_hash.values())
-
+                             self.new_pkg_hash.values())
 
     def reset_original_pkgs(self):
         self.old_pkg_hash = dict((pkg['nvrea'], pkg)
-                for pkg in self.remote_api.list_packages(self.to_label))
+                                 for pkg in self.remote_api.list_packages(self.to_label))
         return self.old_pkg_hash
 
     def reset_new_pkgs(self):
         self.new_pkg_hash = dict((pkg['nvrea'], pkg)
-                for pkg in self.remote_api.list_packages(self.to_label))
+                                 for pkg in self.remote_api.list_packages(self.to_label))
         return self.new_pkg_hash
 
     def reset_from_pkgs(self):
         self.from_pkg_hash = dict((pkg['nvrea'], pkg)
-                for pkg in self.remote_api.list_packages(self.from_label))
+                                  for pkg in self.remote_api.list_packages(self.from_label))
 
     def prepare(self):
         self.reset_original_pkgs()
         self.errata_to_clone, self.available_errata = self.get_errata()
-
 
     def pending(self):
         return len(self.errata_to_clone)
@@ -615,7 +614,7 @@ class ChannelCloner:
 
     def pre_summary(self):
         print "  %s -> %s  (%i/%i Errata)" % (self.from_label, self.to_label,
-                len(self.errata_to_clone), len(self.available_errata))
+                                              len(self.errata_to_clone), len(self.available_errata))
 
     def process(self):
         self.clone()
@@ -642,9 +641,9 @@ class ChannelCloner:
                 for erratum in errata_list:
                     if erratum['advisory'] in self.original_errata:
                         self.original_pid_errata_map[pid] = \
-                                erratum['advisory']
+                            erratum['advisory']
                         break
-                else: # no match found, store so we don't repeat search
+                else:  # no match found, store so we don't repeat search
                     self.original_pid_errata_map[pid] = None
             if self.original_pid_errata_map[pid] != None:
                 needed_errata.append(self.original_pid_errata_map[pid])
@@ -657,7 +656,7 @@ class ChannelCloner:
         if len(needed_errata) > 0:
             log_clean(0, "")
             log_clean(0, "Cloning %i errata for dependencies to %s" %
-                    (len(needed_errata), self.to_label))
+                      (len(needed_errata), self.to_label))
         while(len(needed_errata) > 0):
             errata_set = needed_errata[:self.bunch_size]
             del needed_errata[:self.bunch_size]
@@ -669,7 +668,7 @@ class ChannelCloner:
         if len(needed_ids) > 0:
             log_clean(0, "")
             log_clean(0, "Adding %i needed dependencies to %s" %
-                    (len(needed_ids), self.to_label))
+                      (len(needed_ids), self.to_label))
             self.remote_api.add_packages(self.to_label, needed_ids)
 
         self.reset_new_pkgs()
@@ -693,9 +692,8 @@ class ChannelCloner:
                 return pkg_list[key]
         return False
 
-
     def clone(self):
-        errata_ids = [ e["advisory_name"] for e in self.errata_to_clone]
+        errata_ids = [e["advisory_name"] for e in self.errata_to_clone]
         if len(errata_ids) == 0:
             return
 
@@ -707,8 +705,8 @@ class ChannelCloner:
             log_clean(0, "%s - %s" % (e['advisory_name'], e['synopsis']))
 
         pb = ProgressBar(prompt="", endTag=' - complete',
-                finalSize=len(errata_ids), finalBarLength=40,
-                stream=sys.stdout)
+                         finalSize=len(errata_ids), finalBarLength=40,
+                         stream=sys.stdout)
         pb.printAll(1)
         while(len(errata_ids) > 0):
             errata_set = errata_ids[:self.bunch_size]
@@ -726,14 +724,14 @@ class ChannelCloner:
         if not self.no_errata_sync:
             log_clean(0, "")
             log_clean(0, "Synchronizing Errata in %s with originals"
-                    % self.to_label)
+                      % self.to_label)
             self.remote_api.sync_errata(self.to_label)
 
     def get_errata(self):
         """ Returns tuple of all available for cloning and what falls in
         the date range or is in the errata list"""
         available_errata = self.db_api.applicable_errata(self.from_label,
-                self.to_label)
+                                                         self.to_label)
         to_clone = []
         for err in available_errata:
             if self.errata:
@@ -750,7 +748,6 @@ class ChannelCloner:
 
         return (to_clone, available_errata)
 
-
     def __remove_packages(self, names_dict, pkg_list, name):
         """Base removal of packages
             names_dict  - dict containing  list of package names, with channel
@@ -758,7 +755,7 @@ class ChannelCloner:
             pkg_list  -  list of package dicts to consider
             name   - name of removal  'blacklist' or 'removelist', for display
         """
-        found_ids  = []
+        found_ids = []
         found_names = []
         if not names_dict:
             return
@@ -778,17 +775,17 @@ class ChannelCloner:
 
         log_clean(0, "")
         log_clean(0, "%s: Removing %i packages from %s." %
-                (name, len(found_ids), self.to_label))
+                  (name, len(found_ids), self.to_label))
         log_clean(0, "\n".join(found_names))
 
         if len(found_ids) > 0:
             print "%s: Removing %i packages from %s" % (name, len(found_ids),
-                    self.to_label)
+                                                        self.to_label)
             self.remote_api.remove_packages(self.to_label, found_ids)
 
     def remove_removelist(self, pkg_names):
         self.__remove_packages(pkg_names, self.reset_new_pkgs().values(),
-                "Removelist")
+                               "Removelist")
 
     def remove_blacklisted(self, pkg_names):
         self.reset_new_pkgs()
@@ -796,6 +793,7 @@ class ChannelCloner:
 
 
 class RemoteApi:
+
     """ Class for connecting to the XMLRPC spacewalk interface"""
 
     cache = {}
@@ -816,9 +814,8 @@ class RemoteApi:
              logged in and will relogin if it has
         """
         if not self.auth_time or (datetime.datetime.now()
-                - self.auth_time).seconds > 60*15: #15 minutes
+                                  - self.auth_time).seconds > 60 * 15:  # 15 minutes
             self.__login()
-
 
     def __login(self):
         self.auth_token = self.client.auth.login(self.username, self.password)
@@ -850,22 +847,22 @@ class RemoteApi:
     def list_packages(self, label):
         self.auth_check()
         pkg_list = self.client.channel.software.listAllPackages(
-                self.auth_token, label)
+            self.auth_token, label)
         #name-ver-rel.arch,
         for pkg in pkg_list:
-            pkg['nvrea'] =  "%s-%s-%s.%s" % (pkg['name'], pkg['version'],
-                    pkg['release'], pkg['arch_label'])
+            pkg['nvrea'] = "%s-%s-%s.%s" % (pkg['name'], pkg['version'],
+                                            pkg['release'], pkg['arch_label'])
         return pkg_list
 
     def clone_errata(self, to_label, errata_list):
         self.auth_check()
         self.client.errata.cloneAsOriginal(self.auth_token, to_label,
-                errata_list)
+                                           errata_list)
 
     def clone_errata_async(self, to_label, errata_list):
         self.auth_check()
         self.client.errata.cloneAsOriginalAsync(self.auth_token, to_label,
-                errata_list)
+                                                errata_list)
 
     def sync_errata(self, to_label):
         self.auth_check()
@@ -875,7 +872,7 @@ class RemoteApi:
         self.auth_check()
         try:
             return self.client.channel.software.getDetails(self.auth_token,
-                    label)
+                                                           label)
         except xmlrpclib.Fault, e:
             raise UserError(e.faultString + ": " + label)
 
@@ -885,7 +882,7 @@ class RemoteApi:
             pkg_set = package_ids[:20]
             del package_ids[:20]
             self.client.channel.software.addPackages(self.auth_token, label,
-                    pkg_set)
+                                                     pkg_set)
 
     def remove_packages(self, label, package_ids):
         self.auth_check()
@@ -893,12 +890,12 @@ class RemoteApi:
             pkg_set = package_ids[:20]
             del package_ids[:20]
             self.client.channel.software.removePackages(self.auth_token,
-                    label, pkg_set)
+                                                        label, pkg_set)
 
     def clone_channel(self, original_label, channel, parent):
         self.auth_check()
         details = {'name': channel[0], 'label': channel[0],
-                'summary': channel[0]}
+                   'summary': channel[0]}
         if len(channel) > 1:
             details['name'] = channel[1]
         if len(channel) > 2:
@@ -909,23 +906,23 @@ class RemoteApi:
             details['parent_label'] = parent
 
         msg = "Cloning %s to %s with original package set." % (original_label,
-                details['label'])
+                                                               details['label'])
         log_clean(0, "")
         log_clean(0, msg)
         print(msg)
         self.client.channel.software.clone(self.auth_token, original_label,
-                details, True)
+                                           details, True)
 
     def list_errata(self, channel_label):
         self.auth_check()
         errata = self.client.channel.software.listErrata(self.auth_token,
-                channel_label)
+                                                         channel_label)
         return [erratum['advisory_name'] for erratum in errata]
 
     def get_original(self, clone_label):
         self.auth_check()
         return self.client.channel.software.getDetails(self.auth_token,
-                clone_label)['clone_original']
+                                                       clone_label)['clone_original']
 
     def list_providing_errata(self, pid):
         self.auth_check()
@@ -933,6 +930,7 @@ class RemoteApi:
 
 
 class DBApi:
+
     """Class for connecting to the spacewalk DB"""
 
     def __init__(self):
@@ -968,18 +966,23 @@ class DBApi:
         to_ret = h.fetchall_dict() or []
         return to_ret
 
+
 class UserError(Exception):
+
     def __init__(self, msg):
         Exception.__init__(self)
         self.msg = msg
+
     def __str__(self):
         return self.msg
 
+
 class UserRepoError(UserError):
+
     def __init__(self, label, yum_error=None):
         msg = ("Unable to read repository information.\n"
-	            + "Please verify repodata has been generated in "
-                + "/var/cache/rhn/repodata/%s." % label)
+               + "Please verify repodata has been generated in "
+               + "/var/cache/rhn/repodata/%s." % label)
         if yum_error:
             msg += "\nError from yum: %s" % yum_error
         UserError.__init__(self, msg)

@@ -29,27 +29,30 @@ from spacewalk.server import rhnSQL
 from server_lib import snapshot_server, check_entitlement
 
 UNCHANGED = 0
-ADDED     = 1
-DELETED   = 2
-UPDATED   = 3
+ADDED = 1
+DELETED = 2
+UPDATED = 3
+
 
 class dbPackage:
+
     """ A small class that helps us represent things about a
         database package. In this structure "real" means that we have an
         entry in the database for it.
     """
-    def __init__(self, pdict, real = 0, name_id=None, evr_id=None,
-            package_arch_id=None):
+
+    def __init__(self, pdict, real=0, name_id=None, evr_id=None,
+                 package_arch_id=None):
         if type(pdict) != DictType:
             return None
         if not pdict.has_key('arch') or pdict['arch'] is None:
             pdict['arch'] = ""
-        if string.lower(str(pdict['epoch'])) == "(none)" or pdict['epoch'] == "" or pdict['epoch'] == None:
+        if string.lower(str(pdict['epoch'])) == "(none)" or pdict['epoch'] == "" or pdict['epoch'] is None:
             pdict['epoch'] = None
         else:
             pdict['epoch'] = str(pdict['epoch'])
         for k in ('name', 'version', 'release', 'arch'):
-            if pdict[k] == None:
+            if pdict[k] is None:
                 return None
         self.n = str(pdict['name'])
         self.v = str(pdict['version'])
@@ -74,35 +77,41 @@ class dbPackage:
 
     def setval(self, value):
         self.status = value
+
     def add(self):
         if self.status == DELETED:
-            if self.real: self.status = UNCHANGED # real entries remain unchanged
-            else:         self.status = ADDED # others are added
+            if self.real:
+                self.status = UNCHANGED  # real entries remain unchanged
+            else:
+                self.status = ADDED  # others are added
         return
+
     def delete(self):
         if self.real:
             self.status = DELETED
         else:
-            self.status = UNCHANGED # we prefer unchanged for the non-real packages
+            self.status = UNCHANGED  # we prefer unchanged for the non-real packages
         return
 
     def __str__(self):
         return "server.rhnServer.dbPackage instance %s" % {
-                'n': self.n,
-                'v': self.v,
-                'r': self.r,
-                'e': self.e,
-                'a': self.a,
-                'installtime': self.installtime,
-                'real': self.real,
-                'name_id': self.name_id,
-                'evr_id': self.evr_id,
-                'package_arch_id': self.package_arch_id,
-                'status': self.status,
+            'n': self.n,
+            'v': self.v,
+            'r': self.r,
+            'e': self.e,
+            'a': self.a,
+            'installtime': self.installtime,
+            'real': self.real,
+            'name_id': self.name_id,
+            'evr_id': self.evr_id,
+            'package_arch_id': self.package_arch_id,
+            'status': self.status,
         }
     __repr__ = __str__
 
+
 class Packages:
+
     def __init__(self):
         self.__p = {}
         # Have we loaded the packages or not?
@@ -119,10 +128,10 @@ class Packages:
             self.reload_packages_byid(sysid)
         if self.__p.has_key(p.nvrea):
             if self.__p[p.nvrea].installtime != p.installtime:
-               self.__p[p.nvrea].installtime = p.installtime
-               self.__p[p.nvrea].status = UPDATED
+                self.__p[p.nvrea].installtime = p.installtime
+                self.__p[p.nvrea].status = UPDATED
             else:
-               self.__p[p.nvrea].add()
+                self.__p[p.nvrea].add()
             self.__changed = 1
             return 0
         self.__p[p.nvrea] = p
@@ -169,7 +178,7 @@ class Packages:
     def save_packages_byid(self, sysid, schedule=1):
         """ save the package list """
         log_debug(3, sysid, "Errata cache to run:", schedule,
-            "Changed:", self.__changed, "%d total packages" % len(self.__p))
+                  "Changed:", self.__changed, "%d total packages" % len(self.__p))
 
         if not self.__changed:
             return 0
@@ -189,10 +198,10 @@ class Packages:
                 or package_arch_id = :package_arch_id)
             """)
             h.execute_bulk({
-                'sysid'     : [sysid] * len(dlist),
-                'name_id'   : map(lambda a: a.name_id, dlist),
-                'evr_id'    : map(lambda a: a.evr_id, dlist),
-                'package_arch_id'   : map(lambda a: a.package_arch_id, dlist),
+                'sysid': [sysid] * len(dlist),
+                'name_id': map(lambda a: a.name_id, dlist),
+                'evr_id': map(lambda a: a.evr_id, dlist),
+                'package_arch_id': map(lambda a: a.package_arch_id, dlist),
             })
             commits = commits + len(dlist)
             del dlist
@@ -209,20 +218,21 @@ class Packages:
             )
             """)
             # some fields are not allowed to contain empty string (varchar)
+
             def lambdaae(a):
                 if a.e == '':
                     return None
                 else:
                     return a.e
             package_data = {
-                'sysid' : [sysid] * len(alist),
-                'n'     : map(lambda a: a.n, alist),
-                'v'     : map(lambda a: a.v, alist),
-                'r'     : map(lambda a: a.r, alist),
-                'e'     : map(lambdaae, alist),
-                'a'     : map(lambda a: a.a, alist),
-                'instime' : map(lambda a: self.__expand_installtime(a.installtime),
-                                   alist),
+                'sysid': [sysid] * len(alist),
+                'n': map(lambda a: a.n, alist),
+                'v': map(lambda a: a.v, alist),
+                'r': map(lambda a: a.r, alist),
+                'e': map(lambdaae, alist),
+                'a': map(lambda a: a.a, alist),
+                'instime': map(lambda a: self.__expand_installtime(a.installtime),
+                               alist),
             }
             try:
                 h.execute_bulk(package_data)
@@ -241,7 +251,7 @@ class Packages:
             update_errata_cache(sysid)
 
         # if provisioning box, and there was an actual delta, snapshot
-	ents = check_entitlement(sysid)
+        ents = check_entitlement(sysid)
         if commits and ents.has_key("provisioning_entitled"):
             snapshot_server(sysid, "Package profile changed")
 
@@ -254,9 +264,10 @@ class Packages:
         select id, label
           from rhnPackageArch
     """)
+
     def get_package_arches(self):
         # None gets automatically converted to empty string
-        package_arches_hash = {None : ''}
+        package_arches_hash = {None: ''}
         h = rhnSQL.prepare(self._query_get_package_arches)
         h.execute()
         while 1:
@@ -292,7 +303,7 @@ class Packages:
         and sp.name_id = rpn.id
         and sp.evr_id = rpe.id
         """)
-        h.execute(sysid = sysid)
+        h.execute(sysid=sysid)
         self.__p = {}
         while 1:
             t = h.fetchone_dict()
@@ -301,7 +312,7 @@ class Packages:
             t['arch'] = package_arches_hash[t['package_arch_id']]
             if t.has_key('installtime') and t['installtime'] is not None:
                 t['installtime'] = time.mktime(time.strptime(t['installtime'],
-                                                "%Y-%m-%d %H:%M:%S"))
+                                                             "%Y-%m-%d %H:%M:%S"))
             p = dbPackage(t, real=1, name_id=t['name_id'], evr_id=t['evr_id'],
                           package_arch_id=t['package_arch_id'])
             self.__p[p.nvrea] = p
@@ -309,6 +320,7 @@ class Packages:
         self.__loaded = 1
         self.__changed = 0
         return 0
+
 
 def update_errata_cache(server_id):
     """ Queue an update the the server's errata cache. This queues for
@@ -320,6 +332,7 @@ def update_errata_cache(server_id):
     log_debug(2, "Queueing the errata cache update", server_id)
     update_needed_cache = rhnSQL.Procedure("queue_server")
     update_needed_cache(server_id, 0)
+
 
 def processPackageKeyAssociations(header, checksum_type, checksum):
     provider_sql = rhnSQL.prepare("""
@@ -370,7 +383,7 @@ def processPackageKeyAssociations(header, checksum_type, checksum):
         return
 
     sigkeys = rhn_rpm.RPM_Header(header).signatures
-    key_id = None #_key_ids(sigkeys)[0]
+    key_id = None  # _key_ids(sigkeys)[0]
     for sig in sigkeys:
         if sig['signature_type'] in ['gpg', 'pgp']:
             key_id = sig['key_id']
@@ -379,18 +392,18 @@ def processPackageKeyAssociations(header, checksum_type, checksum):
         # package is not signed, skip gpg key insertion
         return
 
-    lookup_keyid_sql.execute(key_id = key_id)
+    lookup_keyid_sql.execute(key_id=key_id)
     keyid = lookup_keyid_sql.fetchall_dict()
 
     if not keyid:
         lookup_keytype_id.execute()
         key_type_id = lookup_keytype_id.fetchone_dict()
-        insert_keyid_sql.execute(key_id = key_id, key_type_id = key_type_id['id'])
-        lookup_keyid_sql.execute(key_id = key_id)
+        insert_keyid_sql.execute(key_id=key_id, key_type_id=key_type_id['id'])
+        lookup_keyid_sql.execute(key_id=key_id)
         keyid = lookup_keyid_sql.fetchall_dict()
 
-    lookup_pkgkey_sql.execute(key_id=keyid[0]['id'], \
-                            package_id=pkg_id[0]['id'])
+    lookup_pkgkey_sql.execute(key_id=keyid[0]['id'],
+                              package_id=pkg_id[0]['id'])
     exists_check = lookup_pkgkey_sql.fetchall_dict()
 
     if not exists_check:
@@ -473,8 +486,9 @@ def _package_list_to_hash(package_list, package_registry):
 
     return hash
 
+
 def _add_to_hash(hash, key, value):
     if not hash.has_key(key):
-        hash[key] = { value : None }
+        hash[key] = {value: None}
     else:
         hash[key][value] = None

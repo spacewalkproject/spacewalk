@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 # Server Group DB module
@@ -52,9 +52,9 @@ foreach my $field ($t->method_names) {
 
 =head1 create
 
-arguments -	$name
-		$org
-		$desc
+arguments -     $name
+                $org
+                $desc
 returns -
 
 =cut
@@ -141,7 +141,7 @@ sub lookup {
     $servergrp = $class->blank_server_group;
     $servergrp->{id} = $columns[0];
     foreach ($t->method_names) {
-      $servergrp->$_(shift @columns) 
+      $servergrp->$_(shift @columns)
     }
     delete $servergrp->{":modified:"};
   }
@@ -166,7 +166,7 @@ sub member_count {
 
   my $dbh = RHN::DB->connect;
 
-  my $sqlstmt = sprintf <<EOT; 
+  my $sqlstmt = sprintf <<EOT;
 SELECT COUNT(server_id)
   FROM rhnServerGroupMembers SGM
  WHERE SGM.server_group_id = ?
@@ -188,7 +188,7 @@ EOT
 =head1 remove
 
 arguments - $group_id
-returns -  
+returns -
 
 =cut
 

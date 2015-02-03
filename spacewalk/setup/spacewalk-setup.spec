@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.3.0
+Version:        2.3.8
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -65,6 +65,7 @@ install -m 0644 share/sudoers.* %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/mod_ssl.conf.* %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/tomcat.* %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/server.xml.xsl %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/server-external-authentication.xml.xsl %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/web.xml.patch %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/old-jvm-list %{buildroot}/%{_datadir}/spacewalk/setup/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
@@ -83,6 +84,7 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man8
 /usr/bin/pod2man --section=1 $RPM_BUILD_ROOT/%{_bindir}/spacewalk-setup-tomcat | gzip > $RPM_BUILD_ROOT%{_mandir}/man1/spacewalk-setup-tomcat.1.gz
 /usr/bin/pod2man --section=1 $RPM_BUILD_ROOT/%{_bindir}/spacewalk-setup-httpd | gzip > $RPM_BUILD_ROOT%{_mandir}/man1/spacewalk-setup-httpd.1.gz
 /usr/bin/pod2man --section=1 $RPM_BUILD_ROOT/%{_bindir}/spacewalk-setup-sudoers| gzip > $RPM_BUILD_ROOT%{_mandir}/man1/spacewalk-setup-sudoers.1.gz
+/usr/bin/pod2man --section=1 $RPM_BUILD_ROOT/%{_bindir}/spacewalk-setup-ipa-authentication| gzip > $RPM_BUILD_ROOT%{_mandir}/man1/spacewalk-setup-ipa-authentication.1.gz
 
 %check
 make test
@@ -101,6 +103,8 @@ rm -rf %{buildroot}
 %{_bindir}/spacewalk-setup-cobbler
 %{_bindir}/spacewalk-setup-tomcat
 %{_bindir}/spacewalk-setup-sudoers
+%{_bindir}/spacewalk-setup-ipa-authentication
+%{_bindir}/spacewalk-setup-db-ssl-certificates
 %{_bindir}/cobbler20-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
@@ -109,6 +113,45 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.8-1
+- Fix configuration of tomcat-service for CentOS7. Tomcat7 on CentOS7 uses
+  /etc/tomcat/server.xml. Adjust regex to match.
+
+* Tue Jan 13 2015 Matej Kollar <mkollar@redhat.com> 2.3.7-1
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of trailing spaces in Perl
+- Getting rid of Tabs in Perl
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
+* Wed Jan 07 2015 Jan Dobes 2.3.6-1
+- 1179374 - set more database specific values and move hibernate strings into
+  function
+- 1179374 - do not erase complete original configuration
+- 1179374 - move write_config function into module
+- 1020952 - Certificates need to set up sooner
+- remember to populate db
+- don't run spacewalk-setup-cobbler in verbose mode
+
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.5-1
+- drop monitoring code and monitoring schema
+- Useful comment
+
+* Tue Dec 16 2014 Matej Kollar <mkollar@redhat.com> 2.3.4-1
+- 1020952 -- Check for existence of cert file
+
+* Mon Dec 15 2014 Jan Dobes 2.3.3-1
+- 1172541 - do not use embedded db defaults if not installing embedded db
+- 1172541 - fix filtering files with defaults
+
+* Thu Dec 11 2014 Matej Kollar <mkollar@redhat.com> 2.3.2-1
+- 1020952 - Include SSL configuration in setup
+
+* Mon Nov 24 2014 Tomas Lestach <tlestach@redhat.com> 2.3.1-1
+- fix condition
+- add spacewalk-setup-ipa-authentication script to Makefile
+- Add spacewalk-setup-ipa-authentication to make the external authentication
+  easier.
+
 * Mon Aug 18 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.0-1
 - Bumping package versions for 2.3.
 

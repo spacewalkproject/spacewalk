@@ -17,14 +17,6 @@ package com.redhat.rhn.manager.org.test;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.config.ConfigChannel;
-import com.redhat.rhn.domain.monitoring.MonitoringConstants;
-import com.redhat.rhn.domain.monitoring.Probe;
-import com.redhat.rhn.domain.monitoring.ServerProbe;
-import com.redhat.rhn.domain.monitoring.TemplateProbe;
-import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
-import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
-import com.redhat.rhn.domain.monitoring.suite.test.ProbeSuiteTest;
-import com.redhat.rhn.domain.monitoring.test.MonitoringFactoryTest;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.SystemMigration;
 import com.redhat.rhn.domain.org.SystemMigrationFactory;
@@ -37,7 +29,6 @@ import com.redhat.rhn.domain.server.ServerHistoryEvent;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.org.MigrationManager;
 import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -154,65 +145,6 @@ public class MigrationManagerTest extends RhnBaseTestCase {
         MigrationManager.removeOrgRelationships(origOrgAdmins.iterator().next(), server2);
 
         assertEquals(0, server2.getConfigChannelCount());
-    }
-
-    public void testRemoveMonitoringProbeSuites() throws Exception {
-
-        User origOrgAdmin = origOrgAdmins.iterator().next();
-        ProbeSuite suite = ProbeSuiteTest.createTestProbeSuite(origOrgAdmin);
-        SatCluster sc = (SatCluster)origOrgAdmin.getOrg().getMonitoringScouts()
-            .iterator().next();
-        for (int i = 0; i < 5; i++) {
-            TemplateProbe probe = (TemplateProbe)
-                MonitoringFactoryTest.createTestProbe(origOrgAdmin,
-                    MonitoringConstants.getProbeTypeSuite());
-            suite.addProbe(probe, origOrgAdmin);
-        }
-        suite.addServerToSuite(sc, server, origOrgAdmin);
-        MonitoringManager.getInstance().storeProbeSuite(suite, origOrgAdmin);
-
-        // verify that the above probes were added to the system
-        assertEquals(5, MonitoringManager.getInstance().probesForSystem(origOrgAdmin,
-                server, null).size());
-
-        // reload the server object, since its type is changed from Server to
-        // MonitoredServer when we added the probes. MonitoringManager does not to that by
-        // default, and this can cause Hibernate problems later
-        server = (Server) HibernateFactory.reload(server);
-
-        MigrationManager.removeOrgRelationships(origOrgAdmin, server);
-
-        // verify that the probes were removed from the system
-        assertEquals(0, MonitoringManager.getInstance().probesForSystem(origOrgAdmin,
-                server, null).size());
-    }
-
-    public void testRemoveMonitoringProbes() throws Exception {
-
-        // Setup
-
-        User origOrgAdmin = origOrgAdmins.iterator().next();
-
-        // Currently for testing we don't have a way to create a test probe and associate
-        // it with an existing server; however, the MonitoringFactoryTest.createTestProbe
-        // will create a server, satCluster and probe and associate the probe with the
-        // server it created.
-        Probe probe = MonitoringFactoryTest.createTestProbe(origOrgAdmin);
-
-        ServerProbe serverProbe = (ServerProbe) probe;
-        serverProbe.setPendingState((SatCluster) origOrgAdmin.getOrg().
-                getMonitoringScouts().iterator().next());
-        Server monitoredServer = serverProbe.getServer();
-
-        // verify that the probe was added
-        assertEquals(1, MonitoringManager.getInstance().probesForSystem(origOrgAdmin,
-                monitoredServer, null).size());
-
-        MigrationManager.removeOrgRelationships(origOrgAdmin, monitoredServer);
-
-        // verify that the probe was removed from the system
-        assertEquals(0, MonitoringManager.getInstance().probesForSystem(origOrgAdmin,
-                server, null).size());
     }
 
     public void testUpdateAdminRelationships() throws Exception {

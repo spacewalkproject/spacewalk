@@ -14,6 +14,7 @@
 #
 import unittest
 
+
 class ByteRangeTests(unittest.TestCase):
 
     def testEmptyRange(self):
@@ -66,7 +67,6 @@ class ByteRangeTests(unittest.TestCase):
             self.fail()
         except server.byterange.InvalidByteRangeException:
             pass
-
 
     def testGoodRange(self):
         start, end = server.byterange.parse_byteranges("bytes=0-4")

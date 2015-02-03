@@ -11,12 +11,12 @@
 
 <body>
 <rhn:toolbar base="h1" icon="header-channel"
-	miscUrl="${url}"
-	miscAcl="user_role(org_admin)"
-	miscText="${text}"
-	miscImg="${img}"
-	miscAlt="${text}"
-	imgAlt="users.jsp.imgAlt">
+        miscUrl="${url}"
+        miscAcl="user_role(org_admin)"
+        miscText="${text}"
+        miscImg="${img}"
+        miscAlt="${text}"
+        imgAlt="users.jsp.imgAlt">
     ${channelFamily.name}
 </rhn:toolbar>
 
@@ -48,27 +48,27 @@
                 ${current.orgName}
             </a>
         </rl:column>
-		<c:if test="${not empty requestScope.regularAvailable}">
+                <c:if test="${not empty requestScope.regularAvailable}">
         <rl:column
-        	headertext="${rhn:localize('Regular Usage')} <br/> (${rhn:localize('Used/Allotted')})*"
+                headertext="${rhn:localize('Regular Usage')} <br/> (${rhn:localize('Used/Allotted')})*"
             >
-			<c:choose>
-            	<c:when test="${empty current.maxMembers or current.maxMembers == 0}">
-            		<bean:message key="None Allocated"/>
-            	</c:when>
-            	<c:otherwise>
-            	${current.currentMembers}/${current.maxMembers}
-            	</c:otherwise>
+                        <c:choose>
+                <c:when test="${empty current.maxMembers or current.maxMembers == 0}">
+                        <bean:message key="None Allocated"/>
+                </c:when>
+                <c:otherwise>
+                ${current.currentMembers}/${current.maxMembers}
+                </c:otherwise>
             </c:choose>
-		</rl:column>
+                </rl:column>
 
         <rl:column
             headerkey="Regular Proposed Total">
-	       	<c:choose>
-	       		<c:when test = "${current.maxPossibleAllocation == 0}">
-	       			<bean:message key="No Entitlements Available"/>
-	       		</c:when>
-	       		<c:otherwise>
+                <c:choose>
+                        <c:when test = "${current.maxPossibleAllocation == 0}">
+                                <bean:message key="No Entitlements Available"/>
+                        </c:when>
+                        <c:otherwise>
                     <div id="id${current.key}">
                     <html:text property="${current.key}" size="10" value="${requestScope.orgs[current.key]}"
                                onkeydown="return blockEnter(event)"
@@ -80,52 +80,52 @@
                             arg1="${current.maxMembers + satelliteOrgOverview.freeMembers}"/>
                     </div>
                     </div>
-	            </c:otherwise>
-			</c:choose>
+                    </c:otherwise>
+                        </c:choose>
         </rl:column>
         </c:if>
-		<c:if test="${not empty requestScope.flexAvailable}">
-	        <rl:column
-	        	headertext="${rhn:localize('Flex Usage')} <br/> (${rhn:localize('Used/Allotted')})*"
-	            >
-				<c:choose>
-	            	<c:when test="${empty current.maxFlex or current.maxFlex == 0}">
-	            		<bean:message key="None Allocated"/>
-	            	</c:when>
-	            	<c:otherwise>
-	            	${current.currentFlex}/${current.maxFlex}
-	            	</c:otherwise>
-	            </c:choose>
-			</rl:column>
+                <c:if test="${not empty requestScope.flexAvailable}">
+                <rl:column
+                        headertext="${rhn:localize('Flex Usage')} <br/> (${rhn:localize('Used/Allotted')})*"
+                    >
+                                <c:choose>
+                        <c:when test="${empty current.maxFlex or current.maxFlex == 0}">
+                                <bean:message key="None Allocated"/>
+                        </c:when>
+                        <c:otherwise>
+                        ${current.currentFlex}/${current.maxFlex}
+                        </c:otherwise>
+                    </c:choose>
+                        </rl:column>
 
-	        <rl:column
-	            headerkey="Flex Proposed Total">
-		       	<c:choose>
-		       		<c:when test = "${current.maxPossibleFlexAllocation == 0}">
-		       			<bean:message key="No Entitlements Available"/>
-		       		</c:when>
-		       		<c:otherwise>
-	                    <div id="id${current.flexKey}">
-	                    <html:text property="${current.flexKey}" size="10" value="${requestScope.orgs[current.flexKey]}"
-	                               onkeydown="return blockEnter(event)"
-	                               />
-	                    <br/>
-	                    <div class="small-text" id="id${current.flexKey}-tooltip">
-	                        <bean:message key="softwareEntitlementSubs.possibleValues"
-	                            arg0="0"
-	                            arg1="${current.maxFlex + satelliteOrgOverview.freeFlex}"/>
-	                    </div>
-	                    </div>
-		            </c:otherwise>
-				</c:choose>
-	        </rl:column>
-		</c:if>
+                <rl:column
+                    headerkey="Flex Proposed Total">
+                        <c:choose>
+                                <c:when test = "${current.maxPossibleFlexAllocation == 0}">
+                                        <bean:message key="No Entitlements Available"/>
+                                </c:when>
+                                <c:otherwise>
+                            <div id="id${current.flexKey}">
+                            <html:text property="${current.flexKey}" size="10" value="${requestScope.orgs[current.flexKey]}"
+                                       onkeydown="return blockEnter(event)"
+                                       />
+                            <br/>
+                            <div class="small-text" id="id${current.flexKey}-tooltip">
+                                <bean:message key="softwareEntitlementSubs.possibleValues"
+                                    arg0="0"
+                                    arg1="${current.maxFlex + satelliteOrgOverview.freeFlex}"/>
+                            </div>
+                            </div>
+                            </c:otherwise>
+                                </c:choose>
+                </rl:column>
+                </c:if>
 
         <rl:column
             headerkey="emptyspace.jsp"
             >
             <c:if test = "${current.maxPossibleAllocation > 0 || current.maxPossibleFlexAllocation > 0}">
-            	<html:submit styleClass="btn btn-success" onclick="this.form.orgClicked.value = '${current.org.id}';">
+                <html:submit styleClass="btn btn-success" onclick="this.form.orgClicked.value = '${current.org.id}';">
                         <bean:message key="softwareEntitlementSubs.submit"/>
                     </html:submit>
             </c:if>
@@ -186,7 +186,7 @@
         </td>
     </tr>
 
-	<tr>
+        <tr>
         <th>
             <strong><bean:message key="softwareEntitlementSubs.systemWideCounts.entUsage"/>:</strong>
         </th>

@@ -45,6 +45,8 @@ _query_action_verify_packages = rhnSQL.Statement("""
        and ap.evr_id = pe.id
        and ap.name_id = pn.id
 """)
+
+
 def verify(serverId, actionId, dry_run=0):
     log_debug(3, dry_run)
     h = rhnSQL.prepare(_query_action_verify_packages)
@@ -53,7 +55,7 @@ def verify(serverId, actionId, dry_run=0):
 
     if not tmppackages:
         raise InvalidAction("invalid action %s for server %s" %
-            (actionId, serverId))
+                            (actionId, serverId))
 
     packages = []
 
@@ -72,15 +74,15 @@ def handle_action(serverId, actionId, packagesIn, dry_run=0):
     log_debug(3, serverId, actionId, dry_run)
 
     client_caps = rhnCapability.get_client_capabilities()
-    log_debug(3,"Client Capabilities", client_caps)
+    log_debug(3, "Client Capabilities", client_caps)
     multiarch = 0
     if client_caps and client_caps.has_key('packages.update'):
-        cap_info =  client_caps['packages.update']
+        cap_info = client_caps['packages.update']
         if cap_info['version'] > 1:
             multiarch = 1
     if not packagesIn:
         raise InvalidAction("Packages scheduled in action %s for server %s could not be found." %
-            (actionId, serverId))
+                            (actionId, serverId))
 
     packages = []
     for package in packagesIn:
@@ -107,6 +109,7 @@ def remove(serverId, actionId, dry_run=0):
     tmppackages = h.fetchall_dict()
     return handle_action(serverId, actionId, tmppackages, dry_run)
 
+
 def update(serverId, actionId, dry_run=0):
     h = rhnSQL.prepare(_packageStatement_update)
     h.execute(serverid=serverId, actionid=actionId)
@@ -123,6 +126,7 @@ def refresh_list(serverId, actionId, dry_run=0):
     log_debug(3)
     return None
 
+
 def runTransaction(server_id, action_id, dry_run=0):
     log_debug(3, server_id, action_id, dry_run)
 
@@ -136,7 +140,7 @@ def runTransaction(server_id, action_id, dry_run=0):
     row = h.fetchone_dict()
     if row is None:
         raise InvalidAction("invalid packages.runTransaction action %s for server %s" %
-            (action_id, server_id))
+                            (action_id, server_id))
 
     package_delta_id = row['package_delta_id']
 
@@ -190,7 +194,7 @@ def runTransaction(server_id, action_id, dry_run=0):
             [name, version, release, epoch, package_arch],
             operation
         ])
-    return { 'packages' : result }
+    return {'packages': result}
 
 # SQL statements -- used by update()
 _packageStatement_update = """
@@ -278,4 +282,3 @@ left join rhnPackageArch pa
         and ap.evr_id is null
         and sp.server_id = :serverid
         and (sp.package_arch_id = ap.package_arch_id or sp.package_arch_id is null)"""
-

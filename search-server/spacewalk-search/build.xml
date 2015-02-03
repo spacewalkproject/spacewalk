@@ -1,5 +1,6 @@
 <project name="search-server" basedir="." default="all">
     <import file="buildconf/build-utils.xml" />
+    <import file="buildconf/build-props.xml" />
 
     <property file="build.properties" />
 
@@ -63,7 +64,7 @@
         unless="valid.testcase">
         <fail message="Invalid testcase name: ${testcase}.  Class name must look like .*Test"/>
     </target>
-    
+
     <target name="test" depends="compile, check-testcase"
         description="Run the tests (use -Dtestcase=&lt;testcase&gt;)">
         <mkdir dir="${report.dir}" />
@@ -195,9 +196,9 @@
     <target name="install" depends="init-install,package" />
 
     <target name="instrument" depends="init-tasks">
-    	<mkdir dir="${report.dir}" />
-    	<mkdir dir="${build.instrument.dir}" />
-        
+        <mkdir dir="${report.dir}" />
+        <mkdir dir="${build.instrument.dir}" />
+
         <emma enabled="true">
             <instr merge="no"
                    mode="overwrite"

@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.18
+Version:        2.3.34
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,63 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jan 15 2015 Matej Kollar <mkollar@redhat.com> 2.3.34-1
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of trailing spaces in Perl
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
+* Thu Jan 08 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.33-1
+- arm related sutff can be present in db before upgrade
+- don't instert values that can be already present
+- some values can be insterted multiple times - don't do that
+- some values can be already present at the time of upgrade
+
+* Tue Dec 23 2014 Stephen Herr <sherr@redhat.com> 2.3.32-1
+- Fixing duplicated 'drop rhn_probe' statement
+
+* Mon Dec 22 2014 Stephen Herr <sherr@redhat.com> 2.3.31-1
+- Fixing order of tables to be dropped
+
+* Fri Dec 19 2014 Stephen Herr <sherr@redhat.com> 2.3.30-1
+- add schema upgrade scripts to fix triggers on rhnServerNetwork
+
+* Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.29-1
+- don't add sync-probe taskomatic task, but handle upgrades that have it
+
+* Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.28-1
+- Monitoring Panes on YourRHN no longer exist, remove schema references to them
+
+* Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.27-1
+- rhn_method_types table no longer exists, don't insert data into it
+
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.26-1
+- fixing oracle sha1source
+
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.25-1
+- remove monitoring server group type
+- Fix upgrade schema script that drops monitoring tables
+
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.24-1
+- fixing upgrade script ordering after perl-removal merge
+
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.23-1
+- Removing solaris tables
+- drop monitoring code and monitoring schema
+- removing monitoring from spacewalk-schema
+
+* Wed Dec 17 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.22-1
+- armv6hl could be present at the time of upgrade
+
+* Fri Dec 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.21-1
+- 1021057 - renamed package upgrade scripts to .sql
+
+* Fri Dec 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.20-1
+- 1021057 - schema upgrade scripts
+- 1021057 - fixed double-counting systems subscribed to more than one channel
+
+* Thu Nov 13 2014 Stephen Herr <sherr@redhat.com> 2.3.19-1
+- 1163977 - add virt-host-plat entitlement mappings for new arches
+
 * Fri Oct 10 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.18-1
 - increase source_url column size to 2048
 

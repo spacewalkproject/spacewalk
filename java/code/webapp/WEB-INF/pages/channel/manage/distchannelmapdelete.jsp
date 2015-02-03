@@ -43,7 +43,7 @@
     </tr>
     <tr>
       <th>
-	    <bean:message key = "column.architecture"/>
+            <bean:message key = "column.architecture"/>
       </th>
       <td>
         <c:out value="${dcmap.channelArch.name}"/>
@@ -51,7 +51,7 @@
     </tr>
     <tr>
       <th>
-	    <bean:message key = "channel.edit.jsp.label"/>
+            <bean:message key = "channel.edit.jsp.label"/>
       </th>
       <td>
         <c:out value="${dcmap.channel.label}"/>

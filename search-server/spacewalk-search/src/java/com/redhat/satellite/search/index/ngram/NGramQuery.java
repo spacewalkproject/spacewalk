@@ -35,15 +35,15 @@ import java.io.StringReader;
 public class NGramQuery extends BooleanQuery {
 
    private static final long serialVersionUID = 1L;
-   
+
    /**
      * Constructor
-     * @param field name of the field 
+     * @param field name of the field
      * @param queryTerms String containing a term or a series of terms to search.
      * The string will be parsed and will be broken up into a series of NGrams.
      * @throws IOException something went wrong parsing queryTerms
      * */
-    public NGramQuery(String field, String queryTerms, int min, int max) 
+    public NGramQuery(String field, String queryTerms, int min, int max)
         throws IOException {
         NGramAnalyzer nga = new NGramAnalyzer(min, max);
         TokenStream ngrams = nga.tokenStream(new StringReader(queryTerms));
@@ -55,10 +55,10 @@ public class NGramQuery extends BooleanQuery {
     }
 
     /**
-     * 
+     *
      * @param pq PhraseQuery to break up and convert to NGramQuery
      * Forms a BooleanQuery with each term in the original PhraseQuery OR'd.
-     * Note:  Assumes that each term has already been tokenized into a ngram, 
+     * Note:  Assumes that each term has already been tokenized into a ngram,
      * this method will not re-tokenize terms.
      * @param useMust controls if BooleanClause.Occur SHOULD or MUST is used.
      */

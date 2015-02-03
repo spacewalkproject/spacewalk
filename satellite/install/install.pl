@@ -14,14 +14,14 @@ use constant SPACEWALK_SETUP_SCRIPT => '/usr/bin/spacewalk-setup';
 
 # Run everything from the proper directory
 BEGIN {
-	my $program = $PROGRAM_NAME;
+        my $program = $PROGRAM_NAME;
 
-	my @parts = split(m|/|, $program);
-	my $dir = join('/', @parts[0 .. $#parts - 1]);
+        my @parts = split(m|/|, $program);
+        my $dir = join('/', @parts[0 .. $#parts - 1]);
 
-	if ($dir) {
-	  chdir $dir;
-	}
+        if ($dir) {
+          chdir $dir;
+        }
 }
 
 # Store the command line args for eventual call to spacewalk-setup. These
@@ -58,7 +58,8 @@ if (-e Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION) {
 
 my %answers = ();
 my @skip = ();
-push @skip, Spacewalk::Setup::EMBEDDED_DB_ANSWERS if (defined $opts{'managed-db'});
+push @skip, Spacewalk::Setup::EMBEDDED_DB_ANSWERS
+    if not Spacewalk::Setup::is_embedded_db(\%opts);
 Spacewalk::Setup::load_answer_file(\%opts, \%answers, \@skip);
 
 $answers{hostname} ||= Sys::Hostname::hostname;
@@ -139,11 +140,11 @@ sub get_version_info {
   my ($version, $release, $epoch, $arch) = split /\s/, $vre;
 
   my %version_info = (
-		      version => $version,
-		      release => $release,
-		      epoch => $epoch,
-		      arch => $arch,
-		     );
+                      version => $version,
+                      release => $release,
+                      epoch => $epoch,
+                      arch => $arch,
+                     );
 
   return %version_info;
 }
@@ -168,7 +169,7 @@ EOQ
   }
 
   if (not $opts->{"skip-selinux-test"}) {
-      if (getenforce() eq 'Disabled') {		# we should use SELinux
+      if (getenforce() eq 'Disabled') {         # we should use SELinux
         print loc(<<EOH);
 Red Hat recommends SELinux be configured in either Permissive or Enforcing
 mode for your Red Hat Satellite installation.  Run /usr/sbin/getenforce to see your
@@ -241,9 +242,9 @@ EOH
 }
 
 sub getenforce {
-	my $getenforce = `/usr/sbin/getenforce`;
-	chomp $getenforce;
-	return $getenforce;
+        my $getenforce = `/usr/sbin/getenforce`;
+        chomp $getenforce;
+        return $getenforce;
 }
 
 sub hostname_is_fqdn {
@@ -348,8 +349,8 @@ Import values to be used by Satellite [y/n]",
   } else {
 
     ask(-question => "HTTP Proxy Hostname",
-	-test => sub { my $text = shift; return (empty($text) or valid_proxy($text)) },
-	-answer => \$answers->{'rhn-http-proxy'});
+        -test => sub { my $text = shift; return (empty($text) or valid_proxy($text)) },
+        -answer => \$answers->{'rhn-http-proxy'});
 
     if ($answers->{'rhn-http-proxy'}) {
       $answers->{'rhn-http-proxy'} =~ /^([^:\/]*)(:\d+)?/;
@@ -357,23 +358,23 @@ Import values to be used by Satellite [y/n]",
       my ($host, $port) = ($1, $2);
 
       ask(-question => "HTTP Proxy Port",
-	  -test => qr/\d+/,
-	  -default => '8080',
-	  -answer => \$port);
+          -test => qr/\d+/,
+          -default => '8080',
+          -answer => \$port);
 
       $answers->{'rhn-http-proxy'} = $host . ':' . $port;
 
       ask(-question => "HTTP Proxy Username",
-	  -answer => \$answers->{'rhn-http-proxy-username'},
-	  -test => sub { 1 },
-	  -default => '');
+          -answer => \$answers->{'rhn-http-proxy-username'},
+          -test => sub { 1 },
+          -default => '');
 
       if ($answers->{'rhn-http-proxy-username'}) {
         ask(-question => "HTTP Proxy Password",
-	    -answer => \$answers->{'rhn-http-proxy-password'},
-	    -test => sub { 1 },
-	    -password => 1,
-	    -default => '');
+            -answer => \$answers->{'rhn-http-proxy-password'},
+            -test => sub { 1 },
+            -password => 1,
+            -default => '');
       }
     }
   }
@@ -389,30 +390,30 @@ Import values to be used by Satellite [y/n]",
      );
 
   register_system(-rhn_username => $answers->{'rhn-username'},
-		  -rhn_password => $answers->{'rhn-password'},
-		  -rhn_http_proxy => $answers->{'rhn-http-proxy'},
-		  -rhn_http_proxy_username => $answers->{'rhn-http-proxy-username'},
-		  -rhn_http_proxy_password => $answers->{'rhn-http-proxy-password'},
-		  -rhn_profile_name => $answers->{'rhn-profile-name'},
-		  -rhn_server_name => $answers->{'rhn-server-name'},
-		 );
+                  -rhn_password => $answers->{'rhn-password'},
+                  -rhn_http_proxy => $answers->{'rhn-http-proxy'},
+                  -rhn_http_proxy_username => $answers->{'rhn-http-proxy-username'},
+                  -rhn_http_proxy_password => $answers->{'rhn-http-proxy-password'},
+                  -rhn_profile_name => $answers->{'rhn-profile-name'},
+                  -rhn_server_name => $answers->{'rhn-server-name'},
+                 );
 
   return 1;
 }
 
 sub register_system {
   my %params = validate(@_, { rhn_username => 1,
-			      rhn_password => 1,
-			      rhn_http_proxy => 0,
-			      rhn_http_proxy_username => 0,
-			      rhn_http_proxy_password => 0,
-			      rhn_profile_name => 0,
-			      rhn_server_name => 0});
+                              rhn_password => 1,
+                              rhn_http_proxy => 0,
+                              rhn_http_proxy_username => 0,
+                              rhn_http_proxy_password => 0,
+                              rhn_profile_name => 0,
+                              rhn_server_name => 0});
 
   my @args;
 
   @args = ('--username', $params{rhn_username},
-	   '--password', $params{rhn_password});
+           '--password', $params{rhn_password});
 
   if ($params{http_proxy}) {
     push @args, ('--proxy', $params{rhn_http_proxy});
@@ -440,9 +441,9 @@ sub register_system {
   my $ret = system_debug('/usr/sbin/rhnreg_ks', @args);
 
   my %retcodes = (
-		  1 => 'Fatal error registering with RHN.  Check your proxy settings and parent server and try again.  Also ensure that the specified user exists and that the user has an available Satellite software entitlement.',
-		  -1 => 'Could not register with RHN.  Check your username and password and try again.',
-		 );
+                  1 => 'Fatal error registering with RHN.  Check your proxy settings and parent server and try again.  Also ensure that the specified user exists and that the user has an available Satellite software entitlement.',
+                  -1 => 'Could not register with RHN.  Check your username and password and try again.',
+                 );
 
   if ($ret) {
     my $exit_value = $CHILD_ERROR >> 8;
@@ -606,41 +607,41 @@ sub backup_oracle_rhnconf {
 
 sub ask {
   my %params = validate(@_, { question => 1,
-			      test => 0,
-			      answer => 1,
-			      password => 0,
-			      default => 0,
-			    });
+                              test => 0,
+                              answer => 1,
+                              password => 0,
+                              default => 0,
+                            });
 
   if (${$params{answer}} and not $params{default}) {
     $params{default} = ${$params{answer}};
   }
 
   while (not defined ${$params{answer}} or
-	 not answered($params{test}, ${$params{answer}})
+         not answered($params{test}, ${$params{answer}})
         ) {
     if ($opts{"non-interactive"}) {
       if (defined ${$params{answer}}) {
-	die "The answer '" . ${$params{answer}} . "' provided for '" . $params{question} . "' is invalid.\n";
+        die "The answer '" . ${$params{answer}} . "' provided for '" . $params{question} . "' is invalid.\n";
       }
       else {
-	die "No answer provided for '" . $params{question} . "'\n";
+        die "No answer provided for '" . $params{question} . "'\n";
       }
     }
 
     my $default_string = "";
     if ($params{default}) {
       if ($params{password}) {
-	$default_string = " [******]";
+        $default_string = " [******]";
       }
       else {
-	$default_string = " [" . $params{default} . "]";
+        $default_string = " [" . $params{default} . "]";
       }
     }
 
     print loc("%s%s? ",
-	      $params{question},
-	      $default_string);
+              $params{question},
+              $default_string);
 
     if ($params{password}) {
       my $stty_orig_val = `stty -g`;
@@ -675,11 +676,11 @@ sub answered {
     $testsub = sub {
       my $param = shift;
       if ($param =~ $test) {
-	return 1
+        return 1
       }
       else {
-	print loc("'%s' is not a valid response\n", $param);
-	return 0
+        print loc("'%s' is not a valid response\n", $param);
+        return 0
       }
     };
   }
@@ -697,11 +698,11 @@ sub get_required_rpms {
   my @NEEDRPMS_FILES = ($NEEDRPMS_FILE);
   if (Spacewalk::Setup::is_embedded_db($opts)) {
       if (-d 'PostgreSQL') {
-	  push @NEEDRPMS_FILES, "$NEEDRPMS_FILE.postgresql";
+          push @NEEDRPMS_FILES, "$NEEDRPMS_FILE.postgresql";
       } elsif (-d 'EmbeddedDB') {
           push @NEEDRPMS_FILES, "$NEEDRPMS_FILE.oracle";
       }
-  } else {	# this is external database, meaning Oracle
+  } else {      # this is external database, meaning Oracle
       push @NEEDRPMS_FILES, "$NEEDRPMS_FILE.external-oracle";
   }
   for my $f (@NEEDRPMS_FILES) {
@@ -757,7 +758,7 @@ EOF
         print loc(<<'EOF', $package_list);
 Very well, the installer will not resolve the dependencies. Please install
 
-	%s
+        %s
 
 and rerun the installer. Thank you.
 EOF
@@ -771,7 +772,7 @@ The following packages from Red Hat Enterprise Linux that are not part
 of the @base group have to be installed on this system for the installer
 and the Satellite to operate correctly:
 
-	%s
+        %s
 
 EOF
     if (not(defined $run_updater and not $run_updater) and not yum_is_available()) {
@@ -831,8 +832,8 @@ sub install_rhn_packages {
       push(@rpms, glob("Oracle/*.rpm"));
   }
   system_or_exit(['yum', 'localinstall', '-y', @rpms],
-		 26,
-		 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the Red Hat Satellite Server Installation Guide for more information about Software Requirements.');
+                 26,
+                 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the Red Hat Satellite Server Installation Guide for more information about Software Requirements.');
   return 1;
 }
 
@@ -887,7 +888,7 @@ sub get_composeinfo {
 
   if (defined $productVersion) { $productName .= " $productVersion"; }
   if (defined $treeName) { $productName .= "\n($treeName)"; }
-  
+
   return { productName => $productName,
            productVersion => $productVersion,
            treeName => $treeName,

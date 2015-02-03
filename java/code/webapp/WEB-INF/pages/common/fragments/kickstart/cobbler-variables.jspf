@@ -3,44 +3,43 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <h2><bean:message key="kickstart.variable.jsp.header" /></h2>
-<div>
-  <p>
-    <bean:message key="kickstart.variable.jsp.summary"/>
-  </p>
-    <c:if test= "${not empty param.summary}">
-    	<p><bean:message key="${param.summary}"/></p>
+<p><bean:message key="kickstart.variable.jsp.summary"/></p>
+
+<c:if test= "${not empty param.summary}">
+    <p><bean:message key="${param.summary}"/></p>
+</c:if>
+
+<html:form method="post" action="${param.post_url}" styleClass="form-horizontal">
+    <rhn:csrf />
+    <c:if test= "${not empty param.show_netboot}">
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                <bean:message key="kickstart.variable.jsp.netboot-enabled"/>:
+            </label>
+            <div class="col-lg-9">
+                <html:checkbox property="netbootEnabled"/>
+            </div>
+        </div>
     </c:if>
-  <br />
-    <html:form method="post" action="${param.post_url}">
-      <rhn:csrf />
-      <table class="details">
-		<c:if test= "${not empty param.show_netboot}">
-		      <tr>
-              <th>
-                  <bean:message key="kickstart.variable.jsp.netboot-enabled"/>:
-              </th>
-              <td>
-                  <html:checkbox property="netbootEnabled"/>
-              </td>
-          </tr>
-		</c:if>
-          <tr>
-              <th>
-                  <bean:message key="kickstart.variable.jsp.variabledetails"/>:
-              </th>
-              <td>
-                  <html:textarea rows="25" cols="60" property="variables"/>
-              </td>
-          </tr>
-
-
-
-          <tr>
-            <td align="right" colspan="2"><html:submit styleClass="btn btn-default"><bean:message key="kickstart.variable.jsp.update"/></html:submit></td>
-          </tr>
-      </table>
-      <input type="hidden" name="${param.name}" value = "${param.value}"/>
-      <html:hidden property="submitted" value="true"/>
-    </html:form>
-</div>
+    <div class="form-group">
+        <label class="col-lg-3 control-label">
+            <bean:message key="kickstart.variable.jsp.variabledetails"/>:
+        </label>
+        <div class="col-lg-9">
+            <html:textarea styleClass="form-control"
+                           rows="20" cols="60"
+                           property="variables"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-offset-3 col-lg-9">
+            <html:submit styleClass="btn btn-success">
+                <bean:message key="kickstart.variable.jsp.update"/>
+            </html:submit>
+        </div>
+    </div>
+    <input type="hidden" name="${param.name}" value="${param.value}" />
+    <html:hidden property="submitted" value="true"/>
+</html:form>

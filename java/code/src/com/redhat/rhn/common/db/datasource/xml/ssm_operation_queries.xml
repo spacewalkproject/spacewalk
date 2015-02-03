@@ -96,14 +96,14 @@
              select :op_id, S.id
              from rhnServer S inner join rhnUserServerPerms USP on S.id = USP.server_id
              where S.id in (%s)
-             	   AND user_id = :user_id
-		   and S.id not in
-             	   (
+                   AND user_id = :user_id
+                   and S.id not in
+                   (
                     SELECT sos.server_id
                       FROM rhnSsmOperationServer sos
                      WHERE sos.operation_id = :op_id
                        AND sos.server_id = s.id
-		   )
+                   )
              )
    </query>
 </write-mode>

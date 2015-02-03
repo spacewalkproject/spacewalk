@@ -5,30 +5,30 @@
 <div class="text-right">
    <rhn:submitted/>
    <hr/>
-	<c:if test="${not requestScope.normal}" >
-		<rhn:require acl="user_role(config_admin)">
-		    <input type="submit" class="btn btn-default"
-	    		name ="dispatch"
-		    	value="${requestScope.copy_to_global}"/>
-		</rhn:require>
-	</c:if>
+        <c:if test="${not requestScope.normal}" >
+                <rhn:require acl="user_role(config_admin)">
+                    <input type="submit" class="btn btn-default"
+                        name ="dispatch"
+                        value="${requestScope.copy_to_global}"/>
+                </rhn:require>
+        </c:if>
 
-	<c:if test="${not requestScope.server_import}" >
-	    <input type="submit" class="btn btn-default"
-	    	name ="dispatch"
-		    value="${requestScope.copy_to_sandbox}"/>
-	</c:if>
-	<c:if test="${not requestScope.local_override}" >
-	    <input type="submit" class="btn btn-default"
-	    	name ="dispatch"
-		    value="${requestScope.copy_to_local}"/>
+        <c:if test="${not requestScope.server_import}" >
+            <input type="submit" class="btn btn-default"
+                name ="dispatch"
+                    value="${requestScope.copy_to_sandbox}"/>
+        </c:if>
+        <c:if test="${not requestScope.local_override}" >
+            <input type="submit" class="btn btn-default"
+                name ="dispatch"
+                    value="${requestScope.copy_to_local}"/>
    </c:if>
-	<c:if test="${not requestScope.normal}" >
-		<rhn:require acl="user_role(config_admin)">
-		    <input type="submit" class="btn btn-default"
-		    	name ="dispatch"
-			    value="${requestScope.delete_files}"/>
+        <c:if test="${not requestScope.normal}" >
+                <rhn:require acl="user_role(config_admin)">
+                    <input type="submit" class="btn btn-default"
+                        name ="dispatch"
+                            value="${requestScope.delete_files}"/>
        </rhn:require>
-	</c:if>
+        </c:if>
 </div>
 </c:if>

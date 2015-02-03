@@ -31,7 +31,9 @@ from spacewalk.satellite_tools import constants
 
 from rhn.connections import idn_puny_to_unicode
 
+
 class BaseApacheServer:
+
     def __init__(self):
         # Init log to stderr
         initLOG()
@@ -39,6 +41,7 @@ class BaseApacheServer:
         self._cleanup()
 
     def headerParserHandler(self, req):
+        # pylint: disable=W0201
         log_setreq(req)
         self.start_time = time.time()
         # init configuration options with proper component
@@ -63,7 +66,7 @@ class BaseApacheServer:
             msg = open(CFG.MESSAGE_TO_ALL).read()
             log_debug(3, "Sending message to all clients: %s" % msg)
             return self._send_xmlrpc(req, rhnFault(-1,
-                _("IMPORTANT MESSAGE FOLLOWS:\n%s") % msg, explain=0))
+                                                   _("IMPORTANT MESSAGE FOLLOWS:\n%s") % msg, explain=0))
 
         rhnSQL.initDB()
         self.server = options['SERVER']
@@ -114,7 +117,7 @@ class BaseApacheServer:
             # The error code most likely doesn't matter, the client won't see
             # it anyway
             return apache.HTTP_NOT_ACCEPTABLE
-        except:
+        except Exception:  # pylint: disable=E0012, W0703
             Traceback("satexport._wrapper", req=req)
             return apache.HTTP_INTERNAL_SERVER_ERROR
         return ret
@@ -138,7 +141,9 @@ class BaseApacheServer:
         log_debug(2, "%.2f sec" % (time.time() - self.start_time))
         return 0
 
+
 class ApacheServer(BaseApacheServer):
+
     def __init__(self):
         BaseApacheServer.__init__(self)
 
@@ -188,7 +193,7 @@ class ApacheServer(BaseApacheServer):
         iss_slave_condition = self.auth_system(req)
         # Get the module name
         idx = method_name.rfind('.')
-        module_name, function_name = method_name[:idx], method_name[idx+1:]
+        module_name, function_name = method_name[:idx], method_name[idx + 1:]
         log_debug(5, module_name, function_name)
 
         handler_classes = self.server_classes[self.server]
@@ -217,8 +222,8 @@ class ApacheServer(BaseApacheServer):
         """, hostname = idn_puny_to_unicode(remote_hostname))
         if not row:
             raise rhnFault(2004,
-              _('Server "%s" is not enabled for ISS.')
-                % remote_hostname)
+                           _('Server "%s" is not enabled for ISS.')
+                           % remote_hostname)
         iss_slave_condition = "select id from web_customer"
         if not(row['allow_all_orgs'] == 'Y'):
             iss_slave_condition = "select rhnISSSlaveOrgs.org_id from rhnISSSlaveOrgs where slave_id = %d" % row['id']
@@ -232,11 +237,11 @@ class ApacheServer(BaseApacheServer):
             raise rhnFault(3010, "Missing version string")
         client_version = req.headers_in[vstr]
 
-        #set the client version  through rhnFlags to access later
+        # set the client version  through rhnFlags to access later
         rhnFlags.set('X-RHN-Satellite-XML-Dump-Version', client_version)
 
         log_debug(1, "Server version", server_version, "Client version",
-            client_version)
+                  client_version)
 
         client_ver_arr = str(client_version).split(".")
         server_ver_arr = str(server_version).split(".")
@@ -260,12 +265,13 @@ class ApacheServer(BaseApacheServer):
             server_minor = int(server_minor)
         except ValueError:
             raise rhnException("Invalid server version string %s"
-                % server_version), None, sys.exc_info()[2]
+                               % server_version), None, sys.exc_info()[2]
 
         if client_major != server_major:
             raise rhnFault(3012, "Client version %s does not match"
-                " server version %s" % (client_version, server_version),
-                explain=0)
+                           " server version %s" % (client_version, server_version),
+                           explain=0)
+
 
 class FunctionRetrievalError(Exception):
     pass
@@ -275,4 +281,3 @@ apache_server = ApacheServer()
 HeaderParserHandler = apache_server.headerParserHandler
 Handler = apache_server.handler
 CleanupHandler = apache_server.cleanupHandler
-

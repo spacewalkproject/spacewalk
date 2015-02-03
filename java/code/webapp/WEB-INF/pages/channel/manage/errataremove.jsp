@@ -20,89 +20,16 @@
    <rhn:csrf />
    <input type="hidden" name="cid" value="${cid}">
 
-		  <rl:list  dataset="errata_data"
-					decorator="SelectableDecorator"
-					emptykey="channel.jsp.errata.listempty"
-					alphabarcolumn="advisory" >
+       <%@ include file="/WEB-INF/pages/common/fragments/errata/selectableerratalist.jspf" %>
 
-				<rl:decorator name="ElaborationDecorator"/>
-				<rl:decorator name="PageSizeDecorator"/>
-
-				<rl:selectablecolumn value="${current.selectionKey}"
-					selected="${current.selected}"/>
-
-
-
-
-
-                 <rl:column sortable="true"
-                                   bound="false"
-                           headerkey="erratalist.jsp.type"
-                           headerclass="thin-column"
-                           sortattr="advisoryType">
-                        <c:if test="${current.advisoryType == 'Product Enhancement Advisory'}">
-                                 <rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
-                        </c:if>
-                       <c:if test="${current.advisoryType == 'Security Advisory'}">
-                                 <rhn:icon type="errata-security" title="erratalist.jsp.securityadvisory" />
-                        </c:if>
-                       <c:if test="${current.advisoryType == 'Bug Fix Advisory'}">
-                                 <rhn:icon type="errata-bugfix" title="erratalist.jsp.bugadvisory" />
-                        </c:if>
-
-                </rl:column>
-
-
-                 <rl:column sortable="true"
-                                   bound="false"
-                           headerkey="erratalist.jsp.advisory"
-                           sortattr="advisory"
-                           >
-
-                        <a href="/rhn/errata/manage/Edit.do?eid=${current.id}">${current.advisoryName}</a>
-                </rl:column>
-
-
-                 <rl:column sortable="true"
-                                   bound="false"
-                                   filterattr="advisorySynopsis"
-                           headerkey="erratalist.jsp.synopsis"
-                           sortattr="advisorySynopsis"
-                          >
-                        ${current.advisorySynopsis}
-                </rl:column>
-
-               <%--
-                 <rl:column sortable="true"
-                                   bound="false"
-                           headerkey="lastModified"
-                           sortattr="lastModifiedObject"
-                          >
-                        ${current.lastModified}
-                </rl:column>
-
-                --%>
-
-                 <rl:column sortable="true"
-                                   bound="false"
-                           headerkey="erratalist.jsp.updated"
-                           sortattr="updateDateObj"
-                           defaultsort="desc"
-                          >
-                        ${current.updateDate}
-                </rl:column>
-
-
-			</rl:list>
-
-			<div class="text-right">
+                        <div class="text-right">
                         <hr />
-			<input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='channel.jsp.errata.remove'/>"
-	                    <c:choose>
-	                        <c:when test="${empty errata_data}">disabled</c:when>
-	                    </c:choose>
+                        <input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='channel.jsp.errata.remove'/>"
+                            <c:choose>
+                                <c:when test="${empty errata_data}">disabled</c:when>
+                            </c:choose>
                         >
-			</div>
+                        </div>
      <rhn:submitted/>
 
 

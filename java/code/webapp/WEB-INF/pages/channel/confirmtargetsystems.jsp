@@ -25,32 +25,32 @@
 
 <input type="hidden" name="cid" value="${cid}" />
 
-	<rl:list
-			emptykey="systemlist.jsp.nosystems"
-			alphabarcolumn="name"
-			filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter" >
+        <rl:list
+                        emptykey="systemlist.jsp.nosystems"
+                        alphabarcolumn="name"
+                        filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter" >
 
-			<rl:decorator name="PageSizeDecorator"/>
+                        <rl:decorator name="PageSizeDecorator"/>
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="actions.jsp.system"
                            sortattr="name"
-							defaultsort="asc"
+                                                        defaultsort="asc"
                            >
                         <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
-                        	<c:out value="${current.name}" />
+                                <c:out value="${current.name}" />
                         </a>
                 </rl:column>
 
 
 
-		</rl:list>
-		<rhn:submitted/>
+                </rl:list>
+                <rhn:submitted/>
 
-		  	<div class="text-right">
+                        <div class="text-right">
                                 <hr />
-				<input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='ssmchildsubs.jsp.subscribe'/>" </input>
-			</div>
+                                <input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='ssmchildsubs.jsp.subscribe'/>" </input>
+                        </div>
 
 
 </rl:listset>

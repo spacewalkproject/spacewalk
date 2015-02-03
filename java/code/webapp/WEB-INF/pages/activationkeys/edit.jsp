@@ -7,9 +7,9 @@
 <%@ include file="/WEB-INF/pages/common/fragments/activationkeys/common-header.jspf" %>
 
 <c:import url="/WEB-INF/pages/common/fragments/activationkeys/details.jspf">
-	<c:param name = "url" value="/activationkeys/Edit.do?tid=${param.tid}"/>
-	<c:param name = "tid" value="${param.tid}"/>
-	<c:param name = "submit" value="activation-key.jsp.edit-key"/>
+        <c:param name = "url" value="/activationkeys/Edit.do?tid=${param.tid}"/>
+        <c:param name = "tid" value="${param.tid}"/>
+        <c:param name = "submit" value="activation-key.jsp.edit-key"/>
 </c:import>
 
 </body>

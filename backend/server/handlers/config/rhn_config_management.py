@@ -22,20 +22,22 @@ from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnSQL, configFilesHandler
 from spacewalk.server.rhnHandler import rhnHandler
 
+
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
+
     def __init__(self):
         log_debug(3)
-	configFilesHandler.ConfigFilesHandler.__init__(self)
+        configFilesHandler.ConfigFilesHandler.__init__(self)
         self.functions.update({
-            'client.list_config_channels'   : 'client_list_channels',
+            'client.list_config_channels': 'client_list_channels',
             # XXX1
-            'client.set_namespaces'     : 'client_set_namespaces',
-            'client.list_files'         : 'client_list_files',
-            'client.get_file'           : 'client_get_file',
-            'client.get_default_delimiters'     : 'client_get_delimiters',
-            'client.upload_file'       : 'client_upload_file',
-            'client.get_maximum_file_size'  : 'client_get_maximum_file_size',
-            'client.upload'             : 'client_upload_to_server_import',
+            'client.set_namespaces': 'client_set_namespaces',
+            'client.list_files': 'client_list_files',
+            'client.get_file': 'client_get_file',
+            'client.get_default_delimiters': 'client_get_delimiters',
+            'client.upload_file': 'client_upload_file',
+            'client.get_maximum_file_size': 'client_get_maximum_file_size',
+            'client.upload': 'client_upload_to_server_import',
         })
         self.org_id = None
 
@@ -83,10 +85,10 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         position = 0
         for config_channel in namespaces:
             rowcount = h.execute(server_id=server_id, position=position,
-                config_channel=config_channel, org_id=org_id)
+                                 config_channel=config_channel, org_id=org_id)
             if not rowcount:
                 raise rhnFault(4009, "Unable to find config channel %s" %
-                    config_channel, explain=0)
+                               config_channel, explain=0)
             position = position + 1
 
         rhnSQL.commit()
@@ -119,7 +121,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         self.auth_system(systemid)
 
         if config_channel:
-            config_channels = [ config_channel ]
+            config_channels = [config_channel]
         else:
             config_channels = self._get_client_config_channels(self.server.getid())
             config_channels = map(lambda x: x['label'], config_channels)
@@ -184,9 +186,9 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                ci.username,
                ci.groupname,
                ci.filemode,
-	       cft.label,
-	       cct.priority,
-	       ci.selinux_ctx,
+               cft.label,
+               cct.priority,
+               ci.selinux_ctx,
            case
                 when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
                 else ''
@@ -204,8 +206,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             on cr.config_content_id = c.id,
                rhnServerConfigChannel scc,
                rhnConfigFile cf,
-	       rhnConfigFileType cft,
-	       rhnConfigChannelType cct
+               rhnConfigFileType cft,
+               rhnConfigChannelType cct
          where scc.server_id = :server_id
            and scc.config_channel_id = cc.id
            and cf.config_channel_id = cc.id
@@ -213,8 +215,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cr.config_file_id = cf.id
            and cr.config_info_id = ci.id
            and cf.latest_config_revision_id = cr.id
-	   and cr.config_file_type_id = cft.id
-	   and cct.id = cc.confchan_type_id
+           and cr.config_file_type_id = cft.id
+           and cct.id = cc.confchan_type_id
          order by cct.priority, scc.position
     """)
 
@@ -225,7 +227,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         row = h.fetchone_dict()
         if not row:
             # XXX Return something other than a dict?
-            return {'missing' : 1}
+            return {'missing': 1}
 
         return self._format_file_results(row)
 
@@ -318,7 +320,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         label = "server_import-%d" % server_id
 
         insert_call = rhnSQL.Function('rhn_config.insert_channel',
-            rhnSQL.types.NUMBER())
+                                      rhnSQL.types.NUMBER())
         config_channel_id = insert_call(self.org_id,
                                         'server_import',
                                         name,

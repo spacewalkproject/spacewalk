@@ -120,57 +120,57 @@ Defaults = {
 class ConfigFile:
     "class for handling persistent config options for the client"
     def __init__(self, filename = None):
-	self.dict = {}
-	self.fileName = filename
+        self.dict = {}
+        self.fileName = filename
         if self.fileName:
             self.load()
 
     def load(self, filename = None):
         if filename:
             self.fileName = filename
-	if self.fileName == None:
-	    return
+        if self.fileName == None:
+            return
         if not os.access(self.fileName, os.R_OK):
             print "warning: can't access %s" % self.fileName
             return
 
         f = open(self.fileName, "r")
 
-	for line in f.readlines():
+        for line in f.readlines():
             # strip comments
             if '#' in line:
                 line = line[:string.find(line, '#')]
             line = string.strip(line)
             if not line:
-		continue
+                continue
 
             value = None
-	    try:
-		(key, value) = map(string.strip, string.split(line, "=", 1))
-	    except ValueError:
+            try:
+                (key, value) = map(string.strip, string.split(line, "=", 1))
+            except ValueError:
                 # Bad directive: not in 'a = b' format
-		continue
+                continue
 
             # decode a comment line
             comment = None
-	    pos = string.find(key, "[comment]")
-	    if pos != -1:
-		key = key[:pos]
+            pos = string.find(key, "[comment]")
+            if pos != -1:
+                key = key[:pos]
                 comment = value
                 value = None
 
             # figure out if we need to parse the value further
             if value:
-		# possibly split value into a list
-		values = string.split(value, ";")
-		if len(values) == 1:
-		    try:
-			value = int(value)
-		    except ValueError:
-			pass
-		elif values[0] == "":
+                # possibly split value into a list
+                values = string.split(value, ";")
+                if len(values) == 1:
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        pass
+                elif values[0] == "":
                     value = []
-		else:
+                else:
                     value = values[:-1]
 
             # now insert the (comment, value) in the dictionary
@@ -182,34 +182,34 @@ class ConfigFile:
                 if value is not None: # override value
                     newval = (newval[0], value)
             self.dict[key] = newval
-	f.close()
+        f.close()
 
     def save(self):
-	if self.fileName == None:
-	    return
+        if self.fileName == None:
+            return
 
         f = open(self.fileName, "w")
         os.chmod(self.fileName, 0600)
 
-	f.write("# Automatically generated Red Hat Update Agent "\
+        f.write("# Automatically generated Red Hat Update Agent "\
                 "config file, do not edit.\n")
-	f.write("# Format: 1.0\n")
-	f.write("")
-	for key in self.dict.keys():
-	    val = self.dict[key]
-	    f.write("%s[comment]=%s\n" % (key, val[0]))
-	    if type(val[1]) == type([]):
-		f.write("%s=%s;\n" % (key, string.join(map(str, val[1]), ';')))
-	    else:
-		f.write("%s=%s\n" % (key, val[1]))
-	    f.write("\n")
-	f.close()
+        f.write("# Format: 1.0\n")
+        f.write("")
+        for key in self.dict.keys():
+            val = self.dict[key]
+            f.write("%s[comment]=%s\n" % (key, val[0]))
+            if type(val[1]) == type([]):
+                f.write("%s=%s;\n" % (key, string.join(map(str, val[1]), ';')))
+            else:
+                f.write("%s=%s\n" % (key, val[1]))
+            f.write("\n")
+        f.close()
 
     # dictionary interface
     def has_key(self, name):
         return self.dict.has_key(name)
     def keys(self):
-	return self.dict.keys()
+        return self.dict.keys()
     def values(self):
         return map(lambda a: a[1], self.dict.values())
     def update(self, dict):
@@ -225,7 +225,7 @@ class ConfigFile:
             val = self.dict[name]
         else:
             val = (None, None)
-	self.dict[name] = (val[0], value)
+        self.dict[name] = (val[0], value)
     # we might need to expose the comments...
     def info(self, name):
         if self.dict.has_key(name):

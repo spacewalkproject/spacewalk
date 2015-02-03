@@ -27,9 +27,9 @@
 
 <input type="hidden" name="cid" value="${cid}" />
 
-	<rl:list emptykey="distchannelmap.jsp.empty" alphabarcolumn="os" >
+        <rl:list emptykey="distchannelmap.jsp.empty" alphabarcolumn="os" >
 
-			<rl:decorator name="PageSizeDecorator"/>
+                        <rl:decorator name="PageSizeDecorator"/>
 
                  <rl:column sortable="true"
                    bound="false"
@@ -75,14 +75,14 @@
                      </c:otherwise>
                    </c:choose>
                 </rl:column>
-	</rl:list>
+        </rl:list>
 <!--
-	<div class="text-right">
-	  <hr />
-		<input class="btn btn-default" type="submit" name="dispatch"
-				value="<bean:message key='distchannelmap.jsp.update'/>" />
-	</div>
-		<rhn:submitted/>
+        <div class="text-right">
+          <hr />
+                <input class="btn btn-default" type="submit" name="dispatch"
+                                value="<bean:message key='distchannelmap.jsp.update'/>" />
+        </div>
+                <rhn:submitted/>
 -->
 
 </rl:listset>

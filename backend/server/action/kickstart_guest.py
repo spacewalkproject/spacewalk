@@ -17,10 +17,10 @@ from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnLib import InvalidAction, ShadowAction
 from spacewalk.server.action.utils import SubscribedChannel, \
-                                ChannelPackage, \
-                                PackageInstallScheduler, \
-                                NoActionInfo, \
-                                PackageNotFound
+    ChannelPackage, \
+    PackageInstallScheduler, \
+    NoActionInfo, \
+    PackageNotFound
 from spacewalk.server.rhnChannel import subscribe_to_tools_channel
 
 
@@ -39,6 +39,7 @@ _query_initiate_guest = rhnSQL.Statement("""
        and ksdef.kickstart_id = ksd.id
        and ksdef.virtualization_type = kvt.id
 """)
+
 
 def schedule_virt_guest_pkg_install(server_id, action_id, dry_run=0):
     """
@@ -75,6 +76,7 @@ def schedule_virt_guest_pkg_install(server_id, action_id, dry_run=0):
     log_debug(3, "Completed scheduling install of rhn-virtualization-guest!")
     raise ShadowAction("Scheduled installation of RHN Virtualization Guest packages.")
 
+
 def initiate(server_id, action_id, dry_run=0):
     log_debug(3)
     h = rhnSQL.prepare(_query_initiate_guest)
@@ -84,24 +86,25 @@ def initiate(server_id, action_id, dry_run=0):
     if not row:
         raise InvalidAction("Kickstart action without an associated kickstart")
 
-    kickstart_host  = row['kickstart_host']
-    virt_type       = row['virt_type']
-    name            = row['guest_name']
-    boot_image      = "spacewalk-koan"
-    append_string   = row['append_string']
-    vcpus           = row['vcpus']
-    disk_gb         = row['disk_gb']
-    mem_kb          = row['mem_kb']
-    ks_session_id   = row['ks_session_id']
-    virt_bridge     = row['virt_bridge']
-    disk_path       = row['disk_path']
+    kickstart_host = row['kickstart_host']
+    virt_type = row['virt_type']
+    name = row['guest_name']
+    boot_image = "spacewalk-koan"
+    append_string = row['append_string']
+    vcpus = row['vcpus']
+    disk_gb = row['disk_gb']
+    mem_kb = row['mem_kb']
+    ks_session_id = row['ks_session_id']
+    virt_bridge = row['virt_bridge']
+    disk_path = row['disk_path']
     cobbler_system_name = row['cobbler_system_name']
 
     if not boot_image:
         raise InvalidAction("Boot image missing")
 
     return (kickstart_host, cobbler_system_name, virt_type, ks_session_id, name,
-                mem_kb, vcpus, disk_gb, virt_bridge, disk_path, append_string)
+            mem_kb, vcpus, disk_gb, virt_bridge, disk_path, append_string)
+
 
 def add_tools_channel(server_id, action_id, dry_run=0):
     log_debug(3)

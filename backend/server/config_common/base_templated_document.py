@@ -21,6 +21,7 @@ import string
 
 from spacewalk.common.rhnLog import log_error
 
+
 class BaseTemplatedDocument:
     compiled_regexes = {}
 
@@ -113,7 +114,7 @@ class TemplatedDocument(BaseTemplatedDocument):
             if i < 0:
                 raise ValueError, "Missing ("
 
-            params = fname[i+1:-1]
+            params = fname[i + 1:-1]
             fname = string.strip(fname[:i])
 
             # Parse the params
@@ -145,7 +146,7 @@ class TemplatedDocument(BaseTemplatedDocument):
 
         result = f(*params)
 
-        if result == None:
+        if result is None:
             if defval:
                 return defval
             return ''
@@ -179,6 +180,7 @@ class TemplatedDocument(BaseTemplatedDocument):
             return s[1:-1]
 
         return s
+
 
 class InvalidFunctionError(Exception):
     pass

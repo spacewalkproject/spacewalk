@@ -20,9 +20,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="scriptName" column="script_name" type="string" length="40" />
         <property name="data" column="data"  type="binary" />
         <property name="created" column="created" not-null="true"
-        	type="timestamp" insert="false" update="false"/>
+                type="timestamp" insert="false" update="false"/>
         <property name="modified" column="modified" not-null="true"
-        	type="timestamp" insert="false" update="false"/>
+                type="timestamp" insert="false" update="false"/>
 
         <many-to-one name="ksdata"
                      class="com.redhat.rhn.domain.kickstart.KickstartData"

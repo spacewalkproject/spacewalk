@@ -77,8 +77,8 @@ class Handler(handler_base.HandlerBase):
         if self.options.dest_file:
             if len(files) != 1:
                 die(7, "--dest-file accepts a single file")
-	    if not (self.options.dest_file[0] == os.sep):
-		die(7, "--dest-file argument must begin with " + os.sep)
+            if not (self.options.dest_file[0] == os.sep):
+                die(7, "--dest-file argument must begin with " + os.sep)
             files_to_push.append((files[0], self.options.dest_file))
         elif self.options.topdir:
             if not os.path.isdir(self.options.topdir):
@@ -95,11 +95,11 @@ class Handler(handler_base.HandlerBase):
                 files_to_push.append((f, f[len(self.options.topdir):]))
         else:
             for f in files:
-		#if a file is given w/o a full path, then use the abspath of the
-		#file as name of the file to be uploaded into the channel
-		if not (f[0] == os.sep):
+                #if a file is given w/o a full path, then use the abspath of the
+                #file as name of the file to be uploaded into the channel
+                if not (f[0] == os.sep):
                     files_to_push.append((f, os.path.abspath(f)))
-		else:
+                else:
                     files_to_push.append((f, f))
 
         for (local_file, remote_file) in files_to_push:

@@ -142,8 +142,8 @@ class DependencySenseError(Error):
 class SkipListError(Error):
     """Raise when all the packages you want updated are on a skip list"""
     def __init__(self, msg, pkglist=None):
-	self.errmsg = msg
-	self.pkglist = pkglist
+        self.errmsg = msg
+        self.pkglist = pkglist
     def __repr__(self):
         msg = _("Package Skip List error.  The message was:\n") + self.errmsg
         log = rhnLog.initLog()

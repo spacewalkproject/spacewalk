@@ -39,9 +39,8 @@ public class RendererTest extends RhnBaseTestCase {
     ////////////////////////////////////////////////////////////////
 
     public void testDialognavTrue() {
-        Map expectations = new HashMap();
-        expectations.put("preNavLevel",
-                         "<ul class=\"nav nav-tabs\">");
+        Map<String, Object> expectations = new HashMap<String, Object>();
+        expectations.put("preNavLevel", "<ul class=\"nav nav-tabs nav-tabs-pf\">");
         expectations.put("preNavNode", "");
         expectations.put("navNodeActive", "<li class=\"active\">" +
             "<a href=\"http://rhn.redhat.com\">name</a></li>\n");
@@ -55,19 +54,18 @@ public class RendererTest extends RhnBaseTestCase {
         rendererTest(new DialognavRenderer(), new TrueRenderGuard(), expectations, 4);
 
         // test depth 1
-        expectations.put("preNavLevel", "<ul class=\"nav nav-tabs\">");
+        expectations.put("preNavLevel", "<ul class=\"nav nav-tabs nav-tabs-pf\">");
         expectations.put("postNavLevel", "</ul>\n");
         rendererTest(new DialognavRenderer(), new TrueRenderGuard(), expectations, 1);
 
         // test depth 0
-        expectations.put("preNavLevel",
-                         "<ul class=\"nav nav-tabs\">");
+        expectations.put("preNavLevel", "<ul class=\"nav nav-tabs\">");
         expectations.put("postNavLevel", "</ul>\n");
         rendererTest(new DialognavRenderer(), new TrueRenderGuard(), expectations, 0);
     }
 
     public void testDialognavFalse() {
-        Map expectations = new HashMap();
+        Map<String, Object> expectations = new HashMap<String, Object>();
         expectations.put("preNavLevel", "");
         expectations.put("preNavNode", "");
         expectations.put("navNodeActive", "");
@@ -84,7 +82,7 @@ public class RendererTest extends RhnBaseTestCase {
     ////////////////////////////////////////////////////////////////
 
     public void testTextTrue() {
-        Map expectations = new HashMap();
+        Map<String, Object> expectations = new HashMap<String, Object>();
         expectations.put("preNavLevel", "");
         expectations.put("preNavNode", "        ");
 
@@ -104,7 +102,7 @@ public class RendererTest extends RhnBaseTestCase {
     }
 
     public void testTextFalse() {
-        Map expectations = new HashMap();
+        Map<String, Object> expectations = new HashMap<String, Object>();
         expectations.put("preNavLevel", "");
         expectations.put("preNavNode", "");
         expectations.put("navNodeActive", "");
@@ -121,9 +119,8 @@ public class RendererTest extends RhnBaseTestCase {
     ////////////////////////////////////////////////////////////////
 
     public void testTopnavTrue() {
-        Map expectations = new HashMap();
-        expectations.put("preNavLevel", "<ul class=\"nav navbar-nav " +
-            "collapse main-menu-hor\">");
+        Map<String, Object> expectations = new HashMap<String, Object>();
+        expectations.put("preNavLevel", "<ul class=\"nav navbar-nav navbar-primary\">");
         expectations.put("preNavNode", "");
         expectations.put("navNodeActive", "<li class=\"active\">" +
             "<a href=\"http://rhn.redhat.com\">name</a></li>\n");
@@ -137,7 +134,7 @@ public class RendererTest extends RhnBaseTestCase {
     }
 
     public void testTopnavFalse() {
-        Map expectations = new HashMap();
+        Map<String, Object> expectations = new HashMap<String, Object>();
         expectations.put("preNavLevel", "");
         expectations.put("preNavNode", "");
         expectations.put("navNodeActive", "");
@@ -154,12 +151,12 @@ public class RendererTest extends RhnBaseTestCase {
         TopnavRenderer tr = new TopnavRenderer();
         StringBuffer buf = new StringBuffer();
         NavNode node1 = new NavNode();
-        node1.addURL("/newlogin/index.pxt");
+        node1.addURL("/rhn/Login2.do");
         node1.setName("Sign In");
         node1.setFirst(true);
 
         NavNode node2 = new NavNode();
-        node2.addURL("/newlogin/index.pxt");
+        node2.addURL("/rhn/Login2.do");
         node2.setName("About Spacewalk");
         node2.setLast(true);
 
@@ -168,8 +165,8 @@ public class RendererTest extends RhnBaseTestCase {
         tr.navNodeInactive(buf, node2, null, null, 4);
 
         String expectation = "<li class=\"active\">" +
-               "<a href=\"/newlogin/index.pxt\">Sign In</a></li>\n" +
-               "<li><a href=\"/newlogin/index.pxt\">About</a></li>\n";
+                "<a href=\"/rhn/Login2.do\">Sign In</a></li>\n" +
+                "<li><a href=\"/rhn/Login2.do\">About</a></li>\n";
         assertEquals(expectation, buf.toString());
 
         // test the case where inactive node runs first
@@ -177,8 +174,8 @@ public class RendererTest extends RhnBaseTestCase {
         tr.navNodeInactive(buf, node1, null, null, 4);
         tr.navNodeActive(buf, node2, null, null, 4);
 
-        String expectation2 = "<li><a href=\"/newlogin/index.pxt\">Sign In</a></li>\n" +
-        "<li class=\"active\"><a href=\"/newlogin/index.pxt\">About</a></li>\n";
+        String expectation2 = "<li><a href=\"/rhn/Login2.do\">Sign In</a></li>\n" +
+                "<li class=\"active\"><a href=\"/rhn/Login2.do\">About</a></li>\n";
         assertEquals(expectation2, buf.toString());
     }
 
@@ -187,7 +184,7 @@ public class RendererTest extends RhnBaseTestCase {
     ////////////////////////////////////////////////////////////////
 
     public void testSidenavTrue() {
-        Map expectations = new HashMap();
+        Map<String, Object> expectations = new HashMap<String, Object>();
         expectations.put("preNavLevel", "<ul class=\"nav nav-pills nav-stacked\">");
         expectations.put("preNavNode", "");
         expectations.put("navNodeActive", "<li class=\"active\">" +
@@ -203,7 +200,7 @@ public class RendererTest extends RhnBaseTestCase {
     }
 
     public void testSidenavFalse() {
-        Map expectations = new HashMap();
+        Map<String, Object> expectations = new HashMap<String, Object>();
         expectations.put("preNavLevel", "");
         expectations.put("preNavNode", "");
         expectations.put("navNodeActive", "");
@@ -219,19 +216,20 @@ public class RendererTest extends RhnBaseTestCase {
     // Test methods
     ////////////////////////////////////////////////////////////////
 
-    private void rendererTest(Renderable r, RenderGuard guard, Map exp, int depth) {
+    private void rendererTest(Renderable r, RenderGuard guard, Map<String, Object> exp,
+            int depth) {
         rendererTest(r, forgeNavNode(), guard, exp, depth);
     }
 
     private void rendererTest(Renderable r, NavNode node, RenderGuard guard,
-            Map exp, int depth) {
+            Map<String, Object> exp, int depth) {
 
         NavTreeIndex treeIndex = forgeTreeIndex();
         rendererTest(r, node, guard, treeIndex, exp, depth);
     }
 
     private void rendererTest(Renderable r, NavNode node, RenderGuard guard,
-                              NavTreeIndex treeIndex, Map exp, int depth) {
+            NavTreeIndex treeIndex, Map<String, Object> exp, int depth) {
 
         r.setRenderGuard(guard);
 

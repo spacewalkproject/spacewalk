@@ -1368,8 +1368,25 @@ public class ErrataManager extends BaseManager {
      * clone in the case of a clone of a clone)
      * @return an array of Errata that have been published
      */
-    public static Object[] cloneErrataApi(Channel chan, List<Errata> errata,
+    public static Object[] cloneErrataApi(Channel chan, Collection<Errata> errata,
             User user, boolean inheritPackages) {
+        return cloneErrataApi(chan, errata, user, inheritPackages, true);
+    }
+
+    /**
+     * Clone errata to a channel
+     * @param chan the channel
+     * @param errata list of errata ids
+     * @param user the user doing the push
+     * @param inheritPackages inherit packages from the original bug (instaed of the
+     * clone in the case of a clone of a clone)
+     * @param performPostActions true (default) if you want to refresh newest package
+     * cache and schedule repomd regeneration. False only if you're going to do those
+     * things yourself.
+     * @return an array of Errata that have been published
+     */
+    public static Object[] cloneErrataApi(Channel chan, Collection<Errata> errata,
+            User user, boolean inheritPackages, boolean performPostActions) {
         List<Errata> errataToPublish = new ArrayList<Errata>();
         // For each errata look up existing clones, or manually clone it
         for (Errata toClone : errata) {
@@ -1389,12 +1406,72 @@ public class ErrataManager extends BaseManager {
             }
         }
 
-        List<Errata> published = ErrataFactory.publishToChannel(
-                errataToPublish, chan, user, inheritPackages);
+        List<Errata> published = ErrataFactory.publishToChannel(errataToPublish, chan,
+                user, inheritPackages, performPostActions);
         for (Errata e : published) {
             ErrataFactory.save(e);
         }
         return published.toArray();
+    }
+
+    /**
+     * Clone errata as necessary and link cloned errata with new channel.
+     * Warning: this does not clone packages or schedule channel repomd regeneration.
+     * You must do that yourself!
+     * @param fromCid id of old channel
+     * @param toCid id of channel to clone into
+     * @param user the requesting user
+     */
+    public static void cloneChannelErrata(Long fromCid, Long toCid, User user) {
+        List<ErrataOverview> toClone = ErrataFactory
+                .relevantToOneChannelButNotAnother(fromCid, toCid);
+        cloneChannelErrata(toClone, toCid, user);
+    }
+
+    /**
+     * Clone errata as necessary and link cloned errata with new channel.
+     * Warning: this does not clone packages or schedule channel repomd regeneration.
+     * You must do that yourself!
+     * @param toClone List of ErrataOverview to clone
+     * @param toCid Channel id to clone them into
+     * @param user the requesting user
+     */
+    public static void cloneChannelErrata(List<ErrataOverview> toClone, Long toCid,
+            User user) {
+        List<OwnedErrata> owned = ErrataFactory
+                .listPublishedOwnedUnmodifiedClonedErrata(user.getOrg().getId());
+        List<Long> eids = new ArrayList<Long>();
+
+        // add published, cloned, owned errata to mapping. we want the oldest owned
+        // clone to reuse. listPublishedOwnedUnmodifiedClonedErrata orders by created,
+        // so we just add the first one we come across to the mapping and skip others
+        Map<Long, OwnedErrata> eidToClone = new HashMap<Long, OwnedErrata>();
+        for (OwnedErrata erratum : owned) {
+            if (!eidToClone.containsKey(erratum.getFromErrataId())) {
+                eidToClone.put(erratum.getFromErrataId(), erratum);
+            }
+            // add self id mapping too in case we are cloning the clone
+            if (!eidToClone.containsKey(erratum.getId())) {
+                eidToClone.put(erratum.getId(), erratum);
+            }
+        }
+
+        for (ErrataOverview erratum : toClone) {
+            if (!eidToClone.containsKey(erratum.getId())) {
+                // no published owned clones yet, lets make our own
+                // hibernate was too slow, had to rewrite in mode queries
+                Long cloneId = PublishErrataHelper.cloneErrataFaster(erratum.getId(), user
+                        .getOrg());
+                eids.add(cloneId);
+
+            }
+            else {
+                // we have one already, reuse it
+                eids.add(eidToClone.get(erratum.getId()).getId());
+            }
+        }
+
+        ChannelFactory.addClonedErrataToChannel(eids, toCid);
     }
 
     /**
@@ -1534,35 +1611,9 @@ public class ErrataManager extends BaseManager {
             throw new InvalidParameterException("No errata to apply.");
         }
 
-        // first check, whether the errata list is applicable to the whole system list
-        // if not, exception is thrown
-        for (Long sid : systemIds) {
-            checkApplicableErrata(loggedInUser, errataIds, sid);
-        }
-
         // at this point all errata is applicable to all systems, so let's apply
-        return applyErrata(loggedInUser, errataIds, earliestOccurrence, systemIds);
-    }
-
-    private static void checkApplicableErrata(User loggedInUser, List<Integer> errataIds,
-            Long serverId) {
-        // Check to make sure the given errata are applicable to and unscheduled for the
-        // system in question. This catches three scenarios, errata that don't apply to
-        // this system, are already scheduled, or don't exist in the first place.
-        // TODO: fail silently in some of these cases?
-        Set unscheduledErrataIds = new HashSet();
-        List unscheduledErrata = SystemManager.unscheduledErrata(loggedInUser,
-                serverId, null);
-        for (Iterator it = unscheduledErrata.iterator(); it.hasNext();) {
-            Errata e = (Errata)it.next();
-            unscheduledErrataIds.add(e.getId());
-        }
-        for (Iterator it = errataIds.iterator(); it.hasNext();) {
-            Integer currentId = (Integer)it.next();
-            if (!unscheduledErrataIds.contains(currentId.longValue())) {
-                throw new InvalidErrataException();
-            }
-        }
+        return applyErrata(loggedInUser, errataIds, earliestOccurrence,
+                null, systemIds, false);
     }
 
     /**
@@ -1580,7 +1631,9 @@ public class ErrataManager extends BaseManager {
 
     /**
      * Apply a list of errata to a list of servers, with an optional Action
-     * Chain
+     * Chain.
+     * Note that not all erratas are applied to all systems. Systems get
+     * only the erratas relevant for them.
      * @param user user
      * @param errataIds errata ids
      * @param earliest schedule time
@@ -1589,51 +1642,118 @@ public class ErrataManager extends BaseManager {
      * @return list of action ids
      */
     public static List<Long> applyErrata(User user, List errataIds, Date earliest,
-        ActionChain actionChain, List<Long> serverIds) {
-        // Schedule updates to the software update stack first
-        List<ErrataAction> stackUpdates = null;
-        List<Errata> errata = new ArrayList<Errata>();
-        for (Iterator it = errataIds.iterator(); it.hasNext();) {
-            Object next = it.next();
-            Long currentId = next instanceof Long ? (Long) next :
-                    ((Integer) next).longValue();
+                                         ActionChain actionChain, List<Long> serverIds) {
+        return  applyErrata(user, errataIds, earliest, actionChain, serverIds, true);
+    }
 
-            Errata erratum = ErrataManager.lookupErrata(currentId, user);
-            if (erratum.hasKeyword("restart_suggested")) {
-                if (stackUpdates == null) {
-                    stackUpdates = createErrataActions(user, erratum, earliest, actionChain,
-                        serverIds);
+    /**
+     * Apply a list of errata to a list of servers, with an optional Action
+     * Chain.
+     * Note that not all erratas are applied to all systems. Systems get
+     * only the erratas relevant for them.
+     *
+     * @param user user
+     * @param errataIds errata ids
+     * @param earliest schedule time
+     * @param actionChain the action chain to add the action to or null
+     * @param serverIds server ids
+     * @param onlyRelevant If true not all erratas are applied to all systems.
+     *        Systems get only the erratas relevant for them.
+     *        If false, InvalidErrataException is thrown if an errata does not apply
+     *        to a system.
+     * @return list of action ids
+     */
+    private static List<Long> applyErrata(User user, List errataIds, Date earliest,
+        ActionChain actionChain, List<Long> serverIds, boolean onlyRelevant) {
+
+        // not all errata applies to all systems, so we will group actions per systems
+        // having the same sets of errata
+        // We can't do a Set<Errata> because AbstractErrata equals/hashCode does not use Id.
+        // System Id -> Errata Ids
+        Map<Long, Set<Long>> relevantErrataForServer = new HashMap<Long, Set<Long>>();
+
+        for (Long serverId : serverIds) {
+            List<Errata> relevantErrata =
+                    SystemManager.unscheduledErrata(user, serverId, null);
+            Set<Long> relevantErrataIds = new HashSet<Long>();
+            for (Errata e : relevantErrata) {
+                relevantErrataIds.add(e.getId());
+            }
+
+            Set<Long> effectiveErrataIds = new HashSet<Long>();
+            for (Object errataIdObject : errataIds) {
+                // HACK: ugly conversion needed because in some cases errataIds contains
+                // Integers, in other cases Longs
+                Long errataId = ((Number) errataIdObject).longValue();
+                if (relevantErrataIds.contains(errataId)) {
+                    effectiveErrataIds.add(errataId);
                 }
                 else {
-                    for (ErrataAction stackUpdate : stackUpdates) {
-                        stackUpdate.addErrata(erratum);
+                    if (!onlyRelevant) {
+                        throw new InvalidErrataException();
                     }
                 }
             }
-            else {
-                errata.add(erratum);
-            }
+
+            relevantErrataForServer.put(serverId, effectiveErrataIds);
         }
-        if (stackUpdates != null) {
-            for (ErrataAction stackUpdate : stackUpdates) {
-                Object[] args = new Object[] {stackUpdate.getErrata().size()};
-                stackUpdate.setName(LocalizationService.getInstance().getMessage(
-                    "errata.swstack", args));
-                ActionManager.storeAction(stackUpdate);
+
+        Map<Set<Long>, List<Long>> serversForErrataSet =
+                new HashMap<Set<Long>, List<Long>>();
+        for (Long serverId : relevantErrataForServer.keySet()) {
+            Set<Long> errataSet = relevantErrataForServer.get(serverId);
+            List<Long> serverList = serversForErrataSet.get(errataSet);
+            if (serverList == null) {
+                serverList = new ArrayList<Long>();
+                serversForErrataSet.put(errataSet, serverList);
             }
+            serverList.add(serverId);
         }
 
         List<Long> actionIds = new ArrayList<Long>();
-        // Schedule remaining errata actions
-        for (Errata e : errata) {
-            List<ErrataAction> errataActions = createErrataActions(user, e, earliest,
-                actionChain, serverIds);
-            for (ErrataAction errataAction : errataActions) {
-                Action action = ActionManager.storeAction(errataAction);
-                actionIds.add(action.getId());
+        for (Set<Long> relevantErrataIds : serversForErrataSet.keySet()) {
+
+            List<Long> affectedServers = serversForErrataSet.get(relevantErrataIds);
+
+            // Schedule updates to the software update stack first
+            List<ErrataAction> stackUpdates = null;
+            List<Errata> errata = new ArrayList<Errata>();
+            for (Long eid : relevantErrataIds) {
+                Errata erratum = ErrataManager.lookupErrata(eid, user);
+                if (erratum.hasKeyword("restart_suggested")) {
+                    if (stackUpdates == null) {
+                        stackUpdates = createErrataActions(user, erratum,
+                                earliest, actionChain, affectedServers);
+                    }
+                    else {
+                        for (ErrataAction stackUpdate : stackUpdates) {
+                            stackUpdate.addErrata(erratum);
+                        }
+                    }
+                }
+                else {
+                    errata.add(erratum);
+                }
+            }
+            if (stackUpdates != null) {
+                for (ErrataAction stackUpdate : stackUpdates) {
+                    Object[] args = new Object[]{stackUpdate.getErrata().size()};
+                    stackUpdate.setName(LocalizationService.getInstance().getMessage(
+                            "errata.swstack", args));
+                    ActionManager.storeAction(stackUpdate);
+                }
+            }
+
+            // Schedule remaining errata actions
+            for (Errata e : errata) {
+                List<ErrataAction> errataActions = createErrataActions(user, e, earliest,
+                        actionChain, affectedServers);
+                for (ErrataAction errataAction : errataActions) {
+                    Action action = ActionManager.storeAction(errataAction);
+                    actionIds.add(action.getId());
+                }
             }
         }
-
         return actionIds;
     }
 

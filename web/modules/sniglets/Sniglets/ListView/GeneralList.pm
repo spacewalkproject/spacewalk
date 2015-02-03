@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -42,62 +42,62 @@ sub trap {
 sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "tags_for_provisioning_entitled_in_set",
-			   -datasource => RHN::DataSource::General->new);
+                           -datasource => RHN::DataSource::General->new);
 
   Sniglets::ListView::List->add_mode(-mode => "system_events_history",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&system_history_provider);
+                           -datasource => RHN::DataSource::General->new,
+                           -provider => \&system_history_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "events_in_set",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&system_history_provider,
-			   -action_callback => \&events_in_set_cb);
+                           -datasource => RHN::DataSource::General->new,
+                           -provider => \&system_history_provider,
+                           -action_callback => \&events_in_set_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "system_events_pending",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&system_history_provider);
+                           -datasource => RHN::DataSource::General->new,
+                           -provider => \&system_history_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "supported_system_history",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&system_history_provider);
+                           -datasource => RHN::DataSource::General->new,
+                           -provider => \&system_history_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "system_groups",
-			   -datasource => RHN::DataSource::General->new);
+                           -datasource => RHN::DataSource::General->new);
 
   Sniglets::ListView::List->add_mode(-mode => "system_notes",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&system_notes_provider);
+                           -datasource => RHN::DataSource::General->new,
+                           -provider => \&system_notes_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "activation_keys",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&activation_key_provider,
-			   -action_callback => \&activation_key_cb);
+                           -datasource => RHN::DataSource::General->new,
+                           -provider => \&activation_key_provider,
+                           -action_callback => \&activation_key_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "template_strings",
-			   -datasource => RHN::DataSource::General->new);
+                           -datasource => RHN::DataSource::General->new);
 
   Sniglets::ListView::List->add_mode(-mode => "kickstarts_for_org",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&kickstarts_for_org_provider,
-			   -action_callback => \&kickstarts_for_org_cb);
+                           -datasource => RHN::DataSource::General->new,
+                           -provider => \&kickstarts_for_org_provider,
+                           -action_callback => \&kickstarts_for_org_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "kickstart_packages",
-			   -datasource => RHN::DataSource::General->new,
-			   -action_callback => \&kickstart_packages_cb);
+                           -datasource => RHN::DataSource::General->new,
+                           -action_callback => \&kickstart_packages_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "kickstart_session_history",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&session_history_provider);
+                           -datasource => RHN::DataSource::General->new,
+                           -provider => \&session_history_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "packages_in_token",
-			   -datasource => RHN::DataSource::General->new);
+                           -datasource => RHN::DataSource::General->new);
 
   Sniglets::ListView::List->add_mode(-mode => "crypto_keys_for_org",
-			   -datasource => new RHN::DataSource::Simple(-querybase => "General_queries"),
-			   -action_callback => \&crypto_key_cb);
+                           -datasource => new RHN::DataSource::Simple(-querybase => "General_queries"),
+                           -action_callback => \&crypto_key_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "preservations_for_org",
-			   -datasource => RHN::DataSource::General->new);
+                           -datasource => RHN::DataSource::General->new);
 }
 
 sub system_notes_provider {
@@ -125,18 +125,18 @@ sub activation_key_provider {
   foreach my $row (@{$ret{data}}) {
     $row->{ACTIVATION_KEY_CHECKBOX} =
       PXT::HTML->checkbox(-name => 'token_' . $row->{ID} . '_active',
-			  -value => 1,
-			  -checked => !($row->{DISABLED}));
+                          -value => 1,
+                          -checked => !($row->{DISABLED}));
 
     $row->{ACTIVATION_KEY_CHECKBOX} .=
       PXT::HTML->hidden(-name => "tid", -value => $row->{ID});
 
     if (defined $row->{USAGE_LIMIT}) {
       if ($row->{USAGE_LIMIT}) {
-	$row->{KEY_USAGE} = $row->{SYSTEM_COUNT} . "/" . $row->{USAGE_LIMIT};
+        $row->{KEY_USAGE} = $row->{SYSTEM_COUNT} . "/" . $row->{USAGE_LIMIT};
       }
       else {
-	$row->{KEY_USAGE} = '&#160;0&#160;';
+        $row->{KEY_USAGE} = '&#160;0&#160;';
       }
     }
     else {
@@ -158,8 +158,8 @@ sub kickstarts_for_org_provider {
   foreach my $row (@{$ret{data}}) {
     $row->{KICKSTART_CHECKBOX} =
       PXT::HTML->checkbox(-name => 'ks_' . $row->{ID} . '_active',
-			  -value => 1,
-			  -checked => ($row->{ACTIVE} eq 'Y'));
+                          -value => 1,
+                          -checked => ($row->{ACTIVE} eq 'Y'));
 
     $row->{KICKSTART_CHECKBOX} .=
       PXT::HTML->hidden(-name => "ksid", -value => $row->{ID});

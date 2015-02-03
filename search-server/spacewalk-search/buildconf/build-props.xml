@@ -1,0 +1,18 @@
+<project name="build-props">
+
+  <condition property="log4j" value="log4j-1" else="log4j">
+    <available file="/usr/share/java/log4j-1.jar" />
+  </condition>
+
+  <property name="jpackage.jars"
+      value="
+      c3p0 commons-cli commons-codec commons-httpclient commons-lang commons-logging
+      ${log4j}
+      oro
+      quartz
+      redstone-xmlrpc redstone-xmlrpc-client
+      simple-core
+      tanukiwrapper
+     " />
+
+</project>

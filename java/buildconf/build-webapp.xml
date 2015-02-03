@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-                                                                              
+
 <project name="build-webapp">
   <!-- ================ Local Deployment Tasks ==================== -->
   <!--
@@ -39,7 +39,7 @@
     <mkdir dir="${webapp.dir}/WEB-INF/lib" />
     <mkdir dir="${webapp.dir}/apidoc" />
 
-     
+
     <!--
       - The foreach task takes each item in the fileset placing
       - it in the param property.  Then it calls the

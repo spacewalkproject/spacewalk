@@ -192,8 +192,8 @@
     <target name="install" depends="init-install,package" />
 
     <target name="instrument" depends="init-tasks">
-	<mkdir dir="${report.dir}" />
-	<mkdir dir="${build.instrument.dir}" />
+        <mkdir dir="${report.dir}" />
+        <mkdir dir="${build.instrument.dir}" />
 
         <emma enabled="true">
             <instr merge="no"

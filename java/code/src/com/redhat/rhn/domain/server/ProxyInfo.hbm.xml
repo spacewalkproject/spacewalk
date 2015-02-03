@@ -14,7 +14,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <one-to-one name="server"
             class="com.redhat.rhn.domain.server.Server"
             constrained="true"/>
-		<many-to-one name="version" class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
-            	column="proxy_evr_id" cascade="none" access="field"/>
+                <many-to-one name="version" class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
+                column="proxy_evr_id" cascade="none" access="field"/>
     </class>
 </hibernate-mapping>

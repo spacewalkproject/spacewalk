@@ -53,5 +53,3 @@ def create(alias, data):
                          data["manual"],
                          data["removable"],
                          data["priority"])
-
-# vim:ts=4:sw=4:et

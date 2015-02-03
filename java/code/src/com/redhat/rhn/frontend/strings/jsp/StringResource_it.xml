@@ -656,7 +656,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              The page you requested, https://rhn.redhat.com/index.pxt, was not found.
+              The page you requested, https://rhn.redhat.com/rhn/YourRhn.do, was not found.
           </context>
         </context-group>
         <target>La pagina da voi richiesta, {0}, non è stata trovata.</target>
@@ -673,7 +673,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              If you followed a link to reach 'https://rhn.redhat.com/index.pxt,' the
+              If you followed a link to reach 'https://rhn.redhat.com/rhn/YourRhn.do,' the
               link may be incorrect or outdated.
           </context>
         </context-group>
@@ -684,7 +684,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
-              If you used a bookmark to reach 'https://rhn.redhat.com/index.pxt,' the
+              If you used a bookmark to reach 'https://rhn.redhat.com/rhn/YourRhn.do,' the
               page may have moved
           </context>
         </context-group>
@@ -1868,7 +1868,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
-        <target>Il suddetto utente è l'ultimo Organization Administrator e pertanto non può essere rimosso	    dal ruolo di Organization Administrator.</target>
+        <target>Il suddetto utente è l'ultimo Organization Administrator e pertanto non può essere rimosso          dal ruolo di Organization Administrator.</target>
       </trans-unit>
       <trans-unit id="satadmin.jsp.error.lastsatadmin">
         <source>The user {0} is the last @@PRODUCT_NAME@@ Administrator and cannot be removed from the @@PRODUCT_NAME@@ Administrator role.</source>
@@ -3687,7 +3687,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/AddPackagesConfirm.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetti aggiunti a 	    errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetti aggiunti a       errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.add.success.singular">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; package added to errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3696,7 +3696,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/AddPackagesConfirm.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetto aggiunto a 	    errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetto aggiunto a       errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.remove.success.plural">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; packages removed from errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3705,7 +3705,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetti rimossi da 	    errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetti rimossi da       errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.remove.success.singular">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; package removed from errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -3714,7 +3714,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetto rimosso da 	    errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; pacchetto rimosso da       errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.overview.jsp.summary">
         <source>The following errata apply to at least one system to which you have administrative access.</source>
@@ -5070,8 +5070,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>Gruppi</target>
         </trans-unit>
         <trans-unit id="ssm.overview.groups.create">
-          <source>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;Create&lt;/a&gt; and &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;manage&lt;/a&gt; groups</source>
-          <target>&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;Crea&lt;/a&gt; e &lt;a href="/network/systems/ssm/groups/index.pxt#manage"&gt;gestisci&lt;/a&gt; gruppi</target>
+          <source>&lt;a href="/rhn/groups/EditGroup.do"&gt;Create&lt;/a&gt; and &lt;a href="/rhn/systems/SystemGroupList.do"&gt;manage&lt;/a&gt; groups</source>
+          <target>&lt;a href="/rhn/groups/EditGroup.do"&gt;Crea&lt;/a&gt; e &lt;a href="/rhn/systems/SystemGroupList.do"&gt;gestisci&lt;/a&gt; gruppi</target>
         </trans-unit>
         <trans-unit id="ssm.overview.channels">
           <source>Channels</source>
@@ -5113,17 +5113,13 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Patch Clusters</source>
           <target>Cluster di patch</target>
         </trans-unit>
-        <trans-unit id="ssm.overview.patch.clusters.install">
-          <source>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;Install&lt;/a&gt; patch clusters</source>
-          <target>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;Installare&lt;/a&gt; i cluster di patch</target>
-        </trans-unit>
         <trans-unit id="ssm.overview.provisioning.kickstart">
           <source>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; systems</source>
           <target>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; dei sistemi</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.rollback">
-          <source>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</source>
-          <target>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Eseguire il tag&lt;/a&gt; dei sistemi per il &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;ripristino delle snapshot&lt;/a&gt;</target>
+          <source>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Tag&lt;/a&gt; systems for &lt;a href="/rhn/systems/ssm/provisioning/Rollback.do"&gt;snapshot rollback&lt;/a&gt;</source>
+          <target>&lt;a href="/rhn/systems/ssm/provisioning/TagSystems.do"&gt;Eseguire il tag&lt;/a&gt; dei sistemi per il &lt;a href="/rhn/systems/ssm/provisioning/Rollback.do"&gt;ripristino delle snapshot&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
@@ -5138,8 +5134,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>Aggiornare i &lt;a href="/rhn/systems/ssm/misc/Index.do#profiles"&gt;profili hardware/pacchetto&lt;/a&gt; e le &lt;a href="/rhn/systems/ssm/misc/Index.do#sysprefs"&gt;preferenze del sistema&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.customvalues">
-          <source>&lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;Set&lt;/a&gt; and &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;remove&lt;/a&gt; custom values for selected systems</source>
-          <target>&lt;a href="/network/systems/ssm/misc/choose_value_to_set.pxt"&gt;Impostare&lt;/a&gt; e &lt;a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"&gt;rimuovere&lt;/a&gt; i valori personalizzati per i sistemi selezionati</target>
+          <source>&lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;Set and remove&lt;/a&gt; custom values for selected systems</source>
+          <target>&lt;a href="/rhn/systems/ssm/misc/CustomValue.do"&gt;Impostare e rimuovere&lt;/a&gt; i valori personalizzati per i sistemi selezionati</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.entitlements">
           <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#entitle"&gt;Add or Remove&lt;/a&gt; Add-On Entitlements</source>
@@ -6972,14 +6968,14 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
         </context-group>
-        <target>Ciò cancellerà il probe in modo &lt;strong&gt;permanente&lt;/strong&gt; da questo sistema, e 	 rimuoverà, dal database, tutti i dati sulle Modifiche dello Stato e sulla Serie di tempi, associati con questo probe.</target>
+        <target>Ciò cancellerà il probe in modo &lt;strong&gt;permanente&lt;/strong&gt; da questo sistema, e     rimuoverà, dal database, tutti i dati sulle Modifiche dello Stato e sulla Serie di tempi, associati con questo probe.</target>
       </trans-unit>
       <trans-unit id="probdelete.jsp.p2">
         <source>If you are uncertain about performing this action, please &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt;review the details&lt;/a&gt; for this probe.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
         </context-group>
-        <target>Se non siete sicuri su come eseguire questa azione, 	  vi preghiamo di &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt;ricontrollare le informazioni&lt;/a&gt; riguardanti questo probe.</target>
+        <target>Se non siete sicuri su come eseguire questa azione,       vi preghiamo di &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt;ricontrollare le informazioni&lt;/a&gt; riguardanti questo probe.</target>
       </trans-unit>
       <trans-unit id="probdelete.jsp.p3">
         <source>Otherwise, confirm the immediate deletion of this system probe by clicking the button below.</source>
@@ -8799,7 +8795,7 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
         </context-group>
-        <target>Se siete &lt;strong&gt;certi&lt;/strong&gt; di eseguire questo processo, potrete applicare l'errata 	    il prima possibile, oppure non prima del periodo specificato:</target>
+        <target>Se siete &lt;strong&gt;certi&lt;/strong&gt; di eseguire questo processo, potrete applicare l'errata         il prima possibile, oppure non prima del periodo specificato:</target>
       </trans-unit>
       <trans-unit id="systemgroups.admins.updated">
         <source>Admin list for system group {0} updated.</source>
@@ -11821,11 +11817,11 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         <target>Visualizza tutti i gruppi di sistemi</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.nogroups">
-        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;Non è presente alcun gruppo di sistemi.&lt;/strong&gt;&lt;p&gt;Potete crearne uno su &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Sistemi &gt; System Set Manager &gt; Gruppi &gt; crea nuovo gruppo&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</target>
+        <target>&lt;strong&gt;Non è presente alcun gruppo di sistemi.&lt;/strong&gt;&lt;p&gt;Potete crearne uno su &lt;a href="/rhn/groups/EditGroup.do"&gt;&lt;strong&gt;Sistemi &gt; System Set Manager &gt; Gruppi &gt; crea nuovo gruppo&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.scheduledactions">
         <source>Recently Scheduled Actions</source>
@@ -18978,7 +18974,7 @@ versione di Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
           <target>Conteggio crash totale</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastCrashReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>Verifica ultimo crash </target>
         </trans-unit>
         <trans-unit id="exportcolumn.crashCount">
@@ -18990,7 +18986,7 @@ versione di Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
           <target>Componente del crash</target>
         </trans-unit>
         <trans-unit id="exportcolumn.lastReport">
-          <source>Last Crash Occurence</source>
+          <source>Last Crash Occurrence</source>
           <target>Verifica ultimo crash </target>
         </trans-unit>
       </group>
@@ -19646,7 +19642,7 @@ versione di Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
         <target>Conteggio sistemi interessati</target>
       </trans-unit>
       <trans-unit id="crashes.jsp.lastoccurence">
-        <source>Last Crash Occurence</source>
+        <source>Last Crash Occurrence</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SoftwareCrashesOverview.do</context>
         </context-group>
@@ -21379,7 +21375,7 @@ per l'organizzazione (ad esclusione dell'organizzazione satellite predefinita) s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
-        <target>Siete sicuri di voler rimuovere il rapporto fidato elencato qui di seguito? Sono presenti alcuni sistemi nell'organizzazione {0} che eseguono la sottoscrizione al contenuto delle organizzazioni con le quali desiderate rimuovere il rapporto di fiducia. Questo processo potrebbe interessare indirettamente i suddetti sistemi. Per esempio, i sistemi potrebbero non essere più in grado di ricevere aggiornamenti sulla sicurezza relativi al contenuto forniti attraverso questo rapporto di fiducia. 
+        <target>Siete sicuri di voler rimuovere il rapporto fidato elencato qui di seguito? Sono presenti alcuni sistemi nell'organizzazione {0} che eseguono la sottoscrizione al contenuto delle organizzazioni con le quali desiderate rimuovere il rapporto di fiducia. Questo processo potrebbe interessare indirettamente i suddetti sistemi. Per esempio, i sistemi potrebbero non essere più in grado di ricevere aggiornamenti sulla sicurezza relativi al contenuto forniti attraverso questo rapporto di fiducia.
 &lt;p/&gt;
 Controllare nuovamente le modifiche che state apportando prima di confermare la rimozione.</target>
       </trans-unit>
@@ -22693,7 +22689,7 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
         <target>&lt;strong&gt; Suggerimento:&lt;/strong&gt;
-          sha1 offre una gamma di compatibilità maggiore con i client. sha-256 offre una maggiore sicurezza ma 
+          sha1 offre una gamma di compatibilità maggiore con i client. sha-256 offre una maggiore sicurezza ma
           è compatibile solo con client più nuovi: Fedora 11 e versioni più recenti, o Enterprise Linux 6 e versioni più recenti.
          </target>
       </trans-unit>

@@ -1,9 +1,0 @@
-CommandLineApplicationComponent.pm
-CommandLineSwitch.pm
-CommandShell.pm
-LocalCommandShell.pm
-SSHRemoteCommandShell.pm
-MANIFEST
-Makefile.PL
-README
-test.pl

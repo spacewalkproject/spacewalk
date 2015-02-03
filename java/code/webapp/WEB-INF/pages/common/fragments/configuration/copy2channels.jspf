@@ -12,45 +12,45 @@
 
 <rl:listset name="channelSet">
     <rhn:csrf />
-	<!-- Start of Channels list -->
-	<rl:list dataset="pageList"
-	         name="channels"
-	         decorator="SelectableDecorator"
-	         width = "100%"
-	         filter="com.redhat.rhn.frontend.action.configuration.ConfigChannelFilter"
-	         >
-	    <rl:selectablecolumn value="${current.selectionKey}"
-						selected="${current.selected}"/>
+        <!-- Start of Channels list -->
+        <rl:list dataset="pageList"
+                 name="channels"
+                 decorator="SelectableDecorator"
+                 width = "100%"
+                 filter="com.redhat.rhn.frontend.action.configuration.ConfigChannelFilter"
+                 >
+            <rl:selectablecolumn value="${current.selectionKey}"
+                                                selected="${current.selected}"/>
 
-		<!-- Channel name column -->
-		<rl:column sortable="true"
-		           headerkey="sdc.config.subscriptions.jsp.channel"
-		           sortattr="name">
-		<cfg:channel id = "${current.id}"
-						name = "${current.name}"
-            					type = "central"/>
-		</rl:column>
+                <!-- Channel name column -->
+                <rl:column sortable="true"
+                           headerkey="sdc.config.subscriptions.jsp.channel"
+                           sortattr="name">
+                <cfg:channel id = "${current.id}"
+                                                name = "${current.name}"
+                                                type = "central"/>
+                </rl:column>
 
-		<rl:column bound="true"
-		           headerkey="copy2channels.jsp.total_systems"
-		           attr="systemCountString"
-		           />
+                <rl:column bound="true"
+                           headerkey="copy2channels.jsp.total_systems"
+                           attr="systemCountString"
+                           />
 
-		<rl:column bound="true"
-		           headerkey="sdc.config.subscriptions.jsp.files"
-		           attr="filesAndDirsDisplayString"
-		           />
-	</rl:list>
-	<c:if test = "${not empty requestScope.pageList}">
-		<hr />
-		<div class="text-right">
-			<input type="submit" class="btn btn-default"
-					name="dispatch"
-					value="${rhn:localize('copy2channels.jsp.doCopy')}"
-					/>
-		</div>
-	</c:if>
-	<rhn:submitted/>
+                <rl:column bound="true"
+                           headerkey="sdc.config.subscriptions.jsp.files"
+                           attr="filesAndDirsDisplayString"
+                           />
+        </rl:list>
+        <c:if test = "${not empty requestScope.pageList}">
+                <hr />
+                <div class="text-right">
+                        <input type="submit" class="btn btn-default"
+                                        name="dispatch"
+                                        value="${rhn:localize('copy2channels.jsp.doCopy')}"
+                                        />
+                </div>
+        </c:if>
+        <rhn:submitted/>
 </rl:listset>
 </c:when>
 <c:otherwise>

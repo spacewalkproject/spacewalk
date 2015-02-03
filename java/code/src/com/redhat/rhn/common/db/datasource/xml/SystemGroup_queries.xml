@@ -1,34 +1,17 @@
 <datasource_modes>
 
 <query name="visible_to_user_overview_fast" params="org_id, user_id">
-		SELECT
+                SELECT
          G.ID AS ID, G.NAME AS NAME,
 
-	          (SELECT COUNT(*) FROM rhnUserManagedServerGroups UMSG WHERE UMSG.server_group_id = G.id)
+                  (SELECT COUNT(*) FROM rhnUserManagedServerGroups UMSG WHERE UMSG.server_group_id = G.id)
          AS GROUP_ADMINS,
 
-		(SELECT COUNT(*) FROM rhnServerGroupMembers SGM WHERE SGM.server_group_id = G.id
+                (SELECT COUNT(*) FROM rhnServerGroupMembers SGM WHERE SGM.server_group_id = G.id
                  AND EXISTS ( SELECT 1
                               FROM rhnServerFeaturesView SFV
                               WHERE SFV.server_id = SGM.server_id
                                     AND SFV.label = 'ftr_system_grouping')) AS  SERVER_COUNT,
-    (SELECT CASE MAX(CASE PS.state
-        WHEN 'OK' THEN 1
-        WHEN 'PENDING' THEN 2
-        WHEN 'UNKNOWN' THEN 3
-        WHEN 'WARNING' THEN 4
-        WHEN 'CRITICAL' THEN 5 END)
-    WHEN 1 THEN 'OK'
-    WHEN 2 THEN 'PENDING'
-    WHEN 3 THEN 'UNKNOWN'
-    WHEN 4 THEN 'WARNING'
-    WHEN 5 THEN 'CRITICAL' END ST
-        FROM rhn_probe_state PS,
-        rhnServerGroupMembership SGM LEFT OUTER JOIN rhn_check_probe CP
-            ON SGM.server_id = CP.host_id
-          WHERE  PS.probe_id = CP.probe_id
-            AND  SGM.group_id = UMSG.server_group_id
-         GROUP BY SGM.group_id) MONITORING_STATUS,
         (SELECT CASE MAX(CASE E.advisory_type
             WHEN 'Security Advisory' THEN 3
             WHEN 'Bug Fix Advisory' THEN 2
@@ -51,10 +34,10 @@
 
   <query name="errata_count">
            SELECT
-           	 sgm.server_group_id AS ID,
-		 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Security Advisory') AS SECURITY_ERRATA,
-		 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Bug Fix Advisory') AS BUG_ERRATA,
-           	 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Product Enhancement Advisory') AS ENHANCEMENT_ERRATA
+                 sgm.server_group_id AS ID,
+                 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Security Advisory') AS SECURITY_ERRATA,
+                 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Bug Fix Advisory') AS BUG_ERRATA,
+                 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Product Enhancement Advisory') AS ENHANCEMENT_ERRATA
             FROM
                  rhnServerNeededPackageCache SNPC,
                  rhnServerGroupMembers SGM,
@@ -82,14 +65,14 @@ ORDER BY UPPER(NAME)
 
 
 <mode name="is_visible">
-	<query  params="sgid, user_id">
-		SELECT 1
-		  FROM rhnServerGroup SG
-				inner join rhnUserManagedServerGroups UMSG on UMSG.server_group_id = SG.id
-		 WHERE UMSG.user_id = :user_id
-		   AND UMSG.SERVER_GROUP_ID = :sgid
-		   AND SG.group_type IS NULL
-	</query>
+        <query  params="sgid, user_id">
+                SELECT 1
+                  FROM rhnServerGroup SG
+                                inner join rhnUserManagedServerGroups UMSG on UMSG.server_group_id = SG.id
+                 WHERE UMSG.user_id = :user_id
+                   AND UMSG.SERVER_GROUP_ID = :sgid
+                   AND SG.group_type IS NULL
+        </query>
 </mode>
 
 

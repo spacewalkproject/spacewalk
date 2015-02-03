@@ -21,6 +21,7 @@ if len(sys.argv) == 1:
     print "Usage: %s <connection_string>" % sys.argv[0]
     sys.exit(0)
 
+
 def mem_usage():
     f = open("/proc/self/status")
     dict = {}

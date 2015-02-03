@@ -9,7 +9,7 @@
 </head>
 <body>
 <rhn:toolbar base="h1" icon="header-errata"
-	           helpUrl="">
+                   helpUrl="">
     <bean:message key="errata.publish.toolbar"/> <c:out value="${advisory}" />
   </rhn:toolbar>
 
@@ -28,7 +28,7 @@
     <rhn:column header="errata.publish.relevantpackages">
       <c:choose>
         <c:when test="${current.relevantPackages > 0}">
-            <a href="/network/errata/manage/errata_channel_intersection.pxt?cid=<c:out value="${current.id}"/>&eid=<c:out value="${param.eid}"/>">
+            <a href="/rhn/errata/manage/ErrataChannelIntersection.do?cid=<c:out value="${current.id}"/>&eid=<c:out value="${param.eid}"/>">
             <c:out value="${current.relevantPackages}"/></a>
         </c:when>
         <c:otherwise>

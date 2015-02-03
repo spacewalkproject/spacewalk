@@ -36,7 +36,7 @@ def get_package_path(server_id, pkg_spec, channel):
     log_debug(3, server_id, pkg_spec, channel)
     if isinstance(pkg_spec, ListType):
         pkg = pkg_spec[:4]
-        #Insert EPOCH
+        # Insert EPOCH
         pkg.insert(1, None)
     else:
         pkg = parseRPMFilename(pkg_spec)
@@ -71,12 +71,12 @@ def get_package_path(server_id, pkg_spec, channel):
     """
     h = rhnSQL.prepare(statement)
     pkg = map(str, pkg)
-    h.execute(name = pkg[0], ver = pkg[2], rel = pkg[3], arch = pkg[4],
-              channel = channel, server_id = server_id)
+    h.execute(name=pkg[0], ver=pkg[2], rel=pkg[3], arch=pkg[4],
+              channel=channel, server_id=server_id)
     rs = h.fetchall_dict()
     if not rs:
         log_debug(4, "Error", "Non-existant package requested", server_id,
-            pkg_spec, channel)
+                  pkg_spec, channel)
         raise rhnFault(17, _("Invalid RPM package %s requested") % pkg_spec)
     # It is unlikely for this query to return more than one row,
     # but it is possible
@@ -93,6 +93,7 @@ def get_package_path(server_id, pkg_spec, channel):
     rhnFlags.set("Download-Accelerator-Path", max_row['path'])
     return check_package_file(max_row['path'], max_row['id'], pkg_spec), max_row['id']
 
+
 def check_package_file(rel_path, logpkg, raisepkg):
     if rel_path is None:
         log_error("Package path null for package id", logpkg)
@@ -105,6 +106,7 @@ def check_package_file(rel_path, logpkg, raisepkg):
 
     return filePath
 
+
 def unlink_package_file(path):
     try:
         os.unlink(path)
@@ -116,11 +118,12 @@ def unlink_package_file(path):
         try:
             os.rmdir(dirname)
         except OSError, e:
-            if e.errno == 39: #OSError: [Errno 39] Directory not empty
+            if e.errno == 39:  # OSError: [Errno 39] Directory not empty
                 break
             else:
                 raise
         dirname = os.path.dirname(dirname)
+
 
 def get_all_package_paths(server_id, pkg_spec, channel):
     """
@@ -129,19 +132,21 @@ def get_all_package_paths(server_id, pkg_spec, channel):
     """
     log_debug(3, server_id, pkg_spec, channel)
     remotepath = None
-    #get the path and package
+    # get the path and package
     localpath, pkg_id = get_package_path(server_id, pkg_spec, channel)
 
     return remotepath, localpath
 
 # New client
 # Returns the path to a source rpm
+
+
 def get_source_package_path(server_id, pkgFilename, channel):
     log_debug(3, server_id, pkgFilename, channel)
     rs = __query_source_package_path_by_name(server_id, pkgFilename, channel)
     if rs is None:
         log_debug(4, "Error", "Non-existant package requested", server_id,
-            pkgFilename, channel)
+                  pkgFilename, channel)
         raise rhnFault(17, _("Invalid RPM package %s requested") % pkgFilename)
 
     # Set the flag for the proxy download accelerator
@@ -183,7 +188,7 @@ def __query_source_package_path_by_name(server_id, pkgFilename, channel):
                 or p.org_id = ps.org_id)
     """
     h = rhnSQL.prepare(statement)
-    h.execute(name = pkgFilename, channel = channel, server_id = server_id)
+    h.execute(name=pkgFilename, channel=channel, server_id=server_id)
     return h.fetchone_dict()
 
 
@@ -240,7 +245,7 @@ def get_info_for_package(pkg, channel_id, org_id):
                 'channel_id': None,
                 'checksum_type': None,
                 'checksum':      None,
-               }
+                }
     return ret
 
 
@@ -259,4 +264,3 @@ if __name__ == '__main__':
     # new client
     print get_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1')
     print get_source_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1')
-

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::DB;
@@ -439,7 +439,7 @@ sub execute_h {
         }
       } elsif ($self->{Database}->{Driver}->{Name} eq 'Pg') {
         eval 'use DBD::Pg ()';
-	$attr->{pg_type} = DBD::Pg::PG_BYTEA();
+        $attr->{pg_type} = DBD::Pg::PG_BYTEA();
       }
       $v = $v->{value};
     }

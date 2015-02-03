@@ -19,5 +19,7 @@ from spacewalk.common.rhnLog import log_debug
 __rhnexport__ = ['configure']
 
 # the "exposed" functions
+
+
 def configure(serverId, actionId, data={}):
     log_debug(3)

@@ -7,17 +7,17 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 use strict;
 package Dobby::BackupLog;
 use RHN::SimpleStruct;
 use Storable qw/freeze thaw/;
 ## Ideally we would use XML::Simple but its not available on a Sat
-## so we just use DOM to read/write this object to XML so it can 
+## so we just use DOM to read/write this object to XML so it can
 ## be stored and reloaded from disk in a Perl indpendant format.
 use XML::LibXML;
 
@@ -30,24 +30,24 @@ our @simple_struct_fields = qw/start finish sid tablespaces archive_logs control
 sub parse {
   my $class = shift;
   my $restore_log = shift;
-  
+
   my $parser = XML::LibXML -> new();
   my $doc = undef;
   my $log = undef;
-  
-  eval { $doc = $parser->parse_file($restore_log); }; 
+
+  eval { $doc = $parser->parse_file($restore_log); };
   if ($@) {
     local * FH;
     open FH, '<', $restore_log or die "open $restore_log: $!";
     my $contents = join("", <FH>);
     close FH;
-    $log = thaw($contents);    
-  } 
+    $log = thaw($contents);
+  }
   else
   {
     $log = fromXml($doc);
   }
-  
+
   return $log;
 }
 
@@ -56,18 +56,18 @@ sub parse {
 sub fromXml() {
   my $doc = shift;
   my $log = new Dobby::BackupLog();
-  
+
   $log->sid(getTextValue($doc,'sid'));
   $log->start(getTextValue($doc,'start'));
   $log->type(getTextValue($doc,'type'));
   $log->finish(getTextValue($doc,'finish'));
   # this may fail on 5.4- dumps, it is safe to ignore it
   eval { $log->base_dir(getTextValue($doc,'basedir')); };
-  
-  
+
+
   foreach my $fileentry ($doc->getElementsByTagName('fileentry')){
     my $fe = new Dobby::BackupLog::FileEntry();
-    $log->add_cold_file($fe->fromXml($fileentry)); 
+    $log->add_cold_file($fe->fromXml($fileentry));
   }
 
   foreach my $direntry ($doc->getElementsByTagName('direntry')){
@@ -77,16 +77,16 @@ sub fromXml() {
 
   foreach my $tablespaceentry ($doc->getElementsByTagName('tablespaceentry')){
     my $te = new Dobby::BackupLog::TablespaceEntry();
-    $log->add_tablespace_entry($te->fromXml($tablespaceentry)); 
+    $log->add_tablespace_entry($te->fromXml($tablespaceentry));
   }
-  
+
   return $log;
 }
 
 # Convert object to XML
 sub toXml {
   my $self = shift;
-  
+
   my $doc = XML::LibXML::Document->new( "1.0", "UTF-8");
   my $root = $doc->createElement('backuplog');
   my $sid = $doc->createElement('sid');
@@ -101,20 +101,20 @@ sub toXml {
   addTextValue($finish, $doc, $self->finish);
   my $base_dir = $doc->createElement('basedir');
   addTextValue($base_dir, $doc, $self->base_dir);
-  
+
   my $archive_logs = $doc->createElement('archivelogs');
   if (defined($self->archive_logs)) {
     for my $archive_log (@{$self->archive_logs}) {
       my $alog = $doc->createElement('controlfile');
       $archive_logs-> appendChild($alog);
-    }  
+    }
   }
-  
+
   my $cold_files = $doc->createElement('coldfiles');
   if (defined($self->cold_files)) {
     for my $file_entry (@{$self->cold_files}) {
       $cold_files-> appendChild($file_entry->toXml($doc));
-    }  
+    }
   }
   my $cold_dirs = $doc->createElement('colddirs');
   if (defined($self->cold_dirs)) {
@@ -122,28 +122,28 @@ sub toXml {
       $cold_dirs-> appendChild($dir_entry->toXml($doc));
     }
   }
-  
+
   my $tablespaces =  $doc->createElement('tablespaces');
   if (defined($self->tablespaces)) {
     for my $tablespace_entry (@{$self->tablespaces}) {
       $tablespaces-> appendChild($tablespace_entry->toXml($doc));
-    }  
+    }
   }
-  
+
   $root->appendChild($cold_files);
   $root->appendChild($cold_dirs);
   $root->appendChild($tablespaces);
   $root->appendChild($sid);
-  $root->appendChild($start); 
-  $root->appendChild($control_file); 
-  $root->appendChild($type); 
+  $root->appendChild($start);
+  $root->appendChild($control_file);
+  $root->appendChild($type);
   $root->appendChild($finish);
   $root->appendChild($base_dir);
 
   my $retval = $root->toString . "\n";
   return $retval;
-  
-  
+
+
 }
 
 ## Util functions for XML processing
@@ -160,7 +160,7 @@ sub addTextValue {
 sub getTextValue {
   my $doc = shift;
   my $tag = shift;
-  return $doc->getElementsByTagName($tag)->item(0)->getFirstChild->nodeValue; 
+  return $doc->getElementsByTagName($tag)->item(0)->getFirstChild->nodeValue;
 }
 
 sub serialize {
@@ -215,29 +215,29 @@ sub add_file_entry {
 sub toXml {
   my $self = shift;
   my $doc = shift;
-  
-  my $entry = $doc->createElement('tablespaceentry'); 
+
+  my $entry = $doc->createElement('tablespaceentry');
   my $name = $doc->createElement('name');
-  Dobby::BackupLog::addTextValue($name, $doc, $self->name); 
-  
-  my $start = $doc->createElement('start'); 
-  Dobby::BackupLog::addTextValue($start, $doc, $self->start); 
-  
-  my $finish = $doc->createElement('finish'); 
-  Dobby::BackupLog::addTextValue($finish, $doc, $self->finish); 
+  Dobby::BackupLog::addTextValue($name, $doc, $self->name);
+
+  my $start = $doc->createElement('start');
+  Dobby::BackupLog::addTextValue($start, $doc, $self->start);
+
+  my $finish = $doc->createElement('finish');
+  Dobby::BackupLog::addTextValue($finish, $doc, $self->finish);
 
   $entry->appendChild($name);
   $entry->appendChild($start);
   $entry->appendChild($finish);
   my $files = $doc->createElement('files');
-  
+
   if (defined($self->files)) {
     for my $file_entry (@{$self->files}) {
-      my $file = $doc->createElement('file'); 
-      Dobby::BackupLog::addTextValue($file, $doc, $file_entry); 
+      my $file = $doc->createElement('file');
+      Dobby::BackupLog::addTextValue($file, $doc, $file_entry);
       $files->appendChild($file);
     }
-  }  
+  }
   $entry->appendChild($files);
 
   return $entry;
@@ -247,16 +247,16 @@ sub toXml {
 #from the XML Dom.
 sub fromXml {
   my $self = shift;
-  my $element = shift;  
-  
+  my $element = shift;
+
   $self->name(Dobby::BackupLog::getTextValue($element, 'name'));
   $self->start(Dobby::BackupLog::getTextValue($element, 'start'));
   $self->finish(Dobby::BackupLog::getTextValue($element, 'finish'));
-  
+
   foreach my $fileelement ($element->getElementsByTagName('file')){
-    $self->add_file_entry($fileelement->getFirstChild->nodeValue); 
+    $self->add_file_entry($fileelement->getFirstChild->nodeValue);
   }
-  
+
   return $self;
 }
 
@@ -272,37 +272,37 @@ our @simple_struct_fields = qw/start finish from to digest compressed_size origi
 sub toXml {
   my $self = shift;
   my $doc = shift;
-  
-  my $entry = $doc->createElement('fileentry'); 
-  my $originalsize = $doc->createElement('originalsize');
-  Dobby::BackupLog::addTextValue($originalsize, $doc, $self->original_size); 
-  
-  my $compressedsize = $doc->createElement('compressedsize'); 
-  Dobby::BackupLog::addTextValue($compressedsize, $doc, $self->compressed_size); 
-  
-  my $start = $doc->createElement('start'); 
-  Dobby::BackupLog::addTextValue($start, $doc, $self->start); 
 
-  my $digest = $doc->createElement('digest'); 
-  Dobby::BackupLog::addTextValue($digest, $doc, $self->digest); 
-  
-  my $to = $doc->createElement('to');   
-  Dobby::BackupLog::addTextValue($to, $doc, $self->to); 
-  
-  my $from = $doc->createElement('from'); 
-  Dobby::BackupLog::addTextValue($from, $doc, $self->from); 
-  
-  my $finish = $doc->createElement('finish'); 
-  Dobby::BackupLog::addTextValue($finish, $doc, $self->finish); 
-  
+  my $entry = $doc->createElement('fileentry');
+  my $originalsize = $doc->createElement('originalsize');
+  Dobby::BackupLog::addTextValue($originalsize, $doc, $self->original_size);
+
+  my $compressedsize = $doc->createElement('compressedsize');
+  Dobby::BackupLog::addTextValue($compressedsize, $doc, $self->compressed_size);
+
+  my $start = $doc->createElement('start');
+  Dobby::BackupLog::addTextValue($start, $doc, $self->start);
+
+  my $digest = $doc->createElement('digest');
+  Dobby::BackupLog::addTextValue($digest, $doc, $self->digest);
+
+  my $to = $doc->createElement('to');
+  Dobby::BackupLog::addTextValue($to, $doc, $self->to);
+
+  my $from = $doc->createElement('from');
+  Dobby::BackupLog::addTextValue($from, $doc, $self->from);
+
+  my $finish = $doc->createElement('finish');
+  Dobby::BackupLog::addTextValue($finish, $doc, $self->finish);
+
   $entry->appendChild($originalsize);
   $entry->appendChild($compressedsize);
   $entry->appendChild($start);
-  $entry->appendChild($digest);  
+  $entry->appendChild($digest);
   $entry->appendChild($to);
   $entry->appendChild($from);
   $entry->appendChild($finish);
-     
+
   return $entry;
 }
 
@@ -310,8 +310,8 @@ sub toXml {
 #from the XML Dom.
 sub fromXml {
   my $self = shift;
-  my $element = shift;  
-  
+  my $element = shift;
+
   $self->start(Dobby::BackupLog::getTextValue($element, 'start'));
   $self->finish(Dobby::BackupLog::getTextValue($element, 'finish'));
   $self->from(Dobby::BackupLog::getTextValue($element, 'from'));
@@ -319,7 +319,7 @@ sub fromXml {
   $self->digest(Dobby::BackupLog::getTextValue($element, 'digest'));
   $self->original_size(Dobby::BackupLog::getTextValue($element, 'originalsize'));
   $self->compressed_size(Dobby::BackupLog::getTextValue($element, 'compressedsize'));
-  
+
   return $self;
 }
 

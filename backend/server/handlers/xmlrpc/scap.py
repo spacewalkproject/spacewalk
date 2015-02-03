@@ -24,7 +24,9 @@ from spacewalk.server import rhnSQL
 from spacewalk.server.rhnHandler import rhnHandler
 from spacewalk.server.rhnLib import get_action_path, get_actionfile_path
 
+
 class Scap(rhnHandler):
+
     def __init__(self):
         rhnHandler.__init__(self)
         self.functions.append('upload_result')
@@ -72,7 +74,7 @@ class Scap(rhnHandler):
         f = open(absolute_file, 'w+')
         f.write(filecontent)
         return {'result': True,
-               }
+                }
 
     def _authorize_request(self, action_id):
         # Make sure that database contains records in

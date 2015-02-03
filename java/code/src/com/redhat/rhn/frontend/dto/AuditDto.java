@@ -102,5 +102,3 @@ public class AuditDto extends BaseDto {
         return type;
     }
 }
-
-// vim: ts=4:expandtab

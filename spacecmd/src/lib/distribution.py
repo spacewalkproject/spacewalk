@@ -32,6 +32,7 @@
 from optparse import Option
 from spacecmd.utils import *
 
+
 def help_distribution_create(self):
     print 'distribution_create: Create a Kickstart tree'
     print '''usage: distribution_create [options]
@@ -42,11 +43,12 @@ options:
   -b base channel to associate with
   -t install type [fedora|rhel_4/5/6|generic_rpm]'''
 
-def do_distribution_create(self, args, update = False):
-    options = [ Option('-n', '--name', action='store'),
-                Option('-p', '--path', action='store'),
-                Option('-b', '--base-channel', action='store'),
-                Option('-t', '--install-type', action='store') ]
+
+def do_distribution_create(self, args, update=False):
+    options = [Option('-n', '--name', action='store'),
+               Option('-p', '--path', action='store'),
+               Option('-b', '--base-channel', action='store'),
+               Option('-t', '--install-type', action='store')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -60,9 +62,9 @@ def do_distribution_create(self, args, update = False):
 
     if is_interactive(options):
         if not update:
-            options.name = prompt_user('Name:', noblank = True)
+            options.name = prompt_user('Name:', noblank=True)
 
-        options.path = prompt_user('Path to Kickstart Tree:', noblank = True)
+        options.path = prompt_user('Path to Kickstart Tree:', noblank=True)
 
         options.base_channel = ''
         while options.base_channel == '':
@@ -81,7 +83,7 @@ def do_distribution_create(self, args, update = False):
         install_types = \
             self.client.kickstart.tree.listInstallTypes(self.session)
 
-        install_types = [ t.get('label') for t in install_types ]
+        install_types = [t.get('label') for t in install_types]
 
         options.install_type = ''
         while options.install_type == '':
@@ -128,12 +130,14 @@ def do_distribution_create(self, args, update = False):
 
 ####################
 
+
 def help_distribution_list(self):
     print 'distribution_list: List the available Kickstart trees'
     print 'usage: distribution_list'
 
-def do_distribution_list(self, args, doreturn = False):
-    channels = self.client.kickstart.listKickstartableChannels(self.session)
+
+def do_distribution_list(self, args, doreturn=False):
+    channels = self.client.kickstart.listKickstartableTreeChannels(self.session)
 
     avail_trees = []
     for c in channels:
@@ -153,14 +157,17 @@ def do_distribution_list(self, args, doreturn = False):
 
 ####################
 
+
 def help_distribution_delete(self):
     print 'distribution_delete: Delete a Kickstart tree'
     print 'usage: distribution_delete LABEL'
 
+
 def complete_distribution_delete(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
         return tab_completer(self.do_distribution_list('', True),
-                                  text)
+                             text)
+
 
 def do_distribution_delete(self, args):
     (args, _options) = parse_arguments(args)
@@ -171,8 +178,8 @@ def do_distribution_delete(self, args):
 
     # allow globbing of distribution names
     dists = filter_results(self.do_distribution_list('', True), args)
-    logging.debug("distribution_delete called with args %s, dists=%s" % \
-        (args, dists))
+    logging.debug("distribution_delete called with args %s, dists=%s" %
+                  (args, dists))
 
     if not len(dists):
         logging.error("No distributions matched argument %s" % args)
@@ -187,12 +194,15 @@ def do_distribution_delete(self, args):
 
 ####################
 
+
 def help_distribution_details(self):
     print 'distribution_details: Show the details of a Kickstart tree'
     print 'usage: distribution_details LABEL'
 
+
 def complete_distribution_details(self, text, line, beg, end):
     return tab_completer(self.do_distribution_list('', True), text)
+
 
 def do_distribution_details(self, args):
     (args, _options) = parse_arguments(args)
@@ -203,8 +213,8 @@ def do_distribution_details(self, args):
 
     # allow globbing of distribution names
     dists = filter_results(self.do_distribution_list('', True), args)
-    logging.debug("distribution_details called with args %s, dists=%s" % \
-        (args, dists))
+    logging.debug("distribution_details called with args %s, dists=%s" %
+                  (args, dists))
 
     if not len(dists):
         logging.error("No distributions matched argument %s" % args)
@@ -217,7 +227,7 @@ def do_distribution_details(self, args):
 
         channel = \
             self.client.channel.software.getDetails(self.session,
-                                                details.get('channel_id'))
+                                                    details.get('channel_id'))
 
         if add_separator:
             print self.SEPARATOR
@@ -229,14 +239,17 @@ def do_distribution_details(self, args):
 
 ####################
 
+
 def help_distribution_rename(self):
     print 'distribution_rename: Rename a Kickstart tree'
     print 'usage: distribution_rename OLDNAME NEWNAME'
 
+
 def complete_distribution_rename(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
         return tab_completer(self.do_distribution_list('', True),
-                                  text)
+                             text)
+
 
 def do_distribution_rename(self, args):
     (args, _options) = parse_arguments(args)
@@ -252,6 +265,7 @@ def do_distribution_rename(self, args):
 
 ####################
 
+
 def help_distribution_update(self):
     print 'distribution_update: Update the path of a Kickstart tree'
     print '''usage: distribution_update NAME [options]
@@ -261,12 +275,12 @@ options:
   -b base channel to associate with
   -t install type [fedora|rhel_4/5/6|generic_rpm]'''
 
+
 def complete_distribution_update(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
         return tab_completer(self.do_distribution_list('', True),
-                                  text)
+                             text)
+
 
 def do_distribution_update(self, args):
-    return self.do_distribution_create(args, update = True)
-
-# vim:ts=4:expandtab:
+    return self.do_distribution_create(args, update=True)

@@ -10,9 +10,9 @@
 
 
 <c:if test="${requestScope.pageList != null}">
-	<div class="alert alert-danger">
-		     <bean:message key="distro-delete.jsp.cantdelete"/>
-	</div>
+        <div class="alert alert-danger">
+                     <bean:message key="distro-delete.jsp.cantdelete"/>
+        </div>
 </c:if>
 
 <rhn:toolbar base="h1" icon="header-kickstart" imgAlt="system.common.kickstartAlt">

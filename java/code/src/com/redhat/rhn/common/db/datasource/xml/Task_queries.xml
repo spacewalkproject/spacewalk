@@ -7,7 +7,7 @@ SELECT eq.errata_id, E.org_id, EQ.channel_id
   FROM rhnErrataQueue EQ inner join
        rhnErrata E on E.id = EQ.errata_id inner join
        rhnChannel C on C.id = EQ.channel_id
-   WHERE C.label not in (  	select channel_label from rhnRepoRegenQueue)
+   WHERE C.label not in (       select channel_label from rhnRepoRegenQueue)
    AND C.id not in (select task_data from rhnTaskQueue where task_name = 'update_errata_cache_by_channel')
 ORDER BY next_action DESC
   </query>
@@ -224,42 +224,6 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
    </query>
 </write-mode>
 
-<write-mode name="taskomatic_time_series_data_cleanup">
-   <query params="">
-        DELETE
-          FROM time_series_data tsd
-         WHERE tsd.probe_id in (
-               SELECT tsp.id
-                 FROM time_series_purge tsp
-                WHERE tsp.deleted = 1
-         )
-   </query>
-</write-mode>
-
-<write-mode name="taskomatic_state_change_cleanup">
-   <query params="">
-        DELETE
-          FROM state_change sc
-         WHERE sc.o_id in (
-               SELECT tsp.id || ''
-                 FROM time_series_purge tsp
-                WHERE tsp.deleted = 1
-         )
-   </query>
-</write-mode>
-
-<write-mode name="taskomatic_probe_state_cleanup">
-   <query params="">
-        DELETE
-          FROM rhn_probe_state rps
-         WHERE rps.probe_id in (
-               SELECT tsp.id
-                 FROM time_series_purge tsp
-                WHERE tsp.deleted = 1
-         )
-   </query>
-</write-mode>
-
 <write-mode name="taskomatic_package_changelog_cleanup">
    <query params="">
 <!-- DISTINCT makes the DELETE faster for postgresql (no difference for oracle) -->
@@ -267,12 +231,6 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
         WHERE id NOT IN ( SELECT DISTINCT changelog_data_id FROM rhnPackageChangeLogRec )
    </query>
 </write-mode>
-
-<callable-mode name="synchprobestate_synch_proc">
-   <query params="">
-      { call rhn_synch_probe_state() }
-   </query>
-</callable-mode>
 
 <callable-mode name="taskomatic_session_cleanup">
    <query params="bound, commit_interval, batch_size, sessions_deleted">
@@ -297,7 +255,7 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
      rhnTaskoTask t,
      rhnTaskoTemplate e
    WHERE r.start_time = se.st
-	AND t.id = se.task_id
+        AND t.id = se.task_id
     AND r.template_id = e.id
     AND t.id = e.task_id
    ORDER BY t.name
@@ -353,7 +311,7 @@ select distinct sg.org_id as id
 
 <!-- timings: webdev: , webqa: , prod:  -->
 <mode name="summarypop_orgs_recent_actions"
-	class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
+        class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
    <query params="">
 SELECT DISTINCT S.org_id as id
   FROM rhnServer S,
@@ -621,28 +579,28 @@ where snc.errata_id = :errata_id
 </mode>
 
 <mode name="find_channel_in_task_queue">
-	<query params="cid">
-		SELECT task_data
-		FROM rhnTaskQueue
-		WHERE task_data = :cid
-		AND task_name = 'update_errata_cache_by_channel'
-	</query>
+        <query params="cid">
+                SELECT task_data
+                FROM rhnTaskQueue
+                WHERE task_data = :cid
+                AND task_name = 'update_errata_cache_by_channel'
+        </query>
 </mode>
 
 <write-mode name="update_task_queue">
-	<query params="earliest, cid">
-		UPDATE rhnTaskQueue
-   		SET earliest = :earliest
- 		WHERE task_data = :cid
- 	</query>
+        <query params="earliest, cid">
+                UPDATE rhnTaskQueue
+                SET earliest = :earliest
+                WHERE task_data = :cid
+        </query>
 </write-mode>
 
 <write-mode name="insert_into_task_queue">
-	<query params="org_id, task_data, cid, earliest">
-	INSERT INTO rhnTaskQueue
+        <query params="org_id, task_data, cid, earliest">
+        INSERT INTO rhnTaskQueue
        (org_id, task_name, task_data, priority, earliest)
-		VALUES (:org_id, :task_data, :cid, 0, :earliest)
-	</query>
+                VALUES (:org_id, :task_data, :cid, 0, :earliest)
+        </query>
 </write-mode>
 
 <write-mode name="delete_task">

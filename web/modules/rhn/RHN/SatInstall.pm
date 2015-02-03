@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::SatInstall;
@@ -65,7 +65,7 @@ sub write_config {
   my @opt_strings = map { "--option=${_}=" . $options->{$_} } keys %{$options};
 
   my $ret = system("/usr/bin/sudo", "/usr/bin/rhn-config-satellite.pl",
-		   "--target=$target", @opt_strings);
+                   "--target=$target", @opt_strings);
 
   if ($ret) {
     throw 'There was a problem updating your configuration.  '

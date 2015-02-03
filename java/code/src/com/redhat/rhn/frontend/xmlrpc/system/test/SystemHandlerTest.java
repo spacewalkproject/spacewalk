@@ -1738,28 +1738,28 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testAddEntitlements() throws Exception {
-        UserTestUtils.addMonitoring(admin.getOrg());
+        UserTestUtils.addProvisioning(admin.getOrg());
         Server server = ServerFactoryTest.createTestServer(admin, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
 
         List entitlements = new LinkedList();
-        entitlements.add(EntitlementManager.MONITORING_ENTITLED);
+        entitlements.add(EntitlementManager.PROVISIONING_ENTITLED);
 
         handler.addEntitlements(admin, new Integer(server.getId().intValue()),
                 entitlements);
 
         TestUtils.flushAndEvict(server);
         server = SystemManager.lookupByIdAndUser(server.getId(), admin);
-        assertTrue(server.hasEntitlement(EntitlementManager.MONITORING));
+        assertTrue(server.hasEntitlement(EntitlementManager.PROVISIONING));
     }
 
     public void testAddEntitlementSystemAlreadyHas() throws Exception {
-        UserTestUtils.addMonitoring(admin.getOrg());
+        UserTestUtils.addProvisioning(admin.getOrg());
         Server server = ServerFactoryTest.createTestServer(admin, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        SystemManager.entitleServer(server, EntitlementManager.MONITORING);
+        SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
         List entitlements = new LinkedList();
-        entitlements.add(EntitlementManager.MONITORING_ENTITLED);
+        entitlements.add(EntitlementManager.PROVISIONING_ENTITLED);
 
         // Shouldn't fail:
         handler.addEntitlements(admin, new Integer(server.getId().intValue()),
@@ -1767,12 +1767,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testRemoveEntitlements() throws Exception {
-        UserTestUtils.addMonitoring(admin.getOrg());
+        UserTestUtils.addProvisioning(admin.getOrg());
         Server server = ServerFactoryTest.createTestServer(admin, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        SystemManager.entitleServer(server, EntitlementManager.MONITORING);
+        SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
         List entitlements = new LinkedList();
-        entitlements.add(EntitlementManager.MONITORING_ENTITLED);
+        entitlements.add(EntitlementManager.PROVISIONING_ENTITLED);
 
         handler.removeEntitlements(admin, new Integer(server.getId().intValue()),
                 entitlements);
@@ -1781,9 +1781,9 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testRemoveEntitlementsServerDoesNotHave() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        assertFalse(server.hasEntitlement(EntitlementManager.MONITORING));
+        assertFalse(server.hasEntitlement(EntitlementManager.PROVISIONING));
         List entitlements = new LinkedList();
-        entitlements.add(EntitlementManager.MONITORING_ENTITLED);
+        entitlements.add(EntitlementManager.PROVISIONING_ENTITLED);
 
         handler.removeEntitlements(admin, new Integer(server.getId().intValue()),
                 entitlements);

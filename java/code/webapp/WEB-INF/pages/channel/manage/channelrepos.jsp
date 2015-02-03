@@ -11,7 +11,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
-<BR>
 
 <h2><rhn:icon type="header-package" /> <bean:message key="repos.jsp.channel.repos"/></h2>
 
@@ -20,15 +19,15 @@
 
 <input type="hidden" name="cid" value="${cid}" />
 
-	<rl:list
-			decorator="SelectableDecorator"
-			emptykey="repos.jsp.norepos"
-			alphabarcolumn="label"
-	 >
+        <rl:list
+                        decorator="SelectableDecorator"
+                        emptykey="repos.jsp.norepos"
+                        alphabarcolumn="label"
+         >
 
-			<rl:decorator name="PageSizeDecorator"/>
+                        <rl:decorator name="PageSizeDecorator"/>
 
-		    <rl:selectablecolumn value="${current.id}"/>
+                    <rl:selectablecolumn value="${current.id}"/>
 
                  <rl:column sortable="true"
                                    bound="false"
@@ -38,13 +37,13 @@
                         <a href="/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}">${current.label}</a>
                 </rl:column>
 
-	</rl:list>
-	<div class="text-right">
-	  <hr />
-		<input class="btn btn-default" type="submit" name="dispatch"
-				value="<bean:message key='repos.jsp.update.channel'/>" />
-	</div>
-		<rhn:submitted/>
+        </rl:list>
+        <div class="text-right">
+          <hr />
+                <input class="btn btn-default" type="submit" name="dispatch"
+                                value="<bean:message key='repos.jsp.update.channel'/>" />
+        </div>
+                <rhn:submitted/>
 
 </rl:listset>
 

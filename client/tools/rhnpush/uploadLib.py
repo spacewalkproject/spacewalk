@@ -41,10 +41,14 @@ BUFFER_SIZE = 65536
 HEADERS_PER_CALL = 25
 
 # Exception class
+
+
 class UploadError(Exception):
     pass
 
+
 class ServerFault(Exception):
+
     def __init__(self, faultCode=None, faultString="", faultExplanation=""):
         Exception.__init__(self)
         self.faultCode = faultCode
@@ -53,8 +57,10 @@ class ServerFault(Exception):
 
 
 class UploadClass:
+
     """Functionality for an uploading tool
     """
+
     def __init__(self, options, files=None):
         self.options = options
         self.username = None
@@ -83,7 +89,7 @@ class UploadClass:
     @staticmethod
     def die(errcode, *args):
         ReportError(*args)
-        #pkilambi:bug#176358:this should exit with error code
+        # pkilambi:bug#176358:this should exit with error code
         sys.exit(errcode)
 
     def setURL(self):
@@ -189,20 +195,20 @@ class UploadClass:
         if self.use_session:
             if self.use_checksum_paths:
                 return listChannelChecksumBySession(self.server,
-                        self.session.getSessionString(), self.channels)
+                                                    self.session.getSessionString(), self.channels)
             else:
                 return listChannelBySession(self.server,
-                                        self.session.getSessionString(),
-                                        self.channels)
+                                            self.session.getSessionString(),
+                                            self.channels)
         else:
             if self.use_checksum_paths:
                 return listChannelChecksum(self.server,
-                               self.username, self.password,
-                               self.channels)
+                                           self.username, self.password,
+                                           self.channels)
             else:
                 return listChannel(self.server,
-                               self.username, self.password,
-                               self.channels)
+                                   self.username, self.password,
+                                   self.channels)
 
     def list(self):
         # set the URL
@@ -240,7 +246,6 @@ class UploadClass:
 
         return self.get_newest_binary_packages()
 
-
     def get_newest_binary_packages(self):
         # Loop through the args and only keep the newest ones
         localPackagesHash = {}
@@ -248,7 +253,7 @@ class UploadClass:
             nvrea = self._processFile(filename, nosig=1)['nvrea']
             name = nvrea[0]
             if not localPackagesHash.has_key(name):
-                localPackagesHash[name] = {nvrea : filename}
+                localPackagesHash[name] = {nvrea: filename}
                 continue
 
             same_names_hash = localPackagesHash[name]
@@ -260,7 +265,7 @@ class UploadClass:
             for local_nvrea in same_names_hash.keys():
                 # XXX is_mpm should be set accordingly
                 ret = packageCompare(local_nvrea, nvrea,
-                    is_mpm=0)
+                                     is_mpm=0)
                 if ret == 0 and local_nvrea[4] == nvrea[4]:
                     # Weird case, we've already compared the two
                     skip_rpm = 1
@@ -301,7 +306,7 @@ class UploadClass:
             for local_nvrea in same_names_hash.keys():
                 # XXX is_mpm sould be set accordingly
                 ret = packageCompare(local_nvrea, remote_nvrea,
-                    is_mpm=0)
+                                     is_mpm=0)
                 if ret < 0:
                     # The remote package is newer than the local one
                     del same_names_hash[local_nvrea]
@@ -323,10 +328,10 @@ class UploadClass:
     def _listMissingSourcePackages(self):
         if self.use_session:
             return listMissingSourcePackagesBySession(self.server,
-                                self.session.getSessionString(), self.channels)
+                                                      self.session.getSessionString(), self.channels)
         else:
             return listMissingSourcePackages(self.server,
-                                self.username, self.password, self.channels)
+                                             self.username, self.password, self.channels)
 
     def get_missing_source_packages(self):
         localPackagesHash = {}
@@ -398,15 +403,15 @@ class UploadClass:
             chunk = file_list[:self.count]
             del file_list[:self.count]
             uploadedPackages, headersList = self._processBatch(chunk,
-                relativeDir=self.relativeDir, source=self.options.source,
-                verbose=self.options.verbose, nosig=self.options.nosig)
+                                                               relativeDir=self.relativeDir, source=self.options.source,
+                                                               verbose=self.options.verbose, nosig=self.options.nosig)
 
             if not headersList:
                 # Nothing to do here...
                 continue
 
             # Send the big hash
-            info = {'packages' : headersList}
+            info = {'packages': headersList}
             if self.orgId > 0 or self.orgId == '':
                 info['orgId'] = self.orgId
 
@@ -480,7 +485,7 @@ class UploadClass:
             self.session.writeSession()
 
     def authenticate(self):
-        #Only use the session token stuff if we're talking to a sat that supports session-token authentication.
+        # Only use the session token stuff if we're talking to a sat that supports session-token authentication.
         self.readSession()
         if self.session and not self.options.new_cache and self.options.username == self.username:
             chksession = self.checkSession(self.session.getSessionString())
@@ -524,7 +529,7 @@ class UploadClass:
 
         if nosig is None and not a_pkg.header.is_signed():
             raise UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"
-                % filename)
+                              % filename)
 
         # Get the name, version, release, epoch, arch
         lh = []
@@ -542,16 +547,16 @@ class UploadClass:
             lh.append(a_pkg.header['arch'])
 
         # Build the header hash to be sent
-        info = {'header' : Binary(a_pkg.header.unload()),
-                'checksum_type' : a_pkg.checksum_type,
-                'checksum' : a_pkg.checksum,
-                'packageSize' : size,
-                'header_start' : a_pkg.header_start,
-                'header_end' : a_pkg.header_end}
+        info = {'header': Binary(a_pkg.header.unload()),
+                'checksum_type': a_pkg.checksum_type,
+                'checksum': a_pkg.checksum,
+                'packageSize': size,
+                'header_start': a_pkg.header_start,
+                'header_end': a_pkg.header_end}
         if relativeDir:
             # Append the relative dir too
             info["relativePath"] = "%s/%s" % (relativeDir,
-                os.path.basename(filename))
+                                              os.path.basename(filename))
         info['nvrea'] = tuple(lh)
         return info
 
@@ -562,7 +567,7 @@ class UploadClass:
             if verbose:
                 print "Uploading %s" % filename
             info = self._processFile(filename, relativeDir=relativeDir, source=source,
-                nosig=nosig)
+                                     nosig=nosig)
             # Get nvrea
             nvrea = info['nvrea']
             del info['nvrea']
@@ -572,6 +577,7 @@ class UploadClass:
             # Append the header to the list of headers to be sent out
             headersList.append(info)
         return sentPackages, headersList
+
 
 def readStdin():
     # Reads the standard input lines and returns a list
@@ -663,48 +669,62 @@ def parseXMLRPCfault(fault):
     return ServerFault(faultCode, "", fault.faultString)
 
 # pylint: disable=C0103
+
+
 def listChannel(server, username, password, channels):
     return call(server.packages.listChannel, channels, username, password)
 
+
 def listChannelChecksum(server, username, password, channels):
     return call(server.packages.listChannelChecksum, channels, username,
-            password)
+                password)
+
 
 def listChannelBySession(server, session_string, channels):
     return call(server.packages.listChannelBySession, channels, session_string)
 
+
 def listChannelChecksumBySession(server, session_string, channels):
     return call(server.packages.listChannelChecksumBySession, channels,
-            session_string)
+                session_string)
+
 
 def listChannelSource(server, username, password, channels):
     return call(server.packages.listChannelSource, channels, username, password)
 
+
 def listChannelSourceBySession(server, session_string, channels):
     return call(server.packages.listChannelSourceBySession, channels, session_string)
+
 
 def listMissingSourcePackages(server, username, password, channels):
     return call(server.packages.listMissingSourcePackages, channels, username, password)
 
+
 def listMissingSourcePackagesBySession(server, session_string, channels):
     return call(server.packages.listMissingSourcePackagesBySession, channels, session_string)
+
 
 def getPackageChecksumBySession(server, session_string, info):
     return call(server.packages.getPackageChecksumBySession, session_string, info)
 
+
 def getSourcePackageChecksumBySession(server, session_string, info):
     return call(server.packages.getSourcePackageChecksumBySession, session_string, info)
+
 
 def getSourcePackageChecksum(server, username, password, info):
     return call(server.packages.getSourcePackageChecksum, username, password, info)
 
 # for backward compatibility with satellite <5.4.0
+
+
 def getPackageMD5sumBySession(server, session_string, info):
     return call(server.packages.getPackageMD5sumBySession, session_string, info)
 
+
 def getSourcePackageMD5sumBySession(server, session_string, info):
     return call(server.packages.getSourcePackageMD5sumBySession, session_string, info)
-
 
 
 def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
@@ -713,12 +733,14 @@ def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
         s.add_trusted_cert(ca_chain)
     return s
 
+
 def hasChannelChecksumCapability(rpc_server):
     """ check whether server supports getPackageChecksumBySession function"""
     server = rhnserver.RhnServer()
     # pylint: disable=W0212
     server._server = rpc_server
     return server.capabilities.hasCapability('xmlrpc.packages.checksums')
+
 
 def exists_getPackageChecksumBySession(rpc_server):
     """ check whether server supports getPackageChecksumBySession function"""
@@ -732,6 +754,8 @@ def exists_getPackageChecksumBySession(rpc_server):
     return result
 
 # compare two package [n,v,r,e] tuples
+
+
 def packageCompare(pkg1, pkg2, is_mpm=None):
     if pkg1[0] != pkg2[0]:
         raise ValueError("You should only compare packages with the same name")
@@ -765,6 +789,7 @@ def get_header(filename, fildes=None, source=None):
     if (not source) ^ (not h.is_source):
         raise UploadError("Unexpected RPM package type")
     return h
+
 
 def ReportError(*args):
     sys.stderr.write(' '.join(map(str, args)) + "\n")

@@ -256,5 +256,3 @@ class Progress(object):
             self.__subprogress[subkey] = (0, subtotal, fragment, {})
         self.__lasttime = 0
         self.__lock.release()
-
-# vim:ts=4:sw=4:et

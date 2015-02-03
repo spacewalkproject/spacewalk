@@ -21,20 +21,20 @@
 <rl:listset name="packageListSet">
     <rhn:csrf />
     <rhn:submitted />
-	<rl:list dataset="pageList"
+        <rl:list dataset="pageList"
          width="100%"
          name="packageList"
          styleclass="list"
          emptykey="packagelist.jsp.nopackages">
- 			<rl:decorator name="PageSizeDecorator"/>
+                        <rl:decorator name="PageSizeDecorator"/>
 
-		  <rl:column headerkey="packagelist.jsp.packagename" bound="false"
-		  	sortattr="nvre"
-		  	sortable="true" filterattr="nvre">
-		      <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
-		        ${current.nvre}</a>
-		  </rl:column>
-	</rl:list>
+                  <rl:column headerkey="packagelist.jsp.packagename" bound="false"
+                        sortattr="nvre"
+                        sortable="true" filterattr="nvre">
+                      <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
+                        ${current.nvre}</a>
+                  </rl:column>
+        </rl:list>
 <c:if test="${not empty requestScope.pageList}">
     <div class="form-horizontal">
         <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>

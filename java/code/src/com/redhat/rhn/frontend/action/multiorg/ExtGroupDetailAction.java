@@ -153,7 +153,7 @@ public class ExtGroupDetailAction extends RhnAction {
         for (Role role : user.getOrg().getRoles()) {
             String label = role.getLabel();
             if (UserFactory.IMPLIEDROLES.contains(role)) {
-                // channel, config, system group, activation key, monitoring admin
+                // channel, config, system group, activation key
                 boolean hasOrgAdmin = extGroup == null ? false :
                     extGroup.getRoles().contains((RoleFactory.ORG_ADMIN));
                 SelectableLabelValueBean bean = new SelectableLabelValueBean(

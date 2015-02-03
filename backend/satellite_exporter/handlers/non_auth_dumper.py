@@ -34,17 +34,22 @@ from spacewalk.common.rhnTranslate import _
 from spacewalk.satellite_tools.exporter import exportLib
 from spacewalk.satellite_tools.disk_dumper import dumper
 
+
 class InvalidPackageError(Exception):
     pass
+
 
 class NullPathPackageError(Exception):
     pass
 
+
 class MissingPackageError(Exception):
     pass
 
+
 class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     # pylint: disable=E1101,W0102,W0613,R0902,R0904
+
     def __init__(self, req):
         rhnHandler.__init__(self)
         dumper.XML_Dumper.__init__(self)
@@ -121,7 +126,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         if self.compress_level and init_compressed_stream:
             log_debug(4, "Compressing with factor %s" % self.compress_level)
             self._compressed_stream = gzip.GzipFile(None, "wb",
-                self.compress_level, self._raw_stream)
+                                                    self.compress_level, self._raw_stream)
 
     def send(self, data):
         log_debug(3, "Sending %d bytes" % len(data))
@@ -158,7 +163,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         self._is_closed = 1
         log_debug(3, "Closed")
 
-
     def set_channel_family_query(self, channel_labels=[]):
         if not channel_labels:
             # All null-pwned channel families
@@ -191,7 +195,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             # Get dir of the prefix
             prefix = "rhn-package-"
             prefix_len = len(prefix)
-            packages = [ int(x[prefix_len:]) for x in packages ]
+            packages = [int(x[prefix_len:]) for x in packages]
 
             channel_entry['packages'] = packages
 
@@ -204,8 +208,8 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
             # tag name to object prefix
             maps = {
-                'source-packages' : ('source_packages', 'rhn-source-package-'),
-                'rhn-channel-errata' : ('errata', 'rhn-erratum-'),
+                'source-packages': ('source_packages', 'rhn-source-package-'),
+                'rhn-channel-errata': ('errata', 'rhn-erratum-'),
             }
             # Now look for package sources
             for tag_name, dummy, celem in child_elements:
@@ -239,8 +243,8 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
         writer = self._get_xml_writer()
         d = dumper.SatelliteDumper(writer,
-            exportLib.ChannelFamiliesDumper(writer,
-                data_iterator=h, null_max_members=0, virt_filter=virt_filter),)
+                                   exportLib.ChannelFamiliesDumper(writer,
+                                                                   data_iterator=h, null_max_members=0, virt_filter=virt_filter),)
         d.dump()
         writer.flush()
         log_debug(4, "OK")
@@ -253,7 +257,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
         writer = self._get_xml_writer()
         d = dumper.SatelliteDumper(writer, dumper.ChannelsDumperEx(writer,
-            params=channels.values()))
+                                                                   params=channels.values()))
         d.dump()
         writer.flush()
         log_debug(4, "OK")
@@ -262,19 +266,19 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
     def dump_channel_packages_short(self, channel_label, last_modified):
         return dumper.XML_Dumper.dump_channel_packages_short(
-                        self, channel_label, last_modified, filepath=None,
-                        validate_channels=True, send_headers=True, open_stream=False)
+            self, channel_label, last_modified, filepath=None,
+            validate_channels=True, send_headers=True, open_stream=False)
 
     def _packages(self, packages, prefix, dump_class, sources=0):
         return dumper.XML_Dumper._packages(self, packages, prefix, dump_class, sources,
-                                          verify_packages=True)
+                                           verify_packages=True)
 
     def dump_errata(self, errata):
         return dumper.XML_Dumper.dump_errata(self, errata, verify_errata=True)
 
     def dump_kickstartable_trees(self, kickstart_labels=None):
         return dumper.XML_Dumper.dump_kickstartable_trees(self, kickstart_labels,
-                                                        validate_kickstarts=True)
+                                                          validate_kickstarts=True)
 
     def dump_product_names(self):
         log_debug(4)
@@ -353,7 +357,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             order by id desc
         """
         channel_comps_sth = rhnSQL.prepare(comps_query)
-        channel_comps_sth.execute(channel_label = channel)
+        channel_comps_sth.execute(channel_label=channel)
         row = channel_comps_sth.fetchone_dict()
         if not row:
             raise rhnFault(3015, "No comps file for channel [%s]" % channel)
@@ -375,14 +379,13 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         row = h.fetchone_dict()
         if not row:
             raise rhnFault(3003, "No such file %s in tree %s" %
-                (relative_path, ks_label))
+                           (relative_path, ks_label))
         path = os.path.join(CFG.MOUNT_POINT, row['base_path'], relative_path)
         if not os.path.exists(path):
             log_error("Missing file for satellite dumper: %s" % path)
             raise rhnFault(3007, "Unable to retrieve file %s in tree %s" %
-                (relative_path, ks_label))
+                           (relative_path, ks_label))
         return self._send_stream(path)
-
 
     # Sends a package over the wire
     # prefix is whatever we prepend to the package id (rhn-package- or
@@ -436,8 +439,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             log_error("Package not found", filePath)
             raise rhnFault(17, _("Package not found")), None, sys.exc_info()[2]
 
-
-
     # Opens the file and sends the stream
     def _send_stream(self, path):
         try:
@@ -489,8 +490,10 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         self._raw_stream.write(s)
         return 0
 
+
 class ContainerWriter:
     # Same interface as an XML writer, but collects data in a hash instead
+
     def __init__(self):
         self._tag_stack = []
         self._cdata = []
@@ -539,10 +542,14 @@ class ContainerWriter:
 # Overwrite the ChannelsDumper class to filter packages/source packages/errata
 # based on the creation date
 # XXX No caching for now
+
+
 class ChannelsDumper(dumper.ChannelsDumper):
+
     def dump_subelement(self, data):
         c = exportLib.ChannelDumper(self._writer, data)
         c.dump()
+
 
 def _get_path_from_cursor(h):
     # Function shared between other retrieval functions
@@ -563,5 +570,5 @@ def _get_path_from_cursor(h):
     return filePath, pkgId
 
 rpcClasses = {
-    'dump'  : NonAuthenticatedDumper,
+    'dump': NonAuthenticatedDumper,
 }

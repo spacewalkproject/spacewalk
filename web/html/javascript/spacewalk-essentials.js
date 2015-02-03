@@ -47,14 +47,15 @@ $(window).resize( function () {
 
 // Make columns 100% in height
 function columnHeight() {
-  //Only if the screen size is higher than the max-width set up in the Variables.less under the definition @screen-md: 
-  //PLEASE: update this if you change the content of @screen-md
-  if ($(document).width()>992) {
+  // Detect if side menu is really side and not whole screen wide. Detecting indirectly with section width because aside can be hidden. 
+  if ($(".spacewalk-main-column-layout section").outerWidth() < $(".spacewalk-main-column-layout").outerWidth()) {
     var asideHeight = $(".spacewalk-main-column-layout aside").height();
+    var navbarHeight = $("nav").height();
+    var footerHeight = $("footer").height();
     var heightDoc = $(document).height();
     // Column heights should equal the document height minus the header height and footer height
-    // header + footer height = 196px; extra 10px to have scrollbar always visible
-    var newHeight = heightDoc - asideHeight - 186 + "px";
+    // extra 10px to have scrollbar always visible
+    var newHeight = heightDoc - asideHeight - navbarHeight - footerHeight + 10 + "px";
     $(".spacewalk-main-column-layout aside").css("padding-bottom", newHeight);
   };
 };

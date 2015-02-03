@@ -2,7 +2,7 @@
 
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        2.3.0
+Version:        2.3.1
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -47,6 +47,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Fri Jan 16 2015 Matej Kollar <mkollar@redhat.com> 2.3.1-1
+- Getting rid of trailing spaces in Perl
+- Getting rid of Tabs in Perl
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+- Bumping package versions for 2.3.
+- Bumping package versions for 2.2.
+
 * Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.20-1
 - 919468 - fixed path in file based Requires
 - Purging %%changelog entries preceding Spacewalk 1.0, in active packages.

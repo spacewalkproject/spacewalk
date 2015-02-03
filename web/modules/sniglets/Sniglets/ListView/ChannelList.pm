@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -37,43 +37,43 @@ sub list_of { return "channels" }
 sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "user_subscribe_perms",
-			   -datasource => RHN::DataSource::Channel->new,
-			   -provider => \&subscribe_perm_provider,
-			   -action_callback => \&subscribe_perm_cb);
+                           -datasource => RHN::DataSource::Channel->new,
+                           -provider => \&subscribe_perm_provider,
+                           -action_callback => \&subscribe_perm_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "user_manage_perms",
-			   -datasource => RHN::DataSource::Channel->new,
-			   -provider => \&manage_perm_provider,
-			   -action_callback => \&manage_perm_cb);
+                           -datasource => RHN::DataSource::Channel->new,
+                           -provider => \&manage_perm_provider,
+                           -action_callback => \&manage_perm_cb);
 
 
   Sniglets::ListView::List->add_mode(-mode => "channel_entitlements",
-			   -datasource => RHN::DataSource::Channel->new,
-			   -provider => \&channel_entitlements_provider);
+                           -datasource => RHN::DataSource::Channel->new,
+                           -provider => \&channel_entitlements_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "channel_tree",
-			   -datasource => RHN::DataSource::Channel->new,
-			   -provider => \&channel_tree);
+                           -datasource => RHN::DataSource::Channel->new,
+                           -provider => \&channel_tree);
 
   Sniglets::ListView::List->add_mode(-mode => "channel_tree_ssm_install",
-			   -datasource => RHN::DataSource::Channel->new,
-			   -provider => \&channel_tree);
+                           -datasource => RHN::DataSource::Channel->new,
+                           -provider => \&channel_tree);
 
   Sniglets::ListView::List->add_mode(-mode => "channel_tree_ssm_solaris_install",
-			   -datasource => RHN::DataSource::Channel->new,
-			   -provider => \&channel_tree);
+                           -datasource => RHN::DataSource::Channel->new,
+                           -provider => \&channel_tree);
 
   Sniglets::ListView::List->add_mode(-mode => "non_eol_all_channels_tree",
-			   -datasource => RHN::DataSource::Channel->new,
-			   -provider => \&channel_tree);
+                           -datasource => RHN::DataSource::Channel->new,
+                           -provider => \&channel_tree);
 
   Sniglets::ListView::List->add_mode(-mode => "eol_all_channels_tree",
-			   -datasource => RHN::DataSource::Channel->new,
-			   -provider => \&channel_tree);
+                           -datasource => RHN::DataSource::Channel->new,
+                           -provider => \&channel_tree);
 
   Sniglets::ListView::List->add_mode(-mode => "owned_channels_tree",
-			   -datasource => RHN::DataSource::Channel->new,
-			   -provider => \&channel_tree);
+                           -datasource => RHN::DataSource::Channel->new,
+                           -provider => \&channel_tree);
 
 }
 
@@ -93,13 +93,13 @@ sub change_perms {
     # if the numeric formvar exists, it was checked... otherwise, remove permission...
     if ($pxt->dirty_param($cid)) {
       $pxt->user->org->reset_channel_permissions(-uids => [$uid],
-							 -cid => $cid,
-							 -role => $role);
+                                                         -cid => $cid,
+                                                         -role => $role);
     }
     else {
       $pxt->user->org->remove_channel_permissions(-uids => [$uid],
-						  -cid => $cid,
-						  -role => $role);
+                                                  -cid => $cid,
+                                                  -role => $role);
     }
   }
 
@@ -119,15 +119,15 @@ sub subscribe_perm_provider {
   foreach my $row (@{$ret{data}}) {
     if ($user->is('channel_admin')) {
       $row->{PERM_CHECKBOX} = PXT::HTML->img(-src => '/img/rhn-listicon-ok.gif',
-					     -title => 'Channel admin status');
+                                             -title => 'Channel admin status');
     }
     elsif ($row->{GLOBALLY_SUBSCRIBABLE}) {
       $row->{PERM_CHECKBOX} = PXT::HTML->img(-src => '/img/rhn-listicon-ok.gif',
-					     -title => 'Globally subscribable channel');
+                                             -title => 'Globally subscribable channel');
     }
     else {
       $row->{PERM_CHECKBOX} = PXT::HTML->checkbox(-name => $row->{ID},
-						  -checked => $row->{HAS_PERM});
+                                                  -checked => $row->{HAS_PERM});
       $row->{PERM_CHECKBOX} .= PXT::HTML->hidden(-name => "cid", -value => $row->{ID});
     }
   }
@@ -153,11 +153,11 @@ sub manage_perm_provider {
   foreach my $row (@{$ret{data}}) {
     if ($user->is('channel_admin')) {
       $row->{PERM_CHECKBOX} = PXT::HTML->img(-src => '/img/rhn-listicon-ok.gif',
-					     -title => 'Channel admin status');
+                                             -title => 'Channel admin status');
     }
     else {
       $row->{PERM_CHECKBOX} = PXT::HTML->checkbox(-name => $row->{ID},
-						  -checked => $row->{HAS_PERM});
+                                                  -checked => $row->{HAS_PERM});
       $row->{PERM_CHECKBOX} .= PXT::HTML->hidden(-name => "cid", -value => $row->{ID});
     }
   }
@@ -224,8 +224,8 @@ sub channel_tree {
     if (exists $channel->{SHOW_ALL_RESULTS}) {
       if (not exists $seen_parents{$channel->{PARENT_OR_SELF_LABEL}}) {
         push @rows, { ID => '-1', NAME => "(no access to parent channel)",
-		      CURRENT_MEMBERS => '', PACKAGE_LIST_MODIFIED => 0, PACKAGE_COUNT => '',
-		      DEPTH => 1, NOLINK => 1};
+                      CURRENT_MEMBERS => '', PACKAGE_LIST_MODIFIED => 0, PACKAGE_COUNT => '',
+                      DEPTH => 1, NOLINK => 1};
       }
       push @rows, $channel;
     } else {
@@ -247,7 +247,7 @@ sub channel_tree {
   $data = $ds->elaborate($data, %params);
 
   return (data => $data,
-	  all_ids => $all_ids);
+          all_ids => $all_ids);
 }
 
 # only increment when you go from one base channel to the next...
@@ -273,8 +273,8 @@ sub render_url {
   if ($self->datasource->mode eq 'owned_channels_tree') {
     $url = ''
       unless (defined($row->{ORG_ID})
-	      and $row->{ORG_ID} == $pxt->user->org_id
-	      and $pxt->user->verify_channel_admin($row->{ID}));
+              and $row->{ORG_ID} == $pxt->user->org_id
+              and $pxt->user->verify_channel_admin($row->{ID}));
   }
   else {
     if ($row->{$url_column} eq '0') {

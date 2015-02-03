@@ -262,9 +262,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param_desc("string", "entitlementName", "One of:
-     *          'enterprise_entitled', 'provisioning_entitled', 'monitoring_entitled',
-     *          'nonlinux_entitled', 'virtualization_host', or
-     *          'virtualization_host_platform'.")
+     *          'enterprise_entitled', 'provisioning_entitled',
+     *          'virtualization_host', or 'virtualization_host_platform'.")
      * @xmlrpc.returntype #return_int_success()
      */
     public int upgradeEntitlement(User loggedInUser, Integer sid, String entitlementLevel)
@@ -2010,9 +2009,10 @@ public class SystemHandler extends BaseHandler {
      * @return Returns an array of maps representing a system
      * @since 10.8
      *
-     * @xmlrpc.doc List all system events for given server. This includes *all* events
-     * for the server since it was registered.  This may require the caller to
-     * filter the results to fetch the specific events they are looking for.
+     * @xmlrpc.doc List system events of the specified type for given server.
+     * "actionType" should be exactly the string returned in the action_type field
+     * from the listSystemEvents(sessionKey, serverId) method. For example,
+     * 'Package Install' or 'Initiate a kickstart for a virtual guest.'
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "serverId", "ID of system.")
@@ -2092,13 +2092,10 @@ public class SystemHandler extends BaseHandler {
 
         ActionType at = null;
         if (actionType != null) {
-                try {
-                    at = (ActionType) ActionFactory.class.getField(actionType)
-                            .get(new ActionType());
-                }
-                catch (Exception e) {
-                    at = null;
-                }
+            at = ActionFactory.lookupActionTypeByName(actionType);
+            if (at == null) {
+                throw new IllegalArgumentException("Action type not found: " + actionType);
+            }
         }
 
         for (ServerAction sAction : sActions) {
@@ -2107,7 +2104,7 @@ public class SystemHandler extends BaseHandler {
 
             Action action = sAction.getParentAction();
 
-            if (at != null && action.getActionType().equals(at)) {
+            if (at != null && !action.getActionType().equals(at)) {
                 continue;
             }
 
@@ -3578,7 +3575,9 @@ public class SystemHandler extends BaseHandler {
      *          #prop_desc("string" "run_as_user" "Run as user")
      *          #prop_desc("string" "run_as_group" "Run as group")
      *          #prop_desc("int" "timeout" "Timeout in seconds")
-     *          #array_single("$ScriptResultSerializer", "result")
+     *          #array()
+     *              $ScriptResultSerializer
+     *          #array_end()
      *      #struct_end()
      */
     public Map<String, Object> getScriptActionDetails(User loggedInUser, Integer actionId) {
@@ -3874,7 +3873,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #array_single("string", "entitlementLabel - one of following:
-     * monitoring_entitled, provisioning_entitled, virtualization_host,
+     * provisioning_entitled, virtualization_host,
      * virtualization_host_platform, enterprise_entitled")
      * @xmlrpc.returntype #return_int_success()
      */
@@ -4566,7 +4565,7 @@ public class SystemHandler extends BaseHandler {
      * @param sid the host system id
      * @return list of VirtualSystemOverview objects
      *
-     * @xmlrpc.doc Lists the virtual guests for agiven virtual host
+     * @xmlrpc.doc Lists the virtual guests for a given virtual host
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "sid", "the virtual host's id")
      * @xmlrpc.returntype
@@ -5354,7 +5353,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
      *     #array()
-     *         #struct()
+     *         #struct("system")
      *             #prop_desc("int", "id", "System ID")
      *             #prop_desc("string", "name", "System profile name")
      *             #prop_desc("int", "extra_pkg_count", "Extra packages count")

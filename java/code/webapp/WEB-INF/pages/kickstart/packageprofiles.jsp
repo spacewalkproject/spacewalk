@@ -24,29 +24,29 @@
 <rl:listset name="profiles" >
   <rhn:csrf />
   <rl:list emptykey="kickstart.packageprofiles.jsp.noprofiles">
-		<rl:decorator name = "PageSizeDecorator"/>
-		<rl:radiocolumn value="${current.id}" useDefault='false'/>
+                <rl:decorator name = "PageSizeDecorator"/>
+                <rl:radiocolumn value="${current.id}" useDefault='false'/>
 
         <rl:column headerkey="kickstart.packageprofiles.jsp.description" filterattr="name">
             ${current.name}
         </rl:column>
         </rl:list>
-		<p>
-		<bean:message key="kickstart.packageprofiles.jsp.tip" arg0="${ksdata.id}"/>
-		</p>
-		<hr />
-		<input type="hidden" name="ksid" value="<c:out value="${param.ksid}"/>" />
-		<div class="text-right">
-		  <html:submit styleClass="btn btn-default" property="dispatch">
-		    <bean:message key="kickstart.packageprofile.jsp.clear"/>
-		  </html:submit>
-		  <html:submit styleClass="btn btn-success" property="dispatch">
-		    <bean:message key="kickstart.packageprofile.jsp.submit"/>
-		  </html:submit>
+                <p>
+                <bean:message key="kickstart.packageprofiles.jsp.tip" arg0="${ksdata.id}"/>
+                </p>
+                <hr />
+                <input type="hidden" name="ksid" value="<c:out value="${param.ksid}"/>" />
+                <div class="text-right">
+                  <html:submit styleClass="btn btn-default" property="dispatch">
+                    <bean:message key="kickstart.packageprofile.jsp.clear"/>
+                  </html:submit>
+                  <html:submit styleClass="btn btn-success" property="dispatch">
+                    <bean:message key="kickstart.packageprofile.jsp.submit"/>
+                  </html:submit>
 
-		</div>
-		<rhn:submitted />
-	</rl:listset>
+                </div>
+                <rhn:submitted />
+        </rl:listset>
 </div>
 
 </body>

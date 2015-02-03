@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.channel.ssm;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.DistChannelMap;
@@ -25,6 +26,7 @@ import com.redhat.rhn.frontend.dto.ChildChannelPreservationDto;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 import com.redhat.rhn.frontend.dto.EssentialServerDto;
 import com.redhat.rhn.frontend.dto.SystemsPerChannelDto;
+import com.redhat.rhn.frontend.events.SsmChangeBaseChannelSubscriptionsEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnLookupDispatchAction;
@@ -32,11 +34,9 @@ import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.ssm.SsmOperationManager;
 import com.redhat.rhn.manager.system.SystemManager;
-import com.redhat.rhn.manager.system.UpdateBaseChannelCommand;
-
 import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -300,7 +300,6 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
         log.debug("changeChannels()");
 
         Map<Long, List<Long>> successes = new HashMap<Long, List<Long>>();
-        Map<Long, List<Long>> failures = new HashMap<Long, List<Long>>();
         Map<Long, List<Long>> skipped = new HashMap<Long, List<Long>>();
 
 
@@ -335,9 +334,8 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
             }
         }
 
-        alterSubscriptions(user, requestedChanges, successes, failures, skipped);
+        alterSubscriptions(user, requestedChanges, successes, skipped);
         addMessages(request, buildMessages(user, successes, skipped));
-        addErrors(request, buildErrors(user, successes, failures));
 
         // Provide the list of all base channels for all systems in the SSM
         List<SystemsPerChannelDto> ldr = setupList(user, request);
@@ -481,16 +479,15 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
     }
 
     protected void alterSubscriptions(User u, Map<Long, List<Long>> chgs,
-            Map<Long, List<Long>> successes, Map<Long, List<Long>> failures,
-            Map<Long, List<Long>> skipped) {
+            Map<Long, List<Long>> successes, Map<Long, List<Long>> skipped) {
 
         successes.clear();
-        failures.clear();
         skipped.clear();
+        List<ChannelActionDAO> actions = new ArrayList<ChannelActionDAO>();
+        Map<Long, Channel> channelMap = new HashMap<Long, Channel>();
 
         for (Long toId : chgs.keySet()) {
             successes.put(toId, new ArrayList<Long>());
-            failures.put(toId, new ArrayList<Long>());
             skipped.put(toId, new ArrayList<Long>());
 
             for (Long srvId : chgs.get(toId)) {
@@ -500,13 +497,20 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
                     continue;
                 }
 
-                Channel c = null;
+                Long cid = null;
                 if (toId == -1L) {
-                    c = ChannelManager.guessServerBase(u, s);
+                    cid = ChannelManager.guessServerBase(u, s.getId());
                 }
                 else {
-                    c = ChannelManager.lookupByIdAndUser(toId, u);
+                    cid = toId;
                 }
+
+                // let's only hydrate the channel objects once
+                if (!channelMap.containsKey(cid)) {
+                    channelMap.put(cid, ChannelManager.lookupByIdAndUser(toId, u));
+                }
+
+                Channel c = channelMap.get(cid);
 
                 if (c == null) {
                     skip(toId, srvId, skipped);
@@ -517,30 +521,33 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
                     continue;
                 }
 
-                try {
-                    UpdateBaseChannelCommand ubcc = new UpdateBaseChannelCommand(u, s,
-                            c.getId());
-                    // don't care about the return value
-                    ubcc.store();
-                    success(toId, srvId, successes);
-                }
-                catch (Exception e) {
-                    fail(toId, srvId, failures);
-                }
+                ChannelActionDAO action = new ChannelActionDAO();
+                action.setId(srvId);
+                action.addSubscribeChannelId(c.getId());
+                actions.add(action);
+                success(toId, srvId, successes);
             }
         }
+
+        Long operationId = SsmOperationManager.createOperation(u,
+                "ssm.base.subscription.operation.label", null);
+        List<Long> sids = new ArrayList<Long>();
+        for (Long cid : successes.keySet()) {
+            sids.addAll(successes.get(cid));
+        }
+
+        SsmOperationManager.associateServersWithOperation(operationId, u.getId(), sids);
+
+        // Fire the request off asynchronously
+        SsmChangeBaseChannelSubscriptionsEvent event = new
+                SsmChangeBaseChannelSubscriptionsEvent(u, actions, operationId);
+        MessageQueue.publish(event);
     }
 
     protected void success(Long toId, Long srvId, Map<Long, List<Long>> successes) {
         List<Long> l = successes.get(toId);
         l.add(srvId);
         successes.put(toId, l);
-    }
-
-    protected void fail(Long toId, Long srvId, Map<Long, List<Long>> failures) {
-        List<Long> l = failures.get(toId);
-        l.add(srvId);
-        failures.put(toId, l);
     }
 
     protected void skip(Long toId, Long srvId, Map<Long, List<Long>> skipped) {
@@ -595,33 +602,5 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
             }
         }
         return msgs;
-    }
-
-    // Foreach to-channel-id:
-    //   N servers failed to subscribe to channel X
-    protected ActionErrors buildErrors(User u, Map<Long, List<Long>> successes,
-            Map<Long, List<Long>> failures) {
-
-        ActionErrors errs = new ActionErrors();
-
-        for (Long toId : successes.keySet()) {
-            ActionMessage am;
-
-            // Failure messages
-            List<Long> srvrs = failures.get(toId);
-            if (srvrs.isEmpty()) {
-                continue;
-            }
-            else if (toId == -1L) {
-                am = new ActionMessage("basesub.jsp.fail-default", srvrs.size());
-                errs.add(ActionMessages.GLOBAL_MESSAGE, am);
-            }
-            else {
-                Channel c = ChannelManager.lookupByIdAndUser(toId, u);
-                am = new ActionMessage("basesub.jsp.fail", srvrs.size(), c.getName());
-                errs.add(ActionMessages.GLOBAL_MESSAGE, am);
-            }
-        }
-        return errs;
     }
 }

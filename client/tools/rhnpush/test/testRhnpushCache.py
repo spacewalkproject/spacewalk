@@ -17,7 +17,9 @@ import unittest
 import rhnpush_cache
 import time
 
+
 class UserInfoTestCase(unittest.TestCase):
+
     def setUp(self):
         self.userinfo = rhnpush_cache.UserInfo(5, username='wregglej', password='password')
 
@@ -32,21 +34,21 @@ class UserInfoTestCase(unittest.TestCase):
         assert self.userinfo.checkCache() == False
 
     def testSetUsernamePassword(self):
-        self.userinfo = rhnpush_cache.UserInfo( 5, username='wregglej', password='password')
+        self.userinfo = rhnpush_cache.UserInfo(5, username='wregglej', password='password')
         self.userinfo.setUsernamePassword('aaaa', 'bbbb')
         assert self.userinfo.username != 'wregglej' and self.userinfo.password != 'password'
 
     def testSetUsernamePassword3(self):
-        self.userinfo = rhnpush_cache.UserInfo( 5, username='wregglej', password='password')
+        self.userinfo = rhnpush_cache.UserInfo(5, username='wregglej', password='password')
         self.userinfo.setUsernamePassword('aaaa', 'bbbb')
         assert self.userinfo.username == 'aaaa' and self.userinfo.password == 'bbbb'
 
     def testGetUsernamePassword(self):
-        self.userinfo = rhnpush_cache.UserInfo( 5, username='wregglej', password='password')
+        self.userinfo = rhnpush_cache.UserInfo(5, username='wregglej', password='password')
         assert self.userinfo.username == 'wregglej' and self.userinfo.password == 'password'
 
     def testIsFresh(self):
-        self.userinfo = rhnpush_cache.UserInfo( 5, username='wregglej', password='password')
+        self.userinfo = rhnpush_cache.UserInfo(5, username='wregglej', password='password')
         assert self.userinfo.isFresh() == True
 
     def testIsntFresh(self):
@@ -54,16 +56,18 @@ class UserInfoTestCase(unittest.TestCase):
         assert self.userinfo.isFresh() == False
 
     def testSetCacheLifetime(self):
-        self.userinfo = rhnpush_cache.UserInfo( 5, username='wregglej', password='password')
+        self.userinfo = rhnpush_cache.UserInfo(5, username='wregglej', password='password')
         self.userinfo.setCacheLifetime(6667)
         assert self.userinfo.cache_lifetime != 5 and self.userinfo.cache_lifetime == 6667
 
     def testGetTimeLeft(self):
-        self.userinfo = rhnpush_cache.UserInfo( 10, username='wregglej', password='password')
+        self.userinfo = rhnpush_cache.UserInfo(10, username='wregglej', password='password')
         time.sleep(2.0)
         assert self.userinfo.getTimeLeft() >= 7.98 and self.userinfo.getTimeLeft() <= 8.002
 
+
 class CacheManagerTestCase(unittest.TestCase):
+
     def setUp(self):
         self.cache = rhnpush_cache.CacheManager(5)
 
@@ -72,7 +76,7 @@ class CacheManagerTestCase(unittest.TestCase):
 
     def testIsFresh(self):
         self.cache = rhnpush_cache.CacheManager(5)
-        self.cache.setUsernamePassword('a','b')
+        self.cache.setUsernamePassword('a', 'b')
         assert self.cache.isFresh() == True
 
     def testIsntFresh(self):
@@ -83,7 +87,7 @@ class CacheManagerTestCase(unittest.TestCase):
     def testSetUsernamePassword(self):
         self.cache = rhnpush_cache.CacheManager(5)
         self.cache.setUsernamePassword('wregglej', 'password')
-        #print self.cache.cache.username
+        # print self.cache.cache.username
         assert self.cache.cache.username == 'wregglej' and self.cache.cache.password == 'password'
 
     def testSetUsernamePassword2(self):
@@ -105,6 +109,7 @@ class CacheManagerTestCase(unittest.TestCase):
 
     def testWriteCache(self):
         pass
+
     def testGetTimeLeft(self):
         pass
 

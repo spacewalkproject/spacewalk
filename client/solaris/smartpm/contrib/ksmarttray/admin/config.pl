@@ -61,28 +61,28 @@ chomp @subs;
 if ($bad_perl) {
     print "Using perl older than version 5.005\n";
     foreach my $pat (@subs) {
-	if (  ($pat =~ m/s%([^%]*)%([^%]*)%g/ )
-	   || ($pat =~ m/s%([^%]*)%([^%]*)%;t/ )
+        if (  ($pat =~ m/s%([^%]*)%([^%]*)%g/ )
+           || ($pat =~ m/s%([^%]*)%([^%]*)%;t/ )
            || ($pat =~ m/s,([^,]*),(.*),;t/)
-	   || ($pat =~ m%s/([^/]*)/([^/]*)/g% )
-	   || ($pat =~ m%s/([^/]*)/([^/]*)/;t% )
-	   ) {
+           || ($pat =~ m%s/([^/]*)/([^/]*)/g% )
+           || ($pat =~ m%s/([^/]*)/([^/]*)/;t% )
+           ) {
             # form : s%bla%blubb%g
             # or     s%bla%blubb%;t t   (autoconf > 2.13 and < 2.52 ?)
             # or     s,bla,blubb,;t t   (autoconf 2.52)
             my $srch = $1;
             my $repl = $2;
             $repl =~ s/\\(.)/$1/g;
-	    push @comp_subs, make_closure($srch, $repl);
+            push @comp_subs, make_closure($srch, $repl);
 
-	} elsif ( ($pat =~ /%([^%]*)%d/ )
-	   || ($pat =~ m%/([^/]*)/d% )
-	   ) {
-	    push @comp_subs, make_closure($1, "");
-	} else {
-	    die "Uhh. Malformed pattern in $ac_subs ($pat)"
-		unless ( $pat =~ /^\s*$/ );   # ignore white lines
-	}
+        } elsif ( ($pat =~ /%([^%]*)%d/ )
+           || ($pat =~ m%/([^/]*)/d% )
+           ) {
+            push @comp_subs, make_closure($1, "");
+        } else {
+            die "Uhh. Malformed pattern in $ac_subs ($pat)"
+                unless ( $pat =~ /^\s*$/ );   # ignore white lines
+        }
     }
 } else {
     foreach my $pat (@subs) {
@@ -127,10 +127,10 @@ foreach $ac_file (@ac_files) {
     my ($ac_dir, $ac_dots, $ac_dir_suffix);
 
     if ($ac_file =~ /.*:.*/ ) {
-	($ac_file_in = $ac_file) =~ s%[^:]*:%%;
-	$ac_file =~ s%:.*%%;
+        ($ac_file_in = $ac_file) =~ s%[^:]*:%%;
+        $ac_file =~ s%:.*%%;
     } else {
-	$ac_file_in = $ac_file.".in";
+        $ac_file_in = $ac_file.".in";
     }
 
 # Adjust a relative srcdir, top_srcdir, and INSTALL for subdirectories.
@@ -139,35 +139,35 @@ foreach $ac_file (@ac_files) {
     ($ac_dir = $ac_file) =~ s%/[^/][^/]*$%%;
     if ( ($ac_dir ne $ac_file) && ($ac_dir ne ".")) {
 # The file is in a subdirectory.
-	if (! -d "$ac_dir") { mkpath "$ac_dir", 0, 0777; }
-	($ac_dir_suffix = $ac_dir) =~ s%^./%%;
-	$ac_dir_suffix="/".$ac_dir_suffix;
+        if (! -d "$ac_dir") { mkpath "$ac_dir", 0, 0777; }
+        ($ac_dir_suffix = $ac_dir) =~ s%^./%%;
+        $ac_dir_suffix="/".$ac_dir_suffix;
 # A "../" for each directory in $ac_dir_suffix.
-	($ac_dots = $ac_dir_suffix) =~ s%/[^/]*%../%g;
+        ($ac_dots = $ac_dir_suffix) =~ s%/[^/]*%../%g;
     } else {
-	$ac_dir_suffix="";
-	$ac_dots="";
+        $ac_dir_suffix="";
+        $ac_dots="";
     }
 
     if ($ac_given_srcdir eq ".") {
-	$srcdir=".";
-	if ($ac_dots) {
-	    ( $top_srcdir = $ac_dots) =~ s%/$%%;
-	} else { $top_srcdir="."; }
+        $srcdir=".";
+        if ($ac_dots) {
+            ( $top_srcdir = $ac_dots) =~ s%/$%%;
+        } else { $top_srcdir="."; }
     } elsif ($ac_given_srcdir =~ m%^/%) {
-	$srcdir=$ac_given_srcdir.$ac_dir_suffix;
-	$top_srcdir = $ac_given_srcdir;
+        $srcdir=$ac_given_srcdir.$ac_dir_suffix;
+        $top_srcdir = $ac_given_srcdir;
     } else {
-	$srcdir = $ac_dots.$ac_given_srcdir.$ac_dir_suffix;
-	$top_srcdir = $ac_dots.$ac_given_srcdir;
+        $srcdir = $ac_dots.$ac_given_srcdir.$ac_dir_suffix;
+        $top_srcdir = $ac_dots.$ac_given_srcdir;
     }
 
     if ($ac_given_INSTALL) {
-	if ($ac_given_INSTALL =~ m%^/% ) {
-	    $INSTALL = $ac_given_INSTALL;
-	} else {
-	    $INSTALL = $ac_dots.$ac_given_INSTALL;
-	}
+        if ($ac_given_INSTALL =~ m%^/% ) {
+            $INSTALL = $ac_given_INSTALL;
+        } else {
+            $INSTALL = $ac_dots.$ac_given_INSTALL;
+        }
     }
 
     print "fast creating $ac_file\n";
@@ -194,14 +194,14 @@ sub patch_file {
     my $i=0;
 
     foreach my $name (@infiles) {
-	if (open(CF, "< $name")) {
-	    while (<CF>) {
-		$filedata .= $_;
-	    }
-	    close(CF);
-	} else {
-	    print STDERR "can't open $name: $!"."\n";
-	}
+        if (open(CF, "< $name")) {
+            while (<CF>) {
+                $filedata .= $_;
+            }
+            close(CF);
+        } else {
+            print STDERR "can't open $name: $!"."\n";
+        }
     }
 
     $filedata =~ s%\@configure_input\@%$configure_input%g;
@@ -210,16 +210,16 @@ sub patch_file {
     $filedata =~ s%\@INSTALL\@%$INSTALL%g;
 
     if ($bad_perl) {
-	while ($i <= $#comp_subs) {
-	    my $ref = $comp_subs[$i];
-	    &$ref(\$filedata);
-	    $i++;
-	}
+        while ($i <= $#comp_subs) {
+            my $ref = $comp_subs[$i];
+            &$ref(\$filedata);
+            $i++;
+        }
     } else {
-	while ($i <= $#comp_match) {
-	    $filedata =~ s/$comp_match[$i]/$comp_subs[$i]/g;
-	    $i++;
-	}
+        while ($i <= $#comp_match) {
+            $filedata =~ s/$comp_match[$i]/$comp_subs[$i]/g;
+            $i++;
+        }
     }
     open(CF, "> $outf") || die "can't create $outf: $!";
     print CF $filedata;

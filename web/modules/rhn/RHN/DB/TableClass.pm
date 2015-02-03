@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -39,8 +39,8 @@ sub new {
   }
 
   my $self = bless { name => $table_name, alias => $table_alias,
-		     columns => \@columns, prefix => $method_prefix,
-		     column_flags => \%column_flags }, $class;
+                     columns => \@columns, prefix => $method_prefix,
+                     column_flags => \%column_flags }, $class;
 
   my @meth = $self->method_names;
   my @cols = $self->column_names;
@@ -135,7 +135,7 @@ sub update_query {
   $ret .= "UPDATE $self->{name} $self->{alias}\nSET ";
   $ret .= join(", ", map { "$_ = " .  $self->type_to_placeholder($_) }
                map { ($remove_alias eq substr($_, 0, length($remove_alias))) ? substr($_, length($remove_alias)) : $_ }
-	       grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
+               grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
 
   $ret .= "\nWHERE ";
   return $ret;
@@ -155,7 +155,7 @@ sub insert_query {
     grep { exists $changed_fields{$_} } $self->column_names);
   $ret .= ") VALUES (";
   $ret .= join(", ", map { $self->type_to_placeholder($_) }
-	       grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
+               grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
   $ret .= ")";
 
   return $ret;

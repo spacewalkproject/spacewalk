@@ -31,6 +31,7 @@
 
 from spacecmd.utils import *
 
+
 def help_ssm(self):
     print 'The System Set Manager (SSM) is a group of systems that you '
     print 'can perform tasks on as a group.'
@@ -51,6 +52,7 @@ def help_ssm(self):
 
 ####################
 
+
 def help_ssm_add(self):
     print 'ssm_add: Add systems to the SSM'
     print 'usage: ssm_add <SYSTEMS>'
@@ -59,8 +61,10 @@ def help_ssm_add(self):
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_ssm_add(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_ssm_add(self, args):
     (args, _options) = parse_arguments(args)
@@ -91,6 +95,7 @@ def do_ssm_add(self, args):
 
 ####################
 
+
 def help_ssm_intersect(self):
     print 'ssm_intersect: Replace the current SSM with the intersection'
     print '               of the current list of systems and the list of'
@@ -101,8 +106,10 @@ def help_ssm_intersect(self):
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_ssm_intersect(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_ssm_intersect(self, args):
     (args, _options) = parse_arguments(args)
@@ -133,6 +140,7 @@ def do_ssm_intersect(self, args):
 
 ####################
 
+
 def help_ssm_remove(self):
     print 'ssm_remove: Remove systems from the SSM'
     print 'usage: ssm_remove <SYSTEMS>'
@@ -141,8 +149,10 @@ def help_ssm_remove(self):
     print
     print self.HELP_SYSTEM_OPTS
 
+
 def complete_ssm_remove(self, text, line, beg, end):
     return self.tab_complete_systems(text)
+
 
 def do_ssm_remove(self, args):
     (args, _options) = parse_arguments(args)
@@ -170,11 +180,13 @@ def do_ssm_remove(self, args):
 
 ####################
 
+
 def help_ssm_list(self):
     print 'ssm_list: List the systems currently in the SSM'
     print 'usage: ssm_list'
     print
     print "see 'help ssm' for more details"
+
 
 def do_ssm_list(self, args):
     systems = sorted(self.ssm)
@@ -185,14 +197,14 @@ def do_ssm_list(self, args):
 
 ####################
 
+
 def help_ssm_clear(self):
     print 'ssm_clear: Remove all systems from the SSM'
     print 'usage: ssm_clear'
+
 
 def do_ssm_clear(self, args):
     self.ssm = {}
 
     # save the SSM for use between sessions
     save_cache(self.ssm_cache_file, self.ssm)
-
-# vim:ts=4:expandtab:

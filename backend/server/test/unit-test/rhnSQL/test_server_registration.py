@@ -28,20 +28,21 @@ from spacewalk.server.handlers.xmlrpc import registration
 import misc_functions
 DB_SETTINGS = misc_functions.db_settings("oracle")
 
+
 class Tests(unittest.TestCase):
     _channel = 'redhat-advanced-server-i386'
     _channel_family = 'rhel-as'
     _entitlements = {
-        'enterprise_entitled'   : None
+        'enterprise_entitled': None
     }
 
     def setUp(self):
         initCFG("server.xmlrpc")
         rhnSQL.initDB(
-            backend  = "oracle",
-            username = DB_SETTINGS["user"],
-            password = DB_SETTINGS["password"],
-            database = DB_SETTINGS["database"]
+            backend="oracle",
+            username=DB_SETTINGS["user"],
+            password=DB_SETTINGS["password"],
+            database=DB_SETTINGS["database"]
         )
         rhnSQL.clear_log_id()
 
@@ -51,21 +52,21 @@ class Tests(unittest.TestCase):
 
     def test_new_server_1(self):
         "Test normal server registration, with username/password"
-        u, password  = self._create_new_user()
-        username     = u.contact['login']
-        org_id       = u.contact['org_id']
+        u, password = self._create_new_user()
+        username = u.contact['login']
+        org_id = u.contact['org_id']
         entitlements = self._entitlements
-        os_release   = "2.1as"
+        os_release = "2.1as"
 
         t = misc_functions.create_activation_key(
-            org_id            = u.contact['org_id'],
-            entitlement_level = entitlements,
-            user_id           = u.getid(),
-            release           = os_release
+            org_id=u.contact['org_id'],
+            entitlement_level=entitlements,
+            user_id=u.getid(),
+            release=os_release
         )
 
         params = build_new_system_params_with_username(username=username,
-            password=password, os_release=os_release)
+                                                       password=password, os_release=os_release)
 
         system_id = register_new_system(params)
         rhnSQL.commit()
@@ -80,16 +81,16 @@ class Tests(unittest.TestCase):
 
     def test_new_server_token_1(self):
         "test registration with token"
-        u, _         = self._create_new_user()
-        org_id       = u.contact['org_id']
+        u, _ = self._create_new_user()
+        org_id = u.contact['org_id']
         entitlements = self._entitlements
-        os_release   = "2.1as"
+        os_release = "2.1as"
 
         t = misc_functions.create_activation_key(
-            org_id            = u.contact['org_id'],
-            entitlement_level = entitlements,
-            user_id           = u.getid(),
-            release           = os_release
+            org_id=u.contact['org_id'],
+            entitlement_level=entitlements,
+            user_id=u.getid(),
+            release=os_release
         )
 
         token = t.get_token()
@@ -112,15 +113,15 @@ class Tests(unittest.TestCase):
         # freshly created Server: rhnServerChannel is not populated by the
         # registration code.
 
-        u, _         = self._create_new_user()
-        org_id       = u.contact['org_id']
+        u, _ = self._create_new_user()
+        org_id = u.contact['org_id']
         base_channel = 'rhel-i386-as-3'
         entitlements = self._entitlements
-        os_release   = "2.1as"
+        os_release = "2.1as"
 
         t = misc_functions.create_activation_key(org_id=u.contact['org_id'],
-            entitlement_level=entitlements, user_id=u.getid(),
-            channels=[base_channel], release=os_release)
+                                                 entitlement_level=entitlements, user_id=u.getid(),
+                                                 channels=[base_channel], release=os_release)
 
         token = t.get_token()
 
@@ -143,11 +144,11 @@ class Tests(unittest.TestCase):
     def test_new_server_reactivation_token_1(self):
         "Test server re-registration"
         u, password = self._create_new_user()
-        username    = u.contact['login']
-        os_release  = "2.1AS"
+        username = u.contact['login']
+        os_release = "2.1AS"
 
         params = build_new_system_params_with_username(username=username,
-            password=password, os_release="2.1AS")
+                                                       password=password, os_release="2.1AS")
 
         system_id = register_new_system(params)
         rhnSQL.commit()
@@ -162,8 +163,8 @@ class Tests(unittest.TestCase):
         base_channel = 'rhel-i386-as-3'
         entitlements = self._entitlements
         t = misc_functions.create_activation_key(org_id=u.contact['org_id'],
-            entitlement_level=entitlements, user_id=u.getid(),
-            channels=[base_channel], server_id=server_id_1, release=os_release)
+                                                 entitlement_level=entitlements, user_id=u.getid(),
+                                                 channels=[base_channel], server_id=server_id_1, release=os_release)
 
         token = t.get_token()
 
@@ -189,19 +190,19 @@ class Tests(unittest.TestCase):
         Resulting server group is the union of all server groups from all
         tokens
         """
-        u, _         = self._create_new_user()
-        org_id       = u.contact['org_id']
+        u, _ = self._create_new_user()
+        org_id = u.contact['org_id']
         entitlements = self._entitlements
-        os_release   = "2.1AS"
+        os_release = "2.1AS"
 
         t = misc_functions.create_activation_key(org_id=u.contact['org_id'],
-            entitlement_level=entitlements, user_id=u.getid(), release=os_release)
+                                                 entitlement_level=entitlements, user_id=u.getid(), release=os_release)
 
         token1 = t.get_token()
         sg1 = t.get_server_groups()
 
         t = misc_functions.create_activation_key(org_id=u.contact['org_id'],
-            entitlement_level=entitlements, user_id=u.getid(), release=os_release)
+                                                 entitlement_level=entitlements, user_id=u.getid(), release=os_release)
 
         token2 = t.get_token()
         sg2 = t.get_server_groups()
@@ -209,7 +210,7 @@ class Tests(unittest.TestCase):
         token = token1 + ',' + token2
 
         params = build_new_system_params_with_token(token=token,
-            os_release=os_release)
+                                                    os_release=os_release)
 
         system_id = register_new_system(params)
         rhnSQL.commit()
@@ -223,7 +224,6 @@ class Tests(unittest.TestCase):
         sgstgt.sort()
 
         self.assertEqual(sgs, sgstgt)
-
 
     def _create_new_user(self):
         # Create new org
@@ -240,45 +240,50 @@ class Tests(unittest.TestCase):
 
         # Create new user
         u = misc_functions.create_new_user(
-                org_id           = org_id,
-                roles            = ['org_admin'],
-                password         = users_unencrypted_password,
-                encrypt_password = CFG.encrypted_passwords
+            org_id=org_id,
+            roles=['org_admin'],
+            password=users_unencrypted_password,
+            encrypt_password=CFG.encrypted_passwords
         )
 
         return u, users_unencrypted_password
 
+
 class Counter:
     _counter = 0
+
     def value(self):
         val = self._counter
         self._counter = val + 1
         return val
+
 
 def build_new_system_params_with_username(**kwargs):
     val = Counter().value()
     rnd_string = "%d-%d" % (int(time.time()), val)
 
     params = {
-        'os_release'    : '9',
-        'architecture'  : 'i686-redhat-linux',
-        'profile_name'  : "unittest server " + rnd_string,
-        'username'      : 'no such user',
-        'password'      : 'no such password',
+        'os_release': '9',
+        'architecture': 'i686-redhat-linux',
+        'profile_name': "unittest server " + rnd_string,
+        'username': 'no such user',
+        'password': 'no such password',
     }
     params.update(kwargs)
     if params.has_key('token'):
         del params['token']
     return params
 
+
 def build_new_system_params_with_token(**kwargs):
     params = {
-        'token'         : kwargs.get('token', "no such token"),
+        'token': kwargs.get('token', "no such token"),
     }
     params.update(build_new_system_params_with_username(**kwargs))
     del params['username']
     del params['password']
     return params
+
 
 def register_new_system(params):
     rhnFlags.reset()

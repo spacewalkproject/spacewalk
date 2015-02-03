@@ -724,12 +724,12 @@ public class UserManager extends BaseManager {
      * @param user The user who's org to search for users.
      * @return A list containing the specified number of users.
      */
-    public static DataResult activeInOrg2(User user) {
+    public static DataResult<UserOverview> activeInOrg2(User user) {
         SelectMode m = ModeFactory.getMode("User_queries", "active_in_org");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", user.getOrg().getId());
-        DataResult dr = m.execute(params);
-        dr.elaborate(Collections.EMPTY_MAP);
+        DataResult<UserOverview> dr = m.execute(params);
+        dr.elaborate(new HashMap<String, Object>());
         return dr;
     }
 

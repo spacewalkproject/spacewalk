@@ -17,11 +17,13 @@ import os
 import types
 import gettext
 
+
 class RHN_Translations(gettext.GNUTranslations):
     # Defining our own class, since we'd like to save the language we use
     # Determining the language is not very pretty - we parse the file name
     # which is supposed to be something like
     # .../<lang>/LC_MESSAGES/<domain>.po
+
     def __init__(self, fp=None):
         self.lang = None
         gettext.GNUTranslations.__init__(self, fp)
@@ -35,17 +37,19 @@ class RHN_Translations(gettext.GNUTranslations):
 
     def getlangs(self):
         # Return all languages
-        #pkilambi:bug#158561,170819,170821: the gettext object in python 2.2.3 has no attribute
+        # pkilambi:bug#158561,170819,170821: the gettext object in python 2.2.3 has no attribute
         #_fallback so add a check if __dict__ has key
-        #if not self._fallback or not hasattr(self._fallback, 'getlangs'):
+        # if not self._fallback or not hasattr(self._fallback, 'getlangs'):
         if not self.__dict__.has_key("_fallback") or not self._fallback or not hasattr(self._fallback, 'getlangs'):
-            return [ self.lang, 'C' ]
+            return [self.lang, 'C']
         # Recursive call
-        return [ self.lang ] + self._fallback.getlangs()
+        return [self.lang] + self._fallback.getlangs()
+
 
 class i18n:
     _default_langs = ['en', 'en_US', 'C']
     # Wrapper class that allows us to change languages
+
     def __init__(self, domain=None, localedir="/usr/share/locale"):
         self.domain = domain
         self.localedir = localedir
@@ -56,18 +60,18 @@ class i18n:
     def _set_catalog(self):
         # Set the catalog object
         self.cat = gettext.Catalog(self.domain, localedir=self.localedir,
-            languages=self.langs, fallback=1, class_=RHN_Translations)
+                                   languages=self.langs, fallback=1, class_=RHN_Translations)
 
     def getlangs(self):
         # List of languages we support
         # pylint: disable=E1103
         if not hasattr(self.cat, "getlangs"):
-            return [ "C" ]
+            return ["C"]
         return self.cat.getlangs()
 
     def setlangs(self, langs):
         if isinstance(langs, types.StringType):
-            langs = [ langs ]
+            langs = [langs]
         # Filter "C" - we will add it ourselves later anyway
         langs = [l for l in langs if l != 'C']
         langs.extend(self._default_langs)

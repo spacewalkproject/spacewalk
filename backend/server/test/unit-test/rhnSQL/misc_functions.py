@@ -31,7 +31,9 @@ sys.path.insert(
     0,
     os.path.abspath(os.path.dirname(os.path.abspath(__file__) + "/../../../attic/"))
 )
-import rhnActivationKey, rhnServerGroup
+import rhnActivationKey
+import rhnServerGroup
+
 
 def create_new_org():
     "Create a brand new org; return the new org id"
@@ -41,6 +43,7 @@ def create_new_org():
     org_id = rhnServerGroup.create_new_org(org_name, org_password)
     rhnSQL.commit()
     return org_id
+
 
 def _create_server_group(org_id, name, description, max_members):
     "Create a server group; return the server group object"
@@ -53,9 +56,11 @@ def _create_server_group(org_id, name, description, max_members):
     rhnSQL.commit()
     return s
 
+
 def create_server_group(params):
     "Create a server group from a dictionary with the params"
     return apply(_create_server_group, (), params)
+
 
 def fetch_server_group(org_id, name):
     "Load a server group object from the org id and name"
@@ -71,6 +76,8 @@ _query_fetch_server_groups = rhnSQL.Statement("""
       and sgm.server_group_id = sg.id
       and sg.group_type is null
 """)
+
+
 def fetch_server_groups(server_id):
     "Return a server's groups"
     h = rhnSQL.prepare(_query_fetch_server_groups)
@@ -79,18 +86,20 @@ def fetch_server_groups(server_id):
     groups.sort()
     return groups
 
+
 def build_server_group_params(**kwargs):
     "Build params for server groups"
     params = {
-        'org_id'        :   'no such org',
-        'name'          :   "unittest group name %.3f" % time.time(),
-        'description'   :   "unittest group description %.3f" % time.time(),
-        'max_members'   :   1001,
+        'org_id':   'no such org',
+        'name':   "unittest group name %.3f" % time.time(),
+        'description':   "unittest group description %.3f" % time.time(),
+        'max_members':   1001,
     }
     params.update(kwargs)
     return params
 
-def create_new_user(org_id=None, username=None, password=None, roles=None, encrypt_password = False):
+
+def create_new_user(org_id=None, username=None, password=None, roles=None, encrypt_password=False):
     "Create a new user"
     if org_id is None:
         org_id = create_new_org()
@@ -106,34 +115,34 @@ def create_new_user(org_id=None, username=None, password=None, roles=None, encry
     if roles is None:
         roles = []
 
-    login             = username
+    login = username
     oracle_contact_id = None
-    prefix            = "Mr."
-    first_names       = "First Name %3.f" % time.time()
-    last_name         = "Last Name %3.f" % time.time()
-    genqual           = None
-    parent_company    = None
-    company           = "ACME"
-    title             = ""
-    phone             = ""
-    fax               = ""
-    email             = "%s@example.com" % username
-    pin               = 0
-    first_names_ol    = " "
-    last_name_ol      = " "
-    address1          = " "
-    address2          = " "
-    address3          = " "
-    city              = " "
-    state             = " "
-    zip_code          = " "
-    country           = " "
-    alt_first_names   = None
-    alt_last_name     = None
-    contact_call      = "N"
-    contact_mail      = "N"
-    contact_email     = "N"
-    contact_fax       = "N"
+    prefix = "Mr."
+    first_names = "First Name %3.f" % time.time()
+    last_name = "Last Name %3.f" % time.time()
+    genqual = None
+    parent_company = None
+    company = "ACME"
+    title = ""
+    phone = ""
+    fax = ""
+    email = "%s@example.com" % username
+    pin = 0
+    first_names_ol = " "
+    last_name_ol = " "
+    address1 = " "
+    address2 = " "
+    address3 = " "
+    city = " "
+    state = " "
+    zip_code = " "
+    country = " "
+    alt_first_names = None
+    alt_last_name = None
+    contact_call = "N"
+    contact_mail = "N"
+    contact_email = "N"
+    contact_fax = "N"
 
     f = rhnSQL.Function('create_new_user', rhnSQL.types.NUMBER())
     ret = f(
@@ -172,7 +181,7 @@ def create_new_user(org_id=None, username=None, password=None, roles=None, encry
     u = rhnUser.search(username)
 
     if u is None:
-      raise Exception("Couldn't create the new user - user not found")
+        raise Exception("Couldn't create the new user - user not found")
 
     # Set roles
     h = rhnSQL.prepare("""
@@ -194,6 +203,7 @@ def create_new_user(org_id=None, username=None, password=None, roles=None, encry
 
     return u
 
+
 def lookup_org_id(org_id):
     "Look up the org id by user name"
     if isinstance(org_id, types.StringType):
@@ -211,8 +221,10 @@ def lookup_org_id(org_id):
         raise rhnServerGroup.InvalidOrgError(org_id)
     return row['id']
 
+
 class InvalidEntitlementError(Exception):
     pass
+
 
 class InvalidRoleError(Exception):
     pass
@@ -226,7 +238,7 @@ def get_server_arch_id(architecture):
     """
     h = rhnSQL.prepare(lookup)
     h.execute(
-        architecture = architecture
+        architecture=architecture
     )
     row = h.fetchone_dict()
 
@@ -235,8 +247,9 @@ def get_server_arch_id(architecture):
     else:
         return None
 
+
 def create_activation_key(org_id=None, user_id=None, groups=None,
-        channels=None, entitlement_level=None, note=None, server_id=None, release=None):
+                          channels=None, entitlement_level=None, note=None, server_id=None, release=None):
     if org_id is None:
         need_user = 1
         org_id = create_new_org()
@@ -262,24 +275,23 @@ def create_activation_key(org_id=None, user_id=None, groups=None,
         channels = ['rhel-i386-as-3-beta', 'rhel-i386-as-2.1-beta']
 
     channel_arch_id = find_or_create_channel_arch(
-        name  = "channel - test",
-        label = "test"
+        name="channel - test",
+        label="test"
     )
 
     # ensure channels are created
     for channel_label in channels:
         channel = add_channel(
-            label           = channel_label,
-            org_id          = org_id,
-            channel_arch_id = channel_arch_id
+            label=channel_label,
+            org_id=org_id,
+            channel_arch_id=channel_arch_id
         )
         populate_rhn_dist_channel_map(
-            channel_id      = channel['id'],
-            channel_arch_id = channel_arch_id,
-            org_id          = org_id,
-            release         = release
+            channel_id=channel['id'],
+            channel_arch_id=channel_arch_id,
+            org_id=org_id,
+            release=release
         )
-
 
     if entitlement_level is None:
         entitlement_level = 'provisioning_entitled'
@@ -299,6 +311,7 @@ def create_activation_key(org_id=None, user_id=None, groups=None,
     rhnSQL.commit()
 
     return a
+
 
 def db_settings(backend=None):
     """
@@ -326,14 +339,15 @@ def db_settings(backend=None):
     config = ConfigParser()
     config.read(os.path.dirname(os.path.abspath(__file__)) + "/db_settings.ini")
 
-    settings['backend']  = backend
-    settings['user']     = config.get(backend, 'user')
+    settings['backend'] = backend
+    settings['user'] = config.get(backend, 'user')
     settings['password'] = config.get(backend, 'password')
     settings['database'] = config.get(backend, 'database')
     if backend == 'postgresql':
         settings['host'] = config.get(backend, 'host')
 
     return settings
+
 
 def setup_db_connection():
     """
@@ -343,17 +357,19 @@ def setup_db_connection():
 
     settings = db_settings()
     rhnSQL.initDB(
-       backend  = settings['backend'],
-       username = settings["user"],
-       password = settings["password"],
-       database = settings["database"]
+        backend=settings['backend'],
+        username=settings["user"],
+        password=settings["password"],
+        database=settings["database"]
     )
+
 
 def grant_entitlements(org_id, entitlement, quantity):
     activate_system_entitlement = rhnSQL.Procedure(
         "rhn_entitlements.activate_system_entitlement")
 
     activate_system_entitlement(org_id, entitlement, quantity)
+
 
 def grant_channel_family_entitlements(org_id, channel_family, quantity):
     """
@@ -379,14 +395,15 @@ def grant_channel_family_entitlements(org_id, channel_family, quantity):
     h = rhnSQL.prepare(_query_create_chfam)
     try:
         h.execute(
-            name  = 'Private Channel Family %s' % channel_family,
-            label = channel_family,
-            org   = org_id,
-            url   = '%s url' % channel_family
+            name='Private Channel Family %s' % channel_family,
+            label=channel_family,
+            org=org_id,
+            url='%s url' % channel_family
         )
     except rhnSQL.SQLError, e:
         # if we're here that means we're voilating something
         raise
+
 
 def find_or_create_arch_type(name, label):
     lookup = """
@@ -408,8 +425,8 @@ def find_or_create_arch_type(name, label):
     h = rhnSQL.prepare(query_create)
     try:
         h.execute(
-            label = label,
-            name  = name
+            label=label,
+            name=name
         )
         rhnSQL.commit()
     except rhnSQL.SQLError, e:
@@ -417,6 +434,7 @@ def find_or_create_arch_type(name, label):
         raise
 
     return find_or_create_arch_type(name, label)
+
 
 def find_or_create_channel_arch(name, label):
     lookup = """
@@ -435,13 +453,13 @@ def find_or_create_channel_arch(name, label):
        VALUES (sequence_nextval('rhn_channel_arch_id_seq'), :arch_type_id, :label, :name)
 
     """
-    arch_type_id = find_or_create_arch_type(name = name, label = label)
+    arch_type_id = find_or_create_arch_type(name=name, label=label)
     h = rhnSQL.prepare(query_create)
     try:
         h.execute(
-            arch_type_id = arch_type_id,
-            label        = label,
-            name         = name
+            arch_type_id=arch_type_id,
+            label=label,
+            name=name
         )
         rhnSQL.commit()
     except rhnSQL.SQLError, e:
@@ -458,14 +476,14 @@ def add_channel(label, org_id, channel_arch_id):
     """
 
     h = rhnSQL.prepare(lookup)
-    h.execute(label = label)
+    h.execute(label=label)
     row = h.fetchone_dict()
 
     if row:
         if row['org_id'] != org_id or row['channel_arch_id'] != channel_arch_id:
             delete = "DELETE FROM rhnChannel WHERE id = :id"
             h = rhnSQL.prepare(delete)
-            h.execute(id = row['id'])
+            h.execute(id=row['id'])
             rhnSQL.commit()
         else:
             return row
@@ -480,21 +498,22 @@ def add_channel(label, org_id, channel_arch_id):
     h = rhnSQL.prepare(query_create)
     try:
         h.execute(
-            label           = label,
-            org_id          = org_id,
-            name            = "Name for label %s" % label,
-            channel_arch_id = channel_arch_id,
-            basedir         = 'basedir',
-            summary         = 'summary'
+            label=label,
+            org_id=org_id,
+            name="Name for label %s" % label,
+            channel_arch_id=channel_arch_id,
+            basedir='basedir',
+            summary='summary'
         )
         rhnSQL.commit()
 
         h = rhnSQL.prepare(lookup)
-        h.execute(label = label)
+        h.execute(label=label)
         return h.fetchone_dict()
     except rhnSQL.SQLError, e:
         # if we're here that means we're voilating something
         raise
+
 
 def populate_rhn_dist_channel_map(channel_id, channel_arch_id, org_id, release):
     if not release:
@@ -509,9 +528,9 @@ def populate_rhn_dist_channel_map(channel_id, channel_arch_id, org_id, release):
 
     h = rhnSQL.prepare(lookup)
     h.execute(
-        release         = release,
-        channel_arch_id = channel_arch_id,
-        org_id          = org_id
+        release=release,
+        channel_arch_id=channel_arch_id,
+        org_id=org_id
     )
     if h.fetchone_dict():
         return
@@ -524,13 +543,14 @@ def populate_rhn_dist_channel_map(channel_id, channel_arch_id, org_id, release):
 
     h = rhnSQL.prepare(query_create)
     h.execute(
-        os              = "TestOS",
-        release         = release,
-        channel_arch_id = channel_arch_id,
-        channel_id      = channel_id,
-        org_id          = org_id
+        os="TestOS",
+        release=release,
+        channel_arch_id=channel_arch_id,
+        channel_id=channel_id,
+        org_id=org_id
     )
     rhnSQL.commit()
+
 
 def add_channel_to_server(channel_id, server_id):
     lookup = """
@@ -540,7 +560,7 @@ def add_channel_to_server(channel_id, server_id):
     """
 
     h = rhnSQL.prepare(lookup)
-    row = h.execute(server_id = server_id, channel_id = channel_id)
+    row = h.execute(server_id=server_id, channel_id=channel_id)
     if row:
         return
 
@@ -552,7 +572,7 @@ def add_channel_to_server(channel_id, server_id):
 
     h = rhnSQL.prepare(query_create)
     h.execute(
-        channel_id = channel_id,
-        server_id  = server_id
+        channel_id=channel_id,
+        server_id=server_id
     )
     rhnSQL.commit()

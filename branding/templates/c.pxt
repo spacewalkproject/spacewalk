@@ -14,7 +14,7 @@
     <div class="spacewalk-top-wrap">
       <nav class="navbar navbar-default navbar-pf" role="navigation">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -27,17 +27,17 @@
             <img src="/img/logo_product.png" alt="Spacewalk" id="rhnLogo" accesskey="2"/>
           </a>
         </div>
-        <div class="navbar-collapse navbar-collapse-1 collapse in">
+        <div class="navbar-collapse collapse">
           <rhn-display-login>
           <ul class="nav navbar-nav navbar-utility">
-            <li><a href="/rhn/account/LocalePreferences.do">English (change)</a></li>
-            <li><a href="https://access.redhat.com/knowledgebase">Knowledgebase</a></li>
-            <li><a href="/help">Documentation</a></li>
+            <li class="hidden-sm hidden-xs"><a href="/rhn/account/LocalePreferences.do">English (change)</a></li>
+            <li class="hidden-xs"><a href="https://access.redhat.com/knowledgebase">Knowledgebase</a></li>
+            <li class="hidden-xs"><a href="/help">Documentation</a></li>
             <li><a href="/rhn/account/UserDetails.do"><i class="fa fa-user"></i> [login]</a></li>
-            <li><a><i class="fa fa-sitemap"></i> [org]</a></li>
+            <li class="hidden-sm hidden-xs hidden-md"><a><i class="fa fa-sitemap"></i> [org]</a></li>
             <li><a href="/rhn/account/UserPreferences.do"><i class="fa fa-cogs" title="Preferences"></i></a></li>
             <li><a href="/rhn/Logout.do"><i class="fa fa-sign-out" title="Sign Out"></i></a></li>
-            <li class="search">
+            <li class="search hidden-xs">
               <form name="form1" class="form-inline" role="form" action="/rhn/Search.do">
                 <input type="hidden" name="submitted" value="true" />
                 <div class="form-group">
@@ -62,7 +62,7 @@
       </nav>
 
       <div class="spacewalk-main-column-layout">
-        <aside id="spacewalk-aside">
+        <aside id="spacewalk-aside" class="navbar-collapse collapse">
           <grail-canvas mode="left_menu_canvas">
             <rhn-navi-nav depth="1" style="sidenav"/>
           </grail-canvas>

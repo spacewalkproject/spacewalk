@@ -41,107 +41,107 @@ EOHELP
 
 GetOptions("macros:s" => \$macros, "verbose" => \$verbose, "help" => \$help) or die $usage;
 if ($help) {
-	print $usage;
-	exit 0;
+        print $usage;
+        exit 0;
 }
 
 if ($macros) {
-	foreach my $i (split(/,/, $macros, 0)) {
-		my ($key, $value) = split(/:/, $i, 3);
-		$macros{$key} = $value;
-	}
+        foreach my $i (split(/,/, $macros, 0)) {
+                my ($key, $value) = split(/:/, $i, 3);
+                $macros{$key} = $value;
+        }
 }
 
 foreach my $configfile ('modules.conf', 'settings') {
-	my $cfpath= "/etc/cobbler/" . $configfile;
-	my @original_content = my @modified_content = @{ read_filelines($cfpath) };
-	my %cf_def = %{ read_config_definition($configfile, \%macros) };
-	my $i = 0;
-	my $section;
+        my $cfpath= "/etc/cobbler/" . $configfile;
+        my @original_content = my @modified_content = @{ read_filelines($cfpath) };
+        my %cf_def = %{ read_config_definition($configfile, \%macros) };
+        my $i = 0;
+        my $section;
 
-	print "Processing $cfpath\n" if $verbose;
-	foreach my $line (@original_content) {
-		next if ($line =~ /^\s*#/);
+        print "Processing $cfpath\n" if $verbose;
+        foreach my $line (@original_content) {
+                next if ($line =~ /^\s*#/);
 
-		$section = $1 if ($line =~ /^\[(.+)\]\s*$/);
+                $section = $1 if ($line =~ /^\[(.+)\]\s*$/);
 
-		if ($line =~ /^([^#=:]+?)\s*[:=]\s*(.+?)\s*$/) {
-			if (defined $section) {
-				if (defined $cf_def{$section}{$1} && not $cf_def{$section}{$1} eq $2) {
-					$modified_content[$i] = "## disabled by spacewalk-setup-cobbler ## " .
-						"$line$1 = $cf_def{$section}{$1}\n";
-				}
-			} else {
-				if (defined $cf_def{$1} && not $cf_def{$1} eq $2) {
-					$modified_content[$i] = "## disabled by spacewalk-setup-cobbler ## " .
-						"$line$1: $cf_def{$1}\n";
-				}
-			}
-		}
-	} continue {
-		++$i;
-	}
+                if ($line =~ /^([^#=:]+?)\s*[:=]\s*(.+?)\s*$/) {
+                        if (defined $section) {
+                                if (defined $cf_def{$section}{$1} && not $cf_def{$section}{$1} eq $2) {
+                                        $modified_content[$i] = "## disabled by spacewalk-setup-cobbler ## " .
+                                                "$line$1 = $cf_def{$section}{$1}\n";
+                                }
+                        } else {
+                                if (defined $cf_def{$1} && not $cf_def{$1} eq $2) {
+                                        $modified_content[$i] = "## disabled by spacewalk-setup-cobbler ## " .
+                                                "$line$1: $cf_def{$1}\n";
+                                }
+                        }
+                }
+        } continue {
+                ++$i;
+        }
 
-	if (!arrays_match(\@original_content, \@modified_content)) {
-		my @backup_cmd = ('/bin/cp', '-p', '--backup=numbered', $cfpath, "$cfpath-swsave");
-		push @backup_cmd, '-v' if $verbose;
-		system(@backup_cmd);
+        if (!arrays_match(\@original_content, \@modified_content)) {
+                my @backup_cmd = ('/bin/cp', '-p', '--backup=numbered', $cfpath, "$cfpath-swsave");
+                push @backup_cmd, '-v' if $verbose;
+                system(@backup_cmd);
 
-		local *FILE;
-		open FILE, ">$cfpath" or die "Error opening [$cfpath] for writing: $!\n";
-		print FILE @modified_content;
-		close FILE;
-	} else {
-		print " * Leaving $cfpath unmodified\n" if $verbose;
-	}
+                local *FILE;
+                open FILE, ">$cfpath" or die "Error opening [$cfpath] for writing: $!\n";
+                print FILE @modified_content;
+                close FILE;
+        } else {
+                print " * Leaving $cfpath unmodified\n" if $verbose;
+        }
 }
 
 sub read_filelines {
-	my $path = shift;
-	my @content;
+        my $path = shift;
+        my @content;
 
-	local *CF_FILE;
-	open (CF_FILE, $path) or die "Error opening [$path] for reading: $!\n";
-	@content = <CF_FILE>;
-	close CF_FILE;
+        local *CF_FILE;
+        open (CF_FILE, $path) or die "Error opening [$path] for reading: $!\n";
+        @content = <CF_FILE>;
+        close CF_FILE;
 
-	return \@content;
+        return \@content;
 }
 
 sub read_config_definition {
-	my $file = shift;
-	my %macros = %{(shift)};
-	my %definition;
+        my $file = shift;
+        my %macros = %{(shift)};
+        my %definition;
 
-	foreach my $line (@{read_filelines(Spacewalk::Setup::SHARED_DIR . "/cobbler/$file")}) {
-		chomp $line;
-		next if $line =~ /^\s*(#|$)/;
-		my @content = split / /, $line, 3;
-		my $value = $content[-1];
+        foreach my $line (@{read_filelines(Spacewalk::Setup::SHARED_DIR . "/cobbler/$file")}) {
+                chomp $line;
+                next if $line =~ /^\s*(#|$)/;
+                my @content = split / /, $line, 3;
+                my $value = $content[-1];
 
-		if ($value and $value =~ /^\@(.+)\@$/) {
-			$value = $macros{$1} if defined $macros{$1};
-		}
+                if ($value and $value =~ /^\@(.+)\@$/) {
+                        $value = $macros{$1} if defined $macros{$1};
+                }
 
-		if (scalar(@content) == 2) {
-			$definition{$content[0]} = $value;
-		} elsif (scalar(@content) == 3) {
-			$definition{$content[0]}{$content[1]} = $value;
-		}
-	}
+                if (scalar(@content) == 2) {
+                        $definition{$content[0]} = $value;
+                } elsif (scalar(@content) == 3) {
+                        $definition{$content[0]}{$content[1]} = $value;
+                }
+        }
 
-	return \%definition;
+        return \%definition;
 }
 
 sub arrays_match {
-	my @array1 = @{(shift)};
-	my @array2 = @{(shift)};
+        my @array1 = @{(shift)};
+        my @array2 = @{(shift)};
 
-	foreach my $i (@array1) {
-		return 0 if ! grep {$i eq $_} (@array2);
-	}
+        foreach my $i (@array1) {
+                return 0 if ! grep {$i eq $_} (@array2);
+        }
 
-	return 1;
+        return 1;
 }
 
 1;

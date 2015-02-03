@@ -44,7 +44,7 @@ import java.util.Date;
  * Manages all scheduled tasks for the search server
  * Right now all tasks are hardcoded -- this should be
  * changed to be more config file driven
- * 
+ *
  * @version $Rev $
  */
 public class ScheduleManager implements Startable {
@@ -69,17 +69,17 @@ public class ScheduleManager implements Startable {
             throw new RuntimeException(e);
         }
     }
-    
+
     private void scheduleJob(Scheduler sched, String name,
             int mode, long interval, Class task, JobDataMap data)
         throws SchedulerException {
-        
+
         Trigger t = createTrigger(name, updateIndexGroupName, mode, interval);
         JobDetail d = new JobDetail(name, updateIndexGroupName, task);
         d.setJobDataMap(data);
         sched.scheduleJob(d, t);
     }
-    
+
     private Trigger createTrigger(String name, String group, int mode,
             long interval) {
         Trigger trigger = new SimpleTrigger(name, "default", name, group,
@@ -88,14 +88,14 @@ public class ScheduleManager implements Startable {
                 SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_EXISTING_COUNT);
         return trigger;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void start() {
         try {
             Configuration config = new Configuration();
-            
+
             long interval = config.getInt("search.schedule.interval", 300000);
             log.info("ScheduleManager task interval is set to " + interval);
             int mode = SimpleTrigger.REPEAT_INDEFINITELY;
@@ -103,20 +103,20 @@ public class ScheduleManager implements Startable {
                 interval = 100;
                 mode = 0;
             }
-            
+
             JobDataMap jobData = new JobDataMap();
             jobData.put("indexManager", indexManager);
             jobData.put("databaseManager", databaseManager);
             jobData.put("configuration", new Configuration());
-            
+
             scheduleJob(scheduler, BuilderFactory.PACKAGES_TYPE,
                     mode, interval,
                     IndexPackagesTask.class, jobData);
-            
+
             scheduleJob(scheduler, BuilderFactory.ERRATA_TYPE,
                     mode, interval,
                     IndexErrataTask.class, jobData);
-            
+
             scheduleJob(scheduler, BuilderFactory.SERVER_TYPE,
                     mode, interval,
                     IndexSystemsTask.class, jobData);
@@ -143,7 +143,7 @@ public class ScheduleManager implements Startable {
             throw new RuntimeException(e);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -150,9 +150,9 @@ sub alter_system_group_membership_cb {
     # again, over-snapshotting.  probably need to tear apart assign_set_to_group and
     # remove_set_from_group to do this though, so postponing...
     RHN::Server->snapshot_set(-reason => "Group membership alteration",
-			      -set_label => 'system_list',
-			      -user_id => $pxt->user->id
-			     );
+                              -set_label => 'system_list',
+                              -user_id => $pxt->user->id
+                             );
 
     $pxt->push_message(site_info => "System group membership changed.");
     $pxt->redirect('/network/systems/ssm/groups/index.pxt');
@@ -239,7 +239,7 @@ sub admin_server_group_edit_form {
 
     my $plural = $subs{member_count} > 1 ? 's' : '';
     $subs{systems_area} = PXT::HTML->link('/rhn/groups/ListRemoveSystems.do?sgid=' . $sgid,
-					  $subs{member_count} . " system$plural");
+                                          $subs{member_count} . " system$plural");
     if($subs{member_count} > 1) {
       $subs{systems_area} .= <<EOH;
 <p>
@@ -274,11 +274,11 @@ sub delete_server_group_cb {
       my $E = $@;
 
       if ($E->isa('RHN::Exception') and $E->is_rhn_exception('sg_delete_typed')) {
-	$pxt->push_message(local_alert => 'You cannot delete groups which have special functionality.');
-	return;
+        $pxt->push_message(local_alert => 'You cannot delete groups which have special functionality.');
+        return;
       }
       else {
-	throw $E;
+        throw $E;
       }
 
     }
@@ -360,8 +360,8 @@ sub admin_server_group_edit_cb {
 
     RHN::Server->add_servers_to_groups(\@server_ids, \@group_id);
     RHN::Server->snapshot_set(-reason => "Group membership change",
-			      -set_label => 'system_list',
-			      -user_id => $pxt->user->id);
+                              -set_label => 'system_list',
+                              -user_id => $pxt->user->id);
 
   }
 

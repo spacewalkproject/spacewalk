@@ -933,7 +933,7 @@ delete from rhnChannel where label like 'ChannelLabel%';
     </delete>
   </target>
 
-  <!-- 
+  <!--
      Set up Eclipse project files
      NOTE: If this fails due to missing-jars, and you want to continue,
      then execute "ant gen-eclipse-base" and retry
@@ -965,7 +965,7 @@ delete from rhnChannel where label like 'ChannelLabel%';
                    dir="${build.lib.dir}" />
     <jpackage-deps jars="${install.run.jar.dependencies}"
                    dir="${run-external.lib.dir}"/>
-    <mkdir dir="${rhn-home}/buildconf/tempjars" />                   
+    <mkdir dir="${rhn-home}/buildconf/tempjars" />
     <copy toDir="${build.lib.dir}" overwrite="true">
       <fileset dir="${rhn-home}/buildconf/tempjars">
           <include name="**/*.jar" />

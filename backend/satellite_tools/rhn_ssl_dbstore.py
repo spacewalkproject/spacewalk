@@ -24,6 +24,7 @@ import satCerts
 
 DEFAULT_TRUSTED_CERT = 'RHN-ORG-TRUSTED-SSL-CERT'
 
+
 def processCommandline():
 
     options = [
@@ -31,10 +32,10 @@ def processCommandline():
                help='public CA certificate, default is %s' % DEFAULT_TRUSTED_CERT),
         Option('--label',        action='store', default='RHN-ORG-TRUSTED-SSL-CERT', type="string",
                help='FOR TESTING ONLY - alternative database label for this CA certificate, '
-                  + 'default is "RHN-ORG-TRUSTED-SSL-CERT"'),
-        Option('-v','--verbose', action='count',
+               + 'default is "RHN-ORG-TRUSTED-SSL-CERT"'),
+        Option('-v', '--verbose', action='count',
                help='be verbose (accumulable: -vvv means "be *really* verbose").'),
-              ]
+    ]
 
     values, args = OptionParser(option_list=options).parse_args()
 
@@ -96,5 +97,3 @@ if __name__ == "__main__":
                      '           calling program.\n')
     sys.exit(main() or 0)
 #===============================================================================
-
-

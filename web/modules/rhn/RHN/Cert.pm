@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -68,12 +68,12 @@ sub parse_cert {
     }
     else {
       if ($field_node->getFirstChild) {
-	my $value = $field_node->getFirstChild->getData;
+        my $value = $field_node->getFirstChild->getData;
 
-	push @fields, [ $name, $value ];
+        push @fields, [ $name, $value ];
       }
       else {
-	push @fields, [ $name, '' ];
+        push @fields, [ $name, '' ];
       }
     }
   }
@@ -138,12 +138,12 @@ sub as_checksum_string {
 
     if (defined $val) {
       if (ref $val) {
-	foreach my $val (sort { join("", sort %$a) cmp join("", sort %$b) } @$val) {
-	  $data .= "$field-" . join("-", map { $_, $val->{$_} } sort keys %$val) . "\n";
-	}
+        foreach my $val (sort { join("", sort %$a) cmp join("", sort %$b) } @$val) {
+          $data .= "$field-" . join("-", map { $_, $val->{$_} } sort keys %$val) . "\n";
+        }
       }
       else {
-	$data .= $field . "-" . $self->get_field($field) . "\n";
+        $data .= $field . "-" . $self->get_field($field) . "\n";
       }
     }
   }

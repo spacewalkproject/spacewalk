@@ -24,10 +24,10 @@
 <c:choose>
 <c:when test="${not empty requestScope.pageList}">
   <rhn:list pageList="${requestScope.pageList}"
-  		noDataText="">
+                noDataText="">
     <rhn:listdisplay set="${requestScope.set}"
-    			filterBy="sdc.configlist.jsp.name">
-	  <rhn:set value="${current.id}"/>
+                        filterBy="sdc.configlist.jsp.name">
+          <rhn:set value="${current.id}"/>
       <rhn:column header="sdc.configlist.jsp.name"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
         <rhn:icon type="header-channel" title="config.common.globalAlt" />
@@ -39,7 +39,7 @@
       </rhn:column>
 
       <rhn:column header="sdc.configlist.jsp.files">
-		${current.fileCountsMessage}
+                ${current.fileCountsMessage}
       </rhn:column>
 
       <rhn:column header="sdc.configlist.jsp.deployablefiles">
@@ -64,7 +64,7 @@
 </c:when>
 <c:otherwise>
 <p><strong> <bean:message key="sdc.configlist.jsp.noChannels"
-	arg0="/rhn/systems/details/configuration/SubscriptionsSetup.do?sid=${param.sid}"/></strong>
+        arg0="/rhn/systems/details/configuration/SubscriptionsSetup.do?sid=${param.sid}"/></strong>
 </p>
 </c:otherwise>
 </c:choose>

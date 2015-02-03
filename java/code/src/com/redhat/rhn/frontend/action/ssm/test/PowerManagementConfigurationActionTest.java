@@ -115,5 +115,29 @@ public class PowerManagementConfigurationActionTest extends RhnMockStrutsTestCas
                 record.getPowerPassword());
             assertEquals(PowerManagementActionTest.EXPECTED_ID, record.getPowerId());
         }
+
+        // In SSM empty string means "do not change"
+        request.addParameter(PowerManagementAction.POWER_TYPE,
+                PowerManagementActionTest.EXPECTED_TYPE);
+        request.addParameter(PowerManagementAction.POWER_ADDRESS, "");
+        request.addParameter(PowerManagementAction.POWER_USERNAME,
+                PowerManagementActionTest.EXPECTED_USERNAME_2);
+        request.addParameter(PowerManagementAction.POWER_PASSWORD,
+                PowerManagementActionTest.EXPECTED_PASSWORD_2);
+        request.addParameter(PowerManagementAction.POWER_ID, "");
+        actionPerform();
+
+        for (Server server : servers) {
+            SystemRecord record = SystemRecord
+                .lookupById(connection, server.getCobblerId());
+            assertEquals(PowerManagementActionTest.EXPECTED_TYPE, record.getPowerType());
+            assertEquals(PowerManagementActionTest.EXPECTED_ADDRESS,
+                record.getPowerAddress());
+            assertEquals(PowerManagementActionTest.EXPECTED_USERNAME_2,
+                record.getPowerUsername());
+            assertEquals(PowerManagementActionTest.EXPECTED_PASSWORD_2,
+                record.getPowerPassword());
+            assertEquals(PowerManagementActionTest.EXPECTED_ID, record.getPowerId());
+        }
     }
 }

@@ -201,5 +201,3 @@ class Report(object):
             if size:
                 total += size
         return total
-
-# vim:ts=4:sw=4:et

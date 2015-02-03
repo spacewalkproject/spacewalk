@@ -7,19 +7,19 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
-# RHN::ServerGroup 
+# RHN::ServerGroup
 
 use strict;
 
 package RHN::ServerGroup;
 
-use RHN::DB::ServerGroup;   
+use RHN::DB::ServerGroup;
 
 my @server_group = qw(id name description org_id);
 my @server_group_members = qw(web_user_id user_group_id);

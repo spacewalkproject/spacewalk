@@ -18,7 +18,7 @@ SELECT P.recid AS ID,
        P.last_update_date,
        P.description,
        PS.state AS PROBE_STATE,
-       PS.output 
+       PS.output
   FROM rhn_sat_cluster SC,
        rhn_command C,
        rhn_check_probe CP,
@@ -48,20 +48,20 @@ SELECT probe_id,
 
 <mode name="probe">
   <query params="probe_id">
-SELECT   probe_type,                        
+SELECT   probe_type,
          description,
-         customer_id,                       
-         command_id,                        
-         contact_group_id,                           
-         notify_critical,                            
-         notify_warning,                             
-         notify_unknown,                             
-         notify_recovery,                            
-         notification_interval_minutes,     
-         check_interval_minutes,            
-         retry_interval_minutes,            
-         max_attempts,                               
-         last_update_user,                           
+         customer_id,
+         command_id,
+         contact_group_id,
+         notify_critical,
+         notify_warning,
+         notify_unknown,
+         notify_recovery,
+         notification_interval_minutes,
+         check_interval_minutes,
+         retry_interval_minutes,
+         max_attempts,
+         last_update_user,
          last_update_date
 FROM     rhn_probe
 WHERE    recid = :probe_id
@@ -89,12 +89,12 @@ ORDER BY S.name, S.id, P.description, P.recid
 
 <mode name="ok_system_probes">
   <query params="org_id, user_id">
-SELECT  S.id system_id, 
-        S.name system_name, 
-        P.recid probe_id, 
-        P.description probe_description, 
-        PS.state probe_state, 
-        PS.output probe_output, 
+SELECT  S.id system_id,
+        S.name system_name,
+        P.recid probe_id,
+        P.description probe_description,
+        PS.state probe_state,
+        PS.output probe_output,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
@@ -110,12 +110,12 @@ ORDER BY system_name, probe_description
 
 <mode name="warning_system_probes">
   <query params="org_id, user_id">
-SELECT  S.id system_id, 
-        S.name system_name, 
-        P.recid probe_id, 
-        P.description probe_description, 
-        PS.state probe_state, 
-        PS.output probe_output, 
+SELECT  S.id system_id,
+        S.name system_name,
+        P.recid probe_id,
+        P.description probe_description,
+        PS.state probe_state,
+        PS.output probe_output,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
@@ -131,12 +131,12 @@ ORDER BY system_name, probe_description
 
 <mode name="critical_system_probes">
   <query params="org_id, user_id">
-SELECT  S.id system_id, 
-        S.name system_name, 
-        P.recid probe_id, 
-        P.description probe_description, 
-        PS.state probe_state, 
-        PS.output probe_output, 
+SELECT  S.id system_id,
+        S.name system_name,
+        P.recid probe_id,
+        P.description probe_description,
+        PS.state probe_state,
+        PS.output probe_output,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
@@ -152,12 +152,12 @@ ORDER BY system_name, probe_description
 
 <mode name="unknown_system_probes">
   <query params="org_id, user_id">
-SELECT  S.id system_id, 
-        S.name system_name, 
-        P.recid probe_id, 
-        P.description probe_description, 
-        PS.state probe_state, 
-        PS.output probe_output, 
+SELECT  S.id system_id,
+        S.name system_name,
+        P.recid probe_id,
+        P.description probe_description,
+        PS.state probe_state,
+        PS.output probe_output,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
@@ -173,12 +173,12 @@ ORDER BY system_name, probe_description
 
 <mode name="pending_system_probes">
   <query params="org_id, user_id">
-SELECT  S.id system_id, 
-        S.name system_name, 
-        P.recid probe_id, 
-        P.description probe_description, 
-        PS.state probe_state, 
-        PS.output probe_output, 
+SELECT  S.id system_id,
+        S.name system_name,
+        P.recid probe_id,
+        P.description probe_description,
+        PS.state probe_state,
+        PS.output probe_output,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
@@ -194,12 +194,12 @@ ORDER BY system_name, probe_description
 
 <mode name="all_system_probes">
   <query params="org_id, user_id">
-SELECT  S.id system_id, 
-        S.name system_name, 
-        P.recid probe_id, 
-        P.description probe_description, 
-        PS.state probe_state, 
-        PS.output probe_output, 
+SELECT  S.id system_id,
+        S.name system_name,
+        P.recid probe_id,
+        P.description probe_description,
+        PS.state probe_state,
+        PS.output probe_output,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
@@ -226,7 +226,7 @@ SELECT  S.id system_id,
  WHERE  P.recid = PS.probe_id
    AND  S.id = (SELECT host_id from rhn_check_probe where probe_id = P.recid)
 <!-- In group -->
-   AND  exists (SELECT 1 from rhnServerGroupMembership SGM 
+   AND  exists (SELECT 1 from rhnServerGroupMembership SGM
                      WHERE SGM.server_id = s.ID
                      AND SGM.group_id = :group_id)
 <!-- Entitled -->

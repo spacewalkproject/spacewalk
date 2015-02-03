@@ -48,7 +48,7 @@ import java.util.Map;
 public class IndexErrataTaskTest extends BaseTestCase {
     private static Logger log = Logger.getLogger(IndexErrataTaskTest.class);
     private Scheduler scheduler;
-    
+
     public void tearDown() throws Exception {
         DatabaseManager databaseManager = (DatabaseManager)
             container.getComponentInstanceOfType(DatabaseManager.class);
@@ -63,13 +63,13 @@ public class IndexErrataTaskTest extends BaseTestCase {
         }
         super.tearDown();
     }
-    
+
     public void testExecute() throws InterruptedException, SchedulerException {
 
         DatabaseManager databaseManager = (DatabaseManager)
             container.getComponentInstanceOfType(DatabaseManager.class);
-        
-        IndexManager indexManager = (IndexManager) 
+
+        IndexManager indexManager = (IndexManager)
             container.getComponentInstanceOfType(IndexManager.class);
 
         try {
@@ -103,7 +103,7 @@ public class IndexErrataTaskTest extends BaseTestCase {
             e1.printStackTrace();
         }
         try {
-            
+
             scheduler.start();
         }
         catch (SchedulerException e) {
@@ -124,7 +124,7 @@ public class IndexErrataTaskTest extends BaseTestCase {
         Class[] comps = {DatabaseManager.class, TestIndexManager.class};
         return TestUtil.buildComponentsList(comps);
     }
-    
+
     public static class TestIndexManager extends IndexManager {
 
         @Override
@@ -141,9 +141,9 @@ public class IndexErrataTaskTest extends BaseTestCase {
         public TestIndexManager(Configuration config) {
             super(config);
         }
-        
+
     }
-    
+
     public static class TestTrigger implements TriggerListener {
 
         /**
@@ -180,6 +180,6 @@ public class IndexErrataTaskTest extends BaseTestCase {
         public boolean vetoJobExecution(Trigger trigger, JobExecutionContext context) {
             return false;
         }
-        
+
     }
 }

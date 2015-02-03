@@ -57,6 +57,7 @@ class SQLError(Exception):
 
 # other Schema Errors
 class SQLSchemaError(SQLError):
+
     def __init__(self, errno, errmsg, *args):
         self.errno = errno
         (self.errmsg, errmsg) = string.split(errmsg, '\n', 1)
@@ -65,6 +66,7 @@ class SQLSchemaError(SQLError):
 
 # SQL connect error
 class SQLConnectError(SQLError):
+
     def __init__(self, db, errno, errmsg, *args):
         self.db = db
         self.errno = errno
@@ -74,6 +76,7 @@ class SQLConnectError(SQLError):
 
 # Cannot prepare statement
 class SQLStatementPrepareError(SQLError):
+
     def __init__(self, db, errmsg, *args):
         self.db = db
         self.errmsg = errmsg
@@ -85,6 +88,7 @@ class ModifiedRowError(SQLError):
 
 
 class Cursor:
+
     """ A class to implement generic SQL Cursor operations. """
 
     # The cursor cache is a hash of:
@@ -135,7 +139,7 @@ class Cursor:
         self._real_cursor = self._prepare(force=force)
 
     def update_blob(self, table_name, column_name, where_clause,
-            data, **kwargs):
+                    data, **kwargs):
         """
         Abstraction for the update of a blob column which can vary wildly
         between different database implementations.
@@ -251,6 +255,7 @@ class Cursor:
 
 
 class Procedure:
+
     """
     Class for calling out to stored procedures.
 
@@ -259,6 +264,7 @@ class Procedure:
 
     See database specific implementations for more details.
     """
+
     def __init__(self, name, cursor):
         self.name = name
         self.cursor = cursor
@@ -270,6 +276,7 @@ class Procedure:
 
 
 class Database:
+
     """
     Base class for handling database operations.
 
@@ -369,6 +376,7 @@ class Database:
 # is available upon import, we can automatically check for the statements'
 # correctness
 class Statement:
+
     def __init__(self, statement):
         self.statement = statement
 

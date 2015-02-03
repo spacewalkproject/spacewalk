@@ -206,9 +206,9 @@ def run(action_id, params, cache_only=None):
 
         # Finally, exec the script
         try:
-	    oumask = os.umask(022)
+            oumask = os.umask(022)
             os.execv(script_path, [script_path, ])
-	    os.umask(oumask)
+            os.umask(oumask)
         finally:
             # Shouldn't reach this part - execv never returns
             os._exit(1)

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package PXT::HTML;
@@ -102,8 +102,8 @@ sub form_start {
 }
 
 #hidden(
-#	-name => foo,
-#	-value => foo);
+#       -name => foo,
+#       -value => foo);
 sub hidden {
   my $class = shift;
   my %e = @_;
@@ -117,11 +117,11 @@ sub hidden {
 }
 
 #text(
-#	-name => foo,
-#	-value => foo,
+#       -name => foo,
+#       -value => foo,
 # -placeholder => foo,
-#	-maxlength => 30,
-#	-size => 15);
+#       -maxlength => 30,
+#       -size => 15);
 sub text{
   my $class = shift;
   my %e = @_;
@@ -134,9 +134,9 @@ sub text{
 }
 
 #file(
-#	-name => foo,
-#	-value => foo,
-#	-accept => 'text/plain');
+#       -name => foo,
+#       -value => foo,
+#       -accept => 'text/plain');
 sub file {
   my $class = shift;
   my %e = @_;
@@ -149,10 +149,10 @@ sub file {
 }
 
 #password(
-#	-name => foo,
-#	-value => foo,
-#	-size => 12,
-#	-maxlength -> 30);
+#       -name => foo,
+#       -value => foo,
+#       -size => 12,
+#       -maxlength -> 30);
 sub password {
   my $class = shift;
   my %e = @_;
@@ -165,11 +165,11 @@ sub password {
 }
 
 #textarea(
-#	-name => foo,
-#	-value => foo,
-#	-rows => 12,
-#	-cols => 60,
-#	-wrap => 'VIRTUAL');
+#       -name => foo,
+#       -value => foo,
+#       -rows => 12,
+#       -cols => 60,
+#       -wrap => 'VIRTUAL');
 sub textarea {
   my $class = shift;
   my %e = @_;
@@ -185,8 +185,8 @@ sub textarea {
 }
 
 #submit(
-#	-name => foo,
-#	-value => "Click Me");
+#       -name => foo,
+#       -value => "Click Me");
 sub submit {
   my $class = shift;
   my %e = @_;
@@ -207,8 +207,8 @@ sub submit {
 }
 
 #reset(
-#	-name => foo,
-#	-value => "Reset Form");
+#       -name => foo,
+#       -value => "Reset Form");
 sub reset {
   my $class = shift;
   my %e = @_;
@@ -223,9 +223,9 @@ sub reset {
 
 # create a single checkbox
 # checkbox(
-#	-name => 'foo',
-#	-value => 'bar',
-#	-checked => ( 1 || on || yes || checked ) box will be checked
+#       -name => 'foo',
+#       -value => 'bar',
+#       -checked => ( 1 || on || yes || checked ) box will be checked
 sub checkbox {
   my $class = shift;
   my %e = @_;
@@ -251,8 +251,8 @@ sub checkbox {
 }
 
 #radio_group(
-#	-name => foo,
-#	-buttons => [ [label, value, checked], [label, value, checked], ... ]
+#       -name => foo,
+#       -buttons => [ [label, value, checked], [label, value, checked], ... ]
 sub radio_group {
   my $class = shift;
   my %e = @_;
@@ -303,10 +303,10 @@ sub radio_button {
 }
 
 #select(
-#	-name => foo,
-#	-size => 1,
-#	-multiple => 1,
-#	-options => [ [label, value, selected],[label, value, selected], ...]);
+#       -name => foo,
+#       -size => 1,
+#       -multiple => 1,
+#       -options => [ [label, value, selected],[label, value, selected], ...]);
 #
 sub select {
   my $class = shift;
@@ -344,7 +344,7 @@ sub select {
 
      if ($optgroup) {
        if ($in_optgroup) { # close the last one
-	 $ret .= "</optgroup>\n";
+         $ret .= "</optgroup>\n";
        }
        $in_optgroup = 1;
 
@@ -390,10 +390,10 @@ sub _format {
 
       my $buggy_utf8 = lc($1);
       # if default value is empy, leave it, so browser can override it
-      # but only if input it type of hidden, text, password or if type is 
+      # but only if input it type of hidden, text, password or if type is
       # not specified, which should be treated as text
-      next if (($buggy_utf8 eq 'value') and not ($e->{$key}) and 
-        (($elem_type =~ /type="?hidden"?/i) or ($elem_type =~ /type="?text"?/i) or 
+      next if (($buggy_utf8 eq 'value') and not ($e->{$key}) and
+        (($elem_type =~ /type="?hidden"?/i) or ($elem_type =~ /type="?text"?/i) or
         ($elem_type =~ /type="?password"?/i) or ($elem_type =~ /^input(\s*)?$/i)));
       $ret .= sprintf(' %s="%s"', $buggy_utf8, defined $e->{$key} ? $e->{$key} : '');
     }
@@ -428,7 +428,12 @@ sub link {
   $css_class = qq{ class="$css_class"} if $css_class;
   $target = qq{ target="$target"} if $target;
 
-  return sprintf qq{<a href="%s"$css_class$target>%s</a>}, $url, $label;
+  if ($url) {
+    return sprintf qq{<a href="%s"$css_class$target>%s</a>}, $url, $label;
+  } else {
+    return $label;
+  }
+
 }
 
 sub button {
@@ -477,8 +482,8 @@ sub link2 {
     my $p = $params{params};
     $url .=
       join("&amp;",
-	   map { sprintf q{%s=%s}, PXT::Utils->escapeURI($_), PXT::Utils->escapeURI($p->{$_}) }
-	   sort keys %{$p});
+           map { sprintf q{%s=%s}, PXT::Utils->escapeURI($_), PXT::Utils->escapeURI($p->{$_}) }
+           sort keys %{$p});
   }
 
   $inside{href} = $url;
@@ -486,7 +491,7 @@ sub link2 {
   return
     sprintf qq{<a %s>%s</a>},
       join(" ", map { sprintf q{%s="%s"}, $_, $inside{$_} } keys %inside),
-	$label;
+        $label;
 }
 
 sub img {

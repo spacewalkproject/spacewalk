@@ -25,7 +25,7 @@ class Builder(builder.Builder):
 
     def srpm(self, dist=None, reuse_cvs_checkout=False):
         try:
-	    if self.no_srpm == 1:
+            if self.no_srpm == 1:
                 return
         except AttributeError:
             pass

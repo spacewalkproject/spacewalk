@@ -19,6 +19,7 @@ import sys
 import unittest
 from spacewalk.common import rhnCache
 
+
 class Tests(unittest.TestCase):
     # pylint: disable=R0904
     key = "unit-test/test"
@@ -33,7 +34,7 @@ class Tests(unittest.TestCase):
 
     def test_cache_2(self):
         "Tests storing of more complex data structures"
-        content = [ (1, 2, 3), {'a' : 1}, 'ab' ]
+        content = [(1, 2, 3), {'a': 1}, 'ab']
         self._test(self.key, content)
 
     def test_cache_3(self):
@@ -88,4 +89,3 @@ class Tests(unittest.TestCase):
 
 if __name__ == '__main__':
     sys.exit(unittest.main() or 0)
-

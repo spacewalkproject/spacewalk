@@ -59,18 +59,18 @@ def rebuildRepackageDir(repackageName):
     createRepackageDir()
     files = glob.glob("%s/%s/*.rpm" % (PKGDIR, repackageName))
     for file in files:
-    	shutil.copy(file , REPACKAGEDIR)
+        shutil.copy(file , REPACKAGEDIR)
 
 
 # fetch a copy of the rebuild db from the cache if we have it
 def lookForDbCache(dbname):
     if not os.access("%s/%s" % (DBCACHEPATH, dbname), os.R_OK):
-	return 1
+        return 1
 
     #print "Using db cache"
     files = glob.glob("%s/%s/*" % (DBCACHEPATH, dbname))
     for file in files:
-	shutil.copy(file, DBPATH)
+        shutil.copy(file, DBPATH)
 
     return 0
 
@@ -79,20 +79,20 @@ def populateDbCache(dbname):
     os.makedirs(cache)
     files = glob.glob("%s/*" % DBPATH)
     for file in files:
-	shutil.copy(file, cache)
+        shutil.copy(file, cache)
 
 def rebuildRpmDatabase(dbname):
     createDbDir()
 
     if lookForDbCache(dbname):
-	print "Rebuilding rpm database"
-    	shutil.copy("%s/%s/Packages" % (DBDIR,dbname) , DBPATH)
-    	cmdline = "rpm -v --dbpath %s  --rebuilddb" % DBPATH
-    	fd = os.popen(cmdline)
-    	fd.read()
-    	fd.close()
+        print "Rebuilding rpm database"
+        shutil.copy("%s/%s/Packages" % (DBDIR,dbname) , DBPATH)
+        cmdline = "rpm -v --dbpath %s  --rebuilddb" % DBPATH
+        fd = os.popen(cmdline)
+        fd.read()
+        fd.close()
 
-	populateDbCache(dbname)
+        populateDbCache(dbname)
 
 
 
@@ -148,14 +148,14 @@ def setupConfig(configname):
                not os.access("%s..orig-test" % filename, os.R_OK):
             shutil.copy(filename, "%s.orig-test" % filename)
 
-	stored = "%s/%s" % (path, os.path.basename(filename))
-    	if os.access(stored, os.R_OK):
+        stored = "%s/%s" % (path, os.path.basename(filename))
+        if os.access(stored, os.R_OK):
             shutil.copy(stored, filename)
 
 
 def restoreConfig():
     for filename in FILENAMES:
-    	if os.access("%s.orig-test" % filename, os.R_OK):
+        if os.access("%s.orig-test" % filename, os.R_OK):
             shutil.copy("%s.orig-test" % filename, filename)
 
 def logFailures(name):

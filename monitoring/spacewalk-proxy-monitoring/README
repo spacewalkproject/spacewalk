@@ -1,5 +1,0 @@
-Package spacewalk-proxy-monitoring pulls in all of the Spacewalk Monitoring 
-packages, including all MOC and Scout functionality.
-
-It contain only one configuration file: /etc/satnum which contain node number 
-and should not be edited manualy.

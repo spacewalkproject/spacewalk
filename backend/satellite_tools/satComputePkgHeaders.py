@@ -22,14 +22,18 @@ from optparse import OptionParser, Option
 
 SERVER_RETURN = 0
 
+
 def log_error(*_args):
     pass
+
 
 def make_table(*_args):
     pass
 
+
 def parse_qs(*_args):
     pass
+
 
 def parse_qsl(*_args):
     pass
@@ -54,16 +58,18 @@ from spacewalk.common.rhn_pkg import InvalidPackageError
 
 options_table = [
     Option("-v", "--verbose",       action="count",
-        help="Increase verbosity"),
+           help="Increase verbosity"),
     Option("--commit",              action="store_true",
-        help="Commit work"),
+           help="Commit work"),
     Option("--backup-file",         action="store",
-        help="Backup packages into this file"),
+           help="Backup packages into this file"),
     Option("--prefix",              action="store",     default='/pub',
-        help="Prefix to find files in"),
+           help="Prefix to find files in"),
 ]
 
+
 class Runner:
+
     def __init__(self):
         self.options = None
         self._channels_hash = None
@@ -97,7 +103,6 @@ class Runner:
         else:
             print "Rolling back"
             rhnSQL.rollback()
-
 
     def _get_packages(self):
         package_ids = {}
@@ -141,7 +146,6 @@ class Runner:
 
         return package_ids
 
-
     _query_get_channel_packages = rhnSQL.Statement("""
         select c.id, c.label
           from rhnChannel c,
@@ -153,6 +157,7 @@ class Runner:
     _query_get_channels = rhnSQL.Statement("""
         select id, label from rhnChannel
     """)
+
     def _get_channels(self):
         h = rhnSQL.prepare(self._query_get_channels)
         h.execute()

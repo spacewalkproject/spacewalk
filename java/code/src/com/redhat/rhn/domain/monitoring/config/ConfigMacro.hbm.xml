@@ -5,9 +5,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 <hibernate-mapping>
     <class name="com.redhat.rhn.domain.monitoring.config.ConfigMacro"
         table="rhn_config_macro" >
-		<composite-id>
-			<key-property name="name" type="string" column="name"/>
-		</composite-id>
+                <composite-id>
+                        <key-property name="name" type="string" column="name"/>
+                </composite-id>
         <property name="definition" column="definition"  type="string" length="255" />
         <property name="description" column="description"  type="string" length="255" />
         <property name="editable" column="editable" not-null="true" type="string" length="1" />

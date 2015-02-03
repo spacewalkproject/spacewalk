@@ -862,6 +862,17 @@ public class KickstartData {
     }
 
     /**
+     * returns true if this is a SUSE autoinstallation
+     * @return if this is a SUSE autoinstallation or not
+     */
+    public boolean isSUSE() {
+        if (getInstallType() != null) {
+            return getInstallType().isSUSE();
+        }
+        return false;
+    }
+
+    /**
      * @return if this kickstart profile is rhel 4 installer type
      */
     public boolean isRhel4() {

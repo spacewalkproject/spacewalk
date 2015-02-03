@@ -21,7 +21,6 @@ import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BaseSetOperateOnSelectedItemsAction;
@@ -30,7 +29,6 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.manager.monitoring.ScoutConfigPushCommand;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -254,10 +252,7 @@ public class SystemEntitlementsSubmitAction extends
         String entType = form
         .getString(SystemEntitlementsSetupAction.ADDON_ENTITLEMENT);
 
-        if (EntitlementManager.MONITORING_ENTITLED.equals(entType)) {
-            return EntitlementManager.MONITORING;
-        }
-        else if (EntitlementManager.PROVISIONING_ENTITLED.equals(entType)) {
+        if (EntitlementManager.PROVISIONING_ENTITLED.equals(entType)) {
             return EntitlementManager.PROVISIONING;
         }
         else if (EntitlementManager.VIRTUALIZATION_ENTITLED.equals(entType)) {
@@ -355,10 +350,7 @@ public class SystemEntitlementsSubmitAction extends
                 //if the system already has the entitlement, do nothing
                 //  if so, neither success nor failure count will be updated.
                 if (!SystemManager.hasEntitlement(sid, ent)) {
-                        if (checkSolarisFailure(sid, ent, user)) {
-                            failureDueToSolarisCount++;
-                        }
-                        else if (SystemManager.canEntitleServer(sid, ent)) {
+                    if (SystemManager.canEntitleServer(sid, ent)) {
                             log.debug("we can entitle.  Lets entitle to : " + ent);
                             ValidatorResult vr =
                                 SystemManager.entitleServer(user.getOrg(), sid, ent);
@@ -408,13 +400,7 @@ public class SystemEntitlementsSubmitAction extends
 
         String prefix = getSetDecl().getLabel() + ".provisioning";
         log.debug("prefix: " + prefix);
-        if (ent.equals(EntitlementManager.MONITORING)) {
-            // Need to push the scout configs as well.
-            ScoutConfigPushCommand cmd = new ScoutConfigPushCommand(user);
-            cmd.store();
-            prefix = getSetDecl().getLabel() + ".monitoring";
-        }
-        else if (ent.equals(EntitlementManager.VIRTUALIZATION) ||
+        if (ent.equals(EntitlementManager.VIRTUALIZATION) ||
                 ent.equals(EntitlementManager.VIRTUALIZATION_PLATFORM)) {
             prefix = getSetDecl().getLabel() + "." + ent.getLabel();
         }
@@ -500,16 +486,6 @@ public class SystemEntitlementsSubmitAction extends
         strutsDelegate.saveMessages(request, msg);
         return strutsDelegate.forwardParams(mapping.findForward(
                 RhnHelper.DEFAULT_FORWARD), params);
-    }
-
-    private boolean checkSolarisFailure(Long sid, Entitlement ent, User user) {
-        Server server = SystemManager.lookupByIdAndUser(sid, user);
-        if (server.isSolaris()) {
-            return EntitlementManager.MONITORING.equals(ent) ||
-                      EntitlementManager.VIRTUALIZATION.equals(ent) ||
-                      EntitlementManager.VIRTUALIZATION_PLATFORM.equals(ent);
-        }
-        return false;
     }
 
     /**

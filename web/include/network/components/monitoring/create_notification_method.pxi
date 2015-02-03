@@ -23,7 +23,7 @@
 		Method Name:
 	    </label>
 	    <div class="col-sm-6">
-		<input type="text" size="30" name="method_email" value="" maxlength="50" class="form-control">
+		<input type="text" size="30" name="method_name" value="" maxlength="20" class="form-control">
             </div>
 	</div>
 	<div class="form-group">
@@ -38,7 +38,7 @@
 	    <label class="col-sm-2 control-label">
 		Message Format:
 	    </label>
-	    <div class="checkbox col-sm-6">
+	    <div class="col-sm-6">
 		<input type="checkbox" name="use_pager_type" value="1" checked="" />Short (Pager-Style) Messages
 	    </div>
 	</div>

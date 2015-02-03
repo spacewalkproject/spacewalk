@@ -76,6 +76,7 @@ import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.channel.MultipleChannelsWithPackageException;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemRemoveCommand;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
@@ -1563,25 +1564,6 @@ public class SystemManager extends BaseManager {
      * @return deproxified server.
      */
     public static Server deactivateProxy(Server server) {
-        Long sid = server.getId();
-
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("server_id", sid);
-
-        executeWriteMode("Monitoring_queries",
-                "delete_probe_states_from_server", params);
-        executeWriteMode("Monitoring_queries",
-                "delete_deployed_probes_from_server", params);
-        executeWriteMode("Monitoring_queries",
-                "delete_probes_from_server", params);
-        executeWriteMode("Monitoring_queries",
-                "delete_sat_cluster_for_server", params);
-
-        // At this point we have the deletes happening
-        // in write mode. So our server which is a hibernate
-        // object is NOT in sync and so we have to refresh
-        // for it to work....
-        HibernateFactory.getSession().refresh(server);
         ServerFactory.deproxify(server);
 
         Set<Channel> channels = server.getChannels();
@@ -2460,7 +2442,7 @@ public class SystemManager extends BaseManager {
      * @param id the id of the package
      * @return  list of systemOverview objects
      */
-    public static List<SystemOverview> listSystemsWithPackage(User user, Long id) {
+    public static DataResult<SystemOverview> listSystemsWithPackage(User user, Long id) {
         SelectMode m = ModeFactory.getMode("System_queries",
                 "systems_with_package");
         Map<String, Object> params = new HashMap<String, Object>();
@@ -2468,7 +2450,24 @@ public class SystemManager extends BaseManager {
         params.put("org_id", user.getOrg().getId());
         params.put("pid", id);
         DataResult<SystemOverview> toReturn = m.execute(params);
-        //toReturn.elaborate();
+        return toReturn;
+    }
+
+    /**
+     * lists systems that can upgrade to the package id
+     * @param user the user doing the search
+     * @param id the id of the package
+     * @return  list of systemOverview objects
+     */
+    public static DataResult<SystemOverview> listPotentialSystemsForPackage(User user,
+            Long id) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "potential_systems_for_package");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        params.put("pid", id);
+        DataResult<SystemOverview> toReturn = m.execute(params);
         return toReturn;
     }
 
@@ -3257,6 +3256,135 @@ public class SystemManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("set_label", setLabel);
-        return mode.execute(params, entitlements);
+        DataResult<SystemOverview> result = mode.execute(params, entitlements);
+        result.setElaborationParams(new HashMap<String, Object>());
+        return result;
+    }
+
+    /**
+     * Sets the custom info values for the systems in the set
+     * @param user the requesting user
+     * @param setLabel the set label
+     * @param keyLabel the label of the custom value key
+     * @param value the value to set for the custom value
+     */
+    public static void bulkSetCustomValue(User user, String setLabel, String keyLabel,
+            String value) {
+        CallableMode mode = ModeFactory.getCallableMode("System_queries",
+                "bulk_set_custom_values");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        params.put("key_label", keyLabel);
+        params.put("value", value);
+        mode.execute(params, new HashMap<String, Integer>());
+    }
+
+    /**
+     * Removes the custom info values from the systems in the set
+     * @param user the requesting user
+     * @param setLabel the set label
+     * @param keyId the id of the custom value key
+     * @return number of rows deleted
+     */
+    public static int bulkRemoveCustomValue(User user, String setLabel, Long keyId) {
+        WriteMode mode = ModeFactory.getWriteMode("System_queries",
+                "bulk_remove_custom_values");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        params.put("key_id", keyId);
+        return mode.executeUpdate(params);
+    }
+
+    /**
+     * Get a list of all tags that are applicable to entitled systems in the set
+     * @param user The user to check the system set for
+     * @return Maps of id, name, tagged_systems, and date_tag_created
+     */
+    public static DataResult<Map<String, Object>> listTagsForSystemsInSet(User user) {
+        SelectMode mode = ModeFactory.getMode("General_queries",
+                "tags_for_provisioning_entitled_in_set");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        return mode.execute(params);
+    }
+
+    /**
+     * Set the vaules for the user system prefrence for all systems in the system set
+     * @param user The user
+     * @param preference The name of the preference to set
+     * @param value The value to set
+     * @param defaultIn The default value for the preference
+     */
+    public static void setUserSystemPreferenceBulk(User user, String preference,
+            Boolean value, Boolean defaultIn) {
+        CallableMode mode = ModeFactory.getCallableMode("System_queries",
+                "reset_user_system_preference_bulk");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("pref", preference);
+        mode.execute(params, new HashMap<String, Integer>());
+        // preference values have a default, only insert if not default
+        if (value != defaultIn) {
+            mode = ModeFactory.getCallableMode("System_queries",
+                    "set_user_system_preference_bulk");
+            params = new HashMap<String, Object>();
+            params.put("user_id", user.getId());
+            params.put("pref", preference);
+            params.put("value", value ? 1 : 0);
+            mode.execute(params, new HashMap<String, Integer>());
+        }
+    }
+
+    private static List<Long> errataIdsReleventToSystemSet(User user) {
+        SelectMode mode = ModeFactory.getMode("System_queries",
+                "unscheduled_relevant_to_system_set");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        List<Map<String, Object>> results = mode.execute(params);
+        List<Long> ret = new ArrayList<Long>();
+        for (Map<String, Object> result : results) {
+            ret.add((Long) result.get("id"));
+        }
+        return ret;
+    }
+
+    /**
+     * Set auto_update for all systems in the system set
+     * @param user The user
+     * @param value True if the servers should audo update
+     */
+    public static void setAutoUpdateBulk(User user, Boolean value) {
+        if (value) {
+            // schedule all existing applicable errata
+            List<SystemOverview> systems = inSet(user, "system_list");
+            List<Long> sids = new ArrayList<Long>();
+            for (SystemOverview system : systems) {
+                sids.add(system.getId());
+            }
+            List<Long> eids = errataIdsReleventToSystemSet(user);
+            java.util.Date earliest = new java.util.Date();
+            ErrataManager.applyErrata(user, eids, earliest, sids);
+        }
+        CallableMode mode = ModeFactory.getCallableMode("System_queries",
+                "set_auto_update_bulk");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("value", value ? "Y" : "N");
+        mode.execute(params, new HashMap<String, Integer>());
+    }
+
+    /**
+     * Returns list of client systems that connect through a proxy
+     * @param sid System Id of the proxy to check.
+     * @return list of SystemOverviews.
+     */
+    public static DataResult<SystemOverview> listClientsThroughProxy(Long sid) {
+        SelectMode m = ModeFactory.getMode("System_queries", "clients_through_proxy");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("sid", sid);
+        Map<String, Object> elabParams = new HashMap<String, Object>();
+        return makeDataResult(params, elabParams, null, m, SystemOverview.class);
     }
 }

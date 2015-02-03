@@ -35,6 +35,7 @@ import com.redhat.rhn.manager.configuration.file.ConfigFileData;
 import com.redhat.rhn.manager.configuration.file.DirectoryData;
 import com.redhat.rhn.manager.configuration.file.SymlinkData;
 import com.redhat.rhn.manager.configuration.file.TextFileData;
+import java.io.BufferedInputStream;
 
 import org.apache.struts.upload.FormFile;
 
@@ -290,8 +291,8 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
             if (isUpload()) {
                 FormFile file = (FormFile) get(REV_UPLOAD);
                 try {
-                    data = new BinaryFileData(file.getInputStream(),
-                                                        file.getFileSize());
+                    data = new BinaryFileData(new BufferedInputStream(
+                            file.getInputStream()), file.getFileSize());
                 }
                 catch (IOException e) {
                     String msg = "Unable to read the uploaded binary file stream";

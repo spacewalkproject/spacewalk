@@ -27,7 +27,9 @@ from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnPackageUpload, rhnSQL, basePackageUpload
 
+
 class PackagePush(basePackageUpload.BasePackageUpload):
+
     def __init__(self, req):
         basePackageUpload.BasePackageUpload.__init__(self, req)
         self.required_fields.extend([
@@ -92,14 +94,13 @@ class PackagePush(basePackageUpload.BasePackageUpload):
 
         if use_session:
             self.org_id, self.force = rhnPackageUpload.authenticate_session(session_token,
-                force=force, null_org=self.null_org)
+                                                                            force=force, null_org=self.null_org)
         else:
             # We don't push to any channels
             self.org_id, self.force = rhnPackageUpload.authenticate(self.username,
-                self.password, force=force, null_org=self.null_org)
+                                                                    self.password, force=force, null_org=self.null_org)
 
         return apache.OK
-
 
     def handler(self, req):
         ret = basePackageUpload.BasePackageUpload.handler(self, req)
@@ -107,21 +108,21 @@ class PackagePush(basePackageUpload.BasePackageUpload):
             return ret
 
         a_pkg = rhnPackageUpload.save_uploaded_package(req,
-                        (self.package_name, None, self.package_version,
-                         self.package_release, self.package_arch),
-                        str(self.org_id),
-                        self.packaging,
-                        self.file_checksum_type, self.file_checksum)
+                                                       (self.package_name, None, self.package_version,
+                                                        self.package_release, self.package_arch),
+                                                       str(self.org_id),
+                                                       self.packaging,
+                                                       self.file_checksum_type, self.file_checksum)
 
         self.rel_package_path = rhnPackageUpload.relative_path_from_header(
             a_pkg.header, org_id=self.org_id,
             checksum_type=a_pkg.checksum_type, checksum=a_pkg.checksum)
         self.package_path = os.path.join(CFG.MOUNT_POINT,
-            self.rel_package_path)
+                                         self.rel_package_path)
 
         package_dict, diff_level = rhnPackageUpload.push_package(a_pkg,
-            force=self.force,
-            relative_path=self.rel_package_path, org_id=self.org_id)
+                                                                 force=self.force,
+                                                                 relative_path=self.rel_package_path, org_id=self.org_id)
 
         if diff_level:
             return self._send_package_diff(req, diff_level, package_dict)
@@ -139,8 +140,8 @@ class PackagePush(basePackageUpload.BasePackageUpload):
     @staticmethod
     def _send_package_diff(req, diff_level, diff):
         args = {
-            'level' : diff_level,
-            'diff'  : diff,
+            'level': diff_level,
+            'diff': diff,
         }
         reply = rpclib.xmlrpclib.dumps((args, ))
         ret_stat = apache.HTTP_BAD_REQUEST
@@ -155,4 +156,3 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         s = ''.join(map(lambda x: x.strip(), value.split(',')))
         arr = map(base64.decodestring, s.split(':'))
         return arr
-

@@ -38,15 +38,16 @@ config.read(os.path.dirname(os.path.abspath(__file__)) + "/db_settings.ini")
 
 PG_HOST = config.get('postgresql', 'host')
 PG_USER = config.get('postgresql', 'user')
-PG_PASSWORD= config.get('postgresql', 'password')
+PG_PASSWORD = config.get('postgresql', 'password')
 PG_DATABASE = config.get('postgresql', 'database')
 
 rhnSQL.initDB(backend="postgresql", host=PG_HOST, username=PG_USER,
-        password=PG_PASSWORD, database=PG_DATABASE)
+              password=PG_PASSWORD, database=PG_DATABASE)
 
 # Re-initialize to test re-use of connections:
 rhnSQL.initDB(backend="postgresql", host=PG_HOST, username=PG_USER,
-        password=PG_PASSWORD, database=PG_DATABASE)
+              password=PG_PASSWORD, database=PG_DATABASE)
+
 
 class PostgreSQLDatabaseTests(dbtests.RhnSQLDatabaseTests):
     QUERY_CREATE_TABLE = """
@@ -83,6 +84,7 @@ $$ LANGUAGE 'plpgsql';
             pass
 
         dbtests.RhnSQLDatabaseTests.tearDown(self)
+
 
 def suite():
     s = unittest.TestSuite()

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::DB::ContactGroup;
@@ -214,7 +214,7 @@ sub commit {
     # adjust the query to update last_update_date
     $query =~ s/\((.*)\) VALUES \((.*)\)/\($1, last_update_date\) VALUES \($2, CURRENT_TIMESTAMP\)/;
   }
-  
+
   my $sth = $dbh->prepare($query);
 
   # build a list of method names for the modified fields
@@ -319,7 +319,7 @@ INSERT INTO rhn_contact_group_members
   (contact_group_id, order_number, member_contact_method_id,
    member_contact_group_id, last_update_user, last_update_date)
 VALUES
-  (:group_id, 
+  (:group_id,
    (SELECT COALESCE(MAX(order_number)+1,0) FROM rhn_contact_group_members WHERE contact_group_id = :group_id),
    :method_id, NULL, :user_id, CURRENT_TIMESTAMP)
 EOQ
@@ -349,7 +349,7 @@ $sth = $dbh->prepare($query);
     $dbh->commit;
 }
 
-        
+
 1;
 
 
@@ -361,7 +361,7 @@ RHN::DB::ContactGroup - Notification Groups for alerts from monitoring
 =head1 SYNOPSIS
 
   use RHN::DB::ContactGroup;
-  
+
   <<INSERT SAMPLE CODE HERE>>
 
 =head1 DESCRIPTION
@@ -377,7 +377,7 @@ RHN::DataSource::Simple.
 
 =over 8
 
-=item recid 
+=item recid
 
  the primary key for the contact group
 

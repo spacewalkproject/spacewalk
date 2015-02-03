@@ -53,7 +53,7 @@ if (not $cert->get_field('generation') and not $allow_old) {
 
 if ($required_version and $required_version ne $cert->version) {
   printf "Error: certificate and satellite version mismatch ('%s' vs '%s')\n",
-	      $required_version, $cert->version;
+              $required_version, $cert->version;
   exit 2;
 }
 

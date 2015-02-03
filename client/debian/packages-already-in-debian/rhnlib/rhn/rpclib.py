@@ -648,9 +648,9 @@ class GETServer(Server):
         return SlicingMethod(self._request, name)
 
     def default_transport(self, type, proxy=None, username=None, password=None):
-	ret = Server.default_transport(self, type, proxy=proxy, username=username, password=password)
-	ret.set_method("GET")
-	return ret
+        ret = Server.default_transport(self, type, proxy=proxy, username=username, password=password)
+        ret.set_method("GET")
+        return ret
 
 class RangeError(Exception):
     pass

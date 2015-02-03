@@ -66,9 +66,9 @@
           </c:forEach>
 
          <tr>
-         		<th><bean:message key="kickstartoptions.jsp.customoptions"/></th>
-         		<td></td>
-			<td><textarea rows="8" cols="64" name="customOptions"><c:forEach items="${customOptions}" var="option"><c:out value="${option.arguments}" /></c:forEach></textarea>
+                        <th><bean:message key="kickstartoptions.jsp.customoptions"/></th>
+                        <td></td>
+                        <td><textarea rows="8" cols="64" name="customOptions"><c:forEach items="${customOptions}" var="option"><c:out value="${option.arguments}" /></c:forEach></textarea>
             <BR><bean:message key="kickstartoptions.jsp.customoptionsnote"/>
             <BR><bean:message key="kickstartoptions.jsp.customoptionstip"/></td>
          </tr>

@@ -19,28 +19,27 @@
 <rhn:submitted />
 
 <div class="full-width-wrapper" style="clear: both;">
-	<rl:list
-		dataset="pageList"
-		name="systemCurrencyList"
-		decorator="SelectableDecorator"
-		emptykey="nosystems.message"
-		alphabarcolumn="name"
-		filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemCurrencyFilter"
-		>
+        <rl:list
+                dataset="pageList"
+                name="systemCurrencyList"
+                emptykey="nosystems.message"
+                alphabarcolumn="name"
+                filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemCurrencyFilter"
+                >
 
-	    <rl:decorator name="SystemCurrencyIconDecorator"/>
-		<rl:decorator name="PageSizeDecorator"/>
+            <rl:decorator name="SystemCurrencyIconDecorator"/>
+                <rl:decorator name="PageSizeDecorator"/>
 
                 <!-- System Name Column -->
                 <rl:column sortable="true"
                            bound="false"
                            headerkey="systemlist.jsp.system"
                            sortattr="name" >
-		    <rhn:icon type="header-system-physical" title="systemlist.jsp.nonvirt" />
+                    <rhn:icon type="header-system-physical" title="systemlist.jsp.nonvirt" />
                     <c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
-		    <c:choose>
+                    <c:choose>
                         <c:when test="${empty current.name}">
-			<bean:message key="sdc.details.overview.unknown"/>
+                        <bean:message key="sdc.details.overview.unknown"/>
                         </c:when>
                         <c:otherwise>
                             <c:out value="${current.name}" escapeXml="true" />
@@ -48,11 +47,11 @@
                     </c:choose>
                 </rl:column>
 
-		<!-- Critical Errata Column -->
-		<rl:column sortable="true"
-				   bound="false"
-		           headerkey="systemcurrency.jsp.critical"
-		           sortattr="critical">
+                <!-- Critical Errata Column -->
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="systemcurrency.jsp.critical"
+                           sortattr="critical">
                            <c:choose>
                              <c:when test="${current.critical > 0}">
                                <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.securityadvisory.crit')}">${current.critical}</a>
@@ -69,12 +68,12 @@
                                <rhn:icon type="system-warn" />
                              </c:when>
                            </c:choose>
-		</rl:column>
-		<!-- Important Errata Column -->
-		<rl:column sortable="true"
-				   bound="false"
-		           headerkey="systemcurrency.jsp.important"
-		           sortattr="important">
+                </rl:column>
+                <!-- Important Errata Column -->
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="systemcurrency.jsp.important"
+                           sortattr="important">
                            <c:choose>
                              <c:when test="${current.important > 0}">
                                <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.securityadvisory.imp')}">${current.important}</a>
@@ -91,12 +90,12 @@
                                <rhn:icon type="system-warn" />
                              </c:when>
                            </c:choose>
-		</rl:column>
-		<!-- Moderate Errata Column -->
-		<rl:column sortable="true"
-				   bound="false"
-		           headerkey="systemcurrency.jsp.moderate"
-		           sortattr="moderate">
+                </rl:column>
+                <!-- Moderate Errata Column -->
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="systemcurrency.jsp.moderate"
+                           sortattr="moderate">
                            <c:choose>
                              <c:when test="${current.moderate > 0}">
                                <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.securityadvisory.mod')}">${current.moderate}</a>
@@ -113,12 +112,12 @@
                                <rhn:icon type="system-warn" />
                              </c:when>
                            </c:choose>
-		</rl:column>
-		<!-- Low Errata Column -->
-		<rl:column sortable="true"
-				   bound="false"
-		           headerkey="systemcurrency.jsp.low"
-		           sortattr="low">
+                </rl:column>
+                <!-- Low Errata Column -->
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="systemcurrency.jsp.low"
+                           sortattr="low">
                            <c:choose>
                              <c:when test="${current.low > 0}">
                                <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.securityadvisory.low')}">${current.low}</a>
@@ -135,12 +134,12 @@
                                <rhn:icon type="system-warn" />
                              </c:when>
                            </c:choose>
-		</rl:column>
-		<!-- Bugfix Errata Column -->
-		<rl:column sortable="true"
-				   bound="false"
-		           headerkey="systemcurrency.jsp.bug"
-		           sortattr="bug">
+                </rl:column>
+                <!-- Bugfix Errata Column -->
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="systemcurrency.jsp.bug"
+                           sortattr="bug">
                            <c:choose>
                              <c:when test="${current.bug > 0}">
                                <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.bugfixadvisory')}">${current.bug}</a>
@@ -149,12 +148,12 @@
                                ${current.bug}
                              </c:otherwise>
                            </c:choose>
-		</rl:column>
-		<!-- Enhancement Errata Column -->
-		<rl:column sortable="true"
-				   bound="false"
-		           headerkey="systemcurrency.jsp.enhancement"
-		           sortattr="enhancement">
+                </rl:column>
+                <!-- Enhancement Errata Column -->
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="systemcurrency.jsp.enhancement"
+                           sortattr="enhancement">
                            <c:choose>
                              <c:when test="${current.enhancement > 0}">
                                <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.productenhancementadvisory')}">${current.enhancement}</a>
@@ -163,16 +162,16 @@
                                ${current.enhancement}
                              </c:otherwise>
                            </c:choose>
-		</rl:column>
-		<!-- Score Column -->
-		<rl:column sortable="true"
-				   bound="false"
-		           headerkey="systemcurrency.jsp.score"
-		           sortattr="score"
-		           defaultsort="desc">
+                </rl:column>
+                <!-- Score Column -->
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="systemcurrency.jsp.score"
+                           sortattr="score"
+                           defaultsort="desc">
                            <c:out value="${current.score}" />
-		</rl:column>
-	</rl:list>
+                </rl:column>
+        </rl:list>
     <rl:csv dataset="pageList" name="systemCurrencyList"
         exportColumns="id, serverName, critical, important, moderate, low, bug, enhancement, score" />
 </rl:listset>

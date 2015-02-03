@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 37%{?dist}
+Release: 42%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -24,6 +24,7 @@ Patch10: cobbler-findks.patch
 Patch11: cobbler-arm-arch.patch
 Patch12: cobbler-modprobe-d.patch
 Patch13: fedora_os_entry.patch
+Patch14: centos7-version.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -40,6 +41,7 @@ Requires: tftp-server
 %endif
 
 Requires: mod_wsgi
+Requires: syslinux
 
 Requires: createrepo
 %if 0%{?fedora}
@@ -55,7 +57,7 @@ Requires: python-cheetah
 Requires: python-devel
 Requires: python-netaddr
 Requires: python-simplejson
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} < 21
 BuildRequires: python-setuptools-devel
 %else
 BuildRequires: python-setuptools
@@ -120,6 +122,7 @@ a XMLRPC API for integration with other applications.
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
+%patch14 -p0
 
 %build
 %{__python} setup.py build 
@@ -371,10 +374,9 @@ BuildRequires: python-devel
 %{!?pyver: %define pyver %(%{__python} -c "import sys ; print sys.version[:3]")}
 Requires: python(abi) >= %{pyver}
 %endif
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} < 21
 BuildRequires: python-setuptools-devel
-%endif
-%if 0%{?rhel} >= 4
+%else
 BuildRequires: python-setuptools
 %endif
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -444,7 +446,7 @@ Requires: mod_python
 %{!?pyver: %define pyver %(%{__python} -c "import sys ; print sys.version[:3]")}
 Requires: python(abi) >= %{pyver}
 %endif
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} < 21
 BuildRequires: python-setuptools-devel
 %else
 BuildRequires: python-setuptools
@@ -470,6 +472,24 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Fri Jan 23 2015 Stephen Herr <sherr@redhat.com> 2.0.11-42
+- Make cobbler detect os version for CentOS 7 Taken from upstream:
+  https://github.com/cobbler/cobbler/pull/1021
+
+* Mon Jan 19 2015 Tomas Lestach <tlestach@redhat.com> 2.0.11-41
+- adapt cobbler20 for fc21
+- 1136538 - support while loop syntax for Cheetah templates
+
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.0.11-40
+- Make cobbler20 require syslinux. Upstream versions require it, too. This
+  fixes BZ#988329
+
+* Fri Dec 05 2014 Tomas Lestach <tlestach@redhat.com> 2.0.11-39
+- 1169741 - accept more power status messages
+
+* Thu Dec 04 2014 Stephen Herr <sherr@redhat.com> 2.0.11-38
+- 1162311 - cobbler template files need to not have comments
+
 * Wed Oct 08 2014 Tomas Lestach <tlestach@redhat.com> 2.0.11-37
 - use fedora18 as fedora kickstart type
 

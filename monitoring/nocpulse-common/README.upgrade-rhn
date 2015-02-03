@@ -1,3 +1,0 @@
-This package is part of new NOCpulse which has changed paths to confirm with FSB.
-It is not backward compatible with old NOCpulse packages from RHN Satellite 5.2 or
-older. You can however safely upgrade to this new.

@@ -35,9 +35,6 @@ public class TaskConstants {
     public static final String TASK_QUERY_KSCLEANUP_MARK_SESSION_FAILED =
         "kickstartcleanup_mark_session_failed";
 
-    public static final String TASK_QUERY_SYNCHPROBESTATE_PROC =
-        "synchprobestate_synch_proc";
-
     public static final String TASK_QUERY_PKGCLEANUP_FIND_CANDIDATES =
         "pkgcleanup_find_deleted_pkgs";
 
@@ -46,15 +43,6 @@ public class TaskConstants {
 
     public static final String TASK_QUERY_SESSION_CLEANUP =
         "taskomatic_session_cleanup";
-
-    public static final String TASK_QUERY_TIME_SERIES_DATA_CLEANUP =
-        "taskomatic_time_series_data_cleanup";
-
-    public static final String TASK_QUERY_STATE_CHANGE_CLEANUP =
-        "taskomatic_state_change_cleanup";
-
-    public static final String TASK_QUERY_PROBE_STATE_CLEANUP =
-        "taskomatic_probe_state_cleanup";
 
     public static final String TASK_QUERY_PACKAGE_CHANGELOG_CLEANUP =
         "taskomatic_package_changelog_cleanup";

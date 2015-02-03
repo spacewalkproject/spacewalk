@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2011 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,42 +14,22 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
-import com.redhat.rhn.common.db.datasource.CallableMode;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-
-import java.util.Collections;
-import java.util.HashMap;
 
 /**
- * Calls the synch probe state proc on a regular basis from Taskomatic
- *
- * @version $Rev $
+ * SynchProbeState
+ * @version $Rev$
  */
-
 public class SynchProbeState extends RhnJavaJob {
 
     /**
      * {@inheritDoc}
      */
-    public void execute(JobExecutionContext context)  throws JobExecutionException {
-        try {
-            if (log.isDebugEnabled()) {
-                log.debug("Starting probe state sync");
-            }
-            CallableMode proc = ModeFactory.getCallableMode(TaskConstants.MODE_NAME,
-                    TaskConstants.TASK_QUERY_SYNCHPROBESTATE_PROC);
-            proc.execute(Collections.EMPTY_MAP, new HashMap());
-            if (log.isDebugEnabled()) {
-                log.debug("Probe state sync completed");
-            }
-        }
-        catch (Exception e) {
-            log.error("Error during probe state sync", e);
-            throw new JobExecutionException(e);
-        }
+    public void execute(JobExecutionContext arg0In) {
+        // Do nothing.
+        // Probes are a monitoring thing and no longer exist, but there's no easy
+        // way to delete the task from Quartz's database. Instead let's just keep
+        // this empty job around for people who upgraded, and not add the task to
+        // new installs.
     }
-
 }

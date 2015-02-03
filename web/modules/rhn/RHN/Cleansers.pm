@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::Cleansers;
@@ -106,11 +106,11 @@ register_cleanser(-var => 'flid', -name => 'file list', -accessmethod => 'verify
 
 sub register_cleanser {
   my %attr = validate_with(params => \@_,
-			   spec => { var => { type => SCALAR },
-				    name => { type => SCALAR },
-				    test => { type => CODEREF, optional => 1 },
-				    accessmethod => { type => SCALAR, optional => 1 } },
-			   strip_leading => '-');
+                           spec => { var => { type => SCALAR },
+                                    name => { type => SCALAR },
+                                    test => { type => CODEREF, optional => 1 },
+                                    accessmethod => { type => SCALAR, optional => 1 } },
+                           strip_leading => '-');
 
   my ($var, $name, $test, $access, $admin) = @attr{qw/var name test accessmethod/};
 
@@ -162,9 +162,9 @@ sub cleanse {
     }
     else {
       $pxt->fail_param($varname, sprintf("[SECURITY] User %s (%d) has no access to %s '%s'",
-					 $pxt->user->login, $pxt->user->id,
-					 $secure_params{$checkname}->{name} . (scalar @vals == 1 ? '' : 's'),
-					 join(", ", @vals)));
+                                         $pxt->user->login, $pxt->user->id,
+                                         $secure_params{$checkname}->{name} . (scalar @vals == 1 ? '' : 's'),
+                                         join(", ", @vals)));
     }
   }
 }

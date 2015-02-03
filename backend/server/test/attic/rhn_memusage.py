@@ -15,6 +15,7 @@
 
 import string
 
+
 def mem_usage():
     f = open("/proc/self/status")
     dict = {}
@@ -27,4 +28,3 @@ def mem_usage():
             continue
         dict[arr[0]] = arr[1]
     return dict['Name'], dict['VmSize'], dict['VmRSS'], dict['VmData']
-

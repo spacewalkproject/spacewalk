@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.3.3
+Version: 2.3.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,28 @@ fi
 
 
 %changelog
+* Fri Jan 23 2015 Stephen Herr <sherr@redhat.com> 2.3.9-1
+- Leave condrestart command in rhn-proxy script for backwards-compatibility
+- spacewalk-proxy: do not use subsys anymore does not exist on all systems
+- spacewalk-proxy: make rhn-proxy systemd aware
+
+* Fri Jan 23 2015 Matej Kollar <mkollar@redhat.com> 2.3.8-1
+- Fix Pylint on Fedora 21: manual fixes
+- Autopep8
+
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.7-1
+- Fix 403 errors for proxy wsgi requests
+
+* Thu Dec 11 2014 Stephen Herr <sherr@redhat.com> 2.3.6-1
+- 1172738 - checkstyle fix
+
+* Thu Dec 11 2014 Stephen Herr <sherr@redhat.com> 2.3.5-1
+- 1172738 - empty base channels incompatible with pre-cache, fall back to
+  Spacewalk
+
+* Fri Nov 21 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.4-1
+- 1166045 - read systemid path from configuration
+
 * Tue Nov 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.3-1
 - 1158155 - fixed renaming of deb packages
 

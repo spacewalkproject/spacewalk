@@ -28,6 +28,7 @@ from spacewalk.server.auditlog import auditlog_xmlrpc, AuditLogException
 
 
 class AuditLogTest(unittest.TestCase):
+
     @classmethod
     def setUpAll(self):
         auditlog._get_uid = Mock(return_value="42(geeko)")
@@ -72,13 +73,15 @@ class AuditLogTest(unittest.TestCase):
 
     def test_dont_log_methods_without_system_id(self):
         # we need a method that doesn't have a system_id parameter
-        def api_method(not_system_id): pass
+        def api_method(not_system_id):
+            pass
 
         auditlog_xmlrpc(api_method, "method_name", "args", "request")
         self.assertFalse(self.auditlog_server.log.called)
 
     def test_get_server_id(self):
-        def api_method(self, system_id, arg1, arg2): pass
+        def api_method(self, system_id, arg1, arg2):
+            pass
         args = ('system_id_xml', 'arg1', 'arg2')
 
         # mock rhnServer.get rhnServer.get(sysid_xml).getid()
@@ -99,8 +102,8 @@ class AuditLogTest(unittest.TestCase):
                               "DOCUMENT_ROOT": "document_root",
                               "SCRIPT_FILENAME": "script_filename",
                               "SCRIPT_URI": "script_uri"}
-        auditlog._get_server_id = Mock(return_value=
-                                       ("system_id", ("arg1", "arg2")))
+        auditlog._get_server_id = Mock(return_value=("system_id", ("arg1", "arg2")))
+
         def api_method(system_id):
             pass
 
@@ -127,9 +130,10 @@ class AuditLogTest(unittest.TestCase):
                               "HTTP_X_RHN_PROXY_AUTH": "proxy_auth",
                               "HTTP_X_RHN_PROXY_VERSION": "proxy_version",
                               "HTTP_X_RHN_IP_PATH": "original_addr"}
-        auditlog._get_server_id = Mock(return_value=
-                                       ("system_id", ("arg1", "arg2")))
-        def api_method(system_id): pass
+        auditlog._get_server_id = Mock(return_value=("system_id", ("arg1", "arg2")))
+
+        def api_method(system_id):
+            pass
 
         auditlog_xmlrpc(api_method, "api_method_name", ["args"], request)
 
@@ -149,9 +153,10 @@ class AuditLogTest(unittest.TestCase):
     def test_remote_auditlog_error(self):
         request = Mock()
         request.headers_in = defaultdict(dict)
-        auditlog._get_server_id = Mock(return_value=
-                                       ("system_id", ("arg1", "arg2")))
-        def api_method(system_id): pass
+        auditlog._get_server_id = Mock(return_value=("system_id", ("arg1", "arg2")))
+
+        def api_method(system_id):
+            pass
 
         self.auditlog_server.audit.log = Mock(side_effect=Error)
 
@@ -170,7 +175,9 @@ class AuditLogTest(unittest.TestCase):
         request = Mock()
         request.headers_in = {"SERVER_NAME": "server_name"}
         auditlog._get_server_id = Mock(return_value=("system_id", ("args",)))
-        def api_method(system_id): pass
+
+        def api_method(system_id):
+            pass
 
         auditlog_xmlrpc(api_method, "method_name", ["args"], request)
         self.assertEqual(self.auditlog_server.audit.log.call_args,
@@ -187,7 +194,9 @@ class AuditLogTest(unittest.TestCase):
         request.headers_in = {"SERVER_NAME": "server_name",
                               "HTTP_X_RHN_PROXY_AUTH": "proxy"}
         auditlog._get_server_id = Mock(return_value=("system_id", ("args",)))
-        def api_method(system_id): pass
+
+        def api_method(system_id):
+            pass
 
         auditlog_xmlrpc(api_method, "method_name", ["args"], request)
         self.assertEqual(self.auditlog_server.audit.log.call_args,

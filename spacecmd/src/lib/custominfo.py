@@ -28,9 +28,11 @@
 
 from spacecmd.utils import *
 
+
 def help_custominfo_createkey(self):
     print 'custominfo_createkey: Create a custom key'
     print 'usage: custominfo_createkey [NAME] [DESCRIPTION]'
+
 
 def do_custominfo_createkey(self, args):
     (args, _options) = parse_arguments(args)
@@ -56,12 +58,15 @@ def do_custominfo_createkey(self, args):
 
 ####################
 
+
 def help_custominfo_deletekey(self):
     print 'custominfo_deletekey: Delete a custom key'
     print 'usage: custominfo_deletekey KEY ...'
 
+
 def complete_custominfo_deletekey(self, text, line, beg, end):
     return tab_completer(self.do_custominfo_listkeys('', True), text)
+
 
 def do_custominfo_deletekey(self, args):
     (args, _options) = parse_arguments(args)
@@ -72,8 +77,8 @@ def do_custominfo_deletekey(self, args):
 
     # allow globbing of custominfo key names
     keys = filter_results(self.do_custominfo_listkeys('', True), args)
-    logging.debug("customkey_deletekey called with args %s, keys=%s" % \
-        (args, keys))
+    logging.debug("customkey_deletekey called with args %s, keys=%s" %
+                  (args, keys))
 
     if not len(keys):
         logging.error("No keys matched argument %s" % args)
@@ -90,11 +95,13 @@ def do_custominfo_deletekey(self, args):
 
 ####################
 
+
 def help_custominfo_listkeys(self):
     print 'custominfo_listkeys: List all custom keys'
     print 'usage: custominfo_listkeys'
 
-def do_custominfo_listkeys(self, args, doreturn = False):
+
+def do_custominfo_listkeys(self, args, doreturn=False):
     keys = self.client.system.custominfo.listAllKeys(self.session)
     keys = [k.get('label') for k in keys]
 
@@ -106,12 +113,15 @@ def do_custominfo_listkeys(self, args, doreturn = False):
 
 ####################
 
+
 def help_custominfo_details(self):
     print 'custominfo_details: Show the details of a custom key'
     print 'usage: custominfo_details KEY ...'
 
+
 def complete_custominfo_details(self, text, line, beg, end):
     return tab_completer(self.do_custominfo_listkeys('', True), text)
+
 
 def do_custominfo_details(self, args):
     (args, _options) = parse_arguments(args)
@@ -122,8 +132,8 @@ def do_custominfo_details(self, args):
 
     # allow globbing of custominfo key names
     keys = filter_results(self.do_custominfo_listkeys('', True), args)
-    logging.debug("customkey_details called with args %s, keys=%s" % \
-        (args, keys))
+    logging.debug("customkey_details called with args %s, keys=%s" %
+                  (args, keys))
 
     if not len(keys):
         logging.error("No keys matched argument %s" % args)
@@ -149,9 +159,11 @@ def do_custominfo_details(self, args):
 
 ####################
 
+
 def help_custominfo_updatekey(self):
     print 'custominfo_updatekey: Update a custom key'
     print 'usage: custominfo_updatekey [NAME] [DESCRIPTION]'
+
 
 def do_custominfo_updatekey(self, args):
     (args, _options) = parse_arguments(args)
@@ -174,5 +186,3 @@ def do_custominfo_updatekey(self, args):
     self.client.system.custominfo.updateKey(self.session,
                                             key,
                                             description)
-
-# vim:ts=4:expandtab:

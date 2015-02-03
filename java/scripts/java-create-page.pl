@@ -3,7 +3,7 @@
 # (c) 2004, Red Hat, Inc
 # All rights reserved
 #
-# Simple util to spit out 
+# Simple util to spit out
 
 use strict;
 
@@ -72,7 +72,7 @@ append_struts();
 
 sub generate_action {
 
-  my $import = "import com.redhat.rhn.frontend.struts.RhnAction;\n"; 
+  my $import = "import com.redhat.rhn.frontend.struts.RhnAction;\n";
   $import = $import . "import com.redhat.rhn.frontend.struts.StrutsDelegate;\n\n";
   $import = $import . "import org.apache.struts.action.ActionForm;\n";
   $import = $import . "import org.apache.struts.action.ActionForward;\n";
@@ -80,25 +80,25 @@ sub generate_action {
   $import = $import . "import java.util.Map;\n";
   $import = $import . "import javax.servlet.http.HttpServletRequest;\n";
   $import = $import . "import javax.servlet.http.HttpServletResponse;\n";
-  
+
   $javaheader =~ s/###IMPORT###/$import/;
-   
+
   my $action_file = $javaheader;
   $action_file = $action_file . $javabody;
   $action_file = $action_file . $javafooter;
-  
+
   $package =~ s/\./\//g;
-  
+
   my $srcpath = "../code/src/com/redhat/rhn/frontend/action/" . $package . "/";
-  
+
   my $javaFileName = $srcpath . $classname . ".java";
   insure($srcpath);
   string2file($javaFileName, $action_file);
-  
+
   my $testFileName = $srcpath . "test/" . $classname . "Test.java";
   insure($srcpath . "test/");
   string2file($testFileName, $testbody);
-  
+
 
 }
 
@@ -127,9 +127,9 @@ sub file2string {
 sub string2file {
   my $filename = shift;
   my $contents = shift;
-  
+
   open FH, ">$filename" or die "open $filename: $!";
-  
+
   print FH $contents;
   close FH;
   print "Wrote: $filename\n";

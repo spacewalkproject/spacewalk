@@ -30,7 +30,9 @@
 # invalid function name
 # pylint: disable=C0103
 
-import logging, readline, shlex
+import logging
+import readline
+import shlex
 from getpass import getpass
 from ConfigParser import NoOptionError
 from spacecmd.utils import *
@@ -89,27 +91,33 @@ SYSTEM_SEARCH_FIELDS = ['id', 'name', 'ip', 'hostname',
 
 ####################
 
+
 def help_systems(self):
     print HELP_SYSTEM_OPTS
+
 
 def help_time(self):
     print HELP_TIME_OPTS
 
 ####################
 
+
 def help_clear(self):
     print 'clear: clear the screen'
     print 'usage: clear'
+
 
 def do_clear(self, args):
     os.system('clear')
 
 ####################
 
+
 def help_clear_caches(self):
     print 'clear_caches: Clear the internal caches kept for systems' + \
           ' and packages'
     print 'usage: clear_caches'
+
 
 def do_clear_caches(self, args):
     self.clear_system_cache()
@@ -118,28 +126,34 @@ def do_clear_caches(self, args):
 
 ####################
 
+
 def help_get_apiversion(self):
     print 'get_apiversion: Display the API version of the server'
     print 'usage: get_apiversion'
+
 
 def do_get_apiversion(self, args):
     print self.client.api.getVersion()
 
 ####################
 
+
 def help_get_serverversion(self):
     print 'get_serverversion: Display the version of the server'
     print 'usage: get_serverversion'
+
 
 def do_get_serverversion(self, args):
     print self.client.api.systemVersion()
 
 ####################
 
+
 def help_get_certificateexpiration(self):
     print 'get_certificateexpiration: Print the expiration date of the'
     print "                           server's entitlement certificate"
     print 'usage: get_certificateexpiration'
+
 
 def do_get_certificateexpiration(self, args):
     date = self.client.satellite.getCertificateExpirationDate(self.session)
@@ -147,10 +161,12 @@ def do_get_certificateexpiration(self, args):
 
 ####################
 
+
 def help_is_monitoringenabled(self):
     print 'is_monitoringenabled: Indicates if monitoring is enabled '
     print "                      on the satellite                   "
     print 'usage: is_monitoringenabled'
+
 
 def do_is_monitoringenabled(self, args):
     monitoring = self.client.satellite.isMonitoringEnabled(self.session)
@@ -158,9 +174,11 @@ def do_is_monitoringenabled(self, args):
 
 ####################
 
+
 def help_list_proxies(self):
     print 'list_proxies: List the proxies wihtin the user\'s organization '
     print 'usage: list_proxies'
+
 
 def do_list_proxies(self, args):
     proxies = self.client.satellite.listProxies(self.session)
@@ -168,9 +186,11 @@ def do_list_proxies(self, args):
 
 ####################
 
+
 def help_get_session(self):
     print 'get_session: Show the current session string'
     print 'usage: get_session'
+
 
 def do_get_session(self, args):
     if self.session:
@@ -180,15 +200,18 @@ def do_get_session(self, args):
 
 ####################
 
+
 def help_help(self):
     print 'help: Show help for the given command'
     print 'usage: help COMMAND'
 
 ####################
 
+
 def help_history(self):
     print 'history: List your command history'
     print 'usage: history'
+
 
 def do_history(self, args):
     for i in range(1, readline.get_current_history_length()):
@@ -196,9 +219,11 @@ def do_history(self, args):
 
 ####################
 
+
 def help_toggle_confirmations(self):
     print 'toggle_confirmations: Toggle confirmation messages on/off'
     print 'usage: toggle_confirmations'
+
 
 def do_toggle_confirmations(self, args):
     if self.options.yes:
@@ -210,9 +235,11 @@ def do_toggle_confirmations(self, args):
 
 ####################
 
+
 def help_login(self):
     print 'login: Connect to a Spacewalk server'
     print 'usage: login [USERNAME] [SERVER]'
+
 
 def do_login(self, args):
     (args, _options) = parse_arguments(args)
@@ -264,7 +291,7 @@ def do_login(self, args):
 
     # connect to the server
     logging.debug('Connecting to %s', server_url)
-    self.client = xmlrpclib.Server(server_url, verbose = verbose_xmlrpc)
+    self.client = xmlrpclib.Server(server_url, verbose=verbose_xmlrpc)
 
     # check the API to verify connectivity
     try:
@@ -328,7 +355,7 @@ def do_login(self, args):
         if len(username):
             logging.info('Spacewalk Username: %s', username)
         else:
-            username = prompt_user('Spacewalk Username:', noblank = True)
+            username = prompt_user('Spacewalk Username:', noblank=True)
 
         if self.options.password:
             password = self.options.password
@@ -381,9 +408,11 @@ def do_login(self, args):
 
 ####################
 
+
 def help_logout(self):
     print 'logout: Disconnect from the server'
     print 'usage: logout'
+
 
 def do_logout(self, args):
     if self.session:
@@ -396,9 +425,11 @@ def do_logout(self, args):
 
 ####################
 
+
 def help_whoami(self):
     print 'whoami: Print the name of the currently logged in user'
     print 'usage: whoami'
+
 
 def do_whoami(self, args):
     if len(self.current_user):
@@ -408,9 +439,11 @@ def do_whoami(self, args):
 
 ####################
 
+
 def help_whoamitalkingto(self):
     print 'whoamitalkingto: Print the name of the server'
     print 'usage: whoamitalkingto'
+
 
 def do_whoamitalkingto(self, args):
     if len(self.server):
@@ -419,6 +452,7 @@ def do_whoamitalkingto(self, args):
         logging.warning('Yourself')
 
 ####################
+
 
 def tab_complete_errata(self, text):
     options = self.do_errata_list('', True)
@@ -435,8 +469,8 @@ def tab_complete_systems(self, text):
         return tab_completer(groups, text)
     elif re.match('channel:', text):
         # prepend 'channel' to each item for tab completion
-        channels = ['channel:%s' % s \
-            for s in self.do_softwarechannel_list('', True)]
+        channels = ['channel:%s' % s
+                    for s in self.do_softwarechannel_list('', True)]
 
         return tab_completer(channels, text)
     elif re.match('search:', text):
@@ -447,7 +481,7 @@ def tab_complete_systems(self, text):
         options = self.get_system_names()
 
         # add our special search options
-        options.extend([ 'group:', 'channel:', 'search:' ])
+        options.extend(['group:', 'channel:', 'search:'])
 
         return tab_completer(options, text)
 
@@ -466,7 +500,7 @@ def clear_errata_cache(self):
 
 
 def get_errata_names(self):
-    return sorted( [ e.get('advisory_name') for e in self.all_errata ] )
+    return sorted([e.get('advisory_name') for e in self.all_errata])
 
 
 def get_erratum_id(self, name):
@@ -502,11 +536,11 @@ def generate_errata_cache(self, force=False):
         for erratum in errata:
             if erratum.get('advisory_name') not in self.all_errata:
                 self.all_errata[erratum.get('advisory_name')] = \
-                    { 'id'                : erratum.get('id'),
-                      'advisory_name'     : erratum.get('advisory_name'),
-                      'advisory_type'     : erratum.get('advisory_type'),
-                      'date'              : erratum.get('date'),
-                      'advisory_synopsis' : erratum.get('advisory_synopsis') }
+                    {'id': erratum.get('id'),
+                     'advisory_name': erratum.get('advisory_name'),
+                     'advisory_type': erratum.get('advisory_type'),
+                     'date': erratum.get('date'),
+                     'advisory_synopsis': erratum.get('advisory_synopsis')}
 
     self.errata_cache_expire = \
         datetime.now() + timedelta(self.ERRATA_CACHE_TTL)
@@ -627,7 +661,7 @@ def clear_system_cache(self):
     self.save_system_cache()
 
 
-def generate_system_cache(self, force = False, delay = 0):
+def generate_system_cache(self, force=False, delay=0):
     if not force and datetime.now() < self.system_cache_expire:
         return
 
@@ -802,7 +836,7 @@ def expand_systems(self, args):
             members = self.do_group_listsystems("'%s'" % item, True)
 
             if len(members):
-                systems.extend( [re.escape(m) for m in members] )
+                systems.extend([re.escape(m) for m in members])
             else:
                 logging.warning('No systems in group %s', item)
         elif re.match('search:', item):
@@ -810,13 +844,13 @@ def expand_systems(self, args):
             results = self.do_system_search(query, True)
 
             if len(results):
-                systems.extend( [re.escape(r) for r in results] )
+                systems.extend([re.escape(r) for r in results])
         elif re.match('channel:', item):
             item = re.sub('channel:', '', item)
             members = self.do_softwarechannel_listsystems(item, True)
 
             if len(members):
-                systems.extend( [re.escape(m) for m in members] )
+                systems.extend([re.escape(m) for m in members])
             else:
                 logging.warning('No systems subscribed to %s', item)
         else:
@@ -857,8 +891,8 @@ def list_child_channels(self, system=None, parent=None, subscribed=False):
                 self.client.system.listSubscribedChildChannels(self.session,
                                                                system_id)
         else:
-            channels = self.client.system.listSubscribableChildChannels(\
-                                          self.session, system_id)
+            channels = self.client.system.listSubscribableChildChannels(
+                self.session, system_id)
     elif parent:
         all_channels = \
             self.client.channel.listSoftwareChannels(self.session)
@@ -875,11 +909,11 @@ def list_child_channels(self, system=None, parent=None, subscribed=False):
             if c.get('parent_label'):
                 channels.append(c)
 
-    return [ c.get('label') for c in channels ]
+    return [c.get('label') for c in channels]
 
 
-def user_confirm(self, prompt = 'Is this ok [y/N]:', nospacer = False,
-                 integer = False, ignore_yes = False):
+def user_confirm(self, prompt='Is this ok [y/N]:', nospacer=False,
+                 integer=False, ignore_yes=False):
 
     if self.options.yes and not ignore_yes:
         return True
@@ -903,8 +937,8 @@ def user_confirm(self, prompt = 'Is this ok [y/N]:', nospacer = False,
 
 # check if the available API is recent enough
 def check_api_version(self, want):
-    want_parts = [ int(i) for i in want.split('.') ]
-    have_parts = [ int(i) for i in self.api_version.split('.') ]
+    want_parts = [int(i) for i in want.split('.')]
+    have_parts = [int(i) for i in self.api_version.split('.')]
 
     if len(have_parts) == 2 and len(want_parts) == 2:
         if have_parts[0] == want_parts[0]:
@@ -919,7 +953,7 @@ def check_api_version(self, want):
 
 
 # replace the current line buffer
-def replace_line_buffer(self, msg = None):
+def replace_line_buffer(self, msg=None):
     # restore the old buffer if we weren't given a new line
     if not msg:
         msg = readline.get_line_buffer()
@@ -943,7 +977,7 @@ def replace_line_buffer(self, msg = None):
 
 
 def load_config_section(self, section):
-    config_opts = [ 'server', 'username', 'password', 'nossl' ]
+    config_opts = ['server', 'username', 'password', 'nossl']
 
     if not self.config_parser.has_section(section):
         logging.debug('Configuration section [%s] does not exist', section)
@@ -975,5 +1009,3 @@ def load_config_section(self, section):
         config_debug['password'] = "*" * len(config_debug['password'])
 
     logging.debug('Current Configuration: %s', config_debug)
-
-# vim:ts=4:expandtab:

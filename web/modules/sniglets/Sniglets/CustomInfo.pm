@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -56,16 +56,16 @@ sub ssm_set_values {
 
   my $total_count = RHN::Server -> system_list_count($pxt->user->id);
   my $success_count = RHN::Server->bulk_set_custom_value(-set_label => 'system_list',
-				     -key_label => $key->label(),
-				     -value => $value,
-				     -user_id => $pxt->user->id);
+                                     -key_label => $key->label(),
+                                     -value => $value,
+                                     -user_id => $pxt->user->id);
 
   if ($success_count > 0) {
-	$pxt->push_message(site_info => "Value set for <strong>" . $key->label() . "</strong> for ". $success_count ." systems.");  	
-  }  
-  
+        $pxt->push_message(site_info => "Value set for <strong>" . $key->label() . "</strong> for ". $success_count ." systems.");
+  }
+
   if ($total_count != $success_count) {
-  		$pxt->push_message(site_info => "Value <strong>" . $key->label() . "</strong> could not be set for ". ($total_count - $success_count) . " systems because they do not have provisioning entitlements.");
+                $pxt->push_message(site_info => "Value <strong>" . $key->label() . "</strong> could not be set for ". ($total_count - $success_count) . " systems because they do not have provisioning entitlements.");
   }
 
   $pxt->redirect("/rhn/systems/ssm/misc/Index.do");
@@ -81,8 +81,8 @@ sub ssm_remove_values {
   die "no key" unless $key;
 
   RHN::Server->bulk_remove_custom_value(-set_label => 'system_list',
-					-key_id => $key_id,
-					-user_id => $pxt->user->id);
+                                        -key_id => $key_id,
+                                        -user_id => $pxt->user->id);
 
   $pxt->push_message(site_info => "Value removed for <strong>" . $key->label() . "</strong> from selected systems.");
 

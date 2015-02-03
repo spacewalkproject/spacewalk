@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::DB::Package::SolarisPatch;
@@ -34,12 +34,12 @@ my $spt = new RHN::DB::TableClass("rhnSolarisPatch", "SP", "solaris", @solaris_p
 my $sptt = new RHN::DB::TableClass("rhnSolarisPatchType", "SPT", "solaris_pt", @solaris_patch_type_fields);
 
 my $tc = $spt->create_join([ $sptt ],
-			   { "rhnSolarisPatch" => {
-						   "rhnSolarisPatch" => [ "PACKAGE_ID", "PACKAGE_ID" ],
-						   "rhnSolarisPatchType" => [ "PATCH_TYPE", "ID" ],
-						  }
-			   }
-			  );
+                           { "rhnSolarisPatch" => {
+                                                   "rhnSolarisPatch" => [ "PACKAGE_ID", "PACKAGE_ID" ],
+                                                   "rhnSolarisPatchType" => [ "PATCH_TYPE", "ID" ],
+                                                  }
+                           }
+                          );
 
 sub _init {
   my $self = shift;
@@ -62,7 +62,7 @@ sub _init {
   if ($package_id) {
     unless ($package_id == $self->id) {
       die "rhnSolarisPatch.package_id != rhnPackage.id when looking up package '"
-	. $self->id . "' (" . join (',', ($package_id, @columns)) . ")";
+        . $self->id . "' (" . join (',', ($package_id, @columns)) . ")";
     }
 
     $self->$_(shift @columns) foreach $tc->method_names;

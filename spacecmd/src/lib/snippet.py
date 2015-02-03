@@ -32,11 +32,13 @@
 from optparse import Option
 from spacecmd.utils import *
 
+
 def help_snippet_list(self):
     print 'snippet_list: List the available Kickstart snippets'
     print 'usage: snippet_list'
 
-def do_snippet_list(self, args, doreturn = False):
+
+def do_snippet_list(self, args, doreturn=False):
     snippets = self.client.kickstart.snippet.listCustom(self.session)
     snippets = [s.get('name') for s in snippets]
 
@@ -48,13 +50,16 @@ def do_snippet_list(self, args, doreturn = False):
 
 ####################
 
+
 def help_snippet_details(self):
     print 'snippet_details: Show the contents of a snippet'
     print 'usage: snippet_details SNIPPET ...'
 
+
 def complete_snippet_details(self, text, line, beg, end):
     return tab_completer(self.do_snippet_list('', True),
-                              text)
+                         text)
+
 
 def do_snippet_details(self, args):
     (args, _options) = parse_arguments(args)
@@ -91,6 +96,7 @@ def do_snippet_details(self, args):
 
 ####################
 
+
 def help_snippet_create(self):
     print 'snippet_create: Create a Kickstart snippet'
     print '''usage: snippet_create [options]
@@ -99,9 +105,10 @@ options:
   -n NAME
   -f FILE'''
 
-def do_snippet_create(self, args, update_name = ''):
-    options = [ Option('-n', '--name', action='store'),
-                Option('-f', '--file', action='store') ]
+
+def do_snippet_create(self, args, update_name=''):
+    options = [Option('-n', '--name', action='store'),
+               Option('-f', '--file', action='store')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -119,14 +126,14 @@ def do_snippet_create(self, args, update_name = ''):
                     break
 
         if not options.name:
-            options.name = prompt_user('Name:', noblank = True)
+            options.name = prompt_user('Name:', noblank=True)
 
         if self.user_confirm('Read an existing file [y/N]:',
-                             nospacer = True, ignore_yes = True):
+                             nospacer=True, ignore_yes=True):
             options.file = prompt_user('File:')
         else:
-            (contents, _ignore) = editor(template = contents,
-                                                delete=True)
+            (contents, _ignore) = editor(template=contents,
+                                         delete=True)
     else:
         if not options.name:
             logging.error('A name is required for the snippet')
@@ -152,12 +159,15 @@ def do_snippet_create(self, args, update_name = ''):
 
 ####################
 
+
 def help_snippet_update(self):
     print 'snippet_update: Update a Kickstart snippet'
     print 'usage: snippet_update NAME'
 
+
 def complete_snippet_update(self, text, line, beg, end):
     return tab_completer(self.do_snippet_list('', True), text)
+
 
 def do_snippet_update(self, args):
     (args, _options) = parse_arguments(args)
@@ -166,16 +176,19 @@ def do_snippet_update(self, args):
         self.help_snippet_update()
         return
 
-    return self.do_snippet_create('', update_name = args[0])
+    return self.do_snippet_create('', update_name=args[0])
 
 ####################
+
 
 def help_snippet_delete(self):
     print 'snippet_removefile: Delete a Kickstart snippet'
     print 'usage: snippet_removefile NAME'
 
+
 def complete_snippet_delete(self, text, line, beg, end):
     return tab_completer(self.do_snippet_list('', True), text)
+
 
 def do_snippet_delete(self, args):
     (args, _options) = parse_arguments(args)
@@ -188,5 +201,3 @@ def do_snippet_delete(self, args):
 
     if self.user_confirm('Remove this snippet [y/N]:'):
         self.client.kickstart.snippet.delete(self.session, snippet)
-
-# vim:ts=4:expandtab:

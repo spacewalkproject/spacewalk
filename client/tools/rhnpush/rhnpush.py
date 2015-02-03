@@ -49,63 +49,64 @@ HEADERS_PER_CALL = 10
 DEBUG = 0
 RPMTAG_NOSOURCE = 1051
 
+
 def main():
     # Initialize a command-line processing object with a table of options
     # pylint: disable=C0301
     optionsTable = [
         Option('-v', '--verbose', action='count', help='Increase verbosity',
-            default=0),
+               default=0),
         Option('-d', '--dir', action='store',
-            help='Process packages from this directory'),
+               help='Process packages from this directory'),
         Option('-c', '--channel', action='append',
-            help='Manage this channel (specified by label)'),
+               help='Manage this channel (specified by label)'),
         Option('-n', '--count', action='store',
-            help='Process this number of headers per call', type='int'),
+               help='Process this number of headers per call', type='int'),
         Option('-l', '--list', action='store_true',
-            help='Only list the specified channels'),
+               help='Only list the specified channels'),
         Option('-r', '--reldir', action='store',
-            help='Relative dir to associate with the file'),
+               help='Relative dir to associate with the file'),
         Option('-o', '--orgid', action='store',
-            help='Org ID', type='int'),
+               help='Org ID', type='int'),
         Option('-u', '--username', action='store',
-            help='Use this username to connect to RHN/Satellite'),
+               help='Use this username to connect to RHN/Satellite'),
         Option('-p', '--password', action='store',
-            help='Use this password to connect to RHN/Satellite'),
+               help='Use this password to connect to RHN/Satellite'),
         Option('-s', '--stdin', action='store_true',
-            help='Read the package names from stdin'),
+               help='Read the package names from stdin'),
         Option('-X', '--exclude', action='append',
-            help='Exclude packages that match this glob expression'),
+               help='Exclude packages that match this glob expression'),
         Option('--force', action='store_true',
-            help='Force the package upload (overwrites if already uploaded)'),
+               help='Force the package upload (overwrites if already uploaded)'),
         Option('--nosig', action='store_true', help='Push unsigned packages'),
         Option('--newest', action='store_true',
-            help='Only push the packages that are newer than the server ones'),
+               help='Only push the packages that are newer than the server ones'),
         Option('--nullorg', action='store_true', help='Use the null org id'),
         Option('--header', action='store_true',
-            help='Upload only the header(s)'),
+               help='Upload only the header(s)'),
         Option('--source', action='store_true',
-            help='Upload source package information'),
+               help='Upload source package information'),
         Option('--server', action='store',
-            help='Push to this server (http[s]://<hostname>/APP)'),
+               help='Push to this server (http[s]://<hostname>/APP)'),
         Option('--proxy', action='store',
-            help='Use proxy server (<server>:<port>)'),
+               help='Use proxy server (<server>:<port>)'),
         Option('--test', action='store_true',
-            help='Only print the packages to be pushed'),
+               help='Only print the packages to be pushed'),
         Option('-?', '--usage', action='store_true',
-            help='Briefly describe the options'),
+               help='Briefly describe the options'),
         Option('-N', '--new-cache', action='store_true',
-            help='Create a new username/password cache'),
+               help='Create a new username/password cache'),
         Option('--extended-test', action='store_true',
-            help='Perform a more verbose test'),
+               help='Perform a more verbose test'),
         Option('--no-session-caching', action='store_true',
-            help='Disables session-token authentication.'),
+               help='Disables session-token authentication.'),
         Option('--tolerant', action='store_true',
-            help='If rhnpush errors while uploading a package, continue uploading the rest of the packages.'),
+               help='If rhnpush errors while uploading a package, continue uploading the rest of the packages.'),
         Option('--ca-chain', action='store', help='alternative SSL CA Cert')
     ]
     # pylint: enable=C0301
 
-    #Having to maintain a store_true list is ugly. I'm trying to get rid of this.
+    # Having to maintain a store_true list is ugly. I'm trying to get rid of this.
     true_list = ['usage', 'test', 'source', 'header', 'nullorg', 'newest',
                  'nosig', 'force', 'list', 'stdin', 'new_cache',
                  'extended_test', 'no_session_caching', 'tolerant']
@@ -171,8 +172,10 @@ def main():
     if ret != 0:
         return 1
 
+
 class UploadClass(uploadLib.UploadClass):
     # pylint: disable=E1101,W0201
+
     def __init__(self, options, files=None):
         uploadLib.UploadClass.__init__(self, options, files)
         self.url_v2 = None
@@ -182,12 +185,12 @@ class UploadClass(uploadLib.UploadClass):
         if server is None:
             self.die(1, "Required parameter --server not supplied")
         scheme, netloc, path, params, query, fragment = tupleify_urlparse(
-                urlparse.urlparse(server))
+            urlparse.urlparse(server))
         if not netloc:
             # No schema - trying to patch it up ourselves?
             server = "http://" + server
             scheme, netloc, path, params, query, fragment = tupleify_urlparse(
-                    urlparse.urlparse(server))
+                urlparse.urlparse(server))
 
         if not netloc:
             self.die(2, "Invalid URL %s" % server)
@@ -196,10 +199,9 @@ class UploadClass(uploadLib.UploadClass):
         if scheme.lower() not in ('http', 'https'):
             self.die(3, "Unknown URL scheme %s" % scheme)
         self.url = urlparse.urlunparse((scheme, netloc, path, params, query,
-            fragment))
+                                        fragment))
         self.url_v2 = urlparse.urlunparse((scheme, netloc, "/PACKAGE-PUSH",
-            params, query, fragment))
-
+                                           params, query, fragment))
 
     def setOrg(self):
         if self.options.nullorg:
@@ -280,7 +282,7 @@ class UploadClass(uploadLib.UploadClass):
 
     def _test_connect(self):
         auth_ret = uploadLib.call(self.server.packages.test_login,
-                self.username, self.password)
+                                  self.username, self.password)
         if auth_ret == 1:
             test_auth = "Passed"
         else:
@@ -296,8 +298,8 @@ class UploadClass(uploadLib.UploadClass):
             test_access = "Failed"
         print "Testing access to upload functionality on server:    %s" % test_access
 
-    #12/22/05 wregglej 173287  Added a this funtion to test the new session authentication stuff.
-    #It still needs work.
+    # 12/22/05 wregglej 173287  Added a this funtion to test the new session authentication stuff.
+    # It still needs work.
     def _test_authenticate(self):
         self.authenticate()
 
@@ -323,17 +325,16 @@ class UploadClass(uploadLib.UploadClass):
         self.setChannels()
         # set the server
         self.setServer()
-        #12/22/05 wregglej 173287 authenticate the session.
+        # 12/22/05 wregglej 173287 authenticate the session.
         self.authenticate()
 
         # Do we have the new-style handler available?
 
-        #ping the server for status
+        # ping the server for status
         self.warn(2, "url is", self.url_v2)
         ping = rhnpush_v2.PingPackageUpload(self.url_v2, self.options.proxy)
         ping_status, errmsg, headerinfo = ping.ping()
         self.warn(2, "Result codes:", ping_status, errmsg)
-
 
         # move patch clusters to the end because all the patches in the cluster
         # have to be pushed before the cluster itself
@@ -360,9 +361,9 @@ class UploadClass(uploadLib.UploadClass):
         (server_digest_hash, pkgs_info, digest_hash) = self.check_package_exists()
 
         for pkg in self.files:
-            ret = None #pkilambi:errors off as not initialized.this fixes it.
+            ret = None  # pkilambi:errors off as not initialized.this fixes it.
 
-            #temporary fix for picking pkgs instead of full paths
+            # temporary fix for picking pkgs instead of full paths
             pkg_key = (pkg.strip()).split('/')[-1]
 
             if not server_digest_hash.has_key(pkg_key):
@@ -412,59 +413,59 @@ class UploadClass(uploadLib.UploadClass):
                 #        times, but not at the expense of disabling the tolerant
                 #        flag, IMHO.  This loop needs some lovin'.  -- pav
 
-                #FIX: it checks for tolerant flag and aborts only if the flag is
+                # FIX: it checks for tolerant flag and aborts only if the flag is
                 #not specified
                 except uploadLib.UploadError, ue:
                     if not self.options.tolerant:
                         self.die(1, ue)
                     self.warn(2, ue)
                 except AuthenticationRequired:
-                    #session expired so we re-authenticate for the process to complete
-                    #this uses the username and password from memory if available
-                    #else it prompts for one.
+                    # session expired so we re-authenticate for the process to complete
+                    # this uses the username and password from memory if available
+                    # else it prompts for one.
                     self.authenticate()
                 except:
                     self.warn(2, sys.exc_info()[1])
                     wait = random.randint(1, 5)
                     self.warn(0, "Waiting %d seconds and trying again..." % wait)
                     time.sleep(wait)
-                #The else clause gets executed in the stuff in the try-except block *succeeds*.
+                # The else clause gets executed in the stuff in the try-except block *succeeds*.
                 else:
                     break
 
-            #if the preceeding for-loop exits without a call to break, then this else clause gets called.
-            #What's kind of weird is that if the preceeding for-loop doesn't call break then an error occurred
-            #and all of retry attempts failed. If the for-loop *does* call break then everything is hunky-dory.
-            #In short, this else clause only get's called if something is F.U.B.A.R and the retry attempts don't
-            #fix anything.
+            # if the preceeding for-loop exits without a call to break, then this else clause gets called.
+            # What's kind of weird is that if the preceeding for-loop doesn't call break then an error occurred
+            # and all of retry attempts failed. If the for-loop *does* call break then everything is hunky-dory.
+            # In short, this else clause only get's called if something is F.U.B.A.R and the retry attempts don't
+            # fix anything.
             else:
                 if not self.options.tolerant:
-                    #pkilambi:bug#176358:this exits with a error code of 1
+                    # pkilambi:bug#176358:this exits with a error code of 1
                     self.die(1, "Giving up after %d attempts" % tries)
                 else:
                     print "Giving up after %d attempts and continuing on..." % (tries,)
 
-            #5/13/05 wregglej - 154248 ?? we still want to add the packages if they're source.
-            if ret and self.channels: # and ret['arch'] != 'src':
+            # 5/13/05 wregglej - 154248 ?? we still want to add the packages if they're source.
+            if ret and self.channels:  # and ret['arch'] != 'src':
                 # Don't bother to add the package if
                 # no channel was specified or a source rpm was passed
                 channel_packages.append(ret)
 
-        #self.channels is never None, it always has at least one entry with an empty string.
+        # self.channels is never None, it always has at least one entry with an empty string.
         if len(self.channels) == 1 and self.channels[0] == '':
             return
         info = {
-            'packages'  : channel_packages,
-            'channels'  : self.channels
+            'packages': channel_packages,
+            'channels': self.channels
         }
         if self.orgId == '' or self.orgId > 0:
             info['orgId'] = self.orgId
 
-        #2/3/06 wregglej 173287 Added check to see if we can use session tokens.
+        # 2/3/06 wregglej 173287 Added check to see if we can use session tokens.
         if channel_packages:
             self.authenticate()
             uploadLib.call(self.server.packages.channelPackageSubscriptionBySession,
-                                self.session.getSessionString(), info)
+                           self.session.getSessionString(), info)
         return 0
 
     # does an existance check of the packages to be uploaded and returns their checksum and other info
@@ -505,8 +506,8 @@ class UploadClass(uploadLib.UploadClass):
                 if val is None:
                     val = ''
                 pkg_info[tag] = val
-            #b195903:the arch for srpms should be obtained by is_source check
-            #instead of checking arch in header
+            # b195903:the arch for srpms should be obtained by is_source check
+            # instead of checking arch in header
             if a_pkg.header.is_source:
                 if not self.options.source:
                     self.die(-1, "ERROR: Trying to Push src rpm, Please re-try with --source.")
@@ -519,17 +520,17 @@ class UploadClass(uploadLib.UploadClass):
             pkg_hash[pkg_key] = pkg_info
 
         if self.options.nullorg:
-            #to satisfy xmlrpc from None values.
+            # to satisfy xmlrpc from None values.
             orgid = 'null'
         else:
             orgid = ''
 
         info = {
-            'packages' : pkg_hash,
-            'channels' : self.channels,
-            'org_id'   : orgid,
-	    'force'    : self.options.force or 0
-            }
+            'packages': pkg_hash,
+            'channels': self.channels,
+            'org_id': orgid,
+            'force': self.options.force or 0
+        }
         # rpc call to get checksum info for all the packages to be uploaded
         if not self.options.source:
             # computing checksum and other info is expensive process and session
@@ -537,25 +538,24 @@ class UploadClass(uploadLib.UploadClass):
             self.authenticate()
             if uploadLib.exists_getPackageChecksumBySession(self.server):
                 checksum_data = uploadLib.getPackageChecksumBySession(self.server,
-                                                self.session.getSessionString(), info)
+                                                                      self.session.getSessionString(), info)
             else:
                 # old server only md5 capable
                 checksum_data = uploadLib.getPackageMD5sumBySession(self.server,
-                                                self.session.getSessionString(), info)
+                                                                    self.session.getSessionString(), info)
         else:
             # computing checksum and other info is expensive process and session
             # could have expired.Make sure its re-authenticated.
             self.authenticate()
             if uploadLib.exists_getPackageChecksumBySession(self.server):
                 checksum_data = uploadLib.getSourcePackageChecksumBySession(self.server,
-                                                self.session.getSessionString(), info)
+                                                                            self.session.getSessionString(), info)
             else:
                 # old server only md5 capable
                 checksum_data = uploadLib.getSourcePackageMD5sumBySession(self.server,
-                                                self.session.getSessionString(), info)
+                                                                          self.session.getSessionString(), info)
 
         return (checksum_data, pkg_hash, digest_hash)
-
 
     def package(self, package, fileChecksumType, fileChecksum):
         self.warn(1, "Uploading package %s" % package)
@@ -575,18 +575,18 @@ class UploadClass(uploadLib.UploadClass):
             packaging = 'rpm'
 
         if packaging == 'rpm' and self.options.nosig is None and not h.is_signed():
-            #pkilambi:bug#173886:force exit to check for sig if --nosig
-            raise uploadLib.UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"% package)
+            # pkilambi:bug#173886:force exit to check for sig if --nosig
+            raise uploadLib.UploadError("ERROR: %s: unsigned rpm (use --nosig to force)" % package)
 
         try:
             ret = self._push_package_v2(package, fileChecksumType, fileChecksum)
         except uploadLib.UploadError, e:
             ret, diff_level, pdict = e.args[:3]
             severities = {
-                1   : 'path changed',
-                2   : 'package resigned',
-                3   : 'differing build times or hosts',
-                4   : 'package recompiled',
+                1: 'path changed',
+                2: 'package resigned',
+                3: 'differing build times or hosts',
+                4: 'package recompiled',
             }
             if severities.has_key(diff_level):
                 strmsg = \
@@ -597,8 +597,8 @@ class UploadClass(uploadLib.UploadClass):
                     "uploading the newer version."
             else:
                 strmsg = "Error: severity %s" % diff_level
-            self.warn(-1, "Uploading failed for %s\n%s\n\tDiff: %s" % \
-                (package, strmsg, pdict['diff']['diff']))
+            self.warn(-1, "Uploading failed for %s\n%s\n\tDiff: %s" %
+                      (package, strmsg, pdict['diff']['diff']))
             if diff_level != 1:
                 # This will prevent us from annoyingly retrying when there is
                 # no reason to.
@@ -631,9 +631,9 @@ class UploadClass(uploadLib.UploadClass):
             try:
                 data = rpclib.xmlrpclib.loads(msgstr)
             except:
-	        # Raise the exception instead of silently dying
+                # Raise the exception instead of silently dying
                 raise uploadLib.UploadError("Error pushing %s: %s (%s)" %
-		            (package, msgstr, status)), None, sys.exc_info()[2]
+                                            (package, msgstr, status)), None, sys.exc_info()[2]
             (diff_dict, ), methodname = data
             del methodname
             diff_level = diff_dict['level']
@@ -641,13 +641,14 @@ class UploadClass(uploadLib.UploadClass):
             raise uploadLib.UploadError(ret, diff_level, pdict)
 
         if status == 403:
-            #auth expired raise an exception to grab one
+            # auth expired raise an exception to grab one
             raise AuthenticationRequired()
 
         if status != 200:
             self.die(1, "Error pushing %s: %s (%s)" % (package, msgstr, status))
 
         return ret
+
 
 class AuthenticationRequired(Exception):
     pass

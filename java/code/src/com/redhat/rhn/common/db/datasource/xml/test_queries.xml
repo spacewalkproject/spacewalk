@@ -236,7 +236,7 @@ update rhnServerGroup set group_type = :type_id where id = :sgid
 
 
 <mode name="find_in_table"
-		class="com.redhat.rhn.common.db.datasource.test.AdvDataSourceDto">
+                class="com.redhat.rhn.common.db.datasource.test.AdvDataSourceDto">
   <query params="foobar">
     SELECT foobar, id
       FROM adv_datasource
@@ -246,9 +246,9 @@ update rhnServerGroup set group_type = :type_id where id = :sgid
 </mode>
 
 <query name="adv_elab" params="">
-	select id,foobar, test_column, pin
-		from adv_datasource
-			where id in (%s)
+        select id,foobar, test_column, pin
+                from adv_datasource
+                        where id in (%s)
 </query>
 
 <write-mode name="insert_into_table">
@@ -414,20 +414,6 @@ SELECT u.created as CREATED
   </query>
 </write-mode>
 
-<write-mode name="insert_into_time_series">
-  <query params="org_id, probe_id, probe_desc, entry_time, data">
-  INSERT INTO TIME_SERIES_DATA(ORG_ID, PROBE_ID, PROBE_DESC, ENTRY_TIME, DATA)
-      VALUES(:org_id, :probe_id, :probe_desc, :entry_time, :data)
-  </query>
-</write-mode>
-
-<write-mode name="insert_into_state_change">
-  <query params="oid, entry_time, data">
-  INSERT INTO STATE_CHANGE(O_ID, ENTRY_TIME, DATA)
-      VALUES(:oid, :entry_time, :data)
-  </query>
-</write-mode>
-
 <write-mode name="insert_into_rhnServerPackage">
   <query params="server_id, pn_id, p_epoch, p_version, p_release">
 INSERT
@@ -510,7 +496,7 @@ DELETE FROM rhnDailySummaryQueue
 <write-mode name="add_to_client_capabilities">
     <query params="sid, capability, version">
 insert into rhnClientCapability (server_id, capability_name_id, version)
-	 values (:sid, LOOKUP_CLIENT_CAPABILITY(:capability), :version)
+         values (:sid, LOOKUP_CLIENT_CAPABILITY(:capability), :version)
     </query>
 </write-mode>
 
@@ -528,16 +514,10 @@ SELECT * from rhntransactionpackage where
   where action_id = :action_id)))
     </query>
 </mode>
-	
+
 <mode name="select_virtual_instance_by_id">
     <query params="id">
 SELECT * FROM rhnVirtualInstance WHERE id = :id
-    </query>
-</mode>
-
-<mode name="get_debug_log">
-    <query params="">
-SELECT * FROM time_series order by entry_time
     </query>
 </mode>
 
@@ -568,15 +548,15 @@ SELECT id from rhnServer where name like 'serverfactorytest%'
 
 
 <mode name="select_in">
-	<query params="">
+        <query params="">
 SELECT name FROM web_customer WHERE id IN (%s)
-	</query>
+        </query>
 </mode>
 
 <mode name="select_in_withparams">
-	<query params="name">
+        <query params="name">
 SELECT name FROM web_customer WHERE id IN (%s) AND name = :name
-	</query>
+        </query>
 </mode>
 
 <write-mode name="insert_into_visibleobjects">
@@ -588,7 +568,7 @@ SELECT name FROM web_customer WHERE id IN (%s) AND name = :name
 
 <mode name="select_test_time_series">
     <query params="data">
-SELECT data FROM time_series WHERE data = :data
+SELECT 1 FROM dual
     </query>
 </mode>
 </datasource_modes>

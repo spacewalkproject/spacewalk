@@ -253,5 +253,3 @@ class MirrorCreator(object):
         self._window.hide()
 
         return origin, mirror
-
-# vim:ts=4:sw=4:et

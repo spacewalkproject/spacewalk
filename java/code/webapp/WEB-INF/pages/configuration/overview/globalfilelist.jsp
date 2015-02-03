@@ -44,9 +44,9 @@
               <bean:message key="system.common.numsystems" arg0="${current.systemCount}"/>
             </c:if>
           </rhn:column>
-    
+
           <rhn:column header="globalfilelist.jsp.overriding"
-          			  url="/rhn/configuration/channel/ChannelSystems.do?ccid=${current.configChannelId}"
+                                  url="/rhn/configuration/channel/ChannelSystems.do?ccid=${current.configChannelId}"
                       renderUrl="${current.overrideCount > 0}">
               <c:if test="${current.overrideCount == 0}">
                 <bean:message key="none.message"/>

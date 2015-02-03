@@ -1,2 +1,0 @@
-# Check system load
-*/15 * * * * nocpulse  if [ -e /etc/NOCpulse.ini ] && grep -v '^#' /etc/NOCpulse.ini >/dev/null; then /usr/bin/monitor-queue ALERTS 50 100 2>&1 > /dev/null; fi

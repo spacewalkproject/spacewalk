@@ -21,25 +21,25 @@
 <rl:listset name="userListSet">
     <rhn:csrf />
     <rhn:submitted />
-	<rl:list
+        <rl:list
          width="100%"
          name="userList"
          styleclass="list"
          filter="com.redhat.rhn.frontend.action.multiorg.UserListFilter"
          emptykey="activelist.jsp.noUsers"
- 		 alphabarcolumn="userLogin">
+                 alphabarcolumn="userLogin">
 
 
 
-		<rl:column bound="false"
-			sortable="true"
-			headerkey="username.nopunc.displayname"
-			sortattr="userLogin">
-			<c:out value="<a href=\"UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
-		</rl:column>
+                <rl:column bound="false"
+                        sortable="true"
+                        headerkey="username.nopunc.displayname"
+                        sortattr="userLogin">
+                        <c:out value="<a href=\"UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
+                </rl:column>
 
 
- 		<%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
+                <%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
 
         <rl:column sortable="false" headerkey="userlist.jsp.status">
             <c:if test="${current.status == 'enabled'}">
@@ -50,10 +50,10 @@
             </c:if>
         </rl:column>
 
- 	</rl:list>
- 	<rl:csv dataset="pageList"
-		name="userList"
-		exportColumns="userLogin,userLastName,userFirstName,roleNames,lastLoggedIn,status"/>
+        </rl:list>
+        <rl:csv dataset="pageList"
+                name="userList"
+                exportColumns="userLogin,userLastName,userFirstName,roleNames,lastLoggedIn,status"/>
 </rl:listset>
 
 </body>

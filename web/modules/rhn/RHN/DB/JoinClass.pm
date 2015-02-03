@@ -52,12 +52,12 @@ sub update_queries {
 
     $ret .= "UPDATE $table->{name}\nSET ";
     $ret .= join(", ", map { "$_ = ?" }
-		 map { ($remove_alias eq substr($_, 0, length($remove_alias))) ? substr($_, length($remove_alias)) : $_ }
-		 grep { exists $changed_fields{$_} } $table->column_names);
+                 map { ($remove_alias eq substr($_, 0, length($remove_alias))) ? substr($_, length($remove_alias)) : $_ }
+                 grep { exists $changed_fields{$_} } $table->column_names);
 
     $ret .= "\nWHERE " .
-	$self->{assoc}->{$self->{tables}->[0]->{name}}->{$table->{name}}->[1] .
-	  " = ?";
+        $self->{assoc}->{$self->{tables}->[0]->{name}}->{$table->{name}}->[1] .
+          " = ?";
 
     push @ret, [ $ret,  [ $table->method_names ] ];
   }
@@ -78,12 +78,12 @@ sub insert_queries {
 
     $ret .= "INSERT INTO $table->{name} $table->{alias}\n(";
     $ret .= join(", ", map { "$_" }
-		 grep { exists $changed_fields{$_} } $table->column_names);
+                 grep { exists $changed_fields{$_} } $table->column_names);
 
     $ret .= ")\nVALUES\n(";
 
     $ret .= join(", ", map { "?" }
-		 grep { exists $changed_fields{$_} } $table->column_names);
+                 grep { exists $changed_fields{$_} } $table->column_names);
 
     $ret .= ")";
 
@@ -96,7 +96,7 @@ sub insert_queries {
 
 my %column_flags = (longdate => "YYYY-MM-DD HH24:MI:SS",
                     shortdate => "YYYY-MM-DD",
-		    dayofyear => "YYYY-MM-DD");
+                    dayofyear => "YYYY-MM-DD");
 
 sub column_flags {
   return \%column_flags;

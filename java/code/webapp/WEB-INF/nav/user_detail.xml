@@ -20,11 +20,4 @@
   <rhn-tab name="Addresses">
     <rhn-tab-url>/rhn/users/Addresses.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Notification Methods" acl="org_entitlement(rhn_monitor)">
-    <rhn-tab-url>/network/users/details/contact_methods/index.pxt</rhn-tab-url>
-    <rhn-tab-url>/rhn/monitoring/config/notification/MethodCreate.do</rhn-tab-url>
-    <rhn-tab-url>/rhn/monitoring/config/notification/MethodEdit.do</rhn-tab-url>
-    <rhn-tab-url>/rhn/monitoring/config/notification/UsersMethods.do</rhn-tab-url>
-    <rhn-tab-directory>/network/users/details/contact_methods</rhn-tab-directory>
-  </rhn-tab>
 </rhn-navi-tree>

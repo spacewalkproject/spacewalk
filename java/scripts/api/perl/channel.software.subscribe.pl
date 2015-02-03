@@ -27,7 +27,7 @@ $systemId = "1000278688";
 
 my $dmi = $client->call('channel.software.subscribeSystem', $session, $systemId, @channels);
 
- 
+
 
 
 

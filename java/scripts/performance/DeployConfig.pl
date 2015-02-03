@@ -32,26 +32,26 @@ $month = 0;
 
 while (1) {
 foreach  $system (@$systems) {
-	print "$i - ";
-	$day_temp = ($day%28)+1;
-	if( $day_temp < 10 ){
-		$day_temp = "0$day_temp";
-	}
-	$month_temp = ($month%12+1);
+        print "$i - ";
+        $day_temp = ($day%28)+1;
+        if( $day_temp < 10 ){
+                $day_temp = "0$day_temp";
+        }
+        $month_temp = ($month%12+1);
         if( $month_temp < 10 ){
-	        $month_temp = "0$month_temp";
-	}
+                $month_temp = "0$month_temp";
+        }
 
 
-	$date = $client->date_time("2007$month_temp$day_temp"."T16:04:00");
-	print "2007$month_temp$day_temp"."T16:04:00\n";
-	push(@array, ( $system->{'id'} ));
+        $date = $client->date_time("2007$month_temp$day_temp"."T16:04:00");
+        print "2007$month_temp$day_temp"."T16:04:00\n";
+        push(@array, ( $system->{'id'} ));
 
-	$client->call('system.config.deployAll', $session, \@array, $date);
-	$i++;
-	$day++;
-	$month++;
-	
+        $client->call('system.config.deployAll', $session, \@array, $date);
+        $i++;
+        $day++;
+        $month++;
+
 }
 
 

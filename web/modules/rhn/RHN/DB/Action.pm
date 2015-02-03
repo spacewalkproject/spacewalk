@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::DB::Action;
@@ -31,19 +31,19 @@ my @action_overview_fields = qw { action_id scheduler_login total_count successf
 my @action_type_fields = qw { id name label };
 my @action_script_fields = qw { id action_id script username groupname timeout};
 
-my $a = new RHN::DB::TableClass("rhnAction","A","",@action_fields); 
+my $a = new RHN::DB::TableClass("rhnAction","A","",@action_fields);
 my $ao = new RHN::DB::TableClass("rhnActionOverview","AO","action",@action_overview_fields);
 my $at = new RHN::DB::TableClass("rhnActionType", "AT", "action_type", @action_type_fields);
 my $as = new RHN::DB::TableClass("rhnActionScript", "A_S", "script", @action_script_fields);
 
 my $tc = $a->create_join([ $ao, $at, $as ],{ "rhnAction" => { "rhnAction" => [ "ID", "ID" ],
-						    "rhnActionOverview" => ["ID", "ACTION_ID" ],
-						    "rhnActionType" => ["ACTION_TYPE", "ID"],
-						    "rhnActionScript" => ["ID", "ACTION_ID" ],
-							    }
-					   },
-			 { rhnActionScript => "(+)" }
-			);
+                                                    "rhnActionOverview" => ["ID", "ACTION_ID" ],
+                                                    "rhnActionType" => ["ACTION_TYPE", "ID"],
+                                                    "rhnActionScript" => ["ID", "ACTION_ID" ],
+                                                            }
+                                           },
+                         { rhnActionScript => "(+)" }
+                        );
 
 sub script_server_results {
   my $self = shift;
@@ -66,8 +66,8 @@ SELECT ASR.output,
 EOQ
   $sth = $dbh->prepare($query);
   $sth->execute_h(action_id => $self->id,
-		  server_id => $server_id,
-		 );
+                  server_id => $server_id,
+                 );
 
   my $results = $sth->fetchrow_hashref_copy;
   $sth->finish;
@@ -96,8 +96,8 @@ SELECT 1
 EOQ
   $sth = $dbh->prepare($query);
   $sth->execute_h(action_type_id => $self->action_type_id,
-		  generic_type => $generic_type,
-		 );
+                  generic_type => $generic_type,
+                 );
 
   my $is_type = $sth->fetchrow;
   $sth->finish;

@@ -474,6 +474,3 @@ initcdebver(void)
     m = Py_InitModule3("cdebver", cdebver_methods, "");
     _buildORDER();
 }
-
-/* vim:ts=4:sw=4:et
-*/

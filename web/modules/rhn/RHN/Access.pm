@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::Access;
@@ -155,13 +155,13 @@ sub system_locked_acl_test {
 
 sub is_solaris_acl_test {
   my $pxt = shift;
-  
+
   my ($sid) = $pxt->param('sid');
   throw "No sid parameter when testing to see if the system is locked"
     unless $sid;
 
   my $server = lookup_system_fast($pxt, $sid);
-  
+
   return $server->is_solaris ? 1 : 0;
 }
 
@@ -188,7 +188,7 @@ sub system_feature_acl_test {
 
   if (RHN::Entitlements->feature_type($feature) eq 'monitoring') {
     return 0 unless ($pxt->user->org->has_entitlement('rhn_monitor')
-		     and check_monitoring($pxt->user));
+                     and check_monitoring($pxt->user));
   }
 
   return $server->has_feature($feature);

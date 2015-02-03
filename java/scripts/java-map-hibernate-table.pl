@@ -3,7 +3,7 @@
 # (c) 2004, Red Hat, Inc
 # All rights reserved
 #
-# Simple util to spit out 
+# Simple util to spit out
 
 use lib '/var/www/lib';
 
@@ -56,7 +56,7 @@ EOQ
   $sth->execute_h(tab_name => $tablename);
 
   # print "------CUT HERE------\n\n";
-  # loop through the row types and 
+  # loop through the row types and
   # print out the java code
   my $bean_string = "";
   my $interface_string = "";
@@ -78,18 +78,18 @@ EOQ
         my $len = @char;
         $varname = $varname . uc($char[0]);
         for (my $i = 1; $i < $len; $i++) {
-            $varname = $varname . $char[$i]; 
+            $varname = $varname . $char[$i];
         }
     }
-    
+
     $varname = lcfirst $varname;
-    
+
     if ($nullable eq "N") {
         $nullable = "not-null=\"true\"";
     } else {
         $nullable = "";
     }
-    
+
     # based on column type, print out corresponding
     # java column type
     my $javaType;
@@ -113,32 +113,32 @@ EOQ
     else {
         $hbmtxt = $hbmtxt . "Unknown type found: $name\n";
     }
-    
+
     $bean_string = $bean_string . "$javaType $varname ";
-    
+
   }
-  
-  if ($rowcount == 0) { 
+
+  if ($rowcount == 0) {
     die "Table: [$tablename] not found\n";
   }
-  
+
   $hbmtxt = $hbmtxt . $hbmfooter;
 
-  my $import = $bean_string =~ /Date/ ? 'import java.util.Date;' : ''; 
+  my $import = $bean_string =~ /Date/ ? 'import java.util.Date;' : '';
   $javaheader =~ s/###IMPORT###/$import/;
-   
+
   my $bean_file = $javaheader;
   $bean_file = $bean_file . `perl bean-maker.pl --fields $bean_string`;
   $bean_file = $bean_file . $javafooter;
-  
+
   $package =~ s/\./\//g;
-  
+
   my $srcpath = "../code/src/com/redhat/rhn/domain/" . $package . "/";
   my $hbmFileName = $srcpath . $classname . ".hbm.xml";
 
   string2file($hbmFileName, $hbmtxt);
-  
-  
+
+
   my $javaFileName = $srcpath . $classname . ".java";
   string2file($javaFileName, $bean_file);
 
@@ -155,9 +155,9 @@ sub file2string {
 sub string2file {
   my $filename = shift;
   my $contents = shift;
-  
+
   open FH, ">$filename" or die "open $filename: $!";
-  
+
   print FH $contents;
   close FH;
   print "Wrote: $filename\n";

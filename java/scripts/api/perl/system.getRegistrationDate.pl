@@ -25,7 +25,7 @@ my $date = $client->call('system.getRegistrationDate', $session, $systemId);
 
 print $date->value;
 print "\n";
- 
+
 
 
 

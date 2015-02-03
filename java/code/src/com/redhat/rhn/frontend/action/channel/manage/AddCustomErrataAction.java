@@ -67,6 +67,7 @@ public class AddCustomErrataAction extends RhnListAction {
             "submit";
 
     private static final String LIST_NAME = "errata";
+    private static final String EMPTY_KEY = "channel.manage.errata.noerrata";
 
     /**
      * {@inheritDoc}
@@ -89,6 +90,7 @@ public class AddCustomErrataAction extends RhnListAction {
         request.setAttribute("user", user);
         request.setAttribute("channel_name", currentChan.getName());
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+        request.setAttribute("emptyKey", EMPTY_KEY);
 
 
         List<SelectableChannel> channelList = null;

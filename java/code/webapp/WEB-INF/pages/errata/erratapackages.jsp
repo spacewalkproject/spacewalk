@@ -22,22 +22,22 @@
                 <c:out value="${current.name}"/>
             </a>
         </b>
-			<br/>
+                        <br/>
 
-			    <c:if test="${empty current.packages}">
-			        <div class="page-summary">
-			            <bean:message key="details.jsp.none"/>
-			        </div>
-			    </c:if>
+                            <c:if test="${empty current.packages}">
+                                <div class="page-summary">
+                                    <bean:message key="details.jsp.none"/>
+                                </div>
+                            </c:if>
 
-			 <c:forEach items="${current.packages}" var="pack">
-				<tt>${pack.checksumType}:${pack.checksum}</tt>
-				<a href="/rhn/software/packages/Details.do?pid=${pack.id}">
-						<c:out value="${pack.name}"/>
-				</a>
-	            <br/>
-			</c:forEach>
-			<br/>
+                         <c:forEach items="${current.packages}" var="pack">
+                                <tt>${pack.checksumType}:${pack.checksum}</tt>
+                                <a href="/rhn/software/packages/Details.do?pid=${pack.id}">
+                                                <c:out value="${pack.name}"/>
+                                </a>
+                    <br/>
+                        </c:forEach>
+                        <br/>
         </div>
     </c:forEach>
 </body>

@@ -60,5 +60,3 @@ for pkg in cache.getPackages():
 krb5 = [x for x in subset if x.name == "krb5"][0]
 krb5server = [x for x in subset if x.name == "krb5-server"][0]
 coreutils = [x for x in subset if x.name == "coreutils"][0]
-
-# vim:ts=4:sw=4:et

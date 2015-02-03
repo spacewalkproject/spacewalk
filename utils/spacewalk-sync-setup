@@ -19,7 +19,12 @@
 
 """ iss_setup - a tool for easing the pain of setting up organization-mappings for ISS """
 
-import logging, os, re, sys, xmlrpclib, string
+import logging
+import os
+import re
+import sys
+import xmlrpclib
+import string
 from string import lower
 from ConfigParser import SafeConfigParser, NoOptionError
 from optparse import OptionParser, OptionGroup
@@ -54,64 +59,65 @@ slave.setup = SLAVE_FILE
 master.setup = MASTER_FILE
 """
 
+
 def setupOptions():
     usage = 'usage: %prog [options]'
     parser = OptionParser(usage=usage)
 
-    cnxGrp = OptionGroup(parser, "Connections", "Identify the spacewalk instances we're going to connect to");
+    cnxGrp = OptionGroup(parser, "Connections", "Identify the spacewalk instances we're going to connect to")
     cnxGrp.add_option('--ss', '--slave-server', action='store', dest='slave',
-        help="name of a slave to connect to.")
+                      help="name of a slave to connect to.")
     cnxGrp.add_option('--sl', '--slave-login', action='store', dest='slave_login', default="",
-        help="A sat-admin login for slave-server")
+                      help="A sat-admin login for slave-server")
     cnxGrp.add_option('--sp', '--slave-password', action='store', dest='slave_password', default="",
-        help="Password for login slave-login on slave-server")
+                      help="Password for login slave-login on slave-server")
     cnxGrp.add_option('--ms', '--master-server', action='store', dest='master',
-        help="name of a master to connect to.")
+                      help="name of a master to connect to.")
     cnxGrp.add_option('--ml', '--master-login', action='store', dest='master_login', default="",
-        help="A sat-admin login for master-server")
+                      help="A sat-admin login for master-server")
     cnxGrp.add_option('--mp', '--master-password', action='store', dest='master_password', default="",
-        help="Password for login master-login on master-server")
+                      help="Password for login master-login on master-server")
     cnxGrp.add_option('--md', '--master-default', action='store_true', dest='master_default', default=False,
-        help="Should the specified master be made the default-master in a specified template-file")
+                      help="Should the specified master be made the default-master in a specified template-file")
     parser.add_option_group(cnxGrp)
 
     tmplGrp = OptionGroup(parser, "Templates",
-            "Options for creating initial versions of setup files\n"
-            "NOTE: This will replace existing machine-specific stanzas with new content")
+                          "Options for creating initial versions of setup files\n"
+                          "NOTE: This will replace existing machine-specific stanzas with new content")
     tmplGrp.add_option('--cst', '--create-slave-template', action='store_true', dest='slave_template', default=False,
-        help="Create/update a setup file containing a stanza for the slave we're pointed at, "
-             "based on information from the master we're pointed at")
+                       help="Create/update a setup file containing a stanza for the slave we're pointed at, "
+                       "based on information from the master we're pointed at")
     tmplGrp.add_option('--cmt', '--create-master-template', action='store_true', dest='master_template', default=False,
-        help="Create/update a setup file stanza for the master we're pointed at, "
-             "based on information from the slave we're pointed at")
+                       help="Create/update a setup file stanza for the master we're pointed at, "
+                       "based on information from the slave we're pointed at")
     tmplGrp.add_option('--ct', '--create-templates', action='store_true', dest='both_template', default=False,
-        help="Create both a master and a slave setup file, for the master/slave pair we're pointed at")
+                       help="Create both a master and a slave setup file, for the master/slave pair we're pointed at")
     parser.add_option_group(tmplGrp)
 
     setupGrp = OptionGroup(parser, "Setup",
                            "Specify the setup files we're actually going to apply to a slave/master")
     setupGrp.add_option('--msf', '--master-setup-file', action='store', dest='master_file', metavar='FILE',
-        default=DEFAULT_MASTER_SETUP_FILENAME,
-        help='Specify the master-setup-file we should use')
+                        default=DEFAULT_MASTER_SETUP_FILENAME,
+                        help='Specify the master-setup-file we should use')
     setupGrp.add_option('--ssf', '--slave-setup-file', action='store', dest='slave_file', metavar='FILE',
-        default=DEFAULT_SLAVE_SETUP_FILENAME,
-        help='Specify the slave-setup-file we should use')
+                        default=DEFAULT_SLAVE_SETUP_FILENAME,
+                        help='Specify the slave-setup-file we should use')
     parser.add_option_group(setupGrp)
 
     actionGrp = OptionGroup(parser, "Action", "Should we actually affect the specified spacewalk instances?")
     actionGrp.add_option('--dry-run', action='store_true', dest='dry_run', default=True,
-        help="Don't actually change anything, but tell us what you would have done")
+                         help="Don't actually change anything, but tell us what you would have done")
     actionGrp.add_option('--apply', action='store_true', dest='apply', default=False,
-        help="make the changes specified by the setup files to the specified spacewalk instances")
+                         help="make the changes specified by the setup files to the specified spacewalk instances")
     actionGrp.add_option('--default-ok', action='store_true', dest='default_ok', default=False,
-        help="Even if I don't explicitly tell you about a master or slave on the command-line, it's ok to try to apply changes to them!")
+                         help="Even if I don't explicitly tell you about a master or slave on the command-line, it's ok to try to apply changes to them!")
     parser.add_option_group(actionGrp)
 
     utilGrp = OptionGroup(parser, "Utility")
     utilGrp.add_option('-d', '--debug', action='store_true', default=False, dest='debug',
-            help='Log debugging output')
+                       help='Log debugging output')
     utilGrp.add_option('-q', '--quiet', action='store_true', default=False, dest='quiet',
-            help='Log only errors')
+                       help='Log only errors')
     parser.add_option_group(utilGrp)
 
     return parser
@@ -209,9 +215,9 @@ def setupConfig(opt):
             logging.error('Could not create %s' % user_conf_file)
 
     # load options from configuration file
-    config.read( [ user_conf_file ] )
+    config.read([user_conf_file])
 
-    return config;
+    return config
 
 
 def getMasterConnectionInfo(opt, cfg):
@@ -222,7 +228,7 @@ def getMasterConnectionInfo(opt, cfg):
         info['fqdn'] = opt.master
     elif cfg.has_option('Default', 'master.default'):
         info['fqdn'] = cfg.get('Default', 'master.default')
-    else: # No master - skip
+    else:  # No master - skip
         return info
 
     # Now that we have a master fqdn, we can get login info
@@ -239,7 +245,7 @@ def getMasterConnectionInfo(opt, cfg):
     elif cfg.has_option(info['fqdn'], 'password'):
         info['password'] = cfg.has_option(info['fqdn'], 'password')
     else:
-        return info;
+        return info
 
     return info
 
@@ -252,7 +258,7 @@ def getSlaveConnectionInfo(opt, cfg):
         info['fqdn'] = opt.slave
     elif cfg.has_option('Default', 'slave.default'):
         info['fqdn'] = cfg.get('Default', 'slave.default')
-    else: # No slave - skip
+    else:  # No slave - skip
         return info
 
     # Now that we have a slave fqdn, we can get login info
@@ -269,7 +275,7 @@ def getSlaveConnectionInfo(opt, cfg):
     elif cfg.has_option(info['fqdn'], 'password'):
         info['password'] = cfg.has_option(info['fqdn'], 'password')
     else:
-        return info;
+        return info
 
     return info
 
@@ -297,10 +303,10 @@ def connectTo(info):
     logging.debug("Connect-to info = %s" % info)
     logging.info("Connecting to " + info['login'] + "@" + info['fqdn'])
     info = validateConnectInfo(info)
-    url = "https://%(fqdn)s/rpc/api" % {"fqdn" : info['fqdn']}
+    url = "https://%(fqdn)s/rpc/api" % {"fqdn": info['fqdn']}
     client = xmlrpclib.Server(url, verbose=0)
     key = client.auth.login(info['login'], info['password'])
-    return { "client" : client, "key" : key }
+    return {"client": client, "key": key}
 
 
 def orgByName(orgs):
@@ -356,9 +362,9 @@ def gen_slave_template(slave_session, master_session, master, filename, dflt_mas
     slave_setup.add_section(master)
 
     if (dflt_master):
-        slave_setup.set(master, 'isDefault', '1');
+        slave_setup.set(master, 'isDefault', '1')
     else:
-        slave_setup.set(master, 'isDefault', '0');
+        slave_setup.set(master, 'isDefault', '0')
 
     # wget -q -O <master-ca-cert-path> http://<master-fqdn>/pub/RHN-ORG-TRUSTED-SSL-CERT
 
@@ -386,7 +392,7 @@ def gen_slave_template(slave_session, master_session, master, filename, dflt_mas
         slave_setup.write(configfile)
         configfile.close()
     except IOError, e:
-        logging.error("FAILED to write to slave template ["+filename+"]")
+        logging.error("FAILED to write to slave template [" + filename + "]")
         sys.exit(1)
 
     return
@@ -426,7 +432,7 @@ def gen_master_template(master_session, slave, filename):
         master_setup.write(mfile)
         mfile.close()
     except IOError, e:
-        logging.error("FAILED to write to master template ["+mfile+"]")
+        logging.error("FAILED to write to master template [" + mfile + "]")
         sys.exit(1)
 
     return
@@ -455,7 +461,7 @@ def apply_slave_template(slave_session, slave_setup_filename):
         master_orgs = []
         moids = slave_setup.options(fqdn)
         # key is either master-org-id, or one of (isDefault, cacert) - skip those
-        for moid in moids: # moid|moname|local_oid
+        for moid in moids:  # moid|moname|local_oid
             if lower(moid) == "isdefault" or lower(moid) == "cacert":
                 continue
             minfo = slave_setup.get(fqdn, moid)
@@ -477,6 +483,7 @@ def apply_slave_template(slave_session, slave_setup_filename):
 
     return
 
+
 def describe_slave_template(slave_setup_filename):
     "Tells us what it _would have_ done to a connected slave with information for "
     "the master(s) contained in the specified slave-setup-file"
@@ -497,19 +504,20 @@ def describe_slave_template(slave_setup_filename):
             logging.info("  Setting this master to the default-master for this slave")
 
         if slave_setup.has_option(fqdn, 'caCert'):
-            logging.info("  Setting the path to this master's CA-CERT to [" + slave_setup.get(fqdn, 'caCert') +"]")
+            logging.info("  Setting the path to this master's CA-CERT to [" + slave_setup.get(fqdn, 'caCert') + "]")
 
         moids = slave_setup.options(fqdn)
-        for moid in moids: # moid|moname|local_oid
+        for moid in moids:  # moid|moname|local_oid
             if lower(moid) == "isdefault" or lower(moid) == "cacert":
                 continue
             minfo = slave_setup.get(fqdn, moid)
             elts = string.split(minfo, '|')
             logging.info("  Mapping master OrgId [%s], named [%s], to local OrgId [%s]" %
-                    (elts[0], elts[1], elts[2]))
+                         (elts[0], elts[1], elts[2]))
         logging.info("")
 
     return
+
 
 def apply_master_template(master_session, master_setup_filename):
     "Updates the connected master with information for the slave(s) contained in the specified master-setup-file"
@@ -549,6 +557,7 @@ def apply_master_template(master_session, master_setup_filename):
         client.sync.slave.setAllowedOrgs(key, slave['id'], master_orgs)
     return
 
+
 def describe_master_template(master_setup_filename):
     "Tells us what it _would have_ done to a connected master with information for "
     "the slave(s) contained in the specified master-setup-file"
@@ -584,6 +593,7 @@ def describe_master_template(master_setup_filename):
         logging.info("")
 
     return
+
 
 def ask(msg):
     val = raw_input(msg + " : ")
@@ -635,5 +645,3 @@ if __name__ == '__main__':
             apply_slave_template(slave_cnx, filename)
         elif options.dry_run:
             describe_slave_template(filename)
-
-# vim:ts=4:expandtab:

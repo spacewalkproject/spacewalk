@@ -22,6 +22,8 @@ if __name__ != '__main__':
     raise ImportError, "module cannot be imported"
 
 import sys
+
+
 def systemExit(code, msgs=None):
     "Exit with a code and optional message(s). Saved a few lines of code."
 
@@ -29,7 +31,7 @@ def systemExit(code, msgs=None):
         if type(msgs) not in [type([]), type(())]:
             msgs = (msgs, )
         for msg in msgs:
-            sys.stderr.write(str(msg)+'\n')
+            sys.stderr.write(str(msg) + '\n')
     sys.exit(code)
 
 
@@ -58,7 +60,7 @@ except ImportError:
     raise
 
 
-### acquire lock/check for other instances of satellite-sync
+# acquire lock/check for other instances of satellite-sync
 #   i.e., lock against multiple instances of satellite-sync
 LOCK = None
 try:
@@ -85,7 +87,7 @@ def repr_str(e):
     """
 
     s = ''
-    
+
     hasReprYN = hasattr(e, '__repr__')
     hasStrYN = hasattr(e, '__str__')
 
@@ -113,16 +115,16 @@ def systemExit_exception(code, msgs, e):
             header = header + str(msg) + '\n'
         header = header + '\n'
 
-    ## write to disk (log file) and email
+    # write to disk (log file) and email
     tb = header + fetchTraceback()
     syncLib.log2disk(-1, tb)
     # force the whole email thing
     syncLib.initEMAIL_LOG()
     syncLib.log2email(-1, tb)
 
-    ## write to stderr, send the email, and exit
+    # write to stderr, send the email, and exit
     stderrmsg = header + "(Check logs/email for potentially more detail)\n" + \
-                repr_str(e) + '\n'
+        repr_str(e) + '\n'
     satsync.sendMail(forceEmail=1)
     systemExit(code, stderrmsg)
 
@@ -176,32 +178,32 @@ if __name__ == '__main__':
         systemExit_exception(7, "SYNC ERROR: attempting to display as much information as possible:", e)
 
 
-#Returned codes means:
+# Returned codes means:
 #-1 Could not lock file or KeyboardInterrupt or SystemExit
-#0  User interrupted process.
-#1  attempting to run more than one instance of satellite-sync.
-#2  Unable to find synchronization tools.
-#3  a general socket exception occurred
-#4  an SSL error occurred. Recheck your SSL settings.
-#5  RHN error
-#6  unhandled exception occurred
-#7  unknown sync error
-#8  ERROR: must be root to execute
-#9  rpclib fault during synchronization init
-#10 synchronization init error
-#11 Error parsing XML stream
-#12 Channel do not exist
-#13 SQL error during importing package metadata
-#14 SQL error during linking channel packages
-#15 SQL error during xml processing
-#16 server.mount_point not set in the configuration file
-#17 SQL error during retrieving the channels already imported in the satellite's database
-#18 Wrong db connection string in rhn.conf
-#19 Bad arguments
-#20 Could not connect to db.
-#21 Bad debug level
-#22 Not valid step
-#23 error: --rhn-cert requires --mount-point
-#24 no such file
-#25 no such directory
-#26 ISS parent is not configure for ISS
+# 0  User interrupted process.
+# 1  attempting to run more than one instance of satellite-sync.
+# 2  Unable to find synchronization tools.
+# 3  a general socket exception occurred
+# 4  an SSL error occurred. Recheck your SSL settings.
+# 5  RHN error
+# 6  unhandled exception occurred
+# 7  unknown sync error
+# 8  ERROR: must be root to execute
+# 9  rpclib fault during synchronization init
+# 10 synchronization init error
+# 11 Error parsing XML stream
+# 12 Channel do not exist
+# 13 SQL error during importing package metadata
+# 14 SQL error during linking channel packages
+# 15 SQL error during xml processing
+# 16 server.mount_point not set in the configuration file
+# 17 SQL error during retrieving the channels already imported in the satellite's database
+# 18 Wrong db connection string in rhn.conf
+# 19 Bad arguments
+# 20 Could not connect to db.
+# 21 Bad debug level
+# 22 Not valid step
+# 23 error: --rhn-cert requires --mount-point
+# 24 no such file
+# 25 no such directory
+# 26 ISS parent is not configure for ISS

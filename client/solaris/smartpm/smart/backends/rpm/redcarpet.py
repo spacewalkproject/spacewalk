@@ -309,5 +309,3 @@ class XMLParser(object):
                         (self._loader._filename, unicode(e)))
         self.updateProgress()
         self._file.close()
-
-# vim:ts=4:sw=4:et

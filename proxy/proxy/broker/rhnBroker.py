@@ -37,12 +37,14 @@ import proxy.rhnProxyAuth
 
 
 # the version should not be never decreased, never mind that spacewalk has different versioning
-_PROXY_VERSION = '5.5.0' # HISTORY: '0.9.7', '3.2.0', '3.5.0', '3.6.0', '4.1.0',
-                         #          '4.2.0', '5.0.0', '5.1.0', '5.2.0', '0.1',
-                         #          '5.3.0', '5.3.1', '5.4.0', '5.5.0'
+_PROXY_VERSION = '5.5.0'
+# HISTORY: '0.9.7', '3.2.0', '3.5.0', '3.6.0', '4.1.0',
+#          '4.2.0', '5.0.0', '5.1.0', '5.2.0', '0.1',
+#          '5.3.0', '5.3.1', '5.4.0', '5.5.0'
 
 
 class BrokerHandler(SharedHandler):
+
     """ Spacewalk Proxy broker specific handler code called by rhnApache.
 
         Workflow is:
@@ -61,7 +63,7 @@ class BrokerHandler(SharedHandler):
 
         # Initialize variables
         self.componentType = 'proxy.broker'
-        self.cachedClientInfo = None # headers - session token
+        self.cachedClientInfo = None  # headers - session token
         self.authChannels = None
         self.clientServerId = None
         self.rhnParentXMLRPC = None
@@ -102,7 +104,7 @@ class BrokerHandler(SharedHandler):
             log_debug(-1, 'WARNING: no hostname in the incoming headers; '
                           'punting: %s' % hostname)
         hostname = parseUrl(hostname)[1].split(':')[0]
-        self.proxyAuth =  proxy.rhnProxyAuth.get_proxy_auth(hostname)
+        self.proxyAuth = proxy.rhnProxyAuth.get_proxy_auth(hostname)
 
         self._initConnectionVariables(req)
 
@@ -137,7 +139,7 @@ class BrokerHandler(SharedHandler):
             scheme = 'http'
             self.httpProxy = CFG.SQUID
             self.caChain = self.httpProxyUsername = self.httpProxyPassword = ''
-            if CFG.HTTP_PROXY or CFG.USE_SSL or re.search('^'+URI_PREFIX_KS_CHECKSUM, effectiveURI_parts[2]):
+            if CFG.HTTP_PROXY or CFG.USE_SSL or re.search('^' + URI_PREFIX_KS_CHECKSUM, effectiveURI_parts[2]):
                 # o if we need to go through an outside HTTP proxy, use the
                 #   redirect
                 # o if an SSL request, use the redirect
@@ -221,8 +223,7 @@ class BrokerHandler(SharedHandler):
 
         _oto = rhnFlags.get('outputTransportOptions')
         if _oto.has_key('X-RHN-Proxy-Auth'):
-            log_debug(5, '    (auth token prior): %s'
-                         % repr(_oto['X-RHN-Proxy-Auth']))
+            log_debug(5, '    (auth token prior): %s' % repr(_oto['X-RHN-Proxy-Auth']))
             tokens = _oto['X-RHN-Proxy-Auth'].split(',')
 
         # list of tokens to be pushed into the headers.
@@ -231,7 +232,7 @@ class BrokerHandler(SharedHandler):
 
         _oto['X-RHN-Proxy-Auth'] = ','.join(tokens)
         log_debug(5, '    (auth token after): %s'
-                      % repr(_oto['X-RHN-Proxy-Auth']))
+                  % repr(_oto['X-RHN-Proxy-Auth']))
 
         log_debug(3, 'Trying to connect to parent')
 
@@ -262,34 +263,33 @@ class BrokerHandler(SharedHandler):
             # If a proxy other than this one needs to update its auth token
             # pass the error on up to it
             if (respHeaders.has_key('X-RHN-Proxy-Auth-Origin') and
-                    respHeaders['X-RHN-Proxy-Auth-Origin']
-                            != self.proxyAuth.hostname):
+                    respHeaders['X-RHN-Proxy-Auth-Origin'] != self.proxyAuth.hostname):
                 break
 
             # Expired/invalid auth token; go through the loop once again
-            if error == '1003': # invalid token
+            if error == '1003':  # invalid token
                 msg = "Spacewalk Proxy Session Token INVALID -- bad!"
                 log_error(msg)
                 log_debug(0, msg)
             elif error == '1004':
                 log_debug(1,
-                    "Spacewalk Proxy Session Token expired, acquiring new one.")
-            else: # this should never happen.
+                          "Spacewalk Proxy Session Token expired, acquiring new one.")
+            else:  # this should never happen.
                 msg = "Spacewalk Proxy login failed, error code is %s" % error
                 log_error(msg)
                 log_debug(0, msg)
                 raise rhnFault(1000,
-                  _("Spacewalk Proxy error (issues with proxy login). "
-                    "Please contact your system administrator."))
+                               _("Spacewalk Proxy error (issues with proxy login). "
+                                 "Please contact your system administrator."))
 
             # Forced refresh of the proxy token
             rhnFlags.get('outputTransportOptions')['X-RHN-Proxy-Auth'] = self.proxyAuth.check_cached_token(1)
-        else: #for
+        else:  # for
             # The token could not be aquired
             log_debug(0, "Unable to acquire proxy authentication token")
             raise rhnFault(1000,
-              _("Spacewalk Proxy error (unable to acquire proxy auth token). "
-                "Please contact your system administrator."))
+                           _("Spacewalk Proxy error (unable to acquire proxy auth token). "
+                             "Please contact your system administrator."))
 
         # Support for yum byte-range
         if (status != apache.OK) and (status != apache.HTTP_PARTIAL_CONTENT):
@@ -319,7 +319,7 @@ class BrokerHandler(SharedHandler):
         """
         args = req.path_info.split('/')
         params = {'child': None, 'session': None, 'orgId': None,
-                'file': args[-1]}
+                  'file': args[-1]}
         action = None
         if args[2] == 'org':
             params['orgId'] = args[3]
@@ -395,7 +395,7 @@ class BrokerHandler(SharedHandler):
         #  ycoreutils-2.0.83-19.39.el6.x86_64.rpm
         args = req.path_info.split('/')
         # urlparse returns a ParseResult, index 2 is the path
-        if re.search('^'+URI_PREFIX_KS_CHECKSUM, urlparse(self.rhnParent)[2]):
+        if re.search('^' + URI_PREFIX_KS_CHECKSUM, urlparse(self.rhnParent)[2]):
             # We *ONLY* locally cache RPMs for kickstarts
             if len(args) < 3 or args[2] != 'Packages':
                 return None
@@ -414,7 +414,7 @@ class BrokerHandler(SharedHandler):
             (req_type, reqident, reqaction, reqparams) = self._split_url(req)
 
         if req_type is None or (req_type not in
-                ['$RHN', 'GET-REQ', 'tinyurl', 'ks-dist']):
+                                ['$RHN', 'GET-REQ', 'tinyurl', 'ks-dist']):
             # not a traditional RHN GET (i.e., it is an arbitrary get)
             # XXX: there has to be a more elegant way to do this
             return None
@@ -449,7 +449,7 @@ class BrokerHandler(SharedHandler):
         log_debug(3, "Retrieve from local repository.")
         log_debug(3, req_type, reqident, reqaction, reqparams)
         result = self.__callLocalRepository(req_type, reqident, reqaction,
-                reqparams)
+                                            reqparams)
         if result is None:
             log_debug(3, "Not available locally; will try higher up the chain.")
         else:
@@ -485,7 +485,7 @@ class BrokerHandler(SharedHandler):
         # "x-rhn-auth"
         prefix = "x-rhn-auth"
         l = len(prefix)
-        tokenKeys = [ x for x in headers.keys() if x[:l].lower() == prefix]
+        tokenKeys = [x for x in headers.keys() if x[:l].lower() == prefix]
         for k in tokenKeys:
             if k.lower() == 'x-rhn-auth-channels':
                 # Multivalued header
@@ -518,26 +518,26 @@ class BrokerHandler(SharedHandler):
         if req_type == 'tinyurl':
             try:
                 rep = rhnRepository.TinyUrlRepository(identifier,
-                        self.cachedClientInfo, rhnParent=self.rhnParent,
-                        rhnParentXMLRPC=self.rhnParentXMLRPC,
-                        httpProxy=self.httpProxy,
-                        httpProxyUsername=self.httpProxyUsername,
-                        httpProxyPassword=self.httpProxyPassword,
-                        caChain=self.caChain,
-                        systemId=self.proxyAuth.get_system_id())
+                                                      self.cachedClientInfo, rhnParent=self.rhnParent,
+                                                      rhnParentXMLRPC=self.rhnParentXMLRPC,
+                                                      httpProxy=self.httpProxy,
+                                                      httpProxyUsername=self.httpProxyUsername,
+                                                      httpProxyPassword=self.httpProxyPassword,
+                                                      caChain=self.caChain,
+                                                      systemId=self.proxyAuth.get_system_id())
             except rhnRepository.NotLocalError:
                 return None
         elif req_type == 'ks-dist':
             try:
                 rep = rhnRepository.KickstartRepository(identifier,
-                        self.cachedClientInfo, rhnParent=self.rhnParent,
-                        rhnParentXMLRPC=self.rhnParentXMLRPC,
-                        httpProxy=self.httpProxy,
-                        httpProxyUsername=self.httpProxyUsername,
-                        httpProxyPassword=self.httpProxyPassword,
-                        caChain=self.caChain, orgId=params['orgId'],
-                        child=params['child'], session=params['session'],
-                        systemId=self.proxyAuth.get_system_id())
+                                                        self.cachedClientInfo, rhnParent=self.rhnParent,
+                                                        rhnParentXMLRPC=self.rhnParentXMLRPC,
+                                                        httpProxy=self.httpProxy,
+                                                        httpProxyUsername=self.httpProxyUsername,
+                                                        httpProxyPassword=self.httpProxyPassword,
+                                                        caChain=self.caChain, orgId=params['orgId'],
+                                                        child=params['child'], session=params['session'],
+                                                        systemId=self.proxyAuth.get_system_id())
             except rhnRepository.NotLocalError:
                 return None
             params = [params['file']]
@@ -553,17 +553,17 @@ class BrokerHandler(SharedHandler):
             # We already know he's subscribed to this channel
             # channel, so the version is non-null
             rep = rhnRepository.Repository(identifier, version,
-                    self.cachedClientInfo, rhnParent=self.rhnParent,
-                    rhnParentXMLRPC=self.rhnParentXMLRPC,
-                    httpProxy=self.httpProxy,
-                    httpProxyUsername=self.httpProxyUsername,
-                    httpProxyPassword=self.httpProxyPassword,
-                    caChain=self.caChain)
+                                           self.cachedClientInfo, rhnParent=self.rhnParent,
+                                           rhnParentXMLRPC=self.rhnParentXMLRPC,
+                                           httpProxy=self.httpProxy,
+                                           httpProxyUsername=self.httpProxyUsername,
+                                           httpProxyPassword=self.httpProxyPassword,
+                                           caChain=self.caChain)
 
         f = rep.get_function(funct)
         if not f:
             raise rhnFault(1000,
-                _("Spacewalk Proxy configuration error: invalid function %s") % funct)
+                           _("Spacewalk Proxy configuration error: invalid function %s") % funct)
 
         log_debug(3, "Calling %s(%s)" % (funct, params))
         if params is None:
@@ -586,7 +586,7 @@ class BrokerHandler(SharedHandler):
         if not shelf.has_key(self.clientServerId):
             # should this ever happen?
             msg = _("Invalid session key - server ID not found in cache: %s") \
-                  % self.clientServerId
+                % self.clientServerId
             log_error(msg)
             raise rhnFault(33, msg)
 
@@ -603,16 +603,16 @@ class BrokerHandler(SharedHandler):
 
         # Compare the two things
         if not _dictEquals(token, self.cachedClientInfo,
-                            ['X-RHN-Auth-Channels']):
+                           ['X-RHN-Auth-Channels']):
             log_debug(3, "Session tokens different")
-            raise rhnFault(33) # Invalid session key
+            raise rhnFault(33)  # Invalid session key
 
         # Check the expiration
         serverTime = float(token['X-RHN-Auth-Server-Time'])
         offset = float(token['X-RHN-Auth-Expire-Offset'])
         if time.time() > serverTime + offset + clockSkew:
             log_debug(3, "Session token has expired")
-            raise rhnFault(34) # Session key has expired
+            raise rhnFault(34)  # Session key has expired
 
         # Only autherized channels are the ones stored in the cache.
         authChannels = [x[0] for x in self.authChannels]
@@ -620,7 +620,7 @@ class BrokerHandler(SharedHandler):
         # Check the authorization
         if channel not in authChannels:
             log_debug(4, "Not subscribed to channel %s; unauthorized" %
-                channel)
+                      channel)
             raise rhnFault(35, _('Unauthorized channel access requested.'))
 
 
@@ -648,4 +648,3 @@ def _writeToCache(key, value):
     log_debug(2, "successfully returning")
 
 #===============================================================================
-

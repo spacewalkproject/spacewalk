@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.action;
 import com.redhat.rhn.domain.user.Pane;
 import com.redhat.rhn.domain.user.PaneFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.renderers.CriticalProbesRenderer;
 import com.redhat.rhn.frontend.action.renderers.CriticalSystemsRenderer;
 import com.redhat.rhn.frontend.action.renderers.FragmentRenderer;
 import com.redhat.rhn.frontend.action.renderers.InactiveSystemsRenderer;
@@ -26,7 +25,6 @@ import com.redhat.rhn.frontend.action.renderers.PendingActionsRenderer;
 import com.redhat.rhn.frontend.action.renderers.RecentSystemsRenderer;
 import com.redhat.rhn.frontend.action.renderers.SystemGroupsRenderer;
 import com.redhat.rhn.frontend.action.renderers.TasksRenderer;
-import com.redhat.rhn.frontend.action.renderers.WarningProbesRenderer;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -67,9 +65,6 @@ public class YourRhnAction extends RhnAction {
             if (key.equals(Pane.TASKS)) {
                 renderer = new TasksRenderer();
             }
-            else if (key.equals(Pane.CRITICAL_PROBES)) {
-                renderer = new CriticalProbesRenderer();
-            }
             else if (key.equals(Pane.CRITICAL_SYSTEMS)) {
                 renderer = new CriticalSystemsRenderer();
             }
@@ -87,9 +82,6 @@ public class YourRhnAction extends RhnAction {
             }
             else if (key.equals(Pane.SYSTEM_GROUPS)) {
                 renderer = new SystemGroupsRenderer();
-            }
-            else if (key.equals(Pane.WARNING_PROBES)) {
-                renderer = new WarningProbesRenderer();
             }
             else if (key.equals(Pane.TASKS)) {
                 renderer = new TasksRenderer();

@@ -295,5 +295,3 @@ public class AuditSearchAction extends RhnAction {
         return mapping.findForward("view");
     }
 }
-
-// vim: ts=4:expandtab

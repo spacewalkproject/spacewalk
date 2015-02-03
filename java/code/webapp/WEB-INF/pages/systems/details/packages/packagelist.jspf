@@ -10,43 +10,43 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2>
-	<rhn:icon type="header-package-add" />
-	<bean:message key="${pack_header}" />
+        <rhn:icon type="header-package-add" />
+        <bean:message key="${pack_header}" />
 </h2>
 <div class="page-summary">
-	<p>
-	<bean:message key="${summary}" />
-	</p>
+        <p>
+        <bean:message key="${summary}" />
+        </p>
 </div>
 
 <c:set var="pageList" value="${requestScope.all}" />
 <c:choose>
 <c:when test="${not empty showArch}">
-	<c:set var="nameStyle" value=""/>
+        <c:set var="nameStyle" value=""/>
 </c:when>
 <c:otherwise>
-	<c:set var="nameStyle" value="last-column"/>
+        <c:set var="nameStyle" value="last-column"/>
 </c:otherwise>
 </c:choose>
 
 <rl:listset name="packageListSet">
     <rhn:csrf />
-	<rl:list dataset="pageList"
+        <rl:list dataset="pageList"
          width="100%"
          name="packageList"
          styleclass="list"
          emptykey="packagelist.jsp.nopackages"
          alphabarcolumn="nvre">
- 			<rl:decorator name="PageSizeDecorator"/>
- 			<rl:decorator name="ElaborationDecorator"/>
- 		<rl:decorator name="SelectableDecorator"/>
-	 		<rl:selectablecolumn value="${current.selectionKey}"
-	 			selected="${current.selected}"
-	 			disabled="${not current.selectable}"/>
+                        <rl:decorator name="PageSizeDecorator"/>
+                        <rl:decorator name="ElaborationDecorator"/>
+                <rl:decorator name="SelectableDecorator"/>
+                        <rl:selectablecolumn value="${current.selectionKey}"
+                                selected="${current.selected}"
+                                disabled="${not current.selectable}"/>
 
-		  <rl:column headerkey="packagelist.jsp.packagename" bound="false"
-		  	sortattr="nvre"
-		  	sortable="true" filterattr="nvre" styleclass="${nameStyle}" defaultsort="asc">
+                  <rl:column headerkey="packagelist.jsp.packagename" bound="false"
+                        sortattr="nvre"
+                        sortable="true" filterattr="nvre" styleclass="${nameStyle}" defaultsort="asc">
             <c:choose>
                 <c:when test="${not checkPackageId or not empty current.packageId}">
                   <a href="/rhn/software/packages/Details.do?pid=${current.packageId}">
@@ -56,16 +56,16 @@
                     <c:out value="${current.nvre}"/>
                 </c:otherwise>
             </c:choose>
-		  </rl:column>
-	<c:if test="${not empty showArch}">
-    	<rl:column headerkey="packagelist.jsp.packagearch" bound="false" styleclass="thin-column last-column">
-    		<c:choose>
-    			<c:when test ="${not empty current.arch}">${current.arch}</c:when>
-    			<c:otherwise><bean:message key="packagelist.jsp.notspecified"/></c:otherwise>
-    		</c:choose>
-    	</rl:column>
+                  </rl:column>
+        <c:if test="${not empty showArch}">
+        <rl:column headerkey="packagelist.jsp.packagearch" bound="false" styleclass="thin-column last-column">
+                <c:choose>
+                        <c:when test ="${not empty current.arch}">${current.arch}</c:when>
+                        <c:otherwise><bean:message key="packagelist.jsp.notspecified"/></c:otherwise>
+                </c:choose>
+        </rl:column>
     </c:if>
-	</rl:list>
+        </rl:list>
 
 <c:if test="${not empty requestScope.all}">
     <rhn:submitted/>

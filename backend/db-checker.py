@@ -25,6 +25,7 @@ if _topdir not in sys.path:
 
 from spacewalk.server import rhnSQL
 
+
 def main():
     rhnSQL.initDB()
 
@@ -57,6 +58,7 @@ def main():
             except rhnSQL.SQLStatementPrepareError, e:
                 print "Error: %s.%s: %s" % (mod.__name__, name, e)
 
+
 def proper_module_name(module_name):
     suffix = '.py'
     if module_name.endswith(suffix):
@@ -65,6 +67,7 @@ def proper_module_name(module_name):
     return os.path.normpath(module_name).replace('/', '.')
 
 _objs_seen = {}
+
 
 def get_class_instances(obj, class_obj):
     if not hasattr(obj, "__dict__"):

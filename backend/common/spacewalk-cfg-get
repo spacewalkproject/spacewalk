@@ -3,7 +3,7 @@
 import sys
 from spacewalk.common.rhnConfig import RHNOptions
 
-do_list=0
+do_list = 0
 if len(sys.argv) == 4 and sys.argv[1] == "get":
     comp = sys.argv[2]
     key = sys.argv[3]
@@ -32,4 +32,3 @@ else:
             print i
     elif val != None:
         print val
-

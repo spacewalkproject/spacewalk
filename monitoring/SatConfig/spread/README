@@ -1,5 +1,0 @@
-The initial version of this package merely installs a static spread.conf file in /etc, and that file defines only a single node cluster living on the loopback interface.
-
-Next version should add /usr/local/bin/getSpreadConfig where getSpreadConfig installs either a loopback config or a two-node plip config.
-
-When we get to a multi-node cluster, getSpreadConfig will need to asses cluster configuration based either on some sort of query back to the MOC or based on some sort of cluster description file on the local host.

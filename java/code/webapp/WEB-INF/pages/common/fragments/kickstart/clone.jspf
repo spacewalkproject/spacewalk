@@ -17,7 +17,7 @@
     <html:form method="POST" action="${param.post_url}">
     <rhn:csrf />
 <div class="page-summary">
-	<h2><bean:message key="kickstart.clone.jsp.header2"/></h2>
+        <h2><bean:message key="kickstart.clone.jsp.header2"/></h2>
     <p><bean:message key="kickstart.clone.jsp.summary"/></p>
       <table class="details">
           <tr>

@@ -1685,5 +1685,3 @@ def checkPackages(cache, pkgs, report=False, all=False, uninstalled=False):
                 problems = True
 
     return not problems
-
-# vim:ts=4:sw=4:et

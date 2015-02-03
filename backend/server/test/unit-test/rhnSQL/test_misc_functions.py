@@ -26,15 +26,16 @@ import misc_functions
 
 DB_SETTINGS = misc_functions.db_settings("oracle")
 
+
 class Tests(unittest.TestCase):
 
     def setUp(self):
         initCFG("server")
         rhnSQL.initDB(
-            backend  = "oracle",
-            username = DB_SETTINGS["user"],
-            password = DB_SETTINGS["password"],
-            database = DB_SETTINGS["database"]
+            backend="oracle",
+            username=DB_SETTINGS["user"],
+            password=DB_SETTINGS["password"],
+            database=DB_SETTINGS["database"]
         )
         rhnSQL.clear_log_id()
 
@@ -88,7 +89,7 @@ class Tests(unittest.TestCase):
         channel_family = 'rhel-as'
         quantity = 19
         misc_functions.grant_channel_family_entitlements(org_id,
-            channel_family, quantity)
+                                                         channel_family, quantity)
 
         h = rhnSQL.prepare("""
             select cfp.max_members

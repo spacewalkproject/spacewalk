@@ -23,6 +23,7 @@ import sql_base
 # A class to handle sequences
 # XXX: this is still Oracle specific, but it shouldn't be
 class Sequence:
+
     def __init__(self, db, seq):
         if not seq or not isinstance(seq, str):
             raise rhnException("First argument needs to be a sequence name", seq)

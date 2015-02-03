@@ -288,34 +288,6 @@ DELETE
   </query>
 </write-mode>
 
-<write-mode name="remove_unowned_filters">
-  <query params="user_id, label">
-    DELETE FROM rhnSet S
-     WHERE S.user_id = :user_id
-       AND S.label = :label
-       AND NOT EXISTS (SELECT 1
-                         FROM rhn_redirects R, web_contact WC
-                 where
-                   WC.id = S.user_id AND
-                         WC.org_id = R.customer_id AND
-                 S.element = R.recid)
-  </query>
-</write-mode>
-
-<write-mode name="remove_unowned_suites">
-  <query params="user_id, label">
-    DELETE FROM rhnSet S
-     WHERE S.user_id = :user_id
-       AND S.label = :label
-       AND NOT EXISTS (SELECT 1
-                         FROM rhn_check_suites CS, web_contact WC
-                 where
-                   WC.id = S.user_id AND
-                         WC.org_id = CS.customer_id AND
-                 S.element = CS.recid)
-  </query>
-</write-mode>
-
 <write-mode name="remove_unowned_activation_keys">
   <query params="user_id, label">
     DELETE FROM rhnSet S

@@ -31,7 +31,10 @@ from spacewalk.server import rhnChannel, rhnSQL, rhnLib
 
 # Applet class --- retrieve (via xmlrpc) date required for applet
 # functionality
+
+
 class Applet(rhnHandler):
+
     def __init__(self):
         rhnHandler.__init__(self)
         # Exposed Errata functions:
@@ -57,6 +60,7 @@ class Applet(rhnHandler):
            and sc.channel_id = c.id
            and c.parent_channel is null
     """)
+
     def has_base_channel(self, uuid):
         log_debug(1, uuid)
         # Verifies if a system has a base channel
@@ -65,8 +69,8 @@ class Applet(rhnHandler):
         row = h.fetchone_dict()
         if not row:
             raise rhnFault(140,
-                _("Your system was not found in the RHN database"),
-                explain=0)
+                           _("Your system was not found in the RHN database"),
+                           explain=0)
         server_id = row['id']
 
         h = rhnSQL.prepare(self._query_lookup_base_channel)
@@ -75,7 +79,6 @@ class Applet(rhnHandler):
         if row:
             return 1
         return 0
-
 
     # ties a uuid to an rhnServer.id
     def tie_uuid(self, systemid, uuid):
@@ -94,14 +97,14 @@ class Applet(rhnHandler):
     # return our sttaus - for now a dummy function
     def poll_status(self):
         checkin_interval = (CFG.CHECKIN_INTERVAL +
-            random.random() * CFG.CHECKIN_INTERVAL_MAX_OFFSET)
+                            random.random() * CFG.CHECKIN_INTERVAL_MAX_OFFSET)
         return {
-            'checkin_interval'  : int(checkin_interval),
-            'server_status'     : 'normal'
+            'checkin_interval': int(checkin_interval),
+            'server_status': 'normal'
         }
 
     # poll for latest packages for the RHN Applet
-    def poll_packages(self, release, server_arch, timestamp = 0, uuid = None):
+    def poll_packages(self, release, server_arch, timestamp=0, uuid=None):
         log_debug(1, release, server_arch, timestamp, uuid)
 
         # make sure we're dealing with strings here
@@ -125,7 +128,7 @@ class Applet(rhnHandler):
         if not channel_list:
             log_debug(8, "No channels for release = '%s', arch = '%s', uuid = '%s'" % (
                 release, server_arch, uuid))
-            return { 'last_modified' : 0, 'contents' : [] }
+            return {'last_modified': 0, 'contents': []}
 
         last_channel_changed_ts = max(map(lambda a: a["last_modified"], channel_list))
 
@@ -138,18 +141,17 @@ class Applet(rhnHandler):
         # we return rhnServer.channels_changed for each row
         # in the satellite case, pluck it off the first...
         if channel_list[0].has_key("server_channels_changed"):
-           sc_ts = channel_list[0]["server_channels_changed"]
+            sc_ts = channel_list[0]["server_channels_changed"]
 
-           if sc_ts and (sc_ts >= last_channel_changed_ts):
-               client_cache_invalidated = 1
-
+            if sc_ts and (sc_ts >= last_channel_changed_ts):
+                client_cache_invalidated = 1
 
         if (last_channel_changed_ts <= timestamp) and (not client_cache_invalidated):
             # XXX: I hate these freaking return codes that return
             # different members in the dictinary depending on what
             # sort of data you get
             log_debug(3, "Client has current data")
-            return { 'use_cached_copy' : 1 }
+            return {'use_cached_copy': 1}
 
         # we'll have to return something big - compress
         rhnFlags.set("compress_response", 1)
@@ -164,7 +166,7 @@ class Applet(rhnHandler):
         cache_key = "applet-poll-%s" % string.join(label_list, "-")
 
         ret = rhnCache.get(cache_key, last_channel_changed_ts)
-        if ret: # we have a good entry with matching timestamp
+        if ret:  # we have a good entry with matching timestamp
             log_debug(3, "Cache HIT for", cache_key)
             return ret
 
@@ -173,7 +175,7 @@ class Applet(rhnHandler):
         # nvre, name, version, release, epoch, errata_advisory,
         # errata_id, with the errata fields being empty strings if the
         # package isn't from an errata.
-        ret = { 'last_modified' : last_channel_changed_ts, 'contents' : [] }
+        ret = {'last_modified': last_channel_changed_ts, 'contents': []}
 
         # we search for packages only in the allowed channels - build
         # the SQL helper string and dictionary to make the foo IN (
@@ -207,18 +209,18 @@ class Applet(rhnHandler):
             rhnPackageEVR pe,
             rhnChannelNewestPackage cnp
         left join
-	    (	select	sq_e.id as errata_id,
-			sq_e.synopsis as errata_synopsis,
-			sq_e.advisory as errata_advisory,
-			sq_ep.package_id
-		from
-			rhnErrata sq_e,
-			rhnErrataPackage sq_ep,
-			rhnChannelErrata sq_ce
-		where	sq_ce.errata_id = sq_ep.errata_id
-			and sq_ce.errata_id = sq_e.id
-			and sq_ce.channel_id in ( %s )
-	    ) e_sq
+            (   select  sq_e.id as errata_id,
+                        sq_e.synopsis as errata_synopsis,
+                        sq_e.advisory as errata_advisory,
+                        sq_ep.package_id
+                from
+                        rhnErrata sq_e,
+                        rhnErrataPackage sq_ep,
+                        rhnChannelErrata sq_ce
+                where   sq_ce.errata_id = sq_ep.errata_id
+                        and sq_ce.errata_id = sq_e.id
+                        and sq_ce.channel_id in ( %s )
+            ) e_sq
           on cnp.package_id = e_sq.package_id
         where
             cnp.channel_id in ( %s )
@@ -241,7 +243,7 @@ class Applet(rhnHandler):
                 if p[k] is None:
                     p[k] = ""
             p["nevr"] = "%s-%s-%s:%s" % (
-                 p["name"], p["version"], p["release"], p["epoch"])
+                p["name"], p["version"], p["release"], p["epoch"])
             p["nvr"] = "%s-%s-%s" % (p["name"], p["version"], p["release"])
 
             pkg_name = p["name"]
@@ -249,15 +251,15 @@ class Applet(rhnHandler):
             if contents.has_key(pkg_name):
                 stored_pkg = contents[pkg_name]
 
-                s = [ stored_pkg["name"],
-                      stored_pkg["version"],
-                      stored_pkg["release"],
-                      stored_pkg["epoch"] ]
+                s = [stored_pkg["name"],
+                     stored_pkg["version"],
+                     stored_pkg["release"],
+                     stored_pkg["epoch"]]
 
-                n = [ p["name"],
-                      p["version"],
-                      p["release"],
-                      p["epoch"] ]
+                n = [p["name"],
+                     p["version"],
+                     p["release"],
+                     p["epoch"]]
 
                 log_debug(7, "comparing vres", s, n)
                 if rhn_rpm.nvre_compare(s, n) < 0:

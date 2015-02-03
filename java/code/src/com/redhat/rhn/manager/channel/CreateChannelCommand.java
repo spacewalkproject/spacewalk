@@ -75,6 +75,7 @@ public class CreateChannelCommand {
     protected String maintainerPhone;
     protected String supportPolicy;
     protected String access = Channel.PRIVATE;
+    protected boolean globallySubscribable;
 
 
     /**
@@ -222,18 +223,13 @@ public class CreateChannelCommand {
     }
 
     /**
-     * Creates the Channel based on the parameters that were set.
-     * @return the newly created Channel
-     * @throws InvalidChannelLabelException thrown if label is in use or invalid.
-     * @throws InvalidChannelNameException throw if name is in use or invalid.
-     * @throws IllegalArgumentException thrown if label, name or user are null.
-     * @throws InvalidParentChannelException thrown if parent label is not a
-     * valid base channel.
+     * @param globallySubscribableIn if the channel should be globally subscribable
      */
-    public Channel create()
-        throws InvalidChannelLabelException, InvalidChannelNameException,
-        InvalidParentChannelException {
+    public void setGloballySubscribable(boolean globallySubscribableIn) {
+        globallySubscribable = globallySubscribableIn;
+    }
 
+    protected ChannelArch validateChannel() {
         verifyRequiredParameters();
         verifyChannelName(name);
         verifyChannelLabel(label);
@@ -256,8 +252,23 @@ public class CreateChannelCommand {
             throw new IllegalArgumentException("Invalid architecture label");
         }
 
-        ChecksumType ct = ChannelFactory.findChecksumTypeByLabel(checksum);
+        return ca;
+    }
 
+    /**
+     * Creates the Channel based on the parameters that were set.
+     * @return the newly created Channel
+     * @throws InvalidChannelLabelException thrown if label is in use or invalid.
+     * @throws InvalidChannelNameException throw if name is in use or invalid.
+     * @throws IllegalArgumentException thrown if label, name or user are null.
+     * @throws InvalidParentChannelException thrown if parent label is not a
+     * valid base channel.
+     */
+    public Channel create() throws InvalidChannelLabelException,
+            InvalidChannelNameException, InvalidParentChannelException {
+
+        ChannelArch ca = validateChannel();
+        ChecksumType ct = ChannelFactory.findChecksumTypeByLabel(checksum);
 
         Channel c = ChannelFactory.createChannel();
         c.setLabel(label);
@@ -266,28 +277,10 @@ public class CreateChannelCommand {
         c.setDescription(description);
         c.setOrg(user.getOrg());
         c.setBaseDir("/dev/null");
+        c.setChannelArch(ca);
 
         // handles either parent id or label
         setParentChannel(c, user, parentLabel, parentId);
-
-        // ensure child channel arch is compatible
-        Channel parent = c.getParentChannel();
-        if (parent != null) {
-            List<Map<String, String>> compatibleArches = ChannelManager
-                    .compatibleChildChannelArches(parent.getChannelArch().getLabel());
-            Set<String> compatibleArchLabels = new HashSet<String>();
-
-            for (Map<String, String> arch : compatibleArches) {
-                compatibleArchLabels.add(arch.get("label"));
-            }
-
-            if (!compatibleArchLabels.contains(ca.getLabel())) {
-                throw new IllegalArgumentException(
-                        "Incompatible parent and child channel architectures");
-            }
-        }
-
-        c.setChannelArch(ca);
         c.setChecksumType(ct);
         c.setGPGKeyId(gpgKeyId);
         c.setGPGKeyUrl(gpgKeyUrl);
@@ -302,6 +295,9 @@ public class CreateChannelCommand {
 
         // need to save before calling stored proc below
         ChannelFactory.save(c);
+
+        // this ends up being a mode query call, must have saved the channel to get an id
+        c.setGloballySubscribable(globallySubscribable, user.getOrg());
 
         ChannelManager.queueChannelChange(c.getLabel(), "createchannel", "createchannel");
         ChannelFactory.refreshNewestPackageCache(c, WEB_CHANNEL_CREATED);
@@ -342,6 +338,23 @@ public class CreateChannelCommand {
 
         if (!parent.isBaseChannel()) {
             throw new InvalidParentChannelException();
+        }
+
+        // ensure child channel arch is compatible
+        ChannelArch ca = affected.getChannelArch();
+        if (parent != null) {
+            List<Map<String, String>> compatibleArches = ChannelManager
+                    .compatibleChildChannelArches(parent.getChannelArch().getLabel());
+            Set<String> compatibleArchLabels = new HashSet<String>();
+
+            for (Map<String, String> arch : compatibleArches) {
+                compatibleArchLabels.add(arch.get("label"));
+            }
+
+            if (!compatibleArchLabels.contains(ca.getLabel())) {
+                throw new IllegalArgumentException(
+                        "Incompatible parent and child channel architectures");
+            }
         }
 
         // man that's a lot of conditionals :) finally we do what
@@ -438,7 +451,6 @@ public class CreateChannelCommand {
         // work the same.
         Matcher redhatRegex = Pattern.compile(REDHAT_REGEX).matcher(clabel.toLowerCase());
         if (redhatRegex.find()) {
-            String s = redhatRegex.group();
             throw new InvalidChannelLabelException(clabel,
                 InvalidChannelLabelException.Reason.REDHAT_REGEX_FAILS,
                 "edit.channel.invalidchannellabel.redhat", redhatRegex.group());

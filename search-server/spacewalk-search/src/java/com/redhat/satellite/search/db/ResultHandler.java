@@ -21,11 +21,11 @@ import java.sql.SQLException;
 
 /**
  * Callback interface for Connection-based queries
- * 
+ *
  * @version $Rev$
  */
 public interface ResultHandler {
-    
+
     /**
      * Called for each row in a resultset
      * @param rs resultset

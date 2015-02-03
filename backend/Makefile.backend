@@ -7,7 +7,7 @@ CONF_DIRS = apache-conf rhn-conf logrotate
 
 # We look for config files in "well known" locations (rhn-conf,
 # httpd-conf, logrotate)
-EXTRA_DIRS = /var/log/rhn /var/log/rhn/reposync /var/cache/rhn
+EXTRA_DIRS = /var/log/rhn /var/log/rhn/reposync /var/cache/rhn /var/cache/rhn/satsync
 
 all :: all-code all-conf
 

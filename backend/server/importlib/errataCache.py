@@ -18,6 +18,7 @@
 
 from spacewalk.server import rhnSQL
 
+
 def schedule_errata_cache_update(channels):
     # If no channels were supplied, exit here to shortcut parsing the query
     if not channels:

@@ -29,7 +29,6 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.ContentSourceFilter;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
-import com.redhat.rhn.domain.channel.NewChannelHelper;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
@@ -65,6 +64,7 @@ import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.frontend.xmlrpc.user.XmlRpcUserHelper;
 import com.redhat.rhn.manager.channel.ChannelEditor;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.channel.CloneChannelCommand;
 import com.redhat.rhn.manager.channel.CreateChannelCommand;
 import com.redhat.rhn.manager.channel.UpdateChannelCommand;
 import com.redhat.rhn.manager.channel.repo.BaseRepoCommand;
@@ -1956,6 +1956,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         Channel parent = null;
         if (parentLabel != null) {
             parent = lookupChannelByLabel(loggedInUser.getOrg(), parentLabel);
+
         }
 
         ChannelArch arch = null;
@@ -2004,21 +2005,19 @@ public class ChannelSoftwareHandler extends BaseHandler {
             gpgFingerprint = originalChan.getGPGKeyFp();
         }
 
-        NewChannelHelper helper = new NewChannelHelper();
+        CloneChannelCommand helper = new CloneChannelCommand(originalState.booleanValue(),
+                originalChan);
         helper.setName(name);
-        helper.setArch(arch);
+        helper.setArchLabel(arch.getLabel());
         helper.setDescription(description);
-        helper.setGpgFingerprint(gpgFingerprint);
-        helper.setGpgId(gpgId);
-        helper.setGpgUrl(gpgUrl);
+        helper.setGpgKeyFp(gpgFingerprint);
+        helper.setGpgKeyId(gpgId);
+        helper.setGpgKeyUrl(gpgUrl);
         helper.setLabel(label);
-        helper.setParent(parent);
         helper.setUser(loggedInUser);
         helper.setSummary(summary);
-        helper.setProductName(originalChan.getProductName());
 
-        Channel clone = helper.clone(originalState.booleanValue(), originalChan);
-        ChannelManager.cloneNewestPackages(originalChan.getId(), clone, "api");
+        Channel clone = helper.create();
         return clone.getId().intValue();
     }
 
@@ -2219,8 +2218,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public Object[] mergePackages(User loggedInUser, String mergeFromLabel,
             String mergeToLabel) {
-
-        channelAdminPermCheck(loggedInUser);
 
         Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
         Channel mergeTo = lookupChannelByLabel(loggedInUser, mergeToLabel);

@@ -22,6 +22,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
      <query name="PackageKeyType.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKeyType as p
-        		where p.label = :label]]>
+                        where p.label = :label]]>
     </query>
 </hibernate-mapping>

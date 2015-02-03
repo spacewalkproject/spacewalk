@@ -41,12 +41,12 @@
 
 <rl:listset name="entitlementSet">
     <rhn:csrf />
-	<rhn:submitted/>
-	<input type="hidden" name="oid" value="${param.oid}"/>
+        <rhn:submitted/>
+        <input type="hidden" name="oid" value="${param.oid}"/>
 
     <rl:list dataset="pageList"
-			name="entitlement"
-	alphabarcolumn="name"
+                        name="entitlement"
+        alphabarcolumn="name"
          styleclass="list"
          emptykey="orgsoftwaresubs.jsp.nochannelfams">
                      <rl:decorator name="PageSizeDecorator"/>
@@ -59,45 +59,45 @@
         <rl:column   styleclass="center"
                headertext="${rhn:localize('Regular Usage')} <br/>(${rhn:localize('Used/Allotted')})*">
             <c:choose>
-            	<c:when test="${empty current.maxMembers or current.maxMembers == 0}">
-            		<bean:message key="None Allocated"/>
-            	</c:when>
-            	<c:otherwise>
-          			<c:out value="${current.currentMembers} / ${current.maxMembers}" />
-            	</c:otherwise>
+                <c:when test="${empty current.maxMembers or current.maxMembers == 0}">
+                        <bean:message key="None Allocated"/>
+                </c:when>
+                <c:otherwise>
+                                <c:out value="${current.currentMembers} / ${current.maxMembers}" />
+                </c:otherwise>
             </c:choose>
         </rl:column>
 
         <rl:column
                headerkey="Regular Proposed Total">
-	       	<c:choose>
-	       		<c:when test = "${current.maxAvailable == 0}">
-	       			<bean:message key="No Entitlements Available"/>
-	       		</c:when>
-	       		<c:otherwise>
-		            <c:choose>
-		                  <c:when test="${param.oid != 1}">
-		                    <input name="${current.key}" value="${requestScope.subscriptions[current.key]}" type="text" size = "13"
-		                    onkeydown="return blockEnter(event)">
-		                    <p><small><bean:message key="orgsystemsubs.jsp.possible_vals"
-		                      arg0="0" arg1="${current.maxAvailable}"/></small></p>
-		                  </c:when>
-		                  <c:otherwise>
-		                    ${current.maxAvailable}
-		                  </c:otherwise>
-		            </c:choose>
-	            </c:otherwise>
-			</c:choose>
+                <c:choose>
+                        <c:when test = "${current.maxAvailable == 0}">
+                                <bean:message key="No Entitlements Available"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:choose>
+                                  <c:when test="${param.oid != 1}">
+                                    <input name="${current.key}" value="${requestScope.subscriptions[current.key]}" type="text" size = "13"
+                                    onkeydown="return blockEnter(event)">
+                                    <p><small><bean:message key="orgsystemsubs.jsp.possible_vals"
+                                      arg0="0" arg1="${current.maxAvailable}"/></small></p>
+                                  </c:when>
+                                  <c:otherwise>
+                                    ${current.maxAvailable}
+                                  </c:otherwise>
+                            </c:choose>
+                    </c:otherwise>
+                        </c:choose>
         </rl:column>
         <rl:column   styleclass="center"
                headertext="${rhn:localize('Flex Usage')} <br/>(${rhn:localize('Used/Allotted')})*">
             <c:choose>
-            	<c:when test="${empty current.maxFlex or current.maxFlex == 0}">
-            		<bean:message key="None Allocated"/>
-            	</c:when>
-            	<c:otherwise>
-         	 	<c:out value="${current.currentFlex} / ${current.maxFlex}" />
-            	</c:otherwise>
+                <c:when test="${empty current.maxFlex or current.maxFlex == 0}">
+                        <bean:message key="None Allocated"/>
+                </c:when>
+                <c:otherwise>
+                        <c:out value="${current.currentFlex} / ${current.maxFlex}" />
+                </c:otherwise>
             </c:choose>
 
 
@@ -106,30 +106,30 @@
         <rl:column bound="false"
                sortable="false"
                headerkey="Flex Proposed Total">
-	       	<c:choose>
-	       		<c:when test = "${current.maxAvailableFlex == 0}">
-	       			<bean:message key="No Entitlements Available"/>
-	       		</c:when>
-	       		<c:otherwise>
-		            <c:choose>
-		                  <c:when test="${param.oid != 1}">
-		                    <input name="${current.flexKey}" value="${requestScope.subscriptions[current.flexKey]}" type="text" size = "13"
-		                    onkeydown="return blockEnter(event)">
+                <c:choose>
+                        <c:when test = "${current.maxAvailableFlex == 0}">
+                                <bean:message key="No Entitlements Available"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:choose>
+                                  <c:when test="${param.oid != 1}">
+                                    <input name="${current.flexKey}" value="${requestScope.subscriptions[current.flexKey]}" type="text" size = "13"
+                                    onkeydown="return blockEnter(event)">
 
-		                    <p><small><bean:message key="orgsystemsubs.jsp.possible_vals"
-		                      arg0="0" arg1="${current.maxAvailableFlex}"/></small></p>
-		                  </c:when>
-		                  <c:otherwise>
-		                    ${current.maxAvailableFlex}
-		                  </c:otherwise>
-		            </c:choose>
-	            </c:otherwise>
-			</c:choose>
+                                    <p><small><bean:message key="orgsystemsubs.jsp.possible_vals"
+                                      arg0="0" arg1="${current.maxAvailableFlex}"/></small></p>
+                                  </c:when>
+                                  <c:otherwise>
+                                    ${current.maxAvailableFlex}
+                                  </c:otherwise>
+                            </c:choose>
+                    </c:otherwise>
+                        </c:choose>
         </rl:column>
     </rl:list>
-	<rl:csv dataset="pageList"
-			name="entitlement"
-			exportColumns="name,currentMembers,maxMembers,maxAvailable,currentFlex,maxFlex,maxAvailableFlex" />
+        <rl:csv dataset="pageList"
+                        name="entitlement"
+                        exportColumns="name,currentMembers,maxMembers,maxAvailable,currentFlex,maxFlex,maxAvailableFlex" />
 <p><small><rhn:tooltip>*-<bean:message key = "Used/Allotted.tip"/></rhn:tooltip></small></p>
 <c:if test="${param.oid != 1}">
  <div class="text-right">

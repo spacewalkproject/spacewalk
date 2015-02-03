@@ -804,5 +804,3 @@ def getChannelsWithPackages(packages):
         except KeyError:
             channels[channel] = [pkg]
     return channels
-
-# vim:ts=4:sw=4:et

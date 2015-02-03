@@ -29,16 +29,19 @@
 # invalid function name
 # pylint: disable=C0103
 
-import os, re
+import os
+import re
 import shlex
 from spacecmd.utils import *
 import xmlrpclib
+
 
 def help_group_addsystems(self):
     print 'group_addsystems: Add systems to a group'
     print 'usage: group_addsystems GROUP <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_group_addsystems(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -49,6 +52,7 @@ def complete_group_addsystems(self, text, line, beg, end):
         return tab_completer(self.do_group_list('', True), text)
     elif len(parts) > 2:
         return self.tab_complete_systems(parts[-1])
+
 
 def do_group_addsystems(self, args):
     (args, _options) = parse_arguments(args)
@@ -79,11 +83,13 @@ def do_group_addsystems(self, args):
 
 ####################
 
+
 def help_group_removesystems(self):
     print 'group_removesystems: Remove systems from a group'
     print 'usage: group_removesystems GROUP <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
+
 
 def complete_group_removesystems(self, text, line, beg, end):
     parts = shlex.split(line)
@@ -94,6 +100,7 @@ def complete_group_removesystems(self, text, line, beg, end):
         return tab_completer(self.do_group_list('', True), text)
     elif len(parts) > 2:
         return self.tab_complete_systems(parts[-1])
+
 
 def do_group_removesystems(self, args):
     (args, _options) = parse_arguments(args)
@@ -131,9 +138,11 @@ def do_group_removesystems(self, args):
 
 ####################
 
+
 def help_group_create(self):
     print 'group_create: Create a system group'
     print 'usage: group_create [NAME] [DESCRIPTION]'
+
 
 def do_group_create(self, args):
     (args, _options) = parse_arguments(args)
@@ -152,12 +161,15 @@ def do_group_create(self, args):
 
 ####################
 
+
 def help_group_delete(self):
     print 'group_delete: Delete a system group'
     print 'usage: group_delete NAME ...'
 
+
 def complete_group_delete(self, text, line, beg, end):
     return tab_completer(self.do_group_list('', True), text)
+
 
 def do_group_delete(self, args):
     (args, _options) = parse_arguments(args)
@@ -177,6 +189,7 @@ def do_group_delete(self, args):
 
 ####################
 
+
 def help_group_backup(self):
     print 'group_backup: backup a system group'
     print '''usage: group_backup NAME [OUTDIR]
@@ -187,7 +200,7 @@ OUTDIR defaults to $HOME/spacecmd-backup/group/YYYY-MM-DD/NAME
 
 def complete_group_backup(self, text, line, beg, end):
     List = self.do_group_list('', True)
-    List.append( 'ALL' )
+    List.append('ALL')
     return tab_completer(List, text)
 
 
@@ -211,12 +224,12 @@ def do_group_backup(self, args):
         outputpath_base = os.path.expanduser('~/spacecmd-backup/group')
 
         # make the final output path be <base>/date
-        outputpath_base = os.path.join( outputpath_base,
-                                        datetime.now().strftime("%Y-%m-%d"))
+        outputpath_base = os.path.join(outputpath_base,
+                                       datetime.now().strftime("%Y-%m-%d"))
 
     try:
-        if not os.path.isdir( outputpath_base ):
-            os.makedirs( outputpath_base )
+        if not os.path.isdir(outputpath_base):
+            os.makedirs(outputpath_base)
     except OSError:
         logging.error('Could not create output directory')
         return
@@ -226,11 +239,12 @@ def do_group_backup(self, args):
         details = self.client.systemgroup.getDetails(self.session, group)
         outputpath = outputpath_base + "/" + group
         print "Output File: %s" % outputpath
-        fh = open( outputpath, 'w' )
-        fh.write( details['description'] )
+        fh = open(outputpath, 'w')
+        fh.write(details['description'])
         fh.close()
 
 ####################
+
 
 def help_group_restore(self):
     print 'group_backup: restore a system group'
@@ -242,7 +256,7 @@ def complete_group_restore(self, text, line, beg, end):
 
     if len(parts) > 1:
         groups = self.do_group_list('', True)
-        groups.append( 'ALL' )
+        groups.append('ALL')
         return tab_completer(groups, text)
 
 
@@ -262,31 +276,31 @@ def do_group_restore(self, args):
         return
 
     inputdir = os.path.abspath(inputdir)
-    logging.debug( "Input Directory: %s" % ( inputdir ) )
+    logging.debug("Input Directory: %s" % (inputdir))
 
     # make a list of file items in the input dir
     if os.path.isdir(inputdir):
         d_content = os.listdir(inputdir)
         for d_item in d_content:
-            if os.path.isfile( inputdir + "/" + d_item ):
-                logging.debug( "Found file %s" % inputdir + "/" + d_item )
+            if os.path.isfile(inputdir + "/" + d_item):
+                logging.debug("Found file %s" % inputdir + "/" + d_item)
                 files[d_item] = inputdir + "/" + d_item
     else:
-        logging.error( "Restore dir %s does not exits or is not a directory" % inputdir )
+        logging.error("Restore dir %s does not exits or is not a directory" % inputdir)
         return
 
-    if not len( files ):
-        logging.error( "Restore dir %s has no restore items" % inputdir )
+    if not len(files):
+        logging.error("Restore dir %s has no restore items" % inputdir)
         return
 
-    if ( len(groups) == 1 and groups[0] == 'ALL' ) or not len(groups):
+    if (len(groups) == 1 and groups[0] == 'ALL') or not len(groups):
         groups = files.keys()
     elif len(groups):
         for group in groups:
-            if files.has_key( group ):
-                groups.append( group )
+            if files.has_key(group):
+                groups.append(group)
             else:
-                logging.error( "Group %s was not found in backup" % ( group ) )
+                logging.error("Group %s was not found in backup" % (group))
 
     for groupname in self.do_group_list('', True):
         details = self.client.systemgroup.getDetails(self.session, groupname)
@@ -294,40 +308,42 @@ def do_group_restore(self, args):
         current[groupname] = current[groupname].rstrip('\n')
 
     for groupname in files.keys():
-        fh = open( files[groupname], 'r' )
+        fh = open(files[groupname], 'r')
         details = fh.read()
         fh.close()
         details = details.rstrip('\n')
 
-        if current.has_key( groupname ) and current[groupname] == details:
-            logging.debug( "Already have %s" % groupname )
+        if current.has_key(groupname) and current[groupname] == details:
+            logging.debug("Already have %s" % groupname)
             continue
 
-        elif current.has_key( groupname ):
-            logging.debug( "Already have %s but the description has changed" % groupname )
+        elif current.has_key(groupname):
+            logging.debug("Already have %s but the description has changed" % groupname)
 
             if is_interactive(options):
                 print "Changing description from:"
-                print "\n\"%s\"\nto\n\"%s\"\n" % ( current[groupname], details )
+                print "\n\"%s\"\nto\n\"%s\"\n" % (current[groupname], details)
                 userinput = prompt_user('Continue [y/N]:')
 
                 if re.match('y', userinput, re.I):
-                    logging.info( "Updating description for group: %s" % groupname )
+                    logging.info("Updating description for group: %s" % groupname)
                     self.client.systemgroup.update(self.session, groupname, details)
             else:
-                logging.info( "Updating description for group: %s" % groupname )
+                logging.info("Updating description for group: %s" % groupname)
                 self.client.systemgroup.update(self.session, groupname, details)
         else:
-            logging.info( "Creating new group %s" % groupname )
+            logging.info("Creating new group %s" % groupname)
             group = self.client.systemgroup.create(self.session, groupname, details)
 
 ####################
+
 
 def help_group_list(self):
     print 'group_list: List available system groups'
     print 'usage: group_list'
 
-def do_group_list(self, args, doreturn = False):
+
+def do_group_list(self, args, doreturn=False):
     groups = self.client.systemgroup.listAllGroups(self.session)
     groups = [g.get('name') for g in groups]
 
@@ -339,14 +355,17 @@ def do_group_list(self, args, doreturn = False):
 
 ####################
 
+
 def help_group_listsystems(self):
     print 'group_listsystems: List the members of a group'
     print 'usage: group_listsystems GROUP'
 
+
 def complete_group_listsystems(self, text, line, beg, end):
     return tab_completer(self.do_group_list('', True), text)
 
-def do_group_listsystems(self, args, doreturn = False):
+
+def do_group_listsystems(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
     if not len(args):
@@ -370,12 +389,15 @@ def do_group_listsystems(self, args, doreturn = False):
 
 ####################
 
+
 def help_group_details(self):
     print 'group_details: Show the details of a system group'
     print 'usage: group_details GROUP ...'
 
+
 def complete_group_details(self, text, line, beg, end):
     return tab_completer(self.do_group_list('', True), text)
+
 
 def do_group_details(self, args, short=False):
     (args, _options) = parse_arguments(args)
@@ -412,5 +434,3 @@ def do_group_details(self, args, short=False):
             print 'Members'
             print '-------'
             print '\n'.join(sorted(systems))
-
-# vim:ts=4:expandtab:

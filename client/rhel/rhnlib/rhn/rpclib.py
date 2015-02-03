@@ -619,9 +619,9 @@ class GETServer(Server):
 
     def default_transport(self, type, proxy=None, username=None, password=None,
             timeout=None):
-	ret = Server.default_transport(self, type, proxy=proxy, username=username, password=password, timeout=timeout)
-	ret.set_method("GET")
-	return ret
+        ret = Server.default_transport(self, type, proxy=proxy, username=username, password=password, timeout=timeout)
+        ret.set_method("GET")
+        return ret
 
 class RangeError(Exception):
     pass

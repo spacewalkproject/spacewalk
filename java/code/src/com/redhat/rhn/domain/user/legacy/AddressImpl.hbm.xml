@@ -22,7 +22,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="isPoBox" column="is_po_box" type="string" length="1" />
         <property name="created" column="created" type="timestamp" insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp" insert="false" update="false"/>
-		<property name="privType" column="type" type="string" length="1" />
+                <property name="privType" column="type" type="string" length="1" />
 
     </class>
 

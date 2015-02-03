@@ -565,12 +565,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      * @return true if keyword was found
      */
     public boolean hasKeyword(String s) {
-        for (Keyword k : this.keywords) {
-             if (k.getKeyword().equals(s)) {
-               return true;
-             }
-         }
-         return false;
+        return containsKeyword(s);
     }
 
     /**

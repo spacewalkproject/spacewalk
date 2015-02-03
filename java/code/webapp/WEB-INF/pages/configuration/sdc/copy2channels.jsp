@@ -10,8 +10,8 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <c:import url="/WEB-INF/pages/common/fragments/configuration/copy2channels.jspf">
-	<c:param name = "header" value="copy2channels.jsp.header2"/>
-	<c:param name = "description" value="copy2channels.jsp.description"/>
+        <c:param name = "header" value="copy2channels.jsp.header2"/>
+        <c:param name = "description" value="copy2channels.jsp.description"/>
 </c:import>
 </body>
 </html>

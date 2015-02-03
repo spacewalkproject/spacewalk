@@ -15,7 +15,6 @@
 #
 
 
-
 import socket
 import httplib
 
@@ -37,7 +36,7 @@ class WsgiRequest:
         self.headers_out = WsgiMPtable()
         self.sent_header = 0
         self.content_type = ""
-        self.the_request = env['REQUEST_METHOD'] + " " + env['SCRIPT_NAME'] + " "  + env['SERVER_PROTOCOL']
+        self.the_request = env['REQUEST_METHOD'] + " " + env['SCRIPT_NAME'] + " " + env['SERVER_PROTOCOL']
         self.output = []
         self.err_headers_out = WsgiMPtable()
         self.status = ""
@@ -61,22 +60,22 @@ class WsgiRequest:
         self.status = str(self.status)
         if status is not None:
             self.status = str(status)
-        if len(self.status) == 0 or self.status == None:
+        if len(self.status) == 0 or self.status is None:
             self.status = "200"
         elif self.status.startswith("500"):
             for i in self.err_headers_out.items():
                 self.headers_out.add(i[0], i[1])
 
         if hasattr(httplib, "responses"):
-            self.status = self.status + " " +  httplib.responses[int(self.status)]
+            self.status = self.status + " " + httplib.responses[int(self.status)]
         else:
             # httplib in 2.4 did not have the responses dictionary
             # and mod_wsgi insists on having something after the numeric value
-            self.status = self.status + " Status " +  self.status
+            self.status = self.status + " Status " + self.status
 
         if len(self.content_type) > 0:
             self.headers_out['Content-Type'] = self.content_type
-        #default to text/xml
+        # default to text/xml
         if not self.headers_out.has_key('Content-Type'):
             self.headers_out['Content-Type'] = 'text/xml'
 
@@ -98,17 +97,22 @@ class WsgiRequest:
 
 class WsgiServer:
     # pylint: disable=R0903
+
     def __init__(self, hostname, port):
         self.server_hostname = hostname
         self.port = int(port)
 
+
 class WsgiConnection:
     # pylint: disable=R0903
+
     def __init__(self, env):
         self.remote_ip = env['REMOTE_ADDR']
         self.local_addr = (env['SERVER_NAME'], env['SERVER_PORT'])
 
+
 class WsgiMPtable:
+
     """ This class emulates mod_python's mp_table. See
         http://www.modpython.org/live/current/doc-html/pyapi-mptable.html
 
@@ -124,6 +128,7 @@ class WsgiMPtable:
         Much of the information that Apache uses is stored in tables.
         For example, req.headers_in and req.headers_out.
     """
+
     def __init__(self):
         self.dict = {}
 
@@ -156,4 +161,3 @@ class WsgiMPtable:
 
     def __str__(self):
         return str(self.items())
-

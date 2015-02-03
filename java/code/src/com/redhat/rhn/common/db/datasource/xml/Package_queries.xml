@@ -219,7 +219,7 @@ ORDER BY UPPER(X.name), X.version
   </query>
 </mode>
 
-<mode name="package_files">
+<mode name="package_files" class="com.redhat.rhn.frontend.dto.PackageFileDto">
   <query params="pid">
 SELECT C.name,
        F.file_size,
@@ -434,7 +434,7 @@ SELECT P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS nvrea,
        PP.name AS provider
   FROM rhnPackage P inner join
-  	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
        rhnPackageName PN on P.name_id = PN.id inner join
        rhnPackageEVR PE on P.evr_id = PE.id  inner join
        rhnChannelPackage CP on P.id = CP.package_id left join
@@ -794,8 +794,8 @@ SELECT  pn.name AS NAME,
         pn.id name_id,
         full_list.arch_id,
         lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) evr_id,
-        (full_list.evr).release,
-        (full_list.evr).version
+        (full_list.evr).release AS release,
+        (full_list.evr).version AS version
   FROM  (
          SELECT  p.name_id name_id, max(pe.evr) evr,
                  pa.label as arch_label, pa.id as arch_id
@@ -1042,191 +1042,6 @@ SELECT DISTINCT pa.label, pa.name
   </query>
 </mode>
 
-<mode name="system_patch_list" class="com.redhat.rhn.frontend.dto.PackageListItem">
-  <query params="sid">
-SELECT PN.id as ID,
-       PN.id || '|' || PE.id AS ID_COMBO,
-      PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
-      PN.name AS name,
-      PE.version,
-      PE.release,
-      PE.epoch,
-      PN.id AS NAME_ID,
-      PE.id AS EVR_ID,
-        nvl( (select spt.name                 from rhnSolarisPatchType spt,
-                   rhnSolarisPatch RSP,
-                         rhnPackage p
-             where RSP.package_id = p.id
-         and P.name_id = SP.name_id
-               and P.evr_id = SP.evr_id
-               and P.package_arch_id = SP.package_arch_id
-               and RSP.patch_type = spt.id),
-               'unknown') as PATCH_TYPE
-FROM  rhnPackageName PN,
-        rhnPackageEVR PE,
-        rhnServerPackage SP
-WHERE SP.server_id = :sid
- AND  SP.name_id = PN.id
- AND  SP.evr_id = PE.id
- AND  EXISTS ( SELECT  1
-                 FROM  rhnPackageArch PA,
-                       rhnArchType AT
-                WHERE  PA.id = SP.package_arch_id
-                  AND  AT.id = PA.arch_type_id
-                  AND  AT.label = 'solaris-patch' )
-ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
-  </query>
-  <elaborator params="sid" multiple="t">
-      SELECT PN.id,
-             TO_CHAR(SA.completion_time, 'YYYY-MM-DD HH:MI:SS') AS TIMESTAMP,
-             ACS.name AS ACTION_STATUS
-      FROM   rhnActionStatus ACS,
-             rhnActionPackage AP,
-             rhnServerPackage SP,
-             rhnPackageName PN,
-             rhnServerAction SA
-      WHERE  SA.server_id = :sid
-      AND    SP.server_id = SA.server_id
-      AND    PN.id IN (%s)
-      AND    SP.name_id = PN.id
-      AND    AP.action_id = SA.action_id
-      AND    AP.name_id = SP.name_id
-      AND    AP.evr_id = SP.evr_id
-      AND    ACS.id = SA.status
-      ORDER BY SA.completion_time desc
-   </elaborator>
-</mode>
-
-<mode name="patches_in_set" class="com.redhat.rhn.frontend.dto.PackageListItem">
-  <query params="set_label, user_id">
-SELECT PN.id || '|' || PE.id AS ID_COMBO,
-       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
-       PN.name AS name,
-       PN.id AS NAME_ID,
-       PE.id AS EVR_ID,
-       nvl( (select spt.name
-               from rhnSolarisPatchType spt,
-                    rhnSolarisPatch RSP,
-                    rhnPackage p
-              where RSP.package_id = p.id
-              and P.name_id = PN.id
-                and P.evr_id = PE.id
-                and RSP.patch_type = spt.id),
-                'unknown') as PATCH_TYPE
-    FROM  rhnPackageName PN, rhnPackageEVR PE, rhnSet S
-   WHERE  S.label = :set_label
-     AND  S.user_id = :user_id
-     AND  S.element = PN.id
-     AND  S.element_two = PE.id
-ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
-  </query>
-</mode>
-
-<mode name="system_available_patch_list" class="com.redhat.rhn.frontend.dto.PackageListItem">
-  <query params="sid">
-SELECT  pn.name AS NAME,
-        pn.name || '-' || evr_t_as_vre_simple(full_list.evr) AS NVRE,
-        pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) AS ID_COMBO,
-        full_list.id,
-        full_list.PATCH_TYPE
-  FROM  (
-        SELECT  p.name_id name_id, max(pe.evr) evr, p.id, pt.name AS PATCH_TYPE
-          FROM  rhnPackageEVR PE, rhnPackage P,
-                 rhnChannelPackage CP, rhnServerChannel SC, rhnSolarisPatch SSP, rhnSolarisPatchType PT
-         WHERE  sc.server_id = :sid
-           AND  sc.channel_id = cp.channel_id
-           AND  cp.package_id = p.id
-           AND  ssp.package_id = p.id
-           AND  p.evr_id = pe.id
-           AND  pt.id = ssp.patch_type
-      GROUP BY  p.name_id, p.id, pt.name
-      ) full_list,
-      rhnPackageName pn
- WHERE full_list.name_id = pn.id
-   AND EXISTS (SELECT 1
-            FROM rhnPackageNEVRA PNEVRA,
-                 rhnSolarisPatchPackages SPP,
-                 rhnServerPackage SP
-          WHERE SP.server_id = :sid
-            AND SPP.patch_id = full_list.id
-            AND PNEVRA.id = SPP.package_nevra_id
-            AND PNEVRA.name_id = SP.name_id
-            AND ((PNEVRA.package_arch_id IS NULL AND SP.package_arch_id IS NULL) OR PNEVRA.package_arch_id = SP.package_arch_id)
-            AND NOT EXISTS (SELECT 1
-                            FROM rhnSolarisPatchedPackage SPdP
-                            WHERE SPdP.server_id = :sid
-                            AND SPdP.patch_id = full_list.id
-                            AND SPdP.package_nevra_id = PNEVRA.id))
-ORDER BY  UPPER(name || '-' || evr_t_as_vre_simple(full_list.evr))
-  </query>
-  <elaborator params="sid" multiple="t">
-SELECT DISTINCT PN.name AS NAME,
-       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS ELAB_NVRE,
-       PN.id || '|' || PE.id AS ELAB_ID_COMBO,
-       SPP.patch_id as ID
-  FROM rhnPackage P,
-       rhnPackageName PN,
-       rhnPackageEVR PE,
-       rhnPackageArch PA,
-       rhnServerPackage SP,
-       rhnPackageNEVRA PNEVRA,
-       rhnServer S,
-       rhnSolarisPatchPackages SPP
- WHERE SPP.patch_id IN (%s)
-   AND S.id = :sid
-   AND PNEVRA.id = SPP.package_nevra_id
-   AND NOT EXISTS (SELECT 1
-                     FROM rhnSolarisPatchedPackage SPdP
-                    WHERE SPdP.server_id = :sid
-                      AND SPdP.patch_id = SPP.patch_id
-                      AND SPdP.package_nevra_id = PNEVRA.id)
-   AND SP.server_id = S.id
-   AND SP.name_id = PNEVRA.name_id
-   AND SP.evr_id = PNEVRA.evr_id
-   AND PN.id = PNEVRA.name_id
-   AND PE.id = PNEVRA.evr_id
-   AND P.name_id = SP.name_id
-   AND p.evr_id = SP.evr_id
- ORDER BY PN.name
-  </elaborator>
-</mode>
-
-<mode name="system_available_solaris_patchset_list" class="com.redhat.rhn.frontend.dto.SolarisPatchSet">
-  <query params="sid">
-  SELECT P.id,
-         PN.name,
-         SPS.set_date
-    FROM rhnPackageName PN,
-         rhnPackage P,
-         rhnSolarisPatchSet SPS,
-         rhnChannelPackage CP,
-         rhnServerChannel SC
-   WHERE SC.server_id = :sid
-     AND CP.channel_id = SC.channel_id
-     AND SPS.package_id = CP.package_id
-     AND P.id = SPS.package_id
-     AND PN.id = P.name_id
-  </query>
-  <elaborator params="sid" multiple="t">
-SELECT P.id,
-       COALESCE(SA.completion_time,
-           COALESCE(SA.pickup_time,
-               SA.created)) AS TIMESTAMP,
-       ACS.name AS ACTION_STATUS
-  FROM rhnActionStatus ACS,
-       rhnActionPackage AP,
-       rhnPackage P,
-       rhnServerAction SA
- WHERE SA.server_id = :sid
-   AND P.id IN (%s)
-   AND AP.action_id = SA.action_id
-   AND AP.name_id = P.name_id
-   AND AP.evr_id = P.evr_id
-   AND ACS.id = SA.status
-ORDER BY SA.completion_time desc, SA.pickup_time desc, SA.created desc
-  </elaborator>
-</mode>
-
 <mode name="package_available_to_user">
   <query params="pid, org_id">
 SELECT 1
@@ -1471,7 +1286,7 @@ SELECT P.id, PE.epoch, PE.version, PE.release
   <query params="path">
     INSERT INTO rhnPackageFileDeleteQueue
       (select :path ,current_timestamp from dual  where not exists
-	(select path from rhnPackageFileDeleteQueue where path = :path))
+        (select path from rhnPackageFileDeleteQueue where path = :path))
   </query>
 </write-mode>
 
@@ -1655,46 +1470,25 @@ ORDER BY CHANNEL_NAME DESC, EVR DESC
 
 
 
-<mode name="patchsets_in_channel" class="com.redhat.rhn.frontend.dto.PatchSetOverview">
-  <query params="cid">
-SELECT P.id AS ID,
-       PN.name,
-       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
-       P.summary,
-       PA.label AS ARCH,
-       PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
-       TO_CHAR(SP.set_date, 'YYYY-MM-DD') AS set_date
-  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
-       rhnChannelPackage CP, rhnSolarisPatchSet SP
- WHERE CP.channel_id = :cid
-   AND CP.package_id = P.id
-   AND P.name_id = PN.id
-   AND P.evr_id = PE.id
-   AND PA.id = P.package_arch_id
-   AND P.id = SP.package_id
-ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
-  </query>
-</mode>
-
 <mode name="packages_for_channel_from_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="cid, scid">
 SELECT distinct P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
-  	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-	   rhnPackageName PN on P.name_id = PN.id inner join
-	   rhnPackageEVR PE on P.evr_id = PE.id inner join
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageName PN on P.name_id = PN.id inner join
+           rhnPackageEVR PE on P.evr_id = PE.id inner join
        rhnChannelPackage CP on CP.package_id = P.id  inner join
        rhnChannelPackageArchCompat CPAC on CPAC.package_arch_id = P.package_arch_id inner join
        rhnChannelArch CA2 on CPAC.channel_arch_id = CA2.id inner join
        rhnChannel C2 on C2.channel_arch_id = CA2.id
  WHERE  CP.channel_id = :scid and
-		C2.id = :cid  and
-		P.id not in (
-			select CP2.package_id
+                C2.id = :cid  and
+                P.id not in (
+                        select CP2.package_id
             from rhnChannelPackage CP2
-			where CP2.channel_id = :cid
-		)
+                        where CP2.channel_id = :cid
+                )
   </query>
     <elaborator name="package_details" />
 </mode>
@@ -1704,19 +1498,19 @@ SELECT distinct P.id AS ID,
 SELECT distinct P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
-  	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-	   rhnPackageName PN on P.name_id = PN.id inner join
-	   rhnPackageEVR PE on P.evr_id = PE.id
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageName PN on P.name_id = PN.id inner join
+           rhnPackageEVR PE on P.evr_id = PE.id
  WHERE  P.org_id = :org_id and
-		not exists (
-			select P.id
+                not exists (
+                        select P.id
             from rhnChannelPackage CP2 inner join
              rhnPackage P2 on CP2.package_id = P2.id
- 			where CP2.channel_id = :cid and
- 				P2.name_id = PN.id and
- 				P2.evr_id = PE.id and
- 				P2.package_arch_id = PA.id
- 		)
+                        where CP2.channel_id = :cid and
+                                P2.name_id = PN.id and
+                                P2.evr_id = PE.id and
+                                P2.package_arch_id = PA.id
+                )
   </query>
     <elaborator name="package_details" />
 </mode>
@@ -1727,21 +1521,21 @@ SELECT distinct P.id AS ID,
 SELECT distinct P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
-  	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-	   rhnPackageName PN on P.name_id = PN.id inner join
-  	   rhnPackageEVR PE on P.evr_id = PE.id left join
-  	   rhnChannelPackage CP on P.id = CP.package_id
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageName PN on P.name_id = PN.id inner join
+           rhnPackageEVR PE on P.evr_id = PE.id left join
+           rhnChannelPackage CP on P.id = CP.package_id
  WHERE  (P.org_id = :org_id) and
- 		CP.channel_id is null and
-		not exists (
-			select P.id
+                CP.channel_id is null and
+                not exists (
+                        select P.id
             from rhnChannelPackage CP2 inner join
              rhnPackage P2 on CP2.package_id = P2.id
- 			where CP2.channel_id = :cid and
- 				P2.name_id = PN.id and
- 				P2.evr_id = PE.id and
- 				P2.package_arch_id = PA.id
- 		)
+                        where CP2.channel_id = :cid and
+                                P2.name_id = PN.id and
+                                P2.evr_id = PE.id and
+                                P2.package_arch_id = PA.id
+                )
   </query>
     <elaborator name="package_details" />
 </mode>
@@ -1752,12 +1546,12 @@ SELECT distinct P.id AS ID,
 SELECT distinct P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
-	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-	   rhnPackageName PN on P.name_id = PN.id inner join
-	   rhnPackageEVR PE on P.evr_id = PE.id left join
-	   rhnChannelPackage CP on CP.package_id = P.id
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageName PN on P.name_id = PN.id inner join
+           rhnPackageEVR PE on P.evr_id = PE.id left join
+           rhnChannelPackage CP on CP.package_id = P.id
  WHERE  P.org_id = :org_id and
-		CP.package_id is null
+                CP.package_id is null
   </query>
     <elaborator name="package_details" />
 </mode>
@@ -1768,9 +1562,9 @@ SELECT distinct P.id AS ID,
 SELECT distinct P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
-	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-	   rhnPackageName PN on P.name_id = PN.id inner join
-	   rhnPackageEVR PE on P.evr_id = PE.id
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageName PN on P.name_id = PN.id inner join
+           rhnPackageEVR PE on P.evr_id = PE.id
  WHERE  P.org_id = :org_id
   </query>
     <elaborator name="package_details" />
@@ -1783,12 +1577,12 @@ SELECT distinct P.id AS ID,
 SELECT distinct P.id AS ID,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
-	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-	   rhnPackageName PN on P.name_id = PN.id inner join
-	   rhnPackageEVR PE on P.evr_id = PE.id left join
-	   rhnChannelPackage CP on P.id = CP.package_id
+           rhnPackageArch PA on P.package_arch_id = PA.id inner join
+           rhnPackageName PN on P.name_id = PN.id inner join
+           rhnPackageEVR PE on P.evr_id = PE.id left join
+           rhnChannelPackage CP on P.id = CP.package_id
  WHERE  (P.org_id = :org_id) and
-		CP.channel_id = :cid
+                CP.channel_id = :cid
   </query>
     <elaborator name="package_details" />
     <elaborator name="package_channels" />
@@ -1834,14 +1628,14 @@ SELECT distinct P.id AS ID,
 
 <mode name="guestimate_package_by_channel" >
   <query params="cid, nameId, evrId">
-	SELECT P.id
-	  FROM rhnPackage P,
-	       rhnChannelPackage CP
-	 WHERE CP.channel_id = :cid
-	   AND P.id = CP.package_id
-	   AND P.name_id = :nameId
-	   AND P.evr_id = :evrId
-	ORDER BY P.package_arch_id
+        SELECT P.id
+          FROM rhnPackage P,
+               rhnChannelPackage CP
+         WHERE CP.channel_id = :cid
+           AND P.id = CP.package_id
+           AND P.name_id = :nameId
+           AND P.evr_id = :evrId
+        ORDER BY P.package_arch_id
   </query>
 </mode>
 
@@ -1918,34 +1712,34 @@ ORDER BY P.package_arch_id DESC
 
 <write-mode name="insert_primary_xml">
    <query params="pid, xml">
-	update rhnPackageRepodata
-		set primary_xml = :xml
-	where package_id = :pid
+        update rhnPackageRepodata
+                set primary_xml = :xml
+        where package_id = :pid
    </query>
 </write-mode>
 
 <write-mode name="insert_filelist_xml">
    <query params="pid, xml">
-	update rhnPackageRepodata
-		set filelist = :xml
-	where package_id = :pid
+        update rhnPackageRepodata
+                set filelist = :xml
+        where package_id = :pid
    </query>
 </write-mode>
 
 <write-mode name="insert_other_xml">
    <query params="pid, xml">
-	update rhnPackageRepodata
-		set other = :xml
-	where package_id = :pid
+        update rhnPackageRepodata
+                set other = :xml
+        where package_id = :pid
    </query>
 </write-mode>
 
 <write-mode name="create_repo_entrys">
    <query params="cid">
-	insert into rhnPackageRepodata (package_id)
-		(select cp.package_id as id from rhnChannelPackage cp left join rhnPackageRepoData rd on cp.package_id = rd.package_id
-			where cp.channel_id = :cid
-			  and rd.package_id is null)
+        insert into rhnPackageRepodata (package_id)
+                (select cp.package_id as id from rhnChannelPackage cp left join rhnPackageRepoData rd on cp.package_id = rd.package_id
+                        where cp.channel_id = :cid
+                          and rd.package_id is null)
    </query>
 </write-mode>
 
@@ -2067,9 +1861,13 @@ select p.id, pn.name as package_name, p.summary
 select  pn.name as package_name,
         pa.name as arch,
         ch1.package_id as left_id,
-        evr_t_as_vre_simple(ch1.evr) as left_nvrea,
+        case when ch1.evr is null then null
+            else evr_t_as_vre_simple(ch1.evr)
+        end as left_nvrea,
         ch2.package_id as right_id,
-        evr_t_as_vre_simple(ch2.evr) as right_nvrea,
+        case when ch2.evr is null then null
+            else evr_t_as_vre_simple(ch2.evr)
+        end as right_nvrea,
         case when ch1.evr_id is null then -2
              when ch2.evr_id is null then 2
              else rpm.vercmp(ch1.epoch, ch1.version, ch1.release,
@@ -2271,6 +2069,98 @@ SELECT 1 FROM rhnServerPackage SP
 )
    AND SCP.id IS NULL
 ORDER BY 8
+  </query>
+</mode>
+
+<mode name="obsoleting_packages">
+  <query params="pid, org_id">
+SELECT P2.id AS ID, PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '-' ||
+  PA.label AS NVREA, AC.channel_id, AC.channel_name, EP.errata_id, E.
+  advisory, E.advisory_type
+  FROM
+       rhnPackageArch PA,
+       rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageEVR PE2,
+       rhnPackage P2
+  LEFT JOIN rhnErrataPackage EP
+    ON P2.id = EP.package_id
+  LEFT JOIN rhnErrata E
+    ON E.id = EP.errata_id,
+       rhnAvailableChannels AC,
+       rhnChannelPackage CP2,
+       rhnChannelPackage CP1,
+       rhnPackage P1
+ WHERE 1=1
+   and p1.id = :pid
+   and p1.id = cp1.package_id
+   and cp1.channel_id = cp2.channel_id
+   AND AC.org_id = :org_id
+   and ac.channel_id = cp2.channel_id
+   and p1.name_id = p2.name_id
+   AND cp2.package_id = P2.id
+   AND p2.evr_id = PE.id
+   AND PE2.id = P1.evr_id
+   and pe.id != pe2.id
+   AND PE.evr >= PE2.evr
+-- after here is just for output
+   and p2.name_id = pn.id
+   and p2.package_arch_id = pa.id
+ORDER BY PE.evr DESC, AC.channel_name, E.issue_date
+  </query>
+</mode>
+
+<mode name="channel_errata_intersection_unpublished">
+  <query params="eid, cid">
+SELECT P1.id,
+       PN.name AS NAME,
+       evr_t_as_vre_simple(PE1.evr) || '-' || PA.label AS ERRATA_VERSION,
+       evr_t_as_vre_simple(PE2.evr) || '-' || PA.label AS CHANNEL_VERSION
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE2,
+       rhnChannelNewestPackage CNP,
+       rhnPackageArch PA,
+       rhnPackageEVR PE1,
+       rhnPackage P1,
+       rhnErrataPackageTmp EP
+ WHERE 1=1
+   AND EP.errata_id = :eid
+   AND EP.package_id = P1.id
+   AND CNP.channel_id = :cid
+   AND P1.name_id = CNP.name_id
+   AND CNP.evr_id = PE2.id
+   AND P1.package_arch_id = CNP.package_arch_id
+   AND P1.evr_id = PE1.id
+   AND P1.name_id = PN.id
+   AND P1.package_arch_id = PA.id
+ORDER BY PN.name, evr_t_as_vre_simple(PE2.evr) || '-' || PA.label
+  </query>
+</mode>
+
+<mode name="channel_errata_intersection_published">
+  <query params="eid, cid">
+SELECT P1.id,
+       PN.name AS NAME,
+       evr_t_as_vre_simple(PE1.evr) || '-' || PA.label AS ERRATA_VERSION,
+       evr_t_as_vre_simple(PE2.evr) || '-' || PA.label AS CHANNEL_VERSION
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE2,
+       rhnChannelNewestPackage CNP,
+       rhnPackageArch PA,
+       rhnPackageEVR PE1,
+       rhnPackage P1,
+       rhnErrataPackage EP
+ WHERE 1=1
+   AND EP.errata_id = :eid
+   AND EP.package_id = P1.id
+   AND CNP.channel_id = :cid
+   AND P1.name_id = CNP.name_id
+   AND CNP.evr_id = PE2.id
+   AND P1.package_arch_id = CNP.package_arch_id
+   AND P1.evr_id = PE1.id
+   AND P1.name_id = PN.id
+   AND P1.package_arch_id = PA.id
+ORDER BY PN.name, evr_t_as_vre_simple(PE2.evr) || '-' || PA.label
   </query>
 </mode>
 

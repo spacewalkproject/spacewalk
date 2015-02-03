@@ -19,6 +19,7 @@ import sys
 
 from spacewalk.common.rhnLog import log_debug, log_error
 
+
 class Loader:
     # Class that saves the state of imported objects
     _imports = {}
@@ -62,7 +63,6 @@ class Loader:
             # Add it to the list, so we don't load it again
             modules.append(module)
 
-
             # We use fromclause to build the full module path
             fromclause = '.'.join(fromcomps + [module])
 
@@ -86,7 +86,7 @@ class Loader:
         return _imports
 
 
-def load(dir, root_dir = None, interface_signature='rpcClasses'):
+def load(dir, root_dir=None, interface_signature='rpcClasses'):
     """
     Load modules (handlers) beneath the handlers/ tree.
 

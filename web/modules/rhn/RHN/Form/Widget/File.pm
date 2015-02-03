@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::Form::Widget::File;
@@ -53,8 +53,8 @@ sub render {
   my $self = shift;
 
   my $ret = PXT::HTML->file(-name => $self->label,
-			    -value => $self->value || $self->default || '',
-			    -accept => $self->accept);
+                            -value => $self->value || $self->default || '',
+                            -accept => $self->accept);
 
   return $ret;
 }

@@ -221,16 +221,16 @@
   </servlet>
 
   <servlet>
-  	<servlet-name>RedirectServlet</servlet-name>
-  	<display-name>Redirect Servlet</display-name>
-  	<servlet-class>com.redhat.rhn.frontend.security.RedirectServlet</servlet-class>
-  	<load-on-startup>1</load-on-startup>
+        <servlet-name>RedirectServlet</servlet-name>
+        <display-name>Redirect Servlet</display-name>
+        <servlet-class>com.redhat.rhn.frontend.security.RedirectServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet>
-	<servlet-name>HelpDocServlet</servlet-name>
-	<display-name>Help Documentation Servlet</display-name>
-	<servlet-class>com.redhat.rhn.frontend.servlets.HelpDocServlet</servlet-class>
+        <servlet-name>HelpDocServlet</servlet-name>
+        <display-name>Help Documentation Servlet</display-name>
+        <servlet-class>com.redhat.rhn.frontend.servlets.HelpDocServlet</servlet-class>
   </servlet>
 
   <!-- add precompiled jsp servlets -->
@@ -272,13 +272,13 @@
   </servlet-mapping>
 
   <servlet-mapping>
-  	<servlet-name>RedirectServlet</servlet-name>
-  	<url-pattern>/Redirect/*</url-pattern>
+        <servlet-name>RedirectServlet</servlet-name>
+        <url-pattern>/Redirect/*</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-	<servlet-name>HelpDocServlet</servlet-name>
-	<url-pattern>/help/dispatcher/*</url-pattern>
+        <servlet-name>HelpDocServlet</servlet-name>
+        <url-pattern>/help/dispatcher/*</url-pattern>
   </servlet-mapping>
 
   <mime-mapping>
@@ -300,7 +300,7 @@
     <resource-env-ref-type>javax.sql.DataSource</resource-env-ref-type>
   </resource-env-ref>
   -->
-  <!-- 
+  <!--
     configuration for HttpSession timeout
     please keep in sync with web.session_cookie_lifetime value
     in rhn_web.conf and rhn.conf

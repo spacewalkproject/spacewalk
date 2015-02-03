@@ -34,17 +34,18 @@ import sys
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib import importLib, packageImport, backendOracle
 
+
 def main():
     rhnSQL.initDB()
 
-    channel = { 'label' : 'mibanescu-test2' }
+    channel = {'label': 'mibanescu-test2'}
 
     orgid = 1198839
     package_template = {
-        'name'      : 'useless',
-        'version'   : '1.0.0',
-        'arch'      : 'noarch',
-        'org_id'    : orgid,
+        'name': 'useless',
+        'version': '1.0.0',
+        'arch': 'noarch',
+        'org_id': orgid,
     }
 
     batch = []
@@ -62,7 +63,7 @@ def main():
 
     backend = backendOracle.OracleBackend()
     cps = packageImport.ChannelPackageSubscription(batch, backend,
-        caller="misa.testing", strict=1)
+                                                   caller="misa.testing", strict=1)
     cps.run()
     print cps.affected_channel_packages
 

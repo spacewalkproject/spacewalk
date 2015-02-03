@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -45,7 +45,7 @@ sub entitlements {
   my $self = shift;
 
   my $ds = new RHN::DataSource::Simple (-querybase => 'General_queries',
-					-mode => 'token_entitlements');
+                                        -mode => 'token_entitlements');
 
   return @{$ds->execute_query(-tid => $self->id)};
 }
@@ -419,26 +419,26 @@ sub commit {
 
     if ( exists $modified{activation_key_token} ) {
       if ( exists $modified{activation_key_ks_session_id} ) {
-	$sth = $dbh->prepare(<<EOQ);
+        $sth = $dbh->prepare(<<EOQ);
 INSERT
   INTO rhnActivationKey
        (token, reg_token_id, ks_session_id)
 VALUES (:token, :id, :session_id)
 EOQ
-	$sth->execute_h(token => $self->activation_key_token, id => $self->id,
-			session_id => $self->activation_key_ks_session_id);
+        $sth->execute_h(token => $self->activation_key_token, id => $self->id,
+                        session_id => $self->activation_key_ks_session_id);
       }
       elsif ($self->activation_key_ks_session_id) {
-	die "attempted update of token for kickstart key";
+        die "attempted update of token for kickstart key";
       }
       else {
-	$sth = $dbh->prepare(<<EOQ);
+        $sth = $dbh->prepare(<<EOQ);
 UPDATE rhnActivationKey
    SET token = :token
  WHERE reg_token_id = :id
    AND ks_session_id IS null
 EOQ
-	$sth->execute_h(token => $self->activation_key_token, id => $self->id);
+        $sth->execute_h(token => $self->activation_key_token, id => $self->id);
       }
     }
     elsif ( exists $modified{activation_key_ks_session_id} ) {
@@ -450,8 +450,8 @@ UPDATE rhnActivationKey
 EOQ
 
       $sth->execute_h(id => $self->id,
-		      token => $self->activation_key_token,
-		      session_id => $self->activation_key_ks_session_id);
+                      token => $self->activation_key_token,
+                      session_id => $self->activation_key_ks_session_id);
     }
   }
   else {
@@ -470,7 +470,7 @@ VALUES (:token, :id, :session_id)
 EOQ
 
     $sth->execute_h(token => $self->activation_key_token, id => $self->id,
-		    session_id => $self->activation_key_ks_session_id);
+                    session_id => $self->activation_key_ks_session_id);
   }
 
   $dbh->commit unless $trans;

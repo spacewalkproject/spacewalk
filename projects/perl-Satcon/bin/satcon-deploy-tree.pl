@@ -33,8 +33,8 @@ my $close = '@@';
 my $help = '';
 
 GetOptions("source=s" => \$sourcedir, "dest=s" => \$destdir,
-	   "conf=s" => \$conf_file, "start-delim:s" => \$open,
-	   "end-delim:s" => \$close, "backupdir=s" => \$backupdir) or die $usage;
+           "conf=s" => \$conf_file, "start-delim:s" => \$open,
+           "end-delim:s" => \$close, "backupdir=s" => \$backupdir) or die $usage;
 
 die $usage unless ($sourcedir and $destdir and $conf_file);
 

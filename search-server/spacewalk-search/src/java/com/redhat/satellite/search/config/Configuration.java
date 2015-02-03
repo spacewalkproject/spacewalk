@@ -89,12 +89,12 @@ public class Configuration {
      * if the given lookup string is without a namespace.
      */
     private String[] prefixOrder = new String[] {"web", "server"};
-    
+
     /** hash of configuration properties */
     private Properties configValues = new Properties();
-    
+
     private List<KeyTranslator> translators;
-    
+
     /** set of configuration file names */
     private TreeSet<File> fileList = new TreeSet<File>(new Comparator<File>() {
 
@@ -132,7 +132,7 @@ public class Configuration {
         addPath(getDefaultConfigFilePath());
         parseFiles();
     }
-    
+
     /**
      * Construct from a Reader.
      * @param rdr Configuration data in Reader format.
@@ -215,7 +215,7 @@ public class Configuration {
         }
         return ret;
     }
-    
+
     /**
      * Returns a map of the values with the given name. The value must be
      * in the format of key:value otherwise, an empty map is returned.
@@ -284,7 +284,7 @@ public class Configuration {
         if (logger.isDebugEnabled()) {
             logger.debug("getString() -     getString() -> returning: " + result);
         }
-        
+
         if (result == null || result.equals("")) {
             return null;
         }
@@ -301,7 +301,7 @@ public class Configuration {
     public int getInt(String s) {
         return getInt(s, 0);
     }
-    
+
     /**
      * get the config entry for string s, if no value is found
      * return the defaultValue specified.
@@ -343,7 +343,7 @@ public class Configuration {
         }
         return new Double(val).doubleValue();
     }
-    
+
     /**
      * get the config entry for string s
      *
@@ -357,7 +357,7 @@ public class Configuration {
         }
         return new Integer(val);
     }
-    
+
     /**
      * Parses a comma-delimited list of values as a java.util.List
      * @param name config entry name
@@ -416,12 +416,12 @@ public class Configuration {
         if (value == null) {
             return false;
         }
-        
+
         //need to check the possible true values
         // tried to use BooleanUtils, but that didn't
         // get the job done for an integer as a String.
 
-        
+
         for (int i = 0; i < TRUE_VALUES.length; i++) {
             if (TRUE_VALUES[i].equalsIgnoreCase(value)) {
                 if (logger.isDebugEnabled()) {
@@ -446,7 +446,7 @@ public class Configuration {
         for (int i = 0; i < TRUE_VALUES.length; i++) {
             if (TRUE_VALUES[i].equalsIgnoreCase(b)) {
                 configValues.setProperty(s, "1");
-                
+
                 // get out we're done here
                 return;
             }
@@ -486,12 +486,12 @@ public class Configuration {
         ns = ns.replaceAll("_", ".");
         return ns;
     }
-    
+
     private void parseStream(Properties props, String namespace, InputStream is)
         throws IOException {
 
         props.load(is);
-        
+
         // loop through all of the config values in the properties file
         // making sure the prefix is there.
         Properties newProps = new Properties();
@@ -518,7 +518,7 @@ public class Configuration {
             parseFile(curr);
         }
     }
-    
+
     private void parseFile(File file) {
         Properties props = new Properties();
         String ns = makeNamespace(file);
@@ -554,7 +554,7 @@ public class Configuration {
         }
         return prop;
     }
-    
+
     private String translateKey(String key) {
         for (Iterator itr = translators.iterator(); itr.hasNext();) {
             KeyTranslator trans = (KeyTranslator) itr.next();
@@ -562,13 +562,13 @@ public class Configuration {
                 key = trans.translateKey(key);
             }
         }
-        
+
         return key;
     }
-    
+
     private static class ReaderWrapper extends InputStream {
         private Reader rdr;
-        
+
         public ReaderWrapper(Reader reader) {
             rdr = reader;
         }

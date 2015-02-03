@@ -37,6 +37,8 @@ from xmlrpclib import Fault
 #
 
 # Shamelessly stolen from xmlrpclib.xmlrpc
+
+
 class _Method:
 
     """ Bind XML-RPC to an RPC Server
@@ -92,8 +94,8 @@ class Shelf:
               Make sure it is started on %s""" % str(self.serverAddr))
             # FIXME: PROBLEM: this rhnFault will never reach the client
             raise rhnFault(1000,
-              _("Spacewalk Proxy error (issues connecting to auth cache). "
-                "Please contact your system administrator")), None, sys.exc_info()[2]
+                           _("Spacewalk Proxy error (issues connecting to auth cache). "
+                             "Please contact your system administrator")), None, sys.exc_info()[2]
 
         wfile = sock.makefile("w")
 
@@ -103,7 +105,7 @@ class Shelf:
             wfile.close()
             sock.close()
             Traceback("Shelf.__request",
-                extra="Encountered a CommunicationError")
+                      extra="Encountered a CommunicationError")
             raise
         except socket.error:
             wfile.close()
@@ -114,8 +116,8 @@ class Shelf:
                      Make sure the authentication cache daemon is started""")
             # FIXME: PROBLEM: this rhnFault will never reach the client
             raise rhnFault(1000,
-              _("Spacewalk Proxy error (issues connecting to auth cache). "
-                "Please contact your system administrator")), None, sys.exc_info()[2]
+                           _("Spacewalk Proxy error (issues connecting to auth cache). "
+                             "Please contact your system administrator")), None, sys.exc_info()[2]
 
         wfile.close()
 
@@ -132,8 +134,8 @@ class Shelf:
                       Make sure the authentication cache daemon is started""")
             # FIXME: PROBLEM: this rhnFault will never reach the client
             raise rhnFault(1000,
-              _("Spacewalk Proxy error (issues communicating to auth cache). "
-                "Please contact your system administrator")), None, sys.exc_info()[2]
+                           _("Spacewalk Proxy error (issues communicating to auth cache). "
+                             "Please contact your system administrator")), None, sys.exc_info()[2]
         except Fault, e:
             rfile.close()
             sock.close()
@@ -160,7 +162,7 @@ class Shelf:
 
             # Instantiate the exception object
             import new
-            _dict = {'args' : args}
+            _dict = {'args': args}
             raise new.instance(getattr(__builtins__, name), _dict), None, sys.exc_info()[2]
 
         return params[0]
@@ -171,7 +173,6 @@ class Shelf:
 
     def __str__(self):
         return "<Remote-Shelf instance at %s>" % id(self)
-
 
 
 #-------------------------------------------------------------------------------
@@ -190,5 +191,3 @@ if __name__ == '__main__':
 #    print 'And this will bomb (attempt to get non-existant data:'
 #    s["DOESN'T EXIST!!!"]
 #-------------------------------------------------------------------------------
-
-

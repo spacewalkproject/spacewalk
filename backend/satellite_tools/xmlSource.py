@@ -40,17 +40,24 @@ RHEL234_REGEX = re.compile("rhel-[^-]*-[aew]s-(4|3|2.1)")
 # with an XML stream.
 
 # Our parser exceptions
+
+
 class ParseException(Exception):
+
     """general parser exception (generated at this level).
     """
     pass
 
+
 class _EndContainerEvent(Exception):
+
     def __init__(self, container):
         Exception.__init__(self)
         self.container = container
 
+
 class IncompatibleVersionError(ParseException):
+
     def __init__(self, stream_version, parser_version, *args):
         ParseException.__init__(self, *args)
         self.stream_version = stream_version
@@ -60,19 +67,26 @@ class IncompatibleVersionError(ParseException):
 # Exposed functionality for the next three include:
 #    getColumnNumber(), getLineNumber(), and _msg (or just str(e))
 
+
 class RecoverableParseException(SAXParseException, Exception):
+
     """exception wrapper for a critical, but possibly recoverable, XML parser
        error.
     """
     pass
 
+
 class FatalParseException(SAXParseException, Exception):
+
     """exception wrapper for a critical XML parser error.
     """
     pass
 
 # XML Node
+
+
 class Node:
+
     def __init__(self, name, attributes=None, subelements=None):
         self.name = name
         if attributes is None:
@@ -91,15 +105,17 @@ class Node:
 
 # Base class we use as a SAX parsing handler
 class BaseDispatchHandler(ContentHandler, ErrorHandler):
+
     """ Base class we use as a SAX parsing handler
 
         We expect the meaningful data to be on the third level.
         The root element defines what the export contains, while the collection
         element defines what this collection contains
     """
-    rootElement = None # non-static
+    rootElement = None  # non-static
     __stream = None
     container_dispatch = {}
+
     def __init__(self):
         ContentHandler.__init__(self)
         self.rootAttributes = None
@@ -131,7 +147,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
             self.__parser.parse(self.__stream)
         except (KeyboardInterrupt, SystemExit):
             raise
-        except Exception:
+        except Exception:  # pylint: disable=E0012, W0703
             Traceback(ostream=sys.stderr, with_locals=1)
             if stream is not None:
                 stream.close()
@@ -194,7 +210,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
             # First time around
             if self.rootElement != element:
                 raise Exception("Mismatching elements; root='%s', "
-                    "received='%s'" % (self.rootElement, element))
+                                "received='%s'" % (self.rootElement, element))
             self.rootAttributes = utf8_attrs
             self._check_version()
             return
@@ -228,30 +244,30 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
     def error(self, e):
         """Handle a recoverable error.
         """
-        log_debug(-1, "ERROR (RECOVERABLE): parse error encountered - line: %s, col: %s, msg: %s" \
-                        % (e.getLineNumber(), e.getColumnNumber(), e._msg))
+        log_debug(-1, "ERROR (RECOVERABLE): parse error encountered - line: %s, col: %s, msg: %s"
+                  % (e.getLineNumber(), e.getColumnNumber(), e._msg))
         raise RecoverableParseException(e._msg, e, e._locator)
-
 
     def fatalError(self, e):
         """Handle a non-recoverable error.
         """
-        log_debug(-1, "ERROR (FATAL): parse error encountered - line: %s, col: %s, msg: %s" \
-                        % (e.getLineNumber(), e.getColumnNumber(), e._msg))
+        log_debug(-1, "ERROR (FATAL): parse error encountered - line: %s, col: %s, msg: %s"
+                  % (e.getLineNumber(), e.getColumnNumber(), e._msg))
         raise FatalParseException(e._msg, e, e._locator)
-
 
     def warning(self, e):
         """Handle a warning.
         """
-        log_debug(-1, "ERROR (WARNING): parse error encountered - line: %s, col: %s, msg: %s" \
-                        % (e.getLineNumber(), e.getColumnNumber(), e._msg))
+        log_debug(-1, "ERROR (WARNING): parse error encountered - line: %s, col: %s, msg: %s"
+                  % (e.getLineNumber(), e.getColumnNumber(), e._msg))
 
     # To be overridden in subclasses
     def _check_version(self):
         pass
 
 # Particular case: a satellite handler
+
+
 class SatelliteDispatchHandler(BaseDispatchHandler):
     rootElement = 'rhn-satellite'
     # this is the oldest version of channel dump we support
@@ -276,12 +292,14 @@ class SatelliteDispatchHandler(BaseDispatchHandler):
         stream_version = map(int, version.split('.'))
         allowed_version = map(int, self.version.split("."))
         if (stream_version[0] != allowed_version[0] or
-            stream_version[1] < allowed_version[1]):
+                stream_version[1] < allowed_version[1]):
             raise IncompatibleVersionError(version, self.version,
-                "Incompatible stream version %s; code supports %s" % (
-                version, self.version))
+                                           "Incompatible stream version %s; code supports %s" % (
+                                               version, self.version))
 
 # Element handler
+
+
 class BaseItem:
     item_name = None
     item_class = object
@@ -297,7 +315,6 @@ class BaseItem:
         # Populate the item from sub-elements
         self.populateFromElements(item, elements)
         return item
-
 
     def populateFromAttributes(self, obj, sourceDict):
         # Populates dict with items from sourceDict
@@ -336,8 +353,9 @@ class BaseItem:
                 # Have to map this element
                 name = self.tagMap[name]
             value = _normalizeSubelements(obj.attributeTypes.get(name),
-                element.subelements)
+                                          element.subelements)
             obj[name] = value
+
 
 def _is_string(obj):
     if isinstance(obj, types.StringType):
@@ -346,6 +364,7 @@ def _is_string(obj):
         return 1
     return 0
 
+
 def _stringify(data):
     # Accelerate the most common cases
     if isinstance(data, types.StringType):
@@ -353,6 +372,7 @@ def _stringify(data):
     elif isinstance(data, types.UnicodeType):
         return data.encode('UTF8')
     return str(data)
+
 
 def _dict_to_utf8(d):
     # Convert the dictionary to have non-unocide key-value pairs
@@ -368,8 +388,10 @@ def _dict_to_utf8(d):
 
 __itemDispatcher = {}
 
+
 def addItem(classobj):
     __itemDispatcher[classobj.item_name] = classobj
+
 
 def _createItem(element):
     # Creates an Item object from the specified element
@@ -382,93 +404,106 @@ def _createItem(element):
 #
 # ITEMS:
 #
+
+
 class BaseArchItem(BaseItem):
     pass
+
 
 class ServerArchItem(BaseArchItem):
     item_name = 'rhn-server-arch'
     item_class = importLib.ServerArch
 addItem(ServerArchItem)
 
+
 class PackageArchItem(BaseArchItem):
     item_name = 'rhn-package-arch'
     item_class = importLib.PackageArch
 addItem(PackageArchItem)
+
 
 class ChannelArchItem(BaseArchItem):
     item_name = 'rhn-channel-arch'
     item_class = importLib.ChannelArch
 addItem(ChannelArchItem)
 
+
 class CPUArchItem(BaseItem):
     item_name = 'rhn-cpu-arch'
     item_class = importLib.CPUArch
 addItem(CPUArchItem)
+
 
 class ServerPackageArchCompatItem(BaseItem):
     item_name = 'rhn-server-package-arch-compat'
     item_class = importLib.ServerPackageArchCompat
 addItem(ServerPackageArchCompatItem)
 
+
 class ServerChannelArchCompatItem(BaseItem):
     item_name = 'rhn-server-channel-arch-compat'
     item_class = importLib.ServerChannelArchCompat
 addItem(ServerChannelArchCompatItem)
+
 
 class ChannelPackageArchCompatItem(BaseItem):
     item_name = 'rhn-channel-package-arch-compat'
     item_class = importLib.ChannelPackageArchCompat
 addItem(ChannelPackageArchCompatItem)
 
+
 class ServerGroupServerArchCompatItem(BaseItem):
     item_name = 'rhn-server-group-server-arch-compat'
     item_class = importLib.ServerGroupServerArchCompat
 addItem(ServerGroupServerArchCompatItem)
 
+
 class ChannelFamilyItem(BaseItem):
     item_name = 'rhn-channel-family'
     item_class = importLib.ChannelFamily
     tagMap = {
-        'id'                        : 'channel-family-id',
+        'id': 'channel-family-id',
         # max_members is no longer populated from the xml dump, but from the
         # satellite cert
-        'rhn-channel-family-name'   : 'name',
-        'rhn-channel-family-product-url'    : 'product_url',
-        'channel-labels'                    : 'channels',
-        'virt-sub-level-label'              : 'virt_sub_level_label',
+        'rhn-channel-family-name': 'name',
+        'rhn-channel-family-product-url': 'product_url',
+        'channel-labels': 'channels',
+        'virt-sub-level-label': 'virt_sub_level_label',
     }
 addItem(ChannelFamilyItem)
+
 
 class ChannelItem(BaseItem):
     item_name = 'rhn-channel'
     item_class = importLib.Channel
     tagMap = {
-        'channel-id'                : 'string_channel_id',
-        'org-id'                    : 'org_id',
+        'channel-id': 'string_channel_id',
+        'org-id': 'org_id',
         'rhn-channel-parent-channel': 'parent_channel',
-        'rhn-channel-families'      : 'families',
-        'channel-arch'              : 'channel_arch',
-        'rhn-channel-basedir'       : 'basedir',
-        'rhn-channel-name'          : 'name',
-        'rhn-channel-summary'       : 'summary',
-        'rhn-channel-description'   : 'description',
-        'rhn-channel-last-modified' : 'last_modified',
-        'rhn-dists'                 : 'dists',
-        'rhn-release'               : 'release',
-        'channel-errata'            : 'errata',
-        'kickstartable-trees'       : 'kickstartable_trees',
-        'rhn-channel-errata'        : 'errata_timestamps',
-        'source-packages'           : 'source_packages',
-        'rhn-channel-gpg-key-url'   : 'gpg_key_url',
-        'rhn-channel-product-name'  : 'product_name',
-        'rhn-channel-product-version'  : 'product_version',
-        'rhn-channel-product-beta'  : 'product_beta',
-        'rhn-channel-receiving-updates' : 'receiving_updates',
-        'rhn-channel-checksum-type' : 'checksum_type',
-        'rhn-channel-comps-last-modified' : 'comps_last_modified',
-        'sharing'                   : 'channel_access',
-        'rhn-channel-trusted-orgs'  : 'trust_list',
+        'rhn-channel-families': 'families',
+        'channel-arch': 'channel_arch',
+        'rhn-channel-basedir': 'basedir',
+        'rhn-channel-name': 'name',
+        'rhn-channel-summary': 'summary',
+        'rhn-channel-description': 'description',
+        'rhn-channel-last-modified': 'last_modified',
+        'rhn-dists': 'dists',
+        'rhn-release': 'release',
+        'channel-errata': 'errata',
+        'kickstartable-trees': 'kickstartable_trees',
+        'rhn-channel-errata': 'errata_timestamps',
+        'source-packages': 'source_packages',
+        'rhn-channel-gpg-key-url': 'gpg_key_url',
+        'rhn-channel-product-name': 'product_name',
+        'rhn-channel-product-version': 'product_version',
+        'rhn-channel-product-beta': 'product_beta',
+        'rhn-channel-receiving-updates': 'receiving_updates',
+        'rhn-channel-checksum-type': 'checksum_type',
+        'rhn-channel-comps-last-modified': 'comps_last_modified',
+        'sharing': 'channel_access',
+        'rhn-channel-trusted-orgs': 'trust_list',
     }
+
     def populateFromElements(self, obj, elements):
         # bz 808516, to retain compatibility with Satellite <= 5.3 we
         # need to assume sha1 checksum type unless we explicitly see
@@ -503,33 +538,38 @@ class ChannelItem(BaseItem):
 
 addItem(ChannelItem)
 
+
 class ChannelTrustItem(BaseItem):
     item_name = 'rhn-channel-trusted-org'
     item_class = importLib.ChannelTrust
     tagMap = {
-        'org-id'        : 'org_trust_id',
+        'org-id': 'org_trust_id',
     }
 addItem(ChannelTrustItem)
+
 
 class OrgTrustItem(BaseItem):
     item_name = 'rhn-org-trust'
     item_class = importLib.OrgTrust
     tagMap = {
-        'org-id'        : 'org_id',
+        'org-id': 'org_id',
     }
 addItem(OrgTrustItem)
+
 
 class OrgItem(BaseItem):
     item_name = 'rhn-org'
     item_class = importLib.Org
     tagMap = {
-            'id'            : 'id',
-            'name'          : 'name',
-            'rhn-org-trusts': 'org_trust_ids',
+        'id': 'id',
+        'name': 'name',
+        'rhn-org-trusts': 'org_trust_ids',
     }
 addItem(OrgItem)
 
+
 class BaseChecksummedItem(BaseItem):
+
     def populate(self, attributes, elements):
         item = BaseItem.populate(self, attributes, elements)
         item['checksums'] = {}
@@ -549,25 +589,27 @@ class BaseChecksummedItem(BaseItem):
         return item
 addItem(BaseChecksummedItem)
 
+
 class IncompletePackageItem(BaseChecksummedItem):
     item_name = 'rhn-package-short'
     item_class = importLib.IncompletePackage
     tagMap = {
-        'id'                        : 'package_id',
-        'package-size'              : 'package_size',
-        'last-modified'             : 'last_modified',
-        'package-arch'              : 'arch',
-        'org-id'                    : 'org_id',
-        'checksums'                 : 'checksum_list',
+        'id': 'package_id',
+        'package-size': 'package_size',
+        'last-modified': 'last_modified',
+        'package-arch': 'arch',
+        'org-id': 'org_id',
+        'checksums': 'checksum_list',
     }
 addItem(IncompletePackageItem)
+
 
 class ChecksumItem(BaseItem):
     item_name = 'checksum'
     item_class = importLib.Checksum
     tagMap = {
-        'checksum-type'  : 'type',
-        'checksum-value' : 'value',
+        'checksum-type': 'type',
+        'checksum-value': 'value',
     }
 addItem(ChecksumItem)
 
@@ -577,43 +619,44 @@ class PackageItem(IncompletePackageItem):
     item_class = importLib.Package
     tagMap = {
         # Stuff coming through as attributes
-        'package-group'             : 'package_group',
-        'rpm-version'               : 'rpm_version',
-        'payload-size'              : 'payload_size',
-        'build-host'                : 'build_host',
-        'build-time'                : 'build_time',
-        'source-rpm'                : 'source_rpm',
-        'payload-format'            : 'payload_format',
+        'package-group': 'package_group',
+        'rpm-version': 'rpm_version',
+        'payload-size': 'payload_size',
+        'build-host': 'build_host',
+        'build-time': 'build_time',
+        'source-rpm': 'source_rpm',
+        'payload-format': 'payload_format',
         # Stuff coming through as subelements
-        'rhn-package-summary'       : 'summary',
-        'rhn-package-description'   : 'description',
-        'rhn-package-vendor'        : 'vendor',
-        'rhn-package-copyright'     : 'license',
-        'rhn-package-header-sig'    : 'header_sig',
+        'rhn-package-summary': 'summary',
+        'rhn-package-description': 'description',
+        'rhn-package-vendor': 'vendor',
+        'rhn-package-copyright': 'license',
+        'rhn-package-header-sig': 'header_sig',
         # These are duplicated as attributes, should go away eventually
-        'rhn-package-package-group' : 'package_group',
-        'rhn-package-rpm-version'   : 'rpm_version',
-        'rhn-package-payload-size'  : 'payload_size',
-        'rhn-package-header-start'  : 'header_start',
-        'rhn-package-header-end'    : 'header_end',
-        'rhn-package-build-host'    : 'build_host',
-        'rhn-package-build-time'    : 'build_time',
-        'rhn-package-source-rpm'    : 'source_rpm',
+        'rhn-package-package-group': 'package_group',
+        'rhn-package-rpm-version': 'rpm_version',
+        'rhn-package-payload-size': 'payload_size',
+        'rhn-package-header-start': 'header_start',
+        'rhn-package-header-end': 'header_end',
+        'rhn-package-build-host': 'build_host',
+        'rhn-package-build-time': 'build_time',
+        'rhn-package-source-rpm': 'source_rpm',
         'rhn-package-payload-format': 'payload_format',
-        'rhn-package-cookie'        : 'cookie',
+        'rhn-package-cookie': 'cookie',
         #
-        'rhn-package-files'         : 'files',
-        'rhn-package-requires'      : 'requires',
-        'rhn-package-provides'      : 'provides',
-        'rhn-package-conflicts'     : 'conflicts',
-        'rhn-package-obsoletes'     : 'obsoletes',
-        'rhn-package-recommends'    : 'recommends',
-        'rhn-package-suggests'      : 'suggests',
-        'rhn-package-supplements'   : 'supplements',
-        'rhn-package-enhances'      : 'enhances',
-        'rhn-package-changelog'     : 'changelog',
+        'rhn-package-files': 'files',
+        'rhn-package-requires': 'requires',
+        'rhn-package-provides': 'provides',
+        'rhn-package-conflicts': 'conflicts',
+        'rhn-package-obsoletes': 'obsoletes',
+        'rhn-package-recommends': 'recommends',
+        'rhn-package-suggests': 'suggests',
+        'rhn-package-supplements': 'supplements',
+        'rhn-package-enhances': 'enhances',
+        'rhn-package-changelog': 'changelog',
     }
     tagMap.update(IncompletePackageItem.tagMap)
+
     def populate(self, attributes, elements):
         item = IncompletePackageItem.populate(self, attributes, elements)
         # find out "primary" checksum
@@ -624,86 +667,101 @@ class PackageItem(IncompletePackageItem):
         return item
 addItem(PackageItem)
 
+
 class IncompleteSourcePackageItem(BaseItem):
     item_name = 'source-package'
     item_class = importLib.IncompleteSourcePackage
     tagMap = {
-        'last-modified'             : 'last_modified',
-        'source-rpm'                : 'source_rpm',
+        'last-modified': 'last_modified',
+        'source-rpm': 'source_rpm',
     }
 addItem(IncompleteSourcePackageItem)
+
 
 class SourcePackageItem(BaseItem):
     item_name = 'rhn-source-package'
     item_class = importLib.SourcePackage
     tagMap = {
-        'id'                        : 'package_id',
-        'source-rpm'                : 'source_rpm',
-        'package-group'             : 'package_group',
-        'rpm-version'               : 'rpm_version',
-        'payload-size'              : 'payload_size',
-        'build-host'                : 'build_host',
-        'build-time'                : 'build_time',
-        'package-size'              : 'package_size',
-        'last-modified'             : 'last_modified',
+        'id': 'package_id',
+        'source-rpm': 'source_rpm',
+        'package-group': 'package_group',
+        'rpm-version': 'rpm_version',
+        'payload-size': 'payload_size',
+        'build-host': 'build_host',
+        'build-time': 'build_time',
+        'package-size': 'package_size',
+        'last-modified': 'last_modified',
     }
 addItem(SourcePackageItem)
+
 
 class ChangelogItem(BaseItem):
     item_name = 'rhn-package-changelog-entry'
     item_class = importLib.ChangeLog
     tagMap = {
-        'rhn-package-changelog-entry-name'  : 'name',
-        'rhn-package-changelog-entry-text'  : 'text',
-        'rhn-package-changelog-entry-time'  : 'time',
+        'rhn-package-changelog-entry-name': 'name',
+        'rhn-package-changelog-entry-text': 'text',
+        'rhn-package-changelog-entry-time': 'time',
     }
 addItem(ChangelogItem)
 
+
 class DependencyItem(BaseItem):
+
     """virtual class - common settings for dependency items"""
     item_class = importLib.Dependency
     tagMap = {
-        'sense'                     : 'flags',
+        'sense': 'flags',
     }
+
 
 class ProvidesItem(DependencyItem):
     item_name = 'rhn-package-provides-entry'
 addItem(ProvidesItem)
 
+
 class RequiresItem(DependencyItem):
     item_name = 'rhn-package-requires-entry'
 addItem(RequiresItem)
+
 
 class ConflictsItem(DependencyItem):
     item_name = 'rhn-package-conflicts-entry'
 addItem(ConflictsItem)
 
+
 class ObsoletesItem(DependencyItem):
     item_name = 'rhn-package-obsoletes-entry'
 addItem(ObsoletesItem)
+
 
 class RecommendsItem(DependencyItem):
     item_name = 'rhn-package-recommends-entry'
 addItem(RecommendsItem)
 
+
 class SuggestsItem(DependencyItem):
     item_name = 'rhn-package-suggests-entry'
 addItem(SuggestsItem)
+
 
 class SupplementsItem(DependencyItem):
     item_name = 'rhn-package-supplements-entry'
 addItem(SupplementsItem)
 
+
 class EnhancesItem(DependencyItem):
     item_name = 'rhn-package-enhances-entry'
 addItem(EnhancesItem)
+
 
 class FileItem(BaseChecksummedItem):
     item_name = 'rhn-package-file'
     item_class = importLib.File
     tagMap = {
-        'checksum-type' : 'checksum_type',
+        'checksum-type': 'checksum_type',
     }
+
     def populate(self, attributes, elements):
         if 'md5' in attributes and 'checksum-type' not in attributes:
             attributes['checksum-type'] = 'md5'
@@ -712,40 +770,45 @@ class FileItem(BaseChecksummedItem):
         return item
 addItem(FileItem)
 
+
 class DistItem(BaseItem):
     item_name = 'rhn-dist'
     item_class = importLib.DistChannelMap
     tagMap = {
-        'channel-arch'              : 'channel_arch',
+        'channel-arch': 'channel_arch',
     }
 addItem(DistItem)
+
 
 class ChannelErratumItem(BaseItem):
     item_name = 'erratum'
     item_class = importLib.ChannelErratum
     tagMap = {
-        'last-modified'             : 'last_modified',
-        'advisory-name'             : 'advisory_name',
+        'last-modified': 'last_modified',
+        'advisory-name': 'advisory_name',
     }
 addItem(ChannelErratumItem)
+
 
 class ReleaseItem(BaseItem):
     item_name = 'rhn-release'
     item_class = importLib.ReleaseChannelMap
     tagMap = {
-        'channel-arch'              : 'channel_arch'
+        'channel-arch': 'channel_arch'
     }
 addItem(ReleaseItem)
+
 
 class BugItem(BaseItem):
     item_name = 'rhn-erratum-bug'
     item_class = importLib.Bug
     tagMap = {
-        'rhn-erratum-bug-id'        : 'bug_id',
-        'rhn-erratum-bug-summary'   : 'summary',
-        'rhn-erratum-bug-href'      : 'href',
+        'rhn-erratum-bug-id': 'bug_id',
+        'rhn-erratum-bug-summary': 'summary',
+        'rhn-erratum-bug-href': 'href',
     }
 addItem(BugItem)
+
 
 class KeywordItem(BaseItem):
     item_name = 'rhn-erratum-keyword'
@@ -754,90 +817,99 @@ class KeywordItem(BaseItem):
     }
 addItem(KeywordItem)
 
+
 class ErratumItem(BaseItem):
     item_name = 'rhn-erratum'
     item_class = importLib.Erratum
     tagMap = {
-        'id'                        : 'erratum_id',
-        'org-id'                    : 'org_id',
-        'rhn-erratum-advisory-name' : 'advisory_name',
-        'rhn-erratum-advisory-rel'  : 'advisory_rel',
-        'rhn-erratum-advisory-type' : 'advisory_type',
-        'rhn-erratum-product'       : 'product',
-        'rhn-erratum-description'   : 'description',
-        'rhn-erratum-synopsis'      : 'synopsis',
-        'rhn-erratum-topic'         : 'topic',
-        'rhn-erratum-solution'      : 'solution',
-        'rhn-erratum-issue-date'    : 'issue_date',
-        'rhn-erratum-update-date'   : 'update_date',
-        'rhn-erratum-notes'         : 'notes',
-        'rhn-erratum-org-id'        : 'org_id',
-        'rhn-erratum-refers-to'     : 'refers_to',
-        'rhn-erratum-channels'      : 'channels',
-        'rhn-erratum-keywords'      : 'keywords',
-        'rhn-erratum-checksums'     : 'checksums',
-        'rhn-erratum-bugs'          : 'bugs',
-        'rhn-erratum-cve'           : 'cve',
-        'rhn-erratum-last-modified' : 'last_modified',
-        'rhn-erratum-files'         : 'files',
-        'rhn-erratum-errata-from'   : 'errata_from',
-        'cve-names'                 : 'cve',
+        'id': 'erratum_id',
+        'org-id': 'org_id',
+        'rhn-erratum-advisory-name': 'advisory_name',
+        'rhn-erratum-advisory-rel': 'advisory_rel',
+        'rhn-erratum-advisory-type': 'advisory_type',
+        'rhn-erratum-product': 'product',
+        'rhn-erratum-description': 'description',
+        'rhn-erratum-synopsis': 'synopsis',
+        'rhn-erratum-topic': 'topic',
+        'rhn-erratum-solution': 'solution',
+        'rhn-erratum-issue-date': 'issue_date',
+        'rhn-erratum-update-date': 'update_date',
+        'rhn-erratum-notes': 'notes',
+        'rhn-erratum-org-id': 'org_id',
+        'rhn-erratum-refers-to': 'refers_to',
+        'rhn-erratum-channels': 'channels',
+        'rhn-erratum-keywords': 'keywords',
+        'rhn-erratum-checksums': 'checksums',
+        'rhn-erratum-bugs': 'bugs',
+        'rhn-erratum-cve': 'cve',
+        'rhn-erratum-last-modified': 'last_modified',
+        'rhn-erratum-files': 'files',
+        'rhn-erratum-errata-from': 'errata_from',
+        'cve-names': 'cve',
     }
 addItem(ErratumItem)
+
 
 class ErrorItem(BaseItem):
     item_name = 'rhn-error'
     item_class = importLib.Error
 addItem(ErrorItem)
 
+
 class ErrataFileItem(BaseChecksummedItem):
     item_name = 'rhn-erratum-file'
     item_class = importLib.ErrataFile
     tagMap = {
-        'type'                      : 'file_type',
-        'channels'                  : 'channel_list',
+        'type': 'file_type',
+        'channels': 'channel_list',
         # Specific to XML
-        'package'                   : 'package',
-        'source-package'            : 'source-package',
-        'checksum-type'             : 'checksum_type',
+        'package': 'package',
+        'source-package': 'source-package',
+        'checksum-type': 'checksum_type',
     }
 addItem(ErrataFileItem)
+
 
 class ProductNamesItem(BaseItem):
     item_name = 'rhn-product-name'
     item_class = importLib.ProductName
 addItem(ProductNamesItem)
 
+
 class KickstartableTreeItem(BaseItem):
     item_name = 'rhn-kickstartable-tree'
     item_class = importLib.KickstartableTree
     tagMap = {
-        'rhn-kickstart-files'       : 'files',
-        'base-path'                 : 'base_path',
-        'boot-image'                : 'boot_image',
-        'kstree-type-label'         : 'kstree_type_label',
-        'install-type-label'        : 'install_type_label',
-        'kstree-type-name'          : 'kstree_type_name',
-        'install-type-name'         : 'install_type_name',
-	'last-modified'             : 'last_modified',
+        'rhn-kickstart-files': 'files',
+        'base-path': 'base_path',
+        'boot-image': 'boot_image',
+        'kstree-type-label': 'kstree_type_label',
+        'install-type-label': 'install_type_label',
+        'kstree-type-name': 'kstree_type_name',
+        'install-type-name': 'install_type_name',
+        'last-modified': 'last_modified',
     }
 addItem(KickstartableTreeItem)
+
 
 class KickstartFileItem(BaseChecksummedItem):
     item_name = 'rhn-kickstart-file'
     item_class = importLib.KickstartFile
     tagMap = {
-        'relative-path'             : 'relative_path',
-        'file-size'                 : 'file_size',
-        'last-modified'             : 'last_modified',
+        'relative-path': 'relative_path',
+        'file-size': 'file_size',
+        'last-modified': 'last_modified',
     }
 addItem(KickstartFileItem)
 
 #
 # Container handler and containers:
 #
+
+
 class ContainerHandler:
     container_name = None
+
     def __init__(self):
         # The tag stack; each item is an array [element, attributes]
         self.tagStack = []
@@ -856,7 +928,7 @@ class ContainerHandler:
         self.batch = batch
 
     def startElement(self, element, attrs):
-        #log_debug(6, element) --duplicate logging.
+        # log_debug(6, element) --duplicate logging.
         if len(self.tagStack) == 0 and element != self.container_name:
             # Strange; this element is called to parse stuff when it's not
             # supposed to
@@ -877,7 +949,7 @@ class ContainerHandler:
             lastObj.append(data)
 
     def endElement(self, element):
-        #log_debug(6, element) --duplicate logging.
+        # log_debug(6, element) --duplicate logging.
         tagobj = self.tagStack[-1]
         # Remove the previous tag
         del self.tagStack[-1]
@@ -886,7 +958,7 @@ class ContainerHandler:
         if name != element:
             raise ParseException(
                 "incorrect XML data: closing tag %s, opening tag %s" % (
-                element, name))
+                    element, name))
         # Append the content of the object to the tag object
         for obj in self.objStack[-1]:
             tagobj.addSubelement(obj)
@@ -927,7 +999,7 @@ class ContainerHandler:
         if 'error' in item:
             # Special case errors
             log_debug(0, 'XML parser error: found "rhn-error" item: %s' %
-                item['error'])
+                      item['error'])
             raise ParseException(item['error'])
 
         self.postprocessItem(item)
@@ -940,6 +1012,7 @@ class ContainerHandler:
     def postprocessItem(self, item):
         # Do nothing
         pass
+
 
 def _normalizeSubelements(objtype, subelements):
     # pylint: disable=R0911
@@ -970,7 +1043,7 @@ def _normalizeSubelements(objtype, subelements):
 
     if _strings_only:
         # Multiple strings - contactenate into one
-        subelements = [ ''.join(subelements) ]
+        subelements = [''.join(subelements)]
     else:
         # Ignore whitespaces around elements
         subelements = _s
@@ -997,7 +1070,7 @@ def _normalizeSubelements(objtype, subelements):
         if objtype is importLib.DateType:
             return _normalizeDateType(subelement)
         raise Exception("Unhandled type %s for subelement %s" % (objtype,
-            subelement))
+                                                                 subelement))
 
     # Expecting a list of things
     expectedType = objtype[0]
@@ -1021,7 +1094,7 @@ def _normalizeSubelements(objtype, subelements):
             continue
         if not isinstance(item, expectedType):
             raise Exception("Expected type %s, got back %s %s" % (expectedType,
-                type(item), item))
+                                                                  type(item), item))
         result.append(item)
 
     return result
@@ -1046,6 +1119,7 @@ def _normalizeAttribute(objtype, attribute):
     else:
         raise Exception("Unhandled attribute data type %s" % objtype)
 
+
 def _normalizeDateType(value):
     try:
         value = int(value)
@@ -1062,7 +1136,7 @@ def _normalizeDateType(value):
 # XXX: we'll need an ErrorContainer eventually
 #      (we do not handle <rhn-error> properly if it is
 #       a "root" element).
-#class ErrorContainer(ContainerHandler):
+# class ErrorContainer(ContainerHandler):
 #    container_name = 'rhn-error'
 #    def endContainerCallback(self):
 #        lastObj = self.getLastItem()
@@ -1075,6 +1149,7 @@ class ChannelFamilyContainer(ContainerHandler):
 
 class ChannelContainer(ContainerHandler):
     container_name = 'rhn-channels'
+
 
 class IncompletePackageContainer(ContainerHandler):
     container_name = 'rhn-packages-short'
@@ -1089,6 +1164,7 @@ class IncompletePackageContainer(ContainerHandler):
 
 
 class PackageContainer(IncompletePackageContainer):
+
     """Inherits from IncompletePackageContainer, since we need to postprocess the
        channel information
     """
@@ -1118,23 +1194,30 @@ class ChannelArchContainer(ContainerHandler):
 class CPUArchContainer(ContainerHandler):
     container_name = 'rhn-cpu-arches'
 
+
 class ServerPackageArchCompatContainer(ContainerHandler):
     container_name = 'rhn-server-package-arch-compatibility-map'
+
 
 class ServerChannelArchCompatContainer(ContainerHandler):
     container_name = 'rhn-server-channel-arch-compatibility-map'
 
+
 class ChannelPackageArchCompatContainer(ContainerHandler):
     container_name = 'rhn-channel-package-arch-compatibility-map'
+
 
 class ServerGroupServerArchCompatContainer(ContainerHandler):
     container_name = 'rhn-server-group-server-arch-compatibility-map'
 
+
 class ProductNamesContainer(ContainerHandler):
     container_name = 'rhn-product-names'
 
+
 class KickstartableTreesContainer(ContainerHandler):
     container_name = 'rhn-kickstartable-trees'
+
 
 class OrgContainer(ContainerHandler):
     container_name = 'rhn-orgs'

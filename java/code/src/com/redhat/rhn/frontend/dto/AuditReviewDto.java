@@ -94,5 +94,3 @@ public class AuditReviewDto extends BaseDto implements Comparable<AuditReviewDto
             (int)(other.getStart().getTime() / 1000);
     }
 }
-
-// vim: ts=4:expandtab

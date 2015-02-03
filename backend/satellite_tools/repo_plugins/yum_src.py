@@ -39,22 +39,29 @@ except ImportError:
 from spacewalk.satellite_tools.repo_plugins import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
 
-CACHE_DIR   = '/var/cache/rhn/reposync/'
+CACHE_DIR = '/var/cache/rhn/reposync/'
 YUMSRC_CONF = '/etc/rhn/spacewalk-repo-sync/yum.conf'
 
+
 class YumWarnings:
+
     def __init__(self):
         self.saved_stdout = None
         self.errors = None
+
     def write(self, s):
         pass
+
     def disable(self):
         self.saved_stdout = sys.stdout
         sys.stdout = self
+
     def restore(self):
         sys.stdout = self.saved_stdout
 
+
 class YumUpdateMetadata(UpdateMetadata):
+
     """The root update metadata object supports getting all updates"""
 
 # pylint: disable=W0221
@@ -90,7 +97,9 @@ class YumUpdateMetadata(UpdateMetadata):
                             no = self._no_cache.setdefault(pkgfile['name'], set())
                             no.add(un)
 
+
 class ContentSource(object):
+
     def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF):
         self.url = url
         self.name = name
@@ -142,8 +151,8 @@ class ContentSource(object):
 
         yb_cfg = self.yumbase.conf.cfg
         if not ((yb_cfg.has_section(self.name) and yb_cfg.has_option(self.name, 'proxy')) or
-            (yb_cfg.has_section('main') and yb_cfg.has_option('main', 'proxy'))) and \
-            self.proxy_addr is not None:
+                (yb_cfg.has_section('main') and yb_cfg.has_option('main', 'proxy'))) and \
+                self.proxy_addr is not None:
             repo.proxy = "http://%s" % self.proxy_addr
             repo.proxy_username = self.proxy_user
             repo.proxy_password = self.proxy_pass
@@ -191,12 +200,12 @@ class ContentSource(object):
             new_pack.checksum_type = pack.checksums[0][0]
             if new_pack.checksum_type == 'sha':
                 new_pack.checksum_type = 'sha1'
-            new_pack.checksum      = pack.checksums[0][1]
+            new_pack.checksum = pack.checksums[0][1]
             to_return.append(new_pack)
         return to_return
 
     @staticmethod
-    def _filter_packages(packages, filters, exclude_only = False):
+    def _filter_packages(packages, filters, exclude_only=False):
         """ implement include / exclude logic
             filters are: [ ('+', includelist1), ('-', excludelist1),
                            ('+', includelist2), ... ]
@@ -219,7 +228,7 @@ class ContentSource(object):
                 if not exclude_only:
                     # include
                     exactmatch, matched, _unmatched = yum.packages.parsePackages(
-                                                            excluded, pkg_list)
+                        excluded, pkg_list)
                     allmatched = yum.misc.unique(exactmatch + matched)
                     selected = yum.misc.unique(selected + allmatched)
                     for pkg in allmatched:
@@ -228,7 +237,7 @@ class ContentSource(object):
             elif sense == '-':
                 # exclude
                 exactmatch, matched, _unmatched = yum.packages.parsePackages(
-                                                        selected, pkg_list)
+                    selected, pkg_list)
                 allmatched = yum.misc.unique(exactmatch + matched)
                 for pkg in allmatched:
                     if pkg in selected:

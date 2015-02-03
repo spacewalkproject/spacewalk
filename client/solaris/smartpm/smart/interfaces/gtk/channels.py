@@ -873,5 +873,3 @@ class MountPointSelector(object):
         self._window.hide()
 
         return mp
-
-# vim:ts=4:sw=4:et

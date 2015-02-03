@@ -23,8 +23,8 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import org.cobbler.Profile;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -46,7 +46,7 @@ public class KickstartActivationKeysCommand extends BaseKickstartCommand {
      * Removes default regtokens from the kickstart profile.
      * @param ids The ids of the regtokens to remove.
     */
-    public void removeTokensByIds(ArrayList<Long> ids) {
+    public void removeTokensByIds(List<Long> ids) {
         Set<String> keysToRemove = new HashSet<String>();
 
         for (Long id : ids) {
@@ -64,7 +64,7 @@ public class KickstartActivationKeysCommand extends BaseKickstartCommand {
                 CobblerXMLRPCHelper.getConnection(this.getUser()),
                 this.getKickstartData().getCobblerId());
         if (prof != null) {
-            prof.syncRedHatManagementKeys(keysToRemove, Collections.EMPTY_SET);
+            prof.syncRedHatManagementKeys(keysToRemove, new ArrayList<String>());
         }
         prof.save();
     }
@@ -73,7 +73,7 @@ public class KickstartActivationKeysCommand extends BaseKickstartCommand {
      * Adds default regtokens from the kickstart profile.
      * @param ids The ids of the regtokens to add.
     */
-    public void addTokensByIds(ArrayList<Long> ids) {
+    public void addTokensByIds(List<Long> ids) {
         Set<String> keysToAdd = new HashSet<String>();
 
         for (Long id : ids) {
@@ -90,7 +90,7 @@ public class KickstartActivationKeysCommand extends BaseKickstartCommand {
                 CobblerXMLRPCHelper.getConnection(this.getUser()),
                 this.getKickstartData().getCobblerId());
         if (prof != null) {
-            prof.syncRedHatManagementKeys(Collections.EMPTY_SET, keysToAdd);
+            prof.syncRedHatManagementKeys(new ArrayList<String>(), keysToAdd);
         }
         prof.save();
     }
@@ -100,11 +100,11 @@ public class KickstartActivationKeysCommand extends BaseKickstartCommand {
      *  associated with this profile.
      * @return Set of ActivationKeys (Registration Tokens)
      */
-    public Set getDefaultRegTokens() {
+    public Set<Token> getDefaultRegTokens() {
         if (this.ksdata.getDefaultRegTokens() != null) {
             return this.ksdata.getDefaultRegTokens();
         }
-        return Collections.EMPTY_SET;
+        return new HashSet<Token>();
     }
 
 }

@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        2.3.0
+Version:        2.3.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -64,16 +64,8 @@ Requires:       yum-utils
 # Requires:       osa-dispatcher
 # Requires:       jabberpy
 
-# Monitoring packages
-Requires:       spacewalk-monitoring
-
-# Solaris
-# Requires:       rhn-solaris-bootstrap
-# Requires:       rhn_solaris_bootstrap_5_1_0_3
-
 # SELinux
 Requires:       osa-dispatcher-selinux
-Requires:       spacewalk-monitoring-selinux
 Requires:       spacewalk-selinux
 
 %if 0%{?rhel} == 5
@@ -109,8 +101,6 @@ Requires: spacewalk-java-oracle
 Requires: perl(DBD::Oracle)
 Requires: cx_Oracle
 Requires: spacewalk-backend-sql-oracle
-Requires: NOCpulsePlugins-Oracle
-Requires: perl-NOCpulse-Probe-Oracle
 Requires: quartz-oracle
 Requires: oracle-instantclient-selinux
 Requires: oracle-instantclient-sqlplus-selinux
@@ -176,6 +166,10 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.1-1
+- remove Monitoring and Solaris dependencies
+- Bumping package versions for 2.3.
+
 * Fri Apr 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.2-1
 - editarea has been replaced with ace-editor
 

@@ -33,23 +33,23 @@
         <rhn:submitted />
         <rl:list name="hostList"
             dataset="pageList" emptykey="physicalhosts.jsp.nosystems"  width="100%">
-	  <rl:column bound="false"
-	             sortable="false"
-	             headerkey="physicalhosts.jsp.guestsystem">
+          <rl:column bound="false"
+                     sortable="false"
+                     headerkey="physicalhosts.jsp.guestsystem">
           <a href="/rhn/systems/details/Overview.do?sid=${current.guestId}">
             <c:out value="${current.guestName}" escapeXml="true" />
           </a>
-	  </rl:column>
+          </rl:column>
         <rl:column bound="false" sortable="false" headerkey="guestslimited.jsp.hostsystem">
-	      <c:choose>
-	        <c:when test="${empty current.hostId}">unknown</c:when>
-	        <c:otherwise>
+              <c:choose>
+                <c:when test="${empty current.hostId}">unknown</c:when>
+                <c:otherwise>
               <a href="/rhn/systems/details/Overview.do?sid=${current.hostId}">
                 <c:out value="${current.hostName}" escapeXml="true" />
               </a>
-	        </c:otherwise>
+                </c:otherwise>
           </c:choose>
-	  </rl:column>
+          </rl:column>
         </rl:list>
       </rl:listset>
       <h2><bean:message key="physicalhosts.jsp.header3" /></h2>

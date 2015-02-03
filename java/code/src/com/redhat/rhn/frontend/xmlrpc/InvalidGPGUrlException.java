@@ -26,7 +26,7 @@ public class InvalidGPGUrlException extends FaultException {
      * Constructor
      */
     public InvalidGPGUrlException() {
-        super(1207, "invalidGpgUrl", "Invalid GPG Url");
+        super(1207, "invalidGpgUrl", "The GPG URL must be a valid URL");
     }
 
     /**
@@ -37,7 +37,7 @@ public class InvalidGPGUrlException extends FaultException {
      * unknown.)
      */
     public InvalidGPGUrlException(Throwable cause) {
-        super(1207, "invalidGpgUrl", "Invalid GPG Url", cause);
+        super(1207, "invalidGpgUrl", "The GPG URL must be a valid URL", cause);
     }
 
 }

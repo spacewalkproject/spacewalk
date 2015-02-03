@@ -20,7 +20,7 @@ be used with subscribeRHN.py.
 subscribeRHN.py - Re-subscribe machines in RHN to needed sub-channels
 when the RHN contract expires or whathaveyou.
 
-groupSummary.py - Displays a summary of the RHN groups and ungrouped 
+groupSummary.py - Displays a summary of the RHN groups and ungrouped
 machines.
 
 oldSystems.py - Delete registrations that have been inactive for X

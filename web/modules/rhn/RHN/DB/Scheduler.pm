@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::DB::Scheduler;
@@ -45,13 +45,13 @@ sub _horrible_tickle {
   warn "horrible tickle starting...";
 
   my $ds = new RHN::DataSource::Simple(-querybase => 'push_queries',
-				       -mode => 'superclients');
+                                       -mode => 'superclients');
   my $data = $ds->execute_query();
 
   foreach my $row (@{$data}) {
     my $sock = new IO::Socket::INET (PeerAddr => $row->{HOSTNAME},
-				     PeerPort => $row->{PORT},
-				     Proto => 'tcp');
+                                     PeerPort => $row->{PORT},
+                                     Proto => 'tcp');
 
     if ($sock) {
       warn "SOCKET!!!";
@@ -69,13 +69,13 @@ sub osa_wakeup_tickle {
 sub make_base_action {
   my $class = shift;
   my %params = validate(@_, { org_id => 1,
-			      user_id => 0,
-			      type_label => 1,
-			      earliest => 1,
-			      action_name => 0,
-			      prerequisite => 0,
-			      transaction => 0,
-			    });
+                              user_id => 0,
+                              type_label => 1,
+                              earliest => 1,
+                              action_name => 0,
+                              prerequisite => 0,
+                              transaction => 0,
+                            });
 
   my $org_id = $params{org_id};
   my $user_id = $params{user_id};
@@ -203,10 +203,10 @@ sub sscd_schedule_package_upgrade {
     my $action_name = $action_type_name . " for " . $server_name;
 
     my ($action_id, $action_stat_id) = $class->make_base_action(-org_id => $org_id,
-								-user_id => $user_id,
-								-type_label => $action_type,
-								-earliest => $earliest,
-								-action_name => $action_name);
+                                                                -user_id => $user_id,
+                                                                -type_label => $action_type,
+                                                                -earliest => $earliest,
+                                                                -action_name => $action_name);
 
     $actions{$server_id}->{$action_type}->{action_id} = $action_id;
     $actions{$server_id}->{$action_type}->{status_id} = $action_stat_id;
@@ -219,9 +219,9 @@ INSERT INTO rhnServerAction (server_id, action_id, status) VALUES (:server_id, :
 EOQ
       $sth = $dbh->prepare($query);
       $sth->execute_h(server_id => $server_id,
-		      action_id => $actions{$server_id}->{$action_type}->{action_id},
-		      status_id => $actions{$server_id}->{$action_type}->{status_id},
-		     );
+                      action_id => $actions{$server_id}->{$action_type}->{action_id},
+                      status_id => $actions{$server_id}->{$action_type}->{status_id},
+                     );
 
       $query = <<EOQ;
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id)
@@ -248,10 +248,10 @@ SELECT  sequence_nextval('rhn_act_p_id_seq'),
 EOQ
       $sth = $dbh->prepare($query);
       $sth->execute_h(server_id => $server_id,
-		      user_id => $user_id,
-		      action_id => $actions{$server_id}->{$action_type}->{action_id},
-		      scheduled_action_type => $action_type,
-		     );
+                      user_id => $user_id,
+                      action_id => $actions{$server_id}->{$action_type}->{action_id},
+                      scheduled_action_type => $action_type,
+                     );
     }
   }
 
@@ -304,11 +304,11 @@ EOQ
     }
 
     my ($action_id, $action_stat_id) = $class->make_base_action(-org_id => $org_id,
-								-user_id => $user_id,
-								-type_label => $action_lbl,
-								-earliest => $earliest,
-								-action_name => $action_name,
-							       );
+                                                                -user_id => $user_id,
+                                                                -type_label => $action_lbl,
+                                                                -earliest => $earliest,
+                                                                -action_name => $action_name,
+                                                               );
 
     push @actions, { action_id => $action_id, status_id => $action_stat_id, server_id => $server_id };
   }
@@ -345,10 +345,10 @@ EOQ
 
 my $packaging_type_action_map =
   { 'rpm' => { remove => 'packages.remove',
-	       install => 'packages.update',
-	       verify => 'packages.verify' },
+               install => 'packages.update',
+               verify => 'packages.verify' },
     'sysv-solaris' => { remove => 'solarispkgs.remove',
-			install => 'solarispkgs.install' },
+                        install => 'solarispkgs.install' },
   };
 
 # one or more package install or remove for a single system
@@ -367,7 +367,7 @@ sub schedule_system_package_action {
     my ($name_id, $evr_id) = @{$id_combo};
 
     my $pid = RHN::Package->guestimate_package_id(-server_id => $params{sid},
-						  -name_id => $name_id, -evr_id => $evr_id);
+                                                  -name_id => $name_id, -evr_id => $evr_id);
 
     my $action_type_label;
 
@@ -403,11 +403,11 @@ sub schedule_system_package_action {
     }
 
     my ($action_id, $status_id) = $class->make_base_action(-org_id => $params{org_id},
-							   -user_id => $params{user_id},
-							   -type_label => $action_type_label,
-							   -earliest => $params{earliest},
-							   -action_name => $action_name,
-							  );
+                                                           -user_id => $params{user_id},
+                                                           -type_label => $action_type_label,
+                                                           -earliest => $params{earliest},
+                                                           -action_name => $action_name,
+                                                          );
 
     $packages_for_action{$action_id} = [ map { ( $_->{pid} || $_->{name_id} . '|' . $_->{evr_id} ) } @packages ];
 
@@ -439,18 +439,18 @@ EOQ
 sub schedule_package_install {
   my $class = shift;
   my %params = validate(@_, { org_id => 1,
-			      user_id => 0,
-			      earliest => 1,
-			      action_name => 0,
-			      prerequisite => 0,
-			      transaction => 0,
-			      server_set => 0,
-			      package_set => 0,
-			      server_id => 0,
-			      package_id => 0,
-			      package_ids => 0,
-			      transaction => 0,
-			    });
+                              user_id => 0,
+                              earliest => 1,
+                              action_name => 0,
+                              prerequisite => 0,
+                              transaction => 0,
+                              server_set => 0,
+                              package_set => 0,
+                              server_id => 0,
+                              package_id => 0,
+                              package_ids => 0,
+                              transaction => 0,
+                            });
 
   my ($org_id, $user_id, $server_set, $package_set, $server_id, $package_id, $package_ids, $earliest, $trans) =
     map { $params{$_} } qw/org_id user_id server_set package_set server_id package_id package_ids earliest transaction/;
@@ -469,12 +469,12 @@ sub schedule_package_install {
   }
 
   my ($id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-						-user_id => $user_id,
-						-type_label => $type_label,
-						-earliest => $earliest,
-						-action_name => $action_name,
-						-prerequisite => $params{prerequisite},
-					       );
+                                                -user_id => $user_id,
+                                                -type_label => $type_label,
+                                                -earliest => $earliest,
+                                                -action_name => $action_name,
+                                                -prerequisite => $params{prerequisite},
+                                               );
 
   my $dbh = $trans || RHN::DB->connect;
   my $query;
@@ -490,7 +490,7 @@ SELECT  ST.element, ?, ?
    AND  ST.label = ?
    AND  ST.user_id = WC.id
    AND  ST.element IN (
-SELECT	S.id
+SELECT  S.id
   FROM  rhnArchType AT, rhnPackageArch PA, rhnPackage P, rhnChannelPackage CP, rhnServerChannel SC, rhnServer S
  WHERE  S.org_id = WC.org_id
    AND  EXISTS (SELECT 1 FROM rhnEntitledServers ES WHERE ES.id = S.id)
@@ -502,12 +502,12 @@ SELECT	S.id
    AND  AT.id = PA.arch_type_id
    AND  (not exists(
          select 1
-	 from rhnServerPackage, rhnPackageEvr evr_installed, rhnPackageEvr evr_new
-	 where P.name_id = rhnServerPackage.name_id
-	       and S.id = rhnServerPackage.server_id
-	       and rhnServerPackage.evr_id = evr_installed.id
-	       and P.evr_id = evr_new.id
-	       and evr_installed.evr >= evr_new.evr
+         from rhnServerPackage, rhnPackageEvr evr_installed, rhnPackageEvr evr_new
+         where P.name_id = rhnServerPackage.name_id
+               and S.id = rhnServerPackage.server_id
+               and rhnServerPackage.evr_id = evr_installed.id
+               and P.evr_id = evr_new.id
+               and evr_installed.evr >= evr_new.evr
          )
          OR AT.label = 'solaris-patch'
          OR AT.label = 'solaris-patch-cluster'
@@ -596,11 +596,11 @@ sub sscd_schedule_package_installations {
   my %actions;
 
   # figure out what all the different actions we're going to need to create are...
-  if (($label eq 'patch_installable_list') or 
+  if (($label eq 'patch_installable_list') or
       ($label eq 'patchset_installable_list')) {
-	# for patch and package we get in rhnSet.element rhnPackage.name_id
+        # for patch and package we get in rhnSet.element rhnPackage.name_id
         # and in element_two is evr
-	$query = <<EOQ;
+        $query = <<EOQ;
 SELECT DISTINCT ActionT.label, ActionT.name
   FROM rhnActionType ActionT,
        rhnArchTypeActions ATA,
@@ -644,18 +644,18 @@ EOQ
   $sth = $dbh->prepare($query);
 
   $sth->execute_h(user_id => $user_id,
-		  set_label => $label,
-		  action_style => 'install',
-		  cid => $channel_id);
+                  set_label => $label,
+                  action_style => 'install',
+                  cid => $channel_id);
 
   while (my ($action_type, $action_type_name) = $sth->fetchrow) {
 
     my @action = $class->make_base_action(-org_id => $org_id,
-					  -user_id => $user_id,
-					  -type_label => $action_type,
-					  -earliest => $earliest,
-					  -action_name => $action_type_name . "(s)",
-					 );
+                                          -user_id => $user_id,
+                                          -type_label => $action_type,
+                                          -earliest => $earliest,
+                                          -action_name => $action_type_name . "(s)",
+                                         );
 
     $actions{$action_type}->{action_id} = $action[0];
     $actions{$action_type}->{stat_id} = $action[1];
@@ -676,12 +676,12 @@ EOQ
   $sth = $dbh->prepare($query);
 
   foreach my $action_type (keys %actions) {
-	my $a=$actions{$action_type}->{action_id};
-	my $b=$actions{$action_type}->{stat_id};
+        my $a=$actions{$action_type}->{action_id};
+        my $b=$actions{$action_type}->{stat_id};
     $sth->execute_h(action_id => $actions{$action_type}->{action_id},
-		    status_id => $actions{$action_type}->{stat_id},
-		    user_id => $user_id,
-		    channel_id => $channel_id);
+                    status_id => $actions{$action_type}->{stat_id},
+                    user_id => $user_id,
+                    channel_id => $channel_id);
   }
 
   if (($label eq 'patch_installable_list') or
@@ -742,10 +742,10 @@ EOQ
 
   foreach my $action_type (keys %actions) {
     $sth->execute_h(action_id => $actions{$action_type}->{action_id},
-		    user_id => $user_id,
-		    set_label => $label,
-		    action_type => $action_type,
-		    cid => $channel_id);
+                    user_id => $user_id,
+                    set_label => $label,
+                    action_type => $action_type,
+                    cid => $channel_id);
   }
 
 
@@ -777,11 +777,11 @@ sub schedule_all_errata_for_systems {
   $errata_set->commit;
 
   RHN::DB::Scheduler->schedule_errata_updates_for_systems(-org_id => $org_id,
-							  -user_id => $user_id,
-							  -earliest => $earliest,
-							  -server_set => $server_set,
-							  -errata_set => $errata_set,
-							 );
+                                                          -user_id => $user_id,
+                                                          -earliest => $earliest,
+                                                          -server_set => $server_set,
+                                                          -errata_set => $errata_set,
+                                                         );
 
   $errata_set->empty;
   $errata_set->commit;
@@ -820,11 +820,11 @@ sub schedule_errata_updates_for_systems {
     my $action_name = "Errata Update: " . $errata->advisory . ' - ' . $errata->synopsis;
 
     my ($action_id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-							 -user_id => $user_id,
-							 -type_label => 'errata.update',
-							 -earliest => $earliest,
-							 -action_name => $action_name,
-							);
+                                                         -user_id => $user_id,
+                                                         -type_label => 'errata.update',
+                                                         -earliest => $earliest,
+                                                         -action_name => $action_name,
+                                                        );
 
     $sth = $dbh->prepare(<<EOQ);
 INSERT INTO rhnServerAction (server_id, action_id, status)
@@ -880,11 +880,11 @@ sub schedule_all_errata_updates_for_system {
     my $action_name = "Errata Update: " . $errata->advisory . ' - ' . $errata->synopsis;
 
     my ($action_id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-							 -user_id => $user_id,
-							 -type_label => 'errata.update',
-							 -earliest => $earliest,
-							 -action_name => $action_name,
-							);
+                                                         -user_id => $user_id,
+                                                         -type_label => 'errata.update',
+                                                         -earliest => $earliest,
+                                                         -action_name => $action_name,
+                                                        );
 
     my $sth = $dbh->prepare(<<EOQ);
 INSERT
@@ -948,11 +948,11 @@ sub schedule_errata_updates_for_system {
     my $action_name = "Errata Update: " . $errata->advisory . ' - ' . $errata->synopsis;
 
     my ($action_id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-							 -user_id => $user_id,
-							 -type_label => 'errata.update',
-							 -earliest => $earliest,
-							 -action_name => $action_name,
-							);
+                                                         -user_id => $user_id,
+                                                         -type_label => 'errata.update',
+                                                         -earliest => $earliest,
+                                                         -action_name => $action_name,
+                                                        );
 
 #    warn "action id == $action_id, stat id == $stat_id";
 
@@ -1025,7 +1025,7 @@ EOQ
 
     $sth = $dbh->prepare($query);
     $sth->execute_h(action_id => $action_id, remaining_tries => $remaining_tries,
-		    server_id => $server_id);
+                    server_id => $server_id);
   }
   else {
     $query = <<EOQ;
@@ -1039,9 +1039,9 @@ EOQ
 
     $sth = $dbh->prepare($query);
     $sth->execute(action_id => $action_id,
-		  user_id => $user_id,
-		  label => $server_set->label,
-		  remaining_tries => $remaining_tries);
+                  user_id => $user_id,
+                  label => $server_set->label,
+                  remaining_tries => $remaining_tries);
   }
 
   $dbh->commit;
@@ -1071,11 +1071,11 @@ EOQ
 
     unless ($name_id and $evr_id) {
       die "package_answer_files hash '" . Data::Dumper->Dump([($package_answer_files)])
-	. "' for action id '$action_id' did not provide name_id and evr_id";
+        . "' for action id '$action_id' did not provide name_id and evr_id";
     }
 
     $sth->execute_h(aid => $action_id, name_id => $name_id, evr_id => $evr_id,
-		    answerfile => $dbh->encode_blob($package_answer_files->{$id_combo}, 'answerfile'));
+                    answerfile => $dbh->encode_blob($package_answer_files->{$id_combo}, 'answerfile'));
   }
 
   $dbh->commit;
@@ -1088,29 +1088,29 @@ EOQ
 sub schedule_remote_command {
   my $class = shift;
   my %params = validate(@_, { org_id => 1,
-			      user_id => 1,
-			      earliest => 1,
-			      server_id => 0,
-			      server_ids => 0,
-			      server_set => 0,
-			      prerequisite => 0,
-			      action_name => 0,
-			      script => 1,
-			      username => 1,
-			      group => 1,
-			      timeout => 0,
-			    });
+                              user_id => 1,
+                              earliest => 1,
+                              server_id => 0,
+                              server_ids => 0,
+                              server_set => 0,
+                              prerequisite => 0,
+                              action_name => 0,
+                              script => 1,
+                              username => 1,
+                              group => 1,
+                              timeout => 0,
+                            });
 
   # /bin/sh doesn't like \r\n's (at least on lovely solaris
   $params{script} =~ s{\r\n}{\n}gism;
 
   my ($action_id, $stat_id) = $class->make_base_action(-org_id => $params{org_id},
-						       -user_id => $params{user_id},
-						       -type_label => 'script.run',
-						       -earliest => $params{earliest},
-						       -action_name => $params{action_name},
-						       -prerequisite => $params{prerequisite},
-						      );
+                                                       -user_id => $params{user_id},
+                                                       -type_label => 'script.run',
+                                                       -earliest => $params{earliest},
+                                                       -action_name => $params{action_name},
+                                                       -prerequisite => $params{prerequisite},
+                                                      );
 
   my $dbh = RHN::DB->connect;
   my $sth;
@@ -1137,26 +1137,26 @@ SELECT DISTINCT S.id, :action_id + 0, :status + 0
    AND USP.server_id = S.id
 EOQ
     $sth->execute_h(user_id => $params{user_id},
-		    action_id => $action_id,
-		    status => $stat_id,
-		    set_label => $params{server_set}->label
-		   );
+                    action_id => $action_id,
+                    status => $stat_id,
+                    set_label => $params{server_set}->label
+                   );
   }
   elsif ($params{server_id}) {
     $class->add_servers_to_action($action_id,
-				  $stat_id,
-				  $params{user_id},
-				  undef,
-				  $params{server_id});
+                                  $stat_id,
+                                  $params{user_id},
+                                  undef,
+                                  $params{server_id});
   }
   elsif ($params{server_ids}) {
     $class->add_servers_to_action($action_id,
-				  $stat_id,
-				  $params{user_id},
-				  undef,
-				  undef,
-				  undef,
-				  $params{server_ids});
+                                  $stat_id,
+                                  $params{user_id},
+                                  undef,
+                                  undef,
+                                  undef,
+                                  $params{server_ids});
   }
   else {
     throw "(invalid_params) Need a server_id, server_ids, or a server_set when scheduling remote command";
@@ -1171,11 +1171,11 @@ VALUES (sequence_nextval('rhn_actscript_id_seq'), :aid, :script, :username, :gro
 EOQ
 
   $sth->execute_h(aid => $action_id,
-		  script => $dbh->encode_blob($params{script}, 'script'),
-		  username => $params{username},
-		  groupname => $params{group},
-		  timeout => $params{timeout},
-		 );
+                  script => $dbh->encode_blob($params{script}, 'script'),
+                  username => $params{username},
+                  groupname => $params{group},
+                  timeout => $params{timeout},
+                 );
 
   $dbh->commit;
 

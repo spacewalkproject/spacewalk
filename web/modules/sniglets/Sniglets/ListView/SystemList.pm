@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -56,164 +56,164 @@ sub list_of { return "systems" }
 sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "taggable_systems_in_set",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "visible_to_user",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "visible_to_uid",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&visible_to_uid_provider);
+                           -datasource => RHN::DataSource::System->new,
+                           -provider => \&visible_to_uid_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "systems_with_package_nvre_in_set",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "selected_systems_installed_package",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&selected_systems_installed_package_provider);
+                           -datasource => RHN::DataSource::System->new,
+                           -provider => \&selected_systems_installed_package_provider);
 
   #Sniglets::ListView::List->add_mode(-mode => "ssm_package_upgrades_conf",
-#			   -datasource => RHN::DataSource::System->new);
+#                          -datasource => RHN::DataSource::System->new);
   Sniglets::ListView::List->add_mode(-mode => "ssm_package_upgrades_conf",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&system_set_upgrade_packages_conf_provider);
+                           -datasource => RHN::DataSource::System->new,
+                           -provider => \&system_set_upgrade_packages_conf_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "system_entitlement_list",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&user_system_list_provider,
-			   -action_callback => \&system_entitlement_list_cb);
+                           -datasource => RHN::DataSource::System->new,
+                           -provider => \&user_system_list_provider,
+                           -action_callback => \&system_entitlement_list_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "systems_with_package",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "potential_systems_for_package",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "in_set",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&in_set_provider,
-			   -action_callback => \&in_set_cb);
+                           -datasource => RHN::DataSource::System->new,
+                           -provider => \&in_set_provider,
+                           -action_callback => \&in_set_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "systems_subscribed_to_channel",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "systems_subscribed_to_channel_in_set",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "target_systems_for_channel",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "target_systems_for_channel_in_set",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "in_group_and_affected_by_errata",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "in_set_and_affected_by_errata",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "system_set_supports_reboot_expanded",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "system_set_remove_packages_versions",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "system_set_remove_packages_conf",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&system_set_remove_packages_conf_provider);
+                           -datasource => RHN::DataSource::System->new,
+                           -provider => \&system_set_remove_packages_conf_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "system_set_remove_patches_conf",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&system_set_remove_patches_conf_provider);
+                           -datasource => RHN::DataSource::System->new,
+                           -provider => \&system_set_remove_patches_conf_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "system_set_verify_packages_conf",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&system_set_verify_packages_conf_provider);
+                           -datasource => RHN::DataSource::System->new,
+                           -provider => \&system_set_verify_packages_conf_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "system_search_results",
-			   -datasource => new RHN::DataSource::Simple(-querybase => "system_search_elaborators"),
-			   -provider => \&system_search_results_provider);
+                           -datasource => new RHN::DataSource::Simple(-querybase => "system_search_elaborators"),
+                           -provider => \&system_search_results_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "systems_registered_with_key",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "out_of_date",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "unentitled",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "ungrouped",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "inactive",
-			   -datasource => RHN::DataSource::System->new,
-  		           -provider => sub {
-			     Sniglets::ListView::List::default_provider(@_, -checkin_threshold => PXT::Config->get('system_checkin_threshold'))
-			     });
+                           -datasource => RHN::DataSource::System->new,
+                           -provider => sub {
+                             Sniglets::ListView::List::default_provider(@_, -checkin_threshold => PXT::Config->get('system_checkin_threshold'))
+                             });
 
   Sniglets::ListView::List->add_mode(-mode => "proxy_servers",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
   Sniglets::ListView::List->add_mode(-mode => "clients_through_proxy",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
   Sniglets::ListView::List->add_mode(-mode => "proxy_path_for_server",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "systems_potentially_in_channel_family",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "systems_completed_action",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "systems_failed_action",
-			   -datasource => RHN::DataSource::System->new,
-			   -action_callback => \&reschedule_action_cb);
+                           -datasource => RHN::DataSource::System->new,
+                           -action_callback => \&reschedule_action_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "systems_in_progress_action",
-			   -datasource => RHN::DataSource::System->new,
-			   -action_callback => \&remove_systems_from_action_cb);
+                           -datasource => RHN::DataSource::System->new,
+                           -action_callback => \&remove_systems_from_action_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "org_systems",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&org_systems_provider);
+                           -datasource => RHN::DataSource::System->new,
+                           -provider => \&org_systems_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "support_find_system",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&support_find_system_provider);
+                           -datasource => RHN::DataSource::System->new,
+                           -provider => \&support_find_system_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "systems_with_namespace",
-			   -datasource => RHN::DataSource::System->new);
+                           -datasource => RHN::DataSource::System->new);
 
   Sniglets::ListView::List->add_mode(-mode => "target_systems_for_namespace",
-			   -datasource => RHN::DataSource::System->new,
+                           -datasource => RHN::DataSource::System->new,
                            -action_callback => \&add_systems_to_namespace_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "config_systems_list",
-				     -datasource => RHN::DataSource::System->new,
-				     -provider => \&config_systems_list);
+                                     -datasource => RHN::DataSource::System->new,
+                                     -provider => \&config_systems_list);
 
   Sniglets::ListView::List->add_mode(-mode => "systems_with_patch",
-				     -datasource => RHN::DataSource::System->new,
-				     -provider => \&systems_with_patch_provider);
+                                     -datasource => RHN::DataSource::System->new,
+                                     -provider => \&systems_with_patch_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "potential_systems_for_patch",
-				     -datasource => RHN::DataSource::System->new,
-				     -provider => \&potential_systems_for_patch_provider);
+                                     -datasource => RHN::DataSource::System->new,
+                                     -provider => \&potential_systems_for_patch_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "systems_with_patchset",
-				     -datasource => RHN::DataSource::System->new,
-				     -provider => \&systems_with_patchset_provider,
-				    );
+                                     -datasource => RHN::DataSource::System->new,
+                                     -provider => \&systems_with_patchset_provider,
+                                    );
 
   Sniglets::ListView::List->add_mode(-mode => "potential_systems_for_patchset",
-				     -datasource => RHN::DataSource::System->new,
-				     -provider => \&potential_systems_for_patchset_provider,
-				    );
+                                     -datasource => RHN::DataSource::System->new,
+                                     -provider => \&potential_systems_for_patchset_provider,
+                                    );
 
   Sniglets::ListView::List->add_mode(-mode => "entitlement_changes_in_set",
-				     -datasource => RHN::DataSource::System->new,
-				     -provider => \&entitlement_changes_in_set_provider,
-				     -action_callback => \&entitlement_changes_in_set_cb);
+                                     -datasource => RHN::DataSource::System->new,
+                                     -provider => \&entitlement_changes_in_set_provider,
+                                     -action_callback => \&entitlement_changes_in_set_cb);
 }
 
 
@@ -252,26 +252,26 @@ sub add_systems_to_namespace_cb {
     my $ccid = $pxt->param('ccid');
     throw "No config channel."
       unless $ccid;
-   
+
     my $cc = RHN::ConfigChannel->lookup(-id => $ccid);
-   
+
     my $set_label = $pxt->dirty_param('set_label') || 'target_systems';
-   
+
     my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-   
+
     my @systems = $set->contents;
 
     throw sprintf('user (%d) does not have access to one or more systems: (%s)', $pxt->user->id, join(', ', @systems))
       unless $pxt->user->verify_system_access(@systems);
-   
+
     foreach my $sid ( @systems ) {
       my @local_channel_ids = ();
       my @global_channel_ids = ();
-   
+
       my $server = RHN::Server->lookup(-id => $sid);
-   
+
       my @existing_config_channels = $server->config_channels;
-   
+
       # while gathering channel ids, separate local config channel;s
       # from global config channels
       foreach my $chan (@existing_config_channels) {
@@ -283,7 +283,7 @@ sub add_systems_to_namespace_cb {
           push @global_channel_ids, $chan->{ID};
         }
       }
-   
+
       # highest rank (this config channel overrides all others)
       if ($label eq 'hi_rank') {
         unshift @global_channel_ids, $ccid
@@ -292,34 +292,34 @@ sub add_systems_to_namespace_cb {
       elsif ($label eq 'lo_rank') {
         push @global_channel_ids, $ccid
       }
-   
-      # assemble config channels to finall array 
+
+      # assemble config channels to finall array
       my @new_channel_ids = @local_channel_ids;
       push @new_channel_ids, @global_channel_ids;
-   
+
       unless ($pxt->user->verify_config_channel_access(@new_channel_ids)) {
         $pxt->redirect("/errors/permission.pxt");
       }
-   
-   
+
+
       # do the deed
       RHN::Server->set_normal_config_channels(-server_ids => [$sid],
                                               -config_channel_ids => [@new_channel_ids],
                                              );
-   
-       
+
+
     }
-   
+
     RHN::Server->snapshot_set(-reason => "Config channel alteration",
                               -set_label => $set_label,
                               -user_id => $pxt->user->id,
                              );
-   
+
     $pxt->push_message(site_info => sprintf("<strong>%d</strong> system%s added to <strong>%s</strong> config channel with %s rank.", scalar(@systems), (scalar(@systems) == 1 ? '' : 's'), PXT::Utils->escapeHTML($cc->name), ($label eq 'hi_rank' ? 'highest' : 'lowest')));
-   
+
     $set->empty;
     $set->commit;
-   
+
   }
 
 
@@ -335,8 +335,8 @@ sub selected_systems_installed_package_provider {
 
   PXT::Debug->log(7, "name_id == $name_id, evr_id = $evr_id");
 
-  my %ret = $self->default_provider($pxt, 
-	      -name_id => $name_id, -evr_id => $evr_id);
+  my %ret = $self->default_provider($pxt,
+              -name_id => $name_id, -evr_id => $evr_id);
 
   return (%ret);
 }
@@ -366,7 +366,7 @@ sub remove_systems_from_action_cb {
     $set->commit;
 
     $pxt->push_message(site_info => sprintf("<strong>%s</strong> unscheduled for <strong>%d</strong> system%s.",
-					    PXT::Utils->escapeHTML($name), $num_systems, ($num_systems == 1 ? '' : 's')));
+                                            PXT::Utils->escapeHTML($name), $num_systems, ($num_systems == 1 ? '' : 's')));
 
     if ($pxt->user->verify_action_access($action_id)) { # the user can still access the action
       $pxt->redirect($pxt->uri . "?aid=$action_id");
@@ -392,8 +392,8 @@ sub system_set_remove_packages_conf_provider {
   my $self = shift;
   my $pxt = shift;
 
-  my %ret = $self->default_provider($pxt, 
-	      -package_set_label => 'sscd_removable_package_list');
+  my %ret = $self->default_provider($pxt,
+              -package_set_label => 'sscd_removable_package_list');
 
   my $server_id = $pxt->param('sid') || '';
   foreach my $row (@{$ret{data}}) {
@@ -442,8 +442,8 @@ sub system_set_remove_patches_conf_provider {
   my $self = shift;
   my $pxt = shift;
 
-  my %ret = $self->default_provider($pxt, 
-	      -package_set_label => 'sscd_removable_patch_list');
+  my %ret = $self->default_provider($pxt,
+              -package_set_label => 'sscd_removable_patch_list');
 
   foreach my $row (@{$ret{data}}) {
     $row->{NVRES_TO_REMOVE} = join("<br />\n", @{$row->{NVRE}});
@@ -456,20 +456,20 @@ sub system_set_verify_packages_conf_provider {
   my $self = shift;
   my $pxt = shift;
 
-  my %ret = $self->default_provider($pxt, 
-	      -package_set_label => 'sscd_verify_package_list');
+  my %ret = $self->default_provider($pxt,
+              -package_set_label => 'sscd_verify_package_list');
   my $server_id = $pxt->param('sid') || '';
   foreach my $row (@{$ret{data}}) {
     my $num_packages = scalar @{$row->{NVRE}}; #list at most 6 packages
-    if ( $num_packages > 6 && ( $server_id ne $row->{ID} ) ) { #give user option to expand 
-      $row->{NVRES_TO_VERIFY} = 
-            join("<br />\n", @{$row->{NVRE}}[0..5], 
+    if ( $num_packages > 6 && ( $server_id ne $row->{ID} ) ) { #give user option to expand
+      $row->{NVRES_TO_VERIFY} =
+            join("<br />\n", @{$row->{NVRE}}[0..5],
             "<a href=\"verify_conf.pxt?sid=$row->{ID}\">[expand package list]</a>
              <b>($num_packages total packages)</b>");
     }
     else {
       $row->{NVRES_TO_VERIFY} = "<a href=\"verify_conf.pxt\">[collapse package list]</a><br/>\n"
-        if $server_id eq $row->{ID}; #give user option to collapse list 
+        if $server_id eq $row->{ID}; #give user option to collapse list
       $row->{NVRES_TO_VERIFY} .= join("<br />\n", @{$row->{NVRE}});
     }
   }
@@ -509,30 +509,20 @@ sub row_callback {
     my $icon_data = Sniglets::Servers::system_status_info($pxt->user, $row);
 
     my $image = PXT::HTML->icon(-type => $icon_data->{icon},
-			        -title => $icon_data->{status_str});
+                                -title => $icon_data->{status_str});
 
     $row->{ADVISORY_ICON} = PXT::HTML->link($icon_data->{link}, $image);
 
     my $locked_data = Sniglets::Servers::system_locked_info($pxt->user, $row);
     if ($locked_data->{link}) {
       my $locked_image = PXT::HTML->icon(-type => $locked_data->{icon},
-			       -title => $locked_data->{status_str});
+                               -title => $locked_data->{status_str});
 
       $row->{ADVISORY_ICON} .= PXT::HTML->link($locked_data->{link}, $locked_image);
     }
   }
 
   $row->{MONITORING_ICON} = '';
-  if (RHN::Server->system_has_feature($row->{ID}, 'ftr_probes')) {
-    if (defined $row->{MONITORING_STATUS}) {
-      my $icon_data = Sniglets::Servers::system_monitoring_info($pxt->user, $row);
-
-      my $image = PXT::HTML->icon(-type => $icon_data->{icon},
-                                  -title => $icon_data->{status_str});
-
-      $row->{MONITORING_ICON} = PXT::HTML->link($icon_data->{system_link}, $image);
-    }
-  }
 
   if (not RHN::Server->system_has_feature($row->{ID}, 'ftr_errata_updates')) {
     $row->{TOTAL_ERRATA} = '';
@@ -543,7 +533,7 @@ sub row_callback {
 
   if (exists $row->{LAST_CHECKIN}) {
     my $date = new RHN::Date(string => $row->{LAST_CHECKIN},
-			     user => $pxt->user);
+                             user => $pxt->user);
     $row->{LAST_CHECKIN} = $date->short_date;
   }
 
@@ -592,7 +582,7 @@ sub system_search_results_provider {
   if (defined $self->listview()) { # don't run this in callback - no listview
     foreach my $col (@{$self->listview->columns}) {
       if ($col->label eq 'matching_field') {
-	$col->name($search->label_to_column_name($mode));
+        $col->name($search->label_to_column_name($mode));
       }
     }
   }
@@ -610,7 +600,7 @@ sub system_search_results_provider {
       $field = $row->{SERVER_NAME};
 
       unless ($field =~ /$string/i) {
-	$field = $row->{MATCHING_FIELD};
+        $field = $row->{MATCHING_FIELD};
       }
     }
 
@@ -678,7 +668,7 @@ sub user_system_list_provider {
     $row->{BASE_ENTITLEMENT} = $base ? $org->slot_name($base->{ENTITLEMENT}) : '(none)';
 
     $row->{ADDON_ENTITLEMENTS} = join("<br/>\n",
-				      map { $org->slot_name($_->{ENTITLEMENT}) } @addons);
+                                      map { $org->slot_name($_->{ENTITLEMENT}) } @addons);
 
     $row->{ADDON_ENTITLEMENTS} ||= '(none)';
   }
@@ -773,13 +763,13 @@ sub in_set_cb {
     }
 
     RHN::Server->snapshot_set(-reason => 'Channel subscriptions alteration',
-			      -set_label => $set_label,
-			      -user_id => $pxt->user->id);
+                              -set_label => $set_label,
+                              -user_id => $pxt->user->id);
 
     my $channel = RHN::Channel->lookup(-id => $channel_id);
     my $count = scalar($set->contents);
     $pxt->push_message(site_info => sprintf('<strong>%d</strong> system%s unsubscribed from <strong>%s</strong>.',
-					      $count, ($count == 1 ? '' : 's'), PXT::Utils->escapeHTML($channel->name)));
+                                              $count, ($count == 1 ? '' : 's'), PXT::Utils->escapeHTML($channel->name)));
     $set->empty;
     $set->commit;
   }
@@ -799,14 +789,14 @@ sub in_set_cb {
     eval {
       foreach my $sid ($set->contents) {
 
-	my $system = RHN::Server->lookup(-id => $sid);
-	$transaction = $system->subscribe_to_channel($channel_id, $transaction);
+        my $system = RHN::Server->lookup(-id => $sid);
+        $transaction = $system->subscribe_to_channel($channel_id, $transaction);
       }
 
       $transaction = RHN::Server->snapshot_set(-reason => "Channel subscription alteration",
-					       -set_label => $set_label,
-					       -user_id => $pxt->user->id,
-					       -transaction => $transaction);
+                                               -set_label => $set_label,
+                                               -user_id => $pxt->user->id,
+                                               -transaction => $transaction);
 
       PXT::Debug->log(7, "finished subscribing all systems...");
     };
@@ -817,10 +807,10 @@ sub in_set_cb {
       PXT::Debug->log(7, "caught an exception");
       #  What could go here?  What exceptions might we run into?  Not enough entitlements?
       if ($E->isa('RHN::Exception') and $E->is_rhn_exception('channel_family_no_subscriptions')) {
-	PXT::Debug->log(7, "caught an exception, ran out of slots");
+        PXT::Debug->log(7, "caught an exception, ran out of slots");
         $pxt->push_message(local_alert => "Channel subscriptions would be exceeded, no systems subscribed.  Please contact Red Hat for more channel entitlements (1-866-2-REDHAT).");
-	$transaction->rollback;
-	return;
+        $transaction->rollback;
+        return;
       }
       else {
       PXT::Debug->log(7, "unknown exception");
@@ -832,7 +822,7 @@ sub in_set_cb {
       $transaction->commit;
       my $count = scalar($set->contents);
       $pxt->push_message(site_info => sprintf('<strong>%d</strong> system%s subscribed to <strong>%s</strong>.',
-					      $count, ($count == 1 ? '' : 's'), PXT::Utils->escapeHTML($channel->name)));
+                                              $count, ($count == 1 ? '' : 's'), PXT::Utils->escapeHTML($channel->name)));
       $set->empty;
       $set->commit;
     }
@@ -923,55 +913,55 @@ sub system_entitlement_list_cb {
       my @sat_clusters;
 
       if ($check_monitoring) {
-	@sat_clusters = RHN::Server->sat_clusters_for_system($sid);
+        @sat_clusters = RHN::Server->sat_clusters_for_system($sid);
       }
 
       # Don't unentitle and re-entitle if the system already has the entitlement in question.
       if ($set_entitlement and not RHN::Server->server_has_entitlement($set_entitlement, $sid)) {
-	RHN::Server->unentitle_server($sid);
+        RHN::Server->unentitle_server($sid);
       }
 
       if ($unentitle) {
-	my @ents = RHN::Server->entitlements($sid);
+        my @ents = RHN::Server->entitlements($sid);
 
-	if ($check_monitoring) {
-	  $has_monitoring = ( grep { $_->{LABEL} eq 'monitoring_entitled' } @ents ) ? 1 : 0;
-	}
+        if ($check_monitoring) {
+          $has_monitoring = ( grep { $_->{LABEL} eq 'monitoring_entitled' } @ents ) ? 1 : 0;
+        }
 
-	RHN::Server->unentitle_server($sid);
-	push @successful, $sid if (@ents);
+        RHN::Server->unentitle_server($sid);
+        push @successful, $sid if (@ents);
       }
 
       if ($set_entitlement) {
-	if (RHN::Server->can_entitle_server($set_entitlement, $sid)) {
-	  RHN::Server->entitle_server($set_entitlement, $sid);
-	  push @successful, $sid;
-	}
+        if (RHN::Server->can_entitle_server($set_entitlement, $sid)) {
+          RHN::Server->entitle_server($set_entitlement, $sid);
+          push @successful, $sid;
+        }
       }
 
       if ($add_entitlement) {
-	if (RHN::Server->can_entitle_server($add_entitlement, $sid)) {
-	  RHN::Server->entitle_server($add_entitlement, $sid);
-	  push @successful, $sid;
-	}
+        if (RHN::Server->can_entitle_server($add_entitlement, $sid)) {
+          RHN::Server->entitle_server($add_entitlement, $sid);
+          push @successful, $sid;
+        }
       }
 
       if ($remove_entitlement) {
-	if (RHN::Server->server_has_entitlement($remove_entitlement, $sid)) {
+        if (RHN::Server->server_has_entitlement($remove_entitlement, $sid)) {
 
-	  if ($check_monitoring) {
-	    $has_monitoring = 1;
-	  }
+          if ($check_monitoring) {
+            $has_monitoring = 1;
+          }
 
-	  RHN::Server->remove_entitlement($remove_entitlement, $sid);
-	  push @successful, $sid;
-	}
+          RHN::Server->remove_entitlement($remove_entitlement, $sid);
+          push @successful, $sid;
+        }
       }
 
       if ($check_monitoring and $has_monitoring) {
-	foreach my $row (@sat_clusters) {
-	  $sat_clusters{$row->{SAT_CLUSTER_ID}} = 1;
-	}
+        foreach my $row (@sat_clusters) {
+          $sat_clusters{$row->{SAT_CLUSTER_ID}} = 1;
+        }
       }
 
     };
@@ -981,17 +971,17 @@ sub system_entitlement_list_cb {
       $system_transaction->nested_rollback();
 
       if (ref $E and catchable($E)) {
-	if ($E->isa('RHN::Exception') and $E->is_rhn_exception('servergroup_max_members')) {
-	  push @failed, $sid;
-	}
-	else {
-	  $full_transaction->nested_rollback();
-	  throw $E;
-	}
+        if ($E->isa('RHN::Exception') and $E->is_rhn_exception('servergroup_max_members')) {
+          push @failed, $sid;
+        }
+        else {
+          $full_transaction->nested_rollback();
+          throw $E;
+        }
       }
       else {
-	$full_transaction->nested_rollback();
-	die $E;
+        $full_transaction->nested_rollback();
+        die $E;
       }
     }
     else {
@@ -1007,48 +997,48 @@ sub system_entitlement_list_cb {
 
   if (($set_entitlement or $add_entitlement) and @failed) {
     $pxt->push_message(site_info => sprintf("You did not have enough <strong>%s</strong> "
-					    . "entitlements to entitle all the selected systems, "
-					    . "so <strong>%d</strong> system%s not entitled.",
-					    $pxt->user->org->slot_name($set_entitlement or $add_entitlement),
-					    scalar(@failed),
-					    scalar(@failed) == 1 ? ' was' : 's were'
-					   )
-		      );
+                                            . "entitlements to entitle all the selected systems, "
+                                            . "so <strong>%d</strong> system%s not entitled.",
+                                            $pxt->user->org->slot_name($set_entitlement or $add_entitlement),
+                                            scalar(@failed),
+                                            scalar(@failed) == 1 ? ' was' : 's were'
+                                           )
+                      );
   }
 
   if ($set_entitlement and @successful) {
     $pxt->push_message(site_info => sprintf("<strong>%d</strong> system%s set to <strong>%s</strong>.",
-					    scalar(@successful),
-					    scalar(@successful) == 1 ? '' : 's',
-					    $pxt->user->org->slot_name($set_entitlement)
-					   )
-		      );
+                                            scalar(@successful),
+                                            scalar(@successful) == 1 ? '' : 's',
+                                            $pxt->user->org->slot_name($set_entitlement)
+                                           )
+                      );
   }
 
   if ($add_entitlement and @successful) {
     $pxt->push_message(site_info => sprintf("Added <strong>%s</strong> to <strong>%d</strong> system%s.",
-					    $pxt->user->org->slot_name($add_entitlement),
-					    scalar(@successful),
-					    scalar(@successful) == 1 ? '' : 's',
-					   )
-		      );
+                                            $pxt->user->org->slot_name($add_entitlement),
+                                            scalar(@successful),
+                                            scalar(@successful) == 1 ? '' : 's',
+                                           )
+                      );
   }
 
   if ($unentitle and @successful) {
     $pxt->push_message(site_info => sprintf("<strong>%d</strong> system%s unentitled.",
-					    scalar(@successful),
-					    scalar(@successful) == 1 ? '' : 's',
-					   )
-		      );
+                                            scalar(@successful),
+                                            scalar(@successful) == 1 ? '' : 's',
+                                           )
+                      );
   }
 
   if ($remove_entitlement and @successful) {
     $pxt->push_message(site_info => sprintf("Removed <strong>%s</strong> from <strong>%d</strong> system%s.",
-					    $pxt->user->org->slot_name($remove_entitlement),
-					    scalar(@successful),
-					    scalar(@successful) == 1 ? '' : 's',
-					   )
-		      );
+                                            $pxt->user->org->slot_name($remove_entitlement),
+                                            scalar(@successful),
+                                            scalar(@successful) == 1 ? '' : 's',
+                                           )
+                      );
   }
 
   return 1;
@@ -1072,10 +1062,10 @@ sub apply_errata_cb {
 
   my $earliest_date = RHN::Date->now_long_date;
   my @action_ids = RHN::Scheduler->schedule_errata_updates_for_systems(-org_id => $pxt->user->org_id,
-								       -user_id => $pxt->user->id,
-								       -earliest => $earliest_date,
-								       -errata_set => $errata_set,
-								       -server_set => $system_set);
+                                                                       -user_id => $pxt->user->id,
+                                                                       -earliest => $earliest_date,
+                                                                       -errata_set => $errata_set,
+                                                                       -server_set => $system_set);
 
   my $errata = RHN::Errata->lookup(-id => $eid);
 
@@ -1112,7 +1102,7 @@ sub clean_set {
       my $prereq_action = RHN::Action->lookup(-id => $prereq);
 
       foreach my $sid ($set->contents) {
-	$set->remove($sid) unless $prereq_action->get_server_status($sid) eq 'Completed';
+        $set->remove($sid) unless $prereq_action->get_server_status($sid) eq 'Completed';
       }
       $set->commit;
     }
@@ -1135,8 +1125,8 @@ sub render_url {
   if ($url_column eq 'TOTAL_ERRATA' || $url_column eq 'OUTDATED_PACKAGES') {
     if (exists $row->{ENTITLEMENT_LEVEL}) {
       if (($row->{ENTITLEMENT_LEVEL} eq 'Unentitled') or
-	  ($row->{ENTITLEMENT_LEVEL} eq 'None')) {
-	return $row->{$url_column};
+          ($row->{ENTITLEMENT_LEVEL} eq 'None')) {
+        return $row->{$url_column};
       }
     }
   }
@@ -1158,7 +1148,7 @@ sub reschedule_action_cb {
     my $action = RHN::Action->lookup(-id => $action_id);
 
     RHN::Scheduler->reschedule_action(-action_id => $action_id, -org_id => $pxt->user->org_id,
-				      -user_id => $pxt->user->id);
+                                      -user_id => $pxt->user->id);
 
     $pxt->push_message(site_info => sprintf('<strong>%s</strong> rescheduled.', PXT::Utils->escapeHTML($action->name)));
   }
@@ -1178,10 +1168,10 @@ sub install_package {
 
   my $earliest_date = RHN::Date->now_long_date;
   my $action_id = RHN::Scheduler->schedule_package_install(-org_id => $pxt->user->org_id,
-							   -user_id => $pxt->user->id,
-							   -earliest => $earliest_date,
-							   -server_set => $system_set,
-							   -package_id => $pid);
+                                                           -user_id => $pxt->user->id,
+                                                           -earliest => $earliest_date,
+                                                           -server_set => $system_set,
+                                                           -package_id => $pid);
 
   my $package = RHN::Package->lookup(-id => $pid);
 
@@ -1202,11 +1192,11 @@ sub systems_with_patch_provider {
     if (exists $row->{__data__} && ref $row->{__data__} eq 'ARRAY') {
       $row->{PATCHED_PACKAGE_URLS} = join("<br />\n",
         map { PXT::HTML->link(sprintf("/rhn/software/packages/Details.do?id_combo=%s&amp;sid=%d",
-				      $_->{PACKAGE_ID_COMBO},
-				      $row->{ID}),
-			      $_->{PACKAGE_NVRE})
-  	    } @{$row->{__data__}}
-				   );
+                                      $_->{PACKAGE_ID_COMBO},
+                                      $row->{ID}),
+                              $_->{PACKAGE_NVRE})
+            } @{$row->{__data__}}
+                                   );
     }
     else {
       $row->{PATCHED_PACKAGE_URLS} = '(none)';
@@ -1226,11 +1216,11 @@ sub potential_systems_for_patch_provider {
     if (exists $row->{__data__} && ref $row->{__data__} eq 'ARRAY') {
       $row->{UNPATCHED_PACKAGE_URLS} = join("<br />\n",
         map { PXT::HTML->link(sprintf("/rhn/software/packages/Details.do?id_combo=%s&amp;sid=%d",
-				      $_->{PACKAGE_ID_COMBO},
-				      $row->{ID}),
-			      $_->{PACKAGE_NVRE})
-  	    } @{$row->{__data__}}
-					   );
+                                      $_->{PACKAGE_ID_COMBO},
+                                      $row->{ID}),
+                              $_->{PACKAGE_NVRE})
+            } @{$row->{__data__}}
+                                           );
     }
     else {
       $row->{UNPATCHED_PACKAGE_URLS} = '(none)';
@@ -1305,25 +1295,25 @@ sub entitlement_changes_in_set_provider {
     my %current_ents = map { $_->{ENTITLEMENT} => 1 } @{$row->{__data__}};
     foreach my $ent (@addon_entitlements) {
       if (exists $add_ents{$ent} and
-	  not exists $current_ents{$ent} and
-	  RHN::Server->can_entitle_server($ent, $row->{ID})) {
+          not exists $current_ents{$ent} and
+          RHN::Server->can_entitle_server($ent, $row->{ID})) {
 
-	if ($avail_ents->{$ent}->{available} > 0) {
-	  push @add, $ent;
-	  push @display_changes, 'add&#160;' . $pxt->user->org->slot_name($ent);
-	  $something_to_do = 1;
-	  $avail_ents->{$ent}->{available}--;
-	  $entitlement_counts{$ent}++;
-	}
-	else {
-	  $not_enough_entitlements{$ent}++;
-	}
+        if ($avail_ents->{$ent}->{available} > 0) {
+          push @add, $ent;
+          push @display_changes, 'add&#160;' . $pxt->user->org->slot_name($ent);
+          $something_to_do = 1;
+          $avail_ents->{$ent}->{available}--;
+          $entitlement_counts{$ent}++;
+        }
+        else {
+          $not_enough_entitlements{$ent}++;
+        }
       }
       elsif (exists $remove_ents{$ent} and
-	     exists $current_ents{$ent}) {
-	push @remove, $ent;
-	push @display_changes, 'remove&#160;' . $pxt->user->org->slot_name($ent);
-	$something_to_do = 1;
+             exists $current_ents{$ent}) {
+        push @remove, $ent;
+        push @display_changes, 'remove&#160;' . $pxt->user->org->slot_name($ent);
+        $something_to_do = 1;
       }
     }
 
@@ -1342,12 +1332,12 @@ will not be.
 EOQ
     foreach my $ent (keys %not_enough_entitlements) {
       $pxt->push_message(site_info => sprintf($not_enough_msg,
-					      $not_enough_entitlements{$ent},
-					      $pxt->user->org->slot_name($ent),
-					      $entitlement_counts{$ent},
-					      $pxt->user->org->slot_name($ent)
-					     )
-			);
+                                              $not_enough_entitlements{$ent},
+                                              $pxt->user->org->slot_name($ent),
+                                              $entitlement_counts{$ent},
+                                              $pxt->user->org->slot_name($ent)
+                                             )
+                        );
     }
   }
 
@@ -1391,8 +1381,8 @@ sub get_entitlement_changes_in_set_data {
   }
 
   return (data => $data,
-	  all_ids => $all_ids,
-	  ds => $ds);
+          all_ids => $all_ids,
+          ds => $ds);
 }
 
 sub entitlement_changes_in_set_cb {
@@ -1414,21 +1404,21 @@ sub entitlement_changes_in_set_cb {
 
     foreach my $row (@{$ret{data}}) {
       foreach my $ent (@{$row->{ADD_ENTITLEMENTS}}) {
-	RHN::Server->entitle_server($ent, $row->{ID});
-	$adds{$ent}++;
+        RHN::Server->entitle_server($ent, $row->{ID});
+        $adds{$ent}++;
       }
 
       foreach my $ent (@{$row->{REMOVE_ENTITLEMENTS}}) {
 
-	if ($ent eq 'monitoring_entitled') {
-	  my @sat_clusters = RHN::Server->sat_clusters_for_system($row->{ID});
-	  foreach my $cluster (@sat_clusters) {
-	    $sat_clusters{$cluster->{SAT_CLUSTER_ID}} = 1;
-	  }
-	}
+        if ($ent eq 'monitoring_entitled') {
+          my @sat_clusters = RHN::Server->sat_clusters_for_system($row->{ID});
+          foreach my $cluster (@sat_clusters) {
+            $sat_clusters{$cluster->{SAT_CLUSTER_ID}} = 1;
+          }
+        }
 
-	RHN::Server->remove_entitlement($ent, $row->{ID});
-	$removes{$ent}++;
+        RHN::Server->remove_entitlement($ent, $row->{ID});
+        $removes{$ent}++;
       }
     }
 
@@ -1440,20 +1430,20 @@ sub entitlement_changes_in_set_cb {
 
     foreach my $ent (keys %adds) {
       $pxt->push_message(site_info => sprintf('Added <strong>%s</strong> to <strong>%d</strong> system%s.',
-					      $pxt->user->org->slot_name($ent),
-					      $adds{$ent},
-					      ($adds{$ent} == 1 ? '' : 's')
-					     )
-			);
+                                              $pxt->user->org->slot_name($ent),
+                                              $adds{$ent},
+                                              ($adds{$ent} == 1 ? '' : 's')
+                                             )
+                        );
     }
 
     foreach my $ent (keys %removes) {
       $pxt->push_message(site_info => sprintf('Removed <strong>%s</strong> from <strong>%d</strong> system%s.',
-					      $pxt->user->org->slot_name($ent),
-					      $removes{$ent},
-					      ($removes{$ent} == 1 ? '' : 's')
-					     )
-			);
+                                              $pxt->user->org->slot_name($ent),
+                                              $removes{$ent},
+                                              ($removes{$ent} == 1 ? '' : 's')
+                                             )
+                        );
     }
   }
 

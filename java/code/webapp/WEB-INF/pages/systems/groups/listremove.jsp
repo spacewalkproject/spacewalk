@@ -20,11 +20,11 @@
 
 
 <c:import url="/WEB-INF/pages/common/fragments/systems/groups.jspf">
-	<c:param name = "title_key" value="systems.groups.jsp.title"/>
-	<c:param name = "summary_key" value="${summary_key}"/>
-	<c:param name = "summary_arg0" value="${summary_arg0}"/>
-	<c:param name = "action_key" value="systems.groups.jsp.remove"/>
-	<c:param name = "empty_message_key" value="${msg_key}"/>
-	<c:param name = "empty_message_arg0" value="${msg_arg0}"/>
-	<c:param name = "empty_message_arg1" value="${msg_arg1}"/>
+        <c:param name = "title_key" value="systems.groups.jsp.title"/>
+        <c:param name = "summary_key" value="${summary_key}"/>
+        <c:param name = "summary_arg0" value="${summary_arg0}"/>
+        <c:param name = "action_key" value="systems.groups.jsp.remove"/>
+        <c:param name = "empty_message_key" value="${msg_key}"/>
+        <c:param name = "empty_message_arg0" value="${msg_arg0}"/>
+        <c:param name = "empty_message_arg1" value="${msg_arg1}"/>
 </c:import>

@@ -40,6 +40,8 @@ from spacewalk.common.fileutils import getUidGid
 LOG = None
 
 # helper function to format the current time in the log format
+
+
 def log_time():
     if time.daylight:
         # altzone provides the DST-corrected time
@@ -61,6 +63,8 @@ def log_time():
     return t + tz_offset_string
 
 # function for setting the close-on-exec flag
+
+
 def set_close_on_exec(fd):
     s = fcntl.fcntl(fd, fcntl.F_GETFD)
     fcntl.fcntl(fd, fcntl.F_SETFD, s | fcntl.FD_CLOEXEC)
@@ -68,7 +72,9 @@ def set_close_on_exec(fd):
 # pylint: disable=W0702
 
 # Init the log
-def initLOG(log_file = "stderr", level = 0):
+
+
+def initLOG(log_file="stderr", level=0):
     global LOG
 
     # check if it already setup
@@ -86,9 +92,9 @@ def initLOG(log_file = "stderr", level = 0):
     # attempt to create the path to the log file if neccessary
     log_path = os.path.dirname(log_file)
     if log_file not in ('stderr', 'stdout') \
-    and log_path and not os.path.exists(os.path.dirname(log_file)):
+            and log_path and not os.path.exists(os.path.dirname(log_file)):
         log_stderr("WARNING: log path not found; attempting to create %s" %
-                log_path, sys.exc_info()[:2])
+                   log_path, sys.exc_info()[:2])
 
         # fetch uid, gid so we can do a "chown apache.root"
         apache_uid, apache_gid = getUidGid('apache', 'apache')
@@ -110,12 +116,16 @@ def initLOG(log_file = "stderr", level = 0):
     return 0
 
 # Convenient macro-type debugging function
+
+
 def log_debug(level, *args):
     # Please excuse the style inconsistencies.
     if LOG and LOG.level >= level:
         LOG.logMessage(*args)
 
 # Dump some information to stderr.
+
+
 def log_stderr(*args):
     pid = os.getpid()
     for arg in args:
@@ -124,6 +134,8 @@ def log_stderr(*args):
     sys.stderr.flush()
 
 # Convenient error logging function
+
+
 def log_error(*args):
     if not args:
         return
@@ -133,18 +145,25 @@ def log_error(*args):
     log_stderr(str(args))
 
 # Log a string with no extra info.
+
+
 def log_clean(level, msg):
     if LOG and LOG.level >= level:
         LOG.writeToLog(msg)
 
 # set the request object for the LOG so we don't have to expose the
 # LOG object externally
+
+
 def log_setreq(req):
     if LOG:
         LOG.set_req(req)
 
 # The base log class
+
+
 class rhnLog:
+
     def __init__(self, log_file, level):
         self.level = level
         self.log_info = "0.0.0.0: "
@@ -158,7 +177,7 @@ class rhnLog:
 
         newfileYN = 0
         if not os.path.exists(self.file):
-            newfileYN = 1 # just used for the chown/chmod
+            newfileYN = 1  # just used for the chown/chmod
 
         # else, open it as a real file, with locking and stuff
         try:
@@ -183,7 +202,7 @@ class rhnLog:
     # Main logging method.
     def logMessage(self, *args):
         tbStack = traceback.extract_stack()
-        callid  = len(tbStack) - 3
+        callid = len(tbStack) - 3
         module = ''
         try:    # So one can debug from the commandline.
             module = tbStack[callid][0]
@@ -215,11 +234,11 @@ class rhnLog:
     # send a message to the log file.
     def writeToLog(self, msg):
         # this is for debugging in case of errors
-        #fd = self.fd # no-op, but useful for dumping the current data
+        # fd = self.fd # no-op, but useful for dumping the current data
         self.fd.write("%s\n" % msg)
 
     # Reinitialize req info if req has changed.
-    def set_req(self, req = None):
+    def set_req(self, req=None):
         remoteAddr = '0.0.0.0'
         if req:
             if req.headers_in.has_key("X-Forwarded-For"):
@@ -237,6 +256,8 @@ class rhnLog:
 
 # Exit function is always the last function run.
 _exitfuncChain = getattr(sys, 'exitfunc', None)
+
+
 def _exit(lastExitfunc=_exitfuncChain):
     global LOG
     if LOG:

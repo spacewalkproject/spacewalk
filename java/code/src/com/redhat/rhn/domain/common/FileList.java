@@ -32,7 +32,7 @@ public class FileList extends BaseDomainHelper implements Identifiable {
     private Long id;
     private String label;
     private Org org;
-    private Collection fileNames;
+    private Collection<ConfigFileName> fileNames;
 
     /**
      * @return Returns the id.
@@ -85,7 +85,7 @@ public class FileList extends BaseDomainHelper implements Identifiable {
      */
     public void addFileName(String fileIn) {
         if (this.fileNames == null) {
-            this.fileNames = new LinkedList();
+            this.fileNames = new LinkedList<ConfigFileName>();
         }
         ConfigFileName cfn = ConfigurationFactory.lookupOrInsertConfigFileName(fileIn);
         if (!this.fileNames.contains(cfn)) {
@@ -99,9 +99,9 @@ public class FileList extends BaseDomainHelper implements Identifiable {
      * Returns Set of ConfigFileName instances.
      * @return Returns the fileNames.
      */
-    public Collection getFileNames() {
+    public Collection<ConfigFileName> getFileNames() {
         if (this.fileNames == null) {
-            this.fileNames = new LinkedList();
+            this.fileNames = new LinkedList<ConfigFileName>();
         }
         return fileNames;
     }
@@ -110,7 +110,7 @@ public class FileList extends BaseDomainHelper implements Identifiable {
     /**
      * @param fileNamesIn The fileNames to set.
      */
-    public void setFileNames(Collection fileNamesIn) {
+    public void setFileNames(Collection<ConfigFileName> fileNamesIn) {
         this.fileNames = fileNamesIn;
     }
 

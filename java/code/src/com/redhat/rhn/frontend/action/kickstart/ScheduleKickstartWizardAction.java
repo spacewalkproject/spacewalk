@@ -21,6 +21,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.ActionFactory;
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -420,7 +421,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         }
 
         // display a warning if displaying ppc64le profiles to a ppc system
-        if (system.getBaseChannel().getChannelArch().getLabel().equals("channel-ppc")) {
+        Channel baseChannel = system.getBaseChannel();
+        if (baseChannel != null &&
+                baseChannel.getChannelArch().getLabel().equals("channel-ppc")) {
             List<KickstartDto> profiles = helper.getDataSet();
             for (KickstartDto profile : profiles) {
                 KickstartableTree tree = KickstartFactory.findTreeById(profile

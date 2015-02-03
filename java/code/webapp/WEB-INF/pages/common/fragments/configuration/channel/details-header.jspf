@@ -5,42 +5,42 @@
 
 <!--  If we have a current-channel, editing existing else creating new channel -->
 <c:choose>
-	<c:when test='${channel != null}'>
-		<c:if test="${channel.globalChannel}">
-		  <rhn:toolbar base="h1" icon="header-configuration"
-			iconAlt="config.common.globalAlt"
-			helpUrl=""
-			deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"
-			deletionType="configchannel" deletionAcl="user_role(config_admin)">
-			${channel.displayName}
-		  </rhn:toolbar>
-		</c:if>
-		<c:if test="${channel.localChannel}">
-		  <rhn:toolbar base="h1" icon="header-config-system"
-			iconAlt="config.common.localAlt"
-			helpUrl=""
-			deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"
-			deletionType="configchannel" deletionAcl="user_role(config_admin)">
-			${channel.displayName}
-		  </rhn:toolbar>
-		</c:if>
-		<c:if test="${channel.sandboxChannel}">
-		  <rhn:toolbar base="h1" icon="header-sandbox"
-			iconAlt="config.common.sandboxAlt"
-			helpUrl=""
-			deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"
-			deletionType="configchannel" deletionAcl="user_role(config_admin)">
-			${channel.displayName}
-		  </rhn:toolbar>
-		</c:if>
-	</c:when>
-	<c:otherwise>
-		<rhn:toolbar base="h1" icon="header-configuration"
-			imgAlt="config.common.globalAlt"
-			helpUrl="">
-			<bean:message key="channelOverview.jsp.newToolbar" />
-		</rhn:toolbar>
-	</c:otherwise>
+        <c:when test='${channel != null}'>
+                <c:if test="${channel.globalChannel}">
+                  <rhn:toolbar base="h1" icon="header-configuration"
+                        iconAlt="config.common.globalAlt"
+                        helpUrl=""
+                        deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"
+                        deletionType="configchannel" deletionAcl="user_role(config_admin)">
+                        ${channel.displayName}
+                  </rhn:toolbar>
+                </c:if>
+                <c:if test="${channel.localChannel}">
+                  <rhn:toolbar base="h1" icon="header-config-system"
+                        iconAlt="config.common.localAlt"
+                        helpUrl=""
+                        deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"
+                        deletionType="configchannel" deletionAcl="user_role(config_admin)">
+                        ${channel.displayName}
+                  </rhn:toolbar>
+                </c:if>
+                <c:if test="${channel.sandboxChannel}">
+                  <rhn:toolbar base="h1" icon="header-sandbox"
+                        iconAlt="config.common.sandboxAlt"
+                        helpUrl=""
+                        deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"
+                        deletionType="configchannel" deletionAcl="user_role(config_admin)">
+                        ${channel.displayName}
+                  </rhn:toolbar>
+                </c:if>
+        </c:when>
+        <c:otherwise>
+                <rhn:toolbar base="h1" icon="header-configuration"
+                        imgAlt="config.common.globalAlt"
+                        helpUrl="">
+                        <bean:message key="channelOverview.jsp.newToolbar" />
+                </rhn:toolbar>
+        </c:otherwise>
 </c:choose>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/configchannel_detail.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

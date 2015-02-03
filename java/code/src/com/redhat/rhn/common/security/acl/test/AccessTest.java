@@ -163,16 +163,6 @@ public class AccessTest extends BaseTestCaseWithUser {
         assertFalse(rc);
     }
 
-    public void testSolarisAclFalse() throws Exception {
-        Map context = new HashMap();
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        Server s =  ServerFactoryTest.createTestServer(user, false);
-        context.put("sid", s.getId().toString());
-        boolean rc = acl.evalAcl(context, "is_solaris()");
-        assertFalse(rc);
-    }
-
     public void testOrgEntitlementAclTrue() {
         Map context = new HashMap();
         User user = UserTestUtils.findNewUser("testUser",
@@ -201,12 +191,12 @@ public class AccessTest extends BaseTestCaseWithUser {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
         context.put("user", user);
-        Server s = ServerFactoryTest.createTestServer(user, false,
-                ServerConstants.getServerGroupTypeMonitoringEntitled());
+        Server s = ServerFactoryTest.createTestServer(user, false, ServerConstants
+                .getServerGroupTypeProvisioningEntitled());
         context.put("sid", new String[] {s.getId().toString()});
-        boolean rc = acl.evalAcl(context, "system_feature(ftr_config)");
+        boolean rc = acl.evalAcl(context, "system_feature(ftr_kickstart)");
         assertFalse(rc);
-        rc = acl.evalAcl(context, "not system_feature(ftr_config)");
+        rc = acl.evalAcl(context, "not system_feature(ftr_kickstart)");
         assertTrue(rc);
     }
 

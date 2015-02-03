@@ -17,7 +17,9 @@
 
 from importLib import Import
 
+
 class ProductNamesImport(Import):
+
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
 
@@ -30,8 +32,7 @@ class ProductNamesImport(Import):
     def submit(self):
         try:
             self.backend.processProductNames(self.batch)
-	except:
-	    self.backend.rollback()
-	    raise
+        except:
+            self.backend.rollback()
+            raise
         self.backend.commit()
-

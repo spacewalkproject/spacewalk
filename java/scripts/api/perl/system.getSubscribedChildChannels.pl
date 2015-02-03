@@ -30,7 +30,7 @@ foreach my $channel (@$channels) {
  print "\n";
  print $channel->{'SUMMARY'};
  print "\n";
- 
+
 }
 
 

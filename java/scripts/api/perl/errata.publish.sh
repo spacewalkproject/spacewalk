@@ -27,7 +27,7 @@ $advisoryName = "qwerty";
 
 my $errata = $client->call('errata.publish', $session, $advisoryName, @channels);
 
-	print "ERRATA: ";
-	print "$errata->{'advisory_name'}: ";
-	print $errata->{'id'}; 	
-	print "\n"; 
+        print "ERRATA: ";
+        print "$errata->{'advisory_name'}: ";
+        print $errata->{'id'};
+        print "\n";

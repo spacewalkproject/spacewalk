@@ -39,6 +39,8 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -74,9 +76,6 @@ public class Org extends BaseDomainHelper {
     private Set<Org> trustedOrgs;
     private Set<IssSlave> allowedToSlaves;
     private Token token;
-
-    private Set monitoringScouts;
-    private Set contactGroups;
 
     private OrgConfig orgConfig;
 
@@ -449,40 +448,6 @@ public class Org extends BaseDomainHelper {
     }
 
     /**
-     * Gets the com.redhat.rhn.domain.monitoring.satcluster.SatClusters
-     * associated with this Org. Null if there are none or is not a Monitoring
-     * Sat.
-     * @return Set of SatClusters (Monitoring Scouts) associated with Org
-     */
-    public Set getMonitoringScouts() {
-        return monitoringScouts;
-    }
-
-    /**
-     * Sets the monitoring Scouts for this Org.
-     * @param monitoringScoutsIn the new set of Monitoring scouts
-     */
-    public void setMonitoringScouts(Set monitoringScoutsIn) {
-        this.monitoringScouts = monitoringScoutsIn;
-    }
-
-    /**
-     * Get the Set of com.redhat.rhn.domain.monitoring.notification.ContactGroup
-     * objects associated with this Org.
-     * @return Set of ContactGroups
-     */
-    public Set getContactGroups() {
-        return contactGroups;
-    }
-
-    /**
-     * @param contactGroupsIn The contactGroups to set.
-     */
-    protected void setContactGroups(Set contactGroupsIn) {
-        this.contactGroups = contactGroupsIn;
-    }
-
-    /**
      * Returns the channelFamilies.
      * @return the channelFamilies.
      */
@@ -527,8 +492,10 @@ public class Org extends BaseDomainHelper {
             ServerGroupType sgt = i.next().getGroupType();
 
             if (!sgt.isBase()) {
-                addonEntitlements.add(EntitlementManager.getByName(sgt
-                        .getLabel()));
+                Entitlement ent = EntitlementManager.getByName(sgt.getLabel());
+                if (ent != null) {
+                    addonEntitlements.add(ent);
+                }
             }
         }
 
@@ -612,26 +579,14 @@ public class Org extends BaseDomainHelper {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+    public boolean equals(Object other) {
+        if (!(other instanceof Org)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Org other = (Org) obj;
-        if (getId() == null) {
-            if (other.getId() != null) {
-                return false;
-            }
-        }
-        else if (!getId().equals(other.getId())) {
-            return false;
-        }
-        return true;
+        Org otherOrg = (Org) other;
+        return new EqualsBuilder()
+            .append(getName(), otherOrg.getName())
+            .isEquals();
     }
 
     /**
@@ -639,9 +594,8 @@ public class Org extends BaseDomainHelper {
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        return result;
+        return new HashCodeBuilder()
+            .append(getName())
+            .toHashCode();
     }
 }

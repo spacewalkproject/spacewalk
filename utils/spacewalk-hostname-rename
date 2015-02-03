@@ -54,8 +54,6 @@ elif [ "$DB_BACKEND" = "postgresql" ]; then
     fi
 fi
 
-MONITORING_ENABLED=`awk -F= '! /[[:space:]]*#/ && /web.is_monitoring_backend/ {gsub(/[[:space:]]*/,""); print $2}' $RHN_CONF_FILE`
-MONITORING_SCOUT_ENABLED=`awk -F= '! /[[:space:]]*#/ && /web.is_monitoring_scout/ {gsub(/[[:space:]]*/,""); print $2}' $RHN_CONF_FILE`
 NOCPULSE_PRIVATE_KEY_FILE=~nocpulse/.ssh/nocpulse-identity
 NOCPULSE_PUBLIC_KEY_FILE=${NOCPULSE_PRIVATE_KEY_FILE}.pub
 
@@ -336,52 +334,6 @@ function re-generate_server_ssl_certificate {
     fi
 }
 
-function push_monitoring_scounts {
-    if [ "$DB_BACKEND" = "oracle" ]; then
-        PUSH_CODE="
-BEGIN
-    FOR t IN (SELECT ORG.id as FIRST, RSC.recid as SECOND, '1' as THIRD
-                FROM web_customer ORG INNER JOIN rhn_sat_cluster RSC
-                ON ORG.id  = RSC.customer_id) LOOP
-        rhn_install_org_satellites(t.FIRST, t.SECOND, t.THIRD);
-    END LOOP;
-    COMMIT;
-END;
-"
-    else
-        PUSH_CODE="
-    SELECT rhn_install_org_satellites(ORG.id, RSC.recid, '1'),
-           ORG.id as FIRST, RSC.recid as SECOND, '1' as THIRD
-                FROM web_customer ORG INNER JOIN rhn_sat_cluster RSC
-                ON ORG.id  = RSC.customer_id);
-    COMMIT;
-END;
-"
-    fi
-    spacewalk-sql --select-mode - >>$LOG 2>&1 <<EOS
-$PUSH_CODE
-$DBSHELL_QUIT
-EOS
-}
-
-function update_monitoring_data {
-    if [[ "$IP" =~ $IPV4ADDR_REGEX ]]; then
-        MON_UPDATE="UPDATE rhn_sat_cluster SET vip = '$IP' WHERE public_key LIKE '${NOCPULSE_OLD_PUBLIC_KEY}%';
-        UPDATE rhn_sat_node SET ip = '$IP' WHERE EXISTS (SELECT 1 FROM rhn_sat_cluster RSC WHERE RSC.public_key LIKE '${NOCPULSE_OLD_PUBLIC_KEY}%' AND sat_cluster_id = RSC.recid);
-        COMMIT;"
-    fi
-    if [[ "$IP" =~ $IPV6ADDR_REGEX ]]; then
-        MON_UPDATE="UPDATE rhn_sat_cluster SET vip6 = '$IP' WHERE public_key LIKE '${NOCPULSE_OLD_PUBLIC_KEY}%';
-        UPDATE rhn_sat_node SET ip6 = '$IP' WHERE EXISTS (SELECT 1 FROM rhn_sat_cluster RSC WHERE RSC.public_key LIKE '${NOCPULSE_OLD_PUBLIC_KEY}%' AND sat_cluster_id = RSC.recid);
-        COMMIT;"
-    fi
-    NOCPULSE_OLD_PUBLIC_KEY=`cat $NOCPULSE_PUBLIC_KEY_FILE`
-    spacewalk-sql --select-mode - >>$LOG <<EOS
-$MON_UPDATE
-$DBSHELL_QUIT
-EOS
-}
-
 ###############################################################################
 
 echo "[$(date)]: $0 $*" >> $LOG
@@ -493,26 +445,6 @@ COMMIT;
 $DBSHELL_QUIT
 EOS
     print_status 0  # just simulate end
-fi
-
-if [ -e $NOCPULSE_OLD_PUBLIC_KEY ]
-then
-    echo -n "Updating monitoring data ... " | tee -a $LOG
-    update_monitoring_data
-    print_status $?
-fi
-
-echo "Monitoring enabled: $MONITORING_ENABLED" >> $LOG
-echo "MonitoringScout enabled: $MONITORING_SCOUT_ENABLED" >> $LOG
-
-if [ "$MONITORING_ENABLED" != "0" ]
-then
-    if [ "$MONITORING_SCOUT_ENABLED" != "0" ]
-    then
-        echo -n "Pushing monitoring scouts ... " | tee -a $LOG
-        push_monitoring_scounts
-        print_status 0  # just simulate end
-    fi
 fi
 
 echo -n "Updating other DB entries ... " | tee -a $LOG

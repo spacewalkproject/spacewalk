@@ -25,19 +25,16 @@
 %endif
 
 Name: spacewalk-java
-Summary: Spacewalk Java site packages
+Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.76
+Version: 2.3.136
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 ExcludeArch: ia64
-
-Summary: Java web application files for Spacewalk
-Group: Applications/Internet
 
 Requires: bcel
 Requires: c3p0 >= 0.9.1
@@ -454,8 +451,16 @@ rm -rf $RPM_BUILD_ROOT
 # on Fedora 19 some jars are named differently
 %if 0%{?fedora}
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
-ln -s -f %{_javadir}/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
+[[ -f %{_javadir}/mchange-commons-java.jar ]] && ln -s -f %{_javadir}/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
+[[ -f %{_javadir}/mchange-commons/mchange-commons-java.jar ]] && ln -s -f %{_javadir}/mchange-commons/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
 ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/jboss-logging.jar
+# create missing symlinks on fedora21
+%if 0%{?fedora} >= 21
+ ln -s -f %{_javadir}/hibernate-jpa-2.0-api/hibernate-jpa-2.0-api.jar $RPM_BUILD_ROOT%{_javadir}/hibernate-jpa-2.0-api.jar
+ ln -s -f %{_javadir}/c3p0/c3p0.jar $RPM_BUILD_ROOT%{_javadir}/c3p0.jar
+ ln -s -f %{_javadir}/concurent/cconcurent.jar $RPM_BUILD_ROOT%{_javadir}/concurent.jar
+%endif
+
 %endif
 
 %if  0%{?rhel} && 0%{?rhel} < 6
@@ -499,6 +504,13 @@ install -d -m 755 $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 %if 0%{?fedora}
 echo "hibernate.cache.region.factory_class=net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory" >> conf/default/rhn_hibernate.conf
+%endif
+%if 0%{?fedora} && 0%{?fedora} >= 21
+echo "wrapper.java.classpath.28=/usr/share/java/log4j-1.jar" >> conf/default/rhn_taskomatic_daemon.conf
+%else
+echo "wrapper.java.classpath.28=/usr/share/java/log4j.jar" >> conf/default/rhn_taskomatic_daemon.conf
+%endif
+%if 0%{?fedora}
 echo "wrapper.java.classpath.49=/usr/share/java/hibernate3/hibernate-core-3.jar
 wrapper.java.classpath.62=/usr/share/java/hibernate3/hibernate-ehcache-3.jar
 wrapper.java.classpath.63=/usr/share/java/hibernate3/hibernate-c3p0-3.jar
@@ -626,7 +638,7 @@ fi
 # and wildcards (except non-symlink velocity)
 %{jardir}/antlr.jar
 %{jardir}/bcel.jar
-%{jardir}/c3p0.jar
+%{jardir}/c3p0*.jar
 %{jardir}/cglib.jar
 %{jardir}/commons-beanutils.jar
 %{jardir}/commons-cli.jar
@@ -640,35 +652,36 @@ fi
 %{jardir}/commons-lang.jar
 %{jardir}/commons-logging.jar
 %{jardir}/*commons-validator.jar
-%{jardir}/concurrent.jar
+%{jardir}/concurrent*.jar
 %{jardir}/dom4j.jar
 %{jardir}/dwr.jar
 %{jardir}/hibernate3*
 %if 0%{?fedora}
 %{jardir}/ehcache-core.jar
 %{jardir}/*_hibernate-commons-annotations.jar
-%{jardir}/hibernate-jpa-2.0-api.jar
+%{jardir}/hibernate-jpa-2.0-api*.jar
 %{jardir}/javassist.jar
 %{jardir}/slf4j_api.jar
-%{jardir}/slf4j_log4j12.jar
-%endif
-%if 0%{?fedora}
+%{jardir}/slf4j_log4j12*.jar
+%{jardir}/mchange-commons.jar
 %{_javadir}/mchange-commons.jar
 %{_javadir}/jboss-logging.jar
 %{jardir}/*jboss-logging.jar
+
+%if 0%{?fedora} >= 21
+%{_javadir}/c3p0.jar
+%{_javadir}/concurent.jar
+%{_javadir}/hibernate-jpa-2.0-api.jar
+%endif
+
 %endif
 %{jardir}/jaf.jar
 %{jardir}/javamail.jar
-%{jardir}/jcommon.jar
+%{jardir}/jcommon*.jar
 %{jardir}/jdom.jar
 %{jardir}/jpam.jar
 %{jardir}/jta.jar
-%{jardir}/log4j.jar
-
-%if 0%{?fedora}
-%{jardir}/mchange-commons.jar
-%endif
-
+%{jardir}/log4j*.jar
 %{jardir}/oro.jar
 %{jardir}/oscache.jar
 %{jardir}/quartz.jar
@@ -775,6 +788,323 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 28 2015 Tomas Lestach <tlestach@redhat.com> 2.3.136-1
+- fix wrong spec condition
+
+* Wed Jan 28 2015 Tomas Lestach <tlestach@redhat.com> 2.3.135-1
+- 1186355 - fixing typo
+- create missing jar symlinks (mainly for taskomatic)
+- let taskomatic link log4j-1.jar on fc21
+- Setting ts=4 is wrong
+
+* Wed Jan 28 2015 Tomas Lestach <tlestach@redhat.com> 2.3.134-1
+- fix mchange-commons issue on fc21
+
+* Tue Jan 27 2015 Tomas Lestach <tlestach@redhat.com> 2.3.133-1
+- fedora21 packages install the jars to custom directories
+- unify fedora specific files
+- fedora21 uses only the log4j-1 compatibility package
+
+* Mon Jan 26 2015 Stephen Herr <sherr@redhat.com> 2.3.132-1
+- 1180581 - make config file upload on FileDetails work
+
+* Mon Jan 26 2015 Tomas Lestach <tlestach@redhat.com> 2.3.131-1
+- remove nonlinux (solaris) entitlement
+- prevent NPE on activationkeys/Edit.do page
+- removing @Override annotations for methods that aren't overriden
+
+* Fri Jan 23 2015 Stephen Herr <sherr@redhat.com> 2.3.130-1
+- Fix "Select All" buttons display on rhn:list, make consistent with new
+  rl:list
+- Fix missing submit parameter for "Select All"
+- Sort filelist in configfile.compare event history alphabetically
+- add getSSMPowerSettingsUpdateCommand() to keep the values on empty form data
+- fix setting powermanagement values
+- Add missing dash to docbook apidoc macro
+- Update the example scripts section for docbook output
+- Update the title page for docbook output
+- Fix xmlrpc.doc for the "system" namespace
+- Fix grammar and typos in API code example descriptions
+- Set cobbler hostname variable when calling system.createSystemRecord
+- parseDistUrl needs to return null if it can't parse the url
+- Fix NPE on GET /rhn/common/DownloadFile.do
+- Avoid NumberFormatException in case of invalid URL
+- Lookup kickstart tree only when org is found
+- Avoid ArrayIndexOutOfBoundsException with invalid URLs
+
+* Fri Jan 23 2015 Tomas Lestach <tlestach@redhat.com> 2.3.129-1
+- link log4j-1.jar if available (for fc12)
+- removing duplicate Summary and Group
+- 1179765 - directories and symlinks cannot be binary
+
+* Wed Jan 21 2015 Stephen Herr <sherr@redhat.com> 2.3.128-1
+- Port Errata Clone page from perl -> java Make nav link to java channel clone
+  and errata clone pages Also make various clone errata jsps share common list
+
+* Wed Jan 21 2015 Stephen Herr <sherr@redhat.com> 2.3.127-1
+- fixing error '...requires that an attribute name is preceded by whitespace'
+
+* Wed Jan 21 2015 Tomas Lestach <tlestach@redhat.com> 2.3.126-1
+- fixing checkstyle issue
+
+* Tue Jan 20 2015 Stephen Herr <sherr@redhat.com> 2.3.125-1
+- Fix ISE when cloning a channel that is not globally subscribable
+- Fix ISE if creating a channel that is not globally subscribable
+
+* Mon Jan 19 2015 Grant Gainey 2.3.124-1
+- 1156299, CVE-2014-7811 - Fixed reported XSS issues  *
+  /rhn/systems/details/Overview.do?sid= , Description  *
+  /rhn/groups/GroupDetail.do?sgid= , Name, Description  *
+  /rhn/users/UserList.do, /rhn/users/DisabledList.do - first/last name  *
+  /rhn/systems/details/history/Event.do?sid= , SCAP param/action
+
+* Fri Jan 16 2015 Grant Gainey 2.3.123-1
+- bnc#901927: Remove custom file size calculation
+- Need to wrap the InputStream in order to support mark/reset so the binary
+  upload won't crash anymore
+
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.122-1
+- Remove "Select All" button from system currency report
+
+* Fri Jan 16 2015 Matej Kollar <mkollar@redhat.com> 2.3.121-1
+- Remove "Add Selected to SSM" from SSM system overview page
+- Remove "Add Selected to SSM" from system overview page
+
+* Thu Jan 15 2015 Tomas Lestach <tlestach@redhat.com> 2.3.120-1
+- 1158806 - fix menu structure for
+  /rhn/systems/details/history/snapshots/TagCreate.do page
+- 1158806 - fix menu structure for /rhn/systems/details/history/Event.do page
+
+* Wed Jan 14 2015 Stephen Herr <sherr@redhat.com> 2.3.119-1
+- checkstyle fixes
+
+* Wed Jan 14 2015 Stephen Herr <sherr@redhat.com> 2.3.118-1
+- migrate clone channel page from perl -> java
+- Use Hibernate-friendly equals() and hashCode() in Org
+
+* Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.117-1
+- Getting rid of trailing spaces in translations
+- Getting rid of trailing spaces in XML
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of trailing spaces in Perl
+- Getting rid of Tabs in Java JSPF
+- Getting rid of Tabs in Java JSP
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+- allow Copyright 2015
+- clean up some type safety warnings
+- Whitespace fixes
+
+* Tue Dec 23 2014 Stephen Herr <sherr@redhat.com> 2.3.116-1
+- checkstyle fix
+- Clean up some static references to pxt pages in nav tests
+- port errata_channel_intersection.pxt to java
+
+* Mon Dec 22 2014 Stephen Herr <sherr@redhat.com> 2.3.115-1
+- Checkstyle fix and translation with old url update
+
+* Mon Dec 22 2014 Stephen Herr <sherr@redhat.com> 2.3.114-1
+- Port Channel Subscriber pages to java
+- minor style fix for virt-guest advanced options kickstart page
+- Port of the advanced kickstart options to TB3.
+- ErrataManager.applyErrata: raise exception even when there is no relevant
+  errata
+- Improve applyErrata algorithm to apply only relevant erratas. Testcase
+  included.
+- hasKeyword and containsKeyword are the same, but one crashes on null
+- 1176435 - make displaying package actions with multiple packages faster
+
+* Fri Dec 19 2014 Stephen Herr <sherr@redhat.com> 2.3.113-1
+- migrate sdc Reactivation page to java
+- migrate sdc clients through proxy page to java
+- migrate sdc Proxy page to java
+
+* Thu Dec 18 2014 Stephen Herr <sherr@redhat.com> 2.3.112-1
+- don't add sync-probe taskomatic task, but handle upgrades that have it
+
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.111-1
+- Adding copyright statements where they were missing
+
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.110-1
+- fix checkstyle problems
+- Migrate sdc Connection page to java
+- remove old references to perl pages in ssm.xml that no longer exist
+- and one more reference
+- migrate SSM Misc System Preferences Confirm page to java
+- Revert "updating the test sitenav.xml with more recent content" I should make
+  sure this doesn't break test first
+- updating the test sitenav.xml with more recent content
+- migrate SSM Rollback page to java
+- Migrate SSM Tag Systems page to java
+- use c:out instead of bare references to avoid potential xss problems
+- removing references to perl restart pages that no longer exist
+- Migrating SSM Custom Value pages to java
+- a few more old pxt references to clean up
+- random cleanups, mostly getting rid of references to pxt pages
+- migrate about help page to java
+- updating old references to pxt pages from StringResources
+- make config column be correct for Installed Systems and Target Systems pages
+- Fix checkstyle errors
+- port package details Target Systems pages to java
+- fixing a couple of hard-to-track-down xml errors
+- Migrating 'systems with installed package' page to java
+- Port package 'new versions' page to java
+- Package maps are only a solaris feature, remove
+- Porting package file list page to java
+- Removing solaris support from spacewalk-java
+- drop monitoring code and monitoring schema
+- plus one more reference
+- A more complete removal of monitoring from spacewalk-java
+- take a giant ax to monitoring in spacewalk-java. work in progress
+
+* Tue Dec 16 2014 Tomas Lestach <tlestach@redhat.com> 2.3.109-1
+- 1174627 - make sure columns are named according to the dto attributes
+- Revert "don't show packages tab if activation key hasn't provisioning
+  entitlement"
+
+* Fri Dec 12 2014 Stephen Herr <sherr@redhat.com> 2.3.108-1
+- 1168328 - fix failures due to uninitialized log it
+- style java.custom_header, java.custom_footer, java.login_banner,
+  java.legal_note parameters
+
+* Fri Dec 12 2014 Tomas Lestach <tlestach@redhat.com> 2.3.107-1
+- remove empty trans-unit elements
+
+* Wed Dec 10 2014 Tomas Lestach <tlestach@redhat.com> 2.3.106-1
+- 1069155 - let system set manager csv contain add-on entitlements
+- extra space
+
+* Tue Dec 09 2014 Tomas Lestach <tlestach@redhat.com> 2.3.105-1
+- 1170704 - allow filtering RHEL7 errata
+- add some missing strings
+
+* Mon Dec 08 2014 Tomas Lestach <tlestach@redhat.com> 2.3.104-1
+- 1151931 - fix broken xml
+
+* Mon Dec 08 2014 Jan Dobes 2.3.103-1
+- slightly improve hideable menu
+
+* Mon Dec 08 2014 Tomas Lestach <tlestach@redhat.com> 2.3.102-1
+- 1169278 - fix typo: Occurence -> Occurrence
+- 1169345 - returning back removed file preservation related messages
+- 1151931 - returning back removed config related messages
+
+* Fri Dec 05 2014 Stephen Herr <sherr@redhat.com> 2.3.101-1
+- Fixing merge problem in test
+
+* Fri Dec 05 2014 Stephen Herr <sherr@redhat.com> 2.3.100-1
+- Explain snapshot/rollback behavior better (bsc#808947)
+- Fix documentation search
+- New API call to list kickstartable tree channels + test
+- Don't commit when XMLRPCExceptions are thrown
+- XmlRpcServletTest: ensure a new Hibernate session is used in each test
+
+* Fri Dec 05 2014 Tomas Lestach <tlestach@redhat.com> 2.3.99-1
+- 1169741 - allow removing Cobbler System Profile on  the power management page
+- 1169752 - allow also blank power management settings
+- 1169741 - add csrf check for the power management page
+- Made text more clear for package profile sync
+
+* Thu Dec 04 2014 Jan Dobes 2.3.98-1
+- style /rhn/systems/details/kickstart/SessionStatus page
+
+* Tue Dec 02 2014 Tomas Lestach <tlestach@redhat.com> 2.3.97-1
+- remove WebList as it isn't referenced any more
+- remove SelectableWebList as it isn't referenced any more
+- remove WebRhnSet as it isn't referenced any more
+- remove WebSessionSet as it isn't referenced any more
+- adapt ListRemoveGroupsAction to the rewritten groups.jspf
+- adapt groups.jspf to the rewritten AddGroupsAction
+- rewrite AddGroupsAction
+- 1169480 - No ISE on provisioning page when no base channel
+
+* Mon Dec 01 2014 Jan Dobes 2.3.96-1
+- too big space
+- there is no need to block enter key
+- Cobbler variables page ported to Bootstrap
+
+* Fri Nov 28 2014 Tomas Lestach <tlestach@redhat.com> 2.3.95-1
+- fix hibernate.NonUniqueObjectException on errata cloning
+- Download CSV button does not export all columns ("Base Channel" missing)
+  (bnc#896238)
+- Fix install type detection on SUSE systems
+
+* Thu Nov 27 2014 Jan Dobes 2.3.94-1
+- style /rhn/channels/manage/errata/ConfirmErrataAdd page
+
+* Thu Nov 27 2014 Tomas Lestach <tlestach@redhat.com> 2.3.93-1
+- paginate before elaboration
+- remove duplicated line
+
+* Wed Nov 26 2014 Stephen Herr <sherr@redhat.com> 2.3.92-1
+- 1168328 - Make the base channel ssm action asynchronous
+- 1168292 - Commit after each system deletion to avoid deadlocks
+
+* Tue Nov 25 2014 Tomas Lestach <tlestach@redhat.com> 2.3.91-1
+- 1081124 - let system advanced search return common package nvrea
+- remove @Override annotation
+
+* Tue Nov 25 2014 Tomas Lestach <tlestach@redhat.com> 2.3.90-1
+- 1167753 - apidoc generator does not know #array("something")
+- 1009396 - fix js injection on /rhn/systems/Search.do page
+
+* Mon Nov 24 2014 Stephen Herr <sherr@redhat.com> 2.3.89-1
+- 920603 - fixing javascript errors
+- 1162862 - Config file url should update when you create new revision
+
+* Mon Nov 24 2014 Tomas Lestach <tlestach@redhat.com> 2.3.88-1
+- prevent ISE, when firstname a/o lastname weren't passed from IPA server
+
+* Fri Nov 21 2014 Jan Dobes 2.3.87-1
+- fix button alignment
+- impove style of Software Crash pages
+
+* Thu Nov 20 2014 Tomas Lestach <tlestach@redhat.com> 2.3.86-1
+- 1001018 - xml escape scripting language on
+  /rhn/kickstart/KickstartScriptDelete.do page
+
+* Thu Nov 20 2014 Tomas Lestach <tlestach@redhat.com> 2.3.85-1
+- 1001018 - xml escape script language on /rhn/kickstart/Scripts.do page
+
+* Wed Nov 19 2014 Jan Dobes 2.3.84-1
+- do not show expanded menu on small screens on default
+- remove redundant navbar-collapse-1 class
+- hide items on smaller screens
+
+* Wed Nov 19 2014 Tomas Lestach <tlestach@redhat.com> 2.3.83-1
+- 1024090 - user does not need to be a channel admin to manage a channel
+- Channel package compare will fail if checking two unrelated channels when ch1
+  or ch2 is NULL.
+
+* Fri Nov 14 2014 Tomas Lestach <tlestach@redhat.com> 2.3.82-1
+- 801965 - checkstuyle fix
+
+* Fri Nov 14 2014 Tomas Lestach <tlestach@redhat.com> 2.3.81-1
+- 801965 - config admin role required for the kickstart.profile.*Repositories
+  API calls
+- 801965 - introduce kickstart.profile.getAvailableRepositories API
+- 801965 - rename kickstart.profile.getAvailableRepositories to
+  kickstart.profile.getRepositories
+- 801965 - we cannot return 'null' in API
+- 801965 - remove redundant code
+
+* Thu Nov 13 2014 Grant Gainey 2.3.80-1
+- 1093669 - Fixed typo in column-names
+
+* Thu Nov 13 2014 Stephen Herr <sherr@redhat.com> 2.3.79-1
+- 796434 - refreshing should not clone activation key again
+- 1156337 - use conf channel label instead of name
+- 1136491 - listActivationKeys should return empty list if no keys visible
+- 1037974 - make API listing system events by type work
+- cannot select code from disabled textarea in Firefox, use readonly editor
+
+* Wed Nov 12 2014 Stephen Herr <sherr@redhat.com> 2.3.78-1
+- 1151183 - clean up remnants of prototype.js, convert to jQuery
+- Fix tests broken by fix to 1134879, PackageName objects should be saved
+  explicitly
+
+* Wed Nov 12 2014 Grant Gainey 2.3.77-1
+- 1152984 - Fix entitled_systems.jsp num-per-page ISE
+
 * Tue Nov 11 2014 Stephen Herr <sherr@redhat.com> 2.3.76-1
 - 1162862 - we should consider if text <> binary has changed for config files
 - 1162840 - all API methods should be able to find shared channels

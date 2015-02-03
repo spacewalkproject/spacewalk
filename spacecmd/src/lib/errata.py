@@ -35,11 +35,13 @@ import xmlrpclib
 
 from spacecmd.utils import *
 
+
 def help_errata_list(self):
     print 'errata_list: List all errata'
     print 'usage: errata_list'
 
-def do_errata_list(self, args, doreturn = False):
+
+def do_errata_list(self, args, doreturn=False):
     self.generate_errata_cache()
 
     if doreturn:
@@ -50,24 +52,29 @@ def do_errata_list(self, args, doreturn = False):
 
 ####################
 
+
 def help_errata_summary(self):
     print 'errata_summary: Print a summary of all errata'
     print 'usage: errata_summary'
+
 
 def do_errata_summary(self, args):
     self.generate_errata_cache()
 
     map(print_errata_summary, sorted(self.all_errata.values(),
-                                     key = itemgetter('advisory_name')))
+                                     key=itemgetter('advisory_name')))
 
 ####################
+
 
 def help_errata_apply(self):
     print 'errata_apply: Apply an erratum to all affected systems'
     print 'usage: errata_apply ERRATA|search:XXX ...'
 
+
 def complete_errata_apply(self, text, line, beg, end):
     return self.tab_complete_errata(text)
+
 
 def do_errata_apply(self, args, only_systems=None):
     (args, _options) = parse_arguments(args)
@@ -150,9 +157,9 @@ def do_errata_apply(self, args, only_systems=None):
         for erratum in to_apply:
             self.client.system.scheduleApplyErrata(self.session,
                                                    to_apply[erratum],
-                                                   [ erratum ])
+                                                   [erratum])
 
-            logging.info('Scheduled %i system(s) for %s' % \
+            logging.info('Scheduled %i system(s) for %s' %
                          (len(to_apply[erratum]),
                           self.get_erratum_name(erratum)))
     else:
@@ -181,17 +188,20 @@ def do_errata_apply(self, args, only_systems=None):
                                                    system_id,
                                                    errata_to_apply)
 
-            logging.info('Scheduled %i errata for %s' % \
+            logging.info('Scheduled %i errata for %s' %
                          (len(errata_to_apply), system))
 
 ####################
+
 
 def help_errata_listaffectedsystems(self):
     print 'errata_listaffectedsystems: List of systems affected by an erratum'
     print 'usage: errata_listaffectedsystems ERRATA|search:XXX ...'
 
+
 def complete_errata_listaffectedsystems(self, text, line, beg, end):
     return self.tab_complete_errata(text)
+
 
 def do_errata_listaffectedsystems(self, args):
     (args, _options) = parse_arguments(args)
@@ -214,16 +224,19 @@ def do_errata_listaffectedsystems(self, args):
             add_separator = True
 
             print '%s:' % erratum
-            print '\n'.join(sorted([ s.get('name') for s in systems ]))
+            print '\n'.join(sorted([s.get('name') for s in systems]))
 
 ####################
+
 
 def help_errata_listcves(self):
     print 'errata_listcves: List of CVEs addressed by an erratum'
     print 'usage: errata_listcves ERRATA|search:XXX ...'
 
+
 def complete_errata_listcves(self, text, line, beg, end):
     return self.tab_complete_errata(text)
+
 
 def do_errata_listcves(self, args):
     (args, _options) = parse_arguments(args)
@@ -252,12 +265,15 @@ def do_errata_listcves(self, args):
 
 ####################
 
+
 def help_errata_findbycve(self):
     print 'errata_findbycve: List errata addressing a CVE'
     print 'usage: errata_findbycve CVE-YYYY-NNNN ...'
 
+
 def complete_errata_findbycve(self, text, line, beg, end):
     return self.tab_complete_errata(text)
+
 
 def do_errata_findbycve(self, args):
     (args, _options) = parse_arguments(args)
@@ -286,12 +302,15 @@ def do_errata_findbycve(self, args):
 
 ####################
 
+
 def help_errata_details(self):
     print 'errata_details: Show the details of an erratum'
     print 'usage: errata_details ERRATA|search:XXX ...'
 
+
 def complete_errata_details(self, text, line, beg, end):
     return self.tab_complete_errata(text)
+
 
 def do_errata_details(self, args):
     (args, _options) = parse_arguments(args)
@@ -372,12 +391,15 @@ def do_errata_details(self, args):
 
 ####################
 
+
 def help_errata_delete(self):
     print 'errata_delete: Delete an erratum'
     print 'usage: errata_delete ERRATA|search:XXX ...'
 
+
 def complete_errata_delete(self, text, line, beg, end):
     return self.tab_complete_errata(text)
+
 
 def do_errata_delete(self, args):
     (args, _options) = parse_arguments(args)
@@ -413,9 +435,11 @@ def do_errata_delete(self, args):
 
 ####################
 
+
 def help_errata_publish(self):
     print 'errata_publish: Publish an erratum to a channel'
     print 'usage: errata_publish ERRATA|search:XXX <CHANNEL ...>'
+
 
 def complete_errata_publish(self, text, line, beg, end):
     parts = line.split(' ')
@@ -424,6 +448,7 @@ def complete_errata_publish(self, text, line, beg, end):
         return self.tab_complete_errata(text)
     elif len(parts) > 2:
         return tab_completer(self.do_softwarechannel_list('', True), text)
+
 
 def do_errata_publish(self, args):
     (args, _options) = parse_arguments(args)
@@ -451,6 +476,7 @@ def do_errata_publish(self, args):
 
 ####################
 
+
 def help_errata_search(self):
     print 'errata_search: List errata that meet the given criteria'
     print 'usage: errata_search CVE|RHSA|RHBA|RHEA|CLA ...'
@@ -459,10 +485,12 @@ def help_errata_search(self):
     print '> errata_search CVE-2009:1674'
     print '> errata_search RHSA-2009:1674'
 
+
 def complete_errata_search(self, text, line, beg, end):
     return tab_completer(self.do_errata_list('', True), text)
 
-def do_errata_search(self, args, doreturn = False):
+
+def do_errata_search(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
     if not len(args):
@@ -488,10 +516,10 @@ def do_errata_search(self, args, doreturn = False):
                     match = self.all_errata[name]
 
                     # build a structure to pass to print_errata_summary()
-                    errata.append( {'advisory_name'     : name,
-                                    'advisory_type'     : match['advisory_type'],
-                                    'advisory_synopsis' : match['advisory_synopsis'],
-                                    'date'              : match['date'] } )
+                    errata.append({'advisory_name': name,
+                                   'advisory_type': match['advisory_type'],
+                                   'advisory_synopsis': match['advisory_synopsis'],
+                                   'date': match['date']})
 
         if add_separator:
             print self.SEPARATOR
@@ -499,10 +527,8 @@ def do_errata_search(self, args, doreturn = False):
 
         if len(errata):
             if doreturn:
-                return [ erratum['advisory_name'] for erratum in errata ]
+                return [erratum['advisory_name'] for erratum in errata]
             else:
                 map(print_errata_summary, sorted(errata, reverse=True))
         else:
             return []
-
-# vim:ts=4:expandtab:

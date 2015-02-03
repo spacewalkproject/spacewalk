@@ -1,22 +1,22 @@
 <rl:list dataset="kickstartSummaryList"
-			 emptykey="kickstart.jsp.nokickstarts"
-			 styleclass="half-table"
-			 name="kslist"
-			 width="100%"
-			 hidepagenums="true">
+                         emptykey="kickstart.jsp.nokickstarts"
+                         styleclass="half-table"
+                         name="kslist"
+                         width="100%"
+                         hidepagenums="true">
 
-	<rl:rowrenderer name="RowRenderer" rowclasses="list-row-odd"/>
+        <rl:rowrenderer name="RowRenderer" rowclasses="list-row-odd"/>
 
-	<rl:column bound="false"
-				sortable="false"
-				headerkey="kickstartoverview.jsp.kickstartsummary">
-		${current.name}
-	</rl:column>
+        <rl:column bound="false"
+                                sortable="false"
+                                headerkey="kickstartoverview.jsp.kickstartsummary">
+                ${current.name}
+        </rl:column>
 
-	<rl:column bound="false"
-				sortable="false"
-				headerkey="emptyspace.jsp"
-				headerclass="thin-column">
-		${current.numberOfProfiles}
-	</rl:column>
+        <rl:column bound="false"
+                                sortable="false"
+                                headerkey="emptyspace.jsp"
+                                headerclass="thin-column">
+                ${current.numberOfProfiles}
+        </rl:column>
 </rl:list>

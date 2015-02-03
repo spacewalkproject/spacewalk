@@ -51,31 +51,6 @@
                 </div>
             </div>
         </li>
-        <rhn:require acl="is(enable_solaris_support)">
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-sm-2">
-                      <rhn:icon type="header-errata" title="ssm.overview.patches" />
-                        <bean:message key="ssm.overview.patches"/>
-                    </div>
-                    <div class="col-sm-10">
-                        <a href="/network/systems/ssm/patches/install.pxt"><bean:message key="ssm.overview.patches.install"/></a> / <a href="/network/systems/ssm/patches/remove.pxt"><bean:message key="ssm.overview.patches.remove"/></a>
-                        <bean:message key="ssm.overview.patches.patches"/>
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-sm-2">
-                      <rhn:icon type="header-errata-set" title="ssm.overview.patch.clusters" />
-                        <bean:message key="ssm.overview.patch.clusters"/>
-                    </div>
-                    <div class="col-sm-10">
-                        <bean:message key="ssm.overview.patch.clusters.install"/>
-                    </div>
-                </div>
-            </li>
-        </rhn:require>
         <rhn:require acl="user_role(org_admin)">
             <li class="list-group-item">
                 <div class="row">
@@ -137,7 +112,7 @@
                         <rhn:require acl="org_entitlement(rhn_provisioning)">
                             <li><bean:message key="ssm.overview.misc.customvalues"/></li>
                         </rhn:require>
-                        <rhn:require acl="user_role(org_admin);org_entitlement(rhn_provisioning) or org_entitlement(rhn_monitor)">
+                        <rhn:require acl="user_role(org_admin);org_entitlement(rhn_provisioning)">
                             <li><bean:message key="ssm.overview.misc.entitlements"/></li>
                         </rhn:require>
                         <li><bean:message key="ssm.overview.misc.delete"/></li>

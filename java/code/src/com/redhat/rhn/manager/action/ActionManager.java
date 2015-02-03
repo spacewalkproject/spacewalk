@@ -40,9 +40,6 @@ import com.redhat.rhn.domain.action.script.ScriptRunAction;
 import com.redhat.rhn.domain.action.scap.ScapAction;
 import com.redhat.rhn.domain.action.scap.ScapActionDetails;
 import com.redhat.rhn.domain.action.server.ServerAction;
-import com.redhat.rhn.domain.action.solaris.SolarisPackagePatchClusterInstallAction;
-import com.redhat.rhn.domain.action.solaris.SolarisPackagePatchInstallAction;
-import com.redhat.rhn.domain.action.solaris.SolarisPackagePatchRemoveAction;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigFileName;
@@ -56,7 +53,6 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageDelta;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
-import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
@@ -517,119 +513,6 @@ public class ActionManager extends BaseManager {
 
         List <Server> servers = SystemManager.hydrateServerFromIds(serverIds, user);
         return createConfigActionForServers(user, revisions, servers, type, earliest);
-    }
-
-    /**
-     *
-     * @param user The user scheduling the patch removal
-     * @param server The server patch removal applies to
-     * @param set The set of patches to remove
-     * @return Patch removal Action to perform
-     */
-    public static Action createPatchRemoveAction(User user, Server server, RhnSet set) {
-        // throw error if pkgs are empty?
-
-        ServerAction sa = new ServerAction();
-        sa.setStatus(ActionFactory.STATUS_QUEUED);
-        sa.setRemainingTries(new Long(5));
-        sa.setServer(server);
-
-        SolarisPackagePatchRemoveAction patchAction =
-                (SolarisPackagePatchRemoveAction) ActionFactory.createAction(
-                        ActionFactory.TYPE_SOLARISPKGS_PATCHREMOVE);
-        patchAction.setOrg(user.getOrg());
-        patchAction.setName("Patch Removal");
-        patchAction.setSchedulerUser(user);
-        patchAction.addServerAction(sa);
-        sa.setParentAction(patchAction);
-        ActionFactory.save(patchAction);
-
-        // for each item in the set create a package action detail
-        WriteMode m = ModeFactory.getWriteMode("Action_queries", "schedule_action_no_arch");
-        for (Iterator itr = set.getElements().iterator(); itr.hasNext();) {
-            RhnSetElement rse = (RhnSetElement) itr.next();
-            Map<String, Object> params = new HashMap<String, Object>();
-            params.put("action_id", patchAction.getId());
-            params.put("name_id", rse.getElement());
-            params.put("evr_id", rse.getElementTwo());
-            m.executeUpdate(params);
-        }
-
-        return patchAction;
-    }
-
-    /**
-     *
-     * @param user The user scheduling the patch removal
-     * @param server The server patch removal applies to
-     * @param set The set of patches to remove
-     * @return Patch intsall Action to perform
-     *
-     * TODO factor patch actions into one method
-     */
-    public static Action createPatchInstallAction(User user, Server server, RhnSet set) {
-        // throw error if pkgs are empty?
-
-        ServerAction sa = new ServerAction();
-        sa.setStatus(ActionFactory.STATUS_QUEUED);
-        sa.setRemainingTries(new Long(5));
-        sa.setServer(server);
-
-        SolarisPackagePatchInstallAction patchAction =
-                (SolarisPackagePatchInstallAction) ActionFactory.createAction(
-                        ActionFactory.TYPE_SOLARISPKGS_PATCHINSTALL);
-        patchAction.setOrg(user.getOrg());
-        patchAction.setName("Patch Install");
-        patchAction.setSchedulerUser(user);
-        patchAction.addServerAction(sa);
-        sa.setParentAction(patchAction);
-        ActionFactory.save(patchAction);
-
-        // for each item in the set create a package action detail
-        for (Iterator itr = set.getElements().iterator(); itr.hasNext();) {
-            RhnSetElement rse = (RhnSetElement) itr.next();
-            WriteMode m = ModeFactory.getWriteMode("Action_queries",
-                    "schedule_action_no_arch");
-            Map<String, Object> params = new HashMap<String, Object>();
-            params.put("action_id", patchAction.getId());
-            params.put("name_id", rse.getElement());
-            params.put("evr_id", rse.getElementTwo());
-            m.executeUpdate(params);
-        }
-
-        return patchAction;
-    }
-
-    /**
-     *
-     * @param user The user scheduling the patch cluster install
-     * @param server The server patch cluster install applies to
-     * @param patchSet The patch cluster to install
-     * @return Patch Cluster install Action to perform
-     *
-     */
-    public static Action createPatchSetInstallAction(User user,
-            Server server,
-            PatchSet patchSet) {
-
-        SolarisPackagePatchClusterInstallAction patchSetAction
-        = (SolarisPackagePatchClusterInstallAction)
-        createBaseAction(user,
-                server,
-                ActionFactory.TYPE_SOLARISPKGS_PATCHCLUSTERINSTALL);
-
-        patchSetAction.setName("Patch Cluster Install");
-
-        ActionFactory.save(patchSetAction);
-
-        WriteMode m = ModeFactory.getWriteMode("Action_queries", "schedule_action_no_arch");
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("action_id", patchSetAction.getId());
-        params.put("name_id", patchSet.getPackageName().getId());
-        params.put("evr_id", patchSet.getPackageEvr().getId());
-        m.executeUpdate(params);
-
-        return patchSetAction;
     }
 
     /**
@@ -1219,12 +1102,8 @@ public class ActionManager extends BaseManager {
      */
     public static PackageAction schedulePackageRemoval(User scheduler,
             Server srvr, RhnSet pkgs, Date earliestAction) {
-        if (!srvr.isSolaris()) {
-            return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                    ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction);
-        }
         return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction);
+                ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction);
     }
 
 
@@ -1238,12 +1117,8 @@ public class ActionManager extends BaseManager {
      */
     public static PackageAction schedulePackageRemoval(User scheduler,
             Server srvr, List<Map<String, Long>> pkgs, Date earliestAction) {
-        if (!srvr.isSolaris()) {
-            return (PackageAction) schedulePackageAction(scheduler, pkgs,
-                    ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction, srvr);
-        }
         return (PackageAction) schedulePackageAction(scheduler, pkgs,
-                ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction, srvr);
+                ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction, srvr);
     }
 
     /**
@@ -1256,12 +1131,8 @@ public class ActionManager extends BaseManager {
      */
     public static PackageAction schedulePackageInstall(User scheduler,
             Server srvr, List pkgs, Date earliestAction) {
-        if (!srvr.isSolaris()) {
-            return (PackageAction) schedulePackageAction(scheduler, pkgs,
-                    ActionFactory.TYPE_PACKAGES_UPDATE, earliestAction, srvr);
-        }
         return (PackageAction) schedulePackageAction(scheduler, pkgs,
-                ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction, srvr);
+                ActionFactory.TYPE_PACKAGES_UPDATE, earliestAction, srvr);
     }
 
     /**
@@ -1717,12 +1588,10 @@ public class ActionManager extends BaseManager {
      */
     public static String getActionName(ActionType type) {
         String name = "";
-        if (type.equals(ActionFactory.TYPE_PACKAGES_REMOVE) ||
-                type.equals(ActionFactory.TYPE_SOLARISPKGS_REMOVE)) {
+        if (type.equals(ActionFactory.TYPE_PACKAGES_REMOVE)) {
             name = "Package Removal";
         }
-        else if (type.equals(ActionFactory.TYPE_PACKAGES_UPDATE) ||
-                type.equals(ActionFactory.TYPE_SOLARISPKGS_INSTALL)) {
+        else if (type.equals(ActionFactory.TYPE_PACKAGES_UPDATE)) {
             name = "Package Install";
         }
         else if (type.equals(ActionFactory.TYPE_PACKAGES_VERIFY)) {

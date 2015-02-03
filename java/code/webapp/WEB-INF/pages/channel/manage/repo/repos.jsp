@@ -15,7 +15,7 @@
 <div class="page-summary">
 <p><bean:message key="repos.jsp.summary"/></p>
 <c:if test="${not empty requestScope['default']}">
-	<rhn:note key = "repos.jsp.note.default"/>
+        <rhn:note key = "repos.jsp.note.default"/>
 </c:if>
 </div>
 
@@ -38,14 +38,14 @@
                    headerkey="repos.jsp.label"
                    sortattr= "label"
                    filterattr="label">
-			<c:out value="<a href=\"/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}\">${current.label}</a>" escapeXml="false" />
+                        <c:out value="<a href=\"/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}\">${current.label}</a>" escapeXml="false" />
         </rl:column>
         <rl:column bound="false"
-	           sortable="false"
-	           headerkey="repo.jsp.channels"
-	           attr="channels">
-		  <a href="/rhn/channels/manage/repos/AssociatedChannels.do?id=${current.id}"><c:out value="${current.channels}" /></a>
-	    </rl:column>
+                   sortable="false"
+                   headerkey="repo.jsp.channels"
+                   attr="channels">
+                  <a href="/rhn/channels/manage/repos/AssociatedChannels.do?id=${current.id}"><c:out value="${current.channels}" /></a>
+            </rl:column>
       </rl:list>
      </rl:listset>
 

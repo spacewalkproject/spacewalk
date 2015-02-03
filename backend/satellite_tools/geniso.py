@@ -26,24 +26,25 @@ MOUNT_POINT = '/tmp'
 IMAGE_SIZE = "630M"
 DVD_IMAGE_SIZE = "4380M"
 
+
 def main(arglist):
     optionsTable = [
         Option('-m', '--mountpoint',    action='store',
-            help="mount point"),
+               help="mount point"),
         Option('-s', '--size',          action='store',
-            help="image size (eg. 630M)"),
+               help="image size (eg. 630M)"),
         Option('-p', '--file-prefix',   action='store',
-            help='Filename prefix'),
+               help='Filename prefix'),
         Option('-o', '--output',        action='store',
-            help='output directory'),
+               help='output directory'),
         Option('-v', '--version',       action='store',
-            help='version string'),
+               help='version string'),
         Option('-r', '--release',       action='store',
-            help='release string'),
+               help='release string'),
         Option('--copy-iso-dir',        action='store',
-            help='directory to copy the isos to after they have been generated.'),
+               help='directory to copy the isos to after they have been generated.'),
         Option('-t', '--type',          action='store',
-            help='the type of iso being generated.\
+               help='the type of iso being generated.\
                   this flag is optional, but can be set to spanning, non-spanning, or base.'),
     ]
     parser = OptionParser(option_list=optionsTable)
@@ -108,31 +109,31 @@ def main(arglist):
     cdcount = len(cds)
 
     # Create an empty temp file
-    fd, empty_file_path = tempfile.mkstemp(dir = '/tmp', prefix = 'empty.file-')
+    fd, empty_file_path = tempfile.mkstemp(dir='/tmp', prefix='empty.file-')
     os.close(fd)
 
     # command-line template
     mkisofsTemplate = "mkisofs -r -J -D -file-mode 0444 -new-dir-mode 0555 -dir-mode 0555 " \
-                    + "-graft-points %s -o %s /DISK_%s_OF_%s=%s"
+        + "-graft-points %s -o %s /DISK_%s_OF_%s=%s"
     for i in range(cdcount):
-        print "---------- %s/%s" % (i+1, cdcount)
+        print "---------- %s/%s" % (i + 1, cdcount)
 
-        #if options.type is None:
+        # if options.type is None:
         filename = "%s/%s-%s.%s-%02d.iso" % (options.output, file_prefix,
-            options.version, options.release, i+1)
-        #else:
+                                             options.version, options.release, i + 1)
+        # else:
         #    filename = "%s/%s-%s-%s.%s-%02d.iso" % (options.output, file_prefix,
         #        options.type, options.version, options.release, i+1)
 
         # Create a temp file to store the path specs
-        pathfiles_fd, pathfiles = tempfile.mkstemp(dir = '/tmp', prefix = 'geniso-')
+        pathfiles_fd, pathfiles = tempfile.mkstemp(dir='/tmp', prefix='geniso-')
 
         # Command-line options; the keys are supposed to start with a dash
         opts = {
-            'preparer'      : PRODUCT_NAME,
-            'publisher'     : PRODUCT_NAME,
-            'volid'         : "RHNSAT_%s/%s" % (i+1, cdcount),
-            'path-list'     : pathfiles,
+            'preparer': PRODUCT_NAME,
+            'publisher': PRODUCT_NAME,
+            'volid': "RHNSAT_%s/%s" % (i + 1, cdcount),
+            'path-list': pathfiles,
         }
         opts = ['-%s "%s"' % x for x in opts.items()]
 
@@ -148,8 +149,8 @@ def main(arglist):
             grafts.append("%s/=%s" % (relpath, f))
 
         # Generate the command line
-        cmd = mkisofsTemplate % (' '.join(opts), filename, i+1, cdcount,
-            empty_file_path)
+        cmd = mkisofsTemplate % (' '.join(opts), filename, i + 1, cdcount,
+                                 empty_file_path)
 
         # Write the path specs in pathfiles
         for graft in grafts:
@@ -162,7 +163,7 @@ def main(arglist):
         fd = os.popen(cmd, "r")
         print fd.read()
 
-        if not options.copy_iso_dir is None:
+        if options.copy_iso_dir is not None:
             copy_iso_path = os.path.join(options.copy_iso_dir, os.path.basename(os.path.dirname(filename)))
             if not os.path.exists(copy_iso_path):
                 os.mkdir(copy_iso_path)
@@ -211,6 +212,8 @@ def sizeStrToInt(s):
     return 0
 
 # The visitfunc argument for os.path.walk
+
+
 def __visitfunc(arg, dirname, names):
     for f in names:
         filename = os.path.normpath("%s/%s" % (dirname, f))
@@ -224,6 +227,8 @@ def __visitfunc(arg, dirname, names):
 
 # Given a directory name, returns the paths of all the files from that
 # directory, together with the file size
+
+
 def findFiles(start):
     a = []
     os.path.walk(start, __visitfunc, a)

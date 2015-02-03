@@ -24,14 +24,14 @@
 
 # pylint: disable=E1101
 
-## core lang imports
+# core lang imports
 import os
 import sys
 import socket
 import urlparse
 import xmlrpclib
 
-## lib imports
+# lib imports
 from rhn import rpclib, SSL
 from optparse import Option, OptionParser
 
@@ -39,6 +39,7 @@ sys.path.append('/usr/share/rhn')
 from up2date_client import config
 
 DEFAULT_WEBRPC_HANDLER_v3_x = '/rpc/api'
+
 
 def getSystemId(cfg):
     """ returns content of systemid file """
@@ -69,6 +70,7 @@ def getServer(options, handler):
         s.add_trusted_cert(options.ca_cert)
 
     return s
+
 
 def _getProtocolError(e, hostname=''):
     """
@@ -187,7 +189,7 @@ def _errorHandler(pre='', post=''):
     except (SystemExit, KeyboardInterrupt, NameError, TypeError,
             ValueError):
         raise
-    except:
+    except Exception:  # pylint: disable=E0012, W0703
         errorCode = 1
         errorString = pre
         try:
@@ -203,7 +205,7 @@ def _errorHandler(pre='', post=''):
         except SSL.SSL.Error, e:
             errorCode = 13
             errorString = "ERROR: failed SSL connection - bad or expired cert?"
-        except Exception, e:
+        except Exception, e:  # pylint: disable=E0012, W0703
             e0, e1 = str(e), repr(e)
             if e0:
                 s = "(%s)" % e0
@@ -238,10 +240,11 @@ def resolveHostnamePort(hostnamePort=''):
     if hostname:
         try:
             socket.getaddrinfo(hostname, None)
-        except: # pylint: disable=W0702
+        except:  # pylint: disable=W0702
             errorCode, errorString = _errorHandler()
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
+
 
 def activateProxy_api_v3_x(options, cfg):
     """ API version 3.*, 4.* - deactivate, then activate
@@ -251,6 +254,7 @@ def activateProxy_api_v3_x(options, cfg):
     if errorCode == 0:
         (errorCode, errorString) = _activateProxy_api_v3_x(options, cfg)
     return (errorCode, errorString)
+
 
 def _deactivateProxy_api_v3_x(options, cfg):
     """ Deactivate this machine as Proxy """
@@ -264,13 +268,13 @@ def _deactivateProxy_api_v3_x(options, cfg):
         if not s.proxy.is_proxy(systemid):
             # if system is not proxy, we do not need to deactivate it
             return (errorCode, errorString)
-    except: # pylint: disable=W0702
+    except:  # pylint: disable=W0702
         # api do not have proxy.is_proxy is implemented or it is hosted
         # ignore error and try to deactivate
         pass
     try:
         s.proxy.deactivate_proxy(systemid)       # proxy 3.0+ API
-    except: # pylint: disable=W0702
+    except:  # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
             raise
@@ -297,6 +301,7 @@ def _deactivateProxy_api_v3_x(options, cfg):
             sys.stdout.write("Spacewalk Proxy successfully deactivated.\n")
     return (errorCode, errorString)
 
+
 def _activateProxy_api_v3_x(options, cfg):
     """ Activate this machine as Proxy.
         Do not check if has been already activated. For such case
@@ -311,7 +316,7 @@ def _activateProxy_api_v3_x(options, cfg):
         s.proxy.activate_proxy(systemid, str(options.version))
         if options.enable_monitoring:
             s.proxy.create_monitoring_scout(systemid)
-    except: # pylint: disable=W0702
+    except:  # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
             raise
@@ -322,7 +327,7 @@ def _activateProxy_api_v3_x(options, cfg):
         except (xmlrpclib.ProtocolError, socket.error):
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
-        except (xmlrpclib.Fault, Exception):
+        except (xmlrpclib.Fault, Exception):  # pylint: disable=E0012, W0703
             # let's force a slight change in messaging for this one.
             errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
         except:
@@ -333,6 +338,7 @@ def _activateProxy_api_v3_x(options, cfg):
         if not options.quiet:
             sys.stdout.write("Spacewalk Proxy successfully activated.\n")
     return (errorCode, errorString)
+
 
 def createMonitoringScout(options, cfg):
     """ Activate MonitoringScout.
@@ -347,7 +353,7 @@ def createMonitoringScout(options, cfg):
     try:
         ssk = s.proxy.create_monitoring_scout(systemid)
         print "Scout shared key: %s" % ssk
-    except: # pylint: disable=W0702
+    except:  # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
             raise
@@ -358,7 +364,7 @@ def createMonitoringScout(options, cfg):
         except (xmlrpclib.ProtocolError, socket.error):
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
-        except (xmlrpclib.Fault, Exception):
+        except (xmlrpclib.Fault, Exception):  # pylint: disable=E0012, W0703
             # let's force a slight change in messaging for this one.
             errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
         except:
@@ -369,6 +375,7 @@ def createMonitoringScout(options, cfg):
         if not options.quiet:
             sys.stdout.write("Monitoring Scout successfully created.\n")
     return (errorCode, errorString)
+
 
 def activateProxy(options, cfg):
     """ Activate proxy. Decide how to do it upon apiVersion. Currently we
@@ -383,6 +390,7 @@ def activateProxy(options, cfg):
         sys.stderr.write("\nThere was a problem activating the Spacewalk Proxy entitlement:\n%s\n" % errorString)
         sys.exit(abs(errorCode))
 
+
 def listAvailableProxyChannels(options, cfg):
     """ return list of version available to this system """
 
@@ -393,7 +401,7 @@ def listAvailableProxyChannels(options, cfg):
     channel_list = []
     try:
         channel_list = server.proxy.list_available_proxy_channels(systemid)
-    except: # pylint: disable=W0702
+    except:  # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
             raise
@@ -404,7 +412,8 @@ def listAvailableProxyChannels(options, cfg):
     else:
         errorCode = 0
         if not options.quiet and channel_list:
-            sys.stdout.write("\n".join(channel_list)+"\n")
+            sys.stdout.write("\n".join(channel_list) + "\n")
+
 
 def processCommandline(cfg):
 
@@ -428,31 +437,31 @@ def processCommandline(cfg):
 
     # parse options
     optionsTable = [
-        Option('-s','--server',     action='store',     default=rhn_parent,
-                help="alternative server hostname to connect to, default is %s" % repr(rhn_parent)),
+        Option('-s', '--server',     action='store',     default=rhn_parent,
+               help="alternative server hostname to connect to, default is %s" % repr(rhn_parent)),
         Option('--http-proxy',      action='store',     default=httpProxy,
-                help="alternative HTTP proxy to connect to (HOSTNAME:PORT), default is %s" % repr(httpProxy)),
+               help="alternative HTTP proxy to connect to (HOSTNAME:PORT), default is %s" % repr(httpProxy)),
         Option('--http-proxy-username', action='store', default=httpProxyUsername,
-                help="alternative HTTP proxy usename, default is %s" % repr(httpProxyUsername)),
+               help="alternative HTTP proxy usename, default is %s" % repr(httpProxyUsername)),
         Option('--http-proxy-password', action='store', default=httpProxyPassword,
-                help="alternative HTTP proxy password, default is %s" % repr(httpProxyPassword)),
+               help="alternative HTTP proxy password, default is %s" % repr(httpProxyPassword)),
         Option('--ca-cert',         action='store',     default=ca_cert,
-                help="alternative SSL certificate to use, default is %s" % repr(ca_cert)),
+               help="alternative SSL certificate to use, default is %s" % repr(ca_cert)),
         Option('--no-ssl',          action='store_true',
-                help='turn off SSL (not advisable), default is on.'),
+               help='turn off SSL (not advisable), default is on.'),
         Option('--version',         action='store',     default=defaultVersion,
-                help='which X.Y version of the Spacewalk Proxy are you upgrading to?' +
-                     ' Default is your current proxy version ('+defaultVersion+')'),
+               help='which X.Y version of the Spacewalk Proxy are you upgrading to?' +
+               ' Default is your current proxy version (' + defaultVersion + ')'),
         Option('-m', '--enable-monitoring', action='store_true',
-                help='enable MonitoringScout on this proxy.'),
+               help='enable MonitoringScout on this proxy.'),
         Option('--deactivate',      action='store_true',
-                help='deactivate proxy, if already activated'),
-        Option('-l','--list-available-versions', action='store_true',
-                help='print list of versions available to this system'),
+               help='deactivate proxy, if already activated'),
+        Option('-l', '--list-available-versions', action='store_true',
+               help='print list of versions available to this system'),
         Option('--non-interactive', action='store_true',
-                help='non-interactive mode'),
+               help='non-interactive mode'),
         Option('-q', '--quiet',     action='store_true',
-                help='quiet non-interactive mode.'),
+               help='quiet non-interactive mode.'),
     ]
     parser = OptionParser(option_list=optionsTable)
     options, _args = parser.parse_args()
@@ -484,6 +493,7 @@ def processCommandline(cfg):
         options.non_interactive = 1
 
     return options
+
 
 def yn(prompt):
     """ returns 0 if 'n', and 1 if 'y' """
@@ -545,17 +555,17 @@ def main():
         noSslString = 'true'
 
     if not options.non_interactive:
-        print """
---server (RHN parent):  %s
---http-proxy:           %s
---http-proxy-username:  %s
---http-proxy-password:  %s
---ca-cert:              %s
---no-ssl:               %s
---version:              %s
-""" % (options.server, options.http_proxy,
-       options.http_proxy_username, options.http_proxy_password,
-       options.ca_cert, noSslString, options.version)
+        print ("\n"
+               "--server (RHN parent):  %s\n"
+               "--http-proxy:           %s\n"
+               "--http-proxy-username:  %s\n"
+               "--http-proxy-password:  %s\n"
+               "--ca-cert:              %s\n"
+               "--no-ssl:               %s\n"
+               "--version:              %s\n"
+               % (options.server, options.http_proxy,
+                  options.http_proxy_username, options.http_proxy_password,
+                  options.ca_cert, noSslString, options.version))
         if not yn("Are you sure about these options? y/n: "):
             return 0
 
@@ -574,4 +584,3 @@ def main():
 
 if __name__ == '__main__':
     sys.exit(abs(main() or 0))
-

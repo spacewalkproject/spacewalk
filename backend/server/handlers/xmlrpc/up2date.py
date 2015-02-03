@@ -26,6 +26,7 @@ from spacewalk.common import rhnFlags, rhn_rpm
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
+from spacewalk.common.rhnTB import add_to_seclist
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server.rhnLib import computeSignature
 from spacewalk.server.rhnHandler import rhnHandler
@@ -36,9 +37,12 @@ from spacewalk.server.rhnServer import server_route
 import re
 NONSUBSCRIBABLE_CHANNELS = re.compile("(rhn-proxy|rhn-satellite)")
 
+
 class Up2date(rhnHandler):
+
     """ xml-rpc Server Functions that we will provide for the outside world.
     """
+
     def __init__(self):
         """ Up2date Class Constructor
 
@@ -117,14 +121,14 @@ class Up2date(rhnHandler):
                                      expireOffset)
 
         loginDict = {
-                'X-RHN-Server-Id'           : self.server_id,
-                'X-RHN-Auth-User-Id'        : self.user,
-                'X-RHN-Auth'                : signature,
-                'X-RHN-Auth-Server-Time'    : rhnServerTime,
-                'X-RHN-Auth-Expire-Offset'  : expireOffset,
-                # List of lists [[label,last_mod],...]:
-                'X-RHN-Auth-Channels'       : channels
-                }
+            'X-RHN-Server-Id': self.server_id,
+            'X-RHN-Auth-User-Id': self.user,
+            'X-RHN-Auth': signature,
+            'X-RHN-Auth-Server-Time': rhnServerTime,
+            'X-RHN-Auth-Expire-Offset': expireOffset,
+            # List of lists [[label,last_mod],...]:
+            'X-RHN-Auth-Channels': channels
+        }
 
         # Duplicate these values in the headers so that the proxy can
         # intercept and cache them without parseing the xmlrpc.
@@ -143,7 +147,6 @@ class Up2date(rhnHandler):
 
         return loginDict
 
-
     def listChannels(self, system_id):
         """ Clients v2+ """
         log_debug(5, system_id)
@@ -154,9 +157,9 @@ class Up2date(rhnHandler):
         channelList = rhnChannel.channels_for_server(self.server_id)
         return channelList
 
-
     def subscribeChannels(self, system_id, channelNames, username, passwd):
         """ Clients v2+ """
+        add_to_seclist(passwd)
         log_debug(5, system_id, channelNames, username, passwd)
         # Authenticate the system certificate
         self.auth_system('subscribeChannel', system_id)
@@ -168,12 +171,12 @@ class Up2date(rhnHandler):
                 raise rhnFault(73, explain=False)
             else:
                 rhnChannel.subscribe_channel(self.server_id, channelName,
-                                         username, passwd)
+                                             username, passwd)
         return 0
-
 
     def unsubscribeChannels(self, system_id, channelNames, username, passwd):
         """ Clients v2+ """
+        add_to_seclist(passwd)
         log_debug(3)
         # Authenticate the system certificate
         self.auth_system('unsubscribeChannel', system_id)
@@ -192,9 +195,8 @@ class Up2date(rhnHandler):
                  dependencies.
         """
         log_debug(4, system_id)
-        return self.__solveDep(system_id, deps, action = "solvedep",
-                               clientVersion = 1)
-
+        return self.__solveDep(system_id, deps, action="solvedep",
+                               clientVersion=1)
 
     def solveDependencies(self, system_id, deps):
         """ Clients v2+
@@ -203,8 +205,8 @@ class Up2date(rhnHandler):
             RET: a hash {name: [[n, v, r, e], [n, v, r, e], ...], ...}
         """
         log_debug(4, system_id)
-        return self.__solveDep(system_id, deps, action = "solvedep",
-                               clientVersion = 2)
+        return self.__solveDep(system_id, deps, action="solvedep",
+                               clientVersion=2)
 
     def solveDependencies_arch(self, system_id, deps):
         """ Does the same thing as solve_dependencies, but also returns the architecture label with the
@@ -213,10 +215,10 @@ class Up2date(rhnHandler):
             RET: a hash {name: [[n, v, r, e, a], [n, v, r, e, a], ...], ...}
         """
         log_debug(4, system_id)
-        return self.__solveDep_arch(system_id, deps, action = "solvedep",
-                               clientVersion = 2)
+        return self.__solveDep_arch(system_id, deps, action="solvedep",
+                                    clientVersion=2)
 
-    def solveDependencies_with_limits(self, system_id, deps, all=0, limit_operator = None, limit = None):
+    def solveDependencies_with_limits(self, system_id, deps, all=0, limit_operator=None, limit=None):
         """ This version of solve_dependencies allows the caller to get all of the packages that solve a
             dependency and limit the packages that are returned to those that match the criteria defined
             by limit_operator and limit. This version of the function also returns the architecture label
@@ -228,10 +230,10 @@ class Up2date(rhnHandler):
             version is the version of the client that is calling the function.
         """
         log_debug(4, system_id)
-        return self.__solveDep_with_limits( system_id, deps, action = "solvedep",
-            clientVersion = 2, all=all, limit_operator=limit_operator, limit=limit)
+        return self.__solveDep_with_limits(system_id, deps, action="solvedep",
+                                           clientVersion=2, all=all, limit_operator=limit_operator, limit=limit)
 
-    def history(self, system_id, summary, body = ""):
+    def history(self, system_id, summary, body=""):
         """ Clients v2+
             Add a history log for a performed action
         """
@@ -244,7 +246,6 @@ class Up2date(rhnHandler):
         server.add_history(summary, body)
         server.save_history()
         return 0
-
 
     # --- PRIVATE METHODS ---
 
@@ -280,9 +281,9 @@ class Up2date(rhnHandler):
         log_debug(5, system_id, deps, action, clientVersion)
         result = self.__solveDep_prepare(system_id, deps, action, clientVersion)
         if result:
-           # Solve dependencies
-           result = rhnDependency.solve_dependencies(self.server_id,
-                                                  result, clientVersion)
+            # Solve dependencies
+            result = rhnDependency.solve_dependencies(self.server_id,
+                                                      result, clientVersion)
         return result
 
     def __solveDep_arch(self, system_id, deps, action, clientVersion):
@@ -295,9 +296,8 @@ class Up2date(rhnHandler):
         if result:
             # Solve dependencies
             result = rhnDependency.solve_dependencies_arch(self.server_id,
-                                                  result, clientVersion)
+                                                           result, clientVersion)
         return result
-
 
     def __solveDep_with_limits(self, system_id, deps, action, clientVersion, all=0, limit_operator=None, limit=None):
         """ Response for clients:
@@ -309,12 +309,14 @@ class Up2date(rhnHandler):
         if result:
             # Solve dependencies
             result = rhnDependency.solve_dependencies_with_limits(self.server_id,
-                                                  deps, clientVersion, all, limit_operator, limit)
+                                                                  deps, clientVersion, all, limit_operator, limit)
         return result
 
 
 class Servers(rhnHandler):
+
     """ A class to handle the site selection... """
+
     def __init__(self):
         """Servers Class Constructor. """
         rhnHandler.__init__(self)
@@ -329,11 +331,10 @@ class Servers(rhnHandler):
         """ Returns a list of available servers the client can connect to. """
         servers_list = [
             {
-                'server'        :   'xmlrpc.rhn.redhat.com',
-                'handler'       :   '/XMLRPC',
-                'description'   :   'XML-RPC Server',
-                'location'      :   'United States',
+                'server':   'xmlrpc.rhn.redhat.com',
+                'handler':   '/XMLRPC',
+                'description':   'XML-RPC Server',
+                'location':   'United States',
             },
         ]
         return servers_list
-

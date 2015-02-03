@@ -14,8 +14,8 @@
 
 <script language="javascript">
 function setStep(stepName) {
-	var field = document.getElementById("wizard-step");
-	field.value = stepName;
+        var field = document.getElementById("wizard-step");
+        field.value = stepName;
 }
 function setContinue() {
         var field = document.getElementById("destroyDisks");
@@ -70,10 +70,10 @@ function setContinue() {
 
     <c:if test="${empty regularKS}">
         <!-- Store guest provisioning info  -->
-	    <input type="hidden" name="memoryAllocation" value="${form.memoryAllocation}" />
-	    <input type="hidden" name="virtualCpus" value="${form.virtualCpus}" />
-	    <input type="hidden" name="localStorageGigabytes" value="${form.localStorageGigabytes}" />
-	    <input type="hidden" name="diskPath" value="${form.diskPath}" />
+            <input type="hidden" name="memoryAllocation" value="${form.memoryAllocation}" />
+            <input type="hidden" name="virtualCpus" value="${form.virtualCpus}" />
+            <input type="hidden" name="localStorageGigabytes" value="${form.localStorageGigabytes}" />
+            <input type="hidden" name="diskPath" value="${form.diskPath}" />
         <input type="hidden" name="macAddress" value="${form.macAddress}" />
     </c:if>
     <input type="hidden" name="destroyDisks" value="${form.destoryDisks}" id="destroyDisks" />

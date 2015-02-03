@@ -25,12 +25,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <query name="PackageArch.findById">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageArch as p
-        		where p.id = :id]]>
+                        where p.id = :id]]>
     </query>
 
     <query name="PackageArch.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageArch as p
-        		where p.label = :label]]>
+                        where p.label = :label]]>
     </query>
 
 

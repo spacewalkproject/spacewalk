@@ -23,18 +23,18 @@
 
 <input type="hidden" name="cid" value="${cid}" />
 
-	<rl:list
-			decorator="SelectableDecorator"
-			emptykey="package.jsp.emptylist"
-			alphabarcolumn="nvrea"
-			filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter" >
+        <rl:list
+                        decorator="SelectableDecorator"
+                        emptykey="package.jsp.emptylist"
+                        alphabarcolumn="nvrea"
+                        filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter" >
 
 
-			<rl:decorator name="PageSizeDecorator"/>
+                        <rl:decorator name="PageSizeDecorator"/>
 
-		    <rl:selectablecolumn value="${current.id}"
-								selected="${current.selected}"
-								disabled="${not current.selectable}"/>
+                    <rl:selectablecolumn value="${current.id}"
+                                                                selected="${current.selected}"
+                                                                disabled="${not current.selectable}"/>
 
 
 
@@ -42,7 +42,7 @@
                                    bound="false"
                            headerkey="download.jsp.package"
                            sortattr="nvrea"
-					defaultsort="asc"
+                                        defaultsort="asc"
                            >
 
                         <a href="/rhn/software/packages/Details.do?pid=${current.id}">${current.nvrea}</a>
@@ -55,14 +55,14 @@
                           >
                         ${current.summary}
                 </rl:column>
-	</rl:list>
+        </rl:list>
 
-	<div class="text-right">
-	  <hr />
-		<input class="btn btn-default" type="submit" name="dispatch"
-				value="<bean:message key='confirm'/>" />
-	</div>
-		<rhn:submitted/>
+        <div class="text-right">
+          <hr />
+                <input class="btn btn-default" type="submit" name="dispatch"
+                                value="<bean:message key='confirm'/>" />
+        </div>
+                <rhn:submitted/>
 
 
 </rl:listset>

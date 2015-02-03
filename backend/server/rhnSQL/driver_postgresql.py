@@ -55,6 +55,7 @@ def convert_named_query_params(query):
 
 
 class Function(sql_base.Procedure):
+
     """
     Function implementation for PostgreSQL. As there is no support in the Python
     driver we use direct SQL.
@@ -95,6 +96,7 @@ class Function(sql_base.Procedure):
 
 
 class Procedure(Function):
+
     """
     PostgreSQL functions are somewhat different than stored procedures in
     other databases. As a result the python-pgsql does not even implement
@@ -111,8 +113,8 @@ class Procedure(Function):
     def __call__(self, *args):
         result = Function.__call__(self, *args)
         # we do not expect any result (this is procedure)
-        #if not (type(result) == 'tuple' and result[0] == ''):
-            #raise rhnSQL.SQLError("Unexpected result returned by procedure %s: %s" % (self.name, str(result)))
+        # if not (type(result) == 'tuple' and result[0] == ''):
+        #raise rhnSQL.SQLError("Unexpected result returned by procedure %s: %s" % (self.name, str(result)))
 
 
 def decimal2intfloat(dec, cursor):
@@ -130,6 +132,7 @@ def decimal2intfloat(dec, cursor):
 
 
 class Database(sql_base.Database):
+
     """ Class for PostgreSQL database operations. """
 
     def __init__(self, host=None, port=None, username=None,
@@ -253,6 +256,7 @@ class Database(sql_base.Database):
 
 
 class Cursor(sql_base.Cursor):
+
     """ PostgreSQL specific wrapper over sql_base.Cursor. """
 
     def __init__(self, dbh=None, sql=None, force=None, blob_map=None):
@@ -273,7 +277,7 @@ class Cursor(sql_base.Cursor):
 
     def _execute_wrapper(self, function, *p, **kw):
         params = ','.join(["%s: %s" % (key, value) for key, value
-                          in kw.items()])
+                           in kw.items()])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
                   % (self.sql, params))
         if self.sql is None:

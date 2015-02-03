@@ -679,6 +679,3 @@ class Interpreter(Cmd):
             stats.main(self._ctrl, opts, reloadchannels=False)
         except SystemExit:
             pass
-
-
-# vim:ts=4:sw=4:et

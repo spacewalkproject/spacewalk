@@ -28,14 +28,14 @@ sub register_dobby_commands {
   my $cli = shift;
 
   $cli->register_mode(-command => "extend",
-		      -description => "Increase the Oracle Instance tablespace of Red Hat Satellite (Oracle only)",
-		      -handler => \&command_extend);
+                      -description => "Increase the Oracle Instance tablespace of Red Hat Satellite (Oracle only)",
+                      -handler => \&command_extend);
   $cli->register_mode(-command => "gather-stats",
-		      -description => "Gather statistics on database instance of Red Hat Satellite objects",
-		      -handler => \&gather_stats);
+                      -description => "Gather statistics on database instance of Red Hat Satellite objects",
+                      -handler => \&gather_stats);
   $cli->register_mode(-command => "shrink-segments",
-		      -description => "Shrink Oracle database segments of Red Hat Satellite",
-		      -handler => \&shrink_segments);
+                      -description => "Shrink Oracle database segments of Red Hat Satellite",
+                      -handler => \&shrink_segments);
 }
 
 sub command_extend {
@@ -80,7 +80,7 @@ sub command_extend {
     return 1;
   }
 
-  
+
   print "Extending $ts... ";
   my $fn = next_filename($cli, $file);
   my $size = $bytes / 1024;
@@ -127,7 +127,7 @@ sub gather_stats {
     print "Error: The database must be running to gather statistics.\n";
     return 1;
   }
-    
+
   print "Gathering statistics...\n";
   print "WARNING: this may be a very slow process.\n";
   if($backend eq 'postgresql') {

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
        <rhn:column header="sdcconfigfiles.jsp.filename">
-			<c:choose>
+                        <c:choose>
               <c:when test="${current.configFileType == 'file'}">
                 <rhn:icon type="header-file" title="config.common.fileAlt" />
               </c:when>
@@ -16,14 +16,14 @@
               </c:otherwise>
             </c:choose>
             ${fn:escapeXml(current.path)}
-      	</rhn:column>
+        </rhn:column>
 
-      	<rhn:column header="sdcconfigfiles.jsp.revision"
+        <rhn:column header="sdcconfigfiles.jsp.revision"
                   url="/rhn/configuration/file/FileDetails.do?cfid=${current.configFileId}&crid=${current.configRevisionId}">
           <bean:message key="sdcconfigfiles.jsp.filerev" arg0="${current.configRevision}" />
         </rhn:column>
 
-      	<rhn:column header="sdcconfigfiles.jsp.channel"
+        <rhn:column header="sdcconfigfiles.jsp.channel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
           <c:choose>
             <c:when test="${current.configChannelType == 'normal'}">

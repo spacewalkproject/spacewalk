@@ -15,10 +15,10 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <c:import url="/WEB-INF/pages/common/fragments/kickstart/cobbler-variables.jspf">
-	<c:param name = "post_url" value="/systems/details/kickstart/Variables.do"/>
-	<c:param name = "name" value="sid"/>
-	<c:param name = "value" value="${param.sid}"/>
-	<c:param name = "show_netboot" value="True"/>
+        <c:param name = "post_url" value="/systems/details/kickstart/Variables.do"/>
+        <c:param name = "name" value="sid"/>
+        <c:param name = "value" value="${param.sid}"/>
+        <c:param name = "show_netboot" value="True"/>
 </c:import>
 
 </body>

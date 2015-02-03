@@ -54,9 +54,9 @@ Params::Validate - Validate method/function parameters
   sub foo
   {
       validate( @_, { foo => 1, # mandatory
-		      bar => 0, # optional
-		    }
-	      );
+                      bar => 0, # optional
+                    }
+              );
   }
 
   # takes positional params
@@ -70,25 +70,25 @@ Params::Validate - Validate method/function parameters
   sub foo2
   {
       validate( @_,
-		{ foo =>
-		  # specify a type
-		  { type => ARRAYREF },
+                { foo =>
+                  # specify a type
+                  { type => ARRAYREF },
 
-		  bar =>
-		  # specify an interface
-		  { can => [ 'print', 'flush', 'frobnicate' ] },
+                  bar =>
+                  # specify an interface
+                  { can => [ 'print', 'flush', 'frobnicate' ] },
 
-		  baz =>
-		  { type => SCALAR,   # a scalar ...
-               	    # ... that is a plain integer ...
+                  baz =>
+                  { type => SCALAR,   # a scalar ...
+                    # ... that is a plain integer ...
                     regex => qr/^\d+$/,
-		    callbacks =>
-		    { # ... and smaller than 90
-		      'less than 90' => sub { shift() < 90 },
-		    },
-		  }
-		}
-	      );
+                    callbacks =>
+                    { # ... and smaller than 90
+                      'less than 90' => sub { shift() < 90 },
+                    },
+                  }
+                }
+              );
   }
 
   sub with_defaults

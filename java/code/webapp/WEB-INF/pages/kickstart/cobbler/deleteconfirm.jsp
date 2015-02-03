@@ -7,13 +7,13 @@
 <html>
 <body>
 <rhn:toolbar base="h1" icon="header-kickstart" imgAlt="kickstarts.alt.img">
-	<c:out value="${requestScope.snippet.displayName}"/>
+        <c:out value="${requestScope.snippet.displayName}"/>
 </rhn:toolbar>
 <h2><bean:message key="cobbler.snippet.delete"/></h2>
 <p><bean:message key="snippetdelete.jsp.summary"/></p>
 <div class="alert alert-danger"><rhn:warning key= "snippetdelete.jsp.warning"/></div>
 <div>
-	<form method="post" action="/rhn/kickstart/cobbler/CobblerSnippetDelete.do">
+        <form method="post" action="/rhn/kickstart/cobbler/CobblerSnippetDelete.do">
     <rhn:csrf />
 <h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>
 

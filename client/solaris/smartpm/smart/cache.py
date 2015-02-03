@@ -818,5 +818,3 @@ class Cache(object):
         self._objmap = {}
 
 from ccache import *
-
-# vim:ts=4:sw=4:et

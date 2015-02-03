@@ -54,9 +54,6 @@ public class YourRhnClipsRenderer extends RhnAction {
         if (key.equals(Pane.TASKS)) {
             renderer = new TasksRenderer();
         }
-        else if (key.equals(Pane.CRITICAL_PROBES)) {
-            renderer = new CriticalProbesRenderer();
-        }
         else if (key.equals(Pane.CRITICAL_SYSTEMS)) {
             renderer = new CriticalSystemsRenderer();
         }
@@ -74,9 +71,6 @@ public class YourRhnClipsRenderer extends RhnAction {
         }
         else if (key.equals(Pane.SYSTEM_GROUPS)) {
             renderer = new SystemGroupsRenderer();
-        }
-        else if (key.equals(Pane.WARNING_PROBES)) {
-            renderer = new WarningProbesRenderer();
         }
         else if (key.equals(Pane.TASKS)) {
             renderer = new TasksRenderer();

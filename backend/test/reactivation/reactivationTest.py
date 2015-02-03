@@ -41,21 +41,22 @@ import getpass
 import sys
 
 
-
 # Bad. These should be read from central location and not hard coded
 DB = "webdev"
 USERNAME = "hasuf"
 SYSTEMID = 1004541262
 NEWPROFILENAMESUFFIX = "_SOMESUFFIX"
 RHNREGURL = "http://dhcp59-101.rdu.redhat.com/XMLRPC"
-UTIL_DIR = "./" # location of helper perl scripts
+UTIL_DIR = "./"  # location of helper perl scripts
 
 DEBUG = 1
 
+
 class ReactivationTest(unittest.TestCase):
+
     def setUp(self):
         # make sure we're root
-        self.__assertRoot();
+        self.__assertRoot()
 
     def testProfileNameSticksAfterReactivation(self):
         """ Makes sure that upon reactivation, the profile name of a system \
@@ -136,17 +137,15 @@ class ReactivationTest(unittest.TestCase):
             lines = lines + line
             line = cmdout.readline()
 
-        retcode = cmdout.close();
-        self.assertEquals(None, retcode, "Problem running %s: %s" % \
-            (cmd, lines))
+        retcode = cmdout.close()
+        self.assertEquals(None, retcode, "Problem running %s: %s" %
+                          (cmd, lines))
 
         return string.strip(lines)
 
     def __assertRoot(self):
-        user = getpass.getuser();
-        self.assertEquals("root", user, "Must run tests as root");
-
-
+        user = getpass.getuser()
+        self.assertEquals("root", user, "Must run tests as root")
 
     def debug(self, str):
         if DEBUG:

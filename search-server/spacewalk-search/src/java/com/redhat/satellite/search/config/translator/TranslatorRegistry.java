@@ -29,15 +29,15 @@ public class TranslatorRegistry {
     private TranslatorRegistry() {
         // hide the default constructor
     }
-    
+
     private static final List<Class> TRANSLATOR_CLASSES;
     static {
         TRANSLATOR_CLASSES = new LinkedList<Class>();
         TRANSLATOR_CLASSES.add(HibernateToSearchTranslator.class);
     }
-    
+
     private static List<KeyTranslator> translators = new LinkedList<KeyTranslator>();
-    
+
     /**
      * Returns the list of all available translators.
      * @return the list of all available translators.
@@ -54,7 +54,7 @@ public class TranslatorRegistry {
                 }
             }
         }
-        
+
         return translators;
     }
 }

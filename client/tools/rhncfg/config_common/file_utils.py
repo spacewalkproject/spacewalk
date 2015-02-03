@@ -44,8 +44,10 @@ class FileProcessor:
         # Older servers will not return directories; if filetype is missing,
         # assume file
 
-    	if file_struct.get('filetype') == 'directory':
-            return None, None
+        if file_struct.get('filetype') == 'directory':
+            fullpath = directory + file_struct['path']
+            dirs_created = utils.mkdir_p(fullpath)
+            return fullpath, dirs_created
 
         if directory:
             directory += os.path.split(file_struct['path'])[0]

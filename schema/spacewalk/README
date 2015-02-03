@@ -3,7 +3,7 @@
 DIRECTORIES
 -------------------------------------------------------------------------------
 
-/schema/spacewalk 
+/schema/spacewalk
 /schema/spacewalk/common                - Common DDL
 /schema/spacewalk/common/tables         - Common DDL: table,index,sequences
 /schema/spacewalk/common/data           - Common SQL: INSERTs

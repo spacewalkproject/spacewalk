@@ -11,14 +11,14 @@
 %else
 %define oraclever 11.2
 %define oracleicname instantclient%{oraclever}
-%define oracleicver 11.2.0.3.0
+%define oracleicver 11.2.0.4.0
 %endif
 %endif
 
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version: 5.1.2
-Release: 3%{?dist}
+Release: 5%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: Python Software Foundation License
 Group: Development/Libraries
@@ -60,6 +60,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE.txt README.txt BUILD.txt HISTORY.txt html samples test
 
 %changelog
+* Thu Jan 29 2015 Tomas Lestach <tlestach@redhat.com> 5.1.2-5
+- we need to use the exact oracle instantclient version
+
+* Thu Jan 29 2015 Tomas Lestach <tlestach@redhat.com> 5.1.2-4
+- do not require exact version of oracle instantclient
+- fixed tito build warning
+- replace legacy name of Tagger with new one
+
 * Fri Mar 15 2013 Michael Mraka <michael.mraka@redhat.com> 5.1.2-3
 - fixed builder definition
 

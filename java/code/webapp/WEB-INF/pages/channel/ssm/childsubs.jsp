@@ -20,7 +20,7 @@
     <html:hidden property="submitted" value="true"/>
 
     <table width="100%">
-	    <c:forEach items="${bases}" var="parent">
+            <c:forEach items="${bases}" var="parent">
             <div class="ssm-child-stanza">
             <table width="100%">
                 <tr>
@@ -67,8 +67,8 @@
             </div>
         </c:forEach>
     </table>
-	<hr />
-	<div class="text-right"><html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="ssmchildsubs.jsp.alter"/></html:submit></div>
+        <hr />
+        <div class="text-right"><html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="ssmchildsubs.jsp.alter"/></html:submit></div>
   </rl:listset>
 </body>
 </html>

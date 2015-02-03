@@ -23,8 +23,8 @@ my $channels = $client->call('system.searchForIds', $session, $regex);
 
 foreach my $channel (@$channels) {
 
-	print $channel; 
-	print "\n"; 
+        print $channel;
+        print "\n";
 }
 
 

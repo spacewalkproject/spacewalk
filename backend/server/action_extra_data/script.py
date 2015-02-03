@@ -50,6 +50,7 @@ values (
        :return_code)
 """)
 
+
 def run(server_id, action_id, data={}):
     log_debug(3)
 
@@ -83,4 +84,3 @@ def run(server_id, action_id, data={}):
               return_code=return_code,
               output=output
               )
-

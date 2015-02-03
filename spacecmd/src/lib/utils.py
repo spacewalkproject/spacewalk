@@ -30,10 +30,18 @@
 # invalid function name
 # pylint: disable=C0103
 
-import logging, os, pickle, re, readline, shlex, sys, time, xmlrpclib
+import logging
+import os
+import pickle
+import re
+import readline
+import shlex
+import sys
+import time
+import xmlrpclib
 from collections import deque
 from datetime import datetime, timedelta
-from difflib  import unified_diff
+from difflib import unified_diff
 from tempfile import mkstemp
 from textwrap import wrap
 import rpm
@@ -47,7 +55,8 @@ except ImportError:
 
 __EDITORS = ['vim', 'vi', 'nano', 'emacs']
 
-def parse_arguments(args, options = None, glob=True):
+
+def parse_arguments(args, options=None, glob=True):
     options = options or []
     try:
         parts = shlex.split(args)
@@ -56,8 +65,8 @@ def parse_arguments(args, options = None, glob=True):
         if glob:
             parts = [re.sub(r'\*', '.*', a) for a in parts]
 
-        parser = SpacecmdOptionParser(option_list = options)
-        (opts, leftovers) = parser.parse_args(args = parts)
+        parser = SpacecmdOptionParser(option_list=options)
+        (opts, leftovers) = parser.parse_args(args=parts)
 
         return leftovers, opts
     except IndexError:
@@ -95,8 +104,8 @@ def load_cache(cachefile):
             # If you don't do this then spacecmd will fail with an unhandled
             # exception until the partial file is manually removed
             logging.warning("Loading cache file %s failed", cachefile)
-            logging.warning("Cache generation was probably interrupted," + \
-                "removing corrupt %s", cachefile)
+            logging.warning("Cache generation was probably interrupted," +
+                            "removing corrupt %s", cachefile)
             os.remove(cachefile)
         except IOError:
             logging.error("Couldn't load cache from %s", cachefile)
@@ -111,7 +120,7 @@ def load_cache(cachefile):
     return data, expire
 
 
-def save_cache(cachefile, data, expire = None):
+def save_cache(cachefile, data, expire=None):
     if expire:
         data['expire'] = expire
 
@@ -127,10 +136,10 @@ def save_cache(cachefile, data, expire = None):
 
 
 def tab_completer(options, text):
-    return [ o for o in options if re.match(text, o) ]
+    return [o for o in options if re.match(text, o)]
 
 
-def filter_results(items, patterns, search = False):
+def filter_results(items, patterns, search=False):
     matches = []
 
     compiled_patterns = []
@@ -139,7 +148,7 @@ def filter_results(items, patterns, search = False):
             compiled_patterns.append(re.compile(pattern, re.I))
         else:
             # If in "match" mode, we don't want to match substrings
-            compiled_patterns.append(re.compile("^"+pattern+"$", re.I))
+            compiled_patterns.append(re.compile("^" + pattern + "$", re.I))
 
     for item in items:
         for pattern in compiled_patterns:
@@ -155,7 +164,7 @@ def filter_results(items, patterns, search = False):
     return matches
 
 
-def editor(template = '', delete = False):
+def editor(template='', delete=False):
     # create a temporary file
     (descriptor, file_name) = mkstemp(prefix='spacecmd.')
 
@@ -210,7 +219,7 @@ def editor(template = '', delete = False):
             return ([], '')
 
 
-def prompt_user(prompt, noblank = False, multiline = False):
+def prompt_user(prompt, noblank=False, multiline=False):
     try:
         while True:
             if multiline:
@@ -237,7 +246,7 @@ def prompt_user(prompt, noblank = False, multiline = False):
 
 
 # parse time input from the user and return xmlrpclib.DateTime
-def parse_time_input(userinput = ''):
+def parse_time_input(userinput=''):
     timestamp = None
 
     if userinput == '' or re.match('now', userinput, re.I):
@@ -312,8 +321,8 @@ def parse_time_input(userinput = ''):
 
 # Compares 2 package objects (dicts) and returns the newest one.
 # If the objects are the same, we return None
-def latest_pkg(pkg1, pkg2, version_key = 'version',
-               release_key = 'release', epoch_key = 'epoch'):
+def latest_pkg(pkg1, pkg2, version_key='version',
+               release_key='release', epoch_key='epoch'):
     # Sometimes empty epoch is a space, sometimes its an empty string, which
     # breaks the comparison, strip it here to fix
     t1 = (pkg1[epoch_key].strip(), pkg1[version_key], pkg1[release_key])
@@ -328,6 +337,8 @@ def latest_pkg(pkg1, pkg2, version_key = 'version',
         return None
 
 # build a proper RPM name from the various parts
+
+
 def build_package_names(packages):
     single = False
 
@@ -338,7 +349,7 @@ def build_package_names(packages):
     package_names = []
     for p in packages:
         package = '%s-%s-%s' % (
-                  p.get('name'), p.get('version'), p.get('release'))
+            p.get('name'), p.get('version'), p.get('release'))
 
         if p.get('epoch') != ' ' and p.get('epoch') != '':
             package += ':%s' % p.get('epoch')
@@ -363,18 +374,19 @@ def build_package_names(packages):
 def print_errata_summary(erratum):
     # Workaround - recent spacewalk lacks the "date" key
     # on some listErrata calls
-    if erratum.has_key('date'):
-        date_parts = erratum.get('date').split()
-    else:
-        date_parts = erratum.get('issue_date').split()
+    if erratum.get('date') is None:
+        erratum['date'] = erratum.get('issue_date')
+    if erratum['date'] is None:
+        erratum['date'] = "no_date"
+    date_parts = erratum['date'].split()
 
     if len(date_parts) > 1:
         erratum['date'] = date_parts[0]
 
-    print '%s  %s  %s'  % (
-          erratum.get('advisory_name').ljust(14),
-          wrap(erratum.get('advisory_synopsis'), 50)[0].ljust(50),
-          erratum.get('date').rjust(8))
+    print '%s  %s  %s' % (
+        erratum.get('advisory_name').ljust(14),
+        wrap(erratum.get('advisory_synopsis'), 50)[0].ljust(50),
+        erratum.get('date').rjust(8))
 
 
 def print_errata_list(errata):
@@ -614,12 +626,12 @@ def parse_api_args(args, sep=','):
     return ret
 
 
-def json_dump(obj, fp, indent = 4, **kwargs):
+def json_dump(obj, fp, indent=4, **kwargs):
     json.dump(obj, fp, ensure_ascii=False, indent=indent, **kwargs)
 
 
 def json_dump_to_file(obj, filename):
-    json_data = json.dumps(obj, indent = 4, sort_keys = True)
+    json_data = json.dumps(obj, indent=4, sort_keys=True)
 
     if json_data == None:
         logging.error("Could not generate json data object!")
@@ -630,8 +642,8 @@ def json_dump_to_file(obj, filename):
         fd.write(json_data)
         fd.close()
     except IOError, E:
-        logging.error("Could not open file %s for writing, permissions?", \
-            filename)
+        logging.error("Could not open file %s for writing, permissions?",
+                      filename)
         print E.strerror
         return False
 
@@ -651,7 +663,7 @@ def json_read_from_file(filename):
         return None
 
 
-def get_string_diff_dicts( string1, string2, sep="-" ):
+def get_string_diff_dicts(string1, string2, sep="-"):
     """
     compares two strings and determine, if one string can be transformed into the other by simple string replacements.
 
@@ -674,10 +686,10 @@ def get_string_diff_dicts( string1, string2, sep="-" ):
     replace2 = {}
 
     if string1 == string2:
-        logging.info( "Skipping usage of common strings: both strings are equal" )
+        logging.info("Skipping usage of common strings: both strings are equal")
         return [None, None]
-    substrings1 = deque( string1.split(sep) )
-    substrings2 = deque( string2.split(sep) )
+    substrings1 = deque(string1.split(sep))
+    substrings2 = deque(string2.split(sep))
 
     while substrings1 and substrings2:
         sub1 = substrings1.popleft()
@@ -687,20 +699,22 @@ def get_string_diff_dicts( string1, string2, sep="-" ):
             pass
         else:
             # TODO: replace only if len(sub1) == len(sub2) ?
-            replace1['(^|-)' + sub1 + '(-|$)'] = r'\1' + "DIFF("+sub1+"|"+sub2+")" + r'\2'
-            replace2['(^|-)' + sub2 + '(-|$)'] = r'\1' + "DIFF("+sub1+"|"+sub2+")" + r'\2'
+            replace1['(^|-)' + sub1 + '(-|$)'] = r'\1' + "DIFF(" + sub1 + "|" + sub2 + ")" + r'\2'
+            replace2['(^|-)' + sub2 + '(-|$)'] = r'\1' + "DIFF(" + sub1 + "|" + sub2 + ")" + r'\2'
     if substrings1 or substrings2:
-        logging.info( "Skipping usage of common strings: number of substrings differ" )
+        logging.info("Skipping usage of common strings: number of substrings differ")
         return [None, None]
     return [replace1, replace2]
 
-def replace( line, replacedict ):
+
+def replace(line, replacedict):
     if replacedict:
         for source in replacedict:
-            line = re.sub( source, replacedict[source], line )
+            line = re.sub(source, replacedict[source], line)
     return line
 
-def get_normalized_text( text, replacedict=None, excludes=None ):
+
+def get_normalized_text(text, replacedict=None, excludes=None):
     # parts of the data inside the spacewalk component information
     # are not really differences between two instances.
     # Therefore parts of the data will be modified before the diff:
@@ -724,19 +738,21 @@ def get_normalized_text( text, replacedict=None, excludes=None ):
     normalized_text = []
     if text:
         for st in text:
-            for line in st.split( "\n" ):
+            for line in st.split("\n"):
                 if not excludes:
-                    normalized_text.append( replace( line, replacedict ) )
+                    normalized_text.append(replace(line, replacedict))
                 # We do it this way instead of passing a tuple to
                 # line.startswith to allow compatibility with python 2.4
-                elif not [ e for e in excludes if line.startswith(e) ]:
-                    normalized_text.append( replace( line, replacedict ) )
+                elif not [e for e in excludes if line.startswith(e)]:
+                    normalized_text.append(replace(line, replacedict))
                 else:
-                    logging.debug( "excluding line: " + line )
+                    logging.debug("excluding line: " + line)
     return normalized_text
 
-def diff( source_data, target_data, source_channel, target_channel ):
-    return unified_diff( source_data, target_data, source_channel, target_channel )
+
+def diff(source_data, target_data, source_channel, target_channel):
+    return list(unified_diff(source_data, target_data, source_channel, target_channel))
+
 
 def file_needs_b64_enc(self, contents):
     """Used to check if files (config files primarily) need base64 encoding
@@ -745,7 +761,7 @@ def file_needs_b64_enc(self, contents):
     if "\0" in contents:
         return True
 
-    if not contents: # zero length
+    if not contents:  # zero length
         return False
 
     text_characters = "".join(map(chr, range(32, 127)) + list("\n\r\t\b"))
@@ -758,5 +774,3 @@ def file_needs_b64_enc(self, contents):
         import string
         translate_table = string.maketrans("", "")
         return float(len(contents.translate(translate_table, text_characters))) / len(contents) > 0.3
-
-# vim:ts=4:expandtab:

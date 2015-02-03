@@ -45,6 +45,8 @@ public class ErrataOverview extends BaseDto {
     private List status;
     private Long associatedSystemId;
     private Date lastModified;
+    private Long fromErrataId;
+    private String relationship;
 
     /**
      * This method is only used for csv export..
@@ -416,5 +418,40 @@ public class ErrataOverview extends BaseDto {
      */
     public void setAdvisoryRel(Long advisoryRelIn) {
         this.advisoryRel = advisoryRelIn;
+    }
+
+    /**
+     * @return Returns the fromErrataId.
+     */
+    public Long getFromErrataId() {
+        return fromErrataId;
+    }
+
+    /**
+     * @param fromErrataIdIn The fromErrataId to set.
+     */
+    public void setFromErrataId(Long fromErrataIdIn) {
+        fromErrataId = fromErrataIdIn;
+    }
+
+    /**
+     * @return true if the erratum is a clone
+     */
+    public boolean isCloned() {
+        return fromErrataId != null;
+    }
+
+    /**
+     * @return Returns the relationship.
+     */
+    public String getRelationship() {
+        return relationship;
+    }
+
+    /**
+     * @param relationshipIn The relationship to set.
+     */
+    public void setRelationship(String relationshipIn) {
+        relationship = relationshipIn;
     }
 }

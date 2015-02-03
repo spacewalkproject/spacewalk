@@ -5,12 +5,9 @@
 <!-- header.jsp -->
 
 <c:set var="custom_header" scope="page" value="${rhn:getConfig('java.custom_header')}" />
-<c:if test="${! empty custom_header}">
-    <center><p><c:out value="${custom_header}" escapeXml="false"/></p></center>
-</c:if>
 
 <div class="navbar-header">
-  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
     <span class="sr-only">Toggle navigation</span>
     <span class="icon-bar"></span>
     <span class="icon-bar"></span>
@@ -22,19 +19,24 @@
   <a class="navbar-brand" href="/" title="<bean:message key="layout.jsp.productname"/> homepage">
     <img src="/img/logo_product.png" alt="<bean:message key='layout.jsp.productname'/>" id="rhnLogo" accesskey="2"/>
   </a>
+  <c:if test="${! empty custom_header}">
+    <div class="custom-text">
+      <c:out value="${custom_header}" escapeXml="false"/>
+    </div>
+  </c:if>
 </div>
 
-<div class="navbar-collapse navbar-collapse-1 collapse in">
+<div class="navbar-collapse collapse">
   <rhn:require acl="user_authenticated()">
     <ul class="nav navbar-nav navbar-utility">
-      <li><a href="/rhn/account/LocalePreferences.do"><c:out value="${rhnActiveLang}" /> (<bean:message key="header.jsp.change"/>)</a></li>
-      <li><a href="https://access.redhat.com/knowledgebase"><bean:message key="header.jsp.knowledgebase" /></a></li>
-      <li><a href="/help"><bean:message key="header.jsp.documentation" /></a></li>
+      <li class="hidden-sm hidden-xs"><a href="/rhn/account/LocalePreferences.do"><c:out value="${rhnActiveLang}" /> (<bean:message key="header.jsp.change"/>)</a></li>
+      <li class="hidden-xs"><a href="https://access.redhat.com/knowledgebase"><bean:message key="header.jsp.knowledgebase" /></a></li>
+      <li class="hidden-xs"><a href="/help"><bean:message key="header.jsp.documentation" /></a></li>
       <li><a href="/rhn/account/UserDetails.do"><rhn:icon type="header-user" /> <c:out escapeXml="true" value="${requestScope.session.user.login}" /></a></li>
-      <li><a><rhn:icon type="header-sitemap" /> <c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a></li>
+      <li class="hidden-sm hidden-xs hidden-md"><a><rhn:icon type="header-sitemap" /> <c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a></li>
       <li><a href="/rhn/account/UserPreferences.do"><rhn:icon type="header-preferences" title="header.jsp.preferences" /></a></li>
       <li><a href="/rhn/Logout.do"><rhn:icon type="header-signout" title="header.jsp.signout" /></a></li>
-      <li class="search">
+      <li class="search hidden-xs">
         <form name="form1" class="form-inline" role="form" action="/rhn/Search.do">
           <rhn:csrf />
           <rhn:submitted />

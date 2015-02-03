@@ -291,9 +291,9 @@ while 1:
         RHNS-CA-CERT file is invalid.""" % rhns_ca_cert
         sys.exit(-1)
     except socket.error:
-	print "Could not retrieve action from %s.\n"\
+        print "Could not retrieve action from %s.\n"\
               "Possible networking problem?" % str(server)
-	sys.exit(-1)
+        sys.exit(-1)
     except rhnErrors.ServerCapabilityError, e:
         print e
         sys.exit(1)

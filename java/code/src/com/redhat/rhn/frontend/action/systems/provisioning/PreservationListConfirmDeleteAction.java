@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ProbeSuiteListConfirmDeleteAction
+ * PreservationListConfirmDeleteAction
  * @version $Rev: 55183 $
  */
 public class PreservationListConfirmDeleteAction extends BaseSetListAction {

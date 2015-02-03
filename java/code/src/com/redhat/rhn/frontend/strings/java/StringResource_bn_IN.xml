@@ -8089,7 +8089,7 @@ Follow this url to see the full list of inactive systems:
         <target>এই কর্ম সঞ্চালনের জন্য আপনার পর্যাপ্ত অনুমতি নেই।</target>
       </trans-unit>
       <!-- The following resources need to be updated for each
-				schema change (see rhnChannelArch.sql) -->
+                                schema change (see rhnChannelArch.sql) -->
       <trans-unit id="IA-32">
         <source>IA-32</source>
         <target>IA-32</target>
@@ -8200,11 +8200,11 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="package.remove.cant.rollback">
         <source>One or more of the packages you have selected for removal below are not contained in
-			a software channel that this system is subscribed to.  If you choose to continue with the removal
-			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
+                        a software channel that this system is subscribed to.  If you choose to continue with the removal
+                        you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
         <target>অপসারণের জন্য নির্বাচিত এক অথবা একাধিক প্যাকেজ, সিস্টেম দ্বারা সাবস্ক্রাইব করা
-			কোনো সফ্টওয়্যার চ্যানেলের মধ্যে উপস্থিত নয়।  এই প্যাকেজগুলি মুছে ফেলা হলে
-			সিস্টেমের পূর্ববর্তী কোনো স্ন্যাপ-শটের অবস্থায় প্রত্যাবর্তন করা সম্ভব হবে না।</target>
+                        কোনো সফ্টওয়্যার চ্যানেলের মধ্যে উপস্থিত নয়।  এই প্যাকেজগুলি মুছে ফেলা হলে
+                        সিস্টেমের পূর্ববর্তী কোনো স্ন্যাপ-শটের অবস্থায় প্রত্যাবর্তন করা সম্ভব হবে না।</target>
       </trans-unit>
       <trans-unit id="list.filter.iprange">
         <source>Single Ip Address</source>

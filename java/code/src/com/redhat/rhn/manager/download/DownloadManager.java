@@ -20,8 +20,6 @@ import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageSource;
-import com.redhat.rhn.domain.rhnpackage.Patch;
-import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.server.CrashFile;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.BaseManager;
@@ -43,8 +41,6 @@ public class DownloadManager extends BaseManager {
     public static final String DOWNLOAD_TYPE_COBBLER_API = "cobbler_api";
     public static final String DOWNLOAD_TYPE_PACKAGE = "package";
     public static final String DOWNLOAD_TYPE_SOURCE = "srpm";
-    public static final String DOWNLOAD_TYPE_PATCH_README = "patchreadme";
-    public static final String DOWNLOAD_TYPE_PATCH_SET_README = "patchsetreadme";
     public static final String DOWNLOAD_TYPE_REPO_LOG = "repolog";
     public static final String DOWNLOAD_TYPE_CRASHFILE = "crashfile";
 
@@ -110,29 +106,6 @@ public class DownloadManager extends BaseManager {
                                         User user) {
         return getNonExpiringDownloadPath(c.getId(), c.getLabel(), user,
                 DownloadManager.DOWNLOAD_TYPE_REPO_LOG);
-    }
-
-    /**
-     * Get the patch readme download url/path
-     * @param patch the patch
-     * @param user the user requesting
-     * @return the path used to download the readme.
-     */
-    public static String getPatchReadmeDownloadPath(Patch patch, User user) {
-        return getDownloadPath(patch.getId(), "README", user,
-                DownloadManager.DOWNLOAD_TYPE_PATCH_README);
-
-    }
-
-    /**
-     * Get the patch set readme download url/path
-     * @param patchset the patch set
-     * @param user the user requesting
-     * @return the path used to download the readme.
-     */
-    public static String getPatchSetReadmeDownloadPath(PatchSet patchset, User user) {
-        return getDownloadPath(patchset.getId(), "README", user,
-                DownloadManager.DOWNLOAD_TYPE_PATCH_SET_README);
     }
 
     private static String getDownloadPath(Long fileId, String filename,

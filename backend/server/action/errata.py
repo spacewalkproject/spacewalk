@@ -22,6 +22,8 @@ from spacewalk.server.rhnLib import InvalidAction
 __rhnexport__ = ['update']
 
 # returns a list of errata scheduled for this action
+
+
 def update(serverId, actionId, dry_run=0):
     log_debug(3)
     statement = """
@@ -29,11 +31,11 @@ def update(serverId, actionId, dry_run=0):
         from rhnActionErrataUpdate
         where action_id = :action_id"""
     h = rhnSQL.prepare(statement)
-    h.execute(action_id = actionId)
+    h.execute(action_id=actionId)
     ret = h.fetchall_dict()
     if not ret:
         # No errata for this action
         raise InvalidAction("errata.update: Unknown action id "
-            "%s for server %s" % (actionId, serverId))
+                            "%s for server %s" % (actionId, serverId))
 
     return map(lambda x: x['errata_id'], ret)

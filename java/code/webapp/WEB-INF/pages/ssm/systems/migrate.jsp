@@ -50,7 +50,7 @@
 <rl:listset name="systemListSet" legend="system">
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
 <%--
-	<div class="text-right">
+        <div class="text-right">
       <hr />
       <input type ="submit" name="dispatch" value="${rhn:localize('ssm.migrate.systems.confirmbutton')}"/>
     </div>

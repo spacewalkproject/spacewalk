@@ -9,9 +9,9 @@
 <body>
 <rhn:toolbar base="h1"
     icon="header-system-groups"
-	imgAlt="ssm.jsp.imgAlt"
-	helpUrl="">
-	<bean:message key="ssm.jsp.header" />
+        imgAlt="ssm.jsp.imgAlt"
+        helpUrl="">
+        <bean:message key="ssm.jsp.header" />
 </rhn:toolbar>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/ssm_status.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

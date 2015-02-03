@@ -38,7 +38,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.action.kickstart.KickstartTreeUpdateType;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
-import com.redhat.rhn.frontend.struts.LabelValueEnabledBean;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
@@ -73,7 +72,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -1393,34 +1391,57 @@ public class ProfileHandler extends BaseHandler {
     /**
      * @param loggedInUser The current user
      * @param ksLabel identifies the kickstart profile
-     * @return Array of available OS repositories
-     * @xmlrpc.doc Lists all available OS repositories for a given kickstart profile.
+     * @return Array of available OS repositories for provided kickstart profile
+     * @xmlrpc.doc Lists available OS repositories to associate with the provided
+     * kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "ksLabel")
      * @xmlrpc.returntype #array_single("string", "repositoryLabel")
      */
     public String[] getAvailableRepositories(User loggedInUser, String ksLabel) {
+        if (!loggedInUser.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionException(LocalizationService.getInstance()
+                    .getMessage("permission.configadmin.needed"));
+        }
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
         KickstartableTree ksTree = ksData.getKickstartDefaults().getKstree();
 
+        List<String> repos = new ArrayList<String>();
+        for (RepoInfo repo : RepoInfo.getStandardRepos(ksTree)) {
+            if (repo.isAvailable()) {
+                repos.add(repo.getName());
+            }
+        }
+        return (String[]) repos.toArray(new String[]{});
+    }
+
+    /**
+     * @param loggedInUser The current user
+     * @param ksLabel identifies the kickstart profile
+     * @return Array of available OS repositories
+     * @xmlrpc.doc Lists all OS repositories associated with provided kickstart profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "ksLabel")
+     * @xmlrpc.returntype #array_single("string", "repositoryLabel")
+     */
+    public String[] getRepositories(User loggedInUser, String ksLabel) {
+        if (!loggedInUser.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionException(LocalizationService.getInstance()
+                    .getMessage("permission.configadmin.needed"));
+        }
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+        KickstartableTree ksTree = ksData.getKickstartDefaults().getKstree();
+
+        List<String> items = new ArrayList<String>();
         if (ksTree != null && !ksTree.getInstallType().isRhel2() &&
                 !ksTree.getInstallType().isRhel3() &&
                 !ksTree.getInstallType().isRhel4()) {
-            List <LabelValueEnabledBean> repos = new LinkedList<LabelValueEnabledBean>();
-            for (RepoInfo repo : RepoInfo.getStandardRepos(ksTree)) {
-                repos.add(new LabelValueEnabledBean(repo.getName(), repo.getName(),
-                        !repo.isAvailable()));
-            }
             Set<RepoInfo> selected = ksData.getRepoInfos();
-            String [] items = new String[selected.size()];
-            int i = 0;
             for (RepoInfo repo : selected) {
-                items[i] = repo.getName();
-                i++;
+                items.add(repo.getName());
             }
-            return items;
         }
-        return null;
+        return (String[]) items.toArray(new String[]{});
     }
 
     /**
@@ -1435,6 +1456,10 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int setRepositories(User loggedInUser, String ksLabel, List<String> reposIn) {
+        if (!loggedInUser.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionException(LocalizationService.getInstance()
+                    .getMessage("permission.configadmin.needed"));
+        }
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
 
         if (ksData.isRhel5OrGreater()) {

@@ -18,6 +18,7 @@ from spacewalk.server.rhnServer import server_kickstart
 
 __rhnexport__ = ['initiate', 'add_tools_channel', 'schedule_virt_guest_pkg_install']
 
+
 def _action(action_name, server_id, action_id, success_state, success_type):
     log_debug(3, action_name, server_id, action_id)
 
@@ -31,17 +32,19 @@ def _action(action_name, server_id, action_id, success_state, success_type):
         next_action_type = success_type
 
     server_kickstart.update_kickstart_session(server_id, action_id,
-        action_status, kickstart_state=ks_state,
-        next_action_type=next_action_type)
+                                              action_status, kickstart_state=ks_state,
+                                              next_action_type=next_action_type)
 
 
 def schedule_virt_guest_pkg_install(server_id, action_id, data={}):
     _action('schedule_virt_guest_pkg_install', server_id, action_id,
             'complete', None)
 
+
 def add_tools_channel(server_id, action_id, data={}):
     _action('add_tools_channel', server_id, action_id,
             'complete', 'kickstart_guest.schedule_virt_guest_pkg_install')
+
 
 def initiate(server_id, action_id, data={}):
     _action('initiate', server_id, action_id,

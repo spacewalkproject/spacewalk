@@ -9,14 +9,11 @@
 <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-    <br/>
 
     <rhn:toolbar base="h2" icon="header-crash" iconAlt="info.alt.img">
         ${fn:escapeXml(crash.crash)}
     </rhn:toolbar>
 
-    <br />
-    <br />
     <%@ include file="/WEB-INF/pages/common/fragments/systems/crash-header.jspf" %>
 
     <div class="page-summary">

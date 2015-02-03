@@ -20,15 +20,22 @@ from importLib import Import
 
 # Thanks for this class goes to Alex Martelli:
 # http://stackoverflow.com/questions/1151658/python-hashable-dicts
+
+
 class hashabledict(dict):
-  def __key(self):
-    return tuple((k,self[k]) for k in sorted(self))
-  def __hash__(self):
-    return hash(self.__key())
-  def __eq__(self, other):
-    return self.__key() == other.__key()
+
+    def __key(self):
+        return tuple((k, self[k]) for k in sorted(self))
+
+    def __hash__(self):
+        return hash(self.__key())
+
+    def __eq__(self, other):
+        return self.__key() == other.__key()
+
 
 class OrgImport(Import):
+
     def __init__(self, batch, backend, master_label, create_orgs=False):
         Import.__init__(self, batch, backend)
         self.master_label = master_label
@@ -54,7 +61,7 @@ class OrgImport(Import):
                     missing_master_orgs.append(org)
             if len(missing_master_orgs) > 0:
                 self.backend.createMasterOrgs(self.master_label,
-                        missing_master_orgs)
+                                              missing_master_orgs)
 
             # Iff we are force-creating local orgs, create any orgs that are
             # not already mapped to local orgs. If a local org exists with
@@ -100,13 +107,13 @@ class OrgImport(Import):
                         self.backend.clearOrgTrusts(my_org_id)
                         my_trust_id = self.mi_to_li[trust['org_id']]
                         trusts_to_create.add(hashabledict({
-                                'org_id': my_org_id,
-                                'trust': my_trust_id}))
+                            'org_id': my_org_id,
+                            'trust': my_trust_id}))
                         # org trusts are always bi-directional
                         # (even if we are not syncing the other org)
                         trusts_to_create.add(hashabledict({
-                                'org_id': my_trust_id,
-                                'trust': my_org_id}))
+                            'org_id': my_trust_id,
+                            'trust': my_org_id}))
 
             if len(trusts_to_create) > 0:
                 self.backend.createOrgTrusts(trusts_to_create)

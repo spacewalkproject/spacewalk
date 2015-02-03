@@ -82,10 +82,6 @@
           <source>Monitoring</source>
           <target>मॉनिटरिंग</target>
         </trans-unit>
-        <trans-unit id="nonlinux_entitled">
-          <source>Non-Linux</source>
-          <target>गैर-Linux</target>
-        </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
           <target>प्रोविजनिंग</target>
@@ -2791,7 +2787,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <note>Threshold types for threshold parameters
-		rhn_command_param_threshold.threshold_type_name -&gt; text
+                rhn_command_param_threshold.threshold_type_name -&gt; text
         </note>
         <trans-unit id="crit_max">
           <source>Critical if above</source>
@@ -3123,7 +3119,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <note>Units for metrics:
-		rhn_units.unit_id -&gt; '(' || rhn_units.description || ')'
+                rhn_units.unit_id -&gt; '(' || rhn_units.description || ')'
         </note>
         <trans-unit id="secs">
           <source>(Seconds)</source>
@@ -3302,7 +3298,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Command group names:
-			rhn_command_groups.description -&gt; rhn_command_groups.description</note>
+                        rhn_command_groups.description -&gt; rhn_command_groups.description</note>
         <trans-unit id="All">
           <source>All</source>
           <target>सभी</target>
@@ -3353,7 +3349,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Command names:
-			rhn_command.description -&gt; rhn_command.description</note>
+                        rhn_command.description -&gt; rhn_command.description</note>
         <trans-unit id="Active Sessions">
           <source>Active Sessions</source>
           <target>सक्रिय सत्र</target>

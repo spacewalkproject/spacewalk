@@ -46,7 +46,7 @@
              <classpath>
                  <path refid="buildjars" />
                  <!-- this configures commons logging properly for Jasper2 -->
-                 <pathelement 
+                 <pathelement
                      location="${src.dir}/internal/src/com/redhat/rhn/internal/jasper2"/>
              </classpath>
     </taskdef>
@@ -54,7 +54,7 @@
     <!-- =================== Ant Contrib Tasks ======================= -->
     <taskdef resource="net/sf/antcontrib/antcontrib.properties"
              classpathref="buildjars"/>
-   
+
     <taskdef name="foreach" classpathref="buildjars" classname="net.sf.antcontrib.logic.ForEach" onerror="report"/>
 
     <property name="init-taskdefs.notrequired" value="true" />
@@ -63,5 +63,5 @@
     <taskdef resource="emma_ant.properties" classpathref="testjars" />
 
   </target>
-  
+
 </project>

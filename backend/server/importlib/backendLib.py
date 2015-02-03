@@ -23,47 +23,61 @@ from UserDict import UserDict
 from types import ListType, StringType, DictType, IntType
 
 # A function that formats a UNIX timestamp to the session's format
+
+
 def gmtime(timestamp):
     return _format_time(time.gmtime(float(timestamp)))
 
+
 def localtime(timestamp):
     return _format_time(time.localtime(float(timestamp)))
+
 
 def _format_time(time_tuple):
     return time.strftime("%Y-%m-%d %H:%M:%S", time_tuple)
 
 # Database datatypes
+
+
 class DBtype:
     pass
+
 
 class DBint(DBtype):
     pass
 
+
 class DBstring(DBtype):
+
     def __init__(self, limit):
         self.limit = limit
+
 
 class DBblob(DBtype):
     pass
 
+
 class DBdate(DBtype):
     pass
+
 
 class DBdateTime(DBtype):
     pass
 
 # Database objects
+
+
 class Table:
     # A list of supported keywords
     keywords = {
-        'fields'    : DictType,
-        'pk'        : ListType,
-        'attribute' : StringType,
-        'map'       : DictType,
-        'nullable'  : ListType, # Will become a hash eventually
-        'severityHash'      : DictType,
-        'defaultSeverity'   : IntType,
-        'sequenceColumn'    : StringType,
+        'fields': DictType,
+        'pk': ListType,
+        'attribute': StringType,
+        'map': DictType,
+        'nullable': ListType,  # Will become a hash eventually
+        'severityHash': DictType,
+        'defaultSeverity': IntType,
+        'sequenceColumn': StringType,
     }
 
     def __init__(self, name, **kwargs):
@@ -112,7 +126,7 @@ class Table:
 
     def __str__(self):
         return "Instance of class %s.%s: PK: %s, Fields: %s" % (self.__class__.__module__,
-            self.__class__.__name__, self.pk, self.fields)
+                                                                self.__class__.__name__, self.pk, self.fields)
     __repr__ = __str__
 
     def isNullable(self, field):
@@ -141,14 +155,17 @@ class Table:
         return self.severityHash
 
 # A collection of tables
+
+
 class TableCollection(UserDict):
+
     def __init__(self, *list):
         UserDict.__init__(self)
         # Verify if the list's items are the right format
         for table in list:
             if not isinstance(table, Table):
                 raise TypeError("Expected a Table instance; got %s" %
-                    type(table))
+                                type(table))
         # Now initialize the collection
         for table in list:
             self.__setitem__(table.name, table)
@@ -156,7 +173,10 @@ class TableCollection(UserDict):
 # Lookup class
 # The problem stems from the different way we're supposed to build a query if
 # the value is nullable
+
+
 class BaseTableLookup:
+
     def __init__(self, table, dbmodule):
         # Generates a bunch of queries that look up data based on the primary
         # keys of this table
@@ -227,6 +247,7 @@ class BaseTableLookup:
 
 
 class TableLookup(BaseTableLookup):
+
     def __init__(self, table, dbmodule):
         BaseTableLookup.__init__(self, table, dbmodule)
         self.queryTemplate = "select * from %s where %s"
@@ -236,6 +257,7 @@ class TableLookup(BaseTableLookup):
 
 
 class TableUpdate(BaseTableLookup):
+
     def __init__(self, table, dbmodule):
         BaseTableLookup.__init__(self, table, dbmodule)
         self.queryTemplate = "update %s set %s where %s"
@@ -265,7 +287,7 @@ class TableUpdate(BaseTableLookup):
 
     def _buildQuery(self, key):
         return self.queryTemplate % (self.table.name, self.updateclause,
-            self.whereclauses[key])
+                                     self.whereclauses[key])
 
     def _split_blob_values(self, values, blob_only=0):
         # Splits values that have to be inserted
@@ -313,7 +335,6 @@ class TableUpdate(BaseTableLookup):
 
         return valuesHash, blobValuesHash
 
-
     def query(self, values):
         valuesHash, blobValuesHash = self._split_blob_values(values, blob_only=0)
         # And now do the actual update for non-blobs
@@ -336,7 +357,7 @@ class TableUpdate(BaseTableLookup):
         blob_fields_string = string.join(self.blob_fields, ", ")
         for key, val in blobValuesHash.items():
             statement = template % (blob_fields_string, self.table.name,
-                self.whereclauses[key])
+                                    self.whereclauses[key])
             h = self.dbmodule.prepare(statement)
             for lookup_hash, blob_hash in val:
                 h.execute(**lookup_hash)
@@ -361,9 +382,11 @@ class TableUpdate(BaseTableLookup):
                     # XXX This should not happen, the primary key was not
                     # unique
                     raise ValueError("Primary key not unique",
-                        self.table.name, lookup_hash)
+                                     self.table.name, lookup_hash)
+
 
 class TableDelete(TableLookup):
+
     def __init__(self, table, dbmodule):
         TableLookup.__init__(self, table, dbmodule)
         self.queryTemplate = "delete from %s where %s"
@@ -402,6 +425,7 @@ class TableDelete(TableLookup):
 
 
 class TableInsert(TableUpdate):
+
     def __init__(self, table, dbmodule):
         TableUpdate.__init__(self, table, dbmodule)
         self.queryTemplate = "insert into %s (%s) values (%s)"
@@ -412,8 +436,8 @@ class TableInsert(TableUpdate):
 
     def _buildQuery(self, key):
         q = self.queryTemplate % (self.table.name,
-            string.join(self.insert_fields, ', '),
-            string.join(self.insert_values, ', '))
+                                  string.join(self.insert_fields, ', '),
+                                  string.join(self.insert_values, ', '))
         return q
 
     def query(self, values):
@@ -462,10 +486,10 @@ def executeStatement(statement, valuesHash, chunksize):
 def sanitizeValue(value, datatype):
     if isinstance(datatype, DBstring):
         if value is None or value == '':
-            return None		# we really want to preserve Nones
-				# and not depend on Oracle converting
-				# empty strings to NULLs -- PostgreSQL
-				# does not do this
+            return None         # we really want to preserve Nones
+            # and not depend on Oracle converting
+            # empty strings to NULLs -- PostgreSQL
+            # does not do this
         elif isinstance(value, unicode):
             value = unicode.encode(value, 'utf-8')
         return value[:datatype.limit]
@@ -489,10 +513,10 @@ def sanitizeValue(value, datatype):
         return int(value)
     return value
 
+
 def addHash(hasharray, hash):
     # hasharray is a hash of arrays
     # add hash's values to hasharray
     for k, v in hash.items():
         if hasharray.has_key(k):
             hasharray[k].append(v)
-

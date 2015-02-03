@@ -18,8 +18,8 @@
 
     <rhn:list pageList="${requestScope.pageList}"
               noDataText="failedsystems.jsp.nosystems">
-    	  <rhn:listdisplay button="failedsystems.jsp.rescheduleactions"
-    	                   buttonsAttr="canEdit:true">
+          <rhn:listdisplay button="failedsystems.jsp.rescheduleactions"
+                           buttonsAttr="canEdit:true">
         <rhn:column header="actions.jsp.system"
                     url="/rhn/systems/details/history/Event.do?sid=${current.id}&aid=${action.id}">
             <c:out value="${current.serverName}" escapeXml="true" />

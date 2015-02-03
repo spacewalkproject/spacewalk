@@ -16,7 +16,9 @@
 import unittest
 import utils
 
+
 class TestObj1:
+
     def __init__(self):
         self.a = 1
         self.b = 2
@@ -32,7 +34,9 @@ class TestObj1:
     def public_function():
         print "This is public and belongs to TestObj1"
 
+
 class TestObj2:
+
     def __init__(self):
         self.a = 4
         self.b = 5
@@ -50,8 +54,8 @@ class TestObj2:
         print "This is public and belongs to TestObj2"
 
 
-
 class UtilsTestCase(unittest.TestCase):
+
     def setUp(self):
         self.obj1 = TestObj1()
         self.obj2 = TestObj2()

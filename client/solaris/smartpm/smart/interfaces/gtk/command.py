@@ -84,5 +84,3 @@ class GtkStatus(object):
             time.sleep(0.3)
             while gtk.events_pending():
                 gtk.main_iteration()
-
-# vim:ts=4:sw=4:et

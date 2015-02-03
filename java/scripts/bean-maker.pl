@@ -29,14 +29,14 @@ while (@params) {
 
   if ($opts{interface}) {
     print <<EOS;
-    /** 
-     * Getter for $name 
+    /**
+     * Getter for $name
      * \@return $type to get
     */
     $type get$ucfirst_name();
 
-    /** 
-     * Setter for $name 
+    /**
+     * Setter for $name
      * \@param ${name}In to set
     */
     void set$ucfirst_name($type ${name}In);
@@ -45,16 +45,16 @@ EOS
   }
   else {
       print <<EOS;
-    /** 
-     * Getter for $name 
+    /**
+     * Getter for $name
      * \@return $type to get
     */
     public $type get$ucfirst_name() {
         return this.$name;
     }
 
-    /** 
-     * Setter for $name 
+    /**
+     * Setter for $name
      * \@param ${name}In to set
     */
     public void set$ucfirst_name($type ${name}In) {

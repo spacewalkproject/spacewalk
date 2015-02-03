@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::DataSource;
@@ -31,8 +31,8 @@ sub new {
   my %attr = @_;
 
   my $self = bless { mode => 'null_mode',
-		     dsn => '',
-		   }, $class;
+                     dsn => '',
+                   }, $class;
 
   foreach ($class->valid_fields) {
     if (exists $attr{"-$_"}) {
@@ -130,8 +130,8 @@ sub elaborate {
   my $mode_data = $self->lookup_mode_data;
 
   return $data unless (exists $mode_data->{elaborators}
-		       and @{$mode_data->{elaborators}}
-		       and @{$data});
+                       and @{$mode_data->{elaborators}}
+                       and @{$data});
 
   my @ids = map { $_->{ID} } grep { exists $_->{ID} } @{$data};
 
@@ -213,22 +213,22 @@ sub collate_data {
       my $elab_rows;
 
       if (exists $elab_hash->{$id}) {
-	$elab_rows = $elab_hash->{$id};
+        $elab_rows = $elab_hash->{$id};
       }
       else {
-	$elab_rows = [ ];
+        $elab_rows = [ ];
       }
 
       if ($num_cols > 1) {
-	$row->{__data__} = $elab_rows;
+        $row->{__data__} = $elab_rows;
       }
       else {
-	my $elab_rows = $elab_hash->{$id};
-	my $col = (keys %{$elab_rows->[0]})[0];
+        my $elab_rows = $elab_hash->{$id};
+        my $col = (keys %{$elab_rows->[0]})[0];
 
-	if (defined $col) {
-	  $row->{$col} = [ map $_->{$col}, @{$elab_rows} ];
-	}
+        if (defined $col) {
+          $row->{$col} = [ map $_->{$col}, @{$elab_rows} ];
+        }
       }
     }
   }
@@ -239,7 +239,7 @@ sub collate_data {
       my $elab_row = $elab_hash->{$id}->[0];
 
       foreach my $col (keys %{$elab_row}) {
-	$row->{$col} = $elab_row->{$col};
+        $row->{$col} = $elab_row->{$col};
       }
     }
   }

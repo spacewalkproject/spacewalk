@@ -77,5 +77,3 @@ class SlackDepends(Depends):
         return checkdep(prv.version, self.relation, self.version)
 
 class SlackUpgrades(SlackDepends,Upgrades): pass
-
-# vim:ts=4:sw=4:et

@@ -41,7 +41,7 @@
                   <bean:message key="kickstart.script.language"/>
               </th>
               <td>
-                  ${ksscript.interpreter}
+                  <c:out value="${ksscript.interpreter}" escapeXml="true" />
               </td>
           </tr>
           <tr>

@@ -42,6 +42,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageComparison;
+import com.redhat.rhn.frontend.dto.PackageFileDto;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
@@ -260,12 +261,26 @@ public class PackageManager extends BaseManager {
      * @param pid The package id for the package in question
      * @return Returns a list of files associated with the package
      */
-    public static DataResult packageFiles(Long pid) {
-        SelectMode m = ModeFactory.getMode("Package_queries", "package_files", Map.class);
+    public static DataResult<PackageFileDto> packageFiles(Long pid) {
+        SelectMode m = ModeFactory.getMode("Package_queries", "package_files");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
         DataResult dr = m.execute(params);
         return dr;
+    }
+
+    /**
+     * Return information related to packages that are udpates to this one
+     * @param user The user in question
+     * @param pid The package in question
+     * @return A map of updating package information
+     */
+    public static DataResult<Map<String, Object>> obsoletingPackages(User user, Long pid) {
+        SelectMode m = ModeFactory.getMode("Package_queries", "obsoleting_packages");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("pid", pid);
+        params.put("org_id", user.getOrg().getId());
+        return m.execute(params);
     }
 
     /**
@@ -797,8 +812,6 @@ public class PackageManager extends BaseManager {
      * <li>channel-pSeries</li>
      * <li>channel-x86_64</li>
      * <li>channel-ppc</li>
-     * <li>channel-sparc-sun-solaris</li>
-     * <li>channel-i386-sun-solaris</li>
      * </ul>
      * @return package metadata for all packages named 'packageName' and exist
      * in the channels whose arch is one of the 'channelArches'.
@@ -859,21 +872,6 @@ public class PackageManager extends BaseManager {
         SelectMode m = ModeFactory.getMode(
                 "Package_queries", "packages_by_name_cid");
         return m.execute(params);
-    }
-
-    /**
-     * list patch sets for a specific channel
-     * @param cid the channel id
-     * @return list of patch sets
-     */
-    public static DataResult listPatchSetsForChannel(Long cid) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("cid", cid);
-
-        SelectMode m = ModeFactory.getMode(
-                "Package_queries", "patchsets_in_channel");
-        return m.execute(params);
-
     }
 
     /**
@@ -1510,24 +1508,41 @@ public class PackageManager extends BaseManager {
      * @return nevra
      */
     public static String buildPackageNevra(Long nameId, Long evrId, Long archId) {
-        String nevra = "";
+        PackageName pn = null;
+        PackageArch pa = null;
+        PackageEvr pevr = null;
         if (nameId != null) {
-            PackageName pn = PackageFactory.lookupPackageName(nameId);
-            nevra += pn.getName();
+            pn = PackageFactory.lookupPackageName(nameId);
             if (evrId != null) {
-                PackageEvr pevr = PackageEvrFactory.lookupPackageEvrById(evrId);
-                if (pevr != null) {
-                    nevra += "-" + pevr.getVersion() + "-" + pevr.getRelease();
-                    if (!StringUtils.isEmpty(pevr.getEpoch())) {
-                        nevra += ":" + pevr.getEpoch();
-                    }
-                }
+                pevr = PackageEvrFactory.lookupPackageEvrById(evrId);
             }
             if (archId != null) {
-                PackageArch pa = PackageFactory.lookupPackageArchById(archId);
-                if (pa != null) {
-                    nevra += "." + pa.getLabel();
+                pa = PackageFactory.lookupPackageArchById(archId);
+            }
+        }
+        return buildPackageNevra(pn, pevr, pa);
+    }
+
+    /**
+     * build package nevra out of the name, evr, arch identifiers
+     * @param name name
+     * @param evr evr
+     * @param arch arch
+     * @return nevra
+     */
+    public static String buildPackageNevra(PackageName name, PackageEvr evr,
+            PackageArch arch) {
+        String nevra = "";
+        if (name != null) {
+            nevra += name.getName();
+            if (evr != null) {
+                nevra += "-" + evr.getVersion() + "-" + evr.getRelease();
+                if (!StringUtils.isEmpty(evr.getEpoch())) {
+                    nevra += ":" + evr.getEpoch();
                 }
+            }
+            if (arch != null) {
+                nevra += "." + arch.getLabel();
             }
         }
         return nevra;

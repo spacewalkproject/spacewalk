@@ -28,19 +28,19 @@
                 DELETE FROM rhnIndexerWork where object_type = 'hwdevice'
    </delete>
    <insert id="createLastHardwareDevice" parameterType="java.util.Map">
-		INSERT INTO rhnIndexerWork values ('hwdevice', #{id}, #{last_modified})
-	</insert>
-	<update id="updateLastHardwareDevice" parameterType="java.util.Map">
-		UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'hwdevice'
-	</update>
-	<select id="getLastHardwareDeviceId" resultType="java.lang.Long">
-		SELECT last_id from rhnIndexerWork where object_type='hwdevice'
-	</select>
-	<select id="getLastHardwareDeviceIndexRun" resultType="java.util.Date">
+                INSERT INTO rhnIndexerWork values ('hwdevice', #{id}, #{last_modified})
+        </insert>
+        <update id="updateLastHardwareDevice" parameterType="java.util.Map">
+                UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'hwdevice'
+        </update>
+        <select id="getLastHardwareDeviceId" resultType="java.lang.Long">
+                SELECT last_id from rhnIndexerWork where object_type='hwdevice'
+        </select>
+        <select id="getLastHardwareDeviceIndexRun" resultType="java.util.Date">
         SELECT last_modified from rhnIndexerWork where object_type='hwdevice'
     </select>
     <select id="queryAllHwDeviceIds" resultType="Long">
         SELECT id from rhnDevice
     </select>
-    
+
 </mapper>

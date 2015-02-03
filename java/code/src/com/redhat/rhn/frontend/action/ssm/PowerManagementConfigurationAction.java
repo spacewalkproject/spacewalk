@@ -81,7 +81,7 @@ public class PowerManagementConfigurationAction extends RhnAction implements Lis
                     Server server = SystemManager.lookupByIdAndUser(systemOverview.getId(),
                         user);
                     CobblerPowerSettingsUpdateCommand command = PowerManagementAction
-                        .getPowerSettingsUpdateCommand(form, user, server);
+                        .getPowerSettingsUpdateCommandSSM(form, user, server);
                     if (command.store() == null) {
                         successCount += 1;
                     }

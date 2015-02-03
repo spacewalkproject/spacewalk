@@ -5,31 +5,30 @@
   <rhn-tab name="Child Channels" url="/rhn/activationkeys/channels/ChildChannels.do"/>
 
   <rhn-tab name="Packages"
-           url="/rhn/activationkeys/packages/Packages.do"
-           acl="token_has_entitlement(provisioning_entitled)"/>
+           url="/rhn/activationkeys/packages/Packages.do"/>
   <rhn-tab name="Configuration"
            url="/rhn/activationkeys/configuration/List.do"
            acl="token_has_entitlement(provisioning_entitled)">
-		<rhn-tab-directory>/rhn/activationkeys/configuration</rhn-tab-directory>
+                <rhn-tab-directory>/rhn/activationkeys/configuration</rhn-tab-directory>
 
         <rhn-tab name="nav.sdc.config.list_unsubscribe_channels" url="/rhn/activationkeys/configuration/List.do">
-        	<rhn-tab url="/rhn/activationkeys/configuration/List.do"/>
+                <rhn-tab url="/rhn/activationkeys/configuration/List.do"/>
         </rhn-tab>
         <rhn-tab name="nav.sdc.config.subscribe_channels" url="/rhn/activationkeys/configuration/Subscribe.do">
-        	<rhn-tab url="/rhn/activationkeys/configuration/Subscribe.do"/>
+                <rhn-tab url="/rhn/activationkeys/configuration/Subscribe.do"/>
         </rhn-tab>
-        	<rhn-tab name="nav.sdc.config.rank_channels" url="/rhn/activationkeys/configuration/Rank.do">
+                <rhn-tab name="nav.sdc.config.rank_channels" url="/rhn/activationkeys/configuration/Rank.do">
         <rhn-tab url="/rhn/activationkeys/configuration/Rank.do"/>
         </rhn-tab>
-   	
+
   </rhn-tab>
   <rhn-tab name="Groups" url="/rhn/activationkeys/groups/List.do" >
-  		<rhn-tab-directory>/rhn/activationkeys/groups</rhn-tab-directory>
+                <rhn-tab-directory>/rhn/activationkeys/groups</rhn-tab-directory>
         <rhn-tab name="List / Leave" url="/rhn/activationkeys/groups/List.do">
-        	<rhn-tab url="/rhn/activationkeys/groups/List.do"/>
+                <rhn-tab url="/rhn/activationkeys/groups/List.do"/>
         </rhn-tab>
         <rhn-tab name="Join" url="/rhn/activationkeys/groups/Add.do">
-        	<rhn-tab url="/rhn/activationkeys/groups/Add.do"/>
+                <rhn-tab url="/rhn/activationkeys/groups/Add.do"/>
         </rhn-tab>
   </rhn-tab>
   <rhn-tab name="activation-keys.nav.activated_systems" url="/rhn/activationkeys/systems/List.do" />

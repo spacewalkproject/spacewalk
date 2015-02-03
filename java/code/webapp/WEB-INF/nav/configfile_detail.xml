@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rhn-navi-tree label="configfile_nav" invisible="1" formvar="cfid crid" title-depth="1"
                acl_mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-	<rhn-tab name="configfile.nav.details">
-		<rhn-tab-url>/rhn/configuration/file/FileDetails.do</rhn-tab-url>
-	</rhn-tab>
-	<rhn-tab name="configfile.nav.revisions" url="/rhn/configuration/file/ManageRevision.do">
-		<rhn-tab-url>/rhn/configuration/file/ManageRevision.do</rhn-tab-url>
-		<rhn-tab-url>/rhn/configuration/file/DeleteFile.do</rhn-tab-url>
-		<rhn-tab-url>/rhn/configuration/file/DeleteRevision.do</rhn-tab-url>
-	</rhn-tab>
-	<rhn-tab name="configfile.nav.deploy" url="/rhn/configuration/file/RevisionDeploy.do">
-		<rhn-tab-url>/rhn/configuration/file/RevisionDeploy.do</rhn-tab-url>
-		<rhn-tab-url>/rhn/configuration/file/GlobalRevisionDeploy.do</rhn-tab-url>
-		<rhn-tab-url>/rhn/configuration/file/GlobalRevisionDeploySubmit.do</rhn-tab-url>
-		<rhn-tab-url>/rhn/configuration/file/GlobalRevisionDeployConfirm.do</rhn-tab-url>
-		<rhn-tab-url>/rhn/configuration/file/GlobalRevisionDeployConfirmSetup.do</rhn-tab-url>
-	</rhn-tab>
+        <rhn-tab name="configfile.nav.details">
+                <rhn-tab-url>/rhn/configuration/file/FileDetails.do</rhn-tab-url>
+        </rhn-tab>
+        <rhn-tab name="configfile.nav.revisions" url="/rhn/configuration/file/ManageRevision.do">
+                <rhn-tab-url>/rhn/configuration/file/ManageRevision.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/configuration/file/DeleteFile.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/configuration/file/DeleteRevision.do</rhn-tab-url>
+        </rhn-tab>
+        <rhn-tab name="configfile.nav.deploy" url="/rhn/configuration/file/RevisionDeploy.do">
+                <rhn-tab-url>/rhn/configuration/file/RevisionDeploy.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/configuration/file/GlobalRevisionDeploy.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/configuration/file/GlobalRevisionDeploySubmit.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/configuration/file/GlobalRevisionDeployConfirm.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/configuration/file/GlobalRevisionDeployConfirmSetup.do</rhn-tab-url>
+        </rhn-tab>
     <!-- There are two copy file tabs because of the acl necessary to see the first page.
          The main difference is url associated with the tab. -->
-	<rhn-tab name="configfile.nav.copy" url="/rhn/configuration/file/CopyFileCentral.do"
-	         acl="user_role(config_admin)">
-		<rhn-tab name="configfile.nav.copy.central" url="/rhn/configuration/file/CopyFileCentral.do"
-		         acl="user_role(config_admin)"/>
-		<rhn-tab name="configfile.nav.copy.local" url="/rhn/configuration/file/CopyFileLocal.do"
-		         acl="user_role(config_admin)"/>
-		<rhn-tab name="configfile.nav.copy.sandbox" url="/rhn/configuration/file/CopyFileSandbox.do"
-		         acl="user_role(config_admin)"/>
-	</rhn-tab>
-	<rhn-tab name="configfile.nav.copy" url="/rhn/configuration/file/CopyFileLocal.do"
-	         acl="not user_role(config_admin)">
-		<rhn-tab name="configfile.nav.copy.local" url="/rhn/configuration/file/CopyFileLocal.do"
-		         acl="not user_role(config_admin)"/>
-		<rhn-tab name="configfile.nav.copy.sandbox" url="/rhn/configuration/file/CopyFileSandbox.do"
-		         acl="not user_role(config_admin)"/>
-	</rhn-tab>
-	<rhn-tab name="configfile.nav.compare"
-	          url="/rhn/configuration/file/CompareRevision.do">
-		<rhn-tab name="configfile.nav.compare.revision" url="/rhn/configuration/file/CompareRevision.do"/>
-		<rhn-tab name="configfile.nav.compare.copy" url="/rhn/configuration/file/CompareCopy.do"/>
-		<rhn-tab name="configfile.nav.compare.file" url="/rhn/configuration/file/CompareChannel.do">
-		  <rhn-tab-url>/rhn/configuration/file/CompareFile.do</rhn-tab-url>
-		</rhn-tab>
-		<rhn-tab name="configfile.nav.compare.deployed" url="/rhn/configuration/file/CompareDeployed.do"/>
-		<rhn-tab-url>/rhn/configuration/file/Diff.do</rhn-tab-url>
-	</rhn-tab>
+        <rhn-tab name="configfile.nav.copy" url="/rhn/configuration/file/CopyFileCentral.do"
+                 acl="user_role(config_admin)">
+                <rhn-tab name="configfile.nav.copy.central" url="/rhn/configuration/file/CopyFileCentral.do"
+                         acl="user_role(config_admin)"/>
+                <rhn-tab name="configfile.nav.copy.local" url="/rhn/configuration/file/CopyFileLocal.do"
+                         acl="user_role(config_admin)"/>
+                <rhn-tab name="configfile.nav.copy.sandbox" url="/rhn/configuration/file/CopyFileSandbox.do"
+                         acl="user_role(config_admin)"/>
+        </rhn-tab>
+        <rhn-tab name="configfile.nav.copy" url="/rhn/configuration/file/CopyFileLocal.do"
+                 acl="not user_role(config_admin)">
+                <rhn-tab name="configfile.nav.copy.local" url="/rhn/configuration/file/CopyFileLocal.do"
+                         acl="not user_role(config_admin)"/>
+                <rhn-tab name="configfile.nav.copy.sandbox" url="/rhn/configuration/file/CopyFileSandbox.do"
+                         acl="not user_role(config_admin)"/>
+        </rhn-tab>
+        <rhn-tab name="configfile.nav.compare"
+                  url="/rhn/configuration/file/CompareRevision.do">
+                <rhn-tab name="configfile.nav.compare.revision" url="/rhn/configuration/file/CompareRevision.do"/>
+                <rhn-tab name="configfile.nav.compare.copy" url="/rhn/configuration/file/CompareCopy.do"/>
+                <rhn-tab name="configfile.nav.compare.file" url="/rhn/configuration/file/CompareChannel.do">
+                  <rhn-tab-url>/rhn/configuration/file/CompareFile.do</rhn-tab-url>
+                </rhn-tab>
+                <rhn-tab name="configfile.nav.compare.deployed" url="/rhn/configuration/file/CompareDeployed.do"/>
+                <rhn-tab-url>/rhn/configuration/file/Diff.do</rhn-tab-url>
+        </rhn-tab>
 </rhn-navi-tree>

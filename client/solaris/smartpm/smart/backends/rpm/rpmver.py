@@ -112,5 +112,3 @@ def vercmppart(a, b):
         return 1
 
 from crpmver import *
-
-# vim:ts=4:sw=4:et

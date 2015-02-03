@@ -15,7 +15,9 @@
 import TestServer
 import server.redhat_xmlrpc.downloads
 
-class TestProxy( TestServer.TestServer ):
+
+class TestProxy(TestServer.TestServer):
+
     def __init__(self):
         TestServer.TestServer.__init__(self)
         self._init_redhat_xmlrpc_downloads()

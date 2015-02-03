@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -26,7 +26,7 @@ sub assign_set_to_group {
   my $class = shift;
   my $set = shift;
   my $sgid = shift;
-  die "Invalid format for sgid $sgid" if $sgid =~ /\D/;	# contain nondigit? die
+  die "Invalid format for sgid $sgid" if $sgid =~ /\D/; # contain nondigit? die
 
   my $dbh = RHN::DB->connect();
   $dbh->call_procedure('rhn_server.insert_set_into_servergroup', $sgid, $set->uid, $set->label);

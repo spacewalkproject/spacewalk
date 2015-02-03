@@ -100,5 +100,3 @@ class SlackPackageManager(PackageManager):
 
         prog.setDone()
         prog.stop()
-
-# vim:ts=4:sw=4:et

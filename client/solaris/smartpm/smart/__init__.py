@@ -144,5 +144,3 @@ def initPlugins():
             initpath = os.path.join(entrypath, "__init__.py")
             if os.path.isfile(initpath):
                 __import__("smart.backends."+entry)
-
-# vim:ts=4:sw=4:et

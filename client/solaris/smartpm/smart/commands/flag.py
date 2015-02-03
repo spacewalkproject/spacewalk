@@ -117,5 +117,3 @@ def main(ctrl, opts):
                     else:
                         print "   ", name
             print
-
-# vim:ts=4:sw=4:et

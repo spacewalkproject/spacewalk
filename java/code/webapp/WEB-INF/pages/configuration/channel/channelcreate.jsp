@@ -19,7 +19,7 @@
             <rhn:csrf />
             <html:hidden property="creating" value="true"/>
             <html:hidden property="submitted" value="true"/>
-            <%@ include	file="/WEB-INF/pages/common/fragments/configuration/channel/propertybody.jspf"%>
+            <%@ include file="/WEB-INF/pages/common/fragments/configuration/channel/propertybody.jspf"%>
         </html:form>
     </body>
 </html>

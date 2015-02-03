@@ -25,8 +25,11 @@
 import utils
 import os
 
-#This is the class that contains the session.
+# This is the class that contains the session.
+
+
 class RHNPushSession:
+
     def __init__(self):
         self.location = os.path.join(utils.get_home_dir(), ".rhnpushcache")
         self.session = None
@@ -46,4 +49,3 @@ class RHNPushSession:
         sessionfile = open(self.location, "w")
         sessionfile.write(self.session)
         sessionfile.close()
-

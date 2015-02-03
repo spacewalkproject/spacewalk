@@ -68,8 +68,8 @@ ORDER BY  SN.modified DESC
                   RT.usage_limit,
                   (
           SELECT count(STR.server_id)
-	    FROM rhnServerTokenRegs STR
-	   WHERE STR.token_id = RT.id
+            FROM rhnServerTokenRegs STR
+           WHERE STR.token_id = RT.id
                   ) system_count,
          NVL((SELECT 'Yes' FROM rhnRegTokenOrgDefault RTOD WHERE RTOD.reg_token_id = RT.id), 'No') org_default
     FROM rhnActivationKey AK,
@@ -165,7 +165,7 @@ ORDER BY KTT.id, KT.label
          TO_CHAR(KSH.time, 'YYYY-MM-DD HH24:MI:SS') AS char_time,
          KSH.kickstart_session_id AS session_id,
          KSH.action_id,
-	 KSH.message,
+         KSH.message,
          KSS.name AS state_name,
          KSS.description AS STATE_DESCRIPTION,
          KS.old_server_id,
@@ -215,7 +215,7 @@ SELECT CK.ID, CK.ORG_ID, CKT.LABEL, CK.DESCRIPTION, CK.KEY
   FROM rhnCryptoKeyType CKT,
        rhnCryptoKey CK,
        rhnCryptoKeyKickstart CKK
- WHERE CKK.ksdata_id = :ksid 
+ WHERE CKK.ksdata_id = :ksid
    AND CKK.crypto_key_id = CK.id
    AND CK.crypto_key_type_id = CKT.id
 ORDER BY CK.DESCRIPTION, CK.id
@@ -302,8 +302,8 @@ ORDER BY SGT.label
   <query params="">
   SELECT SGT.label AS ENTITLEMENT,
          F.label AS FEATURE
-    FROM rhnServerGroupType SGT, 
-         rhnServerGroupTypeFeature SGTF, 
+    FROM rhnServerGroupType SGT,
+         rhnServerGroupTypeFeature SGTF,
          rhnFeature F
    WHERE SGT.id = SGTF.server_group_type_id
      AND F.id = SGTF.feature_id

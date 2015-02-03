@@ -1,34 +1,34 @@
 <div class="panel panel-default">
 
 <table cellspacing="0"  cellpadding="0" class="table">
-		<thead>
-			<tr>
-       		    <th style="text-align: left;">
-       		    	<bean:message key="kickstartoverview.jsp.actions"/>
-       		    </th>
-       		</tr>
-		</thead>
-			<tr class="list-row-odd">
-				<td style="text-align: left;">
-					<a href="/rhn/kickstart/Kickstarts.do">
-								<bean:message key="kickstartoverview.jsp.viewprofiles"/>
-					</a>
-      			</td>
-      		</tr>
-			<tr class="list-row-odd">
-				<td style="text-align: left;">
-      	    		<a href="/rhn/kickstart/CreateProfileWizard.do">
-      	    			<bean:message key="kickstartoverview.jsp.createksprofile"/>
-      	    		</a>
-   				</td>
-   			</tr>
-			<tr class="list-row-odd">
-				<td style="text-align: left;">
-      	    		<a href="/rhn/kickstart/AdvancedModeCreate.do">
-      	    			<bean:message key="kickstartoverview.jsp.uploadksfile"/>
-      	    		</a>
-   				</td>
-   			</tr>
+                <thead>
+                        <tr>
+                    <th style="text-align: left;">
+                        <bean:message key="kickstartoverview.jsp.actions"/>
+                    </th>
+                </tr>
+                </thead>
+                        <tr class="list-row-odd">
+                                <td style="text-align: left;">
+                                        <a href="/rhn/kickstart/Kickstarts.do">
+                                                                <bean:message key="kickstartoverview.jsp.viewprofiles"/>
+                                        </a>
+                        </td>
+                </tr>
+                        <tr class="list-row-odd">
+                                <td style="text-align: left;">
+                        <a href="/rhn/kickstart/CreateProfileWizard.do">
+                                <bean:message key="kickstartoverview.jsp.createksprofile"/>
+                        </a>
+                                </td>
+                        </tr>
+                        <tr class="list-row-odd">
+                                <td style="text-align: left;">
+                        <a href="/rhn/kickstart/AdvancedModeCreate.do">
+                                <bean:message key="kickstartoverview.jsp.uploadksfile"/>
+                        </a>
+                                </td>
+                        </tr>
 
 </table>
 

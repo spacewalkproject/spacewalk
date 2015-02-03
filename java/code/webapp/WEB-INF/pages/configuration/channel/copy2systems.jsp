@@ -9,7 +9,7 @@
     <meta name="name" value="copy2systems.jsp.header" />
 </head>
 <body>
-<%@ include	file="/WEB-INF/pages/common/fragments/configuration/channel/details-header.jspf"%>
+<%@ include     file="/WEB-INF/pages/common/fragments/configuration/channel/details-header.jspf"%>
 
 <h2><bean:message key="copy2systems.jsp.header2" /></h2>
 
@@ -19,33 +19,33 @@
 <rl:listset name="systemSet">
     <rhn:csrf />
     <rhn:submitted />
-	<!-- Start of Systems list -->
-	<rl:list dataset="pageList"
-	         name="systems"
-	         decorator="SelectableDecorator"
-	         width="100%"
-	         >
-	    <rl:selectablecolumn value="${current.id}"
-		selected="${current.selected}"/>
-	    <!--  System Name -->
-		<rl:column bound="false"
-			headerkey="system.common.systemName"
-			sortable="true"
-			sortattr="name">
-			<a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-			  <rhn:icon type="header-system-physical" title="system.common.systemAlt" />
-			  ${current.name}
-			</a>
-		</rl:column>
-	</rl:list>
-	<hr />
-	<div class="text-right">
-		<input type="submit" class="btn btn-default"
-				name="dispatch"
-				value="${rhn:localize('copy2systems.jsp.doCopy')}"
-				/>
-	</div>
-	<rhn:submitted/>
+        <!-- Start of Systems list -->
+        <rl:list dataset="pageList"
+                 name="systems"
+                 decorator="SelectableDecorator"
+                 width="100%"
+                 >
+            <rl:selectablecolumn value="${current.id}"
+                selected="${current.selected}"/>
+            <!--  System Name -->
+                <rl:column bound="false"
+                        headerkey="system.common.systemName"
+                        sortable="true"
+                        sortattr="name">
+                        <a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
+                          <rhn:icon type="header-system-physical" title="system.common.systemAlt" />
+                          ${current.name}
+                        </a>
+                </rl:column>
+        </rl:list>
+        <hr />
+        <div class="text-right">
+                <input type="submit" class="btn btn-default"
+                                name="dispatch"
+                                value="${rhn:localize('copy2systems.jsp.doCopy')}"
+                                />
+        </div>
+        <rhn:submitted/>
 </rl:listset>
 </body>
 </html>

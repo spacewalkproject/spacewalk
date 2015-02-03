@@ -22,7 +22,11 @@ spacewalk-export - a tool for preparing to move data from an existing Satellite-
 to a Satellite-6 instance
 """
 
-import csv, logging, os, re, sys
+import csv
+import logging
+import os
+import re
+import sys
 
 from optparse import OptionParser, OptionGroup
 from os.path import expanduser
@@ -35,30 +39,31 @@ DEFAULT_EXPORT_PACKAGE = 'spacewalk_export.tar.gz'
 REPORTS_DIR = 'exports'
 
 SUPPORTED_ENTITIES = {
-        'activation-keys'     : 'Activation keys',
-        'channels'            : 'Custom/cloned channels and repositories for all organizations',
-        'config-files-latest' : 'Latest revision of all configuration files',
-        'kickstart-scripts'   : 'Kickstart scripts for all organizations',
-        'repositories'        : 'Defined repositories',
-        'system-groups'       : 'System-groups for all organizations',
-        'system-profiles'     : 'System profiles for all organizations',
-        'users'               : 'Users and Organizations'
-        }
+    'activation-keys': 'Activation keys',
+    'channels': 'Custom/cloned channels and repositories for all organizations',
+    'config-files-latest': 'Latest revision of all configuration files',
+    'kickstart-scripts': 'Kickstart scripts for all organizations',
+    'repositories': 'Defined repositories',
+    'system-groups': 'System-groups for all organizations',
+    'system-profiles': 'System profiles for all organizations',
+    'users': 'Users and Organizations'
+}
 
 #
 # Some sw-reports use org_id and some use organization-id
 # Map report-to-org-id so we can make generic decisions later
 #
 REPORT_TO_ORG = {
-        'activation-keys'     : 'org_id',
-        'channels'            : 'org_id',
-        'config-files-latest' : 'org_id',
-        'kickstart-scripts'   : 'org_id',
-        'repositories'        : 'org_id',
-        'system-groups'       : 'org_id',
-        'system-profiles'     : 'organization_id',
-        'users'               : 'organization_id'
-        }
+    'activation-keys': 'org_id',
+    'channels': 'org_id',
+    'config-files-latest': 'org_id',
+    'kickstart-scripts': 'org_id',
+    'repositories': 'org_id',
+    'system-groups': 'org_id',
+    'system-profiles': 'organization_id',
+    'users': 'organization_id'
+}
+
 
 def setupOptions():
     usage = 'usage: %prog [options]'
@@ -66,44 +71,45 @@ def setupOptions():
 
     locGroup = OptionGroup(parser, "Locations", "Where do you want to export to?")
     locGroup.add_option('--export-dir', action='store', dest='export_dir',
-            metavar='DIR', default=DEFAULT_EXPORT_DIR,
-            help='Specify directory to store exports in (will be created if not found) - defaults to '+ DEFAULT_EXPORT_DIR)
+                        metavar='DIR', default=DEFAULT_EXPORT_DIR,
+                        help='Specify directory to store exports in (will be created if not found) - defaults to ' + DEFAULT_EXPORT_DIR)
     locGroup.add_option('--export-package', action='store', dest='export_package',
-            metavar='FILE', default=DEFAULT_EXPORT_PACKAGE,
-            help='Specify filename to use for final packaged-exports tarfile - defaults to ' + DEFAULT_EXPORT_PACKAGE)
+                        metavar='FILE', default=DEFAULT_EXPORT_PACKAGE,
+                        help='Specify filename to use for final packaged-exports tarfile - defaults to ' + DEFAULT_EXPORT_PACKAGE)
     parser.add_option_group(locGroup)
 
     entGroup = OptionGroup(parser, "Entities", "What do you want to export?")
     entGroup.add_option('--list-entities', action='store_true', dest='list',
-            default=False, help='List supported entities')
+                        default=False, help='List supported entities')
     entGroup.add_option('--entities', action='store', dest='entities',
-            metavar='entity[,entity...]', default='all',
-            help='Specify comma-separated list of entities to export (default is all)')
+                        metavar='entity[,entity...]', default='all',
+                        help='Specify comma-separated list of entities to export (default is all)')
     entGroup.add_option('--org', action='append', type='int', dest='org_ids',
-            metavar='ORG-ID', help='Specify an org-id whose data we will export')
+                        metavar='ORG-ID', help='Specify an org-id whose data we will export')
     entGroup.add_option('--dump-repos', action='store_true', dest='dump_repos',
-            default=False, help='Dump contents of file: repositories')
+                        default=False, help='Dump contents of file: repositories')
     parser.add_option_group(entGroup)
 
     chanGroup = OptionGroup(parser, "Channels")
     chanGroup.add_option('--ext-pkgs', action='store_true', dest='extpkgs',
-            default=False, help='Channel-output contains only external packages')
+                         default=False, help='Channel-output contains only external packages')
     chanGroup.add_option('--skip-repogen', action='store_true', dest='skipregen',
-            default=False, help='Omit repodata generation for exported channels')
+                         default=False, help='Omit repodata generation for exported channels')
     chanGroup.add_option('--no-size', action='store_true', dest='nosize',
-            default=False, help='Do not check package size')
+                         default=False, help='Do not check package size')
     parser.add_option_group(chanGroup)
 
     utilGroup = OptionGroup(parser, "Utility")
     utilGroup.add_option('--clean', action='store_true', default=False, dest='clean',
-            help='How do I clean up from previous runs?')
+                         help='How do I clean up from previous runs?')
     utilGroup.add_option('--debug', action='store_true', default=False, dest='debug',
-            help='Log debugging output')
+                         help='Log debugging output')
     utilGroup.add_option('--quiet', action='store_true', default=False, dest='quiet',
-            help='Log only errors')
+                         help='Log only errors')
     parser.add_option_group(utilGroup)
 
     return parser
+
 
 def setupLogging(opt):
     # determine the logging level
@@ -117,6 +123,7 @@ def setupLogging(opt):
     logging.basicConfig(level=level, format='%(levelname)s: %(message)s')
     return
 
+
 def listSupported():
     logging.info('Currently-supported entities include:')
     for s in SUPPORTED_ENTITIES.keys():
@@ -124,23 +131,25 @@ def listSupported():
 
     return
 
+
 def setupEntities(options):
     entities = {}
     doAll = options.entities == 'all'
 
     for s in SUPPORTED_ENTITIES.keys():
-        entities[s] =  doAll
+        entities[s] = doAll
 
     if doAll:
         return entities
 
-    for e in split(options.entities,','):
+    for e in split(options.entities, ','):
         if e in entities.keys():
             entities[e] = True
         else:
             logging.error('ERROR: unsupported entity ' + e + ', skipping...')
 
-    return entities;
+    return entities
+
 
 def setupOutputDir(options):
     if not os.path.isdir(options.export_dir):
@@ -149,6 +158,14 @@ def setupOutputDir(options):
         os.mkdir(options.export_dir + '/' + REPORTS_DIR, 0700)
 
 # Did we get an orgs-list? If so, return an array of --where entries
+
+
+def _my_call(*args, **kwargs):
+    rc = call(*args, **kwargs)
+    if rc:
+        logging.error('Error response from %s : [%s]' % (args[0][0], rc))
+    return rc
+
 def _generateWhere(options, reportname):
     where = []
 
@@ -158,17 +175,18 @@ def _generateWhere(options, reportname):
 
     return where
 
+
 def _issueReport(options, reportname):
     report_file = '%s/%s/%s.csv' % (options.export_dir, REPORTS_DIR, reportname)
     where_clause = _generateWhere(options, reportname)
     logging.debug('...WHERE = %s' % where_clause)
     if len(where_clause) == 0:
-        call(['/usr/bin/spacewalk-report', reportname] ,
-            stdout = open(report_file, 'w'))
+        _my_call(['/usr/bin/spacewalk-report', reportname], stdout=open(report_file, 'w'))
     else:
-        call(['/usr/bin/spacewalk-report'] + where_clause + [reportname] ,
-            stdout = open(report_file, 'w'))
+        _my_call(['/usr/bin/spacewalk-report'] + where_clause + [reportname],
+                stdout=open(report_file, 'w'))
     return report_file
+
 
 def channelsDump(options):
     logging.info('Processing channels...')
@@ -184,7 +202,7 @@ def channelsDump(options):
         extra_args.append('-S')
     if options.org_ids:
         # Go from list-of-ints to list-of-args-to-export - ['-o', 'oid1', '-o', 'oid2', ...]
-        oid_args = ' '.join(['-o '+i for i in map(str,options.org_ids)]).split(' ')
+        oid_args = ' '.join(['-o ' + i for i in map(str, options.org_ids)]).split(' ')
         extra_args = extra_args + oid_args
 
     logging.debug('...EXTRA = %s' % extra_args)
@@ -192,29 +210,33 @@ def channelsDump(options):
     channel_export_dir = options.export_dir + '/' + REPORTS_DIR + '/' + 'CHANNELS'
     if not os.path.isdir(channel_export_dir):
         os.mkdir(channel_export_dir, 0700)
-    call(['/usr/bin/spacewalk-export-channels', '-d', channel_export_dir,
-         '-f', 'FORCE'] + extra_args)
+    _my_call(['/usr/bin/spacewalk-export-channels', '-d', channel_export_dir, '-f', 'FORCE'] + extra_args)
     return
+
 
 def usersDump(options):
     logging.info('Processing users...')
     _issueReport(options, 'users')
     return
 
+
 def systemgroupsDump(options):
     logging.info('Processing system-groups...')
     _issueReport(options, 'system-groups')
     return
+
 
 def systemprofilesDump(options):
     logging.info('Processing system-profiles...')
     _issueReport(options, 'system-profiles')
     return
 
+
 def activationkeysDump(options):
     logging.info('Processing activation-keys...')
     _issueReport(options, 'activation-keys')
     return
+
 
 def repositoriesDump(options):
     logging.info('Processing repositories...')
@@ -240,43 +262,53 @@ def repositoriesDump(options):
                 logging.info('...storing file-repo %s into %s' % (repo_loc, repo_tarname))
                 # Tar it up into the export-dir
                 if options.debug:
-                    call(['/bin/tar', '-c', '-v', '-z',
-                        '-C', repo_dir,
-                        '-f', '%s/%s/%s' % (options.export_dir, REPORTS_DIR, repo_tarname),
-                        repo_basename])
+                    _my_call(['/bin/tar', '-c', '-v', '-z',
+                            '-C', repo_dir,
+                            '-f', '%s/%s/%s' % (options.export_dir, REPORTS_DIR, repo_tarname),
+                            repo_basename])
                 else:
-                    call(['/bin/tar', '-c', '-z',
-                        '-C', repo_dir,
-                        '-f', '%s/%s/%s' % (options.export_dir, REPORTS_DIR, repo_tarname),
-                        repo_basename])
+                    _my_call(['/bin/tar', '-c', '-z',
+                            '-C', repo_dir,
+                            '-f', '%s/%s/%s' % (options.export_dir, REPORTS_DIR, repo_tarname),
+                            repo_basename])
         handle.close()
     return
+
 
 def kickstartscriptsDump(options):
     logging.info('Processing kickstart-scripts...')
     _issueReport(options, 'kickstart-scripts')
     return
 
+
 def configfileslatestDump(options):
     logging.info('Processing config-files...')
     _issueReport(options, 'config-files-latest')
     return
 
+
 def prepareExport(options):
     if options.debug:
-        call(['/bin/tar', '-c', '-v', '-z',
-            '--owner', 'apache', '--group', 'apache',
-            '-C', options.export_dir,
-            '-f', '%s/%s' % (options.export_dir, options.export_package),
-            REPORTS_DIR])
+        rc = _my_call(['/bin/tar', '-c', '-v', '-z',
+              '--owner', 'apache', '--group', 'apache',
+              '-C', options.export_dir,
+              '-f', '%s/%s' % (options.export_dir, options.export_package),
+              REPORTS_DIR])
     else:
-        call(['/bin/tar', '-c', '-z',
-            '--owner', 'apache', '--group', 'apache',
-            '-C', options.export_dir,
-            '-f', '%s/%s' % (options.export_dir, options.export_package),
-            REPORTS_DIR])
-    logging.info('Export-file created at %s/%s' % (options.export_dir,
-        options.export_package))
+        rc = _my_call(['/bin/tar', '-c', '-z',
+              '--owner', 'apache', '--group', 'apache',
+              '-C', options.export_dir,
+              '-f', '%s/%s' % (options.export_dir, options.export_package),
+              REPORTS_DIR])
+
+    if rc:
+        logging.error('Error attempting to create export-file at %s/%s' %
+                (options.export_dir, options.export_package))
+        sys.exit(1)
+    else:
+        logging.info('Export-file created at %s/%s' %
+                (options.export_dir, options.export_package))
+
 
 def cleanup(options):
     logging.info('To clean up, issue the following command:')
@@ -315,10 +347,8 @@ if __name__ == '__main__':
             logging.debug('DUMPING ' + entity)
             # dump-function name is <entity>Dump(options)
             # BUT - entity-names can have dashes, function names do NOT
-            globals()[entity.lower().replace('-','') + 'Dump'](options)
+            globals()[entity.lower().replace('-', '') + 'Dump'](options)
         else:
             logging.debug('SKIPPING ' + entity)
 
     prepareExport(options)
-
-# vim:ts=4:expandtab:

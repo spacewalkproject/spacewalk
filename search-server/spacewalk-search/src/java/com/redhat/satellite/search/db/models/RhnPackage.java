@@ -125,7 +125,7 @@ public class RhnPackage {
     public void setArch(String archIn) {
         this.arch = archIn;
     }
-    
+
     /**
      * Setter for pkg description
      * @param desc pkg description
@@ -133,7 +133,7 @@ public class RhnPackage {
     public void setDescription(String desc) {
         description = desc;
     }
-    
+
     /**
      * Getter for pkg description
      * @return pkg description
@@ -141,7 +141,7 @@ public class RhnPackage {
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * Setter for pkg summary
      * @param summaryIn pkg summary
@@ -149,7 +149,7 @@ public class RhnPackage {
     public void setSummary(String summaryIn) {
         summary = summaryIn;
     }
-    
+
     /**
      * Getter for pkg summary
      * @return pkg summary
@@ -157,7 +157,7 @@ public class RhnPackage {
     public String getSummary() {
         return summary;
     }
-    
+
     /**
      * Getter for "pretty" versino
      * @return <version>-<release>
@@ -165,7 +165,7 @@ public class RhnPackage {
     public String getPrettyVersion() {
         return version + "-" + release;
     }
-    
+
     /**
      * Reconstructs filename from various parts of pkg metadata
      * @return <name>-<version>-<release>.<arch>

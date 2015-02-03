@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.79
+Version: 5.10.81
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -122,6 +122,14 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Mon Jan 19 2015 Matej Kollar <mkollar@redhat.com> 5.10.81-1
+- 1177656 - Normalize path sooner
+
+* Tue Jan 13 2015 Matej Kollar <mkollar@redhat.com> 5.10.80-1
+- 1177656 - Fix directory creation
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
 * Fri Oct 03 2014 Stephen Herr <sherr@redhat.com> 5.10.79-1
 - 1148250 - errror in rhncfg if selinux off, rhel 5, and new libselinux-python
 

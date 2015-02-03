@@ -17,6 +17,7 @@
 #
 
 from optparse import Option, OptionParser
+import commands
 import os
 import re
 import shutil
@@ -88,7 +89,7 @@ def export_packages(options):
     if options.org_ids:
         h = rhnSQL.prepare(_query_organizations % ','.join(map(str, options.org_ids)))
         h.execute()
-        orgs = h.fetchall_dict()
+        orgs = h.fetchall_dict() or []
     else:
         h = rhnSQL.prepare(_query_all_organizations)
         h.execute()
@@ -211,7 +212,13 @@ def cp_to_export_dir(pkg_path, dir, options):
 
 
 def create_repository(repo_dir, options):
-    p = subprocess.Popen(["createrepo", "--no-database", repo_dir], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    cmd = "createrepo --help | grep 'no-database' | wc -l"
+    (status, output) = commands.getstatusoutput(cmd)
+    hits = int(output)
+    if hits: # 'Our' createrepo understands --no-database
+        p = subprocess.Popen(["createrepo", "--no-database", repo_dir], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    else:    # 'Our' createrepo does NOT understand --no-database
+        p = subprocess.Popen(["createrepo", repo_dir], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = p.communicate()
     split_and_log_to_level(3, 4, out)
     split_and_log_to_level(2, 4, err)

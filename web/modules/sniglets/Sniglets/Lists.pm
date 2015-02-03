@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -106,15 +106,15 @@ sub listview {
   }
 
   my $list = $class->new(-listview => $lv_cache{$key},
-			 -mode => $mode,
-			 -alphabar_column => uc($params{alphabar_column}),
-			 -filter_string => $pxt->dirty_param('filter_string') || '',
-			 -filter_type => $params{filter_type} || 'text',
-			 -style => $params{style},
-			 -lower => $pxt->dirty_param('lower') || 1,
-			 -upper => $pxt->dirty_param('upper') || $pxt->user->preferred_page_size,
-			 -acl_mixins => $acl_mixins,
-			);
+                         -mode => $mode,
+                         -alphabar_column => uc($params{alphabar_column}),
+                         -filter_string => $pxt->dirty_param('filter_string') || '',
+                         -filter_type => $params{filter_type} || 'text',
+                         -style => $params{style},
+                         -lower => $pxt->dirty_param('lower') || 1,
+                         -upper => $pxt->dirty_param('upper') || $pxt->user->preferred_page_size,
+                         -acl_mixins => $acl_mixins,
+                        );
 
   return $list->render($pxt);
 }
@@ -126,11 +126,11 @@ sub listview_cb {
   eval "use $class;";
 
   my $list = $class->new(-mode => $pxt->dirty_param('list_mode') || '',
-			 -alphabar_column => $pxt->dirty_param('alphabar_column') || '',
-			 -filter_string => $pxt->dirty_param('filter_string') || '',
-			 -lower => $pxt->dirty_param('lower') || 1,
-			 -upper => $pxt->dirty_param('upper') || $pxt->user->preferred_page_size,
-			);
+                         -alphabar_column => $pxt->dirty_param('alphabar_column') || '',
+                         -filter_string => $pxt->dirty_param('filter_string') || '',
+                         -lower => $pxt->dirty_param('lower') || 1,
+                         -upper => $pxt->dirty_param('upper') || $pxt->user->preferred_page_size,
+                        );
 
   $list->callback($pxt);
 }
@@ -176,27 +176,27 @@ sub empty_set {
 }
 
 my %node_set = (system_package_list => 'removable_package_list',
-		system_installable_package_list => 'install_package_list',
-		system_errata_list => 'errata_list',
-		target_systems_list => 'target_systems_list',
+                system_installable_package_list => 'install_package_list',
+                system_errata_list => 'errata_list',
+                target_systems_list => 'target_systems_list',
                 system_groups_list => 'remove_system_from_groups',
                 target_groups_for_system => 'target_groups_for_system',
-		system_group_errata_list => 'systems_affected_by_errata',
-		systems_subscribed_to_channel => 'remove_systems_from_channel',
-		target_systems_for_channel => 'target_systems_for_channel',
-		manage_package_channels => 'packages_in_channel',
-		manage_packages => 'deletable_package_list',
-		manage_errata_packages => 'errata_package_list',
-		target_systems_for_namespace => 'target_systems',
-		target_systems_for_package => 'target_systems',
-		clonable_errata_list => 'clone_errata_list',
-		remove_channel_packages => 'packages_to_remove',
-		add_channel_packages => 'packages_to_add',
+                system_group_errata_list => 'systems_affected_by_errata',
+                systems_subscribed_to_channel => 'remove_systems_from_channel',
+                target_systems_for_channel => 'target_systems_for_channel',
+                manage_package_channels => 'packages_in_channel',
+                manage_packages => 'deletable_package_list',
+                manage_errata_packages => 'errata_package_list',
+                target_systems_for_namespace => 'target_systems',
+                target_systems_for_package => 'target_systems',
+                clonable_errata_list => 'clone_errata_list',
+                remove_channel_packages => 'packages_to_remove',
+                add_channel_packages => 'packages_to_add',
                 remove_errata_packages => 'packages_to_remove',
                 add_errata_packages => 'packages_to_add',
-		clone_channel_errata => 'errata_clone_actions',
-		packages_for_system_sync => 'packages_for_system_sync',
-	       );
+                clone_channel_errata => 'errata_clone_actions',
+                packages_for_system_sync => 'packages_for_system_sync',
+               );
 
 sub navi_empty_set {
   my $class = shift;
@@ -211,29 +211,29 @@ sub navi_empty_set {
 
 my %pinfo_modes = (
           system => {'/visible_to_user.pxt' => {mode => 'visible_to_user', name => 'Systems'},
-		     '/out_of_date.pxt' => {mode => 'out_of_date', name => 'Out of Date Systems'},
-		     '/unentitled.pxt' => {mode => 'unentitled', name => 'Unentitled Systems'},
-		     '/ungrouped.pxt' => {mode => 'ungrouped', name => 'Ungrouped Systems'},
-		     '/inactive.pxt' => {mode => 'inactive', name => 'Inactive Systems'},
-		     '/proxy.pxt' => {mode => 'proxy_servers', name => 'Proxy Servers'},
-		     '/potentially_in_channel_family.pxt' => {mode => 'systems_potentially_in_channel_family', name => 'Subscribable Systems'},
-		    },
+                     '/out_of_date.pxt' => {mode => 'out_of_date', name => 'Out of Date Systems'},
+                     '/unentitled.pxt' => {mode => 'unentitled', name => 'Unentitled Systems'},
+                     '/ungrouped.pxt' => {mode => 'ungrouped', name => 'Ungrouped Systems'},
+                     '/inactive.pxt' => {mode => 'inactive', name => 'Inactive Systems'},
+                     '/proxy.pxt' => {mode => 'proxy_servers', name => 'Proxy Servers'},
+                     '/potentially_in_channel_family.pxt' => {mode => 'systems_potentially_in_channel_family', name => 'Subscribable Systems'},
+                    },
           errata => {'/relevant.pxt' => {mode => 'relevant_errata', name => 'Errata Relevant to Your Systems'},
-		     '/all.pxt' => {mode => 'all_errata', name => 'All Errata'},
-		    },
+                     '/all.pxt' => {mode => 'all_errata', name => 'All Errata'},
+                    },
    manage_errata => {'/published.pxt' => {mode => 'published_owned_errata', name => 'Published Errata',
-					  label => 'published' },
-		     '/unpublished.pxt' => {mode => 'unpublished_owned_errata', name => 'Unpublished Errata',
-					    label => 'unpublished' },
-		    },
-	  probes => {'/all.pxt' => {mode => 'all_system_probes', name => 'Probes'},
-		     '/ok.pxt' => {mode => 'ok_system_probes', name => 'OK Probes'},
-		     '/warning.pxt' => {mode => 'warning_system_probes', name => 'Warning Probes'},
-		     '/critical.pxt' => {mode => 'critical_system_probes', name => 'Critical Probes'},
-		     '/unknown.pxt' => {mode => 'unknown_system_probes', name => 'Unknown Probes'},
-		     '/pending.pxt' => {mode => 'pending_system_probes', name => 'Pending Probes'},
-		    },
-		  );
+                                          label => 'published' },
+                     '/unpublished.pxt' => {mode => 'unpublished_owned_errata', name => 'Unpublished Errata',
+                                            label => 'unpublished' },
+                    },
+          probes => {'/all.pxt' => {mode => 'all_system_probes', name => 'Probes'},
+                     '/ok.pxt' => {mode => 'ok_system_probes', name => 'OK Probes'},
+                     '/warning.pxt' => {mode => 'warning_system_probes', name => 'Warning Probes'},
+                     '/critical.pxt' => {mode => 'critical_system_probes', name => 'Critical Probes'},
+                     '/unknown.pxt' => {mode => 'unknown_system_probes', name => 'Unknown Probes'},
+                     '/pending.pxt' => {mode => 'pending_system_probes', name => 'Pending Probes'},
+                    },
+                  );
 
 sub pathinfo_list_mode {
   my $pxt = shift;

@@ -1175,10 +1175,46 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
+     * returns channel subscriber id for given channel
+     * @param org given organization
+     * @param channelId channel id
+     * @return list of channel subscribers
+     */
+    public static List<Long> listSubscriberIdsForChannel(Org org, Long channelId) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+                "subscribers_for_channel_in_org");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org_id", org.getId());
+        params.put("channel_id", channelId);
+        DataResult<Map<String, Long>> dr = m.execute(params);
+        List<Long> ids = new ArrayList<Long>();
+        for (Map<String, Long> row : dr) {
+            ids.add(row.get("id"));
+        }
+        return ids;
+    }
+
+    /**
      * Locks the given Channel for update on a database level
      * @param c Channel to lock
      */
     public static void lock(Channel c) {
         singleton.lockObject(Channel.class, c.getId());
+    }
+
+    /**
+     * Adds errata to channel mapping. Does nothing else
+     * @param eids List of eids to add mappings for
+     * @param cid channel id we're cloning into
+     */
+    public static void addClonedErrataToChannel(List<Long> eids, Long cid) {
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries",
+                "add_cloned_erratum_to_channel");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("cid", cid);
+        for (Long eid : eids) {
+            params.put("eid", eid);
+            m.executeUpdate(params);
+        }
     }
 }

@@ -22,11 +22,10 @@ for tn, tc in backend.tables.items():
             row = q.fetchone_dict()
             if not row or row['data_length'] != cv.limit:
                 print ("ERROR: database column %s.%s is %s chars long "
-                    + "but defined as %s chars in backendOracle.py") % (
-                                        tn, cn, row['data_length'], cv.limit)
+                       + "but defined as %s chars in backendOracle.py") % (
+                    tn, cn, row['data_length'], cv.limit)
                 exitval = 1
             else:
                 print "%s.%s = %d" % (tn, cn, row['data_length'])
 
-sys.exit(exitval);
-
+sys.exit(exitval)

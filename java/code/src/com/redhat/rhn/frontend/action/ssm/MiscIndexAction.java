@@ -42,32 +42,15 @@ public class MiscIndexAction extends RhnAction {
         DynaActionForm daForm = (DynaActionForm)formIn;
 
         if (context.isSubmitted()) {
-/*
-            if (!(daForm.getString("receive_notifications").equals("no_change") &&
-                    daForm.getString("include_in_daily_summary").equals("no_change") &&
-                    daForm.getString("auto_update").equals("no_change"))) {
-                System.out.println("noop");
-                if (daForm.getString("receive_notifications").equals("yes")) {
-                    request.setAttribute("notify", "yes");
-                }
-                else {
-                    request.setAttribute("notify", "no");
-                }
-                if (daForm.getString("include_in_daily_summary").equals("yes")) {
-                    request.setAttribute("summary", "yes");
-                }
-                else {
-                    request.setAttribute("summary", "no");
-                }
-                if (daForm.getString("auto_update").equals("yes")) {
-                    request.setAttribute("update", "yes");
-                }
-                else {
-                    request.setAttribute("update", "no");
-                }
+            if (!(daForm.getString("notify").equals("no_change") &&
+                    daForm.getString("summary").equals("no_change") && daForm.getString(
+                    "update").equals("no_change"))) {
+                request.setAttribute("notify", daForm.getString("notify"));
+                request.setAttribute("summary", daForm.getString("summary"));
+                request.setAttribute("update", daForm.getString("update"));
+                request.setAttribute("no_execute", true);
+                return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
             }
-*/
-            return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
         }
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);

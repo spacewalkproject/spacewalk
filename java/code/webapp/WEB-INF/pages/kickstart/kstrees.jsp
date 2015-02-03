@@ -23,31 +23,31 @@
       <rl:listset name="ksDistros">
       <rhn:csrf />
       <rhn:submitted />
-	<rl:list emptykey="kickstart.distributions.jsp.nolists"
-      			alphabarcolumn="label">
-      		<rl:decorator name="PageSizeDecorator"/>
-		<rl:column
-			bound="false"
-			headerkey="kickstart.jsp.label"
-			sortattr="label"
-          		defaultsort="asc"
-          		filterattr="label">
-          		            <a href="/rhn/kickstart/TreeEdit.do?kstid=${current.id}">${current.label}</a>
-		</rl:column>
-      		<rl:column bound="false" headerkey="softwareedit.jsp.basechannel"  sortattr="channel">
-				${current.channel.name}
-      		</rl:column>
+        <rl:list emptykey="kickstart.distributions.jsp.nolists"
+                        alphabarcolumn="label">
+                <rl:decorator name="PageSizeDecorator"/>
+                <rl:column
+                        bound="false"
+                        headerkey="kickstart.jsp.label"
+                        sortattr="label"
+                        defaultsort="asc"
+                        filterattr="label">
+                                    <a href="/rhn/kickstart/TreeEdit.do?kstid=${current.id}">${current.label}</a>
+                </rl:column>
+                <rl:column bound="false" headerkey="softwareedit.jsp.basechannel"  sortattr="channel">
+                                ${current.channel.name}
+                </rl:column>
             <rl:column headertext="${rhn:localize('kickstart.distro.is-valid.jsp')}?*" sortattr="valid">
-            	<c:choose>
+                <c:choose>
                     <c:when test="${current.valid}">
                     <rhn:icon type="item-enabled" />
                     </c:when>
-					<c:otherwise>
-						<rhn:icon type="item-disabled" />
-                	</c:otherwise>
+                                        <c:otherwise>
+                                                <rhn:icon type="item-disabled" />
+                        </c:otherwise>
                 </c:choose>
             </rl:column>
-	     </rl:list>
+             </rl:list>
       </rl:listset>
 </div>
   <p><rhn:tooltip>*-<bean:message key="kickstarts.distro.is-valid.tooltip"/></rhn:tooltip></p>

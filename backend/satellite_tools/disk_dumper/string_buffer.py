@@ -16,7 +16,9 @@
 # Simple string buffer that wraps around streams to speed up writes
 #
 
+
 class StringBuffer:
+
     def __init__(self, stream):
         self.stream = stream
         self.buffer_size = 65536

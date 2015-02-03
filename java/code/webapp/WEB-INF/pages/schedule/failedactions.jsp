@@ -8,27 +8,27 @@
 <html>
 <body>
 <rhn:toolbar base="h1" icon="header-action"
-  			   imgAlt="actions.jsp.imgAlt"
+                           imgAlt="actions.jsp.imgAlt"
                helpUrl="">
     <bean:message key="failedactions.jsp.failed_actions"/>
   </rhn:toolbar>
     <p>
     <bean:message key="failedactions.jsp.summary"/>
     </p>
-	<rl:listset name="failedList">
+        <rl:listset name="failedList">
         <rhn:csrf />
-		<rl:list emptykey="failedactions.jsp.nogroups" styleclass="list">
+                <rl:list emptykey="failedactions.jsp.nogroups" styleclass="list">
 
-			<%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/listdisplay-new.jspf" %>
+                        <%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/listdisplay-new.jspf" %>
 
-		</rl:list>
-		<rhn:submitted/>
-		 <div class="text-right">
-		     <input type="submit"
+                </rl:list>
+                <rhn:submitted/>
+                 <div class="text-right">
+                     <input type="submit"
                name="dispatch"
                class="btn btn-default"
                value='<bean:message key="actions.jsp.archiveactions"/>'/>
          </div>
-	</rl:listset>
+        </rl:listset>
 </body>
 </html>

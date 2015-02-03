@@ -24,9 +24,8 @@ public class OrgEntitlementDtoTest extends BaseTestCaseWithUser {
 
     public void testGetUpperRange() throws Exception {
         Org org = user.getOrg();
-        OrgEntitlementDto dto = new OrgEntitlementDto(
-                EntitlementManager.getByName(
-                        EntitlementManager.MONITORING_ENTITLED), org);
+        OrgEntitlementDto dto = new OrgEntitlementDto(EntitlementManager
+                .getByName(EntitlementManager.PROVISIONING_ENTITLED), org);
         assertNotNull(dto);
         assertNotNull(dto.getUpperRange());
     }

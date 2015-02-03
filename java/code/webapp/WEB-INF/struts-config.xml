@@ -156,7 +156,6 @@
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="enterprise_entitled" type="java.lang.String"/>
             <form-property name="provisioning_entitled" type="java.lang.String"/>
-            <form-property name="monitoring_entitled" type="java.lang.String"/>
             <form-property name="virtualization_host" type="java.lang.String"/>
             <form-property name="virtualization_host_platform" type="java.lang.String"/>
             <form-property name="submitted" type="java.lang.Boolean" />
@@ -337,75 +336,15 @@
             <form-property name="submitted" type="java.lang.Boolean"/>
         </form-bean>
 
-        <form-bean name="probeDetailsForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="start_year"  type="java.lang.Integer"/>
-            <form-property name="start_month" type="java.lang.Integer"/>
-            <form-property name="start_day"   type="java.lang.Integer"/>
-            <form-property name="start_hour"  type="java.lang.Integer"/>
-            <form-property name="start_minute"  type="java.lang.Integer"/>
-            <form-property name="start_am_pm" type="java.lang.Integer"/>
-            <form-property name="end_year"    type="java.lang.Integer"/>
-            <form-property name="end_month"   type="java.lang.Integer"/>
-            <form-property name="end_day"     type="java.lang.Integer"/>
-            <form-property name="end_hour"    type="java.lang.Integer"/>
-            <form-property name="end_minute"  type="java.lang.Integer"/>
-            <form-property name="end_am_pm"   type="java.lang.Integer"/>
-            <form-property name="show_graph"  type="java.lang.Boolean"/>
-            <form-property name="show_log"    type="java.lang.Boolean"/>
-            <form-property name="metrics"          type="org.apache.struts.util.LabelValueBean[]"/>
-            <form-property name="selected_metrics" type="java.lang.String[]"/>
-            <form-property name="submitted"  type="java.lang.Boolean"/>
-        </form-bean>
-
-
-        <form-bean name="probeEditForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="description"  type="java.lang.String"/>
-            <form-property name="notification" type="java.lang.Boolean"/>
-            <form-property name="notification_interval_min" type="java.lang.Long"/>
-            <form-property name="check_interval_min" type="java.lang.Long"/>
-            <form-property name="contact_group_id" type="java.lang.Long"/>
-            <form-property name="submitted"  type="java.lang.Boolean"/>
-        </form-bean>
-
-        <form-bean name="probeCreateForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="command_group" type="java.lang.String"/>
-            <form-property name="command"      type="java.lang.String"/>
-            <form-property name="sat_cluster_id" type="java.lang.Long"/>
-            <form-property name="description"  type="java.lang.String"/>
-            <form-property name="old_description"  type="java.lang.String"/>
-            <form-property name="notification" type="java.lang.Boolean"/>
-            <form-property name="notification_interval_min" type="java.lang.Long"/>
-            <form-property name="check_interval_min" type="java.lang.Long"/>
-            <form-property name="contact_group_id" type="java.lang.Long"/>
-            <form-property name="submitted"  type="java.lang.Boolean"/>
-        </form-bean>
-
-        <form-bean name="probeDeleteForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="submitted"  type="java.lang.Boolean"/>
-        </form-bean>
-
         <form-bean name="orgDeleteForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
 
-        <form-bean name="probeSuiteEditForm"
+        <form-bean name="tagSystemsForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="description"  type="java.lang.String"/>
-            <form-property name="suite_name" type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
-        </form-bean>
-
-        <form-bean name="monitoringGeneralConfigForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="squelch"  type="java.lang.String"/>
-            <form-property name="is_monitoring_scout"  type="java.lang.Boolean"/>
-            <form-property name="submitted"  type="java.lang.Boolean"/>
-            <form-property name="MDOM"  type="java.lang.String"/>
+            <form-property name="tag"  type="java.lang.String"/>
         </form-bean>
 
         <form-bean name="errataPublishForm"
@@ -443,38 +382,6 @@
             <form-property name="submitted" type="java.lang.Boolean"/>
         </form-bean>
 
-        <form-bean name="filterCreateForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="start_year"  type="java.lang.Integer"/>
-            <form-property name="start_month" type="java.lang.Integer"/>
-            <form-property name="start_day"   type="java.lang.Integer"/>
-            <form-property name="start_hour"  type="java.lang.Integer"/>
-            <form-property name="start_minute" type="java.lang.Integer"/>
-            <form-property name="start_am_pm" type="java.lang.Integer"/>
-            <form-property name="end_year"    type="java.lang.Integer"/>
-            <form-property name="end_month"   type="java.lang.Integer"/>
-            <form-property name="end_day"     type="java.lang.Integer"/>
-            <form-property name="end_hour"    type="java.lang.Integer"/>
-            <form-property name="end_minute"  type="java.lang.Integer"/>
-            <form-property name="end_am_pm"   type="java.lang.Integer"/>
-            <form-property name="recurring"  type="java.lang.Boolean"/>
-            <form-property name="recurring_frequency"  type="java.lang.Long"/>
-            <form-property name="recurring_duration"  type="java.lang.String"/>
-            <form-property name="duration_type"  type="java.lang.Long"/>
-            <form-property name="description"  type="java.lang.String"/>
-            <form-property name="filterType"  type="java.lang.String"/>
-            <form-property name="destination"  type="java.lang.String"/>
-            <form-property name="scope"       type="java.lang.String"/>
-            <form-property name="scout"      type="java.lang.String[]"/>
-            <form-property name="probe"      type="java.lang.String[]"/>
-            <form-property name="org"      type="java.lang.String[]"/>
-            <form-property name="states"      type="java.lang.String[]"/>
-            <form-property name="contact_groups" type="java.lang.String[]"/>
-            <form-property name="output_match" type="java.lang.String"/>
-            <form-property name="output_match_case"  type="java.lang.Boolean"/>
-            <form-property name="submitted"  type="java.lang.Boolean"/>
-        </form-bean>
-
         <form-bean name="syncProfilesForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="use_date"  type="java.lang.Boolean"/>
@@ -504,9 +411,7 @@
             <form-property name="server|satellite|http_proxy_password_confirm"  type="java.lang.String"/>
             <form-property name="mount_point"  type="java.lang.String"/>
             <form-property name="web|ssl_available"  type="java.lang.Boolean"/>
-            <form-property name="web|enable_solaris_support"  type="java.lang.Boolean"/>
             <form-property name="disconnected"  type="java.lang.Boolean"/>
-            <form-property name="web|is_monitoring_backend"  type="java.lang.Boolean"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="no_scrub" type="java.lang.String"
                         initial="server|satellite|http_proxy_password, server|satellite|http_proxy_password_confirm"/>
@@ -936,6 +841,9 @@
             <form-property name="gpg_key_id" type="java.lang.String" />
             <form-property name="gpg_key_fingerprint" type="java.lang.String" />
             <form-property name="checksum" type="java.lang.String" />
+            <form-property name="clone_type" type="java.lang.String" />
+            <form-property name="original_name" type="java.lang.String" />
+            <form-property name="original_id" type="java.lang.Long" />
             <form-property name="no_paren_scrub" type="java.lang.String" initial="name, support_policy, summary, description, maintainer_phone, maintainer_name"/>
         </form-bean>
 
@@ -1043,7 +951,6 @@
       <form-property name="base_entitlement" type="java.lang.String"/>
       <form-property name="submitted" type="java.lang.Boolean"/>
       <form-property name="provisioning_entitled" type="java.lang.Boolean"/>
-      <form-property name="monitoring_entitled" type="java.lang.Boolean"/>
       <form-property name="virtualization_host" type="java.lang.Boolean"/>
       <form-property name="virtualization_host_platform" type="java.lang.Boolean"/>
       <form-property name="receive_notifications" type="java.lang.Boolean"/>
@@ -1197,6 +1104,13 @@
       <form-property name="submitted" type="java.lang.Boolean" />
     </form-bean>
 
+    <form-bean name="reactivationKeyForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="delete" type="java.lang.String" />
+      <form-property name="generate" type="java.lang.String" />
+      <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
+
     <form-bean name="deployImageForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
       <form-property name="vcpus" type="java.lang.Long" />
@@ -1258,7 +1172,7 @@
         <form-property name="action_chain"   type="java.lang.String" />
     </form-bean>
 
-    <form-bean name="SSMPatchListForm" type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+    <form-bean name="ErrataAffectedListForm" type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
         <form-property name="queue_id" type="java.lang.Long" />
         <form-property name="queue_label" type="java.lang.String" />
         <form-property name="submitted" type="java.lang.Boolean" />
@@ -2426,6 +2340,15 @@
              path="/WEB-INF/pages/errata/edit.jsp"/>
      </action>
 
+     <action path="/errata/manage/ErrataChannelIntersection"
+             scope="request"
+             input="/WEB-INF/pages/errata/erratachannelintersection.jsp"
+             type="com.redhat.rhn.frontend.action.errata.ErrataChannelIntersectionAction"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+         <set-property property="acls" value="user_role(channel_admin)"/>
+         <forward name="default" path="/WEB-INF/pages/errata/erratachannelintersection.jsp"/>
+     </action>
+
      <action path="/errata/manage/SelectChannels"
              name="errataPublishForm"
              scope="request"
@@ -2971,6 +2894,47 @@
                  path="/systems/details/SystemHardware.do" redirect="true"/>
     </action>
 
+    <action path="/systems/details/Connection"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/connection.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SystemConnectionAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_channel_family(rhn-proxy)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/connection.jsp" />
+    </action>
+
+    <action path="/systems/details/Proxy"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/proxy.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.ProxyAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_channel_family(rhn-proxy)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/proxy.jsp" />
+    </action>
+
+    <action path="/systems/details/ProxyClients"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/proxyclients.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.ProxyClientsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_channel_family(rhn-proxy)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/proxyclients.jsp" />
+    </action>
+
+    <action path="/systems/details/Activation"
+        name="reactivationKeyForm"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/activation.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.ActivationAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="system_feature(ftr_agent_smith)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/activation.jsp" />
+    </action>
+
     <action path="/systems/SystemCurrency"
         scope="request"
         name="systemCurrencyForm"
@@ -3320,163 +3284,6 @@
                   redirect="true"/>
     </action>
 
-    <action path="/systems/details/packages/patchsets/PatchSetList"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/patchsets/patchsetlist.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.SolarisPatchSetListSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/details/packages/patchsets/patchsetlist.jsp"/>
-    </action>
-
-    <action path="/systems/details/packages/patchsets/InstallPatchSet"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/patchsets/install_patchset.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.InstallPatchSetSetupAction">
-      <forward name="default"
-           path="/WEB-INF/pages/systems/details/packages/patchsets/install_patchset.jsp"/>
-      <forward name="confirmed"
-           path="/WEB-INF/pages/systems/details/packages/patchsets/patchsetlist.jsp"
-           redirect="true"/>
-    </action>
-
-    <action path="/systems/details/packages/patchsets/InstallPatchSetSubmit"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/patchsets/install_patchset.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.InstallPatchSetAction"
-        parameter="dispatch"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequired" value="true" />
-        <forward name="default"
-                 path="/systems/details/packages/patchsets/PatchSetList.do"
-                 redirect="true"/>
-    </action>
-
-    <action path="/systems/details/packages/patches/PatchList"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/patches/patchlist.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.patches.PatchListSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/details/packages/patches/patchlist.jsp"/>
-    </action>
-
-    <action path="/systems/details/packages/patches/PatchInstall"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/patches/patchinstall.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.patches.PatchInstallSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/details/packages/patches/patchinstall.jsp"/>
-    </action>
-
-    <action path="/systems/details/packages/patches/PatchInstallSubmit"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/patches/patchinstall.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.patches.PatchInstallAction"
-        parameter="dispatch"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequired" value="true" />
-        <forward name="default"
-                 path="/systems/details/packages/patches/PatchInstall.do"
-                 redirect="true" />
-        <forward name="install"
-                 path="/systems/details/packages/patches/PatchInstallConfirm.do"
-                 redirect="true" />
-    </action>
-
-    <action path="/systems/details/packages/patches/PatchInstallConfirm"
-        scope="request"
-        input="/WEB-INF/pages/systems/packages/patches/patchinstallconfirm.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.patches.PatchConfirmInstallSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/details/packages/patches/patchinstallconfirm.jsp"/>
-    </action>
-
-
-    <action path="/systems/details/packages/patches/PatchInstallConfirmSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/details/packages/patches/patchinstallconfirm.jsp"
-         type="com.redhat.rhn.frontend.action.rhnpackage.patches.PatchConfirmInstallAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="postRequired" value="true" />
-         <forward name="default"
-                  path="/systems/details/packages/patches/PatchInstallConfirm.do"
-                  redirect="true"/>
-         <forward name="installed"
-                  path="/systems/details/packages/patches/PatchInstall.do"
-                  redirect="true"/>
-     </action>
-
-    <action path="/systems/details/packages/patches/PatchListSubmit"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/patches/patchlist.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.patches.PatchListAction"
-        parameter="dispatch"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequired" value="true" />
-        <forward name="default"
-                 path="/systems/details/packages/patches/PatchList.do"
-                 redirect="true" />
-        <forward name="confirm"
-                 path="/systems/details/packages/patches/PatchConfirm.do"
-                 redirect="true" />
-    </action>
-
-    <action path="/systems/details/packages/patches/PatchConfirm"
-        scope="request"
-        input="/WEB-INF/pages/systems/packages/patches/patchconfirm.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.patches.PatchConfirmSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/details/packages/patches/patchconfirm.jsp"/>
-    </action>
-
-     <action path="/systems/details/packages/patches/PatchConfirmSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/details/packages/patches/patchconfirm.jsp"
-         type="com.redhat.rhn.frontend.action.rhnpackage.patches.PatchConfirmAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="postRequired" value="true" />
-         <forward name="default"
-                  path="/systems/details/packages/patches/PatchConfirm.do"
-                  redirect="true"/>
-         <forward name="confirmed"
-                  path="/systems/details/packages/patches/PatchList.do"
-                  redirect="true"/>
-     </action>
-
-    <action path="/systems/details/probes/ProbeDetails"
-         name="probeDetailsForm"
-         scope="request"
-         input="/WEB-INF/pages/systems/probes/details.jsp"
-         type="com.redhat.rhn.frontend.action.systems.monitoring.ProbeDetailsAction">
-         <forward name="default"
-                  path="/WEB-INF/pages/systems/probes/details.jsp"/>
-    </action>
-
-    <action path="/systems/details/probes/ProbesList"
-        scope="request"
-        input="/WEB-INF/pages/systems/probes/index.jsp"
-        type="com.redhat.rhn.frontend.action.systems.monitoring.ProbesListSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/probes/index.jsp"/>
-       <forward name="continue"
-                path="/systems/details/probes/ProbesDeleteConfirm.do" redirect="true"/>
-    </action>
-
-    <action path="/systems/details/probes/ProbesDeleteConfirm"
-        scope="request"
-        input="/WEB-INF/pages/systems/probes/probedelete.jsp"
-        type="com.redhat.rhn.frontend.action.systems.monitoring.ProbesDeleteConfirmSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/probes/probedelete.jsp"/>
-       <forward name="continue"
-                path="/systems/details/probes/ProbesList.do" redirect="true"/>
-    </action>
-
     <action path="/systems/details/ErrataList"
         scope="request"
         input="/WEB-INF/pages/systems/errata.jsp"
@@ -3484,7 +3291,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <set-property property="acls"
-                      value="system_feature(ftr_errata_updates); not is_solaris()"/>
+                      value="system_feature(ftr_errata_updates)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/errata.jsp"/>
         <forward name="confirm"
@@ -3773,7 +3580,7 @@
 
     <action path="/systems/ssm/ErrataSystemsAffected"
         scope="request"
-        name="SSMPatchListForm"
+        name="ErrataAffectedListForm"
         input="/WEB-INF/pages/ssm/systems/ssm-errata-systems-affected.jsp"
         type="com.redhat.rhn.frontend.action.ssm.ErrataSystemsAffectedListAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -3782,9 +3589,9 @@
                  path="/WEB-INF/pages/ssm/systems/ssm-errata-systems-affected.jsp" />
     </action>
 
-    <action path="/systems/ssm/ListPatches"
+    <action path="/systems/ssm/ListErrata"
         scope="request"
-        name="SSMPatchListForm"
+        name="ErrataAffectedListForm"
         input="/WEB-INF/pages/ssm/systems/ssm-errata.jsp"
         type="com.redhat.rhn.frontend.action.ssm.ErrataListAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -3792,13 +3599,13 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/ssm-errata.jsp" />
         <forward name="confirm"
-                 path="/systems/ssm/ListPatchesConfirm.do"
+                 path="/systems/ssm/ListErrataConfirm.do"
                  redirect="true" />
     </action>
 
-    <action path="/systems/ssm/ListPatchesConfirm"
+    <action path="/systems/ssm/ListErrataConfirm"
         scope="request"
-        name="SSMPatchListForm"
+        name="ErrataAffectedListForm"
         input="/WEB-INF/pages/ssm/systems/ssm-errata.jsp"
         type="com.redhat.rhn.frontend.action.ssm.ErrataListConfirmAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -3806,7 +3613,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/ssm-errata-confirm.jsp" />
         <forward name="confirm"
-                 path="/systems/ssm/ListPatches.do"
+                 path="/systems/ssm/ListErrata.do"
                  redirect="true" />
     </action>
 
@@ -3823,6 +3630,14 @@
                  path="/systems/Overview.do" redirect="true"/>
      </action>
 
+    <action path="/systems/ssm/provisioning/Rollback"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.ssm.RollbackAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/provisioning/rollback.jsp"/>
+    </action>
+
     <action path="/systems/ssm/provisioning/RollbackToTag"
         scope="request"
         type="com.redhat.rhn.frontend.action.ssm.RollbackToTagAction"
@@ -3830,6 +3645,7 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/provisioning/rollbacktotag.jsp"/>
+        <forward name="confirm" path="/systems/ssm/provisioning/Rollback.do" redirect="true"/>
     </action>
 
     <!--System Details Configuration -->
@@ -4183,14 +3999,6 @@
                  path="/WEB-INF/pages/groups/delete.jsp"/>
         <forward name="success" redirect = "true"
                  path="/systems/SystemGroupList.do"/>
-    </action>
-
-    <action path="/groups/ProbesList"
-        scope="request"
-        type="com.redhat.rhn.frontend.action.groups.ProbesListAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <forward name="default"
-                 path="/WEB-INF/pages/groups/probes.jsp"/>
     </action>
 
      <action path="/systems/details/configuration/ViewModifyCentralPaths"
@@ -4632,280 +4440,6 @@
          redirect="true"/>
     </action>
 
-    <!-- MONITORING -->
-    <action path="/admin/config/MonitoringConfig"
-        name="monitoringGeneralConfigForm"
-        scope="request"
-        input="/WEB-INF/pages/admin/config/monitoring.jsp"
-        type="com.redhat.rhn.frontend.action.satellite.MonitoringConfigAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <set-property property="acls" value="user_role(satellite_admin)"/>
-        <set-property property="mixins" value="com.redhat.rhn.common.security.acl.MonitoringAclHandler" />
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/config/monitoring.jsp"/>
-    </action>
-
-    <!-- NOTIFICATION FILTERS -->
-    <action path="/monitoring/config/notification/ActiveFilters"
-        scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/notification/filters.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.notification.ActiveFilterListSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/monitoring/config/notification/filters.jsp"/>
-    </action>
-
-    <action path="/monitoring/config/notification/ExpiredFilters"
-        scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/notification/filters.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.notification.ExpiredFilterListSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/monitoring/config/notification/filters.jsp"/>
-    </action>
-
-
-    <action path="/monitoring/config/notification/FiltersSubmit"
-         scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/notification/filters.jsp"
-         type="com.redhat.rhn.frontend.action.monitoring.notification.FilterListAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="postRequired" value="true" />
-         <forward name="default"
-                  path="/monitoring/config/notification/ActiveFilters.do" redirect="true"/>
-    </action>
-
-    <action path="/monitoring/config/notification/FilterCreate"
-         name="filterCreateForm"
-         scope="request"
-         input="/WEB-INF/pages/admin/monitoring/config/notification/filtercreate.jsp"
-         type="com.redhat.rhn.frontend.action.monitoring.notification.FilterCreateAction"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="postRequiredIfSubmitted" value="true" />
-         <forward name="default"
-                  path="/WEB-INF/pages/admin/monitoring/config/notification/filtercreate.jsp" />
-         <forward name="success"
-                  path="/monitoring/config/notification/ActiveFilters.do" redirect="true"/>
-    </action>
-
-    <action path="/monitoring/config/notification/FilterEdit"
-         name="filterCreateForm"
-         scope="request"
-         input="/WEB-INF/pages/admin/monitoring/config/notification/filteredit.jsp"
-         type="com.redhat.rhn.frontend.action.monitoring.notification.FilterEditAction"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="postRequiredIfSubmitted" value="true" />
-         <forward name="default"
-                  path="/WEB-INF/pages/admin/monitoring/config/notification/filteredit.jsp" />
-         <forward name="success"
-                  path="/monitoring/config/notification/ActiveFilters.do" redirect="true"/>
-    </action>
-
-    <!-- PROBE SUITES -->
-    <action path="/monitoring/config/ProbeSuites"
-        scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/probesuites.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.ProbeSuiteListSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <set-property property="acls" value="show_monitoring()"/>
-        <set-property property="mixins" value="com.redhat.rhn.common.security.acl.MonitoringAclHandler" />
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/monitoring/config/probesuites.jsp"/>
-         <forward name="remove"
-                  path="/monitoring/config/ProbeSuitesRemoveConfirm.do" redirect="true"/>
-    </action>
-
-
-
-    <action path="/monitoring/config/ProbeSuitesRemoveConfirm"
-         scope="request"
-         input="/WEB-INF/pages/admin/monitoring/config/probesuitesremoveconfirm.jsp"
-         type="com.redhat.rhn.frontend.action.monitoring.ProbeSuitesRemoveSetupAction">
-         <forward name="default"
-                  path="/WEB-INF/pages/admin/monitoring/config/probesuitesremoveconfirm.jsp" />
-    </action>
-
-    <action path="/monitoring/config/ProbeSuitesRemoveConfirmSubmit"
-         scope="request"
-         input="/WEB-INF/pages/admin/monitoring/config/probesuitesremoveconfirm.jsp"
-         type="com.redhat.rhn.frontend.action.monitoring.ProbeSuitesRemoveAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="postRequired" value="true" />
-         <forward name="default"
-                  path="/monitoring/config/ProbeSuites.do" redirect="true"/>
-    </action>
-
-    <action path="/monitoring/config/ProbeSuiteListProbes"
-        scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/probes.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.ProbeSuiteListProbesSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-    <set-property property="postRequiredIfSubmitted" value="true" />
-    <set-property property="acls" value="probe_suite_access()"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/monitoring/config/probes.jsp"/>
-        <forward name="remove"
-                 path="/monitoring/config/ProbeSuiteListProbes.do" redirect="true"/>
-    </action>
-
-
-    <action path="/monitoring/config/ProbeSuiteProbeCreate"
-         name="probeCreateForm"
-         scope="request"
-         input="/WEB-INF/pages/admin/monitoring/config/probe-create.jsp"
-         type="com.redhat.rhn.frontend.action.monitoring.ProbeSuiteProbeCreateAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-    <set-property property="acls" value="probe_suite_access()"/>
-    <set-property property="postRequiredIfSubmitted" value="true" />
-         <forward name="default"
-                  path="/WEB-INF/pages/admin/monitoring/config/probe-create.jsp"/>
-         <forward name="success"
-                  path="/monitoring/config/ProbeSuiteListProbes.do" redirect="true"/>
-    </action>
-
-    <action path="/monitoring/config/ProbeSuiteProbeEdit"
-         name="probeEditForm"
-         scope="request"
-         input="/WEB-INF/pages/admin/monitoring/config/probe-edit.jsp"
-         type="com.redhat.rhn.frontend.action.monitoring.ProbeSuiteProbeEditAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-    <set-property property="postRequiredIfSubmitted" value="true" />
-    <set-property property="acls" value="probe_suite_access()"/>
-         <forward name="default"
-                  path="/WEB-INF/pages/admin/monitoring/config/probe-edit.jsp"/>
-         <forward name="success"
-                  path="/monitoring/config/ProbeSuiteListProbes.do" redirect="true"/>
-    </action>
-
-    <action path="/monitoring/config/ProbeSuiteSystemsEdit"
-        scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/probesuitesystemsedit.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.ProbeSuiteSystemsEditSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-    <set-property property="acls" value="probe_suite_access()"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/monitoring/config/probesuitesystemsedit.jsp"/>
-        <forward name="preconditionfailed"
-                 path="/monitoring/config/ProbeSuiteSystems.do" redirect="true"/>
-    </action>
-
-    <action path="/monitoring/config/ProbeSuiteSystemsEditSubmit"
-        scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/probesuitesystemsedit.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.ProbeSuiteSystemsEditAction"
-        parameter="dispatch"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-    <set-property property="postRequired" value="true" />
-    <set-property property="acls" value="probe_suite_access()"/>
-        <forward name="default"
-                 path="/monitoring/config/ProbeSuiteSystemsEdit.do" redirect="true"/>
-        <forward name="added"
-                 path="/monitoring/config/ProbeSuiteSystems.do" redirect="true"/>
-    </action>
-
-    <action path="/monitoring/config/ProbeSuiteSystems"
-        scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/probesuitesystems.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.ProbeSuiteSystemsSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-    <set-property property="acls" value="probe_suite_access()"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/monitoring/config/probesuitesystems.jsp"/>
-    </action>
-
-    <action path="/monitoring/config/ProbeSuiteSystemsSubmit"
-        scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/probesuitesystems.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.ProbeSuiteSystemsAction"
-        parameter="dispatch"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-    <set-property property="acls" value="probe_suite_access()"/>
-    <set-property property="postRequired" value="true" />
-        <forward name="default"
-                  path="/monitoring/config/ProbeSuiteSystems.do" redirect="true"/>
-         <forward name="delete"
-                  path="/monitoring/config/ProbeSuiteSystemsDelete.do" />
-    </action>
-
-    <action path="/monitoring/config/ProbeSuiteEdit"
-        name="probeSuiteEditForm"
-        scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/probesuiteedit.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.ProbeSuiteEditAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-    <set-property property="postRequiredIfSubmitted" value="true" />
-    <set-property property="acls" value="probe_suite_access()"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/monitoring/config/probesuiteedit.jsp"/>
-        <forward name="saved"
-                 path="/monitoring/config/ProbeSuiteListProbes.do" redirect="true"/>
-    </action>
-
-    <action path="/monitoring/config/ProbeSuiteCreate"
-        name="probeSuiteEditForm"
-        scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/probesuitecreate.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.ProbeSuiteCreateAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/monitoring/config/probesuitecreate.jsp"/>
-        <forward name="saved"
-                 path="/monitoring/config/ProbeSuiteListProbes.do" redirect="true"/>
-    </action>
-
-    <!-- PROBES -->
-    <action path="/systems/details/probes/ProbeEdit"
-         name="probeEditForm"
-         scope="request"
-         input="/WEB-INF/pages/systems/probes/edit.jsp"
-         type="com.redhat.rhn.frontend.action.systems.monitoring.ProbeEditAction"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="postRequiredIfSubmitted" value="true" />
-         <forward name="default"
-                  path="/WEB-INF/pages/systems/probes/edit.jsp"/>
-         <forward name="success"
-                  path="/systems/details/probes/ProbeDetails.do" redirect="true"/>
-    </action>
-
-    <action path="/systems/details/probes/ProbeCreate"
-         name="probeCreateForm"
-         scope="request"
-         input="/WEB-INF/pages/systems/probes/create.jsp"
-         type="com.redhat.rhn.frontend.action.systems.monitoring.ProbeCreateAction"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="postRequiredIfSubmitted" value="true" />
-         <forward name="default"
-                  path="/WEB-INF/pages/systems/probes/create.jsp"/>
-         <forward name="success"
-                  path="/systems/details/probes/ProbeDetails.do" redirect="true"/>
-    </action>
-
-    <action path="/systems/details/probes/ProbeGraph"
-         scope="request"
-         input="/WEB-INF/pages/systems/probes/details.jsp"
-         type="com.redhat.rhn.frontend.action.systems.monitoring.ProbeGraphAction">
-         <forward name="default"
-                  path="/WEB-INF/pages/systems/probes/details.jsp"/>
-    </action>
-
-    <action path="/systems/details/probes/ProbeDelete"
-         name="probeDeleteForm"
-         scope="request"
-         input="/WEB-INF/pages/systems/probes/delete.jsp"
-         type="com.redhat.rhn.frontend.action.systems.monitoring.ProbeDeleteAction"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="postRequiredIfSubmitted" value="true" />
-         <forward name="default"
-                  path="/WEB-INF/pages/systems/probes/delete.jsp"/>
-         <forward name="deleted"
-                  path="/systems/details/probes/ProbesList.do"
-                  redirect="true" />
-
-
-    </action>
     <!-- SDC Package Profiles -->
     <action path="/systems/details/packages/profiles/Create"
         scope="request"
@@ -5466,7 +5000,7 @@
                  redirect="true" />
     </action>
 
-        <action path="/systems/ssm/misc/Index"
+    <action path="/systems/ssm/misc/Index"
         scope="request"
         input="/WEB-INF/pages/ssm/systems/misc/index.jsp"
         type="com.redhat.rhn.frontend.action.ssm.MiscIndexAction"
@@ -5474,6 +5008,41 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/misc/index.jsp" />
+        <forward name="confirm"
+                 path="/systems/ssm/misc/ConfirmSystemPreferences.do" />
+    </action>
+
+    <action path="/systems/ssm/misc/ConfirmSystemPreferences"
+        scope="request"
+        input="/WEB-INF/pages/ssm/systems/misc/confirmsystempreferences.jsp"
+        type="com.redhat.rhn.frontend.action.ssm.ConfirmSystemPreferencesAction"
+        name="ssmPreferencesForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/misc/confirmsystempreferences.jsp" />
+        <forward name="confirm" redirect="true"
+                 path="/systems/ssm/misc/Index.do" />
+    </action>
+
+    <action path="/systems/ssm/misc/CustomValue"
+        scope="request"
+        input="/WEB-INF/pages/ssm/systems/misc/customvalue.jsp"
+        type="com.redhat.rhn.frontend.action.ssm.CustomValueAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/misc/customvalue.jsp" />
+    </action>
+
+   <action path="/systems/ssm/misc/SetCustomValue"
+        name="updateCustomDataForm"
+        scope="request"
+        input="/WEB-INF/pages/ssm/systems/misc/setcustomvalue.jsp"
+        parameter="dispatch"
+        type="com.redhat.rhn.frontend.action.ssm.CustomValueSetAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default" path="/WEB-INF/pages/ssm/systems/misc/setcustomvalue.jsp" />
+        <forward name="updated" path="/systems/ssm/misc/Index.do" redirect="true"/>
     </action>
 
     <action path="/systems/ssm/audit/ScheduleXccdf"
@@ -5514,41 +5083,6 @@
     </action>
 
     <!-- ===== END SSM ===== -->
-
-    <action path="/monitoring/config/notification/Methods"
-        scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/notification/methods.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.notification.MethodsSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="show_monitoring()"/>
-        <set-property property="mixins" value="com.redhat.rhn.common.security.acl.MonitoringAclHandler" />
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/monitoring/config/notification/methods.jsp"/>
-    </action>
-
-    <action path="/monitoring/config/notification/MethodCreate"
-        scope="request"
-        name="methodEditForm"
-        input="/WEB-INF/pages/admin/monitoring/config/notification/method-create.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.notification.MethodCreateAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/monitoring/config/notification/method-create.jsp"/>
-         <forward name="success"
-                  path="/monitoring/config/notification/Methods.do" redirect="true"/>
-    </action>
-
-    <action path="/monitoring/config/notification/MethodEdit"
-        scope="request"
-        name="methodEditForm"
-        input="/WEB-INF/pages/admin/monitoring/config/notification/method-edit.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.notification.MethodEditAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/monitoring/config/notification/method-edit.jsp"/>
-         <forward name="success"
-                  path="/monitoring/config/notification/Methods.do" redirect="true"/>
-    </action>
 
     <action path="/admin/config/GeneralConfig"
         scope="request"
@@ -6210,7 +5744,7 @@
         <set-property property="acls" value="user_role(activation_key_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/clone.jsp"/>
-        <forward name="success"
+        <forward name="success" redirect = "true"
                  path="/activationkeys/List.do"/>
     </action>
 
@@ -7281,18 +6815,6 @@
                  redirect="true" path="/kickstart/ViewTrees.do"/>
     </action>
 
-    <action path="/monitoring/ProbeList"
-        scope="request"
-        input="/WEB-INF/pages/monitoring/probes.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.ProbeList"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <set-property property="acls" value="show_monitoring()"/>
-        <set-property property="mixins" value="com.redhat.rhn.common.security.acl.MonitoringAclHandler" />
-        <forward name="default"
-                 path="/WEB-INF/pages/monitoring/probes.jsp"/>
-    </action>
-
     <!-- ===== CONFIGURATION ===== -->
 
     <!--
@@ -7723,7 +7245,7 @@
         type="com.redhat.rhn.frontend.action.configuration.files.ManageRevisionSubmit"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequired" value="true" />
-        <forward name="default"
+        <forward name="default" redirect="true"
                  path="/configuration/file/ManageRevision.do"/>
         <forward name="deletedfile" redirect="true"
                  path="/configuration/ChannelFiles.do" />
@@ -7839,6 +7361,8 @@
                  path="/WEB-INF/pages/configuration/files/filedetails.jsp"/>
         <forward name="error"
                  path="/WEB-INF/pages/configuration/files/filedetails.jsp"/>
+        <forward name="success" redirect="true"
+                 path="/configuration/file/FileDetails.do"/>
     </action>
 
     <action path="/configuration/file/FileDownload"
@@ -8054,6 +7578,15 @@
       <forward name="default" path="/WEB-INF/pages/channel/manage/add.jsp" />
     </action>
 
+    <action path="/channels/manage/errata/Clone"
+        scope="request"
+        input="/WEB-INF/pages/channel/manage/errataclone.jsp"
+        type="com.redhat.rhn.frontend.action.channel.manage.ErrataCloneAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/errataclone.jsp" />
+      <forward name="submit" path="/channels/manage/errata/ConfirmErrata.do" redirect="true"/>
+    </action>
+
     <action path="/channels/manage/errata/ListRemove"
         scope="request"
         input="/WEB-INF/pages/channel/manage/errataremove.jsp"
@@ -8081,7 +7614,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="postRequiredIfSubmitted" value="true" />
       <forward name="default" path="/WEB-INF/pages/channel/manage/adderrataredhat.jsp" />
-      <forward name="submit" path="/channels/manage/errata/ConfirmErrataAdd.do"  redirect="true"/>
+      <forward name="submit" path="/channels/manage/errata/ConfirmErrata.do"  redirect="true"/>
       </action>
 
       <action path="/channels/manage/errata/AddCustomErrata"
@@ -8091,10 +7624,10 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="postRequiredIfSubmitted" value="true" />
       <forward name="default" path="/WEB-INF/pages/channel/manage/addcustomerrata.jsp" />
-      <forward name="submit" path="/channels/manage/errata/ConfirmErrataAdd.do" redirect="true"/>
+      <forward name="submit" path="/channels/manage/errata/ConfirmErrata.do" redirect="true"/>
       </action>
 
-      <action path="/channels/manage/errata/ConfirmErrataAdd"
+      <action path="/channels/manage/errata/ConfirmErrata"
         scope="request"
         input="/WEB-INF/pages/channel/manage/confirmerrata.jsp"
         type="com.redhat.rhn.frontend.action.channel.manage.ConfirmErrataAction"
@@ -8108,7 +7641,7 @@
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.manage.PublishErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-       <forward name="default" path="/channels/manage/errata/Add.do" />
+       <forward name="default" path="/channels/manage/errata/ListRemove.do" redirect="true"/>
       </action>
 
 
@@ -8141,15 +7674,6 @@
       <forward name="default" path="/WEB-INF/pages/channel/manage/errata.jsp" />
       </action>
 
-
-
-     <action path="/channels/manage/solaris/ListPatchSets"
-        scope="request"
-        type="com.redhat.rhn.frontend.action.channel.manage.PatchSetListAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="postRequiredIfSubmitted" value="true" />
-      <forward name="default" path="/WEB-INF/pages/channel/manage/listpatchset.jsp" />
-      </action>
 
    <action path="/channels/ChannelPackages"
         scope="request"
@@ -8234,6 +7758,17 @@
       <forward name="protected"
                path="/WEB-INF/pages/channel/manage/confirmprotected.jsp" />
       <forward name="success" path="/channels/manage/Edit.do" redirect="true" />
+      <forward name="select" path="/channels/manage/errata/Clone.do" redirect="true" />
+   </action>
+
+   <action path="/channels/manage/Clone"
+           scope="request"
+           name="channelEditForm"
+           type="com.redhat.rhn.frontend.action.channel.manage.CloneChannelAction"
+           className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <forward name="default" path="/WEB-INF/pages/channel/manage/clone.jsp" />
+      <forward name="success" path="/WEB-INF/pages/channel/manage/edit.jsp" />
    </action>
 
    <action path="/channels/manage/ChannelPackagesRemove"
@@ -8302,6 +7837,32 @@
                  path="/WEB-INF/pages/channel/manage/comparepackagesmergeconfirm.jsp" />
         <forward name="complete"
                  path="/channels/manage/ChannelPackages.do" redirect="true" />
+   </action>
+
+   <action path="/channels/Subscribers"
+        scope="request"
+        input="/WEB-INF/pages/channels/manage/subscribers.jsp"
+        type="com.redhat.rhn.frontend.action.channels.SubscribersAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(channel_admin) or user_can_admin_channel();"/>
+        <set-property property="mixins"
+              value="com.redhat.rhn.common.security.acl.ChannelAclHandler"/>
+        <forward name="default" path="/WEB-INF/pages/channels/manage/subscribers.jsp" />
+        <forward name="submitted"
+                 path="/channels/Subscribers.do" redirect="true"/>
+   </action>
+
+   <action path="/channels/manage/Subscribers"
+        scope="request"
+        input="/WEB-INF/pages/channels/manage/subscribers_manage.jsp"
+        type="com.redhat.rhn.frontend.action.channels.SubscribersAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(channel_admin) or user_can_admin_channel();"/>
+        <set-property property="mixins"
+              value="com.redhat.rhn.common.security.acl.ChannelAclHandler"/>
+        <forward name="default" path="/WEB-INF/pages/channels/manage/subscribers_manage.jsp" />
+        <forward name="submitted"
+                 path="/channels/manage/Subscribers.do" redirect="true"/>
    </action>
 
    <action path="/channels/Managers"
@@ -8428,6 +7989,44 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.PackageChangeLogAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/rhnpackage/changelog.jsp" />
+      </action>
+
+   <action path="/software/packages/FileList"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.PackageFileListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/rhnpackage/filelist.jsp" />
+      </action>
+
+   <action path="/software/packages/NewVersions"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.NewVersionsListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/rhnpackage/newversions.jsp" />
+      </action>
+
+   <action path="/software/packages/InstalledSystems"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.InstalledSystemsListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/rhnpackage/installedsystems.jsp" />
+      </action>
+
+   <action path="/software/packages/TargetSystems"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.TargetSystemsListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/rhnpackage/targetsystems.jsp" />
+        <forward name="confirm" path="/software/packages/TargetSystemsConfirm.do" redirect="true" />
+      </action>
+
+   <action path="/software/packages/TargetSystemsConfirm"
+        scope="request"
+        name="datePickerForm"
+        type="com.redhat.rhn.frontend.action.rhnpackage.TargetSystemsConfirmAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/rhnpackage/targetsystemsconfirm.jsp" />
+        <forward name="confirm" path="/software/packages/Details.do" redirect="true" />
       </action>
 
 
@@ -8571,7 +8170,6 @@
         type="com.redhat.rhn.frontend.action.help.DocSearchSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/help/docsearch.jsp" />
-        <forward name="success" path="/help/Search.do" redirect="true"/>
     </action>
 
       <action path="/help/Chat"
@@ -8584,6 +8182,12 @@
         scope="request"
         type="com.redhat.rhn.frontend.action.help.HelpAction">
         <forward name="default" path="/WEB-INF/pages/help/helpindex.jsp"/>
+    </action>
+
+    <action path="/help/about"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.help.ChatAction">
+        <forward name="default" path="/WEB-INF/pages/help/about.jsp"/>
     </action>
 
     <!-- SSM Operations Log -->
@@ -8618,6 +8222,16 @@
     </action>
 
     <!-- Provisioning group -->
+    <action path="/systems/ssm/provisioning/TagSystems"
+            scope="request"
+            name="tagSystemsForm"
+            type="com.redhat.rhn.frontend.action.ssm.TagSystemsAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/provisioning-tag-systems.jsp"/>
+    </action>
+
     <action path="/systems/ssm/provisioning/RemoteCommand"
             scope="request"
             name="remoteCommandForm"

@@ -2,15 +2,13 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.3.4
+Version: 2.3.8
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
-Summary: Command Line Installer of Spacewalk Proxy Server
-Group:    Applications/Internet
 Requires: rhncfg-client
 Requires: rhncfg
 Requires: rhncfg-management
@@ -97,6 +95,18 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Wed Jan 21 2015 Matej Kollar <mkollar@redhat.com> 2.3.8-1
+- Fix Pylint on Fedora 21
+
+* Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 2.3.7-1
+- Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
+
+* Fri Nov 28 2014 Tomas Lestach <tlestach@redhat.com> 2.3.6-1
+- spacewalk-proxy-installer: remove duplicate Summary and Group entries
+
+* Fri Nov 21 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.5-1
+- 1166045 - read systemid path from configuration
+
 * Fri Oct 31 2014 Stephen Herr <sherr@redhat.com> 2.3.4-1
 - Disable pylint warning so things can build
 

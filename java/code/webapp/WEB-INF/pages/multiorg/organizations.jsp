@@ -27,27 +27,27 @@
          filter="com.redhat.rhn.frontend.action.multiorg.OrgListFilter"
          emptykey="orglist.jsp.noOrgs">
 
-	<!-- Organization name column -->
-	<rl:column bound="false"
-	           sortable="true"
-	           headerkey="org.nopunc.displayname"
-	           sortattr="name">
-		<c:out value="<a href=\"/rhn/multiorg/OrgTrustDetails.do?oid=${current.id}\">${current.name}</a>" escapeXml="false" />
-		<c:if test="${current.id == 1}">*</c:if>
-	</rl:column>
-	<rl:column bound="false"
-	           sortable="false"
-	           headerkey="org.nopunc.sharedchannels"
-	           attr="sharedChannels">
-	    <c:choose>
-	    <c:when test="${current.sharedChannels > 0}">
-		  <c:out value="<a href=\"/rhn/multiorg/channels/Consumed.do?oid=${current.id}\">${current.sharedChannels}</a>" escapeXml="false" />
-		</c:when>
-		<c:otherwise>
-		  <c:out value="${current.sharedChannels}" />
-		</c:otherwise>
-		</c:choose>
-	</rl:column>
+        <!-- Organization name column -->
+        <rl:column bound="false"
+                   sortable="true"
+                   headerkey="org.nopunc.displayname"
+                   sortattr="name">
+                <c:out value="<a href=\"/rhn/multiorg/OrgTrustDetails.do?oid=${current.id}\">${current.name}</a>" escapeXml="false" />
+                <c:if test="${current.id == 1}">*</c:if>
+        </rl:column>
+        <rl:column bound="false"
+                   sortable="false"
+                   headerkey="org.nopunc.sharedchannels"
+                   attr="sharedChannels">
+            <c:choose>
+            <c:when test="${current.sharedChannels > 0}">
+                  <c:out value="<a href=\"/rhn/multiorg/channels/Consumed.do?oid=${current.id}\">${current.sharedChannels}</a>" escapeXml="false" />
+                </c:when>
+                <c:otherwise>
+                  <c:out value="${current.sharedChannels}" />
+                </c:otherwise>
+                </c:choose>
+        </rl:column>
 </rl:list>
 
 </rl:listset>

@@ -125,16 +125,17 @@ sub parse_options {
             "enable-tftp:s",
             "external-oracle",
             "external-postgresql",
+            "external-postgresql-over-ssl",
             "db-only",
             "rhn-http-proxy:s",
             "rhn-http-proxy-username:s",
             "rhn-http-proxy-password:s",
             "managed-db",
-		   );
+                   );
 
   my $usage = loc("usage: %s %s\n",
-		  $0,
-		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>] [ --external-oracle | --external-postgresql ]" );
+                  $0,
+                  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>] [ --external-oracle | --external-postgresql [ --external-postgresql-over-ssl ] ]" );
 
   # Terminate if any errors were encountered parsing the command line args:
   my %opts;
@@ -181,6 +182,22 @@ sub read_config {
   return;
 }
 
+sub write_config {
+  my $options = shift;
+  my $target = shift;
+
+  my @opt_strings = map { "--option=${_}=" . $options->{$_} } grep { defined $options->{$_} } keys %{$options};
+
+  Spacewalk::Setup::system_or_exit([ "/usr/bin/rhn-config-satellite.pl",
+                   "--target=$target",
+                   @opt_strings,
+                 ],
+                 29,
+                 'There was a problem setting initial configuration.');
+
+  return 1;
+}
+
 sub load_answer_file {
   my $options = shift;
   my $answers = shift;
@@ -188,7 +205,7 @@ sub load_answer_file {
 
   my @files = ();
   foreach my $afile (glob(DEFAULT_ANSWER_FILE_GLOB)) {
-      push @files, $afile if not grep $afile, @skip;
+      push @files, $afile if not grep $_ eq $afile, @skip;
   }
   push @files, $options->{'answer-file'} if $options->{'answer-file'};
 
@@ -241,29 +258,29 @@ sub contains_embedded_oracle {
 
 # Return 1 in case setup should also *migrate* from oracle -> postgresql
 sub is_db_migration {
-	my $opts = shift;
+        my $opts = shift;
 
-	# We cannot migrate in non-upgrade mode
-	return 0 if (not defined $opts->{'upgrade'});
-	# We're not migrating, if we're using external oracle db
-	return 0 if (defined $opts->{'external-oracle'});
+        # We cannot migrate in non-upgrade mode
+        return 0 if (not defined $opts->{'upgrade'});
+        # We're not migrating, if we're using external oracle db
+        return 0 if (defined $opts->{'external-oracle'});
 
-	my %config = ();
+        my %config = ();
 
-	if (-f ORACLE_RHNCONF_BACKUP) {
-		read_config(ORACLE_RHNCONF_BACKUP, \%config);
-	} else {
-		read_config(DEFAULT_RHN_CONF_LOCATION, \%config);
-	}
+        if (-f ORACLE_RHNCONF_BACKUP) {
+                read_config(ORACLE_RHNCONF_BACKUP, \%config);
+        } else {
+                read_config(DEFAULT_RHN_CONF_LOCATION, \%config);
+        }
 
-	# Satellite 5.3 and older used default_db -> we know we are on Oracle
-	# -> we know we want to migrate to PostgreSQL (no --external-oracle specified)
-	return 1 if (exists $config{'default_db'});
+        # Satellite 5.3 and older used default_db -> we know we are on Oracle
+        # -> we know we want to migrate to PostgreSQL (no --external-oracle specified)
+        return 1 if (exists $config{'default_db'});
 
-	# Satellite 5.4 and beyond used db_backend
-	return 1 if (exists $config{'db_backend'} and $config{'db_backend'} eq 'oracle');
+        # Satellite 5.4 and beyond used db_backend
+        return 1 if (exists $config{'db_backend'} and $config{'db_backend'} eq 'oracle');
 
-	return 0;
+        return 0;
 }
 
 sub system_debug {
@@ -397,28 +414,28 @@ EOF
 
 my $spinning_pattern_maxlength = 0;
 for (@spinning_pattern) {
-	if (length > $spinning_pattern_maxlength) {
-		$spinning_pattern_maxlength = length;
-	}
+        if (length > $spinning_pattern_maxlength) {
+                $spinning_pattern_maxlength = length;
+        }
 }
 sub spinning_callback {
-	my $old = select STDOUT;
-	$| = 1;
-	my $index = ($spinning_callback_count++ % scalar(@spinning_pattern));
-	print STDOUT $spinning_pattern[$index],
-		(' ' x ($spinning_pattern_maxlength - length($spinning_pattern[$index]))),
-		"\r";
-	select $old;
-	alarm 1;
+        my $old = select STDOUT;
+        $| = 1;
+        my $index = ($spinning_callback_count++ % scalar(@spinning_pattern));
+        print STDOUT $spinning_pattern[$index],
+                (' ' x ($spinning_pattern_maxlength - length($spinning_pattern[$index]))),
+                "\r";
+        select $old;
+        alarm 1;
 }
 
 sub set_spinning_callback {
-	if (not -t STDOUT) {
-		return;
-	}
-	$spinning_callback_count = 0;
-	$SIG{'ALRM'} = \&spinning_callback;
-	alarm 1;
+        if (not -t STDOUT) {
+                return;
+        }
+        $spinning_callback_count = 0;
+        $SIG{'ALRM'} = \&spinning_callback;
+        alarm 1;
 }
 
 sub init_log_files {
@@ -654,240 +671,240 @@ EOQ
 
 
 sub print_progress {
-	my %params = validate(@_, { init_message => 1,
-		log_file_name => 1,
-		log_file_size => 1,
-		err_message => 1,
-		err_code => 1,
-		system_opts => 1,
-	});
+        my %params = validate(@_, { init_message => 1,
+                log_file_name => 1,
+                log_file_size => 1,
+                err_message => 1,
+                err_code => 1,
+                system_opts => 1,
+        });
 
-	local *LOGFILE;
-	open(LOGFILE, ">>", $params{log_file_name}) or do {
-		print "Error writing log file '$params{log_file_name}': $!\n";
-		print STDERR "Error writing log file '$params{log_file_name}': $!\n";
-		exit $params{err_code};
-	};
+        local *LOGFILE;
+        open(LOGFILE, ">>", $params{log_file_name}) or do {
+                print "Error writing log file '$params{log_file_name}': $!\n";
+                print STDERR "Error writing log file '$params{log_file_name}': $!\n";
+                exit $params{err_code};
+        };
 
-	$| = 1;
-	my $orig_stdout = select LOGFILE;
-	$| = 1;
-	select $orig_stdout;
-	print loc($params{init_message});
-	local *PROCESS_OUT;
-	my $progress_hashes_done = 0;
-	my $progress_callback_length = 0;
-	my $pid = open3(gensym, \*PROCESS_OUT, \*PROCESS_OUT, @{$params{system_opts}});
-	while (<PROCESS_OUT>) {
-		print LOGFILE $_;
-		$progress_callback_length += length;
-		if (-t STDOUT and $params{log_file_size}) {
-			my $target_hashes = int(60 * $progress_callback_length / $params{log_file_size});
-			if ($target_hashes > $progress_hashes_done) {
-				print "#" x ($target_hashes - $progress_hashes_done);
-				$progress_hashes_done = $target_hashes;
-			}
-		}
-	}
-	close PROCESS_OUT;
-	waitpid($pid, 0);
-	my $ret = $?;
-	close LOGFILE;
-	print "\n";
+        $| = 1;
+        my $orig_stdout = select LOGFILE;
+        $| = 1;
+        select $orig_stdout;
+        print loc($params{init_message});
+        local *PROCESS_OUT;
+        my $progress_hashes_done = 0;
+        my $progress_callback_length = 0;
+        my $pid = open3(gensym, \*PROCESS_OUT, \*PROCESS_OUT, @{$params{system_opts}});
+        while (<PROCESS_OUT>) {
+                print LOGFILE $_;
+                $progress_callback_length += length;
+                if (-t STDOUT and $params{log_file_size}) {
+                        my $target_hashes = int(60 * $progress_callback_length / $params{log_file_size});
+                        if ($target_hashes > $progress_hashes_done) {
+                                print "#" x ($target_hashes - $progress_hashes_done);
+                                $progress_hashes_done = $target_hashes;
+                        }
+                }
+        }
+        close PROCESS_OUT;
+        waitpid($pid, 0);
+        my $ret = $?;
+        close LOGFILE;
+        print "\n";
 
-	if ($ret) {
-		print loc($params{err_message});
-		exit $params{err_code};
-	}
+        if ($ret) {
+                print loc($params{err_message});
+                exit $params{err_code};
+        }
 }
 
 # Format connect data to connect string.
 sub _oracle_make_dsn_string {
-	my $data = shift;
-	if (not (defined $data->{'db-host'} and defined $data->{'db-name'})) {
-		return;
-	}
-	my $dsn = "//$data->{'db-host'}";
-	if (defined $data->{'db-port'}) {
-		$dsn .= ':' . $data->{'db-port'};
-	}
-	$dsn .= "/$data->{'db-name'}";
-	return $dsn;
+        my $data = shift;
+        if (not (defined $data->{'db-host'} and defined $data->{'db-name'})) {
+                return;
+        }
+        my $dsn = "//$data->{'db-host'}";
+        if (defined $data->{'db-port'}) {
+                $dsn .= ':' . $data->{'db-port'};
+        }
+        $dsn .= "/$data->{'db-name'}";
+        return $dsn;
 }
 
 # We attempt to connect to the database using the current db-* values.
 # Returns 0 if could not even connect, 1 if could connect but
 # login/password was wrong, and 2 if the connect was fully successful.
 sub _oracle_check_connect_info {
-	my $data = shift;
-	eval {
-		my $dbh = get_dbh($data);
-		$dbh->disconnect();
-	};
-	if (not $@) {
-		# We were able to connect to the database. Good.
-		return 2;
-	}
-	if (not defined DBI->err()) {	# maybe we failed to load the DBD?
-		die $@;
-	}
-	if (DBI->err() == 1017 or DBI->err() == 1005) {
-		# We at least knew the connect string, so we
-		# were able to communicate with the database.
-		return 1;
-	}
-	return 0;
+        my $data = shift;
+        eval {
+                my $dbh = get_dbh($data);
+                $dbh->disconnect();
+        };
+        if (not $@) {
+                # We were able to connect to the database. Good.
+                return 2;
+        }
+        if (not defined DBI->err()) {   # maybe we failed to load the DBD?
+                die $@;
+        }
+        if (DBI->err() == 1017 or DBI->err() == 1005) {
+                # We at least knew the connect string, so we
+                # were able to communicate with the database.
+                return 1;
+        }
+        return 0;
 }
 
 # Called from oracle_get_database_answers, here we focus on
 # at least reaching some instance, not worrying about username
 # and password for now.
 sub oracle_get_connect_answers {
-	my $opts = shift;
-	my $answers = shift;
+        my $opts = shift;
+        my $answers = shift;
 
-	my $ret;
+        my $ret;
 
-	my %data;
-	$data{'db-backend'} = 'oracle';
-	$data{'db-user'} = $answers->{'db-user'};
-	$data{'db-password'} = $answers->{'db-password'};
+        my %data;
+        $data{'db-backend'} = 'oracle';
+        $data{'db-user'} = $answers->{'db-user'};
+        $data{'db-password'} = $answers->{'db-password'};
 
 REDO_CONNECT:
-	# If the answers hold data that make it possible
-	# to create DSN, try it without asking first.
-	$data{'db-name'} = _oracle_make_dsn_string($answers);
-	if (defined $data{'db-name'}) {
-		# Try the direct //host:port/name format.
-		if ($ret  = _oracle_check_connect_info(\%data)) {
-			# It worked, we shall set it in place of name.
-			$answers->{'db-name'} = $data{'db-name'};
-			return $ret;
-		}
-	}
+        # If the answers hold data that make it possible
+        # to create DSN, try it without asking first.
+        $data{'db-name'} = _oracle_make_dsn_string($answers);
+        if (defined $data{'db-name'}) {
+                # Try the direct //host:port/name format.
+                if ($ret  = _oracle_check_connect_info(\%data)) {
+                        # It worked, we shall set it in place of name.
+                        $answers->{'db-name'} = $data{'db-name'};
+                        return $ret;
+                }
+        }
 
-	if (defined $answers->{'db-name'}) {
-		# Try just the db-name directly, ignore db-host.
-		# This would work if tnsnames.ora already existed.
-		if ($ret = _oracle_check_connect_info($answers)) {
-			return $ret;
-		}
-	}
+        if (defined $answers->{'db-name'}) {
+                # Try just the db-name directly, ignore db-host.
+                # This would work if tnsnames.ora already existed.
+                if ($ret = _oracle_check_connect_info($answers)) {
+                        return $ret;
+                }
+        }
 
-	ask(
-		-noninteractive => $opts->{"non-interactive"},
-		-question => "Database service name (SID)",
-		-test => qr/\S+/,
-		-answer => \$answers->{'db-name'}
-	);
+        ask(
+                -noninteractive => $opts->{"non-interactive"},
+                -question => "Database service name (SID)",
+                -test => qr/\S+/,
+                -answer => \$answers->{'db-name'}
+        );
 
-	# Try the db-name as full connect (ignore host).
-	if ($ret = _oracle_check_connect_info($answers)) {
-		return $ret;
-	}
+        # Try the db-name as full connect (ignore host).
+        if ($ret = _oracle_check_connect_info($answers)) {
+                return $ret;
+        }
 
-	$data{'db-name'} = _oracle_make_dsn_string($answers);
-	if (not defined $data{'db-name'}) {
-		$data{'db-name'} = $answers->{'db-name'};
-		$data{'db-host'} = 'localhost';
-		$data{'db-name'} = _oracle_make_dsn_string(\%data);
-	}
-	if (defined $data{'db-name'}) {
-		# Try db-name as SID for host (//host:port/name).
-		if ($ret  = _oracle_check_connect_info(\%data)) {
-			# It worked, we shall set it in place of name.
-			$answers->{'db-name'} = $data{'db-name'};
-			return $ret;
-		}
-	}
+        $data{'db-name'} = _oracle_make_dsn_string($answers);
+        if (not defined $data{'db-name'}) {
+                $data{'db-name'} = $answers->{'db-name'};
+                $data{'db-host'} = 'localhost';
+                $data{'db-name'} = _oracle_make_dsn_string(\%data);
+        }
+        if (defined $data{'db-name'}) {
+                # Try db-name as SID for host (//host:port/name).
+                if ($ret  = _oracle_check_connect_info(\%data)) {
+                        # It worked, we shall set it in place of name.
+                        $answers->{'db-name'} = $data{'db-name'};
+                        return $ret;
+                }
+        }
 
-	ask(
-		-noninteractive => $opts->{"non-interactive"},
-		-question => "Database hostname",
-		-test => qr/\S+/,
-		-default => 'localhost',
-		-answer => \$answers->{'db-host'});
+        ask(
+                -noninteractive => $opts->{"non-interactive"},
+                -question => "Database hostname",
+                -test => qr/\S+/,
+                -default => 'localhost',
+                -answer => \$answers->{'db-host'});
 
     $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'}, "utf8");
-	$data{'db-name'} = _oracle_make_dsn_string($answers);
-	if (defined $data{'db-name'}) {
-		# Try db-name as SID for host (//host:port/name).
-		if ($ret  = _oracle_check_connect_info(\%data)) {
-			# It worked, we shall set it in place of name.
-			$answers->{'db-name'} = $data{'db-name'};
-			return $ret;
-		}
-	}
+        $data{'db-name'} = _oracle_make_dsn_string($answers);
+        if (defined $data{'db-name'}) {
+                # Try db-name as SID for host (//host:port/name).
+                if ($ret  = _oracle_check_connect_info(\%data)) {
+                        # It worked, we shall set it in place of name.
+                        $answers->{'db-name'} = $data{'db-name'};
+                        return $ret;
+                }
+        }
 
-	ask(
-		-noninteractive => $opts->{"non-interactive"},
-		-question => "Database (listener) port",
-		-test => qr/\d+/,
-		-default => '1521',
-		-answer => \$answers->{'db-port'});
+        ask(
+                -noninteractive => $opts->{"non-interactive"},
+                -question => "Database (listener) port",
+                -test => qr/\d+/,
+                -default => '1521',
+                -answer => \$answers->{'db-port'});
 
-	$data{'db-name'} = _oracle_make_dsn_string($answers);
-	if (defined $data{'db-name'}) {
-		# Try db-name as SID for host (//host:port/name).
-		if ($ret  = _oracle_check_connect_info(\%data)) {
-			# It worked, we shall set it in place of name.
-			$answers->{'db-name'} = $data{'db-name'};
-			return $ret;
-		}
-	}
+        $data{'db-name'} = _oracle_make_dsn_string($answers);
+        if (defined $data{'db-name'}) {
+                # Try db-name as SID for host (//host:port/name).
+                if ($ret  = _oracle_check_connect_info(\%data)) {
+                        # It worked, we shall set it in place of name.
+                        $answers->{'db-name'} = $data{'db-name'};
+                        return $ret;
+                }
+        }
 
-	print loc("*** Database connection error: " . DBI->errstr() . "\n") if ($@ and DBI->err());
-	if (is_embedded_db($opts) or $opts->{"non-interactive"}) {
-		exit 19;
-	}
+        print loc("*** Database connection error: " . DBI->errstr() . "\n") if ($@ and DBI->err());
+        if (is_embedded_db($opts) or $opts->{"non-interactive"}) {
+                exit 19;
+        }
 
-	delete @{$answers}{qw/db-host db-port db-name/};
-	goto REDO_CONNECT;
+        delete @{$answers}{qw/db-host db-port db-name/};
+        goto REDO_CONNECT;
 }
 
 sub oracle_get_database_answers {
-	my $opts = shift;
-	my $answers = shift;
+        my $opts = shift;
+        my $answers = shift;
 
-	while (1) {
-		my $ret = oracle_get_connect_answers($opts, $answers);
-		if ($ret > 1) {
-			# Connect info was good, and even username and password were OK.
-			return;
-		}
+        while (1) {
+                my $ret = oracle_get_connect_answers($opts, $answers);
+                if ($ret > 1) {
+                        # Connect info was good, and even username and password were OK.
+                        return;
+                }
 
-		while (1) {
-			ask(
-				-noninteractive => $opts->{"non-interactive"},
-				-question => "Username",
-				-test => qr/\S+/,
-				-answer => \$answers->{'db-user'});
+                while (1) {
+                        ask(
+                                -noninteractive => $opts->{"non-interactive"},
+                                -question => "Username",
+                                -test => qr/\S+/,
+                                -answer => \$answers->{'db-user'});
 
-			ask(
-				-noninteractive => $opts->{"non-interactive"},
-				-question => "Password",
-				-test => qr/\S+/,
-				-answer => \$answers->{'db-password'},
-				-password => 1);
+                        ask(
+                                -noninteractive => $opts->{"non-interactive"},
+                                -question => "Password",
+                                -test => qr/\S+/,
+                                -answer => \$answers->{'db-password'},
+                                -password => 1);
 
-			$ret = _oracle_check_connect_info($answers);
-			if ($ret > 1) {
-				return;
-			}
-			print loc("*** Database connection error: " . DBI->errstr() . "\n") if ($@ and DBI->err());
-			if (is_embedded_db($opts) or $opts->{"non-interactive"}) {
-				exit 19;
-			}
+                        $ret = _oracle_check_connect_info($answers);
+                        if ($ret > 1) {
+                                return;
+                        }
+                        print loc("*** Database connection error: " . DBI->errstr() . "\n") if ($@ and DBI->err());
+                        if (is_embedded_db($opts) or $opts->{"non-interactive"}) {
+                                exit 19;
+                        }
 
-			if (not $ret) {
-				# We won't try username/password, need to go
-				# back to connect check loop.
-				last;
-			}
-			delete @{$answers}{qw/db-user db-password/};
-		}
-		delete @{$answers}{qw/db-host db-port db-name/};
-	}
+                        if (not $ret) {
+                                # We won't try username/password, need to go
+                                # back to connect check loop.
+                                last;
+                        }
+                        delete @{$answers}{qw/db-user db-password/};
+                }
+                delete @{$answers}{qw/db-host db-port db-name/};
+        }
 }
 
 
@@ -932,6 +949,16 @@ sub postgresql_get_database_answers {
         -answer => \$answers->{'db-password'},
         -password => 1);
 
+    if ($opts->{'external-postgresql-over-ssl'}) {
+      $answers->{'db-ssl-enabled'} = '1';
+      ask(
+         -noninteractive => $opts->{"non-interactive"},
+         -question => "Path to CA certificate for connection to database",
+         -test => sub { return (-f shift) },
+         -default => $ENV{HOME} . "/.postgresql/root.crt",
+         -answer => \$answers->{'db-ca-cert'});
+    }
+
     return;
 }
 
@@ -962,6 +989,11 @@ sub postgresql_setup_db {
     while (not $connected) {
         postgresql_get_database_answers($opts, $answers);
 
+        if ($opts->{'external-postgresql-over-ssl'}) {
+            system("spacewalk-setup-db-ssl-certificates", $answers->{'db-ca-cert'});
+            $ENV{PGSSLMODE}="verify-full";
+        }
+
         my $dbh;
 
         eval {
@@ -978,8 +1010,12 @@ sub postgresql_setup_db {
         }
     }
 
-    write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password');
-    postgresql_populate_db($opts, $answers);
+    my $populate_db = is_db_migration($opts);
+
+    set_hibernate_conf($answers);
+    write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password', 'db-ssl-enabled', 'hibernate.dialect', 'hibernate.connection.driver_class', 'hibernate.connection.driver_proto');
+
+    postgresql_populate_db($opts, $answers, $populate_db);
 
     if (is_db_migration($opts)) {
         print loc("* Database: Starting Oracle to PostgreSQL database migration.\n");
@@ -1050,10 +1086,10 @@ EOQ
     }
     print_progress(-init_message => "*** Progress: #",
         -log_file_name => DB_INSTALL_LOG_FILE,
-		-log_file_size => DB_INSTALL_LOG_SIZE,
-		-err_message => "Could not install database.\n",
-		-err_code => 15,
-		-system_opts => [ "/usr/bin/spacewalk-setup-postgresql",
+                -log_file_size => DB_INSTALL_LOG_SIZE,
+                -err_message => "Could not install database.\n",
+                -err_code => 15,
+                -system_opts => [ "/usr/bin/spacewalk-setup-postgresql",
                                   "create",
                                   "--db", $answers->{'db-name'},
                                   "--user", $answers->{'db-user'},
@@ -1067,10 +1103,11 @@ EOQ
 sub postgresql_populate_db {
     my $opts = shift;
     my $answers = shift;
+    my $populate_db = shift;
 
     print Spacewalk::Setup::loc("** Database: Populating database.\n");
 
-    if ($opts->{"skip-db-population"} or ($opts->{'upgrade'} and not is_db_migration($opts))) {
+    if ($opts->{"skip-db-population"} or ($opts->{'upgrade'} and not is_db_migration($opts) and not $populate_db)) {
         print Spacewalk::Setup::loc("** Database: Skipping database population.\n");
         return 1;
     }
@@ -1147,23 +1184,23 @@ sub postgresql_test_db_schema {
 # Spacewalk might have created.
 
 my $POSTGRESQL_CLEAR_SCHEMA = <<EOS;
-	drop schema if exists rpm cascade ;
-	drop schema if exists rhn_exception cascade ;
-	drop schema if exists rhn_config cascade ;
-	drop schema if exists rhn_server cascade ;
-	drop schema if exists rhn_entitlements cascade ;
-	drop schema if exists rhn_bel cascade ;
-	drop schema if exists rhn_cache cascade ;
-	drop schema if exists rhn_channel cascade ;
-	drop schema if exists rhn_config_channel cascade ;
-	drop schema if exists rhn_org cascade ;
-	drop schema if exists rhn_user cascade ;
-	drop schema if exists logging cascade ;
-	drop schema if exists public cascade ;
-	create schema public authorization postgres ;
+        drop schema if exists rpm cascade ;
+        drop schema if exists rhn_exception cascade ;
+        drop schema if exists rhn_config cascade ;
+        drop schema if exists rhn_server cascade ;
+        drop schema if exists rhn_entitlements cascade ;
+        drop schema if exists rhn_bel cascade ;
+        drop schema if exists rhn_cache cascade ;
+        drop schema if exists rhn_channel cascade ;
+        drop schema if exists rhn_config_channel cascade ;
+        drop schema if exists rhn_org cascade ;
+        drop schema if exists rhn_user cascade ;
+        drop schema if exists logging cascade ;
+        drop schema if exists public cascade ;
+        create schema public authorization postgres ;
 EOS
 sub postgresql_clear_db {
-	my $dbh = shift;
+        my $dbh = shift;
         my $do_shutdown = (defined($_[0]) ? shift : 1);
 
         if ($do_shutdown) {
@@ -1174,15 +1211,15 @@ sub postgresql_clear_db {
             print loc("** Database: Services stopped.  Clearing DB.\n");
         }
 
-	local $dbh->{RaiseError} = 0;
-	local $dbh->{PrintError} = 1;
-	local $dbh->{PrintWarn} = 0;
-	local $dbh->{AutoCommit} = 1;
-	for my $c (split /\n/, $POSTGRESQL_CLEAR_SCHEMA) {
-		$dbh->do($c);
-	}
-	$dbh->disconnect;
-	return 1;
+        local $dbh->{RaiseError} = 0;
+        local $dbh->{PrintError} = 1;
+        local $dbh->{PrintWarn} = 0;
+        local $dbh->{AutoCommit} = 1;
+        for my $c (split /\n/, $POSTGRESQL_CLEAR_SCHEMA) {
+                $dbh->do($c);
+        }
+        $dbh->disconnect;
+        return 1;
 }
 
 sub embedded_oracle_start {
@@ -1246,15 +1283,15 @@ sub migrate_ora2pg {
   print loc("*** Database: Migration process logged at: " . DB_MIGRATION_LOG_FILE . "\n");
   log_rotate(DB_MIGRATION_LOG_FILE);
   system_or_exit(["/bin/bash", "-c",
-	"(set -o pipefail; /usr/bin/spacewalk-dump-schema" .
-	" --db=" . $oracle_creds->{'db-name'} .
-	" --user=" . $oracle_creds->{'db-user'} .
-	" --password=" . $oracle_creds->{'db-password'} . " | spacewalk-sql" .
-	" --verbose" .
-	" --select-mode-direct" .
-	" - ) > " . DB_MIGRATION_LOG_FILE . ' 2>&1'],
-	1,
-	"*** Data migration failed.");
+        "(set -o pipefail; /usr/bin/spacewalk-dump-schema" .
+        " --db=" . $oracle_creds->{'db-name'} .
+        " --user=" . $oracle_creds->{'db-user'} .
+        " --password=" . $oracle_creds->{'db-password'} . " | spacewalk-sql" .
+        " --verbose" .
+        " --select-mode-direct" .
+        " - ) > " . DB_MIGRATION_LOG_FILE . ' 2>&1'],
+        1,
+        "*** Data migration failed.");
 
   print loc("** Database: Data migration successfully completed.\n");
 
@@ -1284,7 +1321,10 @@ sub oracle_setup_db {
     print loc("* Setting up database.\n");
     oracle_setup_db_connection($opts, $answers);
     oracle_test_db_settings($opts, $answers);
-    write_rhn_conf($answers, 'db-backend', 'db-name', 'db-user', 'db-password');
+
+    set_hibernate_conf($answers);
+    write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password', 'hibernate.dialect', 'hibernate.connection.driver_class', 'hibernate.connection.driver_proto');
+
     oracle_populate_db($opts, $answers);
 }
 
@@ -1569,12 +1609,12 @@ sub oracle_populate_tablespace_name {
     File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'oracle', 'deploy.sql');
 
   system_or_exit([ "/usr/bin/rhn-config-schema.pl",
-		   "--source=" . $sat_schema,
-		   "--target=" . $sat_schema_deploy,
-		   "--tablespace-name=${tablespace_name}" ],
-		 22,
-		 'There was a problem populating the universe.deploy.sql file.',
-		);
+                   "--source=" . $sat_schema,
+                   "--target=" . $sat_schema_deploy,
+                   "--tablespace-name=${tablespace_name}" ],
+                 22,
+                 'There was a problem populating the universe.deploy.sql file.',
+                );
 
   return 1;
 }
@@ -1632,13 +1672,13 @@ sub get_dbh {
         }
 
         if ($backend eq 'postgresql') {
-		my $dsn = "dbi:Pg:dbname=$answers->{'db-name'}";
-		if ($answers->{'db-host'} ne '') {
-			$dsn .= ";host=$answers->{'db-host'}";
-			if ($answers->{'db-port'} ne '') {
-				$dsn .= ";port=$answers->{'db-port'}";
-			}
-		}
+                my $dsn = "dbi:Pg:dbname=$answers->{'db-name'}";
+                if ($answers->{'db-host'} ne '') {
+                        $dsn .= ";host=$answers->{'db-host'}";
+                        if ($answers->{'db-port'} ne '') {
+                                $dsn .= ";port=$answers->{'db-port'}";
+                        }
+                }
                 my $dbh = DBI->connect($dsn,
                         $answers->{'db-user'},
                         $answers->{'db-password'},
@@ -1680,69 +1720,69 @@ EOQ
 # system with modular SELinux (> RHEL 4), and the module spacewalk is loaded.
 my $have_selinux;
 sub have_selinux {
-	return $have_selinux if defined $have_selinux;
-	if (system(q!/usr/sbin/selinuxenabled && /usr/sbin/semodule -l 2> /dev/null | grep '^spacewalk\b' 2>&1 > /dev/null!)) {
-		$have_selinux = 0;
-	} else {
-		$have_selinux = 1;
-	}
-	return $have_selinux;
+        return $have_selinux if defined $have_selinux;
+        if (system(q!/usr/sbin/selinuxenabled && /usr/sbin/semodule -l 2> /dev/null | grep '^spacewalk\b' 2>&1 > /dev/null!)) {
+                $have_selinux = 0;
+        } else {
+                $have_selinux = 1;
+        }
+        return $have_selinux;
 }
 
 sub generate_satcon_dict {
-	my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
-		tree => { default => DEFAULT_RHN_SATCON_TREE },});
+        my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
+                tree => { default => DEFAULT_RHN_SATCON_TREE },});
 
-	system_or_exit([ "/usr/bin/satcon-build-dictionary.pl",
-		"--tree=" . $params{tree},
-		"--target=" . $params{conf_file} ],
-		28,
-		'There was a problem building the satcon dictionary.');
+        system_or_exit([ "/usr/bin/satcon-build-dictionary.pl",
+                "--tree=" . $params{tree},
+                "--target=" . $params{conf_file} ],
+                28,
+                'There was a problem building the satcon dictionary.');
 
-	return 1;
+        return 1;
 }
 
 sub satcon_deploy {
-	my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
-				tree => { default => DEFAULT_RHN_SATCON_TREE },
-				dest => { default => '/etc' },
-				backup => { default => DEFAULT_BACKUP_DIR },
-				});
+        my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
+                                tree => { default => DEFAULT_RHN_SATCON_TREE },
+                                dest => { default => '/etc' },
+                                backup => { default => DEFAULT_BACKUP_DIR },
+                                });
 
-	$params{backup} =~ s/\s+$//;
-	my @opts = ("--source=" . $params{tree}, "--dest=" . $params{dest},
-		"--conf=" . $params{conf_file}, "--backupdir=" . $params{backup});
+        $params{backup} =~ s/\s+$//;
+        my @opts = ("--source=" . $params{tree}, "--dest=" . $params{dest},
+                "--conf=" . $params{conf_file}, "--backupdir=" . $params{backup});
 
-	system_or_exit([ "/usr/bin/satcon-deploy-tree.pl", @opts ],	30,
-		'There was a problem deploying the satellite configuration.');
+        system_or_exit([ "/usr/bin/satcon-deploy-tree.pl", @opts ],     30,
+                'There was a problem deploying the satellite configuration.');
 
-	return 1;
+        return 1;
 }
 
 sub generate_server_pem {
-	my %params = validate(@_, { ssl_dir => 1, system => 1, out_file => 0 });
+        my %params = validate(@_, { ssl_dir => 1, system => 1, out_file => 0 });
 
-	my @opts;
-	push @opts, '--ssl-dir=' . File::Spec->catfile($params{ssl_dir}, $params{system});
+        my @opts;
+        push @opts, '--ssl-dir=' . File::Spec->catfile($params{ssl_dir}, $params{system});
 
-	if ($params{out_file}) {
-		push @opts, '--out-file=' . $params{out_file};
-	}
-	my $opts = join(' ', @opts);
+        if ($params{out_file}) {
+                push @opts, '--out-file=' . $params{out_file};
+        }
+        my $opts = join(' ', @opts);
 
-	my $content;
-	local * FH;
-	open(FH, '-|', "/usr/bin/rhn-generate-pem.pl $opts")
-		or die "Could not generate server.pem file: $OS_ERROR";
+        my $content;
+        local * FH;
+        open(FH, '-|', "/usr/bin/rhn-generate-pem.pl $opts")
+                or die "Could not generate server.pem file: $OS_ERROR";
 
-	my @content = <FH>;
-	close(FH);
+        my @content = <FH>;
+        close(FH);
 
-	if (not $params{out_file}) {
-		$content = join('', @content);
-	}
+        if (not $params{out_file}) {
+                $content = join('', @content);
+        }
 
-	return $content;
+        return $content;
 }
 
 sub backup_file {
@@ -1759,98 +1799,37 @@ sub backup_file {
     }
 }
 
-sub update_monitoring_scout {
-	# This routine fixes monitoring problem described in bug #511052
-	# Earlier Satellites (3.7) set rhn_sat_node.ip and rhn_sat_cluster.vip
-	# to '127.0.0.1' during installation / monitoring activation. These
-	# values need to be set to ip address of satellite for
-	# MonitoringAccessHandler.pm to operate properly.
-
-	my $opts = shift;
-	my $answers = shift;
-
-	return unless ($opts->{'upgrade'});
-
-	my $host = gethostbyname($answers->{'hostname'});
-	my $ip_addr = inet_ntoa($host);
-
-	my $dbh = get_dbh($answers);
-
-	# If IP address for satellite / spacewalk scout was set to 127.0.0.1, it needs to be updated
-	my $sql1 = q{
-		update rhn_sat_node
-			set ip = ?,
-			last_update_user = 'upgrade',
-			last_update_date = current_timestamp
-		where ip = '127.0.0.1' and
-			recid = 2};
-
-	my $sql2 = q{
-		update rhn_sat_cluster
-			set vip = ?,
-			last_update_user = 'upgrade',
-			last_update_date = current_timestamp
-		where vip = '127.0.0.1' and
-			recid = 1};
-
-	# If IP address for satellite / spacewalk scout was not set, it needs to be updated
-	my $sql3 = q{
-		update rhn_sat_node
-			set ip = ?,
-			last_update_user = 'upgrade',
-			last_update_date = current_timestamp
-		where ip is null and
-			recid = 2};
-
-	my $sql4 = q{
-		update rhn_sat_cluster
-			set vip = ?,
-			last_update_user = 'upgrade',
-			last_update_date = current_timestamp
-		where vip is null and
-			recid = 1};
-
-	$dbh->do($sql1, {}, ($ip_addr));
-	$dbh->do($sql2, {}, ($ip_addr));
-	$dbh->do($sql3, {}, ($ip_addr));
-	$dbh->do($sql4, {}, ($ip_addr));
-
-	$dbh->commit;
-	$dbh->disconnect;
-}
-
-sub update_monitoring_ack_enqueuer {
-	my $opts = shift;
-	my $answers = shift;
-
-	return unless ($opts->{'upgrade'});
-
-	my $l = '/etc/smrsh/ack_enqueuer.pl';
-	my $t = '/usr/bin/ack_enqueuer.pl';
-
-	# '/opt/notification/scripts/ack_enqueuer.pl' was the old location
-	# '/usr/bin/ack_enqueuer.pl' is the new location
-	if (-l $l && readlink($l) eq '/opt/notification/scripts/ack_enqueuer.pl') {
-		unlink($l);
-		symlink($t, $l);
-	}
-}
-
 # Write subset of $answers to /etc/rhn/rhn.conf.
+# Config written here is used only for database population
+# and config will be later on replaced by one generated from templates.
 sub write_rhn_conf {
-	my $answers = shift;
+        my $answers = shift;
+        my %config = ();
 
-	my $rhnconf = DEFAULT_RHN_CONF_LOCATION;
-	local *RHNCONF;
-	open RHNCONF, '>', $rhnconf or die "Error writing [$rhnconf]: $!\n";
-	for my $n (@_) {
-		if (defined $answers->{$n}) {
-			my $name = $n;
-			$name =~ s!-!_!g;
-			print RHNCONF "$name = $answers->{$n}\n";
-		}
-	}
-	close RHNCONF;
+        for my $n (@_) {
+                if (defined $answers->{$n}) {
+                        my $name = $n;
+                        $name =~ s!-!_!g;
+                        $config{$name} = $answers->{$n};
+                }
+        }
+
+        write_config(\%config, DEFAULT_RHN_CONF_LOCATION);
+}
+
+# Set hibernate strings into answers according to DB backend.
+sub set_hibernate_conf {
+    my $answers = shift;
+
+    if ($answers->{'db-backend'} eq 'oracle') {
+        $answers->{'hibernate.dialect'} = "org.hibernate.dialect.Oracle10gDialect";
+        $answers->{'hibernate.connection.driver_class'} = "oracle.jdbc.driver.OracleDriver";
+        $answers->{'hibernate.connection.driver_proto'} = "jdbc:oracle:oci";
+    } elsif ($answers->{'db-backend'} eq 'postgresql') {
+        $answers->{'hibernate.dialect'} = "org.hibernate.dialect.PostgreSQLDialect";
+        $answers->{'hibernate.connection.driver_class'} = "org.postgresql.Driver";
+        $answers->{'hibernate.connection.driver_proto'} = "jdbc:postgresql";
+    }
 }
 
 =head1 DESCRIPTION
@@ -1971,6 +1950,11 @@ Assume the Red Hat Satellite installation uses an external Oracle database (Red 
 =item B<--external-postgresql>
 
 Assume the Red Hat Satellite installation uses an external PostgreSQL database (Red Hat Satellite only).
+
+=item B<--external-postgresql-over-ssl>
+
+When used, installation will assume that external PostgreSQL server allows only connections over SSL.
+This option is supposed to be used only in conjuction with B<--external-postgresql>.
 
 =item B<--managed-db>
 

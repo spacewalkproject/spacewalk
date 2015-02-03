@@ -31,6 +31,7 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -90,49 +91,61 @@ public class PowerManagementAction extends RhnAction {
 
         if (context.isSubmitted()) {
             CobblerPowerSettingsUpdateCommand command = getPowerSettingsUpdateCommand(form,
-                user, server);
-
-            ValidatorError error = command.store();
-            if (error == null) {
-                log.debug("Power management settings saved for system " + sid);
-                if (context.wasDispatched("kickstart.powermanagement.jsp.save_only")) {
-                    addMessage(request, "kickstart.powermanagement.saved");
+                    user, server);
+            ValidatorError error;
+            if (context.wasDispatched(
+                    "kickstart.powermanagement.jsp.remove.cobblerprofile")) {
+                error = command.removeSystemProfile();
+                if (error == null) {
+                    log.debug("Cobbler system profile removed for system " + sid);
+                    addMessage(request, "kickstart.powermanagement.removed.cobblerprofile");
                 }
-                if (context.wasDispatched("kickstart.powermanagement.jsp.power_on")) {
-                    error = new CobblerPowerCommand(user, server, Operation.PowerOn)
-                        .store();
-                    if (error == null) {
-                        log.debug("Power on succeded for system " + sid);
-                        addMessage(request, "kickstart.powermanagement.powered_on");
-                    }
-                }
-                if (context.wasDispatched("kickstart.powermanagement.jsp.power_off")) {
-                    error = new CobblerPowerCommand(user, server, Operation.PowerOff)
-                        .store();
-                    if (error == null) {
-                        log.debug("Power off succeded for system " + sid);
-                        addMessage(request, "kickstart.powermanagement.powered_off");
-                    }
-                }
-                if (context.wasDispatched("kickstart.powermanagement.jsp.reboot")) {
-                    error = new CobblerPowerCommand(user, server, Operation.Reboot).store();
-                    if (error == null) {
-                        log.debug("Reboot succeded for system " + sid);
-                        addMessage(request, "kickstart.powermanagement.rebooted");
-                    }
-                }
-                if (context.wasDispatched(
-                    "kickstart.powermanagement.jsp.get_status")) {
-                    try {
-                        SystemRecord record = getSystemRecord(user, server);
-                        request.setAttribute(POWER_STATUS_ON, record.getPowerStatus());
+            }
+            else {
+                error = command.store();
+                if (error == null) {
+                    log.debug("Power management settings saved for system " + sid);
+                    if (context.wasDispatched("kickstart.powermanagement.jsp.save_only")) {
                         addMessage(request, "kickstart.powermanagement.saved");
                     }
-                    catch (XmlRpcException e) {
-                        log.warn("Could not get power status from Cobbler for system " +
-                            server.getId());
-                        createErrorMessage(request,
-                                "kickstart.powermanagement.jsp.power_status_failed", null);
+                    if (context.wasDispatched("kickstart.powermanagement.jsp.power_on")) {
+                        error = new CobblerPowerCommand(user, server, Operation.PowerOn)
+                            .store();
+                        if (error == null) {
+                            log.debug("Power on succeded for system " + sid);
+                            addMessage(request, "kickstart.powermanagement.powered_on");
+                        }
+                    }
+                    if (context.wasDispatched("kickstart.powermanagement.jsp.power_off")) {
+                        error = new CobblerPowerCommand(user, server, Operation.PowerOff)
+                            .store();
+                        if (error == null) {
+                            log.debug("Power off succeded for system " + sid);
+                            addMessage(request, "kickstart.powermanagement.powered_off");
+                        }
+                    }
+                    if (context.wasDispatched("kickstart.powermanagement.jsp.reboot")) {
+                        error = new CobblerPowerCommand(user, server, Operation.Reboot).
+                                store();
+                        if (error == null) {
+                            log.debug("Reboot succeded for system " + sid);
+                            addMessage(request, "kickstart.powermanagement.rebooted");
+                        }
+                    }
+                    if (context.wasDispatched(
+                        "kickstart.powermanagement.jsp.get_status")) {
+                        try {
+                            SystemRecord record = getSystemRecord(user, server);
+                            request.setAttribute(POWER_STATUS_ON, record.getPowerStatus());
+                            addMessage(request, "kickstart.powermanagement.saved");
+                        }
+                        catch (XmlRpcException e) {
+                            log.warn("Could not get power status from Cobbler for system " +
+                                server.getId());
+                            createErrorMessage(request,
+                                    "kickstart.powermanagement.jsp.power_status_failed",
+                                    null);
+                        }
                     }
                 }
             }
@@ -151,17 +164,36 @@ public class PowerManagementAction extends RhnAction {
 
     /**
      * Returns a CobblerPowerSettingsUpdateCommand from form data.
+     * Empty form data means - clear the value in cobbler.
      * @param form the form
      * @param user currently logged in user
      * @param server server to update
      * @return the command
      */
     public static CobblerPowerSettingsUpdateCommand getPowerSettingsUpdateCommand(
-        DynaActionForm form, User user, Server server) {
+            DynaActionForm form, User user, Server server) {
         return new CobblerPowerSettingsUpdateCommand(
             user, server, form.getString(POWER_TYPE), form.getString(POWER_ADDRESS),
             form.getString(POWER_USERNAME), form.getString(POWER_PASSWORD),
             form.getString(POWER_ID));
+    }
+
+    /**
+     * Returns a CobblerPowerSettingsUpdateCommand from form data.
+     * With SSM empty form data means - do not change the value.
+     * @param form the form
+     * @param user currently logged in user
+     * @param server server to update
+     * @return the command
+     */
+    public static CobblerPowerSettingsUpdateCommand getPowerSettingsUpdateCommandSSM(
+            DynaActionForm form, User user, Server server) {
+        return new CobblerPowerSettingsUpdateCommand(
+            user, server, form.getString(POWER_TYPE),
+            StringUtils.trimToNull(form.getString(POWER_ADDRESS)),
+            StringUtils.trimToNull(form.getString(POWER_USERNAME)),
+            StringUtils.trimToNull(form.getString(POWER_PASSWORD)),
+            StringUtils.trimToNull(form.getString(POWER_ID)));
     }
 
     /**

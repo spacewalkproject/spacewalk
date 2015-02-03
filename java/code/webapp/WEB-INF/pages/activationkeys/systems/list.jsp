@@ -14,9 +14,9 @@
 
 
 <div class="page-summary">
-	<h2><rhn:icon type="header-system" />
-	<bean:message key="Systems"/>
-	</h2>
+        <h2><rhn:icon type="header-system" />
+        <bean:message key="Systems"/>
+        </h2>
     <p>
     <bean:message key="activation-key.systems.para1"/>
     </p>
@@ -25,35 +25,35 @@
 <rl:listset name="systemsListSet">
     <rhn:csrf />
     <rhn:submitted />
-	<rl:list dataset="pageList"
+        <rl:list dataset="pageList"
          width="100%"
          name="list"
          emptykey="nosystems.message"
          alphabarcolumn="name">
- 			<rl:decorator name="PageSizeDecorator"/>
+                        <rl:decorator name="PageSizeDecorator"/>
 
-  	   <!--Name Column -->
-		<rl:column sortable="true"
-				   bound="false"
-		           headerkey="systemlist.jsp.system"
-		           sortattr="name" filterattr="name">
-		    <c:choose>
-		    	<c:when test = "${not empty requestScope.accessMap[current.id]}">
+           <!--Name Column -->
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="systemlist.jsp.system"
+                           sortattr="name" filterattr="name">
+                    <c:choose>
+                        <c:when test = "${not empty requestScope.accessMap[current.id]}">
                     <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
                         <c:out value="${current.name}" escapeXml="true" />
                     </a>
-		    	</c:when>
-		    	<c:otherwise>
+                        </c:when>
+                        <c:otherwise>
                     <c:out value="${current.name}" escapeXml="true" />
-		    	</c:otherwise>
-		    </c:choose>
-		</rl:column>
-		<rl:column headerkey="lastCheckin">
-		      ${requestScope.dateMap[current.id]}
-		</rl:column>
+                        </c:otherwise>
+                    </c:choose>
+                </rl:column>
+                <rl:column headerkey="lastCheckin">
+                      ${requestScope.dateMap[current.id]}
+                </rl:column>
 
 
-	</rl:list>
+        </rl:list>
 
 </div>
 </rl:listset>

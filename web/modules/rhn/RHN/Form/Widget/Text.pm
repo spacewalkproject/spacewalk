@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::Form::Widget::Text;
@@ -24,7 +24,7 @@ use RHN::Form::Widget;
 our @ISA = qw/RHN::Form::Widget/;
 
 my %valid_fields = (size => undef,
-		    maxlength => undef);
+                    maxlength => undef);
 
 sub valid_fields { return (shift->SUPER::valid_fields(), %valid_fields) }
 
@@ -66,9 +66,9 @@ sub render {
   my $value = defined $self->value ? $self->value : defined $self->default ? $self->default : '';
 
   my $ret = PXT::HTML->text(-name => $self->label,
-			    -value => $value,
-			    -maxlength => $self->maxlength,
-			    -size => $self->size);
+                            -value => $value,
+                            -maxlength => $self->maxlength,
+                            -size => $self->size);
 
   return $ret;
 }

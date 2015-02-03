@@ -109,5 +109,3 @@ def main(ctrl, opts):
                 priority = pkgpriorities[alias]
                 print "%-30s %-20s %d" % (name, alias or "*", priority)
         print
-
-# vim:ts=4:sw=4:et

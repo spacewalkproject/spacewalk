@@ -37,7 +37,7 @@ class TransactionData:
         # size is never used directly for this, it's here as a place holder
         # arch is optional, if the server specifies it, go with what
         # removed packages only need [n,v,r,e,arch]
-	self.data['packages'] = []
+        self.data['packages'] = []
         # list of flags to set for the transaction
         self.data['flags'] = []
         self.data['vsflags'] = []
@@ -85,9 +85,9 @@ class Up2dateTransaction:
                          'IDTXload',
                          'IDTXglob',
                          'rollback',
-			 'pgpImportPubkey',
-			 'pgpPrtPkts',
-			 'Debug',
+                         'pgpImportPubkey',
+                         'pgpPrtPkts',
+                         'Debug',
                          'setFlags',
                          'setVSFlags',
                          'setProbFilter',

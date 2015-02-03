@@ -54,8 +54,6 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -463,22 +461,6 @@ public class TestUtils {
             ModeFactory.
             getMode("test_queries", mode);
         return m.execute(params);
-    }
-
-    /**
-     * Dumb util method to print * from time_series table (can stuff debug in there)
-     */
-    public static void printDBDebugLog() {
-        SelectMode m =
-            ModeFactory.
-            getMode("test_queries", "get_debug_log");
-        DataResult rows = m.execute(new HashMap());
-        Iterator i = rows.iterator();
-        while (i.hasNext()) {
-            Map row = (Map) i.next();
-            System.out.println("Message: " + row.get("o_id") + ": " + row.get("data"));
-        }
-
     }
 
     /**

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::DB::Package::SolarisPackage;
@@ -51,7 +51,7 @@ sub _init {
   if ($package_id) {
     unless ($package_id == $self->id) {
       die "rhnSolarisPackage.package_id != rhnPackage.id when looking up package '"
-	. $self->id . "' (" . join (',', ($package_id, @columns)) . ")";
+        . $self->id . "' (" . join (',', ($package_id, @columns)) . ")";
     }
 
     $self->$_(shift @columns) foreach $spt->method_names;

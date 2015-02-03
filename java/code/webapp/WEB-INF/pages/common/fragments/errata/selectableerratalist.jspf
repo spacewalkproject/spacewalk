@@ -1,0 +1,61 @@
+<rl:list  dataset="pageList"
+          name="errata"
+          emptykey="${emptyKey}"
+          filter="com.redhat.rhn.frontend.action.channel.manage.ErrataFilter"
+          alphabarcolumn="advisorySynopsis"
+          decorator="SelectableDecorator">
+
+    <rl:decorator name="ElaborationDecorator"/>
+    <rl:decorator name="PageSizeDecorator"/>
+    <rl:selectablecolumn value="${current.selectionKey}"
+                         selected="${current.selected}"
+                         styleclass="first-column"/>
+
+    <rl:column sortable="true"
+               bound="false"
+               headerkey="erratalist.jsp.type"
+               headerclass="thin-column"
+               sortattr="advisoryType">
+        <c:if test="${current.advisoryType == 'Product Enhancement Advisory'}">
+            <rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
+        </c:if>
+        <c:if test="${current.advisoryType == 'Security Advisory'}">
+            <rhn:icon type="errata-security" title="erratalist.jsp.securityadvisory" />
+        </c:if>
+        <c:if test="${current.advisoryType == 'Bug Fix Advisory'}">
+            <rhn:icon type="errata-bugfix" title="erratalist.jsp.bugadvisory" />
+        </c:if>
+
+    </rl:column>
+
+    <rl:column sortable="true"
+               bound="false"
+               headerkey="erratalist.jsp.advisory"
+               sortattr="advisory">
+
+        <c:choose>
+            <c:when test="${not empty editUrl}">
+                <a href="/rhn/errata/manage/Edit.do?eid=${current.id}"><c:out value="${current.advisoryName}"/></a>
+            </c:when>
+            <c:otherwise>
+                <a href="/rhn/errata/details/Details.do?eid=${current.id}"><c:out value="${current.advisoryName}"/></a>
+            </c:otherwise>
+        </c:choose>
+    </rl:column>
+
+    <rl:column sortable="true"
+               bound="false"
+               headerkey="erratalist.jsp.synopsis"
+               sortattr="advisorySynopsis">
+        <c:out value="${current.advisorySynopsis}"/>
+    </rl:column>
+
+    <rl:column sortable="true"
+               bound="false"
+               headerkey="erratalist.jsp.updated"
+               sortattr="updateDateObj"
+               defaultsort="desc">
+        ${current.updateDate}
+    </rl:column>
+
+</rl:list>

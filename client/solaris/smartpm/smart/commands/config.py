@@ -122,5 +122,3 @@ def main(ctrl, opts):
                     pprint.pprint(value)
         else:
             pprint.pprint(sysconf.get((), hard=True))
-
-# vim:ts=4:sw=4:et

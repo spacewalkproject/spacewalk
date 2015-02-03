@@ -334,5 +334,3 @@ def detectLocalChannels(path):
                 if os.path.isdir(entrypath):
                     roots.append((entrypath, depth+1))
     return channels
-
-# vim:ts=4:sw=4:et

@@ -83,14 +83,22 @@ public class CobblerPowerSettingsUpdateCommand extends CobblerCommand {
     }
 
     /**
-     * Updates a server's power settings. Creates a Cobbler system profile if it
-     * does not exist.
+     * Clears server's power settings
      * @return any errors
      */
-    @Override
-    public ValidatorError store() {
-        CobblerConnection connection = getCobblerConnection();
+    public ValidatorError removeSystemProfile() {
         Long sid = server.getId();
+        SystemRecord systemRecord = getSystemRecordForSystem();
+        if (systemRecord != null) {
+            systemRecord.remove();
+            log.debug("Cobbler system profile removed for system " + sid);
+        }
+
+        return null;
+    }
+
+    private SystemRecord getSystemRecordForSystem() {
+        CobblerConnection connection = getCobblerConnection();
         SystemRecord systemRecord = null;
 
         // is there an existing record? if so, use it
@@ -98,10 +106,23 @@ public class CobblerPowerSettingsUpdateCommand extends CobblerCommand {
         if (!StringUtils.isEmpty(cobblerId)) {
             systemRecord = SystemRecord.lookupById(connection, cobblerId);
         }
+        return systemRecord;
+    }
+
+    /**
+     * Updates a server's power settings. Creates a Cobbler system profile if it
+     * does not exist.
+     * @return any errors
+     */
+    @Override
+    public ValidatorError store() {
+        Long sid = server.getId();
+        SystemRecord systemRecord = getSystemRecordForSystem();
 
         if (systemRecord == null) {
             log.debug("No Cobbler system record found for system " + sid);
             try {
+                CobblerConnection connection = getCobblerConnection();
                 Image image = createDummyImage(connection);
                 systemRecord = SystemRecord.create(connection,
                     CobblerSystemCreateCommand.getCobblerSystemRecordName(server), image);
@@ -116,19 +137,25 @@ public class CobblerPowerSettingsUpdateCommand extends CobblerCommand {
 
         try {
             log.debug("Setting Cobbler parameters for system " + sid);
-            if (StringUtils.isNotBlank(powerType)) {
+            if (powerType != null && !powerType.equals("") &&
+                    !powerType.equals(systemRecord.getPowerType())) {
                 systemRecord.setPowerType(powerType);
             }
-            if (StringUtils.isNotBlank(powerAddress)) {
+            if (powerAddress != null &&
+                    !powerAddress.equals(systemRecord.getPowerAddress())) {
                 systemRecord.setPowerAddress(powerAddress);
             }
-            if (StringUtils.isNotBlank(powerUsername)) {
+            if (powerUsername != null &&
+                    !powerUsername.equals(systemRecord.getPowerUsername())) {
                 systemRecord.setPowerUsername(powerUsername);
             }
-            if (StringUtils.isNotBlank(powerPassword)) {
+            if (powerPassword != null &&
+                    !powerPassword.equals(systemRecord.getPowerPassword())) {
                 systemRecord.setPowerPassword(powerPassword);
             }
-            systemRecord.setPowerId(powerId);
+            if (powerId != null && !powerId.equals(systemRecord.getPowerId())) {
+                systemRecord.setPowerId(powerId);
+            }
             systemRecord.save();
             log.debug("Settings saved for system " + sid);
         }

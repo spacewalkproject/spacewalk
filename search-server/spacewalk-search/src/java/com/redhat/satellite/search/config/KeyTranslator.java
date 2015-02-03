@@ -22,14 +22,14 @@ package com.redhat.satellite.search.config;
 public interface KeyTranslator {
 
     /**
-     * Translates the given key into something else. That something else is 
+     * Translates the given key into something else. That something else is
      * determined by the specific implementation. The value for the given key
      * should not be affected.
      * @param key key to be translated.
      * @return The translated key.
      */
     String translateKey(String key);
-    
+
     /**
      * Returns true if the key should be translated.
      * @param key to be translated

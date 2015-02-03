@@ -121,7 +121,7 @@ public abstract class BaseListAction extends RhnListAction {
      * Returns the list data used by the list
      * @param rctx Currently active RequestContext.
      * @param pc boundary values
-     * @return List of ProbeSuites bounded by the values of the PageControl.
+     * @return List of things bounded by the values of the PageControl.
      */
     protected abstract DataResult getDataResult(RequestContext rctx, PageControl pc);
 

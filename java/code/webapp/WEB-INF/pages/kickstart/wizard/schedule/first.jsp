@@ -14,8 +14,8 @@
 <script language="javascript">
 //<!--
 function setStep(stepName) {
-	var field = document.getElementById("wizard-step");
-	field.value = stepName;
+        var field = document.getElementById("wizard-step");
+        field.value = stepName;
 }
 //-->
 </script>
@@ -59,9 +59,9 @@ function setStep(stepName) {
 <rl:listset name="wizard-form">
     <rhn:csrf />
     <rhn:submitted />
-		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-list.jspf" %>
-	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/ks-wizard.jspf" %>
-	</rl:listset>
+                <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-list.jspf" %>
+        <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/ks-wizard.jspf" %>
+        </rl:listset>
     </div>
 </c:if>
 

@@ -18,9 +18,9 @@ import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.user.User;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -42,17 +42,13 @@ public class FilePreservationListsCommand extends BaseKickstartCommand {
      * Removes file lists from the kickstart profile.
      * @param ids The ids of the file lists to remove.
     */
-    public void removeFileListsByIds(ArrayList ids) {
-        Iterator toRemoveIter = ids.iterator();
-
-        while (toRemoveIter.hasNext()) {
-            Long id = (Long) toRemoveIter.next();
-
-            Iterator listsIter = this.getKickstartData().getPreserveFileLists().iterator();
+    public void removeFileListsByIds(List<Long> ids) {
+        for (Long id : ids) {
+            Iterator<FileList> listsIter = this.getKickstartData().getPreserveFileLists()
+                    .iterator();
 
             while (listsIter.hasNext()) {
-                FileList list = (FileList) listsIter.next();
-
+                FileList list = listsIter.next();
 
                 if (list.getId() == id) {
                     listsIter.remove();
@@ -65,12 +61,8 @@ public class FilePreservationListsCommand extends BaseKickstartCommand {
      * Adds file lists to the kickstart profile.
      * @param ids The ids of the regtokens to add.
     */
-    public void addFileListsByIds(ArrayList ids) {
-        Iterator toAddIter = ids.iterator();
-
-        while (toAddIter.hasNext()) {
-            Long id = (Long) toAddIter.next();
-
+    public void addFileListsByIds(List<Long> ids) {
+        for (Long id : ids) {
             this.getKickstartData()
                 .addPreserveFileList(CommonFactory.lookupFileList(id, this.user.getOrg()));
         }
@@ -80,11 +72,11 @@ public class FilePreservationListsCommand extends BaseKickstartCommand {
      * Get the PreservationList items associated with this profile
      * @return Set of PreservationList, or EMPTY_SET if not.
      */
-    public Set getPreserveFileLists() {
+    public Set<FileList> getPreserveFileLists() {
         if (ksdata.getPreserveFileLists() != null) {
             return ksdata.getPreserveFileLists();
         }
-        return Collections.EMPTY_SET;
+        return new HashSet<FileList>();
     }
 
 }

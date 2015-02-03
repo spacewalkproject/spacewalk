@@ -22,21 +22,23 @@ from spacewalk.server.rhnLib import InvalidAction
 # the "exposed" functions
 __rhnexport__ = ['config', 'listTransactions', 'rollback']
 
+
 def config(serverId, actionId, dry_run=0):
     log_debug(3)
     # XXX Not working
     return 1
 
+
 def listTransactions(serverId, actionId, dry_run=0):
     log_debug(3)
     return None
+
 
 def rollback(serverId, actionId, dry_run=0):
     log_debug(3, dry_run)
     # since rhnActionTransactions table is gone, this call have to fail
     log_error("Invalid rollback.rollback action %s for server id %s" %
-            (actionId, serverId))
+              (actionId, serverId))
     raise InvalidAction(
-            "Invalid rollback.rollback action %s for server id %s" %
-            (actionId, serverId))
-
+        "Invalid rollback.rollback action %s for server id %s" %
+        (actionId, serverId))

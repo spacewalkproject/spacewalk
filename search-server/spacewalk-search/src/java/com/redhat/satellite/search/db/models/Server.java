@@ -552,7 +552,7 @@ public class Server extends GenericRecord {
      */
     public void setCpuNumberOfCpus(String cpuNumberOfCpusIn) {
         if (cpuNumberOfCpusIn != null) {
-            this.cpuNumberOfCpus = 
+            this.cpuNumberOfCpus =
                 NumberTools.longToString(Long.parseLong(cpuNumberOfCpusIn));
         }
         else {

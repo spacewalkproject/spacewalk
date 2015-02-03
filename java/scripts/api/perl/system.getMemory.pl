@@ -25,7 +25,7 @@ my $dmi = $client->call('system.getMemory', $session, $systemId);
 
 print $dmi->{'ram'}."\n";
 print $dmi->{'swap'}."\n";
- 
+
 
 
 

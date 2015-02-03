@@ -32,6 +32,7 @@ __rhnexport__ = ['remove',
                  'runTransaction',
                  'verify']
 
+
 class InvalidDep(Exception):
     pass
 
@@ -89,13 +90,14 @@ _query_delete_verify_missing = rhnSQL.Statement("""
        and action_id = :action_id
 """)
 
+
 def verify(server_id, action_id, data={}):
     log_debug(3, action_id)
 
     if not data or not data.has_key('verify_info'):
         # some data should have been passed back...
         log_error("Insufficient package verify information returned",
-            server_id, action_id, data)
+                  server_id, action_id, data)
         return
 
     log_debug(4, "pkg verify data", data)
@@ -110,17 +112,16 @@ def verify(server_id, action_id, data={}):
     attrib_tests = ['S', 'M', '5', 'D', 'L', 'U', 'G', 'T']
 
     # Store the values for executemany() for the attribute-failures
-    verify_attribs = { 'server_id' : [], 'action_id' : [], 'package_name' : [],
-        'epoch' : [], 'version' : [], 'release' : [], 'arch' : [],
-        'filename' : [], 'attrib' : [], }
+    verify_attribs = {'server_id': [], 'action_id': [], 'package_name': [],
+                      'epoch': [], 'version': [], 'release': [], 'arch': [],
+                      'filename': [], 'attrib': [], }
     for test in attrib_tests:
         verify_attribs["test_" + test] = []
 
     # Store the "missing xxxx" results for executemany()
-    missing_files = { 'server_id' : [], 'action_id' : [], 'package_name' : [],
-        'epoch' : [], 'version' : [], 'release' : [], 'arch' : [],
-        'filename' : [] }
-
+    missing_files = {'server_id': [], 'action_id': [], 'package_name': [],
+                     'epoch': [], 'version': [], 'release': [], 'arch': [],
+                     'filename': []}
 
     # Uniquify the packages
     uq_packages = {}
@@ -142,7 +143,7 @@ def verify(server_id, action_id, data={}):
                 dict = _parse_response_line(response, attrib_tests)
             except InvalidResponseLine:
                 log_error("packages.verify: (%s, %s): invalid line %s"
-                    % (server_id, action_id, response))
+                          % (server_id, action_id, response))
                 continue
 
             hash[dict['filename']] = dict
@@ -177,8 +178,11 @@ def verify(server_id, action_id, data={}):
     rhnSQL.commit()
 
 # Exception raised when an invalid line is found
+
+
 class InvalidResponseLine(Exception):
     pass
+
 
 def _parse_response_line(response, tests):
     # Parses a single line of output from rpmverify
@@ -210,7 +214,7 @@ def _parse_response_line(response, tests):
     # clean up attr, as it can get slightly fudged in the
 
     if ts == 'missing':
-        return { 'filename': filename, 'missing': None }
+        return {'filename': filename, 'missing': None}
 
     # bug 155952: SELinux will return an extra flag
     # FIXME: need to support the extra selinux context flag
@@ -224,8 +228,8 @@ def _parse_response_line(response, tests):
         raise InvalidResponseLine
 
     dict = {
-        'attrib' : attr or None, # convert empty attribute to None
-        'filename' : filename,
+        'attrib': attr or None,  # convert empty attribute to None
+        'filename': filename,
     }
     # Add the tests
     for i in range(len(tests)):
@@ -247,6 +251,7 @@ def _hash_append(dst, src):
     for k, list in dst.items():
         list.append(src[k])
 
+
 def update(server_id, action_id, data={}):
     log_debug(3, server_id, action_id)
 
@@ -259,8 +264,8 @@ def update(server_id, action_id, data={}):
     else:
         kickstart_state = 'deployed'
 
-        #This is horrendous, but in order to fix it I would have to change almost all of the
-        #actions code, which we don't have time to do for the 500 beta. --wregglej
+        # This is horrendous, but in order to fix it I would have to change almost all of the
+        # actions code, which we don't have time to do for the 500 beta. --wregglej
         try:
             ks_session_type = server_kickstart.get_kickstart_session_type(server_id, action_id)
         except rhnException, re:
@@ -275,16 +280,17 @@ def update(server_id, action_id, data={}):
 
     log_debug(4, "next_action_type: %s" % next_action_type)
 
-    #More hideous hacked together code to get around our inflexible actions "framework".
-    #If next_action_type is "None", we're assuming that we're *not* in a kickstart session
-    #at this point, so we don't want to update a non-existant kickstart session.
-    #I feel so dirty.  --wregglej
+    # More hideous hacked together code to get around our inflexible actions "framework".
+    # If next_action_type is "None", we're assuming that we're *not* in a kickstart session
+    # at this point, so we don't want to update a non-existant kickstart session.
+    # I feel so dirty.  --wregglej
     if next_action_type != "None":
         server_kickstart.update_kickstart_session(server_id, action_id,
-            action_status, kickstart_state=kickstart_state,
-            next_action_type=next_action_type)
+                                                  action_status, kickstart_state=kickstart_state,
+                                                  next_action_type=next_action_type)
 
         _mark_dep_failures(server_id, action_id, data)
+
 
 def remove(server_id, action_id, data={}):
     log_debug(3, action_id, data.get('name'))
@@ -306,6 +312,7 @@ _query_insert_dep_failures = rhnSQL.Statement("""
         :flags, LOOKUP_PACKAGE_NAME(:suggested, :ignore_null), :sense)
 """)
 
+
 def _mark_dep_failures(server_id, action_id, data):
     if not data:
         log_debug(4, "Nothing to do")
@@ -318,21 +325,20 @@ def _mark_dep_failures(server_id, action_id, data):
     if not isinstance(failed_deps, ListType):
         # Not the right format
         log_error("action_extra_data.packages.remove: server %s, action %s: "
-            "wrong type %s" % (server_id, action_id, type(failed_deps)))
+                  "wrong type %s" % (server_id, action_id, type(failed_deps)))
         return
 
     inserts = {}
-    for f in ( 'server_id', 'action_id',
-            'name', 'version', 'release', 'epoch',
-            'needs_name', 'needs_version', 'ignore_null',
-            'flags', 'suggested', 'sense'):
+    for f in ('server_id', 'action_id',
+              'name', 'version', 'release', 'epoch',
+              'needs_name', 'needs_version', 'ignore_null',
+              'flags', 'suggested', 'sense'):
         inserts[f] = []
-
 
     for failed_dep in failed_deps:
         try:
             pkg, needs_pkg, flags, suggested, sense = _check_dep(server_id,
-                action_id, failed_dep)
+                                                                 action_id, failed_dep)
         except InvalidDep:
             continue
 
@@ -360,6 +366,7 @@ def _mark_dep_failures(server_id, action_id, data):
     rowcount = h.execute_bulk(inserts)
     log_debug(5, "Inserted rows", rowcount)
 
+
 def _check_dep(server_id, action_id, failed_dep):
     log_debug(5, failed_dep)
     if not failed_dep:
@@ -367,57 +374,60 @@ def _check_dep(server_id, action_id, failed_dep):
     if not isinstance(failed_dep, ListType):
         # Not the right format
         log_error("action_extra_data.packages.remove: server %s, action %s: "
-            "failed dep type error: %s" % (
-            server_id, action_id, type(failed_dep)))
+                  "failed dep type error: %s" % (
+                      server_id, action_id, type(failed_dep)))
         raise InvalidDep
 
     # This is boring, but somebody's got to do it
     if len(failed_dep) < 5:
         log_error("action_extra_data.packages.remove: server %s, action %s: "
-            "failed dep: not enough entries: %s" % (
-            server_id, action_id, len(failed_dep)))
+                  "failed dep: not enough entries: %s" % (
+                      server_id, action_id, len(failed_dep)))
         raise InvalidDep
 
     pkg, needs_pkg, flags, suggested, sense = failed_dep[:5]
 
     if not isinstance(pkg, ListType) or len(pkg) < 3:
         log_error("action_extra_data.packages.remove: server %s, action %s: "
-            "failed dep: bad package spec %s (type %s, len %s)" % (
-            server_id, action_id, pkg, type(pkg), len(pkg)))
+                  "failed dep: bad package spec %s (type %s, len %s)" % (
+                      server_id, action_id, pkg, type(pkg), len(pkg)))
         raise InvalidDep
     pkg = map(str, pkg[:3])
 
     if not isinstance(needs_pkg, ListType) or len(needs_pkg) < 2:
         log_error("action_extra_data.packages.remove: server %s, action %s: "
-            "failed dep: bad needs package spec %s (type %s, len %s)" % (
-            server_id, action_id, needs_pkg, type(needs_pkg),
-            len(needs_pkg)))
+                  "failed dep: bad needs package spec %s (type %s, len %s)" % (
+                      server_id, action_id, needs_pkg, type(needs_pkg),
+                      len(needs_pkg)))
         raise InvalidDep
     needs_pkg = map(str, needs_pkg[:2])
 
     if not isinstance(flags, IntType):
         log_error("action_extra_data.packages.remove: server %s, action %s: "
-            "failed dep: bad flags type %s" % (server_id, action_id, type(flags)))
+                  "failed dep: bad flags type %s" % (server_id, action_id, type(flags)))
         raise InvalidDep
 
     if not isinstance(sense, IntType):
         log_error("action_extra_data.packages.remove: server %s, action %s: "
-            "failed dep: bad sense type %s" % (server_id, action_id, type(sense)))
+                  "failed dep: bad sense type %s" % (server_id, action_id, type(sense)))
         raise InvalidDep
 
     return pkg, needs_pkg, flags, str(suggested), sense
+
 
 def refresh_list(server_id, action_id, data={}):
     if not data:
         return
     log_debug(2, "action_extra_data.packages.refresh_list: Should do something "
-        "useful with this data", server_id, action_id, data)
+              "useful with this data", server_id, action_id, data)
+
 
 def delta(server_id, action_id, data={}):
     if not data:
         return
     log_debug(2, "action_extra_data.packages.delta: Should do something "
-        "useful with this data", server_id, action_id, data)
+              "useful with this data", server_id, action_id, data)
+
 
 def runTransaction(server_id, action_id, data={}):
     log_debug(3, action_id)
@@ -429,30 +439,32 @@ def runTransaction(server_id, action_id, data={}):
 
     # Cleanup package profile
     server_kickstart.cleanup_profile(server_id, action_id, ks_session_id,
-        action_status)
+                                     action_status)
 
     _mark_dep_failures(server_id, action_id, data)
 
 # Determine the next step to be executed in the kickstart code
+
+
 def _next_kickstart_step(server_id, action_id, action_status):
-    if action_status == 3: # Failed
+    if action_status == 3:  # Failed
         # Nothing more to do here
         return server_kickstart.update_kickstart_session(server_id,
-            action_id, action_status, kickstart_state='complete',
-            next_action_type=None)
+                                                         action_id, action_status, kickstart_state='complete',
+                                                         next_action_type=None)
 
     # Fetch kickstart session id
     ks_session_id = server_kickstart.get_kickstart_session_id(server_id,
-        action_id)
+                                                              action_id)
 
     if ks_session_id is None:
         return server_kickstart.update_kickstart_session(server_id,
-            action_id, action_status, kickstart_state='complete',
-            next_action_type=None)
+                                                         action_id, action_status, kickstart_state='complete',
+                                                         next_action_type=None)
 
     # Get the current server profile
     server_profile = server_kickstart.get_server_package_profile(server_id)
 
     server_kickstart.schedule_config_deploy(server_id, action_id,
-        ks_session_id, server_profile=server_profile)
+                                            ks_session_id, server_profile=server_profile)
     return ks_session_id

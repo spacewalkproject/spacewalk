@@ -28,12 +28,11 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartSessionState;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageSource;
-import com.redhat.rhn.domain.rhnpackage.Patch;
-import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.server.CrashFile;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
@@ -111,6 +110,9 @@ public class DownloadFile extends DownloadAction {
             HttpServletResponse response) throws Exception {
 
         String url = RhnHelper.getParameterWithSpecialCharacters(request, "url");
+        if (url == null) {
+            return mapping.findForward("error");
+        }
         if (log.isDebugEnabled()) {
             log.debug("url : [" + url + "]");
         }
@@ -189,32 +191,32 @@ public class DownloadFile extends DownloadAction {
         }
 
         String[] split = url.split("/");
-        if (split.length < 3) {
+
+        try {
+            int labelPos = 2;
+            if (split[2].equals("org")) {
+                ret.put("orgId",  split[3]);
+                labelPos = 4;
+            }
+            else if (split[2].equals("session")) {
+                ret.put("session", split[3]);
+                labelPos = 4;
+            }
+            else if (split[2].equals("child")) {
+                ret.put("child", split[3]);
+                labelPos = 4;
+            }
+
+            ret.put("label", split[labelPos]);
+            String path = "";
+            for (int i = labelPos + 1; i < split.length; i++) {
+                path += "/" + split[i];
+            }
+            ret.put("path", path);
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
             return null;
         }
-
-
-        int labelPos = 2;
-        if (split[2].equals("org")) {
-            ret.put("orgId",  split[3]);
-            labelPos = 4;
-        }
-        else if (split[2].equals("session")) {
-            ret.put("session", split[3]);
-            labelPos = 4;
-        }
-        else if (split[2].equals("child")) {
-            ret.put("child", split[3]);
-            labelPos = 4;
-        }
-
-        ret.put("label", split[labelPos]);
-        String path = "";
-        for (int i = labelPos + 1; i < split.length; i++) {
-            path += "/" + split[i];
-        }
-        ret.put("path", path);
-
         return ret;
     }
 
@@ -237,7 +239,12 @@ public class DownloadFile extends DownloadAction {
         String label = map.get("label");
         Long orgId = null;
         if (map.containsKey("orgId")) {
-            orgId = Long.parseLong(map.get("orgId"));
+            try {
+                orgId = Long.parseLong(map.get("orgId"));
+            }
+            catch (NumberFormatException e) {
+                // Do nothing
+            }
         }
 
 
@@ -258,11 +265,12 @@ public class DownloadFile extends DownloadAction {
             log.debug("Tree label to lookup: " + label);
         }
 
-        KickstartableTree tree;
+        KickstartableTree tree = null;
         if (orgId != null) {
-            tree = KickstartFactory.lookupKickstartTreeByLabel(label,
-                    OrgFactory.lookupById(orgId));
-
+            Org org = OrgFactory.lookupById(orgId);
+            if (org != null) {
+                tree = KickstartFactory.lookupKickstartTreeByLabel(label, org);
+            }
         }
         else if (ksession != null) {
             tree = ksession.getKstree();
@@ -430,19 +438,6 @@ public class DownloadFile extends DownloadAction {
                         src.get(0).getPath();
                     return getStreamForBinary(path);
                 }
-            }
-            else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_README)) {
-                Patch patch = (Patch) PackageFactory.lookupByIdAndOrg(fileId,
-                        user.getOrg());
-                setTextContentInfo(response, patch.getPackageSize().intValue());
-                return getStreamForText(patch.getReadme());
-
-            }
-            else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_SET_README)) {
-                PatchSet patch = (PatchSet) PackageFactory.lookupByIdAndOrg(fileId,
-                        user.getOrg());
-                setTextContentInfo(response, patch.getPackageSize().intValue());
-                return getStreamForText(patch.getReadme());
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_REPO_LOG)) {
                 Channel c = ChannelFactory.lookupById(fileId);

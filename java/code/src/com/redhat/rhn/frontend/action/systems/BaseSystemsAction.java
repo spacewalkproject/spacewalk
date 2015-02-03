@@ -43,6 +43,7 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class BaseSystemsAction extends RhnListAction {
     public static final String SHOW_NO_SYSTEMS = "showNoSystems";
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
@@ -71,7 +72,6 @@ public abstract class BaseSystemsAction extends RhnListAction {
         }
 
 
-        request.setAttribute(RequestContext.PAGE_LIST, result);
         ListTagHelper.bindSetDeclTo("systemList", getSetDecl(), request);
 
         request.setAttribute(RequestContext.PAGE_LIST, result);

@@ -28,30 +28,30 @@
          emptykey="keys.jsp.nokeys"
          alphabarcolumn="description">
 
-	<rl:decorator name="PageSizeDecorator"/>
+        <rl:decorator name="PageSizeDecorator"/>
 
-	<!-- Description name column -->
-	<rl:column bound="false"
-	           sortable="true"
-	           headerkey="kickstart.cryptokey.description"
-	           sortattr="description">
-		<c:out value="<a href=\"/rhn/keys/CryptoKeyEdit.do?key_id=${current.id}\">${current.description}</a>" escapeXml="false" />
-		<rhn:require acl="user_role(satellite_admin)">
-		<c:if test="${current.description == 'RHN-ORG-TRUSTED-SSL-CERT' and current.label == 'SSL'}">
-		<c:out value="<br/>" escapeXml="false" />
-		<bean:message key="keys.jsp.default-ssl-key-copy"/>
-		</c:if>
-		</rhn:require>
-	</rl:column>
+        <!-- Description name column -->
+        <rl:column bound="false"
+                   sortable="true"
+                   headerkey="kickstart.cryptokey.description"
+                   sortattr="description">
+                <c:out value="<a href=\"/rhn/keys/CryptoKeyEdit.do?key_id=${current.id}\">${current.description}</a>" escapeXml="false" />
+                <rhn:require acl="user_role(satellite_admin)">
+                <c:if test="${current.description == 'RHN-ORG-TRUSTED-SSL-CERT' and current.label == 'SSL'}">
+                <c:out value="<br/>" escapeXml="false" />
+                <bean:message key="keys.jsp.default-ssl-key-copy"/>
+                </c:if>
+                </rhn:require>
+        </rl:column>
 
-	<!-- Type Column -->
-		<rl:column bound="false"
-	           sortable="true"
-	           headerkey="kickstart.cryptokey.type"
-	           attr="label"
-	           sortattr="label">
-		<c:out value="${current.label}" escapeXml="false" />
-	</rl:column>
+        <!-- Type Column -->
+                <rl:column bound="false"
+                   sortable="true"
+                   headerkey="kickstart.cryptokey.type"
+                   attr="label"
+                   sortattr="label">
+                <c:out value="${current.label}" escapeXml="false" />
+        </rl:column>
 
       </rl:list>
      </rl:listset>

@@ -30,6 +30,7 @@ DEFAULT_UP2DATE_URL = "linux-update.oracle.com"
 
 
 class ContentSource(yum_ContentSource):
+
     def __init__(self, url, name):
         if url[:6] != "uln://":
             raise RhnSyncException("url format error, url must start with uln://")
@@ -55,12 +56,12 @@ class ContentSource(yum_ContentSource):
         print "The download URL is: " + self.url
         if self.proxy_addr:
             print "Trying proxy " + self.proxy_addr
-        s = RetryServer(self.uln_url+"/rpc/api",
-                    refreshCallback = None,
-                    proxy = self.proxy_addr,
-                    username = self.proxy_user,
-                    password = self.proxy_pass,
-                    timeout = 5)
+        s = RetryServer(self.uln_url + "/rpc/api",
+                        refreshCallback=None,
+                        proxy=self.proxy_addr,
+                        username=self.proxy_user,
+                        password=self.proxy_pass,
+                        timeout=5)
         self.key = s.auth.login(self.uln_user, self.uln_pass)
 
     def setup_repo(self, repo):

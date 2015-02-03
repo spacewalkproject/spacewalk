@@ -26,8 +26,8 @@ ORDER BY UPPER(X.package)
 <mode name="packages_in_errata">
   <query params="eid">
 select * from (
-SELECT DISTINCT P.id id, PN.name || '-' || PE.version 
-       || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
+SELECT DISTINCT P.id id, PN.name || '-' || PE.version
+       || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
        || '-' || PA.label package_nvre
  FROM rhnPackageName PN,
       rhnPackageEVR PE,
@@ -48,8 +48,8 @@ ORDER BY UPPER(X.package_nvre)
 <mode name="packages_in_tmp_errata">
   <query params="eid">
 select * from (
-SELECT DISTINCT P.id id, PN.name || '-' || PE.version 
-       || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
+SELECT DISTINCT P.id id, PN.name || '-' || PE.version
+       || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
        || '-' || PA.label package_nvre
  FROM rhnPackageName PN,
       rhnPackageEVR PE,
@@ -124,7 +124,7 @@ SELECT P.id AS ID,
        PN.name,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
        P.summary,
-       SPT.name AS ptype, 
+       SPT.name AS ptype,
        PE.epoch,
        PE.version,
        PE.release,
@@ -256,7 +256,7 @@ SELECT DISTINCT
        rhnPackageEVR PE,
        rhnPackageArch PA,
        rhnChannelNewestPackage CNP,
-       rhnChannel C, 
+       rhnChannel C,
        rhnChannelArch CA,
        rhnSolarisPackage SP,
        rhnPackage P
@@ -313,7 +313,7 @@ SELECT DISTINCT
   FROM rhnPackageName PN,
        rhnPackageEVR PE,
        rhnPackageArch PA,
-       rhnArchType AT, 
+       rhnArchType AT,
        rhnChannelNewestPackage CNP
  WHERE CNP.channel_id = :cid
    AND PN.id = CNP.name_id
@@ -401,7 +401,7 @@ SELECT PN.id || '|' || PE.id AS ID,
 SELECT P2.id AS ID, PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '-' ||
   PA.label AS NVREA, AC.channel_id, AC.channel_name, EP.errata_id, E.
   advisory, E.advisory_type
-  FROM 
+  FROM
        rhnPackageArch PA,
        rhnPackageName PN,
        rhnPackageEVR PE,
@@ -452,7 +452,7 @@ SELECT   PN.ID || '|' || PE.ID AS ID,
                    SP.package_arch_id,
                    COUNT (DISTINCT SP.server_id) num_systems
           FROM     rhnServerPackage SP,
-                   rhnSet S 
+                   rhnSet S
           WHERE    s.user_id = :user_id
           AND      s.label = :set_label
           AND      s.ELEMENT = SP.server_id
@@ -520,7 +520,7 @@ SELECT   PN.ID || '|' || PE.ID AS ID,
          rhnPackageEVR PE,
     (SELECT        SP.name_id,
                    SP.evr_id,
-		   SP.package_arch_id,
+                   SP.package_arch_id,
                    COUNT (DISTINCT SP.server_id) num_systems
               FROM rhnServerPackage SP,
                    rhnSet S,
@@ -533,7 +533,7 @@ SELECT   PN.ID || '|' || PE.ID AS ID,
                AND CC.capability_name_id = CCN.id
                AND CCN.name = 'packages.verify'
                AND NOT EXISTS (
-                               SELECT 1 
+                               SELECT 1
                                FROM   rhnPackageArch PA, rhnArchType AT
                                WHERE  PA.id = SP.package_arch_id
                                AND    AT.id = PA.arch_type_id
@@ -594,7 +594,7 @@ select * from (
           rhnPackageEVR PE,
           rhnPackageArch PA,
           rhnSet S,
-          rhnSolarisPatch SP, 
+          rhnSolarisPatch SP,
           rhnSolarisPatchType SPT
    WHERE  S.label = :set_label
      AND  S.user_id = :user_id
@@ -603,7 +603,7 @@ select * from (
      AND  P.evr_id = PE.id
      AND  PA.id = P.package_arch_id
      AND  SP.package_id = P.id
-     AND  SP.patch_type = SPT.id 
+     AND  SP.patch_type = SPT.id
 ) X
 ORDER BY  UPPER(X.NVREA)
   </query>
@@ -619,7 +619,7 @@ select * from (
           rhnPackageEVR PE,
           rhnPackageArch PA,
           rhnSet S,
-          rhnSolarisPatchSet SP 
+          rhnSolarisPatchSet SP
    WHERE  S.label = :set_label
      AND  S.user_id = :user_id
      AND  S.element = P.id
@@ -635,8 +635,8 @@ ORDER BY  UPPER(X.NVREA)
 <mode name="packages_owned_by_org">
   <query params="org_id">
 select * from (
-  SELECT DISTINCT P.id id, PN.name || '-' || PE.version 
-           || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
+  SELECT DISTINCT P.id id, PN.name || '-' || PE.version
+           || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
            || '-' || PA.label package_nvre
     FROM rhnPackageName PN,
          rhnPackageEVR PE,
@@ -655,8 +655,8 @@ ORDER BY UPPER(X.package_nvre)
 <mode name="packages_available_to_errata">
   <query params="org_id, eid">
 select * from (
-  SELECT DISTINCT P.id id, PN.name || '-' || PE.version 
-           || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
+  SELECT DISTINCT P.id id, PN.name || '-' || PE.version
+           || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
            || '-' || PA.label PACKAGE_NVRE
     FROM rhnPackageName PN,
          rhnPackageEVR PE,
@@ -681,7 +681,7 @@ ORDER BY UPPER(PACKAGE_NVRE)
 select * from (
   SELECT DISTINCT P.id ID,
                   PN.name || '-' || PE.version || '-' || PE.release
-                    || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
+                    || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
                     || '-' || PA.label PACKAGE_NVRE
     FROM rhnPackageName PN,
          rhnPackageEVR PE,
@@ -1133,7 +1133,7 @@ select * from (
          rhnPackageEVR PE,
          rhnPackageArch PA,
          rhnPackage P,
-         rhnSolarisPackage SP, 
+         rhnSolarisPackage SP,
          rhnChannel C,
          rhnChannelPackageArchCompat CPAC
    WHERE P.org_id = :org_id
@@ -1416,7 +1416,7 @@ SELECT PATCH.id,
        rhnPackage PATCH,
        rhnSolarisPatchPackages SPP,
        rhnPackageNEVRA PNEVRA,
-       rhnPackage P  
+       rhnPackage P
  WHERE P.id = :pid
    AND PNEVRA.name_id = P.name_id
    AND PNEVRA.evr_id = P.evr_id
@@ -1469,13 +1469,13 @@ SELECT PATCHSET.id,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
        TO_CHAR(SPS.set_date, 'YYYY-MM-DD') AS SET_DATE,
        PATCHSET.summary as SUMMARY
-  FROM 
-	  rhnPackage PATCHSET inner join
-	  rhnSolarisPatchSetMembers SPSM on PATCHSET.id = SPSM.patch_set_id inner join 
-	  rhnSolarisPatchSet SPS on SPS.package_id = PATCHSET.id inner join
-	  rhnPackageEVR PE on PE.id = PATCHSET.evr_id inner join 
- 	  rhnPackageName PN  on PN.id = PATCHSET.name_id       
- WHERE SPSM.patch_id = :pid   
+  FROM
+          rhnPackage PATCHSET inner join
+          rhnSolarisPatchSetMembers SPSM on PATCHSET.id = SPSM.patch_set_id inner join
+          rhnSolarisPatchSet SPS on SPS.package_id = PATCHSET.id inner join
+          rhnPackageEVR PE on PE.id = PATCHSET.evr_id inner join
+          rhnPackageName PN  on PN.id = PATCHSET.name_id
+ WHERE SPSM.patch_id = :pid
 ORDER BY SPS.set_date DESC
   </query>
 </mode>

@@ -29,11 +29,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <query name="PackageProvider.findByName">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider as p
-        		where p.name = :name]]>
+                        where p.name = :name]]>
     </query>
 
     <query name="PackageProvider.listProviders">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider]]>    	
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider]]>
     </query>
 
 

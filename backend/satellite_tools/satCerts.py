@@ -17,12 +17,12 @@
 # in this software or its documentation.
 #
 
-## language imports
+# language imports
 from time import strftime, strptime
 import os
 import sys
 
-## other rhn imports
+# other rhn imports
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnServer import satellite_cert
 from spacewalk.common.rhnTB import fetchTraceback
@@ -32,30 +32,40 @@ from spacewalk.common.rhnConfig import RHNOptions
 # RHN certificate section
 #
 
+
 class NoOrgIdError(Exception):
+
     "missing org id error"
 
+
 class CertGenerationMismatchError(Exception):
+
     "the certificate that is stored in the db is a different generation"
 
+
 class CertVersionMismatchError(Exception):
+
     def __init__(self, old_version, new_version):
         Exception.__init__(self)
         self._message = "the versions of current and new certificate do not match, [%s] vs. [%s]" % (
-                                                                              old_version, new_version)
+            old_version, new_version)
+
     def __str__(self):
         return self._message
 
+
 class NoFreeEntitlementsError(Exception):
+
     def __init__(self, label, quantity):
         Exception.__init__(self)
         self.label = label
         self.quantity = quantity
         self.message = ("Error: You do not have enough unused %s entitlements in the base org. "
-                      + "You will need at least %s free entitlements, based on your current consumption. "
-                      + "Please un-entitle the remaining systems for the activation to proceed.") % (
-                        self.label, self.quantity)
+                        + "You will need at least %s free entitlements, based on your current consumption. "
+                        + "Please un-entitle the remaining systems for the activation to proceed.") % (
+                            self.label, self.quantity)
         self.args = [self.message]
+
 
 def get_all_orgs():
     """ Fetch org_id. Create first org_id if needed.
@@ -84,6 +94,7 @@ _queryLookupBaseOrgId = rhnSQL.Statement("""
       FROM web_customer
 """)
 
+
 def get_org_id():
     """
      Fetch base org id
@@ -94,6 +105,7 @@ def get_org_id():
     if not row or not row['id']:
         raise NoOrgIdError("Unable to look up org_id")
     return row['id']
+
 
 def create_first_org(owner):
     """ create first org_id if needed
@@ -109,7 +121,7 @@ def create_first_org(owner):
         # copying logic from validate-sat-cert.pl
         # I.e., setting their org_id password to the pid cubed.
         #       That password is not used by anything.
-        pword = str(long(os.getpid())**3)
+        pword = str(long(os.getpid()) ** 3)
         # do it!
         p(owner, pword)
         # Now create the first private channel family
@@ -140,12 +152,12 @@ group by org, slot_name
 
 _query_get_family_counts = rhnSQL.Statement("""
 select org, label,
-	sum(current_members) as current_members,
-	sum(max_members) as max_members,
-	sum(fve_current_members) as fve_current_members,
-	sum(fve_max_members) as fve_max_members,
-	sum(physical_count) as physical_count,
-	sum(virtual_count) as virtual_count
+        sum(current_members) as current_members,
+        sum(max_members) as max_members,
+        sum(fve_current_members) as fve_current_members,
+        sum(fve_max_members) as fve_max_members,
+        sum(physical_count) as physical_count,
+        sum(virtual_count) as virtual_count
 from (
         select case when CFO.org_id = :base_org_id then 'base' else 'other' end as org,
         CFO.label,
@@ -183,14 +195,14 @@ def set_slots_from_cert(cert, testonly=False):
     slot_table = rhnSQL.Table("rhnServerGroupType", "label")
 
     h = rhnSQL.prepare(_query_get_slots)
-    h.execute(base_org_id = org_id)
+    h.execute(base_org_id=org_id)
     rows = h.fetchall_dict()
 
     for entry in rows:
         if not counts.has_key(entry['slot_name']):
-            counts[entry['slot_name']] = { 'base' : ( 0, 0 ), 'other' : ( 0, 0 ) }
+            counts[entry['slot_name']] = {'base': (0, 0), 'other': (0, 0)}
 
-        counts[entry['slot_name']][entry['org']] = ( entry['max_members'], entry['current_members'] )
+        counts[entry['slot_name']][entry['org']] = (entry['max_members'], entry['current_members'])
 
     has_error = False
     for slot_type in cert.get_slot_types():
@@ -210,16 +222,16 @@ def set_slots_from_cert(cert, testonly=False):
         allocated = counts[db_label]['base'][1] + counts[db_label]['other'][0]
         if allocated > quantity:
             has_error = True
-            sys.stderr.write("Certificate specifies %s of %s entitlements.\n" % ( quantity, db_label ))
+            sys.stderr.write("Certificate specifies %s of %s entitlements.\n" % (quantity, db_label))
             sys.stderr.write("    There are ")
             if counts[db_label]['base'][1]:
                 sys.stderr.write("%s entitlements used by systems in the base (id %s) organization" % (
-                                                                 counts[db_label]['base'][1], org_id ))
+                    counts[db_label]['base'][1], org_id))
             if counts[db_label]['base'][1] and counts[db_label]['other'][0]:
                 sys.stderr.write(",\n    plus ")
             if counts[db_label]['other'][0]:
                 sys.stderr.write("%s entitlements allocated to non-base org(s) (%s used)" % (
-                                          counts[db_label]['other'][0], counts[db_label]['other'][1] ))
+                    counts[db_label]['other'][0], counts[db_label]['other'][1]))
             sys.stderr.write(".\n")
 
             sys.stderr.write("    You might need to ")
@@ -231,7 +243,7 @@ def set_slots_from_cert(cert, testonly=False):
                 sys.stderr.write("deallocate some entitlements from non-base organization(s)")
             sys.stderr.write(".\n")
             sys.stderr.write("    You need to free %s entitlements to match the new certificate.\n" % (
-                                                                                 allocated - quantity))
+                allocated - quantity))
             if slot_table.has_key(db_label):
                 entitlement_name = slot_table[db_label]['name']
                 entitlement_name = entitlement_name.replace(' Entitled Servers', '')
@@ -240,21 +252,20 @@ def set_slots_from_cert(cert, testonly=False):
                 sys.stderr.write("    In the WebUI, the entitlement is named %s.\n" % entitlement_name)
 
     h = rhnSQL.prepare(_query_get_family_counts)
-    h.execute(base_org_id = org_id)
+    h.execute(base_org_id=org_id)
     rows = h.fetchall_dict()
 
     families = {}
     for entry in rows:
         if not families.has_key(entry['label']):
-            families[entry['label']] = { 'base' : ( 0, 0, 0, 0, 0, 0 ), 'other' : ( 0, 0, 0, 0, 0, 0 ) }
+            families[entry['label']] = {'base': (0, 0, 0, 0, 0, 0), 'other': (0, 0, 0, 0, 0, 0)}
 
-        families[entry['label']][entry['org']] = [ entry[i] for i in ( 'current_members',
-							'max_members',
-							'fve_current_members',
-							'fve_max_members',
-							'physical_count',
-							'virtual_count'
-                                                 )]
+        families[entry['label']][entry['org']] = [entry[i] for i in ('current_members',
+                                                                     'max_members',
+                                                                     'fve_current_members',
+                                                                     'fve_max_members',
+                                                                     'physical_count',
+                                                                     'virtual_count')]
 
     for cf in cert.channel_families:
         if not families.has_key(cf.name):
@@ -274,7 +285,7 @@ def set_slots_from_cert(cert, testonly=False):
 
         if quantity < existing_base + allocated_other:
             has_error = True
-            sys.stderr.write("Certificate specifies %s of %s channel family entitlements" % ( quantity, cf.name ))
+            sys.stderr.write("Certificate specifies %s of %s channel family entitlements" % (quantity, cf.name))
             if flex:
                 sys.stderr.write(",\n    of which %s are flex entitlements.\n" % flex)
             else:
@@ -294,7 +305,7 @@ def set_slots_from_cert(cert, testonly=False):
 
             if allocated_other:
                 sys.stderr.write(" %s entitlements allocated to non-base org(s) (%s used).\n" % (
-                        allocated_other, families[cf.name]['other'][0] + families[cf.name]['other'][2]))
+                    allocated_other, families[cf.name]['other'][0] + families[cf.name]['other'][2]))
 
             sys.stderr.write("    You might need to ")
             if existing_base:
@@ -305,11 +316,11 @@ def set_slots_from_cert(cert, testonly=False):
                 sys.stderr.write("deallocate some entitlements from non-base organization(s)")
             sys.stderr.write(".\n")
             sys.stderr.write("    You need to free %s entitlements to match the new certificate.\n" % (
-                                                             existing_base + allocated_other - quantity))
+                existing_base + allocated_other - quantity))
 
         elif quantity - flex < families[cf.name]['base'][4] + families[cf.name]['other'][1]:
             has_error = True
-            sys.stderr.write("Certificate specifies %s of %s non-flex entitlements.\n" % ( quantity - flex, cf.name ))
+            sys.stderr.write("Certificate specifies %s of %s non-flex entitlements.\n" % (quantity - flex, cf.name))
 
             sys.stderr.write("    There are")
             if families[cf.name]['base'][4]:
@@ -322,7 +333,7 @@ def set_slots_from_cert(cert, testonly=False):
 
             if families[cf.name]['other'][1]:
                 sys.stderr.write(" %s non-flex entitlements allocated to non-base org(s) (%s used).\n" % (
-                                           families[cf.name]['other'][1], families[cf.name]['other'][0]))
+                    families[cf.name]['other'][1], families[cf.name]['other'][0]))
 
             sys.stderr.write("    You might need to ")
             if families[cf.name]['base'][4]:
@@ -333,7 +344,7 @@ def set_slots_from_cert(cert, testonly=False):
                 sys.stderr.write("deallocate some entitlements from non-base organization(s)")
             sys.stderr.write(".\n")
             sys.stderr.write("    You need to free %s entitlements to match the new certificate.\n" % (
-                        families[cf.name]['base'][4] + families[cf.name]['other'][1] - (quantity - flex)))
+                families[cf.name]['base'][4] + families[cf.name]['other'][1] - (quantity - flex)))
 
     if has_error:
         sys.stderr.write("Activation failed, will now exit with no changes.\n")
@@ -342,9 +353,8 @@ def set_slots_from_cert(cert, testonly=False):
     if testonly:
         return
 
-
     activate_system_entitlement = rhnSQL.Procedure(
-                                "rhn_entitlements.activate_system_entitlement")
+        "rhn_entitlements.activate_system_entitlement")
     org_service_proc = rhnSQL.Procedure("rhn_entitlements.modify_org_service")
     # Fetch all available entitlements; the ones that are not present in the
     # cert will have to be set to zero
@@ -371,11 +381,16 @@ def set_slots_from_cert(cert, testonly=False):
         else:
             sys_ent_total_max[ent_name] += max_members
 
-
     for slot_type in cert.get_slot_types():
         slots = cert.get_slots(slot_type)
 
         db_label = slots.get_db_label()
+
+        # Monitoring entitlements are no longer supported.
+        # Ignore any information about monitoring entitlements for backwards
+        # compatibility.
+        if db_label == 'monitoring_entitled':
+            continue
 
         quantity = slots.get_quantity()
 
@@ -393,23 +408,23 @@ def set_slots_from_cert(cert, testonly=False):
             del extra_slots[slot_type_id]
 
         if sys_ent_total_max.has_key(db_label) and \
-            sys_ent_total_max[db_label] is not None:
-	    # Do the math only if the slot already exists
+                sys_ent_total_max[db_label] is not None:
+            # Do the math only if the slot already exists
             if sys_ent_total_max[db_label] > int(quantity):
-	        # If cert count is lower than existing db slot
+                # If cert count is lower than existing db slot
                 purge_count = sys_ent_total_max[db_label] - int(quantity)
                 quantity = sys_ent_counts[(db_label, 1)] - purge_count
 
             else:
-	        # If cert is higher take the extra count and add to max
+                # If cert is higher take the extra count and add to max
                 quantity = sys_ent_counts[(db_label, 1)] + \
-                            (int(quantity) - sys_ent_total_max[db_label])
+                    (int(quantity) - sys_ent_total_max[db_label])
 
         try:
             # Set the counts now
             activate_system_entitlement(org_id, db_label, quantity)
         except rhnSQL.sql_base.SQLSchemaError, e:
-            if e[0] == 20290:
+            if e.args[0] == 20290:
                 free_count = sys_ent_counts[(db_label, 1)] - quantity
                 raise NoFreeEntitlementsError(db_label, free_count), None, sys.exc_info()[2]
             else:
@@ -430,6 +445,7 @@ def set_slots_from_cert(cert, testonly=False):
         org_service_proc(org_id, slot_name, 'N')
 
     # NOTE: must rhnSQL.commit() in calling function.
+
 
 def storeRhnCert(cert, check_generation=0, check_version=0):
     """ Pushes an RHN cert into the database, in rhnSatelliteCert
@@ -502,17 +518,14 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
 
         # Oracle aparently needs a separate query to update the cert blob:
         h.update_blob("rhnSatelliteCert", "cert",
-            "WHERE label = :label AND version = :version", cert, label=label,
-            version=version)
+                      "WHERE label = :label AND version = :version", cert, label=label,
+                      version=version)
 
     # always reset the slots
     set_slots_from_cert(sc)
 
     cfg = RHNOptions('web')
     cfg.parse()
-    if cfg.get('is_monitoring_backend') == 1:
-        org_id = get_org_id()
-        push_monitoring_configs(org_id)
 
     rhnSQL.commit()
 
@@ -527,6 +540,8 @@ _query_latest_version = rhnSQL.Statement("""
         ELSE version
     END DESC
 """)
+
+
 def retrieve_db_cert(label='rhn-satellite-cert'):
     h = rhnSQL.prepare(_query_latest_version)
     h.execute(label=label)
@@ -556,36 +571,9 @@ _query_update_web_user = rhnSQL.Statement("""
 """)
 
 #
-# Monitoring Scout Config Push section
-# Stuff needed to push scout configs after a successful sat-cert activation
-# see BZ# 163392 for more info
-
-def push_monitoring_configs(org_id):
-    push_configs_proc = rhnSQL.Procedure("rhn_install_org_satellites")
-
-    h = rhnSQL.prepare(_query_get_sat_clusters)
-    h.execute(customer_id=org_id)
-    rows = h.fetchall_dict()
-    if not rows:
-        #since we've not found any scouts, just do nothing
-        pass
-    else:
-        for row in rows:
-            push_configs_proc(org_id, row['recid'], '1')
-
-        print "Pushing scout configs to all monitoring scouts"
-
-
-_query_get_sat_clusters = rhnSQL.Statement("""
-    SELECT recid
-      FROM rhn_Sat_Cluster
-     WHERE customer_id = :customer_id
-""")
-
-
-#
 # SSL CA certificate section
 #
+
 
 class CaCertInsertionError(Exception):
     pass
@@ -618,13 +606,13 @@ def _checkCertMatch_rhnCryptoKey(caCert, description, org_id, deleteRowYN=0,
             return
         # there can only be one (bugzilla: 120297)
         rhn_cryptokey_id = int(row['id'])
-        #print 'found existing certificate - id:', rhn_cryptokey_id
-        ## NUKE IT!
+        # print 'found existing certificate - id:', rhn_cryptokey_id
+        # NUKE IT!
         if deleteRowYN:
-            #print 'found a cert, nuking it! id:', rhn_cryptokey_id
+            # print 'found a cert, nuking it! id:', rhn_cryptokey_id
             h = rhnSQL.prepare('delete from rhnCryptoKey where id=:rhn_cryptokey_id')
             h.execute(rhn_cryptokey_id=rhn_cryptokey_id)
-            #rhnSQL.commit()
+            # rhnSQL.commit()
             rhn_cryptokey_id = -1
     return rhn_cryptokey_id
 
@@ -641,7 +629,7 @@ def _insertPrep_rhnCryptoKey(rhn_cryptokey_id, description, org_id):
     #       bugzilla: 120297 - and no I don't like it.
     rhn_cryptokey_id_seq = rhnSQL.Sequence('rhn_cryptokey_id_seq')
     rhn_cryptokey_id = rhn_cryptokey_id_seq.next()
-    #print 'no cert found, new one with id:', rhn_cryptokey_id
+    # print 'no cert found, new one with id:', rhn_cryptokey_id
     h = rhnSQL.prepare(_queryInsertCryptoCertInfo)
     # ...insert
     h.execute(rhn_cryptokey_id=rhn_cryptokey_id,
@@ -659,7 +647,7 @@ def _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert):
     h = rhnSQL.cursor()
     try:
         h.update_blob("rhnCryptoKey", "key", "WHERE id = :rhn_cryptokey_id",
-            cert, rhn_cryptokey_id=rhn_cryptokey_id)
+                      cert, rhn_cryptokey_id=rhn_cryptokey_id)
     except:
         # didn't go in!
         raise CaCertInsertionError("ERROR: CA certificate failed to be "
@@ -679,18 +667,18 @@ def store_rhnCryptoKey(description, caCert, verbosity=0):
     for org_id in org_ids:
         org_id = org_id['id']
         try:
-            ## look for a cert match in the database
+            # look for a cert match in the database
             rhn_cryptokey_id = _checkCertMatch_rhnCryptoKey(caCert, description,
-                                                          org_id, deleteRowYN=1,
-                                                          verbosity=verbosity)
+                                                            org_id, deleteRowYN=1,
+                                                            verbosity=verbosity)
             if rhn_cryptokey_id is None:
                 # nothing to do - cert matches
                 continue
-            ## insert into the database
+            # insert into the database
             if rhn_cryptokey_id == -1:
                 rhn_cryptokey_id = _insertPrep_rhnCryptoKey(rhn_cryptokey_id,
                                                             description, org_id)
-            ## write/update
+            # write/update
             _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert)
             rhnSQL.commit()
         except rhnSQL.sql_base.SQLError:
@@ -720,9 +708,11 @@ _queryInsertCryptoCertInfo = rhnSQL.Statement("""
 def _test_storeRhnCert(rhnCert):
     storeRhnCert(rhnCert)
 
+
 def _test_store_rhnCryptoKey(caCert):
     description = 'RHN-ORG-TRUSTED-SSL-CERT'
     store_rhnCryptoKey(description, caCert)
+
 
 def create_first_private_chan_family():
     """
@@ -747,8 +737,8 @@ def create_first_private_chan_family():
     """
     h = rhnSQL.prepare(_query_create_chfam)
     try:
-        h.execute(name='Private Channel Family 1', \
-                  label='private-channel-family-1', \
+        h.execute(name='Private Channel Family 1',
+                  label='private-channel-family-1',
                   org=1, url='First Org Created')
     except rhnSQL.SQLError:
         # if we're here that means we're voilating something
@@ -772,7 +762,7 @@ def verify_family_permissions(orgid=1):
     """
 
     h = rhnSQL.prepare(_query_lookup_cfid)
-    h.execute(orgid = orgid)
+    h.execute(orgid=orgid)
     cfid = h.fetchone_dict()
     if not cfid:
         return
@@ -799,4 +789,3 @@ if __name__ == '__main__':
     print "end of __main__"
     rhnSQL.closeDB()
     print "we have closed the database"
-

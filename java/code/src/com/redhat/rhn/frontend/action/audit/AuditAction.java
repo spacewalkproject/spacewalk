@@ -71,5 +71,3 @@ public class AuditAction extends RhnAction implements Listable {
         return AuditManager.getMachines();
     }
 }
-
-// vim: ts=4:expandtab

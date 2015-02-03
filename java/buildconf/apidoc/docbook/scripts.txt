@@ -44,5 +44,45 @@ for user in list:
   print user.get('login')
 
 client.auth.logout(key)</programlisting>
+    <para>The following code shows how to use date-time parameters. This code will schedule immediate installation of package rhnlib-2.5.22.9.el6.noarch to system with id 1000000001.</para>
+    <programlisting>#!/usr/bin/python
+from datetime import datetime
+import time
+import xmlrpclib
+
+MANAGER_URL = "http://manager.example.com/rpc/api"
+MANAGER_LOGIN = "username"
+MANAGER_PASSWORD = "password"
+
+client = xmlrpclib.Server(MANAGER_URL, verbose=0)
+
+key = client.auth.login(MANAGER_LOGIN, MANAGER_PASSWORD)
+package_list = client.packages.findByNvrea(key, 'rhnlib', '2.5.22', '9.el6', '', 'noarch')
+today = datetime.today()
+earliest_occurrence = xmlrpclib.DateTime(today)
+client.system.schedulePackageInstall(key, 1000000001, package_list[0]['id'], earliest_occurrence)
+
+client.auth.logout(key)</programlisting>
+</example>
+
+<example>
+    <title>Ruby Example</title>
+    <para>Below is an example of the <function>channel.listAllChannels</function> API call. List of channel labels is printed.</para>
+    <programlisting>#!/usr/bin/env ruby
+require "xmlrpc/client"
+
+@MANAGER_URL = "http://manager.example.com/rpc/api"
+@MANAGER_LOGIN = "username"
+@MANAGER_PASSWORD = "password"
+
+@client = XMLRPC::Client.new2(@MANAGER_URL)
+
+@key = @client.call('auth.login', @MANAGER_LOGIN, @MANAGER_PASSWORD)
+channels = @client.call('channel.listAllChannels', @key)
+for channel in channels do
+   p channel["label"]
+end
+
+@client.call('auth.logout', @key)</programlisting>
 </example>
 </preface>

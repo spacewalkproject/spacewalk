@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::DB::Tag;
@@ -31,13 +31,13 @@ my $t_table = new RHN::DB::TableClass("rhnTag", "T", "", @t_fields);
 my $tn_table = new RHN::DB::TableClass("rhnTagName", "TN", "", @tn_fields);
 
 my $j = $t_table->create_join([$tn_table],
-			      {
-			       "rhnTag" =>
-			       {
-				"rhnTag" => ["ID", "ID"],
-				"rhnTagName" => ["NAME_ID", "ID"],
-			       }
-			      });
+                              {
+                               "rhnTag" =>
+                               {
+                                "rhnTag" => ["ID", "ID"],
+                                "rhnTagName" => ["NAME_ID", "ID"],
+                               }
+                              });
 
 foreach my $field ($j->method_names) {
    my $sub = q {

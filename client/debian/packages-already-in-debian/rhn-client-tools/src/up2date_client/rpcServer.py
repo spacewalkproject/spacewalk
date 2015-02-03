@@ -158,7 +158,7 @@ def getServer(refreshCallback=None):
     for rhns_ca_cert in rhns_ca_certs:
         if not os.access(rhns_ca_cert, os.R_OK):
             msg = "%s: %s" % (_("ERROR: can not find RHNS CA file"),
-				 rhns_ca_cert)
+                                 rhns_ca_cert)
             log.log_me("%s" % msg)
             raise up2dateErrors.SSLCertificateFileNotFound(msg)
 
@@ -248,8 +248,8 @@ def doCall(method, *args, **kwargs):
             # serverURL is just pointing somewhere random they will
             # get a 0 for errcode and will raise a CommunicationError
             if abs(errCode) == 17:
-		#in this case, the args are the package string, so lets try to
-		# build a useful error message
+                #in this case, the args are the package string, so lets try to
+                # build a useful error message
                 if type(args[0]) == type([]):
                     pkg = args[0]
                 else:

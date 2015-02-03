@@ -21,9 +21,9 @@ import org.apache.lucene.search.Query;
 import org.apache.log4j.Logger;
 
 public class NGramQueryTest extends NGramTestSetup {
-	
-	private static Logger log = Logger.getLogger(NGramQueryTest.class);
-    
+
+        private static Logger log = Logger.getLogger(NGramQueryTest.class);
+
     public NGramQueryTest() {
         super();
     }
@@ -40,7 +40,7 @@ public class NGramQueryTest extends NGramTestSetup {
         Query q = new NGramQuery("name", term, min_ngram, max_ngram);
         log.info("NGramQuery("+term+") = " + q.toString());
         assertTrue(q.toString().compareTo("name:s name:p name:e name:l " +
-        		"name:l name:sp name:pe name:el name:ll name:spe name:pel " +
-			"name:ell name:spel name:pell name:spell") == 0);
+                        "name:l name:sp name:pe name:el name:ll name:spe name:pel " +
+                        "name:ell name:spel name:pell name:spell") == 0);
     }
 }

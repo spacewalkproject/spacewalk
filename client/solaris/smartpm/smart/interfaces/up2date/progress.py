@@ -143,5 +143,3 @@ def test():
 
 if __name__ == "__main__":
     test()
-
-# vim:ts=4:sw=4:et

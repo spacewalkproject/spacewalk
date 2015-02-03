@@ -16,22 +16,24 @@ import unittest
 import TestServer
 import server.app.packages
 
-class TestLoginTestCase( unittest.TestCase ):
-    def setUp( self ):
+
+class TestLoginTestCase(unittest.TestCase):
+
+    def setUp(self):
         self.myserver = TestServer.TestServer()
         self.packages = server.app.packages.Packages()
 
-    def tearDown( self ):
+    def tearDown(self):
         pass
 
-    def testReturnType( self ):
-        assert type( self.packages.test_login( self.myserver.getUsername(), self.myserver.getPassword() ) ) == type(1)
+    def testReturnType(self):
+        assert type(self.packages.test_login(self.myserver.getUsername(), self.myserver.getPassword())) == type(1)
 
-    def testReturnValue( self ):
-        assert self.packages.test_login( self.myserver.getUsername(), self.myserver.getPassword() ) == 1
+    def testReturnValue(self):
+        assert self.packages.test_login(self.myserver.getUsername(), self.myserver.getPassword()) == 1
 
-    def testReturnValue2( self ):
-        assert self.packages.test_login( "afdafdsfasdf", "afdfadfa" ) == 0
+    def testReturnValue2(self):
+        assert self.packages.test_login("afdafdsfasdf", "afdfadfa") == 0
 
 if __name__ == "__main__":
     unittest.main()

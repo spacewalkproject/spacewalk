@@ -27,7 +27,6 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -261,42 +260,6 @@ public class Access extends BaseHandler {
         Map map = (Map) ctx;
         User user = (User)map.get("user");
         return (user != null);
-    }
-
-    /**
-     * returns true if sid is a solaris system
-     * @param ctx Context Map to pass in
-     * @param params Parameters to use to fetch from Context
-     * @return true if access is granted, false otherwise
-     */
-    public boolean aclIsSolaris(Object ctx, String[] params) {
-        Map map = (Map) ctx;
-        Long sid = getAsLong(map.get("sid"));
-        return ServerFactory.lookupById(sid).isSolaris();
-    }
-
-    /**
-     * Check that the current user has access to the probe suite.
-     * The id of the suite must be in the parameter <code>suite_id</code>
-     * @param ctx acl context
-     * @param p parameters for acl (ignored)
-     * @return <code>true</code> if the user has access to the suite
-     */
-    public boolean aclProbeSuiteAccess(Object ctx, String[] p) {
-        Map map = (Map) ctx;
-        User user = (User) map.get("user");
-        String[] suites = (String[]) map.get("suite_id");
-        if (suites == null || suites.length != 1) {
-            throw new IllegalArgumentException("Expected exactly one suite_id");
-        }
-        Long suite = Long.parseLong(suites[0]);
-        SelectMode m = ModeFactory.getMode("Monitoring_queries", "probe_suite_accessible");
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("user_id", user.getId());
-        params.put("suite_id", suite);
-        Map row = (Map) m.execute(params).iterator().next();
-        Long noaccess = (Long) row.get("noaccess");
-        return 0 == noaccess.intValue();
     }
 
     /**

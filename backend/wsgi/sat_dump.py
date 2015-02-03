@@ -16,6 +16,7 @@
 
 from wsgi import wsgiHandler
 
+
 def application(environ, start_response):
     return wsgiHandler.handle(environ, start_response,
                               "non_auth_dumper", "server.iss",

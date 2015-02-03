@@ -21,7 +21,9 @@ from spacewalk.common.rhnLog import initLOG, log_setreq, log_debug
 from spacewalk.common.rhnTB import Traceback
 from spacewalk.common import apache
 
+
 class HandlerWrap:
+
     """ Wrapper handlers to catch unwanted exceptions """
     svrHandlers = None
 
@@ -29,7 +31,6 @@ class HandlerWrap:
         self.__name = name
         # Flag: should we initialize the config and logging components?
         self.__init = init
-
 
     def __call__(self, req):
         # NOTE: all imports done here due to required initialization of
@@ -64,7 +65,7 @@ class HandlerWrap:
                 raise Exception("Class has no attribute %s" % self.__name)
         # pylint: disable=W0702
         except:
-            Traceback(self.__name, req, extra = "Unhandled exception type",
+            Traceback(self.__name, req, extra="Unhandled exception type",
                       severity="unhandled")
             return apache.HTTP_INTERNAL_SERVER_ERROR
         else:
@@ -79,9 +80,8 @@ class HandlerWrap:
 
 ### Instantiate external entry points:
 HeaderParserHandler = HandlerWrap("headerParserHandler", init=1)
-Handler             = HandlerWrap("handler")
-CleanupHandler      = HandlerWrap("cleanupHandler")
-LogHandler          = HandlerWrap("logHandler")
+Handler = HandlerWrap("handler")
+CleanupHandler = HandlerWrap("cleanupHandler")
+LogHandler = HandlerWrap("logHandler")
 
 #-------------------------------------------------------------------------------
-

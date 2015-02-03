@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::Form::Filter;
@@ -20,10 +20,10 @@ use strict;
 use RHN::Exception qw/throw/;
 
 my %filters = (text => \&text_filter,
-	       password => \&password_filter,
-	       valid_option_filter => \&valid_option_filter,
-	       remove_blanks => \&remove_blanks_filter,
-	      );
+               password => \&password_filter,
+               valid_option_filter => \&valid_option_filter,
+               remove_blanks => \&remove_blanks_filter,
+              );
 
 sub text_filter {
   my $widget = shift;

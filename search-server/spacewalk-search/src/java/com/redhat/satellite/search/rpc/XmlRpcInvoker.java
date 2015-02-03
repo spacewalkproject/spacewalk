@@ -30,9 +30,9 @@ import simple.http.Response;
 
 /**
  * SimpleWeb ProtocolHandler used to pass requests to the XML-RPC layer
- * 
+ *
  * @version $Rev$
- * 
+ *
  */
 public class XmlRpcInvoker implements ProtocolHandler {
 
@@ -41,7 +41,7 @@ public class XmlRpcInvoker implements ProtocolHandler {
 
     /**
      * Constructor
-     * 
+     *
      * @param xmlrpcServer
      *            handles actual XML-RPC calls
      */

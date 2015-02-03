@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -36,12 +36,12 @@ sub list_of { return "contact methods" }
 sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "users_contact_methods",
-			   -datasource => RHN::DataSource::ContactMethod->new,
-			   -provider => \&users_methods_provider);
+                           -datasource => RHN::DataSource::ContactMethod->new,
+                           -provider => \&users_methods_provider);
 
   Sniglets::ListView::List->add_mode(-mode => "orgs_contact_method_tree",
-			   -datasource => RHN::DataSource::ContactMethod->new,
-			   -provider => \&orgs_method_tree_provider);
+                           -datasource => RHN::DataSource::ContactMethod->new,
+                           -provider => \&orgs_method_tree_provider);
 }
 
 
@@ -76,11 +76,11 @@ sub orgs_method_tree_provider {
       my $contact_row = { CONTACT_ID => $row->{CONTACT_ID},
                           CONTACT_LOGIN => $row->{CONTACT_LOGIN},
                           METHOD_NAME => '',
-                          METHOD_TARGET => '', 
+                          METHOD_TARGET => '',
                           METHOD_ID => '' };
 
       if (not $row->{METHOD_ID}) {
-	$row->{METHOD_NAME} = '(No contact methods for user)';
+        $row->{METHOD_NAME} = '(No contact methods for user)';
       }
 
       splice @{$ret{data}}, $method_index, 0, $contact_row;

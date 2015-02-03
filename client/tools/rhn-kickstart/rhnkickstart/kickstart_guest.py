@@ -472,7 +472,7 @@ def syslog_listener(host, port, log_notify_handler):
     log_notifier.start()
     # Caution the user
     log_notifier.add_log_message("RHN:: If your guest firewall is enabled, " \
-               	"some parts of the installation process might not be logged")
+                "some parts of the installation process might not be logged")
 
     # socket to listen to syslog
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

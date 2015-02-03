@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.PackageFileDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageArchException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
@@ -196,32 +197,30 @@ public class PackagesHandler extends BaseHandler {
         // Get the logged in user
         Package pkg = lookupPackage(loggedInUser, pid);
 
-        DataResult dr = PackageManager.packageFiles(pkg.getId());
+        List<PackageFileDto> dr = PackageManager.packageFiles(pkg.getId());
 
         List returnList = new ArrayList();
 
         /*
          * Loop through the data result and merge the data into the correct format
          */
-        for (Iterator itr = dr.iterator(); itr.hasNext();) {
-            Map file = (Map) itr.next();
-            Map row = new HashMap();
+        for (PackageFileDto file : dr) {
+            Map<String, Object> row = new HashMap<String, Object>();
 
             // Default items (mtime and file_size cannot be null)
-            row.put("path", StringUtils.defaultString((String) file.get("name")));
-            row.put("last_modified_date", file.get("mtime"));
-            row.put("size", file.get("file_size"));
-            row.put("linkto", StringUtils.defaultString((String) file.get("linkto")));
-            row.put("checksum", StringUtils.defaultString((String) file.get("checksum")));
-            row.put("checksum_type", StringUtils.defaultString(
-                                    (String) file.get("checksumtype")));
+            row.put("path", StringUtils.defaultString(file.getName()));
+            row.put("last_modified_date", file.getMtime());
+            row.put("size", file.getFileSize());
+            row.put("linkto", StringUtils.defaultString(file.getLinkto()));
+            row.put("checksum", StringUtils.defaultString(file.getChecksum()));
+            row.put("checksum_type", StringUtils.defaultString(file.getChecksumtype()));
 
             // Determine the file_type
-            if (file.get("checksum") != null) {
+            if (file.getChecksum() != null) {
                 row.put("type", "file");
             }
             else {
-                if (file.get("linkto") != null) {
+                if (file.getLinkto() != null) {
                     row.put("type", "symlink");
                 }
                 else {

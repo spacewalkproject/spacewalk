@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 2.3.0
+Version: 2.3.2
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
@@ -44,6 +44,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 15 2015 Matej Kollar <mkollar@redhat.com> 2.3.2-1
+- Getting rid of trailing spaces in XML
+
+* Tue Nov 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.1-1
+- no need to store search logs in git
+
 * Thu Feb 27 2014 Matej Kollar <mkollar@redhat.com> 2.2.1-1
 - Updating search index
 - Update urls for search reindexing

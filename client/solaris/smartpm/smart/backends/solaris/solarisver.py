@@ -132,5 +132,3 @@ if __name__ == "__main__":
     print "vercmp(version4, version4):", vercmp(version4, version4)
     print "vercmp(version4, version5):", vercmp(version4, version5)
     print "vercmp(version5, version4):", vercmp(version5, version4)
-
-# vim:ts=4:sw=4

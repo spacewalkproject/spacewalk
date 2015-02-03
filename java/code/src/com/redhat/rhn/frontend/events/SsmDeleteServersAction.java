@@ -14,7 +14,9 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
@@ -51,7 +53,23 @@ public class SsmDeleteServersAction extends AbstractDatabaseAction {
 
         try {
             for (Long sid : sids) {
-                SystemManager.deleteServer(user, sid);
+                try {
+                    SystemManager.deleteServer(user, sid);
+                    // commit after each deletion to prevent deadlocks with
+                    // system registration
+                    HibernateFactory.commitTransaction();
+                }
+                catch (Exception e) {
+                    // Should never happen, but let's roll back the transaction
+                    // and continue
+                    HibernateFactory.rollbackTransaction();
+                }
+
+                HibernateFactory.closeSession();
+                HibernateFactory.getSession();
+                // initialize logging
+                LoggingFactory.clearLogId();
+                LoggingFactory.setLogAuth(user.getId());
             }
         }
         catch (Exception e) {

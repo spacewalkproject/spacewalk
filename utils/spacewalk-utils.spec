@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.18
+Version:	2.3.28
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -18,7 +18,7 @@ BuildRequires:  python
 BuildRequires: /usr/bin/pod2man
 %if 0%{?fedora} || 0%{?rhel} > 5
 # pylint check
-BuildRequires:  spacewalk-pylint
+BuildRequires:  spacewalk-pylint >= 2.2
 BuildRequires:  yum
 BuildRequires:  spacewalk-config
 BuildRequires:  spacewalk-backend >= 1.7.24
@@ -92,6 +92,40 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Jan 27 2015 Grant Gainey 2.3.28-1
+- 1177089 - Don't try to use 'createrepo --no-database' if createrepo doesn't
+  know it
+- 1162160 - Teach spacewalk-export to notice errors, teach spacewalk-export-
+  channels to stop throwing them
+
+* Mon Jan 26 2015 Matej Kollar <mkollar@redhat.com> 2.3.27-1
+- Fix Pylint on Fedora 21: autopep8
+
+* Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.26-1
+- Fix wrong package dependency using yum without priorities
+
+* Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.25-1
+- Getting rid of Tabs and trailing spaces in Python
+- Getting rid of trailing spaces in Perl
+
+* Fri Dec 19 2014 Tomas Lestach <tlestach@redhat.com> 2.3.24-1
+- 1175637 - make the sql Oracle 10g compatible
+
+* Wed Dec 17 2014 Jan Dobes 2.3.23-1
+- 1175398 - introduce --host and --port parameter for external PostgreSQL
+
+* Wed Dec 17 2014 Stephen Herr <sherr@redhat.com> 2.3.22-1
+- drop monitoring code and monitoring schema
+
+* Mon Dec 15 2014 Jan Dobes 2.3.21-1
+- 1171675 - we do not support postgresql to upgrade from
+
+* Wed Dec 10 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.20-1
+- added Fedora 21 channels
+
+* Wed Dec 03 2014 Tomas Kasparek <tkasparek@redhat.com> 2.3.19-1
+- remove unnecessary brackets
+
 * Fri Nov 07 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.18-1
 - Updated spacewalk-common-channels.ini to include Oracle Linux 7
 - remove openSUSE 12.3 from spacewalk-common-channels

@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
@@ -43,11 +44,12 @@ import javax.servlet.http.HttpServletResponse;
  * AddErrataAction
  * @version $Rev$
  */
-public class ListErrataAction extends RhnListAction implements Listable {
+public class ListErrataAction extends RhnListAction implements Listable<ErrataOverview> {
 
-    private static final String ERRATA_DATA = "errata_data";
+    private static final String ERRATA_DATA = "pageList";
     private static final String CONFIRM = "channel.jsp.errata.remove";
     private static final String CID = "cid";
+    private static final String EMPTY_KEY = "channel.jsp.errata.listempty";
 
     /**
      * {@inheritDoc}
@@ -65,6 +67,8 @@ public class ListErrataAction extends RhnListAction implements Listable {
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid,
                 requestContext.getCurrentUser());
         request.setAttribute("channel_name", currentChan.getName());
+        request.setAttribute("emptyKey", EMPTY_KEY);
+        request.setAttribute("editUrl", "true");
 
 
         //Make sure the user is a channel admin for the given channel.
@@ -100,7 +104,7 @@ public class ListErrataAction extends RhnListAction implements Listable {
      *
      * {@inheritDoc}
      */
-    public DataResult getResult(RequestContext context) {
+    public DataResult<ErrataOverview> getResult(RequestContext context) {
         Long cid = Long.parseLong(context.getRequest().getParameter(CID));
         User user = context.getCurrentUser();
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid,

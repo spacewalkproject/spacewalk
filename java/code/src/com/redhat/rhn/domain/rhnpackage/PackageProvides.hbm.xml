@@ -6,7 +6,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <class name="com.redhat.rhn.domain.rhnpackage.PackageProvides"
         table="rhnPackageProvides" mutable="false">
 
-	   <composite-id>
+           <composite-id>
 
           <key-many-to-one name="pack"
                 class="com.redhat.rhn.domain.rhnpackage.Package"
@@ -14,8 +14,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
           <key-many-to-one name="capability"
                 class="com.redhat.rhn.domain.rhnpackage.PackageCapability"
                 column="capability_id"/>
-		  <key-property name="sense"     type="long"   column="sense"/>
-	    </composite-id>
+                  <key-property name="sense"     type="long"   column="sense"/>
+            </composite-id>
 
 
 

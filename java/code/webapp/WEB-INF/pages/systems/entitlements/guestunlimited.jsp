@@ -35,12 +35,12 @@
                  dataset="pageList"
                  emptykey="guestunlimited.jsp.nosystems"
                  width="100%">
-	  <rl:column bound="false" sortable="false" headerkey="guestunlimited.jsp.hostsystem">
-		    <a href="/rhn/systems/details/Overview.do?sid=${current.hostId}">${current.hostName}</a>
-	      </rl:column>
-	  <rl:column bound="false" sortable="false" headerkey="guestunlimited.jsp.guest">
-		    <a href="/rhn/systems/details/Overview.do?sid=${current.hostId}">${current.numberOfGuests}</a>
-	      </rl:column>
+          <rl:column bound="false" sortable="false" headerkey="guestunlimited.jsp.hostsystem">
+                    <a href="/rhn/systems/details/Overview.do?sid=${current.hostId}">${current.hostName}</a>
+              </rl:column>
+          <rl:column bound="false" sortable="false" headerkey="guestunlimited.jsp.guest">
+                    <a href="/rhn/systems/details/Overview.do?sid=${current.hostId}">${current.numberOfGuests}</a>
+              </rl:column>
         </rl:list>
       </rl:listset>
   </body>

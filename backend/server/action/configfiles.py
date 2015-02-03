@@ -49,6 +49,7 @@ _query_mtime_upload_paths = rhnSQL.Statement("""
      where action_id = :action_id
 """)
 
+
 def mtime_upload(server_id, action_id, dry_run=0):
     log_debug(3)
 
@@ -98,13 +99,16 @@ def upload(server_id, action_id, dry_run=0):
 
     return action_id, files
 
+
 def deploy(server_id, action_id, dry_run=0):
     log_debug(3)
     return _get_files(server_id, action_id)
 
+
 def verify(server_id, action_id, dry_run=0):
     log_debug(3)
     return _get_files(server_id, action_id)
+
 
 def diff(server_id, action_id, dry_run=0):
     log_debug(3)
@@ -123,8 +127,8 @@ _query_get_files = rhnSQL.Statement("""
            ci.username,
            ci.groupname,
            ci.filemode,
-	       cft.label,
-	       ci.selinux_ctx,
+               cft.label,
+               ci.selinux_ctx,
            case
                 when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
                 else ''
@@ -140,7 +144,7 @@ _query_get_files = rhnSQL.Statement("""
         on cr.config_content_id = ccont.id
       left join rhnChecksumView c
         on ccont.checksum_id = c.id,
-	   rhnConfigFileType cft,
+           rhnConfigFileType cft,
            rhnActionConfigRevision acr
      where acr.server_id = :server_id
        and acr.action_id = :action_id
@@ -153,6 +157,7 @@ _query_get_files = rhnSQL.Statement("""
        and cfs.label = 'alive'
        and cr.config_file_type_id = cft.id
 """)
+
 
 def _get_files(server_id, action_id):
     h = rhnSQL.prepare(_query_get_files)
@@ -168,6 +173,6 @@ def _get_files(server_id, action_id):
         files.append(format_file_results(row, server=server))
 
     result = {
-        'files'         : files,
+        'files': files,
     }
     return result

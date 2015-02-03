@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::Cache::File;
@@ -22,19 +22,19 @@ use Params::Validate qw/:all/;
 use File::Spec;
 
 my %field_defaults = (__path__ => '',
-		      __contents__ => '',
-		      __parsed_contents__ => undef,
-		      __no_cache__ => 0,
-		      __cache_time__ => 0,
-		      __parser__ => sub { return shift },
-		     );
+                      __contents__ => '',
+                      __parsed_contents__ => undef,
+                      __no_cache__ => 0,
+                      __cache_time__ => 0,
+                      __parser__ => sub { return shift },
+                     );
 
 my %valid_args = (path      => { type => SCALAR, optional => 1 },
-		  directory => { type => SCALAR, optional => 1 },
-		  name      => { type => SCALAR, optional => 1 },
-		  no_cache  => { type => SCALAR, optional => 1 },
-		  parser  => { type => CODEREF, optional => 1 },
-		 );
+                  directory => { type => SCALAR, optional => 1 },
+                  name      => { type => SCALAR, optional => 1 },
+                  no_cache  => { type => SCALAR, optional => 1 },
+                  parser  => { type => CODEREF, optional => 1 },
+                 );
 
 my %cache;
 
@@ -46,8 +46,8 @@ my %cache;
 sub new {
   my $class = shift;
   my %args = validate_with(params => \@_,
-			   spec => \%valid_args,
-			   strip_leading => '-');
+                           spec => \%valid_args,
+                           strip_leading => '-');
 
   my $self = bless { %field_defaults }, $class;
 

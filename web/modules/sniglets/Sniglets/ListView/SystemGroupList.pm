@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -42,18 +42,18 @@ sub list_of { return "system groups" }
 sub _register_modes {
 
   Sniglets::ListView::List->add_mode(-mode => "visible_to_user",
-			   -datasource => RHN::DataSource::SystemGroup->new,
-			   -action_callback => \&work_with_groups_cb);
+                           -datasource => RHN::DataSource::SystemGroup->new,
+                           -action_callback => \&work_with_groups_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "visible_groups_summary",
-			   -datasource => RHN::DataSource::SystemGroup->new,
-			   -provider => \&visible_groups_summary_provider,
-			   -action_callback => \&work_with_groups_cb);
+                           -datasource => RHN::DataSource::SystemGroup->new,
+                           -provider => \&visible_groups_summary_provider,
+                           -action_callback => \&work_with_groups_cb);
 
   Sniglets::ListView::List->add_mode(-mode => "ssm_group_membership_select",
-	  	            -datasource => RHN::DataSource::SystemGroup->new,
-			    -provider => \&ssm_group_membership_provider,
-			    -action_callback => \&ssm_group_membership_cb);
+                            -datasource => RHN::DataSource::SystemGroup->new,
+                            -provider => \&ssm_group_membership_provider,
+                            -action_callback => \&ssm_group_membership_cb);
 }
 
 sub row_callback {
@@ -77,7 +77,7 @@ sub row_callback {
   $row->{MONITORING_ICON} = '';
   if (defined $row->{MONITORING_STATUS}) {
     my $icon_data = Sniglets::Servers::system_monitoring_info($pxt->user, $row);
-            
+
     my $image = PXT::HTML->img(-src => $icon_data->{image},
                                -alt => $icon_data->{status_str},
                                -title => $icon_data->{status_str},
@@ -87,9 +87,9 @@ sub row_callback {
   }
 
   my $use_group_btn = PXT::HTML->link(sprintf("/rhn/systems/WorkWithGroup.do?sgid=%d", $row->{ID}),
-						  '<img src="/img/button-use_group.gif" border="0" valign="middle" alt="Work with '
-						  .$row->{GROUP_NAME}.' Group" title="Work with '
-						  .$row->{GROUP_NAME}.' Group" />');
+                                                  '<img src="/img/button-use_group.gif" border="0" valign="middle" alt="Work with '
+                                                  .$row->{GROUP_NAME}.' Group" title="Work with '
+                                                  .$row->{GROUP_NAME}.' Group" />');
 
   $row->{WORK_WITH_GROUP}  = ' &#160;' . $use_group_btn;
 
@@ -132,18 +132,18 @@ sub ssm_group_membership_provider {
   foreach my $row (@{$ret{data}}) {
     $row->{ADD_TO_GROUP_RADIO} =
       PXT::HTML->radio_button(-name => $row->{ID} . '|' . $row->{GROUP_NAME},
-			      -value => 'add',
-			      -checked => 0);
+                              -value => 'add',
+                              -checked => 0);
 
     $row->{REMOVE_FROM_GROUP_RADIO} =
       PXT::HTML->radio_button(-name => $row->{ID} . '|' . $row->{GROUP_NAME},
-			      -value => 'remove',
-			      -checked => 0);
+                              -value => 'remove',
+                              -checked => 0);
 
     $row->{NO_CHANGE_RADIO} =
       PXT::HTML->radio_button(-name => $row->{ID} . '|' . $row->{GROUP_NAME},
-			      -value => 'nochange',
-			      -checked => 1);
+                              -value => 'nochange',
+                              -checked => 1);
 
     $row->{NO_CHANGE_RADIO} .=
       PXT::HTML->hidden(-name => "sgid", -value => $row->{ID});

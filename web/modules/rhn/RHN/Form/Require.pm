@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::Form::Require;
@@ -22,17 +22,17 @@ use RHN::Exception qw/throw/;
 use Mail::RFC822::Address;
 
 my %requires = ('response' => \&response,
-		'min-length' => \&min_length,
-		'max-length' => \&max_length,
-	        'valid-email' => \&valid_email,
-	        'valid-multi-email' => \&valid_multi_email,
-	        'label' => \&valid_label,
-	        'numeric' => \&numeric,
-		'regexp' => \&regexp,
-		fqdn => \&fqdn,
-		'fqdn-and-port' => \&fqdn_and_port,
-		'valid-ip' => \&valid_ip,
-	       );
+                'min-length' => \&min_length,
+                'max-length' => \&max_length,
+                'valid-email' => \&valid_email,
+                'valid-multi-email' => \&valid_multi_email,
+                'label' => \&valid_label,
+                'numeric' => \&numeric,
+                'regexp' => \&regexp,
+                fqdn => \&fqdn,
+                'fqdn-and-port' => \&fqdn_and_port,
+                'valid-ip' => \&valid_ip,
+               );
 
 # Require a response of some sort.
 sub response {
@@ -40,7 +40,7 @@ sub response {
   my $param = shift;
   my $text = shift;
 
-  return "Please respond to all required fields." 
+  return "Please respond to all required fields."
       unless ((defined $text) && ($text ne ''));
 
   return 0;
@@ -170,7 +170,7 @@ sub valid_ip {
 
   return "<strong>$text</strong> does not appear to be a valid ip address."
     unless (scalar @parts == 4 and scalar @parts == scalar @non_empty_parts
-	    and (not @out_of_range_parts) and ($parts[3] != 0));
+            and (not @out_of_range_parts) and ($parts[3] != 0));
 
   return 0;
 }

@@ -21,7 +21,13 @@
 
 """ spacecmd - a command line interface to Spacewalk """
 
-import logging, os, re, sys, xmlrpclib, codecs, locale
+import logging
+import os
+import re
+import sys
+import xmlrpclib
+import codecs
+import locale
 from ConfigParser import SafeConfigParser
 from optparse import Option, OptionParser
 
@@ -51,7 +57,7 @@ if __name__ == '__main__':
         Option('--nossl', action='store_true',
                help='use HTTP instead of HTTPS'),
         Option('--nohistory', action='store_true',
-                help='do not store command history'),
+               help='do not store command history'),
         Option('-y', '--yes', action='store_true',
                help='answer yes for all questions'),
         Option('-q', '--quiet', action='store_true',
@@ -117,7 +123,7 @@ if __name__ == '__main__':
             logging.error('Could not create %s', user_conf_file)
 
     # load options from configuration files
-    files_read = config.read( [ _SYSTEM_CONF_FILE, user_conf_file ] )
+    files_read = config.read([_SYSTEM_CONF_FILE, user_conf_file])
 
     for item in files_read:
         logging.debug('Read configuration from %s', item)
@@ -136,7 +142,7 @@ if __name__ == '__main__':
 
             # run the command
             precmd = shell.precmd(command)
-            shell.print_result(shell.onecmd( precmd ), precmd)
+            shell.print_result(shell.onecmd(precmd), precmd)
         except KeyboardInterrupt:
             print
             print 'User Interrupt'
@@ -181,5 +187,3 @@ if __name__ == '__main__':
                     logging.exception(detail)
                 else:
                     logging.error(detail)
-
-# vim:ts=4:expandtab:

@@ -27,24 +27,24 @@ sub register_dobby_commands {
   my $cli = shift;
 
   $cli->register_mode(-command => "stop",
-		      -description => "Stop the database instance of Red Hat Satellite",
-		      -handler => \&command_startstop);
+                      -description => "Stop the database instance of Red Hat Satellite",
+                      -handler => \&command_startstop);
   $cli->register_mode(-command => "start",
-		      -description => "Start the database instance of Red Hat Satellite",
-		      -handler => \&command_startstop);
+                      -description => "Start the database instance of Red Hat Satellite",
+                      -handler => \&command_startstop);
 
   $cli->register_mode(-command => "status",
-		      -description => "Show database status",
-		      -handler => \&command_status);
+                      -description => "Show database status",
+                      -handler => \&command_status);
   $cli->register_mode(-command => "report",
-		      -description => "Show database space report",
-		      -handler => \&command_report);
+                      -description => "Show database space report",
+                      -handler => \&command_report);
   $cli->register_mode(-command => "tablesizes",
-		      -description => "Show space report for each table",
-		      -handler => \&command_tablesizes);
+                      -description => "Show space report for each table",
+                      -handler => \&command_tablesizes);
   $cli->register_mode(-command => "report-stats",
-		      -description => "Show tables with stale or empty statistics",
-		      -handler => \&command_reportstats);
+                      -description => "Show tables with stale or empty statistics",
+                      -handler => \&command_reportstats);
   $cli->register_mode(-command => "reset-password",
                       -description => "Reset the user password and unlock account",
                       -handler => \&command_resetpassword);
@@ -56,11 +56,23 @@ sub register_dobby_commands {
                       -handler => \&command_set_optimizer);
 }
 
+my %pg_version = ();
 sub pg_version {
-  if (system("rpm -q postgresql92-postgresql-server >/dev/null 2>&1") == 0) {
-    return 'postgresql92-postgresql';
+  if (not %pg_version) {
+      if (system("rpm -q postgresql92-postgresql-server >/dev/null 2>&1") == 0) {
+          $pg_version{'service'} = 'postgresql92-postgresql';
+          $pg_version{'pg_dump'} = ['/usr/bin/scl', 'enable', 'postgresql92', '--', 'pg_dump'];
+          $pg_version{'pg_restore'} = ['/usr/bin/scl', 'enable', 'postgresql92', '--', 'pg_restore'];
+          $pg_version{'droplang'} = ['/usr/bin/scl', 'enable', 'postgresql92', '--', 'droplang'];
+      } else {
+          $pg_version{'service'} = 'postgresql';
+          $pg_version{'pg_dump'} = ['/usr/bin/pg_dump'];
+          $pg_version{'pg_restore'} = ['/usr/bin/pg_restore'];
+          $pg_version{'droplang'} = ['/usr/bin/droplang'];
+      }
   }
-  return 'postgresql';
+  my ($key) = @_;
+  return $pg_version{$key};
 }
 
 sub command_startstop {
@@ -76,7 +88,7 @@ sub command_startstop {
     }
     else {
       if ($backend eq 'postgresql') {
-        system("/sbin/service", pg_version(), "start");
+        system("/sbin/service", pg_version('service'), "start");
       } else {
         print "Starting database... ";
         $d->database_startup;
@@ -91,7 +103,7 @@ sub command_startstop {
     }
     else {
       if ($backend eq 'postgresql') {
-        system("/sbin/service", pg_version(), "stop");
+        system("/sbin/service", pg_version('service'), "stop");
       } else {
         print "Shutting down database";
         $d->listener_shutdown;

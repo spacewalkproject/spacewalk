@@ -56,5 +56,3 @@ def main(ctrl, opts, reloadchannels=True):
     print _("Total Requires:"), len(cache.getRequires())
     print _("Total Upgrades:"), len(cache.getUpgrades())
     print _("Total Conflicts:"), len(cache.getConflicts())
-
-# vim:ts=4:sw=4:et

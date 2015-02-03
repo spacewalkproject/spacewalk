@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::Form::Widget::Select;
@@ -22,11 +22,11 @@ use RHN::Form::Widget;
 our @ISA = qw/RHN::Form::Widget/;
 
 my %valid_fields = (options => [],
-		    multiple => 0,
-		    size => 1,
-		    auto_submit => 0,
-		    populate_options => 0,
-		   );
+                    multiple => 0,
+                    size => 1,
+                    auto_submit => 0,
+                    populate_options => 0,
+                   );
 
 sub valid_fields { return (shift->SUPER::valid_fields(), %valid_fields) }
 
@@ -133,15 +133,15 @@ sub render {
   my @auto_submit = $self->{auto_submit} ? (-onChange => 'this.form.submit()') : ();
 
   my $ret = PXT::HTML->select(-name => $self->label,
-			      -size => $self->size,
-			      -multiple => $self->multiple,
-			      -options => [ map { [ $_->{label},
-						    $_->{value},
-						    $selected{$_->{value}},
-						    $_->{optgroup} ? 1 : 0,
-						  ] } $self->options ],
-			      @auto_submit,
-			     );
+                              -size => $self->size,
+                              -multiple => $self->multiple,
+                              -options => [ map { [ $_->{label},
+                                                    $_->{value},
+                                                    $selected{$_->{value}},
+                                                    $_->{optgroup} ? 1 : 0,
+                                                  ] } $self->options ],
+                              @auto_submit,
+                             );
 
   return $ret;
 }

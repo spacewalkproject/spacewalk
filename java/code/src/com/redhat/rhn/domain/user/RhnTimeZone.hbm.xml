@@ -23,6 +23,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.user.RhnTimeZone as t where t.timeZoneId = :tid]]>
     </query>
     <query name="RhnTimeZone.loadTimeZoneByOlsonName">
-    	<![CDATA[from com.redhat.rhn.domain.user.RhnTimeZone as t where t.olsonName = :ton]]>
+        <![CDATA[from com.redhat.rhn.domain.user.RhnTimeZone as t where t.olsonName = :ton]]>
     </query>
 </hibernate-mapping>

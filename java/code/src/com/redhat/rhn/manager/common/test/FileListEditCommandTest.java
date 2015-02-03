@@ -75,8 +75,7 @@ public class FileListEditCommandTest extends BaseTestCaseWithUser {
         String files = "1\n2\n3\n4\n5\n6\n7\n8";
         cmd.updateFiles(files);
 
-        ConfigFileName f = (ConfigFileName) cmd.getFileList().getFileNames()
-                                               .iterator().next();
+        ConfigFileName f = cmd.getFileList().getFileNames().iterator().next();
 
         assertEquals("1", f.getPath());
         assertEquals(8, cmd.getFileList().getFileNames().size());

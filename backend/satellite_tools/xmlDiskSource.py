@@ -20,8 +20,11 @@ import gzip
 from spacewalk.common.fileutils import createPath
 from spacewalk.common.rhnLib import hash_object_id
 
+
 class MissingXmlDiskSourceFileError(Exception):
     pass
+
+
 class MissingXmlDiskSourceDirError(Exception):
     pass
 
@@ -30,6 +33,7 @@ class DiskSource:
     subdir = None
     # Allow for compressed files by default
     allow_compressed_files = 1
+
     def __init__(self, mountPoint):
         self.mountPoint = mountPoint
 
@@ -79,8 +83,10 @@ class ArchesDiskSource(DiskSource):
             createPath(dirname)
         return os.path.join(dirname, self.filename)
 
+
 class ArchesExtraDiskSource(ArchesDiskSource):
     filename = "arches-extra.xml"
+
 
 class ProductnamesDiskSource(DiskSource):
     subdir = 'product_names'
@@ -90,7 +96,6 @@ class ProductnamesDiskSource(DiskSource):
         if create and not os.path.isdir(dirname):
             createPath(dirname)
         return "%s/product_names.xml" % dirname
-
 
 
 class ChannelFamilyDiskSource(DiskSource):
@@ -184,11 +189,14 @@ class ShortPackageDiskSource(DiskSource):
         # Hashes the package name
         return hash_object_id(self.id, 2)
 
+
 class PackageDiskSource(ShortPackageDiskSource):
     subdir = "packages"
 
+
 class SourcePackageDiskSource(ShortPackageDiskSource):
     subdir = "source_packages"
+
 
 class ErrataDiskSource(ShortPackageDiskSource):
     subdir = "errata"
@@ -196,6 +204,7 @@ class ErrataDiskSource(ShortPackageDiskSource):
     def _hashID(self):
         # Hashes the erratum name
         return hash_object_id(self.id, 1)
+
 
 class BlacklistsDiskSource(DiskSource):
     subdir = "blacklists"
@@ -206,6 +215,7 @@ class BlacklistsDiskSource(DiskSource):
             createPath(dirname)
         return "%s/blacklists.xml" % dirname
 
+
 class BinaryRPMDiskSource(ShortPackageDiskSource):
     subdir = "rpms"
 
@@ -213,8 +223,10 @@ class BinaryRPMDiskSource(ShortPackageDiskSource):
         ShortPackageDiskSource.__init__(self, mountPoint)
         self._file_suffix = '.rpm'
 
+
 class SourceRPMDiskSource(BinaryRPMDiskSource):
     subdir = "srpms"
+
 
 class KickstartDataDiskSource(DiskSource):
     subdir = "kickstart_trees"
@@ -232,6 +244,7 @@ class KickstartDataDiskSource(DiskSource):
             createPath(dirname)
         return os.path.join(dirname, self.id) + '.xml'
 
+
 class KickstartFileDiskSource(KickstartDataDiskSource):
     subdir = "kickstart_files"
     allow_compressed_files = 0
@@ -246,13 +259,15 @@ class KickstartFileDiskSource(KickstartDataDiskSource):
 
     def _getFile(self, create=0):
         path = os.path.join(self._getDir(create), self.id,
-            self.relative_path)
+                            self.relative_path)
         dirname = os.path.dirname(path)
         if create and not os.path.isdir(dirname):
             createPath(dirname)
         return path
 
+
 class MetadataDiskSource:
+
     def __init__(self, mountpoint):
         self.mountpoint = mountpoint
 
@@ -310,4 +325,3 @@ if __name__ == '__main__':
     print s.list()
     s.setChannel("redhat-linux-i386-7.2")
     print s.load()
-

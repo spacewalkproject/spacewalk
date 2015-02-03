@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -48,34 +48,34 @@ use RHN::Kickstart::Volgroups ();
 use RHN::SessionSwap ();
 
 my %valid = (id => { default => 0 },
-	     org_id => { optional => 1 },
-	     is_org_default => { default => 'N' },
-	     name => { optional => 0 },
-	     label => { optional => 0 },
-	     commands => { optional => 1 },
-	     static_device => { optional => 1 },
-	     kernel_params => { optional => 1 },
-	     packages => { optional => 1 },
-	     package_options => { type => ARRAYREF,
-				  default => [ qw/resolvedeps/ ] },
-	     pre => { optional => 1 },
-	     post => { optional => 1 },
-	     nochroot_post => { optional => 1 },
-	     interpreter_post_script => { optional => 1 },
-	     interpreter_pre_script => { optional => 1 },
-	     interpreter_post_val => { optional => 1 },
-	     interpreter_pre_val => { optional => 1 },
-	     comments => { optional => 1 },
-	     active => { default => 'Y' },
-	     ip_ranges => { type => ARRAYREF,
-			    optional => 1 },
-	     file_list => { type => ARRAYREF,
-			    optional => 1 },
-	     default_kstree_id => { optional => 1 },
-	     default_server_profile_id => { optional => 1 },
-	     default_cfg_management_flag => { default => 'Y' },
-	     default_remote_command_flag => { default => 'N' },
-	    );
+             org_id => { optional => 1 },
+             is_org_default => { default => 'N' },
+             name => { optional => 0 },
+             label => { optional => 0 },
+             commands => { optional => 1 },
+             static_device => { optional => 1 },
+             kernel_params => { optional => 1 },
+             packages => { optional => 1 },
+             package_options => { type => ARRAYREF,
+                                  default => [ qw/resolvedeps/ ] },
+             pre => { optional => 1 },
+             post => { optional => 1 },
+             nochroot_post => { optional => 1 },
+             interpreter_post_script => { optional => 1 },
+             interpreter_pre_script => { optional => 1 },
+             interpreter_post_val => { optional => 1 },
+             interpreter_pre_val => { optional => 1 },
+             comments => { optional => 1 },
+             active => { default => 'Y' },
+             ip_ranges => { type => ARRAYREF,
+                            optional => 1 },
+             file_list => { type => ARRAYREF,
+                            optional => 1 },
+             default_kstree_id => { optional => 1 },
+             default_server_profile_id => { optional => 1 },
+             default_cfg_management_flag => { default => 'Y' },
+             default_remote_command_flag => { default => 'N' },
+            );
 
 our @simple_struct_fields = keys %valid;
 
@@ -158,19 +158,19 @@ EOQ
   my $sth = $dbh->prepare($query);
 
   $sth->execute_h(org_id => $self->org_id, is_org_default => $self->is_org_default,
-		  label => $self->label, name => $self->name, comments => $self->comments,
-		  active => $self->active, id => $self->id, pre => $dbh->encode_blob($self->pre, "pre"),
-		  post => $dbh->encode_blob($self->post, "post"),
-		  nochroot_post => $dbh->encode_blob($self->nochroot_post, "nochroot_post"),
-		  static_device => $self->static_device, kernel_params => $self->kernel_params);
+                  label => $self->label, name => $self->name, comments => $self->comments,
+                  active => $self->active, id => $self->id, pre => $dbh->encode_blob($self->pre, "pre"),
+                  post => $dbh->encode_blob($self->post, "post"),
+                  nochroot_post => $dbh->encode_blob($self->nochroot_post, "nochroot_post"),
+                  static_device => $self->static_device, kernel_params => $self->kernel_params);
 
 # defaults:
 
   $self->commit_defaults($dbh);
 
   #commit interpreter pre/post scripts if interpreter script and interpreter cli supplied
-  $self->commit_int_script('pre', $dbh)  if ( $self->interpreter_pre_script && $self->interpreter_pre_val ); 
-  $self->commit_int_script('post', $dbh) if ( $self->interpreter_post_script && $self->interpreter_post_val ); 
+  $self->commit_int_script('pre', $dbh)  if ( $self->interpreter_pre_script && $self->interpreter_pre_val );
+  $self->commit_int_script('post', $dbh) if ( $self->interpreter_post_script && $self->interpreter_post_val );
 
 # commands and packages:
 
@@ -304,24 +304,24 @@ UPDATE rhnKickstartDefaults
 EOQ
 
     $sth->execute_h(id => $self->id, kstree_id => $self->default_kstree_id,
-		    server_profile_id => $self->default_server_profile_id,
-		    cfg_management_flag => $self->default_cfg_management_flag,
+                    server_profile_id => $self->default_server_profile_id,
+                    cfg_management_flag => $self->default_cfg_management_flag,
                     remote_command_flag => $self->default_remote_command_flag);
   }
   else {
     $sth = $dbh->prepare(<<EOQ);
 INSERT
   INTO rhnKickstartDefaults
-       (kickstart_id, kstree_id, server_profile_id, 
+       (kickstart_id, kstree_id, server_profile_id,
         cfg_management_flag, remote_command_flag)
 VALUES (:id, :kstree_id, :server_profile_id, :cfg_management_flag,
         :remote_command_flag)
 EOQ
 
     $sth->execute_h(id => $self->id, kstree_id => $self->default_kstree_id,
-		    cfg_management_flag => $self->default_cfg_management_flag,
-		    remote_command_flag => $self->default_remote_command_flag,
-		    server_profile_id => $self->default_server_profile_id);
+                    cfg_management_flag => $self->default_cfg_management_flag,
+                    remote_command_flag => $self->default_remote_command_flag,
+                    server_profile_id => $self->default_server_profile_id);
   }
 
   return;
@@ -342,11 +342,11 @@ sub commit_int_script {
   my $existing;  # update/insert mode
 
   $sth = $dbh->prepare(<<EOQ);
-SELECT 1 
-  FROM   rhnKickstartScript 
+SELECT 1
+  FROM   rhnKickstartScript
   WHERE  1=1
   AND    kickstart_id = :ksid
-  AND    script_type = :stype 
+  AND    script_type = :stype
 EOQ
 
   $sth->execute_h(ksid => $self->id
@@ -357,15 +357,15 @@ EOQ
   if ($existing) { #update record, already existing
     $sth = $dbh->prepare(<<EOQ);
 UPDATE rhnKickstartScript
-   SET interpreter = :interpreter 
-       , data = :script_data 
+   SET interpreter = :interpreter
+       , data = :script_data
        , modified = sysdate
    WHERE 1=1
    AND   kickstart_id = :ksid
    AND   script_type = :stype
 EOQ
     $sth->execute_h(interpreter   => $interpreter_value
-					, script_data => $dbh->encode_blob($interpreter_script, 'data')
+                                        , script_data => $dbh->encode_blob($interpreter_script, 'data')
                     , ksid        => $self->id
                     , stype       => $stype );
 
@@ -379,7 +379,7 @@ INSERT
         , position
         , script_type
         , interpreter
-		, data)
+                , data)
   VALUES (sequence_nextval('rhn_ksscript_id_seq')
           , :ksid
           , :position
@@ -389,16 +389,16 @@ INSERT
 EOQ
 
     $sth->execute_h(ksid => $self->id
-		    		, position    => $position_order 
+                                , position    => $position_order
                     , stype       => $stype
-                    , interpreter => $interpreter_value 
+                    , interpreter => $interpreter_value
                     , script_data  => $dbh->encode_blob($interpreter_script, 'data') );
 
   } # end of insert
 
   $dbh->commit;
 
-}   # end of sub 
+}   # end of sub
 
 sub lookup {
   my $class = shift;
@@ -564,25 +564,25 @@ EOQ
   $query =<<EOQ;
 SELECT script_type
        , interpreter
-       , data 
+       , data
 FROM   rhnKickstartScript
-WHERE  1=1 
+WHERE  1=1
 AND    kickstart_id = :id
 EOQ
-  
+
   $sth = $dbh->prepare($query);
-  $sth->execute_h(id => $ks->id);  
+  $sth->execute_h(id => $ks->id);
 
   while (my ($type, $inter, $inter_data) = $sth->fetchrow) {
     if ($type eq 'pre') {
-	  $ks->interpreter_pre_script($inter_data);
+          $ks->interpreter_pre_script($inter_data);
       $ks->interpreter_pre_val($inter);
     }
     elsif ($type eq 'post') {
-	  $ks->interpreter_post_script($inter_data);
+          $ks->interpreter_post_script($inter_data);
       $ks->interpreter_post_val($inter);
     }
-  } 
+  }
 
   return $ks;
 }

@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.domain.action;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.server.Server;
@@ -195,7 +197,7 @@ public class ActionFormatter {
         }
         retval.append("</br>");
         retval.append(ls.getMessage("system.event.details.returned",
-                sa.getResultMsg(), sa.getResultCode()));
+                StringEscapeUtils.escapeHtml(sa.getResultMsg()), sa.getResultCode()));
         retval.append(action.getHistoryDetails(server));
         return retval.toString();
     }

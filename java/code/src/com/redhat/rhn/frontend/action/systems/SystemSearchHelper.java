@@ -524,7 +524,7 @@ public class SystemSearchHelper {
                     Map serverInfo = new HashMap();
                     serverInfo.put("score", result.get("score"));
                     serverInfo.put("matchingField", "packageName");
-                    serverInfo.put("matchingFieldValue", pkg.getNameEvra());
+                    serverInfo.put("matchingFieldValue", pkg.getNvrea());
                     serverInfo.put("packageName", pkg.getNameEvra());
                     serverMaps.put(s, serverInfo);
                     if (log.isDebugEnabled()) {

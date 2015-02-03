@@ -23,7 +23,7 @@
 
         <tr>
           <th><bean:message key="kickstart.troubleshooting.jsp.bootloader" /></th>
-	  <td>
+          <td>
 <c:if test="${ksdata.eliloRequired}">
             eLilo
             <br/>

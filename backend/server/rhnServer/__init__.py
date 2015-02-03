@@ -26,7 +26,8 @@ from server_class import Server
 from server_certificate import Certificate
 from server_token import fetch_token, fetch_org_token
 
-def get(system_id, load_user = 1):
+
+def get(system_id, load_user=1):
     """ retrieve the server with matching certificate from the database """
     log_debug(3, "load_user = %s" % load_user)
     # This has to be a string
@@ -49,7 +50,7 @@ def get(system_id, load_user = 1):
     return server
 
 
-def search(server_id, username = None):
+def search(server_id, username=None):
     """ search for a server in the database and return the Server object """
     log_debug(3, server_id, username)
     s = Server(None)
@@ -62,9 +63,11 @@ def search(server_id, username = None):
         s.user = rhnUser.search(username)
     return s
 
+
 def search_token(token):
     log_debug(3, token)
     return fetch_token(token)
+
 
 def search_org_token(org_id):
     log_debug(3, org_id)

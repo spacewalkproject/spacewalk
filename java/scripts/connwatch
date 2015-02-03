@@ -50,7 +50,7 @@ while (1) {
 
 sub makeconn() {
   my ($lcl, $foreign, $status, $inode, $pid) = @_[3,4,5,7,8];
-  my $conn = { lcl => $lcl, foreign => $foreign, status => $status, 
+  my $conn = { lcl => $lcl, foreign => $foreign, status => $status,
                inode => $inode, pid => $pid };
   my @lclsplit = split(":", $lcl);
   $conn->{lcl} = $lclsplit[-2];
@@ -60,15 +60,15 @@ sub makeconn() {
   $conn->{foreign} =~ s/^::ffff://;
   $conn->{port} = $conn->{lcl};
   $conn->{port} = $lclsplit[-1];
-  
+
   return $conn;
 }
 
 sub logconn() {
   my ($msg, $conn) = @_;
   my $date = strftime("%Y-%m-%dT%H:%M:%S", localtime);
-  printf "%s %s %s:%s[%s]->%s %s %s\n", $date, $conn->{pid}, $conn->{lcl}, 
-    $conn->{port}, $conn->{inode}, $conn->{foreign}, 
+  printf "%s %s %s:%s[%s]->%s %s %s\n", $date, $conn->{pid}, $conn->{lcl},
+    $conn->{port}, $conn->{inode}, $conn->{foreign},
     $conn->{status}, $msg;
 }
 

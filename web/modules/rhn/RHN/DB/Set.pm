@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -34,9 +34,9 @@ sub new {
     unless $label and $uid;
 
   my $self = bless { label => $label,
-		     uid => $uid,
-		     contents => { },
-		   }, $class;
+                     uid => $uid,
+                     contents => { },
+                   }, $class;
 
   $self->_reload;
 
@@ -299,10 +299,10 @@ DELETE FROM
  WHERE user_id = :user_id
    AND label = :set_label
    AND EXISTS (SELECT 1
-	         FROM web_contact WC, rhnUserGroupmembers UGM, rhnUserGroup UG, rhnUserGroupType UGT
+                 FROM web_contact WC, rhnUserGroupmembers UGM, rhnUserGroup UG, rhnUserGroupType UGT
                 WHERE WC.id = S.element
                   AND UG.org_id = WC.org_id
-	          AND UGM.user_group_id = UG.id
+                  AND UGM.user_group_id = UG.id
                   AND UGM.user_id = WC.id
                   AND UG.group_type = UGT.id
                   AND UGT.label = :role_label)

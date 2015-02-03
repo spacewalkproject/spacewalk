@@ -26,7 +26,7 @@ public class InvalidGPGKeyException extends FaultException {
      * Constructor
      */
     public InvalidGPGKeyException() {
-        super(1208, "invalidGpgKey", "Invalid GPG Key");
+        super(1208, "invalidGpgKey", "The GPG id must be of form 'DB42A60E'");
     }
 
     /**
@@ -37,6 +37,6 @@ public class InvalidGPGKeyException extends FaultException {
      * unknown.)
      */
     public InvalidGPGKeyException(Throwable cause) {
-        super(1208, "invalidGpgKey", "Invalid GPG Key", cause);
+        super(1208, "invalidGpgKey", "The GPG id must be of form 'DB42A60E'", cause);
     }
 }

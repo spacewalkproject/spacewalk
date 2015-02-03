@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package RHN::Form::ParsedForm;
@@ -29,11 +29,11 @@ sub realize {
   my $class = shift || 'RHN::Form::RealizedForm';
 
   my $rform = new $class(name => $self->name,
-			 label => $self->label,
-			 action => $self->action,
-			 method => $self->method,
-			 enctype => $self->enctype,
-			 widgets => [ $self->clone_widgets ] );
+                         label => $self->label,
+                         action => $self->action,
+                         method => $self->method,
+                         enctype => $self->enctype,
+                         widgets => [ $self->clone_widgets ] );
 
   return $rform;
 }
@@ -42,11 +42,11 @@ sub prepare_response {
   my $self = shift;
 
   my $rform = new RHN::Form::Response(name => $self->name,
-				      label => $self->label,
-				      action => $self->action,
-				      method => $self->method,
-				      enctype => $self->enctype,
-				      widgets => [ $self->clone_widgets ] );
+                                      label => $self->label,
+                                      action => $self->action,
+                                      method => $self->method,
+                                      enctype => $self->enctype,
+                                      widgets => [ $self->clone_widgets ] );
 
   return $rform;
 }

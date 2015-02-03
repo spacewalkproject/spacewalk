@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package PXT::ACL;
@@ -82,12 +82,12 @@ sub eval_acl {
     for my $statement (@statements) {
       my ($negated, $function, $params);
       if ($statement =~ /^(not +)?(.*)\((.*)\)$/) {
-	$negated = $1 ? 1 : 0;
-	$function = $2;
-	$params = $3;
+        $negated = $1 ? 1 : 0;
+        $function = $2;
+        $params = $3;
       }
       else {
-	die "Could not parse acl statement '$statement';"
+        die "Could not parse acl statement '$statement';"
       }
 
       $result = $self->acl($function)->($object, $params);

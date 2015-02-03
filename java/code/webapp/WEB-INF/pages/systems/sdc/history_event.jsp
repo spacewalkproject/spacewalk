@@ -32,7 +32,7 @@
           <bean:message key="system.event.summaryText" arg0="${requestScope.actiontype}" arg1="${requestScope.scheduler}" />
             </c:when>
             <c:otherwise>
-              ${requestScope.actiontype}
+              <c:out value="${requestScope.actiontype}" />
             </c:otherwise>
           </c:choose>
         </div>
@@ -44,7 +44,7 @@
           <strong><bean:message key="system.event.details"/></strong>
         </div>
         <div class="col-sm-10">
-          ${requestScope.actionnotes}
+          <c:out value="${requestScope.actionnotes}" escapeXml="false"/><!-- already html-escaped in backend -->
         </div>
       </div>
     </li>

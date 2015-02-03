@@ -23,7 +23,7 @@ my $session = $client->call('auth.login',$user, $pass);
 
 my @dmi = $client->call('channel.software.mergePackages', $session, "rhel-i386-as-4", "test-channel-label-5" );
 
- 
+
 
 
 foreach  $pack (@dmi) {

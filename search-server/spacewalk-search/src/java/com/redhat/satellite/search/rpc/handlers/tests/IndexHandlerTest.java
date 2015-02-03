@@ -38,7 +38,7 @@ public class IndexHandlerTest extends BaseTestCase {
         Class[] components = {IndexManager.class,
                               DatabaseManager.class,
                               ScheduleManager.class};
-        
+
         return TestUtil.buildComponentsList(components);
     }
 

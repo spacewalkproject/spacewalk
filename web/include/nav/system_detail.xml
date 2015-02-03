@@ -3,7 +3,7 @@
   <rhn-formvar name="sid" />
   <rhn-tab name="Details" url="/rhn/systems/details/Overview.do">
     <rhn-tab name="Overview">
-	  <rhn-tab-url>/rhn/systems/details/Overview.do</rhn-tab-url>
+          <rhn-tab-url>/rhn/systems/details/Overview.do</rhn-tab-url>
           <rhn-tab-url>/rhn/systems/details/RebootSystem.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Properties" url="/rhn/systems/details/Edit.do" />
@@ -97,15 +97,15 @@
         <rhn-tab name="Sandbox Managed Files" url="/rhn/systems/details/configuration/ViewModifySandboxPaths.do"/>
     </rhn-tab>
 
-	<rhn-tab name="Add Files" url="/rhn/systems/details/configuration/addfiles/UploadFile.do">
-		<rhn-tab name="Upload File" url="/rhn/systems/details/configuration/addfiles/UploadFile.do"/>
+        <rhn-tab name="Add Files" url="/rhn/systems/details/configuration/addfiles/UploadFile.do">
+                <rhn-tab name="Upload File" url="/rhn/systems/details/configuration/addfiles/UploadFile.do"/>
         <rhn-tab name="Import Files" url="/rhn/systems/details/configuration/addfiles/ImportFile.do">
         <rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileSubmit.do</rhn-tab-url>
             <rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileConfirm.do</rhn-tab-url>
             <rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileConfirmSubmit.do</rhn-tab-url>
-		</rhn-tab>
-		<rhn-tab name="Create File" url="/rhn/systems/details/configuration/addfiles/CreateFile.do"/>
-	</rhn-tab>
+                </rhn-tab>
+                <rhn-tab name="Create File" url="/rhn/systems/details/configuration/addfiles/CreateFile.do"/>
+        </rhn-tab>
 
     <rhn-tab name="Deploy Files" url="/rhn/systems/details/configuration/DeployFile.do">
          <rhn-tab-url>/rhn/systems/details/configuration/DeployFileSubmit.do</rhn-tab-url>
@@ -114,7 +114,7 @@
     </rhn-tab>
 
     <rhn-tab name="Compare Files" url="/rhn/systems/details/configuration/DiffFile.do">
-	     <rhn-tab-url>/rhn/systems/details/configuration/DiffFileSubmit.do</rhn-tab-url>
+             <rhn-tab-url>/rhn/systems/details/configuration/DiffFileSubmit.do</rhn-tab-url>
          <rhn-tab-url>/rhn/systems/details/configuration/DiffFileConfirm.do</rhn-tab-url>
          <rhn-tab-url>/rhn/systems/details/configuration/DiffFileConfirmSubmit.do</rhn-tab-url>
     </rhn-tab>
@@ -125,7 +125,7 @@
              <rhn-tab-url>/rhn/systems/details/configuration/ConfigChannelListUnsubscribeSubmit.do</rhn-tab-url>
         </rhn-tab>
         <rhn-tab name="Subscribe to Channels" url="/rhn/systems/details/configuration/SubscriptionsSetup.do">
-		<rhn-tab-url>/rhn/systems/details/configuration/SubscriptionsSubmit.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/systems/details/configuration/SubscriptionsSubmit.do</rhn-tab-url>
         </rhn-tab>
         <rhn-tab name="View/Modify Rankings" url="/rhn/systems/details/configuration/RankChannels.do"/>
     </rhn-tab>

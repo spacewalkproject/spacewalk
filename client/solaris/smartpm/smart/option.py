@@ -105,6 +105,3 @@ def append_all(option, opt, value, parser):
     rargs = parser.rargs
     while rargs and rargs[0] and rargs[0][0] != "-":
         lst.append(parser.rargs.pop(0))
-
-
-# vim:et:ts=4:sw=4

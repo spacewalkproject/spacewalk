@@ -206,7 +206,6 @@ public class OrgFactory extends HibernateFactory {
         retval.addRole(RoleFactory.CHANNEL_ADMIN);
         retval.addRole(RoleFactory.CONFIG_ADMIN);
         retval.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
-        retval.addRole(RoleFactory.MONITORING_ADMIN);
         retval.addRole(RoleFactory.SAT_ADMIN);
 
         // Save the object since we may have in memory items to write\
@@ -368,14 +367,6 @@ public class OrgFactory extends HibernateFactory {
      */
     public static OrgEntitlementType getEntitlementEnterprise() {
         return lookupEntitlementByLabel("sw_mgr_enterprise");
-    }
-
-    /**
-     * Get entitlement for rhn_monitor
-     * @return OrgEntitlementType
-     */
-    public static OrgEntitlementType getEntitlementMonitoring() {
-        return lookupEntitlementByLabel("rhn_monitor");
     }
 
     /**

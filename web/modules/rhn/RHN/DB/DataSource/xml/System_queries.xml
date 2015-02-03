@@ -40,7 +40,7 @@ SELECT DISTINCT S.id,
  WHERE USP.user_id = :user_id
    AND ST.user_id = :user_id
    AND ST.label = 'system_list'
-   AND USP.server_id = ST.element 
+   AND USP.server_id = ST.element
    AND EXISTS(SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = ST.element AND SFV.label = 'ftr_snapshotting')
    AND USP.server_id = SS.server_id
    AND USP.server_id = S.id
@@ -52,7 +52,7 @@ ORDER BY UPPER(coalesce(S.SERVER_NAME, '(none)')), S.ID
 
 
 <query name="ssm_package_upgrades_systems" params="user_id">
-SELECT  DISTINCT 
+SELECT  DISTINCT
         S.id,
         S.name AS SERVER_NAME,
         ActionT.label AS ACTION_TYPE_LABEL,
@@ -75,7 +75,7 @@ SELECT  DISTINCT
    AND  P.id IN (
   SELECT element
     FROM rhnSet
-   WHERE user_id = :user_id 
+   WHERE user_id = :user_id
      AND label = 'package_upgradable_list'
 )
    AND  S.id = SC.server_id
@@ -154,7 +154,7 @@ SELECT  S.id AS ID,
         S.name AS SERVER_NAME,
         C.id AS CHANNEL_ID,
         C.name AS CHANNEL_NAME,
-	(SELECT  'subscribe'
+        (SELECT  'subscribe'
            FROM  rhnAvailableChannels AC,
                  rhnServerChannel SC
           WHERE  SC.server_id = S.id
@@ -164,21 +164,21 @@ SELECT  S.id AS ID,
             AND  NOT EXISTS (SELECT channel_id FROM rhnServerChannel WHERE server_id = S.id AND channel_id = C.id)
             AND  EXISTS (SELECT channel_id FROM rhnServerChannel WHERE server_id = S.id AND channel_id = C.parent_channel)
             AND  EXISTS(SELECT 1 FROM rhnSet ST2 WHERE user_id = :user_id AND label = 'channel_list' AND ST2.element_two = 1 AND ST2.element = C.id)
-	 UNION
-	 SELECT  'unsubscribe'
-	   FROM  DUAL
+         UNION
+         SELECT  'unsubscribe'
+           FROM  DUAL
           WHERE  EXISTS(SELECT channel_id FROM rhnServerChannel WHERE server_id = S.id AND channel_id = C.id)
             AND  EXISTS(SELECT 1 FROM rhnSet ST2 WHERE user_id = :user_id AND label = 'channel_list' AND ST2.element_two = 2 AND ST2.element = C.id)
-	) AS ACTION
+        ) AS ACTION
   FROM  rhnChannel C,
         rhnServer S
  WHERE  S.id in (%s)
    AND  C.id IN (
-	SELECT ST.element
-	  FROM rhnSet ST
-	 WHERE ST.user_id = :user_id
-	   AND label = 'channel_list'
-	)
+        SELECT ST.element
+          FROM rhnSet ST
+         WHERE ST.user_id = :user_id
+           AND label = 'channel_list'
+        )
 ORDER BY UPPER(S.name)
   </elaborator>
 </mode>
@@ -231,7 +231,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 
 <mode name="potential_systems_for_package">
   <query params="org_id, pid, user_id">
-SELECT	S.id
+SELECT  S.id
   FROM  rhnPackage P, rhnChannelPackage CP, rhnServerChannel SC, rhnServer S
  WHERE  S.org_id = :org_id
    AND  SC.server_id = S.id
@@ -272,7 +272,7 @@ ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
 
 <mode name="systems_with_package_nvre_in_set">
   <query params="org_id, user_id, name_id, evr_id, set_label">
-SELECT	S.ID AS ID, S.name AS SERVER_NAME
+SELECT  S.ID AS ID, S.name AS SERVER_NAME
   FROM  rhnServerPackage SP, rhnServer S, rhnSet ST
  WHERE  S.org_id = :org_id
 -- no need to check perms because it's in your set, and sets are trusted
@@ -623,7 +623,7 @@ SELECT  DISTINCT S.id, S.name
                    OR (PN.name = 'up2date'
                      AND PE2.id = lookup_evr(NULL, '2.9.3', '2.2.1AS')
                      AND PE.evr &gt;= PE2.evr))
-	)
+        )
 ) S
 ORDER BY UPPER(S.name), S.id
   </query>
@@ -766,19 +766,19 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
           S.name,
           AStat.name AS ACTION_STATUS,
           A.prerequisite,
-	  TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS EARLIEST_EXECUTION_TIME
+          TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS EARLIEST_EXECUTION_TIME
     FROM  rhnAction A,
-          rhnServer S, 
+          rhnServer S,
           rhnActionStatus AStat,
           rhnServerAction SA
-   WHERE  S.org_id = :org_id 
-     AND  S.ID = SA.server_id 
+   WHERE  S.org_id = :org_id
+     AND  S.ID = SA.server_id
      AND  SA.action_id = :aid
      AND  SA.status IN (0,1)
      AND  EXISTS (
-          SELECT  1 
-            FROM  rhnUserServerPerms USP 
-           WHERE  USP.user_id = :user_id 
+          SELECT  1
+            FROM  rhnUserServerPerms USP
+           WHERE  USP.user_id = :user_id
              AND  USP.server_id = S.id
           )
      AND  SA.status = AStat.id
@@ -793,14 +793,14 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.ID
   SELECT  S.id AS ID, S.name AS NAME, SA.result_msg AS FAILURE_MESSAGE,
           TO_CHAR(SA.COMPLETION_TIME, 'YYYY-MM-DD HH24:MI:SS') AS FAILED_TIME
     FROM  rhnServer S, rhnServerAction SA
-   WHERE  S.org_id = :org_id 
-     AND  S.ID = SA.server_id 
+   WHERE  S.org_id = :org_id
+     AND  S.ID = SA.server_id
      AND  SA.action_id = :aid
      AND  SA.status = 3
      AND  EXISTS (
-          SELECT  1 
-            FROM  rhnUserServerPerms USP 
-           WHERE  USP.user_id = :user_id 
+          SELECT  1
+            FROM  rhnUserServerPerms USP
+           WHERE  USP.user_id = :user_id
              AND  USP.server_id = S.id
           )
 ORDER BY  UPPER(NVL(S.name, '(none)')), S.ID
@@ -813,14 +813,14 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.ID
   SELECT  S.id, S.name,
           TO_CHAR(SA.completion_time, 'YYYY-MM-DD HH24:MI:SS') AS COMPLETION_TIME
     FROM  rhnServer S, rhnServerAction SA
-   WHERE  S.org_id = :org_id 
-     AND  S.ID = SA.server_id 
+   WHERE  S.org_id = :org_id
+     AND  S.ID = SA.server_id
      AND  SA.action_id = :aid
      AND  SA.status = 2
      AND  EXISTS (
-          SELECT  1 
-            FROM  rhnUserServerPerms USP 
-           WHERE  USP.user_id = :user_id 
+          SELECT  1
+            FROM  rhnUserServerPerms USP
+           WHERE  USP.user_id = :user_id
              AND  USP.server_id = S.id
           )
 ORDER BY  UPPER(NVL(S.name, '(none)')), S.ID
@@ -1021,7 +1021,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), SCC.server_id
 
 <mode name="systems_with_patch">
   <query params="pid, user_id">
-  SELECT 
+  SELECT
 DISTINCT S.id,
          S.name AS SERVER_NAME,
          COALESCE((SELECT 1

@@ -18,11 +18,11 @@ ORDER BY C.parent_channel NULLS LAST, UPPER(C.name)
 <mode name="user_subscribe_perms">
   <query params="u_id, org_id">
 SELECT AC.channel_id AS ID,
-       AC.channel_name AS NAME, 
+       AC.channel_name AS NAME,
        rhn_channel.user_role_check(AC.channel_id, :u_id, 'subscribe') AS HAS_PERM,
        case
            when rhn_channel.org_channel_setting(AC.channel_id, :org_id,'not_globally_subscribable') = 0 then 1
-	   else null end
+           else null end
        AS GLOBALLY_SUBSCRIBABLE
   FROM rhnAvailableChannels AC
  WHERE AC.org_id = :org_id
@@ -33,7 +33,7 @@ ORDER BY UPPER(AC.channel_name)
 <mode name="user_manage_perms">
   <query params="u_id, org_id">
 SELECT C.id AS ID,
-       C.name AS NAME, 
+       C.name AS NAME,
        rhn_channel.user_role_check(C.id, :u_id, 'manage') AS HAS_PERM
   FROM rhnChannel C
  WHERE C.org_id = :org_id
@@ -44,7 +44,7 @@ ORDER BY UPPER(C.name)
 <mode name="channel_entitlements">
   <query params="org_id">
   -- Wish we didn't have to use the GREATEST function here to hide the fact that the view
-  -- is returning a -1 on occasion.  Couldn't figure out what was causing that DB value to 
+  -- is returning a -1 on occasion.  Couldn't figure out what was causing that DB value to
   -- mysteriously be set to -1 for only a few orgs (23 out of 1,139,618 records in
   -- rhnPrivateChannelFamily).  See BZ 170582 for more info.
 SELECT CFO.id, CFO.name, GREATEST(0, CFO.current_members) current_members, CFO.max_members, CFO.has_subscription, CFO.url
@@ -77,7 +77,7 @@ SELECT COUNT(DISTINCT CPN.name_id||CPN.package_arch_id)
                   AND S.server_arch_id = SCAC.server_arch_id
                   AND SCAC.channel_arch_id = UACh.channel_arch_id))
    AND  (UACh.end_of_life is NULL OR UACh.end_of_life > sysdate)
-ORDER BY rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id DESC, UACh.channel_depth, 
+ORDER BY rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id DESC, UACh.channel_depth,
          UPPER(UACh.channel_name)
   </query>
   <elaborator name="visible_server_count"/>
@@ -144,7 +144,7 @@ SELECT COUNT(DISTINCT CPN.name_id||CPN.package_arch_id)
         ) AS PACKAGE_COUNT,
         UACh.parent_or_self_label,
         UACh.channel_label,
-	1 show_all_results
+        1 show_all_results
   FROM  rhnChannel C,
         rhnUserAvailableChannels UACh
  WHERE  UACh.user_id = :user_id
@@ -171,7 +171,7 @@ SELECT COUNT(DISTINCT CPN.name_id||CPN.package_arch_id)
         ) AS PACKAGE_COUNT,
         UACh.parent_or_self_label,
         UACh.channel_label,
-	1 show_all_results
+        1 show_all_results
   FROM  rhnChannel C,
         rhnUserAvailableChannels UACh
  WHERE  UACh.user_id = :user_id
@@ -224,7 +224,7 @@ SELECT  DISTINCT C.id,
                  C.gpg_key_url
   FROM  rhnChannelFamilyMembers CFM,
         rhnChannel C,
-	rhnUserChannel UC
+        rhnUserChannel UC
  WHERE  UC.user_id = :user_id
    AND  UC.role = 'subscribe'
    AND  UC.channel_id = C.id

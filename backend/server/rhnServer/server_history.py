@@ -22,11 +22,13 @@ from spacewalk.server import rhnSQL
 MAX_SUMMARY = 128
 MAX_DETAILS = 4000
 
+
 class History:
+
     def __init__(self):
         self.__h = []
 
-    def add_history(self, summary, details = ""):
+    def add_history(self, summary, details=""):
         """ Add a history event to the server. """
         log_debug(4, summary)
         if details == '':
@@ -53,8 +55,8 @@ class History:
         summaries = map(lambda x: x[0], self.__h)
         details = map(lambda x: x[1], self.__h)
         server_ids = [server_id] * len(self.__h)
-        hist.executemany(server_id = server_ids, summary = summaries,
-                    details = details)
+        hist.executemany(server_id=server_ids, summary=summaries,
+                         details=details)
         # Clear the history cache
         self.__h = []
         return 0

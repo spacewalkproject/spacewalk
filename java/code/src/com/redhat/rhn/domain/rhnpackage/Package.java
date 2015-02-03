@@ -487,6 +487,21 @@ public class Package extends BaseDomainHelper {
     }
 
     /**
+     * Util to output package nvrea: vim-enhanced-7.0.109-7.2.el5:2.x86_64
+     * @return nvrea string
+     */
+    public String getNvrea() {
+        PackageEvr evr = this.getPackageEvr();
+        String nvrea = this.getPackageName().getName() + "-" + evr.getVersion() + "-" +
+            evr.getRelease();
+        if (evr.getEpoch() != null) {
+            nvrea += ":" + evr.getEpoch();
+        }
+        nvrea += "." + this.getPackageArch().getLabel();
+        return nvrea;
+    }
+
+    /**
      *
      * {@inheritDoc}
      */

@@ -1,0 +1,52 @@
+#!/bin/bash
+#
+# Copyright (c) 2014 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+
+if [ $# -ne 1 -o ! -f "$1" ]; then
+    echo "usage: $0 <certificate>"
+    exit 1
+fi
+
+ca_cert_file="$1"
+for name in "$HOME/.postgresql/root.crt" "/etc/rhn/postgresql-db-root-ca.cert"; do
+    if ! diff -q "$ca_cert_file" "$name" >& /dev/null ; then
+        mkdir -p "$( dirname "$name" )"
+        cp --backup=numbered "$ca_cert_file" "$name"
+    fi
+done
+
+tmpder=$( mktemp )
+
+if [ -f "/etc/rhn/javatruststore.jks" ]; then
+    cp --backup=numbered "/etc/rhn/javatruststore.jks" "/etc/rhn/javatruststore.jks.backup"
+    rm -f "/etc/rhn/javatruststore.jks"
+fi
+
+# Java needs truststore created by keystore needing der format...
+# Password is only for consistency, ca certificate can be read without it,
+# however keytool won't allow us create keystore without password...
+openssl x509 -in /etc/rhn/postgresql-db-root-ca.cert -out "$tmpder" -outform der
+keytool -keystore /etc/rhn/javatruststore.jks -alias postgresql -import -file "$tmpder" >&/dev/null <<\__EOF__
+ILOV3SPEJSW0LK
+ILOV3SPEJSW0LK
+y
+__EOF__
+
+ret=$?
+
+rm -rf "$tmpder"
+
+restorecon -R -F -v /etc/rhn/
+
+exit $ret

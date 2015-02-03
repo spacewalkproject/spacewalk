@@ -1,9 +1,0 @@
-#!/usr/bin/perl
-use NOCpulse::Object;
-use lib qw(/etc/rc.d/np.d);
-use NOCpulse::Config;
-use PhysCluster;
-$NOCpulse::Object::config = NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
-NOCpulse::Object->defaultDebugObject->addstream(LEVEL=>1);
-my $cluster = PhysCluster->newInitialized;
-print $cluster->describe;

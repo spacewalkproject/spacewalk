@@ -56,7 +56,7 @@ public class FileListTest extends RhnBaseTestCase {
         flushAndEvict(f);
         FileList f2 = CommonFactory.lookupFileList(f.getId(), o);
         assertNotNull(f2.getId());
-        ConfigFileName cfn = (ConfigFileName) f2.getFileNames().iterator().next();
+        ConfigFileName cfn = f2.getFileNames().iterator().next();
         assertEquals("/tmp/foo.txt", cfn.getPath());
     }
 

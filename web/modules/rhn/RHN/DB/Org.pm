@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -215,7 +215,7 @@ sub entitlement_data {
   my $ent_data = { };
 
   foreach my $level (qw/sw_mgr_entitled enterprise_entitled provisioning_entitled
-			monitoring_entitled/) {
+                        monitoring_entitled/) {
 
     my ($used, $max) = $self->entitlement_counts($level);
 
@@ -382,7 +382,7 @@ sub slot_name {
 
   my %entitlement_name =
     (none => 'None',
-     sw_mgr_entitled => 'Update', 
+     sw_mgr_entitled => 'Update',
      enterprise_entitled => 'Management',
      provisioning_entitled => 'Provisioning',
      virtualization_host => 'Virtualization',

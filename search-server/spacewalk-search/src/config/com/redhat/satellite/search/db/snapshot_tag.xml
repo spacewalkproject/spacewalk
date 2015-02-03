@@ -26,21 +26,21 @@
                 DELETE FROM rhnIndexerWork where object_type = 'snapshot_tag'
    </delete>
    <insert id="createLastSnapshotTag" parameterType="java.util.Map">
-		INSERT INTO rhnIndexerWork values ('snapshot_tag', #{id}, #{last_modified})
-	</insert>
-	<update id="updateLastSnapshotTag" parameterType="java.util.Map">
-		UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'snapshot_tag'
-	</update>
-	<select id="getLastSnapshotTagId" resultType="java.lang.Long">
-		SELECT last_id from rhnIndexerWork where object_type='snapshot_tag'
-	</select>
-	<select id="getLastSnapshotTagIndexRun" resultType="java.util.Date">
+                INSERT INTO rhnIndexerWork values ('snapshot_tag', #{id}, #{last_modified})
+        </insert>
+        <update id="updateLastSnapshotTag" parameterType="java.util.Map">
+                UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'snapshot_tag'
+        </update>
+        <select id="getLastSnapshotTagId" resultType="java.lang.Long">
+                SELECT last_id from rhnIndexerWork where object_type='snapshot_tag'
+        </select>
+        <select id="getLastSnapshotTagIndexRun" resultType="java.util.Date">
         SELECT last_modified from rhnIndexerWork where object_type='snapshot_tag'
     </select>
-    
+
     <select id="queryAllSnapshotTagIds" resultType="Long">
         SELECT snapshot_id from rhnSnapshotTag
     </select>
-    
+
 
 </mapper>

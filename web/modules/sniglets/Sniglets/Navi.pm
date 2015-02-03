@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 package Sniglets::Navi;
@@ -97,7 +97,7 @@ sub navi_nav {
   # remove the hyphens
   my $ns = $params{style};
   $ns =~ s/[\-]/_/g;
-  
+
   my $style = new Sniglets::Navi::Style($ns);
 
   my $prefix = $tree->label;
@@ -114,8 +114,8 @@ sub navi_nav {
   throw "no session" unless $pxt->session;
 
   my $active_node = $tree->active_node($pxt->parsed_uri->path,
-				       $pxt->pnotes("${prefix}navi_location"),
-				       $pxt->session->get("${prefix}navi_location"));
+                                       $pxt->pnotes("${prefix}navi_location"),
+                                       $pxt->session->get("${prefix}navi_location"));
 
   if ($pxt->dirty_param("${prefix}navi_node")) {
     my $node_id = $pxt->dirty_param("${prefix}navi_node");
@@ -220,23 +220,23 @@ sub render_nav {
       my $skip_kids;
        if ($navi_node->hide_all_children_unless_active) {
 
- 	foreach my $kid ($navi_node->children) {
- 	  if (is_node_active($kid, $nav_trail, $depth + 1)) {
+        foreach my $kid ($navi_node->children) {
+          if (is_node_active($kid, $nav_trail, $depth + 1)) {
 
-	    $skip_kids = 0;
-	    last;
-	  }
- 	}
+            $skip_kids = 0;
+            last;
+          }
+        }
 
- 	$skip_kids = 1 if not defined $skip_kids;
+        $skip_kids = 1 if not defined $skip_kids;
        }
 
 
       unless ($skip_kids) {
-	$rendered_child .= render_nav($pxt, $style, $tree, $nav_trail, $depth + 1, $navi_node->children);
-	if ($style->recursive_type($pxt) eq 'in-order') {
-	  $str .= $rendered_child;
-	}
+        $rendered_child .= render_nav($pxt, $style, $tree, $nav_trail, $depth + 1, $navi_node->children);
+        if ($style->recursive_type($pxt) eq 'in-order') {
+          $str .= $rendered_child;
+        }
       }
 
     }

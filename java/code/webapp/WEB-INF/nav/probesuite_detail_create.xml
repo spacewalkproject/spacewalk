@@ -1,4 +1,0 @@
-<?xml version="1.0"?>
-<rhn-navi-tree label="probesuites_detail" invisible="1" formvar="suite_id" title-depth="1">
-  <rhn-tab name="Overview" url="/rhn/monitoring/config/ProbeSuiteCreate.do"/>
-</rhn-navi-tree>

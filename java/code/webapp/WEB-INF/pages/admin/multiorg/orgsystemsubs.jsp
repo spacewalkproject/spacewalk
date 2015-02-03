@@ -80,33 +80,6 @@
                         </tr>
                         <tr>
                             <td>
-                                <strong><bean:message key="monitoring_entitled"/> <bean:message key="orgsystemsubs.jsp.add_on"/></strong>
-                                <span class="help-block"><bean:message key="orgsystemsubs.jsp.mon_tip"/></span>
-                            </td>
-                            <td>
-                                ${monitoring_entitled.maxEntitlements}
-                            </td>
-                            <td>
-                                ${monitoring_entitled.currentEntitlements}
-                            </td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${param.oid != 1}">
-                                        <html:text property="monitoring_entitled"
-                                                   styleClass="form-control"
-                                                   onkeydown="return blockEnter(event)"/>
-                                        <span class="help-block">
-                                            <bean:message key="orgsystemsubs.jsp.possible_vals" arg0="0" arg1="${monitoring_entitled.upperRange}"/>
-                                        </span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <bean:write name="orgSystemSubscriptionsForm" property="monitoring_entitled"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
                                 <strong><bean:message key="provisioning_entitled"/> <bean:message key="orgsystemsubs.jsp.add_on"/></strong>
                                 <span class="help-block">
                                     <bean:message key="orgsystemsubs.jsp.provis_tip"/>

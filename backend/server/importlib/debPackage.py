@@ -24,10 +24,11 @@ from backendLib import gmtime, localtime
 from types import IntType
 from spacewalk.common.stringutils import to_string
 
+
 class debBinaryPackage(headerSource.rpmBinaryPackage):
 
     def __init__(self, header, size, checksum_type, checksum, path=None, org_id=None,
-            channels=[]):
+                 channels=[]):
 
         headerSource.rpmBinaryPackage.__init__(self)
 
@@ -107,10 +108,9 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
         if group == '' or group is None:
             self['package_group'] = 'NoGroup'
 
-
     def _populateFiles(self, header):
         files = []
-        #for f in header.get('files', []):
+        # for f in header.get('files', []):
         #    fc = headerSource.rpmFile()
         #    fc.populate(f)
         #    files.append(fc)
@@ -118,19 +118,19 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
 
     def _populateDependencyInformation(self, header):
         mapping = {
-            'provides'  : headerSource.rpmProvides,
-            'requires'  : headerSource.rpmRequires,
-            'conflicts' : headerSource.rpmConflicts,
-            'obsoletes' : headerSource.rpmObsoletes,
-	    'suggests'  : headerSource.rpmSuggests,
+            'provides': headerSource.rpmProvides,
+            'requires': headerSource.rpmRequires,
+            'conflicts': headerSource.rpmConflicts,
+            'obsoletes': headerSource.rpmObsoletes,
+            'suggests': headerSource.rpmSuggests,
             'recommends': headerSource.rpmRecommends,
-            'breaks'    : headerSource.rpmBreaks,
+            'breaks': headerSource.rpmBreaks,
             'predepends': headerSource.rpmPredepends,
         }
         for k, dclass in mapping.items():
             l = []
             values = header[k]
-            if values != None:
+            if values is not None:
                 val = string.join(values.split(), "")  # remove whitespaces
                 val = val.split(',')  # split packages
                 i = 0
@@ -145,7 +145,7 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
                         # TODO FIX VERSION AND FLAGS
                         if (len(nv) > 1):
                             version = nv[1].rstrip(')')
-                    hash = {'name' : name, 'version' : version, 'flags' : 0}
+                    hash = {'name': name, 'version': version, 'flags': 0}
                     finst = dclass()
                     finst.populate(hash)
                     l.append(finst)
@@ -154,7 +154,7 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
 
     def _populateChangeLog(self, header):
         l = []
-        #for cinfo in header.get('changelog', []):
+        # for cinfo in header.get('changelog', []):
         #    cinst = headerSource.rpmChangeLog()
         #    cinst.populate(cinfo)
         #    l.append(cinst)
@@ -163,7 +163,7 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
     def _populateChannels(self, channels):
         l = []
         for channel in channels:
-            dict = {'label' : channel}
+            dict = {'label': channel}
             obj = Channel()
             obj.populate(dict)
             l.append(obj)

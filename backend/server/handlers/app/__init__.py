@@ -20,7 +20,7 @@ __all__ = []
 import packages
 
 rpcClasses = {
-    "packages"          : packages.Packages,
-    }
+    "packages": packages.Packages,
+}
 
 getHandler = None

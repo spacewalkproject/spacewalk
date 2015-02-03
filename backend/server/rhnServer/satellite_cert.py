@@ -22,10 +22,13 @@ import sys
 from xml.dom.minidom import parseString
 from xml.sax import SAXParseException
 
+
 class ParseException(Exception):
     pass
 
 # Generic class to represent items (like channel families)
+
+
 class Item:
     # Name to be displayed by repr()
     pretty_name = None
@@ -33,6 +36,7 @@ class Item:
     attribute_name = None
     # Mapping from XML to local storage
     attributes = {}
+
     def __init__(self, node=None):
         if not node:
             return
@@ -43,22 +47,24 @@ class Item:
 
     def __repr__(self):
         return "<%s; %s>" % (self.pretty_name,
-            string.join(
-                map(lambda x, s=self: '%s="%s"' % (x, getattr(s, x)),
-                    self.attributes.values()),
-                ', '
-            )
-        )
+                             string.join(
+                                 map(lambda x, s=self: '%s="%s"' % (x, getattr(s, x)),
+                                     self.attributes.values()),
+                                 ', '
+                             )
+                             )
 
 
 class ChannelFamily(Item):
     pretty_name = "channel family"
     attribute_name = 'channel_families'
-    attributes = {'family' : 'name', 'quantity' : 'quantity', 'flex' : 'flex' }
+    attributes = {'family': 'name', 'quantity': 'quantity', 'flex': 'flex'}
+
 
 class Slots:
     _db_label = None
     _slot_name = None
+
     def __init__(self, quantity):
         self.quantity = quantity
 
@@ -74,9 +80,11 @@ class Slots:
         rhn_entitlements.modify_org_service"""
         return self._slot_name
 
+
 class ManagementSlots(Slots):
     _db_label = 'enterprise_entitled'
     _slot_name = 'enterprise'
+
 
 class ProvisioningSlots(Slots):
     _db_label = 'provisioning_entitled'
@@ -84,9 +92,11 @@ class ProvisioningSlots(Slots):
 
 # Slots for virt entitlements support
 
+
 class VirtualizationSlots(Slots):
     _db_label = 'virtualization_host'
     _slot_name = 'virtualization'
+
 
 class VirtualizationPlatformSlots(Slots):
     _db_label = 'virtualization_host_platform'
@@ -94,9 +104,11 @@ class VirtualizationPlatformSlots(Slots):
 
 # NonLinux slots are gone - misa 20050527
 
+
 class MonitoringSlots(Slots):
     _db_label = 'monitoring_entitled'
     _slot_name = 'monitoring'
+
 
 class SatelliteCert:
 
@@ -112,11 +124,11 @@ class SatelliteCert:
                      'monitoring-slots', 'virtualization_host',
                      'virtualization_host_platform', 'satellite-version',
                      'generation', ]
-    fields_list = { 'channel-families' : ChannelFamily }
+    fields_list = {'channel-families': ChannelFamily}
 
-    #datesFormat_cert = '%a %b %d %H:%M:%S %Y' ## OLD CERT FORMAT
+    # datesFormat_cert = '%a %b %d %H:%M:%S %Y' ## OLD CERT FORMAT
     datesFormat_cert = '%Y-%m-%d %H:%M:%S'
-    datesFormat_db =   '%Y-%m-%d %H:%M:%S'
+    datesFormat_db = '%Y-%m-%d %H:%M:%S'
 
     def __init__(self):
         for f in self.fields_scalar:
@@ -176,12 +188,13 @@ class SatelliteCert:
         dom_element.unlink()
 
     _slot_maps = {
-        'management'              : ('slots', ManagementSlots),
-        'provisioning'            : ('provisioning-slots', ProvisioningSlots),
-        'monitoring'              : ('monitoring-slots', MonitoringSlots),
-        'virtualization'          : ('virtualization_host', VirtualizationSlots),
-        'virtualization_platform' : ('virtualization_host_platform', VirtualizationPlatformSlots)
+        'management': ('slots', ManagementSlots),
+        'provisioning': ('provisioning-slots', ProvisioningSlots),
+        'monitoring': ('monitoring-slots', MonitoringSlots),
+        'virtualization': ('virtualization_host', VirtualizationSlots),
+        'virtualization_platform': ('virtualization_host_platform', VirtualizationPlatformSlots)
     }
+
     def get_slots(self, slot_type):
         if not self._slots.has_key(slot_type):
             raise AttributeError(slot_type)
@@ -197,11 +210,12 @@ class SatelliteCert:
                 return label
         return None
 
+
 def get_text(node):
     return string.join(
         map(lambda x: x.data,
             filter(lambda x: x.nodeType == x.TEXT_NODE, node.childNodes)
-        ), "")
+            ), "")
 
 if __name__ == '__main__':
     c = SatelliteCert()

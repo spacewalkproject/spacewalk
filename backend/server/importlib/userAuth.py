@@ -24,7 +24,9 @@ from spacewalk.common.rhnTB import add_to_seclist
 
 from spacewalk.server import rhnSQL, rhnUser
 
+
 class UserAuth:
+
     def __init__(self):
         self.org_id = None
         self.user_id = None
@@ -90,13 +92,13 @@ class UserAuth:
         if org_id == '':
             # Satellites are not allowwd to push in the null org
             raise rhnFault(4,
-                _("You are not authorized to manage packages in the null org"))
+                           _("You are not authorized to manage packages in the null org"))
 
         if org_id and self.org_id != org_id:
             # Not so fast...
             raise rhnFault(32,
-                _("You are not allowed to manage packages in the %s org") %
-                    org_id)
+                           _("You are not allowed to manage packages in the %s org") %
+                           org_id)
 
         # Org admins and channel admins have full privileges; we could use
         # user_manages_channes, except for the case where there are no chanels
@@ -113,8 +115,7 @@ class UserAuth:
         # ok, you're a regular user who doesn't manage any channels.
         # take a hike.
         raise rhnFault(32,
-            _("You are not allowed to perform administrative tasks"))
-
+                       _("You are not allowed to perform administrative tasks"))
 
     def authzChannels(self, channels):
         log_debug(4, channels)
@@ -137,17 +138,17 @@ class UserAuth:
             # Either the channel doesn't exist, or not allowed to manage it
             if not row or not row['manage']:
                 raise rhnFault(32,
-                    _("You are not allowed to manage channel %s, or that "
-                    "channel does not exist") % channel)
+                               _("You are not allowed to manage channel %s, or that "
+                                 "channel does not exist") % channel)
 
             log_debug(4, "User %s allowed to manage channel %s" %
-                (self.user_id, channel))
+                      (self.user_id, channel))
 
         return None
 
 
-#wregglej 12/21/05 This should only be used when the user instance has already been reloaded from
-#a session.
+# wregglej 12/21/05 This should only be used when the user instance has already been reloaded from
+# a session.
 def getUserGroupsFromUserInstance(user_instance):
     log_debug(4, user_instance.getid())
     user = user_instance
@@ -156,7 +157,7 @@ def getUserGroupsFromUserInstance(user_instance):
         log_debug("null user")
         raise rhnFault(2)
 
-    #Don't need to check the password, the session should have already been checked.
+    # Don't need to check the password, the session should have already been checked.
 
     # Get the org id
     org_id = user.contact['org_id']

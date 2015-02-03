@@ -658,6 +658,3 @@ def getPatchData(filename):
             data = data + "\n"
 
     return data
-
-
-# vim:ts=4:sw=4:et
