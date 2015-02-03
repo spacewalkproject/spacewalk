@@ -490,6 +490,11 @@ SQUID_VER_MAJOR=$(squid -v | awk -F'[ .]' '/Version/ {print $4}')
 if [ $SQUID_VER_MAJOR -ge 3 ] ; then
     # squid 3.X has acl 'all' built-in
     SQUID_REWRITE="$SQUID_REWRITE s/^acl all.*//;"
+    # squid 3.2 and later need none instead of -1 for range_offset_limit
+    SQUID_VER_MINOR=$(squid -v | awk -F'[ .]' '/Version/ {print $5}')
+    if [[ $SQUID_VER_MAJOR -ge 4 || ( $SQUID_VER_MAJOR -eq 3 && $SQUID_VER_MINOR -ge 2 ) ]] ; then
+        SQUID_REWRITE="$SQUID_REWRITE s/^range_offset_limit.*/range_offset_limit none/;"
+    fi
 fi
 sed "$SQUID_REWRITE" < $DIR/squid.conf  > $SQUID_DIR/squid.conf
 sed -e "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
