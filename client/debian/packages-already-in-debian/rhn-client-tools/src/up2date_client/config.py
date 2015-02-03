@@ -13,7 +13,7 @@ up2date agent to hold config info.
 import os
 import sys
 from urlparse import urlsplit, urlunsplit
-from rhn.connections import idn_ascii_to_puny, idn_pune_to_unicode
+from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)

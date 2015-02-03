@@ -28,7 +28,7 @@ import exceptions
 import Queue
 import threading
 from optparse import Option, OptionParser
-from rhn.connections import idn_ascii_to_puny, idn_pune_to_unicode
+from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode
 
 import gettext
 translation = gettext.translation('spacewalk-backend-server', fallback=True)
