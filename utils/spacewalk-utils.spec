@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.28
+Version:	2.3.29
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,12 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Feb 03 2015 Grant Gainey 2.3.29-1
+- spacewalk-final-archive manpage
+- spacewalk-final-archive fixes and cleanup
+- Archiving spacewalk data, first draft
+- Setting ts=4 is wrong
+
 * Tue Jan 27 2015 Grant Gainey 2.3.28-1
 - 1177089 - Don't try to use 'createrepo --no-database' if createrepo doesn't
   know it
