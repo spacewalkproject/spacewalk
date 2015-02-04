@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.3.9
+Version: 2.3.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Wed Feb 04 2015 Stephen Herr <sherr@redhat.com> 2.3.10-1
+- 1189184 - prevent squid 3.2 from detecting forwarding loops
+
 * Fri Jan 23 2015 Stephen Herr <sherr@redhat.com> 2.3.9-1
 - Leave condrestart command in rhn-proxy script for backwards-compatibility
 - spacewalk-proxy: do not use subsys anymore does not exist on all systems
