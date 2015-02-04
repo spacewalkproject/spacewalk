@@ -52,7 +52,6 @@ class ConfManager:
             self.defaultconfig.exclude = [x.strip() for x in
                                           self.defaultconfig.exclude.split(',')]
 
-    # Changes every option in config that is also in store_true_list that is set to '0' to None
     def get_config(self):
         for f in self.cfgFileList:
             if os.access(f, os.F_OK):
@@ -108,6 +107,7 @@ class ConfManager:
         return self.defaultconfig
 
 
+# Changes every option in config that is also in store_true_list that is set to '0' to None
 def _zero_to_none(config, store_true_list):
     for opt in config.keys():
         for cmd in store_true_list:
