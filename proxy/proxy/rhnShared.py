@@ -342,7 +342,7 @@ class SharedHandler:
                 # mod_wsgi modifies incoming headers so we have to transform them back
                 k = k.replace('_', '-')
             if not (k.lower()[:2] == 'x-' or
-                    k.lower() in [  # all but 'host'
+                    k.lower() in [  # all but 'host', and 'via'
                         'accept', 'accept-charset', 'accept-encoding', 'accept-language',
                         'accept-ranges', 'age', 'allow', 'authorization', 'cache-control',
                         'connection', 'content-encoding', 'content-language', 'content-length',
@@ -352,7 +352,7 @@ class SharedHandler:
                         'last-modified', 'location', 'max-forwards', 'pragma', 'proxy-authenticate',
                         'proxy-authorization', 'range', 'referer', 'retry-after', 'server',
                         'te', 'trailer', 'transfer-encoding', 'upgrade', 'user-agent', 'vary',
-                        'via', 'warning', 'www-authenticate']):
+                        'warning', 'www-authenticate']):
                 # filter out header we don't want to send
                 continue
             if type(vals) not in (ListType, TupleType):
