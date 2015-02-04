@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.137
+Version: 2.3.138
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -788,6 +788,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 04 2015 Tomas Lestach <tlestach@redhat.com> 2.3.138-1
+- linking real files works much better
+- Documentation changes - fix name and refer to RFC.
+- Package_queries.xml system_available_packages: one more whitespace fix
+- Package_queries.xml system_available_packages: use comprehensible subquery
+  names
+- Package_queries.xml system_available_packages: use JOIN for join conditions,
+  WHERE for others
+- Package_queries.xml system_available_packages: normalize AS use
+- Package_queries.xml system_available_packages: fix indentation and spacing
+- Package_queries.xml system_available_packages: fix case
+
 * Fri Jan 30 2015 Stephen Herr <sherr@redhat.com> 2.3.137-1
 - 1173260 - avoid deadlock if you call mergePackages after mergeErrata
 - Make first letter uppercase as in rest of the UI
