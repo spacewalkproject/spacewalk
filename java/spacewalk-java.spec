@@ -458,7 +458,7 @@ ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/
 %if 0%{?fedora} >= 21
  ln -s -f %{_javadir}/hibernate-jpa-2.0-api/hibernate-jpa-2.0-api.jar $RPM_BUILD_ROOT%{_javadir}/hibernate-jpa-2.0-api.jar
  ln -s -f %{_javadir}/c3p0/c3p0.jar $RPM_BUILD_ROOT%{_javadir}/c3p0.jar
- ln -s -f %{_javadir}/concurent/cconcurent.jar $RPM_BUILD_ROOT%{_javadir}/concurent.jar
+ ln -s -f %{_javadir}/concurrent/concurrent.jar $RPM_BUILD_ROOT%{_javadir}/concurrent.jar
 %endif
 
 %endif
@@ -670,7 +670,7 @@ fi
 
 %if 0%{?fedora} >= 21
 %{_javadir}/c3p0.jar
-%{_javadir}/concurent.jar
+%{_javadir}/concurrent.jar
 %{_javadir}/hibernate-jpa-2.0-api.jar
 %endif
 
