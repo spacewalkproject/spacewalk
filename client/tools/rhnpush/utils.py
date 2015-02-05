@@ -22,10 +22,9 @@ def get_home_dir():
     info = pwd.getpwuid(userid)
     return info[5]
 
+
 # If Object1 and Object2 have any common attributes, set the attribute in Object1
 # to the value of the attribute in Object2. Does not make functions or variables starting with '_' equivalent.
-
-
 def make_common_attr_equal(object1, object2):
 
     # Go through every attribute in object1
@@ -50,10 +49,9 @@ def make_common_attr_equal(object1, object2):
 
     return (object1, object2)
 
+
 # Pylint is too stupid to understand subclasses of tuples apparently.
 # This is just to make it shut up.
-
-
 def tupleify_urlparse(urlparse_object):
     if hasattr(urlparse_object, 'scheme'):
         scheme = urlparse_object.scheme
