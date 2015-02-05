@@ -225,7 +225,7 @@ public class ErrataCacheManager extends HibernateFactory {
      */
     public static void updateCacheForChannelsAsync(Set<Channel> channelsToUpdate) {
         log.debug("updateErrataCacheForChannelsAsync");
-        List<Long> channels = new LinkedList();
+        List<Long> channels = new LinkedList<Long>();
         for (Channel c : channelsToUpdate) {
             channels.add(c.getId());
         }
@@ -239,12 +239,24 @@ public class ErrataCacheManager extends HibernateFactory {
      * caches updated
      * @param errata the errata to update the cache for
      */
-    public static void insertCacheForChannelErrataAsync(
-            List channelIdsToUpdate, Errata errata) {
+    public static void insertCacheForChannelErrataAsync(List<Long> channelIdsToUpdate,
+            Errata errata) {
+        insertCacheForChannelErrataAsync(channelIdsToUpdate, errata.getId());
+    }
+
+    /**
+     * Asynchronusly updates the errata caches for the channels passed in.
+     *
+     * @param channelIdsToUpdate - channel IDs (Long) that need their errata
+     * caches updated
+     * @param errataId the errata to update the cache for
+     */
+    public static void insertCacheForChannelErrataAsync(List<Long> channelIdsToUpdate,
+            Long errataId) {
         UpdateErrataCacheEvent uece = new UpdateErrataCacheEvent(
                 UpdateErrataCacheEvent.TYPE_CHANNEL_ERRATA);
         uece.setChannels(channelIdsToUpdate);
-        uece.setErrataId(errata.getId());
+        uece.setErrataId(errataId);
         MessageQueue.publish(uece);
     }
 
@@ -374,7 +386,7 @@ public class ErrataCacheManager extends HibernateFactory {
                 "update_needed_cache_for_channel");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("channel_id", cid);
-        m.execute(params, new HashMap());
+        m.execute(params, new HashMap<String, Integer>());
     }
 
     /**

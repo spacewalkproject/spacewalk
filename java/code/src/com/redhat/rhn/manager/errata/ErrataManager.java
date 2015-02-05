@@ -1435,8 +1435,9 @@ public class ErrataManager extends BaseManager {
      * @param toClone List of ErrataOverview to clone
      * @param toCid Channel id to clone them into
      * @param user the requesting user
+     * @return list of errata ids that were published into channel
      */
-    public static void cloneChannelErrata(List<ErrataOverview> toClone, Long toCid,
+    public static List<Long> cloneChannelErrata(List<ErrataOverview> toClone, Long toCid,
             User user) {
         List<OwnedErrata> owned = ErrataFactory
                 .listPublishedOwnedUnmodifiedClonedErrata(user.getOrg().getId());
@@ -1472,6 +1473,12 @@ public class ErrataManager extends BaseManager {
         }
 
         ChannelFactory.addClonedErrataToChannel(eids, toCid);
+
+        // for things like errata email and auto errata updates
+        for (Long eid : eids) {
+            ErrataManager.addErrataChannelNotifications(eid, toCid);
+        }
+        return eids;
     }
 
     /**
@@ -1531,6 +1538,26 @@ public class ErrataManager extends BaseManager {
         params.put("eid", e.getId());
         WriteMode m = ModeFactory.getWriteMode(
                 "Errata_queries",  "clear_errata_notification");
+        m.executeUpdate(params);
+    }
+
+    /**
+     * delete any present and then enqueue a channel notification for the
+     * given channel and erratum. This will trigger the taskomatic ErrataQueue
+     * task to take a look, ensuring things like auto-errata-updates.
+     * @param eid the errata to enqueue
+     * @param cid affected channel
+     */
+    public static void addErrataChannelNotifications(Long eid, Long cid) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("eid", eid);
+        params.put("cid", cid);
+        WriteMode m = ModeFactory.getWriteMode("Errata_queries",
+                "clear_errata_channel_notification");
+        m.executeUpdate(params);
+        java.sql.Date newDate = new java.sql.Date(new java.util.Date().getTime());
+        params.put("datetime", newDate);
+        m = ModeFactory.getWriteMode("Errata_queries", "insert_errata_notification");
         m.executeUpdate(params);
     }
 

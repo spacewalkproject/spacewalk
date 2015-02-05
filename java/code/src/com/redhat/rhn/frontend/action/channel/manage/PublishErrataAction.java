@@ -35,7 +35,9 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,6 +67,8 @@ public class PublishErrataAction extends RhnListAction {
         User user =  requestContext.getCurrentUser();
         Long cid = Long.parseLong(request.getParameter(CID));
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid, user);
+        Map<String, Object> forwardParams = new HashMap<String, Object>();
+        forwardParams.put(CID, cid);
 
         PublishErrataHelper.checkPermissions(user, cid);
 
@@ -76,6 +80,14 @@ public class PublishErrataAction extends RhnListAction {
             log.debug("Set in Publish: "  +  packageSet.size());
         }
 
+        List<Long> channelPacks = ChannelFactory.getPackageIds(currentChan.getId());
+
+        for (Long pid : packageIds) {
+            if (!channelPacks.contains(pid)) {
+                ChannelFactory.addChannelPackage(currentChan.getId(), pid);
+            }
+        }
+
         // used to schedule an asynchronous action to clone errata because it was
         // so slow. Is much faster now, just do inline.
         //Set<Long> errataIds = RhnSetDecl.setForChannelErrata(currentChan).get(
@@ -83,25 +95,17 @@ public class PublishErrataAction extends RhnListAction {
         //ErrataManager.publishErrataToChannelAsync(currentChan, errataIds, user);
         List<ErrataOverview> errata = ErrataManager.lookupErrataListFromSet(user,
                 RhnSetDecl.setForChannelErrata(currentChan).get(user).getLabel());
-        ErrataManager.cloneChannelErrata(errata, currentChan.getId(), user);
-
-        List<Long> pidList = new ArrayList<Long>();
-        pidList.addAll(packageIds);
-
-        List<Long> channelPacks = ChannelFactory.getPackageIds(currentChan.getId());
-
-        for (Long pid : pidList) {
-            if (!channelPacks.contains(pid)) {
-                ChannelFactory.addChannelPackage(currentChan.getId(), pid);
-            }
-        }
+        List<Long> eids = ErrataManager.cloneChannelErrata(errata, currentChan.getId(),
+                user);
 
 
         //update the errata info
+        ChannelManager.refreshWithNewestPackages(currentChan, "web.errata_push");
         List<Long> chanList = new ArrayList<Long>();
         chanList.add(currentChan.getId());
-        ErrataCacheManager.insertCacheForChannelPackagesAsync(chanList, pidList);
-        ChannelManager.refreshWithNewestPackages(currentChan, "web.errata_push");
+        for (Long eid : eids) {
+            ErrataCacheManager.insertCacheForChannelErrataAsync(chanList, eid);
+        }
         request.setAttribute("cid", cid);
 
         ActionMessages msg = new ActionMessages();
@@ -112,7 +116,8 @@ public class PublishErrataAction extends RhnListAction {
 
         getStrutsDelegate().saveMessages(requestContext.getRequest(), msg);
 
-        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), forwardParams);
     }
 
 
