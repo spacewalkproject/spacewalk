@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.138
+Version: 2.3.139
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -788,6 +788,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 05 2015 Stephen Herr <sherr@redhat.com> 2.3.139-1
+- 1173731 - ErrataQueue shouldn't fail if server is subscribed to other org's
+  channel
+- New fast java errata clones need to enqueue notifications for taskomaitc
+  Without it things like auto-errata-updates never get scheduled
+- 1174652 - Don't dereference things that might be null, in SQL
+
 * Wed Feb 04 2015 Tomas Lestach <tlestach@redhat.com> 2.3.138-1
 - linking real files works much better
 - Documentation changes - fix name and refer to RFC.
