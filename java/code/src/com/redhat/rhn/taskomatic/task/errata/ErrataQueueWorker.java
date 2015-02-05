@@ -35,7 +35,6 @@ import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -52,17 +51,17 @@ class ErrataQueueWorker implements QueueWorker {
     private Long orgId;
     private TaskQueue parentQueue;
 
-    ErrataQueueWorker(Map row, Logger parentLogger) {
-        channelId = (Long) row.get("channel_id");
-        errataId = (Long) row.get("errata_id");
-        orgId = (Long) row.get("org_id");
+    ErrataQueueWorker(Map<String, Long> row, Logger parentLogger) {
+        channelId = row.get("channel_id");
+        errataId = row.get("errata_id");
+        orgId = row.get("org_id");
         logger = parentLogger;
     }
 
     public void run() {
         try {
             parentQueue.workerStarting();
-            dequeueErrata();
+            markInProgress();
             ActionStatus queuedStatus = lookupQueuedStatus();
             try {
                 Errata errata = loadErrata();
@@ -99,6 +98,7 @@ class ErrataQueueWorker implements QueueWorker {
                 logger.debug("inserted " + rowsUpdated +
                     " rows into the rhnErrataNotificationQueue table");
             }
+            dequeueErrata();
             HibernateFactory.commitTransaction();
         }
         catch (Exception e) {
@@ -111,11 +111,25 @@ class ErrataQueueWorker implements QueueWorker {
         }
     }
 
+    private void markInProgress() {
+        WriteMode m = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
+                TaskConstants.TASK_QUERY_ERRATA_IN_PROGRESS);
+        Map<String, Long> params = new HashMap<String, Long>();
+        params.put("errata_id", errataId);
+        params.put("channel_id", channelId);
+        int numRows = m.executeUpdate(params);
+        if (logger.isDebugEnabled()) {
+            logger.debug("marked " + numRows +
+                    " rows as in progress in rhnErrataQueue table");
+        }
+        HibernateFactory.commitTransaction();
+        HibernateFactory.closeSession();
+    }
 
     private void dequeueErrata() {
         WriteMode deqErrata = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA);
-        Map dqeParams = new HashMap();
+        Map<String, Long> dqeParams = new HashMap<String, Long>();
         dqeParams.put("errata_id", errataId);
         dqeParams.put("channel_id", channelId);
         int eqDeleted = deqErrata.executeUpdate(dqeParams);
@@ -123,8 +137,6 @@ class ErrataQueueWorker implements QueueWorker {
             logger.debug("deleted " + eqDeleted +
                     " rows from the rhnErrataQueue table");
         }
-        HibernateFactory.commitTransaction();
-        HibernateFactory.closeSession();
     }
 
     private Errata loadErrata() throws Exception {
@@ -141,7 +153,8 @@ class ErrataQueueWorker implements QueueWorker {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("channel_id", chan.getId());
         params.put("errata_id", errata.getId());
-        List results = select.execute(params);
+        @SuppressWarnings("unchecked")
+        List<Map<String, Long>> results = select.execute(params);
         if (results == null || results.size() == 0) {
             if (logger.isDebugEnabled()) {
                 logger.debug("No autoupdate servers found for errata " +
@@ -154,33 +167,21 @@ class ErrataQueueWorker implements QueueWorker {
                     "errata " + errata.getId());
         }
 
-        // I think this nifty little loop accurately models what the perl
-        // code is doing
-
-        Org org = null;
-        for (Iterator iter = results.iterator(); iter.hasNext();) {
-            Map row = (Map) iter.next();
-            Long serverId = (Long) row.get("server_id");
-            Long tmp = (Long) row.get("org_id");
-            Long convertedOrgId = new Long(tmp.longValue());
-            if (orgId == null) {
-                org = OrgFactory.lookupById(convertedOrgId);
-            }
-            else {
-                org = OrgFactory.lookupById(orgId);
-            }
-            Long convertedServerId = new Long(serverId.longValue());
+        for (Map<String, Long> row : results) {
+            Long serverId = row.get("server_id");
+            Long serverOrgId = row.get("org_id");
+            Org org = OrgFactory.lookupById(serverOrgId);
             // Only schedule an Auto Update if the server supports the
             // feature.  We originally calculated this in the driving
             // query but it wasn't performant.
             if (logger.isDebugEnabled()) {
                 logger.debug("Scheduling auto update for Errata: " +
-                        errata.getId() + ", Server: " + convertedServerId +
-                        ", Org: " + convertedOrgId);
+ errata.getId() +
+                        ", Server: " + serverId + ", Org: " + serverOrgId);
             }
             ErrataAction errataAction = ActionManager.
                 createErrataAction(org, errata);
-            ActionManager.addServerToAction(convertedServerId, errataAction);
+            ActionManager.addServerToAction(serverId, errataAction);
             ActionManager.storeAction(errataAction);
             HibernateFactory.commitTransaction();
             HibernateFactory.closeSession();

@@ -8,6 +8,7 @@ SELECT eq.errata_id, E.org_id, EQ.channel_id
        rhnErrata E on E.id = EQ.errata_id inner join
        rhnChannel C on C.id = EQ.channel_id
    WHERE C.label not in (       select channel_label from rhnRepoRegenQueue)
+   AND not EQ.next_action is null
    AND C.id not in (select task_data from rhnTaskQueue where task_name = 'update_errata_cache_by_channel')
 ORDER BY next_action DESC
   </query>
@@ -131,7 +132,19 @@ SELECT DISTINCT
 
 <write-mode name="errataqueue_dequeue_errata">
    <query params="errata_id, channel_id">
-      DELETE FROM rhnErrataQueue WHERE errata_id = :errata_id AND channel_id = :channel_id
+      DELETE FROM rhnErrataQueue
+       WHERE errata_id = :errata_id
+         AND channel_id = :channel_id
+         AND next_action is null
+   </query>
+</write-mode>
+
+<write-mode name="errataqueue_errata_in_progress">
+   <query params="errata_id, channel_id">
+      UPDATE rhnErrataQueue
+         SET next_action = null
+       WHERE errata_id = :errata_id
+         AND channel_id = :channel_id
    </query>
 </write-mode>
 
