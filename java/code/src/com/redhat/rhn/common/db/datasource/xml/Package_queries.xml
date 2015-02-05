@@ -2035,8 +2035,12 @@ select  pn.name as package_name,
     on pa.id = coalesce(server_pkgs.package_arch_id, snapshot_pkgs.package_arch_id)
  where server_pkgs.max_evr is null
     or snapshot_pkgs.max_evr is null
-    or (rpm.vercmp((server_pkgs.max_evr).epoch, (server_pkgs.max_evr).version, (server_pkgs.max_evr).release,
-                   (snapshot_pkgs.max_evr).epoch, (snapshot_pkgs.max_evr).version, (snapshot_pkgs.max_evr).release) &lt;&gt; 0)
+    or (rpm.vercmp((coalesce(server_pkgs.max_evr, evr_t('0','0','0'))).epoch,
+                   (coalesce(server_pkgs.max_evr, evr_t('0','0','0'))).version,
+                   (coalesce(server_pkgs.max_evr, evr_t('0','0','0'))).release,
+                   (coalesce(snapshot_pkgs.max_evr, evr_t('0','0','0'))).epoch,
+                   (coalesce(snapshot_pkgs.max_evr, evr_t('0','0','0'))).version,
+                   (coalesce(snapshot_pkgs.max_evr, evr_t('0','0','0'))).release) &lt;&gt; 0)
  order by pn.name
   </query>
 </mode>
