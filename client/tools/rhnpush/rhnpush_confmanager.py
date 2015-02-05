@@ -97,6 +97,9 @@ class ConfManager:
         if self.defaultconfig.verbose:
             self.defaultconfig.verbose = int(self.defaultconfig.verbose)
 
+        if self.defaultconfig.timeout:
+            self.defaultconfig.timeout = int(self.defaultconfig.timeout)
+
         # Copy the settings in argoptions into self.defaultconfig.
         self.defaultconfig, argoptions = utils.make_common_attr_equal(self.defaultconfig, argoptions)
 
