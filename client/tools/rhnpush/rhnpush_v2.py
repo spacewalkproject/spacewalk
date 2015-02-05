@@ -43,6 +43,9 @@ class PackageUpload(connection.PackageUpload):
         if null_org:
             self.headers["%s-%s" % (self.header_prefix, "Null-Org")] = "1"
 
+    def set_timeout(self, timeout):
+        self.connection.set_timeout(timeout)
+
     # Encodes an array of variables into Base64 (column-separated)
     @staticmethod
     def encode_values(arr):

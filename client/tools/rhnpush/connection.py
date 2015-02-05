@@ -49,27 +49,34 @@ class BaseConnection:
 
         self._trusted_certs = None
         self._connection = None
+        self._timeout = None
+
+    def set_timeout(self, timeout):
+        self._timeout = timeout
 
     def get_connection(self):
         if self._scheme not in ['http', 'https']:
             raise ValueError("Unsupported scheme", self._scheme)
+        params = {}
+        if self._timeout is not None:
+            params['timeout'] = self._timeout
         if self._proxy_host:
-            params = {
+            params.update({
                 'host': self._host,
                 'port': self._port,
                 'proxy': "%s:%s" % (self._proxy_host, self._proxy_port),
                 'username': self._proxy_username,
                 'password': self._proxy_password,
-            }
+            })
             if self._scheme == 'http':
                 return connections.HTTPProxyConnection(**params)
             params['trusted_certs'] = self._trusted_certs
             return connections.HTTPSProxyConnection(**params)
         else:
             if self._scheme == 'http':
-                return connections.HTTPConnection(self._host, self._port)
-            return connections.HTTPSConnection(self._host, self._port,
-                                               trusted_certs=self._trusted_certs)
+                return connections.HTTPConnection(self._host, self._port, **params)
+            params['trusted_certs'] = self._trusted_certs
+            return connections.HTTPSConnection(self._host, self._port, **params)
 
     def connect(self):
         self._connection = self.get_connection()

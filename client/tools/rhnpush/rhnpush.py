@@ -101,7 +101,9 @@ def main():
                help='Disables session-token authentication.'),
         Option('--tolerant', action='store_true',
                help='If rhnpush errors while uploading a package, continue uploading the rest of the packages.'),
-        Option('--ca-chain', action='store', help='alternative SSL CA Cert')
+        Option('--ca-chain', action='store', help='alternative SSL CA Cert'),
+        Option('--timeout', action='store', type='int', metavar='SECONDS',
+               help='Change default connection timeout.')
     ]
 
     # Having to maintain a store_true list is ugly. I'm trying to get rid of this.
@@ -612,6 +614,7 @@ class UploadClass(uploadLib.UploadClass):
         pu.set_session(self.session.getSessionString())
         pu.set_force(self.options.force)
         pu.set_null_org(self.options.nullorg)
+        pu.set_timeout(self.options.timeout)
 
         status, msgstr = pu.upload(package, fileChecksumType, fileChecksum)
 

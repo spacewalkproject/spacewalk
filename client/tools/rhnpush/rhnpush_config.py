@@ -62,7 +62,7 @@ class rhnpushConfigParser:
             'proxy':   '',
             'tolerant':   '0',
             'ca_chain':   '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT',
-
+            'timeout': None
         }
 
         # Used to parse the config file.
