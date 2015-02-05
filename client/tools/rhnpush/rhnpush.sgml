@@ -102,6 +102,9 @@ Utility to push binary and source RPMs into an RHN channel.
         <arg>--tolerant</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--timeout=<replaceable>SECONDS</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-h</arg> <arg>--help</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -236,6 +239,12 @@ Utility to push binary and source RPMs into an RHN channel.
             </para>
         </listitem>
 
+    </varlistentry>
+    <varlistentry>
+        <term>--timeout=<replaceable>SECONDS</replaceable></term>
+        <listitem>
+            <para>Change default connection timeout.</para>
+        </listitem>
     </varlistentry>
     <varlistentry>
         <term>--nullorg</term>
