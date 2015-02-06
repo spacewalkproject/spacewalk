@@ -407,6 +407,7 @@ sub command_pg_restore {
   }
 
   system(@{Dobby::CLI::MiscCommands::pg_version('droplang')}, 'plpgsql', PXT::Config->get('db_name'));
+  system(@{Dobby::CLI::MiscCommands::pg_version('droplang'), 'pltclu', PXT::Config->get('db_name'));
 
   print "** Restoring from file $file.\n";
   my $ret = system(@{Dobby::CLI::MiscCommands::pg_version('pg_restore')}, "-Fc", "--jobs=2", "--dbname=".PXT::Config->get('db_name'), $file );
