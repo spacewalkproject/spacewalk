@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.32
+Version: 2.3.33
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -284,6 +284,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Feb 06 2015 Grant Gainey 2.3.33-1
+- 1123374 - Fix pltclu watning on restore
+
 * Fri Jan 23 2015 Tomas Lestach <tlestach@redhat.com> 2.3.32-1
 - removing unused monitoring related SCDB and TSDB
 
