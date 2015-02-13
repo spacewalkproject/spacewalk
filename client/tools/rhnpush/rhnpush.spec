@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.84
+Version:       5.5.85
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -75,6 +75,16 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Fri Feb 13 2015 Tomas Lestach <tlestach@redhat.com> 5.5.85-1
+- 663039 - Setting timeout requires newer rhnlib
+- 663039 - Update man
+- 663039 - Kitten has been sacrificed
+- 663039 - Wire in timeout for rhnpush
+- Cleanup space around comments
+- Misplaced comment after 73a918d909d1804a43f7773b6d0b4d7cb0464ac3
+- Updating function names
+- Remove trailing space
+
 * Fri Jan 30 2015 Matej Kollar <mkollar@redhat.com> 5.5.84-1
 - Remove unnecessary pylint disabling...
 
