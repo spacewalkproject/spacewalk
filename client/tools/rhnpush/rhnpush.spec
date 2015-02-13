@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.85
+Version:       5.5.86
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -75,6 +75,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Fri Feb 13 2015 Matej Kollar <mkollar@redhat.com> 5.5.86-1
+- One more bump for pune change
+
 * Fri Feb 13 2015 Tomas Lestach <tlestach@redhat.com> 5.5.85-1
 - 663039 - Setting timeout requires newer rhnlib
 - 663039 - Update man
