@@ -141,5 +141,8 @@ insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('ppc64le-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-ppc64le'));
 
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('armv7l-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-arm-deb'));
+
 commit;
 

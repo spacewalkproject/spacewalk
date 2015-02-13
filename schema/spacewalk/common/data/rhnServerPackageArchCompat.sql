@@ -660,6 +660,9 @@ insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('i386-i86pc-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), 610);
 
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('armv7l-debian-linux'), LOOKUP_PACKAGE_ARCH('armhf-deb'), 0);
 
 commit;
 

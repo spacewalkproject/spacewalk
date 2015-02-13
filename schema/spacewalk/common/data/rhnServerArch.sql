@@ -133,5 +133,8 @@ insert into rhnServerArch (id, label, name, arch_type_id) values
 insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'mips-debian-linux', 'mips Debian', lookup_arch_type('deb'));
 
+insert into rhnServerArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_server_arch_id_seq'), 'armv7l-debian-linux', 'arm Debian', lookup_arch_type('deb'));
+
 commit;
 

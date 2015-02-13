@@ -678,5 +678,17 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
     values (lookup_server_arch('ppc64le-redhat-linux'),
             lookup_sg_type('virtualization_host_platform'));
 
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+    values (lookup_server_arch('armv7l-debian-linux'),
+	    lookup_sg_type('sw_mgr_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+    values (lookup_server_arch('armv7l-debian-linux'),
+	    lookup_sg_type('enterprise_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+    values (lookup_server_arch('armv7l-debian-linux'),
+	    lookup_sg_type('provisioning_entitled'));
+
 commit;
 
