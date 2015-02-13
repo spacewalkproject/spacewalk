@@ -28,6 +28,9 @@ Requires: rhnlib >= 2.5.74
 # for Debian support
 Requires: python-debian
 Requires: %{name}-libs >= 1.1.16-1
+%if 0%{?rhel} > 5
+Requires: pyliblzma
+%endif
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils

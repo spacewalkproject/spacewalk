@@ -248,7 +248,7 @@ class RepoSync(object):
                 os.makedirs(absdir)
             relativepath = os.path.join(relativedir, basename)
             abspath = os.path.join(absdir, basename)
-            for suffix in ['.gz', '.bz']:
+            for suffix in ['.gz', '.bz', '.xz']:
                 if basename.endswith(suffix):
                     abspath = abspath.rstrip(suffix)
                     relativepath = relativepath.rstrip(suffix)
