@@ -17,7 +17,6 @@ import os
 import sys
 import bz2
 import gzip
-import lzma
 import pwd
 import grp
 import types
@@ -480,6 +479,7 @@ def decompress_open(filename, mode='r'):
     elif filename.endswith('.bz2'):
         file_obj = bz2.BZ2File(filename, mode)
     elif filename.endswith('.xz'):
+        import lzma
         file_obj = lzma.LZMAFile(filename, mode)
     else:
         file_obj = open(filename, mode)
