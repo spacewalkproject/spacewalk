@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.34
+Version:        2.3.35
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Feb 13 2015 Stephen Herr <sherr@redhat.com> 2.3.35-1
+- 1192437 - add armv7l-debian server arch
+
 * Thu Jan 15 2015 Matej Kollar <mkollar@redhat.com> 2.3.34-1
 - Getting rid of Tabs and trailing spaces in Python
 - Getting rid of trailing spaces in Perl
