@@ -23,7 +23,6 @@ LOG=/var/log/rhn/rhn_hostname_rename.log
 RHN_CONF_FILE=/etc/rhn/rhn.conf
 SSL_BUILD_DIR=/root/ssl-build
 ETC_JABBERD_DIR=/etc/jabberd
-NOCPULSE_INI=/etc/NOCpulse.ini
 HTTP_PUB_DIR=/var/www/html/pub/
 BOOTSTRAP_SH=/var/www/html/pub/bootstrap/bootstrap.sh
 BOOTSTRAP_CCO=/var/www/html/pub/bootstrap/client-config-overrides.txt
@@ -53,9 +52,6 @@ elif [ "$DB_BACKEND" = "postgresql" ]; then
         DB_SERVICE="postgresql92-postgresql"
     fi
 fi
-
-NOCPULSE_PRIVATE_KEY_FILE=~nocpulse/.ssh/nocpulse-identity
-NOCPULSE_PUBLIC_KEY_FILE=${NOCPULSE_PRIVATE_KEY_FILE}.pub
 
 ORACLE_XE_LISTENER_ORA_FILE=/usr/lib/oracle/xe/app/oracle/product/10.2.0/server/network/admin/listener.ora
 ORACLE_XE_TNSNAMES_ORA_FILE=/usr/lib/oracle/xe/app/oracle/product/10.2.0/server/network/admin/tnsnames.ora
@@ -433,19 +429,6 @@ then
     sed -i "s/\(serverURL=https\?:\/\/\).*\(\/XMLRPC\)/\1$HOSTNAME\2/" ${BOOTSTRAP_CCO}
 fi
 print_status 0  # just simulate end
-
-if [ -e "${NOCPULSE_INI}" ]
-then
-    backup_file ${NOCPULSE_INI}
-    echo -n "Updating NOCpulse.ini ... " | tee -a $LOG
-    spacewalk-sql --select-mode - >>$LOG <<EOS
-UPDATE rhn_config_macro SET definition='$HOSTNAME' WHERE name='RHN_SAT_HOSTNAME';
-UPDATE rhn_config_macro SET definition='$HOSTNAME' WHERE name='MDOM';
-COMMIT;
-$DBSHELL_QUIT
-EOS
-    print_status 0  # just simulate end
-fi
 
 echo -n "Updating other DB entries ... " | tee -a $LOG
 spacewalk-sql --select-mode - >>$LOG <<EOS
