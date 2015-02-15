@@ -157,23 +157,6 @@ if [ -d /var/lib/rhn/kickstarts ]; then
    cp -fpRd /var/lib/rhn/kickstarts/* $DIR/kickstarts/
 fi
 
-# general monitoring moc logs
-if [ -d /var/log/nocpulse ] ; then
-    echo "    * copying monitoring moc logs"
-    mkdir -p $DIR/mon-logs
-    # try to get all subsystems logs
-    cp -fapRd /var/log/notification/*.log* $DIR/mon-logs 2> /dev/null
-    cp -fapRd /var/log/nocpulse/*.log* $DIR/mon-logs 2> /dev/null
-fi
-
-# monitoring scout logs
-if [ -d /var/lib/nocpulse/commands ] ; then
-    echo "    * copying monitoring scout logs"
-    mkdir -p $DIR/mon-logs
-    # try to get all subsystems logs
-    cp -fapRd /var/lib/nocpulse/commands/*.log* $DIR/mon-logs 2> /dev/null
-fi
-
 # ssl-build
 if [ -d /root/ssl-build ] ; then
     echo "    * copying ssl-build"
