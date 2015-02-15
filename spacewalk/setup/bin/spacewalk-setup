@@ -906,8 +906,6 @@ sub populate_initial_configs {
      serverDOTsatelliteDOThttp_proxy => ($opts->{'rhn-http-proxy'} ? $opts->{'rhn-http-proxy'} : $answers->{'rhn-http-proxy'}) || '',
      serverDOTsatelliteDOThttp_proxy_username => ($opts->{'rhn-http-proxy'} ? $opts->{'rhn-http-proxy-username'} : $answers->{'rhn-http-proxy-username'}) || '',
      serverDOTsatelliteDOThttp_proxy_password => ($opts->{'rhn-http-proxy'} ? $opts->{'rhn-http-proxy-password'} :$answers->{'rhn-http-proxy-password'}) || '',
-     webDOTis_monitoring_backend => 0,
-     webDOTis_monitoring_scout => 0,
      webDOTenable_solaris_support => 0,
      osadispatcherDOTosa_ssl_cert => '/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT',
      encrypted_passwords => 1,
@@ -927,16 +925,6 @@ sub populate_initial_configs {
      serverDOTnls_lang => 'english.' . $charset,
      server_secret_key => generate_secret(),
      webDOTssl_available => $opts->{'skip-ssl-cert-generation'} ? 0 : 1,
-     monitoringDOTdbname => $answers->{'db-name'},
-     monitoringDOTusername => $answers->{'db-user'},
-     monitoringDOTpassword => $answers->{'db-password'},
-     monitoringDOTsmonDOTaddr => '127.0.0.1',
-     monitoringDOTsmonDOTfqdn => 'localhost',
-     monitoringDOTsmonDOTtestaddr => '127.0.0.1',
-     monitoringDOTsmonDOTtestfqdn => 'localhost',
-     monitoringDOTorahome => '/opt/oracle',
-     monitoringDOTdbd => 'Oracle',
-     monitoringDOTscout_shared_key => '', # blank for now.
      cobblerDOThost => $answers->{hostname}
     );
 
@@ -1031,63 +1019,6 @@ EOQ
   }
 
   $sth->finish;
-  $dbh->disconnect();
-
-  return;
-}
-
-sub setup_monitoring {
-  my $opts = shift;
-  my $answers = shift;
-
-  # write monitoring config to DB.
-  my %mon_config =
-    (
-     RHN_ADMIN_EMAIL => $answers->{'admin-email'},
-     MAIL_MX => $answers->{'mail-mx'} || 'localhost',
-     MDOM => $answers->{mdom} || $answers->{hostname},
-     RHN_SAT_HOSTNAME => $answers->{hostname},
-     XPROTO => 'https',
-     RHN_SAT_WEB_PORT => 443
-    );
-
-  update_monitoring_config($answers, \%mon_config);
-
-  # Bugzilla 466747: On s390x, stty: standard input: Bad file descriptor
-  # For some reason DBI mistakenly sets FD_CLOEXEC on a stdin file descriptor
-  # here. This made it impossible for us to succesfully call `stty -echo`
-  # later in the code. Following two lines work around the problem.
-
-  my $flags = fcntl(STDIN, F_GETFD, 0);
-  fcntl(STDIN, F_SETFD, $flags & ~FD_CLOEXEC);
-
-  return 1;
-}
-
-sub update_monitoring_config {
-  my $answers = shift;
-  my $mon_config = shift;
-
-  my $dbh = Spacewalk::Setup::get_dbh($answers);
-  my $sth = $dbh->prepare(<<EOQ);
-    UPDATE rhn_config_macro
-    SET    definition = ?,
-           last_update_user = 'installer',
-           last_update_date = CURRENT_TIMESTAMP
-    WHERE  name = ?
-EOQ
-
-  foreach my $name (keys %{$mon_config}) {
-    $sth->execute($name, $mon_config->{$name});
-  }
-
-  if ($DEBUG) {
-    $dbh->rollback();
-  }
-  else {
-    $dbh->commit();
-  }
-
   $dbh->disconnect();
 
   return;
