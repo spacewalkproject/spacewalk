@@ -71,12 +71,6 @@
 <RefSect1><Title>COMMANDS</Title>
 <variablelist>
     <varlistentry>
-        <term>-m, --enable-monitoring</term>
-        <listitem>
-            <para>Will enable Monitoring Scout on this Proxy. Proxy should be already activated before this command.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
         <term>-l, --list-available-versions</term>
         <listitem>
             <para>List available versions of Spacewalk Proxy on parent.</para>

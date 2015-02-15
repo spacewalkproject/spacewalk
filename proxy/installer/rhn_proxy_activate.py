@@ -314,8 +314,6 @@ def _activateProxy_api_v3_x(options, cfg):
     errorCode, errorString = 0, ''
     try:
         s.proxy.activate_proxy(systemid, str(options.version))
-        if options.enable_monitoring:
-            s.proxy.create_monitoring_scout(systemid)
     except:  # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
@@ -337,43 +335,6 @@ def _activateProxy_api_v3_x(options, cfg):
         errorCode = 0
         if not options.quiet:
             sys.stdout.write("Spacewalk Proxy successfully activated.\n")
-    return (errorCode, errorString)
-
-
-def createMonitoringScout(options, cfg):
-    """ Activate MonitoringScout.
-        Just create record on parent.
-        use activateProxy_api_v3_x method instead.
-    """
-
-    s = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
-    systemid = getSystemId(cfg)
-
-    errorCode, errorString = 0, ''
-    try:
-        ssk = s.proxy.create_monitoring_scout(systemid)
-        print "Scout shared key: %s" % ssk
-    except:  # pylint: disable=W0702
-        errorCode, errorString = _errorHandler()
-        try:
-            raise
-        except SSL.SSL.Error:
-            # let's force a system exit for this one.
-            sys.stderr.write(errorString + '\n')
-            sys.exit(errorCode)
-        except (xmlrpclib.ProtocolError, socket.error):
-            sys.stderr.write(errorString + '\n')
-            sys.exit(errorCode)
-        except (xmlrpclib.Fault, Exception):  # pylint: disable=E0012, W0703
-            # let's force a slight change in messaging for this one.
-            errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
-        except:
-            errorString = "ERROR: upon activation attempt (something unexpected): %s" % errorString
-            return errorCode, errorString
-    else:
-        errorCode = 0
-        if not options.quiet:
-            sys.stdout.write("Monitoring Scout successfully created.\n")
     return (errorCode, errorString)
 
 
@@ -452,8 +413,6 @@ def processCommandline(cfg):
         Option('--version',         action='store',     default=defaultVersion,
                help='which X.Y version of the Spacewalk Proxy are you upgrading to?' +
                ' Default is your current proxy version (' + defaultVersion + ')'),
-        Option('-m', '--enable-monitoring', action='store_true',
-               help='enable MonitoringScout on this proxy.'),
         Option('--deactivate',      action='store_true',
                help='deactivate proxy, if already activated'),
         Option('-l', '--list-available-versions', action='store_true',
@@ -536,19 +495,6 @@ def main():
             resolveHostnamePort(options.server)
         listAvailableProxyChannels(options, cfg)
         sys.exit(0)
-
-    if options.enable_monitoring:
-        resolveHostnamePort(options.http_proxy)
-        if not options.http_proxy:
-            resolveHostnamePort(options.server)
-        errorCode, errorString = createMonitoringScout(options, cfg)
-        if errorCode != 0:
-            if not errorString:
-                errorString = ("An unknown error occurred. Consult with your Red Hat representative.\n")
-            sys.stderr.write("\nThere was a problem activating Monitoring Scout:\n%s\n" % errorString)
-            sys.exit(abs(errorCode))
-        else:
-            sys.exit(0)
 
     noSslString = 'false'
     if options.no_ssl:

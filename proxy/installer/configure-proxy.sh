@@ -14,8 +14,6 @@ options:
             Indicates the location of an answer file to be use for answering
             questions asked during the installation process. See man page for
             for an example and documentation.
-  --enable-scout
-            Enable monitoring scout.
   --force-own-ca
             Do not use parent CA and force to create your own.
   -h, --help
@@ -26,12 +24,6 @@ options:
             HTTP proxy in host:port format, e.g. squid.redhat.com:3128
   --http-username=HTTP_USERNAME
             The username for an authenticated proxy.
-  --install-monitoring
-            Install and enable monitoring.
-  --monitoring-parent=MONITORING_PARENT
-            Name of the parent for your scout. Usually RHN parent.
-  --monitoring-parent-ip=MONITORING_PARENT_IP
-            IP address of MONITORING_PARENT
   --non-interactive
             For use only with --answer-file. If the --answer-file doesn't
             provide a required response, default answer is used.
@@ -103,7 +95,7 @@ set_value() {
 INTERACTIVE=1
 CNAME_INDEX=0
 
-OPTS=$(getopt --longoptions=help,answer-file:,non-interactive,version:,traceback-email:,use-ssl::,force-own-ca,http-proxy:,http-username:,http-password:,ssl-build-dir:,ssl-org:,ssl-orgunit:,ssl-common:,ssl-city:,ssl-state:,ssl-country:,ssl-email:,ssl-password:,ssl-cname:,install-monitoring::,enable-scout::,monitoring-parent:,monitoring-parent-ip:,populate-config-channel::,start-services:: -n ${0##*/} -- h "$@")
+OPTS=$(getopt --longoptions=help,answer-file:,non-interactive,version:,traceback-email:,use-ssl::,force-own-ca,http-proxy:,http-username:,http-password:,ssl-build-dir:,ssl-org:,ssl-orgunit:,ssl-common:,ssl-city:,ssl-state:,ssl-country:,ssl-email:,ssl-password:,ssl-cname:,populate-config-channel::,start-services:: -n ${0##*/} -- h "$@")
 
 if [ $? != 0 ] ; then
     print_help
@@ -135,10 +127,6 @@ while : ; do
         --ssl-email) set_value "$1" SSL_EMAIL "$2"; shift;;
         --ssl-password) set_value "$1" SSL_PASSWORD "$2"; shift;;
         --ssl-cname) SSL_CNAME_PARSED[CNAME_INDEX++]="--set-cname=$2"; shift;;
-        --install-monitoring) set_value "$1" INSTALL_MONITORING "${2:-Y}"; shift;;
-        --enable-scout) ENABLE_SCOUT="${2:-1}"; shift;;
-        --monitoring-parent) set_value "$1" MONITORING_PARENT "$2"; shift;;
-        --monitoring-parent-ip) set_value "$1" MONITORING_PARENT_IP "$2"; shift;;
         --populate-config-channel) POPULATE_CONFIG_CHANNEL="${2:-Y}"; shift;;
         --start-services) START_SERVICES="${2:-Y}"; shift;;
         --rhn-user) set_value "$1" RHN_USER "$2"; shift;;
@@ -425,53 +413,6 @@ if [ $? -ne 0 ]; then
 fi
 $UPGRADE
 
-if is_hosted "$RHN_PARENT"; then
-    #skip monitoring part for hosted
-    MONITORING=1
-    ENABLE_SCOUT=0
-else
-    rpm -q spacewalk-proxy-monitoring >/dev/null
-    MONITORING=$?
-    if [ $MONITORING -ne 0 ]; then
-        echo "You do not have monitoring installed."
-        echo "Do you want to install monitoring scout?"
-
-        default_or_input "Will run '$YUM spacewalk-proxy-monitoring'." INSTALL_MONITORING 'Y/n'
-        INSTALL_MONITORING=$(yes_no $INSTALL_MONITORING)
-        if [ "$INSTALL_MONITORING" = "1" ]; then
-            $YUM spacewalk-proxy-monitoring
-            MONITORING=$?
-        fi
-    else
-        $YUM spacewalk-proxy-monitoring
-        # check if package install successfully
-        rpm -q spacewalk-proxy-monitoring >/dev/null
-        if [ $? -ne 0 ]; then
-            config_error 3 "Installation of package spacewalk-proxy-monitoring failed."
-        fi
-    fi
-    if [ $MONITORING -eq 0 ]; then
-        #here we configure monitoring
-        #and with cluster.ini
-        echo "Configuring monitoring."
-        default_or_input "Monitoring parent" MONITORING_PARENT "$RHN_PARENT"
-        RESOLVED_IP=$(/usr/bin/getent hosts $MONITORING_PARENT | cut -f1 -d' ')
-        default_or_input "Monitoring parent IP" MONITORING_PARENT_IP "$RESOLVED_IP"
-        default_or_input "Enable monitoring scout" ENABLE_SCOUT "Y/n"
-        ENABLE_SCOUT=$(yes_no $ENABLE_SCOUT)
-        SCOUT_SHARED_KEY=`/usr/bin/rhn-proxy-activate --enable-monitoring \
-                --quiet \
-                --server="$RHN_PARENT" \
-                --http-proxy="$HTTP_PROXY" \
-                --http-proxy-username="$HTTP_USERNAME" \
-                --http-proxy-password="$HTTP_PASSWORD" \
-                --ca-cert="$CA_CHAIN" | \
-            awk '/\: [0-9a-f]+/  { print $4 }' `
-    else
-        ENABLE_SCOUT=0
-    fi
-fi
-
 ln -sf /etc/pki/spacewalk/jabberd/server.pem /etc/jabberd/server.pem
 if [ "$VERSION" = '5.3' -o "$VERSION" = '5.2' -o "$VERSION" = '5.1' -o "$VERSION" = '5.0' ]; then
     sed -e "s/\${session.hostname}/$HOSTNAME/g" </usr/share/rhn/installer/jabberd/c2s.xml >/etc/jabberd/c2s.xml
@@ -504,15 +445,7 @@ sed -e "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
     -e "s/\${session.rhn_parent}/$RHN_PARENT/g" \
     -e "s/\${session.traceback_mail}/$TRACEBACK_EMAIL/g" \
     -e "s/\${session.use_ssl:0}/$USE_SSL/g" \
-    -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
     < $DIR/rhn.conf  > $RHNCONF_DIR/rhn.conf
-if [ $MONITORING -eq 0 ]; then
-    sed -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
-        -e "s/\${session.rhn_monitoring_parent_ip}/$MONITORING_PARENT_IP/g" \
-        -e "s/\${session.rhn_monitoring_parent}/$MONITORING_PARENT/g" \
-        -e "s/\${session.scout_shared_key}/$SCOUT_SHARED_KEY/g" \
-        < $DIR/cluster.ini  > $RHNCONF_DIR/cluster.ini
-fi
 
 # systemid need to be readable by apache/proxy
 for file in $SYSTEMID_PATH $UP2DATE_FILE; do
@@ -618,7 +551,6 @@ if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
         --channel="$CHANNEL_LABEL" \
         $HTTPDCONFD_DIR/ssl.conf \
         $RHNCONF_DIR/rhn.conf \
-        $RHNCONF_DIR/cluster.ini \
         $SQUID_DIR/squid.conf \
         $HTTPDCONFD_DIR/cobbler-proxy.conf \
         $HTTPDCONF_DIR/httpd.conf \
@@ -627,10 +559,7 @@ if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
 fi
 
 echo "Enabling Spacewalk Proxy."
-if [ $ENABLE_SCOUT -ne 0 ]; then
-    MonitoringScout="MonitoringScout"
-fi
-for service in squid httpd jabberd $MonitoringScout; do
+for service in squid httpd jabberd; do
     if [ -x /usr/bin/systemctl ] ; then
         /usr/bin/systemctl enable $service
     else

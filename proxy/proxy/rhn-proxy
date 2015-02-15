@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SERVICES="squid httpd jabberd MonitoringScout"
+SERVICES="squid httpd jabberd"
 
 . /etc/rc.d/init.d/functions
 
