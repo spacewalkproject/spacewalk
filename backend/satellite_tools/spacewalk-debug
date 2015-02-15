@@ -190,14 +190,14 @@ fi
 
 # /etc/passwd
 if [ -f /etc/passwd ] ; then
-	echo "    * copying apache, postgres, tomcat, nocpulse entries from /etc/passwd"
-	getent passwd apache tomcat postgres nocpulse > $DIR/conf/passwd
+	echo "    * copying apache, postgres, tomcat entries from /etc/passwd"
+	getent passwd apache tomcat postgres > $DIR/conf/passwd
 fi
 
 # /etc/group
 if [ -f /etc/group ] ; then
-	echo "    * copying apache, postgres, tomcat, nocpulse entries from /etc/group"
-	getent group apache tomcat postgres nocpulse > $DIR/conf/group
+	echo "    * copying apache, postgres, tomcat entries from /etc/group"
+	getent group apache tomcat postgres > $DIR/conf/group
 fi
 
 echo "    * querying RPM database (versioning of Spacewalk, etc.)"
