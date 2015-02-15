@@ -55,7 +55,6 @@ mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man8
 mkdir -p $RPM_BUILD_ROOT/%{_usr}/sbin
 mkdir -p $RPM_BUILD_ROOT/%{_usr}/share/rhn/installer/jabberd
 install -m 755 -d $RPM_BUILD_ROOT%{defaultdir}
-install -m 644 cluster.ini $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 squid.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 rhn.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 cobbler-proxy.conf $RPM_BUILD_ROOT%{defaultdir}
@@ -80,7 +79,6 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 
 %files
 %dir %{defaultdir}
-%{defaultdir}/cluster.ini
 %{defaultdir}/squid.conf
 %{defaultdir}/rhn.conf
 %{defaultdir}/cobbler-proxy.conf

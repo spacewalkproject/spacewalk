@@ -63,12 +63,6 @@ provide a required response, default answer is used.</para>
 <para>Following options can be set using answer file as well. See section ANSWER FILE.
 </para>
 <variablelist>
-   <varlistentry>
-        <term>--enable-scout=1</term>
-        <listitem>
-            <para>1 to enable monitoring scout, 0 otherwise.</para>
-        </listitem>
-  </varlistentry>
     <varlistentry>
         <term>--force-own-ca</term>
         <listitem>
@@ -91,24 +85,6 @@ provide a required response, default answer is used.</para>
         <term>--http-username=HTTP_USERNAME</term>
         <listitem>
             <para>The username for an authenticated proxy.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--install-monitoring=Y</term>
-        <listitem>
-            <para>Y if monitoring should be installed. Any other value means that monitoring will not be installed.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--monitoring-parent=MONITORING_PARENT</term>
-        <listitem>
-            <para>Name of the parent for your scout. Usually RHN parent.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--monitoring-parent-ip=MONITORING_PARENT_IP</term>
-        <listitem>
-            <para>IP address of MONITORING_PARENT</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -341,30 +317,6 @@ provide a required response, default answer is used.</para>
         <listitem>
            <para>1 or Y to start all services after configuration. This is default.</para>
            <para>0 or N to not start services after configuration.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>INSTALL_MONITORING</term>
-        <listitem>
-           <para>Y if monitoring should be installed. Any other value means that monitoring will not be installed.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>ENABLE_SCOUT</term>
-        <listitem>
-           <para>1 to enable monitoring scout, 0 otherwise.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>MONITORING_PARENT</term>
-        <listitem>
-           <para>Name of the parent for your scout. Usually RHN parent.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>MONITORING_PARENT_IP</term>
-        <listitem>
-           <para>IP address of MONITORING_PARENT</para>
         </listitem>
     </varlistentry>
     <varlistentry>
