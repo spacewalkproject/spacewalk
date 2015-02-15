@@ -55,7 +55,6 @@ find $RPM_BUILD_ROOT -name '*.symlink' | \
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
 %attr(400,root,root) %config(noreplace) %{_sysconfdir}/rhn/spacewalk-repo-sync/uln.conf
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-www.conf
 %config(noreplace) %{_sysconfdir}/webapp-keyring.gpg
@@ -68,7 +67,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/rhn/satellite-httpd
 %dir %{_sysconfdir}/rhn/satellite-httpd/conf
 %dir %{_sysconfdir}/rhn/satellite-httpd/conf/rhn
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/cluster.ini
 %attr(0640,root,apache) %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/rhn.conf
 # NOTE: If if you change these, you need to make a corresponding change in
 # spacewalk/install/Spacewalk-Setup/bin/spacewalk-setup
@@ -79,10 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_var}/lib/rhn/rhn-satellite-prep
 %dir %{_var}/lib/rhn/rhn-satellite-prep/etc
 %attr(0750,root,apache) %dir %{_var}/lib/rhn/rhn-satellite-prep/etc/rhn
-%attr(0640,root,apache) %{_var}/lib/rhn/rhn-satellite-prep/etc/rhn/cluster.ini
 %attr(0640,root,apache) %{_var}/lib/rhn/rhn-satellite-prep/etc/rhn/rhn.conf
 %dir %{_prefix}/share/rhn
-%attr(0755,root,root) %{_prefix}/share/rhn/satidmap.pl
 %attr(0755,root,root) %{_prefix}/share/rhn/startup.pl
 %doc LICENSE
 %doc %{_mandir}/man5/rhn.conf.5*
@@ -99,10 +95,10 @@ if [ -f /etc/init.d/satellite-httpd ] ; then
 fi
 
 # Set the group to allow Apache to access the conf files ...
-chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
+chgrp apache /etc/rhn /etc/rhn/rhn.conf 2> /dev/null || :
 # ... once we restrict access to some files that were too open in
 # the past.
-chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
+chmod o-rwx /etc/rhn/rhn.conf* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
 * Tue Jan 13 2015 Matej Kollar <mkollar@redhat.com> 2.3.3-1
