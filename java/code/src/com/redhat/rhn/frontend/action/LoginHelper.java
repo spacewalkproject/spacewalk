@@ -90,9 +90,6 @@ public class LoginHelper {
             Set<String> extGroups = getExtGroups(request);
             Set<Role> roles = getRolesFromExtGroups(extGroups);
 
-            log.warn("REMOTE_USER_GROUPS: " +
-                    request.getAttribute("REMOTE_USER_GROUPS"));
-
                 try {
                     remoteUser = UserFactory.lookupByLogin(remoteUserString);
 
@@ -243,6 +240,8 @@ public class LoginHelper {
             extGroups.add(extGroupName);
 
         }
+        log.warn("REMOTE_USER_GROUP_" + nGroupsStr + ": " +
+                StringUtils.join(extGroups.toArray(), ";"));
         return extGroups;
     }
 
