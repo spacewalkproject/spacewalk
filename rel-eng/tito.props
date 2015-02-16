@@ -5,9 +5,6 @@ changelog_with_email = 0
 changelog_do_not_remove_cherrypick = 0
 lib_dir = rel-eng/lib
 
-[koji]
-autobuild_tags = spacewalk-nightly-rhel5 spacewalk-nightly-rhel6 spacewalk-nightly-fedora19
-
 [spacewalk-nightly-rhel5]
 disttag = .el5
 blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux spacewalk-jpp-workaround apt-spacewalk python-hwdata spacewalk-abrt mod_perl tito ycssmin
