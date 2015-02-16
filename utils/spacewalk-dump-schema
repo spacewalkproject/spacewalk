@@ -10,16 +10,17 @@ use DBI ();
 my $DATA_DIR = '/etc/sysconfig/rhn/schema-dump';
 my $config_file = Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
 my %options;
+local *FILE;
 Spacewalk::Setup::read_config($config_file, \%options);
-
 my @supported_backends = qw( oracle postgresql );
-
-my ($db, $user, $password, $from_backend, $to_backend, $raw, $host, $port);
+my ($db, $user, $password, $from_backend, $to_backend, $raw, $host, $port, $dump_dir);
 
 sub usage {
         print "Usage:\n\n";
-        print "$0 [--from=oracle] [--to=DB_BACKEND] [--db=SID --user=USERNAME --password=PASSWORD]\n\n";
-        print "$0 [--from=postgresql] [--to=DB_BACKEND] [--db=DBNAME --host=HOSTNAME --port=PORT --user=USERNAME --password=PASSWORD]\n\n";
+        print "$0 [--from=oracle] [--to=postgresql] [--db=SID --user=USERNAME --password=PASSWORD]\n\n";
+        print "$0 [--from=oracle] [--to=oracle] [--db=SID --user=USERNAME --password=PASSWORD] [--dump-dir=/tmp/dir]\n\n";
+        print "$0 [--from=postgresql] [--to=postgresql] [--db=DBNAME --host=HOSTNAME --port=PORT --user=USERNAME --password=PASSWORD]\n\n";
+        print "$0 [--from=postgresql] [--to=oracle] [--db=DBNAME --host=HOSTNAME --port=PORT --user=USERNAME --password=PASSWORD] [--dump-dir=/tmp/dir]\n\n";
         print "$0 [ --help ]\n\n";
         if ($@) {
                 exit shift;
@@ -36,6 +37,7 @@ Getopt::Long::GetOptions (
         'from=s' => \$from_backend,
         'to=s' => \$to_backend,
         'raw' => \$raw,
+        'dump-dir=s' => \$dump_dir,
         'help' => \&usage,
 ) or exit 1;
 
@@ -64,15 +66,49 @@ $ENV{NLS_DATE_FORMAT} = 'YYYY-MM-DD HH24:MI:SS';
 $ENV{NLS_TIMESTAMP_FORMAT} = 'YYYY-MM-DD HH24:MI:SS.FF';
 $ENV{NLS_TIMESTAMP_TZ_FORMAT} = 'YYYY-MM-DD HH24:MI:SS.FF TZH:TZM';
 
+# Make settings for different databases, map functions
 my $connection_string;
 if ($options{db_backend} eq 'postgresql') {
         $connection_string = "dbi:Pg:dbname=".$options{db_name};
         $connection_string .= ";host=".$options{db_host} if $options{db_host};
         $connection_string .= ";port=".$options{db_port} if $options{db_port};
+        $options{fetch_row} = \&fetch_row_postgresql;
 } else {
         $connection_string = "dbi:Oracle:".$options{db_name};
+        $options{fetch_row} = \&fetch_row_oracle;
 }
 
+if ($options{db_backend_target} eq 'postgresql') {
+        $options{get_custom_type_string} = \&get_ctstr_postgresql;
+        $options{blob_string} = \&blobstr_postgresql;
+        $options{escape_string} = \&escapestr_postgresql;
+        $options{null_string} = '\N';
+        $options{record_separator} = "\n";
+        $options{process_table_start} = \&process_table_start_postgresql;
+        $options{process_table_end} = \&process_table_end_postgresql;
+        print STDERR "Warning: Ignoring Oracle-only parameter --dump-dir\n" if defined $dump_dir;
+        $options{clear_table_command} = "delete from";
+        $options{print_script_header} = \&print_script_header_postgresql;
+        $options{print_script_footer} = \&print_script_footer_postgresql;
+} else {
+        $options{get_custom_type_string} = \&get_ctstr_oracle;
+        $options{blob_string} = \&blobstr_oracle;
+        $options{escape_string} = \&escapestr_oracle;
+        $options{null_string} = '""';
+        $options{record_separator} = "\x00\x0a";
+        $options{process_table_start} = \&process_table_start_oracle;
+        $options{process_table_end} = \&process_table_end_oracle;
+        $options{dump_dir} = defined $dump_dir ? $dump_dir : "/tmp/dumped-tables";
+        # We need to have tables in files for Oracle
+        if (not -d $options{dump_dir}) {
+                mkdir $options{dump_dir}, 0755 or die "Cannot create directory [$options{dump_dir}]: $!\n";
+        }
+        $options{clear_table_command} = "truncate table";
+        $options{print_script_header} = \&print_script_header_oracle;
+        $options{print_script_footer} = \&print_script_footer_oracle;
+}
+
+# Connect to database
 my $dbh = DBI->connect($connection_string, $options{db_user}, $options{db_password}, {
         RaiseError => 1,
         FetchHashKeyName => 'NAME_lc',
@@ -86,143 +122,14 @@ $SIG{'PIPE'} = sub {
         die "SIGPIPE received.\n";
 };
 
-process_scripts($dbh, 'pre', \%options);
+process_scripts($dbh, 'pre');
 
-if ($options{db_backend_target} eq 'postgresql') {
-print <<'EOS';
-\set ON_ERROR_STOP on
-update pg_index
-  set indisvalid = false,
-      indisready = false
-where indexrelid in (
-      select pi.indexrelid
-        from pg_index pi,
-             pg_class pc,
-             pg_namespace pn
-       where pi.indexrelid = pc.oid and
-             pc.relnamespace = pn.oid and
-             pc.relkind = 'i'::"char" and
-             pn.nspname = current_schema()
-      );
-EOS
-} else {
-print <<EOS;
-whenever sqlerror exit sql.sqlcode;
-SET AUTOCOMMIT OFF;
-SET DEFINE OFF;
-
--- disable constraints
-BEGIN
- FOR item IN (
-select uc.owner, uc.table_name, uc.constraint_name
-  from user_constraints uc, user_tables ut
-where uc.table_name = ut.table_name and
-      uc.status = 'ENABLED'
-order by decode ( uc.constraint_type, 'R', 1, 'U', 2, 'P', 3 )
-)
- LOOP
-        execute immediate 'alter table ' || item.owner || '.' || item.table_name || ' disable constraint ' || item.constraint_name;
- END LOOP;
-END;
-/
-
--- create temporary tables
-BEGIN
- EXECUTE IMMEDIATE '
-  create table tmp_migration_indexes (
-   index_name VARCHAR2(30) NOT NULL,
-   table_name VARCHAR2(30) NOT NULL,
-   tablespace_name VARCHAR2(30) NOT NULL)
-  ';
-EXCEPTION
- WHEN OTHERS THEN
-  IF SQLCODE = -955 THEN
-   EXECUTE IMMEDIATE 'delete from tmp_migration_indexes';
-  ELSE
-   RAISE;
-  END IF;
-END;
-/
-
-BEGIN
- EXECUTE IMMEDIATE '
-  create table tmp_migration_index_columns (
-   index_name VARCHAR2(30) NOT NULL,
-   column_name VARCHAR2(4000) NOT NULL)
-  ';
-EXCEPTION
- WHEN OTHERS THEN
-  IF SQLCODE = -955 THEN
-   EXECUTE IMMEDIATE 'tmp_migration_index_columns';
-  ELSE
-   RAISE;
-  END IF;
-END;
-/
-
--- create temporary function
-CREATE OR REPLACE FUNCTION tmp_get_index_columns(tablespace_name_in IN VARCHAR, table_name_in IN VARCHAR, index_name_in IN VARCHAR) RETURN VARCHAR
-IS
-    index_columns varchar(4000);
-BEGIN
-    index_columns := '';
-    FOR rec IN (
-        SELECT mic.column_name
-        FROM tmp_migration_indexes mi, tmp_migration_index_columns mic
-        WHERE mi.index_name = mic.index_name
-            AND upper(mi.tablespace_name) = upper(tablespace_name_in)
-            AND upper(mi.table_name) = upper(table_name_in)
-            AND upper(mi.index_name) = upper(index_name_in)
-        ORDER BY mic.column_name
-    ) LOOP
-        index_columns := index_columns || ', ' || rec.column_name;
-    END LOOP;
-    RETURN LTRIM(index_columns, ', ');
-END tmp_get_index_columns;
-/
-
--- save and drop unique indexes
-BEGIN
- FOR item IN (
-select index_name, table_name, tablespace_name
-  from user_indexes
-where index_name not like 'SYS%' and
-      index_type = 'NORMAL' and
-      uniqueness = 'UNIQUE'
-)
- LOOP
-    execute immediate 'insert into tmp_migration_indexes values(:index_name, :table_name, :tablespace_name)' using item.index_name, item.table_name, item.tablespace_name;
-    execute immediate 'insert into tmp_migration_index_columns select index_name, column_name from user_ind_columns where index_name = :index_name' using item.index_name;
-    execute immediate 'drop index ' || item.index_name;
- END LOOP;
-END;
-/
-
--- turn off nonunique indexes
-alter session set SKIP_UNUSABLE_INDEXES = true;
-BEGIN
- FOR item IN (
-select index_name
-  from user_indexes
-where index_type = 'NORMAL' and
-      uniqueness = 'NONUNIQUE'
-)
- LOOP
-    execute immediate 'alter index ' || item.index_name || ' unusable';
- END LOOP;
-END;
-/
-
-alter session set NLS_DATE_FORMAT = '$ENV{NLS_DATE_FORMAT}';
-alter session set NLS_TIMESTAMP_FORMAT = '$ENV{NLS_TIMESTAMP_FORMAT}';
-alter session set NLS_TIMESTAMP_TZ_FORMAT = '$ENV{NLS_TIMESTAMP_TZ_FORMAT}';
-EOS
-}
+$options{print_script_header}->();
 
 my %ROWIDS = ();
 my $SEQ = 1;
-process_tables($dbh, \%options);
-process_sequences($dbh, \%options);
+process_tables($dbh);
+process_sequences($dbh);
 if (not $raw) {
         my $dist = `rpm -qf --qf '%{release}\n' /etc/sysconfig/rhn/schema-dump`;
         chomp $dist;
@@ -238,98 +145,27 @@ if (not $raw) {
         }
 }
 
-if ($options{db_backend_target} eq 'postgresql') {
-print <<'EOS';
-update pg_index
-  set indisvalid = true,
-      indisready = true
-where indexrelid in (
-      select pi.indexrelid
-        from pg_index pi,
-             pg_class pc,
-             pg_namespace pn
-       where pi.indexrelid = pc.oid and
-             pc.relnamespace = pn.oid and
-             pc.relkind = 'i'::"char" and
-             pn.nspname = current_schema()
-      );
-select pg_dblink_exec('reindex database "' || current_database() || '";');
-EOS
-} else {
-print <<'EOS';
--- recreate unique indexes
-BEGIN
- FOR item IN (
-SELECT index_name, table_name, tablespace_name,
-       tmp_get_index_columns(tablespace_name, table_name, index_name) index_columns
-  FROM tmp_migration_indexes
-)
- LOOP
-    execute immediate 'create unique index ' || item.index_name || ' on ' || item.table_name || ' ( ' || item.index_columns || ' ) tablespace ' || item.tablespace_name;
- END LOOP;
-END;
-/
-
--- drop temporary funxtion
-DROP FUNCTION tmp_get_index_columns;
-
--- drop temporary tables
-drop table tmp_migration_indexes;
-drop table tmp_migration_index_columns;
-
--- rebuild all indexes
-BEGIN
- FOR item IN (
-select index_name
-  from user_indexes
-where index_type = 'NORMAL'
-)
- LOOP
-    execute immediate 'alter index ' || item.index_name || ' rebuild';
- END LOOP;
-END;
-/
-
--- enable constraints
-BEGIN
- FOR item IN (
-select uc.owner, uc.table_name, uc.constraint_name
-  from user_constraints uc, user_tables ut
-where uc.table_name = ut.table_name and
-      uc.status = 'DISABLED'
-order by decode ( uc.constraint_type, 'P', 1, 'U', 2, 'R', 3 )
-)
- LOOP
-    execute immediate 'alter table ' || item.owner || '.' || item.table_name || ' enable constraint ' || item.constraint_name;
- END LOOP;
-END;
-/
-EOS
-}
-
-exit 0;
+$options{print_script_footer}->();
 
 END {
         return if (not defined $dbh);
 
-        process_scripts($dbh, 'post', \%options);
+        process_scripts($dbh, 'post');
         $dbh->disconnect();
 }
 
 sub get_tables {
         my $dbh = shift;
-        my $db_backend = shift;
-        my $db_user = shift;
 
         my $tables;
-        if ($db_backend eq 'postgresql') {
+        if ($options{db_backend} eq 'postgresql') {
                 $tables = $dbh->selectall_hashref(q!
                         select lower(tablename) table_name
                         from pg_catalog.pg_tables
                         where tableowner = ?
                         and tablename not in ('dual')
                         order by table_name
-                !, 'table_name', {}, $db_user);
+                !, 'table_name', {}, $options{db_user});
         } else {
                 $tables = $dbh->selectall_hashref(q!
                         select lower(table_name) table_name
@@ -343,10 +179,9 @@ sub get_tables {
 
 sub get_sequences {
         my $dbh = shift;
-        my $db_backend = shift;
 
         my $sequences;
-        if ($db_backend eq 'postgresql') {
+        if ($options{db_backend} eq 'postgresql') {
                 $sequences = $dbh->selectall_hashref(q!
                         select lower(c.relname) sequence_name
                         from pg_class c
@@ -401,11 +236,10 @@ sub get_table_scripts {
 sub process_scripts {
         my $dbh = shift;
         my $stage = shift;
-        my $options = shift;
 
         return if ($raw or not -d "$DATA_DIR/$stage");
 
-        my $tables = get_tables($dbh, $options->{db_backend}, $options->{db_user});
+        my $tables = get_tables($dbh);
 
         my %scripts;
         {
@@ -468,9 +302,8 @@ sub get_sequence_exception {
 
 sub process_sequences {
         my $dbh = shift;
-        my $options = shift;
 
-        my $sequences = get_sequences($dbh, $options->{db_backend});
+        my $sequences = get_sequences($dbh);
 
         if (not $raw and -d "$DATA_DIR/sequences") {
                 local *DIR;
@@ -502,7 +335,7 @@ sub process_sequences {
                 }
                 $last_number = 1 if not defined $last_number;
                 $is_called = 0 if not defined $is_called;
-                if ($options->{db_backend_target} eq 'postgresql') {
+                if ($options{db_backend_target} eq 'postgresql') {
                         my $is_called_value = $is_called ? 'true' : 'false';
                         print "select pg_catalog.setval('$_', $last_number, $is_called_value);\n";
                 } else {
@@ -542,9 +375,8 @@ sub get_table_exception {
 
 sub process_tables {
         my $dbh = shift;
-        my $options = shift;
 
-        my $tables = get_tables($dbh, $options->{db_backend}, $options->{db_user});
+        my $tables = get_tables($dbh);
 
         if (not $raw and -d "$DATA_DIR/tables") {
                 local *DIR;
@@ -576,7 +408,7 @@ sub process_tables {
                         }
                 }
 
-                if ($options->{db_backend_target} eq 'postgresql') {
+                if ($options{db_backend_target} eq 'postgresql') {
                         print "alter table $_ disable trigger all;\n";
                         print "alter table $_ set (autovacuum_enabled = false);\n";
                 } else {
@@ -584,24 +416,25 @@ sub process_tables {
                         print "alter table $_ nologging;\n";
                 }
         }
+
         for (sort keys %$tables) {
                 if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
                         next;
                 }
-                print "delete from $_;\n";
+                print "$options{clear_table_command} $_;\n";
         }
         for (sort keys %$tables) {
                 if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
                         next;
                 }
                 next if /^qrtz_/;               # skip the quartz tables, they get regenerated anyway
-                process_table($dbh, $_, $exceptions{$_}, $options->{db_backend_target});
+                process_table($dbh, $_, $exceptions{$_});
         }
         for (sort keys %$tables) {
                 if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
                         next;
                 }
-                if ($options->{db_backend_target} eq 'postgresql') {
+                if ($options{db_backend_target} eq 'postgresql') {
                         print "alter table $_ enable trigger all;\n";
                         print "alter table $_ set (autovacuum_enabled = true);\n";
                 } else {
@@ -614,11 +447,17 @@ sub process_tables {
 }
 
 sub process_table {
-        my ($dbh, $table, $exception, $target_backend) = @_;
+        my ($dbh, $table, $exception) = @_;
         my ($row, $names, $the_names);
         my $sth = eval {
                 local $dbh->{PrintError} = 0;
-                $dbh->prepare("select * from $table");
+                # PostgreSQL Perl DBI loads whole table into memory :(
+                if ($options{db_backend} eq 'postgresql') {
+                        $dbh->do("declare csr cursor with hold for select * from $table");
+                        $dbh->prepare("fetch 10000 from csr");
+                } else {
+                        $dbh->prepare("select * from $table");
+                }
         };
         my $sorted_the_names = '';
         if (defined $sth and not $@) {
@@ -658,30 +497,17 @@ sub process_table {
                 my $type = eval { $dbh->type_info($types->[$i])->{TYPE_NAME} };
                 push @types, ( defined $type ? $type : 'unknown' );
         }
-        print "-- Types for $table: @types\n";
-        # Copy from stdin only in PostgreSQL
-        if ($target_backend eq 'postgresql') {
-                print qq!copy $table($the_names) from stdin;\n!;
-        }
+        my $blob_cnt = 0;
+        $options{process_table_start}->($table, \@types, $the_names);
         while ($row) {
-                my $line = '';
-                my @blobs_names = ();
-                my @blobs = ();
-                if ($target_backend eq 'oracle') {
-                        $line = $line . "insert into $table values (";
-                }
                 for (my $i = 0; $i < @$row; $i++) {
-                        if ($target_backend eq 'postgresql') {
-                                $line = $line . "\t" if $i;
-                        } else {
-                                $line = $line . ",\n" if $i;
-                        }
+                        print "\t" if $i;
                         if (defined $use_rowids[$i]) {
                                 if (not defined $ROWIDS{$row->[$i]}) {
                                         $SEQ++;
                                         $ROWIDS{$row->[$i]} = $SEQ;
                                 }
-                                $line = $line . $ROWIDS{$row->[$i]};
+                        print $ROWIDS{$row->[$i]};
                         } elsif (defined $row->[$i]) {
                                 # create array from (a,b,c) string - custom types selected from PG
                                 if ($types[$i] eq 'unknown' and $row->[$i] =~ s/^\((.*)\)$/$1/) {
@@ -691,78 +517,310 @@ sub process_table {
                                         no warnings 'uninitialized';
                                         my @r = @{$row->[$i]};
                                         map { s/,/\\\\,/g; } @r;
-                                        if ($target_backend eq 'postgresql') {
-                                                $row->[$i] = "(@{[ join ',', @r ]})";
-                                        } else {
-                                                $row->[$i] = "('@{[ join '\',\'', @r ]}')";
-                                                # guess type name from column name (column name evr -> type evr_t), not clever but we use only one custom type anyway
-                                                $row->[$i] = $names->[$i] . '_t' . $row->[$i];
-                                        }
+                                        $row->[$i] = $options{get_custom_type_string}->(\@r);
                                 } elsif ($types[$i] eq 'unknown' or $types[$i] eq 'BLOB' or $types[$i] eq 'bytea') {    # blobs
-                                        if ($target_backend eq 'postgresql') {
-                                                $row->[$i] =~ s!(.)! sprintf "\\\\%03o", ord($1) !seg;
-                                        } else {
-                                                $row->[$i] =~ s!(.)! sprintf "%02x", ord($1) !seg;
-                                                push @blobs_names, $names->[$i];
-                                                push @blobs, $row->[$i];
-                                                # Save variable name referencing to procedure variable
-                                                $row->[$i] = $names->[$i];
-                                        }
-                                # convert timestamp to Oracle statement
-                                } elsif ($types[$i] =~ /^timestamp/i and $target_backend eq 'oracle') {
-                                        $row->[$i] = "to_timestamp_tz('" . $row->[$i] . "')";
+                                        $options{blob_string}->(\$row->[$i], $table, $blob_cnt);
+                                        $blob_cnt++;
                                 } else {
                                         utf8::encode($row->[$i]);
-                                        if ($target_backend eq 'postgresql') {
-                                                $row->[$i] =~ s!([\x00-\x1f\x5c])! sprintf "\\x%02x", ord($1) !seg;
-                                        } else {
-                                                # Split long inputs to multiple lines
-                                                $row->[$i] =~ s/(.{2000})/$1'||\n');\n/g;
-                                                # Close data in apostrophes due to insert into statement
-                                                $row->[$i] =~ s/'/''/g;
-                                                $row->[$i] = "'" . $row->[$i] . "'";
-                                                $row->[$i] =~ s!([\x00-\x1f\x5c])! sprintf "'||chr(%02d)||\n'", ord($1) !seg;
-                                        }
+                                        $options{escape_string}->(\$row->[$i]);
                                         utf8::decode($row->[$i]);
                                 }
-                                $line = $line . $row->[$i];
+                                print $row->[$i];
                         } else {
-                                if ($target_backend eq 'postgresql') {
-                                        $line = $line . '\N';
-                                } else {
-                                        $line = $line . "''";
-                                }
+                                print $options{null_string};
                         }
                 }
-                if ($target_backend eq 'postgresql') {
-                        $line = $line . "\n";
-                } else {
-                        $line = $line . ");\n";
-                }
-                # Inserting BLOB(s) into Oracle, need to wrap insert statement in procedure due to SQLPlus length limits
-                if (@blobs_names) {
-                        my $prefix = "declare\n";
-                        for (my $i = 0; $i < @blobs_names; $i++) {
-                                $prefix = $prefix . $blobs_names[$i] . " blob;\n";
-                        }
-                        $prefix = $prefix . "begin\n";
-                        for (my $i = 0; $i < @blobs_names; $i++) {
-                                $prefix = $prefix . "dbms_lob.createtemporary($blobs_names[$i], true);\n";
-                                # Split BLOB to multiple lines
-                                $blobs[$i] =~ s/(.{1,2000})/dbms_lob.append($blobs_names[$i], to_blob('$1'));\n/g;
-                                $prefix = $prefix . $blobs[$i] . "\n";
-                        }
-                        $line = $prefix . $line;
-                        # End procedure and execute
-                        $line = $line . "end;\n/\n";
-                }
+                print $options{record_separator};
+                $options{fetch_row}->($sth, \$row);
+        }
+        $options{process_table_end}->($table, $dbh);
+        if ($options{db_backend} eq 'postgresql') {
+                $dbh->do("close csr");
+        }
+}
 
-                print $line;
-                $row = $sth->fetchrow_arrayref();
+# Oracle-only statements
+sub process_ext_table {
+        my ($dbh, $table) = @_;
+        my ($table_string, $loader_string, $insert_string, $select_string);
+
+        # using column_info because simple $sth->{TYPE} and $sth->{PRECISION} return worse values
+        my ($sth, $name_key, $type_key, $size_key);
+        if ($options{db_backend} eq 'postgresql') {
+                $sth = $dbh->column_info(undef, undef, $table, undef);
+                ($name_key, $type_key, $size_key) = ('COLUMN_NAME','TYPE_NAME','COLUMN_SIZE');
+        } else {
+                $sth = $dbh->column_info(undef, undef, uc($table), undef);
+                ($name_key, $type_key, $size_key) = ('column_name','type_name','column_size');
         }
-        if ($target_backend eq 'postgresql') {
-                print "\\.\n";
+
+        my @table_schema = my @loader_schema = my @insert_list = my @select_list = ();
+        my $column = $sth->fetchrow_hashref();
+        while ($column) {
+                # some column names are enclosed in double quotes, it could be beneficial for $loader_item but unfortunately not all reserved words are covered
+                $column->{$name_key} =~ s/"//g;
+                my $table_item = my $insert_item = my $select_item = $column->{$name_key};
+                # column name may hit reserved word in ORACLE_LOADER driver => enclose in double quotes
+                my $loader_item = '"' . uc($column->{$name_key}) . '"';
+                my $typename = $column->{$type_key};
+                if ($typename eq 'numeric' or $typename eq 'NUMBER') {
+                        $table_item .= " NUMBER";
+                } elsif ($typename =~ /char/i) {
+                        $table_item .= " VARCHAR2($column->{$size_key})";
+                        $loader_item .= " CHAR($column->{$size_key})";
+                } elsif ($typename eq 'timestamp without time zone' or $typename =~ /TIMESTAMP\(\d+\)$/) {
+                        $table_item .= " TIMESTAMP";
+                        $loader_item .= " CHAR DATE_FORMAT TIMESTAMP '$ENV{NLS_TIMESTAMP_FORMAT}'";
+                } elsif ($typename =~ /timestamp(\(\d+\))? with( local)? time zone/i or $typename eq 'DATE') {
+                        $table_item .= " TIMESTAMP WITH LOCAL TIME ZONE";
+                        $loader_item .= " CHAR DATE_FORMAT TIMESTAMP WITH TIMEZONE '$ENV{NLS_TIMESTAMP_TZ_FORMAT}'";
+                } elsif ($typename eq 'bytea' or $typename eq 'BLOB') {
+                        $table_item .= " VARCHAR2(255)";
+                        $select_item = "load_blob($select_item)";
+                } elsif (lc($typename) eq 'evr_t') {
+                        $table_item = "e VARCHAR2(16), v VARCHAR2(512), r VARCHAR2(512)";
+                        $loader_item = "e CHAR(16), v CHAR(512), r CHAR(512)";
+                        $select_item = "EVR_T(e,v,r)";
+                }
+                push @table_schema, $table_item;
+                push @loader_schema, $loader_item;
+                push @insert_list, $insert_item;
+                push @select_list, $select_item;
+                $column = $sth->fetchrow_hashref();
         }
+
+        $table_string = join(', ', @table_schema);
+        $loader_string = join(', ', @loader_schema);
+        $insert_string = join(', ', @insert_list);
+        $select_string = join(', ', @select_list);
+
+        print <<EOS;
+CREATE TABLE ext_table
+(
+$table_string
+)
+ORGANIZATION EXTERNAL
+(
+TYPE ORACLE_LOADER
+DEFAULT DIRECTORY ext_tables_dir
+ACCESS PARAMETERS
+(
+ RECORDS DELIMITED BY 0x'000A'
+ LOGFILE ext_tables_log_dir:'oracle_import.log'
+ BADFILE ext_tables_log_dir:'oracle_import.bad'
+ DISCARDFILE ext_tables_log_dir:'oracle_import.dsc'
+ FIELDS TERMINATED BY '\\t' OPTIONALLY ENCLOSED BY '"'
+ MISSING FIELD VALUES ARE NULL
+ (
+$loader_string
+ )
+)
+LOCATION('$table')
+)
+REJECT LIMIT 0;
+INSERT /*+ APPEND */
+INTO $table
+(
+$insert_string
+)
+(
+SELECT
+$select_string
+FROM ext_table
+);
+DROP TABLE ext_table;
+EOS
+}
+
+sub get_ctstr_postgresql {
+        my $r = shift;
+        no warnings 'uninitialized';
+        return "(@{[ join ',', @$r ]})";
+}
+
+sub get_ctstr_oracle {
+        my $r = shift;
+        no warnings 'uninitialized';
+        return '"' . join("\"\t\"", @$r) . '"';
+}
+
+sub blobstr_postgresql {
+        my $blob = shift;
+        $$blob =~ s!(.)! sprintf "\\\\%03o", ord($1) !seg;
+}
+
+sub blobstr_oracle {
+        my $blob = shift;
+        my $table = shift;
+        my $blob_cnt = shift;
+        my $blob_file;
+        open $blob_file, '>:raw', "$options{dump_dir}/${table}_blob_$blob_cnt" or die "Error writing [$options{dump_dir}/${table}_blob_$blob_cnt]: $!\n";
+        print $blob_file $$blob;
+        # save filename where to find blob content
+        $$blob = "${table}_blob_$blob_cnt";
+}
+
+sub escapestr_postgresql {
+        my $string = shift;
+        $$string =~ s!([\x00-\x1f\x5c])! sprintf "\\x%02x", ord($1) !seg;
+}
+
+sub escapestr_oracle {
+        my $string = shift;
+        $$string =~ s/"/""/g;
+        $$string = '"' . $$string . '"';
+}
+
+sub process_table_start_postgresql {
+        my $table = shift;
+        my $types = shift;
+        my $the_names = shift;
+        print "-- Types for $table: @$types\n";
+        print qq!copy $table($the_names) from stdin;\n!;
+}
+
+sub process_table_start_oracle {
+        my $table = shift;
+        open FILE, '>', "$options{dump_dir}/$table" or die "Error writing [$options{dump_dir}/$table]: $!\n";
+        select FILE;
+}
+
+sub process_table_end_postgresql {
+        print "\\.\n";
+}
+
+sub process_table_end_oracle {
+        my $table = shift;
+        my $dbh = shift;
+        close FILE;
+        select STDOUT;
+        process_ext_table($dbh, $table);
+}
+
+sub fetch_row_postgresql {
+        my $sth = shift;
+        my $row = shift;
+        $$row = $sth->fetchrow_arrayref();
+        if (not defined $$row) {
+                $sth->execute();
+                $$row = $sth->fetchrow_arrayref();
+        }
+}
+
+sub fetch_row_oracle {
+        my $sth = shift;
+        my $row = shift;
+        $$row = $sth->fetchrow_arrayref();
+}
+
+sub print_script_header_postgresql {
+        print <<'EOS';
+\set ON_ERROR_STOP on
+update pg_index
+  set indisvalid = false,
+      indisready = false
+where indexrelid in (
+      select pi.indexrelid
+        from pg_index pi,
+             pg_class pc,
+             pg_namespace pn
+       where pi.indexrelid = pc.oid and
+             pc.relnamespace = pn.oid and
+             pc.relkind = 'i'::"char" and
+             pn.nspname = current_schema()
+      );
+EOS
+}
+
+sub print_script_header_oracle {
+        print <<EOS;
+whenever sqlerror exit sql.sqlcode;
+CREATE OR REPLACE DIRECTORY ext_tables_dir AS '$options{dump_dir}';
+CREATE OR REPLACE DIRECTORY ext_tables_log_dir AS '/tmp';
+alter session set NLS_DATE_FORMAT = '$ENV{NLS_DATE_FORMAT}';
+alter session set NLS_TIMESTAMP_FORMAT = '$ENV{NLS_TIMESTAMP_FORMAT}';
+alter session set NLS_TIMESTAMP_TZ_FORMAT = '$ENV{NLS_TIMESTAMP_TZ_FORMAT}';
+
+-- function for loading BLOB from file
+CREATE OR REPLACE FUNCTION load_blob(filename IN VARCHAR)
+RETURN BLOB IS
+ src  BFILE;
+ dest BLOB;
+ file_length INTEGER;
+BEGIN
+ IF length(filename) > 0
+ THEN
+  DBMS_LOB.CREATETEMPORARY(dest, true);
+  src := BFILENAME('EXT_TABLES_DIR', filename);
+  DBMS_LOB.FILEOPEN(src, DBMS_LOB.FILE_READONLY);
+  file_length := DBMS_LOB.GETLENGTH(src);
+  IF file_length > 0
+  THEN
+   DBMS_LOB.LOADFROMFILE(dest, src, file_length);
+  END IF;
+  DBMS_LOB.FILECLOSE(src);
+ END IF;
+ RETURN dest;
+END load_blob;
+/
+
+-- disable constraints
+BEGIN
+ FOR item IN (
+select uc.owner, uc.table_name, uc.constraint_name
+  from user_constraints uc, user_tables ut
+where uc.table_name = ut.table_name and
+      uc.status = 'ENABLED'
+order by decode ( uc.constraint_type, 'R', 1, 'U', 2, 'P', 3 )
+)
+ LOOP
+        execute immediate 'alter table ' || item.owner || '.' || item.table_name || ' disable constraint ' || item.constraint_name;
+ END LOOP;
+END;
+/
+EOS
+}
+
+sub print_script_footer_postgresql {
+        print <<'EOS';
+update pg_index
+  set indisvalid = true,
+      indisready = true
+where indexrelid in (
+      select pi.indexrelid
+        from pg_index pi,
+             pg_class pc,
+             pg_namespace pn
+       where pi.indexrelid = pc.oid and
+             pc.relnamespace = pn.oid and
+             pc.relkind = 'i'::"char" and
+             pn.nspname = current_schema()
+      );
+select pg_dblink_exec('reindex database "' || current_database() || '";');
+EOS
+}
+
+sub print_script_footer_oracle {
+        print <<'EOS';
+-- enable constraints
+BEGIN
+ FOR item IN (
+select uc.owner, uc.table_name, uc.constraint_name
+  from user_constraints uc, user_tables ut
+where uc.table_name = ut.table_name and
+      uc.status = 'DISABLED'
+order by decode ( uc.constraint_type, 'P', 1, 'U', 2, 'R', 3 )
+)
+ LOOP
+    execute immediate 'alter table ' || item.owner || '.' || item.table_name || ' enable novalidate constraint ' || item.constraint_name;
+ END LOOP;
+END;
+/
+DROP FUNCTION load_blob;
+DROP DIRECTORY ext_tables_log_dir;
+DROP DIRECTORY ext_tables_dir;
+EOS
 }
 
 1;
@@ -799,12 +857,24 @@ B<psql> or B<sqlplus> directly in which case the PostgreSQL or Oracle
 server must also be running, or you can redirect it to a file and use
 that file as input for B<psql> or B<sqlplus> later.
 
+When migrating to Oracle backend, only control SQL script is printed
+on standard output. Content of tables is dumped into separate files,
+which are then used as external tables. Location of table files
+can be specified by parameter. Table files must be accessible from
+machine where Oracle database is running for user running database
+instance. Location of table files in database machine may need
+to be manually altered in control file. If parameter is not specified,
+location of table files is defaultly '/tmp/dumped-tables/'.
+
 The database schema in target backend must already exist, created by
 (probably) B<spacewalk-setup>. The output of this script does not
 create any tables or other database objects, it only emits commands
 to set sequences and table contents in the PostgreSQL or Oracle
 database schema. Any existing content in tables is discarded, data
 is not appended.
+
+When migrating to Oracle, make sure your UNDO, TEMP and DATA tablespaces
+are big enough otherwise migration fails.
 
 The exit value is 0 upon success, non-zero value upon error.
 
@@ -825,11 +895,14 @@ The exit value is 0 upon success, non-zero value upon error.
                 --user=spaceuser --password=o9k2HInsl \
                 | NLS_LANG=AMERICAN_AMERICA.UTF8 sqlplus spaceuser/spacepw@//localhost/XE
 
-        spacewalk-dump-schema --to=oracle > dump.sql
+        spacewalk-dump-schema --to=oracle --dump-dir=/tmp/dumped-tables > control_script.sql
+        ...
+        spacewalk-sql -i < control_script.sql
 
 =head1 AUTHOR
 
 Jan Pazdziora
+Jan Dobes
 
 =cut
 
