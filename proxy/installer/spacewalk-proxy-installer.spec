@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.3.9
+Version: 2.3.10
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -93,6 +93,9 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Mon Feb 16 2015 Stephen Herr <sherr@redhat.com> 2.3.10-1
+- drop monitoring from proxy setup
+
 * Tue Feb 03 2015 Stephen Herr <sherr@redhat.com> 2.3.9-1
 - 1178151 - make squid start correctly on rhel 7
 
