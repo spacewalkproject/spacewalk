@@ -64,9 +64,6 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_var}/lib/cobbler/kickstarts/spacewalk-sample.ks
 %config(noreplace) %{_var}/lib/cobbler/snippets/spacewalk_file_preservation
 %attr(0750,root,apache) %dir %{_sysconfdir}/rhn
-%dir %{_sysconfdir}/rhn/satellite-httpd
-%dir %{_sysconfdir}/rhn/satellite-httpd/conf
-%dir %{_sysconfdir}/rhn/satellite-httpd/conf/rhn
 %attr(0640,root,apache) %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/rhn.conf
 # NOTE: If if you change these, you need to make a corresponding change in
 # spacewalk/install/Spacewalk-Setup/bin/spacewalk-setup
