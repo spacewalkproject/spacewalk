@@ -167,7 +167,7 @@ class OracleBackend(Backend):
                   'verifyflags': DBint(),
                   'lang': DBstring(32),
               },
-              pk=['package_id', 'capability_id', 'checksum_id'],
+              pk=['package_id', 'capability_id'],
               attribute='files',
               severityHash={
                   'mtime': 0,
