@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.3.9
+Version:        2.3.10
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -111,6 +111,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Feb 16 2015 Stephen Herr <sherr@redhat.com> 2.3.10-1
+- spacewalk-setup upgrade dir no longer exists after monitoring removal
+
 * Mon Feb 16 2015 Stephen Herr <sherr@redhat.com> 2.3.9-1
 - remove setup of dropped monitoring feature
 
