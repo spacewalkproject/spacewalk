@@ -52,7 +52,7 @@ class Error(YumBaseError):
         if not isinstance(errmsg, unicode):
             errmsg = unicode(errmsg, 'utf-8')
         YumBaseError.__init__(self, errmsg)
-        self.value = self.premsg + errmsg
+        self.value = 'rhn-plugin: ' + self.premsg + errmsg
         self.log = up2dateLog.initLog()
 
     def __repr__(self):
