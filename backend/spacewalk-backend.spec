@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.43
+Version: 2.3.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -653,6 +653,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Mon Feb 16 2015 Stephen Herr <sherr@redhat.com> 2.3.44-1
+- convert empty string to null for DMI values
+- init the second DB connection only when needed
+- Fix the primary key definition for rhnPackageFile
+- Do not include obsolete rhn_monitoring.conf
+- spacewalk-debug should not collect monitoring logs
+- remove nocpulse user and group from spacewalk-debug
+
 * Fri Feb 13 2015 Stephen Herr <sherr@redhat.com> 2.3.43-1
 - 1192608 - disable pylint warning
 
