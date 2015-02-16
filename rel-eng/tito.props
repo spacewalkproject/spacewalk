@@ -5,10 +5,6 @@ changelog_with_email = 0
 changelog_do_not_remove_cherrypick = 0
 lib_dir = rel-eng/lib
 
-[spacewalk-nightly-rhel5]
-disttag = .el5
-blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux spacewalk-jpp-workaround apt-spacewalk python-hwdata spacewalk-abrt mod_perl tito ycssmin
-
 [spacewalk-nightly-rhel6]
 disttag = .el6
 blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging ycssmin
