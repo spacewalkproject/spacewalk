@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.3.8
+Version:        2.3.9
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -113,6 +113,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Feb 16 2015 Stephen Herr <sherr@redhat.com> 2.3.9-1
+- remove setup of dropped monitoring feature
+
 * Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.8-1
 - Fix configuration of tomcat-service for CentOS7. Tomcat7 on CentOS7 uses
   /etc/tomcat/server.xml. Adjust regex to match.
