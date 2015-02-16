@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.3.3
+Version: 2.3.4
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -101,6 +101,9 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Mon Feb 16 2015 Stephen Herr <sherr@redhat.com> 2.3.4-1
+- remove monitoring artefacts from spacewalk-config
+
 * Tue Jan 13 2015 Matej Kollar <mkollar@redhat.com> 2.3.3-1
 - Getting rid of trailing spaces in Perl
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
