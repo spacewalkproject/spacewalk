@@ -318,6 +318,7 @@ class UpstreamServer(SocketServer.TCPServer):
     def __init__(self, server_address):
         SocketServer.TCPServer.__init__(self, server_address, None)
         self._next_poll_interval = None
+        self._notify_threshold = CFG.get('notify_threshold')
 
     def get_server_port(self):
         return self.server_address[1]
@@ -333,13 +334,33 @@ class UpstreamServer(SocketServer.TCPServer):
         log_debug(2,"###about to notify jabber nodes from finish request")
         self.notify_jabber_nodes()
 
+    def get_running_clients(self):
+        log_debug(3)
+        h = rhnSQL.prepare(self._query_get_running_clients)
+        h.execute()
+        row = h.fetchone_dict() or {}
+        return int(row.get("clients", 0))
+
     def notify_jabber_nodes(self):
         log_debug(3)
+        running_clients = self.get_running_clients()
+        free_slots = 0
+        if self._notify_threshold:
+             free_slots = self._notify_threshold - running_clients
+        log_debug(4, "notify_threshold: %s running_clients: %s free_slots: %s" %
+                (self._notify_threshold, running_clients, free_slots))
+
         h = rhnSQL.prepare(self._query_get_pending_clients)
         h.execute()
         self._next_poll_interval = None
+        notified = []
 
         while 1:
+            if self._notify_threshold and free_slots <= 0:
+                # End of loop
+                log_debug(4, "max running clients reached; stop notifying")
+                break
+
             row = h.fetchone_dict()
             if not row:
                 # End of loop
@@ -375,6 +396,9 @@ class UpstreamServer(SocketServer.TCPServer):
             log_debug(4, "Notifying", jabber_id, row['server_id'])
             self.jabber_connection.send_message(jabber_id,
                 jabber_lib.NS_RHN_MESSAGE_REQUEST_CHECKIN)
+            if jabber_id not in notified:
+                free_slots -= 1
+                notified.append(jabber_id)
         rhnSQL.commit()
 
     # We need to drive this query by rhnPushClient since it's substantially
@@ -402,6 +426,11 @@ class UpstreamServer(SocketServer.TCPServer):
          order by earliest_action
     """)
 
+    _query_get_running_clients = rhnSQL.Statement("""
+        select count(distinct server_id) clients
+          from rhnServerAction
+         where status = 1 -- picked up
+    """)
 
 def bind_server(start_port=1290):
     port = start_port
