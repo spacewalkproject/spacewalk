@@ -29,20 +29,13 @@
        <packagereq type="default">cobbler-loaders</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">dwr</packagereq>
-       <packagereq type="default">eventReceivers</packagereq>
        <packagereq type="default">font-awesome</packagereq>
        <packagereq type="optional">font-awesome-devel</packagereq>
        <packagereq type="optional">heirloom-pkgtools</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">jquery-ui</packagereq>
        <packagereq type="default">jquery-timepicker</packagereq>
-       <packagereq type="default">MessageQueue</packagereq>
        <packagereq type="default">momentjs</packagereq>
-       <packagereq type="default">nocpulse-common</packagereq>
-       <packagereq type="default">nocpulse-db-perl</packagereq>
-       <packagereq type="default">NOCpulsePlugins</packagereq>
-       <packagereq type="default">NOCpulsePlugins-Oracle</packagereq>
-       <packagereq type="default">NPalert</packagereq>
        <packagereq type="default">nutch</packagereq>
        <packagereq type="default">oracle-instantclient-selinux</packagereq>
        <packagereq type="default">oracle-instantclient-sqlplus-selinux</packagereq>
@@ -56,20 +49,7 @@
        <packagereq type="default">perl-DBD-Oracle</packagereq>
        <packagereq type="default">perl-Mail-RFC822-Address</packagereq>
        <packagereq type="default">perl-Net-INET6Glue</packagereq>
-       <packagereq type="default">perl-NOCpulse-CLAC</packagereq>
-       <packagereq type="default">perl-NOCpulse-Debug</packagereq>
-       <packagereq type="default">perl-NOCpulse-Gritch</packagereq>
-       <packagereq type="default">perl-NOCpulse-Object</packagereq>
-       <packagereq type="default">perl-NOCpulse-OracleDB</packagereq>
-       <packagereq type="default">perl-NOCpulse-PersistentConnection</packagereq>
-       <packagereq type="default">perl-NOCpulse-Probe</packagereq>
-       <packagereq type="default">perl-NOCpulse-Probe-Oracle</packagereq>
-       <packagereq type="default">perl-NOCpulse-ProcessPool</packagereq>
-       <packagereq type="default">perl-NOCpulse-Scheduler</packagereq>
-       <packagereq type="default">perl-NOCpulse-SetID</packagereq>
-       <packagereq type="default">perl-NOCpulse-Utils</packagereq>
        <packagereq type="default">perl-Satcon</packagereq>
-       <packagereq type="default">ProgAGoGo</packagereq>
        <packagereq type="default">python-gzipstream</packagereq>
        <packagereq type="default">pwstrength-bootstrap</packagereq>
        <packagereq type="default">quartz</packagereq>
@@ -78,19 +58,10 @@
        <packagereq type="default">rhnpush</packagereq>
        <packagereq type="default">roboto</packagereq>
        <packagereq type="optional">roboto-condensed</packagereq>
-       <packagereq type="default">SatConfig-bootstrap</packagereq>
-       <packagereq type="default">SatConfig-bootstrap-server</packagereq>
-       <packagereq type="default">SatConfig-cluster</packagereq>
-       <packagereq type="default">SatConfig-general</packagereq>
-       <packagereq type="default">SatConfig-generator</packagereq>
-       <packagereq type="default">SatConfig-installer</packagereq>
-       <packagereq type="default">SatConfig-spread</packagereq>
-       <packagereq type="default">scdb</packagereq>
        <packagereq type="default">select2</packagereq>
        <packagereq type="default">select2-bootstrap-css</packagereq>
        <packagereq type="default">simple-core</packagereq>
        <packagereq type="default">simple-xml</packagereq>
-       <packagereq type="default">SNMPAlerts</packagereq>
        <packagereq type="default">spacecmd</packagereq>
        <packagereq type="default">spacewalk-admin</packagereq>
        <packagereq type="default">spacewalk-backend</packagereq>
@@ -129,7 +100,6 @@
        <packagereq type="default">spacewalk-java-postgresql</packagereq>
        <packagereq type="optional">spacewalk-java-tests</packagereq>
        <packagereq type="default">spacewalk-jpp-workaround</packagereq>
-       <packagereq type="default">spacewalk-monitoring</packagereq>
        <packagereq type="default">spacewalk-oracle</packagereq>
        <packagereq type="default">spacewalk-postgresql</packagereq>
        <packagereq type="default">spacewalk-proxy-broker</packagereq>
@@ -138,7 +108,6 @@
        <packagereq type="default">spacewalk-proxy-html</packagereq>
        <packagereq type="default">spacewalk-proxy-installer</packagereq>
        <packagereq type="default">spacewalk-proxy-management</packagereq>
-       <packagereq type="default">spacewalk-proxy-monitoring</packagereq>
        <packagereq type="default">spacewalk-proxy-package-manager</packagereq>
        <packagereq type="default">spacewalk-proxy-redirect</packagereq>
        <packagereq type="default">spacewalk-proxy-selinux</packagereq>
@@ -158,14 +127,9 @@
        <packagereq type="default">spacewalk-taskomatic</packagereq>
        <packagereq type="default">spacewalk-utils</packagereq>
        <packagereq type="default">spacewalk-remote-utils</packagereq>
-       <packagereq type="default">SputLite-client</packagereq>
-       <packagereq type="default">SputLite-server</packagereq>
-       <packagereq type="default">ssl_bridge</packagereq>
-       <packagereq type="default">status_log_acceptor</packagereq>
        <packagereq type="default">stringtree-json</packagereq>
        <packagereq type="default">susestudio-java-client</packagereq>
        <packagereq type="default">tanukiwrapper</packagereq>
-       <packagereq type="default">tsdb</packagereq>
     </packagelist>
   </group>
   <group>
