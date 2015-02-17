@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.3.1
+Version:        2.3.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -113,6 +113,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Feb 17 2015 Tomas Lestach <tlestach@redhat.com> 2.3.2-1
+- spacewalk-monitoring-selinux seems to be redundant now, removing
+
 * Fri Jan 30 2015 Stephen Herr <sherr@redhat.com> 2.3.1-1
 - Fix download/generation of kickstart profile for cobbler
 - Bumping package versions for 2.3.
