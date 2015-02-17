@@ -130,7 +130,6 @@
        <packagereq type="optional">spacewalk-java-tests</packagereq>
        <packagereq type="default">spacewalk-jpp-workaround</packagereq>
        <packagereq type="default">spacewalk-monitoring</packagereq>
-       <packagereq type="default">spacewalk-monitoring-selinux</packagereq>
        <packagereq type="default">spacewalk-oracle</packagereq>
        <packagereq type="default">spacewalk-postgresql</packagereq>
        <packagereq type="default">spacewalk-proxy-broker</packagereq>
