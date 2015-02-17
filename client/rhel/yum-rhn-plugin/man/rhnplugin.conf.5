@@ -19,6 +19,10 @@
 
 rhnplugin.conf \- Configuration file for the \fBrhnplugin\fP(8) \fByum\fP(8) plugin.
 
+.SH SYNOPSIS
+
+\fB/etc/yum/pluginconf.d/rhnplugin.conf\fP
+
 .SH DESCRIPTION
 
 .PP
@@ -26,7 +30,10 @@ rhnplugin.conf \- Configuration file for the \fBrhnplugin\fP(8) \fByum\fP(8) plu
 \fBrhnplugin\fP(8). The configuration file is located at
 \fI/etc/yum/pluginconf.d/rhnplugin.conf\fP.
 
-.SH OPTIONS
+.SH [main] OPTIONS
+
+.PP
+Alls optionsin of \fByum.conf\fP(5) are available. Most notable are:
 
 .IP \fBenabled\fR
 Either `0' or `1'. Determines whether the plugin will be used by yum or not.
@@ -39,6 +46,12 @@ is not set, the value from \fByum.conf\fP(5) will be used.
 
 .IP \fBtimeout\fR
 The amount of time (in seconds) that you want to wait for a response before timing out. If this option is not set, the value from \fByum.conf\fP(5) will be used.
+
+.SH [\fIchannel-label\fP] OPTIONS
+
+.PP
+Individual channels available to client can be configured (enabled/disabled, ...)
+in sections named by channel label.
 
 .SH FILES
 
