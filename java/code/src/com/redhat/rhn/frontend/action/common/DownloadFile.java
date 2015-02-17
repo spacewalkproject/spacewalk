@@ -314,9 +314,18 @@ public class DownloadFile extends DownloadAction {
 
         String type = getNextValue(it);
         String hash = getNextValue(it);
-        Long expire = new Long(getNextValue(it));
-        Long userId = new Long(getNextValue(it));
-        Long fileId = new Long(getNextValue(it));
+        Long expire = null;
+        Long userId = null;
+        Long fileId = null;
+        try {
+            expire = new Long(getNextValue(it));
+            userId = new Long(getNextValue(it));
+            fileId = new Long(getNextValue(it));
+        }
+        catch (NumberFormatException e) {
+            log.error("Error parsing file download url: " + url);
+            return mapping.findForward("error");
+        }
         String filename = getNextValue(it);
 
         params.put(TYPE, type);
