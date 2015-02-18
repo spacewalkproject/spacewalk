@@ -134,6 +134,24 @@ public class Access extends BaseHandler {
     }
 
     /**
+     * Does the org have any proxies?
+     * @param ctx Context Map to pass in
+     * @param params Parameters to use to fetch from Context
+     * @return true if the org has proxies, false otherwise
+     */
+    public boolean aclOrgHasProxies(Object ctx, String[] params) {
+        Map map = (Map) ctx;
+        User user = (User) map.get("user");
+
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "org_proxy_servers");
+        Map queryParams = new HashMap();
+        queryParams.put("org_id", user.getOrg().getId());
+        DataResult dr = m.execute(queryParams);
+        return (dr.size() > 0);
+    }
+
+    /**
      * Check if a System has a feature
      * @param ctx Context Map to pass in
      * @param params Parameters to use to fetch from Context

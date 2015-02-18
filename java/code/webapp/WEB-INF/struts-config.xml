@@ -2899,7 +2899,7 @@
         input="/WEB-INF/pages/systems/sdc/connection.jsp"
         type="com.redhat.rhn.frontend.action.systems.sdc.SystemConnectionAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_channel_family(rhn-proxy)"/>
+        <set-property property="acls" value="org_has_proxies()"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/sdc/connection.jsp" />
     </action>
@@ -2909,7 +2909,8 @@
         input="/WEB-INF/pages/systems/sdc/proxy.jsp"
         type="com.redhat.rhn.frontend.action.systems.sdc.ProxyAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_channel_family(rhn-proxy)"/>
+        <set-property property="mixins" value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
+        <set-property property="acls" value="user_role(org_admin); system_feature(ftr_proxy_capable) or system_is_proxy(); org_channel_family(rhn-proxy) or system_is_proxy(); child_channel_candidate(rhn-proxy) or system_is_proxy(); org_entitlement(rhn_provisioning); not system_is_satellite(); system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/sdc/proxy.jsp" />
     </action>
