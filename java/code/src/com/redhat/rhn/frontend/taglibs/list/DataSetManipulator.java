@@ -15,6 +15,16 @@
 
 package com.redhat.rhn.frontend.taglibs.list;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.DynamicComparator;
+import com.redhat.rhn.common.util.MethodUtil;
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.frontend.html.HtmlTag;
+import com.redhat.rhn.frontend.struts.RequestContext;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,15 +38,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.lang.StringUtils;
-
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.DynamicComparator;
-import com.redhat.rhn.common.util.MethodUtil;
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.frontend.html.HtmlTag;
-import com.redhat.rhn.frontend.struts.RequestContext;
-
 /**
  * Provides a bunch of helper methods to make working with lists easier from a
  * custom tag POV.
@@ -44,6 +45,8 @@ import com.redhat.rhn.frontend.struts.RequestContext;
  * @version $Rev $
  */
 public class DataSetManipulator {
+
+    private static Logger log = Logger.getLogger(DataSetManipulator.class);
     private static final String[] LINK_PREFIXES = {"_first", "_prev", "_next", "_last"};
 
     private final int pageSize;
@@ -366,6 +369,7 @@ public class DataSetManipulator {
                 Collections.sort(dataset, new DynamicComparator(sortAttribute, sortDir));
             }
             catch (IllegalArgumentException iae) {
+                log.warn("Unable to sort dataset according to: " + sortAttribute);
                 Collections.sort(dataset, new DynamicComparator(defaultSortAttribute,
                         sortDir));
             }
