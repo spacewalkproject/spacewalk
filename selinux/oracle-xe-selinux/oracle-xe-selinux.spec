@@ -40,7 +40,7 @@ SELinux policy module supporting Oracle XE server.
 %build
 # Build SELinux policy modules
 perl -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' %{modulename}.te
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 cat %{modulename}.te.fedora17 >> %{modulename}.te
 %endif
 for selinuxvariant in %{selinux_variants}
