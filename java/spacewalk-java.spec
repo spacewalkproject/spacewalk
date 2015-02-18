@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.141
+Version: 2.3.142
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -788,6 +788,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 18 2015 Stephen Herr <sherr@redhat.com> 2.3.142-1
+- 1191071 - Fix Connection.do and Proxy.do acls after perl-> java migration
+
 * Wed Feb 18 2015 Tomas Lestach <tlestach@redhat.com> 2.3.141-1
 - issue a warning in case sortAttribute is invalid
 
