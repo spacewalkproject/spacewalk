@@ -399,6 +399,6 @@ public class PrimaryXmlWriter extends RepomdWriter {
      * @return true in case the pre flag is set, otherwise false
      */
     private boolean hasPreFlag(long senseIn) {
-        return ((senseIn & (1 << 6)) > 0) ? true : false;
+        return (senseIn & ((1 << 6) | (1 << 9) | (1 << 10) | (1 << 24))) > 0;
     }
 }
