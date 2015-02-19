@@ -611,7 +611,7 @@ def do_softwarechannel_create(self, args):
             return
 
         if not options.checksum:
-            optsions.checksum = 'sha256'
+            options.checksum = 'sha256'
 
 # these are optional:
 #        if not ( options.gpg_url and options.gpg_id and options.gpg_fingerprint):
