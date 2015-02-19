@@ -1108,6 +1108,8 @@ def import_configchannel_fromdetails(self, ccdetails):
             else:
                 if filedetails['type'] == 'directory':
                     isdir = True
+                    if 'contents' in filedetails:
+                        del filedetails['contents']
                 else:
                     isdir = False
                     # If binary files (or those containing characters which are
