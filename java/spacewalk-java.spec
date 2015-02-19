@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.142
+Version: 2.3.143
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -788,6 +788,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 19 2015 Grant Gainey 2.3.143-1
+- 1194418 - API call channel.software.clone does not work as expected for child
+  channels.
+
 * Wed Feb 18 2015 Stephen Herr <sherr@redhat.com> 2.3.142-1
 - 1191071 - Fix Connection.do and Proxy.do acls after perl-> java migration
 
