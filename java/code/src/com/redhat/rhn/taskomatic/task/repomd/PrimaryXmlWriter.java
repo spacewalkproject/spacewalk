@@ -393,8 +393,20 @@ public class PrimaryXmlWriter extends RepomdWriter {
     }
 
     /**
+     * Checks if a sense flag indicate a pre-requirement
+     *
+     * The flags that are taken into account are:
+     *
+     * RPMSENSE_PREREQ (1 << 6)
+     * RPMSENSE_SCRIPT_PRE (1 << 9)
+     * RPMSENSE_SCRIPT_POST (1 << 10)
+     * RPMSENSE_RPMLIB (1 << 24)
+     *
+     * (from rpmds.h)
+     *
      * @param senseIn package sense
-     * @return true in case the pre flag is set, otherwise false
+     * @return true in case any of the sense flags that indicate a pre-requirement
+     *         are enabled, otherwise false.
      */
     private boolean hasPreFlag(long senseIn) {
         return (senseIn & ((1 << 6) | (1 << 9) | (1 << 10) | (1 << 24))) > 0;
