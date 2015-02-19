@@ -1953,12 +1953,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         Channel originalChan = lookupChannelByLabel(loggedInUser.getOrg(), originalLabel);
 
-        Channel parent = null;
-        if (parentLabel != null) {
-            parent = lookupChannelByLabel(loggedInUser.getOrg(), parentLabel);
-
-        }
-
         ChannelArch arch = null;
         if (archLabel != null && archLabel.length() > 0) {
 
@@ -2014,6 +2008,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
         helper.setGpgKeyId(gpgId);
         helper.setGpgKeyUrl(gpgUrl);
         helper.setLabel(label);
+        if (parentLabel != null) {
+            helper.setParentLabel(parentLabel);
+        }
         helper.setUser(loggedInUser);
         helper.setSummary(summary);
 
