@@ -14,6 +14,7 @@ require {
 	type oracle_lsnrctl_t;
 	type lib_t;
 	type bin_t;
+	type rhnsd_conf_t;
 }
 
 rw_files_pattern(oracle_db_t, oracle_sqlplus_log_t, oracle_sqlplus_log_t)
@@ -67,6 +68,7 @@ allow oracle_lsnrctl_t oracle_db_log_t:dir getattr;
 allow oracle_lsnrctl_t oracle_db_log_t:dir search;
 
 allow oracle_sqlplus_t oracle_db_log_t:dir getattr;
+allow oracle_sqlplus_t rhnsd_conf_t:dir search;
 
 dontaudit oracle_sqlplus_t lib_t:dir write;
 
