@@ -6,7 +6,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.38
+Version:         10.2.0.39
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -138,6 +138,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Feb 19 2015 Tomas Lestach <tlestach@redhat.com> 10.2.0.39-1
+- allow oracle_sqlplus_t to search through the rhnsd_conf_t directories
+
 * Wed Feb 18 2015 Tomas Lestach <tlestach@redhat.com> 10.2.0.38-1
 - addressing AVC denials on RHEL7
 
