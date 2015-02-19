@@ -535,14 +535,22 @@ options:
   -l LABEL
   -p PARENT_CHANNEL
   -a ARCHITECTURE ['ia32', 'ia64', 'x86_64', 'ppc',
-                  'i386-sun-solaris', 'sparc-sun-solaris']'''
+                  'i386-sun-solaris', 'sparc-sun-solaris']
+  -c CHECKSUM ['sha1', 'sha256']
+  -u GPG_URL
+  -i GPG_ID
+  -f GPG_FINGERPRINT'''
 
 
 def do_softwarechannel_create(self, args):
-    options = [Option('-n', '--name', action='store'),
-               Option('-l', '--label', action='store'),
-               Option('-p', '--parent-channel', action='store'),
-               Option('-a', '--arch', action='store')]
+    options = [ Option('-n', '--name', action='store'),
+                Option('-l', '--label', action='store'),
+                Option('-p', '--parent-channel', action='store'),
+                Option('-a', '--arch', action='store'), 
+                Option('-c', '--checksum', action='store'), 
+                Option('-u', '--gpg_url', action='store'),
+                Option('-i', '--gpg_id', action='store'),
+                Option('-f', '--gpg_fingerprint', action='store') ]
 
     (args, options) = parse_arguments(args, options)
 
@@ -564,6 +572,31 @@ def do_softwarechannel_create(self, args):
         print '\n'.join(sorted(self.ARCH_LABELS))
         print
         options.arch = prompt_user('Select:')
+
+        print
+        print 'Checksum type'
+        print '------------'
+        print '\n'.join(sorted(self.CHECKSUM))
+        print
+        options.checksum = prompt_user('Select:')
+
+        print
+        print 'GPG URL'
+        print '------------'
+        print
+        options.gpg_url = prompt_user('GPG URL:')
+
+        print
+        print 'GPG ID'
+        print '------------'
+        print
+        options.gpg_id = prompt_user('GPG ID:')
+
+        print
+        print 'GPG Fingerprint'
+        print '---------------'
+        print
+        options.gpg_fingerprint = prompt_user('GPG Fingerprint:')
     else:
         if not options.name:
             logging.error('A channel name is required')
@@ -577,11 +610,32 @@ def do_softwarechannel_create(self, args):
             logging.error('An architecture is required')
             return
 
+        if not options.checksum:
+            optsions.checksum = 'sha256'
+
+# these are optional:
+#        if not ( options.gpg_url and options.gpg_id and options.gpg_fingerprint):
+#            logging.error('GPG url, id and fingerprint are all required')
+#            return
+
         # default to make this a base channel
         if not options.parent_channel:
             options.parent_channel = ''
 
-    self.client.channel.software.create(self.session,
+    if options.gpg_url and options.gpg_id and options.gpg_fingerprint :
+        self.client.channel.software.create(self.session,
+                                        options.label,
+                                        options.name,
+                                        options.name, # summary
+                                        'channel-%s' % options.arch,
+                                        options.parent_channel,
+                                        options.checksum,
+                                        {'url' :         options.gpg_url,
+                                         'id' :          options.gpg_id,
+                                         'fingerprint' : options.gpg_fingerprint}
+                                       )
+    else:
+        self.client.channel.software.create(self.session,
                                         options.label,
                                         options.name,
                                         options.name,  # summary
