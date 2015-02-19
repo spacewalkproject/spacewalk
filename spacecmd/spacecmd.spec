@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.14
+Version:     2.3.15
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -77,6 +77,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Feb 19 2015 Matej Kollar <mkollar@redhat.com> 2.3.15-1
+- 1191418 - sanitize data from export
+
 * Wed Jan 28 2015 Matej Kollar <mkollar@redhat.com> 2.3.14-1
 - Setting ts=4 is wrong
 
