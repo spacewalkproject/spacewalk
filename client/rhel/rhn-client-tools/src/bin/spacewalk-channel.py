@@ -16,7 +16,6 @@
 import getpass
 import os
 import re
-import socket
 import sys
 import urlparse
 import xmlrpclib
