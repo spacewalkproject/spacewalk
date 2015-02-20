@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.3.9
+Version: 2.3.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -370,6 +370,15 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Feb 20 2015 Matej Kollar <mkollar@redhat.com> 2.3.10-1
+- Localize error messages
+- Typo
+- 1036586 - separate username/password request
+- Remove unused variable
+- Indentation homogenization
+- Separate definitions from directly executed code
+- Remove unused import
+
 * Wed Feb 18 2015 Matej Kollar <mkollar@redhat.com> 2.3.9-1
 - 916597 - More helpful message
 
