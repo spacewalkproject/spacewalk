@@ -37,15 +37,15 @@ from up2date_client import up2dateAuth, config, up2dateErrors, rhncli, rhnserver
 
 
 def systemExit(code, msgs=None):
-     "Exit with a code and optional message(s). Saved a few lines of code."
-     if msgs is not None:
-         if type(msgs) not in [type([]), type(())]:
-             msgs = (msgs, )
-         for msg in msgs:
-             if hasattr(msg, 'value'):
-                 msg = msg.value
-             sys.stderr.write(rhncli.utf8_encode(msg) + "\n")
-     sys.exit(code)
+    "Exit with a code and optional message(s). Saved a few lines of code."
+    if msgs is not None:
+        if type(msgs) not in [type([]), type(())]:
+            msgs = (msgs, )
+        for msg in msgs:
+            if hasattr(msg, 'value'):
+                msg = msg.value
+            sys.stderr.write(rhncli.utf8_encode(msg) + "\n")
+    sys.exit(code)
 
 
 def processCommandline():
