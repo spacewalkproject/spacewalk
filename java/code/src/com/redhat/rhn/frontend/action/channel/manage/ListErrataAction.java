@@ -54,6 +54,7 @@ public class ListErrataAction extends RhnListAction implements Listable<ErrataOv
     /**
      * {@inheritDoc}
      */
+    @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
@@ -82,6 +83,7 @@ public class ListErrataAction extends RhnListAction implements Listable<ErrataOv
 
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request, decl);
         helper.setDataSetName(ERRATA_DATA);
+        helper.setListName("errata");
         helper.setWillClearSet(true);
         helper.execute();
 
