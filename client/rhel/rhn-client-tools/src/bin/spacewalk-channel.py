@@ -187,9 +187,9 @@ def main():
                 if not channel['parent_channel']:
                     print channel['label']
         except up2dateErrors.NoChannelsError:
-            systemExit(1, 'This system is not associated with any channel.')
+            systemExit(1, _('This system is not associated with any channel.'))
         except up2dateErrors.NoSystemIdError:
-            systemExit(1, 'Unable to locate SystemId file. Is this system registered?')
+            systemExit(1, _('Unable to locate SystemId file. Is this system registered?'))
 
     elif options.available_channels:
         channels = get_available_channels(credentials.user, credentials.password)
