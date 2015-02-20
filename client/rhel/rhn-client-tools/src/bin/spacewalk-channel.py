@@ -36,6 +36,36 @@ from up2date_client.rhnChannel import subscribeChannels, unsubscribeChannels, ge
 from up2date_client import up2dateAuth, config, up2dateErrors, rhncli, rhnserver
 
 
+class Credentials(object):
+    def __init__(self, username=None, password=None):
+        if username is not None:
+            self.user = username
+        if password is not None:
+            self.password = password
+
+    def __getattr__(self, attr):
+        if attr == 'user':
+            tty = open("/dev/tty", "r+")
+            tty.write('Username: ')
+            tty.close()
+            setattr(self, 'user', sys.stdin.readline().rstrip('\n'))
+            return self.user
+        elif attr == 'password':
+            # force user population
+            _user = self.user
+
+            setattr(self, 'password', getpass.getpass())
+            return self.password
+        else:
+            raise AttributeError(attr)
+
+    def user_callback(self, _option, _opt_str, value, _parser):
+        self.user = value
+
+    def password_callback(self, _option, _opt_str, value, _parser):
+        self.password = value
+
+
 def systemExit(code, msgs=None):
     "Exit with a code and optional message(s). Saved a few lines of code."
     if msgs is not None:
@@ -49,7 +79,9 @@ def systemExit(code, msgs=None):
 
 
 def processCommandline():
-    "process the commandline, setting the OPTIONS object"
+    "process the command-line"
+    credentials = Credentials()
+
     optionsTable = [
         Option('-c', '--channel',         action='append',
             help=_('name of channel you want to (un)subscribe')),
@@ -65,25 +97,24 @@ def processCommandline():
             help=_('list all available child channels')),
         Option('-v', '--verbose',         action='store_true',
             help=_('verbose output')),
-        Option('-u', '--user',            action='store',
-            help=_('your user name')),
-        Option('-p', '--password',        action='store',
-            help=_('your password')),
+        Option('-u', '--user', action='callback', callback=credentials.user_callback,
+               nargs=1, type='string', help=_('your user name')),
+        Option('-p', '--password', action='callback', callback=credentials.password_callback,
+               nargs=1, type='string', help=_('your password')),
     ]
     optionParser = OptionParser(option_list=optionsTable)
-    global OPTIONS
-    OPTIONS, args = optionParser.parse_args()
+    opts, args = optionParser.parse_args()
 
     # we take no extra commandline arguments that are not linked to an option
     if args:
         systemExit(1, _("ERROR: these arguments make no sense in this context (try --help)"))
-    if not OPTIONS.user and not OPTIONS.list and not OPTIONS.base:
-        tty = open("/dev/tty", "r+")
-        tty.write('Username: ')
-        tty.close()
-        OPTIONS.user = sys.stdin.readline().rstrip('\n')
-    if not OPTIONS.password and not OPTIONS.list and not OPTIONS.base:
-        OPTIONS.password = getpass.getpass()
+
+    # remove confusing stuff
+    delattr(opts, 'user')
+    delattr(opts, 'password')
+
+    return opts, credentials
+
 
 def get_available_channels(user, password):
     """ return list of available child channels """
@@ -118,27 +149,29 @@ def need_channel(channel):
         systemExit(4, _("ERROR: you have to specify at least one channel"))
 
 def main():
-    if OPTIONS.add:
-        need_channel(OPTIONS.channel)
-        result = subscribeChannels(OPTIONS.channel, OPTIONS.user, OPTIONS.password)
-        if OPTIONS.verbose:
+    options, credentials = processCommandline()
+
+    if options.add:
+        need_channel(options.channel)
+        result = subscribeChannels(options.channel, credentials.user, credentials.password)
+        if options.verbose:
             if result == 0:
-                print _("Channel(s): %s successfully added") % ', '.join(OPTIONS.channel)
+                print _("Channel(s): %s successfully added") % ', '.join(options.channel)
             else:
-                sys.stderr.write(rhncli.utf8_encode(_("Error during adding channel(s) %s") % ', '.join(OPTIONS.channel)))
+                sys.stderr.write(rhncli.utf8_encode(_("Error during adding channel(s) %s") % ', '.join(options.channel)))
         if result != 0:
             sys.exit(result)
-    elif OPTIONS.remove:
-        need_channel(OPTIONS.channel)
-        result = unsubscribeChannels(OPTIONS.channel, OPTIONS.user, OPTIONS.password)
-        if OPTIONS.verbose:
+    elif options.remove:
+        need_channel(options.channel)
+        result = unsubscribeChannels(options.channel, credentials.user, credentials.password)
+        if options.verbose:
             if result == 0:
-                print _("Channel(s): %s successfully removed") % ', '.join(OPTIONS.channel)
+                print _("Channel(s): %s successfully removed") % ', '.join(options.channel)
             else:
-                sys.stderr.write(rhncli.utf8_encode(_("Error during removal of channel(s) %s") % ', '.join(OPTIONS.channel)))
+                sys.stderr.write(rhncli.utf8_encode(_("Error during removal of channel(s) %s") % ', '.join(options.channel)))
         if result != 0:
             sys.exit(result)
-    elif OPTIONS.list:
+    elif options.list:
         try:
             channels = map(lambda x: x['label'], getChannels().channels())
         except up2dateErrors.NoChannelsError:
@@ -147,7 +180,7 @@ def main():
             systemExit(1, _('Unable to locate SystemId file. Is this system registered?'))
         channels.sort()
         print '\n'.join(channels)
-    elif OPTIONS.base:
+    elif options.base:
         try:
             for channel in getChannels().channels():
                 # Base channel has no parent
@@ -158,8 +191,8 @@ def main():
         except up2dateErrors.NoSystemIdError:
             systemExit(1, 'Unable to locate SystemId file. Is this system registered?')
 
-    elif OPTIONS.available_channels:
-        channels = get_available_channels(OPTIONS.user, OPTIONS.password)
+    elif options.available_channels:
+        channels = get_available_channels(credentials.user, credentials.password)
         channels.sort()
         print '\n'.join(channels)
     else:
@@ -171,7 +204,6 @@ if __name__ == '__main__':
         systemExit(8, _('ERROR: must be root to execute\n'))
     try:
         sys.excepthook = rhncli.exceptionHandler
-        processCommandline()
         main()
     except KeyboardInterrupt:
         systemExit(0, "\n" + _("User interrupted process."))
