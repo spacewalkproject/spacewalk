@@ -60,7 +60,7 @@ class Spacewalk(dnf.Plugin):
         self.stored_channels_path = os.path.join(self.base.conf.persistdir,
                                                  STORED_CHANNELS_NAME)
         self.connected_to_spacewalk = False
-        self.timeout = 300
+        self.timeout = self.base.conf.timeout
         self.up2date_cfg = {}
         self.conf = dnf.conf.Conf()
         self.read_config(self.conf, PLUGIN_CONF)
@@ -74,9 +74,6 @@ class Spacewalk(dnf.Plugin):
         sslcacert = None
         force_http = 0
         proxy_url = None
-        # set timeout according to config once BZ#1175466 is fixed
-        #self.timeout = 300
-        import pdb; pdb.set_trace()
         cached_channels = self._read_channels_file()
         if not self.cli.demands.sack_activation:
             # no network communication, use list of channels from persistdir
