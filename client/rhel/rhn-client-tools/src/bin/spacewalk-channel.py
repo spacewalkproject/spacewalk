@@ -24,8 +24,7 @@ from rhn import rpclib
 from optparse import Option, OptionParser
 
 import gettext
-t = gettext.translation('rhn-client-tools', fallback=True)
-_ = t.ugettext
+_ = gettext.translation('rhn-client-tools', fallback=True).ugettext
 
 _LIBPATH = "/usr/share/rhn"
 # add to the path if need be
