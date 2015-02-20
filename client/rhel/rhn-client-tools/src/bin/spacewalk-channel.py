@@ -47,9 +47,6 @@ def systemExit(code, msgs=None):
              sys.stderr.write(rhncli.utf8_encode(msg) + "\n")
      sys.exit(code)
 
-# quick check to see if you are a super-user.
-if os.getuid() != 0:
-    systemExit(8, _('ERROR: must be root to execute\n'))
 
 def processCommandline():
     "process the commandline, setting the OPTIONS object"
@@ -169,12 +166,19 @@ def main():
     else:
         systemExit(3, _("ERROR: you may want to specify --add, --remove or --list"))
 
-try:
-    sys.excepthook = rhncli.exceptionHandler
-    processCommandline()
-    main()
-except KeyboardInterrupt:
-    systemExit(0, "\n" + _("User interrupted process."))
-except up2dateErrors.RhnServerException, e:
-    # do not print traceback, it will scare people
-    systemExit(1, e)
+if __name__ == '__main__':
+    # quick check to see if you are a super-user.
+    if os.getuid() != 0:
+        systemExit(8, _('ERROR: must be root to execute\n'))
+    try:
+        sys.excepthook = rhncli.exceptionHandler
+        processCommandline()
+        main()
+    except KeyboardInterrupt:
+        systemExit(0, "\n" + _("User interrupted process."))
+    except up2dateErrors.RhnServerException, e:
+        # do not print traceback, it will scare people
+        systemExit(1, e)
+else:
+    # If you need some code from here, separate it to some proper place...
+    raise ImportError('This was never supposed to be called as library')
