@@ -82,20 +82,20 @@ def processCommandline():
     credentials = Credentials()
 
     optionsTable = [
-        Option('-c', '--channel',         action='append',
-            help=_('name of channel you want to (un)subscribe')),
-        Option('-a', '--add',             action='store_true',
-            help=_('subscribe to channel')),
-        Option('-r', '--remove',          action='store_true',
-            help=_('unsubscribe from channel')),
-        Option('-l', '--list',            action='store_true',
-            help=_('list channels')),
-        Option('-b', '--base',            action='store_true',
-            help=_('show base channel of a system')),
+        Option('-c', '--channel', action='append',
+               help=_('name of channel you want to (un)subscribe')),
+        Option('-a', '--add', action='store_true',
+               help=_('subscribe to channel')),
+        Option('-r', '--remove', action='store_true',
+               help=_('unsubscribe from channel')),
+        Option('-l', '--list', action='store_true',
+               help=_('list channels')),
+        Option('-b', '--base', action='store_true',
+               help=_('show base channel of a system')),
         Option('-L', '--available-channels', action='store_true',
-            help=_('list all available child channels')),
-        Option('-v', '--verbose',         action='store_true',
-            help=_('verbose output')),
+               help=_('list all available child channels')),
+        Option('-v', '--verbose', action='store_true',
+               help=_('verbose output')),
         Option('-u', '--user', action='callback', callback=credentials.user_callback,
                nargs=1, type='string', help=_('your user name')),
         Option('-p', '--password', action='callback', callback=credentials.password_callback,
@@ -142,10 +142,12 @@ def get_available_channels(user, password):
             result.extend([channel['label']])
     return result
 
+
 def need_channel(channel):
     """ die gracefully if channel is empty """
     if not channel:
         systemExit(4, _("ERROR: you have to specify at least one channel"))
+
 
 def main():
     options, credentials = processCommandline()
