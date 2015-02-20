@@ -87,7 +87,6 @@ def processCommandline():
 
 def get_available_channels(user, password):
     """ return list of available child channels """
-    cfg = config.initUp2dateConfig()
     modified_servers = []
     servers = config.getServerlURL()
     for server in servers:
