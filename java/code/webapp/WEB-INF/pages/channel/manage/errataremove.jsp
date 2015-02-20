@@ -26,7 +26,7 @@
                         <hr />
                         <input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='channel.jsp.errata.remove'/>"
                             <c:choose>
-                                <c:when test="${empty errata_data}">disabled</c:when>
+                                <c:when test="${empty pageList}">disabled</c:when>
                             </c:choose>
                         >
                         </div>
