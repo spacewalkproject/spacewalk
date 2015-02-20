@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.143
+Version: 2.3.144
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -788,6 +788,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 20 2015 Tomas Lestach <tlestach@redhat.com> 2.3.144-1
+- enable 'Remove Errata' button on the
+  /rhn/channels/manage/errata/ListRemove.do page
+- fix ISE on /rhn/channels/manage/errata/ListRemove.do page
+
 * Thu Feb 19 2015 Grant Gainey 2.3.143-1
 - 1194418 - API call channel.software.clone does not work as expected for child
   channels.
