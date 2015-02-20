@@ -144,7 +144,7 @@ def get_available_channels(user, password):
     return result
 
 def need_channel(channel):
-    """ die gracefuly if channel is empty """
+    """ die gracefully if channel is empty """
     if not channel:
         systemExit(4, _("ERROR: you have to specify at least one channel"))
 
