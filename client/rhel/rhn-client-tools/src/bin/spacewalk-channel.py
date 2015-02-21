@@ -157,6 +157,15 @@ def need_channel(channel):
         systemExit(4, _("ERROR: you have to specify at least one channel"))
 
 
+def add_channel(channels, credentials):
+    need_channel(channels)
+    result = subscribeChannels(channels, credentials.user, credentials.password)
+    if result == 0:
+        info(_("Channel(s): %s successfully added") % ', '.join(channels))
+    else:
+        systemExit(result, _("Error during adding channel(s) %s") % ', '.join(channels))
+
+
 def main():
     options, credentials = processCommandline()
 
@@ -164,15 +173,7 @@ def main():
         VERBOSE = True
 
     if options.add:
-        need_channel(options.channel)
-        result = subscribeChannels(options.channel, credentials.user, credentials.password)
-        if options.verbose:
-            if result == 0:
-                print _("Channel(s): %s successfully added") % ', '.join(options.channel)
-            else:
-                sys.stderr.write(rhncli.utf8_encode(_("Error during adding channel(s) %s") % ', '.join(options.channel)))
-        if result != 0:
-            sys.exit(result)
+        add_channel(options.channel, credentials)
     elif options.remove:
         need_channel(options.channel)
         result = unsubscribeChannels(options.channel, credentials.user, credentials.password)
