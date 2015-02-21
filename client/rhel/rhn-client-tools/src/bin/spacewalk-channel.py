@@ -166,6 +166,15 @@ def add_channel(channels, credentials):
         systemExit(result, _("Error during adding channel(s) %s") % ', '.join(channels))
 
 
+def remove_chennel(channels, credentials):
+    need_channel(channels)
+    result = unsubscribeChannels(channels, credentials.user, credentials.password)
+    if result == 0:
+        info(_("Channel(s): %s successfully removed") % ', '.join(channels))
+    else:
+        systemExit(result, _("Error during removal of channel(s) %s") % ', '.join(channels))
+
+
 def main():
     options, credentials = processCommandline()
 
@@ -175,15 +184,7 @@ def main():
     if options.add:
         add_channel(options.channel, credentials)
     elif options.remove:
-        need_channel(options.channel)
-        result = unsubscribeChannels(options.channel, credentials.user, credentials.password)
-        if options.verbose:
-            if result == 0:
-                print _("Channel(s): %s successfully removed") % ', '.join(options.channel)
-            else:
-                sys.stderr.write(rhncli.utf8_encode(_("Error during removal of channel(s) %s") % ', '.join(options.channel)))
-        if result != 0:
-            sys.exit(result)
+        remove_chennel(options.channel, credentials)
     elif options.list:
         try:
             channels = map(lambda x: x['label'], getChannels().channels())
