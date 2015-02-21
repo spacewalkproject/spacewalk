@@ -157,6 +157,12 @@ def need_channel(channel):
         systemExit(4, _("ERROR: you have to specify at least one channel"))
 
 
+def no_channels(channels):
+    """ for actions that does not require channel as a parameter """
+    if channels:
+        systemExit(4, _("ERROR: this action does not require channel"))
+
+
 def add_channel(channels, credentials):
     need_channel(channels)
     result = subscribeChannels(channels, credentials.user, credentials.password)
@@ -215,10 +221,13 @@ def main():
     elif options.remove:
         remove_chennel(options.channel, credentials)
     elif options.list:
+        no_channels(option.channel)
         list_channels()
     elif options.base:
+        no_channels(option.channel)
         list_base_channels()
     elif options.available_channels:
+        no_channels(option.channel)
         list_available_channels(credentials)
     else:
         systemExit(3, _("ERROR: you may want to specify --add, --remove or --list"))
