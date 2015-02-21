@@ -90,7 +90,7 @@ def processCommandline():
     credentials = Credentials()
 
     optionsTable = [
-        Option('-c', '--channel', action='append',
+        Option('-c', '--channel', action='append', dest='channels',
                help=_('name of channel you want to (un)subscribe')),
         Option('-a', '--add', action='store_true',
                help=_('subscribe to channel')),
@@ -207,17 +207,17 @@ def main():
         VERBOSE = True
 
     if options.add:
-        add_channel(options.channel, credentials)
+        add_channel(options.channels, credentials)
     elif options.remove:
-        remove_chennel(options.channel, credentials)
+        remove_chennel(options.channels, credentials)
     elif options.list:
-        no_channels(option.channel)
+        no_channels(option.channels)
         list_channels()
     elif options.base:
-        no_channels(option.channel)
+        no_channels(option.channels)
         list_channels(only_base_channels=True)
     elif options.available_channels:
-        no_channels(option.channel)
+        no_channels(option.channels)
         list_available_channels(credentials)
     else:
         systemExit(3, _("ERROR: you may want to specify --add, --remove or --list"))
