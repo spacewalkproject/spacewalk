@@ -198,6 +198,12 @@ def list_base_channels():
         systemExit(1, _('Unable to locate SystemId file. Is this system registered?'))
 
 
+def list_available_channels(credentials):
+    channels = get_available_channels(credentials.user, credentials.password)
+    channels.sort()
+    print '\n'.join(channels)
+
+
 def main():
     options, credentials = processCommandline()
 
@@ -213,9 +219,7 @@ def main():
     elif options.base:
         list_base_channels()
     elif options.available_channels:
-        channels = get_available_channels(credentials.user, credentials.password)
-        channels.sort()
-        print '\n'.join(channels)
+        list_available_channels(credentials)
     else:
         systemExit(3, _("ERROR: you may want to specify --add, --remove or --list"))
 
