@@ -1393,7 +1393,7 @@ EOQ
     $dbh->disconnect();
 
     my $version = join('.', (split(/\./, $v))[0 .. 2]);
-    my @allowed_db_versions = qw/11.2.0 11.1.0 10.2.0/;
+    my @allowed_db_versions = qw/12.1.0 11.2.0 11.1.0 10.2.0/;
 
     unless (grep { $version eq $_ } @allowed_db_versions) {
         die "Version [$version] is not supported (does not match "
