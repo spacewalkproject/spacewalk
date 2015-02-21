@@ -186,6 +186,18 @@ def list_channels():
     print '\n'.join(channels)
 
 
+def list_base_channels():
+    try:
+        for channel in getChannels().channels():
+            # Base channel has no parent
+            if not channel['parent_channel']:
+                print channel['label']
+    except up2dateErrors.NoChannelsError:
+        systemExit(1, _('This system is not associated with any channel.'))
+    except up2dateErrors.NoSystemIdError:
+        systemExit(1, _('Unable to locate SystemId file. Is this system registered?'))
+
+
 def main():
     options, credentials = processCommandline()
 
@@ -199,16 +211,7 @@ def main():
     elif options.list:
         list_channels()
     elif options.base:
-        try:
-            for channel in getChannels().channels():
-                # Base channel has no parent
-                if not channel['parent_channel']:
-                    print channel['label']
-        except up2dateErrors.NoChannelsError:
-            systemExit(1, _('This system is not associated with any channel.'))
-        except up2dateErrors.NoSystemIdError:
-            systemExit(1, _('Unable to locate SystemId file. Is this system registered?'))
-
+        list_base_channels()
     elif options.available_channels:
         channels = get_available_channels(credentials.user, credentials.password)
         channels.sort()
