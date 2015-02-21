@@ -65,6 +65,14 @@ class Credentials(object):
         self.password = value
 
 
+VERBOSE = False
+
+
+def info(text):
+    if VERBOSE:
+        print text
+
+
 def systemExit(code, msgs=None):
     "Exit with a code and optional message(s). Saved a few lines of code."
     if msgs is not None:
@@ -151,6 +159,9 @@ def need_channel(channel):
 
 def main():
     options, credentials = processCommandline()
+
+    if options.verbose:
+        VERBOSE = True
 
     if options.add:
         need_channel(options.channel)
