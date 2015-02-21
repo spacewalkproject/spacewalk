@@ -175,6 +175,17 @@ def remove_chennel(channels, credentials):
         systemExit(result, _("Error during removal of channel(s) %s") % ', '.join(channels))
 
 
+def list_channels():
+    try:
+        channels = map(lambda x: x['label'], getChannels().channels())
+    except up2dateErrors.NoChannelsError:
+        systemExit(1, _('This system is not associated with any channel.'))
+    except up2dateErrors.NoSystemIdError:
+        systemExit(1, _('Unable to locate SystemId file. Is this system registered?'))
+    channels.sort()
+    print '\n'.join(channels)
+
+
 def main():
     options, credentials = processCommandline()
 
@@ -186,14 +197,7 @@ def main():
     elif options.remove:
         remove_chennel(options.channel, credentials)
     elif options.list:
-        try:
-            channels = map(lambda x: x['label'], getChannels().channels())
-        except up2dateErrors.NoChannelsError:
-            systemExit(1, _('This system is not associated with any channel.'))
-        except up2dateErrors.NoSystemIdError:
-            systemExit(1, _('Unable to locate SystemId file. Is this system registered?'))
-        channels.sort()
-        print '\n'.join(channels)
+        list_channels()
     elif options.base:
         try:
             for channel in getChannels().channels():
