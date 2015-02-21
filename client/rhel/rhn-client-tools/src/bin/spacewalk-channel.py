@@ -237,4 +237,4 @@ if __name__ == '__main__':
         systemExit(1, e)
 else:
     # If you need some code from here, separate it to some proper place...
-    raise ImportError('This was never supposed to be called as library')
+    raise ImportError('This was never supposed to be used as a library')
