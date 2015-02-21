@@ -181,27 +181,17 @@ def remove_chennel(channels, credentials):
         systemExit(result, _("Error during removal of channel(s) %s") % ', '.join(channels))
 
 
-def list_channels():
+def list_channels(only_base_channels=False):
     try:
-        channels = map(lambda x: x['label'], getChannels().channels())
+        channels = getChannels().channels()
     except up2dateErrors.NoChannelsError:
         systemExit(1, _('This system is not associated with any channel.'))
     except up2dateErrors.NoSystemIdError:
         systemExit(1, _('Unable to locate SystemId file. Is this system registered?'))
-    channels.sort()
-    print '\n'.join(channels)
 
-
-def list_base_channels():
-    try:
-        for channel in getChannels().channels():
-            # Base channel has no parent
-            if not channel['parent_channel']:
-                print channel['label']
-    except up2dateErrors.NoChannelsError:
-        systemExit(1, _('This system is not associated with any channel.'))
-    except up2dateErrors.NoSystemIdError:
-        systemExit(1, _('Unable to locate SystemId file. Is this system registered?'))
+    for channel in sorted(channels):
+        if not (only_base_channels and channel.get('parent_channel')):
+            print channel('label')
 
 
 def list_available_channels(credentials):
@@ -225,7 +215,7 @@ def main():
         list_channels()
     elif options.base:
         no_channels(option.channel)
-        list_base_channels()
+        list_channels(only_base_channels=True)
     elif options.available_channels:
         no_channels(option.channel)
         list_available_channels(credentials)
