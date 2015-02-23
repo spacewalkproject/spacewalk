@@ -2920,7 +2920,8 @@
         input="/WEB-INF/pages/systems/sdc/proxyclients.jsp"
         type="com.redhat.rhn.frontend.action.systems.sdc.ProxyClientsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_channel_family(rhn-proxy)"/>
+        <set-property property="mixins" value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
+        <set-property property="acls" value="system_is_proxy()"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/sdc/proxyclients.jsp" />
     </action>
