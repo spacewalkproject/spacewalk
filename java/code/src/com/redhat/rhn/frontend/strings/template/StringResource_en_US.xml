@@ -377,9 +377,7 @@ your @@PRODUCT_NAME@@ administrator for further assistance.
 
 Thank you for using @@PRODUCT_NAME@@.
         </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">ForgotCredentials</context>
-          <context context-type="paramnotes">
+        <context-group name="ctx"><context context-type="sourcefile">ForgotCredentials</context><context context-type="paramnotes">
             {0} - Email address
             {1} - Hostname of the @@PRODUCT_NAME@@</context>
             {2} - Username

@@ -82,6 +82,10 @@
           <source>Monitoring</source>
           <target>Monitoring</target>
         </trans-unit>
+        <trans-unit id="nonlinux_entitled">
+          <source>Non-Linux</source>
+          <target>Linux 以外</target>
+        </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
           <target>Provisioning</target>
@@ -132,6 +136,13 @@
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT+0900) 日本</target>
+      </trans-unit>
+      <trans-unit id="Asia/Seoul">
+        <source>(GMT+0900) Korea</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+0900) 韓国</target>
       </trans-unit>
       <trans-unit id="Australia/Perth">
         <source>(GMT+0800) Australia (Western)</source>
@@ -377,6 +388,13 @@
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT-0700) アメリカ (アリゾナ)</target>
+      </trans-unit>
+      <trans-unit id="Asia/Riyadh">
+        <source>(GMT+0300) Saudi Arabia</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+0300) サウジアラビア</target>
       </trans-unit>
       <trans-unit id="Asia/Tehran">
         <source>(GMT+0330) Iran</source>
@@ -749,7 +767,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: ライブラリキャッシュミス比率</target>
+        <target>重大: ライブラリーキャッシュミス比率</target>
       </trans-unit>
       <trans-unit id="Critical Line Rate">
         <source>Critical Line Rate</source>
@@ -833,7 +851,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 使用中の物理メモリ</target>
+        <target>重大: 使用中の物理メモリー</target>
       </trans-unit>
       <trans-unit id="Critical Process Count">
         <source>Critical Process Count</source>
@@ -854,14 +872,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: クエリ率</target>
+        <target>重大: クエリー率</target>
       </trans-unit>
       <trans-unit id="Critical Query Time">
         <source>Critical Query Time</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: クエリ時間</target>
+        <target>重大: クエリー時間</target>
       </trans-unit>
       <trans-unit id="Critical Queue Length">
         <source>Critical Queue Length</source>
@@ -875,7 +893,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 空きメモリ</target>
+        <target>重大: 空きメモリー</target>
       </trans-unit>
       <trans-unit id="Critical Read Rate">
         <source>Critical Read Rate</source>
@@ -889,7 +907,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: やり直しバッファ割り当ての再試行</target>
+        <target>重大: やり直しバッファー割り当ての再試行</target>
       </trans-unit>
       <trans-unit id="Critical Redo Log Space Requests">
         <source>Critical Redo Log Space Requests</source>
@@ -1043,14 +1061,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 空き仮想メモリ率</target>
+        <target>重大: 空き仮想メモリー率</target>
       </trans-unit>
       <trans-unit id="Critical Virtual Memory Used">
         <source>Critical Virtual Memory Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 使用中の仮想メモリ</target>
+        <target>重大: 使用中の仮想メモリー</target>
       </trans-unit>
       <trans-unit id="Critical Waiters">
         <source>Critical Waiters</source>
@@ -1113,7 +1131,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>期待ヘッダ</target>
+        <target>期待ヘッダー</target>
       </trans-unit>
       <trans-unit id="Expected DB Name (V$DATABASE.NAME)">
         <source>Expected DB Name (V$DATABASE.NAME)</source>
@@ -1169,14 +1187,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>IP アドレス(オプション；デフォルトでホスト IP)</target>
+        <target>IP アドレス (オプション；デフォルトでホスト IP)</target>
       </trans-unit>
       <trans-unit id="Include reclaimable memory">
         <source>Include reclaimable memory</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>再生可能メモリを含む</target>
+        <target>再生可能メモリーを含む</target>
       </trans-unit>
       <trans-unit id="Index Name">
         <source>Index Name</source>
@@ -1246,14 +1264,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大レベル、 割り当てられたエクステント数が次より大きい場合</target>
+        <target>重大レベル、割り当てられたエクステント数が次より大きい場合</target>
       </trans-unit>
       <trans-unit id="Number of Allocated Extents Warn if Above">
         <source>Number of Allocated Extents Warn if Above</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告レベル、 割り当てられたエクステント数が次より大きい場合</target>
+        <target>警告レベル、割り当てられたエクステント数が次より大きい場合</target>
       </trans-unit>
       <trans-unit id="OK Exit Status">
         <source>OK Exit Status</source>
@@ -1428,7 +1446,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>SNMP コミュニティ文字列</target>
+        <target>SNMP コミュニティー文字列</target>
       </trans-unit>
       <trans-unit id="SNMP OID">
         <source>SNMP OID</source>
@@ -1841,7 +1859,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: ライブラリキャッシュミス比率</target>
+        <target>警告: ライブラリーキャッシュミス比率</target>
       </trans-unit>
       <trans-unit id="Warning Line Rate">
         <source>Warning Line Rate</source>
@@ -1904,7 +1922,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 使用中の物理メモリ</target>
+        <target>警告: 使用中の物理メモリー</target>
       </trans-unit>
       <trans-unit id="Warning Process Count">
         <source>Warning Process Count</source>
@@ -1918,14 +1936,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: クエリ率 </target>
+        <target>警告: クエリー率 </target>
       </trans-unit>
       <trans-unit id="Warning Query Time">
         <source>Warning Query Time</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: クエリ時間</target>
+        <target>警告: クエリー時間</target>
       </trans-unit>
       <trans-unit id="Warning Queue Length">
         <source>Warning Queue Length</source>
@@ -1939,7 +1957,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 空きメモリ</target>
+        <target>警告: 空きメモリー</target>
       </trans-unit>
       <trans-unit id="Warning Read Rate">
         <source>Warning Read Rate</source>
@@ -1953,7 +1971,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: やり直しバッファ割り当ての再試行</target>
+        <target>警告: やり直しバッファー割り当ての再試行</target>
       </trans-unit>
       <trans-unit id="Warning Redo Log Space Requests">
         <source>Warning Redo Log Space Requests</source>
@@ -2107,14 +2125,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 空き仮想メモリ率</target>
+        <target>警告: 空き仮想メモリー率</target>
       </trans-unit>
       <trans-unit id="Warning Virtual Memory Used">
         <source>Warning Virtual Memory Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 使用中の仮想メモリ</target>
+        <target>警告: 使用中の仮想メモリー</target>
       </trans-unit>
       <trans-unit id="Warning Waiters">
         <source>Warning Waiters</source>
@@ -2164,7 +2182,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>バッファキャッシュヒット比率</target>
+        <target>バッファーキャッシュヒット比率</target>
       </trans-unit>
       <trans-unit id="metrics.CLOSE_WAIT conns">
         <source>CLOSE_WAIT conns</source>
@@ -2409,7 +2427,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>ライブラリキャッシュミス比率</target>
+        <target>ライブラリーキャッシュミス比率</target>
       </trans-unit>
       <trans-unit id="metrics.Line rate">
         <source>Line rate</source>
@@ -2451,7 +2469,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>メモリ分別率</target>
+        <target>メモリー分別率</target>
       </trans-unit>
       <trans-unit id="metrics.Open objects">
         <source>Open objects</source>
@@ -2500,7 +2518,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>使用中の物理メモリ</target>
+        <target>使用中の物理メモリー</target>
       </trans-unit>
       <trans-unit id="metrics.Physical read rate">
         <source>Physical read rate</source>
@@ -2542,14 +2560,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>クエリ率</target>
+        <target>クエリー率</target>
       </trans-unit>
       <trans-unit id="metrics.Query time">
         <source>Query time</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>クエリ時間</target>
+        <target>クエリー時間</target>
       </trans-unit>
       <trans-unit id="metrics.Queue length">
         <source>Queue length</source>
@@ -2563,7 +2581,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>空きメモリ</target>
+        <target>空きメモリー</target>
       </trans-unit>
       <trans-unit id="metrics.Read rate">
         <source>Read rate</source>
@@ -2577,7 +2595,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>やり直しバッファ割り当ての再試行率</target>
+        <target>やり直しバッファー割り当ての再試行率</target>
       </trans-unit>
       <trans-unit id="metrics.Redo log space request rate">
         <source>Redo log space request rate</source>
@@ -2717,14 +2735,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>空き仮想メモリ率</target>
+        <target>空き仮想メモリー率</target>
       </trans-unit>
       <trans-unit id="metrics.Virtual memory used">
         <source>Virtual memory used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>使用中仮想メモリ</target>
+        <target>使用中仮想メモリー</target>
       </trans-unit>
       <trans-unit id="metrics.Waiters">
         <source>Waiters</source>
@@ -2815,7 +2833,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <note>Threshold types for threshold parameters
-                rhn_command_param_threshold.threshold_type_name -&gt; text
+		rhn_command_param_threshold.threshold_type_name -&gt; text
         </note>
         <trans-unit id="crit_max">
           <source>Critical if above</source>
@@ -2851,7 +2869,7 @@
         </trans-unit>
         <trans-unit id="Buffer Cache Hit Ratio">
           <source>Buffer Cache Hit Ratio</source>
-          <target>バッファキャッシュヒット比率</target>
+          <target>バッファーキャッシュヒット比率</target>
         </trans-unit>
         <trans-unit id="CLOSE_WAIT Connections">
           <source>CLOSE_WAIT Connections</source>
@@ -2963,7 +2981,7 @@
         </trans-unit>
         <trans-unit id="Library Cache Miss Ratio">
           <source>Library Cache Miss Ratio</source>
-          <target>ライブラリキャッシュミス比率</target>
+          <target>ライブラリーキャッシュミス比率</target>
         </trans-unit>
         <trans-unit id="Line Rate">
           <source>Line Rate</source>
@@ -2987,7 +3005,7 @@
         </trans-unit>
         <trans-unit id="Memory Sort Rate">
           <source>Memory Sort Rate</source>
-          <target>メモリ分別率</target>
+          <target>メモリー分別率</target>
         </trans-unit>
         <trans-unit id="Open Objects">
           <source>Open Objects</source>
@@ -3007,7 +3025,7 @@
         </trans-unit>
         <trans-unit id="Physical Memory Used">
           <source>Physical Memory Used</source>
-          <target>使用中の物理メモリ</target>
+          <target>使用中の物理メモリー</target>
         </trans-unit>
         <trans-unit id="Physical Read Rate">
           <source>Physical Read Rate</source>
@@ -3027,7 +3045,7 @@
         </trans-unit>
         <trans-unit id="Query Time">
           <source>Query Time</source>
-          <target>クエリ時間</target>
+          <target>クエリー時間</target>
         </trans-unit>
         <trans-unit id="Queue Length">
           <source>Queue Length</source>
@@ -3035,7 +3053,7 @@
         </trans-unit>
         <trans-unit id="RAM Free">
           <source>RAM Free</source>
-          <target>空きメモリ</target>
+          <target>空きメモリー</target>
         </trans-unit>
         <trans-unit id="Read Rate">
           <source>Read Rate</source>
@@ -3043,7 +3061,7 @@
         </trans-unit>
         <trans-unit id="Redo Buffer Allocation Retry Rate">
           <source>Redo Buffer Allocation Retry Rate</source>
-          <target>やり直しバッファ割り当ての再試行率</target>
+          <target>やり直しバッファー割り当ての再試行率</target>
         </trans-unit>
         <trans-unit id="Redo Log Space Request Rate">
           <source>Redo Log Space Request Rate</source>
@@ -3127,11 +3145,11 @@
         </trans-unit>
         <trans-unit id="Virtual Memory Free">
           <source>Virtual Memory Free</source>
-          <target>空き仮想メモリ</target>
+          <target>空き仮想メモリー</target>
         </trans-unit>
         <trans-unit id="Virtual Memory Used">
           <source>Virtual Memory Used</source>
-          <target>使用中の仮想メモリ</target>
+          <target>使用中の仮想メモリー</target>
         </trans-unit>
         <trans-unit id="Waiters">
           <source>Waiters</source>
@@ -3147,7 +3165,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <note>Units for metrics:
-                rhn_units.unit_id -&gt; '(' || rhn_units.description || ')'
+		rhn_units.unit_id -&gt; '(' || rhn_units.description || ')'
         </note>
         <trans-unit id="secs">
           <source>(Seconds)</source>
@@ -3326,7 +3344,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Command group names:
-                        rhn_command_groups.description -&gt; rhn_command_groups.description</note>
+			rhn_command_groups.description -&gt; rhn_command_groups.description</note>
         <trans-unit id="All">
           <source>All</source>
           <target>すべて</target>
@@ -3377,14 +3395,14 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Command names:
-                        rhn_command.description -&gt; rhn_command.description</note>
+			rhn_command.description -&gt; rhn_command.description</note>
         <trans-unit id="Active Sessions">
           <source>Active Sessions</source>
           <target>アクティブセッション</target>
         </trans-unit>
         <trans-unit id="Availability">
           <source>Availability</source>
-          <target>アベイラビリティ(可用性)</target>
+          <target>アベイラビリティー (可用性)</target>
         </trans-unit>
         <trans-unit id="Blocking Sessions">
           <source>Blocking Sessions</source>
@@ -3392,7 +3410,7 @@
         </trans-unit>
         <trans-unit id="Buffer Cache">
           <source>Buffer Cache</source>
-          <target>バッファキャッシュ</target>
+          <target>バッファーキャッシュ</target>
         </trans-unit>
         <trans-unit id="CPU Usage">
           <source>CPU Usage</source>
@@ -3488,7 +3506,7 @@
         </trans-unit>
         <trans-unit id="Library Cache">
           <source>Library Cache</source>
-          <target>ライブラリキャッシュ</target>
+          <target>ライブラリーキャッシュ</target>
         </trans-unit>
         <trans-unit id="Load">
           <source>Load</source>
@@ -3516,7 +3534,7 @@
         </trans-unit>
         <trans-unit id="Memory Usage">
           <source>Memory Usage</source>
-          <target>メモリ使用</target>
+          <target>メモリー使用</target>
         </trans-unit>
         <trans-unit id="Open Tables">
           <source>Open Tables</source>
@@ -3564,7 +3582,7 @@
         </trans-unit>
         <trans-unit id="Query Rate">
           <source>Query Rate</source>
-          <target>クエリ率</target>
+          <target>クエリー率</target>
         </trans-unit>
         <trans-unit id="RPC Service">
           <source>RPC Service</source>
@@ -3660,7 +3678,7 @@
         </trans-unit>
         <trans-unit id="Virtual Memory">
           <source>Virtual Memory</source>
-          <target>仮想メモリ</target>
+          <target>仮想メモリー</target>
         </trans-unit>
         <trans-unit id="Web server (HTTP)">
           <source>Web server (HTTP)</source>

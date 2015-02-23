@@ -230,24 +230,21 @@ Summary:
       </context>
           </context-group>
           <target>
-@@PRODUCT_NAME@@ 已經決定，以下建議可套用在
-您已註冊的一或多台系統上：
+@@PRODUCT_NAME@@ ?????????????
+?????????????
 
-您可以在以下位置找到此勘誤的完整資訊：
-
+???????????????????
      {0}
 
 {1} - {2}
 ------------------------------------------------------------------------------
-摘要：
+???
 {3}
 
 {4} {5} {6}
 {7}
 ------------------------------------------------------------------------------
-
-
-</target>
+    </target>
         </trans-unit>
         <trans-unit id="email.errata.notification.body.affectedheader">
           <source>
@@ -261,13 +258,13 @@ package profile for that server is out of date. In that case you should run
     </source>
           <target>
 ---------------------
-受影響系統的清單
+????????
 ---------------------¶
-此勘誤建議可能可以套用到以下系統。如果您知道此勘誤無法套用到列出的系統，可能
-是因為該伺服器的套件設定檔已經過期。在此情況下，請在出問題的系統上，以 root 身
-分執行 「up2date -p」（RHEL 4 以下）或「rhn-profile-sync」（RHEL 5 以上），更新
-軟體設定檔。
-</target>
+??????????????????????????????????????
+??????????????????????????????????? root ?
+??? ?up2date -p??RHEL 4 ?????rhn-profile-sync??RHEL 5 ??????
+??????
+    </target>
         </trans-unit>
         <trans-unit id="email.errata.notification.body.onesystem">
           <source>
@@ -275,8 +272,9 @@ There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).
     </source>
           <target>
-「概覽」中有一台受影響的系統（只有
-您特別啟用勘誤警示的系統才會出現）。</target>
+?????????????????
+??????????????????
+    </target>
         </trans-unit>
         <trans-unit id="email.errata.notification.body.numsystems">
           <source>
@@ -289,8 +287,9 @@ which you have explicitly enabled Errata Alerts are shown).
       </context>
           </context-group>
           <target>
-「概覽」中有 {0} 台受影響的系統（只有
-您特別啟用勘誤警示的系統才會出現）。</target>
+?????? {0} ??????????
+??????????????????
+    </target>
         </trans-unit>
         <trans-unit id="email.errata.notification.body.affected">
           <source>
@@ -314,16 +313,19 @@ You may address the issues outlined in this advisory in two ways:
       </context>
           </context-group>
           <target>
-  版本     架構       設定檔名稱
+  ??     ??       ?????
 ---------- ---------- ---------------------------------------------
 {0}
 
-您可以透過兩種方式，解決此問題：
+????????????????
 
-     - 從以下位置的清單點選伺服器名稱，然後排程更新勘誤：
+     - ??????????
+       ??????????
+       ?????
            {1}
 
-     - 在受影響的系統上，執行更新代理程式。</target>
+     - ??????????????????
+    </target>
         </trans-unit>
         <trans-unit id="email.errata.notification.body.preferences">
           <source>
@@ -349,19 +351,20 @@ click the "Details" tab.
       </context>
           </context-group>
           <target>
-變更通知的偏好設定
+?????????
 ---------------------------------
-要啟用 / 停用勘誤警示的全域偏好設定，請登入 @@PRODUCT_NAME@@
-然後從「概觀」-&gt; 「您的帳號」連至「偏好設定」分頁。
+??? / ????????????????? @@PRODUCT_NAME@@
+???????-&gt; ?????????????????
 
-        網址：{0}
+        ???{0}
 
-您也可以啟用 / 停用每台系統的通知，方法是從「系統清單」中選擇單一系統，然後點
-選「詳細資料」分頁。
+?????? / ?????????????
+??????????????????
+??????????
 
 {1}
 {2}
-</target>
+    </target>
         </trans-unit>
       </group>
       <trans-unit id="dailysummary.email.subject">
@@ -530,6 +533,99 @@ until your certificate is renewed.</source>
 這封電子郵件是為了通知您，您的 @@PRODUCT_NAME@@ 憑證已於 {0} 伺服器上過
 期。在您更新憑證之前，將
 無法存取系統管理服務。</target>
+      </trans-unit>
+      <trans-unit id="email.forgotten.password">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+Your @@PRODUCT_NAME@@ password has been reset.  To sign in, go to:
+
+https://{1}/
+
+And use the following username and password:
+
+Username: {2}
+Password: {3}
+
+Once you have logged in, you may then change your password.
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx"><context context-type="sourcefile">ForgotCredentials</context><context context-type="paramnotes">
+            {0} - Email address
+            {1} - Hostname of the @@PRODUCT_NAME@@</context>
+            {2} - Username
+            {3} - Password
+        </context-group>
+        <target>
+【這是根據您的要求，自動發給 {0} 的信件。】
+
+您的 @@PRODUCT_NAME@@ 密碼已經重設。要登入的話，請連上：:
+
+https://{1}/
+
+並使用以下使用者名稱與密碼：
+
+使用者名稱：{2}
+使用者密碼：{3}
+
+登入後，請變更密碼。
+
+如果您仍有登入上的問題，請聯絡 @@PRODUCT_NAME@@
+管理者尋求幫助。
+
+謝謝您使用 @@PRODUCT_NAME@@。
+        </target>
+      </trans-unit>
+      <trans-unit id="email.forgotten.logins">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+You have requested a list of all @@PRODUCT_NAME@@ logins associated
+with the email address {0}.
+
+Existing login(s):
+
+{1}
+You may reset the passwords for any of the above @@PRODUCT_NAME@@ logins at:
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+If you did not request this email be sent, please disregard this message.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">ForgotCredentials</context>
+          <context context-type="paramnotes">
+            {0} - Email address
+            {1} - Existing logins
+            {2} - Hostname of the @@PRODUCT_NAME@@</context>
+        </context-group>
+        <target>
+【這是根據您的要求，自動發給 {0} 的信件。】
+
+您要求的是與電子郵件信箱 {0} 相關連的
+@@PRODUCT_NAME@@ 登入清單。
+
+現有登入：
+
+{1}
+您可以透過以下網址，重設任何上述 @@PRODUCT_NAME@@ 的登入：
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+如果您仍有登入上的問題，請聯絡 @@PRODUCT_NAME@@
+管理者尋求協助。
+如果您並未要求這封郵件，請予以忽略。
+
+謝謝您使用 @@PRODUCT_NAME@@。
+        </target>
       </trans-unit>
     </body>
   </file>

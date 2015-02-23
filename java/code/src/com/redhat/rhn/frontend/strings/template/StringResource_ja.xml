@@ -229,7 +229,7 @@ Summary:
       </context>
           </context-group>
           <target>
-@@PRODUCT_NAME@@ は以下のアドバイザリが、登録した 1 つまたは複数のシステムに
+@@PRODUCT_NAME@@ は以下のアドバイザリーが、登録した 1 つまたは複数のシステムに
 適用可能であると判断しました。
 
 このエラータに関する完全な情報は以下の場所で見つけることができます。
@@ -259,7 +259,7 @@ package profile for that server is out of date. In that case you should run
 ---------------------
 影響を受けるシステムのリスト
 ---------------------
-このエラータアドバイザリは、以下に表示されるシステムに適用できます。
+このエラータアドバイザリーは、以下に表示されるシステムに適用できます。
 リストされたシステムにこのエラータを適用しない場合は、該当するサーバーのパッケージプロファイルが古い
 可能性があります。この場合は、該当するシステムで root として 'up2date -p' (RHEL 4 以下) または
 'rhn-profile-sync' (RHEL 5 以上) を実行し、ソフトウェアプロファイルを更新する必要があります。
@@ -316,7 +316,7 @@ You may address the issues outlined in this advisory in two ways:
 ---------- ---------- ---------------------------------------------
 {0}
 
-このアドバイザリで簡単に説明された問題は次の 2 つの方法で解決できます。
+このアドバイザリーで簡単に説明された問題は次の 2 つの方法で解決できます。
 
     -以下の場所で利用可能なリストからサーバー名をクリックして
     サーバー名を選択し、そのエラータ更新をスケジュール
@@ -412,7 +412,7 @@ Thank you for using @@PRODUCT_NAME@@.
 この電子メールは以下のいずれかの状況に該当する場合に送信されます。
 
 1. システムが、24 時間以内に @@PRODUCT_NAME@@ にチェックインするのに失敗する。
-2. システムが、スケジュールされた動作アクティビティを登録する。
+2. システムが、スケジュールされた動作アクティビティーを登録する。
 
 {2}
 {3}
@@ -512,7 +512,7 @@ and will soon stop functioning.</source>
 @@PRODUCT_NAME@@ ユーザー各位
 
 この電子メールは @@PRODUCT_NAME@@ 証明書の有効期限がご使用の
- {0} サーバーで切れていることを通知するために送信されています。ご使用のサテライトは {2} 日の
+ {0} サーバーで切れていることを通知するために送信されています。ご使用の Satellite は {2} 日の
 制限期間の {1} 日目で、まもなく機能を停止します。</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.expired.body">
@@ -532,6 +532,96 @@ until your certificate is renewed.</source>
 この電子メールは @@PRODUCT_NAME@@ 証明書の有効期限がご使用の {0} サーバーで
 切れていることを通知するために送信されています。証明書が更新されるまでシステム管理サービスには
 アクセスできません。 </target>
+      </trans-unit>
+      <trans-unit id="email.forgotten.password">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+Your @@PRODUCT_NAME@@ password has been reset.  To sign in, go to:
+
+https://{1}/
+
+And use the following username and password:
+
+Username: {2}
+Password: {3}
+
+Once you have logged in, you may then change your password.
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx"><context context-type="sourcefile">ForgotCredentials</context><context context-type="paramnotes">
+            {0} - Email address
+            {1} - Hostname of the @@PRODUCT_NAME@@</context>
+            {2} - Username
+            {3} - Password
+        </context-group>
+        <target>
+[ これは、ご依頼により {0} に自動的に送信される電子メールです。]
+
+ご使用の @@PRODUCT_NAME@@ パスワードがリセットされました。サインインするには、以下に移動してください:
+
+https://{1}/
+
+さらに、以下のユーザー名とパスワードを使用してください:
+
+ユーザー名: {2}
+パスワード: {3}
+
+ログインした後に、パスワードを変更することができます。
+
+ログインに問題がある場合には、@@PRODUCT_NAME@@ 管理者にお問い合わせください。
+
+@@PRODUCT_NAME@@ をご使用いただき、誠にありがとうございます。
+        </target>
+      </trans-unit>
+      <trans-unit id="email.forgotten.logins">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+You have requested a list of all @@PRODUCT_NAME@@ logins associated
+with the email address {0}.
+
+Existing login(s):
+
+{1}
+You may reset the passwords for any of the above @@PRODUCT_NAME@@ logins at:
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+If you did not request this email be sent, please disregard this message.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">ForgotCredentials</context>
+          <context context-type="paramnotes">
+            {0} - Email address
+            {1} - Existing logins
+            {2} - Hostname of the @@PRODUCT_NAME@@</context>
+        </context-group>
+        <target>
+[ これは、ご依頼により {0} に自動的に送信される電子メールです。]
+
+ユーザー様より、電子メールアドレス {0} に関連するすべての @@PRODUCT_NAME@@ ログインの一覧についてのリクエストをいただいております。
+
+既存のログイン:
+
+{1}
+上記の @@PRODUCT_NAME@@ ログインのいずれのパスワードも、以下でリセットできます:
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+ログインに問題がある場合には、@@PRODUCT_NAME@@ 管理者にお問い合わせください。
+この電子メールの送信をリクエストされなかった場合は、このメッセージを無視してください。
+
+@@PRODUCT_NAME@@ をご使用いただき、誠にありがとうございます。
+        </target>
       </trans-unit>
     </body>
   </file>

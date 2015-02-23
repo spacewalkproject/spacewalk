@@ -2006,7 +2006,7 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
       <trans-unit id="cobbler.snippet.invalidfilename.message">
-        <source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/), quote (&quot;), ampersand (&amp;), or begin with a period(.)</source>
+        <source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/), quote ("), ampersand (&amp;), or begin with a period(.)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Kickstart Profile Details pages.</context>
         </context-group>
@@ -5945,10 +5945,10 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="config_target_systems.subscribeSystems.failure">
         <source>Failed to subscribe {0} system(s).</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-            <context context-type="paramnotes">7 revision deletions failed.</context>
-          </context-group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
+          <context context-type="paramnotes">7 revision deletions failed.</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="config_target_systems.subscribeSystems.success">
         <source>Successfully subscribed {0} system(s).</source>
@@ -6504,15 +6504,15 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="file_lists.success">
         <source>{0} File List(s) deleted.</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-          </context-group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="file_lists.failure">
         <source>{0} File List(s) could not be deleted.</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-          </context-group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="cobbler.powermanagement.poweron">
         <source>Power On</source>

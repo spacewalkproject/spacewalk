@@ -9,7 +9,7 @@
           <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
           <context context-type="sourcefile">/users/ChangeEmail.do</context>
         </context-group>
-        <target>Ваша учетная запись @@PRODUCT_NAME@@ готова</target>
+        <target>Учетная запись @@PRODUCT_NAME@@ создана</target>
       </trans-unit>
       <trans-unit id="email.newaccountbycreator.body">
         <source>Hello,
@@ -43,13 +43,13 @@ Thank you for using @@PRODUCT_NAME@@.
         </context-group>
         <target>Здравствуйте,
 
-Имя входа Red Hat успешно создано с помощью {0} {1}. Имя входа Red Hat
-в совокупности с активной подпиской Red Hat обеспечивает доступ
-к управлению системами в @@PRODUCT_NAME@@.
+Имя входа Red Hat успешно создано с помощью {0} {1}.
+Имя входа Red Hat в совокупности с активной подпиской Red Hat
+обеспечивает доступ к управлению системами в @@PRODUCT_NAME@@.
 
   Имя пользователя: {2}
        Пароль: {3}
-       Email: {4}
+       Электронный адрес: {4}
 
   {5}
 
@@ -94,9 +94,9 @@ Thank you for using @@PRODUCT_NAME@@.
 в совокупности с активной подпиской Red Hat обеспечивает доступ
 к управлению системами в @@PRODUCT_NAME@@.
 
-  Имя входа Red Hat: {0}
+  Имя пользователя: {0}
        Пароль: {1}
-     Email: {2}
+     Электронный адрес: {2}
 
   {3}
 
@@ -138,8 +138,8 @@ Thank you for using @@PRODUCT_NAME@@.
 Имя входа Red Hat в совокупности с активной подпиской Red Hat
 обеспечивает доступ к управлению системами в @@PRODUCT_NAME@@.
 
-  Имя пользователя Red Hat: {2}
-    Email: {4}
+  Имя пользователяt: {2}
+    Электронный адрес: {4}
 
   {5}
 
@@ -154,7 +154,7 @@ Thank you for using @@PRODUCT_NAME@@.
           <context context-type="sourcefile">/users/ChangeEmail.do</context>
           <context context-type="paramnotes">@@PRODUCT_NAME@@ User Created: dugb (Bordon, Duglas &lt;dugb@meko.com&gt;)</context>
         </context-group>
-        <target>Создан пользователь @@PRODUCT_NAME@@: {0} ({1}, {2} &lt;{3}&gt;)</target>
+        <target>Пользователь @@PRODUCT_NAME@@ создан: {0} ({1}, {2} &lt;{3}&gt;)</target>
       </trans-unit>
       <trans-unit id="email.newuser.body">
         <source>Hello,
@@ -188,8 +188,8 @@ Thank you for using @@PRODUCT_NAME@@.
 
 {0}
 
-Чтобы просмотреть список активных пользователей и имен входа Red Hat,
-связанных с вашей учетной записью, перейдите на:
+Чтобы просмотреть список активных пользователей и имен входа Red Hat
+для вашей учетной записи, перейдите на:
 
   {1}
 
@@ -262,8 +262,8 @@ package profile for that server is out of date. In that case you should run
 Ниже перечислены системы, к которым применимы эти рекомендации.
 Если вы считаете, что рекомендация выбрана неверно,
 возможно, следует обновить профиль пакетов.
-Для этого в RHEL 4 выполните «up2date -p»,
-а в RHEL5 и более поздних &amp;mdash; «rhn-profile-sync» (в режиме root).</target>
+Для этого в RHEL 4 выполните «up2date -p», 
+а начиная с RHEL5,  — «rhn-profile-sync» (в режиме root).</target>
         </trans-unit>
         <trans-unit id="email.errata.notification.body.onesystem">
           <source>
@@ -272,7 +272,7 @@ which you have explicitly enabled Errata Alerts are shown).
     </source>
           <target>
 На странице «Обзор» указана одна система
-(показаны только системы, для которых включены
+(показаны только системы, для которых включены 
 уведомления о наличии исправлений).</target>
         </trans-unit>
         <trans-unit id="email.errata.notification.body.numsystems">
@@ -286,7 +286,7 @@ which you have explicitly enabled Errata Alerts are shown).
       </context>
           </context-group>
           <target>
-Число затронутых систем в «Overview»: {0}
+Число затронутых систем на странице «Обзор»: {0}
 (показаны только системы, для которых включены
 уведомления о наличии исправлений).</target>
         </trans-unit>
@@ -316,9 +316,9 @@ You may address the issues outlined in this advisory in two ways:
 ---------- ---------- ---------------------------------------------
 {0}
 
-Чтобы применить перечисленные рекомендации :
+Чтобы применить перечисленные исправления :
 
-     - выберите свой сервер и назначьте его обновление:
+     - выберите свой сервер и назначьте его обновление: 
            {1}
 
      - или выполните агент обновлений на сервере.
@@ -350,14 +350,13 @@ click the "Details" tab.
           <target>
 Настройка уведомлений
 ---------------------------------
-Чтобы настроить или отключить получение уведомлений о наличии исправлений,
-перейдите на вкладку параметров на странице обзора и выберите
-пункт «Ваша учетная запись».
+Чтобы настроить или отключить получение уведомлений о новых исправлениях,
+в окне «Обзор» выберите «Ваши настройки».
 
        Адрес: {0}
 
-Получение уведомлений для отдельных систем можно настроить,
-выбрав систему из списка систем и открыв вкладку свойств.
+Получение уведомлений для отдельных систем можно настроить, 
+выбрав систему из списка и открыв вкладку свойств.
 
 {1}
 {2}</target>
@@ -408,7 +407,7 @@ Thank you for using @@PRODUCT_NAME@@.
 
 Если вы получили это сообщение, это означает одно из двух:
 
-1. Система не смогла зайти в @@PRODUCT_NAME@@ на протяжении суток.
+1. Система не отмечалась на @@PRODUCT_NAME@@ на протяжении суток.
 2. Выполняются запланированные операции.
 
 {2}
@@ -416,7 +415,7 @@ Thank you for using @@PRODUCT_NAME@@.
 Отключение уведомлений:
 ----------------------
 
-Чтобы отключить подобные уведомления, перейдите на страницу настроек на
+Чтобы отключить подобные уведомления, перейдите на
 https://{4}/rhn/account/UserPreferences.do
 
 Благодарим за выбор @@PRODUCT_NAME@@.
@@ -450,7 +449,7 @@ After that the services will become inaccessible.</source>
 Уважаемый пользователь @@PRODUCT_NAME@@.
 
 Срок действия сертификата @@PRODUCT_NAME@@ для {0} истек.
-Через{1} дн. службы управления системами перейдут в ограниченный режим на  {2} дн.
+Через {1} д. службы управления системами перейдут в ограниченный режим на {2} дн.
 После этого они будут отключены.</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.expired.subject">
@@ -489,7 +488,7 @@ Thank you for using @@PRODUCT_NAME@@.
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
         <target>
-За информацией о генерации нового сертификата @@PRODUCT_NAME@@ обратитесь к
+За информацией о создании нового сертификата @@PRODUCT_NAME@@ обратитесь к
 https://access.redhat.com/knowledge/tools/satcert
 
 Благодарим за выбор @@PRODUCT_NAME@@.
@@ -506,7 +505,7 @@ and will soon stop functioning.</source>
         <target>
 Уважаемый пользователь @@PRODUCT_NAME@@.
 
-Срок действия сертификата @@PRODUCT_NAME@@ для сервера {0} истек.
+Срок действия сертификата @@PRODUCT_NAME@@ для {0} истек.
 Сервер Satellite работает в ограниченном режиме  {1}-й день.
 На  {2}-й день он будет отключен.</target>
       </trans-unit>
@@ -524,8 +523,101 @@ until your certificate is renewed.</source>
         <target>
 Уважаемый пользователь @@PRODUCT_NAME@@.
 
-Срок действия сертификата @@PRODUCT_NAME@@ для сервера {0} истек.
-Службы управления системами будут недоступны.</target>
+Срок действия сертификата @@PRODUCT_NAME@@ для {0} истек.
+Службы управления системами будут недоступны до тех пор, пока вы не обновите сертификат.</target>
+      </trans-unit>
+      <trans-unit id="email.forgotten.password">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+Your @@PRODUCT_NAME@@ password has been reset.  To sign in, go to:
+
+https://{1}/
+
+And use the following username and password:
+
+Username: {2}
+Password: {3}
+
+Once you have logged in, you may then change your password.
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx"><context context-type="sourcefile">ForgotCredentials</context><context context-type="paramnotes">
+            {0} - Email address
+            {1} - Hostname of the @@PRODUCT_NAME@@</context>
+            {2} - Username
+            {3} - Password
+        </context-group>
+        <target>
+[ Это сообщение было создано автоматически для {0}. ]
+
+Пароль @@PRODUCT_NAME@@ был сброшен. Чтобы установить новый пароль, перейдите на:
+
+https://{1}/
+
+и авторизуйтесь:
+
+Пользователь: {2}
+Пароль: {3}
+
+После авторизации вы сможете изменить пароль.
+
+Если вы по-прежнему не можете авторизоваться,
+обратитесь за помощью к администратору @@PRODUCT_NAME@@.
+
+Благодарим за выбор @@PRODUCT_NAME@@.
+        </target>
+      </trans-unit>
+      <trans-unit id="email.forgotten.logins">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+You have requested a list of all @@PRODUCT_NAME@@ logins associated
+with the email address {0}.
+
+Existing login(s):
+
+{1}
+You may reset the passwords for any of the above @@PRODUCT_NAME@@ logins at:
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+If you did not request this email be sent, please disregard this message.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">ForgotCredentials</context>
+          <context context-type="paramnotes">
+            {0} - Email address
+            {1} - Existing logins
+            {2} - Hostname of the @@PRODUCT_NAME@@</context>
+        </context-group>
+        <target>
+[ Это сообщение было создано автоматически для {0}. ]
+
+В ответ на ваш запрос ниже прилагается список учетных записей @@PRODUCT_NAME@@
+для {0}.
+
+Учетные записи:
+
+{1}
+Их пароли можно изменить на странице:
+
+ https://{2}/rhn/help/ForgotCredentials.do
+
+Если вы по-прежнему не можете авторизоваться,
+обратитесь к администратору @@PRODUCT_NAME@@.
+Если вы на запрашивали список имен, проигнорируйте это сообщение.
+
+Благодарим за выбор @@PRODUCT_NAME@@.
+        </target>
       </trans-unit>
     </body>
   </file>

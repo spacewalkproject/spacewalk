@@ -8,7 +8,7 @@
       </trans-unit>
       <trans-unit id="bad-signature">
         <source>Bad ACL handler method [{0}]. ACL handler methods must have the following signature (may be static or non-static), with no declared exceptions: public aclXXXX(Object, String[])</source>
-        <target>Недопустимый метод обработчика ACL: [{0}]. Методы должны иметь следующую подпись (может быть статична или нестатична) без объявленных исключений: public aclXXXX(Object, String[])</target>
+        <target>Недопустимый метод обработчика ACL: [{0}]. Методы должны иметь подпись (статичную или нет) без объявленных исключений: public aclXXXX(Object, String[])</target>
       </trans-unit>
       <trans-unit id="bad-syntax">
         <source>Could not parse ACL statement: "{0}"</source>
@@ -16,7 +16,7 @@
       </trans-unit>
       <trans-unit id="bad-handler">
         <source>Could not find ACL handler {0} in statement: "{1}". Available ACL handlers: {2}</source>
-        <target>Не найден обработчик ACL {0} в выражении: "{1}". Доступные обработчики ACL: {2}</target>
+        <target>Не найден обработчик ACL {0} в "{1}". Доступные обработчики ACL: {2}</target>
       </trans-unit>
     </body>
   </file>

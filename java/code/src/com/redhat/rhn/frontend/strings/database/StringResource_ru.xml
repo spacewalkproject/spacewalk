@@ -51,7 +51,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
-        <target>Инициализация</target>
+        <target>Эксплуатация</target>
       </trans-unit>
       <trans-unit id="Non-Linux Entitled Servers">
         <source>Non-Linux</source>
@@ -82,9 +82,13 @@
           <source>Monitoring</source>
           <target>Мониторинг</target>
         </trans-unit>
+        <trans-unit id="nonlinux_entitled">
+          <source>Non-Linux</source>
+          <target>Не Linux</target>
+        </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
-          <target>Инициализация</target>
+          <target>Эксплуатация</target>
         </trans-unit>
         <trans-unit id="sw_mgr_entitled">
           <source>Update</source>
@@ -133,6 +137,13 @@
         </context-group>
         <target>(GMT+0900) Япония</target>
       </trans-unit>
+      <trans-unit id="Asia/Seoul">
+        <source>(GMT+0900) Korea</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+0900) Корея</target>
+      </trans-unit>
       <trans-unit id="Australia/Perth">
         <source>(GMT+0800) Australia (Western)</source>
         <context-group name="ctx">
@@ -152,21 +163,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+0200) Южная Африка (Иоханнесбург)</target>
+        <target>(GMT+0200) Южная Африка (Йоханнесбург)</target>
       </trans-unit>
       <trans-unit id="Europe/Bucharest">
         <source>(GMT+0200) Europe (Eastern)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+0200) Европа (Восточный часовой пояс)</target>
+        <target>(GMT+0200) Европа (восточный часовой пояс)</target>
       </trans-unit>
       <trans-unit id="Europe/Paris">
         <source>(GMT+0100) Europe (Central)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+0100) Европа (Центр)</target>
+        <target>(GMT+0100) Европа (центр)</target>
       </trans-unit>
       <trans-unit id="GMT">
         <source>(GMT+0000) Greenwich Mean Time</source>
@@ -180,35 +191,35 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT-0330) Канада (Newfoundland)</target>
+        <target>(GMT-0330) Канада (Ньюфаундленд) </target>
       </trans-unit>
       <trans-unit id="America/Halifax">
         <source>(GMT-0400) Canada (Atlantic)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT-0400) Канада (Атлантик)</target>
+        <target>(GMT-0400) Канада (Атлантика)</target>
       </trans-unit>
       <trans-unit id="America/New_York">
         <source>(GMT-0500) United States (Eastern)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT-0500) США (Восточный часовой пояс)</target>
+        <target>(GMT-0500) США (восточный часовой пояс)</target>
       </trans-unit>
       <trans-unit id="America/Chicago">
         <source>(GMT-0600) United States (Central)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT-0600) США (центральное)</target>
+        <target>(GMT-0600) США (центр)</target>
       </trans-unit>
       <trans-unit id="America/Regina">
         <source>(GMT-0600) Canada (Regina)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT-0600) Canada (Регина)</target>
+        <target>(GMT-0600) Канада (Регина)</target>
       </trans-unit>
       <trans-unit id="America/Denver">
         <source>(GMT-0700) United States (Mountain)</source>
@@ -278,7 +289,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+0930) Австралия (Центр/Дарвин)</target>
+        <target>(GMT+0930) Австралия (центр/Дарвин)</target>
       </trans-unit>
       <trans-unit id="Asia/Jakarta">
         <source>(GMT+0700) Thailand</source>
@@ -378,6 +389,13 @@
         </context-group>
         <target>(GMT-0700) США (Аризона)</target>
       </trans-unit>
+      <trans-unit id="Asia/Riyadh">
+        <source>(GMT+0300) Saudi Arabia</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+0300) Саудовская Аравия</target>
+      </trans-unit>
       <trans-unit id="Asia/Tehran">
         <source>(GMT+0330) Iran</source>
         <context-group name="ctx">
@@ -419,14 +437,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
         </context-group>
-        <target>Порт сервера @@PRODUCT_NAME@@ (80 для http, 443 для https)</target>
+        <target>Порт на @@PRODUCT_NAME@@ (80 для http, 443 для https)</target>
       </trans-unit>
       <trans-unit id="XPROTO">
         <source>External protocol ('http' or 'https')</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
         </context-group>
-        <target>Внешний протокол (http или https)</target>
+        <target>Внешний протокол (http, https)</target>
       </trans-unit>
       <!-- Monitoring Probe Command Parameter descriptions -->
       <trans-unit id="Application Protocol">
@@ -441,14 +459,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: занято больше чем</target>
+        <target>Критично, если занято больше чем</target>
       </trans-unit>
       <trans-unit id="Available Space Percent Used Warn if Above">
         <source>Available Space Percent Used Warn if Above</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: занято больше чем</target>
+        <target>Предупреждение, если занято больше чем</target>
       </trans-unit>
       <trans-unit id="BEA Domain Admin Server">
         <source>BEA Domain Admin Server</source>
@@ -539,14 +557,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: использовано доступных сессий (в %)</target>
+        <target>Критично: использовано сеансов (%)</target>
       </trans-unit>
       <trans-unit id="Critical Blocked Process Count">
         <source>Critical Blocked Process Count</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: счётчик блокированных процессов</target>
+        <target>Критично: число заблокированных процессов</target>
       </trans-unit>
       <trans-unit id="Critical Blocking Sessions">
         <source>Critical Blocking Sessions</source>
@@ -560,42 +578,42 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: пропорция совпадений кэша буфера</target>
+        <target>Критично: коэффициент попаданий в кэш</target>
       </trans-unit>
       <trans-unit id="Critical CLOSE_WAIT Connections">
         <source>Critical CLOSE_WAIT Connections</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: соединения CLOSE_WAIT</target>
+        <target>Критично: CLOSE_WAIT</target>
       </trans-unit>
       <trans-unit id="Critical CPU Load 1-Min Ave">
         <source>Critical CPU Load 1-Min Ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: средняя загрузка CPU 1 мин.</target>
+        <target>Критично: средняя нагрузка на CPU за 1 мин.</target>
       </trans-unit>
       <trans-unit id="Critical CPU Load 15-Min Ave">
         <source>Critical CPU Load 15-Min Ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: средняя загрузка CPU 15 мин.</target>
+        <target>Критично: средняя нагрузка на CPU за 15 мин.</target>
       </trans-unit>
       <trans-unit id="Critical CPU Load 5-Min Ave">
         <source>Critical CPU Load 5-Min Ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: средняя загрузка CPU 5 мин.</target>
+        <target>Критично: средняя нагрузка на CPU за 5 мин.</target>
       </trans-unit>
       <trans-unit id="Critical CPU Pct Used">
         <source>Critical CPU Pct Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: использование CPU (в %)</target>
+        <target>Критично: использование CPU в %</target>
       </trans-unit>
       <trans-unit id="Critical CPU Time Rate">
         <source>Critical CPU Time Rate</source>
@@ -609,7 +627,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: счетчик дочерних процессов</target>
+        <target>Критично: число дочерних процессов</target>
       </trans-unit>
       <trans-unit id="Critical Child Process Groups">
         <source>Critical Child Process Groups</source>
@@ -637,35 +655,35 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: счётчик</target>
+        <target>Критично: число</target>
       </trans-unit>
       <trans-unit id="Critical Data Dictionary Hit Ratio">
         <source>Critical Data Dictionary Hit Ratio</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: пропорция совпадений справочника данных</target>
+        <target>Критично: коэффициент совпадений в справочнике данных</target>
       </trans-unit>
       <trans-unit id="Critical Defunct Process Count">
         <source>Critical Defunct Process Count</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: счетчик уничтоженных</target>
+        <target>Критично: число уничтоженных процессов</target>
       </trans-unit>
       <trans-unit id="Critical Disk Sort Ratio">
         <source>Critical Disk Sort Ratio</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: пропорция сортировки диска</target>
+        <target>Критично: коэффициент сортировки диска</target>
       </trans-unit>
       <trans-unit id="Critical ESTABLISHED Connections">
         <source>Critical ESTABLISHED Connections</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: соединения ESTABLISHED</target>
+        <target>Критично: ESTABLISHED</target>
       </trans-unit>
       <trans-unit id="Critical Execution Time Moving Ave">
         <source>Critical Execution Time Moving Ave</source>
@@ -679,21 +697,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Статус выхода: критично</target>
+        <target>Критичный статус выхода</target>
       </trans-unit>
       <trans-unit id="Critical FIN_WAIT Connections">
         <source>Critical FIN_WAIT Connections</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: соединения FIN_WAIT</target>
+        <target>Критично: FIN_WAIT</target>
       </trans-unit>
       <trans-unit id="Critical Filesystem Pct Used">
         <source>Critical Filesystem Pct Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: занято файловой системы (в %)</target>
+        <target>Критично: занято файловой системы (%)</target>
       </trans-unit>
       <trans-unit id="Critical Heap Free">
         <source>Critical Heap Free</source>
@@ -721,14 +739,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: незанятые потоки</target>
+        <target>Критично: бездействующие потоки</target>
       </trans-unit>
       <trans-unit id="Critical Inodes Pct Used">
         <source>Critical Inodes Pct Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: занято Inodes (в %)</target>
+        <target>Критично: занято Inodes (%)</target>
       </trans-unit>
       <trans-unit id="Critical Input Rate">
         <source>Critical Input Rate</source>
@@ -819,7 +837,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: потеря пакетов (в %)</target>
+        <target>Критично: потеря пакетов (%)</target>
       </trans-unit>
       <trans-unit id="Critical Percent">
         <source>Critical Percent</source>
@@ -833,14 +851,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: использование физической памяти</target>
+        <target>Критично: занято физической памяти</target>
       </trans-unit>
       <trans-unit id="Critical Process Count">
         <source>Critical Process Count</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: счётчик процесса</target>
+        <target>Критично: число процессов</target>
       </trans-unit>
       <trans-unit id="Critical Processes">
         <source>Critical Processes</source>
@@ -896,7 +914,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: запросы места для журнала повтора</target>
+        <target>Критично: запросы выделения места для журнала повторов</target>
       </trans-unit>
       <trans-unit id="Critical Request Rate">
         <source>Critical Request Rate</source>
@@ -931,7 +949,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: соединения SYN_RCVD</target>
+        <target>Критично: SYN_RCVD</target>
       </trans-unit>
       <trans-unit id="Critical Seconds">
         <source>Critical Seconds</source>
@@ -952,35 +970,35 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: доступно</target>
+        <target>Критично: доступно места</target>
       </trans-unit>
       <trans-unit id="Critical Space Used">
         <source>Critical Space Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: занятое место</target>
+        <target>Критично: занято места</target>
       </trans-unit>
       <trans-unit id="Critical Stopped Process Count">
         <source>Critical Stopped Process Count</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: счётчик остановленных процессов</target>
+        <target>Критично: число остановленных процессов</target>
       </trans-unit>
       <trans-unit id="Critical Swap Pct Free">
         <source>Critical Swap Pct Free</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: свободно Swap (в %)</target>
+        <target>Критично: свободно Swap (%)</target>
       </trans-unit>
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: соединения TIME_WAIT</target>
+        <target>Критично: TIME_WAIT</target>
       </trans-unit>
       <trans-unit id="Critical Threads">
         <source>Critical Threads</source>
@@ -1043,7 +1061,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: свободно виртуальная память (в %)</target>
+        <target>Критично: свободно виртуальной памяти (%)</target>
       </trans-unit>
       <trans-unit id="Critical Virtual Memory Used">
         <source>Critical Virtual Memory Used</source>
@@ -1092,7 +1110,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Имя или номер диска (из iostat)</target>
+        <target>Имя или номер диска (iostat)</target>
       </trans-unit>
       <trans-unit id="Expect">
         <source>Expect</source>
@@ -1169,14 +1187,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>IP-адрес (не обязательно; по умолчанию -- IP узла)</target>
+        <target>IP-адрес (не обязательно; по умолчанию IP узла)</target>
       </trans-unit>
       <trans-unit id="Include reclaimable memory">
         <source>Include reclaimable memory</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Включить освобождаемую память</target>
+        <target>Включить память, которую можно освободить</target>
       </trans-unit>
       <trans-unit id="Index Name">
         <source>Index Name</source>
@@ -1211,7 +1229,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Имя JDBC пула</target>
+        <target>Пул JDBC</target>
       </trans-unit>
       <trans-unit id="Local IP address filter pattern list">
         <source>Local IP address filter pattern list</source>
@@ -1323,7 +1341,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Число пакетов</target>
+        <target>Пакеты для передачи</target>
       </trans-unit>
       <trans-unit id="Password">
         <source>Password</source>
@@ -1344,14 +1362,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критически, если доля доступных блоков превышает</target>
+        <target>Критично: если доля доступных блоков превышает</target>
       </trans-unit>
       <trans-unit id="Percent of Available Extents Warn if Above">
         <source>Percent of Available Extents Warn if Above</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение,  если доля доступных блоков превышает</target>
+        <target>Предупреждение:  если доля доступных блоков превышает</target>
       </trans-unit>
       <trans-unit id="Port">
         <source>Port</source>
@@ -1400,7 +1418,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Удаленный IP-адрес</target>
+        <target>Удаленный IP</target>
       </trans-unit>
       <trans-unit id="Remote IP address filter pattern list">
         <source>Remote IP address filter pattern list</source>
@@ -1414,7 +1432,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Фильтр номера удалённого порта</target>
+        <target>Фильтр номера удаленного порта</target>
       </trans-unit>
       <trans-unit id="SMTP Port">
         <source>SMTP Port</source>
@@ -1477,14 +1495,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Имя сервлета</target>
+        <target>Сервлет</target>
       </trans-unit>
       <trans-unit id="Status (OK/WARNING/CRITICAL/UNKNOWN)">
         <source>Status (OK/WARNING/CRITICAL/UNKNOWN)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Статус (OK/WARNING/CRITICAL/UNKNOWN)</target>
+        <target>Статус (ОК, ПРЕДУПРЕЖДЕНИЕ, КРИТИЧНО, НЕИЗВЕСТНО)</target>
       </trans-unit>
       <trans-unit id="TNS Listener Port">
         <source>TNS Listener Port</source>
@@ -1610,7 +1628,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: доступы</target>
+        <target>Предупреждение: доступ</target>
       </trans-unit>
       <trans-unit id="Warning Active Locks">
         <source>Warning Active Locks</source>
@@ -1631,14 +1649,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: использовано доступных сессий (в %)</target>
+        <target>Предупреждение: использовано сеансов (%)</target>
       </trans-unit>
       <trans-unit id="Warning Blocked Process Count">
         <source>Warning Blocked Process Count</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: счётчик блокированных процессов</target>
+        <target>Предупреждение: число блокированных процессов</target>
       </trans-unit>
       <trans-unit id="Warning Blocking Sessions">
         <source>Warning Blocking Sessions</source>
@@ -1652,42 +1670,42 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: пропорция совпадений кэша буфера</target>
+        <target>Предупреждение: коэффициент попаданий в кэш</target>
       </trans-unit>
       <trans-unit id="Warning CLOSE_WAIT Connections">
         <source>Warning CLOSE_WAIT Connections</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: соединения CLOSE_WAIT</target>
+        <target>Предупреждение: CLOSE_WAIT</target>
       </trans-unit>
       <trans-unit id="Warning CPU Load 1-Min Ave">
         <source>Warning CPU Load 1-Min Ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: средняя загрузка CPU 1 мин.</target>
+        <target>Предупреждение: средняя нагрузка на CPU за 1 мин.</target>
       </trans-unit>
       <trans-unit id="Warning CPU Load 15-Min Ave">
         <source>Warning CPU Load 15-Min Ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: средняя загрузка CPU 15 мин.</target>
+        <target>Предупреждение: средняя нагрузка на CPU за 15 мин.</target>
       </trans-unit>
       <trans-unit id="Warning CPU Load 5-Min Ave">
         <source>Warning CPU Load 5-Min Ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: средняя загрузка CPU 5 мин.</target>
+        <target>Предупреждение: средняя нагрузка на CPU за 5 мин.</target>
       </trans-unit>
       <trans-unit id="Warning CPU Pct Used">
         <source>Warning CPU Pct Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: использование CPU (в %)</target>
+        <target>Предупреждение: использование CPU в %</target>
       </trans-unit>
       <trans-unit id="Warning CPU Time Rate">
         <source>Warning CPU Time Rate</source>
@@ -1701,7 +1719,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: счётчик дочерних процессов</target>
+        <target>Предупреждение: число дочерних процессов</target>
       </trans-unit>
       <trans-unit id="Warning Child Process Groups">
         <source>Warning Child Process Groups</source>
@@ -1729,35 +1747,35 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: счётчик</target>
+        <target>Предупреждение: число</target>
       </trans-unit>
       <trans-unit id="Warning Data Dictionary Hit Ratio">
         <source>Warning Data Dictionary Hit Ratio</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: пропорция совпадений справочника данных</target>
+        <target>Предупреждение: коэффициент совпадений в справочнике данных</target>
       </trans-unit>
       <trans-unit id="Warning Defunct Process Count">
         <source>Warning Defunct Process Count</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: счетчик уничтоженных</target>
+        <target>Предупреждение: число уничтоженных процессов</target>
       </trans-unit>
       <trans-unit id="Warning Disk Sort Ratio">
         <source>Warning Disk Sort Ratio</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: пропорция сортировки диска</target>
+        <target>Предупреждение: коэффициент сортировки диска</target>
       </trans-unit>
       <trans-unit id="Warning ESTABLISHED Connections">
         <source>Warning ESTABLISHED Connections</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: соединения ESTABLISHED</target>
+        <target>Предупреждение: ESTABLISHED</target>
       </trans-unit>
       <trans-unit id="Warning Execution Time Moving Ave">
         <source>Warning Execution Time Moving Ave</source>
@@ -1771,21 +1789,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Статус выхода: предупреждение</target>
+        <target>Предупреждение: статус выхода</target>
       </trans-unit>
       <trans-unit id="Warning FIN_WAIT Connections">
         <source>Warning FIN_WAIT Connections</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: соединения FIN_WAIT</target>
+        <target>Предупреждение: FIN_WAIT</target>
       </trans-unit>
       <trans-unit id="Warning Filesystem Pct Used">
         <source>Warning Filesystem Pct Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: использовано файловой системы (в %)</target>
+        <target>Предупреждение: занято файловой системы (%)</target>
       </trans-unit>
       <trans-unit id="Warning Heap Free">
         <source>Warning Heap Free</source>
@@ -1813,14 +1831,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: незанятые потоки</target>
+        <target>Предупреждение: бездействующие потоки</target>
       </trans-unit>
       <trans-unit id="Warning Inodes Pct Used">
         <source>Warning Inodes Pct Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: использование дескрипторов Inodes (в %)</target>
+        <target>Предупреждение: занято Inodes (%)</target>
       </trans-unit>
       <trans-unit id="Warning Input Rate">
         <source>Warning Input Rate</source>
@@ -1897,21 +1915,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: потеря пакетов (в %)</target>
+        <target>Предупреждение: потеря пакетов (%)</target>
       </trans-unit>
       <trans-unit id="Warning Physical Memory Used">
         <source>Warning Physical Memory Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: использование физической памяти</target>
+        <target>Предупреждение: занято физической памяти</target>
       </trans-unit>
       <trans-unit id="Warning Process Count">
         <source>Warning Process Count</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: счётчик процессов</target>
+        <target>Предупреждение: число процессов</target>
       </trans-unit>
       <trans-unit id="Warning Query Rate">
         <source>Warning Query Rate</source>
@@ -1960,7 +1978,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: запросы места для журнала повтора</target>
+        <target>Предупреждение: запросы выделения места для журнала повтора</target>
       </trans-unit>
       <trans-unit id="Warning Request Rate">
         <source>Warning Request Rate</source>
@@ -1995,7 +2013,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: соединения SYN_RCVD</target>
+        <target>Предупреждение: SYN_RCVD</target>
       </trans-unit>
       <trans-unit id="Warning Seconds">
         <source>Warning Seconds</source>
@@ -2023,28 +2041,28 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: занятое место</target>
+        <target>Предупреждение: занято места</target>
       </trans-unit>
       <trans-unit id="Warning Stopped Process Count">
         <source>Warning Stopped Process Count</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: счётчик остановленных процессов</target>
+        <target>Предупреждение: число остановленных процессов</target>
       </trans-unit>
       <trans-unit id="Warning Swap Pct Free">
         <source>Warning Swap Pct Free</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: свободно Swap (в %)</target>
+        <target>Предупреждение: свободно Swap (%)</target>
       </trans-unit>
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: соединения TIME_WAIT</target>
+        <target>Предупреждение: TIME_WAIT</target>
       </trans-unit>
       <trans-unit id="Warning Threads">
         <source>Warning Threads</source>
@@ -2107,7 +2125,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: свободная виртуальная память (в %)</target>
+        <target>Предупреждение: свободно виртуальной памяти (%)</target>
       </trans-unit>
       <trans-unit id="Warning Virtual Memory Used">
         <source>Warning Virtual Memory Used</source>
@@ -2164,70 +2182,70 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Пропорция совпадений кэша буфера</target>
+        <target>Коэффициент попаданий в кэш</target>
       </trans-unit>
       <trans-unit id="metrics.CLOSE_WAIT conns">
         <source>CLOSE_WAIT conns</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Соединения CLOSE_WAIT</target>
+        <target>CLOSE_WAIT</target>
       </trans-unit>
       <trans-unit id="metrics.CPU load 1-min ave">
         <source>CPU load 1-min ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Средняя загрузка CPU 1 мин.</target>
+        <target>Средняя нагрузка на CPU за 1 мин.</target>
       </trans-unit>
       <trans-unit id="metrics.CPU load 1-min avg">
         <source>CPU load 1-min avg</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Средняя загрузка CPU 1 мин.</target>
+        <target>Средняя нагрузка на CPU за 1 мин.</target>
       </trans-unit>
       <trans-unit id="metrics.CPU load 15-min ave">
         <source>CPU load 15-min ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Средняя загрузка CPU 15 мин.</target>
+        <target>Средняя нагрузка на CPU за 15 мин.</target>
       </trans-unit>
       <trans-unit id="metrics.CPU load 15-min avg">
         <source>CPU load 15-min avg</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Средняя загрузка CPU 15 мин.</target>
+        <target>Средняя нагрузка на CPU за 15 мин.</target>
       </trans-unit>
       <trans-unit id="metrics.CPU load 5-min ave">
         <source>CPU load 5-min ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Средняя загрузка CPU 5 мин.</target>
+        <target>Средняя нагрузка на CPU за 5 мин.</target>
       </trans-unit>
       <trans-unit id="metrics.CPU load 5-min avg">
         <source>CPU load 5-min avg</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Средняя загрузка CPU 5 мин.</target>
+        <target>Средняя нагрузка на CPU за 5 мин.</target>
       </trans-unit>
       <trans-unit id="metrics.CPU pct used">
         <source>CPU pct used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Загрузка CPU (в %)</target>
+        <target>Загрузка CPU (%)</target>
       </trans-unit>
       <trans-unit id="metrics.CPU usage">
         <source>CPU usage</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Загрузка CPU</target>
+        <target>Использование CPU</target>
       </trans-unit>
       <trans-unit id="metrics.Cache miss rate">
         <source>Cache miss rate</source>
@@ -2283,7 +2301,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Пропорция совпадений справочника данных</target>
+        <target>Коэффициент совпадений в справочнике данных</target>
       </trans-unit>
       <trans-unit id="metrics.Defunct processes">
         <source>Defunct processes</source>
@@ -2311,7 +2329,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Соединения ESTABLISHED</target>
+        <target>ESTABLISHED</target>
       </trans-unit>
       <trans-unit id="metrics.Exec time moving ave">
         <source>Exec time moving ave</source>
@@ -2339,14 +2357,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Соединения FIN_WAIT</target>
+        <target>FIN_WAIT</target>
       </trans-unit>
       <trans-unit id="metrics.Filesystem pct used">
         <source>Filesystem pct used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Занято файловой системы (в %)</target>
+        <target>Занято файловой системы (%)</target>
       </trans-unit>
       <trans-unit id="metrics.Get rate">
         <source>Get rate</source>
@@ -2381,7 +2399,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Использование Inodes (в %)</target>
+        <target>Использование Inodes (%)</target>
       </trans-unit>
       <trans-unit id="metrics.Input rate">
         <source>Input rate</source>
@@ -2409,7 +2427,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Пропорция промахов кэша библиотеки</target>
+        <target>Коэффициент промахов кэша библиотеки</target>
       </trans-unit>
       <trans-unit id="metrics.Line rate">
         <source>Line rate</source>
@@ -2479,7 +2497,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Потеря пакетов (в %)</target>
+        <target>Потеря пакетов (%)</target>
       </trans-unit>
       <trans-unit id="metrics.Pattern match rate">
         <source>Pattern match rate</source>
@@ -2612,7 +2630,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Соединения SYN_RCVD</target>
+        <target>SYN_RCVD</target>
       </trans-unit>
       <trans-unit id="metrics.Size">
         <source>Size</source>
@@ -2654,14 +2672,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Свободно Swap (в %)</target>
+        <target>Свободно swap (%)</target>
       </trans-unit>
       <trans-unit id="metrics.TIME_WAIT conns">
         <source>TIME_WAIT conns</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Соединения TIME_WAIT</target>
+        <target>TIME_WAIT</target>
       </trans-unit>
       <trans-unit id="metrics.Threads">
         <source>Threads</source>
@@ -2717,7 +2735,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Свободно виртуальной памяти (в %)</target>
+        <target>Свободно виртуальной памяти (%)</target>
       </trans-unit>
       <trans-unit id="metrics.Virtual memory used">
         <source>Virtual memory used</source>
@@ -2780,7 +2798,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>КРИТИЧНО (CRITICAL)</target>
+        <target>КРИТИЧНО</target>
       </trans-unit>
       <trans-unit id="OK">
         <source>OK</source>
@@ -2815,7 +2833,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <note>Threshold types for threshold parameters
-                rhn_command_param_threshold.threshold_type_name -&gt; text
+		rhn_command_param_threshold.threshold_type_name -&gt; text
         </note>
         <trans-unit id="crit_max">
           <source>Critical if above</source>
@@ -2851,23 +2869,23 @@
         </trans-unit>
         <trans-unit id="Buffer Cache Hit Ratio">
           <source>Buffer Cache Hit Ratio</source>
-          <target>Пропорция совпадений кэша буфера</target>
+          <target>Коэффициент попаданий в кэш</target>
         </trans-unit>
         <trans-unit id="CLOSE_WAIT Connections">
           <source>CLOSE_WAIT Connections</source>
-          <target>Соединения CLOSE_WAIT</target>
+          <target>CLOSE_WAIT</target>
         </trans-unit>
         <trans-unit id="CPU Load 1-Minute Average">
           <source>CPU Load 1-Minute Average</source>
-          <target>Средняя загрузка CPU 1 мин.</target>
+          <target>Средняя нагрузка на CPU за 1 мин.</target>
         </trans-unit>
         <trans-unit id="CPU Load 15-Minute Average">
           <source>CPU Load 15-Minute Average</source>
-          <target>Средняя загрузка CPU 15 мин.</target>
+          <target>Средняя нагрузка на CPU за 15 мин.</target>
         </trans-unit>
         <trans-unit id="CPU Load 5-Minute Average">
           <source>CPU Load 5-Minute Average</source>
-          <target>Средняя загрузка CPU 5 мин.</target>
+          <target>Средняя нагрузка на CPU за 5 мин.</target>
         </trans-unit>
         <trans-unit id="CPU Used">
           <source>CPU Used</source>
@@ -2903,7 +2921,7 @@
         </trans-unit>
         <trans-unit id="Data Dictionary Hit Ratio">
           <source>Data Dictionary Hit Ratio</source>
-          <target>Пропорция совпадений справочника данных</target>
+          <target>Коэффициент совпадений в справочнике данных</target>
         </trans-unit>
         <trans-unit id="Defunct Processes">
           <source>Defunct Processes</source>
@@ -2915,7 +2933,7 @@
         </trans-unit>
         <trans-unit id="ESTABLISHED Connections">
           <source>ESTABLISHED Connections</source>
-          <target>Соединения ESTABLISHED</target>
+          <target>ESTABLISHED</target>
         </trans-unit>
         <trans-unit id="Execution Rate">
           <source>Execution Rate</source>
@@ -2931,7 +2949,7 @@
         </trans-unit>
         <trans-unit id="FIN_WAIT Connections">
           <source>FIN_WAIT Connections</source>
-          <target>Соединения FIN_WAIT</target>
+          <target>FIN_WAIT</target>
         </trans-unit>
         <trans-unit id="Filesystem Used">
           <source>Filesystem Used</source>
@@ -2963,7 +2981,7 @@
         </trans-unit>
         <trans-unit id="Library Cache Miss Ratio">
           <source>Library Cache Miss Ratio</source>
-          <target>Пропорция промахов кэша библиотеки</target>
+          <target>Коэффициент промахов кэша библиотеки</target>
         </trans-unit>
         <trans-unit id="Line Rate">
           <source>Line Rate</source>
@@ -3075,7 +3093,7 @@
         </trans-unit>
         <trans-unit id="SYN_RCVD Connections">
           <source>SYN_RCVD Connections</source>
-          <target>Соединения SYN_RCVD</target>
+          <target>SYN_RCVD</target>
         </trans-unit>
         <trans-unit id="Size">
           <source>Size</source>
@@ -3103,7 +3121,7 @@
         </trans-unit>
         <trans-unit id="TIME_WAIT Connections">
           <source>TIME_WAIT Connections</source>
-          <target>Соединения TIME_WAIT</target>
+          <target>TIME_WAIT</target>
         </trans-unit>
         <trans-unit id="Threads">
           <source>Threads</source>
@@ -3147,7 +3165,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <note>Units for metrics:
-                rhn_units.unit_id -&gt; '(' || rhn_units.description || ')'
+		rhn_units.unit_id -&gt; '(' || rhn_units.description || ')'
         </note>
         <trans-unit id="secs">
           <source>(Seconds)</source>
@@ -3302,11 +3320,11 @@
         </trans-unit>
         <trans-unit id="oracle">
           <source>Oracle checks require the configuration of the database and public associations made by running $ORACLE_HOME/rdbms/admin/catalog.sql. In addition, in any instance of Oracle, the Oracle user configured in the check must have minimum privileges of CONNECT and SELECT_CATALOG_ROLE.</source>
-          <target>Проверки Oracle требуют конфигурации базы данных и общих соответствий, созданных при выполнении $ORACLE_HOME/rdbms/admin/catalog.sql. К тому же в любом варианте Oracle пользователь Oracle, настроенный в процессе проверки, должен иметь минимальные привилегии CONNECT и SELECT_CATALOG_ROLE.</target>
+          <target>Проверки Oracle требуют настройки базы данных и общих соответствий, созданных при выполнении $ORACLE_HOME/rdbms/admin/catalog.sql. К тому же в любом варианте Oracle пользователь Oracle, настроенный в процессе проверки, должен иметь минимальные привилегии CONNECT и SELECT_CATALOG_ROLE.</target>
         </trans-unit>
         <trans-unit id="snmp">
           <source>SNMP must be running on the monitored host to perform this check.</source>
-          <target>Для осуществления этой проверки необходимо, чтобы SNMP выполнялся на контролируемом узле.</target>
+          <target>Для осуществления этой проверки на контролируемом узле должен выполняться SNMP.</target>
         </trans-unit>
         <trans-unit id="bea61_snmp">
           <source>This check may be configured against a BEA Managed Server if the IP address of the Domain Admin Server is given. SNMP must also be enabled on the Domain Admin Server which can be done via the Weblogic Console.</source>
@@ -3314,11 +3332,11 @@
         </trans-unit>
         <trans-unit id="npunix_oracle">
           <source>RHNMD must be running on the monitored host to perform this check. Oracle checks require the configuration of the database and public associations made by running $ORACLE_HOME/rdbms/admin/catalog.sql. In addition, in any instance of Oracle, the Oracle user configured in the check must have minimum privileges of CONNECT and SELECT_CATALOG_ROLE.</source>
-          <target>Для выполнения этой проверки RHNMD должен выполняться на контролируемоемом узле. Oracle проверяет конфигурацию базы данных и общие соответствия, созданные в результате выполнения $ORACLE_HOME/rdbms/admin/catalog.sql. Плюс ко всему, любой настроенный пользователь Oracle должен обладать минимальными привилегиями CONNECT и SELECT_CATALOG_ROLE.</target>
+          <target>Для выполнения этой проверки на контролируемом узле должен выполняться RHNMD. Oracle проверяет конфигурацию базы данных и соответствия, созданные в результате выполнения $ORACLE_HOME/rdbms/admin/catalog.sql. Плюс ко всему, любой настроенный пользователь Oracle должен обладать минимальными привилегиями CONNECT и SELECT_CATALOG_ROLE.</target>
         </trans-unit>
         <trans-unit id="apache1_3">
           <source>The ExtendedStatus directive in the httpd.conf file of this webserver must be set to On for this check to function properly.</source>
-          <target>Для корректной работы этой проверки директива ExtendedStatus файла httpd.conf данного сервера должна быть установлена в "On".</target>
+          <target>Директива ExtendedStatus в httpd.conf текущего сервера должна иметь значение "On".</target>
         </trans-unit>
       </group>
       <group>
@@ -3326,7 +3344,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Command group names:
-                        rhn_command_groups.description -&gt; rhn_command_groups.description</note>
+			rhn_command_groups.description -&gt; rhn_command_groups.description</note>
         <trans-unit id="All">
           <source>All</source>
           <target>Все</target>
@@ -3377,7 +3395,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Command names:
-                        rhn_command.description -&gt; rhn_command.description</note>
+			rhn_command.description -&gt; rhn_command.description</note>
         <trans-unit id="Active Sessions">
           <source>Active Sessions</source>
           <target>Активные сеансы</target>
@@ -3436,7 +3454,7 @@
         </trans-unit>
         <trans-unit id="Execute Queue">
           <source>Execute Queue</source>
-          <target>Состояние очереди</target>
+          <target>Очередь</target>
         </trans-unit>
         <trans-unit id="Execution Time">
           <source>Execution Time</source>
@@ -3452,7 +3470,7 @@
         </trans-unit>
         <trans-unit id="Host Availability">
           <source>Host Availability</source>
-          <target>Доступность узла</target>
+          <target>Готовность узла</target>
         </trans-unit>
         <trans-unit id="ICMP Blocked">
           <source>ICMP Blocked</source>
@@ -3476,7 +3494,7 @@
         </trans-unit>
         <trans-unit id="Interface Traffic">
           <source>Interface Traffic</source>
-          <target>Трафик интерфейса</target>
+          <target>Интерфейс</target>
         </trans-unit>
         <trans-unit id="JDBC Connection Pool">
           <source>JDBC Connection Pool</source>
@@ -3516,15 +3534,15 @@
         </trans-unit>
         <trans-unit id="Memory Usage">
           <source>Memory Usage</source>
-          <target>Использование памяти</target>
+          <target>Память</target>
         </trans-unit>
         <trans-unit id="Open Tables">
           <source>Open Tables</source>
-          <target>Открытые таблицы</target>
+          <target>Открытые таблицы (текущие)</target>
         </trans-unit>
         <trans-unit id="Opened Tables">
           <source>Opened Tables</source>
-          <target>Открытые таблицы (всего)</target>
+          <target>Открыто таблиц (всего)</target>
         </trans-unit>
         <trans-unit id="POP Mail">
           <source>POP Mail</source>
@@ -3548,7 +3566,7 @@
         </trans-unit>
         <trans-unit id="Process Counts by State">
           <source>Process Counts by State</source>
-          <target>Число процессов (по состоянию)</target>
+          <target>Процессы по состояниям</target>
         </trans-unit>
         <trans-unit id="Process Health">
           <source>Process Health</source>
@@ -3556,7 +3574,7 @@
         </trans-unit>
         <trans-unit id="Process Running">
           <source>Process Running</source>
-          <target>Выполняющийся процесс</target>
+          <target>Выполнение процессов</target>
         </trans-unit>
         <trans-unit id="Processes">
           <source>Processes</source>
@@ -3580,11 +3598,11 @@
         </trans-unit>
         <trans-unit id="Remote Program">
           <source>Remote Program</source>
-          <target>Удалённая программа</target>
+          <target>Удаленная программа</target>
         </trans-unit>
         <trans-unit id="Remote Program with Data">
           <source>Remote Program with Data</source>
-          <target>Удалённая программа с данными</target>
+          <target>Удаленная программа с данными</target>
         </trans-unit>
         <trans-unit id="Requests">
           <source>Requests</source>
@@ -3616,7 +3634,7 @@
         </trans-unit>
         <trans-unit id="Swap Usage">
           <source>Swap Usage</source>
-          <target>Занятость подкачки</target>
+          <target>Область подкачки</target>
         </trans-unit>
         <trans-unit id="TCP Check">
           <source>TCP Check</source>
@@ -3624,7 +3642,7 @@
         </trans-unit>
         <trans-unit id="TCP Connections by State">
           <source>TCP Connections by State</source>
-          <target>TCP-соединения по состоянию</target>
+          <target>TCP-соединения</target>
         </trans-unit>
         <trans-unit id="TNS Ping">
           <source>TNS Ping</source>
@@ -3632,7 +3650,7 @@
         </trans-unit>
         <trans-unit id="Table Extents">
           <source>Table Extents</source>
-          <target>Экстенты таблиц</target>
+          <target>Экстенты</target>
         </trans-unit>
         <trans-unit id="Tablespace Usage">
           <source>Tablespace Usage</source>
@@ -3686,7 +3704,7 @@
         </context-group>
         <trans-unit id="kickstart.state.created">
           <source>Kickstart session created but has not yet been used.</source>
-          <target>Сессия кикстарта создана, но еще не использовалась.</target>
+          <target>Сеанс кикстарта создан, но еще не использовался.</target>
         </trans-unit>
         <trans-unit id="kickstart.state.deployed">
           <source>Files required for kickstart action have been installed.</source>
@@ -3706,7 +3724,7 @@
         </trans-unit>
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
-          <target>Загружены исходные файлы Anaconda.</target>
+          <target>Файлы Anaconda загружены.</target>
         </trans-unit>
         <trans-unit id="kickstart.state.in_progress">
           <source>The system is downloading the RPMs required to install.</source>
@@ -3730,7 +3748,7 @@
         </trans-unit>
         <trans-unit id="kickstart.state.complete">
           <source>Kickstart complete.</source>
-          <target>Кикстарт завершён.</target>
+          <target>Кикстарт завершен.</target>
         </trans-unit>
         <trans-unit id="kickstart.state.failed">
           <source>Kickstart failed.</source>

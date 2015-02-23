@@ -429,7 +429,8 @@
           <source>You do not have permission to view this system.</source>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason2.crash">
-          <source>You do not have permission to view this software crash.</source>        </trans-unit>
+          <source>You do not have permission to view this software crash.</source>
+        </trans-unit>
         <trans-unit id="lookup.default.reason2">
           <source>You do not have permission to the required data object.</source>
         </trans-unit>
@@ -2317,10 +2318,10 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       <trans-unit id="actionchains.jsp.summarydetail">
         <source>
             You can create a new Action Chain by scheduling any supported operation, such as
-            &lt;a href=&quot;/rhn/ssm/PackageInstall.do&quot;&gt;installing&lt;/a&gt; or
-            &lt;a href=&quot;/rhn/ssm/PackageUpgrade.do&quot;&gt;upgrading&lt;/a&gt; a package, running a
-            &lt;a href=&quot;/rhn/systems/ssm/provisioning/RemoteCommand.do&quot;&gt;remote command&lt;/a&gt; or
-            &lt;a href=&quot;/rhn/systems/ssm/config/Deploy.do&quot;&gt;deploying a configuration file&lt;/a&gt;.
+            &lt;a href="/rhn/ssm/PackageInstall.do"&gt;installing&lt;/a&gt; or
+            &lt;a href="/rhn/ssm/PackageUpgrade.do"&gt;upgrading&lt;/a&gt; a package, running a
+            &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote command&lt;/a&gt; or
+            &lt;a href="/rhn/systems/ssm/config/Deploy.do"&gt;deploying a configuration file&lt;/a&gt;.
             Both System Set Manager and single system actions are supported.
         </source>
         <context-group name="ctx">
@@ -2373,10 +2374,10 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       <trans-unit id="actionchain.jsp.summarydetail">
         <source>
             You add Actions to this Action Chain by scheduling any supported operation, such as
-            &lt;a href=&quot;/rhn/ssm/PackageInstall.do&quot;&gt;installing&lt;/a&gt; or
-            &lt;a href=&quot;/rhn/ssm/PackageUpgrade.do&quot;&gt;upgrading&lt;/a&gt; a package, running a
-            &lt;a href=&quot;/rhn/systems/ssm/provisioning/RemoteCommand.do&quot;&gt;remote command&lt;/a&gt; or
-            &lt;a href=&quot;/rhn/systems/ssm/config/Deploy.do&quot;&gt;deploying a configuration file&lt;/a&gt;.
+            &lt;a href="/rhn/ssm/PackageInstall.do"&gt;installing&lt;/a&gt; or
+            &lt;a href="/rhn/ssm/PackageUpgrade.do"&gt;upgrading&lt;/a&gt; a package, running a
+            &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote command&lt;/a&gt; or
+            &lt;a href="/rhn/systems/ssm/config/Deploy.do"&gt;deploying a configuration file&lt;/a&gt;.
             Both System Set Manager and single system actions are supported.
         </source>
         <context-group name="ctx">
@@ -4722,48 +4723,48 @@ value for this entitlement, excluding the default organization's consumption.</s
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
           </context-group>
         </trans-unit>
-      <trans-unit id="provisioning.powermanagement.ipmi_note">
-        <source>&lt;strong&gt;NOTE:&lt;/strong&gt; IPMI is the only power management type that has been tested and is supported, but others may work. To enable other power management types override the "java.power_management.types" option in rhn.conf.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
-          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="provisioning.powermanagement.address_note">
-        <source>The hostname or IP address of the power management server.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
-          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="provisioning.powermanagement.username_note">
-        <source>The username used to log in to the power management server.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
-          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="provisioning.powermanagement.password_note">
-        <source>The password used to log in to the power management server.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
-          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="provisioning.powermanagement.identifier_note">
-        <source>The identifier used to specify this system on the power management server. Optional because not all power managment types will need this field. This field can also be used to pass additional options to the "fence agent". For example, if you are using an IPMI server that requires the Lanplus protocol (and this system's identifier was "System") then you can set a System Identifier of "-P System" to instruct fence_ipmilan to use the Lanplus protocol for this system. See the fence agent's documentation for additional options.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
-          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="provisioning.powermanagement.security_warning">
-        <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
-          <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
-        </context-group>
-      </trans-unit>
+        <trans-unit id="provisioning.powermanagement.ipmi_note">
+          <source>&lt;strong&gt;NOTE:&lt;/strong&gt; IPMI is the only power management type that has been tested and is supported, but others may work. To enable other power management types override the "java.power_management.types" option in rhn.conf.</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="provisioning.powermanagement.address_note">
+          <source>The hostname or IP address of the power management server.</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="provisioning.powermanagement.username_note">
+          <source>The username used to log in to the power management server.</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="provisioning.powermanagement.password_note">
+          <source>The password used to log in to the power management server.</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="provisioning.powermanagement.identifier_note">
+          <source>The identifier used to specify this system on the power management server. Optional because not all power managment types will need this field. This field can also be used to pass additional options to the "fence agent". For example, if you are using an IPMI server that requires the Lanplus protocol (and this system's identifier was "System") then you can set a System Identifier of "-P System" to instruct fence_ipmilan to use the Lanplus protocol for this system. See the fence agent's documentation for additional options.</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="provisioning.powermanagement.security_warning">
+          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
+            <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
+          </context-group>
+        </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>
         </trans-unit>
@@ -9918,7 +9919,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Details</source>
         </trans-unit>
         <trans-unit id="snippetcreate.jsp.kickstart_rules_1">
-          <source>&lt;p&gt;In case the kickstart scenario contains any shell script using variables like &lt;code&gt;$(example)&lt;/code&gt; its content should be escaped by using the backslash symbol:&lt;/p&gt; &lt;pre&gt;This is an \$(example) content.&lt;/pre&gt;  &lt;p&gt;If variable named &lt;em&gt;&quot;example&quot;&lt;/em&gt; is defined in the kickstart snippet, the templating engine will  evaluate &lt;code&gt;&quot;$example&quot;&lt;/code&gt; with its content. If there is no such variable, the  content  will be left unchanged. Escaping the &lt;code&gt;$&lt;/code&gt; symbol will prevent the templating engine to perform its evaluation as an internal variable.&lt;/p&gt;  &lt;p&gt;Long scripts or strings can be escaped by wrapping them with the &lt;code&gt;#raw&lt;/code&gt; and &lt;code&gt;#end raw&lt;/code&gt; directives. For example:&lt;/p&gt;</source>
+          <source>&lt;p&gt;In case the kickstart scenario contains any shell script using variables like &lt;code&gt;$(example)&lt;/code&gt; its content should be escaped by using the backslash symbol:&lt;/p&gt; &lt;pre&gt;This is an \$(example) content.&lt;/pre&gt;  &lt;p&gt;If variable named &lt;em&gt;"example"&lt;/em&gt; is defined in the kickstart snippet, the templating engine will  evaluate &lt;code&gt;"$example"&lt;/code&gt; with its content. If there is no such variable, the  content  will be left unchanged. Escaping the &lt;code&gt;$&lt;/code&gt; symbol will prevent the templating engine to perform its evaluation as an internal variable.&lt;/p&gt;  &lt;p&gt;Long scripts or strings can be escaped by wrapping them with the &lt;code&gt;#raw&lt;/code&gt; and &lt;code&gt;#end raw&lt;/code&gt; directives. For example:&lt;/p&gt;</source>
         </trans-unit>
         <trans-unit id="snippetcreate.jsp.kickstart_rules_2">
           <source>An additional attention needs to be paid to the similar scenarios:</source>
@@ -11566,9 +11567,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="system-history-legend.jsp.type.package">
           <source>Package Event</source>
-         </trans-unit>
-         <trans-unit id="system-history-legend.jsp.type.errata">
-           <source>Errata Event</source>
+        </trans-unit>
+        <trans-unit id="system-history-legend.jsp.type.errata">
+          <source>Errata Event</source>
         </trans-unit>
         <trans-unit id="system-history-legend.jsp.type.preferences">
           <source>Preferences Event</source>
@@ -17626,7 +17627,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/systems/details/CreateCustomData.do</context>
         </context-group>
       </trans-unit>
-
       <!-- SDC Details Edit Page strings -->
       <trans-unit id="sdc.details.edit.header">
         <source>Edit System Details</source>

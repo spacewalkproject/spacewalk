@@ -535,6 +535,99 @@ until your certificate is renewed.</source>
 在本地的 Satellite {0} 上已经过期。在您更新证书前，
 将无法访问系统管理服务。</target>
       </trans-unit>
+      <trans-unit id="email.forgotten.password">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+Your @@PRODUCT_NAME@@ password has been reset.  To sign in, go to:
+
+https://{1}/
+
+And use the following username and password:
+
+Username: {2}
+Password: {3}
+
+Once you have logged in, you may then change your password.
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx"><context context-type="sourcefile">ForgotCredentials</context><context context-type="paramnotes">
+            {0} - Email address
+            {1} - Hostname of the @@PRODUCT_NAME@@</context>
+            {2} - Username
+            {3} - Password
+        </context-group>
+        <target>
+[ 这是根据您的要求自动发送给 {0} 的电子邮件。 ]
+
+您的 @@PRODUCT_NAME@@ 密码已被重置。请访问
+
+https://{1}/
+
+并使用以下用户名和密码登录：
+
+用户名：{2}
+密码：{3}
+
+登录后可以更改密码。
+
+如果您登录仍有问题，
+请联络您的 @@PRODUCT_NAME@@ 管理员获得进一步的支持。
+
+感谢您使用 @@PRODUCT_NAME@@。
+        </target>
+      </trans-unit>
+      <trans-unit id="email.forgotten.logins">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+You have requested a list of all @@PRODUCT_NAME@@ logins associated
+with the email address {0}.
+
+Existing login(s):
+
+{1}
+You may reset the passwords for any of the above @@PRODUCT_NAME@@ logins at:
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+If you did not request this email be sent, please disregard this message.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">ForgotCredentials</context>
+          <context context-type="paramnotes">
+            {0} - Email address
+            {1} - Existing logins
+            {2} - Hostname of the @@PRODUCT_NAME@@</context>
+        </context-group>
+        <target>
+[  这是根据您的要求自动发送给 {0} 的电子邮件。 ]
+
+您要求列出所有与电子邮件 {0} 关联的
+@@PRODUCT_NAME@@ 登录。
+
+现有登录：
+
+{1}
+您可以在下面的地址重置所有上述 @@PRODUCT_NAME@@ 登录的密码：
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+如果登录仍有问题，请联络
+您的 @@PRODUCT_NAME@@ 管理员活动进一步的帮助。
+如果不想发送这封电子邮件，请忽略此信息。
+
+感谢您使用 @@PRODUCT_NAME@@。
+        </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

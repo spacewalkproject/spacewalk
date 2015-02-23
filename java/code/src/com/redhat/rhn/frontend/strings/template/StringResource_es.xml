@@ -53,9 +53,9 @@ Correo-e: {4}
 
 {5}
 
-Importante: por favor cambie su contraseña una vez entre a RHN.
+Importante: cambie su contraseña una vez entre a RHN.
 
-Gracias por usar @@PRODUCT_NAME@@.
+Gracias por utilizar @@PRODUCT_NAME@@.
 {6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
@@ -100,9 +100,9 @@ Correo-e: {2}
 
 {3}
 
-Importante: por favor cambie su contraseña una vez entre a RHN.
+Importante:  cambie su contraseña una vez entre a RHN.
 
-Gracias por usar @@PRODUCT_NAME@@.
+Gracias por utilizar  @@PRODUCT_NAME@@.
 {4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
@@ -189,11 +189,11 @@ Un nuevo usuario ha sido añadido a su cuenta.
 {0}
 
 Para ver todos los usuario activos y los nombre de usuarios de Red Hat asociados con sus cuentas,
-por favor visite:
+visite:
 
 {1}
 
-Gracias por usar @@PRODUCT_NAME@@.
+Gracias por utilizar @@PRODUCT_NAME@@.
 {2}</target>
       </trans-unit>
       <group>
@@ -464,7 +464,7 @@ Después de esto no podrá acceder a los servicios.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
-        <target>Notificación sobre la expiración del certificado del satélite de Red Hat</target>
+        <target>Notificación sobre la expiración de @@PRODUCT_NAME@@ Certificate</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.spwbodyend">
         <source>
@@ -480,7 +480,7 @@ Thank you for using @@PRODUCT_NAME@@.
 
 
 Gracias por usar @@PRODUCT_NAME@@.
---el equipo de @@PRODUCT_NAME@@
+--el equipo de @@PRODUCT_NAME@@ 
 </target>
       </trans-unit>
       <trans-unit id="email.satellitecert.satbodyend">
@@ -495,7 +495,7 @@ Thank you for using @@PRODUCT_NAME@@.
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
         <target>
-Por favor visite la siguiente URL para obtener los pasos de cómo solicitar o generar un nuevo certificado de @@PRODUCT_NAME@@: https://access.redhat.com/knowledge/tools/satcert
+Visite la siguiente URL para obtener los pasos de cómo solicitar o generar un nuevo certificado de @@PRODUCT_NAME@@: https://access.redhat.com/knowledge/tools/satcert
 
 
 Gracias por utilizar @@PRODUCT_NAME@@.
@@ -513,7 +513,7 @@ and will soon stop functioning.</source>
 Estimado usuario de @@PRODUCT_NAME@@ ,
 
 Este correo-e es para informarle que su certificado de @@PRODUCT_NAME@@
-está vencido en su servidor {0}. Su satélite está en periodo
+está vencido en su servidor {0}. Su Satellite está en periodo
 restringido en día {1} de día {2} y pronto dejará de funcionar.</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.expired.body">
@@ -533,6 +533,99 @@ Estimado usuario de @@PRODUCT_NAME@@,
 Este correo-e es para informarle que su certificado @@PRODUCT_NAME@@
 en su servidor {0}, está vencido. Los servicios de administración del sistema
 no podrán accederse, sino hasta que usted renueve su certificado.</target>
+      </trans-unit>
+      <trans-unit id="email.forgotten.password">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+Your @@PRODUCT_NAME@@ password has been reset.  To sign in, go to:
+
+https://{1}/
+
+And use the following username and password:
+
+Username: {2}
+Password: {3}
+
+Once you have logged in, you may then change your password.
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx"><context context-type="sourcefile">ForgotCredentials</context><context context-type="paramnotes">
+            {0} - Email address
+            {1} - Hostname of the @@PRODUCT_NAME@@</context>
+            {2} - Username
+            {3} - Password
+        </context-group>
+        <target>
+[ Este es un correo-e automático enviado a {0} a petición suya. ]
+
+Su contraseña @@PRODUCT_NAME@@ ha sido reconfigurada. Para ingresar, vaya a:
+
+https://{1}/
+
+y utilice el siguiente nombre y contraseña:
+
+Nombre de usuario: {2}
+
+Contraseña: {3}
+
+Una vez haya ingresado, puede cambiar su contraseña.
+
+Si continúa teniendo dificultades para ingresar, contacte a su administrador @@PRODUCT_NAME@@ para obtener ayuda.
+
+Gracias por utilizar  @@PRODUCT_NAME@@.
+        </target>
+      </trans-unit>
+      <trans-unit id="email.forgotten.logins">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+You have requested a list of all @@PRODUCT_NAME@@ logins associated
+with the email address {0}.
+
+Existing login(s):
+
+{1}
+You may reset the passwords for any of the above @@PRODUCT_NAME@@ logins at:
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+If you did not request this email be sent, please disregard this message.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">ForgotCredentials</context>
+          <context context-type="paramnotes">
+            {0} - Email address
+            {1} - Existing logins
+            {2} - Hostname of the @@PRODUCT_NAME@@</context>
+        </context-group>
+        <target>
+[ Este es un correo-e automático enviado a  {0} a petición suya. ]
+
+Ha solicitado una lista de todos los nombres de usuario de
+@@PRODUCT_NAME@@ asociados con la dirección de correo-e {0}.
+
+El/Los nombre(s) de usuario existente(s):
+
+{1}
+Puede restablecer la contraseña de los nombres de usuario para @@PRODUCT_NAME@@ en:
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+Si continúa teniendo dificultades para ingresar, contacte  a
+su administrador @@PRODUCT_NAME@@ para obtener más ayuda.
+Si no solicitó este correo, ignore este mensaje.
+
+Gracias por utilizar  @@PRODUCT_NAME@@.
+        </target>
       </trans-unit>
     </body>
   </file>

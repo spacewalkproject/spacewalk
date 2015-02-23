@@ -534,6 +534,99 @@ diese E-Mail wurde gesendet, um Sie über den Ablauf Ihres @@PRODUCT_NAME@@ Zert
 auf Ihrem lokalen Satellite {0} zu informieren. Die System-Management-Dienste werden nicht mehr
 erreichbar sein, bis Sie Ihr Zertifikat erneuern.</target>
       </trans-unit>
+      <trans-unit id="email.forgotten.password">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+Your @@PRODUCT_NAME@@ password has been reset.  To sign in, go to:
+
+https://{1}/
+
+And use the following username and password:
+
+Username: {2}
+Password: {3}
+
+Once you have logged in, you may then change your password.
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx"><context context-type="sourcefile">ForgotCredentials</context><context context-type="paramnotes">
+            {0} - Email address
+            {1} - Hostname of the @@PRODUCT_NAME@@</context>
+            {2} - Username
+            {3} - Password
+        </context-group>
+        <target>
+[ Diese automatisierte E-Mail wurde auf Ihren Wunsch an {0} geschickt. ]
+
+Ihr @@PRODUCT_NAME@@ Passwort wurde zurückgesetzt. Um sich anzumelden, gehen Sie auf:
+
+https://{1}/
+
+Und benutzen den folgenden Benutzernamen und das folgende Passwort:
+
+Benutzername: {2}
+Passwort: {3}
+
+Nach der Anemldung können Sie das Passwort ändern.
+
+Falls Sie weiterhin Probleme bei der Anmeldung haben, setzen Sie sich bitte
+mit Ihrem @@PRODUCT_NAME@@ Administrator in Verbindung.
+
+Vielen Dank, dass Sie @@PRODUCT_NAME@@ verwenden.
+        </target>
+      </trans-unit>
+      <trans-unit id="email.forgotten.logins">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+You have requested a list of all @@PRODUCT_NAME@@ logins associated
+with the email address {0}.
+
+Existing login(s):
+
+{1}
+You may reset the passwords for any of the above @@PRODUCT_NAME@@ logins at:
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+If you did not request this email be sent, please disregard this message.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">ForgotCredentials</context>
+          <context context-type="paramnotes">
+            {0} - Email address
+            {1} - Existing logins
+            {2} - Hostname of the @@PRODUCT_NAME@@</context>
+        </context-group>
+        <target>
+[ Diese automatisierte E-Mail wurde auf Ihren Wunsch an {0} geschickt. ]
+
+Sie haben eine Liste aller @@PRODUCT_NAME@@ Logins angefordert,
+die mit der E-Mail-Adresse {0} assoziiert sind.
+
+Vorhandene Login(s):
+
+{1}
+Sie können die Passwörter für die @@PRODUCT_NAME@@ Logins unter:
+
+  https://{2}/rhn/help/ForgotCredentials.do zurücksetzen
+
+Falls Sie weiterhin Probleme bei der Anmeldung haben, setzen Sie sich bitte
+mit Ihrem @@PRODUCT_NAME@@ Administrator in Verbindung.
+Falls Sie diese E-Mail nicht angefordert haben, so ignorieren Sie diese Nachricht bitte.
+
+Vielen Dank, dass Sie @@PRODUCT_NAME@@ verwenden.
+        </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

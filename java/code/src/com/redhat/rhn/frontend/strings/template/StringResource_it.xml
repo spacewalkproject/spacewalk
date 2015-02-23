@@ -260,7 +260,7 @@ package profile for that server is out of date. In that case you should run
 ---------------------
 Elenco sistemi interessati
 ---------------------
-Questo Errata Advisory può essere applicato ai sistemi di seguito elencati. Se questo errata non interessa uno dei sistemi presenti nell'elenco, è possibile che il profilo del pacchetto non risulti essere aggiornato. In tal caso eseguire
+Questo Errata Advisory può essere applicato ai sistemi di seguito elencati. Se questo errata non interessa uno dei sistemi presenti nell'elenco, è possibile che il profilo del pacchetto non risulti essere aggiornato. In tal caso eseguire 
 'up2date -p' (RHEL 4 e versioni meno recenti) o 'rhn-profile-sync' (RHEL 5 e versioni più recenti) come utente root sul sistema in questione per ricaricare il profilo software.
     </target>
         </trans-unit>
@@ -315,7 +315,7 @@ Release    Arch       Nome Profilo
 
 È possibile risolvere gli errori di seguito riportati con questo avviso in due modi:
 
-     - selezionare il nome del server facendo clic sul nome dall'elenco disponibile nella seguente posizione e programmare un
+     - selezionare il nome del server facendo clic sul nome dall'elenco disponibile nella seguente posizione e programmare un 
        errata update:
            {1}
 
@@ -353,7 +353,7 @@ e navigare da "Panoramica" / "Il tuo Account" alla scheda delle "Preferenze".
 
         URL: {0}
 
-È possibile altresì abilitare/disabilitare le notifiche in base al sistema selezionando un sistema desiderato da "Elenco sistemi". Dalla visuale singola selezionare la scheda
+È possibile altresì abilitare/disabilitare le notifiche in base al sistema selezionando un sistema desiderato da "Elenco sistemi". Dalla visuale singola selezionare la scheda 
 "Dettagli".
 
 {1}
@@ -414,7 +414,7 @@ Questa email verrà inviata ogni qualvolta:
 Come disabilitare questa email:
 ----------------------
 
-Per disabilitare l'email consultare la pagina delle Preferenze su
+Per disabilitare l'email consultare la pagina delle Preferenze su 
 https://{4}/rhn/account/UserPreferences.do
 
 
@@ -527,6 +527,97 @@ Egregio utente di @@PRODUCT_NAME@@,
 Questa email è stata inviata per informaLa che il suo certificato @@PRODUCT_NAME@@ sul server {0} è scaduto.
 I servizi di gestione del sistema non potranno
 essere usati fino a quando il certificato non sarà rinnovato.</target>
+      </trans-unit>
+      <trans-unit id="email.forgotten.password">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+Your @@PRODUCT_NAME@@ password has been reset.  To sign in, go to:
+
+https://{1}/
+
+And use the following username and password:
+
+Username: {2}
+Password: {3}
+
+Once you have logged in, you may then change your password.
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx"><context context-type="sourcefile">ForgotCredentials</context><context context-type="paramnotes">
+            {0} - Email address
+            {1} - Hostname of the @@PRODUCT_NAME@@</context>
+            {2} - Username
+            {3} - Password
+        </context-group>
+        <target>
+[ Questa è una email automatica inviata a {0} come da richiesta. ]
+
+La tua password per @@PRODUCT_NAME@@ è stata resettata.  Per l'accesso, andare su:
+
+https://{1}/
+
+Usare il seguente nome utente e password:
+
+Nome utente: {2}
+Password: {3}
+
+Dopo aver eseguito l'accesso sarà possibile cambiare la password.
+
+Se continui ad avere difficoltà con il log in, contattare
+l'amministratore del tuo @@PRODUCT_NAME@@ per assistenza.
+
+Ti ringrazione per aver scelto @@PRODUCT_NAME@@.
+        </target>
+      </trans-unit>
+      <trans-unit id="email.forgotten.logins">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+You have requested a list of all @@PRODUCT_NAME@@ logins associated
+with the email address {0}.
+
+Existing login(s):
+
+{1}
+You may reset the passwords for any of the above @@PRODUCT_NAME@@ logins at:
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+If you did not request this email be sent, please disregard this message.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">ForgotCredentials</context>
+          <context context-type="paramnotes">
+            {0} - Email address
+            {1} - Existing logins
+            {2} - Hostname of the @@PRODUCT_NAME@@</context>
+        </context-group>
+        <target>
+[ Questa è una email automatica inviata a {0} come da richiesta. ]
+
+Hai richiesto un elenco di tutti i log in di @@PRODUCT_NAME@@ associati a questo indirizzo email {0}.
+
+Log in esistenti:
+
+{1}
+È possibile resettare le password per qualsiasi log in di @@PRODUCT_NAME@@ sopra indicato:
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+Se continui ad avere problemi con il log in, contatta l'amministratore del tuo @@PRODUCT_NAME@@ per ulteriore assistenza.
+Se non hai richiesto questa email allora ignora il messaggio.
+
+Grazie per aver scelto @@PRODUCT_NAME@@.
+        </target>
       </trans-unit>
     </body>
   </file>
