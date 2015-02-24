@@ -181,6 +181,14 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
   </query>
 </mode>
 
+<mode name="repomd_candidates_details_query">
+  <query params="channel_label">
+SELECT id, channel_label, client, reason, force, bypass_filters, next_action
+  FROM rhnRepoRegenQueue queue
+ WHERE next_action is not null
+   AND channel_label = :channel_label
+  </query>
+</mode>
 
 <write-mode name="repomd_mark_in_progress">
    <query params="channel_label">
