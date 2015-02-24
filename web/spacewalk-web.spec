@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.34
+Version: 2.3.35
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -284,6 +284,20 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Feb 24 2015 Tomas Lestach <tlestach@redhat.com> 2.3.35-1
+- removing errata_channel_intersection.pxt as it was ported to java
+- removing unused iso download jsp
+- removing unused legends
+- removing scout pages as monitoring was removed
+- removing subscribers.pxt as it was ported to java
+- removing errata clone.pxt as it was ported to java
+- removing system_detail.xml and system_details_toolbar.pxi
+- removing system details history pxt files
+- removing proxy.pxt and proxy-clients.pxt as they were ported to java
+- removing connection.pxt as it was ported to java
+- removing activation.pxt as it was ported to java
+- removing monitoring notification methods
+
 * Wed Feb 18 2015 Tomas Lestach <tlestach@redhat.com> 2.3.34-1
 - 1190235 - Restore missing { to BackupCommands.pm
 
