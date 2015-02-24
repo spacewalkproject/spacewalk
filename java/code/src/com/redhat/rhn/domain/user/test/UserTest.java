@@ -17,7 +17,6 @@ package com.redhat.rhn.domain.user.test;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.util.SHA256Crypt;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.Role;
