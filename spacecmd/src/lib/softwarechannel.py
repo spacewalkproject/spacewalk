@@ -624,24 +624,23 @@ def do_softwarechannel_create(self, args):
 
     if options.gpg_url and options.gpg_id and options.gpg_fingerprint :
         self.client.channel.software.create(self.session,
-                                        options.label,
-                                        options.name,
-                                        options.name, # summary
-                                        'channel-%s' % options.arch,
-                                        options.parent_channel,
-                                        options.checksum,
-                                        {'url' :         options.gpg_url,
-                                         'id' :          options.gpg_id,
-                                         'fingerprint' : options.gpg_fingerprint}
-                                       )
+                                            options.label,
+                                            options.name,
+                                            options.name, # summary
+                                            'channel-%s' % options.arch,
+                                            options.parent_channel,
+                                            options.checksum,
+                                            {'url' :         options.gpg_url,
+                                             'id' :          options.gpg_id,
+                                             'fingerprint' : options.gpg_fingerprint}
+                                           )
     else:
         self.client.channel.software.create(self.session,
-                                        options.label,
-                                        options.name,
-                                        options.name,  # summary
-                                        'channel-%s' % options.arch,
-                                        options.parent_channel)
-
+                                            options.label,
+                                            options.name,
+                                            options.name,  # summary
+                                            'channel-%s' % options.arch,
+                                            options.parent_channel)
 ####################
 
 
