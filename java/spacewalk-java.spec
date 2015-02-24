@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.148
+Version: 2.3.149
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -788,6 +788,36 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 24 2015 Grant Gainey 2.3.149-1
+- CloneErrataActionTest: missing query added
+- RhnSetDeclTest: use a decl with correct cleanup operation
+- UserExternalHandlerTest: monitoring entitlement was removed, update counters
+- ActivationKeyHandlerTest: virtualization host entitlement was removed, update
+  counters
+- ServerTest: don't count monitoring entitlement any more
+- CloneErrataActionTest: adapt to new behavior in ChannelRepodataDriver, remove
+  stale code
+- ErrataHandler.create: restore backwards-compatible method signature and fix
+  tests
+- Server Hibernate mapping: don't use {S.*} notation as it will generate
+  incorrect SQL with joined-subclass
+- ServerFactoryTest: create a 32-byte secret to play nice with
+  ClientCertificate
+- PxtAuthenticationServiceTest: adjust expectations to updated code
+- KickstartPartitionActionTest: expect warning message as well
+- UserImpl: keep local collection in sync (fixes RoleTest failure)
+- KickstartDataTest: do not fail by using correct constant
+- KickstartBuilderTest: update to post-SHA256 code
+- Fedora KS install type is 'fedora18' now, adapt code accordingly
+- sitenav.xml: use full sign in URL to make NavTest happy
+- UserTest: use SHA1 instead of MD5
+- UserTest: save Role before use, a non-null id is required
+- UserEditSetupActionTest: number of roles has diminished by one with removal
+  of monitoring
+- AccessTest: ftr_kickstart should be present in provisioning entitled servers
+- ChannelFactoryTest: channel labels always need to be lower case
+- TestFactoryWrapperTest: use a different query, table does not exist anymore
+
 * Tue Feb 24 2015 Tomas Lestach <tlestach@redhat.com> 2.3.148-1
 - removing unused iso download jsp
 
