@@ -11864,7 +11864,7 @@ Tenga en cuenta que podría ser necesario configurar manualmente estos scripts. 
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
-        <target>Puede hacer referencia a estas llaves y/o certificados en sus perfiles Kickstart para que sean instalados en los sistemas durante el inicio de instalación a través de Kickstart. El sistema necesitará las llaves para instalar paquetes firmados y el certificado correcto para ser iniciados a través de una instalación Kickstart por un @@ PRODUCT_NAME @@ Proxy Server o un @@PRODUCT_NAME@@ Server. Para más  información, consulte la &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank" &gt;Guía de referencia  RHN&lt;/a&gt;. </target>
+        <target>Puede hacer referencia a estas llaves y/o certificados en sus perfiles Kickstart para que sean instalados en los sistemas durante el inicio de instalación a través de Kickstart. El sistema necesitará las llaves para instalar paquetes firmados y el certificado correcto para ser iniciados a través de una instalación Kickstart por un @@PRODUCT_NAME@@ Proxy Server o un @@PRODUCT_NAME@@ Server. Para más  información, consulte la &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank" &gt;Guía de referencia  RHN&lt;/a&gt;. </target>
       </trans-unit>
       <trans-unit id="keys.jsp.toolbar">
         <source>GPG Public Keys and SSL Certificates</source>
