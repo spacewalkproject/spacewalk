@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.16
+Version:     2.3.17
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -77,6 +77,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Feb 24 2015 Grant Gainey 2.3.17-1
+- Make pylint happy
+
 * Thu Feb 19 2015 Grant Gainey 2.3.16-1
 - Fixed typo
 - add ability to specify gpg bits from spacecmd when creating software channels
