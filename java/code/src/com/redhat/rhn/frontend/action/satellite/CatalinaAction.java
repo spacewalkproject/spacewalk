@@ -33,13 +33,15 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class CatalinaAction extends RhnAction {
+
+    private static final String LOGFILE_PATH = "/var/log/rhn/rhn_web_ui.log";
+
    /** {@inheritDoc} */
    public ActionForward execute(ActionMapping mapping,
                                 ActionForm formIn,
                                 HttpServletRequest request,
                                 HttpServletResponse response) {
-       String catalinaBase = System.getProperty("catalina.base");
-       String contents = FileUtils.getTailOfFile(catalinaBase + "/logs/catalina.out", 1000);
+       String contents = FileUtils.getTailOfFile(LOGFILE_PATH, 1000);
        contents = StringEscapeUtils.escapeHtml(contents);
        request.setAttribute("contents", contents);
        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
