@@ -6,6 +6,7 @@ After=local-fs.target network.target httpd.service
 Type=forking
 ExecStart=/usr/sbin/rhn-search start
 ExecStop=/usr/sbin/rhn-search stop
+PIDFile=/var/run/rhn-search.pid
 
 [Install]
 WantedBy=multi-user.target
