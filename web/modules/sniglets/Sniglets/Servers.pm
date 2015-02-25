@@ -162,7 +162,7 @@ sub system_status_info {
 
     if ($user->is('org_admin')) {
       $ret->{message} = 'entitle it here';
-      $ret->{link} = "/network/systems/details/edit.pxt?sid=${sid}";
+      $ret->{link} = "/rhn/systems/details/Edit.do?sid=${sid}";
     }
   }
   elsif ($data->{LAST_CHECKIN_DAYS_AGO} > PXT::Config->get('system_checkin_threshold')) {

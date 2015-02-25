@@ -2144,7 +2144,7 @@ def system_reg_message(server):
             hostname = "rhn.redhat.com"
         params = {
             'entitlement_url': "https://%s"
-            "/network/systems/details/edit.pxt?sid=%s" %
+            "/rhn/systems/details/Edit.do?sid=%s" %
             (hostname, server_id)
         }
         return -1, no_entitlement_title, no_entitlement_message % params
