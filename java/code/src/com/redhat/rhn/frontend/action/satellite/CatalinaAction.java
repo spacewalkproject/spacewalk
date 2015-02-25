@@ -42,6 +42,7 @@ public class CatalinaAction extends RhnAction {
                                 HttpServletRequest request,
                                 HttpServletResponse response) {
        String contents = FileUtils.getTailOfFile(LOGFILE_PATH, 1000);
+       request.setAttribute("logfile_path", LOGFILE_PATH);
        contents = StringEscapeUtils.escapeHtml(contents);
        request.setAttribute("contents", contents);
        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
