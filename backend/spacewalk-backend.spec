@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.44
+Version: 2.3.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -653,6 +653,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Wed Feb 25 2015 Tomas Lestach <tlestach@redhat.com> 2.3.45-1
+- removing system details edit.pxt as it was ported to java
+
 * Mon Feb 16 2015 Stephen Herr <sherr@redhat.com> 2.3.44-1
 - convert empty string to null for DMI values
 - init the second DB connection only when needed
