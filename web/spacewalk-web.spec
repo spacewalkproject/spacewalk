@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.35
+Version: 2.3.36
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -284,6 +284,24 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Feb 25 2015 Tomas Lestach <tlestach@redhat.com> 2.3.36-1
+- removing ssm schedule remote command as it was ported to java
+- removing package pages as they were ported to java
+- removing package_map.pxt as it was solaris related
+- removing ssm system preferences as they were ported to java
+- removing ssm handling custom values as it was ported to java
+- removing solaris related package pages
+- removing ssm provisioning pages as they were ported to java
+- removing ssm apply_errata_conf.pxt as it's no longer referenced
+- removing ssm solaris patchsets related pages
+- removing ssm solaris patches related pages
+- removing subscribers.pxt as it was ported to java
+- removing errata_cache_update.pxi and manage_channels_header.pxi
+- removing solaris patchsets related pages, as solaris support has been dropped
+- removing solaris patches related pages, as solaris support has been dropped
+- removing system details edit.pxt as it was ported to java
+- removing channel clone.pxt as the page was ported to java
+
 * Tue Feb 24 2015 Tomas Lestach <tlestach@redhat.com> 2.3.35-1
 - removing errata_channel_intersection.pxt as it was ported to java
 - removing unused iso download jsp
