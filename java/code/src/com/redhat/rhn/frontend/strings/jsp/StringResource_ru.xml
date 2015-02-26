@@ -10128,11 +10128,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
         <target>Перезапуск</target>
       </trans-unit>
-      <!-- Catalina stuff -->
-      <trans-unit id="catalina.jsp.show">
-        <source>catalina.out</source>
-        <target>catalina.out</target>
-      </trans-unit>
       <!-- Cobbler stuff -->
       <group>
         <context-group name="ctx">

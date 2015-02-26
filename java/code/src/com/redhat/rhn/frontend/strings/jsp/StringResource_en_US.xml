@@ -7863,10 +7863,6 @@ Please note that some manual configuration of these scripts may still be require
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
       </trans-unit>
-      <!-- Catalina stuff -->
-      <trans-unit id="catalina.jsp.show">
-        <source>catalina.out</source>
-      </trans-unit>
       <!-- Cobbler stuff -->
       <group>
         <context-group name="ctx">

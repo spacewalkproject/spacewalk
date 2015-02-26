@@ -10144,11 +10144,6 @@ Tenga en cuenta que podría ser necesario configurar manualmente estos scripts. 
         </context-group>
         <target>Reiniciar</target>
       </trans-unit>
-      <!-- Catalina stuff -->
-      <trans-unit id="catalina.jsp.show">
-        <source>catalina.out</source>
-        <target>catalina.out</target>
-      </trans-unit>
       <!-- Cobbler stuff -->
       <group>
         <context-group name="ctx">

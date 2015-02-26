@@ -8676,11 +8676,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
         <target>மறுதுவக்கம்</target>
       </trans-unit>
-      <!-- Catalina stuff -->
-      <trans-unit id="catalina.jsp.show">
-        <source>catalina.out</source>
-        <target/>
-      </trans-unit>
       <!-- Cobbler stuff -->
       <group>
         <context-group name="ctx">

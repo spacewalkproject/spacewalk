@@ -10142,11 +10142,6 @@ Bitte beachten Sie, dass möglicherweise noch einige manuelle Konfigurationen di
         </context-group>
         <target>Neustart</target>
       </trans-unit>
-      <!-- Catalina stuff -->
-      <trans-unit id="catalina.jsp.show">
-        <source>catalina.out</source>
-        <target>catalina.out</target>
-      </trans-unit>
       <!-- Cobbler stuff -->
       <group>
         <context-group name="ctx">
