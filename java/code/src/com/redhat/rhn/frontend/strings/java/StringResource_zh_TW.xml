@@ -9736,7 +9736,7 @@ kickstarting systems:
 Please check:
 
 /var/log/rhn/rhn_taskomatic_daemon.log and
-/var/log/tomcat5/catalina.out
+/var/log/rhn/rhn_web_ui.log
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
@@ -9753,7 +9753,7 @@ kickstart 系統：
 請檢查：
 
 /var/log/rhn/rhn_taskomatic_daemon.log 以及
-/var/log/tomcat5/catalina.out
+/var/log/rhn/rhn_web_ui.log
 /var/log/cobbler/cobbler.log
 
 以取得更詳細的錯誤資訊。若您不修正這些錯誤，您將無法

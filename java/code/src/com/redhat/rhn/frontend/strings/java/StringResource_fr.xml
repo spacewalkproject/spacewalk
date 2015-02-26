@@ -9739,7 +9739,7 @@ kickstarting systems:
 Please check:
 
 /var/log/rhn/rhn_taskomatic_daemon.log and
-/var/log/tomcat5/catalina.out
+/var/log/rhn/rhn_web_ui.log
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
@@ -9755,7 +9755,7 @@ erreurs doivent être corrigées pour que les distributions puissent être dispo
 {0}
 Veuillez cocher :
 /var/log/rhn/rhn_taskomatic_daemon.log et
-/var/log/tomcat5/catalina.out
+/var/log/rhn/rhn_web_ui.log
 /var/log/cobbler/cobbler.log
 
  pour des erreurs plus détaillées.  Si vous ne pouvez pas résoudre les erreurs de l'arborescence de kickstart

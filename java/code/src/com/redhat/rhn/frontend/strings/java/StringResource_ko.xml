@@ -9680,7 +9680,7 @@ kickstarting systems:
 Please check:
 
 /var/log/rhn/rhn_taskomatic_daemon.log and
-/var/log/tomcat5/catalina.out
+/var/log/rhn/rhn_web_ui.log
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
@@ -9696,7 +9696,7 @@ Spacewalk이 킥스타트 배포판을 Spacewalk에서 Cobbler로
 자세한 오류 내용은 다음을 확인하십시오:
 
 /var/log/rhn/rhn_taskomatic_daemon.log and
-/var/log/tomcat5/catalina.out
+/var/log/rhn/rhn_web_ui.log
 /var/log/cobbler/cobbler.log
 
 이러한 오류를 해결하지 않으면 킥스타트 트리를 킥스타트에 

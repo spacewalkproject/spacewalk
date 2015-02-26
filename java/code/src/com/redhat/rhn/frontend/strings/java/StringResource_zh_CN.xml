@@ -9737,7 +9737,7 @@ kickstarting systems:
 Please check:
 
 /var/log/rhn/rhn_taskomatic_daemon.log and
-/var/log/tomcat5/catalina.out
+/var/log/rhn/rhn_web_ui.log
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
@@ -9754,7 +9754,7 @@ tree will not be usable for kickstarting.
 请检查：
 
 /var/log/rhn/rhn_taskomatic_daemon.log 和
-/var/log/tomcat5/catalina.out
+/var/log/rhn/rhn_web_ui.log
 /var/log/cobbler/cobbler.log
 
 里关于错误信息的细节。如果你没有解决这些错误，在 Kickstarging 时
