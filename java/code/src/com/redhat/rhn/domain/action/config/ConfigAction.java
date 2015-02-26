@@ -18,6 +18,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFormatter;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.html.HtmlTag;
 
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class ConfigAction extends Action {
      *
      * {@inheritDoc}
      */
+    @Override
     public ActionFormatter getFormatter() {
         if (formatter == null) {
             formatter = new ConfigActionFormatter(this);
@@ -78,7 +80,7 @@ public class ConfigAction extends Action {
      * {@inheritDoc}
      */
     @Override
-    public String getHistoryDetails(Server server) {
+    public String getHistoryDetails(Server server, User currentUser) {
         LocalizationService ls = LocalizationService.getInstance();
         StringBuilder retval = new StringBuilder();
         retval.append("</br>");

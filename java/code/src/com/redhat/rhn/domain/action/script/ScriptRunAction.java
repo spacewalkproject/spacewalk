@@ -16,6 +16,8 @@ package com.redhat.rhn.domain.action.script;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.download.DownloadManager;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
@@ -30,7 +32,7 @@ public class ScriptRunAction extends ScriptAction {
      * {@inheritDoc}
      */
     @Override
-    public String getHistoryDetails(Server server) {
+    public String getHistoryDetails(Server server, User currentUser) {
         LocalizationService ls = LocalizationService.getInstance();
         StringBuilder retval = new StringBuilder();
         retval.append("</br>");
@@ -57,9 +59,10 @@ public class ScriptRunAction extends ScriptAction {
                         .getReturnCode().toString()));
                 retval.append("</br>");
                 retval.append(ls.getMessage("system.event.scriptRawOutput"));
-                retval.append("<a href=\"/network/systems/details/history/" +
-                        "raw_script_output.txt?hid=" + this.getId() + "&sid=" +
-                        server.getId() + "\">");
+                retval.append("<a href=\"" +
+                        DownloadManager.getScriptRawOutputDownloadPath(
+                                this.getId(), sr.getActionScriptId(), currentUser) +
+                        "\">");
                 retval.append(ls.getMessage("system.event.downloadRawOutput"));
                 retval.append("</a>");
                 retval.append("</br>");

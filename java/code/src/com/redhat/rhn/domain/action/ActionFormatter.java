@@ -14,11 +14,12 @@
  */
 package com.redhat.rhn.domain.action;
 
-import org.apache.commons.lang.StringEscapeUtils;
-
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+
+import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * ActionFormatter - Class that is responsible for properly formatting the fields
@@ -165,9 +166,10 @@ public class ActionFormatter {
 
     /**
      * @param server on which action has been executed
+     * @param currentUser current user
      * @return returns localized formatted string to be used on system event details page
      */
-    public String getDetails(Server server) {
+    public String getDetails(Server server, User currentUser) {
         LocalizationService ls = LocalizationService.getInstance();
         StringBuilder retval = new StringBuilder();
         retval.append(ls.getMessage("system.event.details.execute",
@@ -182,7 +184,7 @@ public class ActionFormatter {
         }
         else {
             retval.append(ls.getMessage("system.event.details.notPickedUp"));
-            retval.append(action.getHistoryDetails(server));
+            retval.append(action.getHistoryDetails(server, currentUser));
             return retval.toString();
         }
         retval.append("</br>");
@@ -192,14 +194,22 @@ public class ActionFormatter {
         }
         else {
             retval.append(ls.getMessage("system.event.details.notCompleted"));
-            retval.append(action.getHistoryDetails(server));
+            retval.append(action.getHistoryDetails(server, currentUser));
             return retval.toString();
         }
         retval.append("</br>");
         retval.append(ls.getMessage("system.event.details.returned",
                 StringEscapeUtils.escapeHtml(sa.getResultMsg()), sa.getResultCode()));
-        retval.append(action.getHistoryDetails(server));
+        retval.append(action.getHistoryDetails(server, currentUser));
         return retval.toString();
+    }
+
+    /**
+     * @param server on which action has been executed
+     * @return returns localized formatted string to be used on system event details page
+     */
+    public Object getDetails(Server server) {
+        return getDetails(server, null);
     }
 
 }

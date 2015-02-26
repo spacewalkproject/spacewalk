@@ -14,20 +14,20 @@
  */
 package com.redhat.rhn.domain.action;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Action - Class representation of the table rhnAction.
@@ -388,10 +388,18 @@ public class Action extends BaseDomainHelper implements Serializable {
 
     /**
      * @param server server to which action is linked
+     * @param currentUser user
      * @return string which is used on system history details
      */
-    public String getHistoryDetails(Server server) {
+    public String getHistoryDetails(Server server, User currentUser) {
         return "";
     }
 
+    /**
+     * @param server server to which action is linked
+     * @return string which is used on system history details
+     */
+    public String getHistoryDetails(Server server) {
+        return getHistoryDetails(server, null);
+    }
 }

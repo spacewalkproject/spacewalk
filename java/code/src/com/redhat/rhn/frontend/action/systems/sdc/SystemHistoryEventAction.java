@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SystemHistoryEventAction extends RhnAction {
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
@@ -68,7 +69,8 @@ public class SystemHistoryEventAction extends RhnAction {
         request.setAttribute("actiontype", af.getActionType());
         request.setAttribute("scheduler", af.getScheduler());
         request.setAttribute("earliestaction", af.getEarliestDate());
-        request.setAttribute("actionnotes", af.getDetails(server));
+        request.setAttribute("actionnotes", af.getDetails(server,
+                requestContext.getCurrentUser()));
         request.setAttribute("failed", action.getFailedCount() > 0 ? true : false);
         request.setAttribute("aid", aid);
 

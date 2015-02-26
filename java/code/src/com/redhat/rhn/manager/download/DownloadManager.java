@@ -43,6 +43,7 @@ public class DownloadManager extends BaseManager {
     public static final String DOWNLOAD_TYPE_SOURCE = "srpm";
     public static final String DOWNLOAD_TYPE_REPO_LOG = "repolog";
     public static final String DOWNLOAD_TYPE_CRASHFILE = "crashfile";
+    public static final String DOWNLOAD_TYPE_SCRIPTRAWOUTPUT = "scriptoutput";
 
     /**
      * Get a download path (part of the url) that is used to download a package.
@@ -106,6 +107,20 @@ public class DownloadManager extends BaseManager {
                                         User user) {
         return getNonExpiringDownloadPath(c.getId(), c.getLabel(), user,
                 DownloadManager.DOWNLOAD_TYPE_REPO_LOG);
+    }
+
+    /**
+     * Get a download path that is used to download raw script output.
+     *
+     * @param actionId action id
+     * @param scriptResultId script result id
+     * @param currentUser current user
+     * @return the path/url
+     */
+    public static String getScriptRawOutputDownloadPath(Long actionId,
+            Long scriptResultId, User currentUser) {
+        return getNonExpiringDownloadPath(actionId, scriptResultId.toString(),
+                currentUser, DownloadManager.DOWNLOAD_TYPE_SCRIPTRAWOUTPUT);
     }
 
     private static String getDownloadPath(Long fileId, String filename,

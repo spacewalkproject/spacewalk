@@ -16,10 +16,14 @@ package com.redhat.rhn.frontend.action.common;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.common.util.MD5Sum;
 import com.redhat.rhn.common.util.download.ByteArrayStreamInfo;
+import com.redhat.rhn.domain.action.script.ScriptActionDetails;
+import com.redhat.rhn.domain.action.script.ScriptResult;
+import com.redhat.rhn.domain.action.script.ScriptRunAction;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.common.CommonFactory;
@@ -37,7 +41,9 @@ import com.redhat.rhn.domain.server.CrashFile;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.download.UnknownDownloadTypeException;
@@ -53,8 +59,8 @@ import org.apache.struts.actions.DownloadAction;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.net.URL;
@@ -70,8 +76,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -369,6 +375,7 @@ public class DownloadFile extends DownloadAction {
         String path = "";
         Map params = (Map) request.getAttribute(PARAMS);
         String type = (String) params.get(TYPE);
+        User currentUser = new RequestContext(request).getCurrentUser();
         if (type.equals(DownloadManager.DOWNLOAD_TYPE_KICKSTART)) {
             return getStreamInfoKickstart(mapping, form, request, response, path);
         }
@@ -486,6 +493,24 @@ public class DownloadFile extends DownloadAction {
                     "/" + crashPath + "/" + crashFile.getFilename();
                 return getStreamForBinary(path);
 
+            }
+            else if (type.equals(DownloadManager.DOWNLOAD_TYPE_SCRIPTRAWOUTPUT)) {
+                if (!user.equals(currentUser)) {
+                    throw new PermissionException("missing permission for download link");
+                }
+                ScriptRunAction action =
+                        (ScriptRunAction) ActionManager.lookupAction(user, fileId);
+                ScriptActionDetails details = action.getScriptActionDetails();
+
+                String results = "";
+                if (details.getResults() != null) {
+                    for (Iterator<ScriptResult> it = details.getResults().iterator(); it
+                            .hasNext();) {
+                        ScriptResult r = it.next();
+                        results += r.getOutputContents();
+                    }
+                }
+                return getStreamForText(results.getBytes());
             }
         }
 
