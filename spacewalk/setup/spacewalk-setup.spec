@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.3.10
+Version:        2.3.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -111,6 +111,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Feb 26 2015 Tomas Lestach <tlestach@redhat.com> 2.3.11-1
+- Added Oracle RDBMS 12.1.0 to the list of allowed database versions.
+
 * Mon Feb 16 2015 Stephen Herr <sherr@redhat.com> 2.3.10-1
 - spacewalk-setup upgrade dir no longer exists after monitoring removal
 
