@@ -72,7 +72,7 @@ class moduleClass(Module):
         self.vbox.pack_start(self.start_page_vbox, True, True)
 
     def _system_is_registered(self):
-        if rhnreg.registered():
+        if rhnreg.registered() or rhnreg.rhsm_registered():
             return True
         try:
             _rhsm_path = "/usr/share/rhsm/subscription_manager"
