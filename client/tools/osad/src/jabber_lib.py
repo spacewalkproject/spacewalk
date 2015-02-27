@@ -525,7 +525,7 @@ class JabberQualifiedError(JabberError):
 
     __str__ = __repr__
 
-class JabberClient(jabber.Client):
+class JabberClient(jabber.Client, object):
     _seq = 0
     BLOCK_SIZE = jabber.xmlstream.BLOCK_SIZE
 
@@ -1022,6 +1022,9 @@ class JabberClient(jabber.Client):
             self.disconnected(self)
         return received
 
+    def process_loop_hook(self):
+        pass
+
     def process(self, timeout=None):
         log_debug(3, timeout)
         self._incoming_node_queue = []
@@ -1038,6 +1041,7 @@ class JabberClient(jabber.Client):
             else:
                 tm = None
 
+            self.process_loop_hook()
             # tm is the number of seconds we have to wait (or None)
             log_debug(5, "before select(); timeout", tm)
             rfds, wfds, exfds = select.select([fileno], [], [], tm)
