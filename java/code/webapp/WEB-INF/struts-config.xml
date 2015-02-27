@@ -1042,6 +1042,7 @@
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="name" type="java.lang.String" />
       <form-property name="description" type="java.lang.String" />
+      <form-property name="is_ssm" type="java.lang.Boolean" />
       <form-property name="submitted"   type="java.lang.Boolean" />
     </form-bean>
 
@@ -3986,6 +3987,9 @@
              <forward name="success"
                       path="/groups/GroupDetail.do"
                       redirect="true" />
+             <forward name="success-ssm"
+                      path="/ssm/index.do"
+                      redirect="true" />
      </action>
 
     <action path="/groups/Delete"
@@ -4622,6 +4626,20 @@
         scope="request"
         type="com.redhat.rhn.frontend.action.GenericIndexAction">
         <forward name="default" path="/WEB-INF/pages/ssm/ssmindex.jsp"/>
+    </action>
+
+
+    <!-- SSM/Groups -->
+    <action path="/ssm/groups/Create"
+            scope="request"
+            type="com.redhat.rhn.frontend.action.groups.EditGroupAction"
+            name="editSystemGroupForm"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+            <set-property property="acls"
+                     value="user_role(system_group_admin)"/>
+            <set-property property="postRequiredIfSubmitted" value="true" />
+            <forward name="default"
+                     path="/WEB-INF/pages/groups/edit.jsp" />
     </action>
 
 

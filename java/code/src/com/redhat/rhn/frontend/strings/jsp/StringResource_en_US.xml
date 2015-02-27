@@ -5773,6 +5773,9 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="systemgroup.create.summary">
           <source>Create a system group using the form provided. Note that the group will be empty until systems are joined to it. Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
         </trans-unit>
+        <trans-unit id="systemgroup.create.summaryssm">
+          <source>This will create a new system group, and will place the selected systems into the new group. Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
+        </trans-unit>
         <trans-unit id="systemgroup.edit.summary">
           <source>Update group properties using the form provided. Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
         </trans-unit>

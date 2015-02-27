@@ -18,7 +18,10 @@
         </h1>
         <p>
             <c:choose>
-                <c:when test='${empty param.sgid}'>
+                <c:when test='${empty param.sgid and is_ssm}'>
+                    <bean:message key="systemgroup.create.summaryssm"/>
+                </c:when>
+                <c:when test='${empty param.sgid and not is_ssm}'>
                     <bean:message key="systemgroup.create.summary"/>
                 </c:when>
                 <c:otherwise>
@@ -69,6 +72,10 @@
                     </c:choose>
                 </div>
             </div>
+            <c:if test='${is_ssm}'>
+                <html:hidden property="is_ssm" value="true" />
+            </c:if>
+
             <html:hidden property="submitted" value="true" />
             <c:if test='${not empty param.sgid}'>
                 <html:hidden property="sgid" value="${param.sgid}" />
