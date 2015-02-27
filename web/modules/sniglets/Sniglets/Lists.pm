@@ -211,7 +211,6 @@ sub navi_empty_set {
 
 my %pinfo_modes = (
           system => {
-                     '/unentitled.pxt' => {mode => 'unentitled', name => 'Unentitled Systems'},
                      '/ungrouped.pxt' => {mode => 'ungrouped', name => 'Ungrouped Systems'},
                      '/inactive.pxt' => {mode => 'inactive', name => 'Inactive Systems'},
                      '/proxy.pxt' => {mode => 'proxy_servers', name => 'Proxy Servers'},
