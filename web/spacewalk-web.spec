@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.36
+Version: 2.3.37
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -284,6 +284,24 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Feb 27 2015 Tomas Lestach <tlestach@redhat.com> 2.3.37-1
+- removing unknown_package.pxt as it's not referenced anymore
+- removing unused tags in Sniglets/Packages.pm
+- removing errata_list/all.pxt as it isn't referenced anymore
+- removing errata_list/relevant.pxt as it isn't referenced anymore
+- removing system_list/potentially_in_channel_family.pxt as it isn't referenced
+  anymore
+- removing system_list/proxy.pxt as it isn't referenced anymore
+- removing system_list/inactive.pxt as it isn't referenced anymore
+- removing system_list/ungrouped.pxt as it isn't referenced anymore
+- removing system_list/unentitled.pxt as it isn't referenced anymore
+- removing system_list/out_of_date.pxt as it isn't referenced anymore
+- removing system_list/visible_to_user.pxt as it isn't referenced anymore
+- removing unused schedule_action-interface.pxi
+- removing unused reschedule_action_form.pxi
+- removing unused Sniglets/ServerActions.pm
+- remove unused raw_script_output.txt
+
 * Wed Feb 25 2015 Tomas Lestach <tlestach@redhat.com> 2.3.36-1
 - removing ssm schedule remote command as it was ported to java
 - removing package pages as they were ported to java
