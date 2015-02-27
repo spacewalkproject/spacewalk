@@ -52,11 +52,15 @@ class moduleClass(Module):
 
         if self.support_sm \
                 and not self.chooseServerPage.chooseServerXml.get_widget("satelliteButton").get_active():
-            i = 0
-            while not interface.moduleList[i].__module__.startswith('rhsm_'):
-                i += 1
-            interface.moveToPage(pageNum=i)
-            self.rhsmActive = True
+            for module in interface.moduleList:
+                if module.__module__.startswith('rhsm_'):
+                    self.rhsmActive = True
+                    interface.moveToPage(moduleTitle=module.title)
+                    return RESULT_JUMP
+            # If we have not found rhsm_ module, it means we are already registered...
+            # Though we probably have not reached this code as appropriate page
+            # should have already caught us.
+            interface.moveToPage(moduleTitle=_("Set Up Software Updates"))
             return RESULT_JUMP
 
         try:
