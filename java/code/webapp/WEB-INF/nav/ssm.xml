@@ -24,6 +24,12 @@
             </rhn-tab>
    </rhn-tab>
 
+    <rhn-tab name="Groups" acl="user_role(org_admin)">
+        <rhn-tab-url>/network/systems/ssm/groups/index.pxt</rhn-tab-url>
+        <rhn-tab-url>/network/systems/ssm/groups/alter_membership_conf.pxt</rhn-tab-url>
+        <rhn-tab-url>/network/systems/ssm/groups/create.pxt</rhn-tab-url>
+    </rhn-tab>
+
         <rhn-tab name="Channels">
             <rhn-tab-url>/rhn/channel/ssm/ChildSubscriptions.do</rhn-tab-url>
             <rhn-tab name="Base Channels">
