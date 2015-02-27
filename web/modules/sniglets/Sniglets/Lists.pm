@@ -211,7 +211,6 @@ sub navi_empty_set {
 
 my %pinfo_modes = (
           system => {
-                     '/proxy.pxt' => {mode => 'proxy_servers', name => 'Proxy Servers'},
                      '/potentially_in_channel_family.pxt' => {mode => 'systems_potentially_in_channel_family', name => 'Subscribable Systems'},
                     },
           errata => {'/relevant.pxt' => {mode => 'relevant_errata', name => 'Errata Relevant to Your Systems'},
