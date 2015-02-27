@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.153
+Version: 2.3.154
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -788,6 +788,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 27 2015 Tomas Lestach <tlestach@redhat.com> 2.3.154-1
+- removing system_list/out_of_date.pxt as it isn't referenced anymore
+- removing system_list/visible_to_user.pxt as it isn't referenced anymore
+
 * Fri Feb 27 2015 Tomas Lestach <tlestach@redhat.com> 2.3.153-1
 - rewriting raw_script_output.txt to java
 - Refresh errata cache asynchronously when subscribing server to channel
