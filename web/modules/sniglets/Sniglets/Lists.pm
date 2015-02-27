@@ -211,7 +211,7 @@ sub navi_empty_set {
 
 my %pinfo_modes = (
           system => { },
-          errata => {'/relevant.pxt' => {mode => 'relevant_errata', name => 'Errata Relevant to Your Systems'},
+          errata => {
                      '/all.pxt' => {mode => 'all_errata', name => 'All Errata'},
                     },
    manage_errata => {'/published.pxt' => {mode => 'published_owned_errata', name => 'Published Errata',
