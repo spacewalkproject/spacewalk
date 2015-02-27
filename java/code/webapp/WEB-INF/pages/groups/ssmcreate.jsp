@@ -5,29 +5,15 @@
 
 <html>
     <body>
-        <h1>
-            <rhn:icon type="header-system-groups" title="system.common.groupAlt" />
-            <c:choose>
-                <c:when test='${empty param.sgid}'>
-                    <bean:message key="systemgroup.create.header"/>
-                </c:when>
-                <c:otherwise>
-                    <bean:message key="systemgroup.edit.header"/>
-                </c:otherwise>
-            </c:choose>
-        </h1>
-        <p>
-            <c:choose>
-                <c:when test='${empty param.sgid}'>
-                    <bean:message key="systemgroup.create.summary"/>
-                </c:when>
-                <c:otherwise>
-                    <bean:message key="systemgroup.edit.summary"/>
-                </c:otherwise>
-            </c:choose>
-        </p>
+        <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
+        <h2>
+            <bean:message key="systemgroup.create.header"/>
+        </h2>
+
+        <p><bean:message key="systemgroup.create.summaryssm"/></p>
+	
         <html:form method="post"
-                   action="/groups/EditGroup.do"
+                   action="/ssm/groups/Create.do"
                    styleClass="form-horizontal">
             <rhn:csrf />
 
@@ -69,11 +55,8 @@
                     </c:choose>
                 </div>
             </div>
-
+            <html:hidden property="is_ssm" value="true" />
             <html:hidden property="submitted" value="true" />
-            <c:if test='${not empty param.sgid}'>
-                <html:hidden property="sgid" value="${param.sgid}" />
-            </c:if>
         </html:form>
     </body>
 </html>

@@ -65,11 +65,6 @@ public class EditGroupAction extends RhnAction {
             params.put("sgid", ctx.getParam("sgid", true));
         }
 
-        String uri = request.getRequestURI();
-        if (uri.contains("ssm")) {
-            request.setAttribute("is_ssm", true);
-        }
-
         if (!isSubmitted(daForm)) {
             setupForm(request, daForm);
             return getStrutsDelegate().forwardParams(
@@ -90,7 +85,6 @@ public class EditGroupAction extends RhnAction {
             addErrors(request, errors);
             request.setAttribute("name", daForm.get("name"));
             request.setAttribute("description", daForm.get("description"));
-            request.setAttribute("is_ssm", daForm.get("is_ssm"));
             return getStrutsDelegate().forwardParams(
                     mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     params);
@@ -103,10 +97,6 @@ public class EditGroupAction extends RhnAction {
         else if (ctx.hasParam("edit_button")) {
             createSuccessMessage(request,
                     "systemgroups.edit.successmessage", daForm.getString("name"));
-        }
-
-        if (daForm.get("is_ssm") != null && (Boolean)daForm.get("is_ssm")) {
-            return mapping.findForward("success-ssm");
         }
 
         return getStrutsDelegate().forwardParams(
