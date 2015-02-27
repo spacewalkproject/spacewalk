@@ -51,13 +51,13 @@ class moduleClass(Module):
             return RESULT_SUCCESS
 
         if self.support_sm \
-            and not self.chooseServerPage.chooseServerXml.get_widget("satelliteButton").get_active():
-                i = 0
-                while not interface.moduleList[i].__module__.startswith('rhsm_'):
-                    i += 1
-                interface.moveToPage(pageNum=i)
-                self.rhsmActive = True
-                return RESULT_JUMP
+                and not self.chooseServerPage.chooseServerXml.get_widget("satelliteButton").get_active():
+            i = 0
+            while not interface.moduleList[i].__module__.startswith('rhsm_'):
+                i += 1
+            interface.moveToPage(pageNum=i)
+            self.rhsmActive = True
+            return RESULT_JUMP
 
         try:
             self.rhsmActive = False
