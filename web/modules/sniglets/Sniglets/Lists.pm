@@ -210,9 +210,7 @@ sub navi_empty_set {
 }
 
 my %pinfo_modes = (
-          system => {
-                     '/potentially_in_channel_family.pxt' => {mode => 'systems_potentially_in_channel_family', name => 'Subscribable Systems'},
-                    },
+          system => { },
           errata => {'/relevant.pxt' => {mode => 'relevant_errata', name => 'Errata Relevant to Your Systems'},
                      '/all.pxt' => {mode => 'all_errata', name => 'All Errata'},
                     },
