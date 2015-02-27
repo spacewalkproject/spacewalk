@@ -211,7 +211,6 @@ sub navi_empty_set {
 
 my %pinfo_modes = (
           system => {
-                     '/out_of_date.pxt' => {mode => 'out_of_date', name => 'Out of Date Systems'},
                      '/unentitled.pxt' => {mode => 'unentitled', name => 'Unentitled Systems'},
                      '/ungrouped.pxt' => {mode => 'ungrouped', name => 'Ungrouped Systems'},
                      '/inactive.pxt' => {mode => 'inactive', name => 'Inactive Systems'},
