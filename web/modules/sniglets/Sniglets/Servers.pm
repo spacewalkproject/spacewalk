@@ -50,19 +50,6 @@ use Sniglets::ServerActions;
 sub register_tags {
   my $class = shift;
   my $pxt = shift;
-
-  $pxt->register_tag('rhn-server-prefs-conf-list' => \&server_prefs_conf_list);
-  $pxt->register_tag('rhn-server-name' => \&server_name, 2);
-
-  $pxt->register_tag('rhn-tri-state-system-pref-list' => \&tri_state_system_pref_list);
-
-  $pxt->register_tag('rhn-server-history-event-details' => \&server_history_event_details);
-
-  $pxt->register_tag('rhn-proxy-entitlement-form' => \&proxy_entitlement_form);
-
-  $pxt->register_tag('rhn-system-activation-key-form' => \&system_activation_key_form);
-
-  $pxt->register_tag('rhn-remote-command-form' => \&remote_command_form);
 }
 
 sub register_callbacks {
@@ -77,53 +64,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:remote-command-cb' => \&remote_command_cb);
   $pxt->register_callback('rhn:package-action-command-cb' => \&package_action_command_cb);
-}
-
-
-sub proxy_entitlement_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  throw "User '" . $pxt->user->id . "' attempted to access proxy interface without permission."
-    unless ($pxt->user->org->has_channel_family_entitlement('rhn-proxy') or not PXT::Config->get('subscribe_proxy_channel'));
-
-  my $sid = $pxt->param('sid');
-  throw "no server id!" unless $sid;
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my %subs;
-
-  if ($server->is_proxy()) {
-    my @evr = $server->proxy_evr;
-    my $version = $evr[1];
-
-    $subs{version} = $version;
-
-        $subs{proxy_message} = "This machine is currently a licensed Red Hat Satellite Proxy (v$version).";
-  } else {
-    $subs{proxy_message} = "<div class=\"alert alert-danger\">WebUI Spacewalk Proxy installer is obsoleted since version 5.3. Please use command line installer from package spacewalk-proxy-installer.</div>";
-  }
-
-  $block = PXT::Utils->perform_substitutions($block, \%subs);
-  return $block;
-}
-
-sub server_name {
-  my $pxt = shift;
-
-  my $server = $pxt->pnotes('server');
-  return PXT::Utils->escapeHTML($server->name) if (defined $server);
-
-  my $sid = $pxt->param('sid');
-  die "no server id" unless $sid;
-
-  $server = RHN::Server->lookup(-id => $sid);
-  die "no valid server" unless $server;
-
-  $pxt->pnotes(server => $server);
-  return PXT::Utils->escapeHTML($server->name);
 }
 
 sub system_locked_info {
@@ -259,19 +199,6 @@ sub system_monitoring_info {
   return $ret;
 }
 
-sub server_history_event_details {
-  my $pxt = shift;
-  my %params = @_;
-
-  croak "need server and history ids!" unless ($pxt->param('sid') and $pxt->param('hid'));
-
-  my $event = RHN::Server->lookup_server_event($pxt->param('sid'), $pxt->param('hid'));
-
-  return PXT::Utils->perform_substitutions($params{__block__}, $event->render($pxt->user));
-
-  return $params{__block__};
-}
-
 my @user_server_prefs = ( { name => 'receive_notifications',
                             label => 'Receive Notifications of Updates/Errata' },
                           { name => 'include_in_daily_summary',
@@ -281,31 +208,6 @@ my @user_server_prefs = ( { name => 'receive_notifications',
 my @server_prefs = ( { name => 'auto_update',
                        label => 'Automatic application of relevant errata' },
                    );
-
-sub tri_state_system_pref_list {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $html = '';
-
-  my $counter = 1;
-
-  foreach my $pref (@user_server_prefs, @server_prefs) {
-    $counter++;
-    my %subst;
-
-    $subst{pref_name} = $pref->{name};
-    $subst{pref_label} = $pref->{label};
-    $subst{class} = ($counter % 2) ? "list-row-even" : "list-row-odd";
-
-    PXT::Utils->escapeHTML_multi(\%subst);
-
-    $html .= PXT::Utils->perform_substitutions($block, \%subst);
-  }
-
-  return $html;
-}
 
 sub ssm_change_system_prefs_cb {
   my $pxt = shift;
@@ -325,35 +227,6 @@ sub ssm_change_system_prefs_cb {
     $pxt->push_message(site_info => 'Your selections resulted in no change.');
     $pxt->redirect($redir);
   }
-}
-
-sub server_prefs_conf_list {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my %subst;
-
-  my $ret = '';
-  foreach my $pref (@user_server_prefs, @server_prefs) {
-    $subst{pref_name} = $pref->{name};
-    $subst{pref_label} = $pref->{label};
-
-    if ($pxt->dirty_param($pref->{name}) eq 'set') {
-      $subst{pref_choice} = "Yes";
-    }
-    elsif ($pxt->dirty_param($pref->{name}) eq 'unset') {
-      $subst{pref_choice} = "No";
-    }
-    else {
-      next;
-      $subst{pref_choice} = "No Change";
-    }
-
-    $ret .= PXT::Utils->perform_substitutions($block, \%subst);
-  }
-
-  return $ret;
 }
 
 sub server_prefs_form_cb {
@@ -403,55 +276,6 @@ sub server_prefs_form_cb {
   }
 }
 
-sub system_activation_key_form {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $form = build_system_activation_key_form($pxt, %attr);
-  my $rform = $form->realize;
-  undef $form;
-
-  Sniglets::Forms::load_params($pxt, $rform);
-
-  my $style = new Sniglets::Forms::Style('standard');
-  my $html = $rform->render($style);
-
-  return $html;
-}
-
-sub build_system_activation_key_form {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $sid = $pxt->param('sid');
-  die "No system id" unless $sid;
-
-  my $form = new RHN::Form::ParsedForm(name => 'System Activation Key',
-                                       label => 'system_activation_key',
-                                       action => $attr{action},
-                                      );
-
-  my $system = RHN::Server->lookup(-id => $sid);
-  my $token;
-  my $token_exists = 0;
-
-  $token = RHN::Token->lookup(-sid => $sid);
-
-  if ($token and not $token->disabled) {
-    $token_exists = 1;
-    $form->add_widget( new RHN::Form::Widget::Literal(name => 'ID', value => $token->id) );
-    $form->add_widget( new RHN::Form::Widget::Literal(name => 'Org ID', value => $token->org_id) );
-    $form->add_widget( new RHN::Form::Widget::Literal(name => 'Key', value => $token->activation_key_token) );
-  }
-
-  $form->add_widget( new RHN::Form::Widget::Hidden(name => 'sid', value => $sid) );
-  $form->add_widget( new RHN::Form::Widget::Hidden(name => 'pxt:trap', value => 'rhn:system-activation-key-cb') );
-  $form->add_widget( new RHN::Form::Widget::Submit(label => 'Delete Key', name => 'delete_key') ) if ($token_exists);
-  $form->add_widget( new RHN::Form::Widget::Submit(label => 'Generate New Key', name => 'generate_new_key') );
-
-  return $form;
-}
-
 sub system_activation_key_cb {
   my $pxt = shift;
 
@@ -483,22 +307,6 @@ sub system_activation_key_cb {
 
   my $url = $pxt->uri;
   $pxt->redirect($url . "?sid=" . $sid);
-}
-
-sub remote_command_form {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $form = build_remote_command_form($pxt, %attr);
-  my $rform = $form->realize;
-  undef $form;
-
-  Sniglets::Forms::load_params($pxt, $rform);
-
-  my $style = new Sniglets::Forms::Style('standard');
-  my $html = $rform->render($style);
-
-  return $html;
 }
 
 my %remote_command_modes = (
