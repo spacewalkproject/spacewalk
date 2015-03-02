@@ -56,12 +56,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:server_prefs_form_cb' => \&server_prefs_form_cb);
-
-  $pxt->register_callback('rhn:ssm_change_system_prefs_cb' => \&ssm_change_system_prefs_cb);
-
-  $pxt->register_callback('rhn:system-activation-key-cb' => \&system_activation_key_cb);
-
   $pxt->register_callback('rhn:remote-command-cb' => \&remote_command_cb);
   $pxt->register_callback('rhn:package-action-command-cb' => \&package_action_command_cb);
 }
@@ -208,106 +202,6 @@ my @user_server_prefs = ( { name => 'receive_notifications',
 my @server_prefs = ( { name => 'auto_update',
                        label => 'Automatic application of relevant errata' },
                    );
-
-sub ssm_change_system_prefs_cb {
-  my $pxt = shift;
-
-  my $no_op = 1;
-  foreach my $pref (@user_server_prefs, @server_prefs) {
-    my $action = $pxt->dirty_param($pref->{name});
-
-    if ($action eq 'set' || $action eq 'unset') {
-      $no_op = 0;
-    }
-  }
-
-  if ($no_op) {
-    my $redir = $pxt->dirty_param('do_nothing_redir');
-    throw "no redir param" unless $redir;
-    $pxt->push_message(site_info => 'Your selections resulted in no change.');
-    $pxt->redirect($redir);
-  }
-}
-
-sub server_prefs_form_cb {
-  my $pxt = shift;
-
-  if ($pxt->dirty_param('sscd_change_sys_prefs_conf')) {
-    my $set = new RHN::DB::Set 'system_list', $pxt->user->id;
-
-    my @extra_messages;
-
-    foreach my $pref (@user_server_prefs) {
-      my $action = $pxt->dirty_param($pref->{name});
-      next unless $action;
-
-      RHN::Server->change_user_pref_bulk($set, $pxt->user, $pref->{name}, $action eq 'Yes' ? 1 : 0, 1);
-    }
-
-    foreach my $pref (@server_prefs) {
-
-      my $action = $pxt->dirty_param($pref->{name});
-      next unless $action;
-
-      # if we're setting auto errata updates == Y, then auto upgrade all selected systems
-      if ($pref->{name} eq 'auto_update' and $action eq 'Yes') {
-
-        my $system_set = new RHN::DB::Set 'system_list', $pxt->user->id;
-
-        RHN::Scheduler->schedule_all_errata_for_systems(-earliest => RHN::Date->now_long_date,
-                                                        -org_id => $pxt->user->org_id,
-                                                        -user_id => $pxt->user->id,
-                                                        -server_set => $system_set,
-                                                       );
-
-        push @extra_messages, "Selected systems will be fully updated in accordance with new Auto Errata Update setting.";
-      }
-
-      RHN::Server->change_pref_bulk($set, $pref->{name}, $action eq 'Yes' ? 1 : 0);
-    }
-
-    $pxt->push_message(site_info => "Preferences changed for selected systems.");
-
-    foreach my $message (@extra_messages) {
-      $pxt->push_message(site_info => $message);
-    }
-
-    $pxt->redirect('landing.pxt');
-  }
-}
-
-sub system_activation_key_cb {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-
-  my $orig_token = RHN::Token->lookup(-sid => $sid);
-  if ($orig_token) {
-    $orig_token->purge;
-    undef $orig_token;
-  }
-
-  if ($pxt->dirty_param('generate_new_key')) {
-    my $token = RHN::Token->create_token;
-    $token->user_id($pxt->user->id);
-    $token->org_id($pxt->user->org_id);
-    $token->activation_key_token(RHN::Token->generate_random_key);
-    my $server = RHN::Server->lookup(-id => $sid);
-
-    $token->server_id($sid);
-    $token->note("Activation key for " . $server->name . ".");
-    $token->usage_limit(1);
-
-    $token->commit;
-
-    $token->set_entitlements(map { $_->{LABEL} } $server->entitlements);
-
-    $token->commit;
-  }
-
-  my $url = $pxt->uri;
-  $pxt->redirect($url . "?sid=" . $sid);
-}
 
 my %remote_command_modes = (
                             system_action => { type => 'standalone',
