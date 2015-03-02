@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.37
+Version: 2.3.38
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -284,6 +284,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Mar 02 2015 Tomas Lestach <tlestach@redhat.com> 2.3.38-1
+- remove unused Sniglets/Packages.pm callbacks
+- removing left Sniglets/Servers.pm callbacks
+- removing unused Sniglets/Servers.pm callbacks
+- removing unused Sniglets/Servers.pm tags
+
 * Fri Feb 27 2015 Tomas Lestach <tlestach@redhat.com> 2.3.37-1
 - removing unknown_package.pxt as it's not referenced anymore
 - removing unused tags in Sniglets/Packages.pm
