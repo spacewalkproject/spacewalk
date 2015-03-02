@@ -403,6 +403,10 @@ class UpstreamServer(SocketServer.TCPServer):
 
     # We need to drive this query by rhnPushClient since it's substantially
     # smaller than rhnAction
+    # order by status, earliest_action, server_id to get
+    # "Queued" first with earliest_action first. If multiple clients have the
+    # same values, finally order by server_id to get a defined order
+    # important for notify_threshold
     _query_get_pending_clients = rhnSQL.Statement("""
         select a.id, sa.server_id, pc.jabber_id,
                date_diff_in_days(current_timestamp, earliest_action) * 86400 delta
@@ -423,7 +427,7 @@ class UpstreamServer(SocketServer.TCPServer):
                   and sap.action_id = a.prerequisite
                   and sap.status != 2
             )
-         order by earliest_action
+         order by sa.status, earliest_action, sa.server_id
     """)
 
     _query_get_running_clients = rhnSQL.Statement("""
