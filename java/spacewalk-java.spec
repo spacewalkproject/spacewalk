@@ -627,6 +627,7 @@ fi
 %{appdir}/rhn/schedule/
 %{appdir}/rhn/systems/
 %{appdir}/rhn/users/
+%{appdir}/rhn/errors/
 %{appdir}/rhn/*.jsp
 %{appdir}/rhn/WEB-INF/classes
 %{appdir}/rhn/WEB-INF/decorators
