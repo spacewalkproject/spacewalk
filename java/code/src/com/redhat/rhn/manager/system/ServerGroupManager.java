@@ -329,11 +329,10 @@ public class ServerGroupManager {
      * @param servers a collection of servers to add.
      * @param loggedInUser the loggedInUser needed for credentials
      */
-    public void addServers(ServerGroup sg, Collection servers, User loggedInUser) {
+    public void addServers(ServerGroup sg, Collection<Server> servers, User loggedInUser) {
         validateAccessCredentials(loggedInUser, sg, sg.getName());
         validateAdminCredentials(loggedInUser);
-        for (Iterator itr = servers.iterator(); itr.hasNext();) {
-            Server s = (Server) itr.next();
+        for (Server s : servers) {
             SystemManager.addServerToServerGroup(s, sg);
         }
     }
@@ -344,8 +343,8 @@ public class ServerGroupManager {
      * @param servers a collection of servers to dissociate
      * @param loggedInUser the loggedInUser needed for credentials
      */
-    public void removeServers(ServerGroup sg, Collection servers,
-                                                        User loggedInUser) {
+    public void removeServers(ServerGroup sg, Collection<Server> servers,
+            User loggedInUser) {
         validateAccessCredentials(loggedInUser, sg, sg.getName());
         validateAdminCredentials(loggedInUser);
         removeServers(sg, servers);
@@ -358,9 +357,8 @@ public class ServerGroupManager {
      * @param sg the server group to process
      * @param servers a collection of servers to dissociate
      */
-    public void removeServers(ServerGroup sg, Collection servers) {
-        for (Iterator itr = servers.iterator(); itr.hasNext();) {
-            Server s = (Server) itr.next();
+    public void removeServers(ServerGroup sg, Collection<Server> servers) {
+        for (Server s : servers) {
             SystemManager.removeServerFromServerGroup(s, sg);
         }
     }

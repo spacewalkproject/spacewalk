@@ -4627,7 +4627,29 @@
 
 
     <!-- SSM/Groups -->
-    <action path="/ssm/groups/Create"
+    <action path="/systems/ssm/groups/Manage"
+            scope="request"
+            type="com.redhat.rhn.frontend.action.groups.SSMGroupManageAction"
+            name="submittedForm"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+            <set-property property="acls" value="user_role(system_group_admin)"/>
+            <set-property property="postRequiredIfSubmitted" value="true" />
+            <forward name="default" path="/WEB-INF/pages/groups/ssmmanage.jsp" />
+            <forward name="confirm" path="/systems/ssm/groups/Confirm.do" redirect="true" />
+    </action>
+
+    <action path="/systems/ssm/groups/Confirm"
+            scope="request"
+            type="com.redhat.rhn.frontend.action.groups.SSMGroupConfirmAction"
+            name="submittedForm"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+            <set-property property="acls" value="user_role(system_group_admin)"/>
+            <set-property property="postRequiredIfSubmitted" value="true" />
+            <forward name="default" path="/WEB-INF/pages/groups/ssmconfirm.jsp" />
+            <forward name="success" path="/systems/ssm/groups/Manage.do" redirect="true" />
+    </action>
+
+    <action path="/systems/ssm/groups/Create"
             scope="request"
             type="com.redhat.rhn.frontend.action.groups.EditGroupAction"
             name="editSystemGroupForm"
@@ -4635,7 +4657,7 @@
             <set-property property="acls" value="user_role(system_group_admin)"/>
             <set-property property="postRequiredIfSubmitted" value="true" />
             <forward name="default" path="/WEB-INF/pages/groups/ssmcreate.jsp" />
-            <forward name="success" path="/ssm/index.do" redirect="true" />
+            <forward name="success" path="/systems/ssm/groups/Manage.do" redirect="true" />
     </action>
 
 

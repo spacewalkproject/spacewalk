@@ -237,6 +237,10 @@ public class RhnSetDecl {
     public static final RhnSetDecl CONFIG_CHANNEL_DEPLOY_SYSTEMS =
         make("config_channel_deploy_systems", SetCleanup.NOOP);
 
+    // Set of groups we're adding / removing systems to / from in the SSM
+    public static final RhnSetDecl SSM_GROUP_LIST =
+        make("ssm_group_list", SetCleanup.NOOP);
+
     // Set of channels we're subscribing to/unsubscribing from in the SSM
     public static final RhnSetDecl SSM_CHANNEL_LIST =
         make("channel_list", SetCleanup.UNOWNED_CHANNELS);

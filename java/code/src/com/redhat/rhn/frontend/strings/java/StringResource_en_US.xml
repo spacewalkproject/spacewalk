@@ -7021,6 +7021,12 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="ssm.groups.changed">
+        <source>System Group membership changed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/groups/Manage.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="selinux.java.invalid_mode">
         <source>Invalid SE Linux mode "{0}" specified. Valid values are {1}.</source>
         <context-group name="ctx">

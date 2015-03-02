@@ -4683,7 +4683,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Groups</source>
         </trans-unit>
         <trans-unit id="ssm.overview.groups.create">
-          <source>&lt;a href="/rhn/groups/EditGroup.do"&gt;Create&lt;/a&gt; and &lt;a href="/rhn/systems/SystemGroupList.do"&gt;manage&lt;/a&gt; groups</source>
+          <source>&lt;a href="/rhn/systems/ssm/groups/Create.do"&gt;Create&lt;/a&gt; and &lt;a href="/rhn/systems/ssm/groups/Manage.do"&gt;manage&lt;/a&gt; groups</source>
         </trans-unit>
         <trans-unit id="ssm.overview.channels">
           <source>Channels</source>
@@ -5620,6 +5620,50 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
       </group>
       <!--- System groups pages -->
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/groups/* pages</context>
+        </context-group>
+        <trans-unit id="ssm.groups.manage.title">
+          <source>Alter System Group Memberships</source>
+        </trans-unit>
+        <trans-unit id="ssm.groups.manage.summary">
+          <source>Below is a listing of the system groups for your organization.</source>
+        </trans-unit>
+        <trans-unit id="ssm.groups.manage.item1">
+          <source>To add the selected systems to a group, check &lt;strong&gt;Add&lt;/strong&gt; for that group.</source>
+        </trans-unit>
+        <trans-unit id="ssm.groups.manage.item2">
+          <source>To remove the selected systems from a group, check &lt;strong&gt;Remove&lt;/strong&gt; for that group.</source>
+        </trans-unit>
+        <trans-unit id="ssm.groups.manage.item3">
+          <source>Check &lt;strong&gt;No Change&lt;/strong&gt; to leave the selected systems unaffected relative to that group.</source>
+        </trans-unit>
+        <trans-unit id="ssm.groups.manage.add">
+          <source>Add</source>
+        </trans-unit>
+        <trans-unit id="ssm.groups.manage.remove">
+          <source>Remove</source>
+        </trans-unit>
+        <trans-unit id="ssm.groups.manage.nochange">
+          <source>No Change</source>
+        </trans-unit>
+        <trans-unit id="ssm.groups.manage.button">
+          <source>Alter Membership</source>
+        </trans-unit>
+        <trans-unit id="ssm.groups.confirm.added">
+          <source>The &lt;strong&gt;{0} systems&lt;/strong&gt; you have selected will be added to the following groups:</source>
+        </trans-unit>
+        <trans-unit id="ssm.groups.confirm.added.empty">
+          <source>No systems will be added to any groups.</source>
+        </trans-unit>
+        <trans-unit id="ssm.groups.confirm.removed">
+          <source>The &lt;strong&gt;{0} systems&lt;/strong&gt; you have selected that are subscribed to the following groups will be removed from them:</source>
+        </trans-unit>
+        <trans-unit id="ssm.groups.confirm.removed.empty">
+          <source>No systems will be removed from any groups.</source>
+        </trans-unit>
+      </group>
       <group>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/groups/* pages</context>

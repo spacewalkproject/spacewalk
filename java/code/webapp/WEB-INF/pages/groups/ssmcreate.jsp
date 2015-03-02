@@ -13,7 +13,7 @@
         <p><bean:message key="systemgroup.create.summaryssm"/></p>
 	
         <html:form method="post"
-                   action="/ssm/groups/Create.do"
+                   action="/systems/ssm/groups/Create.do"
                    styleClass="form-horizontal">
             <rhn:csrf />
 
