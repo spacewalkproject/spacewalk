@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.155
+Version: 2.3.156
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -788,6 +788,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 03 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.156-1
+- 1128989 - allow users to set taskomatic mail preferences - change query of
+  user emails
+- 1128989 - allow users to set taskomatic mail preferences - allow setting of
+  tasko_notify flag
+- 1128989 - allow users to set taskomatic mail preferences - updated User clasS
+
 * Mon Mar 02 2015 Stephen Herr <sherr@redhat.com> 2.3.155-1
 - Finish porting SSM Group pages to java
 - Moving SSM Group Create to its own jsp to fix changing nav contexts when form
