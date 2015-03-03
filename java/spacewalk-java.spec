@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.156
+Version: 2.3.157
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -789,6 +789,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 03 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.157-1
+- create globallySubscribeable default value
+- adapt 404.jsp
+- do not decorate java error pages
+- removing html taglib from error jsp pages as it isn't used
+- make the error pages accessible from apache
+- removing nosuchpkg.jsp as it's not referenced any more
+
 * Tue Mar 03 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.156-1
 - 1128989 - allow users to set taskomatic mail preferences - change query of
   user emails
