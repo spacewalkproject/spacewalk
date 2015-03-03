@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.36
+Version:        2.3.37
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Mar 03 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.37-1
+- 1128989 - allow users to set taskomatic mail preferences - schema changes
+
 * Mon Mar 02 2015 Stephen Herr <sherr@redhat.com> 2.3.36-1
 - remove monitoring server groups from servers before deleting the sg
 
