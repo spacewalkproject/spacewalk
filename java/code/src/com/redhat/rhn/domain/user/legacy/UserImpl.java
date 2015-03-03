@@ -1315,5 +1315,15 @@ public class UserImpl extends BaseDomainHelper implements User {
         this.readOnly = readOnlyIn;
     }
 
+    /** {@inheritDoc} */
+    public boolean getTaskoNotify() {
+        return this.userInfo.getTaskoNotify();
+    }
+
+    /** {@inheritDoc} */
+    public void setTaskoNotify(boolean taskoNotifyIn) {
+        this.userInfo.settaskoNotify(taskoNotifyIn);
+    }
+
 }
 

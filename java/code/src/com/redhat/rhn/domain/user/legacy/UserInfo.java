@@ -28,6 +28,7 @@ import java.util.Date;
 public class UserInfo extends AbstractUserChild {
     private int pageSize;
     private int emailNotify;
+    private boolean taskoNotify;
     private boolean usePamAuthentication;
     private String showSystemGroupList;
     private String preferredLocale;
@@ -161,6 +162,22 @@ public class UserInfo extends AbstractUserChild {
      */
     public void setEmailNotify(int emailNotifyIn) {
         this.emailNotify = emailNotifyIn;
+    }
+
+    /**
+     * Getter for taskoNotify
+     * @return taskoNotify
+     */
+    public boolean getTaskoNotify() {
+        return this.taskoNotify;
+    }
+
+    /**
+     * Setter for taskoNotify
+     * @param taskoNotifyIn New value for taskoNotify
+     */
+    public void settaskoNotify(boolean taskoNotifyIn) {
+        this.taskoNotify = taskoNotifyIn;
     }
 
     /**

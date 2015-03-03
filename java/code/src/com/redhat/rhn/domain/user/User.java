@@ -592,4 +592,14 @@ public interface User {
      * @param readOnlyIn readOnly to set
      */
     void setReadOnly(boolean readOnlyIn);
+
+    /**
+     * @return tasko_notify value
+     */
+    boolean getTaskoNotify();
+
+    /**
+     * @param taskoNotifyIn tasko_notify to set
+     */
+    void setTaskoNotify(boolean taskoNotifyIn);
 }

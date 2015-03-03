@@ -14,6 +14,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="pageSize" column="page_size" type="int" />
         <property name="usePamAuthentication" column="use_pam_authentication" type="yes_no" />
         <property name="emailNotify" column="email_notify" type="int" />
+        <property name="taskoNotify" column="tasko_notify" type="yes_no" not-null="true"/>
         <property name="showSystemGroupList" column="show_system_group_list" type="string" />
         <property name="lastLoggedIn" column="last_logged_in" type="timestamp" />
         <property name="created" type="timestamp" insert="false" update="false" />
