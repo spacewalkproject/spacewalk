@@ -62,6 +62,7 @@ public class UserPrefAction extends RhnAction {
 
         user.setEmailNotify(BooleanUtils.toInteger((Boolean) form
                 .get("emailNotif"), 1, 0, 0));
+        user.setTaskoNotify(BooleanUtils.toBoolean((Boolean) form.get("taskoNotify")));
         user.setPageSize(getAsInt(form, "pagesize", 5));
         user.setCsvSeparator((Character) form.get("csvSeparator"));
 

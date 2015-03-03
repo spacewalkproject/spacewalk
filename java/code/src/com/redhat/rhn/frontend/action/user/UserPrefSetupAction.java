@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.user;
 
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.Pane;
 import com.redhat.rhn.domain.user.PaneFactory;
 import com.redhat.rhn.domain.user.User;
@@ -72,6 +73,10 @@ public class UserPrefSetupAction extends RhnAction {
         form.set("uid", user.getId());
         form.set("emailNotif", BooleanUtils.toBooleanObject(user
                 .getEmailNotify()));
+        request.setAttribute("showTaskoNotify",
+                Boolean.valueOf(user.hasRole(RoleFactory.ORG_ADMIN) ||
+                        user.hasRole(RoleFactory.SAT_ADMIN)));
+        form.set("taskoNotify", user.getTaskoNotify());
 
         form.set("pagesize", new Integer(user.getPageSize()));
         form.set("csvSeparator", user.getCsvSeparator());

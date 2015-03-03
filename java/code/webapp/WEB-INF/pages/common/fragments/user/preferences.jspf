@@ -8,6 +8,7 @@
     <p><bean:message key="preferences.jsp.leadin"/></p>
     <div class="checkbox">
       <html:checkbox  property="emailNotif" value="1" /><bean:message key="preferences.jsp.receivenote"/>
+      <c:if test="${showTaskoNotify}"><br/><html:checkbox  property="taskoNotify" value="1" /><bean:message key="preferences.jsp.receivetaskonote"/></c:if>
     </div>
   </div>
 </div>

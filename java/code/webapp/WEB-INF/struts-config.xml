@@ -176,6 +176,8 @@
             <form-property name="uid" type="java.lang.Long"/>
             <form-property name="email" type="java.lang.Boolean"/>
             <form-property name="emailNotif" type="java.lang.Boolean"/>
+            <form-property name="showTaskoNotify" type="java.lang.Boolean"/>
+            <form-property name="taskoNotify" type="java.lang.Boolean"/>
             <form-property name="call" type="java.lang.Boolean"/>
             <form-property name="fax" type="java.lang.Boolean"/>
             <form-property name="mail" type="java.lang.Boolean"/>

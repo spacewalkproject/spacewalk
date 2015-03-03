@@ -937,6 +937,12 @@
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="preferences.jsp.receivetaskonote">
+        <source> Receive taskomatic notifications</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="preferences.jsp.listsize">
         <source>@@PRODUCT_NAME@@ List Page Size</source>
         <context-group name="ctx">
