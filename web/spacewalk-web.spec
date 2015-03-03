@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.38
+Version: 2.3.39
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -284,6 +284,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Mar 03 2015 Tomas Lestach <tlestach@redhat.com> 2.3.39-1
+- removing misc/landing.pxt as it's not referenced anymore
+- removing ssm groups pages as they were ported to java
+- removing /help/about.pxt as it isn't referenced anymore
+- we use /rhn/help/index.do instead of /help/about.pxt
+- removing original error pages
+
 * Mon Mar 02 2015 Tomas Lestach <tlestach@redhat.com> 2.3.38-1
 - remove unused Sniglets/Packages.pm callbacks
 - removing left Sniglets/Servers.pm callbacks
