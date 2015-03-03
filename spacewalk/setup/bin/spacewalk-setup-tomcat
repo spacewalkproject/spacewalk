@@ -21,6 +21,8 @@ use constant ORACLE_LDCONF    => "/etc/ld.so.conf.d/oracle-instantclient-11.2.co
 use constant TOMCAT_PAM_LDAP  => "/lib{64,}/security/pam_ldap.so";
 use constant TOMCAT_JAVA_OPTS =>
         File::Spec->catfile(Spacewalk::Setup::SHARED_DIR, "tomcat.java_opts");
+use constant ORACLE_BACKEND   =>
+        File::Spec->catfile(Spacewalk::Setup::SHARED_DIR, "defaults.d/oracle-backend.conf");
 
 sub java_opts {
   my $ret = '';
@@ -41,7 +43,7 @@ sub ld_preload {
   # To address bug 623115/627859, we need to override the ldap_* symbols
   # in libclntsh.so* upon tomcat* startup with those from standard library.
   my $ret = '';
-  if (-r ORACLE_LDCONF) {
+  if (-r ORACLE_BACKEND) {
     for my $lib (glob TOMCAT_PAM_LDAP) {
       if (-f $lib) {
         my $out = qx{ldd $lib 2> /dev/null};
@@ -55,7 +57,7 @@ sub ld_preload {
 
 sub ld_library_path {
   my $ret = '';
-  if (-r ORACLE_LDCONF) {
+  if (-r ORACLE_BACKEND) {
     open F, '<', ORACLE_LDCONF
                  or die "Error reading [" + ORACLE_LDCONF + "]: $!\n";
     $ret = ' -Djava.library.path=\${system_property:java.library.path}:/usr/lib:' . <F> ;
