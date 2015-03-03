@@ -75,7 +75,7 @@ public class CreateChannelCommand {
     protected String maintainerPhone;
     protected String supportPolicy;
     protected String access = Channel.PRIVATE;
-    protected boolean globallySubscribable;
+    protected boolean globallySubscribable = true;
 
 
     /**
