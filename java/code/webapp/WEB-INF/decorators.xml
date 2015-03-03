@@ -4,6 +4,8 @@
     <excludes>
         <pattern>/img/*</pattern>
         <pattern>/systems/details/audit/ScapResultDownload.do*</pattern>
+        <pattern>/errors/404.jsp</pattern>
+        <pattern>/errors/500.jsp</pattern>
     </excludes>
     <decorator name="layout_c" page="layout_c.jsp">
         <pattern>/*</pattern>
