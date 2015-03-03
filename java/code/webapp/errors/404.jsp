@@ -13,12 +13,14 @@
       <rhn:icon type="system-warn" title="500.jsp.imgAlt" />
       <bean:message key="404.jsp.title"/>
     </h1>
-    <p><bean:message key="404.jsp.summary" arg0="${escapedUrl}"/></p>
+    <c:if test="${not empty escapedUrl}">
+      <p><bean:message key="404.jsp.summary" arg0="${escapedUrl}"/></p>
+    </c:if>
     <ol>
 
       <li><bean:message key="404.jsp.reason1"/></li>
-      <li><bean:message key="404.jsp.reason2" arg0="${escapedUrl}"/></li>
-      <li><bean:message key="404.jsp.reason3" arg0="${escapedUrl}"/></li>
+      <li><bean:message key="404.jsp.reason2"/></li>
+      <li><bean:message key="404.jsp.reason3"/></li>
       <li><bean:message key="404.jsp.reason4"/></li>
     </ol>
 </body>

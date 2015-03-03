@@ -631,7 +631,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="404.jsp.reason2">
-        <source>If you followed a link to reach '{0},' the link may be incorrect or outdated.  Click on the back button in your browser to try a different link, or use the top (or left) navigation bars to find the page you are looking for.</source>
+        <source>If you followed a link, the link may be incorrect or outdated.  Click on the back button in your browser to try a different link, or use the top (or left) navigation bars to find the page you are looking for.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
@@ -641,7 +641,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="404.jsp.reason3">
-        <source>If you used a bookmark to reach '{0},' the page may have moved to a different location since the bookmark was created. Use the top (or left) navigation bars to find the page you are looking for, and if you find the document be sure to update your bookmark.</source>
+        <source>If you used a bookmark, the page may have moved to a different location since the bookmark was created. Use the top (or left) navigation bars to find the page you are looking for, and if you find the document be sure to update your bookmark.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
           <context context-type="paramnotes">
