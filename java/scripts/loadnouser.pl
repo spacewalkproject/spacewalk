@@ -46,7 +46,7 @@ sub loop_pages {
     my $cnt = 0;
     while (1 == 1) {
 
-        my $output = hit_page("https://$server/help/about.pxt");
+        my $output = hit_page("https://$server/rhn/help/index.do");
         $output = hit_page("https://$server/rhn/Login.do");
         #$output = hit_page("https://$server/rhn/schedule/PendingActions.do");
         #$output = hit_page("https://$server/rhn/systems/Unentitled.do");
