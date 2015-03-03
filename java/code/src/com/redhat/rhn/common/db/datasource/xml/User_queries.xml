@@ -29,6 +29,10 @@ SELECT wupi.email
       AND exists (select wc.id
                     from rhnwebcontactenabled wc
                    where wc.id = ugm.user_id)
+      AND exists (select rui.user_id
+                    from rhnUserInfo rui
+                   where rui.user_id = ugm.user_id
+                     and tasko_notify = 'Y')
       AND wupi.web_user_id = ugm.user_id
     </query>
 </mode>
