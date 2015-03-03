@@ -576,6 +576,7 @@ class Queue(rhnHandler):
               join rhnAction a on sa.action_id = a.id
               join rhnActionType at on a.action_type = at.id
              where sa.server_id = :server_id
+               and at.label = 'reboot.reboot'
                and sa.status = 1 -- Picked Up
         """)
         h.execute(server_id=self.server_id)
