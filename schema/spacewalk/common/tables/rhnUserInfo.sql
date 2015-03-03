@@ -26,6 +26,10 @@ CREATE TABLE rhnUserInfo
                                 DEFAULT (20) NOT NULL,
     email_notify            NUMBER
                                 DEFAULT (1) NOT NULL,
+    tasko_notify            CHAR(1)
+                                DEFAULT ('Y') NOT NULL
+                                CONSTRAINT rhn_user_info_tasko_ck
+                                    CHECK (tasko_notify in ('Y', 'N')),
     bad_email               NUMBER
                                 DEFAULT (0) NOT NULL,
     tz_offset               NUMBER
