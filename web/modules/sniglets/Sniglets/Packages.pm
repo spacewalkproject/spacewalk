@@ -35,7 +35,6 @@ sub register_tags {
   $pxt->register_tag('rhn-upload-answerfile-form' => \&upload_answerfile_form);
 
   $pxt->register_tag('rhn-package-raw-pkgmap' => \&raw_pkgmap);
-  $pxt->register_tag('rhn-package-raw-readme' => \&raw_readme);
 }
 
 sub register_callbacks {
@@ -83,41 +82,6 @@ sub raw_pkgmap {
 
   if ($package->can('solaris_pkgmap')) {
     $pxt->print($package->solaris_pkgmap);
-  }
-
-  return;
-}
-
-sub raw_readme {
-  my $pxt = shift;
-
-  my $path = File::Spec->canonpath($pxt->path_info);
-  $path =~ s(^/)();
-
-  my ($pid) = split(m(/), $path, 1);
-
-  return unless $pid;
-
-  unless ($pxt->user->verify_package_access($pid)) {
-    die sprintf("User %s (%d) has no access to package '%s'",
-                $pxt->user->login, $pxt->user->id, $pid);
-  }
-
-  # setting the content type and disposition forces most browsers to
-  # pop up a 'download' dialog instead of showing the file in the
-  # browser.
-  $pxt->content_type('text/plain');
-  $pxt->header_out('Content-disposition', "attachment; filename=README");
-  $pxt->manual_content(1);
-  $pxt->send_http_header;
-
-  my $package = RHN::Package->lookup(-id => $pid);
-
-  if ($package->can('solaris_readme')) {
-    $pxt->print($package->solaris_readme);
-  }
-  else {
-    throw "(no_readme) Invalid attempt to view readme for package '" . $package->id . "'";
   }
 
   return;
