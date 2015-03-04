@@ -925,55 +925,6 @@ sub remove_packages_cb {
   return @actions;
 }
 
-sub check_action_file_upload_status {
-  my $pxt = shift;
-  my $mode = shift;
-
-  my $packages_needing_answer_files_set = RHN::Set->lookup(-label => 'package_answer_file_list', -uid => $pxt->user->id);
-  my @packages_needing_answer_files = map { join('|', @{$_}) } $packages_needing_answer_files_set->contents;
-
-  my $package_answer_files = $pxt->session->get('package_answer_files') || { };
-  my @not_yet_provided = grep { not defined $package_answer_files->{$_} } @packages_needing_answer_files;
-
-  if (@not_yet_provided) {
-    my $redir;
-
-    if ($mode eq 'ssm_package_install_remote_command'
-        or $mode eq 'ssm_package_install_answer_files') {
-      $redir = sprintf(
-      '/network/systems/ssm/packages/upload_answer_file.pxt?cid=%d&set_label=%s&id_combo=%s&mode=%s',
-      $pxt->param('cid'),
-      $pxt->dirty_param('set_label'), $not_yet_provided[0], $mode);
-    }
-    else {
-      $redir = sprintf(
-      '/network/systems/details/packages/upload_answer_file.pxt?sid=%d&set_label=%s&id_combo=%s&mode=%s',
-      $pxt->param('sid'), $pxt->dirty_param('set_label'),
-      $not_yet_provided[0], $mode,
-      );
-    }
-
-    $pxt->redirect($redir);
-  }
-
-  if ($mode eq 'package_install_remote_command') {
-    package_install_remote_command_cb($pxt);
-  }
-  elsif (grep { $mode eq $_ }
-      qw/ssm_package_install_answer_files
-         ssm_package_install_remote_command
-         confirm_package_install/) {
-  # noop
-  }
-  else {
-    die "unknown mode: $mode";
-  }
-
-  $pxt->session->unset('package_answer_files');
-
-  return $package_answer_files;
-}
-
 sub install_packages_cb {
   my $pxt = shift;
   my $mode = shift || 'confirm_package_install';
