@@ -215,7 +215,8 @@ class Client(jabber_lib.JabberClient):
             # times we can pick up the action until the server fails
             # it.
             if self._rhn_check_fail_count > 0:
-                log_debug(3, "rhn_check failed last time, trying again")
+                log_debug(3, "rhn_check failed last time, " \
+                          "force retry (fail count %d)" % self._rhn_check_fail_count)
                 self.run_rhn_check_async()
 
     def run_rhn_check_async(self):
@@ -235,8 +236,11 @@ class Client(jabber_lib.JabberClient):
         if self._rhn_check_process is not None:
             retcode = self._rhn_check_process.poll()
             if retcode is None:
-                log_debug(3, "rhn_check is still running, ignoring notification...")
+                log_debug(3, "rhn_check is still running, not running again...")
                 return
+
+        if self._rhn_check_fail_count > 0:
+            log_debug(3, "rhn_check failed last time (fail count %d)" % self._rhn_check_fail_count)
 
         log_debug(3, "About to execute:", args)
         oldumask = os.umask(0077)
