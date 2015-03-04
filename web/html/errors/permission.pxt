@@ -4,8 +4,6 @@
   <pxt-use class="Sniglets::Users" />
   <pxt-use class="Sniglets::Utils" />
 
-  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
-
 <rhn-require acl="user_authenticated()">
 
 <h1>Permission Error</h1>
