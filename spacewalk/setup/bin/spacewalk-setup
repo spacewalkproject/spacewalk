@@ -116,6 +116,9 @@ else {
     die "No idea how to install to database: " . $answers{'db-backend'};
 }
 
+print Spacewalk::Setup::loc("* Configuring tomcat.\n");
+setup_tomcat(\%opts, \%answers);
+
 if ($opts{'db-only'}) {
     exit;
 }
@@ -143,9 +146,6 @@ load_satellite_certificate(\%opts, \%answers);
 
 print Spacewalk::Setup::loc("* Configuring apache SSL virtual host.\n");
 setup_mod_ssl(\%opts, \%answers);
-
-print Spacewalk::Setup::loc("* Configuring tomcat.\n");
-setup_tomcat(\%opts, \%answers);
 
 print Spacewalk::Setup::loc("* Configuring jabberd.\n");
 setup_jabberd(\%opts, \%answers);
