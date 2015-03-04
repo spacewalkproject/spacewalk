@@ -38,7 +38,6 @@
     <rhn-tab name="Overview" url="/rhn/systems/Overview.do" acl="org_entitlement(sw_mgr_enterprise)"/>
     <rhn-tab name="Systems" url="/rhn/systems/SystemList.do">
       <rhn-tab-directory>/rhn/systems/details</rhn-tab-directory>
-      <rhn-tab-directory>/network/systems/details</rhn-tab-directory>
       <rhn-tab name="All" url="/rhn/systems/SystemList.do"/>
       <rhn-tab name="Physical Systems" url="/rhn/systems/PhysicalList.do"/>
       <rhn-tab name="Virtual Systems" url="/rhn/systems/VirtualSystemsList.do"/>
@@ -62,7 +61,6 @@
     <rhn-tab name="System Groups" acl="org_entitlement(sw_mgr_enterprise)">
      <rhn-tab-directory>/rhn/groups</rhn-tab-directory>
       <rhn-tab-directory>/rhn/systems/groups</rhn-tab-directory>
-      <rhn-tab-directory>/network/systems/groups</rhn-tab-directory>
       <rhn-tab-url>/rhn/systems/SystemGroupList.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="System Set Manager" url="/rhn/ssm/index.do" acl="org_entitlement(sw_mgr_enterprise)">
@@ -80,7 +78,6 @@
       <rhn-tab-directory>/rhn/activationkeys/configuration</rhn-tab-directory>
       <rhn-tab-directory>/rhn/activationkeys/groups</rhn-tab-directory>
       <rhn-tab-directory>/rhn/activationkeys/systems</rhn-tab-directory>
-      <rhn-tab-directory>/network/account/activation_keys</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Stored Profiles" acl="org_entitlement(sw_mgr_enterprise);">
       <rhn-tab-url>/rhn/profiles/List.do</rhn-tab-url>
@@ -163,7 +160,6 @@
        <rhn-tab-directory>/rhn/software/packages</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Manage Software Channels" acl="user_can_manage_channels()">
-      <rhn-tab-directory>/network/software/channels/manage</rhn-tab-directory>
       <rhn-tab-directory>/rhn/channels/manage</rhn-tab-directory>
       <rhn-tab-url>/rhn/channels/manage/Manage.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/errata/Add.do</rhn-tab-url>

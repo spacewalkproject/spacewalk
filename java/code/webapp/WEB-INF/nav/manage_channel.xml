@@ -43,7 +43,9 @@
       <rhn-tab-url>/rhn/channels/manage/ChannelPackagesAddConfirm.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Compare" acl="channel_exists()" url="/rhn/channels/manage/ChannelPackagesCompare.do">
-      <rhn-tab-directory>/network/software/channels/manage/packages/compare</rhn-tab-directory>
+      <rhn-tab-url>/rhn/channels/manage/ChannelPackagesCompare.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/ChannelPackagesCompareMerge.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/ChannelPackagesCompareMergeConfirm.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Repositories" acl="channel_exists()">
