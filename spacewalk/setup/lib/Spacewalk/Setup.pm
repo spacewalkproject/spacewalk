@@ -978,11 +978,7 @@ sub postgresql_setup_db {
     if (is_embedded_db($opts)) {
       postgresql_start();
     } else {
-      system('sed',
-             '-i',
-             '-e',
-             's/^\\(SERVICES=.*postgresql.*\$\\)/# \\1/g',
-             '/etc/rhn/service-list');
+      disable_embedded_postgresql();
     }
     postgresql_setup_embedded_db($opts, $answers);
 
@@ -1313,6 +1309,8 @@ sub migrate_ora2pg {
 sub oracle_setup_db {
     my $opts = shift;
     my $answers = shift;
+
+    disable_embedded_postgresql();
 
     print loc("* Setting up Oracle environment.\n");
 
@@ -1830,6 +1828,14 @@ sub set_hibernate_conf {
         $answers->{'hibernate.connection.driver_class'} = "org.postgresql.Driver";
         $answers->{'hibernate.connection.driver_proto'} = "jdbc:postgresql";
     }
+}
+
+sub disable_embedded_postgresql {
+    system('sed',
+           '-i',
+           '-e',
+           's/^\\(SERVICES=.*postgresql.*\$\\)/# \\1/g',
+           '/etc/rhn/service-list');
 }
 
 =head1 DESCRIPTION
