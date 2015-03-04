@@ -33,8 +33,6 @@ sub register_tags {
   $pxt->register_tag('rhn-unknown-package-nvre' => \&unknown_package_nvre);
 
   $pxt->register_tag('rhn-upload-answerfile-form' => \&upload_answerfile_form);
-
-  $pxt->register_tag('rhn-package-raw-pkgmap' => \&raw_pkgmap);
 }
 
 sub register_callbacks {
@@ -53,38 +51,6 @@ sub unknown_package_nvre {
 
   my ($name_id, $evr_id) = split /[|]/, $id_combo;
   return RHN::Package->lookup_nvre($name_id, $evr_id);
-}
-
-sub raw_pkgmap {
-  my $pxt = shift;
-
-  my $path = File::Spec->canonpath($pxt->path_info);
-  $path =~ s(^/)();
-
-  my ($pid) = split(m(/), $path, 1);
-
-  return unless $pid;
-
-  unless ($pxt->user->verify_package_access($pid)) {
-    die sprintf("User %s (%d) has no access to package '%s'",
-                $pxt->user->login, $pxt->user->id, $pid);
-  }
-
-  # setting the content type and disposition forces most browsers to
-  # pop up a 'download' dialog instead of showing the file in the
-  # browser.
-  $pxt->content_type('text/plain');
-  $pxt->header_out('Content-disposition', "attachment; filename=pkgmap");
-  $pxt->manual_content(1);
-  $pxt->send_http_header;
-
-  my $package = RHN::Package->lookup(-id => $pid);
-
-  if ($package->can('solaris_pkgmap')) {
-    $pxt->print($package->solaris_pkgmap);
-  }
-
-  return;
 }
 
 sub upload_answerfile_form {
