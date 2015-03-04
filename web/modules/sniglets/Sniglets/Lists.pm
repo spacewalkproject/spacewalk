@@ -240,7 +240,7 @@ sub pathinfo_list_mode {
 
   my $pinfo = $pxt->path_info || '';
   $pinfo =~ s/\.pxt.*$/.pxt/;
-  $pxt->redirect('/errors/404.pxt')
+  $pxt->redirect('/rhn/errors/404.jsp')
     unless (exists $pinfo_modes{$type}->{$pinfo});
 
   $html =~ s/\{pinfo_list_name\}/$pinfo_modes{$type}->{$pinfo}->{name}/ge;
