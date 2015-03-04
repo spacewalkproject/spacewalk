@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.19
+Version:    2.3.20
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -95,6 +95,12 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Mar 04 2015 Tomas Lestach <tlestach@redhat.com> 2.3.20-1
+- removing templates/profile.pxt as it isn't used anymore
+- removing templates/footer.pxt as it isn't used anymore
+- removing templates/header.pxt as it isn't used anymore
+- removing templates/c.pxt as it isn't used anymore
+
 * Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.19-1
 - Getting rid of trailing spaces in Java
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
