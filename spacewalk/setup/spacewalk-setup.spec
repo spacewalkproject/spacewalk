@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.3.11
+Version:        2.3.12
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -111,6 +111,11 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Mar 04 2015 Jan Dobes 2.3.12-1
+- 1198708 - disable embedded postgresql service when installing external oracle
+- 1198708 - configure tomcat earlier to work with database migrations
+- 1180251 - append oracle driver path only if spacewalk-oracle is installed
+
 * Thu Feb 26 2015 Tomas Lestach <tlestach@redhat.com> 2.3.11-1
 - Added Oracle RDBMS 12.1.0 to the list of allowed database versions.
 
