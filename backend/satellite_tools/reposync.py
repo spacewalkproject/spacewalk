@@ -301,8 +301,8 @@ class RepoSync(object):
             if (notice['type'] == 'security' and notice['severity'] and
                     not e['synopsis'].startswith(notice['severity'] + ': ')):
                 e['synopsis'] = notice['severity'] + ': ' + e['synopsis']
-            e['topic'] = ' '
-            e['solution'] = ' '
+            e['topic'] = notice['summary']
+            e['solution'] = notice['solution']
             e['issue_date'] = self._to_db_date(notice['issued'])
             if notice['updated']:
                 e['update_date'] = self._to_db_date(notice['updated'])
@@ -310,7 +310,6 @@ class RepoSync(object):
                 e['update_date'] = self._to_db_date(notice['issued'])
             e['org_id'] = self.channel['org_id']
             e['notes'] = ''
-            e['refers_to'] = ''
             e['channels'] = []
             e['packages'] = []
             e['files'] = []
@@ -337,8 +336,8 @@ class RepoSync(object):
                 if self.channel['org_id']:
                     param_dict['org_id'] = self.channel['org_id']
                     orgStatement = "= :org_id"
-                else:
                     orgStatement = "is NULL"
+                else:
 
                 h = rhnSQL.prepare("""
                     select p.id, pevr.epoch, c.checksum, c.checksum_type
@@ -418,13 +417,24 @@ class RepoSync(object):
                             e['bugs'].append(bug)
                             tmp[bz['id']] = None
                 cves = [r for r in notice['references'] if r['type'] == 'cve']
-
                 if len(cves):
                     tmp = {}
                     for cve in cves:
                         if cve['id'] not in tmp:
                             e['cve'].append(cve['id'])
                             tmp[cve['id']] = None
+                others = [r for r in notice['references'] if r['type'] == 'other']
+                if len(others):
+                    tmp = len(others)
+                    refers_to = ""
+                    for other in others:
+                        if refers_to:
+                            refers_to += "\n"
+                        if not other['title']:
+                            refers_to += other['href']
+                        else:
+                            refers_to += "{} ({})".format(other['title'], other['href'])
+                    e['refers_to'] = refers_to
             e['locally_modified'] = None
             batch.append(e)
 
