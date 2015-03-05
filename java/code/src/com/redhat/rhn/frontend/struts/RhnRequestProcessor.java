@@ -15,21 +15,21 @@
 
 package com.redhat.rhn.frontend.struts;
 
-import com.redhat.rhn.common.messaging.MessageQueue;
-import com.redhat.rhn.common.security.PermissionException;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.events.TraceBackEvent;
-import com.redhat.rhn.manager.acl.AclManager;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.RequestProcessor;
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.RequestProcessor;
+
+import com.redhat.rhn.common.messaging.MessageQueue;
+import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.events.TraceBackEvent;
+import com.redhat.rhn.manager.acl.AclManager;
 
 /**
  * RhnRequestProcessor a custom Struts RequestProcessor that
@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class RhnRequestProcessor extends RequestProcessor {
 
+    @Override
     protected void processPopulate(HttpServletRequest request, HttpServletResponse response,
             ActionForm form, ActionMapping mapping) throws ServletException {
         super.processPopulate(request, response, form, mapping);
@@ -57,10 +58,12 @@ public class RhnRequestProcessor extends RequestProcessor {
      * @throws IOException thrown if an error occurs reading the stream.
      * @throws ServletException thrown if an error occurs in the Servlet.
      */
+    @Override
     public void process(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException {
 
         try {
+            response.addHeader("X-UA-Compatible", "IE=edge,chrome=1");
             //Get the mapping so we can see if whether or not we need to process acls
             String path = processPath(request, response);
             ActionMapping originalMapping = (ActionMapping)
