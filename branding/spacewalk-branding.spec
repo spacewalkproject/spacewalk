@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.20
+Version:    2.3.21
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -94,6 +94,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Mar 05 2015 Tomas Lestach <tlestach@redhat.com> 2.3.21-1
+- templates dir was removed completelly from branding
+
 * Wed Mar 04 2015 Tomas Lestach <tlestach@redhat.com> 2.3.20-1
 - removing templates/profile.pxt as it isn't used anymore
 - removing templates/footer.pxt as it isn't used anymore
