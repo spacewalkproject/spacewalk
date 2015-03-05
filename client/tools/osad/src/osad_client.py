@@ -245,6 +245,6 @@ class Client(jabber_lib.JabberClient):
         log_debug(3, "About to execute:", args)
         oldumask = os.umask(0077)
         os.umask(oldumask | 0022)
-        self._rhn_check_process = Popen(args, stdout=PIPE, stderr=STDOUT)
+        self._rhn_check_process = Popen(args)
         os.umask(oldumask)
         log_debug(0, "executed %s with pid %d" % (args[0], self._rhn_check_process.pid))
