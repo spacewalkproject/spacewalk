@@ -8,7 +8,7 @@
         <c:when test="${file.latestConfigRevision.directory}">
                 <c:choose>
                         <c:when test="${deleting}">
-                                <rhn:toolbar base="h1" img="/img/folder-config.png" imgAlt="config.common.dirAlt"
+                                <rhn:toolbar base="h1" icon="file-directory" imgAlt="config.common.dirAlt"
                                         helpUrl="">
                                         <bean:message key="filedetails.manage_header.jspf.label"
                                                 arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${channel.displayName}"
@@ -16,7 +16,7 @@
                                 </rhn:toolbar>
                         </c:when>
                         <c:otherwise>
-                                <rhn:toolbar base="h1" img="/img/folder-config.png" imgAlt="config.common.dirAlt"
+                                <rhn:toolbar base="h1" icon="file-directory" imgAlt="config.common.dirAlt"
                                         helpUrl=""
                                         deletionUrl="/rhn/configuration/file/DeleteFile.do?cfid=${file.id}"
                                         deletionType="deletefile"
