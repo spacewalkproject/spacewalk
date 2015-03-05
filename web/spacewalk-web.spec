@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.40
+Version: 2.3.41
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -284,6 +284,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Mar 05 2015 Tomas Lestach <tlestach@redhat.com> 2.3.41-1
+- removing unused help/index.html
+- removing unused Makefile
+- removing unused nav xmls
+- removing unused tags from Sniglets/Navi.pm
+- deleting unused nav xmls
+- remove unused Perl code
+
 * Wed Mar 04 2015 Tomas Lestach <tlestach@redhat.com> 2.3.40-1
 - removing message_queues/local.pxi as it isn't used anymore
 - removing unused styles
