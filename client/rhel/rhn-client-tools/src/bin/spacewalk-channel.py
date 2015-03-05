@@ -172,7 +172,7 @@ def add_channel(channels, credentials):
         systemExit(result, _("Error during adding channel(s) %s") % ', '.join(channels))
 
 
-def remove_chennel(channels, credentials):
+def remove_channel(channels, credentials):
     need_channel(channels)
     result = unsubscribeChannels(channels, credentials.user, credentials.password)
     if result == 0:
@@ -209,15 +209,15 @@ def main():
     if options.add:
         add_channel(options.channels, credentials)
     elif options.remove:
-        remove_chennel(options.channels, credentials)
+        remove_channel(options.channels, credentials)
     elif options.list:
-        no_channels(option.channels)
+        no_channels(options.channels)
         list_channels()
     elif options.base:
-        no_channels(option.channels)
+        no_channels(options.channels)
         list_channels(only_base_channels=True)
     elif options.available_channels:
-        no_channels(option.channels)
+        no_channels(options.channels)
         list_available_channels(credentials)
     else:
         systemExit(3, _("ERROR: you may want to specify --add, --remove or --list"))
