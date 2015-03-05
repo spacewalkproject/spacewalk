@@ -53,7 +53,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:user_prefs_edit_cb' => \&user_prefs_edit_cb);
 }
 
 
@@ -173,41 +172,6 @@ sub rhn_login_form {
   }
 
   return $body;
-}
-
-sub user_prefs_edit_cb {
-  my $pxt = shift;
-
-  my $user;
-
-  if ($pxt->user->is('org_admin') and $pxt->param('uid')) {
-    $user = RHN::User->lookup(-id => $pxt->param('uid'));
-  }
-  else {
-    $user = $pxt->user;
-  }
-
-  $user->set_pref('email_notify', $pxt->dirty_param('email_notifications') || '0');
-
-  $user->$_($pxt->dirty_param($_) ? 'Y' : 'N')
-    foreach qw/contact_call contact_mail contact_email contact_fax/;
-
-  # the reason for this oddball multiplication/division is because the
-  # pref value column is varchar2(1) and it means working circles
-  # around it.
-
-  my $pagesize = $pxt->dirty_param('preferred_page_size') || $user->preferred_page_size;
-  $pagesize = 5 if $pagesize < 5;
-  $pagesize = 50 if $pagesize > 50;
-
-  $user->set_pref('page_size', $pagesize);
-  $user->set_pref('timezone_id', $pxt->dirty_param('time_zone') ? $pxt->dirty_param('time_zone') : 0);
-
-  $user->commit;
-
-  $pxt->push_message(site_info => "Preferences modified.");
-
-  return;
 }
 
 sub rhn_require {

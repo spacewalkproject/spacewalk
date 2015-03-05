@@ -58,7 +58,6 @@
   </div>
 </div>
 
-    <input type="hidden" name="pxt:trap" value="rhn:user_prefs_edit_cb" />
     <html:hidden property="uid" />
 
 <div class="text-left">
