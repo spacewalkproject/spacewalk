@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.81
+Version: 5.10.82
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -122,6 +122,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Thu Mar 05 2015 Matej Kollar <mkollar@redhat.com> 5.10.82-1
+- 1199197 - Avoid addition of None and str
+
 * Mon Jan 19 2015 Matej Kollar <mkollar@redhat.com> 5.10.81-1
 - 1177656 - Normalize path sooner
 
