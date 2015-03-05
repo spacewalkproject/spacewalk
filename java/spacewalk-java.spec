@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.159
+Version: 2.3.160
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -789,6 +789,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 05 2015 Grant Gainey 2.3.160-1
+- 1196329 - IE11/WinServer2008/CompatMode fix
+
 * Thu Mar 05 2015 Jan Dobes 2.3.159-1
 - fix old branding icon
 - remove unused Perl code
