@@ -1995,6 +1995,31 @@ def do_softwarechannel_setsyncschedule(self, args):
 ####################
 
 
+def help_softwarechannel_removesyncschedule(self):
+    print 'softwarechannel_removesyncschedule: '
+    print 'Removes the repo sync schedule for a software channel'
+    print
+    print 'usage: softwarechannel_setsyncschedule <CHANNEL>'
+
+
+def complete_softwarechannel_removesyncschedule(self, text, line, beg, end):
+    return tab_completer(self.do_softwarechannel_list('', True), text)
+
+
+def do_softwarechannel_removesyncschedule(self, args):
+    (args, _options) = parse_arguments(args, glob=False)
+
+    if not len(args) == 1:
+        self.help_softwarechannel_removesyncschedule()
+        return
+
+    channel = args[0]
+
+    self.client.channel.software.syncRepo(self.session, channel, '')
+
+####################
+
+
 def help_softwarechannel_addrepo(self):
     print 'softwarechannel_addrepo: Add a repo to a software channel'
     print 'usage: softwarechannel_addrepo CHANNEL REPO'
