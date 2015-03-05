@@ -149,6 +149,9 @@ insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 -- EPEL 6
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), '3b49df2a0608b895', lookup_package_key_type('gpg'), lookup_package_provider('EPEL'));
+-- EPEL 7
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '6a2faea2352c64e5', lookup_package_key_type('gpg'), lookup_package_provider('EPEL'));
 
 
 commit;
