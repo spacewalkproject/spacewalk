@@ -336,8 +336,8 @@ class RepoSync(object):
                 if self.channel['org_id']:
                     param_dict['org_id'] = self.channel['org_id']
                     orgStatement = "= :org_id"
-                    orgStatement = "is NULL"
                 else:
+                    orgStatement = "is NULL"
 
                 h = rhnSQL.prepare("""
                     select p.id, pevr.epoch, c.checksum, c.checksum_type
@@ -423,17 +423,14 @@ class RepoSync(object):
                         if cve['id'] not in tmp:
                             e['cve'].append(cve['id'])
                             tmp[cve['id']] = None
-                others = [r for r in notice['references'] if r['type'] == 'other']
+                others = [r for r in notice['references'] if not r['type'] == 'bugzilla' and not r['type'] == 'cve']
                 if len(others):
                     tmp = len(others)
                     refers_to = ""
                     for other in others:
                         if refers_to:
                             refers_to += "\n"
-                        if not other['title']:
-                            refers_to += other['href']
-                        else:
-                            refers_to += "{} ({})".format(other['title'], other['href'])
+                        refers_to += other['href']
                     e['refers_to'] = refers_to
             e['locally_modified'] = None
             batch.append(e)
