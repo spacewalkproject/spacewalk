@@ -301,8 +301,14 @@ class RepoSync(object):
             if (notice['type'] == 'security' and notice['severity'] and
                     not e['synopsis'].startswith(notice['severity'] + ': ')):
                 e['synopsis'] = notice['severity'] + ': ' + e['synopsis']
-            e['topic'] = ' '
-            e['solution'] = ' '
+            if 'summary' in notice and not notice['summary'] is None:
+                e['topic'] = notice['summary']
+            else:
+                e['topic'] = ' '
+            if 'solution' in notice and not notice['solution'] is None:
+                e['solution'] = notice['solution']
+            else:
+                e['solution'] = ' '
             e['issue_date'] = self._to_db_date(notice['issued'])
             if notice['updated']:
                 e['update_date'] = self._to_db_date(notice['updated'])
@@ -310,7 +316,6 @@ class RepoSync(object):
                 e['update_date'] = self._to_db_date(notice['issued'])
             e['org_id'] = self.channel['org_id']
             e['notes'] = ''
-            e['refers_to'] = ''
             e['channels'] = []
             e['packages'] = []
             e['files'] = []
@@ -418,13 +423,21 @@ class RepoSync(object):
                             e['bugs'].append(bug)
                             tmp[bz['id']] = None
                 cves = [r for r in notice['references'] if r['type'] == 'cve']
-
                 if len(cves):
                     tmp = {}
                     for cve in cves:
                         if cve['id'] not in tmp:
                             e['cve'].append(cve['id'])
                             tmp[cve['id']] = None
+                others = [r for r in notice['references'] if not r['type'] == 'bugzilla' and not r['type'] == 'cve']
+                if len(others):
+                    tmp = len(others)
+                    refers_to = ""
+                    for other in others:
+                        if refers_to:
+                            refers_to += "\n"
+                        refers_to += other['href']
+                    e['refers_to'] = refers_to
             e['locally_modified'] = None
             batch.append(e)
 
