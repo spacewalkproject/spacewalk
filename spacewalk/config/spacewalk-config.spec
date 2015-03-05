@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.3.10
+Version: 2.3.11
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -98,6 +98,9 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Thu Mar 05 2015 Tomas Lestach <tlestach@redhat.com> 2.3.11-1
+- we do not have /var/www/html/network anymore
+
 * Wed Mar 04 2015 Tomas Lestach <tlestach@redhat.com> 2.3.10-1
 - removing unused pxt error pages
 - removing packages/package_map_raw as it isn't referenced
