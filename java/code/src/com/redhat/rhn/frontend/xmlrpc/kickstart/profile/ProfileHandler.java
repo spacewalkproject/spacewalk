@@ -60,6 +60,7 @@ import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -262,6 +263,9 @@ public class ProfileHandler extends BaseHandler {
 
         KickstartDefaults ksdefault = ksdata.getKickstartDefaults();
         ksdefault.setKstree(tree);
+        CobblerProfileEditCommand cpec = new CobblerProfileEditCommand(ksdata,
+                loggedInUser);
+        cpec.store();
         return 1;
     }
 
