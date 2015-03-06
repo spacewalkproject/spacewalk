@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.160
+Version: 2.3.161
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -789,6 +789,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 06 2015 Tomas Lestach <tlestach@redhat.com> 2.3.161-1
+- 1086354 - update properly necessary cobbler fields when changing ks tree
+- host as parameter of KickstartableTree.getDefaultDownloadLocation() isn't
+  used
+- DataSourceParserTest: generalize so that both Postgres 8 and 9 drivers work
+
 * Thu Mar 05 2015 Grant Gainey 2.3.160-1
 - 1196329 - IE11/WinServer2008/CompatMode fix
 
