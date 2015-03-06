@@ -279,7 +279,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n spacewalk-html
 %{_var}/www/html/*
-%{_datadir}/spacewalk/web
 %doc LICENSE
 
 %changelog
