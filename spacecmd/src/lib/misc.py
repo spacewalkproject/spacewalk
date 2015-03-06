@@ -997,7 +997,7 @@ def load_config_section(self, section):
                 pass
 
     # handle the nossl boolean
-    if self.config.has_key('nossl'):
+    if self.config.has_key('nossl') and isinstance(self.config['nossl'], str):
         if re.match('^1|y|true$', self.config['nossl'], re.I):
             self.config['nossl'] = True
         else:
