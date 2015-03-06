@@ -27,21 +27,20 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
- * @author coec
- * @version $Rev$
+ * Struts action class showing logfile in web UI.
  */
 public class CatalinaAction extends RhnAction {
-   /** {@inheritDoc} */
-   public ActionForward execute(ActionMapping mapping,
-                                ActionForm formIn,
-                                HttpServletRequest request,
-                                HttpServletResponse response) {
-       String catalinaBase = System.getProperty("catalina.base");
-       String contents = FileUtils.getTailOfFile(catalinaBase + "/logs/catalina.out", 1000);
-       contents = StringEscapeUtils.escapeHtml(contents);
-       request.setAttribute("contents", contents);
-       return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-   }
+
+    private static final String LOGFILE_PATH = "/var/log/rhn/rhn_web_ui.log";
+
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
+            HttpServletRequest request, HttpServletResponse response) {
+        request.setAttribute("logfile_path", LOGFILE_PATH);
+        String contents = FileUtils.getTailOfFile(LOGFILE_PATH, 1000);
+        contents = StringEscapeUtils.escapeHtml(contents);
+        request.setAttribute("contents", contents);
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
 }

@@ -10141,11 +10141,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </context-group>
         <target>Redémarrer</target>
       </trans-unit>
-      <!-- Catalina stuff -->
-      <trans-unit id="catalina.jsp.show">
-        <source>catalina.out</source>
-        <target>catalina.out</target>
-      </trans-unit>
       <!-- Cobbler stuff -->
       <group>
         <context-group name="ctx">

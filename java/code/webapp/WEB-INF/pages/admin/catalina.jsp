@@ -1,5 +1,6 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
     <head>
@@ -12,7 +13,7 @@
             <rhn:csrf />
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <bean:message key="catalina.jsp.show"/>
+                    <c:out value="${logfile_path}"/>
                 </div>
                 <div class="panel-body">
                     <textarea data-editor="text" data-readonly="true" rows="24" class="form-control">${contents}</textarea>
