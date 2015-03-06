@@ -191,7 +191,7 @@ def list_channels(only_base_channels=False):
 
     for channel in sorted(channels):
         if not (only_base_channels and channel.get('parent_channel')):
-            print channel('label')
+            print channel['label']
 
 
 def list_available_channels(credentials):
