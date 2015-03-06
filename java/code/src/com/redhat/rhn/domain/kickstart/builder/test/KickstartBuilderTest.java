@@ -43,8 +43,8 @@ import java.util.List;
 public class KickstartBuilderTest extends BaseTestCaseWithUser {
 
     private String kickstartFileContents;
-    private final String KICKSTART_HOST = "localhost"; // really doesn't matter
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         UserTestUtils.addUserRole(user, RoleFactory.ORG_ADMIN);
@@ -66,7 +66,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartData data =
                 builder.create(TestUtils.randomString(), tree,
                         KickstartVirtualizationType.XEN_PARAVIRT,
-                        "http://localhost/ks", "redhat", "localhost",
+                        "http://localhost/ks", "redhat",
                 KickstartTreeUpdateType.NONE);
         assertNotNull(data);
     }
@@ -81,7 +81,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartData rhel4data =
                 builder.create(TestUtils.randomString(),
                         tree, KickstartVirtualizationType.XEN_PARAVIRT,
-                        "http://localhost/ks", "redhat", "localhost",
+                        "http://localhost/ks", "redhat",
                 KickstartTreeUpdateType.NONE);
 
         String contents = FileUtils.readStringFromFile(rhel4data.getCobblerFileName());
@@ -97,7 +97,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartData rhel5data =
                 builder.create(TestUtils.randomString(),
                         tree, KickstartVirtualizationType.XEN_PARAVIRT,
-                        "http://localhost/ks", "redhat", "localhost",
+                        "http://localhost/ks", "redhat",
                 KickstartTreeUpdateType.NONE);
 
         contents = FileUtils.readStringFromFile(rhel5data.getCobblerFileName());
@@ -129,7 +129,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
 
         KickstartData ksData = createBareKickstartData();
 
-        builder.buildCommands(ksData, lines, tree, null);
+        builder.buildCommands(ksData, lines, tree);
 
         KickstartCommand rootpw = ksData.getCommand("rootpw");
         assertTrue(rootpw.getArguments().indexOf("--iscrypted") < 0);
@@ -177,7 +177,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         lines.add("rootpw blahblah");
 
         KickstartData ksData = createBareKickstartData();
-        builder.buildCommands(ksData, lines, tree, null);
+        builder.buildCommands(ksData, lines, tree);
         KickstartCommand rootpw = ksData.getCommand("rootpw");
         assertTrue(rootpw.getArguments().startsWith("--iscrypted $5$"));
     }
@@ -333,7 +333,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         //String randomLabel = RandomStringUtils.randomAlphabetic(10);
         KickstartData ksData = builder.createFromParser(parser, "mykslabel",
-                KickstartVirtualizationType.XEN_PARAVIRT, tree, null,
+                KickstartVirtualizationType.XEN_PARAVIRT, tree,
                 KickstartTreeUpdateType.NONE);
         assertEquals(100, ksData.getKsPackages().size());
         assertEquals(1, ksData.getScripts().size());
@@ -348,11 +348,11 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
 
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         builder.createFromParser(parser, "mykslabel",
-                KickstartVirtualizationType.XEN_PARAVIRT, tree, null,
+                KickstartVirtualizationType.XEN_PARAVIRT, tree,
                 KickstartTreeUpdateType.NONE);
         try {
             builder.createFromParser(parser, "mykslabel",
-                    KickstartVirtualizationType.XEN_PARAVIRT, tree, null,
+                    KickstartVirtualizationType.XEN_PARAVIRT, tree,
                     KickstartTreeUpdateType.NONE);
             fail();
         }
@@ -368,7 +368,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         try {
             builder.createFromParser(parser, "badvirttype", "whatever", tree,
-                    null, KickstartTreeUpdateType.NONE);
+                    KickstartTreeUpdateType.NONE);
             fail();
         }
         catch (InvalidVirtualizationTypeException e) {
@@ -382,7 +382,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
 
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         KickstartData data = builder.createFromParser(parser, "upgrade-ks",
-                KickstartVirtualizationType.XEN_PARAVIRT, tree, null,
+                KickstartVirtualizationType.XEN_PARAVIRT, tree,
                 KickstartTreeUpdateType.NONE);
 
         assertNotNull(data.getCommand("upgrade"));
@@ -395,7 +395,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         KickstartData data = builder.createFromParser(parser,
                 "testing-profile", KickstartVirtualizationType.XEN_PARAVIRT,
-                tree, KICKSTART_HOST, KickstartTreeUpdateType.NONE);
+                tree, KickstartTreeUpdateType.NONE);
 
         assertNull(data.getCommand("nfs"));
         KickstartCommand urlCmd = data.getCommand("url");

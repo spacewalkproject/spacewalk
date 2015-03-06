@@ -190,10 +190,9 @@ public class KickstartableTree extends BaseDomainHelper {
      * NOTE: the default path does not include a host.
      *  We append the host if it starts with a '/'
      *
-     * @param host used to Kickstart from
      * @return String url
      */
-    public String getDefaultDownloadLocation(String host) {
+    public String getDefaultDownloadLocation() {
         if (this.getBasePath() != null) {
 
             String defaultLocation = "ks/dist/";

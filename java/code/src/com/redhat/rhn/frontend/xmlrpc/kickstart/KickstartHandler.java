@@ -236,7 +236,7 @@ public class KickstartHandler extends BaseHandler {
 
         try {
             builder.createFromParser(parser, profileLabel, virtualizationType,
-                    tree, kickstartHost, updateTree);
+                    tree, updateTree);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e);
@@ -297,10 +297,10 @@ public class KickstartHandler extends BaseHandler {
 
         KickstartTreeUpdateType updateTree = getUpdateType(updateType, tree);
 
-        String downloadUrl = tree.getDefaultDownloadLocation(kickstartHost);
+        String downloadUrl = tree.getDefaultDownloadLocation();
         try {
             builder.create(profileLabel, tree, virtualizationType, downloadUrl,
-                    rootPassword, RhnXmlRpcServer.getServerName(), updateTree);
+                    rootPassword, updateTree);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e);
@@ -428,7 +428,7 @@ public class KickstartHandler extends BaseHandler {
         KickstartTreeUpdateType updateTree = getUpdateType(updateType, tree);
         try {
             builder.create(profileLabel, tree, virtualizationType, downloadUrl,
-                    rootPassword, RhnXmlRpcServer.getServerName(), updateTree);
+                    rootPassword, updateTree);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e);

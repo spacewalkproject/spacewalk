@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.action.kickstart.test;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
-import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
 import com.redhat.rhn.frontend.action.kickstart.KickstartSoftwareEditAction;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.testing.ChannelTestUtils;
@@ -37,6 +36,7 @@ public class KickstartSoftwareEditActionTest extends BaseKickstartEditTestCase {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/kickstart/KickstartSoftwareEdit");
@@ -49,9 +49,8 @@ public class KickstartSoftwareEditActionTest extends BaseKickstartEditTestCase {
         actionPerform();
         KickstartableTree tree = ksdata.getKickstartDefaults().getKstree();
 
-        KickstartHelper helper = new KickstartHelper(getRequest());
         verifyFormValue(KickstartSoftwareEditAction.URL,
-                tree.getDefaultDownloadLocation(helper.getKickstartHost()));
+                tree.getDefaultDownloadLocation());
         verifyFormValue(KickstartSoftwareEditAction.CHANNEL, tree.getChannel().getId());
 
         Collection c = (Collection)

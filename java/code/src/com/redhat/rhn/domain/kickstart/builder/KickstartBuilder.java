@@ -105,12 +105,9 @@ public class KickstartBuilder {
      * @param ksData KickstartData to associate commands with.
      * @param lines Kickstart option lines.
      * @param tree KickstartableTree for the new kickstart profile.
-     * @param kickstartHost Kickstart host to use when constructing the default URL. Set to
-     * null if you wish to use the url/cdrom/nfs/harddrive command values in the kickstart
-     * file instead.
      */
     public void buildCommands(KickstartData ksData, List<String> lines,
-            KickstartableTree tree, String kickstartHost) {
+            KickstartableTree tree) {
         StringBuilder partitionBuf = new StringBuilder();
         // Grab a list of all the available command names:
         List<KickstartCommandName> availableOptions = KickstartFactory
@@ -162,9 +159,9 @@ public class KickstartBuilder {
 
             // If we're to use the default URL for the new profile's kickstart tree,
             // ignore any url/nfs/cdrom/harddrive commands and instead add the default url:
-            if (kickstartHost != null && installationTypes.contains(firstWord)) {
+            if (installationTypes.contains(firstWord)) {
                 firstWord = "url";
-                restOfLine = tree.getDefaultDownloadLocation(kickstartHost);
+                restOfLine = tree.getDefaultDownloadLocation();
                 log.warn("Using default kickstartable tree URL:");
                 log.warn("   Replaced: " + currentLine);
                 log.warn("   With: " + firstWord + " " + restOfLine);
@@ -375,22 +372,19 @@ public class KickstartBuilder {
      * the label is valid and not already used within the users organization)
      * @param virtualizationType Virtualization type, or none.
      * @param tree KickstartableTree to associate with the new KickstartData.
-     * @param kickstartHost Kickstart host to use when constructing the default URL. Set to
-     * null if you wish to use the url/cdrom/nfs/harddrive command values in the kickstart
-     * file instead. the kickstart file and use the default for the given kickstart tree.
      * @param updateType way that the profile should automaticall update the ks tree
      * @return KickstartData
      */
     public KickstartData createFromParser(KickstartParser parser, String label,
             String virtualizationType, KickstartableTree tree,
-            String kickstartHost, KickstartTreeUpdateType updateType) {
+            KickstartTreeUpdateType updateType) {
         KickstartData ksdata = new KickstartData();
         setupBasicInfo(label, ksdata, tree, virtualizationType, updateType);
 
         if (ksdata.getKsPackages() == null) {
             ksdata.setKsPackages(new TreeSet<KickstartPackage>());
         }
-        buildCommands(ksdata, parser.getOptionLines(), tree, kickstartHost);
+        buildCommands(ksdata, parser.getOptionLines(), tree);
         buildPackages(ksdata, parser.getPackageLines());
         buildPreScripts(ksdata, parser.getPreScriptLines());
         buildPostScripts(ksdata, parser.getPostScriptLines());
@@ -537,14 +531,13 @@ public class KickstartBuilder {
      * @param virtType fully_virtualized, para_virtualized, or none.
      * @param downloadUrl Download location.
      * @param rootPassword Root password.
-     * @param kickstartHost the host that is serving up the kickstart configuration file.
      * @param updateType how this profile will update the kickstart tree when new ones
      * become available.
      * @return Newly created KickstartData.
      */
     public KickstartData create(String ksLabel, KickstartableTree tree,
             String virtType, String downloadUrl, String rootPassword,
-            String kickstartHost, KickstartTreeUpdateType updateType) {
+            KickstartTreeUpdateType updateType) {
 
         checkRoles();
         KickstartData ksdata = new KickstartData();

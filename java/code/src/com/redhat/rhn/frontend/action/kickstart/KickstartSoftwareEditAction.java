@@ -68,6 +68,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
     public static final String RED_HAT_TREES_AVAILABLE = "redHatTreesAvailable";
     public static final String USING_NEWEST = "usingNewest";
     public static final String USING_NEWEST_RH = "usingNewestRH";
+    @Override
     protected String getSuccessKey() {
         return "kickstart.software.success";
     }
@@ -75,6 +76,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void setupFormValues(RequestContext ctx, DynaActionForm form,
             BaseKickstartCommand cmdIn) {
         String fieldChanged = form.getString("fieldChanged");
@@ -215,9 +217,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
     private void setupUrl(RequestContext ctx, DynaActionForm form,
             KickstartableTree kstree) {
         if (kstree != null) {
-            KickstartHelper kshelper = new KickstartHelper(ctx.getRequest());
-            form.set(URL, kstree.getDefaultDownloadLocation(kshelper
-                    .getKickstartHost()));
+            form.set(URL, kstree.getDefaultDownloadLocation());
         }
         else {
             form.set(URL, "");
@@ -229,6 +229,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected ValidatorError processFormValues(HttpServletRequest request,
             DynaActionForm form,
             BaseKickstartCommand cmdIn) {
@@ -326,6 +327,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected BaseKickstartCommand getCommand(RequestContext ctx) {
         return new KickstartEditCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                 ctx.getCurrentUser());

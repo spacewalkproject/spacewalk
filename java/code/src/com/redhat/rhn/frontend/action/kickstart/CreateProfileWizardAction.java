@@ -86,6 +86,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
      *
      * {@inheritDoc}
      */
+    @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
@@ -106,6 +107,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         return super.execute(mapping, formIn, request, response);
     }
 
+    @Override
     protected void generateWizardSteps(Map steps) {
         List methods = findMethods("run");
         for (Iterator iter = methods.iterator(); iter.hasNext();) {
@@ -192,7 +194,6 @@ public class CreateProfileWizardAction extends RhnWizardAction {
             }
 
             Long channelId = (Long) form.get(CURRENT_CHANNEL_ID_PARAM);
-            KickstartHelper helper = new KickstartHelper(ctx.getRequest());
             KickstartWizardHelper cmd = new KickstartWizardHelper(ctx.getCurrentUser());
             ActionForward retval = null;
             KickstartableTree tree = null;
@@ -212,8 +213,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
             form.set(NEXT_STEP_PARAM, "third");
             form.set(
                     DEFAULT_DOWNLOAD_LOCN,
-                    getDefaultDisplayDownloadLocation(tree,
-                            helper.getKickstartHost()));
+                    getDefaultDisplayDownloadLocation(tree));
 
             ctx.getRequest().setAttribute("selectedTree", tree);
 
@@ -272,7 +272,6 @@ public class CreateProfileWizardAction extends RhnWizardAction {
             WizardStep step) throws Exception {
         log.debug("CreateProfileWizard.runComplete()");
         KickstartWizardHelper cmd = new KickstartWizardHelper(ctx.getCurrentUser());
-        KickstartHelper helper = new KickstartHelper(ctx.getRequest());
         List<String> fields = new LinkedList<String>();
         fields.add(ROOT_PASSWORD_PARAM);
         fields.add(ROOT_PASSWORD_CONFIRM_PARAM);
@@ -299,7 +298,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         String virtType = form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM);
         KickstartBuilder builder = new KickstartBuilder(ctx.getCurrentUser());
         KickstartData ksdata = builder.create(ksLabel, tree, virtType,
-                downloadUrl, rootPass, helper.getKickstartHost(), updateType);
+                downloadUrl, rootPass, updateType);
 
         String url = ctx.getRequest().getContextPath() + "/kickstart/" +
                 "KickstartDetailsEdit.do?ksid=" + ksdata.getId();
@@ -390,10 +389,10 @@ public class CreateProfileWizardAction extends RhnWizardAction {
      * hitting, or the hostname of the satellite. (depending on availablity, in that
      * order)
      */
-    private String getDefaultDisplayDownloadLocation(KickstartableTree tree, String host) {
+    private String getDefaultDisplayDownloadLocation(KickstartableTree tree) {
 
         if (tree != null) {
-            return tree.getDefaultDownloadLocation(host);
+            return tree.getDefaultDownloadLocation();
         }
         return "";
     }

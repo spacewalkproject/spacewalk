@@ -14,17 +14,6 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-
-import org.apache.commons.lang.StringUtils;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-
-import redstone.xmlrpc.XmlRpcFault;
-
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -36,6 +25,17 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroSyncCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileSyncCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+
+import org.apache.commons.lang.StringUtils;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
+
+import redstone.xmlrpc.XmlRpcFault;
 
 /**
  * CobblerSyncTask
@@ -94,7 +94,7 @@ public class CobblerSyncTask extends RhnJavaJob {
                             profile, null);
                     cmd.updateKickstartableTree(profile.getChannel()
                             .getId(), profile.getOrg().getId(), tree
-                            .getId(), tree.getDefaultDownloadLocation(""));
+                            .getId(), tree.getDefaultDownloadLocation());
                     if (StringUtils.isNotEmpty(profile.getCobblerId())) {
                         CobblerProfileEditCommand cpec = new CobblerProfileEditCommand(
                                 profile);
