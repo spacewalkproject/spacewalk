@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.3.13
+Version: 2.3.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -370,6 +370,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Mar 06 2015 Matej Kollar <mkollar@redhat.com> 2.3.14-1
+- Fixed typos with options and function name
+
 * Fri Mar 06 2015 Matej Kollar <mkollar@redhat.com> 2.3.13-1
 - Fix issue introduced by b0cd7ef72cd92837155e6c5dcdb5213cba31af48
 
