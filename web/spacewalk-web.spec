@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.41
+Version: 2.3.42
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -283,6 +283,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Mar 06 2015 Tomas Lestach <tlestach@redhat.com> 2.3.42-1
+- include directory was already removed
+
 * Thu Mar 05 2015 Tomas Lestach <tlestach@redhat.com> 2.3.41-1
 - removing unused help/index.html
 - removing unused Makefile
