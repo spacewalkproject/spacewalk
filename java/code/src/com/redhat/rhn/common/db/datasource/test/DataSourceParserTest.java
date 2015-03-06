@@ -216,12 +216,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
             Iterator j = elab.iterator();
             while (j.hasNext()) {
                 Map curr = (Map)j.next();
-                if (ConfigDefaults.get().isOracle()) {
-                    assertTrue(((Long)curr.get("column_id")).intValue() > 0);
-                }
-                else {
-                    assertTrue(((Integer)curr.get("column_id")).intValue() > 0);
-                }
+                assertTrue(((Number)curr.get("column_id")).intValue() > 0);
                 assertNotNull(curr.get("column_name"));
                 assertNotNull(curr.get("table_name"));
             }
