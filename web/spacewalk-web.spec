@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.44
+Version: 2.3.45
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -234,6 +234,33 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Mar 09 2015 Tomas Lestach <tlestach@redhat.com> 2.3.45-1
+- update spec file
+- removing RHN::DB::ContactGroup as it isn't referenced anymore
+- removing RHN::ContactGroup as it isn't referenced anymore
+- removing RHN::DataSource::ContactMethod as it isn't referenced anymore
+- removing RHN::DB::ContactMethod as it isn't referenced anymore
+- removing RHN::Set as it isn't referenced anymore
+- removing RHN::DB::ServerGroup as it isn't referenced anymore
+- removing RHN::ContactMethod as it isn't referenced anymore
+- removing RHN::ServerGroup as it isn't referenced anymore
+- removing RHN::DB::Kickstart::Session as it isn't referenced anymore
+- removing RHN::DB::ServerActions as it isn't referenced anymore
+- removing RHN::Kickstart::Session as it isn't referenced anymore
+- removing RHN::Access::Action as it isn't referenced anymore
+- removing RHN::Access::Channel as it isn't referenced anymore
+- removing RHN::Access::Package as it isn't referenced anymore
+- removing RHN::Access::System as it isn't referenced anymore
+- removing RHN::Access::Token as it isn't referenced anymore
+- removing RHN::DataSource::CustomInfo as it isn't referenced anymore
+- removing RHN::DataSource::Probe as it isn't referenced anymore
+- removing RHN::DataSource::Scout as it isn't referenced anymore
+- removing RHN::DataSource::User as it isn't referenced anymore
+- removing RHN::SearchTypes as it isn't referenced anymore
+- removing RHN::ServerActions as it isn't referenced anymore
+- removing unused RHN::Form
+- removing unused RHN::Access handlers
+
 * Mon Mar 09 2015 Tomas Lestach <tlestach@redhat.com> 2.3.44-1
 - removing spacewalk-grail as they are not needed any more
 - removing spacewalk-sniglets as they are not needed any more
