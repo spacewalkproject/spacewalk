@@ -158,7 +158,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{perl_vendorlib}/PXT
 %{perl_vendorlib}/RHN.pm
 %{perl_vendorlib}/RHN/Access.pm
-%{perl_vendorlib}/RHN/Access/
 %{perl_vendorlib}/RHN/Action.pm
 %{perl_vendorlib}/RHN/Cache/
 %{perl_vendorlib}/RHN/Cert.pm
@@ -167,7 +166,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Cleansers.pm
 %{perl_vendorlib}/RHN/ConfigChannel.pm
 %{perl_vendorlib}/RHN/ConfigRevision.pm
-%{perl_vendorlib}/RHN/ContactGroup.pm
 %{perl_vendorlib}/RHN/CustomInfoKey.pm
 %{perl_vendorlib}/RHN/DB/
 %{perl_vendorlib}/RHN/DataSource.pm
@@ -178,8 +176,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/ErrataEditor.pm
 %{perl_vendorlib}/RHN/ErrataTmp.pm
 %{perl_vendorlib}/RHN/FileList.pm
-%{perl_vendorlib}/RHN/Form.pm
-%{perl_vendorlib}/RHN/Form/
 %{perl_vendorlib}/RHN/I18N.pm
 %{perl_vendorlib}/RHN/KSTree.pm
 %{perl_vendorlib}/RHN/Kickstart.pm
@@ -193,12 +189,8 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/SatInstall.pm
 %{perl_vendorlib}/RHN/SatelliteCert.pm
 %{perl_vendorlib}/RHN/Scheduler.pm
-%{perl_vendorlib}/RHN/SearchTypes.pm
 %{perl_vendorlib}/RHN/Server.pm
-%{perl_vendorlib}/RHN/ServerActions.pm
-%{perl_vendorlib}/RHN/ServerGroup.pm
 %{perl_vendorlib}/RHN/Session.pm
-%{perl_vendorlib}/RHN/Set.pm
 %{perl_vendorlib}/RHN/StoredMessage.pm
 %{perl_vendorlib}/RHN/SystemSnapshot.pm
 %{perl_vendorlib}/RHN/Tag.pm
