@@ -217,13 +217,7 @@ my %pinfo_modes = (
                      '/unpublished.pxt' => {mode => 'unpublished_owned_errata', name => 'Unpublished Errata',
                                             label => 'unpublished' },
                     },
-          probes => {'/all.pxt' => {mode => 'all_system_probes', name => 'Probes'},
-                     '/ok.pxt' => {mode => 'ok_system_probes', name => 'OK Probes'},
-                     '/warning.pxt' => {mode => 'warning_system_probes', name => 'Warning Probes'},
-                     '/critical.pxt' => {mode => 'critical_system_probes', name => 'Critical Probes'},
-                     '/unknown.pxt' => {mode => 'unknown_system_probes', name => 'Unknown Probes'},
-                     '/pending.pxt' => {mode => 'pending_system_probes', name => 'Pending Probes'},
-                    },
+          probes => { },
                   );
 
 sub pathinfo_list_mode {
