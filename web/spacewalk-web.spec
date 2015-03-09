@@ -209,7 +209,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/RHN::DB::ContactGroup.3pm.gz
 %{_mandir}/man3/RHN::DB::ContactMethod.3pm.gz
 %{_mandir}/man3/RHN::DB::SatCluster.3pm.gz
-%{_mandir}/man3/RHN::DB::ServerGroup.3pm.gz
 %{_mandir}/man3/RHN::SatCluster.3pm.gz
 %{_mandir}/man3/RHN::Session.3pm.gz
 
