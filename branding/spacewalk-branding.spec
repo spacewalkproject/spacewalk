@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.21
+Version:    2.3.22
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -92,6 +92,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Mar 09 2015 Tomas Lestach <tlestach@redhat.com> 2.3.22-1
+- removing unused navbar_top_sat.txt
+
 * Thu Mar 05 2015 Tomas Lestach <tlestach@redhat.com> 2.3.21-1
 - templates dir was removed completelly from branding
 
