@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.43
+Version: 2.3.44
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -248,6 +248,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Mar 09 2015 Tomas Lestach <tlestach@redhat.com> 2.3.44-1
+- removing spacewalk-grail as they are not needed any more
+- removing spacewalk-sniglets as they are not needed any more
+- removing unused tags from Sniglets/Users.pm
+- stop using permission.pxt error document
+- errata pages were ported to java long time ago
+- probe pages were ported to java long time ago
+
 * Fri Mar 06 2015 Tomas Lestach <tlestach@redhat.com> 2.3.43-1
 - fixing failed spacewalk-web build
 
