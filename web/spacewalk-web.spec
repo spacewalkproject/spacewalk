@@ -168,7 +168,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/ConfigChannel.pm
 %{perl_vendorlib}/RHN/ConfigRevision.pm
 %{perl_vendorlib}/RHN/ContactGroup.pm
-%{perl_vendorlib}/RHN/ContactMethod.pm
 %{perl_vendorlib}/RHN/CustomInfoKey.pm
 %{perl_vendorlib}/RHN/DB/
 %{perl_vendorlib}/RHN/DataSource.pm
@@ -207,7 +206,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/User.pm
 %{perl_vendorlib}/RHN/Utils.pm
 %{_mandir}/man3/RHN::ContactGroup.3pm.gz
-%{_mandir}/man3/RHN::ContactMethod.3pm.gz
 %{_mandir}/man3/RHN::DB::ContactGroup.3pm.gz
 %{_mandir}/man3/RHN::DB::ContactMethod.3pm.gz
 %{_mandir}/man3/RHN::DB::SatCluster.3pm.gz
