@@ -77,10 +77,8 @@ class Repository(rhnRepository.Repository):
 
         log_debug(3, pkgFilename)
         mappingName = "package_mapping:%s:" % self.channelName
-        pickledMapping = self._cacheObj(mappingName, self.channelVersion,
+        mapping = self._cacheObj(mappingName, self.channelVersion,
                                         self.__channelPackageMapping, ())
-
-        mapping = cPickle.loads(pickledMapping)
 
         # If the file name has parameters, it's a different kind of package.
         # Determine the architecture requested so we can construct an
@@ -175,18 +173,22 @@ class Repository(rhnRepository.Repository):
         fileDir = self._getPkgListDir()
         filePath = "%s/%s-%s" % (fileDir, fileName, version)
         if os.access(filePath, os.R_OK):
-            # Slurp the file
-            f = open(filePath, "r")
-            data = f.read()
-            f.close()
-            return data
+            try:
+                # Slurp the file
+                f = open(filePath, "r")
+                data = f.read()
+                f.close()
+                stringObject = cPickle.loads(data)
+                return stringObject
+            except: # corrupted cache file
+                pass # do nothing, we'll fetch / write it again
 
         # The file's not there; query the DB or whatever dataproducer used.
         if params is None:
             params = ()
         stringObject = dataProducer(*params)
         # Cache the thing
-        cache(stringObject, fileDir, fileName, version)
+        cache(cPickle.dumps(stringObject, 1), fileDir, fileName, version)
         # Return the string
         return stringObject
 
@@ -251,7 +253,7 @@ class Repository(rhnRepository.Repository):
 
         if CFG.DEBUG > 4:
             log_debug(5, "Mapping: %s[...snip snip...]%s" % (str(_hash)[:40], str(_hash)[-40:]))
-        return cPickle.dumps(_hash, 1)
+        return _hash
 
 
 class KickstartRepository(Repository):
@@ -290,10 +292,14 @@ class KickstartRepository(Repository):
         filePath = "%s/%s-1" % (fileDir, fileName)
         mapping = None
         if os.access(filePath, os.R_OK):
-            # Slurp the file
-            f = open(filePath, "r")
-            mapping = cPickle.loads(f.read())
-            f.close()
+            try:
+                # Slurp the file
+                f = open(filePath, "r")
+                mapping = cPickle.loads(f.read())
+                f.close()
+            except: # corrupt cached file, delete it
+                os.unlink(filePath)
+                mapping = None
 
         now = int(time.time())
         if not mapping or mapping['expires'] < now:
