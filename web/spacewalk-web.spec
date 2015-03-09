@@ -134,20 +134,6 @@ for HTML, XML, WML, HDML, and SOAP output of data.  It is more or less
 equivalent to things like Apache::ASP and Mason.
 
 
-%package -n spacewalk-sniglets
-Group: Applications/Internet 
-Summary: PXT Tag handlers
-Obsoletes: rhn-sniglets < 5.3.0
-Provides:  rhn-sniglets = 5.3.0
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Requires:  perl(Params::Validate)
-Requires:  perl(Mail::RFC822::Address)
-Requires:  perl(URI)
-Requires:  perl(XML::LibXML)
-%description -n spacewalk-sniglets
-This package contains the tag handlers for the PXT templates.
-
-
 %prep
 %setup -q
 
@@ -272,10 +258,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/PXT/
 %exclude %{perl_vendorlib}/PXT/Config.pm
 %{_mandir}/man3/PXT::ApacheHandler.3pm.gz
-
-%files -n spacewalk-sniglets
-%{perl_vendorlib}/Sniglets.pm
-%{perl_vendorlib}/Sniglets/
 
 %files -n spacewalk-html
 %{_var}/www/html/*

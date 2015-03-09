@@ -161,7 +161,6 @@
        <packagereq type="default">spacewalk-setup-postgresql</packagereq>
        <packagereq type="default">spacewalk-setup-jabberd</packagereq>
        <packagereq type="default">spacewalk-slf4j</packagereq>
-       <packagereq type="default">spacewalk-sniglets</packagereq>
        <packagereq type="default">spacewalk-ssl-cert-check</packagereq>
        <packagereq type="default">spacewalk-taskomatic</packagereq>
        <packagereq type="default">spacewalk-utils</packagereq>

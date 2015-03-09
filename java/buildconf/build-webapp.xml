@@ -164,8 +164,6 @@
     <symlink link="/var/www/lib/Grail" resource="${git.home}/web/modules/grail/Grail"/>
     <symlink link="/var/www/lib/PXT" resource="${git.home}/web/modules/pxt/PXT"/>
     <symlink link="/var/www/lib/RHN" resource="${git.home}/web/modules/rhn/RHN"/>
-    <symlink link="/var/www/lib/Sniglets"
-             resource="${git.home}/web/modules/sniglets/Sniglets"/>
     <symlink link="/var/www/html/css" resource="${git.home}/branding/css"/>
     <symlink link="/var/www/html/img" resource="${git.home}/branding/img"/>
     <symlink link="/var/www/html/templates" resource="${git.home}/branding/templates"/>
@@ -179,7 +177,6 @@
     <symlink action="delete" link="/var/www/lib/Grail"/>
     <symlink action="delete" link="/var/www/lib/PXT"/>
     <symlink action="delete" link="/var/www/lib/RHN"/>
-    <symlink action="delete" link="/var/www/lib/Sniglets"/>
     <delete dir="/var/www/lib"/>
     <symlink action="delete" link="/var/www/html/css"/>
     <symlink action="delete" link="/var/www/html/templates"/>

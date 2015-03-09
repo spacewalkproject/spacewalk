@@ -35,7 +35,6 @@ Requires:       spacewalk-html
 Requires:       spacewalk-base
 Requires:       spacewalk-grail
 Requires:       spacewalk-pxt
-Requires:       spacewalk-sniglets
 
 # Python
 Requires:       spacewalk-certs-tools
