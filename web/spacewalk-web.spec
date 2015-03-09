@@ -101,18 +101,6 @@ Dobby is collection of Perl modules and scripts to administer an Oracle
 database.
 
 
-%package -n spacewalk-grail
-Summary: Grail, a component framework for Spacewalk
-Requires: spacewalk-base
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Group: Applications/Internet
-Obsoletes: rhn-grail < 5.3.0
-Provides: rhn-grail = 5.3.0
-
-%description -n spacewalk-grail
-A component framework for Spacewalk.
-
-
 %package -n spacewalk-pxt
 Summary: The PXT library for web page templating
 Group: Applications/Internet
@@ -248,10 +236,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) %{_prefix}/share/rhn/config-defaults/rhn_dobby.conf
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/check-database-space-usage.sh
 %{perl_vendorlib}/Dobby/
-
-%files -n spacewalk-grail
-%{perl_vendorlib}/Grail.pm
-%{perl_vendorlib}/Grail/
 
 %files -n spacewalk-pxt
 %{perl_vendorlib}/PXT.pm

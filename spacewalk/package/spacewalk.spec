@@ -33,7 +33,6 @@ Requires:       spacewalk-search
 # Perl
 Requires:       spacewalk-html
 Requires:       spacewalk-base
-Requires:       spacewalk-grail
 Requires:       spacewalk-pxt
 
 # Python

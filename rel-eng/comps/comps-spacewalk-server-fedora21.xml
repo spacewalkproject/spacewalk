@@ -90,7 +90,6 @@
        <packagereq type="default">spacewalk-config</packagereq>
        <packagereq type="default">spacewalk-dobby</packagereq>
        <packagereq type="default">spacewalk-doc-indexes</packagereq>
-       <packagereq type="default">spacewalk-grail</packagereq>
        <packagereq type="default">spacewalk-html</packagereq>
        <packagereq type="default">spacewalk-java</packagereq>
        <packagereq type="default">spacewalk-java-config</packagereq>

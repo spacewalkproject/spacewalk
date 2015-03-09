@@ -3,7 +3,7 @@
 
 TOP = ..
 
-SUBDIRS = grail pxt rhn dobby
+SUBDIRS = pxt rhn dobby
 
 include $(TOP)/Makefile.defs
 # whitespace change to test checkin
