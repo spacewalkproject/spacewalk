@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.161
+Version: 2.3.162
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -789,6 +789,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 09 2015 Tomas Lestach <tlestach@redhat.com> 2.3.162-1
+- use /help/index.do for Documentaton
+- removing spacewalk-sniglets as they are not needed any more
+
 * Fri Mar 06 2015 Tomas Lestach <tlestach@redhat.com> 2.3.161-1
 - 1086354 - update properly necessary cobbler fields when changing ks tree
 - host as parameter of KickstartableTree.getDefaultDownloadLocation() isn't
