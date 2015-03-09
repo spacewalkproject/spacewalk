@@ -209,13 +209,19 @@ if [ -f /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log ] ; then
 	cp -fa /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log $DIR/database/
 fi
 
-# PostgreSQL logs
-if [ -f /var/lib/pgsql/pgstartup.log ] ; then
-	echo "    * copying pgstartup.log"
-	cp -fa /var/lib/pgsql/pgstartup.log $DIR/database
+PGSQL_ROOT=""
+rpm -q postgresql92-postgresql > /dev/null
+if [ $? == 0 ]; then
+	PGSQL_ROOT="/opt/rh/postgresql92/root"
 fi
 
-ls /var/lib/pgsql/data/*.conf /var/lib/pgsql/data/pg_log/* 2>/dev/null | xargs -I file cp -fa file $DIR/database
+# PostgreSQL logs
+if [ -f $PGSQL_ROOT/var/lib/pgsql/pgstartup.log ] ; then
+	echo "    * copying pgstartup.log"
+	cp -fa $PGSQL_ROOT/var/lib/pgsql/pgstartup.log $DIR/database
+fi
+
+ls $PGSQL_ROOT/var/lib/pgsql/data/*.conf $PGSQL_ROOT/var/lib/pgsql/data/pg_log/* 2>/dev/null | xargs -I file cp -fa file $DIR/database
 
 if [ -d /var/log/spacewalk/schema-upgrade ] ; then
 	echo "    * copying schema upgrade logs"
