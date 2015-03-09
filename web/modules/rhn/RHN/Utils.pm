@@ -19,7 +19,6 @@ use strict;
 
 use Date::Parse;
 use PXT::Utils;
-use RHN::Access;
 
 use RHN::Exception;
 

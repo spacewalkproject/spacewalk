@@ -19,7 +19,6 @@ use strict;
 
 use RHN::Session;
 use RHN::User;
-use RHN::Access;
 use RHN::Exception qw/throw/;
 use RHN::StoredMessage;
 use PXT::Trace;
