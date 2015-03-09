@@ -212,11 +212,7 @@ sub navi_empty_set {
 my %pinfo_modes = (
           system => { },
           errata => { },
-   manage_errata => {'/published.pxt' => {mode => 'published_owned_errata', name => 'Published Errata',
-                                          label => 'published' },
-                     '/unpublished.pxt' => {mode => 'unpublished_owned_errata', name => 'Unpublished Errata',
-                                            label => 'unpublished' },
-                    },
+   manage_errata => { },
           probes => { },
                   );
 
