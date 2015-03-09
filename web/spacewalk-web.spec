@@ -205,7 +205,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Token.pm
 %{perl_vendorlib}/RHN/User.pm
 %{perl_vendorlib}/RHN/Utils.pm
-%{_mandir}/man3/RHN::DB::ContactGroup.3pm.gz
 %{_mandir}/man3/RHN::DB::SatCluster.3pm.gz
 %{_mandir}/man3/RHN::SatCluster.3pm.gz
 %{_mandir}/man3/RHN::Session.3pm.gz
