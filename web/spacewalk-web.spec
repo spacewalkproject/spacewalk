@@ -194,7 +194,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/StoredMessage.pm
 %{perl_vendorlib}/RHN/SystemSnapshot.pm
 %{perl_vendorlib}/RHN/Tag.pm
-%{perl_vendorlib}/RHN/Token.pm
 %{perl_vendorlib}/RHN/User.pm
 %{_mandir}/man3/RHN::DB::SatCluster.3pm.gz
 %{_mandir}/man3/RHN::SatCluster.3pm.gz
