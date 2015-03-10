@@ -180,7 +180,7 @@ class Repository(rhnRepository.Repository):
                 f.close()
                 stringObject = cPickle.loads(data)
                 return stringObject
-            except: # corrupted cache file
+            except Exception: # corrupted cache file
                 pass # do nothing, we'll fetch / write it again
 
         # The file's not there; query the DB or whatever dataproducer used.
@@ -297,7 +297,7 @@ class KickstartRepository(Repository):
                 f = open(filePath, "r")
                 mapping = cPickle.loads(f.read())
                 f.close()
-            except: # corrupt cached file, delete it
+            except Exception: # corrupt cached file, delete it
                 os.unlink(filePath)
                 mapping = None
 
