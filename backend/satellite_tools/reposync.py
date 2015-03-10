@@ -301,11 +301,11 @@ class RepoSync(object):
             if (notice['type'] == 'security' and notice['severity'] and
                     not e['synopsis'].startswith(notice['severity'] + ': ')):
                 e['synopsis'] = notice['severity'] + ': ' + e['synopsis']
-            if not notice['summary'] is None:
+            if 'summary' in notice and not notice['summary'] is None:
                 e['topic'] = notice['summary']
             else:
                 e['topic'] = ' '
-            if not notice['solution'] is None:
+            if 'solution' in notice and not notice['solution'] is None:
                 e['solution'] = notice['solution']
             else:
                 e['solution'] = ' '
