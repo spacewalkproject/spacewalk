@@ -34,6 +34,7 @@ search-server/spacewalk-search/rhn_search_daemon.log
 *~
 .project
 .pydevproject
+.zanata-cache
 web/html/css
 web/html/img
 web/html/pub
