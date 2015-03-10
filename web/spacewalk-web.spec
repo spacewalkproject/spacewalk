@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.45
+Version: 2.3.46
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -232,6 +232,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Mar 10 2015 Tomas Lestach <tlestach@redhat.com> 2.3.46-1
+- removing RHN::DB::Token as it isn't referenced anymore
+- removing RHN::Token as it isn't referenced anymore
+- removing RHN::Utils as it isn't referenced anymore
+
 * Mon Mar 09 2015 Tomas Lestach <tlestach@redhat.com> 2.3.45-1
 - update spec file
 - removing RHN::DB::ContactGroup as it isn't referenced anymore
