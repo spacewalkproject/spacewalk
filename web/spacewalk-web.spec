@@ -162,7 +162,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Cert.pm
 %{perl_vendorlib}/RHN/Channel.pm
 %{perl_vendorlib}/RHN/ChannelEditor.pm
-%{perl_vendorlib}/RHN/Cleansers.pm
 %{perl_vendorlib}/RHN/ConfigChannel.pm
 %{perl_vendorlib}/RHN/ConfigRevision.pm
 %{perl_vendorlib}/RHN/CustomInfoKey.pm
