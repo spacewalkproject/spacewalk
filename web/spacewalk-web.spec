@@ -157,7 +157,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{perl_vendorlib}/RHN
 %dir %{perl_vendorlib}/PXT
 %{perl_vendorlib}/RHN.pm
-%{perl_vendorlib}/RHN/Access.pm
 %{perl_vendorlib}/RHN/Action.pm
 %{perl_vendorlib}/RHN/Cache/
 %{perl_vendorlib}/RHN/Cert.pm
