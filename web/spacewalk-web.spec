@@ -224,7 +224,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/PXT.pm
 %{perl_vendorlib}/PXT/
 %exclude %{perl_vendorlib}/PXT/Config.pm
-%{_mandir}/man3/PXT::ApacheHandler.3pm.gz
 
 %files -n spacewalk-html
 %{_var}/www/html/*
