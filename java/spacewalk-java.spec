@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.162
+Version: 2.3.163
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -789,6 +789,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 11 2015 Jan Dobes 2.3.163-1
+- fixing weird path
+
 * Mon Mar 09 2015 Tomas Lestach <tlestach@redhat.com> 2.3.162-1
 - use /help/index.do for Documentaton
 - removing spacewalk-sniglets as they are not needed any more
