@@ -7,8 +7,6 @@
 
 use lib '/var/www/lib';
 
-package RHN::DB::Package;
-
 use strict;
 use RHN::DB;
 
