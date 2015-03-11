@@ -181,7 +181,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/SatCluster.pm
 %{perl_vendorlib}/RHN/SatInstall.pm
 %{perl_vendorlib}/RHN/SatelliteCert.pm
-%{perl_vendorlib}/RHN/Scheduler.pm
 %{perl_vendorlib}/RHN/Server.pm
 %{perl_vendorlib}/RHN/Session.pm
 %{perl_vendorlib}/RHN/SystemSnapshot.pm
