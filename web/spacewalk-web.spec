@@ -175,7 +175,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/ErrataEditor.pm
 %{perl_vendorlib}/RHN/ErrataTmp.pm
 %{perl_vendorlib}/RHN/FileList.pm
-%{perl_vendorlib}/RHN/I18N.pm
 %{perl_vendorlib}/RHN/KSTree.pm
 %{perl_vendorlib}/RHN/Kickstart.pm
 %{perl_vendorlib}/RHN/Kickstart/
@@ -190,7 +189,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Scheduler.pm
 %{perl_vendorlib}/RHN/Server.pm
 %{perl_vendorlib}/RHN/Session.pm
-%{perl_vendorlib}/RHN/StoredMessage.pm
 %{perl_vendorlib}/RHN/SystemSnapshot.pm
 %{perl_vendorlib}/RHN/Tag.pm
 %{perl_vendorlib}/RHN/User.pm
