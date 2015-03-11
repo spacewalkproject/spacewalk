@@ -172,7 +172,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Errata.pm
 %{perl_vendorlib}/RHN/ErrataEditor.pm
 %{perl_vendorlib}/RHN/ErrataTmp.pm
-%{perl_vendorlib}/RHN/KSTree.pm
 %{perl_vendorlib}/RHN/Mail.pm
 %{perl_vendorlib}/RHN/Org.pm
 %{perl_vendorlib}/RHN/Profile.pm
