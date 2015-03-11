@@ -5698,8 +5698,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>Aggiornamenti errata &lt;a href="/rhn/schedule/PendingActions.do"&gt;programmati&lt;/a&gt; {0}.</target>
         </trans-unit>
         <trans-unit id="ssm.errata.message.queued">
-          <source>Errata updates have been added to the Action Chain &lt;a href="https://s21pg/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</source>
-          <target>Gli aggiornamenti errata sono stati aggiunti alla Catena delle azioni &lt;a href="https://s21pg/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</target>
+          <source>Errata updates have been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</source>
+          <target>Gli aggiornamenti errata sono stati aggiunti alla Catena delle azioni &lt;a href="/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</target>
         </trans-unit>
       </group>
       <!-- SSM System List -->

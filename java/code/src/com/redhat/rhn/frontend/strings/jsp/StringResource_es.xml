@@ -5700,8 +5700,8 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
           <target>Actualizaciones de erratas &lt;a href="/rhn/schedule/PendingActions.do"&gt;programadas&lt;/a&gt; at {0}.</target>
         </trans-unit>
         <trans-unit id="ssm.errata.message.queued">
-          <source>Errata updates have been added to the Action Chain &lt;a href="https://s21pg/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</source>
-          <target>Actualizaciones de erratas han sido agregadas a la cadena de acción &lt;a href="https://s21pg/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</target>
+          <source>Errata updates have been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</source>
+          <target>Actualizaciones de erratas han sido agregadas a la cadena de acción &lt;a href="/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</target>
         </trans-unit>
       </group>
       <!-- SSM System List -->

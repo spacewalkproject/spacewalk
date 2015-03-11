@@ -5695,8 +5695,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>勘誤更新&lt;a href="/rhn/schedule/PendingActions.do"&gt;排程&lt;/a&gt;於 {0}。</target>
         </trans-unit>
         <trans-unit id="ssm.errata.message.queued">
-          <source>Errata updates have been added to the Action Chain &lt;a href="https://s21pg/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</source>
-          <target>勘誤更新已新增至動作鍊 &lt;a href="https://s21pg/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;。</target>
+          <source>Errata updates have been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</source>
+          <target>勘誤更新已新增至動作鍊 &lt;a href="/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;。</target>
         </trans-unit>
       </group>
       <!-- SSM System List -->

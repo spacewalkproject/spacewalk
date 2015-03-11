@@ -5698,8 +5698,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>在 {0} 中 &lt;a href="/rhn/schedule/PendingActions.do"&gt;调度&lt;/a&gt;  勘误更新。</target>
         </trans-unit>
         <trans-unit id="ssm.errata.message.queued">
-          <source>Errata updates have been added to the Action Chain &lt;a href="https://s21pg/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</source>
-          <target>在动作链 &lt;a href="https://s21pg/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt; 中添加勘误更新。</target>
+          <source>Errata updates have been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</source>
+          <target>在动作链 &lt;a href="/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt; 中添加勘误更新。</target>
         </trans-unit>
       </group>
       <!-- SSM System List -->

@@ -5700,8 +5700,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>エラータの更新が {0} で &lt;a href="/rhn/schedule/PendingActions.do"&gt;スケジュール&lt;/a&gt; されました。</target>
         </trans-unit>
         <trans-unit id="ssm.errata.message.queued">
-          <source>Errata updates have been added to the Action Chain &lt;a href="https://s21pg/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</source>
-          <target>エラーの更新が動作チェーン &lt;a href="https://s21pg/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt; に追加されました。</target>
+          <source>Errata updates have been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</source>
+          <target>エラーの更新が動作チェーン &lt;a href="/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt; に追加されました。</target>
         </trans-unit>
       </group>
       <!-- SSM System List -->

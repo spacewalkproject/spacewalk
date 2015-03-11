@@ -5699,8 +5699,8 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
           <target>Mises à jour d'errata &lt;a href="/rhn/schedule/PendingActions.do"&gt;planifiées&lt;/a&gt; à {0}.</target>
         </trans-unit>
         <trans-unit id="ssm.errata.message.queued">
-          <source>Errata updates have been added to the Action Chain &lt;a href="https://s21pg/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</source>
-          <target>Des mises à jour d'errata ont été ajoutées à la chaîne d'actions &lt;a href="https://s21pg/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</target>
+          <source>Errata updates have been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</source>
+          <target>Des mises à jour d'errata ont été ajoutées à la chaîne d'actions &lt;a href="/rhn/schedule/ActionChain.do?id={0}"&gt;{1}&lt;/a&gt;.</target>
         </trans-unit>
       </group>
       <!-- SSM System List -->
