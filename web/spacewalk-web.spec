@@ -180,8 +180,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Kickstart/
 %{perl_vendorlib}/RHN/Mail.pm
 %{perl_vendorlib}/RHN/Org.pm
-%{perl_vendorlib}/RHN/Package.pm
-%{perl_vendorlib}/RHN/Package/
 %{perl_vendorlib}/RHN/Profile.pm
 %{perl_vendorlib}/RHN/SatCluster.pm
 %{perl_vendorlib}/RHN/SatInstall.pm
