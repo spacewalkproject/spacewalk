@@ -52,6 +52,8 @@ Requires: perl(Params::Validate)
 Requires: perl(URI)
 Requires: perl(XML::LibXML)
 Obsoletes: rhn-base < 5.3.0
+Obsoletes: spacewalk-grail < %{version}
+Obsoletes: spacewalk-sniglets < %{version}
 Provides: rhn-base = 5.3.0
 
 
