@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.3.13
+Version: 2.3.14
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -98,6 +98,9 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Thu Mar 12 2015 Tomas Lestach <tlestach@redhat.com> 2.3.14-1
+- satellite-rules do not seem to be used, removing
+
 * Thu Mar 12 2015 Tomas Lestach <tlestach@redhat.com> 2.3.13-1
 - removing RHN::Cleansers
 - removing RHN::Access and PXT::ACL
