@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.46
+Version: 2.3.47
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -195,6 +195,34 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Mar 12 2015 Tomas Lestach <tlestach@redhat.com> 2.3.47-1
+- removing unused DataSource queries
+- removing unused RHN::DataSource classes
+- removing unused RHN DB JoinClass and TableClass
+- removing unused RHN Action related stuff
+- removing SatInstall and Session related stuff
+- removing SatCluster related stuff
+- removing unused RHN::DataSource::General
+- removing unused RHN::DB::Entitlements
+- removing unused DataSource sources
+- removing unused RHN::Date
+- removing unused RHN::Entitlements
+- removing unused RHN::Mail
+- removing RHN Errata related classes
+- removing RHN Channel related
+- removing RHN KSTree stuff
+- removing various unused stuff
+- removing unused RHN User stuff
+- removing RHN Scheduler stuff
+- removing RHN::Cleansers
+- removing RHN Kickstart stuff
+- deleting RHN Package stuff
+- removing unused RHN classes
+- removing rest of PXT classes
+- removing RHN::Access and PXT::ACL
+- removing PXT::ApacheAuth as it isn't referenced anymore
+- removing PXT::Apache24Config as it isn't referenced anymore
+
 * Tue Mar 10 2015 Tomas Lestach <tlestach@redhat.com> 2.3.46-1
 - removing RHN::DB::Token as it isn't referenced anymore
 - removing RHN::Token as it isn't referenced anymore
