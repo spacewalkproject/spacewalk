@@ -160,10 +160,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Action.pm
 %{perl_vendorlib}/RHN/Cache/
 %{perl_vendorlib}/RHN/Cert.pm
-%{perl_vendorlib}/RHN/Channel.pm
-%{perl_vendorlib}/RHN/ChannelEditor.pm
-%{perl_vendorlib}/RHN/ConfigChannel.pm
-%{perl_vendorlib}/RHN/ConfigRevision.pm
 %{perl_vendorlib}/RHN/DB/
 %{perl_vendorlib}/RHN/DataSource.pm
 %{perl_vendorlib}/RHN/DataSource/
@@ -173,14 +169,10 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/ErrataEditor.pm
 %{perl_vendorlib}/RHN/ErrataTmp.pm
 %{perl_vendorlib}/RHN/Mail.pm
-%{perl_vendorlib}/RHN/Org.pm
-%{perl_vendorlib}/RHN/Profile.pm
 %{perl_vendorlib}/RHN/SatCluster.pm
 %{perl_vendorlib}/RHN/SatInstall.pm
 %{perl_vendorlib}/RHN/SatelliteCert.pm
-%{perl_vendorlib}/RHN/Server.pm
 %{perl_vendorlib}/RHN/Session.pm
-%{perl_vendorlib}/RHN/SystemSnapshot.pm
 %{_mandir}/man3/RHN::DB::SatCluster.3pm.gz
 %{_mandir}/man3/RHN::SatCluster.3pm.gz
 %{_mandir}/man3/RHN::Session.3pm.gz

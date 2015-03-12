@@ -4,14 +4,9 @@ MANIFEST
 test.pl
 rhn.spec
 RHN/Action.pm
-RHN/ChannelEditor.pm
-RHN/Channel.pm
 RHN/DB/Action.pm
-RHN/DB/ChannelEditor.pm
-RHN/DB/Channel.pm
 RHN/DB/Errata.pm
 RHN/DB/JoinClass.pm
-RHN/DB/Org.pm
 RHN/DB/Package.pm
 RHN/DB.pm
 RHN/DB/Scheduler.pm
@@ -26,7 +21,6 @@ RHN/DB/User.pm
 RHN/Errata.pm
 RHN/Exception.pm
 RHN/Mail.pm
-RHN/Org.pm
 RHN/Package.pm
 RHN/Paginator.pm
 RHN.pm
