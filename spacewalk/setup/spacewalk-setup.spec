@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.3.12
+Version:        2.3.13
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -111,6 +111,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Mar 12 2015 Tomas Lestach <tlestach@redhat.com> 2.3.13-1
+- removing unused rhn_web.conf options
+
 * Wed Mar 04 2015 Jan Dobes 2.3.12-1
 - 1198708 - disable embedded postgresql service when installing external oracle
 - 1198708 - configure tomcat earlier to work with database migrations
