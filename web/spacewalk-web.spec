@@ -164,7 +164,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/DataSource.pm
 %{perl_vendorlib}/RHN/DataSource/
 %{perl_vendorlib}/RHN/Date.pm
-%{perl_vendorlib}/RHN/Entitlements.pm
 %{perl_vendorlib}/RHN/SatCluster.pm
 %{perl_vendorlib}/RHN/SatInstall.pm
 %{perl_vendorlib}/RHN/SatelliteCert.pm
