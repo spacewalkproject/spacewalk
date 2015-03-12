@@ -906,7 +906,6 @@ sub populate_initial_configs {
      serverDOTsatelliteDOThttp_proxy => ($opts->{'rhn-http-proxy'} ? $opts->{'rhn-http-proxy'} : $answers->{'rhn-http-proxy'}) || '',
      serverDOTsatelliteDOThttp_proxy_username => ($opts->{'rhn-http-proxy'} ? $opts->{'rhn-http-proxy-username'} : $answers->{'rhn-http-proxy-username'}) || '',
      serverDOTsatelliteDOThttp_proxy_password => ($opts->{'rhn-http-proxy'} ? $opts->{'rhn-http-proxy-password'} :$answers->{'rhn-http-proxy-password'}) || '',
-     webDOTenable_solaris_support => 0,
      osadispatcherDOTosa_ssl_cert => '/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT',
      encrypted_passwords => 1,
      db_backend => $answers->{'db-backend'},

@@ -385,7 +385,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
 
     /**
      * Display the default download location including a hostname. This hostname will be
-     * either the web.kickstart_host setting, the hostname of the proxy the user is
+     * either the hostname of the proxy the user is
      * hitting, or the hostname of the satellite. (depending on availablity, in that
      * order)
      */
@@ -400,7 +400,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
     /**
      * When we actually go to store the download location we store only a path if possible.
      * The hostname will be added dynamically when the kickstart file is requested, as it
-     * could refer to the web.kickstart_host setting, a proxy host, or a satellite host.
+     * could refer to proxy or satellite host.
      */
     private String getDefaultDownloadLocation(KickstartableTree tree) {
         String path = tree.getBasePath();
