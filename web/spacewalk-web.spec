@@ -163,15 +163,11 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/DB/
 %{perl_vendorlib}/RHN/DataSource.pm
 %{perl_vendorlib}/RHN/DataSource/
-%{perl_vendorlib}/RHN/SatInstall.pm
 %{perl_vendorlib}/RHN/SatelliteCert.pm
-%{perl_vendorlib}/RHN/Session.pm
-%{_mandir}/man3/RHN::Session.3pm.gz
 
 %files -n spacewalk-base-minimal
 %dir %{perl_vendorlib}/RHN
 %dir %{perl_vendorlib}/PXT
-%{perl_vendorlib}/RHN/SessionSwap.pm
 %{perl_vendorlib}/RHN/SimpleStruct.pm
 %{perl_vendorlib}/RHN/Exception.pm
 %{perl_vendorlib}/RHN/DB.pm
