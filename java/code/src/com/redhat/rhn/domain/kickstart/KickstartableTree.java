@@ -194,8 +194,11 @@ public class KickstartableTree extends BaseDomainHelper {
      */
     public String getDefaultDownloadLocation() {
         if (this.getBasePath() != null) {
+            if (basePathIsUrl()) {
+                return this.getBasePath();
+            }
 
-            String defaultLocation = "ks/dist/";
+            String defaultLocation = "/ks/dist/";
 
             if (this.getOrg() != null) {
                 defaultLocation += "org/" + this.getOrgId() + "/";
@@ -203,15 +206,7 @@ public class KickstartableTree extends BaseDomainHelper {
 
             defaultLocation += this.getLabel();
 
-            if (basePathIsUrl()) {
-                return this.getBasePath();
-            }
-            StringBuilder buf = new StringBuilder();
-            if (!defaultLocation.startsWith("/")) {
-                buf.append("/");
-            }
-            buf.append(defaultLocation);
-            return buf.toString();
+            return defaultLocation;
         }
         return "";
 
