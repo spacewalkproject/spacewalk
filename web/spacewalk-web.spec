@@ -43,11 +43,6 @@ Provides: spacewalk(spacewalk-base) = %{version}-%{release}
 Requires: /usr/bin/sudo
 Requires: webserver
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Requires: perl(Digest::SHA)
-Requires: perl(DateTime)
-Requires: perl(Frontier::Client)
-Requires: perl(LWP::UserAgent)
-Requires: perl(Mail::RFC822::Address)
 Requires: perl(Params::Validate)
 Requires: perl(URI)
 Requires: perl(XML::LibXML)
@@ -71,7 +66,6 @@ Obsoletes: rhn-base-minimal < 5.3.0
 Provides: rhn-base-minimal = 5.3.0
 Requires: perl(DBI)
 Requires: perl(Params::Validate)
-Requires: perl(Digest::HMAC_SHA1)
 
 %description -n spacewalk-base-minimal
 Independent Perl modules in the RHN:: name-space.
@@ -111,11 +105,7 @@ Requires: httpd
 Obsoletes: rhn-pxt < 5.3.0
 Provides:  rhn-pxt = 5.3.0
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Requires:  perl(Apache2::Request)
-Requires:  perl(BSD::Resource)
 Requires:  perl(Cache::FileCache)
-Requires:  perl(Date::Parse)
-Requires:  perl(HTML::Entities)
 Requires:  perl(Params::Validate)
 Requires:  perl(URI)
 %description -n spacewalk-pxt
