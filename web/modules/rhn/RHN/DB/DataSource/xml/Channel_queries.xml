@@ -1,9 +1,0 @@
-<datasource_modes>
-
-<mode name="all_rh_channel_families_insecure">
-  <query params="">
-  select label from rhnChannelFamily
-  </query>
-</mode>
-
-</datasource_modes>
