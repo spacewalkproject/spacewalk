@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.17
+Version:     2.3.18
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -77,6 +77,11 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Mar 13 2015 Tomas Lestach <tlestach@redhat.com> 2.3.18-1
+- Added softwarechannel_removesyncschedule to remove a sync schedule from a
+  channel.
+- Fix cli config option nossl. Before using it triggered the following error:
+
 * Tue Feb 24 2015 Grant Gainey 2.3.17-1
 - Make pylint happy
 
