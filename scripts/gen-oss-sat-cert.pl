@@ -6,7 +6,7 @@ use Getopt::Long;
 use POSIX qw/strftime/;
 use RHN::SatelliteCert;
 use Term::ReadKey;
-use RHN::DataSource::Channel;
+use RHN::DB;
 use Date::Parse;
 
 my $filename;
@@ -91,8 +91,10 @@ else {
 
 $cert->set_field("satellite-version" => $sat_version) if $sat_version != 1.0;
 
-my $ds = new RHN::DataSource::Channel(-mode => 'all_rh_channel_families_insecure');
-my $results = $ds->execute_query;
+my $dbh = RHN::DB->connect;
+my $results = $dbh->selectall_arrayref(q!
+  select label from rhnChannelFamily
+!, { Slice => {} });
 
 my %seen_families;
 for my $family ($cert->get_channel_families) {
