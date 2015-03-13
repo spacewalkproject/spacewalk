@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.48
+Version: 2.3.49
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -184,6 +184,16 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Mar 13 2015 Jan Dobes 2.3.49-1
+- removing no longer used references
+- removing RHN::DB::DataSource as it isn't referenced anymore
+- removing RHN::DataSource as it isn't referenced anymore
+- removing RHN::DataSource::Channel as it isn't referenced anymore
+- removing unused Channel_queries
+- web Require cleanup
+- Fix upgrade path by obsoleting spacewalk-grail and spacewalk-sniglets
+- removing unused Channel_queries
+
 * Thu Mar 12 2015 Tomas Lestach <tlestach@redhat.com> 2.3.48-1
 - removing unused rhn_web.conf options
 - let's remove the MANIFESTS
