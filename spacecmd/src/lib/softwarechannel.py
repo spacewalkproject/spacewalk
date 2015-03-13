@@ -1974,6 +1974,10 @@ def help_softwarechannel_setsyncschedule(self):
     print 'Sets the repo sync schedule for a software channel'
     print
     print 'usage: softwarechannel_setsyncschedule <CHANNEL> <SCHEDULE>'
+    print
+    print 'The schedule is specified in Quartz CronTrigger format without enclosing quotes.'
+    print 'For example, to set a schedule of every day at 1am, <SCHEDULE> would be 0 0 1 * * ? *'
+    print
 
 
 def complete_softwarechannel_setsyncschedule(self, text, line, beg, end):
