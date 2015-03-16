@@ -2704,7 +2704,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel label")
      * @xmlrpc.param
      *  #struct("params_map")
-     *    #prop_desc("Boolean", "sync-kickstars", "Create kickstartable tree - Optional")
+     *    #prop_desc("Boolean", "sync-kickstart", "Create kickstartable tree - Optional")
      *    #prop_desc("Boolean", "no-errata", "Do not sync errata - Optional")
      *    #prop_desc("Boolean", "fail", "Terminate upon any error - Optional")
      *  #struct_end()
@@ -2757,7 +2757,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      "if empty all periodic schedules will be disabled")
      * @xmlrpc.param
      *  #struct("params_map")
-     *    #prop_desc("Boolean", "sync-kickstars", "Create kickstartable tree - Optional")
+     *    #prop_desc("Boolean", "sync-kickstart", "Create kickstartable tree - Optional")
      *    #prop_desc("Boolean", "no-errata", "Do not sync errata - Optional")
      *    #prop_desc("Boolean", "fail", "Terminate upon any error - Optional")
      *  #struct_end()
