@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.49
+Version: 2.3.50
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -157,6 +157,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Mar 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.50-1
+- removing RHN::Cache::File as it isn't referenced anymore
+- Apache24Config.pm has already been removed
+- removing spacewalk-pxt completelly
+
 * Fri Mar 13 2015 Jan Dobes 2.3.49-1
 - removing no longer used references
 - removing RHN::DB::DataSource as it isn't referenced anymore
