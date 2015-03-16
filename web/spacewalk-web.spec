@@ -38,7 +38,6 @@ This package contains the HTML files for the Spacewalk web site.
 %package -n spacewalk-base
 Group: Applications/Internet
 Summary: Programs needed to be installed on the RHN Web base classes
-Requires: spacewalk-pxt
 Provides: spacewalk(spacewalk-base) = %{version}-%{release}
 Requires: /usr/bin/sudo
 Requires: webserver
@@ -48,6 +47,7 @@ Requires: perl(URI)
 Requires: perl(XML::LibXML)
 Obsoletes: rhn-base < 5.3.0
 Obsoletes: spacewalk-grail < %{version}
+Obsoletes: spacewalk-pxt < %{version}
 Obsoletes: spacewalk-sniglets < %{version}
 Provides: rhn-base = 5.3.0
 
@@ -97,23 +97,6 @@ Dobby is collection of Perl modules and scripts to administer an Oracle
 database.
 
 
-%package -n spacewalk-pxt
-Summary: The PXT library for web page templating
-Group: Applications/Internet
-Requires: spacewalk(spacewalk-base-minimal-config)
-Requires: httpd
-Obsoletes: rhn-pxt < 5.3.0
-Provides:  rhn-pxt = 5.3.0
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Requires:  perl(Cache::FileCache)
-Requires:  perl(Params::Validate)
-Requires:  perl(URI)
-%description -n spacewalk-pxt
-This package is the core software of the new Spacewalk site.  It is responsible
-for HTML, XML, WML, HDML, and SOAP output of data.  It is more or less
-equivalent to things like Apache::ASP and Mason.
-
-
 %prep
 %setup -q
 
@@ -147,7 +130,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n spacewalk-base
 %dir %{perl_vendorlib}/RHN
-%dir %{perl_vendorlib}/PXT
 %{perl_vendorlib}/RHN.pm
 %{perl_vendorlib}/RHN/Cache/
 %{perl_vendorlib}/RHN/Cert.pm
@@ -173,11 +155,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) %{_prefix}/share/rhn/config-defaults/rhn_dobby.conf
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/check-database-space-usage.sh
 %{perl_vendorlib}/Dobby/
-
-%files -n spacewalk-pxt
-%{perl_vendorlib}/PXT.pm
-%{perl_vendorlib}/PXT/
-%exclude %{perl_vendorlib}/PXT/Config.pm
 
 %files -n spacewalk-html
 %{_var}/www/html/*
