@@ -35,7 +35,6 @@
         <dependency org="redhat" name="jasper5-runtime" rev="5.5.28" />
         <dependency org="redhat" name="jcommon" rev="1.0.12" />
         <dependency org="redhat" name="jdom" rev="1.0" />
-        <dependency org="redhat" name="jfreechart" rev="1.0.9" />
         <dependency org="redhat" name="jmock" rev="1.2.0" />
         <dependency org="redhat" name="jmock-cglib" rev="1.2.0" />
         <dependency org="redhat" name="jpam" rev="0.4" />

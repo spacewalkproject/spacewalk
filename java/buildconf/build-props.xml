@@ -52,10 +52,6 @@
     <available file="/usr/share/java/asm/asm.jar" />
   </condition>
 
-  <condition property="jfreechart" value="jfreechart/jfreechart" else="jfreechart">
-    <available file="/usr/share/java/jfreechart/jfreechart.jar" />
-  </condition>
-
   <condition property="hibernate-commons-annotations" value="hibernate/hibernate-commons-annotations" else="hibernate-commons-annotations/hibernate-commons-annotations">
     <available file="/usr/share/java/hibernate/hibernate-commons-annotations.jar" />
   </condition>
@@ -93,7 +89,7 @@
              mailapi smtp jdom jpam ${jmock-jars}
              ${log4j-jars} oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars} ${tomcat-jars}
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
-             ${jfreechart} taglibs-core logdriver quartz dwr slf4j-api slf4j-log4j12
+             taglibs-core logdriver quartz dwr slf4j-api slf4j-log4j12
              concurrent velocity simple-core  mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3 strutstest" />
 
   <!-- deps needed for testing, but required to build -->
@@ -105,7 +101,7 @@
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
              ${log4j-jars}
-             regexp ${jmock-jars} ${jfreechart}
+             regexp ${jmock-jars}
              postgresql-jdbc" />
 
   <condition property="ant-contrib.path" value="ant/ant-contrib" else="ant-contrib">
@@ -144,7 +140,7 @@
              ${tomcat-jars} javamail jdom jpam dwr
              ${log4j-jars} oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars}
              jcommon stringtree-json postgresql-jdbc
-             ${jfreechart} taglibs-core quartz
+             taglibs-core quartz
              concurrent simple-core simple-xml susestudio-java-client" />
 
   <property name="dist.jar.dependencies"
@@ -154,7 +150,7 @@
              commons-lang commons-logging
              ${commons-validator} concurrent dom4j ${hibernate} jta
              jaf ${jasper-jars} javamail jcommon jdom ${other-jars}
-             ${jfreechart} ${tomcat-jars} jpam ${log4j-jars} redstone-xmlrpc-client redstone-xmlrpc
+             ${tomcat-jars} jpam ${log4j-jars} redstone-xmlrpc-client redstone-xmlrpc
              oro oscache quartz stringtree-json sitemesh ${struts-jars} taglibs-core
              taglibs-standard tanukiwrapper postgresql-jdbc simple-xml susestudio-java-client
              xalan-j2 xerces-j2 xml-commons-apis simple-core" />

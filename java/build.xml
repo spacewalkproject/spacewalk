@@ -34,7 +34,7 @@
     <mkdir dir="${test.lib.dir}" />
 
     <echo message="Linking build jars"/>
-    <jpackage-deps jars="${jasper-jars} ${tomcat-jars} ${jfreechart}" dir="${build.lib.dir}" />
+    <jpackage-deps jars="${jasper-jars} ${tomcat-jars}" dir="${build.lib.dir}" />
     <link-jars ivyxml="${rhn-home}/ivy.xml" libdir="${lib.dir}"
                jars="${build.jar.dependencies}" dir="${build.lib.dir}" />
     <echo message="Linking test jars"/>

@@ -152,11 +152,8 @@ BuildRequires: jpackage-utils
 %if  0%{?rhel} && 0%{?rhel} >= 6
 # cglib is not compatible with hibernate and asm from RHEL6
 Requires: cglib < 0:2.2
-# we dont want jfreechart from EPEL because it has different symlinks
-Requires: jfreechart < 1.0.13
 %else
 Requires: cglib
-Requires: jfreechart >= 1.0.9
 %endif
 
 BuildRequires: /usr/bin/perl
@@ -179,7 +176,6 @@ BuildRequires: jakarta-taglibs-standard
 BuildRequires: java-devel >= 1:1.6.0
 BuildRequires: jcommon
 BuildRequires: jdom
-BuildRequires: jfreechart >= 0:1.0.9
 BuildRequires: jpam
 BuildRequires: jta
 BuildRequires: oscache
@@ -299,11 +295,8 @@ Group: Applications/Internet
 %if  0%{?rhel} && 0%{?rhel} >= 6
 # cglib is not compatible with hibernate and asm from RHEL6
 Requires: cglib < 0:2.2
-# we dont want jfreechart from EPEL because it has different symlinks
-Requires: jfreechart < 1.0.13
 %else
 Requires: cglib
-Requires: jfreechart >= 1.0.9
 %endif
 
 Requires: bcel
@@ -712,18 +705,6 @@ fi
 #%{jardir}/asmasm-util.jar
 #%{jardir}/asmasm-xml.jar
 #%{jardir}/asmkasm.jar
-
-%if 0%{?fedora}
-# jfreechart-1.0.10-4.fc13.noarch (F13)
-# jfreechart-1.0.13-1.fc14.noarch (F14)
-%{jardir}/jfreechart_jfreechart.jar
-%endif
-
-%if 0%{?rhel} && 0%{?rhel} >= 5
-# jfreechart-1.0.10-1.el5.noarch (EL5)
-# jfreechart-1.0.9-4.jpp5.noarch (EL6)
-%{jardir}/jfreechart.jar
-%endif
 
 # EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
 %if 0%{?rhel} && 0%{?rhel} < 6

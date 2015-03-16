@@ -43,7 +43,6 @@
         <archive path="/usr/share/java/jmock.jar"/>
         <archive path="/usr/share/java/jmock-cglib.jar"/>
         <archive path="/usr/share/java/jpam.jar"/>
-        <archive path="/usr/share/java/jfreechart.jar" source="/rhn-java/code/libsrc/jfreechart-0.9.20.jar"/>
         <archive path="/usr/share/java/jcommon.jar"/>
         <archive path="/usr/share/java/taglibs-core.jar"/>
         <archive path="/usr/share/java/quartz.jar" source="/rhn-java/code/libsrc/quartz-1.5.1-src.jar"/>
