@@ -54,6 +54,13 @@ class SharedHandler:
         #        self.caChain --> self.caCert
 
         self.req = req
+        # turn wsgi.input object into a SmartIO instance so it can be read
+        # more than once
+        if 'wsgi.input' in self.req.headers_in:
+            smartFd = SmartIO(max_mem_size=CFG.MAX_MEM_FILE_SIZE)
+            smartFd.write(self.req.headers_in['wsgi.input'].read())
+            self.req.headers_in['wsgi.input'] = smartFd
+
         self.responseContext = ResponseContext()
         self.uri = None   # ''
 
@@ -364,6 +371,8 @@ class SharedHandler:
 
         # Send the body too if there is a body
         if size > 0:
+            # reset file to beginning so it can be read again
+            self.req.headers_in['wsgi.input'].seek(0,0)
             if sys.version_info < (2, 6):
                 data = self.req.headers_in['wsgi.input'].read(size)
             else:
