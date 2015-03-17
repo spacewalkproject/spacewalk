@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.3.13
+Version: 2.3.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Tue Mar 17 2015 Stephen Herr <sherr@redhat.com> 2.3.14-1
+- 1201380 - make checkstyle happy
+
 * Mon Mar 16 2015 Stephen Herr <sherr@redhat.com> 2.3.13-1
 - 1188868 - wsgi.input is only guaranteed to be readable once. We read it twice
 - 1194056 - make checkstyle happy
