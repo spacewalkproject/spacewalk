@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        2.3.2
+Version:        2.3.3
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -163,6 +163,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Tue Mar 17 2015 Tomas Lestach <tlestach@redhat.com> 2.3.3-1
+- removing spacewalk-pxt completelly
+
 * Mon Mar 09 2015 Tomas Lestach <tlestach@redhat.com> 2.3.2-1
 - removing spacewalk-grail as they are not needed any more
 - removing spacewalk-sniglets as they are not needed any more
