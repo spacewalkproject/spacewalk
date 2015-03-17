@@ -66,6 +66,7 @@ Obsoletes: rhn-base-minimal < 5.3.0
 Provides: rhn-base-minimal = 5.3.0
 Requires: perl(DBI)
 Requires: perl(Params::Validate)
+Requires: spacewalk-base-minimal-config
 
 %description -n spacewalk-base-minimal
 Independent Perl modules in the RHN:: name-space.
