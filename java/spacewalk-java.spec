@@ -505,14 +505,14 @@ echo "wrapper.java.classpath.28=/usr/share/java/log4j.jar" >> conf/default/rhn_t
 %endif
 %if 0%{?fedora}
 echo "wrapper.java.classpath.49=/usr/share/java/hibernate3/hibernate-core-3.jar
+wrapper.java.classpath.61=/usr/share/java/hibernate-jpa-2.0-api.jar
 wrapper.java.classpath.62=/usr/share/java/hibernate3/hibernate-ehcache-3.jar
 wrapper.java.classpath.63=/usr/share/java/hibernate3/hibernate-c3p0-3.jar
 wrapper.java.classpath.64=/usr/share/java/hibernate*/hibernate-commons-annotations.jar
 wrapper.java.classpath.65=/usr/share/java/slf4j/api.jar
 wrapper.java.classpath.66=/usr/share/java/jboss-logging.jar
 wrapper.java.classpath.67=/usr/share/java/javassist.jar
-wrapper.java.classpath.68=/usr/share/java/ehcache-core.jar
-wrapper.java.classpath.69=/usr/share/java/hibernate-jpa-2.0-api.jar" >> conf/default/rhn_taskomatic_daemon.conf
+wrapper.java.classpath.68=/usr/share/java/ehcache-core.jar" >> conf/default/rhn_taskomatic_daemon.conf
 %else
 echo "hibernate.cache.provider_class=org.hibernate.cache.OSCacheProvider" >> conf/default/rhn_hibernate.conf
 echo "wrapper.java.classpath.49=/usr/share/java/hibernate3.jar" >> conf/default/rhn_taskomatic_daemon.conf
