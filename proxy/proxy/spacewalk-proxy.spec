@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.3.15
+Version: 2.3.16
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Tue Mar 17 2015 Stephen Herr <sherr@redhat.com> 2.3.16-1
+- 1194056 - IOException is not a thing :(
+
 * Tue Mar 17 2015 Stephen Herr <sherr@redhat.com> 2.3.15-1
 - 1194056 - another checkstyle fix
 
