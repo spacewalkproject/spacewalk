@@ -31,7 +31,7 @@
     <ul class="nav navbar-nav navbar-utility">
       <li class="hidden-sm hidden-xs"><a href="/rhn/account/LocalePreferences.do"><c:out value="${rhnActiveLang}" /> (<bean:message key="header.jsp.change"/>)</a></li>
       <li class="hidden-xs"><a href="https://access.redhat.com/knowledgebase"><bean:message key="header.jsp.knowledgebase" /></a></li>
-      <li class="hidden-xs"><a href="/help/index.do"><bean:message key="header.jsp.documentation" /></a></li>
+      <li class="hidden-xs"><a href="/rhn/help/index.do"><bean:message key="header.jsp.documentation" /></a></li>
       <li><a href="/rhn/account/UserDetails.do"><rhn:icon type="header-user" /> <c:out escapeXml="true" value="${requestScope.session.user.login}" /></a></li>
       <li class="hidden-sm hidden-xs hidden-md"><a><rhn:icon type="header-sitemap" /> <c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a></li>
       <li><a href="/rhn/account/UserPreferences.do"><rhn:icon type="header-preferences" title="header.jsp.preferences" /></a></li>
