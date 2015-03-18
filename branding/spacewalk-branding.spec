@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.22
+Version:    2.3.23
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -92,6 +92,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Mar 18 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.23-1
+- update documentation with Satellite 5.7
+
 * Mon Mar 09 2015 Tomas Lestach <tlestach@redhat.com> 2.3.22-1
 - removing unused navbar_top_sat.txt
 
