@@ -78,7 +78,7 @@ class Repository(rhnRepository.Repository):
         log_debug(3, pkgFilename)
         mappingName = "package_mapping:%s:" % self.channelName
         mapping = self._cacheObj(mappingName, self.channelVersion,
-                                        self.__channelPackageMapping, ())
+                self.__channelPackageMapping, ())
 
         # If the file name has parameters, it's a different kind of package.
         # Determine the architecture requested so we can construct an
