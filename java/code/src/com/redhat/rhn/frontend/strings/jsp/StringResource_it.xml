@@ -19028,12 +19028,6 @@ Siete sicuri di voler fare questo?</target>
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
           <target>Errore di Cobbler non previsto, controllare i log di Cobbler e del server.</target>
         </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
         <!-- SSM Remote Command Form Labels -->
         <trans-unit id="ssm.operations.provisioning.remotecommand.header">
           <source>Schedule Remote Command</source>
@@ -23378,7 +23372,7 @@ per l'organizzazione (ad esclusione dell'organizzazione satellite predefinita) s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
-        <target>Siete sicuri di voler rimuovere il rapporto fidato elencato qui di seguito? Sono presenti alcuni sistemi nell'organizzazione {0} che eseguono la sottoscrizione al contenuto delle organizzazioni con le quali desiderate rimuovere il rapporto di fiducia. Questo processo potrebbe interessare indirettamente i suddetti sistemi. Per esempio, i sistemi potrebbero non essere più in grado di ricevere aggiornamenti sulla sicurezza relativi al contenuto forniti attraverso questo rapporto di fiducia. 
+        <target>Siete sicuri di voler rimuovere il rapporto fidato elencato qui di seguito? Sono presenti alcuni sistemi nell'organizzazione {0} che eseguono la sottoscrizione al contenuto delle organizzazioni con le quali desiderate rimuovere il rapporto di fiducia. Questo processo potrebbe interessare indirettamente i suddetti sistemi. Per esempio, i sistemi potrebbero non essere più in grado di ricevere aggiornamenti sulla sicurezza relativi al contenuto forniti attraverso questo rapporto di fiducia.
 &lt;p/&gt;
 Controllare nuovamente le modifiche che state apportando prima di confermare la rimozione.</target>
       </trans-unit>
@@ -24802,7 +24796,7 @@ del canale se non si rimuovono prima le versioni più recenti.</target>
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
         <target>&lt;strong&gt; Suggerimento:&lt;/strong&gt;
-          sha1 offre una gamma di compatibilità maggiore con i client. sha-256 offre una maggiore sicurezza ma 
+          sha1 offre una gamma di compatibilità maggiore con i client. sha-256 offre una maggiore sicurezza ma
           è compatibile solo con client più nuovi: Fedora 11 e versioni più recenti, o Enterprise Linux 6 e versioni più recenti. Il tipo di checksum del repository Yum 'None' è supportato solo per RHEL 3 e RHEL 4.
          </target>
       </trans-unit>

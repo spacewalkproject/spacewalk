@@ -19031,12 +19031,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
           <target>Непредвиденная ошибка Cobbler. Проверьте журналы сервера и Cobbler.</target>
         </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
         <!-- SSM Remote Command Form Labels -->
         <trans-unit id="ssm.operations.provisioning.remotecommand.header">
           <source>Schedule Remote Command</source>
@@ -23389,7 +23383,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         <target>
             Удалить доверенные организации? Организация {0} содержит системы,
             которые получают содержимое из удаляемых организаций.
-            Это может привести к тому, что системы перестанут получать 
+            Это может привести к тому, что системы перестанут получать
             важные обновления безопасности.
             &lt;p/&gt;
             Еще раз проверьте изменения, прежде чем подтвердить удаление.</target>
@@ -23407,7 +23401,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         <target>
             Ниже перечислены системы, которые будут затронуты при удалении
             доверенной связи между &lt;b&gt;{0}&lt;/b&gt; и &lt;b&gt;{1}&lt;/b&gt;.
-            Это может привести к тому, что системы перестанут получать 
+            Это может привести к тому, что системы перестанут получать
             важные обновления безопасности.</target>
       </trans-unit>
       <trans-unit id="org.trust.org">
@@ -25022,7 +25016,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>Удаление канала скажется на доверенных организациях, 
+        <target>Удаление канала скажется на доверенных организациях,
 системы которых подписаны на канал {0}.</target>
       </trans-unit>
       <trans-unit id="channel.delete.jsp.orgsaffected">
@@ -25048,7 +25042,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>Удалите подписку систем из доверенной организации на канал {0}. 
+        <target>Удалите подписку систем из доверенной организации на канал {0}.
 Подписанные системы потеряют доступ к пакетам этого канала.</target>
       </trans-unit>
       <trans-unit id="generic.jsp.none">

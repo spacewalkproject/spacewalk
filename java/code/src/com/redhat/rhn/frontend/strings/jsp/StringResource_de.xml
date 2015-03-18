@@ -19050,12 +19050,6 @@ dieser Revisionen.  Möchten Sie dies wirklich tun?</target>
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
           <target>Unerwarteter Cobbler-Fehler, bitte überprüfen Sie den Server und Cobbler-Protokolle.</target>
         </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
         <!-- SSM Remote Command Form Labels -->
         <trans-unit id="ssm.operations.provisioning.remotecommand.header">
           <source>Schedule Remote Command</source>

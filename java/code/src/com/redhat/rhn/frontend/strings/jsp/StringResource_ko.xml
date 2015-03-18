@@ -8314,9 +8314,9 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/admin/multiorg/SatRoleConfirm</context>
         </context-group>
-        <target>정말로 귀하의 로그인에서 "@@PRODUCT_NAME@@ 관리자" 역할을 삭제하시겠습니까? 
+        <target>정말로 귀하의 로그인에서 "@@PRODUCT_NAME@@ 관리자" 역할을 삭제하시겠습니까?
 삭제할 경우 이 역할을 다시 얻으려면 다른 satellite 관리자에게 문의하셔야 합니다.
-로그인에서 이 역할을 제거하면 @@PRODUCT_NAME@@ 설정 도구 및 조직 관리 도구로 
+로그인에서 이 역할을 제거하면 @@PRODUCT_NAME@@ 설정 도구 및 조직 관리 도구로
 더이상 액세스할 수 없게 됩니다.
 </target>
       </trans-unit>
@@ -9588,11 +9588,11 @@ organization.
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
         <target>조직은 @@PRODUCT_NAME@@을 사용하여 관리하는 모든 것 즉 일련의 시스템,
-시스템 그룹, 소프트웨어 채널, 서브스크립션, 인타이틀먼트, 킥스타트 프로파일, 활성키, 
-설정 채널 및 파일, 사용자 등을 구분하는데 사용됩니다. 각 조직은 최소 하나의 
-조직 관리자에 의해 관리되고 전체 @@PRODUCT_NAME@@은 @@PRODUCT_NAME@@ 관리자에 
-의해 관리됩니다. 여러 조직을 갖는 하나의 @@PRODUCT_NAME@@에 있는 조직은 
-하나의 조직을 갖는 여러 @@PRODUCT_NAME@@에 있는 
+시스템 그룹, 소프트웨어 채널, 서브스크립션, 인타이틀먼트, 킥스타트 프로파일, 활성키,
+설정 채널 및 파일, 사용자 등을 구분하는데 사용됩니다. 각 조직은 최소 하나의
+조직 관리자에 의해 관리되고 전체 @@PRODUCT_NAME@@은 @@PRODUCT_NAME@@ 관리자에
+의해 관리됩니다. 여러 조직을 갖는 하나의 @@PRODUCT_NAME@@에 있는 조직은
+하나의 조직을 갖는 여러 @@PRODUCT_NAME@@에 있는
 조직과 유사하게 작동합니다.
 </target>
       </trans-unit>
@@ -18595,12 +18595,6 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="ssm.provisioning.powermanagement.cobbler_error">
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
         </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
         <!-- SSM Remote Command Form Labels -->
         <trans-unit id="ssm.operations.provisioning.remotecommand.header">
           <source>Schedule Remote Command</source>
@@ -22874,7 +22868,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
         <target>
           아래에서 체크 표시가된 조직은 {0} 조직의 신뢰할 수 있는 조직입니다. 이는 이 두 조직 사이에서
-          컨텐트 공유 및 시스템 전환이 가능하다는 것을 의미합니다. 신뢰할 수 있는 조직을 추가하려면 
+          컨텐트 공유 및 시스템 전환이 가능하다는 것을 의미합니다. 신뢰할 수 있는 조직을 추가하려면
           조직 옆에 있는 체크 상자에 표시하고 (또는 체크 표시를 해제하여 신뢰하는 조직을 제거) "신뢰 상태 수정" 버튼을 클릭합니다.</target>
       </trans-unit>
       <trans-unit id="org.trust.confirm.summary">
@@ -22890,10 +22884,10 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
         <target>
-정말로 아래에 나열된 신뢰 조직을 삭제하시겠습니까? 삭제하려고 하는 신뢰 조직에 의해 
-제공된 컨텐트에 등록된  {0} 조직에 시스템이 있습니다. 이는 시스템에 나쁜 영향을 
-미칠 수 있습니다. 예를 들어, 이러한 시스템은 신뢰를 통해 제공되는 컨텐트에 대한 
-보안 업데이트를 더 이상 받지 못 할 수 있습니다. 
+정말로 아래에 나열된 신뢰 조직을 삭제하시겠습니까? 삭제하려고 하는 신뢰 조직에 의해
+제공된 컨텐트에 등록된  {0} 조직에 시스템이 있습니다. 이는 시스템에 나쁜 영향을
+미칠 수 있습니다. 예를 들어, 이러한 시스템은 신뢰를 통해 제공되는 컨텐트에 대한
+보안 업데이트를 더 이상 받지 못 할 수 있습니다.
             &lt;p/&gt;
 신뢰 상태를 삭제하기 전 변경 사항을 확인하십시오.</target>
       </trans-unit>
@@ -22908,8 +22902,8 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
         <target>
-&lt;b&gt;{0}&lt;/b&gt; 조직과 &lt;b&gt;{1}&lt;/b&gt; 조직 간의 신뢰 관계를 제거하면 다음에 나열된 
-시스템에 영향을 줍니다. 이러한 신뢰 관계를 제거하면 이러한 시스템에 나쁜 영향을 줍니다. 
+&lt;b&gt;{0}&lt;/b&gt; 조직과 &lt;b&gt;{1}&lt;/b&gt; 조직 간의 신뢰 관계를 제거하면 다음에 나열된
+시스템에 영향을 줍니다. 이러한 신뢰 관계를 제거하면 이러한 시스템에 나쁜 영향을 줍니다.
 예를 들어 이러한 시스템은 신뢰를 통해 제공되는 컨텐트의 보안 업데이트를 더 이상 받지 못 할 수 있습니다.</target>
       </trans-unit>
       <trans-unit id="org.trust.org">
@@ -24439,11 +24433,11 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>정말로 이 채널을 삭제하시겠습니까? 채널에 있는 패키지는 채널에서 삭제되지만 
-서버에 남아 있게 됩니다. 채널 삭제 후 패키지를 삭제하는 옵션을 선택할 수 있습니다. 
-채널 관련 에라타는 더 이상 채널에 연결되지 않고 분리될 수 있습니다. 
-채널이 자식 채널을 갖는 경우 이는 삭제할 수 없습니다. 자식 채널을 먼저 
-삭제해야 합니다. 채널에 킥스타트 배포판이 있는 경우 이를 삭제할 수 없습니다. 
+        <target>정말로 이 채널을 삭제하시겠습니까? 채널에 있는 패키지는 채널에서 삭제되지만
+서버에 남아 있게 됩니다. 채널 삭제 후 패키지를 삭제하는 옵션을 선택할 수 있습니다.
+채널 관련 에라타는 더 이상 채널에 연결되지 않고 분리될 수 있습니다.
+채널이 자식 채널을 갖는 경우 이는 삭제할 수 없습니다. 자식 채널을 먼저
+삭제해야 합니다. 채널에 킥스타트 배포판이 있는 경우 이를 삭제할 수 없습니다.
 킥스타트 배포판을 채널에서 연결 해제하거나 이를 먼저 삭제해야 합니다.</target>
       </trans-unit>
       <trans-unit id="channel.delete.jsp.arch">
@@ -24506,7 +24500,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>{0} 채널에 등록된 모든 신뢰할 수 있는 조직 시스템을 등록 취소합니다. 
+        <target>{0} 채널에 등록된 모든 신뢰할 수 있는 조직 시스템을 등록 취소합니다.
 등록된 시스템은 이 채널에 지정된 패키지로 액세스할 수 없게 됩니다.</target>
       </trans-unit>
       <trans-unit id="generic.jsp.none">

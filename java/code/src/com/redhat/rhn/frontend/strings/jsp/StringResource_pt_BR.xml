@@ -13797,7 +13797,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <source>Are you certain you want to delete this key? &lt;strong&gt;All systems' values for this key will be deleted as well.&lt;/strong&gt;</source>
           <target>Você tem certeza de que deseja remover esta chave? &lt;strong&gt;Todos os valores do sistema para esta chave também serão removidos.&lt;/strong&gt;
 
-	
+
 </target>
         </trans-unit>
       </group>
@@ -19042,12 +19042,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <trans-unit id="ssm.provisioning.powermanagement.cobbler_error">
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
           <target>Erro do Cobbler inesperado, por favor verifique o servidor e os logs do Cobbler.</target>
-        </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
-        <trans-unit id="">
-          <source/>
         </trans-unit>
         <!-- SSM Remote Command Form Labels -->
         <trans-unit id="ssm.operations.provisioning.remotecommand.header">

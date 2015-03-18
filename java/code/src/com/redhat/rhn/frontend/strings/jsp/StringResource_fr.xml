@@ -19049,12 +19049,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
           <target>Erreur Cobbler inattendue, veuillez vérifier le serveur et les journaux Cobbler.</target>
         </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
         <!-- SSM Remote Command Form Labels -->
         <trans-unit id="ssm.operations.provisioning.remotecommand.header">
           <source>Schedule Remote Command</source>

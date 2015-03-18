@@ -19046,12 +19046,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
           <target>非預期的 Cobbler 錯誤，請檢查伺服器和 Cobbler 的日誌。</target>
         </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
-        <trans-unit id="">
-          <source/>
-        </trans-unit>
         <!-- SSM Remote Command Form Labels -->
         <trans-unit id="ssm.operations.provisioning.remotecommand.header">
           <source>Schedule Remote Command</source>
