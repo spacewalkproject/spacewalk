@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.3.32
+Version:	2.3.33
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -92,6 +92,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Mar 18 2015 Tomas Lestach <tlestach@redhat.com> 2.3.33-1
+- Fix automatic assumption of first phase
+
 * Fri Mar 13 2015 Tomas Lestach <tlestach@redhat.com> 2.3.32-1
 - Added new public Oracle Linux channels and fix up channel names to match ULN
   /public-yum naming.
