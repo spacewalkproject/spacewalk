@@ -1,0 +1,10 @@
+#!/bin/bash
+for a_dir in `find . -name StringResource_en_US.xml | xargs dirname`; do
+  for a_lang in 'bn_IN' 'de' 'es' 'fr' 'gu' 'hi' 'it' 'ja' 'ko' 'pa' 'pt_BR' 'ru' 'ta' 'zh_CN' 'zh_TW'; do
+    xmlparser2.py -l $a_lang -i $a_dir -o $a_dir;
+  done;
+done;
+
+for f in `find . -name StringResource*.xml.new`; do
+  echo $f | awk -F.new '{print $1}' | xargs cp $f;
+done;
