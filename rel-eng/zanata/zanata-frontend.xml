@@ -7,7 +7,7 @@
   <src-dir>.</src-dir>
   <trans-dir>.</trans-dir>
   <includes>**/StringResource*.xml</includes>
-  <excludes>**/StringResource_de*.xml</excludes>
+  <excludes>**/localization/test/StringResource*.xml</excludes>
   <locales>
     <locale>af</locale>
     <locale>am</locale>
